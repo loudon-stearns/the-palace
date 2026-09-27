@@ -58,3 +58,4 @@ What each baton taught the ceremony. Each item names what the run showed and the
 10. **A second baton on one entry can't take a qualifier.** `baton-executor.mjs` fixes the file path to `<Entry> — baton.md`. Loudon approved "— hardening" as this baton's qualifier; the unqualified name landed instead. Owed — it is item 9's family, found on the same STIGMERGY hardening baton.
 - run · 2026-09-26 · v1.2 · STIGMERGY, hardening remainder after a partial close · nothing new
 - run · 2026-09-26 · v1.2 · Project Stewardship System, the Trickster inbox (cold start) · nothing new
+- run · 2026-09-27 · v1.2 · Palace Ceremonies, widened in place with the 2026-09-27 re-carving (no new baton, no board post) · nothing new — a second baton on the same move was proposed at the close before `list-handoffs` was checked; the open one was found before anything was written. Offered to Loudon as a possible item, not adopted
