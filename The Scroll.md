@@ -14,7 +14,7 @@ links:
   - target: "[[Loudon Live Design System]]"
     type: connects-to
     label: house-style
-  - target: "[[Learning Materials and Canon]]"
+  - target: "[[SCHEMA]]"
     type: connects-to
     label: artifact-not-canon
   - target: "[[Project Stewardship System]]"
@@ -76,7 +76,7 @@ carve-out). A standalone HTML export in the [[Loudon Live Design System|Loud'n L
 the reading surface for anyone outside the terminal; the live-polling HTML variant below remains
 the right tool for media made in a loop. The file carries the minimal bundle frontmatter of
 [[SCHEMA — Reference]] §8 (`scroll` type) and no `type:` field, so it stays a learning material,
-not canon ([[Learning Materials and Canon]]) — the entry is the considered truth, the scroll the
+not canon ([[SCHEMA]] §1) — the entry is the considered truth, the scroll the
 live one ([[Drift and Consolidation]]).
 
 Machinery: `_ops/stigmergy/orchestrator/src/scroll-file.js` materializes it (every steward

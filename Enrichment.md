@@ -21,7 +21,7 @@ links:
   - target: "[[Drift and Consolidation]]"
     type: connects-to
     label: disclosed-drift
-  - target: "[[Learning Materials and Canon]]"
+  - target: "[[SCHEMA]]"
     type: connects-to
     label: face-not-canon
   - target: "[[Review Layer]]"
@@ -53,7 +53,7 @@ links:
 
 Say **"enrich [page]"** and the whole [[The Shop|Shop]] goes to work on one page, until it does what text can't: you hear the claim, play the equation, watch the idea move. What comes out is the page's **rich face** — the entry's own words as the spine, read live from the `.md`, with sound, image and interaction laid beside the headings they serve.
 
-The plain page stays plain. The `.md` is the considered truth and keeps its beauty in Obsidian; the rich face is a reading of it, not a copy ([[Learning Materials and Canon]]). Enrichment tends — not as a strict rule — to place what it makes in the rich face and leave the text alone; the text still keeps what it needs to be understood, like formulas and essential graphics. When making teaches the text something, an edit that changes no claim is shown to Loudon before it's written; a finding that changes what the page says goes home through the [[Deposit Ceremony]]'s map, which he approves.
+The plain page stays plain. The `.md` is the considered truth and keeps its beauty in Obsidian; the rich face is a reading of it, not a copy ([[SCHEMA]] §1). Enrichment tends — not as a strict rule — to place what it makes in the rich face and leave the text alone; the text still keeps what it needs to be understood, like formulas and essential graphics. When making teaches the text something, an edit that changes no claim is shown to Loudon before it's written; a finding that changes what the page says goes home through the [[Deposit Ceremony]]'s map, which he approves.
 
 ## Trigger
 
