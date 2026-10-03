@@ -26,6 +26,20 @@
 //   [param gain]
 //   [codebox~ out1] -> [out~ 1] (and [out~ 2] for stereo)
 //
+// THE HANDS (added 2026-10-03, cycle 8 — also UNVERIFIED in Max).
+// Three per-sample warps on the read point, in this order, before the
+// lookup. All at zero = the code above, unchanged.
+//   bendX, bendY  [-1, 1]   tanh knee per axis (warp catalog #1)
+//   shear         [-0.5,.5] y += shear * sin(2pi x)  (#6, torus-continuous)
+//   stir          [0, 1]    move along the rotated slope (#12)
+//   slopeMax      the surface's steepest slope, heights per cycle; sets
+//                 the stir reach = min(0.25, 4 / slopeMax). Measured:
+//                 Penrose 41.0 · Knot Shadow 26.2 · Membrane 14.5 ·
+//                 Chladni 170.4 · Theta 4.2 · Kuramoto Bloom 17.1
+// The browser engine precomputes the slope field on the grid; this one
+// takes finite differences through lookup2D, so stir will match it by
+// ear, not to the sample. Bend and shear should match exactly.
+//
 // UNIT TEST: height = (ratio-1)/(ratio+1) and longitude = 0 reproduces
 // torus_2d_kuramoto when baseHz = (its baseHz) * (1 + ratio) / 2 — up to the lock
 // target, which this one chooses itself.
@@ -39,6 +53,11 @@ const SURFACE_H = 1024;
 @param({ min: 0.0,   max: 1.0    }) longitude = 0.0;
 @param({ min: 0.0,   max: 20.0   }) coupling  = 3.0;
 @param({ min: 0.0,   max: 1.0    }) gain      = 0.35;
+@param({ min: -1.0,  max: 1.0    }) bendX     = 0.0;
+@param({ min: -1.0,  max: 1.0    }) bendY     = 0.0;
+@param({ min: -0.5,  max: 0.5    }) shear     = 0.0;
+@param({ min: 0.0,   max: 1.0    }) stir      = 0.0;
+@param({ min: 1.0,   max: 400.0  }) slopeMax  = 41.0;
 
 @state phi1 = 0.0;
 @state phi2 = 0.0;
@@ -51,6 +70,10 @@ const SURFACE_H = 1024;
 @state lockB = 1;
 @state bestK = 0.0;
 @state tick = 0;
+@state bXS = 0.0;
+@state bYS = 0.0;
+@state shS = 0.0;
+@state stS = 0.0;
 
 function lookup2D(pos1, pos2) {
     let p1 = pos1 - floor(pos1);
@@ -72,6 +95,12 @@ function lookup2D(pos1, pos2) {
     return row0 + yfrac * (row1 - row0);
 }
 
+function bend(p, b) {
+    let k = 4.0 * b;
+    let u = 2.0 * p - 1.0;
+    return 0.5 * (tanh(k * u) / tanh(k) + 1.0);
+}
+
 // Try one candidate a:b; keep it if it needs less coupling than the best so far.
 function tryLock(a, b, w1, w2) {
     let ks = abs(b * w2 - a * w1) / (a + b);
@@ -83,6 +112,10 @@ let twopi = 6.283185307179586;
 let sm = 1.0 - exp(-1.0 / (0.015 * samplerate));   // ~15 ms smoothing
 hS = hS + (height - hS) * sm;
 kS = kS + (coupling - kS) * sm;
+bXS = bXS + (bendX - bXS) * sm;
+bYS = bYS + (bendY - bYS) * sm;
+shS = shS + (shear - shS) * sm;
+stS = stS + (stir - stS) * sm;
 let dl = longitude - lonS;
 dl = dl - floor(dl + 0.5);
 lonS = lonS + dl * sm;
@@ -113,7 +146,29 @@ phi2 = phi2 + (w2 - c) / samplerate;
 phi1 = phi1 - floor(phi1);
 phi2 = phi2 - floor(phi2);
 
-let y = lookup2D(phi1, phi2 + lonS);
+let p1 = phi1;
+let p2 = phi2 + lonS;
+p2 = p2 - floor(p2);
+if (abs(bXS) > 0.000001) p1 = bend(p1, bXS);
+if (abs(bYS) > 0.000001) p2 = bend(p2, bYS);
+if (abs(shS) > 0.000001) {
+    p2 = p2 + shS * sin(twopi * p1);
+    p2 = p2 - floor(p2);
+}
+if (stS > 0.000001) {
+    let st = 1.0 / SURFACE_W;
+    let gx = (lookup2D(p1 + st, p2) - lookup2D(p1 - st, p2)) * (SURFACE_W * 0.5);
+    let gy = (lookup2D(p1, p2 + st) - lookup2D(p1, p2 - st)) * (SURFACE_H * 0.5);
+    let reach = 4.0 / slopeMax;
+    if (reach > 0.25) reach = 0.25;
+    let e = stS * reach / slopeMax;
+    p1 = p1 + e * gy;           // rotated slope: (dW/dy, -dW/dx)
+    p2 = p2 - e * gx;
+    p1 = p1 - floor(p1);
+    p2 = p2 - floor(p2);
+}
+
+let y = lookup2D(p1, p2);
 
 let r = 1.0 - twopi * 10.0 / samplerate;   // DC blocker, ~10 Hz
 dcY = y - dcX + r * dcY;

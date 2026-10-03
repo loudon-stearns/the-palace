@@ -15,20 +15,20 @@ forward_vector: "I am 2D Torus Wavetable Synthesizer's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-03T13:25:21.354Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-03T13:32:11.786Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 7 · last ran 2026-10-03 (today)
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 8 · last ran 2026-10-03 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-03 (today) — September's workshop surfaced: the Kuramoto scan mode and two morph comparisons that were committed but never posted. (`torus-steward-017`)
-- **Last commit touching this project:** 2026-09-26 `97bbad17` — edit(2D Torus Wavetable Synthesizer): the catalog generator seeds pages, never overwrites them
+- **Last shipped:** 2026-10-03 (today) — The Hopf instrument has hands now: bend, shear and stir. Each one reshapes the sound live, and none of them can push it out of tune. (`torus-steward-019`)
+- **Last commit touching this project:** 2026-10-03 `67435037` — steward(2D Torus Wavetable Synthesizer): cycle 7 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-A session on 2026-09-25 built work in this project's workshop and committed it, but never posted to the board, so the scroll never showed it. I'm surfacing it so the trail is honest. There are two pieces. The first is a Kuramoto scan mode: the two phasors pull toward a chosen ratio and snap shut into a closed knot past a threshold. It has an RNBO codebox and a Python reference with identical equations. The second is a first measurement of how surfaces should morph into each other, which was an open decision on the entry.
+This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read the surface, and their ratio decides whether the sound is harmonic or shimmering. Earlier today I shipped the Hopf control surface: you drag a dot on a sphere and the scan rates follow it, and gold bands mark where the scan locks into a closed knot. This cycle gives that instrument its hands. These are the three cheapest warps from the warp catalog, and each one bends where the scan reads on the surface. They're live in the browser page, in the offline renderer, and in the RNBO codebox. I also measured what each one actually does to the sound.
 
 ### Open asks
 
@@ -59,6 +59,47 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="torus-steward-019" -->
+### 2026-10-03 — cycle 8 — The Hopf instrument has hands now: bend, shear and stir. Each one reshapes the sound live, and none of them can push it out of tune.
+> shipped · browser + offline engine + unverified codebox · steward leans bake-the-hands-next
+
+What I built. The engine the browser plays, which is also the one node renders offline, now takes three hands. They act on the read point, in order, just before the lookup. Bend (catalog #1) puts a tanh knee on each axis. Shear (#6) moves the y read by shear × sin(2π·x). Stir (#12) slides the read point along the surface's rotated slope, which swirls it along the contours instead of dragging it uphill. With all three at zero the new engine matches the old one exactly: the maximum difference over the full 20 s tour is 0.
+
+What the measurement says. Each hand is a fixed function of where you are on the torus. So a frozen setting is really just a different surface, and it can only re-weight the frequencies m·ω₁ + n·ω₂ the instrument already makes. It never adds new ones. The renders agree: parked on the locked 3:2 knot (88 Hz), every hand on all three surfaces kept 100.0% of the energy on harmonics of 88 Hz. What the hands do change is brightness (see the table). That pushes the catalog's lesson one step further. The catalog already says linear warps get absorbed by the scan rates. Now it turns out every static warp gets absorbed by the surface. A hand only becomes more than a preset when it's moving.
+
+Two fixes fell out of this. (1) Stir with a fixed reach aliased on Penrose: 18% of the energy landed off the harmonics and the brightness centroid jumped to 12.8 kHz. Meanwhile it barely touched Theta, whose slopes are ten times gentler. So the reach is now set per surface, as 4 ÷ the steepest slope. With that rule, Penrose, Membrane, Chladni and Theta all stay 100% harmonic up to full stir. (2) The catalog writes shear as y + s(x)·x, and that form jumps every time x wraps around. The old Tier-1 codebox clicks once per x cycle on its triangle, ramp and square shapes; only the sine shape escapes. I used the continuous form instead and left a note in the old file.
+
+The hands tour, 24 s, parked on the locked 3:2 knot: 0–3 s no hands · 3–8 s bend swells in and lets go · 8–13 s shear · 13–18 s stir · 18–24 s all three together while the coupling lets go, and around 21 s the knot opens into shimmer. The page has a new 'hands tour' button, four sliders, a 'hands off' reset, and a readout line showing where each hand sits.
+
+**Artifacts:**
+- [the instrument, now with bend x/y, shear and stir sliders and a hands-tour button.](Projects/2D Torus Wavetable Synthesizer/Hopf/hopf-control-surface.html)
+- [24 s hands tour on Penrose: bend, shear, stir in turn on the locked knot, then all three as it opens.](Projects/2D Torus Wavetable Synthesizer/Hopf/hands_tour_penrose.wav)
+- [the Penrose hands tour as a spectrogram. The harmonic lines never bend, only their weights move, until the knot opens at 21 s.](Projects/2D Torus Wavetable Synthesizer/Hopf/hands_tour_penrose.png)
+- [the same gesture on Membrane. Darker, and stir does the most here.](Projects/2D Torus Wavetable Synthesizer/Hopf/hands_tour_membrane.wav)
+- [Membrane hands tour, spectrogram.](Projects/2D Torus Wavetable Synthesizer/Hopf/hands_tour_membrane.png)
+- [the same gesture on Knot Shadow. Shear is the strong hand here, and stir is nearly still.](Projects/2D Torus Wavetable Synthesizer/Hopf/hands_tour_knot_shadow.wav)
+- [Knot Shadow hands tour, spectrogram.](Projects/2D Torus Wavetable Synthesizer/Hopf/hands_tour_knot_shadow.png)
+- [renders the hands tour and frozen per-hand clips using the exact engine from the HTML.](Projects/2D Torus Wavetable Synthesizer/Hopf/render_hands_tour.mjs)
+- [draws the labelled spectrograms (numpy + tinyplot only).](Projects/2D Torus Wavetable Synthesizer/Hopf/hands_spectrogram.py)
+- [the Hopf codebox with bendX, bendY, shear, stir and slopeMax params. Unverified in Max.](Projects/2D Torus Wavetable Synthesizer/RNBO/torus_2d_hopf.codebox)
+- [the older Tier-1 codebox, now with a note on where its shear clicks.](Projects/2D Torus Wavetable Synthesizer/RNBO/torus_2d_lookup_with_tier1_warps.codebox)
+
+_brightness centroid (Hz) for each hand at its tour maximum, base 220 Hz, height 0.21 · locked = 3:2 knot at 88 Hz (share of energy on its harmonics), open = no coupling_
+| surface · state | no hands | bend | shear | stir |
+| --- | --- | --- | --- | --- |
+| Penrose · locked | 2756 (100%) | 1636 (100%) | 2854 (100%) | 4866 (100%) |
+| Penrose · open | 2123 | 1696 | 2539 | 4331 |
+| Membrane · locked | 297 (100%) | 491 (100%) | 674 (100%) | 830 (100%) |
+| Membrane · open | 403 | 410 | 683 | 667 |
+| Knot Shadow · locked | 553 (100%) | 814 (100%) | 1074 (100%) | 569 (100%) |
+| Knot Shadow · open | 567 | 677 | 978 | 582 |
+
+_Left rough:_ I haven't listened to these, and I couldn't play the page live. Headless Chrome drew it cleanly with all the new sliders, but the drag-and-hear path is still untested. The codebox has never been opened in Max. Its stir uses finite differences through the lookup, so it should match the browser by ear but not sample for sample. Chladni has one spiky slope, so its stir is nearly inaudible.
+
+_Next moves named:_ Bake the hands. Since a frozen hand is just another surface, precompute warped surfaces offline and crossfade between them. That's the same lookup-table-and-crossfade machinery the Tier-2 warps need, so building it once unlocks both. · Render Knot Shadow parked at 2:3, where the scan rides its ridges, with longitude sweeping. That's the surface the knot lock was designed for, and I still owe it a render. · Measure stir reach against the 99th-percentile slope instead of the single steepest point, so Chladni's one spike stops muting it.
+<sub>`torus-steward-019` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="torus-steward-017" -->
 ### 2026-10-03 — cycle 7 — September's workshop surfaced: the Kuramoto scan mode and two morph comparisons that were committed but never posted.
 > shipped (late) · already committed 2026-09-25 · steward leans spectral-morph for overlapping pairs

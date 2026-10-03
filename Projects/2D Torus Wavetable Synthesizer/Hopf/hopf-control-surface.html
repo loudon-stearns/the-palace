@@ -63,6 +63,7 @@
       <div class="row">
         <button id="play" class="primary">▸ play</button>
         <button id="tour">▸ tour (20 s)</button>
+        <button id="handsTour">▸ hands tour (24 s)</button>
         <label>turn view <input id="yaw" type="range" min="0" max="6.2832" step="0.01" value="0.6"></label>
       </div>
       <div class="note"><textarea placeholder="what the sphere does or doesn't do for you"></textarea></div>
@@ -79,6 +80,15 @@
       <div class="row">
         <label>coupling <input id="K" type="range" min="0" max="20" step="0.1" value="3"><span id="KV">3.0</span> Hz</label>
         <label>level <input id="gain" type="range" min="0" max="1" step="0.01" value="0.35"></label>
+      </div>
+      <div class="row">
+        <label>bend x <input id="bX" type="range" min="-1" max="1" step="0.01" value="0"></label>
+        <label>bend y <input id="bY" type="range" min="-1" max="1" step="0.01" value="0"></label>
+      </div>
+      <div class="row">
+        <label>shear <input id="shear" type="range" min="-0.5" max="0.5" step="0.005" value="0"></label>
+        <label>stir <input id="stir" type="range" min="0" max="1" step="0.01" value="0"></label>
+        <button id="handsZero">hands off</button>
       </div>
       <div class="note"><textarea placeholder="what the surface view shows or hides"></textarea></div>
     </section>
@@ -103,7 +113,10 @@
       <div class="eqw">(locks onto ratio a:b) when |(height) − (a − b) ÷ (a + b)| ≤ (coupling) ÷ (base)</div>
       <div class="eq">f₀ = 2 · base / (a + b)</div>
       <div class="eqw">(locked pitch) = 2 × (base) ÷ (a + b)</div>
+      <div class="eq">x ← bend(x, b<sub>x</sub>) · y ← y + s · sin 2πx · (x, y) ← (x, y) + ε · (∂W/∂y, −∂W/∂x)</div>
+      <div class="eqw">(read x) ← bend(read x, bend x) · (read y) ← (read y) + (shear) × sin(2π × read x) · (read point) ← (read point) + (stir reach) × (the surface's rotated slope)</div>
       <div class="prose">
+        <p>The hands move where the scan reads, not how fast it runs. Each is a fixed function of the read point, so a frozen setting is just a different surface: it re-weights the same frequencies m·ω₁ + n·ω₂ and never adds new ones. Locked, everything stays harmonic. Moving a hand is what makes it a gesture rather than a preset.</p>
         <p>The Hopf map takes a point (z₁, z₂) on the 3-sphere and keeps two things: the balance |z₁|² − |z₂|², which becomes height, and the phase difference arg z₁ − arg z₂, which becomes longitude. It throws away the shared phase, and that discarded circle is the scan itself running through time. So each point on this sphere names one orbit of the scanner.</p>
         <p>Every band has the same width in height, and by Archimedes' hat-box theorem equal height means equal area on a sphere. Every lock, simple or complex, gets the same amount of room.</p>
       </div>
@@ -132,6 +145,22 @@
 //      and longitude lon (cycles) offsets the y read position;
 //   2. the lock target a:b is not a knob. Every 32 samples the engine
 //      picks the coprime a:b (a,b <= 5) that needs the least coupling.
+//
+// The hands (2026-10-03, cycle 8): three per-sample warps from the
+// warp catalog, applied to the read position in this order before the
+// bilinear lookup. All at zero = the bare engine, sample for sample.
+//   bend    (#1)  per-axis tanh knee, bX, bY in [-1, 1]
+//   shear   (#6)  y += shear * sin(2pi x)   -- the torus-continuous form
+//   stir    (#12) read position moves along the surface's rotated
+//                 gradient (divergence-free). Reach is set per surface
+//                 so that at stir = 1 the steepest slope times the reach
+//                 is 4 (in surface heights): far enough to be strong,
+//                 short enough not to alias. A fixed 0.25-cycle reach
+//                 aliased Penrose (18% of the energy off-harmonic) and
+//                 barely touched Theta, whose slopes are 10x gentler.
+// Each one is a fixed function of where you are on the torus, so a
+// frozen setting is just a different surface: it re-weights the same
+// lattice m*w1 + n*w2, it never adds frequencies off it.
 // =====================================================================
 var HTE = (function () {
   var N = 1024, TWO_PI = 2 * Math.PI;
@@ -195,6 +224,31 @@ var HTE = (function () {
     var W = new Float32Array(N * N); SURFACES[name](_T, W); return normalize(W);
   }
 
+  // ---- the hands
+  function bend(p, b) {          // monotone [0,1) -> [0,1), 0 -> 0, 1 -> 1
+    var k = 4 * b, u = 2 * p - 1; return 0.5 * (Math.tanh(k * u) / Math.tanh(k) + 1);
+  }
+  function lerp2(T, p1, p2) {    // toroidal bilinear read of any N x N table
+    var xf = p1 * N, yf = p2 * N, x0 = Math.floor(xf), y0 = Math.floor(yf);
+    var fx = xf - x0, fy = yf - y0, x1 = x0 + 1 >= N ? 0 : x0 + 1, y1 = y0 + 1 >= N ? 0 : y0 + 1;
+    var a0 = T[y0 * N + x0], a1 = T[y0 * N + x1], b0 = T[y1 * N + x0], b1 = T[y1 * N + x1];
+    var r0 = a0 + fx * (a1 - a0), r1 = b0 + fx * (b1 - b0);
+    return r0 + fy * (r1 - r0);
+  }
+  // Rotated gradient (dW/dy, -dW/dx), scaled so its largest arrow is 1.
+  function stirField(W) {
+    var Dx = new Float32Array(N * N), Dy = new Float32Array(N * N), m = 0;
+    for (var y = 0; y < N; y++) { var ym = ((y + N - 1) % N) * N, yp = ((y + 1) % N) * N, o = y * N;
+      for (var x = 0; x < N; x++) { var xm = (x + N - 1) % N, xp = (x + 1) % N;
+        var gx = W[o + xp] - W[o + xm], gy = W[yp + x] - W[ym + x];
+        Dx[o + x] = gy; Dy[o + x] = -gx; var g = gx * gx + gy * gy; if (g > m) m = g; } }
+    var gmax = Math.sqrt(m) * N / 2;          // steepest slope, heights per cycle
+    m = m > 0 ? 1 / Math.sqrt(m) : 0;
+    for (var i = 0; i < N * N; i++) { Dx[i] *= m; Dy[i] *= m; }
+    return { Dx: Dx, Dy: Dy, reach: gmax > 0 ? Math.min(0.25, STIR_SLOPE / gmax) : 0 };
+  }
+  var STIR_SLOPE = 4;      // steepest slope x reach at stir = 1
+
   function gcd(a, b) { return b ? gcd(b, a % b) : a; }
   var RATIOS = [];
   for (var a = 1; a <= 5; a++) for (var b = 1; b <= 5; b++) if (gcd(a, b) === 1) RATIOS.push([a, b, (a - b) / (a + b)]);
@@ -203,8 +257,9 @@ var HTE = (function () {
     this.sr = sr; this.W = null;
     this.phi1 = 0; this.phi2 = 0; this.dcX = 0; this.dcY = 0;
     // targets (set by UI or tour) and smoothed values
-    this.t = { base: 220, h: -0.6, lon: 0, K: 3, gain: 0.35 };
-    this.s = { base: 220, h: -0.6, lon: 0, K: 3, gain: 0 };
+    this.t = { base: 220, h: -0.6, lon: 0, K: 3, gain: 0.35, bX: 0, bY: 0, shear: 0, stir: 0 };
+    this.s = { base: 220, h: -0.6, lon: 0, K: 3, gain: 0, bX: 0, bY: 0, shear: 0, stir: 0 };
+    this._fW = null; this._F = null;
     this.a = 1; this.b = 1; this.count = 0;
     this.ring = new Float32Array(2 * 4096); this.ringPos = 0;
   }
@@ -220,6 +275,7 @@ var HTE = (function () {
     var r = 1 - TWO_PI * 10 / sr;
     for (var i = 0; i < n; i++) {
       s.base += (t.base - s.base) * sm; s.h += (t.h - s.h) * sm; s.K += (t.K - s.K) * sm; s.gain += (t.gain - s.gain) * sm;
+      s.bX += (t.bX - s.bX) * sm; s.bY += (t.bY - s.bY) * sm; s.shear += (t.shear - s.shear) * sm; s.stir += (t.stir - s.stir) * sm;
       var dl = t.lon - s.lon; dl -= Math.round(dl); s.lon += dl * sm; s.lon -= Math.floor(s.lon);
       if ((this.count++ & 31) === 0) this.pickLock();
       var w1 = s.base * (1 - s.h), w2 = s.base * (1 + s.h);
@@ -228,13 +284,22 @@ var HTE = (function () {
       this.phi1 -= Math.floor(this.phi1); this.phi2 -= Math.floor(this.phi2);
       var y = 0;
       if (W) {
-        var p2 = this.phi2 + s.lon; p2 -= Math.floor(p2);
-        var xf = this.phi1 * N, yf = p2 * N, x0 = Math.floor(xf), y0 = Math.floor(yf);
+        var p1 = this.phi1, p2 = this.phi2 + s.lon; p2 -= Math.floor(p2);
+        if (Math.abs(s.bX) > 1e-6) p1 = bend(p1, s.bX);
+        if (Math.abs(s.bY) > 1e-6) p2 = bend(p2, s.bY);
+        if (Math.abs(s.shear) > 1e-6) { p2 += s.shear * Math.sin(TWO_PI * p1); p2 -= Math.floor(p2); }
+        if (s.stir > 1e-6) {
+          if (this._fW !== W) { this._F = stirField(W); this._fW = W; }
+          var e = s.stir * this._F.reach, d1 = lerp2(this._F.Dx, p1, p2), d2 = lerp2(this._F.Dy, p1, p2);
+          p1 += e * d1; p2 += e * d2; p1 -= Math.floor(p1); p2 -= Math.floor(p2);
+        }
+        if (p1 >= 1) p1 = 0; if (p2 >= 1) p2 = 0;
+        var xf = p1 * N, yf = p2 * N, x0 = Math.floor(xf), y0 = Math.floor(yf);
         var fx = xf - x0, fy = yf - y0, x1 = x0 + 1 >= N ? 0 : x0 + 1, y1 = y0 + 1 >= N ? 0 : y0 + 1;
         var a0 = W[y0 * N + x0], a1 = W[y0 * N + x1], b0 = W[y1 * N + x0], b1 = W[y1 * N + x1];
         var r0 = a0 + fx * (a1 - a0), r1 = b0 + fx * (b1 - b0);
         y = r0 + fy * (r1 - r0);
-        if ((this.count & 1) === 0) { var k = this.ringPos; this.ring[2 * k] = this.phi1; this.ring[2 * k + 1] = p2; this.ringPos = (k + 1) & 4095; }
+        if ((this.count & 1) === 0) { var k = this.ringPos; this.ring[2 * k] = p1; this.ring[2 * k + 1] = p2; this.ringPos = (k + 1) & 4095; }
       }
       this.dcY = y - this.dcX + r * this.dcY; this.dcX = y;
       out[i] = Math.tanh(this.dcY * s.gain * 1.4) / 1.4;
@@ -258,7 +323,20 @@ var HTE = (function () {
     var w = (t - 16) / 4; return { base: base, h: 0.21, lon: w, K: 6 };                                // locked 3:2, longitude slides the knot across the surface
   }
 
-  return { N: N, SURFACES: SURFACES, makeSurface: makeSurface, RATIOS: RATIOS, Engine: Engine, tour: tour };
+  // The hands tour: 24 s parked on the locked 3:2 knot, each warp in turn
+  // swelling in and letting go, then all three together while the
+  // coupling lets go and the knot opens.
+  function handsTour(t) {
+    var g = { base: 220, h: 0.21, lon: 0, K: 6, bX: 0, bY: 0, shear: 0, stir: 0 };
+    function swell(t0) { var u = t - t0; return u < 0 || u > 5 ? 0 : u < 4 ? u / 4 : 5 - u; }
+    g.bX = 0.85 * swell(3); g.bY = -0.85 * swell(3);
+    g.shear = 0.35 * swell(8);
+    g.stir = swell(13);
+    if (t >= 18) { var v = Math.min(1, (t - 18) / 2); g.bX = 0.5 * v; g.bY = -0.5 * v; g.shear = 0.2 * v; g.stir = 0.6 * v; g.K = 6 * (1 - Math.min(1, (t - 19) / 3 > 0 ? (t - 19) / 3 : 0)); }
+    return g;
+  }
+
+  return { N: N, SURFACES: SURFACES, makeSurface: makeSurface, RATIOS: RATIOS, Engine: Engine, tour: tour, handsTour: handsTour, bend: bend };
 })();
 if (typeof module !== 'undefined') module.exports = HTE;
 </script>
@@ -266,7 +344,7 @@ if (typeof module !== 'undefined') module.exports = HTE;
 <script>
 (function () {
   var N = HTE.N, TWO_PI = 2 * Math.PI;
-  var ctx = null, node = null, eng = null, playing = false, touring = false, tourStart = 0;
+  var ctx = null, node = null, eng = null, playing = false, touring = false, tourStart = 0, tourLen = 20;
   var surfName = '15 · Penrose Lattice', surface = null, surfImg = null;
   var ui = { h: -0.6, lon: 0, yaw: 0.6, tilt: 0.42 };
 
@@ -289,12 +367,19 @@ if (typeof module !== 'undefined') module.exports = HTE;
   sel.onchange = function () { loadSurface(sel.value); };
 
   function params() {
-    return { base: +document.getElementById('base').value, K: +document.getElementById('K').value, gain: +document.getElementById('gain').value };
+    var v = function (id) { return +document.getElementById(id).value; };
+    return { base: v('base'), K: v('K'), gain: v('gain'), bX: v('bX'), bY: v('bY'), shear: v('shear'), stir: v('stir') };
   }
   function pushTargets() {
     if (!eng) return; var p = params();
     eng.t.base = p.base; eng.t.K = p.K; eng.t.gain = p.gain; eng.t.h = ui.h; eng.t.lon = ui.lon;
+    eng.t.bX = p.bX; eng.t.bY = p.bY; eng.t.shear = p.shear; eng.t.stir = p.stir;
   }
+  var HANDS = ['bX', 'bY', 'shear', 'stir'];
+  function setSliders(g) { ['base', 'K'].concat(HANDS).forEach(function (id) { if (g[id] !== undefined) document.getElementById(id).value = g[id]; });
+    document.getElementById('baseV').textContent = g.base; document.getElementById('KV').textContent = (+g.K).toFixed(1); }
+  document.getElementById('handsZero').onclick = function () { HANDS.forEach(function (id) { document.getElementById(id).value = 0; }); pushTargets(); };
+  HANDS.forEach(function (id) { document.getElementById(id).oninput = function () { touring = false; pushTargets(); }; });
   ['base', 'K', 'gain'].forEach(function (id) {
     document.getElementById(id).oninput = function () {
       if (id === 'base') document.getElementById('baseV').textContent = this.value;
@@ -318,7 +403,10 @@ if (typeof module !== 'undefined') module.exports = HTE;
   function stop() { if (eng) eng.t.gain = 0; playing = false; touring = false; document.getElementById('play').textContent = '▸ play'; }
   document.getElementById('play').onclick = function () { playing ? stop() : start(); };
   document.getElementById('tour').onclick = function () {
-    if (!playing) start(); touring = true; tourStart = performance.now();
+    if (!playing) start(); touring = HTE.tour; tourLen = 20; tourStart = performance.now();
+  };
+  document.getElementById('handsTour').onclick = function () {
+    if (!playing) start(); touring = HTE.handsTour; tourLen = 24; tourStart = performance.now();
   };
   document.getElementById('yaw').oninput = function () { ui.yaw = +this.value; sphereDirty = true; };
 
@@ -415,17 +503,18 @@ if (typeof module !== 'undefined') module.exports = HTE;
     el.innerHTML =
       'height <b>' + fmt(s.h, 3) + '</b> · longitude <b>' + s.lon.toFixed(3) + '</b> cycles<br>' +
       'x rate <b>' + s.w1.toFixed(1) + '</b> Hz · y rate <b>' + s.w2.toFixed(1) + '</b> Hz · ratio <b>' + s.ratio.toFixed(4) + '</b><br>' +
+      'hands · bend <b>' + fmt(eng.s.bX, 2) + '</b>/<b>' + fmt(eng.s.bY, 2) + '</b> · shear <b>' + fmt(eng.s.shear, 3) + '</b> · stir <b>' + eng.s.stir.toFixed(2) + '</b><br>' +
       'nearest lock <b>' + s.a + ':' + s.b + '</b> needs coupling ≥ <b>' + s.Kstar.toFixed(2) + '</b> Hz · you have <b>' + s.K.toFixed(2) + '</b><br>' + state;
   }
 
   function frame() {
     if (touring && eng) {
       var t = (performance.now() - tourStart) / 1000;
-      if (t > 20) { touring = false; } else {
-        var g = HTE.tour(t); eng.t.base = g.base; eng.t.h = g.h; eng.t.lon = g.lon; eng.t.K = g.K;
-        ui.h = g.h; ui.lon = g.lon;
-        document.getElementById('K').value = g.K; document.getElementById('KV').textContent = g.K.toFixed(1);
-        document.getElementById('base').value = g.base; document.getElementById('baseV').textContent = g.base;
+      if (t > tourLen) { touring = false; } else {
+        var g = touring(t), z = { bX: 0, bY: 0, shear: 0, stir: 0 };
+        for (var k in z) if (g[k] === undefined) g[k] = 0;
+        ['base', 'h', 'lon', 'K', 'bX', 'bY', 'shear', 'stir'].forEach(function (k) { eng.t[k] = g[k]; });
+        ui.h = g.h; ui.lon = g.lon; setSliders(g);
         sphereDirty = sphereDirty || Math.abs(g.K - (frame.lastK || 0)) > 0.25; if (sphereDirty) frame.lastK = g.K;
       }
     }
