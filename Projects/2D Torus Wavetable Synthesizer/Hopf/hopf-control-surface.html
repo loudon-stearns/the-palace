@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<title>Hopf control surface · 2D Torus Wavetable Synthesizer · study</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --serif: 'Cormorant Garamond', 'Source Serif 4', Georgia, serif;
+    --sans: 'Manrope', system-ui, -apple-system, 'Segoe UI', Helvetica, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    --bg: #0a0a0f; --bg-elev-1: #12121a; --bg-elev-2: #1a1a28; --border: #4a4a5e;
+    --border-soft: rgba(255,255,255,0.06);
+    --fg-1: #e8e8f0; --fg-2: #c8c8d8; --fg-3: #8a8aa0; --fg-4: #4a4a5a;
+    --accent: #e8b84a; --accent-dim: #7a6030; --accent-soft: rgba(232,184,74,0.10);
+    --info: #4a8fff; --success: #00ff66; --warn: #ff9b4a;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg-1); font-family: var(--sans); }
+  main { max-width: 1120px; margin: 0 auto; padding: 28px 24px 40px; }
+  .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-3); }
+  h1 { font-family: var(--serif); font-weight: 500; font-size: 36px; margin: 6px 0 8px; line-height: 1.15; }
+  p.lead { font-family: var(--serif); font-size: 19px; line-height: 1.6; color: var(--fg-2); max-width: 760px; margin: 0 0 18px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+  section.panel { background: var(--bg-elev-1); border: 1px solid var(--border-soft); border-radius: 6px; padding: 14px 16px 16px; position: relative; }
+  section.panel h2 { font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-3); margin: 0 0 10px; font-weight: 500; }
+  canvas { display: block; width: 100%; height: auto; border-radius: 4px; background: #07070b; touch-action: none; }
+  #sphere { cursor: crosshair; }
+  .row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-top: 12px; }
+  label { font-family: var(--mono); font-size: 12px; color: var(--fg-3); display: flex; gap: 8px; align-items: center; }
+  input[type=range] { accent-color: var(--accent); width: 150px; }
+  select, button { font-family: var(--mono); font-size: 12px; background: var(--bg-elev-2); color: var(--fg-1); border: 1px solid var(--border); border-radius: 4px; padding: 6px 10px; }
+  button { cursor: pointer; transition: border-color .15s cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: rgba(232,184,74,0.55); }
+  button.primary { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 14px rgba(232,184,74,0.25); }
+  .readout { font-family: var(--mono); font-size: 13px; line-height: 1.75; color: var(--fg-2); }
+  .readout b { color: var(--fg-1); font-weight: 500; }
+  .lock { color: var(--success); } .slip { color: var(--warn); } .free { color: var(--fg-3); }
+  .eq { font-family: var(--mono); font-size: 13px; color: var(--fg-1); margin: 10px 0 2px; }
+  .eqw { font-family: var(--mono); font-size: 12px; color: var(--fg-3); margin: 0 0 8px; }
+  .prose { font-family: var(--serif); font-size: 17px; line-height: 1.7; color: var(--fg-2); }
+  .prose p { margin: 0 0 10px; }
+  .note-toggle { position: absolute; top: 10px; right: 12px; font-size: 11px; padding: 3px 8px; color: var(--fg-3); }
+  .note { display: none; margin-top: 10px; }
+  .note.open { display: block; }
+  .note textarea { width: 100%; min-height: 64px; background: var(--bg); color: var(--fg-1); border: 1px solid var(--accent-dim); border-radius: 4px; font-family: var(--sans); font-size: 13px; padding: 8px; }
+  footer { margin-top: 26px; font-family: var(--mono); font-size: 12px; color: var(--fg-3); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  .wordmark { letter-spacing: 0.12em; }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">2D Torus Wavetable Synthesizer · study · Hopf control surface</div>
+  <h1>Steer the torus from a sphere</h1>
+  <p class="lead">Drag the dot on the sphere. Its height decides how the two scan rates share one fixed budget; its longitude slides where the scan sits on the surface. The gold bands are the places where coupling pulls the scan shut into a closed knot. Between bands the scan runs open and shimmers.</p>
+
+  <div class="grid">
+    <section class="panel" data-unit="sphere">
+      <h2>the sphere · where you are</h2>
+      <button class="note-toggle">◇ note</button>
+      <canvas id="sphere" width="520" height="520"></canvas>
+      <div class="row">
+        <button id="play" class="primary">▸ play</button>
+        <button id="tour">▸ tour (20 s)</button>
+        <label>turn view <input id="yaw" type="range" min="0" max="6.2832" step="0.01" value="0.6"></label>
+      </div>
+      <div class="note"><textarea placeholder="what the sphere does or doesn't do for you"></textarea></div>
+    </section>
+
+    <section class="panel" data-unit="torus">
+      <h2>the surface · where the scan goes</h2>
+      <button class="note-toggle">◇ note</button>
+      <canvas id="torus" width="520" height="520"></canvas>
+      <div class="row">
+        <label>surface <select id="surface"></select></label>
+        <label>base <input id="base" type="range" min="55" max="440" step="1" value="220"><span id="baseV">220</span> Hz</label>
+      </div>
+      <div class="row">
+        <label>coupling <input id="K" type="range" min="0" max="20" step="0.1" value="3"><span id="KV">3.0</span> Hz</label>
+        <label>level <input id="gain" type="range" min="0" max="1" step="0.01" value="0.35"></label>
+      </div>
+      <div class="note"><textarea placeholder="what the surface view shows or hides"></textarea></div>
+    </section>
+  </div>
+
+  <div class="grid" style="margin-top:18px">
+    <section class="panel" data-unit="readout">
+      <h2>what the engine is doing</h2>
+      <button class="note-toggle">◇ note</button>
+      <div class="readout" id="readout">press play</div>
+      <div class="note"><textarea placeholder="is this readout the right thing to watch?"></textarea></div>
+    </section>
+
+    <section class="panel" data-unit="math">
+      <h2>the mapping · symbols and words</h2>
+      <button class="note-toggle">◇ note</button>
+      <div class="eq">ω₁ = base · (1 − h)</div>
+      <div class="eqw">(x-axis scan rate) = (base) × (1 − (height on sphere))</div>
+      <div class="eq">ω₂ = base · (1 + h)</div>
+      <div class="eqw">(y-axis scan rate) = (base) × (1 + (height on sphere))</div>
+      <div class="eq">lock a:b when  |h − (a − b)/(a + b)| ≤ K / base</div>
+      <div class="eqw">(locks onto ratio a:b) when |(height) − (a − b) ÷ (a + b)| ≤ (coupling) ÷ (base)</div>
+      <div class="eq">f₀ = 2 · base / (a + b)</div>
+      <div class="eqw">(locked pitch) = 2 × (base) ÷ (a + b)</div>
+      <div class="prose">
+        <p>The Hopf map takes a point (z₁, z₂) on the 3-sphere and keeps two things: the balance |z₁|² − |z₂|², which becomes height, and the phase difference arg z₁ − arg z₂, which becomes longitude. It throws away the shared phase, and that discarded circle is the scan itself running through time. So each point on this sphere names one orbit of the scanner.</p>
+        <p>Every band has the same width in height, and by Archimedes' hat-box theorem equal height means equal area on a sphere. Every lock, simple or complex, gets the same amount of room.</p>
+      </div>
+      <div class="note"><textarea placeholder="does the math read?"></textarea></div>
+    </section>
+  </div>
+
+  <div class="row">
+    <button id="copyNotes">copy all notes</button>
+    <span class="eyebrow" id="copied"></span>
+  </div>
+
+  <footer><span>study · same engine renders <span style="color:var(--fg-2)">hopf_tour_penrose.wav</span> offline</span><span class="wordmark">Loud’n Live</span></footer>
+</main>
+
+<script id="engine">
+// =====================================================================
+// Hopf torus engine — pure DSP, no DOM. The browser plays it; node
+// (render_hopf_tour.mjs) extracts this exact script and renders it
+// offline, so the WAV and the instrument are one source.
+//
+// Same Kuramoto scan as RNBO/torus_2d_kuramoto.codebox (ratio = w2/w1,
+// psi = b*phi2 - a*phi1, one Euler step per sample), with two changes:
+//   1. the scan rates come from a point on the sphere:
+//        w1 = base*(1-h), w2 = base*(1+h)   (their sum is fixed)
+//      and longitude lon (cycles) offsets the y read position;
+//   2. the lock target a:b is not a knob. Every 32 samples the engine
+//      picks the coprime a:b (a,b <= 5) that needs the least coupling.
+// =====================================================================
+var HTE = (function () {
+  var N = 1024, TWO_PI = 2 * Math.PI;
+
+  function tables(maxK) {
+    var C = {}, S = {};
+    for (var k = -maxK; k <= maxK; k++) {
+      var c = new Float64Array(N), s = new Float64Array(N);
+      for (var i = 0; i < N; i++) { var a = k * TWO_PI * i / N; c[i] = Math.cos(a); s[i] = Math.sin(a); }
+      C[k] = c; S[k] = s;
+    }
+    return { C: C, S: S };
+  }
+  function normalize(W) {
+    var p = 0; for (var i = 0; i < W.length; i++) { var v = Math.abs(W[i]); if (v > p) p = v; }
+    var g = p > 0 ? 0.98 / p : 1; for (var j = 0; j < W.length; j++) W[j] *= g; return W;
+  }
+  // Same formulas and grid as Tools/build_catalog.py and
+  // build_seventh_candidates.py: phi along x (columns), psi along y (rows).
+  var SURFACES = {
+    '15 · Penrose Lattice': function (T, W) {
+      for (var k = 0; k < 5; k++) {
+        var th = TWO_PI * k / 5, kx = Math.round(11 * Math.cos(th)), ky = Math.round(11 * Math.sin(th));
+        addCos(T, W, kx, ky, 1);
+      }
+    },
+    '14 · Knot Shadow': function (T, W) {
+      addCos(T, W, 2, -3, 1); addCos(T, W, 4, -6, 0.45); addCos(T, W, 6, -9, 0.25); addCos(T, W, 3, 2, 0.15);
+    },
+    '10 · Membrane': function (T, W) {
+      var modes = [[1,1,1],[2,1,.55],[1,2,.55],[2,2,.4],[3,1,.3],[1,3,.3],[3,2,.22],[2,3,.22],[3,3,.15],[4,1,.12],[1,4,.12],[4,2,.09],[2,4,.09]];
+      modes.forEach(function (m) { var sm = T.S[m[0]], sn = T.S[m[1]];
+        for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) W[y * N + x] += m[2] * sm[x] * sn[y]; });
+    },
+    '11 · Chladni Ghost': function (T, W) {
+      var s3 = T.S[3], s5 = T.S[5];
+      for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) {
+        var c = s3[x] * s5[y] + s5[x] * s3[y]; W[y * N + x] = (c < 0 ? -1 : 1) * Math.sqrt(Math.abs(c)); }
+    },
+    '12 · Theta Surface': function (T, W) {
+      for (var m = -6; m <= 6; m++) for (var n = -6; n <= 6; n++) {
+        if (m === 0 && n === 0) continue; addCos(T, W, m, n, Math.pow(0.55, m * m + n * n)); }
+    },
+    '16 · Kuramoto Bloom': function (T, W) {
+      var modes = [[1,1,1],[2,1,.55],[1,2,.55],[3,2,.4],[2,3,.4],[3,1,.28],[1,3,.28],[4,3,.2],[3,4,.2]];
+      for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) {
+        var ph = TWO_PI * x / N, ps = TWO_PI * y / N, lock = 1.6 * Math.sin(ph - ps), v = 0;
+        for (var i = 0; i < modes.length; i++) v += modes[i][2] * Math.cos(modes[i][0] * ph + modes[i][1] * ps + lock);
+        W[y * N + x] = v + 0.5 * Math.cos(ph - ps);
+      }
+    }
+  };
+  function addCos(T, W, m, n, amp) {   // cos(m*phi + n*psi), separable
+    var cm = T.C[m], sm = T.S[m], cn = T.C[n], sn = T.S[n];
+    for (var y = 0; y < N; y++) { var cy = cn[y], sy = sn[y], o = y * N;
+      for (var x = 0; x < N; x++) W[o + x] += amp * (cm[x] * cy - sm[x] * sy); }
+  }
+  var _T = null;
+  function makeSurface(name) {
+    if (!_T) _T = tables(12);
+    var W = new Float32Array(N * N); SURFACES[name](_T, W); return normalize(W);
+  }
+
+  function gcd(a, b) { return b ? gcd(b, a % b) : a; }
+  var RATIOS = [];
+  for (var a = 1; a <= 5; a++) for (var b = 1; b <= 5; b++) if (gcd(a, b) === 1) RATIOS.push([a, b, (a - b) / (a + b)]);
+
+  function Engine(sr) {
+    this.sr = sr; this.W = null;
+    this.phi1 = 0; this.phi2 = 0; this.dcX = 0; this.dcY = 0;
+    // targets (set by UI or tour) and smoothed values
+    this.t = { base: 220, h: -0.6, lon: 0, K: 3, gain: 0.35 };
+    this.s = { base: 220, h: -0.6, lon: 0, K: 3, gain: 0 };
+    this.a = 1; this.b = 1; this.count = 0;
+    this.ring = new Float32Array(2 * 4096); this.ringPos = 0;
+  }
+  Engine.prototype.pickLock = function () {
+    var w1 = this.s.base * (1 - this.s.h), w2 = this.s.base * (1 + this.s.h), best = 1e9;
+    for (var i = 0; i < RATIOS.length; i++) {
+      var r = RATIOS[i], ks = Math.abs(r[1] * w2 - r[0] * w1) / (r[0] + r[1]);
+      if (ks < best) { best = ks; this.a = r[0]; this.b = r[1]; }
+    }
+  };
+  Engine.prototype.process = function (out, n) {
+    var W = this.W, s = this.s, t = this.t, sr = this.sr, sm = 1 - Math.exp(-1 / (0.015 * sr));
+    var r = 1 - TWO_PI * 10 / sr;
+    for (var i = 0; i < n; i++) {
+      s.base += (t.base - s.base) * sm; s.h += (t.h - s.h) * sm; s.K += (t.K - s.K) * sm; s.gain += (t.gain - s.gain) * sm;
+      var dl = t.lon - s.lon; dl -= Math.round(dl); s.lon += dl * sm; s.lon -= Math.floor(s.lon);
+      if ((this.count++ & 31) === 0) this.pickLock();
+      var w1 = s.base * (1 - s.h), w2 = s.base * (1 + s.h);
+      var c = s.K * Math.sin(TWO_PI * (this.b * this.phi2 - this.a * this.phi1));
+      this.phi1 += (w1 + c) / sr; this.phi2 += (w2 - c) / sr;
+      this.phi1 -= Math.floor(this.phi1); this.phi2 -= Math.floor(this.phi2);
+      var y = 0;
+      if (W) {
+        var p2 = this.phi2 + s.lon; p2 -= Math.floor(p2);
+        var xf = this.phi1 * N, yf = p2 * N, x0 = Math.floor(xf), y0 = Math.floor(yf);
+        var fx = xf - x0, fy = yf - y0, x1 = x0 + 1 >= N ? 0 : x0 + 1, y1 = y0 + 1 >= N ? 0 : y0 + 1;
+        var a0 = W[y0 * N + x0], a1 = W[y0 * N + x1], b0 = W[y1 * N + x0], b1 = W[y1 * N + x1];
+        var r0 = a0 + fx * (a1 - a0), r1 = b0 + fx * (b1 - b0);
+        y = r0 + fy * (r1 - r0);
+        if ((this.count & 1) === 0) { var k = this.ringPos; this.ring[2 * k] = this.phi1; this.ring[2 * k + 1] = p2; this.ringPos = (k + 1) & 4095; }
+      }
+      this.dcY = y - this.dcX + r * this.dcY; this.dcX = y;
+      out[i] = Math.tanh(this.dcY * s.gain * 1.4) / 1.4;
+    }
+  };
+  Engine.prototype.status = function () {
+    var s = this.s, a = this.a, b = this.b, w1 = s.base * (1 - s.h), w2 = s.base * (1 + s.h);
+    var delta = b * w2 - a * w1, Kstar = Math.abs(delta) / (a + b), locked = s.K >= Kstar;
+    var beat = locked ? 0 : Math.sqrt(delta * delta - Math.pow((a + b) * s.K, 2));
+    return { h: s.h, lon: s.lon, K: s.K, base: s.base, a: a, b: b, w1: w1, w2: w2, ratio: w2 / Math.max(w1, 1e-9),
+             delta: delta, Kstar: Kstar, locked: locked, beat: beat, f0: 2 * s.base / (a + b) };
+  };
+
+  // The tour: one 20-second gesture, shared by the browser button and
+  // the offline render. Returns targets for time t (seconds).
+  function tour(t) {
+    var base = 220;
+    if (t < 5) return { base: base, h: -1, lon: t / 5, K: 6 };                            // south pole: y rate is zero, a plain 1D wavetable; longitude sweeps the row
+    if (t < 12) { var u = (t - 5) / 7; return { base: base, h: -1 + u, lon: 0, K: 6 }; }   // climb through the lock bands
+    if (t < 16) { var v = (t - 12) / 4; return { base: base, h: 0.21, lon: 0, K: 6 * v }; }           // just off 3:2 (needs 2.2 Hz), coupling ramps through the snap
+    var w = (t - 16) / 4; return { base: base, h: 0.21, lon: w, K: 6 };                                // locked 3:2, longitude slides the knot across the surface
+  }
+
+  return { N: N, SURFACES: SURFACES, makeSurface: makeSurface, RATIOS: RATIOS, Engine: Engine, tour: tour };
+})();
+if (typeof module !== 'undefined') module.exports = HTE;
+</script>
+
+<script>
+(function () {
+  var N = HTE.N, TWO_PI = 2 * Math.PI;
+  var ctx = null, node = null, eng = null, playing = false, touring = false, tourStart = 0;
+  var surfName = '15 · Penrose Lattice', surface = null, surfImg = null;
+  var ui = { h: -0.6, lon: 0, yaw: 0.6, tilt: 0.42 };
+
+  var sel = document.getElementById('surface');
+  Object.keys(HTE.SURFACES).forEach(function (k) { var o = document.createElement('option'); o.textContent = k; sel.appendChild(o); });
+  sel.value = surfName;
+
+  function loadSurface(name) {
+    surfName = name; surface = HTE.makeSurface(name);
+    if (eng) eng.W = surface;
+    // 260x260 preview, amber on graphite
+    var S = 260, img = new ImageData(S, S);
+    for (var y = 0; y < S; y++) for (var x = 0; x < S; x++) {
+      var v = surface[Math.floor(y * N / S) * N + Math.floor(x * N / S)], u = (v + 1) / 2, o = 4 * (y * S + x);
+      img.data[o] = 10 + 222 * u * u; img.data[o + 1] = 10 + 174 * u * u; img.data[o + 2] = 15 + 59 * u * u * u; img.data[o + 3] = 255;
+    }
+    var c = document.createElement('canvas'); c.width = S; c.height = S; c.getContext('2d').putImageData(img, 0, 0); surfImg = c;
+  }
+  loadSurface(surfName);
+  sel.onchange = function () { loadSurface(sel.value); };
+
+  function params() {
+    return { base: +document.getElementById('base').value, K: +document.getElementById('K').value, gain: +document.getElementById('gain').value };
+  }
+  function pushTargets() {
+    if (!eng) return; var p = params();
+    eng.t.base = p.base; eng.t.K = p.K; eng.t.gain = p.gain; eng.t.h = ui.h; eng.t.lon = ui.lon;
+  }
+  ['base', 'K', 'gain'].forEach(function (id) {
+    document.getElementById(id).oninput = function () {
+      if (id === 'base') document.getElementById('baseV').textContent = this.value;
+      if (id === 'K') document.getElementById('KV').textContent = (+this.value).toFixed(1);
+      sphereDirty = true; pushTargets();
+    };
+  });
+
+  function start() {
+    if (!ctx) {
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      eng = new HTE.Engine(ctx.sampleRate); eng.W = surface;
+      node = ctx.createScriptProcessor(1024, 0, 1);
+      node.onaudioprocess = function (e) { eng.process(e.outputBuffer.getChannelData(0), e.outputBuffer.length); };
+      node.connect(ctx.destination);
+      eng.s.h = ui.h; eng.s.lon = ui.lon;
+    }
+    ctx.resume(); pushTargets(); playing = true;
+    document.getElementById('play').textContent = '■ stop';
+  }
+  function stop() { if (eng) eng.t.gain = 0; playing = false; touring = false; document.getElementById('play').textContent = '▸ play'; }
+  document.getElementById('play').onclick = function () { playing ? stop() : start(); };
+  document.getElementById('tour').onclick = function () {
+    if (!playing) start(); touring = true; tourStart = performance.now();
+  };
+  document.getElementById('yaw').oninput = function () { ui.yaw = +this.value; sphereDirty = true; };
+
+  // ---- sphere view: orthographic, z up. v = Rx(tilt) * Rz(-yaw) * p
+  function toView(p) {
+    var cy = Math.cos(-ui.yaw), sy = Math.sin(-ui.yaw), ct = Math.cos(ui.tilt), st = Math.sin(ui.tilt);
+    var x1 = cy * p[0] - sy * p[1], y1 = sy * p[0] + cy * p[1], z1 = p[2];
+    return [x1, ct * y1 - st * z1, st * y1 + ct * z1];
+  }
+  function fromView(v) {
+    var cy = Math.cos(-ui.yaw), sy = Math.sin(-ui.yaw), ct = Math.cos(ui.tilt), st = Math.sin(ui.tilt);
+    var x1 = v[0], y1 = ct * v[1] + st * v[2], z1 = -st * v[1] + ct * v[2];
+    return [cy * x1 + sy * y1, -sy * x1 + cy * y1, z1];
+  }
+  function sph(h, lon) { var r = Math.sqrt(Math.max(0, 1 - h * h)), a = TWO_PI * lon; return [r * Math.cos(a), r * Math.sin(a), h]; }
+
+  var sc = document.getElementById('sphere'), sg = sc.getContext('2d'), R = 220, CX = 260, CY = 260;
+  var sphereDirty = true, sphereCache = document.createElement('canvas'); sphereCache.width = 520; sphereCache.height = 520;
+  function renderSphere() {
+    var img = new ImageData(520, 520), d = img.data, p = params(), w = p.K / p.base;
+    for (var py = 0; py < 520; py++) for (var px = 0; px < 520; px++) {
+      var sx = (px - CX) / R, sy = -(py - CY) / R, rr = sx * sx + sy * sy, o = 4 * (py * 520 + px);
+      if (rr > 1) { d[o] = 7; d[o + 1] = 7; d[o + 2] = 11; d[o + 3] = 255; continue; }
+      var depth = Math.sqrt(1 - rr), q = fromView([sx, -depth, sy]), h = q[2];
+      var lon = Math.atan2(q[1], q[0]) / TWO_PI; lon -= Math.floor(lon);
+      var shade = 0.35 + 0.65 * depth, cr = 26, cg = 26, cb = 40;
+      var best = 9, ord = 10;
+      for (var i = 0; i < HTE.RATIOS.length; i++) { var dh = Math.abs(h - HTE.RATIOS[i][2]); if (dh < best) { best = dh; ord = HTE.RATIOS[i][0] + HTE.RATIOS[i][1]; } }
+      if (best <= w) { var t = (1 - 0.5 * best / Math.max(w, 1e-6)) * (ord <= 5 ? 1 : ord <= 7 ? 0.72 : 0.45);
+        cr = 26 + 206 * t; cg = 26 + 158 * t; cb = 40 + 34 * t; }
+      else if (best < 0.003) { cr = 70; cg = 60; cb = 46; }
+      var mer = Math.abs(lon * 12 - Math.round(lon * 12));
+      if (mer < 0.02 * (1.2 - Math.abs(h))) { cr += 22; cg += 22; cb += 30; }
+      d[o] = cr * shade; d[o + 1] = cg * shade; d[o + 2] = cb * shade; d[o + 3] = 255;
+    }
+    sphereCache.getContext('2d').putImageData(img, 0, 0); sphereDirty = false;
+  }
+  var trail = [];
+  function drawSphere() {
+    if (sphereDirty) renderSphere();
+    sg.drawImage(sphereCache, 0, 0);
+    sg.font = '11px ' + getComputedStyle(document.body).getPropertyValue('--mono');
+    sg.fillStyle = 'rgba(200,200,216,0.75)';
+    HTE.RATIOS.forEach(function (r) {
+      if (r[0] + r[1] > 7) return;
+      var f = fromView([0.62, -0.78, 0]), flon = Math.atan2(f[1], f[0]) / TWO_PI;
+      var v = toView(sph(r[2], flon));
+      if (v[1] < 0) sg.fillText(r[0] + ':' + r[1], CX + v[0] * R + 6, CY - v[2] * R + 4);
+    });
+    var cur = eng && playing ? [eng.s.h, eng.s.lon] : [ui.h, ui.lon];
+    trail.push(cur); if (trail.length > 90) trail.shift();
+    for (var i = 0; i < trail.length; i++) {
+      var v = toView(sph(trail[i][0], trail[i][1])); if (v[1] > 0) continue;
+      sg.fillStyle = 'rgba(232,184,74,' + (0.05 + 0.4 * i / trail.length) + ')';
+      sg.beginPath(); sg.arc(CX + v[0] * R, CY - v[2] * R, 2, 0, TWO_PI); sg.fill();
+    }
+    var v = toView(sph(cur[0], cur[1]));
+    sg.strokeStyle = v[1] > 0 ? 'rgba(232,184,74,0.4)' : '#e8b84a'; sg.lineWidth = 2;
+    sg.beginPath(); sg.arc(CX + v[0] * R, CY - v[2] * R, 7, 0, TWO_PI); sg.stroke();
+    sg.fillStyle = 'rgba(138,138,160,0.9)';
+    sg.fillText('1D wavetable · rows', 8, 512); sg.fillText('1D wavetable · columns', 8, 18);
+  }
+  var dragging = false;
+  function pick(e) {
+    var b = sc.getBoundingClientRect(), sx = ((e.clientX - b.left) * 520 / b.width - CX) / R, sy = -((e.clientY - b.top) * 520 / b.height - CY) / R;
+    var rr = sx * sx + sy * sy; if (rr > 1) { var m = Math.sqrt(rr); sx /= m; sy /= m; rr = 1; }
+    var q = fromView([sx, -Math.sqrt(1 - rr), sy]);
+    ui.h = Math.max(-0.995, Math.min(0.995, q[2]));
+    var lon = Math.atan2(q[1], q[0]) / TWO_PI; ui.lon = lon - Math.floor(lon);
+    touring = false; pushTargets();
+  }
+  sc.addEventListener('pointerdown', function (e) { dragging = true; sc.setPointerCapture(e.pointerId); pick(e); });
+  sc.addEventListener('pointermove', function (e) { if (dragging) pick(e); });
+  sc.addEventListener('pointerup', function () { dragging = false; });
+
+  // ---- torus view
+  var tc = document.getElementById('torus'), tg = tc.getContext('2d');
+  function drawTorus() {
+    tg.imageSmoothingEnabled = true; tg.drawImage(surfImg, 0, 0, 520, 520);
+    tg.fillStyle = 'rgba(10,10,15,0.35)'; tg.fillRect(0, 0, 520, 520);
+    if (!eng || !playing) return;
+    tg.fillStyle = 'rgba(74,143,255,0.85)';
+    for (var k = 0; k < 4096; k++) tg.fillRect(eng.ring[2 * k] * 520, eng.ring[2 * k + 1] * 520, 1.4, 1.4);
+  }
+
+  function fmt(x, n) { return (x >= 0 ? ' ' : '') + x.toFixed(n); }
+  function readout() {
+    var el = document.getElementById('readout');
+    if (!eng || !playing) { el.textContent = 'press play'; return; }
+    var s = eng.status(), state;
+    if (s.K === 0 || s.Kstar > 3 * Math.max(s.K, 0.01)) state = '<span class="free">open · far from any lock, the scan fills the surface</span>';
+    else if (s.locked) state = '<span class="lock">locked ' + s.a + ':' + s.b + ' · closed knot · pitch ' + s.f0.toFixed(1) + ' Hz</span>';
+    else state = '<span class="slip">slipping near ' + s.a + ':' + s.b + ' · beats at ' + s.beat.toFixed(2) + ' Hz</span>';
+    el.innerHTML =
+      'height <b>' + fmt(s.h, 3) + '</b> · longitude <b>' + s.lon.toFixed(3) + '</b> cycles<br>' +
+      'x rate <b>' + s.w1.toFixed(1) + '</b> Hz · y rate <b>' + s.w2.toFixed(1) + '</b> Hz · ratio <b>' + s.ratio.toFixed(4) + '</b><br>' +
+      'nearest lock <b>' + s.a + ':' + s.b + '</b> needs coupling ≥ <b>' + s.Kstar.toFixed(2) + '</b> Hz · you have <b>' + s.K.toFixed(2) + '</b><br>' + state;
+  }
+
+  function frame() {
+    if (touring && eng) {
+      var t = (performance.now() - tourStart) / 1000;
+      if (t > 20) { touring = false; } else {
+        var g = HTE.tour(t); eng.t.base = g.base; eng.t.h = g.h; eng.t.lon = g.lon; eng.t.K = g.K;
+        ui.h = g.h; ui.lon = g.lon;
+        document.getElementById('K').value = g.K; document.getElementById('KV').textContent = g.K.toFixed(1);
+        document.getElementById('base').value = g.base; document.getElementById('baseV').textContent = g.base;
+        sphereDirty = sphereDirty || Math.abs(g.K - (frame.lastK || 0)) > 0.25; if (sphereDirty) frame.lastK = g.K;
+      }
+    }
+    drawSphere(); drawTorus(); readout(); requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  // ---- review layer: one note per panel, saved locally, copied as text
+  var KEY = 'torus-hopf-notes-v1', saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+  document.querySelectorAll('section.panel').forEach(function (sec) {
+    var unit = sec.dataset.unit, ta = sec.querySelector('textarea'), note = sec.querySelector('.note');
+    ta.value = saved[unit] || ''; if (ta.value) note.classList.add('open');
+    sec.querySelector('.note-toggle').onclick = function () { note.classList.toggle('open'); };
+    ta.oninput = function () { saved[unit] = ta.value; try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {} };
+  });
+  document.getElementById('copyNotes').onclick = function () {
+    var txt = Object.keys(saved).filter(function (k) { return saved[k]; }).map(function (k) { return '[' + k + '] ' + saved[k]; }).join('\n\n');
+    var done = function () { document.getElementById('copied').textContent = txt ? 'copied' : 'no notes yet'; };
+    if (navigator.clipboard) navigator.clipboard.writeText(txt).then(done, function () { window.prompt('copy your notes', txt); });
+    else window.prompt('copy your notes', txt);
+  };
+})();
+</script>
+</body>
+</html>

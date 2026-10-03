@@ -15,19 +15,20 @@ forward_vector: "I am 2D Torus Wavetable Synthesizer's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-23T04:36:43.543Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — steer the project in **Standing Orders** below, never here._
+> _Regenerated 2026-10-03T13:25:21.354Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 6 · last ran 2026-06-23 (92 days ago)
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 7 · last ran 2026-10-03 (today)
+- **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-06-23 (91 days ago) — Surfaces 7/8/9 finally rendered to audio — Kuramoto Bloom, Matérn Field, Fisher Ridge, scanned at φ. (`torus-steward-014`)
-- **Last commit touching this project:** 2026-09-22 `2488e3d` — deposit(D-2026-09-06-HARVEST): Environments That Hold lands: Creative Coach, Objects to Think With
+- **Last shipped:** 2026-10-03 (today) — September's workshop surfaced: the Kuramoto scan mode and two morph comparisons that were committed but never posted. (`torus-steward-017`)
+- **Last commit touching this project:** 2026-09-26 `97bbad17` — edit(2D Torus Wavetable Synthesizer): the catalog generator seeds pages, never overwrites them
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-on 2026-06-06 you accepted Kuramoto Bloom (16), Matérn Field (17), and Fisher Ridge (18) into the catalog from PNGs alone — the cycle-4 baton flagged that I had no audio scanner yet. Cycle 5 (or someone) added `Tools/scan_surface.py` to the bundle. So the honest cycle-6 move was to actually run them through it. Each is the 1024×1024 surface scanned by two phasors at base 110 Hz, ratio = φ (golden ratio, ≈1.6180339887) — an irrational that opens the scan into a Kronecker flow filling the torus, so the surface's full inharmonic character reads. Six seconds each, mono 32-bit float. Listen and tell me which surface earns its catalog seat most convincingly — and whether the φ ratio was…
+A session on 2026-09-25 built work in this project's workshop and committed it, but never posted to the board, so the scroll never showed it. I'm surfacing it so the trail is honest. There are two pieces. The first is a Kuramoto scan mode: the two phasors pull toward a chosen ratio and snap shut into a closed knot past a threshold. It has an RNBO codebox and a Python reference with identical equations. The second is a first measurement of how surfaces should morph into each other, which was an open decision on the entry.
 
 ### Open asks
 
@@ -43,6 +44,12 @@ _Nothing decided on the board yet._
 
 <!-- scroll:now:end -->
 
+## Plan
+
+<!-- scroll:plan:start -->
+_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+<!-- scroll:plan:end -->
+
 ## Standing Orders
 
 <!-- scroll:orders:start -->
@@ -52,6 +59,63 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="torus-steward-017" -->
+### 2026-10-03 — cycle 7 — September's workshop surfaced: the Kuramoto scan mode and two morph comparisons that were committed but never posted.
+> shipped (late) · already committed 2026-09-25 · steward leans spectral-morph for overlapping pairs
+
+Kuramoto scan: RNBO/torus_2d_kuramoto.codebox and Tools/kuramoto_scan.py share one Euler step per sample. The worked example is base 110 Hz, ratio 1.518, lock 3:2. The scan shimmers at 4 Hz, slows to hiccups, then locks at coupling 0.8 Hz with a 55.4 Hz fundamental. Today's Hopf instrument is built on the same equations. Morphing: Tools/surface_overlap.py measures, for each pair of surfaces, how much spectrum they share. Pairs with nothing in common dip exactly −3 dB at mid-morph whichever way you blend, so equal-power crossfade is the whole fix. Theta to Matérn bottoms out at −7.5 dB as a height-map crossfade against −5.4 dB as a spectral crossfade. That's evidence the spectral method earns its FFT where surfaces overlap. I didn't author these. I'm reporting what is on disk and what the code says.
+
+**Artifacts:**
+- [coupling ramps through the snap on Penrose: shimmer, hiccups, lock.](Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/penrose_kuramoto_ramp.wav)
+- [below, at, and above threshold, side by side.](Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/penrose_kuramoto_three_regimes.wav)
+- [the ramp, plotted.](Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/penrose_kuramoto_ramp.png)
+- [Theta to Matérn, height-map crossfade.](Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/theta_matern_morph_spatial.wav)
+- [Theta to Matérn, spectral crossfade.](Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/theta_matern_morph_spectral.wav)
+- [mid-morph loss: −7.5 dB height-map vs −5.4 dB spectral.](Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/theta_matern_morph_rms.png)
+- [the same measurement for Membrane to Chladni.](Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/membrane_chladni_morph_rms.png)
+
+_Left rough:_ I haven't listened to these and haven't read the Membrane→Chladni plot closely. The morph decision on the entry stays open until your ears weigh in.
+
+_Next moves named:_ Fold the morph finding into the entry's open decision on morphing: equal-power for disjoint pairs, spectral for overlapping ones. That's an edit for an elder or you.
+<sub>`torus-steward-017` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="torus-steward-016" -->
+### 2026-10-03 — cycle 7 — The Hopf control surface is playable: drag a dot on a sphere to steer the torus scanner, with gold lock bands where the scan snaps shut.
+> shipped · browser instrument + two 20 s tour renders + an unverified RNBO codebox · steward leans warps-next
+
+The mapping isn't forced. It falls out of the Hopf map itself. A point (z₁, z₂) on the 3-sphere carries two phases, and those are the torus's two scan phases. The Hopf map keeps two things. One is the balance |z₁|² − |z₂|², which I use as height. The other is the phase difference, which I use as longitude. It discards the shared phase, and that discarded circle is the scan running through time. So each point on the sphere names one orbit of the scanner.
+
+How it plays: height splits a fixed rate budget between the two axes, w1 = base·(1−h) and w2 = base·(1+h). At the south pole the y rate is zero, so you have a plain 1D wavetable and longitude chooses the row. That means the classic wavetable synth is one point on this sphere. The equator is 1:1. Longitude slides where the scan sits on the surface. That only matters when the orbit is closed. On an open orbit it washes out, which is itself a lesson.
+
+I don't set the lock target with a knob. Every 32 samples the engine picks the simple ratio, a:b with both numbers at most 5, that needs the least coupling to lock. The result I didn't expect: every lock band has the same width, coupling ÷ base, in height. By Archimedes' hat-box theorem, equal height means equal area on the sphere. So 1:1 and 4:5 get exactly the same room. When it locks, the pitch is 2·base ÷ (a+b), so it depends only on the sum of the ratio's two numbers.
+
+Checks: the engine's surfaces match the catalog WAVs to float precision (max difference 8×10⁻⁷). The measured slip matches the theory. At height 0.21, near 3:2, it drifts 22.0 / 19.6 / 9.1 / 0 cycles over 2 s at coupling 0 / 1 / 2 / 2.4 Hz, against predicted 22.0 / 19.6 / 9.2 / 0, and it snaps at the predicted 2.2 Hz. The browser page and the offline render run the same engine script, pulled out of the HTML, so they can't drift apart.
+
+The tour, 20 s: 0–5 s at the south pole, a 1D wavetable at 440 Hz with longitude sweeping the rows. 5–12 s climbing the sphere, catching and slipping through the 1:4, 1:3, 1:2, 2:3 bands, each a stepped pitch. 12–16 s parked just off 3:2 while coupling ramps up, snapping shut at 13.5 s. 16–20 s locked at 88 Hz while longitude slides the closed knot across the surface. Same gesture on Penrose and on Knot Shadow.
+
+**Artifacts:**
+- [the instrument: drag the sphere, press play or tour, leave a note on any panel.](Projects/2D Torus Wavetable Synthesizer/Hopf/hopf-control-surface.html)
+- [20 s tour on Penrose: 1D wavetable at the pole, a climb through the lock bands, the snap at 13.5 s, then the locked knot sliding.](Projects/2D Torus Wavetable Synthesizer/Hopf/hopf_tour_penrose.wav)
+- [the same gesture on Knot Shadow.](Projects/2D Torus Wavetable Synthesizer/Hopf/hopf_tour_knot_shadow.wav)
+- [pulls the engine out of the HTML, checks surfaces against the catalog, renders the tour.](Projects/2D Torus Wavetable Synthesizer/Hopf/render_hopf_tour.mjs)
+- [the same mapping as RNBO codebox: height, longitude, coupling params, lock target picked automatically. Unverified.](Projects/2D Torus Wavetable Synthesizer/RNBO/torus_2d_hopf.codebox)
+
+_measured slip vs theory · height 0.21 (near 3:2) · base 220 Hz · 2 s window_
+| coupling (Hz) | measured drift (cycles) | predicted (cycles) |
+| --- | --- | --- |
+| 0 | 21.99 | 22.00 |
+| 1.0 | 19.57 | 19.60 |
+| 2.0 | 9.07 | 9.17 |
+| 2.4 | 0.00 | 0.00 (locked) |
+| 6.0 | 0.00 | 0.00 (locked) |
+
+_Left rough:_ I couldn't press play in a real browser. Headless Chrome drew the page cleanly, and the engine is tested in node, but the live audio path (ScriptProcessor) and the drag interaction are untested. The codebox has never been opened in Max. It also lacks the browser's soft-clip, so keep gain modest.
+
+_Next moves named:_ Give the sphere hands: add the three per-sample Tier-1 warps (phase bend, variable-rate shear, self-displacement) to the shared engine and the codebox together, with a tour that shows each. · On Knot Shadow, park at 2:3, where the scan rides the ridges, and sweep longitude. That's the surface the knot lock was designed for, and it deserves its own render. · When you have Max open: the bare-prototype A/B against 2d.wave~ still gates every codebox, this one included.
+<sub>`torus-steward-016` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="torus-steward-014" -->
 ### 2026-06-23 — cycle 6 — Surfaces 7/8/9 finally rendered to audio — Kuramoto Bloom, Matérn Field, Fisher Ridge, scanned at φ.
 > still working · sonified the three surfaces you greenlit by eye · pick the strongest by ear when you have a minute
