@@ -1,0 +1,83 @@
+// =====================================================================
+// torus_2d_bank.codebox
+//
+// The lookup-table-and-crossfade scanner for the
+// [[2D Torus Wavetable Synthesizer]]. One knob, bankPos, glides through
+// a short stack of surfaces baked offline by Tools/warp_bank.py — every
+// coefficient-space warp in the Torus Warping Catalog (diffusion,
+// anisotropic diffusion, lattice rotation, the spectral masks) plays
+// through this same object; only the bank file changes.
+//
+// Per sample: two bilinear lookups (the frames either side of bankPos)
+// and one lerp. Same lookup and same axis convention as
+// torus_2d_lookup.codebox: X = phi1 = position along a row, Y = phi2 =
+// row index.
+//
+// UNVERIFIED: written without opening Max. It should compile; it has
+// not been heard.
+//
+// PATCHER WIRING (inside the rnbo~ subpatcher):
+//   1. [buffer bankbuf @file penrose_aniso_bank.wav]
+//        — Warp Bank/penrose_aniso_bank.wav: 9 frames of 512 x 512,
+//          back to back, row-major, mono float. Baked with
+//          python3 Tools/warp_bank.py --export-bank \
+//              Wavetables/15_penrose_lattice.wav aniso --size 512 \
+//              -o "Warp Bank/penrose_aniso_bank.wav"
+//   2. [param baseHz] [param ratio] [param bankPos] [param gain]
+//   3. [codebox~] -> [out~ 1]
+//   Change FRAMES / SIZE below if you export a different bank
+//   (diffuse = 7 frames, aniso = 9, rotate = 7, plate / stiff = 2).
+//
+// WHAT TO LISTEN FOR (Penrose aniso bank, baseHz 110, ratio 1.5):
+//   The 3:2 lock holds through every bankPos — the pitch never moves,
+//   only the colour. Sweep bankPos 0 -> 8 slowly: the softening aims
+//   round the lattice like a torch. Penrose is built from five plane
+//   waves of equal length, so plain (isotropic) diffusion only turns it
+//   down; aiming the blur is what changes its shape.
+// =====================================================================
+
+const SIZE = 512;
+const FRAME_LEN = 262144;   // SIZE * SIZE
+const FRAMES = 9;
+
+@param({ min: 20.0, max: 2000.0 }) baseHz = 110.0;
+@param({ min: 0.0,  max: 4.0    }) ratio  = 1.5;
+@param({ min: 0.0,  max: 8.0    }) bankPos = 0.0;   // 0 .. FRAMES-1
+@param({ min: 0.0,  max: 1.0    }) gain   = 0.5;
+
+@state phi1 = 0.0;
+@state phi2 = 0.0;
+
+function frameLookup(frame, p1, p2) {
+    let xf = p1 * SIZE;
+    let yf = p2 * SIZE;
+    let x0 = floor(xf);
+    let y0 = floor(yf);
+    let fx = xf - x0;
+    let fy = yf - y0;
+    let x1 = x0 + 1; if (x1 >= SIZE) x1 = 0;
+    let y1 = y0 + 1; if (y1 >= SIZE) y1 = 0;
+    let base = frame * FRAME_LEN;
+    let s00 = peek("bankbuf", base + y0 * SIZE + x0, 0);
+    let s10 = peek("bankbuf", base + y0 * SIZE + x1, 0);
+    let s01 = peek("bankbuf", base + y1 * SIZE + x0, 0);
+    let s11 = peek("bankbuf", base + y1 * SIZE + x1, 0);
+    let r0 = s00 + fx * (s10 - s00);
+    let r1 = s01 + fx * (s11 - s01);
+    return r0 + fy * (r1 - r0);
+}
+
+phi1 = phi1 + baseHz / samplerate;
+phi2 = phi2 + baseHz * ratio / samplerate;
+if (phi1 >= 1.0) phi1 = phi1 - floor(phi1);
+if (phi2 >= 1.0) phi2 = phi2 - floor(phi2);
+
+// Which two frames, and how far between them.
+let pos = clamp(bankPos, 0.0, FRAMES - 1.0);
+let i0 = floor(pos);
+if (i0 > FRAMES - 2) i0 = FRAMES - 2;
+let f = pos - i0;
+
+let a = frameLookup(i0, phi1, phi2);
+let b = frameLookup(i0 + 1, phi1, phi2);
+out1 = (a + f * (b - a)) * gain;

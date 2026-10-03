@@ -1,0 +1,28 @@
+penrose_lattice
+   none     locked    1742 Hz (100.0% harmonic, 25.0% dead)  open    1381 Hz  kept 1.00
+   diffuse  locked    1753 Hz (100.0% harmonic, 22.9% dead)  open    1426 Hz  kept 0.17
+   aniso    locked    1780 Hz (100.0% harmonic, 18.8% dead)  open    1495 Hz  kept 0.88
+   rotate   locked    1284 Hz ( 99.9% harmonic,  0.0% dead)  open    1286 Hz  kept 0.71
+   plate    locked    1742 Hz (100.0% harmonic, 25.4% dead)  open    1375 Hz  kept 0.99
+   stiff    locked    1980 Hz (100.0% harmonic, 66.7% dead)  open    1068 Hz  kept 0.01
+membrane
+   none     locked     187 Hz ( 99.9% harmonic,  2.2% dead)  open     269 Hz  kept 1.00
+   diffuse  locked     177 Hz ( 99.9% harmonic,  1.6% dead)  open     258 Hz  kept 0.93
+   aniso    locked     188 Hz ( 99.9% harmonic,  2.1% dead)  open     270 Hz  kept 0.99
+   rotate   locked     211 Hz (100.0% harmonic,  3.8% dead)  open     305 Hz  kept 0.89
+   plate    locked     199 Hz ( 99.9% harmonic,  0.1% dead)  open     270 Hz  kept 0.68
+   stiff    locked     149 Hz ( 99.9% harmonic,  0.3% dead)  open     206 Hz  kept 0.83
+knot_shadow
+   none     locked     352 Hz ( 99.9% harmonic,  0.0% dead)  open     400 Hz  kept 1.00
+   diffuse  locked     299 Hz ( 99.9% harmonic,  0.0% dead)  open     340 Hz  kept 0.75
+   aniso    locked     338 Hz ( 99.9% harmonic,  0.0% dead)  open     384 Hz  kept 0.95
+   rotate   locked     392 Hz ( 99.9% harmonic,  0.0% dead)  open     348 Hz  kept 0.57
+   plate    locked     283 Hz ( 99.9% harmonic,  0.0% dead)  open     322 Hz  kept 0.89
+   stiff    locked     530 Hz (100.0% harmonic,  0.0% dead)  open     560 Hz  kept 0.06
+theta_surface
+   none     locked     146 Hz ( 99.9% harmonic,  0.0% dead)  open     156 Hz  kept 1.00
+   diffuse  locked     145 Hz ( 99.9% harmonic,  0.0% dead)  open     156 Hz  kept 0.98
+   aniso    locked     146 Hz ( 99.9% harmonic,  0.0% dead)  open     157 Hz  kept 1.00
+   rotate   locked     157 Hz ( 99.9% harmonic,  0.0% dead)  open     170 Hz  kept 0.84
+   plate    locked     142 Hz ( 99.9% harmonic,  0.0% dead)  open     151 Hz  kept 0.95
+   stiff    locked     143 Hz ( 99.9% harmonic,  0.0% dead)  open     153 Hz  kept 0.99

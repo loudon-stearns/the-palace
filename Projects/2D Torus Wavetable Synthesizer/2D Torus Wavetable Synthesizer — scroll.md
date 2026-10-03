@@ -15,20 +15,20 @@ forward_vector: "I am 2D Torus Wavetable Synthesizer's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-03T13:32:11.786Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-03T13:36:56.280Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 8 · last ran 2026-10-03 (today)
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 9 · last ran 2026-10-03 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-03 (today) — The Hopf instrument has hands now: bend, shear and stir. Each one reshapes the sound live, and none of them can push it out of tune. (`torus-steward-019`)
-- **Last commit touching this project:** 2026-10-03 `67435037` — steward(2D Torus Wavetable Synthesizer): cycle 7 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
+- **Last shipped:** 2026-10-03 (today) — The warp bank is built: five deeper warps baked offline and played by one crossfade knob, with three tours and an RNBO codebox. (`torus-steward-021`)
+- **Last commit touching this project:** 2026-10-03 `3d7e5d82` — steward(2D Torus Wavetable Synthesizer): cycle 8 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read the surface, and their ratio decides whether the sound is harmonic or shimmering. Earlier today I shipped the Hopf control surface: you drag a dot on a sphere and the scan rates follow it, and gold bands mark where the scan locks into a closed knot. This cycle gives that instrument its hands. These are the three cheapest warps from the warp catalog, and each one bends where the scan reads on the surface. They're live in the browser page, in the offline renderer, and in the RNBO codebox. I also measured what each one actually does to the sound.
+This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read the surface, and their ratio decides whether the sound is harmonic or shimmering. Today the Hopf control surface got built (drag a dot on a sphere to steer the scan), and then its three cheapest hands, bend, shear and stir. This cycle builds the machinery the rest of the warp catalog needs. Each warp is baked offline into a short stack of surfaces, and one knob crossfades through the stack while you play. Five warps now run through it: blur, aimed blur, lattice rotation, a plate-ring mask and a stiff-string mask. Along the way I found one mistake in the catalog and one new idea about the sound.
 
 ### Open asks
 
@@ -59,6 +59,43 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="torus-steward-021" -->
+### 2026-10-03 — cycle 9 — The warp bank is built: five deeper warps baked offline and played by one crossfade knob, with three tours and an RNBO codebox.
+> shipped · bank + tours + unverified codebox · steward leans aim-at-the-dead-line next
+
+What I built. Tools/warp_bank.py bakes a bank, meaning 2 to 9 surfaces made from one source surface by one warp at different settings. It plays a bank by crossfading the two frames either side of a position knob, which costs two lookups and one blend per sample whatever the warp is. It can also export a bank as one buffer file for RNBO. RNBO/torus_2d_bank.codebox is that player. Its first bank is Penrose with an aimed blur that turns once round the lattice (9 frames of 512×512). The export holds up: scanned on the 3:2 lock, the 512 version differs from the full 1024 version by −65 dB.
+
+What the measurements say. (1) Every warp in the bank changes which partials sound, never where they sit. On the locked 3:2 knot every frame of every bank stayed 99.9–100% harmonic on all four surfaces I tried. So the bank colours the sound and the ratio alone still decides harmonic versus shimmer. That's the same lesson the hands taught, now true for the whole coefficient side of the catalog. (2) The catalog is wrong about its headline warp. It calls lattice shear 'a single knob that bends harmonic structure into inharmonic.' But integer lattice shear is exactly the original surface scanned at a retuned rate. I rendered both and they match to −60 dB, which is interpolation noise. So a continuous shear between integer steps is two retuned voices crossfaded, not one voice bending. I left it out of the bank and flagged the catalog edit separately. (3) Penrose barely notices plain blur. Its centroid moves 1742 → 1753 Hz even at the strongest setting, because Penrose is made of five waves of equal length and an even blur only turns them down together. Aiming the blur is what reshapes it. (4) The new idea is the dead line. When the scan locks at 3:2, every lattice point along the direction (3, −2) sounds at 0 Hz. Whatever the surface puts there goes silent when the knot closes. That's a quarter of Penrose's energy, and none of Knot Shadow's. Rotate Knot Shadow by 22.5° and 99.6% of it lands on the dead line, which is why its tour thins out in the middle of the rotate section. (5) The masks can only carve what a surface already has. The stiff-string ridge keeps 1% of Penrose and 6% of Knot Shadow, so I capped how much a carved frame can be turned back up (+20 dB) rather than amplify dust.
+
+The tours are 25 s each, held on the locked 3:2 knot (base 110 Hz, fundamental 55 Hz), with five 5-second sections: blur swells and lets go · aimed blur turns once round · rotation to 45° and back · plate ring · stiff ridge.
+
+**Artifacts:**
+- [25 s Penrose tour: blur, aimed blur, rotate, plate ring, stiff ridge, all on the locked 3:2 knot.](Projects/2D Torus Wavetable Synthesizer/Warp Bank/warp_bank_tour_penrose_lattice.wav)
+- [Penrose tour spectrogram. Plain blur barely registers; the aimed blur and rotation are where it moves.](Projects/2D Torus Wavetable Synthesizer/Warp Bank/warp_bank_tour_penrose_lattice.png)
+- [the same tour on Membrane, darker and gentler.](Projects/2D Torus Wavetable Synthesizer/Warp Bank/warp_bank_tour_membrane.wav)
+- [Membrane tour spectrogram.](Projects/2D Torus Wavetable Synthesizer/Warp Bank/warp_bank_tour_membrane.png)
+- [the same tour on Knot Shadow. Listen to the rotate section (10–15 s) as it passes 22.5° and falls onto the dead line.](Projects/2D Torus Wavetable Synthesizer/Warp Bank/warp_bank_tour_knot_shadow.wav)
+- [Knot Shadow tour spectrogram. The harmonic lines never bend; the rotate section is where they reshuffle.](Projects/2D Torus Wavetable Synthesizer/Warp Bank/warp_bank_tour_knot_shadow.png)
+- [the full measurement: centroid, harmonic share, dead-line share and energy kept, per warp, on four surfaces.](Projects/2D Torus Wavetable Synthesizer/Warp Bank/measure.txt)
+- [the first exported bank: Penrose, aimed blur turning 0→180°, 9 frames of 512×512, ready for the codebox.](Projects/2D Torus Wavetable Synthesizer/Warp Bank/penrose_aniso_bank.wav)
+- [the bank player: baseHz, ratio, bankPos, gain. Unverified in Max.](Projects/2D Torus Wavetable Synthesizer/RNBO/torus_2d_bank.codebox)
+- [bakes, tours, measures and exports banks; --check-shear proves lattice shear is a retune.](Projects/2D Torus Wavetable Synthesizer/Tools/warp_bank.py)
+- [draws the labelled tour spectrograms (numpy + tinyplot).](Projects/2D Torus Wavetable Synthesizer/Warp Bank/bank_spectrogram.py)
+
+_each warp frozen at its tour maximum, locked 3:2 at base 110 Hz · centroid in Hz (share of energy on the dead line) · harmonic share was 99.9–100% in every cell_
+| surface | no warp | blur | aimed blur 45° | rotate 45° | plate ring | stiff ridge (energy kept) |
+| --- | --- | --- | --- | --- | --- | --- |
+| Penrose | 1742 (25%) | 1753 (23%) | 1780 (19%) | 1284 (0%) | 1742 (25%) | 1980 (1% kept) |
+| Membrane | 187 (2%) | 177 (2%) | 188 (2%) | 211 (4%) | 199 (0%) | 149 (83% kept) |
+| Knot Shadow | 352 (0%) | 299 (0%) | 338 (0%) | 392 (0%) · 99.6% dead at 22.5° | 283 (0%) | 530 (6% kept) |
+| Theta | 146 (0%) | 145 (0%) | 146 (0%) | 157 (0%) | 142 (0%) | 143 (99% kept) |
+
+_Left rough:_ I haven't listened to any of this, and the codebox has never been opened in Max. The stiff-string ridge was meant to stretch the partials like a piano string, but that only shows with a very slow second scan rate and on surfaces with energy along the ridge, and I didn't render that case. Banks aren't in the browser instrument yet, only offline and in the codebox.
+
+_Next moves named:_ Aim at the dead line on purpose: a bank that slides a surface's energy onto the lock's dead line, so a knob mutes the knot only when it's closed and leaves the shimmer alone. That's a warp the ratio and the surface play together. · Put banks into the Hopf browser instrument as a fourth hand, so the crossfade can be played by dragging, not just rendered. · Render the stiff ridge properly: a slow second rate (around 1% of the first) on Stiff String and Theta, and measure the partial stretch against n·f₀·√(1+B·n²).
+<sub>`torus-steward-021` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="torus-steward-019" -->
 ### 2026-10-03 — cycle 8 — The Hopf instrument has hands now: bend, shear and stir. Each one reshapes the sound live, and none of them can push it out of tune.
 > shipped · browser + offline engine + unverified codebox · steward leans bake-the-hands-next
