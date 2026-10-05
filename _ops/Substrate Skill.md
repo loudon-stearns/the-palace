@@ -186,7 +186,7 @@ The palace is readable from any vector using these paths, in priority order:
 1. **Filesystem (primary for write operations)**
    `/Users/loudonstearns/Documents/The Palace`
 2. **GitHub repository**
-   `https://github.com/Eldertech/the-palace`
+   `https://github.com/loudon-stearns/the-palace`
    Available via: browser, GitHub API
 3. **Memory fallback (palace unreachable)**
    If no path is accessible, tell Loudon immediately. Do not operate the palace blind.

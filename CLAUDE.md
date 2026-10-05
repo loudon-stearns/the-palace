@@ -10,8 +10,8 @@ stage: foundational
 version: "1.26"
 schema: SCHEMA.md
 last_schema_ceremony: 2026-09-26
-github: https://github.com/Eldertech/the-palace
-github_raw: https://raw.githubusercontent.com/Eldertech/the-palace/main
+github: https://github.com/loudon-stearns/the-palace
+github_raw: https://raw.githubusercontent.com/loudon-stearns/the-palace/main
 links:
   - target: "[[JEWEL]]"
     type: connects-to
