@@ -1,9 +1,10 @@
-// Topology — read the freshest palace-map-full-*.json from _ops/maps/.
+// Topology snapshot — read the freshest palace-map-full-*.json from _ops/maps/.
 //
 // Map Build emits dated snapshots (palace-map-full-YYYY-MM-DD.json). The
-// freshest one is the source for STATE's Topology Lens. This lib does no
-// layout — it just selects + parses. Layout happens client-side in the
-// TopologyLens component.
+// local app no longer draws from them: its Topology Lens reads the files as
+// they are now (topology-live.js). The public read view still does —
+// build-public.mjs ships the freshest snapshot, cut to the public set. This
+// lib does no layout — it just selects + parses.
 
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { resolve, join } from 'node:path';

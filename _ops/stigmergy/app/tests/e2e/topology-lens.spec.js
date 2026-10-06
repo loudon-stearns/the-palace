@@ -3,8 +3,8 @@ import { test, expect } from '@playwright/test';
 // v1.0 Phase 5.5 — Topology Lens.
 //
 // STATE has two lenses: PULSE (the ranked list) and TOPOLOGY (the
-// force-directed typed-link graph). The graph is fed by the freshest
-// palace-map-full-*.json in _ops/maps/. Gate-18 minimum bar: nodes +
+// force-directed typed-link graph). The graph is read live from the entries'
+// own frontmatter (src/lib/topology-live.js). Gate-18 minimum bar: nodes +
 // edges + click-to-open-in-STATE. Hubs / orphans / cross-pillar bridges /
 // unsung paths are reserved for follow-up commits.
 
@@ -22,7 +22,7 @@ test.describe('STATE deck — Topology Lens (Phase 5.5)', () => {
     await page.getByTestId('state-lens-topology').click();
     await expect(page.getByTestId('state-lens-topology')).toHaveAttribute('data-active', '1');
     await expect(page.getByTestId('topology-canvas')).toBeVisible({ timeout: 15_000 });
-    // The Box title carries the node/edge counts from the freshest map.
+    // The Box title carries the node/edge counts of the live graph.
     const heading = page.getByText(/TOPOLOGY\s+--\s+typed-link graph\s+\(\d+ nodes, \d+ edges/);
     await expect(heading).toBeVisible();
   });
@@ -115,11 +115,11 @@ test.describe('STATE deck — Topology Lens (Phase 5.5)', () => {
 });
 
 test.describe('STATE deck — Topology API', () => {
-  test('GET /api/topology returns the freshest palace-map-full-*.json', async ({ request }) => {
+  test('GET /api/topology returns the live typed-link graph', async ({ request }) => {
     const res = await request.get('/api/topology');
     expect(res.ok()).toBe(true);
     const data = await res.json();
-    expect(data.source).toMatch(/^_ops\/maps\/palace-map-full-\d{4}-\d{2}-\d{2}\.json$/);
+    expect(data.source).toBe('live');
     expect(Array.isArray(data.nodes)).toBe(true);
     expect(Array.isArray(data.edges)).toBe(true);
     expect(data.nodes.length).toBeGreaterThan(50);

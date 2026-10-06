@@ -173,9 +173,11 @@ export function listEntries(palaceRoot, { use = null } = {}) {
   return out;
 }
 
-// Walk every knowledge entry yielding { path, title, links, body } — used
-// by /api/unsung-paths to compute body-wikilink-not-in-YAML edges. Same
-// exclusions as listEntries; carries the body so wikilinks can be scanned.
+// Walk every knowledge entry yielding { path, title, type, stage,
+// has_forward_vector, links, body } — used by /api/unsung-paths to compute
+// body-wikilink-not-in-YAML edges and by /api/topology to draw the typed-link
+// graph (topology-live.js). Same exclusions as listEntries; carries the body
+// so wikilinks can be scanned.
 export function* walkEntryRecords(palaceRoot) {
   const root = resolve(palaceRoot);
   for (const rel of walkMarkdownFiles(root)) {
@@ -190,6 +192,10 @@ export function* walkEntryRecords(palaceRoot) {
       path: rel,
       title,
       type: typeof frontmatter.type === 'string' ? frontmatter.type : null,
+      // As the map builder reads them: any stage value, stringified; and
+      // whether the key is present at all, not whether it is filled.
+      stage: frontmatter.stage != null ? String(frontmatter.stage) : null,
+      has_forward_vector: 'forward_vector' in frontmatter,
       links: normalizeLinks(frontmatter.links),
       body: typeof body === 'string' ? body : '',
     };
