@@ -73,6 +73,8 @@ links:
 
 # Haptic Handwheel
 
+![[Haptic Handwheel — hero.png]]
+
 One large knob that is a motor and a sensor at once, played as an instrument. Software decides what it feels like, so the same object can be a string, a fret, a platter or a spring. It is research reaching toward a commercial product, and nothing is built yet.
 
 ## The claim
