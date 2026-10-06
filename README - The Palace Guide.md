@@ -170,7 +170,7 @@ The palace draws in three registers, each with its own standard. [[Mermaid Diagr
 
 ### Creating a New Entry
 
-1. Create a new `.md` file in the **palace root** — all knowledge entries (concepts, hubs, projects, questions, spores, sources) live here. The `_ops/` subfolder is reserved for ceremony machinery and working queues only.
+1. Create a new `.md` file. A `project` entry goes in `Projects/`, for example `Projects/Murmuration.md`; its bundle, the folder the project gets built in, sits beside it as `Projects/Murmuration/` once there is something to keep there. Concepts, hubs, questions, spores and sources go in the **palace root**. The `_ops/` subfolder is reserved for ceremony machinery and working queues only. [[SUBSTRATE]] has the full folder shape.
 2. Add YAML frontmatter with at minimum: `title`, `type`, `pillars`, `born`, `stage`
 3. Add at least 2-3 typed links in the frontmatter connecting to existing entries
 4. Write the body: an Origin section (how this idea arrived), the core content, Cross-Pillar Connections, and a Forward Vector (the agent's drive — see "Reading an Entry" above)
