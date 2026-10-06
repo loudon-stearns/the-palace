@@ -73,6 +73,8 @@ Items move off this list when they become entries, get completed, or get compost
 
 - [ ] **Resonance and Damping** — Persistent forward-ghost across 4 cycles from [[Differential Equations]]. The DSP-physics concept central to filter design and physical modeling.
 
+- [ ] **A concept page for physics-as-interface** — parked 2026-10-05 (D-2026-10-05-KNOB) until [[Haptic Handwheel]] has a built proof. The palace names one stance four ways: "physics-as-interface" ([[Waveguide Synthesizer]]), "interface IS the physics" ([[Hyperdimensional Prism]], and Waveguide's forward vector), "not as metaphor but as isomorphism" ([[Action Potential Oscillator]]), and "model the physics, not the gesture" (the Handwheel's starter-build sketch, an AI-drafted line Loudon said to doubt). Before minting, ask whether it folds into [[Objects to Think With]], which already claims the isomorphism line as a name for a different idea: the object that teaches. Next action once the knob exists: read the four sources side by side with the proof in hand, then fold or mint.
+
 - [x] **Leibniz** — ✅ Written 2026-06-16 (`Leibniz.md`, concept, sprout). Distilled from the monadology / Indra's Net material in [[Palace Philosophies]]; carries the windowless-monads-vs-prehension quarrel with [[Whitehead]]. Whitehead's two dangling refs repointed to `[[Leibniz]]` — forward-ghost resolved. 6 links (Palace Philosophies, Whitehead, Hyperdimensional Prism, Meaning and the Link, FOUR PILLARS, Spinoza Conatus).
 
 ---
