@@ -31,10 +31,7 @@ links:
   - target: "[[Confucianism]]"
     type: deepens
     label: teaching-as-ren-and-li
-  - target: "[[Toolkit — Synthesizers]]"
-    type: connects-to
-    label: rtm-source
-  - target: "[[Toolkit — Audio Plugins]]"
+  - target: "[[Loudon's Toolkit]]"
     type: connects-to
     label: rtm-source
   - target: "[[2D Torus Wavetable Synthesizer]]"
@@ -99,7 +96,7 @@ The visual signature is the Lissajous trace inside a sphere — see [[Hyperdimen
 
 ## How it teaches
 
-- **Always-positive, always-supportive-of-makers.** From the RTM stance in [[Toolkit — Synthesizers]] — toward the tools and the people who build them.
+- **Always-positive, always-supportive-of-makers.** From the RTM stance in [[Loudon's Toolkit]] — toward the tools and the people who build them.
 - **The instrument teaches while it sounds.** Specific to general: the [[2D Torus Wavetable Synthesizer]] is *a concrete entry point to 2D Fourier analysis, torus geometry, quasi-periodicity, bifurcation theory, and quasicrystal mathematics.*
 - **Teaching as a Confucian act.** [[Confucianism]] names the teacher-student relationship here as a worked reading of *ren* and *li* — the relational ethic of the whole.
 - **Theatrical, dub-lineage interface mythology where it fits.** Some instruments carry deliberate mythological framing (the séance-medium-as-dub-engineer in [[Retrospective Delay]]); teaching doesn't require sober affect.
@@ -107,7 +104,7 @@ The visual signature is the Lissajous trace inside a sphere — see [[Hyperdimen
 ## Lost branches
 
 - **A scaffolded curriculum.** Every project cut into five sessions, mapped by prerequisite, the Four Pillars as its spine, a launch in September 2026. Drawn in April 2026, set down 2026-09-26 in favor of a looser presence building slowly. Its map is archived as [[Loudon Live — Curriculum Map]].
-- **Loudon Live as a reputation engine** for later income (manufacturer-sponsored teaching, an original hardware line). Set down; those hopes stay Loudon's own in [[Toolkit — Synthesizers]].
+- **Loudon Live as a reputation engine** for later income (manufacturer-sponsored teaching, an original hardware line). Set down; those hopes stay Loudon's own in [[Loudon's Toolkit]].
 - **Front-and-center confessional framing:** rejected as the primary register.
 - **Tools-first identity:** rejected.
 

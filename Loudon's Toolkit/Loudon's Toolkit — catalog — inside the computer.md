@@ -1,29 +1,18 @@
 ---
-title: Toolkit — Audio Plugins
-type: meta
-pillars:
-  - tools
-  - creation
-  - practice
-born: 2026-04
-stage: growing
+title: "Loudon's Toolkit — catalog — inside the computer"
+born: 2026-04-21
 links:
   - target: "[[Loudon's Toolkit]]"
-    type: emerged-from
-    label: inventory-node
-  - target: "[[Toolkit — Synthesizers]]"
     type: connects-to
-    label: software-extends-hardware
-  - target: "[[Toolkit — Audio Effects]]"
-    type: connects-to
-    label: overlaps-fx
-  - target: "[[LDN RTM]]"
-    type: connects-to
-    label: feeds-the-queue
-forward_vector: "I grow into an annotated, opinionated plugin inventory — RTM candidates, teaching use, creative role and depth of relationship per plugin — and feed a curated shortlist to the LDN RTM queue."
+    label: catalog-of
+forward_vector: "I grow into an annotated, opinionated inventory of everything that runs inside the computer — RTM candidates, teaching use, creative role and depth of relationship per tool — and feed a curated shortlist to the LDN RTM queue."
 ---
 
-# Toolkit — Audio Plugins
+# Inside the computer
+
+Everything in [[Loudon's Toolkit]] that runs as software. The physical gear, including the computer itself, is in [[Loudon's Toolkit — catalog — outside the computer|Outside the computer]].
+
+## Plugins
 
 VST3 plugin inventory from `/Library/Audio/Plug-Ins/VST3`. Organized by manufacturer. Working stub building toward a fully annotated inventory with relationship quality and RTM notes per plugin.
 
@@ -40,9 +29,7 @@ VST3 plugin inventory from `/Library/Audio/Plug-Ins/VST3`. Organized by manufact
 
 **RTM:** the Read The Manual series is its own project now, [[LDN RTM]]. The plugins marked as RTM candidates below feed its queue (LDN RTM § Series).
 
----
-
-## Plugin Table — By Manufacturer
+### By manufacturer
 
 | Manufacturer | Plugins | Primary Category | Notes |
 |---|---|---|---|
@@ -121,12 +108,26 @@ VST3 plugin inventory from `/Library/Audio/Plug-Ins/VST3`. Organized by manufact
 | **Zynaptiq** | MORPH 3 PRO, MORPH 3 PRO DualMonoIn | Spectral / Morphing | AI-assisted audio morphing and transformation |
 | **VCV** | VCV Rack 2 | Modular Synthesis | Open source modular environment; DAW plugin version |
 
----
-
-## Notes for Future Sessions
+### Notes for future sessions
 
 - **Manufacturer attribution: COMPLETE.** All plugins fully attributed as of v6. RC 24/RC 48 were removed — Loudon does not recognize them; RC-20 Retro Color (XLN Audio) is the correct plugin and already in the table.
 - **[[LDN RTM]] shortlist** — Prime candidates: Eventide H3000 Factory, u-he Diva + Zebra2, Reaktor 6, Newfangled Pendulate, MeldaProduction full suite, Surge XT, Vital, Soundtoys complete bundle, Polyverse full collection, Klevgrand Tomofon.
 - **LDN full plugin list** — Hello World confirmed. Full list: click LDN in Ableton's plugin browser to see all custom exports.
 - **Custom plugin ecosystem** — Loudon builds with RNBO and Max/MSP. The LDN manufacturer tag identifies his own VST3 exports. Worth a future palace entry on the plugin-building practice itself.
-- **Expressive E / Touché** — Lié plugin is installed. Confirm Touché hardware for the MIDI Controllers category entry.
+- **Expressive E / Touché** — Lié plugin is installed. Confirm Touché hardware for the controllers section of [[Loudon's Toolkit — catalog — outside the computer|Outside the computer]].
+- **[[Tract Mirror]]** — *not in the table; confirm with Loudon.* A JUCE build of his own, installed 2026-06-09 at `~/Library/Audio/Plug-Ins/VST3/Tract Mirror.vst3` under the manufacturer name "Loudon Live" (`Projects/Tract Mirror/Tract Mirror — build plan — JUCE VST.md`, Phase 3c). It was built after this scan, and it sits in the user-level folder; the scan above names only the system-level `/Library/Audio/Plug-Ins/VST3` as its source. Ask whether his own builds belong here, and whether that folder holds others.
+
+## Hosts and environments
+
+*Not yet gathered by interview. What the palace already says:*
+
+- **Ableton Live** — the DAW; the central hub for arrangement, routing and live performance.
+- **Max/MSP and RNBO** — where Loudon builds his own instruments and plugins. The LDN manufacturer tag in the table above marks his own VST3 exports.
+
+## Design and art software
+
+*Not yet gathered.*
+
+## Programming languages and environments
+
+*Not yet gathered.*
