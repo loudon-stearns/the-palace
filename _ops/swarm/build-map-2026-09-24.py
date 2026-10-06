@@ -2,11 +2,11 @@
 """Palace Map builder — 2026-09-24.
 
 Builds `_ops/maps/palace-map-full-<date>.{json,tsv,adjacency.txt}` — the map the linters,
-partition-palace.py, new-entry-catchup.py and STIGMERGY's public read view all read.
+partition-palace.py and new-entry-catchup.py all read.
 
-**This builder has a twin (2026-10-06).** STIGMERGY's local TOPOLOGY lens no longer reads the
-dated map: `/api/topology` draws the same graph live from the files, with the node and edge
-rules below restated in `_ops/stigmergy/app/src/lib/topology-live.js`. Change a rule here —
+**This builder has a twin (2026-10-06).** STIGMERGY no longer reads the dated map: its TOPOLOGY
+lens — in the app and on the public read view — draws the same graph from the files, with the
+node and edge rules below restated in `_ops/stigmergy/app/src/lib/topology-live.js`. Change a rule here —
 the canon types, the exclude lists, what counts as an ops card, how a link target is read —
 and change it there. The app's `tests/integration/topology-parity.test.js` runs the newest
 `build-map-*.py` over the real tree and fails when the two differ.

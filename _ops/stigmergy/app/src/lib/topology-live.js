@@ -4,7 +4,9 @@
 // Weave, the linters and the partitioner all argue from; that file is a fixed
 // picture on purpose. The TOPOLOGY lens sits in STATE — "what is known now" —
 // so it draws from this module instead: the same walk the entry list uses,
-// turned into the same { meta, nodes, edges } shape the snapshot has.
+// turned into the same { meta, nodes, edges } shape the snapshot has. The
+// app's server reads it on every request; the public read view reads it once,
+// at publish time (scripts/build-public.mjs).
 //
 // Every rule below is the Python builder's, restated. Two builders that
 // disagree would make the lens and the Weave see different palaces, so
@@ -119,13 +121,20 @@ export function buildGraph(records, { generated = null } = {}) {
   };
 }
 
+// Local calendar day, YYYY-MM-DD — the day the reader is in, not UTC's.
+function today() {
+  const d = new Date();
+  const pad = (n) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+}
+
 // Walk the palace and build the graph. One read of every entry's
 // frontmatter — the same cost as the entry list.
-export function readLiveMap(palaceRoot) {
+export function readLiveMap(palaceRoot, { generated = today() } = {}) {
   const records = [];
   for (const r of walkEntryRecords(palaceRoot)) {
     // The body is the heavy part of a record and the graph never reads it.
     records.push({ path: r.path, type: r.type, stage: r.stage, has_forward_vector: r.has_forward_vector, links: r.links });
   }
-  return buildGraph(records, { generated: new Date().toISOString().slice(0, 10) });
+  return buildGraph(records, { generated });
 }

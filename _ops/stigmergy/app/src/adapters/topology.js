@@ -1,6 +1,6 @@
 // Topology adapter — fetches the typed-link graph: read live from the files
-// by the server endpoint, or (public read view) the shipped Map Build
-// snapshot. Returns null on network/HTTP failure rather than
+// by the server endpoint, or (public read view) the copy read at publish
+// time. Returns null on network/HTTP failure rather than
 // throwing; the UI renders an inline error band instead.
 
 import { IS_PUBLIC, dataUrl } from '../lib/public-mode.js';
