@@ -11,7 +11,7 @@
 //
 // 1. The app: `vite build` with VITE_PUBLIC=1, so only the STATE deck ships.
 // 2. The snapshot: the same functions the /api server runs (listEntries,
-//    readEntry, buildEntryTree, readLatestMap, findUnsungEdges), filtered to
+//    readEntry, buildEntryTree, readLiveMap, findUnsungEdges), filtered to
 //    the published set and written as JSON under data/.
 // 3. The files those pages show, under files/: heroes, icons, body images;
 //    for a rich face, its text, manifest and pieces — and the rich face page
@@ -30,7 +30,7 @@ import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { listEntries, readEntry, walkEntryRecords } from '../src/lib/entries.js';
 import { buildEntryTree } from '../src/lib/entry-tree.js';
-import { readLatestMap } from '../src/lib/topology.js';
+import { readLiveMap } from '../src/lib/topology-live.js';
 import { findUnsungEdges, buildPalaceIndex } from '../src/lib/unsung-paths.js';
 import { loadEntryUse } from '../src/lib/entry-use.js';
 import { pathId, encodeSegments } from '../src/lib/public-mode.js';
@@ -308,16 +308,20 @@ function filterTree(node) {
 }
 writeJson('data/tree.json', { root: filterTree(tree.root), counts, ts: new Date().toISOString() });
 
+// The typed-link graph as the files stand at publish time — the same walk
+// the app's lens reads live (topology-live.js), not the dated Map Build
+// snapshot, so the public graph is never older than the pages beside it.
+// Only published pages, and only links with both ends published.
 let linkCount = 0;
-const map = readLatestMap(ROOT);
-if (map) {
+{
+  const map = readLiveMap(ROOT, { generated: day });
   const nodes = map.nodes.filter((n) => pubPaths.has(n.path));
   const ids = new Set(nodes.map((n) => n.id));
   const edges = map.edges.filter((e) => ids.has(e.source) && ids.has(e.target));
-  // Ghost lists and frontmatter errors name private pages; they stay home.
-  const { ghost_taxonomy, yaml_errors, ...meta } = map.meta || {};
   linkCount = edges.length;
-  writeJson('data/topology.json', { source: map.source, meta: { ...meta, node_count: nodes.length, edge_count: edges.length }, nodes, edges });
+  // The meta is rebuilt, not passed through: duplicate_ids can name private pages.
+  const meta = { generated: day, scope: 'published', node_count: nodes.length, edge_count: edges.length };
+  writeJson('data/topology.json', { source: 'published', meta, nodes, edges });
 }
 
 const records = [];

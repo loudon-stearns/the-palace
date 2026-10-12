@@ -101,8 +101,8 @@ export async function previewEphemeral({ home, mandate, include, lensSubject }) 
 
 // Ranked glass candidates for a lensing subject (GET /api/lens/suggest),
 // nearest-by-link-distance first — [[The Lens]]'s "lean on the graph to
-// suggest" design. A 404 (no Map Build snapshot yet) is not an error the UI
-// needs to surface loudly; the picker just falls back to the unranked index.
+// suggest" design. A failed fetch is not an error the UI needs to surface
+// loudly; the picker just falls back to the unranked index.
 export async function fetchLensSuggestions(subject, limit = 8) {
   try {
     const res = await fetch(`/api/lens/suggest?subject=${encodeURIComponent(subject)}&limit=${limit}`, {

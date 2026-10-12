@@ -622,8 +622,8 @@ test.describe(`phase ${PHASE} captures`, () => {
   }
 
   if (PHASE === '18') {
-    // v1.0 Phase 5.5 — Topology Lens. Captures the typed-link graph against
-    // the freshest palace-map-full-*.json (force-directed canvas), plus the
+    // v1.0 Phase 5.5 — Topology Lens. Captures the typed-link graph, read
+    // live from the files (force-directed canvas), plus the
     // entry reader landed via a node click.
 
     test('phase-18-v1.0/topology-overview.png', async ({ page }) => {

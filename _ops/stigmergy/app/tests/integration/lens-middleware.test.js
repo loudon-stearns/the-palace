@@ -7,8 +7,8 @@ import request from 'supertest';
 import { blackboardMiddleware } from '../../server/middleware.js';
 
 // GET /api/lens/suggest — ranks candidate glass pages for a lensing subject
-// by link-distance over the freshest palace-map-full-*.json, per [[The
-// Lens]]'s "lean on the graph to suggest" design.
+// by link-distance over the live typed-link graph (read from the entries'
+// own frontmatter), per [[The Lens]]'s "lean on the graph to suggest" design.
 
 function makeServer(palaceRoot) {
   const plugin = blackboardMiddleware(palaceRoot);
@@ -25,26 +25,21 @@ function makeServer(palaceRoot) {
   });
 }
 
-function makeTempPalace({ withMap = true } = {}) {
+const entry = (links = []) => [
+  '---', 'type: concept', 'links:',
+  ...links.map((t) => `  - { target: "[[${t}]]", type: connects-to }`),
+  '---', '', 'body', '',
+].join('\n');
+
+function makeTempPalace({ withEntries = true } = {}) {
   const root = mkdtempSync(resolve(tmpdir(), 'stigmergy-lens-test-'));
   mkdirSync(resolve(root, '_ops/swarm/persistent'), { recursive: true });
   writeFileSync(resolve(root, '_ops/swarm/persistent/blackboard.jsonl'), '', 'utf8');
-  if (withMap) {
-    mkdirSync(resolve(root, '_ops/maps'), { recursive: true });
-    const map = {
-      meta: { generated: '2026-06-16' },
-      nodes: [
-        { id: 'Subject', type: 'concept' },
-        { id: 'Neighbor', type: 'concept' },
-        { id: 'TwoHop', type: 'concept' },
-        { id: 'Islanded', type: 'concept' },
-      ],
-      edges: [
-        { source: 'Subject', target: 'Neighbor', type: 'connects-to' },
-        { source: 'Neighbor', target: 'TwoHop', type: 'connects-to' },
-      ],
-    };
-    writeFileSync(resolve(root, '_ops/maps/palace-map-full-2026-06-16.json'), JSON.stringify(map));
+  if (withEntries) {
+    writeFileSync(resolve(root, 'Subject.md'), entry(['Neighbor']));
+    writeFileSync(resolve(root, 'Neighbor.md'), entry(['TwoHop']));
+    writeFileSync(resolve(root, 'TwoHop.md'), entry());
+    writeFileSync(resolve(root, 'Islanded.md'), entry());
   }
   return root;
 }
@@ -78,10 +73,21 @@ describe('GET /api/lens/suggest', () => {
     expect(res.status).toBe(400);
   });
 
-  test('404s cleanly when no Map Build snapshot exists yet', async () => {
-    root = makeTempPalace({ withMap: false });
+  test('an empty palace has no candidates, and says so plainly', async () => {
+    root = makeTempPalace({ withEntries: false });
     server = makeServer(root);
     const res = await request(server).get('/api/lens/suggest?subject=Subject');
-    expect(res.status).toBe(404);
+    expect(res.status).toBe(200);
+    expect(res.body.candidates).toEqual([]);
+  });
+
+  test('never offers a page that has been removed from disk', async () => {
+    root = makeTempPalace();
+    server = makeServer(root);
+    rmSync(resolve(root, 'Neighbor.md'));
+    const res = await request(server).get('/api/lens/suggest?subject=Subject');
+    expect(res.status).toBe(200);
+    expect(res.body.candidates.map((c) => c.title)).toEqual(['Islanded', 'TwoHop']);
+    expect(res.body.map_source).toBe('live');
   });
 });

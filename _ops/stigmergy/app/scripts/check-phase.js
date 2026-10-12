@@ -216,9 +216,12 @@ const PHASES = {
   18: {
     label: 'v1.0 Phase 5.5 — Topology Lens',
     vitest: [
-      'topology.test.js', 'topology-roles.test.js', 'topology-bridges.test.js',
+      'topology-live.test.js', 'topology-roles.test.js', 'topology-bridges.test.js',
       'unsung-paths.test.js', 'entry-sort.test.js', 'pulse.test.js',
     ],
+    // The lens reads the files live; the parity test holds that read to the
+    // Python map builder (it skips, loudly, without python3 + PyYAML).
+    integration: ['topology-middleware.test.js', 'topology-parity.test.js'],
     playwright: [
       'boot.spec.js', 'tokens.spec.js', 'topology-lens.spec.js',
     ],

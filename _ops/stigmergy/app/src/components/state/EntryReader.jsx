@@ -45,7 +45,7 @@ export default function EntryReader({
   // Ranked glass candidates for the OPEN entry (link-distance, nearest first —
   // [[The Lens]]'s "lean on the graph to suggest" design). Fetched once when
   // the picker opens; null while loading/unavailable (falls back to the
-  // free-text + datalist search, which always works regardless of map freshness).
+  // free-text + datalist search, which always works).
   const [suggestions, setSuggestions] = useState(null);
 
   // Navigation (path change): show "loading <path>" then fetch. This blank is
@@ -358,7 +358,7 @@ export default function EntryReader({
         {picking !== null ? (
           <div data-testid="lens-suggestions" style={{ width: '100%', marginTop: 6, display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 6 }}>
             <span style={{ fontSize: 10, color: 'var(--phosphor-dim)', textShadow: 'none', textTransform: 'uppercase', letterSpacing: '.06em' }}>
-              nearest on the graph{suggestions === null ? '…' : suggestions.length === 0 ? ' — none (no Map Build snapshot yet; search above)' : ''}
+              nearest on the graph{suggestions === null ? '…' : suggestions.length === 0 ? ' — none yet (search above)' : ''}
             </span>
             {suggestions?.map((c) => (
               <span

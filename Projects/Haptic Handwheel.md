@@ -45,7 +45,7 @@ links:
   - target: "[[Logarithmic Interface Scaling]]"
     type: connects-to
     label: resolution-where-it-matters
-  - target: "[[Toolkit — Synthesizers]]"
+  - target: "[[Loudon's Toolkit]]"
     type: connects-to
     label: toward-the-hardware-product
   - target: "[[Quality Manifesto]]"
@@ -133,7 +133,7 @@ Two shapes are in view. One is the instrument above. The other is simpler: a kno
 
 Of the two, the context knob is the nearer product and the instrument is the research. That was Claude's read, and Loudon agreed.
 
-[[Toolkit — Synthesizers]] names building and selling original synthesizer and effects hardware as a long-term goal of Loudon's. This is a controller, and a first step in that direction. [[Quality Manifesto]] makes the case for physical making beside the screen. The lean past this one object is Loudon's:
+[[Loudon's Toolkit]] names building and selling original synthesizer and effects hardware as a long-term goal of Loudon's. This is a controller, and a first step in that direction. [[Quality Manifesto]] makes the case for physical making beside the screen. The lean past this one object is Loudon's:
 
 > "I am interested in building digital controllers that feel like vintage instruments and respond in musical ways, and this is a step in that direction."
 

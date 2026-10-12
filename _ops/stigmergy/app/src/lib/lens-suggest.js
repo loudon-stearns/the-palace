@@ -1,5 +1,5 @@
 // lens-suggest.js — rank candidate GLASS pages for a lensing subject by
-// link-distance over the typed-link graph (the freshest palace-map-full-*.json,
+// link-distance over the typed-link graph (read live from the files, the
 // same source TopologyLens already reads).
 //
 // [[The Lens]]'s own design names the actual hard problem: N pages give N²
@@ -11,7 +11,7 @@
 // proximity — transferred). Link-distance is a real first-pass filter, not a
 // perfect one; it is a ranking, not a judgment of a pairing's actual spark.
 //
-// Pure function over {nodes, edges} (the shape readLatestMap already returns)
+// Pure function over {nodes, edges} (the shape readLiveMap already returns)
 // — no I/O here, so it is trivially unit-testable without a fixture palace.
 
 // BFS over the UNDIRECTED typed-link graph from `subjectTitle`. A `mirrors` or

@@ -1,14 +1,12 @@
 // server/api/lens.js — GET /api/lens/suggest?subject=<title>&limit=<n>
 //
 // Ranks candidate GLASS pages for a lensing subject by link-distance over the
-// freshest palace-map-full-*.json (the same source TopologyLens reads), per
+// live typed-link graph (the same source TopologyLens reads), per
 // [[The Lens]]'s own design: "lean on the graph to suggest high-value
-// lensings — never make the user hunt N²." A 404 (no map snapshot yet) is
-// not fatal to the feature — the client falls back to the unranked full-index
-// picker it already has.
+// lensings — never make the user hunt N²."
 
 import { jsonResponse } from '../http.js';
-import { readLatestMap } from '../../src/lib/topology.js';
+import { readLiveMap } from '../../src/lib/topology-live.js';
 import { rankLensCandidates } from '../../src/lib/lens-suggest.js';
 
 const DEFAULT_LIMIT = 8;
@@ -24,11 +22,7 @@ export async function lensRoutes(ctx) {
     return true;
   }
 
-  const map = readLatestMap(palaceRoot);
-  if (!map) {
-    jsonResponse(res, 404, { error: 'no palace-map-full-*.json found in _ops/maps/ — run a Map Build first' });
-    return true;
-  }
+  const map = readLiveMap(palaceRoot);
 
   const limitRaw = Number.parseInt(query.get('limit'), 10);
   const limit = Number.isFinite(limitRaw) && limitRaw > 0 ? Math.min(limitRaw, MAX_LIMIT) : DEFAULT_LIMIT;

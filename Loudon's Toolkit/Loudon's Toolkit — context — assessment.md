@@ -5,41 +5,33 @@ links:
   - target: "[[Loudon's Toolkit]]"
     type: connects-to
     label: working-doc-of
-forward_vector: "I am the mason's notebook behind Loudon's Toolkit: interview notes, category status and session continuity. I stay working substrate, not canon, and I retire into the entry's Archive when every category is deposited."
+forward_vector: "I am the mason's notebook behind Loudon's Toolkit: interview notes, catalog status and session continuity. I stay working substrate, not canon, and I retire into the entry's Archive when both catalogs are gathered in full."
 ---
 
 # Loudon's Toolkit — assessment (working doc)
 
-The mason's notebook for building the [[Loudon's Toolkit]] cluster. Not a palace entry — a working surface. Interview notes, status tracking, raw captures, and session continuity live here.
+The mason's notebook for building [[Loudon's Toolkit]] and its two catalogs. Not a palace entry — a working surface. Interview notes, status tracking, raw captures, and session continuity live here.
 
 **Resumption protocol for fresh Claude instances:**
 1. Read this file.
-2. Check the Category Status table — find the first category with status `open` or `in-progress`.
-3. If `in-progress`, read the Raw Notes section for that category and continue from where it left off.
-4. If `open`, start Phase 1 elicitation using the standard survey questions below.
-5. When a category reaches `drafted`, run the Deposit Ceremony to write the entry, then mark it `deposited`.
+2. Check the Catalog Status table — pick the first section still open in either catalog.
+3. If it is `in-progress`, read the Raw Notes section for it and continue from where it left off.
+4. If it is `open`, start Phase 1 elicitation using the standard survey questions below.
+5. When a section's notes are `drafted`, show Loudon and write them into the catalog they belong to, then mark the section `gathered`. A catalog is a file in this folder, not an entry of its own, so there is no entry to mint. A change to what the main page itself says still goes through the [[Deposit Ceremony]].
 6. After each session, update the Session Log at the bottom of this file.
 
 ---
 
-## Category Status
+## Catalog Status
 
-| Category | Status | Entry File | Notes |
+One entry, two catalogs, split at the only line that holds: inside the computer and outside it. The eleven categories this notebook began with are sections of those two files now.
+
+| Catalog | File | Gathered | Still open |
 |---|---|---|---|
-| Synthesizers | deposited | `Toolkit — Synthesizers.md` | Two clarifications pending — see entry comments |
-| Musical Instruments | open | `Toolkit — Musical Instruments.md` | |
-| MIDI Controllers | open | `Toolkit — MIDI Controllers.md` | |
-| Drum Machines | open | `Toolkit — Drum Machines.md` | |
-| Microphones & Speakers | open | `Toolkit — Microphones and Speakers.md` | |
-| Audio Effects | open | `Toolkit — Audio Effects.md` | |
-| Computers & Audio Hardware | open | `Toolkit — Computers and Audio Hardware.md` | |
-| Audio Plugins | deposited | `Toolkit — Audio Plugins.md` | Stub from filesystem scan; ~50 manufacturers; large verify table remaining |
-| 2026-04 | Audio Plugins | Filesystem scan of VST3 folder. ~350 plugins identified. Manufacturer table written. Large unattributed table needs Loudon review. |
-| Graphic Design & Art Software | open | `Toolkit — Graphic Design and Art Software.md` | |
-| Programming Languages & Environments | open | `Toolkit — Programming Languages and Environments.md` | |
-| Workshop Tools | open | `Toolkit — Workshop Tools.md` | |
+| Outside the computer | `Loudon's Toolkit — catalog — outside the computer.md` | Synthesizers (interviewed) · Drum machines and Controllers (only what the synth interview named; Touché unconfirmed) · Wanted | Instruments · Microphones and speakers · Hardware effects · Computers and audio interfaces · Workshop tools |
+| Inside the computer | `Loudon's Toolkit — catalog — inside the computer.md` | Plugins (VST3 scan, attribution complete; no interview yet) | Hosts and environments · Design and art software · Programming languages and environments |
 
-**Status key:** `open` → `in-progress` → `drafted` → `deposited` → `enriching`
+**Section status:** `open` → `in-progress` → `drafted` → `gathered` (written into its catalog) → `enriching`
 
 ---
 
@@ -63,7 +55,7 @@ Asked for every category. Adapt language to domain as needed.
 
 **Q1 — Inventory (hardware only — software to be done separately):**
 - ASM Hydrasynth Explorer
-- Sequential Prophet Rev-6
+- Sequential Prophet-6
 - Waldorf Blofeld (desktop module)
 - Blip Blox (old version)
 - DSI/Sequential Evolver Desktop (confirmed — separate from Hydrasynth Explorer)
@@ -184,6 +176,8 @@ Asked for every category. Adapt language to domain as needed.
 
 Things noticed during interviews that should become typed links — either across toolkit entries or to existing palace entries.
 
+*These rows predate the 2026-10-06 fold. The category entries they name were never written or have been retired into the two catalogs, where a tool that crosses the line is listed once, outside. [[Loudon Live]] and [[Haptic Handwheel]] now link to the main page for the RTM stance and the hardware product.*
+
 | Source | Target | Suggested Link Type | Notes |
 |---|---|---|---|
 | Toolkit — Synthesizers | Toolkit — Drum Machines | connects-to | Erica Synths machine appears in both |
@@ -194,9 +188,21 @@ Things noticed during interviews that should become typed links — either acros
 
 ---
 
+## Open Flags
+
+Carried here on 2026-10-06 so they are not lost with the pages that held them. Loudon has not been asked about the first two.
+
+- **Two project candidates.** The synth page flagged *Performance Configuration* and *Preset Management* (now on the main page under "What the toolkit is working toward") as "strong candidates for their own palace project entries once they develop further — each has a clear status, forward vector, and deliverable. Flag for a future deposit session." [[Generative Preset Development]] already links to the main page as `preset-infrastructure`. The same flag sits unchecked at `_ops/Palace To-Do/Palace To-Do — Archive.md:209`.
+- **`type: hub` was never confirmed.** The main page was typed `hub` at birth, and carried a note asking a Weave to confirm it. SCHEMA §1 earns that type at five inbound typed links. After the fold it has five (Generative Preset Development, Hero and Avatar Maker, Loudon Live, LDN RTM, Haptic Handwheel), and it no longer anchors a cluster of entries. Hub or not is the Weave's call, or Loudon's.
+- **A weave flag points at the retired synth page.** Board id `commons-the-palace-1791311804809` (2026-10-06, from Haptic Handwheel) asks that the Hardware Product line point at [[Haptic Handwheel]] as a first step, and whether "synthesizer/effects hardware" should widen to include controllers. That line is on the main page now. The flag has not been answered.
+
+---
+
 ## Session Log
 
 | Date | Category | What Happened |
 |---|---|---|
 | 2026-04 | — | Working doc + hub skeleton created. |
 | 2026-04 | Synthesizers | Interview complete. Raw notes captured. Entry drafted and deposited. |
+| 2026-04 | Audio Plugins | Filesystem scan of VST3 folder. ~350 plugins identified. Manufacturer table written. Large unattributed table needs Loudon review. |
+| 2026-10-06 | — | The fold. The two category entries became two catalogs in this folder, split inside and outside the computer. The nine category entries never written became catalog sections. The three modes of use and the synth page's Ecosystem Role were dropped from the page on Loudon's word; the raw notes above still hold the modes. Prophet confirmed as the Prophet-6. |

@@ -2,13 +2,13 @@
 //   GET /api/entries       — recursive index of palace .md entries
 //   GET /api/tree          — folder-structure tree (TREE lens), bundles nested
 //   GET /api/unsung-paths  — body-wikilink edges not formalized in YAML
-//   GET /api/topology      — the freshest palace-map-full-*.json
+//   GET /api/topology      — the typed-link graph, read live from the files
 //   GET /api/entry?path=   — one entry's full read shape
 
 import { jsonResponse } from '../http.js';
 import { listEntries, readEntry, walkEntryRecords } from '../../src/lib/entries.js';
 import { buildEntryTree } from '../../src/lib/entry-tree.js';
-import { readLatestMap } from '../../src/lib/topology.js';
+import { readLiveMap } from '../../src/lib/topology-live.js';
 import { findUnsungEdges, buildPalaceIndex } from '../../src/lib/unsung-paths.js';
 import { entryUse } from '../../src/lib/entry-use.js';
 
@@ -46,14 +46,10 @@ export async function entriesRoutes(ctx) {
     return true;
   }
 
-  // The most recent Map Build snapshot in _ops/maps/.
+  // The typed-link graph as the files stand now — not the dated Map Build
+  // snapshot, which stays the Weave's fixed picture (see topology-live.js).
   if (urlPath === '/api/topology' && method === 'GET') {
-    const map = readLatestMap(palaceRoot);
-    if (!map) {
-      jsonResponse(res, 404, { error: 'no palace-map-full-*.json found in _ops/maps/' });
-      return true;
-    }
-    jsonResponse(res, 200, map);
+    jsonResponse(res, 200, readLiveMap(palaceRoot));
     return true;
   }
 

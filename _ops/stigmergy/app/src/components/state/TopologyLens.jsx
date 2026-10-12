@@ -19,9 +19,10 @@ import {
 } from '../../lib/topology-avatars.js';
 import { fileUrl } from '../../lib/public-mode.js';
 
-// TOPOLOGY -- the typed-link graph lens. Renders the freshest
-// palace-map-full-*.json as a force-directed canvas. Clicking a node
-// opens that entry in STATE via onSelect(path). Layers, painted bottom-up:
+// TOPOLOGY -- the typed-link graph lens. Renders the graph (read from the
+// files: live in the app, at publish time in the public view) as a
+// force-directed canvas. Clicking a node opens that entry in STATE via
+// onSelect(path). Layers, painted bottom-up:
 // unsung paths / typed edges / cross-pillar bridges, then hub-orphan-default
 // dots, then per-entry avatar art (the bundle `<Title> — icon.png`) for the
 // nodes that carry it — toggleable from the legend.
@@ -692,8 +693,13 @@ export default function TopologyLens({ onSelect, entries = [], defaultDim = DEFA
 
   const nodeCount = state.meta?.node_count ?? '?';
   const edgeCount = state.meta?.edge_count ?? '?';
+  // The app reads the files as they are now; the public read view carries the
+  // graph as it stood when the site was built, and says which day.
+  const sourceNote = state.source === 'published'
+    ? `as published ${state.meta?.generated ?? ''}`.trim()
+    : 'read live from the files';
   return (
-    <Box title={`TOPOLOGY  --  typed-link graph  (${nodeCount} nodes, ${edgeCount} edges from ${state.source ?? '?'})`} tone="double">
+    <Box title={`TOPOLOGY  --  typed-link graph  (${nodeCount} nodes, ${edgeCount} edges, ${sourceNote})`} tone="double">
       <Legend stats={legendStats} showAvatars={showAvatars} onToggleAvatars={toggleAvatars} />
       <GroupControls
         dim={groupDim}

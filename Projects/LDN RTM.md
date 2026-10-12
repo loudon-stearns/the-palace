@@ -32,7 +32,7 @@ links:
   - target: "[[Quality Manifesto]]"
     type: connects-to
     label: refuses-the-count
-  - target: "[[Toolkit — Audio Plugins]]"
+  - target: "[[Loudon's Toolkit]]"
     type: connects-to
     label: future-series-source
   - target: "[[LDN RTM — Live 12]]"
@@ -95,9 +95,9 @@ The stated purpose is to become genuinely comfortable making screen content and 
 ## Series
 
 - **[[LDN RTM — Live 12]]** — series one. In progress.
-- **Queued:** Serum, Soundtoys, and the [[Toolkit — Audio Plugins]] shortlist (H3000 Factory, Diva, Zebra2, Reaktor 6, Surge XT, Vital, MeldaProduction).
+- **Queued:** Serum, Soundtoys, and the [[Loudon's Toolkit]] shortlist (H3000 Factory, Diva, Zebra2, Reaktor 6, Surge XT, Vital, MeldaProduction).
 - **Software-first:** screenable, cheaper for students, accessible. Hardware appears only in manufacturer-sponsored work.
-- **Sponsored:** a manufacturer buying an RTM is buying a slot in an established, numbered, exhaustive format — a much better thing to sell than a one-off, and one of the hopes Loudon keeps in [[Toolkit — Synthesizers]].
+- **Sponsored:** a manufacturer buying an RTM is buying a slot in an established, numbered, exhaustive format — a much better thing to sell than a one-off, and one of the hopes Loudon keeps in [[Loudon's Toolkit]].
 
 ## The control panel — a documented aesthetic override
 
