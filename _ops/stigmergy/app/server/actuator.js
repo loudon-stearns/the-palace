@@ -9,15 +9,27 @@
 //      answer Write/Edit permission prompts, so without
 //      `--permission-mode bypassPermissions` the worker hangs forever. The
 //      default argv carries it.
-//   2. Existence != liveness. Before trusting a pid, verify via
-//      `ps -p <pid> -o command=` that it is actually our worker -- the OS
+//   2. Existence != liveness. Before trusting a pid from the pid FILE, verify
+//      via `ps -p <pid> -o command=` that it is actually our worker -- the OS
 //      reuses pids, and a recycled pid reads as "alive" under a bare
-//      kill(pid,0). This is `pidIsOurWorker`. Never skipped.
+//      kill(pid,0). This is `whoHoldsPid`. Skipped in exactly one case: the
+//      worker this very process fired and has not yet reaped, whose pid the OS
+//      cannot give to anyone else.
 //   3. Exit cleanup. When the worker exits, remove the pid file -- otherwise
 //      stale pid state blocks the next fire and the surface wedges silently.
 //      The 'exit' handler does this while the server lives; the ps-liveness
 //      check in isAlive() heals stale state across restarts.
 //   4. Single global worker per lane. Refuse a second fire while one is alive.
+//   5. "ps could not say" is not "not ours". python3 here is a launcher that
+//      re-execs into Python.app a few ms after the spawn; for under a
+//      millisecond of that swap the kernel has no command line for the pid,
+//      and ps prints the bare name in parentheses -- "(python3.14)" -- with
+//      exit 0. Deleting the pid file on that answer left a live render reading
+//      idle for the rest of its run, and the lane then fired a second one
+//      (caught 2026-10-12, about 1 fire in 1,000 under load). A ps that
+//      times out or fails to run says no more than that. Only an answer ps
+//      could actually read removes a pid file. A lane held this way frees
+//      itself at the next ask ps can answer; by hand, delete its .worker.pid.
 //
 // "Carry the lessons, not the language." The Flask app is retired (Phase 4.5);
 // the liveness check and cleanup -- the parts that took real debugging -- live
@@ -64,16 +76,34 @@ export function createActuator({
     if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
   }
 
-  // scar #2: `ps -p <pid> -o command=` must contain the signature.
-  function pidIsOurWorker(pid) {
+  // The pid of the worker THIS process fired and has not yet reaped. The OS
+  // cannot give a child's pid to anyone else before its parent reaps it, and
+  // the 'exit' handler runs in the same turn as the reap, before any other
+  // code here -- so until that handler clears it, this pid needs no ps to
+  // vouch for it.
+  let ownPid = null;
+
+  // scars #2 + #5: ask `ps -p <pid> -o command=` who holds a pid.
+  //   'ours'    -- the command line carries the signature.
+  //   'foreign' -- ps read a command line without it (a recycled pid), reports
+  //                the process dead and unreaped ("<defunct>"), or finds no
+  //                such process (exit 1 with nothing printed on either stream).
+  //   'unknown' -- ps printed no command line (macOS prints the bare name in
+  //                parentheses, "(name)", mid-exec; or nothing at all), or ps
+  //                itself timed out, failed to run, or exited with an error.
+  function whoHoldsPid(pid) {
+    let out;
     try {
-      const out = execFileSync('ps', ['-p', String(pid), '-o', 'command='], {
+      out = execFileSync('ps', ['-p', String(pid), '-o', 'command='], {
         timeout: 2000, encoding: 'utf8',
       });
-      return out.includes(signature);
-    } catch (_) {
-      return false; // ps failed / no such process / timeout -> conservatively not ours
+    } catch (e) {
+      const said = `${(e && e.stdout) || ''}${(e && e.stderr) || ''}`.trim();
+      return e && e.status === 1 && said === '' ? 'foreign' : 'unknown';
     }
+    if (out.includes(signature)) return 'ours';
+    const line = out.trim();
+    return line === '' || /^\(.*\)$/.test(line) ? 'unknown' : 'foreign';
   }
 
   function cleanPid() {
@@ -90,6 +120,8 @@ export function createActuator({
       return { running: false, pid: null };
     }
     if (!Number.isInteger(pid)) return { running: false, pid: null };
+    // Our own unreaped child: certain, and the one case ps is not asked.
+    if (pid === ownPid) return { running: true, pid };
     // Cheap existence probe.
     try {
       process.kill(pid, 0);
@@ -97,8 +129,10 @@ export function createActuator({
       cleanPid();
       return { running: false, pid: null };
     }
-    // Existence != liveness -- verify it is actually our worker.
-    if (!pidIsOurWorker(pid)) {
+    // Existence != liveness -- verify it is actually our worker. Only a clear
+    // 'foreign' removes the file; when ps could not say, the pid exists and the
+    // lane stays held until an ask that can tell (scar #5).
+    if (whoHoldsPid(pid) === 'foreign') {
       cleanPid();
       return { running: false, pid: null };
     }
@@ -176,6 +210,7 @@ export function createActuator({
     });
 
     const pid = child.pid;
+    if (Number.isInteger(pid)) ownPid = pid;
     try {
       writeFileSync(pidFile, String(pid));
       writeFileSync(startedFile, nowIso);
@@ -187,6 +222,7 @@ export function createActuator({
     // removes the pid file (only if it still names THIS pid -- avoids racing a
     // newer fire). The ps-liveness check heals it across server restarts.
     child.on('exit', (code, signal) => {
+      if (ownPid === pid) ownPid = null;
       try {
         if (existsSync(pidFile) && readFileSync(pidFile, 'utf8').trim() === String(pid)) {
           unlinkSync(pidFile);
