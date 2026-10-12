@@ -140,6 +140,8 @@ The FFT analysis of Wavetable A is computed per-buffer (not per-sample) whenever
 
 The primary display is the **Wavetable B editor** — a graph where X is partial number and Y is cents deviation. The harmonic baseline is a bold horizontal line at Y=0, always visible, always anchoring the display. The current frame of Wavetable B is drawn as a colored curve above or below this line. Adjacent frames are ghosted slightly to show the temporal trajectory. Dragging the curve upward bends partials sharp; downward bends them flat; a smooth upward bow from left to right is piano character; a step-jump pattern is bell character; randomized jitter is stochastic scatter.
 
+[[The Curve Is the Material]] argues for a different front door to this editor: a library of named function families, each with a parameter or two, with free drawing kept as a mode rather than the default. That refinement is open and not adopted here; this page still describes the drawn curve.
+
 Below the Wavetable B graph: a frame scanner with an independent envelope and LFO routing. Above: the Wavetable A display in its standard waveform or spectral view.
 
 The UI teaches as you use it. You cannot look at the flat horizontal line and miss its meaning. The pedagogy is structural, not instructional.

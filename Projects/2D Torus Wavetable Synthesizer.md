@@ -57,6 +57,12 @@ links:
   - target: "[[Wavetable Oscillator]]"
     type: connects-to
     label: second-clock
+  - target: "[[Rank-N Lattice Analysis]]"
+    type: mirrors
+    label: its-own-oscilloscope
+  - target: "[[Volterra Kernels and the Torus]]"
+    type: mirrors
+    label: same-field-as-an-effect
 ---
 # 2D Torus Wavetable Synthesizer
 
@@ -95,7 +101,7 @@ A second inharmonicity layer comes from physical modeling. The piano stiffness c
 
 (Disambiguation: "wavetable" here is used in its oscillator sense — the surface is read to produce a signal. Wavetables can also be used as filters, via waveshaping or spectral morphing; that's a separate and worthwhile direction, flagged below as a lost branch.)
 
-## The Seven Surfaces — Design Language
+## The Surfaces — Design Language
 
 The wavetable surface *is* the instrument's voice. Each surface is a different physical or mathematical world made audible. The current library:
 
@@ -115,7 +121,7 @@ A symmetric morph stack across these surfaces is constrained by point group: sur
 
 ## The Five Generating Logics — Authoring Methods
 
-The seven surfaces are instances. The five logics are the *methods* by which surfaces get authored. They are stackable layers, not competing alternatives.
+The surfaces are instances. The five logics are the *methods* by which surfaces get authored. They are stackable layers, not competing alternatives.
 
 1. **Direct Fourier coefficient design.** Sculpt c_{mn} explicitly. Best for surfaces specified spectrally rather than spatially (Theta Surface, Stiff String, Penrose Interference Lattice).
 2. **Operator algebra.** Define W as the eigenfunction of a differential operator on the torus. Laplace-Beltrami gives standard 2D Fourier modes; anisotropic diffusion breaks axis symmetry; nonlinear operators (p-Laplacian) yield non-sinusoidal eigenfunctions with natural harmonic richness; Dirac operator yields spinor-valued eigenfunctions topologically entangled with the torus. Generating question: *what differential equation does this instrument obey?*
@@ -125,18 +131,18 @@ The seven surfaces are instances. The five logics are the *methods* by which sur
 
 ## Warps — A Second Surface Library
 
-The seven surfaces are *what the instrument is*; the warps are *what the player does to it while playing*. Together they form two orthogonal libraries: a library of voices (surfaces) and a library of hands (warps that reshape voices in real time). The full warp library is in [[2D Torus Wavetable Synthesizer — catalog — warps|Torus Warping Catalog]] — fifteen entries from per-axis phase bend (Tier 1, three lines of codebox) to Hopf-fibration parameterization (Tier 4, speculative).
+The surfaces are *what the instrument is*; the warps are *what the player does to it while playing*. Together they form two orthogonal libraries: a library of voices (surfaces) and a library of hands (warps that reshape voices in real time). The full warp library is in [[2D Torus Wavetable Synthesizer — catalog — warps|Torus Warping Catalog]] — fifteen entries from per-axis phase bend (Tier 1, three lines of codebox) to Hopf-fibration parameterization (Tier 4, speculative).
 
 Two architectural lessons from the warp catalog have already shaped the implementation path:
 
 - **Linear phase-space warps are absorbed by scan rates.** Shear and rotation in (φ₁, φ₂) coordinates produce nothing beyond retuning. To make these structural they must operate on the surface itself. This isn't a limitation — it's the architecture telling you exactly where each kind of expressivity belongs.
 - **The lookup-table-and-crossfade pattern dominates.** Most warps split cleanly into "offline coefficient-space transformation, online crossfade" and "online phase math." The split is the implementation taxonomy that matters.
 
-Warps land *after* the RNBO prototype is alive — first the surface plays cleanly, then the per-sample Tier-1 warps (phase bend, variable-rate phase shear, self-displacement) earn their seat, then the lookup-table-and-crossfade infrastructure gets built once and the rest of Tier 1/Tier 2 unlock together.
+The per-sample warps are built: phase bend, variable-rate phase shear and self-displacement run in the browser instrument's engine as three hands — bend, shear and stir. The bake-and-crossfade machinery is built too: `Tools/warp_bank.py` bakes one warp into a short stack of surfaces and one knob crossfades through the stack, so far for blur, aimed blur, lattice rotation, a plate-ring mask and a stiff-string mask. The bank plays offline and in a codebox, not yet in the browser. None of it has been heard, and their codeboxes have not been opened in Max; the bare-prototype A/B against `2d.wave~` still comes first.
 
-## Hopf Fibration as Control Surface (Next-Steps Territory)
+## Hopf Fibration as Control Surface
 
-The Hopf fibration S³ → S² is not a waveform generator. Its role is as a control topology. The Kuramoto bifurcation surface in (K, Δω) parameter space has topological structure that maps naturally onto S² — and the linked-fiber structure of the Hopf bundle gives a control space where moving "around" S² produces continuous but globally non-trivial phase and ratio changes. Linked fibers ≈ linked timbral identities. The geometry doesn't automatically deliver musical legibility; the mapping from S² to synthesis parameters has to be deliberately constructed. Flagged as a high-value step once the core instrument is built and a performance interface is needed.
+The Hopf fibration S³ → S² is not a waveform generator. Its role is as a control topology. The Kuramoto bifurcation surface in (K, Δω) parameter space has topological structure that maps naturally onto S² — and the linked-fiber structure of the Hopf bundle gives a control space where moving "around" S² produces continuous but globally non-trivial phase and ratio changes. Linked fibers ≈ linked timbral identities. The geometry doesn't automatically deliver musical legibility; the mapping from S² to synthesis parameters has to be deliberately constructed. A first mapping is built as a browser instrument, `Hopf/hopf-control-surface.html`: height on the sphere splits a fixed rate budget between the two scan axes, longitude is the phase difference between them, and the engine locks to whichever simple ratio needs the least coupling. At the south pole the second rate is zero, so the classic 1D wavetable synth is one point on this sphere. Built, not yet heard: it has not been played in a real browser, and its codebox has not been opened in Max.
 
 ## Implementation Path
 
@@ -160,7 +166,7 @@ This project genuinely activates all four pillars, which makes it a strong proje
 ## Open Questions
 
 - How is the morphing implemented across surfaces — crossfading c_{mn} coefficients in spectral space, or crossfading W directly in spatial space? They give different transition sonics.
-- Should the Kuramoto trajectory replace the linear scan, or augment it as an alternative scan mode? K as a morph parameter between regimes is a third option.
+- Should the Kuramoto trajectory replace the linear scan, or stay beside it as a second scan mode? It exists as a second mode — `Tools/kuramoto_scan.py` and `RNBO/torus_2d_kuramoto.codebox`, with the Hopf instrument built on the same equations — and has not been heard, so the choice is still open. K as a morph parameter between regimes is a third option.
 - Surface resolution and interpolation scheme — to be settled empirically.
 - How does the UI expose the design language? Direct Fourier coefficient editing, surface painting, parametric presets, or some combination?
 - How does the Hopf control surface get mapped to musically legible parameters? The mapping is the work, not the formula. Across Loudon's instruments this is the hardest problem, harder than the DSP. [[Neural Granular Synthesis — spec — control-vocabulary-math|control-vocabulary-math]] is a worked case on a different engine: a crowd of spiking neurons reduced to four playable knobs.
@@ -175,15 +181,13 @@ Paths opened across the source conversations and not folded into this project (e
 - **Persistence homology of audio** and **synchrosqueezing reassignment.** Analytical / inverse-problem frontier. Adjacent.
 - **Convolution kernels that scan T^N alongside audio.** The convolutional sibling of this synthesizer, flagged in [[DSP in Looping Dimensions]].
 
-## Status (2026-04-27)
+## What Exists
 
-The instrument is at the *catalog-and-listen* phase, with the warp framework now folded in as planning material for what comes after the prototype. The math is real on disk; Loudon has confirmed the wavetables sound like they were promised to; each surface is reading as a *family* of sounds rather than a single voice — which is exactly the architectural promise paying out. Concretely:
-
-- **Diagnostic verified.** [[00 — Test Diagnostic Wavetable]] passes the Stage-1 patch tests; the 1024×1024 rebuild kept anchor positions exact at Y = k/16.
-- **Catalog built and verified.** [[2D Torus Wavetable Synthesizer — catalog — wavetables|2D Wavetable Catalog]] holds 14 entries (as of 2026-06-06): a 16-anchor diagnostic, four utility wavetables, and nine named surfaces (Membrane, Chladni Ghost, Theta, Stiff String, Knot Shadow, Penrose, Kuramoto Bloom, Matérn Field, Fisher Ridge). The 2026-06-06 expansion added the three Logic 3/4/5 surfaces, closing the five-generating-logics inventory. All entries are 1024×1024 (square — Y axis is sampled as densely as X so audio-rate Y phasors don't introduce row-stepping aliasing). Loudon's evaluation of the original 11: "these wavetables work well."
-- **Warp framework documented.** [[2D Torus Wavetable Synthesizer — catalog — warps|Torus Warping Catalog]] folds in the fifteen-warp design space developed in conversation — three places a warp can live (phase / coefficient / surface), four tiers of complexity, and the architectural lessons that fall out (linear phase-space warps are scan-rate-absorbed; lookup-table-and-crossfade is the dominant pattern). Companion to [[2D Torus Wavetable Synthesizer — catalog — wavetables|2D Wavetable Catalog]] — surfaces are voices, warps are hands.
-- **Tools are in `Tools/`.** `visualize_wavetable.py` renders any well-formed wavetable WAV as a heightmap or stacked-rows PNG. `build_catalog.py` regenerates every catalog entry idempotently. `rebuild_diagnostic.py` regenerates the diagnostic. All three are dependency-light Python (numpy + Pillow).
-- **Loudon's read.** Each surface feels like a family of sounds, not a single voice. The next moves on the table are: an RNBO prototype to confirm the math under live control alongside Max's `2d.wave~`; then more exotic territory — 3D wavetables on T³ and surface-to-surface morphing.
+- **The catalog.** [[2D Torus Wavetable Synthesizer — catalog — wavetables|2D Wavetable Catalog]] holds 14 tables, all 1024×1024: a 16-anchor diagnostic, four utility wavetables and nine named surfaces. Loudon on the first eleven: "these wavetables work well," each surface reading as a family of sounds rather than a single voice. The three newest — Kuramoto Bloom, Matérn Field, Fisher Ridge — are rendered to audio and not yet heard.
+- **The warps.** [[2D Torus Wavetable Synthesizer — catalog — warps|Torus Warping Catalog]] maps fifteen of them; what is built is under Warps, above.
+- **A Hopf control surface and a Kuramoto scan mode**, built and not yet heard.
+- **Codeboxes** in `RNBO/`. None has passed the A/B against `2d.wave~` that gates them.
+- **Tools** in `Tools/`; the wavetables catalog lists them.
 
 For what the project has made, newest first, and where it stands now, see [[2D Torus Wavetable Synthesizer — scroll]].
 

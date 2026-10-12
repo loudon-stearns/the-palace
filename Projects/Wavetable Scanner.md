@@ -33,6 +33,9 @@ links:
   - target: "[[Progressive Staging]]"
     type: exemplifies
     label: sketch-study-piece-is-staging
+  - target: "[[Generative Wavetable Libraries]]"
+    type: connects-to
+    label: borrows-its-packer
 tags: [artifact, synthesis, wavetable, dsp, web]
 ---
 

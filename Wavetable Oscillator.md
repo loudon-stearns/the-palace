@@ -6,7 +6,7 @@ pillars:
   - creation
 born: 2026-10
 stage: sprout
-forward_vector: "I want to meet every reader who arrives asking about wavetables: say what the oscillator is in plain words, hold the harmonic limit to a few sentences that point at their proof, send each reader on to the entry that pushes past it, and get the loop identity heard, a table read and a delay loop subtracting to silence."
+forward_vector: "I want to meet every reader who arrives asking about wavetables: say what the oscillator is in plain words, hold the harmonic limit to a few sentences that point at their proof, send each reader on to the entry that pushes past it, and get the loop identity heard, a stored cycle and a delay loop subtracting to silence."
 links:
   - target: "[[DSP in Looping Dimensions]]"
     type: exemplifies
@@ -16,7 +16,7 @@ links:
     label: obstruction-theorem
   - target: "[[Dispersion Table]]"
     type: enables
-    label: loop-is-the-table
+    label: loop-is-the-cycle
   - target: "[[Waveguide Synthesizer]]"
     type: connects-to
     label: the-lossy-loop
@@ -53,7 +53,7 @@ Most instruments stack many cycles, called frames, into a table and add a Positi
 
 A delay line is a memory that plays back whatever went into it a fixed time ago. Feed its output straight back into its input, losing nothing, and whatever is in it comes round again unchanged, once per trip. That is a stored cycle being read around and around: the loop's contents are the cycle, and the time for one trip is the period. [[Dispersion Table]] rests on this identity.
 
-The two differ in how they change pitch. The oscillator reads faster; the loop gets shorter. Sample for sample they match only when one trip is a whole number of samples. In between, the loop needs a small filter to land between samples. [[Waveguide Synthesizer]] starts from the loop with a filter and a little loss in it, which is a plucked string.
+The two differ in how they change pitch. The oscillator reads faster; the loop gets shorter. Sample for sample they match only when one trip is a whole number of samples. In between, the loop needs a small filter to land between samples. [[Waveguide Synthesizer]] starts from a loop that loses a little each trip, highs first, which is a plucked string.
 
 ## Why it can only be harmonic
 
