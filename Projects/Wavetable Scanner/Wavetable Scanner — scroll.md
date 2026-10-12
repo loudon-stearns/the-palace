@@ -50,7 +50,7 @@ _Loudon's standing direction for this project. The steward reads this zone every
 
 No steward has posted a made thing for this project yet, so the trail opens with what the bundle already holds (1 media file, newest first):
 
-- [wavetable_scanner.html](Wavetable Scanner/wavetable_scanner.html) · 2026-09-23
+- [wavetable_scanner.html](Projects/Wavetable Scanner/wavetable_scanner.html) · 2026-09-23
 <sub>backfill · scroll born 2026-09-23</sub>
 <!-- /scroll:entry -->
 <!-- scroll:making:end -->
