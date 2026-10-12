@@ -69,7 +69,7 @@ You are within a web of interconnected markdown files forming a knowledge graph 
 {{NEW_ENTRIES_BLOCK}}
 
 ## READ DEPTH
-Read the frontmatter of every member. Read the bodies of the load-bearing ones, and — for the open-question and merge jobs — read the *Open Questions* / *Forward Vectors* tails of every member. Find files by globbing **/*.md; they may sit in root, Projects/, Shop/, People/, Palace development/, _ops/, or Modes of Collaboration/.
+Read the frontmatter of every member. Read the bodies of the load-bearing ones, and — for the open-question and merge jobs — read the *Open Questions* / *Forward Vectors* tails of every member. Find files by globbing **/*.md; they may sit in root, Projects/, Shop/, People/, Palace development/, _ops/, or inside another entry's folder (Cross-Domain Resonances/, Modes of Collaboration/).
 
 ## YOUR TASKS
 ### Core (Pool 1) — do all three:
