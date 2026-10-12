@@ -1,11 +1,11 @@
 import { describe, test, expect, beforeEach, afterEach } from 'vitest';
-import { mkdtempSync, rmSync, writeFileSync, existsSync } from 'node:fs';
-import { execFileSync } from 'node:child_process';
+import { mkdtempSync, mkdirSync, rmSync, writeFileSync, existsSync } from 'node:fs';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { resolve, join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
-  buildMessageFromStaged, readStagedDiff, clearStaleLocks,
+  buildMessageFromStaged, readStagedDiff, clearStaleLocks, isStagedDeletion, halfNamedMoves,
 } from '../../scripts/palace-commit.mjs';
 import { commitSelected } from '../../server/commit.js';
 
@@ -130,6 +130,111 @@ describe('palace-commit', () => {
       expect(r.committed).toContain(EM);
       expect(g('show', `HEAD:${EM}`)).toMatch(/carry the move/);
       expect(g('status', '--porcelain=v1').trim()).toBe('');
+    });
+  });
+
+  // A moved entry. The committer used to read the "before" side at the NEW
+  // path, find nothing there, and log the move as a birth (da73cb79 on main: a
+  // false `Palace-Stage: Wavetable Scanner: born->sprout` plus false
+  // Palace-Vector lines on a move). Each test starts with `Foo.md` and its
+  // bundle folder moved into Projects/ by `git mv`, nothing else changed.
+  describe('a renamed (moved) entry', () => {
+    const GOTCHAS = 'Foo — gotchas.md';
+    const derived = (msg) => msg.split('\n').filter((l) => /^Palace-(Stage|Vector):/.test(l));
+    const cli = (...args) => spawnSync('node', [CLI, ...args], {
+      cwd: root, encoding: 'utf8', env: { ...process.env, PALACE_ROOT: root },
+    });
+    const MOVE = ['--kind', 'edit', '--scope', 'Foo', '--summary', 'move into Projects/', '--verify', 'verified'];
+
+    beforeEach(() => {
+      mkdirSync(resolve(root, 'Foo'));
+      writeFileSync(resolve(root, 'Foo', GOTCHAS), '---\ntitle: "Foo — gotchas"\nforward_vector: "I will warn."\n---\n# Gotchas\nmind the step\n');
+      g('add', '-A');
+      g('commit', '-q', '-m', 'edit(Foo): its gotchas\n\nPalace-Kind: edit\nPalace-Verify: verified');
+      mkdirSync(resolve(root, 'Projects'));
+      g('mv', 'Foo.md', 'Projects/Foo.md');
+      g('mv', 'Foo', 'Projects/Foo');
+    });
+
+    test('a pure move derives no stage or vector line', () => {
+      const { paths, mdChanges } = readStagedDiff(root);
+      expect(paths.sort()).toEqual(['Projects/Foo.md', `Projects/Foo/${GOTCHAS}`].sort());
+      expect(mdChanges).toHaveLength(2);
+      for (const m of mdChanges) {
+        expect(m.frontmatterChanges).toEqual([]);
+        expect(m.bodyChanged).toBe(false);
+        expect(m.wasAdded).toBe(false);
+      }
+      const msg = buildMessageFromStaged(root, { kind: 'edit', scope: 'Foo', summary: 'move into Projects/', verify: 'verified' });
+      expect(msg).toMatch(/^Palace-Entry: Foo$/m);
+      expect(msg).toMatch(/^Palace-Entry: Foo — gotchas$/m);
+      expect(derived(msg)).toEqual([]);
+    });
+
+    test('a move with a real edit derives only the real change', () => {
+      writeFileSync(resolve(root, 'Projects', 'Foo.md'), '---\ntitle: Foo\ntype: concept\nstage: sprout\npillars: [tools]\nforward_vector: "I will seed."\n---\n# Foo\nbody\n');
+      g('add', '--', 'Projects/Foo.md');
+      expect(g('diff', '--cached', '-M', '--name-status')).toMatch(/^R0\d\d\tFoo\.md\tProjects\/Foo\.md$/m); // still a rename, no longer 100%
+      const msg = buildMessageFromStaged(root, { kind: 'edit', scope: 'Foo', summary: 'move and grow', verify: 'verified' });
+      expect(derived(msg)).toEqual(['Palace-Stage: Foo: seed->sprout']);
+    });
+
+    test('a move is still read as a move with diff.renames switched off', () => {
+      g('config', 'diff.renames', 'false');
+      const msg = buildMessageFromStaged(root, { kind: 'edit', scope: 'Foo', summary: 'move into Projects/', verify: 'verified' });
+      expect(derived(msg)).toEqual([]);
+    });
+
+    test('an entry that really is new, staged beside the move, is still born', () => {
+      writeFileSync(resolve(root, 'New Entry.md'), '---\ntitle: New Entry\ntype: concept\nstage: seed\npillars: [philosophy]\n---\n# New Entry\nbody\n');
+      g('add', '--', 'New Entry.md');
+      const msg = buildMessageFromStaged(root, { kind: 'edit', scope: 'Foo', summary: 'move, and file a new one', verify: 'verified' });
+      expect(derived(msg)).toEqual(['Palace-Stage: New Entry: born->seed']);
+    });
+
+    test('the CLI commits a move whole when both sides are named, files or folders (--only)', () => {
+      // Another writer's staged work, which --only must leave out.
+      writeFileSync(resolve(root, 'Other Session.md'), '---\ntitle: Other Session\nstage: seed\n---\nnot mine\n');
+      g('add', '--', 'Other Session.md');
+      // The old sides are gone from disk and index alike; `git add` on them
+      // used to die with "pathspec did not match any files".
+      const r = cli(...MOVE, '--only', '--path', 'Foo.md', '--path', 'Foo', '--path', 'Projects/Foo.md', '--path', 'Projects/Foo');
+      expect(r.stderr).not.toMatch(/did not match any files|looks like a staged move/);
+      expect(r.status).toBe(0);
+      expect(r.stdout).toMatch(/palace-commit: committed [0-9a-f]{7,40}/);
+      expect(derived(g('log', '-1', '--format=%B'))).toEqual([]);
+      expect(g('show', '-M', '--name-status', '--format=', 'HEAD')).toMatch(/^R100\tFoo\.md\tProjects\/Foo\.md$/m);
+      expect(g('show', '--stat', '--format=', 'HEAD')).not.toMatch(/Other Session/);
+      expect(g('status', '--porcelain=v1').trim()).toBe('A  "Other Session.md"');
+    });
+
+    test('isStagedDeletion is true only for a path already deleted in the index', () => {
+      expect(isStagedDeletion(root, 'Foo.md')).toBe(true);          // old file
+      expect(isStagedDeletion(root, 'Foo')).toBe(true);             // old folder
+      expect(isStagedDeletion(root, 'Projects/Foo.md')).toBe(false); // the new side exists
+      expect(isStagedDeletion(root, 'Nope.md')).toBe(false);         // never existed
+      // A deletion that is NOT staged yet still goes through `git add`.
+      rmSync(resolve(root, 'Projects', 'Foo.md'));
+      expect(isStagedDeletion(root, 'Projects/Foo.md')).toBe(false);
+    });
+
+    test('a named path that matches nothing still fails loudly', () => {
+      const r = cli(...MOVE, '--path', 'Nope.md', '--dry-run');
+      expect(r.status).not.toBe(0);
+      expect(r.stderr).toMatch(/did not match any files/);
+    });
+
+    test('--only with one side of the move named says so, and does not block', () => {
+      expect(halfNamedMoves(root, ['Projects/Foo.md'])).toEqual([{ from: 'Foo.md', to: 'Projects/Foo.md', missing: 'Foo.md' }]);
+      expect(halfNamedMoves(root, ['Foo.md'])).toEqual([{ from: 'Foo.md', to: 'Projects/Foo.md', missing: 'Projects/Foo.md' }]);
+      expect(halfNamedMoves(root, ['Foo.md', 'Projects/Foo.md'])).toEqual([]);
+
+      const r = cli(...MOVE, '--only', '--path', 'Projects/Foo.md', '--dry-run');
+      expect(r.status).toBe(0);
+      expect(r.stderr).toMatch(/"Projects\/Foo\.md" looks like a staged move from "Foo\.md"/);
+      expect(r.stderr).toMatch(/Add --path "Foo\.md"/);
+      // Half a move really is a bare add, so the message it would write says so.
+      expect(derived(r.stdout)).toContain('Palace-Stage: Foo: born->seed');
     });
   });
 });

@@ -19,6 +19,13 @@
 // locks are cleared first (the known sharp edge). With --dry-run it prints the
 // message it WOULD commit and exits without committing.
 //
+// A move (`git mv`): name BOTH sides, `--path "<old>" --path "<new>"` (files or
+// folders). The trailers are then derived against the entry at its old path, so
+// a pure move derives no Palace-Stage / Palace-Vector line and a move with
+// edits derives only the edits. Under --only, naming one side commits half the
+// move; the committer says so on stderr. A named path is committed as it sits
+// in the working tree, so an unstaged edit to a moved file rides along.
+//
 // Design notes:
 //   - Trailer derivation is pure (src/lib/commit-spec.js); this file is the
 //     git/fs glue around it, kept thin and testable via buildMessageFromStaged.
@@ -31,7 +38,7 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, rmSync, writeFileSync, mkdtempSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { deriveTrailers, formatCommitMessage } from '../src/lib/commit-spec.js';
+import { deriveTrailers, formatCommitMessage, parseNameStatus } from '../src/lib/commit-spec.js';
 import { diffEntryText } from '../src/lib/frontmatter-diff.js';
 
 function git(palaceRoot, args, { allowFail = false } = {}) {
@@ -53,28 +60,58 @@ export function clearStaleLocks(palaceRoot) {
   }
 }
 
-// Read the staged diff and compute per-md frontmatter changes. Returns
-// { paths, mdChanges } in the shape deriveTrailers expects.
-export function readStagedDiff(palaceRoot, onlyPaths = null) {
+// The staged name-status rows ({ status, path, renamedFrom }), optionally
+// scoped to `onlyPaths`.
+function stagedNameStatus(palaceRoot, onlyPaths = null) {
   // `-c core.quotepath=false`: RAW utf-8 paths, so a non-ASCII filename (every
   // em-dash bundle file, e.g. `Foo — baton.md`) parses + matches instead of
   // coming back octal-escaped + double-quoted. Without it the file stages but is
   // silently dropped from the commit. (Mirrors commitSelected in server/commit.js.)
+  // `-M`: pair renames whatever the reader's `diff.renames` says, for the same
+  // reason -- with it off a move arrives as an unrelated delete + add.
   const scope = onlyPaths && onlyPaths.length ? ['--', ...onlyPaths] : [];
-  const nameStatus = git(palaceRoot, ['-c', 'core.quotepath=false', 'diff', '--cached', '--name-status', ...scope], { allowFail: true });
+  return parseNameStatus(git(palaceRoot, ['-c', 'core.quotepath=false', 'diff', '--cached', '-M', '--name-status', ...scope], { allowFail: true }));
+}
+
+// True when `p` (a file or a folder) is gone from the working tree and from
+// the index while HEAD still has it: a deletion that is already staged, such
+// as the old side of a `git mv`. There is nothing left to add for such a path.
+export function isStagedDeletion(palaceRoot, p) {
+  if (existsSync(resolve(palaceRoot, p))) return false;
+  if (git(palaceRoot, ['ls-files', '--', p], { allowFail: true }).trim() !== '') return false;
+  return git(palaceRoot, ['diff', '--cached', '--no-renames', '--diff-filter=D', '--name-only', '--', p], { allowFail: true }).trim() !== '';
+}
+
+// Staged moves that `--only` would cut in half. Under --only the diff and the
+// commit are both scoped to the named paths, so a move whose other side is not
+// named stops being a move: the new side alone commits as a bare add (and the
+// log reads a birth), the old side alone as a bare delete, and the other half
+// stays staged. Returns [{ from, to, missing }] -- `missing` is the unnamed side.
+export function halfNamedMoves(palaceRoot, onlyPaths) {
+  const scoped = stagedNameStatus(palaceRoot, onlyPaths);
+  const out = [];
+  for (const { path: to, renamedFrom: from } of stagedNameStatus(palaceRoot)) {
+    if (!from) continue;
+    if (scoped.some((r) => r.status === 'A' && r.path === to)) out.push({ from, to, missing: from });
+    else if (scoped.some((r) => r.status === 'D' && r.path === from)) out.push({ from, to, missing: to });
+  }
+  return out;
+}
+
+// Read the staged diff and compute per-md frontmatter changes. Returns
+// { paths, mdChanges } in the shape deriveTrailers expects.
+export function readStagedDiff(palaceRoot, onlyPaths = null) {
   const paths = [];
   const mdChanges = [];
-  for (const line of nameStatus.split(/\r?\n/)) {
-    if (line.trim() === '') continue;
-    const m = line.match(/^([A-Z])\d*\t(.+?)(?:\t(.+))?$/);
-    if (!m) continue;
-    const status = m[1];
-    const path = m[3] || m[2]; // for renames, the new path is the 3rd field
+  for (const { status, path, renamedFrom } of stagedNameStatus(palaceRoot, onlyPaths)) {
     paths.push(path);
     if (!path.toLowerCase().endsWith('.md')) continue;
 
-    // before = HEAD:path (empty if added), after = staged blob (:path).
-    const before = status === 'A' ? '' : git(palaceRoot, ['show', `HEAD:${path}`], { allowFail: true });
+    // before = the HEAD side (empty if added), after = staged blob (:path).
+    // A renamed entry's HEAD side lives at its OLD path. Reading HEAD:<new path>
+    // finds nothing, every frontmatter field then reads as newly added, and a
+    // pure move goes into the log as a birth (da73cb79: a false `born->sprout`).
+    const before = status === 'A' ? '' : git(palaceRoot, ['show', `HEAD:${renamedFrom ?? path}`], { allowFail: true });
     const after = status === 'D' ? '' : git(palaceRoot, ['show', `:${path}`], { allowFail: true });
     const d = diffEntryText(before, after);
     mdChanges.push({
@@ -146,8 +183,12 @@ function main() {
 
   clearStaleLocks(palaceRoot);
 
-  // Stage explicitly-named paths (NEVER -A).
+  // Stage explicitly-named paths (NEVER -A). A path that is already a staged
+  // deletion is skipped: `git add` dies on it ("pathspec did not match any
+  // files"), yet a mover has to be able to name it, because --only needs both
+  // sides of a move in scope.
   for (const p of opts.paths) {
+    if (isStagedDeletion(palaceRoot, p)) continue;
     git(palaceRoot, ['add', '--', p]);
   }
 
@@ -167,6 +208,14 @@ function main() {
     }
     process.stderr.write('palace-commit: nothing staged. Name paths with --path, or stage first.\n');
     process.exit(2);
+  }
+
+  // Say so (never block) when --only would commit half of a staged move.
+  if (opts.only) {
+    for (const h of halfNamedMoves(palaceRoot, opts.paths)) {
+      const half = h.missing === h.from ? 'a bare add, logged as a new file' : 'a bare delete';
+      process.stderr.write(`palace-commit: "${h.to}" looks like a staged move from "${h.from}", but --only was not given "${h.missing}", so this commit holds ${half}. Add --path "${h.missing}" to commit the move whole.\n`);
+    }
   }
 
   const message = buildMessageFromStaged(palaceRoot, opts);

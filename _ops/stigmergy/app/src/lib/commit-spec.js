@@ -182,6 +182,30 @@ export function annotateOutOfBand(text, { author = null } = {}) {
   return `${trimmed}${sep}${additions.join('\n')}\n`;
 }
 
+// ── Reading the staged diff ──────────────────────────────────────────────────
+//
+// Parse `git diff --cached --name-status` output into rows of
+// { status, path, renamedFrom }. `path` is where the file is now; a rename
+// line (`R100\told\tnew`) also carries where it was, in `renamedFrom`, so the
+// caller can diff a moved entry against the entry it was instead of against a
+// file that never existed at the new path. Every other status -- a copy
+// included, whose destination really is a new file -- has renamedFrom: null.
+export function parseNameStatus(text) {
+  const rows = [];
+  for (const line of (typeof text === 'string' ? text : '').split(/\r?\n/)) {
+    if (line.trim() === '') continue;
+    const m = line.match(/^([A-Z])\d*\t(.+?)(?:\t(.+))?$/);
+    if (!m) continue;
+    const status = m[1];
+    rows.push({
+      status,
+      path: m[3] || m[2], // for renames and copies, the new path is the 3rd field
+      renamedFrom: status === 'R' && m[3] ? m[2] : null,
+    });
+  }
+  return rows;
+}
+
 // ── Trailer derivation (palace-commit's brain) ───────────────────────────────
 //
 // Given the staged diff, derive the trailers the author should NOT have to
