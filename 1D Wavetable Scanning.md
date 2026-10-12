@@ -5,7 +5,7 @@ pillars:
   - creation
   - tools
 born: 2026-05
-stage: sprout
+stage: growing
 forward_vector: "I name the patterns the first scanner build surfaced — that the morph is a 2D linear interpolation, that frame ordering carries the axis's meaning, that exploration instruments default to drone — so the next scanner Loudon builds inherits the lessons without re-paying their cost. I want to grow a 2D-scanner sibling that joins me to [[2D Torus Wavetable Synthesizer]], and I want my single-source-of-truth pattern to spread to every paired-Specialist build that comes after."
 links:
   - target: "[[2D Torus Wavetable Synthesizer]]"
@@ -20,6 +20,12 @@ links:
   - target: "[[Waveguide Synthesizer]]"
     type: mirrors
     label: geometry-is-the-data
+  - target: "[[Wavetable Oscillator]]"
+    type: deepens
+    label: the-frame-axis
+  - target: "[[Generative Wavetable Libraries]]"
+    type: connects-to
+    label: frame-order-for-its-tables
 tags: [synthesis, dsp, wavetable]
 ---
 

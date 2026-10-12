@@ -50,8 +50,8 @@ _Loudon's standing direction for this project. The steward reads this zone every
 
 No steward has posted a made thing for this project yet, so the trail opens with what the bundle already holds (2 media files, newest first):
 
-- [starting-soon.svg](Loudon Live/toolchain/out/stream-000-test/starting-soon.svg) · 2026-09-23
-- [starting-soon.png](Loudon Live/toolchain/out/stream-000-test/starting-soon.png) · 2026-09-23
+- [starting-soon.svg](Projects/Loudon Live/toolchain/out/stream-000-test/starting-soon.svg) · 2026-09-23
+- [starting-soon.png](Projects/Loudon Live/toolchain/out/stream-000-test/starting-soon.png) · 2026-09-23
 <sub>backfill · scroll born 2026-09-23</sub>
 <!-- /scroll:entry -->
 <!-- scroll:making:end -->

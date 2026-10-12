@@ -28,7 +28,7 @@ One entry, two catalogs, split at the only line that holds: inside the computer 
 
 | Catalog | File | Gathered | Still open |
 |---|---|---|---|
-| Outside the computer | `Loudon's Toolkit — catalog — outside the computer.md` | Synthesizers (interviewed) · Drum machines and Controllers (only what the synth interview named; Touché unconfirmed) · Wanted | Instruments · Microphones and speakers · Hardware effects · Computers and audio interfaces · Workshop tools |
+| Outside the computer | `Loudon's Toolkit — catalog — outside the computer.md` | Synthesizers (interviewed) · Drum machines and Controllers (only what the synth interview named, plus the Touché: owned, confirmed 2026-10-12, not yet interviewed) · Wanted | Instruments · Microphones and speakers · Hardware effects · Computers and audio interfaces · Workshop tools |
 | Inside the computer | `Loudon's Toolkit — catalog — inside the computer.md` | Plugins (VST3 scan, attribution complete; no interview yet) | Hosts and environments · Design and art software · Programming languages and environments |
 
 **Section status:** `open` → `in-progress` → `drafted` → `gathered` (written into its catalog) → `enriching`
@@ -190,11 +190,12 @@ Things noticed during interviews that should become typed links — either acros
 
 ## Open Flags
 
-Carried here on 2026-10-06 so they are not lost with the pages that held them. Loudon has not been asked about the first two.
+Carried here on 2026-10-06 so they are not lost with the pages that held them. Loudon has been told of the first, the second and the fourth, and has decided none of them.
 
 - **Two project candidates.** The synth page flagged *Performance Configuration* and *Preset Management* (now on the main page under "What the toolkit is working toward") as "strong candidates for their own palace project entries once they develop further — each has a clear status, forward vector, and deliverable. Flag for a future deposit session." [[Generative Preset Development]] already links to the main page as `preset-infrastructure`. The same flag sits unchecked at `_ops/Palace To-Do/Palace To-Do — Archive.md:209`.
 - **`type: hub` was never confirmed.** The main page was typed `hub` at birth, and carried a note asking a Weave to confirm it. SCHEMA §1 earns that type at five inbound typed links. After the fold it has five (Generative Preset Development, Hero and Avatar Maker, Loudon Live, LDN RTM, Haptic Handwheel), and it no longer anchors a cluster of entries. Hub or not is the Weave's call, or Loudon's.
-- **A weave flag points at the retired synth page.** Board id `commons-the-palace-1791311804809` (2026-10-06, from Haptic Handwheel) asks that the Hardware Product line point at [[Haptic Handwheel]] as a first step, and whether "synthesizer/effects hardware" should widen to include controllers. That line is on the main page now. The flag has not been answered.
+- **A weave flag points at the retired synth page.** Board id `commons-the-palace-1791311804809` (2026-10-06, from Haptic Handwheel) asks that the Hardware Product line point at [[Haptic Handwheel]] as a first step, and whether "synthesizer/effects hardware" should widen to include controllers. That line is on the main page now. Both questions were put to Loudon on 2026-10-06, with two other asks, and on 2026-10-12 he answered "I approve the rest"; the session reads that as yes to both. The line has not been changed: it states his own goal, so the new sentence waits for his read, and the flag stays open until it lands.
+- **The synth page's forward vector was not carried.** It read: "Grow toward a complete, annotated hardware synth inventory with ecosystem diagrams; eventually document the performance configuration in full and capture the preset-building project as a practice entry." The outside catalog's vector keeps the inventory. The performance configuration and the preset project survive as lines on the main page and as the first flag here. The ecosystem diagrams are held nowhere else. Loudon was told on 2026-10-06; no decision. Added here 2026-10-12.
 
 ---
 
@@ -205,4 +206,5 @@ Carried here on 2026-10-06 so they are not lost with the pages that held them. L
 | 2026-04 | — | Working doc + hub skeleton created. |
 | 2026-04 | Synthesizers | Interview complete. Raw notes captured. Entry drafted and deposited. |
 | 2026-04 | Audio Plugins | Filesystem scan of VST3 folder. ~350 plugins identified. Manufacturer table written. Large unattributed table needs Loudon review. |
-| 2026-10-06 | — | The fold. The two category entries became two catalogs in this folder, split inside and outside the computer. The nine category entries never written became catalog sections. The three modes of use and the synth page's Ecosystem Role were dropped from the page on Loudon's word; the raw notes above still hold the modes. Prophet confirmed as the Prophet-6. |
+| 2026-10-06 | — | The fold. The two category entries became two catalogs in this folder, split inside and outside the computer. The nine category entries never written became catalog sections. The three modes of use were dropped from the page on Loudon's word ("loose the modes, not important"); the raw notes above still hold them. The synth page's Ecosystem Role was dropped by the drafting session; Loudon was told before his yes. Prophet confirmed as the Prophet-6. |
+| 2026-10-12 | — | Correction pass after the cold read of the fold. Loudon: "I own the touche and tract mirror is installed and working well I approve the rest". The Touché is listed under Controllers as owned, and Tract Mirror has a row in the plugin table. "The rest" was three asks. Step 5 above (a gathered section is shown to him and written into its catalog, with no Deposit Ceremony) was written during the fold without his read, and now has his yes. "Inside, it drives Ableton Live" is cut from Push and Move. The board flag's two questions are read as yes to both, and the Hardware Product sentence waits for his read (Open Flags). |

@@ -65,7 +65,7 @@ Promoting this to **Study** (per [[Shop/Web Audio Worklet]]'s tier ladder) would
 - A second oscillator + a sub-oscillator + an amp envelope. The current voice is a single-osc sustain.
 - The "drag the cursor in the 3D scene" interaction — raycasting against the cursor plane so the orbital view becomes a direct manipulation surface. (This is the load-bearing capability for the [[Waveguide Synthesizer]] pattern in this brief's vocabulary.)
 - Mobile audio-unlock + touch-orbit handling.
-- Recipe entry under `Wavetable Scanner/` (the entry's own bundle) with a dated subdirectory, mirroring Murmuration's shape.
+- Recipe entry under `Projects/Wavetable Scanner/` (the entry's own bundle) with a dated subdirectory, mirroring Murmuration's shape.
 
 Promoting to **Piece** would add voice-count profiling on real hardware (here voice count is fixed at one, so this collapses to a per-table CPU profile), `OfflineAudioContext` render of a representative scan for the Loudon Live published version, and Maker review.
 

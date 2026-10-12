@@ -200,7 +200,7 @@ Never raw-commit from Cowork — it can rename but not delete files, so a bare `
 
 ### Directory Structure
 
-The palace root holds two things: **foundational skeleton files** (CLAUDE, SCHEMA, SCHEMA — Reference, JEWEL, SUBSTRATE, README, ROSETTA, FOUR PILLARS) and **knowledge entries** (all concepts, hubs, projects — the bulk of the graph). Operational machinery lives one level down in `_ops/` — ceremony cards + their `— Context` companions, working queues, and machinery subdirs (`_ops/swarm/`, `_ops/stigmergy/`, `_ops/loudon-live/`, `_ops/agents/`, `_ops/cowork-git/`, `_ops/maps/`, …). The full ceremony index is [[Palace Ceremonies]]; agent operational detail is [[Substrate Skill]].
+The palace root holds two things: **foundational skeleton files** (CLAUDE, SCHEMA, SCHEMA — Reference, JEWEL, SUBSTRATE, README, ROSETTA, FOUR PILLARS) and **knowledge entries** — concepts, hubs, questions, spores, sources, and any other type that has no folder of its own. Four types do: a `project` entry goes in `Projects/`, its bundle beside it (`Projects/Foo.md` ↔ `Projects/Foo/`); a `person` entry goes in `People/`; a `specialist` or `maker` entry goes in `Shop/`. Operational machinery lives one level down in `_ops/` — ceremony cards + their `— Context` companions, working queues, and machinery subdirs (`_ops/swarm/`, `_ops/stigmergy/`, `_ops/loudon-live/`, `_ops/agents/`, `_ops/cowork-git/`, `_ops/maps/`, …). The full ceremony index is [[Palace Ceremonies]]; agent operational detail is [[Substrate Skill]].
 
 Not every ceremony spec lives in `_ops/`: [[Enrichment]] (`Enrichment.md`) and its bundle live in the **palace root** alongside the skeleton files, an exception to the `_ops/` convention.
 
