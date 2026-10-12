@@ -17,6 +17,7 @@ import { mkdtempSync, rmSync, writeFileSync, mkdirSync, existsSync, readFileSync
 import { tmpdir } from 'node:os';
 import { execFileSync } from 'node:child_process';
 import { createRegenLane } from '../../server/regen-lane.js';
+import { fakePs } from '../helpers/fake-ps.js';
 
 const REGEN_SCRIPT_SRC = fileURLToPath(new URL('../../../../../Shop/Hero and Avatar Maker/regen_one.py', import.meta.url));
 
@@ -57,7 +58,7 @@ function waitFor(predicate, { timeout = 20000, interval = 60 } = {}) {
 }
 
 describe('regen lane (companion hero/avatar door)', () => {
-  let root, lane;
+  let root, lane, keepRoot;
   const boardPath = (r) => join(r, '_ops/swarm/persistent/blackboard.jsonl');
   const readBoard = (r) => readFileSync(boardPath(r), 'utf8').trim().split('\n').filter(Boolean).map((l) => JSON.parse(l));
 
@@ -73,7 +74,25 @@ describe('regen lane (companion hero/avatar door)', () => {
   };
   const settled = (r, opts) => waitFor(() => inFlight(r).length === 0, opts);
 
+  // What the lane, the pid file and the OS each say about a render just fired --
+  // gathered when a "running" check fails, so the failure explains itself. The
+  // first one (2026-10-12) left nothing behind: teardown had removed the palace.
+  const witness = (fired, status, askMs) => {
+    const pid = Number((/pid (\d+)/.exec(fired.msg || '') || [])[1]);
+    let alive; try { process.kill(pid, 0); alive = 'yes'; } catch (e) { alive = `no (${e.code})`; }
+    let ps; try { ps = execFileSync('ps', ['-p', String(pid), '-o', 'stat=,command='], { encoding: 'utf8', timeout: 2000 }).trim(); } catch (e) { ps = `nothing (ps exit ${e.status})`; }
+    let log; try { log = readFileSync(lane.paths.logFile, 'utf8').trim(); } catch (_) { log = '(no worker log)'; }
+    return [
+      `the lane's first answer: running=${status.running} pid=${status.pid}, ${askMs.toFixed(1)} ms to give`,
+      `the fire said: ${fired.msg}`,
+      `pid file: ${existsSync(lane.paths.pidFile) ? 'still there' : 'GONE'}`,
+      `pid ${pid} alive now: ${alive}; ps shows now: ${ps}`,
+      `worker log:\n${log}`,
+    ].join('\n');
+  };
+
   beforeEach(() => {
+    keepRoot = false;
     root = makeTempPalace();
     // The real tracked script, pointed at the temp palace via the lane's --palace.
     lane = createRegenLane({ palaceRoot: root, mock: true, scriptPath: REGEN_SCRIPT_SRC });
@@ -86,7 +105,7 @@ describe('regen lane (companion hero/avatar door)', () => {
     try { await settled(root, { timeout: 20000 }); } catch (_) {
       throw new Error(`regen lane never settled: ${inFlight(root).join(', ')} started but posted no done/failed — left in ${root}`);
     }
-    rmSync(root, { recursive: true, force: true });
+    if (!keepRoot) rmSync(root, { recursive: true, force: true });
   }, 30000);
 
   test('renders BOTH, places + embeds + commits, and posts started → done (THE proof)', async () => {
@@ -142,10 +161,41 @@ describe('regen lane (companion hero/avatar door)', () => {
   test('refuses a second render while one is running (single worker per lane)', async () => {
     const first = lane.regen({ path: 'Face Me.md', target: 'both', heroPrompt: 'h', iconPrompt: 'i', turnId: 'r-a' });
     expect(first.fired).toBe(true);
-    await waitFor(() => lane.status().running === true, { timeout: 3000 });
+    // A lane that has just fired reads running on the FIRST ask, with no wait: it
+    // holds the worker it spawned and needs nobody's word for it. This used to
+    // poll for 3 s, and the poll could not save it -- when the first ask met ps
+    // in the moment it cannot read the worker's command line, that ask deleted
+    // the pid file and every later one read idle (README, testing gotchas).
+    const t0 = performance.now();
+    const status = lane.status();
+    if (status.running !== true) {
+      keepRoot = true;
+      throw new Error(`a render was just fired, but the lane reads idle — palace left in ${root}\n${witness(first, status, performance.now() - t0)}`);
+    }
     const second = lane.regen({ path: 'Face Me.md', target: 'both', heroPrompt: 'h', iconPrompt: 'i', turnId: 'r-b' });
     expect(second.fired).toBe(false);
     expect(second.busy).toBe(true);
+  }, 40000);
+
+  test('a render whose command line ps cannot read yet still holds the lane', async () => {
+    // python3 here is a launcher that re-execs into Python.app a few ms after
+    // the fire. For under a millisecond of that swap the kernel has no command
+    // line for the pid, and `ps -o command=` prints "(python3.14)", exit 0 --
+    // about one fire in 1,000 with the suite running. With the stand-in, any
+    // ask of ps gets that answer. The old actuator asked, read idle, and fired
+    // a twin; the lane now holds its own worker without asking ps at all.
+    const restore = fakePs('echo "(python3.14)"');
+    try {
+      const first = lane.regen({ path: 'Face Me.md', target: 'both', heroPrompt: 'h', iconPrompt: 'i', turnId: 'u-a' });
+      expect(first.fired).toBe(true);
+      expect(lane.status().running).toBe(true);
+      expect(existsSync(lane.paths.pidFile)).toBe(true);
+      const second = lane.regen({ path: 'Face Me.md', target: 'both', heroPrompt: 'h', iconPrompt: 'i', turnId: 'u-b' });
+      expect(second.fired).toBe(false);
+      expect(second.busy).toBe(true);
+    } finally {
+      restore();
+    }
   }, 40000);
 
   test('the pid file clears before the reap has committed, so teardown waits for the terminal row', async () => {
