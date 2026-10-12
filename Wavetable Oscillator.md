@@ -45,6 +45,8 @@ links:
 
 # Wavetable Oscillator
 
+![[Wavetable Oscillator — hero.png]]
+
 A wavetable oscillator stores one cycle of a waveform and reads it around and around. A phase counter, the oscillator's clock, steps forward many thousands of times a second, wraps when it reaches the end of the cycle, and the value it lands on is the output. The shape of the stored cycle sets the timbre. How fast the counter goes round sets the pitch.
 
 Most instruments stack many cycles, called frames, into a table and add a Position control that blends between neighbouring frames. That was Wolfgang Palm's move at PPG in 1978: store many waveforms and move between them, so timbre stops being a property of the sound and becomes a place you can travel through.
