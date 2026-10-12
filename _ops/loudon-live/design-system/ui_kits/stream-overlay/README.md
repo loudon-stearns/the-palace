@@ -1,6 +1,6 @@
 # Stream Overlay · UI kit
 
-A pixel-perfect mockup of what a Loudon Live stream looks like *on YouTube* — the composited view a viewer sees during a live broadcast. Recreates the OBS overlay system specified in `The Palace/Loudon Live/Loudon Live — launch kit.md` §5.
+A pixel-perfect mockup of what a Loudon Live stream looks like *on YouTube* — the composited view a viewer sees during a live broadcast. Recreates the OBS overlay system specified in `The Palace/Projects/Loudon Live/Loudon Live — launch kit.md` §5.
 
 This kit is a single 1920×1080 stage; the design isn't a flow but a *scene* with togglable parts.
 

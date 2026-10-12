@@ -153,7 +153,7 @@ In `Shop/VCV Patch Generator/recipes/` — the T7b audition triple, each a hand-
 - `warm_pad-seed-1.{pdl,vcv}` — slow LFO breathing on cutoff, pad attack/release
 - `pluck-seed-1.{pdl,vcv}` — instant attack, short decay, dark filter
 
-The PDL pair `house_bass.pdl` / `house_bass.vcv` in `Generative Audio Devices/pdl-renderer/` remains the pre-archetype reference from the project's verification work.
+The PDL pair `house_bass.pdl` / `house_bass.vcv` in `Projects/Generative Audio Devices/pdl-renderer/` remains the pre-archetype reference from the project's verification work.
 
 ## Test Suite
 

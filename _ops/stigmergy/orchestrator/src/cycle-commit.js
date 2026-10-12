@@ -13,8 +13,8 @@
 //   - an existing file, 10 MB or smaller (larger files stay uncommitted and are
 //     named in the commit body),
 //   - never an entry: a `.md` whose frontmatter carries `type:` is the house,
-//     and the house changes only through an elder. Some bundles hold their own
-//     entry (`Projects/BLUELINE/BLUELINE.md`), so the folder rule alone is not
+//     and the house changes only through an elder. Some bundles hold entries
+//     (`Modes of Collaboration/Dialectic.md`), so the folder rule alone is not
 //     enough.
 
 import { execFileSync } from 'node:child_process';

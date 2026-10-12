@@ -34,7 +34,7 @@ The project's development log — the T-task roadmap, the registry's version his
 ## Checking it still works
 
 ```sh
-cd "Generative Audio Devices/pdl-renderer"
+cd "Projects/Generative Audio Devices/pdl-renderer"
 node verify_t7a_phase2.js
 node verify_t7b.js
 ```

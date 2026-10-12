@@ -18,10 +18,10 @@ Synthesised from Loudon's personal knowledge base **"The Palace"** (mounted via 
 
 | Entry | What it provided |
 |---|---|
-| `Loudon Live.md` | Channel charter, editorial posture, audience |
-| `Loudon Live/Loudon Live — launch kit.md` | Channel copy, OBS scene specs, asset list |
-| `Loudon Live/Archive/Loudon Live — asset plan.md` | The variant system — 6 palettes × 6 generators × seed (archived 2026-09-25; this system built it) |
-| `Loudon Live/toolchain/render_starting_soon.py` | Reference palette + generator code |
+| `Projects/Loudon Live.md` | Channel charter, editorial posture, audience |
+| `Projects/Loudon Live/Loudon Live — launch kit.md` | Channel copy, OBS scene specs, asset list |
+| `Projects/Loudon Live/Archive/Loudon Live — asset plan.md` | The variant system — 6 palettes × 6 generators × seed (archived 2026-09-25; this system built it) |
+| `Projects/Loudon Live/toolchain/render_starting_soon.py` | Reference palette + generator code |
 | `Projects/Shepard Tone Synthesizer/session-1-interactive.html` | Canonical session-artifact reference |
 | `Hyperdimensional Prism.md` | The Lissajous-in-sphere visual-identity essay |
 | `FOUR PILLARS.md` · `Autodidact Polymaths.md` · `Progressive Staging.md` | Pedagogy |
