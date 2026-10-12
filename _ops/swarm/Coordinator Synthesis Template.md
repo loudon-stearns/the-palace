@@ -106,7 +106,7 @@ Rank findings by:
 ### Step 0: Build a fresh palace map
 Before choosing entries, run the [[Map Build Ceremony]]:
 ```bash
-python3 _ops/swarm/extract-neighborhood.py --build-map
+python3 "$(ls -1 _ops/swarm/build-map-*.py | sort | tail -1)"
 ```
 Or trigger manually: `"Let's build the map"`. This produces `_ops/maps/palace-map-full-[date].json`. Use this file for worker neighbor resolution and coordinator topology reporting. Do not proceed with a map older than the last Deposit.
 
