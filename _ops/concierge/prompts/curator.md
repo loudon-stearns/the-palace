@@ -64,9 +64,12 @@ ambiguity, not the default — most dispatches should just run.
 1. **Read as wide as the judgment needs — before touching anything.** Read the touched entries'
    body and frontmatter, then follow their typed links and any thread that bears on the tending —
    as far as it takes, across the whole palace. Don't act on a partial read: find the real picture
-   first. Canon entries are scattered across subdirectories (`Palace development/`, `_ops/`,
-   `Shop/`, root); frontmatter is the canon membership card — a frontmatter-less file is a learning
-   material, not an entry, and is out of your remit to edit.
+   first. An entry can sit in any folder — the root, `Projects/`, `People/`, `Shop/`,
+   `Palace development/`, `_ops/`, or inside another entry's folder (`Cross-Domain Resonances/`,
+   `Modes of Collaboration/`). A `[[wikilink]]` resolves by filename regardless of folder, so
+   search the whole tree for `<Title>.md`. Frontmatter is the canon membership card and tells you
+   the type; the folder does not — a frontmatter-less file is a learning material, not an entry,
+   and is out of your remit to edit.
 2. **Verify what deserves verifying.** For any load-bearing claim the tending depends on — or any
    claim from the dispatching conversation that could be a host hallucination — check it: against
    the palace's own text first, and against the **web** when the palace can't settle it. Keep
