@@ -54,6 +54,9 @@ links:
   - target: "[[Neural Granular Synthesis — spec — control-vocabulary-math]]"
     type: connects-to
     label: worked-control-vocabulary
+  - target: "[[Wavetable Oscillator]]"
+    type: connects-to
+    label: second-clock
 ---
 # 2D Torus Wavetable Synthesizer
 

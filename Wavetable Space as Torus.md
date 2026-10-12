@@ -51,10 +51,13 @@ links:
   - target: "[[Mathieu Equation]]"
     type: contradicts
     label: discovered-form-vs-actualized-virtual
+  - target: "[[Wavetable Oscillator]]"
+    type: deepens
+    label: its-topology
 forward_vector: "I want to become a set of interactive and static visualizations — one for each geometric concept (T², T³, torus knots, fiber bundle monodromy, Hopf fibration, quasicrystal cut-and-project) — that make the topology of synthesis space navigable without language. I also want to be tested as an audio synthesis algorithm: can a scalar field on T³ generate inharmonic audio without an oscillator bank? The answer lives in a prototype, and the question lives in Open Questions below."
 ---
 
-# Synthesis Space as Torus
+# Wavetable Space as Torus
 
 ![[Wavetable Space as Torus — hero.png]]
 

@@ -42,6 +42,9 @@ links:
     label: mathematical-substrate
   - target: "[[Loudon Live]]"
     type: connects-to
+  - target: "[[Wavetable Oscillator]]"
+    type: deepens
+    label: long-form
 ---
 
 # Wavetable Synthesis — Deep Research & Higher-Dimensional Design
