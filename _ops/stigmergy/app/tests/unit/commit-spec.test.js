@@ -1,7 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import {
-  validateCommitMessage, annotateOutOfBand, deriveTrailers, formatCommitMessage,
+  validateCommitMessage, annotateOutOfBand, deriveTrailers, formatCommitMessage, parseNameStatus,
 } from '../../src/lib/commit-spec.js';
+import { diffEntryText } from '../../src/lib/frontmatter-diff.js';
 
 describe('validateCommitMessage', () => {
   it('accepts a spec-conformant message', () => {
@@ -143,6 +144,36 @@ describe('annotateOutOfBand', () => {
   });
 });
 
+describe('parseNameStatus', () => {
+  it('reads plain add / modify / delete rows', () => {
+    expect(parseNameStatus('A\tNew.md\nM\tFoo.md\nD\tGone.md\n')).toEqual([
+      { status: 'A', path: 'New.md', renamedFrom: null },
+      { status: 'M', path: 'Foo.md', renamedFrom: null },
+      { status: 'D', path: 'Gone.md', renamedFrom: null },
+    ]);
+  });
+
+  it('keeps both sides of a rename, whatever its similarity score', () => {
+    expect(parseNameStatus('R100\tFoo.md\tProjects/Foo.md\nR087\tFoo — gotchas.md\tProjects/Foo/Foo — gotchas.md\n')).toEqual([
+      { status: 'R', path: 'Projects/Foo.md', renamedFrom: 'Foo.md' },
+      { status: 'R', path: 'Projects/Foo/Foo — gotchas.md', renamedFrom: 'Foo — gotchas.md' },
+    ]);
+  });
+
+  it('a copy lands at its new path as a new file, not a rename', () => {
+    expect(parseNameStatus('C075\tFoo.md\tFoo Two.md\n')).toEqual([
+      { status: 'C', path: 'Foo Two.md', renamedFrom: null },
+    ]);
+  });
+
+  it('skips blank and unparseable lines, and tolerates non-strings', () => {
+    expect(parseNameStatus('\n\nnot a status line\nM\tFoo.md\r\n')).toEqual([
+      { status: 'M', path: 'Foo.md', renamedFrom: null },
+    ]);
+    expect(parseNameStatus(undefined)).toEqual([]);
+  });
+});
+
 describe('deriveTrailers', () => {
   it('derives Palace-Entry per touched knowledge md', () => {
     const t = deriveTrailers({
@@ -181,6 +212,39 @@ describe('deriveTrailers', () => {
       kind: 'deposit', verify: 'verified',
     });
     expect(t).toContain('Palace-Stage: New: born->seed');
+  });
+
+  // A moved entry diffed against the entry it was (its old path) changes no
+  // frontmatter, so nothing is derived. Diffed against nothing -- the old bug,
+  // which read HEAD at the NEW path -- every field reads as added and the move
+  // goes into the log as a birth.
+  describe('a moved entry', () => {
+    const text = '---\ntitle: Foo\nstage: sprout\nforward_vector: "I will sprout."\n---\n# Foo\nbody\n';
+    const derive = (before, after) => {
+      const d = diffEntryText(before, after);
+      return deriveTrailers({
+        paths: ['Projects/Foo.md'],
+        mdChanges: [{ path: 'Projects/Foo.md', frontmatterChanges: d.frontmatterChanges, bodyChanged: d.bodyChanged, wasAdded: before === '' && after !== '' }],
+        kind: 'edit', verify: 'verified',
+      });
+    };
+
+    it('derives no stage or vector line when the before side is the old path', () => {
+      const t = derive(text, text);
+      expect(t).toContain('Palace-Entry: Foo');
+      expect(t.filter((l) => /^Palace-(Stage|Vector):/.test(l))).toEqual([]);
+    });
+
+    it('derives only the real change when the move also edits the entry', () => {
+      const t = derive(text, text.replace('stage: sprout', 'stage: growing'));
+      expect(t.filter((l) => /^Palace-(Stage|Vector):/.test(l))).toEqual(['Palace-Stage: Foo: sprout->growing']);
+    });
+
+    it('reads as a birth when the before side is empty (what the bug fed in)', () => {
+      const t = derive('', text);
+      expect(t).toContain('Palace-Stage: Foo: born->sprout');
+      expect(t).toContain('Palace-Vector: Foo: changed');
+    });
   });
 
   it('includes campaign and resolves when given', () => {
