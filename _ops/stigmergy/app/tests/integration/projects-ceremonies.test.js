@@ -5,6 +5,7 @@ import { mkdtempSync, rmSync, mkdirSync, writeFileSync, readFileSync, existsSync
 import { tmpdir } from 'node:os';
 import { execFileSync } from 'node:child_process';
 import request from 'supertest';
+import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 import { createStewardLane } from '../../server/steward-lane.js';
 import { buildCeremonyRows, buildServiceRows, ceremonyStates, writeStandingOrders } from '../../server/projects.js';
@@ -57,12 +58,12 @@ function makePalace({ withGit = true } = {}) {
 }
 
 let root;
-afterEach(() => { if (root) rmSync(root, { recursive: true, force: true }); root = null; });
+afterEach(async () => { await closeAll(); if (root) rmSync(root, { recursive: true, force: true }); root = null; });
 
 describe('the deck lists ceremonies and services', () => {
   test('GET /api/projects carries all three groups', async () => {
     root = makePalace();
-    const res = await request(makeServer(root)).get('/api/projects');
+    const res = await request(await listen(makeServer(root))).get('/api/projects');
     expect(res.status).toBe(200);
     expect(res.body.projects.map((r) => r.home)).toEqual(['Murmuration']);
     expect(res.body.services.map((r) => r.home)).toEqual(['Shopkeeper']);
@@ -96,7 +97,7 @@ describe('the deck lists ceremonies and services', () => {
 describe('a ceremony scroll through the projects endpoints', () => {
   test('GET /api/projects/scroll renders a ceremony scroll live without writing it', async () => {
     root = makePalace();
-    const res = await request(makeServer(root)).get('/api/projects/scroll').query({ home: 'Return Ceremony' });
+    const res = await request(await listen(makeServer(root))).get('/api/projects/scroll').query({ home: 'Return Ceremony' });
     expect(res.status).toBe(200);
     expect(res.body.kind).toBe('ceremony');
     expect(res.body.exists).toBe(false);
@@ -108,7 +109,7 @@ describe('a ceremony scroll through the projects endpoints', () => {
 
   test('PUT /api/projects/orders puts a ceremony\'s order in its tuning ledger as owed', async () => {
     root = makePalace();
-    const res = await request(makeServer(root)).put('/api/projects/orders').send({ home: 'Return Ceremony', orders: 'Ask before adding\na probe.' });
+    const res = await request(await listen(makeServer(root))).put('/api/projects/orders').send({ home: 'Return Ceremony', orders: 'Ask before adding\na probe.' });
     expect(res.status).toBe(200);
     expect(res.body.kind).toBe('ceremony');
     expect(res.body.tuning).toBe(LEDGER_REL);
@@ -144,7 +145,7 @@ describe('a ceremony scroll through the projects endpoints', () => {
 
   test('an unknown home is a 404', async () => {
     root = makePalace();
-    const res = await request(makeServer(root)).get('/api/projects/scroll').query({ home: 'Nope' });
+    const res = await request(await listen(makeServer(root))).get('/api/projects/scroll').query({ home: 'Nope' });
     expect(res.status).toBe(404);
   });
 });

@@ -1,9 +1,10 @@
-import { describe, test, expect, beforeAll, afterAll } from 'vitest';
+import { describe, test, expect, afterEach } from 'vitest';
 import http from 'node:http';
 import { resolve } from 'node:path';
 import { mkdtempSync, rmSync, mkdirSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import request from 'supertest';
+import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 
 // GET /api/lens/suggest — ranks candidate glass pages for a lensing subject
@@ -44,14 +45,17 @@ function makeTempPalace({ withEntries = true } = {}) {
   return root;
 }
 
+afterEach(closeAll);
+
 describe('GET /api/lens/suggest', () => {
   let root, server;
-  afterAll(() => { if (root) rmSync(root, { recursive: true, force: true }); });
+  afterEach(() => { if (root) rmSync(root, { recursive: true, force: true }); root = null; });
 
   test('ranks candidates by link-distance from the subject', async () => {
     root = makeTempPalace();
     server = makeServer(root);
-    const res = await request(server).get('/api/lens/suggest?subject=Subject');
+    const base = await listen(server);
+    const res = await request(base).get('/api/lens/suggest?subject=Subject');
     expect(res.status).toBe(200);
     expect(res.body.subject).toBe('Subject');
     expect(res.body.candidates.map((c) => c.title)).toEqual(['Neighbor', 'TwoHop', 'Islanded']);
@@ -61,7 +65,8 @@ describe('GET /api/lens/suggest', () => {
   test('respects a ?limit=', async () => {
     root = makeTempPalace();
     server = makeServer(root);
-    const res = await request(server).get('/api/lens/suggest?subject=Subject&limit=1');
+    const base = await listen(server);
+    const res = await request(base).get('/api/lens/suggest?subject=Subject&limit=1');
     expect(res.status).toBe(200);
     expect(res.body.candidates).toHaveLength(1);
   });
@@ -69,14 +74,16 @@ describe('GET /api/lens/suggest', () => {
   test('400s with no ?subject', async () => {
     root = makeTempPalace();
     server = makeServer(root);
-    const res = await request(server).get('/api/lens/suggest');
+    const base = await listen(server);
+    const res = await request(base).get('/api/lens/suggest');
     expect(res.status).toBe(400);
   });
 
   test('an empty palace has no candidates, and says so plainly', async () => {
     root = makeTempPalace({ withEntries: false });
     server = makeServer(root);
-    const res = await request(server).get('/api/lens/suggest?subject=Subject');
+    const base = await listen(server);
+    const res = await request(base).get('/api/lens/suggest?subject=Subject');
     expect(res.status).toBe(200);
     expect(res.body.candidates).toEqual([]);
   });
@@ -84,8 +91,9 @@ describe('GET /api/lens/suggest', () => {
   test('never offers a page that has been removed from disk', async () => {
     root = makeTempPalace();
     server = makeServer(root);
+    const base = await listen(server);
     rmSync(resolve(root, 'Neighbor.md'));
-    const res = await request(server).get('/api/lens/suggest?subject=Subject');
+    const res = await request(base).get('/api/lens/suggest?subject=Subject');
     expect(res.status).toBe(200);
     expect(res.body.candidates.map((c) => c.title)).toEqual(['Islanded', 'TwoHop']);
     expect(res.body.map_source).toBe('live');

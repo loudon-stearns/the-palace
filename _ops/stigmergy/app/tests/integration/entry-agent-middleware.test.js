@@ -7,6 +7,7 @@ import { resolve, join } from 'node:path';
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import request from 'supertest';
+import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 
 function makeServer(palaceRoot) {
@@ -24,8 +25,8 @@ function makeServer(palaceRoot) {
 }
 
 describe('GET /api/entry-agent/ground', () => {
-  let root, server;
-  beforeEach(() => {
+  let root, base;
+  beforeEach(async () => {
     root = mkdtempSync(resolve(tmpdir(), 'stig-entry-agent-'));
     writeFileSync(
       join(root, 'Open Entry.md'),
@@ -36,12 +37,12 @@ describe('GET /api/entry-agent/ground', () => {
       join(root, 'Neighbor.md'),
       '---\ntitle: Neighbor\ntype: concept\nstage: mature\nforward_vector: "I want to be a good neighbor."\n---\n# N\n',
     );
-    server = makeServer(root);
+    base = await listen(makeServer(root));
   });
-  afterEach(() => { rmSync(root, { recursive: true, force: true }); });
+  afterEach(async () => { await closeAll(); rmSync(root, { recursive: true, force: true }); });
 
   test('returns grounding for an entry (resolved neighbor + ghost + floor)', async () => {
-    const res = await request(server).get('/api/entry-agent/ground').query({ path: 'Open Entry.md' });
+    const res = await request(base).get('/api/entry-agent/ground').query({ path: 'Open Entry.md' });
     expect(res.status).toBe(200);
     expect(res.body.ok).toBe(true);
     const g = res.body.grounding;
@@ -54,12 +55,12 @@ describe('GET /api/entry-agent/ground', () => {
   });
 
   test('400 when ?path is missing', async () => {
-    const res = await request(server).get('/api/entry-agent/ground');
+    const res = await request(base).get('/api/entry-agent/ground');
     expect(res.status).toBe(400);
   });
 
   test('404 for an unknown entry', async () => {
-    const res = await request(server).get('/api/entry-agent/ground').query({ path: 'Nope.md' });
+    const res = await request(base).get('/api/entry-agent/ground').query({ path: 'Nope.md' });
     expect(res.status).toBe(404);
   });
 });

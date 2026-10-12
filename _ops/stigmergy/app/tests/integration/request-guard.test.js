@@ -9,6 +9,7 @@ import { resolve } from 'node:path';
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import request from 'supertest';
+import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 import { isHostAllowed, hostnameOf } from '../../server/request-guard.js';
 
@@ -56,22 +57,18 @@ const BOARD = '_ops/swarm/persistent/blackboard.jsonl';
 const boardLines = (root) => readFileSync(resolve(root, BOARD), 'utf8').split('\n').filter(Boolean).length;
 
 let root;
-let server;
-let base; // one listening port for the whole file — handing supertest the bare server lets it
-          // listen and close around every request, and a close still in flight drops the next one
+let base;
 
 beforeAll(async () => {
   root = mkdtempSync(resolve(tmpdir(), 'stigmergy-guard-'));
   mkdirSync(resolve(root, '_ops/swarm/persistent'), { recursive: true });
   mkdirSync(resolve(root, '_ops/swarm/sessions'), { recursive: true });
   writeFileSync(resolve(root, BOARD), '', 'utf8');
-  server = makeServer(root, ['.palace.test']);
-  await new Promise((done) => server.listen(0, '127.0.0.1', done));
-  base = `http://127.0.0.1:${server.address().port}`;
+  base = await listen(makeServer(root, ['.palace.test']));
 });
 
 afterAll(async () => {
-  await new Promise((done) => server.close(done));
+  await closeAll();
   rmSync(root, { recursive: true, force: true });
 });
 

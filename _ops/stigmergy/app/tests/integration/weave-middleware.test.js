@@ -9,6 +9,7 @@ import { mkdtempSync, rmSync, mkdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import request from 'supertest';
+import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 
 function makeServer(palaceRoot, opts = {}) {
@@ -35,13 +36,13 @@ function makeTempPalace() {
 describe('POST /api/weave/apply', () => {
   let root;
   beforeEach(() => { root = makeTempPalace(); });
-  afterEach(() => { rmSync(root, { recursive: true, force: true }); });
+  afterEach(async () => { await closeAll(); rmSync(root, { recursive: true, force: true }); });
 
   test('200 + applied, passing apply/proposalId/palaceRoot/boardPath to the executor', async () => {
     let seen = null;
     const applyWeaveProposalImpl = async (args) => { seen = args; return { ok: true, commit: 'abc1234', entry: 'Foo', op: 'set-vector', proofPosted: true }; };
     const apply = { op: 'set-vector', entry: 'Foo', text: 'I will keep going.' };
-    const res = await request(makeServer(root, { applyWeaveProposalImpl }))
+    const res = await request(await listen(makeServer(root, { applyWeaveProposalImpl })))
       .post('/api/weave/apply').send({ apply, proposalId: 'p-9' });
     expect(res.status).toBe(200);
     expect(res.body.ok).toBe(true);
@@ -54,7 +55,7 @@ describe('POST /api/weave/apply', () => {
 
   test('maps the executor status onto the HTTP status (404 entry-not-found)', async () => {
     const applyWeaveProposalImpl = async () => ({ ok: false, status: 404, error: 'entry not found: Ghost' });
-    const res = await request(makeServer(root, { applyWeaveProposalImpl }))
+    const res = await request(await listen(makeServer(root, { applyWeaveProposalImpl })))
       .post('/api/weave/apply').send({ apply: { op: 'set-vector', entry: 'Ghost', text: 'x.' } });
     expect(res.status).toBe(404);
     expect(res.body.error).toMatch(/not found/);
@@ -62,13 +63,13 @@ describe('POST /api/weave/apply', () => {
 
   test('422 when the proposal carries no applicable change', async () => {
     const applyWeaveProposalImpl = async () => ({ ok: false, status: 422, error: 'this proposal carries no applicable change' });
-    const res = await request(makeServer(root, { applyWeaveProposalImpl }))
+    const res = await request(await listen(makeServer(root, { applyWeaveProposalImpl })))
       .post('/api/weave/apply').send({ apply: { proposed_change: 'prose only' } });
     expect(res.status).toBe(422);
   });
 
   test('400 on malformed JSON', async () => {
-    const res = await request(makeServer(root))
+    const res = await request(await listen(makeServer(root)))
       .post('/api/weave/apply').set('Content-Type', 'application/json').send('{ not json');
     expect(res.status).toBe(400);
   });
@@ -77,13 +78,13 @@ describe('POST /api/weave/apply', () => {
 describe('POST /api/weave/emit-unsung', () => {
   let root;
   beforeEach(() => { root = makeTempPalace(); });
-  afterEach(() => { rmSync(root, { recursive: true, force: true }); });
+  afterEach(async () => { await closeAll(); rmSync(root, { recursive: true, force: true }); });
 
   test('defaults to a DRY RUN (dryRun:true, limit:8) and passes palaceRoot/boardPath', async () => {
     let seen = null;
     const runUnsungEmissionImpl = async (args) => { seen = args; return { ok: true, dryRun: true, found: 3, eligible: 2, planned: 2, proposals: [] }; };
     // An empty JSON POST (no fields) must run the audit, not error.
-    const res = await request(makeServer(root, { runUnsungEmissionImpl }))
+    const res = await request(await listen(makeServer(root, { runUnsungEmissionImpl })))
       .post('/api/weave/emit-unsung').set('Content-Type', 'application/json').send();
     expect(res.status).toBe(200);
     expect(res.body.ok).toBe(true);
@@ -96,7 +97,7 @@ describe('POST /api/weave/emit-unsung', () => {
   test('dryRun:false + limit are passed straight through to the runner', async () => {
     let seen = null;
     const runUnsungEmissionImpl = async (args) => { seen = args; return { ok: true, dryRun: false, posted: 3 }; };
-    const res = await request(makeServer(root, { runUnsungEmissionImpl }))
+    const res = await request(await listen(makeServer(root, { runUnsungEmissionImpl })))
       .post('/api/weave/emit-unsung').send({ dryRun: false, limit: 3 });
     expect(res.status).toBe(200);
     expect(res.body.posted).toBe(3);
@@ -106,14 +107,14 @@ describe('POST /api/weave/emit-unsung', () => {
 
   test('maps the runner status onto the HTTP status (500 no-root)', async () => {
     const runUnsungEmissionImpl = async () => ({ ok: false, status: 500, error: 'no palace root configured' });
-    const res = await request(makeServer(root, { runUnsungEmissionImpl }))
+    const res = await request(await listen(makeServer(root, { runUnsungEmissionImpl })))
       .post('/api/weave/emit-unsung').send({ dryRun: true });
     expect(res.status).toBe(500);
     expect(res.body.error).toMatch(/no palace root/);
   });
 
   test('400 on malformed JSON', async () => {
-    const res = await request(makeServer(root))
+    const res = await request(await listen(makeServer(root)))
       .post('/api/weave/emit-unsung').set('Content-Type', 'application/json').send('{ not json');
     expect(res.status).toBe(400);
   });
@@ -122,12 +123,12 @@ describe('POST /api/weave/emit-unsung', () => {
 describe('POST /api/weave/emit-hub', () => {
   let root;
   beforeEach(() => { root = makeTempPalace(); });
-  afterEach(() => { rmSync(root, { recursive: true, force: true }); });
+  afterEach(async () => { await closeAll(); rmSync(root, { recursive: true, force: true }); });
 
   test('defaults to a DRY RUN (dryRun:true, limit:8, threshold:5) and passes palaceRoot/boardPath', async () => {
     let seen = null;
     const runHubEmissionImpl = async (args) => { seen = args; return { ok: true, dryRun: true, found: 2, eligible: 2, planned: 2, proposals: [] }; };
-    const res = await request(makeServer(root, { runHubEmissionImpl }))
+    const res = await request(await listen(makeServer(root, { runHubEmissionImpl })))
       .post('/api/weave/emit-hub').set('Content-Type', 'application/json').send();
     expect(res.status).toBe(200);
     expect(res.body.ok).toBe(true);
@@ -141,7 +142,7 @@ describe('POST /api/weave/emit-hub', () => {
   test('dryRun:false + limit + threshold pass straight through', async () => {
     let seen = null;
     const runHubEmissionImpl = async (args) => { seen = args; return { ok: true, dryRun: false, posted: 2 }; };
-    const res = await request(makeServer(root, { runHubEmissionImpl }))
+    const res = await request(await listen(makeServer(root, { runHubEmissionImpl })))
       .post('/api/weave/emit-hub').send({ dryRun: false, limit: 2, threshold: 6 });
     expect(res.status).toBe(200);
     expect(res.body.posted).toBe(2);
@@ -152,14 +153,14 @@ describe('POST /api/weave/emit-hub', () => {
 
   test('maps the runner status onto the HTTP status (500 no-root)', async () => {
     const runHubEmissionImpl = async () => ({ ok: false, status: 500, error: 'no palace root configured' });
-    const res = await request(makeServer(root, { runHubEmissionImpl }))
+    const res = await request(await listen(makeServer(root, { runHubEmissionImpl })))
       .post('/api/weave/emit-hub').send({ dryRun: true });
     expect(res.status).toBe(500);
     expect(res.body.error).toMatch(/no palace root/);
   });
 
   test('400 on malformed JSON', async () => {
-    const res = await request(makeServer(root))
+    const res = await request(await listen(makeServer(root)))
       .post('/api/weave/emit-hub').set('Content-Type', 'application/json').send('{ not json');
     expect(res.status).toBe(400);
   });
@@ -168,12 +169,12 @@ describe('POST /api/weave/emit-hub', () => {
 describe('POST /api/weave/emit-vector-tuning', () => {
   let root;
   beforeEach(() => { root = makeTempPalace(); });
-  afterEach(() => { rmSync(root, { recursive: true, force: true }); });
+  afterEach(async () => { await closeAll(); rmSync(root, { recursive: true, force: true }); });
 
   test('defaults to a DRY RUN (dryRun:true, limit:3) and passes palaceRoot/boardPath', async () => {
     let seen = null;
     const runVectorTuningEmissionImpl = async (args) => { seen = args; return { ok: true, dryRun: true, found: 2, eligible: 2, planned: 2, candidates: [] }; };
-    const res = await request(makeServer(root, { runVectorTuningEmissionImpl }))
+    const res = await request(await listen(makeServer(root, { runVectorTuningEmissionImpl })))
       .post('/api/weave/emit-vector-tuning').set('Content-Type', 'application/json').send();
     expect(res.status).toBe(200);
     expect(res.body.ok).toBe(true);
@@ -186,7 +187,7 @@ describe('POST /api/weave/emit-vector-tuning', () => {
   test('dryRun:false + limit + model pass straight through (generate + post)', async () => {
     let seen = null;
     const runVectorTuningEmissionImpl = async (args) => { seen = args; return { ok: true, dryRun: false, posted: 2 }; };
-    const res = await request(makeServer(root, { runVectorTuningEmissionImpl }))
+    const res = await request(await listen(makeServer(root, { runVectorTuningEmissionImpl })))
       .post('/api/weave/emit-vector-tuning').send({ dryRun: false, limit: 2, model: 'claude-opus-4-8' });
     expect(res.status).toBe(200);
     expect(res.body.posted).toBe(2);
@@ -197,14 +198,14 @@ describe('POST /api/weave/emit-vector-tuning', () => {
 
   test('maps the runner status onto the HTTP status (500 no-root)', async () => {
     const runVectorTuningEmissionImpl = async () => ({ ok: false, status: 500, error: 'no palace root configured' });
-    const res = await request(makeServer(root, { runVectorTuningEmissionImpl }))
+    const res = await request(await listen(makeServer(root, { runVectorTuningEmissionImpl })))
       .post('/api/weave/emit-vector-tuning').send({ dryRun: true });
     expect(res.status).toBe(500);
     expect(res.body.error).toMatch(/no palace root/);
   });
 
   test('400 on malformed JSON', async () => {
-    const res = await request(makeServer(root))
+    const res = await request(await listen(makeServer(root)))
       .post('/api/weave/emit-vector-tuning').set('Content-Type', 'application/json').send('{ not json');
     expect(res.status).toBe(400);
   });
@@ -213,12 +214,12 @@ describe('POST /api/weave/emit-vector-tuning', () => {
 describe('POST /api/weave/emit-stage', () => {
   let root;
   beforeEach(() => { root = makeTempPalace(); });
-  afterEach(() => { rmSync(root, { recursive: true, force: true }); });
+  afterEach(async () => { await closeAll(); rmSync(root, { recursive: true, force: true }); });
 
   test('defaults to a DRY RUN (dryRun:true, limit:8) and passes palaceRoot/boardPath', async () => {
     let seen = null;
     const runStageEmissionImpl = async (args) => { seen = args; return { ok: true, dryRun: true, found: 1, eligible: 1, planned: 1, proposals: [] }; };
-    const res = await request(makeServer(root, { runStageEmissionImpl }))
+    const res = await request(await listen(makeServer(root, { runStageEmissionImpl })))
       .post('/api/weave/emit-stage').set('Content-Type', 'application/json').send();
     expect(res.status).toBe(200);
     expect(res.body.ok).toBe(true);
@@ -231,7 +232,7 @@ describe('POST /api/weave/emit-stage', () => {
   test('dryRun:false + limit pass straight through', async () => {
     let seen = null;
     const runStageEmissionImpl = async (args) => { seen = args; return { ok: true, dryRun: false, posted: 1 }; };
-    const res = await request(makeServer(root, { runStageEmissionImpl }))
+    const res = await request(await listen(makeServer(root, { runStageEmissionImpl })))
       .post('/api/weave/emit-stage').send({ dryRun: false, limit: 2 });
     expect(res.status).toBe(200);
     expect(res.body.posted).toBe(1);
@@ -241,14 +242,14 @@ describe('POST /api/weave/emit-stage', () => {
 
   test('maps the runner status onto the HTTP status (500 no-root)', async () => {
     const runStageEmissionImpl = async () => ({ ok: false, status: 500, error: 'no palace root configured' });
-    const res = await request(makeServer(root, { runStageEmissionImpl }))
+    const res = await request(await listen(makeServer(root, { runStageEmissionImpl })))
       .post('/api/weave/emit-stage').send({ dryRun: true });
     expect(res.status).toBe(500);
     expect(res.body.error).toMatch(/no palace root/);
   });
 
   test('400 on malformed JSON', async () => {
-    const res = await request(makeServer(root))
+    const res = await request(await listen(makeServer(root)))
       .post('/api/weave/emit-stage').set('Content-Type', 'application/json').send('{ not json');
     expect(res.status).toBe(400);
   });
@@ -257,12 +258,12 @@ describe('POST /api/weave/emit-stage', () => {
 describe('POST /api/weave/emit-label', () => {
   let root;
   beforeEach(() => { root = makeTempPalace(); });
-  afterEach(() => { rmSync(root, { recursive: true, force: true }); });
+  afterEach(async () => { await closeAll(); rmSync(root, { recursive: true, force: true }); });
 
   test('defaults to a DRY RUN (dryRun:true, limit:3) and passes palaceRoot/boardPath', async () => {
     let seen = null;
     const runLabelEmissionImpl = async (args) => { seen = args; return { ok: true, dryRun: true, found: 2, eligible: 2, planned: 2, candidates: [] }; };
-    const res = await request(makeServer(root, { runLabelEmissionImpl }))
+    const res = await request(await listen(makeServer(root, { runLabelEmissionImpl })))
       .post('/api/weave/emit-label').set('Content-Type', 'application/json').send();
     expect(res.status).toBe(200);
     expect(res.body.ok).toBe(true);
@@ -275,7 +276,7 @@ describe('POST /api/weave/emit-label', () => {
   test('dryRun:false + limit + model pass straight through (generate + post)', async () => {
     let seen = null;
     const runLabelEmissionImpl = async (args) => { seen = args; return { ok: true, dryRun: false, posted: 2 }; };
-    const res = await request(makeServer(root, { runLabelEmissionImpl }))
+    const res = await request(await listen(makeServer(root, { runLabelEmissionImpl })))
       .post('/api/weave/emit-label').send({ dryRun: false, limit: 2, model: 'claude-opus-4-8' });
     expect(res.status).toBe(200);
     expect(res.body.posted).toBe(2);
@@ -286,14 +287,14 @@ describe('POST /api/weave/emit-label', () => {
 
   test('maps the runner status onto the HTTP status (500 no-root)', async () => {
     const runLabelEmissionImpl = async () => ({ ok: false, status: 500, error: 'no palace root configured' });
-    const res = await request(makeServer(root, { runLabelEmissionImpl }))
+    const res = await request(await listen(makeServer(root, { runLabelEmissionImpl })))
       .post('/api/weave/emit-label').send({ dryRun: true });
     expect(res.status).toBe(500);
     expect(res.body.error).toMatch(/no palace root/);
   });
 
   test('400 on malformed JSON', async () => {
-    const res = await request(makeServer(root))
+    const res = await request(await listen(makeServer(root)))
       .post('/api/weave/emit-label').set('Content-Type', 'application/json').send('{ not json');
     expect(res.status).toBe(400);
   });

@@ -8,6 +8,7 @@ import { mkdtempSync, rmSync, mkdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import request from 'supertest';
+import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 
 function makeServer(palaceRoot, opts = {}) {
@@ -34,17 +35,17 @@ function makeTempPalace() {
 describe('POST /api/launch', () => {
   let root;
   beforeEach(() => { root = makeTempPalace(); });
-  afterEach(() => { rmSync(root, { recursive: true, force: true }); });
+  afterEach(async () => { await closeAll(); rmSync(root, { recursive: true, force: true }); });
 
   test('400 on an empty prompt', async () => {
-    const res = await request(makeServer(root)).post('/api/launch').send({ prompt: '   ' });
+    const res = await request(await listen(makeServer(root))).post('/api/launch').send({ prompt: '   ' });
     expect(res.status).toBe(400);
   });
 
   test('200 + launched, passing the prompt and palace root to the impl', async () => {
     let seen = null;
     const launchImpl = (prompt, o) => { seen = { prompt, palaceRoot: o.palaceRoot }; return { launched: true, supported: true, scriptPath: '/tmp/x/launch.command' }; };
-    const res = await request(makeServer(root, { launchImpl })).post('/api/launch').send({ prompt: 'drive [[Foo]] — "go"' });
+    const res = await request(await listen(makeServer(root, { launchImpl }))).post('/api/launch').send({ prompt: 'drive [[Foo]] — "go"' });
     expect(res.status).toBe(200);
     expect(res.body.launched).toBe(true);
     expect(seen.prompt).toBe('drive [[Foo]] — "go"');
@@ -53,14 +54,14 @@ describe('POST /api/launch', () => {
 
   test('501 when the host is not macOS (client falls back to copy)', async () => {
     const launchImpl = () => ({ launched: false, supported: false, error: 'open-in-terminal is macOS-only — use copy prompt.' });
-    const res = await request(makeServer(root, { launchImpl })).post('/api/launch').send({ prompt: 'x' });
+    const res = await request(await listen(makeServer(root, { launchImpl }))).post('/api/launch').send({ prompt: 'x' });
     expect(res.status).toBe(501);
     expect(res.body.supported).toBe(false);
   });
 
   test('500 on an unexpected launch failure', async () => {
     const launchImpl = () => ({ launched: false, supported: true, error: 'open exited 1' });
-    const res = await request(makeServer(root, { launchImpl })).post('/api/launch').send({ prompt: 'x' });
+    const res = await request(await listen(makeServer(root, { launchImpl }))).post('/api/launch').send({ prompt: 'x' });
     expect(res.status).toBe(500);
   });
 });
@@ -68,7 +69,7 @@ describe('POST /api/launch', () => {
 describe('POST /api/launch/agent', () => {
   let root;
   beforeEach(() => { root = makeTempPalace(); });
-  afterEach(() => { rmSync(root, { recursive: true, force: true }); });
+  afterEach(async () => { await closeAll(); rmSync(root, { recursive: true, force: true }); });
 
   // A registered steward roster + an injected cycle-prompt builder, so the route
   // is exercised without real agent files on disk.
@@ -76,12 +77,12 @@ describe('POST /api/launch/agent', () => {
   const stewardLane = { list: () => [ROW] };
 
   test('400 when no home is given', async () => {
-    const res = await request(makeServer(root, { stewardLane })).post('/api/launch/agent').send({});
+    const res = await request(await listen(makeServer(root, { stewardLane }))).post('/api/launch/agent').send({});
     expect(res.status).toBe(400);
   });
 
   test('404 when the page is not a registered steward (client falls back)', async () => {
-    const res = await request(makeServer(root, { stewardLane: { list: () => [] } }))
+    const res = await request(await listen(makeServer(root, { stewardLane: { list: () => [] } })))
       .post('/api/launch/agent').send({ home: 'Not A Steward' });
     expect(res.status).toBe(404);
     expect(res.body.registered).toBe(false);
@@ -90,7 +91,7 @@ describe('POST /api/launch/agent', () => {
   test('preview returns the tiered construction + the constructed prompt, built in interactive mode at the right cycle', async () => {
     let built = null;
     const buildCyclePromptImpl = (o) => { built = o; return { full: `CONSTRUCTED for ${o.agentDir} (cycle ${o.cycleN})` }; };
-    const res = await request(makeServer(root, { stewardLane, buildCyclePromptImpl }))
+    const res = await request(await listen(makeServer(root, { stewardLane, buildCyclePromptImpl })))
       .post('/api/launch/agent').send({ home: 'Kuramoto Coupling', mandate: 'resolve stage 2', preview: true });
     expect(res.status).toBe(200);
     expect(res.body.preview).toBe(true);
@@ -110,7 +111,7 @@ describe('POST /api/launch/agent', () => {
     let launched = null;
     const buildCyclePromptImpl = () => ({ full: 'THE CONSTRUCTED PROMPT' });
     const launchImpl = (prompt, o) => { launched = { prompt, model: o.model, effort: o.effort }; return { launched: true, supported: true, scriptPath: '/tmp/x/launch.command' }; };
-    const res = await request(makeServer(root, { stewardLane, buildCyclePromptImpl, launchImpl }))
+    const res = await request(await listen(makeServer(root, { stewardLane, buildCyclePromptImpl, launchImpl })))
       .post('/api/launch/agent').send({ home: 'Kuramoto Coupling', model: 'claude-opus-4-8', effort: 'xhigh' });
     expect(res.status).toBe(200);
     expect(res.body.launched).toBe(true);
@@ -124,7 +125,7 @@ describe('POST /api/launch/agent', () => {
     let launched = null;
     const buildCyclePromptImpl = () => ({ full: 'P' });
     const launchImpl = (prompt, o) => { launched = o; return { launched: true, supported: true }; };
-    await request(makeServer(root, { stewardLane, buildCyclePromptImpl, launchImpl }))
+    await request(await listen(makeServer(root, { stewardLane, buildCyclePromptImpl, launchImpl })))
       .post('/api/launch/agent').send({ home: 'Kuramoto Coupling', effort: 'ludicrous' });
     expect(launched.effort).toBeUndefined();  // not in the allowlist -> default
   });
@@ -132,7 +133,7 @@ describe('POST /api/launch/agent', () => {
   test('include toggles pass to the builder and trim the Tier-3 construction summary', async () => {
     let built = null;
     const buildCyclePromptImpl = (o) => { built = o; return { full: 'P' }; };
-    const res = await request(makeServer(root, { stewardLane, buildCyclePromptImpl }))
+    const res = await request(await listen(makeServer(root, { stewardLane, buildCyclePromptImpl })))
       .post('/api/launch/agent').send({ home: 'Kuramoto Coupling', include: { board: false, scroll: false }, preview: true });
     expect(res.status).toBe(200);
     // normalized: only the toggled-off layers go false; the rest default true
@@ -150,7 +151,7 @@ describe('POST /api/launch/agent', () => {
 describe('POST /api/launch/ephemeral', () => {
   let root;
   beforeEach(() => { root = makeTempPalace(); });
-  afterEach(() => { rmSync(root, { recursive: true, force: true }); });
+  afterEach(async () => { await closeAll(); rmSync(root, { recursive: true, force: true }); });
 
   // The ephemeral path wakes ANY page as itself (no steward roster). An injected
   // builder stands in for buildEphemeralPrompt so the route is exercised without
@@ -158,7 +159,7 @@ describe('POST /api/launch/ephemeral', () => {
   const okBuild = (o) => ({ ok: true, status: 'built', home: o.title, stage: 'growing', full: `AWAKEN ${o.title}` });
 
   test('400 when no home is given', async () => {
-    const res = await request(makeServer(root, { buildEphemeralPromptImpl: okBuild }))
+    const res = await request(await listen(makeServer(root, { buildEphemeralPromptImpl: okBuild })))
       .post('/api/launch/ephemeral').send({});
     expect(res.status).toBe(400);
   });
@@ -166,7 +167,7 @@ describe('POST /api/launch/ephemeral', () => {
   test('preview returns the awaken construction + the prompt — no steward layers, no cycle', async () => {
     let built = null;
     const buildEphemeralPromptImpl = (o) => { built = o; return okBuild(o); };
-    const res = await request(makeServer(root, { buildEphemeralPromptImpl }))
+    const res = await request(await listen(makeServer(root, { buildEphemeralPromptImpl })))
       .post('/api/launch/ephemeral').send({ home: 'Murmuration', mandate: 'sketch the boids', preview: true });
     expect(res.status).toBe(200);
     expect(res.body.preview).toBe(true);
@@ -195,7 +196,7 @@ describe('POST /api/launch/ephemeral', () => {
   test('launch hands the woken prompt + model/effort to the launcher', async () => {
     let launched = null;
     const launchImpl = (prompt, o) => { launched = { prompt, model: o.model, effort: o.effort }; return { launched: true, supported: true, scriptPath: '/tmp/x/launch.command' }; };
-    const res = await request(makeServer(root, { buildEphemeralPromptImpl: okBuild, launchImpl }))
+    const res = await request(await listen(makeServer(root, { buildEphemeralPromptImpl: okBuild, launchImpl })))
       .post('/api/launch/ephemeral').send({ home: 'Murmuration', model: 'claude-sonnet-4-6', effort: 'high' });
     expect(res.status).toBe(200);
     expect(res.body.launched).toBe(true);
@@ -208,7 +209,7 @@ describe('POST /api/launch/ephemeral', () => {
 
   test('404 when the page is not found', async () => {
     const buildEphemeralPromptImpl = () => ({ ok: false, status: 'not_found', home: 'Ghost' });
-    const res = await request(makeServer(root, { buildEphemeralPromptImpl }))
+    const res = await request(await listen(makeServer(root, { buildEphemeralPromptImpl })))
       .post('/api/launch/ephemeral').send({ home: 'Ghost' });
     expect(res.status).toBe(404);
     expect(res.body.status).toBe('not_found');
@@ -216,7 +217,7 @@ describe('POST /api/launch/ephemeral', () => {
 
   test('422 when the page has no frontmatter (a learning material, not a canon entry)', async () => {
     const buildEphemeralPromptImpl = () => ({ ok: false, status: 'no_frontmatter', home: 'Plain' });
-    const res = await request(makeServer(root, { buildEphemeralPromptImpl }))
+    const res = await request(await listen(makeServer(root, { buildEphemeralPromptImpl })))
       .post('/api/launch/ephemeral').send({ home: 'Plain' });
     expect(res.status).toBe(422);
     expect(res.body.error).toMatch(/no frontmatter/i);
@@ -224,7 +225,7 @@ describe('POST /api/launch/ephemeral', () => {
 
   test('501 when the host is not macOS (client falls back to copy)', async () => {
     const launchImpl = () => ({ launched: false, supported: false, error: 'open-in-terminal is macOS-only — use copy prompt.' });
-    const res = await request(makeServer(root, { buildEphemeralPromptImpl: okBuild, launchImpl }))
+    const res = await request(await listen(makeServer(root, { buildEphemeralPromptImpl: okBuild, launchImpl })))
       .post('/api/launch/ephemeral').send({ home: 'Murmuration' });
     expect(res.status).toBe(501);
     expect(res.body.supported).toBe(false);

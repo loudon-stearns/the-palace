@@ -13,6 +13,7 @@ import { mkdtempSync, rmSync, writeFileSync, mkdirSync, existsSync, readFileSync
 import { tmpdir } from 'node:os';
 import { execFileSync } from 'node:child_process';
 import request from 'supertest';
+import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 import { createCompanionLane } from '../../server/companion-lane.js';
 import { buildQueue } from '../../src/lib/queue-model.js';
@@ -83,10 +84,11 @@ function waitFor(predicate, { timeout = 8000, interval = 50 } = {}) {
 }
 
 describe('POST /api/entry-agent/turn', () => {
-  let root, server, companionLane;
-  beforeEach(() => { root = makeTempPalace(); ({ server, companionLane } = makeServer(root)); });
+  let root, server, base, companionLane;
+  beforeEach(async () => { root = makeTempPalace(); ({ server, companionLane } = makeServer(root)); base = await listen(server); });
   afterEach(async () => {
     try { await waitFor(() => !existsSync(companionLane.paths.pidFile), { timeout: 4000 }); } catch (_) { /* ignore */ }
+    await closeAll();
     rmSync(root, { recursive: true, force: true });
   });
 
@@ -94,7 +96,7 @@ describe('POST /api/entry-agent/turn', () => {
   const readBoard = (r) => readFileSync(boardPath(r), 'utf8').trim().split('\n').filter(Boolean).map((l) => JSON.parse(l));
 
   test('fires a turn and the reap posts a companion_reply to the board (THE proof)', async () => {
-    const res = await request(server).post('/api/entry-agent/turn').send({ path: 'Open Entry.md', message: 'what is the body schema?' });
+    const res = await request(base).post('/api/entry-agent/turn').send({ path: 'Open Entry.md', message: 'what is the body schema?' });
     expect(res.status).toBe(200);
     expect(res.body.fired).toBe(true);
     expect(typeof res.body.turnId).toBe('string');
@@ -120,7 +122,7 @@ describe('POST /api/entry-agent/turn', () => {
     // turn carries a context descriptor instead of a path; the reply posts under
     // the STIGMERGY identity with no entry_path, and the window correlates it by
     // turn id alone.
-    const res = await request(server).post('/api/entry-agent/turn').send({
+    const res = await request(base).post('/api/entry-agent/turn').send({
       context: { kind: 'app_feedback', deck: 'LOG' },
       message: 'the log filters are confusing',
     });
@@ -143,7 +145,7 @@ describe('POST /api/entry-agent/turn', () => {
     // Stage 2: on TRICKSTER the companion grounds in the project entry named by
     // the request (its `from`/project title resolves to that entry) and replies
     // AS it — read-only, no edit/flag. Here the project is the temp "Open Entry".
-    const res = await request(server).post('/api/entry-agent/turn').send({
+    const res = await request(base).post('/api/entry-agent/turn').send({
       context: {
         kind: 'trickster_request', request_id: 'req-1', project: 'Open Entry',
         ask: 'pick the next move', options: [{ id: 'a', label: 'ship it' }],
@@ -172,7 +174,8 @@ describe('POST /api/entry-agent/turn', () => {
     // posts the confirming reply AND a FLAG/stigmergy_todo on the FLAGS board,
     // which buildQueue renders. Both carry the turn_id so the window correlates.
     ({ server, companionLane } = makeServer(root, { action: 'flag' }));
-    const res = await request(server).post('/api/entry-agent/turn').send({
+    base = await listen(server);
+    const res = await request(base).post('/api/entry-agent/turn').send({
       context: { kind: 'app_feedback', deck: 'LOG' },
       message: 'the log filters are confusing, capture that',
     });
@@ -205,7 +208,8 @@ describe('POST /api/entry-agent/turn', () => {
     // show before editing: the worker proposes an append; the reap posts a
     // proposal the window renders for approval — nothing is written yet.
     ({ server, companionLane } = makeServer(root, { editText: 'A new closing line about li.' }));
-    const res = await request(server).post('/api/entry-agent/turn').send({ path: 'Open Entry.md', message: 'add a line about li at the end' });
+    base = await listen(server);
+    const res = await request(base).post('/api/entry-agent/turn').send({ path: 'Open Entry.md', message: 'add a line about li at the end' });
     expect(res.status).toBe(200);
     const turnId = res.body.turnId;
 
@@ -226,8 +230,9 @@ describe('POST /api/entry-agent/turn', () => {
 
   test('POST /apply commits the approved op to the LIVE entry and posts a committed PROOF', async () => {
     ({ server, companionLane } = makeServer(root));
+    base = await listen(server);
     const turnId = 'companion-open-entry-approve-1';
-    const a = await request(server).post('/api/entry-agent/apply').send({
+    const a = await request(base).post('/api/entry-agent/apply').send({
       path: 'Open Entry.md', op: { op: 'append', text: 'A committed line about li.' }, turnId,
     });
     expect(a.status).toBe(200);
@@ -249,7 +254,7 @@ describe('POST /api/entry-agent/turn', () => {
   }, 20000);
 
   test('POST /apply 400 on a stale op that no longer applies (find absent)', async () => {
-    const a = await request(server).post('/api/entry-agent/apply').send({
+    const a = await request(base).post('/api/entry-agent/apply').send({
       path: 'Open Entry.md', op: { op: 'rewrite', find: 'nowhere to be found', replace: 'x' },
     });
     expect(a.status).toBe(400);
@@ -260,7 +265,8 @@ describe('POST /api/entry-agent/turn', () => {
     // adaptive narration: a clean proposal with an empty reply stays quiet — the
     // proposal card speaks, so no reply bubble is posted for that turn.
     ({ server, companionLane } = makeServer(root, { editText: 'A quiet closing line.', replyText: '' }));
-    const res = await request(server).post('/api/entry-agent/turn').send({ path: 'Open Entry.md', message: 'tighten the ending' });
+    base = await listen(server);
+    const res = await request(base).post('/api/entry-agent/turn').send({ path: 'Open Entry.md', message: 'tighten the ending' });
     expect(res.status).toBe(200);
     const turnId = res.body.turnId;
 
@@ -278,7 +284,8 @@ describe('POST /api/entry-agent/turn', () => {
     ({ server, companionLane } = makeServer(root, {
       editText: 'I will keep being discussed and become more.', editOp: 'set-vector',
     }));
-    const res = await request(server).post('/api/entry-agent/turn').send({ path: 'Open Entry.md', message: 'sharpen my forward vector' });
+    base = await listen(server);
+    const res = await request(base).post('/api/entry-agent/turn').send({ path: 'Open Entry.md', message: 'sharpen my forward vector' });
     const turnId = res.body.turnId;
     await waitFor(() => !existsSync(companionLane.paths.pidFile), { timeout: 6000 });
     await waitFor(() => readFileSync(boardPath(root), 'utf8').includes('companion_edit_proposed'), { timeout: 4000 });
@@ -299,7 +306,8 @@ describe('POST /api/entry-agent/turn', () => {
     ({ server, companionLane } = makeServer(root, {
       editText: 'I want to be discussed.', editOp: 'set-vector', replyText: '',
     }));
-    const res = await request(server).post('/api/entry-agent/turn').send({ path: 'Open Entry.md', message: 'set my vector to what it already says' });
+    base = await listen(server);
+    const res = await request(base).post('/api/entry-agent/turn').send({ path: 'Open Entry.md', message: 'set my vector to what it already says' });
     const turnId = res.body.turnId;
     await waitFor(() => !existsSync(companionLane.paths.pidFile), { timeout: 6000 });
     await waitFor(() => readBoard(root).some((m) => m.payload && m.payload.turn_id === turnId && m.payload.kind === 'companion_reply'), { timeout: 4000 });
@@ -315,14 +323,14 @@ describe('POST /api/entry-agent/turn', () => {
   test('POST /undo reverts a committed (approved) edit and posts a revert PROOF on the same turn', async () => {
     // apply commits live; undo reverts that commit as a new inverse commit.
     const turnId = 'companion-open-entry-undo-1';
-    const a = await request(server).post('/api/entry-agent/apply').send({
+    const a = await request(base).post('/api/entry-agent/apply').send({
       path: 'Open Entry.md', op: { op: 'append', text: 'A line to undo.' }, turnId,
     });
     expect(a.body.ok).toBe(true);
     const editCommit = a.body.commit;
     expect(git(root, ['show', 'HEAD:Open Entry.md'])).toMatch(/A line to undo\./);
 
-    const u = await request(server).post('/api/entry-agent/undo').send({ path: 'Open Entry.md', commit: editCommit, turnId });
+    const u = await request(base).post('/api/entry-agent/undo').send({ path: 'Open Entry.md', commit: editCommit, turnId });
     expect(u.status).toBe(200);
     expect(u.body.ok).toBe(true);
     expect(typeof u.body.revertHash).toBe('string');
@@ -338,9 +346,9 @@ describe('POST /api/entry-agent/turn', () => {
   }, 20000);
 
   test('POST /undo 400 on a missing or malformed commit', async () => {
-    const noCommit = await request(server).post('/api/entry-agent/undo').send({ path: 'Open Entry.md' });
+    const noCommit = await request(base).post('/api/entry-agent/undo').send({ path: 'Open Entry.md' });
     expect(noCommit.status).toBe(400);
-    const bad = await request(server).post('/api/entry-agent/undo').send({ path: 'Open Entry.md', commit: 'not-a-hash!' });
+    const bad = await request(base).post('/api/entry-agent/undo').send({ path: 'Open Entry.md', commit: 'not-a-hash!' });
     expect(bad.status).toBe(400);
     expect(bad.body.ok).toBe(false);
   });
@@ -352,13 +360,13 @@ describe('POST /api/entry-agent/turn', () => {
     git(root, ['commit', '-q', '-m', 'ops: seed SCHEMA']);
 
     // careful /apply refuses canon (403 → 400 envelope); the trickster lands it
-    const refused = await request(server).post('/api/entry-agent/apply').send({
+    const refused = await request(base).post('/api/entry-agent/apply').send({
       path: 'SCHEMA.md', op: { op: 'append', text: 'careful must not reach' },
     });
     expect(refused.body.ok).toBe(false);
 
     const turnId = 'companion-trick-schema-1';
-    const t = await request(server).post('/api/entry-agent/trickster').send({
+    const t = await request(base).post('/api/entry-agent/trickster').send({
       path: 'SCHEMA.md', op: { op: 'append', text: 'A trickster scratch line.' }, turnId,
     });
     expect(t.status).toBe(200);
@@ -376,13 +384,13 @@ describe('POST /api/entry-agent/turn', () => {
     expect(proof.payload.author).toBe('trickster');
 
     // untrick last: the same /undo reverts it cleanly
-    const u = await request(server).post('/api/entry-agent/undo').send({ path: 'SCHEMA.md', commit: t.body.commit, turnId });
+    const u = await request(base).post('/api/entry-agent/undo').send({ path: 'SCHEMA.md', commit: t.body.commit, turnId });
     expect(u.body.ok).toBe(true);
     expect(git(root, ['show', 'HEAD:SCHEMA.md'])).not.toMatch(/A trickster scratch line\./);
   }, 20000);
 
   test('POST /trickster STILL refuses a path-safety violation (400, security is not care)', async () => {
-    const escape = await request(server).post('/api/entry-agent/trickster').send({
+    const escape = await request(base).post('/api/entry-agent/trickster').send({
       path: '../escape.md', op: { op: 'append', text: 'x' },
     });
     expect(escape.status).toBe(400);
@@ -424,16 +432,16 @@ describe('POST /api/entry-agent/turn', () => {
   }, 20000);
 
   test('400 when the message is missing', async () => {
-    const res = await request(server).post('/api/entry-agent/turn').send({ path: 'Open Entry.md' });
+    const res = await request(base).post('/api/entry-agent/turn').send({ path: 'Open Entry.md' });
     expect(res.status).toBe(400);
     expect(res.body.fired).toBe(false);
   });
 
   test('409 while a turn is already running (single global worker per lane)', async () => {
-    const first = await request(server).post('/api/entry-agent/turn').send({ path: 'Open Entry.md', message: 'one' });
+    const first = await request(base).post('/api/entry-agent/turn').send({ path: 'Open Entry.md', message: 'one' });
     expect(first.body.fired).toBe(true);
     await waitFor(() => companionLane.status().running === true, { timeout: 3000 });
-    const second = await request(server).post('/api/entry-agent/turn').send({ path: 'Open Entry.md', message: 'two' });
+    const second = await request(base).post('/api/entry-agent/turn').send({ path: 'Open Entry.md', message: 'two' });
     expect(second.status).toBe(409);
     expect(second.body.busy).toBe(true);
   }, 20000);

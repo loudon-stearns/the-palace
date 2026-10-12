@@ -4,6 +4,7 @@ import { resolve } from 'node:path';
 import { mkdtempSync, rmSync, mkdirSync, writeFileSync, readFileSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import request from 'supertest';
+import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 import { VERDICTS_REL } from '../../server/digest-verdicts.js';
 
@@ -43,13 +44,13 @@ function validVerdict(over = {}) {
 }
 
 describe('POST /api/digest/verdict', () => {
-  let root, server;
-  beforeEach(() => { root = makeTempPalace(); server = makeServer(root); });
-  afterEach(() => { rmSync(root, { recursive: true, force: true }); });
+  let root, base;
+  beforeEach(async () => { root = makeTempPalace(); base = await listen(makeServer(root)); });
+  afterEach(async () => { await closeAll(); rmSync(root, { recursive: true, force: true }); });
 
   test('valid agree verdict → 200, line appended', async () => {
     const rec = validVerdict();
-    const res = await request(server)
+    const res = await request(base)
       .post('/api/digest/verdict')
       .set('Content-Type', 'application/json')
       .send(JSON.stringify(rec));
@@ -68,7 +69,7 @@ describe('POST /api/digest/verdict', () => {
 
   test('valid differ verdict with would_do → 200', async () => {
     const rec = validVerdict({ agree: false, would_do: 'TWEAK-PARAMS' });
-    const res = await request(server)
+    const res = await request(base)
       .post('/api/digest/verdict')
       .set('Content-Type', 'application/json')
       .send(JSON.stringify(rec));
@@ -77,7 +78,7 @@ describe('POST /api/digest/verdict', () => {
 
   test('differ verdict with neither would_do nor note → 400', async () => {
     const rec = validVerdict({ agree: false, would_do: null, note: '' });
-    const res = await request(server)
+    const res = await request(base)
       .post('/api/digest/verdict')
       .set('Content-Type', 'application/json')
       .send(JSON.stringify(rec));
@@ -88,7 +89,7 @@ describe('POST /api/digest/verdict', () => {
   test('missing agree → 400', async () => {
     const rec = validVerdict();
     delete rec.agree;
-    const res = await request(server)
+    const res = await request(base)
       .post('/api/digest/verdict')
       .set('Content-Type', 'application/json')
       .send(JSON.stringify(rec));
@@ -97,7 +98,7 @@ describe('POST /api/digest/verdict', () => {
   });
 
   test('malformed JSON → 400', async () => {
-    const res = await request(server)
+    const res = await request(base)
       .post('/api/digest/verdict')
       .set('Content-Type', 'application/json')
       .send('{not json');
@@ -107,20 +108,20 @@ describe('POST /api/digest/verdict', () => {
   test('multiple verdicts append cleanly', async () => {
     const a = validVerdict({ id: 'v-a', request_id: 'r1' });
     const b = validVerdict({ id: 'v-b', request_id: 'r2' });
-    await request(server).post('/api/digest/verdict').set('Content-Type', 'application/json').send(JSON.stringify(a));
-    await request(server).post('/api/digest/verdict').set('Content-Type', 'application/json').send(JSON.stringify(b));
+    await request(base).post('/api/digest/verdict').set('Content-Type', 'application/json').send(JSON.stringify(a));
+    await request(base).post('/api/digest/verdict').set('Content-Type', 'application/json').send(JSON.stringify(b));
     const lines = readFileSync(resolve(root, VERDICTS_REL), 'utf8').split('\n').filter(Boolean);
     expect(lines.length).toBe(2);
   });
 });
 
 describe('GET /api/digest/verdicts', () => {
-  let root, server;
-  beforeEach(() => { root = makeTempPalace(); server = makeServer(root); });
-  afterEach(() => { rmSync(root, { recursive: true, force: true }); });
+  let root, base;
+  beforeEach(async () => { root = makeTempPalace(); base = await listen(makeServer(root)); });
+  afterEach(async () => { await closeAll(); rmSync(root, { recursive: true, force: true }); });
 
   test('empty palace → empty verdicts, zeroed stats', async () => {
-    const res = await request(server).get('/api/digest/verdicts');
+    const res = await request(base).get('/api/digest/verdicts');
     expect(res.status).toBe(200);
     expect(res.body.verdicts).toEqual([]);
     expect(res.body.stats.overall).toEqual({ marked: 0, agree: 0, rate: 0 });
@@ -134,9 +135,9 @@ describe('GET /api/digest/verdicts', () => {
       validVerdict({ id: 'v-3', request_id: 'r3', agree: false, would_do: 'TWEAK' }),
     ];
     for (const r of recs) {
-      await request(server).post('/api/digest/verdict').set('Content-Type', 'application/json').send(JSON.stringify(r));
+      await request(base).post('/api/digest/verdict').set('Content-Type', 'application/json').send(JSON.stringify(r));
     }
-    const res = await request(server).get('/api/digest/verdicts');
+    const res = await request(base).get('/api/digest/verdicts');
     expect(res.status).toBe(200);
     expect(res.body.verdicts.length).toBe(3);
     expect(res.body.stats.overall.marked).toBe(3);

@@ -4,6 +4,7 @@ import { resolve, join } from 'node:path';
 import { mkdtempSync, rmSync, mkdirSync, writeFileSync, readFileSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import request from 'supertest';
+import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 import { createStewardLane } from '../../server/steward-lane.js';
 import { buildProjectRows, readScroll, writeStandingOrders } from '../../server/projects.js';
@@ -67,12 +68,12 @@ function makePalace() {
 }
 
 describe('GET /api/projects', () => {
-  let root, server;
-  beforeEach(() => { root = makePalace(); ({ server } = makeServer(root)); });
-  afterEach(() => { rmSync(root, { recursive: true, force: true }); });
+  let root, base;
+  beforeEach(async () => { root = makePalace(); base = await listen(makeServer(root).server); });
+  afterEach(async () => { await closeAll(); rmSync(root, { recursive: true, force: true }); });
 
   test('lists every type:project entry (active first), computed by the scroll rule', async () => {
-    const res = await request(server).get('/api/projects');
+    const res = await request(base).get('/api/projects');
     expect(res.status).toBe(200);
     const homes = res.body.projects.map((p) => p.home);
     expect(homes).toContain('Shepard Tone Synthesizer');
@@ -95,7 +96,7 @@ describe('GET /api/projects', () => {
     const boardPath = resolve(root, '_ops/swarm/persistent/blackboard.jsonl');
     const grant = { schema_version: '1.0', id: 'g-1', ts: '2026-08-26T02:56:05Z', session_id: 's', from: 'TRICKSTER', to: 'Shepard Tone Synthesizer', type: 'RESOURCE_GRANT', board: 'TRICKSTER', re: 'shep-004', health: HEALTH, payload: { granted: true, option_id: 'APPROVE' } };
     writeFileSync(boardPath, readFileSync(boardPath, 'utf8') + JSON.stringify(grant) + '\n');
-    const res = await request(server).get('/api/projects');
+    const res = await request(base).get('/api/projects');
     const shep = res.body.projects.find((p) => p.home === 'Shepard Tone Synthesizer');
     expect(shep.open_asks).toBe(0);
     expect(shep.answered_unconsumed).toBe(1);
@@ -103,12 +104,12 @@ describe('GET /api/projects', () => {
 });
 
 describe('GET /api/projects/scroll + PUT /api/projects/orders', () => {
-  let root, server;
-  beforeEach(() => { root = makePalace(); ({ server } = makeServer(root)); });
-  afterEach(() => { rmSync(root, { recursive: true, force: true }); });
+  let root, base;
+  beforeEach(async () => { root = makePalace(); base = await listen(makeServer(root).server); });
+  afterEach(async () => { await closeAll(); rmSync(root, { recursive: true, force: true }); });
 
   test('reads a live scroll for a project with none on disk (nothing written), then persists on write=1', async () => {
-    const r1 = await request(server).get('/api/projects/scroll?home=' + encodeURIComponent('Shepard Tone Synthesizer'));
+    const r1 = await request(base).get('/api/projects/scroll?home=' + encodeURIComponent('Shepard Tone Synthesizer'));
     expect(r1.status).toBe(200);
     expect(r1.body.exists).toBe(false);
     expect(r1.body.zones.now).toContain('**Stage:** growing');
@@ -117,7 +118,7 @@ describe('GET /api/projects/scroll + PUT /api/projects/orders', () => {
     expect(r1.body.now.open).toHaveLength(1);
     expect(existsSync(resolve(root, r1.body.path))).toBe(false);
 
-    const r2 = await request(server).get('/api/projects/scroll?home=' + encodeURIComponent('Shepard Tone Synthesizer') + '&write=1');
+    const r2 = await request(base).get('/api/projects/scroll?home=' + encodeURIComponent('Shepard Tone Synthesizer') + '&write=1');
     expect(r2.status).toBe(200);
     expect(r2.body.exists).toBe(true);
     expect(existsSync(resolve(root, r2.body.path))).toBe(true);
@@ -126,28 +127,28 @@ describe('GET /api/projects/scroll + PUT /api/projects/orders', () => {
   });
 
   test('404 for an unknown project; 400 without ?home', async () => {
-    expect((await request(server).get('/api/projects/scroll?home=Ghost')).status).toBe(404);
-    expect((await request(server).get('/api/projects/scroll')).status).toBe(400);
+    expect((await request(base).get('/api/projects/scroll?home=Ghost')).status).toBe(404);
+    expect((await request(base).get('/api/projects/scroll')).status).toBe(400);
   });
 
   test('PUT orders creates the scroll if needed, writes only the orders zone, and the next read carries them', async () => {
-    const put = await request(server).put('/api/projects/orders').send({ home: 'Shepard Tone Synthesizer', orders: 'Never ask about crossfades. Prefer the illusion.' });
+    const put = await request(base).put('/api/projects/orders').send({ home: 'Shepard Tone Synthesizer', orders: 'Never ask about crossfades. Prefer the illusion.' });
     expect(put.status).toBe(200);
     expect(put.body.zones.orders).toBe('Never ask about crossfades. Prefer the illusion.');
     const onDisk = readFileSync(resolve(root, put.body.path), 'utf8');
     expect(onDisk).toContain(`${MARK.ordersStart}\nNever ask about crossfades. Prefer the illusion.\n${MARK.ordersEnd}`);
     expect(onDisk).not.toContain(ORDERS_PLACEHOLDER);
     expect(onDisk).toContain('id="shep-003"'); // the making trail survived the orders write
-    const again = await request(server).get('/api/projects/scroll?home=' + encodeURIComponent('Shepard Tone Synthesizer'));
+    const again = await request(base).get('/api/projects/scroll?home=' + encodeURIComponent('Shepard Tone Synthesizer'));
     expect(again.body.zones.orders).toBe('Never ask about crossfades. Prefer the illusion.');
     // clearing restores the placeholder (reads as empty)
-    const clear = await request(server).put('/api/projects/orders').send({ home: 'Shepard Tone Synthesizer', orders: '' });
+    const clear = await request(base).put('/api/projects/orders').send({ home: 'Shepard Tone Synthesizer', orders: '' });
     expect(clear.body.zones.orders).toBe('');
     expect(readFileSync(resolve(root, put.body.path), 'utf8')).toContain(ORDERS_PLACEHOLDER);
   });
 
   test('PUT plan writes the agreed plan, logs the change on the trail, and the next read carries it', async () => {
-    const put = await request(server).put('/api/projects/plan').send({ home: 'Shepard Tone Synthesizer', plan: 'An endless staircase you can play.\n\n1. Make the illusion hold.', why: 'agreed with Loudon' });
+    const put = await request(base).put('/api/projects/plan').send({ home: 'Shepard Tone Synthesizer', plan: 'An endless staircase you can play.\n\n1. Make the illusion hold.', why: 'agreed with Loudon' });
     expect(put.status).toBe(200);
     expect(put.body.zones.plan).toBe('An endless staircase you can play.\n\n1. Make the illusion hold.');
     expect(put.body.now.plan.agreed).toBe(true);
@@ -155,19 +156,19 @@ describe('GET /api/projects/scroll + PUT /api/projects/orders', () => {
     expect(onDisk).toContain('agreed with Loudon');
     expect(onDisk).toContain('Loudon, on the PROJECTS deck');
     expect(onDisk).toContain('id="shep-003"'); // the making trail survived the plan write
-    const again = await request(server).get('/api/projects/scroll?home=' + encodeURIComponent('Shepard Tone Synthesizer'));
+    const again = await request(base).get('/api/projects/scroll?home=' + encodeURIComponent('Shepard Tone Synthesizer'));
     expect(again.body.zones.plan).toBe('An endless staircase you can play.\n\n1. Make the illusion hold.');
-    const same = await request(server).put('/api/projects/plan').send({ home: 'Shepard Tone Synthesizer', plan: 'An endless staircase you can play.\n\n1. Make the illusion hold.' });
+    const same = await request(base).put('/api/projects/plan').send({ home: 'Shepard Tone Synthesizer', plan: 'An endless staircase you can play.\n\n1. Make the illusion hold.' });
     expect(same.status).toBe(422);
     expect(same.body.error).toBe('unchanged');
-    expect((await request(server).put('/api/projects/plan').send({ home: 'Ghost', plan: 'x' })).status).toBe(404);
-    expect((await request(server).put('/api/projects/plan').send({ home: 'Murmuration', plan: 5 })).status).toBe(400);
+    expect((await request(base).put('/api/projects/plan').send({ home: 'Ghost', plan: 'x' })).status).toBe(404);
+    expect((await request(base).put('/api/projects/plan').send({ home: 'Murmuration', plan: 5 })).status).toBe(400);
   });
 
   test('PUT orders: 404 unknown project, 400 bad body', async () => {
-    expect((await request(server).put('/api/projects/orders').send({ home: 'Ghost', orders: 'x' })).status).toBe(404);
-    expect((await request(server).put('/api/projects/orders').send({ orders: 'x' })).status).toBe(400);
-    expect((await request(server).put('/api/projects/orders').send({ home: 'Murmuration', orders: 5 })).status).toBe(400);
+    expect((await request(base).put('/api/projects/orders').send({ home: 'Ghost', orders: 'x' })).status).toBe(404);
+    expect((await request(base).put('/api/projects/orders').send({ orders: 'x' })).status).toBe(400);
+    expect((await request(base).put('/api/projects/orders').send({ home: 'Murmuration', orders: 5 })).status).toBe(400);
   });
 
   test('pure: buildProjectRows / readScroll / writeStandingOrders agree with the routes', () => {

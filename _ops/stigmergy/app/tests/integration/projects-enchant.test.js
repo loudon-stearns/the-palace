@@ -4,6 +4,7 @@ import { resolve, join } from 'node:path';
 import { mkdtempSync, rmSync, mkdirSync, writeFileSync, existsSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import request from 'supertest';
+import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 import { createStewardLane } from '../../server/steward-lane.js';
 import { buildProjectRows, enchantProject } from '../../server/projects.js';
@@ -40,15 +41,15 @@ function makePalace() {
 }
 
 describe('POST /api/projects/enchant', () => {
-  let root, server;
-  beforeEach(() => { root = makePalace(); server = makeServer(root); });
-  afterEach(() => { try { server.close(); } catch {} rmSync(root, { recursive: true, force: true }); });
+  let root, base;
+  beforeEach(async () => { root = makePalace(); base = await listen(makeServer(root)); });
+  afterEach(async () => { await closeAll(); rmSync(root, { recursive: true, force: true }); });
 
   test('an untended project gains a steward dir + registry line, and its row becomes stewarded', async () => {
     const before = buildProjectRows({ palaceRoot: root }).find((r) => r.home === 'Murmuration');
     expect(before.stewarded).toBe(false);
 
-    const res = await request(server).post('/api/projects/enchant').send({ home: 'Murmuration' });
+    const res = await request(base).post('/api/projects/enchant').send({ home: 'Murmuration' });
     expect(res.status).toBe(200);
     expect(res.body.ok).toBe(true);
     expect(res.body.result).toBe('enchanted');
@@ -66,16 +67,16 @@ describe('POST /api/projects/enchant', () => {
   });
 
   test('is idempotent: a second enchant reports already_enchanted with 200', async () => {
-    await request(server).post('/api/projects/enchant').send({ home: 'Murmuration' });
-    const res = await request(server).post('/api/projects/enchant').send({ home: 'Murmuration' });
+    await request(base).post('/api/projects/enchant').send({ home: 'Murmuration' });
+    const res = await request(base).post('/api/projects/enchant').send({ home: 'Murmuration' });
     expect(res.status).toBe(200);
     expect(res.body.result).toBe('already_enchanted');
   });
 
   test('404 for a title with no entry, 400 for a missing home', async () => {
-    const nf = await request(server).post('/api/projects/enchant').send({ home: 'No Such Project' });
+    const nf = await request(base).post('/api/projects/enchant').send({ home: 'No Such Project' });
     expect(nf.status).toBe(404);
-    const bad = await request(server).post('/api/projects/enchant').send({});
+    const bad = await request(base).post('/api/projects/enchant').send({});
     expect(bad.status).toBe(400);
   });
 

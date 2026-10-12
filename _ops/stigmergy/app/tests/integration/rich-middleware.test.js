@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { mkdtempSync, rmSync, mkdirSync, writeFileSync, copyFileSync, existsSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import request from 'supertest';
+import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 import { selfOrigin } from '../../server/api/rich.js';
 
@@ -49,40 +50,40 @@ function makeTempPalace() {
 }
 
 describe('the rich face at /rich/', () => {
-  let root, sibling, server;
-  beforeAll(() => {
+  let root, sibling, base;
+  beforeAll(async () => {
     root = makeTempPalace();
     sibling = root + '-sibling'; // shares the palace's name as a prefix
     mkdirSync(sibling, { recursive: true });
     writeFileSync(resolve(sibling, 'secret.txt'), 'outside the palace', 'utf8');
-    server = makeServer(root);
+    base = await listen(makeServer(root));
   });
-  afterAll(() => {
-    server.close();
+  afterAll(async () => {
+    await closeAll();
     rmSync(root, { recursive: true, force: true });
     rmSync(sibling, { recursive: true, force: true });
   });
 
   test('/rich redirects to /rich/, keeping the query', async () => {
-    const r = await request(server).get('/rich?entry=Demo%20Entry');
+    const r = await request(base).get('/rich?entry=Demo%20Entry');
     expect(r.status).toBe(301);
     expect(r.headers.location).toBe('/rich/?entry=Demo%20Entry');
   });
 
   test('/rich/ serves the renderer', async () => {
-    const r = await request(server).get('/rich/?entry=Demo%20Entry');
+    const r = await request(base).get('/rich/?entry=Demo%20Entry');
     expect(r.status).toBe(200);
     expect(r.headers['content-type']).toMatch(/text\/html/);
     expect(r.text).toContain('./_rich/parse.js');
   });
 
   test('only the renderer files are served under _rich/', async () => {
-    expect((await request(server).get('/rich/_rich/parse.js')).status).toBe(200);
-    expect((await request(server).get('/rich/_rich/secret.txt')).status).toBe(404);
+    expect((await request(base).get('/rich/_rich/parse.js')).status).toBe(200);
+    expect((await request(base).get('/rich/_rich/secret.txt')).status).toBe(404);
   });
 
   test('resolve finds the entry, its bundle and the manifest in the bundle — as relative urls', async () => {
-    const r = await request(server).get('/rich/_api/resolve?entry=Demo%20Entry');
+    const r = await request(base).get('/rich/_api/resolve?entry=Demo%20Entry');
     expect(r.status).toBe(200);
     expect(r.body.md).toBe('Demo%20Entry.md');
     expect(r.body.bundle).toBe('Demo%20Entry/');
@@ -91,20 +92,20 @@ describe('the rich face at /rich/', () => {
   });
 
   test('an unknown entry is a 404, not a crash', async () => {
-    expect((await request(server).get('/rich/_api/resolve?entry=Nope')).status).toBe(404);
+    expect((await request(base).get('/rich/_api/resolve?entry=Nope')).status).toBe(404);
   });
 
   test('palace files stream with byte ranges', async () => {
-    const whole = await request(server).get('/rich/Demo%20Entry.md');
+    const whole = await request(base).get('/rich/Demo%20Entry.md');
     expect(whole.status).toBe(200);
     expect(whole.text).toContain('## A Section');
-    const part = await request(server).get('/rich/Demo%20Entry/bed.wav').set('Range', 'bytes=0-3');
+    const part = await request(base).get('/rich/Demo%20Entry/bed.wav').set('Range', 'bytes=0-3');
     expect(part.status).toBe(206);
     expect(part.headers['content-range']).toBe(`bytes 0-3/${WAV.length}`);
   });
 
   test('media resolves by bare filename, vault-wide, under the mount', async () => {
-    const r = await request(server).get('/rich/_api/media?name=stray.png&prefer=Demo%20Entry%2F');
+    const r = await request(base).get('/rich/_api/media?name=stray.png&prefer=Demo%20Entry%2F');
     expect(r.status).toBe(302);
     expect(r.headers.location).toBe('/rich/Elsewhere/stray.png');
   });
@@ -115,24 +116,24 @@ describe('the rich face at /rich/', () => {
     const climb = '../'.repeat(24);
     expect(normalize(join(root, climb + 'etc/passwd'))).toBe('/etc/passwd');
     expect(existsSync('/etc/passwd')).toBe(true);
-    expect((await request(server).get('/rich/' + '..%2F'.repeat(24) + 'etc%2Fpasswd')).status).toBe(404);
+    expect((await request(base).get('/rich/' + '..%2F'.repeat(24) + 'etc%2Fpasswd')).status).toBe(404);
   });
 
   test('refuses a sibling folder whose name starts with the palace\'s', async () => {
     expect(existsSync(resolve(sibling, 'secret.txt'))).toBe(true);
-    expect((await request(server).get(`/rich/..%2F${encodeURIComponent(basename(sibling))}%2Fsecret.txt`)).status).toBe(404);
+    expect((await request(base).get(`/rich/..%2F${encodeURIComponent(basename(sibling))}%2Fsecret.txt`)).status).toBe(404);
   });
 
   // On POSIX a backslash is a filename character, not a separator, so this one
   // guards against a future decoder that treats it as one (or a Windows host).
   test('refuses an encoded-backslash climb', async () => {
-    expect((await request(server).get('/rich/' + '..%5C'.repeat(24) + 'etc%5Cpasswd')).status).toBe(404);
+    expect((await request(base).get('/rich/' + '..%5C'.repeat(24) + 'etc%5Cpasswd')).status).toBe(404);
   });
 
   test('a review of null is a 400 through the mount, and the server lives', async () => {
-    const r = await request(server).post('/rich/_api/review').set('Content-Type', 'application/json').send('null');
+    const r = await request(base).post('/rich/_api/review').set('Content-Type', 'application/json').send('null');
     expect(r.status).toBe(400);
-    expect((await request(server).get('/rich/_api/resolve?entry=Demo%20Entry')).status).toBe(200);
+    expect((await request(base).get('/rich/_api/resolve?entry=Demo%20Entry')).status).toBe(200);
   });
 
   // The review is forwarded to this same server's board. Where "this server" is
@@ -143,7 +144,7 @@ describe('the rich face at /rich/', () => {
     const decoy = http.createServer((req, res) => { seen.push(req.url); res.writeHead(200, { 'Content-Type': 'application/json' }); res.end('{}'); });
     await new Promise((ok) => decoy.listen(0, '127.0.0.1', ok));
     try {
-      const r = await request(server).post('/rich/_api/review')
+      const r = await request(base).post('/rich/_api/review')
         .set('Host', `127.0.0.1:${decoy.address().port}`)
         .send({ task: 'rich-face:Demo Entry:round-1', groups: { 'A Section': { note: 'the words hold' } }, overall: { note: 'fine' } });
       expect(seen).toEqual([]);
@@ -158,7 +159,7 @@ describe('the rich face at /rich/', () => {
   });
 
   test('paths outside /rich are not its business', async () => {
-    const r = await request(server).get('/richer');
+    const r = await request(base).get('/richer');
     expect(r.status).toBe(404);
     expect(r.text).toBe('not found'); // fell through to the harness, not the rich handler
   });

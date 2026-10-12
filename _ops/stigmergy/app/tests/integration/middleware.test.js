@@ -1,8 +1,9 @@
-import { describe, test, expect, beforeAll } from 'vitest';
+import { describe, test, expect, beforeAll, afterAll } from 'vitest';
 import http from 'node:http';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import request from 'supertest';
+import { listen, closeAll } from '../helpers/loopback.js';
 import {
   blackboardMiddleware,
   readPersistent,
@@ -83,11 +84,12 @@ describe('pure read helpers (offline)', () => {
 });
 
 describe('HTTP middleware', () => {
-  let server;
-  beforeAll(() => { server = makeServer(FIXTURE_ROOT); });
+  let base;
+  beforeAll(async () => { base = await listen(makeServer(FIXTURE_ROOT)); });
+  afterAll(closeAll);
 
   test('GET /api/persistent → 200 with messages', async () => {
-    const res = await request(server).get('/api/persistent');
+    const res = await request(base).get('/api/persistent');
     expect(res.status).toBe(200);
     expect(res.headers['content-type']).toMatch(/application\/json/);
     expect(Array.isArray(res.body.messages)).toBe(true);
@@ -97,35 +99,35 @@ describe('HTTP middleware', () => {
   });
 
   test('GET /api/persistent → 404 when palace root is missing', async () => {
-    const otherServer = makeServer('/nonexistent/path');
-    const res = await request(otherServer).get('/api/persistent');
+    const otherBase = await listen(makeServer('/nonexistent/path'));
+    const res = await request(otherBase).get('/api/persistent');
     expect(res.status).toBe(404);
     expect(res.body.error).toMatch(/not found/i);
   });
 
   test('GET /api/sessions → 200 with the two fixture sessions', async () => {
-    const res = await request(server).get('/api/sessions');
+    const res = await request(base).get('/api/sessions');
     expect(res.status).toBe(200);
     expect(res.body.sessions.map((s) => s.id).sort())
       .toEqual(['test-session-001', 'test-session-002']);
   });
 
   test('GET /api/sessions → 200 with empty list when directory missing', async () => {
-    const otherServer = makeServer('/nonexistent/path');
-    const res = await request(otherServer).get('/api/sessions');
+    const otherBase = await listen(makeServer('/nonexistent/path'));
+    const res = await request(otherBase).get('/api/sessions');
     expect(res.status).toBe(200);
     expect(res.body.sessions).toEqual([]);
   });
 
   test('GET /api/sessions/test-session-001 → 200', async () => {
-    const res = await request(server).get('/api/sessions/test-session-001');
+    const res = await request(base).get('/api/sessions/test-session-001');
     expect(res.status).toBe(200);
     expect(res.body.id).toBe('test-session-001');
     expect(res.body.messages.length).toBe(4);
   });
 
   test('GET /api/sessions/missing → 404', async () => {
-    const res = await request(server).get('/api/sessions/missing');
+    const res = await request(base).get('/api/sessions/missing');
     expect(res.status).toBe(404);
     expect(res.body.error).toMatch(/not found/i);
   });
@@ -133,12 +135,12 @@ describe('HTTP middleware', () => {
   test('GET /api/sessions/..%2Fpersistent (encoded traversal) is rejected', async () => {
     // Express-style: %2F decodes to /, so the route matcher won't see ../persistent
     // as a single path segment. The endpoint should 404, not reveal anything.
-    const res = await request(server).get('/api/sessions/..%2Fpersistent');
+    const res = await request(base).get('/api/sessions/..%2Fpersistent');
     expect([404, 400]).toContain(res.status);
   });
 
   test('an unknown URL falls through to next() (and the test 404)', async () => {
-    const res = await request(server).get('/some/other/url');
+    const res = await request(base).get('/some/other/url');
     expect(res.status).toBe(404);
   });
 });

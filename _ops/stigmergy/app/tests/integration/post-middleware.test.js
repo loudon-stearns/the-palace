@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { mkdtempSync, rmSync, readFileSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import request from 'supertest';
+import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -72,20 +73,21 @@ function makeTempPalace() {
 
 describe('POST /api/persistent', () => {
   let tempRoot;
-  let server;
+  let base;
 
-  beforeAll(() => {
+  beforeAll(async () => {
     tempRoot = makeTempPalace();
-    server = makeServer(tempRoot);
+    base = await listen(makeServer(tempRoot));
   });
 
-  afterAll(() => {
+  afterAll(async () => {
+    await closeAll();
     rmSync(tempRoot, { recursive: true, force: true });
   });
 
   test('valid message → 200, line appended, returned line matches input', async () => {
     const msg = makeValidMessage();
-    const res = await request(server)
+    const res = await request(base)
       .post('/api/persistent')
       .set('Content-Type', 'application/json')
       .send(JSON.stringify(msg));
@@ -107,7 +109,7 @@ describe('POST /api/persistent', () => {
   test('missing required field → 400, errors array names that field', async () => {
     const msg = makeValidMessage();
     delete msg.from;
-    const res = await request(server)
+    const res = await request(base)
       .post('/api/persistent')
       .set('Content-Type', 'application/json')
       .send(JSON.stringify(msg));
@@ -119,7 +121,7 @@ describe('POST /api/persistent', () => {
 
   test('invalid type enum → 400', async () => {
     const msg = makeValidMessage({ type: 'INVALID_TYPE' });
-    const res = await request(server)
+    const res = await request(base)
       .post('/api/persistent')
       .set('Content-Type', 'application/json')
       .send(JSON.stringify(msg));
@@ -130,7 +132,7 @@ describe('POST /api/persistent', () => {
 
   test('messageVersion: "audit-result" → 400', async () => {
     const msg = { ...makeValidMessage(), messageVersion: 'audit-result' };
-    const res = await request(server)
+    const res = await request(base)
       .post('/api/persistent')
       .set('Content-Type', 'application/json')
       .send(JSON.stringify(msg));
@@ -140,7 +142,7 @@ describe('POST /api/persistent', () => {
   });
 
   test('malformed JSON body → 400', async () => {
-    const res = await request(server)
+    const res = await request(base)
       .post('/api/persistent')
       .set('Content-Type', 'application/json')
       .send('{not valid json}');
@@ -154,7 +156,7 @@ describe('POST /api/persistent', () => {
     const msg = makeValidMessage({
       payload: { content: 'x'.repeat(65 * 1024) },
     });
-    const res = await request(server)
+    const res = await request(base)
       .post('/api/persistent')
       .set('Content-Type', 'application/json')
       .send(JSON.stringify(msg));
@@ -166,14 +168,15 @@ describe('POST /api/persistent', () => {
 
 describe('POST /api/sessions/:id', () => {
   let tempRoot;
-  let server;
+  let base;
 
-  beforeAll(() => {
+  beforeAll(async () => {
     tempRoot = makeTempPalace();
-    server = makeServer(tempRoot);
+    base = await listen(makeServer(tempRoot));
   });
 
-  afterAll(() => {
+  afterAll(async () => {
+    await closeAll();
     rmSync(tempRoot, { recursive: true, force: true });
   });
 
@@ -186,7 +189,7 @@ describe('POST /api/sessions/:id', () => {
     writeFileSync(resolve(sessionDir, 'blackboard.jsonl'), '', 'utf8');
 
     const msg = makeValidMessage({ session_id: sessionId });
-    const res = await request(server)
+    const res = await request(base)
       .post(`/api/sessions/${sessionId}`)
       .set('Content-Type', 'application/json')
       .send(JSON.stringify(msg));
@@ -204,7 +207,7 @@ describe('POST /api/sessions/:id', () => {
     expect(existsSync(sessionDir)).toBe(false);
 
     const msg = makeValidMessage({ session_id: sessionId });
-    const res = await request(server)
+    const res = await request(base)
       .post(`/api/sessions/${sessionId}`)
       .set('Content-Type', 'application/json')
       .send(JSON.stringify(msg));
@@ -217,7 +220,7 @@ describe('POST /api/sessions/:id', () => {
 
   test('?create=false into non-existing dir → 404', async () => {
     const sessionId = 'nonexistent-create-false';
-    const res = await request(server)
+    const res = await request(base)
       .post(`/api/sessions/${sessionId}?create=false`)
       .set('Content-Type', 'application/json')
       .send(JSON.stringify(makeValidMessage({ session_id: sessionId })));
@@ -227,7 +230,7 @@ describe('POST /api/sessions/:id', () => {
   });
 
   test('path traversal in session id → 400 or 404', async () => {
-    const res = await request(server)
+    const res = await request(base)
       .post('/api/sessions/../escape')
       .set('Content-Type', 'application/json')
       .send(JSON.stringify(makeValidMessage()));
@@ -238,14 +241,15 @@ describe('POST /api/sessions/:id', () => {
 
 describe('concurrent writes to the same file', () => {
   let tempRoot;
-  let server;
+  let base;
 
-  beforeAll(() => {
+  beforeAll(async () => {
     tempRoot = makeTempPalace();
-    server = makeServer(tempRoot);
+    base = await listen(makeServer(tempRoot));
   });
 
-  afterAll(() => {
+  afterAll(async () => {
+    await closeAll();
     rmSync(tempRoot, { recursive: true, force: true });
   });
 
@@ -256,7 +260,7 @@ describe('concurrent writes to the same file', () => {
       const msg = makeValidMessage({ id: `concurrent-msg-${i}` });
       ids.push(msg.id);
       promises.push(
-        request(server)
+        request(base)
           .post('/api/persistent')
           .set('Content-Type', 'application/json')
           .send(JSON.stringify(msg))

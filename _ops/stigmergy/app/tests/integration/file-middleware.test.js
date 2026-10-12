@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { mkdtempSync, rmSync, mkdirSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import request from 'supertest';
+import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -53,19 +54,20 @@ function makeTempPalace() {
 
 describe('GET /api/file', () => {
   let root;
-  let server;
+  let base;
 
-  beforeAll(() => {
+  beforeAll(async () => {
     root = makeTempPalace();
-    server = makeServer(root);
+    base = await listen(makeServer(root));
   });
 
-  afterAll(() => {
+  afterAll(async () => {
+    await closeAll();
     rmSync(root, { recursive: true, force: true });
   });
 
   test('serves a png with image/png and no-cache, bytes intact', async () => {
-    const res = await request(server)
+    const res = await request(base)
       .get('/api/file')
       .query({ path: 'Demo Entry/still.png' });
     expect(res.status).toBe(200);
@@ -75,7 +77,7 @@ describe('GET /api/file', () => {
   });
 
   test('serves a wav with audio/wav', async () => {
-    const res = await request(server)
+    const res = await request(base)
       .get('/api/file')
       .query({ path: 'Demo Entry/bed.wav' });
     expect(res.status).toBe(200);
@@ -83,7 +85,7 @@ describe('GET /api/file', () => {
   });
 
   test('serves html with text/html charset', async () => {
-    const res = await request(server)
+    const res = await request(base)
       .get('/api/file')
       .query({ path: 'Demo Entry/sim.html' });
     expect(res.status).toBe(200);
@@ -92,7 +94,7 @@ describe('GET /api/file', () => {
   });
 
   test('serves an unknown extension as octet-stream', async () => {
-    const res = await request(server)
+    const res = await request(base)
       .get('/api/file')
       .query({ path: 'Demo Entry/notes.md' });
     expect(res.status).toBe(200);
@@ -100,33 +102,33 @@ describe('GET /api/file', () => {
   });
 
   test('400 on missing path param', async () => {
-    const res = await request(server).get('/api/file');
+    const res = await request(base).get('/api/file');
     expect(res.status).toBe(400);
   });
 
   test('400 on path traversal escaping the root', async () => {
-    const res = await request(server)
+    const res = await request(base)
       .get('/api/file')
       .query({ path: '../../../etc/passwd' });
     expect(res.status).toBe(400);
   });
 
   test('400 on absolute path', async () => {
-    const res = await request(server)
+    const res = await request(base)
       .get('/api/file')
       .query({ path: '/etc/passwd' });
     expect(res.status).toBe(400);
   });
 
   test('404 on a path inside the palace that does not exist', async () => {
-    const res = await request(server)
+    const res = await request(base)
       .get('/api/file')
       .query({ path: 'Demo Entry/missing.png' });
     expect(res.status).toBe(404);
   });
 
   test('400 when the path is a directory', async () => {
-    const res = await request(server)
+    const res = await request(base)
       .get('/api/file')
       .query({ path: 'Demo Entry' });
     expect(res.status).toBe(400);

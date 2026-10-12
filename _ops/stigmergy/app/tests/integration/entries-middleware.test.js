@@ -4,6 +4,7 @@ import { resolve } from 'node:path';
 import { mkdtempSync, rmSync, mkdirSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import request from 'supertest';
+import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 
 function makeServer(palaceRoot) {
@@ -49,19 +50,20 @@ function makeTempPalace() {
 }
 
 describe('GET /api/entries', () => {
-  let root, server;
+  let root, base;
 
-  beforeAll(() => {
+  beforeAll(async () => {
     root = makeTempPalace();
-    server = makeServer(root);
+    base = await listen(makeServer(root));
   });
 
-  afterAll(() => {
+  afterAll(async () => {
+    await closeAll();
     rmSync(root, { recursive: true, force: true });
   });
 
   test('returns indexed knowledge entries with counts and ts', async () => {
-    const res = await request(server).get('/api/entries');
+    const res = await request(base).get('/api/entries');
     expect(res.status).toBe(200);
     expect(res.body.count).toBeGreaterThanOrEqual(3);
     expect(typeof res.body.ts).toBe('string');
@@ -72,13 +74,13 @@ describe('GET /api/entries', () => {
   });
 
   test('excludes machinery (_ops/stigmergy/app)', async () => {
-    const res = await request(server).get('/api/entries');
+    const res = await request(base).get('/api/entries');
     const paths = res.body.entries.map((e) => e.path);
     expect(paths).not.toContain('_ops/stigmergy/app/README.md');
   });
 
   test('surfaces bundle + handoff signals', async () => {
-    const res = await request(server).get('/api/entries');
+    const res = await request(base).get('/api/entries');
     const kuramoto = res.body.entries.find((e) => e.path === 'Kuramoto.md');
     expect(kuramoto.has_bundle).toBe(true);
     expect(kuramoto.has_active_handoff).toBe(true);
@@ -88,19 +90,20 @@ describe('GET /api/entries', () => {
 });
 
 describe('GET /api/entry?path=', () => {
-  let root, server;
+  let root, base;
 
-  beforeAll(() => {
+  beforeAll(async () => {
     root = makeTempPalace();
-    server = makeServer(root);
+    base = await listen(makeServer(root));
   });
 
-  afterAll(() => {
+  afterAll(async () => {
+    await closeAll();
     rmSync(root, { recursive: true, force: true });
   });
 
   test('returns the full entry shape with parsed frontmatter, body, links, bundle', async () => {
-    const res = await request(server)
+    const res = await request(base)
       .get('/api/entry')
       .query({ path: 'Kuramoto.md' });
     expect(res.status).toBe(200);
@@ -114,33 +117,33 @@ describe('GET /api/entry?path=', () => {
   });
 
   test('404 on a missing entry', async () => {
-    const res = await request(server)
+    const res = await request(base)
       .get('/api/entry')
       .query({ path: 'Nope.md' });
     expect(res.status).toBe(404);
   });
 
   test('400 on missing ?path', async () => {
-    const res = await request(server).get('/api/entry');
+    const res = await request(base).get('/api/entry');
     expect(res.status).toBe(400);
   });
 
   test('404 on path traversal', async () => {
-    const res = await request(server)
+    const res = await request(base)
       .get('/api/entry')
       .query({ path: '../../etc/passwd.md' });
     expect(res.status).toBe(404);
   });
 
   test('404 on excluded prefix', async () => {
-    const res = await request(server)
+    const res = await request(base)
       .get('/api/entry')
       .query({ path: '_ops/stigmergy/app/README.md' });
     expect(res.status).toBe(404);
   });
 
   test('reads a nested-folder entry', async () => {
-    const res = await request(server)
+    const res = await request(base)
       .get('/api/entry')
       .query({ path: 'Palace development/Two Batons.md' });
     expect(res.status).toBe(200);

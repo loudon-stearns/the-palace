@@ -5,6 +5,7 @@ import { mkdtempSync, rmSync, mkdirSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { execFileSync } from 'node:child_process';
 import request from 'supertest';
+import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 
 function makeServer(palaceRoot) {
@@ -81,19 +82,20 @@ function makeTempPalace() {
 }
 
 describe('POST /api/entry/save — Phase 5 Stage A dry-run preview', () => {
-  let root, server;
+  let root, base;
 
-  beforeAll(() => {
+  beforeAll(async () => {
     root = makeTempPalace();
-    server = makeServer(root);
+    base = await listen(makeServer(root));
   });
 
-  afterAll(() => {
+  afterAll(async () => {
+    await closeAll();
     rmSync(root, { recursive: true, force: true });
   });
 
   test('previews a stage transition, derives Palace-Stage trailer', async () => {
-    const res = await request(server)
+    const res = await request(base)
       .post('/api/entry/save')
       .send({
         path: 'Kuramoto Coupling.md',
@@ -125,7 +127,7 @@ describe('POST /api/entry/save — Phase 5 Stage A dry-run preview', () => {
   });
 
   test('marks Palace-Vector: changed when forward_vector is edited', async () => {
-    const res = await request(server)
+    const res = await request(base)
       .post('/api/entry/save')
       .send({
         path: 'Kuramoto Coupling.md',
@@ -152,7 +154,7 @@ describe('POST /api/entry/save — Phase 5 Stage A dry-run preview', () => {
       resolve(root, 'Kuramoto Coupling.md'),
       'utf8',
     );
-    await request(server)
+    await request(base)
       .post('/api/entry/save')
       .send({
         path: 'Kuramoto Coupling.md',
@@ -177,7 +179,7 @@ describe('POST /api/entry/save — Phase 5 Stage A dry-run preview', () => {
   });
 
   test('returns a unified diff in the preview', async () => {
-    const res = await request(server)
+    const res = await request(base)
       .post('/api/entry/save')
       .send({
         path: 'Kuramoto Coupling.md',
@@ -206,7 +208,7 @@ describe('POST /api/entry/save — Phase 5 Stage A dry-run preview', () => {
       '---\ntitle: SCHEMA\ntype: meta\nversion: "1.8"\n---\n# SCHEMA\n',
       'utf8',
     );
-    const res = await request(server)
+    const res = await request(base)
       .post('/api/entry/save')
       .send({
         path: 'SCHEMA.md',
@@ -221,7 +223,7 @@ describe('POST /api/entry/save — Phase 5 Stage A dry-run preview', () => {
   });
 
   test('refuses _ops/stigmergy/app/ machinery with 403', async () => {
-    const res = await request(server)
+    const res = await request(base)
       .post('/api/entry/save')
       .send({
         path: '_ops/stigmergy/app/foo.md',
@@ -235,7 +237,7 @@ describe('POST /api/entry/save — Phase 5 Stage A dry-run preview', () => {
   });
 
   test('returns 422 when the proposed frontmatter is schema-violating', async () => {
-    const res = await request(server)
+    const res = await request(base)
       .post('/api/entry/save')
       .send({
         path: 'Kuramoto Coupling.md',
@@ -251,7 +253,7 @@ describe('POST /api/entry/save — Phase 5 Stage A dry-run preview', () => {
   });
 
   test('returns 422 when nothing changed (byte-identical proposed file)', async () => {
-    const res = await request(server)
+    const res = await request(base)
       .post('/api/entry/save')
       .send({
         path: 'Kuramoto Coupling.md',
@@ -273,7 +275,7 @@ describe('POST /api/entry/save — Phase 5 Stage A dry-run preview', () => {
   });
 
   test('preserves on-disk block-style pillars when only stage changed (no style churn)', async () => {
-    const res = await request(server)
+    const res = await request(base)
       .post('/api/entry/save')
       .send({
         path: 'Symbiotic Skills.md',
@@ -305,7 +307,7 @@ describe('POST /api/entry/save — Phase 5 Stage A dry-run preview', () => {
   test('preserves on-disk inline-style pillars when only stage changed', async () => {
     // Symmetric: Kuramoto Coupling uses inline pillars on disk; a stage
     // change must not restyle them either.
-    const res = await request(server)
+    const res = await request(base)
       .post('/api/entry/save')
       .send({
         path: 'Kuramoto Coupling.md',
@@ -329,7 +331,7 @@ describe('POST /api/entry/save — Phase 5 Stage A dry-run preview', () => {
   });
 
   test('returns 422 when summary or verify missing', async () => {
-    const res = await request(server)
+    const res = await request(base)
       .post('/api/entry/save')
       .send({
         path: 'Kuramoto Coupling.md',
@@ -349,10 +351,10 @@ describe('POST /api/entry/save — Phase 5 Stage A dry-run preview', () => {
 // block); /trickster-save is the real write+commit, branded trickster. A git
 // repo stands in for the live palace so the commit can land.
 describe('trickster write surfaces (canon bypass, path-safety kept)', () => {
-  let root, server;
+  let root, base;
   const git = (args) => execFileSync('git', args, { cwd: root, encoding: 'utf8' });
 
-  beforeAll(() => {
+  beforeAll(async () => {
     root = makeTempPalace();
     git(['init', '-q', '-b', 'main']);
     git(['config', 'user.email', 'test@example.com']);
@@ -366,12 +368,12 @@ describe('trickster write surfaces (canon bypass, path-safety kept)', () => {
     );
     git(['add', '-A']);
     git(['commit', '-q', '-m', 'seed']);
-    server = makeServer(root);
+    base = await listen(makeServer(root));
   });
-  afterAll(() => { rmSync(root, { recursive: true, force: true }); });
+  afterAll(async () => { await closeAll(); rmSync(root, { recursive: true, force: true }); });
 
   test('/save trickster:true PREVIEWS a canon edit (no 403)', async () => {
-    const res = await request(server).post('/api/entry/save').send({
+    const res = await request(base).post('/api/entry/save').send({
       path: 'SCHEMA.md',
       frontmatter: { title: 'SCHEMA', type: 'meta', version: '1.8' },
       body: '# SCHEMA\n\nThe type system. Plus a previewed line.\n',
@@ -382,7 +384,7 @@ describe('trickster write surfaces (canon bypass, path-safety kept)', () => {
   });
 
   test('/save trickster:true tolerates schema-violating frontmatter (warns, no 422)', async () => {
-    const res = await request(server).post('/api/entry/save').send({
+    const res = await request(base).post('/api/entry/save').send({
       path: 'Kuramoto Coupling.md',
       frontmatter: { title: 'Kuramoto Coupling', type: 'imaginary', pillars: [], born: 'recently', stage: 'unknown' },
       body: '# K\n\nreckless.\n',
@@ -393,7 +395,7 @@ describe('trickster write surfaces (canon bypass, path-safety kept)', () => {
   });
 
   test('/trickster-save WRITES + commits a canon file, branded trickster + unverified', async () => {
-    const res = await request(server).post('/api/entry/trickster-save').send({
+    const res = await request(base).post('/api/entry/trickster-save').send({
       path: 'SCHEMA.md',
       frontmatter: { title: 'SCHEMA', type: 'meta', version: '1.8' },
       body: '# SCHEMA\n\nThe type system. A trickster scratch line.\n',
@@ -410,7 +412,7 @@ describe('trickster write surfaces (canon bypass, path-safety kept)', () => {
   });
 
   test('/trickster-save refuses a path-safety violation (../) with 403', async () => {
-    const res = await request(server).post('/api/entry/trickster-save').send({
+    const res = await request(base).post('/api/entry/trickster-save').send({
       path: '../escape.md', frontmatter: { title: 'x' }, body: 'x', summary: 's',
     }).set('Content-Type', 'application/json');
     expect(res.status).toBe(403);
@@ -419,7 +421,7 @@ describe('trickster write surfaces (canon bypass, path-safety kept)', () => {
 
   test('/trickster-save 422 when nothing changed', async () => {
     // Re-send the exact committed content (after the write test landed it).
-    const res = await request(server).post('/api/entry/trickster-save').send({
+    const res = await request(base).post('/api/entry/trickster-save').send({
       path: 'SCHEMA.md',
       frontmatter: { title: 'SCHEMA', type: 'meta', version: '1.8' },
       body: '# SCHEMA\n\nThe type system. A trickster scratch line.\n',

@@ -4,6 +4,7 @@ import { resolve } from 'node:path';
 import { mkdtempSync, rmSync, mkdirSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import request from 'supertest';
+import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 
 // GET /api/topology — the typed-link graph, read from the files as they are
@@ -51,11 +52,11 @@ function makeTempPalace() {
 
 describe('GET /api/topology', () => {
   let root;
-  afterEach(() => { if (root) rmSync(root, { recursive: true, force: true }); root = null; });
+  afterEach(async () => { await closeAll(); if (root) rmSync(root, { recursive: true, force: true }); root = null; });
 
   test('draws the graph from the files, not from the snapshot on disk', async () => {
     root = makeTempPalace();
-    const res = await request(makeServer(root)).get('/api/topology');
+    const res = await request(await listen(makeServer(root))).get('/api/topology');
     expect(res.status).toBe(200);
     expect(res.body.source).toBe('live');
     expect(res.body.nodes.map((n) => n.id)).toEqual(['Alive', 'Doomed']);
@@ -65,18 +66,18 @@ describe('GET /api/topology', () => {
 
   test('a composted page is gone on the very next request', async () => {
     root = makeTempPalace();
-    const server = makeServer(root);
+    const base = await listen(makeServer(root));
     rmSync(resolve(root, 'Doomed.md'));
-    const res = await request(server).get('/api/topology');
+    const res = await request(base).get('/api/topology');
     expect(res.body.nodes.map((n) => n.path)).toEqual(['Alive.md']);
   });
 
   test('a page born a moment ago is already a node', async () => {
     root = makeTempPalace();
-    const server = makeServer(root);
+    const base = await listen(makeServer(root));
     mkdirSync(resolve(root, 'Projects'), { recursive: true });
     writeFileSync(resolve(root, 'Projects/Newborn.md'), entry('project', ['Alive']));
-    const res = await request(server).get('/api/topology');
+    const res = await request(base).get('/api/topology');
     const born = res.body.nodes.find((n) => n.id === 'Newborn');
     expect(born).toMatchObject({ path: 'Projects/Newborn.md', type: 'project', outbound_count: 1 });
     expect(res.body.nodes.find((n) => n.id === 'Alive').inbound_count).toBe(1);
@@ -86,7 +87,7 @@ describe('GET /api/topology', () => {
     root = mkdtempSync(resolve(tmpdir(), 'stigmergy-topology-empty-'));
     mkdirSync(resolve(root, '_ops/swarm/persistent'), { recursive: true });
     writeFileSync(resolve(root, '_ops/swarm/persistent/blackboard.jsonl'), '', 'utf8');
-    const res = await request(makeServer(root)).get('/api/topology');
+    const res = await request(await listen(makeServer(root))).get('/api/topology');
     expect(res.status).toBe(200);
     expect(res.body.nodes).toEqual([]);
     expect(res.body.edges).toEqual([]);

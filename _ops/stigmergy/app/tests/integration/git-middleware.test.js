@@ -5,6 +5,7 @@ import { execFileSync } from 'node:child_process';
 import { mkdtempSync, rmSync, mkdirSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import request from 'supertest';
+import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 
 function makeServer(palaceRoot) {
@@ -60,12 +61,12 @@ function makeTempPalace() {
 }
 
 describe('GET /api/log', () => {
-  let root, server;
-  beforeAll(() => { root = makeTempPalace(); server = makeServer(root); });
-  afterAll(() => { rmSync(root, { recursive: true, force: true }); });
+  let root, base;
+  beforeAll(async () => { root = makeTempPalace(); base = await listen(makeServer(root)); });
+  afterAll(async () => { await closeAll(); rmSync(root, { recursive: true, force: true }); });
 
   test('returns the commit stream newest-first, fully classified', async () => {
-    const res = await request(server).get('/api/log');
+    const res = await request(base).get('/api/log');
     expect(res.status).toBe(200);
     expect(res.body.count).toBe(3);
     const subjects = res.body.commits.map((c) => c.subject);
@@ -90,7 +91,7 @@ describe('GET /api/log', () => {
   });
 
   test('?path filters to one entry history', async () => {
-    const res = await request(server).get('/api/log').query({ path: 'Foo.md' });
+    const res = await request(base).get('/api/log').query({ path: 'Foo.md' });
     expect(res.status).toBe(200);
     // Two commits touched Foo.md (deposit + grow), not the ops commit.
     expect(res.body.count).toBe(2);
@@ -100,30 +101,30 @@ describe('GET /api/log', () => {
   });
 
   test('?limit caps the stream', async () => {
-    const res = await request(server).get('/api/log').query({ limit: '1' });
+    const res = await request(base).get('/api/log').query({ limit: '1' });
     expect(res.body.count).toBe(1);
   });
 
   test('rejects an unsafe pathspec', async () => {
-    const res = await request(server).get('/api/log').query({ path: '../../../etc/passwd' });
+    const res = await request(base).get('/api/log').query({ path: '../../../etc/passwd' });
     expect(res.status).toBe(400);
   });
 });
 
 describe('GET /api/commit', () => {
-  let root, server, headSha, depositSha;
-  beforeAll(() => {
+  let root, base, headSha, depositSha;
+  beforeAll(async () => {
     root = makeTempPalace();
-    server = makeServer(root);
+    base = await listen(makeServer(root));
     headSha = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root }).toString().trim();
     depositSha = execFileSync('git', ['rev-parse', 'HEAD~2'], { cwd: root }).toString().trim();
   });
-  afterAll(() => { rmSync(root, { recursive: true, force: true }); });
+  afterAll(async () => { await closeAll(); rmSync(root, { recursive: true, force: true }); });
 
   test('returns a palace-aware diff with frontmatter field changes', async () => {
     // HEAD~1 is the "grow it to a sprout" commit -- stage seed→sprout + pillar add.
     const growSha = execFileSync('git', ['rev-parse', 'HEAD~1'], { cwd: root }).toString().trim();
-    const res = await request(server).get('/api/commit').query({ sha: growSha });
+    const res = await request(base).get('/api/commit').query({ sha: growSha });
     expect(res.status).toBe(200);
     const fooDiff = res.body.fileDiffs.find((f) => f.path === 'Foo.md');
     expect(fooDiff.kind).toBe('md');
@@ -134,19 +135,19 @@ describe('GET /api/commit', () => {
   });
 
   test('flags a newly-added entry', async () => {
-    const res = await request(server).get('/api/commit').query({ sha: depositSha });
+    const res = await request(base).get('/api/commit').query({ sha: depositSha });
     expect(res.status).toBe(200);
     const fooDiff = res.body.fileDiffs.find((f) => f.path === 'Foo.md');
     expect(fooDiff.wasAdded).toBe(true);
   });
 
   test('404 on an invalid ref', async () => {
-    const res = await request(server).get('/api/commit').query({ sha: 'not-a-sha!!' });
+    const res = await request(base).get('/api/commit').query({ sha: 'not-a-sha!!' });
     expect(res.status).toBe(404);
   });
 
   test('400 on missing sha', async () => {
-    const res = await request(server).get('/api/commit');
+    const res = await request(base).get('/api/commit');
     expect(res.status).toBe(400);
   });
 });
@@ -155,12 +156,12 @@ describe('GET /api/uncommitted', () => {
   // Per-test pristine repo (beforeEach, not beforeAll) so the clean-tree test
   // and the dirty-tree test can never interact -- this was a flake source
   // under full-gate concurrency.
-  let root, server;
-  beforeEach(() => { root = makeTempPalace(); server = makeServer(root); });
-  afterEach(() => { rmSync(root, { recursive: true, force: true }); });
+  let root, base;
+  beforeEach(async () => { root = makeTempPalace(); base = await listen(makeServer(root)); });
+  afterEach(async () => { await closeAll(); rmSync(root, { recursive: true, force: true }); });
 
   test('reports a clean tree as total 0', async () => {
-    const res = await request(server).get('/api/uncommitted');
+    const res = await request(base).get('/api/uncommitted');
     expect(res.status).toBe(200);
     expect(res.body.total).toBe(0);
   });
@@ -171,7 +172,7 @@ describe('GET /api/uncommitted', () => {
     // (The pure dequote is also unit-tested deterministically in
     // git-log-parse.test.js, so this is belt-and-suspenders.)
     writeFileSync(resolve(root, 'Brand New.md'), '---\ntitle: Brand New\n---\nx\n');
-    const res = await request(server).get('/api/uncommitted');
+    const res = await request(base).get('/api/uncommitted');
     expect(res.body.total).toBeGreaterThanOrEqual(2);
     expect(res.body.unstaged.some((u) => u.path === 'Foo.md')).toBe(true);
     expect(res.body.untracked.some((u) => u.path === 'Brand New.md')).toBe(true);

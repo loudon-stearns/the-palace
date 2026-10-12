@@ -5,6 +5,7 @@ import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { execFileSync } from 'node:child_process';
 import request from 'supertest';
+import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 
 function git(cwd, args) {
@@ -40,18 +41,18 @@ function makeServer(palaceRoot) {
 }
 
 describe('POST /api/commit/create', () => {
-  let root, server;
-  beforeEach(() => {
+  let root, base;
+  beforeEach(async () => {
     root = makeRepo();
-    server = makeServer(root);
+    base = await listen(makeServer(root));
     // Two independent changes: a new untracked file + a modified tracked file.
     writeFileSync(join(root, 'data.txt'), 'hello\n');
     writeFileSync(join(root, 'README.md'), '# test repo\n\nedited\n');
   });
-  afterEach(() => { rmSync(root, { recursive: true, force: true }); });
+  afterEach(async () => { await closeAll(); rmSync(root, { recursive: true, force: true }); });
 
   test('commits ONLY the selected file, with derived palace trailers', async () => {
-    const res = await request(server).post('/api/commit/create').send({
+    const res = await request(base).post('/api/commit/create').send({
       paths: ['data.txt'], kind: 'ops', scope: 'io', summary: 'add a data file', verify: 'verified',
     });
     expect(res.status).toBe(200);
@@ -72,31 +73,31 @@ describe('POST /api/commit/create', () => {
   });
 
   test('400 on an unknown kind', async () => {
-    const res = await request(server).post('/api/commit/create').send({ paths: ['data.txt'], kind: 'bogus', summary: 's', verify: 'verified' });
+    const res = await request(base).post('/api/commit/create').send({ paths: ['data.txt'], kind: 'bogus', summary: 's', verify: 'verified' });
     expect(res.status).toBe(400);
     expect(res.body.error).toMatch(/kind/i);
   });
 
   test('400 on a bad verify value', async () => {
-    const res = await request(server).post('/api/commit/create').send({ paths: ['data.txt'], kind: 'ops', summary: 's', verify: 'maybe' });
+    const res = await request(base).post('/api/commit/create').send({ paths: ['data.txt'], kind: 'ops', summary: 's', verify: 'maybe' });
     expect(res.status).toBe(400);
     expect(res.body.error).toMatch(/verify/i);
   });
 
   test('400 when no files are selected', async () => {
-    const res = await request(server).post('/api/commit/create').send({ paths: [], kind: 'ops', summary: 's', verify: 'verified' });
+    const res = await request(base).post('/api/commit/create').send({ paths: [], kind: 'ops', summary: 's', verify: 'verified' });
     expect(res.status).toBe(400);
     expect(res.body.error).toMatch(/no files selected/i);
   });
 
   test('400 on an empty summary', async () => {
-    const res = await request(server).post('/api/commit/create').send({ paths: ['data.txt'], kind: 'ops', summary: '   ', verify: 'verified' });
+    const res = await request(base).post('/api/commit/create').send({ paths: ['data.txt'], kind: 'ops', summary: '   ', verify: 'verified' });
     expect(res.status).toBe(400);
     expect(res.body.error).toMatch(/summary/i);
   });
 
   test('rejects an out-of-palace path (no traversal)', async () => {
-    const res = await request(server).post('/api/commit/create').send({ paths: ['../escape.txt'], kind: 'ops', summary: 's', verify: 'verified' });
+    const res = await request(base).post('/api/commit/create').send({ paths: ['../escape.txt'], kind: 'ops', summary: 's', verify: 'verified' });
     expect(res.status).toBe(400);
     expect(res.body.error).toMatch(/unsafe|out-of-palace/i);
   });

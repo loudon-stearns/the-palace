@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { mkdtempSync, rmSync, mkdirSync, writeFileSync, readFileSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import request from 'supertest';
+import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 import { createStewardLane } from '../../server/steward-lane.js';
 
@@ -120,13 +121,13 @@ function waitFor(predicate, { timeout = 8000, interval = 50 } = {}) {
 const readState = (agentDir) => JSON.parse(readFileSync(join(agentDir, 'state.json'), 'utf8'));
 
 describe('GET /api/stewards', () => {
-  let root, server;
-  beforeEach(() => { root = makeTempPalace(); ({ server } = makeServer(root)); });
-  afterEach(() => { rmSync(root, { recursive: true, force: true }); });
+  let root, base;
+  beforeEach(async () => { root = makeTempPalace(); base = await listen(makeServer(root).server); });
+  afterEach(async () => { await closeAll(); rmSync(root, { recursive: true, force: true }); });
 
   test('reports a grant waiting to be consumed', async () => {
     seedSteward(root, { name: 'Test Steward', slug: 'test-steward', requestId: 'test-steward-001' });
-    const res = await request(server).get('/api/stewards');
+    const res = await request(base).get('/api/stewards');
     expect(res.status).toBe(200);
     const row = res.body.stewards.find((s) => s.agent_id === 'Test Steward');
     expect(row).toBeTruthy();
@@ -140,7 +141,7 @@ describe('GET /api/stewards', () => {
 
   test('a steward with no grant on the board shows grants_waiting 0', async () => {
     seedSteward(root, { name: 'Quiet Steward', slug: 'quiet-steward', requestId: 'quiet-steward-001', withGrant: false });
-    const res = await request(server).get('/api/stewards');
+    const res = await request(base).get('/api/stewards');
     const row = res.body.stewards.find((s) => s.agent_id === 'Quiet Steward');
     expect(row.grants_waiting).toBe(0);
     expect(row.pending_count).toBe(1);
@@ -148,17 +149,18 @@ describe('GET /api/stewards', () => {
 });
 
 describe('POST /api/steward/advance', () => {
-  let root, server, stewardLane;
-  beforeEach(() => { root = makeTempPalace(); ({ server, stewardLane } = makeServer(root, { extra: ['--from', 'Test Steward', '--msg-id', 'stub-msg-001', '--sleep', '400'] })); });
+  let root, server, base, stewardLane;
+  beforeEach(async () => { root = makeTempPalace(); ({ server, stewardLane } = makeServer(root, { extra: ['--from', 'Test Steward', '--msg-id', 'stub-msg-001', '--sleep', '400'] })); base = await listen(server); });
   afterEach(async () => {
     try { await waitFor(() => !existsSync(stewardLane.paths.pidFile), { timeout: 4000 }); } catch (_) { /* ignore */ }
+    await closeAll();
     rmSync(root, { recursive: true, force: true });
   });
 
   test('advances a steward and the reaper consumes the grant (THE proof)', async () => {
     const { agentDir } = seedSteward(root, { name: 'Test Steward', slug: 'test-steward', requestId: 'test-steward-001' });
 
-    const res = await request(server).post('/api/steward/advance').send({ name: 'Test Steward' });
+    const res = await request(base).post('/api/steward/advance').send({ name: 'Test Steward' });
     expect(res.status).toBe(200);
     expect(res.body.fired).toBe(true);
     expect(res.body.cycle_n).toBe(2);
@@ -185,39 +187,40 @@ describe('POST /api/steward/advance', () => {
     expect(history).toMatch(/"dispatched_by":"bbs-actuator"/);
 
     // (d) GET /api/stewards now shows grants_waiting back to 0
-    const after = await request(server).get('/api/stewards');
+    const after = await request(base).get('/api/stewards');
     const row = after.body.stewards.find((s) => s.agent_id === 'Test Steward');
     expect(row.grants_waiting).toBe(0);
   }, 20000);
 
   test('404 on an unknown steward', async () => {
-    const res = await request(server).post('/api/steward/advance').send({ name: 'Nobody' });
+    const res = await request(base).post('/api/steward/advance').send({ name: 'Nobody' });
     expect(res.status).toBe(404);
     expect(res.body.found).toBe(false);
   });
 
   test('400 on a missing name', async () => {
-    const res = await request(server).post('/api/steward/advance').send({});
+    const res = await request(base).post('/api/steward/advance').send({});
     expect(res.status).toBe(400);
   });
 
   test('409 when a steward cycle is already running', async () => {
     seedSteward(root, { name: 'Test Steward', slug: 'test-steward', requestId: 'test-steward-001' });
     seedSteward(root, { name: 'Other Steward', slug: 'other-steward', requestId: 'other-steward-001' });
-    const first = await request(server).post('/api/steward/advance').send({ name: 'Test Steward' });
+    const first = await request(base).post('/api/steward/advance').send({ name: 'Test Steward' });
     expect(first.body.fired).toBe(true);
     await waitFor(() => stewardLane.status().running === true, { timeout: 3000 });
-    const second = await request(server).post('/api/steward/advance').send({ name: 'Other Steward' });
+    const second = await request(base).post('/api/steward/advance').send({ name: 'Other Steward' });
     expect(second.status).toBe(409);
     expect(second.body.busy).toBe(true);
   });
 });
 
 describe('POST /api/stewards/advance-all', () => {
-  let root, server, stewardLane;
-  beforeEach(() => { root = makeTempPalace(); ({ server, stewardLane } = makeServer(root, { extra: ['--sleep', '40'] })); });
+  let root, server, base, stewardLane;
+  beforeEach(async () => { root = makeTempPalace(); ({ server, stewardLane } = makeServer(root, { extra: ['--sleep', '40'] })); base = await listen(server); });
   afterEach(async () => {
     try { await waitFor(() => !existsSync(stewardLane.paths.pidFile) && stewardLane.status().queue.length === 0, { timeout: 8000 }); } catch (_) { /* ignore */ }
+    await closeAll();
     rmSync(root, { recursive: true, force: true });
   });
 
@@ -225,7 +228,7 @@ describe('POST /api/stewards/advance-all', () => {
     const a = seedSteward(root, { name: 'Alpha Steward', slug: 'alpha-steward', requestId: 'alpha-001' });
     const b = seedSteward(root, { name: 'Beta Steward', slug: 'beta-steward', requestId: 'beta-001' });
 
-    const res = await request(server).post('/api/stewards/advance-all').send({});
+    const res = await request(base).post('/api/stewards/advance-all').send({});
     expect(res.status).toBe(200);
     expect(res.body.queued.sort()).toEqual(['Alpha Steward', 'Beta Steward']);
 
@@ -249,17 +252,18 @@ describe('POST /api/stewards/advance-all', () => {
 
   test('reports nothing to do when no steward has a grant waiting', async () => {
     seedSteward(root, { name: 'Quiet Steward', slug: 'quiet-steward', requestId: 'quiet-001', withGrant: false });
-    const res = await request(server).post('/api/stewards/advance-all').send({});
+    const res = await request(base).post('/api/stewards/advance-all').send({});
     expect(res.status).toBe(200);
     expect(res.body.queued).toEqual([]);
   });
 });
 
 describe('the run: max_cycles keeps one steward cycling; barren retries once; a pause ends it', () => {
-  let root, server, stewardLane, countFile;
+  let root, server, base, stewardLane, countFile;
   const readHistory = (agentDir) => readFileSync(join(agentDir, 'history.jsonl'), 'utf8').trim().split('\n').filter(Boolean).map((l) => JSON.parse(l));
   afterEach(async () => {
     try { await waitFor(() => !existsSync(stewardLane.paths.pidFile) && !stewardLane.status().running, { timeout: 8000 }); } catch (_) { /* ignore */ }
+    await closeAll();
     rmSync(root, { recursive: true, force: true });
   });
 
@@ -267,9 +271,10 @@ describe('the run: max_cycles keeps one steward cycling; barren retries once; a 
     root = makeTempPalace();
     countFile = join(root, 'fires.txt');
     ({ server, stewardLane } = makeServer(root, { extra: ['--from', 'Run Steward', '--sleep', '30', '--count-file', countFile] }));
+    base = await listen(server);
     const { agentDir } = seedSteward(root, { name: 'Run Steward', slug: 'run-steward', requestId: 'run-001' });
 
-    const res = await request(server).post('/api/steward/advance').send({ name: 'Run Steward', max_cycles: 3 });
+    const res = await request(base).post('/api/steward/advance').send({ name: 'Run Steward', max_cycles: 3 });
     expect(res.status).toBe(200);
     expect(res.body.run).toMatchObject({ cap: 3, position: 1 });
 
@@ -285,9 +290,10 @@ describe('the run: max_cycles keeps one steward cycling; barren retries once; a 
     root = makeTempPalace();
     countFile = join(root, 'fires.txt');
     ({ server, stewardLane } = makeServer(root, { extra: ['--emit', 'none', '--sleep', '30', '--count-file', countFile] }));
+    base = await listen(server);
     const { agentDir } = seedSteward(root, { name: 'Barren Steward', slug: 'barren-steward', requestId: 'barren-001' });
 
-    await request(server).post('/api/steward/advance').send({ name: 'Barren Steward', max_cycles: 5 });
+    await request(base).post('/api/steward/advance').send({ name: 'Barren Steward', max_cycles: 5 });
     await waitFor(() => readState(agentDir).iteration === 3 && !stewardLane.status().running, { timeout: 12000 });
     expect(readFileSync(countFile, 'utf8').trim().split('\n').length).toBe(2); // one cycle + one retry, not five
     const st = readState(agentDir);
@@ -302,9 +308,10 @@ describe('the run: max_cycles keeps one steward cycling; barren retries once; a 
     root = makeTempPalace();
     countFile = join(root, 'fires.txt');
     ({ server, stewardLane } = makeServer(root, { extra: ['--from', 'Pause Steward', '--emit', 'blocking', '--sleep', '30', '--count-file', countFile] }));
+    base = await listen(server);
     const { agentDir } = seedSteward(root, { name: 'Pause Steward', slug: 'pause-steward', requestId: 'pause-001' });
 
-    await request(server).post('/api/steward/advance').send({ name: 'Pause Steward', max_cycles: 4 });
+    await request(base).post('/api/steward/advance').send({ name: 'Pause Steward', max_cycles: 4 });
     await waitFor(() => readState(agentDir).iteration === 2 && !stewardLane.status().running, { timeout: 12000 });
     await new Promise((r) => setTimeout(r, 200)); // give a wrongful continuation time to show
     expect(readFileSync(countFile, 'utf8').trim().split('\n').length).toBe(1);
@@ -315,9 +322,10 @@ describe('the run: max_cycles keeps one steward cycling; barren retries once; a 
 });
 
 describe('a worker that never speaks (spawn failure) is not counted as a cycle', () => {
-  let root, server, stewardLane, countFile;
+  let root, server, base, stewardLane, countFile;
   afterEach(async () => {
     try { await waitFor(() => !existsSync(stewardLane.paths.pidFile) && !stewardLane.status().running, { timeout: 8000 }); } catch (_) { /* ignore */ }
+    await closeAll();
     rmSync(root, { recursive: true, force: true });
   });
 
@@ -325,9 +333,10 @@ describe('a worker that never speaks (spawn failure) is not counted as a cycle',
     root = makeTempPalace();
     countFile = join(root, 'fires.txt');
     ({ server, stewardLane } = makeServer(root, { extra: ['--emit', 'silent', '--sleep', '30', '--count-file', countFile] }));
+    base = await listen(server);
     const { agentDir } = seedSteward(root, { name: 'Mute Steward', slug: 'mute-steward', requestId: 'mute-001' });
 
-    await request(server).post('/api/steward/advance').send({ name: 'Mute Steward', max_cycles: 5 });
+    await request(base).post('/api/steward/advance').send({ name: 'Mute Steward', max_cycles: 5 });
     await waitFor(() => existsSync(stewardLane.paths.lastCycleFile) && !stewardLane.status().running, { timeout: 12000 });
     await new Promise((r) => setTimeout(r, 200));
     expect(readFileSync(countFile, 'utf8').trim().split('\n').length).toBe(1); // no retry
