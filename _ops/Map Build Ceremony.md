@@ -72,6 +72,8 @@ Read frontmatter only from every entry in scope. **Never open entry bodies.** Co
 
 Frontmatter is read as YAML, the way [[STIGMERGY]] reads it, so the map and PULSE agree on what is canon. A file whose frontmatter will not parse is not a node; the map names it in `meta.yaml_errors`, so it gets fixed rather than silently dropped.
 
+STIGMERGY's TOPOLOGY lens draws the same graph live under these same rules (`_ops/stigmergy/app/src/lib/topology-live.js`), and a test holds the two together: change a node or edge rule here, change it there.
+
 This step is fast. Frontmatter is 20–40 lines per file. A 100-entry palace completes in seconds.
 
 **3. Extract**
