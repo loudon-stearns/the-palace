@@ -99,6 +99,23 @@ describe('entry-edit', () => {
       expect(checkCanon('Jewel — Context.md').allowed).toBe(true);
     });
 
+    // Three ceremony specs live outside _ops/, so the _ops/ pattern never saw
+    // them: Enrichment (root), Sentry (Palace development/), and Closing Well
+    // (root — the page that holds the Close's version and ledger).
+    it('checkCanon refuses the ceremony specs that live outside _ops/', () => {
+      expect(checkCanon('Enrichment.md').allowed).toBe(false);
+      expect(checkCanon('Palace development/Sentry.md').allowed).toBe(false);
+      expect(checkCanon('Closing Well.md').allowed).toBe(false);
+      expect(checkCanon('Closing Well/Closing Well — Context.md').allowed).toBe(false);
+    });
+
+    it('checkCanon still ALLOWS those ceremonies\' tuning ledgers, and their neighbours in the same folders', () => {
+      expect(checkCanon('Enrichment/Enrichment — tuning.md').allowed).toBe(true);
+      expect(checkCanon('Palace development/Sentry/Sentry — tuning.md').allowed).toBe(true);
+      expect(checkCanon('Closing Well/Closing Well — tuning.md').allowed).toBe(true);
+      expect(checkCanon('Palace development/Concierge.md').allowed).toBe(true);
+    });
+
     it('checkCanon ALLOWS ordinary entries and non-canon _ops notes', () => {
       expect(checkCanon('Kuramoto Coupling.md').allowed).toBe(true);
       expect(checkCanon('_ops/Palace Quotes.md').allowed).toBe(true);

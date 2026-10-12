@@ -26,6 +26,7 @@ VST3 plugin inventory from `/Library/Audio/Plug-Ins/VST3`. Organized by manufact
 - v5: Stagecraft Software removed (plugins deleted). Scaler Music += DC Snares. Expressive E added (Lie). Safari Pedals note cleaned up.
 - v6: Loudon direct edits integrated. AIR += Hype, Jura, Sub Factory. Baby Audio += PitchDrift. Cableguys += Snapback. Dada Life += Space In-Your-Face, Wide Awake. Dreamtonics += Vocoflex. iZotope += Equinox, Plasma, Stratus. Klevgrand += Rum. LDN += Hello World. Native Instruments += Enhanced EQ, Freak. UVI += Shade. New manufacturers: DMG Audio, Klimper, Modalics, Toolroom, Xynth.
 - v7: Verify table closed. Iona = AIR synth (not iZotope reverb). Symphony = iZotope reverb (confirmed). RC 24/RC 48 removed — not Loudon's plugins; RC-20 Retro Color (XLN) already in table. Manufacturer attribution now complete.
+- v8: Loudon Live += Tract Mirror, Loudon's own JUCE build, from the user-level VST3 folder the scan did not cover; confirmed by Loudon 2026-10-12. Touché hardware confirmed the same day.
 
 **RTM:** the Read The Manual series is its own project now, [[LDN RTM]]. The plugins marked as RTM candidates below feed its queue (LDN RTM § Series).
 
@@ -63,6 +64,7 @@ VST3 plugin inventory from `/Library/Audio/Plug-Ins/VST3`. Organized by manufact
 | **Klimper** | Klimper Main, Klimper Track | Chord / MIDI | Chord and MIDI performance tools |
 | **Krotos Audio** | Dehumaniser, Weaponiser | Voice Design / Game Audio / SFX | Specialized in voice design and cinematic SFX |
 | **LDN (Loudon)** | Hello World, Oscillator grain blaster | Synth / Experimental / Custom | Loudon's own VST3 exports (manufacturer tag = "LDN"). Hello World = likely first RNBO export. Full list: click LDN in Ableton plugin browser. |
+| **Loudon Live (Loudon)** | Tract Mirror | Synth — Voice (LPC) | Loudon's own JUCE build, [[Tract Mirror]]: a monophonic LPC voice synthesizer. Company name "Loudon Live", not the LDN tag. Installed 2026-06-09 in the user-level folder `~/Library/Audio/Plug-Ins/VST3`, outside the scan this table came from. Loudon, 2026-10-12: "installed and working well". |
 | **Matt Tytel** | Vital | Synth — Wavetable | Free spectral warping wavetable synth; strong RTM candidate |
 | **MeldaProduction** | MBassador, MCharacter, MDrumEnhancer, MDrumReplacer, MDrumStrip, MDrummer (+ variants), MGuitarArchitect, MMorph, MPolySaturator, MPowerSynth, MSoundFactory (+ variants), MSuperLooper (+ variants), MUnison, MXXX (+ variants) + full suite across Delay / Distortion / Dynamics / EQ / Filter / Modulation / Pitch Shift / Reverb / Stereo / Time / Tools folders | Full DAW Suite | Comprehensive modular processing system; enormous library worth systematic RTM exploration |
 | **Modalics** | EON-Arp | MIDI / Arp | Arpeggiator / MIDI tool |
@@ -114,8 +116,8 @@ VST3 plugin inventory from `/Library/Audio/Plug-Ins/VST3`. Organized by manufact
 - **[[LDN RTM]] shortlist** — Prime candidates: Eventide H3000 Factory, u-he Diva + Zebra2, Reaktor 6, Newfangled Pendulate, MeldaProduction full suite, Surge XT, Vital, Soundtoys complete bundle, Polyverse full collection, Klevgrand Tomofon.
 - **LDN full plugin list** — Hello World confirmed. Full list: click LDN in Ableton's plugin browser to see all custom exports.
 - **Custom plugin ecosystem** — Loudon builds with RNBO and Max/MSP. The LDN manufacturer tag identifies his own VST3 exports. Worth a future palace entry on the plugin-building practice itself.
-- **Expressive E / Touché** — Lié plugin is installed. Confirm Touché hardware for the controllers section of [[Loudon's Toolkit — catalog — outside the computer|Outside the computer]].
-- **[[Tract Mirror]]** — *not in the table; confirm with Loudon.* A JUCE build of his own, installed 2026-06-09 at `~/Library/Audio/Plug-Ins/VST3/Tract Mirror.vst3` under the manufacturer name "Loudon Live" (`Projects/Tract Mirror/Tract Mirror — build plan — JUCE VST.md`, Phase 3c). It was built after this scan, and it sits in the user-level folder; the scan above names only the system-level `/Library/Audio/Plug-Ins/VST3` as its source. Ask whether his own builds belong here, and whether that folder holds others.
+- **Expressive E / Touché** — Lié plugin is installed, and Loudon owns the Touché (confirmed 2026-10-12). It is listed under Controllers in [[Loudon's Toolkit — catalog — outside the computer|Outside the computer]]. How he uses it has not been gathered.
+- **[[Tract Mirror]]** — confirmed by Loudon, 2026-10-12: "installed and working well". A JUCE build of his own, installed 2026-06-09 at `~/Library/Audio/Plug-Ins/VST3/Tract Mirror.vst3` under the company name "Loudon Live", not the LDN tag (`Projects/Tract Mirror/Tract Mirror — build plan — JUCE VST.md`, the working-name line and Phase 3c). It has its own row in the table, under Loudon Live. It was built after the scan, and it sits in the user-level folder; the scan names only the system-level `/Library/Audio/Plug-Ins/VST3` as its source. A listing of the user-level folder on 2026-10-12 shows one other plugin, `HISE.vst3`, which is not in the table. Loudon has not been asked about it.
 
 ## Hosts and environments
 

@@ -55,11 +55,11 @@ export function findEntryFile(palaceRoot, title) {
 export function resolveBundleDir(palaceRoot, home) {
   const entryFile = findEntryFile(palaceRoot, home);
   if (!entryFile) return null;
-  // Two layouts exist: the common sibling bundle (`Projects/Foo.md` ↔
-  // `Projects/Foo/`) and the entry-inside-its-bundle layout that BLUELINE and
-  // Floquet use (`Projects/BLUELINE/BLUELINE.md`). In the second, the folder
-  // that holds the entry IS the bundle — a sibling `BLUELINE/BLUELINE/` would
-  // be a phantom nested bundle. (Found 2026-09-23 while backfilling scrolls.)
+  // Two layouts are handled: the sibling bundle every entry uses
+  // (`Projects/Foo.md` ↔ `Projects/Foo/`), and an entry sitting inside a
+  // folder of its own name (`Projects/Foo/Foo.md`). In the second, the folder
+  // that holds the entry IS the bundle — a sibling `Foo/Foo/` would be a
+  // phantom nested bundle.
   const parent = dirname(entryFile);
   if (basename(parent) === home) return { entryFile, bundleDir: parent };
   return { entryFile, bundleDir: join(parent, home) };

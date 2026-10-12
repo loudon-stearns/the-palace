@@ -48,7 +48,7 @@ Claude Code on the Mac. Work in a worktree: `node _ops/worktree/new-worktree.mjs
 
 ## Load these files first
 
-1. This baton; `Palace development/Project Stewardship System.md` § Stage E and the gap table (~:197–230).
+1. This baton; `Projects/Project Stewardship System.md` § Stage E and the gap table (~:197–230).
 2. `_ops/stigmergy/trickster-auto/src/inbox.js`, `src/parse.js`, `tests/unit/parse.test.js`.
 3. `_ops/orchestrator/prompts/shared.md` ~:59–100 (the `request_id` rules); `_ops/orchestrator/trickster-auto.md`.
 4. The Shopkeeper entry, and `git show --stat b9de2e2e` — what the fold-in changed about how it posts.

@@ -57,6 +57,9 @@ links:
   - target: "[[DSP in Looping Dimensions]]"
     type: connects-to
     label: theoretical-ground
+  - target: "[[Wavetable Oscillator]]"
+    type: connects-to
+    label: tables-as-control
 forward_vector: I want to become a working VST instrument and a Four Pillars lesson simultaneously — the synthesizer is the pedagogy, and the pedagogy is the synthesizer. The lesson teaches what harmony actually is by putting a horizontal line in front of you and showing you what happens when you bend it.
 agency_profile:
   creation: I want to produce sounds that exist nowhere in current synthesis — the specific quality of a bell's physical frequency evolution applied to a pad's amplitude profile, or piano stretch dynamics applied to a vocal formant wavetable. The synthesis space this opens has not been sonically explored.
@@ -136,6 +139,8 @@ The FFT analysis of Wavetable A is computed per-buffer (not per-sample) whenever
 ## What This Looks Like
 
 The primary display is the **Wavetable B editor** — a graph where X is partial number and Y is cents deviation. The harmonic baseline is a bold horizontal line at Y=0, always visible, always anchoring the display. The current frame of Wavetable B is drawn as a colored curve above or below this line. Adjacent frames are ghosted slightly to show the temporal trajectory. Dragging the curve upward bends partials sharp; downward bends them flat; a smooth upward bow from left to right is piano character; a step-jump pattern is bell character; randomized jitter is stochastic scatter.
+
+[[The Curve Is the Material]] argues for a different front door to this editor: a library of named function families, each with a parameter or two, with free drawing kept as a mode rather than the default. That refinement is open and not adopted here; this page still describes the drawn curve.
 
 Below the Wavetable B graph: a frame scanner with an independent envelope and LFO routing. Above: the Wavetable A display in its standard waveform or spectral view.
 

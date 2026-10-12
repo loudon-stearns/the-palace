@@ -28,31 +28,31 @@ def load_map():
         return json.load(f), files[-1]
 
 def get_neighborhood(data, target):
-    edges = [e for e in data['edges'] if e['from'] == target or e['to'] == target]
+    edges = [e for e in data['edges'] if e['source'] == target or e['target'] == target]
     neighbors = set()
     for e in edges:
-        neighbors.add(e['from'] if e['to'] == target else e['to'])
+        neighbors.add(e['source'] if e['target'] == target else e['target'])
     return edges, sorted(neighbors)
 
+# System dirs that never hold entries — the same set as the canonical resolver,
+# _ops/stigmergy/orchestrator/src/entry-paths.js (findEntryFile).
+EXCLUDE_DIRS = {".git", ".claude", ".obsidian", "node_modules", "_tools", ".venvs"}
+
 def find_entry_path(entry_name):
-    """Search for the entry file across palace directories."""
-    candidates = [
-        f"{entry_name}.md",
-        f"Projects/{entry_name}.md",
-        f"Palace development/{entry_name}.md",
-        f"_ops/{entry_name}.md",
-        f"Modes of collaboration/{entry_name}.md",
-    ]
-    for c in candidates:
-        full = os.path.join(PALACE_ROOT, c)
-        if os.path.exists(full):
-            return full
+    """Locate the entry file by title anywhere in the tree. A [[wikilink]] resolves
+    by filename whatever folder the file sits in, so walk for `<title>.md` instead
+    of listing folders (a list goes stale each time the tree grows a new one)."""
+    target = f"{entry_name}.md"
+    for dirpath, dirnames, filenames in os.walk(PALACE_ROOT):
+        dirnames[:] = sorted(d for d in dirnames if d not in EXCLUDE_DIRS)
+        if target in filenames:
+            return os.path.join(dirpath, target)
     return f"{PALACE_ROOT}/{entry_name}.md"  # fallback
 
 def format_edges(edges):
     lines = []
     for e in edges:
-        lines.append(f"{e['from']} --[{e['rel']}]--> {e['to']}")
+        lines.append(f"{e['source']} --[{e['type']}]--> {e['target']}")
     return "\n".join(lines)
 
 def fill_template(entry_name, edges, neighbors, max_intros=3, new_entries=None):
@@ -60,7 +60,7 @@ def fill_template(entry_name, edges, neighbors, max_intros=3, new_entries=None):
     neighbor_list = ", ".join(neighbors)
     entry_path = find_entry_path(entry_name)
 
-    template_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "worker-prompt-template.md")
+    template_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Single-Doc Worker Prompt Template.md")
     with open(template_path) as f:
         template = f.read()
 

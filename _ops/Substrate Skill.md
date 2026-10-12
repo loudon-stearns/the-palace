@@ -200,13 +200,15 @@ Never raw-commit from Cowork — it can rename but not delete files, so a bare `
 
 ### Directory Structure
 
-The palace root holds two things: **foundational skeleton files** (CLAUDE, SCHEMA, SCHEMA — Reference, JEWEL, SUBSTRATE, README, ROSETTA, FOUR PILLARS) and **knowledge entries** (all concepts, hubs, projects — the bulk of the graph). Operational machinery lives one level down in `_ops/` — ceremony cards + their `— Context` companions, working queues, and machinery subdirs (`_ops/swarm/`, `_ops/stigmergy/`, `_ops/loudon-live/`, `_ops/agents/`, `_ops/cowork-git/`, `_ops/maps/`, …). The full ceremony index is [[Palace Ceremonies]]; agent operational detail is [[Substrate Skill]].
+The palace root holds two things: **foundational skeleton files** (CLAUDE, ELDER, SCHEMA, SCHEMA — Reference, JEWEL, SUBSTRATE, README, ROSETTA, FOUR PILLARS) and **knowledge entries** — concepts, hubs, questions, spores, sources, and any other type that has no folder of its own. Four types do: a `project` entry goes in `Projects/`, its bundle beside it (`Projects/Foo.md` ↔ `Projects/Foo/`); a `person` entry goes in `People/`; a `specialist` or `maker` entry goes in `Shop/`. Operational machinery lives one level down in `_ops/` — ceremony cards + their `— Context` companions, working queues, and machinery subdirs (`_ops/swarm/`, `_ops/stigmergy/`, `_ops/loudon-live/`, `_ops/agents/`, `_ops/cowork-git/`, `_ops/maps/`, …). The full ceremony index is [[Palace Ceremonies]].
 
-Not every ceremony spec lives in `_ops/`: [[Enrichment]] (`Enrichment.md`) and its bundle live in the **palace root** alongside the skeleton files, an exception to the `_ops/` convention.
+Not every ceremony spec lives in `_ops/`. Two are exceptions to the convention: [[Enrichment]] (`Enrichment.md`) and its bundle live in the **palace root** alongside the skeleton files, and [[Sentry]] (`Palace development/Sentry.md`) and its bundle live in `Palace development/`.
 
 Obsidian resolves `[[wikilinks]]` by filename regardless of folder — agents must do the same. When resolving a wikilink to a file path, search recursively through the entire palace directory. Exclude `.git/`, `.claude/`, and `.obsidian/` — these contain system files, not knowledge entries. Any other subdirectory may contain valid entries. When loading files by path (e.g., in tiered context loading), use paths relative to the palace root.
 
 Knowledge entries may also have **entry bundles** — optional sibling folders named identically to the entry (e.g., `Foo.md` ↔ `Foo/`) holding the entry's owned files: batons, context companions, sources, sketches, enrichments. Bundles are lazy: they appear only when something needs to live in them. Most entries never grow one. See [[SCHEMA — Reference]] §8 for the full spec.
+
+**Moving an entry.** Move the `.md` and its bundle folder together with `git mv`, and commit those renames by themselves, from the index, with a message written by hand in the committer's form — the `edit(<scope>): …` subject and its `Palace-Kind`, `Palace-Entry`, `Palace-Verify` and `Palace-Author` lines. Don't put a move through the palace committer (`palace-commit.mjs`): it looks for the entry at its new path in the last commit, finds nothing, and logs the move as a birth — a false `Palace-Stage: <Entry>: born-><stage>`, and a false `Palace-Vector: … changed` for the entry and each bundle file that carries a vector. Fixes to whatever pointed at the old path go in a second commit, through the committer as usual.
 
 ### In-File Comments
 

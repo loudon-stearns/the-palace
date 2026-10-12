@@ -116,6 +116,13 @@ export const DENIED_CANON_PATHS = new Set([
   'FOUR PILLARS.md',
   '_ops/Substrate Skill.md',
   '_ops/Palace Ceremonies.md',
+  // Ceremony specs that live outside _ops/, where the pattern below cannot see
+  // them. Named one by one rather than by a wider pattern: what counts as a
+  // ceremony is still an open question (Palace Ceremonies — baton).
+  'Enrichment.md',
+  'Palace development/Sentry.md',
+  'Closing Well.md',                          // carries the Close's version and ledger
+  'Closing Well/Closing Well — Context.md',
 ]);
 
 // Canon path patterns -- ceremony cards in _ops/, and each ceremony's Context

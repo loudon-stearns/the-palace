@@ -130,6 +130,6 @@ Fixtures:
 
 - `Palace development/Orchestrator Production Plan.md` — build contract
 - `Palace development/Palace Orchestrator.md` — Definitions of record (manifest, git detection, dual-path health, options[] shape)
-- `Palace development/Project Stewardship System.md` — Stage A lessons (9 gaps + 4 findings)
+- `Projects/Project Stewardship System.md` — Stage A lessons (9 gaps + 4 findings)
 - `_ops/stigmergy/app/server/validator.js` — the imported SCHEMA §9 validator
 - `.claude/skills/palace-orchestrator/SKILL.md` — runtime workflow

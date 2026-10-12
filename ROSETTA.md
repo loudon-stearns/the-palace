@@ -238,13 +238,19 @@ The Palace/
 ├── ELDER.md                ← What an agent reads to grow up: the limits of age, the invariants, what to read next.
 ├── SCHEMA.md               ← Type system (TBox), read on growing up. Entry types, stages, link types, self-description test.
 ├── SCHEMA — Reference.md   ← The writing rules. YAML fields, change protocol, bundles, STIGMERGY wire (§§3,5,6,8,9).
+├── JEWEL.md                ← The Seed Jewel. What every agent is born with: who is in the room and how things here relate.
+├── SUBSTRATE.md            ← The palace's self-description: what it is, how it is shaped, its current state.
 ├── ROSETTA.md              ← This file. Cross-tradition glossary. Self-description.
 ├── README - The Palace Guide.md  ← Philosophy, founding principles, palace manual.
-├── [Content entries]       ← concept, hub, project, source, practice, person, question, spore, specialist, maker entries
+├── FOUR PILLARS.md         ← Creation, Tools, Philosophy, Practice. The framework that tags every entry.
+├── [Content entries]       ← concept, hub, source, meta, practice, question, spore entries — every type with no folder of its own
 │
+├── Projects/               ← project entries, each with its bundle beside it (Projects/Foo.md ↔ Projects/Foo/)
+├── People/                 ← person entries
 ├── Shop/                   ← Operational sub-system: specialist + maker entries (added v1.6, 2026-05)
+├── Palace development/     ← Themed folder — entries about how the palace itself works: its agents, how they coordinate, its design systems. Mixed types.
 │
-└── _ops/                   ← Ceremony machinery + working queues. All ceremony files, their context companions, and palace operational queues live here.
+└── _ops/                   ← Ceremony machinery + working queues. All ceremony files but Enrichment (root) and Sentry (Palace development/), their context companions, and palace operational queues live here.
     ├── Substrate Skill.md  ← Full ceremony protocols. Method library. Operational instructions.
     ├── Palace Ceremonies.md ← Canonical ceremony list with triggers and cadences.
     └── Palace To-Do.md     ← Active improvement queue for palace infrastructure.
