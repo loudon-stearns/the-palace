@@ -152,6 +152,63 @@ describe('GET /api/commit', () => {
   });
 });
 
+// A commit that only MOVES an entry. The diff view used to read the before
+// side at `<sha>^:<new path>`, find nothing, and show the entry as ADDED with
+// every frontmatter field new. Em-dash + spaced names, quotepath left at git's
+// default and diff.renames off, so the pairing and the path match are the
+// adapter's own doing rather than the developer's git config.
+describe('GET /api/commit -- a moved entry', () => {
+  const GOTCHAS = 'Foo — gotchas.md';
+  let root, base;
+  const g = (...args) => execFileSync('git', args, { cwd: root, stdio: 'pipe' }).toString();
+  beforeEach(async () => {
+    root = makeTempPalace();
+    base = await listen(makeServer(root));
+    g('config', 'core.quotepath', 'true');
+    g('config', 'diff.renames', 'false');
+    mkdirSync(resolve(root, 'Foo'));
+    writeFileSync(resolve(root, 'Foo', GOTCHAS), '---\ntitle: "Foo — gotchas"\nforward_vector: "I will warn."\n---\n# Gotchas\nmind the step\n');
+    writeFileSync(resolve(root, 'Foo', 'hero.png'), Buffer.from([0x89, 0x50, 0x4e, 0x47, 0, 1, 2, 3]));
+    g('add', '-A');
+    g('commit', '-q', '-m', 'edit(Foo): its bundle');
+    mkdirSync(resolve(root, 'My Projects'));
+    g('mv', 'Foo.md', 'My Projects/Foo.md');
+    g('mv', 'Foo', 'My Projects/Foo');
+  });
+  afterEach(async () => { await closeAll(); rmSync(root, { recursive: true, force: true }); });
+  const view = async () => (await request(base).get('/api/commit').query({ sha: g('rev-parse', 'HEAD').trim() })).body;
+
+  test('a pure move is not ADDED: no field changes, and each file says where it came from', async () => {
+    g('commit', '-q', '-m', 'edit(Foo): move into My Projects/');
+    const { fileDiffs, fileCount } = await view();
+    expect(fileCount).toBe(3); // three moved files, not three deleted + three added
+    const foo = fileDiffs.find((f) => f.path === 'My Projects/Foo.md');
+    expect(foo).toMatchObject({ kind: 'md', renamedFrom: 'Foo.md', wasAdded: false, wasRemoved: false, frontmatterChanges: [], bodyChanged: false });
+    const gotchas = fileDiffs.find((f) => f.path === `My Projects/Foo/${GOTCHAS}`);
+    expect(gotchas).toMatchObject({ kind: 'md', renamedFrom: `Foo/${GOTCHAS}`, wasAdded: false, frontmatterChanges: [], bodyChanged: false });
+    const hero = fileDiffs.find((f) => f.path === 'My Projects/Foo/hero.png');
+    expect(hero).toMatchObject({ kind: 'media', renamedFrom: 'Foo/hero.png', wasAdded: false });
+  });
+
+  test('a move with an edit shows only the edit', async () => {
+    writeFileSync(resolve(root, 'My Projects', 'Foo.md'), '---\ntitle: Foo\ntype: concept\nstage: growing\npillars: [tools, philosophy]\n---\n# Foo\nbody one\nbody two\n');
+    g('add', '-A');
+    g('commit', '-q', '-m', 'edit(Foo): move and grow');
+    const foo = (await view()).fileDiffs.find((f) => f.path === 'My Projects/Foo.md');
+    expect(foo.renamedFrom).toBe('Foo.md');
+    expect(foo.wasAdded).toBe(false);
+    expect(foo.frontmatterChanges).toEqual([expect.objectContaining({ field: 'stage', kind: 'changed', before: 'sprout', after: 'growing' })]);
+  });
+
+  test('an entry that really is new still reads as ADDED, with no renamedFrom', async () => {
+    writeFileSync(resolve(root, 'New Entry.md'), '---\ntitle: New Entry\nstage: seed\n---\n# New Entry\nbody\n');
+    g('add', '-A');
+    g('commit', '-q', '-m', 'edit(Foo): move, and file a new one');
+    const fresh = (await view()).fileDiffs.find((f) => f.path === 'New Entry.md');
+    expect(fresh).toMatchObject({ renamedFrom: null, wasAdded: true });
+  });
+});
+
 describe('GET /api/uncommitted', () => {
   // Per-test pristine repo (beforeEach, not beforeAll) so the clean-tree test
   // and the dirty-tree test can never interact -- this was a flake source
@@ -176,5 +233,15 @@ describe('GET /api/uncommitted', () => {
     expect(res.body.total).toBeGreaterThanOrEqual(2);
     expect(res.body.unstaged.some((u) => u.path === 'Foo.md')).toBe(true);
     expect(res.body.untracked.some((u) => u.path === 'Brand New.md')).toBe(true);
+  });
+
+  test('a staged rename is one row carrying both of its paths', async () => {
+    // It used to arrive as the single string `Foo.md -> "My Projects/Foo.md"`,
+    // which is not a path anything can select.
+    mkdirSync(resolve(root, 'My Projects'));
+    execFileSync('git', ['mv', 'Foo.md', 'My Projects/Foo.md'], { cwd: root, stdio: 'pipe' });
+    const res = await request(base).get('/api/uncommitted');
+    expect(res.body.staged).toEqual([{ path: 'My Projects/Foo.md', status: 'R', renamedFrom: 'Foo.md' }]);
+    expect(res.body.total).toBe(1);
   });
 });

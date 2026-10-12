@@ -12,6 +12,14 @@
 //     swept into this commit.
 //   - Clear stale Cowork git locks first (the known sharp edge).
 //
+// A move: select BOTH sides, the old path and the new one (files or folders).
+// The trailers are then derived against the entry at its old path, so a pure
+// move derives no Palace-Stage / Palace-Vector line and a move with edits
+// derives only the edits. The diff and the commit are both scoped to the
+// selection, so one side alone is half a move: it is committed as the bare add
+// or bare delete it is, the other half stays staged, and the result carries a
+// `notes` line saying so. The selection is never widened to the other side.
+//
 // Pure trailer derivation lives in src/lib/commit-spec.js; this module is the
 // thin async git/fs glue around it (replicated rather than imported from the
 // CLI script so the app server bundles cleanly under vite/esbuild).
@@ -21,12 +29,19 @@ import { resolve, join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { safePathspec } from './git.js';
 import { execGit } from './git-wrapper.js';
-import { deriveTrailers, formatCommitMessage, VERIFY_VALUES } from '../src/lib/commit-spec.js';
+import { deriveTrailers, formatCommitMessage, parseNameStatus, VERIFY_VALUES } from '../src/lib/commit-spec.js';
 import { KNOWN_KINDS } from '../src/lib/commit-parse.js';
 import { diffEntryText } from '../src/lib/frontmatter-diff.js';
 
 // Local alias preserves the existing call sites (`gitAsync(root, args)`).
 const gitAsync = execGit;
+
+// The selection is a list of PATHS, never patterns. Left alone, git reads the
+// `*`, `?` and `[` in a pathspec as a glob: selecting `a[1].md` also takes
+// `a1.md`, and the old side of a moved `Why?.md` (gone from disk, so no longer
+// a literal match) picks up a neighbour. Every git call that is handed the
+// selection leads with this. A folder still brings its files.
+const LITERAL = ['--literal-pathspecs'];
 
 // Clear stale Cowork git locks (harmless if none). The known sharp edge.
 export function clearStaleLocks(palaceRoot) {
@@ -36,13 +51,59 @@ export function clearStaleLocks(palaceRoot) {
   }
 }
 
+// The staged name-status rows ({ status, path, renamedFrom }), optionally
+// scoped to `scope` (pathspecs).
+// `-c core.quotepath=false` forces RAW utf-8 paths in the output. Under git's
+// default (quotepath=true) a non-ASCII path — every em-dash bundle file, e.g.
+// `Foo — baton.md` — comes back octal-escaped + double-quoted, and the file
+// silently fails to commit ("nothing staged") even though it WAS staged.
+// `-M` pairs renames whatever the repo's `diff.renames` says; with it off a
+// move arrives as an unrelated delete + add. Self-defending on both counts.
+async function stagedNameStatus(palaceRoot, scope = null) {
+  const tail = scope && scope.length ? ['--', ...scope] : [];
+  const r = await gitAsync(palaceRoot, [...LITERAL, '-c', 'core.quotepath=false', 'diff', '--cached', '-M', '--name-status', ...tail], { allowFail: true });
+  return parseNameStatus(r.stdout);
+}
+
+// True when `p` (a file or a folder) is gone from the working tree and from
+// the index while HEAD still has it: a deletion that is already staged, such
+// as the old side of a `git mv`. There is nothing left to add for such a path.
+export async function isStagedDeletion(palaceRoot, p) {
+  if (existsSync(resolve(palaceRoot, p))) return false;
+  if ((await gitAsync(palaceRoot, [...LITERAL, 'ls-files', '--', p], { allowFail: true })).stdout.trim() !== '') return false;
+  const d = await gitAsync(palaceRoot, [...LITERAL, 'diff', '--cached', '--no-renames', '--diff-filter=D', '--name-only', '--', p], { allowFail: true });
+  return d.stdout.trim() !== '';
+}
+
+// Staged moves that `scoped` (the selection's own rows) holds only half of.
+// With the other side left out, a move stops being a move: the new side alone
+// commits as a bare add (and the log reads a birth), the old side alone as a
+// bare delete. Returns [{ from, to, missing }] -- `missing` is the side that
+// was not selected. (Mirrors halfNamedMoves in scripts/palace-commit.mjs.)
+async function halfSelectedMoves(palaceRoot, scoped) {
+  const out = [];
+  // Half a move shows up in the selection as a bare add or a bare delete; with
+  // neither there is nothing to look for (the usual case: an edited entry).
+  if (!scoped.some((r) => r.status === 'A' || r.status === 'D')) return out;
+  for (const { path: to, renamedFrom: from } of await stagedNameStatus(palaceRoot)) {
+    if (!from) continue;
+    if (scoped.some((r) => r.status === 'A' && r.path === to)) out.push({ from, to, missing: from });
+    else if (scoped.some((r) => r.status === 'D' && r.path === from)) out.push({ from, to, missing: to });
+  }
+  return out;
+}
+
 /**
  * Stage the selected paths, derive trailers from THEIR staged diff, and commit
- * exactly those paths. Never throws; returns { ok, shortHash?, subject?, message?, error? }.
+ * exactly those paths. Never throws; returns { ok, shortHash?, subject?,
+ * committed?, message?, notes?, error? }. `committed` lists each file where it
+ * now is (a moved file by its new path); `notes` is present only when there is
+ * something to say (half of a staged move was committed).
  *
  * @param {string} palaceRoot
  * @param {object} opts
- * @param {string[]} opts.paths    palace-relative paths to commit (required, ≥1)
+ * @param {string[]} opts.paths    palace-relative paths to commit (required, ≥1);
+ *                                 a file or a folder; for a move, both sides
  * @param {string}   opts.kind     a KNOWN_KINDS value
  * @param {string}   opts.summary  the subject summary (required)
  * @param {string}   opts.verify   a VERIFY_VALUES value
@@ -70,41 +131,47 @@ export async function commitSelected(palaceRoot, opts = {}) {
     if (!s) return { ok: false, error: `unsafe or out-of-palace path: ${p}` };
     safe.push(s);
   }
-  const selected = new Set(safe);
 
   clearStaleLocks(palaceRoot);
 
   // ── stage ONLY the selected paths (never -A) ──
+  // A path that is already a staged deletion is skipped: `git add` dies on it
+  // ("pathspec did not match any files"), yet it has to be selectable, because
+  // a move is committed whole only when both of its sides are in the selection.
   for (const p of safe) {
-    const r = await gitAsync(palaceRoot, ['add', '--', p], { allowFail: true });
+    if (await isStagedDeletion(palaceRoot, p)) continue;
+    const r = await gitAsync(palaceRoot, [...LITERAL, 'add', '--', p], { allowFail: true });
     if (r.failed) return { ok: false, error: `git add failed for "${p}": ${(r.stderr || '').trim()}` };
   }
 
   // ── derive trailers from the selected staged diff only ──
-  // `-c core.quotepath=false` forces RAW utf-8 paths in the output. Under git's
-  // default (quotepath=true) a non-ASCII path — every em-dash bundle file, e.g.
-  // `Foo — baton.md` — comes back octal-escaped + double-quoted, never matches
-  // `selected`, and the file silently fails to commit ("nothing staged") even
-  // though it WAS staged. Self-defending regardless of repo config.
-  const ns = await gitAsync(palaceRoot, ['-c', 'core.quotepath=false', 'diff', '--cached', '--name-status'], { allowFail: true });
+  // Scoped by the same pathspecs the commit below takes, so the message
+  // describes exactly what is committed: a foreign staged file is left out, a
+  // selected folder brings its files, and a rename is read as one only when
+  // both of its sides are selected.
+  const rows = await stagedNameStatus(palaceRoot, safe);
   const dpaths = [];
   const mdChanges = [];
-  for (const line of ns.stdout.split(/\r?\n/)) {
-    if (line.trim() === '') continue;
-    const m = line.match(/^([A-Z])\d*\t(.+?)(?:\t(.+))?$/);
-    if (!m) continue;
-    const status = m[1];
-    const path = m[3] || m[2]; // rename: new path is the 3rd field
-    if (!selected.has(path)) continue; // scope strictly to the selection
+  for (const { status, path, renamedFrom } of rows) {
     dpaths.push(path);
     if (!path.toLowerCase().endsWith('.md')) continue;
-    const before = status === 'A' ? '' : (await gitAsync(palaceRoot, ['show', `HEAD:${path}`], { allowFail: true })).stdout;
+    // before = the HEAD side (empty if added), after = staged blob (:path).
+    // A renamed entry's HEAD side lives at its OLD path. Reading HEAD:<new path>
+    // finds nothing, every frontmatter field then reads as newly added, and a
+    // pure move goes into the log as a birth (da73cb79: a false `born->sprout`).
+    const before = status === 'A' ? '' : (await gitAsync(palaceRoot, ['show', `HEAD:${renamedFrom ?? path}`], { allowFail: true })).stdout;
     const after = status === 'D' ? '' : (await gitAsync(palaceRoot, ['show', `:${path}`], { allowFail: true })).stdout;
     const d = diffEntryText(before, after);
     mdChanges.push({ path, frontmatterChanges: d.frontmatterChanges, bodyChanged: d.bodyChanged, wasAdded: status === 'A' || (before === '' && after !== '') });
   }
 
   if (dpaths.length === 0) return { ok: false, error: 'nothing staged for the selected paths' };
+
+  // Say so (never block) when the selection holds half of a staged move.
+  const notes = (await halfSelectedMoves(palaceRoot, rows)).map((h) => {
+    const half = h.missing === h.from ? 'a bare add, logged as a new file' : 'a bare delete';
+    return `"${h.to}" looks like a staged move from "${h.from}", but "${h.missing}" was not selected, so this commit holds ${half}. The other half is still staged; select both to commit a move whole.`;
+  });
 
   const trailers = deriveTrailers({ paths: dpaths, mdChanges, kind, verify, author, campaign, resolves });
   const message = formatCommitMessage({ kind, scope, summary, body, trailers });
@@ -114,11 +181,11 @@ export async function commitSelected(palaceRoot, opts = {}) {
   const msgFile = join(tmp, 'COMMIT_MSG');
   writeFileSync(msgFile, message, 'utf8');
   try {
-    const res = await gitAsync(palaceRoot, ['commit', '-F', msgFile, '--', ...safe], { allowFail: true });
+    const res = await gitAsync(palaceRoot, [...LITERAL, 'commit', '-F', msgFile, '--', ...safe], { allowFail: true });
     if (res.failed) return { ok: false, error: (res.stderr || 'git commit failed').trim(), message };
     const shortHash = (await gitAsync(palaceRoot, ['rev-parse', '--short', 'HEAD'], { allowFail: true })).stdout.trim();
     const subject = (await gitAsync(palaceRoot, ['log', '-1', '--format=%s'], { allowFail: true })).stdout.trim();
-    return { ok: true, shortHash, subject, committed: dpaths, message };
+    return { ok: true, shortHash, subject, committed: dpaths, message, ...(notes.length ? { notes } : {}) };
   } finally {
     try { rmSync(tmp, { recursive: true, force: true }); } catch (_) { /* ignore */ }
   }

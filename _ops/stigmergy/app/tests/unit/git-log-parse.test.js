@@ -117,6 +117,55 @@ describe('parsePorcelain', () => {
     const out = parsePorcelain('?? "caf\\303\\251.md"');
     expect(out.untracked[0].path).toBe('café.md');
   });
+
+  // A rename row is `XY old -> new`. It used to come back as the one string
+  // "old -> new", which is not a path anything can stage or commit.
+  it('reads a staged rename as one entry carrying both of its paths', () => {
+    const out = parsePorcelain('R  Foo.md -> Projects/Foo.md');
+    expect(out.staged).toEqual([{ path: 'Projects/Foo.md', status: 'R', renamedFrom: 'Foo.md' }]);
+    expect(out.unstaged).toEqual([]);
+  });
+
+  it('dequotes each side of a rename on its own', () => {
+    // git quotes a side only when that side needs it (a space, non-ASCII).
+    const raw = [
+      'R  plain.md -> "Projects/Has Space.md"',
+      'R  "Two Words.md" -> Projects/TwoWords.md',
+      'R  "Foo \\342\\200\\224 gotchas.md" -> "Projects/Foo \\342\\200\\224 gotchas.md"',
+    ].join('\n');
+    expect(parsePorcelain(raw).staged).toEqual([
+      { path: 'Projects/Has Space.md', status: 'R', renamedFrom: 'plain.md' },
+      { path: 'Projects/TwoWords.md', status: 'R', renamedFrom: 'Two Words.md' },
+      { path: 'Projects/Foo — gotchas.md', status: 'R', renamedFrom: 'Foo — gotchas.md' },
+    ]);
+  });
+
+  it('is not fooled by " -> " or an escaped quote inside a filename', () => {
+    const raw = [
+      'R  "arrow -> name.md" -> "Projects/arrow -> name.md"',
+      'R  "say \\"hi\\" -> x.md" -> moved.md',
+      '?? "not a rename -> at all.md"',
+      ' M "edited -> still one path.md"',
+    ].join('\n');
+    const out = parsePorcelain(raw);
+    expect(out.staged).toEqual([
+      { path: 'Projects/arrow -> name.md', status: 'R', renamedFrom: 'arrow -> name.md' },
+      { path: 'moved.md', status: 'R', renamedFrom: 'say "hi" -> x.md' },
+    ]);
+    expect(out.untracked).toEqual([{ path: 'not a rename -> at all.md', status: '??' }]);
+    expect(out.unstaged).toEqual([{ path: 'edited -> still one path.md', status: 'M' }]);
+  });
+
+  it('a rename edited again (RM) is a staged move plus an unstaged edit of the new path', () => {
+    const out = parsePorcelain('RM Foo.md -> Projects/Foo.md');
+    expect(out.staged).toEqual([{ path: 'Projects/Foo.md', status: 'R', renamedFrom: 'Foo.md' }]);
+    expect(out.unstaged).toEqual([{ path: 'Projects/Foo.md', status: 'M' }]);
+  });
+
+  it("a copy's path is the new file, and it carries no renamedFrom", () => {
+    // Its source did not move, so there is no second path to commit.
+    expect(parsePorcelain('C  Foo.md -> "Foo Two.md"').staged).toEqual([{ path: 'Foo Two.md', status: 'C' }]);
+  });
 });
 
 describe('parseWorktreePorcelain', () => {

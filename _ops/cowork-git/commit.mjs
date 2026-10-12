@@ -25,6 +25,11 @@
 //        --scope cowork-git --summary "what changed" [--body "why"] \
 //        --verify unverified [--author claude] [--lock-threshold 30] \
 //        [--no-flag] [--dry-run] [--root <palace>]
+//
+// A move: name BOTH sides in --paths, the old path and the new one (files or
+// folders). commitSelected then commits the move whole and derives no
+// Palace-Stage / Palace-Vector line for it. One side alone commits half a
+// move; the output's `notes` says so.
 
 import { existsSync, statSync, renameSync, mkdirSync, readdirSync, readFileSync, appendFileSync } from 'node:fs';
 import { resolve, join, dirname, relative } from 'node:path';
@@ -204,7 +209,7 @@ async function main() {
   let flag = { posted: false, skipped: 'no-flag' };
   if (args.flag) { try { flag = await emitCleanupFlag(palaceRoot, board, result.shortHash); } catch (e) { flag = { posted: false, error: e.message }; } }
 
-  out({ ok: true, shortHash: result.shortHash, subject: result.subject, committed: result.committed, movedLocks, ...(lockFailures.length ? { lockFailures } : {}), weaveFlag: flag });
+  out({ ok: true, shortHash: result.shortHash, subject: result.subject, committed: result.committed, ...(result.notes ? { notes: result.notes } : {}), movedLocks, ...(lockFailures.length ? { lockFailures } : {}), weaveFlag: flag });
 }
 
 main().catch((e) => { process.stdout.write(JSON.stringify({ ok: false, error: e.message, stack: e.stack }, null, 2) + '\n'); process.exit(1); });

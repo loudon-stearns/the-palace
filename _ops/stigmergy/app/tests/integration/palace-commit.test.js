@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 import {
   buildMessageFromStaged, readStagedDiff, clearStaleLocks, isStagedDeletion, halfNamedMoves,
 } from '../../scripts/palace-commit.mjs';
-import { commitSelected } from '../../server/commit.js';
+import { commitSelected, isStagedDeletion as isStagedDeletionServer } from '../../server/commit.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const APP_ROOT = resolve(__dirname, '..', '..');
@@ -235,6 +235,148 @@ describe('palace-commit', () => {
       expect(r.stderr).toMatch(/Add --path "Foo\.md"/);
       // Half a move really is a bare add, so the message it would write says so.
       expect(derived(r.stdout)).toContain('Palace-Stage: Foo: born->seed');
+    });
+
+    // The server twin: commitSelected, the committer behind the LOG deck and
+    // Cowork. Same move, same expectations. It always scopes the diff and the
+    // commit to the selected paths, so it behaves as the CLI does under --only.
+    describe('through commitSelected (the LOG deck and Cowork)', () => {
+      const OPTS = { kind: 'edit', scope: 'Foo', summary: 'move into Projects/', verify: 'verified', author: 'claude' };
+      const OLD = ['Foo.md', `Foo/${GOTCHAS}`];
+      const NEW = ['Projects/Foo.md', `Projects/Foo/${GOTCHAS}`];
+      const headShows = () => g('-c', 'core.quotepath=false', 'show', '-M', '--name-status', '--format=', 'HEAD');
+
+      test('a pure move with both sides selected commits whole and derives no stage or vector line', async () => {
+        // Another writer's staged work, which the selection must leave out.
+        writeFileSync(resolve(root, 'Other Session.md'), '---\ntitle: Other Session\nstage: seed\n---\nnot mine\n');
+        g('add', '--', 'Other Session.md');
+        // The old sides are gone from disk and index alike; `git add` on them
+        // used to end the commit with "pathspec did not match any files".
+        const r = await commitSelected(root, { ...OPTS, paths: [...OLD, ...NEW] });
+        expect(r.error).toBeUndefined();
+        expect(r.ok).toBe(true);
+        expect(r.notes).toBeUndefined();
+        expect([...r.committed].sort()).toEqual([...NEW].sort());
+        expect(r.message).toMatch(/^Palace-Entry: Foo$/m);
+        expect(derived(r.message)).toEqual([]);
+        expect(derived(g('log', '-1', '--format=%B'))).toEqual([]);
+        expect(headShows()).toMatch(/^R100\tFoo\.md\tProjects\/Foo\.md$/m);
+        expect(headShows()).toMatch(/^R100\tFoo\/Foo — gotchas\.md\tProjects\/Foo\/Foo — gotchas\.md$/m);
+        expect(headShows()).not.toMatch(/Other Session/);
+        expect(g('status', '--porcelain=v1').trim()).toBe('A  "Other Session.md"');
+      });
+
+      test('the two sides can be folders', async () => {
+        const r = await commitSelected(root, { ...OPTS, paths: ['Foo.md', 'Foo', 'Projects/Foo.md', 'Projects/Foo'] });
+        expect(r.ok).toBe(true);
+        expect([...r.committed].sort()).toEqual([...NEW].sort());
+        expect(derived(r.message)).toEqual([]);
+        expect(g('status', '--porcelain=v1').trim()).toBe('');
+      });
+
+      test('a move with a real edit derives only the real change', async () => {
+        // Edited after the `git mv` and not staged: the committer stages it.
+        writeFileSync(resolve(root, 'Projects', 'Foo.md'), '---\ntitle: Foo\ntype: concept\nstage: sprout\npillars: [tools]\nforward_vector: "I will seed."\n---\n# Foo\nbody\n');
+        const r = await commitSelected(root, { ...OPTS, summary: 'move and grow', paths: [...OLD, ...NEW] });
+        expect(r.ok).toBe(true);
+        expect(derived(r.message)).toEqual(['Palace-Stage: Foo: seed->sprout']);
+        expect(headShows()).toMatch(/^R0\d\d\tFoo\.md\tProjects\/Foo\.md$/m); // still a rename, no longer 100%
+      });
+
+      test('a move is still read as a move with diff.renames switched off', async () => {
+        g('config', 'diff.renames', 'false');
+        const r = await commitSelected(root, { ...OPTS, paths: [...OLD, ...NEW] });
+        expect(r.ok).toBe(true);
+        expect(derived(r.message)).toEqual([]);
+      });
+
+      test('a move made outside git (a deletion and an untracked folder) is read as a move', async () => {
+        // Finder or Obsidian moved the files: nothing is staged, and the new
+        // folder is one untracked row, `?? Projects/`, as the deck lists it.
+        g('reset', '-q');
+        expect(g('status', '--porcelain=v1')).toMatch(/^\?\? Projects\/$/m);
+        const r = await commitSelected(root, { ...OPTS, paths: ['Foo.md', 'Foo', 'Projects/'] });
+        expect(r.error).toBeUndefined(); // a folder row used to end in "nothing staged for the selected paths"
+        expect(r.ok).toBe(true);
+        expect([...r.committed].sort()).toEqual([...NEW].sort());
+        expect(derived(r.message)).toEqual([]);
+        expect(headShows()).toMatch(/^R100\tFoo\.md\tProjects\/Foo\.md$/m);
+        expect(g('status', '--porcelain=v1').trim()).toBe('');
+      });
+
+      test('an entry that really is new, selected beside the move, is still born', async () => {
+        writeFileSync(resolve(root, 'New Entry.md'), '---\ntitle: New Entry\ntype: concept\nstage: seed\npillars: [philosophy]\n---\n# New Entry\nbody\n');
+        const r = await commitSelected(root, { ...OPTS, summary: 'move, and file a new one', paths: [...OLD, ...NEW, 'New Entry.md'] });
+        expect(r.ok).toBe(true);
+        expect(derived(r.message)).toEqual(['Palace-Stage: New Entry: born->seed']);
+      });
+
+      test('the new side alone is half a move: committed as the add it is, and the result says so', async () => {
+        const r = await commitSelected(root, { ...OPTS, paths: ['Projects/Foo.md'] });
+        expect(r.ok).toBe(true);
+        expect(r.committed).toEqual(['Projects/Foo.md']);
+        // The message agrees with the commit: a bare add is a birth.
+        expect(headShows().trim()).toBe('A\tProjects/Foo.md');
+        expect(derived(r.message)).toContain('Palace-Stage: Foo: born->seed');
+        expect(r.notes).toHaveLength(1);
+        expect(r.notes[0]).toMatch(/"Projects\/Foo\.md" looks like a staged move from "Foo\.md", but "Foo\.md" was not selected/);
+        expect(r.notes[0]).toMatch(/a bare add/);
+        // The selection is never widened: the other half is still staged.
+        expect(g('status', '--porcelain=v1')).toMatch(/^D {2}Foo\.md$/m);
+      });
+
+      test('the old side alone is a bare delete, and the result says so', async () => {
+        const r = await commitSelected(root, { ...OPTS, summary: 'drop the old path', paths: ['Foo.md'] });
+        expect(r.ok).toBe(true);
+        expect(headShows().trim()).toBe('D\tFoo.md');
+        expect(r.notes).toHaveLength(1);
+        expect(r.notes[0]).toMatch(/but "Projects\/Foo\.md" was not selected/);
+        expect(r.notes[0]).toMatch(/a bare delete/);
+        expect(g('status', '--porcelain=v1')).toMatch(/^A {2}Projects\/Foo\.md$/m);
+      });
+
+      test('a selected path that matches nothing still fails loudly', async () => {
+        const headBefore = g('rev-parse', 'HEAD').trim();
+        const r = await commitSelected(root, { ...OPTS, paths: ['Nope.md', ...NEW] });
+        expect(r.ok).toBe(false);
+        expect(r.error).toMatch(/git add failed for "Nope\.md".*did not match any files/);
+        expect(g('rev-parse', 'HEAD').trim()).toBe(headBefore);
+      });
+
+      // The selection is paths, not patterns. Git would read the `?` and the
+      // `[1]` as a glob: `a[1].md` also took `a1.md` into the commit, and the old
+      // side of a moved `Why?.md`, gone from disk, matched its neighbour instead.
+      test('a name with glob characters selects only itself, moved or not', async () => {
+        g('reset', '-q', '--hard'); // this one starts from its own files
+        const fm = (t, stage) => `---\ntitle: "${t}"\nstage: ${stage}\n---\n# ${t}\nbody\n`;
+        const NAMES = ['Why?.md', 'Whyx.md', 'a[1].md', 'a1.md'];
+        for (const n of NAMES) writeFileSync(resolve(root, n), fm(n, 'seed'));
+        g('add', '-A');
+        g('commit', '-q', '-m', 'edit(Foo): four neighbours\n\nPalace-Kind: edit\nPalace-Verify: verified');
+        for (const n of NAMES) writeFileSync(resolve(root, n), fm(n, 'sprout'));
+
+        const edit = await commitSelected(root, { ...OPTS, summary: 'grow one', paths: ['a[1].md'] });
+        expect(edit.committed).toEqual(['a[1].md']);
+        expect(headShows().trim()).toBe('M\ta[1].md');
+        expect(g('status', '--porcelain=v1')).toMatch(/^ M a1\.md$/m); // the neighbour is not swept
+
+        mkdirSync(resolve(root, 'Projects'), { recursive: true });
+        g('mv', 'Why?.md', 'Projects/Why?.md');
+        const move = await commitSelected(root, { ...OPTS, summary: 'move and grow', paths: ['Why?.md', 'Projects/Why?.md'] });
+        expect(move.error).toBeUndefined();
+        expect(move.committed).toEqual(['Projects/Why?.md']);
+        expect(derived(move.message)).toEqual(['Palace-Stage: Why?: seed->sprout']);
+        expect(headShows().trim()).toMatch(/^R\d\d\d\tWhy\?\.md\tProjects\/Why\?\.md$/);
+        expect(g('status', '--porcelain=v1')).toMatch(/^ M Whyx\.md$/m);
+      });
+
+      test('its isStagedDeletion agrees with the CLI one', async () => {
+        for (const p of ['Foo.md', 'Foo', 'Projects/Foo.md', 'Nope.md']) {
+          expect(await isStagedDeletionServer(root, p)).toBe(isStagedDeletion(root, p));
+        }
+        expect(await isStagedDeletionServer(root, 'Foo.md')).toBe(true);
+        expect(await isStagedDeletionServer(root, 'Projects/Foo.md')).toBe(false);
+      });
     });
   });
 });

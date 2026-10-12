@@ -51,6 +51,15 @@ function ForwardVectorChange({ change }) {
   );
 }
 
+// A moved file says where it came from, so a move does not read as a new file.
+function MovedFrom({ from }) {
+  return (
+    <span data-testid="moved-from" style={{ color: 'var(--ansi-bright-cyan)', textShadow: 'none', fontSize: 10, border: '1px solid var(--ansi-bright-cyan)', padding: '0 4px' }}>
+      MOVED from {from}
+    </span>
+  );
+}
+
 function FileDiff({ fd }) {
   if (fd.kind === 'md') {
     const hasFm = fd.frontmatterChanges && fd.frontmatterChanges.length > 0;
@@ -60,6 +69,7 @@ function FileDiff({ fd }) {
       }}>
         <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
           <span style={{ color: 'var(--phosphor)', textShadow: 'var(--glow)' }}>{fd.path}</span>
+          {fd.renamedFrom ? <MovedFrom from={fd.renamedFrom} /> : null}
           {fd.wasAdded ? <span style={{ color: 'var(--phosphor-bright)', fontSize: 10, border: '1px solid var(--phosphor)', padding: '0 4px' }}>ADDED</span> : null}
           {fd.wasRemoved ? <span style={{ color: 'var(--error)', fontSize: 10, border: '1px solid var(--error)', padding: '0 4px' }}>REMOVED</span> : null}
           <span style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 }}>
@@ -95,6 +105,7 @@ function FileDiff({ fd }) {
       }}>
         <div style={{ color: 'var(--ansi-bright-magenta)', textShadow: 'var(--glow)', marginBottom: 4 }}>
           {fd.path} <span style={{ color: 'var(--phosphor-dim)', fontSize: 10 }}>(media)</span>
+          {fd.renamedFrom ? <span style={{ marginLeft: 8 }}><MovedFrom from={fd.renamedFrom} /></span> : null}
         </div>
         <ArtifactSlot payload={{ artifacts: [{ path: fd.path, caption: null }] }} />
       </div>
@@ -106,6 +117,7 @@ function FileDiff({ fd }) {
       borderBottom: '1px dashed var(--phosphor-dim)',
     }}>
       <span style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 }}>{fd.path}</span>
+      {fd.renamedFrom ? <MovedFrom from={fd.renamedFrom} /> : null}
       <span style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 }}>
         +{fd.added} -{fd.deleted}{fd.binary ? ' (binary)' : ''}
       </span>

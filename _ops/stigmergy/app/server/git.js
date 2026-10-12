@@ -13,6 +13,7 @@ import {
   parseWorktreePorcelain, parseAheadBehind, parseGraphLog,
 } from '../src/lib/git-log-parse.js';
 import { classifyCommit } from '../src/lib/commit-parse.js';
+import { parseNameStatus } from '../src/lib/commit-spec.js';
 import { diffEntryText } from '../src/lib/frontmatter-diff.js';
 import { execGit } from './git-wrapper.js';
 
@@ -92,9 +93,12 @@ export async function readLog(palaceRoot, { limit = 100, pathspec = null } = {})
 
 // Fetch one commit's palace-aware diff. For each changed .md file we read its
 // before/after content via `git show <sha>^:<path>` and `git show <sha>:<path>`
-// and compute field-level frontmatter changes + a body-changed flag. Non-md
-// files report their numstat only; newly-added media inside a bundle are
-// flagged so the UI can render them inline.
+// and compute field-level frontmatter changes + a body-changed flag. A moved
+// entry's before side is read at the path it moved FROM (and the file carries
+// `renamedFrom`); read at the new path it comes back empty and the move shows
+// as an ADDED entry with every field new. Non-md files report their numstat
+// only; newly-added media inside a bundle are flagged so the UI can render
+// them inline.
 export async function readCommit(palaceRoot, sha) {
   const ref = safeRef(sha);
   if (!ref) return null;
@@ -105,14 +109,22 @@ export async function readCommit(palaceRoot, sha) {
   const [meta] = parseLogMeta(metaRes.stdout);
   if (!meta) return null;
 
-  // numstat for the commit.
-  const statRes = await git(palaceRoot, ['show', `--format=${RECORD_SEP}%H`, '--numstat', '--no-color', ref], { allowFail: true });
+  // numstat for the commit, and where each renamed file came from. `-M` on
+  // both so the two passes pair renames alike whatever `diff.renames` says;
+  // quotepath=false so the name-status paths arrive raw, as numstat's are
+  // after dequoting.
+  const [statRes, nsRes] = await Promise.all([
+    git(palaceRoot, ['show', `--format=${RECORD_SEP}%H`, '-M', '--numstat', '--no-color', ref], { allowFail: true }),
+    git(palaceRoot, ['-c', 'core.quotepath=false', 'show', '--format=', '-M', '--name-status', '--no-color', ref], { allowFail: true }),
+  ]);
   const stats = parseNumstat(statRes.stdout);
   const stat = stats.get(meta.hash) ?? { files: [], added: 0, deleted: 0 };
+  const movedFrom = new Map(parseNameStatus(nsRes.stdout).filter((r) => r.renamedFrom).map((r) => [r.path, r.renamedFrom]));
 
   // Per-file palace-aware diffs.
   const fileDiffs = [];
   for (const f of stat.files) {
+    const renamedFrom = movedFrom.get(f.path) ?? null;
     const isMd = f.path.toLowerCase().endsWith('.md');
     const mediaExts = /\.(png|jpe?g|gif|svg|webp|wav|mp3|ogg|m4a|flac|mp4|webm|mov)$/i;
     const isMedia = mediaExts.test(f.path);
@@ -121,9 +133,10 @@ export async function readCommit(palaceRoot, sha) {
       const ps = safePathspec(palaceRoot, f.path);
       let beforeText = '';
       let afterText = '';
-      if (ps) {
+      const psBefore = renamedFrom ? safePathspec(palaceRoot, renamedFrom) : ps;
+      if (ps && psBefore) {
         const [b, a] = await Promise.all([
-          git(palaceRoot, ['show', `${ref}^:${ps}`], { allowFail: true }),
+          git(palaceRoot, ['show', `${ref}^:${psBefore}`], { allowFail: true }),
           git(palaceRoot, ['show', `${ref}:${ps}`], { allowFail: true }),
         ]);
         beforeText = b.failed ? '' : b.stdout;
@@ -131,7 +144,7 @@ export async function readCommit(palaceRoot, sha) {
       }
       const d = diffEntryText(beforeText, afterText);
       fileDiffs.push({
-        path: f.path, kind: 'md', added: f.added, deleted: f.deleted, binary: f.binary,
+        path: f.path, kind: 'md', renamedFrom, added: f.added, deleted: f.deleted, binary: f.binary,
         frontmatterChanges: d.frontmatterChanges,
         bodyChanged: d.bodyChanged,
         wasAdded: beforeText === '' && afterText !== '',
@@ -139,12 +152,12 @@ export async function readCommit(palaceRoot, sha) {
       });
     } else if (isMedia) {
       fileDiffs.push({
-        path: f.path, kind: 'media', added: f.added, deleted: f.deleted, binary: f.binary,
-        wasAdded: f.deleted === 0 && f.binary, // best-effort; the UI renders it inline regardless
+        path: f.path, kind: 'media', renamedFrom, added: f.added, deleted: f.deleted, binary: f.binary,
+        wasAdded: f.deleted === 0 && f.binary && !renamedFrom, // best-effort; the UI renders it inline regardless
       });
     } else {
       fileDiffs.push({
-        path: f.path, kind: 'file', added: f.added, deleted: f.deleted, binary: f.binary,
+        path: f.path, kind: 'file', renamedFrom, added: f.added, deleted: f.deleted, binary: f.binary,
       });
     }
   }

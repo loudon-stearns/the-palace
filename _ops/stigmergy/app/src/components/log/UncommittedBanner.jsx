@@ -3,6 +3,7 @@ import { Button } from '../primitives.jsx';
 import { commitChanges } from '../../adapters/log.js';
 import { KNOWN_KINDS } from '../../lib/commit-parse.js';
 import { VERIFY_VALUES } from '../../lib/commit-spec.js';
+import { movesIn, isRowSelected, toggleRow, allPaths, selectedFileCount } from '../../lib/uncommitted-selection.js';
 
 // The working-tree delta made visible -- the most dangerous failure mode from
 // the whole thread (uncommitted dives, invisible to everything) becomes a
@@ -11,6 +12,10 @@ import { VERIFY_VALUES } from '../../lib/commit-spec.js';
 // v1.0 surfaced; Phase 20 ACTS: select files, write a palace-spec message, and
 // record them. Staging is strictly the selected paths (never -A -- the
 // N-writer lesson), so unrelated workstreams stay in separate commits.
+//
+// A staged rename is ONE chip, `old → new`, that selects both of its paths: the
+// committer records a move whole only when it is handed both sides
+// (lib/uncommitted-selection.js).
 
 const fieldStyle = {
   background: 'transparent', border: 'none', borderBottom: '1px dashed var(--phosphor-dim)',
@@ -24,10 +29,11 @@ function FileChip({ item, tone, selected, onToggle }) {
     <span
       data-testid="commit-file"
       data-path={item.path}
+      data-renamed-from={item.renamedFrom}
       data-selected={selected ? 'true' : 'false'}
       role="checkbox"
       aria-checked={selected}
-      onClick={() => onToggle(item.path)}
+      onClick={() => onToggle(item)}
       style={{
         color: 'var(--phosphor)', textShadow: 'none', fontSize: 11,
         border: `1px ${selected ? 'solid var(--phosphor)' : 'dashed var(--phosphor-dim)'}`,
@@ -37,12 +43,13 @@ function FileChip({ item, tone, selected, onToggle }) {
     >
       <span style={{ color: selected ? 'var(--phosphor)' : 'var(--phosphor-dim)', marginRight: 4 }}>{selected ? '[x]' : '[ ]'}</span>
       <span style={{ color: tone, marginRight: 4 }}>{item.status}</span>
+      {item.renamedFrom ? <span style={{ color: 'var(--phosphor-dim)' }}>{item.renamedFrom} → </span> : null}
       {item.path}
     </span>
   );
 }
 
-function Group({ label, items, tone, selected, onToggle }) {
+function Group({ label, items, tone, moves, selected, onToggle }) {
   if (!items || items.length === 0) return null;
   return (
     <div style={{ marginTop: 4 }}>
@@ -51,7 +58,7 @@ function Group({ label, items, tone, selected, onToggle }) {
       </span>
       <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 2 }}>
         {items.map((it) => (
-          <FileChip key={it.path} item={it} tone={tone} selected={selected.has(it.path)} onToggle={onToggle} />
+          <FileChip key={it.path} item={it} tone={tone} selected={isRowSelected(it, moves, selected)} onToggle={onToggle} />
         ))}
       </div>
     </div>
@@ -72,6 +79,7 @@ export default function UncommittedBanner({ delta, onCommitted }) {
     () => [...(delta?.staged ?? []), ...(delta?.unstaged ?? []), ...(delta?.untracked ?? [])],
     [delta],
   );
+  const moves = useMemo(() => movesIn(delta), [delta]);
 
   if (!delta || delta.total === 0) {
     return (
@@ -84,15 +92,10 @@ export default function UncommittedBanner({ delta, onCommitted }) {
     );
   }
 
-  function toggle(path) {
-    setSelected((prev) => {
-      const next = new Set(prev);
-      if (next.has(path)) next.delete(path); else next.add(path);
-      return next;
-    });
-  }
-  const selectAll = () => setSelected(new Set(allItems.map((i) => i.path)));
+  const toggle = (item) => setSelected((prev) => toggleRow(prev, item, moves));
+  const selectAll = () => setSelected(allPaths(allItems, moves));
   const clearSel = () => setSelected(new Set());
+  const fileCount = selectedFileCount(allItems, moves, selected);
 
   const canRecord = selected.size > 0 && summary.trim() !== '' && !busy;
 
@@ -109,7 +112,7 @@ export default function UncommittedBanner({ delta, onCommitted }) {
       verify,
     });
     if (r.ok) {
-      setFeedback({ tone: 'ok', text: `recorded ${r.shortHash} — ${(r.committed?.length ?? selected.size)} file(s)` });
+      setFeedback({ tone: 'ok', text: `recorded ${r.shortHash} — ${(r.committed?.length ?? fileCount)} file(s)`, notes: r.notes });
       setSelected(new Set());
       setSummary('');
       setScope('');
@@ -135,12 +138,12 @@ export default function UncommittedBanner({ delta, onCommitted }) {
         select files, write a palace-spec message, and record them.
         <span onClick={selectAll} style={{ cursor: 'pointer', color: 'var(--phosphor)', marginLeft: 8 }}>[select all]</span>
         <span onClick={clearSel} style={{ cursor: 'pointer', color: 'var(--phosphor)', marginLeft: 6 }}>[none]</span>
-        <span style={{ marginLeft: 8 }}>{selected.size} selected</span>
+        <span style={{ marginLeft: 8 }}>{fileCount} selected</span>
       </div>
 
-      <Group label="staged" items={delta.staged} tone="var(--phosphor)" selected={selected} onToggle={toggle} />
-      <Group label="unstaged" items={delta.unstaged} tone="var(--warn)" selected={selected} onToggle={toggle} />
-      <Group label="untracked" items={delta.untracked} tone="var(--ansi-bright-cyan)" selected={selected} onToggle={toggle} />
+      <Group label="staged" items={delta.staged} tone="var(--phosphor)" moves={moves} selected={selected} onToggle={toggle} />
+      <Group label="unstaged" items={delta.unstaged} tone="var(--warn)" moves={moves} selected={selected} onToggle={toggle} />
+      <Group label="untracked" items={delta.untracked} tone="var(--ansi-bright-cyan)" moves={moves} selected={selected} onToggle={toggle} />
 
       {/* The composer -- the LOG deck stops surfacing and acts. */}
       <div data-testid="commit-composer" style={{ marginTop: 10, borderTop: '1px dashed var(--phosphor-dim)', paddingTop: 8 }}>
@@ -186,7 +189,7 @@ export default function UncommittedBanner({ delta, onCommitted }) {
         <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
           <span data-testid="commit-record">
             <Button tone="primary" disabled={!canRecord} onClick={record}>
-              {busy ? 'recording…' : `record ${selected.size} file${selected.size === 1 ? '' : 's'}`}
+              {busy ? 'recording…' : `record ${fileCount} file${fileCount === 1 ? '' : 's'}`}
             </Button>
           </span>
           <span style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11, fontFamily: 'var(--font-mono)' }}>
@@ -199,6 +202,9 @@ export default function UncommittedBanner({ delta, onCommitted }) {
             color: feedback.tone === 'ok' ? 'var(--phosphor)' : 'var(--error)', textShadow: 'var(--glow)',
           }}>
             {feedback.text}
+            {(feedback.notes ?? []).map((n) => (
+              <div key={n} data-testid="commit-note" style={{ color: 'var(--warn)', fontSize: 11 }}>note: {n}</div>
+            ))}
           </div>
         ) : null}
       </div>

@@ -208,9 +208,30 @@ export function parseAheadBehind(raw) {
   return { behind: parseInt(m[1], 10), ahead: parseInt(m[2], 10) };
 }
 
+// Split the path field of a porcelain rename (or copy) row, `old -> new`, into
+// its two still-quoted sides. Git quotes each side on its own, and always
+// quotes a path that holds a space, so an unquoted side can never itself
+// contain " -> ". Returns [old, new], or null when the field is not a pair.
+function splitRenameField(field) {
+  let i;
+  if (field[0] === '"') {
+    i = 1;
+    while (i < field.length && field[i] !== '"') i += field[i] === '\\' ? 2 : 1;
+    i += 1; // past the closing quote
+  } else {
+    i = field.indexOf(' -> ');
+    if (i === -1) return null;
+  }
+  if (field.slice(i, i + 4) !== ' -> ') return null;
+  return [field.slice(0, i), field.slice(i + 4)];
+}
+
 // Parse `git status --porcelain=v1` output into a structured working-tree
 // delta. Returns { staged: [...], unstaged: [...], untracked: [...] } where
-// each entry is { path, status }.
+// each entry is { path, status }. A rename row (`R  old -> new`) is one entry:
+// `path` is where the file is now and `renamedFrom` is where it was, so a
+// caller can act on both sides of the move. (A copy's `path` is the new file;
+// its source did not move, so it carries no renamedFrom.)
 export function parsePorcelain(raw) {
   const out = { staged: [], unstaged: [], untracked: [] };
   if (typeof raw !== 'string' || raw.trim() === '') return out;
@@ -219,13 +240,16 @@ export function parsePorcelain(raw) {
     if (line.length < 4) continue;
     const x = line[0]; // staged status
     const y = line[1]; // unstaged status
-    const path = dequotePath(line.slice(3));
+    const field = line.slice(3);
+    const pair = /[RC]/.test(x + y) ? splitRenameField(field) : null;
+    const path = dequotePath(pair ? pair[1] : field);
     if (x === '?' && y === '?') {
       out.untracked.push({ path, status: '??' });
       continue;
     }
-    if (x !== ' ' && x !== '?') out.staged.push({ path, status: x });
-    if (y !== ' ' && y !== '?') out.unstaged.push({ path, status: y });
+    const entry = (status) => (pair && status === 'R' ? { path, status, renamedFrom: dequotePath(pair[0]) } : { path, status });
+    if (x !== ' ' && x !== '?') out.staged.push(entry(x));
+    if (y !== ' ' && y !== '?') out.unstaged.push(entry(y));
   }
   return out;
 }
