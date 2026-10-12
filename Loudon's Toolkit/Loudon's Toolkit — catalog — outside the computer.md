@@ -48,10 +48,10 @@ The Nord Drum 3P, above, covers the drum pad role.
 ## Controllers
 
 **Ableton Push**
-Performance controller and standalone instrument. Acts as the center of the hardware-only configuration.
+Performance controller and standalone instrument. Acts as the center of the hardware-only configuration. *Inside, it drives Ableton Live.*
 
 **Ableton Move**
-Compact standalone instrument/controller. Can also serve as center of the hardware-only configuration.
+Compact standalone instrument/controller. Can also serve as center of the hardware-only configuration. *Inside, it drives Ableton Live.*
 
 **Expressive E Touché**
 Controller. Loudon owns it (confirmed 2026-10-12). Its companion plugin, Lié, maps synth parameters to it; see the Expressive E row in [[Loudon's Toolkit — catalog — inside the computer|Inside the computer]]. How he uses it has not been gathered.

@@ -29,6 +29,9 @@ links:
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
     label: toolkit-as-four-pillars-instance
+  - target: "[[Haptic Handwheel]]"
+    type: connects-to
+    label: first-step-toward-the-hardware-product
 forward_vector: Become a complete, navigable map of every instrument, tool, and environment Loudon uses — giving any agent immediate orientation in the physical and digital ecosystem from which the work emerges.
 ---
 
@@ -77,7 +80,7 @@ Hardware synths are used for teaching in two specific contexts:
 
 **Performance Configuration** — Designing and stabilizing a consistent hardware setup that can be left assembled (space is the current bottleneck). Would benefit from a diagram and deliberate routing design.
 
-**Hardware Product (long-term)** — The aspiration to build and sell original synthesizer/effects hardware is a long-term goal of Loudon's own. Everything learned about hardware synthesis feeds this.
+**Hardware Product (long-term)** — The aspiration to build and sell original synthesizer, effects and controller hardware is a long-term goal of Loudon's own. Everything learned about hardware synthesis feeds this. [[Haptic Handwheel]] is a first step.
 
 **Read The Manual** — whole manuals read, tested, and covered section by section, in Loudon's always-positive, always-supportive-of-makers voice. It is its own project now: [[LDN RTM]] holds the format and the queue, and the plugins marked as RTM candidates in the inside catalog feed it.
 
