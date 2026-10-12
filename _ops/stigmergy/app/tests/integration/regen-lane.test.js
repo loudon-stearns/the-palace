@@ -61,15 +61,33 @@ describe('regen lane (companion hero/avatar door)', () => {
   const boardPath = (r) => join(r, '_ops/swarm/persistent/blackboard.jsonl');
   const readBoard = (r) => readFileSync(boardPath(r), 'utf8').trim().split('\n').filter(Boolean).map((l) => JSON.parse(l));
 
+  // The lane's end-of-work signal. A render is over when its reap has posted the
+  // terminal row (done | failed) — NOT when the pid file clears: the actuator
+  // drops the pid file first and only then runs the reap, which awaits a git
+  // commit in this palace before it posts. Returns the turns still in flight.
+  const ENDED = new Set(['companion_regen_done', 'companion_regen_failed']);
+  const inFlight = (r) => {
+    const rows = readBoard(r).map((m) => m.payload || {});
+    const ended = new Set(rows.filter((p) => ENDED.has(p.kind)).map((p) => p.turn_id));
+    return rows.filter((p) => p.kind === 'companion_regen_started' && !ended.has(p.turn_id)).map((p) => p.turn_id);
+  };
+  const settled = (r, opts) => waitFor(() => inFlight(r).length === 0, opts);
+
   beforeEach(() => {
     root = makeTempPalace();
     // The real tracked script, pointed at the temp palace via the lane's --palace.
     lane = createRegenLane({ palaceRoot: root, mock: true, scriptPath: REGEN_SCRIPT_SRC });
   });
   afterEach(async () => {
-    try { await waitFor(() => !existsSync(lane.paths.pidFile), { timeout: 6000 }); } catch (_) { /* ignore */ }
+    // Remove the temp palace only once nothing is still working in it. Removing
+    // it when the pid file cleared raced the reap's commit: ENOTEMPTY under load,
+    // and otherwise a board file the reap wrote back into the deleted folder. A
+    // render that never ends is a real leak — fail on it, and leave the folder.
+    try { await settled(root, { timeout: 20000 }); } catch (_) {
+      throw new Error(`regen lane never settled: ${inFlight(root).join(', ')} started but posted no done/failed — left in ${root}`);
+    }
     rmSync(root, { recursive: true, force: true });
-  });
+  }, 30000);
 
   test('renders BOTH, places + embeds + commits, and posts started → done (THE proof)', async () => {
     const turnId = 'companion-face-me-1';
@@ -128,6 +146,27 @@ describe('regen lane (companion hero/avatar door)', () => {
     const second = lane.regen({ path: 'Face Me.md', target: 'both', heroPrompt: 'h', iconPrompt: 'i', turnId: 'r-b' });
     expect(second.fired).toBe(false);
     expect(second.busy).toBe(true);
+  }, 40000);
+
+  test('the pid file clears before the reap has committed, so teardown waits for the terminal row', async () => {
+    // A pre-commit hook that sleeps holds the reap's commit open well past the
+    // worker's exit — the gap a loaded machine opens by itself, made certain.
+    mkdirSync(join(root, '.git/hooks'), { recursive: true });
+    writeFileSync(join(root, '.git/hooks/pre-commit'), '#!/bin/sh\nsleep 0.5\n', { mode: 0o755 });
+    const turnId = 'slow-reap-1';
+    const r = lane.regen({ path: 'Face Me.md', target: 'both', heroPrompt: 'h', iconPrompt: 'i', turnId });
+    expect(r.fired).toBe(true);
+
+    // the worker is gone and the lane reads idle, yet the reap is still committing
+    await waitFor(() => !existsSync(lane.paths.pidFile), { timeout: 20000 });
+    expect(lane.status().running).toBe(false);
+    expect(inFlight(root)).toEqual([turnId]);
+
+    // settled means the reap finished: committed, posted, recorded
+    await settled(root, { timeout: 20000 });
+    expect(readBoard(root).some((m) => m.payload?.kind === 'companion_regen_done' && m.payload.turn_id === turnId)).toBe(true);
+    expect(git(root, ['log', '-1', '--format=%s'])).toMatch(/^enrich\(Face Me\): regenerate hero \+ icon via companion/);
+    expect(lane.status().last_run.turn_id).toBe(turnId);
   }, 40000);
 
   test('declines an unknown entry honestly', () => {
