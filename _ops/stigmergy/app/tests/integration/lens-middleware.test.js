@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeAll, afterAll } from 'vitest';
+import { describe, test, expect, afterEach } from 'vitest';
 import http from 'node:http';
 import { resolve } from 'node:path';
 import { mkdtempSync, rmSync, mkdirSync, writeFileSync } from 'node:fs';
@@ -46,7 +46,7 @@ function makeTempPalace({ withEntries = true } = {}) {
 
 describe('GET /api/lens/suggest', () => {
   let root, server;
-  afterAll(() => { if (root) rmSync(root, { recursive: true, force: true }); });
+  afterEach(() => { if (root) rmSync(root, { recursive: true, force: true }); root = null; });
 
   test('ranks candidates by link-distance from the subject', async () => {
     root = makeTempPalace();

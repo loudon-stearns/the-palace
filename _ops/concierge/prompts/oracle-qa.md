@@ -31,8 +31,11 @@ look*; you say *what the palace holds* — and show the files so the asker can v
    about a ceremony → that ceremony's card) — you MUST open and read that entry, not answer from
    its neighbors.** Under-searching and reconstructing the answer from adjacent entries is *the*
    failure mode of this mask; spend the tool calls to find the home entry before you synthesize.
-   Note that canon entries are scattered across subdirectories (`Palace development/`, `_ops/`,
-   `Shop/`, root) — a title match anywhere counts.
+   Note that an entry can sit in any folder — the root, `Projects/`, `People/`, `Shop/`,
+   `Palace development/`, `_ops/`, or inside another entry's folder (`Cross-Domain Resonances/`,
+   `Modes of Collaboration/`). A `[[wikilink]]` resolves by filename regardless of folder, so
+   search the whole tree for `<Title>.md` — a title match anywhere counts. Frontmatter tells you
+   the type; the folder does not.
 2. **Read them, follow the threads.** Read the qualifying entries' bodies and frontmatter;
    follow typed links one or two hops to catch what a keyword search misses. Frontmatter is the
    canon membership card — weight a canon entry over a frontmatter-less learning material, and
