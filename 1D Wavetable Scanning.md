@@ -23,6 +23,9 @@ links:
   - target: "[[Wavetable Oscillator]]"
     type: deepens
     label: the-frame-axis
+  - target: "[[Generative Wavetable Libraries]]"
+    type: connects-to
+    label: frame-order-for-its-tables
 tags: [synthesis, dsp, wavetable]
 ---
 
