@@ -35,6 +35,15 @@ links:
     label: time-periodic-modulation
   - target: "[[Drift and Consolidation]]"
     type: connects-to
+  - target: "[[Wavetable Oscillator]]"
+    type: connects-to
+    label: fills-its-tables
+  - target: "[[Wavetable Scanner]]"
+    type: connects-to
+    label: plays-its-packed-tables
+  - target: "[[1D Wavetable Scanning]]"
+    type: connects-to
+    label: what-position-means
 forward_vector: "I will become a chat-driven generator of wavetables — Claude conducts the interview, sources partial structures from anywhere (palace synthesis, AI sub-agents, captured audio), and renders deployable wavetables in Serum/CLM, Ableton, Surge XT, and single-cycle formats."
 ---
 
@@ -91,7 +100,7 @@ Ableton's Wavetable synth accepts user wavetables dragged into the oscillator vi
 
 A lightweight binary format used by Surge XT. Frame size must be a power of 2 (64, 128, 256, 512, 1024, 2048). Documented in the Surge GitHub repository (`surgedata/wavetables/wt fileformat.txt`).
 
-**Verdict:** Worth supporting eventually, particularly given the palace's existing RNBO/Surge XT workflow. Low priority for now since Surge XT also reads CLM WAV files.
+**Verdict:** A writer exists: `crystal-bravais/surge_writer.py`, which has written one table, `crystal_bravais.wt`. It is written and round-trip tested, never loaded in Surge. Surge XT also reads CLM WAV files.
 
 ---
 
@@ -106,14 +115,14 @@ At the simplest end: a single WAV file containing exactly one cycle of a wavefor
 ### What I Can Generate Now
 
 - **Frame synthesis from any cycle-generating function**: Python `numpy` produces any cycle of any complexity
+- **Serum/CLM**: `clm_writer.py` matches a Serum factory table byte for byte
 - **Ableton Wavetable**: simplest case, plain concatenated WAV
+- **Surge XT .wt**: `surge_writer.py`, written and round-trip tested, never loaded in Surge
 - **Single-cycle WAV**: trivial
 - **Frame interpolation between source partial structures**: straightforward array math
 
 ### What Requires Development
 
-- **CLM chunk binary packing**: documented but requires careful binary `struct` writing. First implementation needs verification against a known-good Serum wavetable.
-- **Surge XT .wt binary format**: documented in the Surge repo; needs implementation.
 - **Phase coherence across frames**: sweeping a wavetable produces audible artifacts if frame phases are not aligned. Needs handling for arbitrary source cycles.
 
 ---
@@ -136,7 +145,7 @@ The plan — what comes next, agreed with Loudon — lives on [[Generative Wavet
 
 **Output:** `crystal_bravais.wav` (Serum/Vital/Surge XT) and `crystal_bravais_ableton.wav`. Each synth's wavetable position sweeps through all 7 lattice systems.
 
-**Status:** Shipped 2026-05-27, auditioned and accepted (cycle 3). Zero-phase reset across frames. Files at `Projects/Generative Wavetable Libraries/crystal-bravais/`. CLM writer pending verification against a Serum reference WAV (Loudon pointed at `/Library/Audio/Presets/Xfer Records/Serum 2 Presets/Tables/Analog`).
+**Status:** Shipped and accepted. Loudon heard it in Serum and in Ableton: "they all work very well." Zero-phase reset across frames. The Serum writer matches a Serum factory table byte for byte. A Surge XT `.wt` of the same table is written and round-trip tested, never loaded in Surge. Files at `Projects/Generative Wavetable Libraries/crystal-bravais/`.
 
 ---
 
@@ -151,9 +160,10 @@ Generalize the source: any palace synthesis ([[Shepard Tone Synthesizer]] partia
 ## Palace Connections
 
 - **[[Generative Sample Libraries]]** — sister project; same backbone, different format family
-- **[[Wavetable Synthesis — Deep Research & Higher-Dimensional Design]]** — the theoretical home for wavetable-space concepts
+- **[[Wavetable Oscillator]]** — the ground: what the oscillator is, how a table is read, and why one fixed cycle read by one counter can only be harmonic
+- **[[Wavetable Synthesis — Deep Research & Higher-Dimensional Design]]** — the research record: history, engineering and the higher-dimensional design plan
 - **[[Inharmonic Wavetable Synthesis]]** — adjacent palace research on inharmonic wavetable design
-- **[[2D Torus Wavetable Synthesizer]]** — adjacent project exploring 2D wavetable forms
+- **[[2D Torus Wavetable Synthesizer]]** — runs in parallel with no shared boundary: this project's tables are its own artifacts, not an export layer for the Torus work
 - **[[Crystal Synthesizer]]** — phonon partial structures as wavetable source
 - **[[Shepard Tone Synthesizer]]** — Shepard partial stack as a perpetual-motion wavetable
 
@@ -163,7 +173,6 @@ Generalize the source: any palace synthesis ([[Shepard Tone Synthesizer]] partia
 
 - Do wavetable frames synthesized from crystal partial ratios produce musically interesting motion when swept? Or does the spectral structure need additional processing (windowing, phase coherence) to read as intentional?
 - What is the right phase-coherence policy across frames — per-frame zero-phase reset, or carry phase through?
-- The [[2D Torus Wavetable Synthesizer]] work is active and adjacent. Does this project subsume that, parallel it, or feed it?
 
 ---
 
@@ -175,6 +184,6 @@ This page is tended by a permanent steward and **may lag its live state** — th
 - **Steward state + history:** `_ops/agents/permanent/generative-wavetable-libraries/`
 - **Live thread (BBS):** session `gwl-steward-2026-05-27` — open in STIGMERGY
 - **As of last consolidation:** cycle 9 (2026-06-07) · no open auditions
-- **Not yet folded in here:** none — Phase 1 (Crystal Bravais, accepted) and the Phase 2 first proof (Shepard CENTROID-FREQ, accepted) are both in the body above. Outstanding work: CLM writer verification against the Serum reference folder; choice of next multi-source wavetable vs Surge XT .wt binary writer.
+- **Not yet folded in here:** the Floquet Modes table, the AKWF import pipeline (`akwf-import-pipeline/pack_wavetable.py`), and the interview skill (`_ops/wavetable-libraries/skills/interview/SKILL.md`, still a draft). All three are on the scroll, and so is what comes next.
 
 This footer is placed at enchantment and pruned at consolidation. See [[Drift and Consolidation]].

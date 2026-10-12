@@ -33,6 +33,9 @@ links:
   - target: "[[Progressive Staging]]"
     type: exemplifies
     label: sketch-study-piece-is-staging
+  - target: "[[Generative Wavetable Libraries]]"
+    type: connects-to
+    label: borrows-its-packer
 tags: [artifact, synthesis, wavetable, dsp, web]
 ---
 
@@ -68,7 +71,7 @@ Single HTML file, raw r128 CDN, Blob-URL worklet, desktop Chrome primary. Embedd
 
 Headless verification: both the worklet body and the main app script pass `node --check` (with `${FRAME_LEN}` substituted to the literal constant — the worklet-template-literal hides interpolations from a standalone parse, per [[Shop/Web Audio Worklet]] §Gotchas 2026-05-30). In-browser audible confirmation belongs to whoever opens it first — the Sketch-tier bar.
 
-Bundle: `Wavetable Scanner/wavetable_scanner.html` (entry bundle per SCHEMA §8 — owned files live in the entry's bundle, sibling to the .md, with the artifact's CSS link reaching one folder up to the canonical `colors_and_type.css`). Standalone sibling at session-outputs scope kept available for users who want a portable copy with tokens inlined.
+Bundle: `Projects/Wavetable Scanner/wavetable_scanner.html` (entry bundle per SCHEMA §8 — owned files live in the entry's bundle, sibling to the .md, with the artifact's CSS link reaching two folders up to the canonical `colors_and_type.css`). Standalone sibling at session-outputs scope kept available for users who want a portable copy with tokens inlined.
 
 #### Sketch round 2 — Drone default fix (same day)
 
@@ -81,7 +84,7 @@ First Sketch shipped key-gated; the user opened it, hit Engage, swept Position, 
 - A second oscillator and an amp envelope. The current voice is a single-osc sustain — adequate for the scanner brief but not for any composition-shaped use.
 - Direct-manipulation in the 3D scene: raycast the cursor plane so dragging it across the scene drives Position. This is the load-bearing capability for the [[Waveguide Synthesizer]] pattern at scanner scale.
 - Mobile audio-unlock + touch-orbit handling.
-- A standards report and test-plan stub at `Wavetable Scanner/tests/test-plan.md`.
+- A standards report and test-plan stub at `Projects/Wavetable Scanner/tests/test-plan.md`.
 
 ### Piece *(earned-by criteria — not yet built)*
 
@@ -93,7 +96,7 @@ First Sketch shipped key-gated; the user opened it, hit Engage, swept Position, 
 
 ## Gotchas seen on this build
 
-Full build-time discovery record lives in the entry bundle: [[Wavetable Scanner — gotchas]] (`Wavetable Scanner/Wavetable Scanner — gotchas.md`). Each gotcha was also deposited into the relevant Specialist entry on 2026-05-31. Headline items:
+Full build-time discovery record lives in the entry bundle: [[Wavetable Scanner — gotchas]] (`Projects/Wavetable Scanner/Wavetable Scanner — gotchas.md`). Each gotcha was also deposited into the relevant Specialist entry on 2026-05-31. Headline items:
 
 - The first-Sketch drone-vs-gated default mistake (above) — now a deposited pattern.
 - `decodeAudioData` neuters its input ArrayBuffer; slice before calling.
@@ -107,7 +110,7 @@ Full build-time discovery record lives in the entry bundle: [[Wavetable Scanner 
 
 - Should the Sketch-tier build auto-sort by centroid on file upload, or preserve the file's authored order? The Sketch ships (b) — preserve authored order. The Study tier could expose a "Sort by centroid" toggle that surfaces the current sort state in the HUD, so the user always knows whether the spatial cue is meaningful or merely file-order. Tension named in [[1D Wavetable Scanning]] §Frame ordering.
 - Where does the 2D scanner sibling live — inside this project (as a higher tier), or as a separate `2D Wavetable Scanner` project that emerges-from this one and connects to the existing [[2D Torus Wavetable Synthesizer]]? Lean toward separate; the operating model shifts from linear to bilinear blend and the visualization grammar changes from stacked ridges to a surface mesh.
-- The artifact has a standalone copy (`outputs/wavetable_scanner.html`, tokens inlined) and a palace-resident copy (`Wavetable Scanner/wavetable_scanner.html`, tokens linked). Keeping both in sync is a manual move so far. Threshold for automating the dual-emission (or just retiring the standalone in favour of always-palace-resident): TBD.
+- The artifact has a standalone copy (`outputs/wavetable_scanner.html`, tokens inlined) and a palace-resident copy (`Projects/Wavetable Scanner/wavetable_scanner.html`, tokens linked). Keeping both in sync is a manual move so far. Threshold for automating the dual-emission (or just retiring the standalone in favour of always-palace-resident): TBD.
 
 ## Forward vector
 

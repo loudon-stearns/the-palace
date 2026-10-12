@@ -4,9 +4,9 @@
 // Terminal with `open -a Terminal` (LaunchServices), not osascript (Apple Events),
 // so a launchd-orphaned server with no Automation permission can still launch.
 
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, afterEach } from 'vitest';
 import { EventEmitter } from 'node:events';
-import { mkdtempSync, readFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { launchInteractive } from '../../server/launch.js';
@@ -25,6 +25,11 @@ function fakeChild(exitCode = 0, stderr = '') {
 }
 
 describe('launchInteractive (server)', () => {
+  // The staging tests each make a tmp dir; the launcher's own `rm -rf` never
+  // runs here (the spawn is faked), so the test removes it.
+  let dir;
+  afterEach(() => { if (dir) rmSync(dir, { recursive: true, force: true }); dir = null; });
+
   it('refuses on a non-macOS platform with supported:false', async () => {
     const r = await launchInteractive('hi', { platform: 'linux' });
     expect(r.launched).toBe(false);
@@ -39,7 +44,7 @@ describe('launchInteractive (server)', () => {
   });
 
   it('stages the prompt file + launcher and drives Terminal via `open`', async () => {
-    const dir = mkdtempSync(join(tmpdir(), 'launch-test-'));
+    dir = mkdtempSync(join(tmpdir(), 'launch-test-'));
     const calls = [];
     const spawnImpl = (cmd, args, opts) => { calls.push({ cmd, args, opts }); return fakeChild(0); };
     // A prompt with the chars that break naive shell-passing: wikilinks, em-dash,
@@ -75,7 +80,7 @@ describe('launchInteractive (server)', () => {
   });
 
   it('surfaces a non-zero `open` exit as a real failure (no false success)', async () => {
-    const dir = mkdtempSync(join(tmpdir(), 'launch-test-'));
+    dir = mkdtempSync(join(tmpdir(), 'launch-test-'));
     const spawnImpl = () => fakeChild(1, 'Unable to find application named Terminal');
     const r = await launchInteractive('hello', { platform: 'darwin', palaceRoot: '/x', spawnImpl, tmpDir: dir });
     expect(r.launched).toBe(false);
@@ -85,7 +90,7 @@ describe('launchInteractive (server)', () => {
   });
 
   it('reports a spawn failure as supported:true (not a platform problem)', async () => {
-    const dir = mkdtempSync(join(tmpdir(), 'launch-test-'));
+    dir = mkdtempSync(join(tmpdir(), 'launch-test-'));
     const spawnImpl = () => { throw new Error('open not found'); };
     const r = await launchInteractive('hello', { platform: 'darwin', palaceRoot: '/x', spawnImpl, tmpDir: dir });
     expect(r.launched).toBe(false);

@@ -239,6 +239,8 @@ This gives every [[Map Build Ceremony]] a new resonance: running it deposits not
 
 There is something stigmergic here too — each commit is a trace left in the environment encoding the swarm's state at that moment. Future agents (and Loudon) can read those traces and reconstruct not just *what the palace contained* but *how it was thinking* at a given point in its life.
 
+The graph also has an undated view: [[STIGMERGY]]'s TOPOLOGY lens draws the same typed-link graph from the files each time it is opened, under the builder's own rules. The dated map is the portrait an agent or a Weave argues from; the lens is what the palace looks like now.
+
 ## Forward Vectors
 
 - Should the palace map be auto-generated at the close of every [[Harvest Ceremony]], ensuring it is never more than one harvest cycle stale? What is the ceremony hook?

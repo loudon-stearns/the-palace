@@ -5,7 +5,7 @@ stage: mature
 pillars: [creation, tools, philosophy]
 born: "2026-04-21"
 tags: [synthesis, DSP, wavetable, inharmonicity, higher-dimensional, cross-disciplinary, design-plan]
-forward_vector: "I want to become the master research index that holds every speculative wavetable direction — neural latent tables, granular hybrids, T^N geometry, perceptual coordinates — until each branch is mature enough to fork into its own entry. I want every wavetable project to test itself against my open questions before claiming completeness."
+forward_vector: "I am the April 2026 research record: the history, the engineering and the hypercube plan as they stood before the torus work answered part of it. I want my unbuilt branches claimed one at a time — the latent table, the trajectory as a second-order wavetable, the 3D LUT twin."
 links:
   - target: "[[FOUR PILLARS]]"
     type: connects-to
@@ -19,7 +19,7 @@ links:
   - target: "[[Latent Space Navigation]]"
     type: mirrors
     label: higher-order-form
-  - target: "[[Inharmonicity]]"
+  - target: "[[Harmonicity and Inharmonicity]]"
     type: deepens
     label: tension
   - target: "[[3D LUT Color Grading]]"
@@ -32,7 +32,7 @@ links:
     type: mirrors
     label: n-dim-navigation
   - target: "[[Embeddings as Relational Meaning]]"
-    type: spawned
+    type: connects-to
     label: latent-table
   - target: "[[2D Torus Wavetable Synthesizer]]"
     type: spawned
@@ -42,6 +42,9 @@ links:
     label: mathematical-substrate
   - target: "[[Loudon Live]]"
     type: connects-to
+  - target: "[[Wavetable Oscillator]]"
+    type: deepens
+    label: long-form
 ---
 
 # Wavetable Synthesis — Deep Research & Higher-Dimensional Design
@@ -199,9 +202,9 @@ Moving from (0,0,0) to (1,1,1) is a path from pure harmonic wavetable tone to fu
 
 [[Wavetable Synthesis — Deep Research & Higher-Dimensional Design]] connects directly to:
 - [[RNBO Synthesis]] — implementation pathway
-- [[Inharmonicity]] — the core tension explored in Part IV
+- [[Harmonicity and Inharmonicity]] — the core tension explored in Part IV
 - [[Latent Space Navigation]] — Part V's neural extension
-- [[Genetic Code as Lookup Table]] — the biological isomorph (if entry exists)
+- [[The Genetic Code as Wavetable]] — the biological isomorph
 - [[Four Pillars]] — creation + tools + philosophy all live here
 - [[Loudon Live]] — "Navigate the Cube" could be a Loudon Live session
 

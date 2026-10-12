@@ -38,7 +38,7 @@ Neighbors: {{NEIGHBOR_LIST}}
 
 ## TASK
 1. Read home entry: {{ENTRY_PATH}}
-2. Read frontmatter (first 40 lines) of 5-6 key neighbors to understand context. Find them — they may be in root, Projects/, Palace development/, _ops/, or Modes of collaboration/.
+2. Read frontmatter (first 40 lines) of 5-6 key neighbors to understand context. Find each by globbing **/<Name>.md — a link resolves by filename regardless of folder, so a neighbor may sit in root, Projects/, People/, Shop/, Palace development/, _ops/, or inside another entry's folder (Cross-Domain Resonances/, Modes of Collaboration/).
 3. Scan body for [[wikilinks]] not in frontmatter typed links (unsung paths).
 4. Glob **/*.md to find entries that SHOULD connect but don't. Propose up to {{MAX_INTRODUCTIONS}} missing connections.
 4b. NEW ENTRIES THIS CYCLE (born since the last Weave, still under-connected): {{NEW_ENTRIES}}. These are the palace's priority citizens — only a Weave can wire their inbound links, because those links live in established entries like yours. Actively consider whether YOUR entry should link to any of them, and propose those links in `new_entry_links` below. Genuine links only — a real relationship, never one manufactured to hit a number.
