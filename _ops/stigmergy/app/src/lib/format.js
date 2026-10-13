@@ -1,7 +1,7 @@
 // Formatting helpers — message-type glyphs, timestamp formatting,
 // column alignment, board metadata.
 
-import { openUrl } from './public-mode.js';
+import { openUrl, fileUrl } from './public-mode.js';
 
 export const BOARDS = ['GENERAL', 'FLAGS', 'WEAVE', 'SYSTEM', 'TRICKSTER'];
 
@@ -155,7 +155,21 @@ export function parseLinks(text) {
 // `[listen](open:Projects/Foo/bar.wav)`; this rewrites it to the API call.
 // All other schemes (obsidian://, http(s)://, file://, computer://) pass
 // through unchanged.
+// A bare palace-relative path (`Projects/Foo/bar.wav`, as stewards write in
+// their scroll prose and artifact lists) is rewritten to GET /api/file, which
+// serves it: left as-is it resolves against the dev server, which answers
+// with the app's own page (2026-10-13, Loudon: "many links from the scroll
+// fail"). Anchors, absolute paths, dotted relatives and anything with a
+// scheme pass through unchanged.
+export function isPalacePath(url) {
+  if (typeof url !== 'string' || !url) return false;
+  if (/^[a-z][a-z0-9+.-]*:/i.test(url)) return false;   // a scheme
+  if (/^[/#?.]/.test(url)) return false;                 // absolute, anchor, query, ./ ../
+  return /\.[a-z0-9]{1,8}(?:[?#]|$)/i.test(url);         // ends in a file extension
+}
+
 export function hrefFor(url) {
+  if (isPalacePath(url)) return fileUrl(url);
   if (typeof url !== 'string' || !url.startsWith('open:')) return url;
   let rel = url.slice('open:'.length);
   let reveal = false;

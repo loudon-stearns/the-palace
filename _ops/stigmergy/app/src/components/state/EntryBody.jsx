@@ -357,10 +357,16 @@ function pushTextWithLinks(text, keyPrefix, ctx, out) {
   const parts = parseLinks(text);
   parts.forEach((lp, lpi) => {
     if (lp.type === 'link') {
+      const href = hrefFor(lp.url);
+      // An `open:` link hands the file to the Mac and answers 204: fetch it in
+      // place instead of opening a tab that would sit blank.
+      const isOpen = typeof lp.url === 'string' && lp.url.startsWith('open:');
       out.push(
         <a
           key={`${keyPrefix}-l${lpi}`}
-          href={hrefFor(lp.url)}
+          href={href}
+          onClick={isOpen ? (e) => { e.preventDefault(); fetch(href, { method: 'GET' }).catch(() => {}); } : undefined}
+          title={isOpen ? 'opens on this Mac' : undefined}
           target="_blank" rel="noopener noreferrer"
           style={{
             color: 'var(--link)', textShadow: 'var(--glow)',

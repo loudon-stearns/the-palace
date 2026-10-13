@@ -1,5 +1,5 @@
-import { describe, test, expect } from 'vitest';
-import { BOARDS, TYPE_GLYPHS, glyphFor, accentFor, healthColor, formatTs, padCell, tsToEpoch, tsCompare } from '../../src/lib/format.js';
+import { describe, test, it, expect } from 'vitest';
+import { BOARDS, TYPE_GLYPHS, glyphFor, accentFor, healthColor, formatTs, padCell, tsToEpoch, tsCompare, isPalacePath, hrefFor } from '../../src/lib/format.js';
 
 describe('BOARDS', () => {
   test('exposes the five ratified channels in the documented order', () => {
@@ -165,5 +165,21 @@ describe('tsCompare', () => {
     ];
     const sorted = [...msgs].sort((x, y) => tsCompare(y.ts, x.ts));
     expect(sorted[0].id).toBe('real');
+  });
+});
+
+describe('hrefFor — a bare palace path goes through /api/file (2026-10-13)', () => {
+  it('rewrites a palace-relative file path', () => {
+    expect(hrefFor('Projects/Slime Mold Delay/headless/2026-10-13-flow-moves.wav')).toBe('/api/file?path=' + encodeURIComponent('Projects/Slime Mold Delay/headless/2026-10-13-flow-moves.wav'));
+    expect(isPalacePath('Projects/Quantum Synthesizer/proofs/walls.mp4')).toBe(true);
+  });
+  it('leaves schemes, anchors, absolute and dotted paths alone', () => {
+    for (const u of ['https://x.y/z.wav', 'obsidian://open?vault=a', '/api/file?path=x.wav', '#section', './x.wav', '../x.wav', 'mailto:a@b.c']) {
+      expect(isPalacePath(u)).toBe(false);
+      if (!u.startsWith('open:')) expect(hrefFor(u)).toBe(u);
+    }
+  });
+  it('still maps open: to the open route', () => {
+    expect(hrefFor('open:Projects/Foo/bar.wav')).toContain('/api/open?path=');
   });
 });
