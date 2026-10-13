@@ -11,6 +11,10 @@ How the deal works
               _ops/swarm/entry-use.py — a .md carrying a canon `type:`, symlinks and tool
               folders set aside). A lap's deck is the entries born on or before the day the
               lap began; pages born later wait for the next lap, so a lap has a finish line.
+              Set aside: anything under a `tests`, `fixtures` or `experiments` folder. The
+              map's rule counts a few such files as entries (two test fixtures and two
+              experiment notes, 2026-10-13); they are not pages, and a morning is not spent
+              on them. The map itself is left as it is.
   The shuffle A random seed is drawn once, when a lap begins, and kept in lap.json. A page's
               place is the hash of seed + title. Nothing is stored per page, so a rename or
               a new page never needs the deck rebuilt.
@@ -23,8 +27,8 @@ How the deal works
 State is two small files: lap.json (lap number, seed, start date) and visits.jsonl (one line
 per event: dealt, sat). They are tracked, and they live in this script's folder in the MAIN
 checkout — the trunk — even when the script is run from a worktree, the way every worktree
-appends to the trunk's one board (Worktree Practice § How the ceremonies live here). Commit
-them on main, with record.md, when a morning closes.
+appends to the trunk's one board (Worktree Practice § How the ceremonies live here). They ride
+the morning's commit on main, when the morning closes (The Daily Page § The close).
 
 The deck and the pages are read from the trunk as well. Canon is main; and `_entries` sees
 nothing at all from a root under .claude/, where app-made worktrees live.
@@ -38,6 +42,8 @@ Usage
   python3 _ops/daily-page/deal.py --peek          # show what today's would be; record nothing
   python3 _ops/daily-page/deal.py --status        # where the lap stands
   python3 _ops/daily-page/deal.py --sat "Entry" --verdict keep --feel "..." --made "..."
+  python3 _ops/daily-page/deal.py --sat "Entry" --verdict fold --into "Sibling"   # a fold names its target
+  python3 _ops/daily-page/deal.py --sat "Entry" --verdict revive                  # a dormant page only
   python3 _ops/daily-page/deal.py --json          # the brief as JSON
 Options: --date YYYY-MM-DD (pretend it is another day), --state DIR, --root DIR.
 """
@@ -45,7 +51,11 @@ import argparse, datetime, hashlib, importlib.util, json, os, re, secrets, subpr
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-VERDICTS = ["keep", "trim", "tune", "fold", "compost", "open"]
+VERDICTS = ["keep", "trim", "tune", "fold", "compost", "revive", "open"]
+# Folders whose files are never pages, whatever frontmatter they carry (see "Set aside" above).
+SET_ASIDE_PARTS = {"tests", "fixtures", "experiments"}
+# The stages a page may be revived from (Revival Ceremony, precondition 1).
+ASLEEP = {"dormant", "composting"}
 
 
 def find_root(start: Path) -> Path:
@@ -164,9 +174,12 @@ def append_visit(state: Path, event: dict):
 
 def build(root: Path, state: Path, today: str, write: bool) -> dict:
     """Everything the deal knows: the lap, its deck, what has been dealt and sat."""
-    entries = load_entries(root)
-    if not entries:      # before the lap is read, so a wrong root never draws a seed
+    found = load_entries(root)
+    if not found:        # before the lap is read, so a wrong root never draws a seed
         sys.exit(f"deal.py: found no canon entries under {root}. Wrong root?")
+    entries = {t: rel for t, rel in found.items()
+               if not (SET_ASIDE_PARTS & set(Path(rel).parts))}
+    set_aside = sorted(t for t in found if t not in entries)
     lap = read_lap(state, today, write)
     born = {}
     for title, rel in entries.items():
@@ -183,7 +196,7 @@ def build(root: Path, state: Path, today: str, write: bool) -> dict:
     missed = {v["entry"] for v in visits
               if v.get("event") == "dealt" and v.get("date", "") < today and v["entry"] not in sat}
     return {"lap": lap, "entries": entries, "deck": deck, "visits": visits,
-            "sat": sat, "dealt_count": dealt_count, "missed": missed,
+            "sat": sat, "dealt_count": dealt_count, "missed": missed, "set_aside": set_aside,
             "waiting": sorted(t for t in entries if t not in deck)}
 
 
@@ -221,6 +234,7 @@ def brief(root: Path, s: dict, title: str, today: str) -> dict:
         "type": field(fm, "type"), "stage": field(fm, "stage"), "born": field(fm, "born"),
         "words": len(body.split()),
         "forward_vector": field(fm, "forward_vector"),
+        "revival_conditions": field(fm, "revival_conditions"),
         "has_agency_profile": bool(re.search(r"^agency_profile:", fm, re.M)),
         "has_rich_face": (bundle / f"{title} — rich.json").exists(),
         "has_scroll": (bundle / f"{title} — scroll.md").exists(),
@@ -237,7 +251,7 @@ def brief(root: Path, s: dict, title: str, today: str) -> dict:
 
 def standing(s: dict) -> dict:
     return {"deck": len(s["deck"]), "sat": len([t for t in s["sat"] if t in s["deck"]]),
-            "missed": len(s["missed"]),
+            "missed": len(s["missed"]), "set_aside": len(s["set_aside"]),
             "waiting_for_next_lap": len(s["waiting"]), "started": s["lap"]["started"]}
 
 
@@ -250,6 +264,9 @@ def print_brief(b: dict):
     if b["times_dealt_before"]:
         print("  dealt on an earlier day and not sat with; this is its second turn")
     print(f"\n  forward vector: {b['forward_vector'] or '(none)'}")
+    if b["stage"].strip("\"'") in ASLEEP:
+        print(f"  this page is {b['stage']}: the morning's question is whether it should be revived")
+        print(f"  revival conditions: {b['revival_conditions'] or '(none written)'}")
     have = [n for n, k in (("agency profile", "has_agency_profile"), ("rich face", "has_rich_face"),
                            ("scroll", "has_scroll"), ("Context", "has_context")) if b[k]]
     lack = [n for n, k in (("agency profile", "has_agency_profile"), ("rich face", "has_rich_face"),
@@ -274,8 +291,8 @@ def main():
     ap.add_argument("--peek", action="store_true", help="show today's page; record nothing")
     ap.add_argument("--status", action="store_true", help="where the lap stands")
     ap.add_argument("--sat", metavar="ENTRY", help="record that a page was sat with")
-    ap.add_argument("--verdict", choices=VERDICTS, help="with --sat")
-    ap.add_argument("--into", help="with --verdict fold: the sibling it folds into")
+    ap.add_argument("--verdict", choices=VERDICTS, help="with --sat; revive is for a dormant page")
+    ap.add_argument("--into", help="with --verdict fold, and required there: the sibling it folds into")
     ap.add_argument("--feel", help="with --sat: Loudon's answer to 'how do you feel?'")
     ap.add_argument("--made", help="with --sat: what was made for the rich face, if anything")
     ap.add_argument("--json", action="store_true")
@@ -310,9 +327,11 @@ def main():
             print(json.dumps(st, indent=2))
         else:
             print(f"lap {s['lap']['lap']}, begun {st['started']}: {st['sat']} sat of {st['deck']} · "
-                  f"{st['missed']} dealt and missed · {st['waiting_for_next_lap']} waiting for the next lap")
+                  f"{st['missed']} dealt and missed · {st['waiting_for_next_lap']} waiting for the next lap"
+                  f" · {st['set_aside']} set aside as not pages")
             for v in sorted(s["sat"].values(), key=lambda v: v["date"], reverse=True)[:10]:
-                print(f"  {v['date']}  {v['entry']}  — {v.get('verdict', '')}")
+                print(f"  {v['date']}  {v['entry']}  — {v.get('verdict', '')}"
+                      + (f" into {v['into']}" if v.get("into") else ""))
         return
 
     if a.sat:
@@ -320,13 +339,27 @@ def main():
             sys.exit(f"deal.py: no canon entry titled {a.sat!r}")
         if not a.verdict:
             sys.exit("deal.py: --sat needs --verdict (" + ", ".join(VERDICTS) + ")")
+        if a.verdict == "fold":
+            if not a.into:
+                sys.exit("deal.py: a fold names the page it folds into: add --into \"<Sibling>\". "
+                         "Nothing was recorded.")
+            if a.into not in s["entries"] or a.into == a.sat:
+                sys.exit(f"deal.py: --into {a.into!r} is not another canon entry. Nothing was recorded.")
+        elif a.into:
+            sys.exit("deal.py: --into goes with --verdict fold. Nothing was recorded.")
+        if a.verdict == "revive":
+            stage = field(frontmatter(root / s["entries"][a.sat]), "stage").strip("\"'")
+            if stage not in ASLEEP:
+                sys.exit(f"deal.py: {a.sat!r} is {stage or 'unstaged'}, not dormant; only a sleeping "
+                         "page is revived. Nothing was recorded.")
         ev = {"date": today, "lap": s["lap"]["lap"], "entry": a.sat, "event": "sat",
               "verdict": a.verdict}
         for k in ("into", "feel", "made"):
             if getattr(a, k):
                 ev[k] = getattr(a, k)
         append_visit(state, ev)
-        print(f"recorded: sat with {a.sat} on {today} — {a.verdict}")
+        print(f"recorded: sat with {a.sat} on {today} — {a.verdict}"
+              + (f" into {a.into}" if a.into else ""))
         return
 
     title, already = pick(s, today)

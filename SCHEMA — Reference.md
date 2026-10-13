@@ -5,7 +5,7 @@ pillars:
   - tools
   - practice
 born: 2026-09
-version: "1.26"
+version: "1.27"
 stage: foundational
 status: canonical
 links:

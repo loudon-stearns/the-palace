@@ -1,30 +1,38 @@
-# The Daily Page — record
-
-The mornings, newest first. Where the lap stands: `python3 _ops/daily-page/deal.py --status`.
-
-Each morning:
-
-```
-## YYYY-MM-DD · [[Entry]] · verdict
-
-- **Remembered:** what Loudon said from the title alone
-- **The page asked for:** its needs and wants, briefly
-- **Siblings:** the neighbor that might consume it, and what was decided
-- **Made:** the rich face or the rough, or why nothing would come alive
-- **Verdict:** and the reason, in a sentence
-- **Feel:** his answer to "How do you feel?"
-- **Process note:** what about the morning itself worked, and what did not
-```
-
+---
+title: "The Daily Page — record — 2026-10-13"
+born: 2026-10-13
+ceremony_version: "0.1"
+links:
+  - target: "[[The Daily Page]]"
+    type: connects-to
+    label: first-run-of
+  - target: "[[Frequency-Time Explorer]]"
+    type: connects-to
+    label: the-page-sat-with
+  - target: "[[Frequency-Time Duality]]"
+    type: connects-to
+    label: folds-into
+forward_vector: "I am the first Daily Page morning as it was written down that day, kept whole because its commit body was thin; I change no further."
 ---
 
-## Pending — for the next close
+# The Daily Page — record — 2026-10-13
 
-- **Reword one git rule in the README.** Asked on 2026-10-13 by the "Palace handoffs coordination" session, after it fixed the committer's lock handling on main. Under "Git rules for the morning's commits", the line that begins "If a commit fails on `index.lock`" should now read: "A held lock is never removed by hand. `palace-commit.mjs` clears only a lock that is older than 30 s with no git process holding it, and otherwise waits, then refuses. Retry after it does." The README changes through an elder, so the Concierge of whichever session next commits this folder writes it, and it rides in that commit. Delete this item once it is written.
+The trial kept its mornings in `_ops/daily-page/record.md`. It held one, this one, when the practice became a page. From the second morning on, the morning's commit body is the record and no file like this is written. The entry below is the trial's text, unchanged. The file's template and its one pending item (a git rule to reword in the trial README) are not carried: the README no longer restates that rule.
 
----
+## Read against the transcript — four corrections
 
-## 2026-10-13 · [[Frequency-Time Explorer]] · fold
+Read cold against the morning's transcript (`bdae7d49`), four lines of the entry do not hold. They are corrected here, not in the text.
+
+1. **"Nothing written to either page today."** The commit that carried this entry (`e208eb6d`) wrote a proof's index line and an Active Baton pointer into `Projects/Frequency-Time Duality.md`, and a pointer into `Projects/Project Stewardship System.md`. The Explorer itself was not touched.
+2. **"The prep ran unattended in about ten minutes."** The dealer's command was issued at 05:43:14 and returned at 07:39:04 (EDT). The reading, the waking and the rough ran from 07:39 to 07:43. Loudon's first message is 07:46.
+3. **"This session woke three minutes before the setup session's final commit."** It woke at 05:43 and read the README then. The setup commit `6ff5d384` is 07:39:50.
+4. **"Its finding and two batons are in the entry's last bullets."** They are not in the entry. The batons are on [[Frequency-Time Duality]] and [[Project Stewardship System]]; the close's lesson is [[Closing Well — tuning]] item 38.
+
+Also: the `feel` kept in `_ops/daily-page/visits.jsonl` is a summary of his answer, not his words; his words are below. And the fold's target is not in that machine record; it is [[Frequency-Time Duality]].
+
+## The entry, as written that morning
+
+### 2026-10-13 · [[Frequency-Time Explorer]] · fold
 
 - **Remembered:** Nearly the whole page, unprompted: time is divided into quasi-discrete perceptual sections, the ~20 Hz rhythm/pitch boundary is perceptual not physical, and the same crossing shows up in delay (filter, slapback, echo) and modulation (vibrato becoming FM timbre). Two things he said that the page does not: "polyrhythms are intervals" as a classroom instrument ("what is the rhythm of a perfect fifth?"), and "daily cognition" as a domain the boundary reaches. He also said the name may need to change.
 - **The page asked for:** a body ("a complete argument with no evidence"); one proof, Movement 1 alone, a click train crossing 20 Hz; a link to the Loudon Live Design System replacing the stale BBS reference; its forward vector kept word for word; one body edit, to stop calling an unplayed design "complete." Recorded, not applied (per the decision below).
@@ -35,3 +43,7 @@ Each morning:
 - **Process note:** The prep ran unattended in about ten minutes; the sit took well under an hour. Tokens: Concierge boot ~114K, the waking ~32K, the main thread moderate. The README's order put "find the piece" after the waking, and I started the rough before the waking returned and before the prior-art pass, then found the Duality bundle's two sketches afterward; next morning, grep `Projects/*/proofs/` and the sibling bundles in step 3, before making. The Concierge's boot report earned its cost (it found the stale To-Do checkbox marking the build "done," the Haas ghost, and the sibling proofs). The woken page said one thing the outside read did not (stop calling the design "complete"), and nothing Loudon's own playing did not surpass. Title-first was a pleasure: he gave more than the page. The rough changed three times during the sit on his ear (sine not noise; zone not point; the drums); a playable piece in a morning is realistic for a page like this, but the piece lives or dies on being played by him, since the Browser pane renders a local file as a static snapshot and I cannot hear. The verdict was fold, which by design does not land the same day; it now waits here and nowhere else. Open: whether the three findings should also be written into Duality's text now or only ride the Deposit. This session woke three minutes before the setup session's final commit and read the pre-commit README (first morning 10-14); the committed one says 10-13, so there was no real disagreement. This morning ran on Fable, not Opus as Loudon asked; the scheduled task's model is set only in its Edit form. At the close Loudon asked for a full Closing Well, to be sure a scheduled child session bypassed nothing; its finding and two batons are in the entry's last bullets.
 - **Open question for the palace (Loudon, at the close):** is there a practiced rite for taking a project out of stewardship? This page was never stewarded, so nothing applied here, but the Stewardship System describes births and plan revisions, and the baton rules say steward batons are never closed; nothing says how a steward retires. Belongs with [[Project Stewardship System]].
 - **Decided this morning (Loudon):** what a waking asks for is recorded, not applied, unless Loudon himself sees the change; no `agency_profile` after a single waking during week one, the page's answers stay in this record and the week's review decides.
+
+## What this run taught the ceremony
+
+Items 1–9 of [[The Daily Page — tuning]].

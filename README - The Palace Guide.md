@@ -223,6 +223,8 @@ The palace stays alive through periodic ceremonies — intentional acts of revie
 
 **The Deposit** (whenever something larger is worth adding to canon) — A new entry, or a fold that changes what an existing one says. Whoever brings the find, the deposit slows down to re-enter it, asks the [[Concierge]] where it lives, maps it with care, and writes only what Loudon has read. This is the most important ceremony for the palace's growth — every other ceremony tends what already exists; deposit is how new tissue arrives, and it is the palace's protection against what shouldn't. Triggered by "deposit" or "add this to the palace." See [[Deposit Ceremony]].
 
+**The Daily Page** (daily, over coffee) — One page, dealt by chance, until every page in the palace has been sat with. Say what you remember from its title alone, read it together, let the page speak, ask whether a neighbor should consume it, and try to make it something you can hear, see or play. The morning ends in a verdict; anything larger than a small edit is handed to the ceremony that owns it. See [[The Daily Page]].
+
 **The Walk** (weekly, ~15 min) — Pick a starting entry. Follow links. Read. Note what surprises you. This is the songline walk — the act of traversal generates understanding.
 
 **The Weave** (monthly, ~30-60 min) — Review the full graph. Which entries are growing? Which are orphaned? Which clusters are forming? Update metadata. Propose new connections. This is the elder weaving the blanket.

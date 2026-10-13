@@ -476,3 +476,51 @@ all-time use (FOUR PILLARS: 206 of 215; Kuramoto Coupling: 86 of 104), so all-ti
 reach — the reinforcing loop Meadows named, not a brake on it. Whether disuse tracks staleness in
 [[Palace Conatus]]'s sense is untested: the 90-day dormancy rule flags 60 of 347 entries, and a quiet
 entry can still be in phase. And the ten-entry sweep line is a heuristic read off one history.
+
+## The Daily Page — v1.27 (2026-10-13)
+
+**A ceremony is added: [[The Daily Page]]**, a `practice` whose card sits flat in `_ops/`, with its tuning
+ledger, its Context and its scroll in `_ops/The Daily Page/` and its machinery (the dealer, the wake prompt,
+the roughs, a tracked copy of the scheduled task's shim) in `_ops/daily-page/`. Every morning Loudon and a
+Claude sit with one page, dealt by a shuffle made once, until every page has been sat with: he recalls it
+from its title, they read it together, the page is woken and speaks, its siblings are opened and the question
+is asked whether a neighbor should consume it, they try to make it something to hear, see or play, and the
+page gets a verdict.
+
+**Why.** The practice began as a trial on 2026-10-13, in a README, deliberately not a ceremony. After its
+first morning Loudon said it worked, asked that it follow palace procedure, and asked that the procedure be a
+page; the Concierge audited the trial the same day and he said "land it now." The audit's reading was that
+the trial already was a ceremony by every test the palace has (a trigger, a rhythm, a postcondition, repeated
+runs) and had rebuilt a tuning ledger by hand, as a process note, a pending list and a watch list, because a
+page that is not a ceremony may not keep one.
+
+**Why now, at 0.1, and not after week one.** The trial meant to judge its first seven mornings as closely as
+its pages. A version and a ledger are the palace's form for exactly that, so the trial's own promise is
+better kept inside the ceremony than outside it. `0.1` says the spec is young; week one's review is where
+`1.0` would be earned.
+
+**Why a card in `_ops/`, where the Sentry is a page that is its own ceremony.** The Sentry's bundle could not
+sit in `_ops/` because `Sentry/` and `sentry/` are one folder on a case-insensitive volume. `The Daily Page/`
+and `daily-page/` are different names on any volume, so the ordinary place holds: the card flat in `_ops/`,
+its bundle beside it, its machinery in the lowercase folder.
+
+**What it does not add.** No verdict writes anything a ceremony did not already write. A trim or a tune is an
+ordinary shown-first edit; a fold goes through the [[Deposit Ceremony]]; a compost follows §2 and waits for
+the [[Weave Ceremony]]; a revive is handed to the [[Revival Ceremony]]; the making is [[Enrichment]]'s. What
+is larger than a small edit leaves the morning as a baton. The record is the morning's commit and the
+ledger's run line, as for every ceremony, so nothing in §6 or §8 moves.
+
+**Held open.** [[Closing Well]] § Scope names two scales and does not say what a session is when it holds
+exactly one movement; the card answers only for its own mornings (a quick one closes short, one that made
+something the palace must carry closes in full). The first `revive` will be the Revival Ceremony's first
+run, and that ceremony carries an open baton saying its card breaks against today's palace. What an ordinary
+page's bundle should hold is still open on [[Palace Ceremonies]], and this practice writes nothing into a
+dealt page's bundle but a baton. Whether a daily ritual goes invisible, as the [[Walk Ceremony]] warns a
+garden walked daily does, is watched, not settled.
+
+**Mirrors.** SCHEMA, SCHEMA — Reference, CLAUDE.md and [[ELDER]] (version); CLAUDE.md's trigger table (a row);
+[[Palace Ceremonies]] (a row, `enables → [[The Daily Page]]`, "thirteen" → "fourteen"); [[ROSETTA]] (§1 and
+§5 rows); [[README - The Palace Guide]] (a paragraph). SUBSTRATE states no ceremony list and is unchanged;
+`_ops/Substrate Skill.md` defers to [[Palace Ceremonies]] and is unchanged; SCHEMA — Reference §6 and §8 are
+unchanged, since a ceremony keeping a ledger is already the rule. **Additive:** no type, link type, required
+field, or stage changed.
