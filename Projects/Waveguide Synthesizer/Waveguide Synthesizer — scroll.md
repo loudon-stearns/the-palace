@@ -15,31 +15,32 @@ forward_vector: "I am Waveguide Synthesizer's scroll — the one page that alway
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T21:25:22.386Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T21:31:18.699Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 14 · last ran 2026-10-13 (today)
-- **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
-- **Waiting on you:** 1 open ask
-- **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — Study v1.7: press 'walk the links' and the page moves each slider for you, end to end, while the string plays, saying what to watch and hear. (`waveguide-synthesizer-steward-035`)
-- **Last commit touching this project:** 2026-10-13 `a08464c3` — steward(Waveguide Synthesizer): cycle 13 — SPINNING UP. HOME: [[Waveguide Synthesizer]]. Neighborhood loaded. Cycl…
+- **Status:** active · **Stage:** growing · **Steward:** cycle 15 · last ran 2026-10-13 (today)
+- **Plan:** agreed 2026-10-13 (today) · 1 made thing since
+- **Waiting on you:** nothing
+- **Ready to advance:** 1 answer filed since the steward last ran — a cycle will consume it
+- **Last shipped:** 2026-10-13 (today) — Study v1.8: the string has a body. What the bridge takes from the string now goes down a post into a soundboard you can see ripple and hear. (`waveguide-synthesizer-steward-037`)
+- **Last commit touching this project:** 2026-10-13 `1f416526` — steward(Waveguide Synthesizer): cycle 14 — SPINNING UP. HOME: [[Waveguide Synthesizer]]. Neighborhood loaded. Cycl…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Waveguide Synthesizer is the browser string whose on-screen wave is the sound: two delay lines carry a right-going and a left-going wave, and their sum is the string you see and hear. It can be plucked, struck and bowed, and watched in slow motion. You said the picture is its strength but the sliders didn't connect to it, so before any new feature every control has to show itself in the picture. Last cycle gave each slider its own object (nut loss changes the steel post, pitch changes the bead count, and so on). This cycle makes those links impossible to miss: the page can walk through them for you, one slider at a time, and the one control that had nothing on screen, slow motion, now has a…
+Waveguide Synthesizer is the browser string whose on-screen wave is the sound: two delay lines carry a right-going and a left-going wave, and their sum is the string you see and hear. It can be plucked, struck and bowed, and watched in slow motion. Your note set the order: first make every slider visibly change the picture, then the body, then the bow, then even stiffness, then teaching. The picture work shipped in the last two cycles (each slider has its own object, and 'walk the links' moves the sliders for you). This cycle adds the body. Until now, whatever the bridge took out of the string was simply thrown away. Now it goes down a post into a soundboard under the bridge. The board ring…
 
 ### Open asks
 
-- `waveguide-synthesizer-steward-033` — proposed plan revision: your order, written down as the plan · posted 2026-10-13 · options: adopt · keep
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
-_None._
+- `waveguide-synthesizer-steward-033` — GRANTED — option_id=adopt · answered 2026-10-13 — waiting for the next cycle
 
 ### Decided
 
+- `waveguide-synthesizer-steward-033` — your order, written down as the plan → GRANTED — option_id=adopt (2026-10-13)
 - `waveguide-synthesizer-steward-028` — a plan for the stage-ready string → GRANTED — (no option_id); notes: "Start by really mastering this imagery, it is fantastic, but we need to make very clear visual changes with each slider. For instance if the nut changed visual when I moved "nut loss" I woudl make the very clear connection of which of the two shapes was the nut.. Take this same logic throughout the interface, making really clear connections between faders and the image is the first step, before adding more features. Then, body, then bow, then even stiffness then teaching." (2026-10-13)
 - `waveguide-synthesizer-steward-025` — directional_decision → GRANTED — option_id=HEARD-BOTH (2026-10-13)
 - `waveguide-synthesizer-steward-022` — directional_decision → GRANTED — option_id=STROBE-DEFAULT; notes: "I am unable to hear anything in any of these examples, I wonder why this is?" (2026-09-24)
@@ -50,7 +51,13 @@ _None._
 ## Plan
 
 <!-- scroll:plan:start -->
-_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+Where this is going: a stage-ready browser string whose picture IS the sound, where every control you touch changes something you can see, used to teach how a plucked or bowed string works.
+
+1. Master the picture. Every slider makes a clear, visible change to the thing it names (nut loss changes the nut, pitch changes the bead count of the delay line, and so on), and touching a slider lights up its object. First version shipped as study v1.6; refine it until Loudon says every link reads.
+2. The body. A soundboard under the bridge, drawn so you can see it take energy from the string and colour the tone; the bridge becomes the door between string and body.
+3. The bow, made visible. The bow already sings; make its stick-and-slip, its force and its speed readable in the picture as clearly as the ends now are.
+4. Even stiffness, made visible. Stiffness already means the same at every pitch; show the overtones running sharp so you can see why a stiff string sounds like a piano or a bell.
+5. Teaching. A guided walk through the string: pluck, reflection, loss, pitch, stiffness, bow, body, each step one slider and one thing to watch and hear.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -62,6 +69,60 @@ Written by Claude on Loudon's behalf, 2026-09-23: your last two cycles posted no
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-waveguide-synthesizer-steward-033" -->
+### 2026-10-13 — Plan agreed: I've written your note as the plan: picture first, then body, bow, even stiffness, teaching. Adopt it so I build along it?
+
+The waveguide string is tuned and can be plucked, struck and bowed, and stiffness now means the same at every pitch. Last cycle I proposed a plan. You answered with a note instead of choosing an option, so the board still shows no agreed plan. Your note set the order: make every slider visibly change the picture first, then the body, then the bow, then even stiffness, then teaching. The bow and even stiffness already work, so I've read those steps as making each one visible and teachable in the same way, not building it again. The first step shipped this cycle as v1.6. Adopting this makes your order the plan of record. If I've misread the bow and stiffness steps, choose 'keep' and tell me.
+<sub>`plan-waveguide-synthesizer-steward-033` · plan agreed · agreed 2026-10-13T21:42:53.227Z · proposed by Waveguide Synthesizer's steward (`waveguide-synthesizer-steward-033`), adopted by Loudon (`resp-mv77j2uj-q5eww1`)</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="waveguide-synthesizer-steward-037" -->
+### 2026-10-13 — cycle 15 — Study v1.8: the string has a body. What the bridge takes from the string now goes down a post into a soundboard you can see ripple and hear.
+> shipped · the body, the next step in your order · steward leans watch the walk video
+
+**What's new in [study v1.8](obsidian://open?vault=The%20Palace&file=Projects/Waveguide%20Synthesizer/study-v1.8-the-body/index.html):**
+
+- **A soundboard under the bridge, and a post joining them.** The board is a plate that ripples in the shapes of its own twelve modes. Each ripple is as big as the audio engine says that mode is ringing right now. Each one turns on the same slowed clock as the string, so a mode five times the note's frequency turns five times per turn of the clock hand.
+- **Bridge loss now feeds the board, visibly and audibly.** A rigid bridge (1.000) leaves the post a dark hairline and the board still; its label reads *gets nothing: rigid bridge*. Soften the bridge and the post thickens and glows, the board heaves, and the note gets shorter, louder and woodier. The board's label gives the share of energy it receives on each bounce. Nothing is invented here: the energy the string loses at the bridge is exactly the energy the board gets.
+- **A new slider, body size, which changes the board's size.** At 0 there is no board and you hear the bare wire, which is v1.7's sound exactly. A small board sits high, from about 170 Hz, and sounds boxy. A big one reaches down to about 50 Hz and booms.
+- **The walk has eleven steps now.** The bridge step runs from hard to soft, so you watch the post and board light up. A new step grows the board from nothing. The caption box moved to the empty lower-left so it no longer covers the board.
+- **Two leftovers from last cycle are fixed.** The sliders now wear the house dress (graphite track, amber thumb), and the bow's arrow stays inside the frame at full speed.
+
+**How I checked it:** I ran the page's own audio engine headless in Node to set the board's level. At the default settings the board and the string sit within about a decibel of each other: −28.2 vs −27.2 dB RMS on a G3 pluck. Then I recorded the whole walk in Chrome, picture and sound together. There were no page errors. Every step peaked between −13.5 and −4.8 dBFS, so nothing went silent and nothing clipped.
+
+**Artifacts:**
+- [the whole eleven-step walk recorded in Chrome, picture and sound, 85 seconds. Watch this first: steps 2 and 3 are the new body.](Projects/Waveguide Synthesizer/offline-v1.8/body-walk.mp4)
+- [study v1.8, playable: click to start the sound, then pluck, bow (B), or press walk the links (W).](Projects/Waveguide Synthesizer/study-v1.8-the-body/index.html)
+- [the body's two links side by side: rigid vs soft bridge (top), small vs big board (bottom).](Projects/Waveguide Synthesizer/offline-v1.8/body-links-sheet.png)
+- [six G3 plucks, bridge from rigid to soft: longer and thinner, then shorter and woodier as the board takes more.](Projects/Waveguide Synthesizer/offline-v1.8/bridge-feeds-body.wav)
+- [five G3 plucks, body size 0, 0.25, 0.5, 0.75, 1: bare wire, boxy, guitar, deep.](Projects/Waveguide Synthesizer/offline-v1.8/body-size-tour.wav)
+- [a bowed G3 with no board, a middle board, and a big board.](Projects/Waveguide Synthesizer/offline-v1.8/bowed-with-body.wav)
+- [the walk's sound alone, as the page sent it to the speakers.](Projects/Waveguide Synthesizer/offline-v1.8/body-walk.wav)
+- [walk step 2, bridge loss near its softest: the fat glowing post.](Projects/Waveguide Synthesizer/offline-v1.8/frames/step-02.png)
+- [walk step 3, body size near full: the big board.](Projects/Waveguide Synthesizer/offline-v1.8/frames/step-03.png)
+- [the headless renderer: runs the page's own engine in Node, measures levels and ring times, writes the three WAVs.](Projects/Waveguide Synthesizer/offline-v1.8/body_render.mjs)
+- [every level and ring time the renderer measured.](Projects/Waveguide Synthesizer/offline-v1.8/body-levels.json)
+- [the walk recorder, carried over from v1.7 and pointed at v1.8.](Projects/Waveguide Synthesizer/offline-v1.8/record_walk.mjs)
+- [what the recorder measured: no errors, the peak of each step.](Projects/Waveguide Synthesizer/offline-v1.8/walk-record.json)
+- [photographs the board in five states in Chrome, for the contact sheet.](Projects/Waveguide Synthesizer/offline-v1.8/stills.mjs)
+- [the five states: meter level, how much the board moved, how hard the post was driven.](Projects/Waveguide Synthesizer/offline-v1.8/stills.json)
+
+_G3 pluck, from the headless render: the board's size and the bridge's softness, heard as level and ring time_
+| body size | bridge loss | peak (dBFS) | rings for (s) |
+| --- | --- | --- | --- |
+| 0 (no board) | 0.985 | −9.6 | 1.08 |
+| 0.5 | 1.000 (rigid) | −14.7 | 2.98 |
+| 0.5 | 0.985 (default) | −10.3 | 1.04 |
+| 0.5 | 0.960 | −7.3 | 0.48 |
+| 0.5 | 0.900 (soft) | −4.4 | 0.20 |
+| 1.0 (big board) | 0.985 | −13.0 | 1.16 |
+
+_Left rough:_ The board is a generic guitar-like plate. Its twelve modes come from a hand-made table, not from measuring a real instrument, so 'guitar-sized' means a plausible guitar, not a specific one. The board's ripples are its true modes at their true levels, but with a soft bridge the pluck dies in a fifth of a second, so in stills the board is often caught nearly flat; the video shows it better. High notes (A4 and up) get less body, about 12 dB under the string, because few of their partials land on the board's modes. That is real behaviour, but you may want more. And I still haven't heard your read on last cycle's walk, so the picture step stays open to your notes.
+
+_Next moves named:_ Your eyes and ears on the body-walk video: tell me if the post-and-board link lands as clearly as the nut and bridge did, and whether the board sounds like wood or like a filter. · Then the bow, the next step in your order: making the stick-and-slip of the bow visible at the bow point, so you see it catch and let go, the way the board now shows where the energy goes.
+<sub>`waveguide-synthesizer-steward-037` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="waveguide-synthesizer-steward-035" -->
 ### 2026-10-13 — cycle 14 — Study v1.7: press 'walk the links' and the page moves each slider for you, end to end, while the string plays, saying what to watch and hear.
 > shipped · still mastering the picture, before the body · steward leans watch the video first

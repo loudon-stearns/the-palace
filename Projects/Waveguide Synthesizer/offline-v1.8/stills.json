@@ -1,0 +1,45 @@
+{
+ "errors": [],
+ "out": [
+  {
+   "name": "default",
+   "bridge": 0.985,
+   "body": 0.5,
+   "meter_dbfs": -18.2,
+   "board_motion": 0.065,
+   "post_drive": 0.0004
+  },
+  {
+   "name": "bridge-rigid",
+   "bridge": 1,
+   "body": 0.5,
+   "meter_dbfs": -19.7,
+   "board_motion": 0,
+   "post_drive": 0
+  },
+  {
+   "name": "bridge-soft",
+   "bridge": 0.9,
+   "body": 0.5,
+   "meter_dbfs": -5.7,
+   "board_motion": 0.2,
+   "post_drive": 0.0009
+  },
+  {
+   "name": "body-small",
+   "bridge": 0.985,
+   "body": 0.12,
+   "meter_dbfs": -16.6,
+   "board_motion": 0.021,
+   "post_drive": 0.0005
+  },
+  {
+   "name": "body-big",
+   "bridge": 0.985,
+   "body": 1,
+   "meter_dbfs": -21.1,
+   "board_motion": 0.065,
+   "post_drive": 0.0004
+  }
+ ]
+}
