@@ -1,0 +1,240 @@
+// =====================================================================
+// crowd.codebox
+//
+// The crowd as an RNBO codebox~: up to 512 phase neurons at audio rate,
+// coupled through their mean field. You do not play neurons; you play
+// the crowd. Same model as the board instrument (crowd-instrument.html)
+// and its engine (crowd_engine.js):
+//
+//   dθᵢ/dt = ω₀(1 + spread·jᵢ) + listenᵢ · K·ω₀ · (Zy·cos θᵢ − Zx·sin θᵢ)
+//   K      = tight · 4·spread/π         coupling per unit of disorder
+//   Z      = mean of (cos θ, sin θ)     the crowd's mean field
+//   listenᵢ = 0 for a pacemaker (ignores the crowd, still counts in Z)
+//
+// Every wrap of θᵢ past 2π is a spike; every spike adds a prescribed
+// 1.6 ms action potential (rise, fall, undershoot) at its sub-sample
+// time. The firing rate is the pitch, so coupling snaps the hiss into
+// a tone. A crowd with no pacemakers locks at tight = 1; with a share
+// `life` of pacemakers it locks at tight = 1/(1 − life).
+//
+// ONE DIFFERENCE FROM THE BROWSER ENGINE, on purpose: the browser draws
+// each neuron's natural rate, starting phase and pacemaker role from a
+// seeded random generator. Here they come from three interleaved
+// low-discrepancy sequences (the R3 sequence), so there is no RNG to
+// port and any first-N neurons are already evenly spread — changing
+// `crowd` never reshuffles the crowd, it just admits or dismisses
+// neurons. Pacemaker sets nest: life 0.2 contains life 0.1.
+//
+// MIRROR: RNBO/codebox_mirror.mjs runs THIS FILE'S TEXT as JavaScript
+// and holds it against crowd_engine.js (given the same spreads), sample
+// by sample. What a match proves: the arithmetic is the board
+// instrument's. What it does not prove: that RNBO compiles it, or what
+// it costs in Live. Unverified until opened in Max.
+//
+// PATCHER WIRING REQUIRED (inside an rnbo~ / M4L instrument):
+//   [notein] pitch    → [mtof]   → [param freq]
+//   [notein] velocity → [/ 127.] → [param velocity]
+//   [notein] velocity → [> 0]    → [param gate]
+//   [codebox~ out1]   → [out~ 1]
+//   [codebox~ out2]   → [out~ 2]
+//   [codebox~ out3]   → [snapshot~ 50] → a meter (core synchrony, 0–1)
+//   [in~ 1] → [codebox~ in1]  (optional: an external drive, see below)
+// gate defaults to 1 so the crowd drones the moment it is wired; the
+// first note-off hands the envelope to the keyboard.
+// =====================================================================
+
+const MAXN = 512;
+const RING = 1024;      // spike accumulator, > longest spike (width 4 @ 96 kHz = 615)
+const SPK  = 1024;      // spike table
+
+// --- the population's knobs ---
+@param({ min: 0.0,  max: 6.0    }) tight  = 0.0;    // coupling ÷ disorder; 1 = the edge
+@param({ min: 0.0,  max: 0.9    }) life   = 0.0;    // pacemaker share
+@param({ min: 0.0,  max: 0.5    }) spread = 0.1;    // natural-rate spread (disorder)
+@param({ min: 4,    max: 512    }) crowd  = 128;    // how many neurons
+@param({ min: 0.25, max: 4.0    }) width  = 1.0;    // spike width, acts like a formant
+
+// --- the keyboard's ---
+@param({ min: 20.0, max: 2000.0 }) freq     = 110.0;
+@param({ min: 0.0,  max: 1.0    }) glide    = 0.06;  // seconds
+@param({ min: 0.0,  max: 1.0    }) gate     = 1.0;
+@param({ min: 0.0,  max: 1.0    }) velocity = 0.8;
+@param({ min: 0.001, max: 4.0   }) attack   = 0.02;
+@param({ min: 0.001, max: 8.0   }) release  = 0.6;
+@param({ min: 0.0,  max: 1.0    }) vol      = 0.7;
+@param({ min: 0,    max: 1      }) autoLevel = 1;   // hold loudness steady across regimes
+@param({ min: 0.0,  max: 1.0    }) drive    = 0.0;  // how hard in1 pushes every neuron
+
+// --- the crowd's state ---
+@state th  = new FixedFloat64Array(512);   // phase
+@state cs  = new FixedFloat64Array(512);   // cos θ, rotated incrementally
+@state sn  = new FixedFloat64Array(512);   // sin θ
+@state jit = new FixedFloat64Array(512);   // natural-rate offset, −1..1
+@state pu  = new FixedFloat64Array(512);   // pacemaker if pu < life
+@state acc = new FixedFloat64Array(1024);  // overlapping spikes land here
+@state spk = new FixedFloat64Array(1024);  // one prescribed spike
+@state spkL = 0;
+@state builtW = -1.0;
+@state builtSR = -1.0;
+@state ready = 0;
+@state pos = 0;
+@state clock = 0;
+@state f0s = 110.0;
+@state sx = 0.0;
+@state sy = 0.0;
+@state lastN = -1;
+@state env = 0.0001;
+@state gain = 1.0;
+@state dcX = 0.0;
+@state dcY = 0.0;
+@state envVal = 1.0;
+@state prevGate = 1.0;
+
+function fract(x) {
+    return x - floor(x);
+}
+
+// soft clip; same curve as tanh, written out so no operator is assumed
+function softclip(x) {
+    let e = exp(-2.0 * abs(x));
+    let t = (1.0 - e) / (1.0 + e);
+    return x < 0.0 ? -t : t;
+}
+
+function seedCrowd() {
+    let twopi = 6.283185307179586;
+    for (let i = 0; i < MAXN; i++) {
+        jit[i] = 2.0 * fract(0.5 + i * 0.8191725133961645) - 1.0;
+        pu[i]  = fract(0.5 + i * 0.6710436067037893);
+        th[i]  = twopi * fract(0.5 + i * 0.5497004779019703);
+        cs[i]  = cos(th[i]);
+        sn[i]  = sin(th[i]);
+    }
+    for (let k = 0; k < RING; k++) acc[k] = 0.0;
+    ready = 1;
+}
+
+function buildSpike() {                 // rise, fall, undershoot; zero mean
+    let w = width;
+    let L = floor(0.0016 * w * samplerate + 0.5);
+    if (L < 8) L = 8;
+    if (L > SPK - 2) L = SPK - 2;
+    let mean = 0.0;
+    for (let k = 0; k < SPK; k++) spk[k] = 0.0;
+    for (let k = 0; k < L; k++) {
+        let t = k / samplerate / w;
+        let a = (t - 0.00035) / 0.00012;
+        let b = (t - 0.0006) / 0.0002;
+        let c = (t - 0.0011) / 0.00028;
+        spk[k] = 0.6 * exp(-(a * a)) + 0.5 * exp(-(b * b)) - 0.28 * exp(-(c * c));
+        mean += spk[k];
+    }
+    mean = mean / L;
+    for (let k = 0; k < L; k++) spk[k] -= mean;
+    spkL = L;
+    builtW = width;
+    builtSR = samplerate;
+}
+
+// ---------------------------------------------------------------- tick
+if (ready == 0) seedCrowd();
+if (width != builtW || samplerate != builtSR) buildSpike();
+
+let N = floor(clamp(crowd, 4, MAXN));
+let twopi = 6.283185307179586;
+let dt = 1.0 / samplerate;
+let K = tight * 4.0 * spread / PI;
+
+// the mean field from the end of the last sample (recount if N moved)
+if (N != lastN) {
+    sx = 0.0; sy = 0.0;
+    for (let i = 0; i < N; i++) { sx += cs[i]; sy += sn[i]; }
+    lastN = N;
+}
+
+f0s += (freq - f0s) * (1.0 - exp(-1.0 / (glide * samplerate + 1.0)));
+let w0 = twopi * f0s;
+let Kabs = K * w0;
+let Zx = sx / N;
+let Zy = sy / N;
+let push = drive * in1 * w0;            // external audio leans on every neuron
+sx = 0.0; sy = 0.0;
+let cx = 0.0; let cy = 0.0; let nf = 0;
+let resync = (clock % 64) == 0;
+
+for (let i = 0; i < N; i++) {
+    let listen = pu[i] < life ? 0.0 : 1.0;
+    let d = (w0 * (1.0 + spread * jit[i]) + Kabs * listen * (Zy * cs[i] - Zx * sn[i]) + push) * dt;
+    let t = th[i] + d;
+    if (t >= twopi) {                   // spike, placed at its sub-sample time
+        t -= twopi;
+        let frac = d > 0.0 ? t / d : 0.0;
+        for (let j = 0; j < spkL; j++) {
+            let x = j - frac + 1.0;
+            let x0 = floor(x);
+            let f = x - x0;
+            if (x0 >= 0 && x0 + 1 < spkL + 2) {
+                let ix = (pos + j) % RING;
+                acc[ix] = acc[ix] + spk[x0] * (1.0 - f) + spk[x0 + 1] * f;
+            }
+        }
+    }
+    if (t < 0.0) t += twopi;            // a hard drive can run a neuron backwards
+    th[i] = t;
+    if (resync) { cs[i] = cos(t); sn[i] = sin(t); }
+    else {
+        let d2 = d * d;
+        let cd = 1.0 - d2 * 0.5;
+        let sd = d - d2 * d / 6.0;
+        let ci = cs[i];
+        cs[i] = ci * cd - sn[i] * sd;
+        sn[i] = ci * sd + sn[i] * cd;
+    }
+    sx += cs[i]; sy += sn[i];
+    if (listen > 0.0) { cx += cs[i]; cy += sn[i]; nf += 1; }
+}
+
+let y = acc[pos];
+acc[pos] = 0.0;
+pos = (pos + 1) % RING;
+y = y / sqrt(N);
+let dc = y - dcX + 0.995 * dcY;
+dcX = y; dcY = dc; y = dc;
+
+let agcA = 1.0 - exp(-1.0 / (0.3 * samplerate));
+env += (y * y - env) * agcA;
+let g = 0.35;
+if (autoLevel > 0) g = min(40.0, 0.16 / sqrt(env + 0.000000001));
+gain += (g - gain) * 0.0005;
+y = softclip(y * gain * vol);
+clock += 1;
+if (clock >= 64) clock = 0;
+
+// the keyboard's envelope sits after the crowd: the crowd never stops
+// firing, so a release lets the timbre keep living as it fades
+if (gate > 0.5) {
+    let a = 1.0 - exp(-1.0 / (attack * samplerate));
+    envVal += (1.0 - envVal) * a;
+} else {
+    let r = 1.0 - exp(-1.0 / (release * samplerate));
+    envVal -= envVal * r;
+}
+prevGate = gate;
+let amp = envVal * (0.25 + 0.75 * velocity);
+
+out1 = y * amp;
+out2 = y * amp;
+out3 = nf > 0 ? sqrt(cx * cx + cy * cy) / nf : 0.0;
+
+// =====================================================================
+// AUDITION ORDER (once it compiles):
+//   1. tight 0, life 0: hiss — 128 neurons firing near 110 Hz, no pitch.
+//   2. Raise tight slowly. Around 1.0 the hiss snaps into a tone; out3
+//      jumps from ~0.4 to ~0.85 inside a tenth of the knob.
+//   3. tight 3: a dead-still tone. Now raise life to ~0.12: it breathes.
+//   4. life 0.55, tight 5.5: wide vibrato. Then drop tight under
+//      1/(1 − life) and hear the core come apart.
+//   5. With life 0 the lock is a switch; with life ~0.6 it is a
+//      crossfade. Life sets how sharp the attack of the lock is.
+//   6. Play notes: the crowd glides, it never retriggers.
+// =====================================================================

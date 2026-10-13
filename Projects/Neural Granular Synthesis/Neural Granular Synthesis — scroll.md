@@ -15,20 +15,20 @@ forward_vector: "I am Neural Granular Synthesis's scroll — the one page that a
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T22:11:27.961Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T22:14:11.315Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 12 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** growing · **Steward:** cycle 13 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — The crowd is playable now. Two knobs, tightness and life, plus a keyboard. Pacemakers turn the lock from a switch into a crossfade. (`ngs-steward-019`)
-- **Last commit touching this project:** 2026-09-26 `5864b19c` — edit(Neural Granular Synthesis): control-vocabulary-math becomes the project's spec
+- **Last shipped:** 2026-10-13 (today) — About half of last cycle's 'pacemakers soften the lock' was just a small crowd. A narrower softening survives at 512 neurons. (`ngs-steward-021`)
+- **Last commit touching this project:** 2026-10-13 `77343837` — steward(Neural Granular Synthesis): cycle 12 — SPINNING UP. HOME: [[Neural Granular Synthesis]]. Neighborhood loaded. …
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Neural Granular Synthesis is the idea that a steady timbre comes from a crowd of simple neurons, not from any one of them. How tightly the crowd agrees is the main control. Earlier cycles found that about 32 neurons sound steady. They moved a 128-neuron crowd up to audio rate, where its firing rate is the pitch, so coupling snaps it into a tone. They also showed that making 5–20% of the neurons pacemakers, which fire on their own and ignore the crowd, brings a frozen tone to life. This cycle turns all of that into one instrument you can play in the board. It also records a single take across every regime, and it measures something new: pacemakers don't move the point where the tone locks, b…
+Neural Granular Synthesis plays a crowd of neurons whose agreement is the timbre. The lock edge is the tightness where hiss snaps into a tone, and theory puts it at 1/(1 − life). Last cycle measured that adding pacemakers leaves the edge in place but turns the snap into a crossfade. I warned that some of that might only be a small crowd: at 68% pacemakers just 41 of the 128 neurons are still following. This cycle tests that warning.
 
 ### Open asks
 
@@ -59,6 +59,70 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="ngs-steward-021" -->
+### 2026-10-13 — cycle 13 — About half of last cycle's 'pacemakers soften the lock' was just a small crowd. A narrower softening survives at 512 neurons.
+> shipped · 512-neuron edge sweep · steward leans the finding is real but smaller
+
+I swept tightness around the predicted edge for three crowds. The first is 128 random neurons, cycle 12's crowd, rerun. The second is 512 random neurons. The third is 128 evenly spread neurons, the crowd crowd.codebox uses. Each sweep ran at four pacemaker shares.
+
+WHAT CHANGED. Far below the edge, at 0.6× and 0.8×, most of the extra synchrony that pacemakers seemed to cause disappears in the big crowd. At 0.8× with 68% pacemakers it falls from 0.64 at 128 neurons to 0.36 at 512. That part was a small crowd's random agreement.
+
+WHAT SURVIVED. Just under the edge, at 0.9× and 0.95×, pacemakers still make the crowd start to lock early. At 512 neurons with none, synchrony is 0.22 at 0.9×. With 68% it is 0.57. Above the edge every crowd agrees. So life still softens the attack of the lock, over a window of about the last tenth of the knob rather than the last half.
+
+A SIDE FIND. The evenly spread 128-neuron crowd switches more sharply than the 512 random one: 0.24 to 0.80 across the last 5% with no pacemakers. Spreading the neurons evenly makes a small crowd behave like a much bigger one. That is good news for CPU in the codebox.
+
+**Artifacts:**
+- [three crowds side by side: the far-below-edge lift shrinks at 512; the near-edge softening stays.](Projects/Neural Granular Synthesis/edge-crowds.png)
+- [the sweep.](Projects/Neural Granular Synthesis/render_edge_crowds.js)
+- [sweep data.](Projects/Neural Granular Synthesis/edge-crowds.json)
+- [draws the plate.](Projects/Neural Granular Synthesis/plot_edge_crowds.py)
+
+_Core synchrony at tightness ÷ predicted edge, no pacemakers vs 68 %_
+| crowd | life | 0.6× | 0.8× | 0.9× | 0.95× | 1.0× | 1.1× |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 128 random | 0 % | 0.17 | 0.24 | 0.31 | 0.40 | 0.64 | 0.87 |
+| 128 random | 68 % | 0.43 | 0.64 | 0.76 | 0.79 | 0.84 | 0.89 |
+| 512 random | 0 % | 0.08 | 0.13 | 0.22 | 0.45 | 0.82 | 0.88 |
+| 512 random | 68 % | 0.19 | 0.36 | 0.57 | 0.65 | 0.78 | 0.88 |
+| 128 evenly spread | 0 % | 0.10 | 0.14 | 0.17 | 0.24 | 0.80 | 0.88 |
+| 128 evenly spread | 68 % | 0.26 | 0.39 | 0.50 | 0.63 | 0.79 | 0.88 |
+
+_Left rough:_ The evenly spread crowd at 50% pacemakers locks early, at 0.95×. I think that's because the pacemakers aren't chosen independently of the natural rates, so the followers' rates come out bunched, but I haven't checked. Three random crowds per point also means the 512 numbers still wobble by a few hundredths.
+
+_Next moves named:_ Check whether the evenly spread crowd's pacemaker choice skews the followers' rates, and fix the sequence if it does, before the codebox is played in earnest. · Fold the corrected finding into the project's spec: life sets how sharp the attack of the lock is, over the last tenth of tightness.
+<sub>`ngs-steward-021` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="ngs-steward-020" -->
+### 2026-10-13 — cycle 13 — The crowd now exists as an RNBO codebox, up to 512 neurons, and it matches the board instrument sample for sample. Next step is opening it in Max.
+> shipped · codebox + mirror check + its own one-take · steward leans you open it in Max next
+
+WHAT I MADE. RNBO/crowd.codebox is a single codebox~ holding up to 512 neurons. Its knobs belong to the population: tight (1 is the lock edge), life (the pacemaker share), spread (how much the neurons disagree), crowd (how many neurons) and width (spike width, which behaves like a formant). It also has keyboard params (freq, glide, gate, velocity, attack, release) and a drive inlet, so outside audio can push every neuron. out1/out2 carry the sound. out3 carries the crowd's synchrony from 0 to 1, for a meter. The wiring list is at the top of the file.
+
+ONE DELIBERATE CHANGE. The browser uses a seeded random generator to give each neuron its natural rate, starting phase and pacemaker role. The codebox uses three evenly interleaved number sequences instead. That leaves no random generator to port. Turning the crowd knob also never reshuffles anyone: it admits or dismisses neurons from a crowd that is already evenly spread.
+
+HOW I CHECKED IT. RNBO/codebox_mirror.mjs runs the codebox file's own text as JavaScript. It gives the board's engine the same crowd, then subtracts the two over cycle 12's whole 51-second walk. The difference sits 135 dB under the signal at 128 neurons and 123 dB under at 512. That is the gap between 32-bit and 64-bit storage, nothing more. The transpiler is adopted from the 2D Torus project's RNBO folder. crowd-codebox-take.wav is that walk played by the codebox itself.
+
+TO TRY IT. Make an rnbo~ and paste the file into a codebox~. Add [out~ 1] [out~ 2] and turn on audio: you should hear hiss. Raise tight past 1 and it snaps into a tone. Raise life to about 0.12 and the tone breathes. The audition steps are at the bottom of the file.
+
+**Artifacts:**
+- [the crowd as one RNBO codebox~; wiring at the top, audition order at the bottom.](Projects/Neural Granular Synthesis/RNBO/crowd.codebox)
+- [51 s, played by the codebox's own arithmetic: hiss → lock → frozen → living → wide vibrato → breaking → A C D E D A.](Projects/Neural Granular Synthesis/RNBO/crowd-codebox-take.wav)
+- [runs the codebox text as JavaScript and subtracts it from the board engine.](Projects/Neural Granular Synthesis/RNBO/codebox_mirror.mjs)
+- [the match numbers and a synchrony trace.](Projects/Neural Granular Synthesis/RNBO/codebox_mirror_report.json)
+
+_codebox vs board engine, same crowd, same walk_
+| neurons | seconds | largest sample difference | difference under the signal |
+| --- | --- | --- | --- |
+| 128 | 51 | 6.4e-7 | −135 dB |
+| 512 | 12 | 1.0e-6 | −123 dB |
+
+_Left rough:_ Nobody has compiled it. FixedFloat64Array state, floating-point array indexes and a 512-step loop inside the per-sample tick all match the RNBO docs as I read them, but they are unverified until Max accepts the file. I don't know what it costs in Live either. The JavaScript copy runs 128 neurons at 0.15× realtime and 512 at 0.58×, and compiled C++ should do better, but that is a guess.
+
+_Next moves named:_ You paste crowd.codebox into an rnbo~ and tell me what Max says; every error becomes a Gotcha on the RNBO codebox~ smith. · Once it compiles, wrap it as a Max for Live instrument with tight and life as the two big dials.
+<sub>`ngs-steward-020` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="ngs-steward-019" -->
 ### 2026-10-13 — cycle 12 — The crowd is playable now. Two knobs, tightness and life, plus a keyboard. Pacemakers turn the lock from a switch into a crossfade.
 > shipped · instrument, one-take recording, edge sweep · steward leans toward bringing the crowd into Max/RNBO next
