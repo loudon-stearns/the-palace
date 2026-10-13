@@ -15,20 +15,20 @@ forward_vector: "I am Quantum Synthesizer's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T18:54:31.079Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T18:59:23.819Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** dormant · **Steward:** cycle 7 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** dormant · **Steward:** cycle 8 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — The first real video: five wells, five timbres, all on one pitch scale. Then a particle tunnels across a wall, and stays home once the wall is tipped. (`quantum-synth-010`)
-- **Last commit touching this project:** 2026-09-26 `5b8a1564` — ops(frontmatter): strip retired activation_count/last_activated from 244 entries — v1.26
+- **Last shipped:** 2026-10-13 (today) — Same box, only the walls change: six strikes on one ruler. The walls pick the shapes; the equation picks the pitches. (`quantum-synth-012`)
+- **Last commit touching this project:** 2026-10-13 `a4103f44` — steward(Quantum Synthesizer): cycle 7 — SPINNING UP. HOME: [[Quantum Synthesizer]]. Neighborhood loaded. Cycle …
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Quantum Synthesizer claims the Schrödinger equation is a synthesizer. The shape of a potential well sets the spacing of its energy levels, and those spacings, played as partials, are the timbre. By September three wells had been heard one at a time: a parabola rings a clean G3, a quartic-bent well rings a bell, and a double well splits every level into a pair that beats. You granted both September asks: the stage goes to sprout, and the piano paragraph gets fixed. This cycle put all the wells into one 34-second video and added the two the atlas was missing. A Morse well (the shape of a chemical bond) runs out of partials. A double well tipped by a hair stops tunnelling.
+Quantum Synthesizer claims the Schrödinger equation is a synthesizer: what confines a particle decides its energy levels, and those levels, played as partials, are the timbre. Over the summer and last cycle I tested half of that claim, the shape of the well, and the result became the 34-second timbre atlas: parabola, bell, double well, tipped well, chemical bond. My forward vector names a second test I had never run: do the walls of a box set the harmonic content? This cycle ran it. It's a 29.5-second video of one empty box. Only the walls change, and every segment uses the same pluck, the same pickup and the same pitch ruler (hard-wall ground = A3).
 
 ### Open asks
 
@@ -65,6 +65,34 @@ This container has no Shop (no ComfyUI, Kokoro, Max, or GPU) — Python with num
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="quantum-synth-012" -->
+### 2026-10-13 — cycle 8 — Same box, only the walls change: six strikes on one ruler. The walls pick the shapes; the equation picks the pitches.
+> shipped · second test of the forward vector run · steward leans keep going
+
+Six strikes, in order. (1) A string with fixed ends, the ordinary wave equation: 220, 440, 660 Hz, the harmonic series. (2) The same box under Schrödinger. The sine shapes, the pluck and the pickup are all the same, so the loudness of every partial is identical, but the pitches are 220, 880, 1980, 3520: the squares. This pair is the finding. The walls choose the shapes; the equation turns shapes into pitches. The wave equation's frequency grows with the number of wiggles, and Schrödinger's grows with its square. So my own line 'the geometry of confinement determines the harmonic content' is only half true: walls decide which partials exist and how loud a pickup hears them, and the equation decides where they sit. (3) Free walls (cosines instead of sines) keep exactly the same pitches; only the loudness pattern moves, plus a silent level at zero. (4) One hard wall and one free leaves quarter-waves: 55, 495, 1375, 2695 Hz, the odd squares, two octaves down. (5) A ring, the ends joined: every level doubles, and a small bump splits each pair by about 2 Hz, so each partial beats. That's the same mechanism that makes a real bell warble when its casting is slightly uneven. (6) Soft walls of finite height: every level sags 420 to 510 cents flat, and only 5 partials survive before the rim. That's a ceiling, the same thing the chemical-bond well showed in the atlas.
+
+**Artifacts:**
+- [29.5 s: the six walls, picture locked to sound.](Projects/Quantum Synthesizer/proofs/walls.mp4)
+- [the audio alone; one gain throughout, so loudness differences are real.](Projects/Quantum Synthesizer/proofs/walls.wav)
+- [the six boxes in one still: shapes above, partials below.](Projects/Quantum Synthesizer/proofs/walls-poster.png)
+- [the script; prints every check (levels vs. exact, audio peaks vs. intended, ring beats).](Projects/Quantum Synthesizer/proofs/walls.py)
+
+_Walls · one ruler (hard-wall ground = 220 Hz) · first partials heard_
+| walls | partials (Hz) | what you hear |
+| --- | --- | --- |
+| string, fixed ends | 220 · 440 · 660 · 880 | harmonic series |
+| box, hard | 220 · 880 · 1980 · 3520 | squares, very open |
+| box, free | 220 · 880 · 1980 · 3520 | same pitches, different loudness |
+| box, one hard one free | 55 · 495 · 1375 · 2695 | odd squares, two octaves down |
+| ring + small bump | 220/222 · 880/882 · 1980/1982 | every partial beats at ~2 Hz |
+| box, soft walls | 172 · 687 · 1534 · 2692 · 4106 | 420–510 cents flat, then nothing |
+
+_Left rough:_ I haven't listened to it. The checks are numerical: the worst level error is 0.002 of a step and the worst audio-peak miss is 0.03 Hz. Whether the 2 Hz ring beat and the open 'squares' timbre read clearly by ear is still unverified.
+
+_Next moves named:_ Third leg of the forward vector: the timbre atlas changed the well and this changed the walls; next, change the equation itself (a stiff string adds a squared term to the wave equation) and slide continuously from 1·2·3 to 1·4·9, so the ear hears harmonic turn into Schrödinger. · Propose a fix to the entry's 'geometry of confinement determines the harmonic content' line, carrying this video as the evidence.
+<sub>`quantum-synth-012` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="quantum-synth-010" -->
 ### 2026-10-13 — cycle 7 — The first real video: five wells, five timbres, all on one pitch scale. Then a particle tunnels across a wall, and stays home once the wall is tipped.
 > shipped · first MP4 · two new wells, both checked · steward leans LOPSIDED-SWEEP next
