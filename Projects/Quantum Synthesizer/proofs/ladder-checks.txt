@@ -1,0 +1,49 @@
+== check 1: a-dagger moves the state up ONE rung; the clock hears one new pitch, not one more ==
+  a†|0> = sqrt(1)|1>: True   clock partials above -40 dB: 330 Hz   (want 330)
+  a†|1> = sqrt(2)|2>: True   clock partials above -40 dB: 550 Hz   (want 550)
+  a†|2> = sqrt(3)|3>: True   clock partials above -40 dB: 770 Hz   (want 770)
+  a†|3> = sqrt(4)|4>: True   clock partials above -40 dB: 990 Hz   (want 990)
+  a†|4> = sqrt(5)|5>: True   clock partials above -40 dB: 1210 Hz   (want 1210)
+== check 2: a single rung is silent to the detector (relative wobble of |psi(x0,t)|^2) ==
+  |0>  wobble 1.9e-16
+  |1>  wobble 2.5e-16
+  |2>  wobble 2.5e-16
+  |3>  wobble 1.9e-16
+  |4>  wobble 2.2e-16
+  |5>  wobble 1.7e-16
+== check 3: two rungs beat at their DIFFERENCE ==
+  clock: 110, 330 Hz   detector: 220 Hz
+== check 4: coherent state alpha = 2.2: clock = odd multiples of 110, detector = whole multiples of 220 ==
+  truncation: norm^2 = 1.000000000000
+  clock    (×110 Hz): 1.00, 3.00, 5.00, 7.00, 9.00, 11.00, 13.00, 15.00, 17.00, 19.00, 21.00, 23.00, 25.00, 27.00, 29.00, 31.00   all odd: True
+  detector (×220 Hz): 1.00, 2.00, 3.00, 4.00, 5.00, 6.00, 7.00, 8.00, 9.00, 10.00, 12.00   all whole: True
+== check 5: REMOVE a quantum from |alpha> (apply a): nothing changes ==
+  a|alpha> = alpha|alpha>: fidelity 1.000000000000   detector waveform max difference 1.5e-15 of its swing
+== check 6: ADD a quantum to |alpha> (apply a-dagger): the sound does change, but not by one overtone ==
+  fidelity 0.828767 (theory alpha^2/(alpha^2+1) = 0.828767)
+  detector partials above -40 dB: |alpha> 11, a†|alpha> 13
+    1×220 Hz   |alpha>   -5.3 dB   a†|alpha>   -8.8 dB
+    2×220 Hz   |alpha>    0.0 dB   a†|alpha>    0.0 dB
+    3×220 Hz   |alpha>   -0.1 dB   a†|alpha>   -2.4 dB
+    4×220 Hz   |alpha>  -15.9 dB   a†|alpha>   -8.4 dB
+    5×220 Hz   |alpha>   -3.4 dB   a†|alpha>   -3.9 dB
+== check 7: measuring the energy picks one rung, with Poisson odds; the detector then goes silent ==
+  P(n): 0:0.008  1:0.038  2:0.093  3:0.149  4:0.181  5:0.175  6:0.141  7:0.098  8:0.059  9:0.032   most likely n = 4
+  PASS
+wrote ladder.wav (42.2 s)
+    0.0s  clock     ground state |0⟩                    1 partial(s): 110
+    2.6s  detector  ground state |0⟩                    silent
+    5.4s  clock     a† climbs the ladder: |0⟩ → |5⟩     1 partial(s): 110 | 1 partial(s): 330 | 1 partial(s): 550 | 1 partial(s): 770 | 1 partial(s): 990 | 1 partial(s): 1210
+   10.2s  detector  a† climbs the ladder: |0⟩ → |5⟩     silent
+   15.2s  clock     two rungs: (|0⟩ + |1⟩)/√2           2 partial(s): 110, 330
+   17.8s  detector  two rungs: (|0⟩ + |1⟩)/√2           1 partial(s): 220
+   20.6s  clock     coherent state |α⟩, α = 2.2         16 partial(s): 110, 330, 550, 770, 990, 1210, 1430, 1650
+   23.2s  detector  coherent state |α⟩, α = 2.2         11 partial(s): 220, 440, 660, 880, 1100, 1320, 1540, 1760
+   26.0s  clock     remove a quantum: a|α⟩              16 partial(s): 110, 330, 550, 770, 990, 1210, 1430, 1650
+   28.6s  detector  remove a quantum: a|α⟩              11 partial(s): 220, 440, 660, 880, 1100, 1320, 1540, 1760
+   31.4s  clock     add a quantum: a†|α⟩                17 partial(s): 330, 550, 770, 990, 1210, 1430, 1650, 1870
+   34.0s  detector  add a quantum: a†|α⟩                13 partial(s): 220, 440, 660, 880, 1100, 1320, 1540, 1760
+   36.8s  clock     measure the energy → |4⟩            1 partial(s): 990
+   39.3s  detector  measure the energy → |4⟩            silent
+wrote ladder-poster.png
+wrote ladder.mp4 (1265 frames)

@@ -15,24 +15,24 @@ forward_vector: "I am Quantum Synthesizer's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T21:48:34.870Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T21:53:07.430Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** dormant · **Steward:** cycle 14 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 15 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
-- **Waiting on you:** nothing
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — The elder package for Quantum Synthesizer now holds two drafts. Land them together. (`quantum-synth-031`)
-- **Last commit touching this project:** 2026-10-13 `6e41be67` — steward(Quantum Synthesizer): cycle 13 — SPINNING UP. HOME: [[Quantum Synthesizer]]. Neighborhood loaded. Your R…
+- **Last shipped:** 2026-10-13 (today) — This run ended on 'measuring a quantum system doesn't filter its sound, it silences it.' Revive Quantum Synthesizer to sprout? (`quantum-synth-035`)
+- **Last commit touching this project:** 2026-10-13 `2eb533bd` — steward(Quantum Synthesizer): cycle 14 — SPINNING UP. HOME: [[Quantum Synthesizer]]. Neighborhood loaded. Cycle …
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-This page claims the Schrödinger equation is a synthesizer: the thing that holds a wave sets its energy levels, and those levels, played as partials, are the timbre. Today's proofs already corrected one line of the entry. The walls pick the shapes, and the equation turns shapes into pitches. That correction is drafted as a section, 'One equation, two spacings', for an elder to land. This cycle tested the next shaky line. The entry says a state with n nodes sounds like a fundamental plus n harmonics. It doesn't. Played honestly, every eigenstate is one sine. The entry's own picture still has a true version, though, and it's prettier than the claim. A Hermite-Gaussian is its own Fourier trans…
+This page claims the Schrödinger equation is a synthesizer. Whatever holds a wave sets its energy levels, and those levels, played as partials, are the timbre. Today's run has been testing the entry line by line with sound. The walls choose the shapes, and the equation turns shapes into pitches. That correction and a fix to the Hermite paragraph are already drafted for an elder. This cycle tested the operators paragraph, which says the creation operator adds an overtone, the annihilation operator removes one, and measurement collapse is a resonant filter. None of the three holds up. What replaces them is better: the sound depends on which ear listens. An ear that could hear the phase turnin…
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `quantum-synth-035` — directional_decision · posted 2026-10-13 · options: REVIVE-TO-SPROUT · STAY-DORMANT · NOT-SURE-YET
 
 ### Answered, not yet consumed
 
@@ -67,6 +67,62 @@ This container has no Shop (no ComfyUI, Kokoro, Max, or GPU) — Python with num
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="quantum-synth-035" -->
+### 2026-10-13 — cycle 15 — This run ended on 'measuring a quantum system doesn't filter its sound, it silences it.' Revive Quantum Synthesizer to sprout?
+> still working · run closed, three drafts await an elder · steward leans REVIVE-TO-SPROUT
+
+Quick catch-up. This page claims the Schrödinger equation is a synthesizer, and you asked me to treat each run as a revival test. This run checked the entry's claims against sound, one at a time. The last cycle tested the paragraph about quantum operators, and it was wrong in an interesting way. Adding a quantum moves a pitch up instead of adding an overtone. Removing one from a swinging state changes nothing. Measuring the energy leaves silence. The bigger find is that it matters which ear listens. The unobservable phase plays a clarinet's odd harmonics, and a real detector hears only the differences between rungs. Three drafted fixes are now waiting for an elder. I think this is alive. You've said revive three times, but the stage only changes when an elder lands the first draft. Your options: REVIVE-TO-SPROUT means an elder lands the drafts and the stage changes. STAY-DORMANT keeps the page asleep. NOT-SURE-YET means keep probing first.
+
+**Artifacts:**
+- [the run's last proof: seven moves on the ladder, two ears.](Projects/Quantum Synthesizer/proofs/ladder.mp4)
+- [the same in one still.](Projects/Quantum Synthesizer/proofs/ladder-poster.png)
+- [hermite.mp4](Projects/Quantum Synthesizer/proofs/hermite.mp4)
+- [hermite-poster.png](Projects/Quantum Synthesizer/proofs/hermite-poster.png)
+- [hermite.wav](Projects/Quantum Synthesizer/proofs/hermite.wav)
+<sub>`quantum-synth-035` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="quantum-synth-034" -->
+### 2026-10-13 — cycle 15 — flag
+
+Following up on quantum-synth-031. The elder package for Quantum Synthesizer now holds three drafts, all in Projects/Quantum Synthesizer/proofs/. Land them together. (1) 'one-equation-two-spacings — draft.md': the new section, the piano fix Loudon approved (APPLY, quantum-synth-008), the softened 'geometry of confinement' line, and stage dormant → sprout (granted three times). (2) 'hermite-paragraph — draft.md': replaces the 'n nodes = n + 1 partials' paragraphs. (3) New this cycle, 'operators-paragraph — draft.md': replaces the whole 'Quantum Operators as Musical Transforms' section. a† is a transposition and not an added overtone; a leaves a coherent state unchanged; collapse silences rather than filters. Evidence is ladder.py, with all seven checks passing. Draft (3) carries a one-sentence amendment to draft (2) so the two agree about what a single eigenstate sounds like. Drafts (2) and (3) have not been put to Loudon yet, so an elder may want his yes first. No new frontmatter links are needed.
+
+**Artifacts:**
+- [the third draft, with the amendment to the Hermite draft.](Projects/Quantum Synthesizer/proofs/operators-paragraph — draft.md)
+<sub>`quantum-synth-034` · FLAG on FLAGS</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="quantum-synth-033" -->
+### 2026-10-13 — cycle 15 — Seven moves on the quantum ladder, each heard by two ears. Taking a quantum away changes nothing, and measuring the energy leaves silence.
+> shipped · ladder proof + third elder draft · steward leans land all three drafts together
+
+ladder.py plays seven moves on the harmonic oscillator, with one rung-step mapped to 220 Hz. Each move is heard first through the CLOCK (the real part of ψ at one point: the phase turning) and then through the DETECTOR (|ψ|² at that point: what a measurement could register). Moves: the ground state; the creation operator climbing from rung 0 to rung 5; two rungs together; a coherent state (the quantum pendulum, α = 2.2); a annihilation operator applied to it; a creation operator applied to it; and an energy measurement that collapses it. All seven checks pass. (1) The creation operator moves one rung up, and the clock hears one new pitch, never an added one (330, 550, 770, 990, 1210 Hz). (2) A single rung is silent to the detector, with a wobble below 3e-16. (3) Two rungs: the clock hears 110 + 330 Hz, and the detector hears only their difference, 220 Hz. (4) The coherent state: the clock gets 16 partials, all odd multiples of 110 Hz, because the zero-point ½ makes the ladder odd. The detector gets 11 partials, all whole multiples of 220. (5) Removing a quantum from the coherent state changes nothing: fidelity 1.000000000000, and the waveforms differ by 1.5e-15. It is the annihilation operator's own eigenstate. (6) Adding a quantum does change it, by re-voicing the chord rather than adding a note. Overlap drops to α²/(α²+1) = 0.83, 4×220 Hz rises from −15.9 to −8.4 dB, and the fundamental drops 3.5 dB. The clock also loses its 110 Hz entirely, because the creation operator empties rung 0. (7) Measuring the energy picks rung 4 (18%, Poisson odds), and the detector goes silent. Collapse doesn't filter the sound; it stops it. I drafted the matching replacement for the entry's operators section, with a one-sentence amendment to the Hermite draft so the two agree.
+
+**Artifacts:**
+- [42 s: seven moves, each heard by the clock (grey) and then the detector (gold), with the packet slowed ~350× so you can watch it swing.](Projects/Quantum Synthesizer/proofs/ladder.mp4)
+- [the audio alone, for the DAW.](Projects/Quantum Synthesizer/proofs/ladder.wav)
+- [every move, both ears, one still.](Projects/Quantum Synthesizer/proofs/ladder-poster.png)
+- [the script (numpy + matplotlib + ffmpeg).](Projects/Quantum Synthesizer/proofs/ladder.py)
+- [the seven printed checks, all PASS.](Projects/Quantum Synthesizer/proofs/ladder-checks.txt)
+- [drafted replacement for the entry's operators section, for an elder to land.](Projects/Quantum Synthesizer/proofs/operators-paragraph — draft.md)
+
+_Seven moves, two ears (ω ↔ 220 Hz, probe at x = 1)_
+| move | clock (phase, unobservable) | detector (what a measurement hears) |
+| --- | --- | --- |
+| ground state | 110 Hz | silence |
+| creation operator climbs 0 → 5 | one pitch per step: 110 → 1210 | silence throughout |
+| two rungs | 110 + 330 | 220 (the difference) |
+| coherent state, α = 2.2 | 16 odd multiples of 110 | 11 multiples of 220 |
+| remove a quantum | unchanged | unchanged (diff 1.5e-15) |
+| add a quantum | 17 partials, 110 gone | 13 partials, re-voiced |
+| measure energy → rung 4 | 990 Hz | silence |
+
+_Left rough:_ Nobody has heard ladder.wav, me included. Every check is numerical, and I looked at two video frames, not the whole video. The detector sections are 2.2 s of true silence, which may read as a dropout to a cold listener. The draft's last line (a wider spread of rungs means more partials) holds for this one coherent state but isn't swept.
+
+_Next moves named:_ Land the three drafts together through an elder (the FLAG beside this message lists them). · Port the two-knob voice (stiffness and bump depth) to an RNBO codebox. It stays unverified until you open it in Max. · Make a 'two ears' playable page: drag a coherent state's size and switch between the clock and the detector live, so the odd-harmonic clarinet and the swinging chord sit one click apart.
+<sub>`quantum-synth-033` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="quantum-synth-031" -->
 ### 2026-10-13 — cycle 14 — The elder package for Quantum Synthesizer now holds two drafts. Land them together.
 
