@@ -72,7 +72,7 @@ class R3Crowd extends Crowd {
     }
     this.setP(this.p);
   }
-  setP(p) { this.p = p; if (!this.pu) return; for (let i = 0; i < this.N; i++) this.listen[i] = this.pu[i] < p ? 0 : 1; this.lastPh = null; }
+  setP(p) { this.p = p; if (!this.pu) return; const m = Math.floor(p * this.N + 0.5); for (let i = 0; i < this.N; i++) { let r = 0; for (let j = 0; j < this.N; j++) if (this.pu[j] < this.pu[i]) r++; this.listen[i] = r < m ? 0 : 1; } this.lastPh = null; }
 }
 
 const SR = 48000;

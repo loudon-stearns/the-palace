@@ -11,7 +11,7 @@ class R3Crowd extends Crowd {
     for (let i = 0; i < n; i++) { this.jit[i] = 2 * fract(0.5 + i * 0.8191725133961645) - 1; this.pu[i] = fract(0.5 + i * 0.6710436067037893);
       this.th[i] = 2 * Math.PI * fract(0.5 + i * 0.5497004779019703); this.c[i] = Math.cos(this.th[i]); this.sn[i] = Math.sin(this.th[i]); }
     this.setP(this.p); }
-  setP(p) { this.p = p; if (!this.pu) return; for (let i = 0; i < this.N; i++) this.listen[i] = this.pu[i] < p ? 0 : 1; }
+  setP(p) { this.p = p; if (!this.pu) return; const m = Math.floor(p * this.N + 0.5); for (let i = 0; i < this.N; i++) { let r = 0; for (let j = 0; j < this.N; j++) if (this.pu[j] < this.pu[i]) r++; this.listen[i] = r < m ? 0 : 1; } }
 }
 const sr = 24000, F = [0.6, 0.8, 0.9, 0.95, 1.0, 1.05, 1.1, 1.2, 1.3], P = [0, 0.3, 0.5, 0.68];
 const CROWDS = [["128 random", Crowd, 128, [7, 11, 23]], ["512 random", Crowd, 512, [7, 11, 23]], ["128 evenly spread", R3Crowd, 128, [0]]];

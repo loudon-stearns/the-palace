@@ -25,6 +25,13 @@
 // `crowd` never reshuffles the crowd, it just admits or dismisses
 // neurons. Pacemaker sets nest: life 0.2 contains life 0.1.
 //
+// PACEMAKER HEADCOUNT (cycle 14): life picks exactly round(life·N)
+// pacemakers — the neurons whose role number ranks lowest among the
+// current crowd. The first version made every neuron with a role number
+// under `life` a pacemaker, which at 128 neurons and life 0.5 gave 59
+// instead of 64; the crowd then locked 8% early. Ranks are recounted
+// only when `crowd` moves (N² compares, once), never per sample.
+//
 // MIRROR: RNBO/codebox_mirror.mjs runs THIS FILE'S TEXT as JavaScript
 // and holds it against crowd_engine.js (given the same spreads), sample
 // by sample. What a match proves: the arithmetic is the board
@@ -70,7 +77,8 @@ const SPK  = 1024;      // spike table
 @state cs  = new FixedFloat64Array(512);   // cos θ, rotated incrementally
 @state sn  = new FixedFloat64Array(512);   // sin θ
 @state jit = new FixedFloat64Array(512);   // natural-rate offset, −1..1
-@state pu  = new FixedFloat64Array(512);   // pacemaker if pu < life
+@state pu  = new FixedFloat64Array(512);   // role number, 0..1
+@state rk  = new FixedFloat64Array(512);   // rank of pu among the first N; pacemaker if rk < round(life·N)
 @state acc = new FixedFloat64Array(1024);  // overlapping spikes land here
 @state spk = new FixedFloat64Array(1024);  // one prescribed spike
 @state spkL = 0;
@@ -145,12 +153,19 @@ let twopi = 6.283185307179586;
 let dt = 1.0 / samplerate;
 let K = tight * 4.0 * spread / PI;
 
-// the mean field from the end of the last sample (recount if N moved)
+// the mean field from the end of the last sample, and the pacemaker
+// ranks (recount both if N moved)
 if (N != lastN) {
     sx = 0.0; sy = 0.0;
-    for (let i = 0; i < N; i++) { sx += cs[i]; sy += sn[i]; }
+    for (let i = 0; i < N; i++) {
+        sx += cs[i]; sy += sn[i];
+        let r = 0;
+        for (let j = 0; j < N; j++) { if (pu[j] < pu[i]) r += 1; }
+        rk[i] = r;
+    }
     lastN = N;
 }
+let nPace = floor(life * N + 0.5);
 
 f0s += (freq - f0s) * (1.0 - exp(-1.0 / (glide * samplerate + 1.0)));
 let w0 = twopi * f0s;
@@ -163,7 +178,7 @@ let cx = 0.0; let cy = 0.0; let nf = 0;
 let resync = (clock % 64) == 0;
 
 for (let i = 0; i < N; i++) {
-    let listen = pu[i] < life ? 0.0 : 1.0;
+    let listen = rk[i] < nPace ? 0.0 : 1.0;
     let d = (w0 * (1.0 + spread * jit[i]) + Kabs * listen * (Zy * cs[i] - Zx * sn[i]) + push) * dt;
     let t = th[i] + d;
     if (t >= twopi) {                   // spike, placed at its sub-sample time

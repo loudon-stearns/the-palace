@@ -15,20 +15,20 @@ forward_vector: "I am Neural Granular Synthesis's scroll — the one page that a
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T22:14:11.315Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T22:22:29.179Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 13 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** growing · **Steward:** cycle 14 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — About half of last cycle's 'pacemakers soften the lock' was just a small crowd. A narrower softening survives at 512 neurons. (`ngs-steward-021`)
-- **Last commit touching this project:** 2026-10-13 `77343837` — steward(Neural Granular Synthesis): cycle 12 — SPINNING UP. HOME: [[Neural Granular Synthesis]]. Neighborhood loaded. …
+- **Last shipped:** 2026-10-13 (today) — The codebox picked the wrong number of pacemakers, and that's fixed. Fixing it showed the soft lock comes from a lumpy crowd, not from life. (`ngs-steward-023`)
+- **Last commit touching this project:** 2026-10-13 `dfa1a6bc` — steward(Neural Granular Synthesis): cycle 13 — The crowd now exists as an RNBO codebox, up to 512 neurons, and it matc…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Neural Granular Synthesis plays a crowd of neurons whose agreement is the timbre. The lock edge is the tightness where hiss snaps into a tone, and theory puts it at 1/(1 − life). Last cycle measured that adding pacemakers leaves the edge in place but turns the snap into a crossfade. I warned that some of that might only be a small crowd: at 68% pacemakers just 41 of the 128 neurons are still following. This cycle tests that warning.
+Neural Granular Synthesis plays a crowd of neurons whose agreement is the timbre. Two knobs drive it. Tightness is how hard the neurons pull on each other. Life is the share of pacemakers that ignore the pull. Past the lock edge, which theory puts at tightness 1/(1 − life), hiss snaps into a tone. The crowd now exists as an RNBO codebox (RNBO/crowd.codebox) that nobody has compiled yet. Two cycles ago I reported that pacemakers soften the snap into a crossfade. Last cycle I showed that much of that was a small crowd. This cycle found a counting bug in the codebox and fixed it. With the bug gone, most of what was left of the softening goes away too.
 
 ### Open asks
 
@@ -59,6 +59,42 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="ngs-steward-023" -->
+### 2026-10-13 — cycle 14 — The codebox picked the wrong number of pacemakers, and that's fixed. Fixing it showed the soft lock comes from a lumpy crowd, not from life.
+> shipped · codebox fixed, still matches the board · steward leans give lumpiness its own knob
+
+THE BUG. The codebox made every neuron whose role number fell under `life` a pacemaker. With 128 neurons at life 0.5 that gives 59 pacemakers, not 64. More followers means an earlier lock, so the crowd locked 8% early. That was last cycle's open puzzle. The followers' natural rates were never bunched: their spread is 0.574–0.579 under both rules, against 0.577 for a perfectly even spread. Now `life` picks exactly round(life × crowd size) pacemakers, taking the lowest role numbers first. Pacemaker sets still nest. Ranks are recounted only when the crowd knob moves, not on every sample. After the fix, the lock point I computed lands within 1% of theory for every crowd and life (table below). The codebox still matches the board engine: 135 dB under the signal at 128 neurons and 123 dB under at 512. I re-rendered crowd-codebox-take.wav from the fixed file.
+
+THE FIND. I re-swept the edge with evenly spread crowds under the fixed rule (edge-headcount.png, right two panels). At 512 evenly spread neurons with no pacemakers, synchrony sits at 0.08 at 0.95× the edge and jumps to 0.62 at 1.0×. With 68% pacemakers it is 0.32 at 0.95× and 0.78 at 1.0×. So the lock is a switch at any life. The softening I reported comes from lumpiness: random rates and phases add noise to the crowd's shared pull, and pacemakers add more noise only when the crowd is small or random. Life still moves the edge exactly as theory says. What it doesn't do is set how soft the attack is.
+
+WHY IT MATTERS FOR PLAYING. A soft attack is a nice thing to play with, but it shouldn't be a side effect of how the crowd happened to be seeded. I lean toward a third knob, lumpiness: a controlled amount of random scatter in the natural rates, laid over the even spread. Then tightness says where the lock is, life says where the edge sits and how much the tone breathes, and lumpiness says how hard the lock hits.
+
+**Artifacts:**
+- [four crowds: random crowds lock softly, evenly spread ones with the fixed headcount lock like a switch at every life.](Projects/Neural Granular Synthesis/edge-headcount.png)
+- [the codebox with the pacemaker headcount fixed (exactly round(life·N), ranks recounted only when crowd moves).](Projects/Neural Granular Synthesis/RNBO/crowd.codebox)
+- [the 51 s walk re-rendered by the fixed codebox.](Projects/Neural Granular Synthesis/RNBO/crowd-codebox-take.wav)
+- [mirror check, with the board engine given the same fixed headcount.](Projects/Neural Granular Synthesis/RNBO/codebox_mirror.mjs)
+- [match: −135 dB at 128 neurons, −123 dB at 512.](Projects/Neural Granular Synthesis/RNBO/codebox_mirror_report.json)
+- [the diagnosis (headcount, follower rates, computed lock point) and the re-sweep.](Projects/Neural Granular Synthesis/render_edge_headcount.js)
+- [diagnosis table and sweep data.](Projects/Neural Granular Synthesis/edge-headcount.json)
+- [draws the plate.](Projects/Neural Granular Synthesis/plot_edge_headcount.py)
+- [last cycle's sweep, updated to the fixed rule so it can be re-run like for like.](Projects/Neural Granular Synthesis/render_edge_crowds.js)
+
+_Evenly spread crowd: pacemakers chosen, and the computed lock point ÷ theory's 1/(1 − life)_
+| crowd | life | old rule: pacemakers | old: lock ÷ theory | fixed: pacemakers | fixed: lock ÷ theory | random crowds: lock ÷ theory |
+| --- | --- | --- | --- | --- | --- | --- |
+| 128 | 30 % | 36 | 0.973 | 38 | 0.991 | 1.000 |
+| 128 | 50 % | 59 | 0.918 | 64 | 0.995 | 0.991 |
+| 128 | 68 % | 86 | 0.968 | 87 | 0.990 | 0.978 |
+| 512 | 50 % | 252 | 0.982 | 256 | 0.997 | 0.990 |
+| 512 | 68 % | 345 | 0.978 | 348 | 0.995 | 0.994 |
+
+_Left rough:_ The fixed codebox is still uncompiled. Recounting ranks at 512 neurons costs about 262,000 comparisons in the one sample where the crowd knob moves, which could click while you turn that knob in Max. I also haven't tested the lumpiness knob; I only inferred it from this sweep. The project's spec and the codebox's audition steps (step 5) still say life sets the attack, and that's now wrong. The spec is yours or an elder's to change.
+
+_Next moves named:_ Build the lumpiness knob: random rate scatter over the even spread, swept against the edge, to show it controls how hard the lock hits without moving the edge. · Correct the codebox's audition steps and propose the spec correction (life moves the edge and makes the tone breathe; lumpiness sets the attack). · Still waiting on you, whenever you like: paste crowd.codebox into an rnbo~ and tell me what Max says.
+<sub>`ngs-steward-023` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="ngs-steward-021" -->
 ### 2026-10-13 — cycle 13 — About half of last cycle's 'pacemakers soften the lock' was just a small crowd. A narrower softening survives at 512 neurons.
 > shipped · 512-neuron edge sweep · steward leans the finding is real but smaller
