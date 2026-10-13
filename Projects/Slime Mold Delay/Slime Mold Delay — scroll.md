@@ -15,19 +15,20 @@ forward_vector: "I am Slime Mold Delay's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-23T04:36:43.543Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — steer the project in **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T23:04:06.003Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 7 · last ran 2026-08-26 (28 days ago)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 8 · last ran 2026-10-13 (today)
+- **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-06-23 (91 days ago) — Live-growth engine is up. Where should cycle 7 go — Stage 4 dynamics, the visual dish, or Loudon Live lesson scaffolding? (`slime-mold-delay-steward-011`)
-- **Last commit touching this project:** 2026-09-22 `86de4a5` — ops(Slime Mold Delay): flush working proofs, renders + code
-- **Signal:** ⚠ the last cycle posted nothing (one barren cycle — the lane will retry before calling it stalled)
+- **Last shipped:** 2026-10-13 (today) — The mold now grows on the real mold's flow law. Loud food gets fat roads to the listener, and when the music moves, the network follows it. (`slime-mold-delay-steward-013`)
+- **Last commit touching this project:** 2026-09-26 `5b8a1564` — ops(frontmatter): strip retired activation_count/last_activated from 244 entries — v1.26
+- **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Caught up: Slime Mold Delay is the grown-routing delay instrument. Cycle 4 shipped a static web-audio bench (click-free 60 ms ramps); cycle 6 just shipped slime-mold-live-growth.html — autonomous spawn/prune at 30 Hz on top of that bench. The forward-vector ladder has three remaining rungs: Stage 4 (full Physarum dynamics — tip-extension probes, ghost-tubes that retract if they reach nothing, total-length budget enforcement), the p5 visual dish (food placement, visible filament growth, audio wired into it — currently the canvas draws bezier proxies, not real growth), or jumping to the Stage 5 Loudon Live lesson scaffolding (the 'watching a delay think' arc). My lean: Stage 4, because tip-ex…
+Slime Mold Delay is a delay effect whose routing is grown rather than designed. Each tube of a slime mold is a delay line: its length sets the delay time, and its thickness sets how much signal it carries. You place food (sound sources) and a sink (the listener), and the mold works out the network. In June there was a browser bench that grows and prunes tubes live. You picked the full growth behaviour next: feeler tips that reach out, tubes that pull back when they find nothing, and a cap on total tube length. A September attempt drafted that but never posted it, and the draft never settled: 31 tubes grew and 31 were pruned in 24 seconds, because each tube was judged against the average tub…
 
 ### Open asks
 
@@ -43,6 +44,12 @@ _None._
 
 <!-- scroll:now:end -->
 
+## Plan
+
+<!-- scroll:plan:start -->
+_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+<!-- scroll:plan:end -->
+
 ## Standing Orders
 
 <!-- scroll:orders:start -->
@@ -52,6 +59,55 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="slime-mold-delay-steward-013" -->
+### 2026-10-13 — cycle 8 — The mold now grows on the real mold's flow law. Loud food gets fat roads to the listener, and when the music moves, the network follows it.
+> shipped · five dishes rendered offline · steward leans: bring this engine into the browser page next
+
+Start with [the figure](open:Projects/Slime Mold Delay/headless/2026-10-13-flow-dishes.png). It has five dishes in rows, each shown at six moments across 30 seconds. Yellow dots are food, and they swell while they're sounding. The red dot is the listener. Thick gold lines are tubes (delay lines). Faint wandering threads are feeler tips, and brown threads are tips that gave up.
+
+**Left music and right music** (rows 1–2). It's the same dish and the same random seed. Only the flakes being played differ. With the two left flakes playing, the mold grows two fat roads from them to the listener. With the two right flakes playing, the roads grow on the right. Listen to [left](open:Projects/Slime Mold Delay/headless/2026-10-13-flow-left.wav) and [right](open:Projects/Slime Mold Delay/headless/2026-10-13-flow-right.wav). The echoes come from where the music is.
+
+**The music moves** (row 3, [listen](open:Projects/Slime Mold Delay/headless/2026-10-13-flow-moves.wav)). This one is the headline. For 15 seconds the left flakes play, then the right ones take over. The first tip reaches the right food 2.3 seconds after the switch. The left roads have thinned to nothing by about 22 seconds, and the network ends on the right. You can hear the delay rebuild itself under the music.
+
+**Feast and famine** (row 4, [listen](open:Projects/Slime Mold Delay/headless/2026-10-13-flow-feast-famine.wav)). All flakes play, and the eat/starve knob from the entry swings every six seconds. Eating sends out tips. Starving thins the tubes faster.
+
+**A tight budget** (row 5, [listen](open:Projects/Slime Mold Delay/headless/2026-10-13-flow-tight-budget.wav)). All five flakes play, but there is only enough tube length for about two roads. The budget refused 15 tips. The mold kept the two left flakes and reached the second one *through* the first, so they share a trunk. That's the economy the Tokyo-subway experiments are famous for, and I didn't write it in.
+
+What changed in the behaviour: in the fed dishes, tubes grown fell from 31 to 15 and tubes cut fell from 31 to 12. The mold explores less once every sounding flake is reached, and more while some sounding flake is still unreached. Because the sink is the colony's home, a starved network can always regrow from the listener. Sound travels both ways down each tube, strongly downstream and weakly upstream, the way the real mold's flow sloshes back and forth. So echoes can circulate around the network. If a tube's flow reverses, its two directions crossfade over a few frames instead of switching.
+
+The code is [physarum_flow.py](open:Projects/Slime Mold Delay/headless/physarum_flow.py). Each dish has a log of every frame and the [summary](open:Projects/Slime Mold Delay/headless/2026-10-13-flow-summary.json) lists every tube grown and cut, with timestamps. One shared gain across all five renders, so their loudness compares.
+
+**Artifacts:**
+- [five dishes, rows, at six moments each: left · right · music moves · feast and famine · tight budget.](Projects/Slime Mold Delay/headless/2026-10-13-flow-dishes.png)
+- [the headline: the music moves left to right at 15 s and the delay network rebuilds under it.](Projects/Slime Mold Delay/headless/2026-10-13-flow-moves.wav)
+- [left flakes playing; roads grow on the left.](Projects/Slime Mold Delay/headless/2026-10-13-flow-left.wav)
+- [same dish and seed, right flakes playing; roads grow on the right.](Projects/Slime Mold Delay/headless/2026-10-13-flow-right.wav)
+- [all flakes, eat/starve knob swinging every 6 s.](Projects/Slime Mold Delay/headless/2026-10-13-flow-feast-famine.wav)
+- [all flakes, room for about two roads; the mold picks, and shares a trunk.](Projects/Slime Mold Delay/headless/2026-10-13-flow-tight-budget.wav)
+- [the flow engine: Kirchhoff pressure, flow-driven growth, feeler tips, pull-back, length budget, two-way delay lines.](Projects/Slime Mold Delay/headless/physarum_flow.py)
+- [every tube grown and cut, with timestamps, plus counts per dish.](Projects/Slime Mold Delay/headless/2026-10-13-flow-summary.json)
+- [frame-by-frame log, left dish.](Projects/Slime Mold Delay/headless/2026-10-13-flow-left-log.csv)
+- [frame-by-frame log, right dish.](Projects/Slime Mold Delay/headless/2026-10-13-flow-right-log.csv)
+- [frame-by-frame log, moving-music dish.](Projects/Slime Mold Delay/headless/2026-10-13-flow-moves-log.csv)
+- [frame-by-frame log, feast-and-famine dish.](Projects/Slime Mold Delay/headless/2026-10-13-flow-feast-famine-log.csv)
+- [frame-by-frame log, tight-budget dish.](Projects/Slime Mold Delay/headless/2026-10-13-flow-tight-budget-log.csv)
+
+_five dishes · 30 s each · same seed_
+| dish | tubes grown | tubes cut | tips that gave up | tips refused by the budget | where the network ended |
+| --- | --- | --- | --- | --- | --- |
+| left music | 15 | 12 | 3 | 0 | two fat roads from the left flakes |
+| right music | 15 | 12 | 1 | 0 | two fat roads from the right flakes |
+| music moves at 15 s | 10 | 8 | 3 | 0 | right roads; left gone by ~22 s |
+| feast and famine | 9 | 6 | 3 | 1 | three roads, one shared trunk on the right |
+| tight budget | 10 | 9 | 3 | 15 | two left flakes on one shared trunk |
+| September draft (for comparison) | 31 | 31 | — | 0 | two thin tubes; never settled |
+
+_Left rough:_ I haven't heard any of it. The music is plain plucks, so whether a growing network *sounds* like thinking is your ear's call. Growth changes are ramped and should be click-free, but my numeric click check can't tell a click from a pluck, because the mold grows exactly when food is sounding. The figure has no labels on its rows (no plotting library on this machine), so the row order is in the caption. The ten bare agar spots are random points, not real branch points mid-tube.
+
+_Next moves named:_ Port this flow law into the browser page (slime-mold-live-growth.html), replacing its stand-in rule, so you can place food, play into it and watch the real growth: the step on the plan after this one, the realtime version. · Let a tip branch from partway along a tube, not only from its ends, so shared trunks can fork wherever they need to, which is closer to the real mold.
+<sub>`slime-mold-delay-steward-013` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="slime-mold-delay-steward-011" -->
 ### 2026-06-23 — cycle 6 — Live-growth engine is up. Where should cycle 7 go — Stage 4 dynamics, the visual dish, or Loudon Live lesson scaffolding?
 > still working · cycle 6 shipped · steward leans STAGE-4-DYNAMICS
