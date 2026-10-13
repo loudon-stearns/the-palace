@@ -15,24 +15,24 @@ forward_vector: "I am Quantum Synthesizer's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-23T05:01:36.000Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — steer the project in **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T18:54:31.079Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** dormant · **Steward:** cycle 6 · last ran 2026-09-23 (today)
-- **Waiting on you:** 2 open asks
+- **Status:** active · **Stage:** dormant · **Steward:** cycle 7 · last ran 2026-10-13 (today)
+- **Plan:** none agreed yet — the work leans on the forward vector
+- **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-09-23 (today) — The entry says piano partials go sharp because the string turns nonlinear. They don't. Apply my drafted fix? (`quantum-synth-008`)
-- **Last commit touching this project:** 2026-09-23 `239cb8c` — steward(Quantum Synthesizer, Waveguide Synthesizer): pilot cycles 5 and 8 under the run contract
+- **Last shipped:** 2026-10-13 (today) — The first real video: five wells, five timbres, all on one pitch scale. Then a particle tunnels across a wall, and stays home once the wall is tipped. (`quantum-synth-010`)
+- **Last commit touching this project:** 2026-09-26 `5b8a1564` — ops(frontmatter): strip retired activation_count/last_activated from 244 entries — v1.26
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Quantum Synthesizer claims the Schrödinger equation is a synthesis engine: the shape of a potential well sets the spacing of its energy levels, and those spacings, played as partials, are the timbre. By now three things are settled. In June a parabola rang a clean G3 and a quartic-bent well rang a bell (cycle 3). Earlier today a page and a WAV bent one into the other on a single timeline (cycle 5). This cycle raised a wall in the middle of the parabola until it became two wells, a shape no single well can make. A particle crosses that wall only by tunnelling, and tunnelling splits every level into a close pair. Two partials that close together beat. I built it, measured it, and then went a…
+Quantum Synthesizer claims the Schrödinger equation is a synthesizer. The shape of a potential well sets the spacing of its energy levels, and those spacings, played as partials, are the timbre. By September three wells had been heard one at a time: a parabola rings a clean G3, a quartic-bent well rings a bell, and a double well splits every level into a pair that beats. You granted both September asks: the stage goes to sprout, and the piano paragraph gets fixed. This cycle put all the wells into one 34-second video and added the two the atlas was missing. A Morse well (the shape of a chemical bond) runs out of partials. A double well tipped by a hair stops tunnelling.
 
 ### Open asks
 
-- `quantum-synth-006` — directional_decision · posted 2026-09-23 · options: REVIVE-TO-SPROUT · STAY-DORMANT · NOT-SURE-YET
-- `quantum-synth-008` — entry_text_fix · posted 2026-09-23 · options: APPLY · ADJUST · LEAVE
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
@@ -40,9 +40,17 @@ _None._
 
 ### Decided
 
+- `quantum-synth-008` — entry_text_fix → GRANTED — option_id=APPLY (2026-09-24)
+- `quantum-synth-006` — directional_decision → GRANTED — option_id=REVIVE-TO-SPROUT (2026-09-24)
 - `quantum-synth-004` — directional_steer → GRANTED — option_id=VIDEO-NEXT (2026-06-25)
 
 <!-- scroll:now:end -->
+
+## Plan
+
+<!-- scroll:plan:start -->
+_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+<!-- scroll:plan:end -->
 
 ## Standing Orders
 
@@ -57,6 +65,47 @@ This container has no Shop (no ComfyUI, Kokoro, Max, or GPU) — Python with num
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="quantum-synth-010" -->
+### 2026-10-13 — cycle 7 — The first real video: five wells, five timbres, all on one pitch scale. Then a particle tunnels across a wall, and stays home once the wall is tipped.
+> shipped · first MP4 · two new wells, both checked · steward leans LOPSIDED-SWEEP next
+
+Start with [the video](open:Projects/Quantum Synthesizer/proofs/timbre-atlas.mp4). Each well is struck once for 4.5 s while the picture shows the well, its eigenfunctions sitting on their energy levels, and its partials against grey lines marking the harmonic series. Every well uses the same scale: one energy unit is 196 Hz and every ground state sits on G3. Nothing is stretched to fit, so the distance between two wells' partials is real.
+
+The two new wells:
+
+**Morse.** V = 4·(1 − e^(−x/√8))². The levels crowd together as they climb, then stop. Above the rim the particle is free, so the instrument has exactly 8 partials, all below 900 Hz, packed tight at the top. It's the first well in the atlas with a ceiling. The textbook gives exact Morse levels, and the solver matches all eight to within 0.04 Hz.
+
+**Lopsided double well.** This is September's double well plus 0.02·x, a tilt you can barely see. The lowest pair's beat jumps from 1.4 Hz to 12.7 Hz, while the higher pairs barely move (6.3 to 16.9 Hz, then 20.4 to 27.0 Hz). Tunnelling was weakest at the bottom, so the tilt overwhelms it there first.
+
+The last 12 s answer a physical question with no additive recipe. A particle is dropped in the left well and the Schrödinger equation runs forward. The sound is ψ read at a pickup in the left well, and both halves use one gain, so loudness counts as evidence. In the even well the particle crosses and comes back, and the chance it is on the left falls to 1.6%. In the tipped well it never drops below 92%. The quietest-to-loudest swing at the pickup is 0.09 even and 0.46 tipped: the sound empties in one and barely dips in the other. A two-level estimate for the lowest pair predicts at most 1.2% crossing, and that agrees.
+
+I also made [the poster](Projects/Quantum Synthesizer/proofs/timbre-atlas-poster.png), with all five wells in one row, the audio alone as [the WAV](open:Projects/Quantum Synthesizer/proofs/timbre-atlas.wav), and [the generator script](Projects/Quantum Synthesizer/proofs/timbre_atlas.py), which prints every check.
+
+On reviving, plainly: yes, still alive. Your REVIVE-TO-SPROUT grant from 24 September hasn't reached the entry yet, though. It still says dormant, and the piano paragraph you approved for replacement is still there. I've flagged both for an elder rather than asking you again.
+
+**Artifacts:**
+- [34.5 s, 1280×720: five wells struck in turn, then a particle tunnelling in the even well and staying home in the tipped one. Picture locked to the sound.](Projects/Quantum Synthesizer/proofs/timbre-atlas.mp4)
+- [all five wells in one row: well and eigenfunctions above, partials against the harmonic series below.](Projects/Quantum Synthesizer/proofs/timbre-atlas-poster.png)
+- [the same 34.5 s of audio alone, for the DAW.](Projects/Quantum Synthesizer/proofs/timbre-atlas.wav)
+- [the generator: solver, additive strikes, time evolution, ffmpeg render, and every check it prints.](Projects/Quantum Synthesizer/proofs/timbre_atlas.py)
+
+_the atlas by the numbers (from the script's printed checks)_
+| well | first partials (Hz) | what you hear | check |
+| --- | --- | --- | --- |
+| parabola | 196, 392, 588, 784 | clean harmonic G3 | FFT matches solver to 0.01 Hz |
+| quartic-bent | 196, 433, 702, 994 | stretched bell | FFT matches to 0.01 Hz |
+| double well | 196/197.4, 613/620, 996/1016 | pairs beat at 1.4, 6.3, 20.4 Hz | 1.4 Hz pair too close for a 4.5 s FFT; September measured it from the beat |
+| lopsided (+0.02·x) | 196/208.7, 614/631, 998/1025 | beats 12.7, 16.9, 27.0 Hz: rough, not swelling | FFT matches to 0.01 Hz |
+| Morse | 196, 368, 515, 637 … 882 | 8 partials, crowding, then a ceiling | matches the exact formula to 0.04 Hz |
+| particle, even well | — | pickup swells and empties | lowest chance on the left 1.6% |
+| particle, tipped well | — | pickup barely dips | lowest chance on the left 92% (two-level estimate: at most 1.2% crosses) |
+
+_Left rough:_ I haven't heard the audio. I measured it and looked at six frames pulled from the MP4, and they read cleanly, but nobody has listened through the 34 s yet. On the Morse frame the eigenfunction wiggles are drawn tiny (the spectrum carries the point). I also don't know whether the board plays MP4s inline; if it doesn't, the open: link hands the file to QuickTime.
+
+_Next moves named:_ Sweep the tilt slowly from 0 to 0.1 on one timeline so you can hear the slow tunnelling swell turn into roughness, with a chart of each pair's beat against the tilt. · Draft a short entry section, 'Tunnelling is beating; tilt is detuning', with this table as its proof, and hand it to an elder instead of editing. · Cross-domain proof to try: a piano's unison strings coupled through the bridge pair up and beat by the same two-level arithmetic (Weinreich 1977, check the citation first).
+<sub>`quantum-synth-010` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="quantum-synth-008" -->
 ### 2026-09-23 — cycle 6 — The entry says piano partials go sharp because the string turns nonlinear. They don't. Apply my drafted fix?
 > still working · fix drafted, entry untouched · steward leans APPLY
