@@ -15,24 +15,24 @@ forward_vector: "I am 2D Torus Wavetable Synthesizer's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T19:20:07.856Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T20:39:23.870Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 12 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 13 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — The first test piece is rendered. Is it music, and which part should the next étude chase? (`torus-steward-031`)
-- **Last commit touching this project:** 2026-10-13 `0d5a1482` — steward(2D Torus Wavetable Synthesizer): cycle 11 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
+- **Last shipped:** 2026-10-13 (today) — Étude No. 2 has a tempo, drums and a motif now. Does the groove land, and where should the next pass go? (`torus-steward-034`)
+- **Last commit touching this project:** 2026-10-13 `1a0ff26c` — steward(2D Torus Wavetable Synthesizer): cycle 12 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read the surface, and their ratio decides whether it sounds harmonic or shimmers. The instrument exists as five Max/RNBO codebox files. Over the last two cycles each one was checked, sample by sample, against the scripts that made the earlier auditions, and they all match. Nobody has opened them in Max yet. The page has long said the real proof is a piece of music: if the instrument doesn't yield music, the design needs rethinking. So this cycle I wrote one. Every voice in it is the Hopf codebox, the sphere controller with the hands and the dead-line voice, running from its own text on the WAV a Max buffer…
+This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read the surface, and their ratio decides whether it sounds harmonic or shimmers. It exists as Max/RNBO codebox files that match the earlier audition scripts sample for sample but haven't been opened in Max yet. Last cycle I wrote Étude No. 1, a 100-second piece played only by the Hopf codebox. You heard it as a story with clear sections and asked me to tell the whole story, with a steady tempo and groove in places and a melody built from a motif, repetition, sequence and variation. This cycle is Étude No. 2, which does that.
 
 ### Open asks
 
-- `torus-steward-031` — directional_decision · posted 2026-10-13 · options: LET-GO · STAIRCASE · HANDS · NOT-MUSIC
+- `torus-steward-034` — directional_decision · posted 2026-10-13 · options: GROOVE · B-THEME · LONGER · NOT-YET
 
 ### Answered, not yet consumed
 
@@ -40,7 +40,7 @@ _None._
 
 ### Decided
 
-_Nothing decided on the board yet._
+- `torus-steward-031` — directional_decision → GRANTED — (no option_id); notes: "The music is the entire thing, this feels sonically like a story is being told because the "sections" are clear and there are emotional tendencies for each. The answer isn't to pick one, it is to treate each as a section of a story and tell the entire story. This does have a classical feel without a steady tempo. To really sell "music" we need a clear tempo and "groove" for some sections, and if you are going to jump between pitches bring in the concept of motif and repetition, sequence and variations. Keep going, this is great!" (2026-10-13)
 
 <!-- scroll:now:end -->
 
@@ -59,6 +59,45 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="torus-steward-034" -->
+### 2026-10-13 — cycle 13 — Étude No. 2 has a tempo, drums and a motif now. Does the groove land, and where should the next pass go?
+> still working · No. 2 rendered and pitch-checked · steward leans GROOVE
+
+Catch-up: the torus synth's test piece now tells the whole story you heard in No. 1. It has a 100 BPM middle with a kick, a hat and a ducking pad, all made from the Hopf codebox, and a motif (A C E D) that is repeated, sequenced, inverted and slowed down. In one four-bar passage the dead lines slip exactly on eighth and quarter notes, so the mistuning becomes the rhythm. Listen here: [Étude No. 2](open:Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_told_whole.m4a). I'll keep going either way. My lean is to tighten the groove first, because the kick is more tom than kick and I can't judge the feel without ears. The other paths are a contrasting B theme so the story has two ideas, or writing up the voicing lesson.
+
+**Artifacts:**
+- [Étude No. 2, 110 s.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_told_whole.m4a)
+- [Spectrogram, sections labelled.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_told_whole.png)
+- [etude_one_sphere.wav](Projects/2D Torus Wavetable Synthesizer/Etude/etude_one_sphere.wav)
+- [etude_one_sphere.m4a](Projects/2D Torus Wavetable Synthesizer/Etude/etude_one_sphere.m4a)
+- [etude_one_sphere.png](Projects/2D Torus Wavetable Synthesizer/Etude/etude_one_sphere.png)
+<sub>`torus-steward-034` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="torus-steward-033" -->
+### 2026-10-13 — cycle 13 — Étude No. 2: the whole story at 100 BPM, with drums made from the codebox, a four-note motif, and the dead lines slipping on the beat.
+> shipped · 110 s, every voice the Hopf codebox · steward leans toward the groove sections next
+
+Same rule as before: every voice is RNBO/torus_2d_hopf.codebox run from its own text on a catalog WAV, and the score is only knob moves. The drums come from the codebox too. The kick is the Membrane surface with baseHz dropping from 170 to 48 Hz in a quarter second. The hat is Chladni Ghost scanned far off every ratio at 900 Hz, with stir up and 70 ms gates.
+
+The story keeps No. 1's sections. One point: the 1D synth plays the motif (A C E D, one bar) twice, rubato. Staircase: the sphere climbs through the locks, and the last four steps fall one per bar at 100 BPM, so the tempo arrives before the drums. The knot: kick, ducking pad and offbeat hat, then the melody states the motif, repeats it, sequences it up a fourth and then a fifth, comes home, steps down a tone and cadences. Let go, in time: the melody holds the tonic, and both voices let go by exactly the amount that makes their dead lines turn on the beat, Knot Shadow in eighth notes (measured 3.333 Hz) and Penrose in quarter notes (measured 1.667 Hz). For four bars the mistuning plays the groove. The hands: half-time kick, the Membrane drone with bend swinging once a bar, shear snapping on 2 and 4 like a backbeat, and stir swelling over four bars. Over that the motif plays at half speed, then a fourth up, then inverted an octave up, then cadences. Let go together: the kicks spread out, the tempo dissolves, and everything slips at once. Coda: the motif slowly once more, and the sphere glides back to the opening note.
+
+The main thing I learned is about voicing. Each surface on each lock sounds some partials and not others. Penrose turns out to be exactly five equal plane waves, so any lock makes it a five-note chord on fixed harmonics. On 1:2 it's an open fifth chord with one blue note, and that's the pad. Knot Shadow on 3:2, where No. 1 had it, is almost a pure sine two octaves and a third above the note. On 1:1 it's 88% fundamental, so the melody lives there. Every note in the piece was checked against the score from each voice rendered on its own: the melody lands on 220, 261.6, 329.6 and 293.7 Hz, and the pad on 220, 660, 880, 1210 and 1320 Hz.
+
+**Artifacts:**
+- [Étude No. 2, 110 s stereo, the listening copy.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_told_whole.m4a)
+- [Spectrogram with the sections labelled: you can see the motif's four-note shape repeat and climb under the kicks.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_told_whole.png)
+- [The score: voices, the motif, every section, and what voicing taught.](Projects/2D Torus Wavetable Synthesizer/Etude/Étude No. 2 — score.md)
+- [The renderer: five codebox voices, knob moves only, slip rates measured inside the codebox.](Projects/2D Torus Wavetable Synthesizer/Etude/render_etude_2.mjs)
+- [Spectrogram and peak-check script for No. 2.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_spectrogram_2.py)
+- [Lock targets visited per voice, plus the measured dead-line slip rates.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_locks.json)
+
+_Left rough:_ I can't hear it. The slip rates are exact on paper, but whether a 3.3 Hz dead line actually feels like eighth notes, and whether the kick sounds like a kick (its energy sits around 100–230 Hz, more tom than kick), only your ears can say. The hat leans on aliasing for its noise. The full WAV is 42 MB, so only the m4a is committed; `node render_etude_2.mjs` remakes it in about 6 seconds.
+
+_Next moves named:_ Whatever your ears say about the groove sections, tighten them first: kick weight, hat, and how the in-time let-go feels. · Give the motif a second idea, a B section answering it, so the story has a real contrast and not just variations of one cell. · Write the voicing lesson (Penrose as a chord machine, partial-by-lock) into the wavetables catalog as a table, since every future piece needs it.
+<sub>`torus-steward-033` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="torus-steward-031" -->
 ### 2026-10-13 — cycle 12 — The first test piece is rendered. Is it music, and which part should the next étude chase?
 > still working · étude shipped, unheard · steward leans LET-GO
