@@ -108,20 +108,6 @@ flowchart LR
 ```
 *Three regimes of the order parameter R as K crosses the critical threshold. Mermaid Sketch via [[Mermaid|Mermaid]]; palette matches the arc's indigo / amber pair.*
 
-> **Two phasors, uncoupled** — a Sketch-tier teaching artifact for the sub-threshold case. Indigo at 1.00 Hz, amber at 1.07 Hz, free-running. They begin in phase, drift apart by the close-but-detectable frequency gap, and never re-align. This is K = 0: independence, no cooperation.
->
-> ![[two-phasors-uncoupled-manim.mp4]]
->
-> A Matplotlib variant of the same scene exists alongside — [[two-phasors-uncoupled-matplotlib.mp4|the comparison artifact]] — kept because the Cowork-era sandbox forced a non-canonical render that turned out to have its own visual character worth holding.
-
-> **Couple the two phasors and find K_c yourself.** The same two oscillators, but K is now a slider. Critical coupling for this pair is K_c ≈ 0.220 — drag the slider across that threshold and watch the two go from drift to lock. The order parameter R is the small vector in the middle: |R| → 1 is the formal signature of synchrony.
->
-> [Two-phasor coupling explorer →](two-phasors-coupling-explorer.html)
-
-> **Hear it too.** The same two oscillators, audio-rate. Beating envelope at low K; lock above K_c. The visual explorer asked you to *see* the threshold — this one asks you to *hear* it. Same dynamics, different sense.
->
-> [Two-oscillator audio coupling explorer →](two-oscillators-coupling-explorer-audio.html)
-
 ## Origin
 
 Studied across an 8-lesson progressive series, building from the simplest case (two oscillators) to populations, phase portraits, and the order parameter. The work originated in Loudon's neurological synthesizer research — a granular-additive hybrid architecture where sine grains couple to a controllable additive spectrum as a harmonic attractor field.
@@ -146,16 +132,9 @@ Waveform shape, coupling function shape, and harmonic locking hierarchy are all 
 
 This concept appears everywhere once you see it:
 
-> **Walk through the mirrors.** A titled card walk through four domains where the same dynamics appear: fireflies, neurons, jazz bassist, tidal friction. Each card names what plays the role of K in that domain.
->
-> ![[phenomena-walk.mp4]]
-
 **Conversational rhythm** — Loudon and Claude have natural frequencies (Loudon's embodied, associative, temporal; Claude's pattern-based, broad, context-windowed). When the coupling constant is right, the conversation enters flow. When mismatched, one dominates or both drift.
 
 **[[Spinoza Conatus]]** — The conatus is each being's drive to persist in its own nature. Coupled oscillators persist in their natural frequencies while being influenced toward coherence. The tension between individual frequency and collective phase IS the tension between autonomy and cooperation.
-
-![[fireflies-pond.png]]
-*Fireflies over a forest pond at dusk — the first natural image people reach for when they want to feel coupled oscillators. SDXL render at the Kuramoto arc's indigo / amber palette.*
 
 **Mycorrhizal resource flow** — Chemical signals propagating through a forest's fungal network, causing trees to synchronize their resource allocation seasonally. The network IS the coupling medium.
 
@@ -164,20 +143,6 @@ This concept appears everywhere once you see it:
 **The quarter cycle as maximum effort** — At the critical coupling threshold, locked oscillators sit at π/2 phase offset — the point where sin(φ) = 1, maximum coupling force. This is the same π/2 that appears in swing-pushing (maximum energy transfer), resonant driven oscillators, reactive circuits, and tidal friction. The quarter cycle is the universal signature of a sinusoidal system under maximum strain.
 
 **Speech rhythm and groove coupling** — When a speaker's phrases fall into a groove with a listener's attention cycles, comprehension increases and the interaction feels effortless. This is Kuramoto coupling: the listener's attention has a natural frequency (related to working memory refresh rate, approximately 4–8 Hz in the theta band), and a well-paced speaker entrains to it. In music: groove is the condition where the rhythmic information density matches the listener's coupled attention oscillators. A drummer who drags or rushes is detuning the coupling. The coupling constant K is phrasing density and rhythmic clarity.
-
-![[speech-rhythm-and-groove-narration.wav]]
-
-> **Sync arriving.** Eight oscillators with slightly different natural frequencies; K ramps from zero across the narration. Phase arrows fade from indigo to amber as each falls into the lock; the central order-parameter vector |R| climbs from near-zero to near-one as the population coheres. The same narration above is the soundtrack — text rendered to speech (Kokoro, af_heart, −16 LUFS), speech read back to word timings (Whisper base), and the Manim scene timed against those readings. Drift over 36 s: 25 ms.
->
-> ![[sync-arriving.mp4]]
-
-> **The sound of synchronization arriving.** A 20-second purely auditory rendering of the same idea — scattered ticking pulses at different rates that pull into a shared rhythm and lock together. Generated by Stable Audio 3's small-sfx model. First listen on the narrative-arc question: *perhaps* — needs more study, and confirm by ear whenever SA3 is asked for time-evolving structure.
->
-> ![[synchronization-arriving.wav]]
-
-> **Round 1 teaching reel.** The whole arc end-to-end — two phasors uncoupled (with narration), a title-card pivot (*Now couple them*), the sync-arriving Manim+narration. Built by ffmpeg from the upstream specialist outputs; one teaching reel as the connective-tissue proof for the Shop.
->
-> ![[round-1-teaching-reel.mp4]]
 
 ## In Our Instruments
 
