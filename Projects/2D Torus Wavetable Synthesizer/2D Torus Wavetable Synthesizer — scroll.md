@@ -15,20 +15,20 @@ forward_vector: "I am 2D Torus Wavetable Synthesizer's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T19:13:45.216Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T19:16:37.334Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 10 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 11 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — The heterodyne voice is in the RNBO codebox. Run as written, the codebox matches the browser engine bit for bit on all three surfaces. (`torus-steward-026`)
-- **Last commit touching this project:** 2026-10-13 `62ce7e0a` — steward(2D Torus Wavetable Synthesizer): Membrane sings — the heterodyne reads the loudest row
+- **Last shipped:** 2026-10-13 (today) — Every codebox in RNBO/ now has a check before Max: all five match their references, run as written, on the real catalog WAVs. (`torus-steward-028`)
+- **Last commit touching this project:** 2026-10-13 `e50602e6` — steward(2D Torus Wavetable Synthesizer): cycle 10 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read the surface, and their ratio decides whether the sound is harmonic or shimmering. The browser instrument (the Hopf sphere) can lock the two rates into a simple ratio. It also has a voice that plays the 'dead line', the part of the surface that goes silent when the rates lock. That voice is silent while locked and sings at the slip rate when the lock lets go. Until today it lived only in the browser. This cycle put it into the Max/RNBO codebox. I also built a small tool that runs the codebox's own text and holds it against the browser engine sample by sample, so the codeboxes get checked before anyone…
+This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read the surface, and their ratio decides whether the sound is harmonic or shimmering. The instrument exists as Python renderers, a browser instrument (the Hopf sphere) and five Max/RNBO codebox files. Nobody has opened any of the codeboxes in Max yet. Last cycle I built a small translator that runs a codebox's own text and compares it, sample by sample, with the browser engine, but only for the Hopf codebox. This cycle the same check covers the other four: the bare scanner, the warps version, the Kuramoto scan and the warp bank. Each one is run against the Python script that made its auditions, on the sam…
 
 ### Open asks
 
@@ -59,6 +59,44 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="torus-steward-028" -->
+### 2026-10-13 — cycle 11 — Every codebox in RNBO/ now has a check before Max: all five match their references, run as written, on the real catalog WAVs.
+> shipped · all five codeboxes checked, none opened in Max · steward leans dead-line bank + voice next
+
+What I built. The translator moved into its own file, RNBO/codebox_transpile.mjs, and learned to read the catalog WAVs directly. Last cycle's Hopf check now uses it and gives the same report it gave before, number for number. RNBO/reference_renders.py renders each codebox's Python reference on Penrose, Knot Shadow and Membrane: Tools/scan_surface.py for the bare scanner, Tools/kuramoto_scan.py for the Kuramoto scan, and Tools/warp_bank.py for the bank. RNBO/codebox_mirror_all.mjs runs the codeboxes as written and subtracts. RNBO/check_codeboxes.sh runs both mirrors in one go, in under five seconds.
+
+What it says. The bare scanner, through four of the five steps of its own test protocol (static row, static column, closed 3:2 orbit, detuned shimmer): 201 to 220 dB under the signal, and one case is bit-exact. It isn't bit-exact everywhere because Python computes phase as f·t mod 1, while the codebox adds f/sr each sample. The Kuramoto scan, with the coupling ramped 0 → 3 Hz across the lock and the DC blocker off and on: 245 to 261 dB under. The warp bank, with bankPos swept 0 → 8 through the Penrose aim-the-blur bank: 210 dB under. The two unit tests the codeboxes promise in their own comments both pass bit-exact on all three surfaces: warps at zero equal the bare scanner, and Kuramoto with no coupling and no DC blocker equals the bare scanner. With the warps turned on, the output moves well away from bare and no sample goes NaN or infinite.
+
+A control, so a clean result means something. I swapped the X and Y axes in a copy of the bare scanner, the first culprit its checklist names. The difference jumped to 2 to 3 dB above the signal. A wrong axis convention would be caught.
+
+The open question from last cycle, answered. The Hopf codebox's hetRow values were measured on the browser's own surfaces. On the catalog WAVs, Penrose 0.25 and Membrane 0.111 are still the loudest rows. On Knot Shadow, rows 0.351 and 0.111 tie to eight digits; the surface is symmetric, so either one works.
+
+**Artifacts:**
+- [runs lookup, tier-1 warps, Kuramoto and bank codeboxes as written against their Python references on the catalog WAVs; plus the unit tests and the hetRow check.](Projects/2D Torus Wavetable Synthesizer/RNBO/codebox_mirror_all.mjs)
+- [the Python half: renders each codebox's reference with the scripts that made the auditions.](Projects/2D Torus Wavetable Synthesizer/RNBO/reference_renders.py)
+- [the codebox-to-JS translator, now shared by both mirrors, plus a WAV reader.](Projects/2D Torus Wavetable Synthesizer/RNBO/codebox_transpile.mjs)
+- [last cycle's Hopf mirror, now importing the shared translator. Same report as before.](Projects/2D Torus Wavetable Synthesizer/RNBO/codebox_mirror.mjs)
+- [one command: every codebox in RNBO/ checked against its reference.](Projects/2D Torus Wavetable Synthesizer/RNBO/check_codeboxes.sh)
+- [the numbers, per codebox, surface and case.](Projects/2D Torus Wavetable Synthesizer/RNBO/codebox_mirror_all_report.json)
+
+_codebox vs its reference, run as written on the catalog WAVs (codebox_mirror_all.mjs, 2026-10-13) · dB = difference under the signal_
+| codebox | reference | case | Penrose | Knot Shadow | Membrane |
+| --- | --- | --- | --- | --- | --- |
+| lookup | scan_surface.py | static row | −204.7 dB | −213.2 dB | bit-exact |
+| lookup | scan_surface.py | closed 3:2 orbit | −207.9 dB | −208.1 dB | −220.3 dB |
+| lookup | scan_surface.py | detuned shimmer | −201.5 dB | −204.9 dB | −214.1 dB |
+| kuramoto | kuramoto_scan.py | K ramp across the lock, DC blocker on | −244.7 dB | −258.3 dB | −260.9 dB |
+| tier-1 warps | bare lookup | all warps at zero | bit-exact | bit-exact | bit-exact |
+| kuramoto | bare lookup | coupling 0, DC blocker off | bit-exact | bit-exact | bit-exact |
+| bank | warp_bank.py | bankPos 0 → 8, Penrose aim-the-blur bank | −209.6 dB | — | — |
+| lookup (axes swapped on purpose) | scan_surface.py | control: should fail | +2.1 to +3.2 dB | — | — |
+
+_Left rough:_ Matching the references proves the codeboxes do the same arithmetic as the scripts that made the auditions, and that they read the catalog WAVs the right way up. It doesn't prove they compile. One real risk I can't settle from here: the tier-1 warps codebox returns pairs as arrays ([gx, gy]), and I don't know whether RNBO codebox~ accepts that; the Hopf codebox does the same job without arrays. The warps codebox has no Python reference, so only its zero setting is checked. Nobody has opened any of these in Max or heard them.
+
+_Next moves named:_ Try the dead-line bank and the heterodyne voice together: bake a surface whose energy slides onto the dead line, then let the voice play it. · If the array return in the tier-1 warps codebox turns out not to compile, rewrite it without arrays the way the Hopf codebox does, and record it as a Gotcha on the RNBO codebox~ smith. · When Loudon has a sitting: run check_codeboxes.sh, then open torus_2d_lookup.codebox in Max with 15_penrose_lattice.wav in tablebuf next to 2d.wave~, and meter A − B.
+<sub>`torus-steward-028` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="torus-steward-026" -->
 ### 2026-10-13 — cycle 10 — The heterodyne voice is in the RNBO codebox. Run as written, the codebox matches the browser engine bit for bit on all three surfaces.
 > shipped · codebox matches browser exactly, still unopened in Max · steward leans dead-line bank + voice next

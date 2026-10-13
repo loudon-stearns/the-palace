@@ -1,0 +1,241 @@
+{
+  "reference_cases": [
+    {
+      "codebox": "torus_2d_lookup.codebox",
+      "surface": "Penrose",
+      "case": "static row",
+      "max_abs_diff": 8.508521665007152e-11,
+      "diff_vs_signal_dB": -204.7,
+      "nonfinite": 0
+    },
+    {
+      "codebox": "torus_2d_lookup.codebox",
+      "surface": "Penrose",
+      "case": "static column",
+      "max_abs_diff": 6.561773346902555e-11,
+      "diff_vs_signal_dB": -206.9,
+      "nonfinite": 0
+    },
+    {
+      "codebox": "torus_2d_lookup.codebox",
+      "surface": "Penrose",
+      "case": "closed orbit 3:2",
+      "max_abs_diff": 6.02085603595981e-11,
+      "diff_vs_signal_dB": -207.9,
+      "nonfinite": 0
+    },
+    {
+      "codebox": "torus_2d_lookup.codebox",
+      "surface": "Penrose",
+      "case": "Kronecker 3:2 + detune",
+      "max_abs_diff": 1.150245731995625e-10,
+      "diff_vs_signal_dB": -201.5,
+      "nonfinite": 0
+    },
+    {
+      "codebox": "torus_2d_kuramoto.codebox",
+      "surface": "Penrose",
+      "case": "K ramp 0->3 Hz, dcBlock 0",
+      "max_abs_diff": 6.241118732930317e-13,
+      "diff_vs_signal_dB": -245.2,
+      "nonfinite": 0
+    },
+    {
+      "codebox": "torus_2d_kuramoto.codebox",
+      "surface": "Penrose",
+      "case": "K ramp 0->3 Hz, dcBlock 1",
+      "max_abs_diff": 6.238343175368755e-13,
+      "diff_vs_signal_dB": -244.7,
+      "nonfinite": 0
+    },
+    {
+      "codebox": "torus_2d_lookup.codebox",
+      "surface": "Knot Shadow",
+      "case": "static row",
+      "max_abs_diff": 3.500644218945581e-11,
+      "diff_vs_signal_dB": -213.2,
+      "nonfinite": 0
+    },
+    {
+      "codebox": "torus_2d_lookup.codebox",
+      "surface": "Knot Shadow",
+      "case": "static column",
+      "max_abs_diff": 4.551919952078265e-11,
+      "diff_vs_signal_dB": -210.7,
+      "nonfinite": 0
+    },
+    {
+      "codebox": "torus_2d_lookup.codebox",
+      "surface": "Knot Shadow",
+      "case": "closed orbit 3:2",
+      "max_abs_diff": 6.08770256427249e-11,
+      "diff_vs_signal_dB": -208.1,
+      "nonfinite": 0
+    },
+    {
+      "codebox": "torus_2d_lookup.codebox",
+      "surface": "Knot Shadow",
+      "case": "Kronecker 3:2 + detune",
+      "max_abs_diff": 8.551909180809503e-11,
+      "diff_vs_signal_dB": -204.9,
+      "nonfinite": 0
+    },
+    {
+      "codebox": "torus_2d_kuramoto.codebox",
+      "surface": "Knot Shadow",
+      "case": "K ramp 0->3 Hz, dcBlock 0",
+      "max_abs_diff": 1.8779422461534523e-13,
+      "diff_vs_signal_dB": -258.3,
+      "nonfinite": 0
+    },
+    {
+      "codebox": "torus_2d_kuramoto.codebox",
+      "surface": "Knot Shadow",
+      "case": "K ramp 0->3 Hz, dcBlock 1",
+      "max_abs_diff": 1.8790524691780774e-13,
+      "diff_vs_signal_dB": -258.3,
+      "nonfinite": 0
+    },
+    {
+      "codebox": "torus_2d_lookup.codebox",
+      "surface": "Membrane",
+      "case": "static row",
+      "max_abs_diff": 0,
+      "diff_vs_signal_dB": "bit-exact",
+      "nonfinite": 0
+    },
+    {
+      "codebox": "torus_2d_lookup.codebox",
+      "surface": "Membrane",
+      "case": "static column",
+      "max_abs_diff": 1.8210571939292208e-11,
+      "diff_vs_signal_dB": -219.4,
+      "nonfinite": 0
+    },
+    {
+      "codebox": "torus_2d_lookup.codebox",
+      "surface": "Membrane",
+      "case": "closed orbit 3:2",
+      "max_abs_diff": 1.564537388532017e-11,
+      "diff_vs_signal_dB": -220.3,
+      "nonfinite": 0
+    },
+    {
+      "codebox": "torus_2d_lookup.codebox",
+      "surface": "Membrane",
+      "case": "Kronecker 3:2 + detune",
+      "max_abs_diff": 3.218603161769806e-11,
+      "diff_vs_signal_dB": -214.1,
+      "nonfinite": 0
+    },
+    {
+      "codebox": "torus_2d_kuramoto.codebox",
+      "surface": "Membrane",
+      "case": "K ramp 0->3 Hz, dcBlock 0",
+      "max_abs_diff": 1.5082379789532752e-13,
+      "diff_vs_signal_dB": -261,
+      "nonfinite": 0
+    },
+    {
+      "codebox": "torus_2d_kuramoto.codebox",
+      "surface": "Membrane",
+      "case": "K ramp 0->3 Hz, dcBlock 1",
+      "max_abs_diff": 1.5415446696920299e-13,
+      "diff_vs_signal_dB": -260.9,
+      "nonfinite": 0
+    },
+    {
+      "codebox": "torus_2d_bank.codebox",
+      "surface": "Penrose aniso bank",
+      "case": "bankPos ramp 0->8",
+      "max_abs_diff": 4.811911979984984e-11,
+      "diff_vs_signal_dB": -209.6,
+      "nonfinite": 0
+    }
+  ],
+  "unit_tests": [
+    {
+      "surface": "Penrose",
+      "test": "tier-1 warps at zero = bare",
+      "max_abs_diff": 0,
+      "diff_vs_signal_dB": "bit-exact",
+      "nonfinite": 0
+    },
+    {
+      "surface": "Penrose",
+      "test": "kuramoto coupling 0, dcBlock 0 = bare",
+      "max_abs_diff": 0,
+      "diff_vs_signal_dB": "bit-exact",
+      "nonfinite": 0
+    },
+    {
+      "surface": "Penrose",
+      "test": "tier-1 warps on (bend .6/-.4, shear .3 sine, displace .02 rot)",
+      "max_abs_diff": 1.7552188671783522,
+      "diff_vs_signal_dB": 3,
+      "nonfinite": 0
+    },
+    {
+      "surface": "Knot Shadow",
+      "test": "tier-1 warps at zero = bare",
+      "max_abs_diff": 0,
+      "diff_vs_signal_dB": "bit-exact",
+      "nonfinite": 0
+    },
+    {
+      "surface": "Knot Shadow",
+      "test": "kuramoto coupling 0, dcBlock 0 = bare",
+      "max_abs_diff": 0,
+      "diff_vs_signal_dB": "bit-exact",
+      "nonfinite": 0
+    },
+    {
+      "surface": "Knot Shadow",
+      "test": "tier-1 warps on (bend .6/-.4, shear .3 sine, displace .02 rot)",
+      "max_abs_diff": 1.4745287962383968,
+      "diff_vs_signal_dB": 2.8,
+      "nonfinite": 0
+    },
+    {
+      "surface": "Membrane",
+      "test": "tier-1 warps at zero = bare",
+      "max_abs_diff": 0,
+      "diff_vs_signal_dB": "bit-exact",
+      "nonfinite": 0
+    },
+    {
+      "surface": "Membrane",
+      "test": "kuramoto coupling 0, dcBlock 0 = bare",
+      "max_abs_diff": 0,
+      "diff_vs_signal_dB": "bit-exact",
+      "nonfinite": 0
+    },
+    {
+      "surface": "Membrane",
+      "test": "tier-1 warps on (bend .6/-.4, shear .3 sine, displace .02 rot)",
+      "max_abs_diff": 1.5599674034592064,
+      "diff_vs_signal_dB": 3.4,
+      "nonfinite": 0
+    }
+  ],
+  "hetRow_on_catalog": [
+    {
+      "surface": "Penrose",
+      "codebox_hetRow": 0.25,
+      "catalog_loudest_row": 0.25,
+      "energy_at_codebox_row_vs_loudest_dB": 0
+    },
+    {
+      "surface": "Knot Shadow",
+      "codebox_hetRow": 0.3505859375,
+      "catalog_loudest_row": 0.111328125,
+      "energy_at_codebox_row_vs_loudest_dB": 0
+    },
+    {
+      "surface": "Membrane",
+      "codebox_hetRow": 0.111328125,
+      "catalog_loudest_row": 0.111328125,
+      "energy_at_codebox_row_vs_loudest_dB": 0
+    }
+  ]
+}

@@ -32,6 +32,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { transpile } from './codebox_transpile.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const SR = 48000;
@@ -47,30 +48,7 @@ const CLIP = 'out[i] = Math.tanh(this.dcY * s.gain * 1.4) / 1.4;';
 if (!engineSrc.includes(CLIP)) throw new Error('browser soft-clip line moved; update CLIP');
 const HTE = new Function(engineSrc.replace(CLIP, 'out[i] = this.dcY * s.gain;') + '\nreturn HTE;')();
 
-// ---- the transpiler: codebox text -> a factory of per-sample machines
-function transpile(src) {
-  src = src.replace(/\/\/.*$/gm, '');
-  const decl = [], names = [];
-  src = src.replace(/^@param\s*\(\{[^}]*\}\)\s*(\w+)\s*=\s*([^;]+);/gm, (_, n, v) => { decl.push(`let ${n} = ${v};`); names.push(n); return ''; });
-  src = src.replace(/^@state\s+(\w+)\s*=\s*([^;]+);/gm, (_, n, v) => { decl.push(`let ${n} = ${v};`); names.push(n); return ''; });
-  const consts = []; src = src.replace(/^const\s+[^;]+;/gm, m => { consts.push(m); return ''; });
-  const fns = []; src = src.replace(/^function\s+\w+\s*\([^)]*\)\s*\{[\s\S]*?^\}/gm, m => { fns.push(m); return ''; });
-  const body = src.trim();
-  const code = `
-    const floor = Math.floor, abs = Math.abs, sin = Math.sin, cos = Math.cos, exp = Math.exp, tanh = (x) => Math.tanh(x);
-    const samplerate = sr;
-    function peek(name, i, ch) { return tab[i]; }
-    ${consts.join('\n')}
-    ${decl.join('\n')}
-    ${fns.join('\n')}
-    return {
-      set(k, v) { switch (k) { ${names.map(n => `case '${n}': ${n} = v; break;`).join(' ')} default: throw new Error('no ' + k); } },
-      get(k) { switch (k) { ${names.map(n => `case '${n}': return ${n};`).join(' ')} } },
-      tick() { let out1 = 0; ${body}
-        return out1; }
-    };`;
-  return new Function('tab', 'sr', code);
-}
+// ---- the transpiler lives in codebox_transpile.mjs, shared with codebox_mirror_all.mjs
 const make = transpile(fs.readFileSync(cbPath, 'utf8'));
 
 // browser targets -> codebox params
