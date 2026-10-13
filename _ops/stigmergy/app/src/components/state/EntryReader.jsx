@@ -243,7 +243,7 @@ export default function EntryReader({
   const selectFace = (f) => {
     if (f !== 'rich') rich.hide();
     if (f === 'text') return onNavigate?.(faceOwner.path);
-    if (f === 'rich') return openRichFace({ isPublic: IS_PUBLIC, show: rich.show, assign: (u) => window.location.assign(u), href: richHref(faceOwner.path, import.meta.env.BASE_URL) });
+    if (f === 'rich') return openRichFace({ isPublic: IS_PUBLIC, show: rich.show, assign: (u) => window.location.assign(u), href: richHref(faceOwner.path, import.meta.env.BASE_URL), owner: faceOwner.path, path, navigate: onNavigate });
     if (f === 'scroll') {
       if (palace?.openProjectScroll) return palace.openProjectScroll(projectRow?.home ?? ownerStem);
       if (faceOwner.files?.scroll) return onNavigate?.(faceOwner.files.scroll);
@@ -435,7 +435,7 @@ export default function EntryReader({
           own — and the typed-link rail widens a little on a wide screen so its
           labels and targets stop wrapping. Below 800px the rail drops under
           the text (tokens.css .reader-grid). */}
-      {rich.shown ? <RichFaceFrame href={richHref(faceOwner.path, import.meta.env.BASE_URL)} /> : null}
+      {rich.shown ? <RichFaceFrame href={richHref(faceOwner.path, import.meta.env.BASE_URL)} onClose={rich.hide} /> : null}
       <div className="reader-grid" style={{
         display: rich.shown ? 'none' : 'grid', gridTemplateColumns: 'minmax(0, 1fr) clamp(360px, 24vw, 480px)',
         gap: 24, alignItems: 'flex-start',

@@ -12,6 +12,8 @@ import {
   openRichFace, headingSource, findActiveRichSection, richSectionHeading,
   paintRichGlow, createFrameWatch, createRichSpy, frameDrifted,
 } from '../../src/lib/rich-frame.js';
+// Reached through the namespace too, so a helper that does not exist yet fails its own test only.
+import * as richFrame from '../../src/lib/rich-frame.js';
 import RichFaceFrame from '../../src/components/state/RichFaceFrame.jsx';
 
 const GLOW = 'eaw-section-glow';
@@ -74,6 +76,26 @@ describe('the face switch shows the rich face in the reader', () => {
     expect(calls).toEqual(['show']);
   });
 
+  it('on a face file, opens the owner entry with its rich face, so the companion is grounded in the page it reads', () => {
+    const calls = [];
+    openRichFace({
+      isPublic: false, href: '/rich/?entry=Kuramoto%20Coupling',
+      show: (p) => calls.push(`show ${p}`), assign: (u) => calls.push(`assign ${u}`), navigate: (p) => calls.push(`navigate ${p}`),
+      owner: 'Kuramoto Coupling.md', path: 'Kuramoto Coupling/Kuramoto Coupling — scroll.md',
+    });
+    expect(calls).toEqual(['show Kuramoto Coupling.md', 'navigate Kuramoto Coupling.md']);
+  });
+
+  it('on the owner itself, opens the rich face without navigating', () => {
+    const calls = [];
+    openRichFace({
+      isPublic: false, href: '/rich/?entry=K',
+      show: (p) => calls.push(`show ${p}`), assign: (u) => calls.push(`assign ${u}`), navigate: (p) => calls.push(`navigate ${p}`),
+      owner: 'K.md', path: 'K.md',
+    });
+    expect(calls).toEqual(['show K.md']);
+  });
+
   it('still navigates on the public read view, where no companion runs', () => {
     const calls = [];
     openRichFace({ isPublic: true, show: () => calls.push('show'), assign: (u) => calls.push(`assign ${u}`), href: '/rich/?entry=X' });
@@ -89,6 +111,26 @@ describe('the face switch shows the rich face in the reader', () => {
 
   it('mounts nothing on the public read view', () => {
     expect(renderToStaticMarkup(React.createElement(RichFaceFrame, { href: '/rich/?entry=X', isPublic: true }))).toBe('');
+  });
+});
+
+describe('the rich face belongs to the page it was opened on', () => {
+  it('drops it when the reader leaves the page, so a return opens on the text', () => {
+    let st = { shownFor: 'A.md', at: 'A.md' };
+    st = richFrame.richFaceOnPath(st, 'B.md');
+    expect(st.shownFor).toBeNull();
+    st = richFrame.richFaceOnPath(st, 'A.md');
+    expect(st.shownFor).toBeNull();
+  });
+
+  it('keeps it when the reader arrives at the page it was opened for (a face file opening its owner)', () => {
+    const st = richFrame.richFaceOnPath({ shownFor: 'K.md', at: 'K/K — scroll.md' }, 'K.md');
+    expect(st).toEqual({ shownFor: 'K.md', at: 'K.md' });
+  });
+
+  it('changes nothing while the path holds', () => {
+    const st = { shownFor: 'A.md', at: 'A.md' };
+    expect(richFrame.richFaceOnPath(st, 'A.md')).toBe(st);
   });
 });
 
@@ -196,6 +238,44 @@ describe('the companion reads the rich face when the reader shows it', () => {
   });
 });
 
+describe('a frame that goes cross-origin', () => {
+  // A cross-origin frame's window refuses listeners, its observer and its
+  // location (SecurityError), and its document reads as null.
+  function crossableFrame() {
+    let foreign = false;
+    const refuse = () => { if (foreign) throw new Error('SecurityError: Blocked a frame from accessing a cross-origin frame.'); };
+    const win = listenable({});
+    const add = win.addEventListener.bind(win);
+    const remove = win.removeEventListener.bind(win);
+    win.addEventListener = (...a) => { refuse(); return add(...a); };
+    win.removeEventListener = (...a) => { refuse(); return remove(...a); };
+    Object.defineProperty(win, 'MutationObserver', { get() { refuse(); return undefined; } });
+    Object.defineProperty(win, 'location', { get() { refuse(); return { href: 'http://localhost:5173/rich/?entry=A' }; } });
+    const doc = fakeDoc([fakeSection(0, 'A')]);
+    const frame = listenable({ contentWindow: win, getBoundingClientRect: () => ({ top: 0 }) });
+    Object.defineProperty(frame, 'contentDocument', { get() { return foreign ? null : doc; } });
+    return { frame, goForeign: () => { foreign = true; } };
+  }
+
+  it('is loaded, read and disposed without anything throwing', () => {
+    const { frame, goForeign } = crossableFrame();
+    const spy = createRichSpy({ glowClass: GLOW, onChange: () => {} });
+    expect(spy.pass(containerWith(frame), 100)).toEqual({ reading: 'A' });
+    goForeign();
+    expect(() => frame.fire('load')).not.toThrow();
+    expect(() => spy.pass(containerWith(frame), 100)).not.toThrow();
+    expect(() => spy.dispose()).not.toThrow();
+  });
+
+  it('lets a watch go of it without throwing', () => {
+    const { frame, goForeign } = crossableFrame();
+    const watch = createFrameWatch(() => {});
+    watch.follow(frame);
+    goForeign();
+    expect(() => watch.follow(null)).not.toThrow();
+  });
+});
+
 describe('the frame never drifts from the reader', () => {
   const origin = 'http://localhost:5173';
   it('stays when the frame is on the same page, anchors included', () => {
@@ -205,7 +285,17 @@ describe('the frame never drifts from the reader', () => {
     expect(frameDrifted(`${origin}/rich/?entry=Spinoza%20Conatus`, '/rich/?entry=Kuramoto%20Coupling', origin)).toBe(true);
     expect(frameDrifted(`${origin}/?entry=Kuramoto%20Coupling`, '/rich/?entry=Kuramoto%20Coupling', origin)).toBe(true);
   });
-  it('ignores a frame location it cannot read', () => {
-    expect(frameDrifted(null, '/rich/?entry=X', origin)).toBe(false);
+  it('counts a frame location it cannot read as drift (the frame left for another origin)', () => {
+    expect(frameDrifted(null, '/rich/?entry=X', origin)).toBe(true);
+  });
+  it('does not count the frame\'s first, blank document as drift', () => {
+    expect(frameDrifted('about:blank', '/rich/?entry=X', origin)).toBe(false);
+  });
+  it('follows a drift it can read, and closes the frame on one it cannot', () => {
+    const want = '/rich/?entry=Kuramoto%20Coupling';
+    expect(richFrame.frameLoadAction(`${origin}/rich/?entry=Kuramoto%20Coupling#s-2`, want, origin)).toBe('stay');
+    expect(richFrame.frameLoadAction(`${origin}/rich/?entry=Spinoza%20Conatus`, want, origin)).toBe('follow');
+    expect(richFrame.frameLoadAction(null, want, origin)).toBe('close');
+    expect(richFrame.frameLoadAction('about:blank', want, origin)).toBe('stay');
   });
 });
