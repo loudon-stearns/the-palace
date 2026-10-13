@@ -6,18 +6,24 @@
 // remove its own `*.lock` files at the end — and the stranded `index.lock`
 // wedges the NEXT git op. Your committer (`server/commit.js commitSelected`)
 // already does the right palace things (stage only named paths, derive the
-// Palace-* trailers, write a spec message) and even tries to clear locks — but
-// via rmSync, which is exactly the call that no-ops in Cowork.
+// Palace-* trailers, write a spec message), and its lock rule
+// (`server/git-locks.js`) decides WHEN a lock may go — but it clears one with
+// rmSync, which is exactly the call that no-ops in Cowork.
 //
-// So this is a THIN wrapper, not a reimplementation: sweep stale locks by
-// RENAME (which works) → call commitSelected unchanged → sweep the newly
-// stranded locks by rename → leave a weave_flag so the next Weave clears the
-// litter. The git spec lives in one place (commitSelected); we only add the
-// lock handling the sandbox forces on us.
+// So this is a THIN wrapper, not a reimplementation, and it carries no lock
+// rule of its own: the palace has ONE — a lock is stale only when it is older
+// than the threshold AND no git process is running against this checkout; a
+// live one is waited out, then refused; a dry run touches nothing. What this
+// file adds is only what the sandbox forces: every `*.lock` under `.git` is a
+// candidate (git strands ref and packed-refs locks here too, not just
+// HEAD.lock and index.lock), and a stale one is moved aside by RENAME into
+// the junk dir. Then: call commitSelected unchanged → sweep the locks our own
+// commit just stranded (age ignored; those are ours) → leave a weave_flag so
+// the next Weave clears the litter.
 //
 // Layer A (phased core). Direct commit for small, non-canon changes. When the
-// situation is NOT ideal (canon/knowledge entries, a fresh lock that may be a
-// live op, an in-progress merge/rebase) it REFUSES and tells you to hand off
+// situation is NOT ideal (canon/knowledge entries, a lock that may be a live
+// op, an in-progress merge/rebase) it REFUSES and tells you to hand off
 // rather than risk the repo. The BBS commit-handoff consumer is layer B.
 //
 // Usage:
@@ -31,7 +37,7 @@
 // Palace-Stage / Palace-Vector line for it. One side alone commits half a
 // move; the output's `notes` says so.
 
-import { existsSync, statSync, renameSync, mkdirSync, readdirSync, readFileSync, appendFileSync } from 'node:fs';
+import { existsSync, renameSync, mkdirSync, readdirSync, readFileSync, appendFileSync } from 'node:fs';
 import { resolve, join, dirname, relative } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { randomUUID } from 'node:crypto';
@@ -61,8 +67,10 @@ function parseArgs(argv) {
   return a;
 }
 
-// ── lock handling (the whole point) ─────────────────────────────────────────
-function findLockFiles(dir) {
+// ── lock handling: the shared rule, plus the sandbox's one affordance ───────
+// Every `*.lock` under the git dir. git-locks.js looks only at HEAD.lock and
+// index.lock by default; Cowork strands whatever lock a commit took.
+export function findLockFiles(dir) {
   const out = [];
   const stack = [dir];
   while (stack.length) {
@@ -79,37 +87,58 @@ function findLockFiles(dir) {
 }
 
 // An operation is "in progress" if git left a transaction marker.
-function transactionInProgress(gitDir) {
+export function transactionInProgress(gitDir) {
   const markers = ['MERGE_HEAD', 'CHERRY_PICK_HEAD', 'REVERT_HEAD', 'BISECT_LOG', 'rebase-merge', 'rebase-apply'];
   return markers.filter((m) => existsSync(join(gitDir, m)));
 }
 
-// Move locks to the junk dir by RENAME (the sandbox allows rename, not unlink).
-//   - thresholdSec: locks younger than this are treated as possibly-live and
-//     left in place (reported in `fresh`) — the pre-commit guard uses this to
-//     refuse when an external op might be running.
-//   - force: ignore age entirely and move every lock. Used for the POST-commit
-//     sweep, where any lock present was just stranded by OUR own commit (which
-//     already returned), so it is definitionally safe to relocate. Force also
-//     avoids a clock-skew trap: a freshly stranded lock can carry an mtime a
-//     hair ahead of the node clock, yielding a slightly-negative age that an
-//     age check would misread as "fresh".
-function sweepLocks(gitDir, junkDir, palaceRoot, { thresholdSec = 30, force = false } = {}) {
-  const locks = findLockFiles(gitDir);
-  const now = Date.now();
-  const moved = [];
-  const fresh = [];
-  const failed = [];
-  if (locks.length) mkdirSync(junkDir, { recursive: true });
-  for (const lk of locks) {
-    let ageSec = Infinity;
-    try { ageSec = (now - statSync(lk).mtimeMs) / 1000; } catch { /* gone */ }
-    if (!force && ageSec < thresholdSec) { fresh.push({ path: relative(palaceRoot, lk), ageSec: Math.round(ageSec) }); continue; }
-    const flat = relative(gitDir, lk).replace(/[\\/]/g, '_');
+/**
+ * Sweep the stranded locks of `palaceRoot` under the palace's one lock rule
+ * (server/git-locks.js), moving a stale one aside by rename into
+ * `_ops/scratch/gitlock-junk/` since the sandbox cannot unlink. Never throws.
+ *
+ *   - freshMs: locks younger than this are presumed live (default 30 s).
+ *   - force:   ignore age — for the POST-commit sweep, where any lock present
+ *              was just stranded by OUR own commit, which has already
+ *              returned. A git process this sandbox can see still keeps a lock.
+ *              Force also sidesteps a clock-skew trap: a freshly stranded lock
+ *              can carry an mtime a hair ahead of the node clock.
+ *   - dryRun:  report what is there and move nothing.
+ *
+ * Returns { moved: [rel], held: [{ path, ageSec, heldBy }], refused?, dryRun }.
+ * `refused` carries the rule's message when a live lock outlasted the wait.
+ */
+export async function sweepStrandedLocks(palaceRoot, { freshMs = 30_000, force = false, dryRun = false, attempts, delayMs, log = (s) => process.stderr.write(s) } = {}) {
+  const gitDir = join(palaceRoot, '.git');
+  const junkDir = join(palaceRoot, '_ops', 'scratch', 'gitlock-junk'); // _ops/scratch is already gitignored
+  const { clearStaleLocks, LockHeldError } = await import(pathToFileURL(join(palaceRoot, '_ops/stigmergy/app/server/git-locks.js')).href);
+
+  // The sandbox allows rename, not unlink: a stale lock goes to the junk dir.
+  const relocate = (lock) => {
+    mkdirSync(junkDir, { recursive: true });
+    const flat = relative(gitDir, lock).replace(/[\\/]/g, '_');
     const dest = join(junkDir, `${Date.now()}-${flat}`);
-    try { renameSync(lk, dest); moved.push(relative(palaceRoot, lk)); } catch (e) { failed.push({ path: relative(palaceRoot, lk), error: e.message }); }
+    renameSync(lock, dest);
+    return `renamed to ${relative(palaceRoot, dest)}`;
+  };
+  const asHeld = (rows) => rows.map((h) => ({ path: h.rel, ageSec: Math.round(h.ageMs / 1000), heldBy: h.heldBy.map((p) => p.pid) }));
+  const opts = {
+    tag: 'cowork-git', log, dryRun, freshMs, ignoreAge: force,
+    locks: () => findLockFiles(gitDir), remove: relocate,
+    ...(attempts != null ? { attempts } : {}), ...(delayMs != null ? { delayMs } : {}),
+  };
+  try {
+    const r = await clearStaleLocks(palaceRoot, opts);
+    return { moved: r.cleared.map((c) => c.rel), held: asHeld(r.held), dryRun };
+  } catch (e) {
+    if (!(e instanceof LockHeldError)) throw e;
+    return {
+      moved: e.cleared.map((c) => c.rel),
+      held: [{ path: relative(palaceRoot, e.path), ageSec: Math.round(e.ageMs / 1000), heldBy: e.heldBy.map((p) => p.pid) }],
+      refused: e.message,
+      dryRun,
+    };
   }
-  return { moved, fresh, failed };
 }
 
 // ── weave cleanup flag (idempotent) ─────────────────────────────────────────
@@ -165,10 +194,12 @@ async function main() {
   const args = parseArgs(process.argv.slice(2));
   const palaceRoot = resolve(args.root || resolve(__dirname, '../..'));
   const gitDir = join(palaceRoot, '.git');
-  const junkDir = join(palaceRoot, '_ops', 'scratch', 'gitlock-junk'); // _ops/scratch is already gitignored
   const board = join(palaceRoot, '_ops', 'swarm', 'persistent', 'blackboard.jsonl');
   const out = (o) => process.stdout.write(JSON.stringify(o, null, 2) + '\n');
   const fail = (error, extra = {}) => { out({ ok: false, error, ...extra }); process.exit(1); };
+  // The rule's own lines go to stderr as they happen, and ride along in the JSON.
+  const lockLog = [];
+  const log = (s) => { lockLog.push(s.trimEnd()); process.stderr.write(s); };
 
   if (args.paths.length === 0) return fail('no --paths given');
   if (!args.summary) return fail('no --summary given');
@@ -180,16 +211,16 @@ async function main() {
   const txn = transactionInProgress(gitDir);
   if (txn.length) return fail(`git transaction in progress (${txn.join(', ')}) — resolve it before committing, or hand off`, { handoff: true });
 
-  // Guard 2: a fresh lock may be a live op we cannot see (other sandbox / heartbeat).
-  // Stale locks (older than threshold) are relocated and we proceed; a fresh one
-  // refuses, because we can't distinguish it from a live external commit.
-  const pre = sweepLocks(gitDir, junkDir, palaceRoot, { thresholdSec: args.lockThreshold });
-  if (pre.fresh.length) {
-    return fail(`fresh git lock(s) younger than ${args.lockThreshold}s — a git op may be running; retry shortly or hand off`,
-      { handoff: true, freshLocks: pre.fresh, movedStaleLocks: pre.moved });
+  // Guard 2: the palace's one lock rule. A stale lock (old, nobody behind it)
+  // is moved aside and we proceed; a live one is waited out, then refused,
+  // because it may be a live op (another sandbox, the heartbeat) we cannot
+  // see. A dry run only reports what is there.
+  const pre = await sweepStrandedLocks(palaceRoot, { freshMs: args.lockThreshold * 1000, dryRun: args.dryRun, log });
+  if (pre.refused) {
+    return fail(`${pre.refused} — retry shortly or hand off`, { handoff: true, heldLocks: pre.held, movedStaleLocks: pre.moved, lockLog });
   }
 
-  if (args.dryRun) return out({ ok: true, dryRun: true, palaceRoot, wouldCommit: args, movedStaleLocks: pre.moved });
+  if (args.dryRun) return out({ ok: true, dryRun: true, palaceRoot, wouldCommit: args, locksSeen: pre.held, lockLog });
 
   // The actual commit — your committer, unchanged (single source of truth for the spec).
   const { commitSelected } = await import(pathToFileURL(join(palaceRoot, '_ops/stigmergy/app/server/commit.js')).href);
@@ -198,18 +229,22 @@ async function main() {
     summary: args.summary, body: args.body || '', verify: args.verify, author: args.author,
   });
 
-  // ALWAYS post-sweep, FORCE — a commit (success OR partial) re-creates locks it
-  // cannot unlink; those are ours and must be cleared so the next commit is not wedged.
-  const post = sweepLocks(gitDir, junkDir, palaceRoot, { force: true });
+  // ALWAYS post-sweep, age ignored — a commit (success OR partial) re-creates
+  // locks it cannot unlink; those are ours and must be cleared so the next
+  // commit is not wedged. A git this sandbox can see still keeps a lock.
+  const post = await sweepStrandedLocks(palaceRoot, { force: true, log });
   const movedLocks = [...pre.moved, ...post.moved];
-  const lockFailures = [...pre.failed, ...post.failed];
+  const lockFailures = post.refused ? [{ error: post.refused, held: post.held }] : [];
 
-  if (!result.ok) return fail(result.error || 'commitSelected failed', { handoff: true, movedLocks, lockFailures, commitMessagePreview: result.message });
+  if (!result.ok) return fail(result.error || 'commitSelected failed', { handoff: true, movedLocks, lockFailures, lockLog, commitMessagePreview: result.message });
 
   let flag = { posted: false, skipped: 'no-flag' };
   if (args.flag) { try { flag = await emitCleanupFlag(palaceRoot, board, result.shortHash); } catch (e) { flag = { posted: false, error: e.message }; } }
 
-  out({ ok: true, shortHash: result.shortHash, subject: result.subject, committed: result.committed, ...(result.notes ? { notes: result.notes } : {}), movedLocks, ...(lockFailures.length ? { lockFailures } : {}), weaveFlag: flag });
+  out({ ok: true, shortHash: result.shortHash, subject: result.subject, committed: result.committed, ...(result.notes ? { notes: result.notes } : {}), movedLocks, ...(lockFailures.length ? { lockFailures } : {}), lockLog, weaveFlag: flag });
 }
 
-main().catch((e) => { process.stdout.write(JSON.stringify({ ok: false, error: e.message, stack: e.stack }, null, 2) + '\n'); process.exit(1); });
+const invokedDirectly = process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+if (invokedDirectly) {
+  main().catch((e) => { process.stdout.write(JSON.stringify({ ok: false, error: e.message, stack: e.stack }, null, 2) + '\n'); process.exit(1); });
+}

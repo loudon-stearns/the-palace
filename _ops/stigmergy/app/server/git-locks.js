@@ -32,6 +32,13 @@
 // `clearStaleLocks` (async, never blocks the event loop while waiting) for
 // the STIGMERGY server. Both throw LockHeldError when a live lock outlasts
 // the retries; the caller turns that into its own clear failure.
+//
+// Three seams let a surface keep this one rule while supplying what only it
+// knows: `locks` names other lock files (the Cowork sandbox strands every
+// `*.lock` under .git, not just these two); `remove` says how a stale lock
+// goes (Cowork cannot unlink, so it renames aside); `ignoreAge` skips the
+// freshness test for a sweep of locks the caller's own just-finished commit
+// left behind (the process test still applies). The rule itself never moves.
 
 import { execFileSync, spawnSync } from 'node:child_process';
 import { existsSync, rmSync, statSync, realpathSync } from 'node:fs';
@@ -49,12 +56,13 @@ export const RETRY_DELAY_MS = 2_000;
 export const LOCK_NAMES = ['HEAD.lock', 'index.lock'];
 
 export class LockHeldError extends Error {
-  constructor(message, { path, ageMs, heldBy }) {
+  constructor(message, { path, ageMs, heldBy, cleared = [] }) {
     super(message);
     this.name = 'LockHeldError';
     this.path = path;
     this.ageMs = ageMs;
     this.heldBy = heldBy;
+    this.cleared = cleared; // stale locks removed on earlier looks, before this one held
   }
 }
 
@@ -172,18 +180,21 @@ export function formatAge(ms) {
   return `${Math.floor(m / 60)}h${m % 60}m`;
 }
 
-// What is on disk right now: one row per lock that exists.
-export function inspectLocks(palaceRoot, { now = Date.now(), freshMs = FRESH_MS, gitProcesses = gitProcessesFor } = {}) {
+// What is on disk right now: one row per lock that exists. `locks` names the
+// candidates (a list of absolute paths, or a function of the root); the
+// default is this checkout's HEAD.lock and index.lock.
+export function inspectLocks(palaceRoot, { now = Date.now(), freshMs = FRESH_MS, gitProcesses = gitProcessesFor, locks = null, ignoreAge = false } = {}) {
   const root = resolve(palaceRoot);
   const rows = [];
   let procs = null; // probed once, only if some lock exists
-  for (const path of lockPaths(root)) {
+  const candidates = typeof locks === 'function' ? locks(root) : (locks ?? lockPaths(root));
+  for (const path of candidates) {
     let st;
     try { st = statSync(path); } catch (_) { continue; }
     if (procs === null) procs = gitProcesses(root);
     const ageMs = now - st.mtimeMs;
     const fresh = ageMs < freshMs; // a negative age (skew) is fresh, the safe side
-    rows.push({ path, rel: relative(root, path), ageMs, fresh, heldBy: procs, live: fresh || procs.length > 0 });
+    rows.push({ path, rel: relative(root, path), ageMs, fresh, heldBy: procs, live: (fresh && !ignoreAge) || procs.length > 0 });
   }
   return rows;
 }
@@ -199,8 +210,8 @@ function describeHold(row) {
 }
 
 // One look at the locks: remove the provably stale ones, report the live ones.
-function sweepOnce(root, { tag, log, dryRun, now, freshMs, gitProcesses }) {
-  const rows = inspectLocks(root, { now, freshMs, gitProcesses });
+function sweepOnce(root, { tag, log, dryRun, now, freshMs, gitProcesses, locks, ignoreAge, remove }) {
+  const rows = inspectLocks(root, { now, freshMs, gitProcesses, locks, ignoreAge });
   const cleared = [];
   const held = [];
   for (const row of rows) {
@@ -211,9 +222,9 @@ function sweepOnce(root, { tag, log, dryRun, now, freshMs, gitProcesses }) {
     }
     if (row.live) { held.push(row); continue; }
     try {
-      rmSync(row.path);
+      const note = remove(row.path);
       cleared.push({ path: row.path, rel: row.rel, ageMs: row.ageMs });
-      log(`${tag}: removed stale ${row.rel} (${formatAge(row.ageMs)} old, no git running in this checkout)\n`);
+      log(`${tag}: removed stale ${row.rel} (${formatAge(row.ageMs)} old, no git running in this checkout${note ? `; ${note}` : ''})\n`);
     } catch (e) {
       if (!existsSync(row.path)) continue; // it went on its own: fine
       log(`${tag}: could not remove stale ${row.rel}: ${e.message}\n`);
@@ -226,12 +237,13 @@ function sweepOnce(root, { tag, log, dryRun, now, freshMs, gitProcesses }) {
 // The text opens with git's own phrase ("could not lock"), and names the lock
 // file, so an outer retry keyed on git's wording -- the orchestrator's
 // cycle-commit.js matches /index\.lock|could not lock/ -- still fires.
-function heldError(tag, row) {
-  const what = basename(row.path) === 'HEAD.lock' ? 'HEAD' : 'the index';
+function heldError(tag, row, cleared) {
+  const name = basename(row.path);
+  const what = name === 'HEAD.lock' ? 'HEAD' : name === 'index.lock' ? 'the index' : name.replace(/\.lock$/, '');
   return new LockHeldError(
     `${tag}: could not lock ${what}: ${row.rel} is held (${describeHold(row)}). Another session may be mid-commit on this checkout; wait a moment and retry. `
     + `If no git is running and it stays, remove it by hand: rm "${row.path}"`,
-    { path: row.path, ageMs: row.ageMs, heldBy: row.heldBy },
+    { path: row.path, ageMs: row.ageMs, heldBy: row.heldBy, cleared },
   );
 }
 
@@ -246,6 +258,9 @@ function settle(opts = {}) {
     delayMs: opts.delayMs ?? RETRY_DELAY_MS,
     gitProcesses: opts.gitProcesses ?? gitProcessesFor,
     sleep: opts.sleep,
+    locks: opts.locks ?? null,
+    ignoreAge: !!opts.ignoreAge,
+    remove: opts.remove ?? ((p) => { rmSync(p); }),
   };
 }
 
@@ -266,7 +281,9 @@ function waitLine(tag, row, attempt, attempts, delayMs) {
  * Throws LockHeldError when a live lock outlasts the retries (never on a dry run).
  *
  * Options (all optional): dryRun, tag (message prefix), log (default stderr),
- * freshMs, attempts, delayMs, sleep, gitProcesses (test seams), now.
+ * freshMs, attempts, delayMs; the surface seams locks (paths or a function of
+ * the root), remove (how a stale lock goes; may return a note for the log) and
+ * ignoreAge; the test seams sleep, gitProcesses, now.
  */
 export function clearStaleLocksSync(palaceRoot, options) {
   const o = settle(options);
@@ -281,7 +298,7 @@ export function clearStaleLocksSync(palaceRoot, options) {
     if (held.length === 0 || o.dryRun) return { cleared, held, dryRun: o.dryRun };
     if (attempt < o.attempts) { o.log(waitLine(o.tag, held[0], attempt, o.attempts, o.delayMs)); sleep(o.delayMs); }
   }
-  throw heldError(o.tag, held[0]);
+  throw heldError(o.tag, held[0], cleared);
 }
 
 /** The async twin of clearStaleLocksSync: same contract, non-blocking waits. */
@@ -298,5 +315,5 @@ export async function clearStaleLocks(palaceRoot, options) {
     if (held.length === 0 || o.dryRun) return { cleared, held, dryRun: o.dryRun };
     if (attempt < o.attempts) { o.log(waitLine(o.tag, held[0], attempt, o.attempts, o.delayMs)); await sleep(o.delayMs); }
   }
-  throw heldError(o.tag, held[0]);
+  throw heldError(o.tag, held[0], cleared);
 }
