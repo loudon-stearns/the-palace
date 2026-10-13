@@ -52,7 +52,7 @@ export { buildCardGrant };
 // one source of truth. `selectedId` is the deck's pick for this card;
 // `onSelectOption(optionId)` reports a click up for the deck to toggle. `notes`
 // stays local — the freeform note is a per-card, mouse-only field.
-export default function TricksterCard({ item, onConfirmed, onRun, focused = false, selectedId = null, onSelectOption, onLaunch }) {
+export default function TricksterCard({ item, onConfirmed, onRun, onFiled, focused = false, selectedId = null, onSelectOption, onLaunch }) {
   const [notes, setNotes] = useState('');
   const [sending, setSending] = useState(false);
   const [running, setRunning] = useState(false);
@@ -125,6 +125,14 @@ export default function TricksterCard({ item, onConfirmed, onRun, focused = fals
     try {
       const message = buildCardGrant(item, { optionId, optionLabel, notes: noteText });
       const persisted = await postMessage(message, 'persistent');
+      // The receipt (2026-10-13, Loudon's ask): the card vanishes the instant
+      // its grant lands, so hand the deck what was filed — who, which ask, the
+      // pick, the note in full — before anything else can happen.
+      if (onFiled) onFiled({
+        name: item.from, headline: item.headline || item.resource || null,
+        optionId, optionLabel: optionLabel || null, notes: noteText || '',
+        id: (persisted && persisted.id) || message.id || null, ts: new Date().toISOString(), run,
+      });
       if (run) {
         const result = await advanceSteward(item.from);
         if (onRun) onRun(result, item.from);

@@ -7,7 +7,7 @@
 // failed run never reads as a lost decision.
 
 import { describe, it, expect } from 'vitest';
-import { formatRun } from '../../src/components/TricksterDeck.jsx';
+import { formatRun, formatReceipt } from '../../src/components/TricksterDeck.jsx';
 
 describe('formatRun', () => {
   it('reports an advancing cycle when the run fired', () => {
@@ -61,5 +61,26 @@ describe('formatRun', () => {
       formatRun(null, 'E'),
     ];
     for (const c of cases) expect(c.text.startsWith('filed')).toBe(true);
+  });
+});
+
+describe('formatReceipt — what was filed, shown after the card vanishes (2026-10-13)', () => {
+  it('names the steward, the ask, the pick, and keeps the note whole', () => {
+    const r = formatReceipt({ name: 'Waveguide Synthesizer', headline: 'Shall this be the plan?', optionLabel: null, notes: 'Start by really mastering this imagery.\nThen body, then bow.', id: 'resp-1', ts: '2026-10-13T20:43:34.419Z', run: false });
+    expect(r.head).toContain('@Waveguide Synthesizer');
+    expect(r.head).toContain('Shall this be the plan?');
+    expect(r.head).toContain('20:43Z');
+    expect(r.pick).toContain('note only');
+    expect(r.note).toBe('Start by really mastering this imagery.\nThen body, then bow.');
+    expect(r.id).toBe('resp-1');
+  });
+  it('shows the chosen option and no note block when the note is empty', () => {
+    const r = formatReceipt({ name: 'Quantum Synthesizer', headline: 'Revive?', optionLabel: 'REVIVE-TO-SPROUT — revive it', notes: '   ', id: null });
+    expect(r.pick).toBe('chose: REVIVE-TO-SPROUT — revive it');
+    expect(r.note).toBeNull();
+  });
+  it('is null without a steward name', () => {
+    expect(formatReceipt(null)).toBeNull();
+    expect(formatReceipt({})).toBeNull();
   });
 });

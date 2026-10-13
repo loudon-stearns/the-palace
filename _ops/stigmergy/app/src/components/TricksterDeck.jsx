@@ -43,6 +43,18 @@ export function formatRun(result, name) {
 
 const RUN_COLOR = { ok: 'var(--phosphor)', warn: 'var(--warn)', err: 'var(--error)' };
 
+// The receipt for a filed decision — what the card held the moment it vanished
+// (2026-10-13; Loudon: "the window just disappears, it would feel good to have
+// a confirmation of what was submitted"). Pure, so it is unit-testable.
+export function formatReceipt(filed) {
+  if (!filed || !filed.name) return null;
+  const when = filed.ts ? String(filed.ts).slice(11, 16) + 'Z' : '';
+  const head = `filed${when ? ` ${when}` : ''} · to @${filed.name}${filed.headline ? ` · "${filed.headline}"` : ''}`;
+  const pick = filed.optionLabel ? `chose: ${filed.optionLabel}` : 'no option picked — note only';
+  const note = filed.notes && String(filed.notes).trim() ? String(filed.notes).trim() : null;
+  return { head, pick, note, id: filed.id || null };
+}
+
 // TricksterDeck — the native catchup-first decision lane (the [T] deck).
 //
 // Phase 1 replaced the iframe of /trickster.html with a native card list.
@@ -90,6 +102,8 @@ export default function TricksterDeck({
   // here (not on the card) because the card unmounts the instant its grant is
   // filed — the steward-advance result would vanish with it.
   const [runStatus, setRunStatus] = useState(null);
+  // The last filed decision, shown as a receipt until the next file or a dismiss.
+  const [receipt, setReceipt] = useState(null);
   const [focusedIndex, setFocusedIndex] = useState(0);
   // Clamp focus to the current list (it shrinks as cards are filed).
   const focused = n === 0 ? -1 : Math.min(focusedIndex, n - 1);
@@ -250,6 +264,25 @@ export default function TricksterDeck({
         ) : null}
       </div>
 
+      {/* The receipt — what was just filed, in full, since the card is gone. */}
+      {receipt ? (
+        <div data-testid="trickster-receipt" style={{
+          border: '1px solid var(--phosphor)', color: 'var(--phosphor)', textShadow: 'var(--glow)',
+          padding: '6px 10px', marginBottom: 6, fontSize: 12,
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10 }}>
+            <span>{receipt.head}</span>
+            <span role="button" tabIndex={0} title="dismiss" onClick={() => setReceipt(null)} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setReceipt(null); }}
+              style={{ cursor: 'pointer', color: 'var(--phosphor-dim)', textShadow: 'none' }}>×</span>
+          </div>
+          <div style={{ color: 'var(--phosphor-dim)', textShadow: 'none', marginTop: 2 }}>{receipt.pick}</div>
+          {receipt.note ? (
+            <div data-testid="trickster-receipt-note" style={{ marginTop: 4, whiteSpace: 'pre-wrap', color: 'var(--phosphor-white)', textShadow: 'none', borderLeft: '2px solid var(--phosphor-dim)', paddingLeft: 8 }}>{receipt.note}</div>
+          ) : null}
+          {receipt.id ? <div style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 10, marginTop: 4 }}>on the board as {receipt.id}</div> : null}
+        </div>
+      ) : null}
+
       {/* FILE & RUN outcome — lives outside the n===0 branch so it stays up
           even when running the last card empties the deck. */}
       {runStatus ? (
@@ -305,6 +338,7 @@ export default function TricksterDeck({
               key={p.request_id || p.from + p.ts}
               item={p}
               onConfirmed={onConfirmed}
+              onFiled={(filed) => { setReceipt(formatReceipt(filed)); if (!filed.run) setRunStatus(null); }}
               onRun={(result, name) => setRunStatus(formatRun(result, name))}
               focused={i === focused}
               selectedId={selections[p.request_id] ?? null}
