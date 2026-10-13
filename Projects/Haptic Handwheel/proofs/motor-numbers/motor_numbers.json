@@ -1,0 +1,140 @@
+{
+ "datasheet": {
+  "kt": [
+   0.18,
+   0.4188287976102509
+  ],
+  "ktRated": [
+   0.18,
+   0.25
+  ],
+  "ktKV": [
+   0.3789403406949889,
+   0.4188287976102509
+  ],
+  "R": [
+   7.6,
+   15.2
+  ],
+  "bElec": [
+   0.002131578947368421,
+   0.023081258119427434
+  ],
+  "bElecMid": 0.007014237227678285,
+  "Jrotor": [
+   0.000029039999999999996,
+   0.00008649
+  ],
+  "L_assumed": [
+   0.001,
+   0.006
+  ],
+  "cornerHz": [
+   201.59626124973408,
+   2419.155134996809
+  ],
+  "assumedBefore": {
+   "bMotor": 0.0001,
+   "Jrotor": 0.00003
+  }
+ },
+ "stability": [
+  {
+   "lane": "device, 1 kHz loop",
+   "brake": "brake cancelled (old assumption)",
+   "b": 0.0001,
+   "kmax": 0.2021459683007663,
+   "theory": 0.2
+  },
+  {
+   "lane": "device, 1 kHz loop",
+   "brake": "brake left on, low bracket",
+   "b": 0.002231578947368421,
+   "kmax": 4.530905828093935,
+   "theory": 4.463157894736842
+  },
+  {
+   "lane": "device, 1 kHz loop",
+   "brake": "brake left on, middle",
+   "b": 0.007114237227678285,
+   "kmax": 14.59172474797441,
+   "theory": 14.228474455356569
+  },
+  {
+   "lane": "USB to Max, ~4 ms",
+   "brake": "brake cancelled (old assumption)",
+   "b": 0.0001,
+   "kmax": 0.022254623911711527,
+   "theory": 0.02222222222222222
+  },
+  {
+   "lane": "USB to Max, ~4 ms",
+   "brake": "brake left on, low bracket",
+   "b": 0.002231578947368421,
+   "kmax": 0.5057520956339165,
+   "theory": 0.4959064327485379
+  },
+  {
+   "lane": "USB to Max, ~4 ms",
+   "brake": "brake left on, middle",
+   "b": 0.007114237227678285,
+   "kmax": 1.6776161038736475,
+   "theory": 1.5809416061507298
+  },
+  {
+   "lane": "audio line, ~5.3 ms",
+   "brake": "brake cancelled (old assumption)",
+   "b": 0.0001,
+   "kmax": 0.01875202825188316,
+   "theory": 0.018725130685807913
+  },
+  {
+   "lane": "audio line, ~5.3 ms",
+   "brake": "brake left on, low bracket",
+   "b": 0.002231578947368421,
+   "kmax": 0.4278229772277936,
+   "theory": 0.4178660742517134
+  },
+  {
+   "lane": "audio line, ~5.3 ms",
+   "brake": "brake left on, middle",
+   "b": 0.007114237227678285,
+   "kmax": 1.4257638543046105,
+   "theory": 1.3321502181811566
+  }
+ ],
+ "ring": [
+  {
+   "brake": "brake cancelled (old assumption)",
+   "b": 0.0001,
+   "ringMs": 1640.0000000000002,
+   "wobbleHz": 5.124159838808173,
+   "zeta": 0.018938850476964253,
+   "wobblesHeard": 8.403622135645405
+  },
+  {
+   "brake": "brake left on, low bracket",
+   "b": 0.002231578947368421,
+   "ringMs": 73.49056603773587,
+   "wobbleHz": 5.124159838808173,
+   "zeta": 0.42263540011751805,
+   "wobblesHeard": 0.376577407021846
+  },
+  {
+   "brake": "brake left on, middle",
+   "b": 0.007114237227678285,
+   "ringMs": 23.052365946127026,
+   "wobbleHz": 5.124159838808173,
+   "zeta": 1.3473547511265174,
+   "wobblesHeard": 0
+  },
+  {
+   "brake": "brake left on, high bracket",
+   "b": 0.023181258119427433,
+   "ringMs": 7.074680725053363,
+   "wobbleHz": 5.124159838808173,
+   "zeta": 4.390263813917497,
+   "wobblesHeard": 0
+  }
+ ]
+}

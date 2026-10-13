@@ -15,20 +15,20 @@ forward_vector: "I am Haptic Handwheel's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T22:26:01.735Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T22:35:22.652Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** seed · **Steward:** cycle 1 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** seed · **Steward:** cycle 2 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — A feel lab for the knob that doesn't exist yet: all seven feels playable in the browser, five rendered to audio, plus a stability sweep showing which feels can cross a cable. (`haptic-handwheel-steward-002`)
-- **Last commit touching this project:** 2026-10-12 `29eef697` — edit(Loudon's Toolkit): Hardware Product line placed on Loudon's read; Push, Move and HISE on his word
+- **Last shipped:** 2026-10-13 (today) — The motor turns out to brake itself, which lets stiff feels survive a cable. I also wrote the firmware's feel core and the bench tests that will measure the real motor. (`haptic-handwheel-steward-005`)
+- **Last commit touching this project:** 2026-10-13 `5220fc25` — steward(Haptic Handwheel): cycle 1 — SPINNING UP. HOME: [[Haptic Handwheel]]. Neighborhood loaded. This is m…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Haptic Handwheel is your idea for one big knob that is a motor and a sensor at once, played as an instrument. Software decides how it feels, so it can be a string, a fret, a spring or a turntable. It is research reaching toward a product, and the nearer product is a simple knob that knows which parameter it's controlling. On 2026-10-05 the page gathered seven feels, a quickly drafted parts brief you asked us to push against, and a guess from that session: feels that answer the hand (springs, frets) must be computed near the motor, while feels played into the hand (an LFO, a pitch, a beat) can come down a cable. Nothing is built. This cycle I built the knob in simulation so the feels can be…
+Haptic Handwheel is your idea for one big knob that is a motor and a sensor at once, played as an instrument. Software decides how it feels: a string, frets, a spring, a turntable. It is research reaching toward a product, and the nearer product is a simpler knob that knows which parameter it's controlling. Nothing is built or bought yet. Last cycle I built the knob in simulation. The worst news was that a feel computed in Max and sent down USB could only be about as stiff as a weak pitch-wheel spring before it starts to buzz. I also proposed a first plan (simulate, pin down the motor's unknowns, buy parts, bench test, then your hands judge each feel), and that plan still waits on your yes.…
 
 ### Open asks
 
@@ -59,6 +59,44 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="haptic-handwheel-steward-005" -->
+### 2026-10-13 — cycle 2 — The motor turns out to brake itself, which lets stiff feels survive a cable. I also wrote the firmware's feel core and the bench tests that will measure the real motor.
+> shipped · nothing bought, board sketch uncompiled · steward leans parts list next
+
+**The motor brakes itself.** Last cycle's limit rested on a guess: that the motor and its bearings barely slow the knob down. The iFlight datasheet says otherwise. It gives 15.2 Ω across two leads, about 480 rpm with no load at 20 V, and 0.18–0.25 N·m at 1 A. When a driver like SimpleFOC sets the motor's voltage and doesn't measure current, a spinning motor generates a voltage of its own, and that voltage drives a current through the winding that pushes back against the spin. That push is a damper: real, physical and instant, with no loop and no delay in it. From the datasheet it comes out somewhere between 0.002 and 0.023 N·m·s/rad, which is 20 to 230 times what I had assumed.
+
+**What that changes.** I re-ran the stability sweep with this brake included. Over USB to Max, the stiffest feel that stays calm goes from 0.022 to between 0.5 and 1.7 N·m/rad. That's enough for frets and a full string bend to run in Max and stay calm with no hand on the knob. The simulation agrees with the textbook rule within 8% in every case. The guess from 2026-10-05 still holds: springs, frets and walls are safest on the device. But there's now a real choice instead of a wall.
+
+**What it costs.** The same brake kills anything that should keep moving on its own. A struck spring on the light cap rings for about eight wobbles with the brake cancelled. With the brake left on, it gets under half a wobble at the gentlest end of the range, and it doesn't wobble at all at the middle. The turntable would fight it too. So the firmware treats the brake as a dial each feel sets for itself, `cancelBrake` from 0 to 1. Stiff feels leave the brake on. The struck spring, the pendulum and the turntable cancel it, and they have to be computed on the knob. In the WAV, listen for the same flick three times: brake cancelled, then the gentlest brake, then the middle one.
+
+**The firmware.** `feel_core.h` is plain C++ with no Arduino in it. It holds every feel that responds to the hand (frets, the string, the struck spring and pendulum, the melody-follower, the turntable, end stops), plus local damping, the brake dial and an input for torque played in from Max. It compiles on this laptop with no warnings. A test drives it and the browser feel lab's engine with the same 2,800 inputs, and they agree to within a millionth of a N·m, so the lab and the firmware describe one knob. `handwheel.ino` wraps it for an ESP32 with SimpleFOC and the AS5048A encoder. It speaks a one-line text protocol Max can send with [serial]: `feel frets`, `set k 0.2`, `play 0.01`. The knob reports its angle every 2 ms.
+
+**The bench tests.** The firmware also has five tests that replace the four guesses: a spin-down done twice (driver off, then driver on at 0 V; the difference between the two is the brake), a push from rest with and without a disc of known weight (inertia and strength), a cogging map, and a frequency sweep. For the sweep, a contact mic on the cap recorded into your interface is the real test of whether you can feel a G. At 196 Hz the cap moves about 2 µm, which is too small for the encoder to see. `bench_analyze.py` turns a capture into numbers. I checked it on a made-up motor with known values, and it recovers them within 5%.
+
+**Artifacts:**
+- [One flick of the struck spring, three times: brake cancelled (rings), gentlest brake, middle brake (no wobble).](Projects/Haptic Handwheel/proofs/motor-numbers/motor_brake.wav)
+- [The datasheet turned into ranges, and the stability sweep re-run with the brake.](Projects/Haptic Handwheel/proofs/motor-numbers/motor_numbers.mjs)
+- [The numbers behind the table and the ring times.](Projects/Haptic Handwheel/proofs/motor-numbers/motor_numbers.json)
+- [The feels in plain C++: compiles here, matches the feel lab, has the brake dial.](Projects/Haptic Handwheel/firmware/handwheel/feel_core.h)
+- [ESP32 + SimpleFOC sketch with the Max protocol and five bench tests. Never compiled.](Projects/Haptic Handwheel/firmware/handwheel/handwheel.ino)
+- [Drives the C++ core over 2,800 inputs.](Projects/Haptic Handwheel/firmware/host-test/test_core.cpp)
+- [Checks the C++ core against the browser feel engine.](Projects/Haptic Handwheel/firmware/host-test/compare.mjs)
+- [Turns a bench capture into the motor's numbers; --selftest recovers a made-up motor within 5%.](Projects/Haptic Handwheel/firmware/bench/bench_analyze.py)
+- [One page: what each bench test needs, what it measures, and why it matters.](Projects/Haptic Handwheel/firmware/BENCH.md)
+
+_How stiff a feel can be before it buzzes, hands off, light cap (N·m/rad). Frets need ~0.72, a full string bend ~0.79_
+| where the feel is computed | brake cancelled (old guess) | brake on, gentlest | brake on, middle |
+| --- | --- | --- | --- |
+| on the knob, 1 kHz loop | 0.20 | 4.5 | 14.6 |
+| USB to Max, ~4 ms | 0.022 | 0.51 | 1.7 |
+| audio line, ~5.3 ms | 0.019 | 0.43 | 1.4 |
+
+_Left rough:_ The board sketch was never compiled: no Arduino or SimpleFOC on this machine, and the pins are guesses. The brake's range is ten times wide because the datasheet leaves out KV and inductance. Only a meter and the spin-down test will narrow it. The rotor inertia is still estimated from the motor's shape. The analyzer can't read the cogging map or the frequency sweep yet, and its self-test used a motor I made up.
+
+_Next moves named:_ Write the final parts list with real prices (motor, ESP32, driver that suits voltage mode, piezo contact mic, printed caps), the last step before the parts-order move in the proposed plan · Teach bench_analyze.py the cogging map and the contact-mic frequency sweep · Add the brake dial to the browser feel lab, so the ring-versus-calm trade can be felt by mouse before it's felt by hand
+<sub>`haptic-handwheel-steward-005` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="haptic-handwheel-steward-002" -->
 ### 2026-10-13 — cycle 1 — A feel lab for the knob that doesn't exist yet: all seven feels playable in the browser, five rendered to audio, plus a stability sweep showing which feels can cross a cable.
 > shipped · simulated, nothing bought · steward leans pin the motor's unknowns next
