@@ -20,12 +20,17 @@ set -uo pipefail
 # ── config ──────────────────────────────────────────────────────────────────
 PALACE="/Users/loudonstearns/Documents/The Palace"   # MAIN worktree (where stewards + tools live)
 INTERVAL_DAYS=2                                       # every-other-morning; set 1 for daily
-MODEL="claude-opus-5-5"                               # exact id — the `opus` alias has lagged the latest Opus
 CLAUDE_BIN="${CLAUDE_BIN:-claude}"                    # if launchd can't find it, hardcode: which claude
 
 # ── make `claude`/node resolvable under launchd's minimal environment ────────
 export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:$HOME/.npm-global/bin:$PATH"
 [ -s "$HOME/.nvm/nvm.sh" ] && . "$HOME/.nvm/nvm.sh" >/dev/null 2>&1 || true
+
+# ── the model: the latest Opus, as an exact id ──────────────────────────────
+# _ops/models/latest-opus.mjs decides, asking the same `claude` this wrapper
+# fires whether it can run a newer Opus. Never the bare `opus` alias, which has
+# lagged the latest Opus. To hold the batch on one model, set MODEL to an exact id.
+MODEL="$(CLAUDE_BIN="$CLAUDE_BIN" node "$PALACE/_ops/models/latest-opus.mjs" 2>/dev/null)"
 
 LOG_DIR="$PALACE/_ops/heartbeat/logs"
 mkdir -p "$LOG_DIR"
@@ -54,6 +59,8 @@ STAMP="$PALACE/_ops/heartbeat/.last-steward-batch"
 
   cd "$PALACE" || { echo "ERROR: palace not found at $PALACE"; exit 1; }
   command -v "$CLAUDE_BIN" >/dev/null 2>&1 || { echo "ERROR: '$CLAUDE_BIN' not in PATH — set CLAUDE_BIN to the full path"; exit 127; }
+  [ -n "$MODEL" ] || { echo "ERROR: no model — node could not run _ops/models/latest-opus.mjs"; exit 1; }
+  echo "model: $MODEL"
 
   "$CLAUDE_BIN" -p "Run my palace steward batch now using the palace-orchestrator skill in batch mode (read _ops/orchestrator/batch.md, then permanent.md per due steward). This is the scheduled every-other-morning heartbeat run on my Mac — the schedule is standing consent, so proceed without asking for confirmation. Give every due steward a RUN: cycle it repeatedly, up to its manifest's stopping_conditions.max_iterations, for as long as each cycle ships a made thing and nothing is waiting on me (a blocking ask or a live-session request ends that steward's run; a barren cycle gets exactly one retry, a second barren cycle means STALLED — stop that steward and move on). Post-process every cycle with process-cycle.js so each steward's bundle-local '[Entry] — scroll.md' (the project's front door: Now zone + making trail) is regenerated as part of the cycle. SHADOW POSTURE (read carefully): do NOT touch canonical entry .md bodies or frontmatter, and do NOT deposit canon — but writing the bundle-local scroll.md, the steward machinery (state.json / history.jsonl), and append-only board messages IS expected, not forbidden. Never hand-edit a scroll's Standing Orders zone — that zone is mine. Do NOT run git yourself — process-cycle.js commits each cycle's shipped work, and the wrapper sweeps up machinery after you return. Leave every ask as a Trickster-board message for me; the BBS is the record, so do NOT write a digest file." \
     --permission-mode bypassPermissions \

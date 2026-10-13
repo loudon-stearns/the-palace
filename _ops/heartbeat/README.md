@@ -160,5 +160,7 @@ their folders:
   (find it with `which claude`).
 - **Nothing happened at 06:00** — the Mac was asleep and not set to wake (see pmset
   above), or the 2-day guard skipped (check the newest `logs/*.log`).
-- **Model string** — the steward batch pins the exact id `claude-opus-5-5` (the `opus`
-  alias has lagged the latest Opus). Bump `MODEL=` when a newer Opus ships.
+- **Model string** — the steward batch runs the latest Opus as an exact id, which
+  `_ops/models/latest-opus.mjs` decides (the `opus` alias has lagged it); each run's log
+  prints it as `model:`. `node _ops/models/latest-opus.mjs --why` shows how it was chosen.
+  To hold the batch on one model, set `MODEL=` in the wrapper to an exact id.
