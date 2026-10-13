@@ -25,7 +25,7 @@ import { emitEntryFile } from '../src/lib/yaml-emit.js';
 import { detectArrayStyles } from '../src/lib/yaml-frontmatter.js';
 import { diffEntryText } from '../src/lib/frontmatter-diff.js';
 import { deriveTrailers, formatCommitMessage } from '../src/lib/commit-spec.js';
-import { commitSelected, clearStaleLocks } from './commit.js';
+import { commitSelected } from './commit.js';
 
 const KNOWN_KINDS = new Set([
   'deposit', 'edit', 'enrich', 'handoff', 'steward', 'weave', 'schema', 'ops', 'merge', 'mixed',
@@ -193,7 +193,6 @@ export async function tricksterSaveEntry(palaceRoot, {
 
   try {
     mkdirSync(dirname(abs), { recursive: true });
-    clearStaleLocks(palaceRoot);
     writeFileSync(abs, afterText, 'utf8');
   } catch (e) {
     return { ok: false, status: 500, error: `write failed: ${e.message}` };

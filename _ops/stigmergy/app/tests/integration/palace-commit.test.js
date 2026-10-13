@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach, afterEach } from 'vitest';
-import { mkdtempSync, mkdirSync, rmSync, writeFileSync, existsSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, rmSync, writeFileSync, existsSync, utimesSync } from 'node:fs';
 import { execFileSync, spawnSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { resolve, join, dirname } from 'node:path';
@@ -96,12 +96,36 @@ describe('palace-commit', () => {
     expect(g('rev-parse', 'HEAD').trim()).toBe(headBefore);
   });
 
-  test('clearStaleLocks removes a stray index.lock', () => {
-    writeFileSync(resolve(root, '.git', 'index.lock'), '');
-    expect(existsSync(resolve(root, '.git', 'index.lock'))).toBe(true);
-    clearStaleLocks(root);
-    expect(existsSync(resolve(root, '.git', 'index.lock'))).toBe(false);
+  test('clearStaleLocks keeps a fresh index.lock and removes an old one nobody holds', () => {
+    const lock = resolve(root, '.git', 'index.lock');
+    writeFileSync(lock, '');
+    // Fresh: presumed live (another session may be mid-commit), so refused, not deleted.
+    expect(() => clearStaleLocks(root, { attempts: 1, log: () => {}, gitProcesses: () => [] })).toThrow(/index\.lock is held/);
+    expect(existsSync(lock)).toBe(true);
+    // Old, and no git running in this checkout: the Cowork case. Removed, and logged.
+    const t = new Date(Date.now() - 120_000);
+    utimesSync(lock, t, t);
+    const lines = [];
+    const r = clearStaleLocks(root, { log: (s) => lines.push(s), gitProcesses: () => [] });
+    expect(existsSync(lock)).toBe(false);
+    expect(r.cleared.map((c) => c.rel)).toEqual(['.git/index.lock']);
+    expect(lines.join('')).toMatch(/removed stale \.git\/index\.lock/);
   });
+
+  test('the CLI refuses (exit 75) rather than delete a lock that looks live', () => {
+    writeFileSync(resolve(root, 'Foo.md'), '---\ntitle: Foo\nstage: sprout\n---\nx\n');
+    g('add', '--', 'Foo.md');
+    const lock = resolve(root, '.git', 'index.lock');
+    writeFileSync(lock, ''); // fresh: another session could be mid-commit
+    const headBefore = g('rev-parse', 'HEAD').trim();
+    const r = spawnSync('node', [CLI, '--kind', 'edit', '--summary', 'x', '--verify', 'verified'], {
+      cwd: root, encoding: 'utf8', env: { ...process.env, PALACE_ROOT: root },
+    });
+    expect(r.status).toBe(75);
+    expect(r.stderr).toMatch(/index\.lock is held/);
+    expect(existsSync(lock)).toBe(true);
+    expect(g('rev-parse', 'HEAD').trim()).toBe(headBefore);
+  }, 20_000); // the CLI really waits: five looks, two seconds apart
 
   // Non-ASCII filenames — every `Foo — baton.md` / `Foo — Context.md` bundle
   // file. Git's default core.quotepath=true octal-escapes + double-quotes them in

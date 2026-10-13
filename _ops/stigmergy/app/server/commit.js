@@ -10,7 +10,9 @@
 //     sweep another session's work; only the named paths are staged, and the
 //     commit is scoped to those pathspecs so a foreign pre-staged file is never
 //     swept into this commit.
-//   - Clear stale Cowork git locks first (the known sharp edge).
+//   - Clear a stale git lock first, and only a stale one: a live lock belongs
+//     to another session's commit and is waited out, never deleted
+//     (./git-locks.js).
 //
 // A move: select BOTH sides, the old path and the new one (files or folders).
 // The trailers are then derived against the entry at its old path, so a pure
@@ -29,6 +31,7 @@ import { resolve, join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { safePathspec } from './git.js';
 import { execGit } from './git-wrapper.js';
+import { clearStaleLocks, LockHeldError } from './git-locks.js';
 import { deriveTrailers, formatCommitMessage, parseNameStatus, VERIFY_VALUES } from '../src/lib/commit-spec.js';
 import { KNOWN_KINDS } from '../src/lib/commit-parse.js';
 import { diffEntryText } from '../src/lib/frontmatter-diff.js';
@@ -43,13 +46,10 @@ const gitAsync = execGit;
 // selection leads with this. A folder still brings its files.
 const LITERAL = ['--literal-pathspecs'];
 
-// Clear stale Cowork git locks (harmless if none). The known sharp edge.
-export function clearStaleLocks(palaceRoot) {
-  for (const f of ['.git/HEAD.lock', '.git/index.lock']) {
-    const p = resolve(palaceRoot, f);
-    if (existsSync(p)) { try { rmSync(p); } catch (_) { /* ignore */ } }
-  }
-}
+// Lock handling lives in ./git-locks.js: a stale lock (old, no git running in
+// this checkout) is removed and logged; a live one is waited out, then refused
+// with LockHeldError. Re-exported for the server's other writers.
+export { clearStaleLocks, LockHeldError };
 
 // The staged name-status rows ({ status, path, renamedFrom }), optionally
 // scoped to `scope` (pathspecs).
@@ -132,7 +132,12 @@ export async function commitSelected(palaceRoot, opts = {}) {
     safe.push(s);
   }
 
-  clearStaleLocks(palaceRoot);
+  try {
+    await clearStaleLocks(palaceRoot, { tag: 'commit' });
+  } catch (e) {
+    if (e instanceof LockHeldError) return { ok: false, error: e.message };
+    throw e;
+  }
 
   // ── stage ONLY the selected paths (never -A) ──
   // A path that is already a staged deletion is skipped: `git add` dies on it
