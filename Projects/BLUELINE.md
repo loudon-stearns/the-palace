@@ -179,4 +179,4 @@ in git; the [[BLUELINE — Production Plan]] is the map of threads and proofs.)*
 
 ## Active Baton
 
-[[BLUELINE — baton]] — drafted 2026-07-04 (the Aftermath Frame tool → a guide that LEADS + gen-AI frames; hand to a fresh Claude). Lives on `feature/blueline-aftermath`.
+[[BLUELINE — baton]] — drafted 2026-07-04 (the Aftermath Frame tool → a guide that LEADS + gen-AI frames; hand to a fresh Claude). Lives on `main`.

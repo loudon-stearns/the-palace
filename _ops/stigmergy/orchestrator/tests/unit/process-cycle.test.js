@@ -2,6 +2,7 @@ import { describe, test, expect, afterEach } from 'vitest';
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
+import { latestOpus } from '../../../../models/latest-opus.mjs';
 import {
   extractMessagesFromTranscript,
   classifyInterruption,
@@ -573,5 +574,34 @@ describe('classifyInterruption — the limit wordings seen on disk', () => {
   test('an expired token or an old CLI is an API error, not a limit', () => {
     expect(classifyInterruption(null, 'Failed to authenticate. API Error: 401 OAuth access token has expired.')).toBe('api_error');
     expect(classifyInterruption(null, 'API Error: 400 Claude Code 2.1.236 does not support this model')).toBe('api_error');
+  });
+});
+
+describe('processCycle — a manifest that says "opus" records the exact latest Opus', () => {
+  let root;
+  afterEach(() => { if (root) rmSync(root, { recursive: true, force: true }); root = null; });
+
+  test.each([
+    ['opus', latestOpus()],
+    ['claude-opus-4-7', 'claude-opus-4-7'],
+  ])('manifest model %s → history records %s', (asked, recorded) => {
+    root = mkdtempSync(path.join(tmpdir(), 'palace-pc-model-'));
+    const agentDir = '_ops/agents/permanent/test-steward';
+    mkdirSync(path.join(root, agentDir), { recursive: true });
+    mkdirSync(path.join(root, '_ops/swarm/persistent'), { recursive: true });
+    writeFileSync(path.join(root, agentDir, 'manifest.json'), JSON.stringify({ agent_id: 'Test Steward', home: 'Test Steward', mode: 'long_duration_background', session_id: 's', model: { name: asked } }));
+    writeFileSync(path.join(root, agentDir, 'state.json'), JSON.stringify({ iteration: 1, last_active: '2026-10-13T00:00:00Z', last_read_cursor: 'x' }));
+    writeFileSync(path.join(root, agentDir, 'history.jsonl'), '');
+    writeFileSync(path.join(root, '_ops/swarm/persistent/blackboard.jsonl'), '');
+    const transcriptPath = path.join(root, 'transcript.jsonl');
+    writeFileSync(transcriptPath, [
+      JSON.stringify({ type: 'assistant', message: { usage: {}, content: [{ type: 'text', text: "You've hit your session limit" }] } }),
+      JSON.stringify({ type: 'result', subtype: 'success', is_error: true, num_turns: 1, result: "You've hit your session limit" }),
+    ].join('\n'));
+
+    processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 2, iteration: 2, tsNow: '2026-10-13T00:01:00Z' });
+
+    const history = readFileSync(path.join(root, agentDir, 'history.jsonl'), 'utf8').trim().split('\n').map((l) => JSON.parse(l));
+    expect(history[history.length - 1].model).toBe(recorded);
   });
 });

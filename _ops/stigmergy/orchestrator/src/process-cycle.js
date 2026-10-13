@@ -35,6 +35,7 @@ import { scanBundleMedia, applyArtifactBackstop, lintArtifactReferences } from '
 import { materializeScroll } from './scroll-file.js';
 import { resolveBundleDir } from './entry-paths.js';
 import { commitCycle } from './cycle-commit.js';
+import { resolveModel } from '../../../models/latest-opus.mjs';
 
 const PALACE_ROOT_DEFAULT = resolve(fileURLToPath(new URL('.', import.meta.url)), '../../../..');
 
@@ -261,7 +262,7 @@ export function processCycle(opts) {
   const state = JSON.parse(readFileSync(join(agentDirAbs, 'state.json'), 'utf8'));
   const manifest = JSON.parse(readFileSync(join(agentDirAbs, 'manifest.json'), 'utf8'));
   const home = manifest.home;
-  const model = modelOverride || manifest.model?.name || 'claude-opus-5-5';
+  const model = resolveModel(modelOverride || manifest.model?.name); // "opus" or none → the latest Opus
 
   // ── A cycle cut off by the harness is INTERRUPTED, not barren ────────────
   // (found 2026-09-25: two Neural Granular Synthesis cycles ended on "You've

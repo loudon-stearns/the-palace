@@ -7,6 +7,7 @@ import TreeLens from './TreeLens.jsx';
 import QuotesLens from './QuotesLens.jsx';
 import { fetchEntries } from '../../adapters/entries.js';
 import { buildIndex } from '../../lib/wikilink.js';
+import { canonTitles } from '../../lib/pulse.js';
 import { buildRefIndex } from '../../lib/entry-ref.js';
 import { useEntryNavigation, useLensNavigation, useQuoteNavigation, parseTreeTargetFromUrl } from '../../lib/url-nav.js';
 import { Banner } from '../primitives.jsx';
@@ -95,6 +96,13 @@ export default function StateDeck({ jumpTarget = null, onEntryPathChange, reload
     return buildRefIndex(state.entries);
   }, [state]);
 
+  // What the LENS picker may offer as a glass: canon pages only (PULSE's
+  // universe), never a bundle face, a proof or a handoff.
+  const glassTitles = useMemo(() => {
+    if (state.kind !== 'ok') return [];
+    return canonTitles(state.entries);
+  }, [state]);
+
   // A cross-deck jump (e.g. clicking [BUN] on a Trickster card's @steward)
   // sets jumpTarget and flips the deck to STATE; open that entry when it
   // arrives. Keyed on the nonce so the same entry can be re-jumped, and so an
@@ -128,6 +136,7 @@ export default function StateDeck({ jumpTarget = null, onEntryPathChange, reload
           path={selected}
           index={wikilinkIndex}
           refIndex={refIndex}
+          glassTitles={glassTitles}
           onNavigate={nav.openEntry}
           onBack={nav.backToPulse}
           onEdit={IS_PUBLIC ? undefined : nav.openEditor}
