@@ -15,24 +15,24 @@ forward_vector: "I am Quantum Synthesizer's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T18:59:23.819Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T19:06:22.306Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** dormant · **Steward:** cycle 8 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** dormant · **Steward:** cycle 9 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
-- **Waiting on you:** nothing
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — Same box, only the walls change: six strikes on one ruler. The walls pick the shapes; the equation picks the pitches. (`quantum-synth-012`)
-- **Last commit touching this project:** 2026-10-13 `a4103f44` — steward(Quantum Synthesizer): cycle 7 — SPINNING UP. HOME: [[Quantum Synthesizer]]. Neighborhood loaded. Cycle …
+- **Last shipped:** 2026-10-13 (today) — Three proofs in one run, ending on 'Schrödinger is the square root of a vibrating bar'. Revive this page to sprout? (`quantum-synth-016`)
+- **Last commit touching this project:** 2026-10-13 `c5e8ca78` — steward(Quantum Synthesizer): cycle 8 — Same box, only the walls change: six strikes on one ruler. The walls pi…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Quantum Synthesizer claims the Schrödinger equation is a synthesizer: what confines a particle decides its energy levels, and those levels, played as partials, are the timbre. Over the summer and last cycle I tested half of that claim, the shape of the well, and the result became the 34-second timbre atlas: parabola, bell, double well, tipped well, chemical bond. My forward vector names a second test I had never run: do the walls of a box set the harmonic content? This cycle ran it. It's a 29.5-second video of one empty box. Only the walls change, and every segment uses the same pluck, the same pickup and the same pitch ruler (hard-wall ground = A3).
+Quantum Synthesizer claims the Schrödinger equation is a synthesizer: whatever confines a particle sets its energy levels, and those levels, played as partials, are the timbre. Today's run tested this three ways. The timbre atlas changed the shape of the well. The walls video changed the box's walls and found that the walls pick the wave shapes, but the equation picks the pitches: a string sounds 1·2·3·4, while Schrödinger's box, with the same shapes, sounds 1·4·9·16. This cycle builds the road between those two. It's a 32-second video: one pinned string plucked sixteen times while it gets stiffer, followed by one held tone that glides the whole way.
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `quantum-synth-016` — directional_decision · posted 2026-10-13 · options: REVIVE-TO-SPROUT · STAY-DORMANT · NOT-SURE-YET
 
 ### Answered, not yet consumed
 
@@ -65,6 +65,55 @@ This container has no Shop (no ComfyUI, Kokoro, Max, or GPU) — Python with num
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="quantum-synth-016" -->
+### 2026-10-13 — cycle 9 — Three proofs in one run, ending on 'Schrödinger is the square root of a vibrating bar'. Revive this page to sprout?
+> still working · run finished, three videos shipped · steward leans REVIVE-TO-SPROUT
+
+Quantum Synthesizer claims the Schrödinger equation is a synthesizer. Today's run made three videos. The timbre atlas shows five well shapes giving five timbres. The walls video shows that walls pick the shapes and the equation picks the pitches. The stiffness video slides one string into Schrödinger's squares and ends at an exact identity: a pinned bar is the quantum box. On your standing order, plainly: yes, this feels alive. Each proof turned up something the entry didn't know. You already granted the revive on 24 September, but the entry still says dormant, so this may just be a reminder for an elder to apply it. REVIVE-TO-SPROUT gets that change made. STAY-DORMANT keeps these as probes. NOT-SURE-YET waits until you've heard the videos.
+
+**Artifacts:**
+- [this cycle's proof: string to Schrödinger in 32 s.](Projects/Quantum Synthesizer/proofs/stiffness.mp4)
+- [the whole road in one still.](Projects/Quantum Synthesizer/proofs/stiffness-poster.png)
+- [walls-poster.png](Projects/Quantum Synthesizer/proofs/walls-poster.png)
+- [walls.mp4](Projects/Quantum Synthesizer/proofs/walls.mp4)
+- [walls.wav](Projects/Quantum Synthesizer/proofs/walls.wav)
+<sub>`quantum-synth-016` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="quantum-synth-015" -->
+### 2026-10-13 — cycle 9 — One string, made stiffer and stiffer until it sounds exactly like Schrödinger's box: Schrödinger is the square root of a vibrating bar.
+> shipped · third test of the forward vector · steward leans propose the entry fix next
+
+The road is a stiff string, the same physics as a piano string. Tension pulls it straight, and bending stiffness adds a second restoring force. With the ground held on A3, every partial moves as f_n = 220 · n · √((1 + B·n²)/(1 + B)). At B = 0 that's 1·2·3, and as B grows without limit it becomes exactly 1·4·9·16. The wave shapes stay the same sines the whole way, so the same pluck and pickup give the same loudness pattern on every strike. Only the pitches move, and that's what you hear.
+
+The finding is better than I expected. A string stiff enough to be pure bending is a pinned bar, and a pinned bar IS Schrödinger's box. If you apply the free Schrödinger equation twice, you get the bar equation, ψ_tt = −¼ ψ_xxxx. Start a wavefunction real, and its real part moves exactly like a struck pinned bar. So Schrödinger is the square root of a vibrating bar. I didn't take the algebra on faith: I integrated the box and the bar separately from the same pluck, and at the pickup they agree to 9.5 × 10⁻⁹ against a signal of 0.52. The right panel of the poster shows the two traces on top of each other.
+
+The piano has a place on this road. Piano strings sit at B ≈ 0.0001 to 0.001 (the band [[Piano String Inharmonicity]] gives), which is the far string end. Their partials only turn bar-like past n ≈ 1/√B, which means 30 to 100 partials up. The piano's stretched tuning is Schrödinger's arithmetic showing up faintly, far from the ground.
+
+This also settles the piano paragraph you approved replacing in September: the stiff string and the quantum box sit on one continuous road, and that's stronger evidence than the prose had.
+
+**Artifacts:**
+- [32 s: sixteen plucks up the stiffness road, then one held tone gliding from string to Schrödinger. The picture is locked to the sound.](Projects/Quantum Synthesizer/proofs/stiffness.mp4)
+- [the whole road in one still, every partial against B with the piano band marked, and the box-vs-bar check traces lying on top of each other.](Projects/Quantum Synthesizer/proofs/stiffness-poster.png)
+- [the audio alone at one gain throughout, for the DAW.](Projects/Quantum Synthesizer/proofs/stiffness.wav)
+- [the generator; prints all three checks.](Projects/Quantum Synthesizer/proofs/stiffness.py)
+
+_Stiffness · ground held at 220 Hz · ratios of the first partials (the script's finite-difference solver)_
+| B | partials ÷ ground | where it lives |
+| --- | --- | --- |
+| 0 | 1 · 2 · 3 · 4 · 5 | plain string, harmonic series |
+| 0.0004 | 1 · 2.001 · 3.005 · 4.012 · 5.024 | middle of a piano |
+| 0.01 | 1 · 2.03 · 3.12 · 4.29 · 5.56 | stiffer than any piano string |
+| 1 | 1 · 3.16 · 6.71 · 11.66 · 18.03 | halfway: bending = tension |
+| 100 | 1 · 3.99 · 8.96 · 15.92 · 24.88 | almost all bar |
+| ∞ | 1 · 4 · 9 · 16 · 25 | pinned bar = Schrödinger's hard box |
+
+_Left rough:_ I haven't listened to it. Every check is numerical: the solver matches the formula within 3 × 10⁻⁴, FFT peaks land within 0.04 Hz, and box and bar agree within 10⁻⁸. The piano's B band comes from our own Piano String Inharmonicity entry and isn't checked against a primary source. Real bars, like a vibraphone or a marimba, have free ends, not pinned ones, so they don't land on 1·4·9. Only a pinned bar does.
+
+_Next moves named:_ Draft one replacement section for the entry, 'The road from string to Schrödinger', with the walls finding and this video as evidence, and hand it to an elder. It would also fix the 'geometry of confinement determines the harmonic content' line, which is half true. · Free-ended bars (marimba, glockenspiel: 1 · 2.76 · 5.40) compared against Schrödinger's free-walled box (1 · 4 · 9). Same equation family, different walls, so they should give different pitches. That's the walls test and the equation test crossed.
+<sub>`quantum-synth-015` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="quantum-synth-012" -->
 ### 2026-10-13 — cycle 8 — Same box, only the walls change: six strikes on one ruler. The walls pick the shapes; the equation picks the pitches.
 > shipped · second test of the forward vector run · steward leans keep going
