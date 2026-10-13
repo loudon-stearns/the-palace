@@ -20,7 +20,7 @@ links:
     type: couples-with
   - target: "[[Palace Quotes]]"
     type: connects-to
-    label: quote-archive
+    label: quote-intake
   - target: "[[Deposit Ceremony]]"
     type: couples-with
     label: harvest-deposit-pair
@@ -51,7 +51,7 @@ The palace grows from deposits. Before a deposit can happen, someone has to find
 - A new project with palace-level significance
 - A cross-pillar connection not yet represented as a typed link
 - A question being carried that belongs in an entry's forward vectors
-- A quote for [[Palace Quotes]]
+- A quote [[Palace Quotes]] could lay on the page it belongs to
 
 **A source is not worthy if it is:**
 - Pure debugging or technical problem-solving without conceptual breakthrough
