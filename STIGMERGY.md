@@ -69,8 +69,6 @@ It is two things at once. Seen by a human, it is a **front-end** — a phosphor 
 
 > **[[STIGMERGY — baton]]** (2026-09-25) — hardening: close the doors the [[No Mind Checks Itself]] re-check found open — sandbox the rich face's pieces, settle the review wire, the smaller rich-face fixes. Cross-site writes, the late host check and the CDN scripts are closed (2026-09-26); the regen-lane teardown race and the bare-server port mix-up are closed (2026-10-12).
 
-> **[[STIGMERGY — baton — latest-opus-resolver]]** (2026-09-22, re-homed 2026-09-26) — one resolver for "the latest Opus," imported by the ten scripts that hard-code an Opus id, so the next release needs no sweep. It moved here when STIGMERGY v2.0 was archived; the move is untouched.
-
 ## The honesty discipline, made structural
 
 The three decks are ordered by time, and the ordering is the point. STATE is what is known now; QUEUE is what is intended; LOG is what actually happened. Work is not real until it lands in LOG — until git proves it. This makes the palace's standing rule (*nothing is true until it is committed*) **structural rather than remembered**: you cannot fake completion when the surface itself reconciles QUEUE against LOG. Git is ground truth; the blackboard is append-only; there is one write path.
