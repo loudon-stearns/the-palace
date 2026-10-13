@@ -151,10 +151,18 @@ export function parseRequest(msg) {
     ? msg.payload
     : {};
 
-  const request_id = (typeof msg?.request_id === 'string' && msg.request_id.trim() !== '')
-    ? msg.request_id
-    : null;
-  if (!request_id) warnings.push('missing top-level request_id (Gap 9 — §2.5 split)');
+  // The correlation key a grant's `re` answers. The deck writes
+  // `re: request_id ?? id` (app/src/lib/response-builder.js), so a request with
+  // no top-level request_id is answered by its own message id. Null only when
+  // the message carries neither.
+  const nonEmpty = (v) => (typeof v === 'string' && v.trim() !== '' ? v : null);
+  const wireRequestId = nonEmpty(msg?.request_id);
+  const request_id = wireRequestId ?? nonEmpty(msg?.id);
+  if (!wireRequestId) {
+    warnings.push(request_id
+      ? 'missing top-level request_id (Gap 9 — §2.5 split); paired by message id'
+      : 'missing top-level request_id and message id; nothing can answer it');
+  }
 
   const resourceRaw = coalesce(msg, 'resource');
   const resource = typeof resourceRaw === 'string' && resourceRaw.trim() !== '' ? resourceRaw : null;
