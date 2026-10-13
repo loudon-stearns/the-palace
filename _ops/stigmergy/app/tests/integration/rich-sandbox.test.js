@@ -76,8 +76,6 @@ function makeTempPalace() {
   ].join('\n'), 'utf8');
   mkdirSync(resolve(root, ENTRY), { recursive: true });
   writeFileSync(resolve(root, ENTRY, 'probe.html'), PROBE, 'utf8');
-  // STIGMERGY's reader frames the rich face on its own origin (RichFaceFrame.jsx).
-  writeFileSync(resolve(root, 'framer.html'), `<!doctype html><body><iframe id="rf" style="width:1200px;height:900px" src="/rich/?entry=${encodeURIComponent(ENTRY)}&review=0"></iframe></body>`, 'utf8');
   writeFileSync(resolve(root, ENTRY, 'note.md'), "---\ntitle: note\n---\nA [t](javascript:window.__js='textpiece') link.\n", 'utf8');
   writeFileSync(resolve(root, ENTRY, 'bare.html'), '<!doctype html><body><div style="height:1200px">tall</div></body>', 'utf8');
   for (const [n] of KPIECES) copyFileSync(resolve(KURAMOTO, `Kuramoto Coupling — rich — ${n}.html`), resolve(root, ENTRY, `${n}.html`));
@@ -96,6 +94,13 @@ function makeServer(palaceRoot, log) {
   plugin.configureServer({ middlewares: { use: (fn) => handlers.push(fn) } });
   return http.createServer((req, res) => {
     res.on('finish', () => log.push(`${req.method} ${req.url.split('?')[0]} ${res.statusCode}`));
+    // Stands in for STIGMERGY's reader, which frames the rich face from the app's
+    // own page on the same origin (RichFaceFrame.jsx) — not a palace file.
+    if (req.url === '/framer') {
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.end(`<!doctype html><body><iframe id="rf" style="width:1200px;height:900px" src="/rich/?entry=${encodeURIComponent(ENTRY)}&review=0"></iframe></body>`);
+      return;
+    }
     let i = 0;
     const next = () => { if (i >= handlers.length) { res.statusCode = 404; res.end('not found'); return; } handlers[i++](req, res, next); };
     next();
@@ -155,6 +160,18 @@ describe.skipIf(!chromium)('the rich face in a browser', () => {
     expect(log.filter((l) => /^POST \/api\/persistent 200$|^GET \/api\/open 404$/.test(l))).toEqual([]);
   }, 30000);
 
+  test('a piece opened as the page itself still cannot write or reach /api/open', async () => {
+    const top = await browser.newPage();
+    try {
+      await top.goto(`${base}/rich/${encodeURIComponent(ENTRY)}/probe.html`);
+      await top.waitForSelector('body[data-out]', { state: 'attached', timeout: 20000 });
+      const out = JSON.parse(await top.$eval('body', (b) => b.dataset.out));
+      expect(out.json).not.toBe(200);
+      expect(out.open).not.toBe(404);
+      expect(board()).toBe('');
+    } finally { await top.close(); }
+  }, 30000);
+
   test('a piece takes its manifest height, and one without gets the default', async () => {
     const heights = await page.$$eval('figure[data-piece]', (fs) => Object.fromEntries(fs.filter((f) => f.querySelector('iframe')).map((f) => [f.dataset.piece, f.querySelector('iframe').style.height])));
     expect(heights['probe.html']).toBe('500px');
@@ -203,7 +220,7 @@ describe.skipIf(!chromium)('the rich face in a browser', () => {
   test('framed by a page on its own origin, it hides its top strip and leaves F alone', async () => {
     const outer = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
     try {
-      await outer.goto(`${base}/rich/framer.html`);
+      await outer.goto(`${base}/framer`);
       const frame = outer.frameLocator('#rf');
       await frame.locator('section.sec[data-key="text"]').waitFor({ timeout: 30000 });
       await frame.locator('#faces a.btn').first().waitFor({ state: 'attached', timeout: 30000 });
@@ -214,7 +231,7 @@ describe.skipIf(!chromium)('the rich face in a browser', () => {
       await outer.keyboard.press('f');
       await outer.waitForTimeout(1500);
       expect(outer.frames().find((f) => f.parentFrame()).url()).toBe(before);
-      expect(outer.url()).toBe(`${base}/rich/framer.html`);
+      expect(outer.url()).toBe(`${base}/framer`);
     } finally { await outer.close(); }
   }, 60000);
 

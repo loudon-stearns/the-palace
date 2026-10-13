@@ -61,6 +61,10 @@ export async function filesRoutes(ctx) {
     }
     res.statusCode = 200;
     res.setHeader('Content-Type', contentTypeFor(abs));
+    // An .html or .svg is an active document: whoever opens this URL — an
+    // ArtifactSlot frame, a new tab — gets it sandboxed, never with STIGMERGY's
+    // origin. The rich face serves its pieces the same way (ACTIVE_SANDBOX).
+    if (/\.(?:html?|svg)$/i.test(abs)) res.setHeader('Content-Security-Policy', 'sandbox allow-scripts');
     res.setHeader('Content-Length', String(stat.size));
     res.setHeader('Cache-Control', 'no-cache');
     const stream = createReadStream(abs);

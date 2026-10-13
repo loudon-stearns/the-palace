@@ -29,6 +29,15 @@ const CT = {
   '.mp4': 'video/mp4', '.webm': 'video/webm', '.mov': 'video/quicktime',
   '.wav': 'audio/wav', '.mp3': 'audio/mpeg', '.ogg': 'audio/ogg', '.m4a': 'audio/mp4', '.flac': 'audio/flac',
 };
+// A palace .html or .svg is an active document. The rich face frames its pieces
+// sandboxed, but a piece reached any other way — a link in the prose, a
+// top-level navigation — would run on this origin with its authority, so it is
+// served sandboxed too: scripts run, in an opaque origin. Only the renderer
+// itself (rich.html, at the mount's root) and its own files are exempt.
+// STIGMERGY's GET /api/file sends the same header (app/server/api/files.js).
+export const ACTIVE_SANDBOX = 'sandbox allow-scripts';
+const ACTIVE = /\.(?:html?|svg)$/i;
+
 // The renderer's own files; nothing else in this folder is served as _rich/*.
 const RENDERER_FILES = new Set(['parse.js']);
 
@@ -161,8 +170,9 @@ export function createRichHandler({ root, here, base = '', app }) {
     return { title, md: relUrl(md), bundle: existsSync(bundle) ? relUrl(bundle) + '/' : null, manifest: manifest ? relUrl(manifest) : null, files };
   }
 
-  function serveFile(req, res, file, size) {
+  function serveFile(req, res, file, size, palaceFile = false) {
     const headers = { 'Content-Type': CT[extname(file).toLowerCase()] || 'application/octet-stream', 'Accept-Ranges': 'bytes', 'Cache-Control': 'no-store' };
+    if (palaceFile && ACTIVE.test(file)) headers['Content-Security-Policy'] = ACTIVE_SANDBOX;
     const range = req.headers.range && req.headers.range.match(/bytes=(\d*)-(\d*)/);
     let status = 200, opts;
     if (range) {
@@ -244,16 +254,16 @@ export function createRichHandler({ root, here, base = '', app }) {
     }
 
     if (req.method !== 'GET' && req.method !== 'HEAD') return false;
-    let file;
+    let file, palaceFile = false;
     if (path === '/' || path === '/index.html') file = join(HERE, 'rich.html');
     else if (path.startsWith('/_rich/')) {
       const name = path.slice('/_rich/'.length);
       file = RENDERER_FILES.has(name) ? join(HERE, name) : null;
     } else if (path.startsWith('/_vendor/')) file = vendorFile(path.slice('/_vendor/'.length));
-    else file = inside(ROOT, path);
+    else { file = inside(ROOT, path); palaceFile = true; }
     const st = file ? statOrNull(file) : null;
     if (!st || !st.isFile()) { res.writeHead(404); res.end('not found: ' + path); return true; }
-    serveFile(req, res, file, st.size);
+    serveFile(req, res, file, st.size, palaceFile);
     return true;
   }
 }

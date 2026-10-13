@@ -44,6 +44,8 @@ function makeTempPalace() {
   mkdirSync(resolve(root, 'Demo Entry'), { recursive: true });
   writeFileSync(resolve(root, 'Demo Entry/Demo Entry — rich.json'), JSON.stringify({ entry: 'Demo Entry', sections: [] }), 'utf8');
   writeFileSync(resolve(root, 'Demo Entry/bed.wav'), WAV, 'binary');
+  writeFileSync(resolve(root, 'Demo Entry/piece.html'), '<!doctype html><script>1</script>', 'utf8');
+  writeFileSync(resolve(root, 'Demo Entry/pic.svg'), '<svg xmlns="http://www.w3.org/2000/svg"><script>1</script></svg>', 'utf8');
   mkdirSync(resolve(root, 'Elsewhere'), { recursive: true });
   writeFileSync(resolve(root, 'Elsewhere/stray.png'), 'PNG', 'binary');
   return root;
@@ -107,6 +109,18 @@ describe('the rich face at /rich/', () => {
     const part = await request(base).get('/rich/Demo%20Entry/bed.wav').set('Range', 'bytes=0-3');
     expect(part.status).toBe(206);
     expect(part.headers['content-range']).toBe(`bytes 0-3/${WAV.length}`);
+  });
+
+  // A piece reached outside its sandboxed frame — a prose link, a top-level
+  // navigation — must not run as STIGMERGY either, so the server sandboxes it.
+  test('a palace .html or .svg is served sandboxed; the page and its own files are not', async () => {
+    const csp = async (path, method = 'get') => (await request(base)[method](path)).headers['content-security-policy'];
+    expect(await csp('/rich/Demo%20Entry/piece.html')).toBe('sandbox allow-scripts');
+    expect(await csp('/rich/Demo%20Entry/piece.html', 'head')).toBe('sandbox allow-scripts');
+    expect(await csp('/rich/Demo%20Entry/pic.svg')).toBe('sandbox allow-scripts');
+    expect(await csp('/rich/?entry=Demo%20Entry')).toBeUndefined();
+    expect(await csp('/rich/_rich/parse.js')).toBeUndefined();
+    expect(await csp('/rich/Demo%20Entry/bed.wav')).toBeUndefined();
   });
 
   test('media resolves by bare filename, vault-wide, under the mount', async () => {
