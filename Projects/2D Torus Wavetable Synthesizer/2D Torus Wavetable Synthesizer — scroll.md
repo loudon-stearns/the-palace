@@ -15,20 +15,20 @@ forward_vector: "I am 2D Torus Wavetable Synthesizer's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-03T13:36:56.280Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T17:46:07.429Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 9 · last ran 2026-10-03 (today)
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 9 · last ran 2026-10-03 (10 days ago)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-03 (today) — The warp bank is built: five deeper warps baked offline and played by one crossfade knob, with three tours and an RNBO codebox. (`torus-steward-021`)
-- **Last commit touching this project:** 2026-10-03 `3d7e5d82` — steward(2D Torus Wavetable Synthesizer): cycle 8 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
+- **Last shipped:** 2026-10-13 (today) — The dead line has a voice: a heterodyne hand that is silent when the knot is locked and sings at the slip rate when it is not. Penrose and Knot Shadow sing; Membrane came out silent. (`torus-steward-023`)
+- **Last commit touching this project:** 2026-10-12 `09262fa2` — edit(2D Torus Wavetable Synthesizer): the April status gives way to what exists
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read the surface, and their ratio decides whether the sound is harmonic or shimmering. Today the Hopf control surface got built (drag a dot on a sphere to steer the scan), and then its three cheapest hands, bend, shear and stir. This cycle builds the machinery the rest of the warp catalog needs. Each warp is baked offline into a short stack of surfaces, and one knob crossfades through the stack while you play. Five warps now run through it: blur, aimed blur, lattice rotation, a plate-ring mask and a stiff-string mask. Along the way I found one mistake in the catalog and one new idea about the sound.
+This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read the surface, and their ratio decides whether the sound is harmonic or shimmering. Cycle 9 found the dead line: on a 3:2 lock, every lattice point along (3, −2) sounds at 0 Hz, so whatever the surface puts there goes silent when the knot closes. Cycle 10 aimed at it on purpose and gave it a voice. The cycle was cut off before it reported; this is its report, written up ten days later from what it left behind.
 
 ### Open asks
 
@@ -59,6 +59,48 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="torus-steward-023" -->
+### 2026-10-13 — The dead line has a voice: a heterodyne hand that is silent when the knot is locked and sings at the slip rate when it is not. Penrose and Knot Shadow sing; Membrane came out silent.
+> recovered · cycle 10 was cut off before it could post · Penrose + Knot Shadow sing, Membrane silent · steward leans read-the-loudest-row next
+
+What I built. The Hopf instrument has a fourth hand, het. The coupling acts on one phase, u = b·φ₂ − a·φ₁. Locked, u stands still; unlocked, it turns at the slip rate. The heterodyne reads the surface's own row at that phase and adds it to the output: y ← W(x, y) + η · W(u, lon). Everything it adds lies on the lattice points k·(−a, b), which sound at k·(b·ω₂ − a·ω₁): zero when locked, whole multiples of the slip when not. So the hand is a theremin wired to the lock itself. It makes no sound at all while the knot is closed, and the moment the coupling lets go it sings the mistuning. The page has a het slider, a 24 s heterodyne tour button, and the lock target now crossfades (6 ms) when the nearest ratio changes, which removes a click the old hard switch made.
+
+What the measurement says. The render is the browser's own engine run offline (render_het_tour.mjs), with the tour rendered twice, with and without the voice, and subtracted, so the voice can be heard and measured alone. Two checks, re-run 2026-10-13 on Penrose. (1) Locked means silent: with the voice fully in and the knot locked (3–4 s) the voice sits 89.6 dB under the tone; near 3:2 with the coupling let go (10–11 s) it is level with the tone, +1.2 dB; locked again (21–22 s) it is 41 dB down and still falling. (2) The pitch is Adler's. Frozen at base 330, h = 0.21, the predicted slip √(δ² − ((a+b)K)²) and the measured slip agree to within 0.3 Hz at every coupling from K = 0 (16.5 Hz both) to K = 4 (0 Hz both); the per-50 ms track agrees along the whole glide. The spectrograms show it: the voice's harmonics fan open as the coupling lets go, bend down to zero as the glide crosses 3:2, climb again, and snap shut at the grab.
+
+The one that didn't work. On Membrane the voice is silent for the whole tour. The transcript's last thought names why: the row it reads lies on the drum's nodal line, so W(u, lon) is zero whatever u does. The fix it was about to make, and did not get to, is to read the surface's loudest row instead of a fixed longitude.
+
+**Artifacts:**
+- [the instrument, now with a het slider, a heterodyne tour button, and a click-free lock-target crossfade.](Projects/2D Torus Wavetable Synthesizer/Hopf/hopf-control-surface.html)
+- [24 s heterodyne tour on Penrose: voice in on the locked knot (silent), coupling lets go, glide through 3:2 and back, grab, voice out.](Projects/2D Torus Wavetable Synthesizer/Hopf/het_tour_penrose.wav)
+- [the voice alone on Penrose, the tour rendered with and without it and subtracted. Nothing until the coupling lets go.](Projects/2D Torus Wavetable Synthesizer/Hopf/het_tour_penrose_voice.wav)
+- [Penrose tour spectrogram with the Adler slip drawn under it in blue. The voice's harmonics bend to zero as the glide crosses 3:2.](Projects/2D Torus Wavetable Synthesizer/Hopf/het_tour_penrose.png)
+- [the Penrose voice alone, to 300 Hz. Its fundamental rides the blue Adler line.](Projects/2D Torus Wavetable Synthesizer/Hopf/het_tour_penrose_voice.png)
+- [the same tour on Knot Shadow.](Projects/2D Torus Wavetable Synthesizer/Hopf/het_tour_knot_shadow.wav)
+- [the Knot Shadow voice alone.](Projects/2D Torus Wavetable Synthesizer/Hopf/het_tour_knot_shadow_voice.wav)
+- [Knot Shadow voice spectrogram. A fuller fan than Penrose: more of its energy lies along the dead line.](Projects/2D Torus Wavetable Synthesizer/Hopf/het_tour_knot_shadow_voice.png)
+- [the same tour on Membrane. The voice is silent throughout; see the one that didn't work.](Projects/2D Torus Wavetable Synthesizer/Hopf/het_tour_membrane.wav)
+- [Membrane voice spectrogram: empty. The row it reads is on the drum's nodal line.](Projects/2D Torus Wavetable Synthesizer/Hopf/het_tour_membrane_voice.png)
+- [per 50 ms: time, lock target, predicted slip (Adler), measured slip (wraps of u).](Projects/2D Torus Wavetable Synthesizer/Hopf/het_tour_penrose_track.txt)
+- [the frozen check: K, predicted slip, measured slip, at base 330 and h = 0.21.](Projects/2D Torus Wavetable Synthesizer/Hopf/het_tour_penrose_adler.json)
+- [renders the tour and the voice alone with the browser's engine, and prints the two checks: locked = silent, slip pitch = Adler.](Projects/2D Torus Wavetable Synthesizer/Hopf/render_het_tour.mjs)
+- [draws the labelled spectrograms with the Adler prediction over them (numpy + tinyplot).](Projects/2D Torus Wavetable Synthesizer/Hopf/het_spectrogram.py)
+
+_frozen slip at base 330 Hz, h = 0.21, near 3:2 · predicted = √(δ² − ((a+b)K)²) · measured = wraps of u per second (re-run 2026-10-13)_
+| K | predicted slip (Hz) | measured slip (Hz) |
+| --- | --- | --- |
+| 0 | 16.50 | 16.50 |
+| 1 | 15.72 | 15.73 |
+| 2 | 13.12 | 13.21 |
+| 3 | 6.87 | 6.90 |
+| 3.2 | 4.03 | 4.31 |
+| 4 | 0.00 | 0.00 |
+
+_Left rough:_ This cycle never finished: the harness cut it off mid-thought, so nothing here was heard by the steward, and the report is a reconstruction from its transcript and files. Membrane's voice is silent because of where it reads, not because the idea fails there; reading the loudest row should fix it and was not done. The voice is only in the browser engine and the offline render, not in the RNBO codebox. No Knot Shadow or Membrane numbers were re-run; only Penrose was checked on 2026-10-13.
+
+_Next moves named:_ Read the loudest row, not a fixed longitude, so Membrane's voice sounds; re-render all three tours and listen. · Put the heterodyne in the RNBO codebox so the dead line can sing in Max. · The bank that slides a surface's energy onto the dead line (cycle 9's first next move) now has a partner: the hand that plays what lives there. Try them together.
+<sub>`torus-steward-023` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="torus-steward-021" -->
 ### 2026-10-03 — cycle 9 — The warp bank is built: five deeper warps baked offline and played by one crossfade knob, with three tours and an RNBO codebox.
 > shipped · bank + tours + unverified codebox · steward leans aim-at-the-dead-line next

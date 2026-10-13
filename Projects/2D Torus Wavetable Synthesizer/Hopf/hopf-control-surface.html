@@ -64,6 +64,7 @@
         <button id="play" class="primary">▸ play</button>
         <button id="tour">▸ tour (20 s)</button>
         <button id="handsTour">▸ hands tour (24 s)</button>
+        <button id="hetTour">▸ heterodyne tour (24 s)</button>
         <label>turn view <input id="yaw" type="range" min="0" max="6.2832" step="0.01" value="0.6"></label>
       </div>
       <div class="note"><textarea placeholder="what the sphere does or doesn't do for you"></textarea></div>
@@ -90,6 +91,10 @@
         <label>stir <input id="stir" type="range" min="0" max="1" step="0.01" value="0"></label>
         <button id="handsZero">hands off</button>
       </div>
+      <div class="row">
+        <label>heterodyne <input id="het" type="range" min="0" max="1" step="0.01" value="0"></label>
+        <span class="eyebrow">the dead line's voice · silent when locked, pitched at the slip when not</span>
+      </div>
       <div class="note"><textarea placeholder="what the surface view shows or hides"></textarea></div>
     </section>
   </div>
@@ -115,6 +120,8 @@
       <div class="eqw">(locked pitch) = 2 × (base) ÷ (a + b)</div>
       <div class="eq">x ← bend(x, b<sub>x</sub>) · y ← y + s · sin 2πx · (x, y) ← (x, y) + ε · (∂W/∂y, −∂W/∂x)</div>
       <div class="eqw">(read x) ← bend(read x, bend x) · (read y) ← (read y) + (shear) × sin(2π × read x) · (read point) ← (read point) + (stir reach) × (the surface's rotated slope)</div>
+      <div class="eq">y ← W(x, y) + η · W(b·φ₂ − a·φ₁, lon)  ·  sounds at  k · (b·ω₂ − a·ω₁)</div>
+      <div class="eqw">(output) ← (surface at the read point) + (heterodyne) × (the surface's row, read at the dead-line phase) · sounds at (whole number) × (the mistuning from a:b)</div>
       <div class="prose">
         <p>The hands move where the scan reads, not how fast it runs. Each is a fixed function of the read point, so a frozen setting is just a different surface: it re-weights the same frequencies m·ω₁ + n·ω₂ and never adds new ones. Locked, everything stays harmonic. Moving a hand is what makes it a gesture rather than a preset.</p>
         <p>The Hopf map takes a point (z₁, z₂) on the 3-sphere and keeps two things: the balance |z₁|² − |z₂|², which becomes height, and the phase difference arg z₁ − arg z₂, which becomes longitude. It throws away the shared phase, and that discarded circle is the scan itself running through time. So each point on this sphere names one orbit of the scanner.</p>
@@ -161,6 +168,11 @@
 // Each one is a fixed function of where you are on the torus, so a
 // frozen setting is just a different surface: it re-weights the same
 // lattice m*w1 + n*w2, it never adds frequencies off it.
+//   het     (new) the dead line's own voice: W read at u = b*phi2 - a*phi1
+//                 (the phase the coupling acts on), row = longitude.
+//                 Its content lies wholly on lattice points k*(-a, b),
+//                 which sound at k*(b*w2 - a*w1): zero when locked, the
+//                 slip rate when not. A heterodyne, like a theremin's.
 // =====================================================================
 var HTE = (function () {
   var N = 1024, TWO_PI = 2 * Math.PI;
@@ -257,25 +269,28 @@ var HTE = (function () {
     this.sr = sr; this.W = null;
     this.phi1 = 0; this.phi2 = 0; this.dcX = 0; this.dcY = 0;
     // targets (set by UI or tour) and smoothed values
-    this.t = { base: 220, h: -0.6, lon: 0, K: 3, gain: 0.35, bX: 0, bY: 0, shear: 0, stir: 0 };
-    this.s = { base: 220, h: -0.6, lon: 0, K: 3, gain: 0, bX: 0, bY: 0, shear: 0, stir: 0 };
+    this.t = { base: 220, h: -0.6, lon: 0, K: 3, gain: 0.35, bX: 0, bY: 0, shear: 0, stir: 0, het: 0 };
+    this.s = { base: 220, h: -0.6, lon: 0, K: 3, gain: 0, bX: 0, bY: 0, shear: 0, stir: 0, het: 0 };
     this._fW = null; this._F = null;
     this.a = 1; this.b = 1; this.count = 0;
+    this.pa = 1; this.pb = 1; this.xo = 0;   // previous lock target, and the crossfade away from it
     this.ring = new Float32Array(2 * 4096); this.ringPos = 0;
   }
   Engine.prototype.pickLock = function () {
-    var w1 = this.s.base * (1 - this.s.h), w2 = this.s.base * (1 + this.s.h), best = 1e9;
+    var w1 = this.s.base * (1 - this.s.h), w2 = this.s.base * (1 + this.s.h), best = 1e9, na = this.a, nb = this.b;
     for (var i = 0; i < RATIOS.length; i++) {
       var r = RATIOS[i], ks = Math.abs(r[1] * w2 - r[0] * w1) / (r[0] + r[1]);
-      if (ks < best) { best = ks; this.a = r[0]; this.b = r[1]; }
+      if (ks < best) { best = ks; na = r[0]; nb = r[1]; }
     }
+    if (na !== this.a || nb !== this.b) { this.pa = this.a; this.pb = this.b; this.xo = 1; }
+    this.a = na; this.b = nb;
   };
   Engine.prototype.process = function (out, n) {
     var W = this.W, s = this.s, t = this.t, sr = this.sr, sm = 1 - Math.exp(-1 / (0.015 * sr));
-    var r = 1 - TWO_PI * 10 / sr;
+    var r = 1 - TWO_PI * 10 / sr, xd = Math.exp(-1 / (0.006 * sr));
     for (var i = 0; i < n; i++) {
       s.base += (t.base - s.base) * sm; s.h += (t.h - s.h) * sm; s.K += (t.K - s.K) * sm; s.gain += (t.gain - s.gain) * sm;
-      s.bX += (t.bX - s.bX) * sm; s.bY += (t.bY - s.bY) * sm; s.shear += (t.shear - s.shear) * sm; s.stir += (t.stir - s.stir) * sm;
+      s.bX += (t.bX - s.bX) * sm; s.bY += (t.bY - s.bY) * sm; s.shear += (t.shear - s.shear) * sm; s.stir += (t.stir - s.stir) * sm; s.het += (t.het - s.het) * sm;
       var dl = t.lon - s.lon; dl -= Math.round(dl); s.lon += dl * sm; s.lon -= Math.floor(s.lon);
       if ((this.count++ & 31) === 0) this.pickLock();
       var w1 = s.base * (1 - s.h), w2 = s.base * (1 + s.h);
@@ -299,6 +314,20 @@ var HTE = (function () {
         var a0 = W[y0 * N + x0], a1 = W[y0 * N + x1], b0 = W[y1 * N + x0], b1 = W[y1 * N + x1];
         var r0 = a0 + fx * (a1 - a0), r1 = b0 + fx * (b1 - b0);
         y = r0 + fy * (r1 - r0);
+        if (s.het > 1e-6) {
+          // heterodyne (the dead line's own voice): u = b*phi2 - a*phi1 is the
+          // phase the coupling acts on. Locked, it stands still, so g(u) is a
+          // constant and the DC blocker removes it. Slipping, it turns at the
+          // beat rate, so the surface's own row is played as a tone pitched
+          // at the mistuning. Its lattice content lies wholly on k*(-a, b).
+          var u = this.b * this.phi2 - this.a * this.phi1; u -= Math.floor(u); if (u >= 1) u = 0;
+          var g = lerp2(W, u, s.lon);
+          if (this.xo > 1e-4) {   // lock target just changed: fade the old dead line out over ~20 ms
+            var uo = this.pb * this.phi2 - this.pa * this.phi1; uo -= Math.floor(uo); if (uo >= 1) uo = 0;
+            g = g * (1 - this.xo) + lerp2(W, uo, s.lon) * this.xo; this.xo *= xd;
+          }
+          y += s.het * g;
+        }
         if ((this.count & 1) === 0) { var k = this.ringPos; this.ring[2 * k] = p1; this.ring[2 * k + 1] = p2; this.ringPos = (k + 1) & 4095; }
       }
       this.dcY = y - this.dcX + r * this.dcY; this.dcX = y;
@@ -336,7 +365,24 @@ var HTE = (function () {
     return g;
   }
 
-  return { N: N, SURFACES: SURFACES, makeSurface: makeSurface, RATIOS: RATIOS, Engine: Engine, tour: tour, handsTour: handsTour, bend: bend };
+  // The heterodyne tour: 24 s at base 330 on the 3:2 band. The dead-line
+  // voice is brought in while the knot is locked (nothing should change),
+  // the coupling lets go (a rumble at the slip rate appears), the height
+  // glides through exact 3:2 and out (the voice falls to nothing and rises
+  // again, a theremin), then glides back while the coupling grabs (it
+  // falls through hiccups into silence), and the voice is taken out locked.
+  function hetTour(t) {
+    var g = { base: 330, h: 0.21, lon: 0, K: 6, bX: 0, bY: 0, shear: 0, stir: 0, het: 0 };
+    var ease = function (u) { u = Math.max(0, Math.min(1, u)); return 0.5 - 0.5 * Math.cos(Math.PI * u); };
+    if (t < 4) { g.het = ease(t / 3); return g; }
+    g.het = 1;
+    if (t < 8) { g.K = 6 * (1 - ease((t - 4) / 4)); return g; }
+    if (t < 16) { g.K = 0; g.h = 0.21 - 0.035 * ease((t - 8) / 8); return g; }
+    if (t < 20) { var v = ease((t - 16) / 4); g.h = 0.175 + 0.035 * v; g.K = 6 * v; return g; }
+    g.het = 1 - ease((t - 20) / 3); return g;
+  }
+
+  return { N: N, SURFACES: SURFACES, makeSurface: makeSurface, RATIOS: RATIOS, Engine: Engine, tour: tour, handsTour: handsTour, hetTour: hetTour, bend: bend, lerp2: lerp2 };
 })();
 if (typeof module !== 'undefined') module.exports = HTE;
 </script>
@@ -368,14 +414,14 @@ if (typeof module !== 'undefined') module.exports = HTE;
 
   function params() {
     var v = function (id) { return +document.getElementById(id).value; };
-    return { base: v('base'), K: v('K'), gain: v('gain'), bX: v('bX'), bY: v('bY'), shear: v('shear'), stir: v('stir') };
+    return { base: v('base'), K: v('K'), gain: v('gain'), bX: v('bX'), bY: v('bY'), shear: v('shear'), stir: v('stir'), het: v('het') };
   }
   function pushTargets() {
     if (!eng) return; var p = params();
     eng.t.base = p.base; eng.t.K = p.K; eng.t.gain = p.gain; eng.t.h = ui.h; eng.t.lon = ui.lon;
-    eng.t.bX = p.bX; eng.t.bY = p.bY; eng.t.shear = p.shear; eng.t.stir = p.stir;
+    eng.t.bX = p.bX; eng.t.bY = p.bY; eng.t.shear = p.shear; eng.t.stir = p.stir; eng.t.het = p.het;
   }
-  var HANDS = ['bX', 'bY', 'shear', 'stir'];
+  var HANDS = ['bX', 'bY', 'shear', 'stir', 'het'];
   function setSliders(g) { ['base', 'K'].concat(HANDS).forEach(function (id) { if (g[id] !== undefined) document.getElementById(id).value = g[id]; });
     document.getElementById('baseV').textContent = g.base; document.getElementById('KV').textContent = (+g.K).toFixed(1); }
   document.getElementById('handsZero').onclick = function () { HANDS.forEach(function (id) { document.getElementById(id).value = 0; }); pushTargets(); };
@@ -407,6 +453,9 @@ if (typeof module !== 'undefined') module.exports = HTE;
   };
   document.getElementById('handsTour').onclick = function () {
     if (!playing) start(); touring = HTE.handsTour; tourLen = 24; tourStart = performance.now();
+  };
+  document.getElementById('hetTour').onclick = function () {
+    if (!playing) start(); touring = HTE.hetTour; tourLen = 24; tourStart = performance.now();
   };
   document.getElementById('yaw').oninput = function () { ui.yaw = +this.value; sphereDirty = true; };
 
@@ -503,7 +552,7 @@ if (typeof module !== 'undefined') module.exports = HTE;
     el.innerHTML =
       'height <b>' + fmt(s.h, 3) + '</b> · longitude <b>' + s.lon.toFixed(3) + '</b> cycles<br>' +
       'x rate <b>' + s.w1.toFixed(1) + '</b> Hz · y rate <b>' + s.w2.toFixed(1) + '</b> Hz · ratio <b>' + s.ratio.toFixed(4) + '</b><br>' +
-      'hands · bend <b>' + fmt(eng.s.bX, 2) + '</b>/<b>' + fmt(eng.s.bY, 2) + '</b> · shear <b>' + fmt(eng.s.shear, 3) + '</b> · stir <b>' + eng.s.stir.toFixed(2) + '</b><br>' +
+      'hands · bend <b>' + fmt(eng.s.bX, 2) + '</b>/<b>' + fmt(eng.s.bY, 2) + '</b> · shear <b>' + fmt(eng.s.shear, 3) + '</b> · stir <b>' + eng.s.stir.toFixed(2) + '</b> · heterodyne <b>' + eng.s.het.toFixed(2) + '</b>' + (eng.s.het > 0.01 ? (s.locked ? ' (silent: locked)' : ' (sounding at ' + s.beat.toFixed(1) + ' Hz)') : '') + '<br>' +
       'nearest lock <b>' + s.a + ':' + s.b + '</b> needs coupling ≥ <b>' + s.Kstar.toFixed(2) + '</b> Hz · you have <b>' + s.K.toFixed(2) + '</b><br>' + state;
   }
 
@@ -511,9 +560,9 @@ if (typeof module !== 'undefined') module.exports = HTE;
     if (touring && eng) {
       var t = (performance.now() - tourStart) / 1000;
       if (t > tourLen) { touring = false; } else {
-        var g = touring(t), z = { bX: 0, bY: 0, shear: 0, stir: 0 };
+        var g = touring(t), z = { bX: 0, bY: 0, shear: 0, stir: 0, het: 0 };
         for (var k in z) if (g[k] === undefined) g[k] = 0;
-        ['base', 'h', 'lon', 'K', 'bX', 'bY', 'shear', 'stir'].forEach(function (k) { eng.t[k] = g[k]; });
+        ['base', 'h', 'lon', 'K', 'bX', 'bY', 'shear', 'stir', 'het'].forEach(function (k) { eng.t[k] = g[k]; });
         ui.h = g.h; ui.lon = g.lon; setSliders(g);
         sphereDirty = sphereDirty || Math.abs(g.K - (frame.lastK || 0)) > 0.25; if (sphereDirty) frame.lastK = g.K;
       }
