@@ -26,3 +26,5 @@ What each enrichment taught the ceremony, appended after a run that changed it. 
 ## From the face switch, 2026-09-25
 
 6. **The door line would not scale.** Every enriched entry carried a hand-written link to its rich face under the hero. Loudon: "right now it is a link in the body text, as we have more and more enriched pages this will not be acceptable." The face switch (`617745f0`, landed in `207d937e`) now reads an entry's faces from its bundle and offers the rich face wherever the manifest sits. Forced: step 7 drops the door and is just the commit; the postcondition names the manifest in the bundle, not the door line; the intro loses its door clause, and the rich-face section names the switch as the way in. v2.3.
+
+- run · 2026-10-13 · v2.3 · Language as a Tonal Medium · nothing new
