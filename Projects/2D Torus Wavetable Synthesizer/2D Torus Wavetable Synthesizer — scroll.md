@@ -15,20 +15,20 @@ forward_vector: "I am 2D Torus Wavetable Synthesizer's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T20:39:23.870Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T20:48:38.804Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 13 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 14 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — Étude No. 2 has a tempo, drums and a motif now. Does the groove land, and where should the next pass go? (`torus-steward-034`)
-- **Last commit touching this project:** 2026-10-13 `1a0ff26c` — steward(2D Torus Wavetable Synthesizer): cycle 12 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
+- **Last shipped:** 2026-10-13 (today) — Étude No. 2, second draft: a real kick from the Sine Cycle Sweep, and a B theme on a whistle that answers the motif. (`torus-steward-036`)
+- **Last commit touching this project:** 2026-10-13 `3d8a3fe1` — steward(2D Torus Wavetable Synthesizer): cycle 13 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read the surface, and their ratio decides whether it sounds harmonic or shimmers. It exists as Max/RNBO codebox files that match the earlier audition scripts sample for sample but haven't been opened in Max yet. Last cycle I wrote Étude No. 1, a 100-second piece played only by the Hopf codebox. You heard it as a story with clear sections and asked me to tell the whole story, with a steady tempo and groove in places and a melody built from a motif, repetition, sequence and variation. This cycle is Étude No. 2, which does that.
+This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read the surface, and their ratio decides whether it sounds harmonic or shimmers. It exists as Max/RNBO codebox files that match the earlier audition scripts sample for sample but haven't been opened in Max yet. The test piece is Étude No. 2, played only by the Hopf codebox. It tells a whole story at 100 BPM, with drums and a four-note motif (A C E D). This cycle's second draft gives it a kick that is actually a kick and a second theme, so the story has two characters. The first draft is kept beside it.
 
 ### Open asks
 
@@ -59,6 +59,40 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="torus-steward-036" -->
+### 2026-10-13 — cycle 14 — Étude No. 2, second draft: a real kick from the Sine Cycle Sweep, and a B theme on a whistle that answers the motif.
+> shipped · 130 s, every pitch checked from the stems · steward leans toward the voicing table next
+
+Two changes, everything else kept.
+
+The kick. I measured why the first one sounded like a tom. Membrane on the 1:1 lock puts its energy on harmonics 2 to 4, so a kick tuned to 48 Hz actually sounded at 100–200 Hz. The new kick is the plain 1D synth on the Sine Cycle Sweep surface, whose first row is a pure sine. Its pitch drops 150 → 64 → 46 Hz. The click comes from the surface too: longitude flicks up about four rows' worth of harmonics and falls back in 12 ms. Now 87% of a kick's energy is under 100 Hz. It was mostly above.
+
+The answer. It's a new eight-bar section after the hands. The B theme is the motif's contrary: steps where the motif leaps (E F G A G), long-short where the motif is short-long, C major where it's A minor. A new voice plays it, Knot Shadow on the 3:2 lock, which turns out to be a near-pure whistle on its 5th harmonic. For the first time in the piece the pad moves: F, C, G, E, then home to A. The whistle states B, sequences it a step down, then reaches up to C6. In each gap the old melody answers with the motif's first three notes. In the last two bars the whistle holds a high E while the melody takes back the whole motif on the dominant, and then everyone lets go together, the whistle included. The drums go plain under it: kick on 1 and 3, straight eighth-note hats.
+
+Every note was checked from the stems: whistle 659 → 1046 Hz as written, pad roots 174.7, 261.5, 195.9 and 164.8 Hz, the melody's answers on 220, 261.5 and 329.6 Hz.
+
+**Artifacts:**
+- [Étude No. 2, second draft, 130 s. The B section starts at 1:26.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_b_with_answer.m4a)
+- [Spectrogram: the kick now sits under 100 Hz, and the pad moves in the B section.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_b_with_answer.png)
+- [What changed, the two-character table, and the stem checks.](Projects/2D Torus Wavetable Synthesizer/Etude/Étude No. 2b — score.md)
+- [The renderer: six codebox voices, knob moves only.](Projects/2D Torus Wavetable Synthesizer/Etude/render_etude_2b.mjs)
+- [Spectrogram and peak-check script for the second draft.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_spectrogram_2b.py)
+- [Locks visited per voice and the measured slip rates.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_b_locks.json)
+
+_The two characters_
+|  | motif (A) | answer (B) |
+| --- | --- | --- |
+| notes | A C E D, leaps | E F G A G, steps |
+| rhythm | 1 · ½ · ½ · 2 | 1½ · ½ · 1 · 1 · 4 |
+| key | A minor | C major |
+| voice | Knot Shadow 1:1, reedy | Knot Shadow 3:2, whistle |
+
+_Left rough:_ I still can't hear it. The kick is right on a spectrum, but whether it punches, and whether the whistle sits above the mix or pokes out of it, is for your ears. Your question on the first draft is still open, and this draft is my answer to its first two options. The 50 MB WAV isn't committed; `node render_etude_2b.mjs` remakes it in seconds.
+
+_Next moves named:_ Write the voicing lesson into a table, which partial each surface sounds on each lock (Membrane 2–4 on 1:1, Knot Shadow 1st on 1:1 and 5th on 3:2, Penrose's five-note chord), and offer it to the wavetables catalog, since every future piece needs it. · Once you've heard it, tighten whatever the ears say: the kick's punch, the whistle's level, how the B section hands back to the let-go.
+<sub>`torus-steward-036` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="torus-steward-034" -->
 ### 2026-10-13 — cycle 13 — Étude No. 2 has a tempo, drums and a motif now. Does the groove land, and where should the next pass go?
 > still working · No. 2 rendered and pitch-checked · steward leans GROOVE
