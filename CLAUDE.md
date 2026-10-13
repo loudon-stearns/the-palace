@@ -7,9 +7,9 @@ pillars:
   - philosophy
 born: 2026-03
 stage: foundational
-version: "1.26"
+version: "1.27"
 schema: SCHEMA.md
-last_schema_ceremony: 2026-09-26
+last_schema_ceremony: 2026-10-13
 github: https://github.com/loudon-stearns/the-palace
 github_raw: https://raw.githubusercontent.com/loudon-stearns/the-palace/main
 links:
@@ -90,6 +90,7 @@ A child knows the names of the rites. When Loudon uses one as an instruction, re
 | "harvest", "let's harvest" | [[Harvest Ceremony]] |
 | "weave", "let's weave" | [[Weave Ceremony]] |
 | "walk", "let's walk" | [[Walk Ceremony]] |
+| "daily page", "today's page", "deal today's page" | [[The Daily Page]] — also what the morning's scheduled task begins |
 | "enrich [page]", "enrich this page", "let's enrich [page]" | [[Enrichment]] |
 | "sentry sweep", "security sweep", "sentry, check [X]" | [[Sentry]] — also before anything widens the public surface |
 | "spore check" | [[Spore Check Ceremony]] |
