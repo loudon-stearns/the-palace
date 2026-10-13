@@ -15,24 +15,24 @@ forward_vector: "I am Quantum Synthesizer's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T21:12:38.721Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T21:43:52.672Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** dormant · **Steward:** cycle 12 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** dormant · **Steward:** cycle 13 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
-- **Waiting on you:** 1 open ask
+- **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — The run made the pendulum playable. Revive Quantum Synthesizer to sprout, or let it rest? (`quantum-synth-025`)
-- **Last commit touching this project:** 2026-10-13 `480fad9a` — steward(Quantum Synthesizer): cycle 11 — SPINNING UP. HOME: [[Quantum Synthesizer]]. Neighborhood loaded. Cycle …
+- **Last shipped:** 2026-10-13 (today) — An elder is needed to land Quantum Synthesizer's new section, two fixes already approved, and the stage move to sprout. (`quantum-synth-028`)
+- **Last commit touching this project:** 2026-10-13 `fcc6f004` — steward(Quantum Synthesizer): cycle 12 — SPINNING UP. HOME: [[Quantum Synthesizer]]. Neighborhood loaded. Last c…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-This page claims the Schrödinger equation is a synthesizer: whatever confines a particle sets its energy levels, and those levels, played as partials, are the timbre. Earlier today the videos showed a bare ring sounds in squares (1·4·9·16) where a string sounds 1·2·3·4, and that growing one smooth bump on the ring folds the squares down toward a string's evenly spaced harmonics, because a small swing in any well is a harmonic oscillator. That last video gave you eight fixed strikes. This cycle turns them into an instrument: one slider for the bump's depth, the energy ladder solved again in the browser on every move, and a held tone that glides as you drag.
+This page claims the Schrödinger equation is a synthesizer: whatever holds a wave sets its energy levels, and those levels played as partials are the timbre. Today's proofs found the claim needs one correction. A string sounds 1·2·3, Schrödinger's box sounds the squares 1·4·9, and there are two separate roads between them. One changes the equation (stiffen a string until it's a pinned bar, whose square root is Schrödinger). The other changes the well (deepen a bump on Schrödinger's ring until it swings like a pendulum). This cycle plays both roads as one held tone, and drafts the entry section that says so, 'One equation, two spacings', for an elder to land.
 
 ### Open asks
 
-- `quantum-synth-025` — directional_decision · posted 2026-10-13 · options: REVIVE-TO-SPROUT · STAY-DORMANT · NOT-SURE-YET
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
@@ -40,6 +40,7 @@ _None._
 
 ### Decided
 
+- `quantum-synth-025` — directional_decision → GRANTED — option_id=REVIVE-TO-SPROUT (2026-10-13)
 - `quantum-synth-016` — directional_decision → GRANTED — option_id=REVIVE-TO-SPROUT (2026-10-13)
 - `quantum-synth-008` — entry_text_fix → GRANTED — option_id=APPLY (2026-09-24)
 - `quantum-synth-006` — directional_decision → GRANTED — option_id=REVIVE-TO-SPROUT (2026-09-24)
@@ -66,6 +67,48 @@ This container has no Shop (no ComfyUI, Kokoro, Max, or GPU) — Python with num
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="quantum-synth-028" -->
+### 2026-10-13 — cycle 13 — An elder is needed to land Quantum Synthesizer's new section, two fixes already approved, and the stage move to sprout.
+> drafted · entry untouched · three revive grants and one APPLY not yet landed
+
+Quantum Synthesizer is the page claiming Schrödinger's equation is a synthesizer. Loudon has granted REVIVE-TO-SPROUT three times (quantum-synth-006, -016, -025) and APPLY on the piano-paragraph fix once (-008), but the entry still says dormant and still has the old piano paragraph. As a child I can't edit the house, so everything is drafted in one file with exact instructions: insert the new section 'One equation, two spacings' after the Anharmonicity section; replace the piano paragraph with a pointer to it; soften the bolded 'geometry of confinement determines the harmonic content' line; and move the stage from dormant to sprout. No new frontmatter links are needed.
+
+**Artifacts:**
+- [the draft section and the four landing instructions.](Projects/Quantum Synthesizer/proofs/one-equation-two-spacings — draft.md)
+<sub>`quantum-synth-028` · FLAG on FLAGS</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="quantum-synth-027" -->
+### 2026-10-13 — cycle 13 — The round trip: one held tone climbs from string to Schrödinger's squares by stiffening, then folds back to a string by deepening a well.
+> shipped · five checks pass · section drafted for an elder · steward leans RNBO voice next
+
+[The round trip](open:Projects/Quantum Synthesizer/proofs/round-trip.mp4) is 21 seconds, one held tone with the lowest partial pinned on A3, so only the spacing above it moves. For 1.5 s it's a plain string, 1·2·3. Over 8 s the string stiffens into a pinned bar and the partials climb onto the squares, 1·4·9·16, which hold for 1.5 s. Then the equation stays Schrödinger's and a bump on the ring deepens over 8 s. The squares fold back down and settle at 1 · 1.97 · 2.89 · 3.78: a string again, but sagging, because a bigger pendulum swing is slower. The two roads meet exactly at the squares. The bare ring's levels come in pairs (+k and −k, spinning both ways) at exactly 1, 4, 9, so at the seam each box partial hands over to its pair at the same pitch and phase, with no click. [The poster](open:Projects/Quantum Synthesizer/proofs/round-trip-poster.png) draws the whole loop in one still.
+
+The five checks in [round-trip-checks.txt](obsidian://open?vault=The%20Palace&file=Projects/Quantum%20Synthesizer/proofs/round-trip-checks.txt): (1) an FFT of the held audio at all three ends finds every intended partial within 0.02 Hz. (2) The far end of the bump road matches pendulum.py's table digit for digit, and the small solver agrees with the big one to 3e-12. (3) The bare ring's pairs equal the pinned bar's ladder exactly. (4) The largest sample step at the seam is smaller than the ones in the held tone just before it. (5) The ratio table below.
+
+Alongside it, the entry section [One equation, two spacings](obsidian://open?vault=The%20Palace&file=Projects/Quantum%20Synthesizer/proofs/one-equation-two-spacings%20%E2%80%94%20draft.md) is drafted with this video, the walls, stiffness and pendulum videos, and the slider as evidence. It also carries three small fixes. I'm handing it to an elder on the FLAGS board, not editing the entry.
+
+**Artifacts:**
+- [21 s: string → squares by stiffening, squares → string by a deepening well, picture locked to the sound.](Projects/Quantum Synthesizer/proofs/round-trip.mp4)
+- [the same held tone, audio only, for your DAW.](Projects/Quantum Synthesizer/proofs/round-trip.wav)
+- [the whole loop in one still: every partial over time, string lines grey, squares dashed blue.](Projects/Quantum Synthesizer/proofs/round-trip-poster.png)
+- [the generator: audio, the five checks, poster and video.](Projects/Quantum Synthesizer/proofs/round_trip.py)
+- [the printed checks from the final run: PASS.](Projects/Quantum Synthesizer/proofs/round-trip-checks.txt)
+- [the drafted entry section plus the three fixes, written for an elder to land.](Projects/Quantum Synthesizer/proofs/one-equation-two-spacings — draft.md)
+
+_the round trip · each partial ÷ the lowest (distinct pitches)_
+| where | knob | 2nd | 3rd | 4th | 5th |
+| --- | --- | --- | --- | --- | --- |
+| start: plain string | — | 2.00 | 3.00 | 4.00 | 5.00 |
+| seam: pinned bar = Schrödinger box/ring | stiffness B → ∞ | 4.00 | 9.00 | 16.00 | 25.00 |
+| end: quantum pendulum | bump depth q = 32 | 1.97 | 2.89 | 3.78 | 4.63 |
+
+_Left rough:_ Nobody has heard this, me included. The checks show the right frequencies are in the WAV, not that the glide sounds good. On the well road I kept the stiffness road's loudness pattern instead of plucking the ring itself, which is my choice and not physics. It keeps the test fair, but it means the pendulum end isn't exactly how a plucked ring would sound.
+
+_Next moves named:_ Port the two-knob voice to an RNBO codebox: stiffness and bump depth as two parameters, partials from a closed form and a small lookup table. I can't open Max, so it stays unverified until you do. · Check the entry's Hermite-Gaussian paragraph. It says the number of nodes sets how many partials are present, and I think that claim fails the same way the 'geometry of confinement' line did. I'd draft the fix for an elder, not edit it.
+<sub>`quantum-synth-027` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="quantum-synth-025" -->
 ### 2026-10-13 — cycle 12 — The run made the pendulum playable. Revive Quantum Synthesizer to sprout, or let it rest?
 > still working · three runs today, all checks passing · steward leans REVIVE-TO-SPROUT
