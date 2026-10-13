@@ -13,6 +13,7 @@ import { usePalaceRef } from '../../lib/palace-ref.jsx';
 import { fetchProjects } from '../../adapters/projects.js';
 import { rowSignal } from '../../lib/scroll-view.js';
 import FaceSwitch from '../FaceSwitch.jsx';
+import RichFaceFrame, { useRichFace, openRichFace } from './RichFaceFrame.jsx';
 import { orderFaces, nextFace, richHref } from '../../lib/faces.js';
 import { fileUrl, IS_PUBLIC, BASE, getSiteMeta } from '../../lib/public-mode.js';
 import NoCarrier from '../public/NoCarrier.jsx';
@@ -136,6 +137,7 @@ export default function EntryReader({
   // the row's live signal (needs you / ready / stalled), fetched once per entry.
   // Hooks live up here, above the early returns.
   const palace = usePalaceRef();
+  const rich = useRichFace(path); // the rich face shown in the reader (RichFaceFrame.jsx)
   const [projectRow, setProjectRow] = useState(null);
   // The face owner: the entry itself, or — when this file IS a face (its
   // scroll, `<Name>/<Name> — scroll.md`) — the entry it belongs to. The face
@@ -236,11 +238,12 @@ export default function EntryReader({
   // where that deck isn't mounted. A project with a row has its scroll view
   // even before the file is written, so the row alone lights SCROLL.
   const faces = orderFaces(projectRow ? [...(faceOwner.faces || []), 'scroll'] : faceOwner.faces);
-  const currentFace = entry.face_of ? entry.face_of.face : 'text';
+  const currentFace = rich.shown ? 'rich' : entry.face_of ? entry.face_of.face : 'text';
   const ownerStem = faceOwner.path.split('/').pop().replace(/\.md$/, '');
   const selectFace = (f) => {
+    if (f !== 'rich') rich.hide();
     if (f === 'text') return onNavigate?.(faceOwner.path);
-    if (f === 'rich') return window.location.assign(richHref(faceOwner.path, import.meta.env.BASE_URL));
+    if (f === 'rich') return openRichFace({ isPublic: IS_PUBLIC, show: rich.show, assign: (u) => window.location.assign(u), href: richHref(faceOwner.path, import.meta.env.BASE_URL) });
     if (f === 'scroll') {
       if (palace?.openProjectScroll) return palace.openProjectScroll(projectRow?.home ?? ownerStem);
       if (faceOwner.files?.scroll) return onNavigate?.(faceOwner.files.scroll);
@@ -432,8 +435,9 @@ export default function EntryReader({
           own — and the typed-link rail widens a little on a wide screen so its
           labels and targets stop wrapping. Below 800px the rail drops under
           the text (tokens.css .reader-grid). */}
+      {rich.shown ? <RichFaceFrame href={richHref(faceOwner.path, import.meta.env.BASE_URL)} /> : null}
       <div className="reader-grid" style={{
-        display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) clamp(360px, 24vw, 480px)',
+        display: rich.shown ? 'none' : 'grid', gridTemplateColumns: 'minmax(0, 1fr) clamp(360px, 24vw, 480px)',
         gap: 24, alignItems: 'flex-start',
       }}>
         <div style={{ minWidth: 0 }}>
