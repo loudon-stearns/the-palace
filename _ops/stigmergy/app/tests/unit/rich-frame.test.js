@@ -19,17 +19,19 @@ const GLOW = 'eaw-section-glow';
 function fakeSection(top, heading) {
   const classes = new Set();
   return {
+    ownerDocument: null,
     getBoundingClientRect: () => ({ top }),
     querySelector: (sel) => (sel === 'h2' && heading != null ? { textContent: ` ${heading} ` } : null),
     classList: { add: (c) => classes.add(c), remove: (c) => classes.delete(c), contains: (c) => classes.has(c) },
   };
 }
 
-function fakeDoc(sections) {
+function fakeDoc(sections, title = null) {
   const head = { children: [], appendChild(n) { this.children.push(n); } };
-  return {
+  const doc = {
     head,
     body: { nodeName: 'BODY' },
+    querySelector: (sel) => (sel === '#head h1' && title != null ? { textContent: ` ${title} ` } : null),
     querySelectorAll: (sel) => {
       if (sel === RICH_SECTION_SELECTOR) return sections;
       if (sel.startsWith('.')) return sections.filter((s) => s.classList.contains(sel.slice(1)));
@@ -38,6 +40,8 @@ function fakeDoc(sections) {
     getElementById: (id) => head.children.find((n) => n.id === id) || null,
     createElement: (tag) => ({ tagName: tag, id: '', textContent: '' }),
   };
+  for (const sec of sections) sec.ownerDocument = doc;
+  return doc;
 }
 
 function listenable(extra = {}) {
@@ -51,11 +55,11 @@ function listenable(extra = {}) {
   };
 }
 
-function fakeFrame(doc, top = 100) {
+function fakeFrame(doc, top = 100, bottom = undefined) {
   const observed = [];
   class FakeMO { constructor(cb) { this.cb = cb; } observe(node, opts) { observed.push({ node, opts, mo: this }); } disconnect() { this.off = true; } }
   const win = listenable({ MutationObserver: FakeMO });
-  const frame = listenable({ contentDocument: doc, contentWindow: win, getBoundingClientRect: () => ({ top }) });
+  const frame = listenable({ contentDocument: doc, contentWindow: win, getBoundingClientRect: () => ({ top, bottom }) });
   return { frame, win, observed };
 }
 
@@ -105,8 +109,36 @@ describe('the companion reads the rich face when the reader shows it', () => {
     expect(findActiveRichSection(frame, 450)).toBe(mech);
     expect(richSectionHeading(findActiveRichSection(frame, 450))).toBe('The Mechanism');
     expect(findActiveRichSection(frame, 150)).toBe(opening);
-    expect(richSectionHeading(opening)).toBeNull();
-    expect(findActiveRichSection(frame, 50)).toBeNull();
+    // above the frame: read at its top edge, where the opening section starts
+    expect(findActiveRichSection(frame, 50)).toBe(opening);
+  });
+
+  it('reads nothing above the first section, as the text face reads "(top)" over its title', () => {
+    // rich.html's page head (the title block) sits above #sections
+    const { frame } = fakeFrame(fakeDoc([fakeSection(250, null)]), 100);
+    expect(findActiveRichSection(frame, 300)).toBeNull();
+  });
+
+  it('names the opening section by the page title, as the text face names its H1', () => {
+    // rich.html lays no h2 in the opening section; its heading is the page head's h1
+    const opening = fakeSection(0, null);
+    const { frame } = fakeFrame(fakeDoc([opening, fakeSection(900, 'The Mechanism')], 'Kuramoto Coupling'), 100);
+    expect(richSectionHeading(opening)).toBe('Kuramoto Coupling');
+    const spy = createRichSpy({ glowClass: GLOW, onChange: () => {} });
+    expect(spy.pass(containerWith(frame), 450)).toEqual({ reading: 'Kuramoto Coupling' });
+    expect(opening.classList.contains(GLOW)).toBe(true);
+    spy.dispose();
+  });
+
+  it('reads a window centred outside the frame at the frame\'s nearest edge, never a section scrolled out of sight', () => {
+    // frame 400..900 in the page; it has scrolled, so its sections sit at these tops in its own viewport
+    const opening = fakeSection(-1500, null);
+    const mech = fakeSection(-300, 'The Mechanism');   // wholly above the frame's visible top
+    const why = fakeSection(-10, 'Why it holds');      // what the frame shows at its top edge
+    const below = fakeSection(600, 'Below the fold');  // starts under the frame's visible bottom
+    const { frame } = fakeFrame(fakeDoc([opening, mech, why, below]), 400, 900);
+    expect(richSectionHeading(findActiveRichSection(frame, 370))).toBe('Why it holds');
+    expect(richSectionHeading(findActiveRichSection(frame, 2000))).toBe('Why it holds');
   });
 
   it('reads nothing from a frame whose document it cannot reach', () => {

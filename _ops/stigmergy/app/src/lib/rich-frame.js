@@ -40,24 +40,34 @@ export function headingSource(container) {
 
 // The rich section under centreY (the window's centre, in the app's viewport):
 // the last section whose top has passed it. A section's rect is in the frame's
-// viewport, so the frame's own top is added. Null above the first section.
+// viewport, so the frame's own top is added. The frame clips what it scrolls,
+// so a centre above or below the frame is read at the frame's nearest edge —
+// never at a section scrolled out of sight. Null above the first section (the
+// rich page's title block).
 export function findActiveRichSection(frame, centreY) {
   const doc = frameDoc(frame);
   if (!doc) return null;
-  const offset = frame.getBoundingClientRect().top;
+  const box = frame.getBoundingClientRect();
+  const bottom = Number.isFinite(box.bottom) ? box.bottom : Infinity;
+  const y = Math.min(Math.max(centreY, box.top), bottom);
   let active = null;
   for (const s of doc.querySelectorAll(RICH_SECTION_SELECTOR)) {
-    if (offset + s.getBoundingClientRect().top <= centreY) active = s;
+    if (box.top + s.getBoundingClientRect().top <= y) active = s;
     else break;
   }
   return active;
 }
 
-// The heading the companion names as its context: the section's h2, or null
-// for the opening section (the top of the entry, as on the text face).
+// The heading the companion names as its context: the section's h2. The
+// opening section has none (rich.html lays its heading, the entry's H1 or
+// title, in the page head above), so it is named by the head's h1 — as the
+// text face names its H1.
 export function richSectionHeading(section) {
-  const h = section && section.querySelector('h2');
-  return h ? h.textContent.trim() : null;
+  if (!section) return null;
+  const h = section.querySelector('h2');
+  if (h) return h.textContent.trim() || null;
+  const title = section.ownerDocument && section.ownerDocument.querySelector('#head h1');
+  return title ? title.textContent.trim() || null : null;
 }
 
 // The glow, in the rich page's own dress (its --accent tokens, with fallbacks),
