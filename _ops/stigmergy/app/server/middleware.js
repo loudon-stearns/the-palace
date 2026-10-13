@@ -43,7 +43,8 @@ export function blackboardMiddleware(palaceRoot, opts = {}) {
         const query = new URLSearchParams(queryString || '');
         const method = (req.method || 'GET').toUpperCase();
 
-        // Foreign hosts and cross-site actions stop here (server/request-guard.js).
+        // Foreign hosts, preflights, and actions from any origin but this one stop
+        // here (server/request-guard.js) — before Vite's own middlewares run.
         if (guardRequest(req, res, { urlPath, method, allowedHosts })) return;
 
         const ctx = { req, res, palaceRoot, urlPath, query, method, stewardLane, companionLane, opts };

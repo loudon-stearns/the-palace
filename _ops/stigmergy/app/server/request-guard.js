@@ -8,14 +8,19 @@
 //    host check sits behind this plugin's middleware, so it never sees these
 //    routes; this one does. Allowed, as Vite allows them: IP literals, localhost
 //    and *.localhost, and whatever `server.allowedHosts` names.
-// 2. Cross-site actions. A write (POST, PUT, PATCH, DELETE) must carry
-//    `application/json` — a type a cross-site page can send only after a CORS
-//    preflight this server never answers — and must not come from a foreign
-//    page: a browser's Origin, when it sends one, is loopback or this host, and
-//    its Sec-Fetch-Site is never `cross-site`. GET /api/open runs `open` on this
-//    Mac, so it refuses a cross-site request too. Other reads stay open to
-//    cross-site requests: sandboxed artifacts load their media that way, and the
-//    browser will not let a foreign page read the answer.
+// 2. Actions from anywhere but this server's own pages. A write (POST, PUT,
+//    PATCH, DELETE) must carry `application/json` — a type another page can send
+//    only after a CORS preflight — and must come from this exact origin: a
+//    browser's Origin, when it sends one, is this server's scheme and the very
+//    host:port in the Host header, and its Sec-Fetch-Site, when it sends one, is
+//    `same-origin` — or `none`, a navigation Loudon starts himself (a typed URL,
+//    a bookmark). Another port on this Mac is another origin: a page on
+//    localhost:5174 is loopback, and the browser marks its request `same-site`,
+//    not `same-origin`, so it is refused. GET /api/open runs `open` on this Mac
+//    and takes the same rule. A preflight (OPTIONS) is refused with no CORS
+//    headers, so neither this server nor Vite behind it ever clears another
+//    origin to send. Other reads stay open: sandboxed artifacts load their media
+//    that way, and the browser will not let another origin read the answer.
 //
 // Callers that are not browsers (curl, node's fetch, the eval server) send no
 // Origin and no Sec-Fetch-Site, and pass.
@@ -42,13 +47,6 @@ export function hostnameOf(host) {
   return colon === -1 ? h : h.slice(0, colon);
 }
 
-function isLoopbackName(name) {
-  if (name === 'localhost' || name.endsWith('.localhost')) return true;
-  if (isIP(name) === 4) return name.startsWith('127.');
-  if (isIP(name) === 6) return name === '::1';
-  return false;
-}
-
 /**
  * Is this Host header one the server answers to? Mirrors Vite's own rule.
  * @param {string|undefined} host — the raw Host header
@@ -67,16 +65,16 @@ export function isHostAllowed(host, allowedHosts) {
   return false;
 }
 
-// Did a browser send this from a page that is not ours?
-function isForeignBrowserRequest(req) {
+// Did this come from one of this server's own pages, or from no browser at all?
+function isFromOwnOrigin(req) {
+  const site = req.headers['sec-fetch-site'];
+  if (site !== undefined && site !== 'same-origin' && site !== 'none') return false; // same-site (another port), cross-site
   const origin = req.headers.origin;
-  if (origin !== undefined) {
-    let parsed;
-    try { parsed = new URL(origin); } catch { return true; } // "null" (sandboxed, file://) and garbage
-    const name = hostnameOf(parsed.host);
-    if (!isLoopbackName(name) && parsed.host.toLowerCase() !== String(req.headers.host || '').toLowerCase()) return true;
-  }
-  return req.headers['sec-fetch-site'] === 'cross-site';
+  if (origin === undefined) return true;
+  let parsed;
+  try { parsed = new URL(origin); } catch { return false; } // "null" (sandboxed, file://) and garbage
+  const scheme = req.socket?.encrypted ? 'https:' : 'http:';
+  return parsed.protocol === scheme && parsed.host === String(req.headers.host || '').trim().toLowerCase();
 }
 
 function mediaType(req) {
@@ -99,7 +97,8 @@ export function guardRequest(req, res, { urlPath, method, allowedHosts }) {
 }
 
 /**
- * The two checks, on any path: a foreign Host, and a cross-site or non-JSON write.
+ * The two checks, on any path: a foreign Host, and an action from another origin
+ * or a write that is not JSON.
  * @returns {boolean} true if it refused (the response is sent), false to go on.
  */
 export function checkRequest(req, res, { urlPath, method, allowedHosts }) {
@@ -108,9 +107,13 @@ export function checkRequest(req, res, { urlPath, method, allowedHosts }) {
     return true;
   }
 
+  if (method === 'OPTIONS') {
+    refuse(res, 403, 'no preflight is answered — STIGMERGY takes actions only from its own origin');
+    return true;
+  }
   const isWrite = WRITE_METHODS.has(method);
-  if ((isWrite || ACTION_GETS.has(urlPath)) && isForeignBrowserRequest(req)) {
-    refuse(res, 403, 'cross-site request refused — STIGMERGY takes actions only from its own pages');
+  if ((isWrite || ACTION_GETS.has(urlPath)) && !isFromOwnOrigin(req)) {
+    refuse(res, 403, 'request from another origin refused — STIGMERGY takes actions only from its own origin, not another port or site');
     return true;
   }
   if (isWrite && mediaType(req) !== 'application/json') {
