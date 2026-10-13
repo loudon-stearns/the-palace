@@ -45,6 +45,8 @@ This is what makes it a [[Boundary-Crossing Instruments]] concept before there w
 
 > 🎓 *The demo that makes this a body-experience.* See [[proofs/2026-05-05-vibrato-becomes-melody|the moment vibrato becomes melody]] — a 5-minute lesson script that walks a learner from 5 Hz vibrato down to 0.5 Hz alternating melody, the crossing of the ~20 Hz boundary in real time. The script ends on a thesis: *the whole right side of the synthesizer is the left side, with a different clock.*
 
+> 🎚 *The rough Loudon played, 2026-10-13.* [[proofs/2026-10-13-the-flip-three-axes.html|The flip, three axes]] — one log axis from 0.5 Hz to 2 kHz, three modes (click train, sine through a wobbled delay, two drum voices), with the threshold marked as a zone on each axis. It is the seed of this page's rich face, kept beside the two 2026-05-04 sketches.
+
 ## Origin
 
 Examined June 2024 through a MIDI frequency table mapping the full spectrum to delay times at 120 BPM, rhythmic subdivisions, perceptual categories, and stereo/modulated delay effects. The table was an early artifact of this principle — a cartography of the continuum.
@@ -74,3 +76,7 @@ This recursion is the load-bearing structural insight in the [[Frequency-Time Ex
 - The table used 120 BPM as reference. How does the perceptual map shift at very slow or very fast tempos?
 - Does the recursion observation imply the duality wants its own concept entry for **the 20 Hz threshold itself** as a perceptual constant? It currently lives scattered across body text in this entry, [[Frequency-Time Explorer]], and Microsound.
 - Lets bring Curtis Roads into this conversation, the best analysis of time scales in music I have found was in Curtis Roads book, microsound.
+
+## Active Baton
+
+[[Frequency-Time Duality — baton]] — drafted 2026-10-13

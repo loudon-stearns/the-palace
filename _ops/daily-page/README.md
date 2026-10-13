@@ -21,10 +21,14 @@ The three lean on each other. A page that cannot be made exciting, however hard 
 - **Bias toward making.** Try to make the rich face, most mornings, for most pages. Move from text toward the visceral.
 - **Teach.** The sit is a lesson both ways, not an audit.
 - **The sibling question is standing.** Every morning, look at the page's neighbors and really ask whether this page's content belongs inside one of them.
+- **No `dormant` verdict.** A page either stands, is folded, composts, or stays open.
+- **The Daily Page decides on the fly; proper palace machinery does the lifting.** The sit is quick and early; a fold, a deposit, a baton it decides on starts its own rite.
 
 ## Before Loudon arrives
 
 A scheduled task opens the session early. This part runs alone and should stay light: no fan-out, no Shop. Anything that spends many agents waits for Loudon's yes.
+
+Loudon wants the daily run on Opus (2026-10-13). A scheduled task's model is set only in its Edit form in the app (Code tab → Routines → The Daily Page → Edit); no session can set it for him. If a morning comes up on anything else, say so in the process note and remind him.
 
 1. **Deal.** `python3 _ops/daily-page/deal.py` prints today's page with its siblings, what it has and lacks, and yesterday's page. (`deal.py --status` shows where the lap stands.) Both tools read the palace from the main checkout and keep one record there, whichever worktree the session woke in. If this worktree is older than this folder, run them by the main checkout's path: `python3 "$(git worktree list --porcelain | sed -n '1s/^worktree //p')/_ops/daily-page/deal.py"`. If the deal refuses, it says why; tell Loudon and stop there.
 2. **Read the last three mornings' process notes** in `record.md` — the main checkout's copy, which is the current one. They are the first candidates for doing this morning differently.
@@ -57,10 +61,10 @@ A scheduled task opens the session early. This part runs alone and should stay l
 
    Some pages bring their own rules. Shop pages carry a `status`, not a `stage`, and the palace has not said how one composts — ask. The skeleton (CLAUDE, JEWEL, ELDER, SCHEMA and its Reference) changes its structure only through a Schema Ceremony. A stewarded project has a steward that reads its page every cycle and a Plan that moves only with Loudon's yes.
 
-   [[The Remembering Page]] holds that a change a page asks for in its own forward vector is earned across several wakings: "One dialogue is a mood; three consistent ones are a direction." So on one morning, move a forward vector a little, unless Loudon himself sees the change.
+   [[The Remembering Page]] holds that a change a page asks for in its own forward vector is earned across several wakings: "One dialogue is a mood; three consistent ones are a direction." So what a waking asks for in its own forward vector is recorded in `record.md`, not applied. A change Loudon himself sees in the sit is ordinary tuning and may land.
 8. **Close.** Ask "How do you feel?" Then record the morning (below).
 
-**What may land the same day:** one small edit to the page, its `agency_profile` (the page's own answers, with Loudon's yes, and only where the waking showed distinct desires in more than one pillar — the field's own condition, [[SCHEMA — Reference]] §3.1), and its rich face. Folds and composts are marked and wait for their own rites. The session is a child: every write to the house goes through the [[Concierge]], unless Loudon says grow up. This folder's `record.md` and `roughs/` are the session's workshop, and it writes them itself; this README and the two tools change through an elder.
+**What may land the same day:** one small edit to the page and its rich face. No `agency_profile` is written after a single waking during week one: the page's answers stay in `record.md`, and the week's review decides (Loudon held single-encounter write-backs on 2026-07-02, `Making a Palace Citizen.md:128`). Folds and composts are marked and wait for their own rites. The session is a child: every write to the house goes through the [[Concierge]], unless Loudon says grow up. This folder's `record.md` and `roughs/` are the session's workshop, and it writes them itself; this README and the two tools change through an elder.
 
 ## The record
 
@@ -70,6 +74,18 @@ A scheduled task opens the session early. This part runs alone and should stay l
 - A page edit or a rich face made in a worktree sits on that worktree's branch until it is merged. Say at the close what is on `main` and what is not.
 - A verdict that does not land the same day waits in these two files and nowhere else yet.
 - The record is public, like everything tracked here ([[Sentry]]). It holds Loudon's own words every morning, and he decided on 2026-10-13 that it stays tracked. That was chosen, not overlooked.
+
+**Git rules for the morning's commits** (from the "Palace handoffs coordination" session, 2026-10-13, which leads the palace's git work; they hold until that session or Loudon says otherwise):
+
+- The main checkout stays on `main`. Work lands by merge commits; no rebase, no history rewrite, no branch switch there.
+- Stage with explicit pathspecs only. Never `git add -A` or `git commit -a`: other sessions keep uncommitted work in the tree.
+- Never stage `_ops/swarm/persistent/blackboard.jsonl` unless your own script appended the line you are committing.
+- Never stash, check out, or otherwise touch another session's uncommitted files. Ask that session or Loudon.
+- Check `git branch --show-current` before and after every commit. Before any merge into main, `git merge-tree --write-tree main <branch>` must be clean.
+- A commit subject uses a kind the hook knows (`ops`, `edit`, `enrich`, `handoff`, `baton`, `merge`). `sketch` and `close` are not kinds.
+- If a commit fails on `index.lock`, another session is mid-commit. Wait ten seconds and retry. Do not remove the lock.
+- Nothing under `_ops/stigmergy/app/server/` or `_ops/orchestrator/prompts/` lands while a steward run is live.
+- Never POST to the live STIGMERGY on :5173 from a script or a test.
 
 The record lives here, not in the pages' bundles. What an ordinary page's bundle should hold is being rethought ([[Palace Ceremonies]]' open baton), and this trial should not get ahead of it. The rich face is the exception: it goes where Enrichment puts it.
 

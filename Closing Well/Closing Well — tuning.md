@@ -147,3 +147,8 @@ twice early on; they are 12a/12b and 13a/13b, four different traps. Newest last.
 
 37. **Two things about to leave with the conversation surfaced only at the close.** About ten faces lessons were held only in two subagents' reports, and a placement check promised after "grow up" was never asked for; the arc showed only their absence (arc:1673, and no resident address after arc:342) — the working Claude's witness recovered both. Forced: **v1.6** — pass-1 homework now asks two standing witness questions: which findings live only in a subagent's report, and which house writes have happened since the resident's last address had no placement check. `prompts/closing-well-agent.md` § What a good moderator holds.
 - run · 2026-09-27 · v1.5 · close-2026-09-27-page-walk · taught item 37
+
+## From the Daily Page first-morning close — 2026-10-13
+
+38. **A cold read can manufacture a disagreement from a file read before a commit.** The arc showed the Daily Page README reading "10-14" (arc:26) while git showed 10-13 all day; the file had been read at 07:36 and committed at 07:39. The moderator put it to the working Claude as a witness question, not to Loudon as a finding, and it resolved in one line, so the item-31 discipline held. Spec change: none forced. The pass-1 prompt could say that a tool-output disagreement with git is first a timestamp question (`git log -- <file>` against the arc's span) before it is a finding. The version does not move unless that line is added.
+- run · 2026-10-13 · v1.6 · close-2026-10-13-daily-page-first-morning · taught item 38

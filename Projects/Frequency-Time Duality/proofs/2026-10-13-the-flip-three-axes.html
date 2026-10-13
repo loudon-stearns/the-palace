@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Flip · three axes</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff; --success:#00ff66; --warn:#ff9b4a;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.75;padding:40px 16px 64px}
+  main{max-width:900px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:52px;line-height:1.05;letter-spacing:.005em;margin:6px 0 10px}
+  h1 em{font-family:var(--serif);font-weight:300;font-style:italic;font-size:.6em;color:var(--fg-2)}
+  p.lead{font-size:20px;color:var(--fg-2);margin:0 0 28px;max-width:62ch}
+  .axis-wrap{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:8px;padding:22px 22px 16px;margin:0 0 18px}
+  .modes{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+  .mode{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  .mode[aria-pressed="true"]{color:var(--accent);border-color:var(--accent-line);background:var(--accent-soft)}
+  .mode:hover{border-color:var(--fg-3)}
+  svg{width:100%;height:auto;display:block;touch-action:none;cursor:ew-resize}
+  .zone{fill:var(--accent);opacity:.035}
+  .zone-l{font-family:var(--mono);font-size:10px;letter-spacing:.18em;fill:var(--fg-4);text-transform:uppercase}
+  .tick{stroke:var(--border);stroke-width:1}
+  .tick-l{font-family:var(--mono);font-size:11px;fill:var(--fg-3)}
+  .row-l{font-family:var(--mono);font-size:10px;letter-spacing:.14em;fill:var(--fg-4);text-transform:uppercase}
+  .head{stroke:var(--accent);stroke-width:2}
+  .head-dot{fill:var(--accent)}
+  .mark{stroke:var(--info);stroke-width:1.5;stroke-dasharray:3 3}
+  .mark-l{font-family:var(--mono);font-size:10px;fill:var(--info);letter-spacing:.1em}
+  .readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:14px}
+  .cell{background:var(--bg-elev-2);border:1px solid var(--border-soft);border-radius:6px;padding:10px 12px}
+  .cell .k{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-4)}
+  .cell .v{font-family:var(--mono);font-size:18px;color:var(--fg-1);margin-top:2px;white-space:nowrap}
+  .cell .v small{font-size:11px;color:var(--fg-3);margin-left:4px}
+  .controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:16px}
+  .poly-controls{display:none;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px solid var(--border-soft)}
+  .poly-controls.on{display:flex}
+  button.act{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:10px 18px;cursor:pointer;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  button.act:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:9px 16px;cursor:pointer}
+  button.ghost:hover{border-color:var(--fg-3)}
+  button.ghost[aria-pressed="true"]{color:var(--accent);border-color:var(--accent-line);background:var(--accent-soft)}
+  button.ghost[aria-pressed="false"]{color:var(--fg-4);text-decoration:line-through}
+  select{font-family:var(--mono);font-size:13px;color:var(--fg-1);background:var(--bg-elev-2);border:1px solid var(--border);border-radius:4px;padding:8px 10px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3);margin-left:auto}
+  .verdict{margin-top:22px;padding:18px 22px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1)}
+  .verdict .eyebrow{color:var(--accent)}
+  .verdict p{margin:6px 0 0;font-size:17px}
+  .verdict .num{font-family:var(--mono);color:var(--fg-1)}
+  .eq{font-family:var(--mono);font-size:14px;color:var(--fg-2);margin:26px 0 0}
+  .eq .w{display:block;font-family:var(--serif);font-size:15px;color:var(--fg-3);margin-top:2px}
+  footer{margin-top:48px;font-family:var(--display);font-size:14px;letter-spacing:.06em;color:var(--fg-4)}
+  footer em{font-family:var(--serif);font-style:italic;font-weight:300}
+  .unsupported{color:var(--warn);font-family:var(--sans);font-size:13px;margin-top:6px;display:none}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Daily Page · rough · Frequency-Time Explorer</div>
+  <h1>The Flip <em>on three axes</em></h1>
+  <p class="lead">The page claims one threshold rules every axis: cross about 20 Hz on the rate of a click and rhythm becomes pitch; cross it on the rate of a delay's wobble and wobble becomes timbre; cross it on a polyrhythm and the polyrhythm becomes an interval. Drag the playhead, listen, mark the bottom and top of <em>your</em> crossing zone on each, and see whether the zones agree, and whether they sit where the page says.</p>
+
+  <div class="axis-wrap">
+    <div class="modes" role="group" aria-label="Which axis">
+      <button class="mode" id="m-signal" aria-pressed="true">Signal · click rate</button>
+      <button class="mode" id="m-mod" aria-pressed="false">Modulation · wobble rate</button>
+      <button class="mode" id="m-poly" aria-pressed="false">Polyrhythm · becomes interval</button>
+    </div>
+
+    <svg id="axis" viewBox="0 0 900 230" aria-label="Logarithmic rate axis from 0.5 Hz to 2000 Hz"></svg>
+
+    <div class="readout">
+      <div class="cell"><div class="k">rate</div><div class="v" id="r-hz">—<small>Hz</small></div></div>
+      <div class="cell"><div class="k">period</div><div class="v" id="r-t">—<small>ms</small></div></div>
+      <div class="cell"><div class="k">tempo</div><div class="v" id="r-bpm">—<small>BPM</small></div></div>
+      <div class="cell"><div class="k" id="k-note">pitch</div><div class="v" id="r-note">—</div></div>
+      <div class="cell"><div class="k">in production</div><div class="v" id="r-name" style="font-family:var(--serif);font-size:16px;white-space:normal">—</div></div>
+    </div>
+
+    <div class="controls">
+      <button class="act" id="play">Listen</button>
+      <button class="ghost" id="mark-lo">Bottom: still the first thing up to here</button>
+      <button class="ghost" id="mark-hi">Top: fully the second thing from here</button>
+      <button class="ghost" id="clear">Clear marks</button>
+      <span class="hint">drag the axis · ← → nudge · space to listen</span>
+    </div>
+
+    <div class="poly-controls" id="mod-controls">
+      <label class="eyebrow" for="modsrc">source</label>
+      <select id="modsrc">
+        <option value="sine" selected>sine · 220 Hz (vibrato → FM)</option>
+        <option value="noise">noise (flanger → comb)</option>
+      </select>
+      <span class="hint">a 10 ms delay wobbled ± 5 ms at the rate</span>
+    </div>
+    <div class="poly-controls" id="poly-controls">
+      <label class="eyebrow" for="ratio">ratio</label>
+      <select id="ratio">
+        <option value="2:1">2 : 1 · octave</option>
+        <option value="3:2" selected>3 : 2 · perfect fifth</option>
+        <option value="4:3">4 : 3 · perfect fourth</option>
+        <option value="5:4">5 : 4 · major third</option>
+        <option value="6:5">6 : 5 · minor third</option>
+        <option value="5:3">5 : 3 · major sixth</option>
+        <option value="7:4">7 : 4 · harmonic seventh</option>
+        <option value="9:8">9 : 8 · whole tone</option>
+      </select>
+      <button class="ghost" id="voice-a" aria-pressed="true">voice A · low drum</button>
+      <button class="ghost" id="voice-b" aria-pressed="true">voice B · high drum</button>
+      <button class="ghost" id="ride">Ride: polyrhythm → interval → back</button>
+      <span class="hint" id="ride-hint">the ride takes ~24 s, 2 Hz up to 400 Hz and down</span>
+    </div>
+    <div class="unsupported" id="unsupported">Web Audio could not start in this browser.</div>
+  </div>
+
+  <div class="verdict">
+    <div class="eyebrow">What the marks say</div>
+    <p id="verdict-text">No marks yet. Listen on each axis and mark the rate where the thing you hear changes kind.</p>
+  </div>
+
+  <div class="eq">
+    f = 1 / T &nbsp;·&nbsp; BPM = 60 · f &nbsp;·&nbsp; MIDI = 69 + 12 · log₂(f / 440) &nbsp;·&nbsp; interval = 1200 · log₂(p / q) cents
+    <span class="w">(rate) = 1 ÷ (period) · (tempo) = 60 × (rate) · (note number) = 69 + 12 × log₂((rate) ÷ 440) · (interval) = 1200 × log₂((fast voice’s count) ÷ (slow voice’s count)) cents</span>
+  </div>
+
+  <footer>LOUD’N LIVE <em>· a rough, made before the sit</em></footer>
+</main>
+
+<script>
+(() => {
+  const FMIN = 0.5, FMAX = 2000;
+  const W = 900, PADL = 96, PADR = 30, AXW = W - PADL - PADR;
+  const svg = document.getElementById('axis');
+  const NS = 'http://www.w3.org/2000/svg';
+  const el = (n, a, t) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); if (t != null) e.textContent = t; return e; };
+  const xOf = f => PADL + AXW * (Math.log(f / FMIN) / Math.log(FMAX / FMIN));
+  const fOf = x => FMIN * Math.pow(FMAX / FMIN, Math.min(1, Math.max(0, (x - PADL) / AXW)));
+
+  let mode = 'signal';
+  let f = 4;                       // Hz — on the poly axis this is the SLOW voice's rate
+  let marks = { signal: {lo:null,hi:null}, mod: {lo:null,hi:null}, poly: {lo:null,hi:null} };
+  let playing = false;
+  let ratio = [3, 2];
+  let voiceOn = { a: true, b: true };
+  let riding = false, rideRAF = null;
+
+  const zonesBy = {
+    signal: [
+      { from: 0.5, to: 2.5, name: 'sub-rhythmic' }, { from: 2.5, to: 16, name: 'rhythmic' },
+      { from: 16, to: 40, name: 'flutter · threshold' }, { from: 40, to: 2000, name: 'pitch' }],
+    mod: [
+      { from: 0.5, to: 2.5, name: 'slow pitch drift' }, { from: 2.5, to: 16, name: 'vibrato' },
+      { from: 16, to: 40, name: 'wobble loses identity' }, { from: 40, to: 2000, name: 'sidebands · FM' }],
+    poly: [
+      { from: 0.5, to: 2.5, name: 'polyrhythm' }, { from: 2.5, to: 16, name: 'fast polyrhythm' },
+      { from: 16, to: 40, name: 'buzz · threshold' }, { from: 40, to: 2000, name: 'interval' }],
+  };
+
+  function nameFor(f) {
+    if (mode === 'signal') {
+      if (f < 1) return 'a slow pulse, structural time';
+      if (f < 4) return 'a tempo you could tap';
+      if (f < 12) return 'a fast subdivision, a roll';
+      if (f < 20) return 'flutter: the roll is smearing';
+      if (f < 40) return 'the threshold: buzz, not quite a note';
+      if (f < 200) return 'a low tone with a rhythm inside it';
+      return 'a pitch; the clicks are gone';
+    } else if (mode === 'mod') {
+      if (modSrc === 'noise') {
+        if (f < 0.3) return 'flanger: a slow comb sweep';
+        if (f < 2.5) return 'chorus: thickening';
+        if (f < 8) return 'vibrato of the comb peaks';
+      } else {
+        if (f < 0.3) return 'a slow pitch drift: Doppler you can follow';
+        if (f < 2.5) return 'two alternating pitches, almost a melody';
+        if (f < 8) return 'vibrato: one note, wobbling';
+      }
+      if (f < 20) return 'the wobble is losing its identity';
+      if (f < 40) return 'the threshold: roughness, not motion';
+      return 'FM: sidebands, a new timbre';
+    } else {
+      const name = document.getElementById('ratio').selectedOptions[0].textContent.split('·')[1].trim();
+      if (f < 2) return `a ${ratio[0]}-against-${ratio[1]} you could count`;
+      if (f < 8) return `${ratio[0]}:${ratio[1]} as a groove, too fast to count`;
+      if (f < 20) return 'the groove is smearing into a buzz';
+      if (f < 40) return 'the threshold: two buzzes, almost a chord';
+      return `a ${name}; the polyrhythm is now an interval`;
+    }
+  }
+  const NOTE = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+  function noteName(f) {
+    const m = 69 + 12 * Math.log2(f / 440), r = Math.round(m), cents = Math.round((m - r) * 100);
+    return `${NOTE[((r % 12) + 12) % 12]}${Math.floor(r / 12) - 1} ${cents >= 0 ? '+' : ''}${cents}¢`;
+  }
+  function noteFor(f) {
+    if (mode === 'poly') {
+      const fa = f, fb = f * ratio[0] / ratio[1];
+      if (f < 20) return `${ratio[0]} : ${ratio[1]} · ${Math.round(1200 * Math.log2(ratio[0] / ratio[1]))}¢`;
+      return `${noteName(fa).split(' ')[0]} + ${noteName(fb).split(' ')[0]}`;
+    }
+    if (f < 20) return 'below pitch';
+    return noteName(f);
+  }
+
+  function draw() {
+    svg.innerHTML = '';
+    const Y0 = 120;
+    zonesBy[mode].forEach((z, i) => {
+      const x1 = xOf(z.from), x2 = xOf(z.to);
+      if (i % 2 === 1) svg.appendChild(el('rect', { x: x1, y: 20, width: x2 - x1, height: 190, class: 'zone' }));
+      svg.appendChild(el('text', { x: (x1 + x2) / 2, y: 36, 'text-anchor': 'middle', class: 'zone-l' }, z.name));
+    });
+    svg.appendChild(el('line', { x1: xOf(20), x2: xOf(20), y1: 44, y2: 210, stroke: 'rgba(232,184,74,0.35)', 'stroke-width': 1 }));
+    svg.appendChild(el('text', { x: xOf(20) + 4, y: 206, class: 'zone-l', style: 'fill:rgba(232,184,74,0.7)' }, '~20 Hz · the page’s claim'));
+
+    const rows = [
+      { y: Y0, label: 'rate', fmt: v => v + ' Hz', ticks: [0.5, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000] },
+      { y: Y0 + 28, label: 'period', fmt: v => { const t = 1000 / v; return t >= 1000 ? (t / 1000).toFixed(1) + ' s' : t >= 10 ? t.toFixed(0) + ' ms' : t.toFixed(1) + ' ms'; }, ticks: [0.5, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000] },
+      { y: Y0 + 56, label: 'tempo', fmt: v => (60 * v).toFixed(0), ticks: [0.5, 1, 2, 4, 8, 16] },
+    ];
+    svg.appendChild(el('line', { x1: PADL, x2: PADL + AXW, y1: Y0 - 14, y2: Y0 - 14, class: 'tick' }));
+    rows.forEach(r => {
+      svg.appendChild(el('text', { x: PADL - 10, y: r.y + 4, 'text-anchor': 'end', class: 'row-l' }, r.label));
+      r.ticks.forEach(v => {
+        const x = xOf(v);
+        svg.appendChild(el('line', { x1: x, x2: x, y1: Y0 - 18, y2: Y0 - 10, class: 'tick' }));
+        svg.appendChild(el('text', { x, y: r.y + 4, 'text-anchor': 'middle', class: 'tick-l' }, r.fmt(v)));
+      });
+    });
+
+    const colors = { signal: 'var(--info)', mod: 'var(--success)', poly: 'var(--warn)' };
+    let i = 0;
+    for (const k of ['signal', 'mod', 'poly']) {
+      const m = marks[k]; if (m.lo == null && m.hi == null) continue;
+      const y = 50 + 16 * i++;
+      if (m.lo != null && m.hi != null) {
+        const a = Math.min(m.lo, m.hi), b = Math.max(m.lo, m.hi);
+        svg.appendChild(el('rect', { x: xOf(a), y: y - 5, width: Math.max(2, xOf(b) - xOf(a)), height: 10, fill: colors[k], opacity: .25 }));
+      }
+      for (const v of [m.lo, m.hi]) if (v != null) svg.appendChild(el('line', { x1: xOf(v), x2: xOf(v), y1: y - 7, y2: y + 7, stroke: colors[k], 'stroke-width': 1.5 }));
+      const lx = xOf(m.lo ?? m.hi);
+      svg.appendChild(el('text', { x: lx - 6, y: y + 4, 'text-anchor': 'end', class: 'mark-l', style: `fill:${colors[k]}` }, k));
+    }
+    // second voice's rate on the poly axis
+    if (mode === 'poly') {
+      const xb = xOf(Math.min(FMAX, f * ratio[0] / ratio[1]));
+      svg.appendChild(el('line', { x1: xb, x2: xb, y1: 44, y2: 200, stroke: 'var(--accent-dim)', 'stroke-width': 1.5, 'stroke-dasharray': '2 3' }));
+      svg.appendChild(el('text', { x: xb + 4, y: 100, class: 'zone-l', style: 'fill:var(--accent-dim)' }, 'voice B'));
+    }
+    const x = xOf(f);
+    svg.appendChild(el('line', { x1: x, x2: x, y1: 44, y2: 200, class: 'head' }));
+    svg.appendChild(el('circle', { cx: x, cy: Y0 - 14, r: 6, class: 'head-dot' }));
+  }
+  const fmtHz = v => v >= 100 ? v.toFixed(0) + ' Hz' : v >= 10 ? v.toFixed(1) + ' Hz' : v.toFixed(2) + ' Hz';
+
+  function readout() {
+    document.getElementById('r-hz').innerHTML = (f >= 100 ? f.toFixed(0) : f >= 10 ? f.toFixed(1) : f.toFixed(2)) + '<small>Hz</small>';
+    const t = 1000 / f;
+    document.getElementById('r-t').innerHTML = (t >= 1000 ? (t / 1000).toFixed(2) + '<small>s</small>' : t.toFixed(t >= 10 ? 1 : 2) + '<small>ms</small>');
+    document.getElementById('r-bpm').innerHTML = (60 * f).toFixed(f < 10 ? 1 : 0) + '<small>BPM</small>';
+    document.getElementById('k-note').textContent = mode === 'poly' ? (f < 20 ? 'ratio' : 'interval') : 'pitch';
+    document.getElementById('r-note').textContent = noteFor(f);
+    document.getElementById('r-name').textContent = nameFor(f);
+  }
+  function verdict() {
+    const p = document.getElementById('verdict-text');
+    const done = ['signal', 'mod', 'poly'].filter(k => marks[k].lo != null && marks[k].hi != null);
+    const partial = ['signal', 'mod', 'poly'].filter(k => (marks[k].lo != null) !== (marks[k].hi != null));
+    if (done.length === 0 && partial.length === 0) { p.textContent = 'No marks yet. On each axis, mark the last rate that is still the first thing, and the first rate that is fully the second.'; return; }
+    const parts = [];
+    for (const k of done) {
+      const a = Math.min(marks[k].lo, marks[k].hi), b = Math.max(marks[k].lo, marks[k].hi);
+      parts.push(`${k}: <span class="num">${fmtHz(a)} → ${fmtHz(b)}</span> (${(12 * Math.log2(b / a)).toFixed(1)} semitones wide)`);
+    }
+    for (const k of partial) parts.push(`${k}: one edge so far`);
+    let line = '';
+    if (done.length >= 2) {
+      const lo = Math.max(...done.map(k => Math.min(marks[k].lo, marks[k].hi)));
+      const hi = Math.min(...done.map(k => Math.max(marks[k].lo, marks[k].hi)));
+      if (hi >= lo) line = ` The zones overlap between <span class="num">${fmtHz(lo)}</span> and <span class="num">${fmtHz(hi)}</span>: one crossing region, shared by every axis you marked.`;
+      else line = ' The zones do not overlap. Whatever rules these axes, it is not one region. Worth sitting with before the page keeps saying it is.';
+    }
+    const tops = done.map(k => Math.max(marks[k].lo, marks[k].hi));
+    if (tops.length && Math.max(...tops) < 40) line += ' Every top you marked sits below the page’s 40 Hz zone top.';
+    p.innerHTML = parts.join('; ') + '.' + line;
+  }
+  function update() { draw(); readout(); verdict(); if (playing) tune(); }
+
+  // ----- audio -----
+  let ctx, master, sigGain, modGain, polyGain, lfo, lfoGain, delay, fb, noise, noiseGain, carrier, carrierGain;
+  let modSrc = 'sine';
+  let clickTimer = null, nextClick = 0, nextA = 0, nextB = 0;
+  function ensureAudio() {
+    if (ctx) return true;
+    try {
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      master = ctx.createGain(); master.gain.value = 0.5; master.connect(ctx.destination);
+      sigGain = ctx.createGain(); sigGain.gain.value = 0; sigGain.connect(master);
+      polyGain = ctx.createGain(); polyGain.gain.value = 0; polyGain.connect(master);
+      const len = ctx.sampleRate * 2, buf = ctx.createBuffer(1, len, ctx.sampleRate), d = buf.getChannelData(0);
+      for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+      noise = ctx.createBufferSource(); noise.buffer = buf; noise.loop = true;
+      noiseGain = ctx.createGain(); noiseGain.gain.value = 0.25;
+      delay = ctx.createDelay(1); delay.delayTime.value = 0.010;
+      fb = ctx.createGain(); fb.gain.value = 0.6;
+      lfo = ctx.createOscillator(); lfo.type = 'sine'; lfo.frequency.value = 1;
+      lfoGain = ctx.createGain(); lfoGain.gain.value = 0.005;
+      lfo.connect(lfoGain); lfoGain.connect(delay.delayTime);
+      modGain = ctx.createGain(); modGain.gain.value = 0;
+      carrier = ctx.createOscillator(); carrier.type = 'sine'; carrier.frequency.value = 220;
+      carrierGain = ctx.createGain(); carrierGain.gain.value = 0.35;
+      carrier.connect(carrierGain); carrierGain.connect(delay);
+      noise.connect(noiseGain); noiseGain.connect(delay); delay.connect(fb); fb.connect(delay);
+      noiseGain.connect(modGain); delay.connect(modGain); modGain.connect(master);
+      noise.start(); lfo.start(); carrier.start();
+      applyModSrc();
+      return true;
+    } catch (e) { document.getElementById('unsupported').style.display = 'block'; return false; }
+  }
+  function applyModSrc() {
+    if (!ctx) return;
+    const n = ctx.currentTime, sine = modSrc === 'sine';
+    carrierGain.gain.setTargetAtTime(sine ? 0.35 : 0, n, 0.02);
+    noiseGain.gain.setTargetAtTime(sine ? 0 : 0.25, n, 0.02);
+    fb.gain.setTargetAtTime(sine ? 0 : 0.6, n, 0.02);   // feedback only makes sense for the comb
+  }
+  function click(t, dest) {
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = 'square'; o.frequency.value = 1800;
+    g.gain.setValueAtTime(0.9, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.0012);
+    o.connect(g); g.connect(dest); o.start(t); o.stop(t + 0.002);
+  }
+  // two drum voices: a low thump and a higher tick. Short enough to stay a drum at 400 Hz.
+  function drum(t, which) {
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    if (which === 'a') { o.type = 'sine'; o.frequency.setValueAtTime(160, t); o.frequency.exponentialRampToValueAtTime(55, t + 0.02); }
+    else { o.type = 'triangle'; o.frequency.setValueAtTime(900, t); o.frequency.exponentialRampToValueAtTime(420, t + 0.006); }
+    const dur = which === 'a' ? 0.03 : 0.012;
+    g.gain.setValueAtTime(which === 'a' ? 0.9 : 0.5, t); g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    o.connect(g); g.connect(polyGain); o.start(t); o.stop(t + dur + 0.005);
+  }
+  function schedule() {
+    const ahead = 0.12, now = ctx.currentTime;
+    if (mode === 'signal') {
+      while (nextClick < now + ahead) { click(nextClick, sigGain); nextClick += 1 / f; }
+    } else if (mode === 'poly') {
+      const fa = f, fb_ = f * ratio[0] / ratio[1];
+      while (nextA < now + ahead) { if (voiceOn.a) drum(nextA, 'a'); nextA += 1 / fa; }
+      while (nextB < now + ahead) { if (voiceOn.b) drum(nextB, 'b'); nextB += 1 / fb_; }
+    }
+  }
+  function tune() {
+    if (!ctx) return;
+    const now = ctx.currentTime;
+    sigGain.gain.setTargetAtTime(mode === 'signal' ? 1 : 0, now, 0.02);
+    modGain.gain.setTargetAtTime(mode === 'mod' ? 1 : 0, now, 0.02);
+    polyGain.gain.setTargetAtTime(mode === 'poly' ? 1 : 0, now, 0.02);
+    if (mode === 'mod') { lfo.frequency.setTargetAtTime(f, now, 0.02); if (clickTimer) { clearInterval(clickTimer); clickTimer = null; } }
+    else if (!clickTimer) { nextClick = nextA = nextB = now + 0.05; clickTimer = setInterval(schedule, 40); }
+  }
+  function stop() {
+    playing = false; document.getElementById('play').textContent = 'Listen';
+    stopRide();
+    if (clickTimer) { clearInterval(clickTimer); clickTimer = null; }
+    if (ctx) { const n = ctx.currentTime; sigGain.gain.setTargetAtTime(0, n, 0.02); modGain.gain.setTargetAtTime(0, n, 0.02); polyGain.gain.setTargetAtTime(0, n, 0.02); }
+  }
+  function toggle() {
+    if (playing) return stop();
+    if (!ensureAudio()) return;
+    if (ctx.state === 'suspended') ctx.resume();
+    playing = true; document.getElementById('play').textContent = 'Quiet';
+    tune();
+  }
+
+  // ----- the ride: slow → fast → hold → slow, exponential in rate -----
+  const RIDE = { lo: 2, hi: 400, up: 10, hold: 4, down: 10 };
+  function startRide() {
+    if (!playing) toggle();
+    if (mode !== 'poly') setMode('poly');
+    riding = true; document.getElementById('ride').textContent = 'Stop the ride';
+    const t0 = performance.now() / 1000;
+    const total = RIDE.up + RIDE.hold + RIDE.down;
+    const ease = u => u * u * (3 - 2 * u);
+    const step = () => {
+      if (!riding) return;
+      const t = performance.now() / 1000 - t0;
+      let u;
+      if (t < RIDE.up) u = ease(t / RIDE.up);
+      else if (t < RIDE.up + RIDE.hold) u = 1;
+      else if (t < total) u = ease(1 - (t - RIDE.up - RIDE.hold) / RIDE.down);
+      else { f = RIDE.lo; update(); stopRide(); return; }
+      f = RIDE.lo * Math.pow(RIDE.hi / RIDE.lo, u);
+      update();
+      rideRAF = requestAnimationFrame(step);
+    };
+    rideRAF = requestAnimationFrame(step);
+  }
+  function stopRide() { riding = false; if (rideRAF) cancelAnimationFrame(rideRAF); rideRAF = null; document.getElementById('ride').textContent = 'Ride: polyrhythm → interval → back'; }
+
+  // ----- interaction -----
+  function setFromEvent(e) {
+    const r = svg.getBoundingClientRect();
+    f = fOf((e.clientX - r.left) * (W / r.width)); stopRide(); update();
+  }
+  let dragging = false;
+  svg.addEventListener('pointerdown', e => { dragging = true; svg.setPointerCapture(e.pointerId); setFromEvent(e); });
+  svg.addEventListener('pointermove', e => { if (dragging) setFromEvent(e); });
+  svg.addEventListener('pointerup', () => dragging = false);
+  svg.addEventListener('pointercancel', () => dragging = false);
+  document.addEventListener('keydown', e => {
+    if ((e.target.tagName === 'BUTTON' || e.target.tagName === 'SELECT') && e.key === ' ') return;
+    if (e.key === 'ArrowRight') { f = Math.min(FMAX, f * Math.pow(2, 1 / 12)); stopRide(); update(); }
+    else if (e.key === 'ArrowLeft') { f = Math.max(FMIN, f / Math.pow(2, 1 / 12)); stopRide(); update(); }
+    else if (e.key === ' ') { e.preventDefault(); toggle(); }
+  });
+  document.getElementById('play').addEventListener('click', toggle);
+  document.getElementById('mark-lo').addEventListener('click', () => { marks[mode].lo = f; update(); });
+  document.getElementById('mark-hi').addEventListener('click', () => { marks[mode].hi = f; update(); });
+  document.getElementById('clear').addEventListener('click', () => { marks = { signal: {lo:null,hi:null}, mod: {lo:null,hi:null}, poly: {lo:null,hi:null} }; update(); });
+  document.getElementById('m-signal').addEventListener('click', () => setMode('signal'));
+  document.getElementById('m-mod').addEventListener('click', () => setMode('mod'));
+  document.getElementById('m-poly').addEventListener('click', () => setMode('poly'));
+  document.getElementById('modsrc').addEventListener('change', e => { modSrc = e.target.value; applyModSrc(); });
+  document.getElementById('ratio').addEventListener('change', e => { ratio = e.target.value.split(':').map(Number); update(); });
+  for (const v of ['a', 'b']) document.getElementById('voice-' + v).addEventListener('click', e => {
+    voiceOn[v] = !voiceOn[v]; e.currentTarget.setAttribute('aria-pressed', voiceOn[v]);
+  });
+  document.getElementById('ride').addEventListener('click', () => riding ? stopRide() : startRide());
+  function setMode(m) {
+    mode = m; stopRide();
+    for (const k of ['signal', 'mod', 'poly']) document.getElementById('m-' + k).setAttribute('aria-pressed', m === k);
+    document.getElementById('poly-controls').classList.toggle('on', m === 'poly');
+    document.getElementById('mod-controls').classList.toggle('on', m === 'mod');
+    if (ctx) { nextClick = nextA = nextB = ctx.currentTime + 0.05; }
+    update();
+  }
+  update();
+})();
+</script>
+</body>
+</html>
