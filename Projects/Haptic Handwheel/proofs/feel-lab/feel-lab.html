@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<title>Haptic Handwheel · feel lab · sketch</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --e3:#22222e; --ink:#e8e6df; --dim:#8a8a96; --accent:#e8b84a; --accent-dim:#7a6030;
+          --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,-apple-system,Helvetica,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); font-size:15px; }
+  header { padding:22px 28px 6px; }
+  .eyebrow { font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); }
+  h1 { font-family:var(--serif); font-weight:500; font-size:34px; margin:6px 0 4px; }
+  .lead { font-family:var(--serif); font-size:18px; line-height:1.6; color:#c9c6bd; max-width:820px; margin:0; }
+  main { display:grid; grid-template-columns: 430px 1fr; gap:18px; padding:16px 28px 28px; }
+  section { background:var(--e1); border:1px solid var(--e3); border-radius:6px; padding:14px 16px; }
+  h2 { font-family:var(--mono); font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); font-weight:500; margin:0 0 10px; }
+  canvas { display:block; width:100%; }
+  #knob { cursor:grab; touch-action:none; }
+  .row { display:flex; flex-wrap:wrap; gap:6px; margin:6px 0; align-items:center; }
+  button, select { font-family:var(--mono); font-size:12px; background:var(--e2); color:var(--ink); border:1px solid var(--e3); border-radius:4px; padding:6px 9px; cursor:pointer; }
+  button:hover { border-color:var(--accent-dim); }
+  button.on { border-color:var(--accent); color:var(--accent); }
+  #audio.primary { background:var(--accent); color:#0a0a0f; border-color:var(--accent); box-shadow:0 0 14px rgba(232,184,74,.35); }
+  .say { font-family:var(--serif); font-size:16.5px; line-height:1.6; color:#c9c6bd; margin:6px 0 2px; min-height:52px; }
+  .meta { font-family:var(--mono); font-size:11.5px; color:var(--dim); line-height:1.6; }
+  .meta b { color:var(--ink); font-weight:500; }
+  table { border-collapse:collapse; font-family:var(--mono); font-size:11.5px; width:100%; }
+  td, th { padding:4px 6px; border-bottom:1px solid var(--e3); text-align:left; }
+  th { color:var(--dim); font-weight:500; }
+  .fine { color:var(--ink); } .held { color:var(--accent); } .buzz { color:#c8261a; }
+  .note textarea { width:100%; min-height:44px; background:var(--bg); color:var(--ink); border:1px dashed var(--e3); border-radius:4px; font-family:var(--sans); font-size:13px; padding:6px; margin-top:8px; }
+  .note label { font-family:var(--mono); font-size:10.5px; color:var(--dim); letter-spacing:.08em; text-transform:uppercase; }
+  #notesOut { width:100%; min-height:90px; background:var(--bg); color:var(--ink); border:1px solid var(--e3); font-family:var(--mono); font-size:12px; }
+  footer { padding:8px 28px 28px; font-family:var(--mono); font-size:11px; color:var(--dim); }
+  .wide { grid-column: 1 / -1; }
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Haptic Handwheel · feel lab · sketch 1 · simulated, not built</div>
+  <h1>Seven feels, before there is a knob</h1>
+  <p class="lead">Drag the knob to grip and turn it. Hold <b>shift</b> while dragging, or press and hold the right button, to rest a finger on it as a brake instead. The screen cannot push back, so the amber trace is the torque your hand would feel. The physics is the same script the offline proofs run.</p>
+</header>
+<main>
+  <div>
+    <section id="sec-knob">
+      <h2>The knob</h2>
+      <canvas id="knob" width="800" height="800"></canvas>
+      <div class="row">
+        <button id="audio" class="primary">start sound</button>
+        <button id="strike">strike it</button>
+        <button id="center">recentre</button>
+      </div>
+      <div class="meta" id="readout"></div>
+      <div class="note"><label>note on the knob</label><textarea data-sec="knob"></textarea></div>
+    </section>
+  </div>
+  <div style="display:grid; gap:18px; align-content:start">
+    <section id="sec-feel">
+      <h2>The feel</h2>
+      <div class="row" id="feels"></div>
+      <p class="say" id="say"></p>
+      <div class="note"><label>note on this feel</label><textarea data-sec="feel"></textarea></div>
+    </section>
+    <section id="sec-scope">
+      <h2>What the hand would feel · last 3 seconds</h2>
+      <canvas id="scope" width="1200" height="260"></canvas>
+      <div class="meta">amber = the motor's push · grey = the hand's push · scale ±0.1 N·m</div>
+      <canvas id="phase" width="1200" height="160" style="margin-top:8px"></canvas>
+      <div class="note"><label>note on the trace</label><textarea data-sec="scope"></textarea></div>
+    </section>
+    <section id="sec-wire">
+      <h2>Where the feel is computed</h2>
+      <div class="row">
+        <select id="lane">
+          <option value="10000,0">on the device · 10 kHz</option>
+          <option value="1000,0">on the device · 1 kHz</option>
+          <option value="1000,4">over USB to Max and back · ~4 ms (assumed)</option>
+          <option value="48000,5.33">as an audio line · 2×128 samples (assumed)</option>
+        </select>
+        <select id="cap">
+          <option value="0.04">light cap · 40 g</option>
+          <option value="0.15">weighted cap · 150 g</option>
+        </select>
+      </div>
+      <p class="say">Pick the slow wire, choose frets or the string, then let go of the knob. A stiff feel computed far from the motor starts to buzz on its own: the delay feeds energy in faster than friction takes it out. Grip it and the hand's own damping calms it. That is the sweep below, run live.</p>
+      <table id="verdicts"></table>
+      <div class="meta" style="margin-top:6px">fine = stable with no hand on it · <span class="held">only while held</span> = the hand's damping is what keeps it stable · <span class="buzz">buzzes</span> = unstable even gripped</div>
+      <div class="note"><label>note on the wire</label><textarea data-sec="wire"></textarea></div>
+    </section>
+  </div>
+  <section class="wide">
+    <h2>Your notes, gathered</h2>
+    <textarea id="notesOut" readonly></textarea>
+    <div class="row"><button id="copy">copy notes</button><span class="meta">If copy is blocked inside the board, select the text and copy it by hand.</span></div>
+  </section>
+</main>
+<footer>Loud’n Live · a sketch for the Haptic Handwheel · numbers marked assumed wait for a bench</footer>
+
+<script>
+// Haptic Handwheel — feel engine.
+// One knob: a motor that senses and pushes, a cap, a hand. Plain script, no
+// imports, so the same text runs inlined in feel-lab.html and in node
+// (render_feel_lab.mjs loads it with new Function). Nothing here has met
+// hardware. Every number marked ASSUMED is a guess waiting for a bench.
+
+function makeEngine(opts) {
+  const P = Object.assign({
+    fs: 48000,          // physics steps per second
+    loopHz: 10000,      // how often the feel is computed (device loop)
+    delayMs: 0,         // extra transport delay between sensing and pushing
+    capMass: 0.040,     // kg; light 80 mm printed cap (Loudon leans light)
+    capR: 0.040,        // m; cap radius
+    Jrotor: 3e-5,       // kg·m²; ASSUMED rotor inertia, GM5208 figure not found
+    bMotor: 1e-4,       // N·m·s/rad; ASSUMED viscous loss of motor + bearings
+    tauC: 0.003,        // N·m; ASSUMED dry friction + cogging floor
+    tauMax: 0.2,        // N·m; firmware clamp (motor rated 0.18–0.25)
+    handK: 0.48,        // N·m/rad; ASSUMED fingertip grip (~300 N/m at the rim)
+    handB: 0.0032,      // N·m·s/rad; ASSUMED fingertip damping (~2 N·s/m at the rim)
+    quantize: true,     // 14-bit encoder, AS5048A
+    semisPerTurn: 24,   // pitch range of one full turn
+    basePitch: 45,      // MIDI note at angle 0 (A2)
+  }, opts || {});
+
+  const J = P.Jrotor + 0.5 * P.capMass * P.capR * P.capR;
+  const dt = 1 / P.fs;
+  const q = (2 * Math.PI) / 16384;
+  const s = {
+    th: 0, om: 0, t: 0,
+    hand: false, handTarget: 0, brake: 0, // brake = finger friction, N·m·s/rad
+    extTorque: 0,                         // scripted extra push (a flick)
+    tauHeld: 0, tauFeel: 0, tauHand: 0,
+    sensedTh: 0, sensedOm: 0, lastSensedTh: 0,
+    nextTick: 0, queue: [],
+  };
+  const eng = { P, J, s, feel: null };
+
+  eng.setFeel = (f) => { eng.feel = f; if (f && f.reset) f.reset(eng); };
+  eng.pitch = () => P.basePitch + (s.th / (2 * Math.PI)) * P.semisPerTurn;
+
+  eng.step = () => {
+    // the device loop: sense, compute the feel, send it down the (maybe slow) wire
+    if (s.t >= s.nextTick) {
+      const Tl = 1 / P.loopHz;
+      const th = P.quantize ? Math.round(s.th / q) * q : s.th;
+      const omRaw = (th - s.lastSensedTh) / Tl;
+      s.sensedOm += 0.25 * (omRaw - s.sensedOm); // light smoothing of a noisy difference
+      s.lastSensedTh = th; s.sensedTh = th;
+      let tau = eng.feel ? eng.feel.torque(eng, Tl) : 0;
+      tau = Math.max(-P.tauMax, Math.min(P.tauMax, tau));
+      s.tauFeel = tau;
+      s.queue.push([s.t + P.delayMs / 1000, tau]);
+      s.nextTick += Tl;
+    }
+    while (s.queue.length && s.queue[0][0] <= s.t) s.tauHeld = s.queue.shift()[1];
+
+    s.tauHand = (s.hand ? P.handK * (s.handTarget - s.th) - P.handB * s.om : 0) - s.brake * s.om;
+    const tauLoss = -P.bMotor * s.om - P.tauC * Math.tanh(s.om / 0.05);
+    s.om += ((s.tauHeld + s.tauHand + tauLoss + s.extTorque) / J) * dt;
+    s.th += s.om * dt;
+    s.t += dt;
+  };
+  return eng;
+}
+
+// ── The feels. Each returns torque from what the device senses; some keep
+// their own state (a melody, a platter, an LFO). Sound comes from voice().
+
+const TAU = 2 * Math.PI;
+
+const FEELS = {
+  // Pitch you can lean on: a pull toward the nearest in-tune semitone.
+  frets: (o) => Object.assign({
+    name: 'frets', peak: 0.03, damp: 0.0,
+    torque(e) {
+      const sp = e.P.semisPerTurn / TAU; // semitones per radian
+      return -this.peak * Math.sin(TAU * sp * e.s.sensedTh) - this.damp * e.s.sensedOm;
+    },
+    voice: (e) => ({ midi: e.pitch(), amp: 0.5 }),
+  }, o),
+
+  // A string that stiffens as it bends; pitch rises with tension.
+  string: (o) => Object.assign({
+    name: 'string', k1: 0.04, k3: 0.25,
+    torque(e) { const x = e.s.sensedTh; return -(this.k1 * x + this.k3 * x * x * x); },
+    // tension ~ k1 x + k3 x³; pitch ~ √tension: two semitones at a full ~1 rad bend
+    voice(e) {
+      const x = Math.abs(e.s.th);
+      const tens = 1 + (this.k1 * x + this.k3 * x * x * x) / 0.12;
+      return { midi: 52 + 6 * Math.log2(tens), amp: 0.5 };
+    },
+  }, o),
+
+  // The modulation, played into the hand: an LFO pushes, a soft spring centres.
+  lfo: (o) => Object.assign({
+    name: 'lfo', rate: 3, amp: 0.02, k: 0.08,
+    torque(e) { return this.amp * Math.sin(TAU * this.rate * e.s.t) - this.k * e.s.sensedTh; },
+    voice(e) { return { midi: 57 + 0.5 * Math.sin(TAU * this.rate * e.s.t), amp: 0.5 }; },
+  }, o),
+
+  // The pitch itself: the note the synth plays, pushed into the cap as torque.
+  pitch: (o) => Object.assign({
+    name: 'pitch', midi: 55, amp: 0.005, k: 0.03,
+    hz() { return 440 * Math.pow(2, (this.midi - 69) / 12); },
+    torque(e) { return this.amp * Math.sin(TAU * this.hz() * e.s.t) - this.k * e.s.sensedTh; },
+    voice(e) { return { midi: this.midi, amp: 0.5 }; },
+  }, o),
+
+  // The lock: the knob sets an LFO's rate; beat clicks are pushed into the hand.
+  // Near a synced rate the rate is pulled in (a magnet in log-rate) and the LFO's
+  // phase is pulled toward the beat (Kuramoto, one oscillator pulled by a clock).
+  lock: (o) => Object.assign({
+    name: 'lock', bpm: 100, lfoAmp: 0.015, clickAmp: 0.05, clickMs: 6,
+    magnet: 0.02, couple: 1.5, phi: 0, clicks: [],
+    reset() { this.phi = 0; this.clicks = []; this.lastBeat = -1; },
+    beatHz() { return this.bpm / 60; },
+    // 1 turn = 4 octaves of rate, centred on the beat rate
+    rate(th) { return this.beatHz() * Math.pow(2, (th / TAU) * 4); },
+    torque(e, Tl) {
+      const th = e.s.sensedTh, oct = (th / TAU) * 4;
+      // magnet toward whole octaves of the beat rate (×¼ … ×4)
+      const magnet = -this.magnet * Math.sin(TAU * oct);
+      let r = this.rate(th);
+      const beatPh = e.s.t * this.beatHz();
+      const ratio = Math.round(r / this.beatHz() * 4) / 4 || 0.25; // nearest synced multiple
+      const target = beatPh * ratio;
+      this.phi += Tl * (r + this.couple * Math.sin(TAU * (target - this.phi)));
+      let tau = this.lfoAmp * Math.sin(TAU * this.phi) + magnet;
+      const b = Math.floor(beatPh);
+      if (b !== this.lastBeat) { this.lastBeat = b; this.clicks.push(this.phi % 1); if (this.clicks.length > 24) this.clicks.shift(); }
+      if (beatPh - b < (this.clickMs / 1000) * this.beatHz()) tau += this.clickAmp * Math.sin(Math.PI * (beatPh - b) / ((this.clickMs / 1000) * this.beatHz()));
+      return tau;
+    },
+    voice(e) {
+      const beatPh = e.s.t * this.beatHz(), fr = beatPh - Math.floor(beatPh);
+      return { midi: 57, amp: 0.35 * (0.55 + 0.45 * Math.sin(TAU * this.phi)), click: fr < 0.02 ? 1 - fr / 0.02 : 0 };
+    },
+  }, o),
+
+  // Haptic filtering: the knob turns itself to each note of a melody; the hand
+  // can brake it (slower glide) or wiggle it (vibrato). Sound follows the knob.
+  follow: (o) => Object.assign({
+    name: 'follow', k: 0.25, damp: 0.004, notes: [0, 3, 7, 5, 3, 10, 7, 12], secPerNote: 0.6,
+    target(e) {
+      const i = Math.floor(e.s.t / this.secPerNote) % this.notes.length;
+      return (this.notes[i] / e.P.semisPerTurn) * TAU;
+    },
+    torque(e) { return this.k * (this.target(e) - e.s.sensedTh) - this.damp * e.s.sensedOm; },
+    voice: (e) => ({ midi: e.pitch(), amp: 0.5 }),
+  }, o),
+
+  // The struck spring: strike it, let it wobble down into pitch, damp with a finger.
+  // 'spring' rings at one rate all the way down; 'pendulum' (sin law) starts slow
+  // at a big swing and quickens as it settles.
+  struck: (o) => Object.assign({
+    name: 'struck', law: 'spring', k: 0.085, damp: 0, rest: 0,
+    torque(e) {
+      const x = e.s.sensedTh - this.rest;
+      const f = this.law === 'pendulum' ? Math.sin(x) : x;
+      return -this.k * f - this.damp * e.s.sensedOm;
+    },
+    voice: (e) => ({ midi: e.pitch(), amp: 0.5 }),
+  }, o),
+
+  // The turntable: the motor holds 33⅓ rpm with a capped torque; the hand brakes.
+  turntable: (o) => Object.assign({
+    name: 'turntable', rpm: 100 / 3, kv: 0.01, cap: 0.06,
+    omega() { return (this.rpm / 60) * TAU; },
+    torque(e) { return Math.max(-this.cap, Math.min(this.cap, this.kv * (this.omega() - e.s.sensedOm))); },
+    voice(e) { return { rate: e.s.om / this.omega(), amp: 0.5 }; },
+  }, o),
+};
+
+</script>
+<script>
+const RESULTS = {"verdicts":[{"feel":"soft centring spring (pitch-wheel return)","K":0.03,"kind":"answers the hand","device-10k":"fine","device-1k":"fine","usb-max":"only while held","audio-line":"only while held"},{"feel":"struck spring, light cap (6 Hz wobble)","K":0.085,"kind":"answers the hand","device-10k":"fine","device-1k":"fine","usb-max":"only while held","audio-line":"only while held"},{"feel":"haptic filtering (knob follows a melody)","K":0.25,"kind":"answers the hand","device-10k":"fine","device-1k":"only while held","usb-max":"only while held","audio-line":"only while held"},{"feel":"string bend, near full bend (~1 rad)","K":0.79,"kind":"answers the hand","device-10k":"fine","device-1k":"only while held","usb-max":"buzzes","audio-line":"buzzes"},{"feel":"frets, 24 per turn, 0.03 N·m pull","K":0.72,"kind":"answers the hand","device-10k":"fine","device-1k":"only while held","usb-max":"only while held","audio-line":"buzzes"},{"feel":"an end stop / wall","K":3,"kind":"answers the hand","device-10k":"only while held","device-1k":"only while held","usb-max":"buzzes","audio-line":"buzzes"},{"feel":"LFO, a pitch, beat clicks","K":0,"kind":"played into the hand","device-10k":"fine","device-1k":"fine","usb-max":"fine","audio-line":"fine"}]};
+const SAY = {
+  frets: 'Pitch you can lean on. Every semitone is a shallow valley; turn and feel the knob drop into each note. Two octaves per turn. The pull is 0.03 N·m, about a fingertip pressing a key.',
+  string: 'A string that stiffens as it bends. The first part of the turn is soft; past a third of a turn it gets steep, and the pitch rises with the tension, about two semitones at a full bend.',
+  lfo: 'The modulation, felt. A 3 Hz LFO pushes the knob back and forth while a soft spring centres it. This one is played into the hand: it does not depend on where the hand is.',
+  pitch: 'The pitch itself. The synth plays a G (196 Hz) and the motor pushes the same 196 Hz into the cap, 0.005 N·m. No screen can show it: the trace is a blur. Offline, the light cap moves about 2 µm at the rim, some twenty times what a fingertip can detect near this pitch. Whether this motor and driver can push cleanly at 196 Hz is the open question.',
+  lock: 'The lock. The knob sets an LFO\'s rate; the beat clicks into your fingers at 100 BPM. Turn toward the beat rate and watch the dots: unmatched, the click crawls around the wobble; matched, it lands on the same spot every time.',
+  follow: 'Haptic filtering. The knob turns itself to each note of a melody. Brake it with a finger (shift-drag) and the glides slow down; grip and wiggle and you are the vibrato. The sound follows the knob, not the score.',
+  spring: 'The struck spring. Strike it and it wobbles down into pitch at one rate, about 6 Hz, all the way down. Rest a finger on it to damp it.',
+  pendulum: 'The struck pendulum. Same strike, but the force follows a pendulum: a big swing is slow, and it quickens as it settles. Compare it with the spring.',
+  turntable: 'The turntable. The motor holds 33⅓ rpm with a capped torque; how hard you brake is the control. The riff slows with the platter.',
+};
+const ORDER = ['frets','string','lfo','pitch','lock','follow','spring','pendulum','turntable'];
+const LABEL = { frets:'frets', string:'string bend', lfo:'LFO felt', pitch:'the pitch itself', lock:'the lock', follow:'haptic filter', spring:'struck spring', pendulum:'struck pendulum', turntable:'turntable' };
+let eng, feelId = 'frets';
+const hist = { t: [], m: [], h: [] };
+
+function build() {
+  const [loopHz, delayMs] = document.getElementById('lane').value.split(',').map(Number);
+  const capMass = +document.getElementById('cap').value;
+  const old = eng;
+  eng = makeEngine({ fs: 48000, loopHz, delayMs, capMass, semisPerTurn: (feelId === 'spring' || feelId === 'pendulum') ? 6 : 24, basePitch: (feelId === 'spring' || feelId === 'pendulum') ? 57 : 45 });
+  if (old) { eng.s.th = old.s.th; eng.s.t = old.s.t; eng.s.nextTick = old.s.t; }
+  const f = feelId === 'spring' ? FEELS.struck({ law: 'spring' }) : feelId === 'pendulum' ? FEELS.struck({ law: 'pendulum' }) : FEELS[feelId]();
+  eng.setFeel(f);
+  document.getElementById('say').textContent = SAY[feelId];
+  document.querySelectorAll('#feels button').forEach(b => b.classList.toggle('on', b.dataset.id === feelId));
+}
+const fb = document.getElementById('feels');
+ORDER.forEach(id => { const b = document.createElement('button'); b.textContent = LABEL[id]; b.dataset.id = id; b.onclick = () => { feelId = id; build(); }; fb.appendChild(b); });
+document.getElementById('lane').onchange = build;
+document.getElementById('cap').onchange = build;
+document.getElementById('center').onclick = () => { eng.s.th = 0; eng.s.om = 0; };
+let strikeUntil = -1;
+document.getElementById('strike').onclick = () => { strikeUntil = eng.s.t + 0.03; };
+build();
+
+// ── the hand: pointer drag = grip, shift-drag or right button = finger brake
+const kc = document.getElementById('knob');
+let grip = null;
+const angAt = (ev) => { const r = kc.getBoundingClientRect(); return Math.atan2(ev.clientY - (r.top + r.height / 2), ev.clientX - (r.left + r.width / 2)); };
+kc.addEventListener('contextmenu', e => e.preventDefault());
+kc.addEventListener('pointerdown', (ev) => {
+  kc.setPointerCapture(ev.pointerId);
+  const brake = ev.shiftKey || ev.button === 2;
+  grip = { brake, last: angAt(ev), acc: eng.s.th };
+  kc.style.cursor = 'grabbing';
+});
+kc.addEventListener('pointermove', (ev) => {
+  if (!grip) return;
+  let a = angAt(ev), d = a - grip.last;
+  if (d > Math.PI) d -= TAU; if (d < -Math.PI) d += TAU;
+  grip.last = a; grip.acc += d;
+});
+const release = () => { grip = null; kc.style.cursor = 'grab'; };
+kc.addEventListener('pointerup', release); kc.addEventListener('pointercancel', release);
+
+function applyHand() {
+  const s = eng.s;
+  s.hand = !!grip && !grip.brake;
+  s.handTarget = grip ? grip.acc : s.th;
+  s.brake = grip && grip.brake ? 0.006 : 0;
+  s.extTorque = s.t < strikeUntil ? 0.15 : 0;
+}
+
+// ── sound: the engine runs in the audio callback when sound is on, else per frame
+const loop = (() => { const SR = 48000, len = SR * 2, L = new Float32Array(len), notes = [45, 52, 57, 60, 57, 52, 55, 50];
+  notes.forEach((m, i) => { const f = 440 * 2 ** ((m - 69) / 12), st = i * len / 8;
+    for (let j = 0; j < len / 8; j++) { const t = j / SR; L[st + j] += 0.5 * Math.exp(-t * 7) * (Math.sin(TAU * f * t) + 0.4 * Math.sin(TAU * 2 * f * t) + 0.2 * Math.sin(TAU * 3 * f * t)); } });
+  return L; })();
+let ac = null, ph = 0, lp = 0, amp = 0;
+function stepOnce(out, i) {
+  eng.step();
+  if (!out) return;
+  const v = eng.feel.voice(eng);
+  amp += 0.002 * (v.amp - amp);
+  let y;
+  if (v.rate !== undefined) { lp += v.rate; lp = ((lp % loop.length) + loop.length) % loop.length; y = loop[Math.floor(lp)]; }
+  else { ph += 440 * 2 ** ((v.midi - 69) / 12) / 48000; ph -= Math.floor(ph); y = 0; for (let h = 1; h <= 6; h++) y += Math.sin(TAU * h * ph) / h; y *= amp * 0.35; if (v.click) y += 0.25 * v.click * Math.sin(TAU * 1800 * eng.s.t); }
+  out[i] = Math.tanh(y);
+}
+function record() { hist.t.push(eng.s.t); hist.m.push(eng.s.tauHeld); hist.h.push(eng.s.tauHand); while (hist.t.length && hist.t[0] < eng.s.t - 3) { hist.t.shift(); hist.m.shift(); hist.h.shift(); } }
+document.getElementById('audio').onclick = async (ev) => {
+  if (ac) { await ac.close(); ac = null; ev.target.textContent = 'start sound'; ev.target.classList.add('primary'); return; }
+  ac = new AudioContext({ sampleRate: 48000 });
+  const sp = ac.createScriptProcessor(1024, 0, 1);
+  sp.onaudioprocess = (e) => { const out = e.outputBuffer.getChannelData(0); applyHand(); for (let i = 0; i < out.length; i++) { stepOnce(out, i); if (i % 160 === 0) record(); } };
+  sp.connect(ac.destination);
+  ev.target.textContent = 'stop sound'; ev.target.classList.remove('primary');
+};
+
+// ── drawing
+const kx = kc.getContext('2d'), sc = document.getElementById('scope'), sx = sc.getContext('2d'), pc = document.getElementById('phase'), px = pc.getContext('2d');
+function drawKnob() {
+  const W = kc.width, c = W / 2, R = W * 0.36;
+  kx.clearRect(0, 0, W, W);
+  // fret or scale marks
+  const marks = feelId === 'frets' ? 24 : feelId === 'lock' ? 16 : 12;
+  for (let i = 0; i < marks; i++) { const a = i / marks * TAU - Math.PI / 2; kx.strokeStyle = (feelId === 'lock' && i % 4 === 0) || (feelId === 'frets' && i % 12 === 0) ? '#e8b84a' : '#3a3a48';
+    kx.lineWidth = 3; kx.beginPath(); kx.moveTo(c + Math.cos(a) * (R + 22), c + Math.sin(a) * (R + 22)); kx.lineTo(c + Math.cos(a) * (R + 40), c + Math.sin(a) * (R + 40)); kx.stroke(); }
+  // the cap: dark bakelite with knurling, an ivory pointer
+  const th = eng.s.th;
+  kx.save(); kx.translate(c, c); kx.rotate(th);
+  kx.fillStyle = '#3a3024'; kx.beginPath(); kx.arc(0, 0, R, 0, TAU); kx.fill();
+  kx.strokeStyle = '#584a36'; kx.lineWidth = 2;
+  for (let i = 0; i < 72; i++) { const a = i / 72 * TAU; kx.beginPath(); kx.moveTo(Math.cos(a) * (R - 14), Math.sin(a) * (R - 14)); kx.lineTo(Math.cos(a) * R, Math.sin(a) * R); kx.stroke(); }
+  kx.fillStyle = '#2a231a'; kx.beginPath(); kx.arc(0, 0, R * 0.78, 0, TAU); kx.fill();
+  kx.strokeStyle = '#e8e2cf'; kx.lineWidth = 7; kx.lineCap = 'round'; kx.beginPath(); kx.moveTo(0, -R * 0.2); kx.lineTo(0, -R * 0.72); kx.stroke();
+  kx.restore();
+  // torque arc: where and how hard the motor pushes
+  const tq = eng.s.tauHeld, span = Math.max(-1, Math.min(1, tq / 0.1)) * Math.PI * 0.6;
+  kx.strokeStyle = '#e8b84a'; kx.lineWidth = 10; kx.beginPath();
+  const a0 = th - Math.PI / 2; kx.arc(c, c, R + 10, Math.min(a0, a0 + span), Math.max(a0, a0 + span)); kx.stroke();
+  if (grip) { kx.fillStyle = grip.brake ? 'rgba(138,138,150,.5)' : 'rgba(232,184,74,.35)'; kx.beginPath(); kx.arc(c + Math.cos(grip.last) * R * 0.9, c + Math.sin(grip.last) * R * 0.9, 18, 0, TAU); kx.fill(); }
+}
+function drawScope() {
+  const W = sc.width, H = sc.height;
+  sx.fillStyle = '#0a0a0f'; sx.fillRect(0, 0, W, H);
+  sx.strokeStyle = '#22222e'; sx.beginPath(); sx.moveTo(0, H / 2); sx.lineTo(W, H / 2); sx.stroke();
+  const t1 = eng.s.t, y = (v) => H / 2 - Math.max(-1, Math.min(1, v / 0.1)) * (H / 2 - 6);
+  for (const [arr, col] of [[hist.h, '#8a8a96'], [hist.m, '#e8b84a']]) {
+    sx.strokeStyle = col; sx.lineWidth = 2; sx.beginPath();
+    hist.t.forEach((t, i) => { const x = W - (t1 - t) / 3 * W; i ? sx.lineTo(x, y(arr[i])) : sx.moveTo(x, y(arr[i])); });
+    sx.stroke();
+  }
+  // phase strip: the lock's click positions, or the pitch for the others
+  const PW = pc.width, PH = pc.height; px.fillStyle = '#0a0a0f'; px.fillRect(0, 0, PW, PH); px.font = '22px Menlo, monospace';
+  if (feelId === 'lock') {
+    const f = eng.feel, cl = f.clicks; px.fillStyle = '#8a8a96';
+    px.fillText(`LFO rate ${f.rate(eng.s.th).toFixed(2)} Hz · beat ${f.beatHz().toFixed(2)} Hz · where each beat click landed in the wobble, oldest → newest`, 10, 26);
+    px.strokeStyle = '#22222e'; px.beginPath(); px.moveTo(20, 90); px.lineTo(PW - 20, 90); px.stroke();
+    cl.forEach((p, i) => { px.fillStyle = i === cl.length - 1 ? '#e8b84a' : `rgba(232,184,74,${0.2 + 0.6 * i / cl.length})`; px.beginPath(); px.arc(20 + p * (PW - 40), 60 + (i / 24) * 80, 7, 0, TAU); px.fill(); });
+  } else {
+    const v = eng.feel.voice(eng); px.fillStyle = '#8a8a96';
+    const txt = v.rate !== undefined ? `platter speed ${(v.rate * 100).toFixed(0)}% of 33⅓ rpm` : `pitch ${v.midi.toFixed(2)} (MIDI) · ${(440 * 2 ** ((v.midi - 69) / 12)).toFixed(1)} Hz`;
+    px.fillText(txt + ` · angle ${(eng.s.th * 180 / Math.PI).toFixed(1)}°`, 10, 26);
+  }
+  const s = eng.s;
+  document.getElementById('readout').innerHTML = `motor push <b>${s.tauHeld.toFixed(3)}</b> N·m · hand <b>${s.tauHand.toFixed(3)}</b> N·m · speed <b>${(s.om * 60 / TAU).toFixed(1)}</b> rpm · knob inertia ${(eng.J * 1e4).toFixed(2)} kg·cm²`;
+}
+function frame() {
+  if (!ac) { applyHand(); for (let i = 0; i < 800; i++) { stepOnce(null, i); if (i % 160 === 0) record(); } }
+  drawKnob(); drawScope(); requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+// ── the stability table from the offline sweep
+(() => {
+  const t = document.getElementById('verdicts'), cls = { 'fine': 'fine', 'only while held': 'held', 'buzzes': 'buzz' };
+  t.innerHTML = '<tr><th>feel (stiffness, N·m/rad)</th><th>device 10 kHz</th><th>device 1 kHz</th><th>USB · Max</th><th>audio line</th></tr>' +
+    RESULTS.verdicts.map(v => `<tr><td>${v.feel} (${v.K})</td>` + ['device-10k', 'device-1k', 'usb-max', 'audio-line'].map(k => `<td class="${cls[v[k]]}">${v[k]}</td>`).join('') + '</tr>').join('');
+})();
+
+// ── review surface
+const notesOut = document.getElementById('notesOut');
+const gather = () => { notesOut.value = [...document.querySelectorAll('textarea[data-sec]')].filter(x => x.value.trim()).map(x => `[${x.dataset.sec}${x.dataset.sec === 'feel' ? ' · ' + LABEL[feelId] : ''}] ${x.value.trim()}`).join('\n'); };
+document.querySelectorAll('textarea[data-sec]').forEach(x => x.addEventListener('input', gather));
+document.getElementById('copy').onclick = () => { notesOut.select(); try { navigator.clipboard.writeText(notesOut.value); } catch (e) { document.execCommand('copy'); } };
+</script>
+</body>
+</html>

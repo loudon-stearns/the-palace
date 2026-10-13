@@ -1,0 +1,380 @@
+{
+ "stability": {
+  "stab": [
+   {
+    "lane": "device-10k",
+    "cap": "light",
+    "hand": "hands off",
+    "kmax": 2.2261546026201864,
+    "theory": 2
+   },
+   {
+    "lane": "device-10k",
+    "cap": "light",
+    "hand": "gripped",
+    "kmax": 50,
+    "theory": 66
+   },
+   {
+    "lane": "device-10k",
+    "cap": "weighted",
+    "hand": "hands off",
+    "kmax": 2.226112814325229,
+    "theory": 2
+   },
+   {
+    "lane": "device-10k",
+    "cap": "weighted",
+    "hand": "gripped",
+    "kmax": 50,
+    "theory": 66
+   },
+   {
+    "lane": "device-1k",
+    "cap": "light",
+    "hand": "hands off",
+    "kmax": 0.2021611473575593,
+    "theory": 0.2
+   },
+   {
+    "lane": "device-1k",
+    "cap": "light",
+    "hand": "gripped",
+    "kmax": 6.734428551666198,
+    "theory": 6.6
+   },
+   {
+    "lane": "device-1k",
+    "cap": "weighted",
+    "hand": "hands off",
+    "kmax": 0.20212889322417182,
+    "theory": 0.2
+   },
+   {
+    "lane": "device-1k",
+    "cap": "weighted",
+    "hand": "gripped",
+    "kmax": 6.696191145355513,
+    "theory": 6.6
+   },
+   {
+    "lane": "usb-max",
+    "cap": "light",
+    "hand": "hands off",
+    "kmax": 0.022257060960575864,
+    "theory": 0.02222222222222222
+   },
+   {
+    "lane": "usb-max",
+    "cap": "light",
+    "hand": "gripped",
+    "kmax": 0.7818154297354373,
+    "theory": 0.7333333333333333
+   },
+   {
+    "lane": "usb-max",
+    "cap": "weighted",
+    "hand": "hands off",
+    "kmax": 0.022253022567754546,
+    "theory": 0.02222222222222222
+   },
+   {
+    "lane": "usb-max",
+    "cap": "weighted",
+    "hand": "gripped",
+    "kmax": 0.7537076082137637,
+    "theory": 0.7333333333333333
+   },
+   {
+    "lane": "audio-line",
+    "cap": "light",
+    "hand": "hands off",
+    "kmax": 0.01875854151758217,
+    "theory": 0.018725130685807913
+   },
+   {
+    "lane": "audio-line",
+    "cap": "light",
+    "hand": "gripped",
+    "kmax": 0.6693505888992046,
+    "theory": 0.6179293126316612
+   },
+   {
+    "lane": "audio-line",
+    "cap": "weighted",
+    "hand": "hands off",
+    "kmax": 0.018742819656317022,
+    "theory": 0.018725130685807913
+   },
+   {
+    "lane": "audio-line",
+    "cap": "weighted",
+    "hand": "gripped",
+    "kmax": 0.640006315577969,
+    "theory": 0.6179293126316612
+   }
+  ],
+  "rescue": [
+   {
+    "lane": "usb-max",
+    "kmax": 0.4782193105458858,
+    "theory": 0.46666666666666656
+   },
+   {
+    "lane": "audio-line",
+    "kmax": 0.4047680731304528,
+    "theory": 0.3932277444019662
+   }
+  ]
+ },
+ "verdicts": [
+  {
+   "feel": "soft centring spring (pitch-wheel return)",
+   "K": 0.03,
+   "kind": "answers the hand",
+   "device-10k": "fine",
+   "device-1k": "fine",
+   "usb-max": "only while held",
+   "audio-line": "only while held"
+  },
+  {
+   "feel": "struck spring, light cap (6 Hz wobble)",
+   "K": 0.085,
+   "kind": "answers the hand",
+   "device-10k": "fine",
+   "device-1k": "fine",
+   "usb-max": "only while held",
+   "audio-line": "only while held"
+  },
+  {
+   "feel": "haptic filtering (knob follows a melody)",
+   "K": 0.25,
+   "kind": "answers the hand",
+   "device-10k": "fine",
+   "device-1k": "only while held",
+   "usb-max": "only while held",
+   "audio-line": "only while held"
+  },
+  {
+   "feel": "string bend, near full bend (~1 rad)",
+   "K": 0.79,
+   "kind": "answers the hand",
+   "device-10k": "fine",
+   "device-1k": "only while held",
+   "usb-max": "buzzes",
+   "audio-line": "buzzes"
+  },
+  {
+   "feel": "frets, 24 per turn, 0.03 N·m pull",
+   "K": 0.72,
+   "kind": "answers the hand",
+   "device-10k": "fine",
+   "device-1k": "only while held",
+   "usb-max": "only while held",
+   "audio-line": "buzzes"
+  },
+  {
+   "feel": "an end stop / wall",
+   "K": 3,
+   "kind": "answers the hand",
+   "device-10k": "only while held",
+   "device-1k": "only while held",
+   "usb-max": "buzzes",
+   "audio-line": "buzzes"
+  },
+  {
+   "feel": "LFO, a pitch, beat clicks",
+   "K": 0,
+   "kind": "played into the hand",
+   "device-10k": "fine",
+   "device-1k": "fine",
+   "usb-max": "fine",
+   "audio-line": "fine"
+  }
+ ],
+ "feltCheck": {
+  "torque": 0.005,
+  "hz": 196,
+  "rim_um_sim": 2.135,
+  "rim_um_theory": 2.127
+ },
+ "felt": [
+  {
+   "cap": "light",
+   "torque": 0.002,
+   "hz": 98,
+   "rim_um_theory": 3.403
+  },
+  {
+   "cap": "light",
+   "torque": 0.002,
+   "hz": 196,
+   "rim_um_theory": 0.851
+  },
+  {
+   "cap": "light",
+   "torque": 0.002,
+   "hz": 392,
+   "rim_um_theory": 0.213
+  },
+  {
+   "cap": "light",
+   "torque": 0.01,
+   "hz": 98,
+   "rim_um_theory": 17.016
+  },
+  {
+   "cap": "light",
+   "torque": 0.01,
+   "hz": 196,
+   "rim_um_theory": 4.254
+  },
+  {
+   "cap": "light",
+   "torque": 0.01,
+   "hz": 392,
+   "rim_um_theory": 1.063
+  },
+  {
+   "cap": "weighted",
+   "torque": 0.002,
+   "hz": 98,
+   "rim_um_theory": 1.407
+  },
+  {
+   "cap": "weighted",
+   "torque": 0.002,
+   "hz": 196,
+   "rim_um_theory": 0.352
+  },
+  {
+   "cap": "weighted",
+   "torque": 0.002,
+   "hz": 392,
+   "rim_um_theory": 0.088
+  },
+  {
+   "cap": "weighted",
+   "torque": 0.01,
+   "hz": 98,
+   "rim_um_theory": 7.033
+  },
+  {
+   "cap": "weighted",
+   "torque": 0.01,
+   "hz": 196,
+   "rim_um_theory": 1.758
+  },
+  {
+   "cap": "weighted",
+   "torque": 0.01,
+   "hz": 392,
+   "rim_um_theory": 0.44
+  }
+ ],
+ "struck": {
+  "spring": [
+   {
+    "t": 0.649,
+    "hz": 5.89
+   },
+   {
+    "t": 0.819,
+    "hz": 5.89
+   },
+   {
+    "t": 0.989,
+    "hz": 5.89
+   },
+   {
+    "t": 1.159,
+    "hz": 5.88
+   },
+   {
+    "t": 1.329,
+    "hz": 5.88
+   },
+   {
+    "t": 1.499,
+    "hz": 5.87
+   },
+   {
+    "t": 1.671,
+    "hz": 5.83
+   },
+   {
+    "t": 1.849,
+    "hz": 5.6
+   }
+  ],
+  "pendulum": [
+   {
+    "t": 0.784,
+    "hz": 4.91
+   },
+   {
+    "t": 0.97,
+    "hz": 5.37
+   },
+   {
+    "t": 1.148,
+    "hz": 5.61
+   },
+   {
+    "t": 1.322,
+    "hz": 5.74
+   },
+   {
+    "t": 1.495,
+    "hz": 5.79
+   },
+   {
+    "t": 1.67,
+    "hz": 5.72
+   }
+  ]
+ },
+ "turntable": {
+  "speed_at": {
+   "1.5s": 0.903,
+   "2.8s": 0.304,
+   "5.0s": 0.071,
+   "6.6s": 1.758,
+   "7.8s": 0.908
+  }
+ },
+ "lock": {
+  "click_phase_last_8": [
+   0.006,
+   0.002,
+   0.999,
+   0.999,
+   0.999,
+   0.999,
+   0.999,
+   0.999
+  ],
+  "click_phase_all": [
+   0,
+   0.501,
+   0.987,
+   0.482,
+   0.012,
+   0.257,
+   0.501,
+   0.742,
+   0.984,
+   0.23,
+   0.021,
+   0.012,
+   0.006,
+   0.002,
+   0.999,
+   0.999,
+   0.999,
+   0.999,
+   0.999,
+   0.999
+  ]
+ }
+}
