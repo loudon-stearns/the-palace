@@ -131,6 +131,17 @@ describe('parseRequest — field-location coalescing', () => {
     expect(r.request_id).toBe(null);
     expect(r.parse_warnings.some((w) => /request_id/.test(w))).toBe(true);
   });
+  it('a blank request_id is no request_id: pairs by the message id and says so', () => {
+    const r = parseRequest({ request_id: '   ', id: 'm1', payload: {} });
+    expect(r.request_id).toBe('m1');
+    expect(r.parse_warnings.some((w) => /paired by message id/.test(w))).toBe(true);
+    expect(r.parse_warnings.some((w) => /nothing can answer it/.test(w))).toBe(false);
+  });
+  it('with neither id, the warning says nothing can answer it', () => {
+    const r = parseRequest({ payload: {} });
+    expect(r.parse_warnings.some((w) => /nothing can answer it/.test(w))).toBe(true);
+    expect(r.parse_warnings.some((w) => /paired by message id/.test(w))).toBe(false);
+  });
 });
 
 // A request posted without a top-level request_id is still answerable: the deck
