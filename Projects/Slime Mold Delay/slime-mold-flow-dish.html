@@ -1,0 +1,601 @@
+<!doctype html>
+<!-- Slime Mold Delay — the flow dish (cycle 9, 2026-10-13) -->
+<!-- The realtime version. Ports cycle 8's headless flow engine (headless/physarum_flow.py) -->
+<!-- into the browser: you place food, play into it, and the routing grows on the real -->
+<!-- mold's flow law (Tero, Kobayashi & Nakagaki 2007) while the delay network sounds. -->
+<!-- The engine block below has no DOM or audio in it, so headless/flow_dish_check.mjs -->
+<!-- can run it in node against the python scenes. -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Slime Mold Delay · the flow dish</title>
+<style>
+  :root{
+    --agar:#0e1410; --agar2:#18231b; --ink:#e7efe6; --dim:#8aa091;
+    --food:#e9c93f; --sink:#d8484a; --tube:#c8b24a; --line:#2a3a2e;
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --body:'Cormorant Garamond',Georgia,serif; --ui:'Manrope',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--agar);color:var(--ink);font-family:var(--ui)}
+  .wrap{max-width:1100px;margin:0 auto;padding:18px 16px 40px}
+  .sub{color:var(--dim);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:1.2px}
+  h1{font-weight:800;font-size:21px;margin:.25em 0 .2em}
+  h2{font-weight:700;font-size:15px;margin:26px 0 6px}
+  p.lead{font-family:var(--body);font-size:17px;line-height:1.75;color:#d6e2d4;max-width:72ch;margin:.4em 0}
+  .grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;margin-top:12px}
+  @media (max-width:860px){.grid{grid-template-columns:1fr}}
+  .dish{position:relative;aspect-ratio:1/1;width:100%}
+  canvas{display:block;width:100%;height:100%;cursor:crosshair}
+  .bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+  button{font-family:var(--mono);font-size:12px;letter-spacing:.4px;color:var(--ink);background:#1b2620;
+    border:1px solid var(--line);border-radius:6px;padding:8px 11px;cursor:pointer}
+  button:hover{border-color:var(--tube);color:#fff}
+  button.primary{background:#2a3a2e;border-color:var(--tube)}
+  button.on{background:#3a3417;border-color:var(--food)}
+  .hint{font-family:var(--mono);font-size:11px;color:var(--dim);line-height:1.6}
+  .panel{border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:12px}
+  .panel label{font-family:var(--mono);font-size:11px;color:var(--dim);display:flex;justify-content:space-between;margin:8px 0 2px}
+  .panel label b{color:var(--tube);font-weight:600}
+  input[type=range]{width:100%}
+  .tele{font-family:var(--mono);font-size:12px;color:var(--dim);display:grid;grid-template-columns:1fr 1fr;gap:4px 10px}
+  .tele b{color:var(--tube);font-weight:600}
+  .meter{height:6px;background:#1b2620;border-radius:3px;overflow:hidden;margin-top:6px}
+  .meter i{display:block;height:100%;background:var(--tube);width:0}
+  #log{font-family:var(--mono);font-size:11px;color:#b9c8b6;height:220px;overflow:auto;line-height:1.55;white-space:pre-wrap}
+  .eq{font-family:var(--mono);font-size:12.5px;color:#cfe0cc;background:#121a14;border:1px solid var(--line);
+    border-radius:6px;padding:8px 10px;margin:6px 0;white-space:pre-wrap;line-height:1.6}
+  .eq .w{color:var(--dim)}
+  footer{margin-top:28px;color:var(--dim);font-family:var(--mono);font-size:11px;letter-spacing:.6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="sub">Slime Mold Delay · Study · the flow dish · realtime</div>
+  <h1>Feed the dish, play into it, and listen to the delay grow its own routing.</h1>
+  <p class="lead">Every gold tube is a delay line. Its length sets the echo time, and its thickness sets how
+  much sound it carries. The mold thickens a tube by how much flow it carries: loud food pushes, the red
+  listener drains, and pressure settles across the network. Feeler tips reach toward food that is sounding but
+  not yet connected. A tube that stops carrying anything thins out and pulls back. You don't patch anything.
+  You decide where the food is and what plays.</p>
+
+  <div class="bar">
+    <button id="start" class="primary">▸ START</button>
+    <button id="demo">THE MUSIC MOVES (30 s demo)</button>
+    <button id="clear">CLEAR DISH</button>
+    <button id="mic">MIC → SELECTED FLAKE</button>
+    <span class="hint" id="status">silent until you press START</span>
+  </div>
+
+  <div class="grid">
+    <div>
+      <div class="dish"><canvas id="cv" width="900" height="900"></canvas></div>
+      <div class="hint">Click bare agar: place an oat flake (food, up to 6). Click a flake: it starts or stops playing,
+      and it becomes the selected flake for the mic. Shift-click a flake: take it away (its tubes pull back).
+      Keys 1–6 pluck a flake by hand. Flakes swell while they sound. Moving dots are the flow, travelling
+      the way the cytoplasm goes. Faint threads are feeler tips; brown threads are tips that gave up.</div>
+    </div>
+    <div>
+      <div class="panel">
+        <label>EAT ◂▸ STARVE <b id="v-hunger">eat</b></label>
+        <input id="hunger" type="range" min="0" max="100" value="100">
+        <label>TUBE LENGTH BUDGET <b id="v-budget">2.40</b></label>
+        <input id="budget" type="range" min="60" max="400" value="240">
+        <div class="meter"><i id="m-used"></i></div>
+        <label>STREAMING SPEED · echo time <b id="v-vel">0.90</b></label>
+        <input id="vel" type="range" min="30" max="250" value="90">
+        <label>DISH CLOCK <b id="v-clock">1.0×</b></label>
+        <input id="clock" type="range" min="0" max="400" value="100">
+        <label>WET <b id="v-wet">1.00</b></label>
+        <input id="wet" type="range" min="0" max="150" value="100">
+        <label>DRY <b id="v-dry">0.30</b></label>
+        <input id="dry" type="range" min="0" max="100" value="30">
+        <label>A FLAKE'S SHARE IS JUDGED AGAINST</label>
+        <select id="share" style="width:100%;font-family:var(--mono);font-size:12px;background:#1b2620;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:5px">
+          <option value="all">all the food in the dish (new)</option>
+          <option value="fed">only the food it has reached (cycle 8)</option>
+        </select>
+      </div>
+      <div class="panel tele">
+        <div>tubes <b id="t-tubes">0</b></div><div>tips out <b id="t-probes">0</b></div>
+        <div>grown <b id="t-grown">0</b></div><div>cut <b id="t-cut">0</b></div>
+        <div>gave up <b id="t-starved">0</b></div><div>refused <b id="t-refused">0</b></div>
+      </div>
+      <div class="panel"><div class="sub" style="margin-bottom:6px">what the mold did</div><div id="log"></div></div>
+    </div>
+  </div>
+
+  <h2>The flow law, shown twice</h2>
+  <div class="eq">Σⱼ (Dᵢⱼ / Lᵢⱼ) · (pᵢ − pⱼ) = Iᵢ
+<span class="w">Σ over neighbours (thickness / length) × (pressure here − pressure there) = what this node pushes in</span></div>
+  <div class="eq">Qᵢⱼ = (Dᵢⱼ / Lᵢⱼ) · (pᵢ − pⱼ)
+<span class="w">flow along a tube = (thickness / length) × (pressure difference across it)</span></div>
+  <div class="eq">dD/dt = k · ( |Q|^γ / (h^γ + |Q|^γ) − μ · D )
+<span class="w">change in thickness = growth rate × ( flow it carries, saturating − thinning rate × thickness )</span></div>
+  <div class="eq">delay = L / v        I_food = loudness / Σ loudness        I_sink = −Σ I_food
+<span class="w">echo time = tube length / streaming speed     each reached flake pushes its share of all the loudness     the listener drains what they push</span></div>
+
+  <footer>Loud’n Live · Slime Mold Delay · engine ported from headless/physarum_flow.py</footer>
+</div>
+
+<script id="engine">
+// ---------------------------------------------------------------------------
+// The flow engine — a line-for-line port of physarum_flow.py's run() loop,
+// minus the audio. No DOM, no AudioContext: node can load this block alone.
+// ---------------------------------------------------------------------------
+const SlimeEngine = (() => {
+  const P = { TICK_HZ: 30, K: 2.2, GAMMA: 1.8, H: 0.35, MU: 1.0, EPS: 0.06, TAU: 18, RETRACT: 9,
+    PROBE_RATE: 1.2, PROBE_MAX: 3, PROBE_LIFE: 30, PROBE_STEP: 0.024, R_CAP: 0.06, D0: 0.18 };
+  const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+
+  function mulberry32(s) {
+    return () => { s |= 0; s = s + 0x6D2B79F5 | 0; let t = Math.imul(s ^ s >>> 15, 1 | s);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  }
+
+  // Solve A x = b in place (Gaussian elimination, partial pivot). n ≤ ~20.
+  function solve(A, b) {
+    const n = b.length;
+    for (let c = 0; c < n; c++) {
+      let piv = c;
+      for (let r = c + 1; r < n; r++) if (Math.abs(A[r][c]) > Math.abs(A[piv][c])) piv = r;
+      [A[c], A[piv]] = [A[piv], A[c]]; [b[c], b[piv]] = [b[piv], b[c]];
+      for (let r = c + 1; r < n; r++) {
+        const f = A[r][c] / A[c][c]; if (!f) continue;
+        for (let k = c; k < n; k++) A[r][k] -= f * A[c][k];
+        b[r] -= f * b[c];
+      }
+    }
+    const x = new Array(n).fill(0);
+    for (let r = n - 1; r >= 0; r--) {
+      let s = b[r]; for (let k = r + 1; k < n; k++) s -= A[r][k] * x[k];
+      x[r] = s / A[r][r];
+    }
+    return x;
+  }
+
+  function create({ seed = 11, sink = { x: 0.52, y: 0.46 }, junctions = 10, share = 'all', passThrough = true } = {}) {
+    const rng = mulberry32(seed);
+    const normal = () => Math.sqrt(-2 * Math.log(1 - rng())) * Math.cos(2 * Math.PI * rng());
+    let nextId = 0;
+    const S = {
+      P, rng, share, passThrough, tick: 0, nodes: [], tubes: [], probes: [], ghosts: [],
+      counts: { probes: 0, captured: 0, starved: 0, retracted: 0, budget_refused: 0 },
+      used: 0,
+      hooks: { capture: () => {}, cut: () => {}, event: () => {} },
+    };
+    const addNode = (x, y, kind, extra = {}) => {
+      const n = { id: nextId++, x, y, kind, env: 0, gone: false, ...extra }; S.nodes.push(n); return n;
+    };
+    S.sink = addNode(sink.x, sink.y, 'sink');
+    for (let i = 0; i < junctions; i++) {           // bare spots of agar a tip can settle on
+      let x, y; do { x = 0.12 + 0.76 * rng(); y = 0.12 + 0.76 * rng(); }
+      while (Math.hypot(x - 0.5, y - 0.5) > 0.38 || dist({ x, y }, S.sink) < 0.08);
+      addNode(x, y, 'junc');
+    }
+    S.addFood = (x, y, extra) => addNode(x, y, 'food', extra);
+    S.removeFood = (n) => { n.gone = true; };
+    S.addTube = (a, b, D = P.D0) => {
+      const t = { a, b, L: dist(a, b), D, Q: 0, w: 1, starve: 0, retract: -1, dead: false, born: S.tick };
+      S.tubes.push(t); S.hooks.capture(t); return t;
+    };
+    S.foods = () => S.nodes.filter(n => n.kind === 'food' && !n.gone);
+
+    // One tick (1/30 s of dish time). levels: Map node.id → RMS heard at that flake.
+    S.step = (levels, { hunger = 1, budget = 2.4 } = {}) => {
+      const tt = S.tick / P.TICK_HZ;
+      const nodes = S.nodes, N = nodes.length, idx = new Map(nodes.map((n, i) => [n, i]));
+      const decay = Math.exp(-1 / (P.TICK_HZ * 1.5));          // 1.5 s memory
+      for (const n of nodes) if (n.kind === 'food')
+        n.env = n.gone ? 0 : Math.max(levels.get(n.id) || 0, n.env * decay);
+
+      // only food the network reaches can push; the sink drains exactly that
+      const adj = new Map();
+      for (const t of S.tubes) {
+        (adj.get(t.a) || adj.set(t.a, []).get(t.a)).push(t.b);
+        (adj.get(t.b) || adj.set(t.b, []).get(t.b)).push(t.a);
+      }
+      const comp = new Set([S.sink]), stack = [S.sink];
+      while (stack.length) for (const nb of adj.get(stack.pop()) || []) if (!comp.has(nb)) { comp.add(nb); stack.push(nb); }
+      const I = new Array(N).fill(0);
+      // Each reached flake pushes its share of the loudness. share 'all' (the default) counts
+      // every sounding flake in the denominator, reached or not: when the music moves to food
+      // the mold hasn't found, the old roads lose their push at once instead of keeping all of
+      // it until a tip gets lucky. share 'fed' is cycle 8's python law, kept for comparison.
+      const fed = nodes.filter(n => n.kind === 'food' && comp.has(n));
+      const pool = S.share === 'fed' ? fed : nodes.filter(n => n.kind === 'food');
+      const tot = pool.reduce((s, n) => s + n.env, 0);
+      if (tot > 1e-4) {
+        let drain = 0; for (const n of fed) { I[idx.get(n)] = n.env / tot; drain += n.env / tot; }
+        I[idx.get(S.sink)] = -drain;
+      }
+
+      // pressure and flow — Kirchhoff on the live tubes
+      const A = Array.from({ length: N }, (_, i) => { const r = new Array(N).fill(0); r[i] = 1e-4; return r; });
+      for (const t of S.tubes) {
+        const c = t.D / t.L, a = idx.get(t.a), b = idx.get(t.b);
+        A[a][a] += c; A[b][b] += c; A[a][b] -= c; A[b][a] -= c;
+      }
+      const p = solve(A, I.slice());
+      const mu = P.MU * (1.6 - 0.6 * hunger);                   // a starving mold thins faster
+      for (const t of S.tubes) {
+        t.Q = t.D / t.L * (p[idx.get(t.a)] - p[idx.get(t.b)]);
+        if (Math.abs(t.Q) > 1e-4) t.w += Math.max(-0.15, Math.min(0.15, Math.sign(t.Q) - t.w));
+        const q = Math.pow(Math.abs(t.Q), P.GAMMA);
+        if ((t.a.gone || t.b.gone) && t.retract < 0) {          // food taken away: let go at once
+          t.retract = P.RETRACT; S.hooks.event(tt, 'retract', t);
+        }
+        if (t.retract < 0) {
+          t.D = Math.max(0, t.D + P.K / P.TICK_HZ * (q / (Math.pow(P.H, P.GAMMA) + q) - mu * t.D));
+          t.starve = t.D < P.EPS ? t.starve + 1 : 0;
+          if (t.starve >= P.TAU) { t.retract = P.RETRACT; S.hooks.event(tt, 'retract', t); }
+        } else if (t.retract > 0) { t.D *= (t.retract - 1) / t.retract; t.retract -= 1; }
+        else t.dead = true;
+      }
+      const before = S.tubes.length;
+      S.tubes = S.tubes.filter(t => { if (t.dead) S.hooks.cut(t); return !t.dead; });
+      S.counts.retracted += before - S.tubes.length;
+      S.nodes = S.nodes.filter(n => !(n.gone && !S.tubes.some(t => t.a === n || t.b === n)));
+      S.used = S.tubes.reduce((s, t) => s + t.L, 0);
+
+      // tip extension
+      const on = new Set([S.sink]); for (const t of S.tubes) { on.add(t.a); on.add(t.b); }
+      const live = S.nodes.filter(n => !n.gone);
+      const sounding = live.filter(n => n.kind === 'food' && n.env > 0.01);
+      const unmet = sounding.filter(n => !comp.has(n)).length / Math.max(1, sounding.length);
+      const satiety = 0.12 + 0.88 * unmet;          // a mold that reaches all its food stops exploring
+      if (S.probes.length < P.PROBE_MAX && rng() < P.PROBE_RATE * hunger * satiety / P.TICK_HZ) {
+        const thru = new Map();
+        for (const t of S.tubes) { thru.set(t.a, (thru.get(t.a) || 0) + Math.abs(t.Q)); thru.set(t.b, (thru.get(t.b) || 0) + Math.abs(t.Q)); }
+        const cand = [...on].filter(n => !n.gone), wts = cand.map(n => (thru.get(n) || 0) + 0.05);
+        let r = rng() * wts.reduce((s, x) => s + x, 0), k = 0;
+        while (k < cand.length - 1 && (r -= wts[k]) > 0) k++;
+        const anc = cand[k], ang = rng() * 2 * Math.PI;
+        S.probes.push({ anchor: anc, pos: { x: anc.x, y: anc.y }, dir: [Math.cos(ang), Math.sin(ang)], age: 0, trail: [{ x: anc.x, y: anc.y }] });
+        S.counts.probes++;
+      }
+      const keep = [];
+      for (const pr of S.probes) {
+        const hungry = live.filter(n => n.kind === 'food' && !on.has(n) && n.env > 0.01);
+        if (hungry.length) {                                   // chemotaxis toward sounding food
+          const tg = hungry.reduce((b, n) => dist(pr.pos, n) / (0.2 + n.env * 8) < dist(pr.pos, b) / (0.2 + b.env * 8) ? n : b);
+          const vx = tg.x - pr.pos.x, vy = tg.y - pr.pos.y, m = Math.hypot(vx, vy) + 1e-9;
+          pr.dir[0] = 0.85 * pr.dir[0] + 0.15 * vx / m; pr.dir[1] = 0.85 * pr.dir[1] + 0.15 * vy / m;
+        }
+        pr.dir[0] += 0.12 * normal(); pr.dir[1] += 0.12 * normal();
+        const m = Math.hypot(pr.dir[0], pr.dir[1]) + 1e-9; pr.dir = [pr.dir[0] / m, pr.dir[1] / m];
+        pr.pos = { x: pr.pos.x + pr.dir[0] * P.PROBE_STEP, y: pr.pos.y + pr.dir[1] * P.PROBE_STEP };
+        const rx = pr.pos.x - 0.5, ry = pr.pos.y - 0.5, rr = Math.hypot(rx, ry);
+        if (rr > 0.45) {                                      // the dish is round: a tip meets the glass and turns back
+          pr.pos = { x: 0.5 + rx / rr * 0.45, y: 0.5 + ry / rr * 0.45 };
+          const d = pr.dir[0] * rx / rr + pr.dir[1] * ry / rr;
+          pr.dir = [pr.dir[0] - 2 * d * rx / rr, pr.dir[1] - 2 * d * ry / rr];
+        }
+        pr.trail.push(pr.pos); pr.age++;
+        const hit = live.find(n => n !== pr.anchor && !(pr.passed || []).includes(n) && dist(pr.pos, n) < P.R_CAP);
+        if (hit) {
+          let grew = false;
+          if (!pr.anchor.gone && !S.tubes.some(t => (t.a === pr.anchor && t.b === hit) || (t.b === pr.anchor && t.a === hit))) {
+            if (S.used + dist(pr.anchor, hit) <= budget) {
+              const nt = S.addTube(pr.anchor, hit); S.used += nt.L; S.counts.captured++; grew = true;
+              S.hooks.event(tt, 'capture', nt);
+            } else { S.counts.budget_refused++; S.ghosts.push({ tick: S.tick, trail: pr.trail }); S.hooks.event(tt, 'refused', null); }
+          }
+          // A tip that crosses a bare spot doesn't stop there: the spot becomes a branch point and
+          // the tip keeps going. Otherwise a stepping stone carries no flow, pulls back in about a
+          // second, and the next tip to reach food from it builds an island the listener can't hear.
+          if (grew && S.passThrough && hit.kind === 'junc' && pr.age < P.PROBE_LIFE) {
+            (pr.passed = pr.passed || []).push(pr.anchor); pr.anchor = hit; keep.push(pr);
+          }
+          continue;
+        }
+        if (pr.age < P.PROBE_LIFE) keep.push(pr);
+        else { S.counts.starved++; S.ghosts.push({ tick: S.tick, trail: pr.trail }); }
+      }
+      S.probes = keep;
+      S.ghosts = S.ghosts.filter(g => S.tick - g.tick < 45);
+      S.tick++;
+    };
+    return S;
+  }
+  return { create, P, dist };
+})();
+if (typeof module !== 'undefined') module.exports = SlimeEngine;
+</script>
+
+<script>
+(() => {
+  const cv = document.getElementById('cv'), ctx = cv.getContext('2d'), W = cv.width;
+  const $ = id => document.getElementById(id);
+  const knob = id => parseFloat($(id).value);
+  const PITCH = [110.0, 146.83, 196.0, 164.81, 130.81, 220.0];        // A2 D3 G3 E3 C3 A3
+  const G_FWD = 0.62, G_BACK = 0.22, G_SELF = 0.30;
+  const TICK = 1 / 30;
+  const R = 0.47;                              // dish radius in dish units, centred on (0.5, 0.5)
+  const px = v => (0.5 + (v - 0.5) * 0.98) * W;
+
+  let E, ac = null, master, wetBus, dryBus, comp, mic = null, micGain = null;
+  let selected = null, demoTimer = null, clockAcc = 0, t0 = performance.now();
+  const audio = new Map();                     // tube → its two delay lines
+  const buses = new Map();                     // node → {inp, out} : where tubes meet
+  const flakes = new Map();                    // food node → {src, an, buf, playing, next}
+
+  // -- the dish ------------------------------------------------------------
+  function freshDish() {
+    if (E) for (const t of E.tubes) dropTube(t, true);
+    for (const f of flakes.values()) try { f.src.disconnect(); } catch (e) {}
+    flakes.clear(); buses.clear(); selected = null;
+    E = SlimeEngine.create({ seed: 11, share: $('share').value });
+    E.hooks.capture = t => addTubeAudio(t);
+    E.hooks.cut = t => dropTube(t);
+    E.hooks.event = (tt, kind, t) => logEvent(kind, t);
+    $('log').textContent = '';
+  }
+  function placeFlake(x, y, playing = true) {
+    const used = new Set(E.foods().map(n => n.pitch));
+    const pitch = PITCH.find(p => !used.has(p)) ?? PITCH[0];
+    const n = E.addFood(x, y, { pitch, label: E.foods().length + 1 });
+    flakes.set(n, { playing, next: 0, src: null });
+    if (ac) wireFlake(n);
+    if (E.tubes.length === 0) E.addTube(n, E.sink, 0.5);     // the mold starts as one strand
+    selected = n;
+    return n;
+  }
+
+  // -- audio ---------------------------------------------------------------
+  function tanhCurve() {
+    const c = new Float32Array(1025); for (let i = 0; i < c.length; i++) c[i] = Math.tanh((i / 512 - 1) * 3); return c;
+  }
+  const curve = tanhCurve();
+  function bus(n) {
+    if (!buses.has(n)) {
+      const inp = ac.createGain(), sh = ac.createWaveShaper();
+      inp.gain.value = 1 / 3; sh.curve = curve;                 // tanh: a node can only carry so much
+      inp.connect(sh); buses.set(n, { inp, out: sh });
+    }
+    return buses.get(n);
+  }
+  function pluckBuffer(f) {
+    const n = Math.floor(1.3 * ac.sampleRate), b = ac.createBuffer(1, n, ac.sampleRate), d = b.getChannelData(0);
+    for (let i = 0; i < n; i++) {
+      const t = i / ac.sampleRate;
+      let s = Math.sin(2 * Math.PI * f * t) + 0.34 * Math.sin(4 * Math.PI * f * t) + 0.12 * Math.sin(2 * Math.PI * 3.01 * f * t);
+      s += 0.22 * (Math.random() * 2 - 1) * 1.7 * Math.exp(-t * 110);
+      d[i] = s * Math.exp(-t * 6) * 0.42;
+    }
+    return b;
+  }
+  function wireFlake(n) {
+    const f = flakes.get(n);
+    f.src = ac.createGain(); f.an = ac.createAnalyser(); f.an.fftSize = 1024;
+    f.buf = pluckBuffer(n.pitch); f.data = new Float32Array(f.an.fftSize);
+    const pan = ac.createStereoPanner(); pan.pan.value = n.x * 2 - 1;
+    f.src.connect(f.an); f.src.connect(bus(n).inp); f.src.connect(pan); pan.connect(dryBus);
+    f.next = ac.currentTime + 0.1 + 0.17 * (n.label - 1);
+  }
+  function pluck(n, a = 1) {
+    const f = flakes.get(n); if (!ac || !f || !f.src) return;
+    const s = ac.createBufferSource(), g = ac.createGain();
+    s.buffer = f.buf; g.gain.value = 0.6 + 0.4 * a; s.connect(g); g.connect(f.src); s.start();
+  }
+  function line(from, to, len) {
+    const g = ac.createGain(), d = ac.createDelay(6), fb = ac.createGain();
+    g.gain.value = 0; fb.gain.value = 0; d.delayTime.value = Math.max(0.05, len / knob('vel') * 100);
+    bus(from).out.connect(g); g.connect(d); d.connect(fb); fb.connect(d);
+    let dest;
+    if (to === E.sink) { dest = ac.createStereoPanner(); dest.pan.value = from.x * 2 - 1; d.connect(dest); dest.connect(wetBus); }
+    else d.connect(bus(to).inp);
+    return { g, d, fb, dest };
+  }
+  function addTubeAudio(t) {
+    if (!ac) return;
+    audio.set(t, {
+      ab: t.a === E.sink ? null : line(t.a, t.b, t.L),          // the listener only drains,
+      ba: t.b === E.sink ? null : line(t.b, t.a, t.L),          // it never sends sound back out
+    });
+  }
+  function dropTube(t, hard) {
+    const A = audio.get(t); if (!A) return; audio.delete(t);
+    for (const l of [A.ab, A.ba]) if (l) {
+      if (ac) { l.g.gain.setTargetAtTime(0, ac.currentTime, 0.05); l.fb.gain.setTargetAtTime(0, ac.currentTime, 0.05); }
+      setTimeout(() => { for (const x of [l.g, l.d, l.fb, l.dest]) try { x && x.disconnect(); } catch (e) {} }, hard ? 0 : 400);
+    }
+  }
+  function syncAudio() {
+    const now = ac.currentTime, v = knob('vel') / 100;
+    for (const t of E.tubes) {
+      if (!audio.has(t)) addTubeAudio(t);
+      const A = audio.get(t);
+      const gab = G_BACK + (G_FWD - G_BACK) * (1 + t.w) / 2;      // a reversal crossfades, never jumps
+      const gba = G_BACK + (G_FWD - G_BACK) * (1 - t.w) / 2;
+      const fb = G_SELF * Math.min(1, t.D);
+      for (const [l, gd] of [[A.ab, gab], [A.ba, gba]]) if (l) {
+        l.g.gain.setTargetAtTime(t.D * gd, now, TICK);
+        l.fb.gain.setTargetAtTime(fb, now, TICK);
+        l.d.delayTime.setTargetAtTime(Math.max(0.05, t.L / v), now, 0.6);  // streaming speed glides
+      }
+    }
+  }
+  function levels() {
+    const m = new Map();
+    for (const [n, f] of flakes) {
+      if (!f.an) continue;
+      f.an.getFloatTimeDomainData(f.data);
+      let s = 0; for (const x of f.data) s += x * x;
+      m.set(n.id, Math.sqrt(s / f.data.length));
+    }
+    return m;
+  }
+  function autoplay() {
+    for (const [n, f] of flakes) {
+      if (!f.playing || !f.src) continue;
+      if (ac.currentTime >= f.next) { pluck(n); f.next = ac.currentTime + 0.45 + 0.4 * Math.random(); }
+    }
+  }
+
+  // -- the loop --------------------------------------------------------------
+  function tick() {
+    if (!ac) return;
+    autoplay();
+    const lv = levels();
+    clockAcc += knob('clock') / 100;
+    const opts = { hunger: knob('hunger') / 100, budget: knob('budget') / 100 };
+    while (clockAcc >= 1) { E.step(lv, opts); clockAcc -= 1; }
+    syncAudio();
+    $('t-tubes').textContent = E.tubes.length; $('t-probes').textContent = E.probes.length;
+    $('t-grown').textContent = E.counts.captured; $('t-cut').textContent = E.counts.retracted;
+    $('t-starved').textContent = E.counts.starved; $('t-refused').textContent = E.counts.budget_refused;
+    $('m-used').style.width = Math.min(100, 100 * E.used / opts.budget) + '%';
+  }
+  const nodeName = n => n === E.sink ? 'the listener' : n.kind === 'food' ? 'flake ' + n.label : 'a bare spot';
+  function logEvent(kind, t) {
+    const s = ((performance.now() - t0) / 1000).toFixed(1).padStart(5);
+    const line = kind === 'capture' ? `a tip reached ${nodeName(t.b)} from ${nodeName(t.a)}`
+      : kind === 'retract' ? `the tube ${nodeName(t.a)} – ${nodeName(t.b)} is pulling back`
+      : 'a tip was refused: no tube length left in the budget';
+    const el = $('log'); el.textContent = `${s}s  ${line}\n` + el.textContent.slice(0, 4000);
+  }
+
+  // -- drawing -------------------------------------------------------------
+  let phase = 0;
+  function draw() {
+    ctx.clearRect(0, 0, W, W);
+    const g = ctx.createRadialGradient(W * .38, W * .34, W * .05, W / 2, W / 2, W * R);
+    g.addColorStop(0, '#1d2a20'); g.addColorStop(1, '#0c120e');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(W / 2, W / 2, W * R, 0, 7); ctx.fill();
+    ctx.strokeStyle = '#2f4034'; ctx.lineWidth = 3; ctx.stroke();
+    if (!E) return requestAnimationFrame(draw);
+    phase += 1 / 60;
+    for (const gh of E.ghosts) trail(gh.trail, `rgba(120,86,58,${0.55 * (1 - (E.tick - gh.tick) / 45)})`, 1.4);
+    for (const pr of E.probes) trail(pr.trail, 'rgba(200,190,110,0.75)', 1.6);
+    const qmax = Math.max(0.05, ...E.tubes.map(t => Math.abs(t.Q)));
+    const v = knob('vel') / 100;
+    for (const t of E.tubes) {
+      const a = Math.min(1, 0.3 + t.D);
+      ctx.strokeStyle = `rgba(236,200,70,${a})`; ctx.lineWidth = 1 + 11 * Math.min(1, t.D); ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(px(t.a.x), px(t.a.y)); ctx.lineTo(px(t.b.x), px(t.b.y)); ctx.stroke();
+      // the flow, travelling at streaming speed, the way the cytoplasm goes
+      const k = Math.abs(t.Q) / qmax; if (k < 0.04) continue;
+      const [s, e] = t.Q >= 0 ? [t.a, t.b] : [t.b, t.a];
+      const spacing = 0.09, off = (phase * v * 0.35 / spacing) % 1;
+      for (let u = off * spacing; u < t.L; u += spacing) {
+        const f = u / t.L, x = s.x + (e.x - s.x) * f, y = s.y + (e.y - s.y) * f;
+        ctx.fillStyle = `rgba(255,246,190,${0.25 + 0.7 * k})`;
+        ctx.beginPath(); ctx.arc(px(x), px(y), 2 + 3 * k, 0, 7); ctx.fill();
+      }
+    }
+    for (const n of E.nodes) if (n.kind === 'junc') { ctx.fillStyle = '#3c4d40'; ctx.beginPath(); ctx.arc(px(n.x), px(n.y), 4, 0, 7); ctx.fill(); }
+    for (const n of E.foods()) {
+      const r = 11 + 26 * Math.min(1, n.env * 5), f = flakes.get(n);
+      ctx.fillStyle = f && f.playing ? '#f2d24a' : '#8a7a35';
+      ctx.beginPath(); ctx.arc(px(n.x), px(n.y), r, 0, 7); ctx.fill();
+      if (n === selected) { ctx.strokeStyle = '#fff3b0'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(px(n.x), px(n.y), r + 6, 0, 7); ctx.stroke(); }
+      ctx.fillStyle = '#0e1410'; ctx.font = '600 15px JetBrains Mono, monospace'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(String(n.label), px(n.x), px(n.y));
+    }
+    ctx.fillStyle = '#d8484a'; ctx.beginPath(); ctx.arc(px(E.sink.x), px(E.sink.y), 13, 0, 7); ctx.fill();
+    ctx.strokeStyle = 'rgba(216,72,74,.45)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(px(E.sink.x), px(E.sink.y), 22, 0, 7); ctx.stroke();
+    requestAnimationFrame(draw);
+  }
+  function trail(tr, col, w) {
+    if (tr.length < 2) return;
+    ctx.strokeStyle = col; ctx.lineWidth = w; ctx.beginPath(); ctx.moveTo(px(tr[0].x), px(tr[0].y));
+    for (const p of tr) ctx.lineTo(px(p.x), px(p.y)); ctx.stroke();
+  }
+
+  // -- hands on the dish ----------------------------------------------------
+  cv.addEventListener('click', e => {
+    const r = cv.getBoundingClientRect();
+    const x = 0.5 + ((e.clientX - r.left) / r.width - 0.5) / 0.98;
+    const y = 0.5 + ((e.clientY - r.top) / r.height - 0.5) / 0.98;
+    const hit = E.foods().find(n => SlimeEngine.dist(n, { x, y }) < 0.045);
+    if (hit) {
+      if (e.shiftKey) { E.removeFood(hit); flakes.delete(hit); if (selected === hit) selected = null; return; }
+      const f = flakes.get(hit); f.playing = !f.playing; selected = hit; routeMic(); return;
+    }
+    if (Math.hypot(x - 0.5, y - 0.5) > R - 0.03 || SlimeEngine.dist(E.sink, { x, y }) < 0.06) return;
+    if (E.foods().length >= 6) { $('status').textContent = 'six flakes is the most this dish holds — shift-click one away first'; return; }
+    placeFlake(x, y); routeMic();
+  });
+  addEventListener('keydown', e => {
+    const k = parseInt(e.key, 10); if (!k) return;
+    const n = E.foods().find(f => f.label === k); if (n) pluck(n);
+  });
+
+  function resetAudioGraph() {
+    for (const t of E.tubes) addTubeAudio(t);
+    for (const n of E.foods()) wireFlake(n);
+  }
+  $('start').onclick = () => {
+    if (ac) { ac.state === 'running' ? ac.suspend() : ac.resume(); $('start').textContent = ac.state === 'running' ? '▸ START' : '❚❚ PAUSE'; return; }
+    ac = new (window.AudioContext || window.webkitAudioContext)();
+    comp = ac.createDynamicsCompressor(); comp.threshold.value = -8; comp.ratio.value = 12;
+    master = ac.createGain(); master.gain.value = 2.0;
+    wetBus = ac.createGain(); dryBus = ac.createGain();
+    wetBus.connect(master); dryBus.connect(master); master.connect(comp); comp.connect(ac.destination);
+    setMix(); resetAudioGraph(); t0 = performance.now();
+    setInterval(tick, 1000 / 30);
+    $('start').textContent = '❚❚ PAUSE';
+    $('status').textContent = 'the dish is alive — click agar to feed it';
+  };
+  $('clear').onclick = () => { stopDemo(); freshDish(); $('status').textContent = 'an empty dish — click agar to place food'; };
+  $('demo').onclick = () => {
+    if (!ac) $('start').onclick();
+    stopDemo(); freshDish();
+    // the cycle-8 dish: five flakes, listener near the middle
+    const layout = [[0.10, 0.30], [0.18, 0.76], [0.86, 0.22], [0.92, 0.66], [0.55, 0.90]].map(([x, y]) => [0.5 + (x - 0.5) * 0.9, 0.5 + (y - 0.5) * 0.9]);
+    const fl = layout.map(([x, y], i) => placeFlake(x, y, i < 2));
+    selected = null; routeMic();
+    let left = 30;
+    $('status').textContent = 'left flakes playing — the music moves right in 15 s';
+    demoTimer = setInterval(() => {
+      left--;
+      if (left === 15) { fl.forEach((n, i) => { if (flakes.has(n)) flakes.get(n).playing = i === 2 || i === 3; }); }
+      $('status').textContent = left > 15 ? `left flakes playing — the music moves right in ${left - 15} s`
+        : left > 0 ? `the music moved right — watch the left roads thin (${left} s)` : 'demo done — the dish is yours';
+      if (left <= 0) stopDemo();
+    }, 1000);
+  };
+  function stopDemo() { if (demoTimer) clearInterval(demoTimer); demoTimer = null; }
+
+  async function routeMic() {
+    if (!mic) return;
+    try { micGain.disconnect(); } catch (e) {}
+    const f = selected && flakes.get(selected);
+    if (f && f.src) { micGain.connect(f.src); $('status').textContent = `mic feeding flake ${selected.label}`; }
+    else $('status').textContent = 'mic is on — click a flake to feed it';
+  }
+  $('mic').onclick = async () => {
+    if (!ac) $('start').onclick();
+    if (mic) { mic.mediaStream.getTracks().forEach(t => t.stop()); try { micGain.disconnect(); } catch (e) {} mic = null; $('mic').classList.remove('on'); $('status').textContent = 'mic off'; return; }
+    try {
+      const st = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } });
+      mic = ac.createMediaStreamSource(st); micGain = ac.createGain(); micGain.gain.value = 1.5; mic.connect(micGain);
+      $('mic').classList.add('on'); routeMic();
+    } catch (err) { $('status').textContent = 'no mic: ' + err.message; }
+  };
+
+  function setMix() {
+    if (!ac) return;
+    wetBus.gain.setTargetAtTime(knob('wet') / 100, ac.currentTime, 0.05);
+    dryBus.gain.setTargetAtTime(knob('dry') / 100, ac.currentTime, 0.05);
+  }
+  const show = () => {
+    const h = knob('hunger');
+    $('v-hunger').textContent = h > 66 ? 'eat' : h < 33 ? 'starve' : 'between';
+    $('v-budget').textContent = (knob('budget') / 100).toFixed(2);
+    $('v-vel').textContent = (knob('vel') / 100).toFixed(2);
+    $('v-clock').textContent = knob('clock') === 0 ? 'frozen' : (knob('clock') / 100).toFixed(1) + '×';
+    $('v-wet').textContent = (knob('wet') / 100).toFixed(2); $('v-dry').textContent = (knob('dry') / 100).toFixed(2);
+    setMix();
+  };
+  document.querySelectorAll('input[type=range]').forEach(i => i.addEventListener('input', show));
+  $('share').addEventListener('change', () => { E.share = $('share').value; });
+
+  window.slimeDish = { get engine() { return E; }, get audio() { return ac; } };   // for poking at from the console
+  freshDish(); show(); draw();
+})();
+</script>
+</body>
+</html>

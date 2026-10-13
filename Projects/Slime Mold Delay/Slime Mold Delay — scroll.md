@@ -15,20 +15,20 @@ forward_vector: "I am Slime Mold Delay's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T23:04:06.003Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T23:08:34.518Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 8 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 9 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — The mold now grows on the real mold's flow law. Loud food gets fat roads to the listener, and when the music moves, the network follows it. (`slime-mold-delay-steward-013`)
-- **Last commit touching this project:** 2026-09-26 `5b8a1564` — ops(frontmatter): strip retired activation_count/last_activated from 244 entries — v1.26
+- **Last shipped:** 2026-10-13 (today) — The dish is live in the browser now. You place food and play into it, and the delay grows its routing on the real mold's flow law while you listen. (`slime-mold-delay-steward-015`)
+- **Last commit touching this project:** 2026-10-13 `148794ce` — steward(Slime Mold Delay): cycle 8 — SPINNING UP. HOME: [[Slime Mold Delay]]. Neighborhood loaded. Cycle 8, …
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Slime Mold Delay is a delay effect whose routing is grown rather than designed. Each tube of a slime mold is a delay line: its length sets the delay time, and its thickness sets how much signal it carries. You place food (sound sources) and a sink (the listener), and the mold works out the network. In June there was a browser bench that grows and prunes tubes live. You picked the full growth behaviour next: feeler tips that reach out, tubes that pull back when they find nothing, and a cap on total tube length. A September attempt drafted that but never posted it, and the draft never settled: 31 tubes grew and 31 were pruned in 24 seconds, because each tube was judged against the average tub…
+Slime Mold Delay is a delay effect whose routing is grown rather than designed. Each tube of a slime mold is a delay line: its length sets the echo time, and its thickness sets how much sound it carries. You place food (sound sources) and a listener, and the mold works out the network. Earlier today I rebuilt the growth on the law the real mold follows. Loud food pushes cytoplasm, the listener drains it, and tubes thicken with the flow they carry. Offline, the routing followed the music. This cycle put that engine into a playable browser page. Porting it showed that the law only recovered from a change in the music about two times in three. Two small fixes from the biology bring it to forty…
 
 ### Open asks
 
@@ -59,6 +59,39 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="slime-mold-delay-steward-015" -->
+### 2026-10-13 — cycle 9 — The dish is live in the browser now. You place food and play into it, and the delay grows its routing on the real mold's flow law while you listen.
+> shipped · realtime dish works headless in Chromium · steward leans: tips that branch mid-tube next
+
+**Open [the flow dish](open:Projects/Slime Mold Delay/slime-mold-flow-dish.html) and press THE MUSIC MOVES.** For 15 seconds flakes 1 and 2 play, then flakes 3 and 4 take over, and you watch and hear the network rebuild on the other side. After that the dish is yours. Click bare agar to place a flake (up to six), click a flake to start or stop it, and shift-click to take it away. Keys 1–6 pluck by hand. MIC feeds your microphone into the selected flake, which is the 'play into it' part. The knobs are eat/starve, the tube-length budget, streaming speed (which glides every echo time), a dish clock (0 freezes the routing, 4× is overnight growth), and wet/dry. Dots travel along each tube in the direction of flow, brighter where more is moving. The [strip](open:Projects/Slime Mold Delay/headless/2026-10-13-flow-dish-moves.png) shows one browser run at 12, 21 and 29 seconds.
+
+**What porting taught me.** The engine is a line-for-line port of last cycle's Python, kept in one script block with no audio in it, so [a node check](open:Projects/Slime Mold Delay/headless/flow_dish_check.mjs) can run it against the same scenes. Left and right music behaved as before. But the first browser run of the moving music never found the right side. Run across 40 seeded dishes, the old law recovered in only 26. In the earlier offline render, the first tip happened to land fast. There were two causes.
+
+1. **The old roads kept all their push.** Each reached flake was judged only against the *other reached flakes*. When the music left, the nearly silent left flakes still pushed 100% until a tip found the right. Now a flake's share is judged against all the sounding food in the dish, so the old roads lose their push the moment the music moves.
+2. **Stepping stones died before anyone stepped on them.** A tip that landed on a bare spot of agar stopped there. That tube carried no flow, so it pulled back in about a second, and the next tip from that spot built an island the listener couldn't hear. Now a tip that crosses a bare spot keeps growing and leaves a branch point behind, the way a real tip does. As a side effect, roads now bend through branch points, so echoes take multi-hop paths and right-side roads share a trunk before they fork.
+
+A third, smaller fix: the dish is round now, so tips turn back at the glass instead of wandering past the rim. The table has the sweep. The share rule is a dropdown on the page, so you can switch back to the cycle 8 rule and hear the difference.
+
+**Artifacts:**
+- [the realtime flow dish: place food, play or use the mic, watch and hear the routing grow. Press THE MUSIC MOVES first.](Projects/Slime Mold Delay/slime-mold-flow-dish.html)
+- [one browser run of the demo at 12 s, 21 s and 29 s: left roads, the fork through a branch point, the network moved right (taken just before the round-rim fix, so one tip strays past the edge).](Projects/Slime Mold Delay/headless/2026-10-13-flow-dish-moves.png)
+- [runs the page's own engine block in node against last cycle's scenes, plus the 40-dish sweep of four rule variants.](Projects/Slime Mold Delay/headless/flow_dish_check.mjs)
+- [the sweep and every scene's events, traces and final networks.](Projects/Slime Mold Delay/headless/2026-10-13-flow-dish-check.json)
+
+_the music moves left → right at 15 s · 40 seeded dishes per rule · node, same engine block as the page_
+| rule | ended on the right | reached the right | right roads overtake left (median, after the switch) |
+| --- | --- | --- | --- |
+| cycle 8 law | 31 / 40 | 35 / 40 | 4.5 s |
+| share judged against the whole dish | 37 / 40 | 38 / 40 | 4.5 s |
+| tips pass through bare spots | 36 / 40 | 38 / 40 | 3.5 s |
+| both — what the page runs | 40 / 40 | 40 / 40 | 3.5 s |
+
+_Left rough:_ I haven't heard it, and the page has only been run in headless Chromium. There I checked that sound comes out (peak about −8 dBFS, nothing non-finite, no errors), that the engine steps at a true 30 per second, and that five of five demos moved right. The mic path has never been run with a real mic. The click-free crossfade on reversals is the same ramp idea as before but unheard. The 'cut' counter runs higher than in the Python because pass-through tips now lay several tubes per trip.
+
+_Next moves named:_ Let a tip sprout from partway along a tube, not only from its ends, so a shared trunk can fork anywhere. That brings the shape closer to the real mold and the Tokyo-subway economy. · Fold the two fixes back into the Python engine and re-render last cycle's five dishes as audio, so the offline renders and the live page agree.
+<sub>`slime-mold-delay-steward-015` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="slime-mold-delay-steward-013" -->
 ### 2026-10-13 — cycle 8 — The mold now grows on the real mold's flow law. Loud food gets fat roads to the listener, and when the music moves, the network follows it.
 > shipped · five dishes rendered offline · steward leans: bring this engine into the browser page next
