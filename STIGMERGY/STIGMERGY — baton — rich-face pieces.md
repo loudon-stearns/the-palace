@@ -34,7 +34,7 @@ Shown a per-piece patch or a second origin, Loudon said: "lets make a general so
 - **The exact-origin guard has landed**, on main at `65911e8a` (it merges `7bbf9c32` and `7e71c0f8`): a write or `/api/open` now passes only from the app's own origin, and a URL Loudon types himself may still open a file. This baton was written while it was still in flight on branch `claude/piece-origin-step1-guard`; the build starts at the shared file resolver.
 - **Named unknowns** are in the spec's §7 (auto-hush against Tone.js, mermaid under a strict script policy, the camera through two nested frames outside headless Chromium, framed storage). None is proven.
 - **Fold into the build:**
-  - `_ops/rich-face/README.md`: the five rules under "What the page lets run" (every piece sandboxed; the server sandboxes too; links go only to the web, mail or the palace; an entry's own HTML is shown, not run; framed by the reader) and its gotchas "stands alone" and "reports its height". The model rewrites them; step 10's READMEs carry it.
+  - `_ops/rich-face/README.md`: the five rules under "What the page lets run" (every piece sandboxed; the server sandboxes too; links go only to the web, mail or the palace; an entry's own HTML is shown, not run; framed by the reader) and its gotchas "stands alone" and "reports its height". The model rewrites them; the last build step's READMEs carry it.
   - The 14 proofs that fetch a sibling file and the 5 (plus 2 archived) that use storage get a declaration when a face gathers them, not in a sweep (spec §6).
   - The `open:` links. The link rule keeps only `http:`, `https:`, `mailto:` and `obsidian:`, so the `open:` pseudo-scheme (`src/lib/format.js:152`, rewritten to `/api/open`) is stripped on the rich face. The coordinating session counted 22; a grep of tracked `.md` for `](open:` finds 12 (four project scrolls and `_ops/orchestrator/prompts/shared.md`). Recount before relying on either.
   - Flocking's three text figures fail today because a bare name is matched only to depth 5 (`palace-find.mjs:33-38`). The shared resolver fixes them; pin d3 and Plot.
@@ -51,7 +51,7 @@ Claude Code on the Mac. This is STIGMERGY code, so each step gets its own worktr
 
 - **Loudon's three answers, 2026-10-13: "yes on the three decisions."** (1) Camera: a grant line per piece in `_ops/rich-face/grants.json`, written only on his yes. (2) Public site: a camera piece opens in its own tab. (3) Gathered proofs: the manifest speaks for them (the design's recommendation stands: only CDN pins get edited, after he has seen the diff).
 - **Order, as settled at the close:** "Make it the next build, after step 1 ships; don't wait anything behind BLUELINE."
-- Step 10's canon edits (Enrichment v2.5, the Maker house standard, the design-system `SKILL.md`, the READMEs) are house writes. They go through the Concierge and Loudon's yes.
+- The last build step's canon edits (Enrichment v2.5, the Maker house standard, the design-system `SKILL.md`, the READMEs) are house writes. They go through the Concierge and Loudon's yes.
 - The checker ships report-only first, over all 222 HTML files, until its false alarms are tuned out.
 - Never POST to the live :5173 from a script or a test. Browser-check on a scratch Vite server on its own port against a throwaway palace, with `strictPort: true` (the app README, "A scratch Vite given `port: 0` takes 5173"). Revert any temporary `launch.json` entry before a commit.
 - No `app/server/*` or steward-prompt edits while a steward is live. Hold the live server's restart until every server-side change has landed, so it restarts once.
@@ -59,7 +59,7 @@ Claude Code on the Mac. This is STIGMERGY code, so each step gets its own worktr
 ## Load these files first
 
 1. [[STIGMERGY — spec — rich-face pieces]], the plan.
-2. `_ops/stigmergy/app/server/request-guard.js` and `middleware.js`, and the step 1 merge (`65911e8a`).
+2. `_ops/stigmergy/app/server/request-guard.js` and `middleware.js`, and the guard's merge (`65911e8a`).
 3. `_ops/rich-face/README.md`, `rich-handler.mjs`, `rich.html`, `palace-find.mjs`, `fingerprint.mjs`, and `_ops/stigmergy/app/scripts/build-public.mjs`: the three places a file is looked up today.
 4. `_ops/stigmergy/app/src/components/ArtifactSlot.jsx` and `state/RichFaceFrame.jsx`: the two frames the page change touches.
 5. `_ops/stigmergy/app/README.md`, "Write path" and "Testing, worktree & topology gotchas".
