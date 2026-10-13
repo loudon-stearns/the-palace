@@ -15,15 +15,15 @@ forward_vector: "I am Haptic Handwheel's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T22:40:59.666Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T23:49:10.181Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** seed · **Steward:** cycle 3 · last ran 2026-10-13 (today)
-- **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
-- **Waiting on you:** 1 open ask
+- **Status:** active · **Stage:** seed · **Steward:** cycle 4 · last ran 2026-10-13 (today)
+- **Plan:** agreed 2026-10-13 (today) · 2 made things since
+- **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
 - **Last shipped:** 2026-10-13 (today) — A parts order you could place today, about $145–185, plus a first Max patch that speaks the knob's language. Nothing bought yet. (`haptic-handwheel-steward-007`)
-- **Last commit touching this project:** 2026-10-13 `e7287cbf` — steward(Haptic Handwheel): cycle 2 — SPINNING UP. HOME: [[Haptic Handwheel]]. Neighborhood loaded. Cycle 2: …
-- **Signal:** steady
+- **Last commit touching this project:** 2026-10-13 `1131b293` — steward(Haptic Handwheel): cycle 3 — SPINNING UP. HOME: [[Haptic Handwheel]]. Neighborhood loaded. Cycle 3, …
+- **Signal:** ⚠ the last cycle posted nothing (one barren cycle — the lane will retry before calling it stalled)
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
@@ -32,7 +32,7 @@ Haptic Handwheel is your idea for one big knob that is a motor and a sensor at o
 
 ### Open asks
 
-- `haptic-handwheel-steward-003` — proposed plan revision: a first plan, from simulation to your hand · posted 2026-10-13 · options: adopt · context-first · keep
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
@@ -40,14 +40,22 @@ _None._
 
 ### Decided
 
-_Nothing decided on the board yet._
+- `haptic-handwheel-steward-003` — a first plan, from simulation to your hand → GRANTED — option_id=adopt (2026-10-13)
 
 <!-- scroll:now:end -->
 
 ## Plan
 
 <!-- scroll:plan:start -->
-_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+Where this is going: a first prototype in Loudon's hand, so the seven feels get judged by touch, and a record of which feels carry over from the instrument to the simpler context knob.
+
+1. The knob in simulation. A feel lab and a stability sweep, so every feel can be tried by eye and ear, and so we know which feels must run on the knob and which can come down a cable. (Started 2026-10-13.)
+2. Pin the unknowns before buying. Find or name a test for the motor's rotor inertia, friction and cogging, and winding inductance (can it carry a pitch?). Decide whether one motor does everything or a small vibration actuator joins it. Write a firmware sketch that compiles (SimpleFOC: on-device feels, local damping, a torque input line) and the message format to Max. Finish with a final parts list with prices.
+3. The parts order. Loudon says yes to the list and the spend. Nothing is bought before this.
+4. Bench bring-up. Encoder reads cleanly, a centring spring, frets, then measure the real stability edge and the motor's real numbers, and retune the simulation with them so it stops guessing.
+5. The touch gate. Loudon plays each feel and keeps, changes or drops it. Only a hand can pass this move. What he says goes back into the page.
+6. The context knob. Port the feels that carried to a knob that follows Ableton's selected parameter (through Max for Live): fine control, with stepped values felt as steps.
+7. Write it back. Which feels carried from the instrument to the product, and what the body (cap, weight, keys, the vintage look) should be next.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -59,6 +67,13 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-haptic-handwheel-steward-003" -->
+### 2026-10-13 — Plan agreed: Shall this be the Handwheel's first plan: simulate, pin the unknowns, buy, bench, then your hands judge each feel?
+
+Haptic Handwheel is your one-big-knob instrument: a motor and sensor whose feel is software. Until today it had seven feels on paper, a parts brief you asked us to doubt, and no plan. Today I built it in simulation. The sweep shows the stiff feels must run on the knob itself, and that a cable is fine for anything played into the hand. That gives the path a shape. Most of it I can do without you. The two places it can't go without you are spending money on parts and judging the feels by touch. The plan below puts those two at fixed points, so I never ask for either early. The cost of adopting it is a parts order around the third move. If you'd rather start from the context knob (the nearer product), say so and I'll put it first. I'll keep building along the first move either way.
+<sub>`plan-haptic-handwheel-steward-003` · plan agreed · agreed 2026-10-13T22:53:41.216Z · proposed by Haptic Handwheel's steward (`haptic-handwheel-steward-003`), adopted by Loudon (`resp-mv7a24m8-fnomaf`)</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="haptic-handwheel-steward-007" -->
 ### 2026-10-13 — cycle 3 — A parts order you could place today, about $145–185, plus a first Max patch that speaks the knob's language. Nothing bought yet.
 > shipped · order drafted, waiting on the plan · steward leans a 24 V supply
