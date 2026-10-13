@@ -18,7 +18,8 @@
 // A separate state dir (`.actuator-steward/`) keeps steward cycles off the
 // Enrichment lane; the single-global-worker scar keeps stewards serial (correct
 // -- they share one board). A small in-memory FIFO queue gives batch advance:
-// the reap fires the next queued steward.
+// the reap fires the next queued steward. Any advance that arrives while a
+// worker is alive joins that queue (2026-10-13) rather than being refused.
 //
 // The orchestrator modules import with ZERO new deps (Node built-ins + the
 // shared @stigmergy/core substrate). The old back-edge -- posting.js reaching
@@ -427,13 +428,53 @@ export function createStewardLane(opts = {}) {
     return list().filter((r) => !r.missing && r.grants_waiting > 0).map((r) => r.agent_id);
   }
 
-  /** Advance one steward by a cycle. Refuses (busy) if a worker is alive. */
+  // A steward is "in flight" when it is the live worker or already queued.
+  function inFlight(name) {
+    if (actuator.isAlive().running && current === name) return 'running';
+    const i = queue.indexOf(name);
+    return i >= 0 ? i + 1 : null;
+  }
+
+  // Put stewards behind the live worker. Returns the names actually added
+  // (duplicates of the live one or of a queued one are skipped). Grows the
+  // batch so status() counts them.
+  function enqueue(names) {
+    const added = [];
+    for (const n of names) {
+      if (inFlight(n)) continue;
+      queue.push(n); added.push(n);
+    }
+    if (added.length) {
+      if (batch.total === 0) batch = { total: 1 + added.length, done: 0 }; // the live one + these
+      else batch.total += added.length;
+      logLine(`queued ${added.length} steward(s) behind ${current || 'the live cycle'}: ${added.join(', ')} (queue now ${queue.length})`);
+    }
+    return added;
+  }
+
+  /**
+   * Advance one steward by a run. If a worker is alive, the steward joins the
+   * queue instead (2026-10-13, Loudon's ask: clicking advance on several rows
+   * lines them up, one lane, in click order). Returns { fired: true, ... } when
+   * it fired now, { fired: false, queued: true, position } when it waits, or
+   * { fired: false, queued: true, already: 'running' | position } when it was
+   * already in flight. A queued steward runs at its manifest's cap; `maxCycles`
+   * only applies when it fires now.
+   */
   function advance({ name, maxCycles } = {}) {
     if (typeof name !== 'string' || name.trim() === '') {
       return { ok: false, fired: false, found: false, msg: 'missing steward name' };
     }
     if (actuator.isAlive().running) {
-      return { ok: false, fired: false, busy: true, msg: 'a steward cycle is already running' };
+      const already = inFlight(name);
+      if (already) return { ok: true, fired: false, queued: true, already, name, msg: already === 'running' ? `${name} is the live cycle` : `${name} is already queued (#${already})` };
+      let registry;
+      try { registry = readRegistry(registryPath); } catch (e) {
+        return { ok: false, fired: false, found: false, msg: `registry unreadable: ${e.message}`, name };
+      }
+      if (!findAgent(registry, name)) return { ok: false, fired: false, found: false, msg: `unknown steward "${name}"`, name };
+      enqueue([name]);
+      return { ok: true, fired: false, queued: true, position: queue.length, name, msg: `${name} queued behind ${current || 'the live cycle'} (#${queue.length})` };
     }
     // Not part of a batch: clear batch state so status() reads cleanly.
     queue = [];
@@ -442,12 +483,27 @@ export function createStewardLane(opts = {}) {
     return fireOne(name);
   }
 
-  /** Advance every ready steward serially (or an explicit `names` list). */
+  /** Take a queued steward back out. The live one cannot be dequeued. */
+  function dequeue({ name } = {}) {
+    const i = queue.indexOf(name);
+    if (i < 0) return { ok: false, found: false, msg: inFlight(name) === 'running' ? `${name} is the live cycle, not queued` : `${name} is not queued` };
+    queue.splice(i, 1);
+    if (batch.total > 0) batch.total -= 1;
+    logLine(`dequeued ${name} (queue now ${queue.length})`);
+    return { ok: true, name, ...status() };
+  }
+
+  /**
+   * Advance every ready steward serially (or an explicit `names` list). With a
+   * worker alive, the targets join the queue behind it instead of being refused;
+   * `queued` then lists only the ones newly added.
+   */
   function advanceAll({ names, maxCycles } = {}) {
-    if (actuator.isAlive().running) {
-      return { ok: false, busy: true, msg: 'a steward cycle is already running', ...status() };
-    }
     const targets = Array.isArray(names) && names.length ? names.slice() : readyNames();
+    if (actuator.isAlive().running) {
+      const added = enqueue(targets);
+      return { ok: true, queued: added, appended: true, msg: added.length ? `${added.length} steward(s) queued behind the live cycle` : 'nothing new to queue', ...status() };
+    }
     if (targets.length === 0) {
       return { ok: true, queued: [], msg: 'no stewards have grants waiting', ...status() };
     }
@@ -476,6 +532,7 @@ export function createStewardLane(opts = {}) {
     list,
     readyNames,
     advance,
+    dequeue,
     advanceAll,
     status,
     paths: {

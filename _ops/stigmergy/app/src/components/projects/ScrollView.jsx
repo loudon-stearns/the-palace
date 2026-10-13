@@ -10,7 +10,7 @@ import ArtifactSlot from '../ArtifactSlot.jsx';
 import TricksterCard from '../trickster/TricksterCard.jsx';
 import AgentLaunchModal from '../queue/AgentLaunchModal.jsx';
 import { usePalaceRef } from '../../lib/palace-ref.jsx';
-import { RunningTag } from './status.jsx';
+import { RunningTag, QueuedTag } from './status.jsx';
 
 // ScrollView — one project's scroll, rendered live in the terminal.
 //
@@ -158,12 +158,12 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
         >{home}</span>
         {row && row.kind === 'ceremony' ? <span data-testid="scroll-ceremony-meta" style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 }}>ceremony · {row.version ? `v${row.version}` : 'unversioned'} · {row.runs_since ? `${row.runs_since} run${row.runs_since === 1 ? '' : 's'} since it changed` : 'not yet run since it changed'}{row.owed && row.owed.length ? ` · ${row.owed.length} owed` : ''}</span>
           : row ? <span style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 }}>{row.status || '—'} · {row.stage || '—'}{row.stewarded ? ` · cycle ${row.iteration ?? 0}` : ' · no steward'}</span> : null}
-        {running ? <RunningTag name={home} /> : null}
+        {running ? <RunningTag name={home} /> : row && row.queued ? <QueuedTag name={home} position={row.queued} /> : null}
         <span style={{ flex: 1 }} />
         {row && row.stewarded ? (
           <>
             <span data-testid={`steward-launch-${String(home).toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}><Button tone="default" disabled={running} onClick={() => setLaunch(true)}>launch interactive</Button></span>
-            <span data-testid="scroll-advance"><Button tone="primary" disabled={!canAdvance} onClick={onAdvance}>advance (run up to {row.run_cap || 1})</Button></span>
+            <span data-testid="scroll-advance"><Button tone="primary" disabled={!canAdvance} onClick={onAdvance}>{row.queued ? `queued #${row.queued}` : `advance (run up to ${row.run_cap || 1})`}</Button></span>
           </>
         ) : row && onEnchant ? (confirmEnchant ? (
           <>

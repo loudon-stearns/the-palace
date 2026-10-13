@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Box, Button, Tag } from '../primitives.jsx';
 import { fetchProjects, enchantProject } from '../../adapters/projects.js';
-import { advanceSteward, advanceAllStewards } from '../../adapters/stewards.js';
+import { advanceSteward, advanceAllStewards, dequeueSteward } from '../../adapters/stewards.js';
 import { ageOf, rowSignal, groupProjects } from '../../lib/scroll-view.js';
-import { slug, StatusDot, RunningTag } from './status.jsx';
+import { slug, StatusDot, RunningTag, QueuedTag } from './status.jsx';
 import { usePalaceRef } from '../../lib/palace-ref.jsx';
 import ScheduleStrip from '../stewards/ScheduleStrip.jsx';
 import ScrollView from './ScrollView.jsx';
@@ -22,6 +22,8 @@ import ScrollView from './ScrollView.jsx';
 //
 // Advancing fires a RUN (up to the manifest's max_iterations cycles) through
 // the same lane as before; the row shows "running k/N" while it is live.
+// Advancing while a cycle is live QUEUES the row behind it (2026-10-13): one
+// lane, click order; the row shows "queued #n" with an unqueue control.
 //
 // A "no steward" row offers ENCHANT instead: one confirm, then the project gets
 // its steward directory + registry line (POST /api/projects/enchant, the same
@@ -96,7 +98,7 @@ function GroupHeading({ children, n }) {
   );
 }
 
-export function ProjectRow({ row, onOpen, onOpenEntry, onAdvance, canAdvance, confirming, onConfirm, onCancel, busy, onEnchant, confirmingEnchant, onConfirmEnchant }) {
+export function ProjectRow({ row, onOpen, onOpenEntry, onAdvance, canAdvance, confirming, onConfirm, onCancel, busy, onEnchant, confirmingEnchant, onConfirmEnchant, onDequeue }) {
   const sid = slug(row.home);
   const dim = { color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11, whiteSpace: 'nowrap' };
   return (
@@ -129,7 +131,7 @@ export function ProjectRow({ row, onOpen, onOpenEntry, onAdvance, canAdvance, co
       <span style={{ ...dim, overflow: 'hidden', textOverflow: 'ellipsis' }} title={row.last_shipped ? row.last_shipped.headline || '' : ''}>
         {row.last_shipped ? `${ageOf(row.last_shipped.ts)} · ${row.last_shipped.headline || row.last_shipped.id}` : (row.last_activity ? `${ageOf(row.last_activity)} · (no shipped thing on the board)` : 'nothing yet')}
       </span>
-      {row.running ? <RunningTag name={row.home} /> : <SignalCell row={row} />}
+      {row.running ? <RunningTag name={row.home} /> : row.queued ? <QueuedTag name={row.home} position={row.queued} /> : <SignalCell row={row} />}
       <span style={{ display: 'flex', gap: 6, justifyContent: 'flex-end' }}>
         {row.stewarded ? (confirming ? (
           <>
@@ -138,7 +140,9 @@ export function ProjectRow({ row, onOpen, onOpenEntry, onAdvance, canAdvance, co
             <Button tone="default" disabled={busy} onClick={onCancel}>cancel</Button>
           </>
         ) : (
-          <span data-testid={`steward-advance-${sid}`}><Button tone="default" disabled={!canAdvance} onClick={() => onAdvance(row.home)}>advance</Button></span>
+          row.queued && onDequeue
+            ? <span data-testid={`steward-unqueue-${sid}`}><Button tone="default" disabled={busy} onClick={() => onDequeue(row.home)}>unqueue</Button></span>
+            : <span data-testid={`steward-advance-${sid}`}><Button tone="default" disabled={!canAdvance} onClick={() => onAdvance(row.home)}>{row.running ? 'running' : 'advance'}</Button></span>
         )) : (confirmingEnchant ? (
           <>
             <span style={{ color: 'var(--warn)', textShadow: 'var(--glow)', fontSize: 11 }}>give {row.home} a steward?</span>
@@ -183,15 +187,26 @@ export default function ProjectsDeck({ messages = [], onConfirmed, project = nul
   const ceremonies = data?.ceremonies ?? [];
   const worker = data?.worker ?? {};
   const running = !!worker.running;
-  const readyRows = rows.filter((r) => r.stewarded && r.answered_unconsumed > 0);
+  const readyRows = rows.filter((r) => r.stewarded && r.answered_unconsumed > 0 && !r.running && !r.queued);
 
   async function doAdvance(name) {
     setBusy(true); setFeedback(null); setPending(null);
     const r = await advanceSteward(name);
     if (r.ok && r.fired) setFeedback({ tone: 'ok', text: `advancing ${name} -> cycle ${r.cycle_n}${r.run ? ` (a run of up to ${r.run.cap})` : ''}` });
+    else if (r.ok && r.queued && r.already === 'running') setFeedback({ tone: 'dim', text: `${name} is the live cycle` });
+    else if (r.ok && r.queued && r.already) setFeedback({ tone: 'dim', text: `${name} is already queued (#${r.already})` });
+    else if (r.ok && r.queued) setFeedback({ tone: 'ok', text: `${name} queued #${r.position} behind ${r.current || 'the live cycle'} — it fires when the lane frees` });
     else if (r.status === 409 || r.busy) setFeedback({ tone: 'warn', text: 'a steward cycle is already running' });
     else if (r.status === 404) setFeedback({ tone: 'err', text: `no steward registered for "${name}"` });
     else setFeedback({ tone: 'err', text: r.error || r.msg || `advance failed (${r.status ?? '?'})` });
+    setBusy(false); refresh();
+  }
+
+  async function doDequeue(name) {
+    setBusy(true); setFeedback(null); setPending(null);
+    const r = await dequeueSteward(name);
+    if (r.ok) setFeedback({ tone: 'dim', text: `${name} taken out of the queue` });
+    else setFeedback({ tone: 'err', text: r.msg || r.error || `unqueue failed (${r.status ?? '?'})` });
     setBusy(false); refresh();
   }
 
@@ -208,8 +223,9 @@ export default function ProjectsDeck({ messages = [], onConfirmed, project = nul
   async function doAdvanceAll() {
     setBusy(true); setFeedback(null); setPending(null);
     const r = await advanceAllStewards();
-    if (r.ok && Array.isArray(r.queued) && r.queued.length) setFeedback({ tone: 'ok', text: `advancing ${r.queued.length} steward(s): ${r.queued.join(', ')}` });
+    if (r.ok && Array.isArray(r.queued) && r.queued.length) setFeedback({ tone: 'ok', text: `${r.appended ? 'queued' : 'advancing'} ${r.queued.length} steward(s): ${r.queued.join(', ')}` });
     else if (r.status === 409 || r.busy) setFeedback({ tone: 'warn', text: 'a steward cycle is already running' });
+    else if (r.ok && r.appended) setFeedback({ tone: 'dim', text: 'every ready steward is already running or queued' });
     else if (r.ok) setFeedback({ tone: 'dim', text: 'no stewards have answers waiting' });
     else setFeedback({ tone: 'err', text: r.error || r.msg || `advance-all failed (${r.status ?? '?'})` });
     setBusy(false); refresh();
@@ -230,7 +246,7 @@ export default function ProjectsDeck({ messages = [], onConfirmed, project = nul
           onConfirmed={onConfirmed}
           onBack={onCloseProject}
           onAdvance={ceremony ? undefined : () => doAdvance(project)}
-          canAdvance={!ceremony && !!row && row.stewarded && !running && !busy}
+          canAdvance={!ceremony && !!row && row.stewarded && !row.running && !row.queued && !busy}
           onEnchant={ceremony ? undefined : () => doEnchant(project)}
           canEnchant={!ceremony && !!row && !row.stewarded && !busy}
           feedback={feedback}
@@ -247,11 +263,12 @@ export default function ProjectsDeck({ messages = [], onConfirmed, project = nul
       onOpen={onOpenProject}
       onOpenEntry={openEntry}
       onAdvance={(n) => setPending(n)}
-      canAdvance={row.stewarded && !running && !busy}
+      canAdvance={row.stewarded && !row.running && !row.queued && !busy}
       confirming={pending === row.home}
       onConfirm={doAdvance}
       onCancel={() => setPending(null)}
       busy={busy}
+      onDequeue={doDequeue}
       onEnchant={(n) => setPending(`enchant:${n}`)}
       confirmingEnchant={pending === `enchant:${row.home}`}
       onConfirmEnchant={doEnchant}
@@ -268,7 +285,7 @@ export default function ProjectsDeck({ messages = [], onConfirmed, project = nul
       <ScheduleStrip />
 
       <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap', marginBottom: 8 }}>
-        <Button hot="P" tone="primary" disabled={running || busy || readyRows.length === 0} onClick={doAdvanceAll}>
+        <Button hot="P" tone="primary" disabled={busy || readyRows.length === 0} onClick={doAdvanceAll}>
           <span data-testid="advance-all">advance all ready ({readyRows.length})</span>
         </Button>
         <StatusDot running={running} lastFire={worker.lastFire} />
@@ -283,7 +300,7 @@ export default function ProjectsDeck({ messages = [], onConfirmed, project = nul
         <div style={{ color: fbColor[feedback.tone], textShadow: feedback.tone === 'dim' ? 'none' : 'var(--glow)', fontSize: 12, marginBottom: 8 }}>{feedback.text}</div>
       ) : null}
 
-      <Box title="PROJECTS  --  click a name to open its scroll · press P to advance all ready" tone="single">
+      <Box title="PROJECTS  --  click a name to open its scroll · press P to advance all ready · advance while a cycle runs = queue it" tone="single">
         {rows.length === 0 ? (
           <div style={{ color: 'var(--phosphor-dim)', textShadow: 'none' }}>
             {data?.error ? `failed to load projects: ${data.error}` : (data ? 'no project entries found.' : 'loading…')}
@@ -318,11 +335,12 @@ export default function ProjectsDeck({ messages = [], onConfirmed, project = nul
                   onOpen={onOpenProject}
                   onOpenEntry={openEntry}
                   onAdvance={(n) => setPending(n)}
-                  canAdvance={row.stewarded && !running && !busy}
+                  canAdvance={row.stewarded && !row.running && !row.queued && !busy}
                   confirming={pending === row.home}
                   onConfirm={doAdvance}
                   onCancel={() => setPending(null)}
                   busy={busy}
+                  onDequeue={doDequeue}
                 />
               ))}
             </div>

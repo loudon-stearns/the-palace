@@ -1,7 +1,8 @@
 // server/api/stewards.js — permanent-steward lane endpoints.
 //   GET  /api/stewards            — registered stewards + grant state + worker
 //   POST /api/steward/advance     — advance ONE steward by a run (up to max_cycles / manifest max_iterations)
-//   POST /api/stewards/advance-all — advance every ready steward
+//   POST /api/stewards/advance-all — advance every ready steward (queues behind a live cycle)
+//   POST /api/steward/dequeue     — take a queued steward back out of the lane's queue
 
 import { jsonResponse, readBody } from '../http.js';
 
@@ -26,7 +27,8 @@ export async function stewardsRoutes(ctx) {
   }
 
   // Body: { name }. Fires the steward-lane worker; the reap consumes its
-  // pending grants. Refuses (409) when a steward cycle is already alive.
+  // pending grants. When a steward cycle is already alive the name joins the
+  // lane's queue instead (200, { queued: true, position }).
   if (urlPath === '/api/steward/advance' && method === 'POST') {
     const bodyText = await readBody(req, res);
     if (bodyText === null) return true; // 413 already sent
@@ -42,7 +44,7 @@ export async function stewardsRoutes(ctx) {
     const maxCycles = Number.isInteger(body.max_cycles) && body.max_cycles > 0 ? body.max_cycles : undefined;
     const result = stewardLane.advance({ name, maxCycles });
     if (!result.ok) {
-      // unknown steward -> 404; busy -> 409; anything else -> 500.
+      // unknown steward -> 404; anything else -> 500 (busy now queues, never refuses).
       const status = result.found === false ? 404 : (result.busy ? 409 : 500);
       jsonResponse(res, status, { ...result, ...stewardLane.status() });
       return true;
@@ -51,8 +53,25 @@ export async function stewardsRoutes(ctx) {
     return true;
   }
 
+  // Body: { name }. Removes a queued steward from the lane's queue.
+  if (urlPath === '/api/steward/dequeue' && method === 'POST') {
+    const bodyText = await readBody(req, res);
+    if (bodyText === null) return true;
+    let body;
+    try { body = JSON.parse(bodyText); } catch (e) {
+      jsonResponse(res, 400, { error: `malformed JSON: ${e.message}` });
+      return true;
+    }
+    const name = body && typeof body.name === 'string' ? body.name.trim() : '';
+    if (name === '') { jsonResponse(res, 400, { error: 'missing or empty name' }); return true; }
+    const result = stewardLane.dequeue({ name });
+    jsonResponse(res, result.ok ? 200 : 404, { ...result, ...stewardLane.status() });
+    return true;
+  }
+
   // Body: { names? }. Defaults to all stewards with grants_waiting > 0. Fires
-  // them serially (one worker per lane); the reap drains the queue.
+  // them serially (one worker per lane); the reap drains the queue. With a
+  // cycle alive, the names join the queue behind it.
   if (urlPath === '/api/stewards/advance-all' && method === 'POST') {
     const bodyText = await readBody(req, res);
     if (bodyText === null) return true; // 413 already sent

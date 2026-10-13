@@ -138,6 +138,8 @@ function entryRow({ palaceRoot, p, boardMsgs, stewards, worker, now }) {
   const lastShip = nowView.last_shipped;
   const lastActivity = [nowView.latest_spoken_ts, state && state.last_active].filter(Boolean).sort().pop() || null;
   const running = !!(worker && worker.running && worker.current === p.title);
+  const qi = worker && Array.isArray(worker.queue) ? worker.queue.indexOf(p.title) : -1;
+  const queued = !running && qi >= 0 ? qi + 1 : null; // 1-based place in the lane's queue
   return {
     kind: 'project',
     home: p.title,
@@ -163,6 +165,7 @@ function entryRow({ palaceRoot, p, boardMsgs, stewards, worker, now }) {
     scroll_path: scrollRel,
     scroll_exists: scrollExists,
     running,
+    queued,
     run: running && worker.current_run ? { position: worker.current_run.position, cap: worker.current_run.cap, cycle_n: worker.current_run.cycle_n } : null,
   };
 }

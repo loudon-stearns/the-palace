@@ -30,6 +30,21 @@ export function RunningTag({ name }) {
   );
 }
 
+// "queued #n" while the steward waits its turn in the lane's queue.
+export function QueuedTag({ name, position }) {
+  return (
+    <span
+      data-testid={`steward-queued-${slug(name)}`}
+      data-queued={String(position)}
+      style={{
+        color: 'var(--warn)', textShadow: 'var(--glow)',
+        fontSize: 11, fontFamily: 'var(--font-mono)',
+        letterSpacing: '.05em', textTransform: 'uppercase',
+      }}
+    >◦ queued #{position}</span>
+  );
+}
+
 export function GrantsBadge({ n, name }) {
   if (!n) return <span style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 }} data-testid={`steward-grants-${slug(name)}`}>0 waiting</span>;
   return (

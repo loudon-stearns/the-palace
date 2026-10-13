@@ -28,6 +28,20 @@ export async function advanceSteward(name) {
   }
 }
 
+export async function dequeueSteward(name) {
+  try {
+    const res = await fetch('/api/steward/dequeue', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ name }),
+    });
+    const data = await res.json().catch(() => ({}));
+    return { ok: res.ok, status: res.status, ...data };
+  } catch (err) {
+    return { ok: false, error: err?.message ?? String(err) };
+  }
+}
+
 export async function advanceAllStewards(names) {
   try {
     const res = await fetch('/api/stewards/advance-all', {

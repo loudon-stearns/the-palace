@@ -203,15 +203,44 @@ describe('POST /api/steward/advance', () => {
     expect(res.status).toBe(400);
   });
 
-  test('409 when a steward cycle is already running', async () => {
+  test('an advance while a cycle is live QUEUES the steward (2026-10-13), in click order, once', async () => {
     seedSteward(root, { name: 'Test Steward', slug: 'test-steward', requestId: 'test-steward-001' });
     seedSteward(root, { name: 'Other Steward', slug: 'other-steward', requestId: 'other-steward-001' });
+    seedSteward(root, { name: 'Third Steward', slug: 'third-steward', requestId: 'third-steward-001' });
     const first = await request(base).post('/api/steward/advance').send({ name: 'Test Steward' });
     expect(first.body.fired).toBe(true);
     await waitFor(() => stewardLane.status().running === true, { timeout: 3000 });
     const second = await request(base).post('/api/steward/advance').send({ name: 'Other Steward' });
-    expect(second.status).toBe(409);
-    expect(second.body.busy).toBe(true);
+    expect(second.status).toBe(200);
+    expect(second.body.fired).toBe(false);
+    expect(second.body.queued).toBe(true);
+    expect(second.body.position).toBe(1);
+    const third = await request(base).post('/api/steward/advance').send({ name: 'Third Steward' });
+    expect(third.body.position).toBe(2);
+    expect(stewardLane.status().queue).toEqual(['Other Steward', 'Third Steward']);
+    // The same click twice does not queue twice; the live one is named as live.
+    const again = await request(base).post('/api/steward/advance').send({ name: 'Other Steward' });
+    expect(again.body.queued).toBe(true);
+    expect(again.body.already).toBe(1);
+    const live = await request(base).post('/api/steward/advance').send({ name: 'Test Steward' });
+    expect(live.body.already).toBe('running');
+    expect(stewardLane.status().queue).toEqual(['Other Steward', 'Third Steward']);
+    // An unknown name is still a 404, not a queue entry.
+    const nobody = await request(base).post('/api/steward/advance').send({ name: 'Nobody' });
+    expect(nobody.status).toBe(404);
+    // Unqueue takes one back out; the live one cannot be unqueued.
+    const un = await request(base).post('/api/steward/dequeue').send({ name: 'Other Steward' });
+    expect(un.status).toBe(200);
+    expect(stewardLane.status().queue).toEqual(['Third Steward']);
+    const unLive = await request(base).post('/api/steward/dequeue').send({ name: 'Test Steward' });
+    expect(unLive.status).toBe(404);
+    // The queued one fires when the lane frees.
+    await waitFor(() => { const st = stewardLane.status(); return !st.running && st.queue.length === 0; }, { timeout: 8000 });
+    const rows = (await request(base).get('/api/stewards')).body.stewards;
+    const third2 = rows.find((r) => r.agent_id === 'Third Steward');
+    expect(third2.iteration).toBe(2);   // seeded at 1; its queued cycle ran
+    const other2 = rows.find((r) => r.agent_id === 'Other Steward');
+    expect(other2.iteration).toBe(1);   // unqueued: never ran
   });
 });
 
