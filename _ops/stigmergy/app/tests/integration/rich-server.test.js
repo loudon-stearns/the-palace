@@ -55,6 +55,15 @@ describe('the standalone rich face', () => {
     expect(seen).toEqual([]);
   });
 
+  // Another port on this Mac is another origin: a page on localhost:5174 is not this face.
+  test('refuses a JSON review from a page on another local port', async () => {
+    const r = await request(base).post('/_api/review')
+      .set('Host', 'localhost:8842').set('Origin', 'http://localhost:5174').set('Sec-Fetch-Site', 'same-site')
+      .send({ task: 'from-another-port' });
+    expect(r.status).toBe(403);
+    expect(seen).toEqual([]);
+  });
+
   test('refuses a review that is not sent as JSON', async () => {
     const r = await request(base).post('/_api/review').set('Content-Type', 'text/plain').send('{"task":"x"}');
     expect(r.status).toBe(415);

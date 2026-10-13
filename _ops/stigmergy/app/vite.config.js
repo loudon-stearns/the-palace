@@ -20,6 +20,9 @@ export default defineConfig({
   server: {
     port: 5173,
     strictPort: true,
+    // Vite's default CORS answers a preflight from any localhost port; only the
+    // app's own origin may act here (server/request-guard.js), so none is answered.
+    cors: false,
     fs: {
       // The design-system files we read from at dev-time live above the app/
       // directory, so widen the served-file allow-list. The quotes schema

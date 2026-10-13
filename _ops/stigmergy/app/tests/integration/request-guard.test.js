@@ -1,7 +1,9 @@
 // The doors in front of the palace routes (server/request-guard.js): a foreign
-// Host is refused, and a write must be JSON from one of STIGMERGY's own pages.
-// Every request here goes to a scratch palace on an in-process server — never
-// the live :5173, and never to a path that exists under /api/open.
+// Host is refused, and a write must be JSON from one of STIGMERGY's own pages —
+// its exact origin, not merely another page on this Mac. Every request here goes
+// to a scratch palace on an in-process server — never the live :5173, and never
+// to a path that exists under /api/open. The live server's name is set as Host
+// (localhost:5173) so an Origin can match it or miss it by port alone.
 
 import { describe, test, expect, beforeAll, afterAll } from 'vitest';
 import http from 'node:http';
@@ -119,11 +121,91 @@ describe('a write to the board from a foreign page is refused', () => {
   });
 });
 
-describe('the app and its own tools still write', () => {
-  test('JSON from STIGMERGY’s own page is appended', async () => {
+// Another port on this Mac is another origin. A page a dev server or a proof
+// serves on :5174 or :8842 is loopback too, and must not write to the board.
+describe('a page on another local port is refused', () => {
+  test('JSON from localhost:5174 to localhost:5173 is refused and nothing is written', async () => {
     const before = boardLines(root);
     const res = await request(base)
       .post('/api/persistent')
+      .set('Host', 'localhost:5173')
+      .set('Origin', 'http://localhost:5174')
+      .send(makeMessage());
+    expect(res.status).toBe(403);
+    expect(boardLines(root)).toBe(before);
+  });
+
+  test('the same, marked Sec-Fetch-Site: same-site as a browser marks it, is refused', async () => {
+    const before = boardLines(root);
+    const res = await request(base)
+      .post('/api/persistent')
+      .set('Host', 'localhost:5173')
+      .set('Origin', 'http://localhost:5174')
+      .set('Sec-Fetch-Site', 'same-site')
+      .send(makeMessage());
+    expect(res.status).toBe(403);
+    expect(boardLines(root)).toBe(before);
+  });
+
+  test('no other loopback origin passes either: another address, another port, the rich preview', async () => {
+    for (const [host, origin] of [
+      ['localhost:5173', 'http://127.0.0.1:8842'],
+      ['localhost:5173', 'http://[::1]:5174'],
+      ['localhost:5173', 'http://app.localhost:5173'],
+      ['127.0.0.1:5173', 'http://localhost:5173'],
+      ['localhost:5173', 'https://localhost:5173'],
+    ]) {
+      const res = await request(base).post('/api/persistent').set('Host', host).set('Origin', origin).send(makeMessage());
+      expect(res.status, `${origin} → ${host}`).toBe(403);
+    }
+  });
+
+  test('Sec-Fetch-Site: same-site is refused even with no Origin', async () => {
+    const res = await request(base).post('/api/persistent').set('Sec-Fetch-Site', 'same-site').send(makeMessage());
+    expect(res.status).toBe(403);
+  });
+
+  test('a preflight from another port is refused, with no CORS headers', async () => {
+    const res = await request(base)
+      .options('/api/persistent')
+      .set('Host', 'localhost:5173')
+      .set('Origin', 'http://localhost:5174')
+      .set('Sec-Fetch-Site', 'same-site')
+      .set('Access-Control-Request-Method', 'POST')
+      .set('Access-Control-Request-Headers', 'content-type');
+    expect(res.status).toBe(403);
+    expect(res.headers['access-control-allow-origin']).toBeUndefined();
+    expect(res.headers['access-control-allow-methods']).toBeUndefined();
+  });
+
+  test('GET /api/open from another port is refused before the handler runs', async () => {
+    const res = await request(base)
+      .get('/api/open?path=no/such/file.command')
+      .set('Host', 'localhost:5173')
+      .set('Origin', 'http://localhost:5174')
+      .set('Sec-Fetch-Site', 'same-site');
+    expect(res.status).toBe(403);
+    // A link or an <img> on that page sends no Origin, only Sec-Fetch-Site.
+    const bare = await request(base).get('/api/open?path=no/such/file.command').set('Sec-Fetch-Site', 'same-site');
+    expect(bare.status).toBe(403);
+  });
+
+  test('a GET from another port still reads: reads stay open', async () => {
+    const res = await request(base)
+      .get('/api/persistent')
+      .set('Host', 'localhost:5173')
+      .set('Origin', 'http://localhost:5174')
+      .set('Sec-Fetch-Site', 'same-site');
+    expect(res.status).toBe(200);
+  });
+});
+
+describe('the app and its own tools still write', () => {
+  test('JSON from STIGMERGY’s own page (Origin equals Host) is appended', async () => {
+    const before = boardLines(root);
+    const res = await request(base)
+      .post('/api/persistent')
+      .set('Host', 'localhost:5173')
       .set('Origin', 'http://localhost:5173')
       .set('Sec-Fetch-Site', 'same-origin')
       .send(makeMessage());
@@ -131,18 +213,22 @@ describe('the app and its own tools still write', () => {
     expect(boardLines(root)).toBe(before + 1);
   });
 
-  test('JSON with no Origin (curl, node fetch, the eval server) is appended', async () => {
-    const res = await request(base).post('/api/persistent').send(makeMessage());
-    expect(res.status).toBe(200);
+  test('the own-origin match ignores case, and holds for an IPv6 or allowedHosts name', async () => {
+    for (const [host, origin] of [
+      ['LocalHost:5173', 'http://localhost:5173'],
+      ['[::1]:5173', 'http://[::1]:5173'],
+      ['studio.palace.test:5173', 'http://studio.palace.test:5173'],
+    ]) {
+      const res = await request(base).post('/api/persistent').set('Host', host).set('Origin', origin).set('Sec-Fetch-Site', 'same-origin').send(makeMessage());
+      expect(res.status, `${origin} → ${host}`).toBe(200);
+    }
   });
 
-  test('another loopback port (the standalone rich server) may write', async () => {
-    const res = await request(base)
-      .post('/api/persistent')
-      .set('Origin', 'http://127.0.0.1:8842')
-      .set('Sec-Fetch-Site', 'same-site')
-      .send(makeMessage());
+  test('JSON with no Origin (curl, node fetch, the eval server) is appended', async () => {
+    const before = boardLines(root);
+    const res = await request(base).post('/api/persistent').send(makeMessage());
     expect(res.status).toBe(200);
+    expect(boardLines(root)).toBe(before + 1);
   });
 });
 

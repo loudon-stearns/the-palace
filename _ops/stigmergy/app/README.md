@@ -12,14 +12,18 @@ and click-to-respond UI in the Trickster inbox.
 Both endpoints accept exactly one §2.2-conformant message JSON in the
 request body. The server validates strictly and never coerces.
 
-**Every write is JSON from STIGMERGY's own pages** (`server/request-guard.js`).
+**Every write is JSON from STIGMERGY's own origin** (`server/request-guard.js`).
 Any web page the browser loads can aim a request at localhost:5173, so before a
 route under `/api/` or `/rich/` runs: a Host that is not localhost, an IP, or in
 `server.allowedHosts` gets 403; a POST/PUT/PATCH/DELETE must carry
-`Content-Type: application/json` (415 otherwise) and gets 403 when a browser marks
-it as coming from a foreign page (an Origin that is neither loopback nor this host,
-`Origin: null`, or `Sec-Fetch-Site: cross-site`). `GET /api/open` refuses a
-cross-site request too. curl and node's fetch send no Origin and pass — send the
+`Content-Type: application/json` (415 otherwise). A write or `GET /api/open` passes
+only when the browser's Origin is this server's scheme and the very host:port in the
+Host header and its `Sec-Fetch-Site` is `same-origin` or absent, so a page on another
+localhost port, which the browser marks `same-site`, gets 403 like any foreign site.
+A preflight gets 403 with no CORS headers and `vite.config.js` sets `server.cors: false`,
+so nothing clears another origin to send, and `tests/integration/request-guard-census.test.js`
+fails on any server under `_ops/` that listens without `checkRequest`.
+curl and node's fetch send no Origin and pass — send the
 JSON type: `curl -H 'Content-Type: application/json' -d @msg.json localhost:5173/api/persistent`.
 The standalone rich face (`_ops/rich-face/rich-server.mjs`) and `_ops/loudon-eval/eval-server.mjs`
 answer at `/`, so each runs the same two checks on every path (`checkRequest`).
