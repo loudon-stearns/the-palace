@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import EntryList from '../../src/components/state/EntryList.jsx';
-import { pulseUniverse } from '../../src/lib/pulse.js';
+import { pulseUniverse, canonTitles } from '../../src/lib/pulse.js';
 
 // renderToStaticMarkup paints the component's INITIAL state, so the bundle
 // toggle starts off — exactly the default we want to verify: PULSE hides
@@ -71,5 +71,24 @@ describe('pulseUniverse', () => {
       'Projects/Frame Designer.md',
       'Projects/Frame Designer/Frame Designer — plan.md',
     ]);
+  });
+});
+
+describe('canonTitles', () => {
+  it('offers canon pages only, one of each, alphabetical', () => {
+    const ALL = [
+      ...ENTRIES,
+      { path: 'Projects/BLUELINE/Text Layer.md', title: 'Text Layer', type: null, is_bundle_file: false },
+      { path: 'Jewel/Jewel — Context.md', title: 'Jewel — Context', type: null, born: '2026-09-01', is_bundle_file: true },
+      { path: 'STIGMERGY/handoffs/2026-10-12 — the lens.md', title: '2026-10-12 — the lens', type: null, is_bundle_file: false },
+      // A second copy of a canon title collapses to one choice.
+      { path: 'Archive/Kuramoto Coupling.md', title: 'Kuramoto Coupling', type: 'concept', is_bundle_file: false },
+    ];
+    expect(canonTitles(ALL)).toEqual(['Frame Designer', 'Kuramoto Coupling']);
+  });
+
+  it('is empty for no entries', () => {
+    expect(canonTitles([])).toEqual([]);
+    expect(canonTitles(undefined)).toEqual([]);
   });
 });

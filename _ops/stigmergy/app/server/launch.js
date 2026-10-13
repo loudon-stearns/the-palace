@@ -34,6 +34,7 @@ import { spawn as realSpawn } from 'node:child_process';
 import { writeFileSync, mkdtempSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
+import { resolveModel } from '../../../models/latest-opus.mjs';
 
 // Single-quote a string for bash: wrap in '…', rewriting embedded ' as '\''.
 function shq(s) {
@@ -61,11 +62,11 @@ export function launchInteractive(prompt, opts = {}) {
   // Pin the model + effort. A launched session drives a steward / catches a
   // baton / works a card — real read-edit-commit palace work — so it opens on
   // the LATEST Opus at a real reasoning budget, independent of the operator's
-  // global /model. We pin the exact id `claude-opus-5-5` rather than the `opus`
-  // alias, which has lagged the latest Opus (on v2.1.x it resolved to 4.7-low-effort).
-  // `--effort high` overrides the alias's "low" default. Both overridable via
-  // opts for a future picker; bump the id when a newer Opus ships.
-  const model = opts.model || 'claude-opus-5-5';
+  // global /model. The exact id comes from _ops/models/latest-opus.mjs, never
+  // the CLI's `opus` alias, which has lagged the latest Opus; a picker that
+  // sends "opus" gets the same exact id. `--effort high` overrides the alias's
+  // "low" default. Both overridable via opts (the launch picker).
+  const model = resolveModel(opts.model);
   const effort = opts.effort || 'high';
   // A launched palace agent does real read-edit-commit work, so it opens in
   // `acceptEdits` rather than the CLI's `default` (ask-before-every-edit) — matching

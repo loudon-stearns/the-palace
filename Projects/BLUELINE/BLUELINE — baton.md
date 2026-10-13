@@ -26,14 +26,33 @@ approach, and it isn't pulling its weight.
 
 ## Current state
 - **The tool:** `impact_tool.py` — `--action chop|side|rising`, `--punch 0..1`, `--preset grounded|heroic|super`,
-  `--spray arc|out`, `--density`, `--guide-w`, `--style outline|greybox`, `--plates 0|1`, `--save`, `--render`.
-  Locked frame-5 defaults: `spray=arc · density=0.45 · punch=0.6 · guide-w=0.14`. Named Blender collections
+  `--spray arc|out`, `--density`, `--guide-w`, `--style outline|greybox`, `--plates 0|1`, `--save`, `--render`,
+  and since 2026-10-13 `--guide-weight`, `--guide-rails`, `--rail-gap`, `--rail-side` (`3ac92372`).
+  Locked frame-5 defaults, unchanged: `spray=arc · density=0.45 · punch=0.6 · guide-w=0.14`. With no new flags
+  the chop frame is pixel-identical to `out/tool/chop_outline.png`. Named Blender collections
   (FIGURE/BLADE/TARGET/WOUND/DEBRIS/GUIDE) so the saved `.blend` is hand-manipulable. Saves the `.blend`
-  **before** the flat-white render override touches materials.
-- **Proven:** only the `chop` action, outline style, on the studio rig. `out/tool/chop.blend` + `chop_outline.png`.
+  **before** the flat-white render override touches materials. `contact_sheet.py` tiles a labelled range.
 - **The look call:** frame 5 (follow-arc, thinned) — recorded in memory `feedback_blueline_aftermath_debris.md`
   and reproduced by `out/debris/d5_arc_thin.png`. The `contact_sheet.png`s show the range that got there.
-- **Not yet:** a guide that LEADS · `side`/`rising` tested · conditioning plates · any gen-AI pass.
+
+**2026-10-13 — the guide experiment, landed unjudged** (`3ac92372`, `93abb7af`, merged in `4277dfdb`). Loudon
+set BLUELINE aside before making a pick.
+- **Seven chop frames** on `out/guide/contact_sheet.png`, with the full-size PNGs beside it. Tiles 1–5 are
+  guide-w 0.14 (today's control), 0.20, 0.24, 0.28 and 0.32. Tile 6 is 0.20 with `--guide-weight 2.0`. Tile 7 is
+  0.20 with `--guide-rails 2 --rail-side in`.
+- **The worker's read, not Loudon's:** width alone does not make the guide lead. The ribbon renders hollow from
+  the flat-white fill, and above 0.14 its outer edge runs into the column and hides. The worker leaned to tile 6.
+- **`side` and `rising`**, each rendered at 0.14 and 0.20 (`out/actions/`). `rising` reads well. `side` doesn't:
+  its camera sits almost in the swing plane, so the guide collapses into the wake dust. It needs a new camera,
+  not a wider guide.
+- **Real conditioning plates** from `--plates 1`, chop at the defaults (`out/plates/`):
+  - depth, its range fitted to the subject in each frame, with the guide hidden;
+  - canny, from the Freestyle edges at 1 px;
+  - a geometric OpenPose plate projected from the armature and drawn with a numpy copy of controlnet_aux's
+    `draw_bodypose` (14 of 18 keypoints; the face is turned away), plus `chop_keypoints.json`.
+  None has been fed to a ControlNet yet.
+- Blender 5.1.2 confirmed at both install paths. Nothing touched a GPU pod or a gen-AI model.
+- **Not yet:** a pick, so no new default · `side` with a usable camera · any gen-AI pass.
 
 ## Tried and rejected (this session — don't re-walk)
 - **Vertical 5-line speed fan** → replaced by ONE arc-following swoosh (reads as the swing, not as streaks).
@@ -47,23 +66,25 @@ approach, and it isn't pulling its weight.
   simple + FAST to iterate; amplify only the *consequences*, never the motion.
 
 ## Next move
-1. **Make the guide LEAD.** Bump `guide-w` default (try 0.24 → 0.32) and re-judge against `d5_arc_thin`;
-   possibly also darken/thicken the Freestyle weight on the GUIDE collection alone, or give it a second
-   offset rail. Render → show Loudon → adjust. This is the spine; do it first.
-2. **Task 4 — conditioning plates.** Emit depth / geometric OpenPose (armature-projected — **never**
-   DWPose-on-greybox) / canny from the same scene (`--plates 1` is stubbed). These feed the render backend.
-3. **The gen-AI second pass.** Take the outline + plates into [[BLUELINE — Render Backend]] /
-   [[Steer the Generator]] (rich-first/stylize-last) and get *one* consistent, beautiful gen-AI aftermath
-   frame. **The gen-AI render is RunPod and costs money — quote first, never fire a pod autonomously.**
-4. Test `side` and `rising` through the tool once the guide is right.
+**BLUELINE is paused.** Loudon, 2026-10-13: "lets put this work aside for now. I need to rethink and reset
+blueline." Nothing below starts until he comes back to it, and his reset may change the move itself.
+
+When he does:
+1. **His pick, full-size,** among the seven frames on `out/guide/contact_sheet.png`. If none leads, try a
+   solid-black fill for the swoosh; that is untested.
+2. **Set the default** to the pick, and re-run `--plates 1` at it.
+3. **Update the memory note** `feedback_blueline_aftermath_debris.md`, which still says "gw 0.14".
+4. **Give `side` a camera** off the swing plane, and render it again.
+5. **Only then, the gen-AI pass,** per [[BLUELINE — Render Backend]] and [[Steer the Generator]]
+   (rich-first/stylize-last). **The gen-AI render is RunPod and costs money — a quote and Loudon's yes before
+   any pod.**
 
 ## Receiving environment
-Same surface (Claude Code, Mac). **This baton and all the session-11 work now live on `main`** —
-the `feature/blueline-aftermath` worktree was merged and torn down (2026-07-04). Catch this from the
-palace root `/Users/loudonstearns/Documents/The Palace`; if you want isolation for a GPU/Blender build,
-branch a fresh worktree from `main`: `node _ops/worktree/new-worktree.mjs --name feature/blueline-<slug>
---profile blueline`. Blender **5.1.2** local for the solver (no GPU rent); studio blends need **MPFB2 +
-Rigify** (installed). RunPod orchestrators + the Commons reaper exist (`_ops/commons`,
+Same surface (Claude Code, Mac). **This baton and all the session-11 work live on `main`**, the 2026-10-13
+guide experiment included. Catch it from the palace root `/Users/loudonstearns/Documents/The Palace`. If you
+want isolation for a GPU or Blender build, branch a fresh worktree from `main`: `node _ops/worktree/new-worktree.mjs
+--name feature/blueline-<slug> --profile blueline`. Blender **5.1.2** local for the solver (no GPU rent); studio
+blends need **MPFB2 + Rigify** (installed). RunPod orchestrators and the Commons reaper exist (`_ops/commons`,
 `_ops/runpod/agent_ns.py`) — but **quote before any paid pod**.
 
 ## Calibrations from this session

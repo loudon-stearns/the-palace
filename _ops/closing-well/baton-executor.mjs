@@ -34,6 +34,7 @@ import { execFileSync } from 'node:child_process';
 import { resolve, join, dirname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import process from 'node:process';
+import { latestOpus } from '../models/latest-opus.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));            // _ops/closing-well
 // --tree overrides where the baton file + parent pointer are written (testing only;
@@ -94,7 +95,7 @@ const wtProfile = arg('--wt-profile', 'docs');
 const sessionId = arg('--session-id');
 const owner = arg('--owner');
 const from = arg('--from', entry);
-const model = arg('--model', 'claude-opus-5-5');
+const model = arg('--model') || latestOpus();
 const doWrite = has('--write') || has('--post');
 const doPost = has('--post');
 

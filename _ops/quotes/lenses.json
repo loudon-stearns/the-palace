@@ -1,0 +1,88 @@
+{
+  "_about": "The palace's philosophical lenses, as Palace Quotes reaches for them. Each is a palace page (the lens must resolve to an entry), its tradition's voices (whose words a quote may carry), the question it asks of a page, and the families of pages it tends to bite on. Seeded from [[Philosopher Visits the Entry]] § A Starting Roster and [[Palace Philosophies]]. A roster, not a law — place.mjs validates a lens by whether the page exists, not by this file.",
+  "lenses": [
+    {
+      "page": "Spinoza Conatus",
+      "voices": ["Spinoza"],
+      "question": "What is this page striving to persist as, and does the striving increase its power to act?",
+      "families": ["threshold", "coupling", "practice", "quality", "cooperation"],
+      "fake": "Every page 'has a conatus' — if the reading could be said of any page, it is not Spinoza's."
+    },
+    {
+      "page": "Stoicism",
+      "voices": ["Epictetus", "Marcus Aurelius", "Seneca", "Musonius Rufus"],
+      "question": "Which part of this is up to the one doing it, and which is weather?",
+      "families": ["ceremony", "closing", "practice", "learning", "control"],
+      "fake": "A Stoic line used as consolation rather than as a sorting of what is in one's power."
+    },
+    {
+      "page": "The Dichotomy of Control",
+      "voices": ["Epictetus"],
+      "question": "Does this sort what it can act on from what it can only meet?",
+      "families": ["queue", "decision", "board", "ceremony"]
+    },
+    {
+      "page": "The View From Above",
+      "voices": ["Marcus Aurelius"],
+      "question": "What does this concern look like from an altitude that resizes it?",
+      "families": ["map", "topology", "composting", "altitude"]
+    },
+    {
+      "page": "The Four Virtues",
+      "voices": ["Epictetus", "Marcus Aurelius"],
+      "question": "Is this wisdom, justice, courage or temperance at work — and which one is missing?",
+      "families": ["agent", "handoff", "closing", "ethic"]
+    },
+    {
+      "page": "Confucianism",
+      "voices": ["Confucius", "Mencius", "Xunzi"],
+      "question": "Where is the relation that makes this good, and what does repeated practice of it teach the body?",
+      "families": ["coupling", "teaching", "ceremony", "ritual", "transmission", "rules"],
+      "fake": "A Confucian line that praises harmony in general and names no relation."
+    },
+    {
+      "page": "Like Water",
+      "voices": ["Laozi", "Zhuangzi"],
+      "question": "Where is this forcing what could flow, and what would it be to leave it alone?",
+      "families": ["drift", "walk", "wu-wei", "not-doing", "emptiness"]
+    },
+    {
+      "page": "The Drift",
+      "voices": ["Zhuangzi"],
+      "question": "What here is being deliberately left alone, and is the leaving-alone the work?",
+      "families": ["drift", "composting", "dormancy", "architecture-of-none"]
+    },
+    {
+      "page": "Deleuze",
+      "voices": ["Gilles Deleuze", "Deleuze and Guattari"],
+      "question": "Is this a field of the virtual being actualized, or a set of options being chosen?",
+      "families": ["generative", "synthesis-space", "wavetable", "granular", "particle", "rhizome", "inference"],
+      "fake": "Vocabulary transplant: 'virtual', 'intensity', 'rhizome' sprinkled on a page whose mechanism they do not touch."
+    },
+    {
+      "page": "Whitehead",
+      "voices": ["Alfred North Whitehead"],
+      "question": "Is this a thing or a process — and what does each occasion take up from what came before?",
+      "families": ["mathematical-form", "commit", "process", "relations-primary", "link"]
+    },
+    {
+      "page": "Simondon",
+      "voices": ["Gilbert Simondon"],
+      "question": "Is this design concretizing — fewer parts, more integration — or just gaining features?",
+      "families": ["instrument", "interface", "design", "tool", "skill-file"]
+    },
+    {
+      "page": "Merleau-Ponty",
+      "voices": ["Maurice Merleau-Ponty"],
+      "question": "Can this be absorbed into the body schema — does it disappear in use?",
+      "families": ["instrument", "interface", "front-end", "medium", "embodiment"]
+    },
+    {
+      "page": "Palace Philosophies",
+      "voices": ["Plato", "Leibniz", "Machiavelli", "Zen tradition", "Taoist tradition"],
+      "question": "Not a lens. The hub has no apparatus of its own, so The Lens's fidelity test cannot run through it.",
+      "families": [],
+      "note": "Plato, Leibniz, Machiavelli, Zen and Taoism are in the register but have no page yet, so they have no glass yet: no quote through those voices until the page exists. Each is an invitation to write the page. The placer warns when a lens resolves to a hub."
+    }
+  ]
+}

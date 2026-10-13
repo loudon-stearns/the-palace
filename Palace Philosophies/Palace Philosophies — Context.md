@@ -22,7 +22,7 @@ Non-conceptual and direct. The thinking mind is not the obstacle — clinging to
 
 ## Confucianism
 
-Relational ethics, virtue through sustained practice. Core: **ren** (benevolence), **li** (ritual propriety — the grammar of a good life), **junzi** (the exemplary person). Learning is continuous self-cultivation. In our work: the teaching relationship is Confucian — mutual obligation, not knowledge-for-tuition; practice as irreducible is Confucian as much as Zen; the palace is a Confucian project, a form of *li*. Seed quote: *"A rule without understanding produces compliance. Understanding without rules produces wisdom."* (See [[Palace Quotes]].)
+Relational ethics, virtue through sustained practice. Core: **ren** (benevolence), **li** (ritual propriety — the grammar of a good life), **junzi** (the exemplary person). Learning is continuous self-cultivation. In our work: the teaching relationship is Confucian — mutual obligation, not knowledge-for-tuition; practice as irreducible is Confucian as much as Zen; the palace is a Confucian project, a form of *li*. Seed quote: *"A rule without understanding produces compliance. Understanding without rules produces wisdom."* — the palace's own line, after the tradition; [[Palace Quotes]] lays it on [[ELDER]].
 
 ## Taoism
 

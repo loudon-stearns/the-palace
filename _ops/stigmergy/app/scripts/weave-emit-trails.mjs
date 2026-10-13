@@ -17,6 +17,7 @@ import { fileURLToPath } from 'node:url';
 import { readFileSync, existsSync } from 'node:fs';
 import { readJsonl, appendMessage } from '@stigmergy/core/blackboard';
 import { validateMessage } from '@stigmergy/core/schema';
+import { latestOpus } from '../../../models/latest-opus.mjs';
 
 const __dir = dirname(fileURLToPath(import.meta.url));
 const argv = process.argv.slice(2);
@@ -36,7 +37,7 @@ const msgs = trails.map((t, i) => ({
   ts: new Date(Date.now() + i).toISOString(),
   session_id: `weave-${weave}`,
   from: 'COORDINATOR', to: '*', type: 'BROADCAST', board: 'WEAVE',
-  health: { score: 'green', model: 'claude-opus-5-5',
+  health: { score: 'green', model: latestOpus(),
             _orchestrator_metadata: { dispatch_mode: 'claude-code', note: `pheromone trail from the ${weave} weave` } },
   payload: {
     kind: 'weave_flag', flag_type: 'pheromone-trail',

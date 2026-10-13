@@ -138,7 +138,7 @@ A Stoic note on the honesty discipline itself: "nothing is real until committed 
 
 ## Phasing (for a later build session)
 
-1. `philosophical-lens` card type rendered inline in STATE (reuses bundle rich-content engine). Lowest cost, immediate value — keeps the `philosophy`-tag promise.
+1. `philosophical-lens` card type rendered inline in STATE (reuses bundle rich-content engine). Lowest cost, immediate value — keeps the `philosophy`-tag promise. *Partly real since 2026-10-13: [[Palace Quotes]] lays a one-line lens reading — a quote — after the paragraph it reads, from its own ledger, never the entry file. The full Visit card is still owed.*
 2. `contradicts` two-tone treatment in the STATE typed-relation panel; the Fortress/Threshold built view.
 3. `DIALECTICS` lane in QUEUE + `[V]ISIT` → TRICKSTER `RESOURCE_REQUEST`.
 4. `[L]ENS` read-only filter via on-demand inference.

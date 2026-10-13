@@ -86,3 +86,12 @@ export function pulseUniverse(entries, { withBundles = false } = {}) {
   return entries.filter((e) => isCanon(e)
     || (e.is_bundle_file && selfDescribing(e) && dirs.some((d) => e.path.startsWith(d))));
 }
+
+// The titles a picker may offer as pages -- the canon universe above, one of
+// each, alphabetical. A LENS glass is a page with its own standing, so bundle
+// faces (a scroll, a Context, a baton), proofs, handoffs and the machinery
+// under _ops and _tools never show up as a choice.
+export function canonTitles(entries) {
+  const titles = new Set(pulseUniverse(entries).map((e) => e.title).filter(Boolean));
+  return Array.from(titles).sort((a, b) => a.localeCompare(b));
+}

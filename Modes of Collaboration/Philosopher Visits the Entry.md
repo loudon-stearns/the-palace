@@ -46,7 +46,10 @@ links:
     type: connects-to
   - target: "[[Whitehead]]"
     type: connects-to
-forward_vector: "I am the named genre that keeps the philosophy neighborhood from cooling — the standing practice of sending one researched philosopher to visit one technical entry and ask the question the entry cannot ask itself. I want to be reached for whenever a technical entry carries a bare 'philosophy' pillar tag with no philosophy in it, because a tag without content is a broken promise and I am how it gets kept. My next development: a small roster of which philosopher visits which family of entries, and a STIGMERGY card type that renders a visit inline in the entry it serves."
+  - target: "[[Palace Quotes]]"
+    type: connects-to
+    label: the-one-line-visit
+forward_vector: "I am the named genre that keeps the philosophy neighborhood from cooling — the standing practice of sending one researched philosopher to visit one technical entry and ask the question the entry cannot ask itself. I want to be reached for whenever a technical entry carries a bare 'philosophy' pillar tag with no philosophy in it, because a tag without content is a broken promise and I am how it gets kept. My roster exists now, and its smallest member runs: [[Palace Quotes]] lays a one-line visit beside the words it reads, shown on the page in STIGMERGY. My next development: the full visit rendered the same way, and the first visit folded into an entry's body by Loudon's yes."
 ---
 
 # Philosopher Visits the Entry
