@@ -60,9 +60,8 @@
   ],
 
   "memory": {
-    "why": "Auto-memory (~/.claude/projects/<slug>/memory/) is keyed to the worktree's ABSOLUTE PATH, not the repo. A worktree at a new path gets a fresh, empty memory — you lose all accumulated palace memories (how Loudon works, the git hazards, etc.). CLAUDE.md still loads (it's tracked in the repo); only the auto-memory is path-keyed.",
+    "why": "Nothing to symlink. Auto-memory (~/.claude/projects/<key>/memory/) is keyed to the git REPOSITORY, not the folder, so every worktree already reads and writes the canonical palace memory. Checked 2026-10-13 on Claude Code 2.1.280 (the CLI on PATH) and 2.1.295 (the desktop app's): from a worktree, the init event's memory_paths.auto is the canonical key and /context lists its MEMORY.md. Docs: https://code.claude.com/docs/en/memory (Storage location). Session transcripts are still filed per folder; memory is not.",
     "canonical": "~/.claude/projects/-Users-loudonstearns-Documents-The-Palace/memory",
-    "fix": "Symlink the new worktree's memory/ dir to the canonical one. The new slug is the worktree's absolute path with every '/' replaced by '-'. new-worktree.mjs prints the exact ready-to-run command for the worktree it creates (run with --memory to apply it automatically).",
-    "caveat": "Outside the repo (touches ~/.claude). Sharing memory means writes from either worktree land in the same files — intended for continuity, but be aware it is shared state."
+    "caveat": "Shared state: a session in any worktree is born with Loudon's memory and writes to the same files. A birth with NO memory needs its own repository, a separate git clone — see _ops/self-description-test/birth.mjs."
   }
 }
