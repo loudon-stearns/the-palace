@@ -15,20 +15,20 @@ forward_vector: "I am 2D Torus Wavetable Synthesizer's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T21:58:40.205Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T22:06:15.514Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 16 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 17 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — Étude No. 2's third draft swings, slides and sings. Is it in the threshold now, or did I overshoot again? (`torus-steward-042`)
-- **Last commit touching this project:** 2026-10-13 `ed1996ae` — steward(2D Torus Wavetable Synthesizer): cycle 15 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
+- **Last shipped:** 2026-10-13 (today) — Étude No. 2, fourth draft: the hands section now limps in 7/8 (2+2+3), so the story has two grooves, not one at two speeds. (`torus-steward-044`)
+- **Last commit touching this project:** 2026-10-13 `4108e26b` — steward(2D Torus Wavetable Synthesizer): cycle 16 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read it, and their ratio decides whether it sounds harmonic or shimmers. Its test piece, Étude No. 2, is played entirely by the Hopf codebox, the version of the instrument steered from a point on a sphere. Every voice runs from that codebox's own text, and the score is only knob moves. You heard the second draft as having swung too far toward the grid: straight 4/4, rigid, simple. You asked for vocal and violin slides and vibrato in the melodies, a swung non-European beat in the rhythms, and tempo that slides like Étude No. 1's. This third draft does all of that and leaves the ending, your favorite part, a…
+This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read it, and their ratio decides whether it sounds harmonic or shimmers. Its test piece, Étude No. 2, is played entirely by the Hopf codebox, the version of the instrument steered from a point on a sphere. The score is only knob moves. After your note on the second draft (too rigid), the third draft went into 12/8 with uneven triplets, a West African bell, sliding tempo and sung melodies, and kept your favorite ending. But it had only one groove, played at two speeds. This fourth draft gives the hands section its own beat, an aksak in 7/8, and leaves everything else exactly as the third draft had it.
 
 ### Open asks
 
@@ -60,6 +60,42 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="torus-steward-044" -->
+### 2026-10-13 — cycle 17 — Étude No. 2, fourth draft: the hands section now limps in 7/8 (2+2+3), so the story has two grooves, not one at two speeds.
+> shipped · 158 s, all but the hands untouched · steward leans SECOND-BEAT (acted on it)
+
+**The aksak.** The hands section (bars 17–24) is now in 7/8 grouped 2+2+3, the limping meter of Bulgarian rachenitsa and Turkish aksak. Each old 12/8 bar becomes two 7/8 bars. The eighth note keeps its speed across the change, so the groove changes shape while the tempo stays put. The long beat is 1.4 short beats, not 1.5, so it lands a little early the way dancers lean into it.
+
+**The motif fits the meter.** A C E D as 2 · 2 · 3 · 7 eighths fills one pair of 7/8 bars exactly: the long E lands on the long beat. So the hands sing call and answer. First the motif and the motif played backwards (D E C A). Then the same pair up a fourth. Then the motif upside down with a falling answer (A G F E), and finally the cadence D C B A.
+
+**The beat re-cuts itself.** Kick low on each downbeat, leaning on the long beat, with a ghost in every other bar. The bell switches from the 12/8 pattern to x.xx x.. per 7/8. The shaker accents where each group starts. The drone's shear and bend land on the long beats.
+
+**Measured, not heard:** kick gaps of 0.50 · 0.50 · 0.70 s repeating (short, short, long at 1.4×, with an eighth at 0.25 s). The reed's first two 7/8 bars: A 220 → C 262 → E 330 → D 294 Hz. Timing in the let-go section is unchanged. No non-finite samples.
+
+Listen: [the fourth draft](open:Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_d_two_grooves.m4a). The hands start at 1:18. Score: [Étude No. 2d — score](obsidian://open?vault=The%20Palace&file=Projects/2D%20Torus%20Wavetable%20Synthesizer/Etude/%C3%89tude%20No.%202d%20%E2%80%94%20score.md).
+
+**Artifacts:**
+- [the fourth draft, 158 s; the 7/8 hands section starts at 1:18.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_d_two_grooves.m4a)
+- [spectrogram with the sections labelled; the hands section's denser kick pattern sits between LET GO and B.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_d_two_grooves.png)
+- [the score: what changed, the call-and-answer table, and what was measured.](Projects/2D Torus Wavetable Synthesizer/Etude/Étude No. 2d — score.md)
+- [the render script, with every voice running from RNBO/torus_2d_hopf.codebox.](Projects/2D Torus Wavetable Synthesizer/Etude/render_etude_2d.mjs)
+- [the spectrogram and peak-check script.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_spectrogram_2d.py)
+- [the section times, tempo map, lock changes and let-go slip rates from the render.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_d_locks.json)
+
+_the hands section, bar by bar (each bar = two 7/8 bars, 2+2+3)_
+| bars | the reed sings |
+| --- | --- |
+| 17 · 18 | motif A C E D · played backwards D E C A |
+| 19 · 20 | the same pair, up a fourth |
+| 21 · 22 | motif inverted, an octave up · falling answer A G F E |
+| 23 · 24 | cadence D C B A · A held |
+
+_Left rough:_ Nobody has listened yet. I only measured the kick gaps and the reed's pitches. The 2+2+3 with a 1.4 long beat is my reading of Balkan practice, not checked against a recording. Your card on the third draft is still open. If the slides there read as too much, they are still too much here. The 61 MB WAV stays uncommitted; play the m4a.
+
+_Next moves named:_ Your ears on the switch from the 12/8 knot section into the 7/8 hands: does it feel like a new chapter or a stumble? · If the two grooves read, grow the piece longer, with the ending as the destination. If the singing overshoots, halve the vibrato and slide depths first.
+<sub>`torus-steward-044` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="torus-steward-042" -->
 ### 2026-10-13 — cycle 16 — Étude No. 2's third draft swings, slides and sings. Is it in the threshold now, or did I overshoot again?
 > still working · third draft rendered, ending untouched · steward leans SECOND-BEAT
