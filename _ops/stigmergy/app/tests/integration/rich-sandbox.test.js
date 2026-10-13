@@ -67,6 +67,9 @@ function makeTempPalace() {
     '## Raw',  '',
     'Press <kbd><img/src=x onerror="window.__xss=\'kbd\'"></kbd> to go.', '',
     'Then <code><img/src=x onerror="window.__xss=\'code\'"></code> too.', '',
+    '## Links', '',
+    '[run](javascript:window.__js=\'link\') · [cased](JaVaScRiPt:window.__js=\'case\') · <javascript:window.__js=\'auto\'> · ![pic](javascript:window.__js=\'img\')', '',
+    '[site](https://example.com/) · [mail](mailto:someone@example.com) · [[Other Entry]] · [bundle](Probe%20Entry/bare.html)', '',
     '## Keys <kbd><img/src=x onerror="window.__xss=\'heading\'"></kbd>', '',
     'Under a heading.', '',
     '```mermaid', 'flowchart LR', '  A["<b>K &lt; K_c</b><br/>drift"] --> B["lock"]', '  click A href "javascript:markClicked()"', '```', '',
@@ -75,10 +78,12 @@ function makeTempPalace() {
   writeFileSync(resolve(root, ENTRY, 'probe.html'), PROBE, 'utf8');
   // STIGMERGY's reader frames the rich face on its own origin (RichFaceFrame.jsx).
   writeFileSync(resolve(root, 'framer.html'), `<!doctype html><body><iframe id="rf" style="width:1200px;height:900px" src="/rich/?entry=${encodeURIComponent(ENTRY)}&review=0"></iframe></body>`, 'utf8');
+  writeFileSync(resolve(root, ENTRY, 'note.md'), "---\ntitle: note\n---\nA [t](javascript:window.__js='textpiece') link.\n", 'utf8');
   writeFileSync(resolve(root, ENTRY, 'bare.html'), '<!doctype html><body><div style="height:1200px">tall</div></body>', 'utf8');
   for (const [n] of KPIECES) copyFileSync(resolve(KURAMOTO, `Kuramoto Coupling — rich — ${n}.html`), resolve(root, ENTRY, `${n}.html`));
   writeFileSync(resolve(root, ENTRY, `${ENTRY} — rich.json`), JSON.stringify({ entry: ENTRY, sections: [{ heading: 'Pieces', pieces: [
-    { file: 'probe.html', origin: 'made', height: 500 },
+    { file: 'probe.html', origin: 'made', height: 500, caption: "A [cap](javascript:window.__js='caption') link." },
+    { file: 'note.md', origin: 'made' },
     { file: 'bare.html', origin: 'made' },
     ...KPIECES.map(([n, height]) => ({ file: `${n}.html`, origin: 'made', height })),
   ] }] }), 'utf8');
@@ -151,7 +156,7 @@ describe.skipIf(!chromium)('the rich face in a browser', () => {
   }, 30000);
 
   test('a piece takes its manifest height, and one without gets the default', async () => {
-    const heights = await page.$$eval('figure[data-piece]', (fs) => Object.fromEntries(fs.map((f) => [f.dataset.piece, f.querySelector('iframe').style.height])));
+    const heights = await page.$$eval('figure[data-piece]', (fs) => Object.fromEntries(fs.filter((f) => f.querySelector('iframe')).map((f) => [f.dataset.piece, f.querySelector('iframe').style.height])));
     expect(heights['probe.html']).toBe('500px');
     for (const [n, h] of KPIECES) expect(heights[`${n}.html`]).toBe(`${h}px`);
     expect(heights['bare.html']).toBe(DEFAULT_HEIGHT);
@@ -217,6 +222,21 @@ describe.skipIf(!chromium)('the rich face in a browser', () => {
     await page.waitForSelector('section.sec[data-key="raw"] .prose');
     expect(await page.evaluate(() => window.__xss)).toBeUndefined();
     expect(await page.$$eval('#sections [onerror], #sections script', (els) => els.length)).toBe(0);
+  });
+
+  // Only http(s), mailto and relative or palace paths survive in href and src —
+  // in prose, a caption and a .md text piece alike.
+  test('a link to javascript: is dropped; web, mail and palace links stay', async () => {
+    await page.waitForSelector('figure[data-piece="note.md"] .textpiece');
+    const urls = await page.$$eval('#sections a[href], #sections img[src]', (els) => els.filter((e) => !e.closest('.diagram'))
+      .map((e) => { const v = e.getAttribute('href') ?? e.getAttribute('src'); return { v, protocol: new URL(v, location.href).protocol }; }));
+    expect(urls.filter((u) => !['http:', 'https:', 'mailto:'].includes(u.protocol))).toEqual([]);
+    const hrefs = urls.map((u) => u.v);
+    expect(hrefs).toContain('https://example.com/');
+    expect(hrefs).toContain('mailto:someone@example.com');
+    expect(hrefs.some((h) => h.startsWith('?entry=Other%20Entry'))).toBe(true);
+    for (const name of ['run', 'cased', 'cap', 't']) await page.locator('#sections a', { hasText: new RegExp(`^${name}$`) }).first().click({ timeout: 5000 }).catch(() => {});
+    expect(await page.evaluate(() => window.__js)).toBeUndefined();
   });
 
   // Under 'loose', mermaid keeps a click directive's javascript: link as written.
