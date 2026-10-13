@@ -191,6 +191,50 @@ function safeHtml(raw) {
 }
 marked.use({ renderer: { html: (html) => safeHtml(html) } });
 
+// The guarantee, whatever marked's lexer did on the way. After an inline <kbd>,
+// <code>, <pre> or <script> it is "in a raw block" and emits the text that
+// follows unescaped, past the renderer above. So the final HTML is parsed inert
+// (a <template> runs nothing and loads nothing) and every element and attribute
+// this page did not choose is dropped before it reaches innerHTML: markdown's
+// own elements, KEEP_TAGS, and per element the attributes listed here.
+const ALLOWED = {
+  p: [], br: [], hr: [], blockquote: [], ul: [], ol: ['start'], li: [], pre: [], code: ['class'],
+  h1: [], h2: [], h3: [], h4: [], h5: [], h6: [], em: [], strong: [], del: [],
+  table: [], thead: [], tbody: [], tr: [], th: ['align'], td: ['align'],
+  a: ['href', 'title', 'class'], img: ['src', 'alt', 'title'], input: ['type', 'checked', 'disabled'],
+  b: [], i: [], u: [], s: [], ins: [], mark: [], small: [], sub: [], sup: [], kbd: [], div: ['class'], span: ['class'],
+};
+// Gone with everything inside them; any other element not allowed is unwrapped
+// and its words kept.
+const DROP_WHOLE = new Set(['script', 'style', 'template', 'noscript', 'iframe', 'frame', 'object', 'embed',
+  'svg', 'math', 'title', 'textarea', 'select', 'button', 'form', 'link', 'meta', 'base']);
+function keepAttr(tag, a) {
+  if (!ALLOWED[tag].includes(a.name)) return false;
+  if (a.name === 'class') return /^[\w\s-]*$/.test(a.value);
+  if (tag === 'input' && a.name === 'type') return a.value === 'checkbox';
+  return true;
+}
+function sanitize(html) {
+  const t = document.createElement('template');
+  t.innerHTML = html;
+  const walk = (node) => {
+    for (const child of [...node.childNodes]) {
+      if (child.nodeType === Node.COMMENT_NODE) { child.remove(); continue; }
+      if (child.nodeType !== Node.ELEMENT_NODE) continue;
+      const tag = child.localName;
+      if (!Object.hasOwn(ALLOWED, tag) || (tag === 'input' && child.getAttribute('type') !== 'checkbox')) {
+        if (DROP_WHOLE.has(tag)) child.remove();
+        else { walk(child); child.replaceWith(...child.childNodes); }
+        continue;
+      }
+      for (const a of [...child.attributes]) if (!keepAttr(tag, a)) child.removeAttribute(a.name);
+      walk(child);
+    }
+  };
+  walk(t.content);
+  return t.innerHTML;
+}
+
 const params = new URLSearchParams(location.search);
 const ENTRY = params.get('entry') || 'Kuramoto Coupling';
 // The public read view serves this page static (scripts/build-public.mjs sets
@@ -247,7 +291,7 @@ function mdToHtml(md, inline = false) {
       return `[${l}](?entry=${encodeURIComponent(t.split('#')[0])}${REVIEW ? '' : '&review=0'} "wl")`;
     });
   let html = inline ? marked.parseInline(pre) : marked.parse(pre);
-  return html.replace(/<a href="([^"]*)" title="wl">/g, '<a class="wl" href="$1">');
+  return sanitize(html.replace(/<a href="([^"]*)" title="wl">/g, '<a class="wl" href="$1">'));
 }
 
 // ── the one custom control: an audio strip with no browser chrome ──

@@ -62,6 +62,13 @@ function makeTempPalace() {
     '<div class="eq">e<sup>iθ</sup></div>', '',
     '<!-- a note to the next agent -->', '',
     'The tag <date> is a placeholder.', '',
+    // After an inline <kbd>, <code>, <pre> or <script>, marked emits the text that
+    // follows raw (its lexer is "in a raw block"), past the html renderer.
+    '## Raw',  '',
+    'Press <kbd><img/src=x onerror="window.__xss=\'kbd\'"></kbd> to go.', '',
+    'Then <code><img/src=x onerror="window.__xss=\'code\'"></code> too.', '',
+    '## Keys <kbd><img/src=x onerror="window.__xss=\'heading\'"></kbd>', '',
+    'Under a heading.', '',
     '```mermaid', 'flowchart LR', '  A["<b>K &lt; K_c</b><br/>drift"] --> B["lock"]', '  click A href "javascript:markClicked()"', '```', '',
   ].join('\n'), 'utf8');
   mkdirSync(resolve(root, ENTRY), { recursive: true });
@@ -205,6 +212,12 @@ describe.skipIf(!chromium)('the rich face in a browser', () => {
       expect(outer.url()).toBe(`${base}/rich/framer.html`);
     } finally { await outer.close(); }
   }, 60000);
+
+  test('text marked emits raw after <kbd>, <code> or in a heading runs nothing', async () => {
+    await page.waitForSelector('section.sec[data-key="raw"] .prose');
+    expect(await page.evaluate(() => window.__xss)).toBeUndefined();
+    expect(await page.$$eval('#sections [onerror], #sections script', (els) => els.length)).toBe(0);
+  });
 
   // Under 'loose', mermaid keeps a click directive's javascript: link as written.
   test('a diagram renders strict: bold labels kept, a javascript: link in it dead', async () => {
