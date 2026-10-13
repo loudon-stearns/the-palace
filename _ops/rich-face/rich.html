@@ -209,13 +209,16 @@ const ALLOWED = {
 const DROP_WHOLE = new Set(['script', 'style', 'template', 'noscript', 'iframe', 'frame', 'object', 'embed',
   'svg', 'math', 'title', 'textarea', 'select', 'button', 'form', 'link', 'meta', 'base']);
 // A link or image goes only to the web, to mail, or somewhere in the palace (a
-// relative path). Resolved the way the browser would, so case, spaces and tabs
-// can't dress a javascript: URL up as something else.
+// relative path); a link may also open the vault in Obsidian (obsidian:, a local
+// app, no script). Resolved the way the browser would, so case, spaces and tabs
+// can't dress a javascript: URL up as something else. open:, STIGMERGY's own
+// pseudo-scheme, never worked here and is not kept.
 const SAFE_PROTOCOLS = new Set(['http:', 'https:', 'mailto:']);
-const safeUrl = (v) => { try { return SAFE_PROTOCOLS.has(new URL(v, location.href).protocol); } catch { return false; } };
+const safeUrl = (v, also = []) => { try { const p = new URL(v, location.href).protocol; return SAFE_PROTOCOLS.has(p) || also.includes(p); } catch { return false; } };
 function keepAttr(tag, a) {
   if (!ALLOWED[tag].includes(a.name)) return false;
-  if (a.name === 'href' || a.name === 'src') return safeUrl(a.value);
+  if (a.name === 'href') return safeUrl(a.value, ['obsidian:']);
+  if (a.name === 'src') return safeUrl(a.value);
   if (a.name === 'class') return /^[\w\s-]*$/.test(a.value);
   if (tag === 'input' && a.name === 'type') return a.value === 'checkbox';
   return true;

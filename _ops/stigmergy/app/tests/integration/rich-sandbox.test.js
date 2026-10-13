@@ -70,6 +70,7 @@ function makeTempPalace() {
     '## Links', '',
     '[run](javascript:window.__js=\'link\') · [cased](JaVaScRiPt:window.__js=\'case\') · <javascript:window.__js=\'auto\'> · ![pic](javascript:window.__js=\'img\')', '',
     '[site](https://example.com/) · [mail](mailto:someone@example.com) · [[Other Entry]] · [bundle](Probe%20Entry/bare.html)', '',
+    '[vault](obsidian://open?vault=The%20Palace&file=Kuramoto%20Coupling) · [native](open:Probe%20Entry/bare.html)', '',
     '## Keys <kbd><img/src=x onerror="window.__xss=\'heading\'"></kbd>', '',
     'Under a heading.', '',
     '```mermaid', 'flowchart LR', '  A["<b>K &lt; K_c</b><br/>drift"] --> B["lock"]', '  click A href "javascript:markClicked()"', '```', '',
@@ -266,13 +267,17 @@ describe.skipIf(!chromium)('the rich face in a browser', () => {
   });
 
   // Only http(s), mailto and relative or palace paths survive in href and src —
-  // in prose, a caption and a .md text piece alike.
+  // in prose, a caption and a .md text piece alike — and obsidian: in an href,
+  // the door into Loudon's vault (it opens a local app and carries no script).
   test('a link to javascript: is dropped; web, mail and palace links stay', async () => {
     await page.waitForSelector('figure[data-piece="note.md"] .textpiece');
     const urls = await page.$$eval('#sections a[href], #sections img[src]', (els) => els.filter((e) => !e.closest('.diagram'))
-      .map((e) => { const v = e.getAttribute('href') ?? e.getAttribute('src'); return { v, protocol: new URL(v, location.href).protocol }; }));
-    expect(urls.filter((u) => !['http:', 'https:', 'mailto:'].includes(u.protocol))).toEqual([]);
+      .map((e) => { const attr = e.hasAttribute('href') ? 'href' : 'src'; const v = e.getAttribute(attr); return { attr, v, protocol: new URL(v, location.href).protocol }; }));
+    const allowed = { href: ['http:', 'https:', 'mailto:', 'obsidian:'], src: ['http:', 'https:', 'mailto:'] };
+    expect(urls.filter((u) => !allowed[u.attr].includes(u.protocol))).toEqual([]);
     const hrefs = urls.map((u) => u.v);
+    expect(hrefs).toContain('obsidian://open?vault=The%20Palace&file=Kuramoto%20Coupling');
+    expect(hrefs.filter((h) => /^open:/i.test(h))).toEqual([]);
     expect(hrefs).toContain('https://example.com/');
     expect(hrefs).toContain('mailto:someone@example.com');
     expect(hrefs.some((h) => h.startsWith('?entry=Other%20Entry'))).toBe(true);
