@@ -102,6 +102,27 @@ describe('postDecisions — round-trip onto a test board', () => {
   });
 });
 
+describe('a request with no request_id — the engine answers it the way the deck does', () => {
+  it('its auto-grant correlates by message id, passes posting discipline, and both readers clear it', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'trickster-auto-noid-'));
+    const board = join(dir, 'board.jsonl');
+    // req-D (the one grantable ask on the mini-board), posted without a request_id.
+    const { request_id: _dropped, ...noId } = readJsonl(FIX('mini-board.jsonl')).find((m) => m.request_id === 'req-D');
+    appendMessage(board, noId);
+
+    const { pending } = buildInbox(readJsonl(board));
+    expect(pending.map((p) => p.request_id)).toEqual(['mb-D']);
+    const posted = postDecisions(evaluateBatch(pending, ruleset, null), { boardPath: board, now: NOW });
+    expect(posted).toHaveLength(1);
+    expect(posted[0].re).toBe('mb-D');
+    expect(validateForPosting(posted[0]).valid).toBe(true);
+
+    const after = readJsonl(board);
+    expect(buildInbox(after).pending).toEqual([]);
+    expect(appBuildInbox(after).pending_requests).toEqual([]);
+  });
+});
+
 describe('audition safety on the write path — auditions are NEVER posted', () => {
   it('postDecisions skips every audition/escalation (req-A, req-C never produce a grant/deny)', () => {
     const board = readJsonl(FIX('mini-board.jsonl'));
