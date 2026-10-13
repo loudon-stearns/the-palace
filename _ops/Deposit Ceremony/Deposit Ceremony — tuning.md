@@ -73,8 +73,13 @@ What each deposit taught the ceremony. Each item names what the run showed and t
 21. **The cold read ran before Loudon read, by a reader who had not shaped the map.** Step 6 names the Concierge as cold reader when an elder places, but here the Concierge had advised every link in the map. A fresh `palace-reader` was given the map and the placement instead. It found the page's central claim stated wider than its source, the one held tension misdescribed, a direction that contradicted the page's own scope, and six smaller overclaims; all were corrected before the words reached Loudon. A second fresh reader then tested only the rewritten sentences before the commit and found none failing; its three looser notes went back to Loudon as offered edits, so the words he approved are the words that landed. **Owed:** step 6 to name the cold reader as one who did not advise the map, and to say that sentences rewritten after a cold read are read again by someone other than their writer.
 22. **Drafts kept in a scratch folder did not survive the wait for Loudon's read.** Six days passed between the map and his yes. The entry waited safely in its worktree (item 15), but the Concierge's drafts for the follow-on edits were in the session's scratch folder under `/private/tmp`, and the system had cleared it. They were re-applied from the session's own reading of them. The same landing met another session's uncommitted edit to this ledger in the trunk, so this run's lines landed as their own edit after that one was committed. **Owed:** with item 15's line, step 6 to say that anything waiting on Loudon's read waits in the worktree, on a branch, not in a scratch folder.
 
+## From The Daily Page mint — 2026-10-13
+
+23. **A new entry that was also a new ceremony met two commit conventions.** Step 7 asks for `deposit(<id>):` through the committer; [[SCHEMA — Reference]] §5 asks for `Schema Ceremony — [what changed] — v[version]`, which the committer cannot write. This one followed the Sentry's precedent (`a643be87`): the Schema Ceremony's subject, by hand, with the deposit's map in the body. **Spec change owed:** step 7 to say which subject a deposit takes when it is also a Schema Ceremony.
+
 - run · 2026-09-26 · v2.1 · D-2026-09-26-PDLGP · taught item 15
 - run · 2026-09-27 · v2.1 · D-2026-09-27-ZOOM-OUT · nothing new
 - run · 2026-10-05 · v2.1 · D-2026-10-05-KNOB · taught items 16–18
 - run · 2026-10-06 · v2.1 · D-2026-10-06-TOOLKIT · taught item 19
 - run · 2026-10-12 · v2.1 · D-2026-10-06-WAVETABLE · taught items 20–22
+- run · 2026-10-13 · v2.1 · D-2026-10-13-DAILY-PAGE · taught item 23
