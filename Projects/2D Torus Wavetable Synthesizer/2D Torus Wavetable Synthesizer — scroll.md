@@ -15,24 +15,24 @@ forward_vector: "I am 2D Torus Wavetable Synthesizer's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T19:16:37.334Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T19:20:07.856Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 11 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 12 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
-- **Waiting on you:** nothing
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — Every codebox in RNBO/ now has a check before Max: all five match their references, run as written, on the real catalog WAVs. (`torus-steward-028`)
-- **Last commit touching this project:** 2026-10-13 `e50602e6` — steward(2D Torus Wavetable Synthesizer): cycle 10 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
+- **Last shipped:** 2026-10-13 (today) — The first test piece is rendered. Is it music, and which part should the next étude chase? (`torus-steward-031`)
+- **Last commit touching this project:** 2026-10-13 `0d5a1482` — steward(2D Torus Wavetable Synthesizer): cycle 11 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read the surface, and their ratio decides whether the sound is harmonic or shimmering. The instrument exists as Python renderers, a browser instrument (the Hopf sphere) and five Max/RNBO codebox files. Nobody has opened any of the codeboxes in Max yet. Last cycle I built a small translator that runs a codebox's own text and compares it, sample by sample, with the browser engine, but only for the Hopf codebox. This cycle the same check covers the other four: the bare scanner, the warps version, the Kuramoto scan and the warp bank. Each one is run against the Python script that made its auditions, on the sam…
+This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read the surface, and their ratio decides whether it sounds harmonic or shimmers. The instrument exists as five Max/RNBO codebox files. Over the last two cycles each one was checked, sample by sample, against the scripts that made the earlier auditions, and they all match. Nobody has opened them in Max yet. The page has long said the real proof is a piece of music: if the instrument doesn't yield music, the design needs rethinking. So this cycle I wrote one. Every voice in it is the Hopf codebox, the sphere controller with the hands and the dead-line voice, running from its own text on the WAV a Max buffer…
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `torus-steward-031` — directional_decision · posted 2026-10-13 · options: LET-GO · STAIRCASE · HANDS · NOT-MUSIC
 
 ### Answered, not yet consumed
 
@@ -59,6 +59,52 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="torus-steward-031" -->
+### 2026-10-13 — cycle 12 — The first test piece is rendered. Is it music, and which part should the next étude chase?
+> still working · étude shipped, unheard · steward leans LET-GO
+
+Catch-up: this is the torus wavetable synth. Two scan rates read a surface, and their ratio decides whether it sounds harmonic or shimmers. All five Max codeboxes match their reference scripts, but none has been opened in Max. The page says the real test is whether the instrument yields music. So I wrote Étude No. 1: 100 seconds, three voices, every one played by the Hopf codebox's own text. Listen here: [étude](open:Projects/2D Torus Wavetable Synthesizer/Etude/etude_one_sphere.m4a). It has three ideas. The locked staircase is the pitch climbing in snapped steps. The let-go is voices slipping off their ratio so the dead line sings, then being grabbed back. The hands are bend, shear and stir on a low drum. I lean toward the let-go, because it's the one thing no other synth does, and making it a single gesture is a clear next build. I'll keep working either way.
+
+**Artifacts:**
+- [Étude No. 1, 100 s.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_one_sphere.m4a)
+- [its spectrogram, movements labelled.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_one_sphere.png)
+<sub>`torus-steward-031` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="torus-steward-030" -->
+### 2026-10-13 — cycle 12 — I wrote a first test piece, Étude No. 1 ("One Sphere"): 100 seconds, three voices, all played by the Hopf codebox's own text on catalog surfaces.
+> shipped · first music from the prototype, not yet heard · steward leans Loudon listens next
+
+Four movements, in plain words. One: Penrose sits at the bottom of the sphere, where the second scan rate is zero. That is an ordinary 1D wavetable synth, and longitude walks it through the surface's rows. Then the height rises, and because the coupling is on, the pitch climbs in locked steps instead of gliding: 1:4, 1:3, 2:5, 1:2, 3:5, 2:3, 3:4, 4:5, landing on 1:1 at 110 Hz. You can see the staircase in the spectrogram (etude_one_sphere.png). Two: Knot Shadow enters locked at 3:2. Then both voices let go, and their dead lines sing the mistuning before the coupling grabs them back. Three: a low Membrane drone at 55 Hz gets bend, shear and stir. Four: all three let go together and are grabbed back at once.
+
+What the first render taught. In my first coda, dropping the coupling changed nothing, and the spectrogram stayed flat. On the exact ratio, nothing needs coupling to stay locked. A let-go has to be two moves at once: coupling down, height nudged off the ratio. That's a real performance fact about this instrument, and it's now written into the score and the script header. It also bears on how a Max patch should map one 'release' gesture.
+
+Checks: no NaN or infinite samples in any voice. Each voice's level per section, before normalising, sits between −24 and −17 dBFS, so the mix is balanced. The lock targets the codebox visited are logged in etude_locks.json. The listenable copy is AAC, because the 38 MB WAV is over the commit limit; render_etude.mjs rebuilds the WAV in about 3 seconds.
+
+**Artifacts:**
+- [Étude No. 1, 100 s stereo, every voice the Hopf codebox run as written. Not yet heard by anyone.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_one_sphere.m4a)
+- [spectrogram to 700 Hz with the movements labelled: the lock staircase, the knot letting go, the hands, the shared release.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_one_sphere.png)
+- [the score in plain words: who plays, when, and what to listen for.](Projects/2D Torus Wavetable Synthesizer/Etude/Étude No. 1 — score.md)
+- [the score as breakpoints, played through RNBO/torus_2d_hopf.codebox via the shared translator.](Projects/2D Torus Wavetable Synthesizer/Etude/render_etude.mjs)
+- [the spectrogram plus a peak check at named moments.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_spectrogram.py)
+- [every lock target each voice's codebox chose, with times.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_locks.json)
+
+_Étude No. 1: what the codebox actually did (render_etude.mjs, 2026-10-13)_
+| movement | time | score asks | measured |
+| --- | --- | --- | --- |
+| I. one point | 0–12 s | Penrose as a plain 1D synth | partials of 220 Hz (y rate zero) |
+| staircase | 12–30 s | height −1 → 0, coupling 3 Hz | 8 locked steps, lands 1:1 at 29.0 s |
+| II. knot let go | 44–56 s | coupling → 0.3 Hz, height off 3:2 | slip band below 350 Hz; Penrose re-locks 3:2 at 50.1 s |
+| III. hands | 62–84 s | bend, shear, stir on 55 Hz Membrane | upper partials 400–600 Hz bloom and fade |
+| IV. let go together | 84–93 s | all three: coupling off + detune | dense shimmer, then a clean re-grab at 93 s |
+| levels | whole piece | a balanced mix | each voice −24 to −17 dBFS per section; 0 non-finite |
+
+_Left rough:_ Nobody has heard the étude, me included. I can only measure it, so whether it's music is still open, and that's the question that matters. It's played by the codebox's arithmetic, not by RNBO; compiling in Max is still unproven. The mix and the score are my first guesses at taste. The coda's height nudges (0.018, 0.025, 0.035) were picked to be audible, not tuned by ear.
+
+_Next moves named:_ Loudon listens to etude_one_sphere.m4a. That reaction decides whether the next étude goes deeper on the lock staircase, the let-go, or the hands. · Make 'let go' one gesture in the codebox: a release knob that drops coupling and detunes the height together, since the étude shows the two never work alone. · Try the dead-line bank and the voice together (still open from last cycle). · When Loudon has a sitting in Max: run RNBO/check_codeboxes.sh, then open torus_2d_lookup.codebox next to 2d.wave~ and meter A − B.
+<sub>`torus-steward-030` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="torus-steward-028" -->
 ### 2026-10-13 — cycle 11 — Every codebox in RNBO/ now has a check before Max: all five match their references, run as written, on the real catalog WAVs.
 > shipped · all five codeboxes checked, none opened in Max · steward leans dead-line bank + voice next
