@@ -1,0 +1,46 @@
+<DecentSampler minVersion="1.0.0">
+  <!-- built from range+violin_bo5+violin_names56_bo3+violin_names57_bo3_violin_shaped.sfz by to_decentsampler.py -->
+  <!-- SFZ tune (cents) written as tuning (semitones) = tune/100 -->
+  <ui width="812" height="200" bgColor="FF0A0A0F">
+    <tab name="main">
+      <label x="20" y="10" width="772" height="24" text="violin shaped" textColor="FFE8B84A" textSize="18" />
+      <labeled-knob x="20" y="40" width="90" height="90" textSize="14" label="Attack" type="float" minValue="0" maxValue="2" value="0.14" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="ENV_ATTACK" />
+      </labeled-knob>
+      <labeled-knob x="130" y="40" width="90" height="90" textSize="14" label="Release" type="float" minValue="0" maxValue="8" value="0.35" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="ENV_RELEASE" />
+      </labeled-knob>
+      <labeled-knob x="240" y="40" width="90" height="90" textSize="14" label="Volume" type="float" minValue="0" maxValue="1" value="0.8" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="AMP_VOLUME" />
+      </labeled-knob>
+    </tab>
+  </ui>
+  <groups attack="0.14" decay="0" sustain="1" release="0.35" volume="0.8">
+    <group>
+      <sample path="Samples/violin_bo5__violin_G5_s4.wav" rootNote="55" loNote="55" hiNote="56" loVel="0" hiVel="127" tuning="0" loopEnabled="false" />
+      <sample path="Samples/violin_names57_bo3__violin_A4_s2.wav" rootNote="57" loNote="57" hiNote="57" loVel="0" hiVel="127" tuning="-0.01" loopEnabled="false" />
+      <sample path="Samples/range__violin_A#4_s2.wav" rootNote="58" loNote="58" hiNote="58" loVel="0" hiVel="127" tuning="0.06" loopEnabled="false" />
+      <sample path="Samples/violin_names56_bo3__violin_B4_s2.wav" rootNote="59" loNote="59" hiNote="59" loVel="0" hiVel="127" tuning="0.3" loopEnabled="false" />
+      <sample path="Samples/violin_names57_bo3__violin_C5_s3.wav" rootNote="60" loNote="60" hiNote="60" loVel="0" hiVel="127" tuning="0.04" loopEnabled="false" />
+      <sample path="Samples/range__violin_C#5_s1.wav" rootNote="61" loNote="61" hiNote="61" loVel="0" hiVel="127" tuning="-0.09" loopEnabled="false" />
+      <sample path="Samples/violin_names56_bo3__violin_D5_s3.wav" rootNote="62" loNote="62" hiNote="62" loVel="0" hiVel="127" tuning="0.21" loopEnabled="false" />
+      <sample path="Samples/violin_names57_bo3__violin_D#4_s3.wav" rootNote="63" loNote="63" hiNote="63" loVel="0" hiVel="127" tuning="0.02" loopEnabled="false" />
+      <sample path="Samples/violin_bo5__violin_E4_s4.wav" rootNote="64" loNote="64" hiNote="64" loVel="0" hiVel="127" tuning="-0.01" loopEnabled="false" />
+      <sample path="Samples/violin_names56_bo3__violin_F5_s1.wav" rootNote="65" loNote="65" hiNote="65" loVel="0" hiVel="127" tuning="-0.01" loopEnabled="false" />
+      <sample path="Samples/violin_names57_bo3__violin_F#4_s1.wav" rootNote="66" loNote="66" hiNote="66" loVel="0" hiVel="127" tuning="-0.02" loopEnabled="false" />
+      <sample path="Samples/violin_bo5__violin_G3_s5.wav" rootNote="67" loNote="67" hiNote="67" loVel="0" hiVel="127" tuning="0.02" loopEnabled="false" />
+      <sample path="Samples/violin_names56_bo3__violin_G#3_s1.wav" rootNote="68" loNote="68" hiNote="68" loVel="0" hiVel="127" tuning="-0.03" loopEnabled="false" />
+      <sample path="Samples/violin_names57_bo3__violin_A3_s1.wav" rootNote="69" loNote="69" hiNote="69" loVel="0" hiVel="127" tuning="0.11" loopEnabled="false" />
+      <sample path="Samples/violin_bo5__violin_A#3_s4.wav" rootNote="70" loNote="70" hiNote="70" loVel="0" hiVel="127" tuning="-0.01" loopEnabled="false" />
+      <sample path="Samples/violin_names56_bo3__violin_B3_s1.wav" rootNote="71" loNote="71" hiNote="71" loVel="0" hiVel="127" tuning="0" loopEnabled="false" />
+      <sample path="Samples/violin_names57_bo3__violin_C5_s1.wav" rootNote="72" loNote="72" hiNote="72" loVel="0" hiVel="127" tuning="0.04" loopEnabled="false" />
+      <sample path="Samples/violin_bo5__violin_C#4_s5.wav" rootNote="73" loNote="73" hiNote="74" loVel="0" hiVel="127" tuning="-0.01" loopEnabled="false" />
+      <sample path="Samples/violin_bo5__violin_E4_s5.wav" rootNote="76" loNote="75" hiNote="76" loVel="0" hiVel="127" tuning="0" loopEnabled="false" />
+      <sample path="Samples/violin_names56_bo3__violin_F4_s3.wav" rootNote="77" loNote="77" hiNote="77" loVel="0" hiVel="127" tuning="-0.02" loopEnabled="false" />
+      <sample path="Samples/violin_names57_bo3__violin_F#4_s2.wav" rootNote="78" loNote="78" hiNote="78" loVel="0" hiVel="127" tuning="0.01" loopEnabled="false" />
+      <sample path="Samples/violin_bo5__violin_G5_s5.wav" rootNote="79" loNote="79" hiNote="80" loVel="0" hiVel="127" tuning="-0.07" loopEnabled="false" />
+      <sample path="Samples/violin_bo5__violin_A#4_s3.wav" rootNote="82" loNote="81" hiNote="83" loVel="0" hiVel="127" tuning="-0.07" loopEnabled="false" />
+      <sample path="Samples/violin_names57_bo3__violin_C5_s2.wav" rootNote="84" loNote="84" hiNote="96" loVel="0" hiVel="127" tuning="-0.2" loopEnabled="false" />
+    </group>
+  </groups>
+</DecentSampler>

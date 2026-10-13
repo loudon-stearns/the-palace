@@ -15,24 +15,24 @@ forward_vector: "I am Generative Sample Libraries's scroll — the one page that
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-25T20:45:32-04:00 from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T22:48:59.796Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 33 · last ran 2026-09-24 (2 days ago)
-- **Plan:** agreed 2026-09-25 (today) · 0 made things since
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** growing · **Steward:** cycle 35 · last ran 2026-10-13 (today)
+- **Plan:** agreed 2026-09-25 (18 days ago) · 3 made things since
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-09-24 (2 days ago) — The fix works on a second instrument. The flute now has 26 real samples instead of 11, and all 59 keys play in tune. (`gsl-steward-067`)
-- **Last commit touching this project:** 2026-09-25 `da1ecd73` — steward(Generative Sample Libraries): commit what was shipped before cycles committed their own work
+- **Last shipped:** 2026-10-13 (today) — Violin, flute and marimba now each ship as a DecentSampler instrument, with the same keys and every key in tune. (`gsl-steward-072`)
+- **Last commit touching this project:** 2026-09-26 `5b8a1564` — ops(frontmatter): strip retired activation_count/last_activated from 244 entries — v1.26
 - **Signal:** steady
-- **Drift:** 16 cycles since the entry was last consolidated (cycle 17) — the entry body may lag; this scroll does not.
+- **Drift:** 18 cycles since the entry was last consolidated (cycle 17) — the entry body may lag; this scroll does not.
 
 ### Where this stands
 
-Generative Sample Libraries turns a conversation into a playable sampled instrument. Crystal and Shepard-tone have shipped. Source three is your June idea: ask an audio AI to play a given note, then measure whether it did. MusicGen with a hummed guide tone won. MusicGen gets the note name right but picks its own octave, so each take is now filed under the note it actually played. Last cycle, rendering the note names the violin was missing took it from 11 to 25 real samples. This cycle I ran the same script on the flute, to check that the fix isn't a violin one-off.
+Generative Sample Libraries turns a conversation into a playable sampled instrument. Crystal and Shepard-tone shipped in the summer. The current work is your June idea: ask an audio AI to play a named note, then check with pitch detection that it did. MusicGen won, guided by a hummed tone, and Stable Audio is out on your ear. Last cycle cut each instrument down to the keys it can really play and rendered a short tune on each for your ear. That question is still open. This cycle I started on a later part of the plan, writing every open format: the free DecentSampler plugin is how participants actually load an instrument, so all three AI instruments now come as a DecentSampler preset plus a s…
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `gsl-steward-070` — directional_decision · posted 2026-10-13 · options: VIOLIN · FLUTE · MARIMBA · NOTE-JUMPS
 
 ### Answered, not yet consumed
 
@@ -74,6 +74,96 @@ Never start a render you can't finish and post inside one cycle. Chunk long swee
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="gsl-steward-072" -->
+### 2026-10-13 — cycle 35 — Violin, flute and marimba now each ship as a DecentSampler instrument, with the same keys and every key in tune.
+> shipped · your ear call on the three instruments still open · steward leans keep building formats
+
+I wrote to_decentsampler.py, the palace's first DecentSampler writer (I found no earlier one). It reads a built SFZ and writes two files beside it: a .dspreset, which is the XML mapping with Attack, Release and Volume knobs in the Graphite house colours, and a .dslibrary, which zips that preset together with its samples. The script then reads the preset back off disk and plays every key through its mapping with the same pitch check the SFZ builds use. So the claim is about the files as written, not what the writer meant to write.
+
+Two things had to be translated, and the preset says so in its own comments. First, SFZ gives fine-tuning in cents and DecentSampler wants semitones, so the value is divided by 100. Second, SFZ's one-shot mode, where a note plays to the end even after you lift the key, has no DecentSampler equivalent. The marimba gets a 6-second release instead, so each strike rings out after the key comes up.
+
+One trap, now closed. My first check ran in a Python without librosa, and the check quietly fell back to a cruder pitch tracker that often gets notes an octave wrong. It reported the flute as 34/38 keys in tune and an older flute build as 42/59, though both had passed in full. In the project's own Python setup the numbers match exactly, and the script now refuses to grade without librosa.
+
+**Artifacts:**
+- [the converter: SFZ in, DecentSampler preset and zip out, then a key-by-key check of the result](Projects/Generative Sample Libraries/ai-source-probe/to_decentsampler.py)
+- [violin, drop into DecentSampler](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_shaped/range+violin_bo5+violin_names56_bo3+violin_names57_bo3_violin_shaped.dslibrary)
+- [violin preset, readable XML](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_shaped/range+violin_bo5+violin_names56_bo3+violin_names57_bo3_violin_shaped.dspreset)
+- [flute, drop into DecentSampler](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_shaped/range+flute_names56_bo3+flute_names57_bo3_flute_shaped.dslibrary)
+- [flute preset, readable XML](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_shaped/range+flute_names56_bo3+flute_names57_bo3_flute_shaped.dspreset)
+- [marimba, drop into DecentSampler](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/marimba_hit_rung/marimba_hit_ab+marimba_hit_bo3+marimba_hit_mid_bo5_marimba_hit_rung.dslibrary)
+- [marimba preset, with the 6-second release standing in for one-shot](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/marimba_hit_rung/marimba_hit_ab+marimba_hit_bo3+marimba_hit_mid_bo5_marimba_hit_rung.dspreset)
+- [the check behind the table](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/decentsampler.check.json)
+
+_Each DecentSampler instrument, read back from disk and played on every key_
+| instrument | same keys as SFZ | keys in tune | worst cents | zip size |
+| --- | --- | --- | --- | --- |
+| violin (bowed on) | yes | 42 / 42 | 2.4 | 6.8 MB |
+| flute (bowed on) | yes | 38 / 38 | 4.3 | 6.3 MB |
+| marimba (rung out) | yes | 37 / 37 | 1.5 | 2.1 MB |
+
+_Left rough:_ Nobody has opened these in DecentSampler, so plugin loading, knob layout and the marimba's 6-second release are all unverified until you drag a .dslibrary in. To try it, open the violin zip ([open:Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_shaped/range+violin_bo5+violin_names56_bo3+violin_names57_bo3_violin_shaped.dslibrary?reveal]) and play a few keys.
+
+_Next moves named:_ When you answer the ear question on the three instruments, carry the winner forward and put it through the critique-and-regenerate loop inside the interview · Next format: write loop points into each WAV's smpl chunk and check loop seams for clicks, so the bowed violin and flute can sustain past their sample length · Then SF2, converted from the SFZ with ConvertWithMoss
+<sub>`gsl-steward-072` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="gsl-steward-070" -->
+### 2026-10-13 — cycle 34 — Three AI-sourced instruments, one tune each. Which one sounds most like a single player?
+> still working · all keys in tune · steward leans your ear on the violin first
+
+Catch-up: this project's current move is making an audio AI a real source. MusicGen plays each note, pitch detection files every take under the note it actually played, and the steadiest takes become the instrument. The move counts as done when one of these sounds right to you. Measurement can't get it there for you. This cycle I trimmed the violin, flute and marimba to their real ranges, and gave each one a 40-second scale-and-tune that crosses 9 to 14 different samples. Pick the one that holds together best, or tell me where a note jumps out. If you name a note, I'll re-render just that one. I'm still working either way. Next I'm packaging these as DecentSampler presets, which doesn't need your answer.
+
+**Artifacts:**
+- [Violin tune.](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_shaped/phrase.wav)
+- [Flute tune.](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_shaped/phrase.wav)
+- [Marimba tune.](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/marimba_hit_rung/phrase.wav)
+- [ab.wav](Projects/Generative Sample Libraries/ai-source-probe/instruments/by_played_names/flute_shaped/ab.wav)
+- [audition.wav](Projects/Generative Sample Libraries/ai-source-probe/instruments/by_played_names/flute_shaped/audition.wav)
+- [range__flute_C#7_s1.wav](Projects/Generative Sample Libraries/ai-source-probe/instruments/by_played_names/flute_shaped/samples/range__flute_C#7_s1.wav)
+- [flute_names57_bo3__flute_C5_s2.wav](Projects/Generative Sample Libraries/ai-source-probe/instruments/by_played_names/flute_shaped/samples/flute_names57_bo3__flute_C5_s2.wav)
+- [range__flute_A#6_s1.wav](Projects/Generative Sample Libraries/ai-source-probe/instruments/by_played_names/flute_shaped/samples/range__flute_A#6_s1.wav)
+- [flute_names56_bo3__flute_G#4_s3.wav](Projects/Generative Sample Libraries/ai-source-probe/instruments/by_played_names/flute_shaped/samples/flute_names56_bo3__flute_G#4_s3.wav)
+- [range__flute_G6_s2.wav](Projects/Generative Sample Libraries/ai-source-probe/instruments/by_played_names/flute_shaped/samples/range__flute_G6_s2.wav)
+- [flute_names57_bo3__flute_F#4_s1.wav](Projects/Generative Sample Libraries/ai-source-probe/instruments/by_played_names/flute_shaped/samples/flute_names57_bo3__flute_F#4_s1.wav)
+- [flute_names56_bo3__flute_F5_s1.wav](Projects/Generative Sample Libraries/ai-source-probe/instruments/by_played_names/flute_shaped/samples/flute_names56_bo3__flute_F5_s1.wav)
+- [range__flute_E7_s2.wav](Projects/Generative Sample Libraries/ai-source-probe/instruments/by_played_names/flute_shaped/samples/range__flute_E7_s2.wav)
+- [flute_names56_bo3__flute_D4_s3.wav](Projects/Generative Sample Libraries/ai-source-probe/instruments/by_played_names/flute_shaped/samples/flute_names56_bo3__flute_D4_s3.wav)
+- [range__flute_C#6_s1.wav](Projects/Generative Sample Libraries/ai-source-probe/instruments/by_played_names/flute_shaped/samples/range__flute_C#6_s1.wav)
+<sub>`gsl-steward-070` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="gsl-steward-069" -->
+### 2026-10-13 — cycle 34 — Violin, flute and marimba now stop where the real instruments stop, and each plays a 40-second tune so you can hear whether it sounds like one player.
+> shipped · all keys in tune by measurement · not heard yet · steward leans your ear on the violin tune first
+
+Trimmed to the real instrument. The builder now takes the real instrument's range. A take that sounds outside that range is dropped, however steady it is: MusicGen will happily play a 'violin' at E2, and a violin can't. No sample stretches past the edge, either. Violin G3 up: 24 samples over 42 keys, all in tune, worst 2.4 cents. Flute C4 up: 21 samples over 38 keys, worst 4.3 cents. Marimba A2–A5, rung out the way you picked: 15 samples over 37 keys, worst 1.5 cents.
+
+A tune instead of a staircase. Until now each audition was a rising line, one key after another. That proves every key sounds, but not that neighbouring samples sound alike. phrase.py plays a slow two-octave scale and then an eight-bar legato tune with leaps in it, through the same bow attack and release the SFZ uses. The tune crosses 9 to 14 different samples per instrument, so a take that sounds like a different player should stand out in the first phrase. Notes are in DESIGN.md under 'Trimmed to the real instrument'.
+
+**Artifacts:**
+- [Violin, G3 up: scale, then the tune. 14 of its 24 samples heard.](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_shaped/phrase.wav)
+- [Flute, C4 up: scale from C5, then the tune. 9 of 21 samples heard.](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_shaped/phrase.wav)
+- [Marimba, A2–A5, rung out: scale from C3, then the tune. 9 of 15 samples heard.](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/marimba_hit_rung/phrase.wav)
+- [The in-range violin SFZ (bow attack).](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_shaped/range+violin_bo5+violin_names56_bo3+violin_names57_bo3_violin_shaped.sfz)
+- [The in-range flute SFZ (bow attack).](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_shaped/range+flute_names56_bo3+flute_names57_bo3_flute_shaped.sfz)
+- [The in-range marimba SFZ (rung out).](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/marimba_hit_rung/marimba_hit_ab+marimba_hit_bo3+marimba_hit_mid_bo5_marimba_hit_rung.sfz)
+- [New: plays a scale and a tune through a built instrument.](Projects/Generative Sample Libraries/ai-source-probe/phrase.py)
+- [Builder, now with --range for the real instrument's range.](Projects/Generative Sample Libraries/ai-source-probe/build_sfz.py)
+- [Design notes; new section for this cycle.](Projects/Generative Sample Libraries/ai-source-probe/DESIGN.md)
+
+_Before and after trimming to the real range · every key checked by pitch detection_
+| instrument | before | in range | in tune | worst |
+| --- | --- | --- | --- | --- |
+| violin | 25 samples · 57 keys E2–C7 | 24 samples · 42 keys G3–C7 | 42/42 | 2.4 c |
+| flute | 26 samples · 59 keys D#2–C#7 | 21 samples · 38 keys C4–C#7 | 38/38 | 4.3 c |
+| marimba (rung) | 15 samples · 40 keys | 15 samples · 37 keys A2–A5 | 37/37 | 1.5 c |
+
+_Left rough:_ I haven't heard the tunes. Measurement says every key is in tune, but whether the samples blend is an ear question. The flute still uses the violin's bow attack. The keys above each instrument's highest steady take stay silent (violin above C7, flute above C#7, marimba above A5). The 131 sample WAVs behind the SFZs (71 MB) aren't in the artifact list, so they won't be committed. They can all be rebuilt with one command from the graded runs, and that command is in DESIGN.md.
+
+_Next moves named:_ Package the in-range instruments as DecentSampler presets (the XML plus the WAVs, zipped), so you or a participant can load them in the free plugin without sforzando · Give the flute its own breath-style attack instead of the violin's bow, and A/B it against the current one · Once one of the three sounds right to you, write the critique-and-regenerate step into the interview: you name a bad zone, and it re-renders just that note
+<sub>`gsl-steward-069` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-09-25T20-45-32-04-00" -->
 ### 2026-09-25 — Plan agreed: carried over from the entry's development plan
 

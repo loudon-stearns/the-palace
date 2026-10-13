@@ -1,0 +1,38 @@
+<DecentSampler minVersion="1.0.0">
+  <!-- built from marimba_hit_ab+marimba_hit_bo3+marimba_hit_mid_bo5_marimba_hit_rung.sfz by to_decentsampler.py -->
+  <!-- SFZ tune (cents) written as tuning (semitones) = tune/100 -->
+  <!-- SFZ one_shot: no DS twin; release 6 s lets it ring out -->
+  <ui width="812" height="200" bgColor="FF0A0A0F">
+    <tab name="main">
+      <label x="20" y="10" width="772" height="24" text="marimba hit rung" textColor="FFE8B84A" textSize="18" />
+      <labeled-knob x="20" y="40" width="90" height="90" textSize="14" label="Attack" type="float" minValue="0" maxValue="2" value="0.001" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="ENV_ATTACK" />
+      </labeled-knob>
+      <labeled-knob x="130" y="40" width="90" height="90" textSize="14" label="Release" type="float" minValue="0" maxValue="8" value="6" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="ENV_RELEASE" />
+      </labeled-knob>
+      <labeled-knob x="240" y="40" width="90" height="90" textSize="14" label="Volume" type="float" minValue="0" maxValue="1" value="0.8" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="AMP_VOLUME" />
+      </labeled-knob>
+    </tab>
+  </ui>
+  <groups attack="0.001" decay="0" sustain="1" release="6" volume="0.8">
+    <group>
+      <sample path="Samples/marimba_hit_bo3__marimba_hit_F#5_s3.wav" rootNote="54" loNote="45" hiNote="54" loVel="0" hiVel="127" tuning="-0.23" loopEnabled="false" />
+      <sample path="Samples/marimba_hit_mid_bo5__marimba_hit_G3_s5.wav" rootNote="55" loNote="55" hiNote="55" loVel="0" hiVel="127" tuning="-0.05" loopEnabled="false" />
+      <sample path="Samples/marimba_hit_mid_bo5__marimba_hit_G#3_s5.wav" rootNote="56" loNote="56" hiNote="56" loVel="0" hiVel="127" tuning="-0.15" loopEnabled="false" />
+      <sample path="Samples/marimba_hit_bo3__marimba_hit_A5_s1.wav" rootNote="57" loNote="57" hiNote="57" loVel="0" hiVel="127" tuning="-0.07" loopEnabled="false" />
+      <sample path="Samples/marimba_hit_mid_bo5__marimba_hit_A#3_s5.wav" rootNote="58" loNote="58" hiNote="58" loVel="0" hiVel="127" tuning="-0.11" loopEnabled="false" />
+      <sample path="Samples/marimba_hit_mid_bo5__marimba_hit_B3_s3.wav" rootNote="59" loNote="59" hiNote="59" loVel="0" hiVel="127" tuning="-0.07" loopEnabled="false" />
+      <sample path="Samples/marimba_hit_ab__marimba_hit_C4_s3.wav" rootNote="60" loNote="60" hiNote="60" loVel="0" hiVel="127" tuning="-0.15" loopEnabled="false" />
+      <sample path="Samples/marimba_hit_mid_bo5__marimba_hit_C#4_s3.wav" rootNote="61" loNote="61" hiNote="61" loVel="0" hiVel="127" tuning="0.02" loopEnabled="false" />
+      <sample path="Samples/marimba_hit_mid_bo5__marimba_hit_D4_s4.wav" rootNote="62" loNote="62" hiNote="62" loVel="0" hiVel="127" tuning="-0.03" loopEnabled="false" />
+      <sample path="Samples/marimba_hit_bo3__marimba_hit_D#4_s1.wav" rootNote="63" loNote="63" hiNote="63" loVel="0" hiVel="127" tuning="-0.12" loopEnabled="false" />
+      <sample path="Samples/marimba_hit_ab__marimba_hit_E3_s3.wav" rootNote="64" loNote="64" hiNote="65" loVel="0" hiVel="127" tuning="-0.23" loopEnabled="false" />
+      <sample path="Samples/marimba_hit_mid_bo5__marimba_hit_F#3_s5.wav" rootNote="66" loNote="66" hiNote="66" loVel="0" hiVel="127" tuning="-0.22" loopEnabled="false" />
+      <sample path="Samples/marimba_hit_ab__marimba_hit_G5_s2.wav" rootNote="67" loNote="67" hiNote="67" loVel="0" hiVel="127" tuning="-0.15" loopEnabled="false" />
+      <sample path="Samples/marimba_hit_mid_bo5__marimba_hit_G#3_s1.wav" rootNote="68" loNote="68" hiNote="68" loVel="0" hiVel="127" tuning="-0.11" loopEnabled="false" />
+      <sample path="Samples/marimba_hit_bo3__marimba_hit_A3_s2.wav" rootNote="69" loNote="69" hiNote="81" loVel="0" hiVel="127" tuning="-0.07" loopEnabled="false" />
+    </group>
+  </groups>
+</DecentSampler>
