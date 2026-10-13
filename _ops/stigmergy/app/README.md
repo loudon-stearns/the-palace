@@ -77,7 +77,9 @@ inline in the message row.
 - `400` on a missing/empty path, path traversal, an absolute path, or a
   directory. `404` when the file does not exist.
 - The `path` is resolved through the same `resolveInsidePalace` guard as
-  `GET /api/open`: nothing outside the palace root is reachable. This is the
+  `GET /api/open`: nothing outside the palace root is reachable, and that is
+  judged by where the path really lands, so a symlink in the palace that points
+  out of it is refused (`400`) like a traversal. This is the
   read-side counterpart to the strict write-side validator — lenient about
   *what* it serves, strict about *where* it reads from.
 

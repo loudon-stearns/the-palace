@@ -2,7 +2,7 @@ import { describe, test, expect, beforeAll, afterAll } from 'vitest';
 import http from 'node:http';
 import { resolve, dirname, join, normalize, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { mkdtempSync, rmSync, mkdirSync, writeFileSync, copyFileSync, existsSync, readFileSync } from 'node:fs';
+import { mkdtempSync, rmSync, mkdirSync, writeFileSync, copyFileSync, existsSync, readFileSync, symlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import request from 'supertest';
 import { listen, closeAll } from '../helpers/loopback.js';
@@ -56,6 +56,11 @@ describe('the rich face at /rich/', () => {
     sibling = root + '-sibling'; // shares the palace's name as a prefix
     mkdirSync(sibling, { recursive: true });
     writeFileSync(resolve(sibling, 'secret.txt'), 'outside the palace', 'utf8');
+    // Links inside the palace: two that point out of it, one that stays in.
+    mkdirSync(resolve(root, 'Links'), { recursive: true });
+    symlinkSync(resolve(sibling, 'secret.txt'), resolve(root, 'Links/escape.txt'));
+    symlinkSync(sibling, resolve(root, 'Links/out'));
+    symlinkSync('../Demo Entry/bed.wav', resolve(root, 'Links/alias.wav'));
     base = await listen(makeServer(root));
   });
   afterAll(async () => {
@@ -128,6 +133,23 @@ describe('the rich face at /rich/', () => {
   // guards against a future decoder that treats it as one (or a Windows host).
   test('refuses an encoded-backslash climb', async () => {
     expect((await request(base).get('/rich/' + '..%5C'.repeat(24) + 'etc%5Cpasswd')).status).toBe(404);
+  });
+
+  // The words of the path stay inside; the file it lands on does not. Each
+  // link resolves to a file that is really there, so a 404 is the refusal.
+  test('refuses a symlink in the palace that points out of it', async () => {
+    expect(readFileSync(resolve(root, 'Links/escape.txt'), 'utf8')).toBe('outside the palace');
+    expect((await request(base).get('/rich/Links/escape.txt')).status).toBe(404);
+  });
+
+  test('refuses a file under a linked folder that points out of the palace', async () => {
+    expect(readFileSync(resolve(root, 'Links/out/secret.txt'), 'utf8')).toBe('outside the palace');
+    expect((await request(base).get('/rich/Links/out/secret.txt')).status).toBe(404);
+  });
+
+  test('still serves a symlink that lands inside the palace', async () => {
+    const r = await request(base).get('/rich/Links/alias.wav').set('Range', 'bytes=0-3');
+    expect(r.status).toBe(206);
   });
 
   test('a review of null is a 400 through the mount, and the server lives', async () => {

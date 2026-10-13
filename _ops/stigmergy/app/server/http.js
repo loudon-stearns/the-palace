@@ -4,7 +4,7 @@
 // endpoint handlers in server/api/ and the router all share these, so they live
 // in one place rather than as closures inside the Vite-plugin factory.
 
-import { readFileSync, existsSync, statSync, readdirSync } from 'node:fs';
+import { readFileSync, existsSync, statSync, readdirSync, realpathSync } from 'node:fs';
 import { resolve, join, sep, extname } from 'node:path';
 import { parseJSONL } from '../src/lib/parser.js';
 import { validateMessage } from '@stigmergy/core/schema';
@@ -20,14 +20,28 @@ export function jsonResponse(res, status, payload) {
 }
 
 // Resolve a palace-relative path to an absolute path, refusing anything that
-// escapes the palace root (path traversal, absolute paths, null bytes).
-// Returns the absolute path, or null if the input is unsafe/empty.
+// escapes the palace root (path traversal, absolute paths, null bytes, and a
+// symlink that points out of the palace). Returns the absolute path, or null if
+// the input is unsafe/empty.
 export function resolveInsidePalace(palaceRoot, rel) {
   if (typeof rel !== 'string' || rel === '' || rel.includes('\0')) return null;
   const root = resolve(palaceRoot);
   const abs = resolve(root, rel);
   if (abs !== root && !abs.startsWith(root + sep)) return null;
-  return abs;
+  return landsInside(root, abs) ? abs : null;
+}
+
+// The words of a path can stay inside the palace while the file they reach does
+// not: a symlink in the palace can point anywhere, and reading or opening it
+// follows the link. So judge where the path really lands. A path that is not
+// there passes, and its caller answers 404. The rich face's handler keeps the
+// same rule (_ops/rich-face/rich-handler.mjs, inside()).
+function landsInside(root, abs) {
+  let real;
+  try { real = realpathSync(abs); } catch (e) { return e.code === 'ENOENT' || e.code === 'ENOTDIR'; }
+  let realRoot;
+  try { realRoot = realpathSync(root); } catch { return false; }
+  return real === realRoot || real.startsWith(realRoot + sep);
 }
 
 // Content-type table for GET /api/file. Mirrors Enrichment/server.py:_guess_type

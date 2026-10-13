@@ -16,7 +16,7 @@
 // Every URL it hands the page is relative, so the page works under any base.
 // It never writes to the palace.
 
-import { createReadStream, existsSync, statSync, readdirSync } from 'node:fs';
+import { createReadStream, existsSync, statSync, readdirSync, realpathSync } from 'node:fs';
 import { join, extname, normalize, relative, sep, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { makeFinder } from './palace-find.mjs';
@@ -132,7 +132,18 @@ export function createRichHandler({ root, here, base = '', app }) {
     let r;
     try { r = decodeURIComponent(rel); } catch { return null; }
     const abs = normalize(join(dir, r));
-    return abs === dir || abs.startsWith(dir + sep) ? abs : null;
+    if (abs !== dir && !abs.startsWith(dir + sep)) return null;
+    return landsInside(dir, abs) ? abs : null;
+  };
+  // The words of a path can stay inside while the file does not: a symlink in
+  // the palace can point anywhere, and serving it follows the link. So judge
+  // where the path really lands. A path that is not there passes, and the
+  // caller answers 404. STIGMERGY's resolveInsidePalace keeps the same rule.
+  const landsInside = (dir, abs) => {
+    let real, realDir;
+    try { real = realpathSync(abs); } catch (e) { return e.code === 'ENOENT' || e.code === 'ENOTDIR'; }
+    try { realDir = realpathSync(dir); } catch { return false; }
+    return real === realDir || real.startsWith(realDir + sep);
   };
   const relUrl = (abs) => relative(ROOT, abs).split(sep).map(encodeURIComponent).join('/');
 
