@@ -40,6 +40,10 @@ Self-describing like any bundle file (`title`, `born`, `links`, `forward_vector`
                     "near": "<a phrase in a paragraph | a figure's filename>", "place": "margin|band", "height": 640 } ] } ] }
 ```
 
+A section is named by its heading. When the text repeats a heading, the repeat is named with its
+place — the second `## Notes` is `"heading": "Notes (2)"` — and `fingerprint.mjs --stamp "Notes (2)"`
+reaches it the same way.
+
 Bare filenames resolve in the bundle, then vault-wide by name; `/…` is palace-absolute. `near` anchors
 a piece right after that paragraph or figure; otherwise it goes at the section's end. Audio, images and
 text pieces default to the margin; video, interactives and diagrams to the band.
@@ -48,8 +52,13 @@ text pieces default to the margin; video, interactives and diagrams to the band.
 
 - `# Title` opens the first section; each `##` opens the next. Deeper headings stay inside.
   Blank lines before the first heading open nothing; anything else there joins the H1's section
-  (with no H1, it opens a section keyed to the title). No two sections ever share a key that way.
-- A figure is a blockquote holding media (its prose is the caption), a paragraph that is only an embed
+  (with no H1, it opens a section keyed to the title). No two sections ever share a key: a heading
+  the text repeats (case and emphasis don't count) gets its place after it — `Notes (2)` — while every
+  heading's first use, including one written `Notes (2)`, keeps its own.
+- What a file is — video, audio, image, interactive — comes from one list in `parse.js` (`mediaKind`,
+  `isMedia`); `rich.html` keeps none of its own.
+- A figure is a blockquote holding media (its prose is the caption; a line that is only media —
+  `![[file]]`, `[[file.ext|label]]` or `[label](file.ext)` — is not), a paragraph that is only an embed
   (an italic line right after it is the caption), or a ```` ```mermaid ```` fence.
 - A legacy **door** — any line linking `/rich/?entry=` — is still dropped, as tolerance: the rich face
   never shows that line (the words around it stay; it is never a caption) and it never counts toward a

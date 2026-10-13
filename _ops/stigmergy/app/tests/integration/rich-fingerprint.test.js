@@ -4,6 +4,7 @@ import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { mkdtempSync, rmSync, mkdirSync, writeFileSync, readFileSync, copyFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
+import { fingerprint } from '../../../../rich-face/parse.js';
 
 // _ops/rich-face/fingerprint.mjs --stamp, run in a temp palace. The script
 // finds entries from its own checkout root, so the three files it needs are
@@ -69,5 +70,31 @@ describe('fingerprint.mjs --stamp', () => {
     const r = stamp('A Section');
     expect(r.status).toBe(0);
     expect(manifestText()).toBe(before);
+  });
+
+  // Two headings with the same text once shared one key, so both manifest
+  // sections were stamped against the second one's words.
+  describe('a heading the entry repeats', () => {
+    beforeEach(() => {
+      writeFileSync(resolve(root, 'Demo Entry.md'), '# Demo Entry\n\n## Notes\n\nThe first words.\n\n## Notes\n\nThe second words.\n', 'utf8');
+      writeFileSync(resolve(root, MANIFEST_REL), JSON.stringify({ entry: 'Demo Entry', sections: [
+        { heading: 'Notes', made_against: STALE, pieces: [] },
+        { heading: 'Notes (2)', made_against: STALE, pieces: [] },
+      ] }), 'utf8');
+    });
+
+    test('each is stamped against its own words', async () => {
+      expect(stamp().status).toBe(0);
+      const m = JSON.parse(manifestText());
+      expect(m.sections[0].made_against).toBe(await fingerprint('The first words.'));
+      expect(m.sections[1].made_against).toBe(await fingerprint('The second words.'));
+    });
+
+    test('the second is stamped by its name, "Notes (2)", and the first is left alone', async () => {
+      expect(stamp('Notes (2)').status).toBe(0);
+      const m = JSON.parse(manifestText());
+      expect(m.sections[0].made_against).toBe(STALE);
+      expect(m.sections[1].made_against).toBe(await fingerprint('The second words.'));
+    });
   });
 });

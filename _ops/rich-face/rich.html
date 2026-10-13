@@ -173,7 +173,7 @@
 
 <script type="module">
 import { marked } from './_vendor/marked/marked.esm.js';
-import { parseEntry, sectionProse, sectionKey, fingerprint } from './_rich/parse.js';
+import { parseEntry, sectionProse, sectionKey, fingerprint, mediaKind, isMedia } from './_rich/parse.js';
 
 const params = new URLSearchParams(location.search);
 const ENTRY = params.get('entry') || 'Kuramoto Coupling';
@@ -193,14 +193,8 @@ const h = (tag, attrs = {}, ...kids) => {
   for (const c of kids.flat()) if (c != null) el.append(c.nodeType ? c : document.createTextNode(c));
   return el;
 };
-const kindOf = (name) => {
-  if (/\.(mp4|webm|mov)$/i.test(name)) return 'video';
-  if (/\.(wav|mp3|ogg|m4a|flac)$/i.test(name)) return 'audio';
-  if (/\.(png|jpe?g|gif|webp|svg)$/i.test(name)) return 'image';
-  if (/\.html?$/i.test(name)) return 'interactive';
-  if (/\.md$/i.test(name)) return 'text';
-  return 'file';
-};
+// What a file is comes from parse.js, the one media list; this page keeps none.
+const kindOf = mediaKind;
 const SMALL = new Set(['audio', 'image', 'text']);
 
 let info, manifest, lastMd = '', entry, lastRead = Date.now();
@@ -222,7 +216,7 @@ function mdToHtml(md, inline = false) {
     .replace(/!\[\[([^\]|]+)(?:\|([^\]]*))?\]\]/g, (m, n) => `![](${mediaUrl(n.trim())})`)
     .replace(/\[\[([^\]|]+)(?:\|([^\]]*))?\]\]/g, (m, target, label) => {
       const t = target.trim(), l = (label || t.split('#')[0]).trim();
-      if (/\.(mp4|webm|mov|wav|mp3|png|jpe?g|gif|webp|svg|html?)$/i.test(t)) return `[${l}](${mediaUrl(t)})`;
+      if (isMedia(t)) return `[${l}](${mediaUrl(t)})`;
       if (STATIC) {
         // Static: a wikilink opens the entry in the read view, if it was published.
         const p = info.paths && info.paths[t.split('#')[0]];
@@ -443,7 +437,7 @@ function countNotes() {
 }
 function collectNotes() {
   const groups = {};
-  for (const s of entry.sections) { const v = (localStorage.getItem(noteKey(s.key)) || '').trim(); if (v) groups[s.heading] = { note: v }; }
+  for (const s of entry.sections) { const v = (localStorage.getItem(noteKey(s.key)) || '').trim(); if (v) groups[s.name] = { note: v }; }
   return { task: `rich-face:${ENTRY}:round-${round()}`, groups, overall: { note: ($('#overall').value || '').trim(), round: round(), url: location.href } };
 }
 function mountDock() {
@@ -584,7 +578,7 @@ async function boot() {
   // A heading renamed without touching its words keeps its fingerprint — so a
   // lost section whose stamp matches a current section was probably renamed.
   const fpNow = new Map();
-  for (const s of entry.sections) fpNow.set(await fingerprint(sectionProse(s)), s.heading);
+  for (const s of entry.sections) fpNow.set(await fingerprint(sectionProse(s)), s.name);
   for (const m of lost) for (const p of m.pieces || []) {
     const fig = await manifestFigure(p, m);
     const renamed = m.made_against && fpNow.get(m.made_against);
