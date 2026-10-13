@@ -15,20 +15,20 @@ forward_vector: "I am 2D Torus Wavetable Synthesizer's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T20:48:38.804Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T20:52:29.804Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 14 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 15 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — Étude No. 2, second draft: a real kick from the Sine Cycle Sweep, and a B theme on a whistle that answers the motif. (`torus-steward-036`)
-- **Last commit touching this project:** 2026-10-13 `3d8a3fe1` — steward(2D Torus Wavetable Synthesizer): cycle 13 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
+- **Last shipped:** 2026-10-13 (today) — — (`torus-steward-039`)
+- **Last commit touching this project:** 2026-10-13 `71ca28a6` — steward(2D Torus Wavetable Synthesizer): cycle 14 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read the surface, and their ratio decides whether it sounds harmonic or shimmers. It exists as Max/RNBO codebox files that match the earlier audition scripts sample for sample but haven't been opened in Max yet. The test piece is Étude No. 2, played only by the Hopf codebox. It tells a whole story at 100 BPM, with drums and a four-note motif (A C E D). This cycle's second draft gives it a kick that is actually a kick and a second theme, so the story has two characters. The first draft is kept beside it.
+This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read the surface, and their ratio decides whether it sounds harmonic or shimmers. The instrument exists as Max/RNBO codebox files that haven't been opened in Max yet. Its test piece, Étude No. 2, is played only by the Hopf codebox and is now in a second draft with a real kick and a B theme, waiting for your ears. Writing it kept teaching one lesson: a note on this instrument is not baseHz. Each surface on each lock lands on certain harmonics, and longitude can move them. This cycle measured that for all thirteen playable surfaces on all 19 locks plus the pole, checked the numbers against the codebox itself…
 
 ### Open asks
 
@@ -59,6 +59,54 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="torus-steward-039" -->
+### 2026-10-13 — cycle 15 — flag
+
+Every piece written for this instrument has had to rediscover which partial a note lands on. The first Étude kick came out as a tom because of one longitude choice. The draft holds the table, the findings in plain words, and how it was checked. It has no type field, so the elder who lands it can give it form. One click: [the draft](obsidian://open?vault=The%20Palace&file=Projects/2D%20Torus%20Wavetable%20Synthesizer/proofs/voicing-atlas/Voicing%20Atlas%20%E2%80%94%20draft.md)
+
+**Artifacts:**
+- [the proposed catalog section.](Projects/2D Torus Wavetable Synthesizer/proofs/voicing-atlas/Voicing Atlas — draft.md)
+<sub>`torus-steward-039` · FLAG on FLAGS</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="torus-steward-038" -->
+### 2026-10-13 — cycle 15 — A voicing atlas: for every surface on every lock, which partial actually sounds. It matches the Hopf codebox to the percent, and you can play it.
+> shipped · checked against the codebox in 8 cases · steward leans landing it in the wavetables catalog
+
+**What it is.** `Tools/voicing_atlas.py` reads each surface's 2D spectrum and works out, for every lock the Hopf codebox can choose (every a:b with a and b up to 5), which harmonic each surface ripple lands on, how loud it is at every longitude, and the pitch as a multiple of baseHz. It runs in 4 seconds. The grid image is the summary: big number = loudest harmonic, small = its share. The playable page lets you click any cell, slide longitude, hear an additive sketch of the measured partial mix, and read off the exact codebox knobs (height, longitude, baseHz). You can also type a note like A3 and it tells you the baseHz that puts the loudest partial there.
+
+**It matches the instrument.** `check_against_codebox.mjs` runs the Hopf codebox as written, parks it on a lock and measures harmonics 1–64. In all eight cases (Knot Shadow 1:1 and 3:2, Membrane 1:1, Penrose 1:2, Theta 1:1, Kuramoto Bloom 1:1, plus Membrane and Chladni Ghost at a quarter turn of longitude), every harmonic agrees to the percent.
+
+**What it found.**
+- The kick mystery is solved. Membrane on 1:1 is 50% fundamental at longitude 0 and 89% on the octave at 0.5. The first draft's kick sat at longitude 0.1, where the fundamental is about 13%. The tom came from that longitude, not from the surface.
+- There's a whistle register hiding in surfaces known for clouds. Theta on 1:1 at longitude 0.5 is 99% one partial, Chladni Ghost on 1:1 at 0.6875 is 97%, and Fisher Ridge on 1:2 is 91%. Knot Shadow on 2:3 is a pure sine on harmonic 13 at any longitude, because every other ripple cancels to silence there.
+- Knot Shadow is one ripple carrying 78% of its energy on every lock, so longitude only changes its colour, never its pitch. That makes it the steadiest melody voice. (The Étude notes said 88% on 1:1. The real figure is 78%.)
+- Penrose is a five-note chord on any lock, and no longitude can make it pure. The four utility tables and Stiff String simply follow the x scan rate.
+
+**Artifacts:**
+- [the playable atlas: click a cell, slide longitude, hear the partial mix, read the codebox knobs.](Projects/2D Torus Wavetable Synthesizer/proofs/voicing-atlas/voicing-atlas.html)
+- [the whole atlas on one page: 13 surfaces × the pole and 19 locks, loudest harmonic and its share.](Projects/2D Torus Wavetable Synthesizer/proofs/voicing-atlas/voicing_atlas.png)
+- [a draft section for the wavetables catalog: the table, the plain-words findings, how it was checked.](Projects/2D Torus Wavetable Synthesizer/proofs/voicing-atlas/Voicing Atlas — draft.md)
+- [the tool: surface spectrum → per-lock, per-longitude voicing; regenerates the JSON, image and page.](Projects/2D Torus Wavetable Synthesizer/Tools/voicing_atlas.py)
+- [the A/B: runs the Hopf codebox as written and prints its harmonics beside the atlas's.](Projects/2D Torus Wavetable Synthesizer/proofs/voicing-atlas/check_against_codebox.mjs)
+- [the full data, every lock and every longitude.](Projects/2D Torus Wavetable Synthesizer/proofs/voicing-atlas/voicing_atlas.json)
+
+_Purest voicings: where one partial carries the sound_
+| surface | lock | longitude | loudest harmonic | share | pitch × baseHz |
+| --- | --- | --- | --- | --- | --- |
+| Knot Shadow | 2:3 | any | 13 | 100% | 5.2 |
+| Theta | 1:1 | 0.5 | 2 | 99% | 2 |
+| Chladni Ghost | 1:1 | 0.6875 | 8 | 97% | 8 |
+| Sine + 3rd | 2:1 | 0.6875 | 1 | 92% | 0.67 |
+| Fisher Ridge | 1:2 | 0.22 | 2 | 91% | 1.33 |
+| Membrane | 1:1 | 0.5 | 2 | 89% | 2 |
+
+_Left rough:_ The page hasn't been opened in a browser yet. Its data and script parse, but I haven't clicked through it. Its play button is an additive sketch that drops the phases, so it gets the colour right and the waveform shape wrong, and the real voice is still the codebox. The atlas also ignores the lookup's gentle low-pass and anything past Nyquist. Your question on the Étude's first draft is still open.
+
+_Next moves named:_ Use the atlas on the Étude: move the second draft's drone and pad to the longitudes the atlas recommends, and try a Theta or Chladni whistle against the Knot Shadow one in the B section. · Land the draft as a Voicing section of the wavetables catalog, so every future piece starts from it (offered on FLAGS).
+<sub>`torus-steward-038` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="torus-steward-036" -->
 ### 2026-10-13 — cycle 14 — Étude No. 2, second draft: a real kick from the Sine Cycle Sweep, and a B theme on a whistle that answers the motif.
 > shipped · 130 s, every pitch checked from the stems · steward leans toward the voicing table next
