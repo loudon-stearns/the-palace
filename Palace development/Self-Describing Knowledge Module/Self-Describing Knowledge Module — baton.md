@@ -68,7 +68,7 @@ The first run has already paid for itself. It found that the palace's own worktr
 3. May real first messages be harvested from transcripts as openings?
 4. Baselines on Fable 5.1 and Opus 5.5, with Sonnet 5 as the floor?
 5. Hold or yield: which values hold against his insistence? Whatever he decides belongs at birth too.
-6. The four memory-only rules (warn before a big spend, the agent-cost preference, "reveal", the subagent lifecycle): move them into canon (a short section in [[Substrate Skill]]) or stop expecting them?
+6. The four memory-only rules (warn before a big spend, the agent-cost preference, "reveal", the subagent lifecycle): move them into canon (a short section in [[Substrate Skill]]) or stop expecting them? Evidence, 2026-10-13: "warn before a big spend" lives only in memory, and a session applied it after the fact; two adversarial reviews ran about 8M of the day's roughly 12M tokens, and the cost was told once each had finished. The first review's bill (about 3.8M) came with a promise to size the next one smaller, and the second ran about as large (roughly 4M); only then did the session promise to ask first.
 7. Birth effort: pin it to what his own sessions use.
 8. Which binary births run on: the CLI on PATH (2.1.280) or the desktop app's (2.1.295).
 9. `anthropic-skills:the-substrate` loads into every birth from outside the palace and fires on CLAUDE.md's ceremony words. Does it stay in births, get hidden, or retire?
