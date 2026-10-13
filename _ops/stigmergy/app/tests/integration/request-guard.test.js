@@ -244,6 +244,24 @@ describe('GET /api/open refuses a foreign page', () => {
     expect(res.status).toBe(404);
   });
 
+  // A navigation Loudon starts himself — a typed URL, a bookmark — is marked `none`, with no Origin.
+  test('a typed URL or a bookmark (Sec-Fetch-Site: none, no Origin) reaches the handler', async () => {
+    const res = await request(base).get('/api/open?path=no/such/file.command').set('Host', 'localhost:5173').set('Sec-Fetch-Site', 'none');
+    expect(res.status).toBe(404);
+  });
+
+  test('`none` does not excuse an Origin from another port: the exact-origin match still refuses', async () => {
+    const before = boardLines(root);
+    const res = await request(base)
+      .post('/api/persistent')
+      .set('Host', 'localhost:5173')
+      .set('Origin', 'http://localhost:5174')
+      .set('Sec-Fetch-Site', 'none')
+      .send(makeMessage());
+    expect(res.status).toBe(403);
+    expect(boardLines(root)).toBe(before);
+  });
+
   test('other reads stay open cross-site (sandboxed artifacts load media this way)', async () => {
     const res = await request(base).get('/api/persistent').set('Sec-Fetch-Site', 'cross-site');
     expect(res.status).toBe(200);

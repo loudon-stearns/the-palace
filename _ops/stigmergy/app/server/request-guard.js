@@ -13,7 +13,8 @@
 //    only after a CORS preflight — and must come from this exact origin: a
 //    browser's Origin, when it sends one, is this server's scheme and the very
 //    host:port in the Host header, and its Sec-Fetch-Site, when it sends one, is
-//    `same-origin`. Another port on this Mac is another origin: a page on
+//    `same-origin` — or `none`, a navigation Loudon starts himself (a typed URL,
+//    a bookmark). Another port on this Mac is another origin: a page on
 //    localhost:5174 is loopback, and the browser marks its request `same-site`,
 //    not `same-origin`, so it is refused. GET /api/open runs `open` on this Mac
 //    and takes the same rule. A preflight (OPTIONS) is refused with no CORS
@@ -67,7 +68,7 @@ export function isHostAllowed(host, allowedHosts) {
 // Did this come from one of this server's own pages, or from no browser at all?
 function isFromOwnOrigin(req) {
   const site = req.headers['sec-fetch-site'];
-  if (site !== undefined && site !== 'same-origin') return false; // same-site (another port), cross-site, none
+  if (site !== undefined && site !== 'same-origin' && site !== 'none') return false; // same-site (another port), cross-site
   const origin = req.headers.origin;
   if (origin === undefined) return true;
   let parsed;

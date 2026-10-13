@@ -18,8 +18,9 @@ route under `/api/` or `/rich/` runs: a Host that is not localhost, an IP, or in
 `server.allowedHosts` gets 403; a POST/PUT/PATCH/DELETE must carry
 `Content-Type: application/json` (415 otherwise). A write or `GET /api/open` passes
 only when the browser's Origin is this server's scheme and the very host:port in the
-Host header and its `Sec-Fetch-Site` is `same-origin` or absent, so a page on another
-localhost port, which the browser marks `same-site`, gets 403 like any foreign site.
+Host header and its `Sec-Fetch-Site` is `same-origin`, `none` (a URL you typed or a
+bookmark) or absent, so a page on another localhost port, which the browser marks
+`same-site`, gets 403 like any foreign site.
 A preflight gets 403 with no CORS headers and `vite.config.js` sets `server.cors: false`,
 so nothing clears another origin to send, and `tests/integration/request-guard-census.test.js`
 fails on any server under `_ops/` that listens without `checkRequest`.
