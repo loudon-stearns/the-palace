@@ -1,0 +1,27 @@
+wrote /Users/loudonstearns/Documents/The Palace/Projects/Quantum Synthesizer/proofs/pendulum.wav (24.0 s)
+== check 1: plane-wave solver vs. finite differences (q = 10, first 12 levels) ==
+  max |E_pw - E_fd| = 1.04e-03  (levels span -7.83 .. 36.35)
+== check 2: deep well (q = 32): bottom gaps vs. a harmonic oscillator ==
+  harmonic-oscillator spacing predicts 8.000;  measured first gap 7.741
+  gap_n / gap_1 : 1.000 1.965 2.893 3.781 4.626 5.422 6.165 6.826   (a string would read 1 2 3 4 5 6 7 8)
+== check 3: the rungs shrink toward the top, then pair up ==
+  q =  6.0:  5 levels under the top (semiclassical 4.4); successive gaps 3.19 2.86 2.63 1.39 3.76 0.08 6.71 0.00 8.89
+  q = 10.0:  5 levels under the top (semiclassical 5.7); successive gaps 4.21 3.91 3.58 3.03 3.25 0.87 5.80 0.02 8.68
+  q = 18.0:  7 levels under the top (semiclassical 7.6); successive gaps 5.74 5.46 5.15 4.81 4.43 3.71 4.16 1.06 7.25 0.03 10.42
+  q = 32.0: 10 levels under the top (semiclassical 10.2); successive gaps 7.74 7.47 7.18 6.87 6.54 6.17 5.75 5.12 5.11 2.28 7.64 0.15 11.77 0.00
+  (gaps fall as the swing widens; past the top they come in near-equal pairs, the rotor spinning either way)
+== check 4: FFT of the rendered audio vs. intended partials ==
+  q =  0.0: five loudest partials found within 0.05 Hz; ratios 1.00 1.00 4.00 4.00 9.00 9.00
+  q =  0.5: five loudest partials found within 0.06 Hz; ratios 1.00 1.10 3.77 3.77 8.34 8.34
+  q =  1.5: five loudest partials found within 0.06 Hz; ratios 1.00 1.45 3.13 3.14 6.38 6.38
+  q =  3.0: five loudest partials found within 0.23 Hz; ratios 1.00 1.75 2.78 2.87 5.03 5.03
+  q =  6.0: five loudest partials found within 0.05 Hz; ratios 1.00 1.90 2.72 3.16 4.33 4.36
+  q = 10.0: five loudest partials found within 0.07 Hz; ratios 1.00 1.93 2.78 3.50 4.27 4.48
+  q = 18.0: five loudest partials found within 0.06 Hz; ratios 1.00 1.95 2.85 3.69 4.46 5.11
+  q = 32.0: five loudest partials found within 0.04 Hz; ratios 1.00 1.97 2.89 3.78 4.63 5.42
+== check 5: does the packet come home at the bare ring's revival time? ==
+  q =  0.0: |<psi(T)|psi(0)>|^2 = 1.0000
+  q =  1.0: |<psi(T)|psi(0)>|^2 = 0.5668
+  q = 16.0: |<psi(T)|psi(0)>|^2 = 0.0370
+wrote /Users/loudonstearns/Documents/The Palace/Projects/Quantum Synthesizer/proofs/pendulum.mp4 (720 frames, 24.0 s)
+wrote /Users/loudonstearns/Documents/The Palace/Projects/Quantum Synthesizer/proofs/pendulum-poster.png

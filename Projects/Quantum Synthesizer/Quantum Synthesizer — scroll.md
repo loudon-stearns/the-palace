@@ -15,20 +15,20 @@ forward_vector: "I am Quantum Synthesizer's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T20:59:59.734Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T21:07:37.203Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** dormant · **Steward:** cycle 10 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** dormant · **Steward:** cycle 11 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — A packet on a ring smears into fog, then reassembles itself. Played as a waveform, its rational times climb the harmonic series. (`quantum-synth-018`)
-- **Last commit touching this project:** 2026-10-13 `a61756f7` — steward(Quantum Synthesizer): cycle 9 — SPINNING UP. HOME: [[Quantum Synthesizer]]. Neighborhood loaded. Cycle …
+- **Last shipped:** 2026-10-13 (today) — I put a bump on the ring and grew it into a well. Schrödinger's squares fold down into a string's evenly spaced harmonics. It's a quantum pendulum. (`quantum-synth-021`)
+- **Last commit touching this project:** 2026-10-13 `5f87ea69` — steward(Quantum Synthesizer): cycle 10 — SPINNING UP. HOME: [[Quantum Synthesizer]]. Neighborhood loaded. Your a…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-This page claims the Schrödinger equation is a synthesizer: whatever confines a particle sets its energy levels, and those levels, played as partials, are the timbre. Earlier today the walls video found that Schrödinger's box sounds 1·4·9·16 where a string sounds 1·2·3·4, and the stiffness video showed why: Schrödinger is the square root of a vibrating bar. This cycle follows the consequence. Those squares are all whole numbers, so every phase comes home at the same moment. A packet let go on a ring spreads into fog and then rebuilds itself exactly. Halfway there, it breaks into perfect copies. Read the ring's probability as one cycle of a waveform, and those copies become the harmonic seri…
+This page claims the Schrödinger equation is a synthesizer: whatever confines a particle sets its energy levels, and those levels, played as partials, are the timbre. Today's earlier videos found that a bare box or ring sounds in squares (1·4·9·16) where a string sounds 1·2·3·4, and that those whole-number squares make a packet on a ring rebuild itself perfectly. This cycle runs the forward vector's other test, the shape of the well as the timbre, on that same ring. I grew one smooth bump on it, from nothing to deep, and struck it eight times. Low in the deep well the levels come out almost evenly spaced, like a string, because a small swing in any well is a harmonic oscillator. Above the b…
 
 ### Open asks
 
@@ -66,6 +66,42 @@ This container has no Shop (no ComfyUI, Kokoro, Max, or GPU) — Python with num
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="quantum-synth-021" -->
+### 2026-10-13 — cycle 11 — I put a bump on the ring and grew it into a well. Schrödinger's squares fold down into a string's evenly spaced harmonics. It's a quantum pendulum.
+> shipped · all five checks pass · steward leans a playable depth slider next
+
+[pendulum.mp4](open:Projects/Quantum Synthesizer/proofs/pendulum.mp4) is 24 seconds, eight strikes, each about 3 seconds long. The bump is a cosine round the ring, and it gets deeper with each strike. Every strike is tuned so its lowest partial is A3. That keeps the pitch steady, so what you hear change is only the spacing above it. On the left, the well and its levels: gold rungs are trapped in the well and swing, blue ones spin over the top. On the right, the partials, against grey lines for a string's 1·2·3 and dashed blue ones for the squares 1·4·9·16.
+
+What to listen for: the first strike is the walls video's ring, the squares. By the sixth strike the low partials have walked down onto nearly 2, 3, 4. By the last they read 1 · 1.97 · 2.89 · 3.78. That's close to a string, but sagging. This is the real pendulum: a bigger swing is slower, so each higher rung is a little closer to the one below. Near the top of the bump the rungs crowd tightest. Past it they come in near-equal pairs, the particle spinning one way round the ring or the other.
+
+[The poster](open:Projects/Quantum Synthesizer/proofs/pendulum-poster.png) has two halves. On the left is the whole ladder against depth, the squares folding down toward 1·2·3. On the right is last cycle's revival carpet with the bump added. With no bump, the packet comes home 100% whole. With a small bump it comes back only 57% whole. In a deep well it's 4%: it just swings. The bump breaks the whole-number levels that the revival depended on. [The script](obsidian://open?vault=The%20Palace&file=Projects/Quantum%20Synthesizer/proofs/pendulum.py) and its [printed checks](obsidian://open?vault=The%20Palace&file=Projects/Quantum%20Synthesizer/proofs/pendulum-checks.txt) sit beside them.
+
+The five checks: (1) two independent solvers agree on the levels to 0.001 of a unit. (2) In the deep well, the first gap is 7.74 against the small-swing prediction of 8.00. (3) The number of trapped levels matches the semiclassical count: 10 against 10.2 in the deepest well, within about one in all four deep wells. (4) An FFT of the rendered WAV finds every strike's five loudest partials within 0.25 Hz of the intended ones. (5) The revival numbers above.
+
+**Artifacts:**
+- [eight strikes as the bump deepens: the well, its ladder, and the partials, locked to the audio](Projects/Quantum Synthesizer/proofs/pendulum.mp4)
+- [the same 24 seconds of audio, for your DAW](Projects/Quantum Synthesizer/proofs/pendulum.wav)
+- [the ladder against depth, and the revival carpet blurring as the bump grows](Projects/Quantum Synthesizer/proofs/pendulum-poster.png)
+- [the generator: two solvers, the render, the video, five checks](Projects/Quantum Synthesizer/proofs/pendulum.py)
+- [the printed checks from the final run](Projects/Quantum Synthesizer/proofs/pendulum-checks.txt)
+
+_each partial ÷ the lowest, as the bump deepens (a string reads 1 2 3 4 5; the squares read 1 4 9)_
+| depth q | 2nd | 3rd | 4th | 5th | 6th | back home at T |
+| --- | --- | --- | --- | --- | --- | --- |
+| 0 (bare ring) | 1.00 | 4.00 | 4.00 | 9.00 | 9.00 | 100% |
+| 1.5 | 1.45 | 3.13 | 3.14 | 6.38 | 6.38 | — |
+| 6 | 1.90 | 2.72 | 3.16 | 4.33 | 4.36 | — |
+| 18 | 1.95 | 2.85 | 3.69 | 4.46 | 5.11 | — |
+| 32 | 1.97 | 2.89 | 3.78 | 4.63 | 5.42 | — |
+| 1 (carpet) | — | — | — | — | — | 57% |
+| 16 (carpet) | — | — | — | — | — | 4% |
+
+_Left rough:_ I haven't listened. The checks show the right frequencies are in the WAV, not that it sounds good. Some deep-well rungs are nearly silent because the pluck sits close to the well's centre and so barely excites the lopsided states; moving it would change the colour, not the finding. Last cycle's next-move note guessed the harmonic series would go 'out of tune'. That's wrong for the carpet's mapping: a waveform read once round the ring can only have whole-number harmonics. What the bump actually does there is blur the copies and stop the revival.
+
+_Next moves named:_ A playable page: drag the bump's depth and hear the timbre slide continuously from squares to string, with the ladder moving under your finger. It's the same eigen-solve, small enough to run in a browser, and the road toward an RNBO device you'd have to open to check. · Draft the entry's missing section, 'One equation, two spacings', with the walls, stiffness and pendulum videos as evidence, and hand it to an elder. It would replace the half-true line that the geometry of confinement alone sets the harmonic content.
+<sub>`quantum-synth-021` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="quantum-synth-018" -->
 ### 2026-10-13 — cycle 10 — A packet on a ring smears into fog, then reassembles itself. Played as a waveform, its rational times climb the harmonic series.
 > shipped · all three checks pass · steward leans ring-with-a-bump next
