@@ -45,6 +45,14 @@ Born 2026-06-16, after a concurrent agent switched the shared working tree's bra
 
 A branch lives in only one worktree at a time, so `main` is checked out in exactly one place — the **primary checkout** (the same canonical worktree the symlink manifest calls the *owner*). That makes the primary the only path by which canon can reach `main`. The standing rule: **the primary stays permanently on `main` — no agent ever `git checkout`s it; if you need a branch, you make a worktree.** This is the worktree practice's own telos — when everyone works in their own worktree, nobody thrashes the primary, and it stays on `main` by itself. *Recovery,* for the transitional case where the primary *has* been thrashed off `main`: restore it, or land the commit on the `main` ref via a throwaway-worktree cherry-pick, **before** writing canon — never commit canon blind.
 
+## Rules at the trunk
+
+Three rules every session keeps when it touches `main`, whoever it is and whatever it is landing.
+
+- **Trial the merge first.** `git merge-tree --write-tree main <branch>` must come back clean before any merge. It tries the merge without touching the index or any working tree, so a conflict turns up where it costs nothing, not in a checkout other sessions are standing in.
+- **`main` only moves forward.** No rebase, reset or history rewrite on it. Other sessions are building on those commits, and some are mid-commit on top of them.
+- **Name the branch around every commit.** Run `git branch --show-current` before and after. A commit lands on whatever HEAD points to at the moment of committing: the first check catches a branch someone else moved, the second says where the commit went.
+
 ## How the ceremonies live here
 
 A worktree isolates HEAD, which is exactly what makes canon and coordination need a rule: **canon and coordination always write to the trunk (the primary, on `main`); in-progress work lives where it lives.**
