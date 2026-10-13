@@ -15,23 +15,24 @@ forward_vector: "I am Waveguide Synthesizer's scroll — the one page that alway
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-23T05:04:41.000Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — steer the project in **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T18:21:44.861Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** seed · **Steward:** cycle 9 · last ran 2026-09-23 (today)
+- **Status:** active · **Stage:** growing · **Steward:** cycle 10 · last ran 2026-10-13 (today)
+- **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-09-23 (today) — Which view should the string open in: the strobe (the note you're hearing) or the replay (exact slow motion of the first moments)? (`waveguide-synthesizer-steward-022`)
-- **Last commit touching this project:** 2026-09-23 `239cb8c` — steward(Quantum Synthesizer, Waveguide Synthesizer): pilot cycles 5 and 8 under the run contract
+- **Last shipped:** 2026-10-13 (today) — Can you hear the string now? Press play on the tour WAV, then click the big button in v1.3. (`waveguide-synthesizer-steward-025`)
+- **Last commit touching this project:** 2026-09-25 `57f7c67e` — ops(history): cited commit hashes follow the rewritten history
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Waveguide Synthesizer is a browser instrument where the string on screen is the sound. Two delay lines carry a right-going and a left-going wave. Their sum is the orange line you see, and the speaker hears that same line at one point, the pickup. Last cycle, v1.1 put it in tune, made stiffness really stretch the partials, and made it loud enough. One problem was left. At 60 frames a second a 196 Hz string goes round its loop about 3.3 times between frames, so the screen showed a jumble. This cycle Study v1.2 adds two slow views. The strobe catches the string at a chosen point in its cycle and moves that point on a sliver each frame. The replay records the first three cycles after a pluck an…
+Waveguide Synthesizer is a browser instrument where the string on screen is the sound. Two delay lines carry a right-going and a left-going wave. Their sum is the orange line you see, and the speaker hears that same line at one point, the pickup. Earlier versions put it in tune, made stiffness stretch the partials like a piano string, and added slow views so you can watch a 196 Hz string move. You picked the strobe as the view it opens in. You also told me you couldn't hear anything. This cycle found out why: the sound engine worked, but the board shows the page in a 480-pixel window that can't scroll, and the pluck buttons sat below its bottom edge. Study v1.3 opens with one big button tha…
 
 ### Open asks
 
-- `waveguide-synthesizer-steward-022` — directional_decision · posted 2026-09-23 · options: STROBE-DEFAULT · REPLAY-DEFAULT · AUTO-BY-STIFFNESS · REDIRECT
+- `waveguide-synthesizer-steward-025` — directional_decision · posted 2026-10-13 · options: HEARD-BOTH · WAV-ONLY · STILL-SILENT
 
 ### Answered, not yet consumed
 
@@ -39,9 +40,16 @@ _None._
 
 ### Decided
 
+- `waveguide-synthesizer-steward-022` — directional_decision → GRANTED — option_id=STROBE-DEFAULT; notes: "I am unable to hear anything in any of these examples, I wonder why this is?" (2026-09-24)
 - `waveguide-synthesizer-steward-014` — directional_decision → GRANTED — option_id=DROP-DECOMPOSITION (2026-06-25)
 
 <!-- scroll:now:end -->
+
+## Plan
+
+<!-- scroll:plan:start -->
+_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+<!-- scroll:plan:end -->
 
 ## Standing Orders
 
@@ -52,6 +60,63 @@ Written by Claude on Loudon's behalf, 2026-09-23: your last two cycles posted no
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="waveguide-synthesizer-steward-025" -->
+### 2026-10-13 — cycle 10 — Can you hear the string now? Press play on the tour WAV, then click the big button in v1.3.
+> still working · silence explained and fixed · no clear lean, only your ears can tell
+
+Waveguide Synthesizer is the browser string whose on-screen wave is the sound. Last time you said you couldn't hear any of the examples. I found the cause: in the board's small frame the pluck buttons sat below the bottom edge, and clicking empty space started the sound engine without plucking anything. Study v1.3 opens with one button that starts the sound and plucks, and it shows an output meter. The 28-second tour WAV plays in the board's normal audio player. I've tested all of this in Chrome but can't listen myself, so I want your ears on it. If the meter moves and you still hear nothing, the silence is in system volume or the output device, not the page. I'll keep building either way.
+
+**Artifacts:**
+- [the 28 s tour: press play.](Projects/Waveguide Synthesizer/offline-v1.3/listening-tour-v1.3.wav)
+- [v1.3: one click on the big button.](Projects/Waveguide Synthesizer/study-v1.3-audible/index.html)
+- [index.html](Projects/Waveguide Synthesizer/study-v1.2-strobe/index.html)
+- [index.html](Projects/Waveguide Synthesizer/study-v1.1-in-tune/index.html)
+- [spacetime-strike-stiffness-0-vs-1.png](Projects/Waveguide Synthesizer/offline-v1/spacetime-strike-stiffness-0-vs-1.png)
+- [audition-v1.1.wav](Projects/Waveguide Synthesizer/offline-v1/audition-v1.1.wav)
+- [audition-v1-as-shipped.wav](Projects/Waveguide Synthesizer/offline-v1/audition-v1-as-shipped.wav)
+- [screen-time-four-views.png](Projects/Waveguide Synthesizer/offline-v1.2/screen-time-four-views.png)
+- [screen-replay.html](Projects/Waveguide Synthesizer/offline-v1.2/screen-replay.html)
+<sub>`waveguide-synthesizer-steward-025` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="waveguide-synthesizer-steward-024" -->
+### 2026-10-13 — cycle 10 — Found why you heard nothing: in the board's frame the pluck buttons sat below the bottom edge. v1.3 fixes it, and here's a 28-second WAV.
+> shipped · v1.3 sounds in the board frame, tested · strobe stays the default, as you chose · steward leans plan-the-piece-tier next
+
+Why it was silent. I loaded v1.2 exactly the way the board does: a frame 480 pixels tall, sandboxed to allow scripts only. The control panel was 738 pixels tall, and the page can't scroll. The pluck and strike buttons sat at 579 to 612 pixels, below the frame's bottom edge, and so did the hint that says what a click does. Clicking empty space started the audio engine but plucked nothing. The only way to get a sound was to hit the thin string exactly, and the panel covered half of it. The engine itself was fine: in real Chrome, inside that same locked frame, it plays at −10 dBFS once something plucks it.
+
+What v1.3 changes. (1) A door you can't miss: one 'tap to hear the string' button covers the frame, and a single click starts the sound and plucks. (2) A short-frame layout: under 640 pixels tall, the sliders fold behind a 'sliders' button, the pluck, strike, damp and view buttons stay in reach, and the camera backs off and drops the string below the panel. (3) An output meter that shows the level the page is sending to your speakers. If it moves and you still hear nothing, the silence is outside the page, in system volume or the output device. (4) A fallback engine. If the audio-thread engine won't load somewhere, the same processor code runs on the main thread instead, and the status line says which engine is playing. It's the same code with three stand-ins, not a rewrite. (5) Start-up errors now appear on screen instead of failing silently. The strobe stays the default view, per your choice.
+
+How I checked. frame_probe.mjs loads v1.3 inside the board's exact sandbox at 480 pixels, makes one real click in Chrome, and reads the meter: −10.1 dBFS on the audio thread, and −10.1 dBFS again with the worklet forced to fail and the fallback playing. No page errors either way. The tour WAV is rendered offline by the page's own worklet code, not a copy of it. The table shows each section's level, tuning and stretch.
+
+**Artifacts:**
+- [start here: 28 s of the string, from a plain pluck through a struck bar to four damped notes. Peak −7.4 dBFS.](Projects/Waveguide Synthesizer/offline-v1.3/listening-tour-v1.3.wav)
+- [Study v1.3: one click on the big button starts the sound and plucks. The meter shows what the page is sending to your speakers.](Projects/Waveguide Synthesizer/study-v1.3-audible/index.html)
+- [why you heard nothing: v1.2 in the board's 480-pixel frame. The pluck buttons are below the bottom edge.](Projects/Waveguide Synthesizer/offline-v1.3/board-frame-v1.2-why-silent.png)
+- [v1.3 in the same frame, before the click: the door.](Projects/Waveguide Synthesizer/offline-v1.3/board-frame-before-click.png)
+- [v1.3 just after a pluck: the string in strobe view, the meter at −11 dBFS.](Projects/Waveguide Synthesizer/offline-v1.3/board-frame-sounding.png)
+- [loads v1.3 in the board's exact sandbox, clicks once, reads the meter, then repeats with the worklet forced to fail.](Projects/Waveguide Synthesizer/offline-v1.3/frame_probe.mjs)
+- [renders the tour with the page's own worklet code and measures each section.](Projects/Waveguide Synthesizer/offline-v1.3/render_tour.py)
+- [the table above, as data.](Projects/Waveguide Synthesizer/offline-v1.3/tour-measurements.json)
+
+_listening tour, v1.3 engine, 48 kHz · partial-10 stretch = how many cents the 10th partial sits above 10 × the first_
+| starts | section | peak dBFS | pitch vs slider | partial-10 stretch |
+| --- | --- | --- | --- | --- |
+| 0.0 s | pluck G3 196 Hz near the nut | −10.1 | +0.1 cent | 0 |
+| 3.4 s | same note, plucked by the bridge: thin | −11.2 | +0.1 | 0 |
+| 6.7 s | strike instead of pluck | −7.4 | +0.1 | 0 |
+| 10.1 s | dark: brightness 0.15 | −10.5 | +0.1 | +7 |
+| 13.4 s | stiff string, G3, stiffness 0.75 | −12.0 | +0.1 | +23 |
+| 17.2 s | very stiff C4, struck: a bar | −7.4 | −0.1 | +226 |
+| 21.1 s | same stiffness, low E2 82 Hz | −7.4 | −0.3 | +10 |
+| 24.5 s | four notes, damped between: G3 B3 D4 G4 | −7.8 | +0.1 | 0 |
+
+_Left rough:_ I tested in Chrome, not Safari, and I can't hear anything myself, so the meter and the numbers are the only ears so far. If v1.2 was silent for you for some other reason, like your output device, v1.3's meter will show that. One thing the tour shows that I didn't fix: stiffness acts on absolute frequency, so at full stiffness a C4 rings like a bar (+226 cents at partial 10) while a low E2 barely stretches (+10). That's roughly what wound bass strings do, but it's a choice the slider never made on purpose.
+
+_Next moves named:_ Propose a plan for the last tier, the stage-ready version: bowed and breath excitation, more than one string at a time, and a short teaching arc around the visible wave. Then build its first move. · Decide whether stiffness should mean the same stretch at every pitch, the way a piano's B is set per string, and make the slider say which. · Retrofit the start button and the short-frame layout into the older study pages, or retire them so the board stops showing silent versions.
+<sub>`waveguide-synthesizer-steward-024` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="waveguide-synthesizer-steward-022" -->
 ### 2026-09-23 — cycle 9 — Which view should the string open in: the strobe (the note you're hearing) or the replay (exact slow motion of the first moments)?
 > still working · v1.2 shipped, strobe is the default · steward leans STROBE-DEFAULT

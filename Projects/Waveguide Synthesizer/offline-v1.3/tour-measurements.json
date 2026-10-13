@@ -1,0 +1,78 @@
+{
+ "columns": [
+  "starts (s)",
+  "section",
+  "peak dBFS",
+  "first partial (Hz)",
+  "vs slider (cents)",
+  "10th partial above 10\u00d7 first (cents)"
+ ],
+ "rows": [
+  [
+   "0.0",
+   "pluck G3 (196 Hz) near the nut end",
+   "-10.1",
+   "196.0",
+   "+0.1",
+   "+0"
+  ],
+  [
+   "3.4",
+   "same note, plucked right by the bridge: thin",
+   "-11.2",
+   "196.0",
+   "+0.1",
+   "+0"
+  ],
+  [
+   "6.7",
+   "strike instead of pluck",
+   "-7.4",
+   "196.0",
+   "+0.1",
+   "+0"
+  ],
+  [
+   "10.1",
+   "dark: brightness 0.15",
+   "-10.5",
+   "196.0",
+   "+0.1",
+   "+7"
+  ],
+  [
+   "13.4",
+   "stiff string, G3 (196 Hz), stiffness 0.75",
+   "-12.0",
+   "196.0",
+   "+0.1",
+   "+23"
+  ],
+  [
+   "17.2",
+   "very stiff, C4 (262 Hz), stiffness 1.0, struck: a bar",
+   "-7.4",
+   "261.6",
+   "-0.1",
+   "+226"
+  ],
+  [
+   "21.1",
+   "same stiffness 1.0, low E2 (82 Hz): barely stretched",
+   "-7.4",
+   "82.4",
+   "-0.3",
+   "+10"
+  ],
+  [
+   "24.5",
+   "four notes, damped between: G3 B3 D4 G4",
+   "-7.8",
+   "196.0",
+   "+0.1",
+   "+0"
+  ]
+ ],
+ "seconds": 28.4,
+ "tour_peak_dbfs": -7.4
+}
