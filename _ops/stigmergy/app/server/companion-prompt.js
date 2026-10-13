@@ -228,6 +228,16 @@ export function buildEntryPrompt({ grounding, frontmatter, body, message, focus,
 == VISUAL IDENTITY (your hero + avatar — see the regen capability below) ==
 ${faceState}${faceIdiom}${facePrompts}`;
 
+  // Loudon's open notes on this page's rich face (grounding.review_notes, the
+  // QUEUE's own human_eval cards) — his word on the page, left with the review
+  // dock and not yet answered.
+  const openNotes = Array.isArray(grounding.review_notes) ? grounding.review_notes : [];
+  const notesBlock = openNotes.length ? `
+
+== LOUDON'S OPEN NOTES ON YOUR RICH FACE (left with its review dock, not yet answered) ==
+${openNotes.flatMap((r) => (r.notes || []).map((n) => `- ${r.round ? `round ${r.round} · ` : ''}${n.section ?? 'the whole page'}: ${n.note}`)).join('\n')}
+They are his word on this page. When what he asks touches one of them, say which.` : '';
+
   // Two deictic cues resolve "this" / "here" / "what are we over?": a PINNED
   // passage (focus) and the scroll-spied SECTION. They must not compete — a pin
   // is an explicit pointer and OVERRIDES the scroll position, so when a focus is
@@ -287,7 +297,7 @@ ${bodyText}
 
 == TYPED-LINK NEIGHBORHOOD (what this entry is connected to, and what each wants) ==
 ${neighbors.length ? neighbors.map(neighborLine).join('\n') : '(no typed links yet — a growing edge)'}
-${faceBlock}
+${faceBlock}${notesBlock}
 
 == CONVERSATION SO FAR ==
 ${histBlock}

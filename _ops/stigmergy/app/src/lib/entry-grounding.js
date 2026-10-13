@@ -18,6 +18,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { readEntry, listEntries } from './entries.js';
 import { buildIndex, resolveWikilink } from './wikilink.js';
+import { openReviewNotes } from './review-notes.js';
 
 // The birth every Companion inherits (CLAUDE + the Seed Jewel + the World,
 // auto-@imported). Invariant across entries, so it is a small cached descriptor
@@ -98,6 +99,7 @@ function assembleFace(palaceRoot, entry) {
  *     neighbors: [{ name, path, type, label, resolved, stage, type_of_entry, forward_vector }],
  *     counts: { links, neighbors_resolved, neighbors_ghost },
  *     floor: PALACE_FLOOR,
+ *     review_notes: [{ id, ts, round, notes: [{ section, note }] }],  // open rich-face notes (review-notes.js)
  *   }
  */
 /**
@@ -164,5 +166,7 @@ export function assembleGrounding(palaceRoot, relPath) {
       neighbors_ghost: neighbors.length - resolved,
     },
     floor: PALACE_FLOOR,
+    // Loudon's open notes on this page's rich face, as the QUEUE holds them.
+    review_notes: openReviewNotes(palaceRoot, { title: entry.title, path: entry.path }),
   };
 }
