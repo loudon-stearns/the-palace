@@ -1,0 +1,116 @@
+{
+  "15 · Penrose Lattice": {
+    "hetRow": 0.25,
+    "max_abs_diff": 0,
+    "peak": 1.2867076396942139,
+    "diff_vs_signal_dB": "-300.0",
+    "codebox_voice_dB": [
+      "-103.5",
+      "1.7",
+      "-55.3"
+    ],
+    "hands_tour": [
+      {
+        "segment": "bare",
+        "max_abs_diff": 0,
+        "diff_vs_signal_dB": "-300.0"
+      },
+      {
+        "segment": "bend",
+        "max_abs_diff": 0,
+        "diff_vs_signal_dB": "-300.0"
+      },
+      {
+        "segment": "shear",
+        "max_abs_diff": 0,
+        "diff_vs_signal_dB": "-300.0"
+      },
+      {
+        "segment": "stir",
+        "max_abs_diff": 0.0008628349751234055,
+        "diff_vs_signal_dB": "-64.3"
+      },
+      {
+        "segment": "all four",
+        "max_abs_diff": 0.0005164444446563721,
+        "diff_vs_signal_dB": "-65.8"
+      }
+    ]
+  },
+  "14 · Knot Shadow": {
+    "hetRow": 0.3505859375,
+    "max_abs_diff": 0,
+    "peak": 1.8788079023361206,
+    "diff_vs_signal_dB": "-300.0",
+    "codebox_voice_dB": [
+      "-93.2",
+      "-4.0",
+      "-45.0"
+    ],
+    "hands_tour": [
+      {
+        "segment": "bare",
+        "max_abs_diff": 0,
+        "diff_vs_signal_dB": "-300.0"
+      },
+      {
+        "segment": "bend",
+        "max_abs_diff": 0,
+        "diff_vs_signal_dB": "-300.0"
+      },
+      {
+        "segment": "shear",
+        "max_abs_diff": 0,
+        "diff_vs_signal_dB": "-300.0"
+      },
+      {
+        "segment": "stir",
+        "max_abs_diff": 0.0001100301742553711,
+        "diff_vs_signal_dB": "-86.8"
+      },
+      {
+        "segment": "all four",
+        "max_abs_diff": 0.00006332993507385254,
+        "diff_vs_signal_dB": "-87.8"
+      }
+    ]
+  },
+  "10 · Membrane": {
+    "hetRow": 0.111328125,
+    "max_abs_diff": 0,
+    "peak": 2.035413980484009,
+    "diff_vs_signal_dB": "-300.0",
+    "codebox_voice_dB": [
+      "-80.0",
+      "-1.0",
+      "-31.8"
+    ],
+    "hands_tour": [
+      {
+        "segment": "bare",
+        "max_abs_diff": 0,
+        "diff_vs_signal_dB": "-300.0"
+      },
+      {
+        "segment": "bend",
+        "max_abs_diff": 0,
+        "diff_vs_signal_dB": "-300.0"
+      },
+      {
+        "segment": "shear",
+        "max_abs_diff": 0,
+        "diff_vs_signal_dB": "-300.0"
+      },
+      {
+        "segment": "stir",
+        "max_abs_diff": 0.004014104604721069,
+        "diff_vs_signal_dB": "-53.0"
+      },
+      {
+        "segment": "all four",
+        "max_abs_diff": 0.0043838173151016235,
+        "diff_vs_signal_dB": "-49.3"
+      }
+    ]
+  }
+}

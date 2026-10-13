@@ -15,20 +15,20 @@ forward_vector: "I am 2D Torus Wavetable Synthesizer's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T17:49:57.046Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T19:13:45.216Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 9 · last ran 2026-10-03 (10 days ago)
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 10 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — Membrane sings: the heterodyne reads the surface's loudest row, so it never sits on a nodal line. (`torus-steward-024`)
-- **Last commit touching this project:** 2026-10-13 `fd6a82a5` — steward(2D Torus Wavetable Synthesizer): cycle 10 recovered — the dead line has a voice
+- **Last shipped:** 2026-10-13 (today) — The heterodyne voice is in the RNBO codebox. Run as written, the codebox matches the browser engine bit for bit on all three surfaces. (`torus-steward-026`)
+- **Last commit touching this project:** 2026-10-13 `62ce7e0a` — steward(2D Torus Wavetable Synthesizer): Membrane sings — the heterodyne reads the loudest row
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read the surface, and their ratio decides whether the sound is harmonic or shimmering. Cycle 9 found the dead line: on a 3:2 lock, every lattice point along (3, −2) sounds at 0 Hz, so whatever the surface puts there goes silent when the knot closes. Cycle 10 aimed at it on purpose and gave it a voice. The cycle was cut off before it reported; this is its report, written up ten days later from what it left behind.
+This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read the surface, and their ratio decides whether the sound is harmonic or shimmering. The browser instrument (the Hopf sphere) can lock the two rates into a simple ratio. It also has a voice that plays the 'dead line', the part of the surface that goes silent when the rates lock. That voice is silent while locked and sings at the slip rate when the lock lets go. Until today it lived only in the browser. This cycle put it into the Max/RNBO codebox. I also built a small tool that runs the codebox's own text and holds it against the browser engine sample by sample, so the codeboxes get checked before anyone…
 
 ### Open asks
 
@@ -59,6 +59,34 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="torus-steward-026" -->
+### 2026-10-13 — cycle 10 — The heterodyne voice is in the RNBO codebox. Run as written, the codebox matches the browser engine bit for bit on all three surfaces.
+> shipped · codebox matches browser exactly, still unopened in Max · steward leans dead-line bank + voice next
+
+What I built. RNBO/torus_2d_hopf.codebox gains two knobs: het (how much of the voice) and hetRow (which row of the surface the voice reads). Membrane taught us that a nodal row is silent, so the comment lists each surface's loudest row as a phase, as measured. The codebox now also fades the voice from the old dead line to the new one over about 6 ms when the lock target changes, the way the browser does. Its lock search now tries the ratios in the browser's order, so the two engines break ties the same way.
+
+The checker. RNBO/codebox_mirror.mjs is a small translator. It turns a codebox file into JavaScript as written: knobs and state become variables, and peek reads the same surface the browser plays. Then it renders both tours twice, once through the browser engine and once through the codebox, and subtracts. The only thing it removes first is the browser's output soft-clip, which the codebox doesn't have.
+
+What it says. Heterodyne tour, all three surfaces, 24 s each: zero difference, sample for sample. Measured inside the codebox itself, the voice is 80–104 dB under the tone while locked, within 4 dB of it near 3:2, and 32–55 dB down at the grab, the same as the browser numbers. The hands tour from cycle 8 is now checked too, since it rides the same codebox: bare, bend and shear are bit-exact. Stir is built differently on purpose (finite differences instead of a precomputed slope field), and it still lands 49–87 dB under the signal. As a control, the codebox from before today, with no voice in it, misses by −2.3 dB. So the checker does catch a real difference.
+
+**Artifacts:**
+- [the Hopf codebox, now with het + hetRow, the 6 ms dead-line crossfade, and the browser's lock-search order. Not yet opened in Max.](Projects/2D Torus Wavetable Synthesizer/RNBO/torus_2d_hopf.codebox)
+- [runs a codebox file's own text as JS against the browser engine on the heterodyne and hands tours. `node codebox_mirror.mjs [file] [surface…]`](Projects/2D Torus Wavetable Synthesizer/RNBO/codebox_mirror.mjs)
+- [the numbers above, per surface and per hands-tour segment.](Projects/2D Torus Wavetable Synthesizer/RNBO/codebox_mirror_report.json)
+
+_codebox vs browser engine, run as written (codebox_mirror.mjs, 2026-10-13) · dB = difference under the signal_
+| surface | hetRow | heterodyne tour | hands: bend | hands: shear | hands: stir | hands: all four |
+| --- | --- | --- | --- | --- | --- | --- |
+| Penrose | 0.25 | bit-exact | bit-exact | bit-exact | −64.3 dB | −65.8 dB |
+| Knot Shadow | 0.3505859375 | bit-exact | bit-exact | bit-exact | −86.8 dB | −87.8 dB |
+| Membrane | 0.111328125 | bit-exact | bit-exact | bit-exact | −53.0 dB | −49.3 dB |
+
+_Left rough:_ A bit-exact match proves the codebox does the same arithmetic as the browser. It doesn't prove that RNBO compiles the file, that buffer~ loads the catalog surface in the same orientation, or that it sounds right in Max. Nobody has opened it, and nobody has heard any of these tours yet. The hetRow values were measured on the browser's own surfaces, not the catalog WAVs that a buffer~ would load.
+
+_Next moves named:_ Try the dead-line bank and the voice together: bake a surface whose energy slides onto the dead line, then let the voice play it. · Run the mirror over the other codeboxes (lookup, kuramoto, bank) so every file in RNBO/ has a check before Max. · When Loudon has a sitting: open torus_2d_hopf.codebox in Max with Penrose in tablebuf, set het to 1, ease coupling down near height 0.21, and listen for the slip tone.
+<sub>`torus-steward-026` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="torus-steward-024" -->
 ### 2026-10-13 — Membrane sings: the heterodyne reads the surface's loudest row, so it never sits on a nodal line.
 > shipped · all three voices sound · on Loudon's word · the dead line's voice is done in the browser engine
