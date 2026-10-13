@@ -15,13 +15,13 @@ forward_vector: "I am The Daily Page's scroll — the one page that opens on whi
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T16:16:19.927Z from the card's frontmatter, its tuning ledger and git. This zone is machine-owned — steer the ceremony in **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T17:36:41.762Z from the card's frontmatter, its tuning ledger and git. This zone is machine-owned — steer the ceremony in **Standing Orders** below, never here._
 
 - **Version:** v0.1 · the spec last changed 2026-10-13 (`f12b35b6`) — Schema Ceremony — The Daily Page added — v1.27
 - **Runs since the change:** 1 run on 1 day, counted from the ledger's run lines
 - **Last run:** 2026-10-13 — Frequency-Time Explorer, fold into Frequency-Time Duality · taught items 1–9 (under v0.1)
 - **Owed in the ledger:** 5 — items 4, 11, 13, 14 and 1 order from Loudon; the next run's tail read picks them up first
-- **Latest lesson:** item 16, from the cold read — 2026-10-13 — [[The Daily Page — tuning]]
+- **Latest lesson:** item 17, from Loudon's answers — 2026-10-13 — [[The Daily Page — tuning]]
 
 ### Runs since v0.1
 

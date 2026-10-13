@@ -35,20 +35,21 @@ A run does not reopen these; his word does.
 **08:40, at the first morning's close.** "I think the daily page can do work on the fly, but it is meant to be somewhat quick and when I am just waking up, so decisions can be made, but then lets make a habit of initiating proper palace machenery to do the big lifting."
 
 **09:21.** "land it now, Let the close match the work, today's deserved a full close, other days may be quicker. Give me a dormant page with the question if it should be revived, that is a nice working of the palace."
+**13:17, on three questions put to him at the read** (a missed page's second turn; where the full close begins; a fold into more than one neighbor). "a missed page comes round again in the lap. 2. that sounds good, we tune as we go. 3 that is good, we can tune as we go. This process does have a tuning ledger right? So we can keep tweaking the process easily, particularly for the first few weeks."
 
-## Landed as drafted, not yet answered
+**13:20.** "yes merge it, and yes to the CLAUDE.md lines" The message before it had put his yes to the merge to him as also confirming one new rule from the cold read, that a rough worth keeping on a kept page is copied into that page's `proofs` folder with a baton for Enrichment, and had named the three lines as the version to 1.27, the ceremony date, and the new trigger row.
 
-These went in as the draft had them. His read of the landing is where each is answered.
+## Landed as drafted, and standing
 
-- The record is the morning's commit body and the ledger's run line, not a growing file.
+These went in as the draft had them. The name, the trigger phrases, `0.1` and the commit as the record were put to him as standing unless he changed them, and he changed none. The others were in what he was given to read, and the session he was speaking with reports he raised none. How he wants all of it handled from here is in his 13:17 words: "we tune as we go," through the ledger, "particularly for the first few weeks."
+
+- The name "The Daily Page", the three trigger phrases, and `0.1` as the first version.
+- The record is the morning's commit and the ledger's run line, not a growing file.
 - The Concierge is summoned during the unattended prep, as [[CLAUDE]] says, though no one is there to see the spawn.
 - The bias toward making stands (see the tension below).
-- The name "The Daily Page", the trigger words, and `0.1` as the first version.
-- Whether the scheduled task's two commands are pre-approved. That is his alone to set.
-- A missed page's second turn. He said "if we miss one they don't pile up, the next day is a new day." That the missed page comes round again within the lap is the setup session's design and the dealer's behaviour, not his words.
-- Where the full close begins. As drawn, only a keep or an open that made nothing closes short.
-- A fold into more than one neighbor. He said "consumed by the neighboring pages"; the dealer's fold names one, and the card has the baton list the others.
-- A rough on a kept page leaves as a baton for Enrichment, with the file in that page's `proofs/`. New at the cold read; a rule, not a correction.
+- Stage `sprout`, and the link to the [[Walk Ceremony]] as `connects-to`.
+
+Still his alone to set: whether the scheduled task's two commands are pre-approved.
 
 ## Why it is shaped this way
 

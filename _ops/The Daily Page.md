@@ -79,7 +79,7 @@ A morning does three things to a page, and they lean on each other.
 These are his, each quoted and dated in [[The Daily Page — Context]]. A run does not reopen them.
 
 - **A pure shuffle.** Deal once. No peeking ahead, no second deal, no swapping the page for a better one.
-- **Every day.** A missed day does not pile up; the missed page comes round again later in the lap. <!-- CLAUDE → LOUDON: unanswered. The second turn is the setup session's design and the dealer's behaviour, not your words; yours were "if we miss one they don't pile up, the next day is a new day." Should a missed page come round again within the lap? -->
+- **Every day.** A missed day does not pile up; the missed page comes round again later in the lap.
 - **Bias toward making.** Most mornings, for most pages, try to make the rich face: sound, image, video, interaction. "This process of bringing a page to life is a central animating force of this project. If the page content is so dull that we can't make it exciting we should start to question the validity of the page."
 - **Teach.** The sit is a lesson both ways, not an audit.
 - **The sibling question is standing.** Every morning the neighbors are opened and the question is really asked.
@@ -88,6 +88,7 @@ These are his, each quoted and dated in [[The Daily Page — Context]]. A run do
 - **The record is public.**
 - **The morning decides; the palace's own machinery does the lifting.**
 - **The close matches the work.**
+- **We tune as we go.** The practice changes through its ledger, a morning at a time, most of all in its first few weeks.
 
 ## Before Loudon arrives
 
@@ -121,14 +122,14 @@ The landmarks, in the order that usually serves. The order may bend to the page:
 | **keep** | It stands. Nothing is written. | — |
 | **trim** | It stands, shorter. Shown to Loudon, then written. | [[Substrate Skill]] § Updating Entries |
 | **tune** | Its forward vector changes because Loudon saw the change. Shown, then written. | [[SCHEMA — Reference]] §3 |
-| **fold** | A named sibling consumes it. The text crosses by a deposit, with its map and his read; the emptied page then composts. If the content belongs in more than one neighbor, the fold names the one that takes the most, the baton lists the others, and the deposit's map places every part. <!-- CLAUDE → LOUDON: unanswered. You said "consumed by the neighboring pages"; is this how a fold into more than one should go? --> | [[Deposit Ceremony]] |
+| **fold** | A named sibling consumes it. The text crosses by a deposit, with its map and his read; the emptied page then composts. If the content belongs in more than one neighbor, the fold names the one that takes the most, the baton lists the others, and the deposit's map places every part. | [[Deposit Ceremony]] |
 | **compost** | The Spore Check's composting note, then `stage: composting`; the next Weave confirms. | [[Spore Check Ceremony]] (the note), [[SCHEMA]] §2 (the mark), [[Weave Ceremony]] |
 | **revive** | For a page already dormant: it should wake. Decided here, done by its own rite. | [[Revival Ceremony]] |
 | **open** | Not decided today. Say what would decide it. | — |
 
 **A small edit Loudon has read may land the same morning**, written by the Concierge. Everything larger is decided here and done elsewhere: the Concierge writes a commissioning baton on the page that will receive the work, announced on the board ([[Baton Ceremony]] § Where the Baton Lives), and a later session, not a morning, carries it out. The morning is early and meant to be quick.
 
-**A rough on a page that is kept.** A keep or an open writes no baton of its own, and the `roughs` folder is ignored by git, so a rough made for a kept page would be lost. When one is worth keeping, the Concierge copies it into the dealt page's `proofs` folder and writes a commissioning baton there for [[Enrichment]], so the making has somewhere to continue. <!-- CLAUDE → LOUDON: new at the cold read, 2026-10-13. A rule, not a correction: it is the case your first close nearly lost, made ordinary. Yours to confirm or change. -->
+**A rough on a page that is kept.** A keep or an open writes no baton of its own, and the `roughs` folder is ignored by git, so a rough made for a kept page would be lost. When one is worth keeping, the Concierge copies it into the dealt page's `proofs` folder and writes a commissioning baton there for [[Enrichment]], so the making has somewhere to continue.
 
 **What a waking asks for is recorded, not applied.** [[The Remembering Page]]: "One dialogue is a mood; three consistent ones are a direction." During week one, no `agency_profile` is written after a single waking; the page's answers stay in the record and the week's review decides. A change Loudon himself sees in the sit is ordinary tuning.
 
@@ -165,7 +166,7 @@ Loudon, 2026-10-13: "Let the close match the work, today's deserved a full close
 
 **A morning that made something the palace must carry** — a baton, an edit to any page, a file in any bundle, a rough worth keeping, a question for the palace, a change to this practice — gets a full Closing Well, as the first morning did. That is the session the [[Closing Well Ceremony]] calls substantial. The four steps above still run inside it, and each thing made commits under its own rite: a baton as a baton, an edit as an edit.
 
-As this line is drawn, only a keep or an open that made nothing closes short. A trim, a tune, a compost, a baton or a kept rough each means a full close, and under the bias toward making that is most mornings. He said "other days may be quicker"; where the line sits is his to move. <!-- CLAUDE → LOUDON: unanswered. Where should the full close begin? -->
+As this line is drawn, only a keep or an open that made nothing closes short. A trim, a tune, a compost, a baton or a kept rough each means a full close, and under the bias toward making that is most mornings. He said "other days may be quicker"; asked where the line should sit, he said "that sounds good, we tune as we go." So it stays here until a morning shows it is wrong, and the ledger is where it moves.
 
 **Who notices which morning it was.** Before closing, the working Claude lists what the morning will leave behind and says which close that asks for. The Concierge checks the list against the tree, because whoever made the morning is the worst judge of whether it was quick. Loudon's word decides. When no one is sure, it is a full close. And a question about the practice itself, such as whether a morning cut a corner, goes to a reader who had no hand in the morning.
 
