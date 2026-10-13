@@ -26,15 +26,18 @@ This skill does **not** reimplement any of that. It is a thin wrapper that adds
 only the lock handling the sandbox forces on us:
 
 1. **Guard** — refuse if a git transaction is in progress (`MERGE_HEAD`,
-   `rebase-merge`, etc.), or if a `*.lock` younger than the threshold (default
-   30s) is present — that could be a live op in another sandbox (e.g. the
-   scheduled heartbeat) we cannot see. Stale locks (older than the threshold)
-   are relocated and we proceed.
-2. **Pre-sweep** stale locks → `_ops/scratch/gitlock-junk/` (rename).
+   `rebase-merge`, etc.), or if a `*.lock` is **live** under the palace's one
+   lock rule (`_ops/stigmergy/app/server/git-locks.js`): younger than the
+   threshold (default 30s), or held by a git process this sandbox can see.
+   A live lock is waited out first, five looks two seconds apart; a fresh one
+   could be a live op in another sandbox (e.g. the scheduled heartbeat) we
+   cannot see. This skill carries no lock rule of its own.
+2. **Pre-sweep** stale locks (older than the threshold, nobody behind them) →
+   `_ops/scratch/gitlock-junk/` (rename). A dry run reports locks and moves none.
 3. **Commit** via `commitSelected` — unchanged, the single source of truth.
-4. **Post-sweep, forced** — the commit re-creates locks it cannot unlink; those
-   are ours and definitionally safe, so we relocate all of them so the next
-   commit is not wedged.
+4. **Post-sweep, age ignored** — the commit re-creates locks it cannot unlink;
+   those are ours, so they are relocated whatever their age (a git process this
+   sandbox can see still keeps a lock), and the next commit is not wedged.
 5. **Weave flag** — post (idempotently) one `weave_flag` BROADCAST on the `WEAVE`
    board so the next Weave clears the litter Mac-side.
 
@@ -131,9 +134,10 @@ report the exact commit plan to Loudon in chat.)
 - **Not auto-registered as a Cowork capability.** This is palace machinery,
   invoked by convention (the `CLAUDE.md` pointer + this skill). Making it an
   auto-loading Cowork skill is a Settings → Capabilities action on Loudon's side.
-- **Concurrency is heuristic.** I can't see processes in other sandboxes (the
-  heartbeat runs in its own). The lock-age guard is the safety net; when in
-  doubt it refuses rather than risk a live op.
+- **Concurrency is partly blind.** The lock rule does check for a git process,
+  but a sandbox sees only its own (the heartbeat runs in another), so inside
+  Cowork the age test does most of the work; when in doubt it refuses rather
+  than risk a live op.
 - **Verified end-to-end** in a throwaway repo on the palace mount (the real
   unlink-block): four consecutive commits, all `fsck`-clean, locks cleared each
   time, flag idempotent. See the parent conversation for the smoke run.
