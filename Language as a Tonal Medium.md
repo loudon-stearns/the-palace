@@ -43,7 +43,7 @@ The claim is not an argument; it is a build history. Each iteration of [[Semanti
 2. **Word Flock Cam** — words as flocking boids chasing eyes and fingers. Meaning is present but unmoored from tone; the words swim instead of shading.
 3. **Character Multiply Cam** *(the anchor)* — luminance × character-ink as a [[Convolution]]-flavored multiply. Brightness picks the glyph along a ramp (period → dash → word → shade → white tile). Whole words best-fit into contiguous mid-tone runs. Here the two scales first lock: a region is both *the right darkness* and *a readable word*.
 4. **Grammar-Fit Cam** — the picker stops choosing words by length and starts choosing by grammar, so each tonal blob reads as a composed line, not a ransom note. This is the strong test: if sense survives when the *only* hard constraint is tonal fit, the equivalence is real. It mostly survives.
-5. **Tonal-Word Cam** — temporal smoothing settles the words near-still, so a reader has time to actually read the image they are looking at. Tone becomes legible; legibility becomes the texture of the tone.
+5. **Tonal-Word Cam** — brightness now picks *which word*, by its ink: among the words grammar allows, a tone-bias leans toward the one whose ink matches the light. Tone becomes legible; legibility becomes the texture of the tone.
 
 The arc is the proof. Across five builds the meaning-channel and the light-channel never had to be reconciled, because they were never actually two channels.
 
@@ -72,7 +72,3 @@ Meaning here arrives the way it does in the [[Oblique Portrait]] method: not by 
 ---
 
 *Lifted from [[Semantic Webcam]]'s carried question on 2026-06-06, after five iterations supplied enough evidence to name it. Title chosen by Loudon (TITLE-TONAL-MEDIUM).*
-
-## Active Baton
-
-[[Language as a Tonal Medium — baton]] — drafted 2026-09-25

@@ -30,3 +30,4 @@ What each enrichment taught the ceremony, appended after a run that changed it. 
 ## From the review-notes baton, 2026-10-13
 
 7. **The ceremony never read what Loudon had already said about the page.** The rich face's review dock posts his section notes to the board, and [[Review Layer]] makes them for the next round to act on, but no step read them, and nothing turned them into work. Closing Well caught the gap on 2026-09-25; the QUEUE now carries each note as an item (`25837dc0`). Forced: step 1 reads a page's earlier notes before making anything, and the commit names the ones the run took up. v2.4.
+- run · 2026-10-13 · v2.3 · Language as a Tonal Medium · nothing new
