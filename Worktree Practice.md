@@ -72,3 +72,7 @@ A worktree is [[The Dichotomy of Control]] in git: your own HEAD is the one thin
 - Watch whether a scheduler ever picks up cross-worktree batons from the trunk's board automatically — the announcement convention is built for that future ant.
 - ✓ **Happy path verified 2026-06-17** (end-to-end run from a real `stigmergy`-profile worktree): owner-resolution from the worktree landed on `main`; the worktree's board was a separate inode (the fragmentation risk is real, so "append to the trunk" is earned); the `PALACE_ROOT` server seam resolved worktree-vs-owner as designed; the `node_modules` auto-mirror covered all 5 workspace dirs; teardown unlinked all 6 owner-pointing symlinks with the owner's install intact. *Untested edges:* two deposits racing the owner's index at once, and the thrash-recovery path (committing canon when the primary has been knocked off `main`).
 - Enforce vs. trust (partly answered): teardown now *embeds* a [[Closing Well]] guard — safe-delete (`-d`) refuses to strand unmerged work, a footgun removed without a procedural gate (2026-06-17). Still open at the other end: should a hook also refuse to leave the *primary* off `main`, or is discipline enough there?
+
+## Active Baton
+
+[[Worktree Practice — baton]] — drafted 2026-10-13

@@ -154,3 +154,8 @@ twice early on; they are 12a/12b and 13a/13b, four different traps. Newest last.
 - run · 2026-10-13 · v1.6 · close-2026-10-13-daily-page-first-morning · taught item 38
 
 Loudon's answer at the close (2026-10-13), to "what did this teach the ceremony": "Closing well is functioning well, seems to be catching issues before they are placed into the palace and sometimes, particularly with our fast development, I think things have already happened when they didn't — for instance I would have been sad if the rough we made today was lost, but our careful close procedure let me know that it would have been lost!" Data for the Path A question (dispatch.md § What Path A still has to prove): the warm resident's one unprompted suspicion — that the gitignored rough would leave with its folder — was the catch he valued most. The resumed read stayed sharp on a thing it had not itself made. No spec change.
+
+## From the handoff-day close — 2026-10-13
+
+39. **The reader cuts every peer-session message at about 257 characters, and peers relay Loudon's own words.** All 11 peer messages in this close's arc (arc:440–829) stop mid-sentence at 257 to 259 characters; the cut is `oneLine(…, 240)` plus the sender's name (`transcript-reader.mjs:225`). The keeper idea reached the cold read cut off at "pus", and the working Claude had to carry the rest. Items 31 and 33 closed this gap for mid-turn human inputs and popup answers; a peer relaying him is a third path. Spec change owed: render peer messages whole. **Owed; the version stays v1.6.**
+- run · 2026-10-13 · v1.6 · close-2026-10-13-handoffs · taught item 39

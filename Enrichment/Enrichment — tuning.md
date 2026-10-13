@@ -31,3 +31,7 @@ What each enrichment taught the ceremony, appended after a run that changed it. 
 
 7. **The ceremony never read what Loudon had already said about the page.** The rich face's review dock posts his section notes to the board, and [[Review Layer]] makes them for the next round to act on, but no step read them, and nothing turned them into work. Closing Well caught the gap on 2026-09-25; the QUEUE now carries each note as an item (`25837dc0`). Forced: step 1 reads a page's earlier notes before making anything, and the commit names the ones the run took up. v2.4.
 - run · 2026-10-13 · v2.3 · Language as a Tonal Medium · nothing new
+
+## From the Kuramoto face-switch cleanup, 2026-10-13
+
+8. **A bare `--stamp` re-stamps a section held drifted on purpose.** Step 5 runs `fingerprint.mjs "<Entry>" --stamp` bare, and a bare stamp covers every drifted section with no sign that one was held. Kuramoto's "Asymmetric Coupling: The Stubbornness Parameter" is held drifted on purpose (stamped `f19f12592784`, prose now `084c089b289f`; `48bda7a1`): it wants a real re-tune, not a quiet stamp, and a bare stamp would give it one. Spec change owed: step 5 stamps by section name whenever any section is held. **Owed; the version stays v2.4.**
