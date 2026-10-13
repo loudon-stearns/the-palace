@@ -15,20 +15,20 @@ forward_vector: "I am Quantum Synthesizer's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T21:43:52.672Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T21:48:34.870Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** dormant · **Steward:** cycle 13 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** dormant · **Steward:** cycle 14 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — An elder is needed to land Quantum Synthesizer's new section, two fixes already approved, and the stage move to sprout. (`quantum-synth-028`)
-- **Last commit touching this project:** 2026-10-13 `fcc6f004` — steward(Quantum Synthesizer): cycle 12 — SPINNING UP. HOME: [[Quantum Synthesizer]]. Neighborhood loaded. Last c…
+- **Last shipped:** 2026-10-13 (today) — The elder package for Quantum Synthesizer now holds two drafts. Land them together. (`quantum-synth-031`)
+- **Last commit touching this project:** 2026-10-13 `6e41be67` — steward(Quantum Synthesizer): cycle 13 — SPINNING UP. HOME: [[Quantum Synthesizer]]. Neighborhood loaded. Your R…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-This page claims the Schrödinger equation is a synthesizer: whatever holds a wave sets its energy levels, and those levels played as partials are the timbre. Today's proofs found the claim needs one correction. A string sounds 1·2·3, Schrödinger's box sounds the squares 1·4·9, and there are two separate roads between them. One changes the equation (stiffen a string until it's a pinned bar, whose square root is Schrödinger). The other changes the well (deepen a bump on Schrödinger's ring until it swings like a pendulum). This cycle plays both roads as one held tone, and drafts the entry section that says so, 'One equation, two spacings', for an elder to land.
+This page claims the Schrödinger equation is a synthesizer: the thing that holds a wave sets its energy levels, and those levels, played as partials, are the timbre. Today's proofs already corrected one line of the entry. The walls pick the shapes, and the equation turns shapes into pitches. That correction is drafted as a section, 'One equation, two spacings', for an elder to land. This cycle tested the next shaky line. The entry says a state with n nodes sounds like a fundamental plus n harmonics. It doesn't. Played honestly, every eigenstate is one sine. The entry's own picture still has a true version, though, and it's prettier than the claim. A Hermite-Gaussian is its own Fourier trans…
 
 ### Open asks
 
@@ -67,6 +67,46 @@ This container has no Shop (no ComfyUI, Kokoro, Max, or GPU) — Python with num
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="quantum-synth-031" -->
+### 2026-10-13 — cycle 14 — The elder package for Quantum Synthesizer now holds two drafts. Land them together.
+
+Following up on quantum-synth-028. An elder is still needed to land Quantum Synthesizer's approved changes. There is now a second draft beside the first. (1) `Projects/Quantum Synthesizer/proofs/one-equation-two-spacings — draft.md`: a new section, the piano-paragraph fix Loudon approved (APPLY, quantum-synth-008), the softened 'geometry of confinement' line, and stage dormant → sprout (granted three times). (2) New this cycle: `Projects/Quantum Synthesizer/proofs/hermite-paragraph — draft.md`, which replaces the two paragraphs claiming 'n nodes = n + 1 partials'. hermite.py shows that claim fails in all three readings, and it keeps the true version: Hermite-Gaussians are their own Fourier transform, so a wavetable of φₙ has spectrum |φₙ|. Draft (2) closes on the softened line from draft (1), so landing them together keeps the section consistent. No new frontmatter links are needed. Draft (2) is new and has not been put to Loudon; an elder may want his yes before applying it.
+
+**Artifacts:**
+- [the new Hermite-paragraph draft.](Projects/Quantum Synthesizer/proofs/hermite-paragraph — draft.md)
+<sub>`quantum-synth-031` · FLAG on FLAGS</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="quantum-synth-030" -->
+### 2026-10-13 — cycle 14 — An eigenstate with five nodes sings one pitch, not six. But play its shape as a wavetable and the spectrum is the shape itself.
+> shipped · three checks pass · fix drafted for an elder · steward leans RNBO voice next
+
+[Hermite: three readings of one eigenstate](open:Projects/Quantum Synthesizer/proofs/hermite.mp4) plays the harmonic oscillator's first six states, n = 0 to 5. Each state gets three short tones on a 110 Hz floor. Grey: the physics. I let the state evolve in time and listen at one point, and you hear a single sine that climbs in equal steps (110, 330, 550 … Hz) as n rises. Blue: the entry's reading, with |φₙ|² laid across a comb of 24 partials. You hear n + 1 lumps, like vowel formants. But it's 12 to 20 partials, and even φ₀'s lump sits on the twelfth partial, not the fundamental. Gold: the wavetable, with φₙ played as one cycle. Its spectrum is |φₙ| again to fifteen decimal places, so the nodes come back as holes in the spectrum and the timbre widens like √(2n+1). That gold tone is the one place where the entry's sentence 'the spatial structure of the wavefunction is the spectral structure of the sound' is literally true. I drafted a two-paragraph replacement that says so, in [the Hermite paragraph draft](obsidian://open?vault=The%20Palace&file=Projects/Quantum%20Synthesizer/proofs/hermite-paragraph%20%E2%80%94%20draft). It's for an elder to land together with the earlier section draft.
+
+**Artifacts:**
+- [37 s: for n = 0 to 5, the physics (one sine), the entry's comb (n + 1 lumps), and the wavetable (spectrum = shape).](Projects/Quantum Synthesizer/proofs/hermite.mp4)
+- [the same audio, for your DAW.](Projects/Quantum Synthesizer/proofs/hermite.wav)
+- [all three readings for all six states in one still. In the gold column the blue curve is \|φₙ\| itself.](Projects/Quantum Synthesizer/proofs/hermite-poster.png)
+- [the proof script (numpy + matplotlib + ffmpeg; run with /usr/local/bin/python3).](Projects/Quantum Synthesizer/proofs/hermite.py)
+- [three checks, PASS: one peak at Eₙ (≥ 99.96% of the energy), self-duality to 1e-15, lump and hole counts.](Projects/Quantum Synthesizer/proofs/hermite-checks.txt)
+- [drafted replacement for the entry's Hermite-Gaussian paragraph, for an elder to land.](Projects/Quantum Synthesizer/proofs/hermite-paragraph — draft.md)
+
+_What n nodes actually give you (the entry promised n + 1 partials)_
+| n | physics: partials | entry's comb: lumps | entry's comb: partials > −40 dB | wavetable: partials > −40 dB | promised |
+| --- | --- | --- | --- | --- | --- |
+| 0 | 1 | 1 | 12 | 9 | 1 |
+| 1 | 1 | 2 | 14 | 11 | 2 |
+| 2 | 1 | 3 | 16 | 12 | 3 |
+| 3 | 1 | 4 | 18 | 13 | 4 |
+| 4 | 1 | 5 | 20 | 14 | 5 |
+| 5 | 1 | 6 | 20 | 15 | 6 |
+
+_Left rough:_ Nobody has heard hermite.wav yet; every check is numerical. The 'creation operator adds one overtone' paragraph has the same flaw (it moves the state up one single pitch, not adding one) and I haven't drafted a fix for it. The RNBO two-knob voice is still not started.
+
+_Next moves named:_ Port the two-knob voice to an RNBO codebox: stiffness and bump depth as two parameters, with partials from a closed form and a small lookup table. It stays unverified until you open it in Max. · Draft the matching fix for the 'Quantum Operators as Musical Transforms' paragraph. The creation operator moves a state up one rung, a new single pitch, and only a superposition of rungs is a chord. Hand it to an elder with the other two drafts.
+<sub>`quantum-synth-030` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="quantum-synth-028" -->
 ### 2026-10-13 — cycle 13 — An elder is needed to land Quantum Synthesizer's new section, two fixes already approved, and the stage move to sprout.
 > drafted · entry untouched · three revive grants and one APPLY not yet landed
