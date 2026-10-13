@@ -27,8 +27,9 @@
 //   - BROADCAST with payload.kind 'human_eval' naming a page → 'human_eval'
 //     (Loudon's review notes from a page's rich face, posted by
 //      _ops/rich-face/rich-handler.mjs. Keyed on the kind and the page the
-//      note names — never on the board or session_id. Closes like a
-//      weave_flag: a commit touching the page, or a RESOURCE_GRANT/DENY.)
+//      note names — never on the board or session_id. One card per page and
+//      round (buildReviewCards). Closes like a weave_flag: a commit touching
+//      the page, or a RESOURCE_GRANT/DENY.)
 //
 // reconcileQueue() layers git resolution on top: given the LOG commits, it
 // marks an item resolved when its stale_if is satisfied — the prospective →
@@ -84,21 +85,6 @@ export function buildQueue(messages) {
     for (const ref of refs) {
       if (isClaim) claimByHandoff.set(ref, m);
       else closedHandoffs.add(ref);            // handoff_closed OR a legacy pickup
-    }
-  }
-
-  // A rich-face review is one card per page and round. The review dock sends
-  // every note of the round each time, so the newest send stands for the round
-  // and an earlier send of it drops off. Board order breaks a ts tie.
-  const latestReview = new Map();              // page+round key -> { id, epoch }
-  for (const m of messages) {
-    if (m?.payload?.kind !== 'human_eval') continue;
-    const r = readReview(m.payload);
-    if (!r) continue;
-    const epoch = tsToEpoch(m.ts);
-    const prev = latestReview.get(r.key);
-    if (!prev || !(Number.isFinite(prev.epoch) && Number.isFinite(epoch) && epoch < prev.epoch)) {
-      latestReview.set(r.key, { id: m.id, epoch });
     }
   }
 
@@ -238,43 +224,6 @@ export function buildQueue(messages) {
       continue;
     }
 
-    if (p.kind === 'human_eval') {
-      // Loudon's notes on a page's rich face — work for the page's next round.
-      // A human_eval that names no page (a loudon-eval rating sheet, read back
-      // by the session that asked for it) or carries no words stays off.
-      const review = readReview(p);
-      if (!review || latestReview.get(review.key)?.id !== m.id || responded.has(m.id)) continue;
-      const { entry, round, notes } = review;
-      const ask = `act on ${notes.length} review note${notes.length === 1 ? '' : 's'} on the rich face of [[${entry}]]`
-        + (round ? ` (round ${round})` : '');
-      items.push({
-        id: m.id,
-        sourceId: m.id,
-        kind: 'human_eval',
-        from: m.from,
-        ts: m.ts,
-        board: m.board,
-        sessionId: m.session_id || null,
-        task: typeof p.task === 'string' ? p.task : null,
-        entry,
-        // `entries` for reconcileQueue's array-aware entry-touch path, as weave_flag.
-        entries: [entry],
-        round,
-        notes,
-        ask,
-        summary: ask,
-        // The notes themselves, one to a line, for the card's [+] show context.
-        rationale: notes.map((n) => `${n.section ?? 'The whole page'}: ${n.note}`).join('\n'),
-        stale_if: `a commit touches ${entry}, or a RESOURCE_GRANT/DENY answers this note`,
-        pointer: { type: 'entry', target: entry },
-        resolved: { done: false, reason: null, commit: null },
-        blocking: false,
-        health: m.health || null,
-        raw: m,
-      });
-      continue;
-    }
-
     if (p.kind === 'stigmergy_todo' && !responded.has(m.id)) {
       // A STIGMERGY-dev to-do captured by the Companion (Stage 1). Unlike a
       // weave_flag it names no palace entry — it is feedback about the terminal
@@ -362,7 +311,100 @@ export function buildQueue(messages) {
     }
   }
 
+  // Loudon's rich-face notes, one card per page and round (buildReviewCards).
+  items.push(...buildReviewCards(messages, responded));
+
   return rankQueue(items);
+}
+
+// ── Rich-face review notes: one card per page and round ──────────────────────
+//
+// The review dock keeps its notes in the browser's localStorage, keyed by the
+// page's origin and its ?entry= string, and sends every note in that store each
+// time. So a send is not the whole round: another browser, another origin
+// (localhost vs 127.0.0.1) or another spelling of the page keeps another store.
+// And because the dock never clears after a send, the next send repeats notes
+// already answered. One card per page and round answers both:
+//   - a RESOURCE_GRANT/DENY on any send answers it and every send of the round
+//     at or before it (by ts, board order on a tie) -- the card it was given on
+//     showed all of them;
+//   - the card gathers the notes of the sends after that, newest send winning
+//     a section, and leaves out any note whose section and words an answered
+//     send already carried;
+//   - it leads with the newest of those sends (its id is what the deck answers)
+//     and names every send it gathered in `sources`.
+// A round whose new sends add nothing new raises no card. Pages match without
+// regard to case. A human_eval that names no page (a loudon-eval rating sheet,
+// read back by the session that asked for it) or carries no words stays off.
+function buildReviewCards(messages, responded) {
+  const rounds = new Map();                    // page+round key -> [{ m, review, epoch, order }]
+  messages.forEach((m, order) => {
+    if (m?.payload?.kind !== 'human_eval') return;
+    const review = readReview(m.payload);
+    if (!review) return;
+    if (!rounds.has(review.key)) rounds.set(review.key, []);
+    rounds.get(review.key).push({ m, review, epoch: tsToEpoch(m.ts), order });
+  });
+
+  const byTime = (a, b) => (Number.isFinite(a.epoch) && Number.isFinite(b.epoch) && a.epoch !== b.epoch
+    ? a.epoch - b.epoch
+    : a.order - b.order);
+  const noteKey = (n) => `${n.section ?? ''}\u0000${n.note}`;
+
+  const cards = [];
+  for (const sends of rounds.values()) {
+    sends.sort(byTime);
+    let answeredUpTo = -1;
+    sends.forEach((s, i) => { if (responded.has(s.m.id)) answeredUpTo = i; });
+    const answered = new Set();
+    for (const s of sends.slice(0, answeredUpTo + 1)) for (const n of s.review.notes) answered.add(noteKey(n));
+    const open = sends.slice(answeredUpTo + 1);
+    if (open.length === 0) continue;
+
+    const bySection = new Map();               // section (null = the page) -> note; first-seen order
+    for (const s of open) {
+      for (const n of s.review.notes) {
+        if (!answered.has(noteKey(n))) bySection.set(n.section, n);
+      }
+    }
+    if (bySection.size === 0) continue;
+    const notes = [...bySection.values()].sort((a, b) => (a.section === null ? -1 : 0) - (b.section === null ? -1 : 0));
+
+    const newest = open[open.length - 1];
+    const { m } = newest;
+    const { entry, round } = newest.review;
+    const ask = `act on ${notes.length} review note${notes.length === 1 ? '' : 's'} on the rich face of [[${entry}]]`
+      + (round ? ` (round ${round})` : '');
+    cards.push({
+      id: m.id,
+      sourceId: m.id,
+      kind: 'human_eval',
+      from: m.from,
+      ts: m.ts,
+      board: m.board,
+      sessionId: m.session_id || null,
+      task: typeof m.payload.task === 'string' ? m.payload.task : null,
+      // Every send this card gathered, oldest first; answering the card (re: id)
+      // answers all of them.
+      sources: open.map((s) => s.m.id),
+      entry,
+      // `entries` for reconcileQueue's array-aware entry-touch path, as weave_flag.
+      entries: [entry],
+      round,
+      notes,
+      ask,
+      summary: ask,
+      // The notes themselves, one to a line, for the card's [+] show context.
+      rationale: notes.map((n) => `${n.section ?? 'The whole page'}: ${n.note}`).join('\n'),
+      stale_if: `a commit touches ${entry}, or a RESOURCE_GRANT/DENY answers this note`,
+      pointer: { type: 'entry', target: entry },
+      resolved: { done: false, reason: null, commit: null },
+      blocking: false,
+      health: m.health || null,
+      raw: m,
+    });
+  }
+  return cards;
 }
 
 // Ranking: blocking first, then newest-first (chronological, tz-safe).

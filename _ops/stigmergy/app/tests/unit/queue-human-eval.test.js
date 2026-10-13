@@ -81,6 +81,18 @@ describe('buildQueue — human_eval (a rich-face review note)', () => {
     expect(q[0].round).toBe(1);
   });
 
+  it('takes the round from overall.round when the task is not the rich face\'s', () => {
+    const m = note();
+    const q = buildQueue([{ ...m, payload: { kind: 'human_eval', task: 'some-other-task', entry: 'Spinoza Conatus', groups: {}, overall: { note: 'tighten it', round: 3 } } }]);
+    expect(q).toHaveLength(1);
+    expect(q[0].round).toBe(3);
+  });
+
+  it('reads a section note sent as a bare string', () => {
+    const q = buildQueue([note({}, dockBody('Kuramoto Coupling', 2, { 'The Mechanism': 'a bare string note' }, ''))]);
+    expect(q[0].notes).toEqual([{ section: 'The Mechanism', note: 'a bare string note' }]);
+  });
+
   it('takes the page from payload.entry when a poster names it outright', () => {
     const m = note();
     const q = buildQueue([{ ...m, payload: { ...m.payload, task: 'some-other-task', entry: 'Spinoza Conatus' } }]);
@@ -99,15 +111,81 @@ describe('buildQueue — human_eval (a rich-face review note)', () => {
     expect(buildQueue([empty])).toHaveLength(0);
   });
 
-  it('lets a re-send of the same page and round stand for that round', () => {
-    // The dock sends every note of the round each time, so the newest send is the whole round.
+  it('folds a re-send of the same page and round into one card', () => {
     const first = note({ id: 'human-eval-kc-r2-a', ts: '2026-10-13T10:00:00.000Z' });
     const second = note({ id: 'human-eval-kc-r2-b', ts: '2026-10-13T10:05:00.000Z' });
     const q = buildQueue([first, second]);
     expect(q).toHaveLength(1);
     expect(q[0].id).toBe('human-eval-kc-r2-b');
+    expect(q[0].sources).toEqual(['human-eval-kc-r2-a', 'human-eval-kc-r2-b']);
+    expect(q[0].notes).toHaveLength(3);
     // Answering the newest send closes the round.
     expect(buildQueue([first, second, grant('human-eval-kc-r2-b')])).toHaveLength(0);
+  });
+
+  it('takes the newer send by ts, not by board order', () => {
+    const body = (n) => dockBody('Kuramoto Coupling', 2, { 'The Mechanism': { note: n } }, '');
+    const first = note({ id: 'kc-old', ts: '2026-10-13T10:00:00.000Z' }, body('old word'));
+    const second = note({ id: 'kc-new', ts: '2026-10-13T10:05:00.000Z' }, body('new word'));
+    const q = buildQueue([second, first]);
+    expect(q).toHaveLength(1);
+    expect(q[0].id).toBe('kc-new');
+    expect(q[0].notes).toEqual([{ section: 'The Mechanism', note: 'new word' }]);
+  });
+
+  it('keeps every note when two sends of a round each carry only some', () => {
+    // Two browsers, or two origins, keep two note stores; a send from each carries only its own.
+    const a = note({ id: 'kc-a', ts: '2026-10-13T10:00:00.000Z' },
+      dockBody('Kuramoto Coupling', 2, { S1: { note: 'one' }, S2: { note: 'two' } }, ''));
+    const b = note({ id: 'kc-b', ts: '2026-10-13T10:05:00.000Z' },
+      dockBody('Kuramoto Coupling', 2, { S3: { note: 'three' } }, ''));
+    const q = buildQueue([a, b]);
+    expect(q).toHaveLength(1);
+    expect(q[0].notes.map((n) => n.note)).toEqual(['one', 'two', 'three']);
+    expect(q[0].ask).toMatch(/3 review notes/);
+    // A grant on the card (re: its newest send) answers the whole round.
+    expect(buildQueue([a, b, grant('kc-b')])).toHaveLength(0);
+  });
+
+  it('merges sends whose page differs only in case', () => {
+    const a = note({ id: 'kc-upper', ts: '2026-10-13T10:00:00.000Z' },
+      dockBody('Kuramoto Coupling', 2, { S1: { note: 'one' } }, ''));
+    const b = note({ id: 'kc-lower', ts: '2026-10-13T10:05:00.000Z' },
+      dockBody('kuramoto coupling', 2, { S2: { note: 'two' } }, ''));
+    const q = buildQueue([a, b]);
+    expect(q).toHaveLength(1);
+    expect(q[0].notes.map((n) => n.note)).toEqual(['one', 'two']);
+  });
+
+  it('shows only what is new when a round is re-sent after a grant', () => {
+    // The dock keeps its notes after a send, so the next send repeats the answered ones.
+    const a = note({ id: 'kc-a', ts: '2026-10-13T10:00:00.000Z' },
+      dockBody('Kuramoto Coupling', 2, { S1: { note: 'one' }, S2: { note: 'two' } }, ''));
+    const c = note({ id: 'kc-c', ts: '2026-10-13T10:10:00.000Z' },
+      dockBody('Kuramoto Coupling', 2, { S1: { note: 'one' }, S2: { note: 'two, and more' }, S3: { note: 'three' } }, ''));
+    const q = buildQueue([a, grant('kc-a'), c]);
+    expect(q).toHaveLength(1);
+    expect(q[0].id).toBe('kc-c');
+    expect(q[0].sources).toEqual(['kc-c']);
+    expect(q[0].notes).toEqual([
+      { section: 'S2', note: 'two, and more' },
+      { section: 'S3', note: 'three' },
+    ]);
+    // A re-send with nothing new raises no card.
+    const same = note({ id: 'kc-same', ts: '2026-10-13T10:20:00.000Z' },
+      dockBody('Kuramoto Coupling', 2, { S1: { note: 'one' }, S2: { note: 'two' } }, ''));
+    expect(buildQueue([a, grant('kc-a'), same])).toHaveLength(0);
+  });
+
+  it('leaves a later send open when only an earlier one was answered', () => {
+    const a = note({ id: 'kc-a', ts: '2026-10-13T10:00:00.000Z' },
+      dockBody('Kuramoto Coupling', 2, { S1: { note: 'one' } }, ''));
+    const b = note({ id: 'kc-b', ts: '2026-10-13T10:05:00.000Z' },
+      dockBody('Kuramoto Coupling', 2, { S3: { note: 'three' } }, ''));
+    const q = buildQueue([a, b, grant('kc-a')]);
+    expect(q).toHaveLength(1);
+    expect(q[0].id).toBe('kc-b');
+    expect(q[0].notes).toEqual([{ section: 'S3', note: 'three' }]);
   });
 
   it('keeps two rounds of the same page as two items', () => {
