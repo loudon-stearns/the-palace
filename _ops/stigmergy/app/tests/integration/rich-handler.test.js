@@ -86,6 +86,15 @@ describe('the rich-face handler', () => {
     expect(await alive()).toBe(200);
   });
 
+  // SCHEMA — Reference §9: one session_id per agent, reused, and GENERAL for
+  // content left for any reader (FLAGS is for connections worth keeping).
+  test('a review is a human_eval BROADCAST from TRICKSTER on GENERAL, under the one session id "trickster"', () => {
+    const a = buildReviewMessage({ task: 'rich-face:Demo Entry:round-1' });
+    expect(a).toMatchObject({ from: 'TRICKSTER', to: '*', type: 'BROADCAST', board: 'GENERAL', session_id: 'trickster',
+      health: { model: 'loudon-trickster' }, payload: { kind: 'human_eval' } });
+    expect(buildReviewMessage({ task: 'rich-face:Other:round-3' }).session_id).toBe(a.session_id); // reused, never minted per day or page
+  });
+
   test('buildReviewMessage tolerates a missing body', () => {
     expect(() => buildReviewMessage(null)).not.toThrow();
     expect(buildReviewMessage(null).payload.task).toBe('rich-face');

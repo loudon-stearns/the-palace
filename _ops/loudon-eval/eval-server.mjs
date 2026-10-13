@@ -46,8 +46,10 @@ function buildMessage(data) {
     schema_version: '1.0',
     id: `human-eval-${task}-${Date.now()}`,
     ts,
-    session_id: `human-eval-${ts.slice(0, 10)}`,
-    from: 'TRICKSTER', to: '*', type: 'BROADCAST', board: 'FLAGS',
+    // GENERAL, under one session id reused for every rating (SCHEMA — Reference §9);
+    // the rich face's review dock posts on the same wire (rich-handler.mjs).
+    session_id: 'trickster',
+    from: 'TRICKSTER', to: '*', type: 'BROADCAST', board: 'GENERAL',
     // human-eval health stub: honest zeros (no context/tokens), iteration >= 1
     health: { context_pct: 0, stop_reason: 'human_eval', iteration: 1, tokens_this_call: 0, model: 'human', score: 'green' },
     payload: { kind: 'human_eval', task, groups: data.groups || {}, overall: data.overall || {} },

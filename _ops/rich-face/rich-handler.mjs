@@ -103,14 +103,17 @@ function readBody(req, res, cap) {
 }
 
 // The human_eval message — honest zeros for a human, iteration >= 1, and the
-// human node's model id (SCHEMA — Reference §9).
+// human node's model id (SCHEMA — Reference §9). It goes on GENERAL, the board
+// for content left for any reader, under one session id, `trickster`, reused
+// for every review — §9's one slug per agent, never one minted per day or page.
+// _ops/loudon-eval posts its ratings on the same wire.
 export function buildReviewMessage(data) {
   const d = isPlainObject(data) ? data : {};
   const ts = new Date().toISOString();
   const task = String(d.task || 'rich-face');
   return {
     schema_version: '1.0', id: `human-eval-${task.replace(/[^\w-]+/g, '-').slice(0, ID_TASK_CHARS)}-${Date.now()}`, ts,
-    session_id: `human-eval-${ts.slice(0, 10)}`, from: 'TRICKSTER', to: '*', type: 'BROADCAST', board: 'FLAGS',
+    session_id: 'trickster', from: 'TRICKSTER', to: '*', type: 'BROADCAST', board: 'GENERAL',
     health: { context_pct: 0, stop_reason: 'human_eval', iteration: 1, tokens_this_call: 0, model: 'loudon-trickster', score: 'green' },
     payload: { kind: 'human_eval', task, groups: d.groups || {}, overall: d.overall || {} },
   };

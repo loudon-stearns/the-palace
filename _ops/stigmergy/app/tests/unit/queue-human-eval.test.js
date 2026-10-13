@@ -32,6 +32,14 @@ const grant = (re, type = 'RESOURCE_GRANT') => ({
 });
 
 describe('buildQueue — human_eval (a rich-face review note)', () => {
+  it('a note on GENERAL under session "trickster" — the wire since 2026-10-13 — is a card', () => {
+    const n = note();
+    expect(n).toMatchObject({ board: 'GENERAL', session_id: 'trickster', payload: { kind: 'human_eval' } });
+    const q = buildQueue([n]);
+    expect(q).toHaveLength(1);
+    expect(q[0]).toMatchObject({ kind: 'human_eval', entry: 'Kuramoto Coupling', board: 'GENERAL' });
+  });
+
   it('turns a note the rich face posts into one QUEUE item on its page', () => {
     const q = buildQueue([note()]);
     expect(q).toHaveLength(1);
