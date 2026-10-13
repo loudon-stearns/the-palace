@@ -52,7 +52,7 @@ steward's `state.json` + `history.jsonl` **and materializes the bundle-local
 `[Entry] — scroll.md`** — the project's front door (Now zone + making trail;
 it replaced the plan.md read-model on 2026-09-23). Then read the summary's
 `stop_hint`: `shipped` → cycle the same steward again (up to its manifest
-`max_iterations`, 10 by default); `barren` → retry once, and a second barren
+`max_iterations`, 3 by default since 2026-10-13); `barren` → retry once, and a second barren
 cycle is STALLED (flagged in state and on the scroll — stop that steward);
 `blocking_ask` / `interactive_session` → stop, the next move is Loudon's. The
 scroll write is part of every cycle, not an optional extra: use the

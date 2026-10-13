@@ -85,7 +85,7 @@ cycle's `process-cycle.js`, read its `stop_hint` and decide —
 
 | `stop_hint` | do |
 |---|---|
-| `shipped` | fire the next cycle of the **same** steward, until the run reaches the manifest's `stopping_conditions.max_iterations` (10 by default). Pass `--extra-mandate` or the `runPosition` / `runCap` vars so the steward knows it is on cycle k of N and plans a larger jump. |
+| `shipped` | fire the next cycle of the **same** steward, until the run reaches the manifest's `stopping_conditions.max_iterations` (3 by default since 2026-10-13). Pass `--extra-mandate` or the `runPosition` / `runCap` vars so the steward knows it is on cycle k of N and plans a larger jump. |
 | `barren` | retry **once**, with the mandate saying it is a retry (`retryOfBarren`). A second barren cycle is **STALLED**: `process-cycle.js` has set `state.health.stalled` and the scroll's Now zone says so — stop this steward's run and move on. Never a third try. |
 | `blocking_ask` | stop — the steward paused on Loudon. |
 | `interactive_session` | stop — the next move is a conversation, not a cycle. |

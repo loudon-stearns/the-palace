@@ -104,8 +104,9 @@ export function buildManifest({ title, fm, slug, today }) {
     tool_registry: ['read_palace', 'read_manifest', 'read_blackboard_session', 'read_blackboard_persistent', 'write_blackboard'],
     // max_iterations is the RUN cap (2026-09-23): one activation may cycle up to
     // this many times in a row while the steward ships and nothing waits on
-    // Loudon. Loudon set 10 as the starting point.
-    stopping_conditions: { max_iterations: 10, stop_on: ['cycle_complete', 'blocking_ask', 'interactive_session', 'stalled'] },
+    // Loudon. Loudon set 10 as the starting point; on 2026-10-13, feeling ten
+    // as a long way down a poor path, he lowered it to 3.
+    stopping_conditions: { max_iterations: 3, stop_on: ['cycle_complete', 'blocking_ask', 'interactive_session', 'stalled'] },
     blackboard_session_path: null,
     blackboard_persistent_path: '_ops/swarm/persistent/blackboard.jsonl',
     partner_id: null,

@@ -38,7 +38,7 @@
     "write_blackboard"
   ],
   "stopping_conditions": {
-    "max_iterations": 10,
+    "max_iterations": 3,
     "stop_on": [
       "cycle_complete",
       "blocking_ask",

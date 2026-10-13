@@ -80,7 +80,7 @@ existing agents are untouched. The live manifests and their v0.1 amendments are 
 
 **The run** (2026-09-23). `stopping_conditions.max_iterations` was validated from v0.1 but never
 enforced; it now names the **run**: one activation cycles the same steward up to that many times in
-a row while each cycle ships and nothing waits on Loudon (10 by default — Loudon's starting point).
+a row while each cycle ships and nothing waits on Loudon (3 by default since 2026-10-13; 10 was Loudon's starting point).
 After every cycle `process-cycle.js` returns a `stop_hint` — `shipped` (continue to the cap) ·
 `barren` (retry once, then STALLED: `state.health.stalled`, score red, the scroll says so) ·
 `blocking_ask` · `interactive_session` (stop; the next move is Loudon's). The steward lane in

@@ -280,6 +280,15 @@ export function createStewardLane(opts = {}) {
   function reap(ctx) {
     const meta = ctx && ctx.meta;
     const run = (meta && meta.run) || { cap: 1, position: 1, retried: false };
+    // A live run honours a cap lowered mid-run (2026-10-13): re-read the
+    // manifest at every reap and never exceed what it says now. An explicit
+    // per-advance override (a cap the deck asked for) is left alone.
+    if (meta && meta.agentDir && !run.override) {
+      try {
+        const nowCap = runCapFor(readJson(join(meta.agentDir, 'manifest.json')));
+        if (nowCap < run.cap) { logLine(`run: ${meta.home} cap lowered ${run.cap} -> ${nowCap} by its manifest`); run.cap = nowCap; }
+      } catch (_) { /* keep the cap the run started with */ }
+    }
     let next = null; // the next fire of THIS steward's run, if any
     let dropQueue = false; // a usage limit: stop firing the rest of the batch
     try {
@@ -373,8 +382,8 @@ export function createStewardLane(opts = {}) {
     const tsNow = new Date().toISOString();
     const model = resolveModel(manifest.model?.name); // "opus" or none → the latest Opus, an exact id
     // The run cap: an explicit override, else the manifest's
-    // stopping_conditions.max_iterations (10 by default since 2026-09-23), else 1.
-    const thisRun = run || { cap: runCapFor(manifest, pendingCapOverride), position: 1, retried: false };
+    // stopping_conditions.max_iterations (3 by default since 2026-10-13; 10 before), else 1.
+    const thisRun = run || { cap: runCapFor(manifest, pendingCapOverride), position: 1, retried: false, override: Number.isInteger(pendingCapOverride) && pendingCapOverride > 0 };
 
     let prompt;
     try {
