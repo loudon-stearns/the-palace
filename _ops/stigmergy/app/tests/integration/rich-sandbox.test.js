@@ -172,12 +172,36 @@ describe.skipIf(!chromium)('the rich face in a browser', () => {
     } finally { await top.close(); }
   }, 30000);
 
-  test('a piece takes its manifest height, and one without gets the default', async () => {
+  test('a piece that says nothing keeps its manifest height, and one without gets the default', async () => {
     const heights = await page.$$eval('figure[data-piece]', (fs) => Object.fromEntries(fs.filter((f) => f.querySelector('iframe')).map((f) => [f.dataset.piece, f.querySelector('iframe').style.height])));
     expect(heights['probe.html']).toBe('500px');
-    for (const [n, h] of KPIECES) expect(heights[`${n}.html`]).toBe(`${h}px`);
     expect(heights['bare.html']).toBe(DEFAULT_HEIGHT);
   });
+
+  // Kuramoto's manifest heights were measured in a 1130 px column; narrower,
+  // the pieces grow taller (954–1025 px at 760, more stacked below 700). A
+  // frame must hold its piece whole at either width: no scrollbar inside it.
+  test("at 1130 and about 760 px, each of Kuramoto's pieces fits its frame", async () => {
+    for (const vw of [1440, 792]) {
+      const p = await browser.newPage({ viewport: { width: vw, height: 1000 } });
+      try {
+        await p.goto(`${base}/rich/?entry=${encodeURIComponent(ENTRY)}&review=0`);
+        await p.waitForSelector('figure[data-piece="ensemble.html"] iframe', { timeout: 30000 });
+        for (const [n] of KPIECES) {
+          const el = await p.$(`figure[data-piece="${n}.html"] iframe`);
+          await el.scrollIntoViewIfNeeded();
+          const col = Math.round((await el.boundingBox()).width);
+          expect(col, `column at viewport ${vw}`).toBeLessThanOrEqual(vw === 1440 ? 1130 : 760);
+          const frame = await el.contentFrame();
+          await frame.waitForSelector('#go', { timeout: 20000 });
+          await expect.poll(async () => {
+            const [content, room] = await frame.evaluate(() => [document.documentElement.scrollHeight, innerHeight]);
+            return content <= room + 1 ? 'fits' : `${n} at ${col}px: content ${content} in a ${room} frame`;
+          }, { timeout: 15000 }).toBe('fits');
+        }
+      } finally { await p.close(); }
+    }
+  }, 120000);
 
   // One voice at a time: starting a piece quiets the one playing. That needs
   // rich:play to reach the page from a sandboxed frame and rich:hush to reach

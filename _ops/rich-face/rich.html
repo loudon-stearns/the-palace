@@ -323,7 +323,8 @@ function audioStrip(src, label) {
 // frame (e.source), never by origin, and sends the hush to any origin — it
 // carries nothing but its type.
 const audios = new Set();
-const ownFrame = (win) => [...document.querySelectorAll('iframe')].some((f) => f.contentWindow === win);
+const frameOf = (win) => [...document.querySelectorAll('iframe')].find((f) => f.contentWindow === win);
+const ownFrame = (win) => !!frameOf(win);
 function hushAll(except) {
   document.querySelectorAll('video').forEach((v) => { if (v !== except) v.pause(); });
   audios.forEach((x) => { if (x !== except) x.pause(); });
@@ -331,12 +332,21 @@ function hushAll(except) {
 }
 document.addEventListener('rich:play', (e) => hushAll(e.detail));
 window.addEventListener('message', (e) => { if (e.data?.type === 'rich:play' && ownFrame(e.source)) hushAll(e.source); });
+// A piece that knows its height says so — {type:'rich:height', height} — on
+// load and whenever it changes; the page cannot measure a sandboxed frame. It is
+// known by its frame, as rich:play is, and its word is taken within sane bounds.
+window.addEventListener('message', (e) => {
+  if (e.data?.type !== 'rich:height') return;
+  const f = frameOf(e.source), px = Math.ceil(Number(e.data.height));
+  if (f && px >= 120 && px <= 8000) f.style.height = px + 'px';
+});
 
 // A piece runs sandboxed to scripts alone — the rule STIGMERGY's ArtifactSlot
 // applies to every HTML file it serves. Its origin is opaque, so it cannot call
 // STIGMERGY's API, read this page, or use its storage. Nor can this page read
-// the piece, so it cannot fit the piece's height: a made piece carries its
-// height in the manifest, and any other frame gets PIECE_HEIGHT.
+// the piece, so it cannot fit the piece's height: a piece that posts rich:height
+// (the listener above) gets what it asks for; until then, or if it never does, the manifest's
+// height, and with none, PIECE_HEIGHT.
 const PIECE_HEIGHT = 800;
 function iframeFor(src, height) {
   const f = h('iframe', { sandbox: 'allow-scripts', src, loading: 'lazy', allow: 'autoplay', title: src.split('/').pop() });
