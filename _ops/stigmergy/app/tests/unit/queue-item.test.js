@@ -58,3 +58,45 @@ describe('QueueItem — handoff worktree + copy prompt', () => {
     expect(html).not.toContain('data-testid="queue-item-copy-prompt"');
   });
 });
+
+// A rich-face review note (queue-model's human_eval) is answered the way a
+// weave_flag is: grant or deny from the card, which posts the RESOURCE_GRANT/
+// DENY that drops it from buildQueue.
+const reviewItem = (over = {}) => ({
+  id: 'human-eval-kc-r2',
+  kind: 'human_eval',
+  from: 'TRICKSTER',
+  ts: '2026-10-13T10:00:00Z',
+  board: 'FLAGS',
+  ask: 'act on 3 review notes on the rich face of [[Kuramoto Coupling]] (round 2)',
+  rationale: 'The whole page: the bed is too loud',
+  entry: 'Kuramoto Coupling',
+  entries: ['Kuramoto Coupling'],
+  stale_if: 'a commit touches Kuramoto Coupling, or a RESOURCE_GRANT/DENY answers this note',
+  pointer: { type: 'entry', target: 'Kuramoto Coupling' },
+  resolved: { done: false },
+  ...over,
+});
+
+const renderAnswerable = (item) =>
+  renderToStaticMarkup(React.createElement(QueueItem, { item, onRespond: () => {} }));
+
+describe('QueueItem — human_eval (a rich-face review note)', () => {
+  it('wears its own chip and accent, not the raw kind', () => {
+    const html = renderAnswerable(reviewItem());
+    expect(html).toContain('REVIEW NOTE');
+    expect(html).not.toContain('>human_eval<');
+    expect(html).toContain('border-left:3px solid var(--ansi-bright-green)');
+  });
+
+  it('offers grant and deny on an open card, as a weave_flag does', () => {
+    const html = renderAnswerable(reviewItem());
+    expect(html).toContain('data-testid="queue-item-grant"');
+    expect(html).toContain('data-testid="queue-item-deny"');
+  });
+
+  it('drops grant and deny once the note is resolved', () => {
+    const html = renderAnswerable(reviewItem({ resolved: { done: true, reason: 'a commit touched it' } }));
+    expect(html).not.toContain('data-testid="queue-item-grant"');
+  });
+});

@@ -50,7 +50,7 @@ node _ops/worktree/new-worktree.mjs --name feature/blueline --profile blueline
 | `--profile` | `full` | which symlink set — see profiles below |
 | `--base` | `main` | branch to fork from when creating a new branch |
 | `--dir` | `../palace-<slug>` | where the worktree lives |
-| `--memory` | off | also symlink `~/.claude` project memory so palace memories carry over |
+| `--memory` | — | no effect (kept so old commands still run): a worktree already shares palace memory — see § Memory is shared |
 | `--dry-run` | — | print the plan, change nothing |
 
 **Profiles** (defined in `symlinks.json`; pick the smallest that fits the work):
@@ -86,12 +86,19 @@ uses slash-less patterns (`_tools`, `.venvs`, `**/node_modules`) so these *symli
 worktree, not just the real dirs in the owner — otherwise `git status` shows them as untracked and a
 careless `git add -A` would commit a symlink to an absolute machine path.
 
-## Memory continuity (the one thing outside the repo)
+## Memory is shared (the one thing outside the repo)
 
-Auto-memory (`~/.claude/projects/<slug>/memory/`) is keyed to the worktree's **absolute path**, so a new
-path starts with empty memory — you lose the accumulated palace memories. `CLAUDE.md` still loads (it's
-tracked). Pass `--memory` to symlink the new slug's `memory/` to the canonical Palace memory, or run the
-exact command the script prints. (Shared state: writes from either worktree land in the same files.)
+Auto-memory (`~/.claude/projects/<key>/memory/`) is keyed to the **git repository**, not the folder, so
+every worktree of the palace already reads and writes the canonical palace memory. There is nothing to
+carry over. Checked 2026-10-13 on Claude Code 2.1.280 (the CLI on PATH) and 2.1.295 (the desktop app's):
+from a worktree, the `init` event's `memory_paths.auto` is the palace's own key, and `/context` lists its
+`MEMORY.md`. The docs say the same (https://code.claude.com/docs/en/memory, § Storage location). Session
+transcripts are still filed by folder, which is the per-worktree folder you see under `~/.claude/projects/`;
+memory is not.
+
+So a worktree is not a clean slate. A session there is born with Loudon's memory, and writes from any
+worktree land in the same files. A birth with no memory needs its own repository, a separate `git clone`:
+`_ops/self-description-test/birth.mjs` makes one and proves it from the `init` event before it plays anything.
 
 ## Teardown (safe by construction)
 
@@ -102,8 +109,8 @@ node _ops/worktree/new-worktree.mjs --name feature/blueline --remove [--delete-b
 `--remove` **unlinks the borrowed symlinks first**, then runs `git worktree remove`. This matters: a
 plain `rm -rf` / `git worktree remove --force` on a worktree containing a `_tools` symlink does *not*
 delete the owner's 16 GB (rm unlinks a symlink, never traverses it) — but unlinking first means there's
-zero chance of it and `git worktree remove` succeeds without `--force`. If you symlinked memory, the
-script prints the `rm` to remove that link too.
+zero chance of it and `git worktree remove` succeeds without `--force`. If an older `--memory` run left a
+memory link for that path, the script prints the `rm` for it too.
 
 **Close well before you tear down** *(work-safety, not just symlink-safety).* `git worktree remove`
 already refuses on uncommitted changes, and `--delete-branch` now does a **safe** delete (`git branch

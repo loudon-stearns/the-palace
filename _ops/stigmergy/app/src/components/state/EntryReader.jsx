@@ -16,6 +16,7 @@ import FaceSwitch from '../FaceSwitch.jsx';
 import { orderFaces, nextFace, richHref } from '../../lib/faces.js';
 import { fileUrl, IS_PUBLIC, BASE, getSiteMeta } from '../../lib/public-mode.js';
 import NoCarrier from '../public/NoCarrier.jsx';
+import Combobox from '../Combobox.jsx';
 
 // One entry's full read shape, rendered:
 //   - FrontmatterHeader (title, type, stage, pillars, forward_vector,
@@ -74,8 +75,8 @@ export default function EntryReader({
   const [glass, setGlass] = useState(null); // null | chosen glass title
   // Ranked glass candidates for the OPEN entry (link-distance, nearest first —
   // [[The Lens]]'s "lean on the graph to suggest" design). Fetched once when
-  // the picker opens; null while loading/unavailable (falls back to the
-  // free-text + datalist search, which always works).
+  // the picker opens; null while loading/unavailable (the title search in
+  // the picker itself always works).
   const [suggestions, setSuggestions] = useState(null);
 
   // Navigation (path change): show "loading <path>" then fetch. This blank is
@@ -358,31 +359,27 @@ export default function EntryReader({
         </>) : null}
         {picking !== null ? (
           <span style={{ marginLeft: 8, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-            <input
-              data-testid="lens-glass-input"
+            {/* The title search: a house combobox, not a <datalist>, whose
+                dropdown is an OS widget the phosphor can't reach. A picked
+                title (or Enter on text that matches no page) becomes the
+                glass; the entry being read is never offered as its own glass. */}
+            <Combobox
+              testId="lens-glass-input"
               autoFocus
-              list="lens-glass-options"
               value={picking}
               placeholder="read through which page?"
-              onChange={(e) => setPicking(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Escape') setPicking(null);
-                if (e.key === 'Enter' && picking.trim() && picking.trim() !== entry.title) {
-                  setGlass(picking.trim());
+              options={index instanceof Map ? Array.from(index.keys()) : []}
+              exclude={entry.title}
+              onChange={setPicking}
+              onPick={(title) => { setGlass(title); setPicking(null); }}
+              onSubmit={(text) => {
+                if (text.trim() && text.trim() !== entry.title) {
+                  setGlass(text.trim());
                   setPicking(null);
                 }
               }}
-              style={{
-                background: 'var(--bg)', color: 'var(--phosphor)', textShadow: 'var(--glow)',
-                border: '1px dashed var(--phosphor-dim)', fontFamily: 'var(--font-mono)', fontSize: 12,
-                padding: '2px 6px', outline: 'none', width: 220,
-              }}
+              onEscape={() => setPicking(null)}
             />
-            <datalist id="lens-glass-options">
-              {index instanceof Map ? Array.from(index.keys())
-                .filter((t) => t !== entry.title)
-                .map((t) => <option key={t} value={t} />) : null}
-            </datalist>
           </span>
         ) : null}
         {picking !== null ? (

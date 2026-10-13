@@ -131,6 +131,65 @@ describe('parseRequest — field-location coalescing', () => {
     expect(r.request_id).toBe(null);
     expect(r.parse_warnings.some((w) => /request_id/.test(w))).toBe(true);
   });
+  it('a blank request_id is no request_id: pairs by the message id and says so', () => {
+    const r = parseRequest({ request_id: '   ', id: 'm1', payload: {} });
+    expect(r.request_id).toBe('m1');
+    expect(r.parse_warnings.some((w) => /paired by message id/.test(w))).toBe(true);
+    expect(r.parse_warnings.some((w) => /nothing can answer it/.test(w))).toBe(false);
+  });
+  it('with neither id, the warning says nothing can answer it', () => {
+    const r = parseRequest({ payload: {} });
+    expect(r.parse_warnings.some((w) => /nothing can answer it/.test(w))).toBe(true);
+    expect(r.parse_warnings.some((w) => /paired by message id/.test(w))).toBe(false);
+  });
+});
+
+// A request posted without a top-level request_id is still answerable: the deck
+// answers it with `re: request_id ?? id` (app/src/lib/response-builder.js), and
+// the deck's reader and the orchestrator pair the same way. This reader keyed on
+// request_id alone, so four answered asks on the live board (the Shopkeeper's
+// sweeps of 2026-06-23, 09-15, 09-24 and Sam Maloof's of 2026-07-05) stayed
+// pending forever.
+describe('buildInbox — a request with no request_id pairs by its message id', () => {
+  const ask = (over = {}) => ({
+    schema_version: '1.0', ts: '2026-07-05T23:15:24Z', session_id: 'lens', from: 'Sam Maloof',
+    to: 'TRICKSTER', type: 'RESOURCE_REQUEST', board: 'TRICKSTER',
+    payload: { blocking: true, question: 'Commit or hold?', options: [{ id: 'commit', label: 'commit' }, { id: 'hold', label: 'hold' }] },
+    ...over,
+  });
+  const grant = (re) => ({
+    schema_version: '1.0', id: `resp-${re}`, ts: '2026-08-25T00:00:00Z', session_id: 'persistent-board',
+    from: 'TRICKSTER', to: 'Sam Maloof', type: 'RESOURCE_GRANT', board: 'TRICKSTER', re,
+    payload: { kind: 'decision', chosen_option_id: 'hold' },
+  });
+
+  it('drops out of pending once a grant answers its message id', () => {
+    const { pending, counts } = buildInbox([ask({ id: 'lens-ask-1' }), grant('lens-ask-1')]);
+    expect(pending).toEqual([]);
+    expect(counts).toMatchObject({ requests: 1, answered: 1, pending: 0 });
+  });
+
+  it('stays pending under its message id until answered, and names the missing field', () => {
+    const { pending } = buildInbox([ask({ id: 'lens-ask-2' })]);
+    expect(pending).toHaveLength(1);
+    expect(pending[0].request_id).toBe('lens-ask-2');
+    expect(pending[0].parse_warnings.some((w) => /request_id/.test(w))).toBe(true);
+  });
+
+  it('keys on a top-level request_id when there is one, and clears on either id, as the deck does', () => {
+    const asked = ask({ id: 'msg-9', request_id: 'req-9' });
+    expect(buildInbox([asked]).pending.map((p) => p.request_id)).toEqual(['req-9']);
+    expect(buildInbox([asked, grant('msg-9')]).pending).toEqual([]);
+    expect(buildInbox([asked, grant('req-9')]).pending).toEqual([]);
+  });
+
+  it('a request with neither key is named once as unanswerable, never queued', () => {
+    const { pending, unanswerable, counts } = buildInbox([ask()]);
+    expect(pending).toEqual([]);
+    expect(unanswerable).toHaveLength(1);
+    expect(unanswerable[0].from).toBe('Sam Maloof');
+    expect(counts.unanswerable).toBe(1);
+  });
 });
 
 describe('Phase 0 verify gate — real board snapshot parses cleanly', () => {

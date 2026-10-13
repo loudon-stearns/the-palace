@@ -2,9 +2,15 @@
 //
 // The inbox is the set of RESOURCE_REQUEST messages that have NOT yet received
 // a RESOURCE_GRANT or RESOURCE_DENY correlated by top-level `re`. This mirrors
-// the STIGMERGY inbox builder: scan from the beginning, track which
-// request_ids have been answered, return the unanswered ones — parsed into the
-// stable record shape from parse.js.
+// the STIGMERGY inbox builder (app/src/lib/inbox.js): scan from the beginning,
+// track which ids have been answered, return the unanswered ones — parsed into
+// the stable record shape from parse.js.
+//
+// A request is keyed by its parsed `request_id` — the wire request_id, else the
+// message's own `id`, the same key the deck's grant writes into `re` — and it
+// counts as answered when a grant's `re` matches either id, as the deck reads
+// it. A request carrying neither id can never be answered, so it is named once
+// in `unanswerable` rather than queued forever.
 
 import { parseRequest } from './parse.js';
 
@@ -12,8 +18,9 @@ import { parseRequest } from './parse.js';
  * @param {Array<object>} messages — parsed board messages, in board order
  * @returns {{
  *   pending: Array<ReturnType<typeof parseRequest>>,
+ *   unanswerable: Array<ReturnType<typeof parseRequest>>,
  *   answeredIds: Set<string>,
- *   counts: { requests: number, answered: number, pending: number }
+ *   counts: { requests: number, answered: number, pending: number, unanswerable: number }
  * }}
  */
 export function buildInbox(messages) {
@@ -25,29 +32,33 @@ export function buildInbox(messages) {
     }
   }
 
-  const requests = messages.filter((m) => m && m.type === 'RESOURCE_REQUEST');
-  // De-duplicate by request_id, keeping the LAST occurrence (a re-posted
-  // request supersedes its earlier form — matches the gsl-steward-004 →
+  // De-duplicate by key, keeping the LAST occurrence (a re-posted request
+  // supersedes its earlier form — matches the gsl-steward-004 →
   // gsl-steward-005 supersession pattern seen on the live board).
   const byId = new Map();
-  for (const r of requests) {
-    const id = typeof r.request_id === 'string' ? r.request_id : `__noid__${byId.size}`;
-    byId.set(id, r);
+  const unanswerable = [];
+  for (const m of messages) {
+    if (!m || m.type !== 'RESOURCE_REQUEST') continue;
+    const r = parseRequest(m);
+    if (r.request_id) byId.set(r.request_id, r);
+    else unanswerable.push(r);
   }
 
-  const pending = [];
-  for (const [id, msg] of byId) {
-    if (answeredIds.has(id)) continue;
-    pending.push(parseRequest(msg));
-  }
+  const isAnswered = (r) =>
+    answeredIds.has(r.request_id) || (typeof r.raw?.id === 'string' && answeredIds.has(r.raw.id));
+
+  const requests = [...byId.values()];
+  const pending = requests.filter((r) => !isAnswered(r));
 
   return {
     pending,
+    unanswerable,
     answeredIds,
     counts: {
-      requests: byId.size,
-      answered: [...byId.keys()].filter((id) => answeredIds.has(id)).length,
+      requests: requests.length,
+      answered: requests.length - pending.length,
       pending: pending.length,
+      unanswerable: unanswerable.length,
     },
   };
 }
