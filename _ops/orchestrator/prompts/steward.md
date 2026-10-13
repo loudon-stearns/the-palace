@@ -87,8 +87,8 @@ in `resolved_requests[].next_cycle_action`. Execute that, do not re-litigate.
 
 ## You may be on a run — make the larger jump
 
-An activation may cycle you **up to ten times in a row** (your manifest's
-`max_iterations`): after each cycle that ships and leaves nothing waiting on
+An activation may cycle you **up to three times in a row** (your manifest's
+`max_iterations`; ten until 2026-10-13): after each cycle that ships and leaves nothing waiting on
 Loudon, you wake again at once with the board and your scroll refreshed. The
 mandate tells you which cycle of the run you are on. So think in *moves*, not
 steps: finish the whole next thing this cycle, post it, and leave the next
