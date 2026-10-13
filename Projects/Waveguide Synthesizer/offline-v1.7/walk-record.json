@@ -1,0 +1,68 @@
+{
+ "errors": [],
+ "meters": [
+  {
+   "step": 1,
+   "who": "1 of 10 · nut loss → the steel post, left",
+   "peak_dbfs": -9.2
+  },
+  {
+   "step": 2,
+   "who": "2 of 10 · bridge loss → the brass block, right",
+   "peak_dbfs": -6.6
+  },
+  {
+   "step": 3,
+   "who": "3 of 10 · pitch → the beads",
+   "peak_dbfs": -7.1
+  },
+  {
+   "step": 4,
+   "who": "4 of 10 · brightness → the string’s colour",
+   "peak_dbfs": -6.6
+  },
+  {
+   "step": 5,
+   "who": "5 of 10 · stiffness → the string’s thickness",
+   "peak_dbfs": -10.9
+  },
+  {
+   "step": 6,
+   "who": "6 of 10 · pickup → the ring, where you listen",
+   "peak_dbfs": -7.8
+  },
+  {
+   "step": 7,
+   "who": "7 of 10 · slow motion → the clock",
+   "peak_dbfs": -9.6
+  },
+  {
+   "step": 8,
+   "who": "8 of 10 · bow position → where the bow sits",
+   "peak_dbfs": -15
+  },
+  {
+   "step": 9,
+   "who": "9 of 10 · bow speed → the arrow’s length",
+   "peak_dbfs": -11
+  },
+  {
+   "step": 10,
+   "who": "10 of 10 · bow force → the bow’s width and glow",
+   "peak_dbfs": -4.8
+  }
+ ],
+ "shots": [
+  "frames/step-01.png",
+  "frames/step-02.png",
+  "frames/step-03.png",
+  "frames/step-04.png",
+  "frames/step-05.png",
+  "frames/step-06.png",
+  "frames/step-07.png",
+  "frames/step-08.png",
+  "frames/step-09.png",
+  "frames/step-10.png"
+ ],
+ "walking_after_end": false
+}

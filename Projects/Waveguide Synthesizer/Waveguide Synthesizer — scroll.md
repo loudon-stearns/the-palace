@@ -15,20 +15,20 @@ forward_vector: "I am Waveguide Synthesizer's scroll — the one page that alway
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T21:16:10.154Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T21:25:22.386Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 13 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** growing · **Steward:** cycle 14 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — I've written your note as the plan: picture first, then body, bow, even stiffness, teaching. Adopt it so I build along it? (`waveguide-synthesizer-steward-033`)
-- **Last commit touching this project:** 2026-10-13 `a38db9c9` — steward(Waveguide Synthesizer): cycle 12 — SPINNING UP. HOME: [[Waveguide Synthesizer]]. Neighborhood loaded. Cycl…
+- **Last shipped:** 2026-10-13 (today) — Study v1.7: press 'walk the links' and the page moves each slider for you, end to end, while the string plays, saying what to watch and hear. (`waveguide-synthesizer-steward-035`)
+- **Last commit touching this project:** 2026-10-13 `a08464c3` — steward(Waveguide Synthesizer): cycle 13 — SPINNING UP. HOME: [[Waveguide Synthesizer]]. Neighborhood loaded. Cycl…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Waveguide Synthesizer is the browser string whose on-screen wave is the sound. Two delay lines carry a right-going and a left-going wave, and their sum is the string you see and hear. It's tuned. It can be plucked, struck and bowed, it can be watched in slow motion, and since last cycle its stiffness means the same at every pitch. You looked at it and said the picture is the strength, but the sliders don't connect to it: if the nut changed when you moved nut loss, you'd know which shape was the nut. So the step before any new feature is to make every control show itself in the picture. This cycle does that, for all nine sliders.
+Waveguide Synthesizer is the browser string whose on-screen wave is the sound: two delay lines carry a right-going and a left-going wave, and their sum is the string you see and hear. It can be plucked, struck and bowed, and watched in slow motion. You said the picture is its strength but the sliders didn't connect to it, so before any new feature every control has to show itself in the picture. Last cycle gave each slider its own object (nut loss changes the steel post, pitch changes the bead count, and so on). This cycle makes those links impossible to miss: the page can walk through them for you, one slider at a time, and the one control that had nothing on screen, slow motion, now has a…
 
 ### Open asks
 
@@ -62,6 +62,57 @@ Written by Claude on Loudon's behalf, 2026-09-23: your last two cycles posted no
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="waveguide-synthesizer-steward-035" -->
+### 2026-10-13 — cycle 14 — Study v1.7: press 'walk the links' and the page moves each slider for you, end to end, while the string plays, saying what to watch and hear.
+> shipped · still mastering the picture, before the body · steward leans watch the video first
+
+**What's new in [study v1.7](obsidian://open?vault=The%20Palace&file=Projects/Waveguide%20Synthesizer/study-v1.7-walk-the-links/index.html):**
+
+- **Walk the links (button, or W).** Ten steps, about 7.5 seconds each. The page resets the string, moves one slider slowly from one end to the other while the string keeps sounding (re-plucked, or bowed for the three bow sliders), lights up that slider's name in the panel, and puts a caption under the string: what to watch, and what to listen for. It starts with your own example, nut loss: *'watch the post on the left harden from soft swollen felt into lit steel. listen: the note rings longer.'* Touch any slider and the walk stops and hands control back to you. Nothing is staged: the walk moves the same sliders your hand would.
+- **Slow motion has an object now: a clock above the string.** One turn of the hand is one string cycle as you see it. Slow the motion and the hand slows with the wave. Hold, and it stops. The label says what the sound never does: only the picture slows.
+- **The dark end of brightness is a deep ember now,** not the salmon-red of v1.6. The glow is turned down at the dark end so it no longer washes the red out.
+- The slider panel scrolls, so the bow-position and slow-motion sliders are reachable on a short screen, and the walk scrolls each slider into view as it moves.
+
+**How I checked it:** I recorded the whole walk in Chrome, video plus the page's own sound tapped straight off the waveguide, and muxed them into one clip. No page errors. Sound peaked between −15 and −5 dBFS on every step, so nothing went silent and nothing clipped. The audio engine is v1.6's, unchanged.
+
+**Artifacts:**
+- [the whole walk recorded in Chrome, picture and sound together, 77 seconds. Watch this one first.](Projects/Waveguide Synthesizer/offline-v1.7/walk-the-links.mp4)
+- [study v1.7, playable: click to start the sound, then press 'walk the links' or W.](Projects/Waveguide Synthesizer/study-v1.7-walk-the-links/index.html)
+- [one frame from late in each of the ten steps, slider near its far end.](Projects/Waveguide Synthesizer/offline-v1.7/walk-contact-sheet.png)
+- [the walk's sound alone, as the page sent it to the speakers.](Projects/Waveguide Synthesizer/offline-v1.7/walk-the-links.wav)
+- [the recorder: runs the walk in Chrome, taps the audio, muxes the clip, logs errors and meters.](Projects/Waveguide Synthesizer/offline-v1.7/record_walk.mjs)
+- [what the recorder measured: no errors, the peak of each step.](Projects/Waveguide Synthesizer/offline-v1.7/walk-record.json)
+- [step 1, nut loss: the nut hardened to lit steel.](Projects/Waveguide Synthesizer/offline-v1.7/frames/step-01.png)
+- [step 2, bridge loss.](Projects/Waveguide Synthesizer/offline-v1.7/frames/step-02.png)
+- [step 3, pitch: the beads thinned out at a high note.](Projects/Waveguide Synthesizer/offline-v1.7/frames/step-03.png)
+- [step 4, brightness: white-hot.](Projects/Waveguide Synthesizer/offline-v1.7/frames/step-04.png)
+- [step 5, stiffness: wire swollen to rod.](Projects/Waveguide Synthesizer/offline-v1.7/frames/step-05.png)
+- [step 6, pickup: the ring slid along.](Projects/Waveguide Synthesizer/offline-v1.7/frames/step-06.png)
+- [step 7, slow motion: the clock lit, hand slowed.](Projects/Waveguide Synthesizer/offline-v1.7/frames/step-07.png)
+- [step 8, bow position.](Projects/Waveguide Synthesizer/offline-v1.7/frames/step-08.png)
+- [step 9, bow speed: the long arrow.](Projects/Waveguide Synthesizer/offline-v1.7/frames/step-09.png)
+- [step 10, bow force: the wide, glowing bow.](Projects/Waveguide Synthesizer/offline-v1.7/frames/step-10.png)
+
+_the walk, step by step: the slider and its object, and the loudest moment of each step_
+| step | slider → what moves | peak |
+| --- | --- | --- |
+| 1 | nut loss → the steel post, left | −9.2 dBFS |
+| 2 | bridge loss → the brass block, right | −6.6 |
+| 3 | pitch → the beads (one per sample) | −7.1 |
+| 4 | brightness → the string's colour | −6.6 |
+| 5 | stiffness → the string's thickness | −10.9 |
+| 6 | pickup → the ring | −7.8 |
+| 7 | slow motion → the clock | −9.6 |
+| 8 | bow position → where the bow sits | −15.0 |
+| 9 | bow speed → the arrow's length | −11.0 |
+| 10 | bow force → the bow's width and glow | −4.8 |
+
+_Left rough:_ In a few photos the plucked string looks nearly flat. That's the slow-motion strobe catching it as it swings through its rest line, not a fault, but it means some frames sell the link less well than the video does. At full bow speed the arrow pokes out of the top of the frame. The sliders are still the browser's default blue, not the house dress. And I've only checked it with a recording; I can't know whether the captions read well at that speed until you watch it.
+
+_Next moves named:_ Your eyes on the walk video: tell me which links still don't land, and I'll strengthen those first. I'll also keep the arrow inside the frame and skin the sliders in the house dress. · Then the body, which your note puts next: a soundboard under the bridge, drawn so you can see it take energy from the string.
+<sub>`waveguide-synthesizer-steward-035` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="waveguide-synthesizer-steward-033" -->
 ### 2026-10-13 — cycle 13 — I've written your note as the plan: picture first, then body, bow, even stiffness, teaching. Adopt it so I build along it?
 > still working · the picture step is shipped as v1.6 · steward leans adopt
