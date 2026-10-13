@@ -6,7 +6,7 @@ pillars:
   - tools
   - philosophy
 born: 2026-01
-stage: dormant
+stage: sprout
 status: active
 forward_vector: "I will keep proving — through audio and video artifacts, not only prose — that the Schrödinger equation IS a synthesis system: testing boundary conditions as harmonic content with actual sound, testing potential shape as anharmonicity with actual visualization, until monism is something the ear has heard rather than something the page has claimed."
 links:
@@ -56,7 +56,7 @@ Each quantum eigenstate $\phi_n(x)$ has a specific spatial structure. The ground
 
 When you sonify a quantum eigenstate—interpret $|\phi_n(x)|^2$ as the amplitude distribution across frequency—the number of nodes in the eigenfunction encodes how many partials are present: $\phi_0$ = pure fundamental, $\phi_1$ = fundamental plus first harmonic, $\phi_n$ = fundamental plus $n$ harmonics.
 
-The spatial structure of the wavefunction is the spectral structure of the sound. This is not decoration—it is fundamental. **The geometry of confinement determines the harmonic content.**
+The spatial structure of the wavefunction is the spectral structure of the sound. This is not decoration—it is fundamental. **The geometry of confinement chooses the shapes; the equation turns shapes into pitches.**
 
 ## Quantum Operators as Musical Transforms
 
@@ -76,9 +76,21 @@ $$E_n = \hbar\omega(n + \tfrac{1}{2})$$
 
 Modify the potential—bend it into a nonparabolic shape, add a quartic term $\lambda x^4$, create an asymmetric well—and the energy level spacing becomes unequal. The highest energy states are compressed (closer together) or stretched (farther apart) compared to the ground state. This is **anharmonicity**.
 
-A piano string under tension is a nonlinear oscillator: the restoring force increases with amplitude (the string becomes stiffer as it is pulled further from rest). This creates a nonparabolic effective potential. The result: inharmonic partials. The first few modes are nearly harmonic; the higher partials become increasingly sharp (higher in frequency than their harmonic values). This is not a flaw in the piano—it is the acoustic signature of nonlinear stiffness, encoded in the anharmonic potential.
+A piano string is the clearest case, and it turns out not to be about nonlinearity at all — see One equation, two spacings, below.
 
 Similarly, a struck bell or tam-tam has a potential landscape determined by its shape (circular membrane, thick walls). This produces Bessel function modes with inharmonic spacing. The sound is inharmonic not because the bell is "imperfect," but because [[Harmonicity and Inharmonicity|the geometry of circular resonators forces inharmonic eigenmodes]].
+
+## One equation, two spacings
+
+A plucked string sounds 1 · 2 · 3 · 4: the harmonic series. Schrödinger's particle in a box, with the same walls and the same sine shapes, sounds 1 · 4 · 9 · 16, the squares. The walls choose the shapes. The equation turns those shapes into pitches. The wave equation makes pitch grow with the number of wiggles; Schrödinger's makes it grow with the square. [Six strikes on one box](Projects/Quantum Synthesizer/proofs/walls.mp4) change only the walls and keep the equation fixed. Free walls, a ring and soft walls each move the loudness or bend the ladder, but the spacing stays the squares.
+
+There are two roads between those two ladders, and each turns a different knob.
+
+**Change the equation.** Make a string stiffer. Bending adds a fourth-derivative term, and the partials climb, fₙ = n · f₀ · √((1 + B·n²)/(1 + B)), from 1 · 2 · 3 at B = 0 to exactly 1 · 4 · 9 as B grows without limit. A string with nothing but stiffness is a pinned bar, and a pinned bar *is* Schrödinger's box: apply the free Schrödinger equation twice and you get the bar equation. Schrödinger is the square root of a vibrating bar. Integrated separately from the same pluck, box and bar agree to one part in fifty million ([the stiffness road](Projects/Quantum Synthesizer/proofs/stiffness.mp4)). A piano sits at the far string end of this road, B ≈ 0.0001–0.001. Its stretched upper partials are this arithmetic showing up faintly, and they come from a linear stiffness term, not from the string turning nonlinear when struck hard ([[Piano String Inharmonicity]]).
+
+**Change the well.** Keep Schrödinger and put a bump on the ring. As it deepens, the squares fold back down toward 1 · 2 · 3, because a small swing in any well is a harmonic oscillator. They never land exactly: in the deepest well the ladder reads 1 · 1.97 · 2.89 · 3.78, because a bigger swing is a slower one. That sag is the quantum pendulum's own colour ([eight strikes](Projects/Quantum Synthesizer/proofs/pendulum.mp4); [play it with a slider](Projects/Quantum Synthesizer/proofs/pendulum-slider.html)).
+
+[The round trip](Projects/Quantum Synthesizer/proofs/round-trip.mp4) plays both roads as one held tone. It goes up through the equation and back down through the well, and the two roads meet exactly at the squares. So it is more precise to say *one substance, two knobs* than *the geometry of confinement determines the harmonic content*. The equation sets how shape becomes pitch. The well sets which pitches that rule allows. A synthesist can turn either knob, and the ear hears both as timbre.
 
 ## Spinoza's Monism in Practice
 

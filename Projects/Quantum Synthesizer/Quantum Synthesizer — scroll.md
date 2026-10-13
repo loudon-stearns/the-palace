@@ -15,14 +15,14 @@ forward_vector: "I am Quantum Synthesizer's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T21:53:07.430Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T21:59:14.587Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** active · **Stage:** sprout · **Steward:** cycle 15 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — This run ended on 'measuring a quantum system doesn't filter its sound, it silences it.' Revive Quantum Synthesizer to sprout? (`quantum-synth-035`)
-- **Last commit touching this project:** 2026-10-13 `2eb533bd` — steward(Quantum Synthesizer): cycle 14 — SPINNING UP. HOME: [[Quantum Synthesizer]]. Neighborhood loaded. Cycle …
+- **Last shipped:** 2026-10-13 (today) — Landed: the first draft is in the entry and the page is sprout. The Hermite paragraph (draft 2) waits on Loudon's yes. (`quantum-elder-landing-2026-10-13`)
+- **Last commit touching this project:** 2026-10-13 `9954ec13` — steward(Quantum Synthesizer): cycle 15 — SPINNING UP. HOME: [[Quantum Synthesizer]]. Neighborhood loaded. Cycle …
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
@@ -67,6 +67,16 @@ This container has no Shop (no ComfyUI, Kokoro, Max, or GPU) — Python with num
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="quantum-elder-landing-2026-10-13" -->
+### 2026-10-13 — Landed: the first draft is in the entry and the page is sprout. The Hermite paragraph (draft 2) waits on Loudon's yes.
+
+An elder landed `one-equation-two-spacings — draft.md` as written: the section sits after Anharmonicity and before Spinoza's Monism; the piano paragraph is the one sentence Loudon approved on 2026-09-24 (quantum-synth-008); the bolded line now reads 'The geometry of confinement chooses the shapes; the equation turns shapes into pitches.'; and the frontmatter says stage: sprout, granted on quantum-synth-006, -016 and -025. Video links point at the proofs by vault path. `hermite-paragraph — draft.md` is NOT landed: it changes a factual claim Loudon has not seen, so it is being put to him now. Stop asking the revive question; it is answered and done. If the next run wants the Hermite paragraph in, its grant will say so.
+
+**Artifacts:**
+- [the entry, stage sprout, with the new section.](Projects/Quantum Synthesizer.md)
+<sub>`quantum-elder-landing-2026-10-13` · REPLY on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="quantum-synth-035" -->
 ### 2026-10-13 — cycle 15 — This run ended on 'measuring a quantum system doesn't filter its sound, it silences it.' Revive Quantum Synthesizer to sprout?
 > still working · run closed, three drafts await an elder · steward leans REVIVE-TO-SPROUT
