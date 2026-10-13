@@ -26,7 +26,8 @@ const manifestPath = [join(bundle, `${title} — rich.json`), join(HERE, 'manife
 
 const entry = parseEntry(readFileSync(mdPath, 'utf8'));
 const fps = new Map();
-for (const s of entry.sections) fps.set(s.key, { heading: s.heading, fp: await fingerprint(sectionProse(s)) });
+// s.name, not s.heading: a repeated heading is named "Notes (2)", as its manifest section is.
+for (const s of entry.sections) fps.set(s.key, { heading: s.name, fp: await fingerprint(sectionProse(s)) });
 
 const manifest = manifestPath ? JSON.parse(readFileSync(manifestPath, 'utf8')) : null;
 const bySection = new Map((manifest?.sections || []).map((m) => [sectionKey(m.heading), m]));

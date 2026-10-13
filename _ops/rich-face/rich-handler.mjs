@@ -16,7 +16,7 @@
 // Every URL it hands the page is relative, so the page works under any base.
 // It never writes to the palace.
 
-import { createReadStream, existsSync, statSync, readdirSync } from 'node:fs';
+import { createReadStream, existsSync, statSync, readdirSync, realpathSync } from 'node:fs';
 import { join, extname, normalize, relative, sep, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { makeFinder } from './palace-find.mjs';
@@ -103,14 +103,17 @@ function readBody(req, res, cap) {
 }
 
 // The human_eval message — honest zeros for a human, iteration >= 1, and the
-// human node's model id (SCHEMA — Reference §9).
+// human node's model id (SCHEMA — Reference §9). It goes on GENERAL, the board
+// for content left for any reader, under one session id, `trickster`, reused
+// for every review — §9's one slug per agent, never one minted per day or page.
+// _ops/loudon-eval posts its ratings on the same wire.
 export function buildReviewMessage(data) {
   const d = isPlainObject(data) ? data : {};
   const ts = new Date().toISOString();
   const task = String(d.task || 'rich-face');
   return {
     schema_version: '1.0', id: `human-eval-${task.replace(/[^\w-]+/g, '-').slice(0, ID_TASK_CHARS)}-${Date.now()}`, ts,
-    session_id: `human-eval-${ts.slice(0, 10)}`, from: 'TRICKSTER', to: '*', type: 'BROADCAST', board: 'FLAGS',
+    session_id: 'trickster', from: 'TRICKSTER', to: '*', type: 'BROADCAST', board: 'GENERAL',
     health: { context_pct: 0, stop_reason: 'human_eval', iteration: 1, tokens_this_call: 0, model: 'loudon-trickster', score: 'green' },
     payload: { kind: 'human_eval', task, groups: d.groups || {}, overall: d.overall || {} },
   };
@@ -132,7 +135,18 @@ export function createRichHandler({ root, here, base = '', app }) {
     let r;
     try { r = decodeURIComponent(rel); } catch { return null; }
     const abs = normalize(join(dir, r));
-    return abs === dir || abs.startsWith(dir + sep) ? abs : null;
+    if (abs !== dir && !abs.startsWith(dir + sep)) return null;
+    return landsInside(dir, abs) ? abs : null;
+  };
+  // The words of a path can stay inside while the file does not: a symlink in
+  // the palace can point anywhere, and serving it follows the link. So judge
+  // where the path really lands. A path that is not there passes, and the
+  // caller answers 404. STIGMERGY's resolveInsidePalace keeps the same rule.
+  const landsInside = (dir, abs) => {
+    let real, realDir;
+    try { real = realpathSync(abs); } catch (e) { return e.code === 'ENOENT' || e.code === 'ENOTDIR'; }
+    try { realDir = realpathSync(dir); } catch { return false; }
+    return real === realDir || real.startsWith(realDir + sep);
   };
   const relUrl = (abs) => relative(ROOT, abs).split(sep).map(encodeURIComponent).join('/');
 

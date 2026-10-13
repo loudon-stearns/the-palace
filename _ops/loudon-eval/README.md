@@ -30,13 +30,15 @@ strict validator + sanctioned write path do the work, so this server stays tiny.
 
 ## The message it posts (the `human_eval` board convention)
 
-`BROADCAST` from `TRICKSTER` (the human node) on board `FLAGS`:
+`BROADCAST` from `TRICKSTER` (the human node) on board `GENERAL`, under the one session id
+`trickster`, reused for every eval — SCHEMA — Reference §9's one slug per agent. The rich face's
+review dock posts on the same wire (`_ops/rich-face/rich-handler.mjs`):
 
 ```json
 {
   "schema_version": "1.0", "id": "human-eval-<task>-<ms>", "ts": "<ISO8601 Z>",
-  "session_id": "human-eval-<date>", "from": "TRICKSTER", "to": "*",
-  "type": "BROADCAST", "board": "FLAGS",
+  "session_id": "trickster", "from": "TRICKSTER", "to": "*",
+  "type": "BROADCAST", "board": "GENERAL",
   "health": { "context_pct": 0, "stop_reason": "human_eval", "iteration": 1, "tokens_this_call": 0, "model": "human", "score": "green" },
   "payload": { "kind": "human_eval", "task": "<task>", "groups": { "<group>": { "<criterion>": <value>, "note": "" } }, "overall": { ... } }
 }

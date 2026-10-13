@@ -2,11 +2,11 @@ import { describe, test, expect, beforeAll, afterAll } from 'vitest';
 import http from 'node:http';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { mkdtempSync, rmSync, mkdirSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, rmSync, mkdirSync, writeFileSync, readFileSync, symlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import request from 'supertest';
 import { listen, closeAll } from '../helpers/loopback.js';
-import { blackboardMiddleware } from '../../server/middleware.js';
+import { blackboardMiddleware, resolveInsidePalace } from '../../server/middleware.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -132,5 +132,69 @@ describe('GET /api/file', () => {
       .get('/api/file')
       .query({ path: 'Demo Entry' });
     expect(res.status).toBe(400);
+  });
+});
+
+// A symlink inside the palace can point anywhere. The path's words stay inside,
+// so only where it really lands can tell. resolveInsidePalace also guards
+// GET /api/open, which runs `open` on what it returns — tested at the function,
+// so no test here ever opens a file.
+describe('symlinks that leave the palace', () => {
+  let root, outside, base;
+
+  beforeAll(async () => {
+    root = makeTempPalace();
+    outside = mkdtempSync(resolve(tmpdir(), 'stigmergy-file-outside-'));
+    writeFileSync(resolve(outside, 'secret.txt'), 'outside the palace', 'utf8');
+    mkdirSync(resolve(root, 'Links'), { recursive: true });
+    symlinkSync(resolve(outside, 'secret.txt'), resolve(root, 'Links/escape.txt'));
+    symlinkSync(outside, resolve(root, 'Links/out'));
+    symlinkSync('../Demo Entry/still.png', resolve(root, 'Links/alias.png'));
+    symlinkSync(resolve(outside, 'gone.txt'), resolve(root, 'Links/dangling.txt'));
+    base = await listen(makeServer(root));
+  });
+
+  afterAll(async () => {
+    await closeAll();
+    rmSync(root, { recursive: true, force: true });
+    rmSync(outside, { recursive: true, force: true });
+  });
+
+  test('the links really reach the file outside', () => {
+    expect(readFileSync(resolve(root, 'Links/escape.txt'), 'utf8')).toBe('outside the palace');
+    expect(readFileSync(resolve(root, 'Links/out/secret.txt'), 'utf8')).toBe('outside the palace');
+  });
+
+  test('resolveInsidePalace refuses a linked file or folder that lands outside', () => {
+    expect(resolveInsidePalace(root, 'Links/escape.txt')).toBeNull();
+    expect(resolveInsidePalace(root, 'Links/out/secret.txt')).toBeNull();
+    expect(resolveInsidePalace(root, 'Links/out')).toBeNull();
+  });
+
+  test('resolveInsidePalace keeps a link that lands inside, and a path not there yet', () => {
+    expect(resolveInsidePalace(root, 'Links/alias.png')).toBe(resolve(root, 'Links/alias.png'));
+    expect(resolveInsidePalace(root, 'Demo Entry/missing.png')).toBe(resolve(root, 'Demo Entry/missing.png'));
+  });
+
+  test('GET /api/file refuses a linked file that lands outside', async () => {
+    const res = await request(base).get('/api/file').query({ path: 'Links/escape.txt' });
+    expect(res.status).toBe(400);
+    expect(res.text).not.toContain('outside the palace');
+  });
+
+  test('GET /api/file refuses a file under a linked folder that lands outside', async () => {
+    const res = await request(base).get('/api/file').query({ path: 'Links/out/secret.txt' });
+    expect(res.status).toBe(400);
+  });
+
+  test('GET /api/file still serves a link that lands inside', async () => {
+    const res = await request(base).get('/api/file').query({ path: 'Links/alias.png' });
+    expect(res.status).toBe(200);
+    expect(Buffer.from(res.body).toString('binary')).toBe(PNG_BYTES);
+  });
+
+  test('a link to nothing, or a path through a file, is still a 404', async () => {
+    expect((await request(base).get('/api/file').query({ path: 'Links/dangling.txt' })).status).toBe(404);
+    expect((await request(base).get('/api/file').query({ path: 'Demo Entry/still.png/x' })).status).toBe(404);
   });
 });

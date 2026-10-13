@@ -63,10 +63,6 @@ STIGMERGY is the palace's **nervous system made visible**: one terminal with thr
 
 It is two things at once. Seen by a human, it is a **front-end** — a phosphor terminal you read and act in. Seen by an agent, it is an **engine** — an append-only blackboard you leave marks on and read gradients from. The same data structure serves both; the [[Trickster]] is just another node on the board.
 
-## Active Baton
-
-> **[[STIGMERGY — baton]]** (2026-09-25) — hardening: close the doors the [[No Mind Checks Itself]] re-check found open — sandbox the rich face's pieces, settle the review wire, the smaller rich-face fixes. Cross-site writes, the late host check and the CDN scripts are closed (2026-09-26); the regen-lane teardown race and the bare-server port mix-up are closed (2026-10-12).
-
 ## The honesty discipline, made structural
 
 The three decks are ordered by time, and the ordering is the point. STATE is what is known now; QUEUE is what is intended; LOG is what actually happened. Work is not real until it lands in LOG — until git proves it. This makes the palace's standing rule (*nothing is true until it is committed*) **structural rather than remembered**: you cannot fake completion when the surface itself reconciles QUEUE against LOG. Git is ground truth; the blackboard is append-only; there is one write path.

@@ -10,10 +10,26 @@
 // spine) and which are figures (media the text already carries, with their
 // captions). Pieces the rich face *adds* live in the manifest, not here.
 
-// One list of media extensions, so what counts as media and what counts as a
-// media-only line (not caption) can't disagree.
-const MEDIA_EXTS = 'mp4|webm|mov|wav|mp3|ogg|m4a|flac|png|jpe?g|gif|webp|svg|html?';
+// One list of media extensions, by kind. What counts as media, what counts as a
+// media-only line (not caption), and what the page lays as a player, an image
+// or a frame all read it, so none of them can disagree. rich.html keeps no list
+// of its own.
+const KINDS = [
+  ['video', 'mp4|webm|mov'],
+  ['audio', 'wav|mp3|ogg|m4a|flac'],
+  ['image', 'png|jpe?g|gif|webp|svg'],
+  ['interactive', 'html?'],
+].map(([kind, exts]) => [kind, new RegExp(`\\.(?:${exts})$`, 'i'), exts]);
+const MEDIA_EXTS = KINDS.map(([, , exts]) => exts).join('|');
 const MEDIA_EXT = new RegExp(`\\.(?:${MEDIA_EXTS})$`, 'i');
+
+/** What a file is, by its name: video, audio, image, interactive, text (.md) or file. */
+export function mediaKind(name) {
+  for (const [kind, re] of KINDS) if (re.test(name)) return kind;
+  return /\.md$/i.test(name) ? 'text' : 'file';
+}
+/** Is this a media file — a video, sound, image or interactive — rather than an entry or a note? */
+export const isMedia = (name) => MEDIA_EXT.test(name);
 
 // ── frontmatter ────────────────────────────────────────────────────────────
 function splitFrontmatter(md) {
@@ -64,7 +80,10 @@ function safeDecodeURI(s) { try { return decodeURI(s); } catch { return s; } }
 
 const isHero = (name) => /—\s*hero\.(png|jpe?g|webp)$/i.test(name);
 const ONLY_EMBED = /^!\[\[[^\]]+\]\]\s*$/;
-const ONLY_MEDIA_LINE = new RegExp(`^(?:!\\[\\[[^\\]]+\\]\\]|\\[[^\\]]+\\]\\([^)\\s]+\\.(?:${MEDIA_EXTS})\\))\\s*$`, 'i');
+// A line that is only media, in any of the three shapes mediaRefs reads: an
+// embed, [[file.ext|label]], or [label](file.ext). A [[link]] to an entry is not
+// media, so it stays in the caption.
+const ONLY_MEDIA_LINE = new RegExp(`^(?:!\\[\\[[^\\]]+\\]\\]|\\[\\[[^\\]|]+\\.(?:${MEDIA_EXTS})(?:\\|[^\\]]*)?\\]\\]|\\[[^\\]]+\\]\\([^)\\s]+\\.(?:${MEDIA_EXTS})\\))\\s*$`, 'i');
 const ITALIC_LINE = /^\*[^*].*\*$/;
 // The entry's one-line door to its own rich face. It belongs to the plain view
 // only: the rich face never shows it, and it never counts toward a fingerprint.
@@ -193,6 +212,8 @@ export function parseEntry(md) {
     cur.bodyLines.push(line);
   }
 
+  nameSections(sections);
+
   let hero = null;
   for (const s of sections) {
     s.blocks = toBlocks(s.bodyLines.join('\n'));
@@ -202,6 +223,32 @@ export function parseEntry(md) {
     s.blocks = s.blocks.filter((b) => b.type !== 'hero');
   }
   return { fm, title: fm.title || (sections[0] && sections[0].heading) || '', hero, sections };
+}
+
+// Every section gets a key no other section in the entry has. A manifest, the
+// drift marks, a section's review note and fingerprint.mjs all find a section
+// by its key, so two sharing one laid the same pieces under both, kept one note
+// for the two, and stamped both against the second one's words.
+//
+// A section's name is its heading, and a heading that repeats an earlier one
+// (the same key: case and emphasis don't count) is named with its place among
+// them — the second "Notes" is "Notes (2)". A manifest's `heading` and
+// `--stamp` use that name. A heading written that way keeps it: every heading's
+// first use claims its own key before any repeat is numbered.
+function nameSections(sections) {
+  const taken = new Set(sections.map((s) => s.key));
+  const seen = new Map(); // key -> how many sections have used it so far
+  for (const s of sections) {
+    s.name = s.heading;
+    const n = (seen.get(s.key) || 0) + 1;
+    seen.set(s.key, n);
+    if (n === 1) continue;
+    let i = n;
+    while (taken.has(sectionKey(`${s.heading} (${i})`))) i++;
+    s.name = `${s.heading} (${i})`;
+    s.key = sectionKey(s.name);
+    taken.add(s.key);
+  }
 }
 
 // ── the fingerprint ────────────────────────────────────────────────────────

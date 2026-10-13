@@ -173,7 +173,23 @@
 
 <script type="module">
 import { marked } from './_vendor/marked/marked.esm.js';
-import { parseEntry, sectionProse, sectionKey, fingerprint } from './_rich/parse.js';
+import { parseEntry, sectionProse, sectionKey, fingerprint, mediaKind, isMedia } from './_rich/parse.js';
+
+// An entry's own HTML is shown, not run. This page is served from STIGMERGY's
+// origin, so a tag that runs script here runs as STIGMERGY. Comments stay unseen
+// (agents leave notes in them). Plain formatting tags with no attributes, and a
+// div or span whose one attribute is a class, still render — Kuramoto's equation
+// piece is laid out that way. Any other tag is escaped and shows as written.
+const KEEP_TAGS = new Set(['b', 'strong', 'i', 'em', 'u', 's', 'del', 'ins', 'mark', 'small', 'sub', 'sup', 'kbd', 'br', 'div', 'span']);
+const escapeHtml = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+function safeHtml(raw) {
+  return raw.replace(/<!--[\s\S]*?(?:-->|$)/g, '').replace(/<[^>]*>?/g, (tag) => {
+    const m = tag.match(/^<(\/?)([a-z][a-z0-9]*)(\s+class="[\w\s-]*")?\s*\/?>$/i);
+    const name = m && m[2].toLowerCase();
+    return m && KEEP_TAGS.has(name) && (!m[3] || name === 'div' || name === 'span') ? tag : escapeHtml(tag);
+  });
+}
+marked.use({ renderer: { html: (html) => safeHtml(html) } });
 
 const params = new URLSearchParams(location.search);
 const ENTRY = params.get('entry') || 'Kuramoto Coupling';
@@ -182,6 +198,12 @@ const ENTRY = params.get('entry') || 'Kuramoto Coupling';
 // text is the snapshot's rather than re-read live.
 const STATIC = window.RICH_STATIC === true;
 const REVIEW = !STATIC && params.get('review') !== '0';
+// Framed by STIGMERGY's reader (RichFaceFrame.jsx, on this same origin), the
+// reader carries the face switch: this page's top strip and its F shortcut
+// would take the frame away to another face, so the strip hides and F is left
+// to the reader. The public read view never frames the page.
+const FRAMED = !STATIC && (() => { try { return window.top !== window && window.top.location.origin === location.origin; } catch { return false; } })();
+if (FRAMED) document.querySelector('.top').style.display = 'none';
 const $ = (s, el = document) => el.querySelector(s);
 const h = (tag, attrs = {}, ...kids) => {
   const el = document.createElement(tag);
@@ -193,14 +215,8 @@ const h = (tag, attrs = {}, ...kids) => {
   for (const c of kids.flat()) if (c != null) el.append(c.nodeType ? c : document.createTextNode(c));
   return el;
 };
-const kindOf = (name) => {
-  if (/\.(mp4|webm|mov)$/i.test(name)) return 'video';
-  if (/\.(wav|mp3|ogg|m4a|flac)$/i.test(name)) return 'audio';
-  if (/\.(png|jpe?g|gif|webp|svg)$/i.test(name)) return 'image';
-  if (/\.html?$/i.test(name)) return 'interactive';
-  if (/\.md$/i.test(name)) return 'text';
-  return 'file';
-};
+// What a file is comes from parse.js, the one media list; this page keeps none.
+const kindOf = mediaKind;
 const SMALL = new Set(['audio', 'image', 'text']);
 
 let info, manifest, lastMd = '', entry, lastRead = Date.now();
@@ -222,7 +238,7 @@ function mdToHtml(md, inline = false) {
     .replace(/!\[\[([^\]|]+)(?:\|([^\]]*))?\]\]/g, (m, n) => `![](${mediaUrl(n.trim())})`)
     .replace(/\[\[([^\]|]+)(?:\|([^\]]*))?\]\]/g, (m, target, label) => {
       const t = target.trim(), l = (label || t.split('#')[0]).trim();
-      if (/\.(mp4|webm|mov|wav|mp3|png|jpe?g|gif|webp|svg|html?)$/i.test(t)) return `[${l}](${mediaUrl(t)})`;
+      if (isMedia(t)) return `[${l}](${mediaUrl(t)})`;
       if (STATIC) {
         // Static: a wikilink opens the entry in the read view, if it was published.
         const p = info.paths && info.paths[t.split('#')[0]];
@@ -252,26 +268,29 @@ function audioStrip(src, label) {
 }
 // One voice at a time. Starting any strip, video or interactive quiets the
 // rest; the interactives speak the same tiny protocol over postMessage
-// (they send 'rich:play' when they start and stop on 'rich:hush').
+// (they send 'rich:play' when they start and stop on 'rich:hush'). A piece is
+// sandboxed, so its origin is opaque ("null"): the page knows a piece by its
+// frame (e.source), never by origin, and sends the hush to any origin — it
+// carries nothing but its type.
 const audios = new Set();
+const ownFrame = (win) => [...document.querySelectorAll('iframe')].some((f) => f.contentWindow === win);
 function hushAll(except) {
   document.querySelectorAll('video').forEach((v) => { if (v !== except) v.pause(); });
   audios.forEach((x) => { if (x !== except) x.pause(); });
-  document.querySelectorAll('iframe').forEach((f) => { if (f.contentWindow !== except) f.contentWindow?.postMessage({ type: 'rich:hush' }, location.origin); });
+  document.querySelectorAll('iframe').forEach((f) => { if (f.contentWindow !== except) f.contentWindow?.postMessage({ type: 'rich:hush' }, '*'); });
 }
 document.addEventListener('rich:play', (e) => hushAll(e.detail));
-window.addEventListener('message', (e) => { if (e.origin === location.origin && e.data?.type === 'rich:play') hushAll(e.source); });
+window.addEventListener('message', (e) => { if (e.data?.type === 'rich:play' && ownFrame(e.source)) hushAll(e.source); });
 
+// A piece runs sandboxed to scripts alone — the rule STIGMERGY's ArtifactSlot
+// applies to every HTML file it serves. Its origin is opaque, so it cannot call
+// STIGMERGY's API, read this page, or use its storage. Nor can this page read
+// the piece, so it cannot fit the piece's height: a made piece carries its
+// height in the manifest, and any other frame gets PIECE_HEIGHT.
+const PIECE_HEIGHT = 800;
 function iframeFor(src, height) {
-  const f = h('iframe', { src, loading: 'lazy', allow: 'autoplay', title: src.split('/').pop() });
-  if (height) f.style.height = height + 'px';
-  else f.addEventListener('load', () => {            // same-origin: fit the piece's own height
-    try {
-      const doc = f.contentDocument;
-      const fit = () => { f.style.height = Math.max(360, doc.documentElement.scrollHeight) + 'px'; };
-      fit(); new ResizeObserver(fit).observe(doc.documentElement);
-    } catch { f.style.height = '640px'; }
-  });
+  const f = h('iframe', { sandbox: 'allow-scripts', src, loading: 'lazy', allow: 'autoplay', title: src.split('/').pop() });
+  f.style.height = (height || PIECE_HEIGHT) + 'px';
   return f;
 }
 
@@ -291,7 +310,7 @@ async function mediaEl(name, opts = {}) {
 let mermaidMod;
 async function diagramEl(code) {
   mermaidMod = mermaidMod || (await import('./_vendor/mermaid/mermaid.esm.min.mjs')).default;
-  mermaidMod.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose', fontFamily: 'Manrope, system-ui, sans-serif' });
+  mermaidMod.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'strict', fontFamily: 'Manrope, system-ui, sans-serif' });
   const box = h('div', { class: 'diagram' });
   try { const { svg } = await mermaidMod.render('m' + Math.random().toString(36).slice(2), code); box.innerHTML = svg; }
   catch (e) { box.textContent = 'diagram did not render: ' + e.message; }
@@ -443,7 +462,7 @@ function countNotes() {
 }
 function collectNotes() {
   const groups = {};
-  for (const s of entry.sections) { const v = (localStorage.getItem(noteKey(s.key)) || '').trim(); if (v) groups[s.heading] = { note: v }; }
+  for (const s of entry.sections) { const v = (localStorage.getItem(noteKey(s.key)) || '').trim(); if (v) groups[s.name] = { note: v }; }
   return { task: `rich-face:${ENTRY}:round-${round()}`, groups, overall: { note: ($('#overall').value || '').trim(), round: round(), url: location.href } };
 }
 function mountDock() {
@@ -546,7 +565,7 @@ function layFaces() {
   }
   const order = [...faces.querySelectorAll('a.btn')];
   document.addEventListener('keydown', (e) => {
-    if (e.metaKey || e.ctrlKey || e.altKey || (e.key !== 'f' && e.key !== 'F')) return;
+    if (FRAMED || e.metaKey || e.ctrlKey || e.altKey || (e.key !== 'f' && e.key !== 'F')) return;
     if (e.target.closest && e.target.closest('input, textarea, select, [contenteditable]')) return;
     const i = order.findIndex((a) => a.getAttribute('aria-current') === 'page');
     const next = order[(i + 1) % order.length];
@@ -584,7 +603,7 @@ async function boot() {
   // A heading renamed without touching its words keeps its fingerprint — so a
   // lost section whose stamp matches a current section was probably renamed.
   const fpNow = new Map();
-  for (const s of entry.sections) fpNow.set(await fingerprint(sectionProse(s)), s.heading);
+  for (const s of entry.sections) fpNow.set(await fingerprint(sectionProse(s)), s.name);
   for (const m of lost) for (const p of m.pieces || []) {
     const fig = await manifestFigure(p, m);
     const renamed = m.made_against && fpNow.get(m.made_against);
