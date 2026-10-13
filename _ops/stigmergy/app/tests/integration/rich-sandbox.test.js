@@ -66,6 +66,8 @@ function makeTempPalace() {
   ].join('\n'), 'utf8');
   mkdirSync(resolve(root, ENTRY), { recursive: true });
   writeFileSync(resolve(root, ENTRY, 'probe.html'), PROBE, 'utf8');
+  // STIGMERGY's reader frames the rich face on its own origin (RichFaceFrame.jsx).
+  writeFileSync(resolve(root, 'framer.html'), `<!doctype html><body><iframe id="rf" style="width:1200px;height:900px" src="/rich/?entry=${encodeURIComponent(ENTRY)}&review=0"></iframe></body>`, 'utf8');
   writeFileSync(resolve(root, ENTRY, 'bare.html'), '<!doctype html><body><div style="height:1200px">tall</div></body>', 'utf8');
   for (const [n] of KPIECES) copyFileSync(resolve(KURAMOTO, `Kuramoto Coupling — rich — ${n}.html`), resolve(root, ENTRY, `${n}.html`));
   writeFileSync(resolve(root, ENTRY, `${ENTRY} — rich.json`), JSON.stringify({ entry: ENTRY, sections: [{ heading: 'Pieces', pieces: [
@@ -178,6 +180,31 @@ describe.skipIf(!chromium)('the rich face in a browser', () => {
     expect(text.words).not.toContain('a note to the next agent');
     expect(text).toMatchObject({ b: true, sub: true, sup: true, span: true });
   });
+
+  test('on its own the page shows its top strip, face switch and all', async () => {
+    expect(await page.locator('.top').isVisible()).toBe(true);
+    await page.waitForSelector('#faces a.btn', { state: 'attached' });
+  });
+
+  // Framed by the reader, the reader carries the face switch; the page's own
+  // strip and F would take the frame away to another face.
+  test('framed by a page on its own origin, it hides its top strip and leaves F alone', async () => {
+    const outer = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+    try {
+      await outer.goto(`${base}/rich/framer.html`);
+      const frame = outer.frameLocator('#rf');
+      await frame.locator('section.sec[data-key="text"]').waitFor({ timeout: 30000 });
+      await frame.locator('#faces a.btn').first().waitFor({ state: 'attached', timeout: 30000 });
+      expect(await frame.locator('.top').isVisible()).toBe(false);
+      const inner = outer.frames().find((f) => f.url().includes('/rich/?entry='));
+      const before = inner.url();
+      await frame.locator('section.sec[data-key="text"] .prose').first().click();
+      await outer.keyboard.press('f');
+      await outer.waitForTimeout(1500);
+      expect(outer.frames().find((f) => f.parentFrame()).url()).toBe(before);
+      expect(outer.url()).toBe(`${base}/rich/framer.html`);
+    } finally { await outer.close(); }
+  }, 60000);
 
   // Under 'loose', mermaid keeps a click directive's javascript: link as written.
   test('a diagram renders strict: bold labels kept, a javascript: link in it dead', async () => {

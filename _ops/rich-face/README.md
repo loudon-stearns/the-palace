@@ -80,6 +80,8 @@ The page is served from STIGMERGY's origin, so anything that runs in it runs as 
   short list (`b`, `i`, `em`, `strong`, `sub`, `sup`, `br`, `kbd` …) and a `div` or `span` whose one
   attribute is a `class` still render; any other tag is escaped and shows as written. Diagrams render
   with mermaid's `securityLevel: 'strict'`.
+- **Framed by STIGMERGY's reader** (same origin), the page hides its top strip and leaves `F` to the
+  reader, which carries the face switch. The public read view never frames it.
 
 ## Making pieces — the gotchas
 
