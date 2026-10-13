@@ -24,6 +24,12 @@ export function formatRun(result, name) {
     const cyc = result.cycle_n != null ? ` → cycle ${result.cycle_n}` : '';
     return { tone: 'ok', text: `filed · advancing @${name}${cyc}` };
   }
+  if (result && result.ok && result.queued) {
+    // The lane queues behind a live cycle (2026-10-13). Three shapes:
+    if (result.already === 'running') return { tone: 'ok', text: `filed · @${name} is the live cycle — its run reads the answer on its next cycle` };
+    if (result.already) return { tone: 'ok', text: `filed · @${name} is already queued (#${result.already}) — it reads the answer when it fires` };
+    return { tone: 'ok', text: `filed · @${name} queued #${result.position}${result.current ? ` behind ${result.current}` : ''} — it fires when the lane frees` };
+  }
   if (result && (result.status === 409 || result.busy)) {
     return { tone: 'warn', text: `filed · a steward cycle is already running — @${name} will pick it up next` };
   }

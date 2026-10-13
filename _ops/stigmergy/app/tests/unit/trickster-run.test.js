@@ -18,6 +18,19 @@ describe('formatRun', () => {
     expect(r.text).toContain('cycle 12');
   });
 
+  it('a queued reply is filed-and-waiting, never an error (2026-10-13)', () => {
+    const q = formatRun({ ok: true, fired: false, queued: true, position: 2, current: 'Waveguide Synthesizer' }, 'Quantum Synthesizer');
+    expect(q.tone).toBe('ok');
+    expect(q.text).toContain('queued #2');
+    expect(q.text).toContain('Waveguide Synthesizer');
+    const live = formatRun({ ok: true, fired: false, queued: true, already: 'running' }, 'Waveguide Synthesizer');
+    expect(live.tone).toBe('ok');
+    expect(live.text).toContain('live cycle');
+    const dup = formatRun({ ok: true, fired: false, queued: true, already: 1 }, 'Quantum Synthesizer');
+    expect(dup.tone).toBe('ok');
+    expect(dup.text).toContain('already queued (#1)');
+  });
+
   it('treats a 409 / busy result as filed-but-deferred', () => {
     const r = formatRun({ ok: false, status: 409, busy: true }, 'Semantic Delay');
     expect(r.tone).toBe('warn');
