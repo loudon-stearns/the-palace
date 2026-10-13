@@ -10,6 +10,7 @@ import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { launchInteractive } from '../../server/launch.js';
+import { latestOpus } from '../../../../models/latest-opus.mjs';
 
 // A fake child process that resolves the launch by emitting `close` with a code.
 // stderr is a stub stream so the impl's `.on('data')` wiring is exercised.
@@ -67,7 +68,7 @@ describe('launchInteractive (server)', () => {
     // `open`ed.
     const script = readFileSync(join(dir, 'launch.command'), 'utf8');
     expect(script).toContain(`cd '/Users/x/The Palace'`);
-    expect(script).toContain(`claude --model 'claude-opus-5-5' --effort 'high' --permission-mode 'acceptEdits' "$(cat '${join(dir, 'prompt.txt')}')"`);
+    expect(script).toContain(`claude --model '${latestOpus()}' --effort 'high' --permission-mode 'acceptEdits' "$(cat '${join(dir, 'prompt.txt')}')"`);
     expect(script).toContain(`rm -rf '${dir}'`);
     // The launched session opens in acceptEdits (low-friction, like a configured
     // desktop session) and prints the /desktop nudge once at startup.
@@ -77,6 +78,16 @@ describe('launchInteractive (server)', () => {
     expect(calls.length).toBe(1);
     expect(calls[0].cmd).toBe('open');
     expect(calls[0].args).toEqual(['-a', 'Terminal', join(dir, 'launch.command')]);
+  });
+
+  it('a picker that says "opus" launches the exact latest id; an explicit id stays as sent', async () => {
+    for (const [asked, expected] of [['opus', latestOpus()], ['claude-opus-4-8', 'claude-opus-4-8']]) {
+      dir = mkdtempSync(join(tmpdir(), 'launch-test-'));
+      const spawnImpl = () => fakeChild(0);
+      await launchInteractive('hi', { platform: 'darwin', palaceRoot: '/x', spawnImpl, tmpDir: dir, model: asked });
+      expect(readFileSync(join(dir, 'launch.command'), 'utf8')).toContain(`claude --model '${expected}' --effort`);
+      rmSync(dir, { recursive: true, force: true }); dir = null;
+    }
   });
 
   it('surfaces a non-zero `open` exit as a real failure (no false success)', async () => {

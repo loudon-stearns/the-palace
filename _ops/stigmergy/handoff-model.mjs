@@ -26,6 +26,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import { validateMessage } from './core/schema/validator.js';
 import { appendMessage } from './core/blackboard/jsonl.js';
+import { latestOpus } from '../models/latest-opus.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 
@@ -155,7 +156,7 @@ export function stamp() {
 export function stubHealth(model, note) {
   return {
     score: 'green',
-    model: model || 'claude-opus-5-5',
+    model: model || latestOpus(),
     _orchestrator_metadata: { dispatch_mode: 'hand-authored', note },
   };
 }

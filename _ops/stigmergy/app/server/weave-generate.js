@@ -21,12 +21,11 @@ import { relative } from 'node:path';
 import { readEntry } from '../src/lib/entries.js';
 import { findEntryFile } from '../../orchestrator/src/entry-paths.js';
 import { resolveClaudeBin } from './claude-bin.js';
+import { resolveModel } from '../../../models/latest-opus.mjs';
 
-// Capability-first: forward-vector tuning is taste-bound, so default to the most
-// capable current Opus. The *exact* id, not the `opus` alias — on Claude Code
-// v2.1.x that alias resolves to opus-4.7-low-effort (the launch.js calibration);
-// the exact id gets the intended model. Override via the CLI --model flag.
-export const DEFAULT_MODEL = 'claude-opus-5-5';
+// Capability-first: forward-vector tuning is taste-bound, so the default is the
+// latest Opus as an exact id (_ops/models/latest-opus.mjs), never the CLI's
+// `opus` alias, which has lagged it. Override via the CLI --model flag.
 
 // Keep the body the model reads bounded so token cost is predictable on a long
 // entry; truncation is announced in the prompt so the model knows it saw a head.
@@ -34,7 +33,7 @@ const MAX_BODY_CHARS = 8000;
 
 /** The real (non-stub) synchronous worker argv — a headless one-shot `claude -p`. */
 export function generateArgv(prompt, model) {
-  return [resolveClaudeBin(), '-p', prompt, '--model', model || DEFAULT_MODEL, '--permission-mode', 'bypassPermissions'];
+  return [resolveClaudeBin(), '-p', prompt, '--model', resolveModel(model), '--permission-mode', 'bypassPermissions'];
 }
 
 // Default run: honor a stub env var (deterministic CLI integration tests), else

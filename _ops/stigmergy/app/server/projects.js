@@ -37,6 +37,7 @@ import {
 } from '../../orchestrator/src/ceremony-scroll.js';
 import { parseFrontmatter } from '../../orchestrator/src/entry-frontmatter.js';
 import { enchantSteward } from '../../orchestrator/src/enchant.js';
+import { resolveModel } from '../../../models/latest-opus.mjs';
 
 const PERSISTENT_REL = '_ops/swarm/persistent/blackboard.jsonl';
 
@@ -148,7 +149,7 @@ function entryRow({ palaceRoot, p, boardMsgs, stewards, worker, now }) {
     iteration: nowView.iteration,
     last_active: nowView.last_active,
     run_cap: manifest && manifest.stopping_conditions && Number.isInteger(manifest.stopping_conditions.max_iterations) ? manifest.stopping_conditions.max_iterations : (s ? 1 : null),
-    model: manifest && manifest.model ? manifest.model.name || null : null,
+    model: manifest && manifest.model && manifest.model.name ? resolveModel(manifest.model.name) : null,
     health: state && state.health ? state.health.score || null : null,
     stalled: nowView.stall.stalled,
     barren_streak: nowView.stall.barren_streak,

@@ -38,11 +38,11 @@ import { readEntryMeta } from '../../orchestrator/src/entry-frontmatter.js';
 import { dueForCycle } from '../../orchestrator/src/batch-due.js';
 import { readJsonl } from '@stigmergy/core/blackboard';
 import { resolveClaudeBin } from './claude-bin.js';
+import { resolveModel } from '../../../models/latest-opus.mjs';
 
 const DEFAULT_REGISTRY_REL = '_ops/agents/permanent/REGISTRY.json';
 const DEFAULT_STATE_DIR_REL = '_ops/stigmergy/.actuator-steward';
 const PERSISTENT_REL = '_ops/swarm/persistent/blackboard.jsonl';
-const FALLBACK_MODEL = 'claude-opus-5-5';
 
 // The steward-cycle prompt templates are part of the CODEBASE, not the palace
 // data dir. Resolve them from this module's location (palace/_ops/stigmergy/
@@ -68,7 +68,7 @@ export function transcriptNameFor(slug, cycleN, tsIso) {
 export function stewardArgv(prompt, model) {
   return [
     resolveClaudeBin(), '-p', prompt,
-    '--model', model || FALLBACK_MODEL,
+    '--model', resolveModel(model),
     '--output-format', 'stream-json',
     '--verbose',
     '--permission-mode', 'bypassPermissions',
@@ -142,7 +142,7 @@ export function stewardRow({ entry, state, manifest, board, palaceRoot }) {
     grants_waiting: grantsWaitingFor(board, entry.home, state),
     due_next_run,
     health: state.health?.score ?? null,
-    model: manifest.model?.name ?? null,
+    model: manifest.model?.name ? resolveModel(manifest.model.name) : null,
   };
 }
 
@@ -240,7 +240,7 @@ export function createStewardLane(opts = {}) {
   // Per-fire model, read by the real argv builder. Race-free: scar #4 admits
   // at most one in-flight worker, and `advance`/the reap set this synchronously
   // immediately before each `fire`.
-  let pendingModel = FALLBACK_MODEL;
+  let pendingModel = null; // null → the latest Opus (stewardArgv resolves it)
 
   // Batch state (in-memory; lost on server restart -- acceptable for v1).
   let queue = [];
@@ -370,7 +370,7 @@ export function createStewardLane(opts = {}) {
     const iteration = Number.isFinite(state.iteration) ? state.iteration : 0;
     const cycleN = iteration + 1;
     const tsNow = new Date().toISOString();
-    const model = manifest.model?.name || FALLBACK_MODEL;
+    const model = resolveModel(manifest.model?.name); // "opus" or none → the latest Opus, an exact id
     // The run cap: an explicit override, else the manifest's
     // stopping_conditions.max_iterations (10 by default since 2026-09-23), else 1.
     const thisRun = run || { cap: runCapFor(manifest, pendingCapOverride), position: 1, retried: false };
