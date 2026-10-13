@@ -15,12 +15,12 @@ forward_vector: "I am The Daily Page's scroll — the one page that opens on whi
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T17:36:41.762Z from the card's frontmatter, its tuning ledger and git. This zone is machine-owned — steer the ceremony in **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T18:26:41.509Z from the card's frontmatter, its tuning ledger and git. This zone is machine-owned — steer the ceremony in **Standing Orders** below, never here._
 
 - **Version:** v0.1 · the spec last changed 2026-10-13 (`f12b35b6`) — Schema Ceremony — The Daily Page added — v1.27
 - **Runs since the change:** 1 run on 1 day, counted from the ledger's run lines
 - **Last run:** 2026-10-13 — Frequency-Time Explorer, fold into Frequency-Time Duality · taught items 1–9 (under v0.1)
-- **Owed in the ledger:** 5 — items 4, 11, 13, 14 and 1 order from Loudon; the next run's tail read picks them up first
+- **Owed in the ledger:** 3 — items 4, 13 and 1 order from Loudon; the next run's tail read picks them up first
 - **Latest lesson:** item 17, from Loudon's answers — 2026-10-13 — [[The Daily Page — tuning]]
 
 ### Runs since v0.1
@@ -30,9 +30,7 @@ forward_vector: "I am The Daily Page's scroll — the one page that opens on whi
 ### Owed
 
 - **4.** The prep did not run before Loudon arrived. The dealer's command was issued at 05:43 and came back at 07:39, seven minutes before he sat down; the reading, the waking and the ro…
-- **11.** The scheduled task's shim sat outside the palace and held rules the practice needs (deal once; what to do if he does not come). Forced: the rules are in the card, and a tracked …
 - **13.** A dormant page is dealt like any other. The draft sent dormant pages elsewhere and told the morning to ask. Loudon wants the page dealt and the question put. Forced: the dormant…
-- **14.** The card said three things about its own tools that were not so. A reader with no hand in the page checked it against the code. The wake tool prints and does not write a file; `…
 - **From Loudon, 2026-10-13.** "the first week we are very meta about it, assessing our process as much as we assess the content"
 
 <!-- scroll:now:end -->
