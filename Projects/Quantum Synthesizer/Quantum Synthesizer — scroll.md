@@ -15,24 +15,24 @@ forward_vector: "I am Quantum Synthesizer's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T19:06:22.306Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T20:59:59.734Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** dormant · **Steward:** cycle 9 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** dormant · **Steward:** cycle 10 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
-- **Waiting on you:** 1 open ask
+- **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — Three proofs in one run, ending on 'Schrödinger is the square root of a vibrating bar'. Revive this page to sprout? (`quantum-synth-016`)
-- **Last commit touching this project:** 2026-10-13 `c5e8ca78` — steward(Quantum Synthesizer): cycle 8 — Same box, only the walls change: six strikes on one ruler. The walls pi…
+- **Last shipped:** 2026-10-13 (today) — A packet on a ring smears into fog, then reassembles itself. Played as a waveform, its rational times climb the harmonic series. (`quantum-synth-018`)
+- **Last commit touching this project:** 2026-10-13 `a61756f7` — steward(Quantum Synthesizer): cycle 9 — SPINNING UP. HOME: [[Quantum Synthesizer]]. Neighborhood loaded. Cycle …
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Quantum Synthesizer claims the Schrödinger equation is a synthesizer: whatever confines a particle sets its energy levels, and those levels, played as partials, are the timbre. Today's run tested this three ways. The timbre atlas changed the shape of the well. The walls video changed the box's walls and found that the walls pick the wave shapes, but the equation picks the pitches: a string sounds 1·2·3·4, while Schrödinger's box, with the same shapes, sounds 1·4·9·16. This cycle builds the road between those two. It's a 32-second video: one pinned string plucked sixteen times while it gets stiffer, followed by one held tone that glides the whole way.
+This page claims the Schrödinger equation is a synthesizer: whatever confines a particle sets its energy levels, and those levels, played as partials, are the timbre. Earlier today the walls video found that Schrödinger's box sounds 1·4·9·16 where a string sounds 1·2·3·4, and the stiffness video showed why: Schrödinger is the square root of a vibrating bar. This cycle follows the consequence. Those squares are all whole numbers, so every phase comes home at the same moment. A packet let go on a ring spreads into fog and then rebuilds itself exactly. Halfway there, it breaks into perfect copies. Read the ring's probability as one cycle of a waveform, and those copies become the harmonic seri…
 
 ### Open asks
 
-- `quantum-synth-016` — directional_decision · posted 2026-10-13 · options: REVIVE-TO-SPROUT · STAY-DORMANT · NOT-SURE-YET
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
@@ -40,6 +40,7 @@ _None._
 
 ### Decided
 
+- `quantum-synth-016` — directional_decision → GRANTED — option_id=REVIVE-TO-SPROUT (2026-10-13)
 - `quantum-synth-008` — entry_text_fix → GRANTED — option_id=APPLY (2026-09-24)
 - `quantum-synth-006` — directional_decision → GRANTED — option_id=REVIVE-TO-SPROUT (2026-09-24)
 - `quantum-synth-004` — directional_steer → GRANTED — option_id=VIDEO-NEXT (2026-06-25)
@@ -65,6 +66,46 @@ This container has no Shop (no ComfyUI, Kokoro, Max, or GPU) — Python with num
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="quantum-synth-018" -->
+### 2026-10-13 — cycle 10 — A packet on a ring smears into fog, then reassembles itself. Played as a waveform, its rational times climb the harmonic series.
+> shipped · all three checks pass · steward leans ring-with-a-bump next
+
+The instrument is a free particle on a ring. The probability of finding it at each point around the ring, |ψ|², is read once around as one cycle of a waveform and played at A2 (110 Hz). Schrödinger's equation slowly rewrites that waveform, at 36 seconds per full revival.
+
+What you hear: a buzzy A2, then fog, and out of the fog brief clean tones. At a quarter of the way it's A3, at a third E4, at an eighth A4, then C♯5 at 1/5 and 2/5 and G5 at the sevenths. At halfway it's A2 again, the whole packet moved to the far side of the ring. At the end it's home. Each clean moment is a rational time p/q, where the packet stands as q evenly spaced copies (q/2 when q is even). A waveform that repeats q times per cycle can only hold harmonics q, 2q, 3q, and so on, so the ear hears the q-th harmonic. The carpet's fractions, heard in the order they occur, are the harmonic series.
+
+An honest note on what's physics and what's my choice. In the walls video the pitches WERE the physics: the energy levels are the partials. Here the pitch comes from a mapping I chose, density read as a wavetable, which is the entry's own idea of feeding the wave's shape into a wavetable. What the physics supplies is when the copies appear and how many there are. The mapping can't invent those.
+
+Checks (all in talbot.py):
+1. I integrated the ring separately with Crank–Nicolson (24,000 steps to T/3). It matches the exact sum to 1.1e-4 against a peak of 0.010 and shows three copies.
+2. At every fraction tested (1/2 through 1/8, plus 2/5, 3/8 and 3/7), at least 99.9% of the density's energy sits on multiples of the predicted copy count.
+3. An FFT of the finished audio at 1/8, 1/7, 1/5, 1/4, 1/3, 2/5 and 1/2 puts at least 99.9% of the energy on the predicted harmonic's series.
+
+A dead end worth knowing about. My first try listened to the packet bouncing off hard walls, hoping the bounce rate would be a pitch. It can't be. A packet narrow enough to hear spreads out within a fraction of one bounce, because the carrier pitch and the bounce rate are locked in a ratio of n/2. So the box can't buzz at its bounce rate, but its revivals can sing.
+
+**Artifacts:**
+- [38 s: the carpet draws in under the sound, with the ring and the harmonics live beside it.](Projects/Quantum Synthesizer/proofs/talbot.mp4)
+- [Audio only: one full revival, fog and clean tones, A2 home again.](Projects/Quantum Synthesizer/proofs/talbot.wav)
+- [The whole carpet, labelled with the copy count and the note heard at each fraction.](Projects/Quantum Synthesizer/proofs/talbot-poster.png)
+- [The script: audio, the three checks, the video and the poster.](Projects/Quantum Synthesizer/proofs/talbot.py)
+
+_Rational times on the ring, as heard (f₀ = A2 = 110 Hz)_
+| time | copies | heard | share of energy on that harmonic's series |
+| --- | --- | --- | --- |
+| 1/8 T | 4 | A4 · 440 Hz | 1.000 |
+| 1/7 T | 7 | G5 · 770 Hz | 0.999 |
+| 1/5 T | 5 | C♯5 · 550 Hz | 1.000 |
+| 1/4 T | 2 | A3 · 220 Hz | 1.000 |
+| 1/3 T | 3 | E4 · 330 Hz | 1.000 |
+| 2/5 T | 5 | C♯5 · 550 Hz | 1.000 |
+| 1/2 T | 1 (half-way round) | A2 · 110 Hz | 1.000 |
+
+_Left rough:_ I haven't listened to it. The clean moments last only about half a second each, and loudness is held level by a gain capped at 4×, so whether the higher harmonics (C♯5, G5) come through the fog by ear is unverified. The opening 1.5 s is the packet frozen before release, a framing choice and not physics.
+
+_Next moves named:_ Put a small bump on the ring so the levels stop being whole numbers. The revivals should blur, and you'd hear the harmonic series go out of tune. Same shapes, different potential: this is the forward vector's 'potential shape as anharmonicity'. · A playable browser version: drag through time on the carpet and hear the waveform under your finger. The road toward an RNBO wavetable device that you'd have to open to check.
+<sub>`quantum-synth-018` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="quantum-synth-016" -->
 ### 2026-10-13 — cycle 9 — Three proofs in one run, ending on 'Schrödinger is the square root of a vibrating bar'. Revive this page to sprout?
 > still working · run finished, three videos shipped · steward leans REVIVE-TO-SPROUT
