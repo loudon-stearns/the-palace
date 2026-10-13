@@ -15,20 +15,20 @@ forward_vector: "I am 2D Torus Wavetable Synthesizer's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T22:06:15.514Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T22:09:00.389Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 17 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 18 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — Étude No. 2, fourth draft: the hands section now limps in 7/8 (2+2+3), so the story has two grooves, not one at two speeds. (`torus-steward-044`)
-- **Last commit touching this project:** 2026-10-13 `4108e26b` — steward(2D Torus Wavetable Synthesizer): cycle 16 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
+- **Last shipped:** 2026-10-13 (today) — One player for Étude No. 2's third and fourth drafts: switch between them mid-phrase, with a note box for each section. (`torus-steward-046`)
+- **Last commit touching this project:** 2026-10-13 `d97b05b2` — steward(2D Torus Wavetable Synthesizer): cycle 17 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read it, and their ratio decides whether it sounds harmonic or shimmers. Its test piece, Étude No. 2, is played entirely by the Hopf codebox, the version of the instrument steered from a point on a sphere. The score is only knob moves. After your note on the second draft (too rigid), the third draft went into 12/8 with uneven triplets, a West African bell, sliding tempo and sung melodies, and kept your favorite ending. But it had only one groove, played at two speeds. This fourth draft gives the hands section its own beat, an aksak in 7/8, and leaves everything else exactly as the third draft had it.
+This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read it, and their ratio decides whether it sounds harmonic or shimmers. Its test piece, Étude No. 2, is played entirely by the Hopf codebox, the version of the instrument steered from a point on a sphere, and the score is only knob moves. You gave two rounds of notes: tell the whole story with a real groove, then loosen it with swing, sliding tempo and sung melodies. The third draft answered that. The fourth gave the hands section its own limping 7/8 beat. Neither has been heard. This cycle didn't write more music. It built a player for those two drafts, so one listen can settle both.
 
 ### Open asks
 
@@ -60,6 +60,27 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="torus-steward-046" -->
+### 2026-10-13 — cycle 18 — One player for Étude No. 2's third and fourth drafts: switch between them mid-phrase, with a note box for each section.
+> shipped · two drafts waiting on your ears · steward leans listen before writing more
+
+**Why a player and not a fifth draft.** Two drafts are stacked up unheard, and your card on the third one is still open. If the slides and vibrato overshoot, they overshoot in both drafts, and a longer piece would carry the same problem further. So the most useful thing I could make this cycle is something that makes your next listen quick.
+
+**What it does.** Both drafts are embedded in one page, so it plays inside the board. Pick a draft, press play, and switch drafts while it runs. The switch lands at the same place in the music, not the same second. The fourth draft runs 3 s longer from the hands section on, so the page maps through the section boundaries: 1:40 in the third draft lands at 1:43 in the fourth. A strip shows the eight sections. The hands section is marked in amber, because it is the only place the drafts differ. One button jumps to the seam, starting a few seconds into the let-go and running into the hands. Each section has its own 'from here' buttons for both drafts, plus a note box. Whatever you type gathers at the bottom, ready to copy into the card. That is the page's review surface.
+
+**A correction to my last post.** I asked whether the switch from the 12/8 knot section into the 7/8 hands felt like a chapter or a stumble. But those two sections don't touch. The let-go sits between them, where the tempo slows to 56 and speeds back up. So the real question is whether the let-go hands the music over to a new meter cleanly, and the seam button plays exactly that stretch.
+
+**Artifacts:**
+- [the third and fourth drafts in one player: switch mid-phrase, jump to the seam, leave a note per section.](Projects/2D Torus Wavetable Synthesizer/proofs/etude-ab/etude-ab.html)
+- [rebuilds the page from the two drafts' renders and section timings.](Projects/2D Torus Wavetable Synthesizer/proofs/etude-ab/build_etude_ab.py)
+- [the player itself, before the audio is embedded.](Projects/2D Torus Wavetable Synthesizer/proofs/etude-ab/etude_ab_template.html)
+
+_Left rough:_ I checked the page's script for syntax errors and tested the position mapping in Node, but I haven't opened the page in a browser, so playback, switching and copy are unverified. The copy button may be blocked inside the board's sandbox. If it is, select the notes and copy them by hand. The audio is 80 kb/s AAC to keep the page at 4.3 MB, a little softer in detail than the m4a files. Your card on the third draft is still open, and I haven't added any music since the fourth draft.
+
+_Next moves named:_ Your answer on the open card (SECOND-BEAT, LESS-SLIDE, MORE-LOOSE or LONGER), or the notes from this page, sets the fifth draft's direction. · If both drafts read, grow the piece longer, with the ending as its destination. If the singing overshoots, halve the vibrato and slide depths in both grooves first.
+<sub>`torus-steward-046` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="torus-steward-044" -->
 ### 2026-10-13 — cycle 17 — Étude No. 2, fourth draft: the hands section now limps in 7/8 (2+2+3), so the story has two grooves, not one at two speeds.
 > shipped · 158 s, all but the hands untouched · steward leans SECOND-BEAT (acted on it)

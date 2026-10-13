@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Étude No. 2 · third and fourth drafts, side by side</title>
+<style>
+  :root {
+    --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --e3:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,0.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a; --accent:#e8b84a;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif;
+    --sans:'Manrope',system-ui,-apple-system,'Segoe UI',Helvetica,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --ease:cubic-bezier(.4,0,.2,1);
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg1); font-family:var(--serif); font-size:17px; line-height:1.75; }
+  main { max-width:860px; margin:0 auto; padding:32px 24px 48px; }
+  .eyebrow { font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg3); }
+  h1 { font-family:var(--sans); font-weight:300; font-size:30px; line-height:1.2; margin:6px 0 10px; }
+  p.lead { color:var(--fg2); margin:0 0 22px; }
+  .drafts { display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap; }
+  button { font-family:var(--mono); font-size:12px; color:var(--fg2); background:var(--e2); border:1px solid var(--border);
+           border-radius:4px; padding:8px 12px; cursor:pointer; transition:border-color .15s var(--ease), color .15s var(--ease); }
+  button:hover { border-color:rgba(232,184,74,.55); color:var(--fg1); }
+  button.on { color:var(--fg1); border-color:var(--fg2); background:var(--e3); }
+  button.go { color:var(--bg); background:var(--accent); border-color:var(--accent); box-shadow:0 0 18px rgba(232,184,74,.35); }
+  .transport { display:flex; gap:10px; align-items:center; margin:8px 0 16px; flex-wrap:wrap; }
+  .time { font-family:var(--mono); font-size:12px; color:var(--fg3); }
+  .strip { position:relative; display:flex; height:54px; border:1px solid var(--border); border-radius:4px; overflow:hidden; cursor:pointer; background:var(--e1); }
+  .seg { position:relative; border-right:1px solid var(--soft); padding:6px 7px; font-family:var(--mono); font-size:10px; color:var(--fg3); overflow:hidden; white-space:nowrap; }
+  .seg.change { background:rgba(232,184,74,.08); color:var(--fg2); }
+  .seg.now { color:var(--fg1); background:var(--e3); }
+  .seg.change.now { background:rgba(232,184,74,.18); }
+  .head { position:absolute; top:0; bottom:0; width:2px; background:var(--accent); pointer-events:none; }
+  .legend { font-family:var(--mono); font-size:11px; color:var(--fg3); margin:6px 0 26px; }
+  .sec { border-top:1px solid var(--soft); padding:14px 0; display:grid; grid-template-columns:200px 1fr; gap:16px; }
+  .sec h3 { font-family:var(--sans); font-weight:400; font-size:15px; margin:0; }
+  .sec .diff { font-family:var(--mono); font-size:11px; color:var(--fg3); }
+  .sec .diff.change { color:var(--accent); }
+  .sec p { margin:0 0 8px; color:var(--fg2); font-size:16px; }
+  .sec .row { display:flex; gap:8px; margin-bottom:8px; }
+  textarea { width:100%; min-height:44px; resize:vertical; background:var(--e1); color:var(--fg1); border:1px solid var(--border);
+             border-radius:4px; font-family:var(--sans); font-size:13px; padding:8px; }
+  textarea::placeholder { color:var(--fg4); }
+  .notes-out { margin-top:24px; }
+  pre { white-space:pre-wrap; background:var(--e1); border:1px solid var(--border); border-radius:4px; padding:12px; font-family:var(--mono); font-size:12px; color:var(--fg2); min-height:40px; }
+  footer { margin-top:40px; font-family:var(--sans); font-size:12px; color:var(--fg3); letter-spacing:.04em; }
+  @media (max-width:640px) { .sec { grid-template-columns:1fr; gap:6px; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">2D Torus Wavetable Synthesizer · Étude No. 2 · study</div>
+  <h1>Two drafts, one story, switchable mid-phrase</h1>
+  <p class="lead">Both drafts are played only by the Hopf codebox; the score is only knob moves. They are identical until the hands section, where the fourth draft trades the 12/8 for a limping 7/8. Pick a draft, play, and switch while it runs. The switch lands at the same place in the music, not the same second, because the fourth draft runs 3 s longer from the hands onward.</p>
+
+  <div class="drafts" id="drafts"></div>
+  <div class="transport">
+    <button id="play" class="go">play</button>
+    <button id="seam">hear the seam · from the let-go into the hands</button>
+    <span class="time" id="time">0:00</span>
+  </div>
+  <div class="strip" id="strip"><div class="head" id="head"></div></div>
+  <div class="legend">click the strip to jump · amber marks the only section the drafts disagree on</div>
+
+  <div id="secs"></div>
+
+  <div class="notes-out">
+    <div class="eyebrow">your notes, ready to paste into the card</div>
+    <pre id="out">(write in any section above and it gathers here)</pre>
+    <button id="copy">copy notes</button>
+  </div>
+  <footer>Loud’n Live</footer>
+</main>
+<script>
+const DATA = /*DATA*/null;
+const { drafts, sections } = DATA;
+const audios = drafts.map(d => { const a = new Audio(d.src); a.preload = 'auto'; return a; });
+let cur = 1, playing = false;
+
+// musical position: section index + fraction through it, so a switch lands at the same place in the music
+const bounds = d => d.marks.concat([d.dur]);
+function toPos(d, t) {
+  const b = bounds(d);
+  for (let i = 0; i < b.length - 1; i++) if (t < b[i + 1]) return i + (t - b[i]) / (b[i + 1] - b[i]);
+  return b.length - 1.0001;
+}
+function fromPos(d, p) {
+  const b = bounds(d), i = Math.min(Math.floor(p), b.length - 2);
+  return b[i] + (p - i) * (b[i + 1] - b[i]);
+}
+
+const dEl = document.getElementById('drafts');
+drafts.forEach((d, i) => {
+  const b = document.createElement('button'); b.textContent = d.label; b.onclick = () => choose(i); dEl.appendChild(b);
+});
+function choose(i) {
+  if (i === cur) return;
+  const a = audios[cur], p = toPos(drafts[cur], a.currentTime);
+  a.pause(); cur = i;
+  audios[cur].currentTime = fromPos(drafts[cur], p);
+  if (playing) audios[cur].play();
+  paint();
+}
+
+const strip = document.getElementById('strip'), head = document.getElementById('head');
+function buildStrip() {
+  strip.querySelectorAll('.seg').forEach(s => s.remove());
+  const b = bounds(drafts[cur]), dur = drafts[cur].dur;
+  sections.forEach((s, i) => {
+    const el = document.createElement('div');
+    el.className = 'seg' + (s[2] === 'THE CHANGE' ? ' change' : '');
+    el.style.width = ((b[i + 1] - b[i]) / dur * 100) + '%';
+    el.textContent = s[0]; el.dataset.i = i;
+    strip.insertBefore(el, head);
+  });
+}
+strip.onclick = e => {
+  const r = strip.getBoundingClientRect();
+  audios[cur].currentTime = (e.clientX - r.left) / r.width * drafts[cur].dur;
+  paint();
+};
+
+const secs = document.getElementById('secs'), notes = sections.map(() => '');
+sections.forEach((s, i) => {
+  const el = document.createElement('div'); el.className = 'sec';
+  el.innerHTML = `<div><h3>${s[0]}</h3><div class="diff${s[2] === 'THE CHANGE' ? ' change' : ''}">${s[2] === 'THE CHANGE' ? 'the drafts differ here' : s[2]}</div></div>
+    <div><p>${s[1]}</p><div class="row"><button data-k="2">from here · third</button><button data-k="1">from here · fourth</button></div>
+    <textarea placeholder="what you hear here, if anything"></textarea></div>`;
+  el.querySelectorAll('button').forEach(b => b.onclick = () => {
+    const k = b.dataset.k === '2' ? 0 : 1;
+    audios[cur].pause(); cur = k; audios[cur].currentTime = drafts[cur].marks[i]; playing = true; audios[cur].play(); paint();
+  });
+  el.querySelector('textarea').oninput = e => { notes[i] = e.target.value.trim(); gather(); };
+  secs.appendChild(el);
+});
+function gather() {
+  const lines = sections.map((s, i) => notes[i] ? `${s[0]}: ${notes[i]}` : '').filter(Boolean);
+  document.getElementById('out').textContent = lines.length ? lines.join('\n') : '(write in any section above and it gathers here)';
+}
+document.getElementById('copy').onclick = () => navigator.clipboard && navigator.clipboard.writeText(document.getElementById('out').textContent);
+
+const playBtn = document.getElementById('play');
+playBtn.onclick = () => { playing = !playing; playing ? audios[cur].play() : audios[cur].pause(); paint(); };
+document.getElementById('seam').onclick = () => {
+  audios[cur].currentTime = drafts[cur].marks[3] + 6; playing = true; audios[cur].play(); paint();
+};
+audios.forEach(a => a.onended = () => { playing = false; paint(); });
+
+let lastCur = -1;
+function paint() {
+  if (lastCur !== cur) { buildStrip(); lastCur = cur; }
+  [...dEl.children].forEach((b, i) => b.classList.toggle('on', i === cur));
+  playBtn.textContent = playing ? 'pause' : 'play';
+  const t = audios[cur].currentTime, d = drafts[cur];
+  head.style.left = (t / d.dur * 100) + '%';
+  const si = Math.floor(toPos(d, t));
+  strip.querySelectorAll('.seg').forEach(s => s.classList.toggle('now', +s.dataset.i === si));
+  const f = x => Math.floor(x / 60) + ':' + String(Math.floor(x % 60)).padStart(2, '0');
+  document.getElementById('time').textContent = `${f(t)} / ${f(d.dur)} · ${sections[si][0]}`;
+}
+(function loop() { paint(); requestAnimationFrame(loop); })();
+</script>
+</body>
+</html>
