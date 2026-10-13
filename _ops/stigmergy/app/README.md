@@ -21,8 +21,8 @@ it as coming from a foreign page (an Origin that is neither loopback nor this ho
 `Origin: null`, or `Sec-Fetch-Site: cross-site`). `GET /api/open` refuses a
 cross-site request too. curl and node's fetch send no Origin and pass — send the
 JSON type: `curl -H 'Content-Type: application/json' -d @msg.json localhost:5173/api/persistent`.
-The standalone rich face (`_ops/rich-face/rich-server.mjs`) answers at `/`, so it runs the
-same two checks on every path (`checkRequest`).
+The standalone rich face (`_ops/rich-face/rich-server.mjs`) and `_ops/loudon-eval/eval-server.mjs`
+answer at `/`, so each runs the same two checks on every path (`checkRequest`).
 
 **A review note is Loudon's voice.** The rich face's review dock (`POST /rich/_api/review`)
 and `_ops/loudon-eval` forward a `human_eval` BROADCAST from `TRICKSTER` on `GENERAL`, under

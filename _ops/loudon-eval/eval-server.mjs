@@ -11,11 +11,17 @@
 // + append helper do the work, so this stays tiny and correct by reuse. No app changes.
 //
 // Then the agent reads the eval straight off the board (GET /api/persistent, kind=human_eval).
+//
+// A rating it forwards lands as TRICKSTER, Loudon's own voice, so STIGMERGY's request guard
+// (checkRequest) stands in front of every path, as it does for the standalone rich face: a
+// foreign Host is refused (a DNS-rebinding page), and so is a write that is not JSON or comes
+// from a foreign page. One rule, imported, not copied.
 
 import http from 'node:http';
 import { readFileSync, existsSync, statSync } from 'node:fs';
 import { resolve, join, extname, dirname, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { checkRequest } from '../stigmergy/app/server/request-guard.js';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 function arg(name, def) { const i = process.argv.indexOf('--' + name); return i >= 0 ? process.argv[i + 1] : def; }
@@ -57,6 +63,7 @@ function buildMessage(data) {
 }
 
 const server = http.createServer(async (req, res) => {
+  if (checkRequest(req, res, { urlPath: (req.url || '').split('?')[0], method: (req.method || 'GET').toUpperCase() })) return;
   const u = new URL(req.url, 'http://x');
 
   if (req.method === 'POST' && u.pathname === '/eval') {
