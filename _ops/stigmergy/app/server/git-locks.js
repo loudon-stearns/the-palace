@@ -12,8 +12,9 @@
 //     a clear message. Never delete.
 //   - STALE: the git that took it died, or could not unlink it. The Cowork
 //     sandbox cannot delete files, so every Cowork commit strands its locks
-//     (see `_ops/cowork-git/SKILL.md`); a killed process does the same. The
-//     next commit cannot proceed until the lock goes. Remove it, and say so.
+//     (canon: `Surfaces and Capabilities.md` § the Cowork row; mechanism:
+//     `_ops/cowork-git/SKILL.md`); a killed process does the same. The next
+//     commit cannot proceed until the lock goes. Remove it, and say so.
 //
 // A lock is stale only when BOTH hold: its mtime is older than FRESH_MS, and
 // no git process is running against this checkout. Either signal alone keeps
@@ -222,9 +223,13 @@ function sweepOnce(root, { tag, log, dryRun, now, freshMs, gitProcesses }) {
   return { cleared, held };
 }
 
+// The text opens with git's own phrase ("could not lock"), and names the lock
+// file, so an outer retry keyed on git's wording -- the orchestrator's
+// cycle-commit.js matches /index\.lock|could not lock/ -- still fires.
 function heldError(tag, row) {
+  const what = basename(row.path) === 'HEAD.lock' ? 'HEAD' : 'the index';
   return new LockHeldError(
-    `${tag}: ${row.rel} is held (${describeHold(row)}). Another session may be mid-commit on this checkout; wait a moment and retry. `
+    `${tag}: could not lock ${what}: ${row.rel} is held (${describeHold(row)}). Another session may be mid-commit on this checkout; wait a moment and retry. `
     + `If no git is running and it stays, remove it by hand: rm "${row.path}"`,
     { path: row.path, ageMs: row.ageMs, heldBy: row.heldBy },
   );

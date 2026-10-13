@@ -56,7 +56,15 @@ describe('git-locks', () => {
     expect(err).toBeInstanceOf(LockHeldError);
     expect(err.message).toMatch(/index\.lock is held/);
     expect(err.message).toMatch(/written \d+s ago/);
+    // git's own phrase leads, so cycle-commit.js's retry regex (/index\.lock|could not lock/) still fires.
+    expect(err.message).toMatch(/^git-locks: could not lock the index: \.git\/index\.lock is held/);
     expect(existsSync(indexLock)).toBe(true);
+  });
+
+  it('a held HEAD.lock is refused in the same git wording', () => {
+    writeFileSync(headLock, '');
+    expect(() => clearStaleLocksSync(root, quick)).toThrow(/could not lock HEAD: \.git\/HEAD\.lock is held/);
+    expect(existsSync(headLock)).toBe(true);
   });
 
   it('a dry run never touches a lock, live or stale', () => {
