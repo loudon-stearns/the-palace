@@ -120,8 +120,8 @@
       <div class="eqw">(locked pitch) = 2 × (base) ÷ (a + b)</div>
       <div class="eq">x ← bend(x, b<sub>x</sub>) · y ← y + s · sin 2πx · (x, y) ← (x, y) + ε · (∂W/∂y, −∂W/∂x)</div>
       <div class="eqw">(read x) ← bend(read x, bend x) · (read y) ← (read y) + (shear) × sin(2π × read x) · (read point) ← (read point) + (stir reach) × (the surface's rotated slope)</div>
-      <div class="eq">y ← W(x, y) + η · W(b·φ₂ − a·φ₁, lon)  ·  sounds at  k · (b·ω₂ − a·ω₁)</div>
-      <div class="eqw">(output) ← (surface at the read point) + (heterodyne) × (the surface's row, read at the dead-line phase) · sounds at (whole number) × (the mistuning from a:b)</div>
+      <div class="eq">y ← W(x, y) + η · W(b·φ₂ − a·φ₁, ŷ)  ·  sounds at  k · (b·ω₂ − a·ω₁)</div>
+      <div class="eqw">(output) ← (surface at the read point) + (heterodyne) × (the surface's loudest row ŷ, read at the dead-line phase) · sounds at (whole number) × (the mistuning from a:b)</div>
       <div class="prose">
         <p>The hands move where the scan reads, not how fast it runs. Each is a fixed function of the read point, so a frozen setting is just a different surface: it re-weights the same frequencies m·ω₁ + n·ω₂ and never adds new ones. Locked, everything stays harmonic. Moving a hand is what makes it a gesture rather than a preset.</p>
         <p>The Hopf map takes a point (z₁, z₂) on the 3-sphere and keeps two things: the balance |z₁|² − |z₂|², which becomes height, and the phase difference arg z₁ − arg z₂, which becomes longitude. It throws away the shared phase, and that discarded circle is the scan itself running through time. So each point on this sphere names one orbit of the scanner.</p>
@@ -169,7 +169,7 @@
 // frozen setting is just a different surface: it re-weights the same
 // lattice m*w1 + n*w2, it never adds frequencies off it.
 //   het     (new) the dead line's own voice: W read at u = b*phi2 - a*phi1
-//                 (the phase the coupling acts on), row = longitude.
+//                 (the phase the coupling acts on), row = the surface's loudest.
 //                 Its content lies wholly on lattice points k*(-a, b),
 //                 which sound at k*(b*w2 - a*w1): zero when locked, the
 //                 slip rate when not. A heterodyne, like a theremin's.
@@ -260,6 +260,16 @@ var HTE = (function () {
     return { Dx: Dx, Dy: Dy, reach: gmax > 0 ? Math.min(0.25, STIR_SLOPE / gmax) : 0 };
   }
   var STIR_SLOPE = 4;      // steepest slope x reach at stir = 1
+  // The row of W with the most energy along x (its mean removed), as a phase
+  // in [0,1). The heterodyne reads this row so it never sits on a nodal line.
+  function loudestRow(W) {
+    var best = -1, row = 0;
+    for (var y = 0; y < N; y++) { var o = y * N, m = 0, e = 0;
+      for (var x = 0; x < N; x++) m += W[o + x]; m /= N;
+      for (x = 0; x < N; x++) { var d = W[o + x] - m; e += d * d; }
+      if (e > best) { best = e; row = y; } }
+    return row / N;
+  }
 
   function gcd(a, b) { return b ? gcd(b, a % b) : a; }
   var RATIOS = [];
@@ -320,11 +330,15 @@ var HTE = (function () {
           // constant and the DC blocker removes it. Slipping, it turns at the
           // beat rate, so the surface's own row is played as a tone pitched
           // at the mistuning. Its lattice content lies wholly on k*(-a, b).
+          // The row it reads is the surface's loudest one (most energy along
+          // x), found once per surface. A fixed longitude landed on Membrane's
+          // nodal line and the voice came out silent (cycle 10, 2026-10-03).
+          if (this._hW !== W) { this._hRow = loudestRow(W); this._hW = W; }
           var u = this.b * this.phi2 - this.a * this.phi1; u -= Math.floor(u); if (u >= 1) u = 0;
-          var g = lerp2(W, u, s.lon);
+          var g = lerp2(W, u, this._hRow);
           if (this.xo > 1e-4) {   // lock target just changed: fade the old dead line out over ~20 ms
             var uo = this.pb * this.phi2 - this.pa * this.phi1; uo -= Math.floor(uo); if (uo >= 1) uo = 0;
-            g = g * (1 - this.xo) + lerp2(W, uo, s.lon) * this.xo; this.xo *= xd;
+            g = g * (1 - this.xo) + lerp2(W, uo, this._hRow) * this.xo; this.xo *= xd;
           }
           y += s.het * g;
         }

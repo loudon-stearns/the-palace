@@ -15,14 +15,14 @@ forward_vector: "I am 2D Torus Wavetable Synthesizer's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T17:46:07.429Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T17:49:57.046Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** active · **Stage:** fruiting · **Steward:** cycle 9 · last ran 2026-10-03 (10 days ago)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — The dead line has a voice: a heterodyne hand that is silent when the knot is locked and sings at the slip rate when it is not. Penrose and Knot Shadow sing; Membrane came out silent. (`torus-steward-023`)
-- **Last commit touching this project:** 2026-10-12 `09262fa2` — edit(2D Torus Wavetable Synthesizer): the April status gives way to what exists
+- **Last shipped:** 2026-10-13 (today) — Membrane sings: the heterodyne reads the surface's loudest row, so it never sits on a nodal line. (`torus-steward-024`)
+- **Last commit touching this project:** 2026-10-13 `fd6a82a5` — steward(2D Torus Wavetable Synthesizer): cycle 10 recovered — the dead line has a voice
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
@@ -59,6 +59,34 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="torus-steward-024" -->
+### 2026-10-13 — Membrane sings: the heterodyne reads the surface's loudest row, so it never sits on a nodal line.
+> shipped · all three voices sound · on Loudon's word · the dead line's voice is done in the browser engine
+
+What changed. The heterodyne used to read the surface's row at the longitude slider. On Membrane that row is the drum's nodal line, where the surface is zero whatever the phase does, so the voice was silent for the whole tour (240 dB down). Now the engine finds, once per surface, the row with the most energy along x (its mean removed) and reads that row at the dead-line phase. The longitude dot still steers the scan; it no longer steers the voice.
+
+What the measurement says. All three tours re-rendered and re-checked. With the voice fully in and the knot locked (3–4 s) the voice sits 80 to 104 dB under the tone on every surface. Near 3:2 with the coupling let go (10–11 s) it is within 4 dB of the tone on all three. Locked again at the grab it is 32 to 55 dB down and falling. The Adler check is unchanged, since the row only decides the voice's timbre, never its pitch: predicted and measured slip still agree within 0.3 Hz at every coupling. The Penrose and Knot Shadow voices are a little louder than before (their loudest rows carry more than the row at longitude 0).
+
+**Artifacts:**
+- [24 s heterodyne tour on Membrane. The drum's dead line now sings when the coupling lets go.](Projects/2D Torus Wavetable Synthesizer/Hopf/het_tour_membrane.wav)
+- [the Membrane voice alone.](Projects/2D Torus Wavetable Synthesizer/Hopf/het_tour_membrane_voice.wav)
+- [Membrane voice spectrogram, to 300 Hz. Was empty; its fundamental now rides the blue Adler line.](Projects/2D Torus Wavetable Synthesizer/Hopf/het_tour_membrane_voice.png)
+- [the full Membrane tour spectrogram.](Projects/2D Torus Wavetable Synthesizer/Hopf/het_tour_membrane.png)
+- [the instrument: loudestRow() and the het term that reads it.](Projects/2D Torus Wavetable Synthesizer/Hopf/hopf-control-surface.html)
+
+_voice level relative to the tone, per surface, after the fix (re-rendered 2026-10-13)_
+| surface | locked, voice in (3–4 s) | open, near 3:2 (10–11 s) | locked again (21–22 s) |
+| --- | --- | --- | --- |
+| Penrose | −103.5 dB | +1.7 dB | −55.3 dB |
+| Knot Shadow | −93.2 dB | −4.0 dB | −45.0 dB |
+| Membrane | −80.0 dB | −1.0 dB | −31.8 dB |
+
+_Left rough:_ Nobody has listened yet; the numbers and spectrograms are the only ears so far. The voice is still only in the browser engine and offline render, not the RNBO codebox.
+
+_Next moves named:_ Listen to the three tours; the Membrane one is the new ear. · Put the heterodyne in the RNBO codebox so the dead line can sing in Max. · Try the dead-line bank (cycle 9's first next move) and this hand together.
+<sub>`torus-steward-024` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="torus-steward-023" -->
 ### 2026-10-13 — The dead line has a voice: a heterodyne hand that is silent when the knot is locked and sings at the slip rate when it is not. Penrose and Knot Shadow sing; Membrane came out silent.
 > recovered · cycle 10 was cut off before it could post · Penrose + Knot Shadow sing, Membrane silent · steward leans read-the-loudest-row next
