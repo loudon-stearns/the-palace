@@ -27,10 +27,10 @@ import { armedWriteEntry, revertCommit, previewEdit } from './armed-write.js';
 import { appendMessage } from '@stigmergy/core/blackboard';
 import { validateMessage } from '@stigmergy/core/schema';
 import { resolveClaudeBin } from './claude-bin.js';
+import { latestOpus, resolveModel } from '../../../models/latest-opus.mjs';
 
 const DEFAULT_STATE_DIR_REL = '_ops/stigmergy/.actuator-companion';
 const PERSISTENT_REL = '_ops/swarm/persistent/blackboard.jsonl';
-const DEFAULT_MODEL = 'opus'; // capability-first (Plan §5); optimize down in M3
 
 // ── pure helpers (exported for unit tests) ──────────────────────────────────
 
@@ -46,7 +46,7 @@ export function companionFrom(title) {
 
 /** The real (non-stub) Companion worker argv — a headless capability-first cycle. */
 export function companionArgv(prompt, model) {
-  return [resolveClaudeBin(), '-p', prompt, '--model', model || DEFAULT_MODEL, '--permission-mode', 'bypassPermissions'];
+  return [resolveClaudeBin(), '-p', prompt, '--model', resolveModel(model), '--permission-mode', 'bypassPermissions'];
 }
 
 /**
@@ -116,7 +116,7 @@ export function buildCompanionMessage({ title, entryPath, turnId, reply, model, 
     board: 'GENERAL',
     health: {
       score: 'green',
-      model: model || DEFAULT_MODEL,
+      model: model || latestOpus(),
       _orchestrator_metadata: {
         dispatch_mode: 'claude-code-subagent',
         note: 'Companion turn (discuss). Path 2 (claude-code-subagent) — token metrics not authoritatively tracked.',
@@ -152,7 +152,7 @@ export function buildEditProposalMessage({ title, entryPath, turnId, op, summary
     board: 'GENERAL',
     health: {
       score: 'green',
-      model: model || DEFAULT_MODEL,
+      model: model || latestOpus(),
       _orchestrator_metadata: {
         dispatch_mode: 'claude-code-subagent',
         note: 'Companion proposed edit (awaiting approval). Path 2 stub health.',
@@ -189,7 +189,7 @@ export function buildEditProofMessage({ title, entryPath, turnId, op, shortHash,
     board: 'GENERAL',
     health: {
       score: 'green',
-      model: model || DEFAULT_MODEL,
+      model: model || latestOpus(),
       _orchestrator_metadata: {
         dispatch_mode: 'claude-code-subagent',
         note: 'Companion edit committed to the live palace (approved). Path 2 stub health.',
@@ -234,7 +234,7 @@ export function buildRevertProofMessage({ title, entryPath, turnId, reverts, rev
     board: 'GENERAL',
     health: {
       score: 'green',
-      model: model || DEFAULT_MODEL,
+      model: model || latestOpus(),
       _orchestrator_metadata: {
         dispatch_mode: 'claude-code-subagent',
         note: 'Companion edit reverted in the live palace (a new inverse commit). Path 2 stub health.',
@@ -282,7 +282,7 @@ export function buildTodoFlagMessage({ turnId, todo, deck, model, ts, id }) {
     board: 'FLAGS',
     health: {
       score: 'green',
-      model: model || DEFAULT_MODEL,
+      model: model || latestOpus(),
       _orchestrator_metadata: {
         dispatch_mode: 'claude-code-subagent',
         note: 'Companion-captured STIGMERGY dev to-do (Stage 1). Path 2 stub health.',
@@ -307,7 +307,7 @@ export function buildTodoFlagMessage({ turnId, todo, deck, model, ts, id }) {
  * @param {string} opts.palaceRoot
  * @param {string} [opts.boardPath]
  * @param {string} [opts.stateDir]
- * @param {string} [opts.model]      — worker model (default 'opus')
+ * @param {string} [opts.model]      — worker model (default: the latest Opus)
  * @param {(prompt:string)=>string[]} [opts.buildArgv] — stub injection (tests)
  * @param {boolean} [opts.dryReap]   — fire+exit but do not post (live e2e safety)
  * @returns {{ turn, status, paths }}
@@ -316,7 +316,10 @@ export function createCompanionLane(opts = {}) {
   const root = resolve(opts.palaceRoot ?? process.cwd());
   const boardPath = opts.boardPath ? resolve(opts.boardPath) : join(root, PERSISTENT_REL);
   const stateDir = opts.stateDir ? resolve(opts.stateDir) : join(root, DEFAULT_STATE_DIR_REL);
-  const model = opts.model || DEFAULT_MODEL;
+  // Capability-first (Plan §5): the latest Opus unless opts.model says otherwise;
+  // optimize down in M3. Re-resolved at every turn, so a long-running server
+  // follows a new Opus without a restart.
+  let model = resolveModel(opts.model);
   const stubArgv = typeof opts.buildArgv === 'function' ? opts.buildArgv : null;
   const dryReap = opts.dryReap === true;
   // The render lane (Hero and Avatar Maker). Injected so a worker's `regen_visual`
@@ -526,6 +529,7 @@ export function createCompanionLane(opts = {}) {
       return { ok: false, fired: false, busy: true, msg: 'a companion turn is already running' };
     }
 
+    model = resolveModel(opts.model);
     const tsNow = new Date().toISOString();
     const stamp = tsNow.replace(/[:.]/g, '-');
     let prompt, meta, turnId;
