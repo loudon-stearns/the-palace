@@ -12,23 +12,29 @@ forward_vector: "I hold what the Daily Page's card left out: where each of Loudo
 
 ## Where it came from
 
-The practice was set up on the night of 2026-10-12 and first run on the morning of 2026-10-13, on [[Frequency-Time Explorer]]. It began as a trial in `_ops/daily-page/README.md` (commit `6ff5d384`), deliberately not a ceremony and not an entry. After the first morning Loudon said the process "worked great," that he wanted it to follow palace procedure, and that he wanted the procedure to be a page in the palace. The Concierge audited the practice the same day, drafted this card, and he said: "land it now."
+The practice was proposed and set up just after midnight on 2026-10-13 and first run that same morning, on [[Frequency-Time Explorer]]. It began as a trial in `_ops/daily-page/README.md` (commit `6ff5d384`), deliberately not a ceremony and not an entry. After the first morning Loudon said the process "worked great," that he wanted it to follow palace procedure, and that he wanted the procedure to be a page in the palace. The Concierge audited the practice the same day, drafted this card, and he said: "land it now."
 
-His words in this file reached the Concierge two ways, and the difference is kept. The morning's words are from the morning's transcript (`bdae7d49`). The words about the audit and the landing were relayed by the session he was speaking with.
+His words below are quoted from two transcripts and were checked against both: the session he set the practice up in and landed it from (`67813ac5`), and the first morning's own session (`bdae7d49`). Times are Eastern, all 2026-10-13.
 
 ## Loudon's decisions, and where each was said
 
-All 2026-10-13. A run does not reopen these; his word does.
+A run does not reopen these; his word does.
 
-- A pure shuffle; every day; a missed day does not pile up; bias toward making; teach; the sibling question standing. (The trial README, "What Loudon decided".)
-- The record is public, his words included. (The trial README, "The record".)
-- No `dormant` verdict. (The trial README, added the same morning.)
-- What a waking asks for is recorded, not applied; no `agency_profile` after one waking in week one. (The sit: "agree with both".)
-- He wants the run on Opus. The session's own model is set only in the scheduled task's Edit form; the first morning came up on Fable at low effort.
-- The morning decides and the palace's machinery lifts. At the close: "I think the daily page can do work on the fly, but it is meant to be somewhat quick and when I am just waking up, so decisions can be made, but then lets make a habit of initiating proper palace machenery to do the big lifting."
-- The practice is a page, now. Relayed: "land it now."
-- The close. Relayed: "Let the close match the work, today's deserved a full close, other days may be quicker."
-- Dormant pages. Relayed: "Give me a dormant page with the question if it should be revived, that is a nice working of the palace."
+**00:37, the proposal.** "a daily review of 1 random palace page… over time, review the entire palace"; "refine every single page, connect it deeply and meaningfully to the rest of the palace, decide on the usefulness and uniqueness of the page"; "a check against overwriting with AI"; "re-teaching and spiraling through knowledge is critical for our growth together"; "You will enchant it as a subagent and ask it about its needs and what it desires to meet its needs ad what it wants to be and how it would propose to achieve its goals."
+
+**00:52, the decisions.** "pure shuffle, every day, let's try the first page tomorrow morning, if we miss one they don't pile up, the next day is a new day. the first week we are very meta about it, assessing our process as much as we assess the content, bias toward MAKING the rich face, I want the palace to be rich in sound image video and interaction, so if we can make unique interactive moving and compelling interactions for most pages we should try to present the idea of the page viscerally and move from text. This process of bringing a page to life is a central animating force of this project. If the page content is so dull that we can't make it exciting we should start to question the validity of the page. I like your focus on teaching. As we look at a page, we should also look at it's siblings and really ask if the content of the page should be consumed by the neighboring pages."
+
+**07:35.** "yes commit it, record is public, drop dormant"
+
+**07:41.** "I'd rather the dailly run be opus in the future." The session's own model is set only in the scheduled task's Edit form; the first morning came up on Fable at low effort.
+
+**08:12, in the first morning's sit.** To two rules put to him, that what a waking asks for is recorded and not applied, and that no `agency_profile` is written after a single waking during week one, with the week's review deciding: "agree with both."
+
+**08:37.** "The process in general worked great. I want to make sure that everything we do in the daily pages follows all palace process and procedures and I am sure this is a good process so I also want to make sure that the general process/procedure is a page in the palace itself"
+
+**08:40, at the first morning's close.** "I think the daily page can do work on the fly, but it is meant to be somewhat quick and when I am just waking up, so decisions can be made, but then lets make a habit of initiating proper palace machenery to do the big lifting."
+
+**09:21.** "land it now, Let the close match the work, today's deserved a full close, other days may be quicker. Give me a dormant page with the question if it should be revived, that is a nice working of the palace."
 
 ## Landed as drafted, not yet answered
 
@@ -39,14 +45,18 @@ These went in as the draft had them. His read of the landing is where each is an
 - The bias toward making stands (see the tension below).
 - The name "The Daily Page", the trigger words, and `0.1` as the first version.
 - Whether the scheduled task's two commands are pre-approved. That is his alone to set.
+- A missed page's second turn. He said "if we miss one they don't pile up, the next day is a new day." That the missed page comes round again within the lap is the setup session's design and the dealer's behaviour, not his words.
+- Where the full close begins. As drawn, only a keep or an open that made nothing closes short.
+- A fold into more than one neighbor. He said "consumed by the neighboring pages"; the dealer's fold names one, and the card has the baton list the others.
+- A rough on a kept page leaves as a baton for Enrichment, with the file in that page's `proofs/`. New at the cold read; a rule, not a correction.
 
 ## Why it is shaped this way
 
 - **A `practice`, and a ceremony.** It is something done, on a rhythm, with a trigger, a postcondition and repeated runs, and its nearest relatives (the Walk, the Spore Check, the Weave) are all `practice` ([[SCHEMA]] §1). The trial was already keeping a ledger by hand: a process note every morning, a "Pending" list, a week-one watch list. A tuning ledger is the palace's form for exactly that.
 - **Card in `_ops/`, bundle beside it, machinery in `_ops/daily-page/`.** The split is the palace's own: `Closing Well Ceremony` beside `_ops/closing-well/`, [[Enrichment]] beside `_ops/rich-face/`, [[Sentry]] beside `_ops/sentry/`. The dealer's state (`lap.json`, `visits.jsonl`) is runtime bookkeeping and stays with the dealer ([[Substrate Skill]], the Machinery/Content Split).
-- **The commit is the record.** Every ceremony here records a run in its commit body and a ledger line, and the palace froze its one appended record file, the Deposit Archive, in favour of that. A ceremony's scroll is then made by machine from the two. The trial's `record.md` was a second, hand-kept copy, edited in place by more than one session on its first day; its one morning is kept whole in this bundle's Archive.
+- **The commit is the record.** Every ceremony here records a run in its commit body and a ledger line, and the palace froze its one appended record file, the Deposit Archive, in favour of that. A ceremony's scroll is then made by machine: each run from its ledger line, each version change from its commit. The trial's `record.md` was a second, hand-kept copy, edited in place by more than one session on its first day; its one morning is kept whole in this bundle's Archive.
 - **A verdict in flight is a baton.** A commissioning baton is the palace's form for work decided and not begun, and it lives where the work will happen ([[Baton Ceremony]] § Where the Baton Lives).
-- **Nothing is written into the dealt page's own bundle except a baton.** What an ordinary page's bundle should hold is an open question the palace is carrying on [[Palace Ceremonies]]. This practice stays behind it.
+- **Nothing is written into a page's bundle except a baton and, with it, a rough kept as a proof in `proofs/`.** What an ordinary page's bundle should hold is an open question the palace is carrying on [[Palace Ceremonies]]. This practice stays behind it.
 - **The close matches the work.** [[Closing Well]] § Scope gives two scales and does not say what a session is when it holds one movement. The card settles it for its own mornings by what the morning made, which anyone can check against the tree, not by how long it felt. The morning's maker does not grade it alone: on the first morning a resident who had advised the morning's decisions also judged whether the morning had cut a corner, and missed several things a cold read found.
 - **A dormant page is dealt, and its revival is not done at the table.** The [[Revival Ceremony]] has never run, and the baton it carries says the card as written cannot revive a spore. The Daily Page is now a second door into revival, beside the Spore Check's `revive`. Whoever redesigns the Revival Ceremony should know that.
 
@@ -69,7 +79,7 @@ These went in as the draft had them. His read of the landing is where each is an
 
 ## Week one
 
-The first seven mornings Loudon sits; a missed day is not one of them. Watch: how long a sit takes and whether he wants that length daily; whether the prep is too much or too little; whether the woken page says anything the outside read did not; whether a playable piece in a morning is realistic, and for which kinds of page; what a morning costs (the first: about 114K tokens for the Concierge's boot, about 32K for the waking, and a full Closing Well on top); whether title-first is a pleasure or a test. After the seventh, read the seven together and move the version.
+The first seven mornings Loudon sits; a missed day is not one of them. Watch: how long a sit takes and whether he wants that length daily; whether the prep is too much or too little; whether the woken page says anything the outside read did not; whether a playable piece in a morning is realistic, and for which kinds of page; what a morning costs (the first: about 114K tokens for the Concierge's boot, about 32K for the waking, and a full Closing Well on top); whether title-first is a pleasure or a test. After the seventh, read the seven together and move the version. The ledger carries this as an order from him, owed until then, so every tail read finds it.
 
 ## Open
 

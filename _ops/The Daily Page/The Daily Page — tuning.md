@@ -12,7 +12,7 @@ forward_vector: "I am the Daily Page's record of what each morning taught it, nu
 
 What each morning taught the practice. Each item names what the morning showed and the spec change it forced, or says **change owed** when it has not landed (the words the scroll's reader looks for). Newest last. One run is one morning Loudon sat; a page dealt and not sat is not a run and leaves no line here.
 
-**v0.1 (2026-10-13)** is the spec as it landed: the trial's `_ops/daily-page/README.md` after its first morning, carried into the card with the changes below. The number moves when the procedure does (a step, a verdict, a postcondition), never for prose. Week one's review, after the seventh morning Loudon sits, is where v1.0 would be earned.
+**v0.1 (2026-10-13)** is the spec as it landed: the trial's `_ops/daily-page/README.md` after its first morning, carried into the card with the changes below. The first morning ran under that README, before the card existed. Its run line is stamped v0.1 because that is where counting starts, so the scroll reports one run since the spec changed although the card as landed has not yet run. The number moves when the procedure does (a step, a verdict, a postcondition), never for prose. Week one's review, after the seventh morning Loudon sits, is where v1.0 would be earned; it is carried below as an order from him, owed until then.
 
 ## From the first morning — Frequency-Time Explorer, 2026-10-13
 
@@ -36,6 +36,13 @@ What each morning taught the practice. Each item names what the morning showed a
 12. **The close matches the work.** The draft gave every morning a short close with `close well` his to call. Loudon: a quick morning gets the short close; a morning that made something the palace must carry gets a full Closing Well. Forced: the close section, and who notices which morning it was.
 13. **A dormant page is dealt like any other.** The draft sent dormant pages elsewhere and told the morning to ask. Loudon wants the page dealt and the question put. Forced: the dormant section, the `revive` verdict, and the dealer taking it. **A change owed once a revival has run:** cut "The first revive will be the Revival Ceremony's first run" from the card, and say what a revive hands to in a line.
 
+## From the cold read — 2026-10-13
+
+14. **The card said three things about its own tools that were not so.** A reader with no hand in the page checked it against the code. The wake tool prints and does not write a file; `deal.py --status` did not print a fold's target, so postcondition 1 could not be checked; and the scroll shows a run from its ledger line alone, not from the opening of its commit. Forced: the wake step, `--status` printing the target, the run line naming the page and its verdict, and the record section. **A change owed at the merge:** the first morning's sat line has no target and holds a summary for his words. The dealer corrects it by appending, on `main`: `deal.py --date 2026-10-13 --sat "Frequency-Time Explorer" --verdict fold --into "Frequency-Time Duality"`, with `--feel` given his words from the archived record. The later line wins and the old one stays; the file is append-only.
+15. **A rough on a kept page had no carrier.** A keep or an open writes no baton, and `roughs` is ignored by git, so the ordinary morning under the bias toward making had nowhere to put what it made. Forced, and new for Loudon's read: a rough worth keeping is copied into the dealt page's `proofs/` and leaves as a commissioning baton for Enrichment there.
+16. **The short close leaned on a claim Loudon had contradicted.** The card said he is "in the room and fresh"; at the first close he said he is just waking up. Forced: the short close is short because the morning left nothing to check but a verdict, and the Concierge reads the list.
+
+- from Loudon · 2026-10-13 · "the first week we are very meta about it, assessing our process as much as we assess the content" · owed
 - from Loudon · 2026-10-13 · "Let the close match the work, today's deserved a full close, other days may be quicker." · paid in item 12
 - from Loudon · 2026-10-13 · "Give me a dormant page with the question if it should be revived, that is a nice working of the palace." · paid in item 13
 - run · 2026-10-13 · v0.1 · Frequency-Time Explorer, fold into Frequency-Time Duality · taught items 1–9

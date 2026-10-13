@@ -330,7 +330,8 @@ def main():
                   f"{st['missed']} dealt and missed · {st['waiting_for_next_lap']} waiting for the next lap"
                   f" · {st['set_aside']} set aside as not pages")
             for v in sorted(s["sat"].values(), key=lambda v: v["date"], reverse=True)[:10]:
-                print(f"  {v['date']}  {v['entry']}  — {v.get('verdict', '')}")
+                print(f"  {v['date']}  {v['entry']}  — {v.get('verdict', '')}"
+                      + (f" into {v['into']}" if v.get("into") else ""))
         return
 
     if a.sat:

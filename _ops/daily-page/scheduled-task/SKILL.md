@@ -19,6 +19,7 @@ Three things the page cannot tell you, because they are about this task and not 
 
 - Run the two tools by the main checkout's path, whichever folder you woke in:
   python3 "/Users/loudonstearns/Documents/The Palace/_ops/daily-page/deal.py"
-  node "/Users/loudonstearns/Documents/The Palace/_ops/daily-page/wake.mjs" "<Entry title>"
+  node "/Users/loudonstearns/Documents/The Palace/_ops/daily-page/wake.mjs" "<Entry title>" > <a scratch file>
+  The wake tool prints the prompt and writes no file itself. Redirect it as above, and have the subagent read that file.
 - If a command waits on a permission you cannot give yourself, do not work around it. Wait. When Loudon arrives, tell him first that the prep has not run, and run it with him there.
 - If the page is missing, read /Users/loudonstearns/Documents/The Palace/_ops/daily-page/README.md and do what it says. If both are missing, say so and stop. Do not improvise the practice from this note.
