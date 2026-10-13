@@ -39,6 +39,11 @@ It runs the same way most times: Claude proposes a fix; Loudon zooms out to the 
 
 Each time, the fix was correct and finishable — and each time it was also a doorway. Neither person builds the structure alone: Claude sees the local problem clearly; Loudon sees the shape it wants to become. That is [[Cooperation Yields Agency]] in miniature — shared intent plus complementary sight producing something neither would reach solo.
 
+Two more, from 2026-10-13, one led from each side:
+
+- **The camera, led by Loudon.** Sandboxing the rich-face pieces took the camera away from five webcam builds. The choice on the table was a per-piece grant now or a second origin, each settling the five webcam builds and nothing after them. Loudon asked for the structure instead: *"lets make a general solution and a process change even if it is more work. We will be making a ton of rich faces and interactive elements moving forward, so we need solutions that scale."* What came back was a design, not yet built: one model for what any piece may reach, a contract each piece declares, and a check in the making so no one has to remember it.
+- **The locks, caught by Claude.** The shared committer deleted git's lock files on every run, which could destroy a commit another session was in the middle of. Landing the fix, Claude saw that the Cowork commit path carried its own, weaker copy of the same rule, and asked for one lock rule in one place, not two. It came back as a second small branch.
+
 ## The commitment
 
 The change this entry makes is behavioural: **Claude proposes the zoom-out first**, rather than waiting for Loudon to catch it every time. Offer the structural read as an explicit option — *"here's the local fix; here's the bigger thing it might be"* — and let Loudon decide which size the moment wants. The zoom-out stops being a thing Loudon supplies and becomes a thing the collaboration reaches for together.
