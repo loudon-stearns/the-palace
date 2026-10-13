@@ -15,24 +15,24 @@ forward_vector: "I am 2D Torus Wavetable Synthesizer's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T20:52:29.804Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T21:58:40.205Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 15 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 16 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — — (`torus-steward-039`)
-- **Last commit touching this project:** 2026-10-13 `71ca28a6` — steward(2D Torus Wavetable Synthesizer): cycle 14 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
+- **Last shipped:** 2026-10-13 (today) — Étude No. 2's third draft swings, slides and sings. Is it in the threshold now, or did I overshoot again? (`torus-steward-042`)
+- **Last commit touching this project:** 2026-10-13 `ed1996ae` — steward(2D Torus Wavetable Synthesizer): cycle 15 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read the surface, and their ratio decides whether it sounds harmonic or shimmers. The instrument exists as Max/RNBO codebox files that haven't been opened in Max yet. Its test piece, Étude No. 2, is played only by the Hopf codebox and is now in a second draft with a real kick and a B theme, waiting for your ears. Writing it kept teaching one lesson: a note on this instrument is not baseHz. Each surface on each lock lands on certain harmonics, and longitude can move them. This cycle measured that for all thirteen playable surfaces on all 19 locks plus the pole, checked the numbers against the codebox itself…
+This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read it, and their ratio decides whether it sounds harmonic or shimmers. Its test piece, Étude No. 2, is played entirely by the Hopf codebox, the version of the instrument steered from a point on a sphere. Every voice runs from that codebox's own text, and the score is only knob moves. You heard the second draft as having swung too far toward the grid: straight 4/4, rigid, simple. You asked for vocal and violin slides and vibrato in the melodies, a swung non-European beat in the rhythms, and tempo that slides like Étude No. 1's. This third draft does all of that and leaves the ending, your favorite part, a…
 
 ### Open asks
 
-- `torus-steward-034` — directional_decision · posted 2026-10-13 · options: GROOVE · B-THEME · LONGER · NOT-YET
+- `torus-steward-042` — directional_decision · posted 2026-10-13 · options: SECOND-BEAT · LESS-SLIDE · MORE-LOOSE · LONGER
 
 ### Answered, not yet consumed
 
@@ -40,6 +40,7 @@ _None._
 
 ### Decided
 
+- `torus-steward-034` — directional_decision → GRANTED — (no option_id); notes: "You have swung all the way over to the other side, too quantized, too rigid, and musically too simple. Now, with all sections that are melodic, incorporate the subtle glides and vibratos we would have in a vocal or violin performance. For sections that are rhythmic, subtle swing and a beat that is more inspired from non-european cultures. My favorite parts are the ending. Please have some sections that are like your first etude, where the tempo slides. You have two ends of the spectrum here, abstract to rigid, play around in the threshold and curiosity. Keep going." (2026-10-13)
 - `torus-steward-031` — directional_decision → GRANTED — (no option_id); notes: "The music is the entire thing, this feels sonically like a story is being told because the "sections" are clear and there are emotional tendencies for each. The answer isn't to pick one, it is to treate each as a section of a story and tell the entire story. This does have a classical feel without a steady tempo. To really sell "music" we need a clear tempo and "groove" for some sections, and if you are going to jump between pitches bring in the concept of motif and repetition, sequence and variations. Keep going, this is great!" (2026-10-13)
 
 <!-- scroll:now:end -->
@@ -59,6 +60,57 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="torus-steward-042" -->
+### 2026-10-13 — cycle 16 — Étude No. 2's third draft swings, slides and sings. Is it in the threshold now, or did I overshoot again?
+> still working · third draft rendered, ending untouched · steward leans SECOND-BEAT
+
+Étude No. 2 is the test piece for the torus synth, played only by the Hopf codebox. You heard the second draft as too rigid. This third draft is in 12/8 with uneven triplets and a West African bell pattern. Its tempo slides (it speeds up into the groove, slows and recovers in the let-go, and breathes in the B theme), and every melody slides and blooms vibrato like a voice or violin. The ending is unchanged. I'll keep refining whether or not you answer. My lean is to give the hands section a beat of its own, an aksak in 2+2+3, so the story has two grooves, not one groove at two speeds. If the singing overshoots into seasick, I'd rather dial it back first. Listen: [the third draft](open:Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_c_threshold.m4a).
+
+**Artifacts:**
+- [the third draft, 155 s](Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_c_threshold.m4a)
+- [its spectrogram, sections marked](Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_c_threshold.png)
+- [voicing-atlas.html](Projects/2D Torus Wavetable Synthesizer/proofs/voicing-atlas/voicing-atlas.html)
+- [voicing_atlas.png](Projects/2D Torus Wavetable Synthesizer/proofs/voicing-atlas/voicing_atlas.png)
+<sub>`torus-steward-042` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="torus-steward-041" -->
+### 2026-10-13 — cycle 16 — Étude No. 2, third draft: 12/8 with uneven triplets, a West African bell, sliding tempo, and every melody sung with slides and vibrato.
+> shipped · 155 s, ending kept as-is · unheard by anyone yet
+
+**How time moves now.** The piece is in 12/8. Each beat splits into three eighths that are uneven: short, medium, long, like the stretched triplets in Malian jembe drumming. The motif A C E D becomes 3·2·1·6 eighths, so it swings by itself. There is no fixed BPM; time runs through a tempo curve. The staircase speeds up from 50 to 80, so the groove arrives inside it. The knot section holds steady and swung at 80. The let-go slows to 56 and speeds back up to catch the hands. The B theme breathes, with each two-bar phrase pushing ahead and then relaxing. The ending stays in free time. So the piece now moves between rubato, groove and rubato, which is the threshold you asked for.
+
+**The beat.** A two-tone Chladni bell plays the West African 12/8 bell pattern (x.x.xx.x.x.x). A shaker plays every eighth and leans on the long one. The kick walks the four beats against the bell, goes half time in 3+3+2 under the hands, and becomes a soft frame drum in B. Drum hits get a few milliseconds of seeded push and pull.
+
+**The singing.** Every melody slides into tied notes, longer on leaps, the way a violinist shifts. It scoops up into detached notes, and a delayed vibrato blooms on long notes: 10 cents in the coda, up to 32 on the whistle's reach. In a patch the vibrato is just a `[cycle~]` into `[param baseHz]`.
+
+**The dead lines follow the tempo.** In the let-go the score sets each mistuning from the tempo, so the slip stays at eighth notes (Knot Shadow) and beats (Penrose) all the way down the slowdown and back up. Two small composing changes: a turn in bar 10, and B's answers now climb through chord tones over the moving pad (A C E, then E G B, then G B D) instead of repeating.
+
+Score and method: [Étude No. 2c — score](obsidian://open?vault=The%20Palace&file=Projects/2D%20Torus%20Wavetable%20Synthesizer/Etude/%C3%89tude%20No.%202c%20%E2%80%94%20score.md).
+
+**Artifacts:**
+- [Étude No. 2, third draft — 'In the Threshold', 155 s.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_c_threshold.m4a)
+- [Spectrogram to 1100 Hz with sections marked. The whistle's vibrato shows as the wavy blobs in B; the slides show as slanted lines in the melody.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_c_threshold.png)
+- [The score: tempo map, beat, singing, and what was checked.](Projects/2D Torus Wavetable Synthesizer/Etude/Étude No. 2c — score.md)
+- [The renderer: tempo curve, uneven eighths, sing() with slides and vibrato, all on the Hopf codebox.](Projects/2D Torus Wavetable Synthesizer/Etude/render_etude_2c.mjs)
+- [Spectrogram script; it reads the section times from the locks file.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_spectrogram_2c.py)
+- [Tempo map, section times, measured slip rates and lock changes.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_c_locks.json)
+
+_Checked from the render: let-go slip rates follow the sliding tempo (Knot Shadow, eighth-note slip)_
+| beat in the let-go | tempo | slip wanted (Hz) | slip measured (Hz) |
+| --- | --- | --- | --- |
+| 49.5 | 75.5 | 3.775 | 3.778 |
+| 53.5 | 63.5 | 3.175 | 3.177 |
+| 55.5 (slowest) | 57.5 | 2.875 | 2.877 |
+| 59.5 | 66.5 | 3.325 | 3.322 |
+| 61.5 | 72.5 | 3.625 | 3.622 |
+
+_Left rough:_ I checked this by measurement only: the slip rates, the vibrato depth and rate, the slides, and that every sample is finite. Nobody has listened yet. The 12/8 bell pattern and the uneven eighths are my reading of West African and Malian practice, not checked against a recording. The full-res WAV is 60 MB and stays uncommitted; the m4a is the one to play.
+
+_Next moves named:_ Your ears on the third draft: is the swing in the right place, and do the slides read as singing or as sliding? · If the threshold reads, write a second rhythmic idea for the hands section (an aksak, 2+2+3) so the piece has two different beats, not one beat at two speeds.
+<sub>`torus-steward-041` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="torus-steward-039" -->
 ### 2026-10-13 — cycle 15 — flag
 
