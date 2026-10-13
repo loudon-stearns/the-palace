@@ -19,6 +19,10 @@
 //
 // Callers that are not browsers (curl, node's fetch, the eval server) send no
 // Origin and no Sec-Fetch-Site, and pass.
+//
+// The standalone rich face (_ops/rich-face/rich-server.mjs) answers at /, so
+// every path it serves is a palace route; it runs the same two checks on all of
+// them through checkRequest, rather than keeping a copy of the rule.
 
 import { isIP } from 'node:net';
 
@@ -91,7 +95,14 @@ function refuse(res, status, error) {
  */
 export function guardRequest(req, res, { urlPath, method, allowedHosts }) {
   if (!isGuardedPath(urlPath)) return false;
+  return checkRequest(req, res, { urlPath, method, allowedHosts });
+}
 
+/**
+ * The two checks, on any path: a foreign Host, and a cross-site or non-JSON write.
+ * @returns {boolean} true if it refused (the response is sent), false to go on.
+ */
+export function checkRequest(req, res, { urlPath, method, allowedHosts }) {
   if (!isHostAllowed(req.headers.host, allowedHosts)) {
     refuse(res, 403, 'host not allowed — STIGMERGY answers to localhost only (server.allowedHosts widens it)');
     return true;
