@@ -46,7 +46,8 @@ reaches it the same way.
 
 Bare filenames resolve in the bundle, then vault-wide by name; `/…` is palace-absolute. `near` anchors
 a piece right after that paragraph or figure; otherwise it goes at the section's end. Audio, images and
-text pieces default to the margin; video, interactives and diagrams to the band.
+text pieces default to the margin; video, interactives and diagrams to the band. An interactive's
+`height` (px) is the height it is given; one without gets 800.
 
 ## The parser's rules
 
@@ -67,15 +68,32 @@ text pieces default to the margin; video, interactives and diagrams to the band.
 - A section's fingerprint is SHA-256 (first 12 hex) of its prose blocks, whitespace-collapsed. Figures'
   captions don't count — they travel with their media.
 
+## What the page lets run
+
+The page is served from STIGMERGY's origin, so anything that runs in it runs as STIGMERGY.
+
+- **Every piece is sandboxed** — `sandbox="allow-scripts"`, the rule STIGMERGY's `ArtifactSlot.jsx`
+  applies to all served HTML. A piece's origin is opaque: it cannot call STIGMERGY's API, read the
+  page, or use storage, and it fetches nothing from the palace (classic `<script src>`, `<audio>`,
+  `<img>` and fonts still load). The page knows a piece by its frame, never by origin.
+- **An entry's own HTML is shown, not run.** Comments stay unseen; tags with no attributes from a
+  short list (`b`, `i`, `em`, `strong`, `sub`, `sup`, `br`, `kbd` …) and a `div` or `span` whose one
+  attribute is a `class` still render; any other tag is escaped and shows as written. Diagrams render
+  with mermaid's `securityLevel: 'strict'`.
+
 ## Making pieces — the gotchas
 
 - **One file, no build.** A piece is a single self-contained HTML (fonts from Google, everything else
   inline) so it plays inside the rich face and opened on its own. Worklet DSP goes in as a Blob URL,
   stereo in both places, a compressor after it ([[Web Audio Worklet]]).
-- **Fixed canvas heights.** A canvas that takes its height from its own panel feeds back through the
-  iframe's auto-fit and grows without end (Kuramoto's pieces passed 9,000 px).
+- **A piece runs sandboxed, so it must stand alone.** Inline everything; a `fetch` of a file beside
+  it, an ES module from the palace, or `localStorage` will fail. Worklets from a Blob URL work.
+- **A made piece sets its height.** The page cannot read a sandboxed piece to fit it, so give it a
+  `height` in the manifest — what it renders at in the page's column (about 1130 px wide). Without one
+  it gets 800 and scrolls inside its frame.
 - **One voice at a time.** Post `{type:'rich:play'}` to the parent when sound starts; stop on
-  `{type:'rich:hush'}`. The page hushes every other video, strip and piece.
+  `{type:'rich:hush'}`. The page hushes every other video, strip and piece. It hears the play by the
+  frame it came from and sends the hush to any origin, since a sandboxed piece's origin is `null`.
 - **Test the claim headless.** Pull the worklet source out of the page and run it in Node against the
   equation the section states before trusting what the page shows. `check-kuramoto-pieces.mjs` is the worked example:
   `node _ops/rich-face/check-kuramoto-pieces.mjs` re-checks every claim Kuramoto's pieces make.

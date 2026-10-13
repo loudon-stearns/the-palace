@@ -175,6 +175,22 @@
 import { marked } from './_vendor/marked/marked.esm.js';
 import { parseEntry, sectionProse, sectionKey, fingerprint, mediaKind, isMedia } from './_rich/parse.js';
 
+// An entry's own HTML is shown, not run. This page is served from STIGMERGY's
+// origin, so a tag that runs script here runs as STIGMERGY. Comments stay unseen
+// (agents leave notes in them). Plain formatting tags with no attributes, and a
+// div or span whose one attribute is a class, still render — Kuramoto's equation
+// piece is laid out that way. Any other tag is escaped and shows as written.
+const KEEP_TAGS = new Set(['b', 'strong', 'i', 'em', 'u', 's', 'del', 'ins', 'mark', 'small', 'sub', 'sup', 'kbd', 'br', 'div', 'span']);
+const escapeHtml = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+function safeHtml(raw) {
+  return raw.replace(/<!--[\s\S]*?(?:-->|$)/g, '').replace(/<[^>]*>?/g, (tag) => {
+    const m = tag.match(/^<(\/?)([a-z][a-z0-9]*)(\s+class="[\w\s-]*")?\s*\/?>$/i);
+    const name = m && m[2].toLowerCase();
+    return m && KEEP_TAGS.has(name) && (!m[3] || name === 'div' || name === 'span') ? tag : escapeHtml(tag);
+  });
+}
+marked.use({ renderer: { html: (html) => safeHtml(html) } });
+
 const params = new URLSearchParams(location.search);
 const ENTRY = params.get('entry') || 'Kuramoto Coupling';
 // The public read view serves this page static (scripts/build-public.mjs sets
@@ -246,26 +262,29 @@ function audioStrip(src, label) {
 }
 // One voice at a time. Starting any strip, video or interactive quiets the
 // rest; the interactives speak the same tiny protocol over postMessage
-// (they send 'rich:play' when they start and stop on 'rich:hush').
+// (they send 'rich:play' when they start and stop on 'rich:hush'). A piece is
+// sandboxed, so its origin is opaque ("null"): the page knows a piece by its
+// frame (e.source), never by origin, and sends the hush to any origin — it
+// carries nothing but its type.
 const audios = new Set();
+const ownFrame = (win) => [...document.querySelectorAll('iframe')].some((f) => f.contentWindow === win);
 function hushAll(except) {
   document.querySelectorAll('video').forEach((v) => { if (v !== except) v.pause(); });
   audios.forEach((x) => { if (x !== except) x.pause(); });
-  document.querySelectorAll('iframe').forEach((f) => { if (f.contentWindow !== except) f.contentWindow?.postMessage({ type: 'rich:hush' }, location.origin); });
+  document.querySelectorAll('iframe').forEach((f) => { if (f.contentWindow !== except) f.contentWindow?.postMessage({ type: 'rich:hush' }, '*'); });
 }
 document.addEventListener('rich:play', (e) => hushAll(e.detail));
-window.addEventListener('message', (e) => { if (e.origin === location.origin && e.data?.type === 'rich:play') hushAll(e.source); });
+window.addEventListener('message', (e) => { if (e.data?.type === 'rich:play' && ownFrame(e.source)) hushAll(e.source); });
 
+// A piece runs sandboxed to scripts alone — the rule STIGMERGY's ArtifactSlot
+// applies to every HTML file it serves. Its origin is opaque, so it cannot call
+// STIGMERGY's API, read this page, or use its storage. Nor can this page read
+// the piece, so it cannot fit the piece's height: a made piece carries its
+// height in the manifest, and any other frame gets PIECE_HEIGHT.
+const PIECE_HEIGHT = 800;
 function iframeFor(src, height) {
-  const f = h('iframe', { src, loading: 'lazy', allow: 'autoplay', title: src.split('/').pop() });
-  if (height) f.style.height = height + 'px';
-  else f.addEventListener('load', () => {            // same-origin: fit the piece's own height
-    try {
-      const doc = f.contentDocument;
-      const fit = () => { f.style.height = Math.max(360, doc.documentElement.scrollHeight) + 'px'; };
-      fit(); new ResizeObserver(fit).observe(doc.documentElement);
-    } catch { f.style.height = '640px'; }
-  });
+  const f = h('iframe', { sandbox: 'allow-scripts', src, loading: 'lazy', allow: 'autoplay', title: src.split('/').pop() });
+  f.style.height = (height || PIECE_HEIGHT) + 'px';
   return f;
 }
 
@@ -285,7 +304,7 @@ async function mediaEl(name, opts = {}) {
 let mermaidMod;
 async function diagramEl(code) {
   mermaidMod = mermaidMod || (await import('./_vendor/mermaid/mermaid.esm.min.mjs')).default;
-  mermaidMod.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose', fontFamily: 'Manrope, system-ui, sans-serif' });
+  mermaidMod.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'strict', fontFamily: 'Manrope, system-ui, sans-serif' });
   const box = h('div', { class: 'diagram' });
   try { const { svg } = await mermaidMod.render('m' + Math.random().toString(36).slice(2), code); box.innerHTML = svg; }
   catch (e) { box.textContent = 'diagram did not render: ' + e.message; }

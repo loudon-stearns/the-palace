@@ -67,12 +67,14 @@
         {
           "file": "two-phasors-coupling-explorer.html",
           "origin": "gathered",
+          "height": 790,
           "title": "two-phasor coupling explorer · p5.js",
           "caption": "**Couple the two phasors and find K_c yourself.** The same two oscillators, but K is now a slider. Critical coupling for this pair is K_c ≈ 0.220 — drag the slider across that threshold and watch the two go from drift to lock. The order parameter R is the small vector in the middle: |R| → 1 is the formal signature of synchrony."
         },
         {
           "file": "two-oscillators-coupling-explorer-audio.html",
           "origin": "gathered",
+          "height": 730,
           "title": "two-oscillator audio coupling explorer · Tone.js",
           "caption": "**Hear it too.** The same two oscillators, audio-rate. Beating envelope at low K; lock above K_c. The visual explorer asked you to *see* the threshold — this one asks you to *hear* it. Same dynamics, different sense."
         }
@@ -87,6 +89,7 @@
         {
           "file": "Kuramoto Coupling — rich — waveform-locking.html",
           "origin": "made",
+          "height": 920,
           "by": "Web Audio Worklet",
           "caption": "**Path B, heard.** The claim above, made audible and checked: a saw driver pulls its follower onto a true octave; a square wave, with no second harmonic, cannot — but it can lock the twelfth. The lock thresholds match K ≥ 2|Δf| ⁄ bₘ.",
           "near": "Path B — Nonlinear waveform coupling"
@@ -153,6 +156,7 @@
         {
           "file": "Kuramoto Coupling — rich — ensemble.html",
           "origin": "made",
+          "height": 840,
           "by": "Web Audio Worklet",
           "caption": "**The performable boundary, in miniature.** A simpler cousin of the neurological synthesizer — one pitch cloud rather than an attractor spectrum — but the same move: K as the knob between scatter and coherence.",
           "near": "The neurological synthesizer maps this directly"
@@ -168,6 +172,7 @@
         {
           "file": "Kuramoto Coupling — rich — stubbornness.html",
           "origin": "made",
+          "height": 900,
           "by": "Web Audio Worklet",
           "caption": "**Bright idea #38, played.** Stubbornness (K_receive → 0) sets *where* a locked crowd would settle; whether the crowd can get there takes pull (K_send) too. The settle point is every voice's pitch weighted by K_send ÷ K_receive — the simulation lands on it to the hundredth of a hertz.",
           "near": "The live performance insight"
