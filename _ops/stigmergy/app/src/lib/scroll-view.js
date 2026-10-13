@@ -99,3 +99,70 @@ export function groupProjects(rows) {
   }
   return g;
 }
+
+// ── the trail as cards (2026-10-13) ─────────────────────────────────────────
+// A making section is keyed on its board message id, and the app already holds
+// the board. Joining the two lets the trail render each made thing the way the
+// Trickster card rendered it the day it shipped — headline, ground, catch-up,
+// prose, equations, tables, artifacts, and the decision Loudon filed — instead
+// of the flattened markdown the scroll file keeps. The file stays the durable
+// text; the card is how it is played.
+
+const HEAVY_EXT = /\.(html?|mp4|mov|pdf)$/i;
+
+/** The board message a section was written from, or null. */
+export function messageForSection(section, messages) {
+  if (!section || !section.id || !Array.isArray(messages)) return null;
+  return messages.find((m) => m && m.id === section.id) || null;
+}
+
+/** Loudon's answer to this message, if it was an ask: { option, notes, ts } or null. */
+export function decisionFor(msg, messages) {
+  if (!msg || !Array.isArray(messages)) return null;
+  const key = msg.request_id != null ? msg.request_id : msg.id;
+  const g = messages.find((m) => m && (m.type === 'RESOURCE_GRANT' || m.type === 'RESOURCE_DENY') && m.re === key);
+  if (!g) return null;
+  const p = g.payload || {};
+  return { option: p.option_label || p.option_id || (g.type === 'RESOURCE_DENY' ? 'denied' : 'granted'), notes: typeof p.notes === 'string' && p.notes.trim() ? p.notes.trim() : null, ts: g.ts || null };
+}
+
+/**
+ * What a making card shows. With a message: the payload's fields, artifacts split
+ * into `light` (images, audio — mount when near) and `heavy` (web, video, pdf —
+ * mount on a click). Without one: the section's own prose and lifted artifacts.
+ */
+export function cardSpec(section, messages) {
+  const msg = messageForSection(section, messages);
+  if (!msg) {
+    return { id: section.id, heading: section.heading, fromMessage: false, prose: section.body, artifacts: splitHeavy(section.artifacts), footer: section.footer };
+  }
+  const p = msg.payload || {};
+  const arts = [];
+  if (Array.isArray(p.artifacts)) for (const a of p.artifacts) if (a && a.path) arts.push({ path: a.path, caption: a.caption || null });
+  if (typeof p.artifact_path === 'string' && p.artifact_path && !arts.some((a) => a.path === p.artifact_path)) arts.push({ path: p.artifact_path, caption: p.caption || null });
+  for (const a of section.artifacts || []) if (!arts.some((x) => x.path === a.path)) arts.push(a);
+  return {
+    id: section.id,
+    heading: section.heading,
+    fromMessage: true,
+    ts: msg.ts || null,
+    type: msg.type,
+    headline: p.headline || p.subject || null,
+    ground: p.ground || null,
+    catchup: p.catchup || null,
+    prose: typeof p.content === 'string' ? p.content : (typeof p.rationale === 'string' ? p.rationale : ''),
+    payload: p,
+    artifacts: splitHeavy(arts),
+    leftRough: p.left_rough || null,
+    nextMoves: Array.isArray(p.next_moves) ? p.next_moves.map(String) : [],
+    options: Array.isArray(p.options) ? p.options.filter((o) => o && (o.id || o.label)).map((o) => ({ id: o.id || null, label: o.label || o.id })) : [],
+    decision: decisionFor(msg, messages),
+    footer: section.footer,
+  };
+}
+
+function splitHeavy(artifacts) {
+  const light = [], heavy = [];
+  for (const a of artifacts || []) (HEAVY_EXT.test(a.path) ? heavy : light).push(a);
+  return { light, heavy };
+}

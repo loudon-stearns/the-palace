@@ -3,14 +3,14 @@ import FaceSwitch from '../FaceSwitch.jsx';
 import { orderFaces, nextFace, richHref } from '../../lib/faces.js';
 import { Box, Button } from '../primitives.jsx';
 import { fetchScroll, saveStandingOrders, savePlan } from '../../adapters/projects.js';
-import { parseMakingSections } from '../../lib/scroll-view.js';
+import { parseMakingSections, cardSpec } from '../../lib/scroll-view.js';
 import { buildInbox } from '../../lib/inbox.js';
 import EntryBody from '../state/EntryBody.jsx';
-import ArtifactSlot from '../ArtifactSlot.jsx';
 import TricksterCard from '../trickster/TricksterCard.jsx';
 import AgentLaunchModal from '../queue/AgentLaunchModal.jsx';
 import { usePalaceRef } from '../../lib/palace-ref.jsx';
 import { RunningTag, QueuedTag } from './status.jsx';
+import MakingCard from './MakingCard.jsx';
 
 // ScrollView — one project's scroll, rendered live in the terminal.
 //
@@ -92,6 +92,9 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
 
   const myAsks = useMemo(() => buildInbox(messages).pending_requests.filter((p) => p.from === home), [messages, home]);
   const sections = useMemo(() => parseMakingSections(scroll?.zones?.making || ''), [scroll]);
+  // The trail as cards (2026-10-13): each section joined to its board message
+  // so it plays as it did the day it shipped; media mounts as you reach it.
+  const cards = useMemo(() => sections.map((s) => cardSpec(s, messages)), [sections, messages]);
   const index = palace?.index || new Map();
   const refIndex = palace?.refIndex || null;
   const onNavigate = palace?.openEntryInState || null;
@@ -277,13 +280,8 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
 
           <ZoneTitle right={<span style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 }}>{sections.filter((s) => s.id).length} {isCeremony ? `run${sections.filter((s) => s.id).length === 1 ? '' : 's'} and changes` : `made thing${sections.filter((s) => s.id).length === 1 ? '' : 's'}`} · newest first</span>}>The making</ZoneTitle>
           <div data-testid="scroll-making" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            {sections.map((s, i) => (
-              <div key={s.id || `free-${i}`} data-testid={s.id ? `scroll-entry-${s.id}` : undefined} style={{ borderLeft: s.id ? '2px solid var(--phosphor-dim)' : 'none', paddingLeft: s.id ? 10 : 0 }}>
-                {s.heading ? <div style={{ color: 'var(--phosphor-white)', textShadow: 'var(--glow)', fontSize: 14, marginBottom: 4 }}>{s.heading}</div> : null}
-                <EntryBody body={s.body} index={index} refIndex={refIndex} onNavigate={onNavigate} />
-                {s.artifacts.length ? <ArtifactSlot payload={{ artifacts: s.artifacts }} /> : null}
-                {s.footer ? <div style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 10, marginTop: 4, letterSpacing: '.04em' }}>{s.footer}</div> : null}
-              </div>
+            {cards.map((c, i) => (
+              <MakingCard key={c.id || `free-${i}`} spec={c} index={index} refIndex={refIndex} onNavigate={onNavigate} />
             ))}
           </div>
         </>

@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import { parseMakingSections, liftArtifacts, ageOf, rowSignal, groupProjects } from '../../src/lib/scroll-view.js';
+import { parseMakingSections, liftArtifacts, ageOf, rowSignal, groupProjects, cardSpec, messageForSection, decisionFor } from '../../src/lib/scroll-view.js';
 import { sortProjects, projectSortKey } from '../../server/projects.js';
 
 const MAKING = [
@@ -100,5 +100,47 @@ describe('rowSignal + groupProjects + sortProjects — one rule for the table', 
     expect(sorted[3]).toBe('Stuck');
     expect(sorted.slice(4)).toEqual(['Running', 'Steady', 'Untended']);
     expect(projectSortKey(by.Untended)[0]).toBe(4);
+  });
+});
+
+describe('the trail as cards (2026-10-13): a section joins its board message', () => {
+  const sections = parseMakingSections(MAKING);
+  const msg = {
+    id: 'gsl-039', ts: '2026-07-01T10:00:00Z', type: 'BROADCAST', board: 'GENERAL', from: 'GSL',
+    payload: {
+      kind: 'shipped_artifact', headline: 'The probe harness ships.', ground: 'shipped · harness ready',
+      catchup: 'GSL is the chat-driven instrument generator.', content: 'What I built. A harness.',
+      artifacts: [{ path: 'Projects/GSL/crystal-audio/crystal_1_cubic.wav', caption: 'a wav' }, { path: 'Projects/GSL/ai-source-probe/report.mock.html', caption: 'the report' }],
+      equations: [{ label: 'x', symbolic: 'y = x', worded: 'y equals x' }],
+      left_rough: 'nobody listened', next_moves: ['listen'],
+      options: [{ id: 'SHIP', label: 'SHIP — ship it' }, { id: 'WAIT', label: 'WAIT — hold' }],
+    },
+  };
+  const grant = { id: 'resp-1', ts: '2026-07-02T09:00:00Z', type: 'RESOURCE_GRANT', re: 'gsl-039', from: 'TRICKSTER', payload: { option_id: 'SHIP', option_label: 'SHIP — ship it', notes: 'yes, and louder' } };
+
+  test('finds the message by the section id and splits artifacts into light and heavy', () => {
+    const sec = sections.find((s) => s.id === 'gsl-039');
+    expect(messageForSection(sec, [msg])).toBe(msg);
+    const c = cardSpec(sec, [msg, grant]);
+    expect(c.fromMessage).toBe(true);
+    expect(c.headline).toBe('The probe harness ships.');
+    expect(c.catchup).toContain('GSL is');
+    expect(c.artifacts.light.map((a) => a.path)).toEqual(['Projects/GSL/crystal-audio/crystal_1_cubic.wav']);
+    expect(c.artifacts.heavy.map((a) => a.path)).toEqual(['Projects/GSL/ai-source-probe/report.mock.html']);
+    expect(c.leftRough).toBe('nobody listened');
+    expect(c.nextMoves).toEqual(['listen']);
+    expect(c.options.map((o) => o.id)).toEqual(['SHIP', 'WAIT']);
+  });
+  test('carries the decision Loudon filed, with his note whole', () => {
+    const sec = sections.find((s) => s.id === 'gsl-039');
+    expect(decisionFor(msg, [msg, grant])).toEqual({ option: 'SHIP — ship it', notes: 'yes, and louder', ts: '2026-07-02T09:00:00Z' });
+    expect(cardSpec(sec, [msg]).decision).toBeNull();
+  });
+  test('falls back to the section prose when no message is on the board', () => {
+    const sec = sections.find((s) => s.id === 'gsl-039');
+    const c = cardSpec(sec, []);
+    expect(c.fromMessage).toBe(false);
+    expect(c.prose).toContain('Catch-up');
+    expect(c.artifacts.light.length + c.artifacts.heavy.length).toBe(sec.artifacts.length);
   });
 });
