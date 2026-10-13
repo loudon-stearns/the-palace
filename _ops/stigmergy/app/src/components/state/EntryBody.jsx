@@ -1,9 +1,11 @@
 import React from 'react';
 import { parseLinks, hrefFor } from '../../lib/format.js';
 import MermaidBlock from './MermaidBlock.jsx';
+import QuoteMark from './QuoteMark.jsx';
 import EntryRefChips from '../EntryRefChips.jsx';
 import { resolveRef } from '../../lib/entry-ref.js';
 import { fileUrl } from '../../lib/public-mode.js';
+import { normalize as normalizeForAnchor } from '../../../../../quotes/schema.mjs';
 
 // Minimal markdown renderer for entry bodies. Intentionally scoped: the
 // goal is "a reader can audit an entry" -- not Obsidian-parity rendering.
@@ -739,7 +741,38 @@ function renderBlock(block, ctx, key) {
   }
 }
 
-export default function EntryBody({ body, index, refIndex, onNavigate, bundleFiles = [] }) {
+// The words of a block a quote can be anchored to. Headings, code and images
+// never carry a quote; a `near` phrase names prose.
+function blockText(b) {
+  switch (b.kind) {
+    case 'paragraph': case 'quote': return b.text;
+    case 'list': return b.items.join(' ');
+    case 'table': return [...b.header, ...b.rows.flat()].join(' ');
+    default: return '';
+  }
+}
+
+// Lay each quote after the first block whose words carry its `near` phrase —
+// the same normalization the placer and the server use (_ops/quotes/schema.mjs),
+// so the three never disagree about where a quote belongs. A quote whose
+// phrase is no longer on the page goes to the end, marked as moved.
+function layQuotes(blocksList, quotes) {
+  const at = new Map();
+  const moved = [];
+  for (const q of Array.isArray(quotes) ? quotes : []) {
+    if (!q || q.status === 'retired') continue;
+    const want = normalizeForAnchor(q.near);
+    const j = want ? blocksList.findIndex((b) => { const t = blockText(b); return t && normalizeForAnchor(t).includes(want); }) : -1;
+    if (j === -1) moved.push(q);
+    else at.set(j, [...(at.get(j) || []), q]);
+  }
+  return { at, moved };
+}
+
+export default function EntryBody({
+  body, index, refIndex, onNavigate, bundleFiles = [],
+  quotes = [], onWalk = null, onDecide = null, litQuoteId = null,
+}) {
   if (typeof body !== 'string' || body.trim() === '') {
     return (
       <div data-testid="entry-body" style={{ color: 'var(--phosphor-dim)', textShadow: 'none' }}>
@@ -749,9 +782,40 @@ export default function EntryBody({ body, index, refIndex, onNavigate, bundleFil
   }
   const blocksList = blocks(body);
   const ctx = { index, refIndex, onNavigate, bundleFiles };
+  const laid = layQuotes(blocksList, quotes);
+  const mark = (q, moved = false) => (
+    <QuoteMark
+      key={`q-${q.id}`}
+      quote={q}
+      lensPath={q.lens_path || (index?.get?.(q.lens) ?? null)}
+      onNavigate={onNavigate}
+      onWalk={onWalk}
+      onDecide={onDecide}
+      lit={!!litQuoteId && q.id === litQuoteId}
+      moved={moved}
+    />
+  );
   return (
     <div data-testid="entry-body">
-      {blocksList.map((b, j) => renderBlock(b, ctx, `b${j}`))}
+      {blocksList.map((b, j) => {
+        const marks = laid.at.get(j);
+        if (!marks) return renderBlock(b, ctx, `b${j}`);
+        return (
+          <React.Fragment key={`b${j}-with-quotes`}>
+            {renderBlock(b, ctx, `b${j}`)}
+            {marks.map((q) => mark(q))}
+          </React.Fragment>
+        );
+      })}
+      {laid.moved.length ? (
+        <div data-testid="quotes-moved" style={{ marginTop: 18, borderTop: '1px dotted var(--phosphor-dim)', paddingTop: 8 }}>
+          <div style={{
+            fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '.12em', textTransform: 'uppercase',
+            color: 'var(--warn)', textShadow: 'none', marginBottom: 4,
+          }}>quotes whose place on this page moved · {laid.moved.length}</div>
+          {laid.moved.map((q) => mark(q, true))}
+        </div>
+      ) : null}
     </div>
   );
 }

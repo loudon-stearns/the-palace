@@ -4,10 +4,11 @@ import EntryReader from './EntryReader.jsx';
 import EntryEditor from './EntryEditor.jsx';
 import TopologyLens from './TopologyLens.jsx';
 import TreeLens from './TreeLens.jsx';
+import QuotesLens from './QuotesLens.jsx';
 import { fetchEntries } from '../../adapters/entries.js';
 import { buildIndex } from '../../lib/wikilink.js';
 import { buildRefIndex } from '../../lib/entry-ref.js';
-import { useEntryNavigation, useLensNavigation, parseTreeTargetFromUrl } from '../../lib/url-nav.js';
+import { useEntryNavigation, useLensNavigation, useQuoteNavigation, parseTreeTargetFromUrl } from '../../lib/url-nav.js';
 import { Banner } from '../primitives.jsx';
 import { IS_PUBLIC } from '../../lib/public-mode.js';
 
@@ -33,6 +34,24 @@ export default function StateDeck({ jumpTarget = null, onEntryPathChange, reload
   const nav = useEntryNavigation();
   const selected = nav.path;
   const editing = nav.edit;
+  // `?quote=<id>`: the quote the QUOTES lens shows, and — with an entry open —
+  // the mark the reader lands on. One param so stepping through a quote's
+  // window into its page and coming back keep the same quote in hand.
+  const { quoteId, openQuote } = useQuoteNavigation();
+  // Lens → page: name the quote (a replace — not a step of its own), then open
+  // the entry; the reader scrolls to the mark. Back returns to the lens on
+  // the same quote.
+  const stepThrough = useCallback((path, id) => {
+    openQuote(id, { replace: true });
+    nav.openEntry(path);
+  }, [openQuote, nav.openEntry]);
+  // Page → lens: from a mark on the page, open the QUOTES lens on that quote
+  // and walk on from there.
+  const walkFrom = useCallback((id) => {
+    openQuote(id, { replace: true });
+    setLens('quotes');
+    nav.backToPulse();
+  }, [openQuote, setLens, nav.backToPulse]);
 
   // The row last opened from PULSE. The list unmounts while an entry is open,
   // so StateDeck holds this and hands it back as the list's starting
@@ -114,11 +133,20 @@ export default function StateDeck({ jumpTarget = null, onEntryPathChange, reload
           onEdit={IS_PUBLIC ? undefined : nav.openEditor}
           onGoBack={nav.goBack}
           reloadNonce={reloadNonce}
+          onWalk={walkFrom}
+          litQuoteId={quoteId}
         />
       ) : (
         <>
           <LensToggle lens={lens} onChange={setLens} />
-          {lens === 'topology' ? (
+          {lens === 'quotes' ? (
+            <QuotesLens
+              quoteId={quoteId}
+              onOpenQuote={openQuote}
+              onStepThrough={stepThrough}
+              onOpenEntry={nav.openEntry}
+            />
+          ) : lens === 'topology' ? (
             <TopologyLens
               onSelect={nav.openEntry}
               // The read view opens on the Four Pillars — the palace's own
@@ -151,6 +179,7 @@ function LensToggle({ lens, onChange }) {
     { id: 'pulse', key: 'P', label: 'PULSE', sub: 'vitality lens' },
     { id: 'topology', key: 'T', label: 'TOPOLOGY', sub: 'typed-link graph' },
     { id: 'tree', key: 'R', label: 'TREE', sub: 'folder structure' },
+    { id: 'quotes', key: 'O', label: 'QUOTES', sub: 'windows into pages' },
   ];
   return (
     <div data-testid="state-lens-toggle" style={{

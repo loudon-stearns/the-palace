@@ -1,10 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import FrontmatterHeader, { ForwardVectorHero } from './FrontmatterHeader.jsx';
 import TypedLinkPanel from './TypedLinkPanel.jsx';
 import BundlePanel from './BundlePanel.jsx';
 import EntryBody from './EntryBody.jsx';
 import AgentLaunchModal from '../queue/AgentLaunchModal.jsx';
 import { fetchEntry } from '../../adapters/entries.js';
+import { fetchQuotes, decideQuote } from '../../adapters/quotes.js';
+import { applyDecision } from '../../lib/quote-walk.js';
 import { fetchLensSuggestions } from '../../adapters/launch.js';
 import { checkPathSafety } from '../../lib/entry-edit.js';
 import { usePalaceRef } from '../../lib/palace-ref.jsx';
@@ -28,8 +30,36 @@ import NoCarrier from '../public/NoCarrier.jsx';
 
 export default function EntryReader({
   path, index, refIndex, onNavigate, onBack, onEdit, onGoBack, reloadNonce = 0,
+  onWalk = null, litQuoteId = null,
 }) {
   const [state, setState] = useState({ kind: 'loading' });
+  // The quotes Palace Quotes has laid on THIS page (GET /api/quotes?target=),
+  // rendered by EntryBody as marks after the paragraphs they are anchored to.
+  // Fetched beside the entry, re-fetched with it; a failed read lays nothing.
+  const [quotes, setQuotes] = useState([]);
+  useEffect(() => {
+    let live = true;
+    fetchQuotes({ target: path }).then((r) => { if (live) setQuotes(r.ok ? (r.quotes || []) : []); });
+    return () => { live = false; };
+  }, [path, reloadNonce]);
+  // Loudon's yes or no on a mark: one ledger line, committed; the mark updates
+  // in place from the answer (a let-go quote shows as such until the page is
+  // reopened, so the decision can still be undone from here).
+  const onDecide = useCallback(async (id, decision) => {
+    const r = await decideQuote({ id, decision });
+    if (r.ok && r.quote) setQuotes((qs) => applyDecision(qs, r.quote));
+  }, []);
+  // ?quote=<id> names a mark to land on: once the body is painted, scroll it
+  // to the middle of the view. Runs again if the id changes while open.
+  useEffect(() => {
+    if (!litQuoteId || state.kind !== 'ok' || typeof document === 'undefined') return undefined;
+    const t = setTimeout(() => {
+      const el = document.getElementById(`quote-${litQuoteId}`);
+      if (el) el.scrollIntoView({ block: 'center' });
+    }, 60);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [litQuoteId, state.kind, quotes.length]);
   // "enchant" opens the AgentLaunchModal in ephemeral mode: build this page's
   // interactive context and launch a Claude Code terminal on it, without
   // registering a permanent steward. Self-contained — the modal calls the
@@ -412,7 +442,17 @@ export default function EntryReader({
               right rail (typed links + bundle) starts at the same vertical
               position rather than getting pushed down by a full-width hero. */}
           <ForwardVectorHero forward_vector={entry.frontmatter?.forward_vector} />
-          <EntryBody body={entry.body} index={index} refIndex={refIndex} onNavigate={onNavigate} bundleFiles={bundleFiles} />
+          <EntryBody
+            body={entry.body}
+            index={index}
+            refIndex={refIndex}
+            onNavigate={onNavigate}
+            bundleFiles={bundleFiles}
+            quotes={quotes}
+            onWalk={onWalk}
+            onDecide={IS_PUBLIC ? null : onDecide}
+            litQuoteId={litQuoteId}
+          />
         </div>
         <div data-testid="entry-rail" style={{
           display: 'flex', flexDirection: 'column', gap: 12,

@@ -32,6 +32,7 @@ import { listEntries, readEntry, walkEntryRecords } from '../src/lib/entries.js'
 import { buildEntryTree } from '../src/lib/entry-tree.js';
 import { readLiveMap } from '../src/lib/topology-live.js';
 import { findUnsungEdges, buildPalaceIndex } from '../src/lib/unsung-paths.js';
+import { resolveQuotes } from '../src/lib/quotes.js';
 import { loadEntryUse } from '../src/lib/entry-use.js';
 import { pathId, encodeSegments } from '../src/lib/public-mode.js';
 import { makeFinder } from '../../../rich-face/palace-find.mjs';
@@ -328,6 +329,28 @@ const records = [];
 for (const r of walkEntryRecords(ROOT)) if (pubPaths.has(r.path)) records.push(r);
 const edges = findUnsungEdges(records, buildPalaceIndex(records));
 writeJson('data/unsung-paths.json', { edges, entry_count: records.length, edge_count: edges.length, ts: new Date().toISOString() });
+
+// The quotes Palace Quotes has laid on published pages, anchored as the pages
+// stand at publish time (the QUOTES lens and the reader's marks read this one
+// file). Only quotes on published pages, and only the ones Loudon has KEPT —
+// what leaves the house is what he said yes to; a quote still awaiting his
+// read stays in the terminal. A lens page that is private simply has no path
+// to click through to.
+{
+  const snap = await resolveQuotes(ROOT, { onlyPaths: pubPaths });
+  const quotes = snap.quotes.filter((q) => q.status === 'kept');
+  const kept = new Set(quotes.map((q) => q.id));
+  const recount = (rows, key) => rows.map((r) => ({ ...r, count: quotes.filter((q) => q[key] === r.title).length })).filter((r) => r.count > 0);
+  writeJson('data/quotes.json', {
+    ...snap,
+    quotes,
+    count: kept.size,
+    lenses: recount(snap.lenses, 'lens'),
+    pages: recount(snap.pages, 'target'),
+    skipped: snap.skipped.length,
+    scope: 'kept',
+  });
+}
 
 // ── 5. rich faces ───────────────────────────────────────────────────────────
 const rich = {};

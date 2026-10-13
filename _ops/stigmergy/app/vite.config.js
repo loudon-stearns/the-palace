@@ -22,8 +22,11 @@ export default defineConfig({
     strictPort: true,
     fs: {
       // The design-system files we read from at dev-time live above the app/
-      // directory, so widen the served-file allow-list.
-      allow: ['..'],
+      // directory, so widen the served-file allow-list. The quotes schema
+      // (_ops/quotes/schema.mjs) is imported by client code too — one anchor
+      // rule for the placer, the server and the reader — so its folder is
+      // allowed by name; `..` alone reaches only _ops/stigmergy.
+      allow: ['..', '../../quotes'],
     },
   },
 });

@@ -21,6 +21,7 @@ import { weaveRoutes } from './api/weave.js';
 import { schedulerRoutes } from './api/scheduler.js';
 import { sessionsRoutes } from './api/sessions.js';
 import { richRoutes } from './api/rich.js';
+import { quotesRoutes } from './api/quotes.js';
 
 const FAMILIES = [
   persistentRoutes,
@@ -38,6 +39,7 @@ const FAMILIES = [
   schedulerRoutes,
   sessionsRoutes,
   richRoutes,
+  quotesRoutes,
 ];
 
 /**

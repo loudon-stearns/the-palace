@@ -211,8 +211,9 @@ export function replaceFilterInUrl(q) {
 
 // The STATE lenses. The default is implicit (omitted from the URL): PULSE in
 // STIGMERGY, TOPOLOGY in the public read view, whose visitors land on the
-// graph. Unknown values fall back to the default.
-export const LENSES = new Set(['pulse', 'topology', 'tree']);
+// graph. Unknown values fall back to the default. QUOTES is the travel-by-quote
+// lens: one quote at a time, each a window into the page it is laid on.
+export const LENSES = new Set(['pulse', 'topology', 'tree', 'quotes']);
 export const DEFAULT_LENS = IS_PUBLIC ? 'topology' : 'pulse';
 
 // Parse `?lens=topology` / `?lens=tree` from the URL. Returns a known lens id
@@ -285,6 +286,57 @@ export function useLensNavigation() {
   }, []);
 
   return { lens, setLens };
+}
+
+// ---------------------------------------------------------------------------
+// Quote navigation — `?quote=<id>` names the quote the QUOTES lens is showing,
+// and, when an entry is open, the quote mark the reader scrolls to and lights.
+// One param, two readings, so "step through the window" (lens → entry) and
+// "back" (entry → lens) land on the same quote. Push-in-setter like the
+// siblings; `replace` is for the lens's own first draw, which is not a step
+// the walker took.
+
+export function parseQuoteFromUrl(searchString) {
+  if (typeof searchString !== 'string') return null;
+  const v = new URLSearchParams(searchString).get('quote');
+  return v && v !== '' ? v : null;
+}
+
+export function buildQuoteSearch(searchString, id) {
+  const params = new URLSearchParams(searchString || '');
+  params.delete('quote');
+  if (id) params.set('quote', id);
+  const s = params.toString();
+  return s === '' ? '' : `?${s}`;
+}
+
+export function useQuoteNavigation() {
+  const initial = typeof window === 'undefined' ? null : parseQuoteFromUrl(window.location.search);
+  const [quoteId, setQuoteState] = useState(initial);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
+    function onPop() { setQuoteState(parseQuoteFromUrl(window.location.search)); }
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, []);
+
+  const openQuote = useCallback((id, { replace = false } = {}) => {
+    const target = id || null;
+    if (typeof window !== 'undefined') {
+      const nextSearch = buildQuoteSearch(window.location.search, target);
+      const currentSearch = window.location.search || '';
+      if (nextSearch !== currentSearch) {
+        const nextUrl = `${window.location.pathname}${nextSearch}${window.location.hash}`;
+        if (replace) window.history.replaceState({ ...(window.history.state || {}), quote: target }, '', nextUrl);
+        else window.history.pushState({ quote: target }, '', nextUrl);
+      }
+    }
+    setQuoteState(target);
+  }, []);
+
+  const clearQuote = useCallback(() => openQuote(null, { replace: true }), [openQuote]);
+  return { quoteId, openQuote, clearQuote };
 }
 
 // ---------------------------------------------------------------------------
