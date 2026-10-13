@@ -15,19 +15,20 @@ forward_vector: "I am Neural Granular Synthesis's scroll — the one page that a
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-25T02:40:22.170Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — steer the project in **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T22:11:27.961Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 11 · last ran 2026-09-25 (today)
+- **Status:** active · **Stage:** growing · **Steward:** cycle 12 · last ran 2026-10-13 (today)
+- **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-09-24 (today) — A locked crowd is a dead-still tone. Making 5–20% of the neurons pacemakers gives it life, and it stays a tone until about two-thirds are pacemakers. (`ngs-steward-017`)
-- **Last commit touching this project:** 2026-09-23 `c666210b` — ops(scrolls): backfill 36 project scrolls; retire the 20 plan.md read-models
-- **Signal:** ⚠ **STALLED** — the last 2 cycles posted nothing. The loop is broken until a cycle ships; the lane retries once, then flags here.
+- **Last shipped:** 2026-10-13 (today) — The crowd is playable now. Two knobs, tightness and life, plus a keyboard. Pacemakers turn the lock from a switch into a crossfade. (`ngs-steward-019`)
+- **Last commit touching this project:** 2026-09-26 `5864b19c` — edit(Neural Granular Synthesis): control-vocabulary-math becomes the project's spec
+- **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Neural Granular Synthesis is the idea that a steady timbre comes from a crowd of simple neurons, not from any one of them, and that how tightly the crowd agrees should be the main control. Earlier cycles built a raster explorer and a synchrony sonifier, found that a steady texture needs about 32 drifting neurons, and moved the crowd up to audio rate: 128 neurons firing near 110 Hz, each spike a tiny action potential, so the firing rate is the pitch. Last cycle showed that coupling snaps the crowd into a tone and then opens it like a filter. This cycle took the entry's last open question: what do pacemakers, neurons that fire on their own and ignore the crowd, do to how alive the tone feels?…
+Neural Granular Synthesis is the idea that a steady timbre comes from a crowd of simple neurons, not from any one of them. How tightly the crowd agrees is the main control. Earlier cycles found that about 32 neurons sound steady. They moved a 128-neuron crowd up to audio rate, where its firing rate is the pitch, so coupling snaps it into a tone. They also showed that making 5–20% of the neurons pacemakers, which fire on their own and ignore the crowd, brings a frozen tone to life. This cycle turns all of that into one instrument you can play in the board. It also records a single take across every regime, and it measures something new: pacemakers don't move the point where the tone locks, b…
 
 ### Open asks
 
@@ -43,6 +44,12 @@ _None._
 
 <!-- scroll:now:end -->
 
+## Plan
+
+<!-- scroll:plan:start -->
+_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+<!-- scroll:plan:end -->
+
 ## Standing Orders
 
 <!-- scroll:orders:start -->
@@ -52,6 +59,42 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="ngs-steward-019" -->
+### 2026-10-13 — cycle 12 — The crowd is playable now. Two knobs, tightness and life, plus a keyboard. Pacemakers turn the lock from a switch into a crossfade.
+> shipped · instrument, one-take recording, edge sweep · steward leans toward bringing the crowd into Max/RNBO next
+
+THE INSTRUMENT (crowd-instrument.html). You don't play neurons. You play the crowd. A pad sets tightness (coupling measured in units of the crowd's disorder) across and life (the share of pacemakers) up. Its shading comes from last month's clarity map, and a teal line marks where theory says the tone breaks: tightness = 1/(1 − life). Below the pad, a live raster (one row per neuron) and a phase wheel show the stripes form. Keys A–K play notes and Z/X change octave. There are also knobs for disorder, crowd size (4–512), and spike width, which acts like a formant. It runs the same engine as the standalone crowd_engine.js, and I checked that the two copies are identical. Headless, it costs about 5% of one core.
+
+THE ONE-TAKE (crowd-gesture.wav, 51 s). It moves from hiss, across the edge (it snaps at about 8.5 s), to a dead-still tone. Pacemakers fade in until the tone breathes, then it widens into heavy vibrato. Next, tightness drops under the edge and the core comes apart. It comes back to a living tone and plays A C D E D A on it. crowd-gesture.png shows the meters under the sound.
+
+THE FIND (edge-softening.png). Tightness was swept around the predicted edge at four pacemaker shares, with three crowds each. The edge stays where theory says. Its shape changes. With no pacemakers, synchrony jumps from 0.40 to 0.84 within 10% of the line. At 68% pacemakers it climbs steadily from 0.35 at half the edge. For playing, that means life also sets how sharp the attack is when you lock the crowd.
+
+**Artifacts:**
+- [the playable crowd: pad, keys, raster, phase wheel. Press start.](Projects/Neural Granular Synthesis/crowd-instrument.html)
+- [51 s in one take: hiss → lock → frozen → living → wide vibrato → breaking → a short phrase.](Projects/Neural Granular Synthesis/crowd-gesture.wav)
+- [tightness, life, synchrony and wobble under the take.](Projects/Neural Granular Synthesis/crowd-gesture.png)
+- [the edge stays put but softens: a switch with no pacemakers, a crossfade at two-thirds.](Projects/Neural Granular Synthesis/edge-softening.png)
+- [the engine, shared by the page and the renders.](Projects/Neural Granular Synthesis/crowd_engine.js)
+- [renders the one-take and its meter trace.](Projects/Neural Granular Synthesis/render_crowd_gesture.js)
+- [meter trace every 10 ms.](Projects/Neural Granular Synthesis/crowd-gesture.json)
+- [the edge sweep.](Projects/Neural Granular Synthesis/render_edge_softening.js)
+- [sweep data.](Projects/Neural Granular Synthesis/edge-softening.json)
+- [draws both plots.](Projects/Neural Granular Synthesis/plot_crowd_gesture.py)
+
+_Core synchrony vs tightness ÷ predicted edge · 128 neurons · mean of 3 crowds_
+| life | 0.6× | 0.8× | 0.95× | 1.0× | 1.05× | 1.2× |
+| --- | --- | --- | --- | --- | --- | --- |
+| 0 % | 0.17 | 0.24 | 0.40 | 0.64 | 0.84 | 0.90 |
+| 30 % | 0.21 | 0.35 | 0.60 | 0.79 | 0.86 | 0.91 |
+| 50 % | 0.27 | 0.44 | 0.69 | 0.79 | 0.85 | 0.90 |
+| 68 % | 0.43 | 0.64 | 0.79 | 0.84 | 0.86 | 0.92 |
+
+_Left rough:_ I haven't heard the instrument in a real browser. I only ran its engine headless and checked the page script for syntax, so audio, the pad and the raster are unverified until you press start. Some of the softening is probably just a small crowd: at 68% pacemakers only 41 neurons are still following, so the background synchrony is higher. A 512-neuron sweep would separate that effect from the softening.
+
+_Next moves named:_ Run the 512-neuron edge sweep so the true softening is separate from the small-crowd effect. · Bring the crowd into a Gen~/RNBO codebox so it can be played in Live. It would be unverified until you open it.
+<sub>`ngs-steward-019` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="ngs-steward-017" -->
 ### 2026-09-24 — cycle 9 — A locked crowd is a dead-still tone. Making 5–20% of the neurons pacemakers gives it life, and it stays a tone until about two-thirds are pacemakers.
 > shipped · all four open questions now have a measured answer · steward leans build the playable instrument next

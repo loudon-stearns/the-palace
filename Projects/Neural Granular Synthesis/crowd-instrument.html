@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Neural Granular Synthesis — The Crowd (playable)</title>
+<style>
+  /* Loudon Live Design System — Graphite skin. Anton display · Cormorant body ·
+     Manrope UI · JetBrains Mono metadata. Local font stacks only, no CDN;
+     runs sandboxed and offline. Same palette as the explorer and sonifier. */
+  :root {
+    --bg: #0b0b0d; --panel: #131318; --ink: #e7e7ea; --dim: #8a8a93; --line: #2a2a32;
+    --amber: #f2b134;   /* followers / lock */
+    --indigo: #6366f1;  /* pacemakers       */
+    --teal: #33e0c8;    /* the edge line    */
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); }
+  body { font-family: "Cormorant", Georgia, "Times New Roman", serif; -webkit-font-smoothing: antialiased;
+         padding: 18px clamp(14px, 3vw, 40px) 40px; line-height: 1.45; }
+  h1 { font-family: "Anton", Impact, "Arial Narrow Bold", sans-serif; font-weight: 400; letter-spacing: 0.02em;
+       text-transform: uppercase; font-size: clamp(22px, 4vw, 38px); margin: 0 0 2px; }
+  .sub, .mono { font-family: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace; }
+  .sub { font-size: 11px; letter-spacing: 0.06em; color: var(--dim); text-transform: uppercase; margin-bottom: 14px; }
+  .lede { font-size: 18px; max-width: 70ch; margin: 0 0 16px; }
+  em { color: var(--amber); font-style: italic; }
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 20px; align-items: start; }
+  @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } }
+  canvas { display: block; width: 100%; background: #06060a; border: 1px solid var(--line); border-radius: 4px; }
+  #pad { cursor: crosshair; touch-action: none; aspect-ratio: 16 / 9; }
+  .row2 { display: grid; grid-template-columns: minmax(0, 1fr) 180px; gap: 12px; margin-top: 12px; }
+  #raster { aspect-ratio: 3 / 1; } #wheel { aspect-ratio: 1; }
+  .cap { font-family: "JetBrains Mono", monospace; font-size: 10.5px; color: var(--dim); margin: 5px 0 0; letter-spacing: 0.03em; }
+  .meters { display: flex; gap: 22px; flex-wrap: wrap; margin: 12px 0 0; font-family: "JetBrains Mono", monospace; }
+  .meter { font-size: 11px; color: var(--dim); } .meter b { display: block; font-size: 24px; color: var(--ink); font-weight: 500; }
+  .meter.r b { color: var(--amber); }
+  .regime { font-family: "Manrope", system-ui, sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.08em;
+            text-transform: uppercase; padding: 4px 10px; border-radius: 3px; border: 1px solid var(--line); display: inline-block; margin-top: 10px; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 16px; font-family: "Manrope", system-ui, sans-serif; }
+  .panel h2 { font-family: "Anton", Impact, sans-serif; font-weight: 400; font-size: 15px; letter-spacing: 0.04em; text-transform: uppercase; margin: 0 0 10px; }
+  .panel h2.later { margin-top: 18px; }
+  .ctrl { margin-bottom: 13px; }
+  .ctrl label { display: flex; justify-content: space-between; font-size: 12px; color: var(--dim); margin-bottom: 4px; }
+  .ctrl label span { font-family: "JetBrains Mono", monospace; color: var(--ink); }
+  .ctrl small { display: block; font-size: 11px; color: var(--dim); margin-top: 3px; line-height: 1.35; }
+  input[type=range] { width: 100%; accent-color: var(--amber); }
+  button { font-family: "Manrope", system-ui, sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+           background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 3px; padding: 8px 12px; cursor: pointer; }
+  button:hover { border-color: var(--dim); } button.on { border-color: var(--amber); color: var(--amber); }
+  #go { width: 100%; padding: 12px; font-size: 13px; margin-bottom: 14px; }
+  .keys { display: grid; grid-template-columns: repeat(13, 1fr); gap: 2px; margin: 6px 0 4px; }
+  .keys button { padding: 12px 0 4px; font-size: 9px; letter-spacing: 0; font-family: "JetBrains Mono", monospace; font-weight: 400; color: var(--dim); }
+  .keys button.blk { background: #1c1c22; } .keys button.down { border-color: var(--amber); color: var(--amber); }
+  .presets { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .presets button { font-size: 10.5px; padding: 7px 6px; }
+  .notes { max-width: 78ch; margin-top: 26px; font-size: 16.5px; color: #cfcfd4; }
+  .notes h3 { font-family: "Anton", Impact, sans-serif; font-weight: 400; font-size: 15px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink); margin: 20px 0 6px; }
+  .sig { margin-top: 26px; font-family: "JetBrains Mono", monospace; font-size: 10.5px; color: var(--dim); letter-spacing: 0.05em; }
+</style>
+</head>
+<body>
+<h1>The Crowd</h1>
+<div class="sub">Neural Granular Synthesis · a playable population · study · cycles 10–12</div>
+<p class="lede">No neuron here is the sound. A crowd of simple neurons fires at audio rate, and every spike is a tiny action potential, so the crowd's firing rate is the pitch. You don't play the neurons. You play two things about the crowd: <em>how tightly it listens to itself</em>, and <em>how many of its members ignore it</em>.</p>
+
+<div class="layout">
+<div>
+  <canvas id="pad" width="960" height="540"></canvas>
+  <p class="cap">THE PAD · across: tightness (coupling ÷ disorder) · up: life (pacemaker share) · shading: pitch clarity measured in cycle 9 · teal line: where theory says the tone breaks</p>
+  <div class="meters">
+    <div class="meter r">synchrony of the core<b id="mR">—</b></div>
+    <div class="meter">pitch wobble<b id="mW">—</b></div>
+    <div class="meter">crowd pitch<b id="mH">—</b></div>
+    <div class="meter">pacemakers<b id="mP">—</b></div>
+  </div>
+  <div class="regime" id="regime">press start</div>
+  <div class="row2">
+    <div><canvas id="raster" width="900" height="300"></canvas>
+      <p class="cap">RASTER · one row per neuron, slowest at the bottom · last <span id="winMs">55</span> ms · amber listens, indigo is a pacemaker</p></div>
+    <div><canvas id="wheel" width="360" height="360"></canvas>
+      <p class="cap">PHASES · each dot a neuron · arrow = the core's pull</p></div>
+  </div>
+</div>
+
+<div class="panel">
+  <button id="go">Start the crowd</button>
+  <h2>Play</h2>
+  <div class="keys" id="keys"></div>
+  <p class="cap">keys A–K play, Z / X shift octave (<span id="oct">2</span>) · H = A2 = 110 Hz</p>
+  <div class="ctrl" style="margin-top:10px"><label>glide <span id="vGl">60 ms</span></label><input id="gl" type="range" min="0" max="400" value="60"></div>
+
+  <h2 class="later">The two knobs</h2>
+  <div class="ctrl"><label>tightness <span id="vT">0.00</span></label><input id="T" type="range" min="0" max="6" step="0.01" value="0">
+    <small>coupling measured in units of the crowd's disorder. At 1 a crowd with no pacemakers snaps into a tone; past that it brightens.</small></div>
+  <div class="ctrl"><label>life <span id="vP">0 %</span></label><input id="P" type="range" min="0" max="0.7" step="0.005" value="0">
+    <small>share of neurons that fire on their own. 5–20 % is vibrato and chorus; past two-thirds the tone comes apart.</small></div>
+  <div class="presets">
+    <button data-t="0" data-p="0">scatter</button>
+    <button data-t="3.14" data-p="0">frozen tone</button>
+    <button data-t="3.14" data-p="0.12">living tone</button>
+    <button data-t="5.5" data-p="0.55">wide vibrato</button>
+    <button data-t="1.25" data-p="0">on the edge</button>
+    <button data-t="3.14" data-p="0.66">breaking</button>
+  </div>
+
+  <h2 class="later">The crowd</h2>
+  <div class="ctrl"><label>disorder σ <span id="vS">0.10</span></label><input id="S" type="range" min="0.02" max="0.4" step="0.01" value="0.10">
+    <small>spread of natural rates, ±σ. Tightness is scaled by it, so the pad holds its shape.</small></div>
+  <div class="ctrl"><label>crowd size <span id="vN">128</span></label><input id="N" type="range" min="2" max="9" step="1" value="7">
+    <small>4 to 512 neurons. Under ~32 the scatter stops sounding steady.</small></div>
+  <div class="ctrl"><label>spike width <span id="vWd">1.6 ms</span></label><input id="Wd" type="range" min="0.4" max="3" step="0.05" value="1">
+    <small>the action potential is the formant: narrower is brighter.</small></div>
+  <div class="ctrl"><label>volume <span id="vV">70 %</span></label><input id="V" type="range" min="0" max="1" step="0.01" value="0.7"></div>
+  <button id="lvl" class="on">levelling on</button>
+</div>
+</div>
+
+<div class="notes">
+  <h3>What you're hearing</h3>
+  <p>Each neuron is a phase that runs at its own natural rate, pulled toward the crowd's average phase by the coupling (the Kuramoto model). When the phase wraps, the neuron spikes. With no coupling, 128 spikes a cycle land at random: a hiss with a pitch smear around 110 Hz. Raise tightness past 1 and the crowd snaps together. The raster shows the stripes lining up and you hear a buzzy tone that gets brighter as you keep going, because the spikes stack more exactly.</p>
+  <p>A locked crowd with no pacemakers is dead still. Every period repeats the one before. Pacemakers fire at their own rate and never listen, but the rest of the crowd still hears them, so the locked core gets pushed around. That push is the wobble meter: vibrato and a chorus halo. The teal line on the pad is the prediction that pacemakers only thin out the pull, so the tone breaks at tightness 1/(1 − share). Cycle 9 confirmed it across 153 crowds.</p>
+  <h3>Something to try</h3>
+  <p>Sit at 40 % life and slide tightness right. Past the edge, the wobble <em>grows</em> as you tighten: the more closely the core listens, the harder the pacemakers pull it around. In this instrument coupling is the vibrato depth as well as the tone switch.</p>
+  <p>Then try the edge itself at two different lives. With no pacemakers, sliding tightness across the teal line is a switch: hiss, then tone. At two-thirds life the same slide is a slow crossfade, and the tone starts gathering well before the line. The edge doesn't move, but pacemakers soften it (cycle 12, <span class="mono">edge-softening.png</span>).</p>
+  <h3>Honest limits</h3>
+  <p>The shading comes from one random crowd at σ 0.10. The instrument rescales tightness by σ, which cycle 8 showed holds well but not exactly. Levelling rides the loudness so you hear texture rather than volume; turn it off to hear how much louder a locked crowd really is (about √N times). There's no noise and no plasticity yet: the only life is the pacemakers.</p>
+</div>
+<div class="sig">NEURAL GRANULAR SYNTHESIS · THE CROWD · SKETCH · same engine renders crowd-gesture.wav</div>
+
+<script>
+/*ENGINE-START*/
+// The crowd: N phase neurons at audio rate. Same model as cycles 8–9
+// (render_timbre_map.py / render_pacemakers.py): each neuron's phase runs at
+// its natural rate plus the Kuramoto pull of the crowd's mean field; a
+// pacemaker ignores the pull but still counts in the field. Every wrap past
+// 2π is a spike, and every spike is a prescribed 1.6 ms action potential.
+// Knobs are the population's, not any neuron's:
+//   tight  T = K / (4σ/π)   coupling per unit of disorder; a crowd with no
+//                           pacemakers locks at T = 1, with share p at 1/(1−p)
+//   life   p                pacemaker share
+//   sigma  σ                rate spread (the stand-in for threshold spread)
+class Crowd {
+  constructor(sr) {
+    this.sr = sr; this.F0 = 110; this.f0s = 110; this.glide = 0.06;
+    this.sigma = 0.10; this.T = 0; this.p = 0; this.width = 1; this.seed = 7;
+    this.level = true; this.vol = 0.7;
+    this.acc = new Float32Array(16384); this.pos = 0;
+    this.EV = 65536; this.evN = new Int16Array(this.EV); this.evT = new Float64Array(this.EV); this.evW = 0;
+    this.clock = 0; this.env = 1e-4; this.gain = 1; this.dcx = 0; this.dcy = 0;
+    this.cents = new Float32Array(100); this.cw = 0; this.cn = 0;
+    this.lastPh = null; this.meterEvery = Math.round(sr / 100); this.mcount = 0;
+    this.rAll = 0; this.rCore = 0; this.hz = 0; this.wobble = 0;
+    this.buildSpike(); this.setN(128);
+  }
+  rand() { let t = (this.s += 0x6D2B79F5); t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }
+  setN(n) {
+    this.N = n; this.s = this.seed * 9973 + n;
+    this.jit = new Float64Array(n); this.th = new Float64Array(n);
+    this.c = new Float64Array(n); this.sn = new Float64Array(n); this.listen = new Float64Array(n);
+    for (let i = 0; i < n; i++) this.jit[i] = this.rand() * 2 - 1;
+    for (let i = 0; i < n; i++) { this.th[i] = this.rand() * 2 * Math.PI; this.c[i] = Math.cos(this.th[i]); this.sn[i] = Math.sin(this.th[i]); }
+    const order = [...Array(n).keys()];              // pacemaker sets nest: p=0.2 contains p=0.1
+    for (let i = n - 1; i > 0; i--) { const j = Math.floor(this.rand() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
+    this.order = order;
+    this.rank = new Int16Array(n);                   // raster row = rank by natural rate
+    [...Array(n).keys()].sort((a, b) => this.jit[a] - this.jit[b]).forEach((i, r) => (this.rank[i] = r));
+    this.setP(this.p);
+  }
+  setP(p) {
+    this.p = p; const m = Math.round(p * this.N);
+    for (let i = 0; i < this.N; i++) this.listen[i] = 1;
+    for (let k = 0; k < m; k++) this.listen[this.order[k]] = 0;
+    this.lastPh = null;
+  }
+  isPace(i) { return this.listen[i] === 0; }
+  buildSpike() {                                     // cycle 8's shape: rise, fall, undershoot
+    const sr = this.sr, w = this.width, L = Math.max(8, Math.round(0.0016 * w * sr));
+    const s = new Float32Array(L + 2); let mean = 0;
+    for (let k = 0; k < L; k++) {
+      const t = k / sr / w;
+      s[k] = 0.6 * Math.exp(-(((t - 0.00035) / 0.00012) ** 2)) + 0.5 * Math.exp(-(((t - 0.0006) / 0.0002) ** 2))
+           - 0.28 * Math.exp(-(((t - 0.0011) / 0.00028) ** 2));
+      mean += s[k];
+    }
+    mean /= L; for (let k = 0; k < L; k++) s[k] -= mean;
+    this.spike = s; this.spikeL = L;
+  }
+  process(out, n) {
+    const N = this.N, th = this.th, c = this.c, sn = this.sn, jit = this.jit, listen = this.listen;
+    const acc = this.acc, AM = acc.length - 1, sp = this.spike, L = this.spikeL;
+    const dt = 1 / this.sr, TWO = 2 * Math.PI;
+    const K = this.T * 4 * this.sigma / Math.PI, sig = this.sigma;
+    let sx = 0, sy = 0;
+    for (let i = 0; i < N; i++) { sx += c[i]; sy += sn[i]; }
+    const agcA = 1 - Math.exp(-1 / (0.3 * this.sr));
+    for (let k = 0; k < n; k++) {
+      this.f0s += (this.F0 - this.f0s) * (1 - Math.exp(-1 / (this.glide * this.sr + 1)));
+      const w0 = TWO * this.f0s, Kabs = K * w0, Zx = sx / N, Zy = sy / N;
+      sx = 0; sy = 0;
+      const resync = (this.clock & 63) === 0;
+      for (let i = 0; i < N; i++) {
+        const d = (w0 * (1 + sig * jit[i]) + Kabs * listen[i] * (Zy * c[i] - Zx * sn[i])) * dt;
+        let t = th[i] + d;
+        if (t >= TWO) {                              // spike: place it at its sub-sample time
+          t -= TWO;
+          const frac = d > 0 ? t / d : 0;            // how far past the wrap, in samples
+          for (let j = 0; j < L; j++) {
+            const x = j - frac + 1, x0 = Math.floor(x), f = x - x0;
+            if (x0 >= 0 && x0 + 1 < L + 2) acc[(this.pos + j) & AM] += sp[x0] * (1 - f) + sp[x0 + 1] * f;
+          }
+          const e = this.evW & (this.EV - 1); this.evN[e] = i; this.evT[e] = this.clock - frac; this.evW++;
+        }
+        th[i] = t;
+        if (resync) { c[i] = Math.cos(t); sn[i] = Math.sin(t); }
+        else { const d2 = d * d, cd = 1 - d2 * 0.5, sd = d - d2 * d / 6, ci = c[i];
+               c[i] = ci * cd - sn[i] * sd; sn[i] = ci * sd + sn[i] * cd; }
+        sx += c[i]; sy += sn[i];
+      }
+      let y = acc[this.pos]; acc[this.pos] = 0; this.pos = (this.pos + 1) & AM;
+      y /= Math.sqrt(N);
+      const dc = y - this.dcx + 0.995 * this.dcy; this.dcx = y; this.dcy = dc; y = dc;
+      this.env += (y * y - this.env) * agcA;
+      const g = this.level ? Math.min(40, 0.16 / Math.sqrt(this.env + 1e-9)) : 0.35;
+      this.gain += (g - this.gain) * 0.0005;
+      out[k] = Math.tanh(y * this.gain * this.vol);
+      this.clock++;
+      if (++this.mcount >= this.meterEvery) { this.mcount = 0; this.meter(); }
+    }
+  }
+  meter() {                                          // 10 ms: synchrony, core pitch, wobble
+    const N = this.N; let ax = 0, ay = 0, cx = 0, cy = 0, nf = 0;
+    for (let i = 0; i < N; i++) { ax += this.c[i]; ay += this.sn[i];
+      if (this.listen[i]) { cx += this.c[i]; cy += this.sn[i]; nf++; } }
+    this.rAll = Math.hypot(ax, ay) / N;
+    if (!nf) { this.rCore = 0; return; }
+    this.rCore = Math.hypot(cx, cy) / nf;
+    const ph = Math.atan2(cy, cx);
+    if (this.lastPh !== null) {
+      let d = ph - this.lastPh; d -= 2 * Math.PI * Math.round(d / (2 * Math.PI));
+      // the phase advances ~1.1 turns per 10 ms at 110 Hz; add back the whole turns
+      const exp = 2 * Math.PI * this.f0s / 100; d += 2 * Math.PI * Math.round((exp - d) / (2 * Math.PI));
+      const hz = d * 100 / (2 * Math.PI);
+      if (hz > 20) { this.hz = hz; this.cents[this.cw++ % 100] = 1200 * Math.log2(hz / this.f0s); this.cn = Math.min(100, this.cn + 1); }
+    }
+    this.lastPh = ph;
+    if (this.cn > 10) { let m = 0; for (let i = 0; i < this.cn; i++) m += this.cents[i]; m /= this.cn;
+      let v = 0; for (let i = 0; i < this.cn; i++) v += (this.cents[i] - m) ** 2; this.wobble = Math.sqrt(v / this.cn); }
+  }
+}
+/*ENGINE-END*/
+const MAP = {"K":[0.0,0.05,0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8],"p":[0.0,0.05,0.1,0.2,0.3,0.4,0.5,0.6,0.7],"clarity":[[0.152,0.24,0.206,0.995,0.995,0.995,0.995,0.995,0.995,0.995,0.995,0.995,0.995,0.995,0.995,0.995,0.995],[0.152,0.239,0.234,0.979,0.987,0.988,0.986,0.982,0.976,0.971,0.964,0.959,0.953,0.948,0.943,0.935,0.923],[0.152,0.21,0.224,0.954,0.979,0.983,0.981,0.977,0.967,0.951,0.932,0.91,0.891,0.879,0.874,0.857,0.84],[0.152,0.201,0.233,0.678,0.94,0.959,0.965,0.961,0.931,0.897,0.918,0.876,0.887,0.831,0.781,0.742,0.711],[0.152,0.225,0.212,0.352,0.877,0.926,0.938,0.937,0.926,0.91,0.89,0.868,0.846,0.823,0.801,0.778,0.756],[0.152,0.199,0.161,0.162,0.596,0.812,0.871,0.891,0.902,0.899,0.89,0.864,0.815,0.774,0.741,0.715,0.692],[0.152,0.187,0.184,0.169,0.213,0.592,0.766,0.825,0.85,0.855,0.847,0.831,0.809,0.788,0.733,0.723,0.704],[0.152,0.172,0.184,0.165,0.154,0.206,0.434,0.612,0.675,0.715,0.739,0.746,0.718,0.712,0.675,0.641,0.611],[0.152,0.173,0.16,0.161,0.141,0.138,0.198,0.294,0.396,0.463,0.519,0.559,0.584,0.618,0.627,0.611,0.601]],"wob":[[166.91,147.68,125.97,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],[165.75,158.86,109.31,3.59,5.15,6.57,7.99,9.22,10.37,11.36,12.39,13.1,13.71,14.25,14.86,15.95,17.43],[149.05,135.06,122.64,3.87,5.53,7.21,8.88,10.64,13.02,15.69,18.29,20.84,22.62,23.53,23.69,25.1,26.76],[153.95,141.43,152.69,19.21,9.52,11.01,11.81,14.1,20.59,25.24,20.77,25.92,23.89,29.62,34.19,37.58,40.16],[132.9,169.56,171.02,48.34,10.24,13.27,16.03,18.61,21.05,23.37,25.6,27.76,29.85,31.91,33.95,35.98,38.05],[147.76,158.92,138.42,115.99,16.62,17.69,19.55,23.88,23.98,24.49,25.11,28.08,34.19,39.17,42.73,45.52,47.92],[148.18,146.1,132.06,122.33,86.73,17.08,15.67,19.35,22.99,26.42,29.64,32.63,35.26,36.93,42.16,41.93,44.86],[145.09,144.21,142.49,132.27,164.77,81.27,25.21,26.74,31.41,35.43,39.41,41.58,47.35,47.62,52.0,54.56,56.75],[151.21,152.66,191.38,131.09,119.76,120.92,76.94,96.11,29.96,31.68,34.3,37.83,41.39,42.64,46.33,50.78,54.21]]};
+const $ = (id) => document.getElementById(id);
+let actx = null, node = null, crowd = null, running = false, octave = 2, heldKey = null;
+const state = { T: 0, p: 0, sigma: 0.1, N: 128, width: 1, vol: 0.7, glide: 0.06, level: true, F0: 110 };
+
+// ---------------------------------------------------------------- audio
+// ScriptProcessor rather than AudioWorklet: this page runs in a sandboxed
+// iframe on the board, where blob-module worklets fail. The crowd costs ~5 %
+// of one core at 128 neurons, so the main thread can carry it.
+function start() {
+  actx = new (window.AudioContext || window.webkitAudioContext)();
+  crowd = new Crowd(actx.sampleRate); apply(true);
+  node = actx.createScriptProcessor(2048, 0, 1);
+  node.onaudioprocess = (e) => { const o = e.outputBuffer.getChannelData(0); crowd.process(o, o.length); };
+  node.connect(actx.destination); running = true;
+  $("go").textContent = "Stop"; $("go").classList.add("on");
+}
+function toggle() {
+  if (!actx) return start();
+  if (running) { actx.suspend(); running = false; $("go").textContent = "Start the crowd"; $("go").classList.remove("on"); }
+  else { actx.resume(); running = true; $("go").textContent = "Stop"; $("go").classList.add("on"); }
+}
+function apply(full) {
+  if (!crowd) return;
+  crowd.T = state.T; crowd.sigma = state.sigma; crowd.vol = state.vol; crowd.glide = state.glide; crowd.level = state.level; crowd.F0 = state.F0;
+  if (full || crowd.N !== state.N) { crowd.p = state.p; crowd.setN(state.N); }
+  if (crowd.p !== state.p) crowd.setP(state.p);
+  if (full || crowd.width !== state.width) { crowd.width = state.width; crowd.buildSpike(); }
+}
+
+// ---------------------------------------------------------------- controls
+function setTP(T, p) {
+  state.T = Math.max(0, Math.min(6, T)); state.p = Math.max(0, Math.min(0.7, p));
+  $("T").value = state.T; $("P").value = state.p; syncLabels(); apply();
+}
+function syncLabels() {
+  $("vT").textContent = state.T.toFixed(2); $("vP").textContent = Math.round(state.p * 100) + " %";
+  $("vS").textContent = state.sigma.toFixed(2); $("vN").textContent = state.N;
+  $("vWd").textContent = (1.6 * state.width).toFixed(2) + " ms"; $("vV").textContent = Math.round(state.vol * 100) + " %";
+  $("vGl").textContent = Math.round(state.glide * 1000) + " ms";
+}
+$("go").onclick = toggle;
+$("T").oninput = (e) => setTP(+e.target.value, state.p);
+$("P").oninput = (e) => setTP(state.T, +e.target.value);
+$("S").oninput = (e) => { state.sigma = +e.target.value; syncLabels(); apply(); };
+$("N").oninput = (e) => { state.N = 2 ** +e.target.value; syncLabels(); apply(); };
+$("Wd").oninput = (e) => { state.width = +e.target.value; syncLabels(); apply(); };
+$("V").oninput = (e) => { state.vol = +e.target.value; syncLabels(); apply(); };
+$("gl").oninput = (e) => { state.glide = +e.target.value / 1000; syncLabels(); apply(); };
+$("lvl").onclick = () => { state.level = !state.level; $("lvl").classList.toggle("on", state.level);
+  $("lvl").textContent = state.level ? "levelling on" : "levelling off"; apply(); };
+document.querySelectorAll(".presets button").forEach((b) => (b.onclick = () => setTP(+b.dataset.t, +b.dataset.p)));
+
+// keyboard: C at A, H = A2 = 110 Hz in octave 2
+const KEYS = "awsedftgyhujk", NAMES = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B","C"];
+const keysEl = $("keys");
+KEYS.split("").forEach((k, i) => { const b = document.createElement("button"); b.textContent = k.toUpperCase();
+  if (NAMES[i].includes("#")) b.classList.add("blk"); b.title = NAMES[i];
+  b.onpointerdown = () => note(i, b); keysEl.appendChild(b); });
+function note(i, btn) {
+  state.F0 = 440 * 2 ** ((i - 9) / 12 + (octave - 4)); apply();
+  if (!actx) start();
+  keysEl.querySelectorAll("button").forEach((b) => b.classList.remove("down"));
+  (btn || keysEl.children[i]).classList.add("down");
+}
+window.addEventListener("keydown", (e) => {
+  if (e.repeat || e.target.tagName === "INPUT") return;
+  const i = KEYS.indexOf(e.key.toLowerCase());
+  if (i >= 0) note(i);
+  if (e.key === "z") { octave = Math.max(0, octave - 1); $("oct").textContent = octave; }
+  if (e.key === "x") { octave = Math.min(5, octave + 1); $("oct").textContent = octave; }
+  if (e.key === " ") { e.preventDefault(); toggle(); }
+});
+
+// ---------------------------------------------------------------- the pad
+const pad = $("pad"), pg = pad.getContext("2d"), TMAX = 6, PMAX = 0.7;
+const bg = document.createElement("canvas"); bg.width = 240; bg.height = 135;
+(function paintMap() {                // cycle 9's clarity, K = T·4σ/π at σ 0.10
+  const g = bg.getContext("2d"), img = g.createImageData(bg.width, bg.height);
+  const Ks = MAP.K, Ps = MAP.p;
+  const lerpIdx = (arr, v) => { let i = 0; while (i < arr.length - 2 && arr[i + 1] < v) i++;
+    return [i, Math.max(0, Math.min(1, (v - arr[i]) / (arr[i + 1] - arr[i])))]; };
+  for (let y = 0; y < bg.height; y++) for (let x = 0; x < bg.width; x++) {
+    const T = (x / (bg.width - 1)) * TMAX, p = (1 - y / (bg.height - 1)) * PMAX, K = T * 0.4 / Math.PI;
+    const [i, fi] = lerpIdx(Ps, p), [j, fj] = lerpIdx(Ks, K), C = MAP.clarity;
+    const v = (C[i][j] * (1 - fj) + C[i][j + 1] * fj) * (1 - fi) + (C[i + 1][j] * (1 - fj) + C[i + 1][j + 1] * fj) * fi;
+    const a = Math.max(0, Math.min(1, v)) ** 1.6, o = (y * bg.width + x) * 4;
+    img.data[o] = 11 + a * (242 - 11) * 0.55; img.data[o + 1] = 11 + a * (177 - 11) * 0.55; img.data[o + 2] = 13 + a * (52 - 13) * 0.55; img.data[o + 3] = 255;
+  }
+  g.putImageData(img, 0, 0);
+})();
+const toPad = (T, p) => [(T / TMAX) * pad.width, (1 - p / PMAX) * pad.height];
+function drawPad() {
+  const W = pad.width, H = pad.height;
+  pg.imageSmoothingEnabled = true; pg.drawImage(bg, 0, 0, W, H);
+  pg.strokeStyle = "rgba(231,231,234,0.06)"; pg.lineWidth = 1;
+  for (let t = 1; t < TMAX; t++) { const [x] = toPad(t, 0); pg.beginPath(); pg.moveTo(x, 0); pg.lineTo(x, H); pg.stroke(); }
+  pg.strokeStyle = "#33e0c8"; pg.lineWidth = 2; pg.setLineDash([8, 6]); pg.beginPath();
+  for (let p = 0; p <= PMAX + 1e-9; p += 0.01) { const [x, y] = toPad(1 / (1 - p), p); p === 0 ? pg.moveTo(x, y) : pg.lineTo(x, y); }
+  pg.stroke(); pg.setLineDash([]);
+  pg.font = "20px JetBrains Mono, monospace"; pg.fillStyle = "rgba(231,231,234,0.55)";
+  pg.fillText("scatter", 14, H - 16); pg.fillText("tone", W - 70, H - 16);
+  pg.fillText("more life ↑", 14, 30); pg.fillText("tighter →", W - 130, 30);
+  pg.fillStyle = "#33e0c8"; const [ex, ey] = toPad(1 / (1 - 0.5), 0.5); pg.fillText("the edge", ex + 10, ey);
+  for (let t = 0; t <= TMAX; t++) { const [x] = toPad(t, 0); pg.fillStyle = "rgba(138,138,147,0.8)"; pg.fillText(String(t), x + 4, H - 44); }
+  const [px, py] = toPad(state.T, state.p);
+  const r = crowd ? crowd.rCore : 0;
+  pg.beginPath(); pg.arc(px, py, 14 + 26 * r, 0, 2 * Math.PI); pg.strokeStyle = "rgba(242,177,52,0.5)"; pg.lineWidth = 2; pg.stroke();
+  pg.beginPath(); pg.arc(px, py, 9, 0, 2 * Math.PI); pg.fillStyle = "#f2b134"; pg.fill();
+}
+let dragging = false;
+function padAt(e) { const b = pad.getBoundingClientRect();
+  setTP(((e.clientX - b.left) / b.width) * TMAX, (1 - (e.clientY - b.top) / b.height) * PMAX); }
+pad.onpointerdown = (e) => { dragging = true; pad.setPointerCapture(e.pointerId); if (!actx) start(); padAt(e); };
+pad.onpointermove = (e) => dragging && padAt(e);
+pad.onpointerup = () => (dragging = false);
+
+// ---------------------------------------------------------------- raster + wheel
+const ras = $("raster"), rg = ras.getContext("2d"), wh = $("wheel"), wg = wh.getContext("2d");
+function drawRaster() {
+  const W = ras.width, H = ras.height;
+  rg.fillStyle = "#06060a"; rg.fillRect(0, 0, W, H);
+  if (!crowd) return;
+  const win = (6 / crowd.f0s) * crowd.sr;               // six periods, whatever the pitch
+  $("winMs").textContent = Math.round((win / crowd.sr) * 1000);
+  const now = crowd.clock, N = crowd.N, rowH = H / N, dot = Math.max(1.5, Math.min(4, rowH * 0.9));
+  for (let k = crowd.evW - 1, seen = 0; k >= 0 && seen < crowd.EV; k--, seen++) {
+    const e = k & (crowd.EV - 1), t = crowd.evT[e];
+    if (now - t > win) break;
+    const i = crowd.evN[e]; if (i >= N) continue;
+    const x = W - ((now - t) / win) * W, y = H - (crowd.rank[i] + 0.5) * rowH;
+    rg.fillStyle = crowd.isPace(i) ? "#6366f1" : "#f2b134"; rg.fillRect(x - dot / 2, y - dot / 2, dot, dot);
+  }
+}
+function drawWheel() {
+  const W = wh.width, c = W / 2, R = W * 0.4;
+  wg.fillStyle = "#06060a"; wg.fillRect(0, 0, W, W);
+  wg.strokeStyle = "#2a2a32"; wg.lineWidth = 2; wg.beginPath(); wg.arc(c, c, R, 0, 2 * Math.PI); wg.stroke();
+  if (!crowd) return;
+  let cx = 0, cy = 0, nf = 0;
+  for (let i = 0; i < crowd.N; i++) {
+    const t = crowd.th[i], x = c + R * Math.cos(t), y = c - R * Math.sin(t);
+    wg.fillStyle = crowd.isPace(i) ? "#6366f1" : "rgba(242,177,52,0.85)"; wg.beginPath(); wg.arc(x, y, 5, 0, 2 * Math.PI); wg.fill();
+    if (!crowd.isPace(i)) { cx += Math.cos(t); cy += Math.sin(t); nf++; }
+  }
+  if (nf) { cx /= nf; cy /= nf; wg.strokeStyle = "#f2b134"; wg.lineWidth = 4; wg.beginPath(); wg.moveTo(c, c); wg.lineTo(c + R * cx, c - R * cy); wg.stroke(); }
+}
+function regime() {
+  if (!crowd || !running) return actx ? "paused" : "press start";
+  const edge = 1 / (1 - state.p), r = crowd.rCore, w = crowd.wobble;
+  if (r < 0.35) return "scatter · a hiss around the pitch";
+  if (r < 0.7) return "on the edge · the tone flickers in and out";
+  if (state.p === 0 || w < 3) return "frozen tone · every period the same";
+  if (state.T < edge * 1.15) return "breaking · the pacemakers are winning";
+  return w < 25 ? "living tone · vibrato and chorus" : "wide vibrato · the core chases the pacemakers";
+}
+function frame() {
+  drawPad(); drawRaster(); drawWheel();
+  if (crowd) {
+    $("mR").textContent = crowd.rCore.toFixed(2);
+    $("mW").textContent = crowd.rCore > 0.35 ? crowd.wobble.toFixed(1) + "¢" : "—";
+    $("mH").textContent = crowd.rCore > 0.35 ? crowd.hz.toFixed(1) + " Hz" : "—";
+    $("mP").textContent = Math.round(state.p * crowd.N) + " / " + crowd.N;
+  }
+  $("regime").textContent = regime();
+  requestAnimationFrame(frame);
+}
+syncLabels(); frame();
+</script>
+</body>
+</html>
