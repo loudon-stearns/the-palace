@@ -12,18 +12,18 @@ forward_vector: "I carry the in-progress move on [[STIGMERGY]] across a boundary
 
 ## Move
 
-Build the piece origin for rich-face pieces, from the one shared file resolver through the canon edits, once the exact-origin guard on STIGMERGY's board writes has shipped. Built, it means a piece runs on an origin of its own, declares in its own head what it needs, and a check keeps that honest, so every rich face and interactive element made from here on is built to one model. The plan is [[STIGMERGY — spec — rich-face pieces]], the design page Loudon said yes to on 2026-10-13. It holds the model, the piece contract and all ten steps with their sizes and tests; this baton does not restate it.
+Build the piece origin for rich-face pieces, from the one shared file resolver through the canon edits, now that the exact-origin guard on STIGMERGY's board writes has shipped. Built, it means a piece runs on an origin of its own, declares in its own head what it needs, and a check keeps that honest, so every rich face and interactive element made from here on is built to one model. The plan is [[STIGMERGY — spec — rich-face pieces]], the design page Loudon said yes to on 2026-10-13. It holds the model, the piece contract and all ten steps with their sizes and tests; this baton does not restate it.
 
 ## Why this move matters
 
-Sandboxing every rich-face piece closed the hole (a piece could write to the board), and it took away what pieces need: the five webcam builds on [[Language as a Tonal Medium]] can't open the camera, about 14 proofs can't read the file beside them, 5 can't keep state, and every piece reports its own height. Behind the wall, the guard still lets a page on any other localhost port write to the board.
+Sandboxing every rich-face piece closed the hole (a piece could write to the board), and it took away what pieces need: the five webcam builds on [[Language as a Tonal Medium]] can't open the camera, about 14 proofs can't read the file beside them, 5 can't keep state, and every piece reports its own height. Behind the wall, the guard let a page on any other localhost port write to the board, until the exact-origin guard landed today.
 
 Shown a per-piece patch or a second origin, Loudon said: "lets make a general solution and a process change even if it is more work. We will be making a ton of rich faces and interactive elements moving forward, so we need solutions that scale."
 
 ## Tried and rejected
 
 - **Grant the five webcam pieces now and baton the second origin.** A per-piece patch; Loudon asked for the general model instead.
-- **Trust every loopback origin**, as today's guard does. Step 1 replaces it with an exact-origin check.
+- **Trust every loopback origin**, as the old guard did. The exact-origin check has replaced it.
 - **Give a piece frame `allow-same-origin` while the piece is served from the app's own origin.** That voids the sandbox; the page adds the flag only after checking the piece origin isn't its own.
 - **Edit a gathered proof to add its declaration.** The manifest speaks for it. Only CDN pins get edited, after Loudon has seen the diff.
 
@@ -31,7 +31,7 @@ Shown a per-piece patch or a second origin, Loudon said: "lets make a general so
 
 *As of 2026-10-13.* Of the model, nothing is built. What is on main is the sandbox and link rules the day's reviews landed (`2108a278`, `ca574c60`). Until the model is built the camera stays off the rich face; the five webcam builds still open from their project folder.
 
-- **The exact-origin guard is in flight**, on branch `claude/piece-origin-step1-guard` (worktree `../palace-step1-guard`). It is not on main. Check whether it has landed before anything else; the build starts after it.
+- **The exact-origin guard has landed**, on main at `65911e8a` (it merges `7bbf9c32` and `7e71c0f8`): a write or `/api/open` now passes only from the app's own origin, and a URL Loudon types himself may still open a file. This baton was written while it was still in flight on branch `claude/piece-origin-step1-guard`; the build starts at the shared file resolver.
 - **Named unknowns** are in the spec's §7 (auto-hush against Tone.js, mermaid under a strict script policy, the camera through two nested frames outside headless Chromium, framed storage). None is proven.
 - **Fold into the build:**
   - `_ops/rich-face/README.md`: the five rules under "What the page lets run" (every piece sandboxed; the server sandboxes too; links go only to the web, mail or the palace; an entry's own HTML is shown, not run; framed by the reader) and its gotchas "stands alone" and "reports its height". The model rewrites them; step 10's READMEs carry it.
@@ -59,7 +59,7 @@ Claude Code on the Mac. This is STIGMERGY code, so each step gets its own worktr
 ## Load these files first
 
 1. [[STIGMERGY — spec — rich-face pieces]], the plan.
-2. `_ops/stigmergy/app/server/request-guard.js` and `middleware.js`, and the step 1 branch's diff against main.
+2. `_ops/stigmergy/app/server/request-guard.js` and `middleware.js`, and the step 1 merge (`65911e8a`).
 3. `_ops/rich-face/README.md`, `rich-handler.mjs`, `rich.html`, `palace-find.mjs`, `fingerprint.mjs`, and `_ops/stigmergy/app/scripts/build-public.mjs`: the three places a file is looked up today.
 4. `_ops/stigmergy/app/src/components/ArtifactSlot.jsx` and `state/RichFaceFrame.jsx`: the two frames the page change touches.
 5. `_ops/stigmergy/app/README.md`, "Write path" and "Testing, worktree & topology gotchas".
