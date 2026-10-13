@@ -1,0 +1,30 @@
+[
+ {
+  "engine": "audio thread",
+  "pluckPeak": -9.6,
+  "labels": {
+   "stiff 0 @ 196 Hz": "harmonic: every partial in tune",
+   "stiff 0.67 @ 196 Hz": "partial 8 +54 ¢, any pitch",
+   "stiff 0.67 @ 82 Hz": "partial 8 +54 ¢, any pitch",
+   "stiff 0.67 @ 659 Hz": "partial 8 +54 ¢, any pitch",
+   "stiff 1 @ 82 Hz": "partial 8 +420 ¢, any pitch · this note strays up to 80 ¢ (too low for this much)",
+   "stiff 1 @ 440 Hz": "partial 8 +420 ¢, any pitch · this note strays up to 15 ¢ (too low for this much)"
+  },
+  "stiffPluckPeak": -7.4,
+  "errors": []
+ },
+ {
+  "engine": "main thread (forced)",
+  "pluckPeak": -9.6,
+  "labels": {
+   "stiff 0 @ 196 Hz": "harmonic: every partial in tune",
+   "stiff 0.67 @ 196 Hz": "partial 8 +54 ¢, any pitch",
+   "stiff 0.67 @ 82 Hz": "partial 8 +54 ¢, any pitch",
+   "stiff 0.67 @ 659 Hz": "partial 8 +54 ¢, any pitch",
+   "stiff 1 @ 82 Hz": "partial 8 +420 ¢, any pitch · this note strays up to 80 ¢ (too low for this much)",
+   "stiff 1 @ 440 Hz": "partial 8 +420 ¢, any pitch · this note strays up to 15 ¢ (too low for this much)"
+  },
+  "stiffPluckPeak": -7.4,
+  "errors": []
+ }
+]

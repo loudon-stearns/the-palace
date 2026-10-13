@@ -15,20 +15,20 @@ forward_vector: "I am Waveguide Synthesizer's scroll — the one page that alway
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T18:26:56.396Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T18:45:00.789Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 11 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** growing · **Steward:** cycle 12 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
-- **Ready to advance:** 1 answer filed since the steward last ran — a cycle will consume it
-- **Last shipped:** 2026-10-13 (today) — Shall this be the plan for the stage-ready version: bow, even stiffness, four strings, a body, a teaching walk, then the stage question? (`waveguide-synthesizer-steward-028`)
-- **Last commit touching this project:** 2026-10-13 `518b56bf` — steward(Waveguide Synthesizer): cycle 10 — SPINNING UP. HOME: [[Waveguide Synthesizer]]. Neighborhood loaded. Cycl…
+- **Ready to advance:** no unread answers
+- **Last shipped:** 2026-10-13 (today) — Stiffness now means the same at every pitch: at slider 0.67, partial 8 runs about 54 cents sharp from E2 to E5. Before, it ran 2 cents sharp at E2 and 640 at E5. (`waveguide-synthesizer-steward-030`)
+- **Last commit touching this project:** 2026-10-13 `9691b7cc` — steward(Waveguide Synthesizer): cycle 11 — SPINNING UP. HOME: [[Waveguide Synthesizer]]. Neighborhood loaded. Cycl…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Waveguide Synthesizer is the browser string whose on-screen wave is the sound. Two delay lines carry a right-going and a left-going wave; their sum is the orange line, and the speaker hears that line at one point. Earlier versions tuned it, made stiffness stretch it like a piano string, added a slow strobe view so you can watch a 196 Hz string move, and, last cycle, fixed the reason you heard nothing (the buttons sat below the board frame's bottom edge). Until now you could only pluck or strike it. This cycle added a bow. Study v1.4 sustains a note for as long as you hold the bow button or the B key. The strobe view shows the classic bowed-string shape, two straight lines meeting at one cor…
+Waveguide Synthesizer is the browser string whose on-screen wave is the sound. Two delay lines carry a right-going and a left-going wave, and their sum is the orange line you see and hear. It's tuned. You can pluck it, strike it, bow it, and watch it slowly in the strobe view. Stiffness makes the overtones run sharp, the way a piano string's do, but until now the same slider setting barely touched low notes and wrecked high ones. Study v1.5 fixes that. The slider now asks for one physical number, the string's inharmonicity, and every pitch gets the same stretch. That was the second step in the proposed plan (the bow was the first). Next come four strings, a body, a teaching walk, and the st…
 
 ### Open asks
 
@@ -36,7 +36,7 @@ Waveguide Synthesizer is the browser string whose on-screen wave is the sound. T
 
 ### Answered, not yet consumed
 
-- `waveguide-synthesizer-steward-025` — GRANTED — option_id=HEARD-BOTH · answered 2026-10-13 — waiting for the next cycle
+_None._
 
 ### Decided
 
@@ -61,6 +61,50 @@ Written by Claude on Loudon's behalf, 2026-09-23: your last two cycles posted no
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="waveguide-synthesizer-steward-030" -->
+### 2026-10-13 — cycle 12 — Stiffness now means the same at every pitch: at slider 0.67, partial 8 runs about 54 cents sharp from E2 to E5. Before, it ran 2 cents sharp at E2 and 640 at E5.
+> shipped · Study v1.5 · even stiffness · steward leans four strings next
+
+What was wrong. The stretch came from eight identical filter sections with one fixed setting. Their effect depends on how many samples one trip round the string takes, so a short (high) string got hit far harder than a long one. At slider 0.67, partial 8 ran 2.4 cents sharp at E2, 16 at G3, 134 at A4 and 641 at E5: about a 260-fold spread. Across the full range it was worse, around 800-fold.
+
+What v1.5 does. The slider now sets the inharmonicity B that piano tuners use. The law it asks for is the stiff-string one, and it doesn't depend on pitch. Each time you change the note, the engine designs the filter for that note. It tries between 1 and 64 sections, finds the setting for each that keeps partials 2 through N (up to 6 kHz) closest to the law, and keeps whichever count lands closest. Each candidate is checked by arithmetic on the loop's delay, with no rendering. One design takes about a millisecond, and each one is kept, so dragging back over a setting costs nothing. The slider runs a decade every third of its travel. 0.33 is a hair of stretch (about 5 cents on partial 8), 0.67 is a clearly stretched piano-like string (54 cents), and 1.0 is past any piano, into bars and bells. The label under the slider now says what you asked for in those terms.
+
+Two side effects. Stiffness 0 now cancels the slight stretch the loop's own brightness filter puts on high notes, so zero means harmonic at every pitch: A5 went from 16 cents sharp on partial 8 to 4. And where a note can't reach what you asked (bass notes at the top of the slider run out of filter), the label says how far that note strays from the law instead of pretending.
+
+Checked. All of this was measured from renders of the page's own engine code, not a copy: the table and the chart, with fundamentals within 0.01 cents of the slider at every pitch. In Chrome, inside the board's exact frame at 480 pixels tall, I did a full slider drag, six pitch and stiffness combinations, and a strike, with no page errors. That ran on the audio-thread engine and again with it forced off. The bow still sings and stays bounded with any stiffness at G3, E2 and E5.
+
+**Artifacts:**
+- [31 s. E2 E3 E4 A4 E5 struck at stiffness 0.67, first through v1.4 (low notes plain, top notes clanging), then v1.5 (one even stretch), then v1.5 at 0 (all harmonic), then at 0.83 (bell-like all the way up).](Projects/Waveguide Synthesizer/offline-v1.5/even-stiffness-tour.wav)
+- [Same slider, every pitch. Dotted lines climb about a hundredfold up the range (v1.4); solid lines stay flat on the law (v1.5).](Projects/Waveguide Synthesizer/offline-v1.5/stretch-by-pitch.png)
+- [Study v1.5, the playable page: click once, open the sliders, move stiffness and play notes up and down.](Projects/Waveguide Synthesizer/study-v1.5-even-stiffness/index.html)
+- [The page in the board's frame, with the new stiffness label reading 'partial 8 +54 ¢, any pitch'.](Projects/Waveguide Synthesizer/offline-v1.5/board-frame-stiffness.png)
+- [The measurements behind the chart: four stiffness settings, ten pitches, both versions.](Projects/Waveguide Synthesizer/offline-v1.5/stretch-by-pitch.json)
+- [Browser check: labels, levels and errors, on both engines.](Projects/Waveguide Synthesizer/offline-v1.5/frame-probe.json)
+- [Where each section of the tour starts.](Projects/Waveguide Synthesizer/offline-v1.5/tour-sections.json)
+- [Renders struck notes through each page's engine and finds partials in the spectrum.](Projects/Waveguide Synthesizer/offline-v1.5/measure_v15.py)
+- [Renders the listening tour.](Projects/Waveguide Synthesizer/offline-v1.5/render_tour.py)
+- [Draws the chart.](Projects/Waveguide Synthesizer/offline-v1.5/plot_stretch.py)
+- [v1.4's loop as arithmetic. It's how I first measured the 800-fold spread.](Projects/Waveguide Synthesizer/offline-v1.5/loop_model.py)
+- [Reads what the engine designs for each pitch and stiffness, and how long it takes.](Projects/Waveguide Synthesizer/offline-v1.5/probe_design.mjs)
+- [The Chrome check in the board's sandbox.](Projects/Waveguide Synthesizer/offline-v1.5/frame_probe.mjs)
+
+_partial 8, cents sharp of 8 × f0, slider at 0.67 (the law asks +54 at every pitch)_
+| note | v1.4 | v1.5 |
+| --- | --- | --- |
+| E2 | +2.4 | +57 |
+| A2 | +4.0 | +57 |
+| G3 | +16 | +57 |
+| C4 | +34 | +56 |
+| A4 | +134 | +53 |
+| E5 | +641 | +54 |
+| A5 | +978 | +46 |
+
+_Left rough:_ I can't listen, so whether 0.67 sounds like a piano or a wire with a cold is your call on the tour. Bass notes at the very top of the slider stray up to 80 cents from the law; the label says so, but more sections would only buy so much. A bowed stiff string reads about 7 to 10 cents sharp, because the bow pulls the partials partly back into line (real bowed strings do some of this too; I haven't checked how much). A design takes up to 2 ms on the audio thread the first time a setting is visited, so a fast first drag could click.
+
+_Next moves named:_ Four strings tuned in fifths (G D A E) in one engine, played from the keyboard and drawn side by side. That's the next step in the proposed plan, and it answers the page's question about how to do more than one note at once. · If the first-drag click shows up, move the design off the audio thread and hand the result over. · A live dot on the Schelleng map, carried into the teaching walk.
+<sub>`waveguide-synthesizer-steward-030` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="waveguide-synthesizer-steward-028" -->
 ### 2026-10-13 — cycle 11 — Shall this be the plan for the stage-ready version: bow, even stiffness, four strings, a body, a teaching walk, then the stage question?
 > still working · bow shipped in v1.4 · steward leans adopt
