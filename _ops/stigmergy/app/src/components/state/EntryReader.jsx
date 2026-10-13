@@ -28,7 +28,7 @@ import Combobox from '../Combobox.jsx';
 // escape this component -- the deck stays usable.
 
 export default function EntryReader({
-  path, index, refIndex, onNavigate, onBack, onEdit, onGoBack, reloadNonce = 0,
+  path, index, refIndex, glassTitles = [], onNavigate, onBack, onEdit, onGoBack, reloadNonce = 0,
 }) {
   const [state, setState] = useState({ kind: 'loading' });
   // "enchant" opens the AgentLaunchModal in ephemeral mode: build this page's
@@ -330,15 +330,17 @@ export default function EntryReader({
         {picking !== null ? (
           <span style={{ marginLeft: 8, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
             {/* The title search: a house combobox, not a <datalist>, whose
-                dropdown is an OS widget the phosphor can't reach. A picked
-                title (or Enter on text that matches no page) becomes the
-                glass; the entry being read is never offered as its own glass. */}
+                dropdown is an OS widget the phosphor can't reach. It offers
+                canon pages only (glassTitles, from StateDeck) -- not the
+                wikilink index, which resolves every face, proof and handoff
+                too. A picked title (or Enter on text that matches no page)
+                becomes the glass; the entry being read is never its own. */}
             <Combobox
               testId="lens-glass-input"
               autoFocus
               value={picking}
               placeholder="read through which page?"
-              options={index instanceof Map ? Array.from(index.keys()) : []}
+              options={glassTitles}
               exclude={entry.title}
               onChange={setPicking}
               onPick={(title) => { setGlass(title); setPicking(null); }}
