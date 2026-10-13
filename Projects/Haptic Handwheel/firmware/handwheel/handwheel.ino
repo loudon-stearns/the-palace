@@ -22,6 +22,11 @@ BLDCMotor motor(7);                                   // 14 poles → 7 pole pai
 BLDCDriver3PWM driver(25, 26, 27, 14);                // ASSUMED pins — match your board
 MagneticSensorSPI encoder(AS5048_SPI, 5);             // CS pin ASSUMED
 
+// Bench tests at 12 V. For play, 24 V gives the cancelled brake room to keep
+// up with a flick (order/PARTS.md, fit_check.mjs); raise SUPPLY_V to match the
+// supply and keep VOLT_LIMIT low until the motor's heat is known.
+const float SUPPLY_V = 12.0f, VOLT_LIMIT = 12.0f;
+
 hw::Feel feel;
 hw::Motor model;
 float played = 0, tauMax = 0.2f;
@@ -31,12 +36,12 @@ void setup() {
   Serial.begin(921600);
   encoder.init();
   motor.linkSensor(&encoder);
-  driver.voltage_power_supply = 12;
+  driver.voltage_power_supply = SUPPLY_V;
   driver.init();
   motor.linkDriver(&driver);
   motor.torque_controller = TorqueControlType::voltage; // no current sensing: back-EMF brakes the knob
   motor.controller = MotionControlType::torque;
-  motor.voltage_limit = 12;
+  motor.voltage_limit = VOLT_LIMIT;
   motor.init();
   motor.initFOC();
   feel.id = hw::CENTRE; feel.p.k = 0.03f;             // a soft pitch-wheel return to start

@@ -1,0 +1,77 @@
+{
+ "rows": [
+  {
+   "V": 12,
+   "Uq": 6.93,
+   "tauWorst": 0.082,
+   "tauMid": 0.177,
+   "Imax": 0.91,
+   "heatW": 9.5,
+   "cancelToRadS": [
+    16.5,
+    25.2
+   ],
+   "cancelToRpm": [
+    158,
+    241
+   ],
+   "cancelWhilePushingRpm": 132
+  },
+  {
+   "V": 16,
+   "Uq": 9.24,
+   "tauWorst": 0.109,
+   "tauMid": 0.236,
+   "Imax": 1.22,
+   "heatW": 16.8,
+   "cancelToRadS": [
+    22,
+    33.6
+   ],
+   "cancelToRpm": [
+    210,
+    321
+   ],
+   "cancelWhilePushingRpm": 212
+  },
+  {
+   "V": 24,
+   "Uq": 13.86,
+   "tauWorst": 0.164,
+   "tauMid": 0.354,
+   "Imax": 1.82,
+   "heatW": 37.9,
+   "cancelToRadS": [
+    33,
+    50.4
+   ],
+   "cancelToRpm": [
+    315,
+    481
+   ],
+   "cancelWhilePushingRpm": 373
+  }
+ ],
+ "needs": [
+  {
+   "feel": "turntable at 33⅓ rpm",
+   "radS": 3.5,
+   "rpm": 33
+  },
+  {
+   "feel": "turntable at 45 rpm",
+   "radS": 4.7,
+   "rpm": 45
+  },
+  {
+   "feel": "struck spring, 0.5 rad flick at 5.9 Hz (peak speed)",
+   "radS": 18.5,
+   "rpm": 177
+  },
+  {
+   "feel": "a hard flick of a free knob (guess)",
+   "radS": 30,
+   "rpm": 286
+  }
+ ]
+}

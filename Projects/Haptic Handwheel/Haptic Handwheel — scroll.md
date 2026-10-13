@@ -15,20 +15,20 @@ forward_vector: "I am Haptic Handwheel's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T22:35:22.652Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T22:40:59.666Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** seed · **Steward:** cycle 2 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** seed · **Steward:** cycle 3 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — The motor turns out to brake itself, which lets stiff feels survive a cable. I also wrote the firmware's feel core and the bench tests that will measure the real motor. (`haptic-handwheel-steward-005`)
-- **Last commit touching this project:** 2026-10-13 `5220fc25` — steward(Haptic Handwheel): cycle 1 — SPINNING UP. HOME: [[Haptic Handwheel]]. Neighborhood loaded. This is m…
+- **Last shipped:** 2026-10-13 (today) — A parts order you could place today, about $145–185, plus a first Max patch that speaks the knob's language. Nothing bought yet. (`haptic-handwheel-steward-007`)
+- **Last commit touching this project:** 2026-10-13 `e7287cbf` — steward(Haptic Handwheel): cycle 2 — SPINNING UP. HOME: [[Haptic Handwheel]]. Neighborhood loaded. Cycle 2: …
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Haptic Handwheel is your idea for one big knob that is a motor and a sensor at once, played as an instrument. Software decides how it feels: a string, frets, a spring, a turntable. It is research reaching toward a product, and the nearer product is a simpler knob that knows which parameter it's controlling. Nothing is built or bought yet. Last cycle I built the knob in simulation. The worst news was that a feel computed in Max and sent down USB could only be about as stiff as a weak pitch-wheel spring before it starts to buzz. I also proposed a first plan (simulate, pin down the motor's unknowns, buy parts, bench test, then your hands judge each feel), and that plan still waits on your yes.…
+Haptic Handwheel is your idea for one big knob that is a motor and a sensor at once, played as an instrument. Software decides how it feels: frets, a string, a struck spring, a turntable. It's research reaching toward a product, and the nearer product is a simpler knob that knows which parameter it's controlling. So far it exists only in simulation. Earlier cycles built a feel lab in the browser, found that the motor brakes itself (which lets stiff feels survive the trip over USB), and wrote firmware and bench tests that compile on the laptop but have never run on a board. This cycle turned all of that into a parts order you could place, and a Max patch for when the knob arrives. Ordering s…
 
 ### Open asks
 
@@ -59,6 +59,37 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="haptic-handwheel-steward-007" -->
+### 2026-10-13 — cycle 3 — A parts order you could place today, about $145–185, plus a first Max patch that speaks the knob's language. Nothing bought yet.
+> shipped · order drafted, waiting on the plan · steward leans a 24 V supply
+
+**The order.** The motor stays the same: the iFlight GM5208-12 with its encoder, $61.99 and in stock, read on the shop page today. Two parts change from the brief. The driver becomes the SimpleFOC Mini v1, about $9, and I'd buy two so the first wiring mistake costs nothing. It sets volts and doesn't measure current, which is exactly the condition that gives us the motor's own brake. That makes the brief's pricier Shield, with its current sensing, the wrong fit as well as the dearer one. The controller becomes a classic ESP32 dev board, about $10, because the firmware is already written for its pins. The rest: a 0–30 V bench supply with a current knob, a piezo contact mic (the only real test of whether you can feel a G), a $1 capacitor so the motor can't push current back into the supply when your hand spins it, printed caps, and a block to clamp it to. That comes to about $145–185, or $75–95 if you already own a bench supply. The brief guessed $170–230. I left out the load cell, touch sensing, a second vibration motor and the lever, and the sheet says why for each.
+
+**Why the volts matter.** The firmware asks the driver for volts. Part of that pushes on your hand. The rest cancels the motor's brake, and that part grows with speed. At 12 V, on the weakest motor the datasheet allows, the knob pushes exactly the brief's 0.08 N·m with nothing to spare. A struck spring flicked half a radian peaks at 177 rpm, past the 132 rpm that 12 V can hold while also pushing. At 24 V everything fits. So: bench tests at 12 V, then play at 24 V with the firmware's voltage cap held low. I made the supply voltage a named setting in the firmware so that switch is one line.
+
+**The Max patch.** handwheel-host.maxpat opens the serial port, reads the knob's angle, speed and torque every 2 ms, and plays the angle as a pitch, 12 semitones per turn. It has a menu for the feels, number boxes for stiffness, damping, the brake dial, turntable speed and a torque ceiling, an LFO you can play into your hand, and buttons for the five bench tests. A script builds it, so it can be regenerated, and a second script checked that every wire lands on a real inlet and outlet. It has never been opened in Max.
+
+**Artifacts:**
+- [The order: nine lines with links and prices, why each changed from the brief, what's left out, and what to do when it arrives.](Projects/Haptic Handwheel/order/PARTS.md)
+- [Works out what 12, 16 and 24 V buy: push, current, and how fast the brake stays cancelled.](Projects/Haptic Handwheel/order/fit_check.mjs)
+- [The numbers behind the voltage table.](Projects/Haptic Handwheel/order/fit_check.json)
+- [The Max side of the knob: port, feel menu, parameters, an LFO into the hand, angle played as pitch, bench buttons. Never opened in Max.](Projects/Haptic Handwheel/max/handwheel-host.maxpat)
+- [Builds the patch from code, so it can be fixed and rebuilt.](Projects/Haptic Handwheel/max/build_host_patch.mjs)
+- [The board sketch, now with the supply voltage and voltage cap as named settings. Still never compiled for a board.](Projects/Haptic Handwheel/firmware/handwheel/handwheel.ino)
+
+_What the supply buys, using the datasheet's ranges (worst motor … middle motor)_
+| supply | hardest push N·m | brake stays cancelled up to | …while pushing 0.08 N·m | most current |
+| --- | --- | --- | --- | --- |
+| 12 V | 0.082 … 0.18 | 158 … 241 rpm | 132 rpm | 0.9 A |
+| 16 V | 0.11 … 0.24 | 210 … 321 rpm | 212 rpm | 1.2 A |
+| 24 V | 0.16 … 0.35 | 315 … 481 rpm | 373 rpm | 1.8 A |
+
+_Left rough:_ The Max patch has never been opened in Max; I'm least sure that a toggle can start and stop snapshot~ and that the serial line parsing works as written. Only the motor's price was read on its shop page. The driver, ESP32 and contact mic prices come from search summaries, and the bench supply price is a guess. The motor's top bolt pattern isn't published, so the caps can't be printed until someone measures it. 24 V is above the motor's 9–15 V nominal rating, and my reasoning that the firmware's voltage cap makes that safe hasn't been checked with the maker. The bench analyzer still can't read the cogging map or the contact-mic sweep.
+
+_Next moves named:_ If you adopt the plan, the order sheet is the parts list to buy from; if you'd rather start with the context knob, the same parts serve it. · Teach bench_analyze.py the cogging map and the contact-mic sweep, so the first bench session turns straight into numbers. · Add the brake dial to the browser feel lab, so you can feel the trade between ringing and calm with a mouse before you feel it by hand.
+<sub>`haptic-handwheel-steward-007` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="haptic-handwheel-steward-005" -->
 ### 2026-10-13 — cycle 2 — The motor turns out to brake itself, which lets stiff feels survive a cable. I also wrote the firmware's feel core and the bench tests that will measure the real motor.
 > shipped · nothing bought, board sketch uncompiled · steward leans parts list next
