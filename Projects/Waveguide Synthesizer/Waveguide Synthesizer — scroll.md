@@ -15,24 +15,24 @@ forward_vector: "I am Waveguide Synthesizer's scroll — the one page that alway
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T18:45:00.789Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T21:16:10.154Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 12 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** growing · **Steward:** cycle 13 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — Stiffness now means the same at every pitch: at slider 0.67, partial 8 runs about 54 cents sharp from E2 to E5. Before, it ran 2 cents sharp at E2 and 640 at E5. (`waveguide-synthesizer-steward-030`)
-- **Last commit touching this project:** 2026-10-13 `9691b7cc` — steward(Waveguide Synthesizer): cycle 11 — SPINNING UP. HOME: [[Waveguide Synthesizer]]. Neighborhood loaded. Cycl…
+- **Last shipped:** 2026-10-13 (today) — I've written your note as the plan: picture first, then body, bow, even stiffness, teaching. Adopt it so I build along it? (`waveguide-synthesizer-steward-033`)
+- **Last commit touching this project:** 2026-10-13 `a38db9c9` — steward(Waveguide Synthesizer): cycle 12 — SPINNING UP. HOME: [[Waveguide Synthesizer]]. Neighborhood loaded. Cycl…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Waveguide Synthesizer is the browser string whose on-screen wave is the sound. Two delay lines carry a right-going and a left-going wave, and their sum is the orange line you see and hear. It's tuned. You can pluck it, strike it, bow it, and watch it slowly in the strobe view. Stiffness makes the overtones run sharp, the way a piano string's do, but until now the same slider setting barely touched low notes and wrecked high ones. Study v1.5 fixes that. The slider now asks for one physical number, the string's inharmonicity, and every pitch gets the same stretch. That was the second step in the proposed plan (the bow was the first). Next come four strings, a body, a teaching walk, and the st…
+Waveguide Synthesizer is the browser string whose on-screen wave is the sound. Two delay lines carry a right-going and a left-going wave, and their sum is the string you see and hear. It's tuned. It can be plucked, struck and bowed, it can be watched in slow motion, and since last cycle its stiffness means the same at every pitch. You looked at it and said the picture is the strength, but the sliders don't connect to it: if the nut changed when you moved nut loss, you'd know which shape was the nut. So the step before any new feature is to make every control show itself in the picture. This cycle does that, for all nine sliders.
 
 ### Open asks
 
-- `waveguide-synthesizer-steward-028` — proposed plan revision: a plan for the stage-ready string · posted 2026-10-13 · options: adopt · keep · REORDER
+- `waveguide-synthesizer-steward-033` — proposed plan revision: your order, written down as the plan · posted 2026-10-13 · options: adopt · keep
 
 ### Answered, not yet consumed
 
@@ -40,6 +40,7 @@ _None._
 
 ### Decided
 
+- `waveguide-synthesizer-steward-028` — a plan for the stage-ready string → GRANTED — (no option_id); notes: "Start by really mastering this imagery, it is fantastic, but we need to make very clear visual changes with each slider. For instance if the nut changed visual when I moved "nut loss" I woudl make the very clear connection of which of the two shapes was the nut.. Take this same logic throughout the interface, making really clear connections between faders and the image is the first step, before adding more features. Then, body, then bow, then even stiffness then teaching." (2026-10-13)
 - `waveguide-synthesizer-steward-025` — directional_decision → GRANTED — option_id=HEARD-BOTH (2026-10-13)
 - `waveguide-synthesizer-steward-022` — directional_decision → GRANTED — option_id=STROBE-DEFAULT; notes: "I am unable to hear anything in any of these examples, I wonder why this is?" (2026-09-24)
 - `waveguide-synthesizer-steward-014` — directional_decision → GRANTED — option_id=DROP-DECOMPOSITION (2026-06-25)
@@ -61,6 +62,63 @@ Written by Claude on Loudon's behalf, 2026-09-23: your last two cycles posted no
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="waveguide-synthesizer-steward-033" -->
+### 2026-10-13 — cycle 13 — I've written your note as the plan: picture first, then body, bow, even stiffness, teaching. Adopt it so I build along it?
+> still working · the picture step is shipped as v1.6 · steward leans adopt
+
+The waveguide string is tuned and can be plucked, struck and bowed, and stiffness now means the same at every pitch. Last cycle I proposed a plan. You answered with a note instead of choosing an option, so the board still shows no agreed plan. Your note set the order: make every slider visibly change the picture first, then the body, then the bow, then even stiffness, then teaching. The bow and even stiffness already work, so I've read those steps as making each one visible and teachable in the same way, not building it again. The first step shipped this cycle as v1.6. Adopting this makes your order the plan of record. If I've misread the bow and stiffness steps, choose 'keep' and tell me.
+
+**Artifacts:**
+- [board-frame-stiffness.png](Projects/Waveguide Synthesizer/offline-v1.5/board-frame-stiffness.png)
+- [index.html](Projects/Waveguide Synthesizer/study-v1.5-even-stiffness/index.html)
+- [even-stiffness-tour.wav](Projects/Waveguide Synthesizer/offline-v1.5/even-stiffness-tour.wav)
+- [stretch-by-pitch.png](Projects/Waveguide Synthesizer/offline-v1.5/stretch-by-pitch.png)
+<sub>`waveguide-synthesizer-steward-033` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="waveguide-synthesizer-steward-032" -->
+### 2026-10-13 — cycle 13 — Study v1.6: every slider now visibly changes the thing it names. Move nut loss and the nut goes soft and dim; hover a slider and its object lights up.
+> shipped · sound unchanged from v1.5, all nine sliders now visible · steward leans body next
+
+What each slider now does to the picture (the sound is exactly v1.5's):
+
+- **pitch → the beads.** The string carries one bead per sample of its delay line, and a label reads the note and the count (G3: about 117 samples each way). Low notes are a dense string of beads; at 880 Hz you can count them, 27 of them. That makes the core waveguide idea visible: fewer samples in the loop means a higher note.
+- **brightness → the string's colour.** Ember red when dark, white-hot when bright. And you can watch the dark string go still much sooner, because the loop filter eats its energy.
+- **bridge loss → the brass block. nut loss → the steel post.** At 1.000 the end is tall, crisp, opaque and lit: it gives every bit of energy back. Toward 0.900 it squats, swells, dims, turns half see-through and grows a dark halo, like felt soaking the wave up. Each end is labelled by name, with what it keeps per bounce ('nut · keeps 99.5% each bounce').
+- **stiffness → thickness.** A thin wire becomes a fat rod, which is also the physics: a thicker string is a stiffer one.
+- **pickup → the labelled ring. bow position → where the bow sits. bow speed → the bow's arrow,** short to long, creeping while you bow. **bow force → the bow's width and glow.**
+
+To link a slider to its object, hover a slider's name (or drag it), and the thing it drives flares warm and its label brightens. Each slider's name now also says what it moves ('nut loss · the steel post, left'). Two fixes made the picture readable. On a wide screen the string now sits beside the slider panel, which used to hide the nut. And a bowed string, which the bow holds far off its rest line, no longer flies off the screen: the drawing shrinks to fit and says so ('height drawn at 76% to fit the frame').
+
+Checked in Chrome. Each slider was set to its low end and then its high end, with a fresh pluck or a held bow for every photo; that's the contact sheet. The page throws no errors, and the same pluck reads −9.6 dBFS on v1.5 and v1.6, so the sound didn't move.
+
+**Artifacts:**
+- [Study v1.6: play it here; hover any slider's name and watch what lights up.](Projects/Waveguide Synthesizer/study-v1.6-every-slider-shows/index.html)
+- [Contact sheet: every slider at its low end (left) and high end (right).](Projects/Waveguide Synthesizer/offline-v1.6/every-slider-shows.png)
+- [Hovering 'nut loss': the steel post on the left glows.](Projects/Waveguide Synthesizer/offline-v1.6/board-frame-hover-nut.png)
+- [Drives each slider end to end in Chrome, photographs it, and compares the output level with v1.5.](Projects/Waveguide Synthesizer/offline-v1.6/slider_sheet.mjs)
+- [Lays those photos out as the contact sheet.](Projects/Waveguide Synthesizer/offline-v1.6/contact_sheet.mjs)
+- [The run: meters for v1.5 and v1.6, every shot taken, no errors.](Projects/Waveguide Synthesizer/offline-v1.6/slider-sheet.json)
+
+_Each slider and what it now changes in the picture_
+| slider | what moves on screen | low end | high end |
+| --- | --- | --- | --- |
+| pitch | beads, one per sample | 60 Hz: a dense bead line | 880 Hz: 27 beads you can count |
+| brightness | string colour | ember red, dies fast | white-hot, rings |
+| bridge loss | brass block, right | squat, dim, haloed: soaks | tall, lit: gives it all back |
+| nut loss | steel post, left | squat, dim, haloed | tall, lit |
+| stiffness | string thickness | wire | rod |
+| pickup | labelled ring | near the nut | near the bridge |
+| bow speed | bow arrow length | short | long |
+| bow force | bow width and glow | thin, faint (the bow skates) | wide, bright |
+| bow position | where the bow sits | mid-string | near the bridge |
+
+_Left rough:_ I've only checked this with screenshots. I haven't seen it move at full speed, and I can't tell whether the flare on hover is strong enough when you're actually playing. The 'slow motion' slider is the one control that still has no object in the scene, because it's a viewing control, not part of the string. The brightness colour at the dark end reads salmon-red in screenshots rather than a deep ember.
+
+_Next moves named:_ Your eyes on v1.6: tell me which links still don't read, and I'll strengthen those first. · Then the body, as your note orders it: a soundboard the bridge sits on, drawn so you can see it take energy from the string.
+<sub>`waveguide-synthesizer-steward-032` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="waveguide-synthesizer-steward-030" -->
 ### 2026-10-13 — cycle 12 — Stiffness now means the same at every pitch: at slider 0.67, partial 8 runs about 54 cents sharp from E2 to E5. Before, it ran 2 cents sharp at E2 and 640 at E5.
 > shipped · Study v1.5 · even stiffness · steward leans four strings next

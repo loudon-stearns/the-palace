@@ -1,0 +1,135 @@
+{
+ "meters": {
+  "v15": -9.6,
+  "v16": -9.6
+ },
+ "shots": [
+  {
+   "id": "freq",
+   "name": "pitch",
+   "tag": "lo",
+   "val": 60,
+   "file": "frames/freq-lo.png"
+  },
+  {
+   "id": "freq",
+   "name": "pitch",
+   "tag": "hi",
+   "val": 880,
+   "file": "frames/freq-hi.png"
+  },
+  {
+   "id": "bright",
+   "name": "brightness",
+   "tag": "lo",
+   "val": 0,
+   "file": "frames/bright-lo.png"
+  },
+  {
+   "id": "bright",
+   "name": "brightness",
+   "tag": "hi",
+   "val": 1,
+   "file": "frames/bright-hi.png"
+  },
+  {
+   "id": "bridge",
+   "name": "bridge loss",
+   "tag": "lo",
+   "val": 0.9,
+   "file": "frames/bridge-lo.png"
+  },
+  {
+   "id": "bridge",
+   "name": "bridge loss",
+   "tag": "hi",
+   "val": 1,
+   "file": "frames/bridge-hi.png"
+  },
+  {
+   "id": "nut",
+   "name": "nut loss",
+   "tag": "lo",
+   "val": 0.9,
+   "file": "frames/nut-lo.png"
+  },
+  {
+   "id": "nut",
+   "name": "nut loss",
+   "tag": "hi",
+   "val": 1,
+   "file": "frames/nut-hi.png"
+  },
+  {
+   "id": "stiff",
+   "name": "stiffness",
+   "tag": "lo",
+   "val": 0,
+   "file": "frames/stiff-lo.png"
+  },
+  {
+   "id": "stiff",
+   "name": "stiffness",
+   "tag": "hi",
+   "val": 1,
+   "file": "frames/stiff-hi.png"
+  },
+  {
+   "id": "pick",
+   "name": "pickup",
+   "tag": "lo",
+   "val": 0.1,
+   "file": "frames/pick-lo.png"
+  },
+  {
+   "id": "pick",
+   "name": "pickup",
+   "tag": "hi",
+   "val": 0.9,
+   "file": "frames/pick-hi.png"
+  },
+  {
+   "id": "bspd",
+   "name": "bow speed",
+   "tag": "lo",
+   "val": 0,
+   "file": "frames/bspd-lo.png"
+  },
+  {
+   "id": "bspd",
+   "name": "bow speed",
+   "tag": "hi",
+   "val": 1,
+   "file": "frames/bspd-hi.png"
+  },
+  {
+   "id": "bfrc",
+   "name": "bow force",
+   "tag": "lo",
+   "val": 0,
+   "file": "frames/bfrc-lo.png"
+  },
+  {
+   "id": "bfrc",
+   "name": "bow force",
+   "tag": "hi",
+   "val": 1,
+   "file": "frames/bfrc-hi.png"
+  },
+  {
+   "id": "bpos",
+   "name": "bow position",
+   "tag": "lo",
+   "val": 0.55,
+   "file": "frames/bpos-lo.png"
+  },
+  {
+   "id": "bpos",
+   "name": "bow position",
+   "tag": "hi",
+   "val": 0.95,
+   "file": "frames/bpos-hi.png"
+  }
+ ],
+ "errors": []
+}
