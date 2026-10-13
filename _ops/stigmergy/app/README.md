@@ -84,6 +84,10 @@ inline in the message row.
   table lives in `server/http.js`), `Content-Length`, and `Cache-Control: no-cache`.
 - `400` on a missing/empty path, path traversal, an absolute path, or a
   directory. `404` when the file does not exist.
+- An `.html`, `.htm` or `.svg` comes with `Content-Security-Policy: sandbox
+  allow-scripts`: opened in a frame or a tab of its own, it runs in an opaque
+  origin, never as STIGMERGY. A page that fetches a file beside it, or uses
+  `localStorage`, cannot do so here.
 - The `path` is resolved through the same `resolveInsidePalace` guard as
   `GET /api/open`: nothing outside the palace root is reachable, and that is
   judged by where the path really lands, so a symlink in the palace that points

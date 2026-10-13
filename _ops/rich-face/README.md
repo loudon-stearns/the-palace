@@ -77,6 +77,13 @@ The page is served from STIGMERGY's origin, so anything that runs in it runs as 
   applies to all served HTML. A piece's origin is opaque: it cannot call STIGMERGY's API, read the
   page, or use storage, and it fetches nothing from the palace (classic `<script src>`, `<audio>`,
   `<img>` and fonts still load). The page knows a piece by its frame, never by origin.
+- **The server sandboxes it too.** Every palace `.html`, `.htm` and `.svg` under `/rich/<path>` (and
+  STIGMERGY's `GET /api/file`) comes with `Content-Security-Policy: sandbox allow-scripts`, so a piece
+  opened any other way — a link in the prose, a new tab — still runs in an opaque origin. Only the
+  renderer itself (`/rich/`), `_rich/parse.js` and `_vendor/*` come without it.
+- **Every link goes to the web, to mail, or into the palace.** After marked, the HTML is parsed inert
+  and every element and attribute the page did not choose is dropped; an `href` or `src` survives only
+  if it resolves to `http:`, `https:` or `mailto:` (a relative palace path resolves to the page's own).
 - **An entry's own HTML is shown, not run.** Comments stay unseen; tags with no attributes from a
   short list (`b`, `i`, `em`, `strong`, `sub`, `sup`, `br`, `kbd` …) and a `div` or `span` whose one
   attribute is a `class` still render; any other tag is escaped and shows as written. Diagrams render
