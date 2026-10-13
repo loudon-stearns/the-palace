@@ -19,6 +19,7 @@ const KIND_LABEL = {
   handoff_ready: 'HANDOFF READY',
   vector_proposal: 'WEAVE PROPOSAL',
   weave_flag: 'WEAVE FLAG',
+  human_eval: 'REVIEW NOTE',
   stigmergy_todo: 'TODO',
 };
 const KIND_COLOR = {
@@ -29,6 +30,9 @@ const KIND_COLOR = {
   // standing audits, not active proposals; the muted chip keeps them
   // legible without competing visually with vector_proposal cards.
   weave_flag: 'var(--phosphor-dim)',
+  // Loudon's own notes from a page's rich face read in bright green -- his word
+  // on a page, apart from the swarm's proposals and the companion's to-dos.
+  human_eval: 'var(--ansi-bright-green)',
   // A STIGMERGY-dev to-do (Companion-captured feedback) reads in amber -- the
   // companion's own "look at this" accent -- so it stands apart from palace work.
   stigmergy_todo: 'var(--ansi-bright-yellow)',
@@ -107,6 +111,7 @@ export default function QueueItem({ item, onJump, onClear, onDismissHandoff, onC
     && (item.kind === 'resource_request'
         || item.kind === 'vector_proposal'
         || item.kind === 'weave_flag'
+        || item.kind === 'human_eval'
         || item.kind === 'stigmergy_todo')
     && typeof onRespond === 'function';
 
