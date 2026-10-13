@@ -103,8 +103,12 @@ test('a missing fragment fails loud, never writes a footerless baton', () => {
     // the script with no sibling fragment is the missing-fragment case. It must refuse
     // before writing anything — a baton without the checklist is unfinished, because
     // the catcher reads the baton and never the ceremony.
+    // The resolver it imports rides along, so the refusal below is the missing
+    // fragment's and not a missing import's.
     mkdirSync(join(tree, '_ops/closing-well'), { recursive: true });
+    mkdirSync(join(tree, '_ops/models'), { recursive: true });
     cpSync(EXECUTOR, join(tree, '_ops/closing-well/baton-executor.mjs'));
+    cpSync(join(PALACE, '_ops/models/latest-opus.mjs'), join(tree, '_ops/models/latest-opus.mjs'));
     writeFileSync(join(tree, 'Test Entry.md'), '# Test Entry\n');
     const bodyFile = join(tree, 'body.md');
     writeFileSync(bodyFile, '## Move\nx\n');
@@ -114,6 +118,7 @@ test('a missing fragment fails loud, never writes a footerless baton', () => {
       '--entry', 'Test Entry', '--move', 'm', '--body-file', bodyFile,
       '--session-id', 'test', '--owner', PALACE, '--tree', tree, '--write',
     ], { encoding: 'utf8', stdio: 'pipe' }),
+    /canonical On-pickup checklist is missing/,
     'the executor ran with no canonical checklist available — it must refuse instead');
   } finally {
     rmSync(tree, { recursive: true, force: true });
