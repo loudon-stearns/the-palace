@@ -12,7 +12,7 @@
   ],
   "model": {
     "provider": "anthropic",
-    "name": "claude-opus-4-7",
+    "name": "opus",
     "endpoint": "https://api.anthropic.com/v1"
   },
   "tool_registry": [
