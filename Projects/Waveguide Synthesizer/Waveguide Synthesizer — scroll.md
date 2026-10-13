@@ -15,31 +15,32 @@ forward_vector: "I am Waveguide Synthesizer's scroll — the one page that alway
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T18:21:44.861Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T18:26:56.396Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 10 · last ran 2026-10-13 (today)
-- **Plan:** none agreed yet — the work leans on the forward vector
+- **Status:** active · **Stage:** growing · **Steward:** cycle 11 · last ran 2026-10-13 (today)
+- **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
-- **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — Can you hear the string now? Press play on the tour WAV, then click the big button in v1.3. (`waveguide-synthesizer-steward-025`)
-- **Last commit touching this project:** 2026-09-25 `57f7c67e` — ops(history): cited commit hashes follow the rewritten history
+- **Ready to advance:** 1 answer filed since the steward last ran — a cycle will consume it
+- **Last shipped:** 2026-10-13 (today) — Shall this be the plan for the stage-ready version: bow, even stiffness, four strings, a body, a teaching walk, then the stage question? (`waveguide-synthesizer-steward-028`)
+- **Last commit touching this project:** 2026-10-13 `518b56bf` — steward(Waveguide Synthesizer): cycle 10 — SPINNING UP. HOME: [[Waveguide Synthesizer]]. Neighborhood loaded. Cycl…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Waveguide Synthesizer is a browser instrument where the string on screen is the sound. Two delay lines carry a right-going and a left-going wave. Their sum is the orange line you see, and the speaker hears that same line at one point, the pickup. Earlier versions put it in tune, made stiffness stretch the partials like a piano string, and added slow views so you can watch a 196 Hz string move. You picked the strobe as the view it opens in. You also told me you couldn't hear anything. This cycle found out why: the sound engine worked, but the board shows the page in a 480-pixel window that can't scroll, and the pluck buttons sat below its bottom edge. Study v1.3 opens with one big button tha…
+Waveguide Synthesizer is the browser string whose on-screen wave is the sound. Two delay lines carry a right-going and a left-going wave; their sum is the orange line, and the speaker hears that line at one point. Earlier versions tuned it, made stiffness stretch it like a piano string, added a slow strobe view so you can watch a 196 Hz string move, and, last cycle, fixed the reason you heard nothing (the buttons sat below the board frame's bottom edge). Until now you could only pluck or strike it. This cycle added a bow. Study v1.4 sustains a note for as long as you hold the bow button or the B key. The strobe view shows the classic bowed-string shape, two straight lines meeting at one cor…
 
 ### Open asks
 
-- `waveguide-synthesizer-steward-025` — directional_decision · posted 2026-10-13 · options: HEARD-BOTH · WAV-ONLY · STILL-SILENT
+- `waveguide-synthesizer-steward-028` — proposed plan revision: a plan for the stage-ready string · posted 2026-10-13 · options: adopt · keep · REORDER
 
 ### Answered, not yet consumed
 
-_None._
+- `waveguide-synthesizer-steward-025` — GRANTED — option_id=HEARD-BOTH · answered 2026-10-13 — waiting for the next cycle
 
 ### Decided
 
+- `waveguide-synthesizer-steward-025` — directional_decision → GRANTED — option_id=HEARD-BOTH (2026-10-13)
 - `waveguide-synthesizer-steward-022` — directional_decision → GRANTED — option_id=STROBE-DEFAULT; notes: "I am unable to hear anything in any of these examples, I wonder why this is?" (2026-09-24)
 - `waveguide-synthesizer-steward-014` — directional_decision → GRANTED — option_id=DROP-DECOMPOSITION (2026-06-25)
 
@@ -60,6 +61,69 @@ Written by Claude on Loudon's behalf, 2026-09-23: your last two cycles posted no
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="waveguide-synthesizer-steward-028" -->
+### 2026-10-13 — cycle 11 — Shall this be the plan for the stage-ready version: bow, even stiffness, four strings, a body, a teaching walk, then the stage question?
+> still working · bow shipped in v1.4 · steward leans adopt
+
+Waveguide Synthesizer is the browser string whose on-screen wave is the sound. It has no agreed plan; I've been working from the page's own aim. The working instrument exists now: a tuned string you can pluck, strike, stiffen, watch slowly, and as of this cycle bow. What's left is the stage-ready version, and it has six steps, so a plan would help. The bow came first because it's the clearest proof yet of the project's bet: the corner you see running round the string is the stick-slip you hear. The other steps are what the page itself names as open questions: how many strings, what body, does 3D teach better, does it earn a stage. Breath and tubes stay out until there's a reason. Adopting it changes nothing today; I keep building in this order. If you keep the current plan, I keep following the page's aim one step at a time.
+
+**Artifacts:**
+- [board-frame-v1.2-why-silent.png](Projects/Waveguide Synthesizer/offline-v1.3/board-frame-v1.2-why-silent.png)
+- [board-frame-sounding.png](Projects/Waveguide Synthesizer/offline-v1.3/board-frame-sounding.png)
+- [board-frame-before-click.png](Projects/Waveguide Synthesizer/offline-v1.3/board-frame-before-click.png)
+- [listening-tour-v1.3.wav](Projects/Waveguide Synthesizer/offline-v1.3/listening-tour-v1.3.wav)
+- [index.html](Projects/Waveguide Synthesizer/study-v1.3-audible/index.html)
+<sub>`waveguide-synthesizer-steward-028` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="waveguide-synthesizer-steward-027" -->
+### 2026-10-13 — cycle 11 — The string can be bowed now. Hold B and it sings, and on screen one sharp corner runs round the string once a cycle: the bow catching and letting go.
+> shipped · v1.4 bows, checked in the board's frame · steward leans propose-the-plan next
+
+How the bow works. The rails carry displacement, but a bow acts on velocity: friction depends on how fast the string slides under the hair. So at the bow point, each sample, the engine reads the speed of each wave arriving, asks a friction curve how hard the hair grips at that slip speed, and pushes the difference into both waves leaving. Near zero slip the hair grips and the string rides with the bow. Past a threshold it lets go and the string flies back. That catch-and-release, once a cycle, is Helmholtz motion. The proof is the second image: at the defaults the bow point rides at exactly the bow's speed for 74.7% of each cycle, and theory says 74%, the bow's position along the string.
+
+What you can find with the sliders. Bow speed against force gives Schelleng's diagram, which every string player knows by feel. Too light and fast, the bow skates or slips twice a cycle (a breathy surface sound). Too heavy and slow, it drags the string aside and sticks. In between is a wide band where it sings, and the band tilts the way the textbook says: bow faster and you need more force. Bow position matters too. Near simple fractions of the string (a fifth, a sixth, a seventh of the way from the bridge) the single slip breaks into two. That is real violin physics, made sharper here because the bow point snaps to whole samples. I set the defaults (speed 0.5, force 0.7, position 0.74) where it sings at all eight test pitches, E2 to E5.
+
+What the bow forced me to fix underneath. (1) The ends now hold perfectly still at zero frequency. Before, they let a sliver of steady push leak through, and a bowed string crept off its rest line without limit. (2) The rails are double precision, because a held bow leaves large, exactly cancelling offsets on them. (3) Sliding the bow mid-note carries those offsets along, and a note change rebuilds the rails from the string's current shape. Before I fixed those two, either move blew the output up to +60 dBFS. (4) A 10 Hz DC blocker and a soft safety limiter on the output. The limiter is exactly linear below −6 dBFS, so plucks pass through it untouched. Plucks against v1.3: same pitch to the measurement's limit, same level within 0.2 dB, about 5% longer ring.
+
+Checked in Chrome inside the board's exact sandbox at 480 pixels tall. One click on the door plucks at −10 dBFS. Holding the bow button reaches −15.8 dBFS, and so does holding B. Both work again with the audio-thread engine forced to fail. No page errors.
+
+**Artifacts:**
+- [start here: 29 s through the bow, from a held G3 and a pluck of the same note to a crescendo, the bow locking into a single slip, too light, crushed, a stiff string, and a four-note line.](Projects/Waveguide Synthesizer/offline-v1.4/bow-tour-v1.4.wav)
+- [Study v1.4: click the door, then hold 'bow' or the B key. The pale bar is the bow; open 'sliders' for speed, force and position.](Projects/Waveguide Synthesizer/study-v1.4-bow/index.html)
+- [v1.4 in the board's 480-pixel frame while the bow is held: the Helmholtz corner at the bow, strobe view.](Projects/Waveguide Synthesizer/offline-v1.4/board-frame-bowing.png)
+- [the proof: the string at 8 moments of a cycle; the bow point riding the bow's speed for 74.7% of each cycle (theory: 74%), then flying back; and what the pickup hears.](Projects/Waveguide Synthesizer/offline-v1.4/bow-helmholtz-check.png)
+- [where the bow sings: speed against force (skates, slips twice, sings, raucous, stuck), and position against pitch, with the double-slip bands near 1/5, 1/6 and 1/7 of the string.](Projects/Waveguide Synthesizer/offline-v1.4/schelleng-map.png)
+- [renders the tour through the page's own worklet code, headless, and measures each section.](Projects/Waveguide Synthesizer/offline-v1.4/render_bow_tour.py)
+- [the table below, as data.](Projects/Waveguide Synthesizer/offline-v1.4/bow-tour-measurements.json)
+- [sorts 187 bowed notes into Schelleng's regions by what the bow point does.](Projects/Waveguide Synthesizer/offline-v1.4/schelleng_map.mjs)
+- [the speed-against-force map, as data.](Projects/Waveguide Synthesizer/offline-v1.4/schelleng-map.json)
+- [counts slips a cycle at 8 pitches across 23 bow positions.](Projects/Waveguide Synthesizer/offline-v1.4/position_map.mjs)
+- [the position-against-pitch map, as data.](Projects/Waveguide Synthesizer/offline-v1.4/position-map.json)
+- [draws both maps.](Projects/Waveguide Synthesizer/offline-v1.4/schelleng_plot.py)
+- [watches the bowed string every 4th sample and draws the proof image.](Projects/Waveguide Synthesizer/offline-v1.4/bow_shape.py)
+- [plucks and strikes through v1.3 and v1.4 side by side: did the changes underneath change the pluck?](Projects/Waveguide Synthesizer/offline-v1.4/pluck_vs_v13.py)
+- [the answer: same pitch, level within 0.2 dB, about 5% longer ring.](Projects/Waveguide Synthesizer/offline-v1.4/pluck-vs-v1.3.json)
+- [loads v1.4 in the board's exact sandbox in Chrome, clicks the door, holds the bow and the B key, reads the meter, screenshots.](Projects/Waveguide Synthesizer/offline-v1.4/frame_probe.mjs)
+
+_the bow tour, v1.4 engine, 48 kHz · peak includes the first instant of each stroke_
+| starts | section | peak dBFS | pitch vs slider (cents) |
+| --- | --- | --- | --- |
+| 0.0 s | bowed G3 196 Hz: held, lifted, rings on | −5.6 | +1.7 |
+| 3.8 s | plucked, same note, for comparison | −10.0 | +0.1 |
+| 6.3 s | crescendo: bow speed 0.1 → 0.9 | −5.7 | +1.7 |
+| 10.2 s | bow at 0.78 (slips 3–4 times a cycle), slid to 0.74: locks to one | −5.6 | +1.3 |
+| 14.8 s | too light: force 0.1, fast bow, slips twice | −29.6 | +1.3 |
+| 17.8 s | crushed: force 1.0, slow bow, drags, creaks, sticks | −0.4 | −1.5 |
+| 20.7 s | stiff bowed string, stiffness 0.5, C4 | −2.7 | +5.0 |
+| 23.8 s | a line: G3 D4 B3 G3, one stroke each | −4.7 | +1.7 |
+
+_Left rough:_ I can't listen. The ear on this is still the meter and the measurements, and the tour is the first real test of whether the bow sounds like a bow or a buzzing wire. A held bow settles about 9 dB quieter than a pluck's first instant (around −20 dBFS once it settles), so turn up a little for it. The bowed string leans visibly to one side on screen. Real bowed strings do too, but less than this. And the crushed section's first instant is a thump the safety limiter catches.
+
+_Next moves named:_ Propose the plan for the stage-ready version: the bow (this cycle), one stiffness that means the same stretch at every pitch, four strings, a body, a guided teaching walk, and the stage-or-test-bed question. The plan is asked in a separate card. · Put a live dot on the Schelleng map inside the page, so you can watch where your bow sits while you play. · Make stiffness mean the same stretch at every pitch, the way a piano's is set string by string, and label the slider.
+<sub>`waveguide-synthesizer-steward-027` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="waveguide-synthesizer-steward-025" -->
 ### 2026-10-13 — cycle 10 — Can you hear the string now? Press play on the tour WAV, then click the big button in v1.3.
 > still working · silence explained and fixed · no clear lean, only your ears can tell

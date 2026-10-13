@@ -1,0 +1,60 @@
+{
+ "columns": [
+  "starts (s)",
+  "section",
+  "peak dBFS",
+  "pitch vs slider (cents, 0.6\u20131.1 s)"
+ ],
+ "rows": [
+  [
+   "0.0",
+   "bowed G3 (196 Hz): bow on, held, lifted; the string rings on",
+   "-5.6",
+   "+1.7"
+  ],
+  [
+   "3.8",
+   "plucked, same string, same note, for comparison",
+   "-10.0",
+   "+0.1"
+  ],
+  [
+   "6.3",
+   "a crescendo: bow speed from 0.1 to 0.9 over three seconds",
+   "-5.7",
+   "+1.7"
+  ],
+  [
+   "10.2",
+   "bow moved to 0.78, a double-slip spot, then slid back to 0.74: hear it lock",
+   "-5.6",
+   "+1.3"
+  ],
+  [
+   "14.8",
+   "too light: force 0.1 at a fast bow, and it slips twice a cycle",
+   "-29.6",
+   "+1.3"
+  ],
+  [
+   "17.8",
+   "crushed: force 1.0 at a slow bow: it drags the string aside, creaks, and sticks",
+   "-0.4",
+   "-1.5"
+  ],
+  [
+   "20.7",
+   "a stiff bowed string, stiffness 0.5, C4",
+   "-2.7",
+   "+5.0"
+  ],
+  [
+   "23.8",
+   "a slow line: G3 D4 B3 G3, one stroke each",
+   "-4.7",
+   "+1.7"
+  ]
+ ],
+ "seconds": 29.2,
+ "tour_peak_dbfs": -0.4
+}
