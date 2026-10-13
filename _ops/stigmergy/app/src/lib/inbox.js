@@ -223,13 +223,25 @@ export function tagRecommendation(options, { ground, rationale } = {}) {
   };
 }
 
-export function buildInbox(messages) {
-  if (!Array.isArray(messages)) return { pending_requests: [] };
+// The TRICKSTER-board RESOURCE_REQUESTs no grant or deny has answered yet —
+// one predicate for the deck's cards and the tab's "(N PENDING)" badge, so the
+// two cannot disagree.
+//
+// Correlation matches BOTH ids, mirroring the write path: response-builder
+// sets `re: request.request_id ?? request.id`, so a request carrying no
+// top-level `request_id` is answered by its own message `id`. Reading only
+// `request_id` made `responded.has(undefined)` always false — such a card
+// could never be cleared, no matter how many valid grants were filed against
+// it. Two live cases sat on the deck for months (Shopkeeper 2026-06-23, Sam
+// Maloof 2026-07-05 — the latter answered 2026-08-25 and still rendering).
+// Read and write must agree on the correlation key or cards become zombies.
+export function unansweredRequests(messages) {
+  if (!Array.isArray(messages)) return [];
 
   // Restrict to TRICKSTER-board messages — the protocol surface.
   const trickster = messages.filter((m) => m && m.board === 'TRICKSTER');
 
-  // Build a set of request_ids that have already been responded to.
+  // Build a set of ids that have already been responded to.
   const responded = new Set();
   for (const m of trickster) {
     if ((m.type === 'RESOURCE_GRANT' || m.type === 'RESOURCE_DENY') && m.re) {
@@ -237,22 +249,23 @@ export function buildInbox(messages) {
     }
   }
 
-  // Filter for unresponded RESOURCE_REQUESTs and shape them per §2.6.
-  //
-  // Correlation matches BOTH ids, mirroring the write path: response-builder
-  // sets `re: request.request_id ?? request.id`, so a request carrying no
-  // top-level `request_id` is answered by its own message `id`. Reading only
-  // `request_id` made `responded.has(undefined)` always false — such a card
-  // could never be cleared, no matter how many valid grants were filed against
-  // it. Two live cases sat on the deck for months (Shopkeeper 2026-06-23, Sam
-  // Maloof 2026-07-05 — the latter answered 2026-08-25 and still rendering).
-  // Read and write must agree on the correlation key or cards become zombies.
   const isResponded = (m) =>
     (m.request_id != null && responded.has(m.request_id)) ||
     (m.id != null && responded.has(m.id));
 
-  const pending_requests = trickster
-    .filter((m) => m.type === 'RESOURCE_REQUEST' && !isResponded(m))
+  return trickster.filter((m) => m.type === 'RESOURCE_REQUEST' && !isResponded(m));
+}
+
+// How many TRICKSTER requests are waiting — the count on the TRICKSTER tab.
+export function pendingTricksterCount(messages) {
+  return unansweredRequests(messages).length;
+}
+
+export function buildInbox(messages) {
+  if (!Array.isArray(messages)) return { pending_requests: [] };
+
+  // Shape each unanswered request per §2.6.
+  const pending_requests = unansweredRequests(messages)
     .map((m) => {
       const payload = m.payload || {};
       // Catchup fields — see voice rule 6 in prompts/shared.md.
