@@ -15,9 +15,12 @@
 // If no --path is given, whatever is already staged is used. With --only, the
 // commit holds exactly the named paths — anything else already staged by
 // another writer stays staged and out of this commit (`git commit --only`),
-// and the new hash is printed as `palace-commit: committed <hash>`. Stale Cowork git
-// locks are cleared first (the known sharp edge). With --dry-run it prints the
-// message it WOULD commit and exits without committing.
+// and the new hash is printed as `palace-commit: committed <hash>`. A stale git
+// lock (old, with no git running in this checkout) is cleared first and said so;
+// a live one is waited out and then refused with exit 75, never deleted from
+// under another session's commit (server/git-locks.js). With --dry-run it
+// prints the message it WOULD commit and exits without committing, and touches
+// no lock at all.
 //
 // A move (`git mv`): name BOTH sides, `--path "<old>" --path "<new>"` (files or
 // folders). The trailers are then derived against the entry at its old path, so
@@ -40,6 +43,7 @@ import { resolve, join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { deriveTrailers, formatCommitMessage, parseNameStatus } from '../src/lib/commit-spec.js';
 import { diffEntryText } from '../src/lib/frontmatter-diff.js';
+import { clearStaleLocksSync, LockHeldError } from '../server/git-locks.js';
 
 function git(palaceRoot, args, { allowFail = false } = {}) {
   try {
@@ -50,15 +54,9 @@ function git(palaceRoot, args, { allowFail = false } = {}) {
   }
 }
 
-// Clear stale Cowork git locks (harmless if none). The known sharp edge.
-export function clearStaleLocks(palaceRoot) {
-  for (const f of ['.git/HEAD.lock', '.git/index.lock']) {
-    const p = resolve(palaceRoot, f);
-    if (existsSync(p)) {
-      try { rmSync(p); } catch (_) { /* ignore */ }
-    }
-  }
-}
+// Lock handling lives in server/git-locks.js, shared with the STIGMERGY
+// server's committer. Re-exported under the old name for existing callers.
+export { clearStaleLocksSync as clearStaleLocks, LockHeldError };
 
 // The staged name-status rows ({ status, path, renamedFrom }), optionally
 // scoped to `onlyPaths`.
@@ -181,7 +179,17 @@ function main() {
     process.exit(2);
   }
 
-  clearStaleLocks(palaceRoot);
+  // A stale lock goes; a live one is waited out and then refused, never
+  // deleted from under another session's commit. A dry run touches none.
+  try {
+    clearStaleLocksSync(palaceRoot, { dryRun: !!opts.dryRun, tag: 'palace-commit' });
+  } catch (e) {
+    if (e instanceof LockHeldError) {
+      process.stderr.write(`${e.message}\n`);
+      process.exit(75); // EX_TEMPFAIL: try again shortly
+    }
+    throw e;
+  }
 
   // Stage explicitly-named paths (NEVER -A). A path that is already a staged
   // deletion is skipped: `git add` dies on it ("pathspec did not match any

@@ -23,7 +23,7 @@ import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { checkAllowList, checkPathSafety } from '../src/lib/entry-edit.js';
 import { execGit } from './git-wrapper.js';
-import { commitSelected, clearStaleLocks } from './commit.js';
+import { commitSelected, clearStaleLocks, LockHeldError } from './commit.js';
 import { formatScalar } from '../src/lib/yaml-emit.js';
 
 // Split an entry into its verbatim frontmatter block (fences included) and its
@@ -465,7 +465,6 @@ export async function armedWriteEntry({
   const abs = resolve(repoRoot, relPath);
   try {
     mkdirSync(dirname(abs), { recursive: true });
-    clearStaleLocks(repoRoot);
     writeFileSync(abs, pv.after, 'utf8');
   } catch (e) {
     return { ok: false, error: `write failed: ${e.message}` };
@@ -506,7 +505,12 @@ export async function revertCommit({ repoRoot, hash }) {
   const h = String(hash == null ? '' : hash).trim();
   if (!/^[0-9a-f]{7,40}$/i.test(h)) return { ok: false, error: 'invalid commit hash' };
 
-  clearStaleLocks(repoRoot);
+  try {
+    await clearStaleLocks(repoRoot, { tag: 'revert' });
+  } catch (e) {
+    if (e instanceof LockHeldError) return { ok: false, error: e.message };
+    throw e;
+  }
   const exists = await execGit(repoRoot, ['cat-file', '-e', `${h}^{commit}`], { allowFail: true });
   if (exists.failed) return { ok: false, error: 'commit not found' };
 
