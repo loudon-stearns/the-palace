@@ -37,7 +37,7 @@ Loudon asked for two ways to turn rich-face review notes into work. The first is
 
 ## Small things either way
 
-- Give the turn the page's open `human_eval` notes as grounding, so the window starts from what Loudon already said, the same thing step 1 of the draft Enrichment v2.4 asks a run to do.
+- Give the turn the page's open `human_eval` notes as grounding, so the window starts from what Loudon already said, the same thing [[Enrichment]]'s step 1 asks a run to do.
 - Never mount it on the public read view (`RICH_STATIC`, `rich.html:180–184`).
 - `companion-lane.js:33` pins `DEFAULT_MODEL = 'opus'`. That line is changing under the latest-Opus resolver baton (`STIGMERGY/STIGMERGY — baton — latest-opus-resolver.md`), so build against whatever it becomes.
 
