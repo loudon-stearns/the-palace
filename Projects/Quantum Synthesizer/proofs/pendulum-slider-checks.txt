@@ -1,0 +1,12 @@
+== pendulum-slider.html solver (node) vs numpy eigh, K = 40 ==
+  q =   0.0: levels max diff 0.0e+00 · ratios 0.0e+00 · loudness shape 1.0e-15 · first ratios 1.00 1.00 4.00 4.00 9.00 9.00
+  q =   0.5: levels max diff 5.8e-13 · ratios 4.8e-12 · loudness shape 7.3e-15 · first ratios 1.00 1.10 3.77 3.77 8.34 8.34
+  q =   1.5: levels max diff 5.1e-13 · ratios 1.1e-11 · loudness shape 2.7e-14 · first ratios 1.00 1.45 3.13 3.14 6.38 6.38
+  q =   3.0: levels max diff 2.8e-13 · ratios 8.4e-12 · loudness shape 3.0e-14 · first ratios 1.00 1.75 2.78 2.87 5.03 5.03
+  q =   6.0: levels max diff 5.1e-13 · ratios 5.4e-13 · loudness shape 1.4e-14 · first ratios 1.00 1.90 2.72 3.16 4.33 4.36
+  q =  10.0: levels max diff 6.8e-13 · ratios 2.0e-12 · loudness shape 1.2e-14 · first ratios 1.00 1.93 2.78 3.50 4.27 4.48
+  q =  18.0: levels max diff 1.4e-12 · ratios 4.9e-13 · loudness shape 1.3e-14 · first ratios 1.00 1.95 2.85 3.69 4.46 5.11
+  q =  32.0: levels max diff 9.1e-13 · ratios 2.8e-13 · loudness shape 1.3e-14 · first ratios 1.00 1.97 2.89 3.78 4.63 5.42
+  q =  40.0: levels max diff 8.5e-13 · ratios 5.0e-12 · loudness shape 8.3e-15 · first ratios 1.00 1.97 2.91 3.81 4.67 5.50
+  worst: levels 1.4e-12, ratios 1.1e-11, loudness 3.0e-14
+  PASS

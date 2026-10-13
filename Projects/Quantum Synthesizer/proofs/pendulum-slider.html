@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<title>Quantum pendulum · depth slider · Study</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --info:#4a8fff;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif;
+    --sans:'Manrope',system-ui,-apple-system,'Segoe UI',Helvetica,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    --ease:cubic-bezier(.4,0,.2,1);
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg-1); font-family:var(--sans); }
+  main { max-width:1080px; margin:0 auto; padding:28px 24px 40px; }
+  .eyebrow { font-family:var(--mono); font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--fg-3); }
+  h1 { font-family:var(--serif); font-weight:500; font-size:40px; margin:6px 0 4px; }
+  .lead { font-family:var(--serif); font-size:19px; line-height:1.6; color:var(--fg-2); max-width:760px; margin:0 0 18px; }
+  .eq { font-family:var(--mono); font-size:13px; color:var(--fg-2); background:var(--bg-elev-1); border:1px solid var(--border-soft); border-radius:6px; padding:10px 14px; margin:0 0 20px; line-height:1.8; }
+  .eq .w { color:var(--fg-3); }
+  .stage { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .panel { background:var(--bg-elev-1); border:1px solid var(--border-soft); border-radius:8px; padding:12px; }
+  .panel h2 { font-family:var(--mono); font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--fg-3); font-weight:400; margin:0 0 8px; }
+  canvas { width:100%; height:340px; display:block; }
+  .controls { margin:18px 0 0; background:var(--bg-elev-1); border:1px solid var(--border-soft); border-radius:8px; padding:16px; }
+  .row { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .slider-wrap { position:relative; flex:1; min-width:260px; }
+  input[type=range] { width:100%; accent-color:var(--accent); }
+  .pins { position:relative; height:14px; }
+  .pin { position:absolute; top:0; transform:translateX(-50%); color:var(--accent); font-size:12px; cursor:pointer; }
+  .readout { font-family:var(--mono); font-size:13px; color:var(--fg-1); min-width:150px; }
+  button { font-family:var(--mono); font-size:12px; letter-spacing:0.08em; background:var(--bg-elev-2); color:var(--fg-1); border:1px solid var(--border); border-radius:6px; padding:8px 12px; cursor:pointer; transition:border-color .15s var(--ease); }
+  button:hover { border-color:rgba(232,184,74,0.55); }
+  button.primary { background:var(--accent); color:#0a0a0f; border-color:var(--accent); box-shadow:0 0 18px rgba(232,184,74,0.25); }
+  button.on { border-color:var(--accent); color:var(--accent); }
+  .presets { display:flex; gap:6px; flex-wrap:wrap; margin-top:10px; }
+  .presets button { padding:5px 9px; }
+  .ratios { font-family:var(--mono); font-size:13px; color:var(--fg-2); margin-top:12px; }
+  .ratios b { color:var(--accent); font-weight:500; }
+  .notes { font-family:var(--serif); font-size:17px; line-height:1.65; color:var(--fg-2); max-width:780px; margin-top:22px; }
+  .notes p { margin:0 0 10px; }
+  .review { margin-top:22px; border-top:1px solid var(--border-soft); padding-top:14px; }
+  .review textarea { width:100%; min-height:54px; background:var(--bg-elev-2); color:var(--fg-1); border:1px solid var(--border); border-radius:6px; font-family:var(--sans); font-size:14px; padding:8px; }
+  .review ul { list-style:none; padding:0; margin:8px 0; font-size:14px; color:var(--fg-2); }
+  .review li { margin:4px 0; }
+  .review li span { font-family:var(--mono); color:var(--accent); margin-right:8px; }
+  footer { margin-top:30px; font-family:var(--mono); font-size:11px; letter-spacing:0.18em; color:var(--fg-3); }
+  @media (max-width:800px) { .stage { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Quantum Synthesizer · Study · the quantum pendulum</div>
+  <h1>Drag the well. Hear the squares fold into a string.</h1>
+  <p class="lead">A particle on a ring, with one smooth bump on it. With no bump the energy levels go 1, 4, 9, 16: Schrödinger's squares. Deepen the bump and the bottom of the ladder relaxes toward 1, 2, 3, 4, because a small swing in any well is a harmonic oscillator. Each level gap is played as a partial, and the lowest one stays pinned at A3, so the only thing that moves is the spacing above it.</p>
+
+  <div class="eq">
+    i·∂ψ/∂t = −½·∂²ψ/∂x² + V₀·cos(2πx)<br>
+    <span class="w">i · (rate of change of the wave) = −½ · (how sharply the wave bends) + (bump height) · cos(2π · position round the ring)</span><br>
+    fₙ = 220 Hz × (Eₙ − E₀) / (E₁ − E₀)<br>
+    <span class="w">(nth partial) = A3 × (nth level's height above the floor) ÷ (first level's height above the floor)</span>
+  </div>
+
+  <div class="stage">
+    <div class="panel"><h2>The well and its ladder · gold swings, blue spins over the top</h2><canvas id="well"></canvas></div>
+    <div class="panel"><h2>The partials · grey = string 1·2·3 · dashed blue = squares 1·4·9</h2><canvas id="spec"></canvas></div>
+  </div>
+
+  <div class="controls">
+    <div class="row">
+      <div class="slider-wrap">
+        <div class="eyebrow">bump depth q</div>
+        <input id="depth" type="range" min="0" max="40" step="0.05" value="0">
+        <div class="pins" id="pins"></div>
+      </div>
+      <div class="readout" id="readout">q = 0.00</div>
+      <button id="hold" class="primary">▸ Hold the tone</button>
+      <button id="strike">● Strike</button>
+    </div>
+    <div class="presets" id="presets"></div>
+    <div class="ratios" id="ratios"></div>
+  </div>
+
+  <div class="notes">
+    <p><b>What to listen for.</b> Hold the tone and drag slowly from left to right. At zero the partials sit on the squares; it sounds hollow and bell-like, with a doubled fundamental because the ring lets the particle spin either way. Around q ≈ 6 the low partials land near 2 and 3. Past 20 they read about 1, 1.97, 2.89, 3.78: close to a string, but sagging, because a bigger swing of a real pendulum is a slower one.</p>
+    <p><b>What is physics and what is my choice.</b> The levels are solved here, live, from the equation above (an 81-term plane-wave basis, the same solve as <code>pendulum.py</code>). The loudness of each partial comes from a pluck at 0.40 round the ring and a pickup at 0.46; moving those changes the colour, not the spacing. The decay times are a synth choice.</p>
+  </div>
+
+  <div class="review" id="review">
+    <div class="eyebrow">◇ Review · pin a note to a depth</div>
+    <p class="notes" style="margin-top:6px;font-size:15px">Put the slider where something strikes you, write a line, and pin it. Each note is anchored to the depth you heard it at, and shows as a ◆ on the slider. Copy the lot for Claude when you're done.</p>
+    <textarea id="noteText" placeholder="e.g. around here it stops sounding like a bell…"></textarea>
+    <div class="row" style="margin-top:8px">
+      <button id="pinNote">◆ Pin at this depth</button>
+      <button id="copyNotes">Copy notes for Claude</button>
+      <button id="clearNotes">Clear</button>
+    </div>
+    <ul id="noteList"></ul>
+  </div>
+
+  <footer>Loud’n Live</footer>
+</main>
+
+<script id="core">
+// ---------- the physics: H = k^2 + q cos(2 pi x) in the plane-wave basis, |k| <= K ----------
+const K = 40, N = 2 * K + 1;
+const PLUCK = 0.40, PW = 0.022, PICK = 0.46, NPART = 40, F0 = 220;
+
+// symmetric tridiagonal eigensolver (implicit QL, Numerical Recipes tqli), eigenvectors in Z columns
+function tqli(d, e, z) {
+  const n = d.length;
+  for (let i = 1; i < n; i++) e[i - 1] = e[i];
+  e[n - 1] = 0;
+  for (let l = 0; l < n; l++) {
+    let iter = 0, m;
+    do {
+      for (m = l; m < n - 1; m++) {
+        const dd = Math.abs(d[m]) + Math.abs(d[m + 1]);
+        if (Math.abs(e[m]) <= 1e-15 * dd) break;
+      }
+      if (m !== l) {
+        if (iter++ === 60) throw new Error('tqli: too many iterations');
+        let g = (d[l + 1] - d[l]) / (2 * e[l]);
+        let r = Math.hypot(g, 1);
+        g = d[m] - d[l] + e[l] / (g + (g >= 0 ? Math.abs(r) : -Math.abs(r)));
+        let s = 1, c = 1, p = 0, i;
+        for (i = m - 1; i >= l; i--) {
+          let f = s * e[i]; const b = c * e[i];
+          e[i + 1] = (r = Math.hypot(f, g));
+          if (r === 0) { d[i + 1] -= p; e[m] = 0; break; }
+          s = f / r; c = g / r; g = d[i + 1] - p;
+          r = (d[i] - g) * s + 2 * c * b;
+          d[i + 1] = g + (p = s * r);
+          g = c * r - b;
+          for (let k2 = 0; k2 < n; k2++) {
+            f = z[k2][i + 1];
+            z[k2][i + 1] = s * z[k2][i] + c * f;
+            z[k2][i] = c * z[k2][i] - s * f;
+          }
+        }
+        if (r === 0 && i >= l) continue;
+        d[l] -= p; e[l] = g; e[m] = 0;
+      }
+    } while (m !== l);
+  }
+}
+
+function solve(q) {
+  const d = new Float64Array(N), e = new Float64Array(N);
+  for (let j = 0; j < N; j++) { const k = j - K; d[j] = k * k; }
+  for (let j = 1; j < N; j++) e[j] = q / 2;        // cos(2 pi x) couples k <-> k+-1 with q/2
+  const z = Array.from({ length: N }, (_, i) => { const r = new Float64Array(N); r[i] = 1; return r; });
+  tqli(d, e, z);
+  const idx = Array.from(d.keys()).sort((a, b) => d[a] - d[b]);
+  return { E: idx.map(i => d[i]), V: idx.map(i => Array.from({ length: N }, (_, j) => z[j][i])) };
+}
+
+// partials: f_n from level gaps, a_n = <pluck|phi_n> * phi_n(pickup)
+function strike(q) {
+  const { E, V } = solve(q);
+  const out = [];
+  const gap1 = E[1] - E[0] || 1;
+  for (let n = 1; n <= NPART; n++) {
+    let cr = 0, ci = 0, pr = 0, pi = 0;
+    for (let j = 0; j < N; j++) {
+      const k = j - K, c = V[n][j];
+      const g = Math.exp(-2 * Math.PI * Math.PI * k * k * PW * PW);   // Gaussian pluck's Fourier weight
+      cr += c * g * Math.cos(2 * Math.PI * k * PLUCK);
+      ci += -c * g * Math.sin(2 * Math.PI * k * PLUCK);
+      pr += c * Math.cos(2 * Math.PI * k * PICK);
+      pi += c * Math.sin(2 * Math.PI * k * PICK);
+    }
+    out.push({ ratio: (E[n] - E[0]) / gap1, amp: cr * pr - ci * pi, E: E[n] });
+  }
+  return { E, partials: out };
+}
+if (typeof module !== 'undefined') module.exports = { solve, strike };
+</script>
+
+<script>
+// ---------- drawing ----------
+const $ = id => document.getElementById(id);
+const wellC = $('well'), specC = $('spec');
+function fit(c) { const r = c.getBoundingClientRect(), s = devicePixelRatio || 1; c.width = r.width * s; c.height = r.height * s; const x = c.getContext('2d'); x.setTransform(s, 0, 0, s, 0, 0); return [x, r.width, r.height]; }
+const GOLD = '#e8b84a', BLUE = '#4a8fff', GREY = '#4a4a5e', FG3 = '#8a8aa0';
+
+let state = null, q = 0;
+
+function drawWell() {
+  const [x, w, h] = fit(wellC);
+  const { E } = state;
+  const lo = -q - 2, hi = Math.max(E[14], q + 8);
+  const Y = v => h - 18 - (v - lo) / (hi - lo) * (h - 30);
+  x.clearRect(0, 0, w, h);
+  // levels
+  for (let n = 0; n < 15; n++) {
+    const trapped = E[n] < q;
+    x.strokeStyle = trapped ? GOLD : BLUE; x.globalAlpha = trapped ? 0.9 : 0.55; x.lineWidth = 1.4;
+    let x0 = 8, x1 = w - 8;
+    if (trapped && q > 0) {   // span only the classically allowed region, like a pendulum's swing
+      const c = Math.max(-1, Math.min(1, E[n] / q));
+      const a = Math.acos(c) / (2 * Math.PI);   // q cos(2 pi x) = E  ->  turning points at a and 1 - a
+      x0 = 8 + a * (w - 16); x1 = 8 + (1 - a) * (w - 16);
+    }
+    x.beginPath(); x.moveTo(x0, Y(E[n])); x.lineTo(x1, Y(E[n])); x.stroke();
+  }
+  x.globalAlpha = 1;
+  // potential
+  x.strokeStyle = '#e8e8f0'; x.lineWidth = 2; x.beginPath();
+  for (let i = 0; i <= 200; i++) { const t = i / 200, v = q * Math.cos(2 * Math.PI * t); const px = 8 + t * (w - 16); i ? x.lineTo(px, Y(v)) : x.moveTo(px, Y(v)); }
+  x.stroke();
+  x.fillStyle = FG3; x.font = '11px JetBrains Mono, monospace';
+  x.fillText('round the ring →', 10, h - 4);
+  const trappedN = E.filter(v => v < q).length;
+  x.textAlign = 'right'; x.fillText(`${trappedN} rung${trappedN === 1 ? '' : 's'} trapped in the well`, w - 10, h - 4); x.textAlign = 'left';
+}
+
+function drawSpec() {
+  const [x, w, h] = fit(specC);
+  const maxR = 10.5;
+  const X = r => 30 + (r / maxR) * (w - 44);
+  x.clearRect(0, 0, w, h);
+  x.lineWidth = 1;
+  for (let r = 1; r <= 10; r++) { x.strokeStyle = GREY; x.setLineDash([]); x.beginPath(); x.moveTo(X(r), 10); x.lineTo(X(r), h - 22); x.stroke(); }
+  x.setLineDash([4, 4]); x.strokeStyle = BLUE; x.globalAlpha = 0.6;
+  [1, 4, 9].forEach(r => { x.beginPath(); x.moveTo(X(r), 10); x.lineTo(X(r), h - 22); x.stroke(); });
+  x.setLineDash([]); x.globalAlpha = 1;
+  const parts = state.partials;
+  const amax = Math.max(...parts.map(p => Math.abs(p.amp))) || 1;
+  x.strokeStyle = GOLD; x.lineWidth = 3;
+  parts.forEach(p => {
+    if (p.ratio > maxR) return;
+    const a = Math.abs(p.amp) / amax;
+    if (a < 1e-3) return;
+    const len = Math.max(2, (0.08 + 0.92 * Math.sqrt(a)) * (h - 40));   // sqrt so quiet partials still show
+    x.beginPath(); x.moveTo(X(p.ratio), h - 22); x.lineTo(X(p.ratio), h - 22 - len); x.stroke();
+  });
+  x.fillStyle = FG3; x.font = '11px JetBrains Mono, monospace';
+  for (let r = 1; r <= 10; r++) x.fillText(String(r), X(r) - 3, h - 6);
+}
+
+function readouts() {
+  $('readout').textContent = `q = ${q.toFixed(2)}`;
+  const audible = state.partials.filter(p => Math.abs(p.amp) > 1e-3 * Math.max(...state.partials.map(s => Math.abs(s.amp))));
+  $('ratios').innerHTML = 'partials ÷ the lowest: ' + audible.slice(0, 8).map((p, i) => i === 0 ? `<b>${p.ratio.toFixed(2)}</b>` : p.ratio.toFixed(2)).join(' · ') +
+    '<br><span style="color:var(--fg-3)">a string reads 1 · 2 · 3 · 4 · 5 · the bare ring reads 1 · 1 · 4 · 4 · 9 · 9</span>';
+}
+
+function update() {
+  q = parseFloat($('depth').value);
+  state = strike(q);
+  drawWell(); drawSpec(); readouts();
+  if (holding) retune();
+}
+
+// ---------- sound ----------
+let ctx = null, bank = [], master = null, holding = false;
+function audio() {
+  if (!ctx) { ctx = new (window.AudioContext || window.webkitAudioContext)(); master = ctx.createGain(); master.gain.value = 0.8; master.connect(ctx.destination); }
+  return ctx;
+}
+function weights() {
+  // the same colour as pendulum.wav: |a_n|, with higher partials a little quieter (they decay faster there)
+  const ps = state.partials.filter(p => F0 * p.ratio < 15000);
+  const w = ps.map(p => Math.abs(p.amp) * Math.pow(1 / Math.max(p.ratio, 0.05), 0.45));
+  const sum = w.reduce((a, b) => a + b, 0) || 1;
+  return ps.map((p, i) => ({ f: F0 * p.ratio, g: 0.5 * w[i] / sum }));
+}
+function retune() {
+  const ws = weights(), t = ctx.currentTime;
+  bank.forEach((o, i) => {
+    const p = ws[i] || { f: F0, g: 0 };
+    o.osc.frequency.setTargetAtTime(Math.max(p.f, 1), t, 0.03);
+    o.gain.gain.setTargetAtTime(p.g, t, 0.03);
+  });
+}
+function startHold() {
+  audio(); ctx.resume();
+  bank = Array.from({ length: NPART }, () => {
+    const osc = ctx.createOscillator(), gain = ctx.createGain();
+    gain.gain.value = 0; osc.connect(gain).connect(master); osc.start(); return { osc, gain };
+  });
+  holding = true; retune();
+  $('hold').textContent = '■ Release'; $('hold').classList.add('on');
+}
+function stopHold() {
+  const t = ctx.currentTime;
+  bank.forEach(o => { o.gain.gain.setTargetAtTime(0, t, 0.05); o.osc.stop(t + 0.4); });
+  bank = []; holding = false;
+  $('hold').textContent = '▸ Hold the tone'; $('hold').classList.remove('on');
+}
+function strikeOnce() {
+  audio(); ctx.resume();
+  const sr = ctx.sampleRate, len = Math.floor(3 * sr), buf = ctx.createBuffer(1, len, sr), y = buf.getChannelData(0);
+  state.partials.forEach(p => {
+    const f = F0 * p.ratio;
+    if (f > 15000 || f <= 0) return;
+    const tau = 1.6 * Math.pow(F0 / f, 0.45), w = 2 * Math.PI * f / sr, dec = Math.exp(-1 / (tau * sr));
+    let env = p.amp;
+    for (let i = 0; i < len; i++) { y[i] += env * Math.sin(w * i); env *= dec; }
+  });
+  let rms = 0; const n0 = Math.min(len, sr / 2);
+  for (let i = 0; i < n0; i++) rms += y[i] * y[i];
+  rms = Math.sqrt(rms / n0) || 1;
+  for (let i = 0; i < len; i++) y[i] = (y[i] / rms) * 0.12 * Math.min(i / (0.003 * sr), 1) * Math.min((len - i) / (0.05 * sr), 1);
+  const src = ctx.createBufferSource(); src.buffer = buf; src.connect(master); src.start();
+}
+
+$('depth').addEventListener('input', update);
+$('hold').addEventListener('click', () => holding ? stopHold() : startHold());
+$('strike').addEventListener('click', strikeOnce);
+[0, 0.5, 1.5, 3, 6, 10, 18, 32].forEach(v => {
+  const b = document.createElement('button'); b.textContent = `q ${v}`;
+  b.onclick = () => { $('depth').value = v; update(); if (!holding) strikeOnce(); };
+  $('presets').appendChild(b);
+});
+addEventListener('resize', () => { drawWell(); drawSpec(); });
+
+// ---------- review: notes pinned to a depth (anchored to the sound, not the page) ----------
+const KEY = 'quantum-pendulum-slider-review-r1';
+const load = () => JSON.parse(localStorage.getItem(KEY) || '[]');
+function renderNotes() {
+  const notes = load().sort((a, b) => a.q - b.q);
+  $('noteList').innerHTML = notes.map(n => `<li><span>q ${n.q.toFixed(2)}</span>${n.text.replace(/</g, '&lt;')}</li>`).join('');
+  $('pins').innerHTML = notes.map(n => `<span class="pin" style="left:${n.q / 40 * 100}%" title="${n.text.replace(/"/g, '&quot;')}">◆</span>`).join('');
+  [...$('pins').children].forEach((el, i) => el.onclick = () => { $('depth').value = notes[i].q; update(); });
+}
+$('pinNote').onclick = () => { const t = $('noteText').value.trim(); if (!t) return; const n = load(); n.push({ q, text: t }); localStorage.setItem(KEY, JSON.stringify(n)); $('noteText').value = ''; renderNotes(); };
+$('clearNotes').onclick = () => { if (confirm('Clear all pinned notes?')) { localStorage.removeItem(KEY); renderNotes(); } };
+$('copyNotes').onclick = () => {
+  const md = '## Quantum pendulum slider — review notes (round 1)\n\n' + load().sort((a, b) => a.q - b.q).map(n => `- **q ${n.q.toFixed(2)}** — ${n.text}`).join('\n');
+  navigator.clipboard.writeText(md).then(() => { $('copyNotes').textContent = 'Copied'; setTimeout(() => $('copyNotes').textContent = 'Copy notes for Claude', 1200); });
+};
+renderNotes();
+update();
+</script>
+</body>
+</html>

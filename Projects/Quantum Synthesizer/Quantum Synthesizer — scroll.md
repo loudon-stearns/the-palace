@@ -15,24 +15,24 @@ forward_vector: "I am Quantum Synthesizer's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T21:07:37.203Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T21:12:38.721Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** dormant · **Steward:** cycle 11 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** dormant · **Steward:** cycle 12 · last ran 2026-10-13 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
-- **Waiting on you:** nothing
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — I put a bump on the ring and grew it into a well. Schrödinger's squares fold down into a string's evenly spaced harmonics. It's a quantum pendulum. (`quantum-synth-021`)
-- **Last commit touching this project:** 2026-10-13 `5f87ea69` — steward(Quantum Synthesizer): cycle 10 — SPINNING UP. HOME: [[Quantum Synthesizer]]. Neighborhood loaded. Your a…
+- **Last shipped:** 2026-10-13 (today) — The run made the pendulum playable. Revive Quantum Synthesizer to sprout, or let it rest? (`quantum-synth-025`)
+- **Last commit touching this project:** 2026-10-13 `480fad9a` — steward(Quantum Synthesizer): cycle 11 — SPINNING UP. HOME: [[Quantum Synthesizer]]. Neighborhood loaded. Cycle …
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-This page claims the Schrödinger equation is a synthesizer: whatever confines a particle sets its energy levels, and those levels, played as partials, are the timbre. Today's earlier videos found that a bare box or ring sounds in squares (1·4·9·16) where a string sounds 1·2·3·4, and that those whole-number squares make a packet on a ring rebuild itself perfectly. This cycle runs the forward vector's other test, the shape of the well as the timbre, on that same ring. I grew one smooth bump on it, from nothing to deep, and struck it eight times. Low in the deep well the levels come out almost evenly spaced, like a string, because a small swing in any well is a harmonic oscillator. Above the b…
+This page claims the Schrödinger equation is a synthesizer: whatever confines a particle sets its energy levels, and those levels, played as partials, are the timbre. Earlier today the videos showed a bare ring sounds in squares (1·4·9·16) where a string sounds 1·2·3·4, and that growing one smooth bump on the ring folds the squares down toward a string's evenly spaced harmonics, because a small swing in any well is a harmonic oscillator. That last video gave you eight fixed strikes. This cycle turns them into an instrument: one slider for the bump's depth, the energy ladder solved again in the browser on every move, and a held tone that glides as you drag.
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `quantum-synth-025` — directional_decision · posted 2026-10-13 · options: REVIVE-TO-SPROUT · STAY-DORMANT · NOT-SURE-YET
 
 ### Answered, not yet consumed
 
@@ -66,6 +66,49 @@ This container has no Shop (no ComfyUI, Kokoro, Max, or GPU) — Python with num
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="quantum-synth-025" -->
+### 2026-10-13 — cycle 12 — The run made the pendulum playable. Revive Quantum Synthesizer to sprout, or let it rest?
+> still working · three runs today, all checks passing · steward leans REVIVE-TO-SPROUT
+
+Catch-up: this page claims the Schrödinger equation is a synthesizer, where whatever confines a particle sets the partials. Today's runs made that audible. A box or ring sounds in squares, not a string's 1·2·3. Those squares make a packet on a ring rebuild itself, and the rebuilds climb the harmonic series. A bump on the ring folds the squares into a string's spacing. This last cycle turned the bump into a slider you can play in a browser. You've already said revive twice. I'm asking again only because your standing order asks me to close each run this way. Each run has made something the last one pointed at, so it feels alive to me. The open edge is real: none of it has been heard yet. If you'd rather listen first, NOT-SURE-YET is honest.
+
+**Artifacts:**
+- [the playable slider: the one thing to try before deciding](Projects/Quantum Synthesizer/proofs/pendulum-slider.html)
+- [pendulum-poster.png](Projects/Quantum Synthesizer/proofs/pendulum-poster.png)
+- [pendulum.mp4](Projects/Quantum Synthesizer/proofs/pendulum.mp4)
+- [pendulum.wav](Projects/Quantum Synthesizer/proofs/pendulum.wav)
+<sub>`quantum-synth-025` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="quantum-synth-024" -->
+### 2026-10-13 — cycle 12 — A playable page: drag the bump's depth and hear the ring's squares slide into a string's harmonic series, solved live as you drag.
+> shipped · solver matches numpy to 1e-11 · not yet heard by anyone · steward leans draft the entry section next
+
+[The slider page](Projects/Quantum Synthesizer/proofs/pendulum-slider.html) opens in any browser. Press Hold the tone and drag the depth slowly from 0 to 40. The left panel is the well with its rungs: gold rungs are trapped and drawn only as wide as the pendulum's swing, blue ones spin over the top. The right panel shows the partials against grey string lines and dashed blue squares. Strike plays a plucked version with the same decays as last cycle's WAV, and the eight preset buttons jump to the video's eight depths.
+
+The physics is the same as pendulum.py: 81 plane waves, a small tridiagonal eigen-solve (about a millisecond), with each level gap played as a partial pinned to A3. To check it, I pulled the page's own solver out of the HTML, ran it in Node, and compared it with numpy at nine depths. The levels agree to 1.4e-12 and the partial ratios to 1e-11. They reproduce last cycle's table exactly (1 · 1.97 · 2.89 · 3.78 at q = 32). The loudness of each partial also agrees to 3e-14, once you sum the pairs that sit on the same frequency. High up the ladder the two spin directions split by less than machine precision, so each solver mixes them differently, but only their sum is audible.
+
+The review surface is a new kind of anchor. It doesn't pin notes to parts of the page. It pins them to a depth: put the slider where something strikes your ear, type a line, and it lands as a ◆ on the slider at that spot. Copy notes for Claude exports them, sorted by depth. [The preview](Projects/Quantum Synthesizer/proofs/pendulum-slider-preview.png) shows the page at q = 18, with seven rungs trapped.
+
+**Artifacts:**
+- [the instrument: drag the bump's depth, hold or strike, pin review notes to a depth](Projects/Quantum Synthesizer/proofs/pendulum-slider.html)
+- [a headless-Chrome render of the page at q = 18: seven rungs trapped, partials at 1 · 1.95 · 2.85 · 3.69](Projects/Quantum Synthesizer/proofs/pendulum-slider-preview.png)
+- [pulls the page's solver out of the HTML, runs it in node, compares it with numpy](Projects/Quantum Synthesizer/proofs/pendulum_slider_check.py)
+- [the printed comparison: nine depths, PASS](Projects/Quantum Synthesizer/proofs/pendulum-slider-checks.txt)
+
+_page solver (node) vs numpy, worst disagreement across nine depths, q = 0 to 40_
+| quantity | worst difference | what it means |
+| --- | --- | --- |
+| energy levels | 1.4e-12 | same ladder |
+| partial ratios | 1.1e-11 | same pitches as pendulum.wav |
+| partial loudness (pairs summed) | 3.0e-14 | same colour |
+
+_Left rough:_ Nobody has heard it, me included. The headless render proves the page draws without errors and the check proves the numbers. It doesn't prove the held tone glides cleanly: with 40 oscillators retuning, there may be zipper noise or a lurch where two partials swap order. That needs your ears on the Mac. The strike and hold modes also aren't loudness-matched.
+
+_Next moves named:_ Draft the entry's missing section, 'One equation, two spacings', using the walls, stiffness and pendulum videos and this slider as evidence, and hand it to an elder. It replaces the half-true line that the geometry of confinement alone sets the harmonic content. · Once your ears approve the glide, port the same solve to an RNBO codebox as a depth-controlled additive voice. It would stay unverified until you open it in Max.
+<sub>`quantum-synth-024` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="quantum-synth-021" -->
 ### 2026-10-13 — cycle 11 — I put a bump on the ring and grew it into a well. Schrödinger's squares fold down into a string's evenly spaced harmonics. It's a quantum pendulum.
 > shipped · all five checks pass · steward leans a playable depth slider next
