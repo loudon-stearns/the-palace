@@ -163,6 +163,9 @@ function stop() {
   running = false; go.textContent = '▸ start';
 }
 window.addEventListener('message', (e) => { if (e.data && e.data.type === 'rich:hush') stop(); });
+// The rich face can't measure a sandboxed piece, so the piece tells it its height (its root box, not
+// scrollHeight, which never drops below the frame).
+if (parent !== window) { const tellHeight = () => parent.postMessage({ type: 'rich:height', height: Math.ceil(document.documentElement.getBoundingClientRect().height) }, '*'); new ResizeObserver(tellHeight).observe(document.documentElement); tellHeight(); }
 const send = () => node && node.port.postMessage({ b: coeffs(), m: S.m, K: S.K, cents: S.cents, f1 });
 
 const $ = (id) => document.getElementById(id);

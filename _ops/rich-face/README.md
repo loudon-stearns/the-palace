@@ -47,7 +47,8 @@ reaches it the same way.
 Bare filenames resolve in the bundle, then vault-wide by name; `/…` is palace-absolute. `near` anchors
 a piece right after that paragraph or figure; otherwise it goes at the section's end. Audio, images and
 text pieces default to the margin; video, interactives and diagrams to the band. An interactive's
-`height` (px) is the height it is given; one without gets 800.
+`height` (px) is its size until the piece reports its own (`rich:height`, below), and the only size a
+piece that never reports gets; with neither, 800. Kuramoto's were measured in a 1130 px column.
 
 ## The parser's rules
 
@@ -76,6 +77,14 @@ The page is served from STIGMERGY's origin, so anything that runs in it runs as 
   applies to all served HTML. A piece's origin is opaque: it cannot call STIGMERGY's API, read the
   page, or use storage, and it fetches nothing from the palace (classic `<script src>`, `<audio>`,
   `<img>` and fonts still load). The page knows a piece by its frame, never by origin.
+- **The server sandboxes it too.** Every palace `.html`, `.htm` and `.svg` under `/rich/<path>` (and
+  STIGMERGY's `GET /api/file`) comes with `Content-Security-Policy: sandbox allow-scripts`, so a piece
+  opened any other way — a link in the prose, a new tab — still runs in an opaque origin. Only the
+  renderer itself (`/rich/`), `_rich/parse.js` and `_vendor/*` come without it.
+- **Every link goes to the web, to mail, or into the palace.** After marked, the HTML is parsed inert
+  and every element and attribute the page did not choose is dropped; an `href` or `src` survives only
+  if it resolves to `http:`, `https:` or `mailto:` (a relative palace path resolves to the page's own),
+  and an `href` may also be `obsidian:`, the vault's own door.
 - **An entry's own HTML is shown, not run.** Comments stay unseen; tags with no attributes from a
   short list (`b`, `i`, `em`, `strong`, `sub`, `sup`, `br`, `kbd` …) and a `div` or `span` whose one
   attribute is a `class` still render; any other tag is escaped and shows as written. Diagrams render
@@ -90,9 +99,13 @@ The page is served from STIGMERGY's origin, so anything that runs in it runs as 
   stereo in both places, a compressor after it ([[Web Audio Worklet]]).
 - **A piece runs sandboxed, so it must stand alone.** Inline everything; a `fetch` of a file beside
   it, an ES module from the palace, or `localStorage` will fail. Worklets from a Blob URL work.
-- **A made piece sets its height.** The page cannot read a sandboxed piece to fit it, so give it a
-  `height` in the manifest — what it renders at in the page's column (about 1130 px wide). Without one
-  it gets 800 and scrolls inside its frame.
+- **A made piece reports its height.** The page cannot measure a sandboxed piece, and a height
+  measured at one width overflows at another — Kuramoto's waveform piece is 914 px tall in a 1130 px
+  column and 1025 at 760. So post `{type:'rich:height', height}` to the parent on load and on every
+  resize (a `ResizeObserver` on the root element), giving the root element's box height
+  (`document.documentElement.getBoundingClientRect().height`) — not `scrollHeight`, which never drops
+  below the frame — and tie no height to the viewport, or the two feed each other. Still give it a
+  manifest `height`: the size until the first report, and the fallback if it never sends one.
 - **One voice at a time.** Post `{type:'rich:play'}` to the parent when sound starts; stop on
   `{type:'rich:hush'}`. The page hushes every other video, strip and piece. It hears the play by the
   frame it came from and sends the hush to any origin, since a sandboxed piece's origin is `null`.

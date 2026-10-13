@@ -62,16 +62,27 @@ function makeTempPalace() {
     '<div class="eq">e<sup>iθ</sup></div>', '',
     '<!-- a note to the next agent -->', '',
     'The tag <date> is a placeholder.', '',
+    // After an inline <kbd>, <code>, <pre> or <script>, marked emits the text that
+    // follows raw (its lexer is "in a raw block"), past the html renderer.
+    '## Raw',  '',
+    'Press <kbd><img/src=x onerror="window.__xss=\'kbd\'"></kbd> to go.', '',
+    'Then <code><img/src=x onerror="window.__xss=\'code\'"></code> too.', '',
+    '## Links', '',
+    '[run](javascript:window.__js=\'link\') · [cased](JaVaScRiPt:window.__js=\'case\') · <javascript:window.__js=\'auto\'> · ![pic](javascript:window.__js=\'img\')', '',
+    '[site](https://example.com/) · [mail](mailto:someone@example.com) · [[Other Entry]] · [bundle](Probe%20Entry/bare.html)', '',
+    '[vault](obsidian://open?vault=The%20Palace&file=Kuramoto%20Coupling) · [native](open:Probe%20Entry/bare.html)', '',
+    '## Keys <kbd><img/src=x onerror="window.__xss=\'heading\'"></kbd>', '',
+    'Under a heading.', '',
     '```mermaid', 'flowchart LR', '  A["<b>K &lt; K_c</b><br/>drift"] --> B["lock"]', '  click A href "javascript:markClicked()"', '```', '',
   ].join('\n'), 'utf8');
   mkdirSync(resolve(root, ENTRY), { recursive: true });
   writeFileSync(resolve(root, ENTRY, 'probe.html'), PROBE, 'utf8');
-  // STIGMERGY's reader frames the rich face on its own origin (RichFaceFrame.jsx).
-  writeFileSync(resolve(root, 'framer.html'), `<!doctype html><body><iframe id="rf" style="width:1200px;height:900px" src="/rich/?entry=${encodeURIComponent(ENTRY)}&review=0"></iframe></body>`, 'utf8');
+  writeFileSync(resolve(root, ENTRY, 'note.md'), "---\ntitle: note\n---\nA [t](javascript:window.__js='textpiece') link.\n", 'utf8');
   writeFileSync(resolve(root, ENTRY, 'bare.html'), '<!doctype html><body><div style="height:1200px">tall</div></body>', 'utf8');
   for (const [n] of KPIECES) copyFileSync(resolve(KURAMOTO, `Kuramoto Coupling — rich — ${n}.html`), resolve(root, ENTRY, `${n}.html`));
   writeFileSync(resolve(root, ENTRY, `${ENTRY} — rich.json`), JSON.stringify({ entry: ENTRY, sections: [{ heading: 'Pieces', pieces: [
-    { file: 'probe.html', origin: 'made', height: 500 },
+    { file: 'probe.html', origin: 'made', height: 500, caption: "A [cap](javascript:window.__js='caption') link." },
+    { file: 'note.md', origin: 'made' },
     { file: 'bare.html', origin: 'made' },
     ...KPIECES.map(([n, height]) => ({ file: `${n}.html`, origin: 'made', height })),
   ] }] }), 'utf8');
@@ -84,6 +95,13 @@ function makeServer(palaceRoot, log) {
   plugin.configureServer({ middlewares: { use: (fn) => handlers.push(fn) } });
   return http.createServer((req, res) => {
     res.on('finish', () => log.push(`${req.method} ${req.url.split('?')[0]} ${res.statusCode}`));
+    // Stands in for STIGMERGY's reader, which frames the rich face from the app's
+    // own page on the same origin (RichFaceFrame.jsx) — not a palace file.
+    if (req.url === '/framer') {
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.end(`<!doctype html><body><iframe id="rf" style="width:1200px;height:900px" src="/rich/?entry=${encodeURIComponent(ENTRY)}&review=0"></iframe></body>`);
+      return;
+    }
     let i = 0;
     const next = () => { if (i >= handlers.length) { res.statusCode = 404; res.end('not found'); return; } handlers[i++](req, res, next); };
     next();
@@ -143,12 +161,48 @@ describe.skipIf(!chromium)('the rich face in a browser', () => {
     expect(log.filter((l) => /^POST \/api\/persistent 200$|^GET \/api\/open 404$/.test(l))).toEqual([]);
   }, 30000);
 
-  test('a piece takes its manifest height, and one without gets the default', async () => {
-    const heights = await page.$$eval('figure[data-piece]', (fs) => Object.fromEntries(fs.map((f) => [f.dataset.piece, f.querySelector('iframe').style.height])));
+  test('a piece opened as the page itself still cannot write or reach /api/open', async () => {
+    const top = await browser.newPage();
+    try {
+      await top.goto(`${base}/rich/${encodeURIComponent(ENTRY)}/probe.html`);
+      await top.waitForSelector('body[data-out]', { state: 'attached', timeout: 20000 });
+      const out = JSON.parse(await top.$eval('body', (b) => b.dataset.out));
+      expect(out.json).not.toBe(200);
+      expect(out.open).not.toBe(404);
+      expect(board()).toBe('');
+    } finally { await top.close(); }
+  }, 30000);
+
+  test('a piece that says nothing keeps its manifest height, and one without gets the default', async () => {
+    const heights = await page.$$eval('figure[data-piece]', (fs) => Object.fromEntries(fs.filter((f) => f.querySelector('iframe')).map((f) => [f.dataset.piece, f.querySelector('iframe').style.height])));
     expect(heights['probe.html']).toBe('500px');
-    for (const [n, h] of KPIECES) expect(heights[`${n}.html`]).toBe(`${h}px`);
     expect(heights['bare.html']).toBe(DEFAULT_HEIGHT);
   });
+
+  // Kuramoto's manifest heights were measured in a 1130 px column; narrower,
+  // the pieces grow taller (954–1025 px at 760, more stacked below 700). A
+  // frame must hold its piece whole at either width: no scrollbar inside it.
+  test("at 1130 and about 760 px, each of Kuramoto's pieces fits its frame", async () => {
+    for (const vw of [1440, 792]) {
+      const p = await browser.newPage({ viewport: { width: vw, height: 1000 } });
+      try {
+        await p.goto(`${base}/rich/?entry=${encodeURIComponent(ENTRY)}&review=0`);
+        await p.waitForSelector('figure[data-piece="ensemble.html"] iframe', { timeout: 30000 });
+        for (const [n] of KPIECES) {
+          const el = await p.$(`figure[data-piece="${n}.html"] iframe`);
+          await el.scrollIntoViewIfNeeded();
+          const col = Math.round((await el.boundingBox()).width);
+          expect(col, `column at viewport ${vw}`).toBeLessThanOrEqual(vw === 1440 ? 1130 : 760);
+          const frame = await el.contentFrame();
+          await frame.waitForSelector('#go', { timeout: 20000 });
+          await expect.poll(async () => {
+            const [content, room] = await frame.evaluate(() => [document.documentElement.scrollHeight, innerHeight]);
+            return content <= room + 1 ? 'fits' : `${n} at ${col}px: content ${content} in a ${room} frame`;
+          }, { timeout: 15000 }).toBe('fits');
+        }
+      } finally { await p.close(); }
+    }
+  }, 120000);
 
   // One voice at a time: starting a piece quiets the one playing. That needs
   // rich:play to reach the page from a sandboxed frame and rich:hush to reach
@@ -191,7 +245,7 @@ describe.skipIf(!chromium)('the rich face in a browser', () => {
   test('framed by a page on its own origin, it hides its top strip and leaves F alone', async () => {
     const outer = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
     try {
-      await outer.goto(`${base}/rich/framer.html`);
+      await outer.goto(`${base}/framer`);
       const frame = outer.frameLocator('#rf');
       await frame.locator('section.sec[data-key="text"]').waitFor({ timeout: 30000 });
       await frame.locator('#faces a.btn').first().waitFor({ state: 'attached', timeout: 30000 });
@@ -202,9 +256,34 @@ describe.skipIf(!chromium)('the rich face in a browser', () => {
       await outer.keyboard.press('f');
       await outer.waitForTimeout(1500);
       expect(outer.frames().find((f) => f.parentFrame()).url()).toBe(before);
-      expect(outer.url()).toBe(`${base}/rich/framer.html`);
+      expect(outer.url()).toBe(`${base}/framer`);
     } finally { await outer.close(); }
   }, 60000);
+
+  test('text marked emits raw after <kbd>, <code> or in a heading runs nothing', async () => {
+    await page.waitForSelector('section.sec[data-key="raw"] .prose');
+    expect(await page.evaluate(() => window.__xss)).toBeUndefined();
+    expect(await page.$$eval('#sections [onerror], #sections script', (els) => els.length)).toBe(0);
+  });
+
+  // Only http(s), mailto and relative or palace paths survive in href and src —
+  // in prose, a caption and a .md text piece alike — and obsidian: in an href,
+  // the door into Loudon's vault (it opens a local app and carries no script).
+  test('a link to javascript: is dropped; web, mail and palace links stay', async () => {
+    await page.waitForSelector('figure[data-piece="note.md"] .textpiece');
+    const urls = await page.$$eval('#sections a[href], #sections img[src]', (els) => els.filter((e) => !e.closest('.diagram'))
+      .map((e) => { const attr = e.hasAttribute('href') ? 'href' : 'src'; const v = e.getAttribute(attr); return { attr, v, protocol: new URL(v, location.href).protocol }; }));
+    const allowed = { href: ['http:', 'https:', 'mailto:', 'obsidian:'], src: ['http:', 'https:', 'mailto:'] };
+    expect(urls.filter((u) => !allowed[u.attr].includes(u.protocol))).toEqual([]);
+    const hrefs = urls.map((u) => u.v);
+    expect(hrefs).toContain('obsidian://open?vault=The%20Palace&file=Kuramoto%20Coupling');
+    expect(hrefs.filter((h) => /^open:/i.test(h))).toEqual([]);
+    expect(hrefs).toContain('https://example.com/');
+    expect(hrefs).toContain('mailto:someone@example.com');
+    expect(hrefs.some((h) => h.startsWith('?entry=Other%20Entry'))).toBe(true);
+    for (const name of ['run', 'cased', 'cap', 't']) await page.locator('#sections a', { hasText: new RegExp(`^${name}$`) }).first().click({ timeout: 5000 }).catch(() => {});
+    expect(await page.evaluate(() => window.__js)).toBeUndefined();
+  });
 
   // Under 'loose', mermaid keeps a click directive's javascript: link as written.
   test('a diagram renders strict: bold labels kept, a javascript: link in it dead', async () => {

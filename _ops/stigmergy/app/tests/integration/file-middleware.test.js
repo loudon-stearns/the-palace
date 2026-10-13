@@ -93,6 +93,14 @@ describe('GET /api/file', () => {
     expect(res.text).toContain('<script>');
   });
 
+  // ArtifactSlot frames it sandboxed; a page opened at this URL is sandboxed too.
+  test('serves html sandboxed (CSP), and a png without it', async () => {
+    const html = await request(base).get('/api/file').query({ path: 'Demo Entry/sim.html' });
+    expect(html.headers['content-security-policy']).toBe('sandbox allow-scripts');
+    const png = await request(base).get('/api/file').query({ path: 'Demo Entry/still.png' });
+    expect(png.headers['content-security-policy']).toBeUndefined();
+  });
+
   test('serves an unknown extension as octet-stream', async () => {
     const res = await request(base)
       .get('/api/file')

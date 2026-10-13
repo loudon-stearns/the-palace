@@ -191,6 +191,59 @@ function safeHtml(raw) {
 }
 marked.use({ renderer: { html: (html) => safeHtml(html) } });
 
+// The guarantee, whatever marked's lexer did on the way. After an inline <kbd>,
+// <code>, <pre> or <script> it is "in a raw block" and emits the text that
+// follows unescaped, past the renderer above. So the final HTML is parsed inert
+// (a <template> runs nothing and loads nothing) and every element and attribute
+// this page did not choose is dropped before it reaches innerHTML: markdown's
+// own elements, KEEP_TAGS, and per element the attributes listed here.
+const ALLOWED = {
+  p: [], br: [], hr: [], blockquote: [], ul: [], ol: ['start'], li: [], pre: [], code: ['class'],
+  h1: [], h2: [], h3: [], h4: [], h5: [], h6: [], em: [], strong: [], del: [],
+  table: [], thead: [], tbody: [], tr: [], th: ['align'], td: ['align'],
+  a: ['href', 'title', 'class'], img: ['src', 'alt', 'title'], input: ['type', 'checked', 'disabled'],
+  b: [], i: [], u: [], s: [], ins: [], mark: [], small: [], sub: [], sup: [], kbd: [], div: ['class'], span: ['class'],
+};
+// Gone with everything inside them; any other element not allowed is unwrapped
+// and its words kept.
+const DROP_WHOLE = new Set(['script', 'style', 'template', 'noscript', 'iframe', 'frame', 'object', 'embed',
+  'svg', 'math', 'title', 'textarea', 'select', 'button', 'form', 'link', 'meta', 'base']);
+// A link or image goes only to the web, to mail, or somewhere in the palace (a
+// relative path); a link may also open the vault in Obsidian (obsidian:, a local
+// app, no script). Resolved the way the browser would, so case, spaces and tabs
+// can't dress a javascript: URL up as something else. open:, STIGMERGY's own
+// pseudo-scheme, never worked here and is not kept.
+const SAFE_PROTOCOLS = new Set(['http:', 'https:', 'mailto:']);
+const safeUrl = (v, also = []) => { try { const p = new URL(v, location.href).protocol; return SAFE_PROTOCOLS.has(p) || also.includes(p); } catch { return false; } };
+function keepAttr(tag, a) {
+  if (!ALLOWED[tag].includes(a.name)) return false;
+  if (a.name === 'href') return safeUrl(a.value, ['obsidian:']);
+  if (a.name === 'src') return safeUrl(a.value);
+  if (a.name === 'class') return /^[\w\s-]*$/.test(a.value);
+  if (tag === 'input' && a.name === 'type') return a.value === 'checkbox';
+  return true;
+}
+function sanitize(html) {
+  const t = document.createElement('template');
+  t.innerHTML = html;
+  const walk = (node) => {
+    for (const child of [...node.childNodes]) {
+      if (child.nodeType === Node.COMMENT_NODE) { child.remove(); continue; }
+      if (child.nodeType !== Node.ELEMENT_NODE) continue;
+      const tag = child.localName;
+      if (!Object.hasOwn(ALLOWED, tag) || (tag === 'input' && child.getAttribute('type') !== 'checkbox')) {
+        if (DROP_WHOLE.has(tag)) child.remove();
+        else { walk(child); child.replaceWith(...child.childNodes); }
+        continue;
+      }
+      for (const a of [...child.attributes]) if (!keepAttr(tag, a)) child.removeAttribute(a.name);
+      walk(child);
+    }
+  };
+  walk(t.content);
+  return t.innerHTML;
+}
+
 const params = new URLSearchParams(location.search);
 const ENTRY = params.get('entry') || 'Kuramoto Coupling';
 // The public read view serves this page static (scripts/build-public.mjs sets
@@ -247,7 +300,7 @@ function mdToHtml(md, inline = false) {
       return `[${l}](?entry=${encodeURIComponent(t.split('#')[0])}${REVIEW ? '' : '&review=0'} "wl")`;
     });
   let html = inline ? marked.parseInline(pre) : marked.parse(pre);
-  return html.replace(/<a href="([^"]*)" title="wl">/g, '<a class="wl" href="$1">');
+  return sanitize(html.replace(/<a href="([^"]*)" title="wl">/g, '<a class="wl" href="$1">'));
 }
 
 // ── the one custom control: an audio strip with no browser chrome ──
@@ -273,7 +326,8 @@ function audioStrip(src, label) {
 // frame (e.source), never by origin, and sends the hush to any origin — it
 // carries nothing but its type.
 const audios = new Set();
-const ownFrame = (win) => [...document.querySelectorAll('iframe')].some((f) => f.contentWindow === win);
+const frameOf = (win) => [...document.querySelectorAll('iframe')].find((f) => f.contentWindow === win);
+const ownFrame = (win) => !!frameOf(win);
 function hushAll(except) {
   document.querySelectorAll('video').forEach((v) => { if (v !== except) v.pause(); });
   audios.forEach((x) => { if (x !== except) x.pause(); });
@@ -281,12 +335,21 @@ function hushAll(except) {
 }
 document.addEventListener('rich:play', (e) => hushAll(e.detail));
 window.addEventListener('message', (e) => { if (e.data?.type === 'rich:play' && ownFrame(e.source)) hushAll(e.source); });
+// A piece that knows its height says so — {type:'rich:height', height} — on
+// load and whenever it changes; the page cannot measure a sandboxed frame. It is
+// known by its frame, as rich:play is, and its word is taken within sane bounds.
+window.addEventListener('message', (e) => {
+  if (e.data?.type !== 'rich:height') return;
+  const f = frameOf(e.source), px = Math.ceil(Number(e.data.height));
+  if (f && px >= 120 && px <= 8000) f.style.height = px + 'px';
+});
 
 // A piece runs sandboxed to scripts alone — the rule STIGMERGY's ArtifactSlot
 // applies to every HTML file it serves. Its origin is opaque, so it cannot call
 // STIGMERGY's API, read this page, or use its storage. Nor can this page read
-// the piece, so it cannot fit the piece's height: a made piece carries its
-// height in the manifest, and any other frame gets PIECE_HEIGHT.
+// the piece, so it cannot fit the piece's height: a piece that posts rich:height
+// (the listener above) gets what it asks for; until then, or if it never does, the manifest's
+// height, and with none, PIECE_HEIGHT.
 const PIECE_HEIGHT = 800;
 function iframeFor(src, height) {
   const f = h('iframe', { sandbox: 'allow-scripts', src, loading: 'lazy', allow: 'autoplay', title: src.split('/').pop() });
