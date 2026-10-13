@@ -3,7 +3,7 @@
 // deck mis-rendered or could not clear — the validator passed all of them,
 // because it checks the ENVELOPE and never the payload shape.
 import { describe, test, expect } from 'vitest';
-import { buildInbox, tagRecommendation, renderRationale, deriveKind } from '../../src/lib/inbox.js';
+import { buildInbox, tagRecommendation, renderRationale, deriveKind, pendingTricksterCount } from '../../src/lib/inbox.js';
 import { buildCardGrant } from '../../src/lib/trickster-grants.js';
 
 const base = (extras = {}) => ({
@@ -34,6 +34,16 @@ describe('correlation: a request with no top-level request_id', () => {
     const ids = buildInbox([req, other]).pending_requests.map((p) => p.request_id);
     expect(ids).toEqual(expect.arrayContaining(['req-1', 'req-2']));
     expect(new Set(ids).size).toBe(2);
+  });
+
+  test('the TRICKSTER tab badge clears it too, agreeing with the deck', () => {
+    // The badge paired on request_id alone and read "(4 PENDING)" over an empty
+    // deck: the Shopkeeper's three sweeps and Sam Maloof's ask, all answered by id.
+    const grant = { ...base({ id: 'resp-1', type: 'RESOURCE_GRANT', re: 'req-1' }), payload: { chosen_option_id: 'hold' } };
+    const answered = [req, grant];
+    expect(pendingTricksterCount(answered)).toBe(0);
+    expect(pendingTricksterCount(answered)).toBe(buildInbox(answered).pending_requests.length);
+    expect(pendingTricksterCount([req])).toBe(1);
   });
 });
 

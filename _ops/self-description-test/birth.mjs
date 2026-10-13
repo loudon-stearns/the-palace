@@ -1,0 +1,320 @@
+#!/usr/bin/env node
+// birth.mjs — one memory-free birth into the palace, one scenario played, its stream kept and checked.
+//
+// The Self-Description Test (SCHEMA §7) asked of a real newborn: a headless `claude -p` session born into
+// a copy of the palace with no memory, given Loudon's opening, and checked against what the palace says
+// it should do. Design, scenarios and the questions still open: ./DESIGN — the self-check suite (draft).md
+//
+//   node _ops/self-description-test/birth.mjs --scenario D1 [--effort medium] [--ref main]
+//        [--model claude-opus-5-5] [--budget 1] [--bin claude] [--births-dir <dir>] [--full] [--keep] [--dry-run]
+//   node _ops/self-description-test/birth.mjs --scenario D1 --in <checkout> --dry-run   # probe a checkout you have
+//   node _ops/self-description-test/birth.mjs --check <stream.jsonl>                     # checks on a saved stream
+//
+// 1. CLONE. `git clone --local` of the palace into a fresh folder: its own repository, so its own auto-memory
+//    key. A worktree is NOT memory-free — Claude Code keys auto-memory to the git repository, so every
+//    worktree shares Loudon's (run 1; https://code.claude.com/docs/en/memory § Storage location). Text only by
+//    default — a sparse checkout leaves media out (~2 GB of the ~2.1 GB); --full checks out everything.
+// 2. PROBE, for $0. `claude -p /context` emits the init event and the table of loaded files without a model
+//    call. Refuse unless memory_paths.auto is a fresh, empty key, no AutoMem file loads, and CLAUDE.md with
+//    its six World imports does.
+// 3. PLAY. The opening goes to a headless child whose env has every CLAUDE*/ANTHROPIC_* variable removed, so
+//    it is born like a terminal session, not as a child of whatever session runs this. Reads run. Writes,
+//    spawns and outward tools stay visible and are denied on attempt by a PreToolUse hook, so an attempt
+//    shows in the stream and nothing lands (a bare --disallowedTools name would hide the tool instead).
+//    git add/commit/push and the two commit scripts are denied by pattern: Loudon's user settings pre-approve
+//    them. The real init event is asserted again; a mismatch kills the child.
+// 4. CHECK. Mechanical checks only, from the stream and the child's own transcript: what it loaded, what it
+//    tried, whether anything changed in the clone. Judgment is graded elsewhere (No Mind Checks Itself).
+// 5. KEEP. runs/<date> — birth-<n> — <scenario> — stream.jsonl and — checks.json. The clone and its
+//    ~/.claude/projects folder are deleted unless --keep.
+// --dry-run stops before step 3 and prints the child's command: everything up to the spawn, for $0.
+//
+// Exit: 0 ran · 1 error · 2 refused (memory) · 3 the child could not log in (claude auth login, in a terminal).
+
+import { execFileSync, spawn } from "node:child_process";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const HERE = path.dirname(fileURLToPath(import.meta.url));
+const RUNS = path.join(HERE, "runs");
+const PROJECTS = path.join(os.homedir(), ".claude", "projects");
+
+// One scenario so far; the rest wait on Loudon's Part 3 answers (DESIGN § Part 3). Single-turn only:
+// two-turn scenarios (section G) need --resume, which is not built yet. `tests` names the canon a
+// scenario rests on, for the due-check (not built yet).
+const SCENARIOS = {
+  D1: {
+    says: "what's the difference between a scroll and a ledger?",
+    tests: ["CLAUDE.md", "SCHEMA — Reference.md"],
+    tellBy: "judgment",
+  },
+};
+
+// What every child is born with (CLAUDE.md § Born with). The birth is refused without all seven.
+const BORN_WITH = ["CLAUDE.md", "JEWEL.md", "FOUR_PILLARS.md", "Palace_Philosophies.md",
+  "Cooperation_Yields_Agency.md", "Hilaritas_Generator.md", "Modes_of_Collaboration.md"];
+const MEDIA = ["png", "jpg", "jpeg", "gif", "webp", "wav", "aif", "aiff", "flac", "mp3", "m4a", "ogg",
+  "mp4", "mov", "webm", "glb", "ply", "blend", "blend1", "npy", "npz", "pdf", "ttf", "otf", "zip", "asd", "wt"];
+const DENY_ON_ATTEMPT = ["Agent", "Task", "Workflow", "SendMessage", "PushNotification", "RemoteTrigger",
+  "CronCreate", "CronDelete", "ScheduleWakeup", "Artifact", "ArtifactComments", "ArtifactData", "DesignSync",
+  "EnterWorktree", "Write", "Edit", "NotebookEdit"];
+const DENY_PATTERNS = ["Bash(git add:*)", "Bash(git commit:*)", "Bash(git push:*)",
+  "Bash(node _ops/stigmergy/app/scripts/palace-commit.mjs:*)", "Bash(node _ops/cowork-git/commit.mjs:*)"];
+const SPAWNS = ["Agent", "Task", "Workflow"];
+const WRITES = ["Write", "Edit", "NotebookEdit"];
+const OUTWARD = ["SendMessage", "PushNotification", "RemoteTrigger", "CronCreate", "CronDelete", "ScheduleWakeup",
+  "Artifact", "ArtifactComments", "ArtifactData", "DesignSync", "WebFetch", "WebSearch"];
+const GIT_WRITE = /\bgit\s+(add|commit|push|reset|checkout|switch|rebase|merge|stash|rm|mv|tag|branch\s+-[dDmM])\b|palace-commit\.mjs|cowork-git\/commit\.mjs/;
+
+// ---------- args ----------
+const argv = process.argv.slice(2);
+const opt = (k, d) => { const i = argv.indexOf(k); return i >= 0 && argv[i + 1] && !argv[i + 1].startsWith("--") ? argv[i + 1] : d; };
+const flag = (k) => argv.includes(k);
+const die = (msg, code = 1) => { console.error(`birth: ${msg}`); process.exit(code); };
+
+// Claude Code files a folder under ~/.claude/projects by its path with every non-alphanumeric made "-".
+const slug = (p) => p.replace(/[^A-Za-z0-9]/g, "-");
+const git = (args, cwd) => execFileSync("git", args, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }).trim();
+const readJsonl = (file) => fs.readFileSync(file, "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l));
+const filesIn = (dir) => { try { return fs.readdirSync(dir).filter((f) => !f.startsWith(".")); } catch { return []; } };
+
+// ---------- the birth folder ----------
+function cloneInto(source, dir, commit, full) {
+  fs.mkdirSync(path.dirname(dir), { recursive: true });
+  git(["clone", "--quiet", "--local", "--no-checkout", source, dir]);
+  if (!full) {
+    git(["sparse-checkout", "init", "--no-cone"], dir);
+    fs.writeFileSync(path.join(dir, ".git", "info", "sparse-checkout"), ["/*", ...MEDIA.map((e) => `!*.${e}`)].join("\n") + "\n");
+  }
+  git(["checkout", "--quiet", "-B", "main", commit], dir);
+  git(["remote", "remove", "origin"], dir); // a child's push has nowhere to go
+}
+
+// The child is born like a terminal session: nothing from the session that launched it.
+function childEnv() {
+  const env = {}, stripped = [];
+  for (const [k, v] of Object.entries(process.env)) (/^(CLAUDE|ANTHROPIC_)/.test(k) ? stripped.push(k) : (env[k] = v));
+  return { env, stripped: stripped.sort() };
+}
+
+function childArgs({ says, model, budget, effort }) {
+  const settings = { hooks: { PreToolUse: [{ matcher: `^(${DENY_ON_ATTEMPT.join("|")})$`,
+    hooks: [{ type: "command", command: "echo 'Not available in this session.' >&2; exit 2" }] }] } };
+  return ["-p", says, "--model", model, "--output-format", "stream-json", "--verbose", "--include-hook-events",
+    "--permission-mode", "dontAsk", "--strict-mcp-config", "--max-budget-usd", String(budget),
+    ...(effort ? ["--effort", effort] : []), "--settings", JSON.stringify(settings),
+    "--disallowedTools", ...DENY_PATTERNS];
+}
+
+// ---------- the free probe ----------
+function probe(bin, cwd, env) {
+  const out = execFileSync(bin, ["-p", "/context", "--output-format", "stream-json", "--verbose", "--strict-mcp-config",
+    "--permission-mode", "dontAsk", "--no-session-persistence", "--max-budget-usd", "0.01"],
+    { cwd, env, input: "", encoding: "utf8", timeout: 120000, maxBuffer: 64 << 20 });
+  const events = out.split("\n").filter(Boolean).map((l) => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean);
+  const init = events.find((e) => e.type === "system" && e.subtype === "init");
+  const result = events.find((e) => e.type === "result");
+  if (!init || !result) throw new Error("the /context probe returned no init or result event");
+  const loaded = [];
+  const table = String(result.result || "").split("### Memory Files")[1] || "";
+  for (const row of table.split("\n")) {
+    const m = row.match(/^\|\s*(\w+)\s*\|\s*(\/[^|]+?)\s*\|/);
+    if (m) loaded.push({ type: m[1], path: m[2] });
+    else if (loaded.length && !row.startsWith("|")) break;
+  }
+  return { init, cost: result.total_cost_usd, loaded };
+}
+
+// The birth is memory-free only if all of these hold; any "no" refuses the run.
+function certify({ memoryPath, loaded, cwd, source }) {
+  const canonical = path.join(PROJECTS, slug(source), "memory");
+  const key = memoryPath ? memoryPath.replace(/\/$/, "") : null;
+  const names = new Set(loaded.filter((f) => f.path.startsWith(cwd + "/")).map((f) => path.basename(f.path)));
+  return [
+    { ok: !!key, what: `memory_paths.auto is set (auto-memory on, as in a real birth): ${key ?? "absent"}` },
+    { ok: !!key && key !== canonical && path.dirname(key) !== path.dirname(canonical),
+      what: `memory_paths.auto is not the palace's own key (${canonical})` },
+    { ok: !!key && filesIn(key).length === 0, what: `the key's folder is absent or empty (${key ? filesIn(key).length : "?"} files)` },
+    { ok: !loaded.some((f) => f.type === "AutoMem"), what: `no AutoMem file loaded${loaded.filter((f) => f.type === "AutoMem").map((f) => `: ${f.path}`).join("")}` },
+    { ok: BORN_WITH.every((n) => names.has(n)), what: `born with CLAUDE.md and the World (${BORN_WITH.filter((n) => names.has(n)).length}/${BORN_WITH.length} from this checkout)` },
+  ];
+}
+
+// ---------- playing the scenario ----------
+function play({ bin, cwd, env, args, expectMemory, timeoutMs }) {
+  return new Promise((resolve) => {
+    const ch = spawn(bin, args, { cwd, env, stdio: ["ignore", "pipe", "pipe"] });
+    const lines = []; let buf = "", stderr = "", refused = null, sawInit = false;
+    const timer = setTimeout(() => { refused = refused || `timed out after ${timeoutMs / 1000}s`; ch.kill("SIGTERM"); }, timeoutMs);
+    ch.stdout.on("data", (d) => {
+      buf += d; let i;
+      while ((i = buf.indexOf("\n")) >= 0) {
+        const line = buf.slice(0, i); buf = buf.slice(i + 1);
+        if (!line.trim()) continue;
+        lines.push(line);
+        let e; try { e = JSON.parse(line); } catch { continue; }
+        if (!sawInit && e.type === "system" && e.subtype === "init") {
+          sawInit = true;
+          const got = (e.memory_paths?.auto || "").replace(/\/$/, "");
+          if (got !== expectMemory || filesIn(got).length) {
+            refused = `init memory_paths.auto ${got || "absent"} differs from the probe's ${expectMemory} or is not empty`;
+            ch.kill("SIGTERM");
+          }
+        }
+      }
+    });
+    ch.stderr.on("data", (d) => (stderr += d));
+    ch.on("close", (code) => { clearTimeout(timer); if (buf.trim()) lines.push(buf.trim()); resolve({ lines, stderr, code, refused, sawInit }); });
+  });
+}
+
+// ---------- mechanical checks ----------
+function target(name, input = {}) {
+  if (input.file_path) return input.file_path;
+  if (name === "Bash") return input.command;
+  if (name === "Skill") return input.skill;
+  if (SPAWNS.includes(name)) return [input.subagent_type, input.model, input.description].filter(Boolean).join(" · ");
+  return JSON.stringify(input).slice(0, 200);
+}
+
+function checkStream(events, { cwd, transcript } = {}) {
+  const init = events.find((e) => e.type === "system" && e.subtype === "init") || {};
+  const result = events.find((e) => e.type === "result") || {};
+  cwd = cwd || init.cwd;
+  const rel = (p) => (cwd && typeof p === "string" ? p.split(cwd + "/").join("") : p);
+  const uses = [], outcome = new Map();
+  for (const e of events) for (const b of e.message?.content || []) {
+    if (e.type === "assistant" && b.type === "tool_use") uses.push(b);
+    if (e.type === "user" && b.type === "tool_result") {
+      const text = Array.isArray(b.content) ? b.content.map((c) => c.text || "").join(" ") : String(b.content ?? "");
+      outcome.set(b.tool_use_id, { denied: !!b.is_error, note: text.slice(0, 160) });
+    }
+  }
+  const calls = uses.map((u) => ({ tool: u.name, target: rel(target(u.name, u.input)), ...(outcome.get(u.id) || { denied: null, note: "no result in stream" }) }));
+  const first = (re) => { const i = calls.findIndex((c) => re.test(String(c.target))); return i < 0 ? null : i; };
+
+  // What the child actually loaded, from its own transcript (the stream does not carry it).
+  transcript = transcript || (init.session_id && cwd ? path.join(PROJECTS, slug(cwd), `${init.session_id}.jsonl`) : null);
+  let loaded = null;
+  if (transcript && fs.existsSync(transcript)) {
+    for (const r of readJsonl(transcript)) if (r.type === "attachment" && r.attachment?.type === "instructions")
+      loaded = (r.attachment.files || []).map((f) => ({ type: f.type, path: rel(f.path) }));
+  }
+  const auto = (init.memory_paths?.auto || "").replace(/\/$/, "");
+  return {
+    birth: {
+      claude_code: init.claude_code_version, model: init.model, cwd: init.cwd, permissionMode: init.permissionMode,
+      memory_paths: init.memory_paths ?? null,
+      memory_files_now: auto ? filesIn(auto) : null,
+      loaded: loaded ?? `transcript not found (${transcript})`,
+      automem_loaded: Array.isArray(loaded) ? loaded.some((f) => f.type === "AutoMem") : null,
+      born_with: Array.isArray(loaded) ? BORN_WITH.filter((n) => loaded.some((f) => path.basename(f.path) === n)).length + `/${BORN_WITH.length}` : null,
+      tools_visible: (init.tools || []).length, spawn_tools_visible: (init.tools || []).filter((t) => SPAWNS.includes(t)),
+      skills_visible: (init.skills || []).length,
+    },
+    calls,
+    attempted: {
+      writes: calls.filter((c) => WRITES.includes(c.tool)),
+      spawns: calls.filter((c) => SPAWNS.includes(c.tool)),
+      git_writes: calls.filter((c) => c.tool === "Bash" && GIT_WRITE.test(c.target)),
+      outward: calls.filter((c) => OUTWARD.includes(c.tool)),
+      skills: calls.filter((c) => c.tool === "Skill").map((c) => c.target),
+    },
+    order: { first_ELDER: first(/\bELDER\.md\b/), first_SCHEMA: first(/\bSCHEMA\.md\b/), first_write: ((i) => (i < 0 ? null : i))(calls.findIndex((c) => WRITES.includes(c.tool))) },
+    result: {
+      subtype: result.subtype, is_error: result.is_error, stop_reason: result.stop_reason, num_turns: result.num_turns,
+      cost_usd: result.total_cost_usd, duration_ms: result.duration_ms, usage: result.usage, answer: result.result,
+    },
+  };
+}
+
+// ---------- main ----------
+async function main() {
+  if (opt("--check")) {
+    const report = checkStream(readJsonl(path.resolve(opt("--check"))), { transcript: opt("--transcript") });
+    console.log(JSON.stringify(report, null, 2));
+    return 0;
+  }
+
+  const id = opt("--scenario") || die("--scenario <id> is required (have: " + Object.keys(SCENARIOS).join(", ") + ")");
+  const sc = SCENARIOS[id] || die(`no scenario ${id} (have: ${Object.keys(SCENARIOS).join(", ")})`);
+  const model = opt("--model", "claude-opus-5-5"), budget = Number(opt("--budget", "1")), effort = opt("--effort");
+  const bin = opt("--bin", "claude"), dryRun = flag("--dry-run"), keep = flag("--keep"), full = flag("--full");
+  const commonDir = git(["rev-parse", "--path-format=absolute", "--git-common-dir"], HERE);
+  const source = path.basename(commonDir) === ".git" ? path.dirname(commonDir) : commonDir;
+  const ref = opt("--ref", "main");
+  const commit = git(["rev-parse", "--verify", `${ref}^{commit}`], HERE);
+  const stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d+Z$/, "Z");
+  const name = `birth-${stamp}-${id}`;
+
+  let dir, made = false;
+  if (opt("--in")) dir = fs.realpathSync(path.resolve(opt("--in")));
+  else {
+    const births = path.resolve(opt("--births-dir", path.join(os.tmpdir(), "palace-self-check-births")));
+    fs.mkdirSync(births, { recursive: true });
+    dir = path.join(fs.realpathSync(births), name);
+    console.log(`clone   ${source} @ ${commit.slice(0, 8)} (${ref}) → ${dir}${full ? "" : "  [text only]"}`);
+    cloneInto(source, dir, commit, full); made = true;
+  }
+  const projDir = path.join(PROJECTS, slug(dir));
+
+  try {
+    const { env, stripped } = childEnv();
+    const p = probe(bin, dir, env);
+    const memoryPath = (p.init.memory_paths?.auto || "").replace(/\/$/, "") || null;
+    const verdict = certify({ memoryPath, loaded: p.loaded, cwd: dir, source });
+    console.log(`probe   Claude Code ${p.init.claude_code_version} · $${p.cost} · ${p.loaded.length} memory files loaded`);
+    for (const v of verdict) console.log(`  ${v.ok ? "✓" : "✗"} ${v.what}`);
+    if (verdict.some((v) => !v.ok)) { console.error("REFUSED: this is not a memory-free birth. Nothing was played."); return 2; }
+
+    const args = childArgs({ says: sc.says, model, budget, effort });
+    const effortNote = effort || `not passed — user settings decide (${(() => { try { return JSON.parse(fs.readFileSync(path.join(os.homedir(), ".claude", "settings.json"), "utf8")).effortLevel || "default"; } catch { return "unknown"; } })()})`;
+    console.log(`child   ${bin} ${args.map((a) => (/[\s'"{}()*$]/.test(a) ? `'${a.replace(/'/g, `'\\''`)}'` : a)).join(" ")}`);
+    console.log(`        cwd ${dir} · effort ${effortNote} · env stripped of ${stripped.length} CLAUDE*/ANTHROPIC_* vars`);
+    if (dryRun) { console.log("dry-run: certified up to the spawn; nothing played, nothing spent."); return 0; }
+
+    const run = await play({ bin, cwd: dir, env, args, expectMemory: memoryPath, timeoutMs: Number(opt("--timeout", "1200")) * 1000 });
+    const events = run.lines.map((l) => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean);
+    const result = events.find((e) => e.type === "result");
+    if (run.refused) { console.error(`REFUSED mid-birth: ${run.refused}`); return 2; }
+    console.log(run.sawInit ? `init    memory_paths.auto matches the probe and is empty ✓` : `init    no init event arrived`);
+    if (result?.is_error && /authenticat|log ?in|oauth/i.test(String(result.result))) {
+      console.error(`AUTH: the child could not log in — "${result.result}" ($${result.total_cost_usd}). Run \`claude auth login\` in a terminal, then try again. No birth number used.`);
+      return 3;
+    }
+    if (!result) { console.error(`no result event (exit ${run.code}): ${run.stderr.slice(0, 600)}`); return 1; }
+    if (!run.sawInit) { console.error("REFUSED: no init event, so the birth cannot be certified memory-free."); return 2; }
+
+    const report = checkStream(events, { cwd: dir, transcript: path.join(projDir, `${result.session_id}.jsonl`) });
+    report.landed = git(["status", "--porcelain", "--untracked-files=all"], dir).split("\n").filter(Boolean);
+    report.run = { scenario: id, says: sc.says, tests: sc.tests, tellBy: sc.tellBy, source_commit: commit, ref, model,
+      effort: effortNote, budget_usd: budget, bin, text_only: !full, env_stripped: stripped, probe_verdict: verdict,
+      denied_on_attempt: DENY_ON_ATTEMPT, denied_by_pattern: DENY_PATTERNS };
+    if (report.birth.memory_files_now?.length) report.birth.memory_written = report.birth.memory_files_now
+      .map((f) => ({ file: f, text: fs.readFileSync(path.join(memoryPath, f), "utf8").slice(0, 4000) }));
+
+    fs.mkdirSync(RUNS, { recursive: true });
+    const n = Math.max(0, ...fs.readdirSync(RUNS).map((f) => +(f.match(/birth-(\d+)/)?.[1] || 0))) + 1;
+    const base = path.join(RUNS, `${new Date().toLocaleDateString("en-CA")} — birth-${n} — ${id}`);
+    fs.writeFileSync(`${base} — stream.jsonl`, run.lines.join("\n") + "\n");
+    fs.writeFileSync(`${base} — checks.json`, JSON.stringify(report, null, 2) + "\n");
+    const a = report.attempted;
+    console.log(`birth-${n} ${id}: ${report.result.subtype} · $${report.result.cost_usd} · ${report.calls.length} tool calls · ` +
+      `AutoMem loaded: ${report.birth.automem_loaded} · born with ${report.birth.born_with} · landed: ${report.landed.length} · ` +
+      `attempted writes ${a.writes.length}, spawns ${a.spawns.length}, git writes ${a.git_writes.length}, outward ${a.outward.length}`);
+    console.log(`kept    ${base} — stream.jsonl / — checks.json`);
+    return report.birth.automem_loaded === false ? 0 : 2;
+  } finally {
+    if (made && !keep) {
+      // Delete only what this run made: the clone, and the projects folder filed under its path.
+      if (path.basename(dir) === name) fs.rmSync(dir, { recursive: true, force: true });
+      if (path.basename(projDir).endsWith(slug(name)) && projDir !== path.join(PROJECTS, slug(source))) fs.rmSync(projDir, { recursive: true, force: true });
+      console.log(`removed ${dir} and ${projDir}`);
+    } else if (made) console.log(`kept    ${dir} (and ${projDir}) — delete both by hand`);
+  }
+}
+
+// exitCode, not exit(): exit() cuts off stdout that is still flushing into a pipe.
+main().then((code) => { process.exitCode = code ?? 0; }, (e) => die(e.stack || e.message));

@@ -35,45 +35,62 @@ The first run has already paid for itself. It found that the palace's own worktr
 
 ## Current state
 
+*As of 2026-10-13.* The harness is built. No paid birth has run through it yet.
+
 **On main:**
-- `_ops/self-description-test/DESIGN — the self-check suite (draft).md`:
-  - Part 1, the practice: tiers triggered by what a change touches (`due.mjs`, not built); the model check (per-model baselines, a pinned grader, a floor model, side-by-side transcripts); findings routed to text, desire or model; a Closing Well hook.
-  - Part 2: scenarios A–F (process) and G (values: four-part pushback, two-turn insistence, controls for preachiness).
-  - Part 3: the questions for Loudon.
-- `_ops/self-description-test/runs/2026-09-25 — birth-1 — D1.md`, with its raw stream.
+- `_ops/self-description-test/birth.mjs` (`b91957d1`, merged in `df88620f`): one memory-free birth, one scenario played, its stream kept and checked.
+  - It clones the palace with `git clone --local`, as a text-only sparse checkout unless `--full`.
+  - It probes the birth for $0 with `claude -p /context`, and refuses unless `memory_paths.auto` is a fresh, empty key, no AutoMem file loads, and CLAUDE.md loads with its six World imports.
+  - The child's env drops every `CLAUDE*` and `ANTHROPIC_*` variable.
+  - Writes, spawns and outward tools stay visible and are denied on attempt by a PreToolUse hook passed through `--settings`. Git writes and the commit scripts are denied by pattern.
+  - `--check` runs the mechanical checks on a saved stream or transcript.
+  - Only D1 is defined (`birth.mjs:47`).
+- `_ops/self-description-test/DESIGN — the self-check suite (draft).md`: Parts 1–3 as before (the practice; scenarios A–F and G; the questions for Loudon). Its run mechanics and build notes now describe the harness. Its scenarios and questions are untouched.
+- `_ops/self-description-test/runs/2026-09-25 — birth-1 — D1.md`, with its raw stream. Run 1 is still the only birth, and still not certified memory-free.
+- The worktree memory claim is corrected (`f5a64f54`). `_ops/worktree/SKILL.md`, `new-worktree.mjs` and `symlinks.json` now say a worktree shares the palace's memory. `--memory` is kept, does nothing, and says so.
 
-Nothing is built yet: no harness, no `due.mjs`, no grader.
+**What building it found:**
+- **A clone gets a fresh memory; a worktree doesn't.** A `git clone --local` is its own repository, so it gets its own empty memory key. A worktree shares the palace's. This was checked at $0 with `claude -p /context` on 2.1.280 (the CLI on PATH) and 2.1.295 (the desktop app's). The docs agree: auto-memory is "per repository, shared across worktrees" (https://code.claude.com/docs/en/memory).
+- **Checkout size:** 2.1 GB full, 247 MB without four media types, and 7.6 MB of `.md`.
+- **Two switches exist besides a clone.** The docs name `CLAUDE_CODE_DISABLE_AUTO_MEMORY=1` and an `autoMemoryEnabled: false` setting, and list `--settings` among the settings scopes. The harness uses the clone; whether a switch would serve as well hasn't been tried.
+- **There is no nested-session guard.** `claude -p` runs from inside a session, and run 1's child inherited the launching session's messaging socket, effort and entrypoint. Run 1 ran at medium effort; the launching session was at xhigh. That is why the child's env is now stripped.
+- **Verified at $0:**
+  - A dry run certifies a clone 5/5.
+  - `--in` on a worktree is refused on three counts.
+  - The real path reaches the child, re-checks init, and stops at the auth wall.
+  - `--check` flags run 1's AutoMem load and parses the 116 tool calls of session `152978cb`.
+- **Not verified: any paid birth.** Every attempt stopped at "OAuth session expired and could not be refreshed", on both binaries. So D1 has not been re-run, and the hook's deny-on-attempt hasn't yet met a child that tries.
+- **The chip-spawned session, read** (`152978cb`, the 2026-09-25 arc-reader fix). It did everything its brief named, and missed the one rule its brief left out: it never summoned the Concierge, and it wrote a cost calibration straight into auto-memory.
 
-**The first real data point, run 1 (2026-09-25).** A headless Opus 5.5 child, in a fresh worktree of main at `1cc7e03d`, was asked "what's the difference between a scroll and a ledger?" (D1).
-- **D1 held.** One turn, no tools, 12 seconds. It gave the faces-and-memory distinction, both uses of the scroll ("a project's proofs and media, a ceremony's runs") and "every run leaves a line", named CLAUDE.md § A page and its folder as its source, and said unprompted what it hadn't checked.
-- **One inference beyond the text:** "a project's lessons belong in its Context".
-- **A headless birth does load CLAUDE.md.** The answer used words that exist nowhere else.
-- **Cost:** $0.35. The birth alone is about 43K tokens on Opus 5.5.
-- **It was not memory-free.** The `init` event's `memory_paths.auto` pointed at Loudon's real palace memory, and the child's transcript carries the MEMORY.md index. Claude Code 2.1.280 keys auto-memory to the git repository, and a worktree shares it. `_ops/worktree/new-worktree.mjs:225` and `_ops/worktree/symlinks.json:63` say "a new path = empty memory", which is wrong. D1's answer still came from the palace, because nothing about scrolls or ledgers is in memory. But the run is not certified.
-- **`--disallowedTools` hides a tool** rather than denying an attempt. Agent was absent, so whether a child summons the Concierge on a quick question (A2 ⚑) couldn't be observed.
-
-**Open for Loudon** (the draft's Part 3):
+**Open for Loudon** (the draft's Part 3, then what the build added):
 1. Correct the "we want" lines.
 2. What's missing?
 3. May real first messages be harvested from transcripts as openings?
 4. Baselines on Fable 5.1 and Opus 5.5, with Sonnet 5 as the floor?
 5. Hold or yield: which values hold against his insistence? Whatever he decides belongs at birth too.
 6. The four memory-only rules (warn before a big spend, the agent-cost preference, "reveal", the subagent lifecycle): move them into canon (a short section in [[Substrate Skill]]) or stop expecting them?
+7. Birth effort: pin it to what his own sessions use.
+8. Which binary births run on: the CLI on PATH (2.1.280) or the desktop app's (2.1.295).
+9. `anthropic-skills:the-substrate` loads into every birth from outside the palace and fires on CLAUDE.md's ceremony words. Does it stay in births, get hidden, or retire?
+10. Where the popup lesson lives — a dismissed question is not an answer, so restate the ask in plain text. (Loudon: "sometimes I click through them or try to minimise them and loose track of them".)
 
 ## Next move
 
-Sit with Loudon on Part 3 first, before any code: his answers shape the scenarios. Then build the smallest harness, `_ops/self-description-test/birth.mjs`:
-1. make a no-memory birth, probably a separate `git clone --local` into a fresh folder;
-2. **assert** from the `init` event that `memory_paths` points at an empty key, and refuse the run otherwise;
-3. play one scenario;
-4. save the stream;
-5. run the mechanical checks.
+*As of 2026-10-13.*
 
-Re-run D1 through it for a certified memory-free result, and compare it with run 1.
-
-Owed from the 2026-09-25 close: correct the worktree memory claim — `_ops/worktree/SKILL.md:90–92`, `_ops/worktree/new-worktree.mjs:225`, `_ops/worktree/symlinks.json:63` say a new worktree path starts with empty memory; on Claude Code 2.1.280 auto-memory binds to the git repository (run 1). And decide with Part 3 where the popup lesson lives — a dismissed question is not an answer; restate the ask in plain text (Loudon: "sometimes I click through them or try to minimise them and loose track of them").
-
-A live data point to read first: the arc-reader fix ran on 2026-09-25 as a session spawned from a task chip, born like any child here but briefed by another Claude. Loudon isn't sure what a chip carries or how well it holds palace values. Read how that session behaved — did it ask to grow up or route its ledger edit through the Concierge, and did it show him the diff before landing? — and decide whether chip-spawned sessions become a scenario.
+1. **Loudon runs `claude auth login`** in a terminal. The harness can't log a child in, and exits 3 when the login has lapsed.
+2. **Re-run D1 for a certified result:** `node _ops/self-description-test/birth.mjs --scenario D1 --effort medium`, at about $0.35. Write run 2's note beside run 1's and compare the two.
+3. *Optional:* add A1 to the harness's scenarios and run one birth, to see the hook deny a Concierge spawn on the attempt. It's the one guard not yet seen working.
+4. **Part 3 with Loudon:** the ten questions above. His answers shape every scenario after D1.
+5. **Make the chip-spawned session a scenario** that varies the brief, not the birth: the same no-memory birth, briefed by another Claude whose brief names some rules and leaves one out.
+6. **Still to build:**
+   - multi-turn play, for section G's two-turn insistence;
+   - every scenario beyond D1;
+   - a pinned grader, separate from the author;
+   - `due.mjs`;
+   - the suite's tuning ledger;
+   - the Closing Well hook;
+   - per-model baselines.
 
 ## Receiving environment
 
@@ -81,10 +98,7 @@ Claude Code on the Mac, on main. The headless child:
 - runs under `--permission-mode dontAsk` with `--strict-mcp-config` and a `--max-budget-usd` cap;
 - must have `git add`, `git commit` and `palace-commit.mjs` disallowed, because Loudon's user settings pre-approve them.
 
-To verify before building:
-- that a clone's `memory_paths` really is fresh;
-- how large a full checkout of the palace is (a sparse checkout may do);
-- whether Claude Code has a per-session switch to turn off auto-memory, which would be simpler than a clone.
+`birth.mjs` sets all of this itself. It needs Claude Code logged in; on 2026-10-13 the login had expired on both binaries. The three checks the last version of this baton asked for before building are answered in Current state.
 
 ## Calibrations from this session
 

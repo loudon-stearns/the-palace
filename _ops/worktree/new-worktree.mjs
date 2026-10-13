@@ -7,13 +7,13 @@
 //
 // Usage:
 //   node _ops/worktree/new-worktree.mjs --name feature/blueline [--profile blueline]
-//        [--base main] [--dir ../palace-blueline] [--memory] [--dry-run]
+//        [--base main] [--dir ../palace-blueline] [--dry-run]
 //
 //   --name     branch for the worktree (required). New branch unless it already exists.
 //   --profile  which symlink set: docs | shop | blueline | stigmergy | full   (default: full)
 //   --base     branch to fork from when creating a new branch                 (default: main)
 //   --dir      worktree location                          (default: ../palace-<slug-of-name>)
-//   --memory   also symlink ~/.claude project memory so palace memories carry over
+//   --memory   no effect, kept so old commands still run: a worktree already shares palace memory
 //   --dry-run  print the plan, change nothing
 //
 // Teardown:
@@ -114,8 +114,9 @@ if (flag("--remove")) {
       if (!force) console.warn(`    closing-well guard: unmerged commits would be lost. Merge/cherry-pick them to the trunk first, or re-run with --force-delete to discard deliberately.`);
     }
   }
+  // Older runs of --memory left a link here (named by the '/'-only rule they used); point at it if it exists.
   const memLink = path.join(os.homedir(), ".claude", "projects", dir.replace(/[\/]/g, "-"), "memory");
-  console.log(`  note: if you symlinked memory, remove it:  rm "${memLink}"\n`);
+  try { if (fs.lstatSync(memLink).isSymbolicLink()) console.log(`  note: an old --memory link is still here — remove it:  rm "${memLink}"\n`); } catch {}
   process.exit(0);
 }
 
@@ -211,22 +212,11 @@ if (autoMirror.length) console.log(`  auto-mirror: ${autoMade} made, ${autoSkipp
 if (autoMade) console.log(`  ! these node_modules ARE the owner's install — before any npm install/ci/update here, rm the links (no trailing slash); see _ops/worktree/SKILL.md`);
 
 // ---- memory (outside the repo) ----
+// Nothing to do. Auto-memory is keyed to the git repository, not the folder, so this worktree already
+// reads and writes the palace's own memory (SKILL.md § Memory is shared; symlinks.json → memory).
 function printMemory() {
-  const newSlug = dir.replace(/[\/]/g, "-");
-  const projDir = path.join(os.homedir(), ".claude", "projects", newSlug);
-  const canonical = MANIFEST.memory.canonical.replace(/^~/, os.homedir());
-  const memLink = path.join(projDir, "memory");
-  if (doMemory && !dryRun) {
-    try {
-      fs.mkdirSync(projDir, { recursive: true });
-      if (fs.existsSync(memLink)) console.log(`  memory: ${memLink} already exists — left as-is`);
-      else { fs.symlinkSync(canonical, memLink, "dir"); console.log(`  ✓ memory symlinked → canonical palace memory`); }
-    } catch (e) { console.warn(`  ! memory symlink failed: ${e.message}`); }
-  } else {
-    console.log(`\n  memory continuity (auto-memory is path-keyed — a new path = empty memory):`);
-    console.log(`    mkdir -p "${projDir}" && ln -s "${canonical}" "${memLink}"`);
-    console.log(`    (or re-run with --memory to do this automatically)`);
-  }
+  console.log(`\n  memory: shared — auto-memory is keyed to the repository, so this worktree uses the palace's own.`);
+  if (doMemory) console.log(`    (--memory has no effect: there is nothing to link)`);
 }
 printMemory();
 

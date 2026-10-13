@@ -15,7 +15,7 @@ import { Banner } from './components/primitives.jsx';
 import { fetchPersistent, fetchSessions } from './adapters/blackboard.js';
 import { subscribeLive } from './adapters/live-tail.js';
 import { mergeLive } from './lib/live-feed.js';
-import { buildInbox } from './lib/inbox.js';
+import { buildInbox, pendingTricksterCount } from './lib/inbox.js';
 import { BOARDS } from './lib/format.js';
 import { DEMO_MESSAGES } from './lib/demo-data.js';
 import { validateAll } from './lib/schema.js';
@@ -216,16 +216,7 @@ export default function App() {
   );
 
   // Pending Trickster requests (RESOURCE_REQUESTs without a matching response).
-  const pendingTrickster = useMemo(() => {
-    const trickster = visibleMessages.filter((m) => m.board === 'TRICKSTER');
-    const responded = new Set();
-    for (const m of trickster) {
-      if ((m.type === 'RESOURCE_GRANT' || m.type === 'RESOURCE_DENY') && m.re) {
-        responded.add(m.re);
-      }
-    }
-    return trickster.filter((m) => m.type === 'RESOURCE_REQUEST' && !responded.has(m.request_id)).length;
-  }, [visibleMessages]);
+  const pendingTrickster = useMemo(() => pendingTricksterCount(visibleMessages), [visibleMessages]);
 
   // The pending decisions the Companion can ground in on the TRICKSTER deck. The
   // window scroll-spies the card it floats over and answers AS that project (its

@@ -51,11 +51,11 @@ export function parseArgs(argv) {
  * Run one cycle. Pure-ish: takes an explicit `now` (ISO string) so callers/
  * tests control time; the digest and any posted messages stamp this value.
  *
- * @returns {{ digest: object, posted: Array, budget: object }}
+ * @returns {{ digest: object, posted: Array, budget: object, unanswerable: Array }}
  */
 export function runCycle({ boardPath, mode = 'shadow', rulesPath, now, budgetCap, budgetStatePath }) {
   const board = loadBoard(boardPath || PERSISTENT_BOARD);
-  const { pending } = buildInbox(board);
+  const { pending, unanswerable } = buildInbox(board);
   const ruleset = loadRuleset(rulesPath || undefined);
 
   const budget = loadBudget({ today: (now || '').slice(0, 10), cap: budgetCap, statePath: budgetStatePath });
@@ -73,7 +73,7 @@ export function runCycle({ boardPath, mode = 'shadow', rulesPath, now, budgetCap
     applyDecisions(budget, results); // decrement budget for grants actually posted
   }
 
-  return { digest, posted, budget };
+  return { digest, posted, budget, unanswerable };
 }
 
 function main() {
@@ -93,7 +93,7 @@ function main() {
   // as input. (Date is fine here — this is the I/O edge, not a workflow script.)
   const now = new Date().toISOString();
 
-  const { digest, posted } = runCycle({
+  const { digest, posted, unanswerable } = runCycle({
     boardPath: args.board,
     mode: args.mode,
     rulesPath: args.rules,
@@ -114,7 +114,9 @@ function main() {
     process.stdout.write(
       `[trickster-auto] mode=${args.mode}  pending=${c.pending}  escalate=${c.escalate}  auto-grant=${c.auto_grant}  auto-deny=${c.auto_deny}\n` +
       `  digest → ${jsonPath}\n  digest → ${mdPath}\n` +
-      (args.mode === 'live' ? `  posted ${posted.length} decision(s) to the board\n` : '  (shadow — nothing posted)\n'),
+      (args.mode === 'live' ? `  posted ${posted.length} decision(s) to the board\n` : '  (shadow — nothing posted)\n') +
+      // A request with neither request_id nor id can never be answered; name it, don't queue it.
+      unanswerable.map((r) => `  unanswerable (no request_id, no id): ${r.from ?? '?'} · ${r.ts ?? '?'}\n`).join(''),
     );
   }
 }
