@@ -15,24 +15,24 @@ forward_vector: "I am Slime Mold Delay's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T23:08:34.518Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T23:21:09.793Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 9 · last ran 2026-10-13 (today)
-- **Plan:** none agreed yet — the work leans on the forward vector
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 10 · last ran 2026-10-13 (today)
+- **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — The dish is live in the browser now. You place food and play into it, and the delay grows its routing on the real mold's flow law while you listen. (`slime-mold-delay-steward-015`)
-- **Last commit touching this project:** 2026-10-13 `148794ce` — steward(Slime Mold Delay): cycle 8 — SPINNING UP. HOME: [[Slime Mold Delay]]. Neighborhood loaded. Cycle 8, …
+- **Last shipped:** 2026-10-13 (today) — Slime Mold Delay has never had an agreed plan. Here's one: your ears on the dish, then start dense and thin, then Max, then the lesson. (`slime-mold-delay-steward-018`)
+- **Last commit touching this project:** 2026-10-13 `25b841e2` — steward(Slime Mold Delay): cycle 9 — SPINNING UP. HOME: [[Slime Mold Delay]]. Neighborhood loaded. Cycle 9, …
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Slime Mold Delay is a delay effect whose routing is grown rather than designed. Each tube of a slime mold is a delay line: its length sets the echo time, and its thickness sets how much sound it carries. You place food (sound sources) and a listener, and the mold works out the network. Earlier today I rebuilt the growth on the law the real mold follows. Loud food pushes cytoplasm, the listener drains it, and tubes thicken with the flow they carry. Offline, the routing followed the music. This cycle put that engine into a playable browser page. Porting it showed that the law only recovered from a change in the music about two times in three. Two small fixes from the biology bring it to forty…
+Slime Mold Delay is a delay effect whose routing is grown, not designed. Every tube of a simulated slime mold is a delay line: its length sets the echo time and its thickness sets how much sound it carries. You place food (sound sources) and a listener, and the mold works out the network on the flow law the real mold follows. Loud food pushes, the listener drains, and tubes thicken with the flow they carry. Earlier today that engine went into a playable browser dish, and its routing follows the music when the music moves. This cycle a tip can bud from partway along a tube, and the tube forks where the tip lands. That brings the shape closer to the real mold. I also measured the hope behind…
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `slime-mold-delay-steward-018` — proposed plan revision: a first plan for the grown delay · posted 2026-10-13 · options: adopt · keep
 
 ### Answered, not yet consumed
 
@@ -59,6 +59,57 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="slime-mold-delay-steward-018" -->
+### 2026-10-13 — cycle 10 — Slime Mold Delay has never had an agreed plan. Here's one: your ears on the dish, then start dense and thin, then Max, then the lesson.
+> still working · live dish shipped, buds measured · steward leans adopt
+
+Catch-up: Slime Mold Delay is a delay whose routing is grown by a simulated slime mold. Tubes are delay lines, and they thicken with the flow they carry. Today it went from an offline render to a playable browser dish whose routing follows the music. I've been working from the entry's old five-step ladder (spec, offline prototype, realtime, full mold dynamics, lesson), and no plan has ever been agreed. This cycle showed the ladder's fourth step needs a different shape than the one I was building. Tips that bud mid-tube didn't make networks any leaner (about 1.25–1.7× the shortest network in a clustered dish, with or without buds). The real mold gets lean by starting dense and thinning, not by adding strand by strand. So the plan below puts your ears first, because nothing has been heard yet. Then comes that experiment, then a real instrument in Max, then the lesson. Nothing waits on this. I keep building along the forward vector either way.
+
+**Artifacts:**
+- [2026-10-13-flow-dish-moves.png](Projects/Slime Mold Delay/headless/2026-10-13-flow-dish-moves.png)
+<sub>`slime-mold-delay-steward-018` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="slime-mold-delay-steward-017" -->
+### 2026-10-13 — cycle 10 — Tips can now bud from anywhere along a tube, not just its ends. I measured it: forking alone doesn't make the mold's networks any leaner.
+> shipped · buds live in the dish, measured on 320 dishes · steward leans: start dense, then thin
+
+**Open [the flow dish](open:Projects/Slime Mold Delay/slime-mold-flow-dish.html) and press THE MUSIC MOVES.** Now and then a small ring appears partway along a gold tube. That's a bud. If its tip reaches food or a bare spot, the tube is cut in two right there, and a gold dot marks the fork. The two halves keep the old tube's thickness, flow and direction. Their lengths add up to the old one, so the echo time through the old road doesn't change. A bud that gives up leaves its tube whole. A new dropdown, A NEW TIP BUDS FROM, switches back to cycle 9's rule (tips grow only where tubes meet), so you can hear the difference. The [strip](open:Projects/Slime Mold Delay/headless/2026-10-13-flow-dish-buds.png) shows one browser run at 12, 21 and 29 seconds. At 12 s, flake 2's road forks off flake 1's road. At 21 s the dish has let go of the left side and is briefly bare while a tip heads right. At 29 s, two roads run to the right flakes.
+
+**The measurement.** I added two things to [the check](open:Projects/Slime Mold Delay/headless/flow_dish_check.mjs). The first is a second dish where the listener sits at the left rim and four flakes fan out on the right. In that dish a shared trunk saves real tube length. In the first dish the food is spread all around the listener, so separate straight roads are already about the cheapest network, and no trunk could help. The second is a yardstick: the shortest network joining the listener to every flake it hears, using straight roads only. A network that shares trunks through forks can come in under it. Across 40 dishes each, with and without buds, none came in under it. In the clustered dish the mold spends about 1.25 to 1.7 times that much tube either way, and buds move the number by a few percent in either direction (see the table).
+
+Then I tried the obvious dials in throwaway runs (not saved): keep exploring after every flake is fed, a steeper flow law, harsher pruning. The best of them got the clustered dish to about 1.48 times the shortest network. The harshest pruning got close to 1.07, but only by letting the mold lose half its food. So the waste isn't about where tips sprout. It's that once a road exists, it's never forced to compete. Loops where several tubes split the flow each carry enough to survive, and the mold stops exploring as soon as it's fed. Nakagaki's slime mold does it the other way around. It starts by covering the whole dish, then the flow carves that cover down to the roads that matter. Ours starts as one strand and adds. That reversal, start dense and then thin, is what I'd build next.
+
+**What it costs the moving music.** With buds on, all 40 dishes still end on the right, but the right roads overtake the left a median 5.0 s after the switch, against 3.5 s without buds. Some tips now bud mid-tube on the old side instead of setting off from where the old roads meet. I left buds on in the page because the shape is truer to the mold. The dropdown puts the faster rule back if you prefer it by ear.
+
+**Artifacts:**
+- [the realtime flow dish, now with tips that bud mid-tube and fork the tube where they land. Press THE MUSIC MOVES first.](Projects/Slime Mold Delay/slime-mold-flow-dish.html)
+- [one headless-Chromium run of the demo at 12 s, 21 s and 29 s: a forked left network, a briefly bare dish, two right roads.](Projects/Slime Mold Delay/headless/2026-10-13-flow-dish-buds.png)
+- [runs the page's own engine in node: the moving-music sweep with five rule variants, plus the new economy sweep on a round dish and a clustered dish.](Projects/Slime Mold Delay/headless/flow_dish_check.mjs)
+- [every number behind both tables, plus per-scene events and final networks.](Projects/Slime Mold Delay/headless/2026-10-13-flow-dish-sprout-check.json)
+- [drives the page in headless Chromium: START, the demo, an output tap for level and bad samples, three dish captures.](Projects/Slime Mold Delay/headless/flow_dish_browser_check.mjs)
+- [that browser run: peak −6.6 dBFS, no bad samples, no errors, engine at 29.9 steps a second, five forks.](Projects/Slime Mold Delay/headless/2026-10-13-flow-dish-sprout-browser.json)
+
+_40 seeded dishes per row · all flakes sounding · roads = tubes thick enough to carry sound · 1.00 = the shortest straight-road network_
+| dish | tips bud from | flakes heard (mean) | road length ÷ shortest network (median) | forks (median) | dishes under the shortest |
+| --- | --- | --- | --- | --- | --- |
+| round, roomy budget | ends only | 4.50 of 5 | 1.08 | 0 | 2 |
+| round, roomy budget | anywhere | 4.35 of 5 | 1.10 | 4 | 3 |
+| round, tight budget | ends only | 1.98 of 5 | 1.02 | 0 | 0 |
+| round, tight budget | anywhere | 2.00 of 5 | 1.03 | 6 | 0 |
+| clustered, roomy budget | ends only | 3.92 of 4 | 1.65 | 0 | 0 |
+| clustered, roomy budget | anywhere | 3.90 of 4 | 1.71 | 4 | 0 |
+| clustered, tight budget | ends only | 2.88 of 4 | 1.27 | 0 | 0 |
+| clustered, tight budget | anywhere | 2.85 of 4 | 1.24 | 4 | 0 |
+| music moves (round) | ends only (cycle 9) | 40 / 40 end right | right overtakes left in 3.5 s | 0 | — |
+| music moves (round) | anywhere (cycle 10) | 40 / 40 end right | right overtakes left in 5.0 s | 5 | — |
+
+_Left rough:_ I haven't heard it. The browser run proves it plays (peak −6.6 dBFS, no errors, a true 30 steps a second), not that the forks sound good. Splitting a tube routes its sound through a fork point, which has its own soft limiter and a one-third gain, so a forked road is probably quieter and slightly more saturated than the tube it replaced. Unheard and unmeasured. The dial sweeps I described weren't saved. The Python engine still runs the older rule, so offline renders and the live page disagree.
+
+_Next moves named:_ Start dense, then thin: begin a dish with the mold already covering the agar as a mesh, the way the plasmodium starts in Nakagaki's experiments, and let the flow law carve it down. Then check the clustered dish against the shortest-network yardstick to see whether the mold finally comes in under it. · Fold the page engine (whole-dish share, pass-through tips, buds) back into physarum_flow.py and re-render the five dishes as audio, so the offline renders and the live page agree.
+<sub>`slime-mold-delay-steward-017` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="slime-mold-delay-steward-015" -->
 ### 2026-10-13 — cycle 9 — The dish is live in the browser now. You place food and play into it, and the delay grows its routing on the real mold's flow law while you listen.
 > shipped · realtime dish works headless in Chromium · steward leans: tips that branch mid-tube next

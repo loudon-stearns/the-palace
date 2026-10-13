@@ -1,0 +1,36 @@
+{
+ "tap": {
+  "peak": 0.46530765295028687,
+  "bad": 0
+ },
+ "counts": {
+  "probes": 12,
+  "captured": 19,
+  "starved": 2,
+  "retracted": 21,
+  "budget_refused": 0,
+  "forks": 5
+ },
+ "tubes": 4,
+ "forksNow": 0,
+ "tick": 883,
+ "rate": 29.931290231847626,
+ "log": [
+  " 25.5s  the tube a bare spot – flake 4 is pulling back",
+  " 24.9s  the tube a bare spot – a bare spot is pulling back",
+  " 24.7s  the tube the listener – a bare spot is pulling back",
+  " 24.2s  a tip reached flake 4 from a bare spot",
+  " 23.8s  a tip reached flake 4 from a bare spot",
+  " 23.8s  a tip reached flake 3 from a bare spot",
+  " 23.7s  a tip reached a bare spot from a bare spot",
+  " 23.6s  a tip reached a bare spot from the listener",
+  " 23.6s  a tip reached a bare spot from the listener",
+  " 23.5s  a tip reached a bare spot from the listener",
+  " 22.4s  the tube flake 5 – flake 4 is pulling back",
+  " 21.3s  a tip reached flake 4 from flake 5",
+  " 20.6s  the tube a fork – flake 4 is pulling back",
+  " 20.6s  the tube a bare spot – a fork is pulling back"
+ ],
+ "peak_dbfs": -6.6,
+ "errors": []
+}
