@@ -6,7 +6,7 @@ pillars:
   - practice
   - philosophy
 born: 2026-03
-version: "1.26"
+version: "1.27"
 stage: foundational
 status: canonical
 links:

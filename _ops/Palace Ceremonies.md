@@ -37,6 +37,8 @@ links:
     type: enables
   - target: "[[Sentry]]"
     type: enables
+  - target: "[[The Daily Page]]"
+    type: enables
 ---
 # Palace Ceremonies
 
@@ -48,6 +50,7 @@ The complete and canonical list of all palace ceremonies. Every ceremony has a t
 
 | Ceremony | Trigger | Cadence | What Happens | Full Spec |
 |---|---|---|---|---|
+| The Daily Page | The morning's scheduled task; or "daily page" / "today's page" / "deal today's page" | Daily | One page, dealt by a shuffle made once, until every page has been sat with. Loudon recalls it from its title alone, they read it together, the page is woken and speaks, its siblings are opened and the question is asked whether a neighbor should consume it, and they try to make it something to hear, see or play. The morning ends in a verdict: keep, trim, tune, fold, compost, open, or revive for a page already dormant. The morning decides; anything larger than a small edit leaves as a baton for the rite that owns it. The close matches the work. | [[The Daily Page]] |
 | The Walk | "Let's walk" | Weekly | Pick a starting entry, follow typed links, and name honestly what the path turned up — a connection, a tension, or nothing | [[Walk Ceremony]] |
 | The Weave | "Let's weave" | Monthly | Full palace structural audit, run as a **Swarm Weave** (parallel workers + coordinator synthesis). Opens with a Map Build. Reports topology, formalizes unsung paths, proposes label enrichment and new typed links. | [[Weave Ceremony]] |
 | The Return | "I'm back" / "what did I miss" / "return" | On returning after a gap | Summon the [[Concierge]] as the first act (which also leaves a warm resident for the close); run the query block before interpreting anything; show a return map whose every row cites a command or `file:line`; end on one move, preferring an open handoff over an invented one. Loudon signs. Report the gap's length, never its cause. | [[Return Ceremony]] |
@@ -95,7 +98,7 @@ Not full ceremonies, but palace-aware interactions that can happen in any conver
 
 ## What Makes a Ceremony, and How It Changes
 
-A ceremony is named in the ceremony tables above and keeps a **tuning ledger** in its bundle, `[Ceremony] — tuning.md`. Today both are true of the same thirteen. The tables are how a person finds a ceremony; the ledger is how the machinery finds one.
+A ceremony is named in the ceremony tables above and keeps a **tuning ledger** in its bundle, `[Ceremony] — tuning.md`. Today both are true of the same fourteen. The tables are how a person finds a ceremony; the ledger is how the machinery finds one.
 
 - **It carries a version**, in its frontmatter. The version moves when the spec changes — a step, a gate, a postcondition — and never on a run.
 - **Every run opens with the tail read** of its ledger: the last 40 lines once the run lines are set aside, and every item still owed.
