@@ -1,6 +1,6 @@
 // trunk-state (scripts/trunk-state.mjs): the trunk read and never touched.
 import { describe, test, expect, beforeEach, afterEach } from 'vitest';
-import { mkdtempSync, rmSync, writeFileSync, appendFileSync, mkdirSync } from 'node:fs';
+import { mkdtempSync, rmSync, writeFileSync, appendFileSync, mkdirSync, utimesSync } from 'node:fs';
 import { execFileSync, spawnSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { resolve, join, dirname } from 'node:path';
@@ -52,5 +52,60 @@ describe('trunk-state', () => {
     const human = spawnSync('node', [TS, '--no-writers'], { cwd: root, encoding: 'utf8' });
     expect(human.stdout).toMatch(/main is 1 ahead of origin/);
     expect(human.stdout).toMatch(/2 moves of main, 1 through the door, 1 around it/);
+  });
+  test('a bad --since is refused', () => {
+    const r = spawnSync('node', [TS, '--since', 'banana', '--no-writers'], { cwd: root, encoding: 'utf8' });
+    expect(r.status).toBe(2);
+    expect(r.stderr).toMatch(/--since takes/);
+  });
+
+  test('names the session that wrote each unsaved file, not one that only read it', () => {
+    const owner = /^worktree (.+)$/m.exec(g(root, 'worktree', 'list', '--porcelain'))[1];
+    const home = join(base, 'home');
+    const dir = join(home, '.claude', 'projects', owner.replace(/[^A-Za-z0-9]/g, '-'));
+    mkdirSync(join(dir, 'parent-s', 'subagents'), { recursive: true });
+    mkdirSync(join(root, 'Projects', 'P'), { recursive: true });
+    writeFileSync(join(root, 'Projects', 'P', 'x.md'), 'new\n');
+    writeFileSync(join(root, 'a.md'), 'changed\n');
+    const t = (min) => new Date(Date.now() - min * 60000).toISOString();
+    const use = (name, path, ts) => `${JSON.stringify({ timestamp: ts, message: { role: 'assistant', content: [{ type: 'tool_use', name, input: { file_path: path } }] } })}\n`;
+    writeFileSync(join(dir, 'writer-s.jsonl'), use('Write', join(owner, 'Projects', 'P', 'x.md'), t(5)));
+    writeFileSync(join(dir, 'reader-s.jsonl'), use('Read', join(owner, 'Projects', 'P', 'x.md'), t(1)) + use('Read', join(owner, 'a.md'), t(1)));
+    writeFileSync(join(dir, 'parent-s', 'subagents', 'agent-1.jsonl'), use('Edit', join(owner, 'a.md'), t(3)));
+    const r = spawnSync('node', [TS, '--json'], { cwd: root, encoding: 'utf8', env: { ...process.env, HOME: home } });
+    expect(r.status, r.stderr).toBe(0);
+    const s = JSON.parse(r.stdout);
+    const by = Object.fromEntries(s.unsaved.map((u) => [u.path, u.writer]));
+    expect(by['Projects/']).toBe('writer-s');
+    expect(by['a.md']).toBe('parent-s');
+    expect(s.writers_truncated).toBe(false);
+  });
+
+  test('a write a later change has overtaken is marked so', () => {
+    const owner = /^worktree (.+)$/m.exec(g(root, 'worktree', 'list', '--porcelain'))[1];
+    const home = join(base, 'home');
+    const dir = join(home, '.claude', 'projects', owner.replace(/[^A-Za-z0-9]/g, '-'));
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(join(root, 'a.md'), 'changed\n');
+    const old = new Date(Date.now() - 3600000);
+    writeFileSync(join(dir, 'old-s.jsonl'), `${JSON.stringify({ timestamp: old.toISOString(), message: { content: [{ type: 'tool_use', name: 'Edit', input: { file_path: join(owner, 'a.md') } }] } })}\n`);
+    const r = spawnSync('node', [TS, '--json'], { cwd: root, encoding: 'utf8', env: { ...process.env, HOME: home } });
+    const row = JSON.parse(r.stdout).unsaved.find((u) => u.path === 'a.md');
+    expect(row.writer).toBe('old-s');
+    expect(row.overtaken).toBe(true);
+    utimesSync(join(root, 'a.md'), old, old);
+    const again = JSON.parse(spawnSync('node', [TS, '--json'], { cwd: root, encoding: 'utf8', env: { ...process.env, HOME: home } }).stdout).unsaved.find((u) => u.path === 'a.md');
+    expect(again.overtaken).toBe(false);
+  });
+
+  test('a landing marker reads as in progress, died, or unreadable', () => {
+    const markerFile = join(root, '.git', 'palace-land.json');
+    const read = () => spawnSync('node', [TS, '--no-writers'], { cwd: root, encoding: 'utf8' }).stdout;
+    writeFileSync(markerFile, JSON.stringify({ old: 'a'.repeat(40), new: 'b'.repeat(40), branch: 'feature/x', pid: process.pid }));
+    expect(read()).toMatch(/a landing is in progress: feature\/x/);
+    writeFileSync(markerFile, JSON.stringify({ old: 'a'.repeat(40), new: 'b'.repeat(40), branch: 'feature/x', pid: 2 ** 22 + 7 }));
+    expect(read()).toMatch(/a landing died halfway and is not healed yet: feature\/x \(aaaaaaaa to bbbbbbbb\)/);
+    writeFileSync(markerFile, 'not json');
+    expect(read()).toMatch(/marker is present but unreadable/);
   });
 });

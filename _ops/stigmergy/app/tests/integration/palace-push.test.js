@@ -47,14 +47,14 @@ describe('palace-push', () => {
     expect(r.stdout).toMatch(/4 commits/);
     expect(r.stdout).toMatch(/by kind: steward 3, edit 1/);
     expect(r.stdout).toMatch(/stewards touched: Alpha \(2\), Beta \(1\)/);
-    expect(r.stdout).toContain(`--tip ${tip.slice(0, 12)}`);
+    expect(r.stdout).toContain(`--tip ${tip}`);
     expect(g(remote, 'rev-parse', 'main').trim()).not.toBe(tip);
   });
 
   test('sends exactly the pinned tip, not newer commits, and writes a receipt', () => {
     const pinned = commit('edit(Foo): one', 'one.md');
     const newer = commit('steward(Alpha): later', 'later.md');
-    const r = push('--tip', pinned.slice(0, 12));
+    const r = push('--tip', pinned);
     expect(r.status, r.stderr).toBe(0);
     expect(r.stdout).toMatch(/sent 1 commit \(edit 1\)/);
     expect(g(remote, 'rev-parse', 'main').trim()).toBe(pinned);
@@ -92,6 +92,55 @@ describe('palace-push', () => {
     const r = push();
     expect(r.status).toBe(0);
     expect(r.stdout).toMatch(/nothing is waiting/);
+  });
+
+  test('a name that moves, a short id, or a missing value is refused, and nothing is sent', () => {
+    const tip = commit('edit(Foo): one', 'one.md');
+    const before = g(remote, 'rev-parse', 'main').trim();
+    for (const bad of ['main', 'HEAD', tip.slice(0, 12)]) {
+      const r = push('--tip', bad);
+      expect(r.status, bad).toBe(2);
+      expect(r.stderr).toMatch(/full 40-character commit id/);
+    }
+    const missing = push('--tip');
+    expect(missing.status).toBe(2);
+    expect(missing.stderr).toMatch(/no value/);
+    expect(push('--tip', '--remote').status).toBe(2);
+    expect(g(remote, 'rev-parse', 'main').trim()).toBe(before);
+  });
+
+  test('a full id that is not a commit here is refused', () => {
+    const r = push('--tip', 'f'.repeat(40));
+    expect(r.status).toBe(2);
+    expect(r.stderr).toMatch(/is not a commit here/);
+  });
+
+  test('a tip the remote already has is said plainly and nothing is sent', () => {
+    const seed = g(root, 'rev-parse', 'HEAD').trim();
+    commit('edit(Foo): later', 'later.md');
+    const r = push('--tip', seed);
+    expect(r.status, r.stderr).toBe(0);
+    expect(r.stdout).toMatch(/already has/);
+    expect(g(remote, 'rev-parse', 'main').trim()).toBe(seed);
+  });
+
+  test('a remote with no main branch is refused', () => {
+    const empty = join(base, 'empty.git');
+    g(base, 'init', '-q', '--bare', '-b', 'main', empty);
+    g(root, 'remote', 'add', 'empty', empty);
+    const tip = commit('edit(Foo): one', 'one.md');
+    expect(push('--remote', 'empty').status).toBe(2);
+    const r = push('--tip', tip, '--remote', 'empty');
+    expect(r.status).toBe(2);
+    expect(r.stderr).toMatch(/has no main branch/);
+  });
+
+  test('a remote main that a longer ref only ends like is not taken for main', () => {
+    const tip = commit('edit(Foo): one', 'one.md');
+    g(root, 'push', '-q', 'origin', `${tip}:refs/heads/archive/refs/heads/main`);
+    const r = push();
+    expect(r.status, r.stderr).toBe(0);
+    expect(r.stdout).toMatch(/1 commit/);
   });
 
   test('an unknown flag is refused', () => {
