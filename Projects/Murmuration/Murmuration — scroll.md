@@ -15,20 +15,20 @@ forward_vector: "I am Murmuration's scroll — the one page that always opens on
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T13:36:51.382Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T13:42:43.791Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 2 · last ran 2026-10-14 (today)
+- **Status:** active · **Stage:** growing · **Steward:** cycle 3 · last ran 2026-10-14 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 2 open asks
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — The flock's second reading is built: a breathing pad where the flock's density weights the wavetable. It's in the page as 'Listen by: density'. (`murmuration-steward-007`)
-- **Last commit touching this project:** 2026-10-14 `a6a23f8a` — steward(Murmuration): cycle 1 — SPINNING UP. HOME: [Murmuration](obsidian://open?vault=The%20Palace&fil…
+- **Last shipped:** 2026-10-14 (today) — The third reading is built. A click now sends an alarm running through the flock bird to bird, and the flock regathers on its own. Same click, four different swells. (`murmuration-steward-009`)
+- **Last commit touching this project:** 2026-10-14 `b49614b6` — steward(Murmuration): cycle 2 — SPINNING UP. HOME: [Murmuration](obsidian://open?vault=The%20Palace&fil…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Murmuration is a synth where a flock of 60 boids wanders across a 2D wavetable. Its bet is that a sound shaped by a living flock feels more alive than one dialed in by hand. The entry describes three ways to hear the flock: as grains (each boid a grain), as a distribution (the flock's density shapes a pad), and as gesture (a predator scares the flock and it regathers). Earlier today I made the flock's order audible in the grain reading and rendered a blind test, which still waits on your ears. This cycle built the second reading. Under a fixed 8×5 grid of sustained oscillators, each one plays the waveform beneath it. The flock's smoothed density sets how loud each one is, and the boids' loc…
+Murmuration is a synth where a flock of 60 boids wanders across a 2D wavetable. Its bet is that a sound shaped by a living flock feels more alive than one dialed in by hand. The entry describes three ways to hear the flock: as grains, as a breathing pad (the flock's density weights the wavetable), and as gesture (a predator scares the flock and it regathers). The grains and the pad were built earlier today. The blind test, which asks whether the flock beats hand-jittered grains, and my first proposed plan are both still waiting on you. This cycle built the third reading. Clicking used to give a local push plus a quarter-second attractor. Now it sends a startle that spreads boid to boid thro…
 
 ### Open asks
 
@@ -60,6 +60,50 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="murmuration-steward-009" -->
+### 2026-10-14 — cycle 3 — The third reading is built. A click now sends an alarm running through the flock bird to bird, and the flock regathers on its own. Same click, four different swells.
+> shipped · page matches engine exactly, startle included · unheard in a browser · steward leans voice-ceiling next
+
+WHAT I BUILT. Each boid now carries an alarm level from 0 to 1. A boid's alarm rises when it sees the predator (within 150 px), or when it catches the alarm from the most alarmed of its 7 nearest flockmates. That's topological, not by distance, which is what Ballerini et al. (2008) measured in real starlings. The alarm passes on one step weaker each hop, takes a few frames to react at each hop, and fades over about a second. An alarmed boid dashes, pushes apart harder, holds the group less, and dodges away from wherever the alarm is coming from. So the startle runs through the flock as a wave of about 350 px/s, roughly 2.5× faster than any single boid. Real starling waves run a few times faster than the birds; I'm working from memory there and didn't check the source this cycle. The regathering afterwards is plain flocking, with no recovery curve written anywhere. Alarm also swells each grain's gain (up to 2.5×) and each pad cell's level, so the sound has something to hear. A click no longer drops an attractor in this mode, though dragging still does. Alarmed boids flash white with a ring, and the HUD counts them. The whole thing is opt-in in the engine: with it off, the blind pair and every earlier render reproduce exactly. check_page_mapping.js now also runs the page's own startle code with four predator strikes through all three readings. The largest difference from the engine is 0 every time.
+
+FIRST TRY FAILED. Passing the alarm by distance only reached about 10 boids, because this flock is sparse (one or two neighbours inside 56 px). Nearest-7 fixed that. Then the wave ran 15× faster than the boids, and the flock barely dipped. Slowing how fast each boid reacts and strengthening the dodge brought it into range.
+
+THE ÉTUDE. It's one 30-second script with four clicks, each landing in a different flock. A hits a settled flock dead centre. B hits a settled flock upper left. C hits B's spot again while the flock is still recovering. D lands after Disorder has been eased up to just short of the transition. The flock answers each one differently. A catches 22 boids, order dips 0.94 → 0.54, and it's back in 4.2 s. B catches all 60 and shatters the flock to 0.13; it hasn't regathered by the time C lands, and it takes about 8 s to really heal. C, landing in an already broken flock, alarms only 5 boids. D, near the transition, catches 26. One identical click gets four responses, because the response comes from the flock's state at that moment. An authored envelope would give four copies.
+
+HONEST READING OF THE SOUND. The pad breathes on its own: with no click at all, its level rises up to 4.5–6 dB within 0.8 s (90th percentile). So the pad's startle swell (+6.2 and +6.8 dB, peaking 0.3–0.4 s after A and B) sits right at the edge of its own breathing. In the pad the startle comes through more as pitch blooming than as loudness: the chord spreads by about 1 bit of pitch-class entropy on A and B. The place grains are much steadier (no-click floor 1.9 dB), and there the swell stands well clear: +3.3 dB on A and +5.6 dB on B. The old flinch's biggest moves in the pad arrive 2–3 s after the click, which is just the breathing again. Only strike A compares like for like, since the two takes are different flocks after that.
+
+PASSED OVER. A moving hawk that dives across the field: it's richer, but it would make the gesture a path to draw instead of a click to play. Save it for later. Rendering the startle through the 'order' grains: that's the blind pair's mapping, and a labelled take could tip your ear before you answer, so I used 'place' grains instead. A fixed ADSR triggered by the click as a control take: the strike-by-strike table already shows what an envelope can't do, and a second blind test before the first one is answered would just be noise.
+
+**Artifacts:**
+- [The étude through the density pad with the startle wave: four clicks at 3, 10, 13.5 and 24 s. Listen for the chord blooming and closing again.](Projects/Murmuration/gesture-density.wav)
+- [The same étude through the place grains. This is where the swell is clearest, at 3 s and 10 s.](Projects/Murmuration/gesture-place.wav)
+- [The same four clicks with the predator as first built, same pad, same gain. Compare it with the first take around 3 s.](Projects/Murmuration/gesture-density-flinch.wav)
+- [Top: pad level, startle wave against flinch. Middle: order φ and mean alarm, where each click lands differently. Bottom: each click's swell, aligned to the click.](Projects/Murmuration/gesture.png)
+- [The page with a 'Predator' control (startle wave by default, flinch kept). Alarmed boids flash white. The review layer is on round 5.](Projects/Murmuration/Murmuration.html)
+- [The startle model, opt-in: nearest-7 contagion, dash, dodge, and the alarm swell in the grain mapping.](Projects/Murmuration/engine/murmur_engine.js)
+- [The pad's cells swell with the local mean alarm.](Projects/Murmuration/engine/field_reading.js)
+- [Now also checks the startle with four strikes in all three readings against the engine: largest difference 0.](Projects/Murmuration/engine/check_page_mapping.js)
+- [Renders the four-strike étude three ways.](Projects/Murmuration/engine/render_gesture.js)
+- [Per-strike swell, peak time, pitch bloom and order dip, and draws gesture.png.](Projects/Murmuration/engine/analyse_gesture.py)
+- [The numbers behind the table.](Projects/Murmuration/engine/gesture_analysis.json)
+- [Frame trace, startle wave through the pad: φ, mean alarm, boids alarmed, cells sounding, pitch agreement.](Projects/Murmuration/engine/gesture_trace-density.json)
+- [Frame trace, startle wave through the place grains.](Projects/Murmuration/engine/gesture_trace-place.json)
+- [Frame trace, first-build flinch through the pad.](Projects/Murmuration/engine/gesture_trace-density-flinch.json)
+
+_Four identical clicks, startle wave · swell = peak level within 3 s over the 0.5 s before · no-click floor: pad 4.5 dB, place grains 1.9 dB (90th percentile)_
+| click | flock before (φ) | φ low | boids alarmed /60 | pad swell | place-grain swell | pad pitch bloom (bits) | flinch, pad swell |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| A · ordered, centre | 0.94 | 0.54 | 22 | +6.2 dB at 0.4 s | +3.3 dB at 0.55 s | 1.03 | +4.6 dB at 2.2 s (0.71) |
+| B · ordered, upper left | 0.92 | 0.13 | 60 | +6.8 dB at 0.3 s | +5.6 dB at 0.5 s | 0.98 | +3.0 dB at 2.7 s (0.93) |
+| C · same spot, mid-regather | 0.37 | 0.18 | 5 | +3.4 dB at 0.65 s | +2.2 dB at 0.2 s | 0.47 | +3.4 dB at 0 s (1.14) |
+| D · near the knee | 0.50 | 0.22 | 26 | +1.9 dB at 0.9 s | +1.4 dB at 0.65 s | 0.76 | +2.1 dB at 0.15 s (0.81) |
+
+_Left rough:_ Nobody has clicked it in a browser yet. The alarm flash and ring are unseen, and the pad's swell sits inside its own breathing, so ears have to decide whether the startle reads there. A hard strike like B leaves the flock in pieces for about 8 s; I can't tell yet whether that's a gift (the gesture has memory) or too much.
+
+_Next moves named:_ Measure the voice ceiling: time grains, pad and startle headlessly at 60, 120 and 240 boids, ahead of a cross-browser test page. · Once you've answered the blind test, open the key and write up what it said, either way. Then render the étude through the 'order' grains too. · If the shattered-flock memory after a hard strike earns its place, make strike strength playable (how long you hold the click, or how close you are to the flock) so a light tap and a hard strike are different gestures.
+<sub>`murmuration-steward-009` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="murmuration-steward-007" -->
 ### 2026-10-14 — cycle 2 — The flock's second reading is built: a breathing pad where the flock's density weights the wavetable. It's in the page as 'Listen by: density'.
 > shipped · page matches engine exactly, still unheard in a browser · steward leans predator-as-gesture next

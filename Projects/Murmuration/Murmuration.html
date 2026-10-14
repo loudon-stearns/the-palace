@@ -135,7 +135,7 @@
   <h1>The flock is the cloud</h1>
   <p class="lead">A 2D wavetable is the <em>terrain</em>; a flock walks it; every boid is a grain reading the
   waveform under its feet. The flock's spatial spread <em>is</em> the granular distribution — emergent, not dialed.
-  Drag to place an attractor, click to drop a predator and watch the startle scatter re-cohere. Raise
+  Drag to place an attractor; click to drop a predator — the alarm runs through the flock boid to boid, faster than any bird, and the scatter regathers on its own. Raise
   <em>Disorder</em> to cross the order→chaos phase transition: pitched tone melts to broadband cloud.</p>
 
   <div class="stage">
@@ -153,6 +153,7 @@
     <div class="ctl"><label>Separation <span id="vSep">1.5</span></label><input id="cSep" type="range" min="0" max="3" step="0.05" value="1.5"></div>
     <div class="ctl"><label>Disorder η (phase transition) <span id="vEta">0.060</span></label><input id="cEta" type="range" min="0" max="1" step="0.005" value="0.49"></div>
     <div class="ctl"><label>Listen by <span id="vMap">order</span></label><select id="cMap"><option value="order" selected>order — heading→pitch, steadiness→grain length</option><option value="page">place — height→pitch, speed→grain rate (first build)</option><option value="density">density — the flock as a breathing pad (second reading)</option></select></div>
+    <div class="ctl"><label>Predator <span id="vPred">startle wave</span></label><select id="cPred"><option value="wave" selected>startle wave — alarm spreads boid to boid (third reading)</option><option value="flinch">flinch — local push + attractor (first build)</option></select></div>
     <div class="ctl"><label>Base note Hz <span id="vBase">110</span></label><input id="cBase" type="range" min="55" max="330" step="1" value="110"></div>
     <div class="ctl"><label>Pitch spread semis (place) <span id="vPit">19</span></label><input id="cPit" type="range" min="0" max="36" step="1" value="19"></div>
     <div class="ctl"><label>Grain shimmer <span id="vGr">0.55</span></label><input id="cGr" type="range" min="0" max="1" step="0.01" value="0.55"></div>
@@ -177,6 +178,8 @@ const SEED = 7;
 let WIDTH = 920, HEIGHT = 520;
 const NEIGHBOR_R = 56, NEIGHBOR_R2 = NEIGHBOR_R * NEIGHBOR_R;
 const MAX_SPEED = 3, MAX_FORCE = 0.05;
+// the startle — third reading (predator as gesture), = murmur_engine.js
+const SEE_R = 150, KNN = 7, ALARM_PASS = 0.88, ALARM_FLOOR = 0.2, ALARM_RISE = 0.12, ALARM_DECAY = 0.985, DASH = 0.3;
 
 function mulberry32(a){return function(){a|=0;a=(a+0x6D2B79F5)|0;let t=Math.imul(a^(a>>>15),1|a);t=(t+Math.imul(t^(t>>>7),61|t))^t;return((t^(t>>>14))>>>0)/4294967296;};}
 let rng = mulberry32(SEED);
@@ -186,7 +189,7 @@ function makeBoids(n){
   const b=[];
   for(let i=0;i<n;i++){
     const x=rng()*WIDTH, y=rng()*HEIGHT, a=rng()*Math.PI*2, sp=0.5*MAX_SPEED+rng()*0.5*MAX_SPEED;
-    b.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,nb:0});
+    b.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,nb:0,a:0});
   }
   return b;
 }
@@ -199,28 +202,48 @@ const field = { attract:null, predator:null, predT:0 };
 function stepFlock(boids, w){
   const N=boids.length;
   const nvx=new Float64Array(N), nvy=new Float64Array(N), nbN=new Int32Array(N);
+  const st=!!w.startle, nA=new Float64Array(N), kd=new Float64Array(KNN), ka=new Float64Array(KNN), kx=new Float64Array(KNN), ky=new Float64Array(KNN);
   for(let i=0;i<N;i++){
     const b=boids[i];
     let sepX=0,sepY=0,sepN=0,aliX=0,aliY=0,aliN=0,cohX=0,cohY=0,cohN=0;
+    let mxA=0,upX=0,upY=0;
+    if(st){ kd.fill(Infinity); ka.fill(0); }
     for(let j=0;j<N;j++){
       if(i===j)continue;
       const o=boids[j];
       const [dx,dy]=torDelta(b.x,b.y,o.x,o.y);
       const d2=dx*dx+dy*dy;
       if(d2>0&&d2<NEIGHBOR_R2){ sepX-=dx/d2; sepY-=dy/d2; sepN++; aliX+=o.vx; aliY+=o.vy; aliN++; cohX+=dx; cohY+=dy; cohN++; }
+      if(st&&d2>0&&d2<kd[KNN-1]){ let q=KNN-1; while(q>0&&kd[q-1]>d2){ kd[q]=kd[q-1]; ka[q]=ka[q-1]; kx[q]=kx[q-1]; ky[q]=ky[q-1]; q--; } kd[q]=d2; ka[q]=o.a; kx[q]=dx; ky[q]=dy; }
+    }
+    // STARTLE (third reading): alarm a∈[0,1] — seen (predator within SEE_R) or caught from the most
+    // alarmed of the 7 nearest flockmates (topological, as in real starlings), one step weaker per
+    // hop, a few frames' reaction per hop; fades over ~1 s. Alarmed boids dash, push apart, hold the
+    // group less, and dodge away from where the alarm comes from: a wave ~2.5× faster than any boid.
+    let ga=1,kSep=1,kAli=1,kCoh=1,spMax=MAX_SPEED;
+    if(st){
+      for(let q=0;q<KNN;q++){ if(kd[q]===Infinity)break; if(ka[q]>mxA)mxA=ka[q]; if(ka[q]>b.a){ upX+=(ka[q]-b.a)*kx[q]; upY+=(ka[q]-b.a)*ky[q]; } }
+      let see=0;
+      if(field.predator&&field.predT>0){const[dx,dy]=torDelta(field.predator.x,field.predator.y,b.x,b.y);const d=Math.hypot(dx,dy);if(d<SEE_R)see=Math.min(1,1.6*field.predT*(1-d/SEE_R));}
+      const tgt=Math.max(see, mxA>ALARM_FLOOR ? ALARM_PASS*mxA : 0);
+      const a=tgt>b.a ? b.a+ALARM_RISE*(tgt-b.a) : b.a*ALARM_DECAY;
+      nA[i]=a; ga=a;
+      kSep=1+1.5*a; kAli=1-0.5*a; kCoh=1-0.7*a; spMax=MAX_SPEED*(1+0.8*a);
     }
     let fx=0,fy=0;
-    if(sepN>0){const[dx,dy]=setMag(sepX,sepY,MAX_SPEED);const[sx,sy]=limit(dx-b.vx,dy-b.vy,MAX_FORCE);fx+=w.sep*sx;fy+=w.sep*sy;}
-    if(aliN>0){const[dx,dy]=setMag(aliX/aliN,aliY/aliN,MAX_SPEED);const[sx,sy]=limit(dx-b.vx,dy-b.vy,MAX_FORCE);fx+=w.ali*sx;fy+=w.ali*sy;}
-    if(cohN>0){const[dx,dy]=setMag(cohX/cohN,cohY/cohN,MAX_SPEED);const[sx,sy]=limit(dx-b.vx,dy-b.vy,MAX_FORCE);fx+=w.coh*sx;fy+=w.coh*sy;}
+    if(sepN>0){const[dx,dy]=setMag(sepX,sepY,MAX_SPEED);const[sx,sy]=limit(dx-b.vx,dy-b.vy,MAX_FORCE);fx+=kSep*w.sep*sx;fy+=kSep*w.sep*sy;}
+    if(aliN>0){const[dx,dy]=setMag(aliX/aliN,aliY/aliN,MAX_SPEED);const[sx,sy]=limit(dx-b.vx,dy-b.vy,MAX_FORCE);fx+=kAli*w.ali*sx;fy+=kAli*w.ali*sy;}
+    if(cohN>0){const[dx,dy]=setMag(cohX/cohN,cohY/cohN,MAX_SPEED);const[sx,sy]=limit(dx-b.vx,dy-b.vy,MAX_FORCE);fx+=kCoh*w.coh*sx;fy+=kCoh*w.coh*sy;}
+    if(st&&ga>0.02&&(upX!==0||upY!==0)){const[dx,dy]=setMag(-upX,-upY,spMax);const[sx,sy]=limit(dx-b.vx,dy-b.vy,MAX_FORCE*3);fx+=3*ga*sx;fy+=3*ga*sy;}
     if(field.attract){const[dx,dy]=torDelta(b.x,b.y,field.attract.x,field.attract.y);const[sx,sy]=limit(...setMag(dx,dy,MAX_SPEED),MAX_FORCE*1.4);fx+=0.9*sx;fy+=0.9*sy;}
     if(field.predator&&field.predT>0){const[dx,dy]=torDelta(field.predator.x,field.predator.y,b.x,b.y);const d=Math.hypot(dx,dy)+1e-6;if(d<200){const g=field.predT*(1-d/200);const[sx,sy]=setMag(dx,dy,MAX_SPEED);fx+=4.0*g*sx;fy+=4.0*g*sy;}}
     let vx=b.vx+fx, vy=b.vy+fy;
+    if(st&&ga>0.02){const m=Math.hypot(vx,vy)||1;vx+=vx/m*DASH*ga;vy+=vy/m*DASH*ga;}
     if(w.eta>0){const ang=(rng()*2-1)*w.eta*Math.PI;const c=Math.cos(ang),s=Math.sin(ang);const rx=vx*c-vy*s,ry=vx*s+vy*c;vx=rx;vy=ry;}
-    [vx,vy]=limit(vx,vy,MAX_SPEED);
+    [vx,vy]=limit(vx,vy,spMax);
     nvx[i]=vx; nvy[i]=vy; nbN[i]=cohN;
   }
-  for(let i=0;i<N;i++){const b=boids[i];b.vx=nvx[i];b.vy=nvy[i];b.nb=nbN[i];b.x=(b.x+b.vx+WIDTH)%WIDTH;b.y=(b.y+b.vy+HEIGHT)%HEIGHT;}
+  for(let i=0;i<N;i++){const b=boids[i];b.vx=nvx[i];b.vy=nvy[i];b.nb=nbN[i];if(st)b.a=nA[i];b.x=(b.x+b.vx+WIDTH)%WIDTH;b.y=(b.y+b.vy+HEIGHT)%HEIGHT;}
   if(field.predT>0)field.predT-=0.045;
 }
 function polarization(boids){let sx=0,sy=0;for(const b of boids){const m=Math.hypot(b.vx,b.vy);if(m>0){sx+=b.vx/m;sy+=b.vy/m;}}return Math.hypot(sx,sy)/boids.length;}
@@ -370,7 +393,7 @@ let steady=null;                       // per-boid steadiness memory for the "or
 let fieldMem={};                       // per-cell smoothing memory for the "density" reading
 function pushFlock(boids){
   if(!node) return;
-  if(P.map==='density'){ const f=mapField(boids, fieldMem); node.port.postMessage({type:'field', buf:f.buffer, n:FNC, base:P.base}, [f.buffer]); return; }
+  if(P.map==='density'){ const f=mapField(boids, fieldMem, P.pred==='wave'); node.port.postMessage({type:'field', buf:f.buffer, n:FNC, base:P.base}, [f.buffer]); return; }
   const N=boids.length, buf=new Float32Array(N*6);
   const cx=WIDTH*0.5, cy=HEIGHT*0.5;
   for(let i=0;i<N;i++){
@@ -393,7 +416,7 @@ function pushFlock(boids){
       const q=Math.pow(Math.min(1,Math.hypot(steady.hx[i],steady.hy[i])),6);
       grainHz=4+(1-q)*100;
     }
-    const gain=0.55+0.45*Math.min(1,b.nb/6);
+    const gain=(0.55+0.45*Math.min(1,b.nb/6))*(P.pred==='wave' ? 1+1.5*(b.a||0) : 1);   // the startle swells each alarmed grain
     const k=i*6;
     buf[k]=u; buf[k+1]=v; buf[k+2]=freq; buf[k+3]=gain; buf[k+4]=grainHz; buf[k+5]=u;
   }
@@ -408,28 +431,28 @@ function pushFlock(boids){
  *  heading→pitch circle as the "order" grains).                          *
  * ===================================================================== */
 const FGX = 8, FGY = 5, FNC = FGX * FGY, FSIG = 80, FSIG2 = 2 * FSIG * FSIG, FSMOOTH = 0.85;
-function mapField(boids, mem) {
-  if (!mem.D || mem.D.length !== FNC) { mem.D = new Float64Array(FNC); mem.Hx = new Float64Array(FNC); mem.Hy = new Float64Array(FNC); mem.first = true; }
+function mapField(boids, mem, startle) {
+  if (!mem.D || mem.D.length !== FNC) { mem.D = new Float64Array(FNC); mem.Hx = new Float64Array(FNC); mem.Hy = new Float64Array(FNC); mem.A = new Float64Array(FNC); mem.first = true; }
   const f = new Float32Array(FNC * 4), a = mem.first ? 0 : FSMOOTH;
   let s2 = 0;
   for (let c = 0; c < FNC; c++) {
     const cu = ((c % FGX) + 0.5) / FGX, cv = (((c / FGX) | 0) + 0.5) / FGY, x = cu * WIDTH, y = cv * HEIGHT;
-    let d = 0, hx = 0, hy = 0;
+    let d = 0, hx = 0, hy = 0, al = 0;
     for (const b of boids) {
       let dx = b.x - x, dy = b.y - y;
       if (dx > WIDTH * 0.5) dx -= WIDTH; else if (dx < -WIDTH * 0.5) dx += WIDTH;
       if (dy > HEIGHT * 0.5) dy -= HEIGHT; else if (dy < -HEIGHT * 0.5) dy += HEIGHT;
       const k = Math.exp(-(dx * dx + dy * dy) / FSIG2), m = Math.hypot(b.vx, b.vy) || 1;
-      d += k; hx += k * b.vx / m; hy += k * b.vy / m;
+      d += k; hx += k * b.vx / m; hy += k * b.vy / m; if (startle) al += k * (b.a || 0);
     }
-    mem.D[c] = a * mem.D[c] + (1 - a) * d; mem.Hx[c] = a * mem.Hx[c] + (1 - a) * hx; mem.Hy[c] = a * mem.Hy[c] + (1 - a) * hy;
+    mem.D[c] = a * mem.D[c] + (1 - a) * d; mem.Hx[c] = a * mem.Hx[c] + (1 - a) * hx; mem.Hy[c] = a * mem.Hy[c] + (1 - a) * hy; if (startle) mem.A[c] = a * mem.A[c] + (1 - a) * al;
     s2 += mem.D[c] * mem.D[c];
   }
   mem.first = false;
   const s = Math.sqrt(s2) || 1;
   for (let c = 0; c < FNC; c++) {
     const k = c * 4, pc = ((Math.atan2(mem.Hy[c], mem.Hx[c]) / (2 * Math.PI) + 0.5) % 1 + 1) % 1;
-    f[k] = ((c % FGX) + 0.5) / FGX; f[k + 1] = (((c / FGX) | 0) + 0.5) / FGY; f[k + 2] = mem.D[c] / s; f[k + 3] = pc;
+    f[k] = ((c % FGX) + 0.5) / FGX; f[k + 1] = (((c / FGX) | 0) + 0.5) / FGY; f[k + 2] = mem.D[c] / s * (startle ? 1 + 1.5 * mem.A[c] / (mem.D[c] + 1e-9) : 1); f[k + 3] = pc;
   }
   return f;
 }
@@ -437,7 +460,7 @@ function mapField(boids, mem) {
 /* ===================================================================== *
  *  CONTROLS / STATE                                                      *
  * ===================================================================== */
-const P = { N:60, coh:1.0, sep:1.5, ali:1.0, eta:0.06, base:110, pitch:19, shimmer:0.55, vol:0.7, map:'order' };
+const P = { N:60, coh:1.0, sep:1.5, ali:1.0, eta:0.06, base:110, pitch:19, shimmer:0.55, vol:0.7, map:'order', pred:'wave' };
 // Disorder slider: position x → η = 0.25·x². Measured headlessly (engine/sweep_eta.js), the
 // flock's whole transition lives in η 0–0.15 (knee ≈ 0.065); on the old linear 0–1 slider
 // it sat in the first sixth of the travel. Squared, the knee sits at mid-slider.
@@ -449,6 +472,7 @@ bind('cCoh','coh',v=>v.toFixed(2));
 bind('cSep','sep',v=>v.toFixed(2));
 (function(){const el=document.getElementById('cEta'),out=document.getElementById('vEta');el.addEventListener('input',()=>{P.eta=etaOfX(parseFloat(el.value));out.textContent=P.eta.toFixed(3);});})();
 document.getElementById('cMap').addEventListener('change',e=>{P.map=e.target.value;document.getElementById('vMap').textContent=P.map==='page'?'place':P.map;steady=null;fieldMem={};});
+document.getElementById('cPred').addEventListener('change',e=>{P.pred=e.target.value;document.getElementById('vPred').textContent=P.pred==='wave'?'startle wave':'flinch';for(const b of boids)b.a=0;});
 bind('cBase','base',v=>v|0);
 bind('cPit','pitch',v=>v|0);
 bind('cGr','shimmer',v=>v.toFixed(2),()=>pushParams());
@@ -481,7 +505,7 @@ const sketch = (p)=>{
   };
   p.draw=()=>{
     p.image(heat,0,0);
-    const w={sep:P.sep,ali:P.ali,coh:P.coh,eta:P.eta};
+    const w={sep:P.sep,ali:P.ali,coh:P.coh,eta:P.eta,startle:P.pred==='wave'};
     stepFlock(boids,w);
     pushFlock(boids);
     p.noStroke();
@@ -492,7 +516,8 @@ const sketch = (p)=>{
       p.line(b.x,b.y,b.x-b.vx*3,b.y-b.vy*3);
       p.noStroke();
       p.push(); p.translate(b.x,b.y); p.rotate(h);
-      p.fill(hue,82,98,95);
+      p.fill(hue,82-70*(b.a||0),98,95);                       // alarmed boids flash white
+      if((b.a||0)>0.2){ p.noFill(); p.stroke(0,0,100,60*b.a); p.strokeWeight(1); p.circle(0,0,10+14*b.a); p.noStroke(); p.fill(hue,82-70*b.a,98,95); }
       p.beginShape(); p.vertex(6,0); p.vertex(-5,3.2); p.vertex(-2.5,0); p.vertex(-5,-3.2); p.endShape(p.CLOSE);
       p.pop();
     }
@@ -500,9 +525,10 @@ const sketch = (p)=>{
     if(field.predator&&field.predT>0){ p.noFill(); p.stroke(0,90,100,field.predT*80); p.strokeWeight(2); p.circle(field.predator.x,field.predator.y,40+(1-field.predT)*120); }
     const phi=polarization(boids);
     const state = phi>0.6 ? 'ORDERED · pitched' : phi>0.3 ? 'CRITICAL · transitional' : 'DISORDERED · broadband';
-    hud.innerHTML = `order φ = <span class="phase">${phi.toFixed(2)}</span><br>state <b>${state}</b><br>boids ${boids.length} · η ${P.eta.toFixed(2)}` + (started?'':'<br><b>audio idle</b>');
+    let nAl=0; for(const b of boids) if((b.a||0)>0.2) nAl++;
+    hud.innerHTML = `order φ = <span class="phase">${phi.toFixed(2)}</span><br>state <b>${state}</b><br>boids ${boids.length} · η ${P.eta.toFixed(2)}` + (P.pred==='wave'&&nAl?` · <b>alarmed ${nAl}</b>`:'') + (started?'':'<br><b>audio idle</b>');
   };
-  p.mousePressed=()=>{ if(p.mouseX<0||p.mouseY<0||p.mouseX>WIDTH||p.mouseY>HEIGHT) return; field.predator={x:p.mouseX,y:p.mouseY}; field.predT=1.0; field.attract={x:p.mouseX,y:p.mouseY}; };
+  p.mousePressed=()=>{ if(p.mouseX<0||p.mouseY<0||p.mouseX>WIDTH||p.mouseY>HEIGHT) return; field.predator={x:p.mouseX,y:p.mouseY}; field.predT=1.0; if(P.pred!=='wave') field.attract={x:p.mouseX,y:p.mouseY}; };   // startle wave: a click is only the predator; drag still places the attractor
   p.mouseDragged=()=>{ if(p.mouseX<0||p.mouseY<0||p.mouseX>WIDTH||p.mouseY>HEIGHT) return; field.attract={x:p.mouseX,y:p.mouseY}; };
   p.mouseReleased=()=>{ field.attract=null; };
 };
@@ -518,14 +544,14 @@ document.getElementById('engage').addEventListener('click', async (e)=>{ e.stopP
  *  region), NOT one per slider. Flip REVIEW_MODE=false to ship clean.    *
  * ===================================================================== */
 const REVIEW_MODE = true;                 // ← set false to ship the clean final
-const REVIEW_ROUND = 4;                   // round 4: + the density reading (flock-as-distribution, 2026-10-14)
-const RV_KEY = 'murmuration-review-v4';
+const REVIEW_ROUND = 5;                   // round 5: + the startle wave (predator as gesture, third reading, 2026-10-14)
+const RV_KEY = 'murmuration-review-v5';
 
 const MOMENTS = [
   { id:'concept',  label:'Concept & framing (the lead)',          tag:'text',    sel:'.lead' },
   { id:'field',    label:'The wavetable field & terrain',         tag:'canvas' },
   { id:'flock',    label:'Flock rendering & motion',              tag:'canvas' },
-  { id:'gestures', label:'Gestures — attractor & predator',       tag:'canvas' },
+  { id:'gestures', label:'Gestures — attractor & the startle wave', tag:'canvas' },
   { id:'controls', label:'Controls & mappings (disorder/pitch/grain)', tag:'control', sel:'#controls' },
   { id:'sound',    label:'Overall sound & mix',                   tag:'sound' },
   { id:'skin',     label:'Visual design / Strobe skin',           tag:'design',  sel:'.topline' },

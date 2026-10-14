@@ -1,0 +1,161 @@
+{
+ "density": {
+  "label": "startle wave \u00b7 density pad",
+  "strikes": [
+   {
+    "strike": "A",
+    "t": 3,
+    "phiBefore": 0.94,
+    "phiMin": 0.54,
+    "phiBackAfter": 4.17,
+    "boidsReached": 22,
+    "swellDb": 6.2,
+    "peakAfter": 0.4,
+    "settleAfter": 0.8,
+    "pitchBloomBits": 1.03
+   },
+   {
+    "strike": "B",
+    "t": 10,
+    "phiBefore": 0.92,
+    "phiMin": 0.13,
+    "phiBackAfter": null,
+    "boidsReached": 60,
+    "swellDb": 6.8,
+    "peakAfter": 0.3,
+    "settleAfter": null,
+    "pitchBloomBits": 0.98
+   },
+   {
+    "strike": "C",
+    "t": 13.5,
+    "phiBefore": 0.37,
+    "phiMin": 0.18,
+    "phiBackAfter": 3.07,
+    "boidsReached": 5,
+    "swellDb": 3.4,
+    "peakAfter": 0.65,
+    "settleAfter": 1.05,
+    "pitchBloomBits": 0.47
+   },
+   {
+    "strike": "D",
+    "t": 24,
+    "phiBefore": 0.5,
+    "phiMin": 0.22,
+    "phiBackAfter": 2.27,
+    "boidsReached": 26,
+    "swellDb": 1.9,
+    "peakAfter": 0.9,
+    "settleAfter": 1.25,
+    "pitchBloomBits": 0.76
+   }
+  ]
+ },
+ "density-flinch": {
+  "label": "first-build flinch \u00b7 density pad",
+  "strikes": [
+   {
+    "strike": "A",
+    "t": 3,
+    "phiBefore": 0.94,
+    "phiMin": 0.76,
+    "phiBackAfter": 1.03,
+    "boidsReached": 0,
+    "swellDb": 4.6,
+    "peakAfter": 2.15,
+    "settleAfter": null,
+    "pitchBloomBits": 0.71
+   },
+   {
+    "strike": "B",
+    "t": 10,
+    "phiBefore": 0.95,
+    "phiMin": 0.78,
+    "phiBackAfter": 1.23,
+    "boidsReached": 0,
+    "swellDb": 3.0,
+    "peakAfter": 2.7,
+    "settleAfter": null,
+    "pitchBloomBits": 0.93
+   },
+   {
+    "strike": "C",
+    "t": 13.5,
+    "phiBefore": 0.92,
+    "phiMin": 0.57,
+    "phiBackAfter": null,
+    "boidsReached": 0,
+    "swellDb": 3.4,
+    "peakAfter": 0.0,
+    "settleAfter": 0.3,
+    "pitchBloomBits": 1.14
+   },
+   {
+    "strike": "D",
+    "t": 24,
+    "phiBefore": 0.64,
+    "phiMin": 0.2,
+    "phiBackAfter": null,
+    "boidsReached": 0,
+    "swellDb": 2.1,
+    "peakAfter": 0.15,
+    "settleAfter": 0.25,
+    "pitchBloomBits": 0.81
+   }
+  ]
+ },
+ "place": {
+  "label": "startle wave \u00b7 place grains",
+  "strikes": [
+   {
+    "strike": "A",
+    "t": 3,
+    "phiBefore": 0.94,
+    "phiMin": 0.54,
+    "phiBackAfter": 4.17,
+    "boidsReached": 22,
+    "swellDb": 3.3,
+    "peakAfter": 0.55,
+    "settleAfter": 1.75,
+    "pitchBloomBits": 0.17
+   },
+   {
+    "strike": "B",
+    "t": 10,
+    "phiBefore": 0.92,
+    "phiMin": 0.13,
+    "phiBackAfter": null,
+    "boidsReached": 60,
+    "swellDb": 5.6,
+    "peakAfter": 0.5,
+    "settleAfter": null,
+    "pitchBloomBits": 0.19
+   },
+   {
+    "strike": "C",
+    "t": 13.5,
+    "phiBefore": 0.37,
+    "phiMin": 0.18,
+    "phiBackAfter": 3.07,
+    "boidsReached": 5,
+    "swellDb": 2.2,
+    "peakAfter": 0.2,
+    "settleAfter": 0.5,
+    "pitchBloomBits": 0.24
+   },
+   {
+    "strike": "D",
+    "t": 24,
+    "phiBefore": 0.5,
+    "phiMin": 0.22,
+    "phiBackAfter": 2.27,
+    "boidsReached": 26,
+    "swellDb": 1.4,
+    "peakAfter": 0.65,
+    "settleAfter": 1.0,
+    "pitchBloomBits": 0.07
+   }
+  ]
+ }
+}

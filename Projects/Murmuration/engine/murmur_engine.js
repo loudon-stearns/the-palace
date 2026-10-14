@@ -19,6 +19,7 @@ const SEED = 7;
 const WIDTH = 920, HEIGHT = 520;
 const NEIGHBOR_R = 56, NEIGHBOR_R2 = NEIGHBOR_R * NEIGHBOR_R;
 const MAX_SPEED = 3, MAX_FORCE = 0.05;
+const SEE_R = 150, KNN = 7, ALARM_PASS = 0.88, ALARM_FLOOR = 0.2, ALARM_RISE = 0.12, ALARM_DECAY = 0.985, DASH = 0.3;   // the startle (third reading)
 const FPS = 60;
 const L = 2048, LMASK = L - 1;
 
@@ -35,35 +36,59 @@ class Flock {
     const b = [];
     for (let i = 0; i < n; i++) {
       const x = this.rng() * WIDTH, y = this.rng() * HEIGHT, a = this.rng() * Math.PI * 2, sp = 0.5 * MAX_SPEED + this.rng() * 0.5 * MAX_SPEED;
-      b.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, nb: 0 });
+      b.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, nb: 0, a: 0 });
     }
     this.boids = b;
   }
   step(w) {                                   // = stepFlock() in Murmuration.html
     const boids = this.boids, field = this.field, rng = this.rng, N = boids.length;
     const nvx = new Float64Array(N), nvy = new Float64Array(N), nbN = new Int32Array(N);
+    const st = !!w.startle, nA = new Float64Array(N), kd = new Float64Array(KNN), ka = new Float64Array(KNN), kx = new Float64Array(KNN), ky = new Float64Array(KNN);
     for (let i = 0; i < N; i++) {
       const b = boids[i];
       let sepX = 0, sepY = 0, sepN = 0, aliX = 0, aliY = 0, aliN = 0, cohX = 0, cohY = 0, cohN = 0;
+      let mxA = 0, upX = 0, upY = 0;
+      if (st) { kd.fill(Infinity); ka.fill(0); }
       for (let j = 0; j < N; j++) {
         if (i === j) continue;
         const o = boids[j];
         const [dx, dy] = torDelta(b.x, b.y, o.x, o.y);
         const d2 = dx * dx + dy * dy;
         if (d2 > 0 && d2 < NEIGHBOR_R2) { sepX -= dx / d2; sepY -= dy / d2; sepN++; aliX += o.vx; aliY += o.vy; aliN++; cohX += dx; cohY += dy; cohN++; }
+        if (st && d2 > 0 && d2 < kd[KNN - 1]) { let q = KNN - 1; while (q > 0 && kd[q - 1] > d2) { kd[q] = kd[q - 1]; ka[q] = ka[q - 1]; kx[q] = kx[q - 1]; ky[q] = ky[q - 1]; q--; } kd[q] = d2; ka[q] = o.a; kx[q] = dx; ky[q] = dy; }
+      }
+      // STARTLE (the third reading, opt-in): each boid carries an alarm a ∈ [0,1]. It rises when
+      // the boid sees the predator, or catches it from its most alarmed neighbour (one step
+      // weaker per hop, a few frames' reaction time per hop), and fades over about a second.
+      // Contagion is topological, as measured in real starlings (Ballerini et al. 2008): a boid
+      // watches its 7 nearest flockmates however far away they are, not everyone within a radius.
+      // Alarmed boids fly faster, push apart harder, hold the group less, and dodge away from
+      // where the alarm is coming from — so the startle travels through the flock as a wave
+      // several times faster than any boid, and the regathering afterwards is plain flocking.
+      let ga = 1, kSep = 1, kAli = 1, kCoh = 1, spMax = MAX_SPEED;
+      if (st) {
+        for (let q = 0; q < KNN; q++) { if (kd[q] === Infinity) break; if (ka[q] > mxA) mxA = ka[q]; if (ka[q] > b.a) { upX += (ka[q] - b.a) * kx[q]; upY += (ka[q] - b.a) * ky[q]; } }
+        let see = 0;
+        if (field.predator && field.predT > 0) { const [dx, dy] = torDelta(field.predator.x, field.predator.y, b.x, b.y); const d = Math.hypot(dx, dy); if (d < SEE_R) see = Math.min(1, 1.6 * field.predT * (1 - d / SEE_R)); }
+        const tgt = Math.max(see, mxA > ALARM_FLOOR ? ALARM_PASS * mxA : 0);
+        const a = tgt > b.a ? b.a + ALARM_RISE * (tgt - b.a) : b.a * ALARM_DECAY;
+        nA[i] = a; ga = a;
+        kSep = 1 + 1.5 * a; kAli = 1 - 0.5 * a; kCoh = 1 - 0.7 * a; spMax = MAX_SPEED * (1 + 0.8 * a);
       }
       let fx = 0, fy = 0;
-      if (sepN > 0) { const [dx, dy] = setMag(sepX, sepY, MAX_SPEED); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE); fx += w.sep * sx; fy += w.sep * sy; }
-      if (aliN > 0) { const [dx, dy] = setMag(aliX / aliN, aliY / aliN, MAX_SPEED); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE); fx += w.ali * sx; fy += w.ali * sy; }
-      if (cohN > 0) { const [dx, dy] = setMag(cohX / cohN, cohY / cohN, MAX_SPEED); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE); fx += w.coh * sx; fy += w.coh * sy; }
+      if (sepN > 0) { const [dx, dy] = setMag(sepX, sepY, MAX_SPEED); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE); fx += kSep * w.sep * sx; fy += kSep * w.sep * sy; }
+      if (aliN > 0) { const [dx, dy] = setMag(aliX / aliN, aliY / aliN, MAX_SPEED); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE); fx += kAli * w.ali * sx; fy += kAli * w.ali * sy; }
+      if (cohN > 0) { const [dx, dy] = setMag(cohX / cohN, cohY / cohN, MAX_SPEED); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE); fx += kCoh * w.coh * sx; fy += kCoh * w.coh * sy; }
+      if (st && ga > 0.02 && (upX !== 0 || upY !== 0)) { const [dx, dy] = setMag(-upX, -upY, spMax); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE * 3); fx += 3 * ga * sx; fy += 3 * ga * sy; }
       if (field.attract) { const [dx, dy] = torDelta(b.x, b.y, field.attract.x, field.attract.y); const [sx, sy] = limit(...setMag(dx, dy, MAX_SPEED), MAX_FORCE * 1.4); fx += 0.9 * sx; fy += 0.9 * sy; }
       if (field.predator && field.predT > 0) { const [dx, dy] = torDelta(field.predator.x, field.predator.y, b.x, b.y); const d = Math.hypot(dx, dy) + 1e-6; if (d < 200) { const g = field.predT * (1 - d / 200); const [sx, sy] = setMag(dx, dy, MAX_SPEED); fx += 4.0 * g * sx; fy += 4.0 * g * sy; } }
       let vx = b.vx + fx, vy = b.vy + fy;
+      if (st && ga > 0.02) { const m = Math.hypot(vx, vy) || 1; vx += vx / m * DASH * ga; vy += vy / m * DASH * ga; }
       if (w.eta > 0) { const ang = (rng() * 2 - 1) * w.eta * Math.PI; const c = Math.cos(ang), s = Math.sin(ang); const rx = vx * c - vy * s, ry = vx * s + vy * c; vx = rx; vy = ry; }
-      [vx, vy] = limit(vx, vy, MAX_SPEED);
+      [vx, vy] = limit(vx, vy, spMax);
       nvx[i] = vx; nvy[i] = vy; nbN[i] = cohN;
     }
-    for (let i = 0; i < N; i++) { const b = boids[i]; b.vx = nvx[i]; b.vy = nvy[i]; b.nb = nbN[i]; b.x = (b.x + b.vx + WIDTH) % WIDTH; b.y = (b.y + b.vy + HEIGHT) % HEIGHT; }
+    for (let i = 0; i < N; i++) { const b = boids[i]; b.vx = nvx[i]; b.vy = nvy[i]; b.nb = nbN[i]; if (st) b.a = nA[i]; b.x = (b.x + b.vx + WIDTH) % WIDTH; b.y = (b.y + b.vy + HEIGHT) % HEIGHT; }
     if (field.predT > 0) field.predT -= 0.045;
   }
   polarization() { let sx = 0, sy = 0; for (const b of this.boids) { const m = Math.hypot(b.vx, b.vy); if (m > 0) { sx += b.vx / m; sy += b.vy / m; } } return Math.hypot(sx, sy) / this.boids.length; }
@@ -146,7 +171,7 @@ function mapBoids(boids, P, mem) {
       const q = Math.pow(pers, 6);
       grainHz = 4 + (1 - q) * 100;                               // 4 Hz (250 ms, tonal) … 104 Hz (10 ms, click)
     }
-    const gain = 0.55 + 0.45 * Math.min(1, b.nb / 6), k = i * 6;
+    const gain = (0.55 + 0.45 * Math.min(1, b.nb / 6)) * (P.startle ? 1 + 1.5 * (b.a || 0) : 1), k = i * 6;
     f[k] = u; f[k + 1] = v; f[k + 2] = freq; f[k + 3] = gain; f[k + 4] = grainHz; f[k + 5] = u;
   }
   return f;
@@ -198,4 +223,4 @@ function writeWav16(path, L_, R_, sr) {
   fs.writeFileSync(path, pcm);
 }
 
-module.exports = { SEED, WIDTH, HEIGHT, MAX_SPEED, FPS, mulberry32, Flock, AuthoredCloud, cloudStats, mapBoids, Grains, writeWav16 };
+module.exports = { SEE_R, SEED, WIDTH, HEIGHT, MAX_SPEED, FPS, mulberry32, Flock, AuthoredCloud, cloudStats, mapBoids, Grains, writeWav16 };

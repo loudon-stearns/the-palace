@@ -13,6 +13,10 @@
 // heading → a slowly drifting cluster. The pitch circle is made a real circle with a
 // two-octave Shepard pair per cell, so a heading crossing ±180° never jumps an octave.
 //
+// Startle (third reading, opt-in): a cell also takes the kernel-weighted mean alarm of the
+// boids around it and swells by up to 2.5× while they are alarmed — after the power
+// normalisation, so the startle is heard as a swell the way it is in the grains.
+//
 // mapField() and Field are copied into Murmuration.html line for line (check with
 // check_page_mapping.js). No Math.random anywhere — the field reading is deterministic.
 "use strict";
@@ -22,28 +26,28 @@ const L = 2048, LMASK = L - 1;
 
 // ---- = FIELD READING block in Murmuration.html ------------------------------------------
 const FGX = 8, FGY = 5, FNC = FGX * FGY, FSIG = 80, FSIG2 = 2 * FSIG * FSIG, FSMOOTH = 0.85;
-function mapField(boids, mem) {
-  if (!mem.D || mem.D.length !== FNC) { mem.D = new Float64Array(FNC); mem.Hx = new Float64Array(FNC); mem.Hy = new Float64Array(FNC); mem.first = true; }
+function mapField(boids, mem, startle) {
+  if (!mem.D || mem.D.length !== FNC) { mem.D = new Float64Array(FNC); mem.Hx = new Float64Array(FNC); mem.Hy = new Float64Array(FNC); mem.A = new Float64Array(FNC); mem.first = true; }
   const f = new Float32Array(FNC * 4), a = mem.first ? 0 : FSMOOTH;
   let s2 = 0;
   for (let c = 0; c < FNC; c++) {
     const cu = ((c % FGX) + 0.5) / FGX, cv = (((c / FGX) | 0) + 0.5) / FGY, x = cu * WIDTH, y = cv * HEIGHT;
-    let d = 0, hx = 0, hy = 0;
+    let d = 0, hx = 0, hy = 0, al = 0;
     for (const b of boids) {
       let dx = b.x - x, dy = b.y - y;
       if (dx > WIDTH * 0.5) dx -= WIDTH; else if (dx < -WIDTH * 0.5) dx += WIDTH;
       if (dy > HEIGHT * 0.5) dy -= HEIGHT; else if (dy < -HEIGHT * 0.5) dy += HEIGHT;
       const k = Math.exp(-(dx * dx + dy * dy) / FSIG2), m = Math.hypot(b.vx, b.vy) || 1;
-      d += k; hx += k * b.vx / m; hy += k * b.vy / m;
+      d += k; hx += k * b.vx / m; hy += k * b.vy / m; if (startle) al += k * (b.a || 0);
     }
-    mem.D[c] = a * mem.D[c] + (1 - a) * d; mem.Hx[c] = a * mem.Hx[c] + (1 - a) * hx; mem.Hy[c] = a * mem.Hy[c] + (1 - a) * hy;
+    mem.D[c] = a * mem.D[c] + (1 - a) * d; mem.Hx[c] = a * mem.Hx[c] + (1 - a) * hx; mem.Hy[c] = a * mem.Hy[c] + (1 - a) * hy; if (startle) mem.A[c] = a * mem.A[c] + (1 - a) * al;
     s2 += mem.D[c] * mem.D[c];
   }
   mem.first = false;
   const s = Math.sqrt(s2) || 1;
   for (let c = 0; c < FNC; c++) {
     const k = c * 4, pc = ((Math.atan2(mem.Hy[c], mem.Hx[c]) / (2 * Math.PI) + 0.5) % 1 + 1) % 1;
-    f[k] = ((c % FGX) + 0.5) / FGX; f[k + 1] = (((c / FGX) | 0) + 0.5) / FGY; f[k + 2] = mem.D[c] / s; f[k + 3] = pc;
+    f[k] = ((c % FGX) + 0.5) / FGX; f[k + 1] = (((c / FGX) | 0) + 0.5) / FGY; f[k + 2] = mem.D[c] / s * (startle ? 1 + 1.5 * mem.A[c] / (mem.D[c] + 1e-9) : 1); f[k + 3] = pc;
   }
   return f;
 }
