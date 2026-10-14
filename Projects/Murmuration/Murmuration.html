@@ -152,7 +152,7 @@
     <div class="ctl"><label>Cohesion <span id="vCoh">1.0</span></label><input id="cCoh" type="range" min="0" max="3" step="0.05" value="1.0"></div>
     <div class="ctl"><label>Separation <span id="vSep">1.5</span></label><input id="cSep" type="range" min="0" max="3" step="0.05" value="1.5"></div>
     <div class="ctl"><label>Disorder η (phase transition) <span id="vEta">0.060</span></label><input id="cEta" type="range" min="0" max="1" step="0.005" value="0.49"></div>
-    <div class="ctl"><label>Listen by <span id="vMap">order</span></label><select id="cMap"><option value="order" selected>order — heading→pitch, steadiness→grain length</option><option value="page">place — height→pitch, speed→grain rate (first build)</option></select></div>
+    <div class="ctl"><label>Listen by <span id="vMap">order</span></label><select id="cMap"><option value="order" selected>order — heading→pitch, steadiness→grain length</option><option value="page">place — height→pitch, speed→grain rate (first build)</option><option value="density">density — the flock as a breathing pad (second reading)</option></select></div>
     <div class="ctl"><label>Base note Hz <span id="vBase">110</span></label><input id="cBase" type="range" min="55" max="330" step="1" value="110"></div>
     <div class="ctl"><label>Pitch spread semis (place) <span id="vPit">19</span></label><input id="cPit" type="range" min="0" max="36" step="1" value="19"></div>
     <div class="ctl"><label>Grain shimmer <span id="vGr">0.55</span></label><input id="cGr" type="range" min="0" max="1" step="0.01" value="0.55"></div>
@@ -255,12 +255,50 @@ class GranularProcessor extends AudioWorkletProcessor {
     this.voices = [];
     this.master = 0.7;
     this.shimmer = 0.55;
+    this.mode = 'grains';            // 'field' = the second reading (flock-as-distribution)
+    this.cells = [];
     this.port.onmessage = (e)=>{
       const d = e.data;
       if(d.type==='tables'){ this.TL=d.TL; this.TR=d.TR; this.BL=d.BL; this.BR=d.BR; }
       else if(d.type==='params'){ this.master=d.master; this.shimmer=d.shimmer; }
-      else if(d.type==='flock'){ this.setFlock(d.buf, d.n); }
+      else if(d.type==='flock'){ this.mode='grains'; this.setFlock(d.buf, d.n); }
+      else if(d.type==='field'){ if(this.TL){ this.mode='field'; this.setField(new Float32Array(d.buf), d.n, d.base); } }
     };
+  }
+  // = Field.setField in engine/field_reading.js — a sustained oscillator per cell, reading
+  // the waveform under it; a Shepard pair (hi, an octave-down lo) makes the pitch circle a circle.
+  setField(f, n, base){
+    const L=this.L;
+    while(this.cells.length < n) this.cells.push({tab:null,u:-1,v:-1,pan:0.5,pc:-1,ph:[0,0.5],g:[0,0],t:[0,0],fq:[0,0]});
+    this.cells.length = n;
+    for(let i=0;i<n;i++){
+      const o=this.cells[i], k=i*4, u=f[k], v=f[k+1], amp=f[k+2], pc=f[k+3];
+      if(u!==o.u||v!==o.v){ o.u=u; o.v=v; o.pan=u; o.tab=new Float32Array(L); for(let j=0;j<L;j++){ const top=this.TL[j]+u*(this.TR[j]-this.TL[j]), bot=this.BL[j]+u*(this.BR[j]-this.BL[j]); o.tab[j]=top+v*(bot-top); } }
+      if(o.pc>=0 && Math.abs(pc-o.pc)>0.5){ o.ph=[o.ph[1],o.ph[0]]; o.g=[o.g[1],o.g[0]]; }
+      o.pc=pc;
+      const c=Math.cos(Math.PI*pc*0.5), sn=Math.sin(Math.PI*pc*0.5);
+      o.t=[amp*c*c, amp*sn*sn];
+      o.fq=[base*Math.pow(2,pc-0.5), base*Math.pow(2,pc-1.5)];
+    }
+  }
+  processField(outL, outR, n){
+    const invSr=1/sampleRate, L=this.L, LMASK=this.LMASK, norm=this.master, stereo=outR!==outL;
+    for(let s=0;s<n;s++){ outL[s]=0; if(stereo) outR[s]=0; }
+    for(const o of this.cells){
+      const pL=Math.cos(o.pan*Math.PI*0.5)*norm, pR=Math.sin(o.pan*Math.PI*0.5)*norm, tab=o.tab;
+      for(let j=0;j<2;j++){
+        const g0=o.g[j], g1=o.t[j];
+        if(g0<1e-4 && g1<1e-4) continue;
+        let ph=o.ph[j]; const inc=o.fq[j]*invSr, dg=(g1-g0)/n;
+        for(let s=0;s<n;s++){
+          const idx=ph*L, i0=idx|0, fr=idx-i0, smp=(tab[i0]+fr*(tab[(i0+1)&LMASK]-tab[i0]))*(g0+dg*(s+1));
+          if(stereo){ outL[s]+=smp*pL; outR[s]+=smp*pR; } else outL[s]+=smp*0.7071*norm;
+          ph+=inc; if(ph>=1) ph-=1;
+        }
+        o.ph[j]=ph;
+      }
+      o.g=[o.t[0],o.t[1]];
+    }
   }
   setFlock(buf, n){
     const f = new Float32Array(buf);
@@ -275,6 +313,7 @@ class GranularProcessor extends AudioWorkletProcessor {
     const out = outputs[0];
     const outL = out[0], outR = out[1] || out[0];
     const n = out[0].length;
+    if(this.mode==='field' && this.cells.length){ this.processField(outL, outR, n); return true; }
     if(!this.TL || this.voices.length===0){ for(let s=0;s<n;s++){ outL[s]=0; if(outR!==outL) outR[s]=0; } return true; }
     const invSr = 1/sampleRate, L=this.L, LMASK=this.LMASK;
     const TL=this.TL,TR=this.TR,BL=this.BL,BR=this.BR;
@@ -328,8 +367,10 @@ async function startAudio(){
 function pushParams(){ if(node) node.port.postMessage({type:'params', master:P.vol, shimmer:P.shimmer}); }
 
 let steady=null;                       // per-boid steadiness memory for the "order" mapping
+let fieldMem={};                       // per-cell smoothing memory for the "density" reading
 function pushFlock(boids){
   if(!node) return;
+  if(P.map==='density'){ const f=mapField(boids, fieldMem); node.port.postMessage({type:'field', buf:f.buffer, n:FNC, base:P.base}, [f.buffer]); return; }
   const N=boids.length, buf=new Float32Array(N*6);
   const cx=WIDTH*0.5, cy=HEIGHT*0.5;
   for(let i=0;i<N;i++){
@@ -360,6 +401,40 @@ function pushFlock(boids){
 }
 
 /* ===================================================================== *
+ *  FIELD READING — the second reading, flock-as-distribution (2026-10-14) *
+ *  = mapField() in engine/field_reading.js, line for line. A fixed 8×5   *
+ *  grid of oscillators on the wavetable; the flock's smoothed density is *
+ *  each cell's level, the cell's local mean heading its pitch (the same  *
+ *  heading→pitch circle as the "order" grains).                          *
+ * ===================================================================== */
+const FGX = 8, FGY = 5, FNC = FGX * FGY, FSIG = 80, FSIG2 = 2 * FSIG * FSIG, FSMOOTH = 0.85;
+function mapField(boids, mem) {
+  if (!mem.D || mem.D.length !== FNC) { mem.D = new Float64Array(FNC); mem.Hx = new Float64Array(FNC); mem.Hy = new Float64Array(FNC); mem.first = true; }
+  const f = new Float32Array(FNC * 4), a = mem.first ? 0 : FSMOOTH;
+  let s2 = 0;
+  for (let c = 0; c < FNC; c++) {
+    const cu = ((c % FGX) + 0.5) / FGX, cv = (((c / FGX) | 0) + 0.5) / FGY, x = cu * WIDTH, y = cv * HEIGHT;
+    let d = 0, hx = 0, hy = 0;
+    for (const b of boids) {
+      let dx = b.x - x, dy = b.y - y;
+      if (dx > WIDTH * 0.5) dx -= WIDTH; else if (dx < -WIDTH * 0.5) dx += WIDTH;
+      if (dy > HEIGHT * 0.5) dy -= HEIGHT; else if (dy < -HEIGHT * 0.5) dy += HEIGHT;
+      const k = Math.exp(-(dx * dx + dy * dy) / FSIG2), m = Math.hypot(b.vx, b.vy) || 1;
+      d += k; hx += k * b.vx / m; hy += k * b.vy / m;
+    }
+    mem.D[c] = a * mem.D[c] + (1 - a) * d; mem.Hx[c] = a * mem.Hx[c] + (1 - a) * hx; mem.Hy[c] = a * mem.Hy[c] + (1 - a) * hy;
+    s2 += mem.D[c] * mem.D[c];
+  }
+  mem.first = false;
+  const s = Math.sqrt(s2) || 1;
+  for (let c = 0; c < FNC; c++) {
+    const k = c * 4, pc = ((Math.atan2(mem.Hy[c], mem.Hx[c]) / (2 * Math.PI) + 0.5) % 1 + 1) % 1;
+    f[k] = ((c % FGX) + 0.5) / FGX; f[k + 1] = (((c / FGX) | 0) + 0.5) / FGY; f[k + 2] = mem.D[c] / s; f[k + 3] = pc;
+  }
+  return f;
+}
+
+/* ===================================================================== *
  *  CONTROLS / STATE                                                      *
  * ===================================================================== */
 const P = { N:60, coh:1.0, sep:1.5, ali:1.0, eta:0.06, base:110, pitch:19, shimmer:0.55, vol:0.7, map:'order' };
@@ -369,11 +444,11 @@ const P = { N:60, coh:1.0, sep:1.5, ali:1.0, eta:0.06, base:110, pitch:19, shimm
 const etaOfX = x => 0.25*x*x;
 let boids = makeBoids(P.N);
 function bind(id,key,fmt,after){const el=document.getElementById(id);const out=document.getElementById('v'+id.slice(1));el.addEventListener('input',()=>{const val=parseFloat(el.value);P[key]=val;out.textContent=fmt?fmt(val):val;if(after)after(val);});}
-bind('cN','N',v=>v|0,v=>{P.N=v|0;boids=makeBoids(P.N);steady=null;});
+bind('cN','N',v=>v|0,v=>{P.N=v|0;boids=makeBoids(P.N);steady=null;fieldMem={};});
 bind('cCoh','coh',v=>v.toFixed(2));
 bind('cSep','sep',v=>v.toFixed(2));
 (function(){const el=document.getElementById('cEta'),out=document.getElementById('vEta');el.addEventListener('input',()=>{P.eta=etaOfX(parseFloat(el.value));out.textContent=P.eta.toFixed(3);});})();
-document.getElementById('cMap').addEventListener('change',e=>{P.map=e.target.value;document.getElementById('vMap').textContent=P.map==='order'?'order':'place';steady=null;});
+document.getElementById('cMap').addEventListener('change',e=>{P.map=e.target.value;document.getElementById('vMap').textContent=P.map==='page'?'place':P.map;steady=null;fieldMem={};});
 bind('cBase','base',v=>v|0);
 bind('cPit','pitch',v=>v|0);
 bind('cGr','shimmer',v=>v.toFixed(2),()=>pushParams());
@@ -443,8 +518,8 @@ document.getElementById('engage').addEventListener('click', async (e)=>{ e.stopP
  *  region), NOT one per slider. Flip REVIEW_MODE=false to ship clean.    *
  * ===================================================================== */
 const REVIEW_MODE = true;                 // ← set false to ship the clean final
-const REVIEW_ROUND = 3;                   // round 3: order mapping + remapped Disorder (2026-10-14)
-const RV_KEY = 'murmuration-review-v3';
+const REVIEW_ROUND = 4;                   // round 4: + the density reading (flock-as-distribution, 2026-10-14)
+const RV_KEY = 'murmuration-review-v4';
 
 const MOMENTS = [
   { id:'concept',  label:'Concept & framing (the lead)',          tag:'text',    sel:'.lead' },

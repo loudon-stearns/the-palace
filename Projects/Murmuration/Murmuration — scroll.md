@@ -15,20 +15,20 @@ forward_vector: "I am Murmuration's scroll — the one page that always opens on
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T13:25:25.857Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T13:36:51.382Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 1 · last ran 2026-10-14 (today)
+- **Status:** active · **Stage:** growing · **Steward:** cycle 2 · last ran 2026-10-14 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 2 open asks
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — Two 40-second clouds, same performance. One is a flock, one is hand-jittered grains. Which sounds more alive? (`murmuration-steward-003`)
-- **Last commit touching this project:** 2026-09-26 `5b8a1564` — ops(frontmatter): strip retired activation_count/last_activated from 244 entries — v1.26
+- **Last shipped:** 2026-10-14 (today) — The flock's second reading is built: a breathing pad where the flock's density weights the wavetable. It's in the page as 'Listen by: density'. (`murmuration-steward-007`)
+- **Last commit touching this project:** 2026-10-14 `a6a23f8a` — steward(Murmuration): cycle 1 — SPINNING UP. HOME: [Murmuration](obsidian://open?vault=The%20Palace&fil…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Murmuration is a synth where a flock of 60 boids wanders across a 2D wavetable and every boid is a grain, so the flock's shape is the grain cloud. Its signature knob, Disorder, adds steering noise and should push the flock through a real order→chaos transition, from a pitched tone to a broadband cloud. The page was built in June and checked only by numbers, never by ear. This cycle I built a headless copy of the page and measured it. The transition is real and sharp, but it sits in the bottom sixth of the old slider. Under the first mapping the sound barely changes when the flock orders: grains are about one waveform cycle long and pitch comes from height, and neither depends on order. I ad…
+Murmuration is a synth where a flock of 60 boids wanders across a 2D wavetable. Its bet is that a sound shaped by a living flock feels more alive than one dialed in by hand. The entry describes three ways to hear the flock: as grains (each boid a grain), as a distribution (the flock's density shapes a pad), and as gesture (a predator scares the flock and it regathers). Earlier today I made the flock's order audible in the grain reading and rendered a blind test, which still waits on your ears. This cycle built the second reading. Under a fixed 8×5 grid of sustained oscillators, each one plays the waveform beneath it. The flock's smoothed density sets how loud each one is, and the boids' loc…
 
 ### Open asks
 
@@ -60,6 +60,47 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="murmuration-steward-007" -->
+### 2026-10-14 — cycle 2 — The flock's second reading is built: a breathing pad where the flock's density weights the wavetable. It's in the page as 'Listen by: density'.
+> shipped · page matches engine exactly, still unheard in a browser · steward leans predator-as-gesture next
+
+WHAT I BUILT. engine/field_reading.js is the distribution reading. Each frame the flock gets smoothed onto the wavetable field: an 80-pixel blur around each boid, wrapped at the edges. Each of 40 cells takes that density as its level, and the levels are power-normalised so the pad never gets louder as it gathers. Each cell's pitch is the average heading of the boids around it, on the same heading→pitch circle as the grains' 'order' mapping. That circle is now a real circle: each cell is a Shepard pair (a tone and its octave below, crossfading), so when a heading passes ±180° the pitch keeps turning instead of jumping an octave. The page has a third 'Listen by' choice, density. check_page_mapping.js now also runs the page's own field code and its own worklet code. Over 1200 frames the largest difference from the engine is 0, for both the weights and the audio samples.
+
+WHAT IT DOES. Same 40-second performance as the blind pair (melted, crystallising, ordered, a predator at 21 s, melting again). When the flock orders, the cells agree on pitch: 0.97–0.99 ordered against 0.32–0.40 melted. The sound focuses harder than the grains do. Pitch-class entropy drops to 2.02 bits when ordered, against 2.67 for the order-mapped grains and 3.42 for the first build. That's the phase transition heard as a chord collapsing to one pitch class. The pad has no Disorder crossfade anywhere. The second finding matches yesterday's: order alone hardly gathers the flock in space, about 31–37 of 40 cells sound either way. So the attractor is this reading's own gesture. In reading-distribution-attractor.wav, dragging the ordered flock on a loop squeezes the pad from about 35 sounding cells to about 9, and its timbre travels with the flock across the terrain. No zipper noise: the jump at control-frame edges is 1.08× the average jump (the blind grains measure about 1.5).
+
+PASSED OVER. Fixed pitches per cell, letting only the density move. Order would never reach the sound that way, the same trap as the first build. A covariance-ellipse formula driving detune directly. With the cells' own headings, the spread already becomes the chord's spread, so a second formula would just be a hand-dialed copy of it.
+
+BLIND TEST SAFE. I didn't render a labelled grains take. One would match a blind file and give away the key.
+
+**Artifacts:**
+- [The pad, through the same 40-second performance as the blind pair. Listen for the cluster collapsing to one pitch class around 15–20 s and again after the predator.](Projects/Murmuration/reading-distribution.wav)
+- [20 s, ordered flock. From 4 s to 16 s the attractor drags it on a loop: the pad narrows to about 9 cells and its timbre travels.](Projects/Murmuration/reading-distribution-attractor.wav)
+- [Top: same performance, all three sounds. The field (pink) focuses hardest when the flock orders. Bottom: order barely gathers the flock, the attractor does.](Projects/Murmuration/readings.png)
+- [The page, now with 'Listen by: density'. Review layer is on round 4.](Projects/Murmuration/Murmuration.html)
+- [The distribution reading: the density field, cell levels and pitches, the Shepard-pair voice.](Projects/Murmuration/engine/field_reading.js)
+- [Renders both takes, level-matched to the blind pair.](Projects/Murmuration/engine/render_distribution.js)
+- [Per-section entropy, flatness, cells sounding, frame-edge check, and draws readings.png.](Projects/Murmuration/engine/analyse_distribution.py)
+- [Now also checks the page's density weights and worklet audio against the engine: largest difference 0.](Projects/Murmuration/engine/check_page_mapping.js)
+- [The numbers behind the table.](Projects/Murmuration/engine/distribution_analysis.json)
+- [Frame trace for the performance: φ, cells sounding, pitch agreement.](Projects/Murmuration/engine/distribution_trace-performance.json)
+- [The same trace for the attractor take.](Projects/Murmuration/engine/distribution_trace-attractor.json)
+
+_Same 40-second performance · pitch-class entropy in bits (3.58 = all twelve equal, lower = more focused)_
+| section | flock φ | cells sounding /40 | cells agree on pitch | density pad | grains, order (mean X,Y) | grains, first build |
+| --- | --- | --- | --- | --- | --- | --- |
+| melted 1–5 s | 0.12 | 35.5 | 0.40 | 3.15 | 3.40 | 3.43 |
+| crystallising 8–11 s | 0.22 | 36.9 | 0.33 | 3.11 | 3.37 | 3.43 |
+| ordered 17–21 s | 0.87 | 30.7 | 0.97 | 2.02 | 2.67 | 3.42 |
+| predator 21–24 s | 0.69 | 34.4 | 0.88 | 2.43 | 3.10 | 3.45 |
+| re-cohered 25–28 s | 0.94 | 37.2 | 0.99 | 2.08 | 2.49 | 3.46 |
+| melted again 36–39 s | 0.11 | 35.5 | 0.32 | 3.04 | 3.39 | 3.38 |
+
+_Left rough:_ Nobody has heard the density pad in a browser. The engine twin ramps cell levels across each 1/60 s frame, while the browser ramps them over its first 128-sample block. Both are smooth on paper, but only ears can confirm. The melted pad is already a bit more focused (about 3.1 bits) than melted grains, because its cells drift slowly. Whether that reads as 'less chaotic' or just 'smoother' is a listening question.
+
+_Next moves named:_ The third reading, predator as gesture: a fuller startle-and-regather envelope, playable in all three readings, so 'Listen by' becomes a compositional choice rather than a test switch. · Once you've answered the blind test, I'll open the key and write up what it said, either way. · Then measure the voice ceiling: grains against the pad, timed headlessly, ahead of the cross-browser test page.
+<sub>`murmuration-steward-007` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="murmuration-steward-003" -->
 ### 2026-10-14 — cycle 1 — Two 40-second clouds, same performance. One is a flock, one is hand-jittered grains. Which sounds more alive?
 > still working · blind pair rendered, level-matched · no clear lean, your ears decide
