@@ -1,0 +1,55 @@
+{
+ "source": "generated/light-through-deep-water/LTDW 3 Refraction.adv",
+ "direction": "strip it to the core, then darker",
+ "moves": [
+  "strip",
+  "darker"
+ ],
+ "changes": [
+  {
+   "param": "Voice_Oscillator2_On",
+   "move": "strip",
+   "before": "true",
+   "after": "false"
+  },
+  {
+   "param": "Voice_Filter2_On",
+   "move": "strip",
+   "before": "false",
+   "after": "false"
+  },
+  {
+   "param": "Voice_Unison_Amount",
+   "move": "strip",
+   "before": "0.426313",
+   "after": "0.0"
+  },
+  {
+   "param": "Voice_Filter1_Frequency",
+   "move": "cutoff -1 band",
+   "before": "open (1947)",
+   "after": "warm (900.6)"
+  }
+ ],
+ "mods_after": {
+  "Voice_Oscillator2_Wavetables_WavePosition": {
+   "2": 0.25
+  },
+  "Voice_Oscillator2_Pan": {
+   "3": 0.3
+  },
+  "Voice_Global_AmpModulation": {
+   "5": 0.5
+  },
+  "Voice_Global_PitchModulation": {
+   "7": 0.04166662693,
+   "11": 1.0
+  }
+ },
+ "slot_map_assumed": {
+  "env": 1,
+  "env_other": 0,
+  "lfo1": 2,
+  "lfo2": 3
+ }
+}

@@ -1,0 +1,49 @@
+PRESET: LTDW 1 Caustics
+  SOURCE: Osc1 on (wave position 0.408, transpose +0 st, detune -0.058562); sub osc on (transpose +1 st)
+  FILTER 1: type idx 0 / circuit-LpHp idx 0 [enum semantics not yet cross-referenced]; cutoff 906 Hz → warm (corpus band 3/5, not ear-confirmed); resonance 0.254 → coloured (corpus band 2/5, not ear-confirmed); drive 1.051
+  FILTER ROUTING: idx 0 (serial) [documented option, not ear-confirmed]
+  AMP ENV: attack 1.0379 → swell (corpus band 5/5, not ear-confirmed), decay 4.4636, sustain 1.0000, release 5.4527 → tail (corpus band 5/5, not ear-confirmed)
+  LFO 1: shape idx 0 [enum not cross-referenced], free-running, rate 0.3658 → drifting (corpus band 2/5, not ear-confirmed), depth 0.569
+  LFO 2: shape idx 1 [enum not cross-referenced], free-running, rate 0.2300 → drifting (corpus band 2/5, not ear-confirmed), depth 0.944
+  UNISON: mode idx 5, voice count 4 [mode enum not cross-referenced]
+  MODULATION (5 live routings; source = census KIND, not ear-confirmed):
+      Osc 1 Pos <- LFO 1 (depth +0.350)
+      Filter 1 Freq <- LFO 2 (depth +0.120)
+      Amp <- Velocity (depth +0.500)
+      Pitch <- Pitch Bend (depth +0.042)
+      Pitch <- Constant / internal (depth +1.000)
+
+PRESET: LTDW 2 Shaft
+  SOURCE: Osc1 on (wave position 0.561, transpose +0 st, detune +0.003691); sub osc on (transpose +1 st)
+  FILTER 1: type idx 0 / circuit-LpHp idx 0 [enum semantics not yet cross-referenced]; cutoff 232 Hz → dark (corpus band 2/5, not ear-confirmed); resonance 0.446 → singing (corpus band 3/5, not ear-confirmed); drive 1.076
+  FILTER ROUTING: idx 0 (serial) [documented option, not ear-confirmed]
+  AMP ENV: attack 0.4670 → swell (corpus band 5/5, not ear-confirmed), decay 6.8858, sustain 1.0000, release 0.8487 → long (corpus band 4/5, not ear-confirmed)
+  LFO 1: shape idx 0 [enum not cross-referenced], free-running, rate 0.3976 → drifting (corpus band 2/5, not ear-confirmed), depth 0.949
+  LFO 2: shape idx 0 [enum not cross-referenced], free-running, rate 0.3976 → drifting (corpus band 2/5, not ear-confirmed), depth 0.677
+  UNISON: mode idx 1, voice count 2 [mode enum not cross-referenced]
+  MODULATION (5 live routings; source = census KIND, not ear-confirmed):
+      Filter 1 Freq <- Envelope 3 (depth +0.450)
+      Filter 1 Freq <- LFO 1 (depth +0.080)
+      Amp <- Velocity (depth +0.500)
+      Pitch <- Pitch Bend (depth +0.042)
+      Pitch <- Constant / internal (depth +1.000)
+
+PRESET: LTDW 3 Refraction
+  SOURCE: Osc1 on (wave position 0.516, transpose +0 st, detune -0.011854); Osc2 on (wave position 0.434, transpose +12 st, detune +0.001466)
+  FILTER 1: type idx 0 / circuit-LpHp idx 0 [enum semantics not yet cross-referenced]; cutoff 1947 Hz → open (corpus band 4/5, not ear-confirmed); resonance 0.061 → flat (corpus band 1/5, not ear-confirmed); drive 0.070
+  FILTER ROUTING: idx 0 (serial) [documented option, not ear-confirmed]
+  AMP ENV: attack 0.3420 → swell (corpus band 5/5, not ear-confirmed), decay 2.3423, sustain 1.0000, release 8.9627 → tail (corpus band 5/5, not ear-confirmed)
+  LFO 1: shape idx 0 [enum not cross-referenced], free-running, rate 0.8359 → subtle (corpus band 3/5, not ear-confirmed), depth 0.654
+  LFO 2: shape idx 6 [enum not cross-referenced], free-running, rate 0.2700 → drifting (corpus band 2/5, not ear-confirmed), depth 0.535
+  UNISON: mode idx 2, voice count 6 [mode enum not cross-referenced]
+  MODULATION (5 live routings; source = census KIND, not ear-confirmed):
+      Osc 2 Pos <- LFO 1 (depth +0.250)
+      Osc 2 Pan <- LFO 2 (depth +0.300)
+      Amp <- Velocity (depth +0.500)
+      Pitch <- Pitch Bend (depth +0.042)
+      Pitch <- Constant / internal (depth +1.000)
+
+======================================================================
+unresolved perceptual markers after the corpus pass: 0
+bands are usage bands from 270 factory presets — the ear-pass refines the
+split points, not the vocabulary.

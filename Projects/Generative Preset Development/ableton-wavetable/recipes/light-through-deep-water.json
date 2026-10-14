@@ -1,0 +1,150 @@
+{
+ "slug": "light-through-deep-water",
+ "prompt": "a pad that sounds like light through deep water",
+ "reading": "Three things light does under water, each carried by a different part of the synth: it ripples (caustics dancing on the floor), it falls in a shaft that slowly opens as you look up, and it splits into colours that drift apart. The entry asks for the same pad realized three ways: a slow wavetable morph, a filter-swept single oscillator, and a detuned oscillator pair.",
+ "recipes": [
+  {
+   "name": "LTDW 1 Caustics",
+   "archetype": "Synth Pad",
+   "seed": 701,
+   "why": "slow wavetable morph: an LFO drifts the wave position so the timbre ripples like caustics; a second LFO nudges the filter; position-spread unison smears it; the two LFOs run at different drifting rates so they never lock",
+   "wavetables": {
+    "1": "Crystal Shifter",
+    "2": "Sines 3"
+   },
+   "bands": {
+    "cutoff": "warm",
+    "resonance": "coloured",
+    "attack": "swell",
+    "release": "tail",
+    "lfo_rate": "drifting"
+   },
+   "set": {
+    "Voice_Oscillator1_On": "true",
+    "Voice_Oscillator2_On": "false",
+    "Voice_SubOscillator_On": "true",
+    "Voice_Filter1_On": "true",
+    "Voice_Filter1_Type": 0,
+    "Voice_Filter2_On": "false",
+    "Voice_Modulators_Lfo1_Time_Sync": 0,
+    "Voice_Modulators_Lfo2_Time_Sync": 0,
+    "Voice_Modulators_Lfo1_Shape_Type": 0,
+    "Voice_Modulators_Lfo2_Shape_Type": 1,
+    "Voice_Modulators_AmpEnvelope_Sustain": 1.0,
+    "Voice_Unison_Mode": 5,
+    "Voice_Unison_VoiceCount": 4,
+    "Voice_Modulators_Lfo2_Time_Rate": 0.23
+   },
+   "mods": [
+    {
+     "source": "lfo1",
+     "target": "Voice_Oscillator1_Wavetables_WavePosition",
+     "amount": 0.35
+    },
+    {
+     "source": "lfo2",
+     "target": "Voice_Filter1_Frequency",
+     "amount": 0.12
+    }
+   ]
+  },
+  {
+   "name": "LTDW 2 Shaft",
+   "archetype": "Synth Pad",
+   "seed": 702,
+   "why": "filter-swept single oscillator: the filter rests dark and a slow envelope opens it over seconds, like a shaft of light found by looking up; resonance sings at the moving edge (both Env 2 and Env 3 carry the same slow shape, so the swell holds whichever envelope the slot-1 routing turns out to be)",
+   "wavetables": {
+    "1": "Voice Harmonics",
+    "2": "Basic Shapes"
+   },
+   "bands": {
+    "cutoff": "dark",
+    "resonance": "singing",
+    "attack": "swell",
+    "release": "long",
+    "lfo_rate": "drifting"
+   },
+   "set": {
+    "Voice_Oscillator1_On": "true",
+    "Voice_Oscillator2_On": "false",
+    "Voice_SubOscillator_On": "true",
+    "Voice_Filter1_On": "true",
+    "Voice_Filter1_Type": 0,
+    "Voice_Filter2_On": "false",
+    "Voice_Modulators_Envelope2_Times_Attack": 3.5,
+    "Voice_Modulators_Envelope2_Times_Decay": 6.0,
+    "Voice_Modulators_Envelope2_Values_Peak": 1.0,
+    "Voice_Modulators_Envelope2_Values_Sustain": 0.6,
+    "Voice_Modulators_Lfo1_Time_Sync": 0,
+    "Voice_Modulators_Lfo1_Shape_Type": 0,
+    "Voice_Modulators_AmpEnvelope_Sustain": 1.0,
+    "Voice_Unison_Mode": 1,
+    "Voice_Unison_VoiceCount": 2,
+    "Voice_Modulators_Envelope3_Times_Attack": 3.5,
+    "Voice_Modulators_Envelope3_Times_Decay": 6.0,
+    "Voice_Modulators_Envelope3_Values_Peak": 1.0,
+    "Voice_Modulators_Envelope3_Values_Sustain": 0.6
+   },
+   "mods": [
+    {
+     "source": "env",
+     "target": "Voice_Filter1_Frequency",
+     "amount": 0.45
+    },
+    {
+     "source": "lfo1",
+     "target": "Voice_Filter1_Frequency",
+     "amount": 0.08
+    }
+   ]
+  },
+  {
+   "name": "LTDW 3 Refraction",
+   "archetype": "Synth Pad",
+   "seed": 703,
+   "why": "detuned oscillator pair: two different tables an octave apart, shimmer unison, the pair panned apart and drifting, like white light splitting into colours",
+   "wavetables": {
+    "1": "Amber",
+    "2": "Sines 3"
+   },
+   "bands": {
+    "cutoff": "open",
+    "resonance": "flat",
+    "attack": "swell",
+    "release": "tail",
+    "lfo_rate": "subtle"
+   },
+   "set": {
+    "Voice_Oscillator1_On": "true",
+    "Voice_Oscillator2_On": "true",
+    "Voice_SubOscillator_On": "false",
+    "Voice_Oscillator2_Pitch_Transpose": 12,
+    "Voice_Oscillator1_Pan": -0.45,
+    "Voice_Oscillator2_Pan": 0.45,
+    "Voice_Filter1_On": "true",
+    "Voice_Filter1_Type": 0,
+    "Voice_Filter2_On": "false",
+    "Voice_Modulators_Lfo1_Time_Sync": 0,
+    "Voice_Modulators_Lfo2_Time_Sync": 0,
+    "Voice_Modulators_Lfo1_Shape_Type": 0,
+    "Voice_Modulators_Lfo2_Shape_Type": 6,
+    "Voice_Modulators_AmpEnvelope_Sustain": 1.0,
+    "Voice_Unison_Mode": 2,
+    "Voice_Unison_VoiceCount": 6,
+    "Voice_Modulators_Lfo2_Time_Rate": 0.27
+   },
+   "mods": [
+    {
+     "source": "lfo1",
+     "target": "Voice_Oscillator2_Wavetables_WavePosition",
+     "amount": 0.25
+    },
+    {
+     "source": "lfo2",
+     "target": "Voice_Oscillator2_Pan",
+     "amount": 0.3
+    }
+   ]
+  }
+ ]
+}

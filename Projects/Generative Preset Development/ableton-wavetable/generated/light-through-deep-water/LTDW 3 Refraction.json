@@ -1,0 +1,156 @@
+{
+ "name": "LTDW 3 Refraction",
+ "archetype": "Synth Pad",
+ "seed": 703,
+ "why": "detuned oscillator pair: two different tables an octave apart, shimmer unison, the pair panned apart and drifting, like white light splitting into colours",
+ "wavetables": {
+  "1": "Amber",
+  "2": "Sines 3"
+ },
+ "bands": {
+  "cutoff": "open",
+  "resonance": "flat",
+  "attack": "swell",
+  "release": "tail",
+  "lfo_rate": "subtle"
+ },
+ "set": {
+  "Voice_Oscillator1_On": "true",
+  "Voice_Oscillator2_On": "true",
+  "Voice_SubOscillator_On": "false",
+  "Voice_Oscillator2_Pitch_Transpose": 12,
+  "Voice_Oscillator1_Pan": -0.45,
+  "Voice_Oscillator2_Pan": 0.45,
+  "Voice_Filter1_On": "true",
+  "Voice_Filter1_Type": 0,
+  "Voice_Filter2_On": "false",
+  "Voice_Modulators_Lfo1_Time_Sync": 0,
+  "Voice_Modulators_Lfo2_Time_Sync": 0,
+  "Voice_Modulators_Lfo1_Shape_Type": 0,
+  "Voice_Modulators_Lfo2_Shape_Type": 6,
+  "Voice_Modulators_AmpEnvelope_Sustain": 1.0,
+  "Voice_Unison_Mode": 2,
+  "Voice_Unison_VoiceCount": 6,
+  "Voice_Modulators_Lfo2_Time_Rate": 0.27
+ },
+ "mods": [
+  {
+   "source": "lfo1",
+   "target": "Voice_Oscillator2_Wavetables_WavePosition",
+   "amount": 0.25
+  },
+  {
+   "source": "lfo2",
+   "target": "Voice_Oscillator2_Pan",
+   "amount": 0.3
+  }
+ ],
+ "prompt": "a pad that sounds like light through deep water",
+ "chosen": {
+  "sampled_from_archetype": {
+   "Voice_Filter1_Drive": 0.070494,
+   "Voice_Filter2_Drive": 0.058024,
+   "Voice_Modulators_AmpEnvelope_Sustain": 0.985834,
+   "Voice_Modulators_AmpEnvelope_Times_Decay": 2.342317,
+   "Voice_Modulators_Envelope2_Times_Decay": 1.262661,
+   "Voice_Modulators_Envelope2_Values_Peak": 0.878158,
+   "Voice_Modulators_Envelope2_Values_Sustain": 0.371644,
+   "Voice_Modulators_Envelope3_Times_Decay": 2.907568,
+   "Voice_Modulators_Envelope3_Values_Sustain": 0.500533,
+   "Voice_Modulators_Lfo1_Shape_Amount": 0.654148,
+   "Voice_Modulators_Lfo2_Shape_Amount": 0.534894,
+   "Voice_Oscillator1_Gain": 0.932669,
+   "Voice_Oscillator1_Pan": -0.606112,
+   "Voice_Oscillator1_Pitch_Detune": -0.011854,
+   "Voice_Oscillator1_Wavetables_WavePosition": 0.51624,
+   "Voice_Oscillator2_Gain": 0.80885,
+   "Voice_Oscillator2_Pan": 0.115215,
+   "Voice_Oscillator2_Pitch_Detune": 0.001466,
+   "Voice_Oscillator2_Wavetables_WavePosition": 0.434055,
+   "Voice_SubOscillator_Gain": 0.437444,
+   "Voice_SubOscillator_Tone": 0.430351,
+   "Voice_Unison_Amount": 0.426313
+  },
+  "from_bands": {
+   "cutoff": {
+    "band": "open",
+    "value": 1947.218036,
+    "split_source": "corpus",
+    "params": [
+     "Voice_Filter1_Frequency"
+    ]
+   },
+   "resonance": {
+    "band": "flat",
+    "value": 0.061158,
+    "split_source": "corpus",
+    "params": [
+     "Voice_Filter1_Resonance"
+    ]
+   },
+   "attack": {
+    "band": "swell",
+    "value": 0.341953,
+    "split_source": "corpus",
+    "params": [
+     "Voice_Modulators_AmpEnvelope_Times_Attack"
+    ]
+   },
+   "release": {
+    "band": "tail",
+    "value": 8.962701,
+    "split_source": "corpus",
+    "params": [
+     "Voice_Modulators_AmpEnvelope_Times_Release"
+    ]
+   },
+   "lfo_rate": {
+    "band": "subtle",
+    "value": 0.835916,
+    "split_source": "corpus",
+    "params": [
+     "Voice_Modulators_Lfo1_Time_Rate",
+     "Voice_Modulators_Lfo2_Time_Rate"
+    ]
+   }
+  },
+  "explicit": {
+   "Voice_Oscillator1_On": "true",
+   "Voice_Oscillator2_On": "true",
+   "Voice_SubOscillator_On": "false",
+   "Voice_Oscillator2_Pitch_Transpose": 12,
+   "Voice_Oscillator1_Pan": -0.45,
+   "Voice_Oscillator2_Pan": 0.45,
+   "Voice_Filter1_On": "true",
+   "Voice_Filter1_Type": 0,
+   "Voice_Filter2_On": "false",
+   "Voice_Modulators_Lfo1_Time_Sync": 0,
+   "Voice_Modulators_Lfo2_Time_Sync": 0,
+   "Voice_Modulators_Lfo1_Shape_Type": 0,
+   "Voice_Modulators_Lfo2_Shape_Type": 6,
+   "Voice_Modulators_AmpEnvelope_Sustain": 1.0,
+   "Voice_Unison_Mode": 2,
+   "Voice_Unison_VoiceCount": 6,
+   "Voice_Modulators_Lfo2_Time_Rate": 0.27
+  },
+  "mods": [
+   {
+    "source": "lfo1",
+    "target": "Voice_Oscillator2_Wavetables_WavePosition",
+    "amount": 0.25
+   },
+   {
+    "source": "lfo2",
+    "target": "Voice_Oscillator2_Pan",
+    "amount": 0.3
+   }
+  ]
+ },
+ "bytes": 3482,
+ "slot_map_assumed": {
+  "env": 1,
+  "env_other": 0,
+  "lfo1": 2,
+  "lfo2": 3
+ }
+}

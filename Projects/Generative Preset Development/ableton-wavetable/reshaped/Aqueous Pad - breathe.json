@@ -1,0 +1,131 @@
+{
+ "source": "decompressed-samples/Synth Pad__Aqueous Pad.xml",
+ "direction": "push this toward something that breathes",
+ "moves": [
+  "breathe"
+ ],
+ "changes": [
+  {
+   "param": "Voice_Modulators_AmpEnvelope_Times_Attack",
+   "move": "attack +1 band",
+   "before": "swell (0.6335)",
+   "after": "unchanged (already swell)"
+  },
+  {
+   "param": "Voice_Modulators_Lfo1_Time_Rate",
+   "move": "LFO 1 to drifting, free, sine",
+   "before": "imperceptible (0.0934)",
+   "after": "drifting (0.375)"
+  },
+  {
+   "param": "Voice_Global_AmpModulation",
+   "move": "LFO 1 routing",
+   "before": "+0.00",
+   "after": "+0.25"
+  },
+  {
+   "param": "Voice_Filter1_Frequency",
+   "move": "LFO 1 routing",
+   "before": "+0.00",
+   "after": "+0.15"
+  }
+ ],
+ "mods_after": {
+  "Voice_Oscillator1_Wavetables_WavePosition": {
+   "0": -0.109375,
+   "1": -0.28125,
+   "2": 0.203125,
+   "3": -0.265625,
+   "4": 0.078125,
+   "5": 0.0625
+  },
+  "Voice_Oscillator1_Effects_Effect1": {
+   "1": -0.03125,
+   "2": 0.359375,
+   "3": -0.34375,
+   "4": -0.0625
+  },
+  "Voice_Oscillator1_Effects_Effect2": {
+   "0": 0.125,
+   "1": 0.296875,
+   "2": 0.078125,
+   "3": 0.875,
+   "4": 0.5,
+   "5": 0.0625
+  },
+  "Voice_Oscillator1_Pan": {
+   "1": 0.140625,
+   "2": 0.125,
+   "3": -0.59375,
+   "4": 0.234375,
+   "5": -0.359375
+  },
+  "Voice_Oscillator2_Pitch_PitchModulation": {
+   "1": -0.0009999871254
+  },
+  "Voice_Oscillator2_Wavetables_WavePosition": {
+   "0": 0.09375,
+   "1": -0.078125,
+   "3": -0.390625,
+   "4": -0.25
+  },
+  "Voice_Oscillator2_Effects_Effect1": {
+   "1": 0.25,
+   "2": -0.3125,
+   "3": -0.375,
+   "4": 0.3125
+  },
+  "Voice_Oscillator2_Pan": {
+   "1": -0.140625,
+   "2": 0.03125,
+   "3": -0.25,
+   "4": 0.296875,
+   "5": 0.4375
+  },
+  "Voice_SubOscillator_Gain": {
+   "0": 0.453125,
+   "1": 0.40625,
+   "2": 0.140625,
+   "3": 0.09375,
+   "5": 0.234375
+  },
+  "Voice_Filter1_Frequency": {
+   "1": 0.09375,
+   "2": 0.15,
+   "4": -0.125,
+   "5": 0.0625,
+   "8": 0.09375
+  },
+  "Voice_Filter2_Frequency": {
+   "1": 0.046875,
+   "2": 0.03125,
+   "4": 0.09375,
+   "5": -0.0625,
+   "8": 0.140625
+  },
+  "Voice_Filter2_Resonance": {
+   "4": 0.078125
+  },
+  "Voice_Modulators_Lfo1_Shape_Amount": {
+   "3": -0.03125,
+   "9": 1.0
+  },
+  "Voice_Modulators_Lfo2_Shape_Amount": {
+   "9": 1.0
+  },
+  "Voice_Global_AmpModulation": {
+   "2": 0.25,
+   "5": 0.5
+  },
+  "Voice_Global_PitchModulation": {
+   "7": 0.04666662216,
+   "11": 1.0
+  }
+ },
+ "slot_map_assumed": {
+  "env": 1,
+  "env_other": 0,
+  "lfo1": 2,
+  "lfo2": 3
+ }
+}

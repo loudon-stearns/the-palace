@@ -15,20 +15,20 @@ forward_vector: "I am Generative Preset Development's scroll — the one page th
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T12:16:40.074Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T12:24:10.121Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 6 · last ran 2026-10-14 (today)
-- **Plan:** agreed 2026-09-25 (18 days ago) · 2 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 7 · last ran 2026-10-14 (today)
+- **Plan:** agreed 2026-09-25 (18 days ago) · 3 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — The Wavetable ear-sitting kit is ready. Sit with it solo using the ear sheet, or open a session and do it together? (`preset-steward-014`)
-- **Last commit touching this project:** 2026-09-25 `57f7c67e` — ops(history): cited commit hashes follow the rewritten history
+- **Last shipped:** 2026-10-14 (today) — Three Wavetable pads from one prompt, 'light through deep water', plus a reshaper that made Aqueous Pad darker and more menacing, and breathing. (`preset-steward-016`)
+- **Last commit touching this project:** 2026-10-14 `e7816d0f` — steward(Generative Preset Development): cycle 6 — SPINNING UP. HOME: [Generative Preset Development](obsidian://open?vaul…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Generative Preset Development teaches an AI to make, describe and reshape presets for synths with a fixed layout, starting with Ableton Wavetable. Settled so far: the preset format is cracked, a modified preset loads in Live and sounds as intended (you confirmed this on 2026-06-05), and an analyzer describes any preset in plain synth language. What it still lacks is feel-words grounded by ear, like where a cutoff stops being dark, so every word it uses is borrowed from how Ableton's factory presets happen to set the knob. The next step on the plan is one sitting in Live to fix that. This cycle built that sitting so it needs no knob-sweeping and no numbers. You arrow through ready-made prese…
+Generative Preset Development teaches an AI to make, describe and reshape presets for synths with a fixed layout, starting with Ableton Wavetable. Settled so far: the preset format is cracked, a modified preset loads in Live and sounds as intended (you confirmed this in June), and an analyzer describes any preset in plain synth language. The step on the plan is still one sitting in Live where your ears set the feel-words, and the kit for it shipped earlier today. Until then, every 'dark' or 'swell' is borrowed from how Ableton's factory presets happen to set the knob. This cycle built the step after that one, making presets from a prompt and reshaping them, so it works now on the borrowed w…
 
 ### Open asks
 
@@ -69,6 +69,58 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="preset-steward-016" -->
+### 2026-10-14 — cycle 7 — Off plan — Three Wavetable pads from one prompt, 'light through deep water', plus a reshaper that made Aqueous Pad darker and more menacing, and breathing.
+> shipped · not yet loaded in Live · steward leans: hear LTDW 1–3 first
+
+_Off plan — builds the step after the ear sitting first: making presets from a prompt and reshaping them runs now on borrowed feel-words and picks up your ear's words with no code change. Offered as proof of a different direction; the plan stands unless Loudon agrees to change it._
+
+How it works: the model reads the prompt and writes a short recipe in the profile's own words, like cutoff 'warm', attack 'swell', LFO 'drifting', plus which wavetables to use and which few routings carry the motion ([the recipe](obsidian://open?vault=The%20Palace&file=Projects/Generative%20Preset%20Development/ableton-wavetable/recipes/light-through-deep-water.json)). generate_preset.py starts from the blank init Wavetable, not a factory sound. It fills in the knobs the recipe leaves out by sampling between the 25th and 75th percentile of Ableton's 31 factory pads, picks a value inside each named band (on a log scale for Hz and seconds), and writes the .adv along with a sidecar that says what it chose and why. Then it reads the file back and checks the values.
+
+The three readings of the prompt:
+- **LTDW 1 Caustics** is a slow wavetable morph. Crystal Shifter at a warm 906 Hz, with a drifting LFO moving the wave position and a second LFO at a different rate nudging the filter, so the two never lock. Position-spread unison smears it, like ripples of light on a pool floor.
+- **LTDW 2 Shaft** is a single oscillator under a swept filter. Voice Harmonics sits dark at 232 Hz with a singing resonance, and a 3.5-second envelope opens the filter, like finding a shaft of light by looking up.
+- **LTDW 3 Refraction** is a detuned pair. Amber, plus Sines 3 an octave up, panned apart, with six-voice shimmer unison and smooth-random drift on the pan, like white light splitting into colours.
+
+Run back through the analyzer, all three describe themselves in the words they were asked for ([readback](obsidian://open?vault=The%20Palace&file=Projects/Generative%20Preset%20Development/ableton-wavetable/generated/light-through-deep-water/analyzer-readback.txt)). That closes the loop from prompt to recipe to preset to description.
+
+Reshaping (reshape_preset.py) moves a preset by bands, not by numbers. 'Darker' means the cutoff drops one band from wherever it sits, so the word covers the same distance in feel on any preset. Filter 2 follows by the same ratio, so the designer's offset between the two filters survives. 'Darker and more menacing' on Aqueous Pad: cutoff warm 714 Hz to dark 289 Hz, Filter 2 follows to 558 Hz, resonance singing to screaming, +6 dB drive, more sub, a little wider unison. 'Breathe': the attack is already a swell, so it stays put; LFO 1 goes from imperceptible to drifting (0.38 Hz) and gently drives the amp and filter. I also stripped and darkened Refraction to show the reshaper works on generated presets as well as factory ones.
+
+One finding for your sitting: by factory usage, the 'soft' attack band only runs from 1.5 to 40 ms, because factory presets are mostly clicks and plucks. A pad that asks for 'soft' would come out nearly percussive, so all three recipes had to ask for 'swell'. Rungs C04 to C08 of the attack ladder are where your ear will move that fence furthest.
+
+**Artifacts:**
+- [slow wavetable morph: ripples of light.](Projects/Generative Preset Development/ableton-wavetable/generated/light-through-deep-water/LTDW 1 Caustics.adv)
+- [dark filter opened by a 3.5 s envelope: the shaft found by looking up.](Projects/Generative Preset Development/ableton-wavetable/generated/light-through-deep-water/LTDW 2 Shaft.adv)
+- [detuned pair an octave apart, panned and drifting: light splitting.](Projects/Generative Preset Development/ableton-wavetable/generated/light-through-deep-water/LTDW 3 Refraction.adv)
+- [what Caustics chose, knob by knob, and why.](Projects/Generative Preset Development/ableton-wavetable/generated/light-through-deep-water/LTDW 1 Caustics.json)
+- [what Shaft chose, knob by knob, and why.](Projects/Generative Preset Development/ableton-wavetable/generated/light-through-deep-water/LTDW 2 Shaft.json)
+- [what Refraction chose, knob by knob, and why.](Projects/Generative Preset Development/ableton-wavetable/generated/light-through-deep-water/LTDW 3 Refraction.json)
+- [the analyzer describing all three: the round trip.](Projects/Generative Preset Development/ableton-wavetable/generated/light-through-deep-water/analyzer-readback.txt)
+- [factory Aqueous Pad, darker and more menacing.](Projects/Generative Preset Development/ableton-wavetable/reshaped/Aqueous Pad - darker + menacing.adv)
+- [the change note: each move, before and after, in band words.](Projects/Generative Preset Development/ableton-wavetable/reshaped/Aqueous Pad - darker + menacing.json)
+- [factory Aqueous Pad, pushed toward something that breathes.](Projects/Generative Preset Development/ableton-wavetable/reshaped/Aqueous Pad - breathe.adv)
+- [the breathe change note.](Projects/Generative Preset Development/ableton-wavetable/reshaped/Aqueous Pad - breathe.json)
+- [the reshaper on a generated preset: stripped to one oscillator, one band darker.](Projects/Generative Preset Development/ableton-wavetable/reshaped/LTDW 3 Refraction - strip + darker.adv)
+- [its change note.](Projects/Generative Preset Development/ableton-wavetable/reshaped/LTDW 3 Refraction - strip + darker.json)
+- [the prompt read into three recipes in feel-words; the seam between language and numbers.](Projects/Generative Preset Development/ableton-wavetable/recipes/light-through-deep-water.json)
+- [recipe to .adv: archetype sampling, band words to values, routings, read-back check.](Projects/Generative Preset Development/ableton-wavetable/generate_preset.py)
+- [preset plus direction to .adv: darker, brighter, menacing, breathe, strip.](Projects/Generative Preset Development/ableton-wavetable/reshape_preset.py)
+
+_Distinct on paper: distance over 10 normalized knobs (0 = identical) and the share of modulation routings not shared_
+| pair | knob distance | routing difference | wavetables |
+| --- | --- | --- | --- |
+| Caustics vs Shaft | 0.39 | 0.57 | different |
+| Caustics vs Refraction | 0.29 | 0.57 | different |
+| Shaft vs Refraction | 0.53 | 0.57 | different |
+| each vs init Wavetable | 0.91–1.11 | 0.62 | different |
+| each vs factory Aqueous Pad | 0.52–0.67 | 0.93 | different |
+
+_Left rough:_ Nothing here has been loaded in Live or heard, so 'distinct' is only a measurement on paper. Choosing wavetables by name (SpriteName) is new to the write path and only uses names found in factory presets. Which modulation slot is which envelope is still a guess (I hedged by giving Env 2 and Env 3 the same shape in Shaft). The reshaper's direction words are keyword-matched for now. And the 78 ladder presets from earlier today are committed only inside the kit's zip, not as loose files.
+
+_Next moves named:_ Loudon: drop LTDW 1–3 on a track and hold a chord. Do they read as one pad heard three ways, and is any of them 'light through deep water'? Reveal the folder: [generated](open:Projects/Generative Preset Development/ableton-wavetable/generated/light-through-deep-water?reveal) · Me, next cycle: the plan's bonus check, describing a known factory preset the way a skilled synthesist would, by teaching the analyzer to write prose instead of a parameter list · Once the ear sitting lands: run apply_bands.py, regenerate the same three recipes unchanged, and compare before and after
+<sub>`preset-steward-016` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="preset-steward-014" -->
 ### 2026-10-14 — cycle 6 — The Wavetable ear-sitting kit is ready. Sit with it solo using the ear sheet, or open a session and do it together?
 > still working · kit built, not yet loaded in Live · steward leans SOLO
