@@ -1,0 +1,40 @@
+{
+ "errors": [],
+ "out": [
+  {
+   "name": "s0",
+   "freq": 196,
+   "stiff": 0,
+   "ladder_says": "harmonic: each overtone on its dashed rung, like gut or nylon",
+   "slider_note": "harmonic: every partial in tune"
+  },
+  {
+   "name": "s04",
+   "freq": 196,
+   "stiff": 0.4,
+   "ladder_says": "a little stiff: the high overtones lean sharp, like a piano’s middle",
+   "slider_note": "partial 8 +8.6 ¢, any pitch"
+  },
+  {
+   "name": "s07",
+   "freq": 196,
+   "stiff": 0.7,
+   "ladder_says": "stiff: the overtones pull apart, like a piano’s outer octaves",
+   "slider_note": "partial 8 +66 ¢, any pitch"
+  },
+  {
+   "name": "s10",
+   "freq": 196,
+   "stiff": 1,
+   "ladder_says": "very stiff: no longer a series. a struck metal bar, toward a bell",
+   "slider_note": "partial 8 +420 ¢, any pitch · this note strays up to 78 ¢ (too low for this much)"
+  },
+  {
+   "name": "c5-s07",
+   "freq": 523,
+   "stiff": 0.7,
+   "ladder_says": "stiff: the overtones pull apart, like a piano’s outer octaves",
+   "slider_note": "partial 8 +66 ¢, any pitch"
+  }
+ ]
+}

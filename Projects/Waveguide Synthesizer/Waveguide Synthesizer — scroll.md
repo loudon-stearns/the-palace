@@ -15,20 +15,20 @@ forward_vector: "I am Waveguide Synthesizer's scroll — the one page that alway
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T00:35:50.831Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T01:13:09.288Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 16 · last ran 2026-10-14 (today)
-- **Plan:** agreed 2026-10-13 (today) · 2 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 17 · last ran 2026-10-14 (today)
+- **Plan:** agreed 2026-10-13 (today) · 3 made things since
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — Study v1.9: you can see the bow grip. A dot where hair meets string, and a chart of one cycle, show it catch, drag and let go. (`waveguide-synthesizer-steward-039`)
-- **Last commit touching this project:** 2026-10-13 `e2d62e36` — steward(Waveguide Synthesizer): cycle 15 — SPINNING UP. HOME: [[Waveguide Synthesizer]]. Neighborhood loaded. Cycl…
+- **Last shipped:** 2026-10-13 (today) — Study v1.10: an overtone ladder shows each overtone running sharp as the string stiffens, and it matches the sound to a quarter of a cent. (`waveguide-synthesizer-steward-041`)
+- **Last commit touching this project:** 2026-10-13 `b3de3535` — steward(Waveguide Synthesizer): cycle 16 — SPINNING UP. HOME: [[Waveguide Synthesizer]]. Neighborhood loaded. Cycl…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Waveguide Synthesizer is the browser string whose on-screen wave is the sound: two delay lines carry a right-going and a left-going wave, and their sum is the string you see and hear. It can be plucked, struck and bowed, it sits on a soundboard, and you can watch it in slow motion. You set the order: first make every slider visibly change the picture, then the body, then the bow, then even stiffness, then teaching. The picture and the body are done. This cycle is the bow. The bow already sang, but you couldn't see why. Now you can watch the hair hold the string and drag it along, then let go once a cycle as the corner running round the string reaches it. Each of the three bow sliders change…
+Waveguide Synthesizer is the browser string whose on-screen wave is the sound: two delay lines carry a right-going and a left-going wave, and their sum is the string you see and hear. It can be plucked, struck and bowed, and it sits on a soundboard. You set the order: first make every slider visibly change the picture, then the body, then the bow, then even stiffness, then a guided teaching walk. The picture, the body and the bow are done. This cycle is stiffness. Stiffness already sounded right and meant the same at every pitch, but all you could see was the string getting thicker. Now an overtone ladder in the top right shows why a stiff string sounds like a piano or a struck bar: each ov…
 
 ### Open asks
 
@@ -69,6 +69,64 @@ Written by Claude on Loudon's behalf, 2026-09-23: your last two cycles posted no
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="waveguide-synthesizer-steward-041" -->
+### 2026-10-13 — cycle 17 — Study v1.10: an overtone ladder shows each overtone running sharp as the string stiffens, and it matches the sound to a quarter of a cent.
+> shipped · the stiffness step in your order · steward leans fix the bow physics, then teaching
+
+**What's new in [study v1.10](obsidian://open?vault=The%20Palace&file=Projects/Waveguide%20Synthesizer/study-v1.10-the-overtones-run-sharp/index.html):**
+
+- **The overtone ladder, top right, titled 'what the ring hears'.** Each dashed rung marks where a perfectly flexible string would put an overtone: 2, 3, 4… times the note. Each amber bar marks where *this* string puts it, as tall as it is ringing at the pickup right now. When the string is stiff, a slanted line runs from the top of each rung to its bar's foot, so you can see how far each overtone has moved. Under the bars is how sharp overtones 2, 4, 8 and 16 run, in cents.
+- **The stiffness slider now lights the ladder** as well as the string's thickness. Drag it and the bars fan out to the right, the high ones furthest. At 0 they sit on their rungs. At 0.4 overtone 16 is 35 ¢ sharp. At 0.7 it is 245 ¢ sharp. At 1.0 it is more than an octave out.
+- **One line of words says what you're hearing:** *harmonic, like gut or nylon* · *a little stiff, like a piano's middle* · *stiff, like a piano's outer octaves* · *very stiff: no longer a series, a struck metal bar, toward a bell*.
+- **The bars are measured, not drawn from a formula.** The engine works out where its loop really rings each overtone: the frequency at which one trip round the loop takes exactly that many periods. Then it listens at each of those frequencies, at the pickup, in short six-cycle windows. So the ladder shows what the filter actually achieved. That differs from the textbook rule at stiffness 1.0, and also at stiffness 0, where every overtone sits 1 to 2 ¢ sharp because of the loop's own small stretch.
+- **The walk has thirteen steps now.** The stiffness step points at the ladder. A new step holds stiffness at 0.70 while the note climbs two octaves, from C3 to C5. The ladder keeps its shape, because one wire of one thickness bends its overtones by the same cents at every pitch. That is v1.5's even stiffness, finally visible.
+
+**How I checked it:** I ran the page's own engine headless in Node at four notes and four stiffnesses. For each, I took the audio and found every overtone's real peak with a fine FFT. Every bar loud enough to measure is within 0.26 ¢ of the peak in the sound, and at most notes within 0.05 ¢ (ladder-vs-sound.json). Then I photographed the ladder at five settings and recorded the whole walk in Chrome, picture and sound. There were no page errors, and every step peaked between −17.5 and −6.2 dBFS. The recording caught one bug, which is fixed: during the pitch sweep the ladder went dark. That turned out to be true to the string rather than a ladder fault. Between replucks the string's own sound dies within about a second at higher notes, and the soundboard rings on after it. So the bars now fall at 30 dB a second instead of 60, slow enough to read after a pluck.
+
+**Passed over:** drawing the stretch on the string itself (a stiff string's strobe picture already can't stand still, and the replay view shows the high ripples running ahead). A cents-against-overtone curve was the other option, but it's more abstract. Rungs against bars can be read without knowing what a cent is.
+
+**Artifacts:**
+- [study v1.10, playable: click to start, pluck the string, then drag stiffness and watch the ladder top right.](Projects/Waveguide Synthesizer/study-v1.10-the-overtones-run-sharp/index.html)
+- [the whole thirteen-step walk, picture and sound, 98 s. Steps 6 and 7 (from about 0:38) are the stiffness steps.](Projects/Waveguide Synthesizer/offline-v1.10/stiff-walk.mp4)
+- [the ladder at G3 with stiffness 0, 0.4, 0.7 and 1.0, then C5 at 0.7: the same lean two octaves up.](Projects/Waveguide Synthesizer/offline-v1.10/ladder-sheet.png)
+- [G3 plucked at stiffness 0, 0.4, 0.7, 1.0 (2 s each), then C3 to C5 at 0.7, from the page's own engine.](Projects/Waveguide Synthesizer/offline-v1.10/stiffness-tour.wav)
+- [the walk's sound alone, as the engine produced it.](Projects/Waveguide Synthesizer/offline-v1.10/stiff-walk.wav)
+- [walk step 6, stiffness near full: the bars fan out off their rungs.](Projects/Waveguide Synthesizer/offline-v1.10/frames/step-06.png)
+- [walk step 7, C5 at stiffness 0.70: the ladder keeps the shape it had at C3.](Projects/Waveguide Synthesizer/offline-v1.10/frames/step-07.png)
+- [stiffness 0: every bar on its rung.](Projects/Waveguide Synthesizer/offline-v1.10/still-s0.png)
+- [stiffness 0.4: the top overtones lean.](Projects/Waveguide Synthesizer/offline-v1.10/still-s04.png)
+- [stiffness 0.7: the overtones pull apart.](Projects/Waveguide Synthesizer/offline-v1.10/still-s07.png)
+- [stiffness 1.0: no longer a series.](Projects/Waveguide Synthesizer/offline-v1.10/still-s10.png)
+- [C5 at 0.7, for comparison with G3 at 0.7.](Projects/Waveguide Synthesizer/offline-v1.10/still-c5-s07.png)
+- [runs the engine headless at 4 notes × 4 stiffnesses, records what the ladder was told, renders the tour.](Projects/Waveguide Synthesizer/offline-v1.10/ladder_probe.mjs)
+- [where the ladder put each overtone, and its levels.](Projects/Waveguide Synthesizer/offline-v1.10/ladder-probe.json)
+- [finds each overtone's real peak in the audio and compares it with the ladder's bar.](Projects/Waveguide Synthesizer/offline-v1.10/measure_ladder.py)
+- [the check: ladder cents against sound cents, and the worst miss per setting.](Projects/Waveguide Synthesizer/offline-v1.10/ladder-vs-sound.json)
+- [what plays when in the tour, and its peak.](Projects/Waveguide Synthesizer/offline-v1.10/stiffness-tour.json)
+- [photographs the ladder at five settings in Chrome.](Projects/Waveguide Synthesizer/offline-v1.10/stills.mjs)
+- [no page errors; what the ladder and the slider said at each setting.](Projects/Waveguide Synthesizer/offline-v1.10/stills.json)
+- [the walk recorder, carried over from v1.9.](Projects/Waveguide Synthesizer/offline-v1.10/record_walk.mjs)
+- [no page errors; each step's peak.](Projects/Waveguide Synthesizer/offline-v1.10/walk-record.json)
+- [the stand-in speaker clock, reused from v1.9.](Projects/Waveguide Synthesizer/offline-v1.10/fake_audio_clock.js)
+- [applies every v1.10 change onto the v1.9 page, engine and picture.](Projects/Waveguide Synthesizer/offline-v1.10/patch_page.py)
+- [the ladder's drawing code that patch_page.py inserts.](Projects/Waveguide Synthesizer/offline-v1.10/drawLadder.js)
+
+_How sharp each overtone runs, in cents: the ladder's number, checked against the sound (offline-v1.10/ladder-vs-sound.json)_
+| setting | overtone 2 | overtone 4 | overtone 8 | overtone 16 | worst bar vs sound |
+| --- | --- | --- | --- | --- | --- |
+| G3 · stiffness 0 | +1.0 | +1.2 | +1.4 | +1.6 | 0.00 ¢ |
+| G3 · 0.4 | +1.4 | +3.3 | +9.8 | +35 | 0.01 ¢ |
+| G3 · 0.7 | +4.2 | +17 | +67 | +245 | 0.01 ¢ |
+| G3 · 1.0 | +25 | +122 | +476 | +1195 | 0.01 ¢ |
+| C5 · 0.7 | +4.2 | +17 | +67 | +227 | 0.05 ¢ |
+| C3 · 1.0 | +25 | +123 | +478 | +1195 | 0.26 ¢ |
+
+_Left rough:_ At stiffness 1.0 the filter overshoots the stiff-string rule at G3: overtone 8 is +476 ¢ against the rule's +420. The ladder shows the overshoot honestly, and the slider's own note already warns that the note strays, but the sound isn't what the rule asks for. Between replucks in the walk, the string goes quiet within about a second at higher notes while the soundboard keeps ringing, which may mean the board's tail is too long. I haven't judged that by ear. I didn't hear any of this through speakers: I reused last cycle's stand-in clock for the Chrome recordings rather than testing the audio device again. The bow physics the grip chart exposed last cycle (the slip should track bow position, and a too-heavy bow should crunch instead of pinning) is still unfixed. I took the next step in your order instead.
+
+_Next moves named:_ Your eyes on walk steps 6 and 7 (from about 0:38 in stiff-walk.mp4): do the bars leaving their rungs make 'the overtones run sharp' read at a glance? · Next cycle: fix the bow physics the grip chart exposed (slip that tracks bow position, a smoother plateau, a heavy bow that breaks away), so the bow is honest before the teaching walk puts it on stage. · Then the last step in the plan: the guided teaching walk (pluck, reflection, loss, pitch, stiffness, bow, body), each step one slider, one thing to watch and one thing to hear.
+<sub>`waveguide-synthesizer-steward-041` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="waveguide-synthesizer-steward-039" -->
 ### 2026-10-13 — cycle 16 — Study v1.9: you can see the bow grip. A dot where hair meets string, and a chart of one cycle, show it catch, drag and let go.
 > shipped · the bow step in your order · steward leans watch the walk's last four steps
