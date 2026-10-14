@@ -245,8 +245,29 @@ export function readSchedulerStatus({ palaceRoot, launchAgentsDir, now = Date.no
     warnings.push('NOT INSTALLED — launchd has no steward-batch job loaded; the scheduler will not auto-fire. Install it from _ops/heartbeat/README.md.');
   }
   if (paused) warnings.push('PAUSED — the heartbeat wrappers no-op while the .paused flag is present; resume to re-enable.');
-  if (digest.exists && Number.isFinite(digest.age_hours) && digest.age_hours > 72) {
-    warnings.push(`DIGEST STALE — the steward-batch review digest is ${Math.round(digest.age_hours / 24)} days old.`);
+  // The last heartbeat batch (2026-10-14): batch.mjs writes last-batch.json
+  // when it ends — what fired, how many cycles, the cost, and what stopped it.
+  // The old review digest is no longer written (the board is the record), so
+  // its age is not a warning any more; the last batch's own record is.
+  let last_batch = null;
+  const lastBatchPath = join(heartbeatDir, 'last-batch.json');
+  if (existsSync(lastBatchPath)) {
+    try {
+      const b = JSON.parse(readFileSync(lastBatchPath, 'utf8'));
+      const endMs = b.ended ? Date.parse(b.ended) : NaN;
+      last_batch = {
+        started: b.started || null, ended: b.ended || null,
+        age_hours: Number.isFinite(endMs) ? round1(hoursBetween(now, endMs)) : null,
+        fired: Array.isArray(b.fired) ? b.fired : [], due: Array.isArray(b.due) ? b.due.length : null,
+        cycles: Array.isArray(b.cycles) ? b.cycles.length : 0,
+        shipped: Array.isArray(b.cycles) ? b.cycles.filter((c) => c && c.stop === 'shipped').length : 0,
+        usd: typeof b.usd === 'number' ? Math.round(b.usd * 100) / 100 : null,
+        stopped_because: b.stopped_because || null, limits: b.limits || null, dry_run: !!b.dry_run,
+      };
+      if (last_batch.stopped_because && !/^(run_cap)$/.test(last_batch.stopped_because)) {
+        warnings.push(`LAST BATCH STOPPED EARLY — ${last_batch.stopped_because} (${last_batch.cycles} cycle(s), $${last_batch.usd ?? '?'}). What was not fired stays due.`);
+      }
+    } catch { /* unreadable: say nothing rather than guess */ }
   }
 
   return {
@@ -258,6 +279,7 @@ export function readSchedulerStatus({ palaceRoot, launchAgentsDir, now = Date.no
     pause_flag_rel: `${HEARTBEAT_REL}/${PAUSE_BASENAME}`,
     jobs,
     digest,
+    last_batch,
     warnings,
     // Say plainly how this was learned — never let inference masquerade as the
     // launchctl ground truth STIGMERGY deliberately does not consult.

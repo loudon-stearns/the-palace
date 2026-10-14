@@ -245,7 +245,35 @@ export function createStewardLane(opts = {}) {
 
   // Batch state (in-memory; lost on server restart -- acceptable for v1).
   let queue = [];
-  let batch = { total: 0, done: 0 };
+  // A batch: how many, how many done, and — for a heartbeat or any caller
+  // that names them — the limits that end it early (2026-10-14; Loudon:
+  // "the heartbeat needs some additional limits, this was way too much").
+  //   limits.max_minutes — wall clock from the first fire
+  //   limits.max_usd     — summed from each cycle's own result line
+  // `usd` is the running total; `stopped_because` names the limit that hit.
+  let batch = freshBatch(0);
+  function freshBatch(total, { source = null, limits = null } = {}) {
+    return { total, done: 0, started: total > 0 ? Date.now() : null, usd: 0, source, limits, stopped_because: null };
+  }
+  // The cost a cycle reports in its own result line (stream-json `result`).
+  function readCycleCost(transcriptPath) {
+    try {
+      const text = readFileSync(transcriptPath, 'utf8');
+      const i = text.lastIndexOf('{"type":"result"');
+      if (i < 0) return null;
+      const line = text.slice(i, text.indexOf('\n', i) < 0 ? undefined : text.indexOf('\n', i));
+      const r = JSON.parse(line);
+      return typeof r.total_cost_usd === 'number' ? r.total_cost_usd : null;
+    } catch (_) { return null; }
+  }
+  // Which batch limit, if any, is now exceeded. Checked after every reap.
+  function limitHit() {
+    const L = batch.limits;
+    if (!L) return null;
+    if (Number.isFinite(L.max_usd) && L.max_usd > 0 && batch.usd >= L.max_usd) return `budget: $${batch.usd.toFixed(2)} of $${L.max_usd}`;
+    if (Number.isFinite(L.max_minutes) && L.max_minutes > 0 && batch.started && (Date.now() - batch.started) / 60000 >= L.max_minutes) return `clock: ${Math.round((Date.now() - batch.started) / 60000)} of ${L.max_minutes} min`;
+    return null;
+  }
   let current = null;
   let currentRun = null;          // { name, cap, position, retried, cycle_n } while a run is live
   let currentTranscript = null;   // the live cycle's transcript path (WATCH pane, 2026-10-13)
@@ -316,14 +344,23 @@ export function createStewardLane(opts = {}) {
       // (processCycle flagged state + scroll) and the run stops. A paused ask
       // (`blocking: true`) or a live-session request also ends the run — the
       // next move is Loudon's, not another cycle.
+      const usd = readCycleCost(meta.transcriptPath);
+      if (usd != null) batch.usd += usd;
       const step = afterCycle(run, summary);
       next = step.next;
       dropQueue = step.dropQueue;
+      const hit = limitHit();
+      if (hit) {
+        // A batch limit ends this steward's run AND the rest of the batch.
+        next = null; dropQueue = true; batch.stopped_because = hit; step.stoppedBecause = step.stoppedBecause || 'batch_limit';
+        logLine(`batch limit — ${hit}: ${meta.home}'s run ends here and the rest of the batch is dropped`);
+      }
       writeLastCycle({
         ok: summary.stop_hint !== 'spawn_failed' && summary.stop_hint !== 'interrupted', name: meta.home, cycle_n: meta.cycleN, ts: meta.tsNow, ...summary,
         ...(summary.stop_hint === 'spawn_failed' ? { error: 'the worker never spoke — see the lane log (auth? permission mode? root?); the cycle was not counted' } : {}),
         ...(summary.stop_hint === 'interrupted' ? { error: `the worker was cut off before posting (${(summary.errors && summary.errors[0] && summary.errors[0].error) || 'error'}); the cycle was not counted` } : {}),
         run: { ...run, stop_hint: summary.stop_hint, continued: !!next, stopped_because: step.stoppedBecause },
+        usd, batch_usd: batch.usd,
       });
       logLine(`run: ${meta.home} cycle ${meta.cycleN} (${run.position}/${run.cap}) -> ${summary.stop_hint}${next ? (next.retryOfBarren ? ' -> retrying once' : ` -> continuing (${next.position}/${next.cap})`) : ` -> run ends (${step.stoppedBecause})`}`);
     } catch (e) {
@@ -331,7 +368,8 @@ export function createStewardLane(opts = {}) {
       writeLastCycle({ ok: false, name: meta && meta.home, error: e.message, ts: meta && meta.tsNow, run });
     } finally {
       if (dropQueue && queue.length > 0) {
-        logLine(`usage limit: not firing ${queue.length} queued steward(s) — they stay ready for after the reset: ${queue.join(', ')}`);
+        if (!batch.stopped_because) batch.stopped_because = 'usage_limit';
+        logLine(`${batch.stopped_because === 'usage_limit' ? 'usage limit' : 'batch limit'}: not firing ${queue.length} queued steward(s) — they stay ready: ${queue.join(', ')}`);
         queue = [];
         if (batch.total > 0) batch.total = batch.done + 1;
       }
@@ -456,7 +494,7 @@ export function createStewardLane(opts = {}) {
       queue.push(n); added.push(n);
     }
     if (added.length) {
-      if (batch.total === 0) batch = { total: 1 + added.length, done: 0 }; // the live one + these
+      if (batch.total === 0) batch = freshBatch(1 + added.length); // the live one + these
       else batch.total += added.length;
       logLine(`queued ${added.length} steward(s) behind ${current || 'the live cycle'}: ${added.join(', ')} (queue now ${queue.length})`);
     }
@@ -489,7 +527,7 @@ export function createStewardLane(opts = {}) {
     }
     // Not part of a batch: clear batch state so status() reads cleanly.
     queue = [];
-    batch = { total: 0, done: 0 };
+    batch = freshBatch(0);
     pendingCapOverride = Number.isInteger(maxCycles) && maxCycles > 0 ? maxCycles : null;
     return fireOne(name);
   }
@@ -509,7 +547,7 @@ export function createStewardLane(opts = {}) {
    * worker alive, the targets join the queue behind it instead of being refused;
    * `queued` then lists only the ones newly added.
    */
-  function advanceAll({ names, maxCycles } = {}) {
+  function advanceAll({ names, maxCycles, maxMinutes, maxUsd, source } = {}) {
     const targets = Array.isArray(names) && names.length ? names.slice() : readyNames();
     if (actuator.isAlive().running) {
       const added = enqueue(targets);
@@ -519,10 +557,14 @@ export function createStewardLane(opts = {}) {
       return { ok: true, queued: [], msg: 'no stewards have grants waiting', ...status() };
     }
     queue = targets.slice();
-    batch = { total: targets.length, done: 0 };
+    const limits = (Number.isFinite(maxMinutes) && maxMinutes > 0) || (Number.isFinite(maxUsd) && maxUsd > 0)
+      ? { max_minutes: Number.isFinite(maxMinutes) && maxMinutes > 0 ? maxMinutes : null, max_usd: Number.isFinite(maxUsd) && maxUsd > 0 ? maxUsd : null, max_cycles: Number.isInteger(maxCycles) && maxCycles > 0 ? maxCycles : null }
+      : null;
+    batch = freshBatch(targets.length, { source: typeof source === 'string' && source ? source : null, limits });
     pendingCapOverride = Number.isInteger(maxCycles) && maxCycles > 0 ? maxCycles : null;
     const first = queue.shift();
     const r = fireOne(first);
+    if (limits) logLine(`batch${batch.source ? ` (${batch.source})` : ''}: ${targets.length} steward(s), limits ${JSON.stringify(limits)}`);
     return { ok: r.ok, queued: targets, first: r, ...status() };
   }
 
@@ -535,7 +577,7 @@ export function createStewardLane(opts = {}) {
       current_run: currentRun,
       current_transcript: a.running ? currentTranscript : null,
       queue: queue.slice(),
-      batch: { total: batch.total, done: batch.done, remaining: queue.length },
+      batch: { total: batch.total, done: batch.done, remaining: queue.length, usd: Math.round(batch.usd * 100) / 100, started: batch.started ? new Date(batch.started).toISOString() : null, source: batch.source, limits: batch.limits, stopped_because: batch.stopped_because },
       last_cycle: readLastCycle(),
     };
   }

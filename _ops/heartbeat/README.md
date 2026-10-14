@@ -14,10 +14,23 @@ already uses to advance a steward from the board).
 
 | File | Role |
 |---|---|
+| `batch.mjs` | **The batch (2026-10-14).** Reads `limits.json`, asks `batch-plan.js` which stewards are due, takes the first N (least recently active first), and fires them through STIGMERGY's own steward lane (`POST /api/stewards/advance-all`, source `heartbeat`) with a per-steward cycle cap, a wall clock and a dollar budget. Same worker, same transcripts (the WATCH pane works), same per-cycle commits as a click on the PROJECTS deck; the deck shows the batch while it runs. Starts the app if it is down. Writes one log line per reap and `last-batch.json` when it ends (the scheduler strip reads it). |
+| `limits.json` | The limits, edited by hand: stewards per batch, cycles per steward, minutes, dollars, debounce hours. A batch ends when any one is reached; what was not fired stays due. |
 | `run-steward-batch.sh` | Wrapper: gives every *due* steward a **run** (up to its manifest `max_iterations` cycles, stopping on a blocking ask, a session request, or a stall) via the orchestrator skill (batch mode), then makes one scoped, text-only commit (machinery + `[Entry] — scroll.md` + board). See **Posture** below. |
 | `launchd/com.loudon.palace.steward-batch.plist` | Timer: daily 06:00 (→ every-other-morning via the wrapper's guard). |
 | `logs/` | Per-run logs + launchd stdout/stderr. |
 | `.last-steward-batch` | Stamp file the 2-day cadence guard reads/writes. |
+
+## Why the batch moved onto the lane (2026-10-14)
+
+The first heartbeat after the login was renewed (2026-10-14 06:01) ran one long `claude -p`
+orchestrator session: 35 Opus cycles over eleven stewards in three and a half hours, then six
+and a half hours silent on a usage limit, then more. Nothing of it showed on the PROJECTS deck
+(the deck watches the app's lane) and no transcript reached disk. Loudon: "I need to be able to
+see what the heartbeat is doing. The heartbeat needs some additional limits, this was way too
+much." So the batch now fires through the lane with hard limits, and the wrapper's `claude -p`
+block is replaced by `node _ops/heartbeat/batch.mjs` (the wrapper change lands after the
+door — see the Keeper's work on committing).
 
 ## Which `claude` fires
 

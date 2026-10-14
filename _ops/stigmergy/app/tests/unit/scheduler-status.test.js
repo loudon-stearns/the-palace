@@ -169,7 +169,8 @@ describe('readSchedulerStatus — the truthful watch', () => {
     expect(s.digest.markdown).toMatch(/Steward Batch Review/);
     expect(s.digest.age_basis).toBe('run_date');
     expect(s.digest.age_hours).toBeGreaterThan(72); // ~16 days, despite fresh mtime
-    expect(s.warnings.some((w) => /DIGEST STALE/.test(w))).toBe(true);
+    // 2026-10-14: the digest's age is reported but no longer a warning — the board is the record.
+    expect(s.warnings.some((w) => /DIGEST STALE/.test(w))).toBe(false);
   });
 
   test('digest age falls back to mtime when no run date is parseable', () => {
