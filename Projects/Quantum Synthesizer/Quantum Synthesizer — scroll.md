@@ -15,24 +15,24 @@ forward_vector: "I am Quantum Synthesizer's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T21:59:14.587Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T14:02:54.037Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 15 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 16 · last ran 2026-10-14 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
-- **Waiting on you:** 1 open ask
+- **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — Landed: the first draft is in the entry and the page is sprout. The Hermite paragraph (draft 2) waits on Loudon's yes. (`quantum-elder-landing-2026-10-13`)
-- **Last commit touching this project:** 2026-10-13 `9954ec13` — steward(Quantum Synthesizer): cycle 15 — SPINNING UP. HOME: [[Quantum Synthesizer]]. Neighborhood loaded. Cycle …
+- **Last shipped:** 2026-10-14 (today) — Turning the i in Schrödinger's equation gives every partial the same damping. A few hundredths of a degree is a bell, and 90° is a thud. (`quantum-synth-037`)
+- **Last commit touching this project:** 2026-10-13 `2782ff34` — edit(Quantum Synthesizer): the steward's granted package lands — stage sprout, one equation two spacings
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-This page claims the Schrödinger equation is a synthesizer. Whatever holds a wave sets its energy levels, and those levels, played as partials, are the timbre. Today's run has been testing the entry line by line with sound. The walls choose the shapes, and the equation turns shapes into pitches. That correction and a fix to the Hermite paragraph are already drafted for an elder. This cycle tested the operators paragraph, which says the creation operator adds an overtone, the annihilation operator removes one, and measurement collapse is a resonant filter. None of the three holds up. What replaces them is better: the sound depends on which ear listens. An ear that could hear the phase turnin…
+This page claims the Schrödinger equation is a synthesizer: whatever holds a wave sets its energy levels, and those levels, played as partials, are the timbre. Since yesterday I have been testing the entry one paragraph at a time with sound. One fix has landed (the walls choose the shapes, and the equation turns shapes into pitches). Two more drafts, the Hermite paragraph and the operators paragraph, wait on your yes. This cycle tested the only part left unchecked, the opening. It says the i 'forces oscillation' and that the equation is 'exactly' an RLC resonant circuit. Instead of deleting the i, I turned it by an angle. At 0° you get Schrödinger, where every partial rings forever. At 90°…
 
 ### Open asks
 
-- `quantum-synth-035` — directional_decision · posted 2026-10-13 · options: REVIVE-TO-SPROUT · STAY-DORMANT · NOT-SURE-YET
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
@@ -40,6 +40,7 @@ _None._
 
 ### Decided
 
+- `quantum-synth-035` — directional_decision → GRANTED — option_id=REVIVE-TO-SPROUT (2026-10-14)
 - `quantum-synth-025` — directional_decision → GRANTED — option_id=REVIVE-TO-SPROUT (2026-10-13)
 - `quantum-synth-016` — directional_decision → GRANTED — option_id=REVIVE-TO-SPROUT (2026-10-13)
 - `quantum-synth-008` — entry_text_fix → GRANTED — option_id=APPLY (2026-09-24)
@@ -67,6 +68,37 @@ This container has no Shop (no ComfyUI, Kokoro, Max, or GPU) — Python with num
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="quantum-synth-037" -->
+### 2026-10-14 — cycle 16 — Turning the i in Schrödinger's equation gives every partial the same damping. A few hundredths of a degree is a bell, and 90° is a thud.
+> shipped · four checks pass · fourth fix drafted for an elder · steward leans land-with-the-others
+
+I rotated the time axis, dψ/dt = −i·e^(−iθ)·Hψ, in the same box as the walls proof: hard walls, ground level at 220 Hz, the same pluck and the same pickup. [wick.wav](open:Projects/Quantum Synthesizer/proofs/wick.wav) plays nine strikes from 0° to 90°, each through two ears as in the ladder proof. The clock is the phase turning, which nothing physical can hear. The detector is what a measurement registers. [wick.mp4](open:Projects/Quantum Synthesizer/proofs/wick.mp4) is the same audio with the poles, the wave in the box and the spectrogram. [wick-poster.png](obsidian://open?vault=The%20Palace&file=Projects/Quantum%20Synthesizer/proofs/wick-poster.png) shows it all in one still, and you can watch the high partials drop out first. What it does to the entry: each level is one lossless pole sitting on the axis, not a damped conjugate pair. Schrödinger is an RLC bank with every resistor set to zero, and the angle of i is the one knob that puts the resistance back, the same amount in every resonator. Removing the i doesn't send the particle to infinity. Everything fades toward the ground state's shape. A side finding: the detector's beats sit at differences of levels but die at their sums, so to a real measurement the damping is about 5/3 stronger. The replacement paragraphs are in [the opening draft](obsidian://open?vault=The%20Palace&file=Projects/Quantum%20Synthesizer/proofs/opening-paragraphs%20%E2%80%94%20draft) for an elder to land.
+
+**Artifacts:**
+- [nine strikes from 0° to 90°, clock then detector, with the poles and spectrogram.](Projects/Quantum Synthesizer/proofs/wick.mp4)
+- [the same 32 s of audio for your DAW.](Projects/Quantum Synthesizer/proofs/wick.wav)
+- [seven angles in one still: poles, clock spectrogram, detector spectrogram.](Projects/Quantum Synthesizer/proofs/wick-poster.png)
+- [the script (numpy + matplotlib + ffmpeg).](Projects/Quantum Synthesizer/proofs/wick.py)
+- [four checks, all PASS: grid vs formula, damping fitted from sound, detector decays at sums, no pitch at 90°.](Projects/Quantum Synthesizer/proofs/wick-checks.txt)
+- [the fourth drafted fix: two replacement paragraphs for the entry's opening, for an elder to land.](Projects/Quantum Synthesizer/proofs/opening-paragraphs — draft.md)
+
+_fitted from the clock's sound alone (matrix-pencil pole fit), levels 1–5_
+| θ | sin θ | fitted damping ratio, every level | fundamental | fundamental rings (e-fold) | 9th partial rings |
+| --- | --- | --- | --- | --- | --- |
+| 0° | 0 | — | 220 Hz | forever | forever |
+| 0.03° | 0.00052 | — | 220 Hz | 1.38 s | 17 ms |
+| 0.1° | 0.00175 | 0.00175 ×5 | 220 Hz | 415 ms | 5.1 ms |
+| 1° | 0.01745 | 0.01745 ×5 | 220 Hz | 42 ms | 0.5 ms |
+| 5° | 0.08716 | 0.08716 ×5 | 219 Hz | 8.3 ms | 0.1 ms |
+| 30° | 0.5 | 0.50000 ×5 | 190.5 Hz | 1.4 ms | — |
+| 90° | 1 | no pitch | — | 0.7 ms | — |
+
+_Left rough:_ Nobody has listened to wick.wav yet. The strikes from 1° up are only clicks, because constant damping kills them in milliseconds, so the musical range is roughly 0.01° to 0.3°. On the poster the pole tilt below 1° is too small to see. The Hermite and operators drafts are still waiting on your yes.
+
+_Next moves named:_ Turn the angle of i into a playable slider page, a box you strike with θ on a knob, so the bell can be dialed by ear instead of read off nine fixed strikes. · Test the last unchecked claim, the Bessel bell paragraph: solve the circular membrane, play its inharmonic modes, and see whether 'the geometry forces inharmonic eigenmodes' survives the same scrutiny. · When you're ready, have an elder land the three waiting drafts (Hermite, operators, opening) together. They agree with one another.
+<sub>`quantum-synth-037` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="quantum-elder-landing-2026-10-13" -->
 ### 2026-10-13 — Landed: the first draft is in the entry and the page is sprout. The Hermite paragraph (draft 2) waits on Loudon's yes.
 
