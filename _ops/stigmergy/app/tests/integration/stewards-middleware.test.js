@@ -379,3 +379,38 @@ describe('a worker that never speaks (spawn failure) is not counted as a cycle',
     expect(readFileSync(join(agentDir, 'history.jsonl'), 'utf8')).toContain('CYCLE_SPAWN_FAILED');
   }, 20000);
 });
+
+describe('GET /api/steward/transcript (the WATCH pane, 2026-10-13)', () => {
+  let root, server, base, stewardLane;
+  beforeEach(async () => { root = makeTempPalace(); ({ server, stewardLane } = makeServer(root, { extra: ['--sleep', '40'] })); base = await listen(server); });
+  afterEach(async () => {
+    try { await waitFor(() => !existsSync(stewardLane.paths.pidFile) && stewardLane.status().queue.length === 0, { timeout: 8000 }); } catch (_) { /* ignore */ }
+    await closeAll();
+    rmSync(root, { recursive: true, force: true });
+  });
+
+  test('404 for a steward with no transcript, 400 without a home', async () => {
+    seedSteward(root, { name: 'Quiet Steward', slug: 'quiet-steward', requestId: 'quiet-001', withGrant: false });
+    expect((await request(base).get('/api/steward/transcript').query({ home: 'Quiet Steward' })).status).toBe(404);
+    expect((await request(base).get('/api/steward/transcript')).status).toBe(400);
+  });
+
+  test('tails the live cycle from a cursor and reports running; the newest file after it ends', async () => {
+    seedSteward(root, { name: 'Test Steward', slug: 'test-steward', requestId: 'test-steward-001' });
+    const fired = await request(base).post('/api/steward/advance').send({ name: 'Test Steward' });
+    expect(fired.body.fired).toBe(true);
+    await waitFor(() => stewardLane.status().running === true, { timeout: 3000 });
+    expect(stewardLane.status().current_transcript).toMatch(/test-steward-cycle-\d+-.*\.jsonl$/);
+    const live = await request(base).get('/api/steward/transcript').query({ home: 'Test Steward', from: 0 });
+    expect(live.status).toBe(200);
+    expect(live.body.running).toBe(true);
+    expect(Array.isArray(live.body.lines)).toBe(true);
+    expect(live.body.next).toBe(live.body.lines.length);
+    await waitFor(() => { const st = stewardLane.status(); return !st.running && st.queue.length === 0; }, { timeout: 8000 });
+    const after = await request(base).get('/api/steward/transcript').query({ home: 'Test Steward', from: live.body.next });
+    expect(after.status).toBe(200);
+    expect(after.body.running).toBe(false);
+    expect(after.body.path).toContain('test-steward-cycle-');
+    expect(after.body.next).toBeGreaterThanOrEqual(live.body.next);
+  });
+});

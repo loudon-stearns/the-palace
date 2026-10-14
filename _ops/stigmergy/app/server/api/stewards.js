@@ -5,6 +5,8 @@
 //   POST /api/steward/dequeue     — take a queued steward back out of the lane's queue
 
 import { jsonResponse, readBody } from '../http.js';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { join, resolve, relative } from 'node:path';
 
 export async function stewardsRoutes(ctx) {
   const { req, res, urlPath, method, stewardLane, opts } = ctx;
@@ -90,6 +92,26 @@ export async function stewardsRoutes(ctx) {
       return true;
     }
     jsonResponse(res, 200, { ...result });
+    return true;
+  }
+
+  // GET /api/steward/transcript?home=<agent_id>&from=<line> — the WATCH pane
+  // (2026-10-13). While the steward is the live cycle, its transcript is the
+  // lane's current_transcript; otherwise the newest transcript for that
+  // steward's slug. Returns the lines from `from` on, the next cursor, and
+  // whether the cycle is still running.
+  if (urlPath === '/api/steward/transcript' && method === 'GET') {
+    const home = (ctx.query.get('home') || '').trim();
+    const from = Math.max(0, parseInt(ctx.query.get('from') || '0', 10) || 0);
+    if (!home) { jsonResponse(res, 400, { error: 'missing home' }); return true; }
+    const found = typeof stewardLane.transcriptFor === 'function' ? stewardLane.transcriptFor(home) : null;
+    const path = found ? found.path : null;
+    if (!path || !existsSync(path)) { jsonResponse(res, 404, { error: 'no transcript for this steward', home }); return true; }
+    const all = readFileSync(path, 'utf8').split('\n');
+    if (all.length && all[all.length - 1] === '') all.pop();
+    const lines = all.slice(from);
+    const running = !!(found && found.running);
+    jsonResponse(res, 200, { ok: true, home, path: relative(ctx.palaceRoot, path), from, next: all.length, lines, running });
     return true;
   }
 

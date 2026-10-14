@@ -76,6 +76,20 @@ describe('GET /api/file', () => {
     expect(Buffer.from(res.body).toString('binary')).toBe(PNG_BYTES);
   });
 
+  test('honours a byte range with 206 + Content-Range, so <audio> can seek (2026-10-13)', async () => {
+    const res = await request(base)
+      .get('/api/file')
+      .query({ path: 'Demo Entry/still.png' })
+      .set('Range', 'bytes=2-5');
+    expect(res.status).toBe(206);
+    expect(res.headers['accept-ranges']).toBe('bytes');
+    expect(res.headers['content-range']).toBe(`bytes 2-5/${PNG_BYTES.length}`);
+    expect(res.headers['content-length']).toBe('4');
+    expect(Buffer.from(res.body).toString('binary')).toBe(PNG_BYTES.slice(2, 6));
+    const bad = await request(base).get('/api/file').query({ path: 'Demo Entry/still.png' }).set('Range', 'bytes=999999-');
+    expect(bad.status).toBe(416);
+  });
+
   test('serves a wav with audio/wav', async () => {
     const res = await request(base)
       .get('/api/file')

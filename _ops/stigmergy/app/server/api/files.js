@@ -10,7 +10,7 @@ import { jsonResponse, resolveInsidePalace, contentTypeFor } from '../http.js';
 const OPEN_CMD = process.platform === 'darwin' ? 'open' : 'xdg-open';
 
 export async function filesRoutes(ctx) {
-  const { res, palaceRoot, urlPath, query, method } = ctx;
+  const { req, res, palaceRoot, urlPath, query, method } = ctx;
 
   // `open:` links in messages resolve here so a rendered artifact (e.g. a WAV)
   // opens in the OS default app / DAW. Path must be palace-relative; ?reveal=1
@@ -59,15 +59,31 @@ export async function filesRoutes(ctx) {
       jsonResponse(res, 400, { error: 'path is a directory, not a file', path: rel });
       return true;
     }
-    res.statusCode = 200;
+    // Byte ranges (2026-10-13): without them a browser cannot seek inside an
+    // <audio>/<video> it has not fully buffered, so a click on the scrubber
+    // restarted the file from zero (Loudon's report on the Trickster deck).
+    const range = typeof req.headers.range === 'string' ? /^bytes=(\d*)-(\d*)$/.exec(req.headers.range) : null;
+    let start = 0, end = stat.size - 1, partial = false;
+    if (range && stat.size > 0) {
+      if (range[1] !== '') { start = parseInt(range[1], 10); if (range[2] !== '') end = Math.min(parseInt(range[2], 10), stat.size - 1); }
+      else if (range[2] !== '') { start = Math.max(0, stat.size - parseInt(range[2], 10)); }
+      if (!(start >= 0 && start <= end && start < stat.size)) {
+        res.statusCode = 416; res.setHeader('Content-Range', `bytes */${stat.size}`); res.end(); return true;
+      }
+      partial = true;
+    }
+    res.statusCode = partial ? 206 : 200;
+    res.setHeader('Accept-Ranges', 'bytes');
+    if (partial) res.setHeader('Content-Range', `bytes ${start}-${end}/${stat.size}`);
     res.setHeader('Content-Type', contentTypeFor(abs));
     // An .html or .svg is an active document: whoever opens this URL — an
     // ArtifactSlot frame, a new tab — gets it sandboxed, never with STIGMERGY's
     // origin. The rich face serves its pieces the same way (ACTIVE_SANDBOX).
     if (/\.(?:html?|svg)$/i.test(abs)) res.setHeader('Content-Security-Policy', 'sandbox allow-scripts');
-    res.setHeader('Content-Length', String(stat.size));
+    res.setHeader('Content-Length', String(end - start + 1));
     res.setHeader('Cache-Control', 'no-cache');
-    const stream = createReadStream(abs);
+    if (req.method === 'HEAD') { res.end(); return true; }
+    const stream = partial ? createReadStream(abs, { start, end }) : createReadStream(abs);
     // A mid-stream read error must not crash the dev server. Headers are already
     // sent, so the cleanest recovery is to drop the connection.
     stream.on('error', () => { try { res.destroy(); } catch (_) {} });

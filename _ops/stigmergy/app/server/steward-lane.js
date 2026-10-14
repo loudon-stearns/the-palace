@@ -27,7 +27,7 @@
 // lives in @stigmergy/core/schema, so app -> orchestrator is a one-way edge
 // (cycle helpers only), not a circular dependency.
 
-import { existsSync, readFileSync, writeFileSync, appendFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync, appendFileSync, readdirSync } from 'node:fs';
 import { resolve, join, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -248,6 +248,7 @@ export function createStewardLane(opts = {}) {
   let batch = { total: 0, done: 0 };
   let current = null;
   let currentRun = null;          // { name, cap, position, retried, cycle_n } while a run is live
+  let currentTranscript = null;   // the live cycle's transcript path (WATCH pane, 2026-10-13)
   let pendingCapOverride = null;  // advance({ maxCycles }) → applies to the next fireOne only
 
   const realArgv = (prompt) => stewardArgv(prompt, pendingModel);
@@ -411,6 +412,7 @@ export function createStewardLane(opts = {}) {
     });
     current = r.fired ? name : null;
     currentRun = r.fired ? { name, ...thisRun, cycle_n: cycleN } : null;
+    currentTranscript = r.fired ? transcriptPath : null;
     return { ok: !!r.fired, fired: !!r.fired, found: true, msg: r.msg, name, cycle_n: cycleN, model, run: thisRun };
   }
 
@@ -531,15 +533,29 @@ export function createStewardLane(opts = {}) {
       ...a,
       current,
       current_run: currentRun,
+      current_transcript: a.running ? currentTranscript : null,
       queue: queue.slice(),
       batch: { total: batch.total, done: batch.done, remaining: queue.length },
       last_cycle: readLastCycle(),
     };
   }
 
+  /** The transcript to watch for a steward: the live one when it is the live cycle, else its newest on disk. */
+  function transcriptFor(home) {
+    if (actuator.isAlive().running && current === home && currentTranscript) return { path: currentTranscript, running: true };
+    let registry;
+    try { registry = readRegistry(registryPath); } catch (_) { return null; }
+    const entry = findAgent(registry, home);
+    if (!entry || !existsSync(transcriptsDir)) return null;
+    const slug = slugFromDir(entry.dir);
+    const files = readdirSync(transcriptsDir).filter((f) => f.startsWith(slug + '-cycle-') && f.endsWith('.jsonl')).sort();
+    return files.length ? { path: join(transcriptsDir, files[files.length - 1]), running: false } : null;
+  }
+
   return {
     list,
     readyNames,
+    transcriptFor,
     advance,
     dequeue,
     advanceAll,
