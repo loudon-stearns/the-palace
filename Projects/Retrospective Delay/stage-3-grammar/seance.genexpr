@@ -1,0 +1,57 @@
+// Retrospective Delay — the grammar behind the spell (gen~ codebox)
+// The séance from the second move, rewritten as one sample's worth of thought.
+//
+//   in1  audio                     out1  dry + ghost
+//   in2  measure phase 0..1        out2  the ghost alone
+//        (phasor~ 1n @lock 1, so it follows Live's transport)
+//
+// Mirrors grammar_model.py line for line. UNVERIFIED: written without Max open.
+
+Param gain(0, min=0, max=1);          // the conduit: on the way OUT of the tape
+Param lag(0.5, min=0.25, max=1);      // fraction of a measure: 0.25, 0.5 or 1 (exactly 1 now)
+Param measure(96000, min=1);          // samples per measure, from translate -> mstosamps
+Param thresh(0.003, min=0, max=1);    // is anyone playing?
+
+Data tape(192000);                    // 4 s at 48 kHz: one 4/4 measure down to 60 BPM
+
+History env(0), listen(0), gs(0);
+History lagA(0.5), lagB(0.5), lastlag(0.5), fade(0), target(0);
+
+M = min(measure, dim(tape));
+w = wrap(floor(in2 * M + 0.5), 0, M);  // write slot; round, don't truncate (see notes)
+
+// a new lag: the idle head jumps, then a 30 ms fade hands over to it
+if (lag != lastlag) {
+	if (target < 0.5) {
+		lagB = lag;
+		target = 1;
+	} else {
+		lagA = lag;
+		target = 0;
+	}
+	lastlag = lag;
+}
+xstep = 1 / mstosamps(30);
+fade = fade + clamp(target - fade, -xstep, xstep);
+
+// READ FIRST. At lag = 1 the read slot IS the write slot, and because this
+// line comes before the poke below, it hears one measure ago — not now.
+// In vanilla Max that order was a coin toss, so the whole note had to be 0.999.
+rA = wrap(w - lagA * M, 0, M);
+rB = wrap(w - lagB * M, 0, M);
+ghost = mix(peek(tape, floor(rA)), peek(tape, floor(rB)), fade);
+
+// THEN WRITE. The witness, version B: listen while you play, hold in silence.
+a = abs(in1);
+rel = exp(-1 / (samplerate * 0.1));    // 100 ms release
+env = a > env ? a : env * rel;
+listen = listen + ((env > thresh) - listen) / 480;   // the seam crossfade, ~10 ms
+old = peek(tape, w);
+poke(tape, old + listen * (in1 - old), w);
+
+// the knob, slewed so a fast turn can't zipper
+gstep = 1 / mstosamps(20);
+gs = gs + clamp(gain - gs, -gstep, gstep);
+
+out2 = gs * ghost;
+out1 = in1 + out2;

@@ -15,20 +15,20 @@ forward_vector: "I am Retrospective Delay's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T21:19:44.511Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T21:23:42.593Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 20 · last ran 2026-10-14 (today)
-- **Plan:** agreed 2026-09-26 (18 days ago) · 3 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 21 · last ran 2026-10-14 (today)
+- **Plan:** agreed 2026-09-26 (18 days ago) · 4 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — The séance is built: a Max patch, a model that renders it, and a session draft. The loop's click isn't at the measure line. (`retrospective-delay-steward-046`)
-- **Last commit touching this project:** 2026-10-14 `cfe0389c` — steward(Retrospective Delay): cycle 19 — SPINNING UP. HOME: [Retrospective Delay](obsidian://open?vault=The%20Pa…
+- **Last shipped:** 2026-10-14 (today) — The séance now runs as one gen~ codebox, the whole note is exactly 1, and the compressor's 11 ms window turns out to be the same two lines. (`retrospective-delay-steward-048`)
+- **Last commit touching this project:** 2026-10-14 `129efd31` — steward(Retrospective Delay): cycle 20 — SPINNING UP. HOME: [Retrospective Delay](obsidian://open?vault=The%20Pa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Retrospective Delay is a one-measure delay that is always listening. A buffer holds the last measure of everything you play, and one gain knob decides whether that past comes back. The plan builds it in five moves, each a Loudon Live session. Last cycle built the first move, the witness, and found that as written it's just a half-note echo. Version B fixes that: when you go quiet it keeps the last measure, so silence brings the phrase back. I asked you to pick between the two; that question is still open, and I kept going on B. This cycle built the second move, the séance, which makes the witness playable. You get a gain knob that summons or hides the ghost, a choice of quarter, half or who…
+Retrospective Delay is a one-measure delay that is always listening. A buffer holds the last measure of everything you play, and one gain knob decides whether that past comes back. The plan builds it in five moves, each a Loudon Live session. The first two are built in vanilla Max: the witness (the always-listening buffer, in the version where silence keeps your last measure) and the séance (the knob, a choice of lag, no clicks). This cycle built the third move, the first of the two deliberate migrations. The séance's core moves into Gen~, and the same buffer is set beside the compressor's 11 ms window. The witness question from earlier today is still open, and I built on silence-keeps.
 
 ### Open asks
 
@@ -82,6 +82,44 @@ Decided with Loudon when the Loudon Live arc was designed (April 2026), and seed
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="retrospective-delay-steward-048" -->
+### 2026-10-14 — cycle 21 — The séance now runs as one gen~ codebox, the whole note is exactly 1, and the compressor's 11 ms window turns out to be the same two lines.
+> shipped · gen~ port matches the vanilla model exactly · not opened in Max · steward leans SILENCE-KEEPS
+
+**One sample's worth of thought.** [seance.genexpr](obsidian://open?vault=The%20Palace&file=Projects/Retrospective%20Delay/stage-3-grammar/seance.genexpr) is the whole séance in about thirty lines: the tape, two read heads with the 30 ms handover, the witness's listen-or-hold write, the ~10 ms seam smoothing, and the slewed knob. [grammar.maxpat](open:Projects/Retrospective Delay/stage-3-grammar/grammar.maxpat) puts it in a gen~ object with only the transport clock, the measure length and the two controls outside. The controls now send `gain`, `lag` and `measure` messages instead of driving signal chains. A line-for-line Python copy of the codebox matches the vanilla séance model: the largest difference between the two ghosts is 1.4e-16.
+
+**Why 0.999 can become 1.** In vanilla Max you can't choose whether poke~ or wave~ runs first. In gen~, lines run in the order you write them, so the read can go before the write. The two order renders show what's at stake. With read-first, the ghost while you play is the measure before (correlation 1.000). With write-first, the 'ghost' is just you, louder (correlation 1.000 with the input right now). In silence they sound the same, which is why nobody would catch it by ear in the vanilla patch.
+
+**The same buffer at 11 ms.** [compressor-window.genexpr](obsidian://open?vault=The%20Palace&file=Projects/Retrospective%20Delay/stage-3-grammar/compressor-window.genexpr) is Compressor Design's 500-sample RMS window. Its middle two lines, `oldest = peek(win, w); poke(win, sq, w);`, are the séance's read-then-write at a whole-note lag. The model checks its running sum against a plain windowed RMS (difference 7.8e-16). Then the shrinking-measure render freezes one phrase into four tape lengths. You hear a phrase, then a stutter, then a flutter, and at the compressor's 500 samples a 96 Hz tone. Time turns into pitch somewhere between 50 ms and 11 ms. That gives the session its closing reveal.
+
+The [session draft](obsidian://open?vault=The%20Palace&file=Projects/Retrospective%20Delay/stage-3-grammar/stage-3-the-grammar.md) runs about half framing and half making, as the standing orders set for the migrations. It opens on last session's 0.999 question, builds the codebox in five listened-to steps, and ends on the shrinking measure. To try the patch, paste grammar.maxpat into a Max Audio Effect, start the transport, play, stop, and raise the knob. Start with [order-read-first.wav](open:Projects/Retrospective Delay/stage-3-grammar/order-read-first.wav) against [order-write-first.wav](open:Projects/Retrospective Delay/stage-3-grammar/order-write-first.wav).
+
+**Artifacts:**
+- [start here: lag exactly 1, read before write. While you play you hear the measure before.](Projects/Retrospective Delay/stage-3-grammar/order-read-first.wav)
+- [the same patch with write before read. While you play, the 'ghost' is just you, louder.](Projects/Retrospective Delay/stage-3-grammar/order-write-first.wav)
+- [one phrase frozen into 2 s, 250 ms, 50 ms and 500-sample tapes: phrase, stutter, flutter, tone.](Projects/Retrospective Delay/stage-3-grammar/shrinking-measure.wav)
+- [the séance's 15-measure performance played through the gen~ code, whole note exactly 1.](Projects/Retrospective Delay/stage-3-grammar/grammar-performance.wav)
+- [the séance as one gen~ codebox: read first, then write.](Projects/Retrospective Delay/stage-3-grammar/seance.genexpr)
+- [Compressor Design's 500-sample RMS window, with the same two lines.](Projects/Retrospective Delay/stage-3-grammar/compressor-window.genexpr)
+- [gen~ inside a Max Audio Effect, with the codebox embedded. Not opened in Max yet.](Projects/Retrospective Delay/stage-3-grammar/grammar.maxpat)
+- [writes the patcher. Its header has the paste-it-yourself fallback if the embedded gen~ won't load.](Projects/Retrospective Delay/stage-3-grammar/build_grammar_patch.py)
+- [line-for-line model of the codebox: null test, order test, shrinking measure, RMS check.](Projects/Retrospective Delay/stage-3-grammar/grammar_model.py)
+- [the session draft: frame, make, the same buffer at 11 ms, reflect.](Projects/Retrospective Delay/stage-3-grammar/stage-3-the-grammar.md)
+
+_one buffer, four lengths (shrinking-measure.wav), 48 kHz_
+| tape length | loop repeats at | what you hear |
+| --- | --- | --- |
+| 2 s (a measure at 120 BPM) | 0.5 Hz | the phrase: memory |
+| 250 ms | 4 Hz | a stutter: rhythm |
+| 50 ms | 20 Hz | a flutter at the edge of pitch |
+| 500 samples (the compressor's window) | 96 Hz | a tone: the loop is an oscillator |
+
+_Left rough:_ Nothing has run in Max, and I wrote the embedded gen~ format from memory. The tape is fixed at 4 s, so below 60 BPM a measure clips. At tempos where a measure isn't a whole number of samples, the write slot will sometimes repeat or skip one. At 500 samples the gate's 100 ms release would wipe the tape, so the shrinking render uses a hand freeze instead.
+
+_Next moves named:_ Once the witness question is answered, rewrite the witness session's reveal honestly and make the chosen version the anchor patch. · Then the face: play the wired séance cat in Max, driven by the gen~ knob value, and draft its session. · Then the portal: carry seance.genexpr into an RNBO codebox~ through the RNBO codebox~ smith, sizing the tape from the sample rate.
+<sub>`retrospective-delay-steward-048` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="retrospective-delay-steward-046" -->
 ### 2026-10-14 — cycle 20 — The séance is built: a Max patch, a model that renders it, and a session draft. The loop's click isn't at the measure line.
 > shipped · built on the silence-keeps witness, patch not yet opened in Max · steward leans SILENCE-KEEPS
