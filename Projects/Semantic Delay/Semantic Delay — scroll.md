@@ -15,24 +15,24 @@ forward_vector: "I am Semantic Delay's scroll — the one page that always opens
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T21:28:37.723Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T21:34:37.586Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 8 · last ran 2026-10-14 (today)
-- **Plan:** agreed 2026-09-25 (19 days ago) · 1 made thing since
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** growing · **Steward:** cycle 9 · last ran 2026-10-14 (today)
+- **Plan:** agreed 2026-09-25 (19 days ago) · 3 made things since
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — The first echo that really changes voice: one sung phrase, re-sung by another singer three times, with the melody knob at locked, half and free. (`semantic-delay-steward-014`)
-- **Last commit touching this project:** 2026-09-26 `33d3dd90` — edit(Semantic Delay): the April plan review folds into the build spec and leaves
+- **Last shipped:** 2026-10-14 (today) — Four versions of one echo, slowest to fastest — which is fast enough and still sounds good? (`semantic-delay-steward-017`)
+- **Last commit touching this project:** 2026-10-14 `fd898922` — steward(Semantic Delay): cycle 8 — SPINNING UP. HOME: [Semantic Delay](obsidian://open?vault=The%20Palace&…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Semantic Delay is a delay effect for a DAW. Instead of repeating your phrase, each echo comes back sung by a different voice. A voice-conversion model called SoulX-Singer-SVC does the swap. It's too slow for live monitoring (about 1.65 seconds of compute per second of audio on the M1 Max), so the delay is long by design, in seconds. The plan has two pieces: a small plugin, and a separate Python helper that holds the model. We built the helper's message format, a playable Python version of the instrument and multi-voice echoes, but always against a placeholder that handed audio back unchanged, so until today no echo had actually changed voice. In June you chose the next step: give every echo…
+Semantic Delay is a delay effect where each echo comes back sung by a different voice instead of repeating you. It has two parts: a small plugin, and a separate Python helper that holds the voice-conversion model (SoulX-Singer-SVC), because the model is far too heavy to run inside a DAW's audio thread. Until now the helper held a placeholder that handed audio back unchanged. Last cycle the real model sang in a standalone script. This cycle I finished the first move of the plan, putting the real model behind the helper. Now the playable Python instrument sends each phrase over its socket and gets back the same phrase in the reference singer's voice. The plugin will use that exact path later.…
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `semantic-delay-steward-017` — speed vs quality of each echo · posted 2026-10-14 · options: FULL-32 · FULL-16 · 5S-16 · 3S-16
 
 ### Answered, not yet consumed
 
@@ -77,6 +77,61 @@ Decided with Loudon when the Phase 1 build was planned (2026-04-20), carried ove
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="semantic-delay-steward-017" -->
+### 2026-10-14 — cycle 9 — Four versions of one echo, slowest to fastest — which is fast enough and still sounds good?
+> still working · real model in the helper · steward leans 5S-16
+
+Catch-up: Semantic Delay is the delay whose echoes come back sung by another voice. Today the real model went into the helper program, and the playable instrument's echoes really change voice. The catch: at today's settings each echo costs about 2.2 seconds of compute per second sung. Live, an 8-second phrase would need about an 18-second delay. Two cheap fixes help: a shorter reference-singer clip, and fewer refinement passes in the model (16 instead of 32). Here is one 4.5-second phrase at four settings, measured on the M1 Max. Full settings are 2.2 (an 8 s phrase needs a 17.5 s delay). A 16-pass version with the full clip is 1.2 (9.5 s). A 5-second clip with 16 passes is 1.0 (8.1 s). A 3-second clip with 16 passes is 0.9 (7.1 s). I lean toward the 5-second clip with 16 passes, because it brings back the 8-second delay we planned around. I can't hear whether halving the passes blurs the voice, so your ear decides. I keep building either way.
+
+**Artifacts:**
+- [FULL-32: today's settings.](Projects/Semantic Delay/standalone/demo/stage15-real-daemon/bench-prompt10.7s-steps32.wav)
+- [FULL-16.](Projects/Semantic Delay/standalone/demo/stage15-real-daemon/bench-prompt10.7s-steps16.wav)
+- [5S-16, my lean.](Projects/Semantic Delay/standalone/demo/stage15-real-daemon/bench-prompt5s-steps16.wav)
+- [3S-16, fastest.](Projects/Semantic Delay/standalone/demo/stage15-real-daemon/bench-prompt3s-steps16.wav)
+- [5 s clip at 32 passes (1.7 s per second), for comparison.](Projects/Semantic Delay/standalone/demo/stage15-real-daemon/bench-prompt5s-steps32.wav)
+- [3 s clip at 32 passes (1.5 s per second), for comparison.](Projects/Semantic Delay/standalone/demo/stage15-real-daemon/bench-prompt3s-steps32.wav)
+- [the speed numbers behind these four.](Projects/Semantic Delay/standalone/demo/stage15-real-daemon/stage15-latency-bench.json)
+- [the bench script, using the helper's own model code.](Projects/Semantic Delay/standalone/stage15_latency_bench.py)
+- [stage4-real-coupling-contours.png](Projects/Semantic Delay/standalone/demo/stage4-real/stage4-real-coupling-contours.png)
+- [stage4-real-coupling-delay.wav](Projects/Semantic Delay/standalone/demo/stage4-real/stage4-real-coupling-delay.wav)
+- [echo-K0.0.wav](Projects/Semantic Delay/standalone/demo/stage4-real/echo-K0.0.wav)
+- [echo-K0.5.wav](Projects/Semantic Delay/standalone/demo/stage4-real/echo-K0.5.wav)
+- [echo-K1.0.wav](Projects/Semantic Delay/standalone/demo/stage4-real/echo-K1.0.wav)
+<sub>`semantic-delay-steward-017` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="semantic-delay-steward-016" -->
+### 2026-10-14 — cycle 9 — The helper now holds the real model, and the playable instrument's echoes come back in another singer's voice over the socket.
+> shipped · first move of the plan done · live delay needs to be longer than planned · steward leans faster settings, your ear decides
+
+What I built: a new `soulx_backend.py` holds the model and its pitch tracker. You start the helper with `--backend soulx`. The old placeholder is still the default, so the existing tests run anywhere. The helper now does the whole job the placeholder only pretended to do. It resamples whatever rate the host sends, tracks the phrase's pitch, re-sings it in the chosen singer's voice, and returns it at the host's rate. Registering a singer now saves a real 24 kHz recording with its pitch beside it, and that singer is still listed after a restart. All three Apple-Silicon fixes from April are carried over: one in the helper, one checked in SoulX's code when the helper starts, and one an environment setting. The proof runs the real instrument offline at 44.1 kHz: two sung phrases, an 8-second delay, and one singer registered over the socket. The [delay timeline](open:Projects/Semantic Delay/standalone/demo/stage15-real-daemon/stage15-real-daemon-delay.wav) plays you twice, then two echoes in the other singer's voice, as the [timeline picture](Projects/Semantic Delay/standalone/demo/stage15-real-daemon/stage15-real-daemon-timeline.png) shows. On a rough timbre measure, each echo sits about three times nearer the reference singer than the source does. One thing matters for live play. Over the socket a conversion costs about 2 to 2.3 seconds of compute per second of sung audio, not April's 1.65. The model re-reads the whole 10.7-second reference clip on every echo. So at these settings an 8-second phrase needs about an 18-second delay to land on time. I measured the cheap fixes too; they're in the card on the Trickster board.
+
+**Artifacts:**
+- [the instrument through the real helper: two dry phrases, then each one 8 s later in the reference singer's voice.](Projects/Semantic Delay/standalone/demo/stage15-real-daemon/stage15-real-daemon-delay.wav)
+- [where each dry phrase and each echo sits, with the speed each echo cost.](Projects/Semantic Delay/standalone/demo/stage15-real-daemon/stage15-real-daemon-timeline.png)
+- [echo 1 alone, as the helper returned it.](Projects/Semantic Delay/standalone/demo/stage15-real-daemon/echo-1.wav)
+- [echo 2 alone.](Projects/Semantic Delay/standalone/demo/stage15-real-daemon/echo-2.wav)
+- [the 44.1 kHz input: two phrases of the SoulX example vocal with a gap.](Projects/Semantic Delay/standalone/demo/stage15-real-daemon/input-two-phrases-44k.wav)
+- [the measurements: load time, device, registration, restart check, speed and timbre per echo.](Projects/Semantic Delay/standalone/demo/stage15-real-daemon/stage15-real-daemon-report.json)
+- [the real model behind the helper, with the April Apple-Silicon fixes.](Projects/Semantic Delay/daemon/soulx_backend.py)
+- [the helper: --backend soulx, real singer registration and restart, real device reported.](Projects/Semantic Delay/daemon/semantic_delay_daemon.py)
+- [how to start the real helper and what changed.](Projects/Semantic Delay/daemon/README.md)
+- [the June handoff, marked done.](Projects/Semantic Delay/daemon/Stage 1.5 — Wire the Model — Mac handoff — 2026-06-08.md)
+- [the instrument now waits as long as the real model needs, instead of a fixed 5 s.](Projects/Semantic Delay/standalone/instrument.py)
+- [the proof script; about 90 s in the soulx env.](Projects/Semantic Delay/standalone/stage15_real_daemon.py)
+
+_Two phrases through the real helper · M1 Max · 8 s delay_
+| echo | phrase length | compute per second of audio | pitch shift the model chose | timbre gap to source | timbre gap to singer |
+| --- | --- | --- | --- | --- | --- |
+| 1 | 6.7 s | 1.99 | +2 st | 97.6 | 34.3 |
+| 2 | 4.8 s | 2.27 | 0 st | 91.3 | 41.0 |
+
+_Left rough:_ I can't hear, so nobody has listened to these echoes yet. The echoes come back quieter than the dry voice. The test is offline: live, an echo that finishes late would be clipped at the front, and the instrument doesn't guard against that yet. The singer and the phrases are still SoulX's examples, not your voice, and the melody knob from last cycle isn't in the helper yet.
+
+_Next moves named:_ Pick the speed and quality setting by ear (the card on the Trickster board), then make it the helper's default so an 8-second delay holds for full phrases. · Carry last cycle's melody knob through the helper as an optional setting on each conversion, so the instrument can follow the melody or let it wander. That is the second move in the plan, and it needs a small, compatible update to the helper's message format. · Make the instrument handle a late echo cleanly (skip to the next repeat instead of clipping its start) before anything plays live.
+<sub>`semantic-delay-steward-016` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="semantic-delay-steward-014" -->
 ### 2026-10-14 — cycle 8 — The first echo that really changes voice: one sung phrase, re-sung by another singer three times, with the melody knob at locked, half and free.
 > shipped · real model ran on your Mac · steward leans wire it into the helper next

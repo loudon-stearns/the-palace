@@ -1,5 +1,7 @@
 # Stage 1.5 — Wire the Model — Mac-side handoff
 
+> **Done 2026-10-14 (steward cycle 9).** All five edits landed — the model lives in `soulx_backend.py`, chosen with `--backend soulx`. Verified by `standalone/stage15_real_daemon.py`. Kept here as the record of how it was planned.
+
 **Created:** 2026-06-08 by the Semantic Delay steward (cycle 6), in response to Loudon's `WIRE-THE-MODEL` grant on the TRICKSTER board (`re: semantic-delay-steward-010`).
 
 **Why this is a handoff, not in-cycle work:** the steward runs in a Linux sandbox with no `torch`, no MPS/CUDA, and no SoulX env. Loading the real model is GPU + PyTorch + the `~/miniconda3/envs/soulx` env — Mac-only. Everything below is grounded against the real skeleton already in this bundle, so the receiving session does not re-derive anything; it executes.

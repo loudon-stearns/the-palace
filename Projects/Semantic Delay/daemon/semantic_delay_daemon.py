@@ -1,6 +1,6 @@
 """
-Semantic Delay — Inference Daemon (Stage 1 skeleton)
-=====================================================
+Semantic Delay — Inference Daemon (Stage 1 skeleton + Stage 1.5 model)
+=======================================================================
 
 Protocol: RPC v0.1 — see ./RPC-v0.1.md
 
@@ -10,7 +10,10 @@ stubbed**; `convert` returns the input audio unchanged with `rtf=0.0` so the
 plugin/standalone work at Stage 2 can integrate against a real socket *before*
 the SoulX-Singer-SVC build is in the loop.
 
-To complete Stage 1 → Stage 1.5:
+Stage 1.5 (2026-10-14): the real model now lives in `soulx_backend.py` and is
+selected with `--backend soulx` (run it in the soulx env on the Mac). The
+default `--backend stub` keeps the pass-through below, stdlib-only, so the RPC
+conformance tests still run anywhere. What Stage 1.5 originally listed:
   - Replace `_InferenceWorker._convert_stub()` with a call into
     `cli.inference_svc.process()`-equivalent code (build_model once at startup,
     feed prompt_wav + prompt_f0 + target_wav + target_f0).
@@ -50,7 +53,7 @@ from typing import Any, Awaitable, Callable, Dict, List, Optional
 # ----------------------------------------------------------------------------
 
 PROTOCOL_VERSION = "0.1"
-BUILD_ID = "semantic-delay-daemon 0.1.0-skeleton"
+BUILD_ID = "semantic-delay-daemon 0.1.5"
 MAX_FRAME_BYTES = 64 * 1024 * 1024  # 64 MiB
 
 KIND_REQUEST_HEADER = 0x01
@@ -153,25 +156,73 @@ class PromptRegistry:
     via RMVPE and persists both the resampled wav and the .npy contour.
     """
 
-    def __init__(self, prompts_dir: Path):
+    def __init__(self, prompts_dir: Path, backend: Any = None):
         self.prompts_dir = prompts_dir
         self.prompts_dir.mkdir(parents=True, exist_ok=True)
         self._entries: Dict[str, PromptEntry] = {}
         self._lock = threading.Lock()
+        # Stage 1.5: with a real backend, prompts are resampled to 24 kHz,
+        # written as real WAVs, and their F0 is extracted with RMVPE.
+        self.backend = backend
+        self._pcm_cache: Dict[str, Any] = {}
+
+    @staticmethod
+    def _wav_duration(path: Path) -> Optional[float]:
+        """Seconds from a RIFF header, or None if the file is not a real WAV."""
+        try:
+            import soundfile as sf  # available in the soulx env
+            return float(sf.info(str(path)).duration)
+        except Exception:
+            pass
+        try:
+            import wave
+            with wave.open(str(path), "rb") as w:
+                return w.getnframes() / float(w.getframerate())
+        except Exception:
+            return None
+
+    def load_prompt(self, prompt_id: str):
+        """(pcm float32 @ 24 kHz, f0 float32) for a registered prompt; cached."""
+        import numpy as np
+        import soundfile as sf
+        with self._lock:
+            hit = self._pcm_cache.get(prompt_id)
+            entry = self._entries.get(prompt_id)
+        if hit is not None:
+            return hit
+        if entry is None:
+            raise FrameError("E_PROMPT_UNKNOWN", f"no such prompt: {prompt_id}")
+        pcm, sr = sf.read(str(entry.wav_path), dtype="float32", always_2d=False)
+        if pcm.ndim > 1:
+            pcm = pcm.mean(axis=1)
+        if sr != MODEL_SAMPLE_RATE:
+            from soulx_backend import resample
+            pcm = resample(pcm, sr, MODEL_SAMPLE_RATE)
+        f0 = np.load(str(entry.f0_path)).astype(np.float32)
+        with self._lock:
+            self._pcm_cache[prompt_id] = (pcm.astype(np.float32), f0)
+        return self._pcm_cache[prompt_id]
 
     def scan_disk(self) -> None:
         """Populate from any prompt + f0 pairs already on disk."""
         for wav in self.prompts_dir.glob("*.wav"):
-            f0 = wav.with_suffix(".f0.npy")
+            prompt_id = wav.stem
+            f0 = self.prompts_dir / f"{prompt_id}.f0.npy"
             if not f0.exists():
                 continue
-            prompt_id = wav.stem
+            duration = self._wav_duration(wav)
+            if self.backend is not None and (duration is None or f0.stat().st_size == 0):
+                # A skeleton-era pair: raw bytes, empty F0. The real model
+                # cannot use it; re-register the singer to bring it back.
+                log.warning("prompt registry: skipping %s (skeleton-era file, "
+                            "no real WAV/F0; re-register it)", prompt_id)
+                continue
             self._entries[prompt_id] = PromptEntry(
                 id=prompt_id,
                 label=prompt_id,
                 wav_path=wav,
                 f0_path=f0,
-                duration_sec=0.0,  # filled by Stage 1.5 from wav header
+                duration_sec=round(duration or 0.0, 3),
             )
         log.info("prompt registry: scanned %d entries from %s",
                  len(self._entries), self.prompts_dir)
@@ -202,13 +253,31 @@ class PromptRegistry:
         pcm_bytes: bytes,
         sample_rate: int,
     ) -> PromptEntry:
-        """Stage 1 skeleton: write the raw bytes to disk, defer F0 to Stage 1.5.
+        """Store a reference singer.
 
-        Stage 1.5 will: resample to MODEL_SAMPLE_RATE, run RMVPE for F0,
-        save .f0.npy beside the .wav.
+        Stub backend: write the raw bytes, empty F0 (the skeleton behaviour).
+        Real backend: resample to MODEL_SAMPLE_RATE, run RMVPE, write a real
+        24 kHz WAV and its .f0.npy beside it, so `scan_disk` rehydrates the
+        pair on the next start.
         """
         wav_path = self.prompts_dir / f"{prompt_id}.wav"
         f0_path = self.prompts_dir / f"{prompt_id}.f0.npy"
+        if self.backend is not None:
+            import numpy as np
+            import soundfile as sf
+            pcm = np.frombuffer(pcm_bytes, dtype="<f4").astype(np.float32)
+            pcm24, f0 = self.backend.prepare_prompt(pcm, sample_rate)
+            sf.write(str(wav_path), pcm24, MODEL_SAMPLE_RATE, subtype="FLOAT")
+            np.save(str(f0_path), f0)
+            entry = PromptEntry(
+                id=prompt_id, label=label, wav_path=wav_path, f0_path=f0_path,
+                duration_sec=round(len(pcm24) / MODEL_SAMPLE_RATE, 3),
+                sample_rate=MODEL_SAMPLE_RATE,
+            )
+            with self._lock:
+                self._entries[prompt_id] = entry
+                self._pcm_cache[prompt_id] = (pcm24, f0)
+            return entry
         # Stage 1.5 TODO: write a proper RIFF/WAV header and resampled PCM.
         # Skeleton writes raw bytes verbatim so the registry shape is
         # exercisable end-to-end without DSP libs.
@@ -249,9 +318,12 @@ class ConvertJob:
 class _InferenceWorker(threading.Thread):
     """Owns the model and the GPU context. Stage 1 skeleton stubs inference."""
 
-    def __init__(self, registry: PromptRegistry):
+    def __init__(self, registry: PromptRegistry, backend: Any = None):
         super().__init__(name="semantic-delay-inference", daemon=True)
         self.registry = registry
+        self.backend = backend
+        self.device = "stub" if backend is None else "loading"
+        self.load_error: Optional[str] = None
         self.queue: "Queue[Optional[ConvertJob]]" = Queue()
         self.model_loaded = threading.Event()
         self._stopping = threading.Event()
@@ -261,6 +333,23 @@ class _InferenceWorker(threading.Thread):
         self.queue.put(None)
 
     def run(self) -> None:
+        if self.backend is not None:
+            log.info("inference worker: loading SoulX-Singer-SVC (~17 s on the M1 Max)")
+            try:
+                self.backend.load()
+            except Exception as e:
+                # Leave model_loaded unset: every convert answers
+                # E_MODEL_NOT_LOADED, and the reason is in the log.
+                self.load_error = str(e)
+                self.device = "failed"
+                log.exception("inference worker: model load FAILED")
+                return
+            self.device = self.backend.device
+            self.model_loaded.set()
+            log.info("inference worker: model loaded on %s in %.1f s; ready for jobs",
+                     self.device, self.backend.load_seconds or 0.0)
+            self._serve()
+            return
         log.info("inference worker: starting model load (stubbed)")
         # Stage 1.5 TODO:
         #   - import torch; from soulxsinger.models.soulxsinger_svc import SoulXSingerSVC
@@ -270,7 +359,10 @@ class _InferenceWorker(threading.Thread):
         time.sleep(0.1)  # simulate the latency of `build_model(...)`
         self.model_loaded.set()
         log.info("inference worker: model loaded (skeleton); ready for jobs")
+        self._serve()
 
+    def _serve(self) -> None:
+        convert = self._convert_stub if self.backend is None else self._convert_real
         while not self._stopping.is_set():
             try:
                 job = self.queue.get(timeout=0.5)
@@ -279,7 +371,7 @@ class _InferenceWorker(threading.Thread):
             if job is None:
                 break
             try:
-                result = self._convert_stub(job)
+                result = convert(job)
                 job.loop.call_soon_threadsafe(job.future.set_result, result)
             except FrameError as fe:
                 # Structured error from the worker (e.g. E_PROMPT_UNKNOWN).
@@ -291,6 +383,21 @@ class _InferenceWorker(threading.Thread):
                     job.future.set_exception,
                     FrameError("E_INFERENCE", str(e)),
                 )
+
+    def _convert_real(self, job: ConvertJob) -> Dict[str, Any]:
+        """Stage 1.5: the real voice swap (see soulx_backend.SoulXBackend.convert)."""
+        import numpy as np
+        if self.registry.get(job.prompt_id) is None:
+            raise FrameError("E_PROMPT_UNKNOWN", f"no such prompt: {job.prompt_id}")
+        prompt_pcm, prompt_f0 = self.registry.load_prompt(job.prompt_id)
+        audio = np.frombuffer(job.audio_in, dtype="<f4").astype(np.float32)
+        result = self.backend.convert(audio, job.input_sr, job.output_sr,
+                                      prompt_pcm, prompt_f0, job.options)
+        log.info("convert %s: %.2f s in, rtf=%.2f, shift=%+d st%s",
+                 job.prompt_id, len(audio) / job.input_sr, result["rtf"],
+                 result["applied_pitch_shift"],
+                 f" ({result['note']})" if result.get("note") else "")
+        return result
 
     def _convert_stub(self, job: ConvertJob) -> Dict[str, Any]:
         """Stage 1 stub. Returns input bytes unchanged, as if RTF=0.
@@ -332,11 +439,12 @@ class Daemon:
         sock_path: Path,
         pid_path: Path,
         prompts_dir: Path,
+        backend: Any = None,
     ):
         self.sock_path = sock_path
         self.pid_path = pid_path
-        self.registry = PromptRegistry(prompts_dir)
-        self.worker = _InferenceWorker(self.registry)
+        self.registry = PromptRegistry(prompts_dir, backend=backend)
+        self.worker = _InferenceWorker(self.registry, backend=backend)
         self.server: Optional[asyncio.AbstractServer] = None
         self._shutdown_event: Optional[asyncio.Event] = None
 
@@ -530,7 +638,7 @@ class Daemon:
                 "name": "SoulX-Singer-SVC",
                 "sr": MODEL_SAMPLE_RATE,
                 "loaded": self.worker.model_loaded.is_set(),
-                "device": "mps",
+                "device": self.worker.device,
             },
             "prompt_count": len(self.registry.list()),
             "build": BUILD_ID,
@@ -570,7 +678,14 @@ class Daemon:
                 f"v0.1 supports pcm_f32le mono only; got {encoding} ch={channels}",
             )
         blob = await self._read_blob(reader, byte_length)
-        entry = self.registry.register(prompt_id, label, blob, sr)
+        # RMVPE takes ~1 s per 10 s of audio: run it off the event loop so
+        # other connections keep being served while a singer registers.
+        try:
+            entry = await asyncio.to_thread(self.registry.register, prompt_id, label, blob, sr)
+        except FrameError:
+            raise
+        except Exception as e:
+            raise FrameError("E_AUDIO_FORMAT", f"could not register prompt: {e}")
         body = {
             "ok": True,
             "id": header.get("id"),
@@ -696,6 +811,13 @@ def _parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
                    help=f"PID file path (default {DEFAULT_PID_PATH})")
     p.add_argument("--prompts-dir", type=Path, default=DEFAULT_PROMPTS_DIR,
                    help=f"Prompt-wav storage directory (default {DEFAULT_PROMPTS_DIR})")
+    p.add_argument("--backend", choices=("stub", "soulx"), default="stub",
+                   help="stub = pass-through, stdlib only (tests); "
+                        "soulx = SoulX-Singer-SVC (run in the soulx env)")
+    p.add_argument("--soulx-root", type=Path,
+                   default=Path.home() / "Documents" / "soulx" / "SoulX-Singer",
+                   help="SoulX-Singer working copy (with the April MPS patches)")
+    p.add_argument("--device", default=None, help="force mps / cuda / cpu (default: best available)")
     p.add_argument("--log-level", default="INFO")
     return p.parse_args(argv)
 
@@ -705,10 +827,16 @@ async def _amain(args: argparse.Namespace) -> int:
         level=args.log_level.upper(),
         format="%(asctime)s %(name)s %(levelname)s %(message)s",
     )
+    backend = None
+    if args.backend == "soulx":
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from soulx_backend import SoulXBackend
+        backend = SoulXBackend(args.soulx_root, device=args.device)
     daemon = Daemon(
-        sock_path=args.sock,
-        pid_path=args.pidfile,
-        prompts_dir=args.prompts_dir,
+        sock_path=args.sock.resolve(),
+        pid_path=args.pidfile.resolve(),
+        prompts_dir=args.prompts_dir.expanduser().resolve(),
+        backend=backend,
     )
     await daemon.start()
     await daemon.serve_until_shutdown()

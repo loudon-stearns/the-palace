@@ -21,7 +21,35 @@ plan](../../Semantic%20Delay.md#phase-1-plan--svc--vst-2026-04-20)**.
 - `client.py` — the reference sync client. Stage 2 imports `DaemonClient`
   directly; the VST re-implements the same framing in C++.
 
-## What's missing (Stage 1.5)
+## Stage 1.5 — the real model is in (2026-10-14)
+
+`soulx_backend.py` holds SoulX-Singer-SVC and RMVPE. Start the helper with it,
+in the soulx env on the Mac:
+
+```bash
+~/miniconda3/envs/soulx/bin/python semantic_delay_daemon.py --backend soulx
+```
+
+`hello` reports `loaded: false` for ~14 s while the model loads, then the real
+device (`mps` on the M1 Max). `prompts.register` now resamples the singer to
+24 kHz, runs RMVPE, and writes a real WAV + `.f0.npy` pair, which `scan_disk`
+brings back on the next start. `convert` does the voice swap; all resampling
+stays in the helper. The wire is unchanged: RPC v0.1 still holds, and the
+default `--backend stub` keeps the pass-through so the conformance tests run
+anywhere, stdlib only.
+
+The three April patches: F0 cast to float32 before it goes to the GPU (in the
+backend); vocoder on the CPU (in the SoulX working copy, checked at load);
+`PYTORCH_ENABLE_MPS_FALLBACK=1` (set by the backend before torch loads).
+
+Skeleton-era prompts (raw bytes, empty F0, e.g. the three `spirit.*.v1` files
+in `~/.local/share/semantic-delay/prompts/`) are skipped with a warning under
+the real backend; re-register those singers to bring them back.
+
+Proof: `../standalone/stage15_real_daemon.py`. Latency levers:
+`../standalone/stage15_latency_bench.py`.
+
+## What was missing at Stage 1 (now done)
 
 Each TODO in `semantic_delay_daemon.py` is tagged "Stage 1.5". The list:
 

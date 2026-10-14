@@ -1,0 +1,56 @@
+{
+  "phrase_seconds": 4.5,
+  "device": "mps",
+  "resample_s": 0.002,
+  "rmvpe_s": 0.214,
+  "rows": [
+    {
+      "prompt_sec": 10.7,
+      "n_steps": 32,
+      "seconds": 9.84,
+      "rtf": 2.19,
+      "shortest_live_delay_for_8s_phrase": 17.5,
+      "file": "bench-prompt10.7s-steps32.wav"
+    },
+    {
+      "prompt_sec": 10.7,
+      "n_steps": 16,
+      "seconds": 5.35,
+      "rtf": 1.19,
+      "shortest_live_delay_for_8s_phrase": 9.5,
+      "file": "bench-prompt10.7s-steps16.wav"
+    },
+    {
+      "prompt_sec": 5.0,
+      "n_steps": 32,
+      "seconds": 7.84,
+      "rtf": 1.74,
+      "shortest_live_delay_for_8s_phrase": 13.9,
+      "file": "bench-prompt5s-steps32.wav"
+    },
+    {
+      "prompt_sec": 5.0,
+      "n_steps": 16,
+      "seconds": 4.58,
+      "rtf": 1.02,
+      "shortest_live_delay_for_8s_phrase": 8.1,
+      "file": "bench-prompt5s-steps16.wav"
+    },
+    {
+      "prompt_sec": 3.0,
+      "n_steps": 32,
+      "seconds": 6.74,
+      "rtf": 1.5,
+      "shortest_live_delay_for_8s_phrase": 12.0,
+      "file": "bench-prompt3s-steps32.wav"
+    },
+    {
+      "prompt_sec": 3.0,
+      "n_steps": 16,
+      "seconds": 4.02,
+      "rtf": 0.89,
+      "shortest_live_delay_for_8s_phrase": 7.1,
+      "file": "bench-prompt3s-steps16.wav"
+    }
+  ]
+}

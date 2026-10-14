@@ -137,6 +137,7 @@ def run(
     threshold_db: float = -45.0,
     realtime: bool = False,
     tail_sec: float = 2.0,
+    wait_rtf: float = 3.0,
     verbose: bool = True,
 ) -> dict:
     """Drive one instrument session. Returns a small stats dict."""
@@ -148,6 +149,7 @@ def run(
 
     n_phrases = 0
     phrase_ends: List[int] = []
+    phrase_lens: List[int] = []
     block_period = bs / sr
 
     def schedule_ready() -> None:
@@ -163,6 +165,7 @@ def run(
         for ph in seg.push(block):
             n_phrases += 1
             phrase_ends.append(ph.end_sample)
+            phrase_lens.append(len(ph.audio))
             converter.submit(ph)
             if verbose:
                 print(f"  phrase {n_phrases}: {len(ph.audio)/sr:.2f}s "
@@ -180,8 +183,13 @@ def run(
     for ph in seg.finish():
         n_phrases += 1
         phrase_ends.append(ph.end_sample)
+        phrase_lens.append(len(ph.audio))
         converter.submit(ph)
-    deadline = time.monotonic() + 5.0
+    # With the real model a phrase costs ~1.65 s of compute per second of
+    # audio (Stage 0, M1 Max), and the converter works one phrase at a time,
+    # so wait in proportion to what is still in flight, not a fixed 5 s.
+    sung_sec = sum(phrase_lens) / sr
+    deadline = time.monotonic() + max(5.0, wait_rtf * sung_sec + 30.0)
     while converter.outstanding > 0 and time.monotonic() < deadline:
         schedule_ready()
         time.sleep(0.01)

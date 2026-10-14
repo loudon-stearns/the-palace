@@ -1,0 +1,54 @@
+{
+  "hello": {
+    "build": "semantic-delay-daemon 0.1.5",
+    "device": "mps",
+    "loaded": true,
+    "seconds_to_ready": 13.6
+  },
+  "register": {
+    "prompt_id": "spirit.huehuecoyotl.v1",
+    "duration_sec": 10.688,
+    "f0_cached": true,
+    "stored_wav_sr": 24000,
+    "f0_frames": 535
+  },
+  "instrument": {
+    "phrases": 2,
+    "delay_sec": 8.0,
+    "wall_seconds": 24.3
+  },
+  "restart": {
+    "prompt_count": 1,
+    "listed": [
+      {
+        "id": "spirit.huehuecoyotl.v1",
+        "duration_sec": 10.688,
+        "f0_cached": true
+      }
+    ]
+  },
+  "echoes": [
+    {
+      "phrase": 1,
+      "seconds_in": 6.4,
+      "returned_sr": 44100,
+      "seconds_out": 6.69,
+      "rtf": 1.985,
+      "applied_shift_st": 2,
+      "timbre_dist_echo_to_source": 97.6,
+      "timbre_dist_echo_to_singer": 34.3,
+      "timbre_dist_source_to_singer": 101.8
+    },
+    {
+      "phrase": 2,
+      "seconds_in": 4.5,
+      "returned_sr": 44100,
+      "seconds_out": 4.78,
+      "rtf": 2.275,
+      "applied_shift_st": 0,
+      "timbre_dist_echo_to_source": 91.3,
+      "timbre_dist_echo_to_singer": 41.0,
+      "timbre_dist_source_to_singer": 110.8
+    }
+  ]
+}
