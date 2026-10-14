@@ -1,0 +1,186 @@
+// =============================================================================
+// crystal-voice.codebox — ONE voice of the polyphonic crystal
+// (Crystal Synthesizer, plan move "take it on the road")
+//
+// This is crystal-bank.codebox (the monophonic playable crystal) with exactly
+// two changes, so every voice is still the proofs' strike:
+//   1. The controls arrive as signals (in3..in7) instead of @params. They live
+//      as [param] objects at the top of the rnbo~ patcher, outside the voices,
+//      so the device has ONE "crystal" knob, not one per voice, and its name
+//      survives export (M4L / VST / H90) unchanged.
+//   2. out2 reports "this voice has gone silent" (key up and the release has
+//      run out). [edge~] turns that into a bang for [voice], which mutes the
+//      voice and hands it back to RNBO's voice allocator.
+// Level is applied once, after the voices are summed: [*~ 0.3] for headroom
+// (eight full-velocity notes peak near 0.93 at level 0.5), then [*~ level].
+//
+// UNVERIFIED IN MAX: checked in Node (check_poly.py) against the mono codebox
+// and the proofs; nobody has compiled it in RNBO.
+//
+// PATCHER WIRING (inside [p @polyphony 8 @title voice] — crystal-poly.maxpat has it):
+//   [notein] pitch -> [mtof] -> [sig~] -> codebox in1     pitch, Hz
+//   [notein] vel   -> [/ 127.] -> [sig~] -> codebox in2   velocity 0..1 (0 = key up)
+//   [in~ 1..5] -> codebox in3..in7   crystal, attack ms, decay s, release s, rolloff
+//   codebox out1 -> [out~ 1]          the voice's sound (RNBO sums the voices)
+//   codebox out2 -> [edge~] -> [voice] right inlet   mute when silent
+// =============================================================================
+
+const NMAX = 9;
+const TWOPI = 6.283185307179586;
+
+@state ph = new FixedDoubleArray(9);     // per-mode phase, cycles
+@state env = new FixedDoubleArray(9);    // per-mode decay envelope
+@state sinceOn = 0;                      // samples since the strike
+@state relEnv = 0.0;                     // 1 while held, falls after key up
+@state held = 0;
+@state vel = 0.0;
+@state noteHz = 0.0;                     // last pitch asked for
+@state voiceHz = 0.0;                    // pitch actually sounding
+@state prevGate = 0.0;
+@state steal = 0;                        // samples left in the 3 ms fade before a restrike
+@state stealN = 1;
+@state pendHz = 0.0;
+@state pendVel = 0.0;
+
+// Phase seeds: numpy default_rng(7 + k).uniform(0, 1), the proofs' own seeds.
+function seed(k) {
+    if (k == 0) return 0.625095466604667;
+    if (k == 1) return 0.3269722766055607;
+    if (k == 2) return 0.8702492039700847;
+    if (k == 3) return 0.9560017096289753;
+    if (k == 4) return 0.12857020276919962;
+    if (k == 5) return 0.2508244581084461;
+    if (k == 6) return 0.8647975870165865;
+    if (k == 7) return 0.8309833188891115;
+    return 0.6927433679651523;
+}
+
+// Mode k of crystal c, as a ratio over the played pitch. 0 means "no mode".
+// Ratios from Crystal Sonification Reference (palette) and
+// session-1-implementation.md (the two hypothesis lattices).
+function ratio(c, k) {
+    if (c == 0) {          // Diamond
+        if (k == 0) return 1.00; if (k == 1) return 1.32; if (k == 2) return 1.48;
+        if (k == 3) return 1.57; if (k == 4) return 1.65; return 0.0;
+    }
+    if (c == 1) {          // Fluorite — two modes share 1.00; the lone LO sits at 2.48
+        if (k == 0) return 1.00; if (k == 1) return 1.00; if (k == 2) return 1.35;
+        if (k == 3) return 1.47; if (k == 4) return 1.69; if (k == 5) return 2.48; return 0.0;
+    }
+    if (c == 2) {          // Tetragonal — hypothesis
+        if (k == 0) return 1.00; if (k == 1) return 1.28; if (k == 2) return 1.41;
+        if (k == 3) return 1.70; if (k == 4) return 1.85; if (k == 5) return 2.00; return 0.0;
+    }
+    if (c == 3) {          // Emerald — ring-breathing mode at 1.68
+        if (k == 0) return 1.00; if (k == 1) return 1.23; if (k == 2) return 1.47;
+        if (k == 3) return 1.68; if (k == 4) return 2.13; if (k == 5) return 2.30;
+        if (k == 6) return 3.33; return 0.0;
+    }
+    if (c == 4) {          // Ruby — the 1.10 / 1.14 doublet beats
+        if (k == 0) return 1.00; if (k == 1) return 1.10; if (k == 2) return 1.14;
+        if (k == 3) return 1.19; if (k == 4) return 1.52; if (k == 5) return 1.70;
+        if (k == 6) return 1.98; return 0.0;
+    }
+    if (c == 5) {          // Amethyst — three families, soft mode at 1.62
+        if (k == 0) return 1.00; if (k == 1) return 1.62; if (k == 2) return 2.07;
+        if (k == 3) return 2.77; if (k == 4) return 3.13; if (k == 5) return 3.63;
+        if (k == 6) return 5.45; if (k == 7) return 6.21; return 8.32;
+    }
+    if (c == 6) {          // Topaz — eight modes, evenly spread
+        if (k == 0) return 1.00; if (k == 1) return 1.45; if (k == 2) return 1.91;
+        if (k == 3) return 2.37; if (k == 4) return 2.96; if (k == 5) return 3.68;
+        if (k == 6) return 4.80; if (k == 7) return 6.05; return 0.0;
+    }
+    if (c == 7) {          // Monoclinic — hypothesis
+        if (k == 0) return 1.00; if (k == 1) return 1.37; if (k == 2) return 1.71;
+        if (k == 3) return 1.94; if (k == 4) return 2.23; if (k == 5) return 2.61; return 0.0;
+    }
+    // 8 Labradorite — four octaves, no organising ratio
+    if (k == 0) return 1.00; if (k == 1) return 1.83; if (k == 2) return 3.17;
+    if (k == 3) return 4.67; if (k == 4) return 7.00; if (k == 5) return 9.50;
+    if (k == 6) return 13.3; if (k == 7) return 17.5; return 0.0;
+}
+
+let hz = in1;
+let gate = in2;
+let crystal = in3;
+let attack = in4;
+let decay = max(0.1, in5);
+let release = max(0.01, in6);
+let rolloff = in7;
+
+// Strike on key down, and on a new pitch while a key is still down (legato
+// playing from a mono keyboard sends the new pitch without a key-up between).
+// If the old note is still ringing, fade it out over 3 ms first and strike
+// after, so a restrike never cuts a sounding wave to zero (that was a click).
+if (gate > 0.0001 && (prevGate <= 0.0001 || abs(hz - noteHz) > noteHz * 0.005)) {
+    pendHz = hz;
+    pendVel = gate;
+    noteHz = hz;
+    held = 1;
+    if (relEnv > 0.0001 && sinceOn > 0) {
+        stealN = max(1, floor(0.003 * samplerate));
+        steal = stealN;
+    } else {
+        steal = 0;
+        sinceOn = -1;                    // marks "strike now", below
+    }
+}
+if (steal > 0) {
+    steal -= 1;
+    if (steal == 0) sinceOn = -1;
+}
+if (sinceOn < 0) {
+    for (let k = 0; k < NMAX; k++) {
+        ph[k] = seed(k);
+        env[k] = 1.0;
+    }
+    sinceOn = 0;
+    relEnv = 1.0;
+    vel = pendVel;
+    voiceHz = pendHz;
+}
+if (gate <= 0.0001 && prevGate > 0.0001) {
+    held = 0;
+}
+prevGate = gate;
+
+let c = clamp(floor(crystal + 0.5), 0, 8);
+let attackN = floor(attack * 0.001 * samplerate);
+let atk = 1.0;
+if (attackN > 1) atk = min(1.0, sinceOn / (attackN - 1));
+
+let sum = 0.0;
+let amp = 1.0;
+for (let k = 0; k < NMAX; k++) {
+    let r = ratio(c, k);
+    let tau = decay / (1.0 + 0.15 * k);
+    if (r > 0.0) {
+        let f = voiceHz * r;
+        if (f < samplerate * 0.45) {
+            sum += amp * env[k] * sin(TWOPI * ph[k]);
+            amp *= rolloff;
+        }
+        ph[k] += f / samplerate;
+        if (ph[k] >= 1.0) ph[k] -= floor(ph[k]);
+    }
+    env[k] *= exp(-1.0 / (tau * samplerate));
+}
+
+let fade = 1.0;
+if (steal > 0) fade = steal / stealN;
+let y = sum * atk * relEnv * vel * 0.6 * fade;
+if (held == 0) {
+    relEnv *= exp(-1.0 / (release * samplerate));
+    // Poly change: call the voice silent at -80 dB, judged on the slowest mode
+    // (env[0]; every higher mode dies faster), so a released voice hands
+    // itself back to the allocator in about a second instead of twenty.
+    if (relEnv < 0.000001 || relEnv * env[0] < 0.0001) relEnv = 0.0;
+}
+sinceOn += 1;
+
+out1 = y;
+// silent: key up, release run out, nothing pending. 1 here mutes the voice.
+let silent = 0.0;
+if (held == 0 && relEnv == 0.0 && steal == 0) silent = 1.0;
+out2 = silent;

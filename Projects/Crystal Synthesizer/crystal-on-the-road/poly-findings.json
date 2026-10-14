@@ -1,0 +1,171 @@
+{
+ "one_voice": {
+  "Diamond": {
+   "vs_mono": 4.9670537349832955e-08,
+   "vs_proofs": 4.141964660142605e-08
+  },
+  "Fluorite": {
+   "vs_mono": 4.9670537349832955e-08,
+   "vs_proofs": 4.168433409557082e-08
+  },
+  "Emerald": {
+   "vs_mono": 4.9670537349832955e-08,
+   "vs_proofs": 3.36063882278026e-08
+  },
+  "Ruby": {
+   "vs_mono": 4.9670537349832955e-08,
+   "vs_proofs": 4.927961338996312e-08
+  },
+  "Amethyst": {
+   "vs_mono": 4.9670537349832955e-08,
+   "vs_proofs": 4.578374113162198e-08
+  },
+  "Topaz": {
+   "vs_mono": 4.9670537349832955e-08,
+   "vs_proofs": 4.0342483020872066e-08
+  },
+  "Labradorite": {
+   "vs_mono": 4.9670537349832955e-08,
+   "vs_proofs": 4.8725458445808556e-08
+  }
+ },
+ "note_stack": {
+  "poly_E3_kept": 0.6965340920742882,
+  "mono_E3_kept": 0.006631994809387213
+ },
+ "stealing": {
+  "steals": 4,
+  "max_active": 8,
+  "active_voices_each_second": [
+   1,
+   7,
+   8,
+   8,
+   8,
+   8,
+   8,
+   8,
+   8,
+   8,
+   8,
+   8,
+   4,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "largest_step_near_note_ons": 0.12376854333322238,
+  "largest_step_elsewhere": 0.18397378067816514
+ },
+ "headroom_8_note_cluster_peak_at_level_0.5": 0.9270803332328796,
+ "chord_roughness": [
+  [
+   "A minor (A2 C3 E3)",
+   "harmonic (yardstick)",
+   1.361
+  ],
+  [
+   "A minor (A2 C3 E3)",
+   "Diamond",
+   2.875
+  ],
+  [
+   "A minor (A2 C3 E3)",
+   "Fluorite",
+   3.338
+  ],
+  [
+   "A minor (A2 C3 E3)",
+   "Emerald",
+   2.95
+  ],
+  [
+   "A minor (A2 C3 E3)",
+   "Ruby",
+   4.174
+  ],
+  [
+   "A minor (A2 C3 E3)",
+   "Amethyst",
+   2.051
+  ],
+  [
+   "A minor (A2 C3 E3)",
+   "Topaz",
+   2.222
+  ],
+  [
+   "A minor (A2 C3 E3)",
+   "Labradorite",
+   1.134
+  ],
+  [
+   "open fifth (A2 E3)",
+   "harmonic (yardstick)",
+   0.314
+  ],
+  [
+   "open fifth (A2 E3)",
+   "Diamond",
+   0.618
+  ],
+  [
+   "open fifth (A2 E3)",
+   "Fluorite",
+   0.801
+  ],
+  [
+   "open fifth (A2 E3)",
+   "Emerald",
+   0.812
+  ],
+  [
+   "open fifth (A2 E3)",
+   "Ruby",
+   0.979
+  ],
+  [
+   "open fifth (A2 E3)",
+   "Amethyst",
+   0.568
+  ],
+  [
+   "open fifth (A2 E3)",
+   "Topaz",
+   0.615
+  ],
+  [
+   "open fifth (A2 E3)",
+   "Labradorite",
+   0.345
+  ]
+ ],
+ "chords_demo": {
+  "seconds": 35.99999999999998,
+  "order": [
+   "Diamond",
+   "Fluorite",
+   "Emerald",
+   "Ruby",
+   "Amethyst",
+   "Topaz",
+   "Labradorite"
+  ],
+  "steals": 104,
+  "max_active": 8
+ }
+}

@@ -15,20 +15,20 @@ forward_vector: "I am Crystal Synthesizer's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T11:49:58.401Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T11:55:54.159Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 10 · last ran 2026-10-14 (today)
-- **Plan:** agreed 2026-09-26 (18 days ago) · 1 made thing since
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 11 · last ran 2026-10-14 (today)
+- **Plan:** agreed 2026-09-26 (18 days ago) · 2 made things since
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — The crystal is playable: an RNBO patch with nine crystals on a menu and a keyboard. In Node it matches the proof renders sample for sample. (`crystal-synth-steward-023`)
-- **Last commit touching this project:** 2026-09-26 `5b8a1564` — ops(frontmatter): strip retired activation_count/last_activated from 244 entries — v1.26
+- **Last shipped:** 2026-10-14 (today) — The crystal plays chords now: eight voices in RNBO, a Max for Live instrument, and a Faust version. All three match the proofs. (`crystal-synth-steward-025`)
+- **Last commit touching this project:** 2026-10-14 `745ed6e1` — steward(Crystal Synthesizer): cycle 10 — SPINNING UP. HOME: [Crystal Synthesizer](obsidian://open?vault=The%20Pa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Crystal Synthesizer gets its timbre from a crystal's physics rather than from taste: each mineral's phonon modes become the partials. Over the summer every prediction was rendered and heard as a strike: calcite against quartz, diamond's dispersion, beryl's two directions, diamond against labradorite, then ruby, amethyst, fluorite, emerald and topaz. They are all on the proofs menu. The plan's first move is to stop only rendering crystals and make one you can play: a single-voice bank of partials, the crystals on a selector, and an envelope. This cycle built it. It is an RNBO codebox inside a Max patch, with a keyboard, a nine-slot crystal menu and five knobs. With the knobs at their default…
+Crystal Synthesizer gets its timbre from a crystal's physics rather than from taste: each mineral's phonon modes become the partials. Over the summer every mineral in the palette was rendered as a strike and put on the proofs menu. Earlier today the first move of the plan landed: a playable, one-voice crystal in RNBO with nine crystals on a menu. This cycle started the second move, taking it on the road. That means making it polyphonic and carrying the same structure into other materials, the way one crystal symmetry shapes both its light and its sound. There are now eight voices in RNBO, a Max for Live instrument, and the same voice written in Faust. In Node and in compiled Faust, each one…
 
 ### Open asks
 
@@ -75,6 +75,53 @@ Decided with Loudon when the Loudon Live arc was designed (April 2026), and seed
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="crystal-synth-steward-025" -->
+### 2026-10-14 — cycle 11 — The crystal plays chords now: eight voices in RNBO, a Max for Live instrument, and a Faust version. All three match the proofs.
+> shipped · unverified in Max and Live · steward leans open-the-amxd-then-H90
+
+**What I built.** [crystal-voice.codebox](obsidian://open?vault=The%20Palace&file=Projects/Crystal%20Synthesizer/crystal-on-the-road/crystal-voice.codebox) is the one-voice codebox with three changes. The controls now come in through inlets, level is applied after the voices are mixed, and each voice reports when it has gone silent so RNBO can hand it to the next note. Eight copies run inside `[p @polyphony 8]`. The knobs sit outside the voices, so the device has one knob called crystal, not eight. [crystal-poly.maxpat](open:Projects/Crystal Synthesizer/crystal-on-the-road/crystal-poly.maxpat) is for Max. [Crystal Synthesizer 0.1.amxd](open:Projects/Crystal Synthesizer/crystal-on-the-road/Crystal Synthesizer 0.1.amxd) is the same RNBO patch as a Live instrument, with a crystal menu and five dials. Its file header is copied from Live 12's own Max Instrument.
+
+**The Faust version.** [crystal.dsp](obsidian://open?vault=The%20Palace&file=Projects/Crystal%20Synthesizer/crystal-on-the-road/faust/crystal.dsp) is the same strike written a second way. I compiled it to a small renderer and compared it with the proofs: the largest difference is 5e-8. Then `faust2rnbo` turned the same file into a second, independent 8-voice RNBO patch, [crystal-faust-rnbo.maxpat](open:Projects/Crystal Synthesizer/crystal-on-the-road/faust/crystal-faust-rnbo.maxpat). When you open them, the two RNBO routes should sound the same.
+
+**What the checks found** ([check_poly.py](obsidian://open?vault=The%20Palace&file=Projects/Crystal%20Synthesizer/crystal-on-the-road/check_poly.py)). The bug from last cycle is gone: hold A2, add E3, lift A2, and E3 keeps ringing. The one-voice patch cut E3 instead. I sent twelve notes into eight voices. Four voices were stolen without a click, and every voice muted once it went quiet. Eight full-velocity notes peak at 0.93.
+
+**One surprise.** Playing chords asks a question the single strikes couldn't: which crystals can take a chord? I scored the same A-minor triad on each mineral for how much the notes clash with each other, using Sethares' roughness model (table). Labradorite, which we predicted would be the most alien lattice, makes the smoothest chord, smoother even than a plain harmonic tone. Its partials are spread so wide that the notes rarely collide. Ruby, Fluorite and Diamond pack their partials tightly, so they fight. Hear it in [crystal_chords.wav](open:Projects/Crystal Synthesizer/crystal-on-the-road/crystal_chords.wav): A minor, F, C, G on each palette mineral in turn. This is the model's prediction. Your ears are the test.
+
+**Artifacts:**
+- [A minor, F, C, G on each palette mineral in turn, eight voices, 50 s.](Projects/Crystal Synthesizer/crystal-on-the-road/crystal_chords.wav)
+- [the Max for Live instrument: crystal menu, five dials, eight voices.](Projects/Crystal Synthesizer/crystal-on-the-road/Crystal Synthesizer 0.1.amxd)
+- [the polyphonic patch for Max 9: kslider or a MIDI keyboard.](Projects/Crystal Synthesizer/crystal-on-the-road/crystal-poly.maxpat)
+- [one voice: the one-voice codebox with inlets and a silence flag.](Projects/Crystal Synthesizer/crystal-on-the-road/crystal-voice.codebox)
+- [the same voice in Faust; matches the proofs to 5e-8.](Projects/Crystal Synthesizer/crystal-on-the-road/faust/crystal.dsp)
+- [a second RNBO patch, generated from crystal.dsp by faust2rnbo, 8 voices.](Projects/Crystal Synthesizer/crystal-on-the-road/faust/crystal-faust-rnbo.maxpat)
+- [Faust's block diagram of the voice (top level).](Projects/Crystal Synthesizer/crystal-on-the-road/faust/crystal-block-diagram.svg)
+- [the small renderer the Faust check compiles.](Projects/Crystal Synthesizer/crystal-on-the-road/faust/render-arch.cpp)
+- [compares the Faust voice with the proofs and the codebox.](Projects/Crystal Synthesizer/crystal-on-the-road/faust/check_faust.py)
+- [the numbers from that check.](Projects/Crystal Synthesizer/crystal-on-the-road/faust/faust-findings.json)
+- [the polyphony checks: match, note stack, stealing, headroom, chord clash.](Projects/Crystal Synthesizer/crystal-on-the-road/check_poly.py)
+- [runs eight codebox voices in Node with RNBO-style voice allocation.](Projects/Crystal Synthesizer/crystal-on-the-road/poly-render.mjs)
+- [the numbers from the polyphony checks.](Projects/Crystal Synthesizer/crystal-on-the-road/poly-findings.json)
+- [rebuilds the maxpat and the amxd from the codebox.](Projects/Crystal Synthesizer/crystal-on-the-road/make_poly_patch.py)
+- [what to open, what to listen for, what isn't verified, how to rebuild.](Projects/Crystal Synthesizer/crystal-on-the-road/README.md)
+
+_How much an A-minor triad (A2 C3 E3) clashes between its notes, Sethares roughness model, partial amplitudes 0.7^k. Higher means more clash._
+| crystal | system | clash between notes | open fifth |
+| --- | --- | --- | --- |
+| Labradorite | triclinic | 1.13 | 0.35 |
+| harmonic tone (yardstick) | — | 1.36 | 0.31 |
+| Amethyst | trigonal | 2.05 | 0.57 |
+| Topaz | orthorhombic | 2.22 | 0.62 |
+| Diamond | cubic | 2.88 | 0.62 |
+| Emerald | hexagonal | 2.95 | 0.81 |
+| Fluorite | cubic | 3.34 | 0.80 |
+| Ruby | trigonal | 4.17 | 0.98 |
+
+_Left rough:_ Nobody has opened the patch, the Live device or the Faust-made patch, so all three are unverified. My Node model of RNBO's voice allocation may pick voices in a different order than RNBO does. A released voice stays busy until it drops below -80 dB, so a long release holds voices for a while. The H90 leg hasn't started. The chord-clash ranking is a model's prediction, not something anyone has heard.
+
+_Next moves named:_ Open Crystal Synthesizer 0.1.amxd on a MIDI track in Live 12. Play the same chord on Ruby, then Labradorite, and see whether your ears agree with the clash ranking. Whatever breaks becomes the RNBO smith's first Gotcha. · Finish taking it on the road: look for a real export route to the Eventide H90, and build the Faust version as a plugin. · Then the plan's third move, letting the crystal ring: each phonon mode becomes a resonant filter that a strike excites, with a decay set by the mode's lifetime.
+<sub>`crystal-synth-steward-025` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="crystal-synth-steward-023" -->
 ### 2026-10-14 — cycle 10 — The crystal is playable: an RNBO patch with nine crystals on a menu and a keyboard. In Node it matches the proof renders sample for sample.
 > shipped · unverified in Max · steward leans open-it-then-go-polyphonic
