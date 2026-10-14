@@ -15,20 +15,20 @@ forward_vector: "I am Retrospective Delay's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T14:27:46.528Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T21:19:44.511Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 19 · last ran 2026-10-14 (today)
-- **Plan:** agreed 2026-09-26 (18 days ago) · 2 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 20 · last ran 2026-10-14 (today)
+- **Plan:** agreed 2026-09-26 (18 days ago) · 3 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — As written, the witness is just a half-note echo. Should silence keep the past instead? (`retrospective-delay-steward-044`)
-- **Last commit touching this project:** 2026-09-26 `8cdddb09` — edit(Retrospective Delay): asset 5 names no generator
+- **Last shipped:** 2026-10-14 (today) — The séance is built: a Max patch, a model that renders it, and a session draft. The loop's click isn't at the measure line. (`retrospective-delay-steward-046`)
+- **Last commit touching this project:** 2026-10-14 `cfe0389c` — steward(Retrospective Delay): cycle 19 — SPINNING UP. HOME: [Retrospective Delay](obsidian://open?vault=The%20Pa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Retrospective Delay is a one-measure delay that is always listening. A circular buffer holds the last measure of everything you play, and one gain knob decides whether that past comes back. The plan builds it in five moves, each one a Loudon Live session. The first is 'the witness': a write head and a read head sweeping one buffer, in vanilla Max, as a Max for Live audio effect. The fourth move's face, the Gorey-ink séance cat, was drawn and wired to the knob back in June. This cycle went back to the first move and built it as real Max patches, with a model that renders audio. The model turned up something the session hangs on: the witness as written is exactly a half-note echo.
+Retrospective Delay is a one-measure delay that is always listening. A buffer holds the last measure of everything you play, and one gain knob decides whether that past comes back. The plan builds it in five moves, each a Loudon Live session. Last cycle built the first move, the witness, and found that as written it's just a half-note echo. Version B fixes that: when you go quiet it keeps the last measure, so silence brings the phrase back. I asked you to pick between the two; that question is still open, and I kept going on B. This cycle built the second move, the séance, which makes the witness playable. You get a gain knob that summons or hides the ghost, a choice of quarter, half or who…
 
 ### Open asks
 
@@ -82,6 +82,44 @@ Decided with Loudon when the Loudon Live arc was designed (April 2026), and seed
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="retrospective-delay-steward-046" -->
+### 2026-10-14 — cycle 20 — The séance is built: a Max patch, a model that renders it, and a session draft. The loop's click isn't at the measure line.
+> shipped · built on the silence-keeps witness, patch not yet opened in Max · steward leans SILENCE-KEEPS
+
+The séance adds three things to the silence-keeps witness.
+
+**The knob, ramped, on the way out of the buffer.** Turning it down hides the past but doesn't erase it. In the performance render the ghost is turned fully away for a measure, then brought back, and it's still there. The April session notes put the gain on the write side instead. That would make turning it down slowly erase the ghost, which is a different instrument and breaks the witness idea. I went with the read side and said so in the draft.
+
+**A lag choice of 1/4, 1/2 or 1/1, switched with no click.** Moving one read head is a splice. So there are two read heads: the idle one jumps to the new lag, then a 30 ms fade hands over to it. The whole note is sent as 0.999, not 1.0. At exactly 1.0 the read head sits on the write head, and vanilla Max doesn't promise whether poke~ or wave~ runs first. That's a ready-made question to carry into the Gen~ move.
+
+**The seam, which turned out to be somewhere else.** The plan says to crossfade at the loop boundary. The model shows there is no click at the measure line, because the read head never jumps there. The click is where you stopped playing: once the witness switches from listening to holding, the newest sound it heard ends up right next to the oldest. Smoothing that switch over about 10 ms (`slide~ 480 480` after the gate) removes it. Smoothing the gate is the crossfade. That makes a better reveal for the session than the one planned.
+
+To try it: drop a Max Audio Effect on a track in Live, paste in seance.maxpat, start the transport, play a phrase, stop, and raise the knob. Start with the performance render: phrase, summon, re-lag in silence, a new phrase over the ghost, dismiss, a silent measure, then summon again.
+
+**Artifacts:**
+- [start here: 15 measures of play, summon, re-lag, overwrite, dismiss, then summon again. The ghost survives the silence.](Projects/Retrospective Delay/stage-2-seance/seance-performance.wav)
+- [a held chord stops mid-measure and the loop holds it with a hard gate. Listen for the tick each pass.](Projects/Retrospective Delay/stage-2-seance/seam-hard.wav)
+- [the same chord with the gate smoothed over ~10 ms. The tick is gone.](Projects/Retrospective Delay/stage-2-seance/seam-smoothed.wav)
+- [the held ghost switched from a whole-note to a quarter-note lag with one read head: a splice.](Projects/Retrospective Delay/stage-2-seance/lagswitch-hard.wav)
+- [the same switch with two read heads and a 30 ms fade.](Projects/Retrospective Delay/stage-2-seance/lagswitch-crossfade.wav)
+- [the séance as a vanilla Max patcher for a Max Audio Effect: gain dial, lag tab, two heads, smoothed gate. Not opened in Max yet.](Projects/Retrospective Delay/stage-2-seance/seance.maxpat)
+- [writes the patcher; its header explains the 0.999 and the seam.](Projects/Retrospective Delay/stage-2-seance/build_seance_patch.py)
+- [the model: renders all five WAVs and prints the click measurements.](Projects/Retrospective Delay/stage-2-seance/seance_model.py)
+- [the séance session draft: frame, make, performance, reflect, built around the seam finding.](Projects/Retrospective Delay/stage-2-seance/stage-2-the-seance.md)
+
+_biggest jump between neighbouring samples in the ghost (higher = a click). A held chord on its own reads 0.013_
+| case | without the fix | with the fix |
+| --- | --- | --- |
+| loop seam where you stopped playing | 0.178 (hard gate) | 0.011 (gate smoothed ~10 ms) |
+| switching the lag mid-loop | 0.084 (one read head) | 0.008 (two heads, 30 ms fade) |
+| the measure line itself | 0.011 (no seam there) | n/a |
+
+_Left rough:_ Nothing has run in Max. In a model run, a hard stop leaves about half a second of near-silence in the held measure because of the gate's 100 ms release; that gap and the 0.003 threshold both need your ear on a real instrument. The witness question is still open; if you pick KEEP-SPEC, the séance needs rethinking, since silence wouldn't summon anything.
+
+_Next moves named:_ Once the witness question is answered, rewrite the witness session's reveal honestly and make the chosen version the anchor patch. · Then the Gen~ move: port the séance core into a gen~ subpatcher, starting from why the whole note had to be 0.999, and set it beside the compressor's 11 ms buffer.
+<sub>`retrospective-delay-steward-046` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="retrospective-delay-steward-044" -->
 ### 2026-10-14 — cycle 19 — As written, the witness is just a half-note echo. Should silence keep the past instead?
 > still working · both versions built and rendered · steward leans SILENCE-KEEPS
