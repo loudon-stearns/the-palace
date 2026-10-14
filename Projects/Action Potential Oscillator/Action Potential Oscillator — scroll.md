@@ -15,24 +15,24 @@ forward_vector: "I am Action Potential Oscillator's scroll — the one page that
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-25T20:55:14-04:00 from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T11:00:20.754Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 5 · last ran 2026-06-25 (93 days ago)
-- **Plan:** agreed 2026-09-25 (today) · 0 made things since
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** growing · **Steward:** cycle 6 · last ran 2026-10-14 (today)
+- **Plan:** agreed 2026-09-25 (18 days ago) · 2 made things since
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-06-23 (95 days ago) — You have one population audition. Where should I take the next cycle — Faust port, deeper Python, or H90/RNBO? (`apo-steward-009`)
-- **Last commit touching this project:** 2026-09-24 `eb8359db` — Weave — 2026-09-24 — part 1: the mechanical write-back (signed)
+- **Last shipped:** 2026-10-14 (today) — Should the crowd or the single neuron go to the H90 first? (`apo-steward-012`)
+- **Last commit touching this project:** 2026-09-26 `5864b19c` — edit(Neural Granular Synthesis): control-vocabulary-math becomes the project's spec
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Recap: Action Potential Oscillator's Stages 1–4 (single neuron, Gen~) shipped in March. Cycle 3 wrote neuropulse.dsp (a Faust population draft) and a Mac-compile handoff, because the Linux sandbox couldn't run Faust. This Mac session does not have Faust installed either, so I sidestepped: I built the population layer in Python and rendered a 30s audition (see apo-steward-008). The forward_vector's question — 'where does Hodgkin-Huxley detail stop mattering sonically' — is now testable by ear for the first time. Three reasonable next cycles, none obviously dominant: (1) install Faust + compile neuropulse.dsp so the production path is unblocked; (2) push the Python further (HH gating, raster…
+Action Potential Oscillator builds a synth from a neuron's biology. The single neuron, four playable Gen~ stages built in March, is done. What comes next is the crowd: many slightly different neurons coupled so that how tightly they agree becomes the sound. In June you picked the Faust route. The Faust engine was drafted but had never compiled, and the only sound we had was a Python stand-in. This cycle the Faust version compiles. I rendered a coupling sweep and put it beside the Python render. That finishes the first step of the agreed plan. The next step is getting the instrument onto the Eventide H90 through RNBO.
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `apo-steward-012` — directional_decision · posted 2026-10-14 · options: CROWD-FIRST · NEURON-FIRST · STAY-IN-FAUST
 
 ### Answered, not yet consumed
 
@@ -64,6 +64,57 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="apo-steward-012" -->
+### 2026-10-14 — cycle 6 — Should the crowd or the single neuron go to the H90 first?
+> still working · Faust crowd compiles and locks · steward leans CROWD-FIRST
+
+Quick catch-up: this project is a synth built from a neuron's biology. The single neuron has been playable in Gen~ since March. This cycle the Faust crowd of coupled neurons finally compiled, and you can hear it lock into a tone in [the sweep](open:Projects/Action Potential Oscillator/neuropulse-faust-sweep.wav). The comparison picture is [faust-vs-python.png](open:Projects/Action Potential Oscillator/faust-vs-python.png). The plan's next step is getting the instrument onto the Eventide H90 through RNBO, and it leaves to you which one goes first. I lean crowd. Faust already produced an RNBO codebox for it, so it's the shorter path, and the crowd is where the new sound is. The single neuron is the cleaner teaching piece, but its Gen~ code would have to be ported by hand. I'll keep going on the crowd unless you redirect.
+
+**Artifacts:**
+- [The crowd locking and unlocking: the thing that would travel.](Projects/Action Potential Oscillator/neuropulse-faust-sweep.wav)
+- [Faust vs. Python: only the Faust crowd actually locks.](Projects/Action Potential Oscillator/faust-vs-python.png)
+<sub>`apo-steward-012` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="apo-steward-011" -->
+### 2026-10-14 — cycle 6 — The Faust crowd compiles at last. In the 30 s sweep, 32 neurons snap into a clean tone and let go. The June Python audition never locked.
+> shipped · first step of the plan done · steward leans the crowd goes to the H90 first
+
+**Why it never compiled.** Faust 2.88 is on the Mac now, and the June file died with 'stack overflow in eval'. Each neuron's voltage, phase, timer and recovery velocity were four separate feedback loops that referred to each other in a circle. The three fixes the June handoff note describes never landed in the file. Its spread formula was also wrong, so the neurons weren't really varied.
+
+**What changed (v0.2).** Each neuron is now one feedback loop over its whole state: charge, then spike rise, then spike fall, then a damped recovery from the undershoot. The crowd adds up its voltages and its spike signals in a single step, so the splitting stage is gone. Only the crowd's average spike signal goes back into each neuron's drive, scaled by coupling K. It compiles in 0.1 s. A small offline renderer is in `faust-render/`.
+
+**What the sweep shows.** 32 neurons, coupling rising from 0 to 0.016 and back to 0 over 30 s, chosen to match the June render's shape. Listen to [neuropulse-faust-sweep.wav](open:Projects/Action Potential Oscillator/neuropulse-faust-sweep.wav). For the first 4.7 s you hear a buzzy smear. Then the crowd snaps into a clean harmonic tone, holds, and lets go at about 25.7 s. It locks and unlocks at nearly the same coupling (about 0.005 going up, 0.0046 coming down), so there's barely any memory in the switch. The locked tone sits near 116 Hz, not the 110 Hz you dial in. My guess is that the faster neurons pull the crowd up to their pace. I haven't tested that.
+
+**The comparison is the real news.** In [faust-vs-python.png](open:Projects/Action Potential Oscillator/faust-vs-python.png), the Faust spectrogram turns into clean harmonic lines while it's locked. The June Python audition is broadband noise from start to finish. Its coupling was probably too weak to ever pull the crowd together. So the two don't agree. The Faust render is the first time this project has made the locking you can hear.
+
+**A bonus step toward the H90.** `faust2rnbo` turned the crowd into an RNBO codebox (`rnbo/neuropulse.codebox`, 928 lines). Its Max patch wrapper failed because the Python package py2max is missing. Nobody has opened it in Max yet.
+
+**Artifacts:**
+- [30 s, 32 neurons, coupling rising and falling: the lock arrives near 4.7 s and lets go near 25.7 s.](Projects/Action Potential Oscillator/neuropulse-faust-sweep.wav)
+- [Share of neurons firing together vs. coupling, plus spectrograms of the Faust render and the June Python one.](Projects/Action Potential Oscillator/faust-vs-python.png)
+- [NeuroPulse v0.2: one feedback loop per neuron, crowd adds up in a single step, compiles on Faust 2.88.](Projects/Action Potential Oscillator/neuropulse.dsp)
+- [Render wrapper: drives the coupling with a sweep and puts out audio, the average spike signal, and K.](Projects/Action Potential Oscillator/faust-render/neuropulse_render.dsp)
+- [Small offline C++ wrapper that writes raw frames, with parameters set from the command line.](Projects/Action Potential Oscillator/faust-render/arch.cpp)
+- [Renders the sweep, writes the WAV, draws the comparison figure.](Projects/Action Potential Oscillator/faust-render/render_sweep.py)
+- [RNBO codebox generated by faust2rnbo. Unverified: not yet opened in Max.](Projects/Action Potential Oscillator/rnbo/neuropulse.codebox)
+- [June handoff, now marked closed with what actually happened.](Projects/Action Potential Oscillator/neuropulse-mac-compile-handoff.md)
+
+_Faust crowd, 32 neurons · 'together' = largest share of the crowd spiking at the same instant_
+| seconds | coupling K | together | what you hear |
+| --- | --- | --- | --- |
+| 0–3 | 0.0016 | 0.25 | buzzy smear |
+| 6–9 | 0.0080 | 0.72 | tone forming, still rough |
+| 13–17 | 0.0149 | 0.94 | clean locked tone near 116 Hz |
+| 21–24 | 0.0080 | 0.74 | same as on the way up |
+| 27–30 | 0.0016 | 0.23 | back to smear |
+
+_Left rough:_ The RNBO codebox is unverified: no Max patch around it (py2max is missing), and it uses fixed parameters instead of the signal-rate inputs the design calls for. The 116 Hz pitch pull is a guess, not tested. I haven't yet measured where spike shape stops mattering to the sound. The June signal-flow SVG is now out of date.
+
+_Next moves named:_ Wrap the codebox in a Max patch (install py2max or patch by hand), switch its fixed parameters to signal-rate inputs, and hand you a demo with what to open and what to listen for. · Find where spike shape stops mattering: swap the shaped spike for a bare pulse at the same coupling and compare the locked tones. · Test the pitch pull: widen the rate spread and see whether the locked pitch follows the fastest neuron.
+<sub>`apo-steward-011` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-09-25T20-55-14-04-00" -->
 ### 2026-09-25 — Plan agreed: drawn from the board's grants
 

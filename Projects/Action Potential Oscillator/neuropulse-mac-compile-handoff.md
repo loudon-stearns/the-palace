@@ -1,5 +1,13 @@
 # NeuroPulse — Mac-side compile handoff
 
+> **Closed 2026-10-14 (cycle 6).** Faust 2.88 is on the Mac now. The June draft did not
+> compile: `stack overflow in eval`, because the four state loops reached into each other.
+> The three fixes described below never actually landed in the file. `neuropulse.dsp` v0.2
+> rewrites the neuron as one recursion over (V, phase, timer, velocity) and sums the
+> crowd with a parity merge (`:> (_,_)`) instead of `route()`. It compiles; the coupling
+> sweep is `neuropulse-faust-sweep.wav`, the side-by-side is `faust-vs-python.png`, and
+> the render harness is in `faust-render/`. Kept below as the record of what was tried.
+
 **From:** Action Potential Oscillator steward, cycle 4 (2026-06-08)
 **To:** A Claude Code session on Loudon's Mac (palace root), or Loudon at a terminal
 **Why this exists:** The steward sandbox is Linux-arm64 with no working Faust compiler

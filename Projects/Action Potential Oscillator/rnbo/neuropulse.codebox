@@ -1,0 +1,928 @@
+// Code generated with Faust version 2.88.0
+// Compilation options: -lang codebox -fpga-mem-th 4 -ec -ct 1 -es 1 -mcd 16 -mdd 1024 -mdy 33 -double -ftz 0 
+// Additional functions
+// Params
+@param({min: 2e+01, max: 1e+03}) frequency_Hz = 1.1e+02;
+@param({min: 0.1, max: 5e+01}) leak_tau_ms = 5.0;
+@param({min: 0.1, max: 5.0}) spike_ms = 1.0;
+@param({min: 0.05, max: 0.95}) rise_fraction = 0.3;
+@param({min: 1.01, max: 3.0}) spike_peak = 1.5;
+@param({min: -0.8, max: -0.01}) hyperpolarization = -0.2;
+@param({min: 0.05, max: 2.0}) recovery_damping = 0.3;
+@param({min: 0.1, max: 2e+01}) refractory_ms = 1.5;
+@param({min: 0.0, max: 0.2}) K_coupling = 0.0;
+@param({min: 0.0, max: 0.5}) rate_spread = 0.05;
+@param({min: 0.0, max: 0.5}) leak_spread = 0.05;
+@param({min: 0.0, max: 0.3}) threshold_spread = 0.02;
+@param({min: 0.0, max: 1.0}) gain = 0.4;
+// Globals
+// Fields
+@state fHslider0_cb : number = 0;
+@state fSlow0_cb : number = 0;
+@state fHslider1_cb : number = 0;
+@state fSlow1_cb : number = 0;
+@state fHslider2_cb : number = 0;
+@state fSlow2_cb : number = 0;
+@state fSlow3_cb : number = 0;
+@state fHslider3_cb : number = 0;
+@state fSlow4_cb : number = 0;
+@state fSlow5_cb : number = 0;
+@state fSampleRate_cb : Int = 0;
+@state fConst0_cb : number = 0;
+@state fConst1_cb : number = 0;
+@state fHslider4_cb : number = 0;
+@state fSlow6_cb : number = 0;
+@state fHslider5_cb : number = 0;
+@state fSlow7_cb : number = 0;
+@state fSlow8_cb : number = 0;
+@state fSlow9_cb : number = 0;
+@state fSlow10_cb : number = 0;
+@state fHslider6_cb : number = 0;
+@state fSlow11_cb : number = 0;
+@state fHslider7_cb : number = 0;
+@state fSlow12_cb : number = 0;
+@state fHslider8_cb : number = 0;
+@state fSlow13_cb : number = 0;
+@state fHslider9_cb : number = 0;
+@state fSlow14_cb : number = 0;
+@state fSlow15_cb : number = 0;
+@state fSlow16_cb : number = 0;
+@state fHslider10_cb : number = 0;
+@state fSlow17_cb : number = 0;
+@state fHslider11_cb : number = 0;
+@state fSlow18_cb : number = 0;
+@state fSlow19_cb : number = 0;
+@state fSlow20_cb : number = 0;
+@state iRec1_cb = new FixedIntArray(2);
+@state fSlow21_cb : number = 0;
+@state fSlow22_cb : number = 0;
+@state fSlow23_cb : number = 0;
+@state fSlow24_cb : number = 0;
+@state fSlow25_cb : number = 0;
+@state iRec2_cb = new FixedIntArray(2);
+@state fSlow26_cb : number = 0;
+@state fSlow27_cb : number = 0;
+@state fHslider12_cb : number = 0;
+@state fSlow28_cb : number = 0;
+@state fSlow29_cb : number = 0;
+@state fSlow30_cb : number = 0;
+@state fRec3_cb = new FixedDoubleArray(2);
+@state fSlow31_cb : number = 0;
+@state fSlow32_cb : number = 0;
+@state fSlow33_cb : number = 0;
+@state fSlow34_cb : number = 0;
+@state fSlow35_cb : number = 0;
+@state iRec4_cb = new FixedIntArray(2);
+@state fSlow36_cb : number = 0;
+@state fSlow37_cb : number = 0;
+@state fSlow38_cb : number = 0;
+@state fSlow39_cb : number = 0;
+@state fSlow40_cb : number = 0;
+@state fSlow41_cb : number = 0;
+@state fSlow42_cb : number = 0;
+@state fSlow43_cb : number = 0;
+@state fRec5_cb = new FixedDoubleArray(2);
+@state iRec6_cb = new FixedIntArray(2);
+@state fSlow44_cb : number = 0;
+@state fSlow45_cb : number = 0;
+@state fSlow46_cb : number = 0;
+@state fRec7_cb = new FixedDoubleArray(2);
+@state fSlow47_cb : number = 0;
+@state fSlow48_cb : number = 0;
+@state fSlow49_cb : number = 0;
+@state fSlow50_cb : number = 0;
+@state fSlow51_cb : number = 0;
+@state fSlow52_cb : number = 0;
+@state fSlow53_cb : number = 0;
+@state fSlow54_cb : number = 0;
+@state fRec8_cb = new FixedDoubleArray(2);
+@state fSlow55_cb : number = 0;
+@state fSlow56_cb : number = 0;
+@state fSlow57_cb : number = 0;
+@state fSlow58_cb : number = 0;
+@state fSlow59_cb : number = 0;
+@state fSlow60_cb : number = 0;
+@state fRec9_cb = new FixedDoubleArray(2);
+@state fSlow61_cb : number = 0;
+@state fSlow62_cb : number = 0;
+@state fSlow63_cb : number = 0;
+@state fSlow64_cb : number = 0;
+@state fSlow65_cb : number = 0;
+@state fSlow66_cb : number = 0;
+@state fSlow67_cb : number = 0;
+@state fSlow68_cb : number = 0;
+@state fRec10_cb = new FixedDoubleArray(2);
+@state fSlow69_cb : number = 0;
+@state fSlow70_cb : number = 0;
+@state fSlow71_cb : number = 0;
+@state fSlow72_cb : number = 0;
+@state fSlow73_cb : number = 0;
+@state iRec11_cb = new FixedIntArray(2);
+@state iRec12_cb = new FixedIntArray(2);
+@state fSlow74_cb : number = 0;
+@state fSlow75_cb : number = 0;
+@state fSlow76_cb : number = 0;
+@state fSlow77_cb : number = 0;
+@state fSlow78_cb : number = 0;
+@state fSlow79_cb : number = 0;
+@state fSlow80_cb : number = 0;
+@state fSlow81_cb : number = 0;
+@state fRec13_cb = new FixedDoubleArray(2);
+@state fSlow82_cb : number = 0;
+@state fSlow83_cb : number = 0;
+@state fSlow84_cb : number = 0;
+@state fSlow85_cb : number = 0;
+@state fSlow86_cb : number = 0;
+@state fSlow87_cb : number = 0;
+@state fRec14_cb = new FixedDoubleArray(2);
+@state fSlow88_cb : number = 0;
+@state fSlow89_cb : number = 0;
+@state fSlow90_cb : number = 0;
+@state fSlow91_cb : number = 0;
+@state fSlow92_cb : number = 0;
+@state iRec15_cb = new FixedIntArray(2);
+@state fSlow93_cb : number = 0;
+@state fSlow94_cb : number = 0;
+@state fSlow95_cb : number = 0;
+@state fSlow96_cb : number = 0;
+@state fSlow97_cb : number = 0;
+@state fSlow98_cb : number = 0;
+@state fSlow99_cb : number = 0;
+@state fSlow100_cb : number = 0;
+@state fRec16_cb = new FixedDoubleArray(2);
+@state iRec17_cb = new FixedIntArray(2);
+@state iRec18_cb = new FixedIntArray(2);
+@state iRec19_cb = new FixedIntArray(2);
+@state fSlow101_cb : number = 0;
+@state fSlow102_cb : number = 0;
+@state fSlow103_cb : number = 0;
+@state fSlow104_cb : number = 0;
+@state fSlow105_cb : number = 0;
+@state iRec20_cb = new FixedIntArray(2);
+@state iRec21_cb = new FixedIntArray(2);
+@state fSlow106_cb : number = 0;
+@state fRec22_cb = new FixedDoubleArray(2);
+@state fSlow107_cb : number = 0;
+@state fSlow108_cb : number = 0;
+@state fSlow109_cb : number = 0;
+@state fSlow110_cb : number = 0;
+@state fSlow111_cb : number = 0;
+@state iRec23_cb = new FixedIntArray(2);
+@state fSlow112_cb : number = 0;
+@state fRec24_cb = new FixedDoubleArray(2);
+@state fSlow113_cb : number = 0;
+@state fSlow114_cb : number = 0;
+@state fSlow115_cb : number = 0;
+@state fSlow116_cb : number = 0;
+@state fSlow117_cb : number = 0;
+@state iRec25_cb = new FixedIntArray(2);
+@state fSlow118_cb : number = 0;
+@state fSlow119_cb : number = 0;
+@state fSlow120_cb : number = 0;
+@state fSlow121_cb : number = 0;
+@state fSlow122_cb : number = 0;
+@state fSlow123_cb : number = 0;
+@state fSlow124_cb : number = 0;
+@state fSlow125_cb : number = 0;
+@state fRec26_cb = new FixedDoubleArray(2);
+@state fRec27_cb = new FixedDoubleArray(2);
+@state iRec28_cb = new FixedIntArray(2);
+@state iRec29_cb = new FixedIntArray(2);
+@state fRec30_cb = new FixedDoubleArray(2);
+@state iRec31_cb = new FixedIntArray(2);
+@state fSlow126_cb : number = 0;
+@state fSlow127_cb : number = 0;
+@state fSlow128_cb : number = 0;
+@state fRec32_cb = new FixedDoubleArray(2);
+@state fSlow129_cb : number = 0;
+@state fRec33_cb = new FixedDoubleArray(2);
+@state fSlow130_cb : number = 0;
+@state fSlow131_cb : number = 0;
+@state fRec34_cb = new FixedDoubleArray(2);
+@state iRec35_cb = new FixedIntArray(2);
+@state fSlow132_cb : number = 0;
+@state fSlow133_cb : number = 0;
+@state fSlow134_cb : number = 0;
+@state fRec36_cb = new FixedDoubleArray(2);
+@state fSlow135_cb : number = 0;
+@state fSlow136_cb : number = 0;
+@state fRec37_cb = new FixedDoubleArray(2);
+@state fSlow137_cb : number = 0;
+@state fSlow138_cb : number = 0;
+@state fSlow139_cb : number = 0;
+@state fRec38_cb = new FixedDoubleArray(2);
+@state iRec39_cb = new FixedIntArray(2);
+@state fRec40_cb = new FixedDoubleArray(2);
+@state iRec41_cb = new FixedIntArray(2);
+@state iRec42_cb = new FixedIntArray(2);
+@state fRec43_cb = new FixedDoubleArray(2);
+@state iRec44_cb = new FixedIntArray(2);
+@state fRec45_cb = new FixedDoubleArray(2);
+@state fSlow140_cb : number = 0;
+@state fSlow141_cb : number = 0;
+@state fRec46_cb = new FixedDoubleArray(2);
+@state iRec47_cb = new FixedIntArray(2);
+@state fRec48_cb = new FixedDoubleArray(2);
+@state iRec49_cb = new FixedIntArray(2);
+@state fSlow142_cb : number = 0;
+@state fSlow143_cb : number = 0;
+@state fRec50_cb = new FixedDoubleArray(2);
+@state fSlow144_cb : number = 0;
+@state fSlow145_cb : number = 0;
+@state fRec51_cb = new FixedDoubleArray(2);
+@state fRec52_cb = new FixedDoubleArray(2);
+@state fRec53_cb = new FixedDoubleArray(2);
+@state fRec54_cb = new FixedDoubleArray(2);
+@state iRec55_cb = new FixedIntArray(2);
+@state iRec56_cb = new FixedIntArray(2);
+@state iRec57_cb = new FixedIntArray(2);
+@state iRec58_cb = new FixedIntArray(2);
+@state iRec59_cb = new FixedIntArray(2);
+@state fRec60_cb = new FixedDoubleArray(2);
+@state iRec61_cb = new FixedIntArray(2);
+@state iRec62_cb = new FixedIntArray(2);
+@state iRec63_cb = new FixedIntArray(2);
+@state fRec64_cb = new FixedDoubleArray(2);
+@state fRec65_cb = new FixedDoubleArray(2);
+@state fVec0_cb = new FixedDoubleArray(2);
+@state fRec0_cb = new FixedDoubleArray(2);
+@state fUpdated : Int = 0;
+// Init
+function dspsetup() {
+	fUpdated = true;
+	fHslider0_cb = 0.4;
+	fHslider1_cb = 1.5;
+	fHslider2_cb = -0.2;
+	fHslider3_cb = 0.02;
+	fHslider4_cb = 5.0;
+	fHslider5_cb = 0.05;
+	fHslider6_cb = 1.1e+02;
+	fHslider7_cb = 0.05;
+	fHslider8_cb = 1.0;
+	fHslider9_cb = 1.5;
+	fHslider10_cb = 0.0;
+	fHslider11_cb = 0.3;
+	fHslider12_cb = 0.3;
+	for (let l0_cb : Int = 0; (l0_cb < 2); l0_cb = iadd(l0_cb, 1)) {
+		iRec1_cb[l0_cb] = 0;
+	}
+	for (let l1_cb : Int = 0; (l1_cb < 2); l1_cb = iadd(l1_cb, 1)) {
+		iRec2_cb[l1_cb] = 0;
+	}
+	for (let l2_cb : Int = 0; (l2_cb < 2); l2_cb = iadd(l2_cb, 1)) {
+		fRec3_cb[l2_cb] = 0.0;
+	}
+	for (let l3_cb : Int = 0; (l3_cb < 2); l3_cb = iadd(l3_cb, 1)) {
+		iRec4_cb[l3_cb] = 0;
+	}
+	for (let l4_cb : Int = 0; (l4_cb < 2); l4_cb = iadd(l4_cb, 1)) {
+		fRec5_cb[l4_cb] = 0.0;
+	}
+	for (let l5_cb : Int = 0; (l5_cb < 2); l5_cb = iadd(l5_cb, 1)) {
+		iRec6_cb[l5_cb] = 0;
+	}
+	for (let l6_cb : Int = 0; (l6_cb < 2); l6_cb = iadd(l6_cb, 1)) {
+		fRec7_cb[l6_cb] = 0.0;
+	}
+	for (let l7_cb : Int = 0; (l7_cb < 2); l7_cb = iadd(l7_cb, 1)) {
+		fRec8_cb[l7_cb] = 0.0;
+	}
+	for (let l8_cb : Int = 0; (l8_cb < 2); l8_cb = iadd(l8_cb, 1)) {
+		fRec9_cb[l8_cb] = 0.0;
+	}
+	for (let l9_cb : Int = 0; (l9_cb < 2); l9_cb = iadd(l9_cb, 1)) {
+		fRec10_cb[l9_cb] = 0.0;
+	}
+	for (let l10_cb : Int = 0; (l10_cb < 2); l10_cb = iadd(l10_cb, 1)) {
+		iRec11_cb[l10_cb] = 0;
+	}
+	for (let l11_cb : Int = 0; (l11_cb < 2); l11_cb = iadd(l11_cb, 1)) {
+		iRec12_cb[l11_cb] = 0;
+	}
+	for (let l12_cb : Int = 0; (l12_cb < 2); l12_cb = iadd(l12_cb, 1)) {
+		fRec13_cb[l12_cb] = 0.0;
+	}
+	for (let l13_cb : Int = 0; (l13_cb < 2); l13_cb = iadd(l13_cb, 1)) {
+		fRec14_cb[l13_cb] = 0.0;
+	}
+	for (let l14_cb : Int = 0; (l14_cb < 2); l14_cb = iadd(l14_cb, 1)) {
+		iRec15_cb[l14_cb] = 0;
+	}
+	for (let l15_cb : Int = 0; (l15_cb < 2); l15_cb = iadd(l15_cb, 1)) {
+		fRec16_cb[l15_cb] = 0.0;
+	}
+	for (let l16_cb : Int = 0; (l16_cb < 2); l16_cb = iadd(l16_cb, 1)) {
+		iRec17_cb[l16_cb] = 0;
+	}
+	for (let l17_cb : Int = 0; (l17_cb < 2); l17_cb = iadd(l17_cb, 1)) {
+		iRec18_cb[l17_cb] = 0;
+	}
+	for (let l18_cb : Int = 0; (l18_cb < 2); l18_cb = iadd(l18_cb, 1)) {
+		iRec19_cb[l18_cb] = 0;
+	}
+	for (let l19_cb : Int = 0; (l19_cb < 2); l19_cb = iadd(l19_cb, 1)) {
+		iRec20_cb[l19_cb] = 0;
+	}
+	for (let l20_cb : Int = 0; (l20_cb < 2); l20_cb = iadd(l20_cb, 1)) {
+		iRec21_cb[l20_cb] = 0;
+	}
+	for (let l21_cb : Int = 0; (l21_cb < 2); l21_cb = iadd(l21_cb, 1)) {
+		fRec22_cb[l21_cb] = 0.0;
+	}
+	for (let l22_cb : Int = 0; (l22_cb < 2); l22_cb = iadd(l22_cb, 1)) {
+		iRec23_cb[l22_cb] = 0;
+	}
+	for (let l23_cb : Int = 0; (l23_cb < 2); l23_cb = iadd(l23_cb, 1)) {
+		fRec24_cb[l23_cb] = 0.0;
+	}
+	for (let l24_cb : Int = 0; (l24_cb < 2); l24_cb = iadd(l24_cb, 1)) {
+		iRec25_cb[l24_cb] = 0;
+	}
+	for (let l25_cb : Int = 0; (l25_cb < 2); l25_cb = iadd(l25_cb, 1)) {
+		fRec26_cb[l25_cb] = 0.0;
+	}
+	for (let l26_cb : Int = 0; (l26_cb < 2); l26_cb = iadd(l26_cb, 1)) {
+		fRec27_cb[l26_cb] = 0.0;
+	}
+	for (let l27_cb : Int = 0; (l27_cb < 2); l27_cb = iadd(l27_cb, 1)) {
+		iRec28_cb[l27_cb] = 0;
+	}
+	for (let l28_cb : Int = 0; (l28_cb < 2); l28_cb = iadd(l28_cb, 1)) {
+		iRec29_cb[l28_cb] = 0;
+	}
+	for (let l29_cb : Int = 0; (l29_cb < 2); l29_cb = iadd(l29_cb, 1)) {
+		fRec30_cb[l29_cb] = 0.0;
+	}
+	for (let l30_cb : Int = 0; (l30_cb < 2); l30_cb = iadd(l30_cb, 1)) {
+		iRec31_cb[l30_cb] = 0;
+	}
+	for (let l31_cb : Int = 0; (l31_cb < 2); l31_cb = iadd(l31_cb, 1)) {
+		fRec32_cb[l31_cb] = 0.0;
+	}
+	for (let l32_cb : Int = 0; (l32_cb < 2); l32_cb = iadd(l32_cb, 1)) {
+		fRec33_cb[l32_cb] = 0.0;
+	}
+	for (let l33_cb : Int = 0; (l33_cb < 2); l33_cb = iadd(l33_cb, 1)) {
+		fRec34_cb[l33_cb] = 0.0;
+	}
+	for (let l34_cb : Int = 0; (l34_cb < 2); l34_cb = iadd(l34_cb, 1)) {
+		iRec35_cb[l34_cb] = 0;
+	}
+	for (let l35_cb : Int = 0; (l35_cb < 2); l35_cb = iadd(l35_cb, 1)) {
+		fRec36_cb[l35_cb] = 0.0;
+	}
+	for (let l36_cb : Int = 0; (l36_cb < 2); l36_cb = iadd(l36_cb, 1)) {
+		fRec37_cb[l36_cb] = 0.0;
+	}
+	for (let l37_cb : Int = 0; (l37_cb < 2); l37_cb = iadd(l37_cb, 1)) {
+		fRec38_cb[l37_cb] = 0.0;
+	}
+	for (let l38_cb : Int = 0; (l38_cb < 2); l38_cb = iadd(l38_cb, 1)) {
+		iRec39_cb[l38_cb] = 0;
+	}
+	for (let l39_cb : Int = 0; (l39_cb < 2); l39_cb = iadd(l39_cb, 1)) {
+		fRec40_cb[l39_cb] = 0.0;
+	}
+	for (let l40_cb : Int = 0; (l40_cb < 2); l40_cb = iadd(l40_cb, 1)) {
+		iRec41_cb[l40_cb] = 0;
+	}
+	for (let l41_cb : Int = 0; (l41_cb < 2); l41_cb = iadd(l41_cb, 1)) {
+		iRec42_cb[l41_cb] = 0;
+	}
+	for (let l42_cb : Int = 0; (l42_cb < 2); l42_cb = iadd(l42_cb, 1)) {
+		fRec43_cb[l42_cb] = 0.0;
+	}
+	for (let l43_cb : Int = 0; (l43_cb < 2); l43_cb = iadd(l43_cb, 1)) {
+		iRec44_cb[l43_cb] = 0;
+	}
+	for (let l44_cb : Int = 0; (l44_cb < 2); l44_cb = iadd(l44_cb, 1)) {
+		fRec45_cb[l44_cb] = 0.0;
+	}
+	for (let l45_cb : Int = 0; (l45_cb < 2); l45_cb = iadd(l45_cb, 1)) {
+		fRec46_cb[l45_cb] = 0.0;
+	}
+	for (let l46_cb : Int = 0; (l46_cb < 2); l46_cb = iadd(l46_cb, 1)) {
+		iRec47_cb[l46_cb] = 0;
+	}
+	for (let l47_cb : Int = 0; (l47_cb < 2); l47_cb = iadd(l47_cb, 1)) {
+		fRec48_cb[l47_cb] = 0.0;
+	}
+	for (let l48_cb : Int = 0; (l48_cb < 2); l48_cb = iadd(l48_cb, 1)) {
+		iRec49_cb[l48_cb] = 0;
+	}
+	for (let l49_cb : Int = 0; (l49_cb < 2); l49_cb = iadd(l49_cb, 1)) {
+		fRec50_cb[l49_cb] = 0.0;
+	}
+	for (let l50_cb : Int = 0; (l50_cb < 2); l50_cb = iadd(l50_cb, 1)) {
+		fRec51_cb[l50_cb] = 0.0;
+	}
+	for (let l51_cb : Int = 0; (l51_cb < 2); l51_cb = iadd(l51_cb, 1)) {
+		fRec52_cb[l51_cb] = 0.0;
+	}
+	for (let l52_cb : Int = 0; (l52_cb < 2); l52_cb = iadd(l52_cb, 1)) {
+		fRec53_cb[l52_cb] = 0.0;
+	}
+	for (let l53_cb : Int = 0; (l53_cb < 2); l53_cb = iadd(l53_cb, 1)) {
+		fRec54_cb[l53_cb] = 0.0;
+	}
+	for (let l54_cb : Int = 0; (l54_cb < 2); l54_cb = iadd(l54_cb, 1)) {
+		iRec55_cb[l54_cb] = 0;
+	}
+	for (let l55_cb : Int = 0; (l55_cb < 2); l55_cb = iadd(l55_cb, 1)) {
+		iRec56_cb[l55_cb] = 0;
+	}
+	for (let l56_cb : Int = 0; (l56_cb < 2); l56_cb = iadd(l56_cb, 1)) {
+		iRec57_cb[l56_cb] = 0;
+	}
+	for (let l57_cb : Int = 0; (l57_cb < 2); l57_cb = iadd(l57_cb, 1)) {
+		iRec58_cb[l57_cb] = 0;
+	}
+	for (let l58_cb : Int = 0; (l58_cb < 2); l58_cb = iadd(l58_cb, 1)) {
+		iRec59_cb[l58_cb] = 0;
+	}
+	for (let l59_cb : Int = 0; (l59_cb < 2); l59_cb = iadd(l59_cb, 1)) {
+		fRec60_cb[l59_cb] = 0.0;
+	}
+	for (let l60_cb : Int = 0; (l60_cb < 2); l60_cb = iadd(l60_cb, 1)) {
+		iRec61_cb[l60_cb] = 0;
+	}
+	for (let l61_cb : Int = 0; (l61_cb < 2); l61_cb = iadd(l61_cb, 1)) {
+		iRec62_cb[l61_cb] = 0;
+	}
+	for (let l62_cb : Int = 0; (l62_cb < 2); l62_cb = iadd(l62_cb, 1)) {
+		iRec63_cb[l62_cb] = 0;
+	}
+	for (let l63_cb : Int = 0; (l63_cb < 2); l63_cb = iadd(l63_cb, 1)) {
+		fRec64_cb[l63_cb] = 0.0;
+	}
+	for (let l64_cb : Int = 0; (l64_cb < 2); l64_cb = iadd(l64_cb, 1)) {
+		fRec65_cb[l64_cb] = 0.0;
+	}
+	for (let l65_cb : Int = 0; (l65_cb < 2); l65_cb = iadd(l65_cb, 1)) {
+		fVec0_cb[l65_cb] = 0.0;
+	}
+	for (let l66_cb : Int = 0; (l66_cb < 2); l66_cb = iadd(l66_cb, 1)) {
+		fRec0_cb[l66_cb] = 0.0;
+	}
+	fSampleRate_cb = samplerate();
+	fConst0_cb = min(1.92e+05, max(1.0, fSampleRate_cb));
+	fConst1_cb = (0.001 * fConst0_cb);
+}
+// Control
+function control() {
+	fSlow0_cb = (0.125 * fHslider0_cb);
+	fSlow1_cb = fHslider1_cb;
+	fSlow2_cb = fHslider2_cb;
+	fSlow3_cb = (1.0 / (fSlow1_cb - fSlow2_cb));
+	fSlow4_cb = fHslider3_cb;
+	fSlow5_cb = max(0.1, (1.0 - (0.7775910066120559 * fSlow4_cb)));
+	fSlow6_cb = fHslider4_cb;
+	fSlow7_cb = fHslider5_cb;
+	fSlow8_cb = max(2.0, (fConst1_cb * max(0.1, (fSlow6_cb * ((0.3497761604230618 * fSlow7_cb) + 1.0)))));
+	fSlow9_cb = (1.0 / fSlow8_cb);
+	fSlow10_cb = (1.0 - fSlow9_cb);
+	fSlow11_cb = fHslider6_cb;
+	fSlow12_cb = fHslider7_cb;
+	fSlow13_cb = max(2.0, (fConst1_cb * fHslider8_cb));
+	fSlow14_cb = max(1.0, (fConst1_cb * fHslider9_cb));
+	fSlow15_cb = (fSlow13_cb + fSlow14_cb);
+	fSlow16_cb = (fSlow5_cb / (fSlow8_cb * (1.0 - pow(fSlow10_cb, max(1.0, ((fConst0_cb / max(1.0, (fSlow11_cb * ((0.046876055456777976 * fSlow12_cb) + 1.0)))) - fSlow15_cb))))));
+	fSlow17_cb = fHslider10_cb;
+	fSlow18_cb = max(1.0, (fHslider11_cb * fSlow13_cb));
+	fSlow19_cb = max(1.0, (fSlow13_cb - fSlow18_cb));
+	fSlow20_cb = (0.3 * fSlow2_cb);
+	fSlow21_cb = max(0.1, ((0.1751277553048567 * fSlow4_cb) + 1.0));
+	fSlow22_cb = max(2.0, (fConst1_cb * max(0.1, (fSlow6_cb * ((0.9247592225874541 * fSlow7_cb) + 1.0)))));
+	fSlow23_cb = (1.0 / fSlow22_cb);
+	fSlow24_cb = (1.0 - fSlow23_cb);
+	fSlow25_cb = (fSlow21_cb / (fSlow22_cb * (1.0 - pow(fSlow24_cb, max(1.0, ((fConst0_cb / max(1.0, (fSlow11_cb * ((0.6981274332647445 * fSlow12_cb) + 1.0)))) - fSlow15_cb))))));
+	fSlow26_cb = ((fSlow1_cb - fSlow21_cb) / fSlow18_cb);
+	fSlow27_cb = ((fSlow2_cb - fSlow1_cb) / fSlow19_cb);
+	fSlow28_cb = fHslider12_cb;
+	fSlow29_cb = (2.0 * (fSlow28_cb * sqrt(fSlow23_cb)));
+	fSlow30_cb = (1.0 - fSlow29_cb);
+	fSlow31_cb = max(0.1, ((0.5307756866968703 * fSlow4_cb) + 1.0));
+	fSlow32_cb = max(2.0, (fConst1_cb * max(0.1, (fSlow6_cb * ((0.1532045522981207 * fSlow7_cb) + 1.0)))));
+	fSlow33_cb = (1.0 / fSlow32_cb);
+	fSlow34_cb = (1.0 - fSlow33_cb);
+	fSlow35_cb = (fSlow31_cb / (fSlow32_cb * (1.0 - pow(fSlow34_cb, max(1.0, ((fConst0_cb / max(1.0, (fSlow11_cb * (1.0 - (0.9602098046016181 * fSlow12_cb))))) - fSlow15_cb))))));
+	fSlow36_cb = max(0.1, ((0.5742431451253651 * fSlow4_cb) + 1.0));
+	fSlow37_cb = max(2.0, (fConst1_cb * max(0.1, (fSlow6_cb * ((0.26645586310041836 * fSlow7_cb) + 1.0)))));
+	fSlow38_cb = (1.0 / fSlow37_cb);
+	fSlow39_cb = (1.0 - fSlow38_cb);
+	fSlow40_cb = (fSlow36_cb / (fSlow37_cb * (1.0 - pow(fSlow39_cb, max(1.0, ((fConst0_cb / max(1.0, (fSlow11_cb * ((0.2222354610566981 * fSlow12_cb) + 1.0)))) - fSlow15_cb))))));
+	fSlow41_cb = ((fSlow1_cb - fSlow36_cb) / fSlow18_cb);
+	fSlow42_cb = (2.0 * (fSlow28_cb * sqrt(fSlow38_cb)));
+	fSlow43_cb = (1.0 - fSlow42_cb);
+	fSlow44_cb = ((fSlow1_cb - fSlow5_cb) / fSlow18_cb);
+	fSlow45_cb = (2.0 * (fSlow28_cb * sqrt(fSlow9_cb)));
+	fSlow46_cb = (1.0 - fSlow45_cb);
+	fSlow47_cb = max(0.1, (1.0 - (0.18057691706781043 * fSlow4_cb)));
+	fSlow48_cb = max(2.0, (fConst1_cb * max(0.1, (fSlow6_cb * ((0.5185075390763814 * fSlow7_cb) + 1.0)))));
+	fSlow49_cb = (1.0 / fSlow48_cb);
+	fSlow50_cb = (1.0 - fSlow49_cb);
+	fSlow51_cb = (fSlow47_cb / (fSlow48_cb * (1.0 - pow(fSlow50_cb, max(1.0, ((fConst0_cb / max(1.0, (fSlow11_cb * ((0.5056845500948839 * fSlow12_cb) + 1.0)))) - fSlow15_cb))))));
+	fSlow52_cb = ((fSlow1_cb - fSlow47_cb) / fSlow18_cb);
+	fSlow53_cb = (2.0 * (fSlow28_cb * sqrt(fSlow49_cb)));
+	fSlow54_cb = (1.0 - fSlow53_cb);
+	fSlow55_cb = max(2.0, (fConst1_cb * max(0.1, (fSlow6_cb * ((0.29903219675907167 * fSlow7_cb) + 1.0)))));
+	fSlow56_cb = (1.0 / fSlow55_cb);
+	fSlow57_cb = (2.0 * (fSlow28_cb * sqrt(fSlow56_cb)));
+	fSlow58_cb = max(0.1, (1.0 - (0.1708885447733337 * fSlow4_cb)));
+	fSlow59_cb = (1.0 - fSlow56_cb);
+	fSlow60_cb = (fSlow58_cb / (fSlow55_cb * (1.0 - pow(fSlow59_cb, max(1.0, ((fConst0_cb / max(1.0, (fSlow11_cb * ((0.6468974213057663 * fSlow12_cb) + 1.0)))) - fSlow15_cb))))));
+	fSlow61_cb = max(0.1, ((0.6865267588327697 * fSlow4_cb) + 1.0));
+	fSlow62_cb = max(2.0, (fConst1_cb * max(0.1, (fSlow6_cb * ((0.24002667964668944 * fSlow7_cb) + 1.0)))));
+	fSlow63_cb = (1.0 / fSlow62_cb);
+	fSlow64_cb = (1.0 - fSlow63_cb);
+	fSlow65_cb = (fSlow61_cb / (fSlow62_cb * (1.0 - pow(fSlow64_cb, max(1.0, ((fConst0_cb / max(1.0, (fSlow11_cb * (1.0 - (0.19735446757113095 * fSlow12_cb))))) - fSlow15_cb))))));
+	fSlow66_cb = ((fSlow1_cb - fSlow61_cb) / fSlow18_cb);
+	fSlow67_cb = (2.0 * (fSlow28_cb * sqrt(fSlow63_cb)));
+	fSlow68_cb = (1.0 - fSlow67_cb);
+	fSlow69_cb = max(0.1, ((0.8779826444515493 * fSlow4_cb) + 1.0));
+	fSlow70_cb = max(2.0, (fConst1_cb * max(0.1, (fSlow6_cb * (1.0 - (0.8650256390828872 * fSlow7_cb))))));
+	fSlow71_cb = (1.0 / fSlow70_cb);
+	fSlow72_cb = (1.0 - fSlow71_cb);
+	fSlow73_cb = (fSlow69_cb / (fSlow70_cb * (1.0 - pow(fSlow72_cb, max(1.0, ((fConst0_cb / max(1.0, (fSlow11_cb * ((0.007511781048378907 * fSlow12_cb) + 1.0)))) - fSlow15_cb))))));
+	fSlow74_cb = max(0.1, (1.0 - (0.900684252177598 * fSlow4_cb)));
+	fSlow75_cb = max(2.0, (fConst1_cb * max(0.1, (fSlow6_cb * (1.0 - (0.2898528565419838 * fSlow7_cb))))));
+	fSlow76_cb = (1.0 / fSlow75_cb);
+	fSlow77_cb = (1.0 - fSlow76_cb);
+	fSlow78_cb = (fSlow74_cb / (fSlow75_cb * (1.0 - pow(fSlow77_cb, max(1.0, ((fConst0_cb / max(1.0, (fSlow11_cb * ((0.48016964809903584 * fSlow12_cb) + 1.0)))) - fSlow15_cb))))));
+	fSlow79_cb = ((fSlow1_cb - fSlow74_cb) / fSlow18_cb);
+	fSlow80_cb = (2.0 * (fSlow28_cb * sqrt(fSlow76_cb)));
+	fSlow81_cb = (1.0 - fSlow80_cb);
+	fSlow82_cb = max(2.0, (fConst1_cb * max(0.1, (fSlow6_cb * ((0.8292813437583391 * fSlow7_cb) + 1.0)))));
+	fSlow83_cb = (1.0 / fSlow82_cb);
+	fSlow84_cb = (2.0 * (fSlow28_cb * sqrt(fSlow83_cb)));
+	fSlow85_cb = max(0.1, (1.0 - (0.22296162477869075 * fSlow4_cb)));
+	fSlow86_cb = (1.0 - fSlow83_cb);
+	fSlow87_cb = (fSlow85_cb / (fSlow82_cb * (1.0 - pow(fSlow86_cb, max(1.0, ((fConst0_cb / max(1.0, (fSlow11_cb * (1.0 - (0.3183935689194186 * fSlow12_cb))))) - fSlow15_cb))))));
+	fSlow88_cb = max(0.1, ((0.0871942579797178 * fSlow4_cb) + 1.0));
+	fSlow89_cb = max(2.0, (fConst1_cb * max(0.1, (fSlow6_cb * ((0.8194823015692236 * fSlow7_cb) + 1.0)))));
+	fSlow90_cb = (1.0 / fSlow89_cb);
+	fSlow91_cb = (1.0 - fSlow90_cb);
+	fSlow92_cb = (fSlow88_cb / (fSlow89_cb * (1.0 - pow(fSlow91_cb, max(1.0, ((fConst0_cb / max(1.0, (fSlow11_cb * (1.0 - (0.4551985256548505 * fSlow12_cb))))) - fSlow15_cb))))));
+	fSlow93_cb = max(0.1, ((0.9706682445903425 * fSlow4_cb) + 1.0));
+	fSlow94_cb = max(2.0, (fConst1_cb * max(0.1, (fSlow6_cb * ((0.08288436220527728 * fSlow7_cb) + 1.0)))));
+	fSlow95_cb = (1.0 / fSlow94_cb);
+	fSlow96_cb = (1.0 - fSlow95_cb);
+	fSlow97_cb = (fSlow93_cb / (fSlow94_cb * (1.0 - pow(fSlow96_cb, max(1.0, ((fConst0_cb / max(1.0, (fSlow11_cb * ((0.18467930433689617 * fSlow12_cb) + 1.0)))) - fSlow15_cb))))));
+	fSlow98_cb = ((fSlow1_cb - fSlow93_cb) / fSlow18_cb);
+	fSlow99_cb = (2.0 * (fSlow28_cb * sqrt(fSlow95_cb)));
+	fSlow100_cb = (1.0 - fSlow99_cb);
+	fSlow101_cb = max(0.1, (1.0 - (0.8623091965710046 * fSlow4_cb)));
+	fSlow102_cb = max(2.0, (fConst1_cb * max(0.1, (fSlow6_cb * (1.0 - (0.9231083298509475 * fSlow7_cb))))));
+	fSlow103_cb = (1.0 / fSlow102_cb);
+	fSlow104_cb = (1.0 - fSlow103_cb);
+	fSlow105_cb = (fSlow101_cb / (fSlow102_cb * (1.0 - pow(fSlow104_cb, max(1.0, ((fConst0_cb / max(1.0, (fSlow11_cb * (1.0 - (0.6341672961461882 * fSlow12_cb))))) - fSlow15_cb))))));
+	fSlow106_cb = (2.0 * (fSlow28_cb * sqrt(fSlow90_cb)));
+	fSlow107_cb = max(0.1, (1.0 - (0.4924461347400211 * fSlow4_cb)));
+	fSlow108_cb = max(2.0, (fConst1_cb * max(0.1, (fSlow6_cb * ((0.7622430611008895 * fSlow7_cb) + 1.0)))));
+	fSlow109_cb = (1.0 / fSlow108_cb);
+	fSlow110_cb = (1.0 - fSlow109_cb);
+	fSlow111_cb = (fSlow107_cb / (fSlow108_cb * (1.0 - pow(fSlow110_cb, max(1.0, ((fConst0_cb / max(1.0, (fSlow11_cb * ((0.12879025504662422 * fSlow12_cb) + 1.0)))) - fSlow15_cb))))));
+	fSlow112_cb = (2.0 * (fSlow28_cb * sqrt(fSlow33_cb)));
+	fSlow113_cb = max(0.1, ((0.6427723696833709 * fSlow4_cb) + 1.0));
+	fSlow114_cb = max(2.0, (fConst1_cb * max(0.1, (fSlow6_cb * ((0.8802460486476775 * fSlow7_cb) + 1.0)))));
+	fSlow115_cb = (1.0 / fSlow114_cb);
+	fSlow116_cb = (1.0 - fSlow115_cb);
+	fSlow117_cb = (fSlow113_cb / (fSlow114_cb * (1.0 - pow(fSlow116_cb, max(1.0, ((fConst0_cb / max(1.0, (fSlow11_cb * ((0.043554077525186585 * fSlow12_cb) + 1.0)))) - fSlow15_cb))))));
+	fSlow118_cb = max(0.1, ((0.08258007627591724 * fSlow4_cb) + 1.0));
+	fSlow119_cb = max(2.0, (fConst1_cb * max(0.1, (fSlow6_cb * (1.0 - (0.6136157136861584 * fSlow7_cb))))));
+	fSlow120_cb = (1.0 / fSlow119_cb);
+	fSlow121_cb = (1.0 - fSlow120_cb);
+	fSlow122_cb = (fSlow118_cb / (fSlow119_cb * (1.0 - pow(fSlow121_cb, max(1.0, ((fConst0_cb / max(1.0, (fSlow11_cb * (1.0 - (0.09050147856760304 * fSlow12_cb))))) - fSlow15_cb))))));
+	fSlow123_cb = ((fSlow1_cb - fSlow118_cb) / fSlow18_cb);
+	fSlow124_cb = (2.0 * (fSlow28_cb * sqrt(fSlow120_cb)));
+	fSlow125_cb = (1.0 - fSlow124_cb);
+	fSlow126_cb = ((fSlow1_cb - fSlow107_cb) / fSlow18_cb);
+	fSlow127_cb = (2.0 * (fSlow28_cb * sqrt(fSlow109_cb)));
+	fSlow128_cb = (1.0 - fSlow127_cb);
+	fSlow129_cb = (2.0 * (fSlow28_cb * sqrt(fSlow71_cb)));
+	fSlow130_cb = ((fSlow1_cb - fSlow88_cb) / fSlow18_cb);
+	fSlow131_cb = (1.0 - fSlow106_cb);
+	fSlow132_cb = ((fSlow1_cb - fSlow113_cb) / fSlow18_cb);
+	fSlow133_cb = (2.0 * (fSlow28_cb * sqrt(fSlow115_cb)));
+	fSlow134_cb = (1.0 - fSlow133_cb);
+	fSlow135_cb = ((fSlow1_cb - fSlow58_cb) / fSlow18_cb);
+	fSlow136_cb = (1.0 - fSlow57_cb);
+	fSlow137_cb = ((fSlow1_cb - fSlow101_cb) / fSlow18_cb);
+	fSlow138_cb = (2.0 * (fSlow28_cb * sqrt(fSlow103_cb)));
+	fSlow139_cb = (1.0 - fSlow138_cb);
+	fSlow140_cb = ((fSlow1_cb - fSlow31_cb) / fSlow18_cb);
+	fSlow141_cb = (1.0 - fSlow112_cb);
+	fSlow142_cb = ((fSlow1_cb - fSlow69_cb) / fSlow18_cb);
+	fSlow143_cb = (1.0 - fSlow129_cb);
+	fSlow144_cb = ((fSlow1_cb - fSlow85_cb) / fSlow18_cb);
+	fSlow145_cb = (1.0 - fSlow84_cb);
+}
+// Update parameters
+function update(frequency_Hz,leak_tau_ms,spike_ms,rise_fraction,spike_peak,hyperpolarization,recovery_damping,refractory_ms,K_coupling,rate_spread,leak_spread,threshold_spread,gain) {
+	fUpdated = int(fUpdated) | (frequency_Hz != fHslider6_cb); fHslider6_cb = frequency_Hz;
+	fUpdated = int(fUpdated) | (leak_tau_ms != fHslider4_cb); fHslider4_cb = leak_tau_ms;
+	fUpdated = int(fUpdated) | (spike_ms != fHslider8_cb); fHslider8_cb = spike_ms;
+	fUpdated = int(fUpdated) | (rise_fraction != fHslider11_cb); fHslider11_cb = rise_fraction;
+	fUpdated = int(fUpdated) | (spike_peak != fHslider1_cb); fHslider1_cb = spike_peak;
+	fUpdated = int(fUpdated) | (hyperpolarization != fHslider2_cb); fHslider2_cb = hyperpolarization;
+	fUpdated = int(fUpdated) | (recovery_damping != fHslider12_cb); fHslider12_cb = recovery_damping;
+	fUpdated = int(fUpdated) | (refractory_ms != fHslider9_cb); fHslider9_cb = refractory_ms;
+	fUpdated = int(fUpdated) | (K_coupling != fHslider10_cb); fHslider10_cb = K_coupling;
+	fUpdated = int(fUpdated) | (rate_spread != fHslider7_cb); fHslider7_cb = rate_spread;
+	fUpdated = int(fUpdated) | (leak_spread != fHslider5_cb); fHslider5_cb = leak_spread;
+	fUpdated = int(fUpdated) | (threshold_spread != fHslider3_cb); fHslider3_cb = threshold_spread;
+	fUpdated = int(fUpdated) | (gain != fHslider0_cb); fHslider0_cb = gain;
+	if (fUpdated) { fUpdated = false; control(); }
+}
+// Compute one frame
+function compute() {
+	let output0_cb : number = 0;
+	let iTemp0_cb : Int = (iRec1_cb[1] >= 2);
+	let iTemp1_cb : Int = (iRec1_cb[1] == 1);
+	let fTemp2_cb : number = (fSlow10_cb * fRec7_cb[1]);
+	let fTemp3_cb : number = (fSlow17_cb * fRec65_cb[1]);
+	let fTemp4_cb : number = (fSlow16_cb + (fTemp2_cb + fTemp3_cb));
+	let iTemp5_cb : Int = (fTemp4_cb >= fSlow5_cb);
+	let iTemp6_cb : Int = iadd(1, iRec42_cb[1]);
+	let fTemp7_cb : number = iTemp6_cb;
+	let iTemp8_cb : Int = (iRec1_cb[1] == 3);
+	let iTemp9_cb : Int = ((iTemp0_cb) ? ((iTemp8_cb) ? ((((fTemp7_cb >= fSlow14_cb) & (fRec7_cb[1] > fSlow20_cb))) ? 0 : 3) : (((fTemp7_cb >= fSlow19_cb)) ? 3 : 2)) : ((iTemp1_cb) ? (((fTemp7_cb >= fSlow18_cb)) ? 2 : 1) : ((iTemp5_cb) ? 1 : 0)));
+	iRec1_cb[0] = iTemp9_cb;
+	let iTemp10_cb : Int = (iRec2_cb[1] >= 2);
+	let iTemp11_cb : Int = (iRec2_cb[1] == 1);
+	let fTemp12_cb : number = (fSlow24_cb * fRec3_cb[1]);
+	let fTemp13_cb : number = (fSlow25_cb + (fTemp3_cb + fTemp12_cb));
+	let iTemp14_cb : Int = (fTemp13_cb >= fSlow21_cb);
+	let iTemp15_cb : Int = iadd(1, iRec55_cb[1]);
+	let fTemp16_cb : number = iTemp15_cb;
+	let iTemp17_cb : Int = (iRec2_cb[1] == 3);
+	let iTemp18_cb : Int = ((iTemp10_cb) ? ((iTemp17_cb) ? ((((fTemp16_cb >= fSlow14_cb) & (fRec3_cb[1] > fSlow20_cb))) ? 0 : 3) : (((fTemp16_cb >= fSlow19_cb)) ? 3 : 2)) : ((iTemp11_cb) ? (((fTemp16_cb >= fSlow18_cb)) ? 2 : 1) : ((iTemp14_cb) ? 1 : 0)));
+	iRec2_cb[0] = iTemp18_cb;
+	fRec3_cb[0] = ((iTemp10_cb) ? ((iTemp17_cb) ? (fTemp12_cb + (fSlow30_cb * fRec30_cb[1])) : (fSlow27_cb + fRec3_cb[1])) : ((iTemp11_cb) ? (fSlow26_cb + fRec3_cb[1]) : ((iTemp14_cb) ? fSlow21_cb : fTemp13_cb)));
+	let iTemp19_cb : Int = (iRec4_cb[1] >= 2);
+	let iTemp20_cb : Int = (iRec4_cb[1] == 1);
+	let fTemp21_cb : number = (fSlow34_cb * fRec46_cb[1]);
+	let fTemp22_cb : number = (fSlow35_cb + (fTemp3_cb + fTemp21_cb));
+	let iTemp23_cb : Int = (fTemp22_cb >= fSlow31_cb);
+	let iTemp24_cb : Int = iadd(1, iRec18_cb[1]);
+	let fTemp25_cb : number = iTemp24_cb;
+	let iTemp26_cb : Int = (iRec4_cb[1] == 3);
+	let iTemp27_cb : Int = ((iTemp19_cb) ? ((iTemp26_cb) ? ((((fTemp25_cb >= fSlow14_cb) & (fRec46_cb[1] > fSlow20_cb))) ? 0 : 3) : (((fTemp25_cb >= fSlow19_cb)) ? 3 : 2)) : ((iTemp20_cb) ? (((fTemp25_cb >= fSlow18_cb)) ? 2 : 1) : ((iTemp23_cb) ? 1 : 0)));
+	iRec4_cb[0] = iTemp27_cb;
+	let iTemp28_cb : Int = (iRec6_cb[1] >= 2);
+	let iTemp29_cb : Int = (iRec6_cb[1] == 1);
+	let fTemp30_cb : number = (fSlow39_cb * fRec5_cb[1]);
+	let fTemp31_cb : number = (fSlow40_cb + (fTemp3_cb + fTemp30_cb));
+	let iTemp32_cb : Int = (fTemp31_cb >= fSlow36_cb);
+	let iTemp33_cb : Int = (iRec6_cb[1] == 3);
+	fRec5_cb[0] = ((iTemp28_cb) ? ((iTemp33_cb) ? (fTemp30_cb + (fSlow43_cb * fRec40_cb[1])) : (fSlow27_cb + fRec5_cb[1])) : ((iTemp29_cb) ? (fSlow41_cb + fRec5_cb[1]) : ((iTemp32_cb) ? fSlow36_cb : fTemp31_cb)));
+	let iTemp34_cb : Int = iadd(1, iRec21_cb[1]);
+	let fTemp35_cb : number = iTemp34_cb;
+	let iTemp36_cb : Int = ((iTemp28_cb) ? ((iTemp33_cb) ? ((((fTemp35_cb >= fSlow14_cb) & (fRec5_cb[1] > fSlow20_cb))) ? 0 : 3) : (((fTemp35_cb >= fSlow19_cb)) ? 3 : 2)) : ((iTemp29_cb) ? (((fTemp35_cb >= fSlow18_cb)) ? 2 : 1) : ((iTemp32_cb) ? 1 : 0)));
+	iRec6_cb[0] = iTemp36_cb;
+	fRec7_cb[0] = ((iTemp0_cb) ? ((iTemp8_cb) ? (fTemp2_cb + (fSlow46_cb * fRec53_cb[1])) : (fSlow27_cb + fRec7_cb[1])) : ((iTemp1_cb) ? (fSlow44_cb + fRec7_cb[1]) : ((iTemp5_cb) ? fSlow5_cb : fTemp4_cb)));
+	let iTemp37_cb : Int = (iRec35_cb[1] >= 2);
+	let iTemp38_cb : Int = (iRec35_cb[1] == 1);
+	let fTemp39_cb : number = (fSlow50_cb * fRec8_cb[1]);
+	let fTemp40_cb : number = (fSlow51_cb + (fTemp3_cb + fTemp39_cb));
+	let iTemp41_cb : Int = (fTemp40_cb >= fSlow47_cb);
+	let iTemp42_cb : Int = (iRec35_cb[1] == 3);
+	fRec8_cb[0] = ((iTemp37_cb) ? ((iTemp42_cb) ? (fTemp39_cb + (fSlow54_cb * fRec52_cb[1])) : (fSlow27_cb + fRec8_cb[1])) : ((iTemp38_cb) ? (fSlow52_cb + fRec8_cb[1]) : ((iTemp41_cb) ? fSlow47_cb : fTemp40_cb)));
+	let iTemp43_cb : Int = (iRec62_cb[1] == 3);
+	let iTemp44_cb : Int = (iRec62_cb[1] >= 2);
+	let iTemp45_cb : Int = (iRec62_cb[1] == 1);
+	let fTemp46_cb : number = (fSlow59_cb * fRec37_cb[1]);
+	let fTemp47_cb : number = (fSlow60_cb + (fTemp3_cb + fTemp46_cb));
+	let iTemp48_cb : Int = (fTemp47_cb >= fSlow58_cb);
+	let iTemp49_cb : Int = iadd(1, iRec19_cb[1]);
+	let fTemp50_cb : number = iTemp49_cb;
+	let iTemp51_cb : Int = ((iTemp44_cb) ? ((iTemp43_cb) ? ((((fTemp50_cb >= fSlow14_cb) & (fRec37_cb[1] > fSlow20_cb))) ? 0 : 3) : (((fTemp50_cb >= fSlow19_cb)) ? 3 : 2)) : ((iTemp45_cb) ? (((fTemp50_cb >= fSlow18_cb)) ? 2 : 1) : ((iTemp48_cb) ? 1 : 0)));
+	fRec9_cb[0] = (((iTemp43_cb) ? (fRec9_cb[1] - ((fSlow56_cb * fRec37_cb[1]) + (fSlow57_cb * fRec9_cb[1]))) : 0.0) * (iTemp51_cb == 3));
+	let iTemp52_cb : Int = (iRec12_cb[1] >= 2);
+	let iTemp53_cb : Int = (iRec12_cb[1] == 1);
+	let fTemp54_cb : number = (fSlow64_cb * fRec10_cb[1]);
+	let fTemp55_cb : number = (fSlow65_cb + (fTemp3_cb + fTemp54_cb));
+	let iTemp56_cb : Int = (fTemp55_cb >= fSlow61_cb);
+	let iTemp57_cb : Int = (iRec12_cb[1] == 3);
+	fRec10_cb[0] = ((iTemp52_cb) ? ((iTemp57_cb) ? (fTemp54_cb + (fSlow68_cb * fRec48_cb[1])) : (fSlow27_cb + fRec10_cb[1])) : ((iTemp53_cb) ? (fSlow66_cb + fRec10_cb[1]) : ((iTemp56_cb) ? fSlow61_cb : fTemp55_cb)));
+	let iTemp58_cb : Int = (iRec56_cb[1] >= 2);
+	let iTemp59_cb : Int = (iRec56_cb[1] == 1);
+	let fTemp60_cb : number = (fSlow72_cb * fRec50_cb[1]);
+	let fTemp61_cb : number = (fSlow73_cb + (fTemp3_cb + fTemp60_cb));
+	let iTemp62_cb : Int = (fTemp61_cb >= fSlow69_cb);
+	let iTemp63_cb : Int = iadd(1, iRec11_cb[1]);
+	let fTemp64_cb : number = iTemp63_cb;
+	let iTemp65_cb : Int = (iRec56_cb[1] == 3);
+	let iTemp66_cb : Int = ((iTemp58_cb) ? ((iTemp65_cb) ? ((((fTemp64_cb >= fSlow14_cb) & (fRec50_cb[1] > fSlow20_cb))) ? 0 : 3) : (((fTemp64_cb >= fSlow19_cb)) ? 3 : 2)) : ((iTemp59_cb) ? (((fTemp64_cb >= fSlow18_cb)) ? 2 : 1) : ((iTemp62_cb) ? 1 : 0)));
+	iRec11_cb[0] = (((iTemp66_cb != iRec56_cb[1])) ? 0 : iTemp63_cb);
+	let iTemp67_cb : Int = iadd(1, iRec17_cb[1]);
+	let fTemp68_cb : number = iTemp67_cb;
+	let iTemp69_cb : Int = ((iTemp52_cb) ? ((iTemp57_cb) ? ((((fTemp68_cb >= fSlow14_cb) & (fRec10_cb[1] > fSlow20_cb))) ? 0 : 3) : (((fTemp68_cb >= fSlow19_cb)) ? 3 : 2)) : ((iTemp53_cb) ? (((fTemp68_cb >= fSlow18_cb)) ? 2 : 1) : ((iTemp56_cb) ? 1 : 0)));
+	iRec12_cb[0] = iTemp69_cb;
+	let iTemp70_cb : Int = (iRec41_cb[1] >= 2);
+	let iTemp71_cb : Int = (iRec41_cb[1] == 1);
+	let fTemp72_cb : number = (fSlow77_cb * fRec13_cb[1]);
+	let fTemp73_cb : number = (fSlow78_cb + (fTemp3_cb + fTemp72_cb));
+	let iTemp74_cb : Int = (fTemp73_cb >= fSlow74_cb);
+	let iTemp75_cb : Int = (iRec41_cb[1] == 3);
+	fRec13_cb[0] = ((iTemp70_cb) ? ((iTemp75_cb) ? (fTemp72_cb + (fSlow81_cb * fRec27_cb[1])) : (fSlow27_cb + fRec13_cb[1])) : ((iTemp71_cb) ? (fSlow79_cb + fRec13_cb[1]) : ((iTemp74_cb) ? fSlow74_cb : fTemp73_cb)));
+	let iTemp76_cb : Int = (iRec39_cb[1] == 3);
+	let iTemp77_cb : Int = (iRec39_cb[1] >= 2);
+	let iTemp78_cb : Int = (iRec39_cb[1] == 1);
+	let fTemp79_cb : number = (fSlow86_cb * fRec51_cb[1]);
+	let fTemp80_cb : number = (fSlow87_cb + (fTemp3_cb + fTemp79_cb));
+	let iTemp81_cb : Int = (fTemp80_cb >= fSlow85_cb);
+	let iTemp82_cb : Int = iadd(1, iRec59_cb[1]);
+	let fTemp83_cb : number = iTemp82_cb;
+	let iTemp84_cb : Int = ((iTemp77_cb) ? ((iTemp76_cb) ? ((((fTemp83_cb >= fSlow14_cb) & (fRec51_cb[1] > fSlow20_cb))) ? 0 : 3) : (((fTemp83_cb >= fSlow19_cb)) ? 3 : 2)) : ((iTemp78_cb) ? (((fTemp83_cb >= fSlow18_cb)) ? 2 : 1) : ((iTemp81_cb) ? 1 : 0)));
+	fRec14_cb[0] = (((iTemp76_cb) ? (fRec14_cb[1] - ((fSlow83_cb * fRec51_cb[1]) + (fSlow84_cb * fRec14_cb[1]))) : 0.0) * (iTemp84_cb == 3));
+	let iTemp85_cb : Int = (iRec47_cb[1] >= 2);
+	let iTemp86_cb : Int = (iRec47_cb[1] == 1);
+	let fTemp87_cb : number = (fSlow91_cb * fRec34_cb[1]);
+	let fTemp88_cb : number = (fSlow92_cb + (fTemp3_cb + fTemp87_cb));
+	let iTemp89_cb : Int = (fTemp88_cb >= fSlow88_cb);
+	let iTemp90_cb : Int = iadd(1, iRec15_cb[1]);
+	let fTemp91_cb : number = iTemp90_cb;
+	let iTemp92_cb : Int = (iRec47_cb[1] == 3);
+	let iTemp93_cb : Int = ((iTemp85_cb) ? ((iTemp92_cb) ? ((((fTemp91_cb >= fSlow14_cb) & (fRec34_cb[1] > fSlow20_cb))) ? 0 : 3) : (((fTemp91_cb >= fSlow19_cb)) ? 3 : 2)) : ((iTemp86_cb) ? (((fTemp91_cb >= fSlow18_cb)) ? 2 : 1) : ((iTemp89_cb) ? 1 : 0)));
+	iRec15_cb[0] = (((iTemp93_cb != iRec47_cb[1])) ? 0 : iTemp90_cb);
+	let iTemp94_cb : Int = (iRec58_cb[1] >= 2);
+	let iTemp95_cb : Int = (iRec58_cb[1] == 1);
+	let fTemp96_cb : number = (fSlow96_cb * fRec16_cb[1]);
+	let fTemp97_cb : number = (fSlow97_cb + (fTemp3_cb + fTemp96_cb));
+	let iTemp98_cb : Int = (fTemp97_cb >= fSlow93_cb);
+	let iTemp99_cb : Int = (iRec58_cb[1] == 3);
+	fRec16_cb[0] = ((iTemp94_cb) ? ((iTemp99_cb) ? (fTemp96_cb + (fSlow100_cb * fRec60_cb[1])) : (fSlow27_cb + fRec16_cb[1])) : ((iTemp95_cb) ? (fSlow98_cb + fRec16_cb[1]) : ((iTemp98_cb) ? fSlow93_cb : fTemp97_cb)));
+	iRec17_cb[0] = (((iTemp69_cb != iRec12_cb[1])) ? 0 : iTemp67_cb);
+	iRec18_cb[0] = (((iTemp27_cb != iRec4_cb[1])) ? 0 : iTemp24_cb);
+	iRec19_cb[0] = (((iTemp51_cb != iRec62_cb[1])) ? 0 : iTemp49_cb);
+	let iTemp100_cb : Int = (iRec20_cb[1] >= 2);
+	let iTemp101_cb : Int = (iRec20_cb[1] == 1);
+	let fTemp102_cb : number = (fSlow104_cb * fRec38_cb[1]);
+	let fTemp103_cb : number = (fSlow105_cb + (fTemp3_cb + fTemp102_cb));
+	let iTemp104_cb : Int = (fTemp103_cb >= fSlow101_cb);
+	let iTemp105_cb : Int = iadd(1, iRec61_cb[1]);
+	let fTemp106_cb : number = iTemp105_cb;
+	let iTemp107_cb : Int = (iRec20_cb[1] == 3);
+	let iTemp108_cb : Int = ((iTemp100_cb) ? ((iTemp107_cb) ? ((((fTemp106_cb >= fSlow14_cb) & (fRec38_cb[1] > fSlow20_cb))) ? 0 : 3) : (((fTemp106_cb >= fSlow19_cb)) ? 3 : 2)) : ((iTemp101_cb) ? (((fTemp106_cb >= fSlow18_cb)) ? 2 : 1) : ((iTemp104_cb) ? 1 : 0)));
+	iRec20_cb[0] = iTemp108_cb;
+	iRec21_cb[0] = (((iTemp36_cb != iRec6_cb[1])) ? 0 : iTemp34_cb);
+	fRec22_cb[0] = (((iTemp92_cb) ? (fRec22_cb[1] - ((fSlow90_cb * fRec34_cb[1]) + (fSlow106_cb * fRec22_cb[1]))) : 0.0) * (iTemp93_cb == 3));
+	let iTemp109_cb : Int = (iRec23_cb[1] >= 2);
+	let iTemp110_cb : Int = (iRec23_cb[1] == 1);
+	let fTemp111_cb : number = (fSlow110_cb * fRec32_cb[1]);
+	let fTemp112_cb : number = (fSlow111_cb + (fTemp3_cb + fTemp111_cb));
+	let iTemp113_cb : Int = (fTemp112_cb >= fSlow107_cb);
+	let iTemp114_cb : Int = iadd(1, iRec57_cb[1]);
+	let fTemp115_cb : number = iTemp114_cb;
+	let iTemp116_cb : Int = (iRec23_cb[1] == 3);
+	let iTemp117_cb : Int = ((iTemp109_cb) ? ((iTemp116_cb) ? ((((fTemp115_cb >= fSlow14_cb) & (fRec32_cb[1] > fSlow20_cb))) ? 0 : 3) : (((fTemp115_cb >= fSlow19_cb)) ? 3 : 2)) : ((iTemp110_cb) ? (((fTemp115_cb >= fSlow18_cb)) ? 2 : 1) : ((iTemp113_cb) ? 1 : 0)));
+	iRec23_cb[0] = iTemp117_cb;
+	fRec24_cb[0] = (((iTemp26_cb) ? (fRec24_cb[1] - ((fSlow33_cb * fRec46_cb[1]) + (fSlow112_cb * fRec24_cb[1]))) : 0.0) * (iTemp27_cb == 3));
+	let iTemp118_cb : Int = (iRec25_cb[1] >= 2);
+	let iTemp119_cb : Int = (iRec25_cb[1] == 1);
+	let fTemp120_cb : number = (fSlow116_cb * fRec36_cb[1]);
+	let fTemp121_cb : number = (fSlow117_cb + (fTemp3_cb + fTemp120_cb));
+	let iTemp122_cb : Int = (fTemp121_cb >= fSlow113_cb);
+	let iTemp123_cb : Int = iadd(1, iRec63_cb[1]);
+	let fTemp124_cb : number = iTemp123_cb;
+	let iTemp125_cb : Int = (iRec25_cb[1] == 3);
+	let iTemp126_cb : Int = ((iTemp118_cb) ? ((iTemp125_cb) ? ((((fTemp124_cb >= fSlow14_cb) & (fRec36_cb[1] > fSlow20_cb))) ? 0 : 3) : (((fTemp124_cb >= fSlow19_cb)) ? 3 : 2)) : ((iTemp119_cb) ? (((fTemp124_cb >= fSlow18_cb)) ? 2 : 1) : ((iTemp122_cb) ? 1 : 0)));
+	iRec25_cb[0] = iTemp126_cb;
+	let iTemp127_cb : Int = (iRec29_cb[1] >= 2);
+	let iTemp128_cb : Int = (iRec29_cb[1] == 1);
+	let fTemp129_cb : number = (fSlow121_cb * fRec26_cb[1]);
+	let fTemp130_cb : number = (fSlow122_cb + (fTemp3_cb + fTemp129_cb));
+	let iTemp131_cb : Int = (fTemp130_cb >= fSlow118_cb);
+	let iTemp132_cb : Int = (iRec29_cb[1] == 3);
+	fRec26_cb[0] = ((iTemp127_cb) ? ((iTemp132_cb) ? (fTemp129_cb + (fSlow125_cb * fRec45_cb[1])) : (fSlow27_cb + fRec26_cb[1])) : ((iTemp128_cb) ? (fSlow123_cb + fRec26_cb[1]) : ((iTemp131_cb) ? fSlow118_cb : fTemp130_cb)));
+	let iTemp133_cb : Int = iadd(1, iRec28_cb[1]);
+	let fTemp134_cb : number = iTemp133_cb;
+	let iTemp135_cb : Int = ((iTemp70_cb) ? ((iTemp75_cb) ? ((((fTemp134_cb >= fSlow14_cb) & (fRec13_cb[1] > fSlow20_cb))) ? 0 : 3) : (((fTemp134_cb >= fSlow19_cb)) ? 3 : 2)) : ((iTemp71_cb) ? (((fTemp134_cb >= fSlow18_cb)) ? 2 : 1) : ((iTemp74_cb) ? 1 : 0)));
+	fRec27_cb[0] = (((iTemp75_cb) ? (fRec27_cb[1] - ((fSlow76_cb * fRec13_cb[1]) + (fSlow80_cb * fRec27_cb[1]))) : 0.0) * (iTemp135_cb == 3));
+	iRec28_cb[0] = (((iTemp135_cb != iRec41_cb[1])) ? 0 : iTemp133_cb);
+	let iTemp136_cb : Int = iadd(1, iRec49_cb[1]);
+	let fTemp137_cb : number = iTemp136_cb;
+	let iTemp138_cb : Int = ((iTemp127_cb) ? ((iTemp132_cb) ? ((((fTemp137_cb >= fSlow14_cb) & (fRec26_cb[1] > fSlow20_cb))) ? 0 : 3) : (((fTemp137_cb >= fSlow19_cb)) ? 3 : 2)) : ((iTemp128_cb) ? (((fTemp137_cb >= fSlow18_cb)) ? 2 : 1) : ((iTemp131_cb) ? 1 : 0)));
+	iRec29_cb[0] = iTemp138_cb;
+	fRec30_cb[0] = (((iTemp17_cb) ? (fRec30_cb[1] - ((fSlow23_cb * fRec3_cb[1]) + (fSlow29_cb * fRec30_cb[1]))) : 0.0) * (iTemp18_cb == 3));
+	let iTemp139_cb : Int = iadd(1, iRec31_cb[1]);
+	let fTemp140_cb : number = iTemp139_cb;
+	let iTemp141_cb : Int = ((iTemp37_cb) ? ((iTemp42_cb) ? ((((fTemp140_cb >= fSlow14_cb) & (fRec8_cb[1] > fSlow20_cb))) ? 0 : 3) : (((fTemp140_cb >= fSlow19_cb)) ? 3 : 2)) : ((iTemp38_cb) ? (((fTemp140_cb >= fSlow18_cb)) ? 2 : 1) : ((iTemp41_cb) ? 1 : 0)));
+	iRec31_cb[0] = (((iTemp141_cb != iRec35_cb[1])) ? 0 : iTemp139_cb);
+	fRec32_cb[0] = ((iTemp109_cb) ? ((iTemp116_cb) ? (fTemp111_cb + (fSlow128_cb * fRec54_cb[1])) : (fSlow27_cb + fRec32_cb[1])) : ((iTemp110_cb) ? (fSlow126_cb + fRec32_cb[1]) : ((iTemp113_cb) ? fSlow107_cb : fTemp112_cb)));
+	fRec33_cb[0] = (((iTemp65_cb) ? (fRec33_cb[1] - ((fSlow71_cb * fRec50_cb[1]) + (fSlow129_cb * fRec33_cb[1]))) : 0.0) * (iTemp66_cb == 3));
+	fRec34_cb[0] = ((iTemp85_cb) ? ((iTemp92_cb) ? (fTemp87_cb + (fSlow131_cb * fRec22_cb[1])) : (fSlow27_cb + fRec34_cb[1])) : ((iTemp86_cb) ? (fSlow130_cb + fRec34_cb[1]) : ((iTemp89_cb) ? fSlow88_cb : fTemp88_cb)));
+	iRec35_cb[0] = iTemp141_cb;
+	fRec36_cb[0] = ((iTemp118_cb) ? ((iTemp125_cb) ? (fTemp120_cb + (fSlow134_cb * fRec43_cb[1])) : (fSlow27_cb + fRec36_cb[1])) : ((iTemp119_cb) ? (fSlow132_cb + fRec36_cb[1]) : ((iTemp122_cb) ? fSlow113_cb : fTemp121_cb)));
+	fRec37_cb[0] = ((iTemp44_cb) ? ((iTemp43_cb) ? ((fSlow136_cb * fRec9_cb[1]) + fTemp46_cb) : (fSlow27_cb + fRec37_cb[1])) : ((iTemp45_cb) ? (fSlow135_cb + fRec37_cb[1]) : ((iTemp48_cb) ? fSlow58_cb : fTemp47_cb)));
+	fRec38_cb[0] = ((iTemp100_cb) ? ((iTemp107_cb) ? (fTemp102_cb + (fSlow139_cb * fRec64_cb[1])) : (fSlow27_cb + fRec38_cb[1])) : ((iTemp101_cb) ? (fSlow137_cb + fRec38_cb[1]) : ((iTemp104_cb) ? fSlow101_cb : fTemp103_cb)));
+	iRec39_cb[0] = iTemp84_cb;
+	fRec40_cb[0] = (((iTemp33_cb) ? (fRec40_cb[1] - ((fSlow38_cb * fRec5_cb[1]) + (fSlow42_cb * fRec40_cb[1]))) : 0.0) * (iTemp36_cb == 3));
+	iRec41_cb[0] = iTemp135_cb;
+	iRec42_cb[0] = (((iTemp9_cb != iRec1_cb[1])) ? 0 : iTemp6_cb);
+	fRec43_cb[0] = (((iTemp125_cb) ? (fRec43_cb[1] - ((fSlow115_cb * fRec36_cb[1]) + (fSlow133_cb * fRec43_cb[1]))) : 0.0) * (iTemp126_cb == 3));
+	let iTemp142_cb : Int = iadd(1, iRec44_cb[1]);
+	let fTemp143_cb : number = iTemp142_cb;
+	let iTemp144_cb : Int = ((iTemp94_cb) ? ((iTemp99_cb) ? ((((fTemp143_cb >= fSlow14_cb) & (fRec16_cb[1] > fSlow20_cb))) ? 0 : 3) : (((fTemp143_cb >= fSlow19_cb)) ? 3 : 2)) : ((iTemp95_cb) ? (((fTemp143_cb >= fSlow18_cb)) ? 2 : 1) : ((iTemp98_cb) ? 1 : 0)));
+	iRec44_cb[0] = (((iTemp144_cb != iRec58_cb[1])) ? 0 : iTemp142_cb);
+	fRec45_cb[0] = (((iTemp132_cb) ? (fRec45_cb[1] - ((fSlow120_cb * fRec26_cb[1]) + (fSlow124_cb * fRec45_cb[1]))) : 0.0) * (iTemp138_cb == 3));
+	fRec46_cb[0] = ((iTemp19_cb) ? ((iTemp26_cb) ? (fTemp21_cb + (fSlow141_cb * fRec24_cb[1])) : (fSlow27_cb + fRec46_cb[1])) : ((iTemp20_cb) ? (fSlow140_cb + fRec46_cb[1]) : ((iTemp23_cb) ? fSlow31_cb : fTemp22_cb)));
+	iRec47_cb[0] = iTemp93_cb;
+	fRec48_cb[0] = (((iTemp57_cb) ? (fRec48_cb[1] - ((fSlow63_cb * fRec10_cb[1]) + (fSlow67_cb * fRec48_cb[1]))) : 0.0) * (iTemp69_cb == 3));
+	iRec49_cb[0] = (((iTemp138_cb != iRec29_cb[1])) ? 0 : iTemp136_cb);
+	fRec50_cb[0] = ((iTemp58_cb) ? ((iTemp65_cb) ? (fTemp60_cb + (fSlow143_cb * fRec33_cb[1])) : (fSlow27_cb + fRec50_cb[1])) : ((iTemp59_cb) ? (fSlow142_cb + fRec50_cb[1]) : ((iTemp62_cb) ? fSlow69_cb : fTemp61_cb)));
+	fRec51_cb[0] = ((iTemp77_cb) ? ((iTemp76_cb) ? ((fSlow145_cb * fRec14_cb[1]) + fTemp79_cb) : (fSlow27_cb + fRec51_cb[1])) : ((iTemp78_cb) ? (fSlow144_cb + fRec51_cb[1]) : ((iTemp81_cb) ? fSlow85_cb : fTemp80_cb)));
+	fRec52_cb[0] = (((iTemp42_cb) ? (fRec52_cb[1] - ((fSlow49_cb * fRec8_cb[1]) + (fSlow53_cb * fRec52_cb[1]))) : 0.0) * (iTemp141_cb == 3));
+	fRec53_cb[0] = (((iTemp8_cb) ? (fRec53_cb[1] - ((fSlow9_cb * fRec7_cb[1]) + (fSlow45_cb * fRec53_cb[1]))) : 0.0) * (iTemp9_cb == 3));
+	fRec54_cb[0] = (((iTemp116_cb) ? (fRec54_cb[1] - ((fSlow109_cb * fRec32_cb[1]) + (fSlow127_cb * fRec54_cb[1]))) : 0.0) * (iTemp117_cb == 3));
+	iRec55_cb[0] = (((iTemp18_cb != iRec2_cb[1])) ? 0 : iTemp15_cb);
+	iRec56_cb[0] = iTemp66_cb;
+	iRec57_cb[0] = (((iTemp117_cb != iRec23_cb[1])) ? 0 : iTemp114_cb);
+	iRec58_cb[0] = iTemp144_cb;
+	iRec59_cb[0] = (((iTemp84_cb != iRec39_cb[1])) ? 0 : iTemp82_cb);
+	fRec60_cb[0] = (((iTemp99_cb) ? (fRec60_cb[1] - ((fSlow95_cb * fRec16_cb[1]) + (fSlow99_cb * fRec60_cb[1]))) : 0.0) * (iTemp144_cb == 3));
+	iRec61_cb[0] = (((iTemp108_cb != iRec20_cb[1])) ? 0 : iTemp105_cb);
+	iRec62_cb[0] = iTemp51_cb;
+	iRec63_cb[0] = (((iTemp126_cb != iRec25_cb[1])) ? 0 : iTemp123_cb);
+	fRec64_cb[0] = (((iTemp107_cb) ? (fRec64_cb[1] - ((fSlow103_cb * fRec38_cb[1]) + (fSlow138_cb * fRec64_cb[1]))) : 0.0) * (iTemp108_cb == 3));
+	fRec65_cb[0] = (0.0625 * ((((((((((((((((iRec20_cb[0] == 1) + (iRec41_cb[0] == 1)) + (iRec23_cb[0] == 1)) + (iRec29_cb[0] == 1)) + (iRec47_cb[0] == 1)) + (iRec62_cb[0] == 1)) + (iRec35_cb[0] == 1)) + (iRec56_cb[0] == 1)) + (iRec1_cb[0] == 1)) + (iRec25_cb[0] == 1)) + (iRec4_cb[0] == 1)) + (iRec58_cb[0] == 1)) + (iRec6_cb[0] == 1)) + (iRec12_cb[0] == 1)) + (iRec2_cb[0] == 1)) + (iRec39_cb[0] == 1)));
+	let fTemp145_cb : number = (fSlow0_cb * ((1.0 - (fSlow3_cb * (fRec51_cb[0] - fSlow2_cb))) + (((1.0 - (fSlow3_cb * (fRec10_cb[0] - fSlow2_cb))) + (((1.0 - (fSlow3_cb * (fRec16_cb[0] - fSlow2_cb))) + (((1.0 - (fSlow3_cb * (fRec36_cb[0] - fSlow2_cb))) + (((1.0 - (fSlow3_cb * (fRec50_cb[0] - fSlow2_cb))) + (((1.0 - (fSlow3_cb * (fRec37_cb[0] - fSlow2_cb))) + (((1.0 - (fSlow3_cb * (fRec26_cb[0] - fSlow2_cb))) + ((1.0 - (fSlow3_cb * ((fRec38_cb[0] - fSlow2_cb) + (fRec13_cb[0] - fSlow2_cb)))) - (fSlow3_cb * (fRec32_cb[0] - fSlow2_cb)))) - (fSlow3_cb * (fRec34_cb[0] - fSlow2_cb)))) - (fSlow3_cb * (fRec8_cb[0] - fSlow2_cb)))) - (fSlow3_cb * (fRec7_cb[0] - fSlow2_cb)))) - (fSlow3_cb * (fRec46_cb[0] - fSlow2_cb)))) - (fSlow3_cb * (fRec5_cb[0] - fSlow2_cb)))) - (fSlow3_cb * (fRec3_cb[0] - fSlow2_cb)))));
+	fVec0_cb[0] = fTemp145_cb;
+	fRec0_cb[0] = (((0.995 * fRec0_cb[1]) + fVec0_cb[1]) - fTemp145_cb);
+	output0_cb = fRec0_cb[0];
+	iRec1_cb[1] = iRec1_cb[0];
+	iRec2_cb[1] = iRec2_cb[0];
+	fRec3_cb[1] = fRec3_cb[0];
+	iRec4_cb[1] = iRec4_cb[0];
+	fRec5_cb[1] = fRec5_cb[0];
+	iRec6_cb[1] = iRec6_cb[0];
+	fRec7_cb[1] = fRec7_cb[0];
+	fRec8_cb[1] = fRec8_cb[0];
+	fRec9_cb[1] = fRec9_cb[0];
+	fRec10_cb[1] = fRec10_cb[0];
+	iRec11_cb[1] = iRec11_cb[0];
+	iRec12_cb[1] = iRec12_cb[0];
+	fRec13_cb[1] = fRec13_cb[0];
+	fRec14_cb[1] = fRec14_cb[0];
+	iRec15_cb[1] = iRec15_cb[0];
+	fRec16_cb[1] = fRec16_cb[0];
+	iRec17_cb[1] = iRec17_cb[0];
+	iRec18_cb[1] = iRec18_cb[0];
+	iRec19_cb[1] = iRec19_cb[0];
+	iRec20_cb[1] = iRec20_cb[0];
+	iRec21_cb[1] = iRec21_cb[0];
+	fRec22_cb[1] = fRec22_cb[0];
+	iRec23_cb[1] = iRec23_cb[0];
+	fRec24_cb[1] = fRec24_cb[0];
+	iRec25_cb[1] = iRec25_cb[0];
+	fRec26_cb[1] = fRec26_cb[0];
+	fRec27_cb[1] = fRec27_cb[0];
+	iRec28_cb[1] = iRec28_cb[0];
+	iRec29_cb[1] = iRec29_cb[0];
+	fRec30_cb[1] = fRec30_cb[0];
+	iRec31_cb[1] = iRec31_cb[0];
+	fRec32_cb[1] = fRec32_cb[0];
+	fRec33_cb[1] = fRec33_cb[0];
+	fRec34_cb[1] = fRec34_cb[0];
+	iRec35_cb[1] = iRec35_cb[0];
+	fRec36_cb[1] = fRec36_cb[0];
+	fRec37_cb[1] = fRec37_cb[0];
+	fRec38_cb[1] = fRec38_cb[0];
+	iRec39_cb[1] = iRec39_cb[0];
+	fRec40_cb[1] = fRec40_cb[0];
+	iRec41_cb[1] = iRec41_cb[0];
+	iRec42_cb[1] = iRec42_cb[0];
+	fRec43_cb[1] = fRec43_cb[0];
+	iRec44_cb[1] = iRec44_cb[0];
+	fRec45_cb[1] = fRec45_cb[0];
+	fRec46_cb[1] = fRec46_cb[0];
+	iRec47_cb[1] = iRec47_cb[0];
+	fRec48_cb[1] = fRec48_cb[0];
+	iRec49_cb[1] = iRec49_cb[0];
+	fRec50_cb[1] = fRec50_cb[0];
+	fRec51_cb[1] = fRec51_cb[0];
+	fRec52_cb[1] = fRec52_cb[0];
+	fRec53_cb[1] = fRec53_cb[0];
+	fRec54_cb[1] = fRec54_cb[0];
+	iRec55_cb[1] = iRec55_cb[0];
+	iRec56_cb[1] = iRec56_cb[0];
+	iRec57_cb[1] = iRec57_cb[0];
+	iRec58_cb[1] = iRec58_cb[0];
+	iRec59_cb[1] = iRec59_cb[0];
+	fRec60_cb[1] = fRec60_cb[0];
+	iRec61_cb[1] = iRec61_cb[0];
+	iRec62_cb[1] = iRec62_cb[0];
+	iRec63_cb[1] = iRec63_cb[0];
+	fRec64_cb[1] = fRec64_cb[0];
+	fRec65_cb[1] = fRec65_cb[0];
+	fVec0_cb[1] = fVec0_cb[0];
+	fRec0_cb[1] = fRec0_cb[0];
+	return [output0_cb];
+}
+// Update parameters
+update(frequency_Hz,leak_tau_ms,spike_ms,rise_fraction,spike_peak,hyperpolarization,recovery_damping,refractory_ms,K_coupling,rate_spread,leak_spread,threshold_spread,gain);
+// Compute one frame
+outputs = compute();
+// Write the outputs: audio ones and bargraph as additional audio signals
+out1 = outputs[0];
