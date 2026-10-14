@@ -282,37 +282,102 @@ export function startMaintenance(root) {
   } catch (_) { /* housekeeping is optional */ }
 }
 
-// Whoever holds the door first finishes a landing that died halfway, or
-// undoes it when someone's edit is in the way (server/landing.js). It says what
-// it did in one line. It never fails the caller's own work.
-function healLanding(root, tag) {
-  try {
-    const marker = readMarker(root);
-    if (!marker) return;
-    // A git killed mid-checkout leaves its index.lock behind, and for thirty
-    // seconds that lock looks live, which would block the very repair below.
-    // With a landing marker present and this process holding the door, a lock
-    // in that checkout with no git running there is the dead landing's: clear
-    // it whatever its age. A git still running keeps it, and the heal waits for
-    // the next pass through the door.
-    try {
-      clearStaleLocksSync(marker.root || root, { attempts: 1, ignoreAge: true, tag, log: loudOnRemoval });
-    } catch (e) {
-      if (e instanceof LockHeldError) {
-        process.stderr.write(`${tag}: a landing died halfway, but git is still running in that checkout; the next pass through the door will finish it\n`);
-        return;
-      }
-      throw e;
-    }
-    const done = recoverLanding(root);
-    if (done) process.stderr.write(`${tag}: ${done.line}\n`);
-  } catch (e) {
-    process.stderr.write(`${tag}: could not check for a landing that died halfway: ${e.message}\n`);
+// Whoever holds the door first heals a landing that died halfway: finishes it,
+// or undoes it when someone's edit is in the way (server/landing.js), and says
+// what it did in one line. It runs through the door's own git, so the ear hears
+// it as through the door. While a git that is still running holds one of the
+// dead landing's locks, it waits, within the door's index patience; past that
+// the pass fails with LockHeldError and nothing else is done, because work done
+// over an unhealed landing could strand its files for good. Any other failure
+// is said loudly and the caller's own work goes on; the marker stays, the next
+// pass tries again, and palace-land refuses to land over it.
+function healOnce(r, tag, git) {
+  const res = recoverLanding(r, { git, tag, trunkProblem });
+  if (res && res.line) process.stderr.write(`${tag}: ${res.line}\n`);
+  return res;
+}
+
+function healFailed(tag, e) {
+  process.stderr.write(`${tag}: could not heal a landing that died halfway: ${e.message}. It is left as it was; the next pass through the door tries again, and palace-land will not land over it.\n`);
+}
+
+function stillHeld(tag, r, res) {
+  return new LockHeldError(`${tag}: could not lock the index: a landing died halfway, and a running git still holds ${res.lock}. Nothing was done; wait a moment and retry.`, { path: res.lock, ageMs: null, heldBy: [] });
+}
+
+function healLandingSync(r, tag, git, patienceMs) {
+  if (!readMarker(r)) return;
+  const deadline = Date.now() + patienceMs;
+  for (;;) {
+    let res;
+    try { res = healOnce(r, tag, git); } catch (e) { if (e instanceof LockHeldError) throw e; healFailed(tag, e); return; }
+    if (!res || !res.waiting) return;
+    if (Date.now() >= deadline) throw stillHeld(tag, r, res);
+    sleepSync(jitterMs());
+  }
+}
+
+async function healLanding(r, tag, git, patienceMs) {
+  if (!readMarker(r)) return;
+  const deadline = Date.now() + patienceMs;
+  for (;;) {
+    let res;
+    try { res = healOnce(r, tag, git); } catch (e) { if (e instanceof LockHeldError) throw e; healFailed(tag, e); return; }
+    if (!res || !res.waiting) return;
+    if (Date.now() >= deadline) throw stillHeld(tag, r, res);
+    await new Promise((w) => setTimeout(w, jitterMs()));
   }
 }
 
 function sleepSync(ms) {
   if (ms > 0) Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
+}
+
+/**
+ * The door's synchronous git: runs git in `root` with the locked file handed
+ * to the child as fd 3 (so the lock outlives this process while git is still
+ * writing), the door's environment, and index.lock contention retried for up to
+ * `patienceMs`. `git(args, { allowFail, input, env })` returns stdout as a
+ * string; with allowFail it returns { stdout, stderr, status } instead of
+ * throwing. A thrown error carries git's stderr, status and signal.
+ */
+function syncGit(r, env, fd, patienceMs, tag) {
+  return (args, opts = {}) => {
+    const deadline = Date.now() + patienceMs;
+    for (let attempt = 1; ; attempt += 1) {
+      const res = spawnSync('git', args, {
+        cwd: r,
+        encoding: 'utf8',
+        maxBuffer: 256 * 1024 * 1024,
+        input: opts.input,
+        env: opts.env ? { ...env, ...opts.env } : env,
+        stdio: ['pipe', 'pipe', 'pipe', fd],
+      });
+      if (res.error) throw res.error;
+      if (res.status !== 0 && isIndexLockError(res.stderr)) {
+        const late = Date.now() >= deadline;
+        // Now and then, and once patience is spent, clear a lock that is
+        // provably stale. One that still looks live past patience is refused.
+        if (late || attempt % 8 === 0) {
+          try {
+            clearStaleLocksSync(r, { attempts: 1, tag, log: loudOnRemoval });
+          } catch (e) {
+            if (!(e instanceof LockHeldError) || late) throw e;
+          }
+        }
+        if (!late || Date.now() < deadline + GRACE_MS) { sleepSync(jitterMs()); continue; }
+      }
+      if (opts.allowFail) return { stdout: res.stdout || '', stderr: res.stderr || '', status: res.status };
+      if (res.status !== 0) {
+        const e = new Error(`git ${args.join(' ')} ${res.signal ? `was killed (${res.signal})` : 'failed'}: ${(res.stderr || '').trim()}`);
+        e.stderr = res.stderr;
+        e.status = res.status;
+        e.signal = res.signal;
+        throw e;
+      }
+      return res.stdout || '';
+    }
+  };
 }
 
 /**
@@ -335,43 +400,8 @@ export function withDoorSync(root, tag, fn, { timeoutMs = DOOR_TIMEOUT_MS, patie
     if (status !== 0) throw new Error(`${tag}: the door's lock helper failed (exit ${status})`);
     held = true;
     writeHolder(r, tag);
-    healLanding(r, tag);
-    const env = doorEnv(tag);
-    const git = (args, opts = {}) => {
-      const deadline = Date.now() + patienceMs;
-      for (let attempt = 1; ; attempt += 1) {
-        const res = spawnSync('git', args, {
-          cwd: r,
-          encoding: 'utf8',
-          maxBuffer: 64 * 1024 * 1024,
-          input: opts.input,
-          env: opts.env ? { ...env, ...opts.env } : env,
-          stdio: ['pipe', 'pipe', 'pipe', fd],
-        });
-        if (res.error) throw res.error;
-        if (res.status !== 0 && isIndexLockError(res.stderr)) {
-          const late = Date.now() >= deadline;
-          // Now and then, and once patience is spent, clear a lock that is
-          // provably stale. One that still looks live past patience is refused.
-          if (late || attempt % 8 === 0) {
-            try {
-              clearStaleLocksSync(r, { attempts: 1, tag, log: loudOnRemoval });
-            } catch (e) {
-              if (!(e instanceof LockHeldError) || late) throw e;
-            }
-          }
-          if (!late || Date.now() < deadline + GRACE_MS) { sleepSync(jitterMs()); continue; }
-        }
-        if (opts.allowFail) return { stdout: res.stdout || '', stderr: res.stderr || '', status: res.status };
-        if (res.status !== 0) {
-          const e = new Error(`git ${args.join(' ')} failed: ${(res.stderr || '').trim()}`);
-          e.stderr = res.stderr;
-          e.status = res.status;
-          throw e;
-        }
-        return res.stdout || '';
-      }
-    };
+    const git = syncGit(r, doorEnv(tag), fd, patienceMs, tag);
+    healLandingSync(r, tag, git, patienceMs);
     return fn(git);
   } finally {
     if (held) clearHolder(r);
@@ -395,8 +425,8 @@ export async function withDoor(root, tag, fn, { timeoutMs = DOOR_TIMEOUT_MS, pat
     if (status === 75) throw busyError(r, tag, timeoutMs);
     held = true;
     writeHolder(r, tag);
-    healLanding(r, tag);
     const env = doorEnv(tag);
+    await healLanding(r, tag, syncGit(r, env, fd, patienceMs, tag), patienceMs);
     const once = (args, opts) => new Promise((resolvePromise, rejectPromise) => {
       const child = spawn('git', args, { cwd: r, env: opts.env ? { ...env, ...opts.env } : env, stdio: ['ignore', 'pipe', 'pipe', fd] });
       const out = [];
