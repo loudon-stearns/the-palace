@@ -15,20 +15,20 @@ forward_vector: "I am Generative Preset Development's scroll — the one page th
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T12:24:10.121Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T12:29:03.981Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 7 · last ran 2026-10-14 (today)
-- **Plan:** agreed 2026-09-25 (18 days ago) · 3 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 8 · last ran 2026-10-14 (today)
+- **Plan:** agreed 2026-09-25 (18 days ago) · 4 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — Three Wavetable pads from one prompt, 'light through deep water', plus a reshaper that made Aqueous Pad darker and more menacing, and breathing. (`preset-steward-016`)
-- **Last commit touching this project:** 2026-10-14 `e7816d0f` — steward(Generative Preset Development): cycle 6 — SPINNING UP. HOME: [Generative Preset Development](obsidian://open?vaul…
+- **Last shipped:** 2026-10-14 (today) — The analyzer now writes sentences. Nine Wavetable presets are described in a synthesist's words, with the old parameter dump folded under each one for comparison. (`preset-steward-018`)
+- **Last commit touching this project:** 2026-10-14 `c2f8e586` — steward(Generative Preset Development): cycle 7 — SPINNING UP. HOME: [Generative Preset Development](obsidian://open?vaul…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Generative Preset Development teaches an AI to make, describe and reshape presets for synths with a fixed layout, starting with Ableton Wavetable. Settled so far: the preset format is cracked, a modified preset loads in Live and sounds as intended (you confirmed this in June), and an analyzer describes any preset in plain synth language. The step on the plan is still one sitting in Live where your ears set the feel-words, and the kit for it shipped earlier today. Until then, every 'dark' or 'swell' is borrowed from how Ableton's factory presets happen to set the knob. This cycle built the step after that one, making presets from a prompt and reshaping them, so it works now on the borrowed w…
+Generative Preset Development teaches an AI to make, describe and reshape presets for synths with a fixed layout, starting with Ableton Wavetable. Here's what's settled. The preset format is cracked. You confirmed in June that a modified preset loads in Live and sounds as intended. Making presets from a prompt and reshaping them both work, so far on feel-words borrowed from Ableton's factory presets. The step on the plan is still one sitting in Live where your ears set those feel-words, and the kit for it is ready. This cycle did the bonus check that goes with the prompt-to-preset step: describing a known factory preset the way a skilled synthesist would. The analyzer used to print a parame…
 
 ### Open asks
 
@@ -69,6 +69,39 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="preset-steward-018" -->
+### 2026-10-14 — cycle 8 — The analyzer now writes sentences. Nine Wavetable presets are described in a synthesist's words, with the old parameter dump folded under each one for comparison.
+> shipped · nothing heard in Live yet · steward leans: read Aqueous Pad's card first
+
+Here's how [describe_preset.py](obsidian://open?vault=The%20Palace&file=Projects/Generative%20Preset%20Development/ableton-wavetable/describe_preset.py) works. It reads the preset into plain facts and then writes about them. Aqueous Pad comes out as: 'A slow-swelling pad built on Rust and Ruby (Modern), through a warm† filter, whose life is LFO 2 folding Osc 1.' Then: two tables warped and folded in Modern mode and panned apart, a split pair of warm† low-passes with singing† resonance, a 634 ms swell that settles to 53% over 15 seconds, and, under Motion, the four routings that carry the sound. The other 28 are summed up in one clause. That ranking is the main writing decision. Huston Singletary's pad has 56 live routings. The writer ranks them by depth, weighted by how much the destination changes the sound: wave position, fold and cutoff count fully, pan less, an LFO modulating another LFO less again. It also drops anything identical to what the blank init patch already carries, so the sentence names what makes this preset different. The dagger (†) marks a feel-word borrowed from factory usage. When your ear sitting lands, the daggers disappear with no code change.
+
+Two things got settled from the presets themselves along the way. First, the oscillator effect-mode setting, which the profile still listed as unmapped: 0 is none, 1 is FM, 2 is Classic (pulse width and sync), 3 is Modern (warp and fold). Each oscillator's live modulation targets name its mode's two controls, and all 16 oscillators that have such targets agree, with no contradictions ([evidence](obsidian://open?vault=The%20Palace&file=Projects/Generative%20Preset%20Development/ableton-wavetable/profile-draft/osc_effect_mode_evidence.json)). Second, the hidden modulation slot 9, which the earlier survey guessed was 'random per note', looks like a performance controller instead. The init patch routes it to wave position at 100% yet plays a steady tone, and 11 factory routings put it at exactly 100% on an LFO's depth, which is the classic 'controller fades the vibrato in' move. The writer now calls it 'an unnamed controller (slot 9)' and lists it under Playing. The slot decoder in your ear kit will name it.
+
+One click: the [descriptions page](obsidian://open?vault=The%20Palace&file=Projects/Generative%20Preset%20Development/ableton-wavetable/descriptions/preset-descriptions.html) has six factory presets and the three 'light through deep water' pads. The text file covers all 17 presets on disk.
+
+**Artifacts:**
+- [nine presets described in sentences, each with the old parameter dump folded underneath.](Projects/Generative Preset Development/ableton-wavetable/descriptions/preset-descriptions.html)
+- [all 17 presets on disk (14 factory, 3 generated), described as plain text.](Projects/Generative Preset Development/ableton-wavetable/descriptions/all-descriptions.txt)
+- [the prose writer: facts to verdict, source, filter, shape, motion, playing.](Projects/Generative Preset Development/ableton-wavetable/describe_preset.py)
+- [rebuilds the page and the text file; rerun after the ear sitting to see the daggers drop.](Projects/Generative Preset Development/ableton-wavetable/build_descriptions_page.py)
+- [effect-mode setting read from the presets themselves (16 of 16 agree), plus the slot 9 evidence.](Projects/Generative Preset Development/ableton-wavetable/profile-draft/osc_effect_mode_evidence.json)
+
+_Each factory preset's verdict sentence († = feel-word borrowed from factory usage)_
+| preset | the verdict |
+| --- | --- |
+| Aqueous Pad | slow-swelling pad on Rust and Ruby (Modern), warm† filter; its life is LFO 2 folding Osc 1 |
+| Abdominal Bass | sustained bass on Logue Saw and Basic Shapes (FM/Modern), warm† filter; LFO 1 opening the filter |
+| Bunker Kick | percussive kick on Basic Shapes and Swept Noise, closed† filter; Env 3 bending Osc 1's pitch |
+| Arpeggiate Me | pluck on Voice Harmonics and Amber, bright† filter; Env 3 sweeping Osc 1's wave position |
+| A Brief History of Chime | struck-then-held chime on Spectral 3 (FM), bright† filter; Env 3 driving Osc 1's FM |
+| A Wobble Modwheel | sustained rhythmic patch on VOSM and Bitten Filter (Modern), dark† filter; LFO 1 folding Osc 2 |
+
+_Left rough:_ None of these descriptions has been checked against the sound in Live, so 'whose life is...' is ranked by depth and weighting, not by ear. I hand-tuned the weights and the envelope categories ('struck-then-held', 'plucked, ringing') on these 14 presets. Which hidden slot is Env 2 versus Env 3, the names of the synced LFO divisions, and slot 9's real identity all still wait on the slot decoder.
+
+_Next moves named:_ Loudon: open the descriptions page and read Aqueous Pad's card. Does it sound like how you'd describe that pad to a student? Anything a synthesist would say that it misses? · Me, next run: feed the writer's output back into reshaping, so a direction like 'darker' can quote the sentence it changed ('the warm† filter becomes dark†'). · Once the ear sitting lands: run apply_bands.py, then build_descriptions_page.py, and watch the daggers go.
+<sub>`preset-steward-018` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="preset-steward-016" -->
 ### 2026-10-14 — cycle 7 — Off plan — Three Wavetable pads from one prompt, 'light through deep water', plus a reshaper that made Aqueous Pad darker and more menacing, and breathing.
 > shipped · not yet loaded in Live · steward leans: hear LTDW 1–3 first

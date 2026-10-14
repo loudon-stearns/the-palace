@@ -1,0 +1,555 @@
+{
+  "schema_version": "0.1",
+  "synth": "Ableton Wavetable",
+  "finding": "Voice_OscillatorN_Effects_EffectMode: 0 = none, 1 = FM (tune, amount), 2 = Classic (pulse width, hard sync), 3 = Modern (warp, fold). Read from the presets themselves: an oscillator's live modulation targets name the mode's two controls.",
+  "method": "For each enabled oscillator in the 14 decompressed factory presets, collect live modulation targets on that oscillator's effect controls and check they belong to exactly the mode the index claims.",
+  "result": {
+    "oscillators_with_fx_targets": 16,
+    "consistent": 16,
+    "contradictions": 0
+  },
+  "status": "corpus-confirmed (internal consistency), not yet checked against Live's dropdown",
+  "rows": [
+    {
+      "preset": "Descenting Dreams",
+      "osc": 1,
+      "fx_mode_idx": "3",
+      "live_fx_targets": [
+        "Fold"
+      ],
+      "mode_implied_by_targets": [
+        "3"
+      ],
+      "consistent": true
+    },
+    {
+      "preset": "Descenting Dreams",
+      "osc": 2,
+      "fx_mode_idx": "3",
+      "live_fx_targets": [
+        "Fold"
+      ],
+      "mode_implied_by_targets": [
+        "3"
+      ],
+      "consistent": true
+    },
+    {
+      "preset": "Abdominal Bass",
+      "osc": 1,
+      "fx_mode_idx": "3",
+      "live_fx_targets": [
+        "Fold",
+        "Warp"
+      ],
+      "mode_implied_by_targets": [
+        "3"
+      ],
+      "consistent": true
+    },
+    {
+      "preset": "Abdominal Bass",
+      "osc": 2,
+      "fx_mode_idx": "1",
+      "live_fx_targets": [
+        "FM Amt",
+        "FM Pitch"
+      ],
+      "mode_implied_by_targets": [
+        "1"
+      ],
+      "consistent": true
+    },
+    {
+      "preset": "Alphalog Brass",
+      "osc": 1,
+      "fx_mode_idx": "2",
+      "live_fx_targets": [
+        "PW"
+      ],
+      "mode_implied_by_targets": [
+        "2"
+      ],
+      "consistent": true
+    },
+    {
+      "preset": "Alphalog Brass",
+      "osc": 2,
+      "fx_mode_idx": "2",
+      "live_fx_targets": [
+        "PW",
+        "Sync"
+      ],
+      "mode_implied_by_targets": [
+        "2"
+      ],
+      "consistent": true
+    },
+    {
+      "preset": "Airplane Wave",
+      "osc": 1,
+      "fx_mode_idx": "2",
+      "live_fx_targets": [
+        "PW",
+        "Sync"
+      ],
+      "mode_implied_by_targets": [
+        "2"
+      ],
+      "consistent": true
+    },
+    {
+      "preset": "Airplane Wave",
+      "osc": 2,
+      "fx_mode_idx": "0",
+      "live_fx_targets": [],
+      "mode_implied_by_targets": [],
+      "consistent": true
+    },
+    {
+      "preset": "Arpeggiate Me",
+      "osc": 1,
+      "fx_mode_idx": "0",
+      "live_fx_targets": [],
+      "mode_implied_by_targets": [],
+      "consistent": true
+    },
+    {
+      "preset": "Arpeggiate Me",
+      "osc": 2,
+      "fx_mode_idx": "0",
+      "live_fx_targets": [],
+      "mode_implied_by_targets": [],
+      "consistent": true
+    },
+    {
+      "preset": "Wavetable",
+      "osc": 1,
+      "fx_mode_idx": "3",
+      "live_fx_targets": [
+        "Warp"
+      ],
+      "mode_implied_by_targets": [
+        "3"
+      ],
+      "consistent": true
+    },
+    {
+      "preset": "A Brief History of Chime",
+      "osc": 1,
+      "fx_mode_idx": "1",
+      "live_fx_targets": [
+        "FM Amt"
+      ],
+      "mode_implied_by_targets": [
+        "1"
+      ],
+      "consistent": true
+    },
+    {
+      "preset": "Bunker Kick",
+      "osc": 1,
+      "fx_mode_idx": "3",
+      "live_fx_targets": [],
+      "mode_implied_by_targets": [],
+      "consistent": true
+    },
+    {
+      "preset": "Bunker Kick",
+      "osc": 2,
+      "fx_mode_idx": "0",
+      "live_fx_targets": [],
+      "mode_implied_by_targets": [],
+      "consistent": true
+    },
+    {
+      "preset": "FM Piano Detuned",
+      "osc": 1,
+      "fx_mode_idx": "2",
+      "live_fx_targets": [],
+      "mode_implied_by_targets": [],
+      "consistent": true
+    },
+    {
+      "preset": "FM Piano Detuned",
+      "osc": 2,
+      "fx_mode_idx": "2",
+      "live_fx_targets": [],
+      "mode_implied_by_targets": [],
+      "consistent": true
+    },
+    {
+      "preset": "12 CC's and Counting",
+      "osc": 1,
+      "fx_mode_idx": "3",
+      "live_fx_targets": [
+        "Fold"
+      ],
+      "mode_implied_by_targets": [
+        "3"
+      ],
+      "consistent": true
+    },
+    {
+      "preset": "12 CC's and Counting",
+      "osc": 2,
+      "fx_mode_idx": "2",
+      "live_fx_targets": [
+        "Sync"
+      ],
+      "mode_implied_by_targets": [
+        "2"
+      ],
+      "consistent": true
+    },
+    {
+      "preset": "37th Street",
+      "osc": 1,
+      "fx_mode_idx": "2",
+      "live_fx_targets": [
+        "PW",
+        "Sync"
+      ],
+      "mode_implied_by_targets": [
+        "2"
+      ],
+      "consistent": true
+    },
+    {
+      "preset": "37th Street",
+      "osc": 2,
+      "fx_mode_idx": "1",
+      "live_fx_targets": [],
+      "mode_implied_by_targets": [],
+      "consistent": true
+    },
+    {
+      "preset": "Aqueous Pad",
+      "osc": 1,
+      "fx_mode_idx": "3",
+      "live_fx_targets": [
+        "Fold",
+        "Warp"
+      ],
+      "mode_implied_by_targets": [
+        "3"
+      ],
+      "consistent": true
+    },
+    {
+      "preset": "Aqueous Pad",
+      "osc": 2,
+      "fx_mode_idx": "3",
+      "live_fx_targets": [
+        "Warp"
+      ],
+      "mode_implied_by_targets": [
+        "3"
+      ],
+      "consistent": true
+    },
+    {
+      "preset": "Vocal Territory",
+      "osc": 1,
+      "fx_mode_idx": "1",
+      "live_fx_targets": [],
+      "mode_implied_by_targets": [],
+      "consistent": true
+    },
+    {
+      "preset": "Vocal Territory",
+      "osc": 2,
+      "fx_mode_idx": "2",
+      "live_fx_targets": [
+        "PW"
+      ],
+      "mode_implied_by_targets": [
+        "2"
+      ],
+      "consistent": true
+    },
+    {
+      "preset": "A Wobble Modwheel",
+      "osc": 1,
+      "fx_mode_idx": "3",
+      "live_fx_targets": [],
+      "mode_implied_by_targets": [],
+      "consistent": true
+    },
+    {
+      "preset": "A Wobble Modwheel",
+      "osc": 2,
+      "fx_mode_idx": "3",
+      "live_fx_targets": [
+        "Fold"
+      ],
+      "mode_implied_by_targets": [
+        "3"
+      ],
+      "consistent": true
+    }
+  ],
+  "slot_9_note": "The census labelled slot 9 'Random (per note)'. The init Wavetable plays a steady tone while routing slot 9 at 100% onto Osc 1 wave position, and slot 9 lands at exactly 100% on an LFO's depth in many factory presets, the shape of a performance controller fading vibrato or motion in. describe_preset.py now names it 'an unnamed controller (slot 9)' until the Z00 slot decoder is read in Live.",
+  "slot_9_routings": [
+    {
+      "preset": "Descenting Dreams",
+      "target": "Filter 1 Freq",
+      "depth": -0.219
+    },
+    {
+      "preset": "Descenting Dreams",
+      "target": "Filter 2 Freq",
+      "depth": -0.156
+    },
+    {
+      "preset": "Descenting Dreams",
+      "target": "LFO 1 Amount",
+      "depth": 1.0
+    },
+    {
+      "preset": "Descenting Dreams",
+      "target": "LFO 2 Amount",
+      "depth": 1.0
+    },
+    {
+      "preset": "Abdominal Bass",
+      "target": "Osc 1 Pos",
+      "depth": 0.031
+    },
+    {
+      "preset": "Abdominal Bass",
+      "target": "Filter 1 Freq",
+      "depth": 0.219
+    },
+    {
+      "preset": "Abdominal Bass",
+      "target": "LFO 1 Amount",
+      "depth": 1.0
+    },
+    {
+      "preset": "Abdominal Bass",
+      "target": "LFO 2 Amount",
+      "depth": 1.0
+    },
+    {
+      "preset": "Abdominal Bass",
+      "target": "Unison Amount",
+      "depth": 0.125
+    },
+    {
+      "preset": "Alphalog Brass",
+      "target": "Osc 1 Pos",
+      "depth": -0.5
+    },
+    {
+      "preset": "Alphalog Brass",
+      "target": "Osc 2 PW",
+      "depth": 0.375
+    },
+    {
+      "preset": "Alphalog Brass",
+      "target": "Filter 1 Freq",
+      "depth": 0.062
+    },
+    {
+      "preset": "Alphalog Brass",
+      "target": "Filter 2 Freq",
+      "depth": -0.125
+    },
+    {
+      "preset": "Airplane Wave",
+      "target": "Filter 1 Freq",
+      "depth": -0.109
+    },
+    {
+      "preset": "Airplane Wave",
+      "target": "Env 3 Sustain",
+      "depth": 0.547
+    },
+    {
+      "preset": "Airplane Wave",
+      "target": "LFO 2 Amount",
+      "depth": 1.0
+    },
+    {
+      "preset": "Arpeggiate Me",
+      "target": "Filter 1 Freq",
+      "depth": 0.359
+    },
+    {
+      "preset": "Wavetable",
+      "target": "Osc 1 Pos",
+      "depth": 1.0
+    },
+    {
+      "preset": "FM Piano Detuned",
+      "target": "Osc 1 Pos",
+      "depth": 0.438
+    },
+    {
+      "preset": "FM Piano Detuned",
+      "target": "Osc 2 Pos",
+      "depth": -0.281
+    },
+    {
+      "preset": "FM Piano Detuned",
+      "target": "Sub Tone",
+      "depth": 0.891
+    },
+    {
+      "preset": "FM Piano Detuned",
+      "target": "Filter 1 Freq",
+      "depth": 0.078
+    },
+    {
+      "preset": "FM Piano Detuned",
+      "target": "Filter 2 Freq",
+      "depth": 0.047
+    },
+    {
+      "preset": "FM Piano Detuned",
+      "target": "Env 2 Peak",
+      "depth": 0.219
+    },
+    {
+      "preset": "FM Piano Detuned",
+      "target": "LFO 2 Amount",
+      "depth": 1.0
+    },
+    {
+      "preset": "FM Piano Detuned",
+      "target": "Global Mod Amount",
+      "depth": -0.188
+    },
+    {
+      "preset": "12 CC's and Counting",
+      "target": "Osc 1 Pos",
+      "depth": -0.734
+    },
+    {
+      "preset": "12 CC's and Counting",
+      "target": "Osc 1 Fold",
+      "depth": 0.234
+    },
+    {
+      "preset": "12 CC's and Counting",
+      "target": "Osc 2 Pos",
+      "depth": -0.297
+    },
+    {
+      "preset": "12 CC's and Counting",
+      "target": "Osc 2 Sync",
+      "depth": 0.344
+    },
+    {
+      "preset": "12 CC's and Counting",
+      "target": "Sub Tone",
+      "depth": 0.438
+    },
+    {
+      "preset": "12 CC's and Counting",
+      "target": "Sub Gain",
+      "depth": 0.156
+    },
+    {
+      "preset": "12 CC's and Counting",
+      "target": "Filter 1 Freq",
+      "depth": -0.078
+    },
+    {
+      "preset": "12 CC's and Counting",
+      "target": "Filter 2 Freq",
+      "depth": -0.203
+    },
+    {
+      "preset": "37th Street",
+      "target": "Osc 1 Pos",
+      "depth": 0.031
+    },
+    {
+      "preset": "37th Street",
+      "target": "Filter 1 Freq",
+      "depth": 0.219
+    },
+    {
+      "preset": "37th Street",
+      "target": "LFO 1 Amount",
+      "depth": 0.844
+    },
+    {
+      "preset": "37th Street",
+      "target": "LFO 1 Rate",
+      "depth": 0.484
+    },
+    {
+      "preset": "37th Street",
+      "target": "LFO 2 Amount",
+      "depth": 1.0
+    },
+    {
+      "preset": "37th Street",
+      "target": "LFO 2 Rate",
+      "depth": 0.391
+    },
+    {
+      "preset": "37th Street",
+      "target": "Unison Amount",
+      "depth": 0.125
+    },
+    {
+      "preset": "Aqueous Pad",
+      "target": "LFO 1 Amount",
+      "depth": 1.0
+    },
+    {
+      "preset": "Aqueous Pad",
+      "target": "LFO 2 Amount",
+      "depth": 1.0
+    },
+    {
+      "preset": "Vocal Territory",
+      "target": "Filter 1 Freq",
+      "depth": 0.312
+    },
+    {
+      "preset": "A Wobble Modwheel",
+      "target": "Osc 1 Pos",
+      "depth": -0.266
+    },
+    {
+      "preset": "A Wobble Modwheel",
+      "target": "Osc 2 Pos",
+      "depth": 0.438
+    },
+    {
+      "preset": "A Wobble Modwheel",
+      "target": "Filter 1 Freq",
+      "depth": -0.219
+    },
+    {
+      "preset": "A Wobble Modwheel",
+      "target": "LFO 1 Amount",
+      "depth": 1.0
+    },
+    {
+      "preset": "A Wobble Modwheel",
+      "target": "LFO 1 Rate",
+      "depth": 0.375
+    },
+    {
+      "preset": "A Wobble Modwheel",
+      "target": "LFO 2 Amount",
+      "depth": 1.0
+    },
+    {
+      "preset": "A Wobble Modwheel",
+      "target": "LFO 2 Shaping",
+      "depth": 0.312
+    },
+    {
+      "preset": "A Wobble Modwheel",
+      "target": "LFO 2 Rate",
+      "depth": 0.344
+    }
+  ]
+}

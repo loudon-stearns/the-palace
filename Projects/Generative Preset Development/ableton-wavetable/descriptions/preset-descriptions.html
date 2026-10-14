@@ -1,0 +1,282 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Wavetable presets, described</title>
+<style>
+:root{--serif:'Cormorant Garamond','Source Serif 4',Georgia,serif;--sans:'Manrope',system-ui,sans-serif;
+--mono:'JetBrains Mono',ui-monospace,Menlo,monospace;--bg:#0a0a0f;--e1:#12121a;--e2:#1a1a28;--border:#4a4a5e;
+--fg1:#e8e8f0;--fg2:#c8c8d8;--fg3:#8a8aa0;--accent:#e8b84a;--accent-line:rgba(232,184,74,.5)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg1);font-family:var(--sans);font-size:15px}
+main{max-width:860px;margin:0 auto;padding:40px 24px 64px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3)}
+h1{font-family:var(--serif);font-weight:400;font-size:40px;line-height:1.15;margin:10px 0 14px}
+.intro{font-family:var(--serif);font-size:17px;line-height:1.75;color:var(--fg2);max-width:680px}
+.card{background:var(--e1);border:1px solid var(--border);border-radius:2px;padding:22px 24px;margin:22px 0}
+.card h2{font-family:var(--serif);font-weight:500;font-size:26px;margin:0 0 2px}
+.who{font-family:var(--mono);font-size:11px;color:var(--fg3);margin-bottom:12px}
+.verdict{font-family:var(--serif);font-size:20px;line-height:1.5;border-left:2px solid var(--accent-line);padding-left:14px;margin:8px 0 14px}
+.para{font-family:var(--serif);font-size:17px;line-height:1.75;color:var(--fg2);margin:6px 0}
+.para b{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-right:8px}
+.sure{font-size:12px;color:var(--fg3);margin-top:12px;line-height:1.5}
+details{margin-top:12px}summary{cursor:pointer;font-family:var(--mono);font-size:11px;color:var(--fg3);letter-spacing:.08em}
+pre{background:var(--e2);color:var(--fg3);font-family:var(--mono);font-size:11px;line-height:1.5;padding:12px;overflow-x:auto;white-space:pre-wrap;border-radius:2px}
+.dag{color:var(--accent)}footer{margin-top:40px;font-family:var(--mono);font-size:11px;color:var(--fg3)}
+</style></head><body><main>
+<div class="eyebrow">Study · Generative Preset Development · Ableton Wavetable</div>
+<h1>Nine Wavetable presets, described the way a synthesist would</h1>
+<p class="intro">Six of Ableton's own factory presets and the three pads made this week from
+"light through deep water". Each one starts with a single sentence verdict, then where the sound
+comes from, how it is filtered, how it is shaped, what moves it, and what your playing changes.
+The old parameter list sits under each card for comparison. A <span class="dag">†</span> marks
+a feel-word borrowed from how Ableton's factory presets set that knob; once your ear sitting
+lands, those marks disappear on their own.</p>
+<section class="card"><h2>Aqueous Pad</h2><div class="who">Ableton factory · Synth Pad · Huston Singletary</div>
+<div class="verdict">A slow-swelling pad built on Rust and Ruby (Modern), through a warm<span class="dag">†</span> filter, whose life is LFO 2 folding Osc 1.</div>
+<p class="para"><b>Source</b>Osc 1 reads in the middle of the Rust table through Modern mode (warp 22%, fold 2%), panned left; Osc 2 reads in the middle of the Ruby table through Modern mode (warp 12%, fold 19%), panned right; the two are detuned against each other, so they beat slowly; a sub oscillator fills in underneath; shimmer unison stacks 2 voices, held tight.</p>
+<p class="para"><b>Filter</b>The filters are split, each taking its own share of the oscillators: a warm<span class="dag">†</span> clean 12 dB low-pass at 714 Hz with singing<span class="dag">†</span> resonance, and a warm<span class="dag">†</span> clean 12 dB low-pass at 1.4 kHz with singing<span class="dag">†</span> resonance.</p>
+<p class="para"><b>Shape</b>The amp envelope is slow-swelling: swell<span class="dag">†</span> attack (634 ms), settles to 53% over 15.4 s, tail<span class="dag">†</span> release (1.8 s).</p>
+<p class="para"><b>Motion</b>What moves it: LFO 2 (a tempo-synced sine) folds Osc 1 hard; LFO 2 sweeps Osc 2&#x27;s wave position firmly; LFO 2 warps Osc 2 firmly; LFO 1 (a tempo-synced sine) warps Osc 1 firmly. Another 28 smaller routings keep Filter 1 cutoff, Filter 2 cutoff, LFO 1 depth, Osc 1 fold and more alive underneath. Some modulators modulate other modulators, so the motion itself drifts over time.</p>
+<p class="para"><b>Playing</b>An unnamed controller (slot 9) moves LFO 1 depth, LFO 2 depth. Higher notes move Osc 1 fold, Osc 2 warp, Osc 2 pan and more. Playing harder moves Osc 2 pan, Osc 1 pan, sub level and more. The mod wheel moves Filter 2 cutoff, Filter 1 cutoff.</p>
+<div class="sure">How sure I am: which hidden slot is Env 2 and which is Env 3 is the census&#x27;s guess until the slot decoder is read; synced LFO divisions are not decoded yet; <span class="dag">†</span> marks a feel-word borrowed from how Ableton&#x27;s factory presets set that knob, not yet set by ear; filter circuit names follow Wavetable&#x27;s menu order and are unconfirmed in Live.</div>
+<details><summary>the parameter list this replaces</summary><pre>PRESET: Synth Pad__Aqueous Pad
+  SOURCE: Osc1 on (wave position 0.496, transpose +0 st, detune -0.0625); Osc2 on (wave position 0.529, transpose +0 st, detune +0.03125); sub osc on (transpose +0 st)
+  FILTER 1: type idx 0 / circuit-LpHp idx 0 [enum semantics not yet cross-referenced]; cutoff 714 Hz → warm (corpus band 3/5, not ear-confirmed); resonance 0.417 → singing (corpus band 3/5, not ear-confirmed); drive 0.000
+  FILTER 2: type idx 0 / circuit-LpHp idx 0 [enum semantics not yet cross-referenced]; cutoff 1382 Hz → warm (corpus band 3/5, not ear-confirmed); resonance 0.437 → singing (corpus band 3/5, not ear-confirmed); drive 0.000
+  FILTER ROUTING: idx 2 (split) [documented option, not ear-confirmed]
+  AMP ENV: attack 0.6335 → swell (corpus band 5/5, not ear-confirmed), decay 15.4499, sustain 0.5279, release 1.7903 → tail (corpus band 5/5, not ear-confirmed)
+  LFO 1: shape idx 0 [enum not cross-referenced], tempo-synced, synced division idx 6 [division names pending the G-ladder reading], depth 0.195
+  LFO 2: shape idx 0 [enum not cross-referenced], tempo-synced, synced division idx 4 [division names pending the G-ladder reading], depth 0.266
+  UNISON: mode idx 2, voice count 2 [mode enum not cross-referenced]
+  MODULATION (56 live routings; source = census KIND, not ear-confirmed):
+      Osc 1 Pos &lt;- Envelope 2 (depth -0.109)
+      Osc 1 Pos &lt;- Envelope 3 (depth -0.281)
+      Osc 1 Pos &lt;- LFO 1 (depth +0.203)
+      Osc 1 Pos &lt;- LFO 2 (depth -0.266)
+      Osc 1 Pos &lt;- MIDI Note (key tracking) (depth +0.078)
+      Osc 1 Pos &lt;- Velocity (depth +0.062)
+      Osc 1 Warp &lt;- Envelope 3 (depth -0.031)
+      Osc 1 Warp &lt;- LFO 1 (depth +0.359)
+      Osc 1 Warp &lt;- LFO 2 (depth -0.344)
+      Osc 1 Warp &lt;- MIDI Note (key tracking) (depth -0.062)
+      Osc 1 Fold &lt;- Envelope 2 (depth +0.125)
+      Osc 1 Fold &lt;- Envelope 3 (depth +0.297)
+      Osc 1 Fold &lt;- LFO 1 (depth +0.078)
+      Osc 1 Fold &lt;- LFO 2 (depth +0.875)
+      ... +42 more</pre></details></section>
+<section class="card"><h2>Abdominal Bass</h2><div class="who">Ableton factory · Bass · Huston Singletary</div>
+<div class="verdict">A sustained bass built on Logue Saw and Basic Shapes (FM/Modern), through a warm<span class="dag">†</span> filter, whose life is LFO 1 opening filter 1.</div>
+<p class="para"><b>Source</b>Osc 1 reads early in the Logue Saw table 2 octaves down through Modern mode (warp 2%, fold 0%), panned left; Osc 2 reads in the middle of the Basic Shapes table through FM mode (FM tune 100%, FM amount 23%); a sub oscillator fills in underneath; classic detune unison stacks 2 voices, held tight.</p>
+<p class="para"><b>Filter</b>Two filters run in series: a warm<span class="dag">†</span> OSR 12 dB low-pass at 1.3 kHz with coloured<span class="dag">†</span> resonance, driven hard (6.4 dB), then a closed<span class="dag">†</span> band-pass at 93 Hz with self-osc-edge<span class="dag">†</span> resonance, lightly driven.</p>
+<p class="para"><b>Shape</b>The amp envelope is sustained: soft<span class="dag">†</span> attack (3 ms), holds at full level, short<span class="dag">†</span> release (36 ms). Notes glide into each other (25 ms).</p>
+<p class="para"><b>Motion</b>What moves it: LFO 1 (a tempo-synced sine) opens filter 1 hard; LFO 1 moves unison depth hard; LFO 1 folds Osc 1 gently; Env 3 (instant rise, 3.8 s fall) folds Osc 1 gently. Another 3 smaller routings keep Filter 1 cutoff, Osc 1 fold, unison depth alive underneath.</p>
+<p class="para"><b>Playing</b>Higher notes move Osc 1 wave position, unison depth. The mod wheel moves Filter 1 cutoff. An unnamed controller (slot 9) moves LFO 1 depth, LFO 2 depth, Filter 1 cutoff and more. Playing harder moves Filter 1 cutoff, Osc 1 fold, Osc 1 wave position and more. The bend wheel moves Filter 1 cutoff.</p>
+<div class="sure">How sure I am: which hidden slot is Env 2 and which is Env 3 is the census&#x27;s guess until the slot decoder is read; synced LFO divisions are not decoded yet; <span class="dag">†</span> marks a feel-word borrowed from how Ableton&#x27;s factory presets set that knob, not yet set by ear; filter circuit names follow Wavetable&#x27;s menu order and are unconfirmed in Live.</div>
+<details><summary>the parameter list this replaces</summary><pre>PRESET: Bass__Abdominal Bass
+  SOURCE: Osc1 on (wave position 0.241, transpose -24 st, detune +0); Osc2 on (wave position 0.630, transpose +0 st, detune -0.0234375); sub osc on (transpose +2 st)
+  FILTER 1: type idx 0 / circuit-LpHp idx 2 [enum semantics not yet cross-referenced]; cutoff 1308 Hz → warm (corpus band 3/5, not ear-confirmed); resonance 0.218 → coloured (corpus band 2/5, not ear-confirmed); drive 6.375
+  FILTER 2: type idx 1 / circuit-LpHp idx 4 [enum semantics not yet cross-referenced]; cutoff 93 Hz → closed (corpus band 1/5, not ear-confirmed); resonance 0.754 → self-osc-edge (corpus band 5/5, not ear-confirmed); drive 2.062
+  FILTER ROUTING: idx 0 (serial) [documented option, not ear-confirmed]
+  AMP ENV: attack 0.0033 → soft (corpus band 4/5, not ear-confirmed), decay 6.5603, sustain 0.9084, release 0.0355 → short (corpus band 2/5, not ear-confirmed)
+  LFO 1: shape idx 0 [enum not cross-referenced], tempo-synced, synced division idx 15 [division names pending the G-ladder reading], depth 1.000
+  LFO 2: shape idx 0 [enum not cross-referenced], tempo-synced, synced division idx 17 [division names pending the G-ladder reading], depth 0.117
+  UNISON: mode idx 1, voice count 2 [mode enum not cross-referenced]
+  MODULATION (27 live routings; source = census KIND, not ear-confirmed):
+      Osc 1 Pos &lt;- MIDI Note (key tracking) (depth +1.000)
+      Osc 1 Pos &lt;- Velocity (depth +0.375)
+      Osc 1 Pos &lt;- Random (per note) (depth +0.031)
+      Osc 1 Pos &lt;- Constant / internal (depth +0.031)
+      Osc 1 Warp &lt;- Velocity (depth +0.019)
+      Osc 1 Fold &lt;- Envelope 3 (depth +0.188)
+      Osc 1 Fold &lt;- LFO 1 (depth +0.281)
+      Osc 1 Fold &lt;- LFO 2 (depth -0.062)
+      Osc 1 Fold &lt;- Velocity (depth +0.484)
+      Osc 2 FM Pitch &lt;- Velocity (depth -0.016)
+      Osc 2 FM Amt &lt;- Velocity (depth -0.219)
+      Filter 1 Freq &lt;- LFO 1 (depth +0.953)
+      Filter 1 Freq &lt;- LFO 2 (depth -0.002)
+      Filter 1 Freq &lt;- Velocity (depth -0.797)
+      ... +13 more</pre></details></section>
+<section class="card"><h2>Bunker Kick</h2><div class="who">Ableton factory · Percussive</div>
+<div class="verdict">A percussive kick built on Basic Shapes and Swept Noise, through a closed<span class="dag">†</span> filter, whose life is Env 3 bending Osc 1&#x27;s pitch.</div>
+<p class="para"><b>Source</b>Osc 1 reads early in the Basic Shapes table; Osc 2 reads early in the Swept Noise table.</p>
+<p class="para"><b>Filter</b>Two filters run in series: a closed<span class="dag">†</span> OSR 12 dB low-pass at 20 Hz with coloured<span class="dag">†</span> resonance, driven hard (10.3 dB), then a closed<span class="dag">†</span> band-pass at 60 Hz with self-osc-edge<span class="dag">†</span> resonance, driven hard (8.6 dB).</p>
+<p class="para"><b>Shape</b>The amp envelope is percussive: clicky<span class="dag">†</span> attack (instant), it decays to silence over 2.2 s, natural<span class="dag">†</span> release (273 ms).</p>
+<p class="para"><b>Motion</b>What moves it: Env 3 (6 ms rise, 16.4 s fall) bends Osc 1&#x27;s pitch hard; Env 3 opens filter 1 hard; LFO 1 (an obvious<span class="dag">†</span> 1 Hz sine) sweeps Osc 2&#x27;s wave position hard.</p>
+<p class="para"><b>Playing</b>Pressing into the key moves the pitch.</p>
+<div class="sure">How sure I am: which hidden slot is Env 2 and which is Env 3 is the census&#x27;s guess until the slot decoder is read; <span class="dag">†</span> marks a feel-word borrowed from how Ableton&#x27;s factory presets set that knob, not yet set by ear; filter circuit names follow Wavetable&#x27;s menu order and are unconfirmed in Live.</div>
+<details><summary>the parameter list this replaces</summary><pre>PRESET: Percussive__Bunker Kick
+  SOURCE: Osc1 on (wave position 0.226, transpose +0 st, detune +0); Osc2 on (wave position 0.337, transpose +0 st, detune +0)
+  FILTER 1: type idx 0 / circuit-LpHp idx 2 [enum semantics not yet cross-referenced]; cutoff 20 Hz → closed (corpus band 1/5, not ear-confirmed); resonance 0.119 → flat (corpus band 1/5, not ear-confirmed); drive 10.312
+  FILTER 2: type idx 1 / circuit-LpHp idx 1 [enum semantics not yet cross-referenced]; cutoff 60 Hz → closed (corpus band 1/5, not ear-confirmed); resonance 1.200 → self-osc-edge (corpus band 5/5, not ear-confirmed); drive 8.625
+  FILTER ROUTING: idx 0 (serial) [documented option, not ear-confirmed]
+  AMP ENV: attack 0.0000 → clicky (corpus band 1/5, not ear-confirmed), decay 2.1599, sustain 0.0000, release 0.2734 → natural (corpus band 3/5, not ear-confirmed)
+  LFO 1: shape idx 0 [enum not cross-referenced], free-running, rate 1.0000 → obvious (corpus band 4/5, not ear-confirmed), depth 1.000
+  LFO 2: shape idx 0 [enum not cross-referenced], free-running, rate 1.0000 → obvious (corpus band 4/5, not ear-confirmed), depth 1.000
+  UNISON: mode idx 0, voice count 2 [mode enum not cross-referenced]
+  MODULATION (7 live routings; source = census KIND, not ear-confirmed):
+      Osc 1 Pitch &lt;- Envelope 3 (depth +1.000)
+      Osc 2 Pos &lt;- LFO 1 (depth +0.938)
+      Filter 1 Freq &lt;- Envelope 3 (depth +1.000)
+      Amp &lt;- Velocity (depth +0.500)
+      Pitch &lt;- Aftertouch (depth -1.000)
+      Pitch &lt;- Pitch Bend (depth +1.000)
+      Pitch &lt;- Constant / internal (depth +1.000)</pre></details></section>
+<section class="card"><h2>Arpeggiate Me</h2><div class="who">Ableton factory · Guitar &amp; Plucked · Francis Preve</div>
+<div class="verdict">A pluck built on Voice Harmonics and Amber, through a bright<span class="dag">†</span> filter, whose life is Env 3 sweeping Osc 1&#x27;s wave position.</div>
+<p class="para"><b>Source</b>Osc 1 reads at the start of the Voice Harmonics table; Osc 2 reads at the start of the Amber table; a sub oscillator fills in underneath; random-note unison stacks 3 voices, spread wide.</p>
+<p class="para"><b>Filter</b>The sound runs through a bright<span class="dag">†</span> MS2 24 dB low-pass at 4.6 kHz.</p>
+<p class="para"><b>Shape</b>The amp envelope is plucked, ringing: natural<span class="dag">†</span> attack (1 ms), it decays to silence over 2.4 s, natural<span class="dag">†</span> release (584 ms).</p>
+<p class="para"><b>Motion</b>What moves it: Env 3 (1 ms rise, 600 ms fall) sweeps Osc 1&#x27;s wave position hard; Env 3 sweeps Osc 2&#x27;s wave position hard; Env 3 moves Osc 1 level hard.</p>
+<p class="para"><b>Playing</b>Playing harder moves Filter 1 drive, Filter 1 cutoff. An unnamed controller (slot 9) moves Filter 1 cutoff. The mod wheel moves Osc 1 wave position.</p>
+<div class="sure">How sure I am: which hidden slot is Env 2 and which is Env 3 is the census&#x27;s guess until the slot decoder is read; <span class="dag">†</span> marks a feel-word borrowed from how Ableton&#x27;s factory presets set that knob, not yet set by ear; filter circuit names follow Wavetable&#x27;s menu order and are unconfirmed in Live.</div>
+<details><summary>the parameter list this replaces</summary><pre>PRESET: Guitar &amp; Plucked__Arpeggiate Me
+  SOURCE: Osc1 on (wave position 0.000, transpose +0 st, detune +0); Osc2 on (wave position 0.000, transpose +0 st, detune +0); sub osc on (transpose +0 st)
+  FILTER 1: type idx 0 / circuit-LpHp idx 4 [enum semantics not yet cross-referenced]; cutoff 4637 Hz → bright (corpus band 5/5, not ear-confirmed); resonance 0.000 → flat (corpus band 1/5, not ear-confirmed); drive 0.000
+  FILTER ROUTING: idx 0 (serial) [documented option, not ear-confirmed]
+  AMP ENV: attack 0.0010 → punchy (corpus band 2/5, not ear-confirmed), decay 2.3752, sustain 0.0000, release 0.5836 → natural (corpus band 3/5, not ear-confirmed)
+  LFO 1: shape idx 0 [enum not cross-referenced], free-running, rate 1.0000 → obvious (corpus band 4/5, not ear-confirmed), depth 1.000
+  LFO 2: shape idx 0 [enum not cross-referenced], free-running, rate 1.0000 → obvious (corpus band 4/5, not ear-confirmed), depth 1.000
+  UNISON: mode idx 6, voice count 3 [mode enum not cross-referenced]
+  MODULATION (11 live routings; source = census KIND, not ear-confirmed):
+      Osc 1 Pos &lt;- Envelope 3 (depth +1.000)
+      Osc 1 Pos &lt;- Mod Wheel (depth +0.200)
+      Osc 1 Gain &lt;- Envelope 3 (depth +1.000)
+      Osc 2 Pos &lt;- Envelope 3 (depth +1.000)
+      Filter 1 Freq &lt;- Velocity (depth +0.100)
+      Filter 1 Freq &lt;- Random (per note) (depth +0.359)
+      Filter 1 Freq &lt;- Constant / internal (depth +0.360)
+      Filter 1 Drive &lt;- Velocity (depth +0.859)
+      Amp &lt;- Velocity (depth +0.500)
+      Pitch &lt;- Pitch Bend (depth +0.042)
+      Pitch &lt;- Constant / internal (depth +1.000)</pre></details></section>
+<section class="card"><h2>A Brief History of Chime</h2><div class="who">Ableton factory · Mallets</div>
+<div class="verdict">A struck-then-held chime built on Spectral 3 (FM), through a bright<span class="dag">†</span> filter, whose life is Env 3 driving Osc 1&#x27;s FM.</div>
+<p class="para"><b>Source</b>Osc 1 reads late in the Spectral 3 table through FM mode (FM tune 95%, FM amount 0%); position-spread unison stacks 2 voices, spread wide.</p>
+<p class="para"><b>Filter</b>Two filters run in series: a bright<span class="dag">†</span> MS2 24 dB low-pass at 5.4 kHz with self-osc-edge<span class="dag">†</span> resonance, then an open<span class="dag">†</span> OSR 12 dB low-pass at 1.7 kHz.</p>
+<p class="para"><b>Shape</b>The amp envelope is struck-then-held: soft<span class="dag">†</span> attack (4 ms), settles to 44% over 195 ms, natural<span class="dag">†</span> release (365 ms).</p>
+<p class="para"><b>Motion</b>What moves it: Env 3 (6.5 s rise, 3.2 s fall) drives Osc 1&#x27;s FM hard; LFO 2 (a drifting<span class="dag">†</span> 0.40 Hz sine) drives Osc 1&#x27;s FM hard; Env 3 opens filter 1 hard; LFO 1 (an obvious<span class="dag">†</span> 1.40 Hz triangle) opens filter 2 hard. Another 8 smaller routings keep Filter 2 cutoff, LFO 1 shape, LFO 2 depth, Osc 1 wave position and more alive underneath. Some modulators modulate other modulators, so the motion itself drifts over time. The two LFOs run at different rates, so the pattern never quite repeats.</p>
+<p class="para"><b>Playing</b>Playing harder moves unison depth, Osc 1 wave position, LFO 1 rate and more. Pressing into the key moves the volume, Filter 1 cutoff. Higher notes move Osc 1 wave position, Osc 2 wave position, LFO 1 rate and more.</p>
+<div class="sure">How sure I am: which hidden slot is Env 2 and which is Env 3 is the census&#x27;s guess until the slot decoder is read; <span class="dag">†</span> marks a feel-word borrowed from how Ableton&#x27;s factory presets set that knob, not yet set by ear; filter circuit names follow Wavetable&#x27;s menu order and are unconfirmed in Live.</div>
+<details><summary>the parameter list this replaces</summary><pre>PRESET: Mallets__A Brief History of Chime
+  SOURCE: Osc1 on (wave position 0.655, transpose +0 st, detune +0)
+  FILTER 1: type idx 0 / circuit-LpHp idx 4 [enum semantics not yet cross-referenced]; cutoff 5427 Hz → bright (corpus band 5/5, not ear-confirmed); resonance 0.767 → self-osc-edge (corpus band 5/5, not ear-confirmed); drive 0.000
+  FILTER 2: type idx 0 / circuit-LpHp idx 2 [enum semantics not yet cross-referenced]; cutoff 1747 Hz → open (corpus band 4/5, not ear-confirmed); resonance 0.114 → flat (corpus band 1/5, not ear-confirmed); drive 0.000
+  FILTER ROUTING: idx 0 (serial) [documented option, not ear-confirmed]
+  AMP ENV: attack 0.0041 → soft (corpus band 4/5, not ear-confirmed), decay 0.1945, sustain 0.4376, release 0.3650 → natural (corpus band 3/5, not ear-confirmed)
+  LFO 1: shape idx 1 [enum not cross-referenced], free-running, rate 1.4019 → obvious (corpus band 4/5, not ear-confirmed), depth 0.883
+  LFO 2: shape idx 0 [enum not cross-referenced], free-running, rate 0.3961 → drifting (corpus band 2/5, not ear-confirmed), depth 1.000
+  UNISON: mode idx 5, voice count 2 [mode enum not cross-referenced]
+  MODULATION (25 live routings; source = census KIND, not ear-confirmed):
+      Osc 1 Pos &lt;- LFO 1 (depth +0.234)
+      Osc 1 Pos &lt;- MIDI Note (key tracking) (depth +0.453)
+      Osc 1 Pos &lt;- Velocity (depth +0.438)
+      Osc 1 FM Amt &lt;- Envelope 3 (depth +1.000)
+      Osc 1 FM Amt &lt;- LFO 2 (depth +1.000)
+      Osc 2 Pos &lt;- LFO 2 (depth -0.062)
+      Osc 2 Pos &lt;- MIDI Note (key tracking) (depth +0.344)
+      Osc 2 Gain &lt;- LFO 2 (depth +0.594)
+      Filter 1 Freq &lt;- Envelope 3 (depth +1.000)
+      Filter 1 Freq &lt;- Aftertouch (depth +0.039)
+      Filter 2 Freq &lt;- Envelope 3 (depth +0.156)
+      Filter 2 Freq &lt;- LFO 1 (depth +1.000)
+      Filter 2 Freq &lt;- LFO 2 (depth +0.188)
+      LFO 1 Shaping &lt;- LFO 1 (depth +0.562)
+      ... +11 more</pre></details></section>
+<section class="card"><h2>Alphalog Brass</h2><div class="who">Ableton factory · Brass · Huston Singetary</div>
+<div class="verdict">A sustained brass patch built on JN6 Double Saws and Saw Dual 3 (Classic), through a dark<span class="dag">†</span> filter, whose life is LFO 1 closing filter 1.</div>
+<p class="para"><b>Source</b>Osc 1 reads in the middle of the JN6 Double Saws table through Classic mode (pulse width 11%, hard sync 7%), panned left; Osc 2 reads in the middle of the Saw Dual 3 table through Classic mode (pulse width 3%, hard sync 2%), panned right; the two are detuned against each other, so they beat slowly; a sub oscillator fills in underneath; random-note unison stacks 5 voices, spread wide.</p>
+<p class="para"><b>Filter</b>Two filters run in series: a dark<span class="dag">†</span> OSR 24 dB low-pass at 191 Hz with coloured<span class="dag">†</span> resonance, lightly driven, then an open<span class="dag">†</span> OSR 24 dB low-pass at 1.6 kHz with coloured<span class="dag">†</span> resonance, lightly driven.</p>
+<p class="para"><b>Shape</b>The amp envelope is sustained: punchy<span class="dag">†</span> attack (instant), holds at full level, short<span class="dag">†</span> release (64 ms).</p>
+<p class="para"><b>Motion</b>What moves it: LFO 1 (a tempo-synced sine) closes filter 1 firmly; LFO 2 (a subtle<span class="dag">†</span> 1 Hz sine) pushes Osc 2&#x27;s hard sync firmly; Env 3 (1.8 s rise, 1.4 s fall) opens filter 1 firmly; Env 3 pushes Osc 2&#x27;s hard sync gently. Another 18 smaller routings keep Filter 1 cutoff, Filter 2 cutoff, Osc 1 pan, Osc 1 pitch and more alive underneath.</p>
+<p class="para"><b>Playing</b>An unnamed controller (slot 9) moves Osc 1 wave position, Osc 2 pulse width, Filter 2 cutoff and more. Playing harder moves Osc 2 pan, Filter 2 cutoff, Osc 1 pan and more. The mod wheel moves Filter 1 cutoff, Filter 2 cutoff.</p>
+<div class="sure">How sure I am: which hidden slot is Env 2 and which is Env 3 is the census&#x27;s guess until the slot decoder is read; synced LFO divisions are not decoded yet; <span class="dag">†</span> marks a feel-word borrowed from how Ableton&#x27;s factory presets set that knob, not yet set by ear; filter circuit names follow Wavetable&#x27;s menu order and are unconfirmed in Live.</div>
+<details><summary>the parameter list this replaces</summary><pre>PRESET: Brass__Alphalog Brass
+  SOURCE: Osc1 on (wave position 0.496, transpose +0 st, detune +0.078125); Osc2 on (wave position 0.518, transpose +0 st, detune -0.15625); sub osc on (transpose +0 st)
+  FILTER 1: type idx 0 / circuit-LpHp idx 3 [enum semantics not yet cross-referenced]; cutoff 191 Hz → dark (corpus band 2/5, not ear-confirmed); resonance 0.374 → coloured (corpus band 2/5, not ear-confirmed); drive 2.250
+  FILTER 2: type idx 0 / circuit-LpHp idx 3 [enum semantics not yet cross-referenced]; cutoff 1631 Hz → open (corpus band 4/5, not ear-confirmed); resonance 0.360 → coloured (corpus band 2/5, not ear-confirmed); drive 2.062
+  FILTER ROUTING: idx 0 (serial) [documented option, not ear-confirmed]
+  AMP ENV: attack 0.0003 → punchy (corpus band 2/5, not ear-confirmed), decay 0.7399, sustain 0.8936, release 0.0641 → short (corpus band 2/5, not ear-confirmed)
+  LFO 1: shape idx 0 [enum not cross-referenced], tempo-synced, synced division idx 2 [division names pending the G-ladder reading], depth 0.445
+  LFO 2: shape idx 0 [enum not cross-referenced], free-running, rate 1.0000 → obvious (corpus band 4/5, not ear-confirmed), depth 1.000
+  UNISON: mode idx 6, voice count 5 [mode enum not cross-referenced]
+  MODULATION (34 live routings; source = census KIND, not ear-confirmed):
+      Osc 1 Pitch &lt;- Random (S&amp;H continuous) (depth +0.004)
+      Osc 1 Pos &lt;- Envelope 3 (depth +0.016)
+      Osc 1 Pos &lt;- LFO 2 (depth -0.234)
+      Osc 1 Pos &lt;- Velocity (depth +0.031)
+      Osc 1 Pos &lt;- Random (per note) (depth -0.500)
+      Osc 1 Pos &lt;- Random (S&amp;H continuous) (depth +0.094)
+      Osc 1 PW &lt;- Envelope 3 (depth +0.172)
+      Osc 1 PW &lt;- LFO 2 (depth +0.094)
+      Osc 1 PW &lt;- Random (S&amp;H continuous) (depth -0.156)
+      Osc 1 Pan &lt;- Velocity (depth -0.109)
+      Osc 1 Pan &lt;- Random (S&amp;H continuous) (depth +0.547)
+      Osc 2 Pos &lt;- Random (S&amp;H continuous) (depth +0.031)
+      Osc 2 PW &lt;- Envelope 3 (depth -0.109)
+      Osc 2 PW &lt;- LFO 2 (depth +0.234)
+      ... +20 more</pre></details></section>
+<section class="card"><h2>LTDW 1 Caustics</h2><div class="who">generated by this project</div>
+<div class="verdict">A slow-swelling pad built on Crystal Shifter, through a warm<span class="dag">†</span> filter, whose life is LFO 1 sweeping Osc 1&#x27;s wave position.</div>
+<p class="para"><b>Source</b>Osc 1 reads in the middle of the Crystal Shifter table, panned left; a sub oscillator fills in underneath; position-spread unison stacks 4 voices.</p>
+<p class="para"><b>Filter</b>The sound runs through a warm<span class="dag">†</span> clean 12 dB low-pass at 906 Hz with coloured<span class="dag">†</span> resonance, lightly driven.</p>
+<p class="para"><b>Shape</b>The amp envelope is slow-swelling: swell<span class="dag">†</span> attack (1 s), holds at full level, tail<span class="dag">†</span> release (5.5 s).</p>
+<p class="para"><b>Motion</b>What moves it: LFO 1 (a drifting<span class="dag">†</span> 0.37 Hz sine) sweeps Osc 1&#x27;s wave position firmly; LFO 2 (a drifting<span class="dag">†</span> 0.23 Hz triangle) opens filter 1 gently. The two LFOs run at different rates, so the pattern never quite repeats.</p>
+<p class="para"><b>Playing</b>Beyond the usual velocity-to-volume, nothing responds to how you play.</p>
+<div class="sure">How sure I am: <span class="dag">†</span> marks a feel-word borrowed from how Ableton&#x27;s factory presets set that knob, not yet set by ear; filter circuit names follow Wavetable&#x27;s menu order and are unconfirmed in Live.</div>
+<details><summary>the parameter list this replaces</summary><pre>PRESET: LTDW 1 Caustics
+  SOURCE: Osc1 on (wave position 0.408, transpose +0 st, detune -0.058562); sub osc on (transpose +1 st)
+  FILTER 1: type idx 0 / circuit-LpHp idx 0 [enum semantics not yet cross-referenced]; cutoff 906 Hz → warm (corpus band 3/5, not ear-confirmed); resonance 0.254 → coloured (corpus band 2/5, not ear-confirmed); drive 1.051
+  FILTER ROUTING: idx 0 (serial) [documented option, not ear-confirmed]
+  AMP ENV: attack 1.0379 → swell (corpus band 5/5, not ear-confirmed), decay 4.4636, sustain 1.0000, release 5.4527 → tail (corpus band 5/5, not ear-confirmed)
+  LFO 1: shape idx 0 [enum not cross-referenced], free-running, rate 0.3658 → drifting (corpus band 2/5, not ear-confirmed), depth 0.569
+  LFO 2: shape idx 1 [enum not cross-referenced], free-running, rate 0.2300 → drifting (corpus band 2/5, not ear-confirmed), depth 0.944
+  UNISON: mode idx 5, voice count 4 [mode enum not cross-referenced]
+  MODULATION (5 live routings; source = census KIND, not ear-confirmed):
+      Osc 1 Pos &lt;- LFO 1 (depth +0.350)
+      Filter 1 Freq &lt;- LFO 2 (depth +0.120)
+      Amp &lt;- Velocity (depth +0.500)
+      Pitch &lt;- Pitch Bend (depth +0.042)
+      Pitch &lt;- Constant / internal (depth +1.000)</pre></details></section>
+<section class="card"><h2>LTDW 2 Shaft</h2><div class="who">generated by this project</div>
+<div class="verdict">A slow-swelling pad built on Voice Harmonics, through a dark<span class="dag">†</span> filter, whose life is Env 3 opening filter 1.</div>
+<p class="para"><b>Source</b>Osc 1 reads in the middle of the Voice Harmonics table; a sub oscillator fills in underneath; classic detune unison stacks 2 voices, spread wide.</p>
+<p class="para"><b>Filter</b>The sound runs through a dark<span class="dag">†</span> clean 12 dB low-pass at 232 Hz with singing<span class="dag">†</span> resonance, lightly driven.</p>
+<p class="para"><b>Shape</b>The amp envelope is slow-swelling: swell<span class="dag">†</span> attack (467 ms), holds at full level, long<span class="dag">†</span> release (849 ms).</p>
+<p class="para"><b>Motion</b>What moves it: Env 3 (3.5 s rise, 6 s fall) opens filter 1 firmly; LFO 1 (a drifting<span class="dag">†</span> 0.40 Hz sine) opens filter 1 slightly.</p>
+<p class="para"><b>Playing</b>Beyond the usual velocity-to-volume, nothing responds to how you play.</p>
+<div class="sure">How sure I am: which hidden slot is Env 2 and which is Env 3 is the census&#x27;s guess until the slot decoder is read; <span class="dag">†</span> marks a feel-word borrowed from how Ableton&#x27;s factory presets set that knob, not yet set by ear; filter circuit names follow Wavetable&#x27;s menu order and are unconfirmed in Live.</div>
+<details><summary>the parameter list this replaces</summary><pre>PRESET: LTDW 2 Shaft
+  SOURCE: Osc1 on (wave position 0.561, transpose +0 st, detune +0.003691); sub osc on (transpose +1 st)
+  FILTER 1: type idx 0 / circuit-LpHp idx 0 [enum semantics not yet cross-referenced]; cutoff 232 Hz → dark (corpus band 2/5, not ear-confirmed); resonance 0.446 → singing (corpus band 3/5, not ear-confirmed); drive 1.076
+  FILTER ROUTING: idx 0 (serial) [documented option, not ear-confirmed]
+  AMP ENV: attack 0.4670 → swell (corpus band 5/5, not ear-confirmed), decay 6.8858, sustain 1.0000, release 0.8487 → long (corpus band 4/5, not ear-confirmed)
+  LFO 1: shape idx 0 [enum not cross-referenced], free-running, rate 0.3976 → drifting (corpus band 2/5, not ear-confirmed), depth 0.949
+  LFO 2: shape idx 0 [enum not cross-referenced], free-running, rate 0.3976 → drifting (corpus band 2/5, not ear-confirmed), depth 0.677
+  UNISON: mode idx 1, voice count 2 [mode enum not cross-referenced]
+  MODULATION (5 live routings; source = census KIND, not ear-confirmed):
+      Filter 1 Freq &lt;- Envelope 3 (depth +0.450)
+      Filter 1 Freq &lt;- LFO 1 (depth +0.080)
+      Amp &lt;- Velocity (depth +0.500)
+      Pitch &lt;- Pitch Bend (depth +0.042)
+      Pitch &lt;- Constant / internal (depth +1.000)</pre></details></section>
+<section class="card"><h2>LTDW 3 Refraction</h2><div class="who">generated by this project</div>
+<div class="verdict">A slow-swelling pad built on Amber and Sines 3, through an open<span class="dag">†</span> filter, whose life is LFO 1 sweeping Osc 2&#x27;s wave position.</div>
+<p class="para"><b>Source</b>Osc 1 reads in the middle of the Amber table, panned left; Osc 2 reads in the middle of the Sines 3 table an octave up, panned right; shimmer unison stacks 6 voices, spread wide.</p>
+<p class="para"><b>Filter</b>The sound runs through an open<span class="dag">†</span> clean 12 dB low-pass at 1.9 kHz.</p>
+<p class="para"><b>Shape</b>The amp envelope is slow-swelling: swell<span class="dag">†</span> attack (342 ms), holds at full level, tail<span class="dag">†</span> release (9 s).</p>
+<p class="para"><b>Motion</b>What moves it: LFO 1 (a subtle<span class="dag">†</span> 0.84 Hz sine) sweeps Osc 2&#x27;s wave position gently; LFO 2 (a drifting<span class="dag">†</span> 0.27 Hz smooth random) pans Osc 2 gently. The two LFOs run at different rates, so the pattern never quite repeats.</p>
+<p class="para"><b>Playing</b>Beyond the usual velocity-to-volume, nothing responds to how you play.</p>
+<div class="sure">How sure I am: <span class="dag">†</span> marks a feel-word borrowed from how Ableton&#x27;s factory presets set that knob, not yet set by ear; filter circuit names follow Wavetable&#x27;s menu order and are unconfirmed in Live.</div>
+<details><summary>the parameter list this replaces</summary><pre>PRESET: LTDW 3 Refraction
+  SOURCE: Osc1 on (wave position 0.516, transpose +0 st, detune -0.011854); Osc2 on (wave position 0.434, transpose +12 st, detune +0.001466)
+  FILTER 1: type idx 0 / circuit-LpHp idx 0 [enum semantics not yet cross-referenced]; cutoff 1947 Hz → open (corpus band 4/5, not ear-confirmed); resonance 0.061 → flat (corpus band 1/5, not ear-confirmed); drive 0.070
+  FILTER ROUTING: idx 0 (serial) [documented option, not ear-confirmed]
+  AMP ENV: attack 0.3420 → swell (corpus band 5/5, not ear-confirmed), decay 2.3423, sustain 1.0000, release 8.9627 → tail (corpus band 5/5, not ear-confirmed)
+  LFO 1: shape idx 0 [enum not cross-referenced], free-running, rate 0.8359 → subtle (corpus band 3/5, not ear-confirmed), depth 0.654
+  LFO 2: shape idx 6 [enum not cross-referenced], free-running, rate 0.2700 → drifting (corpus band 2/5, not ear-confirmed), depth 0.535
+  UNISON: mode idx 2, voice count 6 [mode enum not cross-referenced]
+  MODULATION (5 live routings; source = census KIND, not ear-confirmed):
+      Osc 2 Pos &lt;- LFO 1 (depth +0.250)
+      Osc 2 Pan &lt;- LFO 2 (depth +0.300)
+      Amp &lt;- Velocity (depth +0.500)
+      Pitch &lt;- Pitch Bend (depth +0.042)
+      Pitch &lt;- Constant / internal (depth +1.000)</pre></details></section>
+<footer>describe_preset.py · nothing here has been checked against Live by ear yet</footer>
+</main></body></html>
