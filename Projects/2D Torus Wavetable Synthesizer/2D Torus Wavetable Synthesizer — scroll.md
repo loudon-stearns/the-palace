@@ -15,24 +15,24 @@ forward_vector: "I am 2D Torus Wavetable Synthesizer's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T22:09:00.389Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T00:16:17.764Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 18 · last ran 2026-10-13 (today)
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 19 · last ran 2026-10-14 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — One player for Étude No. 2's third and fourth drafts: switch between them mid-phrase, with a note box for each section. (`torus-steward-046`)
-- **Last commit touching this project:** 2026-10-13 `d97b05b2` — steward(2D Torus Wavetable Synthesizer): cycle 17 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
+- **Last shipped:** 2026-10-13 (today) — The hero's journey draft is 4:27 in twelve chapters. Which way should the next pass lean? (`torus-steward-049`)
+- **Last commit touching this project:** 2026-10-13 `c4e53daa` — steward(2D Torus Wavetable Synthesizer): cycle 18 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read it, and their ratio decides whether it sounds harmonic or shimmers. Its test piece, Étude No. 2, is played entirely by the Hopf codebox, the version of the instrument steered from a point on a sphere, and the score is only knob moves. You gave two rounds of notes: tell the whole story with a real groove, then loosen it with swing, sliding tempo and sung melodies. The third draft answered that. The fourth gave the hands section its own limping 7/8 beat. Neither has been heard. This cycle didn't write more music. It built a player for those two drafts, so one listen can settle both.
+This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read it, and their ratio decides whether it sounds harmonic or shimmers. Its test piece, Étude No. 2, is played entirely by the Hopf codebox, the version steered from a point on a sphere, and the score is only knob moves. Over three rounds of notes you asked for a story with real grooves, then a looser groove with sung melodies, then (on the fourth draft) phrases that stay open, the weird sounds of the first version back, the voicing atlas clicked in rhythm, counterpoint, and the whole song built as the hero's journey. This cycle wrote that: a fifth draft, 4:27, in twelve chapters. Nobody has heard it yet.
 
 ### Open asks
 
-- `torus-steward-042` — directional_decision · posted 2026-10-13 · options: SECOND-BEAT · LESS-SLIDE · MORE-LOOSE · LONGER
+- `torus-steward-049` — directional_decision · posted 2026-10-13 · options: TUNE-CHAPTERS · WEIRDER · TIGHTER · TRICKSTER-UP
 
 ### Answered, not yet consumed
 
@@ -40,6 +40,7 @@ _None._
 
 ### Decided
 
+- `torus-steward-042` — directional_decision → GRANTED — (no option_id); notes: "You are growing in the right direction. Grooves feel far more natural and the melodies are much more interesting. Don't feel the need to resolve the melody at the end of the sections, stay a question harmonically at times. In the first version there was some weirder sonic sections, bring those back as you make a longer version. Here in this version you also include the huge voicing atlas, it is really interesting to click around in it rhythmically, that is another musical gesture you can build into your song, expand the song and explore counterpoint and non-tonal sound design more. As you build the song, consider how each sonic gesture and harmonic choice relates to emotion and build the song as a sequence through the monomyth, capturing the key characters and moments and dramatic arc present in the hero's journey. " (2026-10-13)
 - `torus-steward-034` — directional_decision → GRANTED — (no option_id); notes: "You have swung all the way over to the other side, too quantized, too rigid, and musically too simple. Now, with all sections that are melodic, incorporate the subtle glides and vibratos we would have in a vocal or violin performance. For sections that are rhythmic, subtle swing and a beat that is more inspired from non-european cultures. My favorite parts are the ending. Please have some sections that are like your first etude, where the tempo slides. You have two ends of the spectrum here, abstract to rigid, play around in the threshold and curiosity. Keep going." (2026-10-13)
 - `torus-steward-031` — directional_decision → GRANTED — (no option_id); notes: "The music is the entire thing, this feels sonically like a story is being told because the "sections" are clear and there are emotional tendencies for each. The answer isn't to pick one, it is to treate each as a section of a story and tell the entire story. This does have a classical feel without a steady tempo. To really sell "music" we need a clear tempo and "groove" for some sections, and if you are going to jump between pitches bring in the concept of motif and repetition, sequence and variations. Keep going, this is great!" (2026-10-13)
 
@@ -60,6 +61,67 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="torus-steward-049" -->
+### 2026-10-13 — cycle 19 — The hero's journey draft is 4:27 in twelve chapters. Which way should the next pass lean?
+> still working · fifth draft shipped, unheard · steward leans TUNE-CHAPTERS
+
+Étude No. 2 is the torus synth's test piece, played entirely by the Hopf codebox. On the fourth draft you asked for open-ended phrases, the weird sounds back, atlas clicks as a gesture, counterpoint, and the hero's journey as the form. The fifth draft does all of that in twelve chapters. New voices come out of the voicing atlas: a trickster that keeps its pitch while changing colour, and a stair whose locks form a strange scale that turns out to contain the motif. There's an ordeal with a real silence, and a three-voice resurrection. I can keep moving without an answer. My lean is to tune it chapter by chapter once you've heard it, but you might instead want the weird chapters pushed further, the trickster louder, or the form tightened. Notes in the box are as good as a button.
+
+**Artifacts:**
+- [the fifth draft, 4:27.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_e_heros_journey.m4a)
+- [the spectrogram, chapters labelled.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_e_heros_journey.png)
+- [etude-ab.html](Projects/2D Torus Wavetable Synthesizer/proofs/etude-ab/etude-ab.html)
+- [etude_ab_template.html](Projects/2D Torus Wavetable Synthesizer/proofs/etude-ab/etude_ab_template.html)
+<sub>`torus-steward-049` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="torus-steward-048" -->
+### 2026-10-13 — cycle 19 — Étude No. 2, fifth draft: a 4:27 hero's journey in twelve chapters, with a cast of surfaces, atlas-click gestures, canons, and phrases that end as questions.
+> shipped · 4:27, nobody has listened yet · steward leans listen to the whole thing once
+
+**The cast is the surfaces.** The hero is Penrose, born at the pole where it is the plain 1D synth. The ordinary world is the one-dimensional wavetable, and the journey is the climb up the sphere. The mentor is Knot Shadow's 3:2 whistle. The guardian is a stirred Chladni growl. The shadow is Fisher Ridge, off every ratio. Two new characters come straight out of the voicing atlas:
+
+- **The trickster** is Matérn Field clicked from lock to lock. On almost every lock it sounds the same A4 (measured 439.5 Hz after every click), but with a different set of undertones, so each click changes its colour and never its pitch. In the tests it fills the gaps in the bell pattern. In the reward it clicks on every group of the 7/8 limp.
+- **The stair** is Stiff String. On every lock it sounds its x scan rate, so its nineteen locks form a scale of fractions, the Farey scale, part tonal and part not. The hero's motif A C E D is already inside it (1:1, 2:3, 1:3, 1:2, with the C 15 cents sharp). The stair clicks down that scale one lock a beat into the cave, runs an ostinato up it on the road back, and at the resurrection plays the motif as a bass from inside the strange scale.
+
+**The weird sounds return** in the refusal (the hero slides back to the pole through every ratio in between, the smear from No. 1), at the threshold, and in the ordeal. In the ordeal the reed is torn through the atlas in leaps from 55 to 1145 Hz, the hero's dead line slows toward stillness, and then comes 1.6 s of true silence before a coupling snap starts the reward.
+
+**Counterpoint:** a free-time canon with the mentor (the motif inverted, the hero imitating below), a stretto chase on the road back that tightens from a beat to an eighth, and a three-voice motif at the resurrection.
+
+**Questions:** the phrases end on E, on E over G♯, on B, or climbing without landing. Only the very end arrives on A, and that ending is kept in the shape you liked.
+
+Listen: [the fifth draft](open:Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_e_heros_journey.m4a). Chapter times are in the score.
+
+**Artifacts:**
+- [the fifth draft, 4:27, in twelve chapters from home to the elixir.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_e_heros_journey.m4a)
+- [spectrogram with the chapters labelled. Look for the refusal's slides, the Farey staircase into the cave, the ordeal's spread, and the silence before the reward.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_e_heros_journey.png)
+- [the score: the cast, the Farey scale, the twelve chapters with their intended feelings, and what was measured.](Projects/2D Torus Wavetable Synthesizer/Etude/Étude No. 2e — score.md)
+- [the render script: eleven voices, every one RNBO/torus_2d_hopf.codebox, three tempo clocks.](Projects/2D Torus Wavetable Synthesizer/Etude/render_etude_2e.mjs)
+- [the spectrogram and peak-check script.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_spectrogram_2e.py)
+- [chapter times, the three tempo maps, the Farey scale and every lock change from the render.](Projects/2D Torus Wavetable Synthesizer/Etude/etude_two_e_locks.json)
+
+_the journey: chapter, start time, and the feeling it is written for_
+| chapter | starts | feeling |
+| --- | --- | --- |
+| 1 the ordinary world: the hero alone at the pole | 0:00 | home, small |
+| 2 the call: the mentor whistles from off the ratio | 0:14 | something distant pulling |
+| 3 refusal: the slide back to the pole | 0:25 | fear |
+| 4 the mentor: a free-time canon | 0:37 | being taught, left open |
+| 5 the threshold: the guardian, the tempo arrives | 0:52 | the door |
+| 6 tests and allies: the 12/8 groove, trickster clicks | 1:08 | bright, unsettled |
+| 7 the inmost cave: the tempo falls, the Farey stair goes down | 1:44 | the light going |
+| 8 the ordeal: the shadow, leaps, stillness, silence | 2:01 | the void |
+| 9 the reward: the snap, the 7/8 hands | 2:30 | rebirth |
+| 10 the road back: speeding up, the stretto chase | 2:57 | pursuit |
+| 11 resurrection: all let go, then three-voice motif | 3:19 | a new whole |
+| 12 the return: the B theme, then the ending you liked | 3:34 | home, changed |
+
+_Left rough:_ Nobody has listened. The feelings in the table are what I wrote toward, not what I heard. The weird chapters (refusal, threshold, ordeal) are the likeliest to run too long or too loud, and the threshold growl is a dense stack of harmonics that may need taming. The trickster sits quietly at gain 0.15, so its colour changes may be too subtle to notice. The 102 MB WAV stays uncommitted; play the m4a.
+
+_Next moves named:_ Your ears on the whole arc: which chapters land their feeling and which don't. · Then tune the outliers by chapter: shorten or quieten the weird ones, push the trickster forward if its colours vanish, and give the A/B player a chapter-jump strip for this draft.
+<sub>`torus-steward-048` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="torus-steward-046" -->
 ### 2026-10-13 — cycle 18 — One player for Étude No. 2's third and fourth drafts: switch between them mid-phrase, with a note box for each section.
 > shipped · two drafts waiting on your ears · steward leans listen before writing more
