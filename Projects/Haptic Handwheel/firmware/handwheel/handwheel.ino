@@ -15,8 +15,9 @@
 //   bench coast | accel-bare | accel-disc | cog | chirp
 // knob → Max, every 2 ms in PLAY:
 //   a <angle rad> <speed rad/s> <torque N·m>
-#include <SimpleFOC.h>
+#include <SimpleFOC.h>   // compiles with SimpleFOC 2.3.3 on arduino-esp32 2.x; 2.3.4+ needs arduino-esp32 3.x (BENCH.md)
 #include "feel_core.h"
+#include "cog_cancel.h"                              // bench_analyze.py writes cog_map.h; until then this cancels nothing
 
 BLDCMotor motor(7);                                   // 14 poles → 7 pole pairs
 BLDCDriver3PWM driver(25, 26, 27, 14);                // ASSUMED pins — match your board
@@ -63,7 +64,7 @@ void parse(String l) {
     else if (k == "rpm") p.rpm = v; else if (k == "kv") p.kv = v; else if (k == "cap") p.cap = v;
     else if (k == "target") p.target = v; else if (k == "wallLo") p.wallLo = v; else if (k == "wallHi") p.wallHi = v;
     else if (k == "cancelBrake") p.cancelBrake = v; else if (k == "tauMax") tauMax = v;
-    else if (k == "R") model.R = v; else if (k == "kt") model.kt = v;
+    else if (k == "R") model.R = v; else if (k == "kt") model.kt = v; else if (k == "cogGain") cogGain = v;
   } else if (l.startsWith("play ")) played = l.substring(5).toFloat();
   else if (l.startsWith("bench ")) bench(l.substring(6));
 }
@@ -74,7 +75,7 @@ void loop() {
   uint32_t now = micros(); float dt = (now - lastUs) * 1e-6f; lastUs = now;
   hw::Sense s{ motor.shaft_angle, motor.shaft_velocity, now * 1e-6f, dt };
   float tau = hw::tick(feel, s, played, tauMax);
-  motor.move(model.volts(tau, s.om, feel.p.cancelBrake));
+  motor.move(model.volts(tau, s.om, feel.p.cancelBrake) + cogCancel(s.th));
   if (Serial.available()) parse(Serial.readStringUntil('\n'));
   if (millis() - lastReport >= 2) {
     lastReport = millis();
@@ -112,14 +113,20 @@ void bench(String which) {
     while (T() < 0.25f) { motor.loopFOC(); motor.move(2.0f); stream(which.c_str(), T(), 2.0f); }
     motor.move(0); delay(800);
   } else if (which == "cog") {
-    // Hold the knob with a stiff local spring at 720 positions per turn; the
-    // volts needed at each is the cogging + friction map.
-    for (int i = 0; i < 720; i++) {
-      float target = i * hw::TAU_F / 720; t0 = micros();
-      while (T() < 0.05f) {
-        motor.loopFOC();
-        float u = 40.0f * (target - motor.shaft_angle) - 0.4f * motor.shaft_velocity;
-        motor.move(u); if (T() > 0.04f) stream("cog", target, u);
+    // Hold the knob with a stiff local spring at 1680 positions per turn (20 per
+    // cogging bump on a 12-slot/14-pole motor), forward and then back. The volts
+    // needed at each is cogging + friction; going both ways pulls them apart:
+    // cogging is the average of the two passes, friction half their gap.
+    const int N = 1680;
+    for (int pass = 0; pass < 2; pass++) {
+      for (int j = 0; j < N; j++) {
+        int i = pass ? N - 1 - j : j;
+        float target = i * hw::TAU_F / N; t0 = micros();
+        while (T() < 0.03f) {
+          motor.loopFOC();
+          float u = 40.0f * (target - motor.shaft_angle) - 0.4f * motor.shaft_velocity;
+          motor.move(u); if (T() > 0.024f) stream(pass ? "cog-rev" : "cog-fwd", target, u);
+        }
       }
     }
   } else if (which == "chirp") {
@@ -131,7 +138,7 @@ void bench(String which) {
       motor.loopFOC(); float t = T(), f = 10.0f * powf(40.0f, t / 8.0f);
       ph += hw::TAU_F * f * (t - last); last = t;
       float u = 1.0f * sinf(ph) - 2.0f * motor.shaft_angle;
-      motor.move(u); stream("chirp", t, u);
+      motor.move(u + cogCancel(motor.shaft_angle)); stream("chirp", t, u);
     }
   }
   motor.move(0);

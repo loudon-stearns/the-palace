@@ -15,24 +15,24 @@ forward_vector: "I am Haptic Handwheel's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T23:49:10.181Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T23:49:52.422Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** seed · **Steward:** cycle 4 · last ran 2026-10-13 (today)
-- **Plan:** agreed 2026-10-13 (today) · 2 made things since
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** seed · **Steward:** cycle 5 · last ran 2026-10-13 (today)
+- **Plan:** agreed 2026-10-13 (today) · 4 made things since
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — A parts order you could place today, about $145–185, plus a first Max patch that speaks the knob's language. Nothing bought yet. (`haptic-handwheel-steward-007`)
-- **Last commit touching this project:** 2026-10-13 `1131b293` — steward(Haptic Handwheel): cycle 3 — SPINNING UP. HOME: [[Haptic Handwheel]]. Neighborhood loaded. Cycle 3, …
-- **Signal:** ⚠ the last cycle posted nothing (one barren cycle — the lane will retry before calling it stalled)
+- **Last shipped:** 2026-10-13 (today) — The parts order is ready — about $145–185, or $75–95 with your own bench supply. Shall I treat it as yes? (`haptic-handwheel-steward-010`)
+- **Last commit touching this project:** 2026-10-13 `32f41142` — steward(Haptic Handwheel): cycle 4 — machinery and scroll
+- **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Haptic Handwheel is your idea for one big knob that is a motor and a sensor at once, played as an instrument. Software decides how it feels: frets, a string, a struck spring, a turntable. It's research reaching toward a product, and the nearer product is a simpler knob that knows which parameter it's controlling. So far it exists only in simulation. Earlier cycles built a feel lab in the browser, found that the motor brakes itself (which lets stiff feels survive the trip over USB), and wrote firmware and bench tests that compile on the laptop but have never run on a board. This cycle turned all of that into a parts order you could place, and a Max patch for when the knob arrives. Ordering s…
+Haptic Handwheel is your one-big-knob instrument: a motor that is also a sensor, with software deciding how it feels (frets, a string, a struck spring, a turntable). It's research, and the nearer product is a simpler knob that follows whatever parameter you've clicked in Ableton. You agreed a plan today. First the knob in simulation (done: a feel lab in the browser). Then pin the unknowns before buying anything. Then the parts order, which waits on your yes. Then the bench, then your hands judge each feel. This cycle finishes the pinning-down move. The board sketch now compiles, and the analyzer can read all five bench tests, so the first bench session turns straight into numbers. Nothing i…
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `haptic-handwheel-steward-010` — the first parts order · posted 2026-10-13 · options: ORDER · ORDER-TRIMMED · CHANGE · WAIT
 
 ### Answered, not yet consumed
 
@@ -67,6 +67,56 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="haptic-handwheel-steward-010" -->
+### 2026-10-13 — cycle 5 — The parts order is ready — about $145–185, or $75–95 with your own bench supply. Shall I treat it as yes?
+> still working · unknowns pinned on paper · steward leans ORDER
+
+Catch-up: Haptic Handwheel is your one-big-knob instrument, a motor whose feel is software. The plan you agreed today goes simulate, pin the unknowns, buy, bench, then your hands judge each feel. The simulation and the pinning-down are done as far as paper goes. The firmware compiles, and the bench tests and their analyzer are ready. What's left can only be learned from a real motor. The next move on the plan is the one I can't make: you saying yes to the list and the spend. The list is order/PARTS.md: the iFlight GM5208 motor with its encoder ($62), two $9 drivers, an ESP32, a contact mic, a capacitor, printed caps and a clamp block, plus a 0–30 V bench supply if you don't have one. No vibration motor: the model says this motor carries a G alone. If you own an Arduino Nano ESP32, skip the controller. I keep building either way; nothing is bought until you say.
+
+**Artifacts:**
+- [The order: nine lines with links and prices, why each one, and what's left out.](Projects/Haptic Handwheel/order/PARTS.md)
+- [What the bench will measure once the parts arrive, drawn from a pretend motor.](Projects/Haptic Handwheel/firmware/bench/selftest.png)
+<sub>`haptic-handwheel-steward-010` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="haptic-handwheel-steward-009" -->
+### 2026-10-13 — cycle 5 — The knob's firmware compiled for a real board for the first time, and the bench analyzer can now map the motor's bumps and answer 'can it carry a G'.
+> shipped · pinning the unknowns is done on paper · steward leans place the order
+
+**It compiles.** Your laptop already has the Arduino IDE and the Arduino Nano ESP32 core. I fetched SimpleFOC into a scratch folder and built the sketch: no warnings from our files, 10% of the board's space. It took one honest failure to get there. SimpleFOC 2.4.0 and 2.3.4 refuse this core, because they want arduino-esp32 3.x. 2.3.3 builds. So before the parts arrive: either pin SimpleFOC to 2.3.3, or update the ESP32 core. That's noted in the sketch and in BENCH.md. It also means that if a Nano ESP32 is sitting in a drawer, it could stand in for the controller on the order, with the pins moved.
+
+**The motor's own bumps.** This motor has 12 slots and 14 magnets, so it should bump 84 times a turn, and those bumps are frets you didn't ask for. The cog test now holds the knob at 1,680 points, going one turn forward and one back. Going both ways pulls the two things apart: the bumps are the average of the two passes, and friction is half the gap between them. The analyzer fits the bumps and writes `cog_map.h`, and the firmware adds the opposite push so that it cancels them (`set cogGain 0` from Max lets you feel the raw motor again). On a pretend motor it recovers the bumps and the friction within 1%. A default software fret comes out 3.6× the raw bumps, and 45× what's left after cancelling.
+
+**Can it carry a G?** The encoder can only count the wobble up to about 90 Hz, so the contact mic does the rest. A piezo on the cap hears acceleration, so dividing by pitch squared gives the knob's movement at every pitch, scaled where the encoder and the mic both hear. The mic and the knob keep separate clocks. The analyzer finds the sweep in the recording by itself (it found a 1.37 s offset to the millisecond). It then fits the winding's inductance, which is what decides how fast the push dies at high pitch. Across pretend motors from 1 to 12 mH it lands within 1%. With the encoder alone it can be off by 80%, so the mic is worth its $10.
+
+**One motor or two.** The plan asked whether a small vibration motor should join this one. The model's answer: one is enough, by a wide margin. About 10 µm of rim movement per volt at G3, against roughly 0.16 µm a fingertip detects. I've written the rule down before the data: one motor if the mic shows ten times the threshold at 196 Hz for 1 V or less, re-checked with a finger resting on the rim. So the vibration motor stays off the order.
+
+**Artifacts:**
+- [What the first bench session will hand back, drawn from a pretend motor: software frets against the motor's own bumps, and the push at each pitch against what a fingertip feels.](Projects/Haptic Handwheel/firmware/bench/selftest.png)
+- [The analyzer against a pretend motor with known numbers: every number, measured against true.](Projects/Haptic Handwheel/firmware/bench/selftest.txt)
+- [Now reads all five bench tests, including the cog map (writes cog_map.h) and the chirp with the contact-mic WAV.](Projects/Haptic Handwheel/firmware/bench/bench_analyze.py)
+- [Adds the push that cancels the motor's bumps once a map exists. Until then it cancels nothing.](Projects/Haptic Handwheel/firmware/handwheel/cog_cancel.h)
+- [The board sketch: cog test both ways, cancelling wired in. Compiles for the Nano ESP32 with SimpleFOC 2.3.3; never run on a board.](Projects/Haptic Handwheel/firmware/handwheel/handwheel.ino)
+- [The bench page, now with the compile notes and the two decisions it settles, each rule written before the data.](Projects/Haptic Handwheel/firmware/BENCH.md)
+- [The order, plus a note: check the drawer for a Nano ESP32 before buying the controller.](Projects/Haptic Handwheel/order/PARTS.md)
+
+_The analyzer against a pretend motor (selftest.txt)_
+| what it measures | measured | true | off by |
+| --- | --- | --- | --- |
+| rotor + cap weight (inertia) | 4.94e-5 kg·m² | 5.2e-5 | −4.9% |
+| the motor's own brake | 0.00884 N·m·s/rad | 0.00890 | −0.6% |
+| bumps, peak | 8.36 mN·m | 8.29 | +0.8% |
+| bumps per turn | 84 | 84 | 0 |
+| friction | 3.97 mN·m | 4.00 | −0.8% |
+| winding inductance | 3.23 mH | 3.00 | +7.5% |
+| rim at G3, per volt | 10.1 µm | 9.98 | +1.1% |
+
+_Left rough:_ Everything here is checked against a motor I made up, so it shows the analyzer can read a capture, not what the GM5208 will say. The sketch compiled for the Nano ESP32, not the classic ESP32 on the order (its core isn't installed), and it has never run, with the pins still guesses. The fingertip threshold is a rough curve shaped after Verrillo's classic measurements, not your hand. And the model can't include a gripping hand, which will soak up some of the G.
+
+_Next moves named:_ If you say yes to the order: a bring-up checklist for the day the box arrives (wiring photo-guide, first power-on at 0.5 A, the meter test, then the five bench runs in order). · Add the brake dial and cogging to the browser feel lab, so you can feel ringing versus calm, and raw versus cancelled bumps, with a mouse before your hand meets them.
+<sub>`haptic-handwheel-steward-009` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-haptic-handwheel-steward-003" -->
 ### 2026-10-13 — Plan agreed: Shall this be the Handwheel's first plan: simulate, pin the unknowns, buy, bench, then your hands judge each feel?
 

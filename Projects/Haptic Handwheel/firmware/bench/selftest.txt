@@ -1,0 +1,16 @@
+number                        measured                 true    error
+J                            4.944e-05              5.2e-05    -4.9%
+kt                              0.2581                 0.26    -0.7%
+b_bearings                   0.0002861               0.0003    -4.6%
+coulomb                       0.003796                0.004    -5.1%
+b_backemf                     0.008841             0.008895    -0.6%
+cogging, peak                 0.008359 N·m         0.008294     0.8%
+cogging, bumps per turn             84                   84     0.0%
+friction while holding        0.003966 N·m            0.004    -0.8%
+left after cancelling        0.0006632 N·m     
+  frets at the default 0.03 N·m are 3.6× the raw bumps, 45× what's left after cancelling
+winding inductance L             3.226 mH                 3     7.5%
+push falls off from                375 Hz             403.2    -7.0%
+mic started early by             1.371 s               1.37     0.1%
+rim at G3 (196 Hz), per V        10.09 µm             9.975     1.1%
+  felt clearly (10× a rough fingertip threshold, 0.16 µm) needs 0.16 V of sine at 196 Hz
