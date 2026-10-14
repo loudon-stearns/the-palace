@@ -1,0 +1,37 @@
+== check 1: Bessel zeros vs an independent radial finite-difference solve of the drum equation ==
+  m = 0   FD: 2.40483, 5.52008, 8.65373   Bessel zeros: 2.40483, 5.52008, 8.65373   max rel err 8.4e-08   PASS
+  m = 1   FD: 3.83171, 7.01559, 10.17347   Bessel zeros: 3.83171, 7.01559, 10.17347   max rel err 9.2e-08   PASS
+  m = 2   FD: 5.13562, 8.41724, 11.61984   Bessel zeros: 5.13562, 8.41724, 11.61984   max rel err 9.9e-08   PASS
+  m = 3   FD: 6.38016, 9.76102, 13.01520   Bessel zeros: 6.38016, 9.76102, 13.01520   max rel err 1.1e-07   PASS
+== check 2: 2D finite differences on a square grid cut to a disk: same first 12 levels, same pairs ==
+  grid 241x241, 45213 points inside
+  pitch ratios, grid:   1.000, 1.593, 1.593, 2.135, 2.136, 2.295, 2.653, 2.653, 2.917, 2.917, 3.154, 3.156
+  pitch ratios, Bessel: 1.000, 1.593, 1.593, 2.136, 2.136, 2.295, 2.653, 2.653, 2.917, 2.917, 3.155, 3.155
+  max rel err 3.6e-04 (the grid's staircase rim)   twin pairs: grid 5, Bessel 5   PASS
+== check 3: from the SOUND of each strike, the strongest peaks sit on the predicted partials ==
+  string                           peaks ÷ 220 Hz: 1.000  2.000  3.000  4.000  5.000  6.000   worst miss 0.000 Hz   PASS
+  box (Schrödinger, a line)        peaks ÷ 220 Hz: 1.000  4.000  9.000   worst miss 0.000 Hz   PASS
+  square drum                      peaks ÷ 220 Hz: 1.000  2.000  2.550  2.915  3.606  3.808   worst miss 0.000 Hz   PASS
+  square box (Schrödinger)         peaks ÷ 220 Hz: 1.000  2.500  4.000  5.000  6.500  8.500   worst miss 0.000 Hz   PASS
+  round drum                       peaks ÷ 220 Hz: 1.000  1.593  2.136  2.653  3.647  5.131   worst miss 0.000 Hz   PASS
+  round box (Schrödinger)          peaks ÷ 220 Hz: 1.000  2.539  4.561  5.269  7.039  8.511   worst miss 0.000 Hz   PASS
+  round drum, struck dead centre   peaks ÷ 220 Hz: 1.000  2.295  3.598  4.903  6.209  7.515   worst miss 0.000 Hz   PASS
+== check 4: which tones repeat? autocorrelation of each sound, scanned 1-60 ms ==
+  string                           best return 1.00000 at   4.545 ms  → repeats 220.0 times a second   PASS
+  box (Schrödinger, a line)        best return 0.99996 at   4.545 ms  → repeats 220.0 times a second   PASS
+  square drum                      best return 0.68331 at  59.188 ms  → never repeats   PASS
+  square box (Schrödinger)         best return 1.00000 at   9.091 ms  → repeats 110.0 times a second   PASS
+  round drum                       best return 0.75482 at  36.183 ms  → never repeats   PASS
+  round box (Schrödinger)          best return 0.72327 at   8.979 ms  → never repeats   PASS
+  round drum, struck dead centre   best return 0.98472 at  13.899 ms  → never repeats   PASS
+  ALL PASS
+wrote drum.wav (21.3 s): string · box (Schrödinger, a line) · square drum · square box (Schrödinger) · round drum · round box (Schrödinger) · round drum, struck dead centre
+  string                             18 modes in the render
+  box (Schrödinger, a line)           9 modes in the render
+  square drum                       478 modes in the render
+  square box (Schrödinger)          115 modes in the render
+  round drum                        349 modes in the render
+  round box (Schrödinger)           107 modes in the render
+  round drum, struck dead centre     14 modes in the render
+wrote drum-poster.png
+wrote drum.mp4 (639 frames)
