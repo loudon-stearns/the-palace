@@ -24,6 +24,7 @@ import { resolve, dirname } from 'node:path';
 import { checkAllowList, checkPathSafety } from '../src/lib/entry-edit.js';
 import { execGit } from './git-wrapper.js';
 import { commitSelected, clearStaleLocks, LockHeldError } from './commit.js';
+import { withDoor, trunkProblem, DoorBusyError } from './door.js';
 import { formatScalar } from '../src/lib/yaml-emit.js';
 
 // Split an entry into its verbatim frontmatter block (fences included) and its
@@ -505,22 +506,27 @@ export async function revertCommit({ repoRoot, hash }) {
   const h = String(hash == null ? '' : hash).trim();
   if (!/^[0-9a-f]{7,40}$/i.test(h)) return { ok: false, error: 'invalid commit hash' };
 
+  // The revert goes through the same door as every other commit (./door.js),
+  // so it cannot interleave with another writer on the shared index.
   try {
-    await clearStaleLocks(repoRoot, { tag: 'revert' });
-  } catch (e) {
-    if (e instanceof LockHeldError) return { ok: false, error: e.message };
-    throw e;
-  }
-  const exists = await execGit(repoRoot, ['cat-file', '-e', `${h}^{commit}`], { allowFail: true });
-  if (exists.failed) return { ok: false, error: 'commit not found' };
+    return await withDoor(repoRoot, 'revert', async (dgit) => {
+      const problem = trunkProblem(repoRoot);
+      if (problem) return { ok: false, error: `refused: ${problem}` };
+      const exists = await execGit(repoRoot, ['cat-file', '-e', `${h}^{commit}`], { allowFail: true });
+      if (exists.failed) return { ok: false, error: 'commit not found' };
 
-  const r = await execGit(repoRoot, ['revert', '--no-edit', h], { allowFail: true });
-  if (r.failed) {
-    // Don't strand the tree mid-revert (dirty tree, or a later edit conflicts).
-    await execGit(repoRoot, ['revert', '--abort'], { allowFail: true });
-    return { ok: false, error: `could not revert cleanly (a later edit may conflict, or the tree is dirty): ${(r.stderr || '').trim()}` };
+      const r = await dgit(['revert', '--no-edit', h], { allowFail: true });
+      if (r.failed) {
+        // Don't strand the tree mid-revert (dirty tree, or a later edit conflicts).
+        await dgit(['revert', '--abort'], { allowFail: true });
+        return { ok: false, error: `could not revert cleanly (a later edit may conflict, or the tree is dirty): ${(r.stderr || '').trim()}` };
+      }
+      const revertHash = (await execGit(repoRoot, ['rev-parse', '--short', 'HEAD'], { allowFail: true })).stdout.trim();
+      const subject = (await execGit(repoRoot, ['log', '-1', '--format=%s'], { allowFail: true })).stdout.trim();
+      return { ok: true, revertHash, subject };
+    });
+  } catch (e) {
+    if (e instanceof DoorBusyError || e instanceof LockHeldError) return { ok: false, error: e.message };
+    return { ok: false, error: `revert failed: ${e.message}` };
   }
-  const revertHash = (await execGit(repoRoot, ['rev-parse', '--short', 'HEAD'], { allowFail: true })).stdout.trim();
-  const subject = (await execGit(repoRoot, ['log', '-1', '--format=%s'], { allowFail: true })).stdout.trim();
-  return { ok: true, revertHash, subject };
 }

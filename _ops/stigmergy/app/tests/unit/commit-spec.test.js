@@ -117,7 +117,8 @@ describe('annotateOutOfBand', () => {
   it('appends ops/couldnt/author to an unstructured commit', () => {
     const out = annotateOutOfBand('quick fix from obsidian', { author: 'loudon' });
     expect(out).toMatch(/Palace-Kind: ops/);
-    expect(out).toMatch(/Palace-Verify: couldnt/);
+    // No Verify default: nobody made that call (2026-10-14).
+    expect(out).not.toMatch(/Palace-Verify:/);
     expect(out).toMatch(/Palace-Author: loudon/);
     expect(out).toMatch(/Palace-Annotated: commit-msg-hook/);
   });

@@ -73,27 +73,28 @@ STAMP="$PALACE/_ops/heartbeat/.last-steward-batch"
   # The agent ran SHADOW: it wrote bundle scroll.md + steward machinery + board
   # appends, but it never commits and never edits canon entry bodies/frontmatter.
   # The wrapper makes ONE scoped commit via the palace committer, which stages
-  # only what we hand it (NEVER `git add -A` — SCHEMA §9, N-writer repo) and
-  # clears stale git locks itself. Each cycle already committed what it shipped
+  # and commits only the paths we name (NEVER `git add -A` — SCHEMA §9,
+  # N-writer repo), inside the door every committer shares. Each cycle already committed what it shipped
   # (process-cycle.js → cycle-commit.js); this is the sweep for machinery and
   # scrolls a failed or skipped cycle commit left behind.
   COMMITTER="$PALACE/_ops/stigmergy/app/scripts/palace-commit.mjs"
   if command -v node >/dev/null 2>&1 && [ -f "$COMMITTER" ]; then
-    # Stage: steward machinery + the append-only board (git is its ground truth,
-    # SCHEMA §9) + every changed/new bundle scroll. NUL-delimited paths
-    # piped through `xargs -0` so spaces and em-dashes in filenames survive.
-    git -C "$PALACE" add -- "_ops/agents/permanent" "_ops/swarm/persistent/blackboard.jsonl" 2>/dev/null || true
-    git -C "$PALACE" diff --name-only -z -- '*— scroll.md' 2>/dev/null | xargs -0 -I{} git -C "$PALACE" add -- "{}" 2>/dev/null || true
-    git -C "$PALACE" ls-files --others --exclude-standard -z -- '*— scroll.md' 2>/dev/null | xargs -0 -I{} git -C "$PALACE" add -- "{}" 2>/dev/null || true
-    if git -C "$PALACE" diff --cached --quiet; then
-      echo "commit: nothing under heartbeat scope changed — skipping"
-    else
-      PALACE_ROOT="$PALACE" node "$COMMITTER" \
-        --kind steward --scope heartbeat \
-        --summary "machinery + project scrolls" \
-        --verify unverified --author claude \
-        || echo "commit: palace-commit returned non-zero (see message above)"
-    fi
+    # Name every path, and let the committer stage and commit exactly those,
+    # inside the door (server/door.js) it shares with every other committer.
+    # Never raw `git add` here: staging outside the door is how the shared
+    # index got raced, and a commit with no named paths used to take whatever
+    # anyone had staged. NUL-delimited reads so spaces and em-dashes survive.
+    PATHS=(--path "_ops/agents/permanent" --path "_ops/swarm/persistent/blackboard.jsonl")
+    while IFS= read -r -d '' f; do PATHS+=(--path "$f"); done < <(
+      git -C "$PALACE" diff --name-only -z -- '*— scroll.md' 2>/dev/null
+      git -C "$PALACE" ls-files --others --exclude-standard -z -- '*— scroll.md' 2>/dev/null
+    )
+    PALACE_ROOT="$PALACE" node "$COMMITTER" \
+      --kind steward --scope heartbeat \
+      --summary "machinery + project scrolls" \
+      --verify unverified --author claude \
+      "${PATHS[@]}" \
+      || echo "commit: palace-commit returned non-zero (see message above)"
   else
     echo "commit: node or palace committer unavailable — left uncommitted for Mac-side review"
   fi
