@@ -88,7 +88,7 @@ git log --since=<last-session-date> --format='%ad %s' --date=short
 
 # the trunk: unsent commits, the last push, what the ear heard, a landing that
 # died, what sits unsaved in the main checkout and who wrote it, leftover worktrees
-node _ops/stigmergy/app/scripts/trunk-state.mjs --since <hours since the last session>
+node _ops/stigmergy/app/scripts/trunk-state.mjs --since <time since the last session, e.g. 72h or 3d>
 
 # work in flight — the board is truth, never infer done-ness
 node _ops/stigmergy/list-handoffs.mjs
