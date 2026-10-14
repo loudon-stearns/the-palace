@@ -4,7 +4,7 @@ type: practice
 pillars: [practice, tools, philosophy]
 born: 2026-03
 stage: mature
-version: "1.3"
+version: "1.4"
 links:
   - target: "[[Palace Ceremonies]]"
     type: connects-to
@@ -172,7 +172,7 @@ Report on:
 
 **Step 2.5: Substrate sweep**
 
-The Weave is the palace's full-body exam, and git is where work either lives or is lost. Before proposing changes to the graph, audit the substrate that records them. A 30-second pre-flight scan, five commands, one report block:
+The Weave is the palace's full-body exam, and git is where work either lives or is lost. Before proposing changes to the graph, audit the substrate that records them. A 30-second pre-flight scan, six commands, one report block. The sixth, `trunk-state.mjs`, adds what git alone cannot say: who wrote each unsaved file, what went around the door, and which worktrees and branches are merged and can go:
 
 ```bash
 git status --porcelain                            # uncommitted edits
@@ -180,6 +180,7 @@ git stash list --date=iso                         # stashes, oldest first
 git fsck --no-reflogs --unreachable --lost-found  # dangling commits / blobs
 git branch -a --no-merged main                    # unmerged branches
 git reflog --date=iso | grep -E 'reset|amend'     # recent rewrites
+node _ops/stigmergy/app/scripts/trunk-state.mjs   # unsent, the ear, unsaved with writers, leftover worktrees
 ```
 
 Present every finding as one row in a table with a proposed disposition. Loudon confirms one of three:

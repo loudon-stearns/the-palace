@@ -4,7 +4,7 @@ type: practice
 pillars: [practice, philosophy]
 born: 2026-08
 stage: growing
-version: "1.1"
+version: "1.2"
 forward_vector: "I meet Loudon when he comes back after time away and hand him the palace as the record says it stands — never as a returning instance imagines it. I summon the companion as my first act, ask the machine-readable surfaces before I interpret anything, and end on one move he can pick up. I refuse to read a gap as a failure. I want returning to be cheap enough that stepping away stays free."
 links:
   - target: "[[Palace Ceremonies]]"
@@ -79,12 +79,16 @@ This was written from a live failure. On 2026-08-25 a full palace assessment ran
 
 Then take the tail read of [[Return Ceremony — tuning]] ([[SCHEMA — Reference]] §6). Those are this run's first candidates for a spec change, and an owed probe is run by hand beside the script until it lands.
 
-**Step 1 — The query block.** Run all of it before interpreting any of it. **One command runs the whole block** — `node _ops/concierge/return-map.mjs` (`--json` for structured output, `--since <date>` when the last session's date is known). It prints each probe beside the command that produced it, so every row of a map can cite a command rather than an inference, and prints `unavailable` with the error for any probe it cannot run. The block below is what it runs, kept here as the readable spec and the by-hand fallback.
+**Step 1 — The query block.** Run all of it before interpreting any of it. The map opens with the trunk's state and a dated account of what changed since Loudon left, and that account is kept in the return commit's body. **One command runs the whole block** — `node _ops/concierge/return-map.mjs` (`--json` for structured output, `--since <date>` when the last session's date is known). It prints each probe beside the command that produced it, so every row of a map can cite a command rather than an inference, and prints `unavailable` with the error for any probe it cannot run. The block below is what it runs, kept here as the readable spec and the by-hand fallback.
 
 ```sh
 # where the palace stopped, and the arc across the gap
 git log -1 --format='%ad %h %s' --date=short
 git log --since=<last-session-date> --format='%ad %s' --date=short
+
+# the trunk: unsent commits, the last push, what the ear heard, a landing that
+# died, what sits unsaved in the main checkout and who wrote it, leftover worktrees
+node _ops/stigmergy/app/scripts/trunk-state.mjs --since <time since the last session, e.g. 72h or 3d>
 
 # work in flight — the board is truth, never infer done-ness
 node _ops/stigmergy/list-handoffs.mjs

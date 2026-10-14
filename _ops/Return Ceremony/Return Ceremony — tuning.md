@@ -41,3 +41,7 @@ What each return taught the ceremony, and the lessons that reached it from elsew
 
 11. **The Return ran through the scout and nobody read the card.** Loudon opened with "we are back in the palace"; the working Claude routed to the scout, which runs the query block but is read-only, so the run left no ledger line and no `return(…)` commit. The scout re-ran owed probes 7–9 by hand: nothing waiting in Cowork; open plan phases in Closing Well, The Palace Speaks and BLUELINE; a live peer found only through transcripts. Spec change owed: when the survey is a Return, the scout's map ends by telling the parent what the Return owes at its close.
 - run · 2026-09-25 · v1.0 · evening, via the scout · taught item 11
+
+## From the door — 2026-10-14
+
+12. **Items 9 and 10 are paid.** The door's work built the probe item 9 asked for: `trunk-state.mjs` names the session that wrote each unsaved file in the main checkout, from the Write and Edit calls in the session transcripts (Loudon allowed the read, 2026-10-14), so the block no longer reads transcript tails by hand. And `return` joined the commit spec's known kinds (`48c923ad`), so a return commit is no longer annotated out of band. Forced (v1.2): the query block runs `trunk-state.mjs`, `return-map.mjs` carries it as a probe, and the map opens with the trunk's state.

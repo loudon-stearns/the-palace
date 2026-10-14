@@ -89,3 +89,7 @@ What each weave taught the ceremony, appended after the run. Each entry names th
 
 38. **The ledger's first forced change was "read the ledger".** The card told a run to write tuning items and never to read them, so the four owed changes (21, 24, 29, 30) had no path back into a run. Loudon, at the close: "Is there a point in logging growth if we don't ask to check it." Forced: Step 0 now reads this file, owed items first, then anything after the last-run version — **v1.1**. The rule itself went into Schema v1.21 for every ceremony.
 39. **The weave should watch its own language.** Loudon, 2026-09-24 close: look for over-complex, self-analysing prose, propose simplification, and be freer with deletion. "Lighter" means simpler statements of fact and taste, not less content. Spec change owed: fold this into the Multi-Lens Worker Prompt Template, applied at the next weave.
+
+## From the door — 2026-10-14
+
+40. **The sweep could see dirt but not owners, and could not tell leftovers from work.** Five git commands list uncommitted edits and unmerged branches; they cannot say who wrote a file or which of a dozen worktrees are merged and clean (on 2026-10-13, eight of nine were, about 19 GB). Forced (v1.4): step 2.5 runs `trunk-state.mjs` as its sixth command, and its rows take recover, discard or leave like the rest.
