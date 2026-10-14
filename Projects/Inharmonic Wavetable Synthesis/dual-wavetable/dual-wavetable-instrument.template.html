@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Two Walls, One Line · Inharmonic Wavetable Synthesis · study</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Manrope:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+:root{
+  --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --e3:#22222e;
+  --border:#4a4a5e; --soft:rgba(255,255,255,0.06);
+  --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+  --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10);
+  --warn:#ff9b4a; --info:#4a8fff;
+  --serif:'Cormorant Garamond',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+  --display:'Anton',sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  --ease:cubic-bezier(.4,0,.2,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg1);font-family:var(--sans);}
+.wrap{max-width:900px;margin:0 auto;padding:26px 22px 34px;}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;color:var(--fg3);text-transform:uppercase}
+h1{font-family:var(--display);font-weight:400;font-size:40px;line-height:1.05;margin:6px 0 4px;text-transform:uppercase;letter-spacing:.5px}
+.lead{font-family:var(--serif);font-size:19px;line-height:1.6;color:var(--fg2);margin:4px 0 18px}
+.lead i{color:var(--fg1)}
+section{position:relative;background:var(--e1);border:1px solid var(--soft);border-radius:8px;padding:14px 16px;margin-top:14px}
+section h2{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:1.5px;color:var(--fg3);text-transform:uppercase;margin:0 0 10px}
+canvas{display:block;width:100%;height:auto;border-radius:4px;background:var(--bg)}
+.meta{font-family:var(--mono);font-size:11px;color:var(--fg3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:8px}
+.meta b{color:var(--fg1);font-weight:600}
+.walls{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.walls figcaption{font-family:var(--serif);font-size:15px;color:var(--fg2);margin-top:6px;line-height:1.4}
+figure{margin:0}
+.keys{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+button{font-family:var(--sans);font-weight:700;font-size:13px;color:var(--fg1);background:var(--e2);border:1px solid var(--border);padding:9px 14px;border-radius:6px;cursor:pointer;transition:border-color .15s var(--ease),background .15s var(--ease)}
+button:hover{border-color:rgba(232,184,74,0.55)}
+button.on{background:var(--e3);border-color:var(--accent-dim);color:var(--accent)}
+button.primary{background:var(--accent);color:#0a0a0f;border-color:var(--accent)}
+.mode{display:inline-flex;border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-left:auto}
+.mode button{border:none;border-radius:0;background:transparent;padding:8px 12px}
+.mode button.on{background:var(--e3)}
+.grid{display:grid;grid-template-columns:150px 1fr 70px 88px;gap:10px 12px;align-items:center;margin-top:14px}
+.grid label{font-family:var(--mono);font-size:11px;color:var(--fg2);letter-spacing:.5px}
+.grid output{font-family:var(--mono);font-size:11px;color:var(--fg1);text-align:right}
+.grid .tog{font-family:var(--mono);font-size:11px;color:var(--fg3);display:flex;gap:6px;align-items:center;cursor:pointer}
+input[type=range]{width:100%;accent-color:var(--accent)}
+select{font-family:var(--mono);font-size:12px;background:var(--e2);color:var(--fg1);border:1px solid var(--border);border-radius:5px;padding:5px 8px}
+.eq{font-family:var(--mono);font-size:13px;color:var(--fg1);line-height:1.9}
+.eq .w{color:var(--fg3);font-size:12px}
+.prose{font-family:var(--serif);font-size:17px;line-height:1.75;color:var(--fg2)}
+.prose b{font-family:var(--sans);font-size:14px;color:var(--fg1)}
+.hint{font-family:var(--mono);font-size:10.5px;color:var(--fg3);margin-top:10px}
+footer{font-family:var(--mono);font-size:11px;color:var(--fg3);display:flex;justify-content:space-between;margin-top:22px;letter-spacing:.5px}
+/* review layer: one pin per section, a margin note, a digest */
+.pin{position:absolute;top:10px;right:12px;font-family:var(--mono);font-size:13px;color:var(--fg3);background:none;border:none;padding:2px 4px;cursor:pointer}
+.pin.has{color:var(--accent)}
+.note{display:none;margin-top:10px}
+.note.open{display:block}
+.note textarea{width:100%;min-height:62px;background:var(--bg);color:var(--fg1);border:1px solid var(--border);border-radius:5px;font-family:var(--serif);font-size:16px;padding:8px}
+#rv-bar{position:fixed;right:14px;bottom:14px;display:flex;gap:8px}
+#rv-bar button{font-family:var(--mono);font-size:11px;padding:7px 10px}
+#rv-out{display:none;position:fixed;left:50%;bottom:60px;transform:translateX(-50%);width:min(640px,92vw);height:200px;background:var(--e1);color:var(--fg1);border:1px solid var(--border);font-family:var(--mono);font-size:12px;padding:10px;border-radius:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Inharmonic Wavetable Synthesis · study · cycle 7</div>
+  <h1>Two walls, one line</h1>
+  <p class="lead">A real organ wavetable decides <i>how loud</i> each partial is. A physical trajectory decides <i>where</i> each partial sits. The line below is the instrument's whole state: flat means harmony, every bend is a material, and its glow is the organ.</p>
+
+  <section id="s-line" data-moment="The glowing line">
+    <h2>the line · partial number left to right, cents off harmonic up</h2>
+    <button class="pin" title="leave a note on this section">◇</button>
+    <canvas id="line" width="1712" height="640"></canvas>
+    <div class="meta">
+      <span>τ<sub>A</sub> <b id="m-ta">0.30</b></span>
+      <span>τ<sub>B</sub> <b id="m-tb">0.00</b></span>
+      <span>B depth <b id="m-bd">1.00</b></span>
+      <span>partial 2 <b id="m-p2">+0¢</b></span>
+      <span>partial 64 <b id="m-p64">+0¢</b></span>
+    </div>
+    <div class="note"><textarea placeholder="what reads, what doesn't, on the line display"></textarea></div>
+  </section>
+
+  <section id="s-play" data-moment="Playing it">
+    <h2>play</h2>
+    <button class="pin" title="leave a note on this section">◇</button>
+    <div class="keys">
+      <button data-f="110">A2</button>
+      <button data-f="164.81">E3</button>
+      <button data-f="220">A3</button>
+      <button data-f="277.18">C♯4</button>
+      <button class="primary" id="chord">A major chord</button>
+      <button id="stop">Stop</button>
+      <div class="mode"><button id="m-strike" class="on">Strike</button><button id="m-hold">Hold</button></div>
+    </div>
+    <div class="grid">
+      <label>Wavetable B</label>
+      <select id="wtb"><option value="bell">bell dissolving into harmony</option><option value="piano">piano string settling</option><option value="flat">the flat line (pure harmony)</option></select>
+      <span></span><span></span>
+
+      <label>τ<sub>A</sub> · organ timbre</label>
+      <input type="range" id="ta" min="0" max="1000" value="300">
+      <output id="o-ta">0.30</output>
+      <span class="tog"><input type="checkbox" id="ta-lfo">drift</span>
+
+      <label>τ<sub>B</sub> · material frame</label>
+      <input type="range" id="tb" min="0" max="1000" value="0">
+      <output id="o-tb">0.00</output>
+      <span class="tog"><input type="checkbox" id="tb-lfo">lfo</span>
+
+      <label>B depth</label>
+      <input type="range" id="bd" min="0" max="1500" value="1000">
+      <output id="o-bd">1.00</output>
+      <span class="tog"><input type="checkbox" id="bd-lfo">breathe</span>
+
+      <label>settle time (strike)</label>
+      <input type="range" id="st" min="200" max="6000" value="3000">
+      <output id="o-st">3.0 s</output>
+      <span></span>
+    </div>
+    <p class="hint">Strike: τ<sub>B</sub> runs from attack to rest on its own clock while upper partials die first. Hold: you drive τ<sub>B</sub>. Keys a s d f play the four notes, g the chord. Start with the chord on "bell", Strike, settle 4 s.</p>
+    <div class="note"><textarea placeholder="how it plays and sounds"></textarea></div>
+  </section>
+
+  <section id="s-walls" data-moment="The two walls">
+    <h2>the two walls of the cube</h2>
+    <button class="pin" title="leave a note on this section">◇</button>
+    <div class="walls">
+      <figure><canvas id="wallA" width="640" height="320"></canvas>
+        <figcaption>Wavetable A, the amplitude wall: 48 frames of the AKWF organ chain, each FFT'd to 64 partial levels. The gold cursor is τ<sub>A</sub>.</figcaption></figure>
+      <figure><canvas id="wallB" width="640" height="320"></canvas>
+        <figcaption>Wavetable B, the inharmonicity wall: each column a frame, brighter means further off harmonic. The gold cursor is τ<sub>B</sub>.</figcaption></figure>
+    </div>
+    <div class="note"><textarea placeholder="do the walls help you see what the line is slicing through?"></textarea></div>
+  </section>
+
+  <section id="s-math" data-moment="The math and the words">
+    <h2>the engine, twice</h2>
+    <button class="pin" title="leave a note on this section">◇</button>
+    <div class="eq">fₙ = n · f₀ · 2^(B · Δcₙ(τ<sub>B</sub>) / 1200)<br>
+      <span class="w">(frequency of partial n) = (partial number) × (fundamental) × 2^((B depth) × (cents off harmonic at the B frame) / 1200)</span><br>
+      out = Σₙ Aₙ(τ<sub>A</sub>) · envₙ · sin(φₙ)<br>
+      <span class="w">(sound) = sum over partials of (organ level at the A frame) × (envelope) × sin(running phase)</span></div>
+    <p class="prose">The two clocks are the point. τ<sub>A</sub> moves the brightness, τ<sub>B</sub> moves the bend, and neither knows about the other. Play the chord on the bell and listen to the interval: while the partials sit on membrane positions, the upper partials of the three notes stop lining up, so a chord that should sit still beats and smears; as the line goes flat they line up again and it clears. The scale you can use depends on where the line is. That is Sethares, played rather than read.</p>
+    <div class="note"><textarea placeholder="does the explanation land? too much, too little?"></textarea></div>
+  </section>
+
+  <footer><span>Loud’n Live</span><span>study · review layer on</span></footer>
+</div>
+<div id="rv-bar"><button id="rv-copy">◇ copy review notes</button></div>
+<textarea id="rv-out" readonly></textarea>
+
+<script>
+const DATA = /*DATA*/null;
+const NP = DATA.n_partials;
+const WTA = DATA.wta;                       // [48][64]
+const WTB = {bell: DATA.wtb.bell, piano: DATA.wtb.piano,
+             flat: DATA.wtb.piano.map(r => r.map(() => 0))};
+
+// ── state ────────────────────────────────────────────────────────────────
+const S = {ta:0.30, tb:0, bd:1.0, wtb:'bell', mode:'strike', settle:3.0,
+           taLfo:false, tbLfo:false, bdLfo:false};
+const $ = id => document.getElementById(id);
+function lerpFrames(tab, pos){
+  const nf = tab.length, fi = Math.min(Math.max(pos,0),1)*(nf-1);
+  const lo = Math.floor(fi), hi = Math.min(lo+1,nf-1), a = fi-lo;
+  const out = new Float32Array(NP);
+  for(let k=0;k<NP;k++) out[k] = tab[lo][k]*(1-a) + tab[hi][k]*a;
+  return out;
+}
+
+// ── audio ────────────────────────────────────────────────────────────────
+let ctx=null, master=null, voices=[], t0=performance.now();
+function ensureAudio(){
+  if(ctx) return;
+  ctx = new (window.AudioContext||window.webkitAudioContext)();
+  const comp = ctx.createDynamicsCompressor();
+  comp.threshold.value=-14; comp.ratio.value=4;
+  master = ctx.createGain(); master.gain.value=0.22;
+  master.connect(comp).connect(ctx.destination);
+}
+function makeVoice(f0){
+  const g = ctx.createGain(); g.gain.value=1; g.connect(master);
+  const osc=[], gains=[];
+  for(let k=0;k<NP;k++){
+    const o=ctx.createOscillator(); o.type='sine'; o.frequency.value=f0*(k+1);
+    const a=ctx.createGain(); a.gain.value=0;
+    o.connect(a).connect(g); o.start(); osc.push(o); gains.push(a);
+  }
+  return {f0, g, osc, gains, born:ctx.currentTime, released:null};
+}
+function killVoice(v, fade=0.25){
+  const now=ctx.currentTime;
+  v.g.gain.setTargetAtTime(0, now, fade/4);
+  v.osc.forEach(o=>o.stop(now+fade+0.1));
+  setTimeout(()=>v.g.disconnect(), (fade+0.3)*1000);
+}
+function play(freqs){
+  ensureAudio(); if(ctx.state==='suspended') ctx.resume();
+  voices.forEach(v=>killVoice(v,0.08)); voices=[];
+  freqs.forEach(f=>voices.push(makeVoice(f)));
+}
+function stopAll(){ if(!ctx) return; voices.forEach(v=>killVoice(v)); voices=[]; }
+
+// ── control loop: the two clocks ─────────────────────────────────────────
+let cur = {A:lerpFrames(WTA,S.ta), C:lerpFrames(WTB[S.wtb],S.tb), bd:S.bd, tb:S.tb, ta:S.ta};
+function tick(){
+  const secs=(performance.now()-t0)/1000;
+  let ta=S.ta, tb=S.tb, bd=S.bd;
+  if(S.taLfo) ta = 0.5-0.5*Math.cos(2*Math.PI*0.03*secs);
+  if(S.bdLfo) bd = S.bd*(0.5-0.5*Math.cos(2*Math.PI*0.055*secs));
+  let age = 0;
+  if(voices.length && ctx) age = ctx.currentTime - voices[0].born;
+  if(S.mode==='strike' && voices.length) tb = Math.pow(Math.min(age/S.settle,1),0.6);
+  else if(S.tbLfo) tb = 0.5-0.5*Math.cos(2*Math.PI*0.09*secs);
+  const A=lerpFrames(WTA,ta), C=lerpFrames(WTB[S.wtb],tb);
+  cur={A,C,bd,tb,ta};
+  if(ctx && voices.length){
+    const now=ctx.currentTime;
+    for(const v of voices){
+      const vage=now-v.born;
+      for(let k=0;k<NP;k++){
+        const n=k+1, f=n*v.f0*Math.pow(2, bd*C[k]/1200);
+        let env=1;
+        if(S.mode==='strike'){ const tau=2.6/(1+0.07*(n-1)); env=Math.exp(-vage/tau); }
+        const amp = f<ctx.sampleRate*0.45 ? A[k]*env : 0;
+        v.osc[k].frequency.setTargetAtTime(f, now, 0.015);
+        v.gains[k].gain.setTargetAtTime(amp/Math.max(1,voices.length*0.8), now, vage<0.05?0.003:0.03);
+      }
+    }
+  }
+  if(!S.taLfo) {} else { $('ta').value=Math.round(ta*1000); $('o-ta').textContent=ta.toFixed(2); }
+  if(S.mode==='strike'||S.tbLfo){ $('tb').value=Math.round(tb*1000); $('o-tb').textContent=tb.toFixed(2); }
+}
+setInterval(tick, 30);
+
+// ── drawing ──────────────────────────────────────────────────────────────
+const lc=$('line'), lx=lc.getContext('2d');
+let yMax=-1;
+function drawLine(){
+  const W=lc.width, H=lc.height, padL=90, padR=30, padT=40, padB=60;
+  const {A,C,bd,tb,ta}=cur;
+  let m=0; for(let k=0;k<NP;k++) m=Math.max(m,Math.abs(bd*C[k]));
+  let gm=0; WTB[S.wtb].forEach(r=>r.forEach(c=>gm=Math.max(gm,Math.abs(bd*c))));
+  const want=Math.max(120, Math.max(m,gm)*1.08); yMax = yMax<0 ? want : yMax+(want-yMax)*0.15;
+  const X=k=>padL+(W-padL-padR)*k/(NP-1);
+  const Y=c=>H-padB-(H-padT-padB)*(c/yMax)*0.92 - (H-padT-padB)*0.04;
+  lx.fillStyle='#0a0a0f'; lx.fillRect(0,0,W,H);
+  // grid
+  lx.font='22px JetBrains Mono, monospace'; lx.fillStyle='#8a8aa0'; lx.textAlign='right';
+  const step = yMax>900?300: yMax>400?100: yMax>180?50:25;
+  for(let c=step;c<yMax;c+=step){ lx.strokeStyle='rgba(255,255,255,0.05)'; lx.lineWidth=1.5;
+    lx.beginPath(); lx.moveTo(padL,Y(c)); lx.lineTo(W-padR,Y(c)); lx.stroke(); lx.fillText('+'+c+'¢',padL-12,Y(c)+7); }
+  lx.textAlign='center';
+  [1,8,16,24,32,40,48,56,64].forEach(n=>lx.fillText(n,X(n-1),H-padB+34));
+  // ghosts: every stored frame of the B wall, faint
+  const tab=WTB[S.wtb];
+  tab.forEach((fr,i)=>{ lx.strokeStyle='rgba(200,200,216,'+(0.05+0.05*(i===0))+')'; lx.lineWidth=1.5;
+    lx.beginPath(); fr.forEach((c,k)=>{const x=X(k),y=Y(bd*c); k?lx.lineTo(x,y):lx.moveTo(x,y);}); lx.stroke(); });
+  // the harmonic baseline
+  lx.strokeStyle='#c8c8d8'; lx.lineWidth=4; lx.beginPath(); lx.moveTo(padL,Y(0)); lx.lineTo(W-padR,Y(0)); lx.stroke();
+  lx.fillStyle='#c8c8d8'; lx.textAlign='left'; lx.fillText('harmony',W-padR-110,Y(0)+30);
+  // the glowing line: bend = cents, glow + thickness = organ amplitude
+  for(let k=0;k<NP-1;k++){
+    const a=Math.sqrt(Math.max(A[k],A[k+1]));
+    lx.strokeStyle='rgba(232,184,74,'+(0.18+0.82*a)+')';
+    lx.shadowColor='rgba(232,184,74,'+(0.9*a)+')'; lx.shadowBlur=26*a;
+    lx.lineWidth=2+12*a; lx.lineCap='round';
+    lx.beginPath(); lx.moveTo(X(k),Y(bd*C[k])); lx.lineTo(X(k+1),Y(bd*C[k+1])); lx.stroke();
+  }
+  lx.shadowBlur=0;
+  for(let k=0;k<NP;k++){ const a=Math.sqrt(A[k]); if(a<0.08) continue;
+    lx.fillStyle='rgba(255,236,190,'+a+')'; lx.beginPath(); lx.arc(X(k),Y(bd*C[k]),3+7*a,0,7); lx.fill(); }
+  $('m-ta').textContent=ta.toFixed(2); $('m-tb').textContent=tb.toFixed(2); $('m-bd').textContent=bd.toFixed(2);
+  const fmt=c=>(c>=0?'+':'')+Math.round(c)+'¢';
+  $('m-p2').textContent=fmt(bd*C[1]); $('m-p64').textContent=fmt(bd*C[NP-1]);
+  drawWalls(ta,tb);
+  requestAnimationFrame(drawLine);
+}
+function heat(cv, tab, norm, colorFn, cursor){
+  const x=cv.getContext('2d'), W=cv.width, H=cv.height, nf=tab.length;
+  const cw=W/nf, ch=H/NP;
+  for(let i=0;i<nf;i++) for(let k=0;k<NP;k++){
+    x.fillStyle=colorFn(norm(tab[i][k])); x.fillRect(i*cw, H-(k+1)*ch, Math.ceil(cw)+0.5, Math.ceil(ch)+0.5);
+  }
+  x.strokeStyle='#e8b84a'; x.lineWidth=3; x.beginPath(); x.moveTo(cursor*W,0); x.lineTo(cursor*W,H); x.stroke();
+}
+let lastWall='';
+function drawWalls(ta,tb){
+  const key=S.wtb+ta.toFixed(3)+tb.toFixed(3); if(key===lastWall) return; lastWall=key;
+  heat($('wallA'), WTA, v=>Math.max(0,1+Math.log10(v+1e-4)/3), v=>`rgba(232,184,74,${v})`, ta);
+  let mx=1; WTB[S.wtb].forEach(r=>r.forEach(c=>mx=Math.max(mx,Math.abs(c))));
+  heat($('wallB'), WTB[S.wtb], v=>Math.abs(v)/mx, v=>`rgba(${Math.round(74+158*v)},${Math.round(80+104*v)},${Math.round(160-86*v)},${0.15+0.85*v})`, tb);
+}
+requestAnimationFrame(drawLine);
+
+// ── controls ─────────────────────────────────────────────────────────────
+document.querySelectorAll('button[data-f]').forEach(b=>b.onclick=()=>play([+b.dataset.f]));
+$('chord').onclick=()=>play([110,164.81,277.18]);
+$('stop').onclick=stopAll;
+const keymap={a:[110],s:[164.81],d:[220],f:[277.18],g:[110,164.81,277.18]};
+addEventListener('keydown',e=>{ if(e.target.tagName==='TEXTAREA'||e.repeat) return; if(keymap[e.key]) play(keymap[e.key]); });
+addEventListener('keyup',e=>{ if(S.mode==='hold' && keymap[e.key]) stopAll(); });
+function setMode(m){ S.mode=m; $('m-strike').classList.toggle('on',m==='strike'); $('m-hold').classList.toggle('on',m==='hold'); if(m==='hold'){S.tb=+$('tb').value/1000;} }
+$('m-strike').onclick=()=>setMode('strike'); $('m-hold').onclick=()=>setMode('hold');
+$('wtb').onchange=e=>{ S.wtb=e.target.value; if(S.wtb==='piano' && S.bd>0.5){ S.bd=0.3; $('bd').value=300; $('o-bd').textContent='0.30'; } };
+$('ta').oninput=e=>{ S.ta=e.target.value/1000; $('o-ta').textContent=S.ta.toFixed(2); };
+$('tb').oninput=e=>{ S.tb=e.target.value/1000; $('o-tb').textContent=S.tb.toFixed(2); if(S.mode==='strike') setMode('hold'); };
+$('bd').oninput=e=>{ S.bd=e.target.value/1000; $('o-bd').textContent=S.bd.toFixed(2); };
+$('st').oninput=e=>{ S.settle=e.target.value/1000; $('o-st').textContent=S.settle.toFixed(1)+' s'; };
+$('ta-lfo').onchange=e=>S.taLfo=e.target.checked;
+$('tb-lfo').onchange=e=>{ S.tbLfo=e.target.checked; if(S.tbLfo) setMode('hold'); };
+$('bd-lfo').onchange=e=>S.bdLfo=e.target.checked;
+
+// ── review layer: a pin per section, notes kept locally, one digest ──────
+const RK='iws-two-walls-r1';
+let store={}; try{ store=JSON.parse(localStorage.getItem(RK)||'{}'); }catch(e){}
+document.querySelectorAll('section[data-moment]').forEach(sec=>{
+  const id=sec.id, pin=sec.querySelector('.pin'), note=sec.querySelector('.note'), ta=note.querySelector('textarea');
+  ta.value=store[id]||''; pin.classList.toggle('has',!!ta.value); pin.textContent=ta.value?'◆':'◇';
+  pin.onclick=()=>note.classList.toggle('open');
+  ta.oninput=()=>{ store[id]=ta.value; pin.classList.toggle('has',!!ta.value); pin.textContent=ta.value?'◆':'◇';
+    try{ localStorage.setItem(RK,JSON.stringify(store)); }catch(e){} };
+});
+$('rv-copy').onclick=async()=>{
+  const lines=['# Two walls, one line · review round 1',''];
+  document.querySelectorAll('section[data-moment]').forEach(sec=>{ const v=(store[sec.id]||'').trim(); if(v) lines.push('## '+sec.dataset.moment,'',v,''); });
+  const md=lines.join('\n'); const out=$('rv-out');
+  try{ await navigator.clipboard.writeText(md); $('rv-copy').textContent='◆ copied'; setTimeout(()=>$('rv-copy').textContent='◇ copy review notes',1600); }
+  catch(e){ out.value=md; out.style.display='block'; out.select(); }
+};
+</script>
+</body>
+</html>
