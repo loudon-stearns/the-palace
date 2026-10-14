@@ -15,23 +15,24 @@ forward_vector: "I am Blood Compressor's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-23T04:36:43.543Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — steer the project in **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T11:34:28.181Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 6 · last ran 2026-06-25 (90 days ago)
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 7 · last ran 2026-10-14 (today)
+- **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-06-23 (91 days ago) — The vessel prototype shipped — three instinct calls I made; redirect me if any read wrong. (`blood-compressor-012`)
-- **Last commit touching this project:** 2026-09-22 `2488e3d` — deposit(D-2026-09-06-HARVEST): Environments That Hold lands: Creative Coach, Objects to Think With
-- **Signal:** ⚠ the last cycle posted nothing (one barren cycle — the lane will retry before calling it stalled)
+- **Last shipped:** 2026-10-14 (today) — Blood Compressor has no agreed plan yet. Here's one: browser reference, then Max, then the body controls, the lesson and the plugin. (`blood-compressor-016`)
+- **Last commit touching this project:** 2026-09-26 `5b8a1564` — ops(frontmatter): strip retired activation_count/last_activated from 244 entries — v1.26
+- **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Stage 2 starter is live (see blood-compressor-011). Three calls I made by lean rather than by asking: (1) I used the browser's built-in DynamicsCompressorNode instead of authoring a custom feed-forward detector — fast to ship, but the 'biology-inspired choices' in the entry (RMS detector, soft-knee cubic, minimum 5ms attack) are not yet in the DSP path; the GUI claims them, the audio doesn't. (2) The vessel narrows symmetrically top and bottom; the spec implies an asymmetric inner-wall constriction would read more like real vasoconstriction, but symmetric was simpler and the gauge already carries the asymmetric data. (3) No heart-pulse audio (the 'should it be a feature' open question from…
+Blood Compressor is a compressor dressed as the body: threshold is the systolic pressure that triggers the reflex, ratio is how stiff the vessel wall is, attack is the baroreceptor reflex delay, release is the smooth muscle relaxing. In June I shipped a browser prototype where a narrowing artery showed the compression. You told me the threshold didn't seem to work and asked me to make the diagram work really well. I found why it failed and rebuilt it. v3 is one compressor I wrote myself, and it makes both the sound and every pixel, so the picture can't disagree with the audio. It runs with the sound off, and you can grab the amber threshold line and drag it.
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `blood-compressor-016` — proposed plan revision: a first agreed plan for Blood Compressor · posted 2026-10-14 · options: adopt · keep
 
 ### Answered, not yet consumed
 
@@ -43,6 +44,12 @@ _None._
 
 <!-- scroll:now:end -->
 
+## Plan
+
+<!-- scroll:plan:start -->
+_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+<!-- scroll:plan:end -->
+
 ## Standing Orders
 
 <!-- scroll:orders:start -->
@@ -52,6 +59,73 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="blood-compressor-016" -->
+### 2026-10-14 — cycle 7 — Blood Compressor has no agreed plan yet. Here's one: browser reference, then Max, then the body controls, the lesson and the plugin.
+> still working · vessel v3 shipped · steward leans adopt
+
+Blood Compressor teaches compression as the body: threshold as systolic pressure, attack as the baroreceptor reflex. Today the browser vessel finally works. One hand-built compressor drives the sound and the picture, and the threshold is exact to 0.04 dB. The project has never had an agreed plan, only the entry's five stages. I'd like to adopt one, with a single change of order. The browser version becomes the reference that everything else is checked against, the way the Action Potential crowd was checked between Faust and RNBO. The Max build has to match it sample for sample before it counts. It costs one extra step, and it means a Max device I can't open still arrives with proof that its maths is right. I'll keep building toward the Max port whether or not you answer.
+
+**Artifacts:**
+- [stage2-vessel-prototype-v2.html](Projects/Blood Compressor/stage2-vessel-prototype-v2.html)
+<sub>`blood-compressor-016` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="blood-compressor-015" -->
+### 2026-10-14 — cycle 7 — My entry's 50-sample RMS window makes the detector wobble 5.6 dB on a 110 Hz tone. I propose 10 ms instead.
+> finding · entry edit proposed, not made · steward leans adopt
+
+**claim:** The DSP Architecture section of [Blood Compressor](obsidian://open?vault=The%20Palace&file=Blood%20Compressor) says the detector is 'RMS over a 50-sample window'. At 48 kHz that's about 1 ms, shorter than one cycle of any tone below 1 kHz. Measured with the v3 compressor on a 110 Hz tone, the detector swings 5.63 dB within each cycle at 50 samples and 0.63 dB at 10 ms. That swing would make the vessel flutter and the gain buzz. Proposed replacement for item 1: 'Detector: RMS with a ~10 ms time constant (mimics the baroreceptor's integration; short enough to catch a heartbeat's attack, long enough not to ride individual waveform cycles).' A second, smaller note for the same section: because of the 5 ms nerve delay plus the detector's rise, the fastest reflex is about 15 ms from crossing the threshold to 63% of the squeeze (measured 14.9 ms at the 5 ms attack minimum, and 71.5 ms at 60 ms attack). That's the body's reaction time made measurable, and worth a sentence in Pedagogical Framing.
+**target entries:** Blood Compressor
+**confidence:** high
+
+**Artifacts:**
+- [rmsRipple and reflex blocks hold the numbers.](Projects/Blood Compressor/verify/findings.json)
+<sub>`blood-compressor-015` · FLAG on FLAGS</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="blood-compressor-014" -->
+### 2026-10-14 — cycle 7 — The vessel's threshold works now. One hand-built compressor drives both the sound and the picture, and you can drag the systolic line itself.
+> shipped · threshold fixed and measured · steward leans carry this compressor into Max next
+
+**Why the threshold felt broken.** In the June prototype the test signal never dropped below the default threshold, so the vessel sat clamped all the time and moving the slider barely changed anything. The threshold marker was also drawn on the gain-reduction gauge, a different scale from the signal, so you never saw the signal cross it. A September draft (v2) added a pressure lane but still had two truths: the browser's built-in compressor made the sound while a separate estimate drove the picture.
+
+**What v3 is.** Open [the vessel prototype](open:Projects/Blood Compressor/stage2-vessel-prototype-v3.html). The compressor follows the entry's design: an 80 Hz high-pass on the detector, an RMS detector, a soft knee shaped as a cubic curve, a fixed 5 ms nerve delay, then attack and release. It's written by hand and runs per sample. With the sound off, the same code runs on the same heartbeat in step with the clock, so the diagram is always live. The test source is now a real lub-dub at 72 bpm, with peaks near -7 dB and a quiet hum near -36 dB between beats, so where you set the threshold decides how much of each beat gets squeezed. Three panels. **The pressure lane** shows blood pressure in (white), pressure past the vessel (red), and overpressure shaded where the input rises above the amber systolic line, which you can drag. **The transfer curve** is next to it. **The vessel** shows the last five seconds: its width at each point is the gain at that moment, with now at the right edge. Half the gain means half the opening, so each lub and dub pinches it and you watch it relax open again. Eight baroreceptors along the wall glow amber while pressure is over and flash white at the moment of crossing.
+
+**How I checked it.** [verify-dsp.mjs](open:Projects/Blood Compressor/verify/verify-dsp.mjs) pulls the compressor code out of the HTML page and runs it in Node. On a steady tone, the gain reduction matches the threshold curve within 0.04 dB at every threshold from 0 to -54 dB. The knee is smooth and never runs backwards. On the heartbeat, deepest squeeze goes 0, 1.4, 4.4, 8.0, 11.8, 15.9 and 20.3 dB as the threshold drops from -6 to -42 dB. Headless Chrome loaded the page and drew it at [threshold -8](open:Projects/Blood Compressor/verify/v3-threshold-8.png) and [threshold -36](open:Projects/Blood Compressor/verify/v3-threshold-36.png). At -36 the vessel never fully reopens between beats.
+
+**Listen.** [threshold-steps.wav](open:Projects/Blood Compressor/verify/threshold-steps.wav) is 20 s of heartbeat with the threshold stepping 0, -10, -20, -30, -40 every 4 s. The beats flatten step by step, and by the end the quiet hum between beats has dropped as well, because a 350 ms release can't reopen the vessel in the 0.8 s between beats. The figure is [threshold-steps.png](open:Projects/Blood Compressor/verify/threshold-steps.png).
+
+**Two calls I made on my own lean.** The RMS window is 10 ms, not the entry's 50 samples. I measured why and flagged it separately. I lowered the default release from 450 to 300 ms so the vessel visibly breathes: it opens about 4.6 dB between beats instead of 4.1.
+
+**Artifacts:**
+- [The vessel, v3: one compressor drives the sound and the picture. Drag the amber line. It runs with the sound off.](Projects/Blood Compressor/stage2-vessel-prototype-v3.html)
+- [20 s of heartbeat, threshold stepping 0 → -40 dB every 4 s.](Projects/Blood Compressor/verify/threshold-steps.wav)
+- [Pressure in, threshold and pressure out above; vessel squeeze below, for the same 20 s.](Projects/Blood Compressor/verify/threshold-steps.png)
+- [The same figure as vector.](Projects/Blood Compressor/verify/threshold-steps.svg)
+- [Headless Chrome screenshot at threshold -8 dB: the vessel barely moves.](Projects/Blood Compressor/verify/v3-threshold-8.png)
+- [Headless Chrome screenshot at threshold -36 dB: deep pinches, never fully open.](Projects/Blood Compressor/verify/v3-threshold-36.png)
+- [Runs the page's own compressor code in Node: threshold accuracy, knee, reflex timing, RMS ripple, audition and figure.](Projects/Blood Compressor/verify/verify-dsp.mjs)
+- [How far the vessel reopens between beats at five release times.](Projects/Blood Compressor/verify/breathing.mjs)
+- [Every number in this post.](Projects/Blood Compressor/verify/findings.json)
+- [Breathing depth per release time.](Projects/Blood Compressor/verify/breathing.json)
+
+_The threshold on the heartbeat · ratio 4:1, knee 6 dB, attack 60 ms, release 450 ms_
+| threshold | share of time over the line | deepest squeeze | what the vessel does |
+| --- | --- | --- | --- |
+| -6 dB | 0% | 0 dB | wide open |
+| -12 dB | 7% | 1.4 dB | lub tips just over the line, a flicker |
+| -18 dB | 21% | 4.4 dB | both beats pinch it |
+| -24 dB | 35% | 8.0 dB | clear pulse, never quite fully open |
+| -30 dB | 52% | 11.8 dB | deep pinches, slow recovery |
+| -36 dB | 95% | 15.9 dB | constricted almost all the time |
+| -42 dB | 100% | 20.3 dB | clamped tight, even the hum |
+
+_Left rough:_ I haven't heard the audio path in a live browser. The sound runs on the old ScriptProcessor, which can click when the tab is busy; an AudioWorklet is the cleaner home. The release-curve shape and the three extra body controls (sympathetic activation, heart-rate variability, vessel age) aren't in yet. v1 and v2 are still in the folder, and v3 replaces both.
+
+_Next moves named:_ Carry this exact compressor into a gen~ codebox inside a Max for Live device, check it sample for sample against the JS version the way Action Potential Oscillator did, and hand you a demo marked unverified until you open it. · Add the release-curve shape and the three body controls to the browser vessel, so each one has a picture before it has a knob in Max.
+<sub>`blood-compressor-014` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="blood-compressor-012" -->
 ### 2026-06-23 — cycle 5 — The vessel prototype shipped — three instinct calls I made; redirect me if any read wrong.
 > non-blocking · I keep moving while you decide

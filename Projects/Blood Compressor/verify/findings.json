@@ -1,0 +1,242 @@
+{
+  "steadySine": [
+    {
+      "thr": 0,
+      "det": -12.19,
+      "measured": 0,
+      "expected": 0
+    },
+    {
+      "thr": -6,
+      "det": -12.19,
+      "measured": 0,
+      "expected": 0
+    },
+    {
+      "thr": -12,
+      "det": -12.19,
+      "measured": 0,
+      "expected": 0
+    },
+    {
+      "thr": -18,
+      "det": -12.19,
+      "measured": -4.4,
+      "expected": -4.36
+    },
+    {
+      "thr": -24,
+      "det": -12.19,
+      "measured": -8.9,
+      "expected": -8.86
+    },
+    {
+      "thr": -30,
+      "det": -12.19,
+      "measured": -13.4,
+      "expected": -13.36
+    },
+    {
+      "thr": -36,
+      "det": -12.19,
+      "measured": -17.9,
+      "expected": -17.86
+    },
+    {
+      "thr": -42,
+      "det": -12.19,
+      "measured": -22.4,
+      "expected": -22.36
+    },
+    {
+      "thr": -48,
+      "det": -12.19,
+      "measured": -26.9,
+      "expected": -26.86
+    },
+    {
+      "thr": -54,
+      "det": -12.19,
+      "measured": -31.4,
+      "expected": -31.36
+    }
+  ],
+  "steadySineKnee": [
+    {
+      "thr": -6,
+      "det": -12.19,
+      "measured": 0,
+      "expected": 0
+    },
+    {
+      "thr": -9,
+      "det": -12.19,
+      "measured": 0,
+      "expected": 0
+    },
+    {
+      "thr": -12,
+      "det": -12.19,
+      "measured": -0.51,
+      "expected": -0.49
+    },
+    {
+      "thr": -15,
+      "det": -12.19,
+      "measured": -2.15,
+      "expected": -2.11
+    },
+    {
+      "thr": -18,
+      "det": -12.19,
+      "measured": -4.4,
+      "expected": -4.36
+    }
+  ],
+  "maxSteadyError": 0.040000000000000924,
+  "kneeCheck": {
+    "monotone": true,
+    "maxStepPer0_01dB": 0.01,
+    "slopeAtKneeStart": 1,
+    "slopeAtKneeEnd": 0.25
+  },
+  "heartbeat": [
+    {
+      "thr": 0,
+      "pctTimeOverThreshold": 0,
+      "pctTimeConstricted": 0,
+      "deepestConstrictionDb": 0,
+      "loudestPressureDb": -6.9,
+      "quietestPressureDb": -36.2
+    },
+    {
+      "thr": -6,
+      "pctTimeOverThreshold": 0,
+      "pctTimeConstricted": 0,
+      "deepestConstrictionDb": 0,
+      "loudestPressureDb": -6.9,
+      "quietestPressureDb": -36.2
+    },
+    {
+      "thr": -12,
+      "pctTimeOverThreshold": 7.4,
+      "pctTimeConstricted": 62.2,
+      "deepestConstrictionDb": -1.4,
+      "loudestPressureDb": -6.9,
+      "quietestPressureDb": -36.2
+    },
+    {
+      "thr": -18,
+      "pctTimeOverThreshold": 21.4,
+      "pctTimeConstricted": 100,
+      "deepestConstrictionDb": -4.4,
+      "loudestPressureDb": -6.9,
+      "quietestPressureDb": -36.2
+    },
+    {
+      "thr": -24,
+      "pctTimeOverThreshold": 34.6,
+      "pctTimeConstricted": 100,
+      "deepestConstrictionDb": -8,
+      "loudestPressureDb": -6.9,
+      "quietestPressureDb": -36.2
+    },
+    {
+      "thr": -30,
+      "pctTimeOverThreshold": 51.6,
+      "pctTimeConstricted": 100,
+      "deepestConstrictionDb": -11.8,
+      "loudestPressureDb": -6.9,
+      "quietestPressureDb": -36.2
+    },
+    {
+      "thr": -36,
+      "pctTimeOverThreshold": 94.6,
+      "pctTimeConstricted": 100,
+      "deepestConstrictionDb": -15.9,
+      "loudestPressureDb": -6.9,
+      "quietestPressureDb": -36.2
+    },
+    {
+      "thr": -42,
+      "pctTimeOverThreshold": 100,
+      "pctTimeConstricted": 100,
+      "deepestConstrictionDb": -20.3,
+      "loudestPressureDb": -6.9,
+      "quietestPressureDb": -36.2
+    }
+  ],
+  "reflex": [
+    {
+      "attackMs": 5,
+      "detectorCrossesAtMs": 0.5,
+      "reaches63pctAtMs": 15.4,
+      "reflexAfterCrossingMs": 14.9
+    },
+    {
+      "attackMs": 20,
+      "detectorCrossesAtMs": 0.5,
+      "reaches63pctAtMs": 31.5,
+      "reflexAfterCrossingMs": 31
+    },
+    {
+      "attackMs": 60,
+      "detectorCrossesAtMs": 0.5,
+      "reaches63pctAtMs": 72,
+      "reflexAfterCrossingMs": 71.5
+    },
+    {
+      "attackMs": 200,
+      "detectorCrossesAtMs": 0.5,
+      "reaches63pctAtMs": 214.9,
+      "reflexAfterCrossingMs": 214.4
+    }
+  ],
+  "rmsRipple": [
+    {
+      "rmsWindow": "50 samples (~1 ms)",
+      "detectorRippleDb": 5.63
+    },
+    {
+      "rmsWindow": "10 ms",
+      "detectorRippleDb": 0.63
+    }
+  ],
+  "audition": [
+    {
+      "threshold": 0,
+      "seconds": "0–4",
+      "peakPressureDb": -7.1,
+      "deepestConstrictionDb": 0,
+      "pctConstricted": 0
+    },
+    {
+      "threshold": -10,
+      "seconds": "4–8",
+      "peakPressureDb": -7.1,
+      "deepestConstrictionDb": -0.9,
+      "pctConstricted": 32
+    },
+    {
+      "threshold": -20,
+      "seconds": "8–12",
+      "peakPressureDb": -7.1,
+      "deepestConstrictionDb": -7,
+      "pctConstricted": 100
+    },
+    {
+      "threshold": -30,
+      "seconds": "12–16",
+      "peakPressureDb": -7.1,
+      "deepestConstrictionDb": -14.3,
+      "pctConstricted": 100
+    },
+    {
+      "threshold": -40,
+      "seconds": "16–20",
+      "peakPressureDb": -7.1,
+      "deepestConstrictionDb": -22.3,
+      "pctConstricted": 100
+    }
+  ]
+}

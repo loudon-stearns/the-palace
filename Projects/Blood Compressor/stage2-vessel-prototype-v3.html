@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Blood Compressor — Vessel Prototype v3</title>
+<style>
+  :root{
+    --bg:#0B0B10; --panel:#101018; --line:#1c1c26;
+    --blood:#C8254C; --blood-dk:#7a1830; --wall:#8B4A5E;
+    --baro:#F5C16C; --ink:#E8E8F0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:Manrope,system-ui,-apple-system,sans-serif;height:100%;}
+  .wrap{display:grid;grid-template-rows:auto 1fr auto auto;height:100vh;min-height:560px;padding:14px;gap:10px;}
+  h1{font-family:Anton,Impact,sans-serif;letter-spacing:.04em;margin:0 0 2px;font-size:22px;font-weight:400;}
+  .sub{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;opacity:.7;}
+  .stage{position:relative;min-height:0;}
+  canvas{position:absolute;inset:0;width:100%;height:100%;display:block;background:var(--panel);
+    border:1px solid var(--line);border-radius:6px;touch-action:none;}
+  .ctrls{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;}
+  .ctrls label{display:flex;flex-direction:column;gap:4px;
+    font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.03em;}
+  .ctrls input[type=range]{accent-color:var(--blood);width:100%;}
+  .ctrls label.th{color:var(--baro);}
+  .ctrls label.th input{accent-color:var(--baro);}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+  button{background:var(--blood);color:var(--ink);border:0;padding:8px 14px;
+    font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;
+    border-radius:4px;cursor:pointer;letter-spacing:.05em;}
+  button.alt{background:transparent;border:1px solid var(--wall);color:var(--ink);}
+  .readout{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;opacity:.85;}
+  .tag{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;
+    border:1px solid var(--line);border-radius:3px;padding:3px 7px;opacity:.85;min-width:9em;}
+  footer{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;opacity:.5;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div>
+    <h1>BLOOD COMPRESSOR — VESSEL PROTOTYPE v3</h1>
+    <div class="sub">one compressor drives both the sound and the picture · drag the amber systolic line, or the slider · it works with the sound off</div>
+  </div>
+
+  <div class="stage"><canvas id="cv"></canvas></div>
+
+  <div class="ctrls">
+    <label class="th">THRESHOLD · systolic<input id="th" type="range" min="-54" max="0" value="-20" step="0.5"><span class="readout" id="th_r"></span></label>
+    <label>RATIO · wall elasticity<input id="ra" type="range" min="1" max="20" value="4" step="0.1"><span class="readout" id="ra_r"></span></label>
+    <label>KNEE · wall plasticity<input id="kn" type="range" min="0" max="18" value="6" step="0.5"><span class="readout" id="kn_r"></span></label>
+    <label>ATTACK · baroreceptor reflex<input id="at" type="range" min="5" max="400" value="60" step="1"><span class="readout" id="at_r"></span></label>
+    <label>RELEASE · smooth muscle<input id="re" type="range" min="50" max="2000" value="300" step="10"><span class="readout" id="re_r"></span></label>
+    <label>INPUT · cardiac output<input id="ig" type="range" min="-24" max="12" value="0" step="0.5"><span class="readout" id="ig_r"></span></label>
+    <label>MAKEUP · output<input id="mk" type="range" min="0" max="24" value="0" step="0.5"><span class="readout" id="mk_r"></span></label>
+  </div>
+
+  <div class="row">
+    <button id="play">SOUND ON</button>
+    <button class="alt" id="byp">BYPASS: off</button>
+    <span class="tag" id="det_r">pressure: —</span>
+    <span class="tag" id="gr_r">constriction: 0.0 dB</span>
+    <span class="tag" id="st_r">vessel: open</span>
+    <span style="flex:1"></span>
+    <footer>Loud’n Live · sketch</footer>
+  </div>
+</div>
+
+<!--
+  THE DSP. Pure JavaScript, no DOM, no Web Audio. The page runs this exact code
+  for the sound and for the picture, and verify-dsp.mjs runs it in Node to check
+  the threshold numerically. Keep it self-contained.
+-->
+<script id="dsp">
+"use strict";
+var BC = (function(){
+  const dbToLin = d => Math.pow(10, d/20);
+
+  // A heartbeat test source: lub (loud) then dub (softer), 72 bpm, over a quiet
+  // diastolic hum, on a 110 Hz tone with two overtones. Peaks near -3 dBFS,
+  // dub near -8, hum near -34, so the threshold has a wide range to choose from.
+  class Heartbeat {
+    constructor(sr){ this.sr = sr; this.n = 0; this.ph = 0; }
+    env(t){
+      const T = 60/72, u = t % T;
+      const lub = u < 0.012 ? u/0.012 : Math.exp(-(u-0.012)/0.07);
+      const v = u - 0.30;
+      const dub = v < 0 ? 0 : (v < 0.010 ? v/0.010 : Math.exp(-(v-0.010)/0.05));
+      return Math.min(1, 0.025 + 0.72*lub + 0.40*dub);
+    }
+    next(){
+      const t = this.n++ / this.sr;
+      this.ph += 2*Math.PI*110/this.sr; if (this.ph > 2*Math.PI) this.ph -= 2*Math.PI;
+      const tone = (Math.sin(this.ph) + 0.5*Math.sin(2*this.ph) + 0.25*Math.sin(3*this.ph)) / 1.45;
+      return this.env(t) * tone;
+    }
+  }
+
+  // The compressor, built the way the entry describes:
+  //   sidechain high-pass (80 Hz) -> RMS detector -> soft-knee gain computer (cubic)
+  //   -> nerve-conduction delay (fixed 5 ms) -> attack / release ballistics -> gain.
+  class Compressor {
+    constructor(sr){
+      this.sr = sr;
+      this.p = { th:-20, ra:4, kn:6, at:60, re:300, mk:0, rmsMs:10, nerveMs:5, bypass:false };
+      this.hpX = 0; this.hpY = 0; this.ms = 0; this.g = 0;
+      this.delay = new Float32Array(Math.ceil(sr*0.05)); this.dw = 0;
+      this.m = { detMax:-120, grMin:0, tgMin:0, n:0 };
+      this.last = { det:-120, target:0, gr:0 };
+    }
+    // static curve: input level (dB) -> output level (dB)
+    curve(x){
+      const T = this.p.th, R = Math.max(1, this.p.ra), K = Math.max(0, this.p.kn);
+      const lo = T - K/2, hi = T + K/2;
+      if (K <= 0 || x <= lo) return x > T ? T + (x - T)/R : x;
+      if (x >= hi) return T + (x - T)/R;
+      // cubic Hermite between the two straight lines: matches value and slope at
+      // both ends (slope 1 below the knee, 1/R above). The vessel wall yielding.
+      const s = (x - lo)/K, y0 = lo, y1 = T + (K/2)/R, m0 = K, m1 = K/R;
+      const s2 = s*s, s3 = s2*s;
+      return (2*s3 - 3*s2 + 1)*y0 + (s3 - 2*s2 + s)*m0 + (-2*s3 + 3*s2)*y1 + (s3 - s2)*m1;
+    }
+    processSample(x){
+      const p = this.p, sr = this.sr;
+      // sidechain HPF, one pole at 80 Hz
+      const a = Math.exp(-2*Math.PI*80/sr);
+      const hp = a*(this.hpY + x - this.hpX); this.hpX = x; this.hpY = hp;
+      // RMS: one-pole mean square
+      const ar = Math.exp(-1/(sr*p.rmsMs/1000));
+      this.ms = ar*this.ms + (1-ar)*hp*hp;
+      // +3.01 dB so a sine reads at its peak level (dBFS peak, the usual meter scale)
+      const det = 10*Math.log10(this.ms + 1e-12) + 3.0103;
+      const target = Math.min(0, this.curve(det) - det);
+      // nerve-conduction delay on the control signal
+      const L = this.delay.length, d = Math.max(1, Math.round(sr*p.nerveMs/1000));
+      this.delay[this.dw] = target;
+      const delayed = this.delay[(this.dw - d + L) % L];
+      this.dw = (this.dw + 1) % L;
+      // ballistics in dB: moving toward more reduction = attack, back toward 0 = release
+      const atk = Math.max(5, p.at), rel = Math.max(5, p.re);
+      const c = delayed < this.g ? Math.exp(-1/(sr*atk/1000)) : Math.exp(-1/(sr*rel/1000));
+      this.g = c*this.g + (1-c)*delayed;
+      const m = this.m;
+      if (det > m.detMax) m.detMax = det;
+      if (this.g < m.grMin) m.grMin = this.g;
+      if (target < m.tgMin) m.tgMin = target;
+      m.n++;
+      this.last.det = det; this.last.target = target; this.last.gr = this.g;
+      return p.bypass ? x : x * dbToLin(this.g + p.mk);
+    }
+    // read-and-reset the meters (what happened since the last frame)
+    takeMeters(){
+      const m = this.m, out = { det:m.detMax, gr:m.grMin, target:m.tgMin, n:m.n };
+      m.detMax = -120; m.grMin = 0; m.tgMin = 0; m.n = 0;
+      if (out.n === 0){ out.det = this.last.det; out.gr = this.last.gr; out.target = this.last.target; }
+      return out;
+    }
+  }
+  return { Heartbeat, Compressor, dbToLin };
+})();
+if (typeof module !== 'undefined') module.exports = BC;
+</script>
+
+<script>
+"use strict";
+const cv = document.getElementById('cv');
+const g2 = cv.getContext('2d');
+const $ = id => document.getElementById(id);
+
+let DPR = 1, W = 0, H = 0;
+function resize(){
+  DPR = Math.min(2, window.devicePixelRatio || 1);
+  const r = cv.getBoundingClientRect();
+  cv.width  = Math.max(1, Math.round(r.width  * DPR));
+  cv.height = Math.max(1, Math.round(r.height * DPR));
+  W = cv.width; H = cv.height;
+}
+addEventListener('resize', resize);
+
+/* ---------------- one compressor, one source ---------------- */
+let SR = 48000;
+let comp = new BC.Compressor(SR);
+let beat = new BC.Heartbeat(SR);
+let inGainDb = 0;
+
+function setParam(id, v){
+  if (id === 'ig') inGainDb = v;
+  else comp.p[id] = v;
+}
+function bind(id, fmt){
+  const el = $(id), out = $(id + '_r');
+  const upd = () => { setParam(id, +el.value); out.textContent = fmt(+el.value); };
+  el.addEventListener('input', upd);
+  upd();
+}
+const sgn = v => (v > 0 ? '+' : '') + v.toFixed(1) + ' dB';
+bind('th', v => v.toFixed(1) + ' dB');
+bind('ra', v => v.toFixed(1) + ':1');
+bind('kn', v => v.toFixed(1) + ' dB');
+bind('at', v => v.toFixed(0) + ' ms  (+5 ms nerve)');
+bind('re', v => v.toFixed(0) + ' ms');
+bind('ig', sgn);
+bind('mk', sgn);
+// ?th=-36 opens the page at that threshold (handy for side-by-side screenshots)
+(function(){ const q = new URLSearchParams(location.search).get('th'); if (q !== null && isFinite(+q)){ $('th').value = +q; setParam('th', +q); $('th_r').textContent = (+q).toFixed(1) + ' dB'; } })();
+function setThreshold(v){
+  v = Math.max(-54, Math.min(0, Math.round(v*2)/2));
+  $('th').value = v; $('th').dispatchEvent(new Event('input'));
+}
+
+/* ---------------- sound (optional — the picture runs without it) ---------------- */
+let ac = null, sp = null, silent = null, playing = false;
+function renderInto(out){
+  const ig = BC.dbToLin(inGainDb);
+  for (let i = 0; i < out.length; i++) out[i] = comp.processSample(beat.next() * ig);
+}
+async function start(){
+  if (!ac){
+    ac = new (window.AudioContext || window.webkitAudioContext)();
+    if (ac.sampleRate !== SR){
+      const p = comp.p; SR = ac.sampleRate;
+      comp = new BC.Compressor(SR); Object.assign(comp.p, p);
+      beat = new BC.Heartbeat(SR);
+    }
+    sp = ac.createScriptProcessor(1024, 1, 1);
+    silent = ac.createConstantSource(); silent.offset.value = 0; silent.start();
+    silent.connect(sp);
+    sp.onaudioprocess = e => { if (playing) renderInto(e.outputBuffer.getChannelData(0)); else e.outputBuffer.getChannelData(0).fill(0); };
+    sp.connect(ac.destination);
+  }
+  await ac.resume();
+  playing = true;
+  $('play').textContent = 'SOUND OFF';
+}
+function stop(){ playing = false; $('play').textContent = 'SOUND ON'; }
+$('play').onclick = () => playing ? stop() : start();
+$('byp').onclick = () => { comp.p.bypass = !comp.p.bypass; $('byp').textContent = 'BYPASS: ' + (comp.p.bypass ? 'ON' : 'off'); };
+
+// with the sound off, the same compressor still runs on the same heartbeat, in step with the clock
+const simBuf = new Float32Array(4096);
+let lastT = null;
+function simulate(now){
+  if (lastT === null) lastT = now;
+  const dt = Math.min(0.05, (now - lastT)/1000); lastT = now;
+  if (playing) return;
+  let n = Math.round(dt*SR);
+  while (n > 0){ const k = Math.min(n, simBuf.length); renderInto(simBuf.subarray(0, k)); n -= k; }
+}
+
+/* ---------------- drag the systolic line ---------------- */
+const DB_MIN = -60, DB_MAX = 3;
+let lane = { x:0, y:0, w:1, h:1 }, dragging = false;
+const yToDb = y => DB_MAX - (y - lane.y)/lane.h * (DB_MAX - DB_MIN);
+const dbToY = db => lane.y + lane.h * (1 - (Math.max(DB_MIN, Math.min(DB_MAX, db)) - DB_MIN)/(DB_MAX - DB_MIN));
+function canvasPt(e){ const r = cv.getBoundingClientRect(); return { x:(e.clientX - r.left)*DPR, y:(e.clientY - r.top)*DPR }; }
+cv.addEventListener('pointerdown', e => {
+  const p = canvasPt(e);
+  if (p.x >= lane.x && p.x <= lane.x + lane.w && p.y >= lane.y - 8*DPR && p.y <= lane.y + lane.h + 8*DPR){
+    dragging = true; cv.setPointerCapture(e.pointerId); setThreshold(yToDb(p.y));
+  }
+});
+cv.addEventListener('pointermove', e => {
+  const p = canvasPt(e);
+  if (dragging) setThreshold(yToDb(p.y));
+  else cv.style.cursor = (p.x >= lane.x && p.x <= lane.x + lane.w && Math.abs(p.y - dbToY(comp.p.th)) < 10*DPR) ? 'ns-resize' : 'default';
+});
+cv.addEventListener('pointerup', () => dragging = false);
+cv.addEventListener('pointercancel', () => dragging = false);
+
+/* ---------------- history ---------------- */
+const HIST = 300;                 // ~5 s at 60 fps
+const detH = new Array(HIST).fill(-120);
+const outH = new Array(HIST).fill(-120);
+const grH  = new Array(HIST).fill(0);
+const thH  = new Array(HIST).fill(-20);
+let baroFlash = 0, wasOver = false;
+
+/* ---------------- draw ---------------- */
+function draw(now){
+  requestAnimationFrame(draw);
+  if (!W) resize();
+  simulate(now);
+  const m = comp.takeMeters();
+  const P = comp.p;
+  const gr = P.bypass ? 0 : m.gr;
+  detH.push(m.det); detH.shift();
+  outH.push(m.det + gr); outH.shift();
+  grH.push(gr); grH.shift();
+  thH.push(P.th); thH.shift();
+
+  const over = m.target < -0.05;               // the detector is past the knee's start
+  if (over && !wasOver) baroFlash = 1;          // the moment the body notices
+  wasOver = over;
+  baroFlash = Math.max(0, baroFlash - 1/9);     // ~150 ms white flash
+  const constricting = gr < -0.3;
+  let state = 'open';
+  if (P.bypass) state = 'bypassed (picture shows the open vessel)';
+  else if (over && gr > m.target + 0.5) state = 'sensing → constricting';
+  else if (over) state = 'constricted';
+  else if (constricting) state = 'relaxing';
+  $('det_r').textContent = 'pressure: ' + (m.det > -100 ? m.det.toFixed(1) + ' dB' : '—');
+  $('gr_r').textContent  = 'constriction: ' + gr.toFixed(1) + ' dB';
+  $('st_r').textContent  = 'vessel: ' + state;
+
+  g2.fillStyle = '#101018'; g2.fillRect(0, 0, W, H);
+  g2.font = (10*DPR) + "px 'JetBrains Mono', ui-monospace, monospace";
+  const pad = 12*DPR;
+  const topH = Math.round(H * 0.46);
+  const cS = Math.min(Math.round(Math.min(240*DPR, W*0.28)), topH);
+  lane = { x:pad, y:pad + 4*DPR, w:W - cS - pad*3, h:topH - 4*DPR };
+
+  /* ---- PANEL 1: pressure lane ---- */
+  g2.strokeStyle = '#1c1c26'; g2.lineWidth = 1*DPR;
+  g2.strokeRect(lane.x, lane.y, lane.w, lane.h);
+  for (let db = 0; db > DB_MIN; db -= 12){
+    const y = dbToY(db);
+    g2.globalAlpha = .14; g2.strokeStyle = '#E8E8F0';
+    g2.beginPath(); g2.moveTo(lane.x, y); g2.lineTo(lane.x + lane.w, y); g2.stroke();
+    g2.globalAlpha = .4; g2.fillStyle = '#E8E8F0';
+    g2.fillText(db + ' dB', lane.x + 4*DPR, y - 3*DPR);
+    g2.globalAlpha = 1;
+  }
+  const step = lane.w / (HIST - 1);
+  const thY = dbToY(P.th);
+  // overpressure: fill between the threshold and the input trace where the input is above it
+  g2.fillStyle = 'rgba(200,37,76,0.35)';
+  for (let i = 0; i < HIST - 1; i++){
+    const t = thH[i];
+    if (detH[i] > t || detH[i+1] > t){
+      const x0 = lane.x + i*step, x1 = x0 + step;
+      const y0 = dbToY(Math.max(detH[i], t)), y1 = dbToY(Math.max(detH[i+1], t)), ty = dbToY(t);
+      g2.beginPath(); g2.moveTo(x0, ty); g2.lineTo(x0, y0); g2.lineTo(x1, y1); g2.lineTo(x1, ty); g2.closePath(); g2.fill();
+    }
+  }
+  const trace = (arr, col, lw, alpha) => {
+    g2.strokeStyle = col; g2.lineWidth = lw*DPR; g2.globalAlpha = alpha;
+    g2.beginPath();
+    for (let i = 0; i < HIST; i++){ const x = lane.x + i*step, y = dbToY(arr[i]); i ? g2.lineTo(x, y) : g2.moveTo(x, y); }
+    g2.stroke(); g2.globalAlpha = 1;
+  };
+  trace(detH, '#E8E8F0', 1.4, .8);
+  trace(outH, '#C8254C', 2, 1);
+  // knee band
+  if (P.kn > 0){
+    g2.fillStyle = 'rgba(245,193,108,0.07)';
+    g2.fillRect(lane.x, dbToY(P.th + P.kn/2), lane.w, dbToY(P.th - P.kn/2) - dbToY(P.th + P.kn/2));
+  }
+  // THE systolic line — drag it
+  g2.strokeStyle = '#F5C16C'; g2.lineWidth = (dragging ? 3 : 2)*DPR;
+  g2.setLineDash([7*DPR, 4*DPR]);
+  g2.beginPath(); g2.moveTo(lane.x, thY); g2.lineTo(lane.x + lane.w, thY); g2.stroke();
+  g2.setLineDash([]);
+  g2.fillStyle = '#F5C16C';
+  g2.beginPath(); g2.arc(lane.x + lane.w - 10*DPR, thY, 6*DPR, 0, Math.PI*2); g2.fill();
+  g2.fillText('SYSTOLIC THRESHOLD ' + P.th.toFixed(1) + ' dB  ·  drag me', lane.x + lane.w - 250*DPR, thY - 7*DPR);
+  g2.fillStyle = '#E8E8F0'; g2.globalAlpha = .55;
+  g2.fillText('pressure lane · white = blood pressure in (RMS) · red = pressure past the vessel · shaded = overpressure', lane.x + 4*DPR, lane.y + lane.h - 6*DPR);
+  g2.globalAlpha = 1;
+
+  /* ---- PANEL 2: transfer curve ---- */
+  const cX = lane.x + lane.w + pad, cY = lane.y;
+  const CMIN = -60;
+  const mX = db => cX + cS*(Math.max(CMIN, Math.min(0, db)) - CMIN)/(0 - CMIN);
+  const mY = db => cY + cS*(1 - (Math.max(CMIN, Math.min(0, db)) - CMIN)/(0 - CMIN));
+  g2.strokeStyle = '#1c1c26'; g2.strokeRect(cX, cY, cS, cS);
+  g2.strokeStyle = '#E8E8F0'; g2.globalAlpha = .2; g2.lineWidth = 1*DPR;
+  g2.beginPath(); g2.moveTo(mX(CMIN), mY(CMIN)); g2.lineTo(mX(0), mY(0)); g2.stroke(); g2.globalAlpha = 1;
+  g2.strokeStyle = '#C8254C'; g2.lineWidth = 2*DPR; g2.beginPath();
+  for (let db = CMIN; db <= 0; db += 0.25){ const x = mX(db), y = mY(comp.curve(db)); db === CMIN ? g2.moveTo(x, y) : g2.lineTo(x, y); }
+  g2.stroke();
+  g2.strokeStyle = '#F5C16C'; g2.lineWidth = 1.5*DPR; g2.setLineDash([4*DPR, 3*DPR]);
+  g2.beginPath(); g2.moveTo(mX(P.th), cY); g2.lineTo(mX(P.th), cY + cS); g2.stroke(); g2.setLineDash([]);
+  if (m.det > CMIN){
+    g2.fillStyle = '#FFFFFF';
+    g2.beginPath(); g2.arc(mX(m.det), mY(m.det + gr), 4*DPR, 0, Math.PI*2); g2.fill();
+  }
+  g2.fillStyle = '#E8E8F0'; g2.globalAlpha = .55;
+  g2.fillText('in → out · ' + P.ra.toFixed(1) + ':1 · knee ' + P.kn.toFixed(1), cX + 5*DPR, cY + cS - 6*DPR);
+  g2.globalAlpha = 1;
+
+  /* ---- PANEL 3: the vessel — its diameter along x is the gain over time; "now" is the right edge ---- */
+  const vTop = lane.y + lane.h + pad*1.8;
+  const vH = H - vTop - pad;
+  const cy = vTop + vH/2 + 6*DPR;
+  const baseR = vH * 0.34;
+  const x0 = lane.x, x1 = W - pad;
+  const rAt = i => baseR * (0.18 + 0.82*Math.pow(10, grH[i]/20));   // width IS the gain: -6 dB = half the opening
+  const xAt = i => x0 + (x1 - x0) * i/(HIST - 1);
+  // outer tissue
+  g2.fillStyle = 'rgba(139,74,94,0.18)';
+  g2.fillRect(x0, cy - baseR - 16*DPR, x1 - x0, 2*baseR + 32*DPR);
+  // walls: they thicken as the smooth muscle contracts
+  g2.fillStyle = '#8B4A5E';
+  g2.beginPath();
+  for (let i = 0; i < HIST; i++) g2.lineTo(xAt(i), cy - baseR - 8*DPR);
+  for (let i = HIST - 1; i >= 0; i--) g2.lineTo(xAt(i), cy - rAt(i));
+  g2.closePath(); g2.fill();
+  g2.beginPath();
+  for (let i = 0; i < HIST; i++) g2.lineTo(xAt(i), cy + baseR + 8*DPR);
+  for (let i = HIST - 1; i >= 0; i--) g2.lineTo(xAt(i), cy + rAt(i));
+  g2.closePath(); g2.fill();
+  // lumen
+  const grad = g2.createLinearGradient(0, cy - baseR, 0, cy + baseR);
+  grad.addColorStop(0, '#7a1830'); grad.addColorStop(.5, '#C8254C'); grad.addColorStop(1, '#7a1830');
+  g2.fillStyle = grad;
+  g2.beginPath();
+  for (let i = 0; i < HIST; i++) g2.lineTo(xAt(i), cy - rAt(i));
+  for (let i = HIST - 1; i >= 0; i--) g2.lineTo(xAt(i), cy + rAt(i));
+  g2.closePath(); g2.fill();
+  // corpuscles ride the lumen and squeeze faster through the narrow parts
+  g2.fillStyle = 'rgba(255,205,215,0.55)';
+  for (let k = 0; k < 40; k++){
+    const ph = (now/1000*0.12 + k/40) % 1;
+    const i = Math.min(HIST - 1, Math.floor(ph*(HIST - 1)));
+    const y = cy + Math.sin(k*2.7) * rAt(i) * 0.7;
+    g2.beginPath(); g2.arc(xAt(i), y, 2.2*DPR, 0, Math.PI*2); g2.fill();
+  }
+  // eight baroreceptors in the wall near "now": amber while over, white flash at the crossing
+  for (let k = 0; k < 8; k++){
+    const i = Math.round((k + 0.5)/8 * (HIST - 1));
+    const bx = xAt(i);
+    const col = baroFlash > 0 ? '#FFFFFF' : '#F5C16C';
+    g2.globalAlpha = baroFlash > 0 ? 0.5 + 0.5*baroFlash : (over ? 0.85 : 0.22);
+    g2.fillStyle = col;
+    const rr = (3.5 + (over ? 2 : 0) + 3*baroFlash)*DPR;
+    g2.beginPath(); g2.arc(bx, cy - rAt(i) - 3*DPR, rr, 0, Math.PI*2); g2.fill();
+    g2.beginPath(); g2.arc(bx, cy + rAt(i) + 3*DPR, rr, 0, Math.PI*2); g2.fill();
+  }
+  g2.globalAlpha = 1;
+  // labels
+  g2.fillStyle = '#E8E8F0'; g2.globalAlpha = .55;
+  g2.fillText('vessel · width = gain over the last 5 s · now is the right edge · constriction ' + gr.toFixed(1) + ' dB',
+              x0 + 4*DPR, vTop + 2*DPR);
+  g2.textAlign = 'right';
+  g2.fillText('now ▸', x1 - 4*DPR, cy + baseR + 30*DPR > H ? H - 4*DPR : cy + baseR + 30*DPR);
+  g2.textAlign = 'left';
+  g2.globalAlpha = 1;
+}
+// open on a full picture: run five seconds of heartbeat through the compressor first
+(function prefill(){
+  const per = Math.round(SR/60), buf = new Float32Array(per);
+  for (let f = 0; f < HIST; f++){
+    renderInto(buf);
+    const m = comp.takeMeters();
+    detH.push(m.det); detH.shift(); outH.push(m.det + m.gr); outH.shift();
+    grH.push(m.gr); grH.shift(); thH.push(comp.p.th); thH.shift();
+  }
+})();
+resize();
+requestAnimationFrame(draw);
+</script>
+</body>
+</html>
