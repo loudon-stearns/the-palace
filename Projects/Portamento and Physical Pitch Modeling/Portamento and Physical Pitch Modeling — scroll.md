@@ -15,20 +15,20 @@ forward_vector: "I am Portamento and Physical Pitch Modeling's scroll — the on
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T13:49:55.239Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T13:54:32.036Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** mature · **Steward:** cycle 9 · last ran 2026-10-14 (today)
+- **Status:** active · **Stage:** mature · **Steward:** cycle 10 · last ran 2026-10-14 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — My entry's Kuramoto paragraph puts the coupling in the wrong instrument. Locking belongs to bowed and sung tones, not to a free string. (`portamento-steward-018`)
-- **Last commit touching this project:** 2026-09-26 `5b8a1564` — ops(frontmatter): strip retired activation_count/last_activated from 244 entries — v1.26
+- **Last shipped:** 2026-10-14 (today) — Cross-check: the new script rebuilds last cycle's medium-bow overshoot to within a hundredth of a second. (`portamento-steward-021`)
+- **Last commit touching this project:** 2026-10-14 `d070b5ba` — steward(Portamento and Physical Pitch Modeling): cycle 9 — SPINNING UP. HOME: [Portamento and Physical Pitch Modeling](obsidian://…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Portamento and Physical Pitch Modeling treats pitch as a damped spring settling on a note. The three ways it can settle are overdamped (eases in), critically damped (arrives clean) and underdamped (overshoots and rings back). The ear-training set and a six-clip single-session reel shipped in June. In August you picked MULTI-MODE: take the model from one gliding pitch to a whole family of partials, and render how the timbre moves during a glide. A first pass from September sat unposted in the workshop. Its slide-versus-bend contrast holds up, but its coupling did nothing: the 'locked' and 'uncoupled' glides have the same partials to within 0.3 cents, because the pull was about 1 rad/s agains…
+Portamento and Physical Pitch Modeling treats pitch as a damped spring settling on a note. It can settle in three ways: overdamped (eases in), critically damped (arrives clean) or underdamped (overshoots and rings back). The ear-training set and a six-clip single-session reel shipped in June. In August you picked MULTI-MODE, which takes the model from one gliding pitch to a whole family of partials. Earlier today I showed the model at work on a bowed string. The bow holds the partials onto exact multiples of the fundamental, a glide moves them into and out of that hold, and an underdamped overshoot makes one partial slip and catch again. So the ring-back can be heard in the tone colour as w…
 
 ### Open asks
 
@@ -59,6 +59,53 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="portamento-steward-021" -->
+### 2026-10-14 — cycle 10 — Cross-check: the new script rebuilds last cycle's medium-bow overshoot to within a hundredth of a second.
+> proof · pass 3 agrees with pass 2 · steward leans keep building on it
+
+I rebuilt the medium-bow overshoot (locking range 3.4 Hz, G3 to E4, ζ 0.2) inside loudness_locking.py. Partial 3 lets go and catches at 0.82, 1.31, 1.93 and 2.30 s. Pass 2 had 0.82, 1.31, 1.93 and 2.31 s. The bow-force study therefore extends the earlier model without changing anything underneath it. The numbers are in [loudness-manifest.json](open:Projects/Portamento and Physical Pitch Modeling/multi-mode/loudness-manifest.json) and [locking-manifest.json](open:Projects/Portamento and Physical Pitch Modeling/multi-mode/locking-manifest.json).
+
+**Artifacts:**
+- [Pass 3 numbers, including the medium-bow check.](Projects/Portamento and Physical Pitch Modeling/multi-mode/loudness-manifest.json)
+<sub>`portamento-steward-021` · PROOF on WEAVE</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="portamento-steward-020" -->
+### 2026-10-14 — cycle 10 — A harder bow holds more partials in tune, so a crescendo fuses the tone. A louder overshoot still slips, just higher in the tone and more briefly.
+> shipped · multi-mode pass 3, five clips + listening page · steward leans fold the soft-bow pair into the ear-training reel next
+
+**The change.** Last pass, every bowed clip had one fixed pull holding its partials in line. That pull comes from the bow, and a harder bow pulls harder, so now it follows bow force. It rises from 0.5 Hz at pianissimo to 30 Hz at fortissimo, along a curve I chose myself (Fletcher 1978 doesn't give one). The string and pitch model are the same as last time.
+
+**The crescendo pair.** Both clips are a held E4 with the identical crescendo, −24 dB up to full, matched level for level. In [B](open:Projects/Portamento and Physical Pitch Modeling/multi-mode/audio/loudness-01-crescendo-bow.wav) the hold follows the bow. Partials 2 through 6 lock one at a time from the bottom up (1.36, 2.13, 2.63, 3.06, 3.56 s), and by the top the waveform almost repeats itself: 0.96 match a hundred cycles later. In [A, the control](open:Projects/Portamento and Physical Pitch Modeling/multi-mode/audio/loudness-02-crescendo-control.wav) the hold stays frozen at its pianissimo value. Nothing new locks, and the match at full volume is only 0.79. Loudness is the same in both, so the difference you hear is the tone fusing.
+
+**The overshoot at three bow strengths** (G3 to E4, ζ 0.2, level-matched). Soft bow: [partial 2 slips](open:Projects/Portamento and Physical Pitch Modeling/multi-mode/audio/loudness-03-overshoot-soft.wav) on both rings, at −6 dB. Medium: [partial 3 slips](open:Projects/Portamento and Physical Pitch Modeling/multi-mode/audio/loudness-04-overshoot-medium.wav). It matches last cycle's clip to within a hundredth of a second, which checks the new script. Loud: [only partial 6 slips](open:Projects/Portamento and Physical Pitch Modeling/multi-mode/audio/loudness-05-overshoot-loud.wav), at −15.6 dB, once, from 0.84 to 1.27 s. A louder bow doesn't erase the overshoot's texture cue. It pushes it up the tone onto a weaker partial and makes it shorter. For teaching, that means the cue should be taught with a soft bow. Everything is on [the listening page](open:Projects/Portamento and Physical Pitch Modeling/multi-mode/loudness-listening.html), with the figure [loudness-locking.png](open:Projects/Portamento and Physical Pitch Modeling/multi-mode/figures/loudness-locking.png).
+
+**Artifacts:**
+- [Listening page: the crescendo pair with a reveal, the three overshoots, and the figure.](Projects/Portamento and Physical Pitch Modeling/multi-mode/loudness-listening.html)
+- [Crescendo where the hold follows the bow: the tone fuses as it swells.](Projects/Portamento and Physical Pitch Modeling/multi-mode/audio/loudness-01-crescendo-bow.wav)
+- [Control: same loudness curve, hold frozen at pianissimo, still shimmering at the top.](Projects/Portamento and Physical Pitch Modeling/multi-mode/audio/loudness-02-crescendo-control.wav)
+- [Soft-bow overshoot: partial 2 slips on both rings.](Projects/Portamento and Physical Pitch Modeling/multi-mode/audio/loudness-03-overshoot-soft.wav)
+- [Medium-bow overshoot: partial 3 slips, matching last cycle's clip.](Projects/Portamento and Physical Pitch Modeling/multi-mode/audio/loudness-04-overshoot-medium.wav)
+- [Loud-bow overshoot: only partial 6 slips, once.](Projects/Portamento and Physical Pitch Modeling/multi-mode/audio/loudness-05-overshoot-loud.wav)
+- [The rising hold crossing each partial's detuning, the crescendo against its control, and the overshoot at three bow strengths.](Projects/Portamento and Physical Pitch Modeling/multi-mode/figures/loudness-locking.png)
+- [The renderer; it reuses mode_locking.py's pitch model and string.](Projects/Portamento and Physical Pitch Modeling/multi-mode/loudness_locking.py)
+- [Every parameter and every number quoted here.](Projects/Portamento and Physical Pitch Modeling/multi-mode/loudness-manifest.json)
+
+_Five clips · 10 partials · same string as pass 2_
+| clip | bow | what locks or slips | slipping partial's level |
+| --- | --- | --- | --- |
+| 1 held E4, crescendo | follows the bow, 0.5 → 30 Hz | partials 2–6 lock in turn, 1.36–3.56 s | — |
+| 2 held E4, crescendo (control) | frozen at 0.5 Hz | nothing new locks | — |
+| 3 overshoot | soft, 1 Hz | partial 2 slips 0.82–1.31 and 1.93–2.31 s | −6 dB |
+| 4 overshoot | medium, 3.4 Hz | partial 3 slips 0.82–1.31 and 1.93–2.30 s | −9.5 dB |
+| 5 overshoot | loud, 30 Hz | partial 6 slips once, 0.84–1.27 s | −15.6 dB |
+
+_Left rough:_ Nobody has listened yet, and the 0.96 vs 0.79 waveform match is a stand-in for what the ear hears. The curve from bow force to locking range is my choice, and the stiffness is still exaggerated, so partials 7–10 stay free even at fortissimo. Spectrum brightness doesn't change with bow force, by design, so fusion is the only thing that changes.
+
+_Next moves named:_ Fold the soft-bow overshoot pair (soft underdamped against a soft critically damped arrival) into the single-session ear-training reel as a third round, 'listen to the tone colour after the arrival', since the soft bow exposes the cue best. · Put the model on a sung glide: fixed formants with partials locked to the voice. That is the entry's question about the vocal tract.
+<sub>`portamento-steward-020` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="portamento-steward-018" -->
 ### 2026-10-14 — cycle 9 — My entry's Kuramoto paragraph puts the coupling in the wrong instrument. Locking belongs to bowed and sung tones, not to a free string.
 > finding · entry edit proposed, not made · steward leans adopt

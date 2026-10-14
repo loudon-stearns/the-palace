@@ -1,0 +1,143 @@
+{
+  "params": {
+    "B_at_196Hz": 0.00025,
+    "K_pp_hz": 0.5,
+    "K_ff_hz": 30.0,
+    "pp_db": -24.0,
+    "partials": 10,
+    "spectrum": "1/n",
+    "note": "K follows bow force geometrically; same K for every partial"
+  },
+  "clips": [
+    {
+      "idx": 1,
+      "name": "crescendo-bow",
+      "label": "Held E4, crescendo, locking follows the bow",
+      "level_matched": false,
+      "locked_at_start": 1,
+      "locked_at_end": 6,
+      "lock_events_s": {
+        "2": [
+          "locks 1.36"
+        ],
+        "3": [
+          "locks 2.13"
+        ],
+        "4": [
+          "locks 2.63"
+        ],
+        "5": [
+          "locks 3.06"
+        ],
+        "6": [
+          "locks 3.56"
+        ]
+      },
+      "detuning_hz": [
+        0.12,
+        0.93,
+        3.14,
+        7.44,
+        14.5,
+        25.01,
+        39.63,
+        59.01,
+        83.78,
+        114.55
+      ],
+      "wav": "audio/loudness-01-crescendo-bow.wav"
+    },
+    {
+      "idx": 2,
+      "name": "crescendo-control",
+      "label": "Held E4, same crescendo, locking frozen at pp",
+      "level_matched": false,
+      "locked_at_start": 1,
+      "locked_at_end": 1,
+      "lock_events_s": {},
+      "detuning_hz": [
+        0.12,
+        0.93,
+        3.14,
+        7.44,
+        14.5,
+        25.01,
+        39.63,
+        59.01,
+        83.78,
+        114.55
+      ],
+      "wav": "audio/loudness-02-crescendo-control.wav"
+    },
+    {
+      "idx": 3,
+      "name": "overshoot-soft",
+      "label": "Underdamped arrival, soft bow",
+      "K_hz": 1.0,
+      "level_matched": true,
+      "peak_f1_hz": 400.0,
+      "locked_on_arrival": 2,
+      "partials_slipping_on_overshoot": [
+        2
+      ],
+      "slip_partial_level_db": [
+        -6.0
+      ],
+      "lock_events_s": {
+        "2": [
+          "unlocks 0.82",
+          "locks 1.31",
+          "unlocks 1.93",
+          "locks 2.31"
+        ]
+      },
+      "wav": "audio/loudness-03-overshoot-soft.wav"
+    },
+    {
+      "idx": 4,
+      "name": "overshoot-medium",
+      "label": "Underdamped arrival, medium bow (pass 2's K)",
+      "K_hz": 3.4,
+      "level_matched": true,
+      "peak_f1_hz": 400.0,
+      "locked_on_arrival": 3,
+      "partials_slipping_on_overshoot": [
+        3
+      ],
+      "slip_partial_level_db": [
+        -9.5
+      ],
+      "lock_events_s": {
+        "3": [
+          "unlocks 0.82",
+          "locks 1.31",
+          "unlocks 1.93",
+          "locks 2.30"
+        ]
+      },
+      "wav": "audio/loudness-04-overshoot-medium.wav"
+    },
+    {
+      "idx": 5,
+      "name": "overshoot-loud",
+      "label": "Underdamped arrival, loud bow",
+      "K_hz": 30.0,
+      "level_matched": true,
+      "peak_f1_hz": 400.0,
+      "locked_on_arrival": 6,
+      "partials_slipping_on_overshoot": [
+        6
+      ],
+      "slip_partial_level_db": [
+        -15.6
+      ],
+      "lock_events_s": {
+        "6": [
+          "unlocks 0.84",
+          "locks 1.27"
+        ]
+      },
+      "wav": "audio/loudness-05-overshoot-loud.wav"
+    }
+  ]
+}
