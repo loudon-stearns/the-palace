@@ -35,9 +35,25 @@ describe('QuotesLens', () => {
 });
 
 describe('QuoteMark', () => {
-  it('shows the quote, who said it, the glyph, the lens and the why', () => {
-    const html = renderToStaticMarkup(React.createElement(QuoteMark, { quote, lensPath: 'Whitehead.md', onWalk: () => {} }));
+  it('is one line when closed — the quote, who said it, the glyph — and nothing else', () => {
+    const html = renderToStaticMarkup(React.createElement(QuoteMark, { quote, lensPath: 'Whitehead.md', onWalk: () => {}, onDecide: () => {} }));
+    expect(html).toContain('data-open="0"');
+    expect(html).toContain('The many become one');
+    expect(html).toContain('— Whitehead');
+    expect(html).toContain('◉');
+    expect(html).not.toContain('data-testid="quote-walk"');
+    expect(html).not.toContain('data-testid="quote-decide"');
+    expect(html).not.toContain('A commit is an actual occasion.');
+    expect(html).toContain('aria-expanded="false"');
+  });
+  it('opens on its own when the URL names it (lit) or when its phrase has moved', () => {
+    expect(renderToStaticMarkup(React.createElement(QuoteMark, { quote, lit: true }))).toContain('data-open="1"');
+    expect(renderToStaticMarkup(React.createElement(QuoteMark, { quote, moved: true }))).toContain('data-open="1"');
+  });
+  it('shows the quote, who said it, the glyph, the lens and the why when open', () => {
+    const html = renderToStaticMarkup(React.createElement(QuoteMark, { quote, lensPath: 'Whitehead.md', onWalk: () => {}, open: true }));
     expect(html).toContain('data-testid="quote-mark"');
+    expect(html).toContain('data-open="1"');
     expect(html).toContain('id="quote-q-1"');
     expect(html).toContain('The many become one');
     expect(html).toContain('Whitehead');
@@ -50,17 +66,17 @@ describe('QuoteMark', () => {
     expect(html).toContain('data-lit="0"');
   });
   it('offers keep and let go on a placed quote, and shows a kept one as kept', () => {
-    const placed = renderToStaticMarkup(React.createElement(QuoteMark, { quote, onDecide: () => {} }));
+    const placed = renderToStaticMarkup(React.createElement(QuoteMark, { quote, onDecide: () => {}, open: true }));
     expect(placed).toContain('data-testid="quote-decide"');
     expect(placed).toContain('data-status="placed"');
     expect(placed).toContain('awaiting your read');
     expect(placed).toContain('data-testid="quote-keep"');
     expect(placed).toContain('data-testid="quote-retire"');
-    const kept = renderToStaticMarkup(React.createElement(QuoteMark, { quote: { ...quote, status: 'kept', kept_at: '2026-10-13T10:00:00Z' }, onDecide: () => {} }));
+    const kept = renderToStaticMarkup(React.createElement(QuoteMark, { quote: { ...quote, status: 'kept', kept_at: '2026-10-13T10:00:00Z' }, onDecide: () => {}, open: true }));
     expect(kept).toContain('◆ kept · 2026-10-13');
     expect(kept).not.toContain('data-testid="quote-keep"');
     expect(kept).toContain('data-testid="quote-retire"');
-    const silent = renderToStaticMarkup(React.createElement(QuoteMark, { quote }));
+    const silent = renderToStaticMarkup(React.createElement(QuoteMark, { quote, open: true }));
     expect(silent).not.toContain('data-testid="quote-decide"'); // no onDecide → nothing to decide with
   });
   it('marks an unconfirmed quote with ◇ and a moved quote with its lost phrase', () => {
