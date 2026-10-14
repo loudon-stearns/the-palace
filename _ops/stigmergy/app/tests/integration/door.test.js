@@ -173,14 +173,18 @@ describe('many writers at once', () => {
 describe('a committer killed mid-commit', () => {
   test('its git keeps the door until it finishes, so the next committer waits instead of racing', async () => {
     // A slow commit: the commit-msg hook takes two seconds.
+    // It drops a marker on entry, so the test kills A only once A is truly
+    // inside git commit (a fixed wait lost that race under a loaded machine).
     const hook = join(root, '.git', 'hooks', 'commit-msg');
-    writeFileSync(hook, '#!/bin/sh\nsleep 2\nexit 0\n');
+    const inHook = join(root, '.git', 'in-hook');
+    writeFileSync(hook, `#!/bin/sh\ntouch '${inHook}'\nsleep 2\nexit 0\n`);
     chmodSync(hook, 0o755);
     writeFileSync(join(root, 'a.md'), 'a\n');
     writeFileSync(join(root, 'b.md'), 'b\n');
 
     const a = spawn('node', cliArgs('a.md'), { cwd: root, env: { ...process.env, PALACE_ROOT: root, PALACE_DOOR_NO_BOARD: '1' } });
-    await new Promise((s) => setTimeout(s, 900)); // A is inside git commit, in the hook
+    for (let waited = 0; !existsSync(inHook) && waited < 15_000; waited += 25) await new Promise((s) => setTimeout(s, 25));
+    expect(existsSync(inHook)).toBe(true);
     a.kill('SIGKILL');
     const b = await runCliAsync(cliArgs('b.md'));
     expect(b.status, b.stderr).toBe(0);
