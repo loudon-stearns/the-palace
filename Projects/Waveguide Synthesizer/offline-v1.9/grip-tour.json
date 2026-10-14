@@ -1,0 +1,56 @@
+[
+ {
+  "name": "default",
+  "grips_pct": 90,
+  "lets_go_per_cycle": 1,
+  "median_speed_over_bow": 0.54,
+  "min_vel_over_bow": -17.6,
+  "bowV": 0.583,
+  "window": 12.258,
+  "peak_dbfs": -5.7
+ },
+ {
+  "name": "light force",
+  "force": 0.2,
+  "grips_pct": 67,
+  "lets_go_per_cycle": 1,
+  "median_speed_over_bow": 0.97,
+  "min_vel_over_bow": -2.77,
+  "bowV": 0.583,
+  "window": 0.158,
+  "peak_dbfs": -24.1
+ },
+ {
+  "name": "heavy force",
+  "force": 1,
+  "grips_pct": 100,
+  "lets_go_per_cycle": 0,
+  "median_speed_over_bow": 0.01,
+  "min_vel_over_bow": -0.04,
+  "bowV": 0.583,
+  "window": 166.667,
+  "peak_dbfs": -9.5
+ },
+ {
+  "name": "near the bridge",
+  "position": 0.93,
+  "grips_pct": 88,
+  "lets_go_per_cycle": 1,
+  "median_speed_over_bow": 0.99,
+  "min_vel_over_bow": -8.26,
+  "bowV": 0.583,
+  "window": 12.258,
+  "peak_dbfs": -7.7
+ },
+ {
+  "name": "fast",
+  "speed": 1,
+  "grips_pct": 89,
+  "lets_go_per_cycle": 2,
+  "median_speed_over_bow": 0.56,
+  "min_vel_over_bow": -17.3,
+  "bowV": 1,
+  "window": 12.258,
+  "peak_dbfs": -6.7
+ }
+]

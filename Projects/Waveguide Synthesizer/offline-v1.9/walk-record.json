@@ -1,0 +1,93 @@
+{
+ "errors": [],
+ "audio_seconds": 90.8,
+ "video_lead_s": 2.171,
+ "meters": [
+  {
+   "step": 1,
+   "who": "1 of 12 · nut loss → the steel post, left",
+   "peak_dbfs": -10.2,
+   "chart_said": "hold B to bow, and watch the hair catch and let go"
+  },
+  {
+   "step": 2,
+   "who": "2 of 12 · bridge loss → the brass block, right",
+   "peak_dbfs": -4.4,
+   "chart_said": "hold B to bow, and watch the hair catch and let go"
+  },
+  {
+   "step": 3,
+   "who": "3 of 12 · body size → the soundboard",
+   "peak_dbfs": -10.6,
+   "chart_said": "hold B to bow, and watch the hair catch and let go"
+  },
+  {
+   "step": 4,
+   "who": "4 of 12 · pitch → the beads",
+   "peak_dbfs": -10.5,
+   "chart_said": "hold B to bow, and watch the hair catch and let go"
+  },
+  {
+   "step": 5,
+   "who": "5 of 12 · brightness → the string’s colour",
+   "peak_dbfs": -10.1,
+   "chart_said": "hold B to bow, and watch the hair catch and let go"
+  },
+  {
+   "step": 6,
+   "who": "6 of 12 · stiffness → the string’s thickness",
+   "peak_dbfs": -10.9,
+   "chart_said": "hold B to bow, and watch the hair catch and let go"
+  },
+  {
+   "step": 7,
+   "who": "7 of 12 · pickup → the ring, where you listen",
+   "peak_dbfs": -9.3,
+   "chart_said": "hold B to bow, and watch the hair catch and let go"
+  },
+  {
+   "step": 8,
+   "who": "8 of 12 · slow motion → the clock",
+   "peak_dbfs": -10.7,
+   "chart_said": "hold B to bow, and watch the hair catch and let go"
+  },
+  {
+   "step": 9,
+   "who": "9 of 12 · bow position → where the bow sits",
+   "peak_dbfs": -14.7,
+   "chart_said": "the bow is settling in"
+  },
+  {
+   "step": 10,
+   "who": "10 of 12 · bow speed → the arrow’s length",
+   "peak_dbfs": -12.8,
+   "chart_said": "breaking up: the hair lets go 3 times a cycle"
+  },
+  {
+   "step": 11,
+   "who": "11 of 12 · bow force → the bow’s width and glow",
+   "peak_dbfs": -6.3,
+   "chart_said": "the bow is settling in"
+  },
+  {
+   "step": 12,
+   "who": "12 of 12 · the catch and the release, slowed down",
+   "peak_dbfs": -17.5,
+   "chart_said": "singing: the hair holds 90% of each cycle, lets go once"
+  }
+ ],
+ "shots": [
+  "frames/step-01.png",
+  "frames/step-02.png",
+  "frames/step-03.png",
+  "frames/step-04.png",
+  "frames/step-05.png",
+  "frames/step-06.png",
+  "frames/step-07.png",
+  "frames/step-08.png",
+  "frames/step-09.png",
+  "frames/step-10.png",
+  "frames/step-11.png",
+  "frames/step-12.png"
+ ]
+}

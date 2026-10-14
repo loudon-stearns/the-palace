@@ -15,20 +15,20 @@ forward_vector: "I am Waveguide Synthesizer's scroll — the one page that alway
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T21:31:18.699Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T00:35:50.831Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 15 · last ran 2026-10-13 (today)
-- **Plan:** agreed 2026-10-13 (today) · 1 made thing since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 16 · last ran 2026-10-14 (today)
+- **Plan:** agreed 2026-10-13 (today) · 2 made things since
 - **Waiting on you:** nothing
-- **Ready to advance:** 1 answer filed since the steward last ran — a cycle will consume it
-- **Last shipped:** 2026-10-13 (today) — Study v1.8: the string has a body. What the bridge takes from the string now goes down a post into a soundboard you can see ripple and hear. (`waveguide-synthesizer-steward-037`)
-- **Last commit touching this project:** 2026-10-13 `1f416526` — steward(Waveguide Synthesizer): cycle 14 — SPINNING UP. HOME: [[Waveguide Synthesizer]]. Neighborhood loaded. Cycl…
+- **Ready to advance:** no unread answers
+- **Last shipped:** 2026-10-13 (today) — Study v1.9: you can see the bow grip. A dot where hair meets string, and a chart of one cycle, show it catch, drag and let go. (`waveguide-synthesizer-steward-039`)
+- **Last commit touching this project:** 2026-10-13 `e2d62e36` — steward(Waveguide Synthesizer): cycle 15 — SPINNING UP. HOME: [[Waveguide Synthesizer]]. Neighborhood loaded. Cycl…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Waveguide Synthesizer is the browser string whose on-screen wave is the sound: two delay lines carry a right-going and a left-going wave, and their sum is the string you see and hear. It can be plucked, struck and bowed, and watched in slow motion. Your note set the order: first make every slider visibly change the picture, then the body, then the bow, then even stiffness, then teaching. The picture work shipped in the last two cycles (each slider has its own object, and 'walk the links' moves the sliders for you). This cycle adds the body. Until now, whatever the bridge took out of the string was simply thrown away. Now it goes down a post into a soundboard under the bridge. The board ring…
+Waveguide Synthesizer is the browser string whose on-screen wave is the sound: two delay lines carry a right-going and a left-going wave, and their sum is the string you see and hear. It can be plucked, struck and bowed, it sits on a soundboard, and you can watch it in slow motion. You set the order: first make every slider visibly change the picture, then the body, then the bow, then even stiffness, then teaching. The picture and the body are done. This cycle is the bow. The bow already sang, but you couldn't see why. Now you can watch the hair hold the string and drag it along, then let go once a cycle as the corner running round the string reaches it. Each of the three bow sliders change…
 
 ### Open asks
 
@@ -36,7 +36,7 @@ _None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
-- `waveguide-synthesizer-steward-033` — GRANTED — option_id=adopt · answered 2026-10-13 — waiting for the next cycle
+_None._
 
 ### Decided
 
@@ -69,6 +69,62 @@ Written by Claude on Loudon's behalf, 2026-09-23: your last two cycles posted no
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="waveguide-synthesizer-steward-039" -->
+### 2026-10-13 — cycle 16 — Study v1.9: you can see the bow grip. A dot where hair meets string, and a chart of one cycle, show it catch, drag and let go.
+> shipped · the bow step in your order · steward leans watch the walk's last four steps
+
+**What's new in [study v1.9](obsidian://open?vault=The%20Palace&file=Projects/Waveguide%20Synthesizer/study-v1.9-the-bow-grips/index.html):**
+
+- **A dot where hair meets string.** It's amber and full while the hair holds the string. The instant the hair lets go, it shrinks to a dark bead with a white spark. It runs on the same slowed clock as the string, so you see it let go exactly when the sharp corner arrives at the bow.
+- **The bow's grip chart,** in the empty space under the nut, joined to the bow by a dotted thread. It shows one string cycle, with a cursor at the moment the screen is showing. The top strip is the hair: amber where it holds, dark where it slips. The middle is the string's real speed at the bow point against a dashed line for the bow's own speed. While the hair holds, the string rides that line; when it lets go, the string flies back. The bottom is the friction curve: how hard the hair grips against how far the string's speed has strayed from the bow's.
+- **Each bow slider now changes one thing on the chart.** Bow speed raises the dashed line. Bow force widens the amber grip window on the friction curve. Bow position moves where the slip lands. Touch or hover a slider and its mark lights up, the same way the nut and bridge do.
+- **The chart puts the result in words:** *singing* (lets go once a cycle), *breaking up* (two or three times), *skating* (never catches), or *pinned* (never lets go).
+- **The walk has twelve steps now.** The bow steps point at the chart, and a new last step slows one catch and one release right down.
+
+**What it shows (table).** At the default setting the hair holds 90% of the cycle and lets go once. That is the Helmholtz motion every bowed string makes when it sings. At light force it holds only 67% and slips back at a steady speed: the clean square wave from the textbooks. At full force the string under the bow stops moving. The page says so instead of pretending the string sings.
+
+**Fixed along the way:** moving from a pinned step to the next one used to crack at full scale. Now the walk quiets the string between bow steps, and lifting a pinned bow quiets it too. Every step of the recorded walk now peaks between −17.5 and −4.4 dBFS.
+
+**How I checked it:** I ran the page's own engine headless in Node for the numbers and the grip tour. I recorded the whole walk in Chrome, picture and sound, with no page errors. One honest wrinkle: this Mac's audio device wouldn't render for any Chrome tonight (even a bare test tone's clock sat at zero). So the browser recordings ran the page's own engine on the main thread, kept in real time by a stand-in clock, and took the sound straight from the engine's output. The DSP is the page's. Only the path to the speakers was faked.
+
+**Artifacts:**
+- [the whole twelve-step walk, picture and sound, 91 s. Watch from step 9 (about 1:00): the bow steps and the slowed catch at the end.](Projects/Waveguide Synthesizer/offline-v1.9/bow-walk.mp4)
+- [study v1.9, playable: click to start, hold B to bow, then move the three bow sliders and watch the chart.](Projects/Waveguide Synthesizer/study-v1.9-the-bow-grips/index.html)
+- [six frames: default, light force, full force, near the bridge, then one slowed frame holding and one letting go.](Projects/Waveguide Synthesizer/offline-v1.9/grip-sheet.png)
+- [the five bow settings in the table, 2.5 s each, from the page's own engine.](Projects/Waveguide Synthesizer/offline-v1.9/grip-tour.wav)
+- [the walk's sound alone, as the engine produced it.](Projects/Waveguide Synthesizer/offline-v1.9/bow-walk.wav)
+- [walk step 11, bow force near full: the grip window fills the friction curve.](Projects/Waveguide Synthesizer/offline-v1.9/frames/step-11.png)
+- [walk step 12, the catch and release slowed down.](Projects/Waveguide Synthesizer/offline-v1.9/frames/step-12.png)
+- [light force: the square-wave slip, ride then fall back.](Projects/Waveguide Synthesizer/offline-v1.9/still-light-force.png)
+- [full force: pinned, the hair never lets go.](Projects/Waveguide Synthesizer/offline-v1.9/still-heavy-force.png)
+- [runs the engine headless and reads back the grip trace across every bow slider.](Projects/Waveguide Synthesizer/offline-v1.9/grip_probe.mjs)
+- [what the probe measured, with the traces.](Projects/Waveguide Synthesizer/offline-v1.9/grip-probe.json)
+- [renders the grip tour and its numbers.](Projects/Waveguide Synthesizer/offline-v1.9/grip_tour.mjs)
+- [the table above, as the script wrote it.](Projects/Waveguide Synthesizer/offline-v1.9/grip-tour.json)
+- [the walk recorder, carried over from v1.8, now on the stand-in clock.](Projects/Waveguide Synthesizer/offline-v1.9/record_walk.mjs)
+- [no page errors; each step's peak.](Projects/Waveguide Synthesizer/offline-v1.9/walk-record.json)
+- [photographs five bow settings and a slowed run of frames.](Projects/Waveguide Synthesizer/offline-v1.9/stills.mjs)
+- [what the chart said at each setting.](Projects/Waveguide Synthesizer/offline-v1.9/stills.json)
+- [the stand-in speaker clock used because the audio device wouldn't render.](Projects/Waveguide Synthesizer/offline-v1.9/fake_audio_clock.js)
+- [builds the six-frame sheet.](Projects/Waveguide Synthesizer/offline-v1.9/contact_sheet.py)
+- [applies the page-side changes onto v1.8.](Projects/Waveguide Synthesizer/offline-v1.9/patch_page.py)
+- [the chart, dot and thread code that patch_page.py inserts.](Projects/Waveguide Synthesizer/offline-v1.9/drawGrip.js)
+
+_G3 bowed, measured from the page's own engine (offline-v1.9/grip-tour.json)_
+| bow setting | chart says | hair holds | lets go per cycle | peak dBFS |
+| --- | --- | --- | --- | --- |
+| default (speed 0.5, force 0.7, at 0.74) | singing | 90% | 1 | −5.7 |
+| light force 0.2 | singing, slow square wave | 67% | 1 | −24.1 |
+| full force 1.0 | pinned | 100% | 0 | −9.5 |
+| near the bridge 0.93 | singing | 88% | 1 | −7.7 |
+| fast bow 1.0 | breaking up (wavers) | 89% | 2 | −6.7 |
+
+_Left rough:_ The chart shows something the textbook says should be different. The equation above says the slip should shrink as the bow moves toward the bridge (40% of the cycle at 0.6, 7% at 0.93). This model slips about 9–18% wherever the bow sits, so bow position doesn't change the slip the way it should. The plateau also ripples a lot (the string's speed swings between about 0.3 and 2.3 times the bow's while the hair holds). And a pinned string has no point where its own pull breaks the hair free, so it gets dragged further and further off its rest line. Lifting the bow now quiets it rather than cracking, but that is a guard, not physics. At a fast bow the chart wavers between 'singing' and 'breaking up'. I couldn't hear any of this through speakers tonight.
+
+_Next moves named:_ Your eyes on the walk from step 9: does the dot and chart make the catch-and-release read as clearly as the nut and bridge do? · Then fix what the chart exposed, still inside the bow step: tune the friction so the slip tracks bow position (the d/L rule), smooth the plateau, and add breakaway so a too-heavy bow crunches instead of pinning. The chart will show each fix working.
+<sub>`waveguide-synthesizer-steward-039` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-waveguide-synthesizer-steward-033" -->
 ### 2026-10-13 — Plan agreed: I've written your note as the plan: picture first, then body, bow, even stiffness, teaching. Adopt it so I build along it?
 

@@ -1,0 +1,95 @@
+{
+ "errors": [],
+ "out": [
+  {
+   "name": "default",
+   "bspd": 0.5,
+   "bfrc": 0.7,
+   "bpos": 0.74,
+   "chart_says": "singing: the hair holds 90% of each cycle, lets go once",
+   "meter_dbfs": -17.7
+  },
+  {
+   "name": "light-force",
+   "bspd": 0.5,
+   "bfrc": 0.2,
+   "bpos": 0.74,
+   "chart_says": "singing: the hair holds 67% of each cycle, lets go once",
+   "meter_dbfs": -24.1
+  },
+  {
+   "name": "heavy-force",
+   "bspd": 0.5,
+   "bfrc": 1,
+   "bpos": 0.74,
+   "chart_says": "pinned: the hair never lets go. too much force: the string under the bow cannot move",
+   "meter_dbfs": -37.3
+  },
+  {
+   "name": "near-bridge",
+   "bspd": 0.5,
+   "bfrc": 0.7,
+   "bpos": 0.93,
+   "chart_says": "singing: the hair holds 86% of each cycle, lets go once",
+   "meter_dbfs": -14.7
+  },
+  {
+   "name": "fast",
+   "bspd": 1,
+   "bfrc": 0.7,
+   "bpos": 0.74,
+   "chart_says": "singing: the hair holds 90% of each cycle, lets go once",
+   "meter_dbfs": -13.1
+  }
+ ],
+ "cycle_frames": [
+  {
+   "phase": 0.131,
+   "holding": false
+  },
+  {
+   "phase": 0.228,
+   "holding": true
+  },
+  {
+   "phase": 0.319,
+   "holding": true
+  },
+  {
+   "phase": 0.417,
+   "holding": true
+  },
+  {
+   "phase": 0.508,
+   "holding": true
+  },
+  {
+   "phase": 0.603,
+   "holding": true
+  },
+  {
+   "phase": 0.697,
+   "holding": true
+  },
+  {
+   "phase": 0.792,
+   "holding": true
+  },
+  {
+   "phase": 0.889,
+   "holding": true
+  },
+  {
+   "phase": 0.981,
+   "holding": true
+  },
+  {
+   "phase": 0.078,
+   "holding": true
+  },
+  {
+   "phase": 0.169,
+   "holding": false
+  }
+ ]
+}
