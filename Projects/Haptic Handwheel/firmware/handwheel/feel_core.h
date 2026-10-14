@@ -38,18 +38,52 @@ struct Params {         // one set per feel; Max can change any of them
   float target = 0.0f;      // follow: where the knob is pulled, rad (Max sends notes)
   float wallLo = -1e9f, wallHi = 1e9f; // end stops, rad
   float wallK = 3.0f;       // end-stop stiffness, N·m/rad
+  // turntable speed fix (proofs/feel-lab/render_turntable.mjs). ffB/ffC push
+  // the known cost of spinning — bearing drag and dry friction from `bench
+  // coast` — before any speed error appears; 0 until the bench measures them.
+  // A small slow correction (ki, at most `trim`) mops up the rest, learning
+  // only within `gate` of speed so a hand holding the platter can't teach it
+  // to shove. It steers by speed smoothed over speedTf s: at 33 rpm the
+  // encoder moves less than one count per tick.
+  float ffB = 0.0f, ffC = 0.0f; // N·m·s/rad, N·m
+  float ki = 0.1f;          // N·m per rad of speed error
+  float gate = 0.2f;        // learn only within this share of target speed
+  float trim = 0.02f;       // most the slow correction may add, N·m
+  float speedTf = 0.005f;   // speed smoothing, s
   // The motor's own brake. Driven by voltage, back-EMF damps the knob for
   // free (≈0.002–0.023 N·m·s/rad on this motor). 1 = cancel it fully (the
   // knob coasts, the struck spring rings); 0 = leave it on (stiff feels stay
-  // calm even over a slow cable). See proofs/motor-numbers.
+  // calm even over a slow cable). Each feel starts with its own (defaults()).
   float cancelBrake = 0.0f;
 };
+
+// Each feel keeps its own settings, so switching from the soft centring
+// spring to the struck spring doesn't carry k = 0.03 across, and each brings
+// the brake the feel map chose for it (proofs/feel-lab, feel_map_results.json):
+// on for the feels that should sit still, cancelled for the ones that move by
+// themselves. Max can still override any of them with `set`.
+inline Params defaults(FeelId id) {
+  Params p;
+  switch (id) {
+    case FREE:      p.cancelBrake = 1; break;              // coasts; my call, not yet the feel map's
+    case FRETS:     break;                                 // brake on: calm landings
+    case STRING:    break;                                 // brake on: a held bend sits still
+    case STRUCK:    p.cancelBrake = 1; break;              // 3 wobbles cancelled, 1 with it on
+    case PENDULUM:  p.cancelBrake = 1; break;
+    case FOLLOW:    p.k = 0.25f; p.damp = 0.004f; break;   // brake on: 89 ms glide, no overshoot
+    case TURNTABLE: p.cancelBrake = 1; break;              // idles at full speed with less to fight
+    case CENTRE:    p.k = 0.03f; break;                    // brake on: no wobble on return
+  }
+  return p;
+}
 
 struct Feel {
   FeelId id = FREE;
   Params p;
+  float integ = 0, om = 0;  // turntable: slow correction and smoothed speed
+  void reset() { integ = 0; om = 0; }
   // the torque this feel wants, N·m, from what the device senses
-  float torque(const Sense& s) const {
+  float torque(const Sense& s) {
     float tau = 0;
     switch (id) {
       case FREE: break;
@@ -66,8 +100,14 @@ struct Feel {
       case CENTRE:   tau = -p.k * (s.th - p.rest); break;
       case FOLLOW:   tau = p.k * (p.target - s.th); break;
       case TURNTABLE: {
-        const float w = p.rpm / 60.0f * TAU_F;
-        tau = p.kv * (w - s.om);
+        const float a = p.speedTf > 0 ? s.dt / (p.speedTf + s.dt) : 1.0f;
+        om += a * (s.om - om);
+        const float w = p.rpm / 60.0f * TAU_F, err = w - om;
+        if (fabsf(err) < p.gate * w) {
+          integ += p.ki * err * s.dt;
+          if (integ > p.trim) integ = p.trim; if (integ < -p.trim) integ = -p.trim;
+        }
+        tau = p.kv * err + p.ffB * w + p.ffC * ((w > 0) - (w < 0)) + integ;
         if (tau > p.cap) tau = p.cap; if (tau < -p.cap) tau = -p.cap;
       } break;
     }
@@ -91,7 +131,7 @@ struct Motor {          // turning torque into volts for SimpleFOC's voltage mod
 };
 
 // One tick: the feel that answers the hand, plus what is played into it.
-inline float tick(const Feel& f, const Sense& s, float played, float tauMax) {
+inline float tick(Feel& f, const Sense& s, float played, float tauMax) {
   float tau = f.torque(s) + played;
   if (tau > tauMax) tau = tauMax; if (tau < -tauMax) tau = -tauMax;
   return tau;

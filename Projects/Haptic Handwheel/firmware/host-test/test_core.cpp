@@ -6,10 +6,10 @@ using namespace hw;
 int main() {
   struct Case { const char* name; FeelId id; Params p; };
   Params d; Params pend = d; Params fol = d; fol.k = 0.25f; fol.damp = 0.004f; fol.target = 0.785f;
-  Params cen = d; cen.k = 0.03f; Params walls = d; walls.k = 0.03f; walls.wallLo = -1; walls.wallHi = 1;
+  Params cen = d; cen.k = 0.03f; Params tt = d; tt.ffB = 1e-4f; tt.ffC = 0.003f; Params walls = d; walls.k = 0.03f; walls.wallLo = -1; walls.wallHi = 1;
   Case cases[] = {
     {"frets", FRETS, d}, {"string", STRING, d}, {"struck", STRUCK, d}, {"pendulum", PENDULUM, pend},
-    {"follow", FOLLOW, fol}, {"turntable", TURNTABLE, d}, {"walls", CENTRE, walls},
+    {"follow", FOLLOW, fol}, {"turntable", TURNTABLE, tt}, {"walls", CENTRE, walls},
   };
   printf("feel,th,om,tau\n");
   for (auto& c : cases) {

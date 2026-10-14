@@ -191,10 +191,29 @@ const FEELS = {
   }, o),
 
   // The turntable: the motor holds 33⅓ rpm with a capped torque; the hand brakes.
+  // sketch 3: a push-only speed loop always idles short (friction ÷ gain).
+  // Two fixes, used together. `ffB`/`ffC` push the known cost of spinning
+  // (the brake and the friction `bench coast` measures) before any error
+  // appears; null means use the engine's own motor numbers. Then a small slow
+  // correction (ki, at most `trim`) mops up what the bench got wrong. It
+  // learns only within `gate` of speed, so a hand holding the platter back
+  // can't teach it to shove, and it doesn't surge when let go.
+  // At 33 rpm the 14-bit encoder moves less than one count per 10 kHz tick,
+  // so the loop steers by its own speed reading smoothed over `speedTf`
+  // seconds (SimpleFOC smooths over 5 ms by default).
   turntable: (o) => Object.assign({
     name: 'turntable', rpm: 100 / 3, kv: 0.01, cap: 0.06,
+    ffB: null, ffC: null, ki: 0.1, gate: 0.2, trim: 0.02, speedTf: 0.005, integ: 0, om: 0,
+    reset() { this.integ = 0; this.om = 0; },
     omega() { return (this.rpm / 60) * TAU; },
-    torque(e) { return Math.max(-this.cap, Math.min(this.cap, this.kv * (this.omega() - e.s.sensedOm))); },
+    torque(e, Tl) {
+      const dt = Tl || 0, a = this.speedTf > 0 ? dt / (this.speedTf + dt) : 1;
+      this.om += a * (e.s.sensedOm - this.om);
+      const w = this.omega(), err = w - this.om;
+      const fb = this.ffB === null ? e.P.bMotor : this.ffB, fc = this.ffC === null ? e.P.tauC : this.ffC;
+      if (Math.abs(err) < this.gate * w) this.integ = Math.max(-this.trim, Math.min(this.trim, this.integ + this.ki * err * dt));
+      return Math.max(-this.cap, Math.min(this.cap, this.kv * err + fb * w + fc * Math.sign(w) + this.integ));
+    },
     voice(e) { return { rate: e.s.om / this.omega(), amp: 0.5 }; },
   }, o),
 };

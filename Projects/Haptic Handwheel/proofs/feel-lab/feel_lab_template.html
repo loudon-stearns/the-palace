@@ -131,10 +131,12 @@ const SAY = {
   follow: 'Haptic filtering. The knob turns itself to each note of a melody. Brake it with a finger (shift-drag) and the glides slow down; grip and wiggle and you are the vibrato. The sound follows the knob, not the score.',
   spring: 'The struck spring. Strike it and it wobbles down into pitch at one rate, about 6 Hz, all the way down. Rest a finger on it to damp it.',
   pendulum: 'The struck pendulum. Same strike, but the force follows a pendulum: a big swing is slow, and it quickens as it settles. Compare it with the spring.',
-  turntable: 'The turntable. The motor holds 33⅓ rpm with a capped torque; how hard you brake is the control. The riff slows with the platter.',
+  turntable: 'The turntable. The motor holds 33⅓ rpm with a capped torque; how hard you brake is the control. The riff slows with the platter. Sketch 3: it now pushes the known cost of spinning, and a slow correction trims the rest only near speed, so it idles at full speed and doesn\'t surge when you let go.',
 };
 const ORDER = ['frets','string','lfo','pitch','lock','follow','spring','pendulum','turntable'];
 const LABEL = { frets:'frets', string:'string bend', lfo:'LFO felt', pitch:'the pitch itself', lock:'the lock', follow:'haptic filter', spring:'struck spring', pendulum:'struck pendulum', turntable:'turntable' };
+// each feel brings its own brake, as in the firmware (feel_core.h defaults()); the menu can still override it
+const OWN_BRAKE = { frets: '0.00711', string: '0.00711', follow: '0.00711', spring: '1e-4', pendulum: '1e-4', turntable: '1e-4' };
 let eng, feelId = 'frets';
 const hist = { t: [], m: [], h: [] };
 
@@ -152,7 +154,7 @@ function build() {
   document.querySelectorAll('#feels button').forEach(b => b.classList.toggle('on', b.dataset.id === feelId));
 }
 const fb = document.getElementById('feels');
-ORDER.forEach(id => { const b = document.createElement('button'); b.textContent = LABEL[id]; b.dataset.id = id; b.onclick = () => { feelId = id; build(); }; fb.appendChild(b); });
+ORDER.forEach(id => { const b = document.createElement('button'); b.textContent = LABEL[id]; b.dataset.id = id; b.onclick = () => { feelId = id; if (OWN_BRAKE[id]) document.getElementById('brake').value = OWN_BRAKE[id]; build(); }; fb.appendChild(b); });
 document.getElementById('lane').onchange = build;
 document.getElementById('cap').onchange = build;
 document.getElementById('brake').onchange = build;
@@ -160,6 +162,7 @@ document.getElementById('bumps').onchange = build;
 document.getElementById('center').onclick = () => { eng.s.th = 0; eng.s.om = 0; };
 let strikeUntil = -1;
 document.getElementById('strike').onclick = () => { strikeUntil = eng.s.t + 0.03; };
+document.getElementById('brake').value = OWN_BRAKE[feelId];
 build();
 
 // ── the hand: pointer drag = grip, shift-drag or right button = finger brake

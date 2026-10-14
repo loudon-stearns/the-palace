@@ -311,10 +311,29 @@ const FEELS = {
   }, o),
 
   // The turntable: the motor holds 33⅓ rpm with a capped torque; the hand brakes.
+  // sketch 3: a push-only speed loop always idles short (friction ÷ gain).
+  // Two fixes, used together. `ffB`/`ffC` push the known cost of spinning
+  // (the brake and the friction `bench coast` measures) before any error
+  // appears; null means use the engine's own motor numbers. Then a small slow
+  // correction (ki, at most `trim`) mops up what the bench got wrong. It
+  // learns only within `gate` of speed, so a hand holding the platter back
+  // can't teach it to shove, and it doesn't surge when let go.
+  // At 33 rpm the 14-bit encoder moves less than one count per 10 kHz tick,
+  // so the loop steers by its own speed reading smoothed over `speedTf`
+  // seconds (SimpleFOC smooths over 5 ms by default).
   turntable: (o) => Object.assign({
     name: 'turntable', rpm: 100 / 3, kv: 0.01, cap: 0.06,
+    ffB: null, ffC: null, ki: 0.1, gate: 0.2, trim: 0.02, speedTf: 0.005, integ: 0, om: 0,
+    reset() { this.integ = 0; this.om = 0; },
     omega() { return (this.rpm / 60) * TAU; },
-    torque(e) { return Math.max(-this.cap, Math.min(this.cap, this.kv * (this.omega() - e.s.sensedOm))); },
+    torque(e, Tl) {
+      const dt = Tl || 0, a = this.speedTf > 0 ? dt / (this.speedTf + dt) : 1;
+      this.om += a * (e.s.sensedOm - this.om);
+      const w = this.omega(), err = w - this.om;
+      const fb = this.ffB === null ? e.P.bMotor : this.ffB, fc = this.ffC === null ? e.P.tauC : this.ffC;
+      if (Math.abs(err) < this.gate * w) this.integ = Math.max(-this.trim, Math.min(this.trim, this.integ + this.ki * err * dt));
+      return Math.max(-this.cap, Math.min(this.cap, this.kv * err + fb * w + fc * Math.sign(w) + this.integ));
+    },
     voice(e) { return { rate: e.s.om / this.omega(), amp: 0.5 }; },
   }, o),
 };
@@ -331,10 +350,12 @@ const SAY = {
   follow: 'Haptic filtering. The knob turns itself to each note of a melody. Brake it with a finger (shift-drag) and the glides slow down; grip and wiggle and you are the vibrato. The sound follows the knob, not the score.',
   spring: 'The struck spring. Strike it and it wobbles down into pitch at one rate, about 6 Hz, all the way down. Rest a finger on it to damp it.',
   pendulum: 'The struck pendulum. Same strike, but the force follows a pendulum: a big swing is slow, and it quickens as it settles. Compare it with the spring.',
-  turntable: 'The turntable. The motor holds 33⅓ rpm with a capped torque; how hard you brake is the control. The riff slows with the platter.',
+  turntable: 'The turntable. The motor holds 33⅓ rpm with a capped torque; how hard you brake is the control. The riff slows with the platter. Sketch 3: it now pushes the known cost of spinning, and a slow correction trims the rest only near speed, so it idles at full speed and doesn\'t surge when you let go.',
 };
 const ORDER = ['frets','string','lfo','pitch','lock','follow','spring','pendulum','turntable'];
 const LABEL = { frets:'frets', string:'string bend', lfo:'LFO felt', pitch:'the pitch itself', lock:'the lock', follow:'haptic filter', spring:'struck spring', pendulum:'struck pendulum', turntable:'turntable' };
+// each feel brings its own brake, as in the firmware (feel_core.h defaults()); the menu can still override it
+const OWN_BRAKE = { frets: '0.00711', string: '0.00711', follow: '0.00711', spring: '1e-4', pendulum: '1e-4', turntable: '1e-4' };
 let eng, feelId = 'frets';
 const hist = { t: [], m: [], h: [] };
 
@@ -352,7 +373,7 @@ function build() {
   document.querySelectorAll('#feels button').forEach(b => b.classList.toggle('on', b.dataset.id === feelId));
 }
 const fb = document.getElementById('feels');
-ORDER.forEach(id => { const b = document.createElement('button'); b.textContent = LABEL[id]; b.dataset.id = id; b.onclick = () => { feelId = id; build(); }; fb.appendChild(b); });
+ORDER.forEach(id => { const b = document.createElement('button'); b.textContent = LABEL[id]; b.dataset.id = id; b.onclick = () => { feelId = id; if (OWN_BRAKE[id]) document.getElementById('brake').value = OWN_BRAKE[id]; build(); }; fb.appendChild(b); });
 document.getElementById('lane').onchange = build;
 document.getElementById('cap').onchange = build;
 document.getElementById('brake').onchange = build;
@@ -360,6 +381,7 @@ document.getElementById('bumps').onchange = build;
 document.getElementById('center').onclick = () => { eng.s.th = 0; eng.s.om = 0; };
 let strikeUntil = -1;
 document.getElementById('strike').onclick = () => { strikeUntil = eng.s.t + 0.03; };
+document.getElementById('brake').value = OWN_BRAKE[feelId];
 build();
 
 // ── the hand: pointer drag = grip, shift-drag or right button = finger brake

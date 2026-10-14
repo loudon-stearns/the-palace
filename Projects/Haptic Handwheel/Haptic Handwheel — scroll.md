@@ -15,20 +15,20 @@ forward_vector: "I am Haptic Handwheel's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T00:00:49.285Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T00:07:44.309Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** seed · **Steward:** cycle 6 · last ran 2026-10-14 (today)
-- **Plan:** agreed 2026-10-13 (today) · 5 made things since
+- **Status:** active · **Stage:** seed · **Steward:** cycle 7 · last ran 2026-10-14 (today)
+- **Plan:** agreed 2026-10-13 (today) · 6 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — A feel map: which feels want the motor's own brake, where each one can live, and a fix so frets can't stick between notes. (`haptic-handwheel-steward-012`)
-- **Last commit touching this project:** 2026-10-13 `9e2ac59e` — steward(Haptic Handwheel): cycle 5 — SPINNING UP. HOME: [[Haptic Handwheel]]. Neighborhood loaded. Cycle 5. …
+- **Last shipped:** 2026-10-14 (today) — The turntable now holds 33⅓ without surging when you let go, and each feel brings its own brake and settings in the firmware. (`haptic-handwheel-steward-014`)
+- **Last commit touching this project:** 2026-10-13 `788d0ae0` — steward(Haptic Handwheel): cycle 6 — SPINNING UP. HOME: [[Haptic Handwheel]]. Neighborhood loaded. Cycle 6, …
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Haptic Handwheel is your one-big-knob instrument: a motor that is also a sensor, with software deciding how it feels (frets, a string, a struck spring, a turntable). It's research, and the nearer product is a simpler knob that follows the parameter you've clicked in Ableton. The plan you agreed goes: try the knob in simulation, pin down the unknowns, buy the parts on your yes, bring it up on the bench, then your hands judge each feel. The first two are done on paper, and the parts list waits on you. This cycle used that wait. It worked out which feels want the motor's free brake and where each feel can be computed. It also found and fixed a way frets could land out of tune.
+Haptic Handwheel is your one-big-knob instrument: a motor that is also a sensor, with software deciding how it feels (frets, a string, a struck spring, a turntable). It's research, and the nearer product is a simpler knob that follows the parameter you've clicked in Ableton. The plan you agreed goes like this: try the knob in simulation, pin down the unknowns, buy the parts once you say yes, bring it up on the bench, then your hands judge each feel. The first two are done on paper, and the parts list is waiting on you. This cycle used the wait to finish two loose ends from the last one. The turntable used to idle slow (88% of speed), and now it holds 33⅓. Each feel now carries its own setti…
 
 ### Open asks
 
@@ -67,6 +67,55 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="haptic-handwheel-steward-014" -->
+### 2026-10-14 — cycle 7 — The turntable now holds 33⅓ without surging when you let go, and each feel brings its own brake and settings in the firmware.
+> shipped · parts order still yours to answer · steward leans keep building toward the bench
+
+**Why the turntable idled slow.** It only pushed in proportion to how far below speed it was, so it always ran short by friction divided by that push. That gave 88% of speed with the motor's brake cancelled and 52% with it on. I tried three fixes against a scene where it spins, a finger drags it almost to a stop for a second, it's let go, and then a hand scratches it back and forth.
+
+**The ordinary fix surges.** A slow correction that keeps learning gets the idle to 100%. But while your finger holds the platter it learns to shove harder, and when you let go it flies to 284% of speed and takes half a second to come back. You'd hear that as a chipmunk yelp after every hold.
+
+**Learning only near speed can't get started.** With the brake on, the push alone never gets the platter within reach of full speed, so the correction never switches on and it stays at 52–72%.
+
+**What works: know the cost, then trim.** The bench's coast test already measures what it costs to keep the platter spinning: bearing drag and friction. The turntable now pushes that amount up front. A small slow correction trims the rest, and it only learns within 20% of speed, so a hand holding it back teaches it nothing. Result: 100% idle with every brake guess. After the drag it peaks at 113% and is back within 1% in 27–55 ms, which reads as a quick catch rather than a yelp. If the bench misreads the motor by 30% in either direction, it still idles at 100%. Without the trim it would sit at 86% or 114%.
+
+**A finding about the encoder.** At 33 rpm the encoder moves less than one count per 10 kHz tick, so the turntable was steering by a speed reading that was mostly noise. It now smooths its speed over 5 ms, the same as SimpleFOC's default. The rms wobble at idle drops from 0.13% to 0.02%. That's unweighted, so it isn't directly comparable to a record player's wow-and-flutter spec.
+
+**Each feel keeps its own settings.** Before, every feel shared one set of numbers. If you switched from the soft centring spring (stiffness 0.03) to the struck spring, it kept the 0.03 instead of its own 0.085. Now each feel starts from its own defaults, with the brake the feel map chose for it. The brake is on for frets, string, centring spring and haptic filter. It's cancelled for the struck spring, the pendulum and the turntable. So the struck spring rings and the frets stay calm without you sending anything. `set` from Max changes only the selected feel, and the knob says `f <name> brake <x>` on each switch. The feel lab mirrors this: picking a feel sets its brake, and the menu can still override it. After the coast test, the bench analyzer now prints the exact lines to paste into Max (`set kt …`, then `set ffB …` and `set ffC …` with the turntable selected).
+
+**Hear it:** turntable_hold.wav plays the riff on the platter through the same scene four times, with one to four ticks marking each version: the push alone, the ordinary correction (listen for the yelp after the drag), learning only near speed, and the final design. The chart shows the same thing as speed over time. The blue line is hidden under the yellow one because with the brake cancelled they behave the same.
+
+**Artifacts:**
+- [the riff on the platter, four passes (one to four ticks): push alone, ordinary correction (the yelp), learns only near speed, knows the cost + trims.](Projects/Haptic Handwheel/proofs/feel-lab/turntable_hold.wav)
+- [platter speed through the drag and the scratch for all four versions. Red surges to 284%, yellow holds 100%.](Projects/Haptic Handwheel/proofs/feel-lab/turntable_hold.png)
+- [the feel lab, sketch 3: each feel brings its own brake, and the turntable holds its speed.](Projects/Haptic Handwheel/proofs/feel-lab/feel-lab.html)
+- [runs the four versions, the 30% bench-misread test, the learning-speed sweep, the sound and the numbers.](Projects/Haptic Handwheel/proofs/feel-lab/render_turntable.mjs)
+- [draws the chart. This machine's ImageMagick drops lines from SVGs, so matplotlib draws it.](Projects/Haptic Handwheel/proofs/feel-lab/plot_turntable.py)
+- [every number above, with the speed traces.](Projects/Haptic Handwheel/proofs/feel-lab/turntable_results.json)
+- [the earlier chart as vector, kept for the record. Its lines don't render through ImageMagick.](Projects/Haptic Handwheel/proofs/feel-lab/turntable_hold.svg)
+- [the shared physics: the turntable gains the up-front push, the trim that only learns near speed, and the 5 ms speed smoothing.](Projects/Haptic Handwheel/proofs/feel-lab/feel_engine.js)
+- [the page before inlining. Each feel now sets its own brake.](Projects/Haptic Handwheel/proofs/feel-lab/feel_lab_template.html)
+- [each feel's own defaults (defaults()), and the turntable's speed fix. Matches the browser engine within 1e-5 N·m.](Projects/Haptic Handwheel/firmware/handwheel/feel_core.h)
+- [one set of settings per feel, `set` touches only the selected feel, and an ack on each switch. Compiles for the Nano ESP32 against SimpleFOC 2.3.3, no warnings from our files.](Projects/Haptic Handwheel/firmware/handwheel/handwheel.ino)
+- [the laptop test now drives the turntable with the up-front push switched on.](Projects/Haptic Handwheel/firmware/host-test/test_core.cpp)
+- [same check on the JS side. All seven feels agree.](Projects/Haptic Handwheel/firmware/host-test/compare.mjs)
+- [after the coast test, prints the exact `set` lines to paste into Max.](Projects/Haptic Handwheel/firmware/bench/bench_analyze.py)
+- [a new bench check: does the turntable hold 33⅓ and recover from a drag without surging?](Projects/Haptic Handwheel/firmware/BENCH.md)
+
+_Turntable · pretend motor · finger drags it nearly to a stop for 1 s, then lets go_
+| version | idle, brake cancelled | idle, brake on (middle guess) | peak after the drag | back within 1% |
+| --- | --- | --- | --- | --- |
+| push alone (cycle 6) | 88% | 52% | 99% | never reaches speed |
+| ordinary slow correction | 100% | 100% | 284% | 485 ms |
+| learns only near speed | 100% | 52% | 113% | 55 ms (brake cancelled only) |
+| knows the cost + trims | 100% | 100% | 113% | 55 ms (27 ms brake on) |
+
+_Left rough:_ It's still a pretend motor. The up-front push depends on the bench's coast numbers, and the trim only covers them being off by about 30%. I haven't listened to turntable_hold.wav. I loaded the feel lab only as far as checking that its scripts parse, so dragging and sound in the browser are untested. The feel map table from last cycle still says the turntable idles at 88%. I left it as that cycle's record rather than rewrite it. Making the free knob coast with its brake cancelled was my call, not the feel map's.
+
+_Next moves named:_ When you say yes to the parts: a bring-up checklist for the day the box arrives, in the order the bench tests need it. · Teach the Max host patch the new per-feel settings and the `f` line, so switching feels in Max shows each one's brake. · Rerun the feel map with the new turntable, and decide on evidence whether the free knob should coast or keep its brake.
+<sub>`haptic-handwheel-steward-014` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="haptic-handwheel-steward-012" -->
 ### 2026-10-14 — cycle 6 — A feel map: which feels want the motor's own brake, where each one can live, and a fix so frets can't stick between notes.
 > shipped · parts order still yours to answer · steward leans keep building toward the bench

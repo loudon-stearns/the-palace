@@ -61,3 +61,18 @@ model then lands every let-go within 2.4 cents. On the bench: run `feel frets`,
 let go near the ridge between two notes twenty times, and read the angle from the
 `a` lines. If any let-go stays put, raise `kick` to just above the friction that
 `bench coast` measured.
+
+**Does the turntable hold 33⅓?** (added 2026-10-14, from `proofs/feel-lab/render_turntable.mjs`)
+A speed loop that only pushes in proportion to the error always idles short:
+88% of speed with the brake cancelled, 52% with it on. The firmware now pushes
+the known cost of spinning up front (`ffB`, `ffC`), and a small slow correction
+trims what's left, learning only within 20% of speed so a hand holding the
+platter can't teach it to shove. The analyzer prints the two numbers after
+`bench coast` (`send to the knob: … set ffB … set ffC …`); send them with the
+turntable selected. In the model, numbers 30% off still idle at full speed. On
+the bench: `feel turntable`, hands off for five seconds, then read the speed
+from the `a` lines (the target is 3.49 rad/s). Then drag it nearly to a stop for
+a second and let go: it should be back within 1% in well under a second, with no
+surge past about 115%. If it hunts or surges, lower `ki`; if it idles short,
+check that `ffB` and `ffC` were sent to the turntable, not another feel (each
+feel keeps its own settings now).

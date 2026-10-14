@@ -1,5 +1,5 @@
-// Haptic Handwheel — first firmware sketch. UNVERIFIED: written without
-// Arduino or SimpleFOC installed, never compiled for a board, never run.
+// Haptic Handwheel — first firmware sketch. Compiles for the Arduino Nano
+// ESP32 against SimpleFOC 2.3.3 (BENCH.md); never run on a board.
 // Target: ESP32 dev board + SimpleFOC Mini (or Shield) + GM5208-12 with its
 // AS5048A encoder (SPI). Library: Simple FOC (Arduino Library Manager).
 //
@@ -10,11 +10,14 @@
 // Serial protocol, 921600 baud, one text line per message (Max: [serial] +
 // [fromsymbol]). Max → knob:
 //   feel <name>              frets | string | struck | pendulum | follow | turntable | centre | free
-//   set <param> <value>      any Params field, e.g. "set k 0.2", "set cancelBrake 1"
+//                            each feel keeps its own settings and its own brake (feel_core.h defaults())
+//   set <param> <value>      any Params field of the selected feel, e.g. "set k 0.2", "set cancelBrake 1"
 //   play <N·m>               torque played into the hand (LFO, pitch, beat clicks), held until replaced
 //   bench coast | accel-bare | accel-disc | cog | chirp
 // knob → Max, every 2 ms in PLAY:
 //   a <angle rad> <speed rad/s> <torque N·m>
+// and once on each feel change (Max's [route a] passes it by):
+//   f <name> brake <cancelBrake>
 #include <SimpleFOC.h>   // compiles with SimpleFOC 2.3.3 on arduino-esp32 2.x; 2.3.4+ needs arduino-esp32 3.x (BENCH.md)
 #include "feel_core.h"
 #include "cog_cancel.h"                              // bench_analyze.py writes cog_map.h; until then this cancels nothing
@@ -28,7 +31,8 @@ MagneticSensorSPI encoder(AS5048_SPI, 5);             // CS pin ASSUMED
 // supply and keep VOLT_LIMIT low until the motor's heat is known.
 const float SUPPLY_V = 12.0f, VOLT_LIMIT = 12.0f;
 
-hw::Feel feel;
+hw::Feel bank[8];                                    // one per FeelId, each with its own settings
+hw::Feel* cur = &bank[hw::CENTRE];
 hw::Motor model;
 float played = 0, tauMax = 0.2f;
 uint32_t lastReport = 0;
@@ -45,25 +49,30 @@ void setup() {
   motor.voltage_limit = VOLT_LIMIT;
   motor.init();
   motor.initFOC();
-  feel.id = hw::CENTRE; feel.p.k = 0.03f;             // a soft pitch-wheel return to start
+  for (int i = 0; i < 8; i++) { bank[i].id = (hw::FeelId)i; bank[i].p = hw::defaults((hw::FeelId)i); }
+  cur = &bank[hw::CENTRE];                            // a soft pitch-wheel return to start
 }
 
 void parse(String l) {
   l.trim();
   if (l.startsWith("feel ")) {
-    String n = l.substring(5);
-    if (n == "frets") feel.id = hw::FRETS; else if (n == "string") feel.id = hw::STRING;
-    else if (n == "struck") feel.id = hw::STRUCK; else if (n == "pendulum") feel.id = hw::PENDULUM;
-    else if (n == "follow") feel.id = hw::FOLLOW; else if (n == "turntable") feel.id = hw::TURNTABLE;
-    else if (n == "centre") feel.id = hw::CENTRE; else feel.id = hw::FREE;
+    String n = l.substring(5); hw::FeelId id = hw::FREE;
+    if (n == "frets") id = hw::FRETS; else if (n == "string") id = hw::STRING;
+    else if (n == "struck") id = hw::STRUCK; else if (n == "pendulum") id = hw::PENDULUM;
+    else if (n == "follow") id = hw::FOLLOW; else if (n == "turntable") id = hw::TURNTABLE;
+    else if (n == "centre") id = hw::CENTRE;
+    cur = &bank[id]; cur->reset();                    // the turntable starts learning afresh
+    Serial.printf("f %s brake %.2f\n", n.c_str(), cur->p.cancelBrake);
   } else if (l.startsWith("set ")) {
     int sp = l.indexOf(' ', 4); String k = l.substring(4, sp); float v = l.substring(sp + 1).toFloat();
-    hw::Params& p = feel.p;
+    hw::Params& p = cur->p;
     if (k == "peak") p.peak = v; else if (k == "kick") p.kick = v; else if (k == "semisPerTurn") p.semisPerTurn = v; else if (k == "k") p.k = v;
     else if (k == "k3") p.k3 = v; else if (k == "damp") p.damp = v; else if (k == "rest") p.rest = v;
     else if (k == "rpm") p.rpm = v; else if (k == "kv") p.kv = v; else if (k == "cap") p.cap = v;
     else if (k == "target") p.target = v; else if (k == "wallLo") p.wallLo = v; else if (k == "wallHi") p.wallHi = v;
     else if (k == "cancelBrake") p.cancelBrake = v; else if (k == "tauMax") tauMax = v;
+    else if (k == "ffB") p.ffB = v; else if (k == "ffC") p.ffC = v; else if (k == "ki") p.ki = v;
+    else if (k == "gate") p.gate = v; else if (k == "trim") p.trim = v; else if (k == "speedTf") p.speedTf = v;
     else if (k == "R") model.R = v; else if (k == "kt") model.kt = v; else if (k == "cogGain") cogGain = v;
   } else if (l.startsWith("play ")) played = l.substring(5).toFloat();
   else if (l.startsWith("bench ")) bench(l.substring(6));
@@ -74,8 +83,8 @@ void loop() {
   static uint32_t lastUs = micros();
   uint32_t now = micros(); float dt = (now - lastUs) * 1e-6f; lastUs = now;
   hw::Sense s{ motor.shaft_angle, motor.shaft_velocity, now * 1e-6f, dt };
-  float tau = hw::tick(feel, s, played, tauMax);
-  motor.move(model.volts(tau, s.om, feel.p.cancelBrake) + cogCancel(s.th));
+  float tau = hw::tick(*cur, s, played, tauMax);
+  motor.move(model.volts(tau, s.om, cur->p.cancelBrake) + cogCancel(s.th));
   if (Serial.available()) parse(Serial.readStringUntil('\n'));
   if (millis() - lastReport >= 2) {
     lastReport = millis();

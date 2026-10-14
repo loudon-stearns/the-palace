@@ -287,6 +287,9 @@ def report(rows_by, a, truth=None, mic=None, header_path=None, plot_path=None):
         print(s)
     print(f"{'number':<26}{'measured':>12} {'':<8}" + (f"{'true':>12}{'error':>9}" if truth else ''))
     for k, v in m.items(): line(k, v, T.get('motor', {}).get(k))
+    if m:  # the lines to paste into Max, so the knob stops guessing
+        print(f"  send to the knob: set kt {m['kt']:.4g} · then with the turntable selected: "
+              f"set ffB {m['b_bearings']:.4g} · set ffC {m['coulomb']:.4g}")
     res = dict(motor=m)
     if m and 'cog-fwd' in rows_by and 'cog-rev' in rows_by:
         cg = cog_map(rows_by['cog-fwd'], rows_by['cog-rev'], m['kt'], a.R)
