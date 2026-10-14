@@ -1,0 +1,100 @@
+{
+ "errors": [],
+ "audio_seconds": 98.5,
+ "video_lead_s": 2.106,
+ "meters": [
+  {
+   "step": 1,
+   "who": "1 of 13 · nut loss → the steel post, left",
+   "peak_dbfs": -11.2,
+   "chart_said": "hold B to bow, and watch the hair catch and let go"
+  },
+  {
+   "step": 2,
+   "who": "2 of 13 · bridge loss → the brass block, right",
+   "peak_dbfs": -4.8,
+   "chart_said": "hold B to bow, and watch the hair catch and let go"
+  },
+  {
+   "step": 3,
+   "who": "3 of 13 · body size → the soundboard",
+   "peak_dbfs": -10.6,
+   "chart_said": "hold B to bow, and watch the hair catch and let go"
+  },
+  {
+   "step": 4,
+   "who": "4 of 13 · pitch → the beads",
+   "peak_dbfs": -10,
+   "chart_said": "hold B to bow, and watch the hair catch and let go"
+  },
+  {
+   "step": 5,
+   "who": "5 of 13 · brightness → the string’s colour",
+   "peak_dbfs": -10.4,
+   "chart_said": "hold B to bow, and watch the hair catch and let go"
+  },
+  {
+   "step": 6,
+   "who": "6 of 13 · stiffness → the string’s thickness",
+   "peak_dbfs": -10.9,
+   "chart_said": "hold B to bow, and watch the hair catch and let go"
+  },
+  {
+   "step": 7,
+   "who": "7 of 13 · the same stiffness at every pitch",
+   "peak_dbfs": -14.2,
+   "chart_said": "hold B to bow, and watch the hair catch and let go"
+  },
+  {
+   "step": 8,
+   "who": "8 of 13 · pickup → the ring, where you listen",
+   "peak_dbfs": -10.3,
+   "chart_said": "hold B to bow, and watch the hair catch and let go"
+  },
+  {
+   "step": 9,
+   "who": "9 of 13 · slow motion → the clock",
+   "peak_dbfs": -11,
+   "chart_said": "hold B to bow, and watch the hair catch and let go"
+  },
+  {
+   "step": 10,
+   "who": "10 of 13 · bow position → where the bow sits",
+   "peak_dbfs": -11.7,
+   "chart_said": "the bow is settling in"
+  },
+  {
+   "step": 11,
+   "who": "11 of 13 · bow speed → the arrow’s length",
+   "peak_dbfs": -13.4,
+   "chart_said": "singing: the hair holds 70% of each cycle, lets go once"
+  },
+  {
+   "step": 12,
+   "who": "12 of 13 · bow force → the bow’s width and glow",
+   "peak_dbfs": -4.9,
+   "chart_said": "crunching: too much force. the hair holds too long and lets go late, never the same way twice"
+  },
+  {
+   "step": 13,
+   "who": "13 of 13 · the catch and the release, slowed down",
+   "peak_dbfs": -9.3,
+   "chart_said": "singing: the hair holds 71% of each cycle, lets go once"
+  }
+ ],
+ "shots": [
+  "frames/step-01.png",
+  "frames/step-02.png",
+  "frames/step-03.png",
+  "frames/step-04.png",
+  "frames/step-05.png",
+  "frames/step-06.png",
+  "frames/step-07.png",
+  "frames/step-08.png",
+  "frames/step-09.png",
+  "frames/step-10.png",
+  "frames/step-11.png",
+  "frames/step-12.png",
+  "frames/step-13.png"
+ ]
+}

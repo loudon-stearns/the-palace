@@ -1,0 +1,1854 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Waveguide Study · v1.11 · the bow lets go</title>
+<style>
+  html, body { margin:0; padding:0; background:#0b0d10; color:#cfd3d8;
+    font-family: ui-monospace, Menlo, monospace; overflow:hidden; height:100%; }
+  #ui { position:absolute; top:10px; left:12px; z-index:10;
+    background:rgba(11,13,16,0.80); padding:12px 14px; border:1px solid #1e242b;
+    border-radius:4px; font-size:12px; line-height:1.55; max-width:290px;
+    max-height:calc(100% - 22px); overflow:auto; }
+  #ui h1 { margin:0 0 2px 0; font-size:13px; letter-spacing:0.04em; }
+  #ui .sub { font-size:10px; opacity:0.55; margin-bottom:8px; }
+  #ui label { display:block; margin-top:7px; }
+  /* v1.8: the sliders in the house dress (Graphite: graphite track, amber thumb) */
+  #ui input[type=range] { width:100%; -webkit-appearance:none; appearance:none; background:transparent; height:16px; margin:2px 0 0 0; }
+  #ui input[type=range]::-webkit-slider-runnable-track { height:3px; background:#22222e; border:1px solid #4a4a5e; border-radius:2px; }
+  #ui input[type=range]::-moz-range-track { height:3px; background:#22222e; border:1px solid #4a4a5e; border-radius:2px; }
+  #ui input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:11px; height:11px; margin-top:-5px;
+    border-radius:50%; background:#e8b84a; border:1px solid #7a6030; }
+  #ui input[type=range]::-moz-range-thumb { width:11px; height:11px; border-radius:50%; background:#e8b84a; border:1px solid #7a6030; }
+  #ui label:hover input[type=range]::-webkit-slider-runnable-track { border-color:rgba(232,184,74,0.55); }
+  #ui label.walking input[type=range]::-webkit-slider-thumb { background:#ffb070; box-shadow:0 0 6px #ff7a3d; }
+  #ui .row { display:flex; justify-content:space-between; font-variant-numeric:tabular-nums; }
+  #ui button { margin-top:9px; margin-right:6px; background:#1a2128; color:#cfd3d8;
+    border:1px solid #2a323b; padding:6px 12px; font:inherit; cursor:pointer; border-radius:3px; }
+  #ui button:hover { background:#232c35; }
+  #ui button.on { background:#3a2a1c; border-color:#8a6a3d; }
+  #status { margin-top:9px; font-size:10px; opacity:0.6; }
+  #hint { position:absolute; bottom:10px; left:12px; right:120px; font-size:11px; opacity:0.6; }
+  @media (min-width:760px) { body:not(.short) #hint { left:330px; } }
+  #walkCap { position:absolute; left:50%; transform:translateX(-50%); bottom:54px; z-index:12;
+    max-width:620px; text-align:center; font-size:15px; line-height:1.5; color:#f1e6d4;
+    background:rgba(11,13,16,0.82); border:1px solid #8a6a3d; border-radius:4px; padding:10px 16px; display:none; }
+  #walkCap .who { color:#ffb070; letter-spacing:0.05em; }
+  #walkCap .bar { height:3px; background:#2a323b; margin-top:8px; }
+  #walkCap .bar div { height:3px; width:0; background:#ff7a3d; }
+  /* v1.8: the board sits under the bridge, bottom right; the caption moves to the empty bottom left */
+  @media (min-width:760px) { body:not(.short) #walkCap { left:350px; transform:none; max-width:min(330px, calc(100% - 760px)); min-width:260px; font-size:13px; bottom:40px; } }
+  #ui label.walking { color:#ffb070; }
+  body.walking #hint { display:none; }
+  #wordmark { position:absolute; bottom:10px; right:14px; font-size:11px; opacity:0.4; letter-spacing:0.06em; }
+  canvas { display:block; }
+  /* v1.3: a door you cannot miss, a meter that proves the page is sounding,
+     and a layout that survives the board's 480-pixel frame. */
+  #gate { position:absolute; inset:0; z-index:20; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; background:rgba(11,13,16,0.72); cursor:pointer; }
+  #gate button { font:inherit; font-size:16px; padding:14px 26px; background:#3a2a1c; color:#f1e6d4;
+    border:1px solid #8a6a3d; border-radius:4px; cursor:pointer; letter-spacing:0.04em; }
+  #gate .why { margin-top:12px; font-size:11px; opacity:0.6; max-width:420px; text-align:center; line-height:1.5; }
+  #gate.err .why { color:#ff9a7a; opacity:1; }
+  #meter { margin-top:8px; height:6px; background:#1a2128; border:1px solid #2a323b; position:relative; }
+  #meterFill { position:absolute; left:0; top:0; bottom:0; width:0; background:#ff7a3d; }
+  #meterText { font-size:10px; opacity:0.7; margin-top:3px; font-variant-numeric:tabular-nums; }
+  #more { display:none; }
+  /* v1.10: the overtone ladder, top right */
+  #ladder { position:absolute; top:10px; right:12px; z-index:9; width:270px; background:rgba(11,13,16,0.82);
+    border:1px solid #1e242b; border-radius:4px; padding:7px 9px 4px; font-size:11px; line-height:1.4; transition:opacity 0.4s, border-color 0.3s; }
+  #ladder .t { color:#e8b84a; letter-spacing:0.04em; }
+  #ladder .st { color:#f1e6d4; min-height:30px; }
+  #ladder canvas { display:block; margin-top:3px; }
+  #ladder.idle { opacity:0.45; }
+  #ladder.lit { border-color:#e8b84a; }
+  body.short #ladder { width:200px; top:auto; bottom:6px; right:6px; font-size:10px; }
+  body.short #ladder canvas { width:200px !important; height:96px !important; }
+  /* v1.9: the bow's grip, a chart in the top right joined to the bow by a thread */
+  #grip { position:absolute; top:10px; right:12px; z-index:9; width:330px; background:rgba(11,13,16,0.82);
+    border:1px solid #1e242b; border-radius:4px; padding:8px 10px 6px; font-size:11px; line-height:1.4; transition:opacity 0.4s; }
+  #grip .t { color:#e8b84a; letter-spacing:0.04em; }
+  #grip .st { color:#f1e6d4; min-height:30px; }
+  #grip canvas { display:block; margin-top:4px; }
+  #grip.idle { opacity:0.45; }
+  #lead { position:absolute; inset:0; pointer-events:none; z-index:8; }
+  body.short #grip { width:240px; top:6px; right:6px; font-size:10px; }
+  /* on a wide screen the bowed string rides up into the top right, so the chart sits in the empty space under the nut */
+  @media (min-width:1000px) { body:not(.short) #grip { top:auto; right:auto; left:350px; bottom:84px; } }
+  /* v1.9: the chart took the lower left, so the walk's caption moves to the empty top, above the nut */
+  @media (min-width:1000px) { body:not(.short) #walkCap { top:10px; bottom:auto; } }
+  body.short #grip canvas { width:240px !important; height:120px !important; }
+  body.short #ui { top:6px; left:6px; padding:8px 10px; max-height:calc(100% - 12px); overflow:auto; }
+  body.short #ui .sub, body.short #hint { display:none; }
+  body.short #sliders { display:none; }
+  body.short.open #sliders { display:block; }
+  body.short #more { display:inline-block; }
+</style>
+</head>
+<body>
+<div id="gate"><button id="gateBtn">▶ tap to hear the string</button>
+  <div class="why">your browser keeps a page silent until you click it. one click starts the sound and plucks the string. then hold the bow button, or B, and the string sings.</div></div>
+<div id="ui">
+  <h1>waveguide · study · v1.11 · the bow lets go</h1>
+  <div class="sub">one string on a soundboard, plucked or bowed. each slider changes the thing it names: hover one and watch what lights up, or press <b>walk the links</b> and the page moves each slider for you.</div>
+  <div id="sliders">
+  <label>pitch · the beads (one per sample) <span class="row"><span></span><span id="vFreq">196</span> Hz</span>
+    <input id="freq" type="range" min="60" max="880" value="196" step="1"></label>
+  <label>brightness · the string's colour <span class="row"><span></span><span id="vBright">0.55</span></span>
+    <input id="bright" type="range" min="0" max="1" value="0.55" step="0.01"></label>
+  <label>bridge loss · the brass block, right <span class="row"><span></span><span id="vBridge">0.985</span></span>
+    <input id="bridge" type="range" min="0.9" max="1.0" value="0.985" step="0.0005"></label>
+  <label>body size · the soundboard under the bridge <span class="row"><span id="vBodyNote">a guitar-sized top</span><span id="vBody">0.50</span></span>
+    <input id="body" type="range" min="0" max="1" value="0.5" step="0.01"></label>
+  <label>nut loss · the steel post, left <span class="row"><span></span><span id="vNut">0.995</span></span>
+    <input id="nut" type="range" min="0.9" max="1.0" value="0.995" step="0.0005"></label>
+  <label>stiffness · the string's thickness <span class="row"><span id="vStiffNote">harmonic: every partial in tune</span><span id="vStiff">0.00</span></span>
+    <input id="stiff" type="range" min="0" max="1" value="0" step="0.01"></label>
+  <label>pickup · the ring, where you listen <span class="row"><span></span><span id="vPick">0.82</span></span>
+    <input id="pick" type="range" min="0.05" max="0.95" value="0.82" step="0.01"></label>
+  <label>bow speed · the arrow's length <span class="row"><span></span><span id="vBspd">0.50</span></span>
+    <input id="bspd" type="range" min="0" max="1" value="0.5" step="0.01"></label>
+  <label>bow force · the bow's width and glow <span class="row"><span></span><span id="vBfrc">0.60</span></span>
+    <input id="bfrc" type="range" min="0" max="1" value="0.6" step="0.01"></label>
+  <label>bow position · where the bow sits <span class="row"><span></span><span id="vBpos">0.74</span></span>
+    <input id="bpos" type="range" min="0.55" max="0.95" value="0.74" step="0.01"></label>
+  <label>slow motion · the clock above the string: one turn = one string cycle, taking <span class="row"><span id="vFactor"></span><span id="vSlow">2.0</span> s</span>
+    <input id="slow" type="range" min="0.5" max="8" value="2" step="0.1"></label>
+  </div>
+  <button id="more">sliders ▾</button>
+  <button id="pluck">pluck (center)</button>
+  <button id="strike">strike (center)</button>
+  <button id="bow">bow (hold B)</button>
+  <button id="damp">damp (hold D)</button>
+  <br>
+  <button id="view" class="on">view: strobe</button>
+  <button id="hold">hold (H)</button>
+  <button id="walk">walk the links (W)</button>
+  <div id="meter"><div id="meterFill"></div></div>
+  <div id="meterText">output: silent until you click</div>
+  <div id="status">click = pluck · shift-click = strike, at that point · drag empty space to orbit</div>
+</div>
+<div id="hint">the glowing string IS the delay-line state, and each bead is one sample of it · bowed, it settles into one sharp corner running round the string once a cycle: each time the corner passes the bow, the hair lets go, and the bow's grip chart shows it (amber = holding, dark = slipping) · V cycles the view: strobe (the string now, caught a whole number of cycles later plus a sliver) · replay (the first three cycles after your pluck, recorded at every sample, played slowly: use it for stiff strings) · live (unslowed, a jumble) · the ring is the pickup · the ladder top right is what the ring hears: a dashed rung where a perfectly flexible string puts each overtone, an amber bar where this one does</div>
+<div id="walkCap"><div class="who" id="walkWho"></div><div id="walkSay"></div><div class="bar"><div id="walkBar"></div></div></div>
+<div id="wordmark">Loud'n Live</div>
+<canvas id="lead"></canvas>
+<div id="ladder" class="idle"><div class="t">the overtones · what the ring hears</div>
+  <div class="st" id="ladderState">pluck the string (click it), and watch its overtones</div>
+  <canvas id="ladderCv" width="540" height="260" style="width:270px;height:130px"></canvas></div>
+<div id="grip" class="idle"><div class="t">the bow's grip · one string cycle</div>
+  <div class="st" id="gripState">hold B to bow, and watch the hair catch and let go</div>
+  <canvas id="gripCv" width="660" height="330" style="width:330px;height:165px"></canvas></div>
+
+<script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+<script id="worklet-src" type="text/plain">
+// v1.8: the body. A real string is nearly silent on its own; what you hear is
+// the soundboard the bridge stands on. Now the bridge is a door, not a wall:
+// what the bridge-loss slider takes out of the string each bounce is no
+// longer thrown away, it drives a soundboard, twelve resonant modes of a
+// plate (the lowest near 100 Hz, as on a guitar top, at the middle size).
+// The body-size slider sets how big that board is: a bigger board has lower,
+// boomier modes. At size 0 there is no board and the sound is v1.7's exactly.
+// The output is the string at the pickup plus the board, and the page is
+// sent each mode's level so it can draw the board moving in those shapes.
+//
+// v1.5: even stiffness. The slider now asks for one number, the string's
+// inharmonicity B, and B means the same stretch at every pitch: partial n
+// sits at n x f0 x sqrt(1 + B n^2) / sqrt(1 + B), as on a real stiff string.
+// Before, one coefficient for eight allpass sections did the stretching, and
+// the same slider position stretched A5 about 800 times more than E2
+// (offline-v1.5/stretch-by-pitch.png). Now retune() designs the dispersion for
+// the note: it tries 1 to 64 sections, finds for each the coefficient that
+// keeps partials 2 to N (up to 6 kHz) closest to where the stiff-string law
+// puts them, then keeps the count that lands closest. A partial is wherever the whole loop
+// delays it by exactly n of its own periods, so each candidate is checked by
+// arithmetic on the loop's phase delay, with no rendering. The coefficient may
+// now be positive too: the loop's own lowpass stretches high notes slightly,
+// and stiffness 0 now cancels that, so zero means harmonic at every pitch.
+//
+// v1.4: a bow, and three changes under it that the bow needed: the ends now
+// hold still at zero frequency, the rails are double precision, and the output
+// passes a 10 Hz DC blocker. Plucks measured against v1.3 in
+// offline-v1.4/pluck-vs-v1.3.json.
+//
+// The rails carry DISPLACEMENT waves (their sum is the orange line), but a bow
+// acts on VELOCITY: friction depends on how fast the string slides under the
+// hair. So at the bow point, each sample, the processor reads the velocity of
+// each wave arriving there (this sample's value minus the last one's), asks
+// the friction curve how hard the hair grips at that slip speed, and injects
+// the resulting velocity into both waves leaving the bow point. A velocity
+// added to a displacement wave is a step, not a blip: the offset bowOff is
+// the running sum of every injection, and every sample crossing the bow point
+// carries it. When the bow lifts, bowOff stops changing, which injects nothing.
+// The friction curve is the standard one from bowed-string waveguides (after
+// McIntyre, Schumacher and Woodhouse, as used in Smith's and Cook's models):
+// near zero slip the hair grips (the string sticks and rides with the bow);
+// past a threshold it lets go (slips), and the string flies back. That
+// stick-slip, once a cycle, is the Helmholtz motion: one sharp corner running
+// round the string, which the strobe view can stand nearly still.
+//
+// v1.11: the hair has a ceiling. v1.4's curve said how fully the hair grips at
+// a given slip, with no limit on how hard it may pull, so a heavy bow could
+// hold the string for ever (v1.9's "pinned"), and the slip length barely moved
+// with bow position (82% held at 0.60, where Helmholtz says 60%). Now, as in
+// the hyperbolic friction law of McIntyre and Woodhouse: while the string
+// rides with the bow, the hair supplies whatever pull that takes, up to a
+// ceiling set by bow force. Each lap the corner brings the string back harder,
+// the pull needed climbs, and the moment it passes the ceiling the hair lets
+// go. Slipping, the hair drags with a force that falls as the slip grows
+// (sliding friction is weaker than holding friction), and it catches again
+// when the string comes back round to the bow's speed. Because the ceiling is
+// finite, a heavy bow does not pin; it holds too long, lets go too late and
+// irregularly, and the note crunches (Schelleng's raucous region).
+// Checked headless: offline-v1.11/bow-probe.json.
+//
+// Bidirectional digital waveguide, v1.2 (strobe). The audio path is v1.1's,
+// untouched: the strobe only READS the rails. Checked offline by running both
+// pages' worklets headless and comparing the output sample for sample.
+//
+// Why a strobe. At 60 frames a second a 196 Hz string goes round its loop
+// about 3.3 times between frames, so drawing "the string right now" each
+// frame shows unrelated shapes: a jumble. A stroboscope fixes that the way a
+// timing light does. Each frame is the real rail state, but caught at a
+// chosen point in the string's own cycle; each frame advances that point by
+// a sliver (1 / (60 x slow) of a cycle), so the wave appears to travel, at
+// its true shape, in slow motion. Capture instants are fractional, so a
+// frame is the linear blend of the rails at two neighbouring samples.
+// What the strobe cannot slow down: the decay. Loss happens in real time.
+// What the strobe cannot stand still: a stiff string. Its partials run sharp,
+// so it has no single period, and each cycle's shape differs from the last.
+// For that, the replay view: at each pluck, record the first three cycles of
+// the string at every sample, hand them to the screen once, and let the
+// screen play them back slowly. True slow motion, of the past, for any
+// stiffness.
+//
+// v1.1 notes follow.
+//
+// Two rails: rBuf (right-going) and lBuf (left-going). Displacement at
+// position n is rBuf[n] + lBuf[n] — that sum is the shape of the string,
+// and v1.1 hears the string at one point on it (the pickup), so the sound is
+// read off the same numbers the screen draws.
+//
+// v1.1 changes over study v1 — each one found by running v1's own worklet
+// headless in node and measuring it (Projects/Waveguide Synthesizer/offline-v1/):
+//   1. Stiffness now stretches partials. v1 used positive allpass
+//      coefficients, which delay highs MORE than lows — that compresses the
+//      partials, the opposite of a stiff string — and only four gentle
+//      sections, so the effect measured at about -2 cents on partial 30:
+//      inaudible. v1.1 uses eight sections with a NEGATIVE coefficient, so
+//      high partials go round the loop faster and ride sharp, as in a piano.
+//   2. In tune. v1 set the loop to 2*floor(sr/2f) samples and ignored the
+//      delay hiding inside the loop filters, so pitch drifted by up to tens
+//      of cents (and the dispersion delay pulled it flat). v1.1 measures the
+//      phase delay of every filter in the loop at the fundamental and makes up
+//      the fractional remainder with a tuning allpass at the nut.
+//   3. Audible. v1 tapped the output at the bridge, where the string barely
+//      moves: peak level about -35 dBFS. v1.1 listens at a pickup point on the
+//      string (default 0.82 of the way to the bridge).
+const VIS_N = 180;
+const NAP_MAX = 64;         // dispersion allpass sections, at most
+const NAPS = [1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64];   // the counts retune() tries
+const CHECK = [2, 3, 4, 6, 8, 12, 16];                    // partials the search watches (plus the top one)
+// The slider, 0..1, as inharmonicity B. 0 is harmonic; then a decade every
+// third of the way, 1e-5 (a hair of stretch) to 1e-2 (partial 8 a third of a
+// semitone short of a whole tone sharp: past any piano, into bars and bells).
+function stiffToB(s) { return s <= 0 ? 0 : Math.pow(10, -5 + 3 * s); }
+const MIN_LEN = 8;
+// v1.8: the soundboard's modes at the middle size: frequency (Hz), ring time
+// (seconds to fall 60 dB), and the plate shape (m, n half-waves along its
+// length and width) the page draws for each one.
+const BODY = [
+  [100, 0.30, 1, 1], [188, 0.24, 2, 1], [226, 0.22, 1, 2], [298, 0.18, 3, 1],
+  [384, 0.15, 2, 2], [472, 0.13, 3, 2], [590, 0.11, 1, 3], [760, 0.09, 4, 1],
+  [980, 0.08, 4, 2], [1250, 0.07, 2, 3], [1640, 0.06, 5, 1], [2150, 0.05, 3, 3]];
+const NB = BODY.length;
+// What the board adds to the output. Sized so that at the default bridge loss
+// and body size the board and the string's own pickup sit at about the same level.
+const BODY_GAIN = 100;
+// Body size 0..1 as a frequency scale: 0.5 is the table above; 1 is a board
+// about 1.6x as big (modes 0.6x as high); near 0 a tiny board, modes 2x up.
+function bodyScale(s) { return Math.pow(2, 1 - 2 * s) * 1.0; }
+
+class WG extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.sr = sampleRate;
+    this.maxLen = Math.ceil(this.sr / 60);
+    // Double precision (v1.4): a bow holding the string to one side keeps the
+    // two rails carrying large, opposite offsets that cancel in their sum.
+    this.rBuf = new Float64Array(this.maxLen);
+    this.lBuf = new Float64Array(this.maxLen);
+    this.len = 100;
+    this.p = 0; this.q = 0;
+
+    this.freq = 196;
+    this.bright = 0.55;
+    this.bridge = 0.985;
+    this.nut    = 0.995;
+    this.stiff  = 0.0;
+    this.pickup = 0.82;
+    this.damping = false;
+
+    // ---- body (v1.8): twelve two-pole resonators, fed from the bridge ----
+    this.bodySize = 0.5;
+    this.bA1 = new Float64Array(NB); this.bA2 = new Float64Array(NB); this.bG = new Float64Array(NB);
+    this.bY1 = new Float64Array(NB); this.bY2 = new Float64Array(NB);
+    this.bX1 = 0; this.bX2 = 0;
+    this.bEnv = new Float32Array(NB);      // each mode's recent peak, for the picture
+    this.bDrive = 0;                       // how hard the bridge is pushing the board, for the picture
+    this.bFreq = new Float32Array(NB);
+    this.nextBodyAt = 0;
+    this.tuneBody();
+
+    // ---- bow (v1.4) ----
+    this.bowing = false;
+    this.bowPos = 0.74;        // fraction of the way from nut to bridge (offline-v1.4/bow-position-map.png)
+    this.bowSpeed = 0.5;       // 0..1
+    this.bowForce = 0.6;       // 0..1, hair pressure: sets the hair's ceiling. v1.11: 0.6 sings once a cycle from 0.55 to 0.90 (offline-v1.11/bow-probe.json)
+    this.bowSlipping = false;  // v1.11: the hair is sliding (it stays sliding until the string comes back to the bow's speed)
+    this.bowOff = 0;           // running sum of injected velocity (a displacement)
+    this.bowPrevR = 0; this.bowPrevL = 0; this.bowFresh = true;
+    this.bowEnv = 0;           // bow speed ramps in and out over ~120 ms, as a real stroke does
+    // v1.9: the bow's grip, for the picture. One string cycle cut into TB
+    // slices by the same phase clock the strobe uses; each slice keeps the
+    // string's speed at the bow, the slip, and how hard the hair held there.
+    this.TB = 96;
+    this.tVel = new Float32Array(this.TB); this.tSlip = new Float32Array(this.TB);
+    this.tGrip = new Float32Array(this.TB); this.tLast = -1;
+    this.tPull = new Float32Array(this.TB);   // v1.11: how hard the hair pulls, as a share of its ceiling
+    this.bowPrevY = 0; this.bowYFresh = true;
+    this.fade = 0; this.outG = 1;
+
+    this.lpBridge = 0; this.lpNut = 0;
+    // v1.4: the ends hold perfectly still at zero frequency. The loss now
+    // acts on what moves, not on a steady sideways hold, so a string held off
+    // centre by the bow is held by its ends, as a real one is. (v1.3 scaled
+    // everything, DC included, by the loss: the ends gave way under a steady
+    // push, and a bowed string crept off its rest line without limit.)
+    this.dcB = 0; this.dcN = 0; this.dcA = 0;   // set in retune: a quarter of the note's frequency
+    this.hpX = 0; this.hpY = 0;   // output DC blocker: the speaker hears the vibration, not the hold
+    this.apX = new Float64Array(NAP_MAX); this.apY = new Float64Array(NAP_MAX);
+    this.c = 0; this.nap = 1;   // dispersion: coefficient and section count, designed per note
+    this.design = null;         // what retune() last designed, posted to the page
+    this.eta = 0; this.tX = 0; this.tY = 0;   // tuning allpass
+    // v1.10: the overtone ladder. One Goertzel filter per overtone, at the
+    // frequency the loop really rings it, listening at the pickup.
+    this.gM = 0; this.gC = new Float64Array(16); this.gS1 = new Float64Array(16); this.gS2 = new Float64Array(16);
+    this.gN = 0; this.gWin = 2048;
+    this.retune();
+
+    this.vis = new Float32Array(VIS_N);
+
+    // ---- strobe (read-only on the rails) ----
+    this.clock = 0;                 // absolute index of the next sample to process
+    this.frameEvery = this.sr / 60; // one screen frame, in samples (fractional)
+    this.nextPostAt = this.frameEvery;
+    this.mode = 'strobe';           // 'strobe' | 'replay' | 'live'
+    this.slow = 2.0;                // seconds of screen time per string cycle
+    this.hold = false;              // hold = stand the wave still (phase stops advancing)
+    this.ref = 0;                   // sample where this note's phase clock starts
+    this.ph = 0;                    // phase (0..1 of a cycle) of the frame being captured
+    this.capN = -1; this.capStage = 0; this.capFrac = 0;
+    this.capS = 0;                  // fractional capture instant, for the record
+    this.snapA = new Float32Array(VIS_N);
+    this.snapB = new Float32Array(VIS_N);
+    this.frame = new Float32Array(VIS_N);
+    this.frameReady = false;
+    this.frameNo = 0;
+    this.rec = null; this.recN = 0; this.recMax = 0; this.recDone = false;
+    this.schedule();
+
+    this.port.onmessage = (e) => {
+      const m = e.data;
+      if (m.type === 'view') {
+        if (m.slow !== undefined) this.slow = Math.max(0.1, m.slow);
+        if (m.hold !== undefined) this.hold = !!m.hold;
+        let mode = m.mode;
+        if (mode === undefined && m.strobe !== undefined) mode = m.strobe ? 'strobe' : 'live';
+        if (mode !== undefined && mode !== this.mode) {
+          this.mode = mode;
+          this.ref = this.clock; this.frameReady = false;
+          if (mode === 'strobe') this.schedule(); else this.capN = -1;
+        }
+        return;
+      }
+      // v1.9: still the string, hold and all. The output fades to silence in
+      // 10 ms, the string is cleared, and the output fades back in. The walk
+      // uses it between bow steps: a string pinned at full force is held far
+      // off its rest line, and removing that hold any faster than this
+      // reaches the speaker as a crack.
+      if (m.type === 'still') { this.fade = 12; return; }
+      if (m.type === 'pluck') {
+        const len = this.len;
+        const center = Math.max(1, Math.min(len - 2, Math.floor((m.position ?? 0.5) * len)));
+        const isStrike = m.mode === 'strike';
+        const width = Math.max(isStrike ? 2 : 6, Math.floor(len * (isStrike ? 0.035 : 0.25)));
+        const peak = isStrike ? 0.85 : 0.5;
+        this.rBuf.fill(0); this.lBuf.fill(0);
+        this.p = 0; this.q = 0;
+        for (let i = 0; i < len; i++) {
+          const disp = Math.max(0, 1 - Math.abs(i - center) / width);
+          this.rBuf[i] = peak * disp;
+          this.lBuf[i] = peak * disp;
+        }
+        this.apX.fill(0); this.apY.fill(0);
+        this.bowOff = 0; this.bowFresh = true;
+        this.lpBridge = 0; this.lpNut = 0; this.tX = 0; this.tY = 0; this.dcB = 0; this.dcN = 0;
+        // Strobe: the note's phase clock starts at the pluck, so the first
+        // frame is the pluck shape itself, then it splits and travels.
+        this.ref = this.clock; this.ph = 0; this.frameReady = false;
+        if (this.mode === 'strobe') this.schedule();
+        if (this.mode === 'replay') {
+          // Record three cycles (at most 2400 samples), one row per sample.
+          this.recMax = Math.min(2400, Math.ceil(3 * this.sr / this.freq) + 2);
+          this.rec = new Float32Array(this.recMax * VIS_N); this.recN = 0; this.recDone = false;
+        }
+      } else if (m.type === 'params') {
+        let re = false;
+        const newPeriod = m.freq !== undefined && m.freq !== this.freq;
+        if (newPeriod) {
+          // A new period: restart the phase clock here, keep the phase.
+          this.ref = this.clock; this.frameReady = false;
+        }
+        if (m.freq   !== undefined) { this.freq = m.freq; re = true; }
+        if (m.bright !== undefined) { this.bright = m.bright; re = true; }
+        if (m.stiff  !== undefined) { this.stiff = m.stiff; re = true; }
+        if (m.bridge !== undefined) { this.bridge = m.bridge; re = true; }
+        if (m.nut    !== undefined) { this.nut = m.nut; re = true; }
+        if (m.pickup !== undefined) this.pickup = m.pickup;
+        if (m.body   !== undefined && m.body !== this.bodySize) { this.bodySize = m.body; this.tuneBody(); }
+        if (re) this.retune();
+        if (newPeriod && this.mode === 'strobe') this.schedule();
+      } else if (m.type === 'bow') {
+        if (m.on !== undefined) {
+          if (m.on && !this.bowing) { this.bowFresh = true; this.bowSlipping = false; }
+          // v1.9: lifting a bow that has pinned the string (the hair held for
+          // the whole last cycle) stills it instead. v1.11: the hair now has a
+          // ceiling, so it cannot pin for long; this stays as a net.
+          if (!m.on && this.bowing && this.tLast >= 0 && this.tGrip.every(g => g >= 0.98)) this.fade = 12;
+          this.bowing = !!m.on;
+        }
+        if (m.position !== undefined && m.position !== this.bowPos) this.moveBow(m.position);
+        if (m.speed !== undefined) this.bowSpeed = m.speed;
+        if (m.force !== undefined) this.bowForce = m.force;
+        if (this.bowing && this.mode === 'replay') {
+          this.recMax = Math.min(2400, Math.ceil(3 * this.sr / this.freq) + 2);
+          this.rec = new Float32Array(this.recMax * VIS_N); this.recN = 0; this.recDone = false;
+        }
+      } else if (m.type === 'damp') {
+        this.damping = !!m.on;
+      }
+    };
+  }
+
+  // Phase delay (in samples) at radian frequency w, for the two filter kinds
+  // in the loop. Tuning = the loop's total phase delay at the fundamental
+  // must equal sr / f exactly.
+  static tauLP(a, w) { return Math.atan2(a * Math.sin(w), 1 - a * Math.cos(w)) / w; }
+  static tauAP(c, w) {
+    const ph = Math.atan2(-Math.sin(w), c + Math.cos(w)) - Math.atan2(-c * Math.sin(w), 1 + c * Math.cos(w));
+    return -ph / w;
+  }
+
+  // Phase delay of an end's loss stage, g + (1 - g) x DC-tracker, at w: the
+  // tracker is a one-pole lowpass (1 - a) / (1 - a z^-1).
+  static tauEnd(g, a, w) {
+    const dr = 1 - a * Math.cos(w), di = a * Math.sin(w), m = (1 - a) / (dr * dr + di * di);
+    const re = g + (1 - g) * m * dr, im = (1 - g) * m * -di;
+    return -Math.atan2(im, re) / w;
+  }
+
+  retune() {
+    const w = 2 * Math.PI * this.freq / this.sr;
+    const D = this.sr / this.freq;              // required loop delay, samples
+    this.a = (1 - this.bright) * 0.9;           // loop lowpass coefficient
+    // The ends' zero-frequency tracker. It must be quick: under a bow's steady
+    // push the rails ramp, and a slow tracker lags the ramp, letting the ends
+    // sag like soft springs (at 1 Hz the string floated many times its own
+    // vibration off its rest line). A quarter of the note's frequency keeps
+    // the sag small and barely touches the note (pluck-vs-v1.3.json).
+    this.dcA = Math.exp(-2 * Math.PI * 0.25 * this.freq / this.sr);
+    const tLP = 2 * WG.tauLP(this.a, w)
+      + WG.tauEnd(this.bridge, this.dcA, w) + WG.tauEnd(this.nut, this.dcA, w);
+    const d = this.designDispersion(w, D, tLP);
+    if (d.nap !== this.nap) { this.apX.fill(0); this.apY.fill(0); }
+    this.c = d.c; this.nap = d.nap; this.design = d;
+    this.port.postMessage({ type: 'disp', nap: d.nap, c: d.c, B: d.B, worst: d.worst, N: d.N, freq: this.freq, len: d.len });
+    this.postLadder(d);
+    const len = d.len;
+    this.eta = d.eta;
+    if (len !== this.len) {
+      if (this.bowOff !== 0) this.rebuild(len);
+      else { this.len = len; this.p = 0; this.q = 0; }
+      this.bowFresh = true;
+    }
+  }
+
+  // v1.10: where this loop really rings overtone n. It rings where one trip
+  // round the loop takes exactly n periods: f = n x sr / loopDelay(f), found by
+  // a few steps from the stiff-string law's guess. What the page draws is what
+  // the filter achieved, not what was asked of it.
+  postLadder(d) {
+    const B = d.B || 0, f0 = this.freq, fit = { len: d.len, eta: d.eta };
+    const M = Math.max(1, Math.min(16, Math.floor(0.45 * this.sr / f0)));
+    const freqs = [], cents = [];
+    for (let n = 1; n <= M; n++) {
+      let f = n * f0 * Math.sqrt((1 + B * n * n) / (1 + B));
+      for (let k = 0; k < 6; k++) f = n * this.sr / this.loopDelay(d.nap, d.c, fit, 2 * Math.PI * f / this.sr);
+      if (!(f < 0.45 * this.sr)) break;
+      freqs.push(f);
+    }
+    for (let n = 1; n <= freqs.length; n++) cents.push(1200 * Math.log2(freqs[n - 1] / (n * freqs[0])));
+    this.gM = freqs.length;
+    // A fresh listen per tuning, six cycles long and Hann-shaped, so each
+    // overtone is heard apart from its neighbours and a slider sweep (16
+    // retunes a second) still lets every listen finish.
+    for (let i = 0; i < this.gM; i++) { this.gC[i] = 2 * Math.cos(2 * Math.PI * freqs[i] / this.sr); this.gS1[i] = 0; this.gS2[i] = 0; }
+    this.gN = 0; this.gWin = Math.max(1024, Math.round(6 * this.sr / f0));
+    this.port.postMessage({ type: 'ladder', f0: freqs[0], freqs, cents });
+  }
+
+  // The loop as it would be with nap sections at coefficient c: the string
+  // length, the tuning allpass, and the loop's whole phase delay at w. Null if
+  // the dispersion would leave too little string.
+  fit(nap, c, w1, D, tLP) {
+    const rem = D - tLP - nap * WG.tauAP(c, w1);
+    if (rem < 2 * MIN_LEN + 0.5) return null;
+    const len = Math.max(MIN_LEN, Math.min(this.maxLen - 1, Math.floor((rem - 0.5) / 2)));
+    const target = rem - 2 * len;
+    let dd = target;
+    for (let k = 0; k < 4; k++) { const e = (1 - dd) / (1 + dd); dd += target - WG.tauAP(e, w1); }
+    return { len, eta: (1 - dd) / (1 + dd) };
+  }
+  loopDelay(nap, c, f, w) {
+    return 2 * f.len + 2 * WG.tauLP(this.a, w) + WG.tauEnd(this.bridge, this.dcA, w)
+      + WG.tauEnd(this.nut, this.dcA, w) + nap * WG.tauAP(c, w) + WG.tauAP(f.eta, w);
+  }
+  // How far partial n would miss the stiff-string law, in cents (+ = sharp).
+  // The loop must delay the law's frequency fn by exactly n of its periods,
+  // n x sr / fn; a loop longer than that puts the partial flat by the ratio.
+  miss(nap, c, f, n, B) {
+    const fn = n * this.freq * Math.sqrt((1 + B * n * n) / (1 + B));
+    return -1200 * Math.log2(this.loopDelay(nap, c, f, 2 * Math.PI * fn / this.sr) * fn / (n * this.sr));
+  }
+  // About a millisecond of arithmetic, on the audio thread, so each design is
+  // kept: dragging a slider back over ground already covered costs nothing.
+  designDispersion(w1, D, tLP) {
+    const key = [this.freq, this.stiff, this.bright, this.bridge, this.nut, this.sr].join(',');
+    if (!this.designs) this.designs = new Map();
+    const hit = this.designs.get(key);
+    if (hit) return hit;
+    const d = this.designFresh(w1, D, tLP);
+    if (this.designs.size > 4096) this.designs.clear();
+    this.designs.set(key, d);
+    return d;
+  }
+  designFresh(w1, D, tLP) {
+    const B = stiffToB(this.stiff), f0 = this.freq;
+    // Fit up to 6 kHz, the band where stretch is heard, 3 to 24 partials.
+    const N = Math.max(3, Math.min(24, Math.floor(6000 / f0), Math.floor(0.4 * this.sr / f0)));
+    let best = null;
+    // Asked for no stretch, and the loop's own stretch is under 3 cents up to
+    // N: leave it alone, one plain section, as v1.4 did. Only high notes need
+    // the cancelling.
+    if (B === 0) {
+      const f = this.fit(1, 0, w1, D, tLP);
+      let worst = 0;
+      for (let n = 2; n <= N; n++) worst = Math.max(worst, Math.abs(this.miss(1, 0, f, n, 0)));
+      if (worst < 3) return { nap: 1, c: 0, worst, len: f.len, eta: f.eta, N, B };
+    }
+    for (const nap of NAPS) {
+      let lo = -0.97, flo = this.fit(nap, lo, w1, D, tLP);
+      while (!flo && lo < 0.6) { lo += 0.03; flo = this.fit(nap, lo, w1, D, tLP); }
+      if (!flo) continue;
+      // Each partial's miss moves one way as c moves, so the worst of them
+      // has a single lowest point: find it by narrowing in from both sides.
+      // Checked at a spread of partials, not all N, to keep retune() quick.
+      const worstAt = (c) => {
+        const f = this.fit(nap, c, w1, D, tLP);
+        if (!f) return Infinity;
+        let m = 0;
+        for (const n of CHECK) { if (n > N) break; m = Math.max(m, Math.abs(this.miss(nap, c, f, n, B))); }
+        return Math.max(m, Math.abs(this.miss(nap, c, f, N, B)));
+      };
+      let hi = 0.6;
+      for (let k = 0; k < 26; k++) {
+        const m1 = lo + (hi - lo) / 3, m2 = hi - (hi - lo) / 3;
+        if (worstAt(m1) <= worstAt(m2)) hi = m2; else lo = m1;
+      }
+      const c = 0.5 * (lo + hi), f = this.fit(nap, c, w1, D, tLP);
+      if (!f) continue;
+      let worst = 0;
+      for (let n = 2; n <= N; n++) worst = Math.max(worst, Math.abs(this.miss(nap, c, f, n, B)));
+      // Fewer sections unless more buy at least a cent and a fifth of the miss.
+      if (!best || worst < Math.min(best.worst - 1, 0.8 * best.worst)) best = { nap, c, worst, len: f.len, eta: f.eta, N, B };
+    }
+    if (!best) {                               // too short for any section: no dispersion
+      const f = this.fit(1, 0, w1, D, tLP) || { len: MIN_LEN, eta: 0 };
+      best = { nap: 1, c: 0, worst: NaN, len: f.len, eta: f.eta, N, B };
+    }
+    return best;
+  }
+
+  // A held bow leaves the rails carrying large offsets that cancel in their
+  // sum: on the bridge side of the bow the right-going rail sits about bowOff
+  // above zero and the left-going one about bowOff below. Two things break
+  // that cancellation, and v1.4 handles each.
+  //
+  // Sliding the bow: the band of string between the old and the new bow point
+  // changes sides, so its offsets are carried across (one rail up by bowOff,
+  // the other down by the same; the shape you see does not move).
+  moveBow(pos) {
+    const len = this.len;
+    const b0 = Math.max(1, Math.min(len - 2, Math.round(this.bowPos * (len - 1))));
+    const b1 = Math.max(1, Math.min(len - 2, Math.round(pos * (len - 1))));
+    this.bowPos = pos;
+    if (b0 === b1 || this.bowOff === 0) return;
+    const sgn = b1 < b0 ? 1 : -1, A = this.bowOff;
+    for (let i = Math.min(b0, b1); i < Math.max(b0, b1); i++) {
+      this.rBuf[(this.p + i) % len] += sgn * A;
+      this.lBuf[(this.q + i) % len] -= sgn * A;
+    }
+  }
+
+  // A new string length (a new note) while those offsets stand: rebuild both
+  // rails from the shape of the string as it is now, stretched to the new
+  // length, half on each rail. The motion restarts from that shape, as when a
+  // finger stops a sounding string; the bow catches it again within a few cycles.
+  rebuild(len) {
+    const old = this.len, y = new Float64Array(old);
+    for (let i = 0; i < old; i++) y[i] = this.rBuf[(this.p + i) % old] + this.lBuf[(this.q + i) % old];
+    this.rBuf.fill(0); this.lBuf.fill(0);
+    for (let i = 0; i < len; i++) {
+      const x = i * (old - 1) / (len - 1), k = Math.min(old - 2, Math.floor(x)), f = x - k;
+      this.rBuf[i] = this.lBuf[i] = 0.5 * (y[k] + f * (y[k + 1] - y[k]));
+    }
+    this.len = len; this.p = 0; this.q = 0; this.bowOff = 0;
+    this.lpBridge = 0; this.lpNut = 0; this.dcB = 0; this.dcN = 0; this.tX = 0; this.tY = 0;
+    this.apX.fill(0); this.apY.fill(0);
+  }
+
+  dispersion(x) {
+    const c = this.c;
+    let v = x;
+    for (let k = 0, K = this.nap; k < K; k++) {
+      const y = c * v + this.apX[k] - c * this.apY[k];
+      this.apX[k] = v; this.apY[k] = y;
+      v = y;
+    }
+    return v;
+  }
+
+  // Downsample the string (r + l across the rails) into arr — the orange line.
+  sampleInto(arr, off = 0) {
+    const len = this.len, r = this.rBuf, l = this.lBuf, step = len / VIS_N;
+    for (let i = 0; i < VIS_N; i++) {
+      const si = Math.min(len - 1, Math.floor(i * step));
+      arr[off + i] = r[(this.p + si) % len] + l[(this.q + si) % len];
+    }
+  }
+
+  // Strobe: pick the next instant, at or after now, where the string is at
+  // phase ph of its cycle. The string repeats every P = sr / f samples (the
+  // loop is tuned to exactly that), so any such instant shows the same shape,
+  // older only by the decay.
+  schedule() {
+    const P = this.sr / this.freq;
+    let s = this.ref + this.ph * P;
+    if (s < this.clock) s += Math.ceil((this.clock - s) / P) * P;
+    this.capS = s;
+    this.capN = Math.floor(s); this.capFrac = s - this.capN; this.capStage = 0;
+  }
+
+  // Each mode: y = g(x - x2) + a1 y1 - a2 y2, a resonator with unit gain at its
+  // peak and a zero at DC, so the bow's steady sideways hold never reaches the board.
+  tuneBody() {
+    const k = bodyScale(this.bodySize);
+    for (let i = 0; i < NB; i++) {
+      const f = Math.min(0.45 * this.sr, BODY[i][0] * k), t60 = BODY[i][1] / Math.sqrt(k);
+      const rr = Math.exp(-6.91 / (t60 * this.sr)), w = 2 * Math.PI * f / this.sr;
+      this.bA1[i] = 2 * rr * Math.cos(w); this.bA2[i] = rr * rr;
+      this.bG[i] = (1 - rr * rr) / 2 / (1 + 0.12 * i);   // higher modes a little quieter
+      this.bFreq[i] = f;
+    }
+  }
+
+  process(_in, outputs) {
+    const out = outputs[0][0];
+    const N = out.length;
+    const len = this.len;
+    const r = this.rBuf, l = this.lBuf;
+    const a = this.a, eta = this.eta;
+    const dampGain = this.damping ? 0.985 : 1.0;
+    const pk = Math.max(1, Math.min(len - 2, Math.round(this.pickup * (len - 1))));
+    const bw = Math.max(1, Math.min(len - 2, Math.round(this.bowPos * (len - 1))));
+    // Bow speed in displacement-per-sample: scaled with pitch, so a note an
+    // octave up is as loud as the one below (amplitude ~ speed x period).
+    // BOW_SCALE sizes the swing to about a pluck's; it scales the speed and
+    // the grip's reference together, so the friction sees the same ratios and
+    // every regime on the Schelleng map is unchanged.
+    const BOW_SCALE = 0.4;   // v1.11: up from 0.25, so the bow is as loud as v1.10's (the hair now pulls only as hard as it must)
+    const vBowMax = BOW_SCALE * (0.002 + 0.010 * this.bowSpeed) * (this.freq / 196);
+    // Friction (v1.11): a ceiling on the hair's pull, then a sliding curve;
+    // see the note at the top of the bow and offline-v1.11/bow-probe.json.
+    // Slip is measured against a reference speed for this pitch, so the grip
+    // curve keeps its shape as the pitch and the bow speed change.
+    const vRef = BOW_SCALE * 0.007 * (this.freq / 196);
+    // v1.11: the hair's ceiling, in the same velocity units as the slip.
+    // Force spans it logarithmically, 0.05 to 20 times vRef: below about 0.2
+    // the bow skates, 0.3 to 0.5 it breaks up, 0.55 to 0.9 it sings, above
+    // about 0.95 it crunches. The ceiling also rises as the bow nears an end,
+    // as a player presses harder near the bridge: Schelleng's top limit falls
+    // as 1/(distance to the end), and this cancels it, so one force sings all
+    // along the string while his bottom limit still bites near the bridge.
+    const beta = Math.max(0.04, Math.min(this.bowPos, 1 - this.bowPos));
+    const ceilN = 0.05 * Math.pow(400, this.bowForce) * (0.26 / beta);   // the ceiling, in vRef units
+    const V0 = 0.1, MU = 0.4;   // sliding friction falls from the ceiling toward MU x ceiling, halfway by V0 x vRef of slip
+    const envStep = 1 / (0.12 * this.sr);
+    const P = this.sr / this.freq;                                  // v1.9: one string cycle, in samples
+    const vMaxAll = BOW_SCALE * 0.012 * (this.freq / 196);          // the fastest bow at this pitch
+    // Body: how much of the board you hear. 0 is the bare string, exactly v1.7.
+    const bodyOn = Math.min(1, this.bodySize * 4);
+    // What the bridge lets through each bounce. Energy the string keeps is g^2
+    // (g = the bridge-loss slider), so what passes into the board is 1 - g^2,
+    // an amplitude of sqrt(1 - g^2). Scaled so the default bridge (0.985)
+    // feeds the board the same as v1.8's first draft, which balanced by ear-meter.
+    const feed = 0.0871 * Math.sqrt(Math.max(0, 1 - this.bridge * this.bridge));
+    const envRel = Math.exp(-1 / (0.05 * this.sr));
+    const outStep = 1 / (0.01 * this.sr);                           // v1.9: the still's 10 ms fades
+    let driveSum = 0;
+
+    for (let n = 0; n < N; n++) {
+      // Strobe capture: read-only. The string at this instant is the rails
+      // as they stand before sample (clock + n) is computed.
+      if (this.clock + n === this.capN) {
+        if (this.capStage === 0) {
+          this.sampleInto(this.snapA); this.capStage = 1; this.capN += 1;
+        } else {
+          this.sampleInto(this.snapB);
+          const f = this.capFrac, A = this.snapA, B = this.snapB, F = this.frame;
+          for (let i = 0; i < VIS_N; i++) F[i] = A[i] + f * (B[i] - A[i]);
+          this.frameReady = true; this.capN = -1;
+        }
+      }
+      // Replay recording: read-only, one row per sample, starting at the pluck.
+      if (this.rec !== null && !this.recDone) {
+        this.sampleInto(this.rec, this.recN * VIS_N);
+        if (++this.recN >= this.recMax) this.recDone = true;
+      }
+
+      const rOut = r[(this.p + len - 1) % len];    // r[len-1] — arriving at bridge
+      const lOut = l[this.q];                      // l[0] — arriving at nut
+
+      // Output: the string's displacement at the pickup — the orange line, read at one point.
+      const y = 0.5 * (r[(this.p + pk) % len] + l[(this.q + pk) % len]);
+      this.hpY = y - this.hpX + 0.9987 * this.hpY; this.hpX = y;
+      // v1.10: read-only. The ladder listens to what the pickup hears.
+      if (this.gN + n < this.gWin) {
+        const xin = this.hpY * (0.5 - 0.5 * Math.cos(2 * Math.PI * (this.gN + n) / this.gWin));
+        for (let i = 0; i < this.gM; i++) {
+          const sg = xin + this.gC[i] * this.gS1[i] - this.gS2[i]; this.gS2[i] = this.gS1[i]; this.gS1[i] = sg;
+        }
+      }
+      // The board: driven by the wave arriving at the bridge, times what the
+      // bridge lets through. A rigid bridge (loss 1.000) feeds it nothing.
+      let bodyOut = 0;
+      if (bodyOn > 0) {
+        const bx = feed * (rOut - this.dcB), dx = bx - this.bX2;
+        this.bX2 = this.bX1; this.bX1 = bx;
+        driveSum += bx * bx;
+        for (let i = 0; i < NB; i++) {
+          const yb = this.bG[i] * dx + this.bA1[i] * this.bY1[i] - this.bA2[i] * this.bY2[i];
+          this.bY2[i] = this.bY1[i]; this.bY1[i] = yb;
+          bodyOut += yb;
+          const ab = Math.abs(yb); this.bEnv[i] = ab > this.bEnv[i] ? ab : this.bEnv[i] * envRel;
+        }
+      }
+      // Safety: exactly linear below -6 dBFS (every pluck lives there), then a
+      // soft knee that can never pass 0.95, so a heavy bow's drag cannot clip.
+      const h = this.hpY * (1 - 0.45 * bodyOn) + bodyOn * BODY_GAIN * bodyOut, ah = Math.abs(h);
+      this.outG = this.fade > 0 ? Math.max(0, this.outG - outStep) : Math.min(1, this.outG + outStep);
+      out[n] = this.outG * (ah <= 0.5 ? h : Math.sign(h) * (0.5 + 0.45 * Math.tanh((ah - 0.5) / 0.45)));
+
+      // Bridge: sign flip, lowpass, loss, dispersion.
+      this.lpBridge = a * this.lpBridge + (1 - a) * rOut;
+      this.dcB = this.dcA * this.dcB + (1 - this.dcA) * this.lpBridge;
+      const bridgeRefl = this.dispersion(-(this.lpBridge * this.bridge + (1 - this.bridge) * this.dcB)) * dampGain;
+
+      // Nut: sign flip, lowpass, loss, fractional tuning allpass.
+      this.lpNut = a * this.lpNut + (1 - a) * lOut;
+      this.dcN = this.dcA * this.dcN + (1 - this.dcA) * this.lpNut;
+      const x = -(this.lpNut * this.nut + (1 - this.nut) * this.dcN) * dampGain;
+      const nutRefl = eta * x + this.tX - eta * this.tY;
+      this.tX = x; this.tY = nutRefl;
+
+      this.p = (this.p + len - 1) % len;
+      r[this.p] = nutRefl;
+      const qOld = this.q;
+      this.q = (this.q + 1) % len;
+      l[qOld] = bridgeRefl;
+      // Bow, at the end of the sample, after the rails have moved: at logical
+      // index bw (and bw-1 for the left rail) sits the sample that has just
+      // crossed the bow point. Read its velocity, add the friction's injection.
+      // Done here, the rails are consistent whenever anything reads them.
+      if (this.bowing || this.bowEnv > 0) {
+        this.bowEnv = this.bowing ? Math.min(1, this.bowEnv + envStep) : Math.max(0, this.bowEnv - envStep);
+        // The right-going sample at bw and the left-going one at bw-1 have
+        // each just crossed the bow (they move in opposite directions), so
+        // neither point carries the offset twice.
+        const ir = (this.p + bw) % len, il = (this.q + bw - 1) % len;
+        const rIn = r[ir], lIn = l[il];
+        if (this.bowFresh) { this.bowPrevR = rIn; this.bowPrevL = lIn; this.bowFresh = false; this.bowYFresh = true; }
+        const vIn = (rIn - this.bowPrevR) + (lIn - this.bowPrevL);
+        this.bowPrevR = rIn; this.bowPrevL = lIn;
+        // v1.11: A is the push the string needs to ride with the bow this
+        // sample. Within the ceiling the hair supplies it all (holding).
+        // Beyond it, or while already sliding, the hair drags with the sliding
+        // force at the slip x that results: x = |A| - Fm·(MU + (1-MU)·v0/(v0+x)),
+        // a quadratic in x, whose larger root is the slide.
+        const vb = vBowMax * this.bowEnv, A = vb - vIn, aA = Math.abs(A), sA = A < 0 ? -1 : 1;
+        const Fm = ceilN * vRef * this.bowEnv, v0 = V0 * vRef;
+        const Ap = aA - Fm * MU, C = Fm * (1 - MU), disc = (v0 - Ap) * (v0 - Ap) + 4 * v0 * (Ap - C);
+        const xs = disc >= 0 ? 0.5 * (Ap - v0 + Math.sqrt(disc)) : -1;
+        let dl, slip, g;
+        if ((this.bowSlipping && xs > 0) || aA > Fm) {
+          dl = sA * Fm * (MU + (1 - MU) * v0 / (v0 + Math.max(0, xs)));
+          slip = sA * Math.max(0, xs); g = Math.min(0.97, aA > 0 ? Math.abs(dl) / aA : 0); this.bowSlipping = true;
+        } else { dl = A; slip = 0; g = 1; this.bowSlipping = false; }
+        this.bowOff += dl;
+        const pull = Fm > 0 ? Math.abs(dl) / Fm : 0;
+        r[ir] = rIn + this.bowOff; l[il] = lIn + this.bowOff;
+        // v1.9: read-only. The string's true speed at the bow point: the
+        // change, sample to sample, of the string's height there (both rail
+        // samples taken on the bridge side, where the hold's offsets cancel),
+        // in units of the fastest bow at this pitch. While the hair grips it
+        // equals the bow's speed; when it lets go the string flies back.
+        const yB = r[ir] + l[(this.q + bw) % len];
+        const vTrue = this.bowYFresh ? 0 : yB - this.bowPrevY;
+        this.bowPrevY = yB; this.bowYFresh = false;
+        let ph = ((this.clock + n - this.ref) / P) % 1; if (ph < 0) ph += 1;
+        const k = Math.min(this.TB - 1, Math.floor(ph * this.TB));
+        // fill any slices a high note skips over (fewer samples per cycle than slices)
+        const gap = (k - this.tLast + this.TB) % this.TB;
+        let j = this.tLast < 0 || gap === 0 || gap > this.TB / 2 ? k : (this.tLast + 1) % this.TB;
+        for (;;) {
+          this.tVel[j] = vTrue / vMaxAll; this.tSlip[j] = slip / vRef; this.tGrip[j] = g; this.tPull[j] = pull;
+          if (j === k) break; j = (j + 1) % this.TB;
+        }
+        this.tLast = k;
+      } else if (this.bowOff !== 0) {
+        // Bow lifted: the offset stops changing, which pushes nothing; the
+        // string lets go of its sideways hold and rings down on its own.
+        const ir = (this.p + bw) % len, il = (this.q + bw - 1) % len;
+        this.bowPrevR = r[ir]; this.bowPrevL = l[il];
+        r[ir] += this.bowOff; l[il] += this.bowOff;
+      }
+    }
+    this.clock += N;
+    // v1.10: each overtone's level over the last listen (six cycles), in dB.
+    this.gN += N;
+    if (this.gN >= this.gWin && this.gM > 0) {
+      const db = new Float32Array(this.gM);
+      for (let i = 0; i < this.gM; i++) {
+        const s1 = this.gS1[i], s2 = this.gS2[i], p = s1 * s1 + s2 * s2 - this.gC[i] * s1 * s2;
+        db[i] = 20 * Math.log10(4 * Math.sqrt(Math.max(0, p)) / this.gWin + 1e-9);
+        this.gS1[i] = 0; this.gS2[i] = 0;
+      }
+      this.gN = 0;
+      this.port.postMessage({ type: 'ladderLevel', db });
+    }
+    if (this.fade > 0 && --this.fade === 0) {
+      this.rBuf.fill(0); this.lBuf.fill(0); this.bowOff = 0; this.bowFresh = true; this.bowEnv = 0;
+      this.lpBridge = 0; this.lpNut = 0; this.dcB = 0; this.dcN = 0; this.tX = 0; this.tY = 0;
+      this.hpX = 0; this.hpY = 0; this.apX.fill(0); this.apY.fill(0);
+      this.bY1.fill(0); this.bY2.fill(0); this.bX1 = 0; this.bX2 = 0;
+    }
+    // The board's state for the picture, 60 times a second in every view.
+    this.bDrive = 0.8 * this.bDrive + 0.2 * Math.sqrt(driveSum / N) * (bodyOn > 0 ? 1 : 0);
+    if (this.clock >= this.nextBodyAt) {
+      this.nextBodyAt = this.clock + this.frameEvery;
+      const env = new Float32Array(NB);
+      for (let i = 0; i < NB; i++) env[i] = bodyOn * BODY_GAIN * this.bEnv[i];
+      this.port.postMessage({ type: 'body', env, drive: this.bDrive, freqs: this.bFreq.slice(), f0: this.freq });
+      // v1.9: the bow's grip over one cycle, with what the picture needs to
+      // draw the friction curve (how wide the hair's grip is, in slip units).
+      if (this.bowing || this.bowEnv > 0) {
+        this.port.postMessage({ type: 'bowtrace', vel: this.tVel.slice(), slip: this.tSlip.slice(), grip: this.tGrip.slice(),
+          bowV: vBowMax * this.bowEnv / vMaxAll, pull: this.tPull.slice(), ceil: ceilN, mu: MU, v0: V0, env: this.bowEnv });
+      } else if (this.tLast >= 0) { this.tLast = -1; this.port.postMessage({ type: 'bowtrace', off: true }); }
+    }
+
+    if (this.recDone) {
+      const rec = this.rec; this.rec = null; this.recDone = false;
+      this.port.postMessage({ type: 'replay', data: rec, rows: this.recN, period: this.sr / this.freq,
+        freq: this.freq, c: this.c, pickup: this.pickup }, [rec.buffer]);
+    }
+    if (this.mode === 'replay') {
+      // The screen is playing the recording; nothing to post per frame.
+    } else if (this.mode === 'live') {
+      // Live view: the string right now, on the same 60-a-second grid. (v1.1
+      // reset its counter at each post, so it really posted every 7 blocks,
+      // about 54 frames a second.)
+      if (this.clock >= this.nextPostAt) {
+        this.sampleInto(this.vis);
+        this.port.postMessage({ type: 'wave', data: this.vis.slice(), pickup: this.pickup, c: this.c,
+          view: 'live', at: this.clock });
+        this.nextPostAt += this.frameEvery;
+        if (this.nextPostAt < this.clock - this.frameEvery) this.nextPostAt = this.clock + this.frameEvery;
+      }
+    } else if (this.clock >= this.nextPostAt && this.frameReady) {
+      // Strobe view: one frame per screen frame, each a sliver further round the cycle.
+      this.port.postMessage({ type: 'wave', data: this.frame.slice(), pickup: this.pickup, c: this.c,
+        view: 'strobe', at: this.clock, capturedAt: this.capS, phase: this.ph, frame: this.frameNo++ });
+      this.frameReady = false;
+      this.nextPostAt += this.frameEvery;
+      if (this.nextPostAt < this.clock - this.frameEvery) this.nextPostAt = this.clock + this.frameEvery;
+      if (!this.hold) this.ph = (this.ph + 1 / (60 * this.slow)) % 1;
+      this.schedule();
+    }
+    return true;
+  }
+}
+registerProcessor('wg', WG);
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const VIS_N = 180;
+let audioCtx = null, wgNode = null, latestWave = null, latestBody = null, latestBow = null, latestPhase = 0, latestLadder = null;
+const params = { freq: 196, bright: 0.55, bridge: 0.985, nut: 0.995, stiff: 0.0, pickup: 0.82, body: 0.5 };
+const view = { mode: 'strobe', slow: 2.0, hold: false };
+const MODES = ['strobe', 'replay', 'live'];
+let replay = null, replayT = 0, lastTick = performance.now();
+const replayWave = new Float32Array(VIS_N);
+
+// replayFrame: the string at screen time t (seconds) of a slow replay. The
+// recording holds one row per audio sample, starting at the pluck; one string
+// cycle (period samples) takes `slow` seconds, and the replay loops the first
+// three cycles. Between two recorded samples, blend. (Run headless by
+// offline-v1.2/replay_probe.mjs.)
+function replayFrame(rec, rows, period, slow, t, out) {
+  const span = Math.min(3 * period, rows - 2);
+  const pos = ((t * period / slow) % span + span) % span;
+  const k = Math.floor(pos), f = pos - k, a = k * VIS_N, b = a + VIS_N;
+  for (let i = 0; i < VIS_N; i++) out[i] = rec[a + i] + f * (rec[b + i] - rec[a + i]);
+  return pos;
+}
+
+// v1.3: the same processor class, run on the main thread inside a
+// ScriptProcessorNode, for any browser or frame where the worklet will not load.
+// Not a port: the worklet source is evaluated with the three globals shimmed.
+function mainThreadNode(ctx, src) {
+  let Proc = null;
+  const toMain = { onmessage: null };
+  class Shim { constructor() { this.port = { onmessage: null,
+    postMessage: (d) => toMain.onmessage && toMain.onmessage({ data: d }) }; } }
+  new Function('AudioWorkletProcessor', 'registerProcessor', 'sampleRate', src)(
+    Shim, (_n, cls) => { Proc = cls; }, ctx.sampleRate);
+  const proc = new Proc();
+  const sp = ctx.createScriptProcessor(1024, 0, 1);
+  const blk = new Float32Array(128);
+  sp.onaudioprocess = (ev) => {
+    const out = ev.outputBuffer.getChannelData(0);
+    for (let s = 0; s < out.length; s += 128) { proc.process([], [[blk]]); out.set(blk, s); }
+  };
+  sp.port = { postMessage: (d) => proc.port.onmessage({ data: d }),
+    set onmessage(f) { toMain.onmessage = f; }, get onmessage() { return toMain.onmessage; } };
+  return sp;
+}
+let engine = 'none', analyser = null, startPromise = null;
+const meterBuf = new Float32Array(2048);
+function startAudio() {
+  if (!startPromise) startPromise = startAudioOnce().catch((err) => {
+    showGate('could not start the sound: ' + (err && err.message || err), true);
+    startPromise = null; audioCtx = null; throw err;
+  });
+  return startPromise;
+}
+async function startAudioOnce() {
+  // Made inside the click, so the browser lets it sound.
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  const src = document.getElementById('worklet-src').textContent;
+  try {
+    const url = URL.createObjectURL(new Blob([src], { type: 'application/javascript' }));
+    await audioCtx.audioWorklet.addModule(url);
+    wgNode = new AudioWorkletNode(audioCtx, 'wg', { outputChannelCount: [1] });
+    engine = 'audio thread';
+  } catch (err) {
+    console.warn('worklet failed, using the main-thread engine:', err);
+    wgNode = mainThreadNode(audioCtx, src);
+    engine = 'main thread (worklet would not load here: ' + (err && err.name || 'error') + ')';
+  }
+  analyser = audioCtx.createAnalyser(); analyser.fftSize = 2048;
+  wgNode.connect(analyser);
+  wgNode.port.onmessage = (e) => {
+    if (e.data.type === 'wave') { latestWave = e.data.data; if (e.data.phase !== undefined) latestPhase = e.data.phase; }
+    if (e.data.type === 'bowtrace') latestBow = e.data.off ? null : e.data;
+    if (e.data.type === 'ladder') ladder = e.data;
+    if (e.data.type === 'ladderLevel') latestLadder = e.data;
+    if (e.data.type === 'replay') { replay = e.data; replayT = 0; }
+    if (e.data.type === 'body') latestBody = e.data;
+    if (e.data.type === 'disp') { showStiff(e.data); if (e.data.len) lineLen = e.data.len; }
+  };
+  wgNode.connect(audioCtx.destination);
+  sendParams(); sendView(); sendBow();
+  $('status').textContent = 'audio: ' + audioCtx.sampleRate + ' Hz · engine on the ' + engine;
+  $('gate').style.display = 'none';
+}
+function showGate(msg, isErr) {
+  $('gate').style.display = 'flex'; $('gate').classList.toggle('err', !!isErr);
+  $('gate').querySelector('.why').textContent = msg;
+}
+// One click: start the sound and pluck, so the first thing you hear is the string.
+$('gate').addEventListener('click', () => pluck(0.3, 'pluck'));
+$('more').addEventListener('click', () => {
+  document.body.classList.toggle('open');
+  $('more').textContent = document.body.classList.contains('open') ? 'sliders ▴' : 'sliders ▾';
+});
+function fitLayout() { document.body.classList.toggle('short', window.innerHeight < 640); }
+fitLayout();
+// The meter reads what the page is sending to the speakers. If it moves and you
+// hear nothing, the silence is outside the page: system volume or output device.
+let meterPeak = 0;
+function updateMeter(dt) {
+  if (!analyser) return;
+  analyser.getFloatTimeDomainData(meterBuf);
+  let pk = 0; for (let i = 0; i < meterBuf.length; i++) pk = Math.max(pk, Math.abs(meterBuf[i]));
+  meterPeak = Math.max(pk, meterPeak * Math.exp(-dt / 0.4));
+  const db = 20 * Math.log10(meterPeak + 1e-9);
+  $('meterFill').style.width = Math.max(0, Math.min(100, (db + 60) / 60 * 100)) + '%';
+  $('meterText').textContent = db < -59 ? 'output: quiet · pluck the string'
+    : 'output: ' + db.toFixed(0) + ' dBFS · if this moves and you hear nothing, check your volume';
+}
+function sendParams() {
+  if (wgNode) wgNode.port.postMessage({ type: 'params', ...params });
+  else lineLen = Math.round(48000 / params.freq / 2);   // a guess until the worklet reports its own
+  showFactor();
+}
+function sendView() { if (wgNode) wgNode.port.postMessage({ type: 'view', ...view }); showFactor(); }
+// How much slower than life the screen runs: one string cycle (1/f seconds) takes `slow` seconds.
+function showFactor() {
+  $('vFactor').textContent = view.mode === 'live' ? 'live: not slowed'
+    : view.hold ? 'held still' : '1/' + Math.round(view.slow * params.freq) + ' speed';
+}
+function pluck(position = 0.5, mode = 'pluck') {
+  if (!wgNode) { startAudio().then(() => pluck(position, mode), () => {}); return; }
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  wgNode.port.postMessage({ type: 'pluck', position, mode });
+}
+// v1.4: the bow. Held, not clicked: the string sings for as long as you hold.
+const bowState = { speed: 0.5, force: 0.6, position: 0.74 };
+let bowing = false;
+function sendBow(extra = {}) { if (wgNode) wgNode.port.postMessage({ type: 'bow', ...bowState, ...extra }); }
+function setBow(on) {
+  if (on && !wgNode) { startAudio().then(() => setBow(true), () => {}); return; }
+  if (on && audioCtx.state === 'suspended') audioCtx.resume();
+  if (on === bowing) return;
+  bowing = on; sendBow({ on }); $('bow').classList.toggle('on', on);
+  if (on && view.mode === 'replay') $('status').textContent = 'replay: recording the first three cycles of the stroke';
+}
+function setDamp(on) {
+  if (wgNode) wgNode.port.postMessage({ type: 'damp', on });
+  $('damp').classList.toggle('on', on);
+}
+
+const bind = (id, key, span, fmt) => $(id).addEventListener('input', (e) => {
+  params[key] = +e.target.value; $(span).textContent = fmt(params[key]); sendParams();
+});
+bind('freq','freq','vFreq', v => v);
+bind('bright','bright','vBright', v => v.toFixed(2));
+bind('bridge','bridge','vBridge', v => v.toFixed(3));
+bind('nut','nut','vNut', v => v.toFixed(3));
+bind('stiff','stiff','vStiff', v => v.toFixed(2));
+// v1.5: what the stiffness slider means, in the string's own terms. The law is
+// the same at every pitch; the note line says how closely this note's
+// dispersion filter could follow it (a bass note asked for bell-like
+// stretch runs out of filter first).
+function stiffB(s) { return s <= 0 ? 0 : Math.pow(10, -5 + 3 * s); }
+function showStiff(d) {
+  const B = stiffB(params.stiff);
+  if (B === 0) { $('vStiffNote').textContent = 'harmonic: every partial in tune'; return; }
+  const p8 = 1200 * Math.log2(Math.sqrt((1 + 64 * B) / (1 + B)));
+  let t = 'partial 8 ' + (p8 < 9.5 ? '+' + p8.toFixed(1) : '+' + Math.round(p8)) + ' ¢, any pitch';
+  if (d && d.worst > 10) t += ' · this note strays up to ' + Math.round(d.worst) + ' ¢ (too low for this much)';
+  $('vStiffNote').textContent = t;
+}
+bind('pick','pickup','vPick', v => v.toFixed(2));
+bind('body','body','vBody', v => v.toFixed(2));
+$('body').addEventListener('input', () => {
+  const b = params.body;
+  $('vBodyNote').textContent = b === 0 ? 'no board: the bare string' : b < 0.25 ? 'a small box, modes high'
+    : b < 0.65 ? 'a guitar-sized top' : 'a big board, modes low';
+});
+const bindBow = (id, key, span) => $(id).addEventListener('input', (e) => {
+  bowState[key] = +e.target.value; $(span).textContent = bowState[key].toFixed(2); sendBow();
+});
+bindBow('bspd', 'speed', 'vBspd');
+bindBow('bfrc', 'force', 'vBfrc');
+bindBow('bpos', 'position', 'vBpos');
+$('slow').addEventListener('input', (e) => {
+  view.slow = +e.target.value; $('vSlow').textContent = view.slow.toFixed(1); sendView();
+});
+function cycleView() {
+  view.mode = MODES[(MODES.indexOf(view.mode) + 1) % MODES.length];
+  $('view').textContent = 'view: ' + view.mode;
+  $('view').classList.toggle('on', view.mode !== 'live'); sendView();
+  if (view.mode === 'replay') $('status').textContent = 'replay: pluck to record the first three cycles';
+}
+function toggleHold() { view.hold = !view.hold; $('hold').classList.toggle('on', view.hold); sendView(); }
+$('view').addEventListener('click', cycleView);
+$('hold').addEventListener('click', toggleHold);
+showFactor();
+$('pluck').addEventListener('click', () => pluck(0.5, 'pluck'));
+$('strike').addEventListener('click', () => pluck(0.5, 'strike'));
+$('damp').addEventListener('pointerdown', () => setDamp(true));
+$('bow').addEventListener('pointerdown', () => setBow(true));
+window.addEventListener('pointerup', () => { setDamp(false); setBow(false); });
+window.addEventListener('keydown', (e) => {
+  if (e.code === 'Space') { e.preventDefault(); pluck(0.5); }
+  if (e.key === 'd' || e.key === 'D') setDamp(true);
+  if ((e.key === 'b' || e.key === 'B') && !e.repeat) setBow(true);
+  if (e.key === 'h' || e.key === 'H') toggleHold();
+  if (e.key === 'v' || e.key === 'V') cycleView();
+});
+window.addEventListener('keyup', (e) => {
+  if (e.key === 'd' || e.key === 'D') setDamp(false);
+  if (e.key === 'b' || e.key === 'B') setBow(false);
+});
+
+// ---- Three.js scene, v1.6: every slider changes the thing it names ----
+// Loudon, on v1.5: "if the nut changed visual when I moved nut loss I would
+// make the very clear connection of which of the two shapes was the nut."
+// So each control now owns one object in the scene, and moving it changes
+// that object in a way you can see from across the room:
+//   pitch       -> the beads: one per sample of the delay line. Fewer beads, higher note.
+//   brightness  -> the string's colour: ember when dark, white-hot when bright.
+//   bridge loss -> the bridge: hard, tall, lit brass when it keeps everything;
+//                  soft, squat, dim and see-through when it soaks energy up.
+//   nut loss    -> the nut, the same way, in steel.
+//   stiffness   -> the string's thickness: a thin wire becomes a fat rod.
+//   pickup      -> the ring, with its label.
+//   bow speed   -> the arrow on the bow: how far it drags each stroke.
+//   bow force   -> the bow's width and how hard it glows: how hard it presses.
+//   bow position-> where the bow sits.
+// And whenever you touch or hover a slider, the thing it drives flares and
+// its name lights up, so the link is shown, not only described.
+// The audio path is v1.5's, unchanged; the worklet now also reports the
+// delay-line length it chose, so the beads count real samples.
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0b0d10);
+scene.add(new THREE.HemisphereLight(0xf1e6d4, 0x0b0d10, 0.55));
+const sun = new THREE.DirectionalLight(0xffffff, 0.45); sun.position.set(1, 2, 3); scene.add(sun);
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 100);
+camera.position.set(0, 0.85, 4.0);
+// The panel sits on the left; on a wide screen the string is framed in the
+// space beside it, so the nut is never hidden behind the sliders.
+function fitCamera() {
+  const W = window.innerWidth, H = window.innerHeight;
+  const side = W > 760 && !document.body.classList.contains('short') ? Math.min(330, $('ui').offsetWidth + 24) : 0;
+  const halfW = 2.45, vfov = camera.fov * Math.PI / 180;
+  camera.aspect = (W - side) / H;
+  const hfov = 2 * Math.atan(Math.tan(vfov / 2) * camera.aspect);
+  const d = Math.max(4.0, halfW / Math.tan(hfov / 2));
+  camera.position.set(0, 0.85 * d / 4.0, d);
+  if (side) camera.setViewOffset(W - side, H, -side, 0, W, H); else camera.clearViewOffset();
+  if (!side) camera.aspect = W / H;
+  camera.updateProjectionMatrix();
+}
+fitCamera();
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 0, 0);
+if (document.body.classList.contains('short')) controls.target.y = 0.45;
+controls.update();
+
+const STRING_LEN = 3.2, X0 = -STRING_LEN / 2;
+const lerp = (a, b, t) => a + (b - a) * t;
+const clamp01 = (t) => Math.max(0, Math.min(1, t));
+
+// Labels: canvas text on a sprite. Dim at rest, full when their slider is touched.
+function makeLabel(text, color = '#e8e2d4') {
+  const cv = document.createElement('canvas'); cv.width = 512; cv.height = 128;
+  const tex = new THREE.CanvasTexture(cv);
+  const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, opacity: 0.5, depthTest: false });
+  const s = new THREE.Sprite(mat); s.scale.set(1.2, 0.3, 1); s.renderOrder = 10;
+  s.userData = { cv, tex, color, text: null };
+  setLabel(s, text); scene.add(s); return s;
+}
+function setLabel(s, text) {
+  if (s.userData.text === text) return;
+  s.userData.text = text;
+  const { cv, tex, color } = s.userData, g = cv.getContext('2d');
+  g.clearRect(0, 0, cv.width, cv.height);
+  g.font = '30px ui-monospace, Menlo, monospace'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  const lines = text.split('\n');
+  lines.forEach((ln, i) => {
+    g.fillStyle = i === 0 ? color : 'rgba(207,211,216,0.85)';
+    if (i > 0) g.font = '24px ui-monospace, Menlo, monospace';
+    g.fillText(ln, cv.width / 2, cv.height / 2 + (i - (lines.length - 1) / 2) * 34);
+  });
+  tex.needsUpdate = true;
+}
+
+// ---- the string: a tube whose radius is its stiffness ----
+const RAD = 8;
+const tubePos = new Float32Array(VIS_N * RAD * 3), tubeNrm = new Float32Array(VIS_N * RAD * 3);
+const tubeIdx = [];
+for (let i = 0; i < VIS_N; i++) for (let k = 0; k < RAD; k++) {
+  const th = 2 * Math.PI * k / RAD, o = (i * RAD + k) * 3;
+  tubeNrm[o] = 0; tubeNrm[o + 1] = Math.cos(th); tubeNrm[o + 2] = Math.sin(th);
+  if (i < VIS_N - 1) {
+    const a = i * RAD + k, b = i * RAD + (k + 1) % RAD, c = a + RAD, d = b + RAD;
+    tubeIdx.push(a, c, b, b, c, d);
+  }
+}
+const tubeGeom = new THREE.BufferGeometry();
+tubeGeom.setAttribute('position', new THREE.BufferAttribute(tubePos, 3));
+tubeGeom.setAttribute('normal', new THREE.BufferAttribute(tubeNrm, 3));
+tubeGeom.setIndex(tubeIdx);
+const stringMat = new THREE.MeshLambertMaterial({ color: 0xff7a3d, emissive: 0x000000 });
+const stringMesh = new THREE.Mesh(tubeGeom, stringMat); scene.add(stringMesh);
+// brightness -> colour, from ember to white-hot (all warm: the house has no cyan)
+const EMBER = new THREE.Color(0x7a1204), ORANGE = new THREE.Color(0xff7a3d), HOT = new THREE.Color(0xfff1c8);
+function stringColour(b) {
+  return b < 0.55 ? EMBER.clone().lerp(ORANGE, b / 0.55) : ORANGE.clone().lerp(HOT, (b - 0.55) / 0.45);
+}
+const stiffRadius = (s) => 0.011 + 0.05 * s * s + 0.012 * s;
+
+// A dim rest line, so zero displacement reads as zero.
+const restGeom = new THREE.BufferGeometry();
+restGeom.setAttribute('position', new THREE.BufferAttribute(new Float32Array([X0, 0, 0, -X0, 0, 0]), 3));
+scene.add(new THREE.Line(restGeom, new THREE.LineBasicMaterial({ color: 0x232b34 })));
+
+// ---- the beads: one per sample of each delay line ----
+const BEAD_MAX = 820;
+const beadPos = new Float32Array(BEAD_MAX * 3);
+const beadGeom = new THREE.BufferGeometry();
+beadGeom.setAttribute('position', new THREE.BufferAttribute(beadPos, 3));
+const beadMat = new THREE.PointsMaterial({ color: 0xe8e2d4, size: 4, sizeAttenuation: false, transparent: true, opacity: 0.7, depthTest: false });
+const beads = new THREE.Points(beadGeom, beadMat); beads.renderOrder = 5; scene.add(beads);
+let lineLen = Math.round(48000 / 196 / 2);     // until the worklet reports its own
+
+const pickMesh = new THREE.Mesh(new THREE.BoxGeometry(STRING_LEN, 0.5, 0.5),
+  new THREE.MeshBasicMaterial({ visible: false }));
+scene.add(pickMesh);
+
+// ---- the two ends: hardness is (1 - loss), drawn as material and shape ----
+// A rigid end (loss slider at 1.000) is tall, crisp, opaque and lit.
+// A lossy end (0.900) is squat, swollen, dim and half see-through: soft, like felt.
+function makeEnd(geom, hardCol, softCol, x) {
+  const mat = new THREE.MeshLambertMaterial({ color: hardCol, transparent: true, opacity: 1, emissive: 0x000000 });
+  const m = new THREE.Mesh(geom, mat); m.position.x = x; scene.add(m);
+  // the energy it soaks up, as a dark halo that grows with the loss
+  const halo = new THREE.Mesh(new THREE.SphereGeometry(0.2, 24, 16),
+    new THREE.MeshBasicMaterial({ color: softCol, transparent: true, opacity: 0, depthWrite: false }));
+  halo.position.x = x; scene.add(halo);
+  return { m, mat, halo, hard: new THREE.Color(hardCol), soft: new THREE.Color(softCol) };
+}
+const nut = makeEnd(new THREE.CylinderGeometry(0.07, 0.07, 0.36, 24), 0xc8d0d8, 0x3a4048, X0);
+const bridge = makeEnd(new THREE.BoxGeometry(0.08, 0.42, 0.36), 0xe0a85a, 0x4a3a28, -X0);
+const nutLabel = makeLabel('nut'), bridgeLabel = makeLabel('bridge', '#e0a85a');
+function drawEnd(e, label, name, g, x) {
+  const h = clamp01((g - 0.9) / 0.1);          // 0 = softest, 1 = rigid
+  e.mat.color.copy(e.soft).lerp(e.hard, h);
+  e.mat.opacity = lerp(0.35, 1, h);
+  e.m.scale.set(lerp(2.6, 1, h), lerp(0.45, 1, h), lerp(1.6, 1, h));
+  e.halo.material.opacity = lerp(0.35, 0, h);
+  e.halo.scale.setScalar(lerp(1.6, 0.5, h));
+  const keep = (g * 100);
+  setLabel(label, name + '\nkeeps ' + (keep >= 99.95 ? '100' : keep.toFixed(1)) + '% each bounce');
+  label.position.set(x, 0.5, 0);
+}
+
+// ---- the pickup ring ----
+const pickMarker = new THREE.Mesh(new THREE.TorusGeometry(0.07, 0.014, 8, 24),
+  new THREE.MeshBasicMaterial({ color: 0xe8e2d4 }));
+scene.add(pickMarker);
+const pickLabel = makeLabel('pickup\nyou hear this point');
+
+// ---- the bow: a bar across the string, an arrow for its stroke ----
+const bowMat = new THREE.MeshLambertMaterial({ color: 0xe8e2d4, transparent: true, opacity: 0.35, emissive: 0x000000 });
+const bowMesh = new THREE.Mesh(new THREE.BoxGeometry(1, 0.08, 0.9), bowMat);   // x = width, set per frame
+scene.add(bowMesh);
+const arrowMat = new THREE.MeshBasicMaterial({ color: 0xe8e2d4, transparent: true, opacity: 0.4 });
+const arrowShaft = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 1, 8), arrowMat);
+const arrowHead = new THREE.Mesh(new THREE.ConeGeometry(0.045, 0.1, 12), arrowMat);
+scene.add(arrowShaft); scene.add(arrowHead);
+const bowLabel = makeLabel('bow');
+// v1.9: where hair meets string. Amber and full while the hair holds the
+// string; shrinks to a dark bead with a white spark the instant it lets go.
+const gripMat = new THREE.MeshBasicMaterial({ color: 0xffb070, transparent: true, opacity: 0.9, depthTest: false });
+const gripDot = new THREE.Mesh(new THREE.SphereGeometry(0.045, 16, 12), gripMat); gripDot.renderOrder = 6; scene.add(gripDot);
+const sparkMat = new THREE.MeshBasicMaterial({ color: 0xfff1c8, transparent: true, opacity: 0, depthTest: false });
+const spark = new THREE.Mesh(new THREE.BoxGeometry(0.012, 1, 0.012), sparkMat); spark.renderOrder = 6; scene.add(spark);
+
+const lineLabel = makeLabel('delay line');
+
+// ---- v1.8: the body. A soundboard under the bridge, and a post between them.
+// The board's surface moves in the shapes of its twelve modes, each as loud as
+// the audio engine says it is right now, each turning at its own frequency
+// slowed by the same factor as the string (so a mode at 5x the note turns 5
+// times per turn of the clock). The post glows with what the bridge is
+// passing down into the board: feed it more by softening the bridge.
+const BOARD_Y = -0.95, BNX = 40, BNZ = 16;
+const boardPos = new Float32Array(BNX * BNZ * 3), boardIdx = [];
+for (let i = 0; i < BNX - 1; i++) for (let k = 0; k < BNZ - 1; k++) {
+  const a = i * BNZ + k, b = a + 1, c = a + BNZ, d = c + 1; boardIdx.push(a, b, c, b, d, c);
+}
+const boardGeom = new THREE.BufferGeometry();
+boardGeom.setAttribute('position', new THREE.BufferAttribute(boardPos, 3));
+boardGeom.setIndex(boardIdx);
+const boardMat = new THREE.MeshLambertMaterial({ color: 0x3e2814, emissive: 0x000000, side: THREE.DoubleSide, transparent: true, opacity: 1 });
+const boardMesh = new THREE.Mesh(boardGeom, boardMat); scene.add(boardMesh);
+const boardWireMat = new THREE.MeshBasicMaterial({ color: 0xe8b84a, wireframe: true, transparent: true, opacity: 0.18 });
+const boardWire = new THREE.Mesh(boardGeom, boardWireMat); scene.add(boardWire);
+const postMat = new THREE.MeshLambertMaterial({ color: 0xe0a85a, emissive: 0x000000, transparent: true, opacity: 0.9 });
+const postMesh = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 1, 12), postMat); scene.add(postMesh);
+const boardLabel = makeLabel('soundboard', '#e8b84a');
+const modePhase = new Float64Array(12);
+// the plate shapes, (m, n) half-waves, matching the worklet's BODY table
+const BODY_SHAPES = [[0,0,1,1],[0,0,2,1],[0,0,1,2],[0,0,3,1],[0,0,2,2],[0,0,3,2],[0,0,1,3],[0,0,4,1],[0,0,4,2],[0,0,2,3],[0,0,5,1],[0,0,3,3]];
+let boardDrive = 0;
+
+// ---- v1.7: the slow-motion clock. The one control that is not part of the
+// string now has an object too: a dial above the string whose hand makes one
+// turn per string cycle as you see it. Slow the motion and the hand slows with
+// the wave; hold, and it stops. The sound never slows: only the picture does.
+const CLOCK_Y = 1.05, CLOCK_R = 0.16;
+const clockMat = new THREE.MeshBasicMaterial({ color: 0xe8e2d4, transparent: true, opacity: 0.45 });
+const clockRing = new THREE.Mesh(new THREE.TorusGeometry(CLOCK_R, 0.008, 8, 48), clockMat);
+const clockHand = new THREE.Mesh(new THREE.BoxGeometry(0.012, CLOCK_R * 0.92, 0.012), clockMat);
+clockHand.geometry.translate(0, CLOCK_R * 0.46, 0);
+clockRing.position.set(0, CLOCK_Y, 0); clockHand.position.set(0, CLOCK_Y, 0.002);
+scene.add(clockRing); scene.add(clockHand);
+const clockLabel = makeLabel('one turn = one string cycle');
+let clockPhase = 0;
+
+// ---- the link between a slider and its object: touch one, the other flares ----
+const flare = {};                       // object name -> 0..1, decays
+const LINKS = { freq: ['beads', 'line'], bright: ['string'], bridge: ['bridge', 'post'], nut: ['nut'], body: ['board'],
+  stiff: ['string', 'ladder'], pick: ['pickup'], bspd: ['arrow', 'bow', 'gSpeed'], bfrc: ['bow', 'gWindow'], bpos: ['bow', 'gSlip'], slow: ['clock'] };
+let hoverLink = null;
+for (const [id, names] of Object.entries(LINKS)) {
+  const el = $(id), lab = el.closest('label');
+  const on = () => { for (const n of names) flare[n] = 1; };
+  el.addEventListener('input', on);
+  lab.addEventListener('pointerenter', () => { hoverLink = names; });
+  lab.addEventListener('pointerleave', () => { hoverLink = null; });
+}
+const fl = (n) => Math.max(flare[n] || 0, hoverLink && hoverLink.includes(n) ? 0.8 : 0);
+const WARM = new THREE.Color(0xffb070);
+
+const raycaster = new THREE.Raycaster(), mouse = new THREE.Vector2();
+let dragStart = null;
+renderer.domElement.addEventListener('pointerdown', (e) => { dragStart = { x: e.clientX, y: e.clientY }; });
+renderer.domElement.addEventListener('pointerup', (e) => {
+  if (!dragStart) return;
+  const dx = e.clientX - dragStart.x, dy = e.clientY - dragStart.y;
+  dragStart = null;
+  if (dx*dx + dy*dy > 16) return;
+  mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+  raycaster.setFromCamera(mouse, camera);
+  const hits = raycaster.intersectObject(pickMesh);
+  if (hits.length > 0) {
+    const pos = (hits[0].point.x + STRING_LEN/2) / STRING_LEN;
+    pluck(Math.max(0.02, Math.min(0.98, pos)), e.shiftKey ? 'strike' : 'pluck');
+  } else { startAudio().catch(() => {}); }
+});
+
+window.addEventListener('resize', () => {
+  fitLayout(); fitCamera();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+const NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+function noteName(f) { const m = Math.round(69 + 12 * Math.log2(f / 440)); return NOTES[m % 12] + (Math.floor(m / 12) - 1); }
+function waveAt(wave, u) {                 // the string at fraction u, from the 180 drawn points
+  if (!wave) return 0;
+  const x = u * (VIS_N - 1), k = Math.min(VIS_N - 2, Math.floor(x)), f = x - k;
+  return wave[k] + f * (wave[k + 1] - wave[k]);
+}
+
+const AMP = 1.5;
+let arrowPhase = 0, fitGain = 1;
+// A bow can hold the string far off its rest line (the hold the speaker never
+// hears; the DC blocker removes it), far more than a pluck swings. So the
+// drawing shrinks to keep the whole string in frame, and says so under the
+// string: the shape is true, only its height is scaled.
+function fitToFrame(wave, dt) {
+  let pk = 0; if (wave) for (let i = 0; i < VIS_N; i++) pk = Math.max(pk, Math.abs(wave[i]));
+  const want = Math.min(1, 1.1 / (pk * AMP + 1e-9));
+  fitGain = want < fitGain ? want : fitGain + (want - fitGain) * Math.min(1, dt / 1.5);
+  return fitGain;
+}
+function drawScene(wave, dt) {
+  for (const n in flare) flare[n] = Math.max(0, flare[n] - dt / 1.2);
+  const G = AMP * fitToFrame(wave, dt);
+  // string: shape, thickness (stiffness), colour (brightness)
+  const r = stiffRadius(params.stiff);
+  for (let i = 0; i < VIS_N; i++) {
+    const x = X0 + (i / (VIS_N - 1)) * STRING_LEN, y = wave ? wave[i] * G : 0;
+    for (let k = 0; k < RAD; k++) {
+      const o = (i * RAD + k) * 3;
+      tubePos[o] = x; tubePos[o + 1] = y + r * tubeNrm[o + 1]; tubePos[o + 2] = r * tubeNrm[o + 2];
+    }
+  }
+  tubeGeom.attributes.position.needsUpdate = true;
+  tubeGeom.computeBoundingSphere();
+  stringMat.color.copy(stringColour(params.bright));
+  stringMat.emissive.copy(stringMat.color).multiplyScalar(lerp(0.3, 0.65, params.bright) + 0.35 * fl('string'));
+  // beads: lineLen samples per rail, spread along the string
+  const nb = Math.min(BEAD_MAX, lineLen);
+  for (let j = 0; j < nb; j++) {
+    const u = nb > 1 ? j / (nb - 1) : 0.5;
+    beadPos[j * 3] = X0 + u * STRING_LEN; beadPos[j * 3 + 1] = waveAt(wave, u) * G; beadPos[j * 3 + 2] = r + 0.004;
+  }
+  beadGeom.setDrawRange(0, nb); beadGeom.attributes.position.needsUpdate = true;
+  beadMat.size = lerp(3, 6, fl('beads')); beadMat.opacity = lerp(0.8, 1, fl('beads'));
+  // the beads wear the string's colour, a shade lighter, so they never hide it
+  beadMat.color.copy(stringMat.color).lerp(new THREE.Color(0xffffff), 0.12 + 0.5 * fl('beads'));
+  setLabel(lineLabel, params.freq + ' Hz · ' + noteName(params.freq) + '\n' + lineLen + ' samples each way (one bead each)'
+    + (fitGain < 0.95 ? '\nheight drawn at ' + Math.round(100 * fitGain) + '% to fit the frame' : ''));
+  lineLabel.position.set(0, -0.62, 0);
+  lineLabel.material.opacity = lerp(0.45, 1, fl('line'));
+  // ends
+  drawEnd(nut, nutLabel, 'nut', params.nut, X0);
+  drawEnd(bridge, bridgeLabel, 'bridge', params.bridge, -X0);
+  for (const [e, lab, n] of [[nut, nutLabel, 'nut'], [bridge, bridgeLabel, 'bridge']]) {
+    e.mat.emissive.copy(WARM).multiplyScalar(0.7 * fl(n));
+    lab.material.opacity = lerp(0.5, 1, fl(n));
+  }
+  // pickup
+  const py = waveAt(wave, params.pickup) * G;
+  pickMarker.position.set(X0 + params.pickup * STRING_LEN, py, 0);
+  pickMarker.scale.setScalar(lerp(1, 1.8, fl('pickup')) * (1 + r * 6));
+  pickMarker.material.color.copy(new THREE.Color(0xe8e2d4)).lerp(WARM, fl('pickup'));
+  pickLabel.position.set(X0 + params.pickup * STRING_LEN, -0.38, 0);
+  pickLabel.material.opacity = lerp(0.45, 1, fl('pickup'));
+  // bow: position, force (width + glow), speed (arrow length), stroke while bowing
+  const bx = X0 + bowState.position * STRING_LEN;
+  const by = waveAt(wave, bowState.position) * G;
+  bowMesh.position.set(bx, by + r + 0.04, 0);
+  bowMesh.scale.x = lerp(0.012, 0.09, bowState.force);
+  bowMat.opacity = bowing ? lerp(0.55, 0.95, bowState.force) : lerp(0.18, 0.45, bowState.force);
+  bowMat.emissive.copy(WARM).multiplyScalar((bowing ? 0.25 : 0) + 0.6 * fl('bow'));
+  // v1.8: the arrow's length is capped so its tip and the bow's label stay in frame
+  const aLen = Math.min(lerp(0.08, 0.5, bowState.speed), Math.max(0.08, 0.62 - (by + r + 0.1)));
+  if (bowing) arrowPhase = (arrowPhase + dt * (0.3 + 1.5 * bowState.speed)) % 1; else arrowPhase = 0;
+  const aBase = by + r + 0.1 + 0.06 * arrowPhase;
+  arrowShaft.scale.y = aLen; arrowShaft.position.set(bx, aBase + aLen / 2, 0);
+  arrowHead.position.set(bx, aBase + aLen + 0.05, 0);
+  arrowMat.opacity = (bowing ? 0.85 : 0.4) + 0.15 * fl('arrow');
+  arrowMat.color.copy(new THREE.Color(0xe8e2d4)).lerp(WARM, fl('arrow'));
+  setLabel(bowLabel, 'bow\n' + (bowing ? 'bowing · ' : '') + 'speed ' + bowState.speed.toFixed(2) + ' · force ' + bowState.force.toFixed(2));
+  bowLabel.position.set(bx, aBase + aLen + 0.25, 0);
+  bowLabel.material.opacity = lerp(0.45, 1, Math.max(fl('bow'), fl('arrow'), bowing ? 0.6 : 0));
+  drawGrip(bx, by + r, dt);
+  drawLadder(dt);
+  // clock: in strobe and replay one string cycle on screen takes view.slow seconds;
+  // live is unslowed (the hand would blur, so it spins a fixed fast turn and says so)
+  const live = view.mode === 'live';
+  if (!view.hold) clockPhase = (clockPhase + dt / (live ? 0.12 : view.slow)) % 1;
+  clockHand.rotation.z = -2 * Math.PI * clockPhase;
+  clockMat.color.copy(new THREE.Color(0xe8e2d4)).lerp(WARM, fl('clock'));
+  clockMat.opacity = lerp(0.45, 1, fl('clock'));
+  clockRing.scale.setScalar(lerp(1, 1.25, fl('clock'))); clockHand.scale.setScalar(lerp(1, 1.25, fl('clock')));
+  setLabel(clockLabel, 'slow motion\n' + (view.hold ? 'held still' : live ? 'live: too fast to see'
+    : 'one turn = one string cycle = ' + view.slow.toFixed(1) + ' s'));
+  clockLabel.position.set(0, CLOCK_Y + CLOCK_R + 0.17, 0);
+  clockLabel.material.opacity = lerp(0.4, 1, fl('clock'));
+  drawBoard(dt, G);
+  walkStep(dt);
+}
+// ---- v1.9: the bow, made visible ----
+// The worklet cuts one string cycle into 96 slices on the strobe's own phase
+// clock and keeps, for each, the string's true speed at the bow point and how
+// fully the hair is gripping there. The chart draws that cycle; a cursor marks
+// the instant the string on screen is showing, so the dot on the string, the
+// chart's cursor and the corner arriving at the bow all agree.
+//   bow speed    -> the dashed line on the chart: the speed the hair drags at.
+//   bow force    -> v1.11: the ceiling on the friction panel: how hard the
+//                   hair can pull before the string breaks free.
+//   bow position -> where the bow sits, and so when in the cycle the corner
+//                   reaches it.
+const gcv = $('gripCv'), gx = gcv.getContext('2d'), lead = $('lead'), lx = lead.getContext('2d');
+let gripAt = 1, gripCursor = 0;
+// v1.11: how much the hold-and-let-go pattern changes from one look to the
+// next. A singing bow repeats itself exactly; a crunching one never does.
+let gripPrev = null, gripIrr = 0;
+function gripChange(t) {
+  const N = t.grip.length;
+  if (gripPrev && gripPrev.length === N) {
+    let d = 0; for (let i = 0; i < N; i++) if ((t.grip[i] >= 0.98) !== gripPrev[i]) d++;
+    gripIrr = 0.8 * gripIrr + 0.2 * d / N;
+  }
+  gripPrev = Array.from(t.grip, g => g >= 0.98);
+}
+function gripSummary(t) {
+  const N = t.grip.length; let hold = 0, lets = 0;
+  for (let i = 0; i < N; i++) { const h = t.grip[i] >= 0.98; if (h) hold++; if (!h && t.grip[(i + N - 1) % N] >= 0.98) lets++; }
+  return { holdPct: Math.round(100 * hold / N), lets };
+}
+let gripLastSeen = null;
+function gripWords(t, sm) {
+  if (t.env < 0.6) return bowing ? 'the bow is settling in' : 'the bow is lifting off';
+  if (gripIrr > 0.04 && sm.holdPct > 60) return 'crunching: too much force. the hair holds too long and lets go late, never the same way twice';
+  if (sm.lets === 0 && sm.holdPct > 95) return 'pinned: the hair never lets go. too much force: the string under the bow cannot move';
+  if (sm.lets === 0) return 'skating: the hair never catches the string';
+  if (sm.lets === 1) return 'singing: the hair holds ' + sm.holdPct + '% of each cycle, lets go once';
+  return 'breaking up: the hair lets go ' + sm.lets + ' times a cycle';
+}
+// speed axis: above zero linear (the bow's own speeds), below zero squashed,
+// because the string flies back up to ~18 times faster than the bow drags it
+const vy = (v, top, mid, bot) => v >= 0 ? mid - (mid - top) * Math.min(1, v / 1.25) : mid + (bot - mid) * Math.min(1, Math.sqrt(-v / 18));
+function drawGrip(bx, byTop, dt) {
+  const t = latestBow, W = gcv.width, H = gcv.height;
+  const on = !!t && view.mode !== 'replay';
+  $('grip').classList.toggle('idle', !on);
+  gx.clearRect(0, 0, W, H);
+  const live = view.mode === 'live';
+  gripCursor = live ? clockPhase : latestPhase;
+  const N = t ? t.grip.length : 96, ci = Math.min(N - 1, Math.floor(gripCursor * N));
+  gripAt = on ? t.grip[ci] : 1;
+  // the contact dot on the string
+  gripDot.visible = spark.visible = on;
+  if (on) {
+    const hold = gripAt >= 0.98;
+    gripDot.position.set(bx, byTop, 0.02);
+    gripDot.scale.setScalar(hold ? 1 : 0.45);
+    gripMat.color.set(hold ? 0xffb070 : 0x5a2010);
+    sparkMat.opacity = hold ? 0 : 0.95;
+    const sl = Math.min(0.35, 0.06 + 0.02 * Math.abs(t.vel[ci] / Math.max(1e-6, t.bowV)));
+    spark.scale.y = sl; spark.position.set(bx, byTop - sl / 2, 0.02);
+    bowMat.emissive.copy(WARM).multiplyScalar((hold ? 0.55 : 0.05) + 0.6 * fl('bow'));
+  }
+  const L = 92, R = W - 12, S0 = 10, S1 = 32, P0 = 46, P1 = 168, F0 = 186, F1 = H - 30;   // v1.11: the pull panel gets room to climb
+  gx.font = '20px ui-monospace, Menlo, monospace'; gx.textBaseline = 'middle';
+  gx.fillStyle = 'rgba(207,211,216,0.7)';
+  gx.fillText('hair', 4, (S0 + S1) / 2);
+  gx.fillText('string', 4, (P0 + P1) / 2 - 12); gx.fillText('speed', 4, (P0 + P1) / 2 + 12);
+  gx.fillText('pull', 4, (F0 + F1) / 2);
+  if (!t) { $('gripState').textContent = 'hold B to bow, and watch the hair catch and let go'; drawLead(bx, byTop, false); return; }
+  if (t !== gripLastSeen) { gripChange(t); gripLastSeen = t; }
+  const sm = gripSummary(t);
+  $('gripState').textContent = view.mode === 'replay' ? 'the chart follows the strobe and live views' : gripWords(t, sm);
+  const xAt = (i) => L + (R - L) * i / N;
+  // strip: amber where the hair holds, dark where it slips
+  const fs = fl('gSlip');
+  for (let i = 0; i < N; i++) {
+    const h = t.grip[i] >= 0.98;
+    gx.fillStyle = h ? 'rgba(232,184,74,' + (0.55 + 0.4 * fs) + ')' : (fs > 0.05 ? 'rgba(255,241,200,' + (0.25 + 0.6 * fs) + ')' : '#3a1a12');
+    gx.fillRect(xAt(i), S0, (R - L) / N + 0.6, S1 - S0);
+  }
+  // the string's speed at the bow over one cycle, against the bow's own
+  const y0 = P0 + (P1 - P0) * 0.42;
+  gx.strokeStyle = '#2a323b'; gx.lineWidth = 2; gx.beginPath(); gx.moveTo(L, y0); gx.lineTo(R, y0); gx.stroke();
+  gx.fillStyle = 'rgba(207,211,216,0.5)'; gx.fillText('still', R - 52, y0 + 14);
+  gx.fillText('flies back', L + 4, P1 - 8);
+  const ySp = vy(t.bowV, P0, y0, P1), fsp = fl('gSpeed');
+  gx.setLineDash([10, 8]); gx.strokeStyle = fsp > 0.05 ? '#ffb070' : 'rgba(232,184,74,0.85)'; gx.lineWidth = 2 + 3 * fsp;
+  gx.beginPath(); gx.moveTo(L, ySp); gx.lineTo(R, ySp); gx.stroke(); gx.setLineDash([]);
+  gx.fillStyle = fsp > 0.05 ? '#ffb070' : '#e8b84a'; gx.fillText('bow speed', R - 118, Math.max(P0 + 4, ySp - 14));
+  gx.strokeStyle = '#' + stringMat.color.getHexString(); gx.lineWidth = 3; gx.beginPath();
+  for (let i = 0; i < N; i++) { const yy = vy(t.vel[i], P0, y0, P1); if (i) gx.lineTo(xAt(i + 0.5), yy); else gx.moveTo(xAt(0.5), yy); }
+  gx.stroke();
+  // cursor: the instant the string on screen is showing
+  const cx = L + (R - L) * gripCursor;
+  gx.strokeStyle = 'rgba(241,230,212,0.9)'; gx.lineWidth = 2; gx.beginPath(); gx.moveTo(cx, S0 - 4); gx.lineTo(cx, P1); gx.stroke();
+  // v1.11: the pull and the ceiling. Up: how hard the hair pulls on the
+  // string (log, from the lightest bow's ceiling to the heaviest's). Right:
+  // how far the string's speed has strayed from the bow's (log). While the
+  // hair holds there is no stray, so the dot sits on the left-hand post and
+  // climbs it as the string pulls back harder; the top of the post is the
+  // ceiling, set by force. When the dot reaches the top, the hair lets go and
+  // the dot runs out along the sliding curve, which sags as the slip grows.
+  const xs = (u) => L + 22 + (R - L - 22) * (Math.log10(u) + 2) / 5;   // slip 0.01 .. 1000
+  const fy = (f) => F1 - (F1 - F0) * clamp01((Math.log10(Math.max(1e-3, f)) + 1.6) / 3.3);   // pull 0.025 .. 50
+  const fw = fl('gWindow'), ceil = t.ceil;
+  // the post: holding, from no pull up to the ceiling
+  gx.fillStyle = 'rgba(232,184,74,' + (0.18 + 0.4 * fw) + ')';
+  gx.fillRect(L, fy(ceil), 16, F1 - fy(ceil));
+  gx.strokeStyle = fw > 0.05 ? '#ffb070' : 'rgba(232,184,74,0.9)'; gx.lineWidth = 2 + 2 * fw;
+  gx.beginPath(); gx.moveTo(L, fy(ceil)); gx.lineTo(R, fy(ceil)); gx.setLineDash([4, 6]); gx.stroke(); gx.setLineDash([]);
+  // the sliding curve: what the hair drags with at each slip
+  gx.strokeStyle = '#e8e2d4'; gx.lineWidth = 2; gx.beginPath();
+  for (let k = 0; k <= 120; k++) {
+    const u = Math.pow(10, -2 + 5 * k / 120), f = ceil * (t.mu + (1 - t.mu) * t.v0 / (t.v0 + u));
+    const xx = xs(u), yy = fy(f); if (k) gx.lineTo(xx, yy); else gx.moveTo(xx, yy);
+  }
+  gx.stroke();
+  // the dot: this instant
+  const hold = gripAt >= 0.98, pNow = (t.pull ? t.pull[ci] : 1) * ceil;
+  const dX = hold ? L + 8 : xs(Math.min(1000, Math.max(0.01, Math.abs(t.slip[ci]))));
+  gx.fillStyle = hold ? '#ffb070' : '#fff1c8';
+  gx.beginPath(); gx.arc(dX, fy(pNow), 7, 0, 2 * Math.PI); gx.fill();
+  gx.fillStyle = 'rgba(207,211,216,0.6)';
+  gx.fillText('holds', L + 22, F1 - 12); gx.fillText('slides →', R - 110, F1 + 16);
+  gx.fillStyle = fw > 0.05 ? '#ffb070' : 'rgba(232,184,74,0.85)';
+  gx.fillText('ceiling (force)', R - 196, Math.max(F0 + 2, fy(ceil) - 12));
+  drawLead(bx, byTop, true);
+}
+// a thread from the chart to the point where hair meets string
+function drawLead(bx, by, on) {
+  const W = window.innerWidth, H = window.innerHeight, dpr = window.devicePixelRatio || 1;
+  if (lead.width !== Math.round(W * dpr) || lead.height !== Math.round(H * dpr)) {
+    lead.width = Math.round(W * dpr); lead.height = Math.round(H * dpr); lead.style.width = W + 'px'; lead.style.height = H + 'px'; }
+  lx.setTransform(dpr, 0, 0, dpr, 0, 0); lx.clearRect(0, 0, W, H);
+  if (!on) return;
+  const v = new THREE.Vector3(bx, by, 0).project(camera);
+  const px = (v.x + 1) / 2 * W, py = (1 - v.y) / 2 * H;
+  const box = $('grip').getBoundingClientRect();
+  lx.strokeStyle = gripAt >= 0.98 ? 'rgba(232,184,74,0.6)' : 'rgba(255,241,200,0.4)'; lx.lineWidth = 1; lx.setLineDash([3, 4]);
+  const sx = box.left > W / 2 ? box.left + 20 : box.right - 20, sy = box.left > W / 2 ? box.bottom : box.top;
+  lx.beginPath(); lx.moveTo(sx, sy); lx.lineTo(px, py - 8); lx.stroke(); lx.setLineDash([]);
+}
+// ---- v1.10: even stiffness, made visible: the overtone ladder ----
+// The worklet works out where this loop really puts each overtone (the
+// frequency at which a trip round the loop takes exactly n of its periods)
+// and listens at each one, at the pickup, ten or so times a second. The
+// ladder draws both: a dashed rung where a perfectly flexible string would
+// put overtone n (n times the note), and an amber bar where this string
+// puts it, as tall as it is ringing now. Stiffness slides the bars right of
+// their rungs, the high ones furthest: the overtones run sharp.
+//   stiffness  -> how far the bars lean off the dashed grid.
+//   pitch      -> nothing on the ladder: the same stiffness leans the same
+//                 cents at every note, which is the point of v1.5.
+//   brightness -> how fast the high bars fall after a pluck.
+const lcv = $('ladderCv'), lgx = lcv.getContext('2d');
+let ladder = null, ladLev = null;             // ladder: { f0, freqs[], cents[] }; ladLev: shown dB per bar
+function ladderWords(c8) {
+  if (c8 === null) return 'pluck the string (click it), and watch its overtones';
+  if (c8 < 3) return 'harmonic: each overtone on its dashed rung, like gut or nylon';
+  if (c8 < 25) return 'a little stiff: the high overtones lean sharp, like a piano’s middle';
+  if (c8 < 120) return 'stiff: the overtones pull apart, like a piano’s outer octaves';
+  return 'very stiff: no longer a series. a struck metal bar, toward a bell';
+}
+function drawLadder(dt) {
+  const W = lcv.width, H = lcv.height, f = fl('ladder');
+  lgx.clearRect(0, 0, W, H);
+  const lv = latestLadder;
+  $('ladder').classList.toggle('lit', f > 0.05);
+  if (!ladder) { $('ladder').classList.toggle('idle', f < 0.05); return; }
+  const M = ladder.freqs.length, f0 = ladder.f0;
+  if (!ladLev || ladLev.length !== M) ladLev = new Float32Array(M).fill(-90);
+  for (let i = 0; i < M; i++) {
+    const t = lv && lv.db.length === M ? lv.db[i] : -90;
+    ladLev[i] = t > ladLev[i] ? t : Math.max(t, ladLev[i] - 30 * dt);    // rise at once, fall at 30 dB a second, so a pluck can be read after it dies
+  }
+  const on = ladLev.some(d => d > -90);
+  $('ladder').classList.toggle('idle', !on && f < 0.05);
+  const i8 = Math.min(8, M) - 1;
+  $('ladderState').textContent = on || f > 0.05 ? ladderWords(i8 >= 1 ? ladder.cents[i8] : 0) : ladderWords(null);
+  const L = 14, R = W - 14, T = 8, B = H - 64;
+  const fmax = Math.max(ladder.freqs[M - 1], M * f0) * 1.04;
+  const xf = (hz) => L + (R - L) * hz / fmax;
+  lgx.font = '20px ui-monospace, Menlo, monospace'; lgx.textBaseline = 'middle'; lgx.textAlign = 'center';
+  // the dashed rungs: a perfectly flexible string, overtone n at n x the note
+  lgx.setLineDash([6, 6]); lgx.lineWidth = 2;
+  for (let n = 1; n <= M; n++) {
+    lgx.strokeStyle = 'rgba(207,211,216,' + (0.28 + 0.2 * f) + ')';
+    const x = xf(n * f0); lgx.beginPath(); lgx.moveTo(x, T); lgx.lineTo(x, B); lgx.stroke();
+  }
+  lgx.setLineDash([]);
+  lgx.strokeStyle = '#2a323b'; lgx.beginPath(); lgx.moveTo(L, B); lgx.lineTo(R, B); lgx.stroke();
+  // the bars: where this string puts each overtone, as tall as it rings
+  // heights are relative to the loudest overtone now, 48 dB from top to floor,
+  // so the ladder reads at any loudness; a stub always marks where each sits
+  let top = -90; for (let i = 0; i < M; i++) top = Math.max(top, ladLev[i]);
+  const bw = Math.max(5, Math.min(14, 0.5 * (R - L) * f0 / fmax));
+  for (let i = 0; i < M; i++) {
+    const n = i + 1, x = xf(ladder.freqs[i]), xr = xf(n * f0);
+    const u = top > -80 ? Math.max(0, Math.min(1, (ladLev[i] - top + 48) / 48)) : 0;
+    const h = (B - T) * Math.max(0.1, u);
+    // the lean: a slanted line from the top of the dashed rung down to the
+    // bar's foot, so each bar is tied to the place it left
+    if (x - xr > 2) {
+      lgx.strokeStyle = 'rgba(255,176,112,' + (0.45 + 0.45 * f) + ')'; lgx.lineWidth = 2;
+      lgx.beginPath(); lgx.moveTo(xr, T); lgx.lineTo(x, B); lgx.stroke();
+    }
+    lgx.fillStyle = f > 0.05 ? '#ffb070' : '#e8b84a';
+    lgx.globalAlpha = 0.5 + 0.5 * u;
+    lgx.fillRect(x - bw / 2, B - h, bw, h); lgx.globalAlpha = 1;
+  }
+  // labels: the overtone number under its rung, and how sharp it runs
+  // (a label too close to the last one drawn is skipped, so a squeezed ladder stays legible)
+  let lastN = -1e9, lastC = -1e9;
+  for (const n of [1, 2, 4, 8, 16]) {
+    if (n > M) break;
+    if (xf(n * f0) - lastN > 26) { lgx.fillStyle = 'rgba(207,211,216,0.6)'; lgx.fillText(String(n), xf(n * f0), B + 26); lastN = xf(n * f0); }
+    if (n > 1 && xf(ladder.freqs[n - 1]) - lastC > 84) {
+      const c = ladder.cents[n - 1]; lastC = xf(ladder.freqs[n - 1]);
+      lgx.fillStyle = Math.abs(c) < 3 ? 'rgba(207,211,216,0.45)' : (f > 0.05 ? '#ffb070' : '#e8b84a');
+      lgx.fillText((c >= 0 ? '+' : '−') + (Math.abs(c) < 9.5 ? Math.abs(c).toFixed(1) : Math.round(Math.abs(c))) + '¢',
+        Math.min(R - 30, Math.max(L + 30, xf(ladder.freqs[n - 1]))), B + 50);
+    }
+  }
+  lgx.textAlign = 'left';
+}
+function drawBoard(dt, G) {
+  const size = params.body, on = size > 0;
+  boardMesh.visible = boardWire.visible = postMesh.visible = on;
+  boardLabel.material.opacity = on ? lerp(0.45, 1, fl('board')) : 0;
+  const W = lerp(0.5, 2.2, size), D = lerp(0.3, 1.15, size), xR = -X0 + 0.15, xL = xR - W;
+  const B = latestBody, live = view.mode === 'live';
+  const f0 = (B && B.f0) || params.freq;
+  for (let k = 0; k < 12; k++) {
+    const fk = B ? B.freqs[k] : 100;
+    if (!view.hold) modePhase[k] += 2 * Math.PI * dt * (fk / f0) / (live ? 0.12 : view.slow);
+  }
+  for (let i = 0; i < BNX; i++) for (let k = 0; k < BNZ; k++) {
+    const u = i / (BNX - 1), v = k / (BNZ - 1), o = (i * BNZ + k) * 3;
+    let y = 0;
+    if (B) for (let m = 0; m < 12; m++) {
+      const [, , mx, nz] = BODY_SHAPES[m];
+      y += B.env[m] * Math.sin(mx * Math.PI * u) * Math.sin(nz * Math.PI * v) * Math.cos(modePhase[m]);
+    }
+    boardPos[o] = xL + u * W; boardPos[o + 1] = BOARD_Y + Math.max(-0.26, Math.min(0.26, 3 * y)); boardPos[o + 2] = (v - 0.5) * D;
+  }
+  boardGeom.attributes.position.needsUpdate = true;
+  boardGeom.computeVertexNormals(); boardGeom.computeBoundingSphere();
+  // how much the board is moving, for its glow
+  let e = 0; if (B) for (let m = 0; m < 12; m++) e += B.env[m];
+  boardMat.emissive.copy(WARM).multiplyScalar(Math.min(0.55, 1.4 * e) + 0.5 * fl('board'));
+  boardWireMat.opacity = 0.07 + Math.min(0.55, 2.5 * e) + 0.3 * fl('board');
+  // the post: from the foot of the bridge down to the board; thick and lit when it carries a lot
+  boardDrive = B ? 0.85 * boardDrive + 0.15 * B.drive : 0;
+  const hb = clamp01((params.bridge - 0.9) / 0.1), top = -0.21 * lerp(0.45, 1, hb), len = top - BOARD_Y;
+  const pass = Math.sqrt(Math.max(0, 1 - params.bridge * params.bridge));   // 0 for a rigid bridge
+  postMesh.scale.set(lerp(0.006, 0.03, pass / 0.436), len, lerp(0.006, 0.03, pass / 0.436));
+  postMesh.position.set(-X0, BOARD_Y + len / 2, 0);
+  postMat.emissive.copy(WARM).multiplyScalar(Math.min(1, 900 * boardDrive) + 0.6 * fl('post'));
+  postMat.opacity = pass > 0 ? 0.9 : 0.25;
+  const pct = 100 * (1 - params.bridge * params.bridge);
+  const lowest = B ? Math.round(B.freqs[0]) : 100;
+  setLabel(boardLabel, 'soundboard · from ' + lowest + ' Hz\n' + (pct < 0.05 ? 'gets nothing: rigid bridge' : 'gets ' + pct.toFixed(1) + '% of the energy'));
+  boardLabel.position.set(xR - W / 2 - 0.15, BOARD_Y - 0.36, 0);
+}
+
+// ---- v1.7: walk the links. The page moves one slider at a time, slowly, end
+// to end, while the string sounds, and says what to watch and what to listen
+// for. Same sliders, same objects, same flare: nothing is staged that a hand
+// on the slider would not also show. Touch any slider or button to stop.
+const DEFAULTS = { freq: 196, bright: 0.55, bridge: 0.985, nut: 0.995, stiff: 0, pick: 0.82, body: 0.5,
+  bspd: 0.5, bfrc: 0.6, bpos: 0.74, slow: 2 };
+const WALK = [
+  { id: 'nut', from: 0.9, to: 1.0, who: 'nut loss → the steel post, left',
+    say: 'watch the post on the left harden from soft swollen felt into lit steel. listen: the note rings longer as the nut stops soaking it up.' },
+  { id: 'bridge', from: 1.0, to: 0.9, who: 'bridge loss → the brass block, right',
+    say: 'the same at the other end, but what this end takes is not lost: it goes down the post into the board below. watch the post thicken and the board light up as the bridge softens. listen: shorter, louder, more wood.' },
+  { id: 'body', from: 0, to: 1, who: 'body size → the soundboard',
+    say: 'the board grows from nothing. with no board you hear the bare wire; a small board adds a boxy knock, a big one a deep boom. the ripples are the board\u2019s own modes.' },
+  { id: 'freq', from: 110, to: 880, who: 'pitch → the beads',
+    say: 'each bead is one sample of the delay line. watch them thin out as the note climbs: a shorter loop is a higher note.' },
+  { id: 'bright', from: 0, to: 1, who: 'brightness → the string’s colour',
+    say: 'ember to white-hot. listen: a dark string sounds dull and goes still sooner, because the loop filter eats its highs on every lap.' },
+  { id: 'stiff', from: 0, to: 1, who: 'stiffness → the string’s thickness',
+    say: 'a thin wire swells into a rod. watch the ladder top right: the amber bars slide off their dashed rungs, the high ones furthest. that is the overtones running sharp. listen: the pluck turns from guitar, through piano, toward a struck bar.' },
+  { id: 'freq', from: 131, to: 523, set: { stiff: 0.7 }, who: 'the same stiffness at every pitch',
+    say: 'stiffness held at 0.70 while the note climbs two octaves. the ladder keeps its shape: each overtone leans the same cents sharp at every pitch, as one wire of one thickness would. listen: the same metallic colour, low to high.' },
+  { id: 'pick', from: 0.1, to: 0.9, who: 'pickup → the ring, where you listen',
+    say: 'the ring slides along the string. near an end you hear a thin, nasal tone; toward the middle it rounds out.' },
+  { id: 'slow', from: 0.6, to: 6, who: 'slow motion → the clock',
+    say: 'the clock hand slows and the wave on the string slows with it. the sound does not change: only the picture slows down.' },
+  { id: 'bpos', from: 0.6, to: 0.93, bow: true, who: 'bow position → where the bow sits',
+    say: 'the bow is held on the string now. watch it slide toward the bridge, and watch the strip on the bow\u2019s grip chart: amber where the hair holds, a dark gap where it lets go. the gap shrinks as the bow nears the bridge, because the string slips only while the corner runs from the bow to the bridge and back. listen: brighter and more glassy.' },
+  { id: 'bspd', from: 0.1, to: 1, bow: true, who: 'bow speed → the arrow’s length',
+    say: 'the arrow grows, and on the chart the dashed bow-speed line rises: the string rides that line while the hair holds it. listen: the bowed tone swells louder.' },
+  { id: 'bfrc', from: 0.15, to: 1, bow: true, who: 'bow force → the bow’s width and glow',
+    say: 'the bow widens, and on the chart the ceiling rises: the most the hair can pull before the string breaks free. too light and it lets go twice a cycle (airy); just right, once (it sings); too heavy and it holds too long and lets go late, never the same twice (it crunches). listen for each.' },
+  { id: 'slow', from: 3, to: 8, bow: true, who: 'the catch and the release, slowed down',
+    say: 'watch the dot where hair meets string: amber while the hair holds and drags the string along, a white spark the moment it lets go. on the chart, the dot climbs the post as the string pulls back, and lets go when it hits the ceiling: exactly when the corner running round the string arrives at the bow.' },
+];
+const STEP_S = 7.5, SWEEP_S = 5.5, REPLUCK_S = 1.4;
+let walk = null;                           // { i, t, sinceP }
+function setSlider(id, v) { const e = $(id); e.value = v; e.dispatchEvent(new Event('input')); }
+// v1.9: after a bowed step, still the string first and reset the sliders
+// 60 ms later, once it is quiet: a string left pinned at full force would
+// otherwise let go with a crack the instant the force drops back.
+function walkBegin(i) {
+  if (walk && WALK[walk.i].bow && wgNode && !walk.stilled) {
+    wgNode.port.postMessage({ type: 'still' }); walk.stilled = true; walk.wait = true;
+    if (i >= WALK.length || !WALK[i].bow) setBow(false);   // the bow comes off with the still, not after it
+    setTimeout(() => { if (walk) walkBegin(i); }, 60); return;
+  }
+  if (i >= WALK.length) { walkStop(); return; }
+  const st = WALK[i];
+  if (view.hold) toggleHold();
+  for (const [k, v] of Object.entries(DEFAULTS)) setSlider(k, v);
+  if (st.set) for (const [k, v] of Object.entries(st.set)) setSlider(k, v);
+  setSlider(st.id, st.from);
+  document.querySelectorAll('#ui label').forEach(l => l.classList.remove('walking'));
+  $(st.id).closest('label').classList.add('walking');
+  $(st.id).closest('label').scrollIntoView({ block: 'nearest' });
+  $('walkWho').textContent = (i + 1) + ' of ' + WALK.length + ' · ' + st.who;
+  $('walkSay').textContent = st.say;
+  setBow(!!st.bow);
+  if (!st.bow) pluck(0.3, 'pluck');
+  walk = { i, t: 0, sinceP: 0 };
+}
+function walkStart() {
+  if (!wgNode) { startAudio().then(walkStart, () => {}); return; }
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  if (document.body.classList.contains('short')) document.body.classList.add('open');   // show the sliders moving
+  document.body.classList.add('walking'); $('walkCap').style.display = 'block'; $('walk').classList.add('on'); $('walk').textContent = 'stop the walk (W)';
+  if (view.mode !== 'strobe') { view.mode = 'live'; cycleView(); }     // the walk reads best in strobe
+  walkBegin(0);
+}
+function walkStop() {
+  if (!walk) return;
+  if (WALK[walk.i].bow && wgNode && !walk.stilled) wgNode.port.postMessage({ type: 'still' });
+  walk = null; setBow(false);
+  for (const [k, v] of Object.entries(DEFAULTS)) setSlider(k, v);
+  document.querySelectorAll('#ui label').forEach(l => l.classList.remove('walking'));
+  document.body.classList.remove('walking'); $('walkCap').style.display = 'none'; $('walk').classList.remove('on'); $('walk').textContent = 'walk the links (W)';
+}
+function walkStep(dt) {
+  if (!walk || walk.wait) return;
+  const st = WALK[walk.i];
+  walk.t += dt; walk.sinceP += dt;
+  const u = clamp01((walk.t - 0.6) / SWEEP_S), e = 0.5 - 0.5 * Math.cos(Math.PI * u);
+  const v = st.from + (st.to - st.from) * e;
+  // at most ~16 updates a second: a stiffness change redesigns the dispersion filter
+  walk.sinceS = (walk.sinceS || 0) + dt;
+  if (walk.sinceS > 0.06 || walk.t >= STEP_S - dt) { walk.sinceS = 0; setSlider(st.id, v); }
+  if (!st.bow && walk.sinceP > REPLUCK_S) { pluck(0.3, 'pluck'); walk.sinceP = 0; }
+  $('walkBar').style.width = (100 * walk.t / STEP_S).toFixed(1) + '%';
+  if (walk.t >= STEP_S) walkBegin(walk.i + 1);
+}
+$('walk').addEventListener('click', () => (walk ? walkStop() : walkStart()));
+// a hand on any slider takes over from the walk
+document.querySelectorAll('#ui input[type=range]').forEach(el => el.addEventListener('pointerdown', walkStop));
+window.addEventListener('keydown', (e) => { if (e.key === 'w' || e.key === 'W') (walk ? walkStop() : walkStart()); });
+
+function tick() {
+  const now = performance.now(), dt = Math.min(0.1, (now - lastTick) / 1000); lastTick = now;
+  updateMeter(dt);
+  let wave = latestWave;
+  if (view.mode === 'replay') {
+    wave = null;
+    if (replay) {
+      if (!view.hold) replayT += dt;
+      const pos = replayFrame(replay.data, replay.rows, replay.period, view.slow, replayT, replayWave);
+      wave = replayWave;
+      const perMs = audioCtx.sampleRate / 1000;
+      $('status').textContent = 'replay: ' + (pos / perMs).toFixed(2) + ' ms after the pluck (of ' +
+        (Math.min(3 * replay.period, replay.rows - 2) / perMs).toFixed(1) + ' ms recorded), at 1/' +
+        Math.round(view.slow * replay.freq) + ' speed';
+    }
+  }
+  drawScene(wave, dt);
+  controls.update();
+  renderer.render(scene, camera);
+  requestAnimationFrame(tick);
+}
+tick();
+</script>
+</body>
+</html>

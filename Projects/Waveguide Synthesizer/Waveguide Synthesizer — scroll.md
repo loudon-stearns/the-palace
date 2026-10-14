@@ -15,20 +15,20 @@ forward_vector: "I am Waveguide Synthesizer's scroll — the one page that alway
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T01:13:09.288Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T01:28:20.600Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 17 · last ran 2026-10-14 (today)
-- **Plan:** agreed 2026-10-13 (today) · 3 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 18 · last ran 2026-10-14 (today)
+- **Plan:** agreed 2026-10-13 (today) · 4 made things since
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — Study v1.10: an overtone ladder shows each overtone running sharp as the string stiffens, and it matches the sound to a quarter of a cent. (`waveguide-synthesizer-steward-041`)
-- **Last commit touching this project:** 2026-10-13 `b3de3535` — steward(Waveguide Synthesizer): cycle 16 — SPINNING UP. HOME: [[Waveguide Synthesizer]]. Neighborhood loaded. Cycl…
+- **Last shipped:** 2026-10-14 (today) — Study v1.11: the bow lets go like a real one. The slip follows bow position, the string rides the bow exactly, and a heavy bow crunches instead of freezing. (`waveguide-synthesizer-steward-043`)
+- **Last commit touching this project:** 2026-10-13 `3137fead` — steward(Waveguide Synthesizer): cycle 17 — SPINNING UP. HOME: [[Waveguide Synthesizer]]. Neighborhood loaded. Cycl…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Waveguide Synthesizer is the browser string whose on-screen wave is the sound: two delay lines carry a right-going and a left-going wave, and their sum is the string you see and hear. It can be plucked, struck and bowed, and it sits on a soundboard. You set the order: first make every slider visibly change the picture, then the body, then the bow, then even stiffness, then a guided teaching walk. The picture, the body and the bow are done. This cycle is stiffness. Stiffness already sounded right and meant the same at every pitch, but all you could see was the string getting thicker. Now an overtone ladder in the top right shows why a stiff string sounds like a piano or a struck bar: each ov…
+Waveguide Synthesizer is the browser string whose on-screen wave is the sound: two delay lines carry a right-going and a left-going wave, and their sum is the string you see and hear. It can be plucked, struck and bowed, and it sits on a soundboard. You set the order: make every slider visibly change the picture, then the body, then the bow, then even stiffness, then a guided teaching walk. The first four are built. Last cycle I flagged that the bow's physics was still off: a heavy bow froze the string, and how long the hair let go each cycle barely changed with where the bow sat. This cycle fixes that, so the bow is right before the teaching walk, the last step in the plan, puts it on stag…
 
 ### Open asks
 
@@ -69,6 +69,69 @@ Written by Claude on Loudon's behalf, 2026-09-23: your last two cycles posted no
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="waveguide-synthesizer-steward-043" -->
+### 2026-10-14 — cycle 18 — Study v1.11: the bow lets go like a real one. The slip follows bow position, the string rides the bow exactly, and a heavy bow crunches instead of freezing.
+> shipped · the bow is now honest · steward leans start the teaching walk next
+
+**What was wrong (study v1.10):** the hair had no limit on how hard it could hold. So a heavy bow held the string for ever ('pinned'), and the share of each cycle the hair held hardly moved with bow position: 85% at 0.60, where the physics of a bowed string (Helmholtz motion) says 60%. The held string also didn't ride the bow: at the default it moved at 0.69 of the bow's speed.
+
+**What [study v1.11](obsidian://open?vault=The%20Palace&file=Projects/Waveguide%20Synthesizer/study-v1.11-the-bow-lets-go/index.html) does:** the hair now holds the string only up to a limit set by bow force. While the string rides with the bow, the hair pulls as hard as it must. Each lap, the corner running round the string comes back and pulls harder. The instant the pull passes the limit, the hair lets go and slides, and sliding friction is weaker than holding friction. It catches again when the string comes back to the bow's speed. This is the hyperbolic friction law of McIntyre and Woodhouse.
+
+- **The slip follows bow position** (table). The hair lets go while the corner runs from the bow to the nearer end and back, so a bow near the bridge slips briefly and one toward the middle slips longer.
+- **The string rides the bow exactly:** 0.98 to 1.03 of the bow's speed while held, at every pitch from E2 to E5.
+- **Force now covers the whole range:** under about 0.2 it skates (no sound), 0.3 to 0.5 it breaks up (lets go twice a cycle), 0.55 to 0.9 it sings, and above about 0.95 it **crunches**: it holds too long, lets go late, and is never the same twice. That is the rough sound a pressed-too-hard bow really makes. The new default force is 0.6.
+- **The chart's bottom panel is now 'pull'.** A dotted line shows the limit, and bow force raises it. While the hair holds, the dot sits on the left-hand post. When the pull reaches the limit, the dot runs out along the sliding curve. The chart's words learned 'crunching', detected by how much the hold-and-let-go pattern changes from one look to the next (0.15 to 0.21 when crunching, under 0.03 when singing).
+- **The walk's three bow steps** now say what is true: the dark gap shrinks as the bow nears the bridge; too much force crunches; the dot lets go when it hits the limit.
+
+**One design call to know about:** the force slider presses a little harder the nearer the bow is to an end, the way a player does. That cancels one of Schelleng's two limits (the most force a bow can use falls as it nears the bridge), so a single force sings all along the string. The other limit still bites: near the bridge a light bow breaks up, which is the real lesson.
+
+**How I checked it:** I ran the page's own engine headless. The checks were bow position against force on an 8 × 6 grid, five pitches, lift-off clicks (none; the level after lifting matches the level while bowing), and v1.10 side by side (bow-probe.json). In Chrome I photographed the chart at five settings plus a slowed run of frames, then recorded the whole 13-step walk, picture and sound. There were no page errors, and the bow-force step ends on 'crunching' where v1.10 said 'pinned'.
+
+**Passed over:** v1.4's grip curve with a separate breakaway rule bolted on. It would have fixed pinning but not the slip length, because the slip length comes from the hair having a ceiling at all.
+
+**Artifacts:**
+- [study v1.11, playable: click to start, hold B to bow, then move bow position and bow force and watch the gap on the chart's strip.](Projects/Waveguide Synthesizer/study-v1.11-the-bow-lets-go/index.html)
+- [from the page's own engine: default, then bow at 0.60, 0.74, 0.85, 0.90 (brighter, shorter slip), then force 0.3 (breaks up), 0.6 (sings), 1.0 (crunches).](Projects/Waveguide Synthesizer/offline-v1.11/bow-tour.wav)
+- [the chart: three slowed frames of one cycle, then toward the nut, toward the bridge, light force, and heavy force crunching.](Projects/Waveguide Synthesizer/offline-v1.11/grip-sheet.png)
+- [the whole thirteen-step walk, picture and sound, 98 s. The bow steps start at about 1:08.](Projects/Waveguide Synthesizer/offline-v1.11/bow-walk.mp4)
+- [the walk's sound alone, as the engine produced it.](Projects/Waveguide Synthesizer/offline-v1.11/bow-walk.wav)
+- [walk step 10, the bow sliding toward the bridge.](Projects/Waveguide Synthesizer/offline-v1.11/frames/step-10.png)
+- [walk step 12, force near full: crunching.](Projects/Waveguide Synthesizer/offline-v1.11/frames/step-12.png)
+- [the default bow, singing, with the new pull panel.](Projects/Waveguide Synthesizer/offline-v1.11/still-default.png)
+- [bow at 0.60: a long slip, 57% held.](Projects/Waveguide Synthesizer/offline-v1.11/still-toward-nut.png)
+- [bow at 0.90: a short slip, 84% held.](Projects/Waveguide Synthesizer/offline-v1.11/still-toward-bridge.png)
+- [force 0.3: breaks up, lets go twice a cycle.](Projects/Waveguide Synthesizer/offline-v1.11/still-light-force.png)
+- [force 1.0: crunching, where v1.10 pinned.](Projects/Waveguide Synthesizer/offline-v1.11/still-heavy-force.png)
+- [every measurement: position and force sweeps, the grid, pitches, lift-off, v1.10 side by side, the tour.](Projects/Waveguide Synthesizer/offline-v1.11/bow-probe.json)
+- [runs both pages' engines headless and writes bow-probe.json and the tour.](Projects/Waveguide Synthesizer/offline-v1.11/bow_probe.mjs)
+- [the headless engine harness and the hold, periodicity and level measures.](Projects/Waveguide Synthesizer/offline-v1.11/bow_lab.mjs)
+- [the lab where the friction model was tried before it went into the page.](Projects/Waveguide Synthesizer/offline-v1.11/sweep.mjs)
+- [bow position × force grid against Helmholtz's ideal.](Projects/Waveguide Synthesizer/offline-v1.11/grid.mjs)
+- [applies every v1.11 change onto the v1.10 page: engine, chart, walk text.](Projects/Waveguide Synthesizer/offline-v1.11/patch_page.py)
+- [photographs the chart at five bow settings and a slowed cycle in Chrome.](Projects/Waveguide Synthesizer/offline-v1.11/stills.mjs)
+- [no page errors; what the chart said at each setting.](Projects/Waveguide Synthesizer/offline-v1.11/stills.json)
+- [the walk recorder, carried over from v1.10.](Projects/Waveguide Synthesizer/offline-v1.11/record_walk.mjs)
+- [no page errors; each step's peak and what the chart said.](Projects/Waveguide Synthesizer/offline-v1.11/walk-record.json)
+- [the stand-in speaker clock, reused.](Projects/Waveguide Synthesizer/offline-v1.11/fake_audio_clock.js)
+
+_Share of each cycle the hair holds the string, by bow position (force at default; the ideal is from Helmholtz motion)_
+| bow position | Helmholtz says | v1.11 holds | v1.10 held | v1.11 string speed ÷ bow speed while held |
+| --- | --- | --- | --- | --- |
+| 0.55 | 55% | 52% | 93% | 1.00 |
+| 0.60 | 60% | 57% | 85% | 1.00 |
+| 0.66 | 66% | 63% | 89% | 1.00 |
+| 0.74 | 74% | 71% | 90% | 0.98 (v1.10: 0.69) |
+| 0.80 | 80% | 76% | 91% | 0.98 |
+| 0.85 | 85% | 80% | 90% | 0.98 |
+| 0.90 | 90% | 85% | 80% (breaks up) | 0.99 |
+| 0.93 | 93% | 88% | 88% | 0.98 |
+
+_Left rough:_ Not heard through speakers: this Mac's audio device still wouldn't play from Chrome, so the recordings use the stand-in clock again; the bow tour is the thing to listen to. While the hair holds, the pull dot sits near the limit line instead of visibly climbing toward it, because the panel's log scale squashes the climb. The first slowed frame said 'breaking up' for a moment right after the slow-motion change. The crunch peaks at −4.9 dBFS (in the soft knee, so it can't clip). The bridge-loss step peaked at −4.8 dBFS in this recording though I didn't touch it, which I haven't explained. The force slider now quietly scales with bow position, so the same number means a different press at different places.
+
+_Next moves named:_ Your ears on offline-v1.11/bow-tour.wav: does 0.60 against 0.90 sound like moving the bow, and does force 1.0 sound like pressing too hard? · Next cycle: the last step in the plan, the guided teaching walk. Seven stops (pluck, reflection, loss, pitch, stiffness, bow, body), each with one slider, one thing to watch and one thing to hear, and a pause at each until you move on. · Small polish riding along: make the pull dot visibly climb toward the limit line while the hair holds.
+<sub>`waveguide-synthesizer-steward-043` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="waveguide-synthesizer-steward-041" -->
 ### 2026-10-13 — cycle 17 — Study v1.10: an overtone ladder shows each overtone running sharp as the string stiffens, and it matches the sound to a quarter of a cent.
 > shipped · the stiffness step in your order · steward leans fix the bow physics, then teaching

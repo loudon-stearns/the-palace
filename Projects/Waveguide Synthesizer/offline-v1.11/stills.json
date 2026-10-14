@@ -1,0 +1,97 @@
+{
+ "errors": [],
+ "out": [
+  {
+   "name": "default",
+   "bspd": 0.5,
+   "bfrc": 0.6,
+   "bpos": 0.74,
+   "chart_says": "singing: the hair holds 70% of each cycle, lets go once",
+   "meter_dbfs": -19.7
+  },
+  {
+   "name": "toward-nut",
+   "bspd": 0.5,
+   "bfrc": 0.6,
+   "bpos": 0.6,
+   "chart_says": "singing: the hair holds 57% of each cycle, lets go once",
+   "meter_dbfs": -23
+  },
+  {
+   "name": "toward-bridge",
+   "bspd": 0.5,
+   "bfrc": 0.6,
+   "bpos": 0.9,
+   "chart_says": "singing: the hair holds 84% of each cycle, lets go once",
+   "meter_dbfs": -14
+  },
+  {
+   "name": "light-force",
+   "bspd": 0.5,
+   "bfrc": 0.3,
+   "bpos": 0.74,
+   "chart_says": "breaking up: the hair lets go 2 times a cycle",
+   "meter_dbfs": -26.9
+  },
+  {
+   "name": "heavy-force",
+   "bspd": 0.5,
+   "bfrc": 1,
+   "bpos": 0.74,
+   "chart_says": "crunching: too much force. the hair holds too long and lets go late, never the same way twice",
+   "meter_dbfs": -6.8
+  }
+ ],
+ "cycle_frames": [
+  {
+   "phase": 0.136,
+   "holding": true,
+   "chart_says": "breaking up: the hair lets go 2 times a cycle"
+  },
+  {
+   "phase": 0.233,
+   "holding": true,
+   "chart_says": "breaking up: the hair lets go 2 times a cycle"
+  },
+  {
+   "phase": 0.325,
+   "holding": true,
+   "chart_says": "singing: the hair holds 79% of each cycle, lets go once"
+  },
+  {
+   "phase": 0.417,
+   "holding": true,
+   "chart_says": "singing: the hair holds 79% of each cycle, lets go once"
+  },
+  {
+   "phase": 0.511,
+   "holding": true,
+   "chart_says": "singing: the hair holds 79% of each cycle, lets go once"
+  },
+  {
+   "phase": 0.603,
+   "holding": true,
+   "chart_says": "singing: the hair holds 80% of each cycle, lets go once"
+  },
+  {
+   "phase": 0.692,
+   "holding": false,
+   "chart_says": "singing: the hair holds 79% of each cycle, lets go once"
+  },
+  {
+   "phase": 0.786,
+   "holding": false,
+   "chart_says": "singing: the hair holds 80% of each cycle, lets go once"
+  },
+  {
+   "phase": 0.881,
+   "holding": true,
+   "chart_says": "singing: the hair holds 80% of each cycle, lets go once"
+  },
+  {
+   "phase": 0.972,
+   "holding": true,
+   "chart_says": "singing: the hair holds 80% of each cycle, lets go once"
+  }
+ ]
+}
