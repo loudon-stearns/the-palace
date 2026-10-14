@@ -98,7 +98,7 @@ Not full ceremonies, but palace-aware interactions that can happen in any conver
 
 ## What Makes a Ceremony, and How It Changes
 
-A ceremony is named in the ceremony tables above and keeps a **tuning ledger** in its bundle, `[Ceremony] — tuning.md`. Today both are true of the same fourteen. The tables are how a person finds a ceremony; the ledger is how the machinery finds one.
+A ceremony is named in the ceremony tables above and keeps a **tuning ledger** in its bundle, `[Ceremony] — tuning.md`. Today both are true of the same fourteen. The tables are how a person finds a ceremony; the ledger is how the machinery finds one. One of the fourteen ledgers is kept off git: [[The Daily Page]]'s, with its scroll, lives only in the main checkout, on Loudon's word, so in a worktree or a clone the machinery finds thirteen.
 
 - **It carries a version**, in its frontmatter. The version moves when the spec changes — a step, a gate, a postcondition — and never on a run.
 - **Every run opens with the tail read** of its ledger: the last 40 lines once the run lines are set aside, and every item still owed.
