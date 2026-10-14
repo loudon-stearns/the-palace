@@ -15,20 +15,20 @@ forward_vector: "I am Generative Wavetable Libraries's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T12:40:06.596Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T12:43:42.519Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 17 · last ran 2026-10-14 (today)
-- **Plan:** agreed 2026-09-25 (18 days ago) · 3 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 18 · last ran 2026-10-14 (today)
+- **Plan:** agreed 2026-09-25 (18 days ago) · 4 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — The family chain holds on a second folder: 142 organ cycles glide where dull-to-bright stutters. And the cut-over point is about 24 cycles, not 30. (`gwl-steward-045`)
-- **Last commit touching this project:** 2026-10-14 `b67b3d4b` — steward(Generative Wavetable Libraries): cycle 16 — SPINNING UP — cycle 16
+- **Last shipped:** 2026-10-14 (today) — I turned 508 notes from music AIs into wavetables. The family chain glides a third time, but here Position means pure to reedy, not dull to bright. (`gwl-steward-047`)
+- **Last commit touching this project:** 2026-10-14 `7487a7d5` — steward(Generative Wavetable Libraries): cycle 17 — SPINNING UP — cycle 17
 - **Signal:** steady
-- **Drift:** 8 cycles since the entry was last consolidated (cycle 9) — the entry body may lag; this scroll does not.
+- **Drift:** 9 cycles since the entry was last consolidated (cycle 9) — the entry body may lag; this scroll does not.
 
 ### Where this stands
 
-This project turns a conversation into a wavetable for Serum, Vital, Ableton and Surge. Behind it are the crystal-lattice sweep and the Shepard dark-to-bright, both of which you heard work, plus a Floquet table. Right now the plan is to make the chat interview carry a real run on a big folder of captured cycles. Earlier today I ran it on 122 AKWF FM cycles. The old dull-to-bright order lurched. Grouping the cycles into timbre families and walking smoothly through each one (the family chain) glided and still brightened. I asked you which order should be the default (still open). This cycle I tested that finding on AKWF_eorgan, 142 electric-organ cycles. It holds. I also tested where the chai…
+This project turns a conversation into a wavetable for Serum, Vital, Ableton and Surge. Behind it are the crystal-lattice sweep and the Shepard dark-to-bright, both of which you heard work, plus a Floquet table. Earlier today I ran the chat interview on two big folders of AKWF cycles (122 FM, 142 organ). Both times a 'family chain' glided where the old dull-to-bright order lurched. Which order becomes the default is still your open question. This cycle starts the next part of the plan, widening the sources, with an audio AI's output. I didn't render anything new. The sister project, Generative Sample Libraries, had already rendered about 1600 MusicGen and Stable Audio notes and graded each…
 
 ### Open asks
 
@@ -75,6 +75,81 @@ Loudon's direction from the board, approved as orders on 2026-09-25:
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="gwl-steward-047" -->
+### 2026-10-14 — cycle 18 — I turned 508 notes from music AIs into wavetables. The family chain glides a third time, but here Position means pure to reedy, not dull to bright.
+> shipped · 256-frame AI tables + per-family + per-instrument, Serum + Ableton · steward leans FAMILY-CHAIN
+
+Cutting cycles from AI notes needed steps AKWF never did. For each of the 599 notes the grader called steady, I averaged 8 periods at the measured pitch and refined it per note. That kept the overtones: median fidelity 0.99, and the refinement moved pitch only 1 cent. 578 notes passed. The grader had tracked 78 notes too low: an octave (64), a twelfth (10), two octaves (3), even more (1). Those 'cycles' held several real periods and would sound high in a synth, so the extractor folds them back to one. 70 were exact duplicates (the probe re-graded some renders under several run names), which leaves 508. That's past Serum's 256 frames, so the main tables keep 256, each pick the cycle least like any already picked. Results: the old dull-to-bright order jumps on 210 of 255 steps by this source's own yardstick, the family chain on 24, the shortest walk on 26. Two things differ from AKWF. First, phase is mandatory. Cut cycles start anywhere, so the unaligned default dips to −20 dB mid-morph; with the same order lined up it dips only −2.6 dB. Second, brightness is the wrong axis. The AI's cycles are dark (median 90% of energy in the fundamental), so no order keeps 'turn it up, it gets brighter' (chain 0.34). The tilt that helped organs makes it worse (0.21). What the three families do separate is how much fundamental there is: pure (84%) to round (66%) to reedy (27%). That's the chain's honest sweep. The AI's instrument labels barely predict the sound (adjusted Rand 0.10). Marimba and flute collapse to near-sines once the attack and breath are gone, and violin carries the overtones. I also drafted the interview-skill changes from all three runs (cut-a-cycle steps, an AI-reuse path, answer the sweep question from the source, drop cut-to-64, family chain past about 24, always align phase). They're a file in my folder for an elder to land after you listen. BUILD.md says which file to drag where and what to listen for.
+
+**Artifacts:**
+- [start here: which file to drag into Serum or Ableton, and the five things to listen for.](Projects/Generative Wavetable Libraries/ai-cycles/BUILD.md)
+- [the run written up: what AI notes needed, the four orders, what it says.](Projects/Generative Wavetable Libraries/ai-cycles/Generative Wavetable Libraries — proof — ai-cycles.md)
+- [drafted interview-skill changes from all three big runs, for an elder to land after your ears.](Projects/Generative Wavetable Libraries/ai-cycles/interview-skill-proposed-changes.md)
+- [family chain, 24 s sweep at A2: pure to reedy, the one I'd keep.](Projects/Generative Wavetable Libraries/ai-cycles/tables/ai_cycles_family_chain_audition_sweep.wav)
+- [old dull-to-bright default, raw phase: listen for the flutter and hollow dips.](Projects/Generative Wavetable Libraries/ai-cycles/tables/ai_cycles_centroid_audition_sweep.wav)
+- [shortest walk: about as smooth as the chain, but no direction.](Projects/Generative Wavetable Libraries/ai-cycles/tables/ai_cycles_walk_audition_sweep.wav)
+- [chain tilted toward bright: doesn't help on this source.](Projects/Generative Wavetable Libraries/ai-cycles/tables/ai_cycles_family_chain_tilted_audition_sweep.wav)
+- [the 170 'violin' cycles on their own: the AI's richest material.](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_violin_audition_sweep.wav)
+- [all 256 cycles in chain order, coloured by family: sines first, then reedy.](Projects/Generative Wavetable Libraries/ai-cycles/contact_sheet_family_chain.png)
+- [the same cycles in dull-to-bright order: the families scatter.](Projects/Generative Wavetable Libraries/ai-cycles/contact_sheet_centroid_order.png)
+- [the tilted chain order.](Projects/Generative Wavetable Libraries/ai-cycles/contact_sheet_family_chain_tilted.png)
+- [family chain, Serum/Vital/Surge (CLM, 256 × 2048).](Projects/Generative Wavetable Libraries/ai-cycles/tables/ai_cycles_family_chain.wav)
+- [family chain, Ableton Wavetable (256 × 1024).](Projects/Generative Wavetable Libraries/ai-cycles/tables/ai_cycles_family_chain_ableton.wav)
+- [old default, CLM.](Projects/Generative Wavetable Libraries/ai-cycles/tables/ai_cycles_centroid.wav)
+- [old default, Ableton.](Projects/Generative Wavetable Libraries/ai-cycles/tables/ai_cycles_centroid_ableton.wav)
+- [shortest walk, CLM.](Projects/Generative Wavetable Libraries/ai-cycles/tables/ai_cycles_walk.wav)
+- [shortest walk, Ableton.](Projects/Generative Wavetable Libraries/ai-cycles/tables/ai_cycles_walk_ableton.wav)
+- [tilted chain, CLM.](Projects/Generative Wavetable Libraries/ai-cycles/tables/ai_cycles_family_chain_tilted.wav)
+- [tilted chain, Ableton.](Projects/Generative Wavetable Libraries/ai-cycles/tables/ai_cycles_family_chain_tilted_ableton.wav)
+- [family 1, pure (104 frames), CLM.](Projects/Generative Wavetable Libraries/ai-cycles/tables/families/ai_cycles_family1_round-hollow.wav)
+- [family 1, pure, Ableton.](Projects/Generative Wavetable Libraries/ai-cycles/tables/families/ai_cycles_family1_round-hollow_ableton.wav)
+- [family 1, pure, sweep.](Projects/Generative Wavetable Libraries/ai-cycles/tables/families/ai_cycles_family1_round-hollow_audition_sweep.wav)
+- [family 2, round (77 frames), CLM.](Projects/Generative Wavetable Libraries/ai-cycles/tables/families/ai_cycles_family2_round-full.wav)
+- [family 2, round, Ableton.](Projects/Generative Wavetable Libraries/ai-cycles/tables/families/ai_cycles_family2_round-full_ableton.wav)
+- [family 2, round, sweep.](Projects/Generative Wavetable Libraries/ai-cycles/tables/families/ai_cycles_family2_round-full_audition_sweep.wav)
+- [family 3, reedy (75 frames), CLM.](Projects/Generative Wavetable Libraries/ai-cycles/tables/families/ai_cycles_family3_warm-nasal.wav)
+- [family 3, reedy, Ableton.](Projects/Generative Wavetable Libraries/ai-cycles/tables/families/ai_cycles_family3_warm-nasal_ableton.wav)
+- [family 3, reedy, sweep.](Projects/Generative Wavetable Libraries/ai-cycles/tables/families/ai_cycles_family3_warm-nasal_audition_sweep.wav)
+- [asked-for violin (170 frames), CLM.](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_violin.wav)
+- [asked-for violin, Ableton.](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_violin_ableton.wav)
+- [asked-for choir (56 frames), CLM.](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_choir.wav)
+- [asked-for choir, Ableton.](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_choir_ableton.wav)
+- [asked-for choir, sweep: the one instrument where brightness tracks Position (0.79).](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_choir_audition_sweep.wav)
+- [asked-for bass (40 frames), CLM.](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_bass.wav)
+- [asked-for bass, Ableton.](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_bass_ableton.wav)
+- [asked-for bass, sweep.](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_bass_audition_sweep.wav)
+- [asked-for flute (93 frames), CLM.](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_flute.wav)
+- [asked-for flute, Ableton.](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_flute_ableton.wav)
+- [asked-for flute, sweep: near-sines, listen for whether it moves at all.](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_flute_audition_sweep.wav)
+- [asked-for marimba (56 frames), CLM.](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_marimba.wav)
+- [asked-for marimba, Ableton.](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_marimba_ableton.wav)
+- [asked-for marimba, sweep.](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_marimba_audition_sweep.wav)
+- [asked-for struck marimba (56 frames), CLM.](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_marimba_hit.wav)
+- [asked-for struck marimba, Ableton.](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_marimba_hit_ableton.wav)
+- [asked-for struck marimba, sweep.](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_marimba_hit_audition_sweep.wav)
+- [asked-for piano (37 frames), CLM.](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_piano.wav)
+- [asked-for piano, Ableton.](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_piano_ableton.wav)
+- [asked-for piano, sweep.](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_piano_audition_sweep.wav)
+- [asked-for violin, sweep (also listed above).](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_violin_audition_sweep.wav)
+- [cuts one clean cycle from each graded AI note; about 2 min with /usr/local/bin/python3.](Projects/Generative Wavetable Libraries/ai-cycles/extract_ai_cycles.py)
+- [dedupe, cut to 256, four orders, families, per-instrument tables; about 7 s.](Projects/Generative Wavetable Libraries/ai-cycles/pack_ai_tables.py)
+- [extraction census: pass rates, folds, fidelity before and after refining.](Projects/Generative Wavetable Libraries/ai-cycles/extract.json)
+- [every table number, labels-against-families counts, the aligned-default check.](Projects/Generative Wavetable Libraries/ai-cycles/metrics.json)
+
+_Audio-AI cycles · 256 of 508 · same frames, four orders_
+| order | big jumps (this source's yardstick, of 255) | big jumps (FM yardstick) | brighter as Position rises | worst mid-morph dip |
+| --- | --- | --- | --- | --- |
+| centroid (old default, raw phase) | 210 | 6 | 1.00 | −19.8 dB (−2.6 aligned) |
+| shortest walk | 26 | 0 | 0.17 | −2.5 dB |
+| family chain (pure → round → reedy) | 24 | 0 | 0.34 | −2.5 dB |
+| family chain, tilted | 33 | 0 | 0.21 | −2.5 dB |
+
+_Left rough:_ No one has heard any of it, and the CLM files pass a read-back check but haven't been loaded in Serum. Stable Audio gave only 9 steady notes, so this is really a MusicGen run. These notes were rendered for sample libraries, not wavetables, which likely explains why they're so dark. The intermediate cycles.npz (9 MB) isn't listed; the extractor rebuilds it in 2 minutes.
+
+_Next moves named:_ Prompt an audio AI for wavetable material directly (static, sustained, bright, e.g. 'held synth tone, rich harmonics'), using the sister project's adapters. Then test whether that beats the near-sine cycles cut from instrument prompts. · Once you've listened (your open question on the big-folder order still stands), hand interview-skill-proposed-changes.md to an elder to land. With AKWF at scale and audio-AI cycles both through the interview, the tree held, which meets the skill's graduation test.
+<sub>`gwl-steward-047` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="gwl-steward-045" -->
 ### 2026-10-14 — cycle 17 — The family chain holds on a second folder: 142 organ cycles glide where dull-to-bright stutters. And the cut-over point is about 24 cycles, not 30.
 > shipped · 15 organ tables + sweeps, Serum + Ableton · steward leans FAMILY-CHAIN, tilt as an interview question
