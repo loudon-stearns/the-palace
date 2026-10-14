@@ -39,7 +39,7 @@
 </head>
 <body>
 <header>
-  <div class="eyebrow">Haptic Handwheel · feel lab · sketch 1 · simulated, not built</div>
+  <div class="eyebrow">Haptic Handwheel · feel lab · sketch 2 · simulated, not built</div>
   <h1>Seven feels, before there is a knob</h1>
   <p class="lead">Drag the knob to grip and turn it. Hold <b>shift</b> while dragging, or press and hold the right button, to rest a finger on it as a brake instead. The screen cannot push back, so the amber trace is the torque your hand would feel. The physics is the same script the offline proofs run.</p>
 </header>
@@ -84,11 +84,29 @@
           <option value="0.04">light cap · 40 g</option>
           <option value="0.15">weighted cap · 150 g</option>
         </select>
+        <select id="brake">
+          <option value="1e-4">motor's brake cancelled</option>
+          <option value="0.00223">motor's brake on · low guess</option>
+          <option value="0.00711">motor's brake on · middle guess</option>
+          <option value="0.0232">motor's brake on · high guess</option>
+        </select>
+        <select id="bumps">
+          <option value="none">no bumps (ideal motor)</option>
+          <option value="raw">the motor's 84 bumps, raw</option>
+          <option value="cancelled">bumps cancelled</option>
+          <option value="kick" selected>bumps cancelled + ridge kick</option>
+        </select>
       </div>
       <p class="say">Pick the slow wire, choose frets or the string, then let go of the knob. A stiff feel computed far from the motor starts to buzz on its own: the delay feeds energy in faster than friction takes it out. Grip it and the hand's own damping calms it. That is the sweep below, run live.</p>
       <table id="verdicts"></table>
       <div class="meta" style="margin-top:6px">fine = stable with no hand on it · <span class="held">only while held</span> = the hand's damping is what keeps it stable · <span class="buzz">buzzes</span> = unstable even gripped</div>
       <div class="note"><label>note on the wire</label><textarea data-sec="wire"></textarea></div>
+    </section>
+    <section id="sec-map">
+      <h2>The feel map · which brake each feel wants, and where it can live</h2>
+      <p class="say">Driven by voltage, the motor brakes itself for free. That brake is what lets stiff feels cross a slow cable, and it is also what kills the ring a struck spring wants. The firmware can cancel it per feel. Try the struck spring with the brake cancelled, then on. Try frets with the raw bumps and let go near the ridge between two notes.</p>
+      <table id="map"></table>
+      <div class="note"><label>note on the map</label><textarea data-sec="map"></textarea></div>
     </section>
   </div>
   <section class="wide">
@@ -124,9 +142,11 @@ function build() {
   const [loopHz, delayMs] = document.getElementById('lane').value.split(',').map(Number);
   const capMass = +document.getElementById('cap').value;
   const old = eng;
-  eng = makeEngine({ fs: 48000, loopHz, delayMs, capMass, semisPerTurn: (feelId === 'spring' || feelId === 'pendulum') ? 6 : 24, basePitch: (feelId === 'spring' || feelId === 'pendulum') ? 57 : 45 });
+  const bumps = document.getElementById('bumps').value;
+  eng = makeEngine({ fs: 48000, loopHz, delayMs, capMass, Jrotor: 5e-5, tauC: 0.004, stick: true,
+    bMotor: +document.getElementById('brake').value, cog: bumps === 'none' ? 0 : 1, cogLeft: bumps === 'raw' ? 1 : 0.08, semisPerTurn: (feelId === 'spring' || feelId === 'pendulum') ? 6 : 24, basePitch: (feelId === 'spring' || feelId === 'pendulum') ? 57 : 45 });
   if (old) { eng.s.th = old.s.th; eng.s.t = old.s.t; eng.s.nextTick = old.s.t; }
-  const f = feelId === 'spring' ? FEELS.struck({ law: 'spring' }) : feelId === 'pendulum' ? FEELS.struck({ law: 'pendulum' }) : FEELS[feelId]();
+  const f = feelId === 'spring' ? FEELS.struck({ law: 'spring' }) : feelId === 'pendulum' ? FEELS.struck({ law: 'pendulum' }) : feelId === 'frets' ? FEELS.frets({ kick: bumps === 'kick' ? 0.006 : 0 }) : FEELS[feelId]();
   eng.setFeel(f);
   document.getElementById('say').textContent = SAY[feelId];
   document.querySelectorAll('#feels button').forEach(b => b.classList.toggle('on', b.dataset.id === feelId));
@@ -135,6 +155,8 @@ const fb = document.getElementById('feels');
 ORDER.forEach(id => { const b = document.createElement('button'); b.textContent = LABEL[id]; b.dataset.id = id; b.onclick = () => { feelId = id; build(); }; fb.appendChild(b); });
 document.getElementById('lane').onchange = build;
 document.getElementById('cap').onchange = build;
+document.getElementById('brake').onchange = build;
+document.getElementById('bumps').onchange = build;
 document.getElementById('center').onclick = () => { eng.s.th = 0; eng.s.om = 0; };
 let strikeUntil = -1;
 document.getElementById('strike').onclick = () => { strikeUntil = eng.s.t + 0.03; };
@@ -254,6 +276,13 @@ requestAnimationFrame(frame);
   const t = document.getElementById('verdicts'), cls = { 'fine': 'fine', 'only while held': 'held', 'buzzes': 'buzz' };
   t.innerHTML = '<tr><th>feel (stiffness, N·m/rad)</th><th>device 10 kHz</th><th>device 1 kHz</th><th>USB · Max</th><th>audio line</th></tr>' +
     RESULTS.verdicts.map(v => `<tr><td>${v.feel} (${v.K})</td>` + ['device-10k', 'device-1k', 'usb-max', 'audio-line'].map(k => `<td class="${cls[v[k]]}">${v[k]}</td>`).join('') + '</tr>').join('');
+})();
+
+// ── the feel map from render_feel_map.mjs
+(() => {
+  const t = document.getElementById('map');
+  t.innerHTML = '<tr><th>feel</th><th>motor\'s brake</th><th>where it can be computed</th><th>why</th></tr>' +
+    RESULTS.map.map(r => `<tr><td>${r.feel}</td><td>${r.brake}</td><td class="${r.where.startsWith('on the knob') ? 'held' : 'fine'}">${r.where}</td><td>${r.why}</td></tr>`).join('');
 })();
 
 // ── review surface

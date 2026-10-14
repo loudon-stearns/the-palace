@@ -51,3 +51,13 @@ is bought. If it takes more than 1 V, the pitch would eat into the push the
 other feels need, and a voice-coil or LRA joins the cap. The model can't
 include a gripping hand, which loads the cap; the recording is taken hands-off,
 so repeat the 196 Hz point with a finger resting on the rim before deciding.
+
+**Do frets land in tune?** (added 2026-10-14, from `proofs/feel-lab/render_feel_map.mjs`)
+With friction, a fret's pull is too weak to move the knob off the ridge between
+two notes: in the model about one let-go in twenty stays balanced there, up to
+50 cents off. The firmware now adds a small push off the ridge (`set kick`,
+default 0.006 N·m, a little above the pretend motor's 0.004 N·m friction). The
+model then lands every let-go within 2.4 cents. On the bench: run `feel frets`,
+let go near the ridge between two notes twenty times, and read the angle from the
+`a` lines. If any let-go stays put, raise `kick` to just above the friction that
+`bench coast` measured.

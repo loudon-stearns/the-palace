@@ -26,6 +26,7 @@ enum FeelId : uint8_t { FREE = 0, FRETS, STRING, STRUCK, PENDULUM, FOLLOW, TURNT
 
 struct Params {         // one set per feel; Max can change any of them
   float peak = 0.03f;       // frets: pull toward the nearest semitone, N·m
+  float kick = 0.006f;      // frets: push off the ridge between notes, N·m (beat the friction)
   float semisPerTurn = 24;  // pitch range of one turn
   float k = 0.085f;         // spring stiffness, N·m/rad (struck, centre, follow)
   float k3 = 0.25f;         // string: cubic stiffening, N·m/rad³
@@ -54,7 +55,10 @@ struct Feel {
       case FREE: break;
       case FRETS: {
         const float sp = p.semisPerTurn / TAU_F;           // semitones per radian
-        tau = -p.peak * sinf(TAU_F * sp * s.th);
+        const float a = TAU_F * sp * s.th, sn = sinf(a);
+        // the kick pushes the knob off the ridge between two notes, where the
+        // fret's pull is too weak to beat friction (proofs/feel-lab, feel map)
+        tau = -p.peak * sn - p.kick * ((sn > 0) - (sn < 0)) * 0.5f * (1.0f - cosf(a));
       } break;
       case STRING: { const float x = s.th; tau = -(0.04f * x + p.k3 * x * x * x); } break;
       case STRUCK:   tau = -p.k * (s.th - p.rest); break;

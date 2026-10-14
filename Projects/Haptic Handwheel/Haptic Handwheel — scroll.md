@@ -15,20 +15,20 @@ forward_vector: "I am Haptic Handwheel's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T23:49:52.422Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T00:00:49.285Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** seed · **Steward:** cycle 5 · last ran 2026-10-13 (today)
-- **Plan:** agreed 2026-10-13 (today) · 4 made things since
+- **Status:** active · **Stage:** seed · **Steward:** cycle 6 · last ran 2026-10-14 (today)
+- **Plan:** agreed 2026-10-13 (today) · 5 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — The parts order is ready — about $145–185, or $75–95 with your own bench supply. Shall I treat it as yes? (`haptic-handwheel-steward-010`)
-- **Last commit touching this project:** 2026-10-13 `32f41142` — steward(Haptic Handwheel): cycle 4 — machinery and scroll
+- **Last shipped:** 2026-10-14 (today) — A feel map: which feels want the motor's own brake, where each one can live, and a fix so frets can't stick between notes. (`haptic-handwheel-steward-012`)
+- **Last commit touching this project:** 2026-10-13 `9e2ac59e` — steward(Haptic Handwheel): cycle 5 — SPINNING UP. HOME: [[Haptic Handwheel]]. Neighborhood loaded. Cycle 5. …
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Haptic Handwheel is your one-big-knob instrument: a motor that is also a sensor, with software deciding how it feels (frets, a string, a struck spring, a turntable). It's research, and the nearer product is a simpler knob that follows whatever parameter you've clicked in Ableton. You agreed a plan today. First the knob in simulation (done: a feel lab in the browser). Then pin the unknowns before buying anything. Then the parts order, which waits on your yes. Then the bench, then your hands judge each feel. This cycle finishes the pinning-down move. The board sketch now compiles, and the analyzer can read all five bench tests, so the first bench session turns straight into numbers. Nothing i…
+Haptic Handwheel is your one-big-knob instrument: a motor that is also a sensor, with software deciding how it feels (frets, a string, a struck spring, a turntable). It's research, and the nearer product is a simpler knob that follows the parameter you've clicked in Ableton. The plan you agreed goes: try the knob in simulation, pin down the unknowns, buy the parts on your yes, bring it up on the bench, then your hands judge each feel. The first two are done on paper, and the parts list waits on you. This cycle used that wait. It worked out which feels want the motor's free brake and where each feel can be computed. It also found and fixed a way frets could land out of tune.
 
 ### Open asks
 
@@ -67,6 +67,51 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="haptic-handwheel-steward-012" -->
+### 2026-10-14 — cycle 6 — A feel map: which feels want the motor's own brake, where each one can live, and a fix so frets can't stick between notes.
+> shipped · parts order still yours to answer · steward leans keep building toward the bench
+
+**The brake decides where a feel can live.** Driven by voltage, this motor slows itself for free. The free brake is what lets a stiff feel be computed in Max, over a slow USB cable, without buzzing. It is also what kills a ring. So I went feel by feel. The frets, the string, the centring spring, the haptic filter and the context knob's stepped values (8 clicks a turn) all want the brake on, and with it on they can be computed in Max. Frets and the string need the brake to be at least the middle of my guesses for that. End stops still have to run on the knob itself. The struck spring wants the brake off: 3 wobbles before it dies with it off, 1 with it on. With the brake off it has to run on the knob. The turntable wants it off too: it idles at 88% speed with it off and 52% with it on. It is a speed loop, and it lives on the knob. The LFO, the pitch and the beat clicks don't care. That is good news for the product: nearly everything the context knob needs could be computed in Max.
+
+**Frets could stick between notes. Fixed.** With friction, a fret's pull is weakest exactly on the ridge between two notes. Let go there and the knob just stays. In the model, about one let-go in twenty stuck, up to 50 cents off. The motor's 84 bumps a turn hardly matter for tuning. The ridge does. So the frets now give a small push off the ridge: nothing at each note, 0.006 N·m on the ridge, just above friction. Every let-go then lands within 2.4 cents. It's in the firmware (`set kick`). The firmware still compiles for the Nano ESP32, and the laptop test still matches the browser simulation. BENCH.md has the test to check it on the real motor.
+
+**Hear it:** frets_landing.wav plays four passes of eight let-gos, with clicks marking passes 1 to 4: no bumps, raw bumps, bumps cancelled, then bumps cancelled with the push off the ridge. Each landed note plays beside its in-tune neighbour, so slow beating means a sour landing. struck_brakes.wav plays the same strike four times, from brake cancelled to the strongest guess. The feel lab now has brake and bumps switches and the feel map table.
+
+**Artifacts:**
+- [the feel lab, sketch 2: new brake and bumps switches, and the feel map table.](Projects/Haptic Handwheel/proofs/feel-lab/feel-lab.html)
+- [how far off pitch frets land after a let-go, four ways, and the struck spring's wobbles at each brake.](Projects/Haptic Handwheel/proofs/feel-lab/feel_map.png)
+- [four passes of eight let-gos, each landed note beside its in-tune neighbour. Beating means sour.](Projects/Haptic Handwheel/proofs/feel-lab/frets_landing.wav)
+- [the same strike four times, from brake cancelled to the strongest guess.](Projects/Haptic Handwheel/proofs/feel-lab/struck_brakes.wav)
+- [runs the brake sweep, the landing test, both sounds and the chart.](Projects/Haptic Handwheel/proofs/feel-lab/render_feel_map.mjs)
+- [every number above.](Projects/Haptic Handwheel/proofs/feel-lab/feel_map_results.json)
+- [the chart as vector.](Projects/Haptic Handwheel/proofs/feel-lab/feel_map.svg)
+- [the shared physics, now with the motor's bumps, real sticking friction, the brake guesses and the push off the ridge.](Projects/Haptic Handwheel/proofs/feel-lab/feel_engine.js)
+- [the page before inlining.](Projects/Haptic Handwheel/proofs/feel-lab/feel_lab_template.html)
+- [now inlines the feel map too.](Projects/Haptic Handwheel/proofs/feel-lab/build_feel_lab.mjs)
+- [frets gain the push off the ridge (kick, 0.006 N·m by default).](Projects/Haptic Handwheel/firmware/handwheel/feel_core.h)
+- [accepts 'set kick'. Compiles for the Nano ESP32 against SimpleFOC 2.3.3.](Projects/Haptic Handwheel/firmware/handwheel/handwheel.ino)
+- [the laptop check, still matching the browser engine within 1e-5 N·m.](Projects/Haptic Handwheel/firmware/host-test/compare.mjs)
+- [a new bench check: let go near the ridge twenty times.](Projects/Haptic Handwheel/firmware/BENCH.md)
+
+_The feel map · pretend motor · 'Max' means computed over USB, about 4 ms each way_
+| feel | motor's brake | where it can be computed | why |
+| --- | --- | --- | --- |
+| frets, 24 a turn | on | Max, if the brake is the middle guess or stronger | calm, no ring |
+| string bend | on | Max, if the brake is the middle guess or stronger | a held bend sits still |
+| end stops | on | on the knob | the stiffest thing it does |
+| stepped values, 8 a turn (context knob) | on | Max | clicks you can count |
+| soft centring spring | on | Max | no wobble on return |
+| haptic filter | on | Max | 89 ms glide; 29 ms with 18% overshoot without |
+| struck spring and pendulum | off | on the knob | 3 wobbles off, 1 on |
+| turntable | off | on the knob | idles at 88% off, 52% on |
+| LFO, the pitch, beat clicks | either | anywhere | played into the hand |
+
+_Left rough:_ It's all a pretend motor again: the brake, friction and bumps are guesses until the bench measures them, and the brake guesses alone move frets between Max and the knob. I haven't listened to either new recording. I only loaded the page headless: it draws and its scripts parse, but dragging and sound with the new switches are untested. The older table above the feel map still assumes the brake is cancelled. The turntable's slow idle is still unfixed. It needs a slow correction in the speed loop, the integral term the earlier simulation pointed to, and I haven't built it.
+
+_Next moves named:_ Make the brake switch with the feel in firmware: each feel sets its own brake setting when you select it, so the struck spring rings and frets stay calm without you sending 'set cancelBrake'. · Give the turntable the slow speed correction it's missing, so it holds 33⅓ whatever the brake does. · When you say yes to the parts: the bring-up checklist for the day the box arrives.
+<sub>`haptic-handwheel-steward-012` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="haptic-handwheel-steward-010" -->
 ### 2026-10-13 — cycle 5 — The parts order is ready — about $145–185, or $75–95 with your own bench supply. Shall I treat it as yes?
 > still working · unknowns pinned on paper · steward leans ORDER

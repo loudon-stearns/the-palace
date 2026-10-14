@@ -59,7 +59,7 @@ void parse(String l) {
   } else if (l.startsWith("set ")) {
     int sp = l.indexOf(' ', 4); String k = l.substring(4, sp); float v = l.substring(sp + 1).toFloat();
     hw::Params& p = feel.p;
-    if (k == "peak") p.peak = v; else if (k == "semisPerTurn") p.semisPerTurn = v; else if (k == "k") p.k = v;
+    if (k == "peak") p.peak = v; else if (k == "kick") p.kick = v; else if (k == "semisPerTurn") p.semisPerTurn = v; else if (k == "k") p.k = v;
     else if (k == "k3") p.k3 = v; else if (k == "damp") p.damp = v; else if (k == "rest") p.rest = v;
     else if (k == "rpm") p.rpm = v; else if (k == "kv") p.kv = v; else if (k == "cap") p.cap = v;
     else if (k == "target") p.target = v; else if (k == "wallLo") p.wallLo = v; else if (k == "wallHi") p.wallHi = v;

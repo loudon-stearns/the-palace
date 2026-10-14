@@ -39,7 +39,7 @@
 </head>
 <body>
 <header>
-  <div class="eyebrow">Haptic Handwheel · feel lab · sketch 1 · simulated, not built</div>
+  <div class="eyebrow">Haptic Handwheel · feel lab · sketch 2 · simulated, not built</div>
   <h1>Seven feels, before there is a knob</h1>
   <p class="lead">Drag the knob to grip and turn it. Hold <b>shift</b> while dragging, or press and hold the right button, to rest a finger on it as a brake instead. The screen cannot push back, so the amber trace is the torque your hand would feel. The physics is the same script the offline proofs run.</p>
 </header>
@@ -84,11 +84,29 @@
           <option value="0.04">light cap · 40 g</option>
           <option value="0.15">weighted cap · 150 g</option>
         </select>
+        <select id="brake">
+          <option value="1e-4">motor's brake cancelled</option>
+          <option value="0.00223">motor's brake on · low guess</option>
+          <option value="0.00711">motor's brake on · middle guess</option>
+          <option value="0.0232">motor's brake on · high guess</option>
+        </select>
+        <select id="bumps">
+          <option value="none">no bumps (ideal motor)</option>
+          <option value="raw">the motor's 84 bumps, raw</option>
+          <option value="cancelled">bumps cancelled</option>
+          <option value="kick" selected>bumps cancelled + ridge kick</option>
+        </select>
       </div>
       <p class="say">Pick the slow wire, choose frets or the string, then let go of the knob. A stiff feel computed far from the motor starts to buzz on its own: the delay feeds energy in faster than friction takes it out. Grip it and the hand's own damping calms it. That is the sweep below, run live.</p>
       <table id="verdicts"></table>
       <div class="meta" style="margin-top:6px">fine = stable with no hand on it · <span class="held">only while held</span> = the hand's damping is what keeps it stable · <span class="buzz">buzzes</span> = unstable even gripped</div>
       <div class="note"><label>note on the wire</label><textarea data-sec="wire"></textarea></div>
+    </section>
+    <section id="sec-map">
+      <h2>The feel map · which brake each feel wants, and where it can live</h2>
+      <p class="say">Driven by voltage, the motor brakes itself for free. That brake is what lets stiff feels cross a slow cable, and it is also what kills the ring a struck spring wants. The firmware can cancel it per feel. Try the struck spring with the brake cancelled, then on. Try frets with the raw bumps and let go near the ridge between two notes.</p>
+      <table id="map"></table>
+      <div class="note"><label>note on the map</label><textarea data-sec="map"></textarea></div>
     </section>
   </div>
   <section class="wide">
@@ -122,6 +140,12 @@ function makeEngine(opts) {
     quantize: true,     // 14-bit encoder, AS5048A
     semisPerTurn: 24,   // pitch range of one full turn
     basePitch: 45,      // MIDI note at angle 0 (A2)
+    // sketch 2: the motor's own bumps. 12 slots, 14 magnets → 84 a turn. Same
+    // pretend shape the bench analyzer is checked against (bench_analyze.py
+    // fake_cog). cog = 0 off, 1 on; cogLeft = what is left after the firmware
+    // cancels them (1 = raw, 0.08 ≈ the analyzer's selftest residue).
+    cog: 0, cogLeft: 1,
+    stick: false,       // true Coulomb stick at rest instead of the smooth tanh
   }, opts || {});
 
   const J = P.Jrotor + 0.5 * P.capMass * P.capR * P.capR;
@@ -157,13 +181,31 @@ function makeEngine(opts) {
     while (s.queue.length && s.queue[0][0] <= s.t) s.tauHeld = s.queue.shift()[1];
 
     s.tauHand = (s.hand ? P.handK * (s.handTarget - s.th) - P.handB * s.om : 0) - s.brake * s.om;
-    const tauLoss = -P.bMotor * s.om - P.tauC * Math.tanh(s.om / 0.05);
-    s.om += ((s.tauHeld + s.tauHand + tauLoss + s.extTorque) / J) * dt;
+    const tauCog = P.cog ? P.cog * P.cogLeft * cogTorque(s.th) : 0;
+    let drive = s.tauHeld + s.tauHand + s.extTorque + tauCog - P.bMotor * s.om;
+    if (P.stick && Math.abs(s.om) < 2e-3 && Math.abs(drive) <= P.tauC) { s.om = 0; s.t += dt; return; }
+    const tauLoss = P.stick ? -P.tauC * Math.sign(s.om || drive) : -P.tauC * Math.tanh(s.om / 0.05);
+    s.om += ((drive + tauLoss) / J) * dt;
     s.th += s.om * dt;
     s.t += dt;
   };
   return eng;
 }
+
+// The motor's bumps (N·m) at angle th: 84 a turn, their second harmonic, and a
+// once-a-turn wobble from a rotor slightly off centre. ASSUMED shape and size.
+function cogTorque(th) {
+  return 0.006 * Math.sin(84 * th) + 0.002 * Math.sin(168 * th + 0.7) + 0.0015 * Math.sin(th + 1.1);
+}
+
+// The motor's own brake, from proofs/motor-numbers: driven by voltage, the
+// back-EMF damps the knob for free. The firmware can cancel it (cancelBrake 1).
+const BRAKES = [
+  { id: 'cancelled', label: 'brake cancelled', b: 1e-4 },
+  { id: 'low',  label: 'brake on · low guess',  b: 0.00223 },
+  { id: 'mid',  label: 'brake on · middle guess', b: 0.00711 },
+  { id: 'high', label: 'brake on · high guess', b: 0.0232 },
+];
 
 // ── The feels. Each returns torque from what the device senses; some keep
 // their own state (a melody, a platter, an LFO). Sound comes from voice().
@@ -174,9 +216,13 @@ const FEELS = {
   // Pitch you can lean on: a pull toward the nearest in-tune semitone.
   frets: (o) => Object.assign({
     name: 'frets', peak: 0.03, damp: 0.0,
+    // kick (sketch 2): a push off the ridge between two notes, so friction can't
+    // leave the knob balanced there. Zero at each note, full on the ridge.
+    kick: 0,
     torque(e) {
       const sp = e.P.semisPerTurn / TAU; // semitones per radian
-      return -this.peak * Math.sin(TAU * sp * e.s.sensedTh) - this.damp * e.s.sensedOm;
+      const a = TAU * sp * e.s.sensedTh, sn = Math.sin(a);
+      return -this.peak * sn - this.kick * Math.sign(sn) * 0.5 * (1 - Math.cos(a)) - this.damp * e.s.sensedOm;
     },
     voice: (e) => ({ midi: e.pitch(), amp: 0.5 }),
   }, o),
@@ -275,7 +321,7 @@ const FEELS = {
 
 </script>
 <script>
-const RESULTS = {"verdicts":[{"feel":"soft centring spring (pitch-wheel return)","K":0.03,"kind":"answers the hand","device-10k":"fine","device-1k":"fine","usb-max":"only while held","audio-line":"only while held"},{"feel":"struck spring, light cap (6 Hz wobble)","K":0.085,"kind":"answers the hand","device-10k":"fine","device-1k":"fine","usb-max":"only while held","audio-line":"only while held"},{"feel":"haptic filtering (knob follows a melody)","K":0.25,"kind":"answers the hand","device-10k":"fine","device-1k":"only while held","usb-max":"only while held","audio-line":"only while held"},{"feel":"string bend, near full bend (~1 rad)","K":0.79,"kind":"answers the hand","device-10k":"fine","device-1k":"only while held","usb-max":"buzzes","audio-line":"buzzes"},{"feel":"frets, 24 per turn, 0.03 N·m pull","K":0.72,"kind":"answers the hand","device-10k":"fine","device-1k":"only while held","usb-max":"only while held","audio-line":"buzzes"},{"feel":"an end stop / wall","K":3,"kind":"answers the hand","device-10k":"only while held","device-1k":"only while held","usb-max":"buzzes","audio-line":"buzzes"},{"feel":"LFO, a pitch, beat clicks","K":0,"kind":"played into the hand","device-10k":"fine","device-1k":"fine","usb-max":"fine","audio-line":"fine"}]};
+const RESULTS = {"verdicts":[{"feel":"soft centring spring (pitch-wheel return)","K":0.03,"kind":"answers the hand","device-10k":"fine","device-1k":"fine","usb-max":"only while held","audio-line":"only while held"},{"feel":"struck spring, light cap (6 Hz wobble)","K":0.085,"kind":"answers the hand","device-10k":"fine","device-1k":"fine","usb-max":"only while held","audio-line":"only while held"},{"feel":"haptic filtering (knob follows a melody)","K":0.25,"kind":"answers the hand","device-10k":"fine","device-1k":"only while held","usb-max":"only while held","audio-line":"only while held"},{"feel":"string bend, near full bend (~1 rad)","K":0.79,"kind":"answers the hand","device-10k":"fine","device-1k":"only while held","usb-max":"buzzes","audio-line":"buzzes"},{"feel":"frets, 24 per turn, 0.03 N·m pull","K":0.72,"kind":"answers the hand","device-10k":"fine","device-1k":"only while held","usb-max":"only while held","audio-line":"buzzes"},{"feel":"an end stop / wall","K":3,"kind":"answers the hand","device-10k":"only while held","device-1k":"only while held","usb-max":"buzzes","audio-line":"buzzes"},{"feel":"LFO, a pitch, beat clicks","K":0,"kind":"played into the hand","device-10k":"fine","device-1k":"fine","usb-max":"fine","audio-line":"fine"}],"map":[{"feel":"frets, 24 a turn","K":0.72,"brake":"on","why":"calm matters, nothing should ring","where":"Max, if the brake is the middle guess or stronger"},{"feel":"string bend","K":0.79,"brake":"on","why":"a held bend should sit still","where":"Max, if the brake is the middle guess or stronger"},{"feel":"end stops, walls","K":3,"brake":"on","why":"the stiffest thing the knob does","where":"on the knob"},{"feel":"stepped values, 8 a turn (the context knob)","K":0.24,"brake":"on","why":"clicks you can count, no ring","where":"Max is fine"},{"feel":"soft centring spring","K":0.03,"brake":"on","why":"a pitch wheel return should not wobble","where":"Max is fine"},{"feel":"haptic filter (knob follows a melody)","K":0.25,"brake":"on","why":"glide 89 ms with it, 29 ms and 18% overshoot without","where":"Max is fine"},{"feel":"struck spring, struck pendulum","K":0.085,"brake":"off","why":"3 wobbles with it off, 1 on","where":"on the knob"},{"feel":"turntable","K":0,"brake":"off","why":"idles at 88% off, 52% on; a speed loop, not a spring","where":"on the knob (speed loop)"},{"feel":"LFO, the pitch, beat clicks","K":0,"brake":"either","why":"played into the hand; they don't depend on where it is","where":"anywhere"}]};
 const SAY = {
   frets: 'Pitch you can lean on. Every semitone is a shallow valley; turn and feel the knob drop into each note. Two octaves per turn. The pull is 0.03 N·m, about a fingertip pressing a key.',
   string: 'A string that stiffens as it bends. The first part of the turn is soft; past a third of a turn it gets steep, and the pitch rises with the tension, about two semitones at a full bend.',
@@ -296,9 +342,11 @@ function build() {
   const [loopHz, delayMs] = document.getElementById('lane').value.split(',').map(Number);
   const capMass = +document.getElementById('cap').value;
   const old = eng;
-  eng = makeEngine({ fs: 48000, loopHz, delayMs, capMass, semisPerTurn: (feelId === 'spring' || feelId === 'pendulum') ? 6 : 24, basePitch: (feelId === 'spring' || feelId === 'pendulum') ? 57 : 45 });
+  const bumps = document.getElementById('bumps').value;
+  eng = makeEngine({ fs: 48000, loopHz, delayMs, capMass, Jrotor: 5e-5, tauC: 0.004, stick: true,
+    bMotor: +document.getElementById('brake').value, cog: bumps === 'none' ? 0 : 1, cogLeft: bumps === 'raw' ? 1 : 0.08, semisPerTurn: (feelId === 'spring' || feelId === 'pendulum') ? 6 : 24, basePitch: (feelId === 'spring' || feelId === 'pendulum') ? 57 : 45 });
   if (old) { eng.s.th = old.s.th; eng.s.t = old.s.t; eng.s.nextTick = old.s.t; }
-  const f = feelId === 'spring' ? FEELS.struck({ law: 'spring' }) : feelId === 'pendulum' ? FEELS.struck({ law: 'pendulum' }) : FEELS[feelId]();
+  const f = feelId === 'spring' ? FEELS.struck({ law: 'spring' }) : feelId === 'pendulum' ? FEELS.struck({ law: 'pendulum' }) : feelId === 'frets' ? FEELS.frets({ kick: bumps === 'kick' ? 0.006 : 0 }) : FEELS[feelId]();
   eng.setFeel(f);
   document.getElementById('say').textContent = SAY[feelId];
   document.querySelectorAll('#feels button').forEach(b => b.classList.toggle('on', b.dataset.id === feelId));
@@ -307,6 +355,8 @@ const fb = document.getElementById('feels');
 ORDER.forEach(id => { const b = document.createElement('button'); b.textContent = LABEL[id]; b.dataset.id = id; b.onclick = () => { feelId = id; build(); }; fb.appendChild(b); });
 document.getElementById('lane').onchange = build;
 document.getElementById('cap').onchange = build;
+document.getElementById('brake').onchange = build;
+document.getElementById('bumps').onchange = build;
 document.getElementById('center').onclick = () => { eng.s.th = 0; eng.s.om = 0; };
 let strikeUntil = -1;
 document.getElementById('strike').onclick = () => { strikeUntil = eng.s.t + 0.03; };
@@ -426,6 +476,13 @@ requestAnimationFrame(frame);
   const t = document.getElementById('verdicts'), cls = { 'fine': 'fine', 'only while held': 'held', 'buzzes': 'buzz' };
   t.innerHTML = '<tr><th>feel (stiffness, N·m/rad)</th><th>device 10 kHz</th><th>device 1 kHz</th><th>USB · Max</th><th>audio line</th></tr>' +
     RESULTS.verdicts.map(v => `<tr><td>${v.feel} (${v.K})</td>` + ['device-10k', 'device-1k', 'usb-max', 'audio-line'].map(k => `<td class="${cls[v[k]]}">${v[k]}</td>`).join('') + '</tr>').join('');
+})();
+
+// ── the feel map from render_feel_map.mjs
+(() => {
+  const t = document.getElementById('map');
+  t.innerHTML = '<tr><th>feel</th><th>motor\'s brake</th><th>where it can be computed</th><th>why</th></tr>' +
+    RESULTS.map.map(r => `<tr><td>${r.feel}</td><td>${r.brake}</td><td class="${r.where.startsWith('on the knob') ? 'held' : 'fine'}">${r.where}</td><td>${r.why}</td></tr>`).join('');
 })();
 
 // ── review surface

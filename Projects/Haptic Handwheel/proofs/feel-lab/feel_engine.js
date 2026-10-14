@@ -20,6 +20,12 @@ function makeEngine(opts) {
     quantize: true,     // 14-bit encoder, AS5048A
     semisPerTurn: 24,   // pitch range of one full turn
     basePitch: 45,      // MIDI note at angle 0 (A2)
+    // sketch 2: the motor's own bumps. 12 slots, 14 magnets → 84 a turn. Same
+    // pretend shape the bench analyzer is checked against (bench_analyze.py
+    // fake_cog). cog = 0 off, 1 on; cogLeft = what is left after the firmware
+    // cancels them (1 = raw, 0.08 ≈ the analyzer's selftest residue).
+    cog: 0, cogLeft: 1,
+    stick: false,       // true Coulomb stick at rest instead of the smooth tanh
   }, opts || {});
 
   const J = P.Jrotor + 0.5 * P.capMass * P.capR * P.capR;
@@ -55,13 +61,31 @@ function makeEngine(opts) {
     while (s.queue.length && s.queue[0][0] <= s.t) s.tauHeld = s.queue.shift()[1];
 
     s.tauHand = (s.hand ? P.handK * (s.handTarget - s.th) - P.handB * s.om : 0) - s.brake * s.om;
-    const tauLoss = -P.bMotor * s.om - P.tauC * Math.tanh(s.om / 0.05);
-    s.om += ((s.tauHeld + s.tauHand + tauLoss + s.extTorque) / J) * dt;
+    const tauCog = P.cog ? P.cog * P.cogLeft * cogTorque(s.th) : 0;
+    let drive = s.tauHeld + s.tauHand + s.extTorque + tauCog - P.bMotor * s.om;
+    if (P.stick && Math.abs(s.om) < 2e-3 && Math.abs(drive) <= P.tauC) { s.om = 0; s.t += dt; return; }
+    const tauLoss = P.stick ? -P.tauC * Math.sign(s.om || drive) : -P.tauC * Math.tanh(s.om / 0.05);
+    s.om += ((drive + tauLoss) / J) * dt;
     s.th += s.om * dt;
     s.t += dt;
   };
   return eng;
 }
+
+// The motor's bumps (N·m) at angle th: 84 a turn, their second harmonic, and a
+// once-a-turn wobble from a rotor slightly off centre. ASSUMED shape and size.
+function cogTorque(th) {
+  return 0.006 * Math.sin(84 * th) + 0.002 * Math.sin(168 * th + 0.7) + 0.0015 * Math.sin(th + 1.1);
+}
+
+// The motor's own brake, from proofs/motor-numbers: driven by voltage, the
+// back-EMF damps the knob for free. The firmware can cancel it (cancelBrake 1).
+const BRAKES = [
+  { id: 'cancelled', label: 'brake cancelled', b: 1e-4 },
+  { id: 'low',  label: 'brake on · low guess',  b: 0.00223 },
+  { id: 'mid',  label: 'brake on · middle guess', b: 0.00711 },
+  { id: 'high', label: 'brake on · high guess', b: 0.0232 },
+];
 
 // ── The feels. Each returns torque from what the device senses; some keep
 // their own state (a melody, a platter, an LFO). Sound comes from voice().
@@ -72,9 +96,13 @@ const FEELS = {
   // Pitch you can lean on: a pull toward the nearest in-tune semitone.
   frets: (o) => Object.assign({
     name: 'frets', peak: 0.03, damp: 0.0,
+    // kick (sketch 2): a push off the ridge between two notes, so friction can't
+    // leave the knob balanced there. Zero at each note, full on the ridge.
+    kick: 0,
     torque(e) {
       const sp = e.P.semisPerTurn / TAU; // semitones per radian
-      return -this.peak * Math.sin(TAU * sp * e.s.sensedTh) - this.damp * e.s.sensedOm;
+      const a = TAU * sp * e.s.sensedTh, sn = Math.sin(a);
+      return -this.peak * sn - this.kick * Math.sign(sn) * 0.5 * (1 - Math.cos(a)) - this.damp * e.s.sensedOm;
     },
     voice: (e) => ({ midi: e.pitch(), amp: 0.5 }),
   }, o),

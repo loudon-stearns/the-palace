@@ -1,0 +1,210 @@
+{
+ "assumed": {
+  "Jrotor": 0.00005,
+  "tauC": 0.004,
+  "cap": "40 g, 80 mm",
+  "cogging": "bench_analyze fake_cog, peak ≈0.0083 N·m",
+  "cogLeftAfterCancel": 0.08
+ },
+ "kmax": [
+  {
+   "brake": "cancelled",
+   "b": 0.0001,
+   "device-1k": 0.2021462845194913,
+   "usb-max": 0.02225472835118958
+  },
+  {
+   "brake": "low",
+   "b": 0.00223,
+   "device-1k": 4.527710388970209,
+   "usb-max": 0.5053875061057924
+  },
+  {
+   "brake": "mid",
+   "b": 0.00711,
+   "device-1k": 14.582802531920766,
+   "usb-max": 1.6765588411845274
+  },
+  {
+   "brake": "high",
+   "b": 0.0232,
+   "device-1k": 49.23594574262902,
+   "usb-max": 6.012295232044611
+  }
+ ],
+ "behaviour": [
+  {
+   "brake": "cancelled",
+   "b": 0.0001,
+   "struckWobbles": 3,
+   "glideMs": 28.604166666666682,
+   "glideOvershootPct": 17.587080496400986,
+   "turntablePct": 87.89152223836005
+  },
+  {
+   "brake": "low",
+   "b": 0.00223,
+   "struckWobbles": 2,
+   "glideMs": 39.27083333333214,
+   "glideOvershootPct": 2.7357350078629716,
+   "turntablePct": 72.44992904172936
+  },
+  {
+   "brake": "mid",
+   "b": 0.00711,
+   "struckWobbles": 1,
+   "glideMs": 88.97916666665994,
+   "glideOvershootPct": 0,
+   "turntablePct": 51.77520663011388
+  },
+  {
+   "brake": "high",
+   "b": 0.0232,
+   "struckWobbles": 1,
+   "glideMs": 253.9374999999992,
+   "glideOvershootPct": 0,
+   "turntablePct": 26.68090388289275
+  }
+ ],
+ "landing": [
+  {
+   "brake": "cancelled",
+   "bumps": "none",
+   "medianCents": 1.328156276552761,
+   "p95Cents": 47.898506814566844,
+   "maxCents": 49.93923266881097,
+   "over10": 0.05
+  },
+  {
+   "brake": "cancelled",
+   "bumps": "raw",
+   "medianCents": 1.6985924043527945,
+   "p95Cents": 6.708715566893986,
+   "maxCents": 48.51698314236348,
+   "over10": 0.041666666666666664
+  },
+  {
+   "brake": "cancelled",
+   "bumps": "cancelled",
+   "medianCents": 1.2640779832725713,
+   "p95Cents": 47.898506814566844,
+   "maxCents": 49.93923266881097,
+   "over10": 0.058333333333333334
+  },
+  {
+   "brake": "cancelled",
+   "bumps": "cancelled+kick",
+   "medianCents": 0.8855299305787767,
+   "p95Cents": 2.020323273987046,
+   "maxCents": 2.2861126577140567,
+   "over10": 0
+  },
+  {
+   "brake": "mid",
+   "bumps": "none",
+   "medianCents": 1.5699501727739928,
+   "p95Cents": 47.898506814566844,
+   "maxCents": 49.93923266881097,
+   "over10": 0.05
+  },
+  {
+   "brake": "mid",
+   "bumps": "raw",
+   "medianCents": 1.5689666861110396,
+   "p95Cents": 6.170360271317676,
+   "maxCents": 48.51698314236348,
+   "over10": 0.041666666666666664
+  },
+  {
+   "brake": "mid",
+   "bumps": "cancelled",
+   "medianCents": 1.5668741153206156,
+   "p95Cents": 47.898506814566844,
+   "maxCents": 49.93923266881097,
+   "over10": 0.058333333333333334
+  },
+  {
+   "brake": "mid",
+   "bumps": "cancelled+kick",
+   "medianCents": 1.8174986676834592,
+   "p95Cents": 2.300869613402412,
+   "maxCents": 2.387944420074195,
+   "over10": 0
+  }
+ ],
+ "map": [
+  {
+   "feel": "frets, 24 a turn",
+   "K": 0.72,
+   "brake": "on",
+   "why": "calm matters, nothing should ring",
+   "where": "Max, if the brake is the middle guess or stronger"
+  },
+  {
+   "feel": "string bend",
+   "K": 0.79,
+   "brake": "on",
+   "why": "a held bend should sit still",
+   "where": "Max, if the brake is the middle guess or stronger"
+  },
+  {
+   "feel": "end stops, walls",
+   "K": 3,
+   "brake": "on",
+   "why": "the stiffest thing the knob does",
+   "where": "on the knob"
+  },
+  {
+   "feel": "stepped values, 8 a turn (the context knob)",
+   "K": 0.24,
+   "brake": "on",
+   "why": "clicks you can count, no ring",
+   "where": "Max is fine"
+  },
+  {
+   "feel": "soft centring spring",
+   "K": 0.03,
+   "brake": "on",
+   "why": "a pitch wheel return should not wobble",
+   "where": "Max is fine"
+  },
+  {
+   "feel": "haptic filter (knob follows a melody)",
+   "K": 0.25,
+   "brake": "on",
+   "why": "glide 89 ms with it, 29 ms and 18% overshoot without",
+   "where": "Max is fine"
+  },
+  {
+   "feel": "struck spring, struck pendulum",
+   "K": 0.085,
+   "brake": "off",
+   "why": "3 wobbles with it off, 1 on",
+   "where": "on the knob"
+  },
+  {
+   "feel": "turntable",
+   "K": 0,
+   "brake": "off",
+   "why": "idles at 88% off, 52% on; a speed loop, not a spring",
+   "where": "on the knob (speed loop)"
+  },
+  {
+   "feel": "LFO, the pitch, beat clicks",
+   "K": 0,
+   "brake": "either",
+   "why": "played into the hand; they don't depend on where it is",
+   "where": "anywhere"
+  }
+ ],
+ "landingWavStarts": [
+  0.00034422169837569486,
+  4.582771026244841,
+  5.785334084600303,
+  5.888988934494842,
+  1.8173312731997793,
+  4.58215236696634,
+  1.3229304687230095,
+  4.319848987187
+ ]
+}

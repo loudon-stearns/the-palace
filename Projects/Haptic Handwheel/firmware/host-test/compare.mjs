@@ -6,7 +6,7 @@ const src = fs.readFileSync(path.join(here, '../../proofs/feel-lab/feel_engine.j
 const { makeEngine, FEELS } = new Function(src + '\nreturn { makeEngine, FEELS };')();
 const e = makeEngine({});
 const js = {
-  frets: FEELS.frets(), string: FEELS.string(), struck: FEELS.struck(), pendulum: FEELS.struck({ law: 'pendulum' }),
+  frets: FEELS.frets({ kick: 0.006 }), string: FEELS.string(), struck: FEELS.struck(), pendulum: FEELS.struck({ law: 'pendulum' }),
   follow: Object.assign(FEELS.follow(), { target: () => 0.785 }), turntable: FEELS.turntable(),
 };
 const rows = fs.readFileSync(path.join(here, 'core.csv'), 'utf8').trim().split('\n').slice(1);
