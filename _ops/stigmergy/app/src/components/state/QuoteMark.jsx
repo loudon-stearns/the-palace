@@ -2,17 +2,23 @@ import React, { useState } from 'react';
 import QuoteDecide from './QuoteDecide.jsx';
 import { fidelityGlyph, fidelityLabel } from '../../lib/quote-walk.js';
 
-// A quote Palace Quotes laid beside a paragraph — rendered right after the
-// block its `near` phrase lives in (EntryBody). The page's own words stay
-// untouched; this is a mark in the margin, in the register of the graffiti
-// scrawl and the typed-link rail: phosphor, a thin left rule, no new color.
+// A quote Palace Quotes laid beside a paragraph — a textbook callout: a box
+// floated to the right of the paragraph its `near` phrase lives in, the
+// page's words flowing around it (EntryBody renders it just before that
+// block, so the float wraps). The page's own words stay untouched.
 //
-// A short moment on the page, not its focus (Loudon, 2026-10-13): closed, the
-// mark is one line — the quote and who said it. Click it to open the rest:
-// where the line is from, the lens it was read through, [→] walk from here,
-// the why, and the keep / let-go chips. It opens on its own only when the
-// URL names it (?quote=<id>: the reader arrived here through the lens, and
-// wants the window), or when its phrase has left the page and it needs saying.
+// The mark is the CP437 half-block quotation mark, lit, and the quote beside
+// it in the body face; who said it beneath, right-aligned, with the fidelity
+// glyph. A short moment on the page, not its focus (Loudon, 2026-10-13):
+// closed, that is all. Click the box to open the rest — where the line is
+// from, the lens, [→] walk from here, the why, the keep / let-go chips — which
+// stack inside the same box so the words keep flowing. It opens on its own
+// only when the URL names it (the reader stepped through from the QUOTES
+// lens) or when its phrase has left the page and that needs saying. The
+// float, and its fall-back to full width on a phone, is `.quote-callout` in
+// tokens.css. `moved` marks are listed at the page's end, not floated.
+
+const OPEN_MARK = ' ▄▀ ▄▀\n ██ ██\n ▀▀ ▀▀';
 
 export default function QuoteMark({
   quote, lensPath = null, onNavigate, onWalk, onDecide = null, lit = false, moved = false, open: openProp = null,
@@ -27,27 +33,25 @@ export default function QuoteMark({
   const sourceBits = [src.work, src.locus, src.translator ? `tr. ${src.translator}` : null].filter(Boolean);
   const lensKnown = !!lensPath;
   const mono = { fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '.04em' };
+  const glyphColor = glyph === '◇' ? 'var(--warn)' : 'var(--phosphor-dim)';
 
   return (
     <aside
       id={`quote-${quote.id}`}
+      className={moved ? 'quote-callout quote-callout--moved' : 'quote-callout'}
       data-testid="quote-mark"
       data-quote-id={quote.id}
       data-lit={lit ? '1' : '0'}
       data-moved={moved ? '1' : '0'}
       data-open={open ? '1' : '0'}
       style={{
-        margin: open ? '10px 0 16px' : '6px 0 10px',
-        padding: open ? '8px 14px 8px 16px' : '3px 12px 3px 14px',
-        maxWidth: '100%',
-        borderLeft: open ? `3px double ${lit ? 'var(--phosphor)' : 'var(--phosphor-dim)'}` : '2px solid var(--phosphor-dim)',
         background: lit ? 'color-mix(in srgb, var(--phosphor) 8%, transparent)' : 'transparent',
-        boxShadow: lit ? 'inset 2px 0 0 var(--phosphor-dim)' : 'none',
+        boxShadow: lit ? 'inset -2px 0 0 var(--phosphor-dim)' : 'none',
         transition: 'background var(--dur-fade) linear',
       }}
     >
-      {/* the one line a reader meets: the quote, who said it, the glyph, and a
-          toggle. The whole row is the toggle. */}
+      {/* the callout a reader meets: the mark, the quote, who said it. The
+          whole box is the toggle. */}
       <div
         data-testid="quote-mark-line"
         role="button"
@@ -57,39 +61,37 @@ export default function QuoteMark({
         onClick={toggle}
         onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } }}
         title={open ? 'close' : 'open — the lens, the walk, the why'}
-        style={{ cursor: 'pointer', display: 'flex', gap: 10, alignItems: 'baseline', userSelect: 'none' }}
+        style={{ cursor: 'pointer', userSelect: 'none', display: 'flex', gap: 12, alignItems: 'flex-start' }}
       >
-        <span style={{
-          flex: '1 1 auto', minWidth: 0,
-          fontFamily: 'var(--font-body)', fontSize: open ? 15 : 13.5, lineHeight: 1.5,
-          color: open ? 'var(--phosphor-white)' : 'var(--phosphor)', textShadow: open ? 'var(--glow)' : 'none',
-        }}>
-          <span style={{ color: 'var(--phosphor-dim)', textShadow: 'none' }}>“</span>
-          {quote.quote}
-          <span style={{ color: 'var(--phosphor-dim)', textShadow: 'none' }}>”</span>
-          {!open ? (
-            <span style={{ ...mono, color: 'var(--phosphor-dim)', textShadow: 'none', marginLeft: 8, whiteSpace: 'nowrap' }}>
-              — {quote.attribution} <span style={{ color: glyph === '◇' ? 'var(--warn)' : 'var(--phosphor-dim)' }}>{glyph}</span>
-            </span>
-          ) : null}
-        </span>
-        <span aria-hidden="true" style={{ ...mono, flex: '0 0 auto', color: 'var(--phosphor-dim)', textShadow: 'none' }}>
-          [{open ? '−' : '+'}]
-        </span>
+        <pre aria-hidden="true" style={{
+          margin: 0, flex: '0 0 auto',
+          fontFamily: 'var(--font-body)', fontSize: 13, lineHeight: 1.05, letterSpacing: 0,
+          color: 'var(--phosphor)', textShadow: 'var(--glow)',
+        }}>{OPEN_MARK}</pre>
+        <div style={{ flex: '1 1 auto', minWidth: 0, textAlign: 'right' }}>
+          <div style={{
+            fontFamily: 'var(--font-body)', fontSize: 13.5, lineHeight: 1.5,
+            color: open ? 'var(--phosphor-white)' : 'var(--phosphor)', textShadow: open ? 'var(--glow)' : 'none',
+          }}>
+            {quote.quote}<span style={{ color: 'var(--phosphor-dim)', textShadow: 'none' }}>”</span>
+          </div>
+          <div style={{ ...mono, marginTop: 2, color: 'var(--phosphor-dim)', textShadow: 'none' }}>
+            — <span style={{ color: 'var(--phosphor)', textShadow: 'var(--glow)', textTransform: 'uppercase' }}>{quote.attribution}</span>
+            {' '}<span style={{ color: glyphColor }}>{glyph}</span>
+            {' '}<span aria-hidden="true">[{open ? '−' : '+'}]</span>
+          </div>
+        </div>
       </div>
 
       {open ? (
-        <>
-          <div style={{ marginTop: 4, display: 'flex', flexWrap: 'wrap', gap: '4px 14px', alignItems: 'baseline', ...mono, color: 'var(--phosphor-dim)', textShadow: 'none' }}>
-            <span>
-              <span style={{ color: 'var(--phosphor)', textShadow: 'var(--glow)', textTransform: 'uppercase' }}>— {quote.attribution}</span>
-              {sourceBits.length ? <span> · {sourceBits.join(' · ')}</span> : null}
-            </span>
+        <div style={{ marginTop: 8, paddingTop: 6, borderTop: '1px dotted var(--phosphor-dim)' }}>
+          <div style={{ ...mono, display: 'flex', flexWrap: 'wrap', gap: '4px 12px', alignItems: 'baseline', color: 'var(--phosphor-dim)', textShadow: 'none' }}>
+            {sourceBits.length ? <span>{sourceBits.join(' · ')}</span> : null}
             <span title={label} data-testid="quote-fidelity" data-glyph={glyph}>
               <span style={{ color: glyph === '◇' ? 'var(--warn)' : 'var(--phosphor)', textShadow: 'var(--glow)' }}>{glyph}</span> {label}
             </span>
           </div>
-          <div style={{ marginTop: 4, display: 'flex', flexWrap: 'wrap', gap: '4px 12px', alignItems: 'baseline', ...mono }}>
+          <div style={{ ...mono, marginTop: 4, display: 'flex', flexWrap: 'wrap', gap: '4px 12px', alignItems: 'baseline' }}>
             <span style={{ color: 'var(--phosphor-dim)', textShadow: 'none' }}>
               through{' '}
               <span
@@ -131,7 +133,7 @@ export default function QuoteMark({
           </div>
           {quote.why ? (
             <div style={{
-              marginTop: 5, fontSize: 12.5, lineHeight: 1.5, fontStyle: 'italic',
+              marginTop: 6, fontSize: 12.5, lineHeight: 1.5, fontStyle: 'italic',
               color: 'var(--phosphor)', textShadow: 'none', opacity: 0.85,
             }}>{quote.why}</div>
           ) : null}
@@ -140,7 +142,7 @@ export default function QuoteMark({
               laid beside “{quote.near}” — those words are no longer on this page
             </div>
           ) : null}
-        </>
+        </div>
       ) : null}
     </aside>
   );

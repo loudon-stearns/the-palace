@@ -300,6 +300,33 @@ button, input, textarea { font-family: var(--font-body); }
 
 ::placeholder { color: var(--fg3); opacity: 1; }
 
+/* ---- Quote callouts (Palace Quotes) --------------------------------------- */
+/* A quote laid on a page floats to the right of the paragraph it is anchored
+   to, the way a textbook sets a callout, and the words flow around it. The
+   box is a third to a half of the column; a section heading clears it so a
+   callout never bleeds past its section (EntryBody). On a phone it drops to
+   full width. A quote whose phrase has left the page is listed at the page's
+   end instead, not floated. */
+.quote-callout {
+  float: right;
+  clear: right;
+  width: 46%;
+  min-width: 22ch;
+  max-width: 48ch;
+  margin: 4px 0 10px 20px;
+  padding: 6px 10px 6px 10px;
+  border-right: 2px solid var(--phosphor-dim);
+}
+.quote-callout--moved {
+  float: none;
+  width: auto;
+  max-width: 100%;
+  margin: 8px 0 12px;
+}
+@media (max-width: 700px) {
+  .quote-callout { float: none; width: auto; max-width: 100%; margin: 8px 0 12px; }
+}
+
 /* ---- Narrow screens -------------------------------------------------------
    The entry reader is text + a 360px typed-link rail; on a phone the rail
    would squeeze the text to a sliver, so it drops below the text instead.

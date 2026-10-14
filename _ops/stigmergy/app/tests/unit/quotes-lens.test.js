@@ -35,11 +35,13 @@ describe('QuotesLens', () => {
 });
 
 describe('QuoteMark', () => {
-  it('is one line when closed — the quote, who said it, the glyph — and nothing else', () => {
+  it('is a callout when closed — the half-block mark, the quote, who said it, the glyph — and nothing else', () => {
     const html = renderToStaticMarkup(React.createElement(QuoteMark, { quote, lensPath: 'Whitehead.md', onWalk: () => {}, onDecide: () => {} }));
     expect(html).toContain('data-open="0"');
+    expect(html).toContain('class="quote-callout"');
+    expect(html).toContain('▄▀ ▄▀');
     expect(html).toContain('The many become one');
-    expect(html).toContain('— Whitehead');
+    expect(html).toContain('Whitehead');
     expect(html).toContain('◉');
     expect(html).not.toContain('data-testid="quote-walk"');
     expect(html).not.toContain('data-testid="quote-decide"');
@@ -94,15 +96,23 @@ describe('QuoteMark', () => {
 
 describe('EntryBody lays quotes', () => {
   const body = '# STIGMERGY\n\nIntro paragraph.\n\n## The honesty discipline\n\nWork is not real until it lands in LOG — until git proves it.\n\nAnother paragraph.\n';
-  it('places a mark right after the paragraph its near phrase lives in', () => {
+  it('floats a callout just before the paragraph its near phrase lives in, so the words flow around it', () => {
     const html = renderToStaticMarkup(React.createElement(EntryBody, { body, index: new Map(), quotes: [quote] }));
-    const para = html.indexOf('until git proves it');
+    const heading = html.indexOf('The honesty discipline');
     const mark = html.indexOf('data-testid="quote-mark"');
+    const para = html.indexOf('until git proves it');
     const next = html.indexOf('Another paragraph.');
-    expect(para).toBeGreaterThan(-1);
-    expect(mark).toBeGreaterThan(para);
-    expect(next).toBeGreaterThan(mark);
+    expect(heading).toBeGreaterThan(-1);
+    expect(mark).toBeGreaterThan(heading);
+    expect(para).toBeGreaterThan(mark);
+    expect(next).toBeGreaterThan(para);
+    expect(html).toContain('class="quote-callout"');
+    expect(html).not.toContain('quote-callout--moved');
     expect(html).not.toContain('data-testid="quotes-moved"');
+  });
+  it('a moved quote is listed at the end, not floated', () => {
+    const html = renderToStaticMarkup(React.createElement(EntryBody, { body, index: new Map(), quotes: [{ ...quote, near: 'gone words' }] }));
+    expect(html).toContain('quote-callout quote-callout--moved');
   });
   it('lists a quote whose phrase has left the page under "moved"', () => {
     const html = renderToStaticMarkup(React.createElement(EntryBody, {

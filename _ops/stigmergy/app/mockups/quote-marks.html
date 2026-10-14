@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quote marks · six hands</title>
+<style>
+  /* ---- BBS phosphor tokens (mirrored from src/styles/tokens.css); fonts from public/fonts ---- */
+  @font-face { font-family: 'VT323'; src: url('/fonts/VT323-Regular.woff2') format('woff2'); font-display: swap; }
+  @font-face { font-family: 'IBM Plex Mono'; src: url('/fonts/IBMPlexMono-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+  @font-face { font-family: 'IBM Plex Mono'; src: url('/fonts/IBMPlexMono-SemiBold.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+  :root{
+    --phosphor:#33ff66; --phosphor-bright:#7fff9b; --phosphor-dim:#1f8a3c;
+    --phosphor-deep:#0b2a14; --phosphor-white:#d7f6dc; --bg:#050a06;
+    --warn:#ffb000; --link:#7fdbff;
+    --glow:0 0 6px currentColor, 0 0 14px color-mix(in srgb, currentColor 40%, transparent);
+    --glow-strong:0 0 8px currentColor, 0 0 22px currentColor, 0 0 44px color-mix(in srgb, currentColor 30%, transparent);
+    --font-display:'VT323','Menlo',monospace;
+    --font-body:'IBM Plex Mono','Menlo',monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg)}
+  body{color:var(--phosphor);font-family:var(--font-body);font-size:15px;line-height:1.5;text-shadow:var(--glow);padding:24px 28px 80px;
+       background-image:repeating-linear-gradient(0deg, rgba(0,0,0,0) 0, rgba(0,0,0,0) 2px, rgba(0,20,5,.22) 3px)}
+  .page{max-width:80ch}
+  h1{font-family:var(--font-display);font-size:28px;font-weight:400;text-transform:uppercase;letter-spacing:.02em;color:var(--phosphor-white);text-shadow:var(--glow-strong);margin:0 0 4px}
+  .sub{font-family:var(--font-body);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--phosphor-dim);text-shadow:none;margin-bottom:28px}
+  .panel{margin:0 0 40px;padding-top:10px;border-top:3px double var(--phosphor-dim)}
+  .eyebrow{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--phosphor-dim);text-shadow:none;margin:0 0 12px;display:flex;gap:14px;align-items:baseline}
+  .eyebrow b{font-weight:400;color:var(--phosphor);text-shadow:var(--glow)}
+  .eyebrow .n{font-family:var(--font-display);font-size:18px;color:var(--phosphor-white);text-shadow:var(--glow-strong)}
+  h2{font-family:var(--font-display);font-size:20px;font-weight:400;text-transform:uppercase;letter-spacing:.02em;color:var(--phosphor-white);text-shadow:var(--glow-strong);margin:18px 0 6px}
+  p{margin:0 0 12px}
+  code{background:var(--phosphor-deep);color:var(--phosphor-bright);padding:0 4px;font-size:.95em}
+  em{color:var(--phosphor-bright)}
+  ul{margin:8px 0 12px;padding-left:22px} li{margin-bottom:4px}
+  .meta{font-size:11px;letter-spacing:.04em;color:var(--phosphor-dim);text-shadow:none}
+  .meta .who{color:var(--phosphor);text-shadow:var(--glow);text-transform:uppercase}
+  .plus{font-size:11px;color:var(--phosphor-dim);text-shadow:none;margin-left:auto}
+
+  /* 0 · as it is now */
+  .q0{margin:6px 0 10px;padding:3px 12px 3px 14px;border-left:2px solid var(--phosphor-dim);display:flex;gap:10px;align-items:baseline}
+  .q0 .t{font-size:13.5px;text-shadow:none}
+  .q0 .t .m{color:var(--phosphor-dim)}
+
+  /* 1 · the other hand: VT323, lowercase */
+  .q1{margin:8px 0 12px;padding:2px 12px 2px 14px;border-left:2px solid var(--phosphor-dim);display:flex;gap:10px;align-items:baseline}
+  .q1 .t{font-family:var(--font-display);font-size:20px;line-height:1.25;color:var(--phosphor);text-shadow:var(--glow);text-transform:lowercase}
+  .q1 .t .m{color:var(--phosphor-dim);text-shadow:none}
+
+  /* 2 · hung from the right margin */
+  .q2{margin:10px 0 14px;margin-left:auto;max-width:66%;padding:2px 14px 2px 12px;border-right:2px solid var(--phosphor-dim);text-align:right}
+  .q2 .t{font-size:13.5px;text-shadow:none}
+  .q2 .t .m{color:var(--phosphor-dim)}
+  .q2 .meta{display:block;margin-top:2px}
+
+  /* 1+2 · the other hand, hung right */
+  .q12{margin:10px 0 14px;margin-left:auto;max-width:66%;padding:2px 14px 2px 12px;border-right:2px solid var(--phosphor-dim);text-align:right}
+  .q12 .t{font-family:var(--font-display);font-size:20px;line-height:1.2;text-transform:lowercase;color:var(--phosphor);text-shadow:var(--glow)}
+  .q12 .t .m{color:var(--phosphor-dim);text-shadow:none}
+  .q12 .meta{display:block;margin-top:2px}
+
+  /* 3 · it arrives: type-on, cursor rests */
+  .q3{margin:8px 0 12px;padding:3px 12px 3px 14px;border-left:2px solid var(--phosphor-dim)}
+  .q3 .t{font-size:13.5px;text-shadow:none;white-space:pre-wrap}
+  .q3 .t .m{color:var(--phosphor-dim)}
+  .q3 .meta{margin-left:8px}
+  .cursor::after{content:"_";color:var(--phosphor-white);animation:blink 1100ms steps(1) infinite;margin-left:1px}
+  @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+
+  /* 4 · burned in */
+  .q4{margin:8px 0 12px;padding:3px 12px 3px 14px;border-left:2px solid var(--phosphor-dim);display:flex;gap:10px;align-items:baseline}
+  .q4 .t{font-size:14px;color:var(--phosphor-white);text-shadow:var(--glow-strong)}
+  .q4 .t .m{color:var(--phosphor-dim);text-shadow:none}
+
+  /* 5 · inverse attribution chip */
+  .q5{margin:8px 0 12px;padding:3px 12px 3px 14px;border-left:2px solid var(--phosphor-dim);display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+  .q5 .t{font-size:13.5px;text-shadow:none}
+  .q5 .t .m{color:var(--phosphor-dim)}
+  .q5 .chip{background:var(--phosphor);color:var(--bg);text-shadow:none;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:0 7px;white-space:nowrap}
+
+  /* 6 · hanging quote mark */
+  .q6{margin:12px 0 14px;padding:0 12px 0 0;position:relative;display:flex;gap:10px;align-items:baseline}
+  .q6 .big{font-family:var(--font-display);font-size:44px;line-height:.6;color:var(--phosphor-dim);text-shadow:none;margin-left:-6px;flex:0 0 auto;transform:translateY(8px)}
+  .q6 .t{font-size:13.5px;text-shadow:none}
+  .q6 .t .m{color:var(--phosphor-dim)}
+
+  .plus{white-space:nowrap}
+  @media (max-width:700px){.q2,.q12{max-width:88%}}
+
+  /* 7 · floating: semitransparent, and it scrolls at a different speed from the
+     page — a little slower (behind the glass) or a little faster (in front) —
+     so it reads as a pane of its own. Scroll-driven, no timed animation. */
+  .q7{margin:10px 0 14px;padding:3px 12px 3px 14px;will-change:transform}
+  .q7 .t{font-size:13.5px;text-shadow:none}
+  .q7 .t .m{color:var(--phosphor-dim)}
+  .q7.behind{opacity:.62;border-left:2px solid color-mix(in srgb, var(--phosphor-dim) 60%, transparent)}
+  .q7.behind .t{color:var(--phosphor)}
+  .q7.front{opacity:.92;border-left:2px solid var(--phosphor)}
+  .q7.front .t{color:var(--phosphor-white);text-shadow:var(--glow)}
+  .q7.front .t .m,.q7.front .meta{text-shadow:none}
+
+  /* 8 · the callout: a big quotation mark as ascii art, the quote beside it */
+  .q8{margin:12px 0 16px;display:flex;gap:14px;align-items:flex-start}
+  .q8 .t{font-size:13.5px;text-shadow:none;padding-top:2px}
+  .q8 .t .m{color:var(--phosphor-dim)}
+  .q8 .meta{display:block;margin-top:2px}
+  .q8 pre.art{margin:0;flex:0 0 auto;font-family:var(--font-body);font-size:13px;line-height:1.05;color:var(--phosphor-dim);text-shadow:none;letter-spacing:0}
+  .q8 pre.art.lit{color:var(--phosphor);text-shadow:var(--glow)}
+  .q8 .glyph{flex:0 0 auto;font-family:var(--font-display);font-size:96px;line-height:.55;color:var(--phosphor-dim);text-shadow:none;margin:10px 2px 0 -4px}
+  pre.frame{margin:12px 0 16px;font-family:var(--font-body);font-size:13px;line-height:1.3;color:var(--phosphor);text-shadow:none;white-space:pre}
+  pre.frame .edge{color:var(--phosphor-dim)}
+  pre.frame .who{color:var(--phosphor-dim)}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>Quote marks · six hands</h1>
+  <div class="sub">the same quote, closed, on the same page · a sketch, not a build · 2026-10-13</div>
+
+  <!-- 0 -->
+  <section class="panel">
+    <div class="eyebrow"><span class="n">0</span><b>as it is now</b><span>plex mono · left rule · one line</span></div>
+    <h2>The resolution — invert it</h2>
+    <p>Left alone, the harness skill lands as plumbing: it lives in <code>.claude/skills/</code>, which CLAUDE.md excludes from the knowledge graph, so the palace cannot see its own organ. The fix is to invert the relationship:</p>
+    <div class="q0"><span class="t"><span class="m">“</span>The map is not the territory, but a good map knows where it lives.<span class="m">”</span> <span class="meta">— Alfred Korzybski (adapted) ◐</span></span><span class="plus">[+]</span></div>
+    <ul><li>the <b>canon page is the organ</b> — in the graph, linkable, weaveable, with its own <code>forward_vector</code>;</li><li>the <code>.claude/skills/…</code> <b>file is a thin shim</b> — a harness-fired pointer that says “read the canon page and dispatch per it.”</li></ul>
+  </section>
+
+  <!-- 1 -->
+  <section class="panel">
+    <div class="eyebrow"><span class="n">1</span><b>the other hand</b><span>vt323, lowercase, body size · the display face as a different voice</span></div>
+    <h2>The resolution — invert it</h2>
+    <p>Left alone, the harness skill lands as plumbing: it lives in <code>.claude/skills/</code>, which CLAUDE.md excludes from the knowledge graph, so the palace cannot see its own organ. The fix is to invert the relationship:</p>
+    <div class="q1"><span class="t"><span class="m">“</span>the map is not the territory, but a good map knows where it lives.<span class="m">”</span> <span class="meta" style="font-family:var(--font-body);text-transform:none">— Alfred Korzybski (adapted) ◐</span></span><span class="plus">[+]</span></div>
+    <ul><li>the <b>canon page is the organ</b> — in the graph, linkable, weaveable, with its own <code>forward_vector</code>;</li><li>the <code>.claude/skills/…</code> <b>file is a thin shim</b> — a harness-fired pointer that says “read the canon page and dispatch per it.”</li></ul>
+  </section>
+
+  <!-- 2 -->
+  <section class="panel">
+    <div class="eyebrow"><span class="n">2</span><b>hung from the right margin</b><span>two thirds wide, ragged left, the rule on the right</span></div>
+    <h2>The resolution — invert it</h2>
+    <p>Left alone, the harness skill lands as plumbing: it lives in <code>.claude/skills/</code>, which CLAUDE.md excludes from the knowledge graph, so the palace cannot see its own organ. The fix is to invert the relationship:</p>
+    <div class="q2"><span class="t"><span class="m">“</span>The map is not the territory, but a good map knows where it lives.<span class="m">”</span></span><span class="meta">— <span class="who">Alfred Korzybski</span> (adapted) ◐ &nbsp;<span class="plus">[+]</span></span></div>
+    <ul><li>the <b>canon page is the organ</b> — in the graph, linkable, weaveable, with its own <code>forward_vector</code>;</li><li>the <code>.claude/skills/…</code> <b>file is a thin shim</b> — a harness-fired pointer that says “read the canon page and dispatch per it.”</li></ul>
+  </section>
+
+  <!-- 1+2 -->
+  <section class="panel">
+    <div class="eyebrow"><span class="n">1+2</span><b>the other hand, hung right</b><span>my pick · vt323 lowercase, right-justified, attribution beneath</span></div>
+    <h2>The resolution — invert it</h2>
+    <p>Left alone, the harness skill lands as plumbing: it lives in <code>.claude/skills/</code>, which CLAUDE.md excludes from the knowledge graph, so the palace cannot see its own organ. The fix is to invert the relationship:</p>
+    <div class="q12"><span class="t"><span class="m">“</span>the map is not the territory, but a good map knows where it lives.<span class="m">”</span></span><span class="meta">— <span class="who">Alfred Korzybski</span> (adapted) ◐ &nbsp;<span class="plus">[+]</span></span></div>
+    <ul><li>the <b>canon page is the organ</b> — in the graph, linkable, weaveable, with its own <code>forward_vector</code>;</li><li>the <code>.claude/skills/…</code> <b>file is a thin shim</b> — a harness-fired pointer that says “read the canon page and dispatch per it.”</li></ul>
+  </section>
+
+  <!-- 3 -->
+  <section class="panel">
+    <div class="eyebrow"><span class="n">3</span><b>it arrives</b><span>types on once when it scrolls into view, 20 ms a character, the cursor rests after · scroll away and back to see it again</span></div>
+    <h2>The resolution — invert it</h2>
+    <p>Left alone, the harness skill lands as plumbing: it lives in <code>.claude/skills/</code>, which CLAUDE.md excludes from the knowledge graph, so the palace cannot see its own organ. The fix is to invert the relationship:</p>
+    <div class="q3"><span class="t" data-type="“The map is not the territory, but a good map knows where it lives.”"></span><span class="meta cursor" data-after="— Alfred Korzybski (adapted) ◐"></span></div>
+    <ul><li>the <b>canon page is the organ</b> — in the graph, linkable, weaveable, with its own <code>forward_vector</code>;</li><li>the <code>.claude/skills/…</code> <b>file is a thin shim</b> — a harness-fired pointer that says “read the canon page and dispatch per it.”</li></ul>
+  </section>
+
+  <!-- 4 -->
+  <section class="panel">
+    <div class="eyebrow"><span class="n">4</span><b>burned in</b><span>phosphor-white with the strong glow, the heading's treatment at body size</span></div>
+    <h2>The resolution — invert it</h2>
+    <p>Left alone, the harness skill lands as plumbing: it lives in <code>.claude/skills/</code>, which CLAUDE.md excludes from the knowledge graph, so the palace cannot see its own organ. The fix is to invert the relationship:</p>
+    <div class="q4"><span class="t"><span class="m">“</span>The map is not the territory, but a good map knows where it lives.<span class="m">”</span> <span class="meta">— Alfred Korzybski (adapted) ◐</span></span><span class="plus">[+]</span></div>
+    <ul><li>the <b>canon page is the organ</b> — in the graph, linkable, weaveable, with its own <code>forward_vector</code>;</li><li>the <code>.claude/skills/…</code> <b>file is a thin shim</b> — a harness-fired pointer that says “read the canon page and dispatch per it.”</li></ul>
+  </section>
+
+  <!-- 5 -->
+  <section class="panel">
+    <div class="eyebrow"><span class="n">5</span><b>inverse attribution</b><span>who said it in reversed video, like an active tab</span></div>
+    <h2>The resolution — invert it</h2>
+    <p>Left alone, the harness skill lands as plumbing: it lives in <code>.claude/skills/</code>, which CLAUDE.md excludes from the knowledge graph, so the palace cannot see its own organ. The fix is to invert the relationship:</p>
+    <div class="q5"><span class="t"><span class="m">“</span>The map is not the territory, but a good map knows where it lives.<span class="m">”</span></span><span class="chip">— Alfred Korzybski</span><span class="meta">(adapted) ◐</span><span class="plus">[+]</span></div>
+    <ul><li>the <b>canon page is the organ</b> — in the graph, linkable, weaveable, with its own <code>forward_vector</code>;</li><li>the <code>.claude/skills/…</code> <b>file is a thin shim</b> — a harness-fired pointer that says “read the canon page and dispatch per it.”</li></ul>
+  </section>
+
+  <!-- 6 -->
+  <section class="panel">
+    <div class="eyebrow"><span class="n">6</span><b>hanging quote mark</b><span>a large vt323 “ hung into the margin, no rule</span></div>
+    <h2>The resolution — invert it</h2>
+    <p>Left alone, the harness skill lands as plumbing: it lives in <code>.claude/skills/</code>, which CLAUDE.md excludes from the knowledge graph, so the palace cannot see its own organ. The fix is to invert the relationship:</p>
+    <div class="q6"><span class="big">“</span><span class="t">The map is not the territory, but a good map knows where it lives.<span class="m">”</span> <span class="meta">— Alfred Korzybski (adapted) ◐</span></span><span class="plus">[+]</span></div>
+    <ul><li>the <b>canon page is the organ</b> — in the graph, linkable, weaveable, with its own <code>forward_vector</code>;</li><li>the <code>.claude/skills/…</code> <b>file is a thin shim</b> — a harness-fired pointer that says “read the canon page and dispatch per it.”</li></ul>
+  </section>
+
+  <!-- 7a -->
+  <section class="panel">
+    <div class="eyebrow"><span class="n">7a</span><b>floating behind</b><span>semitransparent, scrolls a little slower than the page · scroll up and down through it</span></div>
+    <h2>The resolution — invert it</h2>
+    <p>Left alone, the harness skill lands as plumbing: it lives in <code>.claude/skills/</code>, which CLAUDE.md excludes from the knowledge graph, so the palace cannot see its own organ. The fix is to invert the relationship:</p>
+    <div class="q7 behind" data-parallax="-0.12"><span class="t"><span class="m">“</span>The map is not the territory, but a good map knows where it lives.<span class="m">”</span> <span class="meta">— Alfred Korzybski (adapted) ◐</span></span></div>
+    <ul><li>the <b>canon page is the organ</b> — in the graph, linkable, weaveable, with its own <code>forward_vector</code>;</li><li>the <code>.claude/skills/…</code> <b>file is a thin shim</b> — a harness-fired pointer that says “read the canon page and dispatch per it.”</li></ul>
+    <p>So the question “how is a skill different from an entry that is invoked?” has a plain answer: <b>it isn't.</b> Enchanting a page <em>is</em> invoking it <em>is</em> running it as a skill. Every entry is a latent skill; what makes some <em>feel</em> like skills is that they carry a defined job.</p>
+  </section>
+
+  <!-- 7b -->
+  <section class="panel">
+    <div class="eyebrow"><span class="n">7b</span><b>floating in front</b><span>brighter, scrolls a little faster than the page · the same move, the other way</span></div>
+    <h2>The resolution — invert it</h2>
+    <p>Left alone, the harness skill lands as plumbing: it lives in <code>.claude/skills/</code>, which CLAUDE.md excludes from the knowledge graph, so the palace cannot see its own organ. The fix is to invert the relationship:</p>
+    <div class="q7 front" data-parallax="0.12"><span class="t"><span class="m">“</span>The map is not the territory, but a good map knows where it lives.<span class="m">”</span> <span class="meta">— Alfred Korzybski (adapted) ◐</span></span></div>
+    <ul><li>the <b>canon page is the organ</b> — in the graph, linkable, weaveable, with its own <code>forward_vector</code>;</li><li>the <code>.claude/skills/…</code> <b>file is a thin shim</b> — a harness-fired pointer that says “read the canon page and dispatch per it.”</li></ul>
+    <p>So the question “how is a skill different from an entry that is invoked?” has a plain answer: <b>it isn't.</b> Enchanting a page <em>is</em> invoking it <em>is</em> running it as a skill. Every entry is a latent skill; what makes some <em>feel</em> like skills is that they carry a defined job.</p>
+  </section>
+
+  <!-- 8a -->
+  <section class="panel">
+    <div class="eyebrow"><span class="n">8a</span><b>the callout · half-block art</b><span>an opening quotation mark drawn in cp437 half blocks, dim, the quote beside it</span></div>
+    <h2>The resolution — invert it</h2>
+    <p>Left alone, the harness skill lands as plumbing: it lives in <code>.claude/skills/</code>, which CLAUDE.md excludes from the knowledge graph, so the palace cannot see its own organ. The fix is to invert the relationship:</p>
+    <div class="q8"><pre class="art"> ▄▀ ▄▀
+ ██ ██
+ ▀▀ ▀▀</pre><span class="t">The map is not the territory, but a good map knows where it lives.<span class="m">”</span><span class="meta">— <span class="who">Alfred Korzybski</span> (adapted) ◐ &nbsp;<span class="plus">[+]</span></span></span></div>
+    <ul><li>the <b>canon page is the organ</b> — in the graph, linkable, weaveable, with its own <code>forward_vector</code>;</li><li>the <code>.claude/skills/…</code> <b>file is a thin shim</b> — a harness-fired pointer that says “read the canon page and dispatch per it.”</li></ul>
+  </section>
+
+  <!-- 8b -->
+  <section class="panel">
+    <div class="eyebrow"><span class="n">8b</span><b>the callout · the glyph, huge</b><span>vt323's own “ at 96px, hung into the margin — what 6 wanted to be</span></div>
+    <h2>The resolution — invert it</h2>
+    <p>Left alone, the harness skill lands as plumbing: it lives in <code>.claude/skills/</code>, which CLAUDE.md excludes from the knowledge graph, so the palace cannot see its own organ. The fix is to invert the relationship:</p>
+    <div class="q8"><span class="glyph">“</span><span class="t">The map is not the territory, but a good map knows where it lives.<span class="m">”</span><span class="meta">— <span class="who">Alfred Korzybski</span> (adapted) ◐ &nbsp;<span class="plus">[+]</span></span></span></div>
+    <ul><li>the <b>canon page is the organ</b> — in the graph, linkable, weaveable, with its own <code>forward_vector</code>;</li><li>the <code>.claude/skills/…</code> <b>file is a thin shim</b> — a harness-fired pointer that says “read the canon page and dispatch per it.”</li></ul>
+  </section>
+
+  <!-- 8c -->
+  <section class="panel">
+    <div class="eyebrow"><span class="n">8c</span><b>the callout · box-drawing frame</b><span>a cp437 double-rule frame, the quotation mark set into its top edge, the attribution into its bottom</span></div>
+    <h2>The resolution — invert it</h2>
+    <p>Left alone, the harness skill lands as plumbing: it lives in <code>.claude/skills/</code>, which CLAUDE.md excludes from the knowledge graph, so the palace cannot see its own organ. The fix is to invert the relationship:</p>
+<pre class="frame"><span class="edge">╔═</span> “ <span class="edge">═══════════════════════════════════════════════════╗</span>
+<span class="edge">║</span>  The map is not the territory, but a good map knows   <span class="edge">║</span>
+<span class="edge">║</span>  where it lives.                                       <span class="edge">║</span>
+<span class="edge">╚═══════════════════════</span> <span class="who">— Alfred Korzybski (adapted) ◐</span> <span class="edge">═╝</span></pre>
+    <ul><li>the <b>canon page is the organ</b> — in the graph, linkable, weaveable, with its own <code>forward_vector</code>;</li><li>the <code>.claude/skills/…</code> <b>file is a thin shim</b> — a harness-fired pointer that says “read the canon page and dispatch per it.”</li></ul>
+  </section>
+
+  <!-- 8d -->
+  <section class="panel">
+    <div class="eyebrow"><span class="n">8d</span><b>the callout · lit art, hung right</b><span>8a's half-block mark in phosphor with the glow, the quote hung from the right rule as in 2</span></div>
+    <h2>The resolution — invert it</h2>
+    <p>Left alone, the harness skill lands as plumbing: it lives in <code>.claude/skills/</code>, which CLAUDE.md excludes from the knowledge graph, so the palace cannot see its own organ. The fix is to invert the relationship:</p>
+    <div class="q8" style="margin-left:auto;max-width:72%;justify-content:flex-end"><pre class="art lit"> ▄▀ ▄▀
+ ██ ██
+ ▀▀ ▀▀</pre><span class="t" style="text-align:right;border-right:2px solid var(--phosphor-dim);padding-right:12px">The map is not the territory, but a good map knows where it lives.<span class="m">”</span><span class="meta">— <span class="who">Alfred Korzybski</span> (adapted) ◐ &nbsp;<span class="plus">[+]</span></span></span></div>
+    <ul><li>the <b>canon page is the organ</b> — in the graph, linkable, weaveable, with its own <code>forward_vector</code>;</li><li>the <code>.claude/skills/…</code> <b>file is a thin shim</b> — a harness-fired pointer that says “read the canon page and dispatch per it.”</li></ul>
+  </section>
+</div>
+
+<script>
+  // 7 · floating: each mark is shifted by a fraction of its distance from the
+  // viewport's middle, so as the page scrolls it moves a little slower (a
+  // negative factor: it lags, behind) or faster (positive: it leads, in front)
+  // than the words around it. Scroll-driven, so no timed motion; one
+  // requestAnimationFrame per scroll event.
+  (function () {
+    const marks = [...document.querySelectorAll('.q7')];
+    let ticking = false;
+    function place() {
+      const mid = innerHeight / 2;
+      for (const m of marks) {
+        const k = parseFloat(m.dataset.parallax || '0');
+        const r = m.getBoundingClientRect();
+        const centre = r.top + r.height / 2 - (m._shift || 0);
+        const shift = (centre - mid) * k;
+        m._shift = shift;
+        m.style.transform = `translateY(${shift.toFixed(1)}px)`;
+      }
+      ticking = false;
+    }
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(place); } }, { passive: true });
+    addEventListener('resize', place);
+    place();
+  })();
+</script>
+
+<script>
+  // 3 · type-on: the quote types itself when it scrolls into view, 20 ms a
+  // character in steps (the design system's only allowed text motion), then
+  // the attribution appears and the cursor rests. Re-arms when it leaves view.
+  (function () {
+    const el = document.querySelector('.q3 .t');
+    const after = document.querySelector('.q3 .meta');
+    const text = el.dataset.type;
+    let timer = null;
+    function type() {
+      clearTimeout(timer); el.textContent = ''; after.textContent = ''; after.classList.remove('cursor');
+      let i = 0;
+      (function step() {
+        if (i <= text.length) { el.textContent = text.slice(0, i); i += 1; timer = setTimeout(step, 20); }
+        else { after.textContent = after.dataset.after; after.classList.add('cursor'); }
+      })();
+    }
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) type(); else { clearTimeout(timer); el.textContent = ''; after.textContent = ''; } }), { threshold: 0.6 });
+    io.observe(document.querySelector('.q3'));
+  })();
+</script>
+</body>
+</html>

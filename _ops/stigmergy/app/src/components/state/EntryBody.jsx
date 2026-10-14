@@ -559,6 +559,9 @@ function renderBlock(block, ctx, key) {
             color: 'var(--phosphor-white)', textShadow: 'var(--glow-strong)',
             textTransform: 'uppercase', letterSpacing: '.02em',
             margin: block.level === 1 ? '24px 0 8px' : '18px 0 6px',
+            // a section heading clears a quote callout, so one never bleeds
+            // past the section it was laid in
+            clear: block.level <= 2 ? 'both' : undefined,
           }}
         >
           {renderInline(block.text, { ...ctx, keyPrefix: `${key}-` })}
@@ -758,10 +761,12 @@ function blockText(b) {
   }
 }
 
-// Lay each quote after the first block whose words carry its `near` phrase —
+// Lay each quote at the first block whose words carry its `near` phrase —
 // the same normalization the placer and the server use (_ops/quotes/schema.mjs),
-// so the three never disagree about where a quote belongs. A quote whose
-// phrase is no longer on the page goes to the end, marked as moved.
+// so the three never disagree about where a quote belongs. The mark is a
+// right-floated callout rendered just BEFORE that block, so the paragraph's
+// words flow around it. A quote whose phrase is no longer on the page goes to
+// the end, marked as moved.
 function layQuotes(blocksList, quotes) {
   const at = new Map();
   const moved = [];
@@ -808,11 +813,13 @@ export default function EntryBody({
         if (!marks) return renderBlock(b, ctx, `b${j}`);
         return (
           <React.Fragment key={`b${j}-with-quotes`}>
-            {renderBlock(b, ctx, `b${j}`)}
             {marks.map((q) => mark(q))}
+            {renderBlock(b, ctx, `b${j}`)}
           </React.Fragment>
         );
       })}
+      {/* a floated callout near the end must not spill past the body */}
+      <div style={{ clear: 'both' }} />
       {laid.moved.length ? (
         <div data-testid="quotes-moved" style={{ marginTop: 18, borderTop: '1px dotted var(--phosphor-dim)', paddingTop: 8 }}>
           <div style={{
