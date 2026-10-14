@@ -74,19 +74,25 @@ def predict(n, f0, B):
     return n * f0 * np.sqrt(1 + B * n.astype(float) ** 2)
 
 
-def track(path, name, f0_guess):
+def track(path, name, f0_guess, quiet=False):
+    """Partials above ~0.45*sr (or the 64 slots) are never measured: they
+    carry the fit's value with alive=0, so the table stays 64 wide."""
     x, sr = mono(path)
     onset = int(np.argmax(np.abs(x) > 0.05 * np.abs(x).max()))
     x = x[onset:]
     dur = len(x) / sr
     n_all = np.arange(1, NP + 1)
+    n_max = int(min(NP, (0.45 * sr) // (f0_guess * 1.15)))   # cycle 9: treble notes
+    n_meas = n_all[:n_max]
 
     # 1 — bootstrap the ladder on a long window just after the attack
     Sdb, df = spectrum(x, sr, 0.08, 2 ** 15)
     f0, B = f0_guess, 0.0
     got_f, got_a, got_n = [], [], []
-    for n in n_all:
+    for n in n_meas:
         fp = predict(np.array([n]), f0, B)[0]
+        if fp > 0.45 * sr:                               # stiff treble: stop below Nyquist
+            break
         f, a = peak_near(Sdb, df, fp, 0.22 * f0)
         got_n.append(n); got_f.append(f); got_a.append(a)
         if n >= 6:                                       # refit as we climb
@@ -96,13 +102,15 @@ def track(path, name, f0_guess):
     nn, ff, aa = map(np.array, (got_n, got_f, got_a))
     ok = aa > aa.max() - 60
     f0, B = fit_B(nn[ok], ff[ok])
-    print(f"{name}: global fit f0={f0:.3f} Hz  B={B:.3e}  ({ok.sum()} partials above -60 dB)")
+    if not quiet:
+      print(f"{name}: global fit f0={f0:.3f} Hz  B={B:.3e}  ({ok.sum()} partials above -60 dB)")
 
     # 2 — 16 frames, log-spaced from the attack into the decay
     t_end = min(dur - 0.5, 8.0)
     times = np.geomspace(0.03, t_end, NFR)
     win = 2 ** 13 if f0 < 80 else 2 ** 12
     pred = predict(n_all, f0, B)
+    n_max = int(min(n_max, (pred < 0.45 * sr).sum()))
     cents = np.zeros((NFR, NP)); level = np.zeros((NFR, NP)); alive = np.zeros((NFR, NP), bool)
     Bf = np.zeros(NFR)
     floor_db = None
@@ -110,9 +118,10 @@ def track(path, name, f0_guess):
         Sdb, df = spectrum(x, sr, t, win)
         if floor_db is None:
             floor_db = np.percentile(Sdb[: int(sr * 0.45 / df)], 20)
-        fr, lv = zip(*(peak_near(Sdb, df, p, 0.18 * f0) for p in pred))
+        fr, lv = zip(*(peak_near(Sdb, df, p, 0.18 * f0) if k < n_max else (p, -300.0)
+                       for k, p in enumerate(pred)))
         fr, lv = np.array(fr), np.array(lv)
-        noise = np.percentile(Sdb[: int(min(pred[-1] * 1.1, sr * 0.45) / df)], 50)
+        noise = np.percentile(Sdb[: int(min(pred[n_max - 1] * 1.1, sr * 0.45) / df)], 50)
         # a partial counts only if it stands above the noise, sits near its
         # prediction, and the window can resolve it to better than ~5 cents
         # (at 55 Hz an 8192-sample window cannot pin partial 1 that finely)
@@ -126,10 +135,10 @@ def track(path, name, f0_guess):
             _, Bf[i] = fit_B(n_all[al], fr[al], 10 ** (lv[al] / 20))
         else:
             Bf[i] = np.nan
-    amp = 10 ** ((level - level.max()) / 20) * alive
+    amp = 10 ** ((level - level[alive].max() if alive.any() else level.max()) / 20) * alive
     return dict(name=name, f0=f0, B=B, times=times, cents=cents, amp=amp,
                 alive=alive, B_frame=Bf, fit_cents=1200 * np.log2(pred / (n_all * f0)),
-                sr=sr, dur=dur)
+                sr=sr, dur=dur, n_max=n_max)
 
 
 def effective_bend(r):

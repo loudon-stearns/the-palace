@@ -155,6 +155,18 @@ if __name__ == "__main__":
     real = HERE.parent / "trajectory-library/piano-low-A1.wtb.json"   # cycle 8
     if real.exists():
         data["wtb"]["piano_real"] = json.load(open(real))["frames"]
+    # cycle 9: the first shelf of the measured library. Modal objects are
+    # rank-filed and carry a slot mask: slots above their last mode are silent.
+    data["mask"] = {}
+    for key, fname in (("piano_A4", "piano-A4"), ("piano_Fs6", "piano-Fs6"),
+                       ("bell_real", "bell-brooklyn-C6"), ("vibes_real", "vibraphone-C4"),
+                       ("marimba_real", "marimba-C3"), ("bowl_real", "singing-bowl-D4")):
+        fp = HERE.parent / f"trajectory-library/{fname}.wtb.json"
+        if fp.exists():
+            d = json.load(open(fp))
+            data["wtb"][key] = d["frames"]
+            if "n_modes" in d:
+                data["mask"][key] = [1 if k < d["n_modes"] else 0 for k in range(NP)]
     json.dump(data, open(HERE / "dual-data.json", "w"), separators=(",", ":"))
 
     # cube walls figure

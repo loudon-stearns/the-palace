@@ -95,7 +95,7 @@ footer{font-family:var(--mono);font-size:11px;color:var(--fg3);display:flex;just
     </div>
     <div class="grid">
       <label>Wavetable B</label>
-      <select id="wtb"><option value="bell">bell dissolving into harmony</option><option value="piano">piano string settling (June guess)</option><option value="piano_real">real piano, low A (measured)</option><option value="flat">the flat line (pure harmony)</option></select>
+      <select id="wtb"><option value="bell">bell dissolving into harmony</option><option value="piano">piano string settling (June guess)</option><option value="piano_real">real piano, low A (measured)</option><option value="piano_A4">real piano, A4 440 Hz (measured)</option><option value="piano_Fs6">real piano, F♯6 (measured, stiff treble)</option><option value="bell_real">real bell, Brooklyn (measured modes)</option><option value="vibes_real">real vibraphone (measured modes)</option><option value="marimba_real">real marimba (measured modes)</option><option value="bowl_real">real singing bowl (measured modes)</option><option value="flat">the flat line (pure harmony)</option></select>
       <span></span><span></span>
 
       <label>τ<sub>A</sub> · organ timbre</label>
@@ -156,6 +156,8 @@ const NP = DATA.n_partials;
 const WTA = DATA.wta;                       // [48][64]
 const WTB = {bell: DATA.wtb.bell, piano: DATA.wtb.piano, piano_real: DATA.wtb.piano_real || DATA.wtb.piano,
              flat: DATA.wtb.piano.map(r => r.map(() => 0))};
+for(const k of ['piano_A4','piano_Fs6','bell_real','vibes_real','marimba_real','bowl_real']) if(DATA.wtb[k]) WTB[k]=DATA.wtb[k];
+const MASK = DATA.mask || {};   // modal objects: slots above the last mode stay silent
 
 // ── state ────────────────────────────────────────────────────────────────
 const S = {ta:0.30, tb:0, bd:1.0, wtb:'bell', mode:'strike', settle:3.0,
@@ -223,7 +225,7 @@ function tick(){
         const n=k+1, f=n*v.f0*Math.pow(2, bd*C[k]/1200);
         let env=1;
         if(S.mode==='strike'){ const tau=2.6/(1+0.07*(n-1)); env=Math.exp(-vage/tau); }
-        const amp = f<ctx.sampleRate*0.45 ? A[k]*env : 0;
+        const amp = (f<ctx.sampleRate*0.45 && (!MASK[S.wtb] || MASK[S.wtb][k])) ? A[k]*env : 0;
         v.osc[k].frequency.setTargetAtTime(f, now, 0.015);
         v.gains[k].gain.setTargetAtTime(amp/Math.max(1,voices.length*0.8), now, vage<0.05?0.003:0.03);
       }
