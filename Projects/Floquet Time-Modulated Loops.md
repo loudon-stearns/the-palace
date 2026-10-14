@@ -495,7 +495,7 @@ Stretch goals are flagged as such in the manifest. The minimum viable Stage 1 is
 
 *See YAML `forward_vector` field above.*
 
-The first concrete move is the Build Manifest below: the next Claude (Claude Code, with sub-agents) executes it. Stage 1 ships when every media item is built, every validity check passes, and the codebox source is verified against the Python reference. The session ships when Loudon has sat with the artifacts, lived with the language, and decided where to set the cross-domain hook. The arc ships across five sessions and roughly one quarter of Loudon Live's curriculum.
+The first concrete move is the Build Manifest below: the next Claude (Claude Code, with sub-agents) executes it. Stage 1 ships when every media item is built, every validity check passes, and the codebox source is verified against the Python reference. The session ships when Loudon has sat with the artifacts, lived with the language, and decided where to set the cross-domain hook. The arc ships across five sessions.
 
 The deeper aspiration: *to be the entry every periodically-modulated audio object eventually links back to.* Most of audio-engineering's "modulation" lives inside Floquet's domain without naming it. Naming it is the move.
 

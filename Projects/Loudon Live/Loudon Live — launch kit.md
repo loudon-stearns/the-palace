@@ -42,7 +42,7 @@ If you don't have a fixed schedule yet, drop the second line. Don't put a schedu
 
 Use this for the YouTube "About" section. ~120 words.
 
-> Loudon Live is a creative-technology workshop on stream — but the subject is sound and music, not just the tools that produce them.
+> Loudon Live is a creative-technology workshop on stream for electronic musicians — but the subject is sound and music, not just the tools that produce them.
 >
 > I build synthesizers, audio effects, and music-making tools, and I work on real music technique while I do it. The tools rotate — software, hardware, patching environments, code, paper — whatever fits the project that day.
 >

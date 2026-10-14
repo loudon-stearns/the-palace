@@ -37,7 +37,7 @@ The list is capped by intent, not by rule: if it grows past roughly a dozen item
 signal to triage, not to scroll. It was 43 open items and 66KB on 2026-08-25, which is how a
 worklist stops being read.
 
-**What this list feeds: [[Loudon Live]], Loudon's public self, building slowly.** An item earns a slot
+**What this list feeds: [[Loudon Live]], Loudon's teaching and coaching face, building slowly.** An item earns a slot
 here if it feeds that, or if it is cheap and unblocks something that does.
 
 ---

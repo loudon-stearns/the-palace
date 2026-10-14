@@ -76,11 +76,12 @@ Papert's *public* was not decoration. Mitchel Resnick built it into a spiral —
 **share**, reflect — where sharing is a step rather than an outcome. That step assumes an audience who
 are also making.
 
-[[Loudon Live]] has the publicness and not yet the peers: its audience largely watches. That is the
-same boundary [[Creative Coach]] reaches from the coaching side and Papert reaches from the learning
-side — two independent routes to one gap. The palace's position is that this is a stage rather than a
-defect: Loudon Live converges toward a classroom, and toward groups of makers each working alongside
-their own AI collaborator. Until it does, the share step here is aspirational.
+[[Loudon Live]]'s videos and livestreams have the publicness and not yet the peers: that audience
+largely watches. That is the same boundary [[Creative Coach]] reaches from the coaching side and Papert
+reaches from the learning side — two independent routes to one gap. Its in-person half is where the
+peers would be: one-on-one coaching already runs, and destination retreats with a cohort are on the horizon
+(2026-10-14). That is the classroom the broadcast converges toward, and the groups of makers each
+working alongside their own AI collaborator. Until a cohort meets, the share step here is aspirational.
 
 ## Forward Vectors
 

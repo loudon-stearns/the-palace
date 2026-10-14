@@ -127,7 +127,7 @@ The palace holds **355 typed entries** (by frontmatter `type`), inside a tree of
 
 **What the topology reveals about where the palace stands.** The philosophical core held its place at the top through every era — the March hubs are still the March hubs. Around them, two later layers accreted: agent infrastructure ([[Pages as Agents]], [[The Shop]], [[Maker]], [[Trickster]]) and the synthesizer/visual project families. The organism is now mostly developed connective tissue, not seedlings.
 
-**[[Loudon Live]]**, the palace's stated public destination, now takes part in its own relational logic: the 2026-09-24 map shows 17 outbound typed links and 32 inbound, and all four pillars are set. It points back at what feeds it. Its stage is still `sprout`.
+**[[Loudon Live]]**, Loudon's teaching and coaching face, with the palace beneath it as provenance, now takes part in its own relational logic: the 2026-09-24 map shows 17 outbound typed links and 32 inbound, and all four pillars are set. It points back at what feeds it. Its stage is still `sprout`.
 
 Eleven entries sit at `stage: composting`. Per §2's composting protocol each is owed a confirm-or-revive decision at the next Weave; that decision is outstanding.
 

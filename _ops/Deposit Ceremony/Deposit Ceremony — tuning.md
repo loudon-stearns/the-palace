@@ -83,3 +83,8 @@ What each deposit taught the ceremony. Each item names what the run showed and t
 - run · 2026-10-06 · v2.1 · D-2026-10-06-TOOLKIT · taught item 19
 - run · 2026-10-12 · v2.1 · D-2026-10-06-WAVETABLE · taught items 20–22
 - run · 2026-10-13 · v2.1 · D-2026-10-13-DAILY-PAGE · taught item 23
+
+## From the Loudon Live portrait — 2026-10-14
+
+24. **An approved route to a steward was never checked against `REGISTRY.json`.** The map sent the Floquet note to its steward and Loudon approved it; the project has no steward, so the note could not go. It was routed by hand as a one-line edit on his word. **Spec change owed:** before the map names a steward route, check `_ops/agents/permanent/REGISTRY.json`.
+- run · 2026-10-14 · v2.1 · D-2026-10-14-LOUDLIVE · taught item 24

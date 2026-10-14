@@ -105,7 +105,7 @@ The recording control panel — the operator's surface, on a second screen — w
 
 ## Cross-Domain Resonances
 
-- **[[Loudon Live]]** — RTM is one part of Loudon's public self, beside the palace in public, streams and builds, and music. Not the whole of it; one thing it does.
+- **[[Loudon Live]]** — RTM is one part of Loud'n Live, Loudon's teaching and coaching face, beside the videos and livestreams for electronic musicians and his one-on-one coaching. Not the whole of it; one thing it does.
 - **[[Autodidact Polymaths]]** — the method made visible. Reading the whole manual and testing every claim *is* the posture, demonstrated rather than described.
 - **[[Progressive Staging]]** — the productive contradiction. Staging insists every stage is a complete pedagogical moment; RTM's units are deliberately not moments. Completeness only teaches at catalog scale. Both are true and the palace holds both.
 - **[[Loudon Live Post-producer]]** — the batch pipeline is exactly the apprenticeship it was specced for.
