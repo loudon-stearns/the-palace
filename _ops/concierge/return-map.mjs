@@ -41,7 +41,9 @@ const sinceArg = argv.includes('--since') ? argv[argv.indexOf('--since') + 1] : 
 // missing rather than assuming it was empty.
 function probe(label, cmd, { cwd = ROOT, allowFail = false } = {}) {
   try {
-    const out = execSync(cmd, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+    // GIT_OPTIONAL_LOCKS=0: a `git status` here must not take the shared
+    // index's lock out from under a committer (server/door.js).
+    const out = execSync(cmd, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], env: { ...process.env, GIT_OPTIONAL_LOCKS: '0' } });
     return { label, cmd, ok: true, out: out.replace(/\s+$/, '') };
   } catch (e) {
     const out = `${e.stdout || ''}${e.stderr || ''}`.replace(/\s+$/, '');

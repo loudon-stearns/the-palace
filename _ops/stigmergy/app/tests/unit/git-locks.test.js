@@ -89,12 +89,13 @@ describe('git-locks', () => {
     g('add', '--', 'Foo.md');
     writeFileSync(indexLock, '');
     backdate(indexLock, 120);
-    const r = spawnSync('node', [CLI, '--kind', 'edit', '--summary', 'x', '--verify', 'verified', '--dry-run'], {
+    const r = spawnSync('node', [CLI, '--kind', 'edit', '--summary', 'x', '--verify', 'verified', '--path', 'Foo.md', '--dry-run'], {
       cwd: root, encoding: 'utf8', env: { ...process.env, PALACE_ROOT: root },
     });
     expect(r.status).toBe(0);
     expect(r.stdout).toMatch(/edit: x/);
-    expect(r.stderr).toMatch(/dry run, not touching \.git\/index\.lock/);
+    // A dry run builds its message in a throwaway index: it looks at no lock at all.
+    expect(r.stderr).not.toMatch(/index\.lock/);
     expect(existsSync(indexLock)).toBe(true);
   });
 

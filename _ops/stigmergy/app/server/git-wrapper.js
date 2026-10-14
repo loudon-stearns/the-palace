@@ -15,6 +15,10 @@ export function execGit(palaceRoot, args, { allowFail = false } = {}) {
   return new Promise((resolvePromise, rejectPromise) => {
     execFile('git', args, {
       cwd: resolve(palaceRoot),
+      // Readers never take git's optional index lock: a status or diff that
+      // refreshes the index would otherwise compete with a committer for
+      // index.lock. Writes still take the locks they need.
+      env: { ...process.env, GIT_OPTIONAL_LOCKS: '0' },
       maxBuffer: MAX_BUFFER,
       windowsHide: true,
     }, (err, stdout, stderr) => {

@@ -89,11 +89,20 @@ describe('palace-commit', () => {
     writeFileSync(resolve(root, 'Foo.md'), '---\ntitle: Foo\nstage: sprout\n---\nx\n');
     g('add', '--', 'Foo.md');
     const headBefore = g('rev-parse', 'HEAD').trim();
-    const out = execFileSync('node', [CLI, '--kind', 'edit', '--summary', 'x', '--verify', 'verified', '--dry-run'], {
+    const out = execFileSync('node', [CLI, '--kind', 'edit', '--summary', 'x', '--verify', 'verified', '--path', 'Foo.md', '--dry-run'], {
       cwd: root, encoding: 'utf8', env: { ...process.env, PALACE_ROOT: root },
     });
     expect(out).toMatch(/edit: x/);
     expect(g('rev-parse', 'HEAD').trim()).toBe(headBefore);
+  });
+
+  test('--dry-run stages nothing: it builds the message in a throwaway index', () => {
+    writeFileSync(resolve(root, 'Foo.md'), '---\ntitle: Foo\nstage: sprout\n---\nx\n');
+    const out = execFileSync('node', [CLI, '--kind', 'edit', '--summary', 'x', '--verify', 'verified', '--path', 'Foo.md', '--dry-run'], {
+      cwd: root, encoding: 'utf8', env: { ...process.env, PALACE_ROOT: root },
+    });
+    expect(out).toMatch(/Palace-Stage: Foo: seed->sprout/);
+    expect(g('diff', '--cached', '--name-only').trim()).toBe('');
   });
 
   test('clearStaleLocks keeps a fresh index.lock and removes an old one nobody holds', () => {
@@ -118,8 +127,8 @@ describe('palace-commit', () => {
     const lock = resolve(root, '.git', 'index.lock');
     writeFileSync(lock, ''); // fresh: another session could be mid-commit
     const headBefore = g('rev-parse', 'HEAD').trim();
-    const r = spawnSync('node', [CLI, '--kind', 'edit', '--summary', 'x', '--verify', 'verified'], {
-      cwd: root, encoding: 'utf8', env: { ...process.env, PALACE_ROOT: root },
+    const r = spawnSync('node', [CLI, '--kind', 'edit', '--summary', 'x', '--verify', 'verified', '--path', 'Foo.md'], {
+      cwd: root, encoding: 'utf8', env: { ...process.env, PALACE_ROOT: root, PALACE_DOOR_INDEX_PATIENCE_MS: '3000' },
     });
     expect(r.status).toBe(75);
     expect(r.stderr).toMatch(/index\.lock is held/);

@@ -31,7 +31,7 @@ describe('runHook (against a message file)', () => {
     const out = readFileSync(msgPath, 'utf8');
     expect(out).toMatch(/quick fix from obsidian/);
     expect(out).toMatch(/Palace-Kind: ops/);
-    expect(out).toMatch(/Palace-Verify: couldnt/);
+    expect(out).not.toMatch(/Palace-Verify:/); // no default: nobody made that call
     expect(out).toMatch(/Palace-Author: loudon/);
     expect(out).toMatch(/Palace-Annotated: commit-msg-hook/);
   });
@@ -67,7 +67,7 @@ describe('commit-msg hook installed in a real repo', () => {
     const msg = lastMsg();
     expect(msg).toMatch(/just did a thing/);
     expect(msg).toMatch(/Palace-Kind: ops/);
-    expect(msg).toMatch(/Palace-Verify: couldnt/);
+    expect(msg).not.toMatch(/Palace-Verify:/); // no default: nobody made that call
   });
 
   test('a conformant commit is recorded unchanged', () => {

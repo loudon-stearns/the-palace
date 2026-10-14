@@ -22,7 +22,7 @@
 // an unknown subject-kind is kept verbatim but colored as `other`.
 export const KNOWN_KINDS = [
   'deposit', 'edit', 'enrich', 'handoff', 'steward',
-  'weave', 'schema', 'ops', 'merge', 'mixed',
+  'weave', 'schema', 'ops', 'merge', 'mixed', 'return',
 ];
 
 // Other spellings of a known kind, read on the way in. The spec table defines

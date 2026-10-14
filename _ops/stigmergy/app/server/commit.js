@@ -32,6 +32,7 @@ import { tmpdir } from 'node:os';
 import { safePathspec } from './git.js';
 import { execGit } from './git-wrapper.js';
 import { clearStaleLocks, LockHeldError } from './git-locks.js';
+import { withDoor, trunkProblem, DoorBusyError } from './door.js';
 import { deriveTrailers, formatCommitMessage, parseNameStatus, VERIFY_VALUES } from '../src/lib/commit-spec.js';
 import { KNOWN_KINDS } from '../src/lib/commit-parse.js';
 import { diffEntryText } from '../src/lib/frontmatter-diff.js';
@@ -132,65 +133,69 @@ export async function commitSelected(palaceRoot, opts = {}) {
     safe.push(s);
   }
 
-  try {
-    await clearStaleLocks(palaceRoot, { tag: 'commit' });
-  } catch (e) {
-    if (e instanceof LockHeldError) return { ok: false, error: e.message };
-    throw e;
-  }
-
-  // ── stage ONLY the selected paths (never -A) ──
-  // A path that is already a staged deletion is skipped: `git add` dies on it
-  // ("pathspec did not match any files"), yet it has to be selectable, because
-  // a move is committed whole only when both of its sides are in the selection.
-  for (const p of safe) {
-    if (await isStagedDeletion(palaceRoot, p)) continue;
-    const r = await gitAsync(palaceRoot, [...LITERAL, 'add', '--', p], { allowFail: true });
-    if (r.failed) return { ok: false, error: `git add failed for "${p}": ${(r.stderr || '').trim()}` };
-  }
-
-  // ── derive trailers from the selected staged diff only ──
-  // Scoped by the same pathspecs the commit below takes, so the message
-  // describes exactly what is committed: a foreign staged file is left out, a
-  // selected folder brings its files, and a rename is read as one only when
-  // both of its sides are selected.
-  const rows = await stagedNameStatus(palaceRoot, safe);
-  const dpaths = [];
-  const mdChanges = [];
-  for (const { status, path, renamedFrom } of rows) {
-    dpaths.push(path);
-    if (!path.toLowerCase().endsWith('.md')) continue;
-    // before = the HEAD side (empty if added), after = staged blob (:path).
-    // A renamed entry's HEAD side lives at its OLD path. Reading HEAD:<new path>
-    // finds nothing, every frontmatter field then reads as newly added, and a
-    // pure move goes into the log as a birth (da73cb79: a false `born->sprout`).
-    const before = status === 'A' ? '' : (await gitAsync(palaceRoot, ['show', `HEAD:${renamedFrom ?? path}`], { allowFail: true })).stdout;
-    const after = status === 'D' ? '' : (await gitAsync(palaceRoot, ['show', `:${path}`], { allowFail: true })).stdout;
-    const d = diffEntryText(before, after);
-    mdChanges.push({ path, frontmatterChanges: d.frontmatterChanges, bodyChanged: d.bodyChanged, wasAdded: status === 'A' || (before === '' && after !== '') });
-  }
-
-  if (dpaths.length === 0) return { ok: false, error: 'nothing staged for the selected paths' };
-
-  // Say so (never block) when the selection holds half of a staged move.
-  const notes = (await halfSelectedMoves(palaceRoot, rows)).map((h) => {
-    const half = h.missing === h.from ? 'a bare add, logged as a new file' : 'a bare delete';
-    return `"${h.to}" looks like a staged move from "${h.from}", but "${h.missing}" was not selected, so this commit holds ${half}. The other half is still staged; select both to commit a move whole.`;
-  });
-
-  const trailers = deriveTrailers({ paths: dpaths, mdChanges, kind, verify, author, campaign, resolves });
-  const message = formatCommitMessage({ kind, scope, summary, body, trailers });
-
-  // ── commit exactly the selected pathspecs ──
+  // Everything from the first `git add` to the commit happens inside the door
+  // (./door.js): one lock shared with every other palace committer, so no
+  // other writer's git can interleave with this one on the shared index.
   const tmp = mkdtempSync(join(tmpdir(), 'stig-commit-'));
-  const msgFile = join(tmp, 'COMMIT_MSG');
-  writeFileSync(msgFile, message, 'utf8');
   try {
-    const res = await gitAsync(palaceRoot, [...LITERAL, 'commit', '-F', msgFile, '--', ...safe], { allowFail: true });
-    if (res.failed) return { ok: false, error: (res.stderr || 'git commit failed').trim(), message };
-    const shortHash = (await gitAsync(palaceRoot, ['rev-parse', '--short', 'HEAD'], { allowFail: true })).stdout.trim();
-    const subject = (await gitAsync(palaceRoot, ['log', '-1', '--format=%s'], { allowFail: true })).stdout.trim();
-    return { ok: true, shortHash, subject, committed: dpaths, message, ...(notes.length ? { notes } : {}) };
+    return await withDoor(palaceRoot, `commit:${author}`, async (dgit) => {
+      const problem = trunkProblem(palaceRoot);
+      if (problem) return { ok: false, error: `refused: ${problem}` };
+
+      // ── stage ONLY the selected paths (never -A) ──
+      // A path that is already a staged deletion is skipped: `git add` dies on it
+      // ("pathspec did not match any files"), yet it has to be selectable, because
+      // a move is committed whole only when both of its sides are in the selection.
+      for (const p of safe) {
+        if (await isStagedDeletion(palaceRoot, p)) continue;
+        const r = await dgit([...LITERAL, 'add', '--', p], { allowFail: true });
+        if (r.failed) return { ok: false, error: `git add failed for "${p}": ${(r.stderr || '').trim()}` };
+      }
+
+      // ── derive trailers from the selected staged diff only ──
+      // Scoped by the same pathspecs the commit below takes, so the message
+      // describes exactly what is committed: a foreign staged file is left out, a
+      // selected folder brings its files, and a rename is read as one only when
+      // both of its sides are selected.
+      const rows = await stagedNameStatus(palaceRoot, safe);
+      const dpaths = [];
+      const mdChanges = [];
+      for (const { status, path, renamedFrom } of rows) {
+        dpaths.push(path);
+        if (!path.toLowerCase().endsWith('.md')) continue;
+        // before = the HEAD side (empty if added), after = staged blob (:path).
+        // A renamed entry's HEAD side lives at its OLD path. Reading HEAD:<new path>
+        // finds nothing, every frontmatter field then reads as newly added, and a
+        // pure move goes into the log as a birth (da73cb79: a false `born->sprout`).
+        const before = status === 'A' ? '' : (await gitAsync(palaceRoot, ['show', `HEAD:${renamedFrom ?? path}`], { allowFail: true })).stdout;
+        const after = status === 'D' ? '' : (await gitAsync(palaceRoot, ['show', `:${path}`], { allowFail: true })).stdout;
+        const d = diffEntryText(before, after);
+        mdChanges.push({ path, frontmatterChanges: d.frontmatterChanges, bodyChanged: d.bodyChanged, wasAdded: status === 'A' || (before === '' && after !== '') });
+      }
+
+      if (dpaths.length === 0) return { ok: false, error: 'nothing staged for the selected paths' };
+
+      // Say so (never block) when the selection holds half of a staged move.
+      const notes = (await halfSelectedMoves(palaceRoot, rows)).map((h) => {
+        const half = h.missing === h.from ? 'a bare add, logged as a new file' : 'a bare delete';
+        return `"${h.to}" looks like a staged move from "${h.from}", but "${h.missing}" was not selected, so this commit holds ${half}. The other half is still staged; select both to commit a move whole.`;
+      });
+
+      const trailers = deriveTrailers({ paths: dpaths, mdChanges, kind, verify, author, campaign, resolves });
+      const message = formatCommitMessage({ kind, scope, summary, body, trailers });
+
+      // ── commit exactly the selected pathspecs ──
+      const msgFile = join(tmp, 'COMMIT_MSG');
+      writeFileSync(msgFile, message, 'utf8');
+      const res = await dgit([...LITERAL, 'commit', '-F', msgFile, '--', ...safe], { allowFail: true });
+      if (res.failed) return { ok: false, error: (res.stderr || 'git commit failed').trim(), message };
+      const shortHash = (await gitAsync(palaceRoot, ['rev-parse', '--short', 'HEAD'], { allowFail: true })).stdout.trim();
+      const subject = (await gitAsync(palaceRoot, ['log', '-1', '--format=%s'], { allowFail: true })).stdout.trim();
+      return { ok: true, shortHash, subject, committed: dpaths, message, ...(notes.length ? { notes } : {}) };
+    });
+  } catch (e) {
+    if (e instanceof DoorBusyError || e instanceof LockHeldError) return { ok: false, error: e.message };
+    return { ok: false, error: `commit failed: ${e.message}` };
   } finally {
     try { rmSync(tmp, { recursive: true, force: true }); } catch (_) { /* ignore */ }
   }

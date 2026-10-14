@@ -210,15 +210,16 @@ const vres = runBoardPost('validate');
 if (!vres.ok) die(2, `handoff_ready announce is invalid:\n${JSON.stringify(vres.errors, null, 2)}`);
 
 // ---- act ------------------------------------------------------------------
-// A feature-branch baton is non-canon and lives in this worktree; commit it here with a
-// plain git commit. `baton(` is the Baton Ceremony's spelling of the `handoff` kind — the
-// commit-msg hook reads it as handoff (commit-parse.js KIND_ALIASES) — so the trailer carries
-// the canonical kind. The committer (palace-commit.mjs) is reserved for DEPOSITS, which land
-// on the owner where its deps exist; a `docs`-profile worktree can't run it (no js-yaml).
-// See executor.md.
+// A feature-branch baton is non-canon and lives in this worktree; commit it here, on this
+// worktree's branch, through the palace committer like every other commit, so it passes the
+// door (server/door.js) and takes only the two files it names. The OWNER's copy of the
+// committer runs it, because a `docs`-profile worktree has no node_modules (no js-yaml);
+// PALACE_ROOT points it at this worktree, so the commit lands here, not on main.
+const shq = (s) => `'${String(s).replace(/'/g, `'\\''`)}'`;
 const commitCmd =
-  `git add "${relBaton}" "${relEntry}" && ` +
-  `git commit -m "baton(${entry}): ${move.slice(0, 60)}" -m "Palace-Kind: handoff"`;
+  `PALACE_ROOT=${shq(REPO)} node ${shq(join(owner, '_ops/stigmergy/app/scripts/palace-commit.mjs'))} ` +
+  `--kind handoff --scope ${shq(entry)} --summary ${shq(move.slice(0, 60))} --verify unverified ` +
+  `--path ${shq(relBaton)} --path ${shq(relEntry)}`;
 
 if (!doWrite) {
   process.stdout.write(

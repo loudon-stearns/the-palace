@@ -167,7 +167,10 @@ export function annotateOutOfBand(text, { author = null } = {}) {
 
   const additions = [];
   if (!('Palace-Kind' in existing)) additions.push('Palace-Kind: ops');
-  if (!('Palace-Verify' in existing)) additions.push('Palace-Verify: couldnt');
+  // No Palace-Verify default. A commit made outside the committers never made
+  // the verify call, and writing `couldnt` for it buried the real confessions:
+  // 447 of 448 `couldnt` labels in history were this default (2026-10-14).
+  // Palace-Annotated already says the commit came in out of band.
   if (author && !('Palace-Author' in existing)) additions.push(`Palace-Author: ${author}`);
   // A marker so the LOG can show "annotated by the hook" honestly.
   if (!('Palace-Annotated' in existing)) additions.push('Palace-Annotated: commit-msg-hook');

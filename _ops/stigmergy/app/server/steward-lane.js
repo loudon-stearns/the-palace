@@ -34,6 +34,7 @@ import { fileURLToPath } from 'node:url';
 import { createActuator } from './actuator.js';
 import { buildCyclePrompt } from '../../orchestrator/src/build-cycle-prompt.js';
 import { processCycle, reconcilePendingRequests } from '../../orchestrator/src/process-cycle.js';
+import { commitPathsAsync } from '../../orchestrator/src/cycle-commit.js';
 import { readRegistry, findAgent } from '../../orchestrator/src/registry.js';
 import { readEntryMeta } from '../../orchestrator/src/entry-frontmatter.js';
 import { dueForCycle } from '../../orchestrator/src/batch-due.js';
@@ -320,6 +321,7 @@ export function createStewardLane(opts = {}) {
     }
     let next = null; // the next fire of THIS steward's run, if any
     let dropQueue = false; // a usage limit: stop firing the rest of the batch
+    let commitPlan = null; // the cycle's commit, made after the reap without blocking the server
     try {
       if (dryReap) {
         writeLastCycle({ ok: true, stub: true, name: meta && meta.home, cycle_n: meta && meta.cycleN, ts: meta && meta.tsNow, run });
@@ -335,8 +337,17 @@ export function createStewardLane(opts = {}) {
         tsNow: meta.tsNow,
         dispatchedBy: 'bbs-actuator',
         boardPath,
-        commit: true,                  // the cycle commits what it shipped (cycle-commit.js)
+        // The cycle commits what it shipped, but not here: this runs on the
+        // server's event loop, and the server may be holding the door for a
+        // commit of its own. A blocking commit would wait on the server, which
+        // could not finish while blocked. So the cycle plans its commit, and
+        // the commit runs asynchronously below (cycle-commit.js).
+        commit: 'plan',
       });
+      if (summary.commit && summary.commit.planned) {
+        commitPlan = summary.commit.plan;
+        summary.commit = { pending: true, paths: commitPlan.paths.length };
+      }
       // The run controller (2026-09-23). A steward activation is a RUN of up
       // to `cap` cycles: keep firing the same steward while it ships and
       // nothing is waiting on Loudon. A barren cycle earns exactly one retry
@@ -367,17 +378,34 @@ export function createStewardLane(opts = {}) {
       logLine(`ERROR: steward reap failed: ${e.message}`);
       writeLastCycle({ ok: false, name: meta && meta.home, error: e.message, ts: meta && meta.tsNow, run });
     } finally {
-      if (dropQueue && queue.length > 0) {
-        if (!batch.stopped_because) batch.stopped_because = 'usage_limit';
-        logLine(`${batch.stopped_because === 'usage_limit' ? 'usage limit' : 'batch limit'}: not firing ${queue.length} queued steward(s) — they stay ready: ${queue.join(', ')}`);
-        queue = [];
-        if (batch.total > 0) batch.total = batch.done + 1;
-      }
-      if (next && meta && meta.home) {
-        const r = fireOne(meta.home, next);
-        if (!r.fired) { logLine(`run: could not continue ${meta.home}: ${r.msg}`); drainQueue(); }
+      const carryOn = () => {
+        if (dropQueue && queue.length > 0) {
+          if (!batch.stopped_because) batch.stopped_because = 'usage_limit';
+          logLine(`${batch.stopped_because === 'usage_limit' ? 'usage limit' : 'batch limit'}: not firing ${queue.length} queued steward(s) — they stay ready: ${queue.join(', ')}`);
+          queue = [];
+          if (batch.total > 0) batch.total = batch.done + 1;
+        }
+        if (next && meta && meta.home) {
+          const r = fireOne(meta.home, next);
+          if (!r.fired) { logLine(`run: could not continue ${meta.home}: ${r.msg}`); drainQueue(); }
+        } else {
+          drainQueue();
+        }
+      };
+      if (commitPlan) {
+        // Commit first, then fire the next cycle, so a commit never picks up
+        // files the next cycle is halfway through writing. The server's event
+        // loop stays free the whole time.
+        commitPathsAsync({ palaceRoot: root, ...commitPlan })
+          .then((res) => {
+            logLine(`commit: ${meta.home} cycle ${meta.cycleN} -> ${res.ok ? (res.hash || 'nothing to commit') : `FAILED: ${res.error}`}`);
+            const last = readLastCycle();
+            if (last && last.name === meta.home && last.cycle_n === meta.cycleN) writeLastCycle({ ...last, commit: res });
+          })
+          .catch((e) => logLine(`ERROR: cycle commit failed: ${e && e.message}`))
+          .finally(() => { try { carryOn(); } catch (e) { logLine(`ERROR: steward lane could not carry on: ${e && e.message}`); } });
       } else {
-        drainQueue();
+        carryOn();
       }
     }
   }

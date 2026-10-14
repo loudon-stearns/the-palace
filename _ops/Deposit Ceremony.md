@@ -127,7 +127,7 @@ Then check it, before anything is committed. The postcondition is verified, not 
 
 A command's exit code is not verification.
 
-**7. Land.** Commit through the palace committer, never a hand-rolled `git commit`, and give `--path` once per file; with no `--path` the committer takes whatever is already staged, which in a shared tree can be someone else's work. Preview first: the subject must read `deposit(<id>):`. Then land with the honest verify state: `verified` only if step 6's checks passed, otherwise `unverified` or `couldnt`, with the reason in the body.
+**7. Land.** Commit through the palace committer, never a hand-rolled `git commit`, and give `--path` once per file. It commits only what you name. It waits its turn if another commit is in progress, and it refuses a commit with no `--path`, an unknown flag, a main checkout that is off main, or a merge left half done. Preview first: the subject must read `deposit(<id>):`. Then land with the honest verify state: `verified` only if step 6's checks passed, otherwise `unverified` or `couldnt`, with the reason in the body.
 
 ```sh
 PALACE_ROOT="<owner>" node "<owner>/_ops/stigmergy/app/scripts/palace-commit.mjs" \
