@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bayesian Granular Synthesizer — the believing cloud (playable)</title>
+<style>
+  /* Loudon Live Design System — Graphite skin, local font stacks only (runs sandboxed, offline). */
+  :root { --bg:#0b0b0d; --panel:#131318; --ink:#e7e7ea; --dim:#8a8a93; --line:#2a2a32;
+          --amber:#f2b134; --indigo:#6366f1; --teal:#33e0c8; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); }
+  body { font-family: "Cormorant", Georgia, serif; padding: 18px clamp(14px,3vw,40px) 40px; line-height: 1.45; -webkit-font-smoothing: antialiased; }
+  h1 { font-family: "Anton", Impact, "Arial Narrow Bold", sans-serif; font-weight: 400; letter-spacing: .02em; text-transform: uppercase; font-size: clamp(22px,4vw,36px); margin: 0 0 2px; }
+  .sub, .mono, .cap { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; }
+  .sub { font-size: 11px; letter-spacing: .06em; color: var(--dim); text-transform: uppercase; margin-bottom: 12px; }
+  .lede { font-size: 18px; max-width: 72ch; margin: 0 0 14px; }
+  em { color: var(--amber); font-style: italic; }
+  .layout { display: grid; grid-template-columns: minmax(0,1fr) 290px; gap: 20px; align-items: start; }
+  @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } }
+  canvas { display: block; width: 100%; background: #06060a; border: 1px solid var(--line); border-radius: 4px; }
+  #belief { aspect-ratio: 16/7; cursor: crosshair; touch-action: none; }
+  #keys { aspect-ratio: 16/1.6; margin-top: 6px; cursor: pointer; touch-action: none; }
+  .cap { font-size: 10.5px; color: var(--dim); margin: 5px 0 0; letter-spacing: .03em; }
+  .meters { display: flex; gap: 22px; flex-wrap: wrap; margin: 12px 0 0; font-family: "JetBrains Mono", monospace; }
+  .meter { font-size: 11px; color: var(--dim); } .meter b { display: block; font-size: 22px; color: var(--ink); font-weight: 500; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 16px; font-family: "Manrope", system-ui, sans-serif; }
+  .panel h2 { font-family: "Anton", Impact, sans-serif; font-weight: 400; font-size: 15px; letter-spacing: .04em; text-transform: uppercase; margin: 0 0 10px; }
+  label { display: block; font-size: 12px; color: var(--dim); margin: 10px 0 2px; }
+  label span { float: right; color: var(--ink); font-family: "JetBrains Mono", monospace; }
+  input[type=range] { width: 100%; accent-color: var(--amber); }
+  button { font-family: "Manrope", system-ui, sans-serif; font-weight: 700; font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
+           background: #1b1b22; color: var(--ink); border: 1px solid var(--line); border-radius: 3px; padding: 7px 10px; cursor: pointer; }
+  button.on { background: var(--amber); color: #111; border-color: var(--amber); }
+  .row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .row button { flex: 1 1 auto; padding: 6px 6px; font-size: 10.5px; }
+</style>
+</head>
+<body>
+<h1>The believing cloud</h1>
+<div class="sub">Bayesian Granular Synthesizer · held notes are evidence · grains are draws from the belief</div>
+<p class="lede">With nothing held, every grain draws its pitch from the <em>prior</em>, the indigo curve, and comes out short and clicky. Hold notes and each one becomes evidence: a bump that starts wide and narrows to ±5 cents while you hold it. Grains that land near a believed note grow long and pure. <em>A chord is a hypothesis the cloud slowly comes to believe.</em> Drag on the picture to paint the prior.</p>
+<div class="layout">
+  <div>
+    <canvas id="belief"></canvas>
+    <canvas id="keys"></canvas>
+    <p class="cap">Top: the belief over pitch (amber, log scale) and the prior you paint (indigo). Dots are recent grains, bigger = longer. Keys: click, play the computer keyboard (A W S E D F T G Y H U J K = C to C, Z / X shift octave), or plug in MIDI.</p>
+    <div class="meters">
+      <div class="meter">prior share<b id="mPrior">1.00</b></div>
+      <div class="meter">mean grain<b id="mLen">4</b></div>
+      <div class="meter">voices<b id="mVox">0</b></div>
+      <div class="meter">held<b id="mHeld">—</b></div>
+    </div>
+  </div>
+  <div class="panel">
+    <h2>Play</h2>
+    <button id="go" style="width:100%">Start the cloud</button>
+    <div class="row"><button id="sustain">Sustain off</button><button id="panic">Release all</button></div>
+    <h2 style="margin-top:16px">The prior</h2>
+    <div class="row">
+      <button data-prior="flat">Flat</button><button data-prior="penta">A pentatonic</button>
+      <button data-prior="low">Low</button><button data-prior="high">High</button><button data-prior="clear">Erase</button>
+    </div>
+    <label>Painting: <span id="vBrush">raise</span></label>
+    <div class="row"><button id="brushUp" class="on">Raise</button><button id="brushDown">Lower</button></div>
+    <h2 style="margin-top:16px">Belief</h2>
+    <label>Doubt (prior's weight) <span id="vDoubt"></span></label><input id="doubt" type="range" min="0.01" max="2" step="0.01" value="0.25" />
+    <label>Time to conviction (s) <span id="vFocus"></span></label><input id="focus" type="range" min="0.1" max="8" step="0.05" value="1.6" />
+    <label>Letting go (s) <span id="vOff"></span></label><input id="off" type="range" min="0.1" max="8" step="0.05" value="1.4" />
+    <label>Conviction floor (cents) <span id="vFloor"></span></label><input id="floor" type="range" min="1" max="60" step="1" value="5" />
+    <h2 style="margin-top:16px">Grains</h2>
+    <label>Grains per second <span id="vRate"></span></label><input id="rate" type="range" min="20" max="600" step="5" value="160" />
+    <label>Longest grain (cycles) <span id="vMax"></span></label><input id="nmax" type="range" min="8" max="256" step="1" value="128" />
+    <label>Volume <span id="vVol"></span></label><input id="vol" type="range" min="0" max="2" step="0.01" value="0.8" />
+  </div>
+</div>
+<script>
+/*ENGINE*/
+const $ = (id) => document.getElementById(id);
+let actx = null, node = null, cloud = null, running = false, octave = 0, sustain = false, brush = 1;
+const held = new Set(), sustained = new Set();
+// a shadow prior lives on the page so it can be painted before audio starts
+const LO = 33, HI = 96, BC = 10, NB = Math.round((HI - LO) * 100 / BC);
+const binMidi = (i) => LO + (i + 0.5) * BC / 100;
+let prior = new Float64Array(NB).fill(1);
+const PRIORS = {
+  flat: () => prior.fill(1),
+  penta: () => { for (let i = 0; i < NB; i++) { const m = binMidi(i); let v = 0.04;
+    for (let o = 1; o < 9; o++) for (const pc of [9, 0, 2, 4, 7]) { const d = (m - (12 * o + pc)) / 0.4; v += Math.exp(-0.5 * d * d); } prior[i] = v; } },
+  low: () => { for (let i = 0; i < NB; i++) prior[i] = Math.exp(-(binMidi(i) - LO) / 10); },
+  high: () => { for (let i = 0; i < NB; i++) prior[i] = Math.exp(-(HI - binMidi(i)) / 10); },
+  clear: () => prior.fill(0.002),
+};
+function pushPrior() { if (cloud) cloud.setPrior(prior); }
+
+// ---------------------------------------------------------------- audio
+// ScriptProcessor, not AudioWorklet: the board runs this page in a sandboxed
+// iframe where blob-module worklets fail (same choice as the NGS crowd page).
+function start() {
+  actx = new (window.AudioContext || window.webkitAudioContext)();
+  cloud = new BeliefCloud(actx.sampleRate); pushPrior(); apply();
+  for (const m of held) cloud.noteOn(m);
+  node = actx.createScriptProcessor(2048, 0, 2);
+  node.onaudioprocess = (e) => { const L = e.outputBuffer.getChannelData(0), R = e.outputBuffer.getChannelData(1); cloud.process(L, R, L.length); };
+  node.connect(actx.destination); running = true; $("go").textContent = "Stop"; $("go").classList.add("on");
+}
+function toggle() {
+  if (!actx) return start();
+  if (running) { actx.suspend(); running = false; $("go").textContent = "Start the cloud"; $("go").classList.remove("on"); }
+  else { actx.resume(); running = true; $("go").textContent = "Stop"; $("go").classList.add("on"); }
+}
+const knobs = [["doubt", "vDoubt", (v) => v.toFixed(2)], ["focus", "vFocus", (v) => v.toFixed(2)], ["off", "vOff", (v) => v.toFixed(2)],
+  ["floor", "vFloor", (v) => v.toFixed(0)], ["rate", "vRate", (v) => v.toFixed(0)], ["nmax", "vMax", (v) => v.toFixed(0)], ["vol", "vVol", (v) => v.toFixed(2)]];
+function apply() {
+  for (const [id, out, f] of knobs) $(out).textContent = f(+$(id).value);
+  if (!cloud) return;
+  cloud.doubt = +$("doubt").value; cloud.tauFocus = +$("focus").value; cloud.tauOff = +$("off").value;
+  cloud.sigFloor = +$("floor").value; cloud.rate = +$("rate").value; cloud.nMax = +$("nmax").value; cloud.vol = +$("vol").value;
+}
+for (const [id] of knobs) $(id).addEventListener("input", apply);
+$("go").onclick = toggle;
+
+// ---------------------------------------------------------------- notes
+function on(m) { if (m < LO || m > HI) return; held.add(m); sustained.delete(m); if (cloud) cloud.noteOn(m); }
+function off(m) { held.delete(m); if (sustain) { sustained.add(m); return; } if (cloud) cloud.noteOff(m); }
+$("sustain").onclick = () => { sustain = !sustain; $("sustain").textContent = sustain ? "Sustain on" : "Sustain off"; $("sustain").classList.toggle("on", sustain);
+  if (!sustain) { for (const m of sustained) if (!held.has(m) && cloud) cloud.noteOff(m); sustained.clear(); } };
+$("panic").onclick = () => { held.clear(); sustained.clear(); if (cloud) cloud.allOff(); };
+const KEYMAP = "awsedftgyhujk";
+window.addEventListener("keydown", (e) => {
+  if (e.repeat || e.metaKey || e.ctrlKey) return; const k = e.key.toLowerCase();
+  if (k === "z") { octave = Math.max(-2, octave - 1); return; } if (k === "x") { octave = Math.min(2, octave + 1); return; }
+  const i = KEYMAP.indexOf(k); if (i >= 0) { if (!actx) start(); on(60 + 12 * octave + i); }
+});
+window.addEventListener("keyup", (e) => { const i = KEYMAP.indexOf(e.key.toLowerCase()); if (i >= 0) off(60 + 12 * octave + i); });
+try { navigator.requestMIDIAccess && navigator.requestMIDIAccess().then((acc) => {
+  const hook = (inp) => (inp.onmidimessage = (ev) => { const [s, d, v] = ev.data, t = s & 0xf0;
+    if (t === 0x90 && v > 0) { if (!actx) start(); on(d); } else if (t === 0x80 || (t === 0x90 && v === 0)) off(d);
+    else if (t === 0xb0 && d === 64) { if ((v >= 64) !== sustain) $("sustain").click(); } });
+  acc.inputs.forEach(hook); acc.onstatechange = () => acc.inputs.forEach(hook);
+}).catch(() => {}); } catch (e) {}
+
+// ---------------------------------------------------------------- drawing
+const cv = $("belief"), kc = $("keys"), ctx = cv.getContext("2d"), kx = kc.getContext("2d");
+const post = new Float64Array(NB);
+function fit(c) { const r = c.getBoundingClientRect(), d = devicePixelRatio || 1; if (c.width !== Math.round(r.width * d)) { c.width = Math.round(r.width * d); c.height = Math.round(r.height * d); } }
+const xOf = (m, W) => (m - LO) / (HI - LO) * W;
+function draw() {
+  fit(cv); fit(kc); const W = cv.width, H = cv.height, d = devicePixelRatio || 1;
+  ctx.fillStyle = "#06060a"; ctx.fillRect(0, 0, W, H);
+  for (let m = LO; m <= HI; m++) if (m % 12 === 0) { ctx.strokeStyle = "#1c1c24"; ctx.beginPath(); ctx.moveTo(xOf(m, W), 0); ctx.lineTo(xOf(m, W), H); ctx.stroke();
+    ctx.fillStyle = "#55555e"; ctx.font = `${10 * d}px JetBrains Mono, monospace`; ctx.fillText("C" + (m / 12 - 1), xOf(m, W) + 3 * d, 12 * d); }
+  // prior (indigo, linear, scaled to its own max)
+  let pmax = 0; for (const v of prior) pmax = Math.max(pmax, v);
+  ctx.beginPath(); ctx.moveTo(0, H);
+  for (let i = 0; i < NB; i++) ctx.lineTo((i + 0.5) / NB * W, H - (prior[i] / (pmax || 1)) * H * 0.42);
+  ctx.lineTo(W, H); ctx.closePath(); ctx.fillStyle = "rgba(99,102,241,0.22)"; ctx.fill(); ctx.strokeStyle = "#6366f1"; ctx.lineWidth = 1.2 * d; ctx.stroke();
+  if (cloud) {
+    cloud.posterior(post);
+    ctx.beginPath(); const fl = -5, top = -0.3;
+    for (let i = 0; i < NB; i++) { const y = (Math.log10(post[i] + 1e-7) - fl) / (top - fl); const Y = H - Math.max(0, Math.min(1, y)) * H * 0.92;
+      i ? ctx.lineTo((i + 0.5) / NB * W, Y) : ctx.moveTo(0, Y); }
+    ctx.strokeStyle = "#f2b134"; ctx.lineWidth = 1.6 * d; ctx.stroke();
+    const now = cloud.clock;
+    for (let k = 0; k < cloud.GR; k++) { const age = now - cloud.gT[k]; if (age > 1.2 || age < 0) continue;
+      const r = (1 + Math.log2(cloud.gN[k] / 4) * 0.8) * d, a = 1 - age / 1.2;
+      ctx.fillStyle = `rgba(51,224,200,${(a * 0.8).toFixed(2)})`; ctx.beginPath();
+      ctx.arc(xOf(cloud.gM[k], W), H * (0.12 + 0.8 * ((k * 0.618) % 1)), r, 0, 7); ctx.fill(); }
+    let Z = cloud.doubt; for (const n of cloud.notes.values()) Z += n.w;
+    $("mPrior").textContent = (cloud.doubt / Z).toFixed(2); $("mLen").textContent = cloud.meanCycles.toFixed(0); $("mVox").textContent = cloud.nv;
+  }
+  const names = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
+  $("mHeld").textContent = [...new Set([...held, ...sustained])].sort((a, b) => a - b).map((m) => names[m % 12] + (Math.floor(m / 12) - 1)).join(" ") || "—";
+  // keyboard
+  const KW = kc.width, KH = kc.height; kx.fillStyle = "#0e0e12"; kx.fillRect(0, 0, KW, KH);
+  for (let m = LO; m < HI; m++) { const blk = [1,3,6,8,10].includes(m % 12), x0 = xOf(m, KW), x1 = xOf(m + 1, KW);
+    const n = cloud && cloud.notes.get(m), lit = held.has(m) || sustained.has(m);
+    kx.fillStyle = lit ? "#f2b134" : n ? `rgba(242,177,52,${(n.w * 0.6).toFixed(2)})` : blk ? "#15151b" : "#2a2a32";
+    kx.fillRect(x0 + 0.5, blk ? 0 : 0, x1 - x0 - 1, blk ? KH * 0.62 : KH); }
+  requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
+// paint the prior
+let painting = false;
+function paint(e) { const r = cv.getBoundingClientRect(), m = LO + (e.clientX - r.left) / r.width * (HI - LO);
+  const lift = 1 - (e.clientY - r.top) / r.height;
+  for (let i = 0; i < NB; i++) { const d = (binMidi(i) - m) / 0.6, g = Math.exp(-0.5 * d * d); if (g < 1e-3) continue;
+    let pmax = 0; for (const v of prior) pmax = Math.max(pmax, v);
+    prior[i] = Math.max(0.002, prior[i] + brush * g * 0.08 * (pmax || 1) * (0.5 + lift)); }
+  pushPrior(); }
+cv.addEventListener("pointerdown", (e) => { painting = true; cv.setPointerCapture(e.pointerId); paint(e); });
+cv.addEventListener("pointermove", (e) => { if (painting) paint(e); });
+cv.addEventListener("pointerup", () => (painting = false));
+document.querySelectorAll("[data-prior]").forEach((b) => (b.onclick = () => { PRIORS[b.dataset.prior](); pushPrior(); }));
+$("brushUp").onclick = () => { brush = 1; $("brushUp").classList.add("on"); $("brushDown").classList.remove("on"); $("vBrush").textContent = "raise"; };
+$("brushDown").onclick = () => { brush = -1; $("brushDown").classList.add("on"); $("brushUp").classList.remove("on"); $("vBrush").textContent = "lower"; };
+// keyboard strip: click and hold
+let kdown = null;
+kc.addEventListener("pointerdown", (e) => { const r = kc.getBoundingClientRect(); const m = Math.floor(LO + (e.clientX - r.left) / r.width * (HI - LO));
+  if (!actx) start(); kdown = m; on(m); kc.setPointerCapture(e.pointerId); });
+kc.addEventListener("pointerup", () => { if (kdown != null) off(kdown); kdown = null; });
+apply();
+</script>
+</body>
+</html>
