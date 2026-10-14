@@ -15,24 +15,24 @@ forward_vector: "I am Retrospective Delay's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-25T20:42:23-04:00 from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T14:27:46.528Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 18 · last ran 2026-06-25 (93 days ago)
-- **Plan:** agreed 2026-09-25 (today) · 0 made things since
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** growing · **Steward:** cycle 19 · last ran 2026-10-14 (today)
+- **Plan:** agreed 2026-09-26 (18 days ago) · 2 made things since
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-06-22 (95 days ago) — Matched gorey-ink triptych — dormant · awakening · triumphant — all three rendered in the refined wobble/hatching/ink-weight pass. (`retrospective-delay-steward-040`)
-- **Last commit touching this project:** 2026-09-25 `d4cb3fa1` — Schema Ceremony — the Plan replaces staging — v1.25
+- **Last shipped:** 2026-10-14 (today) — As written, the witness is just a half-note echo. Should silence keep the past instead? (`retrospective-delay-steward-044`)
+- **Last commit touching this project:** 2026-09-26 `8cdddb09` — edit(Retrospective Delay): asset 5 names no generator
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Retrospective Delay is a 1-measure circular-buffer delay; Stage 4 is its animated character interface — a spiritualist cat that wakes as gain rises. We are in the visual-design probe before any JSUI code is written, picking the rendering style. Cycle 14 you greenlit the gorey-ink direction. Cycle 15 you said REFINE-INK on the triumphant pose. Then I posted the wrong image: a three-panel PNG of crude JSUI live-drawing scribbles (dormant/awakening/triumphant) — those were a separate engineering preview of the in-Max drawing fallback, NOT the refined ink. Confusion is on me. The real REFINE-INK deliverable is one image — the refined gorey-ink triumphant cat — attached here. The crude…
+Retrospective Delay is a one-measure delay that is always listening. A circular buffer holds the last measure of everything you play, and one gain knob decides whether that past comes back. The plan builds it in five moves, each one a Loudon Live session. The first is 'the witness': a write head and a read head sweeping one buffer, in vanilla Max, as a Max for Live audio effect. The fourth move's face, the Gorey-ink séance cat, was drawn and wired to the knob back in June. This cycle went back to the first move and built it as real Max patches, with a model that renders audio. The model turned up something the session hangs on: the witness as written is exactly a half-note echo.
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `retrospective-delay-steward-044` — directional_decision · posted 2026-10-14 · options: SILENCE-KEEPS · KEEP-SPEC · STEER
 
 ### Answered, not yet consumed
 
@@ -82,6 +82,64 @@ Decided with Loudon when the Loudon Live arc was designed (April 2026), and seed
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="retrospective-delay-steward-044" -->
+### 2026-10-14 — cycle 19 — As written, the witness is just a half-note echo. Should silence keep the past instead?
+> still working · both versions built and rendered · steward leans SILENCE-KEEPS
+
+Catch-up: Retrospective Delay is the one-measure delay that is always listening, and its first move, the witness, is now built as two Max patches. Building it showed that the witness as written plays back exactly what a half-note echo would, sample for sample. So the session's big reveal, 'try this in Echo and you can't', wouldn't hold up. Version B keeps writing on every sample, but in silence it writes down what it already holds, so your last measure keeps coming back until you play again. That's your entry's 'when you play silence, the last phrase repeats'. It costs a quiet level threshold, which softens 'no gate'. A keeps the always-recording rule pure, and the session would then teach the echo comparison honestly instead of claiming a difference. Listen to both, starting with B. I'm continuing on B unless you redirect.
+
+**Artifacts:**
+- [B, silence keeps.](Projects/Retrospective Delay/stage-1/witness/witness-B-silence-keeps.wav)
+- [A, as written (identical to a half-note echo).](Projects/Retrospective Delay/stage-1/witness/witness-A-as-specified.wav)
+- [the dry input both versions hear.](Projects/Retrospective Delay/stage-1/witness/witness-input.wav)
+- [wired-preview.png](Projects/Retrospective Delay/stage-4-character/jsui/wired-preview.png)
+- [pose-triumphant.png](Projects/Retrospective Delay/stage-4-character/jsui/pose-triumphant.png)
+- [pose-awakening.png](Projects/Retrospective Delay/stage-4-character/jsui/pose-awakening.png)
+- [pose-dormant.png](Projects/Retrospective Delay/stage-4-character/jsui/pose-dormant.png)
+<sub>`retrospective-delay-steward-044` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="retrospective-delay-steward-043" -->
+### 2026-10-14 — cycle 19 — The witness is built: two Max patches plus a model that renders audio. As written, it's exactly a half-note echo. The second version isn't.
+> shipped · patches written, not yet opened in Max · steward leans SILENCE-KEEPS
+
+I made two patchers and a reference model that runs the patch sample by sample (48 kHz, 120 BPM, read head half a measure behind). The input is two measures of a phrase, three of silence, one more phrase, then silence.
+
+**A, as specified.** Its output is identical to a plain half-note echo, with zero difference at every sample. It can't be anything else: the read head trails by half a measure, and that slot isn't overwritten until a full measure has passed, so the buffer's length never matters. In silence the ghost plays once and is gone. The Reveal block says a student who tries to rebuild this in Ableton's Echo will find they can't. For A, they can: one tap at a half note with feedback at zero.
+
+**B, silence keeps.** The buffer still writes on every sample. When you aren't playing, though, it writes down what it already holds, so the last measure stays and keeps coming back until you play again. That is the home entry's line, 'when you play silence, the last phrase repeats', and Echo can't do it. The cost is a quiet level threshold, which bends the 'no gate' wording of the always-recording rule a little.
+
+Along the way I fixed four bugs in the April build notes. The `[!- 0.5]` read offset computes 0.5 minus the phase, which runs the read head backwards and gives you a reverse delay; it's also control-rate on a signal. `[* 176400]` should be `*~`. With the 4-second buffer, `wave~` reads the whole thing unless its end point is set to the measure length. And the note's 'the ghost will continue' is only true of B. The patches use `phasor~ 1n @lock 1` for the measure clock and `translate notevalues ms @listen 1` for the measure length, so both follow Live's tempo.
+
+To try one: drop a Max Audio Effect on a track in Live, open the editor, paste in the patcher, start the transport, and turn the gain up.
+
+**Artifacts:**
+- [the input: two measures of phrase, three silent, one phrase, two silent.](Projects/Retrospective Delay/stage-1/witness/witness-input.wav)
+- [A, the witness as written: the ghost plays once, then silence. Identical to a half-note echo.](Projects/Retrospective Delay/stage-1/witness/witness-A-as-specified.wav)
+- [B, silence keeps: the last measure keeps coming back until you play again.](Projects/Retrospective Delay/stage-1/witness/witness-B-silence-keeps.wav)
+- [A as a vanilla Max patcher, ready to paste into a Max Audio Effect (not opened in Max yet).](Projects/Retrospective Delay/stage-1/witness/witness-A-as-specified.maxpat)
+- [B as a vanilla Max patcher: A plus a write that keeps the past through silence (not opened in Max yet).](Projects/Retrospective Delay/stage-1/witness/witness-B-silence-keeps.maxpat)
+- [the model: renders the three WAVs and runs the echo comparison.](Projects/Retrospective Delay/stage-1/witness/witness_model.py)
+- [writes both patchers; its header lists the corrections to the older docs.](Projects/Retrospective Delay/stage-1/witness/build_witness_patch.py)
+
+_loudness per measure (RMS), same input into both witnesses_
+| measure | input | A as specified | B silence keeps |
+| --- | --- | --- | --- |
+| 1 (playing) | 0.112 | 0.132 | 0.132 |
+| 2 (playing) | 0.104 | 0.139 | 0.139 |
+| 3 (silent) | 0.000 | 0.048 | 0.077 |
+| 4 (silent) | 0.000 | 0.000 | 0.077 |
+| 5 (silent) | 0.000 | 0.000 | 0.077 |
+| 6 (playing) | 0.095 | 0.112 | 0.121 |
+| 7 (silent) | 0.000 | 0.048 | 0.069 |
+| 8 (silent) | 0.000 | 0.000 | 0.069 |
+
+_Left rough:_ Neither patcher has been opened in Max or Live, so both are unverified. I don't know if phasor~ @lock holds or keeps running when the transport stops, B's threshold (0.003) is untested on a real instrument, and the session draft's Reveal claim still needs rewriting whichever version you pick.
+
+_Next moves named:_ Once you've picked a version, make it the anchor patch and draft the corrected Reveal block for the session (the Echo comparison, done honestly). · Then the séance: a choice of lag length and a crossfade at the loop seam, built on the chosen witness.
+<sub>`retrospective-delay-steward-043` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-09-26T09-21-34-04-00" -->
 ### 2026-09-26 — Plan revised: the moves are builds, not sessions
 
