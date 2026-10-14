@@ -15,20 +15,20 @@ forward_vector: "I am Meadows and an Artist's Career's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T13:19:50.953Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T13:22:51.029Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 11 · last ran 2026-10-14 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 12 · last ran 2026-10-14 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — Worksheet v3: the case studies now live inside the worksheet. Every rung shows real Eno, Oliveros and Martin moves, and your shape sits beside theirs. (`meadows-career-steward-031`)
-- **Last commit touching this project:** 2026-10-14 `1963e0b4` — steward(Meadows and an Artist's Career): cycle 10 — SPINNING UP. HOME: [Meadows and an Artist's Career](obsidian://open?vau…
+- **Last shipped:** 2026-10-14 (today) — Worksheet v4: after your ten are placed, a four-step exercise walks your lowest decision one move up and saves it with your shape. (`meadows-career-steward-033`)
+- **Last commit touching this project:** 2026-10-14 `d87113a6` — steward(Meadows and an Artist's Career): cycle 11 — SPINNING UP. HOME: [Meadows and an Artist's Career](obsidian://open?vau…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-This project points Donella Meadows' twelve leverage points at an artist's career. Her ladder runs from the weakest place to push on a system (tweak a number: gear, price, schedule) to the strongest (let go of what the whole thing is for). Built so far: the worksheet, where you place your last ten career decisions on the twelve rungs and save the shape, and a case-studies page laying Brian Eno, Pauline Oliveros and Agnes Martin on the same ladder. Those were two pages that only talked through copy-and-paste. This cycle joined them into one instrument, the first step of the plan I proposed earlier today. The plan is still waiting on your yes; I built this step because it's what I'd do either…
+This project points Donella Meadows' twelve leverage points at an artist's career. Her ladder runs from the weakest place to push (tweak a number: gear, price, schedule) to the strongest (let go of what the whole thing is for). The worksheet has you place your last ten career decisions on those rungs and shows your shape beside three real careers: Brian Eno, Pauline Oliveros and Agnes Martin. Until now it stopped at a diagnosis. This cycle added the part that asks you to act on one decision. You take the lowest decision you placed, see what one band higher looked like in all three careers, and write your own higher move. That move is a rule, a feedback loop or a goal that would have made th…
 
 ### Open asks
 
@@ -59,6 +59,32 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="meadows-career-steward-033" -->
+### 2026-10-14 — cycle 12 — Worksheet v4: after your ten are placed, a four-step exercise walks your lowest decision one move up and saves it with your shape.
+> shipped · one-move-up exercise built · steward leans widen the cases next, with your say
+
+[leverage-diagnostic-v4.html](open:Projects/Meadows and an Artist's Career/leverage-diagnostic-v4.html). There's also [a preview](open:Projects/Meadows and an Artist's Career/leverage-diagnostic-v4-preview.png) with a sample ten placed and the exercise filled in. The example is a gear rabbit-hole turned into a once-a-year gear-day rule, placed on rung 5 (rules of the system).
+
+What's new since v3:
+
+- **The exercise, in four steps.** Step 1: name your lowest decision in a sentence. The rung fills in from your placements, and you can change it. Step 2: one real move from each of the three careers, the nearest one at least a band above yours. Step 3: write your own higher move and say which rung it lives on. Step 4: one small act this week, plus a check-back date that defaults to 30 days out. On that date, place your next ten and see whether the shape moved.
+- **Gentle checks on the rung you pick.** Moving up one rung inside the same band gets a nudge to try a full band higher. Jumping from the knobs straight to the paradigm gets a reminder to check your savings and slack first (rung 11, buffers).
+- **The list-order bias is fixed.** In v3, Oliveros showed up in the 'one band up' prompt mostly because she came first in the list. Now the reading uses whichever career is nearest your shape, and the exercise shows all three side by side.
+- **It remembers where you left off.** Your placements and your writing stay in this browser only, and nothing leaves your machine. A ?demo= view never overwrites what a real reader saved.
+- **The saved text adds a ONE MOVE UP block at the end.** The rung lines above it are unchanged, so the case-studies page still reads them. I checked: all 12 parse.
+
+I tested it by script in headless Chrome. The script placed ten decisions, typed into each step, changed both rung pickers, saved, reloaded to confirm the state came back, and re-parsed the export. Everything behaved.
+
+**Artifacts:**
+- [the worksheet with the four-step one-move-up exercise after your shape.](Projects/Meadows and an Artist's Career/leverage-diagnostic-v4.html)
+- [headless preview: sample ten placed, the rungs hidden so the exercise shows, all four steps filled in.](Projects/Meadows and an Artist's Career/leverage-diagnostic-v4-preview.png)
+
+_Left rough:_ I only tested it by script, never by hand. The rung picker in step 3 lets you file your higher move anywhere above your lowest decision, and the nudges are advice, not limits. I haven't widened the cases (two careers that aren't famous), because the best source is your own draft worksheet and I'll only use it with your say. v2, v3 and the case-studies page are still in the folder, waiting for you to say which ones to retire.
+
+_Next moves named:_ Widen the cases: add a working session player and a teacher-composer to balance the three famous careers. I'd draw them from palace material, or from your Leverage Diagnostic draft if you say so. · Once v4 has been clicked through by a real person, retire v2 and v3 so the folder holds one worksheet. That's only with your say. · After that, the lesson series. In order: where this came from (Meadows and Music), the ladder, the three careers, then the exercise.
+<sub>`meadows-career-steward-033` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="meadows-career-steward-031" -->
 ### 2026-10-14 — cycle 11 — Worksheet v3: the case studies now live inside the worksheet. Every rung shows real Eno, Oliveros and Martin moves, and your shape sits beside theirs.
 > shipped · worksheet and case studies joined · steward leans widen the cases next
