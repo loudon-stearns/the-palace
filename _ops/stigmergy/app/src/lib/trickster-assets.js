@@ -24,11 +24,9 @@
 // Using palace-relative paths (not the /trickster-assets static URL) is what
 // makes the open-native / open-external chips actually resolve a real file.
 //
-// Keying: each entry is either an exact request_id or a request_id PREFIX
-// (trailing '-'). assetsFor() tries an exact match first, then the longest
-// matching prefix, so a stable-per-steward asset set (the 12 Shepard drones,
-// the inharmonic passes) attaches to every cycle of that steward, while a
-// cycle-specific asset (the dark-cutoff .adv) stays pinned to its exact request.
+// Keying: every entry is an EXACT request_id. Prefix keys (trailing '-') were
+// retired 2026-10-13: they attached one cycle's evidence to every later cycle
+// of the same steward, and the module now refuses them at load.
 //
 // What's deliberately NOT here: the generic STIGMERGY screenshots the
 // standalone page sprinkled across cards. They're decoration, not evidence.
@@ -64,24 +62,7 @@ const GSL_DRONES = {
     },
 };
 
-const REGISTRY = {
-  // ── Audio auditions (stable per steward → prefix-keyed) ──────────────────
-  'inharmonic-wavetable-synthesis-steward-': {
-    audition: {
-      kind: 'audio-sequence',
-      title: 'the five-pass Faust audition',
-      blurb: 'one per material model · do the curves read as distinct physical materials?',
-      tracks: [
-        { tag: '1', label: 'flat harmonic baseline', path: `${PUB}/audio/inharmonic/pass1-flat-harmonic-baseline.wav` },
-        { tag: '2', label: 'piano stretch', path: `${PUB}/audio/inharmonic/pass2-piano-stretch.wav` },
-        { tag: '3', label: 'Bessel bell', path: `${PUB}/audio/inharmonic/pass3-bessel-bell.wav` },
-        { tag: '4', label: 'stochastic vocal fracture', path: `${PUB}/audio/inharmonic/pass4-stochastic-vocal-fracture.wav` },
-        { tag: '5', label: 'inverse impossible material', path: `${PUB}/audio/inharmonic/pass5-inverse-impossible-material.wav` },
-      ],
-    },
-  },
-
-  'portamento-steward-': {
+const PORTAMENTO_REEL = {
     audition: {
       kind: 'audio-sequence',
       title: 'the twelve portamento examples',
@@ -101,7 +82,33 @@ const REGISTRY = {
         { tag: '12', label: 'underdamped', path: `${PUB}/audio/portamento/12-underdamped.wav` },
       ],
     },
+};
+const SLIME_FIELD = {
+  artifacts: [
+    { path: `${PUB}/slime-mold/index.html`, caption: 'the live slime mold field — Stage 2 visual prototype' },
+  ],
+};
+
+const REGISTRY = {
+  // ── Audio auditions (June's evidence, exact-keyed to the cycles that asked;
+  // prefix keys retired 2026-10-13 — see the note on the gsl rows) ──────────
+  'inharmonic-wavetable-synthesis-steward-005': {
+    audition: {
+      kind: 'audio-sequence',
+      title: 'the five-pass Faust audition',
+      blurb: 'one per material model · do the curves read as distinct physical materials?',
+      tracks: [
+        { tag: '1', label: 'flat harmonic baseline', path: `${PUB}/audio/inharmonic/pass1-flat-harmonic-baseline.wav` },
+        { tag: '2', label: 'piano stretch', path: `${PUB}/audio/inharmonic/pass2-piano-stretch.wav` },
+        { tag: '3', label: 'Bessel bell', path: `${PUB}/audio/inharmonic/pass3-bessel-bell.wav` },
+        { tag: '4', label: 'stochastic vocal fracture', path: `${PUB}/audio/inharmonic/pass4-stochastic-vocal-fracture.wav` },
+        { tag: '5', label: 'inverse impossible material', path: `${PUB}/audio/inharmonic/pass5-inverse-impossible-material.wav` },
+      ],
+    },
   },
+
+  'portamento-steward-006': PORTAMENTO_REEL,
+  'portamento-steward-009': PORTAMENTO_REEL,
 
   // The GSL 12-drone SFZ library — one drone per chromatic pitch class. Both
   // gsl-steward cycles that shipped it point here; the ear-check question is
@@ -144,11 +151,8 @@ const REGISTRY = {
   // (both HTML files are self-contained: no relative refs, no same-origin APIs,
   // so /api/file + allow-scripts-only is safe.) The descriptive title rides in
   // the caption; ArtifactSlot's open-external chip opens it in the browser.
-  'slime-mold-delay-steward-': {
-    artifacts: [
-      { path: `${PUB}/slime-mold/index.html`, caption: 'the live slime mold field — Stage 2 visual prototype' },
-    ],
-  },
+  'slime-mold-delay-steward-004': SLIME_FIELD,
+  'slime-mold-delay-steward-011': SLIME_FIELD,
 
   // The Witness Diagram was built for retrospective-delay-steward-009 — pinned
   // exact (later cycles ask different things).
@@ -173,26 +177,25 @@ const REGISTRY = {
   },
 };
 
-// All prefix keys (trailing '-'), longest first, so the most specific prefix
-// wins when several would match.
-const PREFIXES = Object.keys(REGISTRY)
-  .filter((k) => k.endsWith('-'))
-  .sort((a, b) => b.length - a.length);
+// Prefix keys are gone (2026-10-13). A registry row is evidence for ONE
+// decision; a prefix stapled June's keyboard onto every later GSL ask and
+// June's slime field onto today's Slime Mold plan proposal. A key that ends in
+// '-' is now a mistake the module refuses at load, so it cannot creep back.
+for (const k of Object.keys(REGISTRY)) {
+  if (k.endsWith('-')) throw new Error(`trickster-assets: prefix key "${k}" — registry rows are exact-keyed to one request id`);
+}
 
 /**
- * Look up the inline assets for a request. Exact request_id match first, then
- * the longest matching prefix, then null.
+ * Look up the inline assets for a request: an exact request_id match, or null.
+ * Nothing is inherited by name; a steward's evidence comes from its own
+ * payload.artifacts (ArtifactSlot renders those first).
  *
  * @param {string} requestId
  * @returns {object|null} the asset entry, or null if none
  */
 export function assetsFor(requestId) {
   if (typeof requestId !== 'string' || requestId === '') return null;
-  if (Object.prototype.hasOwnProperty.call(REGISTRY, requestId)) return REGISTRY[requestId];
-  for (const prefix of PREFIXES) {
-    if (requestId.startsWith(prefix)) return REGISTRY[prefix];
-  }
-  return null;
+  return Object.prototype.hasOwnProperty.call(REGISTRY, requestId) ? REGISTRY[requestId] : null;
 }
 
 // Exposed for tests.

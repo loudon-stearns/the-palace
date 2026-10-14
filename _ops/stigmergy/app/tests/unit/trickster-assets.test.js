@@ -3,7 +3,7 @@
 // artifacts.
 
 import { describe, it, expect } from 'vitest';
-import { assetsFor } from '../../src/lib/trickster-assets.js';
+import { _REGISTRY_FOR_TESTING, assetsFor } from '../../src/lib/trickster-assets.js';
 
 describe('assetsFor — prefix-keyed audio auditions', () => {
   it('attaches the 12-drone audition to the two gsl cycles that asked the fused-tone question', () => {
@@ -38,8 +38,18 @@ describe('assetsFor — prefix-keyed audio auditions', () => {
   });
 });
 
+describe('assetsFor — nothing is inherited by name (2026-10-13)', () => {
+  it('has no prefix keys and never prefix-matches', () => {
+    for (const k of Object.keys(_REGISTRY_FOR_TESTING)) expect(k.endsWith('-'), k).toBe(false);
+    for (const id of ['gsl-steward-070', 'portamento-steward-015', 'inharmonic-wavetable-synthesis-steward-099', 'slime-mold-delay-steward-018', 'retrospective-delay-steward-010']) {
+      expect(assetsFor(id), id).toBe(null);
+    }
+  });
+});
+
 describe('assetsFor — embeds (ArtifactSlot artifacts)', () => {
-  it('attaches the slime-mold prototype to any slime-mold-delay cycle', () => {
+  it('attaches the slime-mold prototype to the June cycles it served, and to no later one', () => {
+    expect(assetsFor('slime-mold-delay-steward-018')).toBe(null);
     const a = assetsFor('slime-mold-delay-steward-004');
     expect(a.artifacts).toHaveLength(1);
     expect(a.artifacts[0].path).toMatch(/slime-mold\/index\.html$/);
