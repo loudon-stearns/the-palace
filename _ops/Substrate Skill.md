@@ -208,7 +208,7 @@ Obsidian resolves `[[wikilinks]]` by filename regardless of folder — agents mu
 
 Knowledge entries may also have **entry bundles** — optional sibling folders named identically to the entry (e.g., `Foo.md` ↔ `Foo/`) holding the entry's owned files: batons, context companions, sources, sketches, enrichments. Bundles are lazy: they appear only when something needs to live in them. Most entries never grow one. See [[SCHEMA — Reference]] §8 for the full spec.
 
-**Moving an entry.** Move the `.md` and its bundle folder together with `git mv`, and commit those renames by themselves, from the index, with a message written by hand in the committer's form — the `edit(<scope>): …` subject and its `Palace-Kind`, `Palace-Entry`, `Palace-Verify` and `Palace-Author` lines. Don't put a move through the palace committer (`palace-commit.mjs`): it looks for the entry at its new path in the last commit, finds nothing, and logs the move as a birth — a false `Palace-Stage: <Entry>: born-><stage>`, and a false `Palace-Vector: … changed` for the entry and each bundle file that carries a vector. Fixes to whatever pointed at the old path go in a second commit, through the committer as usual.
+**Moving an entry.** Move the `.md` and its bundle folder together with `git mv`, then commit the move through the palace committer like any other change, naming both sides: `--path "<old>.md" --path "<new>.md"`, and the same for the bundle folder. The committer reads a moved entry against its old path, so a pure move logs no birth and no vector change. Name both sides, or it commits half the move and says so. Fixes to whatever pointed at the old path go in a second commit.
 
 ### In-File Comments
 
