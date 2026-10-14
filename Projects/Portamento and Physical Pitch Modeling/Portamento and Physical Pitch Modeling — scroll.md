@@ -15,20 +15,20 @@ forward_vector: "I am Portamento and Physical Pitch Modeling's scroll — the on
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T13:54:32.036Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T13:58:13.854Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** mature · **Steward:** cycle 10 · last ran 2026-10-14 (today)
+- **Status:** active · **Stage:** mature · **Steward:** cycle 11 · last ran 2026-10-14 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — Cross-check: the new script rebuilds last cycle's medium-bow overshoot to within a hundredth of a second. (`portamento-steward-021`)
-- **Last commit touching this project:** 2026-10-14 `d070b5ba` — steward(Portamento and Physical Pitch Modeling): cycle 9 — SPINNING UP. HOME: [Portamento and Physical Pitch Modeling](obsidian://…
+- **Last shipped:** 2026-10-14 (today) — Correction to my own last cycle: a soft bow's overshoot slip is about one slow beat, likely inaudible. Whether a partial counts as locked isn't enough to say whether you can hear the slip. (`portamento-steward-024`)
+- **Last commit touching this project:** 2026-10-14 `b1079ec3` — steward(Portamento and Physical Pitch Modeling): cycle 10 — SPINNING UP. HOME: [Portamento and Physical Pitch Modeling](obsidian://…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Portamento and Physical Pitch Modeling treats pitch as a damped spring settling on a note. It can settle in three ways: overdamped (eases in), critically damped (arrives clean) or underdamped (overshoots and rings back). The ear-training set and a six-clip single-session reel shipped in June. In August you picked MULTI-MODE, which takes the model from one gliding pitch to a whole family of partials. Earlier today I showed the model at work on a bowed string. The bow holds the partials onto exact multiples of the fundamental, a glide moves them into and out of that hold, and an underdamped overshoot makes one partial slip and catch again. So the ring-back can be heard in the tone colour as w…
+Portamento and Physical Pitch Modeling treats pitch as a damped spring settling on a note. It can settle in three ways: overdamped (eases in), critically damped (arrives clean) or underdamped (overshoots and rings back). In June the project shipped an ear-training set and a 15-minute single-session reel that teaches the three by pitch. In August you picked MULTI-MODE, which takes the model from one gliding pitch to a whole family of partials. Earlier today I showed that on a bowed string an overshoot makes one overtone slip out of tune and catch again, and that the bow's strength decides which one. This cycle turns that into teaching. The reel now has a third round of three listening pairs,…
 
 ### Open asks
 
@@ -59,6 +59,57 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="portamento-steward-024" -->
+### 2026-10-14 — cycle 11 — Correction to my own last cycle: a soft bow's overshoot slip is about one slow beat, likely inaudible. Whether a partial counts as locked isn't enough to say whether you can hear the slip.
+> proof · corrects pass 3's lean · steward leans keep the firm bow
+
+Last cycle I said the soft bow shows the slip best, because it puts the slipping partial low and loud (partial 2, −6 dB). I based that on whether the partial was in or out of lock, which is a yes/no test. It doesn't tell you how far the partial actually drifts. Just past the threshold the Adler equation slips in slow single pulses, so the soft-bow partial drifts at most 1.9 Hz off its octave (0.3%) and makes 1.2 beats in total. The medium bow from earlier today (partial 3) reaches 0.75% and makes 2.2 beats. So the 'slips and catches' heard in both earlier listening pages is real in the model but probably below hearing. The firm bow is where it gets large: 2% and about 12 beats. My earlier entry proposal ([steward-018](obsidian://open?vault=The%20Palace&file=Portamento%20and%20Physical%20Pitch%20Modeling)) still holds, with one qualifier an elder should carry if it lands: the slip is audible only when the bow is strong enough to push the slip high and fast. The sweep is in [timbre-manifest.json](open:Projects/Portamento and Physical Pitch Modeling/multi-mode/timbre-manifest.json) under bow_sweep.
+
+**Artifacts:**
+- [The bow sweep and the audio-domain drift check.](Projects/Portamento and Physical Pitch Modeling/multi-mode/timbre-manifest.json)
+<sub>`portamento-steward-024` · PROOF on WEAVE</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="portamento-steward-023" -->
+### 2026-10-14 — cycle 11 — The ear-training reel has a third round: three pairs that teach you to hear an overshoot in a bowed string's tone colour, including one where the pitch gives you nothing.
+> shipped · reel round three + 4 clips + figure · steward leans voice glide next
+
+**What changed in the reel.** [The single-session reel](open:Projects/Portamento and Physical Pitch Modeling/curated-ear-set/single-session-reel.html) keeps its six clips and gains *Round three — hear the arrival in the tone colour*. All three pairs use the same bowed string and the same bow, G3 up to E4.
+
+- **Pair 07:** critically damped against underdamped. You can answer this by pitch, and then the reveal sends you back for the second cue: as the underdamped pitch crests, the top of the tone flutters.
+- **Pair 08:** this is the one that matters. Both clips follow the [identical underdamped pitch path](open:Projects/Portamento and Physical Pitch Modeling/multi-mode/audio/timbre-01-firm-underdamped.wav), sample for sample. In the [control](open:Projects/Portamento and Physical Pitch Modeling/multi-mode/audio/timbre-04-underdamped-held.wav) the slipping overtone is held in tune by force. The slip is the only difference, so a student who hears the fray is hearing the overshoot in the timbre alone.
+- **Pair 09:** [overdamped](open:Projects/Portamento and Physical Pitch Modeling/multi-mode/audio/timbre-03-firm-overdamped.wav) against [critically damped](open:Projects/Portamento and Physical Pitch Modeling/multi-mode/audio/timbre-02-firm-critical.wav). Neither one slips, and the reveal says so. The tone colour picks out the underdamped arrival and can't help beyond that, so this pair teaches where the cue stops working. To tell these two apart you go back to the approach: critical gets within a semitone 0.6 s after it starts moving, overdamped takes 1.3 s.
+
+**Why a firm bow, not the soft one I leaned toward last cycle.** I measured what the ear would actually hear, which is the slipping overtone going out of tune and beating, and swept bow strength (table). With a soft bow, partial 2 drifts 0.3% at most and makes about one beat in total. That is very likely too small to hear, so last cycle's lean was wrong. With a firm bow (15 Hz locking range), partial 5 goes 2% out of tune and beats about 12 times across three crests: eight on the first, three on the second, one on the third. The [figure](open:Projects/Portamento and Physical Pitch Modeling/multi-mode/figures/timbre-round.png) shows the beats as spikes. I read them straight from the rendered audio with a heterodyne, so the measurement is of the files, not the model. The control's overtone drifts 0.01 Hz, and the critically damped and overdamped clips stay under 0.3 Hz.
+
+The renderer is [timbre_round.py](open:Projects/Portamento and Physical Pitch Modeling/multi-mode/timbre_round.py), with every number in [timbre-manifest.json](open:Projects/Portamento and Physical Pitch Modeling/multi-mode/timbre-manifest.json).
+
+**Artifacts:**
+- [The reel, now with round three: three listening pairs with reveals.](Projects/Portamento and Physical Pitch Modeling/curated-ear-set/single-session-reel.html)
+- [Underdamped, firm bow: partial 5 beats as the pitch crests.](Projects/Portamento and Physical Pitch Modeling/multi-mode/audio/timbre-01-firm-underdamped.wav)
+- [Critically damped, firm bow: nothing slips.](Projects/Portamento and Physical Pitch Modeling/multi-mode/audio/timbre-02-firm-critical.wav)
+- [Overdamped, firm bow: nothing slips, slower approach.](Projects/Portamento and Physical Pitch Modeling/multi-mode/audio/timbre-03-firm-overdamped.wav)
+- [Control: the same pitch path as the underdamped clip, with partial 5 held in tune.](Projects/Portamento and Physical Pitch Modeling/multi-mode/audio/timbre-04-underdamped-held.wav)
+- [The three arrivals, when partial 5 is out of lock, and its beats measured from the audio.](Projects/Portamento and Physical Pitch Modeling/multi-mode/figures/timbre-round.png)
+- [Renderer: bow sweep, four clips, audio-domain check.](Projects/Portamento and Physical Pitch Modeling/multi-mode/timbre_round.py)
+- [Every parameter, the sweep and the measured drift.](Projects/Portamento and Physical Pitch Modeling/multi-mode/timbre-manifest.json)
+
+_Which overtone slips on the overshoot (G3→E4, ζ 0.2), by bow strength. Measured from the model._
+| bow (locking range) | slipping partial | its level | worst out-of-tune | beats in total |
+| --- | --- | --- | --- | --- |
+| 1 Hz (soft) | 2 | −6 dB | 0.29% | 1.2 |
+| 3.4 Hz (medium) | 3 | −9.5 dB | 0.75% | 2.2 |
+| 10 Hz | 4 | −12 dB | 1.45% | 2.1 |
+| 15 Hz (firm, chosen) | 5 | −14 dB | 2.04% | 12.2 |
+| 20 Hz | 5 | −14 dB | 2.29% | 4.1 |
+| 30 Hz (loud) | 6 | −15.6 dB | 3.11% | 10.1 |
+
+_Left rough:_ Nobody has listened yet, so whether pair 08's flutter is audible is untested. The slipping overtone sits 14 dB down, and 2% is near the published thresholds for hearing a single mistuned harmonic; I'm recalling those (Moore and colleagues, 1980s) from memory and haven't checked them. The round only covers the firm bow.
+
+_Next moves named:_ Put the model on a sung glide: fixed formants with the partials locked to the voice. This is the entry's open question about the vocal tract, and a voice's overshoot is the one students already know by ear. · If pair 08 turns out inaudible, raise the slipping overtone's level or use the loud bow (3% out of tune, 10 beats) and re-render the round. That's one script constant.
+<sub>`portamento-steward-023` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="portamento-steward-021" -->
 ### 2026-10-14 — cycle 10 — Cross-check: the new script rebuilds last cycle's medium-bow overshoot to within a hundredth of a second.
 > proof · pass 3 agrees with pass 2 · steward leans keep building on it

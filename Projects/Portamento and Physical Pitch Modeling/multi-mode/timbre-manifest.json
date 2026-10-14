@@ -1,0 +1,131 @@
+{
+  "params": {
+    "B_at_196Hz": 0.00025,
+    "K_bow_hz": 15.0,
+    "K_held_hz": 1000.0,
+    "f0_hz": 196.0,
+    "target_hz": 329.63,
+    "wn": 6.0,
+    "partials": 10,
+    "spectrum": "1/n"
+  },
+  "bow_sweep": [
+    {
+      "K_hz": 1.0,
+      "slipping_partial": 2,
+      "partial_level_db": -6.0,
+      "peak_drift_hz": 1.9,
+      "peak_out_of_tune_pct": 0.29,
+      "beats_total": 1.2
+    },
+    {
+      "K_hz": 3.4,
+      "slipping_partial": 3,
+      "partial_level_db": -9.5,
+      "peak_drift_hz": 9.0,
+      "peak_out_of_tune_pct": 0.75,
+      "beats_total": 2.2
+    },
+    {
+      "K_hz": 10.0,
+      "slipping_partial": 4,
+      "partial_level_db": -12.0,
+      "peak_drift_hz": 23.1,
+      "peak_out_of_tune_pct": 1.45,
+      "beats_total": 2.1
+    },
+    {
+      "K_hz": 15.0,
+      "slipping_partial": 5,
+      "partial_level_db": -14.0,
+      "peak_drift_hz": 40.8,
+      "peak_out_of_tune_pct": 2.04,
+      "beats_total": 12.2
+    },
+    {
+      "K_hz": 20.0,
+      "slipping_partial": 5,
+      "partial_level_db": -14.0,
+      "peak_drift_hz": 45.8,
+      "peak_out_of_tune_pct": 2.29,
+      "beats_total": 4.1
+    },
+    {
+      "K_hz": 30.0,
+      "slipping_partial": 6,
+      "partial_level_db": -15.6,
+      "peak_drift_hz": 74.5,
+      "peak_out_of_tune_pct": 3.11,
+      "beats_total": 10.1
+    }
+  ],
+  "clips": [
+    {
+      "idx": 1,
+      "name": "firm-underdamped",
+      "label": "Underdamped arrival, firm bow",
+      "zeta": 0.2,
+      "peak_f1_hz": 400.0,
+      "locked_on_arrival": 5,
+      "out_of_lock_spans_s": {
+        "5": [
+          [
+            0.81,
+            1.32
+          ],
+          [
+            1.9,
+            2.36
+          ],
+          [
+            3.04,
+            3.32
+          ]
+        ]
+      },
+      "wav": "audio/timbre-01-firm-underdamped.wav"
+    },
+    {
+      "idx": 2,
+      "name": "firm-critical",
+      "label": "Critically damped arrival, firm bow",
+      "zeta": 1.0,
+      "peak_f1_hz": 329.6,
+      "locked_on_arrival": 5,
+      "out_of_lock_spans_s": {},
+      "wav": "audio/timbre-02-firm-critical.wav"
+    },
+    {
+      "idx": 3,
+      "name": "firm-overdamped",
+      "label": "Overdamped arrival, firm bow",
+      "zeta": 2.0,
+      "peak_f1_hz": 329.5,
+      "locked_on_arrival": 5,
+      "out_of_lock_spans_s": {},
+      "wav": "audio/timbre-03-firm-overdamped.wav"
+    },
+    {
+      "idx": 4,
+      "name": "underdamped-held",
+      "label": "Underdamped arrival, partial 5 held (control)",
+      "zeta": 0.2,
+      "peak_f1_hz": 400.0,
+      "locked_on_arrival": 5,
+      "out_of_lock_spans_s": {},
+      "wav": "audio/timbre-04-underdamped-held.wav"
+    }
+  ],
+  "isolation_check": {
+    "pitch_paths_identical": true,
+    "slipping_partial": 5,
+    "peak_drift_hz": {
+      "clip01_during_slips": 36.32,
+      "clip01_outside_slips": 27.66,
+      "clip04_whole_clip": 0.01,
+      "clip02_whole_clip": 0.25,
+      "clip03_whole_clip": 0.12
+    },
+    "note": "the slipping partial's frequency minus exactly n x the fundamental, measured from the rendered audio (heterodyne, 60 Hz low-pass, phase derivative); 0.1 s trimmed from the fade-in, 0.3 s from the fade-out"
+  }
+}
