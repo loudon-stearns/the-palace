@@ -71,6 +71,8 @@
     <h2 style="margin-top:16px">Grains</h2>
     <label>Grains per second <span id="vRate"></span></label><input id="rate" type="range" min="20" max="600" step="5" value="160" />
     <label>Longest grain (cycles) <span id="vMax"></span></label><input id="nmax" type="range" min="8" max="256" step="1" value="128" />
+    <label>Prior's own tone <span id="vTone"></span></label><input id="ptone" type="range" min="0" max="1" step="0.01" value="0" />
+    <label>Tone zone (curve, &lt;1 wider) <span id="vCurve"></span></label><input id="pcurve" type="range" min="0.25" max="4" step="0.05" value="1" />
     <label>Volume <span id="vVol"></span></label><input id="vol" type="range" min="0" max="2" step="0.01" value="0.8" />
   </div>
 </div>
@@ -110,12 +112,12 @@ function toggle() {
   else { actx.resume(); running = true; $("go").textContent = "Stop"; $("go").classList.add("on"); }
 }
 const knobs = [["doubt", "vDoubt", (v) => v.toFixed(2)], ["focus", "vFocus", (v) => v.toFixed(2)], ["off", "vOff", (v) => v.toFixed(2)],
-  ["floor", "vFloor", (v) => v.toFixed(0)], ["rate", "vRate", (v) => v.toFixed(0)], ["nmax", "vMax", (v) => v.toFixed(0)], ["vol", "vVol", (v) => v.toFixed(2)]];
+  ["floor", "vFloor", (v) => v.toFixed(0)], ["rate", "vRate", (v) => v.toFixed(0)], ["nmax", "vMax", (v) => v.toFixed(0)], ["ptone", "vTone", (v) => v.toFixed(2)], ["pcurve", "vCurve", (v) => v.toFixed(2)], ["vol", "vVol", (v) => v.toFixed(2)]];
 function apply() {
   for (const [id, out, f] of knobs) $(out).textContent = f(+$(id).value);
   if (!cloud) return;
   cloud.doubt = +$("doubt").value; cloud.tauFocus = +$("focus").value; cloud.tauOff = +$("off").value;
-  cloud.sigFloor = +$("floor").value; cloud.rate = +$("rate").value; cloud.nMax = +$("nmax").value; cloud.vol = +$("vol").value;
+  cloud.sigFloor = +$("floor").value; cloud.rate = +$("rate").value; cloud.nMax = +$("nmax").value; cloud.priorTone = +$("ptone").value; if (cloud.toneCurve !== +$("pcurve").value) { cloud.toneCurve = +$("pcurve").value; cloud.priorDirty = true; } cloud.vol = +$("vol").value;
 }
 for (const [id] of knobs) $(id).addEventListener("input", apply);
 $("go").onclick = toggle;

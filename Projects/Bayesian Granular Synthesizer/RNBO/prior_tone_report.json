@@ -1,0 +1,167 @@
+{
+ "seconds": 31,
+ "belief": {
+  "38": 0.6,
+  "50": 1,
+  "57": 0.9,
+  "60": 0.55,
+  "62": 0.5,
+  "64": 0.75,
+  "67": 0.5,
+  "69": 0.4
+ },
+ "events": [
+  [
+   9,
+   "on",
+   50
+  ],
+  [
+   9,
+   "on",
+   57
+  ],
+  [
+   17,
+   "off",
+   50
+  ],
+  [
+   17,
+   "off",
+   57
+  ],
+  [
+   20,
+   "on",
+   52
+  ],
+  [
+   20,
+   "on",
+   56
+  ],
+  [
+   20,
+   "on",
+   59
+  ],
+  [
+   27,
+   "off",
+   52
+  ],
+  [
+   27,
+   "off",
+   56
+  ],
+  [
+   27,
+   "off",
+   59
+  ]
+ ],
+ "labels": [
+  [
+   0,
+   "painted belief, nothing held"
+  ],
+  [
+   9,
+   "hold D3 + A3 (agrees)"
+  ],
+  [
+   17,
+   "let go"
+  ],
+  [
+   20,
+   "hold E G# B (argues)"
+  ],
+  [
+   27,
+   "let go"
+  ]
+ ],
+ "takes": {
+  "A": {
+   "priorTone": 0,
+   "toneCurve": 1,
+   "max_abs_diff_board_vs_codebox": 1.929187457561099e-7,
+   "paint_table_max_diff": 0,
+   "resting": {
+    "grains": 1261,
+    "median_cycles": 4,
+    "long_share": 0
+   },
+   "agrees": {
+    "grains": 642,
+    "median_cycles": 111.8,
+    "long_share": 0.907
+   },
+   "argues": {
+    "grains": 655,
+    "median_cycles": 103.3,
+    "long_share": 0.913
+   },
+   "after": {
+    "grains": 476,
+    "median_cycles": 4,
+    "long_share": 0
+   }
+  },
+  "B": {
+   "priorTone": 1,
+   "toneCurve": 1,
+   "max_abs_diff_board_vs_codebox": 1.7009951730484474e-7,
+   "paint_table_max_diff": 0,
+   "resting": {
+    "grains": 1261,
+    "median_cycles": 14,
+    "long_share": 0.226
+   },
+   "agrees": {
+    "grains": 642,
+    "median_cycles": 121.3,
+    "long_share": 0.914
+   },
+   "argues": {
+    "grains": 655,
+    "median_cycles": 103.4,
+    "long_share": 0.927
+   },
+   "after": {
+    "grains": 476,
+    "median_cycles": 4.1,
+    "long_share": 0.101
+   }
+  },
+  "C": {
+   "priorTone": 1,
+   "toneCurve": 0.5,
+   "max_abs_diff_board_vs_codebox": 1.7852933020812145e-7,
+   "paint_table_max_diff": 0,
+   "resting": {
+    "grains": 1261,
+    "median_cycles": 32.2,
+    "long_share": 0.523
+   },
+   "agrees": {
+    "grains": 642,
+    "median_cycles": 121.3,
+    "long_share": 0.945
+   },
+   "argues": {
+    "grains": 655,
+    "median_cycles": 103.4,
+    "long_share": 0.947
+   },
+   "after": {
+    "grains": 476,
+    "median_cycles": 4.1,
+    "long_share": 0.218
+   }
+  }
+ }
+}

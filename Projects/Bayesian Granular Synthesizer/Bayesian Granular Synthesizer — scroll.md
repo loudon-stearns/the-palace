@@ -15,24 +15,25 @@ forward_vector: "I am Bayesian Granular Synthesizer's scroll — the one page th
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T11:22:51.387Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T11:29:13.515Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 2 · last ran 2026-10-14 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 3 · last ran 2026-10-14 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
-- **Waiting on you:** 1 open ask
+- **Waiting on you:** 2 open asks
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — The believing cloud now exists as RNBO code and a ready-wired Max patch, and it matches the board instrument sample for sample. (`bgs-steward-005`)
-- **Last commit touching this project:** 2026-10-14 `88ec5d84` — steward(Bayesian Granular Synthesizer): cycle 1 — SPINNING UP. HOME: [Bayesian Granular Synthesizer](obsidian://open?vaul…
+- **Last shipped:** 2026-10-14 (today) — Should the painted belief hum by itself before any note is held — not at all, gently, or fully? (`bgs-steward-008`)
+- **Last commit touching this project:** 2026-10-14 `fa400cf9` — steward(Bayesian Granular Synthesizer): cycle 2 — SPINNING UP. HOME: [Bayesian Granular Synthesizer](obsidian://open?vaul…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Bayesian Granular Synthesizer is a grain cloud where the notes you hold are evidence. With nothing held, grains draw their pitch from a flat prior and come out short and clicky. Each held note adds a bump that narrows to about ±5 cents the longer you hold it. Grains landing near a believed note grow long and pure, so the cloud condenses from scatter into tone. Earlier today I rebuilt the engine from the entry's spec as one JavaScript file, with a playable page and a 42-second take. This cycle carries that engine into RNBO: a grain-cloud codebox~, a small codebox that turns MIDI into a shared note table, and a Max patch with both already wired. Run as JavaScript, the codebox matches the boar…
+Bayesian Granular Synthesizer is a grain cloud where the notes you hold are evidence. With nothing held, grains draw their pitch from a prior belief and come out short and clicky. Held notes sharpen into ±5-cent bumps, and grains near them grow long and pure, so the cloud condenses into the chord. Earlier today I rebuilt it as a playable page, then as RNBO code with a ready-wired Max patch that matches the page sample for sample. This cycle takes the next step on the proposed plan, the prior you paint. You now paint it one bar per semitone in Max, and a new knob lets the painted peaks lengthen grains themselves, so a composed resting cloud can sound tonal before you touch a key. Three rende…
 
 ### Open asks
 
 - `bgs-steward-003` — proposed plan revision: a first plan for the believing cloud · posted 2026-10-14 · options: adopt · keep
+- `bgs-steward-008` — should the painted prior hum on its own · posted 2026-10-14 · options: A · B · C
 
 ### Answered, not yet consumed
 
@@ -59,6 +60,59 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="bgs-steward-008" -->
+### 2026-10-14 — cycle 3 — Should the painted belief hum by itself before any note is held — not at all, gently, or fully?
+> still working · three 31-second takes rendered · steward leans B
+
+The Bayesian grain cloud treats held notes as evidence, so a held chord condenses scattered clicks into tone. Its resting belief, the prior, is now something you paint one bar per semitone, in the page and in the Max patch. The open question from the plan: should the painted peaks also grow long grains, so the cloud sounds tonal before you play? Same seed, same D-dorian belief, three ways. prior-tone-A.wav has the hum off and stays all clicks until you play. prior-tone-B.wav hums gently on the strongest bars (23% long grains), and when you hold an E major chord against it, D and A keep humming underneath, which is audible tension. prior-tone-C.wav has the most hum (52% long), but some tones drift up to 25 cents off the note. prior-tone-ab.png shows all three. I lean B: it hums without going sour. I'll keep building toward grain entrainment either way.
+
+**Artifacts:**
+- [A · tone off](Projects/Bayesian Granular Synthesizer/prior-tone-A.wav)
+- [B · tone on, curve 1](Projects/Bayesian Granular Synthesizer/prior-tone-B.wav)
+- [C · tone on, curve 0.5](Projects/Bayesian Granular Synthesizer/prior-tone-C.wav)
+- [The three grain maps side by side](Projects/Bayesian Granular Synthesizer/prior-tone-ab.png)
+<sub>`bgs-steward-008` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="bgs-steward-007" -->
+### 2026-10-14 — cycle 3 — The painted prior is now a real control in the page, the codebox and the Max patch, and it can hum on its own, heard three ways.
+> shipped · codebox matches the page to 2e-7 · steward leans B
+
+WHAT I MADE. Two new knobs in all three places (bayes_engine.js, the board page, belief-cloud.codebox): priorTone (0 to 1) and toneCurve. A grain that lands where the painted prior is sure now grows long in proportion to how sure it is. tone = ((prior − mean) / (max − mean))^toneCurve. A flat prior has no peaks, so it stays all clicks, and priorTone 0 is the instrument exactly as before. The original 42-second mirror still matches at 2.35e−7.
+
+THE PAINTER. paint-in.codebox is a third small codebox. The Max patch gets a 64-bar multislider (A1 to C7) → listfunnel → [inport paint] → unpack → paint-in, which rewrites the 630-bin prior table around the semitone that moved. Each bar is a 20-cent hill. Slot 630 of the table is a paint counter, and when it changes the grain codebox~ re-reads the prior. No parameter flip is needed, and a chord-like burst of 64 slider values all lands (the same trap the note table solved last cycle). The patch paints a composed D-dorian belief half a second after load, and it has priorTone and toneCurve knobs. The page and the codebox paint with the same rule, and the painted tables match exactly (diff 0).
+
+THE A/B/C. Same seed, same painted belief, 31 seconds: belief alone → hold D3 + A3, which agree with it → let go → hold E G# B, which argues with it → let go. A: tone off. B: tone on, curve 1. C: tone on, curve 0.5 (a wider tonal zone). All three were run through the RNBO codeboxes and checked against the page engine, and they agree to under 2e−7.
+
+WHAT IT SHOWED. While the belief rests alone, A is pure clicks (median 4 cycles, 0% of grains long). B hums on D3 and A3 with scattered tones on the weaker hills (median 14 cycles, 23% long). C hums on the whole chord (median 32, 52% long), but some long grains sit up to ~25 cents off the note. The surprise is in the argue section. In B and C, the prior keeps humming D and A underneath the held E major, so belief and evidence are audibly in tension. In A, the prior can't be heard there at all.
+
+PASSED OVER. A squared curve (my first version): it was too timid, with only 9% long grains, and only the single strongest hill rang. A per-hill normalization that ignores bar height: it would throw away the painted 'how sure', which is the point of painting.
+
+**Artifacts:**
+- [Grain maps for A, B and C: every third grain, sized and lit by length; the painted belief as a teal strip.](Projects/Bayesian Granular Synthesizer/prior-tone-ab.png)
+- [A · tone off: the painted belief only steers where the clicks land.](Projects/Bayesian Granular Synthesizer/prior-tone-A.wav)
+- [B · tone on, curve 1: the resting cloud hums D and A, and argues with E major.](Projects/Bayesian Granular Synthesizer/prior-tone-B.wav)
+- [C · tone on, curve 0.5: more hum, some long grains up to ~25 cents off the note.](Projects/Bayesian Granular Synthesizer/prior-tone-C.wav)
+- [The playable page, now with 'Prior's own tone' and 'Tone zone' sliders beside the painter.](Projects/Bayesian Granular Synthesizer/belief-instrument.html)
+- [Page template with the two new sliders.](Projects/Bayesian Granular Synthesizer/belief-instrument.template.html)
+- [Engine: priorTone, toneCurve, and the shared painter rule paintedPrior().](Projects/Bayesian Granular Synthesizer/bayes_engine.js)
+- [Draws the A/B/C grain maps.](Projects/Bayesian Granular Synthesizer/plot_prior_tone.py)
+- [Event codebox: semitone + weight → 20-cent hills in the shared prior table, plus a paint counter.](Projects/Bayesian Granular Synthesizer/RNBO/paint-in.codebox)
+- [Grain codebox~ with priorTone, toneCurve and the paint-counter re-read.](Projects/Bayesian Granular Synthesizer/RNBO/belief-cloud.codebox)
+- [Max patch: now with the 64-bar prior painter, the composed belief preset and the two tone knobs. Unopened.](Projects/Bayesian Granular Synthesizer/RNBO/belief-cloud.maxpat)
+- [Builds the patch, including the painter and the inport/unpack/paint-in chain inside the rnbo~.](Projects/Bayesian Granular Synthesizer/RNBO/build_patch.mjs)
+- [Renders A/B/C through both the page engine and the transpiled codeboxes and compares them.](Projects/Bayesian Granular Synthesizer/RNBO/prior_tone_ab.mjs)
+- [Per-section grain-length numbers and the codebox-vs-page match for each take.](Projects/Bayesian Granular Synthesizer/RNBO/prior_tone_report.json)
+- [Grain log behind the maps.](Projects/Bayesian Granular Synthesizer/RNBO/prior_tone_grains.json)
+- [Mirror, now importable, with the 631-slot prior table.](Projects/Bayesian Granular Synthesizer/RNBO/codebox_mirror.mjs)
+- [The original 42-second match, re-run after the change: still 2.35e-7.](Projects/Bayesian Granular Synthesizer/RNBO/codebox_mirror_report.json)
+
+_Left rough:_ Nothing has been in Max yet. On top of last cycle's three open seams there are two new ones: whether RNBO's [unpack] exists under that name inside rnbo~, and whether a Max multislider list reaches [inport paint] as 'paint k v'. The page's own painter draws 630 bins freehand rather than 64 semitone bars, so the page and the patch paint differently even though they read the prior the same way.
+
+_Next moves named:_ Make whichever of A/B/C you pick the default priorTone and toneCurve in the codebox, page and patch. · Grains that entrain, the plan's next step: weakly couple the onset phases of grains near a held note, Kuramoto-style, and render with/without to hear whether locking deepens the condensation or muddies it. · When you have ten minutes in Max: open RNBO/belief-cloud.maxpat, click priorShape 2, turn priorTone up, and read me any compiler error. Each is a one-line fix and a gotcha for the RNBO codebox smith.
+<sub>`bgs-steward-007` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="bgs-steward-005" -->
 ### 2026-10-14 — cycle 2 — The believing cloud now exists as RNBO code and a ready-wired Max patch, and it matches the board instrument sample for sample.
 > shipped · RNBO port mirrored to −139 dB, not yet opened in Max · steward leans painted-prior next

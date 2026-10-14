@@ -63,12 +63,14 @@ export function transpile(src, outs = 3) {
 }
 
 // the board engine, handed the codebox's random generator
-class PMCloud extends BeliefCloud {
+export class PMCloud extends BeliefCloud {
   rand() { this.s = (this.s * 48271) % 2147483647; return this.s / 2147483647; }
 }
 
+if (process.argv[1] === fileURLToPath(import.meta.url)) main();
+function main() {
 const SR = 48000, DUR = 42, BLOCK = 2400;
-const buffers = { held: new Float64Array(128), prior: new Float64Array(630) };
+const buffers = { held: new Float64Array(128), prior: new Float64Array(631) };
 const cloud = transpile(fs.readFileSync(path.join(here, 'belief-cloud.codebox'), 'utf8'))(SR, buffers);
 const notesIn = transpile(fs.readFileSync(path.join(here, 'notes-in.codebox'), 'utf8'), 1)(SR, buffers);
 
@@ -146,3 +148,4 @@ for (let i = 0; i < total; i++) {
   pcm.writeInt16LE(Math.round(Math.max(-1, Math.min(1, C[1][i] * g)) * 32767), 46 + i * 4);
 }
 fs.writeFileSync(path.join(here, 'codebox-take.wav'), pcm);
+}

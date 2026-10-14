@@ -10,6 +10,9 @@
 //   amplitude     ∝ sqrt(frequency / cycles)      every grain, equal energy
 //   onsets        Poisson at `rate` grains per second
 //   envelope      1 Hann cycle in, sustain, 1 Hann cycle out
+//   prior tone    the prior's own peaks may lengthen grains too (cycle 3):
+//                 exponent = max(evidence gate, priorTone · tone(bin)),
+//                 tone = ((prior − mean)/(max − mean))^toneCurve, 0 for a flat prior
 //
 // Each grain first picks the prior or a held note in proportion to their
 // weight, then draws a pitch inside that choice. A held note's width
@@ -51,7 +54,10 @@
 //
 // PATCHER WIRING REQUIRED (inside the rnbo~):
 //   [data held 128]                       the note table (shared by name)
-//   [data prior 630]                      optional painted prior, 630 bins
+//   [data prior 631]                      painted prior: 630 bins + slot 630,
+//                                         a paint counter paint-in.codebox
+//                                         bumps; a new count re-reads it
+//   [inport paint] → [unpack 0 0] → [paint-in codebox] (semitone, weight)
 //   [notein] pitch    → [notes-in codebox in1]   (hot)
 //   [notein] velocity → [notes-in codebox in2]   (cold; arrives first)
 //   [codebox~ out1] → [out~ 1]
@@ -79,6 +85,8 @@ const CTL = 64;         // samples between belief updates
 @param({ min: 1.0, max: 100.0 })  sigFloor = 5.0;   // cents, full conviction
 @param({ min: 0, max: 2 })        priorShape = 0;   // 0 flat · 1 A-minor-pentatonic hills · 2 the `prior` buffer
 @param({ min: 0, max: 1 })        priorRead = 0;    // flip to re-read the `prior` buffer after painting it
+@param({ min: 0.0, max: 1.0 })    priorTone = 0.0;  // how much the prior's own peaks lengthen grains
+@param({ min: 0.25, max: 4.0 })   toneCurve = 1.0;  // <1 widens the tonal zone round each peak, >1 narrows it
 
 // --- the grains ---
 @param({ min: 5.0, max: 200.0 })  near     = 35.0;  // cents, how close counts as near a note
@@ -96,6 +104,9 @@ const CTL = 64;         // samples between belief updates
 @state tab  = new FixedFloat64Array(4097);
 @state prior = new FixedFloat64Array(630);
 @state cdf  = new FixedFloat64Array(630);
+@state tone = new FixedFloat64Array(630);
+@state builtPaint = -1;
+@state builtCurve = -1.0;
 @state priorSum = 0.0;
 @state builtShape = -1;
 @state builtRead = -1;
@@ -161,8 +172,17 @@ function buildPrior() {
         prior[i] = v;
     }
     let a = 0.0;
-    for (let i = 0; i < NB; i++) { a += prior[i]; cdf[i] = a; }
+    let mx = 0.0;
+    for (let i = 0; i < NB; i++) { a += prior[i]; cdf[i] = a; if (prior[i] > mx) mx = prior[i]; }
     priorSum = a;
+    let mean = a / NB;
+    for (let i = 0; i < NB; i++) {
+        let t = 0.0;
+        if (mx > mean * 1.05) { t = pow(clamp((prior[i] - mean) / (mx - mean), 0.0, 1.0), toneCurve); }
+        tone[i] = t;
+    }
+    builtPaint = peek(paint, NB);
+    builtCurve = toneCurve;
     builtShape = priorShape;
     builtRead = priorRead;
 }
@@ -256,6 +276,11 @@ function spawn(sr) {
             let g = exp(-0.5 * d * d) * nW[k] * conviction(k);
             if (g > best) best = g;
         }
+        let bi = floor((midi - LO) * 100.0 / BINC);
+        if (bi >= 0 && bi < NB) {
+            let tt = priorTone * tone[bi];
+            if (tt > best) best = tt;
+        }
         let cycles = nMin * pow(nMax / nMin, best);
         let cyc = sr / f;
         let v = nv;
@@ -273,7 +298,7 @@ function spawn(sr) {
 let sr = samplerate();
 if (ready == 0) setup();
 if (ctl <= 0) {
-    if (priorShape != builtShape || priorRead != builtRead) buildPrior();
+    if (priorShape != builtShape || priorRead != builtRead || toneCurve != builtCurve || (priorShape > 1.5 && peek(paint, NB) != builtPaint)) buildPrior();
     scanNotes();
     evolve(CTL / sr);
     ctl = CTL;

@@ -2,6 +2,10 @@
 // whole believing cloud — [notein] into the notes-in codebox, the shared
 // note table, and belief-cloud.codebox in a codebox~ — plus a keyboard,
 // a MIDI input, the prior switch, a belief meter and a quiet dac.
+// Cycle 3 adds the prior painter: a 64-slider multislider (one per
+// semitone, A1..C7) → listfunnel → [inport paint] → paint-in.codebox,
+// which rewrites the shared 631-slot `prior` table; and two knobs,
+// priorTone and toneCurve, for letting the painted peaks lengthen grains.
 //   node RNBO/build_patch.mjs
 // Box formats adopted from Projects/Action Potential Oscillator/rnbo/
 // make_maxpat.py (copied there from the RNBO 1.4 help patchers) and the
@@ -33,8 +37,14 @@ I.add({ id: 'notes', maxclass: 'codebox', code: read('notes-in.codebox'), fontna
   numinlets: 2, numoutlets: 1, outlettype: [''], patching_rect: [20.0, 80.0, 520.0, 160.0], rnbo_classname: 'codebox' });
 I.wire('notein', 0, 'notes', 0); I.wire('notein', 1, 'notes', 1);
 I.obj('held', 'data held 128', 560, 80, 110, 1, 2, { rnbo_classname: 'data' });
-I.obj('prior', 'data prior 630', 560, 110, 110, 1, 2, { rnbo_classname: 'data' });
-I.note('c-data', 'the shared tables, found by name from inside both codeboxes. "prior" is for a painted prior (priorShape 2).', 680, 80, 300, 60);
+I.obj('prior', 'data prior 631', 560, 110, 110, 1, 2, { rnbo_classname: 'data' });
+I.note('c-data', 'the shared tables, found by name from inside the codeboxes. "prior" is the painted prior (priorShape 2): 630 bins + a paint counter in slot 630.', 680, 80, 300, 60);
+I.obj('inpaint', 'inport paint', 800, 150, 90, 0, 1, { rnbo_classname: 'inport', outlettype: [''] });
+I.obj('unp', 'unpack 0 0', 800, 180, 80, 1, 2, { rnbo_classname: 'unpack', outlettype: ['', ''] });
+I.add({ id: 'painter', maxclass: 'codebox', code: read('paint-in.codebox'), fontname: '<Monospaced>',
+  numinlets: 2, numoutlets: 1, outlettype: [''], patching_rect: [800.0, 210.0, 420.0, 160.0], rnbo_classname: 'codebox' });
+I.wire('inpaint', 0, 'unp', 0); I.wire('unp', 0, 'painter', 0); I.wire('unp', 1, 'painter', 1);
+I.note('c-paint', '"paint <semitone 0..63> <weight>" from the painter outside; unpack sends the weight first, then the semitone.', 900, 150, 320, 40);
 I.add({ id: 'cb', maxclass: 'codebox~', code: read('belief-cloud.codebox'), fontname: '<Monospaced>',
   numinlets: 1, numoutlets: 3, outlettype: ['signal', 'signal', 'signal'], patching_rect: [20.0, 260.0, 760.0, 560.0], rnbo_classname: 'codebox~' });
 const outs = [['out-1', 'out~ 1', 'left'], ['out-2', 'out~ 2', 'right'], ['out-3', 'out~ 3', 'belief focus 0..1']];
@@ -58,8 +68,26 @@ G.obj('mf', 'midiformat', 20, 165, 80, 7, 1, { outlettype: ['int'] });
 G.wire('kb', 1, 'pk', 1); G.wire('kb', 0, 'pk', 0); G.wire('pk', 0, 'mf', 0);
 G.obj('midiin', 'midiin', 120, 165, 55, 1, 1, { outlettype: ['int'] });
 G.msg('flat', 'priorShape 0', 400, 150, 90); G.msg('penta', 'priorShape 1', 500, 150, 90); G.msg('paint', 'priorShape 2', 600, 150, 90);
+// ---- the prior painter: one slider per semitone, MIDI 33 (A1) .. 96 (C7)
+const BELIEF = { 38: 0.6, 50: 1.0, 57: 0.9, 60: 0.55, 62: 0.5, 64: 0.75, 67: 0.5, 69: 0.4 };
+const beliefList = Array.from({ length: 64 }, (_, k) => BELIEF[33 + k] ?? 0).join(' ');
+G.add({ id: 'c-painter', maxclass: 'comment', fontsize: 14.0, patching_rect: [20.0, 500.0, 900.0, 22.0],
+  text: 'Paint the prior: one bar per semitone, A1 at the left to C7 at the right. Click "priorShape 2" to hear it.' });
+G.add({ id: 'ms', maxclass: 'multislider', size: 64, setminmax: [0.0, 1.0], setstyle: 1, numinlets: 1, numoutlets: 2,
+  outlettype: ['', ''], parameter_enable: 0, patching_rect: [20.0, 530.0, 640.0, 120.0] });
+G.msg('m-belief', beliefList, 20, 665, 640);
+G.note('c-belief', 'the composed D-dorian belief from prior-tone-A/B/C.wav: D strongest, then A, E, C, D4, G, A4, low D', 20, 690, 640);
+G.msg('m-clear', Array(64).fill(0).join(' '), 680, 665, 120);
+G.note('c-clear', 'clear (then paint from nothing)', 680, 690, 200);
+G.obj('lf', 'listfunnel', 680, 530, 70, 1, 1);
+G.obj('pp', 'prepend paint', 680, 560, 90, 1, 1);
+G.obj('lb', 'loadbang', 820, 530, 60, 1, 1, { outlettype: ['bang'] });
+G.obj('dl', 'delay 500', 820, 560, 70, 2, 1, { outlettype: ['bang'] });
+G.note('c-lb', 'paints the composed belief half a second after load', 820, 590, 200);
+G.wire('m-belief', 0, 'ms'); G.wire('m-clear', 0, 'ms'); G.wire('lb', 0, 'dl'); G.wire('dl', 0, 'm-belief');
+G.wire('ms', 0, 'lf'); G.wire('lf', 0, 'pp'); G.wire('pp', 0, 'rnbo');
 G.note('c-prior', 'the prior: flat · A-minor-pentatonic hills · the painted "prior" table', 400, 125, 400);
-const knobs = [['doubt', 0.25], ['tauFocus', 1.6], ['tauOff', 1.4], ['rate', 160], ['nMax', 128]];
+const knobs = [['doubt', 0.25], ['tauFocus', 1.6], ['tauOff', 1.4], ['rate', 160], ['nMax', 128], ['priorTone', 0], ['toneCurve', 1]];
 knobs.forEach(([name, val], i) => {
   const x = 20 + 120 * i;
   G.note(`k-l-${i}`, name, x, 190, 110);
@@ -83,9 +111,10 @@ G.add({ id: 'focus', maxclass: 'flonum', format: 6, numinlets: 1, numoutlets: 2,
 G.add({ id: 'slider', maxclass: 'slider', size: 1.0, floatoutput: 1, numinlets: 1, numoutlets: 1, outlettype: [''], parameter_enable: 0, patching_rect: [380.0, 400.0, 200.0, 20.0], orientation: 1 });
 G.wire('rnbo', 2, 'snap'); G.wire('snap', 0, 'focus'); G.wire('snap', 0, 'slider');
 G.note('c-focus', 'belief focus: 0 with nothing held, ~0.92 once a chord is believed', 300, 430, 400);
+G.note('c-tone', 'priorTone 0 = before (painted peaks only steer where clicks land) · 1 = grains on a painted peak grow long. toneCurve 1 = B, 0.5 = C (wider, hummier, less in tune).', 860, 190, 300, 80);
 G.note('c-cmp', 'Reference: RNBO/codebox-take.wav is this codebox\'s own output through the same 42-second take as chord-belief.wav.', 20, 470, 700);
 
-const patcher = { patcher: { fileversion: 1, appversion, classnamespace: 'box', rect: [60.0, 60.0, 960.0, 560.0],
+const patcher = { patcher: { fileversion: 1, appversion, classnamespace: 'box', rect: [60.0, 60.0, 1200.0, 740.0],
   default_fontname: 'Lato', gridsize: [15.0, 15.0], boxes: G.boxes, lines: G.lines } };
 fs.writeFileSync(path.join(here, 'belief-cloud.maxpat'), JSON.stringify(patcher, null, '\t'));
 console.log(`belief-cloud.maxpat: ${G.boxes.length} boxes outside, ${I.boxes.length} inside the rnbo~`);

@@ -1,0 +1,52 @@
+// =====================================================================
+// paint-in.codebox   (goes in an event-rate codebox — no tilde — inside
+// the rnbo~, beside notes-in.codebox and belief-cloud.codebox)
+//
+// The prior painter's door. A 64-slider multislider in the Max patch
+// (one slider per semitone, MIDI 33 A1 .. 96 C7) is unrolled by
+// [listfunnel] into "semitone weight" pairs and sent to [inport paint].
+// This codebox keeps the 64 weights and rewrites the 630-bin `prior`
+// table near the semitone that moved: each semitone is a Gaussian hill
+// 20 cents wide, cut off at 3 semitones, on a 0.02 floor. Then it bumps
+// slot 630 of the table, which tells the grain codebox~ to re-read the
+// prior (it looks every 64 samples while priorShape is 2).
+//
+// Same rule as BeliefCloud.paintedPrior() in bayes_engine.js, so the
+// board page and the RNBO patch paint the same belief.
+//
+// in1 = semitone 0..63 (hot), in2 = weight 0..1 (cold). [unpack 0 0]
+// sends right to left, so the weight is set when the semitone fires.
+//
+// UNVERIFIED: poke argument order (see notes-in.codebox) and whether
+// RNBO's [unpack] exists under that name inside rnbo~ (if not, use
+// [listunpack] or route the pair into a codebox with a list inlet).
+// =====================================================================
+
+const NB = 630;
+const W = 20.0;          // cents, hill width
+const FLOOR = 0.02;
+
+@state paint = buffer("prior");
+@state semis = new FixedFloat64Array(64);
+@state stamp = 0;
+
+let k = floor(clamp(in1, 0, 63));
+semis[k] = max(0.0, in2);
+let i0 = max(0, floor((k - 3) * 10.0));
+let i1 = min(NB - 1, floor((k + 3) * 10.0 + 10.0));
+for (let i = i0; i <= i1; i++) {
+    let m = 33.0 + (i + 0.5) / 10.0;
+    let base = floor(m - 33.0);
+    let v = FLOOR;
+    for (let j = max(0, base - 3); j <= min(63, base + 3); j++) {
+        let dm = m - (33.0 + j);
+        if (abs(dm) < 3.0) {
+            let d = dm * 100.0 / W;
+            v += semis[j] * exp(-0.5 * d * d);
+        }
+    }
+    poke(paint, i, v);
+}
+stamp += 1;
+poke(paint, NB, stamp);
+out1 = stamp;

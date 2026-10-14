@@ -19,12 +19,19 @@
 //   level      amplitude ∝ sqrt(f / cycles): every grain carries equal energy,
 //              so long low grains do not swamp the mix.
 //   timing     onsets are a Poisson process at `rate` grains per second.
+//   prior tone (added 2026-10-14, cycle 3) the prior's own peaks may also
+//              lengthen grains, so a painted resting belief can sound tonal
+//              before any note is held. tone(bin) = ((p - mean)/(max - mean))^toneCurve,
+//              clamped to 0..1, zero for a flat prior; the length exponent
+//              becomes max(evidence gate, priorTone * tone(bin)). priorTone = 0
+//              is the instrument exactly as before.
 class BeliefCloud {
   constructor(sr) {
     this.sr = sr;
     this.lo = 33; this.hi = 96; this.binC = 10;                 // MIDI A1..C7, 10-cent bins
     this.B = Math.round((this.hi - this.lo) * 100 / this.binC);
     this.prior = new Float64Array(this.B).fill(1); this.cdf = new Float64Array(this.B);
+    this.tone = new Float64Array(this.B); this.priorTone = 0; this.toneCurve = 1;
     this.priorDirty = true;
     this.doubt = 0.25;        // prior mass against each fully believed note's 1.0
     this.tauOn = 0.08;        // s, weight attack
@@ -63,7 +70,23 @@ class BeliefCloud {
   allOff() { for (const n of this.notes.values()) n.held = false; }
   setPrior(arr) { for (let i = 0; i < this.B; i++) this.prior[i] = Math.max(0, arr[i]); this.priorDirty = true; }
   binMidi(i) { return this.lo + (i + 0.5) * this.binC / 100; }
-  buildCdf() { let a = 0; for (let i = 0; i < this.B; i++) { a += this.prior[i]; this.cdf[i] = a; } this.priorSum = a; this.priorDirty = false; }
+  buildCdf() { let a = 0, mx = 0; for (let i = 0; i < this.B; i++) { a += this.prior[i]; this.cdf[i] = a; if (this.prior[i] > mx) mx = this.prior[i]; } this.priorSum = a; this.priorDirty = false;
+    const mean = a / this.B;
+    for (let i = 0; i < this.B; i++) { let t = 0; if (mx > mean * 1.05) { t = Math.pow(Math.max(0, Math.min(1, (this.prior[i] - mean) / (mx - mean))), this.toneCurve); } this.tone[i] = t; } }
+  // the painter's rule, shared with RNBO/paint-in.codebox: one weight per semitone
+  // (MIDI 33..96), each a Gaussian hill `width` cents wide, cut off at 3 semitones,
+  // on a small floor.
+  static paintedPrior(semis, B = 630, width = 20, floor = 0.02) {
+    const out = new Float64Array(B);
+    for (let i = 0; i < B; i++) {
+      const m = 33 + (i + 0.5) / 10; let v = floor;
+      for (let k = Math.max(0, Math.floor(m - 33) - 3); k <= Math.min(63, Math.floor(m - 33) + 3); k++) {
+        const d = (m - (33 + k)) * 100 / width; if (Math.abs(m - (33 + k)) < 3) v += semis[k] * Math.exp(-0.5 * d * d);
+      }
+      out[i] = v;
+    }
+    return out;
+  }
   evolve(dt) {
     const kOn = 1 - Math.exp(-dt / this.tauOn), dOff = Math.exp(-dt / this.tauOff);
     const kF = 1 - Math.exp(-dt / this.tauFocus), kB = 1 - Math.exp(-dt / this.tauBlur);
@@ -110,6 +133,8 @@ class BeliefCloud {
       const d = (midi - m) * 100 / this.near, close = Math.exp(-0.5 * d * d);
       const g = close * n.w * this.conviction(n); if (g > best) best = g;
     }
+    const bi = Math.floor((midi - this.lo) * 100 / this.binC);
+    if (bi >= 0 && bi < this.B) { const tt = this.priorTone * this.tone[bi]; if (tt > best) best = tt; }
     const cycles = this.nMin * Math.pow(this.nMax / this.nMin, best);
     return { midi, cycles };
   }
