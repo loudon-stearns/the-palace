@@ -32,6 +32,7 @@ import { openSync, closeSync, writeFileSync, readFileSync, existsSync, rmSync } 
 import { execFileSync, spawn, spawnSync } from 'node:child_process';
 import { resolve, join } from 'node:path';
 import { clearStaleLocksSync, clearStaleLocks, LockHeldError } from './git-locks.js';
+import { recoverLanding, readMarker } from './landing.js';
 
 export const DOOR_FILE = 'palace-door.mutex';
 export const HOLDER_FILE = 'palace-door.holder';
@@ -281,6 +282,35 @@ export function startMaintenance(root) {
   } catch (_) { /* housekeeping is optional */ }
 }
 
+// Whoever holds the door first finishes a landing that died halfway, or
+// undoes it when someone's edit is in the way (server/landing.js). It says what
+// it did in one line. It never fails the caller's own work.
+function healLanding(root, tag) {
+  try {
+    const marker = readMarker(root);
+    if (!marker) return;
+    // A git killed mid-checkout leaves its index.lock behind, and for thirty
+    // seconds that lock looks live, which would block the very repair below.
+    // With a landing marker present and this process holding the door, a lock
+    // in that checkout with no git running there is the dead landing's: clear
+    // it whatever its age. A git still running keeps it, and the heal waits for
+    // the next pass through the door.
+    try {
+      clearStaleLocksSync(marker.root || root, { attempts: 1, ignoreAge: true, tag, log: loudOnRemoval });
+    } catch (e) {
+      if (e instanceof LockHeldError) {
+        process.stderr.write(`${tag}: a landing died halfway, but git is still running in that checkout; the next pass through the door will finish it\n`);
+        return;
+      }
+      throw e;
+    }
+    const done = recoverLanding(root);
+    if (done) process.stderr.write(`${tag}: ${done.line}\n`);
+  } catch (e) {
+    process.stderr.write(`${tag}: could not check for a landing that died halfway: ${e.message}\n`);
+  }
+}
+
 function sleepSync(ms) {
   if (ms > 0) Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
 }
@@ -305,6 +335,7 @@ export function withDoorSync(root, tag, fn, { timeoutMs = DOOR_TIMEOUT_MS, patie
     if (status !== 0) throw new Error(`${tag}: the door's lock helper failed (exit ${status})`);
     held = true;
     writeHolder(r, tag);
+    healLanding(r, tag);
     const env = doorEnv(tag);
     const git = (args, opts = {}) => {
       const deadline = Date.now() + patienceMs;
@@ -364,6 +395,7 @@ export async function withDoor(root, tag, fn, { timeoutMs = DOOR_TIMEOUT_MS, pat
     if (status === 75) throw busyError(r, tag, timeoutMs);
     held = true;
     writeHolder(r, tag);
+    healLanding(r, tag);
     const env = doorEnv(tag);
     const once = (args, opts) => new Promise((resolvePromise, rejectPromise) => {
       const child = spawn('git', args, { cwd: r, env: opts.env ? { ...env, ...opts.env } : env, stdio: ['ignore', 'pipe', 'pipe', fd] });
