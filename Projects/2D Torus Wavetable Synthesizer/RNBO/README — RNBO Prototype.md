@@ -19,6 +19,7 @@ Starting surface: [[15 — Penrose Lattice]]. Penrose is the most demanding surf
 ## Files
 
 - `torus_2d_lookup.codebox` — the codebox~ source. Open this in any text editor or paste into a `codebox~` object inside an `rnbo~` subpatcher. Read the comments at the top before wiring.
+- `torus-ab.maxpat` (added 2026-10-14) — the whole harness below, already wired: buffer, the four tests as buttons, `2d.wave~`, two rnbo~ paths and two A−B meters. Built by `build_ab_patch.mjs` without Max, so unopened. Its second rnbo~ runs `torus_2d_lookup_extphase.codebox`, the same lookup fed the *shared* phasors, so its A−B meter tests the lookup alone and the phase counters drop out. If you open the patch, steps 1–6 below are done; go straight to the verification protocol. `null_fingerprints.json` says what any meter reading other than silence points to.
 
 ## Step-by-step build
 

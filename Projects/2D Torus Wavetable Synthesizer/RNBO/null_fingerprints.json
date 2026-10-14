@@ -1,0 +1,63 @@
+{
+  "surface": "15_penrose_lattice.wav",
+  "seconds_per_test": 1,
+  "columns": [
+    "if 2d.wave~ …",
+    "static row (220 Hz, ratio 0)",
+    "static column (0.5 Hz, ratio 1000)",
+    "closed orbit 3:2 (220 Hz, ratio 1.5)",
+    "shimmer 3:2 + a hair (220 Hz, ratio 1.500625)"
+  ],
+  "rows": [
+    [
+      "same as the codebox",
+      "−∞ (bit-exact) dBFS peak",
+      "−∞ (bit-exact) dBFS peak",
+      "−∞ (bit-exact) dBFS peak",
+      "−∞ (bit-exact) dBFS peak"
+    ],
+    [
+      "no wrap at the last row",
+      "−∞ (bit-exact) dBFS peak",
+      "-60.0 dBFS peak",
+      "-60.0 dBFS peak",
+      "-60.4 dBFS peak"
+    ],
+    [
+      "y over 1023 rows",
+      "−∞ (bit-exact) dBFS peak",
+      "-29.3 dBFS peak",
+      "-30.6 dBFS peak",
+      "-30.7 dBFS peak"
+    ],
+    [
+      "no interpolation between rows",
+      "−∞ (bit-exact) dBFS peak",
+      "-28.9 dBFS peak",
+      "-30.8 dBFS peak",
+      "-29.0 dBFS peak"
+    ],
+    [
+      "x runs into the next row",
+      "-64.8 dBFS peak",
+      "−∞ (bit-exact) dBFS peak",
+      "-72.8 dBFS peak",
+      "-33.8 dBFS peak"
+    ],
+    [
+      "x over 1023 samples",
+      "-28.7 dBFS peak",
+      "-34.9 dBFS peak",
+      "-32.9 dBFS peak",
+      "-28.7 dBFS peak"
+    ],
+    [
+      "axes swapped",
+      "5.8 dBFS peak",
+      "5.8 dBFS peak",
+      "5.8 dBFS peak",
+      "5.8 dBFS peak"
+    ]
+  ],
+  "note": "Peak of A − B in dBFS, as [peakamp~] -> [atodb] in the patch shows it. A guess, not Max: the B side is a model of 2d.wave~."
+}

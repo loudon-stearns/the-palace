@@ -15,20 +15,20 @@ forward_vector: "I am 2D Torus Wavetable Synthesizer's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T00:28:05.803Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T00:30:46.874Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 20 · last ran 2026-10-14 (today)
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 21 · last ran 2026-10-14 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — I put the 4:27 hero's journey on its own circle: a player with a loudness ring, chapter marks, and a tag for each chapter. (`torus-steward-051`)
-- **Last commit touching this project:** 2026-10-13 `d89eb8b7` — steward(2D Torus Wavetable Synthesizer): cycle 19 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
+- **Last shipped:** 2026-10-14 (today) — The A/B test patch you were asked to wire by hand in April is built: open it in Max, click four buttons, and read two meters. (`torus-steward-053`)
+- **Last commit touching this project:** 2026-10-13 `39079246` — steward(2D Torus Wavetable Synthesizer): cycle 20 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read it, and their ratio decides whether it sounds harmonic or shimmers. Its test piece, Étude No. 2, is played entirely by the Hopf codebox, and the score is nothing but knob moves. Your notes on four drafts led to the fifth: a 4:27 piece in twelve chapters that walks the hero's journey, with each surface cast as a character. Nobody has heard it yet. A 4:27 piece is hard to react to as a whole, so this cycle built a listening map that lets you answer chapter by chapter.
+This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read it, and their ratio decides whether it sounds harmonic or shimmers. Everything playable so far runs in the browser or in offline renders. The real-time version is a set of RNBO codeboxes, and none of them has run in Max, because the first check was never done: play the bare codebox beside Max's own 2d.wave~ on the same surface and confirm the difference is silent. That check needed you to wire a patch by hand from a written recipe. This cycle wired it. The hero's-journey étude is still unheard and its card is still open.
 
 ### Open asks
 
@@ -61,6 +61,46 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="torus-steward-053" -->
+### 2026-10-14 — cycle 21 — The A/B test patch you were asked to wire by hand in April is built: open it in Max, click four buttons, and read two meters.
+> shipped · patch built, never opened in Max · steward leans open it before more codebox work
+
+[torus-ab.maxpat](open:Projects/2D Torus Wavetable Synthesizer/RNBO/torus-ab.maxpat) is the README's whole harness, built for you. Penrose loads on open, and nine surface buttons swap it. The four tests are buttons: static row, static column, closed 3:2 orbit, shimmer. Two shared phasors drive 2d.wave~. A listen menu switches between codebox, 2d.wave~ and the error magnified ×1000.
+
+**One change from the old recipe.** The written codebox counts its own phase, so comparing it with 2d.wave~ mixes two questions: does it read the surface right, and do two phase counters agree? So the patch carries two codebox paths. A1 is the codebox as written, the one you'll play. A2 is a new twin, `torus_2d_lookup_extphase.codebox`: the same lookup, copied word for word (a script checks the two copies match), but fed the same two phasors as 2d.wave~. A2 − B tests the lookup and nothing else. Each path has its own meter showing the peak difference in dB, and the pass bar is below −100.
+
+**What a failing number would mean.** I can't run Max, so I modelled the ways 2d.wave~ might read the surface differently and ran the codebox against each on Penrose (table). Each one leaves a different pattern across the four tests. Swapped axes are loud on every test. A one-row offset sits near −30 dB everywhere except the static row. A seam that doesn't wrap shows only as a whisper at −60. So whatever four numbers you read off, they point at a cause. One gap: 'y over 1023 rows' and 'no interpolation between rows' give nearly the same numbers. Your scope tells them apart, because no interpolation draws stair steps.
+
+The picture is the patch drawn from its own file, so you can see the wiring before opening it. The README's file list now points at the patch.
+
+**Artifacts:**
+- [The A/B patch: the codebox against 2d.wave~, four test buttons, two meters. Never opened in Max.](Projects/2D Torus Wavetable Synthesizer/RNBO/torus-ab.maxpat)
+- [The patch drawn from its own file; amber cords carry audio.](Projects/2D Torus Wavetable Synthesizer/RNBO/torus-ab-layout.png)
+- [The bare lookup fed outside phases, so A − B tests the lookup alone.](Projects/2D Torus Wavetable Synthesizer/RNBO/torus_2d_lookup_extphase.codebox)
+- [Runs the codebox against seven guesses at how 2d.wave~ reads, and checks the two lookup copies match.](Projects/2D Torus Wavetable Synthesizer/RNBO/null_fingerprints.mjs)
+- [The table above, as the script wrote it.](Projects/2D Torus Wavetable Synthesizer/RNBO/null_fingerprints.json)
+- [Builds the patch; adopted from the Haptic Handwheel's patch builder.](Projects/2D Torus Wavetable Synthesizer/RNBO/build_ab_patch.mjs)
+- [Draws the layout picture from the patch file.](Projects/2D Torus Wavetable Synthesizer/RNBO/render_ab_layout.py)
+- [The shared transpiler now takes signal inputs; the Hopf mirror re-ran unchanged.](Projects/2D Torus Wavetable Synthesizer/RNBO/codebox_transpile.mjs)
+- [File list now points at the ready-made patch.](Projects/2D Torus Wavetable Synthesizer/RNBO/README — RNBO Prototype.md)
+
+_Peak of A2 − B on Penrose, in dBFS, if 2d.wave~ reads the surface each way (1 s per test). A model of 2d.wave~, not Max._
+| if 2d.wave~ … | static row | static column | closed 3:2 | shimmer |
+| --- | --- | --- | --- | --- |
+| reads it exactly like the codebox | silent | silent | silent | silent |
+| doesn't wrap from the last row to the first | silent | −60.0 | −60.0 | −60.4 |
+| spreads y over 1023 rows | silent | −29.3 | −30.6 | −30.7 |
+| doesn't interpolate between rows | silent | −28.9 | −30.8 | −29.0 |
+| lets x interpolate into the next row | −64.8 | silent | −72.8 | −33.8 |
+| spreads x over 1023 samples | −28.7 | −34.9 | −32.9 | −28.7 |
+| has the axes swapped | +5.8 | +5.8 | +5.8 | +5.8 |
+
+_Left rough:_ Nothing here has been opened in Max. I wrote the rnbo~ insides, the codebox~ box, the combine that builds file paths, and 2d.wave~'s @rows by hand from memory of Max's file format, and any of them may need retyping. The surface paths are absolute to this Mac. The codebox's own buffer access (peek on 'tablebuf') is still the April guess. The meter predictions model 2d.wave~ rather than measure it.
+
+_Next moves named:_ When you open the patch: read the two meters on the four tests. The table says what any non-silent number means, and I fix the codebox (or the patch) from that. · If the rnbo~ boxes refuse to load, the gotcha goes on the RNBO codebox~ smith, and the patch falls back to the README's paste-it-in steps. · The hero's-journey étude stays parked on its open card until you've listened; the journey map is the way in.
+<sub>`torus-steward-053` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="torus-steward-051" -->
 ### 2026-10-13 — cycle 20 — I put the 4:27 hero's journey on its own circle: a player with a loudness ring, chapter marks, and a tag for each chapter.
 > shipped · draft five still unheard · steward leans you listen with this before I write a sixth

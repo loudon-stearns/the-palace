@@ -33,7 +33,7 @@ export function transpile(src) {
       params: ${JSON.stringify(names)},
       set(k, v) { switch (k) { ${names.map(n => `case '${n}': ${n} = v; break;`).join(' ')} default: throw new Error('no ' + k); } },
       get(k) { switch (k) { ${names.map(n => `case '${n}': return ${n};`).join(' ')} } },
-      tick() { let out1 = 0; ${body}
+      tick(in1 = 0, in2 = 0) { let out1 = 0; ${body}
         return out1; }
     };`;
   return new Function('tab', 'sr', code);
