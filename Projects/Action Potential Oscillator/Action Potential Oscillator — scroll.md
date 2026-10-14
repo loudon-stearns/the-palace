@@ -15,20 +15,20 @@ forward_vector: "I am Action Potential Oscillator's scroll — the one page that
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T11:00:20.754Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T11:08:09.567Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 6 · last ran 2026-10-14 (today)
-- **Plan:** agreed 2026-09-25 (18 days ago) · 2 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 7 · last ran 2026-10-14 (today)
+- **Plan:** agreed 2026-09-25 (18 days ago) · 3 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — Should the crowd or the single neuron go to the H90 first? (`apo-steward-012`)
-- **Last commit touching this project:** 2026-09-26 `5864b19c` — edit(Neural Granular Synthesis): control-vocabulary-math becomes the project's spec
+- **Last shipped:** 2026-10-14 (today) — I wrote the crowd's RNBO version by hand, with every control a signal inlet. It matches the Faust crowd sample for sample, and a Max patch holds it. (`apo-steward-015`)
+- **Last commit touching this project:** 2026-10-14 `928a25d4` — steward(Action Potential Oscillator): cycle 6 — SPINNING UP. HOME: [Action Potential Oscillator](obsidian://open?vault=…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Action Potential Oscillator builds a synth from a neuron's biology. The single neuron, four playable Gen~ stages built in March, is done. What comes next is the crowd: many slightly different neurons coupled so that how tightly they agree becomes the sound. In June you picked the Faust route. The Faust engine was drafted but had never compiled, and the only sound we had was a Python stand-in. This cycle the Faust version compiles. I rendered a coupling sweep and put it beside the Python render. That finishes the first step of the agreed plan. The next step is getting the instrument onto the Eventide H90 through RNBO.
+Action Potential Oscillator builds a synth from a neuron's biology. The single neuron has been playable in Gen~ since March. Earlier today the crowd, 32 slightly different neurons whose coupling turns into the sound, finally compiled in Faust and locked into a clean tone. That finished the first step of the plan. The next step is getting the instrument onto the Eventide H90 through RNBO. I asked whether the crowd or the single neuron should go first. While that's open I kept going on the crowd. Faust's automatic RNBO export ran only 16 neurons and froze every control, so I wrote a readable RNBO version by hand. It runs all 32 neurons, takes every control as a signal inlet, and produces exac…
 
 ### Open asks
 
@@ -64,6 +64,42 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="apo-steward-015" -->
+### 2026-10-14 — cycle 7 — I wrote the crowd's RNBO version by hand, with every control a signal inlet. It matches the Faust crowd sample for sample, and a Max patch holds it.
+> shipped · the crowd's code is ready for RNBO, not yet opened in Max · steward leans crowd first
+
+**Why I wrote it by hand.** Faust's automatic export (`rnbo/neuropulse.codebox`) is 928 lines of generated code. It has only 16 neurons, and every control is a fixed setting, not a signal jack. This project's rule is that every knob is a signal inlet you can patch an LFO or envelope into. The new file, [neuropulse-crowd.codebox](open:Projects/Action Potential Oscillator/rnbo/neuropulse-crowd.codebox), is about 150 lines. It uses the same maths as the Faust version, with one array slot per neuron. It has 8 inlets: frequency, coupling, spread, leak time, spike length, undershoot depth, recovery damping and refractory time. It has two outputs: the crowd's voice, and a new one, **synchrony**, which is the share of the crowd spiking right now. You can use it as a modulation signal (0 to 1).
+
+**How I checked it without Max.** I can't open Max, so I wrote a small Node harness (`rnbo/codebox-harness.mjs`). It runs the codebox text itself, line for line, with stand-ins for RNBO's built-in functions. I rendered the same 30-second coupling sweep as last cycle's Faust render, with Faust built in double precision as RNBO runs. The audio differs by at most 6e-8 over 1.44 million samples, and the synchrony output is identical. Against last cycle's single-precision Faust build, the two drift apart after 9 ms because the system is chaotic, but the lock and release come out the same.
+
+**What the signal inlets buy you.** [neuropulse-codebox-phrase.wav](open:Projects/Action Potential Oscillator/neuropulse-codebox-phrase.wav) is 24 s of a four-note phrase, A2 C3 E3 D3. Coupling breathes on a 0.2 Hz sine while the spread between neurons slowly widens. Early breaths lock fully. By the last ones, the crowd only reaches about a third of the way to a lock, because a wider spread needs more coupling. You can see it in [codebox-vs-faust.png](open:Projects/Action Potential Oscillator/codebox-vs-faust.png): harmonic lines appear on the breaths and smear between them. The synchrony curve trails the coupling a little on the way up.
+
+**The Max patch.** [neuropulse-crowd.maxpat](open:Projects/Action Potential Oscillator/rnbo/neuropulse-crowd.maxpat) is written by hand (`make_maxpat.py`), with no py2max. Inside is an rnbo~ with in~ 1 to 8, the codebox, and out~ 1 and 2. Outside, each inlet has a number box feeding a sig~ with its default value, then a gain stage, a DAC, and a synchrony meter. A 0.2 Hz cycle~ sits beside the coupling inlet, unwired, ready to make the coupling breathe. To try it: open the patch, turn on audio, and raise coupling past about 0.005.
+
+**Artifacts:**
+- [24 s phrase: four notes, coupling breathing, spread widening until the crowd can't lock.](Projects/Action Potential Oscillator/neuropulse-codebox-phrase.wav)
+- [Top: codebox and Faust synchrony on top of each other. Middle and bottom: the phrase's spectrogram and synchrony.](Projects/Action Potential Oscillator/codebox-vs-faust.png)
+- [The hand-written RNBO codebox: 32 neurons, 8 signal inlets, a voice output and a synchrony output.](Projects/Action Potential Oscillator/rnbo/neuropulse-crowd.codebox)
+- [Max patch with the codebox inside an rnbo~ and sig~ defaults on every inlet. Not yet opened in Max.](Projects/Action Potential Oscillator/rnbo/neuropulse-crowd.maxpat)
+- [Runs the codebox text in Node so its maths can be checked without Max.](Projects/Action Potential Oscillator/rnbo/codebox-harness.mjs)
+- [Compares the codebox with Faust, then renders the phrase and the figure.](Projects/Action Potential Oscillator/rnbo/check_codebox.py)
+- [Writes the Max patch by hand from the codebox source.](Projects/Action Potential Oscillator/rnbo/make_maxpat.py)
+
+_Hand-written RNBO codebox vs. the Faust crowd · same 30 s sweep, 32 neurons · 'together' = largest share spiking in the same instant_
+| seconds | codebox together | Faust together | largest audio difference |
+| --- | --- | --- | --- |
+| 0–3 | 0.24 | 0.24 | ≤ 6e-8 across the whole render |
+| 6–9 | 0.72 | 0.72 | — |
+| 13–17 | 0.96 | 0.96 | — |
+| 21–24 | 0.73 | 0.73 | — |
+| 27–30 | 0.22 | 0.22 | — |
+
+_Left rough:_ Nobody has opened the patch or the codebox in Max. I built the box layout from RNBO 1.4 help patches, but Max may reject some of it, and the codebox may use syntax RNBO doesn't accept, like the top-level const or the ternary. CPU is unmeasured: every sample runs 32 pow() calls. The first note of the phrase shows full synchrony only because every neuron starts from rest at the same moment. I still don't know whether the H90 can actually load an RNBO export.
+
+_Next moves named:_ Once the patch has been opened in Max: fix whatever it rejects, record each failure on the RNBO codebox~ smith page, and measure CPU. If it's heavy, recompute each neuron's constants only when an input changes. · Find out what the Eventide H90 actually accepts from RNBO and what its CPU limit is, and size the crowd to fit (32 neurons, or 16 if it must shrink).
+<sub>`apo-steward-015` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="apo-steward-012" -->
 ### 2026-10-14 — cycle 6 — Should the crowd or the single neuron go to the H90 first?
 > still working · Faust crowd compiles and locks · steward leans CROWD-FIRST

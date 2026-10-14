@@ -1,0 +1,140 @@
+// =============================================================================
+// NeuroPulse crowd — hand-written RNBO codebox~  (v0.1, 2026-10-14)
+// Action Potential Oscillator · the crowd of 32 coupled Stage-4 neurons
+// =============================================================================
+// Why hand-written: faust2rnbo's codebox (neuropulse.codebox, 928 lines) runs
+// only 16 neurons and freezes every control as a @param. This project's rule is
+// Signal-Rate CV Architecture: every control is a signal inlet, so any of them
+// can be driven by an LFO, an envelope, or another oscillator. This file is the
+// same maths as neuropulse.dsp v0.2, one neuron per array slot, readable.
+//
+// PATCHER WIRING (inside rnbo~):
+//   [in~ 1] frequency Hz            (default sig~ 110)
+//   [in~ 2] coupling K              (default sig~ 0;  lock arrives near 0.005)
+//   [in~ 3] spread                  (default sig~ 0.05; rate + leak spread,
+//                                    threshold spread is 0.4 x this)
+//   [in~ 4] leak tau ms             (default sig~ 5)
+//   [in~ 5] spike ms                (default sig~ 1)
+//   [in~ 6] hyperpolarization       (default sig~ -0.2)
+//   [in~ 7] recovery damping        (default sig~ 0.3)
+//   [in~ 8] refractory ms           (default sig~ 1.5)
+//   [codebox~ out1] -> [*~ gain] -> [out~ 1]   the crowd's voice (DC-blocked)
+//   [codebox~ out2] -> [out~ 2]                synchrony: share of the crowd
+//                                              spiking right now (0..1), a CV
+// Every inlet is read every sample; nothing here is a @param.
+// =============================================================================
+
+const NUM = 32;
+const RISEFRAC = 0.3;
+const PEAK = 1.5;
+
+// per-neuron state: voltage, phase (0 charge,1 rise,2 fall,3 recovery),
+// samples in phase, recovery velocity
+@state nV = new FixedDoubleArray(32);
+@state nPh = new FixedDoubleArray(32);
+@state nT = new FixedDoubleArray(32);
+@state nVel = new FixedDoubleArray(32);
+// fixed per-neuron offsets in [-1, 1], filled on the first sample
+@state jitF = new FixedDoubleArray(32);
+@state jitTau = new FixedDoubleArray(32);
+@state jitThr = new FixedDoubleArray(32);
+@state ready = 0;
+// last sample's synchrony, fed back as the coupling signal
+@state meanField = 0.0;
+// DC blocker registers (zero at 1, pole at 0.995 -- Faust fi.dcblocker)
+@state dcX = 0.0;
+@state dcY = 0.0;
+
+function fract(x) { return x - floor(x); }
+function jitter(i) { return fract(sin(i * 12.9898 + 78.233) * 43758.5453) * 2.0 - 1.0; }
+
+if (ready == 0) {
+    for (let i = 0; i < NUM; i++) {
+        jitF[i] = jitter(i);
+        jitTau[i] = jitter(i + 101);
+        jitThr[i] = jitter(i + 211);
+    }
+    ready = 1;
+}
+
+let freq = max(1.0, in1);
+let K = in2;
+let spread = max(0.0, in3);
+let tauMs = in4;
+let spikeMs = in5;
+let hyp = min(-0.01, in6);
+let damp = in7;
+let refrMs = in8;
+
+let msToSamp = 0.001 * samplerate;
+let spikeS = max(2.0, spikeMs * msToSamp);
+let riseS = max(1.0, spikeS * RISEFRAC);
+let fallS = max(1.0, spikeS - riseS);
+let refrS = max(1.0, refrMs * msToSamp);
+let fallRate = (hyp - PEAK) / fallS;
+
+let sumV = 0.0;
+let sumSpike = 0.0;
+let coupling = K * meanField;
+
+for (let i = 0; i < NUM; i++) {
+    // this neuron's own rate, leak and threshold
+    let myFreq = max(1.0, freq * (1.0 + spread * jitF[i]));
+    let myTau = max(0.1, tauMs * (1.0 + spread * jitTau[i]));
+    let thr = max(0.1, 1.0 + 0.4 * spread * jitThr[i]);
+
+    let leakTau = max(2.0, myTau * msToSamp);
+    let leakCoeff = 1.0 - 1.0 / leakTau;
+    let period = samplerate / myFreq;
+    // frequency compensation: spike + refractory come out of the period
+    let chargeS = max(1.0, period - spikeS - refrS);
+    // drive that reaches threshold in chargeS samples from rest, with leak
+    let drive = thr / (leakTau * (1.0 - pow(leakCoeff, chargeS))) + coupling;
+    let riseRate = (PEAK - thr) / riseS;
+    let springK = 1.0 / leakTau;
+
+    let V = nV[i];
+    let ph = nPh[i];
+    let t = nT[i];
+    let vel = nVel[i];
+
+    let newV = V;
+    let newPh = ph;
+    let newVel = 0.0;
+
+    if (ph == 0) {
+        let chargeV = V * leakCoeff + drive;
+        if (chargeV >= thr) { newV = thr; newPh = 1; }   // latch at threshold
+        else { newV = chargeV; }
+    } else if (ph == 1) {
+        newV = V + riseRate;
+        if (t + 1 >= riseS) { newPh = 2; }
+    } else if (ph == 2) {
+        newV = V + fallRate;
+        if (t + 1 >= fallS) { newPh = 3; }
+    } else {
+        let recVel = vel - springK * V - damp * 2.0 * sqrt(springK) * vel;
+        newV = V + recVel;
+        if (t + 1 >= refrS && V > hyp * 0.3) { newPh = 0; }
+        else { newVel = recVel; }
+    }
+
+    nV[i] = newV;
+    nPh[i] = newPh;
+    nT[i] = (newPh != ph) ? 0.0 : t + 1.0;
+    nVel[i] = newVel;
+
+    sumV += (newV - hyp) / (PEAK - hyp) * 2.0 - 1.0;
+    if (newPh == 1) { sumSpike += 1.0; }
+}
+
+meanField = sumSpike / NUM;
+let crowd = sumV / NUM;
+
+// DC blocker
+let y = crowd - dcX + 0.995 * dcY;
+dcX = crowd;
+dcY = y;
+
+out1 = y;
+out2 = meanField;
