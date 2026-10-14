@@ -72,6 +72,7 @@
   .ctl label { font-family: var(--mono); font-size: var(--t-meta); letter-spacing: .04em; text-transform: uppercase; color: var(--fg-3); display: flex; justify-content: space-between; }
   .ctl label span { color: var(--fg-1); }
   .ctl input[type=range] { width: 100%; accent-color: var(--accent); }
+  .ctl select { width: 100%; background: var(--bg); color: var(--fg-1); border: 1px solid var(--border); border-radius: var(--r-sm); font-family: var(--mono); font-size: var(--t-meta); padding: 3px 4px; }
 
   .deviation { margin-top: var(--s-3); font-family: var(--mono); font-size: var(--t-meta); color: var(--fg-3); letter-spacing: .03em; }
   .deviation b { color: var(--accent); font-weight: var(--w-medium); }
@@ -150,9 +151,10 @@
     <div class="ctl"><label>Boids <span id="vN">60</span></label><input id="cN" type="range" min="8" max="120" step="1" value="60"></div>
     <div class="ctl"><label>Cohesion <span id="vCoh">1.0</span></label><input id="cCoh" type="range" min="0" max="3" step="0.05" value="1.0"></div>
     <div class="ctl"><label>Separation <span id="vSep">1.5</span></label><input id="cSep" type="range" min="0" max="3" step="0.05" value="1.5"></div>
-    <div class="ctl"><label>Disorder η (phase transition) <span id="vEta">0.06</span></label><input id="cEta" type="range" min="0" max="1" step="0.01" value="0.06"></div>
+    <div class="ctl"><label>Disorder η (phase transition) <span id="vEta">0.060</span></label><input id="cEta" type="range" min="0" max="1" step="0.005" value="0.49"></div>
+    <div class="ctl"><label>Listen by <span id="vMap">order</span></label><select id="cMap"><option value="order" selected>order — heading→pitch, steadiness→grain length</option><option value="page">place — height→pitch, speed→grain rate (first build)</option></select></div>
     <div class="ctl"><label>Base note Hz <span id="vBase">110</span></label><input id="cBase" type="range" min="55" max="330" step="1" value="110"></div>
-    <div class="ctl"><label>Pitch spread semis <span id="vPit">19</span></label><input id="cPit" type="range" min="0" max="36" step="1" value="19"></div>
+    <div class="ctl"><label>Pitch spread semis (place) <span id="vPit">19</span></label><input id="cPit" type="range" min="0" max="36" step="1" value="19"></div>
     <div class="ctl"><label>Grain shimmer <span id="vGr">0.55</span></label><input id="cGr" type="range" min="0" max="1" step="0.01" value="0.55"></div>
     <div class="ctl"><label>Master <span id="vVol">0.7</span></label><input id="cVol" type="range" min="0" max="1" step="0.01" value="0.7"></div>
   </div>
@@ -325,6 +327,7 @@ async function startAudio(){
 }
 function pushParams(){ if(node) node.port.postMessage({type:'params', master:P.vol, shimmer:P.shimmer}); }
 
+let steady=null;                       // per-boid steadiness memory for the "order" mapping
 function pushFlock(boids){
   if(!node) return;
   const N=boids.length, buf=new Float32Array(N*6);
@@ -332,13 +335,23 @@ function pushFlock(boids){
   for(let i=0;i<N;i++){
     const b=boids[i];
     const u=b.x/WIDTH, v=b.y/HEIGHT;
-    const semis=(0.5 - v)*P.pitch;
+    // "order" (default since 2026-10-14): the heading circle is the pitch circle (one octave
+    // around) and grain length follows each boid's steadiness of course, so the flock's order
+    // is heard: aligned → long unison grains, tumbling → short scattered clicks.
+    // "page": the first build — height→pitch, speed→grain rate (order barely reaches the sound).
+    const semis = P.map==='order' ? 12*Math.atan2(b.vy,b.vx)/(2*Math.PI) : (0.5 - v)*P.pitch;
     const rdx=b.x-cx, rdy=b.y-cy, rd=Math.hypot(rdx,rdy)+1e-6;
     const vrad=(b.vx*rdx+b.vy*rdy)/rd;
     const dopp=1 - 0.012*vrad;
     const freq=P.base*Math.pow(2,semis/12)*dopp;
     const spd=Math.hypot(b.vx,b.vy)/MAX_SPEED;
-    const grainHz=18+spd*90;
+    let grainHz=18+spd*90;
+    if(P.map==='order'){
+      if(!steady||steady.n!==N){ steady={n:N,hx:new Float64Array(N),hy:new Float64Array(N)}; for(let j=0;j<N;j++){const m=Math.hypot(boids[j].vx,boids[j].vy)||1;steady.hx[j]=boids[j].vx/m;steady.hy[j]=boids[j].vy/m;} }
+      const m=Math.hypot(b.vx,b.vy)||1; steady.hx[i]=0.93*steady.hx[i]+0.07*b.vx/m; steady.hy[i]=0.93*steady.hy[i]+0.07*b.vy/m;
+      const q=Math.pow(Math.min(1,Math.hypot(steady.hx[i],steady.hy[i])),6);
+      grainHz=4+(1-q)*100;
+    }
     const gain=0.55+0.45*Math.min(1,b.nb/6);
     const k=i*6;
     buf[k]=u; buf[k+1]=v; buf[k+2]=freq; buf[k+3]=gain; buf[k+4]=grainHz; buf[k+5]=u;
@@ -349,13 +362,18 @@ function pushFlock(boids){
 /* ===================================================================== *
  *  CONTROLS / STATE                                                      *
  * ===================================================================== */
-const P = { N:60, coh:1.0, sep:1.5, ali:1.0, eta:0.06, base:110, pitch:19, shimmer:0.55, vol:0.7 };
+const P = { N:60, coh:1.0, sep:1.5, ali:1.0, eta:0.06, base:110, pitch:19, shimmer:0.55, vol:0.7, map:'order' };
+// Disorder slider: position x → η = 0.25·x². Measured headlessly (engine/sweep_eta.js), the
+// flock's whole transition lives in η 0–0.15 (knee ≈ 0.065); on the old linear 0–1 slider
+// it sat in the first sixth of the travel. Squared, the knee sits at mid-slider.
+const etaOfX = x => 0.25*x*x;
 let boids = makeBoids(P.N);
 function bind(id,key,fmt,after){const el=document.getElementById(id);const out=document.getElementById('v'+id.slice(1));el.addEventListener('input',()=>{const val=parseFloat(el.value);P[key]=val;out.textContent=fmt?fmt(val):val;if(after)after(val);});}
-bind('cN','N',v=>v|0,v=>{P.N=v|0;boids=makeBoids(P.N);});
+bind('cN','N',v=>v|0,v=>{P.N=v|0;boids=makeBoids(P.N);steady=null;});
 bind('cCoh','coh',v=>v.toFixed(2));
 bind('cSep','sep',v=>v.toFixed(2));
-bind('cEta','eta',v=>v.toFixed(2));
+(function(){const el=document.getElementById('cEta'),out=document.getElementById('vEta');el.addEventListener('input',()=>{P.eta=etaOfX(parseFloat(el.value));out.textContent=P.eta.toFixed(3);});})();
+document.getElementById('cMap').addEventListener('change',e=>{P.map=e.target.value;document.getElementById('vMap').textContent=P.map==='order'?'order':'place';steady=null;});
 bind('cBase','base',v=>v|0);
 bind('cPit','pitch',v=>v|0);
 bind('cGr','shimmer',v=>v.toFixed(2),()=>pushParams());
@@ -425,8 +443,8 @@ document.getElementById('engage').addEventListener('click', async (e)=>{ e.stopP
  *  region), NOT one per slider. Flip REVIEW_MODE=false to ship clean.    *
  * ===================================================================== */
 const REVIEW_MODE = true;                 // ← set false to ship the clean final
-const REVIEW_ROUND = 2;                   // round 1 was the pre-palace prototype
-const RV_KEY = 'murmuration-review-v2';
+const REVIEW_ROUND = 3;                   // round 3: order mapping + remapped Disorder (2026-10-14)
+const RV_KEY = 'murmuration-review-v3';
 
 const MOMENTS = [
   { id:'concept',  label:'Concept & framing (the lead)',          tag:'text',    sel:'.lead' },

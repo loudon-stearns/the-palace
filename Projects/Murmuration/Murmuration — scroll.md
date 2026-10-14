@@ -15,26 +15,41 @@ forward_vector: "I am Murmuration's scroll — the one page that always opens on
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-23T04:36:43.543Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — steer the project in **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T13:25:25.857Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** none — this project has no permanent steward yet
-- **Waiting on you:** nothing
-- **Last shipped:** nothing on the board yet — but the bundle holds 1 media file (see the making trail)
-- **Last commit touching this project:** 2026-09-03 `509a123` — edit(close-2026-09-02): the counter-discipline gets its proof; the deposit sheds what it grew
+- **Status:** active · **Stage:** growing · **Steward:** cycle 1 · last ran 2026-10-14 (today)
+- **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
+- **Waiting on you:** 2 open asks
+- **Ready to advance:** no unread answers
+- **Last shipped:** 2026-10-14 (today) — Two 40-second clouds, same performance. One is a flock, one is hand-jittered grains. Which sounds more alive? (`murmuration-steward-003`)
+- **Last commit touching this project:** 2026-09-26 `5b8a1564` — ops(frontmatter): strip retired activation_count/last_activated from 244 entries — v1.26
+- **Signal:** steady
+- **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-_No steward has spoken for this project. Its direction is the `forward_vector` in [[Murmuration]]'s frontmatter; enchant a steward to start the trail._
+Murmuration is a synth where a flock of 60 boids wanders across a 2D wavetable and every boid is a grain, so the flock's shape is the grain cloud. Its signature knob, Disorder, adds steering noise and should push the flock through a real order→chaos transition, from a pitched tone to a broadband cloud. The page was built in June and checked only by numbers, never by ear. This cycle I built a headless copy of the page and measured it. The transition is real and sharp, but it sits in the bottom sixth of the old slider. Under the first mapping the sound barely changes when the flock orders: grains are about one waveform cycle long and pitch comes from height, and neither depends on order. I ad…
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `murmuration-steward-003` — sensory_verdict · posted 2026-10-14 · options: X · Y · CANT-TELL
+- `murmuration-steward-004` — proposed plan revision: Murmuration's first plan · posted 2026-10-14 · options: adopt · keep
+
+### Answered, not yet consumed
+
+_None._
 
 ### Decided
 
 _Nothing decided on the board yet._
 
 <!-- scroll:now:end -->
+
+## Plan
+
+<!-- scroll:plan:start -->
+_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+<!-- scroll:plan:end -->
 
 ## Standing Orders
 
@@ -45,6 +60,68 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="murmuration-steward-003" -->
+### 2026-10-14 — cycle 1 — Two 40-second clouds, same performance. One is a flock, one is hand-jittered grains. Which sounds more alive?
+> still working · blind pair rendered, level-matched · no clear lean, your ears decide
+
+Murmuration's whole bet is that a grain cloud shaped by a living flock sounds more alive than one whose spread is dialed in by hand. Its own entry says the honest test is blind. Today I made the flock's order audible, so the test means something now. blind-X.wav and blind-Y.wav are the same 40 seconds: melted, crystallising, ordered, a predator scare, melting again. They go through the same 60 grains and the same mapping. In one, every grain is a boid steering by its neighbours. In the other, every grain jitters on its own, but the cloud's centre, spread, speed, heading agreement and grain-length mix are copied from the flock frame by frame. Only the coordination differs, which makes this the hard version of the test. They're matched in loudness. Pick the one that feels more alive, or say you can't tell, which is a real result too. I'll open the key (engine/blind-key.json) only after you answer.
+
+**Artifacts:**
+- [Blind take X.](Projects/Murmuration/blind-X.wav)
+- [Blind take Y.](Projects/Murmuration/blind-Y.wav)
+<sub>`murmuration-steward-003` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="murmuration-steward-002" -->
+### 2026-10-14 — cycle 1 — The flock's order really does snap, but under the first mapping it never reached the sound. A new mapping lets you hear it, and the page now uses it.
+> shipped · page ≡ engine exactly, unheard in a browser · steward leans flock-as-distribution next
+
+WHAT I BUILT. engine/murmur_engine.js is the page's own flock, grain mapping and AudioWorklet grain voice, copied line for line and made repeatable with seeded randomness. check_page_mapping.js pulls the code out of Murmuration.html, runs it with stubbed audio, and compares it with the engine over 1200 frames for both mappings. The largest difference is 0.
+
+FINDING 1, the transition is real. sweep_eta.js lets 8 seeded flocks settle at each Disorder level. φ (how much the flock agrees on a heading) falls from 0.96 to 0.25 between η 0 and 0.10, then sits at the random floor of about 0.12. Its fluctuations peak at η ≈ 0.07, which is what a true critical point looks like. Raising and lowering η slowly gives the same curve, so there's no hysteresis, and it behaves like a continuous transition. The page's default η 0.06 happens to sit right on the knee. But on the old 0–1 slider everything happens in the first 15% of the travel.
+
+FINDING 2, the sound didn't follow. I ran a scripted 40-second performance through the page's mapping: melted, crystallise, ordered, a predator at 21 s, melt again. In it, pitch-class entropy stays between 3.38 and 3.46 bits whatever the flock does (3.58 would mean all twelve pitch classes equally loud). Two reasons. Grains run at 18–108 Hz, about one cycle of the 110 Hz tone, with a random phase each time, so every boid is a click. And pitch comes from height, which an ordered flock doesn't concentrate. The flock lines up its headings but stays spread across the whole field, with one or two neighbours per boid.
+
+THE FIX, the 'order' mapping. The heading circle becomes the pitch circle, one octave around, so a flock that agrees on its heading also agrees on its pitch. Grain length follows how steadily each boid has held its course over the last quarter second. A boid kept on line by its neighbours plays 250 ms tonal grains, and a tumbling one plays 10 ms clicks. Now the sound tracks φ: 3.40 bits melted, 2.67 ordered, 2.49 re-cohered, back to 3.39 melted again. The page gets a 'Listen by' menu (order is the default, 'place' keeps the first build) and a Disorder slider remapped to η = 0.25·x², so the knee is at mid-slider and the default sits there too.
+
+THE BLIND PAIR. blind-X.wav and blind-Y.wav play the same 40-second performance through the order mapping. In one, the grains are the flock. In the other, each grain wanders on its own random jitter, while the cloud's centre, spread, speed, heading agreement and grain-length mix are copied from the flock frame by frame. Only the coordination between grains differs. They're level-matched. The key is in engine/blind-key.json; please don't open it before listening. The question is on TRICKSTER.
+
+PASSED OVER. Making the flock clump so 'clustered = one tone' comes true: it would mean changing the flocking itself, and alignment, not clumping, is what the transition is. Mapping η straight to grain length: that would be a crossfade dressed as emergence, the softening my own forward vector says to avoid.
+
+**Artifacts:**
+- [Top: φ against Disorder, the knee inside the first sixth of the old slider. Bottom: the performance, where only the order mapping's sound follows the flock.](Projects/Murmuration/transition.png)
+- [The 40-second performance through the first mapping: the flock orders and melts, and the sound hardly moves.](Projects/Murmuration/page-as-built.wav)
+- [Blind take X, order mapping. Flock or hand-jittered? (TRICKSTER asks.)](Projects/Murmuration/blind-X.wav)
+- [Blind take Y, order mapping. Flock or hand-jittered?](Projects/Murmuration/blind-Y.wav)
+- [The page, now with the 'Listen by' menu (order / place) and the remapped Disorder slider. Review layer is on round 3.](Projects/Murmuration/Murmuration.html)
+- [Headless twin: flock, both mappings, the grain voice, and the hand-jittered control cloud.](Projects/Murmuration/engine/murmur_engine.js)
+- [Runs the page's own code against the engine: largest difference 0 over 1200 frames, both mappings.](Projects/Murmuration/engine/check_page_mapping.js)
+- [φ against Disorder: 8 seeds, plus slow up and down sweeps for hysteresis.](Projects/Murmuration/engine/sweep_eta.js)
+- [The sweep's numbers.](Projects/Murmuration/engine/eta_sweep.json)
+- [Renders the scripted performance, flock against hand-jittered, level-matched and blinded.](Projects/Murmuration/engine/render_wager.js)
+- [Which take is which. Open after listening.](Projects/Murmuration/engine/blind-key.json)
+- [Per-section pitch-class entropy and spectral flatness of the takes.](Projects/Murmuration/engine/analyse_takes.py)
+- [The analysis numbers and traces (labelled by source, so it unblinds; read it after the key).](Projects/Murmuration/engine/takes_analysis.json)
+- [Draws transition.png.](Projects/Murmuration/engine/plot_transition.py)
+- [Frame trace of the order-mapping performance: φ, slider position, spread, neighbours.](Projects/Murmuration/engine/wager_trace-order.json)
+- [The same trace for the first mapping.](Projects/Murmuration/engine/wager_trace-page.json)
+
+_40-second performance: flock order φ vs how focused the sound's pitch is (pitch-class entropy, bits; 3.58 = all twelve equal, lower = more focused)_
+| section | flock φ | first mapping | order mapping (mean of X and Y) |
+| --- | --- | --- | --- |
+| melted 1–5 s | 0.12 | 3.43 | 3.40 |
+| crystallising 8–11 s | 0.22 | 3.43 | 3.37 |
+| ordered 17–21 s | 0.87 | 3.42 | 2.67 |
+| predator startle 21–24 s | 0.69 | 3.45 | 3.10 |
+| re-cohered 25–28 s | 0.94 | 3.46 | 2.49 |
+| melted again 36–39 s | 0.11 | 3.38 | 3.39 |
+
+_Left rough:_ Nobody has heard the new page in a browser. I proved it computes the same grain parameters as the engine, not that it sounds right live. The hand-jittered control gives the grains a bell-curve spread of headings matched to the flock's agreement. The flock's real spread has a different shape, so any difference you hear may partly be that. And entropy measures focus, not aliveness.
+
+_Next moves named:_ The second reading, flock-as-distribution: the flock's live 2D density weights the wavetable additively, rendered from the same performance so it can sit beside the grains. · The third reading, predator as gesture: a fuller startle envelope, with all three readings switchable in one page so choosing between them becomes a compositional control. · When you have the key and a verdict, I'll write up what the blind test said, either way.
+<sub>`murmuration-steward-002` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="backfill-2026-09-23" -->
 ### 2026-09-23 — backfilled from the bundle
 
