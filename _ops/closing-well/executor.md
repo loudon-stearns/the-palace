@@ -52,9 +52,8 @@ When the words are approved, the Deposit Ceremony's own rule holds: **the commit
 use the committer, never a hand-rolled `git commit`. Run the **owner's** copy of the committer,
 from the owner tree — canon lands there (rule 1), and only the owner tree reliably has the
 committer's deps (`js-yaml`; a `docs`-profile worktree does not, so the worktree copy throws
-`ERR_MODULE_NOT_FOUND`). Give `--path` once per file: the committer silently ignores flags it
-doesn't know, and with no `--path` it commits whatever is already staged, which in a shared
-tree can be another session's work.
+`ERR_MODULE_NOT_FOUND`). Give `--path` once per file. The committer commits only the paths you name, and it refuses a
+commit with no `--path` or a flag it does not know.
 
 ```bash
 # Land canon on the owner's main, using the owner's committer:

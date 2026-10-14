@@ -50,7 +50,7 @@ worktree + announced on the owner board), and the end-to-end gate. These rules a
 
 - **deposit** → run the **owner's** committer from the owner tree (it has the deps; canon
   lands there): `node "{{OWNER}}/_ops/stigmergy/app/scripts/palace-commit.mjs" --kind deposit
-  --scope <id> --paths … --summary … --verify <how>`. Verify every link resolves or points at
+  --scope <id> --path <file> --path <file> … --summary … --verify <how>`, one `--path` per file. Verify every link resolves or points at
   a page not yet written — a forward ghost is allowed, since Loudon approved the words that ask
   for it. A link that matches an existing entry ignoring case is a typo: stop and report the row
   unplaced. A near-spelling is not a stop — land the row as approved and name the link in the
