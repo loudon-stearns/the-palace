@@ -15,20 +15,20 @@ forward_vector: "I am Inharmonic Wavetable Synthesis's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T12:57:08.205Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T13:03:18.961Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 7 · last ran 2026-10-14 (today)
+- **Status:** active · **Stage:** growing · **Steward:** cycle 8 · last ran 2026-10-14 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — This project has never had an agreed plan. Here is one: trajectory library, then a Live device, then the lesson. (`inharmonic-wavetable-synthesis-steward-015`)
-- **Last commit touching this project:** 2026-10-12 `96c1c26f` — edit(Inharmonic Wavetable Synthesis): a pointer to the open editor refinement
+- **Last shipped:** 2026-10-14 (today) — My entry's piano numbers are about 20 times too big, and its 'settling piano' settles in loudness, not in bend. (`inharmonic-wavetable-synthesis-steward-018`)
+- **Last commit touching this project:** 2026-10-14 `a61871bb` — steward(Inharmonic Wavetable Synthesis): cycle 7 — SPINNING UP. HOME: [Inharmonic Wavetable Synthesis](obsidian://open?vau…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Inharmonic Wavetable Synthesis is the synth where two wavetables do two different jobs. Wavetable A decides how loud each partial is. Wavetable B decides how far each partial sits from its harmonic place, in cents, so a flat line is pure harmony and every bend is a material. One knob, B depth, scales the bend. Back in May and June I built a Faust sketch, five auditions, and a scanner that moves through a piano's settling frames. In June I asked whether the scanner or the FFT-driven Wavetable A should come next. That question went unanswered, and it no longer matters, because both are now built. This cycle feeds a real wavetable into Wavetable A: the electric-organ table Generative Wavetable…
+Inharmonic Wavetable Synthesis is the synth where two wavetables do two jobs. Wavetable A sets how loud each partial is. Wavetable B sets how far each partial sits from its harmonic place, in cents, so a flat line is pure harmony and every bend is a material. Earlier today both walls started playing together: a real organ table against a piano and a bell trajectory, both hand-made. I proposed a plan that starts by building a small library of trajectories measured from real sounds, one recording first and then the rest. That plan still waits on your yes, and this cycle builds its first step. I wrote a small partial tracker and ran it on one real recording, the low A (55 Hz, forte) from the G…
 
 ### Open asks
 
@@ -59,6 +59,65 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="inharmonic-wavetable-synthesis-steward-018" -->
+### 2026-10-14 — cycle 8 — My entry's piano numbers are about 20 times too big, and its 'settling piano' settles in loudness, not in bend.
+> measured on one real low-A recording · proposes an entry fix for an elder · steward leans correct it
+
+**claim:** The entry says Piano (Bass) has B ≈ 0.001 to 0.002 settling over about 200 ms, and its 'settling piano' sound flattens the Wavetable B curve over 500 ms. A real recorded low A (55 Hz, Live Core Library Grand Piano, forte) measures B = 4.67e-5, steady within ±2% from the strike to 3.8 s. The whole pitch drifts down only about 1 cent over 8 s. The heard bend halves because the upper partials go quiet, not because they move.
+**target entries:** Inharmonic Wavetable Synthesis · Piano String Inharmonicity
+**evidence:** Projects/Inharmonic Wavetable Synthesis/trajectory-library/piano-low-A1.wtb.json and piano-low-A1-trajectory.png (posted as inharmonic-wavetable-synthesis-steward-017).
+**confidence:** high for this note; one recording, so treble strings may differ
+**proposed change:** In the Physical Trajectory Library list, change Piano (Bass) to something like 'B ≈ 5e-5 at A1, near-constant; the settling is the upper partials fading'. Reword 'The settling piano' to say the real string's bend holds steady, the settling heard is the loudness wall dimming where the bend is largest, and a bend that relaxes over time is a designed, impossible gesture. The entry's Cube section already says the two walls are projections of one string, and this measurement backs that. Leave it to an elder to word and land.
+
+**Artifacts:**
+- [the measurement behind this flag.](Projects/Inharmonic Wavetable Synthesis/trajectory-library/piano-low-A1-trajectory.png)
+<sub>`inharmonic-wavetable-synthesis-steward-018` · FLAG on FLAGS</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="inharmonic-wavetable-synthesis-steward-017" -->
+### 2026-10-14 — cycle 8 — First real trajectory: I tracked a recorded low piano A into Wavetable B. Its bend doesn't settle. What fades is the upper partials.
+> shipped · one recording tracked, four renders, the study gains it · steward leans high piano + bowl next
+
+**What I built.** [track_partials.py](obsidian://open?vault=The%20Palace&file=Projects/Inharmonic%20Wavetable%20Synthesis/trajectory-library/track_partials.py) reads a recording in place and finds partials 1 to 8. It fits the string-stiffness law to them, uses the fit to predict where the next partials will be, and climbs to 64 that way. Then it measures every partial in 16 frames, log-spaced from 0.03 s to 8 s. A partial counts only if it stands 12 dB above the noise and the analysis window can pin it to better than about 5 cents. At 55 Hz that throws out partial 1, so partial 1 takes the fit's value.
+
+**What it found.** The fit gives f0 = 55.14 Hz and B = 4.67e-5. The measured partials sit on that curve to within about half a cent: partial 16 is 10 cents sharp, partial 32 is 40, partial 64 is 152. B frame by frame is 4.73 to 4.88e-5 from the strike to 3.8 s. That's flat within ±2%, so the bend doesn't settle. The whole pitch drifts down about 1 cent over 8 s, and that's all the settling the frequencies do. Our June 'settling piano' started at B = 9e-4, 19 times stiffer, and relaxed toward 7e-5. The heard bend (each partial's bend weighted by its loudness) does halve, from 4.5 cents to about 2. That happens because the high partials go dark first, not because they move. So the settling lives in the cube's interior: the loudness wall dims exactly where the bend is largest. The entry predicted this when it said a piano's amplitudes and bends are two projections of one struck string. The loudness wall also has dark bands near partials 25, 33 and 41. They're probably the hammer's strike point cancelling every 8th mode or so. I haven't confirmed that.
+
+**What to open, in order:**
+1. **01-real-piano-two-walls.wav**: the piano rebuilt from its own two walls, measured levels and measured bend.
+2. **02-real-piano-two-walls-bend-off.wav**: the same with B depth 0. A/B it against 01. Partial 40 sits at 2285.9 Hz in 01 and at the harmonic 2205.7 Hz in 02, 62 cents apart.
+3. **03-organ-flat-real-june.wav**: the organ wall struck three times, with the flat line, then the real piano bend, then the June guess (at the 0.3 depth cycle 7 used). The real bend should sound much subtler than the guess.
+4. **04-chord-real-bend-pushed.wav**: an A major chord on the organ wall wearing the real bend. B depth rises from 0 to 3 over 14 s, past what this string really does.
+5. **piano-low-A1-trajectory.png**: the measured bend against the flat line and the June curve, B over time, and the loudness wall with the heard bend drawn over it.
+6. **dual-wavetable-instrument.html**: the playable study now has 'real piano, low A (measured)' in its trajectory menu.
+
+**Artifacts:**
+- [the low piano A rebuilt from its own measured levels and bend.](Projects/Inharmonic Wavetable Synthesis/trajectory-library/01-real-piano-two-walls.wav)
+- [the same with the bend off; A/B against 01.](Projects/Inharmonic Wavetable Synthesis/trajectory-library/02-real-piano-two-walls-bend-off.wav)
+- [organ wall struck three times: flat, real piano bend, June guess.](Projects/Inharmonic Wavetable Synthesis/trajectory-library/03-organ-flat-real-june.wav)
+- [A major on the organ, real bend pushed from depth 0 to 3.](Projects/Inharmonic Wavetable Synthesis/trajectory-library/04-chord-real-bend-pushed.wav)
+- [measured bend vs the flat line, B over time, the loudness wall and the heard bend.](Projects/Inharmonic Wavetable Synthesis/trajectory-library/piano-low-A1-trajectory.png)
+- [the trajectory: 16 frames x 64 partials of cents, a live-partial mask, and the matching loudness wall.](Projects/Inharmonic Wavetable Synthesis/trajectory-library/piano-low-A1.wtb.json)
+- [the tracker: recording in, Wavetable B and A frames out (/usr/local/bin/python3).](Projects/Inharmonic Wavetable Synthesis/trajectory-library/track_partials.py)
+- [rebuilds the four renders and the figure from the trajectory.](Projects/Inharmonic Wavetable Synthesis/trajectory-library/render_piano_low.py)
+- [the playable study, now with 'real piano, low A (measured)' in the trajectory menu.](Projects/Inharmonic Wavetable Synthesis/dual-wavetable/dual-wavetable-instrument.html)
+- [study source with the new menu option.](Projects/Inharmonic Wavetable Synthesis/dual-wavetable/dual-wavetable-instrument.template.html)
+- [study data, now carrying the measured trajectory.](Projects/Inharmonic Wavetable Synthesis/dual-wavetable/dual-data.json)
+- [cycle-7 engine; now folds in the measured trajectory when it exists.](Projects/Inharmonic Wavetable Synthesis/dual-wavetable/build_dual.py)
+
+_cents off harmonic at the attack: measured low piano A vs. the June hand-made guess_
+| partial | measured (fit) | June guess ×1 | June guess ×0.3 (as played in cycle 7) |
+| --- | --- | --- | --- |
+| 8 | 2.6 | 48.5 | 14.5 |
+| 16 | 10.3 | 179.5 | 53.8 |
+| 32 | 40.4 | 565.4 | 169.6 |
+| 64 | 151.5 | 1337.1 | 401.1 |
+
+_Left rough:_ This is one note at one loudness, and I can't hear, so every sound claim is a measurement. The 'no settling' result may not hold for treble strings or a ff hit. The hammer-node reading of the dark bands is a guess. The source audio stays in Live's library and isn't copied into the palace, and I didn't play-test the study's new option beyond a syntax check.
+
+_Next moves named:_ Run the same tracker on a high piano note (Core Library C5 or F#5) and on the singing bowl (Core Library 'Bowl Swell B1'). Treble strings should be much stiffer, and the bowl will test the tracker on a sound with no harmonic ladder. · If the bend really is fixed, give Strike mode in the study a real-piano setting where the bend stays put and only the loudness wall decays. That is the true piano gesture, and the lesson can show it.
+<sub>`inharmonic-wavetable-synthesis-steward-017` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="inharmonic-wavetable-synthesis-steward-015" -->
 ### 2026-10-14 — cycle 7 — This project has never had an agreed plan. Here is one: trajectory library, then a Live device, then the lesson.
 > still working · both walls now play · steward leans adopt

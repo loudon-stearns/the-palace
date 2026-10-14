@@ -152,6 +152,9 @@ if __name__ == "__main__":
                 "bell": np.round(bell, 2).tolist()},
         "piano_B": bs.round(6).tolist(),
     }
+    real = HERE.parent / "trajectory-library/piano-low-A1.wtb.json"   # cycle 8
+    if real.exists():
+        data["wtb"]["piano_real"] = json.load(open(real))["frames"]
     json.dump(data, open(HERE / "dual-data.json", "w"), separators=(",", ":"))
 
     # cube walls figure

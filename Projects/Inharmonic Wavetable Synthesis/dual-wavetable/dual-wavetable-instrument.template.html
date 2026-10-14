@@ -95,7 +95,7 @@ footer{font-family:var(--mono);font-size:11px;color:var(--fg3);display:flex;just
     </div>
     <div class="grid">
       <label>Wavetable B</label>
-      <select id="wtb"><option value="bell">bell dissolving into harmony</option><option value="piano">piano string settling</option><option value="flat">the flat line (pure harmony)</option></select>
+      <select id="wtb"><option value="bell">bell dissolving into harmony</option><option value="piano">piano string settling (June guess)</option><option value="piano_real">real piano, low A (measured)</option><option value="flat">the flat line (pure harmony)</option></select>
       <span></span><span></span>
 
       <label>τ<sub>A</sub> · organ timbre</label>
@@ -154,7 +154,7 @@ footer{font-family:var(--mono);font-size:11px;color:var(--fg3);display:flex;just
 const DATA = /*DATA*/null;
 const NP = DATA.n_partials;
 const WTA = DATA.wta;                       // [48][64]
-const WTB = {bell: DATA.wtb.bell, piano: DATA.wtb.piano,
+const WTB = {bell: DATA.wtb.bell, piano: DATA.wtb.piano, piano_real: DATA.wtb.piano_real || DATA.wtb.piano,
              flat: DATA.wtb.piano.map(r => r.map(() => 0))};
 
 // ── state ────────────────────────────────────────────────────────────────
