@@ -15,20 +15,20 @@ forward_vector: "I am Generative Sample Libraries's scroll — the one page that
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T22:48:59.796Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-13T22:51:57.613Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 35 · last ran 2026-10-13 (today)
-- **Plan:** agreed 2026-09-25 (18 days ago) · 3 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 36 · last ran 2026-10-13 (today)
+- **Plan:** agreed 2026-09-25 (18 days ago) · 4 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — Violin, flute and marimba now each ship as a DecentSampler instrument, with the same keys and every key in tune. (`gsl-steward-072`)
-- **Last commit touching this project:** 2026-09-26 `5b8a1564` — ops(frontmatter): strip retired activation_count/last_activated from 244 entries — v1.26
+- **Last shipped:** 2026-10-13 (today) — The AI violin and flute now loop while a key is held, instead of stopping when the 3–5 second take runs out. (`gsl-steward-074`)
+- **Last commit touching this project:** 2026-10-13 `70b691a1` — steward(Generative Sample Libraries): cycle 35 — SPINNING UP
 - **Signal:** steady
-- **Drift:** 18 cycles since the entry was last consolidated (cycle 17) — the entry body may lag; this scroll does not.
+- **Drift:** 19 cycles since the entry was last consolidated (cycle 17) — the entry body may lag; this scroll does not.
 
 ### Where this stands
 
-Generative Sample Libraries turns a conversation into a playable sampled instrument. Crystal and Shepard-tone shipped in the summer. The current work is your June idea: ask an audio AI to play a named note, then check with pitch detection that it did. MusicGen won, guided by a hummed tone, and Stable Audio is out on your ear. Last cycle cut each instrument down to the keys it can really play and rendered a short tune on each for your ear. That question is still open. This cycle I started on a later part of the plan, writing every open format: the free DecentSampler plugin is how participants actually load an instrument, so all three AI instruments now come as a DecentSampler preset plus a s…
+Generative Sample Libraries turns a conversation into a playable sampled instrument. Crystal and Shepard-tone shipped in the summer. The current work is your June idea: ask an audio AI (MusicGen, guided by a hummed tone; Stable Audio is out on your ear) to play a named note, check with pitch detection that it did, and build the instrument from the takes that pass. Violin, flute and marimba all play in tune on every key they cover, and each now ships as both an SFZ and a free DecentSampler preset. Your call on which tune sounds most like one player is still open. This cycle continued the plan's step of writing every open format: until now a held violin or flute note simply stopped when its t…
 
 ### Open asks
 
@@ -74,6 +74,90 @@ Never start a render you can't finish and post inside one cycle. Chunk long swee
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="gsl-steward-074" -->
+### 2026-10-13 — cycle 36 — The AI violin and flute now loop while a key is held, instead of stopping when the 3–5 second take runs out.
+> shipped · 45/45 loops pass seam + 12 s pitch check · unheard · steward leans ear-check held.wav
+
+The MusicGen takes are 3 to 5 seconds long, so a held key went silent around the 4-second mark. The new script loop_sustain.py builds a violin_looped and a flute_looped instrument beside the ones you have. For each sample it searches for a loop a whole number of wave cycles long, past the bow-on and short of the tail, scoring each candidate on how alike the waveform and the level are where the loop joins. It may only loop audio where the pitch tracker hears the take's own note. A 60 ms crossfade is baked into the WAV, and the same loop points go three places: the SFZ (loop_sustain), a smpl chunk inside each WAV (what hardware samplers and most importers read), and the rebuilt DecentSampler preset and library.
+
+Then I held every sample's own key for 12 s through a loop-aware player and checked for clicks at each loop point, level pumping, and pitch across the whole hold. The best few candidate loops are tried in order until one passes all three. The first pass needed three fixes. A plain crossfade dipped 2–5 dB wherever the two blended stretches were partly out of phase, which pumps, so I switched to a level-preserving crossfade. A 'loop only flat-level stretches' rule found almost nothing, because these takes swell like played phrases. And without the pitch gate, the best-matching loop sat on breath (violin C5) or on a stretch with an added octave-low tone (violin A#5). The DecentSampler presets still match the SFZs key for key.
+
+**Artifacts:**
+- [violin: low, middle, high key held 7 s, first as shipped (it stops), then looped](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/held.wav)
+- [flute: the same before/after](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/held.wav)
+- [violin, looped, for the free DecentSampler plugin](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/range+violin_bo5+violin_names56_bo3+violin_names57_bo3_violin_looped.dslibrary)
+- [flute, looped, for the free DecentSampler plugin](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/range+flute_names56_bo3+flute_names57_bo3_flute_looped.dslibrary)
+- [violin DecentSampler preset with loopStart/loopEnd](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/range+violin_bo5+violin_names56_bo3+violin_names57_bo3_violin_looped.dspreset)
+- [flute DecentSampler preset with loopStart/loopEnd](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/range+flute_names56_bo3+flute_names57_bo3_flute_looped.dspreset)
+- [violin SFZ, loop_sustain](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/range+violin_bo5+violin_names56_bo3+violin_names57_bo3_violin_looped.sfz)
+- [flute SFZ, loop_sustain](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/range+flute_names56_bo3+flute_names57_bo3_flute_looped.sfz)
+- [per-sample loop points and seam measurements, violin](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/loopcheck.json)
+- [per-sample loop points and seam measurements, flute](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/loopcheck.json)
+- [violin attack-shaping record, carried over](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/shaping.json)
+- [flute attack-shaping record, carried over](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/shaping.json)
+- [DecentSampler parity check on the looped presets](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/decentsampler.looped.check.json)
+- [the loop finder, crossfade, smpl writer and seam check](Projects/Generative Sample Libraries/ai-source-probe/loop_sustain.py)
+- [now carries loop points into the preset and reads them back](Projects/Generative Sample Libraries/ai-source-probe/to_decentsampler.py)
+- [parse_sfz now reads loop_start/loop_end](Projects/Generative Sample Libraries/ai-source-probe/build_sfz.py)
+- [new section: Sustain loops (cycle 36)](Projects/Generative Sample Libraries/ai-source-probe/DESIGN.md)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/samples/flute_names56_bo3__flute_B4_s3.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/samples/flute_names56_bo3__flute_D4_s3.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/samples/flute_names56_bo3__flute_D5_s2.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/samples/flute_names56_bo3__flute_F5_s1.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/samples/flute_names56_bo3__flute_F5_s3.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/samples/flute_names56_bo3__flute_G#3_s1.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/samples/flute_names56_bo3__flute_G#4_s3.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/samples/flute_names57_bo3__flute_A3_s2.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/samples/flute_names57_bo3__flute_C4_s1.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/samples/flute_names57_bo3__flute_C4_s3.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/samples/flute_names57_bo3__flute_C5_s2.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/samples/flute_names57_bo3__flute_D#4_s2.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/samples/flute_names57_bo3__flute_F#4_s1.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/samples/range__flute_A#6_s1.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/samples/range__flute_C#5_s2.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/samples/range__flute_C#6_s1.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/samples/range__flute_C#7_s1.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/samples/range__flute_E4_s1.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/samples/range__flute_E7_s2.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/samples/range__flute_G5_s2.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/flute_looped/samples/range__flute_G6_s2.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/samples/range__violin_A#4_s2.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/samples/range__violin_C#5_s1.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/samples/violin_bo5__violin_A#3_s4.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/samples/violin_bo5__violin_A#4_s3.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/samples/violin_bo5__violin_C#4_s5.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/samples/violin_bo5__violin_E4_s4.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/samples/violin_bo5__violin_E4_s5.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/samples/violin_bo5__violin_G3_s5.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/samples/violin_bo5__violin_G5_s4.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/samples/violin_bo5__violin_G5_s5.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/samples/violin_names56_bo3__violin_B3_s1.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/samples/violin_names56_bo3__violin_B4_s2.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/samples/violin_names56_bo3__violin_D5_s3.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/samples/violin_names56_bo3__violin_F4_s3.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/samples/violin_names56_bo3__violin_F5_s1.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/samples/violin_names56_bo3__violin_G#3_s1.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/samples/violin_names57_bo3__violin_A3_s1.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/samples/violin_names57_bo3__violin_A4_s2.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/samples/violin_names57_bo3__violin_C5_s1.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/samples/violin_names57_bo3__violin_C5_s2.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/samples/violin_names57_bo3__violin_C5_s3.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/samples/violin_names57_bo3__violin_D#4_s3.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/samples/violin_names57_bo3__violin_F#4_s1.wav)
+- [looped sample](Projects/Generative Sample Libraries/ai-source-probe/instruments/in_range/violin_looped/samples/violin_names57_bo3__violin_F#4_s2.wav)
+
+_Sustain loops, every sample's key held 12 s_
+| instrument | samples | no click / no pump | on pitch across 12 s | worst click | worst extra wobble | loop length | DecentSampler keys on pitch |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| violin | 24 | 24 | 24 | +3.0 dB (limit +6) | 0.4 dB (limit 1.5) | 0.35–1.52 s | 42/42 |
+| flute | 21 | 21 | 21 | +4.8 dB (limit +6) | 0.6 dB (limit 1.5) | 0.35–1.60 s | 38/38 |
+
+_Left rough:_ Unheard, by me or by you. The loop often sits in a louder part of the take than its opening, so a held note swells into it (up to about 6 dB on violin). sforzando and DecentSampler haven't loaded the loop points yet; I wrote and read them back myself. The flute's C#5 take has its second harmonic 13 dB above its fundamental, so pitch detection can call it an octave high depending on the window.
+
+_Next moves named:_ Even out the swell into the loop: match the opening's level to the loop's with a slow gain ramp before the loop start, then re-run the same seam check. · Continue writing every open format: SF2 through ConvertWithMoss from the looped SFZs, then check that the smpl loop points survive the conversion.
+<sub>`gsl-steward-074` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="gsl-steward-072" -->
 ### 2026-10-13 — cycle 35 — Violin, flute and marimba now each ship as a DecentSampler instrument, with the same keys and every key in tune.
 > shipped · your ear call on the three instruments still open · steward leans keep building formats
