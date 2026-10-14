@@ -15,20 +15,20 @@ forward_vector: "I am Semantic Delay's scroll — the one page that always opens
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-25T20:45:25-04:00 from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T21:28:37.723Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 7 · last ran 2026-06-25 (93 days ago)
-- **Plan:** agreed 2026-09-25 (today) · 0 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 8 · last ran 2026-10-14 (today)
+- **Plan:** agreed 2026-09-25 (19 days ago) · 1 made thing since
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-06-23 (94 days ago) — Stage 3 multi-voice-taps wired and proven against the stub — three spirit converts, three scheduled taps, one rendered WAV. (`semantic-delay-steward-011`)
-- **Last commit touching this project:** 2026-09-23 `c666210b` — ops(scrolls): backfill 36 project scrolls; retire the 20 plan.md read-models
+- **Last shipped:** 2026-10-14 (today) — The first echo that really changes voice: one sung phrase, re-sung by another singer three times, with the melody knob at locked, half and free. (`semantic-delay-steward-014`)
+- **Last commit touching this project:** 2026-09-26 `33d3dd90` — edit(Semantic Delay): the April plan review folds into the build spec and leaves
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-I am Semantic Delay — a VST-bound phrase-delay return effect that swaps the voice on each echo. Phase 1 is the voice-swap path (SoulX-Singer-SVC; no LLM yet). Stage 0 cleared on M1 Max in April (RTF≈1.65, MPS patches in repo); Stages 1–2 stood up the stub-daemon + standalone instrument + offline test. This cycle shipped Stage 3's spirit-pantheon affordance: for one input phrase the demo dispatches one daemon `convert` per registered spirit and schedules each return as its own tap. Three taps land at 2.21s / 2.71s / 3.21s with a 0.7^k decay; the gap energies confirm the train is clean. Because the daemon stub still passes audio through unchanged, the three taps share timbre — what is proven…
+Semantic Delay is a delay effect for a DAW. Instead of repeating your phrase, each echo comes back sung by a different voice. A voice-conversion model called SoulX-Singer-SVC does the swap. It's too slow for live monitoring (about 1.65 seconds of compute per second of audio on the M1 Max), so the delay is long by design, in seconds. The plan has two pieces: a small plugin, and a separate Python helper that holds the model. We built the helper's message format, a playable Python version of the instrument and multi-voice echoes, but always against a placeholder that handed audio back unchanged, so until today no echo had actually changed voice. In June you chose the next step: give every echo…
 
 ### Open asks
 
@@ -77,6 +77,40 @@ Decided with Loudon when the Phase 1 build was planned (2026-04-20), carried ove
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="semantic-delay-steward-014" -->
+### 2026-10-14 — cycle 8 — The first echo that really changes voice: one sung phrase, re-sung by another singer three times, with the melody knob at locked, half and free.
+> shipped · real model ran on your Mac · steward leans wire it into the helper next
+
+I took one 6.4-second sung phrase (the SoulX example vocal), tracked its pitch with the model's own pitch tracker, and asked the model to re-sing it in the voice of the example reference singer three times. Each time the knob was in a different place. **Locked**: the echo sings your melody. **Half**: it holds the shape but rounds off the leaps. **Free**: it keeps your words and rhythm but sings its own line on a pentatonic scale. Listen to the [delay timeline](open:Projects/Semantic Delay/standalone/demo/stage4-real/stage4-real-coupling-delay.wav): the dry phrase first, then the three echoes in that order. The plot shows each one: grey is your melody, blue is what the knob asked for, red is what the model actually sang.
+
+What I measured: the model sings the line it's given to within about a tenth of a semitone, so it obeys the knob rather than ignoring it. The echo moves 0.33, 0.83, then 1.5 semitones away from your melody as the knob relaxes, a clean ladder. A rough timbre check puts every echo about five times nearer the reference singer than the original, so the voice really did change. Speed held at 1.65 seconds of compute per second of audio once the model was warm, the same figure we measured in April.
+
+Hearing it on the real model caught two faults, and I fixed both. First, at 'locked' the echo slurred every note change by about 40 ms. The follower now speeds up as the knob tightens, so locked really is locked. Second, the pitch tracker read one note more than an octave low, and the echo was asked to dive there. The model refused, wisely. A new step now folds those octave slips back into place before the knob acts.
+
+**Artifacts:**
+- [the delay timeline: dry phrase, then echoes at locked, half, free, each in the reference singer's voice.](Projects/Semantic Delay/standalone/demo/stage4-real/stage4-real-coupling-delay.wav)
+- [your melody (grey), what the knob asked for (blue), what the model sang (red), at each setting.](Projects/Semantic Delay/standalone/demo/stage4-real/stage4-real-coupling-contours.png)
+- [the locked echo alone: your melody, another voice.](Projects/Semantic Delay/standalone/demo/stage4-real/echo-K1.0.wav)
+- [the half-coupled echo alone: same shape, leaps rounded off.](Projects/Semantic Delay/standalone/demo/stage4-real/echo-K0.5.wav)
+- [the free echo alone: your words and rhythm, its own pentatonic line.](Projects/Semantic Delay/standalone/demo/stage4-real/echo-K0.0.wav)
+- [the measurements behind the table.](Projects/Semantic Delay/standalone/demo/stage4-real/stage4-real-report.json)
+- [the proof script; runs in the soulx env in about 50 seconds.](Projects/Semantic Delay/standalone/stage4_real_svc_coupling.py)
+- [the knob, with the two fixes the real model taught it.](Projects/Semantic Delay/standalone/coupling.py)
+- [how to run it and what it measured.](Projects/Semantic Delay/standalone/README.md)
+
+_One phrase, three knob settings, real model on the M1 Max_
+| knob | asked to sing (st from your melody) | actually sang (st from what it was asked) | sang (st from your melody) | seconds of compute |
+| --- | --- | --- | --- | --- |
+| locked (1.0) | 0.20 | 0.13 | 0.33 | 11.4 |
+| half (0.5) | 0.86 | 0.10 | 0.83 | 10.6 |
+| free (0.0) | 1.55 | 0.15 | 1.50 | 10.5 |
+
+_Left rough:_ I can't hear, so whether the free setting sounds musical or just robotic is yours to judge. At zero the scale snapping is total, so those notes sit flat and lose their vibrato. The test phrase and singer are SoulX's own examples, not your voice. And the knob still lives in a standalone script: the helper and the playable instrument don't use it yet.
+
+_Next moves named:_ Put the real model behind the helper (the first move in the plan, still owed): swap the placeholder for SoulX-Singer-SVC so the playable instrument's echoes change voice. Now I know it runs on your Mac unattended, so I can do it in the next cycle instead of waiting for a handoff session. · Carry the knob through the helper as an added, optional setting on each conversion request (the knob position plus a spirit name), so the helper does the pitch work and the plugin stays thin. This is a small, compatible version bump to the helper's message format. · Soften the free setting by letting a little vibrato ride on top of the scale notes, if your ear says the flat notes are too robotic.
+<sub>`semantic-delay-steward-014` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-09-25T20-45-25-04-00" -->
 ### 2026-09-25 — Plan agreed: carried over from the entry's Phase 1 build plan
 
