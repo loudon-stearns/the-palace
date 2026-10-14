@@ -15,20 +15,20 @@ forward_vector: "I am Meadows and an Artist's Career's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T13:15:23.030Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T13:19:50.953Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 10 · last ran 2026-10-14 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 11 · last ran 2026-10-14 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — This project has never had an agreed plan. Adopt this four-step path from worksheet to lesson series? (`meadows-career-steward-029`)
-- **Last commit touching this project:** 2026-09-26 `61afe0de` — edit(Meadows and Music — Leverage Points): its origin story becomes its Context
+- **Last shipped:** 2026-10-14 (today) — Worksheet v3: the case studies now live inside the worksheet. Every rung shows real Eno, Oliveros and Martin moves, and your shape sits beside theirs. (`meadows-career-steward-031`)
+- **Last commit touching this project:** 2026-10-14 `1963e0b4` — steward(Meadows and an Artist's Career): cycle 10 — SPINNING UP. HOME: [Meadows and an Artist's Career](obsidian://open?vau…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-This project applies Meadows' twelve leverage points to an artist's career. The twelve rungs are written up in the entry, and the worksheet (v2) lets you place your last ten decisions on them and save the shape. The next step in the entry's list was case studies: real careers analyzed rung by rung, so a reader has something to compare their own shape with. This cycle built that. It uses three artists who already live in the palace (Brian Eno, Pauline Oliveros, Agnes Martin), ten moves each, sourced from their palace dossiers.
+This project points Donella Meadows' twelve leverage points at an artist's career. Her ladder runs from the weakest place to push on a system (tweak a number: gear, price, schedule) to the strongest (let go of what the whole thing is for). Built so far: the worksheet, where you place your last ten career decisions on the twelve rungs and save the shape, and a case-studies page laying Brian Eno, Pauline Oliveros and Agnes Martin on the same ladder. Those were two pages that only talked through copy-and-paste. This cycle joined them into one instrument, the first step of the plan I proposed earlier today. The plan is still waiting on your yes; I built this step because it's what I'd do either…
 
 ### Open asks
 
@@ -59,6 +59,33 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="meadows-career-steward-031" -->
+### 2026-10-14 — cycle 11 — Worksheet v3: the case studies now live inside the worksheet. Every rung shows real Eno, Oliveros and Martin moves, and your shape sits beside theirs.
+> shipped · worksheet and case studies joined · steward leans widen the cases next
+
+[leverage-diagnostic-v3.html](open:Projects/Meadows and an Artist's Career/leverage-diagnostic-v3.html), with [a preview screenshot](open:Projects/Meadows and an Artist's Career/leverage-diagnostic-v3-preview.png) showing it with a sample ten placed.
+
+What changed from v2:
+
+- Under each rung's made-up example sits a list of the real moves that live there, from the three dossiers. Click one for the fact and why it sits on that rung. That's 30 sourced moves across the ladder. Rung 9 (delays: how long from idea to finished) stays empty with a note saying why: no biography records cycle time, and for a working artist it may be the cheapest rung to move.
+- The sticky bar at the top now holds five small shape cards: you, Eno, Oliveros, Martin and the typical artist. Yours fills in live as you click.
+- Each rung's side column shows how many of each artist's ten landed there, next to your own count.
+- The reading at ten now has three parts. First, v2's reading of your shape. Second, which of the three careers is nearest yours, saying plainly when none is close. Third, a 'one band up' prompt: it takes your lowest decision and shows the nearest real move one band higher. For a parameter decision, that's a rule or a loop (for example, Oliveros's 'listen to everything all the time'). It asks what your version of that move would be. That's a small first taste of the 'one move up' exercise in the proposed plan.
+- The biography-versus-calendar warning moved into the how-to box, so you meet it before you compare yourself to anyone.
+- 'Save my distribution' keeps v2's per-rung line format exactly, so the case-studies page can still read it, and adds the three artists' band counts for comparison.
+
+I checked it in headless Chrome with three sample shapes (bottom-heavy, middle, top-heavy). The reading, the nearest-career pick and the one-band-up prompt came out sensible each time. Oliveros and Martin have the same band shape (3/3/4), so average height breaks the tie between them.
+
+**Artifacts:**
+- [the joined instrument: place your ten, see the real careers on every rung, and watch your shape beside theirs.](Projects/Meadows and an Artist's Career/leverage-diagnostic-v3.html)
+- [headless preview with a sample ten placed: comparison bar and the bottom four rungs.](Projects/Meadows and an Artist's Career/leverage-diagnostic-v3-preview.png)
+
+_Left rough:_ I checked it through headless Chrome only, using a ?demo= setting that fills in a sample ten. I never clicked the + buttons or the save button by hand. The one-band-up prompt always picks the first matching artist in a fixed order, so Oliveros shows up a lot. v2 and the case-studies page are still in the folder; I left them alone rather than retire them without your say.
+
+_Next moves named:_ Widen the cases: add two careers that aren't famous (a working session player, a teacher-composer) to balance how biographies only remember the big moves. I'll only draw on your own draft worksheet with your say. · Grow the one-band-up prompt into the full exercise: write down the higher-rung rule or goal for your lowest decision, and save it with the shape.
+<sub>`meadows-career-steward-031` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="meadows-career-steward-029" -->
 ### 2026-10-14 — cycle 10 — This project has never had an agreed plan. Adopt this four-step path from worksheet to lesson series?
 > still working · case studies v0.1 shipped · steward leans adopt
