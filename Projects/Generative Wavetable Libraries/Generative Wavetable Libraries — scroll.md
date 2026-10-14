@@ -15,24 +15,24 @@ forward_vector: "I am Generative Wavetable Libraries's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-25T20:47:19-04:00 from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T12:34:40.307Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 15 · last ran 2026-08-26 (31 days ago)
-- **Plan:** agreed 2026-09-25 (today) · 0 made things since
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** growing · **Steward:** cycle 16 · last ran 2026-10-14 (today)
+- **Plan:** agreed 2026-09-25 (18 days ago) · 2 made things since
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-06-23 (95 days ago) — AKWF fit-test shipped — branch 1.b carries an end-to-end run in two user turns (`gwl-steward-039`)
-- **Last commit touching this project:** 2026-09-23 `c666210b` — ops(scrolls): backfill 36 project scrolls; retire the 20 plan.md read-models
+- **Last shipped:** 2026-10-14 (today) — Three orders of the same 122 FM cycles. Should the family chain become the interview's default for big folders? (`gwl-steward-043`)
+- **Last commit touching this project:** 2026-10-12 `de9e7841` — edit(Generative Wavetable Libraries): the writers that exist are listed as built
 - **Signal:** steady
-- **Drift:** 6 cycles since the entry was last consolidated (cycle 9) — the entry body may lag; this scroll does not.
+- **Drift:** 7 cycles since the entry was last consolidated (cycle 9) — the entry body may lag; this scroll does not.
 
 ### Where this stands
 
-this project is the chat-driven wavetable generator (sister to Generative Sample Libraries). Phase 1 (Crystal Bravais) and the first Phase 2 proof (Shepard CENTROID-FREQ) have both shipped; the AKWF Import Pipeline is the captured-audio source path, recovered into the bundle on 2026-05-30. This cycle is the fit-test you green-lit: drive an AKWF pack through the interview's question tree and see whether branch 1.b (captured-audio source) can carry a real run on its defaults.
+This project turns a conversation into a wavetable for Serum, Vital, Ableton and Surge. Three tables are already behind it: the crystal lattice sweep and the Shepard dark-to-bright, both of which you heard work in Serum and Ableton, and the Floquet modes table. The plan's current move is to make the chat interview carry a real run. In June it handled a six-cycle test pack in two turns, and you asked for a real AKWF folder of a hundred-plus cycles to see where its defaults break. This cycle did that on AKWF_fmsynth (122 cycles) from your own Dropbox library. The old dull-to-bright default jumps between unlike cycles on 50 of its 121 steps. Grouping the cycles into five timbre families and ch…
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `gwl-steward-043` — directional_decision · posted 2026-10-14 · options: FAMILY-CHAIN · KEEP-CENTROID · WALK · FAMILIES-ONLY
 
 ### Answered, not yet consumed
 
@@ -75,6 +75,72 @@ Loudon's direction from the board, approved as orders on 2026-09-25:
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="gwl-steward-043" -->
+### 2026-10-14 — cycle 16 — Three orders of the same 122 FM cycles. Should the family chain become the interview's default for big folders?
+> still working · three 24 s sweeps ready · steward leans FAMILY-CHAIN
+
+Catch-up: this project turns a chat into a wavetable for Serum and Ableton. In June you asked me to try the interview on a real AKWF folder of 100+ cycles. I ran it on AKWF_fmsynth (122 cycles). The old default sorts dull to bright, and it jumps between unlike cycles on 50 of its 121 steps. The shortest smooth path fixes the jumps but loses the 'turn it up, it gets brighter' meaning. The family chain groups the cycles into five families, darkest first, and walks smoothly inside each one. It keeps most of both: 14 jumps, 0.9 brightness. Those are numbers, not ears, so the three sweeps below are the test. Pick one and I write that into the interview as the default for folders over about 30 cycles. Either way I keep working; next is a folder of near-identical organ cycles.
+
+**Artifacts:**
+- [family chain: glides within each family, four seams, brightens overall.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/akwf_fmsynth_family_chain_audition_sweep.wav)
+- [old default: brightens steadily, lurches often.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/akwf_fmsynth_centroid_audition_sweep.wav)
+- [shortest walk: smoothest, brightness wanders.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/akwf_fmsynth_walk_audition_sweep.wav)
+- [to try them in Serum or Ableton instead: which file to drag where.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/BUILD.md)
+<sub>`gwl-steward-043` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="gwl-steward-042" -->
+### 2026-10-14 — cycle 16 — I ran the interview on all 122 AKWF FM cycles. The dull-to-bright default lurches, so I built a family chain that glides and still brightens.
+> shipped · 9 tables, Serum + Ableton, each with a sweep to listen to · steward leans FAMILY-CHAIN
+
+Same 122 cycles in every table; only the order of the frames changes. CENTROID, the old default (dull to bright by one brightness number): 50 big jumps, brightness follows Position perfectly (1.0). Four of its five worst steps join cycles whose brightness differs by 1 to 32 Hz but whose spectra are far apart. One number can't tell 122 FM spectra apart. WALK, the shortest smooth path through all 122: 13 big jumps, but brightness only loosely follows Position (0.36), so the knob loses its meaning. FAMILY CHAIN: k-means picked five soft families (54 round, 36 bright, 10 nasal, 10 hollow, 12 glassy). They are chained darkest first, and each family is walked smoothly inside. Result: 14 big jumps and 0.90 brightness, nearly as smooth as the walk and nearly as meaningful as centroid. Each family also comes out as its own small table. Phase: rotating each frame to line up with its neighbour halves the worst mid-morph dip (−4.5 to −2.2 dB). No table dips below −6 dB, though, so ordering was the real problem, not phase. Two changes for the interview: past about 30 cycles, the default becomes 'chain the families', and the skill's 'cut to 64 cycles' default should go, since Serum and Ableton read 256 frames. BUILD.md says exactly what to open and what to listen for.
+
+**Artifacts:**
+- [start here: which file to drag where, and what to listen for.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/BUILD.md)
+- [the run written up: the dialogue, the numbers, what the interview should change.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/Generative Wavetable Libraries — proof — akwf-scale-up.md)
+- [all 122 cycles in family-chain order, coloured by family.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/contact_sheet_family_chain.png)
+- [the same cycles in the old dull-to-bright order: the colours scatter.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/contact_sheet_centroid_order.png)
+- [the shortest-walk order.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/contact_sheet_walk_order.png)
+- [every number, plus each family's members in table order.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/metrics.json)
+- [the build script; reruns in about 3 s with /usr/local/bin/python3.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/scale_up.py)
+- [family chain, 24 s sweep at A2: the one I'd keep.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/akwf_fmsynth_family_chain_audition_sweep.wav)
+- [old default, 24 s sweep at A2: listen for the lurches.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/akwf_fmsynth_centroid_audition_sweep.wav)
+- [shortest walk, 24 s sweep at A2: smooth, but brightness wanders.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/akwf_fmsynth_walk_audition_sweep.wav)
+- [family chain, Serum/Vital/Surge (CLM, 122 × 2048).](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/akwf_fmsynth_family_chain.wav)
+- [family chain, Ableton Wavetable (122 × 1024).](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/akwf_fmsynth_family_chain_ableton.wav)
+- [old default, Serum/Vital/Surge (CLM).](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/akwf_fmsynth_centroid.wav)
+- [old default, Ableton.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/akwf_fmsynth_centroid_ableton.wav)
+- [shortest walk, Serum/Vital/Surge (CLM).](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/akwf_fmsynth_walk.wav)
+- [shortest walk, Ableton.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/akwf_fmsynth_walk_ableton.wav)
+- [family 1, round (54 frames), CLM.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/families/akwf_fmsynth_family1_round-full.wav)
+- [family 1, Ableton.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/families/akwf_fmsynth_family1_round-full_ableton.wav)
+- [family 1 sweep.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/families/akwf_fmsynth_family1_round-full_audition_sweep.wav)
+- [family 2, bright (36 frames), CLM.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/families/akwf_fmsynth_family2_bright-full.wav)
+- [family 2, Ableton.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/families/akwf_fmsynth_family2_bright-full_ableton.wav)
+- [family 2 sweep.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/families/akwf_fmsynth_family2_bright-full_audition_sweep.wav)
+- [family 3, nasal, even harmonics (10 frames), CLM.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/families/akwf_fmsynth_family3_warm-nasal.wav)
+- [family 3, Ableton.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/families/akwf_fmsynth_family3_warm-nasal_ableton.wav)
+- [family 3 sweep.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/families/akwf_fmsynth_family3_warm-nasal_audition_sweep.wav)
+- [family 4, hollow, odd harmonics, clarinet-ish (10 frames), CLM.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/families/akwf_fmsynth_family4_bright-hollow.wav)
+- [family 4, Ableton.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/families/akwf_fmsynth_family4_bright-hollow_ableton.wav)
+- [family 4 sweep.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/families/akwf_fmsynth_family4_bright-hollow_audition_sweep.wav)
+- [family 5, glassy (12 frames), CLM.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/families/akwf_fmsynth_family5_glassy-full.wav)
+- [family 5, Ableton.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/families/akwf_fmsynth_family5_glassy-full_ableton.wav)
+- [family 5 sweep.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/families/akwf_fmsynth_family5_glassy-full_audition_sweep.wav)
+
+_AKWF_fmsynth · 122 cycles · same frames, three orders_
+| table | big jumps (of 121) | average step | brighter as Position rises | worst mid-morph dip |
+| --- | --- | --- | --- | --- |
+| centroid (old default) | 50 | 83.7 | 1.00 | −4.4 dB |
+| shortest walk | 13 | 50.9 | 0.36 | −2.2 dB |
+| family chain | 14 | 53.5 | 0.90 | −2.9 dB |
+
+_Left rough:_ Only the numbers say the family chain is better; no one has heard it. The CLM files pass a read-back check but haven't been loaded in Serum. The families are soft (silhouette 0.23), and family 1's 'round' label fits only its first half. The skill text is unchanged because it lives outside my folder and should wait on your ears.
+
+_Next moves named:_ Run the same pipeline on a second, very different AKWF folder (AKWF_eorgan, 154 near-identical organ cycles) to test whether the 30-cycle threshold and the family chain still hold when the cycles are similar instead of wild. · Once you've listened, draft the interview-skill change (family chain as the default past about 30 cycles; drop the cut-to-64 default) and hand it to an elder to land.
+<sub>`gwl-steward-042` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-09-25T20-47-19-04-00" -->
 ### 2026-09-25 — Plan agreed: carried over from the entry's development plan
 
