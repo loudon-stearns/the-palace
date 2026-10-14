@@ -210,7 +210,7 @@ But you have evidence:
 This manifesto connects to:
 - [[Leverage Points Framework]] - paradigm-level intervention
 - [[FOUR PILLARS]] - integration of life and work
-- [[Loudon Live]] - operationalizing these values in Loudon's public work
+- [[Loudon Live]] - operationalizing these values in Loudon's teaching and coaching
 - [[AI Partnership Philosophy]] - using AI for becoming, not just producing
 
 The manifesto isn't aspirational—it's operational. Every decision is filtered through these statements. Every week is evaluated by these metrics. The paradigm is protected by making it explicit.

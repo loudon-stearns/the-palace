@@ -1,0 +1,26 @@
+== check 1: Bessel functions and zeros vs scipy ==
+  J_m(x), m = 0..36, x = 0..44: max error 2.2e-15   zero table: 230 zeros, m = 0..36, max error 4.9e-13   PASS
+== check 2: every circle mode has unit energy over the disk ==
+  m = 0, j =  2.4048: energy with this page's norm 1.000000   with drum.py's norm 1.000000
+  m = 0, j =  5.5201: energy with this page's norm 1.000000   with drum.py's norm 1.000000
+  m = 1, j =  3.8317: energy with this page's norm 1.000000   with drum.py's norm 0.500000
+  m = 3, j =  6.3802: energy with this page's norm 1.000000   with drum.py's norm 0.500000
+  m = 7, j = 11.0864: energy with this page's norm 1.000000   with drum.py's norm 0.500000
+  drum.py divided every m > 0 mode by pi J_{m+1}^2 where the true integral is (pi/2) J_{m+1}^2, so in drum.wav
+  the round drum's and round box's non-round partials came out half as loud (-6 dB) as they should.
+  Their pitches, and every ladder and repeat verdict, are unaffected.   PASS
+== check 3: the seven presets vs an independent build, and vs the ladders read from drum.wav ==
+  string                     18 partials · ratios diff 2e-15 · loudness diff 6e-17 · drum.wav peaks found within 0.0000 · repeats 220.0/s   PASS
+  box (a line)                9 partials · ratios diff 0e+00 · loudness diff 6e-17 · drum.wav peaks found within 0.0000 · repeats 220.0/s   PASS
+  square drum               200 partials · ratios diff 5e-10 · loudness diff 3e-16 · drum.wav peaks found within 0.0005 · never repeats   PASS
+  square box                 56 partials · ratios diff 3e-14 · loudness diff 3e-16 · drum.wav peaks found within 0.0000 · repeats 110.0/s   PASS
+  round drum                179 partials · ratios diff 5e-10 · loudness diff 3e-13 · drum.wav peaks found within 0.0005 · never repeats   PASS
+  round box                  57 partials · ratios diff 5e-10 · loudness diff 3e-13 · drum.wav peaks found within 0.0004 · never repeats   PASS
+  round drum, dead centre    14 partials · ratios diff 5e-10 · loudness diff 3e-13 · drum.wav peaks found within 0.0005 · never repeats   PASS
+== check 4: 'does it repeat?' gives drum.py's autocorrelation verdicts ==
+  string 220/s · box 220/s · square drum never · square box 110/s · round drum never · round box never · centre never   PASS
+== check 5: a rendered strike: pitch 220 cos(theta), damping ratio sin(theta) on every partial ==
+  square drum  θ =  0.1°: lowest partial in the strike 220.000 Hz (want 220.000) · the four loudest partials (1.000, 2.000, 3.606, 5.148) rendered alone: pitch within 0.005 Hz, damping ratios 0.001745, 0.001745, 0.001745, 0.001745 (want 0.001745) · whole strike rendered in 13 ms   PASS
+  square box   θ = 0.03°: lowest partial in the strike 220.000 Hz (want 220.000) · the four loudest partials (1.000, 4.000, 13.000, 26.500) rendered alone: pitch within 0.005 Hz, damping ratios 0.000524, 0.000524, 0.000524, 0.000524 (want 0.000524) · whole strike rendered in 8 ms   PASS
+  round box    θ =  0.3°: lowest partial in the strike 220.000 Hz (want 219.997) · the four loudest partials (1.000, 4.561, 7.039, 26.325) rendered alone: pitch within 0.005 Hz, damping ratios 0.005236, 0.005236, 0.005236, 0.005236 (want 0.005236) · whole strike rendered in 2 ms   PASS
+  ALL PASS

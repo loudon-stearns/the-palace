@@ -1,0 +1,27 @@
+== check 1: integrate the rotated equation directly (Crank-Nicolson), compare to the modal formula ==
+  theta =    0 deg   after t = 0.5/omega_1, 2^16 steps: grid vs formula, relative error 4.2e-04   (norm left 1.0000)
+  theta =   30 deg   after t = 0.5/omega_1, 2^16 steps: grid vs formula, relative error 1.4e-06   (norm left 0.3332)
+  theta =   90 deg   after t = 0.5/omega_1, 2^16 steps: grid vs formula, relative error 3.4e-07   (norm left 0.2220)
+== check 2: fit poles to the clock's SOUND; damping ratio of every partial should equal sin(theta) ==
+  theta =   0.1 deg  sin(theta) = 0.00175   fitted damping ratios, levels 1-5: 0.00175, 0.00175, 0.00175, 0.00175, 0.00175   pitches (x220 Hz): 1.000, 4.000, 9.000, 16.000, 25.000   PASS
+  theta =   1.0 deg  sin(theta) = 0.01745   fitted damping ratios, levels 1-5: 0.01745, 0.01745, 0.01745, 0.01745, 0.01745   pitches (x220 Hz): 1.000, 3.999, 8.999, 15.998, 24.996   PASS
+  theta =   5.0 deg  sin(theta) = 0.08716   fitted damping ratios, levels 1-5: 0.08716, 0.08716, 0.08716, 0.08716, 0.08716   pitches (x220 Hz): 0.996, 3.985, 8.966, 15.939, 24.905   PASS
+  theta =  30.0 deg  sin(theta) = 0.50000   fitted damping ratios, levels 1-5: 0.50000, 0.50000, 0.50000, 0.50000, 0.50000   pitches (x220 Hz): 0.866, 3.464, 7.794, 13.856, 21.651   PASS
+== check 3: the detector beats at DIFFERENCES but dies at SUMS ==
+  theta =   1 deg   beat  659.90 Hz (want 659.90)   decay  120.62/s (want 120.62)   damping ratio 0.0291 = 1.666 x sin(theta)   PASS
+  theta =   5 deg   beat  657.49 Hz (want 657.49)   decay  602.38/s (want 602.38)   damping ratio 0.1443 = 1.656 x sin(theta)   PASS
+== check 4: at theta = 90 deg the clock never oscillates ==
+  zero crossings of the clock in 90 ms: 0   (pitch: none)   detector turning points: 1 (the bump spreads to the pickup, then fades: a thud)
+  ALL PASS
+wrote wick.wav (32.2 s): 0°, 0.01°, 0.03°, 0.1°, 0.3°, 1°, 5°, 30°, 90°, each clock then detector
+      0°  damping ratio 0.00000   fundamental  220.0 Hz rings forever   9th level forever
+   0.01°  damping ratio 0.00017   fundamental  220.0 Hz rings   4145.0 ms   9th level  51.17 ms
+   0.03°  damping ratio 0.00052   fundamental  220.0 Hz rings   1381.7 ms   9th level  17.06 ms
+    0.1°  damping ratio 0.00175   fundamental  220.0 Hz rings    414.5 ms   9th level   5.12 ms
+    0.3°  damping ratio 0.00524   fundamental  220.0 Hz rings    138.2 ms   9th level   1.71 ms
+      1°  damping ratio 0.01745   fundamental  220.0 Hz rings     41.5 ms   9th level   0.51 ms
+      5°  damping ratio 0.08716   fundamental  219.2 Hz rings      8.3 ms   9th level   0.10 ms
+     30°  damping ratio 0.50000   fundamental  190.5 Hz rings      1.4 ms   9th level   0.02 ms
+     90°  no pitch: every level fades, ground state last (e-fold 0.72 ms)
+wrote wick-poster.png
+wrote wick.mp4 (964 frames)

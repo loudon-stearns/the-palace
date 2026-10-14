@@ -1,0 +1,20 @@
+// The same buffer, about two hundred times shorter: the RMS window from Compressor Design.
+// 500 samples (about 11 ms at 44.1 kHz). Put it beside seance.genexpr and look at the two
+// marked lines — they are the same two lines.
+//
+//   in1  audio        out1  RMS level over the last N samples
+//
+// Mirrors rms_window() in grammar_model.py. UNVERIFIED: written without Max open.
+
+Param N(500, min=1, max=4096);
+
+Data win(4096);
+History sum(0), w(0);
+
+sq = in1 * in1;
+oldest = peek(win, w);          // READ FIRST: the sample exactly one window ago
+poke(win, sq, w);               // THEN WRITE: the present takes its slot
+sum = sum + sq - oldest;        // the running sum: one in, one out
+w = wrap(w + 1, 0, N);
+
+out1 = sqrt(max(sum, 0) / N);

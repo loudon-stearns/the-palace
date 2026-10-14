@@ -302,3 +302,7 @@ The system is **cemented** — type stack locked, six skins specified, six gener
 - **Skin-selection rubric.** When a new palace artifact is being made, which skin should it default to? Graphite is the channel default, but a math poster wants Cobalt Grid, a Confucian philosophy entry wants Amber Lab, a DSP first-principles piece wants CRT. A small decision card per artifact type would help future Claude pick correctly without bikeshedding.
 - **Token-level inheritance.** Should palace artifacts pull `colors_and_type.css` from a single canonical URL, or copy it per artifact? Copying is honest (artifact stays self-contained); pulling is DRY (one update cascades). Currently: copy per artifact.
 - **Stigmergy contact surface.** When a palace artifact wants to *show* swarm coordination output (a session page summarising a Weave run), which system applies? Probably this one, with STIGMERGY excerpts treated as embedded code-block content. Test case will decide.
+
+## Active Baton
+
+[[Loudon Live Design System — baton]] — drafted 2026-10-14

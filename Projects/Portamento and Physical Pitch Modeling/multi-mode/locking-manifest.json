@@ -1,0 +1,205 @@
+[
+  {
+    "idx": 1,
+    "name": "pluck-slide",
+    "label": "Plucked, slide up an octave",
+    "geometry": "slide",
+    "f0": 196,
+    "ft": 392,
+    "zeta": 1.0,
+    "wn": 9.0,
+    "B0": 0.00025,
+    "K": 0.0,
+    "listen": "Free string: every partial rides its own stiff-string frequency. The top drifts sharp and the tone turns glassy.",
+    "wav": "audio/locking-01-pluck-slide.wav",
+    "locked_at_start": 0,
+    "locked_at_end": 0,
+    "fewest_locked": 0,
+    "fewest_locked_at_s": 0.0,
+    "peak_f1_hz": 392.0,
+    "cycles_slipped_per_partial": [
+      0,
+      5,
+      20,
+      47,
+      93,
+      160,
+      253,
+      377,
+      535,
+      731
+    ],
+    "top_partial_cents_end": 82.5
+  },
+  {
+    "idx": 2,
+    "name": "bow-slide",
+    "label": "Bowed, same slide",
+    "geometry": "slide",
+    "f0": 196,
+    "ft": 392,
+    "zeta": 1.0,
+    "wn": 9.0,
+    "B0": 0.00025,
+    "K": 3.0,
+    "listen": "Same string, bowed. It starts fused; as the string shortens, partials break out of lock from the top down and the tone starts to shimmer.",
+    "wav": "audio/locking-02-bow-slide.wav",
+    "locked_at_start": 4,
+    "locked_at_end": 2,
+    "fewest_locked": 2,
+    "fewest_locked_at_s": 0.75,
+    "peak_f1_hz": 392.0,
+    "cycles_slipped_per_partial": [
+      0,
+      0,
+      15,
+      45,
+      90,
+      159,
+      253,
+      377,
+      535,
+      731
+    ],
+    "top_partial_cents_end": 81.5,
+    "partials_changing_state": [
+      3,
+      4
+    ],
+    "partial_3_lock_changes_s": [
+      "unlocks 0.75"
+    ],
+    "partial_4_lock_changes_s": [
+      "unlocks 0.60"
+    ]
+  },
+  {
+    "idx": 3,
+    "name": "bow-peg",
+    "label": "Bowed, tension raised (peg turn)",
+    "geometry": "bend",
+    "f0": 196,
+    "ft": 392,
+    "zeta": 1.0,
+    "wn": 9.0,
+    "B0": 0.0008,
+    "K": 3.0,
+    "listen": "Same octave by tension. It starts with a loose, beating partial; the rising tension pulls it back into lock and the tone clears.",
+    "wav": "audio/locking-03-bow-peg.wav",
+    "locked_at_start": 3,
+    "locked_at_end": 4,
+    "fewest_locked": 3,
+    "fewest_locked_at_s": 0.0,
+    "peak_f1_hz": 392.0,
+    "cycles_slipped_per_partial": [
+      0,
+      0,
+      0,
+      3,
+      21,
+      41,
+      67,
+      102,
+      146,
+      200
+    ],
+    "top_partial_cents_end": 16.6,
+    "partials_changing_state": [
+      4
+    ],
+    "partial_4_lock_changes_s": [
+      "locks 0.76"
+    ]
+  },
+  {
+    "idx": 4,
+    "name": "bow-overshoot",
+    "label": "Bowed, underdamped arrival",
+    "geometry": "slide",
+    "f0": 196,
+    "ft": 330,
+    "zeta": 0.2,
+    "wn": 6.0,
+    "B0": 0.00025,
+    "K": 3.4,
+    "listen": "Lands sharp and rings back. On the overshoot one partial slips out of lock (a brief flutter), then relocks as it settles.",
+    "wav": "audio/locking-04-bow-overshoot.wav",
+    "locked_at_start": 5,
+    "locked_at_end": 3,
+    "fewest_locked": 2,
+    "fewest_locked_at_s": 0.82,
+    "peak_f1_hz": 400.6,
+    "cycles_slipped_per_partial": [
+      0,
+      0,
+      2,
+      26,
+      56,
+      102,
+      163,
+      244,
+      347,
+      475
+    ],
+    "top_partial_cents_end": 58.9,
+    "partials_changing_state": [
+      3,
+      4,
+      5
+    ],
+    "partial_3_lock_changes_s": [
+      "unlocks 0.82",
+      "locks 1.31",
+      "unlocks 1.93",
+      "locks 2.31"
+    ],
+    "partial_4_lock_changes_s": [
+      "unlocks 0.67"
+    ],
+    "partial_5_lock_changes_s": [
+      "unlocks 0.56"
+    ]
+  },
+  {
+    "idx": 5,
+    "name": "bow-critical",
+    "label": "Bowed, critically damped arrival",
+    "geometry": "slide",
+    "f0": 196,
+    "ft": 330,
+    "zeta": 1.0,
+    "wn": 6.0,
+    "B0": 0.00025,
+    "K": 3.4,
+    "listen": "Same note, arriving without overshoot. The detuning never crosses the locking range, so the tone stays fused throughout.",
+    "wav": "audio/locking-05-bow-critical.wav",
+    "locked_at_start": 5,
+    "locked_at_end": 3,
+    "fewest_locked": 3,
+    "fewest_locked_at_s": 0.74,
+    "peak_f1_hz": 330.0,
+    "cycles_slipped_per_partial": [
+      0,
+      0,
+      0,
+      23,
+      51,
+      93,
+      149,
+      223,
+      318,
+      435
+    ],
+    "top_partial_cents_end": 60.6,
+    "partials_changing_state": [
+      4,
+      5
+    ],
+    "partial_4_lock_changes_s": [
+      "unlocks 0.74"
+    ],
+    "partial_5_lock_changes_s": [
+      "unlocks 0.56"
+    ]
+  }
+]

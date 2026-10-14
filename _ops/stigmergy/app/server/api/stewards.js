@@ -86,7 +86,13 @@ export async function stewardsRoutes(ctx) {
     }
     const names = Array.isArray(body.names) ? body.names : undefined;
     const maxCycles = Number.isInteger(body.max_cycles) && body.max_cycles > 0 ? body.max_cycles : undefined;
-    const result = stewardLane.advanceAll({ names, maxCycles });
+    // Batch limits (2026-10-14): a wall clock in minutes and a dollar budget,
+    // summed from each cycle's own result line; `source` names the caller
+    // (e.g. "heartbeat") so the deck can say whose batch is running.
+    const maxMinutes = Number.isFinite(body.max_minutes) && body.max_minutes > 0 ? body.max_minutes : undefined;
+    const maxUsd = Number.isFinite(body.max_usd) && body.max_usd > 0 ? body.max_usd : undefined;
+    const source = typeof body.source === 'string' ? body.source.slice(0, 40) : undefined;
+    const result = stewardLane.advanceAll({ names, maxCycles, maxMinutes, maxUsd, source });
     if (!result.ok && result.busy) {
       jsonResponse(res, 409, { ...result });
       return true;

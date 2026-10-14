@@ -59,3 +59,8 @@ What each baton taught the ceremony. Each item names what the run showed and the
 - run · 2026-09-26 · v1.2 · STIGMERGY, hardening remainder after a partial close · nothing new
 - run · 2026-09-26 · v1.2 · Project Stewardship System, the Trickster inbox (cold start) · nothing new
 - run · 2026-09-27 · v1.2 · Palace Ceremonies, widened in place with the 2026-09-27 re-carving (no new baton, no board post) · nothing new — a second baton on the same move was proposed at the close before `list-handoffs` was checked; the open one was found before anything was written. Offered to Loudon as a possible item, not adopted
+
+## From the Loudon Live Design System baton — 2026-10-14
+
+11. **A baton need not be read by Loudon before it is written.** Loudon, 2026-10-14: "Batons are ok if I don't read them, they will start an interactive session that I can lead later, anything that isn't perfect in the baton I will guide later in the right direction." Change owed: Step 3 (Show) and completion signal 3 become "offer to show; his read is not required" for commissioning batons he leads on pickup.
+- run · 2026-10-14 · v1.2 · Loudon Live Design System, visual rethink (cold start) · taught item 11

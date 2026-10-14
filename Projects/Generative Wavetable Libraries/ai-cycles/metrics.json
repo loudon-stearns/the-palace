@@ -1,0 +1,273 @@
+{
+  "source": "Generative Sample Libraries / ai-source-probe (MusicGen melody + text, Stable Audio)",
+  "cycles_extracted": 578,
+  "exact_duplicates_dropped": 70,
+  "after_dedupe": 508,
+  "frames_in_main_table": 256,
+  "picked_by_instrument": {
+    "bass": 25,
+    "choir": 34,
+    "flute": 26,
+    "marimba": 14,
+    "marimba_hit": 23,
+    "piano": 14,
+    "violin": 120
+  },
+  "pair_distance": {
+    "median": 54.3,
+    "p10": 37.0,
+    "p90": 80.5
+  },
+  "tables": {
+    "centroid": {
+      "brightness_follows_position": 1.0,
+      "far_steps": 6,
+      "frames": 256,
+      "mean_step": 53.6,
+      "max_step": 137.9,
+      "worst_dip_db": -19.8,
+      "dips_below_-6db": 45,
+      "far_steps_relative": 210
+    },
+    "walk": {
+      "brightness_follows_position": 0.17,
+      "far_steps": 0,
+      "frames": 256,
+      "mean_step": 29.7,
+      "max_step": 89.3,
+      "worst_dip_db": -2.5,
+      "dips_below_-6db": 0,
+      "far_steps_relative": 26
+    },
+    "family1": {
+      "frames": 104,
+      "mean_step": 27.2,
+      "max_step": 45.7,
+      "worst_dip_db": -1.4,
+      "dips_below_-6db": 0,
+      "name": "round-hollow",
+      "size": 104,
+      "centroid_in_harmonics": 1.17,
+      "fundamental_share": 0.84,
+      "asked_for": {
+        "bass": 18,
+        "choir": 12,
+        "flute": 15,
+        "marimba": 14,
+        "marimba_hit": 22,
+        "piano": 4,
+        "violin": 19
+      }
+    },
+    "family2": {
+      "frames": 77,
+      "mean_step": 31.9,
+      "max_step": 78.1,
+      "worst_dip_db": -2.5,
+      "dips_below_-6db": 0,
+      "name": "round-full",
+      "size": 77,
+      "centroid_in_harmonics": 1.48,
+      "fundamental_share": 0.66,
+      "asked_for": {
+        "bass": 3,
+        "choir": 6,
+        "flute": 2,
+        "marimba_hit": 1,
+        "piano": 3,
+        "violin": 62
+      }
+    },
+    "family3": {
+      "frames": 75,
+      "mean_step": 31.6,
+      "max_step": 51.0,
+      "worst_dip_db": -1.7,
+      "dips_below_-6db": 0,
+      "name": "warm-nasal",
+      "size": 75,
+      "centroid_in_harmonics": 2.0,
+      "fundamental_share": 0.27,
+      "asked_for": {
+        "bass": 4,
+        "choir": 16,
+        "flute": 9,
+        "piano": 7,
+        "violin": 39
+      }
+    },
+    "family_chain": {
+      "brightness_follows_position": 0.34,
+      "far_steps": 0,
+      "frames": 256,
+      "mean_step": 30.2,
+      "max_step": 89.3,
+      "worst_dip_db": -2.5,
+      "dips_below_-6db": 0,
+      "far_steps_relative": 24
+    },
+    "family_chain_tilted": {
+      "brightness_follows_position": 0.21,
+      "far_steps": 0,
+      "frames": 256,
+      "mean_step": 31.5,
+      "max_step": 89.3,
+      "worst_dip_db": -2.5,
+      "dips_below_-6db": 0,
+      "far_steps_relative": 33,
+      "tilt": 0.5
+    },
+    "centroid_aligned_check": {
+      "worst_dip_db": -2.6,
+      "dips_below_-6db": 0,
+      "note": "same order as centroid, frames rotated to line up with their neighbour; not emitted as a file"
+    }
+  },
+  "relative_far_step": 38.7,
+  "silhouette_by_k": {
+    "3": 0.2,
+    "4": 0.179,
+    "5": 0.13,
+    "6": 0.118,
+    "7": 0.115,
+    "8": 0.115
+  },
+  "k_chosen": 3,
+  "labels_vs_families": {
+    "adjusted_rand": 0.1,
+    "rows_instrument": [
+      "bass",
+      "choir",
+      "flute",
+      "marimba",
+      "marimba_hit",
+      "piano",
+      "violin"
+    ],
+    "cols_family": [
+      "1 round-hollow (104)",
+      "2 round-full (77)",
+      "3 warm-nasal (75)"
+    ],
+    "counts": [
+      [
+        18,
+        3,
+        4
+      ],
+      [
+        12,
+        6,
+        16
+      ],
+      [
+        15,
+        2,
+        9
+      ],
+      [
+        14,
+        0,
+        0
+      ],
+      [
+        22,
+        1,
+        0
+      ],
+      [
+        4,
+        3,
+        7
+      ],
+      [
+        19,
+        62,
+        39
+      ]
+    ]
+  },
+  "by_instrument": {
+    "bass": {
+      "frames": 40,
+      "mean_step": 29.5,
+      "max_step": 50.2,
+      "worst_dip_db": -1.9,
+      "dips_below_-6db": 0,
+      "brightness_follows_position": 0.02,
+      "models": [
+        "facebook/musicgen-melody"
+      ]
+    },
+    "choir": {
+      "frames": 56,
+      "mean_step": 27.5,
+      "max_step": 45.7,
+      "worst_dip_db": -1.7,
+      "dips_below_-6db": 0,
+      "brightness_follows_position": 0.79,
+      "models": [
+        "facebook/musicgen-melody"
+      ]
+    },
+    "flute": {
+      "frames": 93,
+      "mean_step": 20.9,
+      "max_step": 45.5,
+      "worst_dip_db": -1.7,
+      "dips_below_-6db": 0,
+      "brightness_follows_position": -0.05,
+      "models": [
+        "facebook/musicgen-melody",
+        "stable-audio-3/small-music"
+      ]
+    },
+    "marimba": {
+      "frames": 56,
+      "mean_step": 19.8,
+      "max_step": 57.8,
+      "worst_dip_db": -2.1,
+      "dips_below_-6db": 0,
+      "brightness_follows_position": 0.66,
+      "models": [
+        "facebook/musicgen-melody",
+        "stable-audio-3/small-music"
+      ]
+    },
+    "marimba_hit": {
+      "frames": 56,
+      "mean_step": 24.1,
+      "max_step": 59.0,
+      "worst_dip_db": -1.7,
+      "dips_below_-6db": 0,
+      "brightness_follows_position": -0.06,
+      "models": [
+        "facebook/musicgen-melody"
+      ]
+    },
+    "piano": {
+      "frames": 37,
+      "mean_step": 29.8,
+      "max_step": 81.0,
+      "worst_dip_db": -2.1,
+      "dips_below_-6db": 0,
+      "brightness_follows_position": 0.59,
+      "models": [
+        "facebook/musicgen-melody",
+        "stable-audio-3/small-music"
+      ]
+    },
+    "violin": {
+      "frames": 170,
+      "mean_step": 28.8,
+      "max_step": 84.9,
+      "worst_dip_db": -1.4,
+      "dips_below_-6db": 0,
+      "brightness_follows_position": 0.43,
+      "models": [
+        "facebook/musicgen-melody",
+        "stable-audio-3/small-music"
+      ]
+    }
+  }
+}

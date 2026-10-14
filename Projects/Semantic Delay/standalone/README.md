@@ -79,3 +79,30 @@ python test_stage2_offline.py   # prints PASS
   constraint lifts (Mac-side).
 - **No DAW, no plugin** — Stage 5+. The thread split and the block-based,
   allocation-light delay engine are written now so that port is mechanical.
+
+## Stage 4 on the real model — the coupling knob, heard (2026-10-14)
+
+`stage4_real_svc_coupling.py` is the first run where an echo actually changes
+voice. It skips the daemon (the RPC is untouched) and loads SoulX-Singer-SVC
+directly in the `soulx` env on the Mac, the way the Stage 1.5 handoff says the
+daemon will. One sung phrase from the SoulX example vocal is tracked with
+RMVPE, passed through `coupling.couple()` at K = 1.0, 0.5 and 0.0, and each
+coupled contour goes to the model as its target pitch, with the example
+reference singer as the voice.
+
+```bash
+~/miniconda3/envs/soulx/bin/python stage4_real_svc_coupling.py   # ~50 s on the M1 Max
+```
+
+Outputs land in `demo/stage4-real/`: the three echoes, a 27 s delay timeline
+(dry phrase, then the echoes at K = 1, 0.5, 0), a contour plot, and a JSON
+report. What it measured: the model sings the contour it is handed to within
+about 0.1–0.15 semitones, so the knob is obeyed; the echo sits 0.33, 0.83 and
+1.5 semitones from the source melody as K falls; the MFCCs of every echo sit far
+nearer the reference singer than the source. RTF about 1.65 once warm (the
+first call is slower), matching Stage 0.
+
+Two fixes to `coupling.py` came out of hearing it on the real model: the
+follower now speeds up with K, so a fully coupled echo has no slur on note
+changes; and `repair_octave_jumps()` folds pitch-tracker octave slips back before
+coupling, so an echo is never asked to dive an octave the singer never sang.

@@ -15,24 +15,25 @@ forward_vector: "I am Quantum Synthesizer's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T21:59:14.587Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T14:20:28.083Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 15 · last ran 2026-10-13 (today)
-- **Plan:** none agreed yet — the work leans on the forward vector
-- **Waiting on you:** 1 open ask
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 18 · last ran 2026-10-14 (today)
+- **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
+- **Waiting on you:** 2 open asks
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — Landed: the first draft is in the entry and the page is sprout. The Hermite paragraph (draft 2) waits on Loudon's yes. (`quantum-elder-landing-2026-10-13`)
-- **Last commit touching this project:** 2026-10-13 `9954ec13` — steward(Quantum Synthesizer): cycle 15 — SPINNING UP. HOME: [[Quantum Synthesizer]]. Neighborhood loaded. Cycle …
+- **Last shipped:** 2026-10-14 (today) — Every claim in the entry is tested and playable. Adopt a first plan that takes the instrument from the browser into Ableton? (`quantum-synth-043`)
+- **Last commit touching this project:** 2026-10-14 `9d320cf8` — steward(Quantum Synthesizer): cycle 17 — SPINNING UP. HOME: [Quantum Synthesizer](obsidian://open?vault=The%20Pa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-This page claims the Schrödinger equation is a synthesizer. Whatever holds a wave sets its energy levels, and those levels, played as partials, are the timbre. Today's run has been testing the entry line by line with sound. The walls choose the shapes, and the equation turns shapes into pitches. That correction and a fix to the Hermite paragraph are already drafted for an elder. This cycle tested the operators paragraph, which says the creation operator adds an overtone, the annihilation operator removes one, and measurement collapse is a resonant filter. None of the three holds up. What replaces them is better: the sound depends on which ear listens. An ear that could hear the phase turnin…
+This page claims Schrödinger's equation is a synthesizer: whatever holds a wave sets its energy levels, and those levels, played as partials, are the timbre. Over the last two days I tested every claim in the entry with sound, one proof at a time. The walls choose the shapes and the equation turns shapes into pitches. Turning the i in the equation by a small angle gives every partial the same damping, which is how you get a bell. For a drum it's the second dimension that breaks the harmonic series, and under Schrödinger only the circle stays inharmonic. One fix to the entry has landed and four more drafts wait on your yes. This cycle put all of it into one instrument: pick the drum's equati…
 
 ### Open asks
 
-- `quantum-synth-035` — directional_decision · posted 2026-10-13 · options: REVIVE-TO-SPROUT · STAY-DORMANT · NOT-SURE-YET
+- `quantum-synth-040` — entry_text_fix · posted 2026-10-14 · options: LAND-ALL · ONE-AT-A-TIME · HOLD
+- `quantum-synth-043` — proposed plan revision: a first plan, now that every claim is tested · posted 2026-10-14 · options: adopt · keep
 
 ### Answered, not yet consumed
 
@@ -40,6 +41,7 @@ _None._
 
 ### Decided
 
+- `quantum-synth-035` — directional_decision → GRANTED — option_id=REVIVE-TO-SPROUT (2026-10-14)
 - `quantum-synth-025` — directional_decision → GRANTED — option_id=REVIVE-TO-SPROUT (2026-10-13)
 - `quantum-synth-016` — directional_decision → GRANTED — option_id=REVIVE-TO-SPROUT (2026-10-13)
 - `quantum-synth-008` — entry_text_fix → GRANTED — option_id=APPLY (2026-09-24)
@@ -67,6 +69,124 @@ This container has no Shop (no ComfyUI, Kokoro, Max, or GPU) — Python with num
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="quantum-synth-043" -->
+### 2026-10-14 — cycle 18 — Every claim in the entry is tested and playable. Adopt a first plan that takes the instrument from the browser into Ableton?
+> still working · instrument shipped · steward leans adopt
+
+This page has never had a plan. It has been steered by its standing order, which says to ship a small real thing every run. That worked: in two days every claim in the entry was tested with sound, and today they all became one playable page. The next stretch needs more than single proofs. My evidence is the instrument itself. Its engine is a bank of decaying sine partials that renders a strike in about 10 ms. That's the same shape as an RNBO modal bank, so the move to Max and Ableton is a port, not a redesign. The cost is that the Ableton step can't be verified here, so it stays unconfirmed until you open it. Adopt makes the plan below the path. Keep leaves the page on its standing order. Your yes or no on the four drafts is a separate card.
+
+**Artifacts:**
+- [the evidence: the whole entry, playable, whose engine is already a modal bank.](Projects/Quantum Synthesizer/proofs/instrument.html)
+- [drum.mp4](Projects/Quantum Synthesizer/proofs/drum.mp4)
+- [drum-poster.png](Projects/Quantum Synthesizer/proofs/drum-poster.png)
+- [drum.wav](Projects/Quantum Synthesizer/proofs/drum.wav)
+<sub>`quantum-synth-043` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="quantum-synth-042" -->
+### 2026-10-14 — cycle 18 — The six proofs are now one playable instrument with three knobs: the equation, the shape, and the angle of i. Click anywhere on the surface to strike it.
+> shipped · all five checks pass · steward leans play it and pin notes
+
+[The instrument](Projects/Quantum Synthesizer/proofs/instrument.html) runs right in the board. Its two panels show the struck surface moving (slowed down) and the ladder of partials in dB. Below them are the three knobs, a mallet softness slider, the seven strikes from drum.wav as presets, and a readout that says whether the tone repeats and how often. A–L play a major scale from A3, and a review box pins your notes to the exact setting so you can copy them back to me. Each strike is computed in the page: 2–13 ms per strike, cached after the first. If you'd rather just listen, [instrument-tour.wav](open:Projects/Quantum Synthesizer/proofs/instrument-tour.wav) is the page's own engine playing one arpeggio seven ways: the square drum, then the square box (same shape, other equation), the round box at 0.01°, 0.1° and 1° (bell, knock, click), and the round drum struck dead centre and then off centre. [instrument-preview.png](obsidian://open?vault=The%20Palace&file=Projects/Quantum%20Synthesizer/proofs/instrument-preview.png) is a still of the page. Building it turned up a bug in the last cycle's drum.py. It normalised every circle mode that isn't perfectly round by π·J²ₘ₊₁ where the true value is (π/2)·J²ₘ₊₁, so in drum.wav those partials of the round drum and round box are 6 dB too quiet. The pitches, every ladder, and every repeat verdict are unaffected, and so is the drum draft. The instrument uses the right norm, and [the checks](obsidian://open?vault=The%20Palace&file=Projects/Quantum%20Synthesizer/proofs/instrument-checks.txt) prove it by integrating each mode over the disk.
+
+**Artifacts:**
+- [the instrument: equation × shape × angle of i, click to strike, keys A–L to play.](Projects/Quantum Synthesizer/proofs/instrument.html)
+- [29 s: one arpeggio seven ways, rendered by the page's own engine.](Projects/Quantum Synthesizer/proofs/instrument-tour.wav)
+- [a still of the page on the square drum.](Projects/Quantum Synthesizer/proofs/instrument-preview.png)
+- [five checks, all PASS: Bessel vs scipy, unit-energy modes, presets vs an independent build and drum.wav's peaks, repeat verdicts, damping ratio sin θ fitted from rendered samples.](Projects/Quantum Synthesizer/proofs/instrument-checks.txt)
+- [runs the page's physics in node and checks it (numpy + scipy).](Projects/Quantum Synthesizer/proofs/instrument_check.py)
+- [renders the tour through the page's own engine.](Projects/Quantum Synthesizer/proofs/instrument_tour.py)
+
+_the seven presets, as the instrument computes them (θ = 0.03°, felt mallet)_
+| preset | audible partials | does it repeat? |
+| --- | --- | --- |
+| string | 14 | 220 times a second |
+| box (a line) | 9 | 220 times a second |
+| square drum | 123 | never |
+| square box | 56 | 110 times a second, below its lowest partial |
+| round drum | 102 | never |
+| round box | 52 | never |
+| round drum, dead centre | 11 | never (almost: rings nearly evenly spaced) |
+
+_Left rough:_ Nobody has played it by ear yet. I checked it headless (no script errors, all presets and readouts right), but I haven't heard the audio path in a live browser. drum.wav still has its 6 dB loudness error. For the drum, the angle of i is applied as a matching damping ratio, since a drum's equation has no i to turn. The page says so.
+
+_Next moves named:_ Re-render drum.wav and drum.mp4 with the corrected circle loudness, so the earlier proof matches the instrument. · Take the instrument to the Mac: a modal-bank RNBO codebox with the angle of i on a knob, made into an Ableton device. It would be unverified until you open it. · Fold your pinned notes back into the presets and the entry's 'Interactive Artifact' section, which still describes a March tool rather than this one.
+<sub>`quantum-synth-042` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="quantum-synth-040" -->
+### 2026-10-14 — cycle 17 — Four tested fixes to the entry are drafted. Have an elder land all four together?
+> still working · every claim now tested with sound · steward leans LAND-ALL
+
+This page claims Schrödinger's equation is a synthesizer, and over the last two days I tested every claim in its body with sound. One fix has already landed. Four more are drafted and waiting, and until now none of them had a button: the Hermite paragraph (the walls choose the shapes, and the equation turns shapes into pitches), the operators section (raising a level moves a tone, it doesn't add one; measuring silences rather than filters), the opening (the i is a lossless resonator bank, and turning it gives a bell), and today's bell paragraph (for drums it's the second dimension, for Schrödinger it's the circle). They agree with each other and read best landed in one pass. You could also take them one at a time, or hold them until you've listened. I'll keep building either way.
+
+**Artifacts:**
+- [today's evidence for the bell paragraph fix.](Projects/Quantum Synthesizer/proofs/drum-poster.png)
+- [wick.mp4](Projects/Quantum Synthesizer/proofs/wick.mp4)
+- [wick-poster.png](Projects/Quantum Synthesizer/proofs/wick-poster.png)
+- [wick.wav](Projects/Quantum Synthesizer/proofs/wick.wav)
+<sub>`quantum-synth-040` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="quantum-synth-039" -->
+### 2026-10-14 — cycle 17 — For a drum, it's the second dimension that breaks the harmonic series, not the circle. Under Schrödinger, only the circle stays inharmonic.
+> shipped · four checks pass · fifth fix drafted · steward leans land-all-four-drafts
+
+[drum.mp4](open:Projects/Quantum Synthesizer/proofs/drum.mp4) plays seven strikes: the string, then the line box, then the square drum and square box, then the round drum and round box, and finally the round drum hit dead centre. It shows the struck surface moving, the ladder of partials and the spectrogram. [drum-poster.png](obsidian://open?vault=The%20Palace&file=Projects/Quantum%20Synthesizer/proofs/drum-poster.png) is the whole finding as a two-by-three table of ladders: green where the tone repeats, red where it never does. Two surprises. First, the square box sounds 2 · 5 · 8 · 10 · 13 × 110 Hz and repeats 110 times a second, an octave below its own lowest partial. It is periodic even though its rungs look scattered. Second, struck dead centre, the round drum sounds only its rings, 1 · 2.30 · 3.60 · 4.90. Those are nearly evenly spaced, so it almost repeats (0.98) without ever quite getting there. What it does to the entry: a drum has no potential (the rim does the work, the way walls do), and a bell isn't a membrane at all. So the paragraph's claim is exactly right for Schrödinger and too narrow for drums. The replacement paragraph is in [the drum draft](obsidian://open?vault=The%20Palace&file=Projects/Quantum%20Synthesizer/proofs/drum-paragraph%20%E2%80%94%20draft) for an elder to land.
+
+**Artifacts:**
+- [seven strikes, with the surface moving, the ladder and the spectrogram (21 s).](Projects/Quantum Synthesizer/proofs/drum.mp4)
+- [the same 21 s of audio for your DAW.](Projects/Quantum Synthesizer/proofs/drum.wav)
+- [the finding in one still: three shapes × two equations, green where the tone repeats.](Projects/Quantum Synthesizer/proofs/drum-poster.png)
+- [the script (numpy + scipy + matplotlib + ffmpeg; run with /usr/local/bin/python3).](Projects/Quantum Synthesizer/proofs/drum.py)
+- [four checks, all PASS: radial solve vs Bessel zeros, 2D grid solve with twin pairs, peaks read from the sound, which tones repeat.](Projects/Quantum Synthesizer/proofs/drum-checks.txt)
+- [the fifth drafted fix: a replacement for the bell paragraph, for an elder to land.](Projects/Quantum Synthesizer/proofs/drum-paragraph — draft.md)
+
+_first five partials ÷ the lowest, and whether the sound ever comes back (autocorrelation scanned 1–60 ms)_
+| shape | wave equation (string · drum) | repeats? | Schrödinger (box) | repeats? |
+| --- | --- | --- | --- | --- |
+| line | 1 · 2 · 3 · 4 · 5 | yes, 220×/s | 1 · 4 · 9 · 16 · 25 | yes, 220×/s |
+| square | 1 · 1.58 · 2 · 2.24 · 2.55 | never (best 0.68) | 1 · 2.5 · 4 · 5 · 6.5 | yes, 110×/s |
+| circle | 1 · 1.59 · 2.14 · 2.30 · 2.65 | never (best 0.75) | 1 · 2.54 · 4.56 · 5.27 · 7.04 | never (best 0.72) |
+| circle, struck at centre | 1 · 2.30 · 3.60 · 4.90 · 6.21 | almost (0.98), never | — | — |
+
+_Left rough:_ Nobody has listened to drum.wav yet, and whether the ear hears the square box's 110 Hz repeat as its pitch is unverified. Bells and real timpani weren't modelled, so the draft's closing line about bell founders is lore, flagged for the elder to keep or cut.
+
+_Next moves named:_ Turn the angle of i into a playable slider page: strike a box, a square or a circle with the damping on a knob, so the bell can be dialed by ear. · Propose a plan for the page's next stretch now that every claim has been tested, maybe a single playable instrument that crosses equation × shape × angle of i. · When you say yes, an elder lands the four waiting drafts together (Hermite, operators, opening, drum). They agree with one another.
+<sub>`quantum-synth-039` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="quantum-synth-037" -->
+### 2026-10-14 — cycle 16 — Turning the i in Schrödinger's equation gives every partial the same damping. A few hundredths of a degree is a bell, and 90° is a thud.
+> shipped · four checks pass · fourth fix drafted for an elder · steward leans land-with-the-others
+
+I rotated the time axis, dψ/dt = −i·e^(−iθ)·Hψ, in the same box as the walls proof: hard walls, ground level at 220 Hz, the same pluck and the same pickup. [wick.wav](open:Projects/Quantum Synthesizer/proofs/wick.wav) plays nine strikes from 0° to 90°, each through two ears as in the ladder proof. The clock is the phase turning, which nothing physical can hear. The detector is what a measurement registers. [wick.mp4](open:Projects/Quantum Synthesizer/proofs/wick.mp4) is the same audio with the poles, the wave in the box and the spectrogram. [wick-poster.png](obsidian://open?vault=The%20Palace&file=Projects/Quantum%20Synthesizer/proofs/wick-poster.png) shows it all in one still, and you can watch the high partials drop out first. What it does to the entry: each level is one lossless pole sitting on the axis, not a damped conjugate pair. Schrödinger is an RLC bank with every resistor set to zero, and the angle of i is the one knob that puts the resistance back, the same amount in every resonator. Removing the i doesn't send the particle to infinity. Everything fades toward the ground state's shape. A side finding: the detector's beats sit at differences of levels but die at their sums, so to a real measurement the damping is about 5/3 stronger. The replacement paragraphs are in [the opening draft](obsidian://open?vault=The%20Palace&file=Projects/Quantum%20Synthesizer/proofs/opening-paragraphs%20%E2%80%94%20draft) for an elder to land.
+
+**Artifacts:**
+- [nine strikes from 0° to 90°, clock then detector, with the poles and spectrogram.](Projects/Quantum Synthesizer/proofs/wick.mp4)
+- [the same 32 s of audio for your DAW.](Projects/Quantum Synthesizer/proofs/wick.wav)
+- [seven angles in one still: poles, clock spectrogram, detector spectrogram.](Projects/Quantum Synthesizer/proofs/wick-poster.png)
+- [the script (numpy + matplotlib + ffmpeg).](Projects/Quantum Synthesizer/proofs/wick.py)
+- [four checks, all PASS: grid vs formula, damping fitted from sound, detector decays at sums, no pitch at 90°.](Projects/Quantum Synthesizer/proofs/wick-checks.txt)
+- [the fourth drafted fix: two replacement paragraphs for the entry's opening, for an elder to land.](Projects/Quantum Synthesizer/proofs/opening-paragraphs — draft.md)
+
+_fitted from the clock's sound alone (matrix-pencil pole fit), levels 1–5_
+| θ | sin θ | fitted damping ratio, every level | fundamental | fundamental rings (e-fold) | 9th partial rings |
+| --- | --- | --- | --- | --- | --- |
+| 0° | 0 | — | 220 Hz | forever | forever |
+| 0.03° | 0.00052 | — | 220 Hz | 1.38 s | 17 ms |
+| 0.1° | 0.00175 | 0.00175 ×5 | 220 Hz | 415 ms | 5.1 ms |
+| 1° | 0.01745 | 0.01745 ×5 | 220 Hz | 42 ms | 0.5 ms |
+| 5° | 0.08716 | 0.08716 ×5 | 219 Hz | 8.3 ms | 0.1 ms |
+| 30° | 0.5 | 0.50000 ×5 | 190.5 Hz | 1.4 ms | — |
+| 90° | 1 | no pitch | — | 0.7 ms | — |
+
+_Left rough:_ Nobody has listened to wick.wav yet. The strikes from 1° up are only clicks, because constant damping kills them in milliseconds, so the musical range is roughly 0.01° to 0.3°. On the poster the pole tilt below 1° is too small to see. The Hermite and operators drafts are still waiting on your yes.
+
+_Next moves named:_ Turn the angle of i into a playable slider page, a box you strike with θ on a knob, so the bell can be dialed by ear instead of read off nine fixed strikes. · Test the last unchecked claim, the Bessel bell paragraph: solve the circular membrane, play its inharmonic modes, and see whether 'the geometry forces inharmonic eigenmodes' survives the same scrutiny. · When you're ready, have an elder land the three waiting drafts (Hermite, operators, opening) together. They agree with one another.
+<sub>`quantum-synth-037` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="quantum-elder-landing-2026-10-13" -->
 ### 2026-10-13 — Landed: the first draft is in the entry and the page is sprout. The Hermite paragraph (draft 2) waits on Loudon's yes.
 

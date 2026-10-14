@@ -75,6 +75,30 @@ def _quantize_to_scale(midi: np.ndarray, spirit: Spirit) -> np.ndarray:
     return spirit.scale_root_midi + octave * 12.0 + cands[idx]
 
 
+def repair_octave_jumps(midi: np.ndarray, *, window: int = 25, limit: float = 7.0) -> np.ndarray:
+    """Fold pitch-tracker octave slips back into place (MIDI floats, NaN unvoiced).
+
+    A frame more than `limit` semitones from the running median of its voiced
+    neighbours is moved by whole octaves toward that median. Found on the real
+    model, 2026-10-14: RMVPE dropped one note of the example phrase a full
+    octave plus, and the coupled tap was then asked to sing a 16-semitone dive
+    the model wisely refused.
+    """
+    out = np.array(midi, dtype=np.float64)
+    v = np.isfinite(out)
+    if v.sum() < 3:
+        return out
+    idx = np.flatnonzero(v)
+    vals = out[idx]
+    half = window // 2
+    for j, i in enumerate(idx):
+        ref = float(np.median(vals[max(0, j - half): j + half + 1]))
+        d = out[i] - ref
+        if abs(d) > limit:
+            out[i] -= 12.0 * np.round(d / 12.0)
+    return out
+
+
 def couple(
     target_f0: np.ndarray,
     spirit: Spirit,
@@ -85,7 +109,7 @@ def couple(
 ) -> np.ndarray:
     """Return the tap's F0 (Hz, 0.0 unvoiced) for coupling strength K in [0,1]."""
     K = float(np.clip(K, 0.0, 1.0))
-    tgt = f0_to_midi(target_f0)                  # NaN where unvoiced
+    tgt = repair_octave_jumps(f0_to_midi(target_f0))   # NaN where unvoiced
     n = len(tgt)
     free = free_contour(spirit, n, hop_sec)
 
@@ -99,10 +123,14 @@ def couple(
         else:
             coast[i] = last
 
+    # The follower's speed rises with the coupling, so a fully coupled tap
+    # tracks the melody with no lag (heard on the real model, 2026-10-14: at a
+    # fixed alpha the K=1 tap slurred each note change by ~40 ms, 0.42 st off).
+    a = alpha + (1.0 - alpha) * K * K
     p = np.empty(n, dtype=np.float64)
     state = coast[0] if n else spirit.center_midi
     for i in range(n):
-        state += alpha * (K * (coast[i] - state) + (1.0 - K) * (free[i] - state))
+        state += a * (K * (coast[i] - state) + (1.0 - K) * (free[i] - state))
         p[i] = state
 
     if K < 1.0:

@@ -98,7 +98,7 @@ Remove any one of the three and the breakthrough doesn't happen. This is why it'
 - **[[Cooperation Yields Agency]]** — the principle this conversation enacted in real time; collaboration produced articulation that neither participant could have produced alone.
 - **[[Donella Meadows]]** — the source thinker whose leverage-points framework supplied the structural vocabulary.
 - **[[Hyperdimensional Prism]]** — later articulation of the multi-projection property this conversation demonstrated.
-- **[[Loudon Live]]** — Loudon's public self, whose teaching grew from this paradigm.
+- **[[Loudon Live]]** — Loudon's teaching and coaching face, whose teaching grew from this paradigm.
 - **[[Palace Enchantment]]** — the formalization, much later, of single-conversation crystallization as a palace ceremony.
 
 ## Open Questions

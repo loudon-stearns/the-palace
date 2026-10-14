@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<title>Mode locking during a glide · listening study</title>
+<style>
+  :root{--bg:#0a0a0f;--e1:#12121a;--e2:#1a1a28;--fg1:#e8e8f0;--fg2:#c8c8d8;--fg3:#8a8aa0;--fg4:#4a4a5a;--acc:#e8b84a;--accs:rgba(232,184,74,.10);--accl:rgba(232,184,74,.5)}
+  body{margin:0;background:var(--bg);color:var(--fg2);font:17px/1.75 "Cormorant Garamond","Iowan Old Style",Georgia,serif}
+  main{max-width:860px;margin:0 auto;padding:40px 24px 80px}
+  .tier{font:12px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+  h1{font:400 44px/1.05 "Anton","Bebas Neue",Impact,sans-serif;letter-spacing:.02em;color:var(--fg1);margin:10px 0 14px;text-transform:uppercase}
+  h2{font:600 15px/1.3 "Manrope","Inter",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--fg1);margin:40px 0 10px}
+  .clip{background:var(--e1);border:1px solid var(--fg4);border-radius:6px;padding:14px 18px;margin:12px 0}
+  .clip b{font:600 14px/1.4 "Manrope",sans-serif;color:var(--fg1)}
+  .clip .p{font:12px "JetBrains Mono",monospace;color:var(--fg3)}
+  audio{width:100%;margin:8px 0 2px;filter:invert(.88) hue-rotate(180deg)}
+  .eq{font:14px/1.6 "JetBrains Mono",monospace;color:var(--fg1);background:var(--e2);padding:12px 16px;border-left:2px solid var(--acc)}
+  .eq span{color:var(--fg3)}
+  button{font:600 13px "Manrope",sans-serif;background:var(--accs);color:var(--acc);border:1px solid var(--accl);border-radius:4px;padding:7px 14px;cursor:pointer;margin:4px 8px 4px 0}
+  .reveal{display:none;margin-top:10px;color:var(--fg1)}
+  img{width:100%;border:1px solid var(--fg4);border-radius:4px;margin-top:10px}
+  footer{margin-top:50px;font:12px "JetBrains Mono",monospace;color:var(--fg4)}
+</style>
+</head>
+<body><main>
+<div class="tier">Study · multi-mode portamento · pass 2</div>
+<h1>Which partials hold on through the glide</h1>
+<p>A plucked stiff string rings at its own slightly stretched partials. A bowed string doesn't. The bow keeps pulling every partial back onto an exact multiple of the fundamental, as long as that pull is stronger than how far the stiffness pushes it off. A glide changes how far the stiffness pushes. So a glide moves partials into and out of lock, and you can hear the timbre change while the pitch moves.</p>
+<div class="eq">dψ/dt = 2π·Δ − 2π·K·sin ψ<br><span>d(phase offset)/dt = 2π·detuning − 2π·locking_range·sin(phase offset)</span><br><span>locked while detuning &lt; locking range · otherwise it slips, beating at √(Δ² − K²)</span></div>
+
+<h2>Five clips</h2>
+<div class="clip"><b>1 · Plucked, slide up an octave</b> <span class="p">G3 → G4 · nothing locks</span>
+<audio controls preload="none" src="audio/locking-01-pluck-slide.wav"></audio>
+Listen to the top. It drifts sharp of the harmonic series as the string shortens, and the tone turns glassy.</div>
+<div class="clip"><b>2 · Bowed, same slide</b> <span class="p">4 partials locked → 2</span>
+<audio controls preload="none" src="audio/locking-02-bow-slide.wav"></audio>
+It starts fused. Partials 4 and then 3 break loose around 0.6 and 0.75 s, and a shimmer opens up in the middle of the tone.</div>
+<div class="clip"><b>3 · Bowed, tension raised (a peg turn)</b> <span class="p">3 locked → 4</span>
+<audio controls preload="none" src="audio/locking-03-bow-peg.wav"></audio>
+Same octave, raised by tension instead of length. Stiffness detuning falls as tension rises, so the beating 4th partial is pulled into lock at 0.76 s and the tone clears.</div>
+
+<h2>The pair · underdamped or critically damped?</h2>
+<p>Both are bowed, and both arrive at the same E4. One rings past the note and back; one doesn't. Before you look at the pitch, listen for the <em>texture</em> right after the arrival.</p>
+<div class="clip"><b>A</b><audio controls preload="none" src="audio/locking-05-bow-critical.wav"></audio></div>
+<div class="clip"><b>B</b><audio controls preload="none" src="audio/locking-04-bow-overshoot.wav"></audio></div>
+<button onclick="document.getElementById('r1').style.display='block'">Reveal</button>
+<div class="reveal" id="r1"><b>B is underdamped</b> (ζ 0.2): it overshoots to about 400 Hz. The overshoot pushes the 3rd partial's detuning past the locking range, so it lets go from 0.82 to 1.31 s, catches, and lets go again on the second ring, from 1.93 to 2.31 s. <b>A is critically damped</b>: it never passes the note, so the 3rd partial never comes loose. The ring-back isn't only a pitch event. It's a timbre event too. That's what this pair exists to teach.
+<img src="figures/overshoot-pair-spectrogram.png" alt="spectrograms of partials 3 to 5 for both arrivals"></div>
+
+<h2>The whole picture</h2>
+<img src="figures/mode-locking.png" alt="partial deviation from the harmonic series and the count of locked partials, for all five clips">
+<footer>mode_locking.py · Adler/Kuramoto locking of each partial to the fundamental (after Fletcher 1978) · stiffness exaggerated so the lock boundary falls mid-spectrum</footer>
+</main></body></html>

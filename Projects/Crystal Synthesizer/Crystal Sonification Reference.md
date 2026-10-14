@@ -7,6 +7,7 @@ links:
     label: child-of
   - target: "[[Crystal Synthesizer — spec — Loudon Live sessions]]"
     type: connects-to
+    label: archived
 forward_vector: "I am the mineral palette for [[Crystal Synthesizer]] — physical properties, spectral ratios, and generation prompts for the eight crystals. I keep the partial tables canonical so the instrument and its media stay physically honest."
 ---
 
@@ -438,7 +439,7 @@ Three demonstrations of how the four mapping parameters transform the same cryst
 
 ---
 
-*This document is a companion to [[Crystal Synthesizer]] and [[Crystal Synthesizer — spec — Loudon Live sessions]]. Image prompts are intended for generation with any image AI (Midjourney, DALL-E, Stable Diffusion). Audio prompts are intended for implementation in Gen~ or RNBO as part of Stage 1 development, or for rapid prototyping in any synthesis environment.*
+*This document is a companion to [[Crystal Synthesizer]] and [[Crystal Synthesizer — spec — Loudon Live sessions]] (archived; the session-by-session staging was set down 2026-09-26). Image prompts are intended for generation with any image AI (Midjourney, DALL-E, Stable Diffusion). Audio prompts are intended for implementation in Gen~ or RNBO as part of Stage 1 development, or for rapid prototyping in any synthesis environment.*
 
 ---
 

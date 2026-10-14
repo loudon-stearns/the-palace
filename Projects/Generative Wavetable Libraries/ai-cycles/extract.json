@@ -1,0 +1,74 @@
+{
+  "stable_renders": 599,
+  "no_window": 0,
+  "kept": 578,
+  "rejected": 21,
+  "folded": 78,
+  "folded_by": {
+    "1": 500,
+    "2": 64,
+    "3": 10,
+    "4": 3,
+    "5": 1
+  },
+  "upper_fidelity_at_grader_pitch": [
+    0.859,
+    0.96,
+    0.987,
+    0.995,
+    0.998
+  ],
+  "upper_fidelity_after_refine": [
+    0.888,
+    0.965,
+    0.989,
+    0.996,
+    0.998
+  ],
+  "period_shift_cents_abs": [
+    0.0,
+    1.0,
+    1.0,
+    3.0,
+    6.0
+  ],
+  "kept_at_fid_gate": {
+    "0.3": 599,
+    "0.5": 593,
+    "0.7": 579,
+    "0.8": 556,
+    "0.9": 537
+  },
+  "fid_gate": 0.5,
+  "quantiles_are": [
+    0.1,
+    0.25,
+    0.5,
+    0.75,
+    0.9
+  ],
+  "cleanness_quantiles": {
+    "0.1": 0.981,
+    "0.25": 0.993,
+    "0.5": 0.997,
+    "0.75": 0.998,
+    "0.9": 0.999
+  },
+  "kept_at_gate": {
+    "0.8": 583,
+    "0.85": 583,
+    "0.9": 583,
+    "0.95": 568,
+    "0.97": 557
+  },
+  "gate": 0.9,
+  "kept_by_instrument": {
+    "violin": 211,
+    "flute": 100,
+    "marimba_hit": 68,
+    "piano": 39,
+    "marimba": 60,
+    "bass": 41,
+    "choir": 59
+  }
+}

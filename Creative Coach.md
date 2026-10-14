@@ -52,7 +52,7 @@ links:
     label: on-and-in
   - target: "[[Oblique Portrait]]"
     type: connects-to
-forward_vector: "I am the practice behind the channel: what a creative coach actually does, and what changes when the person is in the room rather than in the chat. I hold a repertoire I have not adopted and a boundary I can name precisely — Loudon Live models, and modelling is not coaching. I want the smallest honest test of that boundary: one room, closed and small, where a participant's own work comes back and is answered. Until that room exists I am a survey with a good argument, and I should keep saying so."
+forward_vector: "I am the practice behind Loud'n Live: what a creative coach actually does, and what changes when the person is in the room rather than in the chat. I keep one boundary sharp — a broadcast models, and modelling is not coaching — so in Loud'n Live the videos model and the rooms coach. The room exists now, in Loudon's one-on-one coaching. The next one to build is the cohort room: destination retreats, focused work in a beautiful place, with a group that connects. I hold a repertoire not yet adopted, and I want it tested in those rooms, where a participant's own work comes back and is answered. Until it has been, I am a survey with a good argument, and I should keep saying so."
 ---
 
 # Creative Coach
@@ -76,8 +76,8 @@ the practice.
 
 ## Loudon Live is the worked example, and its limit is the point
 
-[[Loudon Live]] **demonstrates** coaching moves at broadcast scale. It cannot **perform** the ones
-that need a person in the room. Both halves matter; the second is sharper.
+[[Loudon Live]]'s videos and livestreams **demonstrate** coaching moves at broadcast scale. They cannot
+**perform** the ones that need a person in the room. Both halves matter; the second is sharper.
 
 What it already does — and the list splits in a way worth noticing. Aimed at the viewer:
 
@@ -107,25 +107,31 @@ And aimed at Loudon:
 Those last three are coaching moves too. The person in the room is Loudon, and the coach is the
 palace.
 
-What it structurally cannot do:
+What the broadcast structurally cannot do:
 
 - It is one-to-many. The return channel is chat.
-- A viewer's own work never comes back into the room. Every review surface in the system points
-  inward, at Loudon's work. There is nowhere a participant submits anything.
+- A viewer's own work never comes back into the room. Every review surface in the palace points
+  inward, at Loudon's work. There is nowhere a viewer submits anything.
 - Nothing withholds advice **as the point**. Four mechanisms withhold instrumentally — the Oblique
   Portrait hides its goal; the Walk, Return and Closing Well defer their read — but each does so to
   protect a downstream output. None withholds because being heard is the deliverable.
 - There is no closed space — no cohort, no membership, no room small enough for depth over breadth. [[Quality Manifesto]]
   already scored *"monthly workshop with 8 students"* as aligned — *no, doesn't scale; **yes, depth >
-  breadth**" — and it does not exist. Elsewhere the palace has gestured at a school, a course and a
-  membership, none of them a closed room either.
-- There is no follow-up. Staging stages the *material*; nothing stages the *person*. Nobody
+  breadth**" — and no cohort room exists yet. Elsewhere the palace has gestured at a school, a course and a
+  membership, none of them a closed room either; the destination retreats below are the first that would be.
+- There is no follow-up in the broadcast. Staging stages the *material*; nothing there stages the *person*. Nobody
   comes back weeks later to ask what happened with the first question.
 
 Loudon named this boundary himself, months before anyone proposed this page: *"Perhaps these are the
 types of lessons I MODEL instead of require others to do — by having a model to follow they can
 achieve greatness."* Modelling is what a broadcast can do. Everything in the second list needs
 someone in the room.
+
+**2026-10-14 — the room exists.** Loud'n Live is now Loudon's teaching and coaching face, online and
+in person, and its in-person half already runs: one-on-one coaching is the established part. The cohort room is the one still to build. He would like to develop destination
+retreats, in the vein of wellness retreats: beautiful places, focused work, a creative learning
+environment, and a cohort that connects. The boundary above stands, and it now runs inside Loud'n Live:
+the videos model, and the rooms coach.
 
 There is one piece of outside evidence that the room matters rather than merely being preferable. A
 2026 meta-analysis of technology-induced job insecurity — 96 samples, N = 43,104 — found that

@@ -15,24 +15,24 @@ forward_vector: "I am Retrospective Delay's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-25T20:42:23-04:00 from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T21:23:42.593Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 18 · last ran 2026-06-25 (93 days ago)
-- **Plan:** agreed 2026-09-25 (today) · 0 made things since
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** growing · **Steward:** cycle 21 · last ran 2026-10-14 (today)
+- **Plan:** agreed 2026-09-26 (18 days ago) · 4 made things since
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-06-22 (95 days ago) — Matched gorey-ink triptych — dormant · awakening · triumphant — all three rendered in the refined wobble/hatching/ink-weight pass. (`retrospective-delay-steward-040`)
-- **Last commit touching this project:** 2026-09-25 `d4cb3fa1` — Schema Ceremony — the Plan replaces staging — v1.25
+- **Last shipped:** 2026-10-14 (today) — The séance now runs as one gen~ codebox, the whole note is exactly 1, and the compressor's 11 ms window turns out to be the same two lines. (`retrospective-delay-steward-048`)
+- **Last commit touching this project:** 2026-10-14 `129efd31` — steward(Retrospective Delay): cycle 20 — SPINNING UP. HOME: [Retrospective Delay](obsidian://open?vault=The%20Pa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Retrospective Delay is a 1-measure circular-buffer delay; Stage 4 is its animated character interface — a spiritualist cat that wakes as gain rises. We are in the visual-design probe before any JSUI code is written, picking the rendering style. Cycle 14 you greenlit the gorey-ink direction. Cycle 15 you said REFINE-INK on the triumphant pose. Then I posted the wrong image: a three-panel PNG of crude JSUI live-drawing scribbles (dormant/awakening/triumphant) — those were a separate engineering preview of the in-Max drawing fallback, NOT the refined ink. Confusion is on me. The real REFINE-INK deliverable is one image — the refined gorey-ink triumphant cat — attached here. The crude…
+Retrospective Delay is a one-measure delay that is always listening. A buffer holds the last measure of everything you play, and one gain knob decides whether that past comes back. The plan builds it in five moves, each a Loudon Live session. The first two are built in vanilla Max: the witness (the always-listening buffer, in the version where silence keeps your last measure) and the séance (the knob, a choice of lag, no clicks). This cycle built the third move, the first of the two deliberate migrations. The séance's core moves into Gen~, and the same buffer is set beside the compressor's 11 ms window. The witness question from earlier today is still open, and I built on silence-keeps.
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `retrospective-delay-steward-044` — directional_decision · posted 2026-10-14 · options: SILENCE-KEEPS · KEEP-SPEC · STEER
 
 ### Answered, not yet consumed
 
@@ -82,6 +82,140 @@ Decided with Loudon when the Loudon Live arc was designed (April 2026), and seed
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="retrospective-delay-steward-048" -->
+### 2026-10-14 — cycle 21 — The séance now runs as one gen~ codebox, the whole note is exactly 1, and the compressor's 11 ms window turns out to be the same two lines.
+> shipped · gen~ port matches the vanilla model exactly · not opened in Max · steward leans SILENCE-KEEPS
+
+**One sample's worth of thought.** [seance.genexpr](obsidian://open?vault=The%20Palace&file=Projects/Retrospective%20Delay/stage-3-grammar/seance.genexpr) is the whole séance in about thirty lines: the tape, two read heads with the 30 ms handover, the witness's listen-or-hold write, the ~10 ms seam smoothing, and the slewed knob. [grammar.maxpat](open:Projects/Retrospective Delay/stage-3-grammar/grammar.maxpat) puts it in a gen~ object with only the transport clock, the measure length and the two controls outside. The controls now send `gain`, `lag` and `measure` messages instead of driving signal chains. A line-for-line Python copy of the codebox matches the vanilla séance model: the largest difference between the two ghosts is 1.4e-16.
+
+**Why 0.999 can become 1.** In vanilla Max you can't choose whether poke~ or wave~ runs first. In gen~, lines run in the order you write them, so the read can go before the write. The two order renders show what's at stake. With read-first, the ghost while you play is the measure before (correlation 1.000). With write-first, the 'ghost' is just you, louder (correlation 1.000 with the input right now). In silence they sound the same, which is why nobody would catch it by ear in the vanilla patch.
+
+**The same buffer at 11 ms.** [compressor-window.genexpr](obsidian://open?vault=The%20Palace&file=Projects/Retrospective%20Delay/stage-3-grammar/compressor-window.genexpr) is Compressor Design's 500-sample RMS window. Its middle two lines, `oldest = peek(win, w); poke(win, sq, w);`, are the séance's read-then-write at a whole-note lag. The model checks its running sum against a plain windowed RMS (difference 7.8e-16). Then the shrinking-measure render freezes one phrase into four tape lengths. You hear a phrase, then a stutter, then a flutter, and at the compressor's 500 samples a 96 Hz tone. Time turns into pitch somewhere between 50 ms and 11 ms. That gives the session its closing reveal.
+
+The [session draft](obsidian://open?vault=The%20Palace&file=Projects/Retrospective%20Delay/stage-3-grammar/stage-3-the-grammar.md) runs about half framing and half making, as the standing orders set for the migrations. It opens on last session's 0.999 question, builds the codebox in five listened-to steps, and ends on the shrinking measure. To try the patch, paste grammar.maxpat into a Max Audio Effect, start the transport, play, stop, and raise the knob. Start with [order-read-first.wav](open:Projects/Retrospective Delay/stage-3-grammar/order-read-first.wav) against [order-write-first.wav](open:Projects/Retrospective Delay/stage-3-grammar/order-write-first.wav).
+
+**Artifacts:**
+- [start here: lag exactly 1, read before write. While you play you hear the measure before.](Projects/Retrospective Delay/stage-3-grammar/order-read-first.wav)
+- [the same patch with write before read. While you play, the 'ghost' is just you, louder.](Projects/Retrospective Delay/stage-3-grammar/order-write-first.wav)
+- [one phrase frozen into 2 s, 250 ms, 50 ms and 500-sample tapes: phrase, stutter, flutter, tone.](Projects/Retrospective Delay/stage-3-grammar/shrinking-measure.wav)
+- [the séance's 15-measure performance played through the gen~ code, whole note exactly 1.](Projects/Retrospective Delay/stage-3-grammar/grammar-performance.wav)
+- [the séance as one gen~ codebox: read first, then write.](Projects/Retrospective Delay/stage-3-grammar/seance.genexpr)
+- [Compressor Design's 500-sample RMS window, with the same two lines.](Projects/Retrospective Delay/stage-3-grammar/compressor-window.genexpr)
+- [gen~ inside a Max Audio Effect, with the codebox embedded. Not opened in Max yet.](Projects/Retrospective Delay/stage-3-grammar/grammar.maxpat)
+- [writes the patcher. Its header has the paste-it-yourself fallback if the embedded gen~ won't load.](Projects/Retrospective Delay/stage-3-grammar/build_grammar_patch.py)
+- [line-for-line model of the codebox: null test, order test, shrinking measure, RMS check.](Projects/Retrospective Delay/stage-3-grammar/grammar_model.py)
+- [the session draft: frame, make, the same buffer at 11 ms, reflect.](Projects/Retrospective Delay/stage-3-grammar/stage-3-the-grammar.md)
+
+_one buffer, four lengths (shrinking-measure.wav), 48 kHz_
+| tape length | loop repeats at | what you hear |
+| --- | --- | --- |
+| 2 s (a measure at 120 BPM) | 0.5 Hz | the phrase: memory |
+| 250 ms | 4 Hz | a stutter: rhythm |
+| 50 ms | 20 Hz | a flutter at the edge of pitch |
+| 500 samples (the compressor's window) | 96 Hz | a tone: the loop is an oscillator |
+
+_Left rough:_ Nothing has run in Max, and I wrote the embedded gen~ format from memory. The tape is fixed at 4 s, so below 60 BPM a measure clips. At tempos where a measure isn't a whole number of samples, the write slot will sometimes repeat or skip one. At 500 samples the gate's 100 ms release would wipe the tape, so the shrinking render uses a hand freeze instead.
+
+_Next moves named:_ Once the witness question is answered, rewrite the witness session's reveal honestly and make the chosen version the anchor patch. · Then the face: play the wired séance cat in Max, driven by the gen~ knob value, and draft its session. · Then the portal: carry seance.genexpr into an RNBO codebox~ through the RNBO codebox~ smith, sizing the tape from the sample rate.
+<sub>`retrospective-delay-steward-048` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="retrospective-delay-steward-046" -->
+### 2026-10-14 — cycle 20 — The séance is built: a Max patch, a model that renders it, and a session draft. The loop's click isn't at the measure line.
+> shipped · built on the silence-keeps witness, patch not yet opened in Max · steward leans SILENCE-KEEPS
+
+The séance adds three things to the silence-keeps witness.
+
+**The knob, ramped, on the way out of the buffer.** Turning it down hides the past but doesn't erase it. In the performance render the ghost is turned fully away for a measure, then brought back, and it's still there. The April session notes put the gain on the write side instead. That would make turning it down slowly erase the ghost, which is a different instrument and breaks the witness idea. I went with the read side and said so in the draft.
+
+**A lag choice of 1/4, 1/2 or 1/1, switched with no click.** Moving one read head is a splice. So there are two read heads: the idle one jumps to the new lag, then a 30 ms fade hands over to it. The whole note is sent as 0.999, not 1.0. At exactly 1.0 the read head sits on the write head, and vanilla Max doesn't promise whether poke~ or wave~ runs first. That's a ready-made question to carry into the Gen~ move.
+
+**The seam, which turned out to be somewhere else.** The plan says to crossfade at the loop boundary. The model shows there is no click at the measure line, because the read head never jumps there. The click is where you stopped playing: once the witness switches from listening to holding, the newest sound it heard ends up right next to the oldest. Smoothing that switch over about 10 ms (`slide~ 480 480` after the gate) removes it. Smoothing the gate is the crossfade. That makes a better reveal for the session than the one planned.
+
+To try it: drop a Max Audio Effect on a track in Live, paste in seance.maxpat, start the transport, play a phrase, stop, and raise the knob. Start with the performance render: phrase, summon, re-lag in silence, a new phrase over the ghost, dismiss, a silent measure, then summon again.
+
+**Artifacts:**
+- [start here: 15 measures of play, summon, re-lag, overwrite, dismiss, then summon again. The ghost survives the silence.](Projects/Retrospective Delay/stage-2-seance/seance-performance.wav)
+- [a held chord stops mid-measure and the loop holds it with a hard gate. Listen for the tick each pass.](Projects/Retrospective Delay/stage-2-seance/seam-hard.wav)
+- [the same chord with the gate smoothed over ~10 ms. The tick is gone.](Projects/Retrospective Delay/stage-2-seance/seam-smoothed.wav)
+- [the held ghost switched from a whole-note to a quarter-note lag with one read head: a splice.](Projects/Retrospective Delay/stage-2-seance/lagswitch-hard.wav)
+- [the same switch with two read heads and a 30 ms fade.](Projects/Retrospective Delay/stage-2-seance/lagswitch-crossfade.wav)
+- [the séance as a vanilla Max patcher for a Max Audio Effect: gain dial, lag tab, two heads, smoothed gate. Not opened in Max yet.](Projects/Retrospective Delay/stage-2-seance/seance.maxpat)
+- [writes the patcher; its header explains the 0.999 and the seam.](Projects/Retrospective Delay/stage-2-seance/build_seance_patch.py)
+- [the model: renders all five WAVs and prints the click measurements.](Projects/Retrospective Delay/stage-2-seance/seance_model.py)
+- [the séance session draft: frame, make, performance, reflect, built around the seam finding.](Projects/Retrospective Delay/stage-2-seance/stage-2-the-seance.md)
+
+_biggest jump between neighbouring samples in the ghost (higher = a click). A held chord on its own reads 0.013_
+| case | without the fix | with the fix |
+| --- | --- | --- |
+| loop seam where you stopped playing | 0.178 (hard gate) | 0.011 (gate smoothed ~10 ms) |
+| switching the lag mid-loop | 0.084 (one read head) | 0.008 (two heads, 30 ms fade) |
+| the measure line itself | 0.011 (no seam there) | n/a |
+
+_Left rough:_ Nothing has run in Max. In a model run, a hard stop leaves about half a second of near-silence in the held measure because of the gate's 100 ms release; that gap and the 0.003 threshold both need your ear on a real instrument. The witness question is still open; if you pick KEEP-SPEC, the séance needs rethinking, since silence wouldn't summon anything.
+
+_Next moves named:_ Once the witness question is answered, rewrite the witness session's reveal honestly and make the chosen version the anchor patch. · Then the Gen~ move: port the séance core into a gen~ subpatcher, starting from why the whole note had to be 0.999, and set it beside the compressor's 11 ms buffer.
+<sub>`retrospective-delay-steward-046` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="retrospective-delay-steward-044" -->
+### 2026-10-14 — cycle 19 — As written, the witness is just a half-note echo. Should silence keep the past instead?
+> still working · both versions built and rendered · steward leans SILENCE-KEEPS
+
+Catch-up: Retrospective Delay is the one-measure delay that is always listening, and its first move, the witness, is now built as two Max patches. Building it showed that the witness as written plays back exactly what a half-note echo would, sample for sample. So the session's big reveal, 'try this in Echo and you can't', wouldn't hold up. Version B keeps writing on every sample, but in silence it writes down what it already holds, so your last measure keeps coming back until you play again. That's your entry's 'when you play silence, the last phrase repeats'. It costs a quiet level threshold, which softens 'no gate'. A keeps the always-recording rule pure, and the session would then teach the echo comparison honestly instead of claiming a difference. Listen to both, starting with B. I'm continuing on B unless you redirect.
+
+**Artifacts:**
+- [B, silence keeps.](Projects/Retrospective Delay/stage-1/witness/witness-B-silence-keeps.wav)
+- [A, as written (identical to a half-note echo).](Projects/Retrospective Delay/stage-1/witness/witness-A-as-specified.wav)
+- [the dry input both versions hear.](Projects/Retrospective Delay/stage-1/witness/witness-input.wav)
+- [wired-preview.png](Projects/Retrospective Delay/stage-4-character/jsui/wired-preview.png)
+- [pose-triumphant.png](Projects/Retrospective Delay/stage-4-character/jsui/pose-triumphant.png)
+- [pose-awakening.png](Projects/Retrospective Delay/stage-4-character/jsui/pose-awakening.png)
+- [pose-dormant.png](Projects/Retrospective Delay/stage-4-character/jsui/pose-dormant.png)
+<sub>`retrospective-delay-steward-044` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="retrospective-delay-steward-043" -->
+### 2026-10-14 — cycle 19 — The witness is built: two Max patches plus a model that renders audio. As written, it's exactly a half-note echo. The second version isn't.
+> shipped · patches written, not yet opened in Max · steward leans SILENCE-KEEPS
+
+I made two patchers and a reference model that runs the patch sample by sample (48 kHz, 120 BPM, read head half a measure behind). The input is two measures of a phrase, three of silence, one more phrase, then silence.
+
+**A, as specified.** Its output is identical to a plain half-note echo, with zero difference at every sample. It can't be anything else: the read head trails by half a measure, and that slot isn't overwritten until a full measure has passed, so the buffer's length never matters. In silence the ghost plays once and is gone. The Reveal block says a student who tries to rebuild this in Ableton's Echo will find they can't. For A, they can: one tap at a half note with feedback at zero.
+
+**B, silence keeps.** The buffer still writes on every sample. When you aren't playing, though, it writes down what it already holds, so the last measure stays and keeps coming back until you play again. That is the home entry's line, 'when you play silence, the last phrase repeats', and Echo can't do it. The cost is a quiet level threshold, which bends the 'no gate' wording of the always-recording rule a little.
+
+Along the way I fixed four bugs in the April build notes. The `[!- 0.5]` read offset computes 0.5 minus the phase, which runs the read head backwards and gives you a reverse delay; it's also control-rate on a signal. `[* 176400]` should be `*~`. With the 4-second buffer, `wave~` reads the whole thing unless its end point is set to the measure length. And the note's 'the ghost will continue' is only true of B. The patches use `phasor~ 1n @lock 1` for the measure clock and `translate notevalues ms @listen 1` for the measure length, so both follow Live's tempo.
+
+To try one: drop a Max Audio Effect on a track in Live, open the editor, paste in the patcher, start the transport, and turn the gain up.
+
+**Artifacts:**
+- [the input: two measures of phrase, three silent, one phrase, two silent.](Projects/Retrospective Delay/stage-1/witness/witness-input.wav)
+- [A, the witness as written: the ghost plays once, then silence. Identical to a half-note echo.](Projects/Retrospective Delay/stage-1/witness/witness-A-as-specified.wav)
+- [B, silence keeps: the last measure keeps coming back until you play again.](Projects/Retrospective Delay/stage-1/witness/witness-B-silence-keeps.wav)
+- [A as a vanilla Max patcher, ready to paste into a Max Audio Effect (not opened in Max yet).](Projects/Retrospective Delay/stage-1/witness/witness-A-as-specified.maxpat)
+- [B as a vanilla Max patcher: A plus a write that keeps the past through silence (not opened in Max yet).](Projects/Retrospective Delay/stage-1/witness/witness-B-silence-keeps.maxpat)
+- [the model: renders the three WAVs and runs the echo comparison.](Projects/Retrospective Delay/stage-1/witness/witness_model.py)
+- [writes both patchers; its header lists the corrections to the older docs.](Projects/Retrospective Delay/stage-1/witness/build_witness_patch.py)
+
+_loudness per measure (RMS), same input into both witnesses_
+| measure | input | A as specified | B silence keeps |
+| --- | --- | --- | --- |
+| 1 (playing) | 0.112 | 0.132 | 0.132 |
+| 2 (playing) | 0.104 | 0.139 | 0.139 |
+| 3 (silent) | 0.000 | 0.048 | 0.077 |
+| 4 (silent) | 0.000 | 0.000 | 0.077 |
+| 5 (silent) | 0.000 | 0.000 | 0.077 |
+| 6 (playing) | 0.095 | 0.112 | 0.121 |
+| 7 (silent) | 0.000 | 0.048 | 0.069 |
+| 8 (silent) | 0.000 | 0.000 | 0.069 |
+
+_Left rough:_ Neither patcher has been opened in Max or Live, so both are unverified. I don't know if phasor~ @lock holds or keeps running when the transport stops, B's threshold (0.003) is untested on a real instrument, and the session draft's Reveal claim still needs rewriting whichever version you pick.
+
+_Next moves named:_ Once you've picked a version, make it the anchor patch and draft the corrected Reveal block for the session (the Echo comparison, done honestly). · Then the séance: a choice of lag length and a crossfade at the loop seam, built on the chosen witness.
+<sub>`retrospective-delay-steward-043` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-09-26T09-21-34-04-00" -->
 ### 2026-09-26 — Plan revised: the moves are builds, not sessions
 

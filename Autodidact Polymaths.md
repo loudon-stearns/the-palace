@@ -5,11 +5,11 @@ pillars:
   - practice
 born: 2026-04
 stage: sprout
-summary: "The audience identity Loudon Live is built for and addresses — self-taught generalists who learn across many fields and recognize themselves in cross-domain pedagogy."
+summary: "A stance in the background of Loud'n Live — learning across fields on your own — and the kind of person it will coach more of as it grows. Not its named audience today."
 links:
   - target: "[[Loudon Live]]"
     type: couples-with
-    label: addressed-by
+    label: in-the-background
   - target: "[[FOUR PILLARS]]"
     type: connects-to
     label: pillar-shaped-learners
@@ -22,7 +22,11 @@ forward_vector: "I will keep naming this audience to themselves — the framing 
 
 ![[Autodidact Polymaths — hero.png]]
 
-The audience identity that [[Loudon Live]] is built for and addresses by name. Footer of the first session artifact reads *Loudon Live · Autodidact Polymaths*. The phrase emerged in conversation as the right name for the kind of viewer this work is for — self-taught generalists who learn across many fields, often without institutional credentialing in any of them, and who recognize themselves in cross-domain pedagogy.
+A stance that sits in the background of [[Loudon Live]]: learning across fields on your own. It is not the audience Loud'n Live is built for or addressed to today (that is electronic musicians, to start), but it is the kind of person Loud'n Live will coach more of as it grows. The footer of the first session artifact read *Loudon Live · Autodidact Polymaths*, a convention since retired. The phrase emerged in conversation as the right name for the kind of viewer this work is for — self-taught generalists who learn across many fields, often without institutional credentialing in any of them, and who recognize themselves in cross-domain pedagogy.
+
+**2026-10-14 — moved to the background, not let go.** Loud'n Live narrowed to Loudon's teaching and coaching face, starting with electronic musicians. As it grows it will become more about creative coaching for people who learn across fields on their own, so this concept stays, behind the current audience rather than as it.
+
+§ Why Loudon Live names them still speaks of the old audience; it is to be rewritten.
 
 This entry is deliberately thin. The phrase is in active use, but its full articulation hasn't been done yet. What follows is what's currently load-bearing; the Open Questions section carries what isn't.
 
@@ -43,7 +47,7 @@ Most online educational content is shaped by topic — a synth tutorial, a progr
 
 ## Cross-Domain Resonances
 
-- **[[Loudon Live]]** — Loudon's public self, built for and named with this audience.
+- **[[Loudon Live]]** — Loudon's teaching and coaching face; this stance sits in its background.
 - **[[Four Pillars]]** — the curriculum framework whose multi-pillar simultaneity is the structural argument that this audience exists.
 - **[[Hyperdimensional Prism]]** — the visual identity essay; multi-depth interpretive readability is exactly what an Autodidact Polymath audience can take advantage of.
 

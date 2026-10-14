@@ -1,0 +1,413 @@
+<!-- Loudon Live Design System · Drafting skin (schematic / build-instructions register) -->
+<!-- Meadows and an Artist's Career — Self-diagnostic v3: the worksheet and the case studies joined into one instrument. -->
+<!-- What changed from v2: every rung now shows the real, sourced career moves that live there (Eno, Oliveros, Martin —
+     from leverage-case-studies.html, which drew on the palace dossiers), alongside v2's composite example.
+     The comparison that lived on the case-studies page now lives in the sticky bar: your shape beside theirs, as you place.
+     The saved text keeps v2's line format exactly, so the case-studies page can still read it. Nothing leaves your machine. -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root{
+    --bg:#f0eee5; --paper:#f7f5ee; --fg-1:#1a1814; --fg-2:#3d3a32; --fg-3:#8a857a;
+    --rule:#cbc6b8; --accent:#c8261a; --accent-soft:#e8d3cd; --grid:#ddd8ca; --ink2:#2f4a63;
+  }
+  *{box-sizing:border-box}
+  body{margin:0}
+  .lv3{background:var(--bg); color:var(--fg-1); font-family:'Cormorant Garamond',Georgia,serif;
+    font-size:17px; line-height:1.5; padding:32px 26px 40px; max-width:1080px; margin:0 auto;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:24px 24px; background-position:-1px -1px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); margin:0 0 6px}
+  h1{font-family:'Anton',sans-serif; font-weight:400; font-size:40px; line-height:.98; margin:0 0 8px}
+  .sub{font-family:'Manrope',sans-serif; font-size:14px; color:var(--fg-2); max-width:68ch; margin:0 0 4px}
+  .meta{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--fg-3); margin:10px 0 20px; letter-spacing:.04em}
+  .howto{font-family:'Manrope',sans-serif; font-size:13px; color:var(--fg-2); background:var(--paper);
+    border-left:2px solid var(--accent); padding:12px 14px; margin:0 0 18px; max-width:76ch}
+  .howto b{color:var(--fg-1)}
+
+  /* sticky comparison bar */
+  .tally{position:sticky; top:0; z-index:5; background:var(--bg); border-bottom:1px solid var(--accent);
+    padding:10px 0 12px; margin:0 0 6px; display:grid; grid-template-columns:90px repeat(5,1fr); gap:8px; align-items:stretch}
+  .tally .count{font-family:'Anton',sans-serif; font-size:28px; color:var(--accent); line-height:1; align-self:center}
+  .tally .count small{font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.1em; color:var(--fg-3); display:block; text-transform:uppercase; margin-top:3px}
+  .mini{background:var(--paper); border:1px solid var(--rule); padding:6px 8px}
+  .mini .who{font-family:'Manrope',sans-serif; font-weight:700; font-size:11.5px; margin:0 0 4px; display:flex; justify-content:space-between}
+  .mini .who span{font-family:'JetBrains Mono',monospace; font-weight:400; font-size:9px; color:var(--fg-3)}
+  .bb{display:grid; grid-template-columns:30px 1fr 28px; gap:5px; align-items:center;
+    font-family:'JetBrains Mono',monospace; font-size:8.5px; color:var(--fg-3); margin:2px 0}
+  .bb .track{height:8px; background:#fffdf7; border:1px solid var(--rule); position:relative}
+  .bb .fill{position:absolute; left:0; top:0; bottom:0; background:var(--accent); opacity:.85; width:0; transition:width .2s}
+  .mini.you{border-color:var(--ink2)} .mini.you .fill{background:var(--ink2)}
+  .mini.ref .fill{background:repeating-linear-gradient(45deg,var(--fg-3),var(--fg-3) 2px,transparent 2px,transparent 4px)}
+
+  .rows{border:1px solid var(--rule); background:var(--paper)}
+  .band{font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--accent); padding:6px 12px; background:var(--bg); border-top:1px solid var(--accent); border-bottom:1px solid var(--accent)}
+  .row{display:grid; grid-template-columns:44px 1fr 138px; border-bottom:1px solid var(--rule)}
+  .row:last-child{border-bottom:none}
+  .row.hot{background:rgba(200,38,26,.05)}
+  .row .lvl{font-family:'Anton',sans-serif; font-size:23px; color:var(--accent); display:flex; flex-direction:column;
+    align-items:center; padding-top:10px; border-right:1px solid var(--rule); background:rgba(200,38,26,.04)}
+  .row .lvl small{font-family:'JetBrains Mono',monospace; font-size:7.5px; letter-spacing:.06em; color:var(--fg-3); margin-top:4px}
+  .row .body{padding:10px 12px; font-family:'Manrope',sans-serif}
+  .row .name{font-weight:700; font-size:13.5px; margin:0 0 3px}
+  .row .q{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--fg-2); margin:0 0 8px}
+  .lab{font-family:'JetBrains Mono',monospace; font-size:8.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); display:block; margin:0 0 4px; font-weight:500}
+  .ex{font-size:12.5px; color:var(--fg-1); background:#fffdf7; border-left:2px solid var(--accent-soft); padding:7px 9px; line-height:1.45; margin-bottom:8px}
+  .real{display:flex; flex-direction:column; gap:5px}
+  .chip{font-family:'Manrope',sans-serif; font-size:12px; line-height:1.4; background:#fffdf7; border:1px solid var(--rule);
+    border-left:2px solid var(--accent); padding:5px 8px; cursor:pointer; text-align:left; color:var(--fg-1); width:100%}
+  .chip:hover{border-color:var(--accent)}
+  .chip .who{font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink2); margin-right:6px}
+  .chip .yr{font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--accent); margin-right:6px}
+  .chip .more{display:none; margin-top:5px; padding-top:5px; border-top:1px dashed var(--rule); color:var(--fg-2)}
+  .chip .more i{font-family:'Cormorant Garamond',serif; font-size:14px}
+  .chip .more .src{display:block; font-family:'JetBrains Mono',monospace; font-size:8.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--fg-3); margin-top:4px}
+  .chip.open .more{display:block}
+  .empty{font-size:12px; color:var(--fg-3); font-style:italic; padding:4px 0}
+
+  .row .pick{border-left:1px solid var(--rule); display:flex; flex-direction:column; align-items:center; justify-content:flex-start; gap:6px; padding:10px 8px}
+  .pick .n{font-family:'Anton',sans-serif; font-size:24px; color:var(--ink2); line-height:1; min-width:28px; text-align:center}
+  .pick .n.zero{color:var(--fg-3)}
+  .pick .btns{display:flex; gap:6px}
+  .pick button{font-family:'JetBrains Mono',monospace; font-size:13px; width:28px; height:26px; cursor:pointer;
+    background:var(--paper); color:var(--fg-1); border:1px solid var(--fg-2); border-radius:2px; line-height:1}
+  .pick button:hover{background:var(--accent-soft); border-color:var(--accent)}
+  .pick .cap{font-family:'JetBrains Mono',monospace; font-size:8px; letter-spacing:.08em; text-transform:uppercase; color:var(--fg-3)}
+  .pick .theirs{font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--fg-3); text-align:center; line-height:1.5; margin-top:4px; border-top:1px dashed var(--rule); padding-top:5px; width:100%}
+  .pick .theirs b{color:var(--fg-2); font-weight:500}
+
+  .readout{margin:22px 0 0; background:var(--paper); border-left:2px solid var(--accent); padding:14px 16px; max-width:80ch;
+    font-family:'Manrope',sans-serif; font-size:13.5px; color:var(--fg-2); line-height:1.6}
+  .readout b{color:var(--fg-1)}
+  .readout p{margin:0 0 8px} .readout p:last-child{margin:0}
+  .actions{display:flex; gap:10px; flex-wrap:wrap; margin:18px 0 0}
+  .actions button{font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+    padding:10px 14px; cursor:pointer; background:var(--accent); color:#fff; border:1px solid var(--accent); border-radius:2px}
+  .actions button.ghost{background:transparent; color:var(--fg-1); border-color:var(--fg-2)}
+  .actions button:hover{opacity:.88}
+  #export{display:none; margin:14px 0 0}
+  #export textarea{width:100%; min-height:220px; font-family:'JetBrains Mono',monospace; font-size:11px; line-height:1.55;
+    background:#fffdf7; color:var(--fg-1); border:1px solid var(--rule); padding:12px; border-radius:2px}
+  #export .hint{font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--fg-3); margin:6px 0 0}
+  .footer{font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.12em; color:var(--fg-3); text-transform:uppercase; margin-top:28px; padding-top:12px; border-top:1px solid var(--rule)}
+  @media (max-width:880px){ .tally{grid-template-columns:repeat(3,1fr)} .tally .count{grid-column:1/-1} .row{grid-template-columns:40px 1fr 110px} }
+</style>
+
+<div class="lv3">
+  <p class="eyebrow">● Self-diagnostic · v3 · worksheet and case studies, one instrument</p>
+  <h1>Place your last ten career decisions — beside three real careers</h1>
+  <p class="sub">Donella Meadows ranked twelve places to push on a system, from weakest (tweak a number) to strongest (let go of what the whole thing is for). Put each of your last ten real career decisions on the rung it belongs to. Under every rung you'll find the moves Brian Eno, Pauline Oliveros and Agnes Martin made there, so you can recognise your own by holding it against a real one. The bar at the top keeps your shape next to theirs while you work.</p>
+  <p class="meta">v3 · joins leverage-diagnostic-v2 and leverage-case-studies · facts from the palace dossiers · each rung placement is a reading, argue with it · nothing leaves your machine</p>
+
+  <div class="howto">
+    <b>How to use it.</b> A decision counts if you acted on it: money moved, a calendar changed, a thing shipped, a no got said. Read down the rungs. When one of your ten looks like a move on the page, click <b>+</b>. Click any real move to see the fact behind it and why it sits on that rung. <b>One warning before you compare:</b> biographies remember the high rungs and forget the afternoons, while your memory does the opposite. If your shape sits lower than theirs, part of that gap is real and part is the difference between a biography and a calendar.
+  </div>
+
+  <div class="tally" id="tally"></div>
+
+  <div class="rows" id="rows"></div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="actions">
+    <button id="save">Save my distribution</button>
+    <button id="reset" class="ghost">Clear all ten</button>
+  </div>
+
+  <div id="export">
+    <textarea id="out" readonly></textarea>
+    <p class="hint" id="exhint">copied to your clipboard · a .txt download was also attempted</p>
+  </div>
+
+  <p class="footer">Loud'n Live · Meadows and an Artist's Career · self-diagnostic v3</p>
+</div>
+
+<script>
+(function(){
+  var L = [
+    {n:12,tag:"param",band:"low",name:"Constants & parameters",
+     q:"What gear, what price, what posting time?",
+     ex:"Swapped the vocal mic, A/B'd three limiters for an afternoon, moved the release from Friday to Tuesday. A week gone, the trajectory unchanged."},
+    {n:11,tag:"buffer",band:"low",name:"Buffer sizes",
+     q:"How much runway? How many gigs booked ahead?",
+     ex:"Put six months of expenses aside before dropping the Tuesday teaching slot — so that losing one client stops being a crisis and becomes a Tuesday."},
+    {n:10,tag:"stock",band:"low",name:"Structure of stocks & flows",
+     q:"What ratio of paid work to making? Teaching to recording?",
+     ex:"Inverted the plumbing: stopped teaching to fund the records, started releasing records that fund the teaching. Same two activities, opposite system."},
+    {n:9,tag:"delay",band:"low",name:"Delays",
+     q:"How long from idea to shipped? From deciding to starting?",
+     ex:"Cut the album cycle from eighteen months to a six-week EP cadence — four chances a year to learn something, instead of one."},
+    {n:8,tag:"balance",band:"mid",name:"Balancing feedback loops",
+     q:"What stops me before burnout? What pulls me back from extremes?",
+     ex:"A standing Saturday with no screens, and one person who is allowed to say 'you haven't slept in four days' and be listened to."},
+    {n:7,tag:"reinforce",band:"mid",name:"Reinforcing feedback loops",
+     q:"What compounds? What makes the next step easier than the last?",
+     ex:"Noticed every new student arrived via a former student — then protected that loop by refusing ads that would have diluted who showed up."},
+    {n:6,tag:"info",band:"mid",name:"Information flows",
+     q:"Who tells me the truth? Which number do I actually trust?",
+     ex:"Closed the streaming dashboard for a quarter and instead asked three people, each release, 'did it move you?' — and wrote the answers down."},
+    {n:5,tag:"rules",band:"mid",name:"Rules of the system",
+     q:"What do I refuse? What work won't I take?",
+     ex:"Wrote a no-list and kept it: no work that requires lying about what I make, no collaborator whose values I could not defend out loud."},
+    {n:4,tag:"self-org",band:"high",name:"Self-organisation",
+     q:"How am I redesigning my own structure?",
+     ex:"Let a side habit change the work taken, until 'producer' stopped being the right word and 'instrument designer' started — and the calendar followed."},
+    {n:3,tag:"goal",band:"high",name:"Goals of the system",
+     q:"What is this career actually FOR?",
+     ex:"Retired the inherited goal ('make a living from music') and named the real one ('make work that matters to a hundred people') — then re-cut everything downstream."},
+    {n:2,tag:"paradigm",band:"high",name:"Paradigm",
+     q:"What does it even mean, for me, to be an artist?",
+     ex:"Stopped treating music as content to be fed into a feed, and started treating it as a way of paying attention. Nothing on the calendar changed that week; everything after it did."},
+    {n:1,tag:"transcend",band:"high",name:"Power to transcend paradigms",
+     q:"Can I hold any answer to 'what's it for' — and put it down when it stops being true?",
+     ex:"Having entered and left three answers already, held the fourth loosely from the first day — and built the practice so it survives the fifth."}
+  ];
+
+  var ART = [
+    {key:"eno", who:"Brian Eno", life:"b. 1948", home:"home rung · the paradigm", src:"People/Brian Eno — dossier", moves:[
+      {lvl:12, yr:"1978", t:"Sets the tape-loop lengths for Music for Airports",
+       why:"A number — the lowest rung there is. But it serves a paradigm move; the lengths drift out of phase and the room makes the piece."},
+      {lvl:10, yr:"1975–90s", t:"Becomes a producer — Bowie, Talking Heads, later U2",
+       why:"A second stream beside his own records. I read it as re-plumbing: other people's albums and his experiments feed each other. (My reading; the dossier lists the work, not the money.)"},
+      {lvl:7, yr:"1996", t:"Names 'scenius' — the intelligence of a scene",
+       why:"Naming the reinforcing loop he'd been living inside: collaborators make collaborators. Naming a loop is how you start protecting it."},
+      {lvl:6, yr:"1975", t:"Oblique Strategies, with Peter Schmidt",
+       why:"A deliberate new signal into the stuck moment — a card that interrupts habit. An information flow built by hand."},
+      {lvl:6, yr:"1996", t:"Publishes A Year with Swollen Appendices",
+       why:"A diary in public: his own thinking as a feedback signal, for him and for anyone watching."},
+      {lvl:5, yr:"1971–", t:"Refuses the virtuoso's road — the non-player who processes others' sounds",
+       why:"A rule he kept: craft is not the entry ticket. It shut a door on purpose."},
+      {lvl:4, yr:"1973", t:"Leaves Roxy Music after two albums",
+       why:"The structure he was inside had no room for him. Leaving rebuilt the career around a solo, studio-first identity."},
+      {lvl:3, yr:"1996", t:"Co-founds the Long Now Foundation",
+       why:"The horizon of the work moves from the album to the ten-thousand-year clock. That changes what the work is for."},
+      {lvl:2, yr:"1978", t:"Coins 'ambient' in the liner notes of Music for Airports",
+       why:"Music 'as ignorable as it is interesting' — a room, not a song. A new answer to what music is."},
+      {lvl:1, yr:"1980s–", t:"Moves on again — installations, generative apps (Bloom, with Peter Chilvers)",
+       why:"Pop, ambient, production, light, software: a career with no center. He keeps putting down the last answer."}
+    ]},
+    {key:"oliveros", who:"Pauline Oliveros", life:"1932–2016", home:"home rung · structures that reproduce", src:"People/Pauline Oliveros — dossier", moves:[
+      {lvl:12, yr:"1990s–", t:"Builds the Expanded Instrument System",
+       why:"Gear — live electronic processing around her accordion. Like Eno's loops, a parameter made in the service of a practice."},
+      {lvl:11, yr:"1967–81", t:"Professor at UC San Diego",
+       why:"Fourteen years of salary and tenure: the deepest buffer an experimental composer can have."},
+      {lvl:10, yr:"1966", t:"Directs the Tape Music Center when it moves to Mills College",
+       why:"A scene becomes an institution — the plumbing changes from a loft to a college."},
+      {lvl:8, yr:"1970", t:"'Listen to everything all the time, and remind yourself when you are not listening'",
+       why:"A practice that catches you when you narrow. That is a balancing loop, written as an instruction."},
+      {lvl:7, yr:"1960s", t:"Helps build the San Francisco Tape Music Center",
+       why:"A scene where each experiment made the next easier — a reinforcing loop, from the inside."},
+      {lvl:7, yr:"1990s–", t:"Deep Listening Institute and its certification",
+       why:"Certified teachers train more listeners. The practice now grows without her in the room."},
+      {lvl:4, yr:"1981", t:"Leaves her tenured full professorship for upstate New York, independent",
+       why:"She spent the buffer to rebuild herself as a freelance composer, performer and teacher. Web-checked: she left to escape creative constriction."},
+      {lvl:4, yr:"1988", t:"Records in the cistern; 'Deep Listening' becomes her name for the whole work",
+       why:"A pun becomes an identity. The composer reorganises into the founder of a discipline."},
+      {lvl:3, yr:"1970s–80s", t:"Sonic Awareness — attention, improvisation and bodywork as one study",
+       why:"The goal shifts from making pieces to training listeners."},
+      {lvl:2, yr:"1970", t:"Sonic Meditations — text scores anyone can do",
+       why:"The practice is the piece; composer, performer and listener dissolve into one role. A new answer to what music is."}
+    ]},
+    {key:"martin", who:"Agnes Martin", life:"1912–2004", home:"home rung · the rule, then the goal", src:"People/Agnes Martin — dossier", moves:[
+      {lvl:12, yr:"1960s–", t:"One square format, one motif, for decades",
+       why:"She set her parameters once and never touched them again — so no attention leaked down here. A fixed parameter can free every rung above it."},
+      {lvl:11, yr:"pre-1957", t:"Years of teaching and moving before the work arrives",
+       why:"A late start, carried by a day job. Slack, not glamour."},
+      {lvl:10, yr:"1970s", t:"Builds her own adobe house on a mesa near Cuba, New Mexico",
+       why:"Re-plumbing a life so the work needs almost nothing coming in. (My reading of the dossier's facts.)"},
+      {lvl:7, yr:"1957–67", t:"Coenties Slip — Kelly, Rauschenberg, Johns, Tawney next door",
+       why:"A scene that compounds. She was inside a reinforcing loop — and later chose to leave it."},
+      {lvl:6, yr:"1970s–", t:"Rejects the 'minimalist' label; controls titles, interviews, image",
+       why:"She governed the information flow about her own work — what people were told to see in it."},
+      {lvl:5, yr:"late 1950s", t:"Destroys most of her earlier work on arriving at the grid",
+       why:"A rule, kept for life: destroy what falls short."},
+      {lvl:4, yr:"~1974", t:"Resumes painting — the mature bands",
+       why:"She came back reorganised: a different practice in a different place."},
+      {lvl:3, yr:"1970s–", t:"Her Writings: the work is about beauty, innocence, happiness",
+       why:"Not geometry — emotion. She named what the career was for."},
+      {lvl:2, yr:"late 1950s", t:"Arrives at the grid in her late forties",
+       why:"Structure as the thing that makes subtle feeling visible. A new answer to what painting is."},
+      {lvl:1, yr:"1967", t:"At the peak of her recognition, quits painting, gives away her materials, drives west",
+       why:"She put down the whole answer while it was still working. That is the rarest move on the ladder."}
+    ]}
+  ];
+
+
+  var SHORT = {eno:"Eno", oliveros:"Oliveros", martin:"Martin"};
+  var counts = {}; L.forEach(function(r){counts[r.n]=0;});
+  function band(l){ return l>=9?'low':(l>=5?'mid':'high'); }
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+
+  // per-artist counts per rung + their band shape
+  ART.forEach(function(a){
+    a.c={}; a.moves.forEach(function(m){ a.c[m.lvl]=(a.c[m.lvl]||0)+1; });
+    a.shape=shapeOf(a.c);
+  });
+  function shapeOf(c){
+    var t=0,lo=0,mi=0,hi=0,sum=0;
+    for(var l=1;l<=12;l++){ var v=c[l]||0; t+=v; sum+=v*l; if(band(l)==='low')lo+=v; else if(band(l)==='mid')mi+=v; else hi+=v; }
+    return {t:t, lo:lo, mi:mi, hi:hi, low:t?Math.round(100*lo/t):0, mid:t?Math.round(100*mi/t):0, high:t?Math.round(100*hi/t):0, cent:t?sum/t:null};
+  }
+
+  // ---- rows: v2's composite example + the real moves on that rung ----
+  var bands = [
+    {key:"low",  label:"↓ Lower leverage · feels productive · changes least ↓"},
+    {key:"mid",  label:"↓ The operating layer · rules, loops, signals ↓"},
+    {key:"high", label:"↓ Highest leverage · feels hardest · pays back most ↓"}
+  ];
+  var host=document.getElementById('rows'), html="";
+  bands.forEach(function(b){
+    html+='<div class="band">'+b.label+'</div>';
+    L.filter(function(r){return r.band===b.key;}).forEach(function(r){
+      var real='', theirs=[];
+      ART.forEach(function(a){
+        a.moves.filter(function(m){return m.lvl===r.n;}).forEach(function(m){
+          real+='<button class="chip" type="button"><span class="who">'+SHORT[a.key]+'</span><span class="yr">'+esc(m.yr)+'</span>'+esc(m.t)+
+            '<span class="more"><i>Why this rung:</i> '+esc(m.why)+'<span class="src">'+esc(a.src)+'</span></span></button>';
+        });
+        if(a.c[r.n]) theirs.push('<b>'+SHORT[a.key]+'</b> '+a.c[r.n]);
+      });
+      if(!real) real = r.n===9
+        ? '<div class="empty">No real move sits here. None of the three biographies records how long an idea took to ship, so this rung is blank for all of them. For a working artist it may be the cheapest rung to move this month.</div>'
+        : '<div class="empty">None of the three has a recorded move here.</div>';
+      html+='<div class="row'+(b.key==='high'?' hot':'')+'">'+
+        '<div class="lvl">'+r.n+'<small>'+r.tag+'</small></div>'+
+        '<div class="body"><p class="name">'+r.name+'</p><p class="q">"'+r.q+'"</p>'+
+          '<div class="ex"><span class="lab">a composite move that lives here</span>'+r.ex+'</div>'+
+          '<span class="lab">real careers on this rung</span><div class="real">'+real+'</div></div>'+
+        '<div class="pick"><span class="n zero" id="n-'+r.n+'">0</span>'+
+          '<span class="btns"><button data-lvl="'+r.n+'" data-d="-1" aria-label="remove one from level '+r.n+'">−</button>'+
+          '<button data-lvl="'+r.n+'" data-d="1" aria-label="add one to level '+r.n+'">+</button></span>'+
+          '<span class="cap">of my ten</span>'+
+          '<div class="theirs">'+(theirs.length?theirs.join('<br>'):'none of theirs')+'</div></div></div>';
+    });
+  });
+  host.innerHTML=html;
+
+  host.addEventListener('click', function(e){
+    var chip=e.target.closest('.chip'); if(chip){ chip.classList.toggle('open'); return; }
+    var b=e.target.closest('button[data-lvl]'); if(!b) return;
+    var lvl=+b.dataset.lvl, d=+b.dataset.d;
+    if(d>0 && total()>=10) return;
+    counts[lvl]=Math.max(0,counts[lvl]+d);
+    render();
+  });
+
+  function total(){ var t=0; for(var k in counts) t+=counts[k]; return t; }
+
+  // ---- sticky comparison: you, the three, the typical artist ----
+  function mini(title, sub, s, cls){
+    function bar(lbl,v){ return '<div class="bb"><span>'+lbl+'</span><span class="track"><span class="fill" style="width:'+v+'%"></span></span><span>'+v+'%</span></div>'; }
+    return '<div class="mini '+(cls||'')+'"><p class="who">'+title+'<span>'+sub+'</span></p>'+bar('12–9',s.low)+bar('8–5',s.mid)+bar('4–1',s.high)+'</div>';
+  }
+  function renderTally(){
+    var t=total(), you=shapeOf(counts);
+    var h='<div class="count">'+t+'/10<small>decisions placed</small></div>';
+    h+=mini('You', you.cent!==null?'avg '+you.cent.toFixed(1):'—', you, 'you');
+    ART.forEach(function(a){ h+=mini(SHORT[a.key], 'avg '+a.shape.cent.toFixed(1), a.shape); });
+    h+=mini('Typical','estimate',{low:80,mid:19,high:1},'ref');
+    document.getElementById('tally').innerHTML=h;
+  }
+
+  // ---- the reading: v2's reading, plus the nearest of the three, plus a ladder step to try ----
+  function v2reading(){
+    var s=shapeOf(counts), lo=s.lo, mid=s.mi, hi=s.hi, out="";
+    if(lo>=7) out="Seven or more of your last ten were parameter-and-plumbing decisions. That is the ordinary shape, and it is not a failure. It is what a system does when nobody is asking it what it is for.";
+    else if(hi>=3) out="Three or more at the top of the ladder is rare and costly. Check that you have the runway (rung 11) to survive a paradigm move. Self-organising without a buffer is how good careers stall mid-change.";
+    else if(mid>=5) out="You are working the operating layer: rules, loops, and which signals you let in. It is the most durable band to live in. The usual next move is upward: name the goal those rules protect, and check it is still yours.";
+    else out="A spread shape, with no band dominating. Either you are mid-transition, or the ten were not really chosen. Re-read the top four rungs and see whether any of your ten belongs higher than you first filed it.";
+    if(hi===0) out+=" <b>Nothing in rungs 4–1.</b> That blank is the finding, not an omission. The highest-leverage moves are the ones no calendar ever asks you for.";
+    return out;
+  }
+  function nearest(){
+    var you=shapeOf(counts), best=null, bd=1e9;
+    ART.forEach(function(a){
+      // band distance first; average height breaks ties (Oliveros and Martin share a band shape)
+      var d=Math.abs(you.low-a.shape.low)+Math.abs(you.mid-a.shape.mid)+Math.abs(you.high-a.shape.high)
+            +Math.abs(you.cent-a.shape.cent)/100;
+      if(d<bd){bd=d;best=a;}
+    });
+    return {a:best, d:bd};
+  }
+  function rungName(n){ return L.filter(function(r){return r.n===n;})[0].name.toLowerCase(); }
+  function lowestPlaced(){ for(var l=12;l>=1;l--) if(counts[l]) return l; return null; }
+  function realMoveAbove(l){
+    // the nearest real move above the reader's lowest decision, to show what "one up" looked like for someone
+    // look one band up, not one rung: a parameter decision is answered by a rule or a loop, a rule by a goal
+    var start = l>=9 ? 8 : (l>=5 ? 4 : l-1);
+    for(var k=start;k>=1;k--){
+      for(var i=0;i<ART.length;i++){
+        var m=ART[i].moves.filter(function(x){return x.lvl===k;})[0];
+        if(m) return {a:ART[i], m:m, lvl:k};
+      }
+    }
+    return null;
+  }
+  function reading(){
+    var t=total();
+    if(t===0) return "<p><b>Nothing placed yet.</b> The reading appears once all ten are on the ladder. There is no wrong shape. An artist rebuilding an income base <i>should</i> be spending decisions on rungs 11 and 10. The question the shape answers is whether you are working at the level you meant to.</p>";
+    if(t<10) return "<p><b>"+t+" of ten placed.</b> Keep going. The shape only means something when the whole set is on the ladder.</p>";
+    var you=shapeOf(counts), n=nearest(), lp=lowestPlaced(), up=realMoveAbove(lp);
+    var h="<p><b>Your ten sit at an average height of rung "+you.cent.toFixed(1)+".</b> "+v2reading()+"</p>";
+    var HOME={eno:"Eno lives at the paradigm and comes down to the knobs only to serve it.",
+      oliveros:"Oliveros builds structures that let a practice reproduce itself: a scene, a school, a certificate.",
+      martin:"Martin fixed her lowest rung once (one format, one motif) and never spent attention there again."};
+    var lead = n.d<=30 ? "Of the three careers, "+n.a.who+"'s shape is closest to yours"
+                       : "None of the three careers is close to your shape; the nearest is "+n.a.who+"'s";
+    h+="<p><b>"+lead+"</b> ("+n.a.shape.low+" / "+n.a.shape.mid+" / "+n.a.shape.high+" percent across the low, middle and high bands, against your "+you.low+" / "+you.mid+" / "+you.high+"). "+HOME[n.a.key]+" Remember the warning at the top: their ten are the moves a biography kept.</p>";
+    if(up) h+="<p><b>One band up from your lowest decision.</b> Your lowest placement is rung "+lp+" ("+rungName(lp)+"). One band higher, the nearest real move is "+up.a.who+" on rung "+up.lvl+" ("+rungName(up.lvl)+"): <i>"+esc(up.m.t)+"</i>. Ask what your version of that move would be: the one that would have made the decision you placed at "+lp+" unnecessary.</p>";
+    return h;
+  }
+
+  function render(){
+    L.forEach(function(r){ var el=document.getElementById('n-'+r.n); el.textContent=counts[r.n]; el.className=counts[r.n]?'n':'n zero'; });
+    renderTally();
+    document.getElementById('readout').innerHTML=reading();
+  }
+
+  document.getElementById('reset').addEventListener('click', function(){
+    L.forEach(function(r){counts[r.n]=0;}); document.getElementById('export').style.display='none'; render();
+  });
+
+  function stamp(){ return new Date().toISOString().slice(0,10); }
+
+  // Export keeps v2's per-rung line format exactly, so leverage-case-studies.html can still parse it.
+  document.getElementById('save').addEventListener('click', function(){
+    var s=shapeOf(counts), lines=[];
+    lines.push("MEADOWS LEVERAGE DIAGNOSTIC — my last ten career decisions");
+    lines.push("saved "+stamp()+"  ·  Loud'n Live  ·  v3");
+    lines.push("");
+    L.forEach(function(r){
+      var c=counts[r.n], bar=c? new Array(c+1).join("#") : ".";
+      lines.push(("  "+r.n).slice(-3)+"  "+bar+new Array(Math.max(1,11-(c||1))).join(" ")+"  "+r.name+(c?"  ("+c+")":""));
+    });
+    lines.push("");
+    lines.push("placed: "+total()+"/10");
+    lines.push("levels 12-9 (parameters & plumbing): "+s.lo);
+    lines.push("levels  8-5 (rules, loops, signals): "+s.mi);
+    lines.push("levels  4-1 (self-org, goals, paradigm): "+s.hi);
+    lines.push("typical artist, for comparison:        8 / 2 / 0");
+    ART.forEach(function(a){ lines.push(("for comparison, "+a.who+":                    ").slice(0,39)+a.shape.lo+" / "+a.shape.mi+" / "+a.shape.hi+"   (biography, not calendar)"); });
+    lines.push("");
+    lines.push(document.getElementById('readout').textContent.trim());
+    var txt=lines.join("\n");
+    var out=document.getElementById('out'); out.value=txt;
+    document.getElementById('export').style.display='block';
+    var notes=[];
+    try{ out.select(); document.execCommand('copy'); notes.push("copied to clipboard"); }catch(e){}
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(function(){},function(){}); }
+    try{
+      var blob=new Blob([txt],{type:'text/plain'}), a=document.createElement('a');
+      a.href=URL.createObjectURL(blob); a.download='leverage-distribution-'+stamp()+'.txt';
+      document.body.appendChild(a); a.click(); a.remove(); notes.push("a .txt download was attempted");
+    }catch(e){}
+    notes.push("nothing left your machine");
+    document.getElementById('exhint').textContent=notes.join(" · ");
+  });
+
+  // test hook: ?demo=12:5,11:2,10:1,8:1,6:1 pre-fills a shape (used for the headless check; harmless otherwise)
+  var m=location.search.match(/demo=([0-9:,]+)/);
+  if(m){ m[1].split(',').forEach(function(p){ var kv=p.split(':'); if(counts.hasOwnProperty(+kv[0])) counts[+kv[0]]=+kv[1]; }); }
+  render();
+})();
+</script>

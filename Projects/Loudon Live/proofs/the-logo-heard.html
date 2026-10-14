@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Logo, Heard</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+<style>
+  :root {
+    --bg: #0a0a0f; --bg-1: #12121a; --bg-2: #1a1a28;
+    --ink: #ece6d8; --ink-dim: #9a9488; --rule: #2a2a38;
+    --accent: #e8b84a;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 17px/1.75 'Cormorant Garamond', Georgia, serif; }
+  main { max-width: 980px; margin: 0 auto; padding: 32px 16px 64px; }
+  .eyebrow { font: 500 11px/1 'JetBrains Mono', monospace; letter-spacing: .14em;
+             text-transform: uppercase; color: var(--ink-dim); }
+  h1 { font: 400 52px/1 Anton, Impact, sans-serif; letter-spacing: .01em; margin: 10px 0 6px; }
+  h1 em { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; color: var(--accent); }
+  .lede { font-style: italic; color: var(--ink-dim); margin: 0 0 24px; max-width: 640px; }
+  .grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 28px; align-items: start; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+  #stage { width: 100%; aspect-ratio: 1; background: var(--bg); border: 1px solid var(--rule); }
+  #stage canvas { width: 100% !important; height: 100% !important; display: block; }
+  .panel { background: var(--bg-1); border: 1px solid var(--rule); padding: 18px; }
+  .row { margin: 0 0 14px; }
+  .row label { display: flex; justify-content: space-between;
+               font: 400 12px/1.4 'JetBrains Mono', monospace; color: var(--ink-dim); }
+  .row label b { color: var(--ink); font-weight: 500; }
+  input[type=range] { width: 100%; accent-color: var(--accent); }
+  button { font: 500 12px/1 'JetBrains Mono', monospace; letter-spacing: .08em; text-transform: uppercase;
+           background: transparent; color: var(--ink); border: 1px solid var(--rule);
+           padding: 10px 12px; cursor: pointer; transition: border-color .2s cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: var(--ink-dim); }
+  button.primary { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 18px rgba(232,184,74,.18); }
+  .btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 16px; }
+  .readout { font: 400 12px/1.6 'JetBrains Mono', monospace; color: var(--ink-dim);
+             border-top: 1px solid var(--rule); padding-top: 12px; }
+  .readout b { color: var(--accent); font-weight: 500; }
+  section.say { margin-top: 36px; max-width: 680px; }
+  section.say h2 { font: 400 26px/1.1 Anton, sans-serif; margin: 0 0 8px; }
+  .eq { font: 400 15px/1.6 'JetBrains Mono', monospace; color: var(--ink); margin: 6px 0 0; }
+  .eq.words { color: var(--ink-dim); font-size: 13px; margin-bottom: 12px; }
+  .note { width: 100%; min-height: 54px; margin-top: 8px; background: var(--bg-2); color: var(--ink);
+          border: 1px dashed var(--rule); font: 400 13px/1.5 'JetBrains Mono', monospace; padding: 8px; }
+  footer { margin-top: 48px; padding-top: 14px; border-top: 1px solid var(--rule);
+           display: flex; justify-content: space-between; align-items: center; }
+  footer .mark { font: 400 18px/1 Anton, sans-serif; letter-spacing: .04em; }
+  footer .mark em { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Daily Page rough · Loudon Live · sketch</div>
+  <h1>The logo, <em>heard</em></h1>
+  <p class="lede">The Lissajous-in-sphere is three oscillators drawn instead of played. Here they are played too, on the same clock as the drawing.</p>
+
+  <div class="grid">
+    <div id="stage"></div>
+    <div class="panel">
+      <div class="btns">
+        <button id="listen" class="primary">▸ Listen</button>
+        <button id="snap">Snap to whole</button>
+        <button id="canon">Logo's own ratios</button>
+      </div>
+      <div class="row"><label>a · x-voice ratio <b id="va"></b></label><input id="a" type="range" min="1" max="8" step="0.001"></div>
+      <div class="row"><label>b · y-voice ratio <b id="vb"></b></label><input id="b" type="range" min="1" max="8" step="0.001"></div>
+      <div class="row"><label>c · depth-voice ratio <b id="vc"></b></label><input id="c" type="range" min="1" max="8" step="0.001"></div>
+      <div class="row"><label>f₀ · fundamental <b id="vf"></b></label><input id="f" type="range" min="40" max="220" step="1"></div>
+      <div class="row"><label>tone <b id="vt"></b></label><input id="t" type="range" min="0" max="1" step="0.01"></div>
+      <div class="readout" id="readout"></div>
+    </div>
+  </div>
+
+  <section class="say" data-section="what">
+    <div class="eyebrow">What you are looking at</div>
+    <h2>Three voices, one figure</h2>
+    <p>Each axis of the trace is one oscillator. Left–right is voice a, up–down is voice b, and how near the trace is to you (brightness and weight) is voice c.</p>
+    <div class="eq">x = sin(a·t) &nbsp; y = sin(b·t + δ) &nbsp; z = sin(c·t + 2δ)</div>
+    <div class="eq words">(left–right) = sin((ratio a) × (time)) · (up–down) = sin((ratio b) × (time) + (phase offset)) · (depth) = sin((ratio c) × (time) + 2 × (phase offset))</div>
+    <p>The logo uses a : b : c = 3 : 4 : 6. As a chord, 3 to 4 is a fourth and 3 to 6 is an octave: an open, suspended sound with nothing pulling it anywhere.</p>
+    <textarea class="note" placeholder="note on this section"></textarea>
+  </section>
+
+  <section class="say" data-section="why-it-moves">
+    <div class="eyebrow">Why it moves</div>
+    <h2>The drift is a beat</h2>
+    <p>The canonical sketch does not use 3, 4 and 6. It uses 3.011, 4.013 and 6.007, "slightly off integers so the figure precesses." Played, that same small mistuning makes the chord beat. Here the figure is drawn on the sound's own clock, so the shape wobbles at the rate the chord beats.</p>
+    <div class="eq">beat rate = |2 × a − c| × f₀</div>
+    <div class="eq words">(how often the near-octave pulses per second) = |2 × (ratio a) − (ratio c)| × (fundamental)</div>
+    <p>Press <i>Snap to whole</i>. The figure freezes into a closed knot and the chord goes still. Whatever life the logo has, it gets from being a little out of tune.</p>
+    <textarea class="note" placeholder="note on this section"></textarea>
+  </section>
+
+  <section class="say" data-section="question">
+    <div class="eyebrow">The question for the page</div>
+    <h2>Does the sigil teach?</h2>
+    <p>Loudon Live says the public self is itself a teaching artifact, and the Prism essay says the logo reads at four depths, starting with "an oscilloscope trace." The live sketch has never made a sound. If hearing it is what makes the first depth land, the smallest public thing Loudon owns could be the first proof of the biggest claim.</p>
+    <textarea class="note" placeholder="note on this section"></textarea>
+    <div class="btns" style="margin-top:12px"><button id="copy">Copy notes</button></div>
+  </section>
+
+  <footer><span class="mark">LOUD’N <em>Live</em></span><span class="eyebrow">rough · not the rich face</span></footer>
+</main>
+
+<script>
+const CANON = { a: 3.011, b: 4.013, c: 6.007 };
+const S = { a: CANON.a, b: CANON.b, c: CANON.c, f: 110, tone: 0.35, delta: Math.PI / 2 };
+const $ = id => document.getElementById(id);
+
+function syncInputs() {
+  for (const k of ['a','b','c']) { $(k).value = S[k]; }
+  $('f').value = S.f; $('t').value = S.tone;
+  render();
+}
+function render() {
+  $('va').textContent = S.a.toFixed(3); $('vb').textContent = S.b.toFixed(3); $('vc').textContent = S.c.toFixed(3);
+  $('vf').textContent = S.f + ' Hz'; $('vt').textContent = S.tone < 0.05 ? 'pure sine' : (S.tone * 100 | 0) + '% 2nd partial';
+  const hz = k => (S[k] * S.f).toFixed(1);
+  const beat = Math.abs(2 * S.a - S.c) * S.f;
+  $('readout').innerHTML =
+    `voices: <b>${hz('a')}</b> · <b>${hz('b')}</b> · <b>${hz('c')}</b> Hz<br>` +
+    `near-octave beat: <b>${beat < 0.005 ? 'still' : beat.toFixed(2) + ' per second'}</b>` +
+    (S.tone < 0.05 ? '<br><i>pure sines hide the beat; raise tone to hear it</i>' : '');
+  if (audio) retune();
+}
+for (const k of ['a','b','c']) $(k).addEventListener('input', e => { S[k] = +e.target.value; render(); });
+$('f').addEventListener('input', e => { S.f = +e.target.value; render(); });
+$('t').addEventListener('input', e => { S.tone = +e.target.value; render(); });
+$('snap').onclick = () => { S.a = Math.round(S.a); S.b = Math.round(S.b); S.c = Math.round(S.c); syncInputs(); };
+$('canon').onclick = () => { Object.assign(S, CANON); syncInputs(); };
+
+/* ── sound: one voice per axis, a sine plus an optional 2nd partial ── */
+let audio = null;
+function makeVoice(ctx, out) {
+  const o1 = ctx.createOscillator(), o2 = ctx.createOscillator();
+  const g2 = ctx.createGain(); o2.connect(g2); o1.connect(out); g2.connect(out);
+  o1.start(); o2.start(); return { o1, o2, g2 };
+}
+function retune() {
+  const now = audio.ctx.currentTime;
+  ['a','b','c'].forEach((k, i) => {
+    const v = audio.voices[i], hz = S[k] * S.f;
+    v.o1.frequency.setTargetAtTime(hz, now, 0.03);
+    v.o2.frequency.setTargetAtTime(hz * 2, now, 0.03);
+    v.g2.gain.setTargetAtTime(S.tone * 0.6, now, 0.05);
+  });
+}
+$('listen').onclick = async () => {
+  if (!audio) {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const master = ctx.createGain(); master.gain.value = 0; master.connect(ctx.destination);
+    audio = { ctx, master, voices: [0,1,2].map(() => makeVoice(ctx, master)) };
+    audio.t0 = ctx.currentTime; retune();
+  }
+  if (audio.ctx.state === 'suspended') await audio.ctx.resume();
+  const on = audio.master.gain.value < 0.01;
+  audio.master.gain.setTargetAtTime(on ? 0.07 : 0, audio.ctx.currentTime, 0.15);
+  $('listen').textContent = on ? '◼ Quiet' : '▸ Listen';
+};
+
+/* ── picture: the canonical sketch's projection, on the sound's clock ── */
+let rotX = 0.4, rotY = -0.3, startMs = performance.now();
+function project(t) {
+  let x = Math.sin(S.a * t), y = Math.sin(S.b * t + S.delta), z = Math.sin(S.c * t + 2 * S.delta);
+  const cx = Math.cos(rotX), sx = Math.sin(rotX), cy = Math.cos(rotY), sy = Math.sin(rotY);
+  [y, z] = [y * cx - z * sx, y * sx + z * cx];
+  [x, z] = [x * cy + z * sy, -x * sy + z * cy];
+  return { x, y, z };
+}
+new p5(p => {
+  p.setup = () => { const c = p.createCanvas(640, 640); c.parent('stage'); p.background(10, 10, 15); };
+  p.draw = () => {
+    p.noStroke(); p.fill(10, 10, 15, 120); p.rect(0, 0, p.width, p.height);
+    rotY += 0.0025;
+    // phase advances one fundamental cycle per period of f0: a whole-number figure
+    // slides along itself unchanged; an off-integer one changes shape at the beat rate.
+    const secs = audio ? audio.ctx.currentTime - audio.t0 : (performance.now() - startMs) / 1000;
+    const phase = 2 * Math.PI * S.f * secs;
+    const W = p.width, cx0 = W / 2, R = W * 0.32, N = 2200;
+    p.noFill(); p.stroke(232, 184, 74, 36); p.strokeWeight(1); p.circle(cx0, cx0, R * 2.1);
+    let prev = project(phase);
+    for (let i = 1; i <= N; i++) {
+      const cur = project((i / N) * 2 * Math.PI + phase);
+      const k = ((prev.z + cur.z) * 0.5 + 1) * 0.5;
+      p.stroke(232, 184, 74, 50 + k * 180); p.strokeWeight(0.6 + k * 1.4);
+      p.line(cx0 + prev.x * R, cx0 + prev.y * R, cx0 + cur.x * R, cx0 + cur.y * R);
+      prev = cur;
+    }
+  };
+});
+
+$('copy').onclick = () => {
+  const out = [...document.querySelectorAll('section.say')]
+    .map(s => `[${s.dataset.section}] ${s.querySelector('.note').value.trim()}`)
+    .filter(l => !/\]\s*$/.test(l)).join('\n');
+  navigator.clipboard?.writeText(out || '(no notes)');
+  $('copy').textContent = 'Copied';
+  setTimeout(() => $('copy').textContent = 'Copy notes', 1200);
+};
+syncInputs();
+</script>
+</body>
+</html>

@@ -100,6 +100,7 @@ export default function ScheduleStrip() {
   const warnings = data?.warnings ?? [];
   const paused = !!data?.paused;
   const digest = data?.digest;
+  const lastBatch = data?.last_batch;
 
   async function togglePause() {
     if (!data) return;
@@ -124,6 +125,13 @@ export default function ScheduleStrip() {
         ) : null}
 
         <SchedulerWarnings warnings={warnings} />
+        {lastBatch ? (
+          <div data-testid="scheduler-last-batch" style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11, marginBottom: 6 }}>
+            last batch{lastBatch.ended ? ` · ${new Date(lastBatch.ended).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}` : ' · still running'}
+            {lastBatch.dry_run ? ' · dry run' : ''} · fired {lastBatch.fired.length}{lastBatch.due != null ? ` of ${lastBatch.due} due` : ''} · {lastBatch.shipped}/{lastBatch.cycles} cycles shipped{lastBatch.usd != null ? ` · $${lastBatch.usd.toFixed(2)}` : ''}{lastBatch.stopped_because ? ` · stopped: ${lastBatch.stopped_because}` : ''}
+            {lastBatch.fired.length ? <span style={{ color: 'var(--phosphor)' }}> — {lastBatch.fired.join(', ')}</span> : null}
+          </div>
+        ) : null}
 
         {jobs.length === 0 && !data?.error ? (
           <div style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 12 }}>reading scheduler state…</div>

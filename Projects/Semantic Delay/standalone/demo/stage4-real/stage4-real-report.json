@@ -1,0 +1,44 @@
+{
+  "phrase": {
+    "file": "SoulX example music.mp3",
+    "seconds": [
+      0.6,
+      7.0
+    ]
+  },
+  "prompt": "SoulX example zh_prompt.mp3",
+  "device": "mps",
+  "torch": "2.2.0",
+  "model_load_s": 10.9,
+  "pentatonic_root_midi": 61,
+  "source_center_midi": 64.02,
+  "rows": [
+    {
+      "K": 1.0,
+      "asked_vs_source_st": 0.2,
+      "sung_vs_asked_st": 0.13,
+      "sung_vs_source_st": 0.33,
+      "auto_shift_st": 2,
+      "seconds": 11.4,
+      "rtf": 1.78
+    },
+    {
+      "K": 0.5,
+      "asked_vs_source_st": 0.86,
+      "sung_vs_asked_st": 0.1,
+      "sung_vs_source_st": 0.83,
+      "auto_shift_st": 2,
+      "seconds": 10.6,
+      "rtf": 1.65
+    },
+    {
+      "K": 0.0,
+      "asked_vs_source_st": 1.55,
+      "sung_vs_asked_st": 0.15,
+      "sung_vs_source_st": 1.5,
+      "auto_shift_st": 2,
+      "seconds": 10.5,
+      "rtf": 1.65
+    }
+  ]
+}
