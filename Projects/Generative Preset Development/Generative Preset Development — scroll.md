@@ -15,24 +15,24 @@ forward_vector: "I am Generative Preset Development's scroll — the one page th
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-25T20:42:54-04:00 from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T12:16:40.074Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 5 · last ran 2026-06-23 (94 days ago)
-- **Plan:** agreed 2026-09-25 (today) · 0 made things since
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** growing · **Steward:** cycle 6 · last ran 2026-10-14 (today)
+- **Plan:** agreed 2026-09-25 (18 days ago) · 2 made things since
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-06-23 (94 days ago) — Shipped a perceptual-bands worksheet that turns the pending ear-pass into fill-in-the-blanks for the 23 flagged Wavetable settings. (`preset-steward-011`)
-- **Last commit touching this project:** 2026-09-23 `c666210b` — ops(scrolls): backfill 36 project scrolls; retire the 20 plan.md read-models
+- **Last shipped:** 2026-10-14 (today) — The Wavetable ear-sitting kit is ready. Sit with it solo using the ear sheet, or open a session and do it together? (`preset-steward-014`)
+- **Last commit touching this project:** 2026-09-25 `57f7c67e` — ops(history): cited commit hashes follow the rewritten history
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Project recap: Generative Preset Development builds Synth Profiles (parameter vocab + perceptual regions + modulation map + format I/O) so an LLM can author/analyze/modify presets for a fixed-architecture synth from abstract prompts. We are in Stage 1B (Ableton Wavetable). The profile JSON is built; the analyzer (Track B) and writer (Track A) exist. Cycle 4 flagged 23 settings whose perceptual bands are unknown — cutoffs, resonances, envelope attack times/curves, LFO rates — and asked Loudon (preset-steward-010) which method to use to label them. That request is still open.
+Generative Preset Development teaches an AI to make, describe and reshape presets for synths with a fixed layout, starting with Ableton Wavetable. Settled so far: the preset format is cracked, a modified preset loads in Live and sounds as intended (you confirmed this on 2026-06-05), and an analyzer describes any preset in plain synth language. What it still lacks is feel-words grounded by ear, like where a cutoff stops being dark, so every word it uses is borrowed from how Ableton's factory presets happen to set the knob. The next step on the plan is one sitting in Live to fix that. This cycle built that sitting so it needs no knob-sweeping and no numbers. You arrow through ready-made prese…
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `preset-steward-014` — directional_decision · posted 2026-10-14 · options: SOLO · TOGETHER · NOT-YET
 
 ### Answered, not yet consumed
 
@@ -69,6 +69,57 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="preset-steward-014" -->
+### 2026-10-14 — cycle 6 — The Wavetable ear-sitting kit is ready. Sit with it solo using the ear sheet, or open a session and do it together?
+> still working · kit built, not yet loaded in Live · steward leans SOLO
+
+Quick catch-up: this project teaches an AI to make and describe Wavetable presets, and its words for how a setting sounds are still borrowed from Ableton's factory presets instead of your ears. The plan's next step is one sitting in Live to fix that, and you chose that step back in June. I've now built it: 78 presets in eight ladders plus a decoder, and an [ear sheet](open:Projects/Generative Preset Development/ableton-wavetable/audition-kit/ear-sheet.html) where you just pick the rung where each sound changes character. It writes the answers for you. Solo is maybe 30 to 40 minutes of arrowing through hot-swap and needs nothing from me in the room. Together, I could rebuild a ladder on the spot when a rung is too coarse or the LFO routing turns out wrong. That's slower to schedule but catches surprises live. I'm keeping work going either way.
+
+**Artifacts:**
+- [the ear sheet for the sitting.](Projects/Generative Preset Development/ableton-wavetable/audition-kit/ear-sheet.html)
+- [the full kit as one file.](Projects/Generative Preset Development/ableton-wavetable/wavetable-audition-kit.zip)
+- [Generative Preset Development — icon.png](Projects/Generative Preset Development/Generative Preset Development — icon.png)
+- [Generative Preset Development — hero.png](Projects/Generative Preset Development/Generative Preset Development — hero.png)
+<sub>`preset-steward-014` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="preset-steward-013" -->
+### 2026-10-14 — cycle 6 — I built the sitting itself: 78 Wavetable presets in eight ladders, a slot-decoder preset, and an ear sheet that turns your picks into the profile.
+> shipped · ear-pass kit ready, not yet loaded in Live · steward leans sit solo with the sheet
+
+The kit lives in [audition-kit](open:Projects/Generative Preset Development/ableton-wavetable/audition-kit?reveal) and is also zipped as one file. There are eight ladders: A cutoff (12 rungs, 40 Hz to 20 kHz), B resonance (10), C amp attack (13, 0 ms to 10 s), D attack curve (6), E release (11), F free LFO rate (12, 0.05 to 30 Hz), G tempo-synced LFO rate (7), and H LFO fade-in (6). Each rung is the factory init Wavetable with Osc 1 alone on a bright wave, so a rung changes only the one setting it tests. Each preset's name shows in the device title, e.g. 'A05 cutoff 549 Hz'. Rungs marked 'corpus split' sit where Ableton's 270 factory presets divide into fifths. Those are the provisional fences the analyzer uses today, so the sitting is moving fences, not building them from nothing. How to sit: load the first rung, press hot-swap, hold a note, and arrow down. Then pick in the [ear sheet](open:Projects/Generative Preset Development/ableton-wavetable/audition-kit/ear-sheet.html) the rung where each band begins. It builds the answers file as you go. Then `python3 apply_bands.py` writes the ear's split points into profile v0.2 and re-runs the analyzer, which now says 'split set by ear' wherever your ear replaced a factory guess. I tested that path end to end on a throwaway copy with made-up answers. The Z00 decoder routes all 13 hidden modulation slots to Filter 1 Freq at 1%, 2% ... 13%. One look at the Matrix, MIDI and MPE tabs tells us which slot is which source, which the corpus census could only guess. The sheet has boxes for that too. Two things I found while building. First, the init Wavetable ships three controller routings onto the oscillator (slot 9 to wave position at 100%), and I zeroed them in the kit. Since the default patch plays a steady tone, slot 9 can't be per-note Random as the census guessed. It's more likely Press or Aftertouch, and the decoder will settle it. Second, the factory LFO-rate bands are the weakest of the five: 157 of the 270 presets have LFO 1 tempo-synced, so their free Hz rate is ignored but still counted, and 54 sit on the untouched 1 Hz default. So the F ladder matters most. I also fixed the analyzer to stop putting a feel-word on the free rate of a synced LFO, and let it read real .adv files directly.
+
+**Artifacts:**
+- [the ear sheet: pick the rung where each band begins; it writes the answers file.](Projects/Generative Preset Development/ableton-wavetable/audition-kit/ear-sheet.html)
+- [the whole kit (78 ladder presets + decoder + sheet + manifest) as one file.](Projects/Generative Preset Development/ableton-wavetable/wavetable-audition-kit.zip)
+- [the slot decoder: each of 13 mod slots on Filter 1 Freq at its own percentage.](Projects/Generative Preset Development/ableton-wavetable/audition-kit/Z decoder/Z00 slot decoder.adv)
+- [rung code to value map that apply_bands.py reads.](Projects/Generative Preset Development/ableton-wavetable/audition-kit/kit_manifest.json)
+- [rebuilds the kit; --lfo-slots re-aims the LFO ladders after the decoder reading.](Projects/Generative Preset Development/ableton-wavetable/build_audition_kit.py)
+- [after the sitting: answers to ear splits, profile v0.2, analyzer re-run.](Projects/Generative Preset Development/ableton-wavetable/apply_bands.py)
+- [the sheet's template; the build injects the manifest.](Projects/Generative Preset Development/ableton-wavetable/ear_sheet_template.html)
+- [now prefers ear splits over factory-usage splits when they exist.](Projects/Generative Preset Development/ableton-wavetable/corpus_bands.py)
+- [reads .adv directly; no longer bands the ignored Hz rate of a synced LFO.](Projects/Generative Preset Development/ableton-wavetable/analyze_preset.py)
+- [labels each feel-word as set by ear or by factory usage.](Projects/Generative Preset Development/ableton-wavetable/analyze_preset_v2.py)
+
+_The ladders · rungs marked * are factory-usage fences_
+| ladder | what it tests | rungs | bands you mark |
+| --- | --- | --- | --- |
+| A | filter cutoff | A01–A12 (A03*, A05*, A07*, A09*) | dark · warm · open · bright |
+| B | resonance at 700 Hz | B01–B10 | coloured · singing · screaming · self-osc edge |
+| C | amp attack | C01–C13 | punchy · natural · soft · swell |
+| D | attack curve at 1.5 s | D01–D06 | linear · convex |
+| E | amp release | E01–E11 | short · natural · long · tail |
+| F | free LFO rate (tremolo) | F01–F12 | drifting · subtle · obvious · fast |
+| G | synced LFO rate | G01–G07 | groove · slow (+ write the note value shown) |
+| H | LFO fade-in | H01–H06 | fade-in · slow-bloom |
+| Z | slot decoder | Z00 | read the % each source shows |
+
+_Left rough:_ None of the 78 presets has been loaded in Live yet. They are built the same way as the Aqueous Pad preset you confirmed, and all 78 parse as valid XML, but whether 'last frame of Basic Shapes' is really a saw is a guess. The F, G and H ladders route the LFOs through slots 2 and 3; if F01–F12 don't wobble, read Z00 and rebuild with --lfo-slots. I dropped a no-input self-oscillation rung, the old v0.1 worksheet still shows the wrong ranges (cutoff as 0–1 rather than Hz), and Env 2/3 and Filter 2 will inherit the measured instance's bands without being heard separately.
+
+_Next moves named:_ Loudon: one sitting with the kit and the ear sheet; drop the answers into audition-kit/ear_answers.json or paste them as a reply. · Me, next: run apply_bands.py, then describe a known factory preset in ear-grounded words. That is the plan's bonus check before moving on to making presets from a prompt. · Meanwhile, without your ears: stub the reshaping track (take a preset plus a direction like 'darker') against the factory-usage bands, so it's ready the moment real bands land.
+<sub>`preset-steward-013` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-09-25T20-42-54-04-00" -->
 ### 2026-09-25 — Plan agreed: carried over from the entry's multi-stage plan
 

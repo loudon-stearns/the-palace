@@ -47,8 +47,29 @@ def stats():
     return _stats
 
 
+EAR = os.path.join(HERE, "profile-draft", "ear_bands_v0.1.json")
+
+
+def _ear(family):
+    """Ear-pass splits for a family, if apply_bands.py has written any."""
+    try:
+        with open(EAR) as f:
+            fam = json.load(f)["families"].get(family)
+    except (FileNotFoundError, KeyError, ValueError):
+        return None
+    if fam and "ear" in fam.get("split_source", []) and fam["bands"] == VOCAB.get(family):
+        return fam
+    return None
+
+
 def splits(family):
-    return stats()[PARAM_FOR[family]]["quintiles"]
+    e = _ear(family)
+    return e["splits"] if e else stats()[PARAM_FOR[family]]["quintiles"]
+
+
+def source(family):
+    """'ear' when at least one split came from the ear-pass, else 'corpus'."""
+    return "ear" if _ear(family) else "corpus"
 
 
 def band_for(family, value):

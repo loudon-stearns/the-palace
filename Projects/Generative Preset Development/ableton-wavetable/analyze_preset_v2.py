@@ -33,6 +33,8 @@ def resolve(inner):
         m = pat.search(inner)
         if m:
             name, bucket = cb.band_for(fam, float(m.group(1)))
+            if cb.source(fam) == "ear":
+                return "→ %s (band %d/5, split set by ear)" % (name, bucket)
             return "→ %s (corpus band %d/5, not ear-confirmed)" % (name, bucket)
     return "[PERCEPTUAL BAND PENDING: %s]" % inner
 

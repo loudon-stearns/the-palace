@@ -66,8 +66,12 @@ def on(root, tag):
 
 
 def describe(path, slot_kinds):
-    root = ET.parse(path).getroot()
-    name = os.path.basename(path).replace(".xml", "")
+    if path.endswith(".adv"):  # a real gzipped preset, not a decompressed sample
+        import gzip
+        root = ET.fromstring(gzip.open(path).read())
+    else:
+        root = ET.parse(path).getroot()
+    name = os.path.basename(path).replace(".xml", "").replace(".adv", "")
     lines = []
     pending = []
 
@@ -136,11 +140,18 @@ def describe(path, slot_kinds):
         if ltype is None:
             continue
         synced = str(sync) in ("1", "true", "True")
+        if synced:
+            # A synced LFO ignores its free Hz rate; banding that number would
+            # describe a knob nobody hears. Report the synced division index.
+            sidx = manual(root, "Voice_Modulators_Lfo%d_Time_SyncedRate" % n)
+            rate_txt = "synced division idx %s [division names pending the G-ladder reading]" % sidx
+        else:
+            rate_txt = "rate %s %s" % (
+                ("%.4f" % rate if rate is not None else "?"),
+                band("LFO%d rate @ %s" % (n, ("%.4f" % rate if rate is not None else "?"))))
         lines.append(
-            "  LFO %d: shape idx %s [enum not cross-referenced], %s, rate %s %s, depth %s"
-            % (n, ltype, ("tempo-synced" if synced else "free-running"),
-               ("%.4f" % rate if rate is not None else "?"),
-               band("LFO%d rate @ %s" % (n, ("%.4f" % rate if rate is not None else "?"))),
+            "  LFO %d: shape idx %s [enum not cross-referenced], %s, %s, depth %s"
+            % (n, ltype, ("tempo-synced" if synced else "free-running"), rate_txt,
                ("%.3f" % amt if amt is not None else "?")))
 
     # --- Unison ---
