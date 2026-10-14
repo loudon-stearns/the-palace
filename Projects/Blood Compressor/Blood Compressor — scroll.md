@@ -15,20 +15,20 @@ forward_vector: "I am Blood Compressor's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T11:34:28.181Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T11:40:30.316Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 7 · last ran 2026-10-14 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 8 · last ran 2026-10-14 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — Blood Compressor has no agreed plan yet. Here's one: browser reference, then Max, then the body controls, the lesson and the plugin. (`blood-compressor-016`)
-- **Last commit touching this project:** 2026-09-26 `5b8a1564` — ops(frontmatter): strip retired activation_count/last_activated from 244 entries — v1.26
+- **Last shipped:** 2026-10-14 (today) — The browser vessel's compressor now lives in an RNBO codebox. It matches the browser sample for sample, and there's a Max test patch and a Max for Live device. (`blood-compressor-018`)
+- **Last commit touching this project:** 2026-10-14 `da7919f9` — steward(Blood Compressor): cycle 7 — SPINNING UP. HOME: [Blood Compressor](obsidian://open?vault=The%20Palac…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Blood Compressor is a compressor dressed as the body: threshold is the systolic pressure that triggers the reflex, ratio is how stiff the vessel wall is, attack is the baroreceptor reflex delay, release is the smooth muscle relaxing. In June I shipped a browser prototype where a narrowing artery showed the compression. You told me the threshold didn't seem to work and asked me to make the diagram work really well. I found why it failed and rebuilt it. v3 is one compressor I wrote myself, and it makes both the sound and every pixel, so the picture can't disagree with the audio. It runs with the sound off, and you can grab the amber threshold line and drag it.
+Blood Compressor is a compressor dressed as the body: threshold is the systolic pressure that triggers the reflex, ratio is how stiff the vessel wall is, attack is the baroreceptor reflex delay, release is the smooth muscle relaxing. Earlier today I fixed the browser prototype. One hand-built compressor now drives both its sound and its picture, and the threshold works and is measured. This cycle I carried that exact compressor into Max. I rewrote it as an RNBO codebox, checked it in Node against the browser version at every sample, and wrapped it two ways: a test patch where the heartbeat runs through it, and a Max for Live audio effect with a dial for each control. The maths is proven. Th…
 
 ### Open asks
 
@@ -59,6 +59,47 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="blood-compressor-018" -->
+### 2026-10-14 — cycle 8 — The browser vessel's compressor now lives in an RNBO codebox. It matches the browser sample for sample, and there's a Max test patch and a Max for Live device.
+> shipped · maths checked in Node, Max files unverified · steward leans draw the vessel inside Max next
+
+**What's new.** The compressor that drives the [browser vessel](open:Projects/Blood Compressor/stage2-vessel-prototype-v3.html) is now [blood-compressor.codebox](open:Projects/Blood Compressor/rnbo/blood-compressor.codebox). It follows the browser version line for line: 80 Hz high-pass on the detector, RMS detector, cubic soft knee, a fixed 5 ms nerve delay, then attack and release. Every control is an RNBO parameter: threshold, ratio, knee, attack, release, makeup, detector time and bypass. Besides the audio it puts out three meter signals: **pressure** (detector level in dB), **squeeze** (gain change in dB) and **baroreceptors** (1 while pressure is past the knee). Those meters will feed the vessel drawing in Max. The lub-dub test source is its own small codebox, [heartbeat.codebox](open:Projects/Blood Compressor/rnbo/heartbeat.codebox).
+
+**Is it the same compressor?** [check-codebox.mjs](open:Projects/Blood Compressor/rnbo/check-codebox.mjs) runs the browser page's own DSP block and the codebox side by side on the same input. It uses two tests at three sample rates. The first is the heartbeat with the threshold stepping from 0 to -40 dB. The second is noise bursts with every control, bypass included, re-randomised twice a second across its full range. Against the browser code holding its delay in doubles, as RNBO does, the largest audio difference is 3e-15. That's rounding noise. The baroreceptor flag never disagrees once. Against the page exactly as written, which stores its delay line in 32-bit floats, the gap grows to 5e-9, about 166 dB down. The heartbeat codebox matches the page's heartbeat within 5e-6 over a full minute, which is about -106 dB. Every number is in [check-findings.json](open:Projects/Blood Compressor/rnbo/check-findings.json).
+
+**Listen.** [codebox-threshold-steps.wav](open:Projects/Blood Compressor/rnbo/codebox-threshold-steps.wav) is the codebox heartbeat through the codebox compressor, with the threshold stepping 0, -10, -20, -30 and -40 dB every 4 s. Deepest squeeze per step is 0, 0.6, 5.4, 11.5 and 18.4 dB, at the new 300 ms default release. This is what the Max patch should sound like.
+
+**The Max files.** [make_patch.py](open:Projects/Blood Compressor/rnbo/make_patch.py) writes both straight from the codebox sources. [blood-compressor-test.maxpat](open:Projects/Blood Compressor/rnbo/blood-compressor-test.maxpat): the heartbeat rnbo~ feeds the compressor rnbo~. There's a number box for each control, a live readout of pressure, squeeze and baroreceptors, and a scope showing the squeeze over time. Turn on the dac and drag the threshold down. [Blood Compressor 0.1.amxd](open:Projects/Blood Compressor/rnbo/Blood Compressor 0.1.amxd?reveal) is a Max for Live audio effect. It runs plugin~ into the same rnbo~ and out to plugout~, with eight live.dials and the meters in its device view. Drop it on an audio track.
+
+**A call I made on my own lean.** The plan I proposed this morning, still waiting on you, says a gen~ codebox. I used an RNBO codebox instead. It's the same kind of code, but one source can also export to VST/AU, which is the plan's last move. It also reuses the checking harness Action Potential Oscillator built. I passed over gen~ because it would have meant writing the compressor a second time for the plugin.
+
+**Artifacts:**
+- [The compressor as an RNBO codebox: eight parameters, audio plus pressure, squeeze and baroreceptor outputs.](Projects/Blood Compressor/rnbo/blood-compressor.codebox)
+- [The lub-dub test source as its own codebox.](Projects/Blood Compressor/rnbo/heartbeat.codebox)
+- [Max test patch: heartbeat through the compressor, number boxes, live meters, squeeze scope. Unverified.](Projects/Blood Compressor/rnbo/blood-compressor-test.maxpat)
+- [Max for Live audio effect, eight live.dials, mono. Unverified.](Projects/Blood Compressor/rnbo/Blood Compressor 0.1.amxd)
+- [The codebox's own sound: heartbeat with the threshold stepping 0 to -40 dB every 4 s.](Projects/Blood Compressor/rnbo/codebox-threshold-steps.wav)
+- [Runs the browser DSP and the codebox side by side and compares every sample.](Projects/Blood Compressor/rnbo/check-codebox.mjs)
+- [Loads a codebox into Node (adapted from Action Potential Oscillator's, now with @param support).](Projects/Blood Compressor/rnbo/codebox-harness.mjs)
+- [Writes the .maxpat and .amxd from the codebox sources.](Projects/Blood Compressor/rnbo/make_patch.py)
+- [Every number in this post.](Projects/Blood Compressor/rnbo/check-findings.json)
+
+_codebox vs the browser compressor, largest difference over 20 s_
+| browser reference | sample rate | test | audio | squeeze dB | baroreceptor disagreements |
+| --- | --- | --- | --- | --- | --- |
+| delay in doubles | 48 kHz | heartbeat, threshold steps | 1.1e-16 | 3.6e-15 | 0 |
+| delay in doubles | 48 kHz | noise, all controls randomised | 8.9e-16 | 7.1e-15 | 0 |
+| delay in doubles | 44.1 kHz | noise, all controls randomised | 2.7e-15 | 1.4e-14 | 0 |
+| delay in doubles | 96 kHz | noise, all controls randomised | 6.7e-16 | 1.1e-14 | 0 |
+| page as written (32-bit delay) | 48 kHz | noise, all controls randomised | 4.8e-9 | 4.3e-8 | 0 |
+| page as written (32-bit delay) | 44.1 kHz | noise, all controls randomised | 5.6e-10 | 1.1e-7 | 0 |
+
+_Left rough:_ Neither Max file has been opened in Max or Live, so whether rnbo~ compiles the codebox and whether the live.dials load is untested. The device is mono: it sums left and right and sends the same squeezed signal to both sides, with no stereo link yet. Inside the device the meters are bare number boxes. The vessel drawing comes next.
+
+_Next moves named:_ Draw the artery inside the device (v8ui), fed by the pressure, squeeze and baroreceptor outputs, with the same three panels as the browser. · Make the device stereo: one detector on the louder of left and right, the same squeeze on both. · Once you've opened the patch, put what broke (or didn't) on the RNBO codebox~ smith as its first Gotchas.
+<sub>`blood-compressor-018` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="blood-compressor-016" -->
 ### 2026-10-14 — cycle 7 — Blood Compressor has no agreed plan yet. Here's one: browser reference, then Max, then the body controls, the lesson and the plugin.
 > still working · vessel v3 shipped · steward leans adopt

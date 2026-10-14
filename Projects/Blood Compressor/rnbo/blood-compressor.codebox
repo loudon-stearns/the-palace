@@ -1,0 +1,103 @@
+// =============================================================================
+// Blood Compressor — hand-written RNBO codebox~  (v0.1, 2026-10-14)
+// The same compressor as the browser vessel (stage2-vessel-prototype-v3.html),
+// line for line, so the Max device and the browser picture can be checked
+// against each other sample by sample (rnbo/check-codebox.mjs does that in Node).
+//
+//   sidechain high-pass (80 Hz, the detector only) -> RMS detector
+//   -> soft-knee gain computer (cubic: the vessel wall yielding)
+//   -> nerve-conduction delay (fixed 5 ms: the body always has reaction time)
+//   -> attack / release ballistics in dB (baroreceptor reflex / smooth muscle)
+//   -> gain on the dry signal
+//
+// PATCHER WIRING (inside rnbo~):
+//   [in~ 1]  -> codebox in1       the blood: audio in (mono)
+//   codebox out1 -> [out~ 1]      the blood past the vessel: audio out
+//   codebox out2 -> [out~ 2]      pressure: detector level, dB peak-equivalent
+//   codebox out3 -> [out~ 3]      squeeze: gain change, dB (0 = wide open, negative = constricted)
+//   codebox out4 -> [out~ 4]      baroreceptors: 1 while pressure is past the knee, else 0
+// Every control is a @param, so each one becomes a knob (M4L) or an
+// automatable parameter (VST/AU). Send "threshold -24" etc. to rnbo~'s left inlet.
+// =============================================================================
+
+@param({ min: -60.0, max: 0.0 })    threshold = -20.0;  // systolic line, dB
+@param({ min: 1.0,   max: 20.0 })   ratio = 4.0;        // vessel wall stiffness
+@param({ min: 0.0,   max: 24.0 })   knee = 6.0;         // wall yield, dB wide
+@param({ min: 5.0,   max: 500.0 })  attack = 60.0;      // baroreceptor reflex, ms (floor 5)
+@param({ min: 5.0,   max: 3000.0 }) release = 300.0;    // smooth muscle relaxing, ms
+@param({ min: 0.0,   max: 24.0 })   makeup = 0.0;       // dB
+@param({ min: 1.0,   max: 100.0 })  rmsTime = 10.0;     // detector time constant, ms
+@param({ min: 0.0,   max: 1.0 })    bypass = 0.0;
+
+const NERVEMS = 5.0;           // fixed: nerve conduction, cannot be set to zero
+const DLEN = 16384;            // control delay ring; 5 ms fits up to 3.2 MHz
+const DB10 = 4.342944819032518; // 10 / ln(10): 10*log10(x) == DB10*log(x)
+
+@state hpX = 0.0;
+@state hpY = 0.0;
+@state ms = 0.0;
+@state g = 0.0;
+@state dline = new FixedDoubleArray(16384);
+@state dw = 0;
+
+// static curve: input level (dB) -> output level (dB)
+function curve(x, T, R, K) {
+    let lo = T - K / 2.0;
+    let hi = T + K / 2.0;
+    if (K <= 0.0 || x <= lo) {
+        if (x > T) { return T + (x - T) / R; }
+        return x;
+    }
+    if (x >= hi) { return T + (x - T) / R; }
+    // cubic Hermite between the two straight lines (slope 1 below, 1/R above)
+    let s = (x - lo) / K;
+    let y0 = lo;
+    let y1 = T + (K / 2.0) / R;
+    let m0 = K;
+    let m1 = K / R;
+    let s2 = s * s;
+    let s3 = s2 * s;
+    return (2.0 * s3 - 3.0 * s2 + 1.0) * y0 + (s3 - 2.0 * s2 + s) * m0
+         + (-2.0 * s3 + 3.0 * s2) * y1 + (s3 - s2) * m1;
+}
+
+let x = in1;
+let sr = samplerate;
+let R = max(1.0, ratio);
+let K = max(0.0, knee);
+
+// sidechain HPF, one pole at 80 Hz
+let a = exp(-2.0 * PI * 80.0 / sr);
+let hp = a * (hpY + x - hpX);
+hpX = x;
+hpY = hp;
+
+// RMS: one-pole mean square; +3.0103 dB so a sine reads at its peak level
+let ar = exp(-1.0 / (sr * rmsTime / 1000.0));
+ms = ar * ms + (1.0 - ar) * hp * hp;
+let det = DB10 * log(ms + 1e-12) + 3.0103;
+let target = min(0.0, curve(det, threshold, R, K) - det);
+
+// nerve-conduction delay on the control signal
+let d = max(1, floor(sr * NERVEMS / 1000.0 + 0.5));
+dline[dw] = target;
+let r = dw - d;
+if (r < 0) { r = r + DLEN; }
+let delayed = dline[r];
+dw = dw + 1;
+if (dw >= DLEN) { dw = 0; }
+
+// ballistics in dB: toward more reduction = attack, back toward 0 = release
+let atk = max(5.0, attack);
+let rel = max(5.0, release);
+let c = 0.0;
+if (delayed < g) { c = exp(-1.0 / (sr * atk / 1000.0)); }
+else { c = exp(-1.0 / (sr * rel / 1000.0)); }
+g = c * g + (1.0 - c) * delayed;
+
+if (bypass >= 0.5) { out1 = x; }
+else { out1 = x * pow(10.0, (g + makeup) / 20.0); }
+out2 = det;
+out3 = g;
+out4 = 0.0;
+if (target < -0.05) { out4 = 1.0; }

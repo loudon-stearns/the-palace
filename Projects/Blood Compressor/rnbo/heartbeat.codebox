@@ -1,0 +1,29 @@
+// =============================================================================
+// Heartbeat test source — hand-written RNBO codebox~ (v0.1, 2026-10-14)
+// The browser vessel's test signal: lub (loud) then dub (softer) at 72 bpm over
+// a quiet diastolic hum, on a 110 Hz tone with two overtones. Peaks near -7 dB,
+// hum near -36 dB, so the threshold has a wide range to choose from.
+// PATCHER WIRING: codebox out1 -> [out~ 1]. No inlets.
+// =============================================================================
+
+const TWOPI = 6.283185307179586;
+@state n = 0;
+@state ph = 0.0;
+
+let sr = samplerate;
+let t = n / sr;
+n = n + 1;
+let T = 60.0 / 72.0;
+let u = t - floor(t / T) * T;
+let lub = 0.0;
+if (u < 0.012) { lub = u / 0.012; } else { lub = exp(-(u - 0.012) / 0.07); }
+let v = u - 0.30;
+let dub = 0.0;
+if (v < 0.0) { dub = 0.0; }
+else if (v < 0.010) { dub = v / 0.010; }
+else { dub = exp(-(v - 0.010) / 0.05); }
+let env = min(1.0, 0.025 + 0.72 * lub + 0.40 * dub);
+ph = ph + TWOPI * 110.0 / sr;
+if (ph > TWOPI) { ph = ph - TWOPI; }
+let tone = (sin(ph) + 0.5 * sin(2.0 * ph) + 0.25 * sin(3.0 * ph)) / 1.45;
+out1 = env * tone;

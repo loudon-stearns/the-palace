@@ -1,0 +1,142 @@
+{
+  "date": "2026-10-14",
+  "reference": "stage2-vessel-prototype-v3.html <script id=dsp>",
+  "candidate": "rnbo/blood-compressor.codebox",
+  "runs": [
+    {
+      "reference": "doubles (as RNBO holds the delay)",
+      "sr": 48000,
+      "test": "heartbeat, threshold steps 0 to -40 dB every 4 s",
+      "samples": 960000,
+      "maxAudioDiff": 1.1102230246251565e-16,
+      "maxSqueezeDiffDb": 3.552713678800501e-15,
+      "maxPressureDiffDb": 1.4210854715202004e-14,
+      "baroreceptorMismatches": 0
+    },
+    {
+      "reference": "doubles (as RNBO holds the delay)",
+      "sr": 48000,
+      "test": "noise bursts, every control re-randomised every 0.5 s (incl. bypass)",
+      "samples": 960000,
+      "maxAudioDiff": 8.881784197001252e-16,
+      "maxSqueezeDiffDb": 7.105427357601002e-15,
+      "maxPressureDiffDb": 1.4210854715202004e-14,
+      "baroreceptorMismatches": 0
+    },
+    {
+      "reference": "doubles (as RNBO holds the delay)",
+      "sr": 44100,
+      "test": "heartbeat, threshold steps 0 to -40 dB every 4 s",
+      "samples": 882000,
+      "maxAudioDiff": 1.6653345369377348e-16,
+      "maxSqueezeDiffDb": 5.329070518200751e-15,
+      "maxPressureDiffDb": 1.4210854715202004e-14,
+      "baroreceptorMismatches": 0
+    },
+    {
+      "reference": "doubles (as RNBO holds the delay)",
+      "sr": 44100,
+      "test": "noise bursts, every control re-randomised every 0.5 s (incl. bypass)",
+      "samples": 882000,
+      "maxAudioDiff": 2.6645352591003757e-15,
+      "maxSqueezeDiffDb": 1.4210854715202004e-14,
+      "maxPressureDiffDb": 1.4210854715202004e-14,
+      "baroreceptorMismatches": 0
+    },
+    {
+      "reference": "doubles (as RNBO holds the delay)",
+      "sr": 96000,
+      "test": "heartbeat, threshold steps 0 to -40 dB every 4 s",
+      "samples": 1920000,
+      "maxAudioDiff": 1.6653345369377348e-16,
+      "maxSqueezeDiffDb": 1.0658141036401503e-14,
+      "maxPressureDiffDb": 1.4210854715202004e-14,
+      "baroreceptorMismatches": 0
+    },
+    {
+      "reference": "doubles (as RNBO holds the delay)",
+      "sr": 96000,
+      "test": "noise bursts, every control re-randomised every 0.5 s (incl. bypass)",
+      "samples": 1920000,
+      "maxAudioDiff": 6.661338147750939e-16,
+      "maxSqueezeDiffDb": 1.0658141036401503e-14,
+      "maxPressureDiffDb": 1.4210854715202004e-14,
+      "baroreceptorMismatches": 0
+    },
+    {
+      "reference": "page as written (float32 delay)",
+      "sr": 48000,
+      "test": "heartbeat, threshold steps 0 to -40 dB every 4 s",
+      "samples": 960000,
+      "maxAudioDiff": 3.3605646043710635e-10,
+      "maxSqueezeDiffDb": 1.875416444363509e-8,
+      "maxPressureDiffDb": 1.4210854715202004e-14,
+      "baroreceptorMismatches": 0
+    },
+    {
+      "reference": "page as written (float32 delay)",
+      "sr": 48000,
+      "test": "noise bursts, every control re-randomised every 0.5 s (incl. bypass)",
+      "samples": 960000,
+      "maxAudioDiff": 4.8423585141676995e-9,
+      "maxSqueezeDiffDb": 4.321933744222406e-8,
+      "maxPressureDiffDb": 1.4210854715202004e-14,
+      "baroreceptorMismatches": 0
+    },
+    {
+      "reference": "page as written (float32 delay)",
+      "sr": 44100,
+      "test": "heartbeat, threshold steps 0 to -40 dB every 4 s",
+      "samples": 882000,
+      "maxAudioDiff": 3.2725111509535054e-10,
+      "maxSqueezeDiffDb": 1.6762328414188232e-8,
+      "maxPressureDiffDb": 1.4210854715202004e-14,
+      "baroreceptorMismatches": 0
+    },
+    {
+      "reference": "page as written (float32 delay)",
+      "sr": 44100,
+      "test": "noise bursts, every control re-randomised every 0.5 s (incl. bypass)",
+      "samples": 882000,
+      "maxAudioDiff": 5.588955964697107e-10,
+      "maxSqueezeDiffDb": 1.0998960675578928e-7,
+      "maxPressureDiffDb": 1.4210854715202004e-14,
+      "baroreceptorMismatches": 0
+    },
+    {
+      "reference": "page as written (float32 delay)",
+      "sr": 96000,
+      "test": "heartbeat, threshold steps 0 to -40 dB every 4 s",
+      "samples": 1920000,
+      "maxAudioDiff": 2.539685683977666e-10,
+      "maxSqueezeDiffDb": 1.4506184697893332e-8,
+      "maxPressureDiffDb": 1.4210854715202004e-14,
+      "baroreceptorMismatches": 0
+    },
+    {
+      "reference": "page as written (float32 delay)",
+      "sr": 96000,
+      "test": "noise bursts, every control re-randomised every 0.5 s (incl. bypass)",
+      "samples": 1920000,
+      "maxAudioDiff": 1.5541958831022384e-9,
+      "maxSqueezeDiffDb": 5.963621418914045e-8,
+      "maxPressureDiffDb": 1.4210854715202004e-14,
+      "baroreceptorMismatches": 0
+    }
+  ],
+  "heartbeatSource": {
+    "seconds": 60,
+    "sr": 48000,
+    "maxDiff": 0.0000051692839844732705
+  },
+  "codeboxRender": {
+    "file": "codebox-threshold-steps.wav",
+    "deepestSqueezeDbPerStep": {
+      "0 dB": 0,
+      "-10 dB": -0.64,
+      "-20 dB": -5.37,
+      "-30 dB": -11.45,
+      "-40 dB": -18.42
+    }
+  }
+}
