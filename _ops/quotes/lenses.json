@@ -1,5 +1,6 @@
 {
-  "_about": "The palace's philosophical lenses, as Palace Quotes reaches for them. Each is a palace page (the lens must resolve to an entry), its tradition's voices (whose words a quote may carry), the question it asks of a page, and the families of pages it tends to bite on. Seeded from [[Philosopher Visits the Entry]] § A Starting Roster and [[Palace Philosophies]]. A roster, not a law — place.mjs validates a lens by whether the page exists, not by this file.",
+  "_about": "The palace's philosophical lenses, as Palace Quotes reaches for them. Each is a palace page (the lens must resolve to an entry), its tradition's voices (whose words a quote may carry), the question it asks of a page, and the families of pages it tends to bite on. Seeded from [[Philosopher Visits the Entry]] § A Starting Roster and [[Palace Philosophies]]. A roster, not a law — place.mjs validates a lens by whether the page exists, not by this file; any palace page may be a lens. `not_lenses` names the register hubs that have no apparatus of their own (a page earns `type: hub` by inbound links, so the type alone says nothing).",
+  "not_lenses": ["Palace Philosophies", "FOUR PILLARS", "Modes of Collaboration"],
   "lenses": [
     {
       "page": "Spinoza Conatus",

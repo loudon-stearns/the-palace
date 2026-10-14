@@ -41,6 +41,9 @@ const opt = (name) => { const i = argv.indexOf(`--${name}`); return i !== -1 && 
 
 const root = resolve(opt('root') || resolve(HERE, '..', '..'));
 const ledgerPath = join(root, LEDGER_REL);
+const NOT_LENSES = new Set((() => {
+  try { return JSON.parse(readFileSync(join(HERE, 'lenses.json'), 'utf8')).not_lenses || []; } catch { return []; }
+})());
 
 function splitFm(text) {
   const m = text.match(/^---\n[\s\S]*?\n---\n?/);
@@ -94,11 +97,13 @@ async function place(input, { dryRun, by, force }) {
     const v = validatePlacement(p, { targetBody, lensFound: !!lensFile });
 
     const label = `"${String(p?.quote ?? '').slice(0, 48)}…" → ${p?.target ?? '?'}`;
-    // A hub has no apparatus of its own; The Lens's fidelity test cannot run
-    // through it. Warn, don't refuse — the roster says which voices have no
-    // page yet, and the warning is the invitation to write one.
-    if (lensFile && /^type:\s*hub\s*$/m.test(readFileSync(lensFile, 'utf8').match(/^---\n[\s\S]*?\n---/)?.[0] || '')) {
-      v.warnings.push(`lens "${p.lens}" is a hub — it has no apparatus of its own; quote through the page that does`);
+    // A register hub like Palace Philosophies has no apparatus of its own; The
+    // Lens's fidelity test cannot run through it. But `type: hub` is earned by
+    // inbound links, and Spinoza Conatus or Kuramoto Coupling are hubs with
+    // every bit of apparatus — so the warning is by name (lenses.json
+    // `not_lenses`), not by type. Warn, don't refuse.
+    if (NOT_LENSES.has(p.lens)) {
+      v.warnings.push(`lens "${p.lens}" is a register hub — it has no apparatus of its own; quote through the page that does`);
     }
     for (const w of v.warnings) console.log(`  ~ ${label}: ${w}`);
     if (!v.ok) {
