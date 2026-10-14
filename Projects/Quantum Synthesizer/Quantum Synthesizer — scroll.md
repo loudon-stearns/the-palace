@@ -15,24 +15,25 @@ forward_vector: "I am Quantum Synthesizer's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T14:10:15.164Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T14:20:28.083Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 17 · last ran 2026-10-14 (today)
-- **Plan:** none agreed yet — the work leans on the forward vector
-- **Waiting on you:** 1 open ask
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 18 · last ran 2026-10-14 (today)
+- **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
+- **Waiting on you:** 2 open asks
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — Four tested fixes to the entry are drafted. Have an elder land all four together? (`quantum-synth-040`)
-- **Last commit touching this project:** 2026-10-14 `b4429381` — steward(Quantum Synthesizer): cycle 16 — SPINNING UP. HOME: [Quantum Synthesizer](obsidian://open?vault=The%20Pa…
+- **Last shipped:** 2026-10-14 (today) — Every claim in the entry is tested and playable. Adopt a first plan that takes the instrument from the browser into Ableton? (`quantum-synth-043`)
+- **Last commit touching this project:** 2026-10-14 `9d320cf8` — steward(Quantum Synthesizer): cycle 17 — SPINNING UP. HOME: [Quantum Synthesizer](obsidian://open?vault=The%20Pa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-This page claims the Schrödinger equation is a synthesizer: whatever holds a wave sets its energy levels, and those levels, played as partials, are the timbre. Since yesterday I have been testing the entry one paragraph at a time with sound. One fix has landed (the walls choose the shapes, and the equation turns shapes into pitches). Three more drafts are waiting: the Hermite paragraph, the operators paragraph and the opening about the i. This cycle tested the last unchecked claim, the bell paragraph, which says 'the geometry of circular resonators forces inharmonic eigenmodes.' I built six instruments, three shapes (a line, a square, a circle) each under both equations, with the same malle…
+This page claims Schrödinger's equation is a synthesizer: whatever holds a wave sets its energy levels, and those levels, played as partials, are the timbre. Over the last two days I tested every claim in the entry with sound, one proof at a time. The walls choose the shapes and the equation turns shapes into pitches. Turning the i in the equation by a small angle gives every partial the same damping, which is how you get a bell. For a drum it's the second dimension that breaks the harmonic series, and under Schrödinger only the circle stays inharmonic. One fix to the entry has landed and four more drafts wait on your yes. This cycle put all of it into one instrument: pick the drum's equati…
 
 ### Open asks
 
 - `quantum-synth-040` — entry_text_fix · posted 2026-10-14 · options: LAND-ALL · ONE-AT-A-TIME · HOLD
+- `quantum-synth-043` — proposed plan revision: a first plan, now that every claim is tested · posted 2026-10-14 · options: adopt · keep
 
 ### Answered, not yet consumed
 
@@ -68,6 +69,51 @@ This container has no Shop (no ComfyUI, Kokoro, Max, or GPU) — Python with num
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="quantum-synth-043" -->
+### 2026-10-14 — cycle 18 — Every claim in the entry is tested and playable. Adopt a first plan that takes the instrument from the browser into Ableton?
+> still working · instrument shipped · steward leans adopt
+
+This page has never had a plan. It has been steered by its standing order, which says to ship a small real thing every run. That worked: in two days every claim in the entry was tested with sound, and today they all became one playable page. The next stretch needs more than single proofs. My evidence is the instrument itself. Its engine is a bank of decaying sine partials that renders a strike in about 10 ms. That's the same shape as an RNBO modal bank, so the move to Max and Ableton is a port, not a redesign. The cost is that the Ableton step can't be verified here, so it stays unconfirmed until you open it. Adopt makes the plan below the path. Keep leaves the page on its standing order. Your yes or no on the four drafts is a separate card.
+
+**Artifacts:**
+- [the evidence: the whole entry, playable, whose engine is already a modal bank.](Projects/Quantum Synthesizer/proofs/instrument.html)
+- [drum.mp4](Projects/Quantum Synthesizer/proofs/drum.mp4)
+- [drum-poster.png](Projects/Quantum Synthesizer/proofs/drum-poster.png)
+- [drum.wav](Projects/Quantum Synthesizer/proofs/drum.wav)
+<sub>`quantum-synth-043` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="quantum-synth-042" -->
+### 2026-10-14 — cycle 18 — The six proofs are now one playable instrument with three knobs: the equation, the shape, and the angle of i. Click anywhere on the surface to strike it.
+> shipped · all five checks pass · steward leans play it and pin notes
+
+[The instrument](Projects/Quantum Synthesizer/proofs/instrument.html) runs right in the board. Its two panels show the struck surface moving (slowed down) and the ladder of partials in dB. Below them are the three knobs, a mallet softness slider, the seven strikes from drum.wav as presets, and a readout that says whether the tone repeats and how often. A–L play a major scale from A3, and a review box pins your notes to the exact setting so you can copy them back to me. Each strike is computed in the page: 2–13 ms per strike, cached after the first. If you'd rather just listen, [instrument-tour.wav](open:Projects/Quantum Synthesizer/proofs/instrument-tour.wav) is the page's own engine playing one arpeggio seven ways: the square drum, then the square box (same shape, other equation), the round box at 0.01°, 0.1° and 1° (bell, knock, click), and the round drum struck dead centre and then off centre. [instrument-preview.png](obsidian://open?vault=The%20Palace&file=Projects/Quantum%20Synthesizer/proofs/instrument-preview.png) is a still of the page. Building it turned up a bug in the last cycle's drum.py. It normalised every circle mode that isn't perfectly round by π·J²ₘ₊₁ where the true value is (π/2)·J²ₘ₊₁, so in drum.wav those partials of the round drum and round box are 6 dB too quiet. The pitches, every ladder, and every repeat verdict are unaffected, and so is the drum draft. The instrument uses the right norm, and [the checks](obsidian://open?vault=The%20Palace&file=Projects/Quantum%20Synthesizer/proofs/instrument-checks.txt) prove it by integrating each mode over the disk.
+
+**Artifacts:**
+- [the instrument: equation × shape × angle of i, click to strike, keys A–L to play.](Projects/Quantum Synthesizer/proofs/instrument.html)
+- [29 s: one arpeggio seven ways, rendered by the page's own engine.](Projects/Quantum Synthesizer/proofs/instrument-tour.wav)
+- [a still of the page on the square drum.](Projects/Quantum Synthesizer/proofs/instrument-preview.png)
+- [five checks, all PASS: Bessel vs scipy, unit-energy modes, presets vs an independent build and drum.wav's peaks, repeat verdicts, damping ratio sin θ fitted from rendered samples.](Projects/Quantum Synthesizer/proofs/instrument-checks.txt)
+- [runs the page's physics in node and checks it (numpy + scipy).](Projects/Quantum Synthesizer/proofs/instrument_check.py)
+- [renders the tour through the page's own engine.](Projects/Quantum Synthesizer/proofs/instrument_tour.py)
+
+_the seven presets, as the instrument computes them (θ = 0.03°, felt mallet)_
+| preset | audible partials | does it repeat? |
+| --- | --- | --- |
+| string | 14 | 220 times a second |
+| box (a line) | 9 | 220 times a second |
+| square drum | 123 | never |
+| square box | 56 | 110 times a second, below its lowest partial |
+| round drum | 102 | never |
+| round box | 52 | never |
+| round drum, dead centre | 11 | never (almost: rings nearly evenly spaced) |
+
+_Left rough:_ Nobody has played it by ear yet. I checked it headless (no script errors, all presets and readouts right), but I haven't heard the audio path in a live browser. drum.wav still has its 6 dB loudness error. For the drum, the angle of i is applied as a matching damping ratio, since a drum's equation has no i to turn. The page says so.
+
+_Next moves named:_ Re-render drum.wav and drum.mp4 with the corrected circle loudness, so the earlier proof matches the instrument. · Take the instrument to the Mac: a modal-bank RNBO codebox with the angle of i on a knob, made into an Ableton device. It would be unverified until you open it. · Fold your pinned notes back into the presets and the entry's 'Interactive Artifact' section, which still describes a March tool rather than this one.
+<sub>`quantum-synth-042` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="quantum-synth-040" -->
 ### 2026-10-14 — cycle 17 — Four tested fixes to the entry are drafted. Have an elder land all four together?
 > still working · every claim now tested with sound · steward leans LAND-ALL

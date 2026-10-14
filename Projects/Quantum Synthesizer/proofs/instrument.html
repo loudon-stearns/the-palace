@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<title>Quantum Synthesizer · the instrument · Study</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --info:#4a8fff;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif;
+    --sans:'Manrope',system-ui,-apple-system,'Segoe UI',Helvetica,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    --ease:cubic-bezier(.4,0,.2,1);
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg-1); font-family:var(--sans); }
+  main { max-width:1080px; margin:0 auto; padding:28px 24px 40px; }
+  .eyebrow { font-family:var(--mono); font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--fg-3); }
+  h1 { font-family:var(--serif); font-weight:500; font-size:40px; margin:6px 0 4px; }
+  .lead { font-family:var(--serif); font-size:19px; line-height:1.6; color:var(--fg-2); max-width:780px; margin:0 0 18px; }
+  .eq { font-family:var(--mono); font-size:13px; color:var(--fg-2); background:var(--bg-elev-1); border:1px solid var(--border-soft); border-radius:6px; padding:10px 14px; margin:0 0 20px; line-height:1.8; }
+  .eq .w { color:var(--fg-3); }
+  .stage { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .panel { background:var(--bg-elev-1); border:1px solid var(--border-soft); border-radius:8px; padding:12px; }
+  .panel h2 { font-family:var(--mono); font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--fg-3); font-weight:400; margin:0 0 8px; }
+  canvas { width:100%; height:340px; display:block; }
+  #surface { cursor:crosshair; }
+  .controls { margin:18px 0 0; background:var(--bg-elev-1); border:1px solid var(--border-soft); border-radius:8px; padding:16px; display:grid; gap:14px; }
+  .row { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .seg { display:flex; gap:0; }
+  .seg button { border-radius:0; margin-left:-1px; }
+  .seg button:first-child { border-radius:6px 0 0 6px; margin-left:0; }
+  .seg button:last-child { border-radius:0 6px 6px 0; }
+  .lbl { font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--fg-3); min-width:92px; }
+  .slider-wrap { position:relative; flex:1; min-width:260px; }
+  input[type=range] { width:100%; accent-color:var(--accent); }
+  .pins { position:relative; height:14px; }
+  .pin { position:absolute; top:0; transform:translateX(-50%); color:var(--accent); font-size:12px; cursor:pointer; }
+  .readout { font-family:var(--mono); font-size:13px; color:var(--fg-1); min-width:230px; }
+  button { font-family:var(--mono); font-size:12px; letter-spacing:0.08em; background:var(--bg-elev-2); color:var(--fg-1); border:1px solid var(--border); border-radius:6px; padding:8px 12px; cursor:pointer; transition:border-color .15s var(--ease); }
+  button:hover { border-color:rgba(232,184,74,0.55); }
+  button.primary { background:var(--accent); color:#0a0a0f; border-color:var(--accent); box-shadow:0 0 18px rgba(232,184,74,0.25); }
+  button.on { border-color:var(--accent); color:var(--accent); position:relative; z-index:1; }
+  .presets { display:flex; gap:6px; flex-wrap:wrap; }
+  .presets button { padding:5px 9px; }
+  .ratios { font-family:var(--mono); font-size:13px; color:var(--fg-2); line-height:1.7; }
+  .ratios b { color:var(--accent); font-weight:500; }
+  .keys { font-family:var(--mono); font-size:12px; color:var(--fg-3); }
+  .keys kbd { font-family:var(--mono); background:var(--bg-elev-2); border:1px solid var(--border); border-radius:4px; padding:1px 6px; color:var(--fg-1); }
+  .notes { font-family:var(--serif); font-size:17px; line-height:1.65; color:var(--fg-2); max-width:800px; margin-top:22px; }
+  .notes p { margin:0 0 10px; }
+  .review { margin-top:22px; border-top:1px solid var(--border-soft); padding-top:14px; }
+  .review textarea { width:100%; min-height:54px; background:var(--bg-elev-2); color:var(--fg-1); border:1px solid var(--border); border-radius:6px; font-family:var(--sans); font-size:14px; padding:8px; }
+  .review ul { list-style:none; padding:0; margin:8px 0; font-size:14px; color:var(--fg-2); }
+  .review li { margin:4px 0; }
+  .review li span { font-family:var(--mono); color:var(--accent); margin-right:8px; }
+  footer { margin-top:30px; font-family:var(--mono); font-size:11px; letter-spacing:0.18em; color:var(--fg-3); }
+  @media (max-width:800px) { .stage { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Quantum Synthesizer · Study · the instrument</div>
+  <h1>One instrument, three knobs: the equation, the shape, the angle of i.</h1>
+  <p class="lead">Everything the last six proofs tested, in one place you can play. Pick the rule that turns shapes into pitches (a drum's wave equation, or Schrödinger's), pick what holds the wave (a line, a square, a circle), and turn the i in the equation by a small angle to let it ring like a bell or die like a thud. Click the surface to strike it there. The keys play it as a scale.</p>
+
+  <div class="eq">
+    wave:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;∂²u/∂t² = c²·∇²u &nbsp;→&nbsp; fₙ ∝ kₙ<br>
+    <span class="w">(how fast the surface's speed changes) = (wave speed)² · (how sharply the surface bends) → each partial grows with its wavenumber</span><br>
+    Schrödinger: ∂ψ/∂t = −i·e^(−iθ)·(−∇²)ψ &nbsp;→&nbsp; fₙ ∝ kₙ²·cos θ, &nbsp;decay = 2π·fₙ·tan θ<br>
+    <span class="w">(rate of change of the wave) = −i turned by θ · (how sharply the wave bends) → each partial grows with its wavenumber squared, and every one gets the same damping ratio, sin θ</span>
+  </div>
+
+  <div class="stage">
+    <div class="panel"><h2 id="surfTitle">The surface · click to strike · gold ● strike · blue ◆ pickup</h2><canvas id="surface"></canvas></div>
+    <div class="panel"><h2>The ladder · partials in units of the lowest · grey = whole numbers</h2><canvas id="spec"></canvas></div>
+  </div>
+
+  <div class="controls">
+    <div class="row">
+      <span class="lbl">equation</span>
+      <div class="seg" id="eqSeg">
+        <button data-v="wave">wave · drum</button>
+        <button data-v="schr">Schrödinger · box</button>
+      </div>
+      <span class="lbl" style="margin-left:12px">shape</span>
+      <div class="seg" id="shapeSeg">
+        <button data-v="line">line</button>
+        <button data-v="square">square</button>
+        <button data-v="disk">circle</button>
+      </div>
+      <span class="lbl" style="margin-left:12px">click places</span>
+      <div class="seg" id="placeSeg">
+        <button data-v="strike">strike</button>
+        <button data-v="pickup">pickup</button>
+      </div>
+    </div>
+    <div class="row">
+      <span class="lbl">angle of i, θ</span>
+      <div class="slider-wrap">
+        <input id="theta" type="range" min="0" max="1000" step="1" value="0">
+        <div class="pins" id="pins"></div>
+      </div>
+      <div class="readout" id="thetaOut"></div>
+    </div>
+    <div class="row">
+      <span class="lbl">mallet</span>
+      <div class="slider-wrap"><input id="mallet" type="range" min="0.02" max="0.6" step="0.01" value="0.25"></div>
+      <div class="readout" id="malletOut"></div>
+      <button id="strikeBtn" class="primary">● Strike</button>
+    </div>
+    <div class="presets" id="presets"></div>
+    <div class="ratios" id="ratios"></div>
+    <div class="keys">play it: <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> <kbd>F</kbd> <kbd>G</kbd> <kbd>H</kbd> <kbd>J</kbd> <kbd>K</kbd> <kbd>L</kbd> strike at your point, lowest partial on a major scale from A3 · <kbd>Space</kbd> strikes at A3</div>
+  </div>
+
+  <div class="notes">
+    <p><b>What to listen for.</b> Start on the presets, which are the seven strikes from <code>drum.wav</code>. Then hold the shape and flip the equation: the same square goes from a clangy drum that never repeats to a box that repeats exactly, an octave below its own lowest partial. Then drag θ. Near 0.01° everything rings like a bell; by 0.3° it is a short knock; past 1° it is a click. Because every partial gets the same damping ratio, the high ones always die first, so turning θ darkens the tone as it shortens it. Strike the circle dead centre and only its rings sound, nearly evenly spaced.</p>
+    <p><b>What is physics and what is my choice.</b> The pitches and the loudness of each partial come straight from the shapes' modes (line: sines; square: products of sines; circle: Bessel functions), the strike point and the pickup point. The mallet is a soft roll-off on high wavenumbers, the same felt mallet as <code>drum.py</code>. The angle θ really is Schrödinger's i turned, as in <code>wick.py</code>. For the drum there is no i to turn, so the same pole angle is applied as a damping ratio, the standard way a synthesist damps a modal bank. The moving picture is slowed so the lowest partial turns about once every two seconds, its fading is sped up sixty times so you can watch it happen, and it shows only the partials slow enough to draw.</p>
+  </div>
+
+  <div class="review" id="review">
+    <div class="eyebrow">◇ Review · pin a note to a setting</div>
+    <p class="notes" style="margin-top:6px;font-size:15px">When something strikes you, write a line and pin it. Each note remembers the equation, the shape, the angle and where you struck. Copy the lot for Claude when you're done.</p>
+    <textarea id="noteText" placeholder="e.g. the square box at 0.05° sounds like a tuned gong…"></textarea>
+    <div class="row" style="margin-top:8px">
+      <button id="pinNote">◆ Pin at this setting</button>
+      <button id="copyNotes">Copy notes for Claude</button>
+      <button id="clearNotes">Clear</button>
+    </div>
+    <ul id="noteList"></ul>
+  </div>
+
+  <footer>Loud’n Live</footer>
+</main>
+
+<script id="core">
+// ======================================================================
+// the physics: modes of three shapes, played under two equations
+// ======================================================================
+const JZ = {"0":[2.404825557696,5.520078110286,8.653727912911,11.791534439014,14.930917708488,18.071063967911,21.211636629879,24.352471530749,27.49347913204,30.634606468432,33.775820213574,36.917098353664,40.058425764628,43.199791713177],"1":[3.831705970208,7.015586669816,10.173468135063,13.323691936314,16.470630050878,19.615858510468,22.760084380593,25.903672087618,29.046828534917,32.189679910974,35.332307550084,38.474766234772,41.617094212814],"2":[5.135622301841,8.4172441404,11.619841172149,14.795951782351,17.959819494988,21.116997053022,24.270112313573,27.420573549985,30.569204495516,33.716519509223,36.862856511284,40.008446733478,43.153453778371],"3":[6.380161895924,9.761023129982,13.015200721698,16.223466160319,19.409415226435,22.582729593104,25.748166699295,28.908350780922,32.064852407098,35.21867073861,38.370472434757,41.520719670407],"4":[7.588342434504,11.064709488501,14.372536671618,17.615966049805,20.826932956962,24.019019524771,27.199087765981,30.371007667117,33.537137711819,36.699001128745,39.857627302181,43.013737723354],"5":[8.77148381596,12.338604197467,15.700174079712,18.98013387518,22.217799896561,25.430341154223,28.626618307291,31.811716724048,34.988781294559,38.159868561967,41.326383254047],"6":[9.936109524218,13.589290170541,17.003819667816,20.320789213567,23.586084435581,26.820151983411,30.03372238657,33.233041762847,36.422019668258,39.603239416075,42.7784816132],"7":[11.086370019245,14.821268727013,18.287582832482,21.641541019848,24.934927887673,28.191188459483,31.422794192266,34.637089352069,37.838717382854,41.030773691586],"8":[12.225092264005,16.037774190888,19.554536430997,22.945173131875,26.266814641177,29.545659670999,32.795800037341,36.02561506387,39.240447995178,42.443887743274],"9":[13.354300477435,17.241220382489,20.807047789264,24.233885257751,27.583748963573,30.885378967697,34.154377923855,37.400099977157,40.628553718965],"10":[14.475500686555,18.433463666967,22.046985364698,25.509450554183,28.88737506353,32.211856199713,35.499909205374,38.761807017882,42.004190236672],"11":[15.589847884455,19.615966903967,23.275853726263,26.77332254551,30.179061178785,33.526364075589,36.833571341895,40.111823270954],"12":[16.698249933848,20.789906360078,24.494885043881,28.026709949973,31.459960035318,34.82998699029,38.156377504681,41.45109230794],"13":[17.801435153282,21.956244067836,25.705103053925,29.270630441875,32.731053310978,36.123657666449,39.469206825244,42.780439265447],"14":[18.899997953174,23.115778347253,26.907368976182,30.505950163896,33.993184984782,37.40818512864,40.772827853502],"15":[19.994430629816,24.269180026209,28.102415231668,31.733413344375,35.247086785793,38.68427638929,42.067916998657],"16":[21.085146113065,25.417019006343,29.290870696313,32.953664885069,36.493397912446,39.952553490221],"17":[22.172494618826,26.559784138025,30.473279946334,34.16726785384,37.732680522054,41.213567059135],"18":[23.25677608511,27.697898350855,31.650118151857,35.374717217955,38.965432047654,42.467807213331],"19":[24.338249623407,28.831730351301,32.821802761874,36.576450759,40.192095100837],"20":[25.417140814073,29.961603791625,33.988702785235,37.772857844399,41.413065513893],"21":[26.493647416019,31.08780454603,35.151146244578,38.964286547595,42.628698930818],"22":[27.567943891262,32.210586549482,36.309426223459,40.151049480933],"23":[28.640185030764,33.330176530766,37.463805817451,41.333428614194],"24":[29.710508889811,34.446777884718,38.614522222081,42.511679285942],"25":[30.779039186567,35.560573867035,39.761790134224],"26":[31.845887278687,36.671730250689,40.905804602492],"27":[32.911153804984,37.780397550517,42.046743431652],"28":[33.974930058749,38.886712898545,43.184769223265],"29":[35.03729914426,39.990801634597],"30":[36.098336956748,41.092778663153],"31":[37.158113017537,42.192749616961],"32":[38.216691189604],"33":[39.274130293746],"34":[40.330484641659],"35":[41.385804499172],"36":[42.440136490458]};                    // Bessel zeros j_mn below 18 x j_01, from scipy.special.jn_zeros
+const KREL_MAX = 18, FMAX = 18000, F1 = 220;
+
+// Bessel's integral over one full period; the trapezoid rule is spectrally exact here
+function besselJ(m, x) {
+  const N = 128; let s = 0;
+  for (let i = 0; i < N; i++) { const t = 2 * Math.PI * i / N; s += Math.cos(m * t - x * Math.sin(t)); }
+  return s / N;
+}
+
+// every mode of a shape: its wavenumber k, plus what we need to evaluate its shape
+const MODE_CACHE = {};
+function modeList(shape) {
+  if (MODE_CACHE[shape]) return MODE_CACHE[shape];
+  const out = [];
+  if (shape === 'line') for (let n = 1; n < 60; n++) out.push({ k: Math.PI * n, n });
+  else if (shape === 'square') { for (let m = 1; m < 40; m++) for (let n = 1; n < 40; n++) out.push({ k: Math.PI * Math.hypot(m, n), m, n }); }
+  else {
+    for (const ms of Object.keys(JZ)) {
+      const m = +ms;
+      JZ[ms].forEach((j, i) => {
+        const J1 = besselJ(m + 1, j);
+        // integral over the unit disk of J_m(j r)^2 * (angle part)^2: pi J_{m+1}^2 for m = 0 (angle part 1),
+        // (pi/2) J_{m+1}^2 for each of the cos / sin twins when m > 0
+        const norm2 = (m === 0 ? Math.PI : Math.PI / 2) * J1 * J1;
+        out.push({ k: j, m, n: i + 1, norm2 });
+      });
+    }
+  }
+  return (MODE_CACHE[shape] = out);
+}
+
+// K(A, B) = sum over a mode's twins of phi(A) * phi(B), every phi unit-normalised over the shape.
+// Points: line x in [0,1]; square [x, y] in [0,1]^2; disk [r, phi] with r in [0,1].
+function kernel(shape, md, A, B) {
+  if (shape === 'line') return 2 * Math.sin(md.n * Math.PI * A) * Math.sin(md.n * Math.PI * B);
+  if (shape === 'square') return 4 * Math.sin(md.m * Math.PI * A[0]) * Math.sin(md.n * Math.PI * A[1]) * Math.sin(md.m * Math.PI * B[0]) * Math.sin(md.n * Math.PI * B[1]);
+  if (A[0] > 1 || B[0] > 1) return 0;
+  // cos(m a) cos(m b) + sin(m a) sin(m b) = cos(m (a - b)): the twin pair, collapsed
+  return besselJ(md.m, md.k * A[0]) * besselJ(md.m, md.k * B[0]) * Math.cos(md.m * (A[1] - B[1])) / md.norm2;
+}
+
+// the partials one strike sounds: ratio (to the lowest mode), amplitude a, strike weight g
+function build(shape, eq, S, P, sigma) {
+  const modes = modeList(shape);
+  const k1 = Math.min(...modes.map(m => m.k));
+  let parts = [];
+  for (const md of modes) {
+    const kr = md.k / k1;
+    if (kr > KREL_MAX) continue;
+    const ratio = eq === 'wave' ? kr : kr * kr;
+    if (F1 * ratio > FMAX) continue;
+    const g = Math.exp(-((kr * sigma) ** 2) / 2);              // the felt mallet
+    parts.push({ ratio, kr, md, g, a: g * kernel(shape, md, S, P) });
+  }
+  // merge exact degeneracies (the square's (m,n) / (n,m)): same pitch, amplitudes add
+  parts.sort((p, q) => p.ratio - q.ratio);
+  const merged = [];
+  for (const p of parts) {
+    const last = merged[merged.length - 1];
+    if (last && Math.abs(p.ratio - last.ratio) < 1e-9 * p.ratio) { last.a += p.a; last.modes.push(p); }
+    else merged.push({ ratio: p.ratio, a: p.a, modes: [p] });
+  }
+  const amax = Math.max(...merged.map(p => Math.abs(p.a))) || 1;
+  return { all: parts, partials: merged.filter(p => Math.abs(p.a) > 1e-5 * amax), amax };
+}
+
+// does the tone repeat? exact test on the ladder: all audible ratios are whole multiples of 1/q
+function repeats(partials, floor = 1e-3) {
+  const amax = Math.max(...partials.map(p => Math.abs(p.a)));
+  const rs = partials.filter(p => Math.abs(p.a) >= floor * amax).map(p => p.ratio);
+  const gcd = (a, b) => b ? gcd(b, a % b) : a;
+  for (let q = 1; q <= 12; q++) {
+    const ints = rs.map(r => r * q);
+    if (ints.every(v => Math.abs(v - Math.round(v)) < 1e-6 * Math.max(1, v))) {
+      const g = ints.map(Math.round).reduce(gcd);
+      return { rate: g / q, q };                            // in units of the lowest partial's frequency
+    }
+  }
+  return null;
+}
+
+// one strike as samples: every partial a pole at radius 2 pi f, turned theta off the axis
+function render(partials, f1, thetaDeg, sr, maxDur = 4.0) {
+  const th = thetaDeg * Math.PI / 180, ct = Math.cos(th), st = Math.sin(th);
+  const w1 = 2 * Math.PI * f1;
+  const ring = st > 0 ? Math.log(1e4) / (w1 * st) : Infinity;   // lowest partial down 80 dB
+  const dur = Math.min(maxDur, ring + 0.02);
+  const len = Math.max(1, Math.floor(dur * sr));
+  const y = new Float64Array(len);
+  for (const p of partials) {
+    const w = w1 * p.ratio, f = w * ct / (2 * Math.PI);
+    if (f >= 0.45 * sr) continue;
+    const sig = w * st;
+    const n = sig > 0 ? Math.min(len, Math.ceil(Math.log(1e4) / sig * sr)) : len;
+    const decay = Math.exp(-sig / sr), rr = decay * Math.cos(w * ct / sr), ri = decay * Math.sin(w * ct / sr);
+    let re = p.a, im = 0;
+    for (let i = 0; i < n; i++) { y[i] += re; const t = re * rr - im * ri; im = re * ri + im * rr; re = t; }
+  }
+  const a = Math.floor(0.002 * sr);
+  for (let i = 0; i < a && i < len; i++) y[i] *= i / a;
+  if (dur < ring) { const r = Math.min(len, Math.floor(0.8 * sr)); for (let i = 0; i < r; i++) y[len - 1 - i] *= i / r; }
+  return y;
+}
+if (typeof module !== 'undefined') module.exports = { besselJ, modeList, kernel, build, repeats, render, JZ };
+</script>
+<script>
+// ======================================================================
+// the page
+// ======================================================================
+const $ = id => document.getElementById(id);
+const GOLD = '#e8b84a', BLUE = '#4a8fff', GREY = '#4a4a5e', FG3 = '#8a8aa0';
+const DEFAULTS = {                   // drum.py's strike and pickup points
+  line:   { S: 0.23, P: 0.37 },
+  square: { S: [0.23, 0.31], P: [0.37, 0.71] },
+  disk:   { S: [0.42, 0.3], P: [0.63, 2.2] },
+};
+const st = { eq: 'wave', shape: 'square', place: 'strike', theta: 0.03, sigma: 0.25,
+             S: { ...DEFAULTS }, cur: null };
+for (const k in DEFAULTS) st.S[k] = { S: structuredClone(DEFAULTS[k].S), P: structuredClone(DEFAULTS[k].P) };
+
+// theta slider: 0 is exactly Schrödinger; otherwise logarithmic from 0.001 deg to about 3.2 deg
+const sliderToTheta = v => v <= 0 ? 0 : Math.pow(10, -3 + 3.5 * v / 1000);
+const thetaToSlider = t => t <= 0 ? 0 : Math.round((Math.log10(t) + 3) / 3.5 * 1000);
+
+function fit(c) { const r = c.getBoundingClientRect(), s = devicePixelRatio || 1; c.width = r.width * s; c.height = r.height * s; const x = c.getContext('2d'); x.setTransform(s, 0, 0, s, 0, 0); return [x, r.width, r.height]; }
+
+function setSeg(id, v) { [...$(id).children].forEach(b => b.classList.toggle('on', b.dataset.v === v)); }
+
+function recompute() {
+  const sp = st.S[st.shape];
+  st.cur = build(st.shape, st.eq, sp.S, sp.P, st.sigma);
+  prepVis();
+  drawSpec(); readouts();
+}
+
+// ---------------- the ladder ----------------
+function drawSpec() {
+  const [x, w, h] = fit($('spec'));
+  const lo = Math.log2(0.85), hi = Math.log2(st.eq === 'wave' ? 20 : 90);
+  const X = r => 34 + (Math.log2(r) - lo) / (hi - lo) * (w - 48);
+  x.clearRect(0, 0, w, h);
+  x.lineWidth = 1; x.strokeStyle = GREY; x.globalAlpha = 0.5;
+  for (let r = 1; r <= (st.eq === 'wave' ? 20 : 90); r++) { x.beginPath(); x.moveTo(X(r), 10); x.lineTo(X(r), h - 24); x.stroke(); }
+  x.globalAlpha = 1;
+  const ps = st.cur.partials, amax = Math.max(...ps.map(p => Math.abs(p.a)));
+  x.strokeStyle = GOLD; x.lineWidth = 2;
+  ps.forEach(p => {
+    const db = 20 * Math.log10(Math.abs(p.a) / amax);
+    if (db < -60 || p.ratio > (st.eq === 'wave' ? 20 : 90)) return;
+    const len = (1 + db / 60) * (h - 40);
+    x.beginPath(); x.moveTo(X(p.ratio), h - 24); x.lineTo(X(p.ratio), h - 24 - Math.max(2, len)); x.stroke();
+  });
+  x.fillStyle = FG3; x.font = '11px JetBrains Mono, monospace';
+  (st.eq === 'wave' ? [1, 2, 3, 4, 6, 8, 12, 16] : [1, 2, 4, 9, 16, 25, 49, 81]).forEach(r => x.fillText(String(r), X(r) - 3, h - 8));
+  x.textAlign = 'right'; x.fillText('stem height: 0 to −60 dB', w - 8, 20); x.textAlign = 'left';
+}
+
+function readouts() {
+  const th = st.theta, z = Math.sin(th * Math.PI / 180);
+  const t60 = z > 0 ? Math.log(1000) / (2 * Math.PI * F1 * z) : Infinity;
+  $('thetaOut').textContent = th === 0 ? 'θ = 0° · rings forever' :
+    `θ = ${th < 0.01 ? th.toFixed(4) : th < 0.1 ? th.toFixed(3) : th.toFixed(2)}° · damping ${z.toPrecision(2)} · A3 rings ${t60 >= 1 ? t60.toFixed(1) + ' s' : (t60 * 1000).toFixed(0) + ' ms'}`;
+  $('malletOut').textContent = `felt width ${st.sigma.toFixed(2)} · ${st.sigma < 0.1 ? 'hard' : st.sigma > 0.4 ? 'very soft' : 'felt'}`;
+  const amax = Math.max(...st.cur.partials.map(p => Math.abs(p.a)));
+  const aud = st.cur.partials.filter(p => Math.abs(p.a) >= 1e-3 * amax);
+  const rep = repeats(st.cur.partials);
+  const name = { 'wave line': 'a string', 'schr line': 'the box (a line)', 'wave square': 'a square drum', 'schr square': 'a square box',
+                 'wave disk': 'a round drum', 'schr disk': 'a round box' }[st.eq + ' ' + st.shape];
+  const repTxt = rep ? `<b>repeats ${(F1 * rep.rate).toFixed(1)} times a second</b>${rep.rate < 1 ? ', below its own lowest partial' : ''}` : '<b>never repeats</b> (no whole-number ladder)';
+  $('ratios').innerHTML = `${name} · ${aud.length} audible partials · ${repTxt}<br>partials ÷ the lowest: ` +
+    aud.slice(0, 9).map(p => p.ratio.toFixed(p.ratio < 10 ? 3 : 2)).join(' · ');
+  $('surfTitle').textContent = `The surface of ${name} · click to ${st.place === 'strike' ? 'strike' : 'move the pickup'} · gold ● strike · blue ◆ pickup`;
+}
+
+// ---------------- the moving surface ----------------
+const G = 72, VIS_F = 0.5, VIS_MAX = 24;   // grid, lowest partial's visual frequency (Hz), fastest partial drawn
+let vis = null, t0 = performance.now();
+const NR = 400, RAD = new Map();
+function radial(md) {
+  const key = md.m + ':' + md.n;
+  if (!RAD.has(key)) { const T = new Float32Array(NR); for (let i = 0; i < NR; i++) T[i] = besselJ(md.m, md.k * i / (NR - 1)); RAD.set(key, T); }
+  return RAD.get(key);
+}
+function pt(shape, i, j) {         // grid cell -> shape coordinates (null outside)
+  const u = (i + 0.5) / G, v = (j + 0.5) / G;
+  if (shape === 'square') return [u, 1 - v];
+  const X = 2 * u - 1, Y = 1 - 2 * v, r = Math.hypot(X, Y);
+  return r <= 1 ? [r, Math.atan2(Y, X)] : null;
+}
+function prepVis() {
+  const shape = st.shape, S = st.S[shape].S;
+  const lst = st.cur.all.filter(p => p.ratio * VIS_F <= VIS_MAX).slice(0, 90);
+  if (shape === 'line') {
+    const NX = 240;
+    vis = { lst, B: lst.map(p => { const b = new Float32Array(NX); for (let i = 0; i < NX; i++) b[i] = p.g * kernel('line', p.md, S, i / (NX - 1)); return b; }), NX };
+  } else if (shape === 'square') {
+    vis = { lst, B: lst.map(p => { const b = new Float32Array(G * G); for (let i = 0; i < G; i++) for (let j = 0; j < G; j++) { const q = pt(shape, i, j); b[j * G + i] = p.g * kernel(shape, p.md, S, q); } return b; }) };
+  } else {
+    // the circle: J_m along the radius from a cached table, so a strike redraws at once
+    vis = { lst, B: lst.map(p => {
+      const md = p.md, T = radial(md), Js = besselJ(md.m, md.k * S[0]), b = new Float32Array(G * G);
+      for (let i = 0; i < G; i++) for (let j = 0; j < G; j++) {
+        const q = pt(shape, i, j);
+        if (!q) { b[j * G + i] = NaN; continue; }
+        const u = q[0] * (NR - 1), i0 = Math.min(NR - 2, Math.floor(u)), fr = u - i0;
+        b[j * G + i] = p.g * Js * (T[i0] * (1 - fr) + T[i0 + 1] * fr) * Math.cos(md.m * (q[1] - S[1])) / md.norm2;
+      }
+      return b; }) };
+  }
+  // normalise to the field's size at the moment of the strike
+  const n = vis.B[0] ? vis.B[0].length : 0, sum = new Float32Array(n);
+  vis.B.forEach(b => { for (let i = 0; i < n; i++) sum[i] += b[i]; });
+  vis.scale = 1 / (Math.max(...sum.filter(v => !isNaN(v)).map(Math.abs)) || 1);
+  t0 = performance.now();
+}
+function field(tau) {
+  const th = st.theta * Math.PI / 180, ct = Math.cos(th), sn = Math.sin(th);
+  const n = vis.B[0] ? vis.B[0].length : 0, out = new Float32Array(n);
+  vis.lst.forEach((p, k) => {
+    const w = 2 * Math.PI * VIS_F * p.ratio, c = Math.cos(w * ct * tau) * Math.exp(-w * sn * tau * 60);   // decay shown 60x faster than the pitch, or nothing would move
+    const b = vis.B[k];
+    for (let i = 0; i < n; i++) out[i] += c * b[i];
+  });
+  return out;
+}
+let OFF = null;
+function drawSurface() {
+  const cv = $('surface'), [x, w, h] = fit(cv);
+  const tau = (performance.now() - t0) / 1000;
+  const f = vis ? field(tau) : null, sc = vis ? vis.scale : 1;
+  x.clearRect(0, 0, w, h);
+  const side = Math.min(w, h) - 20, ox = (w - side) / 2, oy = (h - side) / 2;
+  const sp = st.S[st.shape];
+  if (st.shape === 'line') {
+    const y0 = h / 2;
+    x.strokeStyle = GREY; x.beginPath(); x.moveTo(10, y0); x.lineTo(w - 10, y0); x.stroke();
+    x.strokeStyle = GOLD; x.lineWidth = 2; x.beginPath();
+    for (let i = 0; i < vis.NX; i++) { const px = 10 + i / (vis.NX - 1) * (w - 20), py = y0 - f[i] * sc * h * 0.38; i ? x.lineTo(px, py) : x.moveTo(px, py); }
+    x.stroke();
+    x.fillStyle = FG3; [0, 1].forEach(e => x.fillRect(10 + e * (w - 20) - 2, y0 - 30, 4, 60));
+    mark(x, 10 + sp.S * (w - 20), y0 + 50, 'strike'); mark(x, 10 + sp.P * (w - 20), y0 + 50, 'pickup');
+    return;
+  }
+  const off = OFF || (OFF = Object.assign(document.createElement('canvas'), { width: G, height: G }));
+  const oc = off.getContext('2d'), id = oc.createImageData(G, G);
+  for (let i = 0; i < G * G; i++) {
+    const v = f[i] * sc;
+    if (isNaN(v)) { id.data[4 * i + 3] = 0; continue; }
+    const a = Math.min(1, Math.abs(v)) ** 0.7;
+    const [r, g, b] = v > 0 ? [232, 184, 74] : [74, 143, 255];
+    id.data[4 * i] = 18 + (r - 18) * a; id.data[4 * i + 1] = 18 + (g - 18) * a; id.data[4 * i + 2] = 26 + (b - 26) * a; id.data[4 * i + 3] = 255;
+  }
+  oc.putImageData(id, 0, 0);
+  x.imageSmoothingEnabled = true; x.drawImage(off, ox, oy, side, side);
+  const toXY = q => st.shape === 'square' ? [ox + q[0] * side, oy + (1 - q[1]) * side]
+                                          : [ox + (1 + q[0] * Math.cos(q[1])) / 2 * side, oy + (1 - q[0] * Math.sin(q[1])) / 2 * side];
+  x.strokeStyle = GREY; x.lineWidth = 1.5;
+  if (st.shape === 'square') x.strokeRect(ox, oy, side, side); else { x.beginPath(); x.arc(ox + side / 2, oy + side / 2, side / 2, 0, 2 * Math.PI); x.stroke(); }
+  mark(x, ...toXY(sp.S), 'strike'); mark(x, ...toXY(sp.P), 'pickup');
+}
+function mark(x, px, py, kind) {
+  x.fillStyle = kind === 'strike' ? GOLD : BLUE; x.strokeStyle = '#0a0a0f'; x.lineWidth = 2;
+  x.beginPath();
+  if (kind === 'strike') x.arc(px, py, 6, 0, 2 * Math.PI); else { x.moveTo(px, py - 7); x.lineTo(px + 7, py); x.lineTo(px, py + 7); x.lineTo(px - 7, py); x.closePath(); }
+  x.stroke(); x.fill();
+}
+function loop() { if (vis) drawSurface(); requestAnimationFrame(loop); }
+
+$('surface').addEventListener('click', ev => {
+  const r = $('surface').getBoundingClientRect(), w = r.width, h = r.height;
+  const px = ev.clientX - r.left, py = ev.clientY - r.top;
+  const sp = st.S[st.shape];
+  let q;
+  if (st.shape === 'line') { const u = (px - 10) / (w - 20); if (u <= 0.005 || u >= 0.995) return; q = u; }
+  else {
+    const side = Math.min(w, h) - 20, ox = (w - side) / 2, oy = (h - side) / 2;
+    const u = (px - ox) / side, v = (py - oy) / side;
+    if (st.shape === 'square') { if (u <= 0.005 || u >= 0.995 || v <= 0.005 || v >= 0.995) return; q = [u, 1 - v]; }
+    else { const X = 2 * u - 1, Y = 1 - 2 * v, rr = Math.hypot(X, Y); if (rr >= 0.995) return; q = [rr < 0.02 ? 0 : rr, Math.atan2(Y, X)]; }
+  }
+  if (st.place === 'strike') sp.S = q; else sp.P = q;
+  recompute();
+  if (st.place === 'strike') play(0);
+});
+
+// ---------------- sound ----------------
+let ctx = null, master = null;
+const CACHE = new Map();
+const SCALE = [0, 2, 4, 5, 7, 9, 11, 12, 14];
+function play(semi) {
+  if (!ctx) { ctx = new (window.AudioContext || window.webkitAudioContext)(); master = ctx.createGain(); master.gain.value = 0.9; master.connect(ctx.destination); }
+  ctx.resume();
+  const f1 = F1 * Math.pow(2, semi / 12);
+  const key = setting() + '|' + semi;
+  if (!CACHE.has(key)) { if (CACHE.size > 40) CACHE.clear(); CACHE.set(key, render(st.cur.partials, f1, st.theta, ctx.sampleRate)); }
+  const y = CACHE.get(key);
+  let pk = 0; for (let i = 0; i < y.length; i++) pk = Math.max(pk, Math.abs(y[i]));
+  const buf = ctx.createBuffer(1, y.length, ctx.sampleRate), d = buf.getChannelData(0);
+  for (let i = 0; i < y.length; i++) d[i] = 0.45 * y[i] / (pk || 1);
+  const src = ctx.createBufferSource(); src.buffer = buf; src.connect(master); src.start();
+  t0 = performance.now();
+}
+document.addEventListener('keydown', ev => {
+  if (ev.target.tagName === 'TEXTAREA' || ev.repeat) return;
+  if (ev.code === 'Space') { ev.preventDefault(); play(0); return; }
+  const i = 'asdfghjkl'.indexOf(ev.key.toLowerCase());
+  if (i >= 0) play(SCALE[i]);
+});
+$('strikeBtn').onclick = () => play(0);
+
+// ---------------- controls ----------------
+function bindSeg(id, key) {
+  $(id).addEventListener('click', ev => { const v = ev.target.dataset.v; if (!v) return; st[key] = v; setSeg(id, v); recompute(); });
+  setSeg(id, st[key]);
+}
+bindSeg('eqSeg', 'eq'); bindSeg('shapeSeg', 'shape'); bindSeg('placeSeg', 'place');
+$('placeSeg').addEventListener('click', readouts);
+$('theta').value = thetaToSlider(st.theta);
+$('theta').addEventListener('input', () => { st.theta = sliderToTheta(+$('theta').value); readouts(); t0 = performance.now(); });
+$('mallet').addEventListener('input', () => { st.sigma = +$('mallet').value; recompute(); });
+
+const PRESETS = [
+  ['string', 'wave', 'line', null], ['box (a line)', 'schr', 'line', null],
+  ['square drum', 'wave', 'square', null], ['square box', 'schr', 'square', null],
+  ['round drum', 'wave', 'disk', null], ['round box', 'schr', 'disk', null],
+  ['round drum, dead centre', 'wave', 'disk', [0, 0]],
+];
+PRESETS.forEach(([label, eq, shape, S]) => {
+  const b = document.createElement('button'); b.textContent = label;
+  b.onclick = () => {
+    st.eq = eq; st.shape = shape; st.theta = 0.03; st.sigma = 0.25;
+    st.S[shape] = { S: structuredClone(S || DEFAULTS[shape].S), P: structuredClone(DEFAULTS[shape].P) };
+    setSeg('eqSeg', eq); setSeg('shapeSeg', shape);
+    $('theta').value = thetaToSlider(0.03); $('mallet').value = 0.25;
+    recompute(); play(0);
+  };
+  $('presets').appendChild(b);
+});
+
+// ---------------- review notes ----------------
+const NOTES_KEY = 'qs-instrument-notes';
+let notes = JSON.parse(localStorage.getItem(NOTES_KEY) || '[]');
+const fmtPt = q => Array.isArray(q) ? '(' + q.map(v => v.toFixed(2)).join(', ') + ')' : q.toFixed(2);
+function setting() { const sp = st.S[st.shape]; return `${st.eq === 'wave' ? 'wave' : 'Schrödinger'} · ${st.shape === 'disk' ? 'circle' : st.shape} · θ ${st.theta.toPrecision(2)}° · mallet ${st.sigma.toFixed(2)} · strike ${fmtPt(sp.S)} · pickup ${fmtPt(sp.P)}`; }
+function drawNotes() {
+  $('noteList').innerHTML = notes.map(n => `<li><span>${n.where}</span>${n.text.replace(/</g, '&lt;')}</li>`).join('');
+  $('pins').innerHTML = notes.filter(n => n.theta !== undefined).map(n => `<span class="pin" style="left:${thetaToSlider(n.theta) / 10}%">◆</span>`).join('');
+}
+$('pinNote').onclick = () => { const t = $('noteText').value.trim(); if (!t) return; notes.push({ where: setting(), theta: st.theta, text: t }); localStorage.setItem(NOTES_KEY, JSON.stringify(notes)); $('noteText').value = ''; drawNotes(); };
+$('copyNotes').onclick = () => navigator.clipboard.writeText('Quantum Synthesizer instrument — notes\n' + notes.map(n => `- [${n.where}] ${n.text}`).join('\n'));
+$('clearNotes').onclick = () => { notes = []; localStorage.removeItem(NOTES_KEY); drawNotes(); };
+
+recompute(); drawNotes(); requestAnimationFrame(loop);
+addEventListener('resize', () => { drawSpec(); });
+</script>
+</body>
+</html>
