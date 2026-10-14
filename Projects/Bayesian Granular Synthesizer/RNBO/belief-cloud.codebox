@@ -1,0 +1,340 @@
+// =====================================================================
+// belief-cloud.codebox   (goes in a codebox~ inside the rnbo~)
+//
+// The believing cloud as RNBO codebox~. Same instrument as the board
+// page (belief-instrument.html) and its engine (bayes_engine.js):
+//
+//   belief(pitch) = [ doubt·prior(pitch) + Σ weight·Gaussian(pitch; note, width) ]
+//                   / (doubt + Σ weight)
+//   cycles        = nMin · (nMax/nMin)^(closeness · weight · conviction)
+//   amplitude     ∝ sqrt(frequency / cycles)      every grain, equal energy
+//   onsets        Poisson at `rate` grains per second
+//   envelope      1 Hann cycle in, sustain, 1 Hann cycle out
+//
+// Each grain first picks the prior or a held note in proportion to their
+// weight, then draws a pitch inside that choice. A held note's width
+// narrows from 120 toward 5 cents (exponential, in log-cents); its weight
+// rises over 0.08 s and decays over 1.4 s after release. Grains near a
+// believed note grow long and pure; far ones stay short and clicky.
+//
+// THE NOTES arrive through a 128-slot table, not through params. A chord
+// lands as several note-ons in the same instant, and a @param only keeps
+// the last value it was set to before the next sample — so three notes
+// set as params would arrive as one. Instead the small event codebox
+// (notes-in.codebox) writes a press stamp per pitch into the shared
+// buffer `held` (0 = up, otherwise an ever-rising press count). This
+// codebox~ reads the table every 64 samples (1.3 ms at 48 kHz) and admits
+// new presses in the order they were played. Up to 16 notes are evidence
+// at once; more are ignored until one fades.
+//
+// ONE DIFFERENCE FROM THE BOARD ENGINE, on purpose: the board's random
+// generator uses 32-bit integer tricks (Math.imul, >>>) that codebox may
+// not have. Here it is the Park–Miller generator, s = s·48271 mod
+// (2³¹ − 1), whose product never leaves the exact range of a double. The
+// mirror hands the board engine this same generator before comparing.
+//
+// MIRROR: RNBO/codebox_mirror.mjs runs THIS FILE'S TEXT (and
+// notes-in.codebox) as JavaScript and holds it against bayes_engine.js,
+// sample by sample, through the same 42-second take as chord-belief.wav.
+// A match proves the arithmetic is the board instrument's. It does not
+// prove RNBO compiles it, its CPU cost in Live, or how it sounds in Max.
+// UNVERIFIED until opened in Max.
+//
+// UNVERIFIED SEAMS — the three lines most likely to need a fix in Max:
+//   1. `buffer("held")` / `buffer("prior")` and peek(buf, index):
+//      written from the codebox reference page; the palace has never
+//      compiled a codebox buffer read. If it errors, try
+//      peek("held", index, 0) as the 2D Torus codeboxes do.
+//   2. samplerate(): the reference writes it as a call; the rnbo-codebox
+//      skill writes it bare. If one fails, use the other (one line).
+//   3. `%` on doubles in rand(): the crowd codebox already relies on %.
+//
+// PATCHER WIRING REQUIRED (inside the rnbo~):
+//   [data held 128]                       the note table (shared by name)
+//   [data prior 630]                      optional painted prior, 630 bins
+//   [notein] pitch    → [notes-in codebox in1]   (hot)
+//   [notein] velocity → [notes-in codebox in2]   (cold; arrives first)
+//   [codebox~ out1] → [out~ 1]
+//   [codebox~ out2] → [out~ 2]
+//   [codebox~ out3] → [out~ 3] or a snapshot~: belief focus, 0–1
+// in1 is unused audio; it is referenced once so the object has an inlet.
+// RNBO/belief-cloud.maxpat (built by build_patch.mjs) is this wiring.
+// =====================================================================
+
+const LO = 33;          // MIDI A1
+const BINC = 10;        // cents per prior bin
+const NB = 630;         // bins, A1..C7
+const MAXN = 16;        // notes held as evidence at once
+const MAXV = 640;       // grain voices
+const TN = 4096;        // sine table size
+const CTL = 64;         // samples between belief updates
+
+// --- the belief ---
+@param({ min: 0.01, max: 4.0 })   doubt    = 0.25;  // prior weight against one fully believed note
+@param({ min: 0.005, max: 2.0 })  tauOn    = 0.08;  // s, a pressed note's weight rising
+@param({ min: 0.05, max: 10.0 })  tauOff   = 1.4;   // s, a released note's weight falling
+@param({ min: 0.05, max: 10.0 })  tauFocus = 1.6;   // s, a held note's width narrowing
+@param({ min: 0.05, max: 10.0 })  tauBlur  = 0.7;   // s, a released note's width widening
+@param({ min: 10.0, max: 600.0 }) sigWide  = 120.0; // cents, a new note's width
+@param({ min: 1.0, max: 100.0 })  sigFloor = 5.0;   // cents, full conviction
+@param({ min: 0, max: 2 })        priorShape = 0;   // 0 flat · 1 A-minor-pentatonic hills · 2 the `prior` buffer
+@param({ min: 0, max: 1 })        priorRead = 0;    // flip to re-read the `prior` buffer after painting it
+
+// --- the grains ---
+@param({ min: 5.0, max: 200.0 })  near     = 35.0;  // cents, how close counts as near a note
+@param({ min: 1.0, max: 32.0 })   nMin     = 4.0;   // cycles, far from any note
+@param({ min: 8.0, max: 512.0 })  nMax     = 128.0; // cycles, on a fully believed note
+@param({ min: 10.0, max: 600.0 }) rate     = 160.0; // grains per second
+@param({ min: 0.0, max: 1.0 })    spread   = 0.7;   // stereo
+@param({ min: 0.0, max: 2.0 })    vol      = 0.8;
+
+// --- shared tables ---
+@state held  = buffer("held");
+@state paint = buffer("prior");
+
+// --- state ---
+@state tab  = new FixedFloat64Array(4097);
+@state prior = new FixedFloat64Array(630);
+@state cdf  = new FixedFloat64Array(630);
+@state priorSum = 0.0;
+@state builtShape = -1;
+@state builtRead = -1;
+@state nM = new FixedFloat64Array(16);   // the notes, in the order first pressed
+@state nW = new FixedFloat64Array(16);   // weight
+@state nS = new FixedFloat64Array(16);   // width, cents
+@state nH = new FixedFloat64Array(16);   // held?
+@state nN = 0;
+@state lastStamp = 0;
+@state vPh  = new FixedFloat64Array(640);
+@state vInc = new FixedFloat64Array(640);
+@state vPos = new FixedFloat64Array(640);
+@state vLen = new FixedFloat64Array(640);
+@state vFade = new FixedFloat64Array(640);
+@state vAmp = new FixedFloat64Array(640);
+@state vL   = new FixedFloat64Array(640);
+@state vR   = new FixedFloat64Array(640);
+@state nv = 0;
+@state nextOn = 0.0;
+@state ctl = 0;
+@state seed = 12345;
+@state ready = 0;
+@state focus = 0.0;
+
+function rand() {                       // Park–Miller, exact in doubles
+    seed = (seed * 48271) % 2147483647;
+    return seed / 2147483647;
+}
+function gauss() {
+    let u = rand();
+    return sqrt(-2.0 * log(u)) * cos(2.0 * PI * rand());
+}
+function softclip(x) {                  // tanh, written out
+    let e = exp(-2.0 * abs(x));
+    let t = (1.0 - e) / (1.0 + e);
+    return x < 0.0 ? -t : t;
+}
+function binMidi(i) {
+    return LO + (i + 0.5) * BINC / 100.0;
+}
+function setup() {
+    for (let i = 0; i <= TN; i++) tab[i] = sin(2.0 * PI * i / TN);
+    ready = 1;
+}
+
+// ---- the prior
+function buildPrior() {
+    for (let i = 0; i < NB; i++) {
+        let v = 1.0;
+        if (priorShape > 1.5) {
+            v = max(0.0, peek(paint, i));
+        } else if (priorShape > 0.5) {  // A C D E G hills, 40 cents wide, on a low floor
+            let m = binMidi(i);
+            v = 0.04;
+            for (let oct = 1; oct < 9; oct++) {
+                for (let k = 0; k < 5; k++) {
+                    let pc = k == 0 ? 9 : (k == 1 ? 0 : (k == 2 ? 2 : (k == 3 ? 4 : 7)));
+                    let d = (m - (12 * oct + pc)) / 0.4;
+                    v += exp(-0.5 * d * d);
+                }
+            }
+        }
+        prior[i] = v;
+    }
+    let a = 0.0;
+    for (let i = 0; i < NB; i++) { a += prior[i]; cdf[i] = a; }
+    priorSum = a;
+    builtShape = priorShape;
+    builtRead = priorRead;
+}
+
+// ---- the notes
+function findNote(m) {
+    let at = -1;
+    for (let k = 0; k < nN; k++) { if (nM[k] == m) at = k; }
+    return at;
+}
+function noteOn(m) {
+    let k = findNote(m);
+    if (k >= 0) { nH[k] = 1; }
+    else if (nN < MAXN) { nM[nN] = m; nW[nN] = 0.0; nS[nN] = sigWide; nH[nN] = 1; nN += 1; }
+}
+function dropNote(k) {                  // keep the order of the rest
+    for (let j = k; j < nN - 1; j++) { nM[j] = nM[j + 1]; nW[j] = nW[j + 1]; nS[j] = nS[j + 1]; nH[j] = nH[j + 1]; }
+    nN -= 1;
+}
+function scanNotes() {
+    for (let k = 0; k < nN; k++) {      // releases
+        if (nH[k] > 0.5 && peek(held, nM[k]) <= 0.0) nH[k] = 0;
+    }
+    let more = 1;
+    while (more > 0) {                  // presses since last look, oldest first
+        let best = -1; let bestStamp = 0.0;
+        for (let m = 0; m < 128; m++) {
+            let st = peek(held, m);
+            if (st > lastStamp && (best < 0 || st < bestStamp)) { best = m; bestStamp = st; }
+        }
+        if (best < 0) { more = 0; }
+        else { noteOn(best); lastStamp = bestStamp; }
+    }
+}
+function conviction(k) {
+    return clamp((log(sigWide) - log(nS[k])) / (log(sigWide) - log(sigFloor)), 0.0, 1.0);
+}
+function evolve(dt) {
+    let kOn = 1.0 - exp(-dt / tauOn);
+    let dOff = exp(-dt / tauOff);
+    let kF = 1.0 - exp(-dt / tauFocus);
+    let kB = 1.0 - exp(-dt / tauBlur);
+    let lw = log(sigWide);
+    let lf = log(sigFloor);
+    let k = 0;
+    let sumW = 0.0;
+    while (k < nN) {
+        let ls = log(nS[k]);
+        let gone = 0;
+        if (nH[k] > 0.5) { nW[k] += (1.0 - nW[k]) * kOn; ls += (lf - ls) * kF; }
+        else { nW[k] *= dOff; ls += (lw - ls) * kB; if (nW[k] < 0.001) gone = 1; }
+        if (gone > 0) { dropNote(k); }
+        else { nS[k] = exp(ls); sumW += nW[k]; k += 1; }
+    }
+    focus = sumW / (doubt + sumW);
+}
+
+// ---- one grain (no early returns or breaks: flags instead, so nothing
+// rests on how codebox treats a bare `return;`)
+function spawn(sr) {
+    let Z = doubt;
+    for (let k = 0; k < nN; k++) Z += nW[k];
+    let u = rand() * Z;
+    let midi = 0.0;
+    let ok = 1;
+    if (u < doubt || nN == 0) {
+        if (priorSum <= 0.0) {
+            ok = 0;
+        } else {
+            let t = rand() * priorSum;
+            let a = 0; let b = NB - 1;
+            while (a < b) { let c = floor((a + b) / 2); if (cdf[c] < t) a = c + 1; else b = c; }
+            midi = LO + (a + rand()) * BINC / 100.0;
+        }
+    } else {
+        u -= doubt;
+        let pk = nN - 1;
+        let found = 0;
+        for (let k = 0; k < nN; k++) {
+            if (found == 0) {
+                if (u < nW[k]) { pk = k; found = 1; } else { u -= nW[k]; }
+            }
+        }
+        midi = nM[pk] + gauss() * nS[pk] / 100.0;
+    }
+    let f = 440.0 * pow(2.0, (midi - 69.0) / 12.0);
+    if (ok > 0 && nv < MAXV && f <= sr * 0.45) {
+        let best = 0.0;                 // nearest believed note → length
+        for (let k = 0; k < nN; k++) {
+            let d = (midi - nM[k]) * 100.0 / near;
+            let g = exp(-0.5 * d * d) * nW[k] * conviction(k);
+            if (g > best) best = g;
+        }
+        let cycles = nMin * pow(nMax / nMin, best);
+        let cyc = sr / f;
+        let v = nv;
+        nv += 1;
+        vPh[v] = rand(); vInc[v] = f / sr; vPos[v] = 0;
+        vFade[v] = max(2, floor(cyc + 0.5));
+        vLen[v] = floor(cyc * (cycles + 2.0) + 0.5);
+        vAmp[v] = sqrt(0.06 / rate) * sqrt(f / (cycles + 1.0));
+        let p = 0.5 + spread * (rand() - 0.5);
+        vL[v] = cos(p * PI / 2.0); vR[v] = sin(p * PI / 2.0);
+    }
+}
+
+// ---------------------------------------------------------------- tick
+let sr = samplerate();
+if (ready == 0) setup();
+if (ctl <= 0) {
+    if (priorShape != builtShape || priorRead != builtRead) buildPrior();
+    scanNotes();
+    evolve(CTL / sr);
+    ctl = CTL;
+}
+
+let L = 0.0;
+let R = 0.0;
+let v = 0;
+while (v < nv) {
+    let pos = vPos[v];
+    if (pos < vLen[v]) {
+        let fd = vFade[v];
+        let len = vLen[v];
+        let e = 1.0;
+        if (pos < fd) e = 0.5 - 0.5 * cos(PI * pos / fd);
+        else if (pos > len - fd) e = 0.5 - 0.5 * cos(PI * (len - pos) / fd);
+        let ph = vPh[v];
+        let x = ph * TN;
+        let j = floor(x);
+        let s = tab[j] + (tab[j + 1] - tab[j]) * (x - j);
+        ph += vInc[v];
+        if (ph >= 1.0) ph -= 1.0;
+        vPh[v] = ph;
+        vPos[v] = pos + 1;
+        let a = vAmp[v] * s * e;
+        L += a * vL[v];
+        R += a * vR[v];
+    }
+    if (vPos[v] >= vLen[v]) {           // retire: the last voice takes this slot
+        let w = nv - 1;
+        vPh[v] = vPh[w]; vInc[v] = vInc[w]; vPos[v] = vPos[w]; vLen[v] = vLen[w];
+        vFade[v] = vFade[w]; vAmp[v] = vAmp[w]; vL[v] = vL[w]; vR[v] = vR[w];
+        nv = w;
+    } else {
+        v += 1;
+    }
+}
+
+ctl -= 1;
+nextOn -= 1.0;
+while (nextOn <= 0.0) {
+    spawn(sr);
+    let u = rand();
+    if (u < 0.000000000001) u = 0.000000000001;
+    nextOn += -log(u) / rate * sr;
+}
+
+out1 = softclip(L * vol) + in1 * 0.0;
+out2 = softclip(R * vol);
+out3 = focus;
+
+// =====================================================================
+// AUDITION ORDER (once it compiles):
+//   1. Nothing held: a flat, clicky scatter across the whole range.
+//   2. Hold C E G and keep holding. Over two or three seconds the clicks
+//      condense into the chord; out3 climbs from 0 toward 0.92.
+//   3. Let go of G and press A. C and E stay sharp; A has to earn it.
+//   4. Let go of everything: the chord blurs and drains back to clicks
+//      over a couple of seconds.
+//   5. priorShape 1: the scatter now lands on A-minor-pentatonic pitches,
+//      still clicky. Hold low A and E over it.
+//   6. Put it next to chord-belief.wav and codebox-take.wav — the second
+//      is this file's own output, rendered through the mirror.
+// =====================================================================

@@ -15,20 +15,20 @@ forward_vector: "I am Bayesian Granular Synthesizer's scroll — the one page th
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T11:17:36.464Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T11:22:51.387Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 1 · last ran 2026-10-14 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 2 · last ran 2026-10-14 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — Adopt a five-step path from today's rebuilt cloud to an RNBO instrument on the Loudon Live stage? (`bgs-steward-003`)
-- **Last commit touching this project:** 2026-09-26 `5b8a1564` — ops(frontmatter): strip retired activation_count/last_activated from 244 entries — v1.26
+- **Last shipped:** 2026-10-14 (today) — The believing cloud now exists as RNBO code and a ready-wired Max patch, and it matches the board instrument sample for sample. (`bgs-steward-005`)
+- **Last commit touching this project:** 2026-10-14 `88ec5d84` — steward(Bayesian Granular Synthesizer): cycle 1 — SPINNING UP. HOME: [Bayesian Granular Synthesizer](obsidian://open?vaul…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Bayesian Granular Synthesizer is a grain cloud where the notes you hold are evidence. With nothing held, grains draw their pitch from a flat prior and come out short and clicky. Each held note adds a bump that narrows to about ±5 cents the longer you hold it. Grains landing near a believed note grow long and pure, so the cloud condenses from scatter into tone. In May you tuned it by ear across eight renders and called V7 and V8 good, but that code stayed in the chat and never reached the palace. This first cycle rebuilds the engine from the entry's written spec as one JavaScript file. That file drives both a playable page with a paintable prior and an offline 42-second take, which comes wit…
+Bayesian Granular Synthesizer is a grain cloud where the notes you hold are evidence. With nothing held, grains draw their pitch from a flat prior and come out short and clicky. Each held note adds a bump that narrows to about ±5 cents the longer you hold it. Grains landing near a believed note grow long and pure, so the cloud condenses from scatter into tone. Earlier today I rebuilt the engine from the entry's spec as one JavaScript file, with a playable page and a 42-second take. This cycle carries that engine into RNBO: a grain-cloud codebox~, a small codebox that turns MIDI into a shared note table, and a Max patch with both already wired. Run as JavaScript, the codebox matches the boar…
 
 ### Open asks
 
@@ -59,6 +59,46 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="bgs-steward-005" -->
+### 2026-10-14 — cycle 2 — The believing cloud now exists as RNBO code and a ready-wired Max patch, and it matches the board instrument sample for sample.
+> shipped · RNBO port mirrored to −139 dB, not yet opened in Max · steward leans painted-prior next
+
+WHAT I MADE. belief-cloud.codebox is the whole cloud in one codebox~. It has Poisson grain onsets, a 640-voice pool, up to 16 held notes as evidence, the prior (flat, A-minor-pentatonic hills, or a painted 630-bin table), and the same length and equal-energy rules as the page. Its 15 knobs (doubt, time to conviction, letting go, grain rate, longest grain…) become automatable parameters. out3 reports how focused the belief is, from 0 to about 0.92.
+
+THE ONE REAL DESIGN CALL: notes come in through a table, not through parameters. A chord arrives as three note-ons in the same instant, and a parameter only keeps its last value before the next sample, so C E G sent as parameters would arrive as just G. So notes-in.codebox stamps each press into a 128-slot table called `held`. The grain codebox~ reads it every 64 samples and admits new notes in the order they were played. That order matters because it decides which grains go to which note.
+
+THE PROOF. codebox_mirror.mjs runs both codebox files' own text as JavaScript, the way the Neural Granular Synthesis crowd was checked. It drives them through the chord-belief take: flat prior, then C E G, then A minor, release, the painted prior, and low A + E. It compares them with bayes_engine.js sample by sample. They agree to 2.4e−7, the float32 floor, which puts the difference 139 dB under the signal. As a control I changed the random seed by one, and the outputs split apart at sample 2, so the match isn't trivially true. The board engine was handed the codebox's random generator first (Park–Miller in place of 32-bit integer tricks codebox may not have). codebox-take.wav is the codebox's own 42-second output. It is the same instrument as chord-belief.wav but a different roll of the dice, so the grains differ and the shape doesn't.
+
+THE PATCH. belief-cloud.maxpat is built by build_patch.mjs in the box format the Action Potential Oscillator patch copied from the RNBO 1.4 help files. It has a polyphonic keyboard and midiin into the rnbo~, three prior buttons, five knobs, a quiet dac and a belief-focus meter. To demo it: open it, turn on the dac, click C E G on the keyboard and keep holding. The clicks should condense into the chord in two or three seconds, and the meter should climb toward 0.92.
+
+PASSED OVER. 128 per-pitch gate parameters would avoid the table, but they would also clutter the device with 128 automation lanes. Sending a chord as parameters would lose all but one note of every chord. I passed over both.
+
+**Artifacts:**
+- [The codebox's own 42-second take: flat prior → C E G → A minor → release → painted prior → low A + E.](Projects/Bayesian Granular Synthesizer/RNBO/codebox-take.wav)
+- [Open in Max: keyboard, midiin, prior buttons, knobs, belief meter, the rnbo~ already wired. Unopened.](Projects/Bayesian Granular Synthesizer/RNBO/belief-cloud.maxpat)
+- [The grain cloud as codebox~, with its wiring and the three unverified seams written at the top.](Projects/Bayesian Granular Synthesizer/RNBO/belief-cloud.codebox)
+- [Event codebox that turns MIDI into the press-stamped `held` table.](Projects/Bayesian Granular Synthesizer/RNBO/notes-in.codebox)
+- [Runs both codeboxes as JavaScript against bayes_engine.js and writes the take.](Projects/Bayesian Granular Synthesizer/RNBO/codebox_mirror.mjs)
+- [The match numbers and a belief-focus trace through the take.](Projects/Bayesian Granular Synthesizer/RNBO/codebox_mirror_report.json)
+- [Builds the Max patch from the two codebox files.](Projects/Bayesian Granular Synthesizer/RNBO/build_patch.mjs)
+
+_codebox vs board engine, 42-second chord-belief take at 48 kHz (codebox_mirror_report.json)_
+| check | result |
+| --- | --- |
+| largest sample difference | 2.4e−7 (float32 floor) |
+| difference vs signal, L / R | −139.0 / −139.1 dB |
+| first sample off by more than 1e−5 | none |
+| control: seed changed by one | splits at sample 2, 2.7 dB |
+| belief focus: nothing held / C E G settled / after release / low A+E | 0.00 / 0.92 / 0.04 / 0.89 |
+| most voices at once | 146 |
+| codebox cost as JavaScript in node | 0.025× realtime |
+
+_Left rough:_ I can't open Max, so none of this has compiled. Three lines are the likely fixes, and all are written at the top of the codebox: how codebox names a shared buffer and reads it (no palace codebox has compiled a buffer read yet), whether poke takes index-then-value, and samplerate() versus samplerate. The mirror checks the arithmetic and the note ordering, not RNBO.
+
+_Next moves named:_ When you have ten minutes in Max: open RNBO/belief-cloud.maxpat, hold C E G, and tell me what the compiler says. Any error is a one-line fix I'll log as a gotcha for the RNBO codebox smith. · Meanwhile, the painted prior as a real control: a drawable 630-bin table in the patch and an A/B render of letting the prior's own peaks lengthen grains, so a composed resting cloud can sound tonal before any note is held.
+<sub>`bgs-steward-005` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="bgs-steward-003" -->
 ### 2026-10-14 — cycle 1 — Adopt a five-step path from today's rebuilt cloud to an RNBO instrument on the Loudon Live stage?
 > still working · engine rebuilt and playable · steward leans adopt

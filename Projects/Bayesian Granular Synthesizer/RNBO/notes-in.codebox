@@ -1,0 +1,33 @@
+// =====================================================================
+// notes-in.codebox   (goes in an event-rate codebox — no tilde — inside
+// the rnbo~, beside belief-cloud.codebox)
+//
+// Turns MIDI notes into the shared `held` table that the grain cloud
+// reads. Each pitch's slot holds 0 while the key is up, or a press stamp
+// (1, 2, 3, … counting every press) while it is down. The stamps let the
+// cloud admit a chord's notes in the order they were played even though
+// they land in the same instant.
+//
+// in1 = pitch (hot, the leftmost inlet), in2 = velocity (cold). [notein]
+// sends velocity before pitch (right to left), so in2 is already set when
+// in1 fires. A note-on with velocity 0 counts as a release.
+//
+// UNVERIFIED: the poke argument order. The codebox reference shows
+// poke(buf, index, value); if the table fills with nonsense, swap to
+// poke(buf, value, index) — the gen order — in the two lines below.
+//
+// PATCHER WIRING REQUIRED: [data held 128]; [notein] outlet 0 → in1,
+// outlet 1 → in2. out1 echoes the stamp for a [print] while debugging.
+// =====================================================================
+
+@state held = buffer("held");
+@state count = 0;
+
+let pitch = floor(clamp(in1, 0, 127));
+let stamp = 0;
+if (in2 > 0) {
+    count += 1;
+    stamp = count;
+}
+poke(held, pitch, stamp);
+out1 = stamp;
