@@ -6,7 +6,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   normalize, bodyBlocks, findNear, validatePlacement, foldLedger, parseLedger, newId,
-  fidelityGlyph, fidelityLabel, STATUSES, decisionLine, validateDecision, ledgerHeader, statusLabel,
+  fidelityGlyph, fidelityLabel, STATUSES, MODES, decisionLine, validateDecision, ledgerHeader, statusLabel,
 } from '../../../../quotes/schema.mjs';
 
 const BODY = `# Kuramoto Coupling
@@ -106,6 +106,18 @@ describe('validatePlacement', () => {
     expect(v.errors.join(' ')).toMatch(/fidelity/);
     expect(v.errors.join(' ')).toMatch(/checked/);
     expect(v.errors.join(' ')).toMatch(/why/);
+  });
+  it('knows the two ways a voice is found, and holds a new voice to a web check with its source kept', () => {
+    expect(MODES).toEqual(['open', 'roster']);
+    expect(validatePlacement({ ...GOOD, mode: 'sideways' }, { targetBody: BODY }).errors.join(' ')).toMatch(/mode/);
+    expect(validatePlacement({ ...GOOD, mode: 'open' }, { targetBody: BODY }).ok).toBe(true);
+    const unverified = validatePlacement({ ...GOOD, new_voice: true, checked: 'recalled' }, { targetBody: BODY });
+    expect(unverified.ok).toBe(false);
+    expect(unverified.errors.join(' ')).toMatch(/checked on the web/);
+    expect(unverified.errors.join(' ')).toMatch(/source\.url/);
+    const withUrl = validatePlacement({ ...GOOD, new_voice: true, checked: 'web', source: { ...GOOD.source, url: 'https://example.org/ethics' } }, { targetBody: BODY });
+    expect(withUrl.ok).toBe(true);
+    expect(validatePlacement({ ...GOOD, source: { ...GOOD.source, url: 'not a link' } }, { targetBody: BODY }).errors.join(' ')).toMatch(/source\.url/);
   });
   it('warns, without refusing, on a verbatim quote from memory and a translation without a translator', () => {
     const v = validatePlacement({ ...GOOD, fidelity: 'verbatim', checked: 'recalled' }, { targetBody: BODY });

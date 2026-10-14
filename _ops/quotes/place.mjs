@@ -6,6 +6,7 @@
 //   node _ops/quotes/place.mjs --keep <id> [--why "<note>"]       Loudon's yes (an elder, on his word)
 //   node _ops/quotes/place.mjs --retire <id> --why "<reason>"      take it down; --keep later revives it
 //   node _ops/quotes/place.mjs --list [--target "<Title>"] [--lens "<Title>"] [--awaiting]
+//   node _ops/quotes/place.mjs --voices            who has been quoted, how often, and which voices are new to the palace
 //   node _ops/quotes/place.mjs --check             re-anchor every placement; report what moved
 //   node _ops/quotes/place.mjs --mandate "<Title>" print the prompt that wakes Palace Quotes as a glass over that page
 //
@@ -113,6 +114,10 @@ async function place(input, { dryRun, by, force }) {
       console.error(`  ✗ ${label}: already placed as ${dup.id} — retire it first, or --force`);
       continue;
     }
+    // One voice everywhere narrows the walk. Warn, don't refuse: the why may
+    // earn it, and Loudon's key decides.
+    const sameVoice = folded.filter((q) => q.status !== 'retired' && normalize(q.attribution) === normalize(p.attribution)).length;
+    if (sameVoice >= 3) console.log(`  ~ ${label}: ${p.attribution} already has ${sameVoice} quotes placed — reach wider unless this one is the line`);
 
     const stamp = await stampFor(targetText, v.anchor.heading, p.near);
     const line = {
@@ -132,6 +137,8 @@ async function place(input, { dryRun, by, force }) {
       placed_at: new Date().toISOString(),
       status: 'placed',
     };
+    if (p.mode) line.mode = p.mode;
+    if (p.new_voice === true) line.new_voice = true;
     if (p.session) line.session = p.session;
 
     if (dryRun) {
@@ -196,6 +203,26 @@ async function list({ target, lens, check, awaiting }) {
   if (check && moved) process.exitCode = 1;
 }
 
+// ── voices: who has been quoted, and how often ──────────────────────────────
+function voices() {
+  const { folded } = readLedger();
+  const active = folded.filter((q) => q.status !== 'retired');
+  const tally = new Map();
+  for (const q of active) {
+    const k = q.attribution;
+    const t = tally.get(k) || { n: 0, kept: 0, newVoice: false, modes: new Set() };
+    t.n += 1; if (q.status === 'kept') t.kept += 1; if (q.new_voice) t.newVoice = true; if (q.mode) t.modes.add(q.mode);
+    tally.set(k, t);
+  }
+  const rows = [...tally.entries()].sort((a, b) => b[1].n - a[1].n || a[0].localeCompare(b[0]));
+  if (rows.length === 0) { console.log('  no quotes placed yet'); return; }
+  for (const [who, t] of rows) {
+    console.log(`${String(t.n).padStart(3)}  ${String(t.kept).padStart(2)} kept  ${t.newVoice ? '✦ new ' : '      '} ${who}${t.modes.size ? `  (${[...t.modes].join(', ')})` : ''}`);
+  }
+  const open = active.filter((q) => q.mode === 'open');
+  console.log(`\n${rows.length} voices · ${active.length} quotes · ${open.length} from the open reading · ${active.filter((q) => q.new_voice).length} new to the palace`);
+}
+
 // ── mandate: wake Palace Quotes as the glass over a page ────────────────────
 // The Lens's read, without its board reports; the quoter's method appended
 // (mandate.mjs — the same builder STIGMERGY's [L] lens uses for this glass).
@@ -214,6 +241,8 @@ if (flag('mandate')) {
   decide(opt('retire'), 'retire', opt('why'), by);
 } else if (flag('keep')) {
   decide(opt('keep'), 'keep', opt('why'), by);
+} else if (flag('voices')) {
+  voices();
 } else if (flag('list') || flag('check')) {
   await list({ target: opt('target'), lens: opt('lens'), check: flag('check'), awaiting: flag('awaiting') });
 } else if (flag('file') || flag('stdin')) {

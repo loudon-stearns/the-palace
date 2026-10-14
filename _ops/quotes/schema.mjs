@@ -40,6 +40,12 @@ export const SOURCE_KINDS = ['tradition', 'palace', 'loudon'];
 //   retired  taken down, with the reason; the line stays in the ledger
 export const STATUSES = ['placed', 'kept', 'retired'];
 
+// How the voice was found.
+//   open     the open reading: the page and its neighbors first, then whoever
+//            in any field has stood exactly here — a voice found, not looked up
+//   roster   the floor: a voice from voices.json for the lens that bit
+export const MODES = ['open', 'roster'];
+
 // What Loudon (or an elder on his word) can do to a placed quote.
 export const DECISIONS = ['keep', 'retire'];
 
@@ -203,6 +209,17 @@ export function validatePlacement(p, { targetBody = null, lensFound = true } = {
   if (!nonEmpty(p.why)) errors.push('why: required (one or two sentences — why this quote, here, through this lens)');
   else if (p.why.length > 700) warnings.push('why: long — the why is a margin note, not an essay');
   if (p.status !== undefined && !STATUSES.includes(p.status)) errors.push(`status: one of ${STATUSES.join(' | ')}`);
+  if (p.mode !== undefined && !MODES.includes(p.mode)) errors.push(`mode: one of ${MODES.join(' | ')}`);
+  if (p.source && p.source.url !== undefined && !(typeof p.source.url === 'string' && /^https?:\/\//.test(p.source.url))) {
+    errors.push('source.url: an http(s) link to where the wording was found');
+  }
+  // A voice the palace has never heard is where an invented line is most
+  // likely, so the rule tightens exactly there: checked on the web, with the
+  // source kept on the placement, or not placed.
+  if (p.new_voice === true) {
+    if (p.checked !== 'web') errors.push('new_voice: a voice the palace has never heard must be checked on the web (checked: web)');
+    if (!p.source || !nonEmpty(p.source.url)) errors.push('new_voice: keep the source — source.url — so a reader can meet the person');
+  }
 
   let anchor = null;
   if (targetBody !== null && nonEmpty(p.near)) {

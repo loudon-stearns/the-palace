@@ -7,8 +7,10 @@ The runnable half of [[Palace Quotes]]. The page says what the agent does and wh
 - **The ledger** — `_ops/Palace Quotes/Palace Quotes — placements.jsonl`, in the page's own bundle. One JSON line per placement; append-only. A retirement is a second line with the same `id` and `status: "retired"`; readers fold by id, last line wins. This is the agent's record of what it made, and the one thing STIGMERGY reads.
 - **The page it lands on is never written.** A quote is laid *beside* a page's words — the way a rich-face piece is laid `near` a paragraph ([[Enrichment]], `_ops/rich-face/README.md`) — so the text face stays what the page says. The placement carries the section's fingerprint at the moment it was placed, computed by the rich face's own `parse.js`, so the two drift signals never disagree.
 - **`schema.mjs`** — the shape of a placement and the checks (pure; shared by the CLI, the server and the tests).
-- **`lenses.json`** — the roster of lens pages, their voices, the question each asks, the families it bites on. Guidance for the quoter; the placer validates a lens by whether the page exists.
-- **`prompts/quoter.md`** — the method, appended to [[The Lens]]'s own mandate when Palace Quotes is woken as a glass.
+- **`lenses.json`** — the roster of lens pages and the question each asks. Guidance for the quoter; the placer validates a lens by whether the page exists, so any palace page may serve.
+- **`voices.json`** — who may answer: names, domains and works only, never pre-written quotes. The palace's citizens first (their `speech` files hold cited verbatim excerpts, no web check needed), then makers, musicians, scientists, writers and other traditions, in circles that mirror the Four Pillars. A floor, not a ceiling.
+- **`prompts/quoter.md`** — the method, appended to [[The Lens]]'s own mandate when Palace Quotes is woken as a glass: the open reading first (the page and its neighbors, then whoever in any field has stood exactly there), the roster as the floor, the lens named afterwards.
+- **`mandate.mjs`** — builds that prompt: the Lens's read with its board reports cut, the quoter's method, then *For this visit*: the subject's typed-link neighborhood with paths, what is already on the page, who has been quoted so far, and the roster.
 
 ## Commands
 
@@ -18,6 +20,7 @@ The runnable half of [[Palace Quotes]]. The page says what the agent does and wh
 | `node _ops/quotes/place.mjs --keep <id> [--why "…"]` | Loudon's yes, written by an elder on his word; on a let-go quote it revives it |
 | `node _ops/quotes/place.mjs --retire <id> --why "…"` | take a quote down, with the reason; the line stays in the ledger |
 | `node _ops/quotes/place.mjs --list [--target "<Title>"] [--lens "<Title>"] [--awaiting]` | what is placed, and which quotes still await his read |
+| `node _ops/quotes/place.mjs --voices` | who has been quoted, how often, how many came from the open reading, which voices are new to the palace |
 | `node _ops/quotes/place.mjs --check` | re-anchor every placement against the pages as they stand: **moved** (the phrase is gone) · **drifted** (the section's words changed) · in step |
 | `node _ops/quotes/place.mjs --mandate "<Title>"` | print the prompt that wakes Palace Quotes as the glass over that page — [[The Lens]]'s `buildLensMandate` with the quoter's method appended |
 
@@ -40,6 +43,8 @@ The runnable half of [[Palace Quotes]]. The page says what the agent does and wh
 The placer adds `id`, `section` (the heading the phrase sits under), `made_against` (that section's fingerprint), `placed_by`, `placed_at`, `status`. The ledger's first line is its own header — title, born, a link to the page, a forward vector — the minimal self-description every bundle file carries (SCHEMA — Reference §8); it has no `id`, so readers pass over it.
 
 **A quote's standing.** `placed` is laid by the agent and awaiting Loudon's read; `kept` is his yes; `retired` is let go, with the reason, and the line stays. A decision is one more line with the same id (`{ id, status, kept_at | retired_at, decided_by }`); the fold takes the last line, so a keep after a let-go revives the quote. In STIGMERGY the decision is a keystroke — `y` keep, `x` let go — on the QUOTES lens or on the mark itself; it lands as one committed ledger line (`POST /api/quotes/decide`). **Only kept quotes reach the public read view**; what leaves the house is what he said yes to.
+
+**How the voice was found.** `mode: open` is the open reading — the page and its neighbors first, then whoever in any field has stood exactly there; `mode: roster` is the floor. `new_voice: true` marks a voice the palace had never heard; the placer holds it to `checked: web` with `source.url` kept, because an unknown voice is where an invented line is most likely, and that URL is how Loudon meets the person. The placer also warns when one voice already has three quotes placed. Later, `--voices` says whether the open-reading quotes are the ones Loudon keeps.
 
 **The two honesty fields.** `fidelity` says how far the words are from the source: `verbatim` · `translation` (translator named) · `paraphrase` · `adapted`. `checked` says how the wording was verified: `web` · `palace` (the words are in a palace page) · `partial` (passage found, wording unconfirmed) · `recalled` (memory alone). The surface shows them as one glyph: ◉ checked and verbatim · ◐ checked, a translation or paraphrase · ◇ unconfirmed. A made-up line marked verbatim is the one failure this folder exists to prevent; the fields make the question unavoidable.
 

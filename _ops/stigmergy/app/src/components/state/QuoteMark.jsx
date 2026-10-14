@@ -90,6 +90,18 @@ export default function QuoteMark({
             <span title={label} data-testid="quote-fidelity" data-glyph={glyph}>
               <span style={{ color: glyph === '◇' ? 'var(--warn)' : 'var(--phosphor)', textShadow: 'var(--glow)' }}>{glyph}</span> {label}
             </span>
+            {src.url ? (
+              <a data-testid="quote-source-url" href={src.url} target="_blank" rel="noopener noreferrer" title={src.url}
+                style={{ color: 'var(--link)', textShadow: 'var(--glow)', textDecoration: 'none', borderBottom: '1px dashed currentColor' }}>
+                source ↗
+              </a>
+            ) : null}
+            {quote.new_voice ? (
+              <span data-testid="quote-new-voice" title="a voice the palace had not heard before this quote" style={{
+                color: 'var(--phosphor-white)', textShadow: 'var(--glow)', border: '1px solid var(--phosphor-dim)', padding: '0 6px',
+                textTransform: 'uppercase', letterSpacing: '.06em', fontSize: 10,
+              }}>✦ new voice</span>
+            ) : null}
           </div>
           <div style={{ ...mono, marginTop: 4, display: 'flex', flexWrap: 'wrap', gap: '4px 12px', alignItems: 'baseline' }}>
             <span style={{ color: 'var(--phosphor-dim)', textShadow: 'none' }}>

@@ -294,6 +294,18 @@ function TheWindow({ q, lensPath, onStepThrough, onOpenEntry, onDecide = null, d
           <span title={label} data-testid="quote-fidelity" style={{ color: 'var(--phosphor-dim)', textShadow: 'none' }}>
             <span style={{ color: glyph === '◇' ? 'var(--warn)' : 'var(--phosphor)', textShadow: 'var(--glow)' }}>{glyph}</span> {label}
           </span>
+          {src.url ? (
+            <a data-testid="quote-window-source-url" href={src.url} target="_blank" rel="noopener noreferrer" title={src.url}
+              style={{ color: 'var(--link)', textShadow: 'var(--glow)', textDecoration: 'none', borderBottom: '1px dashed currentColor' }}>
+              source ↗
+            </a>
+          ) : null}
+          {q.new_voice ? (
+            <span data-testid="quote-window-new-voice" title="a voice the palace had not heard before this quote" style={{
+              color: 'var(--phosphor-white)', textShadow: 'var(--glow)', border: '1px solid var(--phosphor-dim)', padding: '0 6px',
+              textTransform: 'uppercase', letterSpacing: '.06em', fontSize: 10,
+            }}>✦ new voice</span>
+          ) : null}
           <span style={{ color: 'var(--phosphor-dim)', textShadow: 'none' }}>
             through{' '}
             <span

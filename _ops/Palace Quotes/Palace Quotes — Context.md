@@ -33,6 +33,12 @@ The eight archived quotes were not lost. They became the first placements, each 
 - **A page can and should have multiple quotes.** The quoter's guard was loosened to one per visit, beside a sentence no quote already sits on.
 - He asked the placer to say its reasoning for choosing a quotation; the answer is in the session, and its durable form is `_ops/quotes/prompts/quoter.md` § The method.
 
+### Widening the voices — 2026-10-14
+
+Loudon, reading the roster of twelve lenses before a run of twenty: *these lenses are great, but will fill the palace with quotes from too narrow a range of perspectives.* And then: invert it — read the page and the links to it, find from experience a possible interesting relation, and pull the quote from there; *I am excited to be surprised by the quotes and maybe learn of new people and perspectives.*
+
+The resolution split the lens from the voice. The lens stays the question the palace asks (and may now be any palace page, the neighbor that opened the door included); the voice is whoever answered it, from any field. The reading runs page-first — the open reading — with Hofstadter's same-skeleton test as the guard against name-dropping, the absent pillar as a second engine for reaching across, and a voice new to the palace as the hoped-for find. The roster (`voices.json`, about sixty names in circles that mirror the Four Pillars, the palace's own citizens first) is the floor, not the ceiling. An unknown voice is where an invented line is most likely, so the placer holds a new voice to a web check with the source URL kept, and that URL is how Loudon meets the person. `mode` records how each voice was found, so the ledger can later say whether the open-reading quotes are the ones he keeps. Compute did not rise: the breadth is the reader's own memory, and a citizen's speech file saves a search.
+
 ### Open from the build
 
 - One placement is still `partial` (Merleau-Ponty's cane, Smith's rendering unconfirmed on the web; Routledge Classics 2002, c. pp. 165–166 is the lead) and shows ◇ until a reader checks it.

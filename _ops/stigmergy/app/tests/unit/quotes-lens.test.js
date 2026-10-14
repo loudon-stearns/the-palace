@@ -48,6 +48,17 @@ describe('QuoteMark', () => {
     expect(html).not.toContain('A commit is an actual occasion.');
     expect(html).toContain('aria-expanded="false"');
   });
+  it('shows a new voice and its source when open', () => {
+    const html = renderToStaticMarkup(React.createElement(QuoteMark, {
+      quote: { ...quote, new_voice: true, mode: 'open', source: { ...quote.source, url: 'https://example.org/pr' } }, open: true,
+    }));
+    expect(html).toContain('data-testid="quote-new-voice"');
+    expect(html).toContain('new voice');
+    expect(html).toContain('href="https://example.org/pr"');
+    const plain = renderToStaticMarkup(React.createElement(QuoteMark, { quote, open: true }));
+    expect(plain).not.toContain('data-testid="quote-new-voice"');
+    expect(plain).not.toContain('data-testid="quote-source-url"');
+  });
   it('opens on its own when the URL names it (lit) or when its phrase has moved', () => {
     expect(renderToStaticMarkup(React.createElement(QuoteMark, { quote, lit: true }))).toContain('data-open="1"');
     expect(renderToStaticMarkup(React.createElement(QuoteMark, { quote, moved: true }))).toContain('data-open="1"');
