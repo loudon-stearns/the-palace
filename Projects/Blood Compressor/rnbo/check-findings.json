@@ -9,7 +9,7 @@
       "test": "heartbeat, threshold steps 0 to -40 dB every 4 s",
       "samples": 960000,
       "maxAudioDiff": 1.1102230246251565e-16,
-      "maxSqueezeDiffDb": 3.552713678800501e-15,
+      "maxSqueezeDiffDb": 5.329070518200751e-15,
       "maxPressureDiffDb": 1.4210854715202004e-14,
       "baroreceptorMismatches": 0
     },
@@ -19,7 +19,7 @@
       "test": "noise bursts, every control re-randomised every 0.5 s (incl. bypass)",
       "samples": 960000,
       "maxAudioDiff": 8.881784197001252e-16,
-      "maxSqueezeDiffDb": 7.105427357601002e-15,
+      "maxSqueezeDiffDb": 1.4210854715202004e-14,
       "maxPressureDiffDb": 1.4210854715202004e-14,
       "baroreceptorMismatches": 0
     },
@@ -138,5 +138,22 @@
       "-30 dB": -11.45,
       "-40 dB": -18.42
     }
+  },
+  "stereoLink": {
+    "test": "heartbeat on one side, the same 12 dB down on the other, threshold -30 dB, 10 s",
+    "runs": [
+      {
+        "louderSide": "left",
+        "squeezeDiffVsMonoOfLouderSideDb": 0,
+        "leftRightGainMismatch": 2.220446049250313e-16,
+        "deepestSqueezeDb": -11.45
+      },
+      {
+        "louderSide": "right",
+        "squeezeDiffVsMonoOfLouderSideDb": 0,
+        "leftRightGainMismatch": 2.220446049250313e-16,
+        "deepestSqueezeDb": -11.45
+      }
+    ]
   }
 }

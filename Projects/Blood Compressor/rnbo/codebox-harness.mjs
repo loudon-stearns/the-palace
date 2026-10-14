@@ -30,7 +30,7 @@ const max = (a, b) => Math.max(a, b), min = (a, b) => Math.min(a, b);
 const clamp = (x, lo, hi) => Math.min(Math.max(x, lo), hi);
 class FixedDoubleArray extends Float64Array {}
 const samplerate = ${sr};
-let in1 = 0, out1 = 0, out2 = 0, out3 = 0, out4 = 0;
+let in1 = 0, in2 = 0, out1 = 0, out2 = 0, out3 = 0, out4 = 0, out5 = 0;
 `;
   // RNBO clamps a @param to its declared range; so does set().
   const setter = params.map(p => `case ${JSON.stringify(p.name)}: ${p.name} = Math.min(${p.max}, Math.max(${p.min}, v)); break;`).join("\n");
@@ -38,9 +38,10 @@ let in1 = 0, out1 = 0, out2 = 0, out3 = 0, out4 = 0;
 return {
   set(name, v) { switch (name) { ${setter}
     default: throw new Error("no @param " + name); } },
-  tick(__in) { in1 = __in;
+  // tick(left) feeds the same sample to both inputs (mono); tick(left, right) for stereo
+  tick(__l, __r) { in1 = __l; in2 = (__r === undefined ? __l : __r);
 ${body.join("\n")}
-    return [out1, out2, out3, out4]; }
+    return [out1, out2, out3, out4, out5]; }
 };`;
   const cb = new Function(program)();
   cb.params = params;

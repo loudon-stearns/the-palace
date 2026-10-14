@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-14",
+  "file": "rnbo/blood-vessel.js",
+  "size": [
+    380,
+    160
+  ],
+  "mgraphicsCallsUsed": [
+    "arc",
+    "close_path",
+    "fill",
+    "init",
+    "line_to",
+    "move_to",
+    "rectangle",
+    "redraw",
+    "select_font_face",
+    "set_font_size",
+    "set_line_width",
+    "set_source_rgba",
+    "show_text",
+    "stroke"
+  ],
+  "frames": [
+    {
+      "threshold": -20,
+      "deepestSqueezeDb": -5.37,
+      "deepestSqueezeTheVesselSawDb": -5.36,
+      "image": "vessel-threshold-20.png"
+    },
+    {
+      "threshold": -36,
+      "deepestSqueezeDb": -15.47,
+      "deepestSqueezeTheVesselSawDb": -15.46,
+      "image": "vessel-threshold-36.png"
+    }
+  ],
+  "drag": {
+    "roundTrip": [
+      {
+        "asked": 0,
+        "got": 0
+      },
+      {
+        "asked": -12,
+        "got": -12
+      },
+      {
+        "asked": -20.5,
+        "got": -20.5
+      },
+      {
+        "asked": -36,
+        "got": -36
+      },
+      {
+        "asked": -54,
+        "got": -54
+      },
+      {
+        "asked": -60,
+        "got": -60
+      }
+    ],
+    "clickOutsideMoved": false
+  },
+  "curveMaxDiffDb": 0
+}

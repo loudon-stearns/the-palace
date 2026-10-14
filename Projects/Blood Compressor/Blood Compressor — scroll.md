@@ -15,20 +15,20 @@ forward_vector: "I am Blood Compressor's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T11:40:30.316Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T11:44:41.946Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 8 · last ran 2026-10-14 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 9 · last ran 2026-10-14 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — The browser vessel's compressor now lives in an RNBO codebox. It matches the browser sample for sample, and there's a Max test patch and a Max for Live device. (`blood-compressor-018`)
-- **Last commit touching this project:** 2026-10-14 `da7919f9` — steward(Blood Compressor): cycle 7 — SPINNING UP. HOME: [Blood Compressor](obsidian://open?vault=The%20Palac…
+- **Last shipped:** 2026-10-14 (today) — The Max for Live device now draws the beating vessel beside its dials, with a draggable systolic line, and the compressor is stereo-linked. (`blood-compressor-020`)
+- **Last commit touching this project:** 2026-10-14 `df766a0d` — steward(Blood Compressor): cycle 8 — SPINNING UP. HOME: [Blood Compressor](obsidian://open?vault=The%20Palac…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Blood Compressor is a compressor dressed as the body: threshold is the systolic pressure that triggers the reflex, ratio is how stiff the vessel wall is, attack is the baroreceptor reflex delay, release is the smooth muscle relaxing. Earlier today I fixed the browser prototype. One hand-built compressor now drives both its sound and its picture, and the threshold works and is measured. This cycle I carried that exact compressor into Max. I rewrote it as an RNBO codebox, checked it in Node against the browser version at every sample, and wrapped it two ways: a test patch where the heartbeat runs through it, and a Max for Live audio effect with a dial for each control. The maths is proven. Th…
+Blood Compressor is a compressor dressed as the body. Threshold is the systolic pressure that triggers the reflex, ratio is how stiff the vessel wall is, attack is the baroreceptor reflex delay, and release is the smooth muscle relaxing. Earlier today the browser vessel was fixed: one hand-built compressor drives both its sound and its picture. That compressor was then carried into an RNBO codebox that matches the browser sample for sample. This cycle the picture followed it into Max. The device, Blood Compressor 0.2, has its eight dials on the left and the same three panels as the browser on the right: the pressure lane with the amber systolic line you can drag, the in-to-out curve, and th…
 
 ### Open asks
 
@@ -59,6 +59,43 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="blood-compressor-020" -->
+### 2026-10-14 — cycle 9 — The Max for Live device now draws the beating vessel beside its dials, with a draggable systolic line, and the compressor is stereo-linked.
+> shipped · maths and drawing proven in Node · Max files unopened · steward leans open-the-device-next
+
+**The vessel in the device.** [blood-vessel.js](open:Projects/Blood Compressor/rnbo/blood-vessel.js) is a v8ui drawing, 380 by 160. It redraws the browser's three panels with Max's own drawing calls. The pressure lane shows blood pressure in (white), pressure past the vessel (red), the overpressure shaded, and the amber systolic line. Drag that line and it turns the threshold dial. The small curve panel puts a white dot where the blood is right now. Along the bottom is the artery: its opening is the gain over the last five seconds, and eight baroreceptors in the wall light amber while the pressure is over and flash white at the crossing. It uses only fourteen basic drawing calls, with no gradients and no dash patterns, so the same file should also load in the older jsui.
+
+**How I checked it without Max.** [check-vessel.mjs](open:Projects/Blood Compressor/rnbo/check-vessel.mjs) runs the drawing file in Node against a stand-in for Max's drawing engine that records every call into an SVG, and it throws on any call it doesn't know. It feeds the drawing the way the device does: the codebox runs on the heartbeat, and every 33 ms three snapshot~ objects read pressure, squeeze and the baroreceptor flag. The two frames above show what came out. At **-20 dB** the vessel breathes gently and the deepest squeeze is 5.4 dB. At **-36 dB** it pinches on every lub and dub, down to 15.5 dB. Sampling every 33 ms misses almost nothing: the deepest squeeze the vessel saw was within 0.01 dB of the true one. Dragging the line returns the threshold exactly at 0, -12, -20.5, -36, -54 and -60 dB, and a click outside the lane changes nothing. The curve matches the browser page's curve to 0 dB across 48 combinations of threshold, ratio and knee. Numbers: [vessel-findings.json](open:Projects/Blood Compressor/rnbo/vessel-findings.json).
+
+**Stereo link.** [blood-compressor.codebox](open:Projects/Blood Compressor/rnbo/blood-compressor.codebox) v0.2 takes left and right. Each sample, the detector uses the larger of the two high-passed squares, and the same squeeze goes to both sides, so the stereo image holds still. With the same signal on both inputs it is the mono compressor exactly: every earlier check still passes at 3e-15 or below. I tested it with the heartbeat on one side and the same heartbeat 12 dB down on the other, then swapped them. The squeeze followed the louder side with zero difference from mono, and the two sides' gains agreed to 2e-16. See [check-findings.json](open:Projects/Blood Compressor/rnbo/check-findings.json).
+
+**What to open.** [Blood Compressor 0.2.amxd](open:Projects/Blood Compressor/rnbo/Blood Compressor 0.2.amxd?reveal): drop it on an audio track and drag the amber line down. If you want to try it in Max first, [blood-compressor-test.maxpat](open:Projects/Blood Compressor/rnbo/blood-compressor-test.maxpat) has the heartbeat feeding both sides, number boxes for every control, and the vessel. Turn on the dac. Both files are written by [make_patch.py](open:Projects/Blood Compressor/rnbo/make_patch.py) and pass a wiring check: every patch cord lands on a real inlet and outlet.
+
+**Passed over.** I could have drawn the vessel in jsui with gradients to match the browser exactly. I kept to the calls both engines share, because a drawing that loads beats a prettier one that might not. A two-tone lumen stands in for the gradient.
+
+**Artifacts:**
+- [the device's vessel drawing at -36 dB: pinching on every beat, squeeze down to 15.5 dB (rendered in Node from blood-vessel.js)](Projects/Blood Compressor/rnbo/vessel-threshold-36.png)
+- [the same drawing at -20 dB: a gentle breath, 5.4 dB at its deepest](Projects/Blood Compressor/rnbo/vessel-threshold-20.png)
+- [the v8ui drawing: three panels and the draggable systolic line](Projects/Blood Compressor/rnbo/blood-vessel.js)
+- [the Max for Live audio effect, stereo-linked, dials plus vessel (unopened)](Projects/Blood Compressor/rnbo/Blood Compressor 0.2.amxd)
+- [the Max test patch: heartbeat into both sides, vessel drawn live (unopened)](Projects/Blood Compressor/rnbo/blood-compressor-test.maxpat)
+- [the compressor, v0.2: stereo link, mono-identical](Projects/Blood Compressor/rnbo/blood-compressor.codebox)
+- [writes both Max files from the codebox sources](Projects/Blood Compressor/rnbo/make_patch.py)
+- [runs the drawing in Node against a mock of Max's drawing engine](Projects/Blood Compressor/rnbo/check-vessel.mjs)
+- [drag round trip, curve match, calls used, squeeze seen vs true](Projects/Blood Compressor/rnbo/vessel-findings.json)
+- [the -36 dB frame as the mock recorded it](Projects/Blood Compressor/rnbo/vessel-threshold-36.svg)
+- [the -20 dB frame as the mock recorded it](Projects/Blood Compressor/rnbo/vessel-threshold-20.svg)
+- [the Node shim, now two inputs and five outputs](Projects/Blood Compressor/rnbo/codebox-harness.mjs)
+- [browser vs codebox sample check, plus the new stereo-link test](Projects/Blood Compressor/rnbo/check-codebox.mjs)
+- [every number from the codebox checks](Projects/Blood Compressor/rnbo/check-findings.json)
+- [re-rendered: the codebox heartbeat through the v0.2 compressor, threshold 0 to -40 dB](Projects/Blood Compressor/rnbo/codebox-threshold-steps.wav)
+
+_Left rough:_ Nothing has been opened in Max or Live. I can't yet say whether the device finds blood-vessel.js sitting next to it (freezing the device should settle that), whether v8ui takes the file as written, or whether rnbo~ compiles the two-input codebox. The old 0.1 device is still in the folder but is no longer generated.
+
+_Next moves named:_ Once you've opened the device, put what broke (or didn't) on the RNBO codebox~ smith as its first Gotchas, and freeze a working 0.2. · Start on the body controls in the browser reference first: release-curve shape and sympathetic activation as pictures, then as dials in the device. · Make a short screen-capture demo of the device with the heartbeat, for the lesson.
+<sub>`blood-compressor-020` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="blood-compressor-018" -->
 ### 2026-10-14 — cycle 8 — The browser vessel's compressor now lives in an RNBO codebox. It matches the browser sample for sample, and there's a Max test patch and a Max for Live device.
 > shipped · maths checked in Node, Max files unverified · steward leans draw the vessel inside Max next

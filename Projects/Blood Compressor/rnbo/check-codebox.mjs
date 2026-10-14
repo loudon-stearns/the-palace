@@ -33,8 +33,8 @@ function compare(REF, sr, seconds, inputFn, schedule) {
       if (k === "bypass") ref.p.bypass = v >= 0.5; else ref.p[MAP[k]] = v;
     }
     const x = inputFn(n, sr);
-    const yr = ref.processSample(x), [y, det, gr, baro] = cb.tick(x);
-    maxAudio = Math.max(maxAudio, Math.abs(y - yr));
+    const yr = ref.processSample(x), [y, yR, det, gr, baro] = cb.tick(x, x);
+    maxAudio = Math.max(maxAudio, Math.abs(y - yr), Math.abs(yR - yr));
     maxGr = Math.max(maxGr, Math.abs(gr - ref.last.gr));
     maxDet = Math.max(maxDet, Math.abs(det - ref.last.det));
     if ((ref.last.target < -0.05 ? 1 : 0) !== baro) baroMismatch++;
@@ -87,7 +87,7 @@ findings.runs = runs;
   let deepest = [0, 0, 0, 0, 0];
   for (let n = 0; n < N; n++) {
     const ch = stepSched(n, sr); if (ch) comp.set("threshold", ch.threshold);
-    const [y, , gr] = comp.tick(hb.tick(0)[0]);
+    const [y, , , gr] = comp.tick(hb.tick(0)[0]);
     const seg = Math.floor(n / (sr * 4)); deepest[seg] = Math.min(deepest[seg], gr);
     buf.writeInt16LE(Math.max(-32768, Math.min(32767, Math.round(y * 32767))), 44 + n * 2);
   }
@@ -97,8 +97,35 @@ findings.runs = runs;
   fs.writeFileSync(path.join(here, "codebox-threshold-steps.wav"), buf);
   findings.codeboxRender = { file: "codebox-threshold-steps.wav", deepestSqueezeDbPerStep: Object.fromEntries(deepest.map((g, i) => [`${-10 * i} dB`, +g.toFixed(2)])) };
 }
+// stereo link (v0.2): left = heartbeat, right = the same heartbeat 12 dB down, then swapped.
+// The squeeze must follow the louder side whichever side it is on, both sides must get
+// the same squeeze, and the quieter side must not pull the detector.
+{
+  const sr = 48000, N = sr * 10;
+  const run = (swap) => {
+    const hb = loadCodebox(path.join(here, "heartbeat.codebox"), sr);
+    const st = loadCodebox(path.join(here, "blood-compressor.codebox"), sr);
+    const mono = loadCodebox(path.join(here, "blood-compressor.codebox"), sr);
+    for (const c of [st, mono]) c.set("threshold", -30);
+    let maxGrDiff = 0, maxGainMismatch = 0, deepest = 0;
+    for (let n = 0; n < N; n++) {
+      const s = hb.tick(0)[0], q = s * 0.25119;
+      const [l, r, , gr] = swap ? st.tick(q, s) : st.tick(s, q);
+      const [, , , grM] = mono.tick(s);
+      maxGrDiff = Math.max(maxGrDiff, Math.abs(gr - grM));
+      if (Math.abs(s) > 1e-3) {
+        const gl = (swap ? l / q : l / s), gR = (swap ? r / s : r / q);
+        maxGainMismatch = Math.max(maxGainMismatch, Math.abs(gl - gR));
+      }
+      deepest = Math.min(deepest, gr);
+    }
+    return { louderSide: swap ? "right" : "left", squeezeDiffVsMonoOfLouderSideDb: maxGrDiff, leftRightGainMismatch: maxGainMismatch, deepestSqueezeDb: +deepest.toFixed(2) };
+  };
+  findings.stereoLink = { test: "heartbeat on one side, the same 12 dB down on the other, threshold -30 dB, 10 s", runs: [run(false), run(true)] };
+}
 fs.writeFileSync(path.join(here, "check-findings.json"), JSON.stringify(findings, null, 2));
 for (const r of runs) console.log(r.reference.padEnd(36), String(r.sr).padEnd(6), r.test.slice(0, 22).padEnd(23),
   "audio", r.maxAudioDiff.toExponential(2), "squeeze dB", r.maxSqueezeDiffDb.toExponential(2), "pressure dB", r.maxPressureDiffDb.toExponential(2), "baro", r.baroreceptorMismatches);
 console.log("heartbeat source", findings.heartbeatSource);
 console.log("codebox render", findings.codeboxRender);
+console.log("stereo link", JSON.stringify(findings.stereoLink.runs));

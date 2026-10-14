@@ -1,5 +1,5 @@
 // =============================================================================
-// Blood Compressor — hand-written RNBO codebox~  (v0.1, 2026-10-14)
+// Blood Compressor — hand-written RNBO codebox~  (v0.2, 2026-10-14: stereo-linked)
 // The same compressor as the browser vessel (stage2-vessel-prototype-v3.html),
 // line for line, so the Max device and the browser picture can be checked
 // against each other sample by sample (rnbo/check-codebox.mjs does that in Node).
@@ -10,12 +10,19 @@
 //   -> attack / release ballistics in dB (baroreceptor reflex / smooth muscle)
 //   -> gain on the dry signal
 //
+// STEREO LINK (v0.2): one detector listens to whichever side is louder at each
+// sample (the larger of the two high-passed squares), and the same squeeze is
+// applied to both sides, so the stereo image never wanders. Feed the same signal
+// to both inputs and this is, sample for sample, the mono v0.1 compressor.
+//
 // PATCHER WIRING (inside rnbo~):
-//   [in~ 1]  -> codebox in1       the blood: audio in (mono)
-//   codebox out1 -> [out~ 1]      the blood past the vessel: audio out
-//   codebox out2 -> [out~ 2]      pressure: detector level, dB peak-equivalent
-//   codebox out3 -> [out~ 3]      squeeze: gain change, dB (0 = wide open, negative = constricted)
-//   codebox out4 -> [out~ 4]      baroreceptors: 1 while pressure is past the knee, else 0
+//   [in~ 1]  -> codebox in1       the blood, left
+//   [in~ 2]  -> codebox in2       the blood, right
+//   codebox out1 -> [out~ 1]      left past the vessel
+//   codebox out2 -> [out~ 2]      right past the vessel
+//   codebox out3 -> [out~ 3]      pressure: detector level, dB peak-equivalent
+//   codebox out4 -> [out~ 4]      squeeze: gain change, dB (0 = wide open, negative = constricted)
+//   codebox out5 -> [out~ 5]      baroreceptors: 1 while pressure is past the knee, else 0
 // Every control is a @param, so each one becomes a knob (M4L) or an
 // automatable parameter (VST/AU). Send "threshold -24" etc. to rnbo~'s left inlet.
 // =============================================================================
@@ -35,6 +42,8 @@ const DB10 = 4.342944819032518; // 10 / ln(10): 10*log10(x) == DB10*log(x)
 
 @state hpX = 0.0;
 @state hpY = 0.0;
+@state hpX2 = 0.0;
+@state hpY2 = 0.0;
 @state ms = 0.0;
 @state g = 0.0;
 @state dline = new FixedDoubleArray(16384);
@@ -62,6 +71,7 @@ function curve(x, T, R, K) {
 }
 
 let x = in1;
+let x2 = in2;
 let sr = samplerate;
 let R = max(1.0, ratio);
 let K = max(0.0, knee);
@@ -71,10 +81,13 @@ let a = exp(-2.0 * PI * 80.0 / sr);
 let hp = a * (hpY + x - hpX);
 hpX = x;
 hpY = hp;
+let hp2 = a * (hpY2 + x2 - hpX2);
+hpX2 = x2;
+hpY2 = hp2;
 
 // RMS: one-pole mean square; +3.0103 dB so a sine reads at its peak level
 let ar = exp(-1.0 / (sr * rmsTime / 1000.0));
-ms = ar * ms + (1.0 - ar) * hp * hp;
+ms = ar * ms + (1.0 - ar) * max(hp * hp, hp2 * hp2);
 let det = DB10 * log(ms + 1e-12) + 3.0103;
 let target = min(0.0, curve(det, threshold, R, K) - det);
 
@@ -95,9 +108,13 @@ if (delayed < g) { c = exp(-1.0 / (sr * atk / 1000.0)); }
 else { c = exp(-1.0 / (sr * rel / 1000.0)); }
 g = c * g + (1.0 - c) * delayed;
 
-if (bypass >= 0.5) { out1 = x; }
-else { out1 = x * pow(10.0, (g + makeup) / 20.0); }
-out2 = det;
-out3 = g;
-out4 = 0.0;
-if (target < -0.05) { out4 = 1.0; }
+if (bypass >= 0.5) { out1 = x; out2 = x2; }
+else {
+    let gl = pow(10.0, (g + makeup) / 20.0);
+    out1 = x * gl;
+    out2 = x2 * gl;
+}
+out3 = det;
+out4 = g;
+out5 = 0.0;
+if (target < -0.05) { out5 = 1.0; }
