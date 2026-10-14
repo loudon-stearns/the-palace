@@ -45,6 +45,14 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="daily-page-2026-10-14" -->
+### 2026-10-14 — The Logo, Heard
+
+The Lissajous sigil, played as well as drawn. Three voices sound at the logo's own ratios (3.011, 4.013, 6.007), and the figure is drawn on the sound's clock, so the figure's slow drift is heard as the chord's near-octave beat. Snap the ratios to whole numbers and both freeze: the knot closes and the chord goes still. Made at [[The Daily Page]]. No agent has heard it.
+
+- [the-logo-heard.html](Projects/Loudon Live/proofs/the-logo-heard.html) · 2026-10-14
+<sub>daily page · 2026-10-14</sub>
+<!-- /scroll:entry -->
 <!-- scroll:entry id="backfill-2026-09-23" -->
 ### 2026-09-23 — backfilled from the bundle
 
