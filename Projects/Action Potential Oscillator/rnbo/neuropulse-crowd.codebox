@@ -1,5 +1,5 @@
 // =============================================================================
-// NeuroPulse crowd — hand-written RNBO codebox~  (v0.1, 2026-10-14)
+// NeuroPulse crowd — hand-written RNBO codebox~  (v0.1.1, 2026-10-14)
 // Action Potential Oscillator · the crowd of 32 coupled Stage-4 neurons
 // =============================================================================
 // Why hand-written: faust2rnbo's codebox (neuropulse.codebox, 928 lines) runs
@@ -107,10 +107,10 @@ for (let i = 0; i < NUM; i++) {
         if (chargeV >= thr) { newV = thr; newPh = 1; }   // latch at threshold
         else { newV = chargeV; }
     } else if (ph == 1) {
-        newV = V + riseRate;
+        newV = min(PEAK, V + riseRate);   // v0.1.1: clamp at the peak
         if (t + 1 >= riseS) { newPh = 2; }
     } else if (ph == 2) {
-        newV = V + fallRate;
+        newV = max(hyp, V + fallRate);    // v0.1.1: clamp at the floor
         if (t + 1 >= fallS) { newPh = 3; }
     } else {
         let recVel = vel - springK * V - damp * 2.0 * sqrt(springK) * vel;

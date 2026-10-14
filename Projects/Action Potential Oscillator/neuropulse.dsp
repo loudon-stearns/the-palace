@@ -1,5 +1,5 @@
 declare name        "NeuroPulse";
-declare version     "0.2.0";
+declare version     "0.2.1";
 declare author      "Action Potential Oscillator (palace steward)";
 declare description "Population of N Stage-4 action-potential neurons, pulse-coupled through the crowd's mean field. Each neuron is the charge / spike-rise / spike-fall / refractory state machine from neural_oscillator_dev_plan.md. Heterogeneity spreads each neuron's rate, leak and threshold; coupling K adds the share of neurons spiking right now to every charging neuron's drive. First version that compiles (Faust 2.88, 2026-10-14).";
 declare copyright   "Loudon Stearns / The Palace, 2026";
@@ -86,8 +86,12 @@ with {
         recVel   = vel + accel;
 
         // on firing, latch V at threshold (no discontinuity into the rise)
-        nV   = select4(p, select2(fires, chargeV, thr), V + rise_rate,
-                          V + fall_rate, V + recVel);
+        // v0.2.1: clamp the spike at its peak and its floor. A spike whose
+        // length is not a whole number of samples used to overshoot both,
+        // and a very short spike (a click) fell far below the undershoot
+        // and spent ~170 extra samples recovering: pitch dropped 110 -> 78 Hz.
+        nV   = select4(p, select2(fires, chargeV, thr), min(peak, V + rise_rate),
+                          max(hyp, V + fall_rate), V + recVel);
         nph  = select4(p, select2(fires, 0, 1), select2(rise_end, 1, 2),
                           select2(fall_end, 2, 3), select2(rec_end, 3, 0));
         nt   = select2(nph != ph, t + 1, 0);

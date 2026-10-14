@@ -1,0 +1,86 @@
+{
+ "shapes": {
+  "full": {
+   "label": "full Stage-4 spike (1 ms, ringing undershoot)",
+   "pulse_samples": 15,
+   "K_half_lock": 0.003914326228618391,
+   "charge_at_half_lock": 0.05871489342927586,
+   "K_played": 0.011742978685855172,
+   "R_smear": 0.18795638029034262,
+   "R_locked": 0.9959861229856862,
+   "locked_rate_hz": 116.2227602905569,
+   "centroid_smear_hz": 874.2895091935324,
+   "centroid_locked_hz": 496.3760915257184,
+   "smear_vs_locked_envelope_corr": 0.995489539805975
+  },
+  "flat": {
+   "label": "same spike, no undershoot",
+   "pulse_samples": 15,
+   "K_half_lock": 0.003334613170085768,
+   "charge_at_half_lock": 0.050019197551286525,
+   "K_played": 0.010003839510257304,
+   "R_smear": 0.15660955290871695,
+   "R_locked": 0.9953415522666252,
+   "locked_rate_hz": 113.74407582938389,
+   "centroid_smear_hz": 922.5646774969109,
+   "centroid_locked_hz": 470.0184149284623,
+   "smear_vs_locked_envelope_corr": 0.9971782014354694
+  },
+  "bare": {
+   "label": "bare click (0.06 ms, no undershoot)",
+   "pulse_samples": 1,
+   "K_half_lock": 0.03500990823451839,
+   "charge_at_half_lock": 0.03500990823451839,
+   "K_played": 0.10502972470355518,
+   "R_smear": 0.15620477166897323,
+   "R_locked": 0.9998764594429251,
+   "locked_rate_hz": 114.01425178147268,
+   "centroid_smear_hz": 4255.5970148502765,
+   "centroid_locked_hz": 2807.7613817339934,
+   "smear_vs_locked_envelope_corr": 0.9936434426963184
+  },
+  "wide": {
+   "label": "slow spike (3 ms, ringing undershoot)",
+   "pulse_samples": 44,
+   "K_half_lock": 0.003163681202834868,
+   "charge_at_half_lock": 0.13920197292473419,
+   "K_played": 0.009491043608504604,
+   "R_smear": 0.1400962580340589,
+   "R_locked": 0.9829903476065047,
+   "locked_rate_hz": 115.94202898550725,
+   "centroid_smear_hz": 594.8808517848668,
+   "centroid_locked_hz": 252.50465026823125,
+   "smear_vs_locked_envelope_corr": 0.9946416838219662
+  }
+ },
+ "between_shape_env_rms_db": {
+  "smear": 9.472169111484439,
+  "locked": 14.189359339707499
+ },
+ "pitch_pull": [
+  {
+   "rate_spread": 0.05,
+   "dialed": 110.0,
+   "crowd_mean_alone": 111.08214643195687,
+   "fastest_alone": 116.2227602905569,
+   "locked": 116.2227602905569,
+   "R": 0.9998862057842323
+  },
+  {
+   "rate_spread": 0.1,
+   "dialed": 110.0,
+   "crowd_mean_alone": 111.45053577662691,
+   "fastest_alone": 121.8274111675127,
+   "locked": 121.8274111675127,
+   "R": 0.9995638908037962
+  },
+  {
+   "rate_spread": 0.2,
+   "dialed": 110.0,
+   "crowd_mean_alone": 112.11380517406593,
+   "fastest_alone": 132.59668508287294,
+   "locked": 132.59668508287294,
+   "R": 0.9987135781637518
+  }
+ ]
+}

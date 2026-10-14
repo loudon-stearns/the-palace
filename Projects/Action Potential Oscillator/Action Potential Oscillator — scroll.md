@@ -15,20 +15,20 @@ forward_vector: "I am Action Potential Oscillator's scroll — the one page that
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T11:08:09.567Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T11:12:47.290Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 7 · last ran 2026-10-14 (today)
-- **Plan:** agreed 2026-09-25 (18 days ago) · 3 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 8 · last ran 2026-10-14 (today)
+- **Plan:** agreed 2026-09-25 (18 days ago) · 5 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — I wrote the crowd's RNBO version by hand, with every control a signal inlet. It matches the Faust crowd sample for sample, and a Max patch holds it. (`apo-steward-015`)
-- **Last commit touching this project:** 2026-10-14 `928a25d4` — steward(Action Potential Oscillator): cycle 6 — SPINNING UP. HOME: [Action Potential Oscillator](obsidian://open?vault=…
+- **Last shipped:** 2026-10-14 (today) — My entry's guess that 'spike shape averages out in the crowd' is half wrong. I measured it and propose a corrected paragraph. (`apo-steward-018`)
+- **Last commit touching this project:** 2026-10-14 `6089d080` — steward(Action Potential Oscillator): cycle 7 — SPINNING UP. HOME: [Action Potential Oscillator](obsidian://open?vault=…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Action Potential Oscillator builds a synth from a neuron's biology. The single neuron has been playable in Gen~ since March. Earlier today the crowd, 32 slightly different neurons whose coupling turns into the sound, finally compiled in Faust and locked into a clean tone. That finished the first step of the plan. The next step is getting the instrument onto the Eventide H90 through RNBO. I asked whether the crowd or the single neuron should go first. While that's open I kept going on the crowd. Faust's automatic RNBO export ran only 16 neurons and froze every control, so I wrote a readable RNBO version by hand. It runs all 32 neurons, takes every control as a signal inlet, and produces exac…
+Action Potential Oscillator builds a synth from a neuron's biology. The single neuron has been playable in Gen~ since March. Today the crowd of 32 coupled neurons compiled in Faust and locked into a tone, and I wrote a hand-made RNBO version that matches it sample for sample. The plan's next step is carrying the instrument to the Eventide H90 through RNBO, and I'm still waiting on whether the crowd or the single neuron goes first. Meanwhile I ran the experiment the project has always pointed at: where does the neuron's biological detail stop mattering to the sound? I tried four spike shapes in the same crowd. The detail stops mattering to how the crowd behaves, but not to how it sounds.
 
 ### Open asks
 
@@ -64,6 +64,62 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="apo-steward-018" -->
+### 2026-10-14 — cycle 8 — My entry's guess that 'spike shape averages out in the crowd' is half wrong. I measured it and propose a corrected paragraph.
+> finding · entry edit proposed, not made · steward leans adopt
+
+**target entries:** Action Potential Oscillator
+**claim:** The Population Dynamics section of [Action Potential Oscillator](obsidian://open?vault=The%20Palace&file=Action%20Potential%20Oscillator) guesses that a spike's shape matters for one neuron but averages out in a population. Today's experiment (four spike shapes, 32 neurons, 19 coupling values) splits that guess in two. When the crowd locks barely depends on the spike's tail: half-lock at coupling 0.0039 with the undershoot and 0.0033 without. Spike width matters only through the charge each spike hands its neighbours. How the crowd sounds keeps the shape: each shape's spectral shape is the same scattered or locked (correlation 0.99), and the four shapes stay 9.5–14 dB apart. Locking also darkens every shape, with the spectral centroid falling 35–58%, so coupling works like a lowpass. Proposed replacement for the hypothesis sentence: 'Spike shape stops mattering to the crowd's behaviour, but not to its sound. When the population locks is set by coupling, heterogeneity and the charge each spike delivers. The spike's shape survives as the colour the crowd plays in, and the tightness of the lock darkens that colour.' Evidence: [neuropulse-spike-shapes.wav](open:Projects/Action Potential Oscillator/neuropulse-spike-shapes.wav), [spike-shape-findings.png](open:Projects/Action Potential Oscillator/spike-shape-findings.png).
+**confidence:** high for this model; untested against full Hodgkin-Huxley gating
+
+**Artifacts:**
+- [The three panels behind the claim.](Projects/Action Potential Oscillator/spike-shape-findings.png)
+- [Hear each shape keep its colour through the lock.](Projects/Action Potential Oscillator/neuropulse-spike-shapes.wav)
+<sub>`apo-steward-018` · FLAG on FLAGS</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="apo-steward-017" -->
+### 2026-10-14 — cycle 8 — I tested four spike shapes in the crowd. The spike's tail barely changes when the crowd locks, but every shape keeps its own colour in the sound.
+> shipped · spike-shape question answered · steward leans crowd first, then put the locked pitch back on the dialed note
+
+**The four shapes.** (1) The full Stage-4 spike: 1 ms, with a ringing undershoot. (2) The same spike with no undershoot. (3) A bare click, 0.06 ms, which is just integrate-and-fire with a reset. (4) A slow 3 ms spike. For each one I swept the coupling over 19 values. Each run starts with the crowd free for 1 s, then turns coupling on. Synchrony is the true Kuramoto order parameter, worked out from each neuron's own spike times, so it isn't fooled by how wide the pulse is.
+
+**What the crowd does.** The undershoot hardly matters: the full spike reaches half-lock at K≈0.0039, the flat one at 0.0033. Width matters only through the charge a spike hands its neighbours. The click needs about 9 times the coupling (0.035). Per unit of charge, short pulses lock most easily: the click needs 0.035, the 1 ms spike 0.059 and the 3 ms spike 0.139. So the spike's tail does stop mattering here, which is what the entry guessed.
+
+**What you hear.** This is where the entry's guess was wrong. Each shape's spectral shape is almost the same when the crowd is scattered as when it's locked (correlation 0.99). The four shapes stay about 9.5 dB apart when scattered and 14 dB apart when locked. The crowd doesn't average the spike away. The spike sets the colour the crowd plays in. And the coupling has its own sound: locking darkens every shape. The spectral centroid falls from 874 to 496 Hz for the full spike and from 4256 to 2808 Hz for the click, because the low harmonics add up in step while the highs stay slightly smeared. **The tighter the lock, the darker the tone, so coupling acts as a lowpass.** That's 'coupling becomes timbre' as a measurement.
+
+**Listen.** In [neuropulse-spike-shapes.wav](open:Projects/Action Potential Oscillator/neuropulse-spike-shapes.wav), each shape plays 2.5 s scattered, then 3 s locked (coupling set to 3 times its half-lock value), all at matched loudness. Full spike 0–5.5 s (locks at 2.5), no undershoot 5.9–11.4 (locks at 8.4), click 11.8–17.3 (locks at 14.3), slow spike 17.7–23.2 (locks at 20.2). The figure is [spike-shape-findings.png](open:Projects/Action Potential Oscillator/spike-shape-findings.png).
+
+**The pitch pull, confirmed.** Last cycle I guessed that the 116 Hz lock comes from the fastest neuron. It does, exactly: at 5%, 10% and 20% rate spread, the locked crowd plays its fastest member's own solo pitch to within 0.01 Hz (116.2, 121.8, 132.6 Hz, against 110 dialed). Before the lock, coupling only adds drive, so the pitch also creeps up slowly.
+
+**A bug fixed on the way.** A spike whose length isn't a whole number of samples overshot its peak and its floor. The click fell so far below its floor that it spent about 170 extra samples recovering, and its pitch dropped from 110 to 78 Hz. Both `neuropulse.dsp` (now v0.2.1) and the RNBO codebox (v0.1.1) now clamp the spike. I re-checked them against each other: the largest difference is 4e-8 per sample, and the synchrony outputs are identical.
+
+**Artifacts:**
+- [Four spike shapes, each scattered then locked, at matched loudness: full, no undershoot, click, slow.](Projects/Action Potential Oscillator/neuropulse-spike-shapes.wav)
+- [Lock curves against coupling and against charge delivered, plus spectral shape scattered vs. locked.](Projects/Action Potential Oscillator/spike-shape-findings.png)
+- [Faust harness: every spike-shape control on the command line, plus each neuron's own spike flag.](Projects/Action Potential Oscillator/spike-shape/shape_render.dsp)
+- [Lock-curve sweep: 4 shapes × 19 couplings, with a Kuramoto order parameter from spike times.](Projects/Action Potential Oscillator/spike-shape/sweep.py)
+- [Renders the audition, the spectra, the pitch-pull test and the figure.](Projects/Action Potential Oscillator/spike-shape/analysis.py)
+- [Offline render wrapper, copied from faust-render.](Projects/Action Potential Oscillator/spike-shape/arch.cpp)
+- [Raw lock-curve data.](Projects/Action Potential Oscillator/spike-shape/sweep.json)
+- [Every number quoted in this post.](Projects/Action Potential Oscillator/spike-shape/findings.json)
+- [v0.2.1: spike clamped at its peak and floor.](Projects/Action Potential Oscillator/neuropulse.dsp)
+- [v0.1.1: the same clamp, still matches Faust within 4e-8.](Projects/Action Potential Oscillator/rnbo/neuropulse-crowd.codebox)
+
+_Four spike shapes in a crowd of 32 · K½ = coupling at half-lock · charge = K½ × pulse length_
+| shape | K½ | charge at K½ | locked pitch | brightness scattered → locked |
+| --- | --- | --- | --- | --- |
+| full 1 ms, ringing undershoot | 0.0039 | 0.059 | 116.2 Hz | 874 → 496 Hz |
+| same spike, no undershoot | 0.0033 | 0.050 | 113.7 Hz | 923 → 470 Hz |
+| bare click 0.06 ms | 0.035 | 0.035 | 114.0 Hz | 4256 → 2808 Hz |
+| slow spike 3 ms | 0.0032 | 0.139 | 115.9 Hz | 595 → 253 Hz |
+
+_Left rough:_ This is one crowd at one pitch with excitatory coupling. I haven't tried full Hodgkin-Huxley gating, so 'the tail doesn't matter' applies to this model's shapes, not real channel kinetics. Every run starts with all neurons together, then a 1 s free stretch, so I can't rule out some lock memory. Brightness is a single centroid number. Nobody has listened yet, and the codebox clamp is still unopened in Max.
+
+_Next moves named:_ Put the locked pitch back on the dialed note: shift the spread so the fastest neuron sits at the frequency inlet, in both Faust and the codebox. Right now 20% spread plays 132.6 Hz when you ask for 110. · Turn 'coupling is a lowpass' into a control: measure brightness against synchrony across the coupling range, and decide whether the synchrony output should drive a filter or just be heard. · Once Loudon answers crowd-or-neuron, size the crowd for the H90.
+<sub>`apo-steward-017` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="apo-steward-015" -->
 ### 2026-10-14 — cycle 7 — I wrote the crowd's RNBO version by hand, with every control a signal inlet. It matches the Faust crowd sample for sample, and a Max patch holds it.
 > shipped · the crowd's code is ready for RNBO, not yet opened in Max · steward leans crowd first
