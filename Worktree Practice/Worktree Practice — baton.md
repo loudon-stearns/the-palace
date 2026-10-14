@@ -12,11 +12,11 @@ forward_vector: "I carry the in-progress move on [[Worktree Practice]] across a 
 
 ## Move
 
-Build the rest of the door: the plan Loudon said yes to on 2026-10-14, whose first part (the door and the listening ear) landed at 48c923ad.
+Finish the door now that its tools are in: read what the ear heard after a day, sit with Loudon over what waits uncommitted in his folder, build the read-only strip, and take the week's measure.
 
 ## Why this move matters
 
-On 2026-10-13 main moved 118 times in the owner checkout. 96 were direct commits, 46 of them stewards; a keeper that lands branches would have governed 22. On a throwaway copy, git's own locks left the shared index wrong in 9 of 17 races, and one lock held around every write left it right in 16 of 16. Every fix the palace ever put into code held, and every rule kept only in prose came back. So order went into the committer every writer already calls, and the history half goes to Closing Well, the Return and the Weave, where Loudon is in the room.
+On 2026-10-13 main moved 118 times in the owner checkout. 96 were direct commits, 46 of them stewards; a keeper that lands branches would have governed 22. On a throwaway copy, git's own locks left the shared index wrong in 9 of 17 races, and one lock held around every write left it right in 16 of 16. Every fix the palace ever put into code held, and every rule kept only in prose came back. So order went into the committer every writer already calls, and the history half went to Closing Well, the Return and the Weave, where Loudon is in the room. The tools are built; what is left is to learn from a week of them.
 
 ## What Loudon agreed to
 
@@ -26,44 +26,50 @@ On 2026-10-14, in his words or by his yes:
 - The survey may read other sessions' transcripts to name who left a file.
 - A landing that dies halfway: "handle it." The next lock-holder finishes it quietly when every file it changed sits at the old or the new version, writes one line saying so, and leaves alone and names any file at neither.
 - Steward commits ride along when he pushes: "stewards can ride along."
+- The words for the trunk and the rites: "yes to the words, land them after the tools."
 - Cowork is out of the design; he does no palace work there. He never commits by hand; his one hand path is the Trickster Commit in STIGMERGY, which already goes through the door.
-- Still his to click: GitHub's block-force-push rule on main. The steps are on the plan page.
+- Still his to click: GitHub's block-force-push rule on main. The steps are on the plan page. And nothing is pushed without his word: `palace-push` prints the exact command with the full tip.
 
 ## Tried and rejected
 
 - A standing keeper agent, the move this baton first carried: it would govern 22 of 118 moves of main, and a worktree-isolated agent is refused git in the owner, so it could not reach a keeper that lives there.
 - Concierges messaging each other to take turns: they meet at the lock instead. A message between an auto-mode and a bypass-mode session is held and dropped after five minutes, and dies with its conversation.
-- Landing by moving main's pointer alone, then catching the owner's files up one by one, as the first build: a red team showed today's committer deleting landed work when run against a folder one landing behind. Deferred until the ear's week shows isolated landing is needed, and then only with the old-copy guard living in one place.
+- Landing by moving main's pointer alone, then catching the owner's files up one by one: a red team showed today's committer deleting landed work when run against a folder one landing behind. Deferred until the ear's week shows isolated landing is needed.
+- A hand-written heal that compared and wrote files itself: an independent review found it misread git's own in-between states (a file unlinked and not yet rewritten, a mode-only change, a case-only rename, a file turned folder) and blocked the server. Git now does the judging and the writing.
 
 ## Current state
 
-*As of 2026-10-14.* Landed at 48c923ad: `_ops/stigmergy/app/server/door.js` (one kernel lock every committer holds from its first `git add` to its commit; trunk refusals; no background git inside it; literal pathspecs); the CLI committer, the server's committer, the Trickster's undo, the heartbeat and the steward lane all go through it; the steward lane commits a cycle without blocking the server; the Deposit, Closing Well and Substrate Skill wording. The ear is installed, listening only: `.git/hooks/reference-transaction` runs `_ops/stigmergy/app/scripts/ear.sh`, which writes one line per branch move to `.git/palace-ear.jsonl`, marked `door` or `around`.
+*As of 2026-10-14, all on main.*
+- The door and the ear, at 48c923ad: one kernel lock every committer holds from its first `git add` to its commit; the ear writes every move of a branch to `.git/palace-ear.jsonl`, marked `door` or `around`.
+- `palace-land` and the heal, at 96248960 (`_ops/stigmergy/app/scripts/palace-land.mjs`, `server/landing.js`). Thirty-two landing tests, and 32 kill-and-heal rounds of a 941-file landing on a full clone of the palace, 14 of them inside git's checkout, all healed.
+- `palace-push` and `trunk-state`, at 34771c74. Nothing has been pushed with `palace-push` yet; main is 134 ahead of origin.
+- The words, at 0957bb0e: Worktree Practice's five trunk sentences, the Concierge charter's sentence, Deposit's pointer, Closing Well 1.7, Return 1.2 (and a `trunk` probe in `return-map.mjs`), Weave 1.4.
+- The ear's first day: 5 moves of main by 23:09 UTC, all through the door.
 
-Not built: `git land`, the halfway-landing marker, `palace-push` and its receipt, the strip, the rites' sentences, and the canon words in Worktree Practice and the Concierge charter. Worktree Practice's "Rules at the trunk" still holds the three rules of 2026-10-13; they become five value sentences in the trunk-sentences move below.
+Not built: the read-only strip on the LOG deck.
 
 ## Next move
 
-After a day of commits, read `.git/palace-ear.jsonl`: how many moves of main went around the door, and what made them, and bring Loudon the one number; it decides whether a fence ever goes up. Then, in order:
+After a day of commits (from the evening of 2026-10-15), run `node _ops/stigmergy/app/scripts/trunk-state.mjs --since 24h` and read the ear's line: how many moves of main went around the door, and what made them. Bring Loudon the one number; it decides whether a fence ever goes up. Then, in order:
 
-- **`git land`.** Built and kill-tested on a full clone before it touches the live palace: from the main checkout, inside the door, try the merge, write a true merge with main as first parent, move main and the folder together, refuse a conflict or an overlapping unsaved file by name, and write a marker first so the next lock-holder can finish a landing that died. Its first real landing is `claude/inspiring-mahavira-3c2fee`, which stops tracking the regen lane's runtime files.
-- **The trunk sentences**, with Loudon's yes on the words: Worktree Practice's trunk section as five plain sentences (your HEAD is yours; main only moves forward, except a rewrite on Loudon's word; one door to main; a write in the owner and its commit go together; only Loudon publishes, and a peer's word is not his), one sentence in `_ops/concierge/prompts/companion.md`, and Deposit's last step pointing there.
-- **`palace-push`**: show the range, the count by kind and the projects stewards touched; on Loudon's word send exactly that tip; the pre-push hook checks main and fast-forward; one receipt line records what left.
-- **The sitting**: with Loudon, over what sits uncommitted in his folder, hover-card files first; then the read-only strip on the LOG deck.
-- **The rites**: one sentence each, through each ceremony's own ledger. Closing Well asks what a session leaves out; the Return opens with what changed since Loudon left; the Weave decides what to clear. Set a date for the next Weave; the last ran on 2026-09-24.
-- **The measure**, after a week: the fence, the live-preview trade, whether isolated sessions need landing by pointer, and whether a Lander or an Archivist page has earned its place.
+- **The sitting**: with Loudon, over what sits uncommitted in his folder (135 paths on 2026-10-14; `trunk-state` names who wrote what it can), hover-card files first; then the read-only strip on the LOG deck, drawn from `trunk-state.mjs --json`.
+- **The first branch with care**: `claude/inspiring-mahavira-3c2fee` stops tracking the regen lane's runtime files, which are dirty in the owner checkout, so `palace-land` will refuse it by name. Settle those files with Loudon first.
+- **The next Weave**: set its date; the last ran on 2026-09-24. Its step 2.5 now runs `trunk-state`.
+- **The measure**, after a week (around 2026-10-21): the fence, the live-preview trade, whether isolated sessions need landing by pointer, and whether a Lander or an Archivist page has earned its place.
 
 ## Calibrations from this session
 
 - Lighter first. Build the catch-up and isolated landing only on evidence.
 - Every rule lives once, beside the code that enforces it; cards point to it.
-- Prove a mechanism on this Mac before building on it; stress it on a full clone; land in a gap between steward cycles.
-- A test that fails can be the test's fault: two of this session's surprises were a zsh array counted from 1 and a symlink target.
+- Prove a mechanism on this Mac before building on it; stress it on a full clone; land in a gap between steward cycles (check `curl localhost:5173/api/stewards` for `worker.running`).
+- An independent review earns its cost: the landing's found 29 real defects, none refuted. When a review finds many edge cases in hand-rolled code, lean on the tool's own machinery instead of patching each one.
+- A test that fails can be the test's fault: a zsh array counted from 1, a symlink target, a fixed sleep that lost a race under load, and a kill-round probe file named like a file the palace already tracks.
 
 ## Load these files first
 
 1. [[Worktree Practice — spec — the door]], the plan in this bundle (its page with the diagram: https://claude.ai/artifact/GezVoiegoGJA3ztJtHvUr6)
-2. `_ops/stigmergy/app/server/door.js` and `_ops/stigmergy/app/scripts/palace-commit.mjs`
-3. [[Worktree Practice]]
+2. [[Worktree Practice]] § Rules at the trunk
+3. `_ops/stigmergy/app/scripts/trunk-state.mjs`, `palace-land.mjs` and `palace-push.mjs`
 4. The research and design behind the plan, on this Mac only: `~/.claude/projects/-Users-loudonstearns-Documents-The-Palace/8307b946-f7b8-4493-b58e-44aac2ef06af/keeper-plan/`
 
 ## On pickup (fixed — the catcher's checklist; do not rewrite per session)

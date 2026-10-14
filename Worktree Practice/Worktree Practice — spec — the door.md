@@ -17,8 +17,8 @@ The answer to the keeper handoff of 2026-10-13. Its page, with the diagram: http
 No new agent. The keeper came apart into parts the palace already has.
 
 - **Order on main** is a property of the committer every writer already calls: one lock the operating system holds (`_ops/stigmergy/app/server/door.js`), taken from the first `git add` to the commit by the command-line committer, the STIGMERGY server, steward cycles, the heartbeat and the Trickster's undo. Each commit holds only the files it names. Raw git typed by an agent does not pass the door; the ear hears it.
-- **Landing a branch** is one command, `git land`, run by any session from its own branch; the Concierge runs it for a branch that carries house writes.
-- **The survey** is a read-only line and strip on the LOG deck, computed when someone looks.
+- **Landing a branch** is one command, `palace-land`, run by any session from its own branch (`palace-land HEAD`); the Concierge runs it for a branch that carries house writes.
+- **The survey** is read-only and computed when someone looks: `trunk-state.mjs` now, a strip on the LOG deck later.
 - **Pushing** stays Loudon's word, carried by `palace-push`, which sends exactly the tip he was shown and leaves a receipt.
 - **Tending the history** goes to three rites where Loudon is in the room: Closing Well asks what a session leaves out, the Return opens with what changed since he left, the Weave decides what to clear.
 - **The judgments** stay his: when to publish, work whose author is gone, a rewrite, deleting a branch that holds unique work.
@@ -42,11 +42,11 @@ On 2026-10-13 main moved 118 times; 96 were direct commits, 46 by unattended ste
 1. Three proofs before anything live. Done 2026-10-14, except the desktop app-worktree probe.
 2. The quiet core: the door, named paths only, honest hook defaults, the heartbeat naming its paths, fixed templates. Landed at 48c923ad on 2026-10-14, after an independent review whose fixes are part of it.
 3. The ear, listening only. Landed at 48c923ad and installed 2026-10-14.
-4. `git land` from the main checkout, with the halfway-landing marker.
-5. The trunk sentences in Worktree Practice, one sentence in the Concierge's charter, Deposit's last step pointing there; on Loudon's yes to the words.
-6. `palace-push` with a pinned tip and a receipt.
+4. `palace-land` from the main checkout, with the halfway-landing marker. Landed at 96248960 on 2026-10-14, after an independent review whose 29 confirmed findings are part of it: the heal is git's own comparing and writing, and a refused landing never lands later.
+5. The trunk sentences in Worktree Practice, one sentence in the Concierge's charter, Deposit's last step pointing there; on Loudon's yes to the words. Landed at 0957bb0e on 2026-10-14.
+6. `palace-push` with a pinned tip and a receipt, and `trunk-state`, the survey's read-only line. Landed at 34771c74 on 2026-10-14; nothing has been pushed with it yet.
 7. A sitting with Loudon over his folder's uncommitted files, then the read-only strip.
-8. The rites take the archivist's stance, one sentence each, through their own ledgers.
+8. The rites take the archivist's stance, one sentence each, through their own ledgers. Landed at 0957bb0e on 2026-10-14: Closing Well 1.7, Return 1.2, Weave 1.4.
 9. After a week, the measure: the fence, the live-preview trade, whether isolated sessions need landing by pointer, and whether a Lander or an Archivist page has earned its place.
 
 ## Roads not taken, and when to take them
