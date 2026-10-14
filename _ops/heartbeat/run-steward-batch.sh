@@ -58,16 +58,17 @@ STAMP="$PALACE/_ops/heartbeat/.last-steward-batch"
   date +%s > "$STAMP"
 
   cd "$PALACE" || { echo "ERROR: palace not found at $PALACE"; exit 1; }
-  command -v "$CLAUDE_BIN" >/dev/null 2>&1 || { echo "ERROR: '$CLAUDE_BIN' not in PATH — set CLAUDE_BIN to the full path"; exit 127; }
-  [ -n "$MODEL" ] || { echo "ERROR: no model — node could not run _ops/models/latest-opus.mjs"; exit 1; }
-  echo "model: $MODEL"
+  command -v node >/dev/null 2>&1 || { echo "ERROR: node not in PATH"; exit 127; }
+  echo "model (the lane picks the latest Opus itself): ${MODEL:-unknown}"
 
-  "$CLAUDE_BIN" -p "Run my palace steward batch now using the palace-orchestrator skill in batch mode (read _ops/orchestrator/batch.md, then permanent.md per due steward). This is the scheduled every-other-morning heartbeat run on my Mac — the schedule is standing consent, so proceed without asking for confirmation. Give every due steward a RUN: cycle it repeatedly, up to its manifest's stopping_conditions.max_iterations, for as long as each cycle ships a made thing and nothing is waiting on me (a blocking ask or a live-session request ends that steward's run; a barren cycle gets exactly one retry, a second barren cycle means STALLED — stop that steward and move on). Post-process every cycle with process-cycle.js so each steward's bundle-local '[Entry] — scroll.md' (the project's front door: Now zone + making trail) is regenerated as part of the cycle. SHADOW POSTURE (read carefully): do NOT touch canonical entry .md bodies or frontmatter, and do NOT deposit canon — but writing the bundle-local scroll.md, the steward machinery (state.json / history.jsonl), and append-only board messages IS expected, not forbidden. Never hand-edit a scroll's Standing Orders zone — that zone is mine. Do NOT run git yourself — process-cycle.js commits each cycle's shipped work, and the wrapper sweeps up machinery after you return. Leave every ask as a Trickster-board message for me; the BBS is the record, so do NOT write a digest file." \
-    --permission-mode bypassPermissions \
-    --model "$MODEL" \
-    --verbose
+  # The batch (2026-10-14): fired through STIGMERGY's steward lane with the limits
+  # in limits.json — stewards per batch, cycles each, a clock, a budget — and
+  # visible on the PROJECTS deck while it runs. One log line per reap below;
+  # last-batch.json when it ends. (Before this: one long `claude -p` session on
+  # the orchestrator skill — 35 cycles, then hours silent on a usage limit.)
+  node "$PALACE/_ops/heartbeat/batch.mjs"
   agent_rc=$?
-  echo "=== claude steward batch exit $agent_rc — $(date) ==="
+  echo "=== heartbeat batch exit $agent_rc — $(date) ==="
 
   # ── Scoped, lock-safe commit (wrapper-side, NOT the agent) ───────────────────
   # The agent ran SHADOW: it wrote bundle scroll.md + steward machinery + board

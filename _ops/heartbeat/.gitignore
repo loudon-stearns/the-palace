@@ -8,3 +8,5 @@ logs/
 # global pause flag toggled by STIGMERGY (STEWARDS deck) — per-machine runtime
 # state, never canon. The wrappers no-op while it is present.
 .paused
+# the last batch record batch.mjs writes when a run ends — runtime, read by the scheduler strip
+last-batch.json
