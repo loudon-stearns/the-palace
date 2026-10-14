@@ -85,7 +85,10 @@ Use context to tell an invocation from a passing mention of the practice.
    > "it would just confirm what I have," that is the moment to dispatch, not to skip.
 2. **Homework (Pass 1).** The Agent reads the session transcript cold and forms its
    own read of the arc, then hands the active Claude coaching — a stance and two or
-   three genuine wonderings — for the panel ahead.
+   three genuine wonderings — for the panel ahead. The active Claude first runs
+   `node _ops/stigmergy/app/scripts/trunk-state.mjs` and hands the Agent what this
+   session leaves out: files it wrote in the main checkout and did not commit, and
+   branches it did not land. Each is a row the reckoning gives one of the four gestures.
 3. **The panel** stays between the active Claude and Loudon, not the moderator — the
    active Claude moderates a short reflective conversation using the coaching,
    drawing out Loudon's judgment and its own in-room witness. The moderator never
