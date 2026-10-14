@@ -47,7 +47,8 @@ The placer adds `id`, `section` (the heading the phrase sits under), `made_again
 
 Three doors, one page:
 
-- **Wake it as a glass.** In STIGMERGY, open a page and press `[L] lens`, pick *Palace Quotes* as the glass — or run `place.mjs --mandate "<Title>"` and hand the prompt to a Claude Code session. The page wakes as itself ([[Pages as Agents]]), runs [[The Lens]]'s two-attempt read, and places a quote (or honestly places nothing).
+- **Wake it as a glass.** In STIGMERGY, open a page and press `[L] lens`, pick *Palace Quotes* as the glass — or run `place.mjs --mandate "<Title>"` and hand the prompt to a Claude Code session. The page wakes as itself ([[Pages as Agents]]), runs [[The Lens]]'s two-attempt read, and places a quote (or honestly places nothing). Both doors build the prompt with `mandate.mjs`: the Lens's read with its board reports cut, the quoter's method appended. **It posts to no board** — not WEAVE, not TRICKSTER; the placement is the report.
+- **Many at once.** For a sweep, dispatch one reader per page with `place.mjs --mandate "<Title>"` as its prompt (the orchestrator's fan-out, or subagents from a session); each places one quote or nothing, and the "awaiting your read" chip gathers them for Loudon. Cost it first: one reader per page.
 - **Ask the working session.** "Leave a quote on <page>" — the session reads [[Palace Quotes]] and `prompts/quoter.md`, does the work, runs the placer. It is a child; the placer writes only the page's own ledger, never another page.
 - **Harvest intake.** The [[Harvest Ceremony]] flags "a quote for Palace Quotes" as a worthiness marker; a harvested quote is placed on the page it belongs to, not collected.
 

@@ -28,7 +28,7 @@ node _ops/quotes/place.mjs --file /tmp/placement.json --dry-run   # read the lin
 node _ops/quotes/place.mjs --file /tmp/placement.json             # then place it
 ```
 
-6. **Report, as the lens contract asks.** In the WEAVE report above, set `candidate.type` to `quote` and `candidate.detail` to the placement id the placer printed. Nothing else is written: the page's own file stays as it was, and STIGMERGY lays the quote beside its words.
+6. **The placement is the report. Post to no board.** Not WEAVE, not TRICKSTER — a quote is small and there will be many, and Loudon keeps or lets go each one in STIGMERGY with a single key; a board card per quote would only fill his inbox. The placer's printed line is all the record there is. Nothing else is written: the page's own file stays as it was, and STIGMERGY lays the quote beside its words. (If a lens contract above this asked you to post a spark or a request, that was The Lens's general contract; this page's is the one that holds.)
 
 ## The guard
 

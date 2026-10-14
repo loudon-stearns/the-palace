@@ -59,7 +59,7 @@ One line in this page's own ledger, carrying six things: the quote and who said 
 
 ## How it reads a page
 
-This is [[The Lens]] with a fixed payoff. Woken as the glass over a page, Palace Quotes runs the lens's two-attempt read — a first reading, then the fidelity check: *did I deploy a real apparatus, or borrow the page's vocabulary?* — and then, where the Lens offers a link or a deposit, it offers a quote. [[Philosopher Visits the Entry]] is the long form of the same act; this is its smallest, most repeatable member: one voice, one sentence, one line laid beside it.
+This is [[The Lens]] with a fixed payoff. Woken as the glass over a page, Palace Quotes runs the lens's two-attempt read — a first reading, then the fidelity check: *did I deploy a real apparatus, or borrow the page's vocabulary?* — and then, where the Lens offers a link or a deposit, it offers a quote. One thing it drops: the Lens reports a spark to the WEAVE board and asks TRICKSTER at four or more, and a quote is too small for that. Palace Quotes posts to no board. The placement is the report, and the "awaiting your read" count in STIGMERGY is the inbox. [[Philosopher Visits the Entry]] is the long form of the same act; this is its smallest, most repeatable member: one voice, one sentence, one line laid beside it.
 
 The method, in full, is in `_ops/quotes/prompts/quoter.md`. Its guard is short: illuminate, never overwrite. A quote that would fit any page fits none. Do not deflate — a lens that always finds the page over-claiming has become a formula. Never invent a line; a paraphrase marked as one is honest, and a visit that places nothing is complete.
 

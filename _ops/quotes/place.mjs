@@ -197,12 +197,13 @@ async function list({ target, lens, check, awaiting }) {
 }
 
 // ── mandate: wake Palace Quotes as the glass over a page ────────────────────
+// The Lens's read, without its board reports; the quoter's method appended
+// (mandate.mjs — the same builder STIGMERGY's [L] lens uses for this glass).
 async function mandate(subject, note) {
-  const { buildLensMandate } = await import('../stigmergy/orchestrator/src/lens-mandate.js');
-  const built = buildLensMandate({ palaceRoot: root, glassTitle: GLASS, subjectTitle: subject, loudonNote: note || '' });
+  const { buildQuoteMandate } = await import('./mandate.mjs');
+  const built = buildQuoteMandate({ palaceRoot: root, subjectTitle: subject, loudonNote: note || '' });
   if (!built.ok) { console.error(`  ✗ ${built.status}: ${subject}`); process.exitCode = 1; return; }
-  const quoter = readFileSync(join(HERE, 'prompts', 'quoter.md'), 'utf8');
-  process.stdout.write(`${built.full}\n\n---\n\n${quoter.replace(/\{\{SUBJECT\}\}/g, subject)}\n`);
+  process.stdout.write(`${built.full}\n`);
 }
 
 // ── main ────────────────────────────────────────────────────────────────────

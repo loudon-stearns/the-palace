@@ -24,6 +24,12 @@ import { launchInteractive } from '../launch.js';
 import { buildCyclePrompt } from '../../../orchestrator/src/build-cycle-prompt.js';
 import { buildEphemeralPrompt } from '../../../orchestrator/src/ephemeral-prompt.js';
 import { buildLensMandate } from '../../../orchestrator/src/lens-mandate.js';
+import { buildQuoteMandate, GLASS as QUOTES_GLASS } from '../../../../quotes/mandate.mjs';
+
+// Glasses that bring their own lens contract, by page title. Palace Quotes
+// keeps the Lens's two-attempt read but reports to no board: its placement
+// is the report (_ops/quotes/mandate.mjs). Same call shape as buildLensMandate.
+const GLASS_MANDATES = { [QUOTES_GLASS]: buildQuoteMandate };
 
 const EFFORTS = new Set(['low', 'medium', 'high', 'xhigh', 'max']);
 
@@ -193,8 +199,11 @@ async function handleEphemeralLaunch(ctx) {
   const lensSubject = typeof body.lensSubject === 'string' ? body.lensSubject.trim() : '';
 
   // Injectable for tests so the route can be exercised without walking the palace.
+  // A glass with a fixed payoff brings its own contract: Palace Quotes keeps
+  // the Lens's read but reports to no board — its placement is the report and
+  // STIGMERGY's "awaiting your read" is the inbox (_ops/quotes/mandate.mjs).
   const build = lensSubject
-    ? (opts.buildLensMandateImpl || buildLensMandate)
+    ? (opts.buildLensMandateImpl || GLASS_MANDATES[home] || buildLensMandate)
     : (opts.buildEphemeralPromptImpl || buildEphemeralPrompt);
   let built;
   try {
