@@ -55,3 +55,16 @@ export async function advanceAllStewards(names) {
     return { ok: false, error: err?.message ?? String(err) };
   }
 }
+
+// GET /api/steward/transcript?home=<agent_id>&from=<line> — the live cycle's
+// stream-json transcript from line `from` on, for the WATCH pane. Returns
+// { ok, lines, next, path, running }; 404 when the steward has no transcript.
+export async function fetchTranscript(home, from = 0) {
+  try {
+    const res = await fetch(`/api/steward/transcript?home=${encodeURIComponent(home)}&from=${encodeURIComponent(from)}`, { headers: { Accept: 'application/json' } });
+    const data = await res.json().catch(() => ({}));
+    return { ok: res.ok, status: res.status, ...data };
+  } catch (err) {
+    return { ok: false, error: err?.message ?? String(err) };
+  }
+}

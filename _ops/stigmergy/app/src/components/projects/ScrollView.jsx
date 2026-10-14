@@ -11,6 +11,7 @@ import AgentLaunchModal from '../queue/AgentLaunchModal.jsx';
 import { usePalaceRef } from '../../lib/palace-ref.jsx';
 import { RunningTag, QueuedTag } from './status.jsx';
 import MakingCard from './MakingCard.jsx';
+import WatchPane from './WatchPane.jsx';
 
 // ScrollView — one project's scroll, rendered live in the terminal.
 //
@@ -91,6 +92,7 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
   }, [load]);
 
   const myAsks = useMemo(() => buildInbox(messages).pending_requests.filter((p) => p.from === home), [messages, home]);
+  const [watching, setWatching] = useState(false);
   const sections = useMemo(() => parseMakingSections(scroll?.zones?.making || ''), [scroll]);
   // The trail as cards (2026-10-13): each section joined to its board message
   // so it plays as it did the day it shipped; media mounts as you reach it.
@@ -165,6 +167,7 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
         <span style={{ flex: 1 }} />
         {row && row.stewarded ? (
           <>
+            {running || watching ? <span data-testid="scroll-watch"><Button tone={watching ? 'primary' : 'default'} onClick={() => setWatching((w) => !w)}>{watching ? 'watching' : 'watch'}</Button></span> : null}
             <span data-testid={`steward-launch-${String(home).toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}><Button tone="default" disabled={running} onClick={() => setLaunch(true)}>launch interactive</Button></span>
             <span data-testid="scroll-advance"><Button tone="primary" disabled={!canAdvance} onClick={onAdvance}>{row.queued ? `queued #${row.queued}` : `advance (run up to ${row.run_cap || 1})`}</Button></span>
           </>
@@ -180,6 +183,7 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
         {scroll ? <a href={`/api/open?path=${encodeURIComponent(scroll.path)}`} style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11, textDecoration: 'none', borderBottom: '1px dashed currentColor' }} title={scroll.path}>{scroll.exists ? 'open the file' : (isCeremony ? 'not on disk yet — scroll.js --ceremonies writes it' : 'not on disk yet — first cycle or save creates it')}</a> : null}
         <FaceSwitch faces={scrollFaces} current="scroll" onSelect={selectFace} />
       </div>
+      {watching ? <WatchPane home={home} running={running} onClose={() => setWatching(false)} /> : null}
       {feedback ? <div style={{ color: fbColor[feedback.tone], textShadow: feedback.tone === 'dim' ? 'none' : 'var(--glow)', fontSize: 12, marginBottom: 8 }}>{feedback.text}</div> : null}
       {error ? <div data-testid="scroll-error" style={{ color: 'var(--error)', textShadow: 'var(--glow)', border: '1px solid var(--error)', padding: 8 }}>{error}</div> : null}
       {!scroll && !error ? <div style={{ color: 'var(--phosphor-dim)', textShadow: 'none' }}>loading the scroll…</div> : null}
