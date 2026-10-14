@@ -64,3 +64,8 @@ What each baton taught the ceremony. Each item names what the run showed and the
 
 11. **A baton need not be read by Loudon before it is written.** Loudon, 2026-10-14: "Batons are ok if I don't read them, they will start an interactive session that I can lead later, anything that isn't perfect in the baton I will guide later in the right direction." Change owed: Step 3 (Show) and completion signal 3 become "offer to show; his read is not required" for commissioning batons he leads on pickup.
 - run · 2026-10-14 · v1.2 · Loudon Live Design System, visual rethink (cold start) · taught item 11
+
+## From the door's partial close — 2026-10-14
+
+12. **A partial close copies the original card's worktree coordinate onto the remainder, even when that worktree is gone.** Closing the keeper handoff part-way, `close-handoff.mjs --partial` gave the remainder card `close/2026-10-13-handoffs` at `palace-close-2026-10-13`, a worktree torn down the day before. The catcher's on-pickup check would send it to rebuild a dead `docs` worktree for a move that lives on main. Worked around in the remainder's own text. Owed: the close takes the remainder's coordinate, or none, instead of copying it.
+- run · 2026-10-14 · v1.2 · Worktree Practice, the rest of the door after a partial close · taught item 12

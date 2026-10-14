@@ -83,4 +83,4 @@ A worktree is [[The Dichotomy of Control]] in git: your own HEAD is the one thin
 
 ## Active Baton
 
-[[Worktree Practice — baton]] — drafted 2026-10-13
+[[Worktree Practice — baton]] — the rest of the door, updated 2026-10-14

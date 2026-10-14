@@ -5,7 +5,7 @@ links:
   - target: "[[Worktree Practice]]"
     type: connects-to
     label: "sketch-for"
-forward_vector: "I am the coordinating session's own log of 2026-10-13, kept as first material for a standing keeper of the git and worktree rules, and I move to Archive once the keeper's page exists."
+forward_vector: "I am the coordinating session's own log of 2026-10-13, the first material for how the palace commits; no keeper page came of it (the door did), and I move to Archive once the trunk sentences land in Worktree Practice."
 ---
 
 # The coordinator's log — 2026-10-13

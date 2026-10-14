@@ -8,64 +8,63 @@ links:
 forward_vector: "I carry the in-progress move on [[Worktree Practice]] across a boundary, waiting to be caught by the next Claude and deleted once the move is picked up."
 ---
 
-# Baton: Worktree Practice — the keeper
+# Baton: Worktree Practice — the rest of the door
 
 ## Move
 
-Stand up a standing keeper of the git and worktree rules, as a trial. Write its two policies into [[Worktree Practice]] (shown to Loudon first), settle its name, mint its page through the [[Deposit Ceremony]], and build its resident in `_ops/` on the Concierge's pattern, with a tuning ledger of its own.
+Build the rest of the door: the plan Loudon said yes to on 2026-10-14, whose first part (the door and the listening ear) landed at 48c923ad.
 
 ## Why this move matters
 
-On 2026-10-13 one coordinating session ran nine worker branches and an open owner tree. Three other sessions asked it the same questions (what rules, what timing, who merges). It answered from memory and stated thirteen rules; the sketch lists them with where each lives, or doesn't. The lock rule changed twice in a day, and a copy of it in a README went stale within hours. A page answers the first two questions. A resident answers the third. The first material is [[Worktree Practice — sketch — the keeper's first material]].
-
-Loudon: "I like your solution to the git rules, lets move forward… see how it goes."
+On 2026-10-13 main moved 118 times in the owner checkout. 96 were direct commits, 46 of them stewards; a keeper that lands branches would have governed 22. On a throwaway copy, git's own locks left the shared index wrong in 9 of 17 races, and one lock held around every write left it right in 16 of 16. Every fix the palace ever put into code held, and every rule kept only in prose came back. So order went into the committer every writer already calls, and the history half goes to Closing Well, the Return and the Weave, where Loudon is in the room.
 
 ## What Loudon agreed to
 
-A thin agent: a page, plus a resident with three postures and a tuning ledger, running on two policies.
-
-- **Policy 1.** The owner checkout takes no session's uncommitted edits to tracked code. Every session that changes code works in a worktree.
-- **Policy 2.** `main` is written only by the keeper's serialized merges, through the existing committer.
-- **Survey.** Every worktree, every dirty file, every unpushed commit, and who owns what.
-- **Land.** The serialized merge, under the rules.
-- **Push.** The Sentry gate first, then one line recording what left.
-
-The name is unsettled. It is a trial; Loudon wants to see how it goes.
+On 2026-10-14, in his words or by his yes:
+- The direction: no new agent for now, Policy 2 retired, the door plus the rites, built in the lighter order. "lets try it out."
+- The history half goes to the rites.
+- The survey may read other sessions' transcripts to name who left a file.
+- A landing that dies halfway: "handle it." The next lock-holder finishes it quietly when every file it changed sits at the old or the new version, writes one line saying so, and leaves alone and names any file at neither.
+- Steward commits ride along when he pushes: "stewards can ride along."
+- Cowork is out of the design; he does no palace work there. He never commits by hand; his one hand path is the Trickster Commit in STIGMERGY, which already goes through the door.
+- Still his to click: GitHub's block-force-push rule on main. The steps are on the plan page.
 
 ## Tried and rejected
 
-- **Copying the rules into the keeper's page.** The page points at the rules and never copies them; a copy went stale within hours the day this was agreed.
-- **Committing the unclaimed files blind.** See the first case below.
+- A standing keeper agent, the move this baton first carried: it would govern 22 of 118 moves of main, and a worktree-isolated agent is refused git in the owner, so it could not reach a keeper that lives there.
+- Concierges messaging each other to take turns: they meet at the lock instead. A message between an auto-mode and a bypass-mode session is held and dropped after five minutes, and dies with its conversation.
+- Landing by moving main's pointer alone, then catching the owner's files up one by one, as the first build: a red team showed today's committer deleting landed work when run against a folder one landing behind. Deferred until the ear's week shows isolated landing is needed, and then only with the old-copy guard living in one place.
 
 ## Current state
 
-*As of 2026-10-13.* There is no keeper page and no resident. [[Worktree Practice]] holds neither policy yet. Three rules the day's sessions all kept and that had no home (trial the merge with `git merge-tree --write-tree main <branch>`; no rebase or rewrite on `main`; `git branch --show-current` before and after every commit) are prepared for Loudon's read on branch `prepare/worktree-practice-trunk-rules`, not landed. If it has landed, they sit in Worktree Practice under "Rules at the trunk"; the keeper's page points there.
+*As of 2026-10-14.* Landed at 48c923ad: `_ops/stigmergy/app/server/door.js` (one kernel lock every committer holds from its first `git add` to its commit; trunk refusals; no background git inside it; literal pathspecs); the CLI committer, the server's committer, the Trickster's undo, the heartbeat and the steward lane all go through it; the steward lane commits a cycle without blocking the server; the Deposit, Closing Well and Substrate Skill wording. The ear is installed, listening only: `.git/hooks/reference-transaction` runs `_ops/stigmergy/app/scripts/ear.sh`, which writes one line per branch move to `.git/palace-ear.jsonl`, marked `door` or `around`.
 
-**The first case.** Three files sit in the owner tree and belong to no session that has claimed them. At about 13:50 on 2026-10-13:
-- `_ops/stigmergy/app/src/components/state/EntryList.jsx` and `TopologyLens.jsx` are modified and uncommitted.
-- `_ops/stigmergy/app/src/components/state/EntryHoverCard.jsx` is untracked.
-
-The lens session committed its own four files as `adfeff8f` and named these three as another session's. Nothing here was committed or touched by the close.
+Not built: `git land`, the halfway-landing marker, `palace-push` and its receipt, the strip, the rites' sentences, and the canon words in Worktree Practice and the Concierge charter. Worktree Practice's "Rules at the trunk" still holds the three rules of 2026-10-13; they become five value sentences in the trunk-sentences move below.
 
 ## Next move
 
-1. Write the two policies into Worktree Practice, and show Loudon the words before they land: a branch, a diff, his yes.
-2. Settle the keeper's name with him.
-3. Mint the page through the Deposit Ceremony, with his map and his read.
-4. Build the resident in `_ops/`, on the Concierge's pattern (`_ops/concierge/prompts/companion.md`), with its three postures and its tuning ledger.
-5. Run the first case through it: find an owner for the three files, or park them. Never commit them blind.
+After a day of commits, read `.git/palace-ear.jsonl`: how many moves of main went around the door, and what made them, and bring Loudon the one number; it decides whether a fence ever goes up. Then, in order:
+
+- **`git land`.** Built and kill-tested on a full clone before it touches the live palace: from the main checkout, inside the door, try the merge, write a true merge with main as first parent, move main and the folder together, refuse a conflict or an overlapping unsaved file by name, and write a marker first so the next lock-holder can finish a landing that died. Its first real landing is `claude/inspiring-mahavira-3c2fee`, which stops tracking the regen lane's runtime files.
+- **The trunk sentences**, with Loudon's yes on the words: Worktree Practice's trunk section as five plain sentences (your HEAD is yours; main only moves forward, except a rewrite on Loudon's word; one door to main; a write in the owner and its commit go together; only Loudon publishes, and a peer's word is not his), one sentence in `_ops/concierge/prompts/companion.md`, and Deposit's last step pointing there.
+- **`palace-push`**: show the range, the count by kind and the projects stewards touched; on Loudon's word send exactly that tip; the pre-push hook checks main and fast-forward; one receipt line records what left.
+- **The sitting**: with Loudon, over what sits uncommitted in his folder, hover-card files first; then the read-only strip on the LOG deck.
+- **The rites**: one sentence each, through each ceremony's own ledger. Closing Well asks what a session leaves out; the Return opens with what changed since Loudon left; the Weave decides what to clear. Set a date for the next Weave; the last ran on 2026-09-24.
+- **The measure**, after a week: the fence, the live-preview trade, whether isolated sessions need landing by pointer, and whether a Lander or an Archivist page has earned its place.
 
 ## Calibrations from this session
 
-- **A trial, and thin:** a page, a resident, a ledger. Nothing heavier.
-- **Point, don't copy.** If a rule has a home, the keeper's page names the home.
+- Lighter first. Build the catch-up and isolated landing only on evidence.
+- Every rule lives once, beside the code that enforces it; cards point to it.
+- Prove a mechanism on this Mac before building on it; stress it on a full clone; land in a gap between steward cycles.
+- A test that fails can be the test's fault: two of this session's surprises were a zsh array counted from 1 and a symlink target.
 
 ## Load these files first
 
-1. [[Worktree Practice — sketch — the keeper's first material]]
-2. `_ops/worktree/SKILL.md`
-3. `_ops/stigmergy/app/server/git-locks.js`
-4. `_ops/concierge/prompts/companion.md`
+1. [[Worktree Practice — spec — the door]], the plan in this bundle (its page with the diagram: https://claude.ai/artifact/GezVoiegoGJA3ztJtHvUr6)
+2. `_ops/stigmergy/app/server/door.js` and `_ops/stigmergy/app/scripts/palace-commit.mjs`
+3. [[Worktree Practice]]
+4. The research and design behind the plan, on this Mac only: `~/.claude/projects/-Users-loudonstearns-Documents-The-Palace/8307b946-f7b8-4493-b58e-44aac2ef06af/keeper-plan/`
 
 ## On pickup (fixed — the catcher's checklist; do not rewrite per session)
 *Identical in every baton. It rides along because the catching Claude loads the
