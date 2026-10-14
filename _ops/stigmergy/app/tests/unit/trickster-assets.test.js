@@ -6,8 +6,8 @@ import { describe, it, expect } from 'vitest';
 import { assetsFor } from '../../src/lib/trickster-assets.js';
 
 describe('assetsFor — prefix-keyed audio auditions', () => {
-  it('attaches the 12-drone audition to any gsl-steward cycle', () => {
-    for (const id of ['gsl-steward-026', 'gsl-steward-028', 'gsl-steward-099']) {
+  it('attaches the 12-drone audition to the two gsl cycles that asked the fused-tone question', () => {
+    for (const id of ['gsl-steward-026', 'gsl-steward-028']) {
       const a = assetsFor(id);
       expect(a, id).toBeTruthy();
       expect(a.audition.kind).toBe('audio-sequence');
@@ -63,10 +63,16 @@ describe('assetsFor — downloadable artifact', () => {
 });
 
 describe('assetsFor — schematics', () => {
-  it('attaches the keyboard schematic to gsl cycles, alongside the audition', () => {
+  it('attaches the keyboard schematic to the two gsl drone cycles, alongside the audition', () => {
     const a = assetsFor('gsl-steward-026');
     expect(a.schematic).toBe('gsl-keyboard');
     expect(a.audition).toBeTruthy();
+    expect(assetsFor('gsl-steward-028').schematic).toBe('gsl-keyboard');
+  });
+
+  it('a later gsl cycle gets none — the keyboard was June\'s evidence, not a library (2026-10-13)', () => {
+    expect(assetsFor('gsl-steward-070')).toBe(null);
+    expect(assetsFor('gsl-steward-041')).toBe(null);
   });
 
   it('exact-keys the Position schematic to its fork cycles; an evolved cycle gets none', () => {

@@ -41,6 +41,29 @@
 
 const PUB = '_ops/stigmergy/app/public/trickster-assets';
 
+const GSL_DRONES = {
+    schematic: 'gsl-keyboard',
+    audition: {
+      kind: 'audio-sequence',
+      title: 'play the twelve drones',
+      blurb: 'one per pitch class · listen for a single tone, not a stack',
+      tracks: [
+        { tag: 'C',  label: 'shepard drone C',  path: `${PUB}/audio/gsl-shepard/shepard_C.wav` },
+        { tag: 'C♯', label: 'shepard drone C♯', path: `${PUB}/audio/gsl-shepard/shepard_Cs.wav` },
+        { tag: 'D',  label: 'shepard drone D',  path: `${PUB}/audio/gsl-shepard/shepard_D.wav` },
+        { tag: 'D♯', label: 'shepard drone D♯', path: `${PUB}/audio/gsl-shepard/shepard_Ds.wav` },
+        { tag: 'E',  label: 'shepard drone E',  path: `${PUB}/audio/gsl-shepard/shepard_E.wav` },
+        { tag: 'F',  label: 'shepard drone F',  path: `${PUB}/audio/gsl-shepard/shepard_F.wav` },
+        { tag: 'F♯', label: 'shepard drone F♯', path: `${PUB}/audio/gsl-shepard/shepard_Fs.wav` },
+        { tag: 'G',  label: 'shepard drone G',  path: `${PUB}/audio/gsl-shepard/shepard_G.wav` },
+        { tag: 'G♯', label: 'shepard drone G♯', path: `${PUB}/audio/gsl-shepard/shepard_Gs.wav` },
+        { tag: 'A',  label: 'shepard drone A',  path: `${PUB}/audio/gsl-shepard/shepard_A.wav` },
+        { tag: 'A♯', label: 'shepard drone A♯', path: `${PUB}/audio/gsl-shepard/shepard_As.wav` },
+        { tag: 'B',  label: 'shepard drone B',  path: `${PUB}/audio/gsl-shepard/shepard_B.wav` },
+      ],
+    },
+};
+
 const REGISTRY = {
   // ── Audio auditions (stable per steward → prefix-keyed) ──────────────────
   'inharmonic-wavetable-synthesis-steward-': {
@@ -83,28 +106,13 @@ const REGISTRY = {
   // The GSL 12-drone SFZ library — one drone per chromatic pitch class. Both
   // gsl-steward cycles that shipped it point here; the ear-check question is
   // "does each read as ONE pitch class?".
-  'gsl-steward-': {
-    schematic: 'gsl-keyboard',
-    audition: {
-      kind: 'audio-sequence',
-      title: 'play the twelve drones',
-      blurb: 'one per pitch class · listen for a single tone, not a stack',
-      tracks: [
-        { tag: 'C',  label: 'shepard drone C',  path: `${PUB}/audio/gsl-shepard/shepard_C.wav` },
-        { tag: 'C♯', label: 'shepard drone C♯', path: `${PUB}/audio/gsl-shepard/shepard_Cs.wav` },
-        { tag: 'D',  label: 'shepard drone D',  path: `${PUB}/audio/gsl-shepard/shepard_D.wav` },
-        { tag: 'D♯', label: 'shepard drone D♯', path: `${PUB}/audio/gsl-shepard/shepard_Ds.wav` },
-        { tag: 'E',  label: 'shepard drone E',  path: `${PUB}/audio/gsl-shepard/shepard_E.wav` },
-        { tag: 'F',  label: 'shepard drone F',  path: `${PUB}/audio/gsl-shepard/shepard_F.wav` },
-        { tag: 'F♯', label: 'shepard drone F♯', path: `${PUB}/audio/gsl-shepard/shepard_Fs.wav` },
-        { tag: 'G',  label: 'shepard drone G',  path: `${PUB}/audio/gsl-shepard/shepard_G.wav` },
-        { tag: 'G♯', label: 'shepard drone G♯', path: `${PUB}/audio/gsl-shepard/shepard_Gs.wav` },
-        { tag: 'A',  label: 'shepard drone A',  path: `${PUB}/audio/gsl-shepard/shepard_A.wav` },
-        { tag: 'A♯', label: 'shepard drone A♯', path: `${PUB}/audio/gsl-shepard/shepard_As.wav` },
-        { tag: 'B',  label: 'shepard drone B',  path: `${PUB}/audio/gsl-shepard/shepard_B.wav` },
-      ],
-    },
-  },
+  // Exact-keyed since 2026-10-13: the prefix stapled June's keyboard and the
+  // twelve drones onto every later GSL ask (gsl-steward-070 is about three
+  // AI-sourced instruments and carries fifteen artifacts of its own). The
+  // drones were a library for the fused-tone question, cycles 026 and 028
+  // only; later cycles self-serve on the wire.
+  'gsl-steward-026': GSL_DRONES,
+  'gsl-steward-028': GSL_DRONES,
 
   // ── Schematic-only entries (visual evidence, no audio/embed) ─────────────
   // A schematic draws ONE decision fork — the candidate behaviours of a single
