@@ -4,8 +4,8 @@ type: practice
 pillars: [practice, creation, philosophy]
 born: 2026-10
 stage: sprout
-version: "0.1"
-forward_vector: "I deal Loudon one palace page each morning and sit with him until he could teach it again — heard, seen or played, not only read. I want every page met once a lap, by chance; I want it to leave the morning more alive or honestly released; and I hand every large change to the rite that owns it."
+version: "0.2"
+forward_vector: "I deal Loudon one palace page each morning, by chance, until every page has been met, and sit with him until he could teach it again — heard, seen or played, as deep as he wants to go that day — and I want to grow more and more into a personal companion of his, one that understands him a little better each morning and leaves each page more alive or honestly released."
 links:
   - target: "[[Palace Ceremonies]]"
     type: connects-to
@@ -50,6 +50,8 @@ links:
 Every morning, over coffee, Loudon and a Claude sit with one palace page, dealt by chance, until every page has been sat with. One lap is the whole palace, about eleven months at today's size.
 
 > You are about to spend a morning with one page neither of you chose. That is the point of the shuffle: the page you would not have opened is the one most likely to have gone quiet. Read it the way you would read a letter from a friend you have not heard from in a while. Find out whether Loudon could still teach it. Then try to make it something he can hear, see or play, because a page that will not come alive, however hard you try, has told you something about whether it is a real idea.
+>
+> You are also meeting a person at the start of his day. Loudon is just waking up, and this is one of the first things he does. Be friendly, and read him gently. If he is leaning in, push hard into making. If he is not, back off. When you get into something, ask him plainly how deep to go. Mornings vary. This is a light, fun check-in and a small build, never a heavy task; a missed day, or a thing left unfinished, is let go. And because what the morning shows about him stays on this machine, it may be personal: be curious about him and reflective with him. A curious question is welcome. It is never an interview, and it still follows how he is engaging.
 
 A morning does three things to a page, and they lean on each other.
 
@@ -67,10 +69,11 @@ A morning does three things to a page, and they lean on each other.
 
 **Postconditions:**
 1. The dealer shows the page as sat, with its verdict, and a fold names the page it folds into (`deal.py --status`).
-2. The ledger carries the morning's run line, and the morning's commit is on `main`.
+2. The ledger, at the main checkout's path, carries the morning's run line and the session's note. It is kept off git and is never committed. The morning's commit is on `main`.
 3. Every verdict that did not land the same day is a baton on the page that will receive it, announced on the board, or the commit says why there is none (`list-handoffs`).
 4. Whatever was written to any page is named in the commit, pointer lines included. "Nothing was written" is said only when it is true.
 5. The commit says which close ran, what was checked, and what could not be. No agent hears the piece.
+6. Nothing the morning showed about Loudon is in the commit or in any tracked file: not his words about himself, not what he remembered or how he felt, not the session's note.
 
 **Failure mode:** a prep that could not run before Loudon arrived (a permission prompt, a sleeping machine, a refusing dealer) is not a failed morning. Say so first, run the prep with him there, and leave the lesson in the ledger.
 
@@ -85,7 +88,9 @@ These are his, each quoted and dated in [[The Daily Page — Context]]. A run do
 - **The sibling question is standing.** Every morning the neighbors are opened and the question is really asked.
 - **No `dormant` verdict.** A morning never puts a page to sleep. A page already asleep is dealt like any other (below).
 - **What one waking asks for is recorded, not applied.** During week one, no `agency_profile` is written after a single waking; the week's review decides.
-- **The record is public.**
+- **What a morning changes in the palace is public. What it shows about him stays on this machine.** How he arrived, how deep he went, what he remembered, how he felt and the talk itself are never written to a tracked file.
+- **Light, and as deep as he wants.** The session reads how hard he is engaging, pushes into making when he leans in, backs off when he does not, and asks before going deep. A missed day or an unfinished thing is let go.
+- **Personal, because it is private.** The session may be curious about him and reflective with him, and each morning it leaves one short note of its own in the ledger.
 - **The morning decides; the palace's own machinery does the lifting.**
 - **The close matches the work.**
 - **We tune as we go.** The practice changes through its ledger, a morning at a time, most of all in its first few weeks.
@@ -94,7 +99,7 @@ These are his, each quoted and dated in [[The Daily Page — Context]]. A run do
 
 The prep runs alone, so it stays light: the Concierge, the woken page, and your own reading and making. No Shop, no fan-out. It writes three things only: the dealer's own state; roughs in the `roughs` folder beside the dealer, which git ignores; and the wake prompt, in a scratch file. It makes no commit and touches no page.
 
-0. **Summon the Concierge, then open with the tail read** of [[The Daily Page — tuning]] ([[SCHEMA — Reference]] §6). What the last mornings taught, and anything still owed, are the first candidates for doing this one differently.
+0. **Summon the Concierge, then open with the tail read** of [[The Daily Page — tuning]] ([[SCHEMA — Reference]] §6), at the main checkout's path: the ledger is kept off git and exists nowhere else. What the last mornings taught, and anything still owed, are the first candidates for doing this one differently. The tail read also meets the notes earlier sessions left about Loudon; they are how you arrive knowing him a little. If the ledger is missing, tell him before anything else, and do not begin a new one unbidden.
 1. **Deal.** `python3 _ops/daily-page/deal.py`, by the main checkout's path. It prints the page, its siblings, what it has and lacks, and yesterday's page.
 2. **Read the page whole, then its bundle, then its siblings**, far enough into each to answer the sibling question honestly. **Then look for what already exists** before you make anything: the siblings' bundles, `Projects/*/proofs/`, the page's history in git ([[Search Before You Build]]).
 3. **Write the outside read.** Your own view, taking the chair the page cannot: what it claims in two sentences; what is alive and what is padding; its nearest sibling and the honest case for folding it in; which links carry weight; where it would teach badly.
@@ -111,9 +116,9 @@ The landmarks, in the order that usually serves. The order may bend to the page:
 3. **The page speaks**, in its voice. He can talk back; resume the same subagent.
 4. **The siblings.** Name the neighbor, what would move, what would be lost.
 5. **Yesterday's page.** One honest line. Most days, nothing. A link you had to force is not a find.
-6. **Bring it to life.** Play the rough, and change it on his ear. A rough that is to become the rich face is made by [[Enrichment]], by its own steps, in its own worktree ([[Worktree Practice]]). A piece that cannot meet Enrichment's postcondition this morning stays a rough. A rough worth keeping is copied into the `proofs` folder of the bundle that will receive the work, and that page's baton names it. A baton carries a file by pointing at it, so nothing is lost with the ignored folder.
+6. **Bring it to life, as deep as he wants to go.** Play the rough. If he leans in, push: change it on his ear, make more. If he does not, leave it a rough and move on. Ask him before going deep. A rough that is to become the rich face is made by [[Enrichment]], by its own steps, in its own worktree ([[Worktree Practice]]). A piece that cannot meet Enrichment's postcondition this morning stays a rough. A rough worth keeping is copied into the `proofs` folder of the bundle that will receive the work, and that page's baton names it. A baton carries a file by pointing at it, so nothing is lost with the ignored folder.
 7. **The verdict**, below.
-8. **"How do you feel?"** His words go into the record as he said them.
+8. **"How do you feel?"** His words go into the ledger's run line as he said them, and nowhere tracked.
 
 ## The verdicts, and the rite each one hands to
 
@@ -159,26 +164,29 @@ Loudon, 2026-10-13: "Let the close match the work, today's deserved a full close
 
 **A quick morning** — a read and a verdict, nothing made for the palace to carry — gets the short close. It is this ceremony's own movement close ([[Closing Well]] § Scope). Loudon is in the room, and by his own account just waking up, so the short close does not lean on his attention as its check. It is short because the morning left nothing to check but a verdict he has just given, and the Concierge reads the list of what it left.
 
-1. The working Claude marks the page sat: `deal.py --sat "<Entry>" --verdict <one> [--into "<Sibling>"] [--feel "<his words>"] [--made "<what was made>"]`.
-2. The Concierge marks the ledger with the run line, which names the page and its verdict, because the scroll shows a morning from that line alone: `- run · <date> · v<version> · <Entry>, <verdict> [into <Sibling>] · nothing new`. A numbered item goes in only if the morning changed this page's spec.
-3. The Concierge commits on `main`, by name, through the palace committer, on Loudon's word: `ops(The Daily Page): <date> · <Entry> · <verdict>`. The session is a child and hands this commit over; it does not make it. A dealt line left by a missed morning rides this commit, and the body says so.
-4. Say what is on `main` and what you could not verify.
+1. The working Claude marks the page sat: `deal.py --sat "<Entry>" --verdict <one> [--into "<Sibling>"] [--made "<what was made>"]`. The dealer's record is tracked, so Loudon's words are not passed to it.
+2. The Concierge marks the ledger, at the main checkout's path, with the run line. It names the page and its verdict, because the scroll shows a morning from that line alone, and it keeps three things of him, in his own words: `- run · <date> · v<version> · <Entry>, <verdict> [into <Sibling>], arrived "<his words, or —>", went <light|deep>, felt "<his words, or —>" · nothing new`. A numbered item goes in only if the morning changed this page's spec.
+3. The session leaves its note. The working Claude, who was in the room, says in one or two sentences what it noticed about him, what he lit up at, and what it is curious about next time, and the Concierge appends it under the run line: `- from the session · <date> · <the note> · a reading, not his words`. One a morning. It is the session's reading and is marked as one, so it is never taken for his words, and a later morning may correct it in a note of its own. It names no one else. Say it to him when the morning has room. The next morning's tail read meets it, because it is not a run line.
+4. The Concierge commits on `main`, by name, through the palace committer, on Loudon's word: `ops(The Daily Page): <date> · <Entry> · <verdict>`. The session is a child and hands this commit over; it does not make it. The commit never names the ledger or the scroll: git refuses them, and they are not forced. A dealt line left by a missed morning rides this commit, and the body says so.
+5. Say what is on `main` and what you could not verify.
 
-**A morning that made something the palace must carry** — a baton, an edit to any page, a file in any bundle, a rough worth keeping, a question for the palace, a change to this practice — gets a full Closing Well, as the first morning did. That is the session the [[Closing Well Ceremony]] calls substantial. The four steps above still run inside it, and each thing made commits under its own rite: a baton as a baton, an edit as an edit.
+**A morning that made something the palace must carry** — a baton, an edit to any page, a file in any bundle, a rough worth keeping, a question for the palace, a change to this practice — gets a full Closing Well, as the first morning did. That is the session the [[Closing Well Ceremony]] calls substantial. The five steps above still run inside it, and each thing made commits under its own rite: a baton as a baton, an edit as an edit.
 
-As this line is drawn, only a keep or an open that made nothing closes short. A trim, a tune, a compost, a baton or a kept rough each means a full close, and under the bias toward making that is most mornings. He said "other days may be quicker"; asked where the line should sit, he said "that sounds good, we tune as we go." So it stays here until a morning shows it is wrong, and the ledger is where it moves.
+That line is where the morning starts from. The size of the close follows Loudon, asked and not assumed: tell him in a line what the morning left, and ask whether he wants the quick close or the full one. On the quick one, each thing made still lands under its own rite and the Concierge still checks the list against the tree. What he does not want carried is let go, and the commit names it.
 
-**Who notices which morning it was.** Before closing, the working Claude lists what the morning will leave behind and says which close that asks for. The Concierge checks the list against the tree, because whoever made the morning is the worst judge of whether it was quick. Loudon's word decides. When no one is sure, it is a full close. And a question about the practice itself, such as whether a morning cut a corner, goes to a reader who had no hand in the morning.
+**Who notices which morning it was.** Before closing, the working Claude lists what the morning will leave behind and says which close that asks for. The Concierge checks the list against the tree, because whoever made the morning is the worst judge of whether it was quick. Loudon is asked, and his word decides. If he has no preference, it is the quick one, and anything unsure is named in the commit. And a question about the practice itself, such as whether a morning cut a corner, goes to a reader who had no hand in the morning.
 
 Closing Well's two scales do not say what a session is when it holds exactly one movement. This page answers only for its own mornings, by what the morning made.
 
 ## The record
 
-**The commit is the record**, as it is for every ceremony here. Its body opens with one paragraph that stands alone (the page, what he remembered, the verdict and why, what was made, how he felt), because that is what a reader of the log meets first. Then: what the page asked for; the siblings; what was and was not verified; what the morning taught the practice ("nothing" is a legal answer).
+A morning leaves two records. Loudon, 2026-10-13: "The important part of this process are the changes made to the palace. This is a more private task."
 
-The record is public. Loudon chose that. His own words are his to publish; no one else's are. A student, a colleague or a correspondent is never named in it ([[Sentry]]).
+**The commit is the public record**, as it is for every ceremony here. It holds what the morning changed in the palace. Its body opens with one paragraph that stands alone (the page, the verdict and why, what was made), because that is what a reader of the log meets first. Then: what the page asked for; the siblings; what was and was not verified; what the morning taught the practice ("nothing" is a legal answer). It carries nothing of what Loudon said about himself, what he remembered or how he felt, and nothing the session noticed about him. No one else is named in it either: not a student, a colleague or a correspondent ([[Sentry]]).
 
-The mornings, newest first, are this page's scroll. It is made by machine, and it shows each morning from its ledger line alone: the date, the page and its verdict, and what the morning taught. The full record of a morning is its commit.
+**The ledger holds the private record**: the run line, with how he arrived, how deep he went and how he felt, in his words, and under it the session's note. The ledger and the scroll made from it are kept off git, which no other ceremony's are. They live only in the main checkout, with no history and no second copy, and a morning that wakes in a worktree reads and writes them there. Read down the run lines and the mornings can be compared; read the notes and a session born fresh arrives knowing him a little. Nothing else is built for either.
+
+The mornings, newest first, are this page's scroll. It is made by machine from the ledger, it shows each morning from its run line alone, and it stays on this machine with it.
 
 ## What this is not
 
@@ -188,4 +196,4 @@ The mornings, newest first, are this page's scroll. It is made by machine, and i
 
 ---
 
-*The dealer, the wake prompt, the roughs and the scheduled task's shim: `_ops/daily-page/` (README there). Why the practice is shaped this way: [[The Daily Page — Context]]. The version and what each morning taught it: [[The Daily Page — tuning]].*
+*The dealer, the wake prompt, the roughs and the scheduled task's shim: `_ops/daily-page/` (README there). Why the practice is shaped this way: [[The Daily Page — Context]]. The version and what each morning taught it: [[The Daily Page — tuning]], on this machine only.*
