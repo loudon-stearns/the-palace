@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process';
 import { describe, test, expect, beforeEach, afterEach } from 'vitest';
 import http from 'node:http';
 import { resolve, dirname, join } from 'node:path';
@@ -191,6 +192,30 @@ describe('POST /api/steward/advance', () => {
     const row = after.body.stewards.find((s) => s.agent_id === 'Test Steward');
     expect(row.grants_waiting).toBe(0);
   }, 20000);
+
+  // The reap plans the cycle's commit and makes it asynchronously, so the
+  // server is never blocked on a committer while it may hold the door itself
+  // (server/door.js; review of 2026-10-14). In a palace that is a git repo the
+  // commit still lands, and last-cycle.json gets its result once it settles.
+  test('in a git palace the cycle commit lands asynchronously and is recorded', async () => {
+    seedSteward(root, { name: 'Test Steward', slug: 'test-steward', requestId: 'test-steward-001' });
+    const g = (...a) => execFileSync('git', a, { cwd: root, encoding: 'utf8' });
+    g('init', '-q', '-b', 'main');
+    g('config', 'user.name', 'test');
+    g('config', 'user.email', 'test@example.com');
+    g('config', 'commit.gpgsign', 'false');
+    writeFileSync(join(root, '.gitignore'), '_ops/stigmergy/.actuator-steward/\n');
+    g('add', '-A');
+    g('commit', '-q', '-m', 'init');
+
+    const res = await request(base).post('/api/steward/advance').send({ name: 'Test Steward' });
+    expect(res.body.fired).toBe(true);
+    await waitFor(() => !existsSync(stewardLane.paths.pidFile), { timeout: 6000 });
+    await waitFor(() => {
+      try { const c = JSON.parse(readFileSync(stewardLane.paths.lastCycleFile, 'utf8')).commit; return c && c.ok === true; } catch (_) { return false; }
+    }, { timeout: 15000 });
+    expect(g('log', '-1', '--format=%s').trim()).toMatch(/^steward\(Test Steward\): cycle 2/);
+  }, 30000);
 
   test('404 on an unknown steward', async () => {
     const res = await request(base).post('/api/steward/advance').send({ name: 'Nobody' });

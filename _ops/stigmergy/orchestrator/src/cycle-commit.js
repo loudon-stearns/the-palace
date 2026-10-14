@@ -17,7 +17,7 @@
 //     (`Modes of Collaboration/Dialectic.md`), so the folder rule alone is not
 //     enough.
 
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawn } from 'node:child_process';
 import { existsSync, statSync, readFileSync } from 'node:fs';
 import { resolve, relative, isAbsolute, join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -91,6 +91,30 @@ export function headlineOf(messages) {
 
 const sleep = (ms) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
 
+// A brief contention on git's own index lock is worth a short retry. A door
+// timeout is not: the committer has already waited its full time limit
+// (server/door.js), so retrying would only stack more waits behind it.
+export function isRetryable(text) {
+  const t = String(text || '');
+  if (/could not lock the door/i.test(t)) return false;
+  return /index\.lock|could not lock|Unable to create/i.test(t);
+}
+
+function committerArgs({ committer, kind, scope, summary, body, verify, author, paths }) {
+  const args = [committer, '--only', '--kind', kind, '--summary', summary, '--verify', verify, '--author', author];
+  if (scope) args.push('--scope', scope);
+  if (body) args.push('--body', body);
+  for (const p of paths) args.push('--path', p);
+  return args;
+}
+
+function readCommitted(out) {
+  const m = String(out).match(/palace-commit: committed ([0-9a-f]{7,40})/);
+  if (m) return { ok: true, hash: m[1] };
+  if (/nothing to commit/.test(String(out))) return { ok: true, hash: null, nothing: true };
+  return { ok: false, hash: null, error: `unexpected committer output: ${String(out).slice(-300)}` };
+}
+
 /**
  * Commit the named paths through the house committer. Retries briefly when
  * another writer holds the git lock. Never throws: a failed commit leaves the
@@ -100,21 +124,15 @@ const sleep = (ms) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 
  */
 export function commitPaths({ palaceRoot, paths, kind = 'steward', scope, summary, body = '', verify = 'unverified', author = 'claude', committer = COMMITTER_DEFAULT, retries = 3, exec = execFileSync }) {
   if (!paths || paths.length === 0) return { ok: true, hash: null, nothing: true };
-  const args = [committer, '--only', '--kind', kind, '--summary', summary, '--verify', verify, '--author', author];
-  if (scope) args.push('--scope', scope);
-  if (body) args.push('--body', body);
-  for (const p of paths) args.push('--path', p);
+  const args = committerArgs({ committer, kind, scope, summary, body, verify, author, paths });
   let lastErr = null;
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
       const out = exec('node', args, { cwd: palaceRoot, encoding: 'utf8', env: { ...process.env, PALACE_ROOT: palaceRoot }, stdio: ['ignore', 'pipe', 'pipe'] });
-      const m = String(out).match(/palace-commit: committed ([0-9a-f]{7,40})/);
-      if (m) return { ok: true, hash: m[1] };
-      if (/nothing to commit/.test(String(out))) return { ok: true, hash: null, nothing: true };
-      return { ok: false, hash: null, error: `unexpected committer output: ${String(out).slice(-300)}` };
+      return readCommitted(out);
     } catch (e) {
       lastErr = String((e && (e.stderr || e.message)) || e);
-      if (!/index\.lock|could not lock|Unable to create/i.test(lastErr)) break;
+      if (!isRetryable(lastErr)) break;
       sleep(400 * (attempt + 1));
     }
   }
@@ -122,10 +140,47 @@ export function commitPaths({ palaceRoot, paths, kind = 'steward', scope, summar
 }
 
 /**
- * The whole step for one cycle: pick what may ride, then commit it with the
- * cycle's machinery, scroll and the board.
+ * The async twin of commitPaths, for the STIGMERGY server. The server holds
+ * the door asynchronously for its own commits (deck saves, companion edits,
+ * regen, the Trickster's undo), so it must never wait on the committer with
+ * its event loop blocked: a blocked server cannot finish the commit it is
+ * holding the door for, and the cycle's committer would wait on it forever.
+ * Same arguments, same result shape; resolves, never rejects.
  */
-export function commitCycle({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths = [], maxBytes = MAX_COMMIT_BYTES, committer, exec }) {
+export function commitPathsAsync({ palaceRoot, paths, kind = 'steward', scope, summary, body = '', verify = 'unverified', author = 'claude', committer = COMMITTER_DEFAULT, retries = 3, spawnFn = spawn }) {
+  if (!paths || paths.length === 0) return Promise.resolve({ ok: true, hash: null, nothing: true });
+  const args = committerArgs({ committer, kind, scope, summary, body, verify, author, paths });
+  const once = () => new Promise((done) => {
+    let out = '';
+    let err = '';
+    let child;
+    try {
+      child = spawnFn('node', args, { cwd: palaceRoot, env: { ...process.env, PALACE_ROOT: palaceRoot }, stdio: ['ignore', 'pipe', 'pipe'] });
+    } catch (e) { done({ code: -1, out, err: String(e && e.message) }); return; }
+    child.stdout.on('data', (b) => { out += b; });
+    child.stderr.on('data', (b) => { err += b; });
+    child.on('error', (e) => done({ code: -1, out, err: String(e && e.message) }));
+    child.on('close', (code) => done({ code, out, err }));
+  });
+  return (async () => {
+    let lastErr = null;
+    for (let attempt = 0; attempt <= retries; attempt++) {
+      const r = await once();
+      if (r.code === 0) return readCommitted(r.out);
+      lastErr = r.err || r.out || `exit ${r.code}`;
+      if (!isRetryable(lastErr)) break;
+      await new Promise((w) => setTimeout(w, 400 * (attempt + 1)));
+    }
+    return { ok: false, hash: null, error: lastErr ? String(lastErr).slice(-500) : 'unknown' };
+  })();
+}
+
+/**
+ * What one cycle's commit holds, without making it: the paths that may ride,
+ * the message, and what was left out and why. commitCycle makes the commit
+ * here and now; the STIGMERGY server hands the plan to commitPathsAsync.
+ */
+export function planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths = [], maxBytes = MAX_COMMIT_BYTES }) {
   const pick = selectCommitPaths({ palaceRoot, bundleDir, paths: shippedPaths(messages), maxBytes });
   const root = resolve(palaceRoot);
   const extras = extraPaths
@@ -138,10 +193,24 @@ export function commitCycle({ palaceRoot, home, cycleN, bundleDir, messages, ext
   if (pick.entries.length) lines.push(`Not committed — entries change only through an elder:\n${pick.entries.map((p) => `- ${p}`).join('\n')}`);
   if (pick.outside.length) lines.push(`Not committed — outside the steward's bundle:\n${pick.outside.map((p) => `- ${p}`).join('\n')}`);
   lines.push('Committed by process-cycle.js after the cycle; the steward did not run git.');
-  const res = commitPaths({
+  return {
     palaceRoot, paths: all, kind: 'steward', scope: home,
     summary: `cycle ${cycleN} — ${headlineOf(messages)}`,
-    body: lines.join('\n\n'), committer, exec,
+    body: lines.join('\n\n'),
+    verify: 'unverified', author: 'claude',
+    shipped: pick.paths, oversize: pick.oversize, entries: pick.entries, outside: pick.outside, missing: pick.missing,
+  };
+}
+
+/**
+ * The whole step for one cycle: pick what may ride, then commit it with the
+ * cycle's machinery, scroll and the board.
+ */
+export function commitCycle({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths = [], maxBytes = MAX_COMMIT_BYTES, committer, exec }) {
+  const plan = planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths, maxBytes });
+  const res = commitPaths({
+    palaceRoot, paths: plan.paths, kind: plan.kind, scope: plan.scope,
+    summary: plan.summary, body: plan.body, committer, exec,
   });
-  return { ...res, paths: all, shipped: pick.paths, oversize: pick.oversize, entries: pick.entries, outside: pick.outside, missing: pick.missing };
+  return { ...res, paths: plan.paths, shipped: plan.shipped, oversize: plan.oversize, entries: plan.entries, outside: plan.outside, missing: plan.missing };
 }

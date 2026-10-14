@@ -57,15 +57,18 @@ const EAR_SHIM = `#!/bin/sh
 # Palace ear (reference-transaction hook; installed by install-hooks.mjs --ear).
 # Listening only: logs each branch move and never blocks. Logic lives in the
 # tracked _ops/stigmergy/app/scripts/ear.sh so this shim never goes stale.
+# Cheap on purpose: git runs it several times per commit, so it leaves before
+# any git call unless a branch actually moved.
+if [ "$1" != "committed" ]; then cat >/dev/null 2>&1; exit 0; fi
+LINES="$(cat 2>/dev/null)"
+case "$LINES" in *" refs/heads/"*) ;; *) exit 0 ;; esac
 MAIN="$(cd "$(git rev-parse --git-common-dir 2>/dev/null)/.." 2>/dev/null && pwd)"
 LOGIC="$MAIN/_ops/stigmergy/app/scripts/ear.sh"
 if [ ! -f "$LOGIC" ]; then
   LOGIC="$(git rev-parse --show-toplevel 2>/dev/null)/_ops/stigmergy/app/scripts/ear.sh"
 fi
 if [ -f "$LOGIC" ]; then
-  sh "$LOGIC" "$@" 2>/dev/null
-else
-  cat >/dev/null 2>&1
+  printf '%s\\n' "$LINES" | EAR_GIT_PID=$PPID sh "$LOGIC" "$@" 2>/dev/null
 fi
 exit 0
 `;

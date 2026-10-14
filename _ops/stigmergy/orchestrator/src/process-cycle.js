@@ -34,7 +34,7 @@ import { appendMessage, readJsonl } from '@stigmergy/core/blackboard';
 import { scanBundleMedia, applyArtifactBackstop, lintArtifactReferences } from './artifact-backstop.js';
 import { materializeScroll } from './scroll-file.js';
 import { resolveBundleDir } from './entry-paths.js';
-import { commitCycle } from './cycle-commit.js';
+import { commitCycle, planCycleCommit } from './cycle-commit.js';
 import { resolveModel } from '../../../models/latest-opus.mjs';
 
 const PALACE_ROOT_DEFAULT = resolve(fileURLToPath(new URL('.', import.meta.url)), '../../../..');
@@ -241,7 +241,9 @@ export function processCycle(opts) {
     boardPath,
     enableArtifactBackstop = true,
     // Commit what the cycle shipped (cycle-commit.js). Off by default so a
-    // caller opts in; the CLI and the STIGMERGY lane both do.
+    // caller opts in. `true` commits here and now (the CLI, the heartbeat);
+    // 'plan' only plans the commit and returns it as commit.plan, for the
+    // STIGMERGY lane, which commits it asynchronously.
     commit = false,
   } = opts;
 
@@ -469,7 +471,28 @@ export function processCycle(opts) {
   // commit scoped to exactly those paths. Runs last, so a failure here costs
   // nothing already written; the files simply stay uncommitted.
   let commitResult = null;
-  if (commit) {
+  if (commit === 'plan') {
+    // The STIGMERGY server commits the plan itself, asynchronously, so it is
+    // never blocked waiting on a committer (cycle-commit.js commitPathsAsync).
+    try {
+      commitResult = {
+        planned: true,
+        plan: planCycleCommit({
+          palaceRoot, home, cycleN,
+          bundleDir: bundle ? bundle.bundleDir : null,
+          messages: valid.filter((m) => appended.includes(m.id)),
+          extraPaths: [
+            join(agentDirAbs, 'state.json'),
+            join(agentDirAbs, 'history.jsonl'),
+            ...(scroll && scroll.scrollPath ? [scroll.scrollPath] : []),
+            boardFile,
+          ],
+        }),
+      };
+    } catch (e) {
+      commitResult = { ok: false, hash: null, error: e.message };
+    }
+  } else if (commit) {
     try {
       commitResult = commitCycle({
         palaceRoot, home, cycleN,

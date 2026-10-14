@@ -47,7 +47,7 @@
 //     work (the hard Phase 2 lesson). Only explicit --path args are staged.
 
 import { execFileSync } from 'node:child_process';
-import { existsSync, rmSync, writeFileSync, mkdtempSync } from 'node:fs';
+import { existsSync, rmSync, writeFileSync, mkdtempSync, readdirSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { deriveTrailers, formatCommitMessage, parseNameStatus } from '../src/lib/commit-spec.js';
@@ -56,14 +56,15 @@ import { clearStaleLocksSync, LockHeldError } from '../server/git-locks.js';
 import { withDoorSync, trunkProblem, DoorBusyError } from '../server/door.js';
 
 // Reads never take git's optional index lock (a `git diff` that refreshes the
-// index would otherwise compete with a writer for index.lock).
+// index would otherwise compete with a writer for index.lock). Pathspecs are
+// literal everywhere: a named `Why?.md` means that file, never also `Why2.md`.
 function git(palaceRoot, args, { allowFail = false, env = null } = {}) {
   try {
     return execFileSync('git', args, {
       cwd: palaceRoot,
       encoding: 'utf8',
       maxBuffer: 64 * 1024 * 1024,
-      env: { ...process.env, GIT_OPTIONAL_LOCKS: '0', ...(env || {}) },
+      env: { ...process.env, GIT_OPTIONAL_LOCKS: '0', GIT_LITERAL_PATHSPECS: '1', ...(env || {}) },
     });
   } catch (e) {
     if (allowFail) return '';
@@ -198,6 +199,43 @@ export function parseArgs(argv) {
   return opts;
 }
 
+// This Mac's disk ignores case, and so does git here (core.ignorecase). A path
+// named in the wrong case (taken from a wikilink, say) stages nothing and the
+// commit quietly does nothing. So every named path must match its real name
+// exactly: on disk, segment by segment (symlinks are not followed, so a
+// symlink is checked by its own name), or, for a deletion, in the index or
+// HEAD. Returns a sentence, or null when every path is spelled as it is.
+export function namingProblem(palaceRoot, paths) {
+  const root = resolve(palaceRoot);
+  for (const p of paths) {
+    const segs = p.split('/').filter((x) => x && x !== '.');
+    let dir = root;
+    let onDisk = true;
+    for (let i = 0; i < segs.length; i += 1) {
+      let names;
+      try { names = readdirSync(dir); } catch (_) { onDisk = false; break; }
+      if (names.includes(segs[i])) { dir = join(dir, segs[i]); continue; }
+      const other = names.find((n) => n.toLowerCase() === segs[i].toLowerCase());
+      if (other) {
+        const real = [...segs.slice(0, i), other].join('/');
+        return `"${p}" is not spelled as it is on disk ("${real}${i < segs.length - 1 ? '/...' : ''}"). Name it exactly; this disk ignores case, so a wrong-case name would commit nothing.`;
+      }
+      onDisk = false;
+      break;
+    }
+    if (onDisk) continue;
+    // Not on disk: a deletion. It must be named exactly as git knows it.
+    const known = [
+      ...git(root, ['ls-files', '-z', '--', p], { allowFail: true }).split('\0'),
+      ...git(root, ['ls-tree', '-r', '-z', '--name-only', 'HEAD', '--', p], { allowFail: true }).split('\0'),
+    ].filter(Boolean);
+    if (known.length && !known.some((k) => k === p || k.startsWith(`${p}/`))) {
+      return `"${p}" is not spelled as git knows it ("${known[0]}"). Name it exactly; this disk ignores case.`;
+    }
+  }
+  return null;
+}
+
 // The message a commit of the named paths would carry, built in a throwaway
 // index from HEAD plus the named paths as they sit on disk. Touches neither
 // the shared index nor any lock.
@@ -209,6 +247,8 @@ export function dryRunMessage(palaceRoot, opts) {
       git(palaceRoot, ['read-tree', 'HEAD'], { env });
     }
     for (const p of opts.paths) git(palaceRoot, ['add', '--', p], { env });
+    const changed = git(palaceRoot, ['-c', 'core.quotepath=false', 'diff', '--cached', '--name-only', '--', ...opts.paths], { allowFail: true, env }).trim();
+    if (changed === '') return null;
     return buildMessageFromStaged(palaceRoot, { ...opts, only: true }, { env });
   } finally {
     try { rmSync(tmp, { recursive: true, force: true }); } catch (_) { /* ignore */ }
@@ -286,9 +326,20 @@ function main() {
       + 'It commits only what you name, never whatever happens to be staged.');
   }
 
+  const naming = namingProblem(palaceRoot, opts.paths);
+  if (naming) fail(2, `palace-commit: refused: ${naming} Nothing was staged or committed.`);
+
   if (opts.dryRun) {
+    // A preview says what the real run would do, refusals included.
+    const problem = trunkProblem(palaceRoot);
+    if (problem) fail(2, `palace-commit: dry run: the real commit would be refused: ${problem}`);
     for (const h of halfNamedMoves(palaceRoot, opts.paths)) warnHalfMove(h);
-    process.stdout.write(dryRunMessage(palaceRoot, opts));
+    const preview = dryRunMessage(palaceRoot, opts);
+    if (preview === null) {
+      process.stdout.write('palace-commit: dry run: nothing to commit under the named paths\n');
+      process.exit(0);
+    }
+    process.stdout.write(preview);
     process.exit(0);
   }
 
@@ -307,21 +358,34 @@ function main() {
       // deletion is skipped: `git add` dies on it ("pathspec did not match any
       // files"), yet a mover has to be able to name it, because a move is
       // committed whole only when both of its sides are named.
-      for (const p of opts.paths) {
-        if (isStagedDeletion(palaceRoot, p)) continue;
-        dgit(['add', '--', p]);
+      // If anything fails after staging, unstage the named paths before
+      // leaving, so a failed commit leaves the shared index as it found it
+      // (their content stays on disk) instead of handing it to the next
+      // whole-index commit.
+      let staging = false;
+      let out;
+      let staged;
+      try {
+        for (const p of opts.paths) {
+          if (isStagedDeletion(palaceRoot, p)) continue;
+          staging = true;
+          dgit(['add', '--', p]);
+        }
+
+        staged = git(palaceRoot, ['-c', 'core.quotepath=false', 'diff', '--cached', '--name-only', '--', ...opts.paths], { allowFail: true }).trim();
+        if (staged === '') return { nothing: true };
+
+        // Say so (never block) when this commit would hold half of a staged move.
+        for (const h of halfNamedMoves(palaceRoot, opts.paths)) warnHalfMove(h);
+
+        const message = buildMessageFromStaged(palaceRoot, opts);
+        const msgFile = join(tmp, 'COMMIT_MSG');
+        writeFileSync(msgFile, message, 'utf8');
+        out = dgit(['commit', '-F', msgFile, '--only', '--', ...opts.paths]);
+      } catch (e) {
+        if (staging) dgit(['reset', '-q', '--', ...opts.paths], { allowFail: true });
+        throw e;
       }
-
-      const staged = git(palaceRoot, ['-c', 'core.quotepath=false', 'diff', '--cached', '--name-only', '--', ...opts.paths], { allowFail: true }).trim();
-      if (staged === '') return { nothing: true };
-
-      // Say so (never block) when this commit would hold half of a staged move.
-      for (const h of halfNamedMoves(palaceRoot, opts.paths)) warnHalfMove(h);
-
-      const message = buildMessageFromStaged(palaceRoot, opts);
-      const msgFile = join(tmp, 'COMMIT_MSG');
-      writeFileSync(msgFile, message, 'utf8');
-      const out = dgit(['commit', '-F', msgFile, '--only', '--', ...opts.paths]);
       const board = staged.split('\n').includes(BOARD_PATH) ? null : commitBoardTail(palaceRoot, dgit, tmp);
       return { out, board };
     });

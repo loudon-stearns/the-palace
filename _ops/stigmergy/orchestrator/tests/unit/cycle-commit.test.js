@@ -3,7 +3,7 @@ import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { shippedPaths, selectCommitPaths, headlineOf } from '../../src/cycle-commit.js';
+import { shippedPaths, selectCommitPaths, headlineOf, commitPathsAsync } from '../../src/cycle-commit.js';
 import { processCycle } from '../../src/process-cycle.js';
 
 function assistantLine(fences) {
@@ -137,5 +137,35 @@ describe('processCycle with commit', () => {
     const summary = processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 1, iteration: 1, tsNow: '2026-09-25T20:05:00-04:00' });
     expect(summary.commit).toBeNull();
     expect(git(root, ['rev-list', '--count', 'HEAD']).trim()).toBe('1');
+  });
+
+  // The STIGMERGY lane plans the commit inside the reap and makes it
+  // asynchronously after, so the server never blocks on a committer while it
+  // may be holding the door itself (server/door.js; the 2026-10-14 review).
+  test("commit: 'plan' makes no commit, and the plan commits through commitPathsAsync", async () => {
+    const { bundle, agentDir } = makePalace();
+    git(root, ['init', '-q', '-b', 'main']);
+    git(root, ['config', 'user.name', 'test']);
+    git(root, ['config', 'user.email', 'test@example.com']);
+    writeFileSync(path.join(root, '.gitignore'), 'transcript.jsonl\n');
+    git(root, ['add', '-A']);
+    git(root, ['commit', '-q', '-m', 'init']);
+    writeFileSync(path.join(bundle, 'render.png'), 'png');
+    const shipped = {
+      schema_version: '1.0', id: 'ts-2', ts: '2026-09-25T20:00:00-04:00', session_id: 's',
+      from: 'Test Steward', to: '*', type: 'BROADCAST', board: 'GENERAL',
+      payload: { kind: 'shipped_artifact', headline: 'A planned render', artifacts: [{ path: 'Projects/Test Steward/render.png' }] },
+    };
+    const transcriptPath = path.join(root, 'transcript.jsonl');
+    writeFileSync(transcriptPath, assistantLine([shipped]));
+
+    const summary = processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 2, iteration: 2, tsNow: '2026-09-25T20:05:00-04:00', commit: 'plan' });
+    expect(summary.commit.planned).toBe(true);
+    expect(summary.commit.plan.paths).toContain('Projects/Test Steward/render.png');
+    expect(git(root, ['rev-list', '--count', 'HEAD']).trim()).toBe('1'); // nothing committed yet
+
+    const res = await commitPathsAsync({ palaceRoot: root, ...summary.commit.plan });
+    expect(res.ok, res.error).toBe(true);
+    expect(git(root, ['log', '-1', '--format=%s']).trim()).toBe('steward(Test Steward): cycle 2 — A planned render');
   });
 });

@@ -86,7 +86,9 @@ STAMP="$PALACE/_ops/heartbeat/.last-steward-batch"
     # anyone had staged. NUL-delimited reads so spaces and em-dashes survive.
     PATHS=(--path "_ops/agents/permanent" --path "_ops/swarm/persistent/blackboard.jsonl")
     while IFS= read -r -d '' f; do PATHS+=(--path "$f"); done < <(
-      git -C "$PALACE" diff --name-only -z -- '*— scroll.md' 2>/dev/null
+      # Against HEAD, not the index: a scroll a failed commit left staged is
+      # still a change, and sweeping it up is what this pass is for.
+      git -C "$PALACE" diff HEAD --name-only -z -- '*— scroll.md' 2>/dev/null
       git -C "$PALACE" ls-files --others --exclude-standard -z -- '*— scroll.md' 2>/dev/null
     )
     PALACE_ROOT="$PALACE" node "$COMMITTER" \

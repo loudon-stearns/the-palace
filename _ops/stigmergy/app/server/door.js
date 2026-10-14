@@ -61,8 +61,11 @@ const PY_HELPER = [
   '        time.sleep(0.05)',
 ].join('\n');
 const PERL_HELPER = 'use Fcntl qw(:flock); my $d=time+$ARGV[0]; while(1){ exit 0 if flock(STDIN, LOCK_EX|LOCK_NB); exit 75 if time>=$d; select(undef,undef,undef,0.05) }';
+// `-I`: isolated mode, so no fcntl.py lying in some folder can stand in for
+// the real module (and PYTHONPATH is ignored). The helpers also run with the
+// git common dir as their working directory.
 const HELPERS = [
-  ['python3', ['-c', PY_HELPER]],
+  ['python3', ['-I', '-c', PY_HELPER]],
   ['/usr/bin/perl', ['-e', PERL_HELPER]],
 ];
 
@@ -137,9 +140,9 @@ function helperArgs(timeoutMs) {
   return String(Math.max(0, timeoutMs) / 1000);
 }
 
-function acquireSync(fd, timeoutMs) {
+function acquireSync(fd, timeoutMs, helperCwd) {
   for (const [cmd, args] of HELPERS) {
-    const r = spawnSync(cmd, [...args, helperArgs(timeoutMs)], { stdio: [fd, 'ignore', 'pipe'], encoding: 'utf8' });
+    const r = spawnSync(cmd, [...args, helperArgs(timeoutMs)], { cwd: helperCwd, stdio: [fd, 'ignore', 'pipe'], encoding: 'utf8' });
     if (r.error && r.error.code === 'ENOENT') continue;
     if (r.error) throw r.error;
     return r.status; // 0 acquired, 75 timed out, anything else an error
@@ -147,12 +150,12 @@ function acquireSync(fd, timeoutMs) {
   throw new Error('no lock helper available (python3 or perl)');
 }
 
-function acquireAsync(fd, timeoutMs) {
+function acquireAsync(fd, timeoutMs, helperCwd) {
   return new Promise((resolvePromise, rejectPromise) => {
     const tryHelper = (i) => {
       if (i >= HELPERS.length) { rejectPromise(new Error('no lock helper available (python3 or perl)')); return; }
       const [cmd, args] = HELPERS[i];
-      const child = spawn(cmd, [...args, helperArgs(timeoutMs)], { stdio: [fd, 'ignore', 'pipe'] });
+      const child = spawn(cmd, [...args, helperArgs(timeoutMs)], { cwd: helperCwd, stdio: [fd, 'ignore', 'pipe'] });
       let stderr = '';
       let settled = false;
       child.stderr.on('data', (b) => { stderr += b; });
@@ -196,12 +199,20 @@ export function trunkProblem(root) {
     ['REVERT_HEAD', 'a revert', 'finish it, or `git revert --abort`'],
     ['rebase-merge', 'a rebase', 'finish it, or `git rebase --abort`'],
     ['rebase-apply', 'a rebase', 'finish it, or `git rebase --abort`'],
+    ['BISECT_START', 'a bisect', 'end it with `git bisect reset`'],
+    ['sequencer', 'a multi-commit cherry-pick or revert', 'finish it, or abort it'],
   ]) {
     if (existsSync(join(gitDir, file))) return `${what} is half done in ${r}; ${back}, then commit again.`;
   }
+  let branch = '';
+  try { branch = gitText(r, ['symbolic-ref', '--short', '-q', 'HEAD']); } catch (_) { branch = ''; }
+  if (!branch && gitDir !== common) {
+    // A linked worktree on a detached HEAD: a commit here belongs to no
+    // branch and is stranded the moment the worktree moves on.
+    return `${r} is on a detached HEAD, so a commit here would belong to no branch. `
+      + 'Give it one first (`git switch -c <name>`), then commit again.';
+  }
   if (gitDir === common) {
-    let branch = '';
-    try { branch = gitText(r, ['symbolic-ref', '--short', '-q', 'HEAD']); } catch (_) { branch = ''; }
     let hasMain = false;
     try { gitText(r, ['show-ref', '--verify', '-q', 'refs/heads/main']); hasMain = true; } catch (_) { hasMain = false; }
     if (hasMain && branch !== 'main') {
@@ -225,8 +236,49 @@ const GRACE_MS = 2_000;
 // Say so when a stale lock is removed; stay quiet about live ones being waited out.
 const loudOnRemoval = (m) => { if (/removed stale/.test(m)) process.stderr.write(m); };
 
-function doorEnv(tag) {
-  return { ...process.env, PALACE_DOOR: '1', PALACE_DOOR_TAG: tag, GIT_OPTIONAL_LOCKS: '0' };
+// Every git child inherits the locked file. A git that starts something
+// long-lived in the background would keep the door shut after the commit
+// returns: `git commit` ends by launching `git maintenance run --auto --detach`
+// (gc, repack) once enough loose objects pile up, and an fsmonitor daemon
+// would hold it for good. So inside the door both are off, added to whatever
+// config the caller's environment already carries, and the maintenance git
+// skipped is started after the door is released (startMaintenance).
+// Pathspecs are literal: a name with ? * or [ means only itself.
+const DOOR_CONFIG = [
+  ['maintenance.auto', 'false'],
+  ['gc.auto', '0'],
+  ['core.fsmonitor', 'false'],
+];
+
+export function doorEnv(tag, base = process.env) {
+  const env = { ...base, PALACE_DOOR: '1', PALACE_DOOR_TAG: tag, GIT_OPTIONAL_LOCKS: '0', GIT_LITERAL_PATHSPECS: '1' };
+  let n = Number(base.GIT_CONFIG_COUNT) || 0;
+  for (const [k, v] of DOOR_CONFIG) {
+    env[`GIT_CONFIG_KEY_${n}`] = k;
+    env[`GIT_CONFIG_VALUE_${n}`] = v;
+    n += 1;
+  }
+  env.GIT_CONFIG_COUNT = String(n);
+  return env;
+}
+
+/**
+ * Start the housekeeping the door switched off, now that the door is open:
+ * `git maintenance run --auto` decides for itself whether anything is due and
+ * returns at once when nothing is. Detached, with no inherited descriptors, so
+ * it never holds the door. Best effort; never throws.
+ */
+export function startMaintenance(root) {
+  try {
+    const c = spawn('git', ['maintenance', 'run', '--auto'], {
+      cwd: resolve(root),
+      detached: true,
+      stdio: 'ignore',
+      env: { ...process.env, GIT_OPTIONAL_LOCKS: '0' },
+    });
+    c.on('error', () => {});
+    c.unref();
+  } catch (_) { /* housekeeping is optional */ }
 }
 
 function sleepSync(ms) {
@@ -248,7 +300,7 @@ export function withDoorSync(root, tag, fn, { timeoutMs = DOOR_TIMEOUT_MS, patie
   const fd = openSync(doorPath(r), 'a');
   let held = false;
   try {
-    const status = acquireSync(fd, timeoutMs);
+    const status = acquireSync(fd, timeoutMs, commonDir(r));
     if (status === 75) throw busyError(r, tag, timeoutMs);
     if (status !== 0) throw new Error(`${tag}: the door's lock helper failed (exit ${status})`);
     held = true;
@@ -293,6 +345,7 @@ export function withDoorSync(root, tag, fn, { timeoutMs = DOOR_TIMEOUT_MS, patie
   } finally {
     if (held) clearHolder(r);
     closeSync(fd);
+    if (held) startMaintenance(r);
   }
 }
 
@@ -307,7 +360,7 @@ export async function withDoor(root, tag, fn, { timeoutMs = DOOR_TIMEOUT_MS, pat
   const fd = openSync(doorPath(r), 'a');
   let held = false;
   try {
-    const status = await acquireAsync(fd, timeoutMs);
+    const status = await acquireAsync(fd, timeoutMs, commonDir(r));
     if (status === 75) throw busyError(r, tag, timeoutMs);
     held = true;
     writeHolder(r, tag);
@@ -349,5 +402,6 @@ export async function withDoor(root, tag, fn, { timeoutMs = DOOR_TIMEOUT_MS, pat
   } finally {
     if (held) clearHolder(r);
     closeSync(fd);
+    if (held) startMaintenance(r);
   }
 }
