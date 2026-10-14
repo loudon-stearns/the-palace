@@ -1,0 +1,132 @@
+{
+  "threshold": {
+    "fmsynth": {
+      "relative_far_step": 92.0,
+      "by_size": {
+        "8": {
+          "chain_fewer_jumps_in_of_20": 9,
+          "jumps_saved_mean": 0.6,
+          "brightness_given_up_mean": 0.16
+        },
+        "12": {
+          "chain_fewer_jumps_in_of_20": 15,
+          "jumps_saved_mean": 1.1,
+          "brightness_given_up_mean": 0.16
+        },
+        "16": {
+          "chain_fewer_jumps_in_of_20": 13,
+          "jumps_saved_mean": 1.6,
+          "brightness_given_up_mean": 0.17
+        },
+        "24": {
+          "chain_fewer_jumps_in_of_20": 20,
+          "jumps_saved_mean": 3.4,
+          "brightness_given_up_mean": 0.17
+        },
+        "32": {
+          "chain_fewer_jumps_in_of_20": 20,
+          "jumps_saved_mean": 6.2,
+          "brightness_given_up_mean": 0.2
+        },
+        "48": {
+          "chain_fewer_jumps_in_of_20": 20,
+          "jumps_saved_mean": 10.3,
+          "brightness_given_up_mean": 0.17
+        },
+        "64": {
+          "chain_fewer_jumps_in_of_20": 20,
+          "jumps_saved_mean": 14.8,
+          "brightness_given_up_mean": 0.18
+        },
+        "96": {
+          "chain_fewer_jumps_in_of_20": 20,
+          "jumps_saved_mean": 26.4,
+          "brightness_given_up_mean": 0.21
+        }
+      }
+    },
+    "eorgan": {
+      "relative_far_step": 56.6,
+      "by_size": {
+        "8": {
+          "chain_fewer_jumps_in_of_20": 16,
+          "jumps_saved_mean": 1.1,
+          "brightness_given_up_mean": 0.16
+        },
+        "12": {
+          "chain_fewer_jumps_in_of_20": 15,
+          "jumps_saved_mean": 1.7,
+          "brightness_given_up_mean": 0.21
+        },
+        "16": {
+          "chain_fewer_jumps_in_of_20": 18,
+          "jumps_saved_mean": 3.0,
+          "brightness_given_up_mean": 0.37
+        },
+        "24": {
+          "chain_fewer_jumps_in_of_20": 20,
+          "jumps_saved_mean": 5.8,
+          "brightness_given_up_mean": 0.27
+        },
+        "32": {
+          "chain_fewer_jumps_in_of_20": 20,
+          "jumps_saved_mean": 9.6,
+          "brightness_given_up_mean": 0.37
+        },
+        "48": {
+          "chain_fewer_jumps_in_of_20": 20,
+          "jumps_saved_mean": 15.3,
+          "brightness_given_up_mean": 0.45
+        },
+        "64": {
+          "chain_fewer_jumps_in_of_20": 20,
+          "jumps_saved_mean": 23.9,
+          "brightness_given_up_mean": 0.33
+        },
+        "96": {
+          "chain_fewer_jumps_in_of_20": 20,
+          "jumps_saved_mean": 37.4,
+          "brightness_given_up_mean": 0.46
+        }
+      }
+    }
+  },
+  "tilt": {
+    "fmsynth": {
+      "0.0": {
+        "big_jumps": 17,
+        "brightness_follows_position": 0.85
+      },
+      "0.5": {
+        "big_jumps": 16,
+        "brightness_follows_position": 0.82
+      },
+      "1.0": {
+        "big_jumps": 16,
+        "brightness_follows_position": 0.83
+      },
+      "2.0": {
+        "big_jumps": 17,
+        "brightness_follows_position": 0.8
+      }
+    },
+    "eorgan": {
+      "0.0": {
+        "big_jumps": 16,
+        "brightness_follows_position": 0.74
+      },
+      "0.5": {
+        "big_jumps": 17,
+        "brightness_follows_position": 0.84
+      },
+      "1.0": {
+        "big_jumps": 19,
+        "brightness_follows_position": 0.87
+      },
+      "2.0": {
+        "big_jumps": 21,
+        "brightness_follows_position": 0.87
+      }
+    }
+  }
+}

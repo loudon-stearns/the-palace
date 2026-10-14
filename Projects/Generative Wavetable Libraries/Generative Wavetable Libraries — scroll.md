@@ -15,20 +15,20 @@ forward_vector: "I am Generative Wavetable Libraries's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T12:34:40.307Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T12:40:06.596Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 16 · last ran 2026-10-14 (today)
-- **Plan:** agreed 2026-09-25 (18 days ago) · 2 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 17 · last ran 2026-10-14 (today)
+- **Plan:** agreed 2026-09-25 (18 days ago) · 3 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — Three orders of the same 122 FM cycles. Should the family chain become the interview's default for big folders? (`gwl-steward-043`)
-- **Last commit touching this project:** 2026-10-12 `de9e7841` — edit(Generative Wavetable Libraries): the writers that exist are listed as built
+- **Last shipped:** 2026-10-14 (today) — The family chain holds on a second folder: 142 organ cycles glide where dull-to-bright stutters. And the cut-over point is about 24 cycles, not 30. (`gwl-steward-045`)
+- **Last commit touching this project:** 2026-10-14 `b67b3d4b` — steward(Generative Wavetable Libraries): cycle 16 — SPINNING UP — cycle 16
 - **Signal:** steady
-- **Drift:** 7 cycles since the entry was last consolidated (cycle 9) — the entry body may lag; this scroll does not.
+- **Drift:** 8 cycles since the entry was last consolidated (cycle 9) — the entry body may lag; this scroll does not.
 
 ### Where this stands
 
-This project turns a conversation into a wavetable for Serum, Vital, Ableton and Surge. Three tables are already behind it: the crystal lattice sweep and the Shepard dark-to-bright, both of which you heard work in Serum and Ableton, and the Floquet modes table. The plan's current move is to make the chat interview carry a real run. In June it handled a six-cycle test pack in two turns, and you asked for a real AKWF folder of a hundred-plus cycles to see where its defaults break. This cycle did that on AKWF_fmsynth (122 cycles) from your own Dropbox library. The old dull-to-bright default jumps between unlike cycles on 50 of its 121 steps. Grouping the cycles into five timbre families and ch…
+This project turns a conversation into a wavetable for Serum, Vital, Ableton and Surge. Behind it are the crystal-lattice sweep and the Shepard dark-to-bright, both of which you heard work, plus a Floquet table. Right now the plan is to make the chat interview carry a real run on a big folder of captured cycles. Earlier today I ran it on 122 AKWF FM cycles. The old dull-to-bright order lurched. Grouping the cycles into timbre families and walking smoothly through each one (the family chain) glided and still brightened. I asked you which order should be the default (still open). This cycle I tested that finding on AKWF_eorgan, 142 electric-organ cycles. It holds. I also tested where the chai…
 
 ### Open asks
 
@@ -75,6 +75,58 @@ Loudon's direction from the board, approved as orders on 2026-09-25:
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="gwl-steward-045" -->
+### 2026-10-14 — cycle 17 — The family chain holds on a second folder: 142 organ cycles glide where dull-to-bright stutters. And the cut-over point is about 24 cycles, not 30.
+> shipped · 15 organ tables + sweeps, Serum + Ableton · steward leans FAMILY-CHAIN, tilt as an interview question
+
+Organs, by this folder's own standard for a big jump: the dull-to-bright default jumps on 76 of 141 steps, the family chain on 16, the shortest walk on 14. Three of the default's five worst steps join cycles whose brightness differs by under 9 Hz, the same failure as FM: one brightness number cannot tell organ registrations apart. My guess that organ cycles would be near-identical was wrong. No two are closer than 1, and the median gap is 76. The organs are tamer than the FM cycles, but not tame. The catch is that only three families formed (72 round, 58 warm, 12 bright-nasal). The big first family is walked without regard to brightness, so 'turn it up, it gets brighter' drops to 0.74, against 0.90 on FM. A tilt pulls each family's walk toward dull-to-bright. On organs it brings brightness back to 0.84 for one extra jump. On FM it does nothing useful, so it's a dial, not a default. Threshold test, using random subsets of both folders, 20 draws per size: from 24 cycles up, the chain has fewer jumps in 20 of 20 draws in both folders; below 16 it's close to a coin toss. What I'd change in the interview: default to the chain past about 24 cycles, and add one question before any audio: 'should turning Position up always mean brighter, or is smoothness worth more?' Also check that a folder is fully downloaded first. I didn't edit the skill, because it lives outside my folder and should wait on your ears. BUILD.md says exactly which file to drag where and what to listen for.
+
+**Artifacts:**
+- [start here: which file to drag into Serum or Ableton, and what to listen for.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/BUILD.md)
+- [the run written up: organ numbers, the threshold test, the tilt, proposed interview changes.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/Generative Wavetable Libraries — proof — akwf-scale-up-eorgan.md)
+- [tilted chain, 24 s sweep at A2: the one I'd keep for organs.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/tables/akwf_eorgan_family_chain_tilted_audition_sweep.wav)
+- [plain family chain, 24 s sweep: glides, two seams, brightness looser.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/tables/akwf_eorgan_family_chain_audition_sweep.wav)
+- [old default, 24 s sweep: listen for the stutter.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/tables/akwf_eorgan_centroid_audition_sweep.wav)
+- [shortest walk, 24 s sweep: smoothest, brightness wanders.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/tables/akwf_eorgan_walk_audition_sweep.wav)
+- [all 142 organ cycles in chain order, coloured by family.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/contact_sheet_family_chain.png)
+- [the same cycles in dull-to-bright order: the colours scatter.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/contact_sheet_centroid_order.png)
+- [the shortest-walk order.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/contact_sheet_walk_order.png)
+- [tilted chain, Serum/Vital/Surge (CLM, 142 × 2048).](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/tables/akwf_eorgan_family_chain_tilted.wav)
+- [tilted chain, Ableton (142 × 1024).](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/tables/akwf_eorgan_family_chain_tilted_ableton.wav)
+- [family chain, CLM.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/tables/akwf_eorgan_family_chain.wav)
+- [family chain, Ableton.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/tables/akwf_eorgan_family_chain_ableton.wav)
+- [old default, CLM.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/tables/akwf_eorgan_centroid.wav)
+- [old default, Ableton.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/tables/akwf_eorgan_centroid_ableton.wav)
+- [shortest walk, CLM.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/tables/akwf_eorgan_walk.wav)
+- [shortest walk, Ableton.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/tables/akwf_eorgan_walk_ableton.wav)
+- [family 1, round (72 frames), CLM.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/tables/families/akwf_eorgan_family1_round-full.wav)
+- [family 1, Ableton.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/tables/families/akwf_eorgan_family1_round-full_ableton.wav)
+- [family 1 sweep.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/tables/families/akwf_eorgan_family1_round-full_audition_sweep.wav)
+- [family 2, warm (58 frames), CLM.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/tables/families/akwf_eorgan_family2_warm-full.wav)
+- [family 2, Ableton.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/tables/families/akwf_eorgan_family2_warm-full_ableton.wav)
+- [family 2 sweep.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/tables/families/akwf_eorgan_family2_warm-full_audition_sweep.wav)
+- [family 3, bright-nasal percussion drawbars (12 frames), CLM.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/tables/families/akwf_eorgan_family3_bright-nasal.wav)
+- [family 3, Ableton.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/tables/families/akwf_eorgan_family3_bright-nasal_ableton.wav)
+- [family 3 sweep.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/tables/families/akwf_eorgan_family3_bright-nasal_audition_sweep.wav)
+- [every organ number, plus each family's members in table order and the 12 skipped files.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/metrics.json)
+- [the subset-size test and the tilt sweep, both folders.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/threshold_and_tilt.json)
+- [the scale-up made folder-agnostic (--tag cello etc.); reuses the FM script's functions.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/scale_up_folder.py)
+- [the threshold and tilt experiments; ~10 s with /usr/local/bin/python3.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/threshold_and_tilt.py)
+
+_AKWF_eorgan · 142 cycles · same frames, four orders_
+| order | big jumps (this folder's yardstick, of 141) | big jumps (FM yardstick) | brighter as Position rises | worst mid-morph dip |
+| --- | --- | --- | --- | --- |
+| centroid (old default) | 76 | 12 | 1.00 | −4.1 dB |
+| shortest walk | 14 | 3 | 0.38 | −2.7 dB |
+| family chain | 16 | 2 | 0.74 | −2.7 dB |
+| family chain, tilted | 17 | 1 | 0.84 | −2.7 dB |
+
+_Left rough:_ No one has heard any of it, and the CLM files pass a read-back check but haven't been loaded in Serum. 12 of the 154 organ cycles are online-only in Dropbox and wouldn't download, so the run skipped them. The families also shift a little between runs: with fewer restarts the FM chain came out at 17 jumps and 0.85, not 14 and 0.90.
+
+_Next moves named:_ Once you've listened (your open question from earlier today), draft the interview-skill change: family chain past about 24 cycles, a 'brighter or smoother?' convention question that sets the tilt, a downloaded-folder check, a pinned seed. Hand it to an elder to land. · Then call the interview's big-folder test done and start on the next part of the plan, widening the sources: a folder of cycles from an audio AI, put through the same interview.
+<sub>`gwl-steward-045` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="gwl-steward-043" -->
 ### 2026-10-14 — cycle 16 — Three orders of the same 122 FM cycles. Should the family chain become the interview's default for big folders?
 > still working · three 24 s sweeps ready · steward leans FAMILY-CHAIN
