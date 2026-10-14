@@ -15,20 +15,20 @@ forward_vector: "I am Crystal Synthesizer's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-25T20:42:23-04:00 from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T11:49:58.401Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 9 · last ran 2026-08-26 (31 days ago)
-- **Plan:** agreed 2026-09-25 (today) · 0 made things since
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 10 · last ran 2026-10-14 (today)
+- **Plan:** agreed 2026-09-26 (18 days ago) · 1 made thing since
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-06-25 (92 days ago) — Hypothesis arc closes — diamond and labradorite, same synth, same strike, only the symmetry changes. (`crystal-synth-steward-020`)
-- **Last commit touching this project:** 2026-09-25 `d4cb3fa1` — Schema Ceremony — the Plan replaces staging — v1.25
+- **Last shipped:** 2026-10-14 (today) — The crystal is playable: an RNBO patch with nine crystals on a menu and a keyboard. In Node it matches the proof renders sample for sample. (`crystal-synth-steward-023`)
+- **Last commit touching this project:** 2026-09-26 `5b8a1564` — ops(frontmatter): strip retired activation_count/last_activated from 244 entries — v1.26
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Crystal Synthesizer is a project that makes the optical properties of crystals audible by deriving partials from real phonon mode structure. Cycle 6 produced the diamond dispersion proof (a click smeared by an isotropic cubic lattice). Cycle 7 produced the anisotropic beryl proof (one crystal, two dispersion laws, depending on direction). Both confirmed by ear. The home entry's load-bearing claim, though, is more general than dispersion: it says symmetry itself determines timbral character. The cleanest test of that is the negative pole — triclinic labradorite, the lowest-symmetry crystal in the mineral palette, where every partial is unique and nothing organises them. This cycle…
+Crystal Synthesizer gets its timbre from a crystal's physics rather than from taste: each mineral's phonon modes become the partials. Over the summer every prediction was rendered and heard as a strike: calcite against quartz, diamond's dispersion, beryl's two directions, diamond against labradorite, then ruby, amethyst, fluorite, emerald and topaz. They are all on the proofs menu. The plan's first move is to stop only rendering crystals and make one you can play: a single-voice bank of partials, the crystals on a selector, and an envelope. This cycle built it. It is an RNBO codebox inside a Max patch, with a keyboard, a nine-slot crystal menu and five knobs. With the knobs at their default…
 
 ### Open asks
 
@@ -75,6 +75,51 @@ Decided with Loudon when the Loudon Live arc was designed (April 2026), and seed
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="crystal-synth-steward-023" -->
+### 2026-10-14 — cycle 10 — The crystal is playable: an RNBO patch with nine crystals on a menu and a keyboard. In Node it matches the proof renders sample for sample.
+> shipped · unverified in Max · steward leans open-it-then-go-polyphonic
+
+What I built: [the codebox](obsidian://open?vault=The%20Palace&file=Projects/Crystal%20Synthesizer/playable-crystal/crystal-bank.codebox) and [the patch](open:Projects/Crystal Synthesizer/playable-crystal/crystal-bank.maxpat). The menu has nine slots, ordered from most to least symmetric. Seven are the measured palette minerals. Two, tetragonal and monoclinic, still use the April hypothesis tables, so every one of the seven crystal systems has a slot. The knobs are attack, decay, release, rolloff and level, and each is an RNBO parameter that will become a knob when this exports.
+
+I did not write a new engine. The codebox reuses the proofs' strike: the same phase seeds, the same 0.70 drop in loudness from one mode to the next, and the same rule that higher modes die faster. So the instrument tests the same predictions the renders did. To check that, I ran the codebox in Node, using the harness Blood Compressor built today, against the proofs' own code imported directly. The table shows the result. The only additions are what a keyboard needs: a gate, a release, velocity, and a menu that is read while the note sounds. Change crystals while a note rings and the strike keeps ringing on the new lattice without a click.
+
+One fix came from measuring. The first draft cut a ringing note to zero when you struck a new one, which is a click. It now fades the old note over 3 ms first. The largest jump between samples at a restrike is 0.054 of peak, against 0.109 anywhere else.
+
+To hear it in place: [crystal_keyboard_tour.wav](open:Projects/Crystal Synthesizer/playable-crystal/crystal_keyboard_tour.wav) plays A2 C3 E3 A3 and then a held A2 on all nine slots. [one_strike_nine_lattices.wav](open:Projects/Crystal Synthesizer/playable-crystal/one_strike_nine_lattices.wav) is one strike while the menu moves every two seconds, and the spectrogram shows the partials rearranging under the same ring. In Max, listen for ruby's slow 4 Hz beating, fluorite's lone high mode after a gap, and labradorite never settling into a chord.
+
+I chose nine slots, seven minerals plus two hypotheses, over the April plan's seven abstract lattice tables. That keeps the instrument tied to what was actually rendered and heard. The alternative is only seven slots, one per system, all hypothetical. If you'd rather have that, it's a one-line change in the ratio table.
+
+**Artifacts:**
+- [the playable patch: keyboard, nine-crystal menu, five knobs, rnbo~ inside. Open in Max 9.](Projects/Crystal Synthesizer/playable-crystal/crystal-bank.maxpat)
+- [the DSP: one held note equals the proofs' strike at the default knobs.](Projects/Crystal Synthesizer/playable-crystal/crystal-bank.codebox)
+- [the same short phrase on all nine slots, 40 s.](Projects/Crystal Synthesizer/playable-crystal/crystal_keyboard_tour.wav)
+- [one A2 strike while the menu steps through all nine crystals, 19 s.](Projects/Crystal Synthesizer/playable-crystal/one_strike_nine_lattices.wav)
+- [spectrogram of that sweep: the partials rearranging under one ring.](Projects/Crystal Synthesizer/playable-crystal/one_strike_nine_lattices.svg)
+- [what to open, what to play, what to listen for, and what isn't verified.](Projects/Crystal Synthesizer/playable-crystal/README.md)
+- [the null test and demo renders, run in Node.](Projects/Crystal Synthesizer/playable-crystal/check_crystal_bank.py)
+- [the numbers from that check.](Projects/Crystal Synthesizer/playable-crystal/findings.json)
+- [plays the codebox from a score in Node.](Projects/Crystal Synthesizer/playable-crystal/render-score.mjs)
+- [the codebox harness, copied unchanged from Blood Compressor.](Projects/Crystal Synthesizer/playable-crystal/codebox-harness.mjs)
+- [rebuilds the maxpat from the codebox.](Projects/Crystal Synthesizer/playable-crystal/make_patch.py)
+- [draws the spectrogram.](Projects/Crystal Synthesizer/playable-crystal/draw_sweep.py)
+
+_Null test: the codebox (in Node) against the proofs' additive_strike(), A2 held 6 s, both peak-normalised_
+| mineral | system | largest difference |
+| --- | --- | --- |
+| Diamond | cubic Fd-3m | 4.7e-08 |
+| Fluorite | cubic Fm-3m | 5.2e-08 |
+| Emerald | hexagonal P6/mcc | 4.8e-08 |
+| Ruby | trigonal R-3c | 4.1e-08 |
+| Amethyst | trigonal P3121 | 5.0e-08 |
+| Topaz | orthorhombic Pbnm | 3.6e-08 |
+| Labradorite | triclinic C-1 | 5.1e-08 |
+
+_Left rough:_ Nobody has opened the patch in Max, so it should compile but hasn't been heard through RNBO. Note handling is single-voice and last-note-wins with no note stack, so lifting an older key while a newer one is held releases the newer one. Obsidian, the non-crystal, still has no voice.
+
+_Next moves named:_ Open crystal-bank.maxpat in Max and play it. Whatever breaks becomes the first Gotcha for the RNBO codebox~ smith. · Start the plan's second move, taking it on the road: a polyphonic version of the same codebox, checked in Node the same way, then exported to Max for Live.
+<sub>`crystal-synth-steward-023` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-09-26T09-21-34-04-00" -->
 ### 2026-09-26 — Plan revised: the moves are builds, not sessions
 
