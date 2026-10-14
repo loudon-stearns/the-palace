@@ -15,20 +15,20 @@ forward_vector: "I am 2D Torus Wavetable Synthesizer's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T00:16:17.764Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T00:28:05.803Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 19 · last ran 2026-10-14 (today)
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 20 · last ran 2026-10-14 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — The hero's journey draft is 4:27 in twelve chapters. Which way should the next pass lean? (`torus-steward-049`)
-- **Last commit touching this project:** 2026-10-13 `c4e53daa` — steward(2D Torus Wavetable Synthesizer): cycle 18 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
+- **Last shipped:** 2026-10-13 (today) — I put the 4:27 hero's journey on its own circle: a player with a loudness ring, chapter marks, and a tag for each chapter. (`torus-steward-051`)
+- **Last commit touching this project:** 2026-10-13 `d89eb8b7` — steward(2D Torus Wavetable Synthesizer): cycle 19 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read it, and their ratio decides whether it sounds harmonic or shimmers. Its test piece, Étude No. 2, is played entirely by the Hopf codebox, the version steered from a point on a sphere, and the score is only knob moves. Over three rounds of notes you asked for a story with real grooves, then a looser groove with sung melodies, then (on the fourth draft) phrases that stay open, the weird sounds of the first version back, the voicing atlas clicked in rhythm, counterpoint, and the whole song built as the hero's journey. This cycle wrote that: a fifth draft, 4:27, in twelve chapters. Nobody has heard it yet.
+This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read it, and their ratio decides whether it sounds harmonic or shimmers. Its test piece, Étude No. 2, is played entirely by the Hopf codebox, and the score is nothing but knob moves. Your notes on four drafts led to the fifth: a 4:27 piece in twelve chapters that walks the hero's journey, with each surface cast as a character. Nobody has heard it yet. A 4:27 piece is hard to react to as a whole, so this cycle built a listening map that lets you answer chapter by chapter.
 
 ### Open asks
 
@@ -61,6 +61,43 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="torus-steward-051" -->
+### 2026-10-13 — cycle 20 — I put the 4:27 hero's journey on its own circle: a player with a loudness ring, chapter marks, and a tag for each chapter.
+> shipped · draft five still unheard · steward leans you listen with this before I write a sixth
+
+[The journey map](open:Projects/2D Torus Wavetable Synthesizer/proofs/journey-map/journey-map.html) plays the fifth draft clockwise around the monomyth circle, starting at the top. The ring shows loudness, measured every half second, and its colour shows brightness: amber is bright, violet is dark. A dashed horizon splits the known world from the unknown. Click the ring to jump anywhere. While it plays, the side panel shows the chapter you're in: what happens, who is sounding, and the feeling I wrote it for. Every chapter has three tags (lands · not yet · wrong feeling) and a note box. Your tags and notes collect into one block you can paste straight into the open card.
+
+One measured surprise. The classic circle puts the descent into the unknown at three o'clock and the return at nine. The piece crosses three o'clock at 1:07, in the last second of the threshold chapter, and nine o'clock at 3:20, two seconds into the resurrection. The story's proportions came out close to the canonical shape.
+
+The loudness arc, measured from the render (table below). The weird chapters sit low: refusal at −25 dB and the ordeal at −24, which suits fear and the void. The reward and the road back are the loudest stretch. The threshold growl I worried about is not loud on average (−21 dB RMS), but it is the brightest chapter in the piece, with a centroid of 2.5 kHz. If it grates, the problem is brightness, not level.
+
+**Artifacts:**
+- [the journey map: the fifth draft on the monomyth circle, with a loudness ring, chapter panel, and a tag and note box per chapter](Projects/2D Torus Wavetable Synthesizer/proofs/journey-map/journey-map.html)
+- [the page template the builder fills](Projects/2D Torus Wavetable Synthesizer/proofs/journey-map/journey_map_template.html)
+- [builder: measures loudness and brightness every half second and embeds the audio; checks that its chapter times match the render's own section marks](Projects/2D Torus Wavetable Synthesizer/proofs/journey-map/build_journey_map.py)
+
+_Étude No. 2, fifth draft · measured per chapter from etude_two_e_heros_journey.wav_
+| chapter | starts | RMS dB | peak dB | brightness (centroid Hz) |
+| --- | --- | --- | --- | --- |
+| 1 · ordinary world | 0:00 | −20.9 | −11.1 | 1533 |
+| 2 · the call | 0:14 | −24.1 | −9.5 | 1075 |
+| 3 · refusal | 0:25 | −25.3 | −9.8 | 742 |
+| 4 · the mentor | 0:37 | −23.7 | −12.1 | 752 |
+| 5 · the threshold | 0:52 | −21.3 | −4.5 | 2470 |
+| 6 · tests, allies, enemies | 1:07 | −17.1 | −2.1 | 1276 |
+| 7 · the inmost cave | 1:43 | −17.1 | −3.3 | 2154 |
+| 8 · the ordeal | 2:00 | −23.8 | −7.0 | 660 |
+| 9 · the reward | 2:29 | −15.7 | −1.0 | 2116 |
+| 10 · the road back | 2:56 | −16.1 | −1.8 | 2086 |
+| 11 · resurrection | 3:18 | −16.7 | −3.0 | 987 |
+| 12 · the return (incl. let go + coda) | 3:34 | −19.1 / −16.7 / −23.2 | −3.8 / −1.8 / −8.7 | 1461 / 667 / 1332 |
+
+_Left rough:_ I've seen the page render in headless Chrome, but I haven't clicked through its audio in a real browser. The brightness colours lean amber because most of the piece sits above 1 kHz, so the dark chapters show up mainly as low wedges. Most of all, nobody has heard the music, so the feelings in the chapter panel are still my intentions.
+
+_Next moves named:_ When your tags arrive, rework only the chapters marked 'not yet' or 'wrong feeling' and leave the ones that land untouched · If the threshold grates, try a darker guardian (less shear, a lower stir) as a single-chapter A/B inside this map, not a whole new draft
+<sub>`torus-steward-051` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="torus-steward-049" -->
 ### 2026-10-13 — cycle 19 — The hero's journey draft is 4:27 in twelve chapters. Which way should the next pass lean?
 > still working · fifth draft shipped, unheard · steward leans TUNE-CHAPTERS
