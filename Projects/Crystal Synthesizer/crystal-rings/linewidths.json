@@ -1,0 +1,99 @@
+{
+ "what": "How long each crystal's phonon modes ring, as a quality factor Q = line position / line width (both in cm^-1), from the Raman line width at room temperature. Q has no units, so it survives the transposition from terahertz to audio unchanged: a mode rings for about Q/pi cycles before falling to 1/e, whatever pitch it is played at. In seconds: tau = Q / (pi * f).",
+ "how_used": "One anchor Q per crystal, taken from its strongest Raman line, is given to every mode of that crystal (so higher modes die faster in seconds simply because they are higher). Where a mode is known to be different, it gets its own Q (the quartz soft mode).",
+ "honesty": "Only the rows marked 'measured' come from a source I found this cycle. 'estimated' rows are my reading of typical room-temperature Raman widths for that mineral and need checking against a paper before anyone calls them physics. 'placeholder' rows are the two hypothesis lattices, which have no mineral behind them.",
+ "crystals": [
+  {
+   "slot": 0,
+   "name": "Diamond",
+   "line_cm": 1332,
+   "fwhm_cm": 1.65,
+   "Q": 807,
+   "status": "measured",
+   "source": "first-order Raman line of diamond, 'typical FWHM 1.65 +/- 0.02 cm^-1 at room temperature' as quoted from Prawer & Nemanich, 'Raman spectroscopy of diamond and doped diamond' (Phil. Trans. R. Soc. A, 2004; https://www.researchgate.net/publication/8233307). Other sources give 1-1.5 cm^-1, which would ring longer still."
+  },
+  {
+   "slot": 1,
+   "name": "Fluorite",
+   "line_cm": 323,
+   "fwhm_cm": 12,
+   "Q": 27,
+   "status": "measured, probably too wide",
+   "source": "CaF2 T2g line at 323 cm^-1 with FWHM 12 cm^-1 for a pure CaF2 standard (Caries Research 27(6):445, https://karger.com/cre/article/27/6/445/84242). That was a powder standard measured for a dental study; a clear single crystal is likely narrower, so fluorite may ring longer than this."
+  },
+  {
+   "slot": 2,
+   "name": "Tetragonal (hypothesis)",
+   "line_cm": null,
+   "fwhm_cm": null,
+   "Q": 100,
+   "status": "placeholder",
+   "source": "no mineral behind this slot; a neutral middle value"
+  },
+  {
+   "slot": 3,
+   "name": "Emerald",
+   "line_cm": 686,
+   "fwhm_cm": 12,
+   "Q": 57,
+   "status": "estimated",
+   "source": "beryl's strong Si-O-Be line near 686 cm^-1; width estimated, not looked up"
+  },
+  {
+   "slot": 4,
+   "name": "Ruby",
+   "line_cm": 418,
+   "fwhm_cm": 3.5,
+   "Q": 120,
+   "status": "estimated",
+   "source": "corundum A1g line at 418 cm^-1, its strongest; width estimated. The sapphire temperature study (Appl. Opt. 56, 8598 (2017), https://www.osti.gov/servlets/purl/1406891) measures it but I could not read the room-temperature number out of the PDF this cycle."
+  },
+  {
+   "slot": 5,
+   "name": "Amethyst",
+   "line_cm": 464,
+   "fwhm_cm": 7.5,
+   "Q": 62,
+   "status": "measured",
+   "source": "alpha-quartz A1 line at 464 cm^-1, FWHM 7-8 cm^-1 at 300 K, from the quartz pressure-sensor study (Am. Mineral. 85, 1725 (2000), https://pubs.geoscienceworld.org/msa/ammin/article-abstract/85/11-12/1725/133600) as summarised by a search; I did not read the paper itself",
+   "exceptions": [
+    {
+     "mode_index": 1,
+     "ratio": 1.62,
+     "line_cm": 207,
+     "fwhm_cm": 12,
+     "Q": 17,
+     "status": "estimated",
+     "source": "the soft mode that drives quartz's alpha-beta transition is known to be broad and to broaden fast with temperature; width estimated"
+    }
+   ]
+  },
+  {
+   "slot": 6,
+   "name": "Topaz",
+   "line_cm": 404,
+   "fwhm_cm": 7,
+   "Q": 58,
+   "status": "estimated",
+   "source": "topaz's strong line near 404 cm^-1; width estimated"
+  },
+  {
+   "slot": 7,
+   "name": "Monoclinic (hypothesis)",
+   "line_cm": null,
+   "fwhm_cm": null,
+   "Q": 100,
+   "status": "placeholder",
+   "source": "no mineral behind this slot; a neutral middle value"
+  },
+  {
+   "slot": 8,
+   "name": "Labradorite",
+   "line_cm": 508,
+   "fwhm_cm": 17,
+   "Q": 30,
+   "status": "estimated",
+   "source": "plagioclase's main ring-mode line near 508 cm^-1; feldspar lines are broadened by Al/Si and Ca/Na disorder, width estimated"
+  }
+ ]
+}

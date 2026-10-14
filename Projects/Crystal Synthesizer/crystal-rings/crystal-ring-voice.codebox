@@ -1,0 +1,229 @@
+// =============================================================================
+// crystal-ring-voice.codebox — ONE voice of the ringing crystal
+// (Crystal Synthesizer, plan move "let the crystal ring")
+//
+// The earlier voices (../crystal-on-the-road/crystal-voice.codebox) ADD sine
+// waves and give each one a decay chosen by taste: decay / (1 + 0.15 k). Here
+// nothing is added. Each phonon mode is a resonator — a two-pole filter tuned
+// to the mode — and the note is a strike: a short raised-cosine pulse that
+// knocks every resonator at once. How long a mode rings is set by physics:
+//
+//     Q   = Raman line position / Raman line width      (no units)
+//     tau = Q / (pi * f)                                (seconds, to 1/e)
+//
+// Because Q has no units it survives the move from terahertz to audio: a mode
+// rings for about Q/pi cycles whatever pitch it is played at. Q values and
+// their sources are in linewidths.json (two measured, the rest estimated).
+//
+// Controls (in3..in7, from [param]s outside the voices, as in the poly patch):
+//   crystal   0..8   the nine-slot menu, same order as the playable crystal
+//   hardness  ms     how long the strike pulse is: short = bright, long = soft
+//   lifetime  x      multiplies every Q. 1 = the physics; >1 slows the decay
+//                    without changing which modes outlast which
+//   release   s      a damper after key up (default 8 s: barely touches it)
+//   rolloff          strike amplitude from one mode to the next (0.70 as in
+//                    the proofs, so the ring and the strike stay comparable)
+// out1 = sound, out2 = 1 once the voice is silent (-> [edge~] -> [voice]).
+//
+// UNVERIFIED IN MAX: checked in Node (check_rings.py) against a numpy
+// reference of the same filters; nobody has compiled it in RNBO.
+// =============================================================================
+
+const NMAX = 9;
+const TWOPI = 6.283185307179586;
+const MPI = 3.141592653589793;
+
+@state y1 = new FixedDoubleArray(9);     // resonator memory, one sample back
+@state y2 = new FixedDoubleArray(9);     // two samples back
+@state a1 = new FixedDoubleArray(9);     // 2 R cos(w)
+@state a2 = new FixedDoubleArray(9);     // R^2
+@state b0 = new FixedDoubleArray(9);     // input gain: rolloff^k * sin(w)
+@state rr = new FixedDoubleArray(9);     // R, per sample amplitude decay
+@state envk = new FixedDoubleArray(9);   // each mode's expected amplitude, for "is it silent"
+@state lastC = -1;
+@state lastHz = -1.0;
+@state lastLife = -1.0;
+@state lastRoll = -1.0;
+@state pulseN = 0;                       // strike pulse length, samples
+@state pulseI = 0;                       // where we are in it (pulseN = done)
+@state relEnv = 0.0;
+@state held = 0;
+@state vel = 0.0;
+@state noteHz = 0.0;
+@state voiceHz = 0.0;
+@state prevGate = 0.0;
+@state steal = 0;
+@state stealN = 1;
+@state pendHz = 0.0;
+@state pendVel = 0.0;
+@state ringing = 0;
+
+// Mode ratios — identical to the playable crystal and the proofs.
+function ratio(c, k) {
+    if (c == 0) {          // Diamond
+        if (k == 0) return 1.00; if (k == 1) return 1.32; if (k == 2) return 1.48;
+        if (k == 3) return 1.57; if (k == 4) return 1.65; return 0.0;
+    }
+    if (c == 1) {          // Fluorite
+        if (k == 0) return 1.00; if (k == 1) return 1.00; if (k == 2) return 1.35;
+        if (k == 3) return 1.47; if (k == 4) return 1.69; if (k == 5) return 2.48; return 0.0;
+    }
+    if (c == 2) {          // Tetragonal — hypothesis
+        if (k == 0) return 1.00; if (k == 1) return 1.28; if (k == 2) return 1.41;
+        if (k == 3) return 1.70; if (k == 4) return 1.85; if (k == 5) return 2.00; return 0.0;
+    }
+    if (c == 3) {          // Emerald
+        if (k == 0) return 1.00; if (k == 1) return 1.23; if (k == 2) return 1.47;
+        if (k == 3) return 1.68; if (k == 4) return 2.13; if (k == 5) return 2.30;
+        if (k == 6) return 3.33; return 0.0;
+    }
+    if (c == 4) {          // Ruby
+        if (k == 0) return 1.00; if (k == 1) return 1.10; if (k == 2) return 1.14;
+        if (k == 3) return 1.19; if (k == 4) return 1.52; if (k == 5) return 1.70;
+        if (k == 6) return 1.98; return 0.0;
+    }
+    if (c == 5) {          // Amethyst
+        if (k == 0) return 1.00; if (k == 1) return 1.62; if (k == 2) return 2.07;
+        if (k == 3) return 2.77; if (k == 4) return 3.13; if (k == 5) return 3.63;
+        if (k == 6) return 5.45; if (k == 7) return 6.21; return 8.32;
+    }
+    if (c == 6) {          // Topaz
+        if (k == 0) return 1.00; if (k == 1) return 1.45; if (k == 2) return 1.91;
+        if (k == 3) return 2.37; if (k == 4) return 2.96; if (k == 5) return 3.68;
+        if (k == 6) return 4.80; if (k == 7) return 6.05; return 0.0;
+    }
+    if (c == 7) {          // Monoclinic — hypothesis
+        if (k == 0) return 1.00; if (k == 1) return 1.37; if (k == 2) return 1.71;
+        if (k == 3) return 1.94; if (k == 4) return 2.23; if (k == 5) return 2.61; return 0.0;
+    }
+    if (k == 0) return 1.00; if (k == 1) return 1.83; if (k == 2) return 3.17;
+    if (k == 3) return 4.67; if (k == 4) return 7.00; if (k == 5) return 9.50;
+    if (k == 6) return 13.3; if (k == 7) return 17.5; return 0.0;
+}
+
+// Q of mode k of crystal c: Raman line position / line width (linewidths.json).
+function qual(c, k) {
+    if (c == 0) return 807.0;              // Diamond 1332 / 1.65   measured
+    if (c == 1) return 27.0;               // Fluorite 323 / 12      measured (powder; likely too wide)
+    if (c == 3) return 57.0;               // Emerald 686 / 12       estimated
+    if (c == 4) return 120.0;              // Ruby 418 / 3.5         estimated
+    if (c == 5) {                          // Amethyst 464 / 7.5     measured
+        if (k == 1) return 17.0;           //   soft mode 207 / 12   estimated
+        return 62.0;
+    }
+    if (c == 6) return 58.0;               // Topaz 404 / 7          estimated
+    if (c == 8) return 30.0;               // Labradorite 508 / 17   estimated
+    return 100.0;                          // the two hypothesis slots: placeholder
+}
+
+let hz = in1;
+let gate = in2;
+let crystal = in3;
+let hardness = clamp(in4, 0.05, 50.0);
+let lifetime = clamp(in5, 0.05, 50.0);
+let release = max(0.01, in6);
+let rolloff = in7;
+
+// Key down (or a new pitch while held): if the voice is still ringing, fade it
+// over 3 ms, clear the filters, then strike — retuning a filter that is still
+// ringing jumps its output, which is a click.
+let strikeNow = 0;
+if (gate > 0.0001 && (prevGate <= 0.0001 || abs(hz - noteHz) > noteHz * 0.005)) {
+    pendHz = hz;
+    pendVel = gate;
+    noteHz = hz;
+    held = 1;
+    if (ringing == 1) {
+        stealN = max(1, floor(0.003 * samplerate));
+        steal = stealN;
+    } else {
+        steal = 0;
+        strikeNow = 1;
+    }
+}
+if (steal > 0) {
+    steal -= 1;
+    if (steal == 0) strikeNow = 1;
+}
+if (gate <= 0.0001 && prevGate > 0.0001) held = 0;
+prevGate = gate;
+
+let c = clamp(floor(crystal + 0.5), 0, 8);
+
+if (strikeNow == 1) {
+    for (let k = 0; k < NMAX; k++) {
+        y1[k] = 0.0;
+        y2[k] = 0.0;
+    }
+    voiceHz = pendHz;
+    vel = pendVel;
+    relEnv = 1.0;
+    pulseN = max(1, floor(hardness * 0.001 * samplerate));
+    pulseI = 0;
+    ringing = 1;
+    lastHz = -1.0;                       // force the coefficients below
+}
+
+// Coefficients, only when something they depend on moved.
+if (c != lastC || voiceHz != lastHz || lifetime != lastLife || rolloff != lastRoll) {
+    let amp = 1.0;
+    for (let k = 0; k < NMAX; k++) {
+        let r = ratio(c, k);
+        let f = voiceHz * r;
+        if (r > 0.0 && f < samplerate * 0.45 && f > 0.0) {
+            let w = TWOPI * f / samplerate;
+            let R = exp(-MPI * f / (qual(c, k) * lifetime * samplerate));
+            a1[k] = 2.0 * R * cos(w);
+            a2[k] = R * R;
+            b0[k] = amp * sin(w);
+            rr[k] = R;
+            amp *= rolloff;
+        } else {
+            a1[k] = 0.0; a2[k] = 0.0; b0[k] = 0.0; rr[k] = 0.0;
+        }
+    }
+    if (strikeNow == 1 || c != lastC) {
+        let am = 1.0;
+        for (let k = 0; k < NMAX; k++) {
+            if (b0[k] != 0.0) { envk[k] = am; am *= rolloff; } else envk[k] = 0.0;
+        }
+    }
+    lastC = c; lastHz = voiceHz; lastLife = lifetime; lastRoll = rolloff;
+}
+
+// The strike: a raised-cosine pulse with area 1 (so a slow mode sees a unit
+// knock whatever the hardness; fast modes see less when the pulse is long).
+let x = 0.0;
+if (pulseI < pulseN) {
+    x = (1.0 - cos(TWOPI * (pulseI + 0.5) / pulseN)) / pulseN;
+    pulseI += 1;
+}
+
+let sum = 0.0;
+let loud = 0.0;
+for (let k = 0; k < NMAX; k++) {
+    let y = b0[k] * x + a1[k] * y1[k] - a2[k] * y2[k];
+    y2[k] = y1[k];
+    y1[k] = y;
+    sum += y;
+    envk[k] *= rr[k];
+    loud = max(loud, envk[k]);
+}
+
+let fade = 1.0;
+if (steal > 0) fade = steal / stealN;
+let yout = sum * vel * relEnv * 0.3 * fade;   // 0.3: the modes start in phase, so eight full strikes stack
+if (held == 0) relEnv *= exp(-1.0 / (release * samplerate));
+
+// The ring is over at -80 dB: the strike has finished and the loudest mode,
+// damper included, has fallen below 1e-4. The voice reports silent only once
+// the key is also up, so RNBO never hands a held key's voice to another note
+// (a key still down would otherwise never see the key-down edge it needs).
+if (ringing == 1 && pulseI >= pulseN && steal == 0 && loud * relEnv < 0.0001) {
+    ringing = 0;
+    for (let k = 0; k < NMAX; k++) { y1[k] = 0.0; y2[k] = 0.0; }
+}
+out1 = yout;
+let silent = 0.0;
+if (ringing == 0 && steal == 0 && held == 0) silent = 1.0;
+out2 = silent;

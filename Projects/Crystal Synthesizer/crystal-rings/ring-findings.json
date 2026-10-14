@@ -1,0 +1,174 @@
+{
+ "vs_reference": {
+  "Diamond": 3.1570714050551787e-08,
+  "Fluorite": 6.521242098604561e-05,
+  "Emerald": 3.671945888374113e-05,
+  "Ruby": 3.958124816354644e-05,
+  "Amethyst": 4.643106523027522e-05,
+  "Topaz": 4.431870004213025e-05,
+  "Labradorite": 6.284949194032799e-05
+ },
+ "ring_time": {
+  "Diamond": {
+   "predicted_s": 2.3352,
+   "measured_s": 2.3092
+  },
+  "Fluorite": {
+   "predicted_s": 0.0781,
+   "measured_s": 0.0783
+  },
+  "Emerald": {
+   "predicted_s": 0.1649,
+   "measured_s": 0.1647
+  },
+  "Ruby": {
+   "predicted_s": 0.3472,
+   "measured_s": 0.3547
+  },
+  "Amethyst": {
+   "predicted_s": 0.1794,
+   "measured_s": 0.1796
+  },
+  "Topaz": {
+   "predicted_s": 0.1678,
+   "measured_s": 0.1676
+  },
+  "Labradorite": {
+   "predicted_s": 0.0868,
+   "measured_s": 0.0871
+  }
+ },
+ "table": {
+  "columns": [
+   "crystal",
+   "Q source",
+   "Q",
+   "cycles to 1/e",
+   "tau at A2 (s)",
+   "to -60 dB at A2 (s)",
+   "to -60 dB at A4 (s)",
+   "energy left after 0.5 s (A2)"
+  ],
+  "rows": [
+   [
+    "Diamond",
+    "measured",
+    807,
+    257,
+    2.335,
+    16.14,
+    4.03,
+    "37.9%"
+   ],
+   [
+    "Fluorite",
+    "measured",
+    27,
+    9,
+    0.078,
+    0.54,
+    0.13,
+    "0.0%"
+   ],
+   [
+    "Emerald",
+    "estimated",
+    57,
+    18,
+    0.165,
+    1.14,
+    0.28,
+    "0.2%"
+   ],
+   [
+    "Ruby",
+    "estimated",
+    120,
+    38,
+    0.347,
+    2.4,
+    0.6,
+    "4.4%"
+   ],
+   [
+    "Amethyst",
+    "measured",
+    62,
+    20,
+    0.179,
+    1.24,
+    0.31,
+    "0.3%"
+   ],
+   [
+    "Topaz",
+    "estimated",
+    58,
+    18,
+    0.168,
+    1.16,
+    0.29,
+    "0.2%"
+   ],
+   [
+    "Labradorite",
+    "estimated",
+    30,
+    10,
+    0.087,
+    0.6,
+    0.15,
+    "0.0%"
+   ]
+  ]
+ },
+ "stealing": {
+  "steals": 4,
+  "max_active": 8,
+  "active_voices_each_second": [
+   1,
+   7,
+   8,
+   8,
+   5,
+   3,
+   1,
+   1,
+   0,
+   0,
+   0,
+   0
+  ],
+  "largest_step_near_note_ons": 0.06337899979628737,
+  "largest_step_elsewhere": 0.058171692651370746
+ },
+ "headroom_8_note_cluster_peak_at_level_0.5": {
+  "Diamond": 0.802,
+  "Fluorite": 0.798,
+  "Emerald": 0.811,
+  "Ruby": 0.877,
+  "Amethyst": 0.722,
+  "Topaz": 0.735,
+  "Labradorite": 0.542
+ },
+ "ring_tour": {
+  "order": [
+   "Diamond",
+   "Fluorite",
+   "Emerald",
+   "Ruby",
+   "Amethyst",
+   "Topaz",
+   "Labradorite"
+  ],
+  "notes": "A2 then A4 on each",
+  "seconds": 33.8
+ },
+ "hardness_demo_ms": [
+  0.1,
+  0.5,
+  2.0,
+  5.0,
+  20.0
+ ]
+}

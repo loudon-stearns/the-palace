@@ -15,24 +15,24 @@ forward_vector: "I am Crystal Synthesizer's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T11:55:54.159Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-14T12:09:19.221Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 11 · last ran 2026-10-14 (today)
-- **Plan:** agreed 2026-09-26 (18 days ago) · 2 made things since
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 12 · last ran 2026-10-14 (today)
+- **Plan:** agreed 2026-09-26 (18 days ago) · 4 made things since · **a proposed revision is waiting on you**
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — The crystal plays chords now: eight voices in RNBO, a Max for Live instrument, and a Faust version. All three match the proofs. (`crystal-synth-steward-025`)
-- **Last commit touching this project:** 2026-10-14 `745ed6e1` — steward(Crystal Synthesizer): cycle 10 — SPINNING UP. HOME: [Crystal Synthesizer](obsidian://open?vault=The%20Pa…
+- **Last shipped:** 2026-10-14 (today) — RNBO can export to the Eventide H9000 but not the H90. Should the road move aim at the H9000 or a plugin instead? (`crystal-synth-steward-029`)
+- **Last commit touching this project:** 2026-10-14 `591d0490` — steward(Crystal Synthesizer): cycle 11 — SPINNING UP. HOME: [Crystal Synthesizer](obsidian://open?vault=The%20Pa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Crystal Synthesizer gets its timbre from a crystal's physics rather than from taste: each mineral's phonon modes become the partials. Over the summer every mineral in the palette was rendered as a strike and put on the proofs menu. Earlier today the first move of the plan landed: a playable, one-voice crystal in RNBO with nine crystals on a menu. This cycle started the second move, taking it on the road. That means making it polyphonic and carrying the same structure into other materials, the way one crystal symmetry shapes both its light and its sound. There are now eight voices in RNBO, a Max for Live instrument, and the same voice written in Faust. In Node and in compiled Faust, each one…
+Crystal Synthesizer gets its timbre from a crystal's physics rather than from taste: each mineral's phonon modes become the partials. Over the summer every mineral in the palette was rendered as a strike. Earlier today it became playable, first with one voice, then with eight in RNBO, as a Max for Live device, and in Faust. This cycle started the plan's third move, letting the crystal ring. The sine waves are gone. Each mode is now a resonator that a short pulse strikes, and its ring time comes from the width of the mineral's Raman line rather than from a decay knob. At those physical ring times diamond rings for sixteen seconds, and almost everything else is a knock.
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `crystal-synth-steward-029` — proposed plan revision: H90 to H9000 or plugin · posted 2026-10-14 · options: adopt · keep
 
 ### Answered, not yet consumed
 
@@ -75,6 +75,65 @@ Decided with Loudon when the Loudon Live arc was designed (April 2026), and seed
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="crystal-synth-steward-029" -->
+### 2026-10-14 — cycle 12 — RNBO can export to the Eventide H9000 but not the H90. Should the road move aim at the H9000 or a plugin instead?
+> still working · H90 has no RNBO export · steward leans adopt
+
+Catch-up: Crystal Synthesizer is the instrument whose timbre comes from a crystal's physics. Today it became playable, then polyphonic in RNBO, Max for Live and Faust. This cycle it started ringing, with each mode's decay set by the mineral's Raman line width. The plan's second move, taking it on the road, says to export it to the Eventide H90. I checked, and that route doesn't exist yet. Cycling '74 and Eventide ship RNBO export for the H9000 rack. For the H90, Eventide has only said it is 'considering' it, with no commitment. I propose that the hardware leg aims at the H9000 if you can reach one, and otherwise at a VST3/AU plugin from RNBO or Faust, with the H90 kept as a wish for when Eventide supports it. Nothing else in the plan changes. If you keep the plan as it is, the H90 leg just stays open.
+
+**Artifacts:**
+- [crystal_chords.wav](Projects/Crystal Synthesizer/crystal-on-the-road/crystal_chords.wav)
+- [crystal-block-diagram.svg](Projects/Crystal Synthesizer/crystal-on-the-road/faust/crystal-block-diagram.svg)
+<sub>`crystal-synth-steward-029` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="crystal-synth-steward-028" -->
+### 2026-10-14 — cycle 12 — The crystal rings now. Each mode is a resonator whose ring time comes from the mineral's Raman line width, and only diamond turns out to be a bell.
+> shipped · ringing voice checked in Node, unopened in Max · steward leans find real line widths next
+
+**What I built.** [crystal-ring-voice.codebox](obsidian://open?vault=The%20Palace&file=Projects/Crystal%20Synthesizer/crystal-rings/crystal-ring-voice.codebox) has nine two-pole resonators, one per mode, struck by a raised-cosine pulse. It drops into the same eight-voice RNBO frame as last cycle: [crystal-rings.maxpat](open:Projects/Crystal Synthesizer/crystal-rings/crystal-rings.maxpat) for Max and [Crystal Synthesizer Rings 0.1.amxd](open:Projects/Crystal Synthesizer/crystal-rings/Crystal Synthesizer Rings 0.1.amxd) for Live. The knobs are crystal, hardness (how long the strike pulse is; short is bright), lifetime (multiplies every ring time; 1 is the physics), release and level.
+
+**Why the line width is the right number.** A Raman line's position divided by its width is a Q, and a Q has no units. So it survives the move from terahertz to audio untouched: a mode rings for about Q/π cycles at whatever pitch you play it. Higher modes die sooner in seconds just because they're higher. That replaces the summer's taste rule, where every mode shared one decay knob and got 15% shorter per step up. The sources are in [linewidths.json](obsidian://open?vault=The%20Palace&file=Projects/Crystal%20Synthesizer/crystal-rings/linewidths.json).
+
+**What it says (table).** Diamond (Q 807, measured) rings 16 s to silence at A2. Ruby is a 2.4 s chime. Everything else is gone in about a second. The summer renders gave every mineral the same long ring, and physics doesn't. It also argues with the entry's triclinic prediction. Labradorite was meant to be bell-like and alien. At Q 30, its 17.5× top mode lasts about 5 ms, so it comes out as a dull knock with a bright tick on the front. Amethyst's soft mode, the leftover of quartz's phase change, dies before its neighbours do and only flickers in the attack. You can see all of this in [ring_tour.svg](obsidian://open?vault=The%20Palace&file=Projects/Crystal%20Synthesizer/crystal-rings/ring_tour.svg) and hear it in [ring_tour.wav](open:Projects/Crystal Synthesizer/crystal-rings/ring_tour.wav). [strike_vs_ring.wav](open:Projects/Crystal Synthesizer/crystal-rings/strike_vs_ring.wav) puts the summer strike and the physics ring side by side for each mineral. [hardness.wav](open:Projects/Crystal Synthesizer/crystal-rings/hardness.wav) is one ruby note struck from 0.1 ms to 20 ms.
+
+**Checks** ([check_rings.py](obsidian://open?vault=The%20Palace&file=Projects/Crystal%20Synthesizer/crystal-rings/check_rings.py)). Against a closed-form reference, the codebox matches to 3e-8 while it sounds. The measured ring times land within 0.4% of Q/(πf) for five minerals, 1.1% for diamond and 2.2% for ruby. Twelve notes into eight voices gave four steals and no click. An eight-note cluster peaks at 0.88 at most.
+
+**Off the main line.** RNBO export exists for the Eventide H9000 but not the H90, so the plan's second move can't reach the H90 as written. I've asked about that separately.
+
+**Artifacts:**
+- [spectrogram: each mineral struck at A2 then A4 at its physics ring time.](Projects/Crystal Synthesizer/crystal-rings/ring_tour.svg)
+- [the tour itself, 33 s.](Projects/Crystal Synthesizer/crystal-rings/ring_tour.wav)
+- [per mineral: the summer's additive strike, then the physics ring.](Projects/Crystal Synthesizer/crystal-rings/strike_vs_ring.wav)
+- [one ruby A3, struck with a 0.1, 0.5, 2, 5 and 20 ms pulse.](Projects/Crystal Synthesizer/crystal-rings/hardness.wav)
+- [the ringing crystal for Max 9: eight voices, crystal menu, five controls.](Projects/Crystal Synthesizer/crystal-rings/crystal-rings.maxpat)
+- [the same, as a Max for Live instrument.](Projects/Crystal Synthesizer/crystal-rings/Crystal Synthesizer Rings 0.1.amxd)
+- [one voice: nine resonators, Q from the line widths, a raised-cosine strike.](Projects/Crystal Synthesizer/crystal-rings/crystal-ring-voice.codebox)
+- [Q per mineral with its source and status (measured, estimated, placeholder).](Projects/Crystal Synthesizer/crystal-rings/linewidths.json)
+- [reference match, ring-time check, stealing, headroom, the demos.](Projects/Crystal Synthesizer/crystal-rings/check_rings.py)
+- [the numbers from those checks.](Projects/Crystal Synthesizer/crystal-rings/ring-findings.json)
+- [eight codebox voices in Node; last cycle's renderer with the controls renamed.](Projects/Crystal Synthesizer/crystal-rings/ring-render.mjs)
+- [rebuilds the maxpat and the amxd from the codebox.](Projects/Crystal Synthesizer/crystal-rings/make_ring_patch.py)
+- [draws the spectrogram.](Projects/Crystal Synthesizer/crystal-rings/draw_tour.py)
+- [what to open, what the physics says, what isn't verified.](Projects/Crystal Synthesizer/crystal-rings/README.md)
+
+_Physics ring times at A2 (lifetime 1)_
+| crystal | Q source | Q | cycles to 1/e | to -60 dB at A2 | energy left after 0.5 s |
+| --- | --- | --- | --- | --- | --- |
+| Diamond | measured | 807 | 257 | 16.1 s | 38% |
+| Ruby | estimated | 120 | 38 | 2.4 s | 4.4% |
+| Amethyst | measured | 62 | 20 | 1.2 s | 0.3% |
+| Topaz | estimated | 58 | 18 | 1.2 s | 0.2% |
+| Emerald | estimated | 57 | 18 | 1.1 s | 0.2% |
+| Labradorite | estimated | 30 | 10 | 0.6 s | 0.0% |
+| Fluorite | measured (powder) | 27 | 9 | 0.5 s | 0.0% |
+
+_Left rough:_ Only two line widths are values I found, diamond's and quartz's 464 line. Fluorite's comes from a powder standard and is probably too wide, and ruby, emerald, topaz, labradorite and the quartz soft mode are my estimates, so 'only diamond is a bell' holds only if the estimates do. Each mineral gives one Q to all of its modes. Nobody has opened the patch or the device. The plan's second move, taking it on the road, still has its H90 and Faust-plugin parts open.
+
+_Next moves named:_ Replace the estimated line widths with measured room-temperature values, one per mode where papers give them (RRUFF spectra are a likely source). That turns 'only diamond is a bell' from an estimate into a measured result. · Open Crystal Synthesizer Rings 0.1.amxd in Live and play Diamond and then Labradorite at lifetime 1 and at 8. Whatever breaks becomes a Gotcha for the RNBO codebox~ smith. · The interface question this move opens: what gesture strikes a crystal? Hardness and velocity are the first two candidates.
+<sub>`crystal-synth-steward-028` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="crystal-synth-steward-025" -->
 ### 2026-10-14 — cycle 11 — The crystal plays chords now: eight voices in RNBO, a Max for Live instrument, and a Faust version. All three match the proofs.
 > shipped · unverified in Max and Live · steward leans open-the-amxd-then-H90
