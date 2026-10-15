@@ -5,12 +5,22 @@ links:
   - target: "[[Map Build Ceremony]]"
     type: connects-to
     label: tuning-for
-forward_vector: "I am the Map Build's record of what each run taught it, numbered, each lesson tied to the spec change it forced, so the ceremony's version has a reason you can read. Every run leaves a line here; a run that changed the ceremony also leaves a numbered item. Never prune what a real run taught."
+forward_vector: "I am the Map Build's record of what each run taught it, numbered, each lesson naming the spec change it forced, if any, so the ceremony's version has a reason you can read. Every run leaves a line here; a run that taught something also leaves a numbered item. Never prune what a real run taught."
+ledger: tuning
+standards:
+  for: "what each build taught the Map Build"
+  run: "one map build"
+  line: "- run · <date> · v<version> · <what it ran on> · nothing new | taught item N"
+  read: "the last 40 lines with run lines set aside, plus every line not yet paid"
+  writes: "the run itself, in the commit that records it; the run line carries node, edge and ghost counts"
+  merge: union
+  kept: git
+  trim: never
 ---
 
 # Map Build Ceremony — tuning
 
-What each build taught the ceremony, and the lessons that reached it from elsewhere. Each item names what was shown and the spec change it forced, or says **owed** when the change hasn't landed. Newest last. Hashes are commits to `_ops/Map Build Ceremony.md` unless noted.
+What each build taught the ceremony, and the lessons that reached it from elsewhere. Each item names what was shown and the spec change it forced, if any, or says **owed** when a change hasn't landed. Newest last. Hashes are commits to `_ops/Map Build Ceremony.md` unless noted.
 
 **v2.0** keeps the count the card already had. `version: 2` was stamped when the card took its present form on 2026-03-30 (`b54785f4`), after the typed ghost manifest — the Map Log's "v2 ceremony" row of 2026-03-27. **v2.1 (2026-09-25)** adds the opening read and the version in the Map Log row (item 5). The number moves when the procedure does — a step, a postcondition, a gate — never for prose. A build's record is its run line here, which names the version, and the commit that carries it.
 

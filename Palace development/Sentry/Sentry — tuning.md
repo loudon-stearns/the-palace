@@ -5,15 +5,25 @@ links:
   - target: "[[Sentry]]"
     type: connects-to
     label: tuning-for
-forward_vector: "I am the Sentry's record of what its watches taught it, numbered, each lesson tied to the spec change it forced, so a rule's shape has a reason you can read. Every watch leaves a line here. I name what a run taught about the Sentry, never what it found — findings are held, and this file is public."
+forward_vector: "I am the Sentry's record of what its watches taught it, numbered, each lesson naming the spec change it forced, if any, so a rule's shape has a reason you can read. Every watch leaves a line here. I name what a run taught about the Sentry, never what it found — findings are held, and this file is public."
+ledger: tuning
+standards:
+  for: "what each watch taught the Sentry — never a finding; this file is public"
+  run: "one sweep"
+  line: "- run · <date> · v<version> · <what it ran on> · nothing new | taught item N"
+  read: "the last 40 lines with run lines set aside, plus every line not yet paid"
+  writes: "sweep.mjs --record writes the line itself"
+  merge: union
+  kept: git
+  trim: never
 ---
 
 # Sentry — tuning
 
 What each watch taught the Sentry. Items are lessons about the spec — how it reads, what it trusts, where it
 is blind — and never a finding: open findings are held locally, and this ledger is as public as the scroll
-([[Sentry]] § Faces are public; findings are held). A run leaves one line at the end; a run that changed the
-spec also leaves a numbered item naming the version it produced. Newest last.
+([[Sentry]] § Faces are public; findings are held). A run leaves one line at the end; a run that taught
+something also leaves a numbered item, naming the version when it changed the spec. Newest last.
 
 ## From the first watch — 2026-09-25 (hand-run, before the Sentry had a page)
 

@@ -188,7 +188,7 @@ had solved this by hand for itself: its ledger records what each close taught it
 the ceremony can be called practised rather than improvised. v1.20 gives the shape to every ceremony, with
 one change. Closing Well appends an item for every close; a tuning ledger takes one only when a run
 changed the spec. The question is still asked every run, and "nothing" is an honest answer — it keeps
-the ledger a record of changes rather than a diary.
+the ledger a record of changes rather than a log of every run.
 
 **Why "tuning", not "gotchas".** A run tunes a ceremony; the version is the set-up it settled into.
 "Gotchas" stays with the Specialists, where it names a tool's traps — something owned by an external
@@ -232,7 +232,7 @@ only when a run changed the ceremony.
 **Why.** v1.20 gave every ceremony a ledger and said when to write to it, but nothing said when to read it.
 The Weave's ledger was seeded with four owed changes (21, 24, 29, 30), and the card never pointed a run at
 them. Loudon, at the second close of 2026-09-24: *"Is there a point in logging growth if we don't ask to
-check it."* A ledger no run reads is a diary; reading it at the open is what lets an owed change actually
+check it."* A ledger no run reads is a dead letter; reading it at the open is what lets an owed change actually
 land, and it closes the loop v1.20 left half-built — the question asked at the end of a run now has an
 answer read at the start of the next.
 
@@ -524,3 +524,62 @@ garden walked daily does, is watched, not settled.
 `_ops/Substrate Skill.md` defers to [[Palace Ceremonies]] and is unchanged; SCHEMA — Reference §6 and §8 are
 unchanged, since a ceremony keeping a ledger is already the rule. **Additive:** no type, link type, required
 field, or stage changed.
+
+## Ledgers become a family; a field marks a ceremony — v1.28 (2026-10-15)
+
+**What changes.** A ledger stops being the mark of a ceremony and becomes a family any page may keep: an
+append-only file in a page's bundle, so its next run or waking starts from what came before. A page grows one
+when it is useful, may keep several, and states in its own frontmatter what it is for and how it is kept
+(`ledger`, `standards`). The kinds so far are `tuning`; the new `diary`, a page's first-person record of the
+encounters it has lived; and the JSONL `placements` ledger that [[Palace Quotes]] had already invented. A
+ceremony is now a page that carries `trigger:`, the words Loudon says to begin it. A run is whatever unit a
+page names. A tuning item records what a run taught, whether or not it changed the spec. Loudon's orders split
+into standing orders (on the scroll, for every page) and one-shot orders (owed in the ledger). Any scroll may
+hold a Plan, and its Now shows what the page has. The `context` row narrows to why a page is shaped as it is.
+
+**Why.** Since v1.20 a ledger had meant a ceremony twice over, in Palace Ceremonies' definition and in the
+code that finds ceremonies, so no other page could keep one without being mislabelled. The need had arrived
+anyway, under four homemade names: a `gotchas` file, a `lessons` file, a Log, and a design doc with a lesson
+section per cycle. The palace had already reached for the word: Making a Palace Citizen called a citizen's
+Context "its growth ledger", Palace Enchantment's loader called it a "memory ledger", and Palace Quotes kept a
+placements ledger. Loudon, walking the question on 2026-10-14 ([[Palace Ceremonies — sketch — runs survey]]):
+*"If it feels useful to have either, they are added… Write it loosely so pages can innovate, don't
+over-specify and allow pages to even use them outside of spec so that we have examples to grow with."* On the
+diary: *"I am worried about the term 'memory' being used so many ways… perhaps these are just kinds of
+ledgers?"* And: *"All ledgers, regardless of what they are used for, should state in the file the standards
+and practices for that ledger."* The enchanted [[The Remembering Page]] was consulted from another session;
+the how/who split in §6 and the settling proposal are its.
+
+**Why a field, not the tables.** Seven registers disagreed on what a ceremony is: Palace Ceremonies, SCHEMA,
+the scroll machinery, the commit grammar, the deck's canon guard, CLAUDE.md's trigger table, and
+`lint-doc-drift`'s filename test. Loudon chose a field that people and scripts read alike. `trigger:` is the
+structured form of the `**Trigger:**` line twelve specs already carried. Connection, Query and the Ceremony
+Reader, which have no page of their own, stay rows in the tables.
+
+**Reversals, named.** v1.20 wrote an item only when a run changed the spec. v1.28 writes one when a run
+taught something. The lessons that changed no spec (Map Build item 2, the Weave's tool lessons) were already
+landing there, and the pages that most need a ledger have no spec to change. The rule that a ceremony's scroll
+has no Plan is withdrawn, because a standing order lost its permanence once it became an owed line that a run
+pays.
+
+**Held in tension, not resolved.** Loudon's own 2026-05-03 principle stands beside "files come easily": keep
+knowledge in the entry "until it becomes clearly unmanageable. Auxiliary markdown files for
+findings/lessons/decisions duplicate palace state". They live together through one test. A ledger earns its
+place where a page's body carries history instead of present tense; a line a worker would be wrong to ignore
+today stays on the page. The word "diary", which the v1.20 and v1.21 records used for a failure, is reworded
+there, so it means one thing: the record a page reads at each waking.
+
+**The Closing Well pair.** On 2026-10-15, at the Daily Page, Loudon decided Closing Well stays two pages, and
+said why. It is the only ceremony where the agent that hears the trigger is not the agent that runs it. The
+trigger table names the thin card; `trigger:` sits on [[Closing Well]], beside its version and ledger, for the
+machinery.
+
+**What it does not change.** No entry type, link type or stage. The run-report stamp and its closing section
+stay. The code catches up separately. Until it does, the deck still finds ceremonies by their ledgers, refuses
+a ceremony's Plan and sends every order to the ledger, so new tuning ledgers on other pages wait for it.
+
+**Mirrors.** SCHEMA, SCHEMA — Reference, CLAUDE.md and [[ELDER]] (version); CLAUDE.md § A page and its
+folder; [[Palace Ceremonies]] (§ What Makes a Ceremony, the Closing Well row); [[The Scroll]];
+`_ops/Substrate Skill.md`; [[SUBSTRATE]] (Context companions); [[README - The Palace Guide]] (the bundle
+paragraph). [[ROSETTA]] states no ledger rule, and its ceremony table is unchanged. **MINOR:** a new shared
+field and a widened bundle pattern; nothing removed.

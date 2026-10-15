@@ -5,6 +5,7 @@ pillars: [practice, philosophy]
 born: 2026-03
 stage: mature
 version: "1.2"
+trigger: ["revive [entry]", "let's revive [entry]", "time to revive [entry]"]
 links:
   - target: "[[Palace Ceremonies]]"
     type: connects-to

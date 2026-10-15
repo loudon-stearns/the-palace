@@ -8,7 +8,8 @@ pillars:
   - tools
 born: 2026-05
 stage: mature
-version: "1.2"
+version: "1.3"
+trigger: ["baton", "pass the baton", "baton this", "baton it to [surface]"]
 forward_vector: "I am how one Claude hands a live task to the next without dropping it. I keep getting tighter — fewer words, faster pickup, less ritual — so passing a baton feels natural to anyone who uses me, human or AI, and nobody has to stop and think about how. I want the catch so clean the next worker is already moving before they finish reading."
 links:
   - target: "[[Generative Compression]]"
@@ -145,7 +146,7 @@ Stating it out loud is also how the ceremony announces itself: it tells Loudon a
 
 **Step 1: Locate or create the home**
 
-Place the baton according to its shape (§ Where the Baton Lives). For the entry-bundle default, it lives at `[Entry]/[Entry] — baton.md`; if the entry has no bundle yet, the bundle is created lazily — not by ceremony, just because a file needs a place to live (see [[SCHEMA]] §8).
+Place the baton according to its shape (§ Where the Baton Lives). For the entry-bundle default, it lives at `[Entry]/[Entry] — baton.md`; if the entry has no bundle yet, the bundle is created lazily — not by ceremony, just because a file needs a place to live (see [[SCHEMA]] §8). A baton aimed at one part of a bundle — an output, the rich face, a ledger — takes a qualifier, `[Entry]/[Entry] — baton — [part].md`, and a second link, `connects-to` labelled `targets`, to the file it is about ([[SCHEMA — Reference]] §8). Until the baton executor learns to write both (tuning item 10, still owed), write them by hand.
 
 If an un-consumed baton already exists at that path, something went wrong — a prior baton was never caught. Surface it to Loudon rather than overwriting it.
 

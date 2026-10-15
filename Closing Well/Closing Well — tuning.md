@@ -5,15 +5,25 @@ links:
   - target: "[[Closing Well]]"
     type: connects-to
     label: tuning-for
-forward_vector: "I am Closing Well's record of what its closes taught it, numbered, each lesson tied to the spec change it forced, so 'done this many times, knows the traps' is literal and the version number has a reason you can read. Every close leaves a line here; a close that changed the ceremony also leaves a numbered item. Never prune what a real close taught."
+forward_vector: "I am Closing Well's record of what its closes taught it, numbered, each lesson naming the spec change it forced, if any, so 'done this many times, knows the traps' is literal and the version number has a reason you can read. Every close leaves a line here; a close that taught something also leaves a numbered item. Never prune what a real close taught."
+ledger: tuning
+standards:
+  for: "what each close taught Closing Well"
+  run: "one close"
+  line: "- run · <date> · v<version> · <what it ran on> · nothing new | taught item N"
+  read: "the last 40 lines with run lines set aside, plus every line not yet paid"
+  writes: "the close's backstage executor, its tuning row, in the close's commit"
+  merge: union
+  kept: git
+  trim: never
 ---
 
 # Closing Well — tuning
 
 What each close taught the ceremony. This is what makes the Agent *professional* — a track
 record, not a fresh subagent spun up cold. Items 1–24 were appended one per close, before
-Closing Well carried a version; from 25 on, an item is written only when a close — or a lesson
-that reached it from elsewhere — changed the spec, and it names the change and the version that change produced. Two numbers were used
+Closing Well carried a version; from 25 to 41, an item was written only when a close — or a lesson
+that reached it from elsewhere — changed the spec; since v1.28 (2026-10-15), whenever one taught something, naming the change and the version when there was one. Two numbers were used
 twice early on; they are 12a/12b and 13a/13b, four different traps. Newest last.
 
 ## From the first close — 2026-07-03 (hand-run pilot, the design of Closing Well itself)
@@ -168,3 +178,4 @@ Loudon's answer at the close (2026-10-13), to "what did this teach the ceremony"
 ## From the door — 2026-10-14
 
 41. **A close could not see what its session left on the trunk.** The keeper research found work nobody owns to be the one class of trouble with no rule at all: three hover-card files sat in the main checkout for sixteen days after a six-minute session ended without committing them. `git status` shows the files, not whose they are, and a close is the last moment the writer can be asked. Forced (v1.7): Pass 1 runs `trunk-state.mjs`, which names the session that wrote each unsaved file, and hands the Agent this session's still-out rows for the reckoning.
+- from Loudon · 2026-10-15 · Closing Well stays two files; the card truly thin; the exception stated in both pages' frontmatter (at the Daily Page) · paid in v1.8, by the v1.28 Schema Ceremony

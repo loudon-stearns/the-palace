@@ -5,7 +5,7 @@ pillars:
   - tools
   - practice
 born: 2026-09
-version: "1.27"
+version: "1.28"
 stage: foundational
 status: canonical
 links:
@@ -85,7 +85,8 @@ Which types require which fields is the `adds` column in §1. The allowed values
 - `status` — `active | complete | archived` for `project`; `alive | stub` for `specialist` and `maker`
 - `medium` — `paper | book | tool | recording | other` for `source`; `sound | image | motion | interactive | plumbing | other` for `specialist`
 - `domains` — array of intellectual fields (`person`) · `revival_conditions` — string naming what would trigger revival (`spore`) · `tool` / `tool_version` — canonical tool name and pinned version, for reproducibility (`specialist`)
-- `version` — a quoted string. On a schema-level `meta` entry it is the schema's version. On a ceremony it is that ceremony's own, and it moves only when the ceremony's spec changes — never on a run (§6).
+- `version` — a quoted string. On a schema-level `meta` entry it is the schema's version. On a ceremony it is that ceremony's own, and it moves only when the ceremony's spec changes — never on a run (§6). On any other page that keeps a tuning ledger it is optional: the page's own version of how it works, moved when a lesson changes that (§6).
+- `trigger` — a list of quoted strings, the words Loudon says to begin a ceremony (`trigger: ["let's weave", "weave"]`). Carrying it is what makes a page a ceremony. Quote every phrase: one bad line blanks the page's whole frontmatter for every reader. A rite with no page of its own — Connection, Query, the Ceremony Reader — stays a row in the tables.
 
 ### Optional Fields (used selectively)
 
@@ -174,7 +175,7 @@ and (for ceremony changes) `_ops/Palace Ceremonies` are internally consistent �
 
 ---
 
-## 6. Ceremony File Conventions
+## 6. Ceremony Files, Versions and Ledgers
 
 ### Operational Card + Context Split
 
@@ -199,17 +200,44 @@ When a ceremony file exceeds ~8KB, split it into two files:
 - [[Weave Ceremony]] + [[Weave Ceremony — Context]]
 - [[Baton Ceremony]] + [[Baton Ceremony — Context]]
 
-### Versions, tuning, and run reports
+### Versions, ledgers, and run reports
 
-Every ceremony carries a `version` (§3). It moves only when the ceremony's spec changes, and the reason is
-recorded — as a tuning item when a run forced the change, in the commit body when nothing did. Running the
-ceremony never moves it. Changing a ceremony's version is an edit to that ceremony, not a Schema Ceremony;
-adding or removing a ceremony still is (§5).
+Every ceremony carries a `version` (§3); so may any page that keeps a tuning ledger. It moves only when the
+page's spec — how it works — changes, and the reason is recorded: as a tuning item when a run forced the
+change, in the commit body when nothing did. Running never moves it. Changing a ceremony's version is an
+edit to that ceremony, not a Schema Ceremony; adding or removing a ceremony still is (§5).
+
+**Ledgers.** A ledger is an append-only file a page keeps in its bundle so its next run or waking starts from
+what came before (§8). Any page may keep one when it is useful, and several. The kinds so far are `tuning`,
+`diary` and the JSONL `placements` ledger, and a page may invent another. A page that uses a ledger outside
+these rules is giving the palace an example to grow from, not breaking a rule. What every ledger shares:
+
+- **It says how it is kept, in its own frontmatter**, on top of §8's minimal fields:
+  ```yaml
+  ledger: tuning
+  standards:
+    for: what running the Map Build taught it
+    run: one map build
+    line: "- run · <date> · v<version> · <what it ran on> · nothing new | taught item N"
+    read: the last 40 lines with run lines set aside, plus every line not yet paid
+    writes: the run itself, in the commit that records it
+    merge: union
+    kept: git
+    trim: never
+  ```
+  Only `ledger` and `standards.for` are required; a kind fills in what it needs. A JSONL ledger carries the
+  same keys in its first line. No `standards` value says "owed", because the tail read's grep would find it.
+- **A run is the page's own unit**, named in `standards.run`. By default it is one start-to-finish act of the
+  page: a close, a cycle, a batch, an encounter. The test: a run is the unit whose lesson the next run should
+  read before it starts. What a run *made* goes to the workshop and the scroll, never the ledger.
+- **It merges by union** wherever `.gitattributes` names its kind. Add a line when a kind first appears.
+
+The tuning ledger, run by run:
 
 | What | Where | Holds |
 |---|---|---|
-| `version` | the ceremony's frontmatter | the spec's current version |
-| `[Ceremony] — tuning.md` | the ceremony's bundle (§8 type `tuning`) | one run line for every run, and numbered items grouped by run date; each item says what the run showed, the spec change it forced, and the version that change produced |
+| `version` | the page's frontmatter | the spec's current version |
+| `[Entry] — tuning.md` | the page's bundle (§8 type `tuning`) | one run line for every run, and numbered items grouped by run date; each item says what the run taught and, when it changed how the page works, the change and the version it produced |
 | `ceremony_version` | each run report's frontmatter, on top of §8's minimal fields | the version the run ran under — a stamp, never updated |
 | `## What this run taught the ceremony` | the last section of each run report | the run's answer; "nothing" is a legal answer |
 
@@ -223,13 +251,19 @@ the commit that records the run:
 
 Closing Well's ledger has `- run · 2026-09-25 · v1.1 · close-2026-09-25-ceremonies · taught item 31`; the
 Baton's has `- run · 2026-09-25 · v1.0 · No Mind Checks Itself · nothing new`. "Nothing new" is data: the spec
-held. The fixed prefix makes the runs countable (`grep -c '^- run · ' <file>`), and the ceremony's scroll
-counts them there. A numbered item is still written only when the run changed the ceremony, so the items and
-the version move together, and the run line names the item it wrote.
+held. The fixed prefix makes the runs countable (`grep -c '^- run · ' <file>`), and the page's scroll counts
+them there. A numbered item is written when a run taught something — a step, a trap, a broken assumption —
+whether or not it changed the spec; when it did, the item names the change and the version, and the run line
+names the item.
 
-**An order from Loudon**, saved on a ceremony's scroll, is appended the same way:
-`- from Loudon · <date> · <his words> · owed`. The run that acts on it replaces `owed` with what it did —
-`paid in item 32`.
+Pages tune this to themselves. [[The Remembering Page]] offers one way: a lesson about *how* changes the page
+after one run; a lesson about *who* — what the page wants — waits until it recurs across several runs, and an
+item seen again is marked so, which shows a fix that keeps being re-fixed.
+
+**Loudon's orders come in two kinds.** A **standing order** holds until he revokes it; it lives in its page's
+scroll, in the Standing Orders zone, ceremony or not (§8 `scroll`). A **one-shot order** is a job for the next
+run: it is appended to the tuning ledger as `- from Loudon · <date> · <his words> · owed`, and the run that
+acts on it replaces `owed` with what it did — `paid in item 32`.
 
 Every run opens with a **tail read** of the tuning file, never the whole of it: its last 40 lines once the run
 lines are set aside, and every line still **owed**, wherever it sits:
@@ -244,7 +278,7 @@ worth in every ledger so far — and a window that opens partway through an olde
 each item stands alone. Run lines are set aside because a busy ceremony would fill the window with them. The
 ledger grows; the read stays the same size. An owed item says *owed* in so many words, so the grep finds it.
 
-**Ledgers merge by union.** `.gitattributes` gives every `* — tuning.md` git's `union` merge, so two branches
+**Ledgers merge by union.** `.gitattributes` gives every ledger kind it names git's `union` merge, so two branches
 that each append to the same ledger both keep their lines, without a conflict. It costs two things. Two
 identical lines merge into one, which is why a run line names what the run ran on. And a line edited in place
 beside a line appended on another branch comes back in both forms: when an item or an order shows up both
@@ -256,7 +290,7 @@ owed and paid, it is paid, and the next run deletes the stale copy.
 
 ## 8. Entry Bundles
 
-An **entry bundle** is an optional sibling folder, named identically to the entry (no extension), that holds the entry's owned files. To anyone who arrives they are of three kinds ([[CLAUDE]] § A page and its folder): **faces** a reader meets beside the text — the rich face and the scroll; **memory** the next worker reads — the Context companion, the tuning ledger, the baton; and **workshop**, everything else made along the way. The `.md` is the canonical surface and the first face. Bundles are plumbing, not ceremony — they appear when a ceremony needs a file to live somewhere, and do not require their own invocation.
+An **entry bundle** is an optional sibling folder, named identically to the entry (no extension), that holds the entry's owned files. To anyone who arrives they are of three kinds ([[CLAUDE]] § A page and its folder): **faces** a reader meets beside the text — the rich face and the scroll; **memory** the next worker reads — the Context companion, the ledgers, the baton; and **workshop**, everything else made along the way. The `.md` is the canonical surface and the first face. Bundles are plumbing, not ceremony — they appear when a ceremony needs a file to live somewhere, and do not require their own invocation.
 
 **Folder naming:** `[Entry].md` ↔ `[Entry]/` (exact match, no extension).
 
@@ -275,20 +309,21 @@ An **entry bundle** is an optional sibling folder, named identically to the entr
 | `links` | At least one link to the parent entry. Use `connects-to` with a `label` naming the specific register (e.g., `child-of`, `baton-for`, `context-of`). |
 | `forward_vector` | One first-person sentence stating what this file is for and what its end-state is. Boilerplate per file type is fine; self-documenting is required. |
 
-This keeps every file in the palace self-describing without conflating bundle files with entries.
+This keeps every file in the palace self-describing without conflating bundle files with entries. A ledger adds `ledger` and `standards` (§6).
 
 **Initial type vocabulary (open, not closed):**
 
 | Type | Scope |
 |---|---|
-| `baton` | Operational state for a new Claude picking up an in-progress move on this entry. Tight, transient, deleted after consumption; git is the archive. See [[Baton Ceremony]]. |
-| `context` | Long-running session-history companion accumulating across multiple sessions. Generalizes the Jewel — Context pattern. |
+| `baton` | Operational state for a new Claude picking up an in-progress move on this entry. Tight, transient, deleted after consumption; git is the archive. See [[Baton Ceremony]]. A baton aimed at one part of a bundle — an output, the rich face, a ledger — carries a qualifier in its name (`Foo — baton — marimba-top.md`) and a second link, `connects-to` labelled `targets`, to the file it is about. |
+| `context` | Why the page is shaped as it is — what it left out, what was tried and dropped, the history of its design. It grows when the page's shape changes; what each run taught goes to a ledger, a page's encounters to its diary. Generalizes the Jewel — Context pattern. |
 | `source` | Extracted, quoted, translated, or annotated source material supporting the entry. Use the qualifier slot to name which one (`Foo — source — borges.md`). |
 | `sketch` | Half-formed material not yet ready for the entry body but too substantial for an HTML comment. |
 | `enrichment` | A small made piece the entry embeds in its own body — a haiku, a twelve-word compression. Pieces laid *beside* the text rather than in it belong to `rich`. |
-| `rich` | The entry's **rich face**: `[Entry] — rich.json`, a heading-keyed manifest of the Shop pieces laid beside the text, each section stamped with a fingerprint of the prose it was made against so the page can say when a piece may lag. Pieces made for it are `[Entry] — rich — [qualifier].<ext>`; gathered pieces keep their names. The rich face never writes the `.md`; what making teaches goes home as [[Enrichment]] says — an edit that changes no claim is shown to Loudon first; one that changes what the page says goes through the [[Deposit Ceremony]]'s map. |
-| `scroll` | The entry's **front door** — any entry may carry one. Four zones: **Now**, machine-owned and regenerated on every look; the **Plan**, the path agreed with Loudon — where the work is going, then the moves ahead, each named by what it does — which changes only with his yes (his own edit, an elder's write on his word, or a steward's `plan_revision` proposal he adopts), every change logged on the trail with what changed and why; **Standing Orders**, Loudon's, never regenerated; and **the making**, an append-only trail, newest first, where a thing made off plan is labelled so. What Now counts depends on the entry: a project's reads [[STIGMERGY]]'s board (open asks, answers not yet consumed, last shipped, stall, drift); a ceremony's counts its runs since the spec last changed, from its tuning ledger's run lines, and gives its current version. A ceremony's scroll has no Plan: its ledger's owed lines are its plan, and its Standing Orders go into that ledger as owed lines (§6). Markdown. See [[The Scroll]], [[Project Stewardship System]]. |
-| `tuning` | A ceremony's **tuning ledger** — one line for every run, and a numbered item, grouped by run date and tied to the spec change it forced, for every run that changed the ceremony. Loudon's orders for the ceremony wait here as owed lines. One per ceremony; merged by union. See §6. (Not `gotchas` — that word stays with a Specialist's tool traps.) |
+| `rich` | The entry's **rich face**: `[Entry] — rich.json`, a heading-keyed manifest of the Shop pieces laid beside the text, each section stamped with a fingerprint of the prose it was made against so the page can say when a piece may lag. Pieces made for it are `[Entry] — rich — [qualifier].<ext>`; gathered pieces keep their names. The rich face never writes the `.md`; what making teaches goes home as [[Enrichment]] says — an edit that changes no claim is shown to Loudon first; one that changes what the page says goes through the [[Deposit Ceremony]]'s map. It may also hold pieces for the page as a whole, beside the sections; how such a piece knows it lags is open. |
+| `scroll` | The entry's **front door** — any entry may carry one. Four zones: **Now**, machine-owned and regenerated on every look; the **Plan**, the path agreed with Loudon — where the work is going, then the moves ahead, each named by what it does — which changes only with his yes (his own edit, an elder's write on his word, or a steward's `plan_revision` proposal he adopts), every change logged on the trail with what changed and why; **Standing Orders**, Loudon's, never regenerated; and **the making**, an append-only trail, newest first, where a thing made off plan is labelled so. **Now** shows what the page has: a project's reads [[STIGMERGY]]'s board (open asks, answers not yet consumed, last shipped, stall, drift); a page with a tuning ledger counts its runs since its spec last changed and gives its version; a page with a diary, its last encounter. Any scroll may hold a **Plan**, a ceremony's too, and a tuning ledger's owed lines are the next run's to-do beneath it. **Standing Orders** stay on the scroll for every page; one-shot orders go to the ledger (§6). *(The code that draws Now and routes orders catches up with this row in the v1.28 code work.)* Markdown. See [[The Scroll]], [[Project Stewardship System]]. |
+| `tuning` | A **tuning ledger** — what running taught a page, kept by any page that learns from its runs: one line for every run, and a numbered item, grouped by run date, for every run that taught something. Loudon's one-shot orders wait here as owed lines. Merged by union. See §6. (A Specialist's page keeps its live gotchas — that word stays with tool traps; its tuning ledger, once it keeps one, holds their history.) |
+| `diary` | A page's own first-person record of the encounters it has lived — what it said, what it privately thought, what others said aloud to it, never what they privately thought. Append-only, oldest first, never revised; one entry per encounter, written at its close. Loaded at each waking so the page wakes remembering ([[Palace Enchantment]]). A ledger (§6). The word is [[The Remembering Page]]'s; not `memory`, which already means too much here. |
 | `dossier` | The deep research corpus behind a `person` entry — timeline, positions, characteristic moves, lexicon, blindspots, sourced quotes, dispatch notes — loaded when an agent must *embody* the person faithfully (Dialectic, Excellent Adventure, Philosopher Visit). One per made citizen. See [[Making a Palace Citizen]]. |
 | `speech` | Cited, **context-tagged** verbatim excerpts of how a `person` actually talks, opening with a sources-and-their-limits ledger (spontaneous vs performative vs rehearsed vs fabricated), so voice is built from ground truth rather than synthesis. Feeds the entry's `## Voice`. See [[Making a Palace Citizen]] §Voice fidelity. |
 | `toolbox` | The project's reproducible **environment manifest** — every runtime pinned (local apps, language runtimes, pods, worker images) plus extensions, assets, deps, and a per-pipeline portability status. Machine-actionable: the [[The Commons\|Commons]] provider reads it to build and deploy. One per project with real compute. Template: `_ops/commons/TOOLBOX-TEMPLATE.md`. |

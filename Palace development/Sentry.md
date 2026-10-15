@@ -5,6 +5,7 @@ pillars: [tools, practice, philosophy]
 born: 2026-09
 stage: growing
 version: "1.3"
+trigger: ["sentry sweep", "security sweep", "sentry, check [X]"]
 forward_vector: "I am the palace's watch at the doors it is opening — I sweep for what should not leave and raise it, masked, to Loudon, who decides, so the palace can grow more public without growing careless."
 links:
   - target: "[[No Mind Checks Itself]]"

@@ -16,7 +16,7 @@ forward_vector: "I am the record of Eno and Cage's first encounter (2026-07-02),
 
 # Eno and Cage on the Hand and the Open Ear
 
-> *Artifact — a Dialectic transcript, **not a canon palace entry** (no `type`, no agent `forward_vector`; invisible to the ceremonies). This is the coordinator's god's-eye record. Each participant's own perspectival memory lives in his bundle — [[Brian Eno — context]], [[John Cage — context]] — and this full record is reconstructable from the two. Participants: [[Brian Eno]], [[John Cage]]. Ceremony: [[Dialectic]]. Validation run for [[Making a Palace Citizen]] · [[Palace Enchantment]] true-isolation.*
+> *Artifact — a Dialectic transcript, **not a canon palace entry** (no `type`, no agent `forward_vector`; invisible to the ceremonies). This is the coordinator's god's-eye record. Each participant's own perspectival memory lives in his bundle — [[Brian Eno — diary]], [[John Cage — diary]] — and this full record is reconstructable from the two. Participants: [[Brian Eno]], [[John Cage]]. Ceremony: [[Dialectic]]. Validation run for [[Making a Palace Citizen]] · [[Palace Enchantment]] true-isolation.*
 
 The palace's second Dialectic between two made `person` citizen-pages — and the first to test the **voice-fidelity layer** ([[Making a Palace Citizen]] §Voice fidelity): both citizens carry a source-checked `## Voice` note and a context-tagged `[Name] — speech.md`. Run under true multi-agent isolation (separate Sonnet subagents, frontmatter-only mutual knowledge, coordinator routing only OUTER messages, per [[Palace Enchantment]] § True Multi-Agent Isolation). Model: Sonnet both sides. 2026-07-02.
 

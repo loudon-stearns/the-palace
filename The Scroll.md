@@ -126,16 +126,18 @@ in one coat; they went to the Plan, Standing Orders, and `spec` files.
 
 ## The ceremony scroll
 
-Every ceremony has a scroll too. The machinery finds a ceremony by its tuning ledger, so a new
-one needs no registration in code. Its **Now** answers the ceremony's own questions: which version
-is live, whether it has run since the spec last changed, and what the ledger still owes. Runs are
-counted from the ledger, where every run leaves one line whatever it taught ([[SCHEMA — Reference]]
-§6); version changes come from git. A ceremony's scroll has no Plan: its ledger's owed lines are its
-plan, and Now shows them. **The making** is the trail of runs and version changes, newest
-first, each keyed on its run line or its commit so nothing duplicates. **Standing Orders** feed the
-ledger: an order saved on the deck is appended there as owed, the next run's tail read picks it up,
-and Now shows it as owed until a run acts on it. The PROJECTS deck lists every ceremony in its
-CEREMONIES box, beside the projects.
+Every ceremony has a scroll too, and so may any page that keeps a ledger. Its **Now** answers the
+page's own questions from what the page has (the `scroll` row of [[SCHEMA — Reference]] §8). For a tuning ledger,
+that is which version is live, whether it has run since the spec last changed, and what the ledger
+still owes: runs are counted from the ledger, where every run leaves one line whatever it taught (§6),
+and version changes come from git. For a diary it is the last encounter; for a stewarded page, the
+board. Any scroll may hold a **Plan**, a ceremony's too; a tuning ledger's owed lines are the next
+run's to-do beneath it. **The making** is the trail of runs and version changes, newest first, each
+keyed on its run line or its commit so nothing duplicates. **Standing Orders** stay on the scroll for
+every page. A one-shot order saved on the deck is appended to the ledger as owed; the next run's tail
+read picks it up, and Now shows it until a run acts on it. The PROJECTS deck lists every page carrying
+`trigger:` in its CEREMONIES box, beside the projects. *(Until the v1.28 code work lands, the deck still
+finds ceremonies by their ledgers, gives them no Plan, and sends every order to the ledger.)*
 
 Any other page can carry a scroll the same way (`scroll.js --home "<Title>"`). With the text and
 the rich face, the scroll is one of a page's three faces, and like the rich face it is the page's

@@ -3,6 +3,10 @@
 # keep the spaces inside the pattern; unquoted, it would split at them.
 "* — tuning.md" merge=union
 
+# Diaries are ledgers too (SCHEMA — Reference §6, v1.28): two branches that each
+# append an encounter keep both.
+"* — diary.md" merge=union
+
 # Placement ledgers are append-only JSONL: two branches that each lay a quote
 # (or decide one) keep both lines, without a conflict (_ops/quotes/README.md).
 "* — placements.jsonl" merge=union

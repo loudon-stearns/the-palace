@@ -1,8 +1,12 @@
-# The Daily Page's tuning ledger and its scroll stay on this machine. Loudon,
+# The Daily Page's diary and its scroll stay on this machine. Loudon,
 # 2026-10-13: "Lets keep the tuning ledger for this page out of the cloud github."
-# and "Keep the scroll local too." They live only in the main checkout, with no
-# git history and no second copy. Git treats an ignored file as expendable, so:
-# never force-add them, and never revert the commit that stopped tracking them
-# (it would write the old copies over these).
-The Daily Page — tuning.md
+# and "Keep the scroll local too." On 2026-10-14 he split the ledger: the
+# practice's lessons are tracked in the tuning ledger, and what a morning shows
+# about him lives in the diary, kept here. Git treats an ignored file as
+# expendable, so: never force-add them, and never revert the commit that stopped
+# tracking the old ledger (it would write the old copy over the new files).
+The Daily Page — diary.md
 The Daily Page — scroll.md
+# Until the split commit on main removes it: the old ledger still holds his
+# words, so git keeps refusing it until the clean tuning half replaces it.
+The Daily Page — tuning.md

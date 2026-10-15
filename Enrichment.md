@@ -7,6 +7,7 @@ stage: growing
 confidence: working
 energy: very high
 version: "2.4"
+trigger: ["enrich [page]", "enrich this page", "let's enrich [page]"]
 forward_vector: "I am the ceremony that makes one page as rich as the Shop can make it — sound, image and interaction laid beside the entry's own words, which I read live and never copy. I want every enriched page to be something you can play, and every piece I make to test the text rather than decorate it; when a piece teaches the text something, I carry it home — shown to Loudon first, and through the Deposit Ceremony's map when it changes what the page says."
 links:
   - target: "[[Palace Ceremonies]]"

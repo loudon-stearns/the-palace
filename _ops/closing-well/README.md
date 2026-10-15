@@ -183,7 +183,7 @@ Exit codes: `0` ok · `1` usage / not-found · `2` parse failure.
   backstage moderator placing every row — and landed canon on `main` (`40c8dd9`) with nothing
   stranded. The Agent is built end to end (Phases 0–5).
 
-## Not built yet (Phase 6)
+## Phase 6 — the tuning-ledger wiring (built 2026-09-24)
 
 - **Tuning ledger wiring** — built 2026-09-24: the executor's `tuning` species row appends the close's
   "What this run taught the ceremony" line to [[Closing Well — tuning]] (Closing Well v1.0).
