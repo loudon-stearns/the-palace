@@ -87,7 +87,7 @@ correctness the moderator must check:
 | keep | deposit | ... | ... | entry + links | real [[Deposit Ceremony]]: deposit(<id>) subject, Palace-Kind trailers, committer — not hand-rolled |
 | hand on | baton | ... | ... | bundle + board | real [[Baton Ceremony]]; announced on the owner's board |
 | leave | artifact | ... | ... | <Entry>/<bundle> | filed in the bundle, indexed; commit <sha> |
-| flag to Weave | weave-flag | ... | ... | WEAVE board | a hygiene debt the close SAW but shouldn't settle (reciprocal-inbound owed, a touched entry that looks like demotion-substrate, a faceless entry grown to merit one, a memory to weave home) → append a `weave_flag` BROADCAST; the Weave rules it with whole-graph context |
+| flag to Weave | weave-flag | ... | ... | WEAVE board | a hygiene debt the close SAW but shouldn't settle (reciprocal-inbound owed, a touched entry that looks like demotion-substrate, a canon entry it birthed or touched that still has no face, a memory to weave home) → append a `weave_flag` BROADCAST; the Weave rules it with whole-graph context |
 | let go | — | ... | ... | — | named, released; nothing to place |
 
 Backstage notes: <canon → owner/main, not a feature branch; weave-flags on the owner's

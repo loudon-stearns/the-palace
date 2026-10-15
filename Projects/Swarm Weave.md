@@ -122,7 +122,7 @@ its work.
 ## Architecture: the shape
 
 *The exact worker prompt, coordinator synthesis steps, and output schema are the
-templates' job (`worker-prompt-template.md`, `Coordinator Synthesis Template.md`).
+templates' job (`Single-Doc Worker Prompt Template.md`, `Coordinator Synthesis Template.md`).
 What follows is the architecture those encode — the ideas, not the syntax.*
 
 ### The Worker
@@ -135,8 +135,9 @@ work is local, precise, and complete: it audits unsung paths, proposes a few
 genuine new introductions, flags stale metadata, reads the entry's graffiti,
 checks the forward vector, considers whether a newcomer born this cycle deserves
 an inbound link from it (the new-entry catch-up), and checks whether the entry
-merits a face. It never needs to hold the whole palace. The exact task list and
-JSON output shape live in `worker-prompt-template.md`.
+wears its face, writing prompts for any side it lacks. It never needs to hold the
+whole palace. The exact task list and JSON output shape live in
+`Single-Doc Worker Prompt Template.md`.
 
 ### The Coordinator
 

@@ -93,3 +93,7 @@ What each weave taught the ceremony, appended after the run. Each entry names th
 ## From the door — 2026-10-14
 
 40. **The sweep could see dirt but not owners, and could not tell leftovers from work.** Five git commands list uncommitted edits and unmerged branches; they cannot say who wrote a file or which of a dozen worktrees are merged and clean (on 2026-10-13, eight of nine were, about 19 GB). Forced (v1.4): step 2.5 runs `trunk-state.mjs` as its sixth command, and its rows take recover, discard or leave like the rest.
+
+## From Loudon's word — 2026-10-14
+
+41. **The face policy and its script had drifted apart, and the script hid a project.** Step 5c said projects get a face whatever their stage; `face-audit.py` turned away seed and sprout entries of every type before it looked at type (`face-audit.py:160` at `6019acd7`), so [[LDN RTM]], a sprout project, never reached a batch. It also made five or more of an entry's own links an "always", a rule the card never named. Loudon, 2026-10-14: "I want it to be simpler, every canon gets a face and hero." Forced (v1.5): every canon entry wears a hero and an icon and none is retired; Step 5c, postcondition 5a, the commit line and the report's Faces line say so, and `face-audit.py` prints one list. 23 of 316 were faceless that day.

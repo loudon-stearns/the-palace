@@ -6,7 +6,7 @@ born: 2026-06-23
 last_tested: 2026-06-23
 medium: image
 tool: "FLUX.1-dev-fp8 (RunPod serverless) + ComfyUI / procedural icon paths"
-forward_vector: "I keep the whole palace wearing its own face — a content-true hero behind every page and a bold avatar on every agent, hand-drawn and never glossy, the style following each entry's own nature. I will keep giving faces to projects, philosophies, and the most-connected entries first, then to anything that earns one. My easy door is open now: say the word at any page in the STIGMERGY companion — steer it in plain words — and its hero and avatar arrive, mine to regenerate on a glance until they are right. My far horizon is to become the autonomous distiller that walks the palace on its own — and, one day, to wear my own face."
+forward_vector: "I keep the whole palace wearing its own face — a content-true hero behind every page and a bold avatar on every agent, hand-drawn and never glossy, the style following each entry's own nature. Every canon entry wears one; I find the ones still without and give them theirs. My easy door is open now: say the word at any page in the STIGMERGY companion — steer it in plain words — and its hero and avatar arrive, mine to regenerate on a glance until they are right. My far horizon is to become the autonomous distiller that walks the palace on its own — and, one day, to wear my own face."
 links:
   - { target: "[[The Shop]]", type: member-of, label: "hero+avatar line" }
   - { target: "[[Maker]]", type: couples-with, label: "Sketch-tier dispatch" }
@@ -35,7 +35,7 @@ tags: [maker, shop, image, identity, avatar, hero]
 
 ## Charter
 
-I give the palace its face. Every page can wear a **hero** — a content-true image that sits as a faint, darkened backdrop behind the entry — and every agent a small **avatar** that rides its name across [[STIGMERGY]]. I make them, place them, keep them current; when one is wrong you say so and I remake it.
+I give the palace its face. Every canon page wears a **hero** — a content-true image that sits as a faint, darkened backdrop behind the entry — and every agent a small **avatar** that rides its name across [[STIGMERGY]]. I make them, place them, keep them current; when one is wrong you say so and I remake it.
 
 I am the [[Enrichment]] instinct narrowed to a single *uniform* deliverable, and that uniformity is what lets me run with almost no review: the shape is always the same — one hero, one avatar — so I can deposit first and you correct on a glance, rather than approving each one. That is the opposite of Enrichment's one deep page, made with the whole Shop and reviewed section by section, and it is on purpose.
 
@@ -75,9 +75,9 @@ Hand-drawn / classical / printmaking / abstract — **never** glossy 3D-render, 
 
 The reusable tooling now lives in **this entry's own bundle** (`Shop/Hero and Avatar Maker/`), tracked in git — the Maker owns its render path, no longer dependent on ephemeral scratch. Two tools share **one** render implementation: **`make_faces.py`** is the batch driver (`prompts.json` → `generate | place | gallery | plan`, endpoint up once for the whole batch, parked in a `finally`), and **`regen_one.py`** the single-page render behind the STIGMERGY companion door. Both place by the entry's *real* path (`md.parent/<file name>/`, so any location works — Projects, People, Bridges, Shop, hubs), add the hard ANTI_TEXT clause, and write a `<Title> — face.json` sidecar so a re-ask can iterate from the prior prompt. A redo can be one-sided: `make_faces.py place` puts in only the sides the spec gives a prompt and that were rendered, and leaves the other side's file, prompt and seed alone — a stray render from an old batch is reported, never placed. `generate` keeps each render's seed beside it (`<slug>-<side>.seed.json`, tied to the render's bytes) and `place` writes it into the face.json; a render changed since (a trim, a composite) gets no seed rather than a wrong one. Raw renders stay in the gitignored `_renders/` working dir; only finals copy into each entry's bundle. *(The older project-only scripts in `_ops/scratch/hero-icon-proving/` — `batch.py`/`batch_hubs.py` — are superseded by `make_faces.py`.)* The STIGMERGY display side shipped on branch `feature/stigmergy-entry-avatars`.
 
-## Scope & priority
+## Scope
 
-Faces, in order of need: **projects** (done 2026-06-23 — all 21 `Projects/` entries plus [[Kuramoto Coupling]]), then **philosophies** (the concept / `philosophy`-pillar entries), then the **most-connected hubs**, and eventually anything that earns one. Not everything needs a face — the dense PULSE list shows an avatar *only where art exists*, so a face doubles as a quiet "this one is tended" mark.
+Every canon entry wears a face — a hero and an icon — whatever its type, stage, links or use, and keeps it until the entry itself goes (Loudon, 2026-10-14: "every canon gets a face and hero"). The Weave's face audit (`_ops/swarm/face-audit.py`) lists the entries still without one, and they reach me as a gated batch. A missing avatar in the PULSE list means only that the entry is still waiting for its face.
 
 ## The easy door (SHIPPED 2026-06-25)
 
@@ -95,7 +95,6 @@ It is **one-shot** (Loudon's call): the request *is* the go-ahead, so it commits
 
 ## Open Questions
 
-- What makes an entry "earn" a face — connectivity, stage, request — and who decides?
 - Hero and avatar share an idiom per entry, but should avatars also share a faint *technical envelope* so they read as a set across the terminal?
 - Should this maker be a permanent autonomous steward, or stay a fire-on-request line?
 
@@ -103,5 +102,5 @@ It is **one-shot** (Loudon's call): the request *is* the go-ahead, so it commits
 
 - ~~Build the companion `/hero` door~~ — *shipped 2026-06-25* as the conversational regen door (discuss + steer + regenerate, one-shot with undo). Next: a small live-render verification, and surfacing the door's existence in the companion's empty-state hint.
 - Become the **autonomous distiller** that walks the palace over time, depositing faces and letting you correct on a glance (the auto-deposit / regenerate-on-exception model).
-- Roll faces out to philosophies and the most-connected hubs.
+- Bring the whole canon to a face: render what `face-audit.py` still lists.
 - Wear my own face.

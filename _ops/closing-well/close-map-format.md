@@ -26,8 +26,8 @@ cleared when the Weave acts on it.
 vantages. A close has the *session* in its context window — it witnessed what was
 touched — but not the whole graph, so it is the wrong place to *do* palace-wide hygiene.
 When a close notices a debt it can't rightly settle — a deposit that owes reciprocal
-inbound links, an entry it touched that now looks like demotion-substrate, a faceless
-entry that has grown to merit one, a memory that should weave home — it does not fix it
+inbound links, an entry it touched that now looks like demotion-substrate, a canon
+entry it birthed or touched that still has no face, a memory that should weave home — it does not fix it
 and it does not drop it. It **flags it to the Weave**, which holds the graph and will
 rule with that context. The close sees; the Weave acts. (Run `_ops/swarm/lint-bundle-hygiene.py`
 and `_ops/swarm/face-audit.py` scoped to the session's touched files to surface these.)

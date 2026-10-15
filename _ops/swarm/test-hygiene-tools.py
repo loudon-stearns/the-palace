@@ -37,7 +37,7 @@ w("Alpha.md", fm(title="Alpha", type="concept", pillars="[philosophy]", born="20
   "And inline `[[Also Ignored]]` too.\n")
 w("real.png", "PNGDATA")
 
-# --- Beta: qualifies for a face via >=5 links, no bundle -> definite ADD; also a live target
+# --- Beta: well-linked concept, no bundle -> missing a face; also a live target
 w("Beta.md", fm(title="Beta", type="concept", pillars="[tools]", born="2026-07",
                 stage="growing", links=["Alpha", "Gamma", "Delta", "Foo", "Seed", "Clean"]) +
   "# Beta\n\nA well-connected concept with no face yet.\n")
@@ -46,28 +46,28 @@ w("Beta.md", fm(title="Beta", type="concept", pillars="[tools]", born="2026-07",
 w("Gamma.md", fm(title="Gamma", type="proof", pillars="[practice]", born="2026-07",
                  stage="growing") + "# Gamma\n\nWorking substrate wearing a bad type.\n")
 
-# --- Delta: spore holding a face -> face RETIRE; never-type
+# --- Delta: spore holding a face -> keeps it (nothing is retired)
 w("Delta.md", fm(title="Delta", type="spore", pillars="[creation]", born="2026-07",
                  stage="dormant", revival_conditions="someday") + "# Delta\n")
 w("Delta/Delta — hero.png", "PNG")
 w("Delta/Delta — icon.png", "PNG")
 
-# --- Foo bundle: Foo.md (seed, never-face) + nested canon Bar.md inside -> bundle W1
+# --- Foo bundle: Foo.md (seed, faceless) + nested canon Bar.md inside -> bundle W1
 w("Foo.md", fm(title="Foo", type="concept", pillars="[practice]", born="2026-07", stage="seed")
   + "# Foo\n")
 w("Foo/Bar.md", fm(title="Bar", type="concept", pillars="[tools]", born="2026-07", stage="seed")
   + "# Bar\n\nNested canon inside a bundle - a demotion candidate to judge.\n")
 w("Foo/Foo — sketch.md", '---\ntitle: "Foo — sketch"\nborn: 2026-07-05\n---\n\nA bundle file, no type - must be spared.\n')
 
-# --- Projects/: organizational folder (no Projects.md twin). project entry -> definite ADD, NOT bundle-flagged
+# --- Projects/: organizational folder (no Projects.md twin). project entry -> missing a face, NOT bundle-flagged
 w("Projects/Proj.md", fm(title="Proj", type="project", pillars="[creation]", born="2026-07",
                          stage="active", status="active", links=["Beta"]) + "# Proj\n")
 
-# --- Seed: seed concept -> face NEVER (absent from all lists), no ghosts
+# --- Seed: seed concept, no face -> missing a face (stage never exempts), no ghosts
 w("Seed.md", fm(title="Seed", type="concept", pillars="[tools]", born="2026-07", stage="seed")
   + "# Seed\n")
 
-# --- Sprout: sprout concept WITH a face -> must NOT be retired (thinness never strips a face)
+# --- Sprout: sprout concept WITH a face -> not listed
 w("Sprout.md", fm(title="Sprout", type="concept", pillars="[tools]", born="2026-07",
                   stage="sprout") + "# Sprout\n")
 w("Sprout/Sprout — hero.png", "PNG")
@@ -79,15 +79,43 @@ w("Clean.md", fm(title="Clean", type="concept", pillars="[philosophy]", born="20
 w("Clean/Clean — hero.png", "PNG")
 w("Clean/Clean — icon.png", "PNG")
 
-# --- LinkScope: growing concept; 5 `- target:` under a NON-links field must NOT count as links
-w("LinkScope.md", '---\ntitle: LinkScope\ntype: concept\npillars: [tools]\nborn: 2026-07\n'
-  'stage: growing\nrelated:\n  - target: a\n  - target: b\n  - target: c\n  - target: d\n'
-  '  - target: e\nlinks: []\n---\n# LinkScope\n')
+# --- Dormant: dormant concept, no face -> missing a face (dormancy never exempts)
+w("Dormant.md", '---\ntitle: Dormant\ntype: concept\npillars: [tools]\nborn: 2026-07\n'
+  'stage: dormant\nlinks:\n  - { target: "[[X]]", type: connects-to }\n---\n# Dormant\n')
 
-# --- PhilFalse: dormant concept, pillars [tools], a link LABEL mentioning philosophy -> never (not grey)
-w("PhilFalse.md", '---\ntitle: PhilFalse\ntype: concept\npillars: [tools]\nborn: 2026-07\n'
-  'stage: dormant\nlinks:\n  - target: "[[X]]"\n    type: connects-to\n'
-  '    label: philosophy-of-science\n---\n# PhilFalse\n')
+# --- Rtm: SPROUT PROJECT, no face -> missing a face (the old bands hid this one: Projects/LDN RTM)
+w("Projects/Rtm.md", fm(title="Rtm", type="project", pillars="[creation]", born="2026-10",
+                        stage="sprout", status="active") + "# Rtm\n")
+
+# --- Quest: question WITH a face -> keeps it, not listed
+w("Quest.md", fm(title="Quest", type="question", pillars="[philosophy]", born="2026-07",
+                 stage="seed") + "# Quest\n")
+w("Quest/Quest — hero.png", "PNG")
+w("Quest/Quest — icon.png", "PNG")
+
+# --- Compost: composting concept WITH a face -> keeps it, not listed
+w("Compost.md", fm(title="Compost", type="concept", pillars="[practice]", born="2026-07",
+                   stage="composting") + "# Compost\n")
+w("Compost/Compost — hero.png", "PNG")
+w("Compost/Compost — icon.png", "PNG")
+
+# --- HeroOnly / IconOnly: half a face -> listed, naming the missing side
+w("HeroOnly.md", fm(title="HeroOnly", type="practice", pillars="[practice]", born="2026-07",
+                    stage="mature") + "# HeroOnly\n")
+w("HeroOnly/HeroOnly — hero.png", "PNG")
+w("IconOnly.md", fm(title="IconOnly", type="meta", pillars="[tools]", born="2026-07",
+                    stage="growing") + "# IconOnly\n")
+w("IconOnly/IconOnly — icon.png", "PNG")
+
+# --- Titled: title differs from filename; face filed under the TITLE folder -> counted as faced
+w("Titled.md", fm(title='"Titled Other"', type="concept", pillars="[tools]", born="2026-07",
+                  stage="growing") + "# Titled Other\n")
+w("Titled Other/Titled Other — hero.png", "PNG")
+w("Titled Other/Titled Other — icon.png", "PNG")
+
+# --- Swarm: canon-typed machinery under _ops/swarm/ -> skipped (not a map node), not listed
+w("_ops/swarm/Swarm Template.md", fm(title="Swarm Template", type="meta", pillars="[tools]",
+                                     born="2026-07", stage="growing") + "# Swarm Template\n")
 
 def run(tool):
     r = subprocess.run([sys.executable, os.path.join(SWARM, tool), ROOT],
@@ -123,22 +151,40 @@ check("spares clean Delta.md (twin, not nested)", "Delta.md" not in out)
 
 print("== face audit ==")
 out, rc = run("face-audit.py")
-definite_sec = out.split("ADD - grey")[0]
-grey_sec = out.split("ADD - grey")[1].split("RETIRE")[0]
-retire_sec = out.split("RETIRE")[1]
+rows = {l.strip()[2:].split("  (")[0]: l for l in out.splitlines() if l.startswith("  + ")}
+def listed(rel):
+    return rel in rows
 check("exit 0 (audit)", rc == 0)
-check("2 definite / 2 grey / 1 retire", "2 definite adds, 2 grey adds, 1 retires" in out,
-      f"\n{out}" if "2 definite adds, 2 grey adds, 1 retires" not in out else "")
-check("definite: Beta (>=5 links)", "Beta.md" in definite_sec)
-check("definite: Proj (project)", "Proj.md" in definite_sec)
-check("grey: Alpha (growing concept)", "Alpha.md" in grey_sec)
-check("retire: Delta (spore w/ face)", "Delta.md" in retire_sec)
-check("does NOT retire faced sprout", "Sprout.md" not in retire_sec)
-check("link_count ignores non-links `- target:`", "LinkScope.md" not in definite_sec)
-check("LinkScope is grey (real link_count 0)", "LinkScope.md" in grey_sec)
-check("philosophy LABEL is not a pillar (PhilFalse never)", "PhilFalse.md" not in out)
-check("spares Clean (faced)", "Clean.md" not in out)
-check("spares Seed (never)", "Seed.md" not in out)
+check("10 of 16 canon entries missing", "MISSING A FACE (10 of 16 canon entries in the palace)" in out
+      and "summary: 10 missing a face, 6 of 16 wear both" in out, f"\n{out}" if len(rows) != 10 else "")
+# every faceless canon entry is listed - no stage, type, link or use band exempts one
+for rel in ("Alpha.md", "Beta.md", "Foo.md", "Seed.md", "Dormant.md", "Projects/Proj.md",
+            "Projects/Rtm.md", os.path.join("Foo", "Bar.md")):
+    check(f"lists {rel}", listed(rel) and "no hero, no icon" in rows.get(rel, ""))
+check("sprout project listed (the old bands hid LDN RTM)", listed("Projects/Rtm.md"))
+check("half a face names the missing icon", "missing icon" in rows.get("HeroOnly.md", ""))
+check("half a face names the missing hero", "missing hero" in rows.get("IconOnly.md", ""))
+# a face is never retired: spores, questions, sprouts and composting entries keep theirs
+for rel in ("Delta.md", "Quest.md", "Sprout.md", "Compost.md", "Clean.md"):
+    check(f"spares faced {rel}", rel not in out)
+check("no retire list", "RETIRE" not in out and "retire" not in out.lower())
+check("face filed under the title folder counts", "Titled.md" not in out)
+# not canon, or not a node: skipped
+check("spares invalid type (Gamma)", "Gamma.md" not in out)
+check("spares bundle file (Foo — sketch)", "sketch" not in out)
+check("spares _ops/swarm machinery", "Swarm Template" not in out)
+# --paths scopes the audit (Closing Well runs it on a session's touched files)
+r = subprocess.run([sys.executable, os.path.join(SWARM, "face-audit.py"), ROOT,
+                    "--paths", "Seed.md,Clean.md,Projects/Rtm.md"], capture_output=True, text=True)
+check("--paths scopes to the named files",
+      "MISSING A FACE (2 of 3 canon entries in scope)" in r.stdout
+      and "Seed.md" in r.stdout and "Projects/Rtm.md" in r.stdout and "Alpha.md" not in r.stdout,
+      f"\n{r.stdout}" if "2 of 3" not in r.stdout else "")
+# `breakthrough` was retired in SCHEMA v1.17
+import importlib.util
+_spec = importlib.util.spec_from_file_location("face_audit", os.path.join(SWARM, "face-audit.py"))
+_fa = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(_fa)
+check("breakthrough is not a canon type", "breakthrough" not in _fa.CANON_TYPES)
 
 print()
 if fails:
