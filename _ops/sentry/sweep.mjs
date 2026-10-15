@@ -14,7 +14,7 @@
 // paths, and open findings are not published). The scroll gets one line per recorded run:
 // what was checked and how much was found, never where. See [[Sentry]].
 
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { readFileSync, writeFileSync, existsSync, mkdirSync, statSync, mkdtempSync, rmSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { tmpdir } from 'node:os';
@@ -34,6 +34,8 @@ const PAGE = join(ROOT, 'Palace development', 'Sentry.md');
 const LEDGER = join(ROOT, 'Palace development', 'Sentry', 'Sentry — tuning.md');
 const ALL_CHECKS = ['tree', 'paths', 'agents', 'history', 'deps', 'hosting'];
 const QUICK = ['tree', 'paths', 'agents'];
+// One stalled gh call must not hang a deep sweep or the gate: past this, the read counts as unreadable.
+const GH_TIMEOUT_MS = 30_000;
 
 async function main() {
   if (flag('--selftest')) return selftest();
@@ -170,7 +172,15 @@ const CHECKS = {
     let slug;
     try { slug = git(ROOT, ['remote', 'get-url', 'origin']).trim().replace(/^.*github\.com[:\/]/, '').replace(/\.git$/, ''); }
     catch { return { findings, meta: { summary: 'no origin remote' } }; }
-    const gh = path => { try { return JSON.parse(execFileSync('gh', ['api', path], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], maxBuffer: 64 << 20 })); } catch (e) { return { __error: String(e.status ?? e.message) }; } };
+    const gh = path => { try { return JSON.parse(execFileSync('gh', ['api', path], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], maxBuffer: 64 << 20, timeout: GH_TIMEOUT_MS, killSignal: 'SIGKILL' })); } catch (e) { return { __error: String(e.status ?? e.message) }; } };
+    // Like gh, but keeps GitHub's answer when it says no: a 404 "Branch not protected" is an answer,
+    // not a failure to read.
+    const ghRead = path => {
+      const r = spawnSync('gh', ['api', path], { encoding: 'utf8', maxBuffer: 64 << 20, timeout: GH_TIMEOUT_MS, killSignal: 'SIGKILL' });
+      let body = null;
+      try { body = JSON.parse(r.stdout || ''); } catch { /* not JSON: unreadable */ }
+      return r.status === 0 && body !== null ? { ok: true, body } : { ok: false, body };
+    };
     const repo = gh(`repos/${slug}`);
     if (repo.__error) return { findings: [finding('hosting', 'gh-unreachable', 'low', slug, 0, slug, 'could not read repo settings via gh', allow, null, slug)], meta: { summary: 'gh unavailable' } };
     const sa = repo.security_and_analysis || {};
@@ -214,13 +224,84 @@ const CHECKS = {
       if (installs) findings.push(finding('hosting', 'dependabot-pr-mismatch', 'medium', lockPath, 0, `pr:${pr.number}:${claim.pkg}:${claim.to}`,
         `pull request #${pr.number} claims ${claim.pkg} ${claim.to}; its lockfile installs ${installs}`, allow, null, `#${pr.number} ${claim.pkg}`));
     }
+    // GitHub's own guard on main: whether it refuses a force push, and a deletion, for everyone who
+    // can push. It is the one guard against rewriting main that does not live on this Mac, and it
+    // comes off on purpose when Loudon closes a leak by rewriting history. Main is read by name,
+    // because main is what palace-push sends and the door guards, whichever branch is the default.
+    const branch = 'main';
+    const rulesRead = ghRead(`repos/${slug}/rules/branches/${branch}?per_page=100`);
+    // A full page may have more behind it; better unreadable than a guard missed on page two.
+    const rules = rulesRead.ok && Array.isArray(rulesRead.body) && rulesRead.body.length < 100 ? rulesRead.body : null;
+    const ids = [...new Set((rules || []).filter(r => r.type === 'non_fast_forward' || r.type === 'deletion').map(r => r.ruleset_id))];
+    const rulesets = Object.fromEntries(ids.map(id => { const r = ghRead(`repos/${slug}/rulesets/${id}`); return [id, r.ok && r.body && typeof r.body === 'object' ? r.body : null]; }));
+    const classicRead = ghRead(`repos/${slug}/branches/${branch}/protection`);
+    const shaped = b => b && typeof b === 'object' && typeof b.allow_force_pushes?.enabled === 'boolean' && typeof b.allow_deletions?.enabled === 'boolean';
+    const classic = classicRead.ok ? (shaped(classicRead.body) ? classicRead.body : null) : /not protected/i.test(classicRead.body?.message || '') ? false : null;
+    const guard = judgeTrunkGuard({ branch, rules, rulesets, classic, defaultBranch: repo.default_branch ?? null });
+    for (const p of guard.problems) findings.push(finding('hosting', p.rule, p.sev, slug, 0, `${slug}:${branch}:${p.rule}`, p.context, allow, null, branch));
     const pages = gh(`repos/${slug}/pages`);
     const alerts = gh(`repos/${slug}/secret-scanning/alerts?state=open&per_page=100`);
     if (Array.isArray(alerts) && alerts.length) findings.push(finding('hosting', 'github-secret-alerts', 'high', slug, 0, `${slug}:alerts:${alerts.length}`, `${alerts.length} open GitHub secret-scanning alert(s)`, allow, null, String(alerts.length)));
-    report.notes.push(`hosting: ${slug} is ${repo.visibility}; Pages ${pages.__error ? 'off' : `on (${pages.html_url})`}; secret-scanning alerts ${Array.isArray(alerts) ? alerts.length : 'unreadable'}; Dependabot alerts ${Array.isArray(dep) ? dep.length : 'unreadable'}, open Dependabot pull requests ${Array.isArray(pulls) ? botPulls.length : 'unreadable'}`);
+    report.notes.push(`hosting: ${slug} is ${repo.visibility}; ${branch} ${guard.summary}; Pages ${pages.__error ? 'off' : `on (${pages.html_url})`}; secret-scanning alerts ${Array.isArray(alerts) ? alerts.length : 'unreadable'}; Dependabot alerts ${Array.isArray(dep) ? dep.length : 'unreadable'}, open Dependabot pull requests ${Array.isArray(pulls) ? botPulls.length : 'unreadable'}`);
     return { findings, meta: { visibility: repo.visibility, pages: !pages.__error, summary: `${repo.visibility}, Pages ${pages.__error ? 'off' : 'on'}` } };
   },
 };
+
+// Whether GitHub refuses a force push to `branch`, and a deletion of it, for everyone who can push.
+// Every session pushes as the account gh is logged in as, so a guard that account can bypass guards
+// nothing here; so is a guard a deploy key or an app is listed to bypass. Pure: given what GitHub
+// returned, it says what is wrong.
+//   rules      the branch-rules answer (GitHub lists only active rulesets there), null when unreadable
+//   rulesets   each ruleset id to its ruleset, null when unreadable
+//   classic    the classic branch protection, false when there is none, null when unreadable. Its
+//              force-push and deletion blocks apply to administrators too, whatever enforce_admins
+//              says. (A "specify who can force push" list is not visible through REST.)
+//   defaultBranch  the repo's default branch: GitHub never deletes the default branch, so a deletion
+//              is judged only when `branch` is not it, and `branch` no longer being it is raised.
+// Bypass values: never, and pull_requests_only (no bypass by a push), bind; always and exempt do not.
+const BINDS = { never: true, pull_requests_only: true, always: false, exempt: false };
+export function judgeTrunkGuard({ branch, rules, rulesets = {}, classic, defaultBranch = null }) {
+  const problems = [];
+  const said = [];
+  if (defaultBranch && defaultBranch !== branch) {
+    problems.push({ rule: 'github-default-branch-moved', sev: 'low', context: `the default branch is ${defaultBranch}, not ${branch}; a ruleset aimed at the default branch no longer guards ${branch}` });
+  }
+  const unread = what => problems.push({ rule: 'github-trunk-guard-unreadable', sev: 'low', context: `could not read whether GitHub refuses ${what} of ${branch} for everyone who can push` });
+  for (const [type, key, what, word, sev] of [
+    ['non_fast_forward', 'allow_force_pushes', 'a force push', 'force-push', 'medium'],
+    ['deletion', 'allow_deletions', 'a deletion', 'deletion', 'low'],
+  ]) {
+    if (type === 'deletion' && defaultBranch === branch) { said.push(`${branch} cannot be deleted while it is the default branch`); continue; }
+    const guards = [];
+    for (const r of (rules || []).filter(x => x.type === type)) {
+      const rs = rulesets[r.ruleset_id];
+      const name = rs?.name ? `ruleset "${rs.name}"` : `ruleset ${r.ruleset_id}`;
+      if (!rs) { guards.push({ name, binds: null }); continue; }
+      const forUs = BINDS[rs.current_user_can_bypass] ?? null;
+      const others = Array.isArray(rs.bypass_actors) ? [...new Set(rs.bypass_actors.filter(a => a.bypass_mode === 'always' || a.bypass_mode === 'exempt').map(a => a.actor_type || 'an actor'))] : null;
+      guards.push({ name, binds: forUs === true && others !== null && others.length === 0 ? true : forUs === false || (others && others.length) ? false : null, others });
+    }
+    if (classic && classic[key]?.enabled === false) guards.push({ name: 'classic branch protection', binds: true });
+    const binding = guards.filter(g => g.binds === true);
+    if (binding.length) { said.push(`refuses ${what} (${binding.map(g => g.name).join(' and ')})`); continue; }
+    if (!guards.length && rules !== null && classic !== null) {
+      problems.push({ rule: `github-${word}-allowed`, sev, context: `GitHub lets ${what} of ${branch} through: no active rule refuses it` });
+      said.push(`lets ${what} through`);
+    } else if (guards.length && guards.every(g => g.binds === false)) {
+      const who = [...new Set(guards.flatMap(g => (g.others && g.others.length ? g.others : ['the account gh is logged in as'])))].join(', ');
+      problems.push({ rule: `github-${word}-bypass`, sev, context: `${guards.map(g => g.name).join(' and ')} refuse${guards.length === 1 ? 's' : ''} ${what} of ${branch}, but ${who} can bypass ${guards.length === 1 ? 'it' : 'them'}; every session pushes as the account gh is logged in as` });
+      said.push(`refuses ${what}, but it can be bypassed`);
+    } else {
+      unread(what);
+      said.push(`${what}: could not tell`);
+    }
+  }
+  // Unreadable is said once, whichever guard it was.
+  const first = problems.findIndex(p => p.rule === 'github-trunk-guard-unreadable');
+  const deduped = problems.filter((p, i) => p.rule !== 'github-trunk-guard-unreadable' || i === first);
+  if (deduped.length < problems.length) deduped[first].context = `could not read whether GitHub refuses a force push or a deletion of ${branch} for everyone who can push`;
+  return { problems: deduped, summary: said.join('; ') };
+}
 
 // A Dependabot title — "Bump x from 1.0.0 to 1.1.0 in /dir", with or without a conventional prefix —
 // read as the one bump it claims. A grouped update is not a single claim, and returns null.
@@ -371,6 +452,27 @@ function selftest() {
   const bot = claim?.pkg === 'plank-kit' && claim.to === '1.3.0' && claim.dir === '/tools/plank' && !!judgeBotPull(claim, stale) && !judgeBotPull(claim, fresh)
     && parseBotTitle('Bump the npm_and_yarn group across 1 directory with 3 updates') === null;
   ok &&= bot; console.log(`${bot ? 'caught' : 'MISSED'}  a bot pull request whose lockfile lacks its claim`);
+  // GitHub's guard on main: on and binding, switched off, bypassable, classic protection, unreadable
+  const nff = id => ({ type: 'non_fast_forward', ruleset_id: id }), del = id => ({ type: 'deletion', ruleset_id: id });
+  const set = (by, actors = []) => ({ name: 'x', current_user_can_bypass: by, bypass_actors: actors });
+  const judged = g => judgeTrunkGuard({ branch: 'main', defaultBranch: 'main', ...g }).problems.map(p => p.rule).sort().join(',');
+  const guardCases = [
+    ['a binding ruleset is enough', { rules: [nff(1), del(1)], rulesets: { 1: set('never') }, classic: false }, ''],
+    ['a pull-requests-only bypass still binds a push', { rules: [nff(1)], rulesets: { 1: set('pull_requests_only') }, classic: false }, ''],
+    ['the rule switched off is raised', { rules: [], rulesets: {}, classic: false }, 'github-force-push-allowed'],
+    ['a ruleset the pusher can bypass is raised', { rules: [nff(2)], rulesets: { 2: set('always') }, classic: false }, 'github-force-push-bypass'],
+    ['an exempt pusher is a bypass', { rules: [nff(2)], rulesets: { 2: set('exempt') }, classic: false }, 'github-force-push-bypass'],
+    ['a deploy key listed to bypass is raised', { rules: [nff(2)], rulesets: { 2: set('never', [{ actor_type: 'DeployKey', bypass_mode: 'always' }]) }, classic: false }, 'github-force-push-bypass'],
+    ['bypass actors that cannot be read are not taken on trust', { rules: [nff(2)], rulesets: { 2: { name: 'x', current_user_can_bypass: 'never' } }, classic: false }, 'github-trunk-guard-unreadable'],
+    ['classic protection binds administrators too', { rules: [], classic: { allow_force_pushes: { enabled: false }, allow_deletions: { enabled: false }, enforce_admins: { enabled: false } } }, ''],
+    ['nothing readable is said once, never passed', { rules: null, classic: null }, 'github-trunk-guard-unreadable'],
+    ['an unreadable ruleset is not taken on trust', { rules: [nff(3)], rulesets: { 3: null }, classic: false }, 'github-trunk-guard-unreadable'],
+    ['main no longer the default branch is raised, and its deletion judged', { rules: [nff(1)], rulesets: { 1: set('never') }, classic: false, defaultBranch: 'trunk' }, 'github-default-branch-moved,github-deletion-allowed'],
+  ];
+  for (const [name, input, want] of guardCases) {
+    const got = judged(input); const hit = got === want; ok &&= hit;
+    console.log(`${hit ? 'caught' : 'MISSED'}  trunk guard: ${name}${hit ? '' : ` (got "${got}", want "${want}")`}`);
+  }
   console.log(ok ? '\nselftest: every planted secret caught' : '\nselftest: FAILED');
   process.exitCode = ok ? 0 : 1;
 }
