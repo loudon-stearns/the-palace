@@ -15,17 +15,17 @@ forward_vector: "I am Sentry's scroll — the one page that opens on which versi
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-27T02:38:21.730Z from the card's frontmatter, its tuning ledger and git. This zone is machine-owned — steer the ceremony in **Standing Orders** below, never here._
+> _Regenerated 2026-10-15T01:28:05.249Z from the card's frontmatter, its tuning ledger and git. This zone is machine-owned — steer the ceremony in **Standing Orders** below, never here._
 
-- **Version:** v1.2 · the spec last changed 2026-09-26 (`99a91587`) — edit(Sentry): v1.2 — each alert on its own; bot PRs read by lockfile
-- **Runs since the change:** none yet — v1.2 has not run
-- **Last run:** 2026-09-27 — deep sweep of c80ff992, 4 raised, held locally · taught item 11 (under v1.1)
+- **Version:** v1.3 · the spec last changed 2026-10-14 (`5c473ad9`) — ops(Sentry): the hosting check reads whether GitHub refuses a force push to main for everyone who can push
+- **Runs since the change:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-15 — sweep (hosting) of 3778f4a0, nothing raised · taught item 12 (under v1.3)
 - **Owed in the ledger:** 1 — item 4; the next run's tail read picks it up first
-- **Latest lesson:** item 11, from a deep sweep — 2026-09-27 (deep sweep of c80ff992) — [[Sentry — tuning]]
+- **Latest lesson:** item 12, from the door's plan — 2026-10-14 (GitHub's guard on main) — [[Sentry — tuning]]
 
-### Runs since v1.2
+### Runs since v1.3
 
-_None yet._
+- 2026-10-15 — sweep (hosting) of 3778f4a0, nothing raised · taught item 12
 
 ### Owed
 
@@ -42,6 +42,29 @@ _Loudon's standing direction for this ceremony. An order saved on the PROJECTS d
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="run-6d6c642594" -->
+### 2026-10-15 — sweep (hosting) of 3778f4a0, nothing raised
+
+taught item 12
+<sub>a run under v1.3 · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-4318bc42f5" -->
+### 2026-10-15 — sweep (hosting) of 3778f4a0, nothing raised
+
+item 12
+<sub>a run under v1.3 · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="version-5c473ad92fb16db30011791f3d06a4ea96078136" -->
+### 2026-10-14 — the spec moved to v1.3
+
+ops(Sentry): the hosting check reads whether GitHub refuses a force push to main for everyone who can push
+
+GitHub's guard on main is the one guard against rewriting main that lives off this Mac, and it comes off on purpose when Loudon closes a leak by rewriting history. The hosting check now reads main by name: its effective rules, each ruleset that supplies them (the bypass for the account gh is logged in as, which every session pushes as, and any deploy key or app listed to bypass), and classic protection (whose force-push and deletion blocks bind administrators too). It raises a force push that gets through or a guard that can be bypassed (medium), and at low a guard it cannot read, main no lon…
+<sub>`5c473ad9` · version change</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="version-99a91587d588ba6aaa3e28b70b62019dfcd18ba0" -->
 ### 2026-09-26 — the spec moved to v1.2
 

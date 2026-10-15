@@ -46,3 +46,4 @@ The 2026-09-25 hosting assessment scanned the working tree for key formats and f
 - run · 2026-09-25 · v1.1 · public-surface gate of 9ef47639, 11 raised, held locally · nothing new
 - run · 2026-09-26 · v1.1 · public-surface gate of 4d33744c, 7 raised, held locally · nothing new
 - run · 2026-09-27 · v1.1 · deep sweep of c80ff992, 4 raised, held locally · taught item 11
+- run · 2026-10-15 · v1.3 · sweep (hosting) of 3778f4a0, nothing raised · taught item 12
