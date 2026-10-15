@@ -69,3 +69,4 @@ What each baton taught the ceremony. Each item names what the run showed and the
 
 12. **A partial close copies the original card's worktree coordinate onto the remainder, even when that worktree is gone.** Closing the keeper handoff part-way, `close-handoff.mjs --partial` gave the remainder card `close/2026-10-13-handoffs` at `palace-close-2026-10-13`, a worktree torn down the day before. The catcher's on-pickup check would send it to rebuild a dead `docs` worktree for a move that lives on main. Worked around in the remainder's own text. Owed: the close takes the remainder's coordinate, or none, instead of copying it.
 - run · 2026-10-14 · v1.2 · Worktree Practice, the rest of the door after a partial close · taught item 12
+- run · 2026-10-15 · v1.2 · Closing Well, the arc's missing narration (commissioning, at the Daily Page) · nothing new

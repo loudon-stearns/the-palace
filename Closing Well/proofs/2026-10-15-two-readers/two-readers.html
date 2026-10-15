@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Two Readers</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #0a0a0f; --bg-1: #12121a; --bg-2: #1a1a28;
+    --ink: #ece6d8; --ink-dim: #9a9488; --rule: #2a2a38;
+    --accent: #e8b84a; --room: #c9b79a; --cold: #a9b8d0;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 17px/1.75 'Cormorant Garamond', Georgia, serif; }
+  main { max-width: 980px; margin: 0 auto; padding: 32px 16px 64px; }
+  .eyebrow { font: 500 11px/1 'JetBrains Mono', monospace; letter-spacing: .14em;
+             text-transform: uppercase; color: var(--ink-dim); }
+  h1 { font: 400 52px/1 Anton, Impact, sans-serif; letter-spacing: .01em; margin: 10px 0 6px; }
+  h1 em { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; color: var(--accent); }
+  .lede { font-style: italic; color: var(--ink-dim); margin: 0 0 24px; max-width: 680px; }
+  button { font: 500 12px/1 'JetBrains Mono', monospace; letter-spacing: .08em; text-transform: uppercase;
+           background: transparent; color: var(--ink); border: 1px solid var(--rule);
+           padding: 10px 12px; cursor: pointer; transition: border-color .2s cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: var(--ink-dim); }
+  button.primary { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 18px rgba(232,184,74,.18); }
+  .btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 24px; }
+  .moment { border: 1px solid var(--rule); background: var(--bg-1); margin: 0 0 18px; padding: 18px; }
+  .moment.on { border-color: var(--ink-dim); }
+  .moment h2 { font: 400 22px/1.1 Anton, sans-serif; margin: 0 0 4px; letter-spacing: .01em; }
+  .src { font: 400 11px/1.4 'JetBrains Mono', monospace; color: var(--ink-dim); margin: 0 0 12px; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 700px) { .pair { grid-template-columns: 1fr; } }
+  .voice { padding: 10px 12px; border-left: 2px solid var(--rule); transition: border-color .3s cubic-bezier(.4,0,.2,1), background .3s; }
+  .voice .who { font: 500 11px/1 'JetBrains Mono', monospace; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 6px; }
+  .voice.room .who { color: var(--room); }
+  .voice.cold .who { color: var(--cold); }
+  .voice.speaking.room { border-color: var(--room); background: rgba(201,183,154,.06); }
+  .voice.speaking.cold { border-color: var(--cold); background: rgba(169,184,208,.06); }
+  .gap { margin-top: 12px; font: 400 13px/1.6 'JetBrains Mono', monospace; color: var(--ink-dim); }
+  .gap b { color: var(--accent); font-weight: 500; }
+  .note { width: 100%; margin-top: 10px; background: var(--bg-2); color: var(--ink); border: 1px solid var(--rule);
+          font: 400 13px/1.5 'JetBrains Mono', monospace; padding: 8px; min-height: 2.6em; resize: vertical; }
+  .review-off .note { display: none; }
+  section.say { margin-top: 36px; max-width: 700px; }
+  section.say h2 { font: 400 26px/1.1 Anton, sans-serif; margin: 0 0 8px; }
+  footer { margin-top: 48px; font: 400 12px/1 'JetBrains Mono', monospace; color: var(--ink-dim); letter-spacing: .08em; }
+  .empty { color: var(--ink-dim); font-style: italic; }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Sketch · Closing Well Ceremony · Daily Page rough, 2026-10-15</div>
+  <h1>Two <em>Readers</em></h1>
+  <p class="lede">The ceremony's whole claim, in one sentence: a spent session cannot read its own arc, so a fresh reader must. Here are the two readers, side by side, at the closes the ledger remembers. Listen for the gap. If the two voices ever sound the same, the claim is in trouble.</p>
+
+  <div class="btns">
+    <button class="primary" id="play">Play all</button>
+    <button id="stop">Stop</button>
+    <button id="review">Notes: on</button>
+  </div>
+
+  <div id="moments"></div>
+
+  <section class="say">
+    <h2>What the ledger can't tell you</h2>
+    <p>Every moment above is a catch. The ledger only writes a line when the fresh read found something, or when the room talked itself out of one. It has no line for the closes where the two readers said the same thing. So it can't test the claim. It can only collect the evidence for it.</p>
+    <p>The test is cheap. At a close, before the moderator reads, the working Claude writes its own reckoning and seals it. Then the cold read runs. Then both are played here, side by side, and the gap is counted. A close where the gap is zero is a real result, and the ledger should carry it.</p>
+    <p>The last moment is left open for this morning.</p>
+  </section>
+
+  <footer>Loud’n Live</footer>
+</main>
+
+<script>
+// Each moment is drawn from Closing Well — tuning (the item named in "src").
+// "room" is what the working session said or would have left; "cold" is what the
+// fresh reader (or, where marked, Loudon) found. Paraphrased from the ledger, not invented.
+const MOMENTS = [
+  { title: "How full am I?", src: "tuning item 11",
+    room: "My context is full.",
+    cold: "It wasn't. Loudon caught it. A mind can't measure its own fullness, so the dial has to read a number from outside.",
+    gap: "The room misread <b>itself</b>." },
+  { title: "It would only confirm", src: "tuning item 21",
+    room: "The whole session lives in my context. A fresh agent would cost a lot and mostly confirm what's here.",
+    cold: "Loudon, not the reader: a long context is exactly when you become unreliable, and when to call another agent in.",
+    gap: "The third time the room <b>talked itself out of</b> the fresh read." },
+  { title: "Path A's first run", src: "tuning item 25",
+    room: "The work is done. Here is what we made.",
+    cold: "The morning's sweep was never pushed. Offers made mid-session were never answered.",
+    gap: "Two things <b>both panelists</b> had missed." },
+  { title: "The rough in the ignored folder", src: "tuning, 2026-10-13 Daily Page close",
+    room: "We made a rough. It's in the roughs folder.",
+    cold: "That folder is ignored by git. The rough leaves with it unless it is copied somewhere that is kept.",
+    gap: "The catch Loudon said he valued most." },
+  { title: "The other direction", src: "tuning item 37",
+    room: "About ten faces lessons live only in two subagents' reports. A placement check was promised and never asked for.",
+    cold: "The arc shows only their absence.",
+    gap: "Here the <b>room</b> saw what the cold read couldn't. Neither reader alone." },
+  { title: "This morning", src: "the Daily Page, 2026-10-15 — both sealed, then opened together (sealed-room-read.md, sealed-cold-read.md)",
+    room: "Keep: none today. Verdict: tune, carried by the wave. The roughs sit in an ignored folder and will be lost unless copied. I still owe the week-one question about how the process itself is going.",
+    cold: "Keep: none new. Verdict: tune, carried by the wave. The voice feedback was said but never written anywhere. The Concierge never checked where the other session's commit landed. And the page's own voice reached me in one line.",
+    gap: "Same verdict, same keep, same hand-on. Each caught one thing the other missed. A <b>fresh</b> room, so a small gap, which is what the practice predicts." },
+];
+
+const wrap = document.getElementById('moments');
+const store = (k, v) => { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } };
+
+MOMENTS.forEach((m, i) => {
+  const el = document.createElement('div');
+  el.className = 'moment'; el.id = 'm' + i;
+  el.innerHTML = `
+    <h2>${m.title}</h2>
+    <div class="src">${m.src}</div>
+    <div class="pair">
+      <div class="voice room"><div class="who">The room · her voice</div>
+        <div class="text">${m.room || '<span class="empty">sealed before the cold read runs</span>'}</div></div>
+      <div class="voice cold"><div class="who">The cold read · his voice</div>
+        <div class="text">${m.cold || '<span class="empty">read after</span>'}</div></div>
+    </div>
+    ${m.gap ? `<div class="gap">${m.gap}</div>` : ''}
+    <textarea class="note" placeholder="Your note on this moment"></textarea>`;
+  const ta = el.querySelector('.note');
+  ta.value = store('two-readers-note-' + i) || '';
+  ta.addEventListener('input', () => store('two-readers-note-' + i, ta.value));
+  wrap.appendChild(el);
+});
+
+document.getElementById('review').onclick = (e) => {
+  document.body.classList.toggle('review-off');
+  e.target.textContent = document.body.classList.contains('review-off') ? 'Notes: off' : 'Notes: on';
+};
+
+// Two plain voices, one female and one male, at natural pitch and pace.
+// Picked by name: macOS ships novelty voices (Albert, Grandpa, Whisper...) that must never be chosen by index.
+const ROOM_PREF = ['Samantha', 'Karen', 'Moira', 'Tessa', 'Flo', 'Shelley', 'Sandy'];
+const COLD_PREF = ['Reed', 'Daniel', 'Eddy', 'Rishi'];
+let voices = [], roomVoice = null, coldVoice = null;
+const pick = prefs => { for (const p of prefs) { const v = voices.find(v => v.name.startsWith(p)); if (v) return v; } return null; };
+const loadVoices = () => {
+  voices = speechSynthesis.getVoices().filter(v => v.lang.startsWith('en'));
+  roomVoice = pick(ROOM_PREF); coldVoice = pick(COLD_PREF);
+};
+if ('speechSynthesis' in window) { loadVoices(); speechSynthesis.onvoiceschanged = loadVoices; }
+
+let stopped = false;
+function say(text, who) {
+  return new Promise(res => {
+    if (stopped || !text) return res();
+    const u = new SpeechSynthesisUtterance(text.replace(/<[^>]+>/g, ''));
+    const v = who === 'room' ? roomVoice : coldVoice;
+    if (v) u.voice = v;
+    u.rate = 1.0; u.pitch = 1.0;
+    u.onend = res; u.onerror = res;
+    speechSynthesis.speak(u);
+  });
+}
+const pause = ms => new Promise(r => setTimeout(r, ms));
+
+async function playAll() {
+  stopped = false; speechSynthesis.cancel();
+  for (let i = 0; i < MOMENTS.length; i++) {
+    const m = MOMENTS[i]; if (stopped || m.open) break;
+    const el = document.getElementById('m' + i);
+    el.classList.add('on'); el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const r = el.querySelector('.voice.room'), c = el.querySelector('.voice.cold');
+    await say(m.title, 'cold'); await pause(300);
+    r.classList.add('speaking'); await say(m.room, 'room'); r.classList.remove('speaking');
+    await pause(700);
+    c.classList.add('speaking'); await say(m.cold, 'cold'); c.classList.remove('speaking');
+    await pause(900);
+    el.classList.remove('on');
+  }
+}
+document.getElementById('play').onclick = playAll;
+document.getElementById('stop').onclick = () => { stopped = true; speechSynthesis.cancel(); };
+</script>
+</body>
+</html>
