@@ -22,12 +22,15 @@
 //     session was told so) is always undone, never finished: a landing reported
 //     as not done must not land later under someone else's commit.
 //
-// Git does the judging and the writing, so its own rules hold: filters and
-// line endings, the executable bit, symlinks, a symlinked parent folder, and
-// this Mac's case-insensitive disk. Which files sit at a version is asked of a
-// scratch index holding only the landing's rows, refreshed against the folder;
-// the folder is written with `git checkout-index` from the real index. That is
-// a handful of git calls whatever the landing's size.
+// Git does the judging, so its own rules hold: filters and line endings, the
+// executable bit, symlinks, a symlinked parent folder, and this Mac's
+// case-insensitive disk. Which files sit at a version is asked of a scratch
+// index holding only the landing's rows, refreshed against the folder. Each
+// file the heal writes is fetched as git would check it out (one `git cat-file
+// --batch --filters`), written whole into a scratch folder inside .git, and
+// renamed into place, so a heal killed partway leaves every file at one
+// version or the other, never missing or cut short. That is a handful of git
+// calls whatever the landing's size.
 //
 // Git writes a landing in a fixed order: first it deletes, then it writes each
 // changed file in index order, each by unlinking the old file and creating the
@@ -39,7 +42,7 @@
 // The heal runs inside the door, through the door's own git (server/door.js),
 // so the ear hears its move of main as through the door.
 
-import { readFileSync, writeFileSync, renameSync, rmSync, rmdirSync, lstatSync, readdirSync, unlinkSync } from 'node:fs';
+import { readFileSync, writeFileSync, renameSync, rmSync, rmdirSync, lstatSync, readdirSync, unlinkSync, mkdirSync, symlinkSync } from 'node:fs';
 import { execFileSync, spawnSync } from 'node:child_process';
 import { resolve, join, dirname } from 'node:path';
 
@@ -89,11 +92,12 @@ export function readMarker(root) {
   } catch (_) { return { unreadable: true }; }
 }
 
-/** Written whole or not at all: a temporary file renamed into place. */
+/** Written whole or not at all: a temporary file renamed into place. A marker
+ * rewritten from an earlier one keeps that one's pid and time. */
 export function writeMarker(root, marker) {
   const path = markerPath(root);
   const tmp = `${path}.${process.pid}.tmp`;
-  writeFileSync(tmp, `${JSON.stringify({ ...marker, pid: process.pid, ts: new Date().toISOString() })}\n`);
+  writeFileSync(tmp, `${JSON.stringify({ pid: process.pid, ts: new Date().toISOString(), ...marker })}\n`);
   renameSync(tmp, path);
 }
 
@@ -262,32 +266,103 @@ function removeFile(root, path) {
   return true;
 }
 
-// Bring `rows` (minus `leave`) to `side`: delete what that side lacks, then
-// write from the index (already set to `side`) every file not at it now. A
-// folder still standing where a file goes is someone's, and is named, not
-// overwritten.
-function bringTo(git, root, rows, side, { at, inFlight, leave }) {
-  const skip = new Set(leave);
+// The bytes of each row's `side` blob as git would write them at that path:
+// one cat-file for the files (through the path's filters), one for symlinks.
+function blobContents(root, rows, side) {
+  const out = new Map();
+  const fetch = (list, filters) => {
+    if (!list.length) return;
+    const args = ['cat-file', '--batch', '-z', ...(filters ? ['--filters'] : [])];
+    const input = list.map((r) => (filters ? `${blobOf(r, side)} ${r.path}\0` : `${blobOf(r, side)}\0`)).join('');
+    const buf = execFileSync('git', args, { cwd: root, input, maxBuffer: 4 * 1024 * 1024 * 1024, env: { ...process.env, GIT_OPTIONAL_LOCKS: '0' } });
+    let at = 0;
+    for (const r of list) {
+      const nl = buf.indexOf(10, at);
+      const head = buf.subarray(at, nl).toString('utf8').split(' ');
+      if (head[1] !== 'blob') throw new Error(`git could not give ${r.path} at ${blobOf(r, side)}: ${head.join(' ')}`);
+      const size = Number(head[2]);
+      out.set(r.path, buf.subarray(nl + 1, nl + 1 + size));
+      at = nl + 1 + size + 1;
+    }
+  };
+  fetch(rows.filter((r) => modeOf(r, side) !== '120000'), true);
+  fetch(rows.filter((r) => modeOf(r, side) === '120000'), false);
+  return out;
+}
+
+// Write each row's `side` version whole: into a scratch folder inside .git,
+// then renamed over the path, so the file is at its old version or its new one
+// at every instant. A folder still standing where a file goes, or a symlinked
+// folder on the way, is someone's, and is named rather than written through.
+function writeWhole(root, common, rows, side) {
   const blocked = [];
+  const ok = [];
   for (const r of rows) {
-    if (skip.has(r.path) || blobOf(r, side)) continue;
-    if (!at.has(r.path)) removeFile(root, r.path);
-  }
-  const write = [];
-  for (const r of rows) {
-    if (skip.has(r.path) || !blobOf(r, side)) continue;
-    const gone = !lstatOrNull(join(root, r.path));
-    if (at.has(r.path) && !gone && r.path !== inFlight) continue;
     if (symlinkOnTheWay(root, r.path)) { blocked.push(r.path); continue; }
     const st = lstatOrNull(join(root, r.path));
     if (st && st.isDirectory()) {
       try { rmdirSync(join(root, r.path)); } catch (_) { blocked.push(r.path); continue; }
     }
-    write.push(r.path);
+    ok.push(r);
   }
-  if (write.length) git(['checkout-index', '-f', '-u', '-z', '--stdin'], { input: write.map((p) => `${p}\0`).join('') });
+  if (!ok.length) return blocked;
+  const contents = blobContents(root, ok, side);
+  const scratch = join(common, `palace-land-tmp-${process.pid}`);
+  mkdirSync(scratch, { recursive: true });
+  try {
+    ok.forEach((r, i) => {
+      const tmp = join(scratch, String(i));
+      if (modeOf(r, side) === '120000') symlinkSync(contents.get(r.path).toString('utf8'), tmp);
+      else writeFileSync(tmp, contents.get(r.path), { mode: modeOf(r, side) === '100755' ? 0o777 : 0o666 }); // less the umask, as git does
+      try {
+        mkdirSync(dirname(join(root, r.path)), { recursive: true });
+        renameSync(tmp, join(root, r.path));
+      } catch (_) {
+        rmSync(tmp, { force: true });
+        blocked.push(r.path);
+      }
+    });
+  } finally {
+    rmSync(scratch, { recursive: true, force: true });
+  }
+  return blocked;
+}
+
+// Bring `rows` (minus `leave`) to `side`: the file in flight first, then the
+// deletions that side needs, then every other file not at it now, in index
+// order. A heal killed partway therefore never strands the file in flight, and
+// leaves the rest as a clean split between the two versions.
+function bringTo(git, root, common, rows, side, { at, inFlight, leave }) {
+  const skip = new Set(leave);
+  const blocked = [];
+  const flight = inFlight && !skip.has(inFlight) ? rows.find((r) => r.path === inFlight) : null;
+  if (flight) {
+    if (blobOf(flight, side)) blocked.push(...writeWhole(root, common, [flight], side));
+    else removeFile(root, flight.path);
+  }
+  for (const r of rows) {
+    if (r === flight || skip.has(r.path) || blobOf(r, side)) continue;
+    if (!at.has(r.path)) removeFile(root, r.path);
+  }
+  const rest = rows.filter((r) => r !== flight && !skip.has(r.path) && blobOf(r, side)
+    && (!at.has(r.path) || !lstatOrNull(join(root, r.path))));
+  blocked.push(...writeWhole(root, common, rest, side));
   git(['update-index', '-q', '--refresh'], { allowFail: true });
-  return { written: write.length, blocked };
+  return { blocked };
+}
+
+// Scratch a heal killed partway left in the common dir: its scratch indexes
+// and its write folder, named by a pid that is no longer running.
+function sweepScratch(common) {
+  let names = [];
+  try { names = readdirSync(common); } catch (_) { return; }
+  for (const n of names) {
+    const m = /^palace-land-(?:tmp|new|old)-(\d+)(?:\.index(?:\.lock)?)?$/.exec(n);
+    if (!m || Number(m[1]) === process.pid) continue;
+    let alive = false;
+    try { process.kill(Number(m[1]), 0); alive = true; } catch (e) { alive = e.code === 'EPERM'; }
+    if (!alive) rmSync(join(common, n), { recursive: true, force: true });
+  }
 }
 
 // The dead landing's own locks. Every git the landing started held the door's
@@ -345,6 +420,7 @@ export function recoverLanding(anyRoot, { git: doorGit = null, tag = 'land', tru
 
   const held = clearDeadLocks(git, root, marker);
   if (held) return { waiting: true, lock: held };
+  sweepScratch(common);
 
   const main = git(['rev-parse', 'refs/heads/main']).trim();
   if (main === marker.new) {
@@ -353,7 +429,7 @@ export function recoverLanding(anyRoot, { git: doorGit = null, tag = 'land', tru
   }
 
   const rows = changes(git, marker.old, marker.new);
-  let undoOnly = !!marker.abandon;
+  let undoOnly = !!(marker.abandon || marker.undo);
   if (main !== marker.old) {
     // Main moved on while the marker stood. If nothing since touched the
     // landing's files, main still has their old versions: undo against it.
@@ -374,7 +450,7 @@ export function recoverLanding(anyRoot, { git: doorGit = null, tag = 'land', tru
   const c = classify(git, root, common, rows);
   if (!undoOnly && c.neither.length === 0) {
     setIndex(git, rows, 'new');
-    const { blocked } = bringTo(git, root, rows, 'new', { at: c.atNew, inFlight: c.inFlight, leave: [] });
+    const { blocked } = bringTo(git, root, common, rows, 'new', { at: c.atNew, inFlight: c.inFlight, leave: [] });
     if (blocked.length) {
       return { stuck: true, line: `a landing that died halfway (${name}) waits: a folder or symlink stands where it writes ${listOf(blocked)}` };
     }
@@ -383,8 +459,11 @@ export function recoverLanding(anyRoot, { git: doorGit = null, tag = 'land', tru
     return { finished: true, undone: false, named: [], line: `finished a landing that died halfway: ${name}, ${files(rows.length)}; main is now ${marker.new.slice(0, 8)}` };
   }
 
+  // Once an undo begins it is the direction for good: a heal killed partway
+  // through it is carried on by the next pass, never turned into a finish.
+  if (!marker.abandon && !marker.undo) writeMarker(root, { ...marker, undo: true });
   setIndex(git, rows, 'old');
-  bringTo(git, root, rows, 'old', { at: c.atOld, inFlight: c.inFlight, leave: c.neither });
+  bringTo(git, root, common, rows, 'old', { at: c.atOld, inFlight: c.inFlight, leave: c.neither });
   clearMarker(root);
   if (c.neither.length === 0) {
     return { finished: false, undone: true, named: [], line: marker.abandon ? `undid the landing of ${name} that palace-land gave up on; main is still ${main.slice(0, 8)}` : `undid a landing that died halfway (${name}): main had moved on, so it is put back; land it again` };
