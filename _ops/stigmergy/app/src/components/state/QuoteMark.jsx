@@ -34,6 +34,10 @@ export default function QuoteMark({
   const lensKnown = !!lensPath;
   const mono = { fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '.04em' };
   const glyphColor = glyph === '◇' ? 'var(--warn)' : 'var(--phosphor-dim)';
+  // The name is shouted, the qualifier is not: "ALFRED KORZYBSKI (adapted)".
+  const paren = String(quote.attribution || '').indexOf(' (');
+  const attributionName = paren === -1 ? quote.attribution : quote.attribution.slice(0, paren);
+  const attributionTail = paren === -1 ? '' : quote.attribution.slice(paren + 1);
 
   return (
     <aside
@@ -63,9 +67,13 @@ export default function QuoteMark({
         title={open ? 'close' : 'open — the lens, the walk, the why'}
         style={{ cursor: 'pointer', userSelect: 'none', display: 'flex', gap: 12, alignItems: 'flex-start' }}
       >
+        {/* overflow visible: tokens.css gives every <pre> overflow-x auto for
+            code blocks, and Chrome draws a scrollbar beside the glyph for a
+            pixel of glow bleed. The mark is three lines of half blocks, never
+            scrolled. */}
         <pre aria-hidden="true" style={{
-          margin: 0, flex: '0 0 auto',
-          fontFamily: 'var(--font-body)', fontSize: 13, lineHeight: 1.05, letterSpacing: 0,
+          margin: 0, padding: '2px 0 0', flex: '0 0 auto', overflow: 'visible',
+          fontFamily: 'var(--font-body)', fontSize: 13, lineHeight: 1.1, letterSpacing: 0,
           color: 'var(--phosphor)', textShadow: 'var(--glow)',
         }}>{OPEN_MARK}</pre>
         <div style={{ flex: '1 1 auto', minWidth: 0, textAlign: 'right' }}>
@@ -76,7 +84,8 @@ export default function QuoteMark({
             {quote.quote}<span style={{ color: 'var(--phosphor-dim)', textShadow: 'none' }}>”</span>
           </div>
           <div style={{ ...mono, marginTop: 2, color: 'var(--phosphor-dim)', textShadow: 'none' }}>
-            — <span style={{ color: 'var(--phosphor)', textShadow: 'var(--glow)', textTransform: 'uppercase' }}>{quote.attribution}</span>
+            — <span style={{ color: 'var(--phosphor)', textShadow: 'var(--glow)', textTransform: 'uppercase' }}>{attributionName}</span>
+            {attributionTail ? <span> {attributionTail}</span> : null}
             {' '}<span style={{ color: glyphColor }}>{glyph}</span>
             {' '}<span aria-hidden="true">[{open ? '−' : '+'}]</span>
           </div>

@@ -317,6 +317,10 @@ button, input, textarea { font-family: var(--font-body); }
   padding: 6px 10px 6px 10px;
   border-right: 2px solid var(--phosphor-dim);
 }
+/* The box is the toggle (role=button); keyboard focus shows in phosphor, not
+   in the browser's blue ring, and a mouse click shows nothing. */
+.quote-callout [role="button"]:focus { outline: none; }
+.quote-callout [role="button"]:focus-visible { outline: 1px dashed var(--phosphor); outline-offset: 3px; }
 .quote-callout--moved {
   float: none;
   width: auto;
