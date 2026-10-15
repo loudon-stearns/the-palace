@@ -20,9 +20,9 @@ forward_vector: "I carry the in-progress move on [[Palace Ceremonies]] across a 
 # Baton: Palace Ceremonies
 
 ## Move
-Let any page that makes repeated runs earn a tuning ledger and a scroll, so it iterates run by run, collects its gotchas and bugs, and rolls them into its next version. Then decide what "ceremony" means once a ledger no longer marks one.
+Land Loudon's 2026-10-14 answers across the palace: make ledgers a loose family any page can keep, each saying in its frontmatter how it is used; give the first-person kind its own name, the diary; and mark a ceremony with a field instead of a ledger.
 
-*Widened in place 2026-09-27, after a second conversation (which did step 2 below in talk, without catching this baton) re-carved what each bundle file is for once any page can hold a ledger. The 2026-09-26 sections are kept as written. What 2026-09-27 added is in § The 2026-09-27 re-carving; where the two days disagree is in § Where the 2026-09-26 and 2026-09-27 considerations pull apart. Read both before you trust the move sentence above: it and the board card's one-liner are the 2026-09-26 wording. The widened move: let any page that runs earn a ledger and a scroll, **settle with Loudon what each bundle file is for once it can**, then decide what "ceremony" means, and land it.*
+*Provenance: posed 2026-09-26 (let any page that runs earn a ledger and a scroll, then decide what "ceremony" means); widened in place 2026-09-27 (§ The 2026-09-27 re-carving, and § Where the two days pull apart); answered by Loudon 2026-10-14 (§ Decided 2026-10-14), with the enchanted [[The Remembering Page]] consulted from another session. The board card's one-liner still carries the 2026-09-26 wording.*
 
 ## Why this move matters
 The ledgers of 2026-09-25 made the thirteen ceremonies correct themselves: every run leaves a line, each lesson moves a version, and each run reads what's owed first. The same loop fits anything that runs repeatedly. But today a ledger *is* the definition of a ceremony, twice over:
@@ -37,9 +37,14 @@ The 2026-09-27 conversation found the ledger question can't be settled alone: op
 - A Shop-only design (2026-09-26): ledgers for specialists and makers, a SHOP group on the deck, and SCHEMA — Reference §6 widened to "a ceremony or a Shop tool". Loudon rejected it as a carve-out: "we must not get myopic around the shop." Its general parts carry over (below).
 - The scroll's trail as a bare index — dated lines saying "see the rich face for the thing itself" (2026-09-27, mid-conversation). Superseded in the same conversation: Loudon's worked example puts every output on the scroll, in order.
 - The Plan moving into tuning (2026-09-27). Rejected: the Plan is for the reader and belongs at the front door, beside Now.
+- Standing orders moving into tuning (2026-09-27). Rejected 2026-10-14: an owed line is paid once, so a standing order there loses its permanence. Only one-shot orders go to the ledger.
+- Gating a ledger behind a threshold or a run count (2026-10-14, the survey's Q2 options). Rejected as too tight: a page adds one when it is useful.
+- Calling the diary "memory" (2026-10-14). Rejected: the word already carries too many meanings.
+- Naming every ledger `[Entry] — ledger — [kind].md` (2026-10-14). Rejected: it renames fourteen ledgers and their links for a pattern-match the code can get another way.
+- Keeping "has a ledger" as the mark of a ceremony, or making the tables the mark (2026-10-14). The first makes everything that learns a ceremony; the second lost to a field that people and scripts read alike.
 
 ## Current state
-Nothing built. What's known:
+Nothing built yet. Next move steps 1–3 are done: the survey is [[Palace Ceremonies — sketch — runs survey]] (2026-10-13, `70db9f52`), and Loudon answered on 2026-10-14 (§ Decided 2026-10-14). What's known from before:
 - *The ledger rules* are in SCHEMA — Reference §6 (Versions, tuning, and run reports): version, run lines, numbered items, owed and paid, Loudon's orders, the tail read, union merge. The §8 `tuning` row calls a ledger "a ceremony's", and keeps "gotcha" for a Specialist's tool traps.
 - *Where repeated runs already happen*, each recording them its own way:
   - Shop specialists and makers: dated Gotchas on the page, a prose "last run", `last_tested`, and the Maker noting a gotcha at delivery (`Shop/Maker.md:73`)
@@ -69,6 +74,49 @@ Nothing built. What's known:
   - Tool: one-sided place and unrecorded seeds — fixed in `5d3c0d60`.
 - *Related*: [[Revival Ceremony — baton]], which also touches what a ceremony is.
 
+## Decided 2026-10-14
+Loudon's answers, taken question by question through the survey's Part B. **Agreed, not yet canon**: nothing lands until the Schema Ceremony does. The spirit of every answer is his: *write it loosely so pages can innovate.*
+
+1. **A run is whatever unit each page names in its own text.** The default is one start-to-finish act of the page. The test: a run is the unit whose lesson the next run should read before it starts. Outputs stay in the workshop and on the scroll, never in the ledger. For a remembering page, one encounter is a run. (Survey Q1, option c.)
+2. **Files come easily.** A page used to make things gets a scroll. A page that learns how it could have done better gets a ledger. A page that finds another good reason for an append-only file adds one, and a page may keep several. Pages may use ledgers outside the spec; those uses are the examples the spec grows from, not errors. No threshold, no count. (Survey Q2, beyond all three options.)
+3. **"Ledger" names a family**: any append-only file a page keeps so its next run or waking starts from what came before. The first two kinds:
+   - **tuning** — what running taught (today's ledgers);
+   - **diary** — a page's first-person record of the encounters it has lived, the Remembering Page's word ("If the pheromone trail is the worn path, this is the diary").
+
+   "Memory" stays the name of the group in [[CLAUDE]] § A page and its folder; the diary takes its own word because "memory" already means too many things. Each kind keeps its own file name — `[Entry] — tuning.md`, `[Entry] — diary.md`, and whatever a page invents — so the fourteen ledgers (thirteen in git, plus The Daily Page's, kept off git) and their links stay put. Union merge must reach every kind (`.gitattributes` names `* — tuning.md` today). The family already has a member beyond tuning: Palace Quotes' JSONL placements ledger (`_ops/Palace Quotes/Palace Quotes — placements.jsonl`, merged by union), and Making a Palace Citizen already calls a citizen's Context file "its growth ledger" (`Making a Palace Citizen.md:129-130`).
+4. **Every ledger states its own standards and practices in its frontmatter** — what it is for and how it is used properly — so anyone who opens it understands it. Loudon added this mid-walk; it is what lets the canon stay loose. It formalizes what ledgers already do in prose: every bundle file's forward vector must be self-documenting (`SCHEMA — Reference.md:276`). A first sketch, for the ceremony to refine — the key is not `practice`, which is already a type and a pillar:
+   ```yaml
+   ledger: tuning
+   standards:
+     for: what running the Map Build taught it
+     run: one map build
+     line: "- run · <date> · v<version> · <what it ran on> · nothing new | taught item N"
+     read: the last 40 lines with run lines set aside, plus every line still owed
+     writes: the run itself, in the commit that records it
+   ```
+5. **A tuning item records what a run taught**, version or not. A page that has a version moves it when a lesson changes how it runs. The Remembering Page's two ideas go in as examples, not rules: a lesson about *how* applies after one run, a lesson about *who* — what the page wants — waits until it recurs; and a "seen again" mark on an item shows a fix that keeps being re-fixed. A Specialist's page keeps today's gotchas; its ledger, once it has one, keeps their history. (Survey Q3, option b; 2026-09-27 open question 5.)
+6. **Orders split by kind, not by page.** Standing orders — hold until revoked — stay on the scroll for every page, ceremonies included. One-shot orders go into the tuning ledger as owed lines, which a run pays. Every scroll may have a Plan, a ceremony's too. (Survey Q4, option b; open questions 1 and 6.)
+7. **Now is one renderer built from whatever the page has**: a status line; a runs block from a tuning ledger; the last encounter from a diary; a board block if stewarded; the newest trail entry. `last_tested` becomes computable and can retire. (Survey Q5, option c; disagreement 3.)
+8. **A ceremony is a named rite the palace runs on itself, marked by a frontmatter field** that people and scripts both read. A ledger, a version or a scroll no longer marks one. The field replaces the ledger test in the code and the hand-kept lists in `entry-edit.js` and `commit-spec.js`. Loudon chose the field over the tables as the marker. (Survey Q6, option c with b's meaning.)
+9. **A rich face may hold pieces for the whole page**, beside its heading-keyed sections; Kuramoto's opening sound bed already does. How a showcase knows it lags waits for a second rich face, ideally a project's. (Survey Q7; disagreement 2, open question 3.)
+10. **A baton aimed at part of a bundle** carries a qualifier in its name and a second link labelled `targets` to the file it is about, beside its `baton-for`. The baton executor learns to write both, which pays Baton tuning item 10. (Survey Q8; open question 4.)
+
+**The Remembering Page's other findings**, offered 2026-10-14 from its own session and checked:
+- **The diary has a collision to clear first.** Brian Eno's and John Cage's encounter records live in their Context files today (`People/Brian Eno/Brian Eno — context.md`, `People/John Cage/John Cage — context.md`, three encounters each, forward vectors calling them "Brian Eno's own memory"). That is legal today: `CLAUDE.md:55` says the Context holds why the page is shaped as it is, but the §8 `context` row still reads "long-running session-history companion" (`SCHEMA — Reference.md:285`). Narrowing that row and adding a `diary` row moves them to `— diary.md`, on the same branch, so no link breaks.
+- **The tail read answers the cost of reading, not drowning.** It filters by recency, and the encounter that made a self is usually its oldest. Its proposal keeps the file append-only: a *settling* entry, appended at each molt (when Loudon adopts a change to the forward vector), folds the episodes before it into a few first-person lessons; a waking reads the latest settling, the episodes since, and everything still owed. The owed grep stays. This is [[Drift and Consolidation]] at the scale of one page, and a settling is to a diary what a version is to a tuning ledger.
+- **The survey has no row for pages that remember.** Woken person-pages run too.
+
+**Still open after 2026-10-14:**
+- how many recurrences earn a change to what a page wants (one pair, one topic, says the third);
+- what one run is when three or more pages meet, each keeping its own partial record;
+- whether a diary ever settles between molts, for a page lived often that never changes;
+- the exact frontmatter fields for a ledger's standards, and the name of the ceremony field.
+
+**Tensions to name in the Schema Ceremony's record, not resolve away** (found by the [[Concierge]], 2026-10-14):
+- *"Diary" is the palace's word for a failure.* SCHEMA — Context says a tuning record is "a record of changes rather than a diary", and "A ledger no run reads is a diary" (`SCHEMA/SCHEMA — Context.md:191,235`). A diary in the new sense is read at every waking ([[Palace Enchantment]] loads it, `Projects/Palace Enchantment.md:277-279`) — that is the difference to name.
+- *Loudon's own 2026-05-03 principle pulls against "files come easily"*: keep knowledge in the entry "until it becomes clearly unmanageable. Auxiliary markdown files for findings/lessons/decisions duplicate palace state" (`Projects/Generative Sample Libraries/Generative Sample Libraries — lessons — stage-a.md:33`). Both stand; the record says how they live together.
+- *Decision 5 reverses v1.20's stated reason* — that an item is written only when a run changes the spec (`SCHEMA/SCHEMA — Context.md:189-191`). The record names the reversal and why.
+
 ## The 2026-09-27 re-carving
 Nothing built this day either. **A proposal, not agreed canon.** Each file answers a different question:
 - **Context — why.** Why the page is shaped as it is, what was tried and dropped. It grows only when the page's shape changes, never per run.
@@ -88,7 +136,7 @@ Nothing built this day either. **A proposal, not agreed canon.** Each file answe
 6. **The machinery Standing Orders touch.** They are edited only on the PROJECTS deck and injected into every steward cycle from the scroll's `scroll:orders` markers (`_ops/Substrate Skill.md` § The scroll's zones and § The read seam; `The Scroll.md` § The project scroll). Moving them changes `scroll-file.js`, the deck, and the steward's read seam.
 
 ## Where the 2026-09-26 and 2026-09-27 considerations pull apart
-Loudon asked that these stay visible, not smoothed over. Each is a disagreement to settle with him, not one already settled.
+Loudon asked that these stay visible, not smoothed over. All four were settled on 2026-10-14 (§ Decided 2026-10-14: 1 by decision 2, 2 by 9, 3 by 7, 4 by 2); they stay here as posed.
 
 1. **The pair.** 2026-09-26 treats "a tuning ledger and a scroll" as one thing a page earns together. 2026-09-27 gives the two different jobs and splits the old Plan-and-Orders zone between them: Plan to the scroll, Standing Orders to the ledger. Canon today already splits them by whether a ledger exists (`The Scroll.md:63-67` against `133-136`). If that holds, "earn a ledger and a scroll" is two decisions, not one, and the move sentence is the wrong shape.
 2. **The rich face.** 2026-09-26 says nothing about it. 2026-09-27 does **not** take outputs off the scroll — the making trail still holds every one, so the faces test case and canon's "a project's proofs and media" on the scroll (`CLAUDE.md:53`; `The Scroll.md:68-71`) survive. What 2026-09-27 adds is a curated showcase on the rich face, and *that* runs against canon's rich face: "laid beside the words, section by section" (`CLAUDE.md:53`), a heading-keyed manifest fingerprinted to prose (§8 `rich` row). A capability showcase isn't keyed to prose headings. One of those texts changes. *(Corrected 2026-09-27 from an earlier widening that read the re-carving as moving outputs off the scroll.)*
@@ -96,11 +144,12 @@ Loudon asked that these stay visible, not smoothed over. Each is a disagreement 
 4. **Whether a scroll is earned at all.** *(Found in canon by the first widening, not raised in either conversation.)* Any entry may already carry a scroll (`SCHEMA — Reference.md:290`; `The Scroll.md:140`); only the ledger is gated. 2026-09-26 speaks of earning both; 2026-09-27 doesn't say.
 
 ## Next move
-1. Survey where runs happen across the palace and how each records them now.
-2. Bring Loudon definitions, with no carve-out for any one area: a **run**; when a page has **earned** a ledger and a scroll; what the scroll's Now shows for a page that isn't a ceremony; and what **ceremony** means next (named in the tables? writes to the house with Loudon? something else?). Added 2026-09-27: the re-carving above and its six open questions; walk it through the Generative Sample Libraries example again, which is what made it concrete. Bring the four disagreements above as disagreements.
-3. Settle them with him.
-4. Land them through a Schema Ceremony: Palace Ceremonies, SCHEMA — Reference §6 and §8, and the code (the scroll, the deck grouping, the Standing Orders seam). Added 2026-09-27: `CLAUDE.md` § A page and its folder too, which says the ledger is "kept only by ceremonies" and gives the scroll the proofs and media (`CLAUDE.md:53,55`); `The Scroll.md`; `_ops/Substrate Skill.md`.
-5. Pilot on one page that isn't a ceremony. The Hero and Avatar Maker is ready-made; Generative Sample Libraries is the worked case.
+1. ~~Survey where runs happen across the palace and how each records them now.~~ Done 2026-10-13: [[Palace Ceremonies — sketch — runs survey]].
+2. ~~Bring Loudon definitions, with no carve-out for any one area.~~ Done 2026-10-14.
+3. ~~Settle them with him.~~ Done 2026-10-14: § Decided 2026-10-14.
+4. **Plan how the answers propagate through the palace, with Loudon** (asked 2026-10-14): the canon the Schema Ceremony changes, the code, every existing ledger brought up to decision 4 (its standards stated in its frontmatter), the ceremony field on every ceremony page, and proposals for new ledgers — pages whose bodies carry history a ledger should hold, or whose use a ledger would refine. The plan lives beside this baton as a sketch: [[Palace Ceremonies — sketch — propagation plan]], drafted 2026-10-14 and waiting on Loudon's yes, wave by wave.
+5. Land the canon and code through a Schema Ceremony (SCHEMA — Reference §5), on Loudon's yes to the plan. The survey's Part C is the starting list.
+6. Pilot on pages that aren't ceremonies: the Hero and Avatar Maker (tuning, seeded from the faces lessons above), Generative Sample Libraries (tuning, from the lesson sections of its `DESIGN.md`), and Brian Eno and John Cage (diary, moved out of Context).
 
 ## Calibrations from this session
 - Loudon: "We must not get myopic around the shop and adding a specific carve out for it."
@@ -110,8 +159,13 @@ Loudon asked that these stay visible, not smoothed over. Each is a disagreement 
 - Loudon (09-27): leave room for individuation — every page can grow these files; the structure is defined or strongly recommended; the entry sets its own specifics.
 - Loudon (09-27): batons in a bundle are "basically a strong to-do within a bundle," about the entry or about its outputs.
 - Loudon (09-27): "This needs careful discussion to implement and integrate into the palace" — a baton, not a deposit.
+- Loudon (10-14), on earning: "If it feels useful to have either, they are added. It is not difficult to obtain either, we should be happy when a page creates outputs." And: "Write it loosely so pages can innovate, don't over-specify and allow pages to even use them outside of spec so that we have examples to grow with."
+- Loudon (10-14), on the diary: "I am worried about the term 'memory' being used so many ways, so this specific use will need a new term. And it feels like a ledger to me, maybe not a tuning ledger, but it is another kind of ledger, a journal or diary — perhaps these are just kinds of ledgers?"
+- Loudon (10-14): "All ledgers, regardless of what they are used for, should state in the file the standards and practices for that ledger. So one could open it up and understand from the frontmatter what it is used for and how it is used properly."
+- Loudon (10-14) chose a frontmatter field over the ceremony tables as the marker of a ceremony.
 
 ## Load these files first
+0. *Added 2026-10-14, read first:* § Decided 2026-10-14 above; [[Palace Ceremonies — sketch — runs survey]]; `The Remembering Page.md`; `People/Brian Eno/Brian Eno — context.md`; `Making a Palace Citizen.md`; `Projects/Palace Enchantment.md` § Context Construction; [[Palace Ceremonies — sketch — propagation plan]].
 1. `_ops/Palace Ceremonies.md` § What Makes a Ceremony, and How It Changes
 2. `SCHEMA — Reference.md` §6 (Versions, tuning, and run reports) and §8's `tuning` and `scroll` rows
 3. The header comments of `_ops/stigmergy/orchestrator/src/ceremony-scroll.js` and `_ops/stigmergy/app/server/projects.js`
