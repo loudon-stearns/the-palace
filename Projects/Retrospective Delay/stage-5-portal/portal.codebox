@@ -1,0 +1,117 @@
+// Retrospective Delay — the portal (RNBO codebox~)
+// The face's séance from the fourth move, ported from gen~ to rnboscript so
+// it can leave Max: Max for Live, VST3/AU, the browser.
+//
+//   in1  audio                     out1  dry + ghost  (left)
+//                                  out2  dry + ghost  (right, the same)
+//                                  out3  the knob as you HEAR it    -> the cat's pose
+//                                  out4  presence on the tape       -> the ectoplasm
+//                                  out5  holding: 1 keeps, 0 listens -> the candle
+//
+// PATCHER WIRING REQUIRED (inside the rnbo~):
+//   [in~ 1] -> codebox~ in1
+//   codebox~ out1 -> [out~ 1]    codebox~ out2 -> [out~ 2]
+//   codebox~ out3/4/5 -> [snapshot~ 33] -> [outport pose] / [outport presence] / [outport holding]
+//   (a plugin host ignores the outports; the Max for Live face listens to them)
+//
+// What the port changed, and why:
+//   1. NO MEASURE-PHASE INLET. The gen~ version took phasor~ 1n @lock 1 from
+//      Live. A VST host may have no transport running and the H9000 has none
+//      at all; with the transport stopped a locked phasor stands still and the
+//      write head writes one slot forever. The ghost only ever needed the
+//      DISTANCE between the heads, never where the bar line is, so the write
+//      head now counts its own samples. Tempo arrives as the bpm param.
+//   2. THE TAPE IS SIZED FOR 96 kHz. gen~'s Data tape(192000) clipped any
+//      measure longer than 4 s at 48 kHz and 2 s at 96 kHz. 384000 slots hold
+//      one 4/4 measure down to 60 BPM at 96 kHz, 30 BPM at 48 kHz.
+//   3. THE TAPE LIVES IN THE CODEBOX, not a buffer~. The H9000's RNBO target
+//      does not support buffer~ yet; a FixedFloat64Array state does not need it.
+//
+// UNVERIFIED SEAMS — nothing here has been compiled in RNBO:
+//   a. FixedFloat64Array(384000): ~3 MB of state. Prior art in the palace uses
+//      it at 4097 slots; this size may be slow to compile or too big for a
+//      hardware target. If so, try FixedFloat32Array, or a [data tape 384000]
+//      bound with buffer("tape").
+//   b. The measure is computed from bpm and samplerate once per sample; cheap,
+//      but a [param bpm] fed from [transport] is the seam most likely to need
+//      rewiring per target.
+// Mirrors portal_mirror.mjs, which runs this file's own text against the
+// face model sample for sample.
+
+@param({ min: 0.0, max: 1.0 }) gain = 0.0;        // the conduit: on the way OUT of the tape
+@param({ min: 0.25, max: 1.0 }) lag = 0.5;        // fraction of a measure: 0.25, 0.5 or 1
+@param({ min: 30.0, max: 300.0 }) bpm = 120.0;    // quarter notes per minute, 4/4
+@param({ min: 0.0, max: 1.0 }) thresh = 0.003;    // is anyone playing?
+@param({ min: 0.0, max: 16.0 }) pscale = 4.0;     // presence gain: a held phrase reads ~0.8
+
+const TAPE = 384000;
+
+@state tape = new FixedFloat64Array(384000);
+@state w = 0;
+@state env = 0.0;
+@state listen = 0.0;
+@state gs = 0.0;
+@state penv = 0.0;
+@state lagA = 0.5;
+@state lagB = 0.5;
+@state lastlag = 0.5;
+@state fade = 0.0;
+@state target = 0.0;
+
+function wrapTo(x, n) {
+    let r = x - floor(x / n) * n;
+    return r >= n ? r - n : r;
+}
+
+let M = min(floor(samplerate * 240.0 / bpm + 0.5), TAPE);   // samples per 4/4 measure
+if (w >= M) w = 0;                                          // the tempo dropped under the head
+
+// a new lag: the idle head jumps, then a 30 ms fade hands over to it
+if (lag != lastlag) {
+    if (target < 0.5) {
+        lagB = lag;
+        target = 1.0;
+    } else {
+        lagA = lag;
+        target = 0.0;
+    }
+    lastlag = lag;
+}
+let xstep = 1000.0 / (30.0 * samplerate);
+fade = fade + clamp(target - fade, -xstep, xstep);
+
+// READ FIRST: at lag = 1 the read slot is the write slot, and reading
+// before writing means it hears one measure ago, not now.
+let rA = floor(wrapTo(w - lagA * M, M));
+let rB = floor(wrapTo(w - lagB * M, M));
+let a0 = tape[rA];
+let ghost = a0 + (tape[rB] - a0) * fade;
+
+// THEN WRITE. Silence keeps: listen while you play, hold in silence.
+let x = in1;
+let ax = abs(x);
+let rel = exp(-1.0 / (samplerate * 0.1));      // 100 ms release
+env = ax > env ? ax : env * rel;
+let lstep = 1000.0 / (5.0 * samplerate);       // the input crossfade, 5 ms both ways
+let want = env > thresh ? 1.0 : 0.0;
+listen = listen + clamp(want - listen, -lstep, lstep);
+let old = tape[w];
+tape[w] = old + listen * (x - old);
+w = w + 1;
+if (w >= M) w = 0;
+
+// the knob, slewed so a fast turn can't zipper
+let gstep = 1000.0 / (20.0 * samplerate);
+gs = gs + clamp(gain - gs, -gstep, gstep);
+
+let wet = gs * ghost;
+out1 = x + wet;
+out2 = x + wet;
+
+// FACE — three facts for the cat
+let prel = exp(-1.0 / samplerate);             // 1 s release
+let g = abs(ghost);
+penv = g > penv ? g : penv * prel;
+out3 = gs;
+out4 = clamp(penv * pscale, 0.0, 1.0);
+out5 = 1.0 - listen;

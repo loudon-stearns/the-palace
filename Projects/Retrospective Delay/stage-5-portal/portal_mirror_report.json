@@ -1,0 +1,75 @@
+{
+ "null_test_vs_face_model": {
+  "dry + ghost": 0,
+  "the ghost": 5.551115123125783e-17,
+  "knob as heard": 0,
+  "presence": 0,
+  "holding": 0
+ },
+ "realtime_factor_node": 254.3772322609041,
+ "ghost_delay_s": [
+  {
+   "sr": 44100,
+   "bpm": 120,
+   "want": 1,
+   "portal": 1,
+   "gen_tape": 1
+  },
+  {
+   "sr": 44100,
+   "bpm": 90,
+   "want": 1.3333333333333333,
+   "portal": 1.3333333333333333,
+   "gen_tape": 1.3333333333333333
+  },
+  {
+   "sr": 44100,
+   "bpm": 60,
+   "want": 2,
+   "portal": 2,
+   "gen_tape": 2
+  },
+  {
+   "sr": 48000,
+   "bpm": 120,
+   "want": 1,
+   "portal": 1,
+   "gen_tape": 1
+  },
+  {
+   "sr": 48000,
+   "bpm": 90,
+   "want": 1.3333333333333333,
+   "portal": 1.3333333333333333,
+   "gen_tape": 1.3333333333333333
+  },
+  {
+   "sr": 48000,
+   "bpm": 60,
+   "want": 2,
+   "portal": 2,
+   "gen_tape": 2
+  },
+  {
+   "sr": 96000,
+   "bpm": 120,
+   "want": 1,
+   "portal": 1,
+   "gen_tape": 1
+  },
+  {
+   "sr": 96000,
+   "bpm": 90,
+   "want": 1.3333333333333333,
+   "portal": 1.3333333333333333,
+   "gen_tape": 1
+  },
+  {
+   "sr": 96000,
+   "bpm": 60,
+   "want": 2,
+   "portal": 2,
+   "gen_tape": 1
+  }
+ ]
+}

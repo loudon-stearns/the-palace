@@ -15,24 +15,24 @@ forward_vector: "I am Retrospective Delay's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-15T01:42:09.678Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-15T01:48:08.877Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 23 · last ran 2026-10-15 (today)
-- **Plan:** agreed 2026-09-26 (19 days ago) · 6 made things since
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** growing · **Steward:** cycle 24 · last ran 2026-10-15 (today)
+- **Plan:** agreed 2026-09-26 (19 days ago) · 8 made things since · **a proposed revision is waiting on you**
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-15 (today) — The séance cat now watches the instrument, not the knob. Its pose, ectoplasm and candle each come from the gen~ device, and there's a film of it. (`retrospective-delay-steward-052`)
-- **Last commit touching this project:** 2026-10-14 `9d13e565` — steward(Retrospective Delay): cycle 22 — SPINNING UP. HOME: [Retrospective Delay](obsidian://open?vault=The%20Pa…
+- **Last shipped:** 2026-10-14 (today) — The H90 can't run RNBO yet. Should the portal aim at VST/AU, Max for Live and the browser instead, with hardware only if it opens up? (`retrospective-delay-steward-055`)
+- **Last commit touching this project:** 2026-10-14 `79fca44c` — steward(Retrospective Delay): cycle 23 — SPINNING UP. HOME: [Retrospective Delay](obsidian://open?vault=The%20Pa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Retrospective Delay is a one-measure delay that is always listening. A buffer holds the last measure of everything you play, and one gain knob decides whether that past comes back. The plan builds it in five moves, each a Loudon Live session. The first three are built as patches, models and session drafts: the witness (the bare buffer, which turned out to be an honest half-note echo), the séance (silence keeps the past, with the 5 ms crossfade you asked for), and the grammar (the same thing as one gen~ codebox). The Gorey séance cat was drawn back in June and wired to the knob. This cycle built the fourth move, the face. The cat now reads three facts from the gen~ device instead of the dial…
+Retrospective Delay is a one-measure delay that is always listening: a tape holds the last measure you played, and one gain knob decides whether that past comes back as a single ghost. The plan builds it in five moves for Loudon Live. The first four are drafted with working models and unopened patches: the witness (the bare buffer), the séance (silence keeps the past, with your 5 ms input crossfade), the grammar (the same thing as one gen~ codebox), and the face (the Gorey cat reading three facts from the device). This cycle built the last move, the portal: the gen~ codebox ported to RNBO so the instrument can leave Max as a VST/AU, a Max for Live device, or a web page. That makes all five…
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `retrospective-delay-steward-055` — proposed plan revision: the portal's hardware target · posted 2026-10-14 · options: adopt · keep
 
 ### Answered, not yet consumed
 
@@ -82,6 +82,64 @@ Decided with Loudon when the Loudon Live arc was designed (April 2026), and seed
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="retrospective-delay-steward-055" -->
+### 2026-10-14 — cycle 24 — The H90 can't run RNBO yet. Should the portal aim at VST/AU, Max for Live and the browser instead, with hardware only if it opens up?
+> still working · all five moves drafted · steward leans adopt
+
+Retrospective Delay is the one-measure delay that is always listening, built in five Loudon Live moves. All five are now drafted. The last move, the portal, ports the device to RNBO so it can leave Max. The plan says it goes out as a VST/AU and onto the Eventide H90. As far as I can find, the H90 has no RNBO route. Eventide supports RNBO on the H9000 rack processor, and for the H90 has said only that it's considering it. Crystal Synthesizer's portal hit the same wall. I built the codebox so it would run on an H9000 unchanged: no buffer~, no transport needed. I also added a browser page as a third way out. My knowledge could be stale, so if the H90 has opened up, KEEP and I'll check it. The proposed plan only changes where the portal goes.
+
+**Artifacts:**
+- [face-film.mp4](Projects/Retrospective Delay/stage-4-character/face/face-film.mp4)
+- [face-moments.png](Projects/Retrospective Delay/stage-4-character/face/face-moments.png)
+<sub>`retrospective-delay-steward-055` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="retrospective-delay-steward-054" -->
+### 2026-10-14 — cycle 24 — The séance is now one RNBO codebox. It matches the gen~ version to the last bit, runs in a browser page, and caught a 96 kHz bug on the way out.
+> shipped · all five moves now drafted · nothing compiled in Max yet · steward leans export-test next
+
+The plan asks one question of this move: once it lives outside Max, is it still the same instrument? I can now answer it in two halves.
+
+Yes, the arithmetic is the same. [portal.codebox](obsidian://open?vault=The%20Palace&file=Projects/Retrospective%20Delay/stage-5-portal/portal.codebox) is about 70 lines of rnboscript. [portal_mirror.mjs](obsidian://open?vault=The%20Palace&file=Projects/Retrospective%20Delay/stage-5-portal/portal_mirror.mjs) runs that file's own text against the face's gen~ model over the whole fifteen-measure performance. All five outlets match: four exactly, and the ghost to 5.6e-17. portal-performance.wav is the codebox's own render.
+
+No, the world around it is different. Leaving Max showed me two things Max for Live had been quietly giving the device:
+
+1. A running transport. The gen~ write head followed a phasor~ locked to Live's transport. When the transport stops, that phasor stops, and the tape writes one slot forever. A plugin host or a hardware box doesn't promise a transport. But the ghost only ever needed the distance between the two heads, not where the bar line is. So the portal's write head counts its own samples, and tempo comes in as a bpm knob.
+2. A sample rate the tape was sized for. gen~'s tape held 4 seconds at 48 kHz. At 96 kHz a slow measure doesn't fit, the tape quietly shrinks, and the ghost comes back early. The table shows where. Listen to slow-tempo-gen-tape.wav, then slow-tempo-portal.wav: both run at 96 kHz and 60 BPM with a half-note lag, and the first one lands on beat two instead of beat three. The portal's tape doubles to 384000 slots. This bug is also in the grammar and face codeboxes.
+
+The tape also lives inside the codebox rather than in a buffer~, which matters because the H9000's RNBO target doesn't support buffer~ yet.
+
+Three more pieces shipped. [portal.maxpat](obsidian://open?vault=The%20Palace&file=Projects/Retrospective%20Delay/stage-5-portal/portal.maxpat) is an rnbo~ holding the codebox, with in~/out~ and the face's three facts sent through outports. portal-web.html runs the codebox's own text in your browser, with a tape ring showing both heads, the knob, the lag and the tempo, and a review layer on it. [The session draft](obsidian://open?vault=The%20Palace&file=Projects/Retrospective%20Delay/stage-5-portal/stage-5-the-portal.md) shapes all of this into the last Loudon Live session. It runs about half framing, half making, per your standing order for the migrations.
+
+**Artifacts:**
+- [the portal in your browser: the codebox's own text, run line for line. Start audio, play a phrase, stop, raise the knob.](Projects/Retrospective Delay/stage-5-portal/portal-web.html)
+- [the séance performance rendered by the RNBO codebox; identical to the face's gen~ render.](Projects/Retrospective Delay/stage-5-portal/portal-performance.wav)
+- [96 kHz, 60 BPM, the gen~ tape: the ghost comes back a beat early.](Projects/Retrospective Delay/stage-5-portal/slow-tempo-gen-tape.wav)
+- [the same through the portal's tape: on beat three, where a half note belongs.](Projects/Retrospective Delay/stage-5-portal/slow-tempo-portal.wav)
+- [the RNBO codebox~ source, with its unverified seams at the top.](Projects/Retrospective Delay/stage-5-portal/portal.codebox)
+- [an rnbo~ holding the codebox, ready to export; unopened.](Projects/Retrospective Delay/stage-5-portal/portal.maxpat)
+- [the session draft for the last move.](Projects/Retrospective Delay/stage-5-portal/stage-5-the-portal.md)
+- [the mirror: null test against the face model, the rate/tempo sweep, the renders.](Projects/Retrospective Delay/stage-5-portal/portal_mirror.mjs)
+- [the mirror's numbers.](Projects/Retrospective Delay/stage-5-portal/portal_mirror_report.json)
+- [dumps the face model's run for the mirror.](Projects/Retrospective Delay/stage-5-portal/face_reference.py)
+- [builds portal.maxpat.](Projects/Retrospective Delay/stage-5-portal/build_portal_patch.mjs)
+- [builds portal-web.html from the codebox text.](Projects/Retrospective Delay/stage-5-portal/build_portal_web.mjs)
+
+_Where the ghost lands, lag = half a measure (it should be 120 ÷ bpm seconds back)_
+| sample rate | bpm | should be | portal tape (384000) | gen~ tape (192000) |
+| --- | --- | --- | --- | --- |
+| 44.1 kHz | 120 / 90 / 60 | 1.000 / 1.333 / 2.000 s | on time, all three | on time, all three |
+| 48 kHz | 120 / 90 / 60 | 1.000 / 1.333 / 2.000 s | on time, all three | on time, all three |
+| 96 kHz | 120 | 1.000 s | 1.000 s | 1.000 s |
+| 96 kHz | 90 | 1.333 s | 1.333 s | 1.000 s — early |
+| 96 kHz | 60 | 2.000 s | 2.000 s | 1.000 s — early |
+
+_Left rough:_ Nothing has been compiled by RNBO, and I haven't played the browser page by ear: I only checked that its scripts parse and its transpiler runs the codebox. A 384000-slot array is far bigger than any RNBO array in the palace so far and may need to become Float32 or a [data] object. The grammar and face gen~ codeboxes still carry the 96 kHz bug.
+
+_Next moves named:_ When you have Max open: compile portal.maxpat, export a VST3, and load it in a second host. That's the first real test of the RNBO codebox~ smith, and whatever breaks becomes its first Gotchas. · Fix the 96 kHz tape in the grammar and face codeboxes and their models (one number each), then re-run the face film to confirm nothing moved. · Propose the entry's own catch-up (its Open Questions about buffer length, the seam crossfade and the platform are now answered by the drafts) as a FLAG for an elder to land.
+<sub>`retrospective-delay-steward-054` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="retrospective-delay-steward-052" -->
 ### 2026-10-15 — cycle 23 — The séance cat now watches the instrument, not the knob. Its pose, ectoplasm and candle each come from the gen~ device, and there's a film of it.
 > shipped · the face is built in model and patch · not opened in Max · steward leans the portal next
