@@ -181,7 +181,13 @@ const TIPS=[4,8,12,16,20];
 
 function meshFeatures(nowMs){
   const out=[];
-  const pt=(lm,i)=>({x:lm[i].x*DW, y:lm[i].y*DH});
+  /* landmarks are normalized to the raw video frame; the picture is cover-cropped
+     and (optionally) mirrored into the grid — map through the same transform, or
+     the words orbit the wrong side of the face. */
+  const vw=video.videoWidth||640, vh=video.videoHeight||480, sa=DW/DH, va=vw/vh;
+  let dw=DW,dh=DH,dx=0,dy=0;
+  if(va>sa){ dw=DH*va; dx=(DW-dw)/2; } else { dh=DW/va; dy=(DH-dh)/2; }
+  const pt=(lm,i)=>{ let x=dx+lm[i].x*dw; if(state.mirror) x=DW-x; return {x, y:dy+lm[i].y*dh}; };
   if(faceLM){
     const r=faceLM.detectForVideo(video,nowMs);
     const f=r&&r.faceLandmarks&&r.faceLandmarks[0];

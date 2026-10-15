@@ -1,0 +1,602 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Semantic Webcam — Anatomy Cam (iter 07)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<style>
+  :root{ --bg:#08080c; --amber:#f3c879; --cyan:#74e6d8; --hush:#5a5a6a; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;background:var(--bg);overflow:hidden;color:#eee;font-family:ui-monospace,Menlo,'Courier New',monospace}
+  #stage{position:fixed;inset:0}
+  canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+  video{position:absolute;width:2px;height:2px;opacity:0;pointer-events:none}
+  #scan{position:absolute;inset:0;pointer-events:none;opacity:.15;mix-blend-mode:overlay;
+    background:repeating-linear-gradient(0deg,transparent 0,transparent 2px,rgba(0,0,0,.55) 3px,transparent 4px)}
+  #vign{position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 120% at 50% 45%, transparent 52%, rgba(0,0,0,.78) 100%)}
+  #grain{position:absolute;inset:-50%;pointer-events:none;opacity:.045;mix-blend-mode:screen;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='120' height='120' filter='url(%23n)'/></svg>");
+    animation:grain 1.1s steps(3) infinite}
+  @keyframes grain{0%{transform:translate(0,0)}33%{transform:translate(-6%,3%)}66%{transform:translate(4%,-5%)}100%{transform:translate(0,0)}}
+  #label{position:absolute;top:16px;left:20px;font-size:11px;letter-spacing:2px;color:var(--hush);text-transform:uppercase;opacity:.9}
+  #label b{color:var(--amber);font-weight:400}
+  #label .dot{color:#ff5d8f;animation:blink 1.4s steps(2) infinite}
+  @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:.15}}
+  #fps{position:absolute;top:16px;right:20px;font-size:11px;color:var(--hush);opacity:.75;text-align:right;line-height:1.5}
+  #fps .mode{color:var(--cyan)}
+  #fps .mode.fallback{color:#ff8da8}
+  .card{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+    padding:8vw;gap:2vh;transition:opacity .7s;background:radial-gradient(80% 80% at 50% 42%,rgba(20,18,28,.55),rgba(8,8,12,.92))}
+  .card.hide{opacity:0;pointer-events:none}
+  .card .sub{color:var(--cyan);letter-spacing:3px;font-size:min(3.4vw,15px);text-transform:uppercase}
+  .card h1{font-family:'Arial Narrow',Impact,sans-serif;font-weight:800;letter-spacing:-2px;font-size:min(12vw,104px);line-height:.9;color:var(--amber);text-transform:uppercase}
+  .card h1 span{display:block;color:#fff}
+  .card .meta{color:#9a9aa8;max-width:54ch;font-size:min(3.8vw,16px);line-height:1.6}
+  .card .meta b{color:var(--cyan);font-weight:400}
+  .btn{margin-top:1.5vh;letter-spacing:3px;text-transform:uppercase;font-size:14px;color:#08080c;background:var(--amber);border:0;padding:15px 32px;border-radius:2px;cursor:pointer;box-shadow:0 0 40px rgba(243,200,121,.35);transition:.2s}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(243,200,121,.6)}
+  #errmsg{color:#ff8da8;font-size:13px;max-width:54ch;line-height:1.6;min-height:1em}
+  #hud{position:absolute;left:0;right:0;bottom:0;padding:12px 18px;display:flex;align-items:center;gap:9px;flex-wrap:wrap;opacity:0;transition:opacity .4s;pointer-events:none;background:linear-gradient(transparent,rgba(0,0,0,.55))}
+  #hud.on{opacity:1;pointer-events:auto}
+  .ctrl{font-size:11px;letter-spacing:1.1px;color:#cfcfe0;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:3px;padding:7px 10px;cursor:pointer;text-transform:uppercase;white-space:nowrap;user-select:none;display:flex;align-items:center;gap:7px}
+  .ctrl:hover{background:rgba(255,255,255,.12)}
+  .ctrl.active{color:#08080c;background:var(--amber);border-color:var(--amber)}
+  .ctrl input[type=range]{width:84px;accent-color:var(--amber)}
+  .ctrl b{color:var(--amber);font-weight:400}
+  #hud .spacer{flex:1}
+  .hint{position:absolute;bottom:60px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:2px;color:var(--hush);text-transform:uppercase;opacity:.5}
+</style>
+
+<div id="stage">
+  <video id="cam" playsinline muted></video>
+  <canvas id="bg"></canvas>
+  <div id="scan"></div>
+  <div id="vign"></div>
+  <div id="grain"></div>
+  <div id="label"><span class="dot">●</span> live · <b>ANATOMY</b> · light picks the word · the body picks the text</div>
+  <div id="fps"></div>
+  <div class="hint">eyes read the seeing text · mouth the speaking text · hands the touching text &nbsp;·&nbsp; a anatomy on/off &nbsp; k tint &nbsp; m marks &nbsp; t ground text &nbsp; space freeze &nbsp; h hide</div>
+
+  <div id="title" class="card">
+    <div class="sub">iteration 07 · anatomy cam</div>
+    <h1>The body picks<span>the text.</span></h1>
+    <div class="meta">Iter 05 let <b>light</b> choose each word: a grammar walk through the tonal runs, steered toward words whose ink matches the blob. Iter 06 found your <b>true</b> eyes, mouth and fingertips with a face and hand mesh. This one joins them. The picture is still the tonal picture — but every run of words now asks which part of you it sits on, and draws its sentence from that part's own text. Your eyes are typeset in <b>seeing</b>, your mouth in <b>speech</b>, your hands in <b>touch</b>; the rest of you in the ground text. Nothing is recorded; the camera never leaves this page. Serve over http for the mesh — from a file it falls back to plain card 05, and says so.</div>
+    <button class="btn" id="begin">Allow camera · begin</button>
+    <div id="errmsg"></div>
+  </div>
+
+  <div id="hud">
+    <label class="ctrl">contrast <input type="range" id="contrast" min="0.8" max="3" step="0.05" value="1.5"></label>
+    <label class="ctrl">gain <input type="range" id="gain" min="0.6" max="3" step="0.05" value="1.3"></label>
+    <label class="ctrl">smooth <input type="range" id="smooth" min="0" max="0.985" step="0.005" value="0.7"></label>
+    <label class="ctrl">tone-bias <input type="range" id="tonebias" min="0" max="1" step="0.02" value="0.6"></label>
+    <div class="ctrl" id="palette">color <b id="palv">amber</b></div>
+    <div class="ctrl" id="glyph">glyph <b id="glyphv">words</b></div>
+    <div class="ctrl" id="fit">fit <b id="fitv">tonal</b></div>
+    <div class="ctrl" id="text">ground <b id="textv">stigmergy</b></div>
+    <div class="ctrl active" id="anat">anatomy <b id="anatv">on</b></div>
+    <div class="ctrl active" id="tint">tint</div>
+    <div class="ctrl" id="marks">marks</div>
+    <div class="spacer"></div>
+    <div class="ctrl active" id="mirror">mirror</div>
+    <div class="ctrl" id="invert">invert</div>
+    <div class="ctrl" id="freeze">freeze</div>
+    <div class="ctrl" id="hide">hide ui</div>
+  </div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const cv=$('#bg'), ctx=cv.getContext('2d'), video=$('#cam');
+let W=0,H=0,DPR=Math.min(window.devicePixelRatio||1,2);
+
+/* grids: same dimensions for camera layer + word layer */
+let DW=0,DH=0, curL=null, rowB=null, midRow=null, whiteRow=null, regRow=null;
+const det=document.createElement('canvas'), dctx=det.getContext('2d',{willReadFrequently:true});
+
+/* ---- text sources (longer corpora — gives the Markov pass real transitions to walk) ---- */
+const TEXTS = [
+  {name:'stigmergy', body:
+    "NO ONE IS IN CHARGE EACH TRACE TELLS THE NEXT TRACE WHAT TO DO A SIGN NOT AN ORDER "+
+    "THE COLONY THINKS WITH ITS FLOOR THE FLOOR REMEMBERS THE FLOOR DECIDES "+
+    "ANTS LEAVE TRAILS ANTS FOLLOW TRAILS ANTS REINFORCE TRAILS "+
+    "EACH TRACE INVITES THE NEXT NO ONE NEEDS A MAP "+
+    "THE COLONY IS A MIND THE COLONY IS A FLOOR THE COLONY IS A WALK "+
+    "WORK LEAVES MARKS MARKS LEAVE WORK WORK BECOMES THE PLAN "+
+    "A SIGN IS NOT AN ORDER A SIGN IS AN INVITATION "+
+    "TRACES BECOME PATHS PATHS BECOME ROADS ROADS BECOME THE SHAPE OF THE SWARM "},
+  {name:'oblique', body:
+    "HONOR THY ERROR AS A HIDDEN INTENTION KEEP THE ACCIDENT REPEAT BEND BREAK "+
+    "THE OBLIQUE IS A SIDE DOOR DRAW A CARD DRAW ANOTHER CARD DRAW THE WRONG CARD "+
+    "MAKE A MISTAKE ON PURPOSE TURN THE MISTAKE INTO A PATTERN "+
+    "DO THE OPPOSITE DO IT TWICE DO IT BACKWARDS "+
+    "WHAT WOULD YOUR ENEMY DO WHAT WOULD A CHILD DO WHAT WOULD AN OLD MASTER DO "+
+    "WORK AT A DIFFERENT SPEED CHANGE INSTRUMENT CHANGE ROLE CHANGE NOTHING "+
+    "ABANDON DESIRE THE ERROR IS A FRIEND THE FRIEND IS A METHOD "},
+  {name:'palace', body:
+    "EDGES CARRY MORE THAN NODES MEANING LIVES IN THE WALKING "+
+    "THE PALACE IS ALIVE BECAUSE IT IS CONNECTED CONNECT THEN WRITE "+
+    "DEPTH OVER COVERAGE FRICTION BEFORE WRITING SHOW BEFORE WRITING "+
+    "TYPED LINKS OVER PROSE TYPED LINKS CARRY MEANING PROSE CARRIES FABRIC "+
+    "A NODE IS A DOOR AN EDGE IS A WALK "+
+    "EVERY CARD IS A DOOR EVERY DOOR OPENS ONTO ANOTHER ROOM "+
+    "READ BEFORE TOUCHING TOUCH BEFORE WRITING "+
+    "GIT IS THE SAFETY NET CEREMONY IS THE CHANGE PROTOCOL "},
+  {name:'silence', body:
+    "THE LOUDEST PART IS THE PART YOU CANNOT HEAR PLAY NOTHING UNTIL IT HURTS "+
+    "THEN ONE SECOND MORE THEN ANOTHER SECOND "+
+    "REST IS THE NOTE REST IS THE LINE REST IS THE COMPOSITION "+
+    "LISTEN TO THE ROOM LISTEN TO YOUR BREATH LISTEN TO THE FLOOR "+
+    "WAIT WAIT WAIT THEN ONE NOTE THEN ANOTHER "+
+    "SILENCE IS THE FRAME SILENCE IS THE GROUND "+
+    "PLAY THE GAP BETWEEN BREATHS PLAY THE GAP BETWEEN BEATS "},
+];
+let textIdx=0;
+
+/* ---- the body's own texts (iter 07) ----
+   Iter 06 bound a single-word lexicon to each feature. Here each feature owns a
+   whole corpus, so a run sitting on your eye is not a pile of eye-words but a
+   bigram-grammar line walked through the seeing text — and still steered by the
+   tonal fit, so its ink weight matches the light on that part of your face. --- */
+const ANAT = [
+  null,
+  {kind:'eye', rgb:[116,230,216], radius:0.11, body:
+    "THE EYE READS THE LIGHT THE LIGHT READS THE EYE I SEE YOU SEEING ME "+
+    "LOOK AGAIN LOOK LONGER LOOK UNTIL THE THING LOOKS BACK "+
+    "THE GAZE IS A HAND THAT DOES NOT TOUCH WATCH THE DARK OPEN "+
+    "BLINK AND THE WORLD BEGINS AGAIN EVERY GLANCE IS A QUESTION "+
+    "EVERY STARE IS AN ANSWER NOTICE WHAT NOTICES YOU "+
+    "READ THE ROOM READ THE FACE READ THE LIGHT ON THE FACE "+
+    "THE IRIS OPENS IN THE DARK THE IRIS CLOSES IN THE LIGHT "},
+  {kind:'mouth', rgb:[255,120,170], radius:0.10, body:
+    "SAY IT SLOWLY SAY IT AGAIN THE MOUTH MAKES THE WORD THE WORD MAKES THE MOUTH "+
+    "BREATH BECOMES VOICE VOICE BECOMES NAME CALL AND THE ROOM ANSWERS "+
+    "HUSH THE VOWEL IS AN OPEN DOOR THE CONSONANT IS A STEP "+
+    "SPEAK SOFTLY ASK THE QUESTION OUT LOUD SING WHAT YOU CANNOT SAY "+
+    "TELL ME THE NAME TELL ME AGAIN THE SILENCE IS A WORD TOO "},
+  {kind:'hand', rgb:[124,252,155], radius:0.075, body:
+    "THE HAND KNOWS BEFORE THE MIND KNOWS REACH TOUCH HOLD LET GO "+
+    "POINT AT THE THING AND THE THING IS NAMED PRESS THE KEY FEEL THE STRING "+
+    "TRACE THE EDGE OF THE CUP THE FINGERTIP READS THE WORLD "+
+    "MAKE AND YOU WILL LEARN CARRY THE WEIGHT GENTLY "+
+    "HOLD THE TOOL THE TOOL HOLDS YOU BACK TOUCH THE KEY THE KEY TOUCHES BACK "},
+];
+
+const RAMP=' .·:-+=oØ▒▓█';
+let glyphMode=0;          // 0 = words (typeset into midtones), 1 = blocks (density ramp)
+let fitMode=3;            // 0 = flow · 1 = fill · 2 = grammar · 3 = tonal (NEW DEFAULT)
+const FIT_NAMES=['flow','fill','grammar','tonal'];
+let paletteIdx=0;
+const PAL=[{name:'amber',rgb:[243,200,121]},{name:'cyan',rgb:[116,230,216]},{name:'green',rgb:[124,252,155]},{name:'paper',rgb:[235,228,210]}];
+
+const state={ contrast:1.5, gain:1.3, smooth:0.7, tonebias:0.6, mirror:true, invert:false, frozen:false, ready:false,
+  anatomy:true, tint:true, marks:false, mode:'starting' };
+
+/* ---- measure each glyph's real ink coverage (its luminance) ---- */
+const inkCv=document.createElement('canvas'); inkCv.width=24; inkCv.height=32;
+const ictx=inkCv.getContext('2d',{willReadFrequently:true});
+const inkTable={}; let inkMax=0.0001;
+function measureInk(ch){
+  if(ch in inkTable) return inkTable[ch];
+  ictx.clearRect(0,0,24,32); ictx.fillStyle='#fff'; ictx.font='26px ui-monospace,Menlo,monospace';
+  ictx.textAlign='center'; ictx.textBaseline='middle'; ictx.fillText(ch,12,16);
+  const d=ictx.getImageData(0,0,24,32).data; let s=0; for(let i=3;i<d.length;i+=4) s+=d[i];
+  const cov=s/255/(24*32); inkTable[ch]=cov; return cov;
+}
+function buildInk(){
+  inkMax=0.0001; for(const k in inkTable) delete inkTable[k];
+  const wordChars=new Set(); TEXTS.concat(ANAT.filter(Boolean)).forEach(t=>{ for(const c of t.body) wordChars.add(c); });
+  wordChars.forEach(c=>{ const cov=measureInk(c); if(c!==' '&&cov>inkMax)inkMax=cov; });
+  for(const c of RAMP) measureInk(c);
+}
+const ink = ch => (inkTable[ch]||0)/inkMax;
+
+/* ---- a word's ink-weight: mean per-letter ink coverage, in [0,1].
+        This is the "tonal value" of the word as drawn — dense words (M, W, B,
+        block-ish letters) sit bright; airy words (I, L, T, dotted runs) sit dim.
+        Length matters too, because a longer run fills more cells with ink, so we
+        blend per-letter density with a gentle length term. ---- */
+const wordInkCache={};
+function wordInk(w){
+  if(w in wordInkCache) return wordInkCache[w];
+  let s=0; for(let i=0;i<w.length;i++) s+=ink(w[i]);
+  const dens = s / Math.max(1,w.length);           // mean letter density [0,1]
+  const lenT = Math.min(1, (w.length-2)/8);         // 2-letter→0, 10-letter→1
+  const v = 0.62*dens + 0.38*lenT;                  // tonal value of the word
+  wordInkCache[w]=v; return v;
+}
+
+function resize(){
+  W=innerWidth; H=innerHeight; cv.width=W*DPR; cv.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0);
+  DW=Math.max(40,Math.round(W/15)); DH=Math.max(30,Math.round(DW*H/W)); det.width=DW; det.height=DH;
+  curL=new Float32Array(DW*DH);
+  rowB=new Float32Array(DW); midRow=new Array(DW).fill(0); whiteRow=new Array(DW).fill(0); regRow=new Uint8Array(DW);
+}
+addEventListener('resize',resize);
+
+/* ---- FLOW mode: tokenise a text source into whole words, in reading order ---- */
+const tokCache={};
+function tokensFor(body){ if(!tokCache[body]) tokCache[body]=body.toUpperCase().split(/\s+/).filter(Boolean); return tokCache[body]; }
+
+/* ---- FILL mode: a word bank for each source, sorted longest-first (legacy best-fit) ---- */
+const bankCache={};
+function bankFor(body){
+  if(bankCache[body]) return bankCache[body];
+  const base=new Set(body.toUpperCase().split(/[^A-Z]+/).filter(w=>w.length>=2));
+  ["IS","IN","TO","OF","THE","AND","NO","OR","AS","IT","WE","SO","ALL","ONE","WHO"].forEach(w=>base.add(w));
+  bankCache[body]=[...base].sort((a,b)=>b.length-a.length);
+  return bankCache[body];
+}
+
+/* ---- GRAMMAR mode (iter 04): per-source bigram Markov model.
+        Bigram successor table + a unigram frequency fallback. ---- */
+const markovCache={};
+function markovFor(body){
+  if(markovCache[body]) return markovCache[body];
+  const toks=tokensFor(body);
+  const succ={};
+  const freq={};
+  for(let i=0;i<toks.length;i++){
+    const w=toks[i]; freq[w]=(freq[w]||0)+1;
+    if(i<toks.length-1){ const n=toks[i+1]; (succ[w]=succ[w]||[]).push(n); }
+  }
+  const starts=Object.keys(freq).sort((a,b)=>(freq[b]-freq[a])||(b.length-a.length));
+  const fallbackByLen=Object.keys(freq).sort((a,b)=>b.length-a.length);
+  markovCache[body]={succ,freq,starts,fallbackByLen};
+  return markovCache[body];
+}
+
+/* ---- small seeded PRNG (mulberry32) so a blob's words are stable frame-to-frame ---- */
+function rngMake(seed){ let s=seed>>>0; return function(){ s=s+0x6D2B79F5|0; let t=Math.imul(s^s>>>15,1|s); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+
+/* ---- camera ---- */
+async function startCamera(){
+  $('#errmsg').textContent='';
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia) return showErr("This browser blocks camera access here. Try Chrome or Safari.");
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({video:{width:{ideal:640},height:{ideal:480},facingMode:'user'},audio:false});
+    video.srcObject=stream; await video.play(); state.ready=true;
+    $('#title').classList.add('hide'); $('#hud').classList.add('on');
+    loadMesh();
+  }catch(err){
+    let m="Camera blocked: "+((err&&err.name)||'error')+".";
+    if(err&&(err.name==='NotAllowedError'||err.name==='SecurityError')) m+=" Allow the camera prompt, then press Begin again.";
+    else if(err&&err.name==='NotFoundError') m+=" No camera was found.";
+    else m+=" If you opened this from a file:// path, serve it over http instead.";
+    showErr(m);
+  }
+}
+function showErr(m){ $('#errmsg').textContent=m; }
+
+/* ---- the mesh (from iter 06): MediaPipe Tasks Vision, with an honest fallback.
+   Over file:// or offline the import fails; the cam then runs as plain iter 05
+   and the corner says "no mesh". ---- */
+const MP_BASE='https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14';
+let faceLM=null, handLM=null;
+async function loadMesh(){
+  state.mode='loading mesh…';
+  try{
+    const vision = await import(MP_BASE+'/vision_bundle.mjs');
+    const files = await vision.FilesetResolver.forVisionTasks(MP_BASE+'/wasm');
+    faceLM = await vision.FaceLandmarker.createFromOptions(files,{
+      baseOptions:{modelAssetPath:'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task', delegate:'GPU'},
+      runningMode:'VIDEO', numFaces:1, outputFaceBlendshapes:false });
+    handLM = await vision.HandLandmarker.createFromOptions(files,{
+      baseOptions:{modelAssetPath:'https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task', delegate:'GPU'},
+      runningMode:'VIDEO', numHands:2 });
+    state.mode='true features';
+  }catch(e){
+    faceLM=null; handLM=null; state.mode='no mesh · plain tonal';
+    console.warn('mesh unavailable, running as plain tonal cam:',e);
+  }
+}
+
+/* features in grid space; kind is an index into ANAT (1 eye · 2 mouth · 3 hand) */
+const IRIS_L=468, IRIS_R=473, EYE_L=33, EYE_R=263, LIP_UP=13, LIP_DN=14, TIPS=[4,8,12,16,20];
+let features=[], lastMeshT=-1;
+function meshFeatures(nowMs){
+  const out=[];
+  /* landmarks are normalized to the raw frame; the picture is cover-cropped and
+     mirrored into the grid — map through the same transform as sample() */
+  const vw=video.videoWidth||640, vh=video.videoHeight||480, sa=DW/DH, va=vw/vh;
+  let dw=DW,dh=DH,dx=0,dy=0;
+  if(va>sa){ dw=DH*va; dx=(DW-dw)/2; } else { dh=DW/va; dy=(DH-dh)/2; }
+  const pt=(lm,i)=>{ let x=dx+lm[i].x*dw; if(state.mirror) x=DW-x; return {x, y:dy+lm[i].y*dh}; };
+  if(faceLM){
+    const r=faceLM.detectForVideo(video,nowMs), f=r&&r.faceLandmarks&&r.faceLandmarks[0];
+    if(f){
+      const li=f.length>IRIS_R?IRIS_L:EYE_L, ri=f.length>IRIS_R?IRIS_R:EYE_R;
+      out.push(Object.assign({kind:1,key:'eyeL'},pt(f,li)));
+      out.push(Object.assign({kind:1,key:'eyeR'},pt(f,ri)));
+      const a=pt(f,LIP_UP), b=pt(f,LIP_DN);
+      out.push({kind:2,key:'mouth',x:(a.x+b.x)/2,y:(a.y+b.y)/2});
+    }
+  }
+  if(handLM){
+    const r=handLM.detectForVideo(video,nowMs), hs=(r&&r.landmarks)||[];
+    for(let h=0;h<hs.length;h++) for(const t of TIPS) out.push(Object.assign({kind:3,key:'h'+h+'t'+t},pt(hs[h],t)));
+  }
+  return out;
+}
+/* smooth the trackers so the regions do not jitter the words */
+const smoothed=new Map();
+function updateFeatures(raw){
+  const seen=new Set();
+  for(const f of raw){ seen.add(f.key); const s=smoothed.get(f.key);
+    if(s){ s.x+=(f.x-s.x)*0.4; s.y+=(f.y-s.y)*0.4; s.life=Math.min(24,s.life+4); }
+    else smoothed.set(f.key,{kind:f.kind,key:f.key,x:f.x,y:f.y,life:10}); }
+  for(const [k,s] of smoothed){ if(!seen.has(k)){ if((s.life-=2)<=0) smoothed.delete(k); } }
+  features=[...smoothed.values()];
+}
+/* which part of the body does each cell of row y sit on? nearest feature inside
+   its kind's radius (a fraction of grid width), else 0 = the ground text */
+function regionsFor(y){
+  regRow.fill(0);
+  if(!state.anatomy||!features.length) return;
+  for(let x=0;x<DW;x++){
+    let best=0, bd=1e9;
+    for(const f of features){ const R=ANAT[f.kind].radius*DW, dx=x-f.x, dy=(y-f.y)*1.15, d=dx*dx+dy*dy;
+      if(d<R*R && d<bd){ bd=d; best=f.kind; } }
+    regRow[x]=best;
+  }
+}
+
+/* ---- sample camera into the grid (layer 1 luminance) ---- */
+function sample(){
+  if(!state.ready||video.readyState<2) return;
+  dctx.save();
+  if(state.mirror){ dctx.translate(DW,0); dctx.scale(-1,1); }
+  const vw=video.videoWidth||640, vh=video.videoHeight||480, sa=DW/DH, va=vw/vh;
+  let dw=DW,dh=DH,dx=0,dy=0;
+  if(va>sa){ dw=DH*va; dx=(DW-dw)/2; } else { dh=DW/va; dy=(DH-dh)/2; }
+  dctx.drawImage(video,dx,dy,dw,dh); dctx.restore();
+  const d=dctx.getImageData(0,0,DW,DH).data;
+  const sm=state.smooth;
+  for(let i=0,p=0;i<curL.length;i++,p+=4){
+    let L=(0.299*d[p]+0.587*d[p+1]+0.114*d[p+2])/255;
+    L=(L-0.5)*state.contrast+0.5; if(state.invert)L=1-L;
+    L=L<0?0:L>1?1:L;
+    curL[i]=curL[i]*sm + L*(1-sm);
+  }
+}
+
+/* ---- render: brightness picks the glyph, words typeset into contiguous midtone runs ---- */
+const MIDLO=0.26, MIDHI=0.80, WHITELO=0.90;
+
+/* GRAMMAR walker (iter 04): walk bigram successors, fit to remaining width. */
+function walkGrammar(model, y, runIdx, xs, L, out){
+  const rng=rngMake(((y*131)+(runIdx*977)+(textIdx*7919)+(2*5381))>>>0);
+  let cur=xs, rem=L, first=true, prev=null, guard=0;
+  while(guard++<48){
+    const avail = rem - (first?0:1);
+    if(avail<2) break;
+    let pool = (prev && model.succ[prev]) ? model.succ[prev] : model.starts;
+    let pick = null;
+    if(pool && pool.length){
+      for(let tries=0; tries<8; tries++){
+        const cand = pool[(rng()*pool.length)|0];
+        if(cand && cand.length <= avail){ pick=cand; break; }
+      }
+    }
+    if(!pick){
+      const fb=model.fallbackByLen;
+      for(let i=0;i<fb.length;i++){ if(fb[i].length<=avail){ pick=fb[i]; break; } }
+    }
+    if(!pick) break;
+    if(!first){ cur++; rem--; }
+    for(let k=0;k<pick.length;k++) out[cur+k]=pick[k];
+    cur += pick.length; rem -= pick.length;
+    prev = pick; first = false;
+  }
+}
+
+/* TONAL walker (iter 05): the new pass. Same bigram grammar walk as iter 04, but
+   the candidate that gets written is chosen to match the BLOB'S LOCAL BRIGHTNESS.
+   For each step we draw a small pool of grammar-legal, width-fitting candidates,
+   score each by |wordInk(cand) − targetTone|, and pick the closest — blended with
+   tone-bias so 0 = pure grammar (no tonal steering) and 1 = pick the best tonal
+   match every time. This is the literal test of "language as a tonal medium":
+   light is now selecting WHICH WORD, not just which glyph tier. `tone` in [0,1]
+   is the run's mean luminance, remapped across the mid band so a dim blob targets
+   airy words and a bright blob targets dense ones. */
+function walkTonal(model, y, runIdx, xs, L, out, tone){
+  const rng=rngMake(((y*131)+(runIdx*977)+(textIdx*7919)+(3*5381))>>>0);
+  const bias=state.tonebias;
+  let cur=xs, rem=L, first=true, prev=null, guard=0;
+  while(guard++<48){
+    const avail = rem - (first?0:1);
+    if(avail<2) break;
+    let pool = (prev && model.succ[prev]) ? model.succ[prev] : model.starts;
+    let pick = null;
+    if(pool && pool.length){
+      /* gather a handful of legal candidates, then choose by tonal fit */
+      let best=null, bestScore=1e9, anyFit=false;
+      for(let tries=0; tries<10; tries++){
+        const cand = pool[(rng()*pool.length)|0];
+        if(!cand || cand.length>avail) continue;
+        anyFit=true;
+        /* score: distance from target tone (lower better), softened by bias.
+           bias 0 → score is just the draw order (grammar wins);
+           bias 1 → score is pure tonal distance. */
+        const tonal = Math.abs(wordInk(cand) - tone);
+        const score = bias*tonal + (1-bias)*(rng()*0.5);
+        if(score<bestScore){ bestScore=score; best=cand; }
+      }
+      if(anyFit) pick=best;
+    }
+    if(!pick){
+      /* fallback: among all width-fitting vocab words, the closest tonal match */
+      const fb=model.fallbackByLen; let best=null,bd=1e9;
+      for(let i=0;i<fb.length;i++){ if(fb[i].length<=avail){ const d=Math.abs(wordInk(fb[i])-tone); if(d<bd){bd=d;best=fb[i];} } }
+      pick=best;
+    }
+    if(!pick) break;
+    if(!first){ cur++; rem--; }
+    for(let k=0;k<pick.length;k++) out[cur+k]=pick[k];
+    cur += pick.length; rem -= pick.length;
+    prev = pick; first = false;
+  }
+}
+
+/* fit whole words into every contiguous run of rowB within [lo,hi). Modes:
+   FLOW(0), FILL(1), GRAMMAR(2), TONAL(3). TONAL also reads the run's mean
+   brightness to steer word choice toward matching ink-weight. */
+function typeset(y, lo, hi, out, mode, words, wl, ptr, seedBand, model){
+  let x=0, runIdx=0;
+  while(x<DW){
+    if(rowB[x]>=lo && rowB[x]<hi){
+      /* a run also ends where the body part under it changes (iter 07) */
+      const xs=x, reg=regRow[x]; let bsum=0, bn=0;
+      while(x<DW && rowB[x]>=lo && rowB[x]<hi && regRow[x]===reg){ bsum+=rowB[x]; bn++; x++; }
+      const runModel = reg ? markovFor(ANAT[reg].body) : model;
+      const L=x-xs;
+      if(mode===0){
+        let cur=xs, first=true, skips=0;
+        while(true){
+          const tok=words[ptr.p%wl], sep=first?0:1;
+          if((cur-xs)+sep+tok.length<=L){ if(!first)cur++; for(let k=0;k<tok.length;k++) out[cur+k]=tok[k]; cur+=tok.length; ptr.p++; first=false; skips=0; }
+          else if(first && tok.length>L){ ptr.p++; if(++skips>wl) break; }
+          else break;
+        }
+      } else if(mode===1){
+        const rng=rngMake(((y*131)+(runIdx*977)+(seedBand*5381)+(textIdx*7919))>>>0);
+        let cur=xs, first=true, rem=L, guard=0;
+        while(guard++<64){
+          const avail=rem-(first?0:1); if(avail<2) break;
+          let si=0; while(si<wl && words[si].length>avail) si++;
+          if(si>=wl) break;
+          const r=rng(), tok=words[si+((r*r*(wl-si))|0)];
+          if(!first){ cur++; rem--; }
+          for(let k=0;k<tok.length;k++) out[cur+k]=tok[k];
+          cur+=tok.length; rem-=tok.length; first=false;
+        }
+      } else if(mode===2 || reg){
+        if(mode===2) walkGrammar(runModel, y, runIdx+seedBand*101+reg*7001, xs, L, out);
+        else {
+          const meanB = bn ? bsum/bn : 0.5;
+          walkTonal(runModel, y, runIdx+seedBand*101+reg*7001, xs, L, out, Math.max(0, Math.min(1, (meanB - MIDLO) / (MIDHI - MIDLO))));
+        }
+      } else {
+        /* TONAL: remap the run's mean brightness across the mid band into a
+           target ink-weight, then steer the grammar walk toward it. */
+        const meanB = bn ? bsum/bn : 0.5;
+        const tone = Math.max(0, Math.min(1, (meanB - MIDLO) / (MIDHI - MIDLO)));
+        walkTonal(model, y, runIdx+seedBand*101, xs, L, out, tone);
+      }
+      runIdx++;
+    } else x++;
+  }
+}
+
+function render(){
+  ctx.fillStyle='#08080c'; ctx.fillRect(0,0,W,H);
+  if(!state.ready||!curL) return;
+  const cw=W/DW, ch=H/DH, fs=Math.min(cw,ch)*1.22, g=state.gain, rgb=PAL[paletteIdx].rgb;
+  ctx.font=fs.toFixed(1)+'px ui-monospace,Menlo,monospace'; ctx.textAlign='center'; ctx.textBaseline='middle';
+  const body=TEXTS[textIdx].body;
+  const flowWords = tokensFor(body);
+  const fillBank  = bankFor(body);
+  const model     = markovFor(body);
+  let words, wl;
+  if(fitMode===0){ words=flowWords; wl=words.length; }
+  else if(fitMode===1){ words=fillBank; wl=words.length; }
+  else { words=null; wl=0; }
+  const midPtr={p:0}, whitePtr={p:0};
+  for(let y=0;y<DH;y++){
+    const base=y*DW;
+    for(let x=0;x<DW;x++){ let B=curL[base+x]*g; rowB[x]=B>1?1:B; midRow[x]=0; whiteRow[x]=0; }
+    regionsFor(y);
+    if(glyphMode===0){
+      typeset(y, MIDLO,   MIDHI, midRow,   fitMode, words, wl, midPtr,   0, model);
+      typeset(y, WHITELO, 1.01,  whiteRow, fitMode, words, wl, whitePtr, 1, model);
+    }
+    const yy=y*ch+ch/2, top=y*ch;
+    for(let x=0;x<DW;x++){ const B=rowB[x]; if(B<0.07) continue;
+      if(glyphMode===1){
+        const gi=Math.min(RAMP.length-1,(B*(RAMP.length-1)+0.0001)|0), wt=(gi>=RAMP.length-1)?0.55:0;
+        const r=(rgb[0]+(255-rgb[0])*wt)|0, gg=(rgb[1]+(255-rgb[1])*wt)|0, b=(rgb[2]+(255-rgb[2])*wt)|0;
+        ctx.fillStyle='rgba('+r+','+gg+','+b+',0.94)'; ctx.fillText(RAMP[gi], x*cw+cw/2, yy); continue;
+      }
+      if(B>=WHITELO){
+        const wmix=Math.min(1,0.6+(B-WHITELO)/0.10*0.4);
+        const r=(rgb[0]+(255-rgb[0])*wmix)|0, gg=(rgb[1]+(255-rgb[1])*wmix)|0, b=(rgb[2]+(255-rgb[2])*wmix)|0;
+        ctx.fillStyle='rgb('+r+','+gg+','+b+')';
+        ctx.fillRect(Math.floor(x*cw), Math.floor(top), Math.ceil(cw)+1, Math.ceil(ch)+1);
+        const ltr=whiteRow[x];
+        if(ltr){ let ink='rgba(8,8,12,0.92)';
+          if(state.tint && regRow[x]){ const t=ANAT[regRow[x]].rgb; ink='rgb('+(t[0]*0.35|0)+','+(t[1]*0.35|0)+','+(t[2]*0.35|0)+')'; }
+          ctx.fillStyle=ink; ctx.fillText(ltr, x*cw+cw/2, yy); }
+        continue;
+      }
+      let glyph, a=0.94, white=0;
+      if(B<0.15){ glyph='.'; a=0.80; }
+      else if(B<MIDLO){ glyph='-'; a=0.86; }
+      else if(B<MIDHI){ const ltr=midRow[x]; if(!ltr) continue; glyph=ltr; }
+      else { glyph='▓'; white=0.30; }
+      let r=rgb[0],gg=rgb[1],b=rgb[2];
+      if(state.tint && regRow[x] && glyph===midRow[x]){ const t=ANAT[regRow[x]].rgb; r=t[0]; gg=t[1]; b=t[2]; }
+      if(white>0){ r+=(255-r)*white; gg+=(255-gg)*white; b+=(255-b)*white; }
+      ctx.fillStyle='rgba('+(r|0)+','+(gg|0)+','+(b|0)+','+a+')';
+      ctx.fillText(glyph, x*cw+cw/2, yy);
+    }
+  }
+  if(state.marks){
+    for(const f of features){ const t=ANAT[f.kind].rgb, R=ANAT[f.kind].radius*DW*cw;
+      ctx.strokeStyle='rgba('+t[0]+','+t[1]+','+t[2]+',.45)'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.arc(f.x*cw, f.y*ch, R, 0, 6.283); ctx.stroke(); }
+  }
+}
+
+/* ---- loop ---- */
+let fpsLast=performance.now(),fpsAcc=0,fpsN=0;
+function frame(now){
+  if(!state.frozen){
+    sample();
+    if((faceLM||handLM) && state.ready && video.readyState>=2 && now>lastMeshT){
+      lastMeshT=now; let raw=[]; try{ raw=meshFeatures(now); }catch(e){ raw=[]; } updateFeatures(raw);
+    }
+  }
+  render();
+  fpsN++; fpsAcc+=now-fpsLast; fpsLast=now;
+  if(fpsAcc>500){
+    const c=[0,0,0,0]; for(const f of features) c[f.kind]++;
+    const bad = state.mode==='true features' ? '' : ' fallback';
+    $('#fps').innerHTML=Math.round(1000/(fpsAcc/fpsN))+' fps · '+DW+'×'+DH+' · '+FIT_NAMES[fitMode]+
+      '<br><span class="mode'+bad+'">'+state.mode+'</span><br>'+c[1]+' eye · '+c[2]+' mouth · '+c[3]+' fingertip';
+    fpsAcc=0; fpsN=0; }
+  requestAnimationFrame(frame);
+}
+buildInk(); resize(); requestAnimationFrame(frame);
+window.__anatomy={state,setFeatures:f=>{features=f;}};
+
+/* ---- controls ---- */
+$('#begin').onclick=startCamera;
+$('#contrast').oninput=e=>state.contrast=+e.target.value;
+$('#gain').oninput=e=>state.gain=+e.target.value;
+$('#smooth').oninput=e=>state.smooth=+e.target.value;
+$('#tonebias').oninput=e=>state.tonebias=+e.target.value;
+$('#palette').onclick=()=>{ paletteIdx=(paletteIdx+1)%PAL.length; $('#palv').textContent=PAL[paletteIdx].name; };
+$('#glyph').onclick=()=>{ glyphMode=(glyphMode+1)%2; $('#glyphv').textContent=glyphMode?'blocks':'words'; };
+$('#fit').onclick=()=>{ fitMode=(fitMode+1)%4; $('#fitv').textContent=FIT_NAMES[fitMode]; };
+$('#text').onclick=()=>{ textIdx=(textIdx+1)%TEXTS.length; $('#textv').textContent=TEXTS[textIdx].name; };
+function tog(id,key,onText,offText){ const el=$(id); el.onclick=()=>{ state[key]=!state[key]; el.classList.toggle('active',state[key]); if(onText) el.textContent=state[key]?offText:onText; }; }
+tog('#mirror','mirror'); tog('#invert','invert'); tog('#freeze','frozen','freeze','live');
+tog('#tint','tint'); tog('#marks','marks');
+$('#anat').onclick=()=>{ state.anatomy=!state.anatomy; $('#anat').classList.toggle('active',state.anatomy); $('#anatv').textContent=state.anatomy?'on':'off'; };
+$('#hide').onclick=()=>$('#hud').classList.toggle('on');
+addEventListener('keydown',e=>{
+  if(e.code==='Space'){e.preventDefault();$('#freeze').click();}
+  else if(e.key===','){ state.contrast=Math.max(0.8,state.contrast-0.1); $('#contrast').value=state.contrast; }
+  else if(e.key==='.'){ state.contrast=Math.min(3,state.contrast+0.1); $('#contrast').value=state.contrast; }
+  else if(e.key==='-'){ state.gain=Math.max(0.6,state.gain-0.1); $('#gain').value=state.gain; }
+  else if(e.key==='='){ state.gain=Math.min(3,state.gain+0.1); $('#gain').value=state.gain; }
+  else if(e.key==='b'){ state.tonebias=state.tonebias>=0.99?0:Math.min(1,state.tonebias+0.25); $('#tonebias').value=state.tonebias; }
+  else if(e.key==='c'){ $('#palette').click(); }
+  else if(e.key==='g'){ $('#glyph').click(); }
+  else if(e.key==='w'){ $('#fit').click(); }
+  else if(e.key==='t'){ $('#text').click(); }
+  else if(e.key==='i'){ $('#invert').click(); }
+  else if(e.key==='h'){ $('#hide').click(); }
+  else if(e.key==='a'){ $('#anat').click(); }
+  else if(e.key==='k'){ $('#tint').click(); }
+  else if(e.key==='m'){ $('#marks').click(); }
+});
+</script>
