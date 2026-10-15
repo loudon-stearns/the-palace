@@ -25,6 +25,8 @@ forward_vector: "I am the readable canon list of what each palace worker is allo
 
 # Agent Toolbox
 
+![[Agent Toolbox — hero.png]]
+
 The palace's roster of **agent profiles** — each a named worker with a declared minimal tool set, and nothing more. This is the port of [[The Shop]]'s `toolbox` technique (which pins the exact runtimes a Specialist needs) onto the *agents* the palace dispatches: give each worker what its job requires and no more.
 
 Two things fall out of a small tool surface, and both matter:

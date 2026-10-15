@@ -31,6 +31,8 @@ links:
 
 # Does Personifying an Agent Change What It Does?
 
+![[Does Personifying an Agent Change What It Does — hero.png]]
+
 The [[Shopkeeper]] is the palace's first agent given a gender and a personality — not just a role with a register, but a character: restless, a little bit of a magpie, plays first and judges second. The occasion of her deposit raised a question worth carrying rather than answering on the spot. Does the personification *change what she does* — the candidates she surfaces, the risks she takes, the things she lets through — or is it decoration on a policy that would behave the same without it? And if it changes her, should the technique spread to the palace's other agents, or stay a deliberate exception?
 
 ## What's Actually New

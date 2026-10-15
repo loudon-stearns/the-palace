@@ -28,6 +28,8 @@ forward_vector: "I keep being the practice that refuses to ship without hearing 
 
 # Audition Gate
 
+![[Audition Gate — hero.png]]
+
 ## 1. The Practice
 *Section seed.* Before a sound-medium deliverable is accepted, the Maker (or the Specialist itself) plays it back and listens. The audition is non-negotiable. It is not a review of the spec; it is a check that the spec's intent landed in the audio. Multiple recent palace projects — [[Phoneme Choir]], [[Talking Keyboard]] — surfaced critical design errors at the audition gate that no spec review would have caught.
 

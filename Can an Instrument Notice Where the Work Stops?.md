@@ -22,6 +22,8 @@ forward_vector: "I want the smallest instrument that notices the shape of a sess
 
 # Can an Instrument Notice Where the Work Stops?
 
+![[Can an Instrument Notice Where the Work Stops? — hero.png]]
+
 Most help an artist gets happens away from the desk, in a session, a conversation, a book, and then
 has to survive the walk back to where the work actually stalls. This question asks whether the tool
 itself could notice.

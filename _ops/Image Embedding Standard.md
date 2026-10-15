@@ -20,6 +20,8 @@ links:
 ---
 # Image Embedding Standard
 
+![[Image Embedding Standard — hero.png]]
+
 This entry defines how images are filed, named, embedded, and captioned within the palace. It is operational documentation — not a catalog of images, but the standard against which every image in this organism is measured.
 
 Read this before embedding any image. Like all meta entries, it encodes a philosophical position as much as a procedure.

@@ -26,6 +26,8 @@ forward_vector: "I want to become a fully revived project entry with a staged cu
 
 # JSUI
 
+![[JSUI — hero.png]]
+
 **JavaScript User Interface** — Max/MSP's API for drawing custom graphical interfaces in real time. A blank canvas inside your patcher that listens to Max messages and renders anything you want.
 
 ## What It Is

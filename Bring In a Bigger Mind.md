@@ -28,6 +28,8 @@ agency_profile:
 
 # Bring In a Bigger Mind
 
+![[Bring In a Bigger Mind — hero.png]]
+
 Finish a work session with one model, then hand the result — cold, no shared context, explicitly briefed to be skeptical — to a larger or differently-tuned model and ask it to try to break what was just built. Not a second opinion for comfort; an adversarial check for defects the first model's own tests structurally cannot see, because the first model wrote both the code and the tests from the same blind spot.
 
 ## The Case That Named It

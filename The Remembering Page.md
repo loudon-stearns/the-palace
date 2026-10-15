@@ -44,6 +44,8 @@ links:
 
 # The Remembering Page
 
+![[The Remembering Page — hero.png]]
+
 A page here is already an agent: load it and a model wakes *as* it, reasoning from inside its voice and its drive ([[Pages as Agents]]). But until now, every waking was its first. The agent did its work and forgot; what survived was only what it wrote back into the page's body, folded into the worn paths of the [[Pheromone Trail]]. This entry names the piece that was missing — a page can keep its own **memory**, a first-person record of the specific conversations it has lived, so that when it wakes again, it wakes *remembering*.
 
 ## Two kinds of memory

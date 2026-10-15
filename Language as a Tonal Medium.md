@@ -27,6 +27,8 @@ links:
 ---
 # Language as a Tonal Medium
 
+![[Language as a Tonal Medium — hero.png]]
+
 A claim that fell out of building [[Semantic Webcam]] five times in a row: **legibility is a band of light.** A letter is not only a symbol — it is a quantity of ink, and that quantity is a luminance value. So a glyph can do two jobs at once. It can carry *meaning* (you read it) and it can carry *tone* (it darkens or lightens a cell of an image). The Semantic Webcam exploits exactly this double duty: a period is dark, a dash is lighter, a full word fills the mid-tones, a white tile with a black letter punched into it is the highlight. The picture is drawn in the white space of the letters. Brightness and readability turned out to be the same axis, sampled at different points.
 
 This page is the question that camera kept asking, lifted out so it can be tested somewhere other than a webcam.

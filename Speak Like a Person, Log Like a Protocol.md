@@ -27,6 +27,8 @@ links:
 ---
 # Speak Like a Person, Log Like a Protocol
 
+![[Speak Like a Person, Log Like a Protocol — hero.png]]
+
 A design directive for any Loudon-facing surface that runs on top of the STIGMERGY protocol — and a worked example of why the dual register matters.
 
 ## The rule

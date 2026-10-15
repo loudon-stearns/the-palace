@@ -28,6 +28,8 @@ forward_vector: "I am a named question, not yet a ceremony. My direction is towa
 
 # Walk That Weaves
 
+![[Walk That Weaves — hero.png]]
+
 A question that surfaced and was not followed in the session that produced
 [[Swarm Weave]]. Named here so it doesn't dissolve unacknowledged.
 

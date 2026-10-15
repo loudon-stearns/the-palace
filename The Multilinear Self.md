@@ -51,6 +51,8 @@ links:
 
 # The Multilinear Self
 
+![[The Multilinear Self — hero.png]]
+
 Loudon is one person who shows up as many — loudon, LDN, Loud'n Live, Professor Compressor, Sonic Sensei, TRICKSTER. Not a rigid brand with one locked face, and not a loose one that gave up on having a shape. A **multilinear self**: a person who exists in many states at once, and — because we all move through time one moment at a time — can only be met as one of them at a time.
 
 ## Not masks — projections

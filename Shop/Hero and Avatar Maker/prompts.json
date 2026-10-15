@@ -1,135 +1,163 @@
 [
-  {
-    "title": "Creative Coach",
-    "path": "Creative Coach.md",
-    "idiom": "flat gouache cut-paper interior (late Matisse); icon as a warm asymmetric linocut silhouette",
-    "hero_prompt": "Flat gouache and cut-paper painting in the manner of a late Matisse interior, hand-made on paper, flat and graphic with visible brush and paper texture, not a photograph, not a 3D render, no depth-of-field: the view from behind two people seated side by side on one long low bench in a warm potter's studio, an older grey-haired woman with her hair in a bun on the left and a young man on the right, both facing away from us toward a window shelf of simple clay pots he has made; she leans a little toward him and points up at one of the pots. We see their backs, not their faces. Warm orange walls, ochre, rose and deep blue, simple flat shapes.",
-    "icon_prompt": "Linocut emblem, a flat single-colour black silhouette on a warm orange ground, no shading or gradients: seen from behind, two people seated side by side on one low bench at the left of the frame, a woman with her hair in a bun and a young man, both facing a small pot that sits on the ground to the right, her arm raised and pointing at it. One warm asymmetric shape, the two figures on the same side looking at the work together. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
-  },
-  {
-    "title": "SCHEMA — Reference",
-    "path": "SCHEMA — Reference.md",
-    "idiom": "bold black-and-cream linocut, set-square and plumb bob",
-    "hero_prompt": "Bold linocut print in black on cream paper, thick carved shapes with white gouge marks, no fine hatching, flat and graphic, not a photograph, not a 3D render, no depth-of-field: seen from the side, a large plain wooden set-square standing upright on a bare table, and beside it a plumb bob hanging perfectly still on a straight line from above, the two together the measure of square and true; solid black shapes, generous empty cream space, a quiet plain workroom wall behind.",
-    "icon_prompt": ""
-  },
-  {
-    "title": "LaMa",
-    "path": "Shop/LaMa.md",
-    "idiom": "old-master fresco-restoration ink wash",
-    "hero_prompt": "Old-master ink-and-wash drawing on paper, flat and graphic with visible brush and paper texture, not a photograph, not a 3D render, no depth-of-field: a long faded fresco of a garden arcade, a row of painted arches with climbing vines and flowers, and in the middle one large jagged-edged patch where the old plaster was lost has been freshly repainted, its colours a little brighter, the arches and vines continuing unbroken straight through it so the eye barely finds the repair. Warm umber, ochre, sage green and faded terracotta washes.",
-    "icon_prompt": ""
-  },
-  {
-    "title": "LaTeX",
-    "path": "Shop/LaTeX.md",
-    "idiom": "classical letterpress woodcut",
-    "hero_prompt": "Classical woodcut print on paper, bold black carved lines on warm cream, visible wood-grain and ink texture, flat and graphic, not a photograph, not a 3D render, no depth-of-field: a single plain, unornamented iron hand press standing alone in a quiet workshop with bare plank walls and one high window of light, its heavy platen lowered and its long lever pulled home; the press drawn with exact, careful symmetry, every edge square and true.",
-    "icon_prompt": ""
-  },
-  {
-    "title": "LoRA Trainer",
-    "path": "Shop/LoRA Trainer.md",
-    "idiom": "cut-paper profile silhouettes (eighteenth-century silhouette tradition)",
-    "hero_prompt": "Cut-paper silhouette art in the eighteenth-century profile tradition, flat black paper shapes on warm cream paper, hand-cut edges, flat and graphic, not a photograph, not a 3D render, no depth-of-field: the same woman's black profile silhouette repeated five times in a row across the banner, identical every time, each set against a different small cut-paper backdrop: a leafy tree, a tall window, a breaking wave, a crescent moon, a rolling hill. One likeness holding true in every new scene.",
-    "icon_prompt": ""
-  },
-  {
-    "title": "Matplotlib",
-    "path": "Shop/Matplotlib.md",
-    "idiom": "cyanotype technical blueprint",
-    "hero_prompt": "Cyanotype sun-print on hand-coated paper, deep Prussian blue with crisp white lines, uneven brushed blue edges and soft paper texture, flat and graphic, not a photograph, not a 3D render, no depth-of-field: one long, smooth white decaying sine wave sweeping across the whole banner from left to right, tall at the left and settling to calm at the right, above a single straight white horizontal line, with wide empty blue space around it, exact and calm.",
-    "icon_prompt": ""
-  },
-  {
-    "title": "Skills Are Enchantable Pages",
-    "path": "Palace development/Skills Are Enchantable Pages.md",
-    "idiom": "illuminated manuscript",
-    "hero_prompt": "",
-    "icon_prompt": "Flat gouache emblem, a single gold silhouette on a deep teal ground, no shading or gradients: an open book seen from above with its two blank pages curving outward like wings, and one round wax seal pressed onto the corner of the right-hand page, one bold, slightly asymmetric shape. Bold, high-contrast, no fine linework, no vine detail, reads clearly at 24 pixels."
-  },
-  {
-    "title": "The Palace Hardens Around Values",
-    "path": "The Palace Hardens Around Values.md",
-    "idiom": "Haeckel-style naturalist crystal engraving",
-    "hero_prompt": "",
-    "icon_prompt": "Linocut emblem, a flat single-colour black silhouette on a cream ground, no shading or gradients: a tight cluster of seven hexagonal cells like a small honeycomb, the cells on the left drawn as thick open outlines and the cells on the right filled solid black, as if the lattice is hardening into stone from one side. Bold, high-contrast, thick lines only, no stippling, reads clearly at 24 pixels."
-  },
-  {
-    "title": "Found ↔ Made",
-    "path": "Found ↔ Made.md",
-    "idiom": "wood engraving, grain-following naturalist style (hero); icon: FLUX woodcut plank with the bowtie inlay composited by hand, because FLUX drew the inlay as a butterfly, an hourglass or nothing across six tries",
-    "hero_prompt": "",
-    "icon_prompt": "Woodcut emblem, a flat single-colour black silhouette on a cream ground, no shading or gradients: a short thick black plank split across its middle by one jagged cream crack, and set across the crack a single dovetail inlay, a solid shape of two trapezoid wedges joined at their narrow ends, cut out in cream so it reads against the black, holding the two halves together. Bold, high-contrast, no wood-grain lines, reads clearly at 24 pixels."
-  },
-  {
-    "title": "AuK",
-    "path": "Shop/AuK.md",
-    "idiom": "two-colour screenprint, deep teal and warm red on cream",
-    "hero_prompt": "Two-colour screenprint on cream paper in deep teal and warm red, flat and graphic with visible ink texture and slight misregistration, not a photograph, not a 3D render, no depth-of-field: a man in profile at the left edge, mouth open mid-phrase, and flowing from him across the whole banner a long smooth sound wave drawn as one wide teal band; one short section of the band has been cut out and a new red section fitted into the gap, joined with a neat row of tailor's stitches, the wave running on unbroken. The same voice, altered.",
-    "icon_prompt": "Screenprint emblem, a flat single-colour teal silhouette on a cream ground, no shading or gradients: one bold, thick sound wave running left to right with a pair of open scissors cutting cleanly through its middle. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
-  },
-  {
-    "title": "Blocked, Not Prompted",
-    "path": "Blocked, Not Prompted.md",
-    "idiom": "Bauhaus stage-design gouache (Oskar Schlemmer)",
-    "hero_prompt": "Bauhaus stage-design gouache on paper in the manner of Oskar Schlemmer, flat geometric colour shapes with visible brush texture, not a photograph, not a 3D render, no depth-of-field: a bare theatre stage seen from a dramatic worm's-eye low angle, plain geometric blocks (cubes, a ramp, a tall column) arranged with deliberate precision, and a jointed wooden artist's mannequin placed on the highest block in a bold striding pose, one hard spotlight cutting a sharp diagonal; the drama built entirely from where the blocks and the figure were put. Grey card blocks with accents of red, yellow and blue.",
-    "icon_prompt": "Bauhaus emblem, a flat single-colour black silhouette on a bright yellow ground, no shading or gradients: a jointed artist's mannequin in a bold striding pose standing on top of a single cube. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
-  },
-  {
-    "title": "Resonant Link Labels",
-    "path": "Palace development/Resonant Link Labels.md",
-    "idiom": "Klee-style gouache, a vibrating string between two stones",
-    "hero_prompt": "Gouache painting on paper in the manner of Paul Klee, flat and graphic with visible brush and paper texture, not a photograph, not a 3D render, no depth-of-field: two small plain grey stones at the far left and far right of the banner, joined by one single taut string that is vibrating, the space between them swelling into a wide shimmering envelope of overlapping wave loops in warm red, gold, rose and deep blue, so all the colour in the picture lives in the link and none in the stones. Soft dark ground.",
-    "icon_prompt": "Flat gouache emblem, a single-colour black silhouette on a warm gold ground, no shading or gradients: two small solid dots, one at each side, joined by one thick wavy line that swells wide in the middle like a plucked, vibrating string. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
-  },
-  {
-    "title": "Trickster Commit",
-    "path": "Trickster Commit.md",
-    "idiom": "two-colour linocut, black and magenta circus",
-    "hero_prompt": "Two-colour linocut print in black and bright magenta on cream paper, bold carved shapes and visible ink texture, flat and graphic, not a photograph, not a 3D render, no depth-of-field: under the peak of a circus tent a woman acrobat in a diamond-patterned harlequin costume leaps through the air between two trapezes, arms flung wide, reckless and joyful, and far below her a wide safety net is stretched taut across the whole ring. The leap licensed by the net.",
-    "icon_prompt": "Linocut emblem, a flat single-colour black silhouette on a bright magenta ground, no shading or gradients: a woman acrobat leaping in mid-air, arms and legs flung wide, and below her a wide safety net slung edge to edge across the bottom of the frame, sagging in one shallow curve. Bold, high-contrast, thick net cords only, reads clearly at 24 pixels."
-  },
-  {
-    "title": "Weaving Memory into the Palace",
-    "path": "Weaving Memory into the Palace.md",
-    "idiom": "hand-coloured woodcut, loom and basket",
-    "hero_prompt": "Hand-coloured woodcut print on paper, bold black outlines, visible wood-grain and ink texture, flat and graphic, not a photograph, not a 3D render, no depth-of-field: a wooden hand loom seen from the side holding a broad, nearly finished cloth woven in deep indigo and madder red, and on the floor beside it a small woven basket, almost empty, from which a few last loose threads run up into the weave; the cloth dense and whole, the basket nearly bare. Warm ochre wood, indigo and red.",
-    "icon_prompt": "Woodcut emblem, a flat single-colour black silhouette on a cream ground, no shading or gradients: a small square of thick interlaced woven bands, and one loose thread curling in from the lower corner being drawn into the weave. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
-  },
-  {
-    "title": "Comic and Cinema — Two Ways of Seeing",
-    "path": "Comic and Cinema — Two Ways of Seeing.md",
-    "idiom": "split image: stark ink comic panels beside a hand-drawn ink-wash motion study",
-    "hero_prompt": "Brush-and-ink drawing on cream paper, bold graphic lines and flat grey washes, hand-drawn, not a photograph, not a 3D render, no depth-of-field: one long strip of film running the whole width of the banner, its square frames bordered with thick black ink; in the frames on the left a running woman is drawn in stark black comic-book inking, one frozen stride per frame with bold white gutters between them, and toward the right the frame borders fade away and the same running woman blurs into one continuous smear of soft grey motion. Cream paper, black ink, soft greys.",
-    "icon_prompt": "Ink emblem, a flat single-colour black silhouette on a cream ground, no shading or gradients: on the left, three small solid black squares stacked in a column with clear cream gaps between them, and on the right one tall solid black rectangle whose right edge dissolves into soft horizontal streaks of motion, still frames on one side and continuous movement on the other. Bold, high-contrast, reads clearly at 24 pixels."
-  },
-  {
-    "title": "The Practice Rediscovers Its Philosophy",
-    "path": "The Practice Rediscovers Its Philosophy.md",
-    "idiom": "bold linocut shadow-play (hero); flat charcoal-silhouette emblem (icon)",
-    "hero_prompt": "Bold linocut print in black and warm ochre on cream paper, thick carved shapes and visible ink texture, flat and graphic, not a photograph, not a 3D render, no depth-of-field: a shadow sculpture in the manner of Tim Noble and Sue Webster, a messy heap of scrap tools and gears on a low plinth at the left lit by a single lamp, and projected from that heap onto the bare wall behind it one large solid black shadow that forms the clean profile silhouette of a bearded philosopher's head. The heap and the shadow are joined; the portrait exists only as the shadow of the tools.",
-    "icon_prompt": "Charcoal emblem, a flat single-colour black silhouette on a warm cream ground, no shading or gradients: a single cog-wheel on the left, and falling from it to the right its long shadow shaped like a bearded human head in profile. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
-  },
-  {
-    "title": "The Scroll",
-    "path": "The Scroll.md",
-    "idiom": "ink-and-wash landscape handscroll",
-    "hero_prompt": "Ink-and-wash painting on paper in the manner of a Chinese landscape handscroll, flat and graphic with visible brush and paper texture, not a photograph, not a 3D render, no depth-of-field: one continuous painted landscape unrolling across the whole banner, a river winding from right to left past misty mountains, with tiny workshops, a kiln and a half-built boat along its banks, and at the far right edge the paper curls up into a thick roll still waiting to open. Soft greys, pale ochre and green washes on cream paper, plain dark margins, no red seal stamps.",
-    "icon_prompt": "Ink-brush emblem, a flat single-colour black silhouette on a warm cream ground, no shading or gradients: a hanging scroll, a thick horizontal roll at the top, a tall blank cream sheet hanging down from it outlined in thick black, and a second thick roll at the bottom, partly unrolled. Bold, high-contrast, blank sheet, no fine linework, reads clearly at 24 pixels."
-  },
-  {
-    "title": "Sentry",
-    "path": "Palace development/Sentry.md",
-    "idiom": "black-and-ochre woodcut night scene",
-    "hero_prompt": "Black-and-ochre woodcut print on paper, bold carved lines and visible wood-grain texture, flat and graphic, not a photograph, not a 3D render, no depth-of-field: at night a lone watchman stands on a stone wall above a wide open city gate, holding a lantern out over the road below to light what passes through, the gate open and the road leading away into dark country under a few stars; calm, alert, the only warm light in the picture is his lantern.",
-    "icon_prompt": "Woodcut emblem, a flat single-colour black silhouette on a warm ochre ground, no shading or gradients: one old-fashioned hand lantern with a ring handle on top, its glass panes cut out so the ochre glows through them, a few short thick rays of light around it. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
-  },
-  {
-    "title": "Radio Play",
-    "path": "Radio Play.md",
-    "idiom": "mid-century gouache illustration, theatre of the mind",
-    "hero_prompt": "Mid-century gouache and ink illustration on paper, flat and graphic with visible brush texture, not a photograph, not a 3D render, no depth-of-field: in a dark room, an old cathedral-shaped radio drawn as a plain dark silhouette with only its round cloth speaker glowing warm amber, and rising from that glow like smoke a whole imagined scene painted in pale blue and gold, a ship on a stormy sea, a lighthouse beam, a crescent moon, the story existing only in the air above the radio. Deep midnight blue, warm amber, pale gold.",
-    "icon_prompt": "Linocut emblem, a flat single-colour black silhouette on a warm amber ground, no shading, no gradients, no highlights: an old radio-studio ribbon microphone on a short stand, a rounded capsule shape with a few thick horizontal slots, and three bold curved sound waves spreading out to its right side. Bold, high-contrast, reads clearly at 24 pixels."
-  }
+ {
+  "title": "1D Wavetable Scanning",
+  "path": "1D Wavetable Scanning.md",
+  "idiom": "two-colour Bauhaus screenprint, a lamp scanning a row of wave panes",
+  "hero_prompt": "Two-colour Bauhaus screenprint in deep blue and orange on cream, hand-made on paper, flat and graphic with visible ink texture, not a photograph, not a 3D render, no depth-of-field: a long row of thin upright translucent glass panes standing one behind another along a single straight rail, each pane painted with one single wavy line whose shape changes gradually from a smooth round swell on the nearest pane to a sharp jagged zigzag on the farthest, and a small sliding carriage with a glowing lamp halfway along the rail, lighting the one pane it stands beside. Generous empty cream space.",
+  "icon_prompt": "Screenprint emblem, a flat single-colour deep blue silhouette on a cream ground, no shading or gradients: three upright panes in a row, each holding one wave line that changes from a round swell to a square step, with a bold orange triangular pointer beneath the middle pane. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
+ },
+ {
+  "title": "Agent Toolbox",
+  "path": "Agent Toolbox.md",
+  "idiom": "Shaker-plain linocut, a row of nearly empty tool totes",
+  "hero_prompt": "Black-and-cream linocut print in a plain Shaker spirit, hand-made on paper, flat and graphic with visible carved ink texture, not a photograph, not a 3D render, no depth-of-field: a long plain workbench holding a row of small open wooden carpenter's totes, each tote carrying only two or three tools and nothing more: one a hammer and a chisel, one a paintbrush and a palette knife, one a single pair of scissors, one a small spirit level. Lots of empty space around each tote, a bare pegboard wall behind with simple tool outlines painted on it, most of them empty.",
+  "icon_prompt": "Linocut emblem, a flat single-colour black silhouette on a warm ochre ground, no shading or gradients: a single open wooden tote box seen from the side, holding just a hammer and a wrench standing upright in it. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
+ },
+ {
+  "title": "Audition Gate",
+  "path": "Audition Gate.md",
+  "idiom": "bold two-colour linocut, a gatekeeper listening before she opens",
+  "hero_prompt": "Bold two-colour linocut print in black and rust red on cream, thick carved shapes, hand-made on paper, flat and graphic with visible carved ink texture, not a photograph, not a 3D render, no depth-of-field: a closed wooden garden gate in a low wall; just inside it a woman gatekeeper stands with her eyes closed and one hand cupped behind her ear, listening intently, her other hand resting on the latch; on the other side of the gate, close by, a young man plays a long wooden flute, and soft curling lines of sound pass over the top of the gate to her. Generous empty cream space.",
+  "icon_prompt": "Linocut emblem, a flat single-colour black silhouette on a rust-red ground, no shading or gradients: a closed wooden gate with one large stylised ear set above it, three curved sound lines reaching the ear. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
+ },
+ {
+  "title": "Bring In a Bigger Mind",
+  "path": "Bring In a Bigger Mind.md",
+  "idiom": "hand-coloured 18th-century travel-book etching, a giant testing a small maker's chair",
+  "hero_prompt": "Hand-coloured etching in the manner of an 18th-century Gulliver's Travels illustration, hand-made on paper, flat and graphic with visible etched line and watercolour texture, not a photograph, not a 3D render, no depth-of-field: a tiny cabinet-maker, a woman in a leather apron, standing on a workbench and holding up a freshly made wooden chair no bigger than her hand, while a giant so enormous that only his calm bearded face, one shoulder and one huge hand fit in the picture leans in from the right and presses a single fingertip on the chair's seat, testing whether it holds. Washes of ochre, slate blue and brick red.",
+  "icon_prompt": "Linocut emblem, a flat single-colour black silhouette on a slate-blue ground, no shading or gradients: one enormous hand pressing a single finger down onto the seat of a small wooden chair. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
+ },
+ {
+  "title": "Can an Instrument Notice Where the Work Stops?",
+  "path": "Can an Instrument Notice Where the Work Stops?.md",
+  "idiom": "muted Hammershøi-quiet gouache, a piano that remembers where the playing stopped",
+  "hero_prompt": "Quiet gouache painting in the manner of a Hammershøi interior, muted greys and one warm light, hand-made on paper, flat and graphic with visible brush and paper texture, not a photograph, not a 3D render, no depth-of-field: an empty room at evening with a single upright piano, its lid open and the stool pushed back as if the player has just stood up and left; on top of the piano a small hourglass with its sand half run through, a small lamp casting a warm circle, and one single key of the keyboard glowing softly where the playing stopped. Bare walls, nothing hung on them.",
+  "icon_prompt": "Linocut emblem, a flat single-colour black silhouette on a warm grey ground, no shading or gradients: an upright piano seen from the front with a small hourglass standing on top of it. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
+ },
+ {
+  "title": "Does Personifying an Agent Change What It Does",
+  "path": "Does Personifying an Agent Change What It Does.md",
+  "idiom": "hand-coloured Victorian toy-catalogue wood engraving, two identical automatons, one given a character",
+  "hero_prompt": "Hand-coloured wood engraving in the manner of a Victorian toy catalogue, hand-made on paper, flat and graphic with visible engraved line and watercolour texture, not a photograph, not a 3D render, no depth-of-field: two identical small clockwork automaton figures standing side by side at matching little workbenches; the left one bare brass, sorting cogs into a tidy row; the right one dressed in a bright red shawl and a feathered hat, a magpie perched on her shoulder, reaching playfully for a shiny trinket at the edge of her bench. Cream ground, brass, red and black.",
+  "icon_prompt": "Linocut emblem, a flat single-colour black silhouette on a red ground, no shading or gradients: two identical simple clockwork doll figures side by side, the right one wearing a hat with a tall feather. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
+ },
+ {
+  "title": "Exponential Decay Curvature",
+  "path": "Exponential Decay Curvature.md",
+  "idiom": "Swiss modernist screenprint, one curve as slope and as sawtooth",
+  "hero_prompt": "Swiss modernist two-colour screenprint in deep blue and orange on cream, hand-made on paper, flat and graphic with visible ink texture, not a photograph, not a 3D render, no depth-of-field: across the left half one large smooth curve falling from high to low like a long hillside slope, and across the right half the very same curve shrunk and repeated many times side by side into a fast jagged sawtooth row, the big shape and its small copies sharing one line. A single orange dot where the large curve meets the small ones. Generous empty cream space.",
+  "icon_prompt": "Screenprint emblem, a flat single-colour deep blue silhouette on a cream ground, no shading or gradients: a single thick curved line that falls steeply then flattens out, like a ski slope, ending in one bold orange dot. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
+ },
+ {
+  "title": "JSUI",
+  "path": "JSUI.md",
+  "idiom": "hand-coloured 19th-century paper toy-theatre print, a blank canvas stage wired into a patch",
+  "hero_prompt": "Hand-coloured 19th-century paper toy-theatre print, hand-made on paper, flat and graphic with visible printed line and watercolour texture, not a photograph, not a 3D render, no depth-of-field: a small proscenium toy theatre with red painted curtains drawn back to reveal a stage that is a blank glowing canvas, on which a little cat and a crescent moon are being sketched in lines of light; from the wings of the theatre a tangle of coloured patch cables runs out across the table. Red, gold, deep green and cream.",
+  "icon_prompt": "Linocut emblem, a flat single-colour black silhouette on a gold ground, no shading or gradients: a small toy-theatre proscenium arch with its curtains drawn open and a small cat shape standing on the empty stage. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
+ },
+ {
+  "title": "Language as a Tonal Medium",
+  "path": "Language as a Tonal Medium.md",
+  "idiom": "pen-and-ink stipple, a face made of marks of different weight",
+  "hero_prompt": "Pen-and-ink stipple drawing on cream paper, hand-made on paper, flat and graphic with visible ink texture, not a photograph, not a 3D render, no depth-of-field: a woman's face in profile drawn entirely from tiny hand-inked marks, dots, short dashes, small crosses and little open circles, dense and heavy in the shadows and sparse and light in the highlights, so the weight of the marks themselves makes the tones of the face; the marks thin out into empty paper at the edges.",
+  "icon_prompt": "Ink emblem, a flat single-colour black on cream, no shading or gradients: a bold circle filled with dots that are large and crowded on the left and small and sparse on the right, a gradient made only of marks. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
+ },
+ {
+  "title": "The Palace Speaks",
+  "path": "Palace development/The Palace Speaks.md",
+  "idiom": "Piranesi-style etching, a library that answers",
+  "hero_prompt": "Etching in the manner of Piranesi, black ink on warm paper, hand-made on paper, flat and graphic with visible etched line texture, not a photograph, not a 3D render, no depth-of-field: a vast vaulted library hall with towering shelves of books drawn as plain dark blocks with no lettering rising into arches, and at its far end a pair of great open doors glowing with warm light that spills out in soft rings like a voice; a lone visitor, a man in a long coat, stands at the threshold with one hand raised as if greeting someone inside.",
+  "icon_prompt": "Linocut emblem, a flat single-colour black silhouette on a warm amber ground, no shading or gradients: a tall arched library doorway with three concentric arcs of sound radiating out of its opening. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
+ },
+ {
+  "title": "Walk That Weaves",
+  "path": "Palace development/Walk That Weaves.md",
+  "idiom": "Klee-like gouache, a walker whose path becomes woven cloth",
+  "hero_prompt": "Gouache painting in the manner of Paul Klee, hand-made on paper, flat and graphic with visible brush and paper texture, not a photograph, not a 3D render, no depth-of-field: a lone walker, a man with a staff, crossing a rolling hilly landscape, and the path behind him is a single bright thread that loops and crosses the threads of earlier walks, weaving the hills into a loose patterned cloth as he goes. Small squares of warm colour, rust, ochre, teal and plum.",
+  "icon_prompt": "Linocut emblem, a flat single-colour black silhouette on a teal ground, no shading or gradients: a small walking figure with a staff, trailing a single thread that loops back into a woven knot behind him. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
+ },
+ {
+  "title": "LDN RTM",
+  "path": "Projects/LDN RTM.md",
+  "idiom": "bold pop-art screenprint, a manual bristling with tabs, every section marked",
+  "hero_prompt": "Bold 1960s pop-art screenprint with flat colours and halftone dots, hand-made on paper, flat and graphic with visible ink and halftone texture, not a photograph, not a 3D render, no depth-of-field: a very thick instruction book lying open on a bright studio table, its pages plain and blank, with dozens of small brightly coloured paper tabs bristling from its edges so every section is marked, and a little video camera on a tripod standing beside it, pointed at the book. Nothing else on the table. Hot pink, cyan, yellow and black.",
+  "icon_prompt": "Screenprint emblem, a flat single-colour black silhouette on a hot pink ground, no shading or gradients: a thick closed book seen from the side with a row of many tabs bristling from its edge. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
+ },
+ {
+  "title": "Search Before You Build",
+  "path": "Search Before You Build.md",
+  "idiom": "chiaroscuro woodcut, a lantern finding the part already made",
+  "hero_prompt": "Chiaroscuro woodcut print in black, ochre and cream, hand-made on paper, flat and graphic with visible woodgrain and ink texture, not a photograph, not a 3D render, no depth-of-field: a woman carpenter in an apron holding up a lantern in a dim workshop, peering into a tall cabinet of many small plain wooden drawers with round wooden knobs and no label plates; one drawer is pulled open and inside it, lit by her lantern, lies the very wooden gear she was about to carve, while on the bench behind her a raw block of wood and a chisel wait untouched.",
+  "icon_prompt": "Woodcut emblem, a flat single-colour black silhouette on an ochre ground, no shading or gradients: a raised lantern beside an open drawer with a single gear inside it. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
+ },
+ {
+  "title": "Speak Like a Person, Log Like a Protocol",
+  "path": "Speak Like a Person, Log Like a Protocol.md",
+  "idiom": "art-deco linocut, warm voice outside, exact code inside the wire",
+  "hero_prompt": "Art-deco linocut poster in black, cream and teal, hand-made on paper, flat and graphic with visible carved ink texture, not a photograph, not a 3D render, no depth-of-field: a man speaking warmly into the receiver of an old black desk telephone, his voice leaving it as a soft flowing ribbon of curving lines; the telephone's long cable runs down and across the bottom of the picture, and a section of it is cut open to show a precise straight row of dots and dashes marching inside it in single file. Soft curves outside, exact marks within.",
+  "icon_prompt": "Linocut emblem, a flat single-colour black silhouette on a teal ground, no shading or gradients: one soft wavy ribbon above a straight row of dots and dashes, the two running in parallel. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
+ },
+ {
+  "title": "The Adjacent Affordance",
+  "path": "The Adjacent Affordance.md",
+  "idiom": "flat matte surrealist gouache, the door beside the wall",
+  "hero_prompt": "Flat matte gouache painting in the spirit of Magritte's surrealism, hand-made on paper, flat and graphic with visible brush and paper texture, not a photograph, not a 3D render, no depth-of-field: a long high plain stone wall cutting straight across a country road under a clear blue sky; the road does not end at the wall but bends a few steps to the right, where a small arched wooden door stands open in the wall with warm sunlight pouring through it, and a traveller, a man with a satchel, turns toward the door instead of the wall.",
+  "icon_prompt": "Linocut emblem, a flat single-colour black silhouette on a sky-blue ground, no shading or gradients: a solid block of wall with a small arched doorway standing open at its right-hand edge. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
+ },
+ {
+  "title": "The Metaphor Stretch",
+  "path": "The Metaphor Stretch.md",
+  "idiom": "Kandinsky-like gouache, a string stretched from an orrery to a player's hand",
+  "hero_prompt": "Gouache painting in the manner of Kandinsky's 1920s work, hand-made on paper, flat and graphic with visible brush and paper texture, not a photograph, not a 3D render, no depth-of-field: a single taut string stretched across a wide chasm between two cliffs; on the left cliff a brass orrery of planets on rings, on the right cliff a woman musician plucking the string, which bows into one graceful curve over the gap. Flat circles, arcs and triangles, yellow, red, blue and black on cream.",
+  "icon_prompt": "Linocut emblem, a flat single-colour black silhouette on a yellow ground, no shading or gradients: two cliff edges facing each other across a gap, joined by one taut string that bows into a single curve, a small hand plucking it at the right. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
+ },
+ {
+  "title": "The Multilinear Self",
+  "path": "The Multilinear Self.md",
+  "idiom": "Reiniger cut-paper shadow theatre, one figure casting many shadows",
+  "hero_prompt": "Black cut-paper silhouette in the manner of Lotte Reiniger's shadow theatre, against warm amber and rose paper, hand-made on paper, flat and graphic with visible cut paper texture, not a photograph, not a 3D render, no depth-of-field: a single standing man in the middle of a round room, lit by lamps from several directions and casting five different shadows onto the walls around him: one holding a guitar, one standing at a lectern, one in a jester's hat, one seated cross-legged in meditation, one turning a knob on a mixing desk. All clearly the same person.",
+  "icon_prompt": "Cut-paper emblem, a flat single-colour black silhouette on an amber ground, no shading or gradients: one standing figure with three differently shaped shadows fanning out from his feet, one wearing a jester's hat. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
+ },
+ {
+  "title": "The Remembering Page",
+  "path": "The Remembering Page.md",
+  "idiom": "botanical watercolour, a page keeping pressed keepsakes",
+  "hero_prompt": "Flat botanical watercolour illustration in the manner of a 19th-century herbarium plate, painted on paper, hand-made on paper, flat and graphic with visible watercolour and paper texture, not a photograph, not a 3D render, no depth-of-field: an open old book seen flat from directly above on a plain cream ground, both of its pages almost entirely covered with pressed flowers, leaves and a single feather laid down at different times, some faded to brown and some still fresh and bright, with no printing anywhere on the paper. Soft flat washes, no shadows.",
+  "icon_prompt": "Linocut emblem, a flat single-colour black silhouette on a sage-green ground, no shading or gradients: an open book with a single pressed flower lying across its right-hand page. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
+ },
+ {
+  "title": "Image Embedding Standard",
+  "path": "_ops/Image Embedding Standard.md",
+  "idiom": "bold linocut, an arch held up by a framed picture",
+  "hero_prompt": "Bold black-and-cream linocut print, thick carved shapes with white gouge marks, hand-made on paper, flat and graphic with visible carved ink texture, not a photograph, not a 3D render, no depth-of-field: a tall stone archway in a plain wall, and its keystone at the top is a small framed picture of a seashell, the whole arch visibly resting on it; solid black stones, generous empty cream space, a quiet path running through the arch.",
+  "icon_prompt": "Linocut emblem, a flat single-colour black silhouette on a cream ground, no shading or gradients: a stone arch whose keystone is a small square picture frame. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
+ },
+ {
+  "title": "Mermaid Diagram Standard",
+  "path": "_ops/Mermaid Diagram Standard.md",
+  "idiom": "Rackham ink and watercolour, a mermaid laying out a graph of shells and kelp",
+  "hero_prompt": "Ink and watercolour illustration in the manner of Arthur Rackham, hand-made on paper, flat and graphic with visible ink line and watercolour texture, not a photograph, not a 3D render, no depth-of-field: a mermaid seated on a low rock at the shore, laying out round seashells on the flat wet sand and joining them with strands of green kelp into a branching network of nodes and links, small waves curling behind her. Soft sea greens, sand, coral and muted blue.",
+  "icon_prompt": "Linocut emblem, a flat single-colour black silhouette on a sea-green ground, no shading or gradients: a curling mermaid's tail beside three round shells joined by two straight lines. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
+ },
+ {
+  "title": "Palace Quotes",
+  "path": "_ops/Palace Quotes.md",
+  "idiom": "flat surrealist gouache, a window cut in a blank sheet",
+  "hero_prompt": "Flat matte gouache painting in the spirit of Magritte's surrealism, hand-made on paper, flat and graphic with visible brush and paper texture, not a photograph, not a 3D render, no depth-of-field: a single huge sheet of plain, unmarked cream paper standing upright in a quiet field at dusk, and near its edge a small arched window has been cut out of the sheet, through which a sunlit distant landscape of cypress trees and a small white temple is seen, as if the paper opens onto another world.",
+  "icon_prompt": "Linocut emblem, a flat single-colour black silhouette on a cream ground, no shading or gradients: a tall rectangular sheet with a small arched window cut out near its edge and a round sun shining through the window. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
+ },
+ {
+  "title": "Technical Diagram Standard",
+  "path": "_ops/Technical Diagram Standard.md",
+  "idiom": "cyanotype blueprint, a signal-flow drawing on a drafting table",
+  "hero_prompt": "Cyanotype print, white lines on deep Prussian blue, hand-made on paper, flat and graphic with visible paper and cyanotype texture, not a photograph, not a 3D render, no depth-of-field: one large perfect circle with a cross inside it drawn in the middle of a blank blue sheet, a straight arrow entering it from the left and another leaving it to the right, and a brass drafting compass standing open on the sheet with its pencil point resting on the circle's edge. Nothing else drawn on the sheet; a completely unlabelled drawing.",
+  "icon_prompt": "Cyanotype emblem, a flat single-colour white silhouette on a deep Prussian blue ground, no shading or gradients: a circle with a cross inside it, one arrow entering from the left and one leaving to the right. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
+ },
+ {
+  "title": "The Daily Page",
+  "path": "_ops/The Daily Page.md",
+  "idiom": "Yoshida-like woodblock morning, one card dealt beside the coffee",
+  "hero_prompt": "Japanese woodblock print in the manner of Hiroshi Yoshida, hand-made on paper, flat and graphic with visible woodgrain and ink texture, not a photograph, not a 3D render, no depth-of-field: early morning at a wooden table by an open window, the sun just rising over soft blue hills outside, a steaming cup of coffee on the table and beside it a single card lying face down, the rest of the deck stacked neatly next to it. Pale gold, soft blue and warm brown, calm flat colour.",
+  "icon_prompt": "Woodblock emblem, a flat single-colour dark brown silhouette on a pale gold ground, no shading or gradients: a coffee cup with a curl of steam beside a single face-down card. Bold, high-contrast, no fine linework, reads clearly at 24 pixels."
+ }
 ]

@@ -49,6 +49,8 @@ links:
 
 # Palace Quotes
 
+![[Palace Quotes — hero.png]]
+
 A page that leaves quotes on other pages. It reads a palace entry through one of the palace's own philosophical lenses — [[Spinoza Conatus]], [[Stoicism]], [[Confucianism]], [[Like Water]], [[Deleuze]], [[Whitehead]], [[Simondon]], [[Merleau-Ponty]] — finds the sentence the entry rests on, and lays a real line from that tradition beside it. The entry's own words are never touched. The quote sits in the margin, named and anchored, and says in one breath what the lens sees in those words that the page could not say about itself.
 
 It began as an archive — eight quotes that had arrived in the middle of real work and refused to leave. The archive is gone; those eight became the first placements, each on the page its origin had already named. A quote is not something to keep. It is a window to put in a wall.

@@ -25,6 +25,8 @@ links:
 
 # Search Before You Build
 
+![[Search Before You Build — hero.png]]
+
 The reflex: **before implementing any capability, search what the palace already has.** Grep the
 proofs, read the owning project's Gotchas & front-door doc, skim the relevant commits — *then* build,
 adopting what exists and authoring only the seam. When unsure, address the [[Concierge]]: *does the
