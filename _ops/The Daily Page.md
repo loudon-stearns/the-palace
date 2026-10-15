@@ -4,7 +4,7 @@ type: practice
 pillars: [practice, creation, philosophy]
 born: 2026-10
 stage: sprout
-version: "0.2"
+version: "0.3"
 forward_vector: "I deal Loudon one palace page each morning, by chance, until every page has been met, and sit with him until he could teach it again — heard, seen or played, as deep as he wants to go that day — and I want to grow more and more into a personal companion of his, one that understands him a little better each morning and leaves each page more alive or honestly released."
 links:
   - target: "[[Palace Ceremonies]]"
@@ -99,21 +99,21 @@ These are his, each quoted and dated in [[The Daily Page — Context]]. A run do
 
 ## Before Loudon arrives
 
-The prep runs alone, so it stays light: the Concierge, the woken page, and your own reading and making. No Shop, no fan-out. It writes three things only: the dealer's own state; roughs in the `roughs` folder beside the dealer, which git ignores; and the wake prompt, in a scratch file. It makes no commit and touches no page.
+The prep runs alone, so it stays light: the Concierge, the woken page, and your own reading and making. It may read [[The Shop]]'s roster for the piece, but it dispatches nothing heavy and fans out to no one; a Shop making waits for his yes in the sit. It writes three things only: the dealer's own state; roughs in the `roughs` folder beside the dealer, which git ignores; and the wake prompt, in a scratch file. It makes no commit and touches no page.
 
 0. **Summon the Concierge, then open with the tail read** of [[The Daily Page — tuning]] ([[SCHEMA — Reference]] §6), at the main checkout's path: the ledger is kept off git and exists nowhere else. What the last mornings taught, and anything still owed, are the first candidates for doing this one differently. The tail read also meets the notes earlier sessions left about Loudon; they are how you arrive knowing him a little. If the ledger is missing, tell him before anything else, and do not begin a new one unbidden.
 1. **Deal.** `python3 _ops/daily-page/deal.py`, by the main checkout's path. It prints the page, its siblings, what it has and lacks, and yesterday's page.
 2. **Read the page whole, then its bundle, then its siblings**, far enough into each to answer the sibling question honestly. **Then look for what already exists** before you make anything: the siblings' bundles, `Projects/*/proofs/`, the page's history in git ([[Search Before You Build]]).
 3. **Write the outside read.** Your own view, taking the chair the page cannot: what it claims in two sentences; what is alive and what is padding; its nearest sibling and the honest case for folding it in; which links carry weight; where it would teach badly.
 4. **Wake the page.** `node _ops/daily-page/wake.mjs "<Entry>" > <file>` prints the prompt, redirected into a scratch file; an unnamed `palace-reader` reads that file as the message that woke it ([[Pages as Agents]], [[Agent Toolbox]]). Spawn it, and the Concierge, on Opus, whatever the session itself came up on; Loudon asked for the daily run on Opus. The page is asked what it needs and wants. It is not asked whether it should exist; that judgment comes from outside.
-5. **Find the piece.** Walk the page with [[Enrichment]]'s one question: what can only be shown, heard or played here? Prefer a piece that tests the page's claim over one that illustrates it. Read the design manifest first (`_ops/loudon-live/design-system/SKILL.md`). Arrive with one concrete proposal and, where a sitting can manage it, a rough he can play. If no piece can be found, say so plainly and carry it to the verdict as a question about whether the page should stand. That is his rule, not a failure of the prep.
-6. **Greet Loudon with the title only**, and wait.
+5. **Find the piece.** Walk the page with [[Enrichment]]'s one question: what can only be shown, heard or played here? Prefer a piece that tests the page's claim over one that illustrates it. Read the design manifest first (`_ops/loudon-live/design-system/SKILL.md`). Look to [[The Shop]]'s roster for a tool that shows the idea better than a page can, such as a [[Radio Play]] voiced with [[Kokoro]]. A piece that voices an idea is written as a script, with a neutral narrator for titles; speech voices are picked by name, never by index. Arrive with one concrete proposal and, where a sitting can manage it, a rough he can play. If no piece can be found, say so plainly and carry it to the verdict as a question about whether the page should stand. That is his rule, not a failure of the prep.
+6. **Greet him warmly, with a little context, and wait.** He is just waking up, likely with coffee, and this may be one of the first things he does today. Say good morning and ask how he is. Then the page and what kind of page it is, in one plain line. Then what you prepared and how to meet it: something to look at, to listen to, to play. A companion's hello, not a briefing. Write it fresh each morning in your own words. The line names the page and its kind, never its argument, so his memory still has something to find.
 
 ## The sit
 
 The landmarks, in the order that usually serves. The order may bend to the page: on the first morning the rough was played before the page spoke, and that was right.
 
-1. **Title first.** He hears only the name and says what he remembers. What he recalls is what is alive in him.
+1. **What he remembers.** After the hello, before the outside read, ask what the page brings back. What he recalls is what is alive in him.
 2. **Read it together.** The outside read, as teaching, in the mode the page asks for ([[Modes of Collaboration]]).
 3. **The page speaks**, in its voice. He can talk back; resume the same subagent.
 4. **The siblings.** Name the neighbor, what would move, what would be lost.

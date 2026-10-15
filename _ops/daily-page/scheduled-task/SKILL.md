@@ -13,7 +13,7 @@ The practice is one page. Read it whole before you do anything else, and follow 
 
 /Users/loudonstearns/Documents/The Palace/_ops/The Daily Page.md
 
-Then do its "Before Loudon arrives" part now, and stop at that part's last step: greet Loudon with today's page title only, and wait for him. Everything after that is a conversation with him, the part the page calls "The sit".
+Then do its "Before Loudon arrives" part now, and stop at that part's last step: greet Loudon warmly, with the page, what kind of page it is and what you prepared, as that step says, and wait for him. Everything after that is a conversation with him, the part the page calls "The sit".
 
 Three things the page cannot tell you, because they are about this task and not the practice:
 

@@ -2,7 +2,7 @@
 
 The practice itself is a page: **[[The Daily Page]]**, `_ops/The Daily Page.md`. This folder holds what runs it.
 
-**If a scheduled task sent you here to follow this file:** the practice moved. Read `_ops/The Daily Page.md` in the main checkout, do its "Before Loudon arrives" part, and stop at that part's last step: greet Loudon with the page's title only, and wait. The trial's `record.md` is gone from this folder; it held nothing still waiting for him.
+**If a scheduled task sent you here to follow this file:** the practice moved. Read `_ops/The Daily Page.md` in the main checkout, do its "Before Loudon arrives" part, and stop at that part's last step: greet Loudon as its last step says, and wait. The trial's `record.md` is gone from this folder; it held nothing still waiting for him.
 
 ## Files
 
