@@ -15,20 +15,20 @@ forward_vector: "I am Retrospective Delay's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-15T01:36:53.623Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-15T01:42:09.678Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 22 · last ran 2026-10-15 (today)
-- **Plan:** agreed 2026-09-26 (19 days ago) · 5 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 23 · last ran 2026-10-15 (today)
+- **Plan:** agreed 2026-09-26 (19 days ago) · 6 made things since
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-15 (today) — The witness now teaches honestly that it's an echo. Silence-keeps moved to the séance, with a 5 ms crossfade so neither stopping nor coming in clicks. (`retrospective-delay-steward-050`)
-- **Last commit touching this project:** 2026-10-14 `0f680b98` — steward(Retrospective Delay): cycle 21 — SPINNING UP. HOME: [Retrospective Delay](obsidian://open?vault=The%20Pa…
+- **Last shipped:** 2026-10-15 (today) — The séance cat now watches the instrument, not the knob. Its pose, ectoplasm and candle each come from the gen~ device, and there's a film of it. (`retrospective-delay-steward-052`)
+- **Last commit touching this project:** 2026-10-14 `9d13e565` — steward(Retrospective Delay): cycle 22 — SPINNING UP. HOME: [Retrospective Delay](obsidian://open?vault=The%20Pa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Retrospective Delay is a one-measure delay that is always listening. A buffer holds the last measure of everything you play, and one gain knob decides whether that past comes back. The plan builds it in five moves, each a Loudon Live session. The first three now exist as patches, models and session drafts: the witness (the bare always-recording buffer, in vanilla Max), the séance (making it playable), and the grammar (the same thing as one gen~ codebox, set beside the compressor's 11 ms window). Yesterday the witness turned out to be exactly a half-note echo, and you chose to keep it that way. Its session should admit it, and 'silence keeps the past' should arrive in the séance, with a few…
+Retrospective Delay is a one-measure delay that is always listening. A buffer holds the last measure of everything you play, and one gain knob decides whether that past comes back. The plan builds it in five moves, each a Loudon Live session. The first three are built as patches, models and session drafts: the witness (the bare buffer, which turned out to be an honest half-note echo), the séance (silence keeps the past, with the 5 ms crossfade you asked for), and the grammar (the same thing as one gen~ codebox). The Gorey séance cat was drawn back in June and wired to the knob. This cycle built the fourth move, the face. The cat now reads three facts from the gen~ device instead of the dial…
 
 ### Open asks
 
@@ -82,6 +82,47 @@ Decided with Loudon when the Loudon Live arc was designed (April 2026), and seed
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="retrospective-delay-steward-052" -->
+### 2026-10-15 — cycle 23 — The séance cat now watches the instrument, not the knob. Its pose, ectoplasm and candle each come from the gen~ device, and there's a film of it.
+> shipped · the face is built in model and patch · not opened in Max · steward leans the portal next
+
+**The cat used to say only what the dial said.** Turn the knob and it woke, reached, triumphed. That's charming, and it's redundant. Now [face.genexpr](obsidian://open?vault=The%20Palace&file=Projects/Retrospective%20Delay/stage-4-character/face/face.genexpr) is the grammar's codebox, unchanged, plus three outlets: the slewed gain (the knob as heard), an envelope on the raw ghost before the knob (is anything on the tape?), and `1 - listen` (is the tape holding?). The model checks that the sound is untouched: the face's output matches the grammar's exactly, difference zero.
+
+**Two frames the knob could never show.** In [face-moments.png](open:Projects/Retrospective Delay/stage-4-character/face/face-moments.png), bottom-left: the cat asleep, pale strands still around it, candle lit. You dismissed the ghost, but the past is still on the tape. Bottom-right: knob all the way up, cat reaching, no strands. The room is empty. Those two frames are the session's whole argument: a face should show what the instrument is doing, not what its controls are set to.
+
+**One thing I caught by looking.** In the first render the ectoplasm was dark ink, the old JSUI's colour, and it disappeared against the plates. 'Summoned' and 'empty room' looked identical. I moved it to pale bone, drawn after the lights-down darkening, so it reads even while the cat sleeps. I also stretched the presence envelope's release to 1 second, so the rests inside a phrase don't flicker as 'empty'.
+
+**The film.** [face-film.mp4](open:Projects/Retrospective Delay/stage-4-character/face/face-film.mp4) is the séance's 15-measure performance with sound, the cat reacting at 30 fps, and a caption and three small meters under it. Watch measures 9 to 12: dismissed, asleep with the past kept, then summoned again, and the same phrase comes back.
+
+**In Max.** [face.maxpat](open:Projects/Retrospective Delay/stage-4-character/face/face.maxpat) is the grammar device with `snapshot~ 33` on the three new outlets feeding a jsui running the rewritten [seance-cat.js](obsidian://open?vault=The%20Palace&file=Projects/Retrospective%20Delay/stage-4-character/jsui/seance-cat.js). The cat never sees the dial. The [session draft](obsidian://open?vault=The%20Palace&file=Projects/Retrospective%20Delay/stage-4-character/stage-4-the-face.md) runs about 70% making, as the standing orders set for non-migration moves. The room finds the three facts themselves, each one from an earlier session. Then they build the outlets, wire the cat, and watch the film calling out moments before the captions do. It ends on the bridge to the portal: RNBO has no JSUI, so what happens to the face when the instrument leaves Max?
+
+**Artifacts:**
+- [start here: the séance performance with sound, the cat reacting to the instrument, 30 s.](Projects/Retrospective Delay/stage-4-character/face/face-film.mp4)
+- [six stills: play, summon, overwrite, dismissed-but-kept, summon again, and the empty room.](Projects/Retrospective Delay/stage-4-character/face/face-moments.png)
+- [the face session draft: frame, five build steps, watch it together, reflect.](Projects/Retrospective Delay/stage-4-character/stage-4-the-face.md)
+- [the grammar's codebox plus three outlets for the face. Sound unchanged.](Projects/Retrospective Delay/stage-4-character/face/face.genexpr)
+- [the gen~ device with the cat in its face, fed only by gen~ outlets. Not opened in Max.](Projects/Retrospective Delay/stage-4-character/face/face.maxpat)
+- [writes face.maxpat; header says how to put the plates on Max's search path.](Projects/Retrospective Delay/stage-4-character/face/build_face_patch.py)
+- [runs face.genexpr line for line, paints the cat the way the JSUI does, films it.](Projects/Retrospective Delay/stage-4-character/face/face_model.py)
+- [the JSUI cat, rewritten: three inputs, pale ectoplasm over the darkening, a candle.](Projects/Retrospective Delay/stage-4-character/jsui/seance-cat.js)
+- [the old one-knob preview, now marked superseded.](Projects/Retrospective Delay/stage-4-character/jsui/render_wired_preview.py)
+
+_what the face reads at six moments (face_model.py)_
+| moment | knob as heard | on the tape | holding | what you see |
+| --- | --- | --- | --- | --- |
+| you play, knob down | 0.00 | 1.00 | 0 | asleep, strands faint, candle out |
+| summoned | 0.85 | 0.85 | 1 | arms up, strands bright, candle lit |
+| playing over it | 0.85 | 0.84 | 0 | arms up, candle out: the tape listens |
+| dismissed | 0.00 | 0.57 | 1 | asleep, strands still there: past kept |
+| summoned again | 0.85 | 1.00 | 1 | the same past returns |
+| empty room | 0.85 | 0.00 | 1 | arms up, nothing there |
+
+_Left rough:_ Nothing has run in Max, and the jsui finding its plates inside a frozen device is the likeliest break. The strands are plain vector curves over hand-inked plates: they read, but they don't match the Gorey line. In the empty room the candle is lit because the tape is 'holding' silence. That's honest, but it may look like a bug.
+
+_Next moves named:_ The portal, the last move: carry seance.genexpr into an RNBO codebox~ through the RNBO codebox~ smith, sizing the tape from the sample rate, and ask what the face becomes once there's no JSUI. · Whenever Live is open: load face.maxpat in a Max Audio Effect, play a phrase with the knob down, and check that the sleeping cat grows strands. · If the face's style matters for the public session: redraw the ectoplasm as inked plates rather than vector strands.
+<sub>`retrospective-delay-steward-052` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="retrospective-delay-steward-050" -->
 ### 2026-10-15 — cycle 22 — The witness now teaches honestly that it's an echo. Silence-keeps moved to the séance, with a 5 ms crossfade so neither stopping nor coming in clicks.
 > shipped · your KEEP-SPEC call carried through all three sessions · steward leans the face next

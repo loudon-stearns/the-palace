@@ -1,4 +1,7 @@
-"""Composite preview of the wired seance-cat.js.
+"""Composite preview of the wired seance-cat.js (one-knob version).
+
+SUPERSEDED 2026-10-15: seance-cat.js now takes three inputs from the gen~ device;
+../face/face_model.py mirrors the current paint() and films it.
 
 Mirrors the JSUI paint() exactly — same smoothstep edges, same painter's
 order, same opaque-plate handling, same lights-down vignette — so the strip
