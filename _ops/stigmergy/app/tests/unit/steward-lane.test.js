@@ -4,7 +4,7 @@ import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   slugFromDir, transcriptNameFor, stewardArgv, grantsWaitingFor, stewardRow,
-  runCapFor, nextRunStep, stopReason, afterCycle,
+  runCapFor, nextRunStep, stopReason, afterCycle, costFromTranscriptText,
 } from '../../server/steward-lane.js';
 import { extractMessagesFromTranscript } from '../../../orchestrator/src/process-cycle.js';
 import { resolveClaudeBin } from '../../server/claude-bin.js';
@@ -162,5 +162,21 @@ describe('spawn failure ends a run at once, without a retry or a stall', () => {
   test('nextRunStep / stopReason on spawn_failed', () => {
     expect(nextRunStep({ cap: 10, position: 1, retried: false }, 'spawn_failed')).toBeNull();
     expect(stopReason({ cap: 10, position: 1, retried: false }, 'spawn_failed')).toBe('spawn_failed');
+  });
+});
+
+describe('costFromTranscriptText — the result line does not start with "type" (2026-10-15)', () => {
+  test('finds the result line wherever its keys sit, and returns its cost', () => {
+    const text = [
+      '{"type":"assistant","message":{}}',
+      '{"duration_api_ms":166996,"stop_reason":"end_turn","session_id":"x","total_cost_usd":4.1234,"type":"result","subtype":"success"}',
+      '',
+    ].join('\n');
+    expect(costFromTranscriptText(text)).toBe(4.1234);
+  });
+  test('null when there is no result line or no cost', () => {
+    expect(costFromTranscriptText('{"type":"assistant"}\n')).toBeNull();
+    expect(costFromTranscriptText('{"type":"result","subtype":"success"}')).toBeNull();
+    expect(costFromTranscriptText('')).toBeNull();
   });
 });

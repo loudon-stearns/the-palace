@@ -158,6 +158,20 @@ export function stewardRow({ entry, state, manifest, board, palaceRoot }) {
 // 2026-10-13); 91 minutes was a stall. Overridable per batch (max_cycle_minutes).
 export const DEFAULT_CYCLE_CEILING_MIN = 45;
 
+/**
+ * The cost a cycle reports in its own stream-json result line. The line's keys
+ * are in no fixed order (it begins with duration_api_ms, not type), so parse
+ * the tail lines and take the one whose type is "result". null when absent.
+ */
+export function costFromTranscriptText(text) {
+  const lines = String(text || '').trim().split('\n');
+  for (let i = lines.length - 1; i >= 0 && i >= lines.length - 40; i--) {
+    let m; try { m = JSON.parse(lines[i]); } catch { continue; }
+    if (m && m.type === 'result') return typeof m.total_cost_usd === 'number' ? m.total_cost_usd : null;
+  }
+  return null;
+}
+
 export function runCapFor(manifest, override = null) {
   if (Number.isInteger(override) && override > 0) return override;
   const m = manifest && manifest.stopping_conditions && manifest.stopping_conditions.max_iterations;
@@ -263,14 +277,7 @@ export function createStewardLane(opts = {}) {
   }
   // The cost a cycle reports in its own result line (stream-json `result`).
   function readCycleCost(transcriptPath) {
-    try {
-      const text = readFileSync(transcriptPath, 'utf8');
-      const i = text.lastIndexOf('{"type":"result"');
-      if (i < 0) return null;
-      const line = text.slice(i, text.indexOf('\n', i) < 0 ? undefined : text.indexOf('\n', i));
-      const r = JSON.parse(line);
-      return typeof r.total_cost_usd === 'number' ? r.total_cost_usd : null;
-    } catch (_) { return null; }
+    try { return costFromTranscriptText(readFileSync(transcriptPath, 'utf8')); } catch (_) { return null; }
   }
   // The watchdog (2026-10-15): the clock used to be checked only at a reap, so
   // one slow cycle ran 91 minutes under a 60-minute limit (the first heartbeat
