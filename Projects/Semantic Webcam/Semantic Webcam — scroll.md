@@ -15,14 +15,15 @@ forward_vector: "I am Semantic Webcam's scroll — the one page that always open
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-23T04:36:43.543Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — steer the project in **Standing Orders** below, never here._
+> _Regenerated 2026-10-15T10:07:03.511Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 7 · last ran 2026-06-25 (90 days ago)
+- **Status:** active · **Stage:** growing · **Steward:** cycle 8 · last ran 2026-10-15 (today)
+- **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-06-23 (91 days ago) — Shipped: the five facets folded into one iterable deck — semantic-webcam-deck.html. (`semantic-webcam-010`)
-- **Last commit touching this project:** 2026-09-22 `e346b33` — ops(Semantic Webcam): flush working proofs, renders + code
-- **Signal:** ⚠ the last cycle posted nothing (one barren cycle — the lane will retry before calling it stalled)
+- **Last shipped:** 2026-06-23 (114 days ago) — Shipped: the five facets folded into one iterable deck — semantic-webcam-deck.html. (`semantic-webcam-010`)
+- **Last commit touching this project:** 2026-09-26 `e3f62c02` — edit(Oblique Enrichment): the retired card deck leaves; its links go home to Enrichment
+- **Signal:** ⚠ **STALLED** — the last 1 cycle posted nothing. The loop is broken until a cycle ships; the lane retries once, then flags here.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
@@ -42,6 +43,12 @@ _None._
 - `semantic-webcam-011` — directional_decision → GRANTED — option_id=EYES-AND-FINGERS (2026-06-25)
 
 <!-- scroll:now:end -->
+
+## Plan
+
+<!-- scroll:plan:start -->
+_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+<!-- scroll:plan:end -->
 
 ## Standing Orders
 
