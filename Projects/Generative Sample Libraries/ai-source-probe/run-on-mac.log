@@ -1,0 +1,499 @@
+AI-source probe · 2026-09-23 19:48 · palace /Users/loudonstearns/Documents/The Palace 
+
+── render · crystal
+[crystal]   1/48 piano    A2 s1  ok  0.8s
+[crystal]   2/48 piano    A2 s2  ok  0.1s
+[crystal]   3/48 piano    E3 s1  ok  0.1s
+[crystal]   4/48 piano    E3 s2  ok  0.1s
+[crystal]   5/48 piano    C4 s1  ok  0.1s
+[crystal]   6/48 piano    C4 s2  ok  0.1s
+[crystal]   7/48 piano    G5 s1  ok  0.1s
+[crystal]   8/48 piano    G5 s2  ok  0.1s
+[crystal]   9/48 violin   A2 s1  ok  0.1s
+[crystal]  10/48 violin   A2 s2  ok  0.1s
+[crystal]  11/48 violin   E3 s1  ok  0.1s
+[crystal]  12/48 violin   E3 s2  ok  0.1s
+[crystal]  13/48 violin   C4 s1  ok  0.1s
+[crystal]  14/48 violin   C4 s2  ok  0.1s
+[crystal]  15/48 violin   G5 s1  ok  0.1s
+[crystal]  16/48 violin   G5 s2  ok  0.1s
+[crystal]  17/48 marimba  A2 s1  ok  0.1s
+[crystal]  18/48 marimba  A2 s2  ok  0.1s
+[crystal]  19/48 marimba  E3 s1  ok  0.1s
+[crystal]  20/48 marimba  E3 s2  ok  0.1s
+[crystal]  21/48 marimba  C4 s1  ok  0.1s
+[crystal]  22/48 marimba  C4 s2  ok  0.1s
+[crystal]  23/48 marimba  G5 s1  ok  0.2s
+[crystal]  24/48 marimba  G5 s2  ok  0.1s
+[crystal]  25/48 flute    A2 s1  ok  0.1s
+[crystal]  26/48 flute    A2 s2  ok  0.1s
+[crystal]  27/48 flute    E3 s1  ok  0.1s
+[crystal]  28/48 flute    E3 s2  ok  0.1s
+[crystal]  29/48 flute    C4 s1  ok  0.1s
+[crystal]  30/48 flute    C4 s2  ok  0.1s
+[crystal]  31/48 flute    G5 s1  ok  0.1s
+[crystal]  32/48 flute    G5 s2  ok  0.1s
+[crystal]  33/48 bass     A2 s1  ok  0.1s
+[crystal]  34/48 bass     A2 s2  ok  0.1s
+[crystal]  35/48 bass     E3 s1  ok  0.1s
+[crystal]  36/48 bass     E3 s2  ok  0.1s
+[crystal]  37/48 bass     C4 s1  ok  0.1s
+[crystal]  38/48 bass     C4 s2  ok  0.1s
+[crystal]  39/48 bass     G5 s1  ok  0.1s
+[crystal]  40/48 bass     G5 s2  ok  0.1s
+[crystal]  41/48 choir    A2 s1  ok  0.1s
+[crystal]  42/48 choir    A2 s2  ok  0.1s
+[crystal]  43/48 choir    E3 s1  ok  0.1s
+[crystal]  44/48 choir    E3 s2  ok  0.1s
+[crystal]  45/48 choir    C4 s1  ok  0.1s
+[crystal]  46/48 choir    C4 s2  ok  0.1s
+[crystal]  47/48 choir    G5 s1  ok  0.1s
+[crystal]  48/48 choir    G5 s2  ok  0.1s
+[crystal] rendered 48/48 → renders.crystal.jsonl
+
+── render · stable_audio
+No module named 'flash_attn'
+flash_attn not installed, disabling Flash Attention
+No module named 'flash_attn'
+flash_attn varlen/bert_padding not available, disabling varlen attention
+/Users/loudonstearns/Documents/The Palace/_tools/stable-audio-3/.venv/lib/python3.10/site-packages/torch/nn/utils/weight_norm.py:143: FutureWarning: `torch.nn.utils.weight_norm` is deprecated in favor of `torch.nn.utils.parametrizations.weight_norm`.
+  WeightNorm.apply(module, name, dim)
+Loading weights:   0%|          | 0/134 [00:00<?, ?it/s]Loading weights: 100%|██████████| 134/134 [00:00<00:00, 45593.96it/s]
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:00<00:02,  3.16it/s] 38%|███▊      | 3/8 [00:00<00:00,  5.83it/s] 50%|█████     | 4/8 [00:00<00:00,  6.19it/s] 62%|██████▎   | 5/8 [00:00<00:00,  6.45it/s] 75%|███████▌  | 6/8 [00:00<00:00,  6.61it/s] 88%|████████▊ | 7/8 [00:01<00:00,  6.75it/s]100%|██████████| 8/8 [00:01<00:00,  6.83it/s]100%|██████████| 8/8 [00:01<00:00,  6.30it/s]
+[stable_audio]   1/48 piano    A2 s1  ok  11.3s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.42it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.73it/s] 50%|█████     | 4/8 [00:00<00:00,  7.45it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.29it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.20it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.16it/s]100%|██████████| 8/8 [00:01<00:00,  7.13it/s]100%|██████████| 8/8 [00:01<00:00,  7.32it/s]
+[stable_audio]   2/48 piano    A2 s2  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.41it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.85it/s] 50%|█████     | 4/8 [00:00<00:00,  7.57it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.42it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.34it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.27it/s]100%|██████████| 8/8 [00:01<00:00,  7.23it/s]100%|██████████| 8/8 [00:01<00:00,  7.43it/s]
+[stable_audio]   3/48 piano    E3 s1  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.52it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.90it/s] 50%|█████     | 4/8 [00:00<00:00,  7.60it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.46it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.36it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.28it/s]100%|██████████| 8/8 [00:01<00:00,  7.25it/s]100%|██████████| 8/8 [00:01<00:00,  7.46it/s]
+[stable_audio]   4/48 piano    E3 s2  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:00<00:00,  8.61it/s] 25%|██▌       | 2/8 [00:00<00:00,  7.67it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.44it/s] 50%|█████     | 4/8 [00:00<00:00,  7.33it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.27it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.23it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.20it/s]100%|██████████| 8/8 [00:01<00:00,  7.18it/s]100%|██████████| 8/8 [00:01<00:00,  7.31it/s]
+[stable_audio]   5/48 piano    C4 s1  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.51it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.91it/s] 50%|█████     | 4/8 [00:00<00:00,  7.63it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.45it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.35it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.29it/s]100%|██████████| 8/8 [00:01<00:00,  7.24it/s]100%|██████████| 8/8 [00:01<00:00,  7.46it/s]
+[stable_audio]   6/48 piano    C4 s2  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.42it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.79it/s] 50%|█████     | 4/8 [00:00<00:00,  7.49it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.31it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.22it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.14it/s]100%|██████████| 8/8 [00:01<00:00,  7.11it/s]100%|██████████| 8/8 [00:01<00:00,  7.33it/s]
+[stable_audio]   7/48 piano    G5 s1  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.38it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.77it/s] 50%|█████     | 4/8 [00:00<00:00,  7.48it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.33it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.23it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.17it/s]100%|██████████| 8/8 [00:01<00:00,  7.12it/s]100%|██████████| 8/8 [00:01<00:00,  7.33it/s]
+[stable_audio]   8/48 piano    G5 s2  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.37it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.77it/s] 50%|█████     | 4/8 [00:00<00:00,  7.48it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.30it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.20it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.15it/s]100%|██████████| 8/8 [00:01<00:00,  7.12it/s]100%|██████████| 8/8 [00:01<00:00,  7.32it/s]
+[stable_audio]   9/48 violin   A2 s1  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.37it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.73it/s] 50%|█████     | 4/8 [00:00<00:00,  7.48it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.37it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.30it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.26it/s]100%|██████████| 8/8 [00:01<00:00,  7.24it/s]100%|██████████| 8/8 [00:01<00:00,  7.40it/s]
+[stable_audio]  10/48 violin   A2 s2  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.51it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.91it/s] 50%|█████     | 4/8 [00:00<00:00,  7.59it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.43it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.34it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.29it/s]100%|██████████| 8/8 [00:01<00:00,  7.25it/s]100%|██████████| 8/8 [00:01<00:00,  7.46it/s]
+[stable_audio]  11/48 violin   E3 s1  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.54it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.90it/s] 50%|█████     | 4/8 [00:00<00:00,  7.59it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.45it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.35it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.28it/s]100%|██████████| 8/8 [00:01<00:00,  7.24it/s]100%|██████████| 8/8 [00:01<00:00,  7.45it/s]
+[stable_audio]  12/48 violin   E3 s2  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.53it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.89it/s] 50%|█████     | 4/8 [00:00<00:00,  7.60it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.45it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.35it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.29it/s]100%|██████████| 8/8 [00:01<00:00,  7.24it/s]100%|██████████| 8/8 [00:01<00:00,  7.45it/s]
+[stable_audio]  13/48 violin   C4 s1  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.33it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.74it/s] 50%|█████     | 4/8 [00:00<00:00,  7.48it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.30it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.21it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.16it/s]100%|██████████| 8/8 [00:01<00:00,  7.11it/s]100%|██████████| 8/8 [00:01<00:00,  7.32it/s]
+[stable_audio]  14/48 violin   C4 s2  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.38it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.77it/s] 50%|█████     | 4/8 [00:00<00:00,  7.48it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.32it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.22it/s] 88%|████████▊ | 7/8 [00:00<00:00,  6.97it/s]100%|██████████| 8/8 [00:01<00:00,  6.99it/s]100%|██████████| 8/8 [00:01<00:00,  7.25it/s]
+[stable_audio]  15/48 violin   G5 s1  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.38it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.78it/s] 50%|█████     | 4/8 [00:00<00:00,  7.48it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.31it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.20it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.14it/s]100%|██████████| 8/8 [00:01<00:00,  7.10it/s]100%|██████████| 8/8 [00:01<00:00,  7.32it/s]
+[stable_audio]  16/48 violin   G5 s2  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.37it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.75it/s] 50%|█████     | 4/8 [00:00<00:00,  7.48it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.32it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.19it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.18it/s]100%|██████████| 8/8 [00:01<00:00,  7.16it/s]100%|██████████| 8/8 [00:01<00:00,  7.34it/s]
+[stable_audio]  17/48 marimba  A2 s1  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.53it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.87it/s] 50%|█████     | 4/8 [00:00<00:00,  7.59it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.45it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.34it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.29it/s]100%|██████████| 8/8 [00:01<00:00,  7.26it/s]100%|██████████| 8/8 [00:01<00:00,  7.46it/s]
+[stable_audio]  18/48 marimba  A2 s2  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.53it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.92it/s] 50%|█████     | 4/8 [00:00<00:00,  7.62it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.47it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.35it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.28it/s]100%|██████████| 8/8 [00:01<00:00,  7.24it/s]100%|██████████| 8/8 [00:01<00:00,  7.46it/s]
+[stable_audio]  19/48 marimba  E3 s1  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.48it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.87it/s] 50%|█████     | 4/8 [00:00<00:00,  7.59it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.43it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.34it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.28it/s]100%|██████████| 8/8 [00:01<00:00,  7.25it/s]100%|██████████| 8/8 [00:01<00:00,  7.45it/s]
+[stable_audio]  20/48 marimba  E3 s2  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.50it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.89it/s] 50%|█████     | 4/8 [00:00<00:00,  7.55it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.38it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.28it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.19it/s]100%|██████████| 8/8 [00:01<00:00,  7.15it/s]100%|██████████| 8/8 [00:01<00:00,  7.38it/s]
+[stable_audio]  21/48 marimba  C4 s1  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.38it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.75it/s] 50%|█████     | 4/8 [00:00<00:00,  7.48it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.32it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.22it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.16it/s]100%|██████████| 8/8 [00:01<00:00,  7.14it/s]100%|██████████| 8/8 [00:01<00:00,  7.34it/s]
+[stable_audio]  22/48 marimba  C4 s2  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.34it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.78it/s] 50%|█████     | 4/8 [00:00<00:00,  7.49it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.33it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.23it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.18it/s]100%|██████████| 8/8 [00:01<00:00,  7.15it/s]100%|██████████| 8/8 [00:01<00:00,  7.35it/s]
+[stable_audio]  23/48 marimba  G5 s1  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.39it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.77it/s] 50%|█████     | 4/8 [00:00<00:00,  7.47it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.33it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.24it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.17it/s]100%|██████████| 8/8 [00:01<00:00,  7.14it/s]100%|██████████| 8/8 [00:01<00:00,  7.34it/s]
+[stable_audio]  24/48 marimba  G5 s2  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.48it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.87it/s] 50%|█████     | 4/8 [00:00<00:00,  7.58it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.45it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.35it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.29it/s]100%|██████████| 8/8 [00:01<00:00,  7.25it/s]100%|██████████| 8/8 [00:01<00:00,  7.45it/s]
+[stable_audio]  25/48 flute    A2 s1  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.51it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.90it/s] 50%|█████     | 4/8 [00:00<00:00,  7.62it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.45it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.34it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.28it/s]100%|██████████| 8/8 [00:01<00:00,  7.24it/s]100%|██████████| 8/8 [00:01<00:00,  7.46it/s]
+[stable_audio]  26/48 flute    A2 s2  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.50it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.89it/s] 50%|█████     | 4/8 [00:00<00:00,  7.60it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.44it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.34it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.30it/s]100%|██████████| 8/8 [00:01<00:00,  7.25it/s]100%|██████████| 8/8 [00:01<00:00,  7.46it/s]
+[stable_audio]  27/48 flute    E3 s1  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.51it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.89it/s] 50%|█████     | 4/8 [00:00<00:00,  7.58it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.44it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.30it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.22it/s]100%|██████████| 8/8 [00:01<00:00,  7.16it/s]100%|██████████| 8/8 [00:01<00:00,  7.40it/s]
+[stable_audio]  28/48 flute    E3 s2  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.40it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.76it/s] 50%|█████     | 4/8 [00:00<00:00,  7.46it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.31it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.22it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.11it/s]100%|██████████| 8/8 [00:01<00:00,  7.15it/s]100%|██████████| 8/8 [00:01<00:00,  7.33it/s]
+[stable_audio]  29/48 flute    C4 s1  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.21it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.75it/s] 50%|█████     | 4/8 [00:00<00:00,  7.42it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.23it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.13it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.06it/s]100%|██████████| 8/8 [00:01<00:00,  7.03it/s]100%|██████████| 8/8 [00:01<00:00,  7.24it/s]
+[stable_audio]  30/48 flute    C4 s2  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.37it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.77it/s] 50%|█████     | 4/8 [00:00<00:00,  7.46it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.25it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.16it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.09it/s]100%|██████████| 8/8 [00:01<00:00,  7.06it/s]100%|██████████| 8/8 [00:01<00:00,  7.28it/s]
+[stable_audio]  31/48 flute    G5 s1  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.43it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.86it/s] 50%|█████     | 4/8 [00:00<00:00,  7.58it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.42it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.33it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.26it/s]100%|██████████| 8/8 [00:01<00:00,  7.24it/s]100%|██████████| 8/8 [00:01<00:00,  7.43it/s]
+[stable_audio]  32/48 flute    G5 s2  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.50it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.89it/s] 50%|█████     | 4/8 [00:00<00:00,  7.60it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.44it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.32it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.27it/s]100%|██████████| 8/8 [00:01<00:00,  7.23it/s]100%|██████████| 8/8 [00:01<00:00,  7.44it/s]
+[stable_audio]  33/48 bass     A2 s1  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.52it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.92it/s] 50%|█████     | 4/8 [00:00<00:00,  7.63it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.46it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.37it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.29it/s]100%|██████████| 8/8 [00:01<00:00,  7.25it/s]100%|██████████| 8/8 [00:01<00:00,  7.47it/s]
+[stable_audio]  34/48 bass     A2 s2  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.53it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.88it/s] 50%|█████     | 4/8 [00:00<00:00,  7.59it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.45it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.33it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.28it/s]100%|██████████| 8/8 [00:01<00:00,  7.22it/s]100%|██████████| 8/8 [00:01<00:00,  7.44it/s]
+[stable_audio]  35/48 bass     E3 s1  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.38it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.74it/s] 50%|█████     | 4/8 [00:00<00:00,  7.47it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.30it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.20it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.16it/s]100%|██████████| 8/8 [00:01<00:00,  7.12it/s]100%|██████████| 8/8 [00:01<00:00,  7.32it/s]
+[stable_audio]  36/48 bass     E3 s2  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.35it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.72it/s] 50%|█████     | 4/8 [00:00<00:00,  7.46it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.30it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.22it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.15it/s]100%|██████████| 8/8 [00:01<00:00,  7.11it/s]100%|██████████| 8/8 [00:01<00:00,  7.32it/s]
+[stable_audio]  37/48 bass     C4 s1  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.37it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.72it/s] 50%|█████     | 4/8 [00:00<00:00,  7.48it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.32it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.20it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.16it/s]100%|██████████| 8/8 [00:01<00:00,  7.13it/s]100%|██████████| 8/8 [00:01<00:00,  7.33it/s]
+[stable_audio]  38/48 bass     C4 s2  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  6.34it/s] 38%|███▊      | 3/8 [00:00<00:00,  6.62it/s] 50%|█████     | 4/8 [00:00<00:00,  6.80it/s] 62%|██████▎   | 5/8 [00:00<00:00,  6.92it/s] 75%|███████▌  | 6/8 [00:00<00:00,  6.99it/s] 88%|████████▊ | 7/8 [00:01<00:00,  7.05it/s]100%|██████████| 8/8 [00:01<00:00,  7.09it/s]100%|██████████| 8/8 [00:01<00:00,  6.92it/s]
+[stable_audio]  39/48 bass     G5 s1  ok  1.5s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.52it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.91it/s] 50%|█████     | 4/8 [00:00<00:00,  7.60it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.43it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.35it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.28it/s]100%|██████████| 8/8 [00:01<00:00,  7.24it/s]100%|██████████| 8/8 [00:01<00:00,  7.45it/s]
+[stable_audio]  40/48 bass     G5 s2  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.51it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.89it/s] 50%|█████     | 4/8 [00:00<00:00,  7.60it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.44it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.34it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.28it/s]100%|██████████| 8/8 [00:01<00:00,  7.23it/s]100%|██████████| 8/8 [00:01<00:00,  7.44it/s]
+[stable_audio]  41/48 choir    A2 s1  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.52it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.90it/s] 50%|█████     | 4/8 [00:00<00:00,  7.61it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.44it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.33it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.29it/s]100%|██████████| 8/8 [00:01<00:00,  7.25it/s]100%|██████████| 8/8 [00:01<00:00,  7.46it/s]
+[stable_audio]  42/48 choir    A2 s2  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.35it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.74it/s] 50%|█████     | 4/8 [00:00<00:00,  7.45it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.30it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.22it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.14it/s]100%|██████████| 8/8 [00:01<00:00,  7.10it/s]100%|██████████| 8/8 [00:01<00:00,  7.31it/s]
+[stable_audio]  43/48 choir    E3 s1  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.32it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.74it/s] 50%|█████     | 4/8 [00:00<00:00,  7.46it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.30it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.20it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.13it/s]100%|██████████| 8/8 [00:01<00:00,  7.09it/s]100%|██████████| 8/8 [00:01<00:00,  7.30it/s]
+[stable_audio]  44/48 choir    E3 s2  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.36it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.76it/s] 50%|█████     | 4/8 [00:00<00:00,  7.47it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.30it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.20it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.13it/s]100%|██████████| 8/8 [00:01<00:00,  7.11it/s]100%|██████████| 8/8 [00:01<00:00,  7.31it/s]
+[stable_audio]  45/48 choir    C4 s1  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.38it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.76it/s] 50%|█████     | 4/8 [00:00<00:00,  7.48it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.32it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.22it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.21it/s]100%|██████████| 8/8 [00:01<00:00,  7.18it/s]100%|██████████| 8/8 [00:01<00:00,  7.36it/s]
+[stable_audio]  46/48 choir    C4 s2  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.54it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.87it/s] 50%|█████     | 4/8 [00:00<00:00,  7.59it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.44it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.35it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.29it/s]100%|██████████| 8/8 [00:01<00:00,  7.25it/s]100%|██████████| 8/8 [00:01<00:00,  7.46it/s]
+[stable_audio]  47/48 choir    G5 s1  ok  1.4s
+  0%|          | 0/8 [00:00<?, ?it/s] 25%|██▌       | 2/8 [00:00<00:00,  8.52it/s] 38%|███▊      | 3/8 [00:00<00:00,  7.88it/s] 50%|█████     | 4/8 [00:00<00:00,  7.59it/s] 62%|██████▎   | 5/8 [00:00<00:00,  7.42it/s] 75%|███████▌  | 6/8 [00:00<00:00,  7.34it/s] 88%|████████▊ | 7/8 [00:00<00:00,  7.27it/s]100%|██████████| 8/8 [00:01<00:00,  7.24it/s]100%|██████████| 8/8 [00:01<00:00,  7.45it/s]
+[stable_audio]  48/48 choir    G5 s2  ok  1.4s
+[stable_audio] rendered 48/48 → renders.stable_audio.jsonl
+
+── render · musicgen_melody
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 24.36it/s]
+[musicgen_melody]   1/48 piano    A2 s1  ok  17.9s
+[musicgen_melody]   2/48 piano    A2 s2  ok  9.2s
+[musicgen_melody]   3/48 piano    E3 s1  ok  9.2s
+[musicgen_melody]   4/48 piano    E3 s2  ok  9.2s
+[musicgen_melody]   5/48 piano    C4 s1  ok  9.2s
+[musicgen_melody]   6/48 piano    C4 s2  ok  9.2s
+[musicgen_melody]   7/48 piano    G5 s1  ok  9.4s
+[musicgen_melody]   8/48 piano    G5 s2  ok  9.2s
+[musicgen_melody]   9/48 violin   A2 s1  ok  9.1s
+[musicgen_melody]  10/48 violin   A2 s2  ok  9.1s
+[musicgen_melody]  11/48 violin   E3 s1  ok  9.1s
+[musicgen_melody]  12/48 violin   E3 s2  ok  9.1s
+[musicgen_melody]  13/48 violin   C4 s1  ok  9.1s
+[musicgen_melody]  14/48 violin   C4 s2  ok  9.1s
+[musicgen_melody]  15/48 violin   G5 s1  ok  9.1s
+[musicgen_melody]  16/48 violin   G5 s2  ok  9.1s
+[musicgen_melody]  17/48 marimba  A2 s1  ok  9.2s
+[musicgen_melody]  18/48 marimba  A2 s2  ok  9.1s
+[musicgen_melody]  19/48 marimba  E3 s1  ok  9.1s
+[musicgen_melody]  20/48 marimba  E3 s2  ok  9.1s
+[musicgen_melody]  21/48 marimba  C4 s1  ok  9.1s
+[musicgen_melody]  22/48 marimba  C4 s2  ok  9.1s
+[musicgen_melody]  23/48 marimba  G5 s1  ok  9.1s
+[musicgen_melody]  24/48 marimba  G5 s2  ok  9.1s
+[musicgen_melody]  25/48 flute    A2 s1  ok  9.1s
+[musicgen_melody]  26/48 flute    A2 s2  ok  9.1s
+[musicgen_melody]  27/48 flute    E3 s1  ok  9.2s
+[musicgen_melody]  28/48 flute    E3 s2  ok  9.1s
+[musicgen_melody]  29/48 flute    C4 s1  ok  9.1s
+[musicgen_melody]  30/48 flute    C4 s2  ok  9.1s
+[musicgen_melody]  31/48 flute    G5 s1  ok  9.1s
+[musicgen_melody]  32/48 flute    G5 s2  ok  9.1s
+[musicgen_melody]  33/48 bass     A2 s1  ok  9.1s
+[musicgen_melody]  34/48 bass     A2 s2  ok  9.1s
+[musicgen_melody]  35/48 bass     E3 s1  ok  9.1s
+[musicgen_melody]  36/48 bass     E3 s2  ok  9.1s
+[musicgen_melody]  37/48 bass     C4 s1  ok  9.1s
+[musicgen_melody]  38/48 bass     C4 s2  ok  9.2s
+[musicgen_melody]  39/48 bass     G5 s1  ok  9.7s
+[musicgen_melody]  40/48 bass     G5 s2  ok  9.6s
+[musicgen_melody]  41/48 choir    A2 s1  ok  9.9s
+[musicgen_melody]  42/48 choir    A2 s2  ok  9.9s
+[musicgen_melody]  43/48 choir    E3 s1  ok  9.9s
+[musicgen_melody]  44/48 choir    E3 s2  ok  10.0s
+[musicgen_melody]  45/48 choir    C4 s1  ok  9.6s
+[musicgen_melody]  46/48 choir    C4 s2  ok  9.2s
+[musicgen_melody]  47/48 choir    G5 s1  ok  9.3s
+[musicgen_melody]  48/48 choir    G5 s2  ok  9.4s
+[musicgen_melody] rendered 48/48 → renders.musicgen_melody.jsonl
+
+── render · musicgen_text
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 33.86it/s]
+[musicgen_text]   1/48 piano    A2 s1  ok  20.4s
+[musicgen_text]   2/48 piano    A2 s2  ok  9.3s
+[musicgen_text]   3/48 piano    E3 s1  ok  9.3s
+[musicgen_text]   4/48 piano    E3 s2  ok  9.9s
+[musicgen_text]   5/48 piano    C4 s1  ok  9.8s
+[musicgen_text]   6/48 piano    C4 s2  ok  9.8s
+[musicgen_text]   7/48 piano    G5 s1  ok  9.8s
+[musicgen_text]   8/48 piano    G5 s2  ok  9.2s
+[musicgen_text]   9/48 violin   A2 s1  ok  9.1s
+[musicgen_text]  10/48 violin   A2 s2  ok  9.1s
+[musicgen_text]  11/48 violin   E3 s1  ok  9.1s
+[musicgen_text]  12/48 violin   E3 s2  ok  9.1s
+[musicgen_text]  13/48 violin   C4 s1  ok  9.1s
+[musicgen_text]  14/48 violin   C4 s2  ok  9.1s
+[musicgen_text]  15/48 violin   G5 s1  ok  9.1s
+[musicgen_text]  16/48 violin   G5 s2  ok  9.5s
+[musicgen_text]  17/48 marimba  A2 s1  ok  9.2s
+[musicgen_text]  18/48 marimba  A2 s2  ok  9.2s
+[musicgen_text]  19/48 marimba  E3 s1  ok  9.2s
+[musicgen_text]  20/48 marimba  E3 s2  ok  9.2s
+[musicgen_text]  21/48 marimba  C4 s1  ok  9.2s
+[musicgen_text]  22/48 marimba  C4 s2  ok  9.1s
+[musicgen_text]  23/48 marimba  G5 s1  ok  9.2s
+[musicgen_text]  24/48 marimba  G5 s2  ok  9.2s
+[musicgen_text]  25/48 flute    A2 s1  ok  9.2s
+[musicgen_text]  26/48 flute    A2 s2  ok  9.2s
+[musicgen_text]  27/48 flute    E3 s1  ok  9.2s
+[musicgen_text]  28/48 flute    E3 s2  ok  9.2s
+[musicgen_text]  29/48 flute    C4 s1  ok  9.2s
+[musicgen_text]  30/48 flute    C4 s2  ok  9.2s
+[musicgen_text]  31/48 flute    G5 s1  ok  9.2s
+[musicgen_text]  32/48 flute    G5 s2  ok  9.2s
+[musicgen_text]  33/48 bass     A2 s1  ok  9.2s
+[musicgen_text]  34/48 bass     A2 s2  ok  9.2s
+[musicgen_text]  35/48 bass     E3 s1  ok  9.2s
+[musicgen_text]  36/48 bass     E3 s2  ok  9.2s
+[musicgen_text]  37/48 bass     C4 s1  ok  9.2s
+[musicgen_text]  38/48 bass     C4 s2  ok  9.2s
+[musicgen_text]  39/48 bass     G5 s1  ok  9.2s
+[musicgen_text]  40/48 bass     G5 s2  ok  9.2s
+[musicgen_text]  41/48 choir    A2 s1  ok  9.2s
+[musicgen_text]  42/48 choir    A2 s2  ok  9.2s
+[musicgen_text]  43/48 choir    E3 s1  ok  9.2s
+[musicgen_text]  44/48 choir    E3 s2  ok  10.0s
+[musicgen_text]  45/48 choir    C4 s1  ok  9.5s
+[musicgen_text]  46/48 choir    C4 s2  ok  9.7s
+[musicgen_text]  47/48 choir    G5 s1  ok  9.3s
+[musicgen_text]  48/48 choir    G5 s2  ok  9.3s
+[musicgen_text] rendered 48/48 → renders.musicgen_text.jsonl
+
+── grade · crystal
+[crystal] piano    A2 s1  on_target cents=0.21  clean
+[crystal] piano    A2 s2  on_target cents=0.36  clean
+[crystal] piano    E3 s1  on_target cents=0.67  clean
+[crystal] piano    E3 s2  on_target cents=0.28  clean
+[crystal] piano    C4 s1  on_target cents=0.61  clean
+[crystal] piano    C4 s2  on_target cents=0.52  clean
+[crystal] piano    G5 s1  on_target cents=1.85  clean
+[crystal] piano    G5 s2  on_target cents=1.16  clean
+[crystal] violin   A2 s1  on_target cents=0.21  clean
+[crystal] violin   A2 s2  on_target cents=0.36  clean
+[crystal] violin   E3 s1  on_target cents=0.67  clean
+[crystal] violin   E3 s2  on_target cents=0.28  clean
+[crystal] violin   C4 s1  on_target cents=0.61  clean
+[crystal] violin   C4 s2  on_target cents=0.52  clean
+[crystal] violin   G5 s1  on_target cents=1.85  clean
+[crystal] violin   G5 s2  on_target cents=1.16  clean
+[crystal] marimba  A2 s1  on_target cents=0.21  clean
+[crystal] marimba  A2 s2  on_target cents=0.36  clean
+[crystal] marimba  E3 s1  on_target cents=0.67  clean
+[crystal] marimba  E3 s2  on_target cents=0.28  clean
+[crystal] marimba  C4 s1  on_target cents=0.61  clean
+[crystal] marimba  C4 s2  on_target cents=0.52  clean
+[crystal] marimba  G5 s1  on_target cents=1.85  clean
+[crystal] marimba  G5 s2  on_target cents=1.16  clean
+[crystal] flute    A2 s1  on_target cents=0.21  clean
+[crystal] flute    A2 s2  on_target cents=0.36  clean
+[crystal] flute    E3 s1  on_target cents=0.67  clean
+[crystal] flute    E3 s2  on_target cents=0.28  clean
+[crystal] flute    C4 s1  on_target cents=0.61  clean
+[crystal] flute    C4 s2  on_target cents=0.52  clean
+[crystal] flute    G5 s1  on_target cents=1.85  clean
+[crystal] flute    G5 s2  on_target cents=1.16  clean
+[crystal] bass     A2 s1  on_target cents=0.21  clean
+[crystal] bass     A2 s2  on_target cents=0.36  clean
+[crystal] bass     E3 s1  on_target cents=0.67  clean
+[crystal] bass     E3 s2  on_target cents=0.28  clean
+[crystal] bass     C4 s1  on_target cents=0.61  clean
+[crystal] bass     C4 s2  on_target cents=0.52  clean
+[crystal] bass     G5 s1  on_target cents=1.85  clean
+[crystal] bass     G5 s2  on_target cents=1.16  clean
+[crystal] choir    A2 s1  on_target cents=0.21  clean
+[crystal] choir    A2 s2  on_target cents=0.36  clean
+[crystal] choir    E3 s1  on_target cents=0.67  clean
+[crystal] choir    E3 s2  on_target cents=0.28  clean
+[crystal] choir    C4 s1  on_target cents=0.61  clean
+[crystal] choir    C4 s2  on_target cents=0.52  clean
+[crystal] choir    G5 s1  on_target cents=1.85  clean
+[crystal] choir    G5 s2  on_target cents=1.16  clean
+
+── grade · stable_audio
+[stable_audio] piano    A2 s1  texture   cents=-2200.0  voiced 8% < 60%
+[stable_audio] piano    A2 s2  texture   cents=-1180.0  voiced 26% < 60%; spread 240c > 30c; only 50% of frames near one pitch
+[stable_audio] piano    E3 s1  texture   cents=-1900.0  voiced 55% < 60%; spread 1880c > 30c; only 60% of frames near one pitch
+[stable_audio] piano    E3 s2  texture   cents=-1910.0  voiced 33% < 60%; spread 220c > 30c; only 38% of frames near one pitch
+[stable_audio] piano    C4 s1  retunable cents=1205.43  octave +1
+[stable_audio] piano    C4 s2  texture   cents=10.0  voiced 43% < 60%
+[stable_audio] piano    G5 s1  texture   cents=-2400.0  spread 2440c > 30c; only 64% of frames near one pitch
+[stable_audio] piano    G5 s2  texture   cents=-2110.0  voiced 54% < 60%; only 64% of frames near one pitch
+[stable_audio] violin   A2 s1  on_target cents=9.61  clean
+[stable_audio] violin   A2 s2  texture   cents=230.0  spread 1190c > 30c; only 3% of frames near one pitch
+[stable_audio] violin   E3 s1  texture   cents=10.0  only 74% of frames near one pitch
+[stable_audio] violin   E3 s2  texture   cents=-1880.0  voiced 25% < 60%; only 79% of frames near one pitch
+[stable_audio] violin   C4 s1  retunable cents=1210.36  octave +1
+[stable_audio] violin   C4 s2  retunable cents=1210.72  octave +1
+[stable_audio] violin   G5 s1  texture   cents=1610.0  voiced 5% < 60%
+[stable_audio] violin   G5 s2  texture   cents=0.0  voiced 52% < 60%; only 80% of frames near one pitch
+[stable_audio] marimba  A2 s1  texture   cents=None  almost no steady pitch found
+[stable_audio] marimba  A2 s2  on_target cents=10.78  clean
+[stable_audio] marimba  E3 s1  texture   cents=-620.0  voiced 7% < 60%; spread 40c > 30c
+[stable_audio] marimba  E3 s2  texture   cents=10.0  spread 1400c > 30c; only 27% of frames near one pitch
+[stable_audio] marimba  C4 s1  retunable cents=1212.89  octave +1
+[stable_audio] marimba  C4 s2  texture   cents=-720.0  voiced 23% < 60%; spread 3100c > 30c; only 37% of frames near one pitch
+[stable_audio] marimba  G5 s1  texture   cents=-2400.0  spread 70c > 30c; only 72% of frames near one pitch
+[stable_audio] marimba  G5 s2  texture   cents=730.0  voiced 24% < 60%; spread 310c > 30c; only 49% of frames near one pitch
+[stable_audio] flute    A2 s1  retunable cents=1205.43  octave +1
+[stable_audio] flute    A2 s2  texture   cents=1200.0  only 72% of frames near one pitch
+[stable_audio] flute    E3 s1  texture   cents=1240.0  voiced 55% < 60%
+[stable_audio] flute    E3 s2  texture   cents=20.0  only 72% of frames near one pitch
+[stable_audio] flute    C4 s1  retunable cents=1208.36  octave +1
+[stable_audio] flute    C4 s2  retunable cents=1213.5  octave +1
+[stable_audio] flute    G5 s1  texture   cents=-2390.0  voiced 46% < 60%; spread 60c > 30c; only 77% of frames near one pitch
+[stable_audio] flute    G5 s2  texture   cents=10.0  only 75% of frames near one pitch
+[stable_audio] bass     A2 s1  texture   cents=-1210.0  voiced 28% < 60%; spread 1202c > 30c; only 63% of frames near one pitch
+[stable_audio] bass     A2 s2  texture   cents=30.0  voiced 55% < 60%; spread 40c > 30c
+[stable_audio] bass     E3 s1  texture   cents=-1920.0  voiced 12% < 60%; spread 255c > 30c; only 57% of frames near one pitch
+[stable_audio] bass     E3 s2  texture   cents=-1240.0  voiced 13% < 60%; spread 690c > 30c; only 10% of frames near one pitch
+[stable_audio] bass     C4 s1  texture   cents=-2400.0  voiced 40% < 60%
+[stable_audio] bass     C4 s2  texture   cents=-2310.0  voiced 24% < 60%; spread 80c > 30c; only 67% of frames near one pitch
+[stable_audio] bass     G5 s1  retunable cents=-2400.0  octave -2
+[stable_audio] bass     G5 s2  texture   cents=1260.0  voiced 36% < 60%; spread 130c > 30c; only 39% of frames near one pitch
+[stable_audio] choir    A2 s1  texture   cents=780.0  voiced 24% < 60%
+[stable_audio] choir    A2 s2  texture   cents=780.0  spread 1200c > 30c; only 34% of frames near one pitch
+[stable_audio] choir    E3 s1  texture   cents=810.0  spread 890c > 30c; only 23% of frames near one pitch
+[stable_audio] choir    E3 s2  texture   cents=110.0  spread 1212c > 30c; only 51% of frames near one pitch
+[stable_audio] choir    C4 s1  texture   cents=1210.0  spread 40c > 30c
+[stable_audio] choir    C4 s2  texture   cents=1210.0  spread 1150c > 30c; only 56% of frames near one pitch
+[stable_audio] choir    G5 s1  texture   cents=-2400.0  spread 100c > 30c; only 73% of frames near one pitch
+[stable_audio] choir    G5 s2  texture   cents=-2400.0  voiced 53% < 60%; spread 100c > 30c; only 69% of frames near one pitch
+
+── grade · musicgen_melody
+[musicgen_melody] piano    A2 s1  texture   cents=0.0  spread 1200c > 30c; only 59% of frames near one pitch
+[musicgen_melody] piano    A2 s2  texture   cents=2400.0  spread 1200c > 30c; only 72% of frames near one pitch
+[musicgen_melody] piano    E3 s1  retunable cents=1210.64  octave +1
+[musicgen_melody] piano    E3 s2  on_target cents=0.29  clean
+[musicgen_melody] piano    C4 s1  texture   cents=-20.0  spread 1890c > 30c; only 56% of frames near one pitch
+[musicgen_melody] piano    C4 s2  retunable cents=1201.52  octave +1
+[musicgen_melody] piano    G5 s1  retunable cents=-2409.24  octave -2
+[musicgen_melody] piano    G5 s2  retunable cents=-2395.11  octave -2
+[musicgen_melody] violin   A2 s1  retunable cents=1198.42  octave +1
+[musicgen_melody] violin   A2 s2  retunable cents=1188.14  octave +1
+[musicgen_melody] violin   E3 s1  retunable cents=1202.14  octave +1
+[musicgen_melody] violin   E3 s2  retunable cents=1183.75  octave +1
+[musicgen_melody] violin   C4 s1  retunable cents=1213.58  octave +1
+[musicgen_melody] violin   C4 s2  retunable cents=-30.0  off by -30c
+[musicgen_melody] violin   G5 s1  retunable cents=-2401.56  octave -2
+[musicgen_melody] violin   G5 s2  retunable cents=-2408.74  octave -2
+[musicgen_melody] marimba  A2 s1  retunable cents=1208.4  octave +1
+[musicgen_melody] marimba  A2 s2  retunable cents=1208.66  octave +1
+[musicgen_melody] marimba  E3 s1  on_target cents=11.94  clean
+[musicgen_melody] marimba  E3 s2  on_target cents=12.59  clean
+[musicgen_melody] marimba  C4 s1  texture   cents=1130.0  spread 1190c > 30c; only 17% of frames near one pitch
+[musicgen_melody] marimba  C4 s2  on_target cents=19.67  clean
+[musicgen_melody] marimba  G5 s1  retunable cents=-2383.8  octave -2
+[musicgen_melody] marimba  G5 s2  retunable cents=-2388.57  octave -2
+[musicgen_melody] flute    A2 s1  texture   cents=1710.0  spread 1190c > 30c; only 11% of frames near one pitch
+[musicgen_melody] flute    A2 s2  texture   cents=1210.0  spread 1200c > 30c; only 74% of frames near one pitch
+[musicgen_melody] flute    E3 s1  retunable cents=1202.05  octave +1
+[musicgen_melody] flute    E3 s2  retunable cents=1202.14  octave +1
+[musicgen_melody] flute    C4 s1  retunable cents=1190.51  octave +1
+[musicgen_melody] flute    C4 s2  retunable cents=1198.11  octave +1
+[musicgen_melody] flute    G5 s1  texture   cents=-1230.0  spread 1172c > 30c; only 55% of frames near one pitch
+[musicgen_melody] flute    G5 s2  retunable cents=-1210.66  octave -1
+[musicgen_melody] bass     A2 s1  texture   cents=0.0  spread 700c > 30c; only 60% of frames near one pitch
+[musicgen_melody] bass     A2 s2  retunable cents=2400.65  octave +2
+[musicgen_melody] bass     E3 s1  texture   cents=1190.0  spread 1210c > 30c; only 67% of frames near one pitch
+[musicgen_melody] bass     E3 s2  texture   cents=-1200.0  spread 1200c > 30c; only 56% of frames near one pitch
+[musicgen_melody] bass     C4 s1  retunable cents=-30.0  off by -30c
+[musicgen_melody] bass     C4 s2  retunable cents=-30.0  off by -30c
+[musicgen_melody] bass     G5 s1  retunable cents=-2395.29  octave -2
+[musicgen_melody] bass     G5 s2  retunable cents=-1189.56  octave -1
+[musicgen_melody] choir    A2 s1  retunable cents=1200.37  octave +1
+[musicgen_melody] choir    A2 s2  retunable cents=1199.19  octave +1
+[musicgen_melody] choir    E3 s1  retunable cents=1199.9  octave +1
+[musicgen_melody] choir    E3 s2  on_target cents=-10.21  clean
+[musicgen_melody] choir    C4 s1  texture   cents=1190.0  spread 50c > 30c
+[musicgen_melody] choir    C4 s2  retunable cents=1199.56  octave +1
+[musicgen_melody] choir    G5 s1  retunable cents=-2392.58  octave -2
+[musicgen_melody] choir    G5 s2  retunable cents=-2393.2  octave -2
+
+── grade · musicgen_text
+[musicgen_text] piano    A2 s1  retunable cents=-397.57  off by -398c
+[musicgen_text] piano    A2 s2  retunable cents=302.47  off by +302c
+[musicgen_text] piano    E3 s1  texture   cents=-400.0  only 70% of frames near one pitch
+[musicgen_text] piano    E3 s2  retunable cents=2002.67  octave +2
+[musicgen_text] piano    C4 s1  texture   cents=-20.0  spread 1890c > 30c; only 56% of frames near one pitch
+[musicgen_text] piano    C4 s2  retunable cents=1201.52  octave +1
+[musicgen_text] piano    G5 s1  retunable cents=-1905.43  octave -2
+[musicgen_text] piano    G5 s2  retunable cents=-1899.41  octave -2
+[musicgen_text] violin   A2 s1  retunable cents=1502.09  octave +1
+[musicgen_text] violin   A2 s2  retunable cents=2008.65  octave +2
+[musicgen_text] violin   E3 s1  retunable cents=1990.28  octave +2
+[musicgen_text] violin   E3 s2  retunable cents=2007.29  octave +2
+[musicgen_text] violin   C4 s1  retunable cents=1213.58  octave +1
+[musicgen_text] violin   C4 s2  retunable cents=-30.0  off by -30c
+[musicgen_text] violin   G5 s1  retunable cents=-719.68  octave -1
+[musicgen_text] violin   G5 s2  texture   cents=510.0  spread 1210c > 30c; only 52% of frames near one pitch
+[musicgen_text] marimba  A2 s1  texture   cents=1510.0  spread 40c > 30c; only 67% of frames near one pitch
+[musicgen_text] marimba  A2 s2  texture   cents=310.0  spread 1200c > 30c; only 49% of frames near one pitch
+[musicgen_text] marimba  E3 s1  retunable cents=815.3  octave +1
+[musicgen_text] marimba  E3 s2  retunable cents=811.36  octave +1
+[musicgen_text] marimba  C4 s1  texture   cents=1130.0  spread 1190c > 30c; only 17% of frames near one pitch
+[musicgen_text] marimba  C4 s2  on_target cents=19.67  clean
+[musicgen_text] marimba  G5 s1  retunable cents=-1891.14  octave -2
+[musicgen_text] marimba  G5 s2  texture   cents=-1880.0  spread 210c > 30c; only 69% of frames near one pitch
+[musicgen_text] flute    A2 s1  retunable cents=1510.52  octave +1
+[musicgen_text] flute    A2 s2  retunable cents=1525.19  octave +1
+[musicgen_text] flute    E3 s1  retunable cents=799.78  octave +1
+[musicgen_text] flute    E3 s2  texture   cents=2010.0  spread 40c > 30c
+[musicgen_text] flute    C4 s1  retunable cents=1190.51  octave +1
+[musicgen_text] flute    C4 s2  retunable cents=1198.11  octave +1
+[musicgen_text] flute    G5 s1  texture   cents=-1420.0  spread 1090c > 30c; only 21% of frames near one pitch
+[musicgen_text] flute    G5 s2  retunable cents=-1884.85  octave -2
+[musicgen_text] bass     A2 s1  retunable cents=1470.0  octave +1
+[musicgen_text] bass     A2 s2  retunable cents=1527.92  octave +1
+[musicgen_text] bass     E3 s1  retunable cents=770.0  octave +1
+[musicgen_text] bass     E3 s2  texture   cents=-370.0  spread 1240c > 30c; only 34% of frames near one pitch
+[musicgen_text] bass     C4 s1  retunable cents=-30.0  off by -30c
+[musicgen_text] bass     C4 s2  retunable cents=-30.0  off by -30c
+[musicgen_text] bass     G5 s1  retunable cents=-1930.0  octave -2
+[musicgen_text] bass     G5 s2  retunable cents=518.45  off by +518c
+[musicgen_text] choir    A2 s1  retunable cents=1505.06  octave +1
+[musicgen_text] choir    A2 s2  retunable cents=1508.98  octave +1
+[musicgen_text] choir    E3 s1  retunable cents=818.36  octave +1
+[musicgen_text] choir    E3 s2  retunable cents=2005.9  octave +2
+[musicgen_text] choir    C4 s1  texture   cents=1190.0  spread 50c > 30c
+[musicgen_text] choir    C4 s2  retunable cents=1199.56  octave +1
+[musicgen_text] choir    G5 s1  texture   cents=-1890.0  spread 1200c > 30c; only 68% of frames near one pitch
+[musicgen_text] choir    G5 s2  retunable cents=-694.7  octave -1
+
+── compare
+crystal          ON TARGET    on-target 48/48  retunable 0  texture 0  errors 0
+stable_audio     TEXTURE ONLY on-target 2/48  retunable 8  texture 38  errors 0
+musicgen_melody  RETUNABLE    on-target 5/48  retunable 32  texture 11  errors 0
+musicgen_text    RETUNABLE    on-target 1/48  retunable 35  texture 12  errors 0
+→ compare.html, compare.json
+
+── instruments · crystal
+[crystal] piano    ON TARGET    built crystal_reference.sfz  A1–G6  4 samples  keycheck 59/59 on target, worst 1.75c
+
+── instruments · stable_audio
+[stable_audio] piano    TEXTURE ONLY built stable_audio_piano.sfz  C4–C6  1 samples  keycheck 25/25 on target, worst 1.67c
+[stable_audio] violin   TEXTURE ONLY built stable_audio_violin.sfz  A1–C6  2 samples  gaps ['A#3–B3']  keycheck 35/50 on target, worst 5.68c
+[stable_audio] marimba  TEXTURE ONLY built stable_audio_marimba.sfz  A1–C6  2 samples  gaps ['A#3–B3']  keycheck 50/50 on target, worst 2.31c
+[stable_audio] flute    TEXTURE ONLY built stable_audio_flute.sfz  A2–C6  2 samples  keycheck 31/40 on target, worst 5.26c
+[stable_audio] bass     TEXTURE ONLY built stable_audio_bass.sfz  G2–G4  1 samples  keycheck 0/25 on target, worst Nonec
+[stable_audio] choir    TEXTURE ONLY not built: no render of any note held a steady pitch
+
+── instruments · musicgen_melody
+[musicgen_melody] piano    TEXTURE ONLY built musicgen_melody_piano.sfz  E2–C6  3 samples  keycheck 28/45 on target, worst 4.8c
+[musicgen_melody] violin   RETUNABLE    built musicgen_melody_violin.sfz  G2–E5  4 samples  keycheck 33/34 on target, worst 10.0c
+[musicgen_melody] marimba  RETUNABLE    built musicgen_melody_marimba.sfz  E2–C5  4 samples  keycheck 23/33 on target, worst 1.16c
+[musicgen_melody] flute    TEXTURE ONLY built musicgen_melody_flute.sfz  E3–C6  3 samples  keycheck 33/33 on target, worst 1.48c
+[musicgen_melody] bass     TEXTURE ONLY built musicgen_melody_bass.sfz  C3–A5  3 samples  keycheck 20/34 on target, worst 10.0c
+[musicgen_melody] choir    RETUNABLE    built musicgen_melody_choir.sfz  E2–C6  4 samples  keycheck 37/45 on target, worst 2.91c
+
+── instruments · musicgen_text
+[musicgen_text] piano    RETUNABLE    built musicgen_text_piano.sfz  F1–C6  3 samples  keycheck 51/56 on target, worst 1.32c
+[musicgen_text] violin   RETUNABLE    built musicgen_text_violin.sfz  C3–C6  2 samples  keycheck 26/37 on target, worst 10.0c
+[musicgen_text] marimba  TEXTURE ONLY built musicgen_text_marimba.sfz  C3–C5  1 samples  keycheck 25/25 on target, worst 4.84c
+[musicgen_text] flute    RETUNABLE    built musicgen_text_flute.sfz  C3–C6  2 samples  keycheck 37/37 on target, worst 2.52c
+[musicgen_text] bass     RETUNABLE    built musicgen_text_bass.sfz  C3–C7  2 samples  keycheck 39/49 on target, worst 10.0c
+[musicgen_text] choir    RETUNABLE    built musicgen_text_choir.sfz  C3–C6  2 samples  keycheck 37/37 on target, worst 3.18c
+
+rendered + graded: crystal stable_audio musicgen_melody musicgen_text
+instruments (SFZ): crystal stable_audio musicgen_melody musicgen_text  → instruments/<arm>/<instrument>/

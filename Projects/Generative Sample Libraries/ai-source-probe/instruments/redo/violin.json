@@ -1,0 +1,43 @@
+{
+ "instrument": "violin",
+ "pool": "range+violin_bo5+violin_names56_bo3+violin_names57_bo3",
+ "keys": [
+  "A#3",
+  "C4",
+  "C5"
+ ],
+ "rejected": [
+  "range__violin_A#4_s2.wav",
+  "violin_names57_bo3__violin_C5_s1.wav",
+  "violin_names57_bo3__violin_C5_s3.wav"
+ ],
+ "runs": [
+  "violin_r1_As3",
+  "violin_r1_C4",
+  "violin_r1_C5"
+ ],
+ "rounds": [
+  {
+   "tag": "r1",
+   "keys": [
+    "A#3",
+    "C4",
+    "C5"
+   ],
+   "rejected": [
+    "range__violin_A#4_s2.wav",
+    "violin_names57_bo3__violin_C5_s3.wav",
+    "violin_names57_bo3__violin_C5_s1.wav"
+   ],
+   "runs": [
+    "violin_r1_As3",
+    "violin_r1_C4",
+    "violin_r1_C5"
+   ],
+   "seeds": [
+    6,
+    11
+   ]
+  }
+ ]
+}

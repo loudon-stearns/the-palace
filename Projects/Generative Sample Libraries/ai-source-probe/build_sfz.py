@@ -92,6 +92,15 @@ CUSHION_MS = 2.0      # start 2 ms before the onset: model sources have soft,
 NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 
 
+def parse_note(s: str) -> int:
+    """'G3' -> 55, 'C#7' -> 97; a bare number is taken as MIDI."""
+    if s.lstrip("-").isdigit():
+        return int(s)
+    i = len(s.rstrip("0123456789-"))
+    name, octv = s[:i], int(s[i:])
+    return NOTE_NAMES.index(name) + 12 * (octv + 1)
+
+
 def note_name(midi: int) -> str:
     return f"{NOTE_NAMES[midi % 12]}{midi // 12 - 1}"
 
@@ -201,6 +210,18 @@ def load_results(arm: str) -> list[dict]:
     return rows
 
 
+def apply_redo(rows: list[dict], redo: dict) -> list[dict]:
+    """--redo: a listener flagged keys (redo_keys.py writes the file). The
+    takes that held those keys are out, and the fresh runs may only fill the
+    flagged keys, so no key nobody flagged changes its sample."""
+    rejected = set(redo.get("rejected", []))
+    keys = {parse_note(k) for k in redo.get("keys", [])}
+    fresh = set(redo.get("runs", []))
+    return [r for r in rows
+            if f"{r['run']}__{Path(r['wav']).name}" not in rejected
+            and (r["run"] not in fresh or r.get("sfz_keycenter") in keys)]
+
+
 def sample_name(r: dict, pooled: bool) -> str:
     name = Path(r["wav"]).name
     return f"{r['run']}__{name}" if pooled else name
@@ -211,12 +232,14 @@ def _brief(r: dict) -> dict:
             "cents_err": r.get("cents_err")}
 
 
-def zones(keys: list[int], stretch: int) -> list[tuple[int, int]]:
-    """Midpoint splits between neighbours, each side capped at stretch."""
+def zones(keys: list[int], stretch: int,
+          bounds: tuple[int, int] = (KEY_LO, KEY_HI)) -> list[tuple[int, int]]:
+    """Midpoint splits between neighbours, each side capped at stretch
+    and at the instrument's own range."""
     out = []
     for i, k in enumerate(keys):
-        lo = max(KEY_LO, k - stretch)
-        hi = min(KEY_HI, k + stretch)
+        lo = max(bounds[0], k - stretch)
+        hi = min(bounds[1], k + stretch)
         if i > 0:
             lo = max(lo, (keys[i - 1] + k) // 2 + 1)
         if i + 1 < len(keys):
@@ -266,6 +289,8 @@ def parse_sfz(path: Path) -> list[dict]:
                         "hikey": int(ops["hikey"]),
                         "pitch_keycenter": int(ops["pitch_keycenter"]),
                         "tune": int(ops.get("tune", 0)), "offset": int(ops.get("offset", 0))})
+        if "loop_start" in ops:                 # written by loop_sustain.py
+            regions[-1].update(loop_start=int(ops["loop_start"]), loop_end=int(ops["loop_end"]))
     return regions
 
 
@@ -352,15 +377,28 @@ def trim_regions(regions: list[dict], kc: dict) -> tuple[list[dict], list[str]]:
 def build_one(arm: str, inst: str, rows: list[dict], out_dir: Path, acc: dict,
               stretch: int, do_check: bool, do_audition: bool,
               loop_mode: str = "no_loop", trim: bool = False,
-              by_played: bool = False) -> dict:
+              by_played: bool = False,
+              bounds: tuple[int, int] | None = None) -> dict:
     v, counts = verdict(rows, acc["min_cells_pct"])
     picks, passed = (choose_by_played if by_played else choose)(rows)
     pooled = "+" in arm
     if by_played:
         picks = screen(picks, passed, acc)
+    out_of_range = []
+    if bounds:
+        # a take that sounds outside the real instrument's range is MusicGen
+        # playing a note the instrument can't, however steady it is
+        out_of_range = [p for p in picks if not bounds[0] <= p["sfz_keycenter"] <= bounds[1]]
+        for p in out_of_range:
+            passed.append({**_brief(p), "why": f"sounds at {note_name(p['sfz_keycenter'])}, "
+                           f"outside the instrument's range {note_name(bounds[0])}–{note_name(bounds[1])}"})
+        picks = [p for p in picks if p not in out_of_range]
     summary = {"arm": arm, "instrument": inst, "probe_verdict": v,
                "cells": counts, "notes_kept": len(picks),
-               "filed_by": "played" if by_played else "asked"}
+               "filed_by": "played" if by_played else "asked",
+               **({"range": [note_name(bounds[0]), note_name(bounds[1])],
+                   "dropped_out_of_range": [note_name(p["sfz_keycenter"]) for p in out_of_range]}
+                  if bounds else {})}
     if not picks:
         return {**summary, "built": False,
                 "why": "no render of any note held a steady pitch"}
@@ -370,7 +408,7 @@ def build_one(arm: str, inst: str, rows: list[dict], out_dir: Path, acc: dict,
     if smp_dir.exists():
         shutil.rmtree(smp_dir)
     smp_dir.mkdir(parents=True)
-    zs = zones([p["sfz_keycenter"] for p in picks], stretch)
+    zs = zones([p["sfz_keycenter"] for p in picks], stretch, bounds or (KEY_LO, KEY_HI))
     regions, audio = [], {}
     for p, (lo, hi) in zip(picks, zs):
         src = Path(p["wav"]) if Path(p["wav"]).is_absolute() else HERE / p["wav"]
@@ -408,6 +446,8 @@ def build_one(arm: str, inst: str, rows: list[dict], out_dir: Path, acc: dict,
         + (f"; {', '.join(folded)} sounded on keys already taken" if folded else ""),
         f"// keys {note_name(regions[0]['lokey'])}–{note_name(regions[-1]['hikey'])}; "
         f"outer samples stretch at most {stretch} semitones"
+        + (f", never past the instrument's range {note_name(bounds[0])}–{note_name(bounds[1])}"
+           if bounds else "")
         + "; @GAPS@",
         "// pitch = the grader's measured pitch (keycenter + tune), not the note asked for.",
         f"// onset trim {ONSET_THRESHOLD_DB:.0f} dBFS, {CUSHION_MS:.0f} ms cushion; 3 ms fade-in.",
@@ -478,10 +518,19 @@ def main() -> None:
     ap.add_argument("--audition", action="store_true", help="write audition.wav")
     ap.add_argument("--trim", action="store_true",
                     help="shrink zones to the keys that pass the keycheck (implies --check)")
+    ap.add_argument("--range", default=None, metavar="LO:HI",
+                    help="the real instrument's range, e.g. G3:C7 — takes sounding outside "
+                         "it are dropped and no zone stretches past it")
+    ap.add_argument("--redo", default=None, metavar="FILE",
+                    help="a redo file from redo_keys.py: drop its rejected takes, and let "
+                         "its fresh runs fill only its flagged keys")
     a = ap.parse_args()
+    bounds = tuple(parse_note(x) for x in a.range.split(":")) if a.range else None
 
     acc = json.loads((HERE / "matrix.json").read_text())["acceptance"]
     rows = load_results(a.arm)
+    if a.redo:
+        rows = apply_redo(rows, json.loads(Path(a.redo).read_text()))
     out_dir = Path(a.out) if a.out else HERE / "instruments" / a.arm
     out_dir.mkdir(parents=True, exist_ok=True)
     insts = a.instrument or list(dict.fromkeys(r["instrument"] for r in rows))
@@ -492,7 +541,7 @@ def main() -> None:
         r = build_one(a.arm, a.name or inst, [x for x in rows if x["instrument"] == inst],
                       out_dir, acc, a.stretch, a.check, a.audition,
                       a.loop_mode or ("one_shot" if inst in STRUCK else "no_loop"), a.trim,
-                      a.by_played)
+                      a.by_played, bounds)
         if a.name:
             r["built_from_row"] = inst
         report.append({k: v for k, v in r.items() if k not in ("regions", "passed_over")})

@@ -55,7 +55,8 @@ def grid_pitches(spec: str) -> list[dict]:
 
 
 def load_matrix(quick: bool = False, instruments: list[str] | None = None,
-                grid: str | None = None, takes: int | None = None) -> dict:
+                grid: str | None = None, takes: int | None = None,
+                first_seed: int = 1) -> dict:
     m = json.loads((HERE / "matrix.json").read_text())
     if quick:
         q = m["quick"]
@@ -70,7 +71,7 @@ def load_matrix(quick: bool = False, instruments: list[str] | None = None,
     if grid:
         m["pitches"] = grid_pitches(grid)
     if takes:
-        m["seeds"] = list(range(1, takes + 1))
+        m["seeds"] = list(range(first_seed, first_seed + takes))
     return m
 
 
@@ -211,6 +212,8 @@ if __name__ == "__main__":
     ap.add_argument("--grid", default=None, metavar="LO:HI:STEP",
                     help="MIDI notes LO..HI every STEP, instead of the matrix's four")
     ap.add_argument("--takes", type=int, default=None, help="render seeds 1..N per note")
+    ap.add_argument("--first-seed", type=int, default=1,
+                    help="with --takes: seeds start here (a redo must not redraw old seeds)")
     ap.add_argument("--resume", action="store_true",
                     help="keep cells already rendered ok in this run's log; render the rest")
     ap.add_argument("--as", dest="run_name", default=None,
@@ -218,6 +221,7 @@ if __name__ == "__main__":
     a = ap.parse_args()
     if a.step in ("render", "run"):
         render(a.adapter, a.quick, a.samples_root, a.run_name, a.resume,
-               instruments=a.instrument, grid=a.grid, takes=a.takes)
+               instruments=a.instrument, grid=a.grid, takes=a.takes,
+               first_seed=a.first_seed)
     if a.step in ("verify", "run"):
         verify_all(a.adapter, a.run_name)

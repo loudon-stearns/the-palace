@@ -1,0 +1,147 @@
+
+── render · mgm_harm
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 23.30it/s]
+[mgm_harm]   1/20 violin   A#5 s1  ok  22.1s
+[mgm_harm]   2/20 violin   A#5 s2  ok  9.2s
+[mgm_harm]   3/20 violin   A#5 s3  ok  9.1s
+[mgm_harm]   4/20 violin   A#5 s4  ok  9.2s
+[mgm_harm]   5/20 violin   A#5 s5  ok  9.1s
+[mgm_harm]   6/20 violin   C#6 s1  ok  9.1s
+[mgm_harm]   7/20 violin   C#6 s2  ok  9.1s
+[mgm_harm]   8/20 violin   C#6 s3  ok  9.4s
+[mgm_harm]   9/20 violin   C#6 s4  ok  10.0s
+[mgm_harm]  10/20 violin   C#6 s5  ok  9.8s
+[mgm_harm]  11/20 violin   E6 s1  ok  10.0s
+[mgm_harm]  12/20 violin   E6 s2  ok  9.6s
+[mgm_harm]  13/20 violin   E6 s3  ok  9.6s
+[mgm_harm]  14/20 violin   E6 s4  ok  9.3s
+[mgm_harm]  15/20 violin   E6 s5  ok  9.4s
+[mgm_harm]  16/20 violin   G6 s1  ok  9.4s
+[mgm_harm]  17/20 violin   G6 s2  ok  9.3s
+[mgm_harm]  18/20 violin   G6 s3  ok  9.4s
+[mgm_harm]  19/20 violin   G6 s4  ok  9.4s
+[mgm_harm]  20/20 violin   G6 s5  ok  9.4s
+[mgm_harm] rendered 20/20 → renders.ceil_mgm_harm.jsonl
+
+── grade · mgm_harm
+[mgm_harm] violin   A#5 s1  retunable cents=-1195.77  octave -1
+[mgm_harm] violin   A#5 s2  retunable cents=-1212.46  octave -1
+[mgm_harm] violin   A#5 s3  retunable cents=-1192.68  octave -1
+[mgm_harm] violin   A#5 s4  retunable cents=-1217.13  octave -1
+[mgm_harm] violin   A#5 s5  retunable cents=-1202.28  octave -1
+[mgm_harm] violin   C#6 s1  retunable cents=-1197.82  octave -1
+[mgm_harm] violin   C#6 s2  retunable cents=-1189.18  octave -1
+[mgm_harm] violin   C#6 s3  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_harm] violin   C#6 s4  retunable cents=-1185.98  octave -1
+[mgm_harm] violin   C#6 s5  retunable cents=-1196.43  octave -1
+[mgm_harm] violin   E6 s1  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_harm] violin   E6 s2  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_harm] violin   E6 s3  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_harm] violin   E6 s4  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_harm] violin   E6 s5  retunable cents=-1193.48  octave -1
+[mgm_harm] violin   G6 s1  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_harm] violin   G6 s2  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_harm] violin   G6 s3  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_harm] violin   G6 s4  texture   cents=-2320.0  spread 90c > 30c; only 69% of frames near one pitch
+[mgm_harm] violin   G6 s5  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+
+── render · mgm_high
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 20.38it/s]
+[mgm_high]   1/20 violin   A#5 s1  ok  21.3s
+[mgm_high]   2/20 violin   A#5 s2  ok  10.2s
+[mgm_high]   3/20 violin   A#5 s3  ok  11.2s
+[mgm_high]   4/20 violin   A#5 s4  ok  10.9s
+[mgm_high]   5/20 violin   A#5 s5  ok  11.1s
+[mgm_high]   6/20 violin   C#6 s1  ok  10.0s
+[mgm_high]   7/20 violin   C#6 s2  ok  9.5s
+[mgm_high]   8/20 violin   C#6 s3  ok  9.9s
+[mgm_high]   9/20 violin   C#6 s4  ok  9.9s
+[mgm_high]  10/20 violin   C#6 s5  ok  11.2s
+[mgm_high]  11/20 violin   E6 s1  ok  10.7s
+[mgm_high]  12/20 violin   E6 s2  ok  9.9s
+[mgm_high]  13/20 violin   E6 s3  ok  9.5s
+[mgm_high]  14/20 violin   E6 s4  ok  10.5s
+[mgm_high]  15/20 violin   E6 s5  ok  9.3s
+[mgm_high]  16/20 violin   G6 s1  ok  9.3s
+[mgm_high]  17/20 violin   G6 s2  ok  9.4s
+[mgm_high]  18/20 violin   G6 s3  ok  9.3s
+[mgm_high]  19/20 violin   G6 s4  ok  9.3s
+[mgm_high]  20/20 violin   G6 s5  ok  9.3s
+[mgm_high] rendered 20/20 → renders.ceil_mgm_high.jsonl
+
+── grade · mgm_high
+[mgm_high] violin   A#5 s1  texture   cents=-1200.0  only 80% of frames near one pitch
+[mgm_high] violin   A#5 s2  retunable cents=-1203.28  octave -1
+[mgm_high] violin   A#5 s3  retunable cents=-1194.41  octave -1
+[mgm_high] violin   A#5 s4  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_high] violin   A#5 s5  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_high] violin   C#6 s1  retunable cents=-1195.64  octave -1
+[mgm_high] violin   C#6 s2  retunable cents=-1212.66  octave -1
+[mgm_high] violin   C#6 s3  texture   cents=-2390.0  pinned at the edge of the pitch search, not a note
+[mgm_high] violin   C#6 s4  retunable cents=-1193.76  octave -1
+[mgm_high] violin   C#6 s5  retunable cents=-1198.55  octave -1
+[mgm_high] violin   E6 s1  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_high] violin   E6 s2  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_high] violin   E6 s3  retunable cents=-1204.77  octave -1
+[mgm_high] violin   E6 s4  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_high] violin   E6 s5  retunable cents=-1199.71  octave -1
+[mgm_high] violin   G6 s1  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_high] violin   G6 s2  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_high] violin   G6 s3  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_high] violin   G6 s4  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_high] violin   G6 s5  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+
+── render · mgm_cfg6
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 21.71it/s]
+[mgm_cfg6]   1/20 violin   A#5 s1  ok  20.7s
+[mgm_cfg6]   2/20 violin   A#5 s2  ok  9.8s
+[mgm_cfg6]   3/20 violin   A#5 s3  ok  9.4s
+[mgm_cfg6]   4/20 violin   A#5 s4  ok  9.7s
+[mgm_cfg6]   5/20 violin   A#5 s5  ok  9.5s
+[mgm_cfg6]   6/20 violin   C#6 s1  ok  9.8s
+[mgm_cfg6]   7/20 violin   C#6 s2  ok  9.7s
+[mgm_cfg6]   8/20 violin   C#6 s3  ok  11.7s
+[mgm_cfg6]   9/20 violin   C#6 s4  ok  9.7s
+[mgm_cfg6]  10/20 violin   C#6 s5  ok  9.7s
+[mgm_cfg6]  11/20 violin   E6 s1  ok  9.6s
+[mgm_cfg6]  12/20 violin   E6 s2  ok  9.7s
+[mgm_cfg6]  13/20 violin   E6 s3  ok  9.5s
+[mgm_cfg6]  14/20 violin   E6 s4  ok  9.5s
+[mgm_cfg6]  15/20 violin   E6 s5  ok  10.6s
+[mgm_cfg6]  16/20 violin   G6 s1  ok  9.5s
+[mgm_cfg6]  17/20 violin   G6 s2  ok  9.9s
+[mgm_cfg6]  18/20 violin   G6 s3  ok  10.0s
+[mgm_cfg6]  19/20 violin   G6 s4  ok  9.5s
+[mgm_cfg6]  20/20 violin   G6 s5  ok  9.4s
+[mgm_cfg6] rendered 20/20 → renders.ceil_mgm_cfg6.jsonl
+
+── grade · mgm_cfg6
+[mgm_cfg6] violin   A#5 s1  retunable cents=-1207.06  octave -1
+[mgm_cfg6] violin   A#5 s2  retunable cents=-1200.39  octave -1
+[mgm_cfg6] violin   A#5 s3  retunable cents=-1201.15  octave -1
+[mgm_cfg6] violin   A#5 s4  retunable cents=-1215.12  octave -1
+[mgm_cfg6] violin   A#5 s5  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_cfg6] violin   C#6 s1  texture   cents=-2390.0  pinned at the edge of the pitch search, not a note
+[mgm_cfg6] violin   C#6 s2  texture   cents=-2390.0  pinned at the edge of the pitch search, not a note
+[mgm_cfg6] violin   C#6 s3  retunable cents=-1192.72  octave -1
+[mgm_cfg6] violin   C#6 s4  retunable cents=-1194.45  octave -1
+[mgm_cfg6] violin   C#6 s5  retunable cents=-1182.02  octave -1
+[mgm_cfg6] violin   E6 s1  texture   cents=-2390.0  pinned at the edge of the pitch search, not a note
+[mgm_cfg6] violin   E6 s2  texture   cents=-2390.0  pinned at the edge of the pitch search, not a note
+[mgm_cfg6] violin   E6 s3  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_cfg6] violin   E6 s4  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_cfg6] violin   E6 s5  texture   cents=-2390.0  pinned at the edge of the pitch search, not a note
+[mgm_cfg6] violin   G6 s1  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_cfg6] violin   G6 s2  retunable cents=-1198.15  octave -1
+[mgm_cfg6] violin   G6 s3  texture   cents=-1200.0  spread 1210c > 30c; only 71% of frames near one pitch
+[mgm_cfg6] violin   G6 s4  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_cfg6] violin   G6 s5  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+
+── table
+arm                                A#5       C#6        E6        G6   right-octave total
+baseline (sine, cfg 3)           0/5/5     0/4/5     0/1/5     0/0/5   0
+harmonic guide                   0/5/5     0/4/5     0/1/5     0/0/5   0
+'highest register' prompt        0/2/5     0/4/5     0/2/5     0/0/5   0
+guidance 6                       0/4/5     0/3/5     0/0/5     0/1/5   0
+
+cells read right-octave / steady / takes

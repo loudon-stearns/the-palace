@@ -14,7 +14,8 @@ refuses to grade without it.
 
 Reads only what build_sfz.py and shape_attacks.py emit: <global> envelope
 opcodes and loop_mode, and per-region sample / lokey / hikey /
-pitch_keycenter / tune / offset. Then reads the written .dspreset back and
+pitch_keycenter / tune / offset, plus loop_start / loop_end where
+loop_sustain.py wrote them. Then reads the written .dspreset back and
 plays every key through it with the same pitch check build_sfz's --check
 uses, so the parity claim is about the file on disk, not the writer's intent.
 
@@ -93,6 +94,9 @@ def to_dspreset(sfz: Path) -> tuple[Path, list[dict]]:
                      loopEnabled="false")
         if r["offset"]:
             attrs["start"] = str(r["offset"])
+        if "loop_start" in r:       # crossfade is baked into the WAV by loop_sustain.py
+            attrs.update(loopEnabled="true", loopStart=str(r["loop_start"]),
+                         loopEnd=str(r["loop_end"]), loopCrossfade="0")
         ET.SubElement(grp, "sample", **attrs)
 
     ET.indent(root)
@@ -110,6 +114,8 @@ def parse_dspreset(path: Path) -> list[dict]:
                      "pitch_keycenter": int(s.get("rootNote")),
                      "tune": round(float(s.get("tuning", 0)) * 100),
                      "offset": int(s.get("start", 0))})
+        if s.get("loopEnabled") == "true":
+            regs[-1].update(loop_start=int(s.get("loopStart")), loop_end=int(s.get("loopEnd")))
     return regs
 
 
@@ -156,7 +162,9 @@ def main() -> None:
         report.append(r)
         print(json.dumps(r))
     if report:
-        (Path(sys.argv[1]).parent / "decentsampler.check.json").write_text(
+        name = "decentsampler.looped.check.json" if all("_looped" in a for a in sys.argv[1:]) \
+            else "decentsampler.check.json"
+        (Path(sys.argv[1]).parent / name).write_text(
             json.dumps(report, indent=1) + "\n")
 
 

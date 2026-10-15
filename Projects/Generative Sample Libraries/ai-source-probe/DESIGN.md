@@ -469,3 +469,146 @@ Why the violin's low end was left alone: E2–F3 sits below a real violin's
 lowest string (G3), and the flute's low tail sits below a real flute (C4).
 Rendering real samples there would be asking MusicGen for notes the
 instrument cannot play. The honest move is to trim those tails, not fill them.
+
+## Trimmed to the real instrument, and a tune to judge it by (cycle 34)
+
+`build_sfz.py --range LO:HI` takes the real instrument's range. A take that
+sounds outside it is dropped, however steady (MusicGen will play a violin at
+E2; a violin can't), and no zone stretches past the range's edge.
+
+    build_sfz.py range+violin_bo5+violin_names56_bo3+violin_names57_bo3 --instrument violin \
+        --by-played --trim --audition --range G3:A7 --out instruments/in_range
+    build_sfz.py range+flute_names56_bo3+flute_names57_bo3 --instrument flute \
+        --by-played --trim --audition --range C4:D7 --out instruments/in_range
+    build_sfz.py marimba_hit_ab+marimba_hit_bo3+marimba_hit_mid_bo5 --instrument marimba_hit \
+        --by-played --trim --audition --loop-mode one_shot --range A2:C7 --out instruments/in_range
+    shape_attacks.py --mode bow instruments/in_range/{violin,flute}
+    shape_attacks.py --mode ring --takes marimba_hit_ab+marimba_hit_bo3+marimba_hit_mid_bo5 \
+        instruments/in_range/marimba_hit
+
+| | before (cycle 32–33) | in range, shaped |
+|---|---|---|
+| violin | 25 samples · 57 keys E2–C7 | 24 samples · 42 keys G3–C7 · 42/42, worst 2.4 c |
+| flute | 26 samples · 59 keys D#2–C#7 | 21 samples · 38 keys C4–C#7 · 38/38, worst 4.3 c |
+| marimba (rung) | 15 samples · 40 keys | 15 samples · 37 keys A2–A5 · 37/37, worst 1.5 c |
+
+The top of each range is still empty past the highest steady take (violin
+C7, flute C#7, marimba A5); those keys stay silent rather than stretch.
+
+`phrase.py` plays a two-octave scale and an eight-bar legato tune through
+the shaped SFZ (same bow attack and release), writing `phrase.wav`. The
+rising audition line proves every zone sounds; the tune is for the question
+pitch detection can't answer — whether neighbouring samples sound like the
+same player.
+
+## Sustain loops (cycle 36)
+
+The violin and flute takes run 3–5 s and the shaped instruments are
+`no_loop`, so a held key stops when its take does. `loop_sustain.py` writes
+`*_looped` siblings in which every sample loops while the key is held.
+
+    $PY loop_sustain.py instruments/in_range/violin_shaped instruments/in_range/flute_shaped
+    $PY to_decentsampler.py instruments/in_range/violin_looped instruments/in_range/flute_looped
+
+Loop ends sit a whole number of periods after the start, scored on waveform
+likeness and level match at the seam. A loop may only span audio where pyin
+hears the take's own note, a 60 ms power-preserving crossfade is baked into
+the WAV, and the points go into the SFZ (`loop_sustain`), each WAV's `smpl`
+chunk and the `.dspreset`. Every sample's key is then held for 12 s through a
+loop-aware player. The best few candidate loops are tried in order until one
+passes all three checks.
+
+| | samples | seams clean | held 12 s on pitch | worst click | worst extra wobble | loop length |
+|---|---|---|---|---|---|---|
+| violin | 24 | 24 | 24 | +3.0 dB | 0.4 dB | 0.35–1.52 s |
+| flute | 21 | 21 | 21 | +4.8 dB | 0.6 dB | 0.35–1.60 s |
+
+(limits: click < +6 dB over the note's own high-frequency energy; level
+wobble at a wrap < 1.5 dB beyond the take's own.) The DecentSampler presets
+still match the SFZs key for key (42/42, 38/38).
+
+What the first pass taught: a plain linear crossfade dips 2–5 dB wherever
+the two blended stretches are partly out of phase, and that reads as a pump;
+a "flat level stretch" rule finds almost nothing to loop, because these
+takes swell like played phrases; and without the pitch gate, the best-
+matching seam sat in a breathy stretch (violin C5) or a stretch with a sub-
+octave in it (violin A#5). The flute's C#5 take has its second harmonic
+13 dB above its first. The 3 s keycheck reads it on pitch; one candidate
+12 s hold read it an octave high.
+
+Not yet: the loop is often louder than the take's opening, so a held note
+swells into it (up to ~6 dB on violin). `held.wav` in each folder plays
+low, middle and high keys held 7 s, first as shipped and then looped.
+
+## The violin, finished (cycle 37)
+
+Loudon picked the violin as the one to finish first (`gsl-steward-070`
+VIOLIN). What stood between the looped build and an instrument was level:
+every take came out of MusicGen at its own volume and was peak-normalised
+on the way in, so loop bodies sat 21 dB apart across the keyboard (C4's take
+loops a stretch 15 dB under its own opening), and most takes swelled into
+their loop. `finish_instrument.py`:
+
+    $PY finish_instrument.py instruments/in_range/violin_looped \
+        --name "MusicGen Violin" --out instruments/finished/violin
+    $PY to_decentsampler.py instruments/finished/violin
+
+1. scales each WAV so every loop body sits at one level (RMS with a gentle
+   presence weighting), then one shared trim to -1 dBFS peak;
+2. before the loop, lifts stretches more than 2 dB under the loop (≤ 8 dB)
+   and pulls the model's first stroke down to 4 dB over it; after the loop
+   (heard only in the release) nothing is louder than the loop. The 100 ms
+   before loop_start and the loop itself are untouched, so the loop points
+   and baked crossfades stay valid;
+3. renames samples for the key they sound (`violin_G3.wav`);
+4. adds `amp_veltrack=80` and a low-pass that opens with velocity (SFZ only).
+
+| | violin_looped | finished |
+|---|---|---|
+| loop level spread across keys | 21.3 dB | 0.0 dB |
+| `phrase.wav` tune, worst neighbour-note jump | 14.4 dB | 3.1 dB |
+| worst swell into the loop | 8.6 dB | 4.3 dB |
+| seams clean / held 12 s on pitch | 24 / 24 | 24 / 24 |
+| DecentSampler keys on pitch | 42/42 | 42/42, worst 2.4 c |
+
+The worst remaining swell (A#3, 4.3 dB) sits inside the untouched 100 ms
+guard: its loop starts 0.52 s in, so there is no room to lift.
+
+## Re-asking the model for a flagged key (cycle 38)
+
+The finishing pass can only move a take's level. A take MusicGen played
+thin, breathy or late stays that way at any level, so the only fix for a
+bad key is a better take. `redo_keys.py` is that loop, the critique-and-
+regenerate step the plan asks the interview to run:
+
+    $PY redo_keys.py violin A#3 C4 C5 --takes 6 --tag r1 --name "MusicGen Violin"
+    # → instruments/redo/r1/violin{,_shaped,_looped}, instruments/finished/violin_r1/
+
+Per flagged key it renders fresh takes on seeds no earlier run drew
+(`probe.py --first-seed`), rejects the take that held the key, and lets the
+fresh runs fill only flagged keys (`build_sfz.py --redo FILE`), so a key
+nobody named keeps its sample. `instruments/redo/<instrument>.json` carries
+the rejections and fresh runs forward, so a second round keeps the first
+round's verdicts. Then the shipped chain runs again, and `ab.wav` holds each
+flagged key 4 s, shipped then redone. `redo.json` says where each key's new
+sample came from.
+
+Round one, on the three keys measurement liked least in the shipped violin
+(A#3: a 4.3 dB swell the finishing pass couldn't reach; C4: a take whose
+loop sat 29 dB under its own opening, lifted 18.8 dB; C5: cut 12.6 dB and
+6 c flat at its own key). 18 renders, about 4 minutes.
+
+| key | fresh takes on the key (of 6) | new sample | level change needed | swell, after finishing |
+|---|---|---|---|---|
+| A#3 | 4 on target | fresh, A#3 s10 | +0.6 → +0.1 dB | 4.3 → 2.0 dB |
+| C4 | 0 clean (3 an octave up, 2 at −30 c, 1 texture) | older take C4 s2, which the first pick had beaten | +18.8 → +8.8 dB | −0.4 → 0.0 dB |
+| C5 | 3 on target, but a C4-asked take that landed an octave up was steadier | fresh, C4-asked s6 | +9.7 → +4.5 dB | 2.3 → 2.4 dB |
+
+Exactly those three keys changed; the other 39 play the same samples. 42/42
+keys on pitch in SFZ and DecentSampler, 24/24 seams clean on a 12 s hold.
+One cost: the new C4 sits 10 c sharp at its own key (inside the 20 c limit,
+but now the instrument's worst; the shipped build's worst was 2.4 c).
+
+What it taught: asking for C4 gets C5 more often than C4, as the range
+sweep predicted, and the loop is better for letting any fresh take fill any
+flagged key. The C5 sample came from the C4 request.

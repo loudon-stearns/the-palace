@@ -1,0 +1,81 @@
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 20.46it/s]
+[mgm_struck]   1/39 marimba_hit A2 s1  ok  20.4s
+[mgm_struck]   2/39 marimba_hit A2 s2  ok  9.3s
+[mgm_struck]   3/39 marimba_hit A2 s3  ok  9.3s
+[mgm_struck]   4/39 marimba_hit C3 s1  ok  9.4s
+[mgm_struck]   5/39 marimba_hit C3 s2  ok  9.3s
+[mgm_struck]   6/39 marimba_hit C3 s3  ok  9.3s
+[mgm_struck]   7/39 marimba_hit D#3 s1  ok  9.4s
+[mgm_struck]   8/39 marimba_hit D#3 s2  ok  9.3s
+[mgm_struck]   9/39 marimba_hit D#3 s3  ok  9.3s
+[mgm_struck]  10/39 marimba_hit F#3 s1  ok  9.3s
+[mgm_struck]  11/39 marimba_hit F#3 s2  ok  9.3s
+[mgm_struck]  12/39 marimba_hit F#3 s3  ok  9.4s
+[mgm_struck]  13/39 marimba_hit A3 s1  ok  9.4s
+[mgm_struck]  14/39 marimba_hit A3 s2  ok  9.3s
+[mgm_struck]  15/39 marimba_hit A3 s3  ok  9.3s
+[mgm_struck]  16/39 marimba_hit C4 s1  ok  9.5s
+[mgm_struck]  17/39 marimba_hit C4 s2  ok  9.2s
+[mgm_struck]  18/39 marimba_hit C4 s3  ok  9.4s
+[mgm_struck]  19/39 marimba_hit D#4 s1  ok  9.3s
+[mgm_struck]  20/39 marimba_hit D#4 s2  ok  9.2s
+[mgm_struck]  21/39 marimba_hit D#4 s3  ok  9.2s
+[mgm_struck]  22/39 marimba_hit F#4 s1  ok  9.2s
+[mgm_struck]  23/39 marimba_hit F#4 s2  ok  9.3s
+[mgm_struck]  24/39 marimba_hit F#4 s3  ok  9.6s
+[mgm_struck]  25/39 marimba_hit A4 s1  ok  9.4s
+[mgm_struck]  26/39 marimba_hit A4 s2  ok  10.3s
+[mgm_struck]  27/39 marimba_hit A4 s3  ok  9.6s
+[mgm_struck]  28/39 marimba_hit C5 s1  ok  10.0s
+[mgm_struck]  29/39 marimba_hit C5 s2  ok  9.7s
+[mgm_struck]  30/39 marimba_hit C5 s3  ok  9.5s
+[mgm_struck]  31/39 marimba_hit D#5 s1  ok  9.7s
+[mgm_struck]  32/39 marimba_hit D#5 s2  ok  9.6s
+[mgm_struck]  33/39 marimba_hit D#5 s3  ok  10.8s
+[mgm_struck]  34/39 marimba_hit F#5 s1  ok  10.6s
+[mgm_struck]  35/39 marimba_hit F#5 s2  ok  9.6s
+[mgm_struck]  36/39 marimba_hit F#5 s3  ok  9.7s
+[mgm_struck]  37/39 marimba_hit A5 s1  ok  10.7s
+[mgm_struck]  38/39 marimba_hit A5 s2  ok  9.7s
+[mgm_struck]  39/39 marimba_hit A5 s3  ok  9.6s
+[mgm_struck] rendered 39/39 → renders.marimba_hit_bo3.jsonl
+[mgm_struck] marimba_hit A2 s1  retunable cents=1207.41  octave +1
+[mgm_struck] marimba_hit A2 s2  retunable cents=1207.86  octave +1
+[mgm_struck] marimba_hit A2 s3  retunable cents=1210.18  octave +1
+[mgm_struck] marimba_hit C3 s1  texture   cents=1260.04  spread 90c > 30c; only 70% of frames near one pitch
+[mgm_struck] marimba_hit C3 s2  texture   cents=1200.04  spread 3570c > 30c; only 66% of frames near one pitch
+[mgm_struck] marimba_hit C3 s3  retunable cents=1208.07  octave +1
+[mgm_struck] marimba_hit D#3 s1  texture   cents=10.04  spread 1210c > 30c; only 65% of frames near one pitch
+[mgm_struck] marimba_hit D#3 s2  retunable cents=1211.86  octave +1
+[mgm_struck] marimba_hit D#3 s3  texture   cents=1210.04  spread 1200c > 30c; only 70% of frames near one pitch
+[mgm_struck] marimba_hit F#3 s1  texture   cents=9.97  spread 1200c > 30c; only 74% of frames near one pitch
+[mgm_struck] marimba_hit F#3 s2  on_target cents=19.03  clean
+[mgm_struck] marimba_hit F#3 s3  texture   cents=1219.97  spread 1200c > 30c; only 56% of frames near one pitch
+[mgm_struck] marimba_hit A3 s1  texture   cents=10.0  spread 1200c > 30c; only 55% of frames near one pitch
+[mgm_struck] marimba_hit A3 s2  retunable cents=1207.46  octave +1
+[mgm_struck] marimba_hit A3 s3  on_target cents=15.64  clean
+[mgm_struck] marimba_hit C4 s1  texture   cents=-20.0  spread 230c > 30c; only 55% of frames near one pitch
+[mgm_struck] marimba_hit C4 s2  on_target cents=3.53  clean
+[mgm_struck] marimba_hit C4 s3  on_target cents=14.65  clean
+[mgm_struck] marimba_hit D#4 s1  on_target cents=10.09  clean
+[mgm_struck] marimba_hit D#4 s2  texture   cents=10.0  spread 1200c > 30c; only 52% of frames near one pitch
+[mgm_struck] marimba_hit D#4 s3  on_target cents=18.37  clean
+[mgm_struck] marimba_hit F#4 s1  retunable cents=-1183.99  octave -1
+[mgm_struck] marimba_hit F#4 s2  retunable cents=-1179.3  octave -1
+[mgm_struck] marimba_hit F#4 s3  retunable cents=-1185.06  octave -1
+[mgm_struck] marimba_hit A4 s1  retunable cents=-1190.68  octave -1
+[mgm_struck] marimba_hit A4 s2  retunable cents=-1191.74  octave -1
+[mgm_struck] marimba_hit A4 s3  texture   cents=-1190.0  only 77% of frames near one pitch
+[mgm_struck] marimba_hit C5 s1  retunable cents=-1198.6  octave -1
+[mgm_struck] marimba_hit C5 s2  retunable cents=-1194.23  octave -1
+[mgm_struck] marimba_hit C5 s3  texture   cents=-1180.0  spread 40c > 30c; only 65% of frames near one pitch
+[mgm_struck] marimba_hit D#5 s1  retunable cents=-1184.04  octave -1
+[mgm_struck] marimba_hit D#5 s2  retunable cents=-1184.49  octave -1
+[mgm_struck] marimba_hit D#5 s3  retunable cents=-1184.13  octave -1
+[mgm_struck] marimba_hit F#5 s1  retunable cents=-2383.8  octave -2
+[mgm_struck] marimba_hit F#5 s2  retunable cents=-2384.93  octave -2
+[mgm_struck] marimba_hit F#5 s3  retunable cents=-2378.21  octave -2
+[mgm_struck] marimba_hit A5 s1  retunable cents=-2391.2  octave -2
+[mgm_struck] marimba_hit A5 s2  texture   cents=-1190.0  spread 1200c > 30c; only 66% of frames near one pitch
+[mgm_struck] marimba_hit A5 s3  retunable cents=-2385.61  octave -2
+[marimba_hit_bo3] marimba_hit TEXTURE ONLY built marimba_hit_bo3_marimba_hit.sfz  F#2–D#5  4 samples  trimmed from 34/34  keycheck 34/34 on target, worst 5.96c

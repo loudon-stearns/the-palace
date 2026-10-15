@@ -1,0 +1,43 @@
+<DecentSampler minVersion="1.0.0">
+  <!-- built from range+flute_names56_bo3+flute_names57_bo3_flute_looped.sfz by to_decentsampler.py -->
+  <!-- SFZ tune (cents) written as tuning (semitones) = tune/100 -->
+  <ui width="812" height="200" bgColor="FF0A0A0F">
+    <tab name="main">
+      <label x="20" y="10" width="772" height="24" text="flute looped" textColor="FFE8B84A" textSize="18" />
+      <labeled-knob x="20" y="40" width="90" height="90" textSize="14" label="Attack" type="float" minValue="0" maxValue="2" value="0.14" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="ENV_ATTACK" />
+      </labeled-knob>
+      <labeled-knob x="130" y="40" width="90" height="90" textSize="14" label="Release" type="float" minValue="0" maxValue="8" value="0.35" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="ENV_RELEASE" />
+      </labeled-knob>
+      <labeled-knob x="240" y="40" width="90" height="90" textSize="14" label="Volume" type="float" minValue="0" maxValue="1" value="0.8" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="AMP_VOLUME" />
+      </labeled-knob>
+    </tab>
+  </ui>
+  <groups attack="0.14" decay="0" sustain="1" release="0.35" volume="0.8">
+    <group>
+      <sample path="Samples/flute_names57_bo3__flute_C4_s3.wav" rootNote="60" loNote="60" hiNote="60" loVel="0" hiVel="127" tuning="-0.09" loopEnabled="true" loopStart="52320" loopEnd="102328" loopCrossfade="0" />
+      <sample path="Samples/range__flute_C#5_s2.wav" rootNote="61" loNote="61" hiNote="61" loVel="0" hiVel="127" tuning="-0.1" loopEnabled="true" loopStart="27840" loopEnd="51368" loopCrossfade="0" />
+      <sample path="Samples/flute_names56_bo3__flute_D5_s2.wav" rootNote="62" loNote="62" hiNote="62" loVel="0" hiVel="127" tuning="0.14" loopEnabled="true" loopStart="28480" loopEnd="77913" loopCrossfade="0" />
+      <sample path="Samples/flute_names57_bo3__flute_D#4_s2.wav" rootNote="63" loNote="63" hiNote="63" loVel="0" hiVel="127" tuning="-0.13" loopEnabled="true" loopStart="15200" loopEnd="63077" loopCrossfade="0" />
+      <sample path="Samples/range__flute_E4_s1.wav" rootNote="64" loNote="64" hiNote="64" loVel="0" hiVel="127" tuning="0" loopEnabled="true" loopStart="93120" loopEnd="107293" loopCrossfade="0" />
+      <sample path="Samples/flute_names56_bo3__flute_F5_s3.wav" rootNote="65" loNote="65" hiNote="66" loVel="0" hiVel="127" tuning="0.01" loopEnabled="true" loopStart="48800" loopEnd="74563" loopCrossfade="0" />
+      <sample path="Samples/range__flute_G5_s2.wav" rootNote="67" loNote="67" hiNote="67" loVel="0" hiVel="127" tuning="0.11" loopEnabled="true" loopStart="80480" loopEnd="95924" loopCrossfade="0" />
+      <sample path="Samples/flute_names56_bo3__flute_G#3_s1.wav" rootNote="68" loNote="68" hiNote="68" loVel="0" hiVel="127" tuning="-0.01" loopEnabled="true" loopStart="63040" loopEnd="105392" loopCrossfade="0" />
+      <sample path="Samples/flute_names57_bo3__flute_A3_s2.wav" rootNote="69" loNote="69" hiNote="70" loVel="0" hiVel="127" tuning="0" loopEnabled="true" loopStart="35040" loopEnd="81874" loopCrossfade="0" />
+      <sample path="Samples/flute_names56_bo3__flute_B4_s3.wav" rootNote="71" loNote="71" hiNote="71" loVel="0" hiVel="127" tuning="0.23" loopEnabled="true" loopStart="72640" loopEnd="112101" loopCrossfade="0" />
+      <sample path="Samples/flute_names57_bo3__flute_C4_s1.wav" rootNote="72" loNote="72" hiNote="72" loVel="0" hiVel="127" tuning="0.09" loopEnabled="true" loopStart="85280" loopEnd="96530" loopCrossfade="0" />
+      <sample path="Samples/range__flute_C#6_s1.wav" rootNote="73" loNote="73" hiNote="73" loVel="0" hiVel="127" tuning="-0.08" loopEnabled="true" loopStart="54400" loopEnd="66004" loopCrossfade="0" />
+      <sample path="Samples/flute_names56_bo3__flute_D4_s3.wav" rootNote="74" loNote="74" hiNote="75" loVel="0" hiVel="127" tuning="0.02" loopEnabled="true" loopStart="77120" loopEnd="109519" loopCrossfade="0" />
+      <sample path="Samples/range__flute_E7_s2.wav" rootNote="76" loNote="76" hiNote="76" loVel="0" hiVel="127" tuning="-0.01" loopEnabled="true" loopStart="79360" loopEnd="103907" loopCrossfade="0" />
+      <sample path="Samples/flute_names56_bo3__flute_F5_s1.wav" rootNote="77" loNote="77" hiNote="77" loVel="0" hiVel="127" tuning="-0.02" loopEnabled="true" loopStart="82880" loopEnd="134040" loopCrossfade="0" />
+      <sample path="Samples/flute_names57_bo3__flute_F#4_s1.wav" rootNote="78" loNote="78" hiNote="78" loVel="0" hiVel="127" tuning="-0.19" loopEnabled="true" loopStart="80800" loopEnd="92647" loopCrossfade="0" />
+      <sample path="Samples/range__flute_G6_s2.wav" rootNote="79" loNote="79" hiNote="79" loVel="0" hiVel="127" tuning="-0.06" loopEnabled="true" loopStart="97600" loopEnd="113381" loopCrossfade="0" />
+      <sample path="Samples/flute_names56_bo3__flute_G#4_s3.wav" rootNote="80" loNote="80" hiNote="81" loVel="0" hiVel="127" tuning="0.01" loopEnabled="true" loopStart="88640" loopEnd="128960" loopCrossfade="0" />
+      <sample path="Samples/range__flute_A#6_s1.wav" rootNote="82" loNote="82" hiNote="83" loVel="0" hiVel="127" tuning="0.04" loopEnabled="true" loopStart="50400" loopEnd="83906" loopCrossfade="0" />
+      <sample path="Samples/flute_names57_bo3__flute_C5_s2.wav" rootNote="84" loNote="84" hiNote="84" loVel="0" hiVel="127" tuning="-0.1" loopEnabled="true" loopStart="98080" loopEnd="111273" loopCrossfade="0" />
+      <sample path="Samples/range__flute_C#7_s1.wav" rootNote="85" loNote="85" hiNote="97" loVel="0" hiVel="127" tuning="-0.03" loopEnabled="true" loopStart="109120" loopEnd="139140" loopCrossfade="0" />
+    </group>
+  </groups>
+</DecentSampler>

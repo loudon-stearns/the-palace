@@ -1,0 +1,128 @@
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 21.47it/s]
+[musicgen_melody]   1/24 flute    G#3 s1  ok  20.2s
+[musicgen_melody]   2/24 flute    G#3 s2  ok  9.1s
+[musicgen_melody]   3/24 flute    G#3 s3  ok  9.1s
+[musicgen_melody]   4/24 flute    B3 s1  ok  9.1s
+[musicgen_melody]   5/24 flute    B3 s2  ok  9.0s
+[musicgen_melody]   6/24 flute    B3 s3  ok  9.1s
+[musicgen_melody]   7/24 flute    D4 s1  ok  9.1s
+[musicgen_melody]   8/24 flute    D4 s2  ok  9.1s
+[musicgen_melody]   9/24 flute    D4 s3  ok  9.1s
+[musicgen_melody]  10/24 flute    F4 s1  ok  9.1s
+[musicgen_melody]  11/24 flute    F4 s2  ok  9.1s
+[musicgen_melody]  12/24 flute    F4 s3  ok  9.1s
+[musicgen_melody]  13/24 flute    G#4 s1  ok  9.1s
+[musicgen_melody]  14/24 flute    G#4 s2  ok  9.1s
+[musicgen_melody]  15/24 flute    G#4 s3  ok  9.1s
+[musicgen_melody]  16/24 flute    B4 s1  ok  9.1s
+[musicgen_melody]  17/24 flute    B4 s2  ok  9.1s
+[musicgen_melody]  18/24 flute    B4 s3  ok  9.1s
+[musicgen_melody]  19/24 flute    D5 s1  ok  9.1s
+[musicgen_melody]  20/24 flute    D5 s2  ok  9.1s
+[musicgen_melody]  21/24 flute    D5 s3  ok  9.1s
+[musicgen_melody]  22/24 flute    F5 s1  ok  9.1s
+[musicgen_melody]  23/24 flute    F5 s2  ok  9.1s
+[musicgen_melody]  24/24 flute    F5 s3  ok  9.1s
+[musicgen_melody] rendered 24/24 → renders.flute_names56_bo3.jsonl
+[musicgen_melody] flute    G#3 s1  retunable cents=1201.54  octave +1
+[musicgen_melody] flute    G#3 s2  on_target cents=5.36  clean
+[musicgen_melody] flute    G#3 s3  texture   cents=0.02  spread 1200c > 30c; only 71% of frames near one pitch
+[musicgen_melody] flute    B3 s1  on_target cents=-7.48  clean
+[musicgen_melody] flute    B3 s2  on_target cents=-16.44  clean
+[musicgen_melody] flute    B3 s3  on_target cents=-5.81  clean
+[musicgen_melody] flute    D4 s1  texture   cents=1210.0  only 76% of frames near one pitch
+[musicgen_melody] flute    D4 s2  on_target cents=-17.52  clean
+[musicgen_melody] flute    D4 s3  retunable cents=1198.78  octave +1
+[musicgen_melody] flute    F4 s1  retunable cents=1201.4  octave +1
+[musicgen_melody] flute    F4 s2  retunable cents=1185.37  octave +1
+[musicgen_melody] flute    F4 s3  on_target cents=5.76  clean
+[musicgen_melody] flute    G#4 s1  retunable cents=1203.48  octave +1
+[musicgen_melody] flute    G#4 s2  on_target cents=-2.09  clean
+[musicgen_melody] flute    G#4 s3  retunable cents=1198.62  octave +1
+[musicgen_melody] flute    B4 s1  texture   cents=1170.0  only 79% of frames near one pitch
+[musicgen_melody] flute    B4 s2  texture   cents=-1220.0  spread 3100c > 30c; only 12% of frames near one pitch
+[musicgen_melody] flute    B4 s3  retunable cents=-23.43  off by -23c
+[musicgen_melody] flute    D5 s1  texture   cents=-1210.0  spread 1198c > 30c; only 71% of frames near one pitch
+[musicgen_melody] flute    D5 s2  retunable cents=-1213.95  octave -1
+[musicgen_melody] flute    D5 s3  retunable cents=-1196.33  octave -1
+[musicgen_melody] flute    F5 s1  on_target cents=1.6  clean
+[musicgen_melody] flute    F5 s2  retunable cents=-1227.02  octave -1
+[musicgen_melody] flute    F5 s3  retunable cents=-1200.86  octave -1
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 22.35it/s]
+[musicgen_melody]   1/24 flute    A3 s1  ok  20.8s
+[musicgen_melody]   2/24 flute    A3 s2  ok  9.0s
+[musicgen_melody]   3/24 flute    A3 s3  ok  9.0s
+[musicgen_melody]   4/24 flute    C4 s1  ok  9.0s
+[musicgen_melody]   5/24 flute    C4 s2  ok  9.1s
+[musicgen_melody]   6/24 flute    C4 s3  ok  9.1s
+[musicgen_melody]   7/24 flute    D#4 s1  ok  9.1s
+[musicgen_melody]   8/24 flute    D#4 s2  ok  9.1s
+[musicgen_melody]   9/24 flute    D#4 s3  ok  9.1s
+[musicgen_melody]  10/24 flute    F#4 s1  ok  9.1s
+[musicgen_melody]  11/24 flute    F#4 s2  ok  9.1s
+[musicgen_melody]  12/24 flute    F#4 s3  ok  9.1s
+[musicgen_melody]  13/24 flute    A4 s1  ok  9.1s
+[musicgen_melody]  14/24 flute    A4 s2  ok  9.1s
+[musicgen_melody]  15/24 flute    A4 s3  ok  9.1s
+[musicgen_melody]  16/24 flute    C5 s1  ok  9.1s
+[musicgen_melody]  17/24 flute    C5 s2  ok  9.1s
+[musicgen_melody]  18/24 flute    C5 s3  ok  9.1s
+[musicgen_melody]  19/24 flute    D#5 s1  ok  9.1s
+[musicgen_melody]  20/24 flute    D#5 s2  ok  9.1s
+[musicgen_melody]  21/24 flute    D#5 s3  ok  9.1s
+[musicgen_melody]  22/24 flute    F#5 s1  ok  9.1s
+[musicgen_melody]  23/24 flute    F#5 s2  ok  9.1s
+[musicgen_melody]  24/24 flute    F#5 s3  ok  9.1s
+[musicgen_melody] rendered 24/24 → renders.flute_names57_bo3.jsonl
+[musicgen_melody] flute    A3 s1  retunable cents=1201.09  octave +1
+[musicgen_melody] flute    A3 s2  retunable cents=1200.18  octave +1
+[musicgen_melody] flute    A3 s3  retunable cents=1196.79  octave +1
+[musicgen_melody] flute    C4 s1  retunable cents=1190.51  octave +1
+[musicgen_melody] flute    C4 s2  retunable cents=1198.11  octave +1
+[musicgen_melody] flute    C4 s3  on_target cents=8.45  clean
+[musicgen_melody] flute    D#4 s1  retunable cents=-1197.43  octave -1
+[musicgen_melody] flute    D#4 s2  on_target cents=12.6  clean
+[musicgen_melody] flute    D#4 s3  retunable cents=-1197.44  octave -1
+[musicgen_melody] flute    F#4 s1  retunable cents=1219.05  octave +1
+[musicgen_melody] flute    F#4 s2  retunable cents=1191.11  octave +1
+[musicgen_melody] flute    F#4 s3  texture   cents=1210.0  spread 2410c > 30c; only 69% of frames near one pitch
+[musicgen_melody] flute    A4 s1  on_target cents=-2.64  clean
+[musicgen_melody] flute    A4 s2  on_target cents=-2.15  clean
+[musicgen_melody] flute    A4 s3  on_target cents=-13.62  clean
+[musicgen_melody] flute    C5 s1  texture   cents=1200.0  spread 1200c > 30c; only 70% of frames near one pitch
+[musicgen_melody] flute    C5 s2  retunable cents=1210.68  octave +1
+[musicgen_melody] flute    C5 s3  on_target cents=-19.05  clean
+[musicgen_melody] flute    D#5 s1  texture   cents=-1820.0  spread 1200c > 30c; only 0% of frames near one pitch
+[musicgen_melody] flute    D#5 s2  texture   cents=-1200.0  spread 1190c > 30c; only 67% of frames near one pitch
+[musicgen_melody] flute    D#5 s3  retunable cents=-2398.02  octave -2
+[musicgen_melody] flute    F#5 s1  texture   cents=10.0  spread 1190c > 30c; only 61% of frames near one pitch
+[musicgen_melody] flute    F#5 s2  on_target cents=-7.19  clean
+[musicgen_melody] flute    F#5 s3  on_target cents=5.74  clean
+[range+flute_names56_bo3+flute_names57_bo3] flute    TEXTURE ONLY built range+flute_names56_bo3+flute_names57_bo3_flute.sfz  D#2–C#7  26 samples  trimmed from 59/59  keycheck 59/59 on target, worst 4.66c
+instruments/by_played_names/flute_shaped: 59/59 keys on target, worst 4.72c
+  flute_names57_bo3__flute_D#5_s3.wav cut in at 0.311 s (model opened at -5.0 dB, sustain -5.3 dB)
+  range__flute_E2_s1.wav   cut in at 0.151 s (model opened at -4.5 dB, sustain -4.4 dB)
+  range__flute_G3_s1.wav   cut in at 0.421 s (model opened at -2.4 dB, sustain -3.8 dB)
+  range__flute_A#2_s2.wav  cut in at 0.151 s (model opened at -5.5 dB, sustain -5.9 dB)
+  flute_names56_bo3__flute_B3_s1.wav cut in at 0.19 s (model opened at -6.7 dB, sustain -9.4 dB)
+  flute_names57_bo3__flute_C4_s3.wav cut in at 0.292 s (model opened at -10.1 dB, sustain -6.8 dB)
+  range__flute_C#5_s2.wav  cut in at 0.151 s (model opened at -10.7 dB, sustain -5.6 dB)
+  flute_names56_bo3__flute_D5_s2.wav cut in at 0.151 s (model opened at -12.2 dB, sustain -5.0 dB)
+  flute_names57_bo3__flute_D#4_s2.wav cut in at 0.15 s (model opened at -7.1 dB, sustain -5.0 dB)
+  range__flute_E4_s1.wav   cut in at 0.151 s (model opened at -0.8 dB, sustain -5.5 dB)
+  flute_names56_bo3__flute_F5_s3.wav cut in at 0.161 s (model opened at -3.7 dB, sustain -4.1 dB)
+  range__flute_G5_s2.wav   cut in at 0.161 s (model opened at -7.0 dB, sustain -7.1 dB)
+  flute_names56_bo3__flute_G#3_s1.wav cut in at 0.21 s (model opened at -6.3 dB, sustain -2.7 dB)
+  flute_names57_bo3__flute_A3_s2.wav cut in at 0.15 s (model opened at -4.3 dB, sustain -4.1 dB)
+  flute_names56_bo3__flute_B4_s3.wav cut in at 0.151 s (model opened at -5.7 dB, sustain -4.2 dB)
+  flute_names57_bo3__flute_C4_s1.wav cut in at 0.411 s (model opened at -16.5 dB, sustain -8.1 dB)
+  range__flute_C#6_s1.wav  cut in at 0.15 s (model opened at -4.4 dB, sustain -1.9 dB)
+  flute_names56_bo3__flute_D4_s3.wav cut in at 0.29 s (model opened at -13.0 dB, sustain -2.4 dB)
+  range__flute_E7_s2.wav   cut in at 0.18 s (model opened at -8.2 dB, sustain -4.2 dB)
+  flute_names56_bo3__flute_F5_s1.wav cut in at 0.15 s (model opened at -4.2 dB, sustain -2.8 dB)
+  flute_names57_bo3__flute_F#4_s1.wav cut in at 0.15 s (model opened at -3.9 dB, sustain -3.7 dB)
+  range__flute_G6_s2.wav   cut in at 0.15 s (model opened at -6.2 dB, sustain -2.7 dB)
+  flute_names56_bo3__flute_G#4_s3.wav cut in at 0.161 s (model opened at -8.6 dB, sustain -5.3 dB)
+  range__flute_A#6_s1.wav  cut in at 0.15 s (model opened at -1.6 dB, sustain -3.1 dB)
+  flute_names57_bo3__flute_C5_s2.wav cut in at 0.15 s (model opened at -12.8 dB, sustain -9.2 dB)
+  range__flute_C#7_s1.wav  cut in at 0.15 s (model opened at -5.0 dB, sustain -5.2 dB)

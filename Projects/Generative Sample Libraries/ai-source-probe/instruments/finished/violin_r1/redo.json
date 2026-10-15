@@ -1,0 +1,154 @@
+{
+ "instrument": "violin",
+ "tag": "r1",
+ "flagged": [
+  {
+   "key": "A#3",
+   "before": "range__violin_A#4_s2.wav",
+   "before_own_sample": true,
+   "after": "violin_r1_As3__violin_A#3_s10.wav",
+   "came_from": "fresh take (violin_r1_As3 seed 10)"
+  },
+  {
+   "key": "C4",
+   "before": "violin_names57_bo3__violin_C5_s3.wav",
+   "before_own_sample": true,
+   "after": "violin_names57_bo3__violin_C4_s2.wav",
+   "came_from": "an older take the first pick had beaten (violin_names57_bo3__violin_C4_s2.wav)"
+  },
+  {
+   "key": "C5",
+   "before": "violin_names57_bo3__violin_C5_s1.wav",
+   "before_own_sample": true,
+   "after": "violin_r1_C4__violin_C4_s6.wav",
+   "came_from": "fresh take (violin_r1_C4 seed 6)"
+  }
+ ],
+ "fresh_takes": {
+  "violin_r1_As3": [
+   {
+    "seed": 6,
+    "grade": "on_target",
+    "sounds_at": "A#3"
+   },
+   {
+    "seed": 7,
+    "grade": "on_target",
+    "sounds_at": "A#3"
+   },
+   {
+    "seed": 8,
+    "grade": "retunable",
+    "sounds_at": "A#4"
+   },
+   {
+    "seed": 9,
+    "grade": "on_target",
+    "sounds_at": "A#3"
+   },
+   {
+    "seed": 10,
+    "grade": "on_target",
+    "sounds_at": "A#3"
+   },
+   {
+    "seed": 11,
+    "grade": "retunable",
+    "sounds_at": "A#4"
+   }
+  ],
+  "violin_r1_C4": [
+   {
+    "seed": 6,
+    "grade": "retunable",
+    "sounds_at": "C5"
+   },
+   {
+    "seed": 7,
+    "grade": "retunable",
+    "sounds_at": "C5"
+   },
+   {
+    "seed": 8,
+    "grade": "retunable",
+    "sounds_at": "C4"
+   },
+   {
+    "seed": 9,
+    "grade": "retunable",
+    "sounds_at": "C4"
+   },
+   {
+    "seed": 10,
+    "grade": "texture",
+    "sounds_at": "F3"
+   },
+   {
+    "seed": 11,
+    "grade": "retunable",
+    "sounds_at": "C5"
+   }
+  ],
+  "violin_r1_C5": [
+   {
+    "seed": 6,
+    "grade": "on_target",
+    "sounds_at": "C5"
+   },
+   {
+    "seed": 7,
+    "grade": "retunable",
+    "sounds_at": "C6"
+   },
+   {
+    "seed": 8,
+    "grade": "texture",
+    "sounds_at": "C6"
+   },
+   {
+    "seed": 9,
+    "grade": "retunable",
+    "sounds_at": "C6"
+   },
+   {
+    "seed": 10,
+    "grade": "on_target",
+    "sounds_at": "C5"
+   },
+   {
+    "seed": 11,
+    "grade": "on_target",
+    "sounds_at": "C5"
+   }
+  ]
+ },
+ "base": "instruments/in_range/violin",
+ "finished": "instruments/finished/violin_r1",
+ "finishing": {
+  "instrument": "MusicGen Violin",
+  "from": "instruments/redo/r1/violin_looped",
+  "samples": 24,
+  "loop_level_spread_db": {
+   "before": 11.2,
+   "after": 0.0
+  },
+  "worst_neighbour_jump_db": {
+   "before": 8.4,
+   "after": 0.0
+  },
+  "worst_swell_db": {
+   "before": 8.64,
+   "after": 2.91
+  },
+  "seams_clean": 24,
+  "held_12s_on_target": 24,
+  "worst_click_db": 2.98,
+  "worst_level_step_db": 0.82,
+  "shared_trim_db": -6.93,
+  "velocity": {
+   "amp_veltrack": 80,
+   "cutoff": 3000,
+   "fil_veltrack": 2400
+  }
+ }
+}

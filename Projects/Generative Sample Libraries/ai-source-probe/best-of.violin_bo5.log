@@ -1,0 +1,132 @@
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 23.17it/s]
+[musicgen_melody]   1/65 violin   G3 s1  ok  21.2s
+[musicgen_melody]   2/65 violin   G3 s2  ok  9.0s
+[musicgen_melody]   3/65 violin   G3 s3  ok  9.2s
+[musicgen_melody]   4/65 violin   G3 s4  ok  9.1s
+[musicgen_melody]   5/65 violin   G3 s5  ok  9.1s
+[musicgen_melody]   6/65 violin   A#3 s1  ok  9.1s
+[musicgen_melody]   7/65 violin   A#3 s2  ok  9.1s
+[musicgen_melody]   8/65 violin   A#3 s3  ok  9.2s
+[musicgen_melody]   9/65 violin   A#3 s4  ok  9.2s
+[musicgen_melody]  10/65 violin   A#3 s5  ok  9.2s
+[musicgen_melody]  11/65 violin   C#4 s1  ok  9.3s
+[musicgen_melody]  12/65 violin   C#4 s2  ok  9.9s
+[musicgen_melody]  13/65 violin   C#4 s3  ok  9.4s
+[musicgen_melody]  14/65 violin   C#4 s4  ok  9.4s
+[musicgen_melody]  15/65 violin   C#4 s5  ok  9.6s
+[musicgen_melody]  16/65 violin   E4 s1  ok  9.3s
+[musicgen_melody]  17/65 violin   E4 s2  ok  9.3s
+[musicgen_melody]  18/65 violin   E4 s3  ok  9.2s
+[musicgen_melody]  19/65 violin   E4 s4  ok  9.4s
+[musicgen_melody]  20/65 violin   E4 s5  ok  9.3s
+[musicgen_melody]  21/65 violin   G4 s1  ok  9.1s
+[musicgen_melody]  22/65 violin   G4 s2  ok  9.2s
+[musicgen_melody]  23/65 violin   G4 s3  ok  9.2s
+[musicgen_melody]  24/65 violin   G4 s4  ok  9.1s
+[musicgen_melody]  25/65 violin   G4 s5  ok  9.3s
+[musicgen_melody]  26/65 violin   A#4 s1  ok  9.2s
+[musicgen_melody]  27/65 violin   A#4 s2  ok  9.2s
+[musicgen_melody]  28/65 violin   A#4 s3  ok  9.3s
+[musicgen_melody]  29/65 violin   A#4 s4  ok  9.2s
+[musicgen_melody]  30/65 violin   A#4 s5  ok  9.2s
+[musicgen_melody]  31/65 violin   C#5 s1  ok  9.2s
+[musicgen_melody]  32/65 violin   C#5 s2  ok  9.3s
+[musicgen_melody]  33/65 violin   C#5 s3  ok  9.3s
+[musicgen_melody]  34/65 violin   C#5 s4  ok  9.4s
+[musicgen_melody]  35/65 violin   C#5 s5  ok  9.4s
+[musicgen_melody]  36/65 violin   E5 s1  ok  10.3s
+[musicgen_melody]  37/65 violin   E5 s2  ok  10.4s
+[musicgen_melody]  38/65 violin   E5 s3  ok  9.3s
+[musicgen_melody]  39/65 violin   E5 s4  ok  9.3s
+[musicgen_melody]  40/65 violin   E5 s5  ok  9.3s
+[musicgen_melody]  41/65 violin   G5 s1  ok  9.2s
+[musicgen_melody]  42/65 violin   G5 s2  ok  9.3s
+[musicgen_melody]  43/65 violin   G5 s3  ok  9.4s
+[musicgen_melody]  44/65 violin   G5 s4  ok  9.1s
+[musicgen_melody]  45/65 violin   G5 s5  ok  9.7s
+[musicgen_melody]  46/65 violin   A#5 s1  ok  9.6s
+[musicgen_melody]  47/65 violin   A#5 s2  ok  9.8s
+[musicgen_melody]  48/65 violin   A#5 s3  ok  9.2s
+[musicgen_melody]  49/65 violin   A#5 s4  ok  9.6s
+[musicgen_melody]  50/65 violin   A#5 s5  ok  9.2s
+[musicgen_melody]  51/65 violin   C#6 s1  ok  9.3s
+[musicgen_melody]  52/65 violin   C#6 s2  ok  9.2s
+[musicgen_melody]  53/65 violin   C#6 s3  ok  9.3s
+[musicgen_melody]  54/65 violin   C#6 s4  ok  9.3s
+[musicgen_melody]  55/65 violin   C#6 s5  ok  9.2s
+[musicgen_melody]  56/65 violin   E6 s1  ok  9.3s
+[musicgen_melody]  57/65 violin   E6 s2  ok  9.2s
+[musicgen_melody]  58/65 violin   E6 s3  ok  9.1s
+[musicgen_melody]  59/65 violin   E6 s4  ok  9.1s
+[musicgen_melody]  60/65 violin   E6 s5  ok  9.2s
+[musicgen_melody]  61/65 violin   G6 s1  ok  9.2s
+[musicgen_melody]  62/65 violin   G6 s2  ok  9.1s
+[musicgen_melody]  63/65 violin   G6 s3  ok  9.2s
+[musicgen_melody]  64/65 violin   G6 s4  ok  9.1s
+[musicgen_melody]  65/65 violin   G6 s5  ok  9.2s
+[musicgen_melody] rendered 65/65 → renders.violin_bo5.jsonl
+[musicgen_melody] violin   G3 s1  on_target cents=-4.33  clean
+[musicgen_melody] violin   G3 s2  texture   cents=0.0  spread 45c > 30c; only 75% of frames near one pitch
+[musicgen_melody] violin   G3 s3  retunable cents=1204.97  octave +1
+[musicgen_melody] violin   G3 s4  on_target cents=-2.51  clean
+[musicgen_melody] violin   G3 s5  retunable cents=1198.32  octave +1
+[musicgen_melody] violin   A#3 s1  retunable cents=1191.52  octave +1
+[musicgen_melody] violin   A#3 s2  texture   cents=1190.0  only 77% of frames near one pitch
+[musicgen_melody] violin   A#3 s3  retunable cents=1196.76  octave +1
+[musicgen_melody] violin   A#3 s4  retunable cents=1200.69  octave +1
+[musicgen_melody] violin   A#3 s5  retunable cents=1198.26  octave +1
+[musicgen_melody] violin   C#4 s1  retunable cents=1204.74  octave +1
+[musicgen_melody] violin   C#4 s2  texture   cents=10.0  spread 1200c > 30c; only 71% of frames near one pitch
+[musicgen_melody] violin   C#4 s3  on_target cents=3.57  clean
+[musicgen_melody] violin   C#4 s4  on_target cents=-9.54  clean
+[musicgen_melody] violin   C#4 s5  retunable cents=1200.63  octave +1
+[musicgen_melody] violin   E4 s1  on_target cents=-2.97  clean
+[musicgen_melody] violin   E4 s2  on_target cents=-8.56  clean
+[musicgen_melody] violin   E4 s3  retunable cents=1198.72  octave +1
+[musicgen_melody] violin   E4 s4  on_target cents=0.69  clean
+[musicgen_melody] violin   E4 s5  retunable cents=1199.99  octave +1
+[musicgen_melody] violin   G4 s1  texture   cents=-1210.0  spread 1190c > 30c; only 73% of frames near one pitch
+[musicgen_melody] violin   G4 s2  texture   cents=-1220.0  only 77% of frames near one pitch
+[musicgen_melody] violin   G4 s3  on_target cents=-13.69  clean
+[musicgen_melody] violin   G4 s4  texture   cents=-1220.0  spread 2410c > 30c; only 65% of frames near one pitch
+[musicgen_melody] violin   G4 s5  texture   cents=0.0  spread 1200c > 30c; only 64% of frames near one pitch
+[musicgen_melody] violin   A#4 s1  on_target cents=-1.91  clean
+[musicgen_melody] violin   A#4 s2  retunable cents=-1206.39  octave -1
+[musicgen_melody] violin   A#4 s3  retunable cents=1207.36  octave +1
+[musicgen_melody] violin   A#4 s4  on_target cents=0.9  clean
+[musicgen_melody] violin   A#4 s5  on_target cents=-1.56  clean
+[musicgen_melody] violin   C#5 s1  retunable cents=-1191.16  octave -1
+[musicgen_melody] violin   C#5 s2  on_target cents=5.31  clean
+[musicgen_melody] violin   C#5 s3  texture   cents=-1190.0  spread 1200c > 30c; only 64% of frames near one pitch
+[musicgen_melody] violin   C#5 s4  on_target cents=3.63  clean
+[musicgen_melody] violin   C#5 s5  on_target cents=-4.77  clean
+[musicgen_melody] violin   E5 s1  retunable cents=-1197.4  octave -1
+[musicgen_melody] violin   E5 s2  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[musicgen_melody] violin   E5 s3  on_target cents=3.78  clean
+[musicgen_melody] violin   E5 s4  retunable cents=-1204.73  octave -1
+[musicgen_melody] violin   E5 s5  retunable cents=-1198.63  octave -1
+[musicgen_melody] violin   G5 s1  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[musicgen_melody] violin   G5 s2  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[musicgen_melody] violin   G5 s3  retunable cents=-1203.54  octave -1
+[musicgen_melody] violin   G5 s4  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[musicgen_melody] violin   G5 s5  on_target cents=6.73  clean
+[musicgen_melody] violin   A#5 s1  retunable cents=-1195.77  octave -1
+[musicgen_melody] violin   A#5 s2  retunable cents=-1212.46  octave -1
+[musicgen_melody] violin   A#5 s3  retunable cents=-1192.68  octave -1
+[musicgen_melody] violin   A#5 s4  retunable cents=-1217.13  octave -1
+[musicgen_melody] violin   A#5 s5  retunable cents=-1202.28  octave -1
+[musicgen_melody] violin   C#6 s1  retunable cents=-1197.82  octave -1
+[musicgen_melody] violin   C#6 s2  retunable cents=-1189.18  octave -1
+[musicgen_melody] violin   C#6 s3  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[musicgen_melody] violin   C#6 s4  retunable cents=-1185.98  octave -1
+[musicgen_melody] violin   C#6 s5  retunable cents=-1196.43  octave -1
+[musicgen_melody] violin   E6 s1  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[musicgen_melody] violin   E6 s2  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[musicgen_melody] violin   E6 s3  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[musicgen_melody] violin   E6 s4  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[musicgen_melody] violin   E6 s5  retunable cents=-1193.48  octave -1
+[musicgen_melody] violin   G6 s1  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[musicgen_melody] violin   G6 s2  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[musicgen_melody] violin   G6 s3  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[musicgen_melody] violin   G6 s4  texture   cents=-2320.0  spread 90c > 30c; only 69% of frames near one pitch
+[musicgen_melody] violin   G6 s5  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note

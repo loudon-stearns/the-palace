@@ -1,0 +1,26 @@
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 20.51it/s]
+[mgm_struck]   1/12 marimba_hit A2 s1  ok  21.9s
+[mgm_struck]   2/12 marimba_hit A2 s2  ok  9.4s
+[mgm_struck]   3/12 marimba_hit A2 s3  ok  9.5s
+[mgm_struck]   4/12 marimba_hit E3 s1  ok  9.2s
+[mgm_struck]   5/12 marimba_hit E3 s2  ok  9.2s
+[mgm_struck]   6/12 marimba_hit E3 s3  ok  9.2s
+[mgm_struck]   7/12 marimba_hit C4 s1  ok  9.4s
+[mgm_struck]   8/12 marimba_hit C4 s2  ok  9.4s
+[mgm_struck]   9/12 marimba_hit C4 s3  ok  9.4s
+[mgm_struck]  10/12 marimba_hit G5 s1  ok  9.4s
+[mgm_struck]  11/12 marimba_hit G5 s2  ok  9.4s
+[mgm_struck]  12/12 marimba_hit G5 s3  ok  9.3s
+[mgm_struck] rendered 12/12 → renders.marimba_hit_ab.jsonl
+[mgm_struck] marimba_hit A2 s1  retunable cents=1207.41  octave +1
+[mgm_struck] marimba_hit A2 s2  retunable cents=1207.86  octave +1
+[mgm_struck] marimba_hit A2 s3  retunable cents=1210.18  octave +1
+[mgm_struck] marimba_hit E3 s1  texture   cents=0.04  spread 1200c > 30c; only 65% of frames near one pitch
+[mgm_struck] marimba_hit E3 s2  retunable cents=1212.22  octave +1
+[mgm_struck] marimba_hit E3 s3  retunable cents=1217.15  octave +1
+[mgm_struck] marimba_hit C4 s1  texture   cents=-20.0  spread 230c > 30c; only 55% of frames near one pitch
+[mgm_struck] marimba_hit C4 s2  on_target cents=3.53  clean
+[mgm_struck] marimba_hit C4 s3  on_target cents=14.65  clean
+[mgm_struck] marimba_hit G5 s1  retunable cents=-2383.93  octave -2
+[mgm_struck] marimba_hit G5 s2  retunable cents=-1190.94  octave -1
+[mgm_struck] marimba_hit G5 s3  texture   cents=-2400.0  spread 1200c > 30c; only 46% of frames near one pitch

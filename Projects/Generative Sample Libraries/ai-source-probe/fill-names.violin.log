@@ -1,0 +1,127 @@
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 22.39it/s]
+[musicgen_melody]   1/24 violin   G#3 s1  ok  21.5s
+[musicgen_melody]   2/24 violin   G#3 s2  ok  9.2s
+[musicgen_melody]   3/24 violin   G#3 s3  ok  9.3s
+[musicgen_melody]   4/24 violin   B3 s1  ok  9.3s
+[musicgen_melody]   5/24 violin   B3 s2  ok  9.2s
+[musicgen_melody]   6/24 violin   B3 s3  ok  9.4s
+[musicgen_melody]   7/24 violin   D4 s1  ok  9.2s
+[musicgen_melody]   8/24 violin   D4 s2  ok  9.2s
+[musicgen_melody]   9/24 violin   D4 s3  ok  9.3s
+[musicgen_melody]  10/24 violin   F4 s1  ok  9.2s
+[musicgen_melody]  11/24 violin   F4 s2  ok  9.2s
+[musicgen_melody]  12/24 violin   F4 s3  ok  9.3s
+[musicgen_melody]  13/24 violin   G#4 s1  ok  9.4s
+[musicgen_melody]  14/24 violin   G#4 s2  ok  9.4s
+[musicgen_melody]  15/24 violin   G#4 s3  ok  9.4s
+[musicgen_melody]  16/24 violin   B4 s1  ok  9.3s
+[musicgen_melody]  17/24 violin   B4 s2  ok  9.3s
+[musicgen_melody]  18/24 violin   B4 s3  ok  9.3s
+[musicgen_melody]  19/24 violin   D5 s1  ok  9.7s
+[musicgen_melody]  20/24 violin   D5 s2  ok  9.6s
+[musicgen_melody]  21/24 violin   D5 s3  ok  9.3s
+[musicgen_melody]  22/24 violin   F5 s1  ok  9.2s
+[musicgen_melody]  23/24 violin   F5 s2  ok  9.2s
+[musicgen_melody]  24/24 violin   F5 s3  ok  9.3s
+[musicgen_melody] rendered 24/24 → renders.violin_names56_bo3.jsonl
+[musicgen_melody] violin   G#3 s1  retunable cents=1202.58  octave +1
+[musicgen_melody] violin   G#3 s2  retunable cents=1201.95  octave +1
+[musicgen_melody] violin   G#3 s3  retunable cents=1194.79  octave +1
+[musicgen_melody] violin   B3 s1  retunable cents=1199.41  octave +1
+[musicgen_melody] violin   B3 s2  retunable cents=1187.78  octave +1
+[musicgen_melody] violin   B3 s3  retunable cents=1199.79  octave +1
+[musicgen_melody] violin   D4 s1  retunable cents=1203.57  octave +1
+[musicgen_melody] violin   D4 s2  on_target cents=-2.24  clean
+[musicgen_melody] violin   D4 s3  on_target cents=4.49  clean
+[musicgen_melody] violin   F4 s1  retunable cents=-20.93  off by -21c
+[musicgen_melody] violin   F4 s2  on_target cents=7.13  clean
+[musicgen_melody] violin   F4 s3  retunable cents=1201.56  octave +1
+[musicgen_melody] violin   G#4 s1  on_target cents=-10.62  clean
+[musicgen_melody] violin   G#4 s2  on_target cents=-4.56  clean
+[musicgen_melody] violin   G#4 s3  on_target cents=-7.31  clean
+[musicgen_melody] violin   B4 s1  retunable cents=-24.35  off by -24c
+[musicgen_melody] violin   B4 s2  retunable cents=-1229.26  octave -1
+[musicgen_melody] violin   B4 s3  retunable cents=-20.15  off by -20c
+[musicgen_melody] violin   D5 s1  retunable cents=-1205.78  octave -1
+[musicgen_melody] violin   D5 s2  retunable cents=-1206.54  octave -1
+[musicgen_melody] violin   D5 s3  retunable cents=-1221.3  octave -1
+[musicgen_melody] violin   F5 s1  retunable cents=-1198.98  octave -1
+[musicgen_melody] violin   F5 s2  retunable cents=-1227.73  octave -1
+[musicgen_melody] violin   F5 s3  retunable cents=-1215.7  octave -1
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 22.88it/s]
+[musicgen_melody]   1/24 violin   A3 s1  ok  21.1s
+[musicgen_melody]   2/24 violin   A3 s2  ok  9.8s
+[musicgen_melody]   3/24 violin   A3 s3  ok  9.9s
+[musicgen_melody]   4/24 violin   C4 s1  ok  10.0s
+[musicgen_melody]   5/24 violin   C4 s2  ok  9.8s
+[musicgen_melody]   6/24 violin   C4 s3  ok  9.7s
+[musicgen_melody]   7/24 violin   D#4 s1  ok  9.9s
+[musicgen_melody]   8/24 violin   D#4 s2  ok  9.7s
+[musicgen_melody]   9/24 violin   D#4 s3  ok  9.7s
+[musicgen_melody]  10/24 violin   F#4 s1  ok  10.1s
+[musicgen_melody]  11/24 violin   F#4 s2  ok  9.7s
+[musicgen_melody]  12/24 violin   F#4 s3  ok  9.9s
+[musicgen_melody]  13/24 violin   A4 s1  ok  9.8s
+[musicgen_melody]  14/24 violin   A4 s2  ok  9.7s
+[musicgen_melody]  15/24 violin   A4 s3  ok  9.4s
+[musicgen_melody]  16/24 violin   C5 s1  ok  9.8s
+[musicgen_melody]  17/24 violin   C5 s2  ok  9.6s
+[musicgen_melody]  18/24 violin   C5 s3  ok  9.2s
+[musicgen_melody]  19/24 violin   D#5 s1  ok  9.2s
+[musicgen_melody]  20/24 violin   D#5 s2  ok  9.2s
+[musicgen_melody]  21/24 violin   D#5 s3  ok  9.3s
+[musicgen_melody]  22/24 violin   F#5 s1  ok  9.2s
+[musicgen_melody]  23/24 violin   F#5 s2  ok  9.2s
+[musicgen_melody]  24/24 violin   F#5 s3  ok  9.1s
+[musicgen_melody] rendered 24/24 → renders.violin_names57_bo3.jsonl
+[musicgen_melody] violin   A3 s1  retunable cents=1189.07  octave +1
+[musicgen_melody] violin   A3 s2  on_target cents=-2.44  clean
+[musicgen_melody] violin   A3 s3  on_target cents=-4.15  clean
+[musicgen_melody] violin   C4 s1  retunable cents=1213.58  octave +1
+[musicgen_melody] violin   C4 s2  retunable cents=-30.0  off by -30c
+[musicgen_melody] violin   C4 s3  on_target cents=-8.56  clean
+[musicgen_melody] violin   D#4 s1  texture   cents=10.0  spread 30c > 30c; only 77% of frames near one pitch
+[musicgen_melody] violin   D#4 s2  on_target cents=5.98  clean
+[musicgen_melody] violin   D#4 s3  on_target cents=-2.23  clean
+[musicgen_melody] violin   F#4 s1  on_target cents=0.72  clean
+[musicgen_melody] violin   F#4 s2  retunable cents=1198.87  octave +1
+[musicgen_melody] violin   F#4 s3  on_target cents=-3.55  clean
+[musicgen_melody] violin   A4 s1  retunable cents=-1203.71  octave -1
+[musicgen_melody] violin   A4 s2  retunable cents=-1199.09  octave -1
+[musicgen_melody] violin   A4 s3  retunable cents=-1200.61  octave -1
+[musicgen_melody] violin   C5 s1  on_target cents=-5.14  clean
+[musicgen_melody] violin   C5 s2  retunable cents=1214.13  octave +1
+[musicgen_melody] violin   C5 s3  retunable cents=-1204.85  octave -1
+[musicgen_melody] violin   D#5 s1  retunable cents=-1226.37  octave -1
+[musicgen_melody] violin   D#5 s2  texture   cents=-1220.0  spread 1190c > 30c; only 67% of frames near one pitch
+[musicgen_melody] violin   D#5 s3  retunable cents=-1228.91  octave -1
+[musicgen_melody] violin   F#5 s1  retunable cents=-1199.12  octave -1
+[musicgen_melody] violin   F#5 s2  retunable cents=-1204.48  octave -1
+[musicgen_melody] violin   F#5 s3  texture   cents=-3600.0  pinned at the edge of the pitch search, not a note
+[range+violin_bo5+violin_names56_bo3+violin_names57_bo3] violin   RETUNABLE    built range+violin_bo5+violin_names56_bo3+violin_names57_bo3_violin.sfz  E2–C7  25 samples  trimmed from 57/57  keycheck 57/57 on target, worst 7.79c
+instruments/by_played_names/violin_shaped: 57/57 keys on target, worst 7.47c
+  range__violin_E5_s2.wav  cut in at 0.151 s (model opened at -5.8 dB, sustain -5.1 dB)
+  violin_bo5__violin_G5_s4.wav cut in at 0.15 s (model opened at -9.5 dB, sustain -6.8 dB)
+  violin_names57_bo3__violin_A4_s2.wav cut in at 0.15 s (model opened at -5.0 dB, sustain -2.5 dB)
+  range__violin_A#4_s2.wav cut in at 0.15 s (model opened at -4.8 dB, sustain -4.9 dB)
+  violin_names56_bo3__violin_B4_s2.wav cut in at 0.21 s (model opened at -9.8 dB, sustain -5.6 dB)
+  violin_names57_bo3__violin_C5_s3.wav cut in at 0.151 s (model opened at -7.3 dB, sustain -21.8 dB)
+  range__violin_C#5_s1.wav cut in at 0.15 s (model opened at -2.9 dB, sustain -3.5 dB)
+  violin_names56_bo3__violin_D5_s3.wav cut in at 0.15 s (model opened at -8.3 dB, sustain -6.0 dB)
+  violin_names57_bo3__violin_D#4_s3.wav cut in at 0.151 s (model opened at -2.5 dB, sustain -4.8 dB)
+  violin_bo5__violin_E4_s4.wav cut in at 0.231 s (model opened at -15.1 dB, sustain -8.2 dB)
+  violin_names56_bo3__violin_F5_s1.wav cut in at 0.15 s (model opened at -9.1 dB, sustain -5.6 dB)
+  violin_names57_bo3__violin_F#4_s1.wav cut in at 1.801 s (model opened at -12.0 dB, sustain -5.7 dB)
+  violin_bo5__violin_G3_s5.wav cut in at 0.15 s (model opened at -8.0 dB, sustain -5.4 dB)
+  violin_names56_bo3__violin_G#3_s1.wav cut in at 0.151 s (model opened at -0.8 dB, sustain -2.2 dB)
+  violin_names57_bo3__violin_A3_s1.wav cut in at 0.93 s (model opened at -18.3 dB, sustain -7.1 dB)
+  violin_bo5__violin_A#3_s4.wav cut in at 0.151 s (model opened at -5.9 dB, sustain -2.9 dB)
+  violin_names56_bo3__violin_B3_s1.wav cut in at 0.15 s (model opened at -4.4 dB, sustain -2.9 dB)
+  violin_names57_bo3__violin_C5_s1.wav cut in at 0.78 s (model opened at -38.7 dB, sustain -13.3 dB)
+  violin_bo5__violin_C#4_s5.wav cut in at 0.3 s (model opened at -10.9 dB, sustain -3.3 dB)
+  violin_bo5__violin_E4_s5.wav cut in at 0.151 s (model opened at -6.3 dB, sustain -4.2 dB)
+  violin_names56_bo3__violin_F4_s3.wav cut in at 0.151 s (model opened at -8.4 dB, sustain -5.7 dB)
+  violin_names57_bo3__violin_F#4_s2.wav cut in at 0.18 s (model opened at -10.0 dB, sustain -3.5 dB)
+  violin_bo5__violin_G5_s5.wav cut in at 0.21 s (model opened at -10.0 dB, sustain -3.0 dB)
+  violin_bo5__violin_A#4_s3.wav cut in at 0.15 s (model opened at -7.8 dB, sustain -6.3 dB)
+  violin_names57_bo3__violin_C5_s2.wav cut in at 1.64 s (model opened at -23.5 dB, sustain -9.2 dB)

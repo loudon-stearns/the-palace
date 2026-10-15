@@ -1,0 +1,416 @@
+
+── render · mgm_name
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 18.25it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 18.20it/s]
+[mgm_name]   1/48 piano    A2 s1  ok  24.0s
+[mgm_name]   2/48 piano    A2 s2  ok  9.0s
+[mgm_name]   3/48 piano    E3 s1  ok  9.0s
+[mgm_name]   4/48 piano    E3 s2  ok  9.0s
+[mgm_name]   5/48 piano    C4 s1  ok  8.9s
+[mgm_name]   6/48 piano    C4 s2  ok  8.9s
+[mgm_name]   7/48 piano    G5 s1  ok  9.0s
+[mgm_name]   8/48 piano    G5 s2  ok  9.0s
+[mgm_name]   9/48 violin   A2 s1  ok  9.0s
+[mgm_name]  10/48 violin   A2 s2  ok  8.9s
+[mgm_name]  11/48 violin   E3 s1  ok  8.9s
+[mgm_name]  12/48 violin   E3 s2  ok  8.9s
+[mgm_name]  13/48 violin   C4 s1  ok  8.9s
+[mgm_name]  14/48 violin   C4 s2  ok  8.9s
+[mgm_name]  15/48 violin   G5 s1  ok  9.0s
+[mgm_name]  16/48 violin   G5 s2  ok  8.9s
+[mgm_name]  17/48 marimba  A2 s1  ok  9.0s
+[mgm_name]  18/48 marimba  A2 s2  ok  8.9s
+[mgm_name]  19/48 marimba  E3 s1  ok  8.9s
+[mgm_name]  20/48 marimba  E3 s2  ok  8.9s
+[mgm_name]  21/48 marimba  C4 s1  ok  8.9s
+[mgm_name]  22/48 marimba  C4 s2  ok  8.9s
+[mgm_name]  23/48 marimba  G5 s1  ok  9.1s
+[mgm_name]  24/48 marimba  G5 s2  ok  9.8s
+[mgm_name]  25/48 flute    A2 s1  ok  8.9s
+[mgm_name]  26/48 flute    A2 s2  ok  9.0s
+[mgm_name]  27/48 flute    E3 s1  ok  8.9s
+[mgm_name]  28/48 flute    E3 s2  ok  8.9s
+[mgm_name]  29/48 flute    C4 s1  ok  9.0s
+[mgm_name]  30/48 flute    C4 s2  ok  8.9s
+[mgm_name]  31/48 flute    G5 s1  ok  8.9s
+[mgm_name]  32/48 flute    G5 s2  ok  8.9s
+[mgm_name]  33/48 bass     A2 s1  ok  8.9s
+[mgm_name]  34/48 bass     A2 s2  ok  8.9s
+[mgm_name]  35/48 bass     E3 s1  ok  8.9s
+[mgm_name]  36/48 bass     E3 s2  ok  8.9s
+[mgm_name]  37/48 bass     C4 s1  ok  8.9s
+[mgm_name]  38/48 bass     C4 s2  ok  8.9s
+[mgm_name]  39/48 bass     G5 s1  ok  9.0s
+[mgm_name]  40/48 bass     G5 s2  ok  8.9s
+[mgm_name]  41/48 choir    A2 s1  ok  9.0s
+[mgm_name]  42/48 choir    A2 s2  ok  9.0s
+[mgm_name]  43/48 choir    E3 s1  ok  9.1s
+[mgm_name]  44/48 choir    E3 s2  ok  9.1s
+[mgm_name]  45/48 choir    C4 s1  ok  9.3s
+[mgm_name]  46/48 choir    C4 s2  ok  9.2s
+[mgm_name]  47/48 choir    G5 s1  ok  9.2s
+[mgm_name]  48/48 choir    G5 s2  ok  9.3s
+[mgm_name] rendered 48/48 → renders.mgm_name.jsonl
+
+── grade · mgm_name
+[mgm_name] piano    A2 s1  retunable cents=1202.31  octave +1
+[mgm_name] piano    A2 s2  texture   cents=2400.0  pinned at the edge of the pitch search, not a note
+[mgm_name] piano    E3 s1  texture   cents=10.0  spread 1200c > 30c; only 72% of frames near one pitch
+[mgm_name] piano    E3 s2  texture   cents=1200.0  spread 2410c > 30c; only 58% of frames near one pitch
+[mgm_name] piano    C4 s1  texture   cents=-1200.0  spread 1200c > 30c; only 53% of frames near one pitch
+[mgm_name] piano    C4 s2  retunable cents=1197.92  octave +1
+[mgm_name] piano    G5 s1  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_name] piano    G5 s2  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_name] violin   A2 s1  retunable cents=1200.49  octave +1
+[mgm_name] violin   A2 s2  texture   cents=1200.0  spread 1200c > 30c; only 56% of frames near one pitch
+[mgm_name] violin   E3 s1  retunable cents=1196.32  octave +1
+[mgm_name] violin   E3 s2  retunable cents=1201.85  octave +1
+[mgm_name] violin   C4 s1  texture   cents=0.0  spread 70c > 30c; only 63% of frames near one pitch
+[mgm_name] violin   C4 s2  retunable cents=-30.0  off by -30c
+[mgm_name] violin   G5 s1  texture   cents=-1200.0  spread 1200c > 30c; only 53% of frames near one pitch
+[mgm_name] violin   G5 s2  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_name] marimba  A2 s1  retunable cents=1209.14  octave +1
+[mgm_name] marimba  A2 s2  texture   cents=10.0  spread 1200c > 30c; only 55% of frames near one pitch
+[mgm_name] marimba  E3 s1  retunable cents=1204.7  octave +1
+[mgm_name] marimba  E3 s2  on_target cents=11.56  clean
+[mgm_name] marimba  C4 s1  texture   cents=10.0  spread 90c > 30c; only 65% of frames near one pitch
+[mgm_name] marimba  C4 s2  on_target cents=4.03  clean
+[mgm_name] marimba  G5 s1  texture   cents=-2390.0  pinned at the edge of the pitch search, not a note
+[mgm_name] marimba  G5 s2  retunable cents=-1198.31  octave -1
+[mgm_name] flute    A2 s1  texture   cents=2400.0  pinned at the edge of the pitch search, not a note
+[mgm_name] flute    A2 s2  texture   cents=2400.0  pinned at the edge of the pitch search, not a note
+[mgm_name] flute    E3 s1  retunable cents=1201.68  octave +1
+[mgm_name] flute    E3 s2  retunable cents=1214.93  octave +1
+[mgm_name] flute    C4 s1  retunable cents=1187.81  octave +1
+[mgm_name] flute    C4 s2  retunable cents=1194.75  octave +1
+[mgm_name] flute    G5 s1  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_name] flute    G5 s2  on_target cents=1.1  clean
+[mgm_name] bass     A2 s1  texture   cents=-10.0  spread 700c > 30c; only 46% of frames near one pitch
+[mgm_name] bass     A2 s2  texture   cents=500.0  spread 3600c > 30c; only 28% of frames near one pitch
+[mgm_name] bass     E3 s1  texture   cents=1190.0  spread 1210c > 30c; only 53% of frames near one pitch
+[mgm_name] bass     E3 s2  texture   cents=-710.0  only 77% of frames near one pitch
+[mgm_name] bass     C4 s1  retunable cents=-30.0  off by -30c
+[mgm_name] bass     C4 s2  retunable cents=25.97  off by +26c
+[mgm_name] bass     G5 s1  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_name] bass     G5 s2  texture   cents=-2390.0  pinned at the edge of the pitch search, not a note
+[mgm_name] choir    A2 s1  retunable cents=1198.53  octave +1
+[mgm_name] choir    A2 s2  retunable cents=1192.93  octave +1
+[mgm_name] choir    E3 s1  on_target cents=6.73  clean
+[mgm_name] choir    E3 s2  on_target cents=4.3  clean
+[mgm_name] choir    C4 s1  on_target cents=4.19  clean
+[mgm_name] choir    C4 s2  texture   cents=20.0  spread 1190c > 30c; only 60% of frames near one pitch
+[mgm_name] choir    G5 s1  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_name] choir    G5 s2  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+
+── render · mgm_hz
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 23.58it/s]
+[mgm_hz]   1/48 piano    A2 s1  ok  21.9s
+[mgm_hz]   2/48 piano    A2 s2  ok  9.5s
+[mgm_hz]   3/48 piano    E3 s1  ok  9.5s
+[mgm_hz]   4/48 piano    E3 s2  ok  9.6s
+[mgm_hz]   5/48 piano    C4 s1  ok  9.2s
+[mgm_hz]   6/48 piano    C4 s2  ok  9.2s
+[mgm_hz]   7/48 piano    G5 s1  ok  9.3s
+[mgm_hz]   8/48 piano    G5 s2  ok  9.2s
+[mgm_hz]   9/48 violin   A2 s1  ok  9.2s
+[mgm_hz]  10/48 violin   A2 s2  ok  9.1s
+[mgm_hz]  11/48 violin   E3 s1  ok  9.2s
+[mgm_hz]  12/48 violin   E3 s2  ok  9.0s
+[mgm_hz]  13/48 violin   C4 s1  ok  9.1s
+[mgm_hz]  14/48 violin   C4 s2  ok  9.1s
+[mgm_hz]  15/48 violin   G5 s1  ok  9.0s
+[mgm_hz]  16/48 violin   G5 s2  ok  9.0s
+[mgm_hz]  17/48 marimba  A2 s1  ok  9.1s
+[mgm_hz]  18/48 marimba  A2 s2  ok  9.1s
+[mgm_hz]  19/48 marimba  E3 s1  ok  9.0s
+[mgm_hz]  20/48 marimba  E3 s2  ok  9.3s
+[mgm_hz]  21/48 marimba  C4 s1  ok  9.2s
+[mgm_hz]  22/48 marimba  C4 s2  ok  9.5s
+[mgm_hz]  23/48 marimba  G5 s1  ok  9.4s
+[mgm_hz]  24/48 marimba  G5 s2  ok  9.4s
+[mgm_hz]  25/48 flute    A2 s1  ok  9.7s
+[mgm_hz]  26/48 flute    A2 s2  ok  9.2s
+[mgm_hz]  27/48 flute    E3 s1  ok  9.1s
+[mgm_hz]  28/48 flute    E3 s2  ok  9.2s
+[mgm_hz]  29/48 flute    C4 s1  ok  9.0s
+[mgm_hz]  30/48 flute    C4 s2  ok  9.3s
+[mgm_hz]  31/48 flute    G5 s1  ok  9.2s
+[mgm_hz]  32/48 flute    G5 s2  ok  9.2s
+[mgm_hz]  33/48 bass     A2 s1  ok  22.6s
+[mgm_hz]  34/48 bass     A2 s2  ok  21.9s
+[mgm_hz]  35/48 bass     E3 s1  ok  22.3s
+[mgm_hz]  36/48 bass     E3 s2  ok  21.1s
+[mgm_hz]  37/48 bass     C4 s1  ok  22.9s
+[mgm_hz]  38/48 bass     C4 s2  ok  21.1s
+[mgm_hz]  39/48 bass     G5 s1  ok  26.2s
+[mgm_hz]  40/48 bass     G5 s2  ok  24.7s
+[mgm_hz]  41/48 choir    A2 s1  ok  20.5s
+[mgm_hz]  42/48 choir    A2 s2  ok  23.9s
+[mgm_hz]  43/48 choir    E3 s1  ok  20.4s
+[mgm_hz]  44/48 choir    E3 s2  ok  22.3s
+[mgm_hz]  45/48 choir    C4 s1  ok  24.4s
+[mgm_hz]  46/48 choir    C4 s2  ok  21.0s
+[mgm_hz]  47/48 choir    G5 s1  ok  23.3s
+[mgm_hz]  48/48 choir    G5 s2  ok  12.5s
+[mgm_hz] rendered 48/48 → renders.mgm_hz.jsonl
+
+── grade · mgm_hz
+[mgm_hz] piano    A2 s1  texture   cents=2400.0  spread 1190c > 30c; only 71% of frames near one pitch; pinned at the edge of the pitch search, not a note
+[mgm_hz] piano    A2 s2  texture   cents=2400.0  pinned at the edge of the pitch search, not a note
+[mgm_hz] piano    E3 s1  texture   cents=-1190.0  spread 2400c > 30c; only 51% of frames near one pitch
+[mgm_hz] piano    E3 s2  texture   cents=-1220.0  spread 2400c > 30c; only 52% of frames near one pitch
+[mgm_hz] piano    C4 s1  texture   cents=-1150.0  spread 1160c > 30c; only 44% of frames near one pitch
+[mgm_hz] piano    C4 s2  texture   cents=1200.0  spread 1200c > 30c; only 73% of frames near one pitch
+[mgm_hz] piano    G5 s1  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_hz] piano    G5 s2  texture   cents=-1200.0  spread 1190c > 30c; only 54% of frames near one pitch
+[mgm_hz] violin   A2 s1  retunable cents=1201.32  octave +1
+[mgm_hz] violin   A2 s2  retunable cents=1200.34  octave +1
+[mgm_hz] violin   E3 s1  retunable cents=1193.97  octave +1
+[mgm_hz] violin   E3 s2  retunable cents=1188.08  octave +1
+[mgm_hz] violin   C4 s1  texture   cents=1200.0  spread 1170c > 30c; only 56% of frames near one pitch
+[mgm_hz] violin   C4 s2  retunable cents=1219.96  octave +1
+[mgm_hz] violin   G5 s1  retunable cents=-1207.47  octave -1
+[mgm_hz] violin   G5 s2  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_hz] marimba  A2 s1  retunable cents=1211.83  octave +1
+[mgm_hz] marimba  A2 s2  retunable cents=1211.95  octave +1
+[mgm_hz] marimba  E3 s1  texture   cents=10.0  only 78% of frames near one pitch
+[mgm_hz] marimba  E3 s2  texture   cents=1230.0  spread 40c > 30c
+[mgm_hz] marimba  C4 s1  texture   cents=-210.0  spread 1900c > 30c; only 5% of frames near one pitch
+[mgm_hz] marimba  C4 s2  on_target cents=10.66  clean
+[mgm_hz] marimba  G5 s1  retunable cents=-2384.43  octave -2
+[mgm_hz] marimba  G5 s2  texture   cents=-1180.0  spread 1200c > 30c; only 71% of frames near one pitch
+[mgm_hz] flute    A2 s1  texture   cents=2400.0  pinned at the edge of the pitch search, not a note
+[mgm_hz] flute    A2 s2  texture   cents=2400.0  pinned at the edge of the pitch search, not a note
+[mgm_hz] flute    E3 s1  retunable cents=1201.09  octave +1
+[mgm_hz] flute    E3 s2  texture   cents=0.0  only 78% of frames near one pitch
+[mgm_hz] flute    C4 s1  texture   cents=20.0  spread 1200c > 30c; only 55% of frames near one pitch
+[mgm_hz] flute    C4 s2  retunable cents=1207.11  octave +1
+[mgm_hz] flute    G5 s1  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_hz] flute    G5 s2  retunable cents=-1173.29  octave -1
+[mgm_hz] bass     A2 s1  texture   cents=1210.0  only 71% of frames near one pitch
+[mgm_hz] bass     A2 s2  texture   cents=1200.0  spread 1190c > 30c; only 73% of frames near one pitch
+[mgm_hz] bass     E3 s1  texture   cents=1200.0  spread 2400c > 30c; only 72% of frames near one pitch
+[mgm_hz] bass     E3 s2  on_target cents=-0.33  clean
+[mgm_hz] bass     C4 s1  texture   cents=-1160.0  spread 1170c > 30c; only 46% of frames near one pitch
+[mgm_hz] bass     C4 s2  retunable cents=26.92  off by +27c
+[mgm_hz] bass     G5 s1  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_hz] bass     G5 s2  texture   cents=-1160.0  spread 40c > 30c; only 78% of frames near one pitch
+[mgm_hz] choir    A2 s1  retunable cents=1197.84  octave +1
+[mgm_hz] choir    A2 s2  on_target cents=-4.79  clean
+[mgm_hz] choir    E3 s1  on_target cents=-12.05  clean
+[mgm_hz] choir    E3 s2  on_target cents=-6.69  clean
+[mgm_hz] choir    C4 s1  on_target cents=0.36  clean
+[mgm_hz] choir    C4 s2  texture   cents=1210.0  spread 1190c > 30c; only 74% of frames near one pitch
+[mgm_hz] choir    G5 s1  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_hz] choir    G5 s2  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+
+── render · mgm_word
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 23.26it/s]
+[mgm_word]   1/48 piano    A2 s1  ok  20.7s
+[mgm_word]   2/48 piano    A2 s2  ok  8.9s
+[mgm_word]   3/48 piano    E3 s1  ok  8.9s
+[mgm_word]   4/48 piano    E3 s2  ok  8.9s
+[mgm_word]   5/48 piano    C4 s1  ok  8.9s
+[mgm_word]   6/48 piano    C4 s2  ok  8.9s
+[mgm_word]   7/48 piano    G5 s1  ok  8.9s
+[mgm_word]   8/48 piano    G5 s2  ok  8.9s
+[mgm_word]   9/48 violin   A2 s1  ok  8.9s
+[mgm_word]  10/48 violin   A2 s2  ok  8.9s
+[mgm_word]  11/48 violin   E3 s1  ok  8.9s
+[mgm_word]  12/48 violin   E3 s2  ok  8.9s
+[mgm_word]  13/48 violin   C4 s1  ok  8.9s
+[mgm_word]  14/48 violin   C4 s2  ok  8.9s
+[mgm_word]  15/48 violin   G5 s1  ok  8.9s
+[mgm_word]  16/48 violin   G5 s2  ok  9.0s
+[mgm_word]  17/48 marimba  A2 s1  ok  9.0s
+[mgm_word]  18/48 marimba  A2 s2  ok  9.0s
+[mgm_word]  19/48 marimba  E3 s1  ok  8.9s
+[mgm_word]  20/48 marimba  E3 s2  ok  8.9s
+[mgm_word]  21/48 marimba  C4 s1  ok  8.9s
+[mgm_word]  22/48 marimba  C4 s2  ok  9.0s
+[mgm_word]  23/48 marimba  G5 s1  ok  8.9s
+[mgm_word]  24/48 marimba  G5 s2  ok  9.0s
+[mgm_word]  25/48 flute    A2 s1  ok  9.1s
+[mgm_word]  26/48 flute    A2 s2  ok  8.9s
+[mgm_word]  27/48 flute    E3 s1  ok  9.0s
+[mgm_word]  28/48 flute    E3 s2  ok  8.9s
+[mgm_word]  29/48 flute    C4 s1  ok  8.9s
+[mgm_word]  30/48 flute    C4 s2  ok  8.9s
+[mgm_word]  31/48 flute    G5 s1  ok  8.9s
+[mgm_word]  32/48 flute    G5 s2  ok  8.9s
+[mgm_word]  33/48 bass     A2 s1  ok  8.9s
+[mgm_word]  34/48 bass     A2 s2  ok  8.9s
+[mgm_word]  35/48 bass     E3 s1  ok  8.9s
+[mgm_word]  36/48 bass     E3 s2  ok  8.9s
+[mgm_word]  37/48 bass     C4 s1  ok  8.8s
+[mgm_word]  38/48 bass     C4 s2  ok  8.9s
+[mgm_word]  39/48 bass     G5 s1  ok  8.8s
+[mgm_word]  40/48 bass     G5 s2  ok  8.8s
+[mgm_word]  41/48 choir    A2 s1  ok  8.8s
+[mgm_word]  42/48 choir    A2 s2  ok  8.9s
+[mgm_word]  43/48 choir    E3 s1  ok  8.8s
+[mgm_word]  44/48 choir    E3 s2  ok  8.9s
+[mgm_word]  45/48 choir    C4 s1  ok  8.8s
+[mgm_word]  46/48 choir    C4 s2  ok  8.9s
+[mgm_word]  47/48 choir    G5 s1  ok  9.0s
+[mgm_word]  48/48 choir    G5 s2  ok  9.1s
+[mgm_word] rendered 48/48 → renders.mgm_word.jsonl
+
+── grade · mgm_word
+[mgm_word] piano    A2 s1  texture   cents=2400.0  spread 3800c > 30c; only 66% of frames near one pitch; pinned at the edge of the pitch search, not a note
+[mgm_word] piano    A2 s2  texture   cents=1200.0  spread 1200c > 30c; only 74% of frames near one pitch
+[mgm_word] piano    E3 s1  texture   cents=1190.0  spread 1190c > 30c; only 74% of frames near one pitch
+[mgm_word] piano    E3 s2  texture   cents=0.0  spread 2390c > 30c; only 42% of frames near one pitch
+[mgm_word] piano    C4 s1  texture   cents=0.0  spread 1900c > 30c; only 57% of frames near one pitch
+[mgm_word] piano    C4 s2  retunable cents=1186.03  octave +1
+[mgm_word] piano    G5 s1  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_word] piano    G5 s2  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_word] violin   A2 s1  texture   cents=1200.0  spread 500c > 30c; only 68% of frames near one pitch
+[mgm_word] violin   A2 s2  retunable cents=1199.83  octave +1
+[mgm_word] violin   E3 s1  retunable cents=1198.71  octave +1
+[mgm_word] violin   E3 s2  texture   cents=1210.0  spread 1190c > 30c; only 62% of frames near one pitch
+[mgm_word] violin   C4 s1  retunable cents=1213.07  octave +1
+[mgm_word] violin   C4 s2  retunable cents=1214.87  octave +1
+[mgm_word] violin   G5 s1  texture   cents=-1200.0  spread 1200c > 30c; only 57% of frames near one pitch
+[mgm_word] violin   G5 s2  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_word] marimba  A2 s1  retunable cents=1208.73  octave +1
+[mgm_word] marimba  A2 s2  texture   cents=1210.0  spread 1200c > 30c; only 66% of frames near one pitch
+[mgm_word] marimba  E3 s1  texture   cents=10.0  spread 710c > 30c; only 49% of frames near one pitch
+[mgm_word] marimba  E3 s2  on_target cents=6.04  clean
+[mgm_word] marimba  C4 s1  on_target cents=12.96  clean
+[mgm_word] marimba  C4 s2  on_target cents=-1.04  clean
+[mgm_word] marimba  G5 s1  retunable cents=-2380.44  octave -2
+[mgm_word] marimba  G5 s2  texture   cents=-2380.0  spread 1195c > 30c; only 70% of frames near one pitch
+[mgm_word] flute    A2 s1  texture   cents=1220.0  spread 1190c > 30c; only 65% of frames near one pitch
+[mgm_word] flute    A2 s2  texture   cents=1210.0  spread 1180c > 30c; only 67% of frames near one pitch
+[mgm_word] flute    E3 s1  retunable cents=1200.64  octave +1
+[mgm_word] flute    E3 s2  texture   cents=10.0  only 78% of frames near one pitch
+[mgm_word] flute    C4 s1  on_target cents=14.71  clean
+[mgm_word] flute    C4 s2  retunable cents=1199.01  octave +1
+[mgm_word] flute    G5 s1  texture   cents=0.0  only 76% of frames near one pitch
+[mgm_word] flute    G5 s2  on_target cents=-3.05  clean
+[mgm_word] bass     A2 s1  texture   cents=1210.0  spread 1210c > 30c; only 59% of frames near one pitch
+[mgm_word] bass     A2 s2  texture   cents=2400.0  pinned at the edge of the pitch search, not a note
+[mgm_word] bass     E3 s1  on_target cents=2.61  clean
+[mgm_word] bass     E3 s2  on_target cents=-2.78  clean
+[mgm_word] bass     C4 s1  retunable cents=-30.0  off by -30c
+[mgm_word] bass     C4 s2  texture   cents=30.0  spread 2400c > 30c; only 68% of frames near one pitch
+[mgm_word] bass     G5 s1  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_word] bass     G5 s2  retunable cents=-1197.43  octave -1
+[mgm_word] choir    A2 s1  retunable cents=1193.47  octave +1
+[mgm_word] choir    A2 s2  texture   cents=1200.0  spread 1190c > 30c; only 68% of frames near one pitch
+[mgm_word] choir    E3 s1  on_target cents=-8.03  clean
+[mgm_word] choir    E3 s2  retunable cents=1195.07  octave +1
+[mgm_word] choir    C4 s1  retunable cents=1209.91  octave +1
+[mgm_word] choir    C4 s2  retunable cents=1207.15  octave +1
+[mgm_word] choir    G5 s1  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_word] choir    G5 s2  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+
+── render · mgm_bare
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 21.00it/s]
+[mgm_bare]   1/48 piano    A2 s1  ok  22.0s
+[mgm_bare]   2/48 piano    A2 s2  ok  9.1s
+[mgm_bare]   3/48 piano    E3 s1  ok  9.0s
+[mgm_bare]   4/48 piano    E3 s2  ok  8.8s
+[mgm_bare]   5/48 piano    C4 s1  ok  8.9s
+[mgm_bare]   6/48 piano    C4 s2  ok  8.9s
+[mgm_bare]   7/48 piano    G5 s1  ok  8.9s
+[mgm_bare]   8/48 piano    G5 s2  ok  8.9s
+[mgm_bare]   9/48 violin   A2 s1  ok  9.0s
+[mgm_bare]  10/48 violin   A2 s2  ok  9.1s
+[mgm_bare]  11/48 violin   E3 s1  ok  9.2s
+[mgm_bare]  12/48 violin   E3 s2  ok  9.1s
+[mgm_bare]  13/48 violin   C4 s1  ok  8.9s
+[mgm_bare]  14/48 violin   C4 s2  ok  9.1s
+[mgm_bare]  15/48 violin   G5 s1  ok  9.1s
+[mgm_bare]  16/48 violin   G5 s2  ok  8.9s
+[mgm_bare]  17/48 marimba  A2 s1  ok  9.5s
+[mgm_bare]  18/48 marimba  A2 s2  ok  8.8s
+[mgm_bare]  19/48 marimba  E3 s1  ok  9.0s
+[mgm_bare]  20/48 marimba  E3 s2  ok  9.1s
+[mgm_bare]  21/48 marimba  C4 s1  ok  8.8s
+[mgm_bare]  22/48 marimba  C4 s2  ok  8.8s
+[mgm_bare]  23/48 marimba  G5 s1  ok  9.3s
+[mgm_bare]  24/48 marimba  G5 s2  ok  9.1s
+[mgm_bare]  25/48 flute    A2 s1  ok  9.1s
+[mgm_bare]  26/48 flute    A2 s2  ok  8.9s
+[mgm_bare]  27/48 flute    E3 s1  ok  8.9s
+[mgm_bare]  28/48 flute    E3 s2  ok  8.9s
+[mgm_bare]  29/48 flute    C4 s1  ok  9.1s
+[mgm_bare]  30/48 flute    C4 s2  ok  9.1s
+[mgm_bare]  31/48 flute    G5 s1  ok  9.1s
+[mgm_bare]  32/48 flute    G5 s2  ok  9.0s
+[mgm_bare]  33/48 bass     A2 s1  ok  8.9s
+[mgm_bare]  34/48 bass     A2 s2  ok  9.1s
+[mgm_bare]  35/48 bass     E3 s1  ok  8.9s
+[mgm_bare]  36/48 bass     E3 s2  ok  8.9s
+[mgm_bare]  37/48 bass     C4 s1  ok  8.9s
+[mgm_bare]  38/48 bass     C4 s2  ok  8.9s
+[mgm_bare]  39/48 bass     G5 s1  ok  9.1s
+[mgm_bare]  40/48 bass     G5 s2  ok  9.3s
+[mgm_bare]  41/48 choir    A2 s1  ok  9.3s
+[mgm_bare]  42/48 choir    A2 s2  ok  9.1s
+[mgm_bare]  43/48 choir    E3 s1  ok  9.2s
+[mgm_bare]  44/48 choir    E3 s2  ok  9.1s
+[mgm_bare]  45/48 choir    C4 s1  ok  9.0s
+[mgm_bare]  46/48 choir    C4 s2  ok  9.0s
+[mgm_bare]  47/48 choir    G5 s1  ok  9.2s
+[mgm_bare]  48/48 choir    G5 s2  ok  9.1s
+[mgm_bare] rendered 48/48 → renders.mgm_bare.jsonl
+
+── grade · mgm_bare
+[mgm_bare] piano    A2 s1  texture   cents=2400.0  pinned at the edge of the pitch search, not a note
+[mgm_bare] piano    A2 s2  texture   cents=2400.0  pinned at the edge of the pitch search, not a note
+[mgm_bare] piano    E3 s1  on_target cents=1.76  clean
+[mgm_bare] piano    E3 s2  texture   cents=1210.0  spread 1200c > 30c; only 74% of frames near one pitch
+[mgm_bare] piano    C4 s1  texture   cents=-1890.0  spread 700c > 30c; only 41% of frames near one pitch
+[mgm_bare] piano    C4 s2  retunable cents=1198.1  octave +1
+[mgm_bare] piano    G5 s1  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_bare] piano    G5 s2  retunable cents=-1207.41  octave -1
+[mgm_bare] violin   A2 s1  retunable cents=1200.37  octave +1
+[mgm_bare] violin   A2 s2  retunable cents=1201.32  octave +1
+[mgm_bare] violin   E3 s1  retunable cents=1203.01  octave +1
+[mgm_bare] violin   E3 s2  texture   cents=1210.0  spread 1910c > 30c; only 57% of frames near one pitch
+[mgm_bare] violin   C4 s1  retunable cents=-30.0  off by -30c
+[mgm_bare] violin   C4 s2  retunable cents=-30.0  off by -30c
+[mgm_bare] violin   G5 s1  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_bare] violin   G5 s2  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_bare] marimba  A2 s1  retunable cents=1208.42  octave +1
+[mgm_bare] marimba  A2 s2  retunable cents=1213.32  octave +1
+[mgm_bare] marimba  E3 s1  texture   cents=-940.0  spread 1170c > 30c; only 0% of frames near one pitch
+[mgm_bare] marimba  E3 s2  texture   cents=1200.0  spread 1200c > 30c; only 49% of frames near one pitch
+[mgm_bare] marimba  C4 s1  texture   cents=40.0  spread 1270c > 30c; only 40% of frames near one pitch
+[mgm_bare] marimba  C4 s2  on_target cents=17.07  clean
+[mgm_bare] marimba  G5 s1  retunable cents=-2381.96  octave -2
+[mgm_bare] marimba  G5 s2  texture   cents=-2380.0  spread 1200c > 30c; only 55% of frames near one pitch
+[mgm_bare] flute    A2 s1  texture   cents=2400.0  pinned at the edge of the pitch search, not a note
+[mgm_bare] flute    A2 s2  retunable cents=1211.9  octave +1
+[mgm_bare] flute    E3 s1  on_target cents=3.26  clean
+[mgm_bare] flute    E3 s2  retunable cents=1212.09  octave +1
+[mgm_bare] flute    C4 s1  texture   cents=1200.0  spread 1200c > 30c; only 59% of frames near one pitch
+[mgm_bare] flute    C4 s2  retunable cents=1219.04  octave +1
+[mgm_bare] flute    G5 s1  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_bare] flute    G5 s2  on_target cents=-0.68  clean
+[mgm_bare] bass     A2 s1  texture   cents=1210.0  spread 1190c > 30c; only 71% of frames near one pitch
+[mgm_bare] bass     A2 s2  retunable cents=1203.26  octave +1
+[mgm_bare] bass     E3 s1  retunable cents=1198.95  octave +1
+[mgm_bare] bass     E3 s2  retunable cents=1202.63  octave +1
+[mgm_bare] bass     C4 s1  retunable cents=-30.0  off by -30c
+[mgm_bare] bass     C4 s2  retunable cents=28.79  off by +29c
+[mgm_bare] bass     G5 s1  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_bare] bass     G5 s2  retunable cents=-1195.25  octave -1
+[mgm_bare] choir    A2 s1  retunable cents=1196.63  octave +1
+[mgm_bare] choir    A2 s2  retunable cents=1188.19  octave +1
+[mgm_bare] choir    E3 s1  on_target cents=1.18  clean
+[mgm_bare] choir    E3 s2  retunable cents=1201.64  octave +1
+[mgm_bare] choir    C4 s1  texture   cents=1175.0  spread 1200c > 30c; only 64% of frames near one pitch
+[mgm_bare] choir    C4 s2  texture   cents=1210.0  spread 905c > 30c; only 75% of frames near one pitch
+[mgm_bare] choir    G5 s1  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+[mgm_bare] choir    G5 s2  texture   cents=-2400.0  pinned at the edge of the pitch search, not a note
+
+── compare
+musicgen_melody  TEXTURE ONLY on-target 5/48  retunable 23  texture 20  errors 0
+mgm_name         TEXTURE ONLY on-target 6/48  retunable 17  texture 25  errors 0
+mgm_hz           TEXTURE ONLY on-target 6/48  retunable 14  texture 28  errors 0
+mgm_word         TEXTURE ONLY on-target 8/48  retunable 15  texture 25  errors 0
+mgm_bare         TEXTURE ONLY on-target 5/48  retunable 22  texture 21  errors 0
+→ compare.prompt-shape.html, compare.prompt-shape.json

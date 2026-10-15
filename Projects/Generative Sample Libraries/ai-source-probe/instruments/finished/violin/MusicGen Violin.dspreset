@@ -1,0 +1,46 @@
+<DecentSampler minVersion="1.0.0">
+  <!-- built from MusicGen Violin.sfz by to_decentsampler.py -->
+  <!-- SFZ tune (cents) written as tuning (semitones) = tune/100 -->
+  <ui width="812" height="200" bgColor="FF0A0A0F">
+    <tab name="main">
+      <label x="20" y="10" width="772" height="24" text="violin" textColor="FFE8B84A" textSize="18" />
+      <labeled-knob x="20" y="40" width="90" height="90" textSize="14" label="Attack" type="float" minValue="0" maxValue="2" value="0.14" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="ENV_ATTACK" />
+      </labeled-knob>
+      <labeled-knob x="130" y="40" width="90" height="90" textSize="14" label="Release" type="float" minValue="0" maxValue="8" value="0.35" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="ENV_RELEASE" />
+      </labeled-knob>
+      <labeled-knob x="240" y="40" width="90" height="90" textSize="14" label="Volume" type="float" minValue="0" maxValue="1" value="0.8" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="AMP_VOLUME" />
+      </labeled-knob>
+    </tab>
+  </ui>
+  <groups attack="0.14" decay="0" sustain="1" release="0.35" volume="0.8">
+    <group>
+      <sample path="Samples/violin_G3.wav" rootNote="55" loNote="55" hiNote="56" loVel="0" hiVel="127" tuning="0" loopEnabled="true" loopStart="99360" loopEnd="111766" loopCrossfade="0" />
+      <sample path="Samples/violin_A3.wav" rootNote="57" loNote="57" hiNote="57" loVel="0" hiVel="127" tuning="-0.01" loopEnabled="true" loopStart="45760" loopEnd="57244" loopCrossfade="0" />
+      <sample path="Samples/violin_A#3.wav" rootNote="58" loNote="58" hiNote="58" loVel="0" hiVel="127" tuning="0.06" loopEnabled="true" loopStart="16480" loopEnd="27915" loopCrossfade="0" />
+      <sample path="Samples/violin_B3.wav" rootNote="59" loNote="59" hiNote="59" loVel="0" hiVel="127" tuning="0.3" loopEnabled="true" loopStart="61760" loopEnd="82988" loopCrossfade="0" />
+      <sample path="Samples/violin_C4.wav" rootNote="60" loNote="60" hiNote="60" loVel="0" hiVel="127" tuning="0.04" loopEnabled="true" loopStart="84320" loopEnd="95842" loopCrossfade="0" />
+      <sample path="Samples/violin_C#4.wav" rootNote="61" loNote="61" hiNote="61" loVel="0" hiVel="127" tuning="-0.09" loopEnabled="true" loopStart="25440" loopEnd="36695" loopCrossfade="0" />
+      <sample path="Samples/violin_D4.wav" rootNote="62" loNote="62" hiNote="62" loVel="0" hiVel="127" tuning="0.21" loopEnabled="true" loopStart="39840" loopEnd="85942" loopCrossfade="0" />
+      <sample path="Samples/violin_D#4.wav" rootNote="63" loNote="63" hiNote="63" loVel="0" hiVel="127" tuning="0.02" loopEnabled="true" loopStart="76640" loopEnd="125242" loopCrossfade="0" />
+      <sample path="Samples/violin_E4.wav" rootNote="64" loNote="64" hiNote="64" loVel="0" hiVel="127" tuning="-0.01" loopEnabled="true" loopStart="81920" loopEnd="95503" loopCrossfade="0" />
+      <sample path="Samples/violin_F4.wav" rootNote="65" loNote="65" hiNote="65" loVel="0" hiVel="127" tuning="-0.01" loopEnabled="true" loopStart="100320" loopEnd="137132" loopCrossfade="0" />
+      <sample path="Samples/violin_F#4.wav" rootNote="66" loNote="66" hiNote="66" loVel="0" hiVel="127" tuning="-0.02" loopEnabled="true" loopStart="47200" loopEnd="81842" loopCrossfade="0" />
+      <sample path="Samples/violin_G4.wav" rootNote="67" loNote="67" hiNote="67" loVel="0" hiVel="127" tuning="0.02" loopEnabled="true" loopStart="129280" loopEnd="142436" loopCrossfade="0" />
+      <sample path="Samples/violin_G#4.wav" rootNote="68" loNote="68" hiNote="68" loVel="0" hiVel="127" tuning="-0.03" loopEnabled="true" loopStart="92480" loopEnd="108479" loopCrossfade="0" />
+      <sample path="Samples/violin_A4.wav" rootNote="69" loNote="69" hiNote="69" loVel="0" hiVel="127" tuning="0.11" loopEnabled="true" loopStart="85920" loopEnd="104435" loopCrossfade="0" />
+      <sample path="Samples/violin_A#4.wav" rootNote="70" loNote="70" hiNote="70" loVel="0" hiVel="127" tuning="-0.01" loopEnabled="true" loopStart="38080" loopEnd="56947" loopCrossfade="0" />
+      <sample path="Samples/violin_B4.wav" rootNote="71" loNote="71" hiNote="71" loVel="0" hiVel="127" tuning="0" loopEnabled="true" loopStart="57120" loopEnd="69301" loopCrossfade="0" />
+      <sample path="Samples/violin_C5.wav" rootNote="72" loNote="72" hiNote="72" loVel="0" hiVel="127" tuning="0.04" loopEnabled="true" loopStart="34560" loopEnd="52398" loopCrossfade="0" />
+      <sample path="Samples/violin_C#5.wav" rootNote="73" loNote="73" hiNote="74" loVel="0" hiVel="127" tuning="-0.01" loopEnabled="true" loopStart="73120" loopEnd="93771" loopCrossfade="0" />
+      <sample path="Samples/violin_E5.wav" rootNote="76" loNote="75" hiNote="76" loVel="0" hiVel="127" tuning="0" loopEnabled="true" loopStart="85280" loopEnd="111781" loopCrossfade="0" />
+      <sample path="Samples/violin_F5.wav" rootNote="77" loNote="77" hiNote="77" loVel="0" hiVel="127" tuning="-0.02" loopEnabled="true" loopStart="60640" loopEnd="72490" loopCrossfade="0" />
+      <sample path="Samples/violin_F#5.wav" rootNote="78" loNote="78" hiNote="78" loVel="0" hiVel="127" tuning="0.01" loopEnabled="true" loopStart="63360" loopEnd="107362" loopCrossfade="0" />
+      <sample path="Samples/violin_G5.wav" rootNote="79" loNote="79" hiNote="80" loVel="0" hiVel="127" tuning="-0.07" loopEnabled="true" loopStart="100000" loopEnd="135975" loopCrossfade="0" />
+      <sample path="Samples/violin_A#5.wav" rootNote="82" loNote="81" hiNote="83" loVel="0" hiVel="127" tuning="-0.07" loopEnabled="true" loopStart="32480" loopEnd="63964" loopCrossfade="0" />
+      <sample path="Samples/violin_C6.wav" rootNote="84" loNote="84" hiNote="96" loVel="0" hiVel="127" tuning="-0.2" loopEnabled="true" loopStart="32960" loopEnd="47679" loopCrossfade="0" />
+    </group>
+  </groups>
+</DecentSampler>
