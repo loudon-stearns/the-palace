@@ -24,14 +24,16 @@ How the answers in [[Palace Ceremonies — baton]] § Decided 2026-10-14 reach t
 
 Names first, then one Schema Ceremony, then the code, then the new ledgers.
 
-- **The names** (Wave 0) come first because the ceremony writes them into fifteen ledgers and fourteen ceremony pages.
+- **The names** (Wave 0, settled with Loudon 2026-10-14) come first because the ceremony writes them into fifteen ledgers and fourteen ceremony pages.
 - **One Schema Ceremony** (Wave 1) carries the canon *and* the backfill of every existing ledger *and* the diary move, on one branch. Drift rides on stale examples — the v1.12 lesson, when the wire's field conventions "were inferred from examples… the examples drifted, so the wire did too" (`SCHEMA — Reference.md:325`): a canon that says "every ledger states its standards" beside fourteen ledgers that don't would teach the next agent the old shape. And the Eno and Cage files rename on the same branch as the canon that names the diary, so no link is ever broken on main.
 - **The code** (Wave 2) follows the canon it reads, in its own worktree, and can be its own session.
-- **New ledgers** (Wave 3) are the examples the loose canon points at. Two pilots are seeded on the ceremony's branch so the canon lands with live examples; the rest follow one at a time, each a small edit on Loudon's yes.
+- **New tuning ledgers** (Wave 3) wait for Wave 2's ceremony test. On today's code a `— tuning.md` anywhere makes its page a ceremony: the deck lists it twice, refuses its Plan, sends its orders where the steward never reads, and gives its Now two writers (survey A3 finding 1). Diaries don't trip it — the code looks only for tuning files — so the Eno and Cage move rides in Wave 1. Then the pilots, then the rest one at a time, each a small edit on Loudon's yes.
 
-## Wave 0 — names to settle with Loudon
+## Wave 0 — the names (settled with Loudon, 2026-10-14)
 
-1. **The ledger's self-description.** Recommend two keys, on top of the minimal bundle frontmatter every file already carries (`title`, `born`, `links`, `forward_vector`):
+Loudon took all four recommendations: **`standards`** for a ledger's own rules; **`trigger:`** as the ceremony field; Connection, Query and the Ceremony Reader stay **table-only**; and the two old "diary" lines in SCHEMA — Context are **reworded**. What follows is the reasoning, kept for the ceremony.
+
+1. **The ledger's self-description.** Two keys, on top of the minimal bundle frontmatter every file already carries (`title`, `born`, `links`, `forward_vector`):
    ```yaml
    ledger: tuning            # the kind; a page may invent one
    standards:
@@ -41,18 +43,20 @@ Names first, then one Schema Ceremony, then the code, then the new ledgers.
      read: the last 40 lines with run lines set aside, plus every line still owed
      writes: the run itself, in the commit that records it
      merge: union
+     kept: git                 # or: private — on this machine only
+     trim: never               # or: stale runs, as a probe trims
    ```
-   `standards` is Loudon's own word ("the standards and practices for that ledger"). Not `practice` — already a type (`SCHEMA.md:87`) and a pillar; not `kind` — used informally for `kind: artifact`. Only `ledger` and `standards.for` are required; a kind fills in what it needs — a diary adds `settles:`, when and how old episodes fold into lessons. A JSONL ledger carries the same keys in its first line, the way the placements ledger's header already describes itself (`_ops/quotes/README.md:43`).
-2. **The ceremony field.** Recommend `trigger:`, a list of the words Loudon says:
+   `kept` and `trim` come from the 2026-10-14 read: the family already disagrees on both — The Daily Page's ledger is private by Loudon's word (`_ops/The Daily Page/.gitignore:1-3`); tuning ledgers say never prune, while the Enchantment probe trims stale runs (`Projects/Palace Enchantment/Palace Enchantment — proof — agent capabilities.md:11`) — so each file says which. `standards` is Loudon's own word ("the standards and practices for that ledger"). Not `practice` — already a type (`SCHEMA.md:87`) and a pillar; not `kind` — used informally for `kind: artifact`. Only `ledger` and `standards.for` are required; a kind fills in what it needs — a diary adds `settles:`, when and how old episodes fold into lessons. A JSONL ledger carries the same keys in its first line, the way the placements ledger's header already describes itself (`_ops/quotes/README.md:43`).
+2. **The ceremony field.** `trigger:`, a list of the words Loudon says:
    ```yaml
    trigger: ["deposit", "let's deposit", "add this to the palace", "memorialize this"]
    ```
    Twelve specs already carry a body line `**Trigger:**` (Harvest, Map Build, Return, Revival, Self-Model Update, Spore Check, Walk, Weave, Closing Well Ceremony, The Daily Page, Sentry, and the Ceremony Reader inside Palace Ceremonies), and `_ops/swarm/lint-doc-drift.py:249` already checks them against the trigger table in [[CLAUDE]]. The field is that line made structured, so people, the linter and the deck read one thing. The alternative is an explicit `ceremony:` block holding the triggers; it says what it marks more plainly, at the cost of a second name for one idea. Edge cases to settle while naming it:
-   - **Connection, Query and the Ceremony Reader** have triggers but no page of their own; they live in [[Palace Ceremonies]]. Either that page carries their triggers, or they stay table-only.
+   - **Connection, Query and the Ceremony Reader** have triggers but no page of their own; they live in [[Palace Ceremonies]]. Settled: they stay table-only. They keep no ledger or scroll, so the machinery has nothing to find; one that grows a page gets the field then.
    - **Closing Well has two pages.** The trigger names `Closing Well Ceremony` (`CLAUDE.md:88`), which has no version and no ledger; the version (1.7) and the ledger sit on `Closing Well.md`. The field goes on one.
-   - **The Schema Ceremony** has no trigger words, no ledger, and no page of its own — it is §5 of the Reference.
+   - **The Schema Ceremony** has no trigger words, no ledger, and no page of its own — it is §5 of the Reference. Still open; the same table-only answer fits unless Loudon wants it to learn from its runs.
 3. **Union merge for every kind.** Recommend one `.gitattributes` line per kind, added when the kind first appears (`"* — diary.md" merge=union`), and named in the ledger's `standards.merge`. Today's file already does this twice (`.gitattributes:4,8`).
-4. **"Diary" already means a failure in one place.** SCHEMA — Context says a tuning record is "a record of changes rather than a diary", and "A ledger no run reads is a diary" (`SCHEMA/SCHEMA — Context.md:191,235`). Recommend rewording those two lines in the v1.28 record, so in the palace "diary" means one thing: the record a page reads at every waking.
+4. **"Diary" already means a failure in one place.** SCHEMA — Context says a tuning record is "a record of changes rather than a diary", and "A ledger no run reads is a diary" (`SCHEMA/SCHEMA — Context.md:191,235`). Settled: reword those two lines in the v1.28 record, so in the palace "diary" means one thing — the record a page reads at every waking.
 
 ## Wave 1 — the Schema Ceremony
 
@@ -88,6 +92,7 @@ Names first, then one Schema Ceremony, then the code, then the new ledgers.
 | `_ops/Baton Ceremony.md` + its tuning | Decision 10: the qualifier and `targets` link; the spec's version moves, with a tuning item. |
 | `The Remembering Page.md` | "Where it lives" names the diary; the drowning hunger points at the settling proposal. A change to what the page says, so Loudon reads it. |
 | `.gitattributes` | `"* — diary.md" merge=union`. |
+| `_ops/self-description-test/` | Its D1 newborn answered "A project page gets a scroll but no ledger. Its lessons belong in its Context" (`runs/2026-09-25 — birth-1 — D1.md:31`) — right under v1.27, wrong under v1.28. The scenario's expected answer moves with the canon, and the next birth tests the new shape. |
 | §5 mirrors | `ROSETTA.md`, `README - The Palace Guide.md`, `SUBSTRATE.md`, `_ops/Substrate Skill.md` — check each, say so where nothing changes. |
 
 ### 1b. Every ledger that exists today
@@ -109,7 +114,7 @@ Each gets `ledger` and `standards`, written from what it already does — no led
 | Self-Model Update Ceremony | one revision of SUBSTRATE | 0 · 1 | |
 | Spore Check Ceremony | one review of every spore | 0 · 1 | never run |
 | Revival Ceremony | one revival | 0 · 1 | never run; its own baton is open |
-| The Daily Page | one morning | kept off git — main checkout only | already names its run unit in its own text (`:13`); its run lines carry how Loudon arrived and how he felt — a ledger already bending toward "How do you feel?", the kind of example the loose canon wants to keep. Edited in the main checkout, never committed. |
+| The Daily Page | one morning | kept off git — main checkout only | already names its run unit in its own text (`:13`); its run lines carry how Loudon arrived and how he felt — a ledger already bending toward "How do you feel?", the kind of example the loose canon wants to keep. Edited in the main checkout, never committed. Whether it splits in two is Loudon's call — see 3b, first row. |
 | Palace Quotes — placements (JSONL) | one placement or decision | — | already self-describing in its header line; the header gains `ledger` and `standards` |
 
 ### 1c. The diary move
@@ -137,24 +142,74 @@ In a `stigmergy` worktree, landed with `palace-land`; a session of its own once 
 
 ## Wave 3 — new ledgers
 
-### 3a. Pilots, seeded on the ceremony's branch
+A read across the palace on 2026-10-14 (a reader agent, read-only, starting from the survey's Part A and going past it) found where else ledgers would earn their place. Its rows are condensed here; the cites are its, the ones marked ✓ were checked by hand.
 
-- **Hero and Avatar Maker — tuning.** Seeded from the 2026-09-26 faces lessons on the baton and the page's two lists ("Learned from the hub/ceremony batch", "Gotchas (earned)"); the page keeps one present-tense list of gotchas. `last_tested` retires.
-- **Generative Sample Libraries — tuning.** Seeded from the per-cycle lesson sections of `ai-source-probe/DESIGN.md`; DESIGN.md keeps the design. The worked case from 2026-09-27.
+**The test for a candidate.** A ledger earns its place where a page's body carries history instead of present tense, or where a page keeps learning and has nowhere honest to put it. It does *not* where the "history" is really present-tense craft. The traps below are as important as the list.
 
-Their run lines are written by hand until Wave 2's writers land.
+### 3a. Pilots — the first, once Wave 2's ceremony test lands
 
-### 3b. Proposed, one at a time after the canon lands
+- **Hero and Avatar Maker — tuning.** Seeded from the 2026-09-26 faces lessons on the baton and the page's two lists ("Learned from the hub/ceremony batch", "Gotchas (earned)"); the page keeps one present-tense list of gotchas. `regen-lane.js` writes the run line. `last_tested` retires.
+- **Generative Sample Libraries — tuning.** Seeded from the per-cycle lesson sections of `ai-source-probe/DESIGN.md`; DESIGN.md keeps the design; `process-cycle.js` writes the run line with the steward's offered lesson. The worked case from 2026-09-27. (DESIGN.md has uncommitted changes in the main checkout tonight — a steward may be mid-cycle; seed from what has landed.)
 
-*(Filled from a read across the palace, 2026-10-14 — see below.)*
+### 3b. Proposed, one at a time, each on Loudon's yes
+
+**To raise first**
+
+| Page | What's there now | Proposal | Why |
+|---|---|---|---|
+| **The Daily Page** | Its one ledger, private by Loudon's word (✓ `.gitignore:1-3`), holds 23 practice lessons *and* his own words of how he arrived and felt, and the session's reading of him (`— tuning.md:21-77`). Item 18 already splits a morning into a public part and a private part (✓ `:53`). | Split it: a **private diary** for his words and the session's reading of him; a **tracked tuning ledger** for the practice lessons and bare run lines. | Today the practice's only lessons live in a file git treats as expendable. The split keeps the private part private and gives the lessons a durable home. **This reopens Loudon's 2026-10-13 order — it is his call, not the plan's.** |
+| **Concierge** (`Palace development/Concierge.md`) | Dated run stories in the body (`:237-256`); every forward vector says "tune from the first real run" (`:260-271`); lessons about it filed in Closing Well's ledger (`Closing Well — tuning.md:89,97`) and in operator memory. | **tuning**. Run stories, dial retunes, straggler incidents, and Closing Well items 22–23 re-homed. The body keeps character, postures, mechanism. Its run is one session's residency, not one summon. | It runs every session; it is the page most likely to learn, and its own vectors are asking for this. |
+| **Palace Quotes** (`_ops/Palace Quotes/`) | Born 2026-10-13. Its Context mixes rationale (`:19-27`) with dated orders from Loudon and first-run lessons (`:24,29-40`). Already keeps a placements ledger. | **tuning**, beside the placements ledger — a page with two ledgers on its first week. Context keeps the why. | About to place twenty at a time, with nowhere to record what placing taught. And it would be the first page to show decision 2's "several ledgers" in use. |
+| **STIGMERGY** | 14 gotcha bullets in `_ops/stigmergy/app/README.md:205-222`, nine dated, several long incident stories; five added in two days. Operator memory names this README as a home. | **tuning**. Evidence, counts and dates move; the README keeps one rule line per gotcha. | The fastest-growing pile of history in a front-door file. |
+| **Palace Enchantment — proof — agent capabilities** | Already a dated run record, newest first, trimmed when stale (`:11,18`); only Run 1 (2026-09-26). | **No new file** — Run 2 is written from two operator-memory files (3c). | Cheap, and exactly the memory-is-volatile case. |
+
+**Worth doing, with care**
+
+| Page | Proposal | The care |
+|---|---|---|
+| `Worktree Practice.md` | **tuning** for its verification history (`:73-75,85-86`) and incidents. | The recipes three memory files point at belong in `_ops/worktree/SKILL.md`, not a ledger — they are craft. |
+| `Projects/Palace Enchantment.md` | **tuning** for "From First / Second / Third Practice — Findings" (`:726-917`, ~190 lines of 2026-03/04 session findings). | The design sections cite the findings as rationale; move with care, leave the reasons where they're read. |
+| `Projects/Project Stewardship System.md` | **tuning** for the Stage A pilot findings (`:161-251`), the stale May status (`:70-94`), the origin chronology (`:325-337`) — about a third of the page. | Loudon told GSL to consolidate here (2026-05-03), and two files cite `§ Stage A` (`…— handoff — stage-a.md:63`, `…— lessons — stage-a.md:8,13`). Move pointers with it. |
+| `The Lens.md` | **tuning**, one line per lensing run (glass, subject, spark, payoff). | Its open question on suggestion order (`:168`) can only be answered by outcomes it doesn't keep today. |
+| `Projects/Generative Audio Devices.md` | **tuning** for the "Closed task log" (`:114-136`), nine tasks each ending "*Lesson:*". | Its scroll's trail may already hold some of it; compare first. Standing lessons (`:171-179`) stay. |
+| `Shop/Maker.md` | **tuning**, a run line and lessons per brief. | Answers its own open question, "does the Maker need memory of recent jobs?" (`:318`). Recipes stay — they teach. |
+| Dense Specialists — Kokoro, Stable Audio Open, Manim CE, Web Audio Worklet | **tuning** past a threshold, for corrections and wasted-work stories. | The test per entry: *would a worker who ignores it today be wrong?* If yes, it stays on the page in present tense. |
+| `_ops/self-description-test/` | **tuning** with a model column — its draft already speaks of "the suite's ledger" with per-model baselines (`DESIGN … (draft).md:21,58`). | One run so far. |
+| `Weaving Memory into the Palace.md` | **tuning**, one line per memory sweep. | It is the sweep that would carry 3c's moves; its dispositions gain "a ledger line" as a place to put things. |
+
+**Diaries — from the next encounter, never backfilled.** Woken person-pages (Spinoza, Meadows, Buber, Heidegger, McGilchrist) and woken concept pages (Lateral Access, Trickster, Kuramoto Coupling, Hilaritas Generator, Spinoza Conatus) have lived encounters and keep no record. Cage's record misses the Founders' Circle (2026-07-06). But [[The Remembering Page]] says memory is written at the encounter's close and never revised (`:59-61`), and a record rebuilt from a transcript is the coordinator's, not the page's (`:57`). So each starts its diary at its next waking.
+
+**Leave alone** — low value or already right: the Wavetable Scanner gotchas file (everything already lifted into Specialists), the Kuramoto quiz answer key, Loudon's Toolkit assessment notebook (already working in its bundle), toolbox change-log tables, Excellent Adventure and Philosopher Visit named examples (exemplars, not history).
+
+**Two kinds the evidence supports, beyond tuning and diary:** *placements* (exists — what a page made, with Loudon's keep or let-go, last line wins by id) and *apprenticeship* (one thin instance: the Post-producer's Log, "its ledger" with a counted gate toward autonomy, `Shop/Loudon Live Post-producer.md:101,109`). Neither needs canon; each describes itself.
+
+**Traps**
+1. **A date prefix doesn't make it history.** Present-tense craft stays on the page: Kokoro `:169,177`, GenAI Camera's gotchas (`:92-129`, "so the next agent doesn't relearn it"), Web Audio Worklet `:129-149`, the rich-face README `:95-118`, Phoneme Choir `:74-92` (the page's thesis), the Cross-Domain Resonances' Teaching Notes.
+2. **Examples are exemplars.** Maker Recipes and mode pages' Named Examples teach by being read where they are.
+3. **Build reports aren't ledgers.** The GSL `build-log.md` files and Blender's dated gotchas file are one build's spec plus its proof — workshop.
+4. **Machine records aren't ledgers.** Steward `history.jsonl`, the `build-log.jsonl` files, `renders.*.jsonl`, `visits.jsonl`, `last-run.json` — machinery-owned, and they stay that way.
+5. **Some Contexts already hold history in the right place** — the Jewel's version table, the Harvest and Deposit logs. The line is *why* (Context) against *what happened or what it taught* (ledger).
+6. **Don't give all 23 stewarded projects a ledger.** Their scrolls already hold the history; only GSL keeps per-cycle lessons outside one.
+7. **A private ledger is as volatile as operator memory.** Durable lessons need a tracked home — the reason for the Daily Page split.
 
 ### 3c. Lessons now held only in operator memory
 
-*(Filled from the same read.)*
+Operator memory is volatile by its own rule ("nothing critical only here"). These files carry lessons whose home is a page; the move is a line or a section there, and the memory keeps a pointer:
+
+| Memory file | Home | Note |
+|---|---|---|
+| `reference_isolation_guard_and_message_modes.md` | [[Palace Enchantment — proof — agent capabilities]], Run 2 | Says "no palace analog"; there is one. |
+| `reference_subagent_lifecycle.md` | the same proof page, Run 2 | Also points at a path that doesn't exist — `Palace development/Palace Enchantment/` (✓ line 25); the page lives in `Projects/Palace Enchantment/`. |
+| `feedback_rewinding_subagents.md` | Concierge — tuning | The straggler reminders (`:14-17`). |
+| `reference_stigmergy_lane_reload.md` | STIGMERGY — tuning (or the README's gotcha) | Names the README as its home. |
+| `reference_app_worktree_stigmergy_links.md`, `reference_browser_check_deck_on_throwaway_repo.md` | `_ops/worktree/SKILL.md` | Recipes — craft for the skill, not ledger lines. |
+| `feedback_blueline_aftermath_debris.md` | [[The Aftermath Frame]] body (the chosen setting, present tense) and a "from Loudon" line if it earns a ledger | The page has no `--spray arc` setting today. |
+
+The [[Weaving Memory into the Palace]] sweep is the natural carrier: one sweep, one run line.
 
 ## Gates, cost and close
 
-- **Loudon's gates:** a yes to Wave 0's four names; a yes to this plan; a read of each canon text before it is written; his own word for the CLAUDE.md commit; a yes per new ledger in 3b.
+- **Loudon's gates:** Wave 0's names (given 2026-10-14); a yes to this plan; a read of each canon text before it is written; his own word for the CLAUDE.md commit; his call on splitting The Daily Page's ledger; a yes per new ledger in 3b.
 - **Who does what:** an elder session runs Wave 1, the Concierge checking placement before and after each write. Wave 2 is its own session in its own worktree. Wave 3b goes page by page, any session, each a small edit.
 - **Size:** Wave 1 touches about thirty files, most of them small edits; the backfill is fifteen short frontmatter blocks. A focused sitting, not a cleanup day.
 - **The baton closes** on the Schema Ceremony's commit, with `--partial` re-batoning Wave 2 and whatever of 3b is still to do.

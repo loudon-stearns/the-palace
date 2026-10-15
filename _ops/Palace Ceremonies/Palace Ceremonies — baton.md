@@ -110,7 +110,9 @@ Loudon's answers, taken question by question through the survey's Part B. **Agre
 - how many recurrences earn a change to what a page wants (one pair, one topic, says the third);
 - what one run is when three or more pages meet, each keeping its own partial record;
 - whether a diary ever settles between molts, for a page lived often that never changes;
-- the exact frontmatter fields for a ledger's standards, and the name of the ceremony field.
+- the sub-keys inside a ledger's `standards` (a sketch is in the propagation plan, Wave 0).
+
+**The names, settled the same evening** (the propagation plan's Wave 0): a ledger states its rules under **`standards`** beside `ledger: <kind>`; a ceremony is marked by **`trigger:`**, the list of words Loudon says — the structured form of the `**Trigger:**` line twelve specs already carry; Connection, Query and the Ceremony Reader stay **table-only**; the two lines in SCHEMA — Context that use "diary" for a failure are **reworded**.
 
 **Tensions to name in the Schema Ceremony's record, not resolve away** (found by the [[Concierge]], 2026-10-14):
 - *"Diary" is the palace's word for a failure.* SCHEMA — Context says a tuning record is "a record of changes rather than a diary", and "A ledger no run reads is a diary" (`SCHEMA/SCHEMA — Context.md:191,235`). A diary in the new sense is read at every waking ([[Palace Enchantment]] loads it, `Projects/Palace Enchantment.md:277-279`) — that is the difference to name.
@@ -149,7 +151,7 @@ Loudon asked that these stay visible, not smoothed over. All four were settled o
 3. ~~Settle them with him.~~ Done 2026-10-14: § Decided 2026-10-14.
 4. **Plan how the answers propagate through the palace, with Loudon** (asked 2026-10-14): the canon the Schema Ceremony changes, the code, every existing ledger brought up to decision 4 (its standards stated in its frontmatter), the ceremony field on every ceremony page, and proposals for new ledgers — pages whose bodies carry history a ledger should hold, or whose use a ledger would refine. The plan lives beside this baton as a sketch: [[Palace Ceremonies — sketch — propagation plan]], drafted 2026-10-14 and waiting on Loudon's yes, wave by wave.
 5. Land the canon and code through a Schema Ceremony (SCHEMA — Reference §5), on Loudon's yes to the plan. The survey's Part C is the starting list.
-6. Pilot on pages that aren't ceremonies: the Hero and Avatar Maker (tuning, seeded from the faces lessons above), Generative Sample Libraries (tuning, from the lesson sections of its `DESIGN.md`), and Brian Eno and John Cage (diary, moved out of Context).
+6. Pilot on pages that aren't ceremonies: the Hero and Avatar Maker (tuning, seeded from the faces lessons above) and Generative Sample Libraries (tuning, from the lesson sections of its `DESIGN.md`) — **only after the code's ceremony test reads `trigger:`**, because on today's code any `— tuning.md` makes its page a ceremony. Brian Eno's and John Cage's diaries move inside the Schema Ceremony itself; the code never looks at diaries. Then the plan's Wave 3b proposals, one at a time.
 
 ## Calibrations from this session
 - Loudon: "We must not get myopic around the shop and adding a specific carve out for it."
