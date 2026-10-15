@@ -42,6 +42,8 @@ links:
 
 # LDN RTM
 
+![[LDN RTM — hero.png]]
+
 **Read The Manual.** Loudon takes one product's complete manual, reads it end to end, tests every claim in it, and makes a short video for every section — until the whole thing is covered.
 
 This is not a content format that happens to be thorough. It is **a learning method Loudon actually uses**, performed where people can see it. He has read and tested many entire manuals; that is how he came to know the tools he knows. The series makes the method visible and argues, without ever saying so, that it works. The completeness is the evidence.

@@ -29,6 +29,8 @@ forward_vector: "I want to collect more instances of the move — every time a s
 
 # The Adjacent Affordance
 
+![[The Adjacent Affordance — hero.png]]
+
 **When a substrate forbids one primitive, the work is to find the neighboring primitive it still grants — and build through it.**
 
 Not to batter the closed operation, not to mourn it, not to declare the task impossible. To notice what *is* still permitted right beside the refusal, and route the whole intent through that. The constraint is not a wall; it is a prompt to find the door beside it.

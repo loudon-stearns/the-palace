@@ -23,6 +23,8 @@ links:
 
 # The Metaphor Stretch
 
+![[The Metaphor Stretch — hero.png]]
+
 Every boundary-crossing instrument reaches a moment where the source physics gives you ratios and tendencies — but not a playable instrument. This moment — the gap between physical description and musical agency — is The Metaphor Stretch.
 
 The physics is never silent at this point. It still constrains. But what it constrains is *shape* and *tendency*, not absolute pitch, not number of voices, not decay time. The instrument designer must make choices the physics leaves open. Those choices are not failures of fidelity — they are the act of instrument building. The stretch is not a compromise; it is the threshold.

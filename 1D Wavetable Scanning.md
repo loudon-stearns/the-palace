@@ -31,6 +31,8 @@ tags: [synthesis, dsp, wavetable]
 
 # 1D Wavetable Scanning
 
+![[1D Wavetable Scanning — hero.png]]
+
 A 1D wavetable is a sequence of single-cycle frames stacked along one axis. The **Position** parameter scans across that axis, morphing the timbre as it moves. The synthesis gesture is the *scanning*, not the *triggering* — and that single observation changes more design decisions than it has any right to.
 
 ## The morph is a 2D linear interpolation

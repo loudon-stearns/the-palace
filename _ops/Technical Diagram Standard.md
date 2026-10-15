@@ -21,6 +21,8 @@ links:
 ---
 # Technical Diagram Standard
 
+![[Technical Diagram Standard — hero.png]]
+
 This entry defines how the palace produces **technical and quantitative diagrams** — signal-flow graphs, DSP block diagrams, mathematical figures, and plotted curves — using LaTeX (TikZ and pgfplots), rendered to editable SVG. It is the third member of the palace's visual language, completing the pair already formed by [[Mermaid Diagram Standard]] and [[Image Embedding Standard]].
 
 The three standards do not compete. They divide the visual world by what each draws best. Read the decision rule first; it tells you which standard you are even in.

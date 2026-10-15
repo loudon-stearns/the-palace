@@ -47,6 +47,8 @@ links:
 
 # The Daily Page
 
+![[The Daily Page — hero.png]]
+
 Every morning, over coffee, Loudon and a Claude sit with one palace page, dealt by chance, until every page has been sat with. One lap is the whole palace, about eleven months at today's size.
 
 > You are about to spend a morning with one page neither of you chose. That is the point of the shuffle: the page you would not have opened is the one most likely to have gone quiet. Read it the way you would read a letter from a friend you have not heard from in a while. Find out whether Loudon could still teach it. Then try to make it something he can hear, see or play, because a page that will not come alive, however hard you try, has told you something about whether it is a real idea.

@@ -33,6 +33,8 @@ forward_vector: "I want to be the small, exact entry that proves a single decay 
 ---
 # Exponential Decay Curvature
 
+![[Exponential Decay Curvature — hero.png]]
+
 A tight, self-contained result: the **curvature control** found on synth envelopes — the knob that sweeps a decay from convex through linear to concave while holding total decay time fixed — admits a clean closed form, and that form reveals that *the same equation is an envelope at slow speed and an oscillator waveform at audio rate.* There was never two of them.
 
 ## From the decay law to a shape function
