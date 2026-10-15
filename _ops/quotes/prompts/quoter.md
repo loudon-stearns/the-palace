@@ -19,7 +19,10 @@ The lens procedure above is yours. But you do not start from a lens. You start f
 7. **Place it.** Write the placement as JSON and run the placer; it refuses a `near` that is not on the page, a lens that is not a palace page, an unverified new voice. `mode` says how the voice was found: `open` or `roster`.
 
 ```bash
-cat > /tmp/placement.json <<'EOF'
+# a draft file of your own: readers run side by side, and a shared name lets
+# one reader's dry run show another's quote
+DRAFT="$(mktemp -t placement.XXXXXX).json"
+cat > "$DRAFT" <<'EOF'
 {
   "quote": "…",
   "attribution": "…",
@@ -34,8 +37,8 @@ cat > /tmp/placement.json <<'EOF'
   "why": "…"
 }
 EOF
-node _ops/quotes/place.mjs --file /tmp/placement.json --dry-run   # read the line it would write
-node _ops/quotes/place.mjs --file /tmp/placement.json             # then place it
+node _ops/quotes/place.mjs --file "$DRAFT" --dry-run   # read the line it would write
+node _ops/quotes/place.mjs --file "$DRAFT"             # then place it
 ```
 
 8. **The placement is the report. Post to no board.** Not WEAVE, not TRICKSTER — a quote is small and there will be many, and Loudon keeps or lets go each one in STIGMERGY with a single key; a board card per quote would only fill his inbox. The placer's printed line is all the record there is. Nothing else is written: the page's own file stays as it was, and STIGMERGY lays the quote beside its words. (If a lens contract above this asked you to post a spark or a request, that was The Lens's general contract; this page's is the one that holds.) When you are done, say in one short paragraph what you placed, on which sentence, through which lens, and whether the voice is new to the palace — or that you placed nothing, and why.

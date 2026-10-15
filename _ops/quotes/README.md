@@ -18,7 +18,7 @@ The runnable half of [[Palace Quotes]]. The page says what the agent does and wh
 |---|---|
 | `node _ops/quotes/place.mjs --file p.json [--dry-run]` | validate and append one placement (or an array). Refuses a `near` phrase that is not on the page, a lens that is not a palace page, a missing `why`, a fidelity or check it does not know, the same words twice on one page. |
 | `node _ops/quotes/place.mjs --keep <id> [--why "…"]` | Loudon's yes, written by an elder on his word; on a let-go quote it revives it |
-| `node _ops/quotes/place.mjs --retire <id> --why "…"` | take a quote down, with the reason; the line stays in the ledger |
+| `node _ops/quotes/place.mjs --retire <id> --why "…" [--by loudon]` | take a quote down, with the reason; the line stays in the ledger. Signed `Palace Quotes` unless `--by` says otherwise — a reader cleaning up its own slip never signs as Loudon |
 | `node _ops/quotes/place.mjs --list [--target "<Title>"] [--lens "<Title>"] [--awaiting]` | what is placed, and which quotes still await his read |
 | `node _ops/quotes/place.mjs --voices` | who has been quoted, how often, how many came from the open reading, which voices are new to the palace |
 | `node _ops/quotes/place.mjs --check` | re-anchor every placement against the pages as they stand: **moved** (the phrase is gone) · **drifted** (the section's words changed) · in step |

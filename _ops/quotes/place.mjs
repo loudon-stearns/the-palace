@@ -167,7 +167,7 @@ function decide(id, decision, why, by) {
   if (decision === 'retire' && q.status === 'retired') { console.log(`  · ${id} is already let go`); return; }
   if (decision === 'keep' && q.status === 'kept') { console.log(`  · ${id} is already kept`); return; }
   if (decision === 'retire' && !why) { console.error('  ✗ --why is required: say why the quote comes down'); process.exitCode = 1; return; }
-  const line = decisionLine(id, decision, { why, by: by || 'loudon' });
+  const line = decisionLine(id, decision, { why, by });
   appendLine(line);
   const verb = decision === 'keep' ? (q.status === 'retired' ? 'revived' : 'kept') : 'let go';
   console.log(`  ${decision === 'keep' ? '◆' : '○'} ${verb} ${id} — "${q.quote.slice(0, 48)}…" on ${q.target}`);
@@ -243,9 +243,13 @@ const by = opt('by');
 if (flag('mandate')) {
   await mandate(opt('mandate'), opt('note'));
 } else if (flag('retire')) {
-  decide(opt('retire'), 'retire', opt('why'), by);
+  // A command-line let-go is signed by the agent running it unless --by says
+  // otherwise: a reader cleaning up its own slip must not sign as Loudon
+  // (the first run of fourteen readers did exactly that once).
+  decide(opt('retire'), 'retire', opt('why'), by || PLACED_BY_DEFAULT);
 } else if (flag('keep')) {
-  decide(opt('keep'), 'keep', opt('why'), by);
+  // A keep is Loudon's yes by definition — an elder writes it on his word.
+  decide(opt('keep'), 'keep', opt('why'), by || 'loudon');
 } else if (flag('voices')) {
   voices();
 } else if (flag('list') || flag('check')) {
