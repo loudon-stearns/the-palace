@@ -58,7 +58,8 @@ prefer them over ad-hoc scripts.
   bundle (`scroll-file.js`; the bundle path is resolved from the steward's
   `home`; replaces the plan.md read-model since 2026-09-23), then **commits
   what the cycle shipped** — the files its messages list in `artifacts`
-  (inside the steward's bundle, ≤10 MB each, never an entry), with its
+  (inside the steward's bundle, ≤10 MB each, never an entry, never a file
+  `.gitignore` ignores), with its
   machinery, scroll and the board, scoped to exactly those paths
   (`cycle-commit.js`; pass `--no-commit` to skip). Prints a JSON
   summary (`posted_ids`, `invalid_ids`, `pending_after`,

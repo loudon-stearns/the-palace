@@ -1,5 +1,5 @@
 import { describe, test, expect, afterEach } from 'vitest';
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync, chmodSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
@@ -310,6 +310,32 @@ describe('the screen judges as the committer\'s git add does', () => {
     const res = commitPaths({ palaceRoot: root, paths: [`${B}/render.png`, `${B}/${nfd}`], scope: 'Test Steward', summary: 'cycle 1 — accents' });
     expect(res.ok, res.error).toBe(true);
     expect(git(root, ['-c', 'core.quotepath=false', 'show', '--name-only', '--format=', 'HEAD']).trim().split('\n').length).toBe(2);
+  });
+
+  test('a path git cannot find does not hide an ignored one beside it', () => {
+    const { bundle } = palace('*.wav');
+    writeFileSync(path.join(bundle, 'phrase.wav'), 'audio');
+    expect(ignoredPaths(root, [`${B}/gone.png`, `${B}/phrase.wav`])).toEqual([`${B}/phrase.wav`]);
+  });
+
+  test('when git cannot say where the index is, nothing is called ignored', () => {
+    const { bundle } = palace('*.wav');
+    writeFileSync(path.join(bundle, 'take.wav'), 'v1');
+    git(root, ['add', '-f', `${B}/take.wav`]);
+    git(root, ['commit', '-q', '-m', 'tracked']);
+    writeFileSync(path.join(bundle, 'take.wav'), 'v2');
+    const shim = mkdtempSync(path.join(tmpdir(), 'git-shim-'));
+    const realGit = execFileSync('/usr/bin/which', ['git'], { encoding: 'utf8' }).trim();
+    writeFileSync(path.join(shim, 'git'), `#!/bin/sh\n[ "$1" = rev-parse ] && [ "$2" = --git-path ] && exit 1\nexec "${realGit}" "$@"\n`);
+    chmodSync(path.join(shim, 'git'), 0o755);
+    const before = process.env.PATH;
+    process.env.PATH = `${shim}:${before}`;
+    try {
+      expect(ignoredPaths(root, [`${B}/take.wav`])).toEqual([]);
+    } finally {
+      process.env.PATH = before;
+      rmSync(shim, { recursive: true, force: true });
+    }
   });
 
   test('the backstop still gets its try when no retries are left', () => {

@@ -397,8 +397,9 @@ GENERAL. Use it for every made thing, with all of these fields:
 it as if he has forgotten everything. **Every file you list in `artifacts` is
 committed with your cycle** — list each one you made, by its palace path.
 A file you don't list stays uncommitted and can be lost; files over 10 MB,
-files outside your bundle, and drafts carrying entry frontmatter (`type:`) are
-never committed this way. Draft a proposed entry without `type:` in its
+files outside your bundle, files `.gitignore` ignores (they are named in the
+commit and the rest still commits), and drafts carrying entry frontmatter
+(`type:`) are never committed this way. Draft a proposed entry without `type:` in its
 frontmatter, and let the elder who lands it add the rest. `left_rough` is the set-down-honestly
 line from the steward posture, made a field so it survives. A cycle may post
 several `shipped_artifact`s; each becomes its own section of the trail.

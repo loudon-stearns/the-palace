@@ -85,7 +85,8 @@ record; STIGMERGY shows them.
   materializer never touches it and neither does any agent.
 - **The subagent never runs git.** `process-cycle.js` commits each cycle's
   shipped work itself — the files listed in its messages' `artifacts` (inside
-  the steward's bundle, ≤10 MB each, never an entry) plus machinery, scroll and
+  the steward's bundle, ≤10 MB each, never an entry, never a file `.gitignore`
+  ignores) plus machinery, scroll and
   board, scoped to exactly those paths (`cycle-commit.js`; `--no-commit` opts
   out). Under the Mac-side heartbeat the *wrapper* then sweeps any machinery a
   cycle commit missed (`_ops/heartbeat/`, `palace-commit.mjs`; never

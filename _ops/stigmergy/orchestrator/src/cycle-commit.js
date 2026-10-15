@@ -73,16 +73,21 @@ export function ignoredPaths(palaceRoot, paths) {
   try {
     scratch = mkdtempSync(join(tmpdir(), 'cycle-commit-index-'));
     const index = join(scratch, 'index');
+    // Without the real index every tracked file would look untracked, and a tracked file a rule
+    // matches would be dropped though the committer takes it: when git cannot say, say nothing.
     const real = spawnSync('git', ['rev-parse', '--git-path', 'index'], { cwd: root, encoding: 'utf8' });
-    const realIndex = real.status === 0 ? resolve(root, real.stdout.trim()) : null;
-    if (realIndex && existsSync(realIndex)) copyFileSync(realIndex, index);
+    if (real.status !== 0 || !real.stdout.trim()) return [];
+    const realIndex = resolve(root, real.stdout.trim());
+    if (existsSync(realIndex)) copyFileSync(realIndex, index); // none yet: an empty index is the truth
     const env = { ...process.env, GIT_INDEX_FILE: index, GIT_LITERAL_PATHSPECS: '1', GIT_OPTIONAL_LOCKS: '0' };
     const dry = (ps) => spawnSync('git', ['add', '--dry-run', '--', ...ps], { cwd: root, env, encoding: 'utf8', timeout: 30_000 });
     const refused = (r) => r.status === 1 && /ignored by one of your \.gitignore files/i.test(r.stderr || '');
     const out = [];
     for (let i = 0; i < paths.length; i += 200) {
       const chunk = paths.slice(i, i + 200);
-      if (!refused(dry(chunk))) continue;
+      // A clean run settles the chunk. Anything else, a refusal or a path git cannot find, is
+      // asked path by path, so one missing path never hides an ignored one beside it.
+      if (dry(chunk).status === 0) continue;
       for (const p of chunk) if (refused(dry([p]))) out.push(p);
     }
     return out;
