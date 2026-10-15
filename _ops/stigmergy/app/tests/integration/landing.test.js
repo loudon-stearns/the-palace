@@ -348,6 +348,38 @@ describe('a landing that died halfway', () => {
     expect(readFileSync(join(owner, 'b.md'), 'utf8')).toBe('someone else\'s edit\n');
   });
 
+  test('a heal killed while writing leaves no file missing, and the next pass carries on in the same direction', async () => {
+    const files = {};
+    for (let i = 0; i < 1500; i += 1) files[`bulk/f${String(i).padStart(4, '0')}.md`] = `new ${i}\n`;
+    for (const p of Object.keys(files)) { mkdirSync(dirname(join(owner, p)), { recursive: true }); writeFileSync(join(owner, p), `old ${p}\n`); }
+    g(owner, 'add', '-A');
+    g(owner, 'commit', '-qm', 'old bulk');
+    g(wt, 'merge', '-q', 'main');
+    branchEdits({ ...files, 'zz-edit.md': 'branch\n' });
+    const old = g(owner, 'rev-parse', 'main').trim();
+    const tree = g(owner, 'merge-tree', '--write-tree', old, 'feature/x').trim();
+    const merge = g(owner, 'commit-tree', tree, '-p', old, '-p', 'feature/x', '-m', 'merge(x): bulk').trim();
+    writeMarker(owner, { root: owner, old, new: merge, branch: 'feature/x' });
+    // Half the landing written, then someone's edit to a later file: the heal must undo.
+    for (let i = 0; i < 700; i += 1) writeFileSync(join(owner, `bulk/f${String(i).padStart(4, '0')}.md`), `new ${i}\n`);
+    writeFileSync(join(owner, 'zz-edit.md'), 'someone else\'s\n');
+    writeFileSync(join(owner, 'unrelated.md'), 'u\n');
+    const child = spawn('node', [COMMIT, '--kind', 'edit', '--summary', 'touch', '--verify', 'verified', '--path', 'unrelated.md'], { cwd: owner, env: env(), detached: true, stdio: 'ignore' });
+    const t0 = Date.now();
+    while (!readMarker(owner)?.undo && Date.now() - t0 < 20_000) await new Promise((w) => setTimeout(w, 2));
+    await new Promise((w) => setTimeout(w, 30));
+    try { process.kill(-child.pid, 'SIGKILL'); } catch (_) { /* finished already */ }
+    await new Promise((w) => setTimeout(w, 200));
+    const missing = Object.keys(files).filter((p) => !existsSync(join(owner, p)));
+    expect(missing).toEqual([]);
+    const r = nextPass();
+    expect(r.status, r.stderr).toBe(0);
+    expect(g(owner, 'rev-parse', 'main~1').trim()).not.toBe(merge);
+    for (const p of Object.keys(files)) expect(readFileSync(join(owner, p), 'utf8')).toBe(`old ${p}\n`);
+    expect(readFileSync(join(owner, 'zz-edit.md'), 'utf8')).toBe('someone else\'s\n');
+    expect(readMarker(owner)).toBeNull();
+  }, 90_000);
+
   test('a change to the executable bit alone is finished too', () => {
     writeFileSync(join(owner, 'run.sh'), '#!/bin/sh\n');
     g(owner, 'add', 'run.sh');
