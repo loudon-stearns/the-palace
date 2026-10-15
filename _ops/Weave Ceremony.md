@@ -4,7 +4,7 @@ type: practice
 pillars: [practice, tools, philosophy]
 born: 2026-03
 stage: mature
-version: "1.4"
+version: "1.5"
 links:
   - target: "[[Palace Ceremonies]]"
     type: connects-to
@@ -51,7 +51,7 @@ The palace's full-body examination. Where the Walk follows one thread, the Weave
 
 A weave is more than links — it is the palace's periodic tending of its own **health and joy**, across the three bodies a knowledge organism lives in at once:
 
-- **Entries** — reachable, rightly staged, honestly labelled, faced when merited, striving toward a forward vector that still fits. The youngest get the boldest care: newborn, they are the least-alive nodes, and only a weave can wire their *inbound* links (those live in other files). An entry's health is its [[Entry Conatus|conatus]] served.
+- **Entries** — reachable, rightly staged, honestly labelled, wearing a face, striving toward a forward vector that still fits. The youngest get the boldest care: newborn, they are the least-alive nodes, and only a weave can wire their *inbound* links (those live in other files). An entry's health is its [[Entry Conatus|conatus]] served.
 - **Agents** — a clean board, honest handoffs, memory kept as a cache not a rival truth, and work *trusted to judgment* rather than caged in scripts. The linters only flag; the mind of the moment decides. That trust is [[Cooperation Yields Agency|cooperation]] turned on our own workers — their [[Agent Wellbeing|wellbeing]].
 - **Humans** — the palace stays legible and uncluttered, *grabs* you in the state view, and hands you the signing, not the toil. The measure is [[Hilaritas Generator|hilaritas]]: "how do you feel," not "how many links."
 
@@ -94,10 +94,10 @@ The single-agent protocol below remains valid for: palaces under ~20 entries, qu
 3. **New introductions** have been proposed — new typed links between entries that do not yet mention each other in prose. These are genuine growth events, curated deliberately rather than to a fixed quota (see Step 3b). **New entries born since the last Weave have been given priority integration** — their inbound links wired toward a catch-up target, the whole swarm primed to reach for them (Step 0b).
 4. **Vector tuning has been invited** for entries whose `forward_vector` has visibly drifted from the entry's current content, connections, or pace. Forward vectors are meant to evolve; the Weave is a natural occasion to surface drift and propose tweaks or full overhauls.
 5. Any confirmed metadata updates have been written to entry files
-5a. A **face audit** has run — merited-but-missing faces proposed for the gated [[Hero and Avatar Maker]] batch; faces on now-dormant entries (composting, spores) retired.
+5a. A **face audit** has run — every canon entry missing a hero or an icon is proposed for the gated [[Hero and Avatar Maker]] batch.
 5b. A **visual Weave report** (HTML, per the [[Loudon Live Design System]]) has been produced and saved to the session folder — the human-facing companion to the topology report, summarizing findings across lenses (cross-lens convergences, single-lens gems, the staged decision surface, and — after an oblique pass — what the randomness revealed and which segmentations to prioritize next). This is a standard Weave output, not a one-off. The studio floor applies (Graphite skin, the Lissajous sigil, the `Loud'n Live` footer, no cyan / emoji / hype); entry avatars may be embedded to reinforce the findings visually. Codified 2026-07-06.
 5c. The run report carries `ceremony_version` and ends with *What this run taught the ceremony*.
-6. Git commit made: `Weave — [date] — [N links added, N entries promoted, N orphans flagged, N vectors tuned, N flags closed, N orphans recovered/discarded, N faces added/retired]`
+6. Git commit made: `Weave — [date] — [N links added, N entries promoted, N orphans flagged, N vectors tuned, N flags closed, N orphans recovered/discarded, N faces added]`
 
 **Failure mode:** If the palace is only partially readable (some files inaccessible), produce a partial topology report and note which entries were unreachable. A partial Weave is valid. Do not commit until all accessible files have been processed.
 
@@ -255,14 +255,11 @@ For each candidate, present:
 
 Apply confirmed vector edits to entry frontmatter.
 
-**Step 5c: Face audit (add and retire)**
+**Step 5c: Face audit**
 
-Faces are load-bearing, not decoration — they are how [[STIGMERGY]]'s state view grabs the eye in search. The Swarm Weave worker's FACE CHECK already proposes a hero/icon for entries that merit one and lack it, in [[Hero and Avatar Maker]]'s locked art direction; the coordinator assembles these. Apply the policy and surface **two lists**:
+Every canon entry wears a face: a hero and an icon in its bundle folder ([[Hero and Avatar Maker]] § The convention). Faces are load-bearing — they are how [[STIGMERGY]]'s state view grabs the eye in search. Nothing exempts an entry, not its type, stage, links or use, and nothing takes a face away: spores, questions and composting entries keep theirs, and a face leaves only with its entry.
 
-- **Faces to add** — entries that merit a face and lack one. *Always, regardless of stage:* foundational, hubs, projects, persons/citizens, and specialists & makers. *Grey — a judgment call:* `growing`+ concepts (especially philosophy-pillar or single-strong-metaphor ones), breakthroughs, and the most-used entries (the top tenth by use, which `face-audit.py` flags). The minimum bar is stage `growing` or one of the always-types.
-- **Faces to retire** — entries wearing a face that no longer earns one. Composting entries, and **spores**: a spore loses its face as part of going dormant — face-loss is one of the visible ways an entry degrades, so if a now-spore entry carried a face, retire it. The state view should never wear a face for a dormant or dead entry.
-
-Cost is not a constraint, so the policy is deliberately fuzzy: the Weave is exactly where promotions (an entry earns a face) and demotions (an entry loses one) get *seen*. Approved additions feed [[Hero and Avatar Maker]] as a gated batch, run after the Weave's link and metadata writes. (`question` and `spore` entries do not get faces.)
+`face-audit.py` lists every canon entry missing a hero, an icon or both. Each missing side gets a prompt in the Maker's locked art direction — the Single-Doc worker's FACE CHECK writes them, or the coordinator does when the workers leave faces to the scan. The list feeds the Maker as a gated batch, which Loudon approves because rendering costs money. Run it after the Weave's link and metadata writes, so an entry this Weave deletes or folds is never rendered.
 
 **Step 6: Deposit candidates + walk the To-Do**
 
@@ -289,10 +286,10 @@ python3 _ops/swarm/lint-weave-flags.py                           # weave_flag in
 python3 _ops/swarm/lint-ghost-links.py                           # dead body wikilinks — flag-only, never gates
 python3 _ops/swarm/lint-bundle-hygiene.py                        # frontmatter demotion candidates (invalid type gates)
 python3 _ops/swarm/lint-voice-drift.py                           # markup density vs the voice floor — flag-only, never gates
-python3 _ops/swarm/face-audit.py                                 # faces to add / retire (Step 5c)
+python3 _ops/swarm/face-audit.py                                 # canon entries missing a hero or an icon (Step 5c)
 ```
 
-The last three are the health scans behind Steps 2 and 5c: `lint-ghost-links.py` surfaces dead body wikilinks (flag-only — a ghost may be an invitation, so it never gates), `lint-bundle-hygiene.py` flags demotion candidates (an invalid `type:` is a hard error; canon-frontmatter-in-a-bundle is a judgment warning), and `face-audit.py` prints the add/retire lists for the face batch. All three *detect*; the mind rules each finding.
+Three of them are the health scans behind Steps 2 and 5c: `lint-ghost-links.py` surfaces dead body wikilinks (flag-only — a ghost may be an invitation, so it never gates), `lint-bundle-hygiene.py` flags demotion candidates (an invalid `type:` is a hard error; canon-frontmatter-in-a-bundle is a judgment warning), and `face-audit.py` lists the canon entries missing a face, for the face batch. The first two *detect* and the mind rules each finding; the face list asks for no ruling, only prompts and Loudon's yes to the batch.
 
 Routing note: session-level Weave artifacts (maps, reports) go to `_ops/swarm/sessions/[session-id]/`; per-entry artifacts go to that entry's bundle (`[Entry]/`, per [[SCHEMA]] §8).
 
@@ -364,7 +361,7 @@ The commit body lists every substrate disposition (one line each) and every decl
 
 **New-entry induction:** [entries born since last Weave — current degree → catch-up target, inbound links wired]
 
-**Faces:** [N to add → Hero and Avatar Maker batch] · [N to retire — composting / spores]
+**Faces:** [N canon entries missing a hero or an icon → Hero and Avatar Maker batch]
 
 **Bundle-frontmatter health:** [N demotion candidates — canon frontmatter in a bundle folder / invalid type]
 

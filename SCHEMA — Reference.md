@@ -74,7 +74,7 @@ section, as it always has been.
 
 ### Use is computed, never kept
 
-How much an entry is being used is not a frontmatter field. `_ops/swarm/entry-use.py` reads it from git as three kinds of activity: **page** (days the entry's `.md` was edited), **bundle** (days anything in its bundle was edited — where a page is played, run and made with), and **linked** (entries that formed a link to it). `use` is their sum, all-time and over the last 90 days, and `last_used` is the latest day of any of them; the script's docstring holds the counting rules. The Map Build writes both onto every map node, [[STIGMERGY]]'s PULSE sorts by them, and the Weave reads them for dormancy and faces.
+How much an entry is being used is not a frontmatter field. `_ops/swarm/entry-use.py` reads it from git as three kinds of activity: **page** (days the entry's `.md` was edited), **bundle** (days anything in its bundle was edited — where a page is played, run and made with), and **linked** (entries that formed a link to it). `use` is their sum, all-time and over the last 90 days, and `last_used` is the latest day of any of them; the script's docstring holds the counting rules. The Map Build writes both onto every map node, [[STIGMERGY]]'s PULSE sorts by them, and the Weave reads them for dormancy.
 
 Reading is not recorded. A child reading a page may not write the house, so a count only some readers could bump measured who remembered to bump it. *(`activation_count` and `last_activated` were retired in v1.26 — see [[SCHEMA — Context]] §3. Do not add them.)*
 

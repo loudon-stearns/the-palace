@@ -1,33 +1,28 @@
 #!/usr/bin/env python3
 """
-Face Audit - the Weave's two lists: faces to add, faces to retire.
+Face Audit - every canon entry wears a face; this lists the ones that don't.
 
-Faces (hero.png / icon.png in an entry's bundle) are load-bearing: they are how STIGMERGY's
-state view grabs the eye in search, so they shape how Loudon re-enters the palace. This scan
-applies the face policy (Weave Ceremony Step 5c) and produces two lists the Weave presents:
+A face is two images in the entry's bundle folder: a hero (`<file name> — hero.png`) and an
+icon, the avatar (`<file name> — icon.png`). STIGMERGY shows them in the state view, in search
+and beside an entry's name, so they shape how Loudon re-enters the palace.
 
-  ADD     - an entry that merits a face and lacks one. Split into:
-              definite  = an always-type (foundational · hub / >=5 links · project ·
-                          person · specialist · maker) - it gets a face regardless of stage.
-              grey      = a judgment call the worker/Loudon rules: growing+ concepts
-                          (esp. philosophy-pillar), breakthroughs, and the most-used entries
-                          (top tenth by use — entry-use.py, from git).
-  RETIRE  - an entry wearing a face that no longer earns one: a spore or a composting entry.
-            Face-loss is a degradation signal - a spore sheds its face as it goes dormant,
-            and the state view should never wear a face for a dormant or dead entry.
+The policy (Loudon, 2026-10-14: "every canon gets a face and hero"): **every canon entry wears
+both.** A canon entry is any `.md` whose frontmatter carries a canon `type:` (SCHEMA §1). Nothing
+else decides it - not stage, not type, not links, not use. A spore, a question, a seed and a
+composting entry all wear a face and keep it. There is nothing to retire.
 
-Detection is mechanical; the render is gated and costs money, so this scan never renders.
-The definite ADD list is what feeds the worker (which writes the hero/icon prompts) and then
-Shop/Hero and Avatar Maker/make_faces.py (the gated batch Loudon approves). Grey ADDs are
-proposals; RETIREs are removals Loudon confirms.
+So the audit prints one list: every canon entry missing a hero, an icon, or both, saying which.
+That list is what the Weave (Step 5c) hands to Shop/Hero and Avatar Maker/make_faces.py, the
+gated batch Loudon approves. Detection is mechanical; the render costs money, so this scan
+never renders.
 
-NEVER get a NEW face: seed/sprout concepts, composting, spores, questions, and bundle files
-(no canon type). But only spores and composting entries have an EXISTING face retired -
-thinness blocks adding a face, it never strips one an entry was deliberately given.
+The set it walks is the set the map builder makes nodes of: symlinks and the machinery folders
+below are skipped. Mechanical, deterministic, no API calls, no git.
+Exit 0 always (an audit, never a gate).
 
-Mechanical, deterministic, no API calls. Exit 0 always (an audit, never a gate).
-
-Usage: python3 _ops/swarm/face-audit.py [palace-root]
+Usage: python3 _ops/swarm/face-audit.py [palace-root] [--paths a.md,b/c.md]
+       --paths scopes the audit to root-relative files (Closing Well runs it on a session's
+       touched files).
 """
 from __future__ import annotations
 import os, re, sys
@@ -37,17 +32,9 @@ SKIP_DIRS = {".git", ".obsidian", ".claude", "node_modules", ".venvs", "_tools",
 SKIP_PREFIXES = ("_ops/stigmergy/app/", "_ops/stigmergy/orchestrator/",
                  "_ops/stigmergy/trickster-auto/", "_ops/swarm/")
 
-CANON_TYPES = {"concept", "hub", "project", "breakthrough", "source", "meta",
-               "practice", "person", "question", "spore", "specialist", "maker"}
-# Types that always earn a face, regardless of stage.
-ALWAYS_TYPES = {"hub", "project", "person", "specialist", "maker"}
-# Types/stages that never get a face (and are retired if they hold one).
-NEVER_TYPES = {"spore", "question"}
-NEVER_STAGES = {"seed", "sprout", "composting"}
-# Stages that open the grey band for a concept.
-GREY_STAGES = {"growing", "mature", "fruiting"}
-# The most-used tenth of the palace opens the grey band (use = entry-use.py, all-time).
-HIGH_USE_SHARE = 0.10
+# SCHEMA §1. (`breakthrough` was retired in v1.17; a file still wearing it is not canon.)
+CANON_TYPES = {"concept", "hub", "project", "source", "meta", "practice",
+               "person", "question", "spore", "specialist", "maker"}
 
 PALACE_DEFAULT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 
@@ -65,7 +52,7 @@ def _unquote(v):
 
 
 def read_frontmatter(path):
-    """Return a dict with type, stage, pillars_has_philosophy, link_count.
+    """Return {'type', 'stage'} from the frontmatter block (either may be None).
     None if the file has no frontmatter block."""
     try:
         with open(path, encoding="utf-8", errors="ignore") as f:
@@ -83,39 +70,13 @@ def read_frontmatter(path):
         m = rx.search(block)
         if m:
             fm[k] = _unquote(m.group(1))
-    # philosophy-pillar: inspect the `pillars:` FIELD only (inline [a,b] or a bullet list),
-    # never the whole block — a link label like "philosophy of science" must not read as a pillar.
-    pm = re.search(r'^pillars:[ \t]*(\[[^\]]*\]|(?:\n[ \t]+-[^\n]*)+)', block, re.M)
-    fm["pillars_has_philosophy"] = bool(pm and re.search(r'\bphilosophy\b', pm.group(1), re.I))
-    # count typed links: only `- target:` entries inside the `links:` block, not another field
-    # that happens to use `- target:` (e.g. `related:`). Latent today, masked by classify() order.
-    links_at = block.find("links:")
-    fm["link_count"] = len(re.findall(r'^\s*-\s*target:', block[links_at:], re.M)) if links_at != -1 else 0
     return fm
-
-
-def most_used(root):
-    """Titles in the top HIGH_USE_SHARE of entries by all-time use. Empty when git history
-    is unavailable (a fixture palace, a tarball) — the grey band then rests on type and stage."""
-    import importlib.util
-    here = os.path.join(os.path.dirname(os.path.abspath(__file__)), "entry-use.py")
-    try:
-        spec = importlib.util.spec_from_file_location("entry_use", here)
-        mod = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(mod)
-        entries = mod.compute(root)["entries"]
-    except Exception:
-        return set()
-    ranked = sorted(entries.items(), key=lambda kv: -kv[1]["use"])
-    keep = max(1, int(len(ranked) * HIGH_USE_SHARE))
-    floor = ranked[keep - 1][1]["use"] if ranked else 0
-    return {t for t, e in ranked if floor > 0 and e["use"] >= floor}
 
 
 def has_face(md_path):
     """(has_hero, has_icon): does the entry's bundle folder hold a hero/icon png?
     Bundle = sibling folder named exactly like the entry (SCHEMA §8). Accepts the
-    title-matched name or any `* — hero.png` / `* — icon.png` (STIGMERGY's rule)."""
+    file-named face or any `* — hero.png` / `* — icon.png` (STIGMERGY's rule)."""
     stem = os.path.basename(md_path)[:-3]
     # Faces belong in the filename folder (the tools place them there since 2026-09-26), but a
     # face filed under the frontmatter title is still counted, so an old stray is caught as
@@ -149,30 +110,10 @@ def is_skipped_prefix(rel):
     return any(r.startswith(p) for p in SKIP_PREFIXES)
 
 
-def classify(fm):
-    """Return 'always', 'grey', or 'never' for an entry's face-worthiness."""
-    typ, stage = fm["type"], fm["stage"]
-    if stage == "foundational":
-        return "always"
-    # NEVER precedence is intentional: a spore/composting entry (or seed/sprout concept)
-    # is never proposed for a face even with a high link count. Do not reorder below the
-    # link-count / always-type checks or spores with >=5 links would wrongly qualify.
-    if typ in NEVER_TYPES or stage in NEVER_STAGES:
-        return "never"
-    if typ in ALWAYS_TYPES or fm["link_count"] >= 5:
-        return "always"
-    if typ == "breakthrough":
-        return "grey"
-    if typ == "concept" and (stage in GREY_STAGES or fm["pillars_has_philosophy"]):
-        return "grey"
-    if fm.get("high_use"):
-        return "grey"
-    return "never"
-
-
 def audit(root, only=None):
-    add_definite, add_grey, retire = [], [], []
-    top_used = most_used(root)
+    """Return (missing, canon_count): the canon entries lacking a hero, an icon or both,
+    as display rows, and how many canon entries were in scope."""
+    missing, canon = [], 0
     for dp, dns, fns in os.walk(root):
         dns[:] = [d for d in dns if d not in SKIP_DIRS]
         for fn in fns:
@@ -187,24 +128,14 @@ def audit(root, only=None):
             fm = read_frontmatter(ap)
             if not fm or fm["type"] not in CANON_TYPES:
                 continue
-            fm["high_use"] = fn[:-3] in top_used
+            canon += 1
             hero, icon = has_face(ap)
-            faced = hero and icon
-            # RETIRE: genuine degradation only - a spore or a composting entry that still
-            # wears a face. A seed/sprout entry deliberately given a face keeps it; thinness
-            # is a reason not to ADD a face, never to strip one.
-            if (hero or icon) and (fm["type"] == "spore" or fm["stage"] == "composting"):
-                retire.append(f'{rel}  (type {fm["type"]}, stage {fm["stage"]}) '
-                              f'- holds a face; retire it (degradation)')
+            if hero and icon:
                 continue
-            # ADD: an entry that merits a face and lacks one.
-            klass = classify(fm)
-            if klass != "never" and not faced:
-                miss = "no hero+icon" if not (hero or icon) else (
-                    "missing icon" if hero else "missing hero")
-                row = f'{rel}  (type {fm["type"]}, stage {fm["stage"]}, {fm["link_count"]} links) - {miss}'
-                (add_definite if klass == "always" else add_grey).append(row)
-    return add_definite, add_grey, retire
+            miss = ("no hero, no icon" if not (hero or icon)
+                    else "missing icon" if hero else "missing hero")
+            missing.append(f'{rel}  ({fm["type"]}, {fm["stage"]}) - {miss}')
+    return sorted(missing), canon
 
 
 def parse_args():
@@ -228,19 +159,14 @@ def main():
     if not os.path.isdir(root):
         sys.exit(f"not a directory: {root}")
 
-    add_definite, add_grey, retire = (sorted(x) for x in audit(root, only))
+    missing, canon = audit(root, only)
+    scope = "in scope" if only is not None else "in the palace"
     print(f"face audit - root: {root}\n")
-    print(f"ADD - definite ({len(add_definite)}) - always-types lacking a face -> render batch:")
-    for x in add_definite:
+    print(f"MISSING A FACE ({len(missing)} of {canon} canon entries {scope}) "
+          f"- every canon entry wears a hero and an icon -> render batch:")
+    for x in missing:
         print("  + " + x)
-    print(f"\nADD - grey ({len(add_grey)}) - judgment; the worker/Loudon rules:")
-    for x in add_grey:
-        print("  ? " + x)
-    print(f"\nRETIRE ({len(retire)}) - faces on now-dormant entries; Loudon confirms:")
-    for x in retire:
-        print("  - " + x)
-    print(f"\nsummary: {len(add_definite)} definite adds, {len(add_grey)} grey adds, "
-          f"{len(retire)} retires")
+    print(f"\nsummary: {len(missing)} missing a face, {canon - len(missing)} of {canon} wear both")
     sys.exit(0)
 
 
