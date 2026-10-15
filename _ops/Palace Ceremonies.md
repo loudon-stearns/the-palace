@@ -147,4 +147,4 @@ The report is a gift to the ceremony's author, not a verdict. A ceremony can pro
 
 ## Active Baton
 
-[[Palace Ceremonies — baton]] — drafted 2026-09-26
+[[Palace Ceremonies — baton]] — drafted 2026-09-26; the canon half landed 2026-10-15 as Schema v1.28, and the baton now carries the code and the first ledgers beyond ceremonies
