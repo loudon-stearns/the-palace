@@ -35,7 +35,7 @@ On 2026-10-13 main moved 118 times; 96 were direct commits, 46 by unattended ste
 - A landing that died halfway is finished quietly when every file it changed sits at the old or the new version; a file at neither is someone's edit, left alone and named.
 - Steward commits ride along when he pushes.
 - Cowork is out of the design; he never commits by hand; his one hand path, the Trickster Commit, already goes through the door.
-- Still his to click: GitHub's block-force-push rule on main.
+- GitHub's block-force-push rule on main: turned on by Loudon on 2026-10-14 (ruleset "The palace Saftey": no force pushes, no deletion, no bypass).
 
 ## The moves
 

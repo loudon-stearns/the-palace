@@ -28,7 +28,7 @@ On 2026-10-14, in his words or by his yes:
 - Steward commits ride along when he pushes: "stewards can ride along."
 - The words for the trunk and the rites: "yes to the words, land them after the tools."
 - Cowork is out of the design; he does no palace work there. He never commits by hand; his one hand path is the Trickster Commit in STIGMERGY, which already goes through the door.
-- Still his to click: GitHub's block-force-push rule on main. The steps are on the plan page. And nothing is pushed without his word: `palace-push` prints the exact command with the full tip.
+- GitHub now refuses a force push or a deletion of main: Loudon turned on the ruleset "The palace Saftey" on 2026-10-14, with no bypass, and it was checked through GitHub's API. A rewrite he orders himself means switching it off, pushing, and switching it back on. Nothing is pushed without his word: `palace-push` prints the exact command with the full tip.
 
 ## Tried and rejected
 
