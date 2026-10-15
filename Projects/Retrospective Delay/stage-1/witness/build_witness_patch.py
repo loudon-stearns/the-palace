@@ -4,6 +4,10 @@
       -> witness-A-as-specified.maxpat   (the stage-1 patch spec, corrected)
       -> witness-B-silence-keeps.maxpat  (A + a write that keeps the past through silence)
 
+A is the witness (Loudon, 2026-10-15: KEEP-SPEC). B is kept for the record only:
+"silence keeps" moved to the seance, where it gains the 5 ms input crossfade this
+B lacks. Build the seance from A, not from B.
+
 Corrections against the two older Stage 1 docs:
   * the measure clock is `phasor~ 1n @lock 1` (locked to Live's transport), not
     a hand-computed rate and not plugsync~ (whose outlet numbering the April doc guessed);

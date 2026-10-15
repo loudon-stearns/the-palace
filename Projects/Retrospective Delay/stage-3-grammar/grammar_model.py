@@ -52,6 +52,7 @@ def grammar(x, gain_param, lag_param, measure=MEASURE, thresh=0.003, read_first=
     rel = np.exp(-1.0 / (SR * 0.1))
     xstep = 1.0 / mstosamps(30)
     gstep = 1.0 / mstosamps(20)
+    lstep = 1.0 / mstosamps(5)
     out1 = np.zeros_like(x)
     out2 = np.zeros_like(x)
     ghost_raw = np.zeros_like(x)
@@ -78,7 +79,7 @@ def grammar(x, gain_param, lag_param, measure=MEASURE, thresh=0.003, read_first=
             a = abs(s)
             env = a if a > env else env * rel
             want = (1.0 if env > thresh else 0.0) if listen_override is None else listen_override[n]
-            listen = listen + (want - listen) / 480
+            listen = listen + min(max(want - listen, -lstep), lstep)
             old = tape[w]
             tape[w] = old + listen * (s - old)
 

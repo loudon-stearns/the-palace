@@ -200,10 +200,10 @@
           "patching_rect": [
             20,
             210,
-            114,
+            149,
             22.0
           ],
-          "text": "slide~ 480 480"
+          "text": "rampsmooth~ 240 240"
         }
       },
       {
@@ -216,7 +216,7 @@
             200,
             22.0
           ],
-          "text": "the seam crossfade: ~10 ms between listening and holding. The seam lives where you stopped playing, not at the measure line."
+          "text": "the input crossfade: 5 ms (240 samples) between listening and holding, both ways. No click where you stop or where you come back in."
         }
       },
       {

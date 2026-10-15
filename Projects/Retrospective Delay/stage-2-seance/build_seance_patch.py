@@ -2,13 +2,14 @@
 
     python3 build_seance_patch.py   ->  seance.maxpat
 
-The seance is the witness (version B, "silence keeps") made performable:
+The seance is the witness made performable, and it is where "silence keeps" arrives:
+  * silence keeps: the write listens while you play and holds in silence, switched by a
+    5 ms linear crossfade (rampsmooth~ 240 240) both ways, going quiet and coming back in;
   * gain knob, ramped by line~, on the READ side — down hides the past, it doesn't erase it;
   * lag choice (live.tab: 1/4, 1/2, 1/1 of a measure) switched by two read heads that
     crossfade over 30 ms — set the idle head, then fade to it (no click, no pitch glide);
-  * the seam crossfade: slide~ 480 480 on the listen/hold gate. The seam is not at the
-    measure line (the read head never jumps there); it is where the witness stopped
-    listening, and smoothing the gate crossfades exactly that spot.
+  * the seam: the crossfade above IS the seam crossfade. The seam is not at the measure
+    line (the read head never jumps there); it is where the witness stopped listening.
 
 The whole-note lag is sent as 0.999, not 1.0: at exactly 1.0 the read head sits on the
 write head, and vanilla Max doesn't promise whether poke~ or wave~ runs first inside a
@@ -54,15 +55,15 @@ def build():
     p.obj("widx", "*~ 96000.", 200, 215)
     p.wire("clk", 0, "widx", 0); p.wire("m2s", 0, "widx", 1)
 
-    # listen or hold: the witness from the first move, version B, with a smoothed gate
+    # silence keeps: listen while you play, hold in silence, crossfaded over 5 ms
     p.obj("abs", "abs~", 20, 120)
     p.obj("env", "slide~ 1 4800", 20, 150)
     p.obj("gate", ">~ 0.003", 20, 180)
-    p.obj("seam", "slide~ 480 480", 20, 210)
+    p.obj("seam", "rampsmooth~ 240 240", 20, 210)
     p.wire("in", 0, "abs", 0); p.wire("abs", 0, "env", 0); p.wire("env", 0, "gate", 0)
     p.wire("gate", 0, "seam", 0)
-    p.obj("cSeam", "the seam crossfade: ~10 ms between listening and holding. The seam lives where you stopped playing, "
-          "not at the measure line.", 200, 140, 200, cls="comment")
+    p.obj("cSeam", "the input crossfade: 5 ms (240 samples) between listening and holding, both ways. "
+          "No click where you stop or where you come back in.", 200, 140, 200, cls="comment")
     p.obj("old", "index~ ret-seance", 200, 250)
     p.wire("widx", 0, "old", 0)
     p.obj("diff", "-~", 20, 250)

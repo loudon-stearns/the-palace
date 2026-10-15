@@ -9,6 +9,9 @@ forward_vector: "I am the Stage 1 build spec for [[Retrospective Delay]] — 'Th
 ---
 
 # Retrospective Delay — Stage 1 Implementation
+
+> **Superseded, 2026-10-15.** Building the witness found faults in these April notes. `!- 0.5` computes 0.5 minus the phase, which runs the read head backwards, and it is a control object. `[* 176400]` must be the signal `*~`. `plugsync~`'s outlet numbering was a guess; `phasor~ 1n @lock 1` replaces it. And "the ghost will continue" is true only of the séance, where silence keeps. The working patch is [witness-A-as-specified.maxpat](stage-1/witness/witness-A-as-specified.maxpat); the session is [stage-1-the-witness.md](stage-1/stage-1-the-witness.md).
+
 ## "The Witness" — Vanilla Max/MSP → M4L Audio Effect
 
 **Goal:** A working M4L Audio Effect that records one measure continuously and plays back what you played, one half-note ago. No gain control. No parameters. Just the mechanism.

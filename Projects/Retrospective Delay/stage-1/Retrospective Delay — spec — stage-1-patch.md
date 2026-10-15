@@ -13,6 +13,8 @@ forward_vector: "I am the stage-1 patch spec for Retrospective Delay — the imp
 
 # Stage 1 — Patch Spec (Vanilla Max → M4L Audio Effect)
 
+> **Superseded in part, 2026-10-15.** Building the witness found where this spec goes wrong. It uses two read and write phasors, which are two clocks that agree only if nothing glitches; the built patch shares one (`phasor~ 1n @lock 1`). It scales the read phase by N before `wave~`, but `wave~` wants the 0..1 phase, with its end point set to the measure length so it doesn't read the whole 4-second buffer. And it freezes the buffer size at load, where `translate notevalues ms @listen 1` follows the tempo for free. The three checks below still hold. Check 3 is right that the chord plays once and doesn't come back. (The `!- 0.5` and `* 176400` faults were in the companion build notes, [session-1-implementation.md](../session-1-implementation.md), not here.) Use the corrected object list in [[stage-1-the-witness|Stage 1]] § Make and the built patch [witness-A-as-specified.maxpat](witness/witness-A-as-specified.maxpat). The rest of this page is kept as the April draft.
+
 This is the working spec the **Make** block of [[stage-1-the-witness|Stage 1]] builds against. Object-by-object, connection-by-connection, with the key calculations isolated so the instructor can re-derive them with the student at the board.
 
 ## Top-Level Patch

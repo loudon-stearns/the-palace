@@ -1,8 +1,13 @@
 """Reference model of the Seance — Retrospective Delay, second move (vanilla Max).
 
-Builds on the witness, version B ("silence keeps"): the buffer writes on every
-sample, but in silence it writes down what it already holds, so the last
-measure keeps coming back. The seance makes that performable:
+Builds on the witness from the first move (a pure always-recording buffer,
+which is exactly a half-note echo) and adds the thing an echo can't do:
+SILENCE KEEPS. The buffer still writes on every sample, but in silence it
+writes down what it already holds, so the last measure keeps coming back.
+The listen/hold switch is a linear crossfade of a few milliseconds
+(rampsmooth~ 240 240, 5 ms at 48 kHz) in both directions, going quiet and
+coming back in, so neither edge clicks (Loudon, 2026-10-15). Then the seance
+makes it performable:
 
   * the gain knob, ramped (line~), on the READ side: turning it down hides the
     past without erasing it — the witness keeps it while you aren't listening;
@@ -11,14 +16,17 @@ measure keeps coming back. The seance makes that performable:
   * a crossfade at the loop seam — which, it turns out, is NOT at the measure
     boundary. In the witness the read head never jumps, so the measure line is
     seamless. The seam is wherever the witness stopped listening: the frozen
-    measure's newest sample sits next to its oldest one. Smoothing the
-    listen/hold switch (slide~ on the gate) crossfades exactly that seam.
+    measure's newest sample sits next to its oldest one. Crossfading the
+    listen/hold switch (rampsmooth~ on the gate) smooths exactly that seam,
+    and the splice where you come back in.
 
 Renders:
   seance-performance.wav   a 15-measure performance: summon, re-lag, overwrite,
                            dismiss, summon again
   seam-hard.wav            a held chord that stops mid-measure, gate switched hard
-  seam-smoothed.wav        the same, gate smoothed over ~10 ms
+  seam-smoothed.wav        the same, gate crossfaded over 5 ms
+  comein-hard.wav          a frozen loop, then you come back in mid-measure, hard switch
+  comein-crossfaded.wav    the same with the 5 ms crossfade in
   lagswitch-hard.wav       a frozen ghost re-lagged with one read head (jump)
   lagswitch-crossfade.wav  the same with two heads crossfading over 30 ms
 and prints the click measurements. Stdlib + numpy only.
@@ -33,11 +41,11 @@ import numpy as np
 
 HERE = Path(__file__).parent
 sys.path.insert(0, str(HERE.parent / "stage-1" / "witness"))
-from witness_model import SR, MEASURE, phrase  # noqa: E402  (shared clock + test phrases)
+from witness_model import SR, MEASURE, phrase, pluck  # noqa: E402  (shared clock + test phrases)
 
 THRESH = 0.003            # is anyone playing?
 ENV_RELEASE_S = 0.1       # slide~ 1 4800 at 48 kHz
-GATE_SMOOTH = 480         # slide~ 480 480 = ~10 ms each way: the seam crossfade
+GATE_RAMP = 240           # rampsmooth~ 240 240 = 5 ms each way: the input crossfade
 XFADE_S = 0.03            # line~ 30 ms between the two read heads
 LAGS = {"quarter": MEASURE // 4, "half": MEASURE // 2, "whole": MEASURE}
 
@@ -75,7 +83,7 @@ def seance(x, gain, lag_events, smooth_gate=True, two_heads=True):
         a = abs(s)
         env = a if a > env else env * rel
         hard = 1.0 if env > THRESH else 0.0
-        g = g + (hard - g) / GATE_SMOOTH if smooth_gate else hard
+        g = g + min(max(hard - g, -1.0 / GATE_RAMP), 1.0 / GATE_RAMP) if smooth_gate else hard
         buf[w] = buf[w] + g * (s - buf[w])
         ghost_out[n] = gain[n] * ghost
         out[n] = s + ghost_out[n]
@@ -133,6 +141,21 @@ def seam_test(smooth):
     return y, click_score(ghost, MEASURE * 2, MEASURE * 4)
 
 
+def comein_test(smooth):
+    """A chord fills one measure and is held; then you come back in mid-measure with a
+    sharp pluck. The tape splices new over old at the entry point; listen as the loop
+    passes over it."""
+    x = np.zeros(MEASURE * 6)
+    c = chord(MEASURE * 1.0 / SR)
+    x[:len(c)] = c
+    s = int(MEASURE * 2.41)
+    p = pluck(392.0, 0.6) * 1.2
+    x[s:s + len(p)] += p
+    gain = np.full(len(x), 0.85)
+    y, ghost = seance(x, gain, [(0, "whole")], smooth_gate=smooth)
+    return y, click_score(ghost, MEASURE * 3, MEASURE * 5)
+
+
 def lagswitch_test(two_heads):
     x = np.zeros(MEASURE * 4)
     c = chord(MEASURE * 1.0 / SR)                        # fills exactly one measure, then stops
@@ -155,6 +178,11 @@ if __name__ == "__main__":
         y, c = seam_test(smooth)
         write_wav(HERE / f"{name}.wav", y)
         print(f"{name}: max step in the frozen loop = {c:.4f}")
+    print(f"pluck, natural max step: {float(np.abs(np.diff(pluck(392.0, 0.6) * 1.2 * 0.85)).max()):.4f}")
+    for smooth, name in ((False, "comein-hard"), (True, "comein-crossfaded")):
+        y, c = comein_test(smooth)
+        write_wav(HERE / f"{name}.wav", y)
+        print(f"{name}: max step where the loop passes the entry = {c:.4f}")
     for two, name in ((False, "lagswitch-hard"), (True, "lagswitch-crossfade")):
         y, c = lagswitch_test(two)
         write_wav(HERE / f"{name}.wav", y)

@@ -36,8 +36,8 @@ Play the two renders back to back. Same patch, same phrase, lag exactly 1, knob 
 Start from the séance patch. Delete everything between `plugin~` and `plugout~` except the transport clock and the measure length. Make a `gen~`, double-click, add a codebox. Build [seance.genexpr](seance.genexpr) in this order, listening after each step:
 
 1. **The tape and the two heads.** `Data tape(192000)`, a write slot from the measure phase, one `peek` and one `poke`. Read line above write line. Send `lag 1.` and hear the whole note, exact.
-2. **The witness.** The envelope, the threshold, and `old + listen * (in1 - old)` — listen while you play, hold in silence. Notice it's the same arithmetic as the vanilla `-~ / *~ / +~` chain, now readable in one line.
-3. **The seam.** `listen = listen + (target - listen) / 480` *is* `slide~ 480 480`. Same number, same sound.
+2. **Silence keeps.** The envelope, the threshold, and `old + listen * (in1 - old)` — listen while you play, hold in silence. Notice it's the same arithmetic as the vanilla `-~ / *~ / +~` chain, now readable in one line.
+3. **The seam.** `listen = listen + clamp(target - listen, -lstep, lstep)` with `lstep = 1 / mstosamps(5)` *is* `rampsmooth~ 240 240`. Same 5 ms crossfade, same sound — and now it says "5 ms" instead of a sample count that only means 5 ms at 48 kHz.
 4. **Two heads, one fade.** The lag change is now an `if`: when the lag Param moves, the idle head takes it and the fade turns toward it. Last session's `t b f b → counter → gate 2` routing becomes eight lines.
 5. **The knob.** `Param gain`, slewed. The live.dial now just sends `gain $1`.
 

@@ -41,11 +41,12 @@ rA = wrap(w - lagA * M, 0, M);
 rB = wrap(w - lagB * M, 0, M);
 ghost = mix(peek(tape, floor(rA)), peek(tape, floor(rB)), fade);
 
-// THEN WRITE. The witness, version B: listen while you play, hold in silence.
+// THEN WRITE. Silence keeps: listen while you play, hold in silence.
 a = abs(in1);
 rel = exp(-1 / (samplerate * 0.1));    // 100 ms release
 env = a > env ? a : env * rel;
-listen = listen + ((env > thresh) - listen) / 480;   // the seam crossfade, ~10 ms
+lstep = 1 / mstosamps(5);              // the input crossfade, 5 ms both ways
+listen = listen + clamp((env > thresh) - listen, -lstep, lstep);
 old = peek(tape, w);
 poke(tape, old + listen * (in1 - old), w);
 

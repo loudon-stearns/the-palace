@@ -15,24 +15,24 @@ forward_vector: "I am Retrospective Delay's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T21:23:42.593Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-15T01:36:53.623Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 21 · last ran 2026-10-14 (today)
-- **Plan:** agreed 2026-09-26 (18 days ago) · 4 made things since
-- **Waiting on you:** 1 open ask
+- **Status:** active · **Stage:** growing · **Steward:** cycle 22 · last ran 2026-10-15 (today)
+- **Plan:** agreed 2026-09-26 (19 days ago) · 5 made things since
+- **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — The séance now runs as one gen~ codebox, the whole note is exactly 1, and the compressor's 11 ms window turns out to be the same two lines. (`retrospective-delay-steward-048`)
-- **Last commit touching this project:** 2026-10-14 `129efd31` — steward(Retrospective Delay): cycle 20 — SPINNING UP. HOME: [Retrospective Delay](obsidian://open?vault=The%20Pa…
+- **Last shipped:** 2026-10-15 (today) — The witness now teaches honestly that it's an echo. Silence-keeps moved to the séance, with a 5 ms crossfade so neither stopping nor coming in clicks. (`retrospective-delay-steward-050`)
+- **Last commit touching this project:** 2026-10-14 `0f680b98` — steward(Retrospective Delay): cycle 21 — SPINNING UP. HOME: [Retrospective Delay](obsidian://open?vault=The%20Pa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Retrospective Delay is a one-measure delay that is always listening. A buffer holds the last measure of everything you play, and one gain knob decides whether that past comes back. The plan builds it in five moves, each a Loudon Live session. The first two are built in vanilla Max: the witness (the always-listening buffer, in the version where silence keeps your last measure) and the séance (the knob, a choice of lag, no clicks). This cycle built the third move, the first of the two deliberate migrations. The séance's core moves into Gen~, and the same buffer is set beside the compressor's 11 ms window. The witness question from earlier today is still open, and I built on silence-keeps.
+Retrospective Delay is a one-measure delay that is always listening. A buffer holds the last measure of everything you play, and one gain knob decides whether that past comes back. The plan builds it in five moves, each a Loudon Live session. The first three now exist as patches, models and session drafts: the witness (the bare always-recording buffer, in vanilla Max), the séance (making it playable), and the grammar (the same thing as one gen~ codebox, set beside the compressor's 11 ms window). Yesterday the witness turned out to be exactly a half-note echo, and you chose to keep it that way. Its session should admit it, and 'silence keeps the past' should arrive in the séance, with a few…
 
 ### Open asks
 
-- `retrospective-delay-steward-044` — directional_decision · posted 2026-10-14 · options: SILENCE-KEEPS · KEEP-SPEC · STEER
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
@@ -40,6 +40,7 @@ _None._
 
 ### Decided
 
+- `retrospective-delay-steward-044` — directional_decision → GRANTED — option_id=KEEP-SPEC; notes: "When it comes in, make sure there is a little crossfade input, just a few ms to avoid clicks." (2026-10-15)
 - `retrospective-delay-steward-041` — directional_decision → GRANTED — option_id=WIRE-NOW (2026-06-25)
 - `retrospective-delay-steward-039` — directional_decision → GRANTED — option_id=RENDER-SET (2026-06-23)
 - `retrospective-delay-steward-037` — directional_decision → GRANTED — (no option_id); notes: "I see three images here and they are not well created. "triumphant gain0.92" is one of them. I am confused why I am seeing these and how they relate to the options." (2026-06-23)
@@ -47,7 +48,6 @@ _None._
 - `retrospective-delay-steward-033` — directional_decision → GRANTED — option_id=GREENLIGHT (2026-06-22)
 - `retrospective-delay-steward-031` — directional_decision → GRANTED — option_id=RENDER-NOW (2026-06-22)
 - `retrospective-delay-steward-029` — directional_decision → GRANTED — (no option_id); notes: "the gorey render looks like a small cat to me, go with it." (2026-06-22)
-- `retrospective-delay-steward-027` — directional_decision → GRANTED — option_id=OPENPOSE (2026-06-22)
 
 <!-- scroll:now:end -->
 
@@ -82,6 +82,52 @@ Decided with Loudon when the Loudon Live arc was designed (April 2026), and seed
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="retrospective-delay-steward-050" -->
+### 2026-10-15 — cycle 22 — The witness now teaches honestly that it's an echo. Silence-keeps moved to the séance, with a 5 ms crossfade so neither stopping nor coming in clicks.
+> shipped · your KEEP-SPEC call carried through all three sessions · steward leans the face next
+
+**The witness tells the truth now.** The [session draft](obsidian://open?vault=The%20Palace&file=Projects/Retrospective%20Delay/stage-1/stage-1-the-witness.md) used to say a student would fail to rebuild this in Echo. Now the Reveal has them do it: Echo with one half-note tap and no feedback, polarity flipped, summed against the witness. Silence. Then the letdown becomes the lesson. A circular buffer with a fixed lag *is* a delay line, and its length never shows, because the read head gets to each slot long before the write head comes back to overwrite it. The session ends on the question the séance answers: *what would make this something Echo can't do?* I also replaced the April object list with the one the built patch actually uses (one shared clock, `-~ 0.5` then `wrap~`, wave~'s end point set to the measure). I dropped the promised 're-echoes' too, since nothing feeds the ghost back into the buffer. The anchor patch is witness-A-as-specified.maxpat, and both older April docs now open with a note saying what was wrong in them.
+
+**Silence keeps, in the séance, with the crossfade you asked for.** The [séance draft](obsidian://open?vault=The%20Palace&file=Projects/Retrospective%20Delay/stage-2-seance/stage-2-the-seance.md) now starts from the pure witness and adds silence-keeps first, wired hard so the room hears it tick. Then comes the fix, `rampsmooth~ 240 240`: a straight 5 ms ramp between listening and holding, in both directions. It replaces the old ~10 ms exponential slide. I added the case you named: frozen loop, then you come back in mid-measure. A hard switch splices new sound onto old with a jump of 0.237. With the 5 ms crossfade it's 0.033, which is exactly the size of the pluck's own attack. In the model even 1 ms cleared both clicks. The other 4 ms are margin for low notes I haven't tested. Start with [comein-hard.wav](open:Projects/Retrospective Delay/stage-2-seance/comein-hard.wav), then [comein-crossfaded.wav](open:Projects/Retrospective Delay/stage-2-seance/comein-crossfaded.wav).
+
+**The gen~ version follows.** [seance.genexpr](obsidian://open?vault=The%20Palace&file=Projects/Retrospective%20Delay/stage-3-grammar/seance.genexpr) now says `lstep = 1 / mstosamps(5)`, which is 5 ms at any sample rate, where the vanilla object counts samples. The grammar session points that out. The gen~ ghost still matches the vanilla séance to 1.7e-16, and every render in both folders was regenerated.
+
+**Artifacts:**
+- [start here: a frozen loop, then you come back in mid-measure. Hard switch, listen for the click each pass.](Projects/Retrospective Delay/stage-2-seance/comein-hard.wav)
+- [the same with the 5 ms crossfade in. The splice is gone.](Projects/Retrospective Delay/stage-2-seance/comein-crossfaded.wav)
+- [going quiet: a held chord stops mid-measure, now with the 5 ms linear crossfade.](Projects/Retrospective Delay/stage-2-seance/seam-smoothed.wav)
+- [the 15-measure séance performance, re-rendered with the new crossfade.](Projects/Retrospective Delay/stage-2-seance/seance-performance.wav)
+- [re-rendered: re-lag with one head (click).](Projects/Retrospective Delay/stage-2-seance/lagswitch-hard.wav)
+- [re-rendered: re-lag with two heads and a 30 ms fade.](Projects/Retrospective Delay/stage-2-seance/lagswitch-crossfade.wav)
+- [the séance session: silence keeps arrives here, ticks, then gets its crossfade.](Projects/Retrospective Delay/stage-2-seance/stage-2-the-seance.md)
+- [the séance patch with rampsmooth~ 240 240 on the gate. Not opened in Max.](Projects/Retrospective Delay/stage-2-seance/seance.maxpat)
+- [writes seance.maxpat.](Projects/Retrospective Delay/stage-2-seance/build_seance_patch.py)
+- [the model: linear 5 ms crossfade, plus the new coming-in test.](Projects/Retrospective Delay/stage-2-seance/seance_model.py)
+- [the witness session, rewritten: the Echo null test as the honest reveal.](Projects/Retrospective Delay/stage-1/stage-1-the-witness.md)
+- [the April patch spec, with a note on what the build corrected.](Projects/Retrospective Delay/stage-1/Retrospective Delay — spec — stage-1-patch.md)
+- [the April build notes, with a superseded note naming their faults.](Projects/Retrospective Delay/session-1-implementation.md)
+- [notes that A is the witness and B is kept only for the record.](Projects/Retrospective Delay/stage-1/witness/build_witness_patch.py)
+- [the gen~ codebox: the crossfade now written as 5 ms.](Projects/Retrospective Delay/stage-3-grammar/seance.genexpr)
+- [line-for-line model; still nulls against the séance at 1.7e-16.](Projects/Retrospective Delay/stage-3-grammar/grammar_model.py)
+- [gen~ patch rebuilt with the new codebox. Not opened in Max.](Projects/Retrospective Delay/stage-3-grammar/grammar.maxpat)
+- [the grammar session: the seam step now reads as rampsmooth~ made explicit.](Projects/Retrospective Delay/stage-3-grammar/stage-3-the-grammar.md)
+- [re-rendered through the gen~ code.](Projects/Retrospective Delay/stage-3-grammar/grammar-performance.wav)
+- [re-rendered: read before write at lag exactly 1.](Projects/Retrospective Delay/stage-3-grammar/order-read-first.wav)
+- [re-rendered: write before read at lag exactly 1.](Projects/Retrospective Delay/stage-3-grammar/order-write-first.wav)
+- [re-rendered: phrase, stutter, flutter, tone.](Projects/Retrospective Delay/stage-3-grammar/shrinking-measure.wav)
+
+_biggest jump between samples in the held ghost (a held chord alone is 0.013; the pluck's own attack is 0.033)_
+| edge | hard switch | 1 ms ramp | 5 ms ramp (chosen) | 10 ms ramp |
+| --- | --- | --- | --- | --- |
+| going quiet (you stop) | 0.178 click | 0.011 | 0.011 | 0.011 |
+| coming in (you play again mid-measure) | 0.237 click | 0.033 | 0.033 | 0.031 |
+
+_Left rough:_ Nothing has run in Max or Live yet. The Echo null test in the witness Reveal is proven only in the model. In Live it depends on switching off Echo's filter, modulation and noise, so it should be tried before the session. The 5 ms crossfade is tested only on synthetic chords and plucks. A click the player makes (a hard mute mid-note) still gets written into the tape and loops.
+
+_Next moves named:_ The face: play the Gorey séance cat in Max, driven by the gen~ knob value, and draft its session as the fourth move. · Then the portal: carry seance.genexpr into an RNBO codebox~ through the RNBO codebox~ smith, sizing the tape from the sample rate. · Whenever you next have Live open: paste witness-A into a Max Audio Effect and run the Echo null test once. That one check decides whether the witness's reveal works in the room.
+<sub>`retrospective-delay-steward-050` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="retrospective-delay-steward-048" -->
 ### 2026-10-14 — cycle 21 — The séance now runs as one gen~ codebox, the whole note is exactly 1, and the compressor's 11 ms window turns out to be the same two lines.
 > shipped · gen~ port matches the vanilla model exactly · not opened in Max · steward leans SILENCE-KEEPS
