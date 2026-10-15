@@ -3,7 +3,7 @@ import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { shippedPaths, selectCommitPaths, headlineOf, commitPathsAsync, commitPaths, ignoredPaths, planCycleCommit } from '../../src/cycle-commit.js';
+import { shippedPaths, selectCommitPaths, headlineOf, commitPathsAsync, commitPaths, ignoredPaths, planCycleCommit, cycleBody } from '../../src/cycle-commit.js';
 import { processCycle } from '../../src/process-cycle.js';
 
 function assistantLine(fences) {
@@ -256,5 +256,81 @@ describe('an ignored file in a cycle', () => {
     const res = commitPaths({ palaceRoot: root, paths: ['Projects/Test Steward/finished/violin/phrase.wav'], scope: 'Test Steward', summary: 'cycle 3 — only ignored' });
     expect(res.ok).toBe(false);
     expect(res.error).toMatch(/ignored/);
+  });
+});
+
+// The review of 2026-10-15: git check-ignore does not judge the way git add
+// does. The screen now asks git add itself, so these cases follow the door.
+describe('the screen judges as the committer\'s git add does', () => {
+  function palace(rules) {
+    const made = makePalace();
+    git(root, ['init', '-q', '-b', 'main']);
+    git(root, ['config', 'user.name', 'test']);
+    git(root, ['config', 'user.email', 'test@example.com']);
+    writeFileSync(path.join(root, '.gitignore'), `transcript.jsonl\n${rules}\n`);
+    git(root, ['add', '-A']);
+    git(root, ['commit', '-q', '-m', 'init']);
+    return made;
+  }
+  const B = 'Projects/Test Steward';
+
+  test('a tracked file inside an ignored folder is left out, and the rest commits', () => {
+    const { bundle } = palace('_manim_media/');
+    mkdirSync(path.join(bundle, '_manim_media'), { recursive: true });
+    writeFileSync(path.join(bundle, '_manim_media', 'hero.png'), 'v1');
+    git(root, ['add', '-f', `${B}/_manim_media/hero.png`]);
+    git(root, ['commit', '-q', '-m', 'force-added before the rule mattered']);
+    writeFileSync(path.join(bundle, '_manim_media', 'hero.png'), 'v2');
+    writeFileSync(path.join(bundle, 'render.png'), 'png');
+    expect(ignoredPaths(root, [`${B}/_manim_media/hero.png`, `${B}/render.png`])).toEqual([`${B}/_manim_media/hero.png`]);
+    const res = commitPaths({ palaceRoot: root, paths: [`${B}/render.png`, `${B}/_manim_media/hero.png`], scope: 'Test Steward', summary: 'cycle 1 — folder' });
+    expect(res.ok, res.error).toBe(true);
+    expect(git(root, ['show', '--name-only', '--format=', 'HEAD']).trim()).toBe(`${B}/render.png`);
+  });
+
+  test('a name with brackets is judged literally, not as a glob matching a tracked file', () => {
+    const { bundle } = palace('*.wav');
+    writeFileSync(path.join(bundle, 'take1.wav'), 'tracked');
+    git(root, ['add', '-f', `${B}/take1.wav`]);
+    git(root, ['commit', '-q', '-m', 'a tracked take']);
+    writeFileSync(path.join(bundle, 'take[1].wav'), 'new and ignored');
+    expect(ignoredPaths(root, [`${B}/take[1].wav`, `${B}/take1.wav`])).toEqual([`${B}/take[1].wav`]);
+  });
+
+  test('a tracked file named in decomposed Unicode is not called ignored, and commits', () => {
+    const { bundle } = palace('*.wav');
+    const nfc = 'Café phrase.wav';
+    const nfd = 'Café phrase.wav';
+    writeFileSync(path.join(bundle, nfd), 'v1');
+    git(root, ['add', '-f', `${B}/${nfc}`]);
+    git(root, ['commit', '-q', '-m', 'tracked']);
+    writeFileSync(path.join(bundle, nfd), 'v2');
+    writeFileSync(path.join(bundle, 'render.png'), 'png');
+    expect(ignoredPaths(root, [`${B}/${nfd}`])).toEqual([]);
+    const res = commitPaths({ palaceRoot: root, paths: [`${B}/render.png`, `${B}/${nfd}`], scope: 'Test Steward', summary: 'cycle 1 — accents' });
+    expect(res.ok, res.error).toBe(true);
+    expect(git(root, ['-c', 'core.quotepath=false', 'show', '--name-only', '--format=', 'HEAD']).trim().split('\n').length).toBe(2);
+  });
+
+  test('the backstop still gets its try when no retries are left', () => {
+    const { bundle } = palace('*.wav');
+    writeFileSync(path.join(bundle, 'phrase.wav'), 'audio');
+    writeFileSync(path.join(bundle, 'render.png'), 'png');
+    const res = commitPaths({ palaceRoot: root, paths: [`${B}/render.png`, `${B}/phrase.wav`], scope: 'Test Steward', summary: 'cycle 1 — no retries', retries: 0 });
+    expect(res.ok, res.error).toBe(true);
+    expect(res.ignored).toEqual([`${B}/phrase.wav`]);
+  });
+
+  test('when the backstop drops a shipped file, the body lists it once, as ignored, not as shipped', () => {
+    const { bundle } = palace('*.wav');
+    writeFileSync(path.join(bundle, 'phrase.wav'), 'audio');
+    writeFileSync(path.join(bundle, 'take.wav'), 'audio');
+    writeFileSync(path.join(bundle, 'render.png'), 'png');
+    const parts = { shipped: [`${B}/render.png`, `${B}/phrase.wav`], ignored: [`${B}/take.wav`] };
+    const res = commitPaths({ palaceRoot: root, paths: [`${B}/render.png`, `${B}/phrase.wav`], scope: 'Test Steward', summary: 'cycle 1 — rebuilt', body: cycleBody(parts), parts });
+    expect(res.ok, res.error).toBe(true);
+    const body = git(root, ['log', '-1', '--format=%b']);
+    expect(body.startsWith(cycleBody({ shipped: [`${B}/render.png`], ignored: [`${B}/take.wav`, `${B}/phrase.wav`] }))).toBe(true); // the committer's trailers follow
+    expect(body.match(/ignored by \.gitignore/g)).toHaveLength(1);
   });
 });

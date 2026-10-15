@@ -21,7 +21,8 @@
 //     It is left out and named in the commit body, like an oversize file.
 
 import { execFileSync, spawn, spawnSync } from 'node:child_process';
-import { existsSync, statSync, readFileSync } from 'node:fs';
+import { existsSync, statSync, readFileSync, copyFileSync, mkdtempSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { resolve, relative, isAbsolute, join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { payloadPathArtifacts } from './scroll-file.js';
@@ -55,20 +56,41 @@ export function isEntryFile(absPath) {
 }
 
 /**
- * The palace-relative paths among `paths` that .gitignore ignores, asked of git
- * itself (`git check-ignore`, which never reports a tracked file: a tracked file
- * commits whatever the ignore rules say). When git cannot answer, nothing is
- * reported, and the committer's own refusal is the backstop (see dropIgnored).
+ * The palace-relative paths among `paths` that the committer's `git add` would
+ * refuse as ignored. Asked of `git add --dry-run` itself, with the door's own
+ * literal pathspecs, so its verdict is git add's: an untracked ignored file, a
+ * tracked file inside an ignored folder, a name with [ ] ? * in it, a name in
+ * decomposed Unicode. A dry run still takes the index lock, so it runs against
+ * a scratch copy of the index and never contends with another writer. One run
+ * answers for every path; only when it refuses something is each path asked
+ * alone. When git cannot answer, nothing is reported, and the committer's own
+ * refusal is the backstop (dropIgnored).
  */
 export function ignoredPaths(palaceRoot, paths) {
   if (!paths || paths.length === 0) return [];
-  const r = spawnSync('git', ['check-ignore', '-z', '--stdin'], {
-    cwd: palaceRoot, input: paths.map((p) => `${p}\0`).join(''), encoding: 'utf8',
-    env: { ...process.env, GIT_OPTIONAL_LOCKS: '0' }, timeout: 30_000,
-  });
-  if (r.status !== 0) return []; // 1: none ignored; anything else: git could not say
-  const hit = new Set(String(r.stdout || '').split('\0').filter(Boolean));
-  return paths.filter((p) => hit.has(p));
+  const root = resolve(palaceRoot);
+  let scratch = null;
+  try {
+    scratch = mkdtempSync(join(tmpdir(), 'cycle-commit-index-'));
+    const index = join(scratch, 'index');
+    const real = spawnSync('git', ['rev-parse', '--git-path', 'index'], { cwd: root, encoding: 'utf8' });
+    const realIndex = real.status === 0 ? resolve(root, real.stdout.trim()) : null;
+    if (realIndex && existsSync(realIndex)) copyFileSync(realIndex, index);
+    const env = { ...process.env, GIT_INDEX_FILE: index, GIT_LITERAL_PATHSPECS: '1', GIT_OPTIONAL_LOCKS: '0' };
+    const dry = (ps) => spawnSync('git', ['add', '--dry-run', '--', ...ps], { cwd: root, env, encoding: 'utf8', timeout: 30_000 });
+    const refused = (r) => r.status === 1 && /ignored by one of your \.gitignore files/i.test(r.stderr || '');
+    const out = [];
+    for (let i = 0; i < paths.length; i += 200) {
+      const chunk = paths.slice(i, i + 200);
+      if (!refused(dry(chunk))) continue;
+      for (const p of chunk) if (refused(dry([p]))) out.push(p);
+    }
+    return out;
+  } catch {
+    return [];
+  } finally {
+    if (scratch) rmSync(scratch, { recursive: true, force: true });
+  }
 }
 
 /**
@@ -123,6 +145,18 @@ export function isRetryable(text) {
 const COMMITTED_BY = 'Committed by process-cycle.js after the cycle; the steward did not run git.';
 const ignoredNote = (paths) => `Not committed — ignored by .gitignore:\n${paths.map((p) => `- ${p}`).join('\n')}`;
 
+// A cycle commit's body, from what rode and what was left out and why.
+export function cycleBody({ shipped = [], oversize = [], entries = [], outside = [], ignored = [], maxBytes = MAX_COMMIT_BYTES }) {
+  const lines = [];
+  if (shipped.length) lines.push(`Shipped this cycle:\n${shipped.map((p) => `- ${p}`).join('\n')}`);
+  if (oversize.length) lines.push(`Left uncommitted, over ${Math.round(maxBytes / 1048576)} MB:\n${oversize.map((o) => `- ${o.path} (${(o.bytes / 1048576).toFixed(1)} MB)`).join('\n')}`);
+  if (entries.length) lines.push(`Not committed — entries change only through an elder:\n${entries.map((p) => `- ${p}`).join('\n')}`);
+  if (outside.length) lines.push(`Not committed — outside the steward's bundle:\n${outside.map((p) => `- ${p}`).join('\n')}`);
+  if (ignored.length) lines.push(ignoredNote(ignored));
+  lines.push(COMMITTED_BY);
+  return lines.join('\n\n');
+}
+
 // git's own refusal to add an ignored path, which fails the whole commit.
 export function isIgnoredRefusal(text) {
   return /paths are ignored by one of your \.gitignore files/i.test(String(text || ''));
@@ -132,12 +166,16 @@ export function isIgnoredRefusal(text) {
 // screen missed it, or .gitignore changed since), ask git again and return the
 // paths and body for one more try without the ignored ones, or null when there
 // is nothing to drop or nothing left.
-export function dropIgnored({ palaceRoot, paths, body }) {
+export function dropIgnored({ palaceRoot, paths, body, parts = null }) {
   const ignored = ignoredPaths(palaceRoot, paths);
   const rest = paths.filter((p) => !ignored.includes(p));
   if (ignored.length === 0 || rest.length === 0) return null;
-  const note = ignoredNote(ignored);
-  const nextBody = body && body.includes(COMMITTED_BY) ? body.replace(COMMITTED_BY, `${note}\n\n${COMMITTED_BY}`) : [body, note].filter(Boolean).join('\n\n');
+  // A cycle's body is rebuilt from its parts, so a dropped file leaves the
+  // shipped list and joins the one ignored list; any other body gets a note.
+  const nextBody = parts
+    ? cycleBody({ ...parts, shipped: (parts.shipped || []).filter((p) => !ignored.includes(p)), ignored: [...(parts.ignored || []), ...ignored] })
+    : body && body.includes(COMMITTED_BY) ? body.replace(COMMITTED_BY, `${ignoredNote(ignored)}\n\n${COMMITTED_BY}`)
+      : [body, ignoredNote(ignored)].filter(Boolean).join('\n\n');
   return { paths: rest, body: nextBody, ignored };
 }
 
@@ -163,7 +201,7 @@ function readCommitted(out) {
  *
  * @returns {{ ok: boolean, hash: string|null, nothing?: boolean, error?: string }}
  */
-export function commitPaths({ palaceRoot, paths, kind = 'steward', scope, summary, body = '', verify = 'unverified', author = 'claude', committer = COMMITTER_DEFAULT, retries = 3, exec = execFileSync }) {
+export function commitPaths({ palaceRoot, paths, kind = 'steward', scope, summary, body = '', parts = null, verify = 'unverified', author = 'claude', committer = COMMITTER_DEFAULT, retries = 3, exec = execFileSync }) {
   if (!paths || paths.length === 0) return { ok: true, hash: null, nothing: true };
   let args = committerArgs({ committer, kind, scope, summary, body, verify, author, paths });
   let lastErr = null;
@@ -175,8 +213,9 @@ export function commitPaths({ palaceRoot, paths, kind = 'steward', scope, summar
     } catch (e) {
       lastErr = String((e && (e.stderr || e.message)) || e);
       if (!dropped && isIgnoredRefusal(lastErr)) {
-        const next = dropIgnored({ palaceRoot, paths, body });
-        if (next) { dropped = next.ignored; args = committerArgs({ committer, kind, scope, summary, body: next.body, verify, author, paths: next.paths }); continue; }
+        const next = dropIgnored({ palaceRoot, paths, body, parts });
+        // The try without them does not spend a retry: a refusal on the last attempt still gets it.
+        if (next) { dropped = next.ignored; args = committerArgs({ committer, kind, scope, summary, body: next.body, verify, author, paths: next.paths }); attempt -= 1; continue; }
       }
       if (!isRetryable(lastErr)) break;
       sleep(400 * (attempt + 1));
@@ -193,7 +232,7 @@ export function commitPaths({ palaceRoot, paths, kind = 'steward', scope, summar
  * holding the door for, and the cycle's committer would wait on it forever.
  * Same arguments, same result shape; resolves, never rejects.
  */
-export function commitPathsAsync({ palaceRoot, paths, kind = 'steward', scope, summary, body = '', verify = 'unverified', author = 'claude', committer = COMMITTER_DEFAULT, retries = 3, spawnFn = spawn }) {
+export function commitPathsAsync({ palaceRoot, paths, kind = 'steward', scope, summary, body = '', parts = null, verify = 'unverified', author = 'claude', committer = COMMITTER_DEFAULT, retries = 3, spawnFn = spawn }) {
   if (!paths || paths.length === 0) return Promise.resolve({ ok: true, hash: null, nothing: true });
   let args = committerArgs({ committer, kind, scope, summary, body, verify, author, paths });
   let dropped = null;
@@ -216,8 +255,9 @@ export function commitPathsAsync({ palaceRoot, paths, kind = 'steward', scope, s
       if (r.code === 0) return dropped ? { ...readCommitted(r.out), ignored: dropped } : readCommitted(r.out);
       lastErr = r.err || r.out || `exit ${r.code}`;
       if (!dropped && isIgnoredRefusal(lastErr)) {
-        const next = dropIgnored({ palaceRoot, paths, body });
-        if (next) { dropped = next.ignored; args = committerArgs({ committer, kind, scope, summary, body: next.body, verify, author, paths: next.paths }); continue; }
+        const next = dropIgnored({ palaceRoot, paths, body, parts });
+        // The try without them does not spend a retry: a refusal on the last attempt still gets it.
+        if (next) { dropped = next.ignored; args = committerArgs({ committer, kind, scope, summary, body: next.body, verify, author, paths: next.paths }); attempt -= 1; continue; }
       }
       if (!isRetryable(lastErr)) break;
       await new Promise((w) => setTimeout(w, 400 * (attempt + 1)));
@@ -241,17 +281,11 @@ export function planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages,
   const ignored = ignoredPaths(root, candidates);
   const all = candidates.filter((p) => !ignored.includes(p));
   const shipped = pick.paths.filter((p) => !ignored.includes(p));
-  const lines = [];
-  if (shipped.length) lines.push(`Shipped this cycle:\n${shipped.map((p) => `- ${p}`).join('\n')}`);
-  if (pick.oversize.length) lines.push(`Left uncommitted, over ${Math.round(maxBytes / 1048576)} MB:\n${pick.oversize.map((o) => `- ${o.path} (${(o.bytes / 1048576).toFixed(1)} MB)`).join('\n')}`);
-  if (pick.entries.length) lines.push(`Not committed — entries change only through an elder:\n${pick.entries.map((p) => `- ${p}`).join('\n')}`);
-  if (pick.outside.length) lines.push(`Not committed — outside the steward's bundle:\n${pick.outside.map((p) => `- ${p}`).join('\n')}`);
-  if (ignored.length) lines.push(ignoredNote(ignored));
-  lines.push(COMMITTED_BY);
+  const parts = { shipped, oversize: pick.oversize, entries: pick.entries, outside: pick.outside, ignored, maxBytes };
   return {
     palaceRoot, paths: all, kind: 'steward', scope: home,
     summary: `cycle ${cycleN} — ${headlineOf(messages)}`,
-    body: lines.join('\n\n'),
+    body: cycleBody(parts), parts,
     verify: 'unverified', author: 'claude',
     shipped, oversize: pick.oversize, entries: pick.entries, outside: pick.outside, missing: pick.missing, ignored,
   };
@@ -265,7 +299,8 @@ export function commitCycle({ palaceRoot, home, cycleN, bundleDir, messages, ext
   const plan = planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths, maxBytes });
   const res = commitPaths({
     palaceRoot, paths: plan.paths, kind: plan.kind, scope: plan.scope,
-    summary: plan.summary, body: plan.body, committer, exec,
+    summary: plan.summary, body: plan.body, parts: plan.parts, committer, exec,
   });
-  return { ...res, paths: plan.paths, shipped: plan.shipped, oversize: plan.oversize, entries: plan.entries, outside: plan.outside, missing: plan.missing, ignored: [...plan.ignored, ...(res.ignored || [])] };
+  const late = res.ignored || [];
+  return { ...res, paths: plan.paths.filter((p) => !late.includes(p)), shipped: plan.shipped.filter((p) => !late.includes(p)), oversize: plan.oversize, entries: plan.entries, outside: plan.outside, missing: plan.missing, ignored: [...plan.ignored, ...late] };
 }
