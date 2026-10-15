@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;background:var(--bg);padding:14px 20px;box-sizing:border-box;font-family:var(--font-mono);color:var(--phosphor);text-shadow:var(--glow);font-size:13px}
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(to bottom,transparent 0 2px,rgba(0,0,0,.22) 2px 3px);z-index:9}
+  .row{display:grid;grid-template-columns:120px 96px 1fr 1fr;gap:14px;align-items:center;padding:6px 0;border-bottom:1px dashed var(--phosphor-dim)}
+  .tag{font-size:10px;color:var(--phosphor-dim);text-transform:uppercase;letter-spacing:.06em;text-shadow:none}
+  .sprite{image-rendering:pixelated;display:block}
+  .zone{padding:8px 10px;border:1px solid var(--phosphor-dim)}
+  .zone.lit{background:var(--phosphor);color:var(--bg);text-shadow:none;border-color:var(--phosphor)}
+</style></head><body>
+  <div class="row"><div class="tag">arrow</div><img class="sprite" data-cursor="arrow"><div class="zone" style="cursor:var(--cursor-arrow)">hover here</div><div class="zone lit" style="cursor:var(--cursor-arrow)">and on a lit row</div></div>
+  <div class="row"><div class="tag">pointer</div><img class="sprite" data-cursor="pointer"><div class="zone" style="cursor:var(--cursor-pointer)">[J] join thread</div><div class="zone lit" style="cursor:var(--cursor-pointer)">[J] join thread</div></div>
+  <div class="row"><div class="tag">text</div><img class="sprite" data-cursor="text"><div class="zone" style="cursor:var(--cursor-text)">login: sable<span class="cursor"></span></div><div class="zone lit" style="cursor:var(--cursor-text)">login: sable</div></div>
+  <div class="row"><div class="tag">not-allowed</div><img class="sprite" data-cursor="not-allowed"><div class="zone" style="cursor:var(--cursor-not-allowed);opacity:.45">[L] locked</div><div class="zone lit" style="cursor:var(--cursor-not-allowed)">[L] locked</div></div>
+  <div class="row" style="border-bottom:0"><div class="tag">wait</div><img class="sprite" data-cursor="wait"><div class="zone" style="cursor:var(--cursor-wait)"><span class="spin"></span> scanning board...</div><div class="zone lit" style="cursor:var(--cursor-wait)">scanning board...</div></div>
+<script>
+  // Each sprite shown at 4x, read straight from its --cursor-* token so this
+  // card can't drift from what the board actually uses.
+  const root = getComputedStyle(document.documentElement);
+  for (const img of document.querySelectorAll('img[data-cursor]')) {
+    const value = root.getPropertyValue('--cursor-' + img.dataset.cursor);
+    const urls = [...value.matchAll(/url\("([^"]+)"\)/g)].map(m => m[1]);
+    img.src = urls[0];
+    img.onload = () => { img.width = img.naturalWidth * 4; };
+  }
+</script>
+</body></html>

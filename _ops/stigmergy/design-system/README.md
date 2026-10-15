@@ -151,6 +151,7 @@ Full scale, semantic tokens, and CRT-glow utilities live in `colors_and_type.css
 - **Hover on links (handles, trace IDs):** add a `>` prefix or an underline that uses ASCII characters (`───`), not `text-decoration`.
 - **Press state:** brief inversion + one-character left shift (like the button "caught" the click). 60ms, then released.
 - **Focus state:** a blinking underscore appears in front of the element (`_ MAIN MENU`).
+- **Mouse pointer:** the pointer wears the phosphor too. Five pixel sprites (arrow, hand, text beam, a red no-entry ring for a disabled control, a small hourglass for busy) with a terminal-black rim, so they stay visible on a lit row. They are `--cursor-*` tokens that stand in for the cursor the browser would have picked, so a cursor's meaning never changes, only its look. The bitmaps are drawn in `cursors.py`, which writes the tokens into this stylesheet and the app's `tokens.css`. See `preview/cursors.html`.
 
 ### Borders
 - Borders use CSS styled to evoke CP437 weights -- `3px double var(--phosphor-dim)` for primary containers, `1px solid var(--phosphor-dim)` for nested cards and rules. Character-cell rendering (`╔═╗ ║ ╚═╝`) is the deprecated prior approach; do not reintroduce it.
