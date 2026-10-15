@@ -1,9 +1,9 @@
 import { describe, test, expect, afterEach } from 'vitest';
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync, chmodSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { shippedPaths, selectCommitPaths, headlineOf, commitPathsAsync } from '../../src/cycle-commit.js';
+import { shippedPaths, selectCommitPaths, headlineOf, commitPathsAsync, commitPaths, ignoredPaths, planCycleCommit, cycleBody } from '../../src/cycle-commit.js';
 import { processCycle } from '../../src/process-cycle.js';
 
 function assistantLine(fences) {
@@ -167,5 +167,196 @@ describe('processCycle with commit', () => {
     const res = await commitPathsAsync({ palaceRoot: root, ...summary.commit.plan });
     expect(res.ok, res.error).toBe(true);
     expect(git(root, ['log', '-1', '--format=%s']).trim()).toBe('steward(Test Steward): cycle 2 — A planned render');
+  });
+});
+
+// A file .gitignore ignores must never fail the whole cycle: the committer
+// refuses a commit that names one (Generative Sample Libraries cycle 37,
+// 2026-10-15, lost all 38 of its files that way). It is left out and named.
+describe('an ignored file in a cycle', () => {
+  function palaceWithIgnoredWav() {
+    const made = makePalace();
+    git(root, ['init', '-q', '-b', 'main']);
+    git(root, ['config', 'user.name', 'test']);
+    git(root, ['config', 'user.email', 'test@example.com']);
+    writeFileSync(path.join(root, '.gitignore'), 'transcript.jsonl\n*.wav\n');
+    writeFileSync(path.join(made.bundle, 'tracked.wav'), 'tracked before the rule\n');
+    git(root, ['add', '-A']);
+    git(root, ['add', '-f', 'Projects/Test Steward/tracked.wav']);
+    git(root, ['commit', '-q', '-m', 'init']);
+    mkdirSync(path.join(made.bundle, 'finished', 'violin'), { recursive: true });
+    writeFileSync(path.join(made.bundle, 'finished', 'violin', 'phrase.wav'), 'audio\n');
+    writeFileSync(path.join(made.bundle, 'render.png'), 'png');
+    return made;
+  }
+  const shippedMsg = (id) => ({
+    schema_version: '1.0', id, ts: '2026-10-15T08:00:00-04:00', session_id: 's',
+    from: 'Test Steward', to: '*', type: 'BROADCAST', board: 'GENERAL',
+    payload: { kind: 'shipped_artifact', headline: 'A phrase and a render', artifacts: [{ path: 'Projects/Test Steward/finished/violin/phrase.wav' }, { path: 'Projects/Test Steward/render.png' }] },
+  });
+
+  test('git names the ignored file, and never a tracked one the rule also matches', () => {
+    palaceWithIgnoredWav();
+    const got = ignoredPaths(root, ['Projects/Test Steward/finished/violin/phrase.wav', 'Projects/Test Steward/tracked.wav', 'Projects/Test Steward/render.png']);
+    expect(got).toEqual(['Projects/Test Steward/finished/violin/phrase.wav']);
+  });
+
+  test('the plan leaves it out and names it in the body', () => {
+    const { bundle } = palaceWithIgnoredWav();
+    const plan = planCycleCommit({ palaceRoot: root, home: 'Test Steward', cycleN: 37, bundleDir: bundle, messages: [shippedMsg('ig-1')] });
+    expect(plan.paths).toContain('Projects/Test Steward/render.png');
+    expect(plan.paths).not.toContain('Projects/Test Steward/finished/violin/phrase.wav');
+    expect(plan.ignored).toEqual(['Projects/Test Steward/finished/violin/phrase.wav']);
+    expect(plan.shipped).toEqual(['Projects/Test Steward/render.png']);
+    expect(plan.body).toMatch(/Not committed — ignored by \.gitignore:\n- Projects\/Test Steward\/finished\/violin\/phrase\.wav/);
+  });
+
+  test('the cycle still commits everything else, through the CLI path', () => {
+    const { agentDir } = palaceWithIgnoredWav();
+    const transcriptPath = path.join(root, 'transcript.jsonl');
+    writeFileSync(transcriptPath, assistantLine([shippedMsg('ig-2')]));
+    const summary = processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 37, iteration: 1, tsNow: '2026-10-15T08:12:00-04:00', commit: true });
+    expect(summary.commit.ok, summary.commit.error).toBe(true);
+    expect(summary.commit.ignored).toEqual(['Projects/Test Steward/finished/violin/phrase.wav']);
+    const files = git(root, ['-c', 'core.quotepath=false', 'show', '--name-only', '--format=', 'HEAD']).trim().split('\n');
+    expect(files).toContain('Projects/Test Steward/render.png');
+    expect(files).toContain('_ops/agents/permanent/test-steward/state.json');
+    expect(files).not.toContain('Projects/Test Steward/finished/violin/phrase.wav');
+    expect(git(root, ['log', '-1', '--format=%b'])).toMatch(/ignored by \.gitignore/);
+  });
+
+  test('the cycle still commits everything else, through the server\'s plan', async () => {
+    const { agentDir } = palaceWithIgnoredWav();
+    const transcriptPath = path.join(root, 'transcript.jsonl');
+    writeFileSync(transcriptPath, assistantLine([shippedMsg('ig-3')]));
+    const summary = processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 37, iteration: 1, tsNow: '2026-10-15T08:12:00-04:00', commit: 'plan' });
+    const res = await commitPathsAsync({ palaceRoot: root, ...summary.commit.plan });
+    expect(res.ok, res.error).toBe(true);
+    const files = git(root, ['-c', 'core.quotepath=false', 'show', '--name-only', '--format=', 'HEAD']).trim().split('\n');
+    expect(files).toContain('Projects/Test Steward/render.png');
+    expect(files).not.toContain('Projects/Test Steward/finished/violin/phrase.wav');
+  });
+
+  test('if an ignored path reaches the committer anyway, it is dropped and the commit tried once more', async () => {
+    palaceWithIgnoredWav();
+    const paths = ['Projects/Test Steward/render.png', 'Projects/Test Steward/finished/violin/phrase.wav'];
+    const body = 'Shipped this cycle:\n- x\n\nCommitted by process-cycle.js after the cycle; the steward did not run git.';
+    const sync = commitPaths({ palaceRoot: root, paths, scope: 'Test Steward', summary: 'cycle 1 — sync', body });
+    expect(sync.ok, sync.error).toBe(true);
+    expect(sync.ignored).toEqual(['Projects/Test Steward/finished/violin/phrase.wav']);
+    expect(git(root, ['log', '-1', '--format=%b'])).toMatch(/ignored by \.gitignore:\n- Projects\/Test Steward\/finished\/violin\/phrase\.wav\n\nCommitted by process-cycle\.js/);
+    writeFileSync(path.join(root, 'Projects/Test Steward/render.png'), 'png again');
+    const asyncRes = await commitPathsAsync({ palaceRoot: root, paths, scope: 'Test Steward', summary: 'cycle 2 — async', body });
+    expect(asyncRes.ok, asyncRes.error).toBe(true);
+    expect(asyncRes.ignored).toEqual(['Projects/Test Steward/finished/violin/phrase.wav']);
+  });
+
+  test('a commit of nothing but ignored files fails plainly, without looping', () => {
+    palaceWithIgnoredWav();
+    const res = commitPaths({ palaceRoot: root, paths: ['Projects/Test Steward/finished/violin/phrase.wav'], scope: 'Test Steward', summary: 'cycle 3 — only ignored' });
+    expect(res.ok).toBe(false);
+    expect(res.error).toMatch(/ignored/);
+  });
+});
+
+// The review of 2026-10-15: git check-ignore does not judge the way git add
+// does. The screen now asks git add itself, so these cases follow the door.
+describe('the screen judges as the committer\'s git add does', () => {
+  function palace(rules) {
+    const made = makePalace();
+    git(root, ['init', '-q', '-b', 'main']);
+    git(root, ['config', 'user.name', 'test']);
+    git(root, ['config', 'user.email', 'test@example.com']);
+    writeFileSync(path.join(root, '.gitignore'), `transcript.jsonl\n${rules}\n`);
+    git(root, ['add', '-A']);
+    git(root, ['commit', '-q', '-m', 'init']);
+    return made;
+  }
+  const B = 'Projects/Test Steward';
+
+  test('a tracked file inside an ignored folder is left out, and the rest commits', () => {
+    const { bundle } = palace('_manim_media/');
+    mkdirSync(path.join(bundle, '_manim_media'), { recursive: true });
+    writeFileSync(path.join(bundle, '_manim_media', 'hero.png'), 'v1');
+    git(root, ['add', '-f', `${B}/_manim_media/hero.png`]);
+    git(root, ['commit', '-q', '-m', 'force-added before the rule mattered']);
+    writeFileSync(path.join(bundle, '_manim_media', 'hero.png'), 'v2');
+    writeFileSync(path.join(bundle, 'render.png'), 'png');
+    expect(ignoredPaths(root, [`${B}/_manim_media/hero.png`, `${B}/render.png`])).toEqual([`${B}/_manim_media/hero.png`]);
+    const res = commitPaths({ palaceRoot: root, paths: [`${B}/render.png`, `${B}/_manim_media/hero.png`], scope: 'Test Steward', summary: 'cycle 1 — folder' });
+    expect(res.ok, res.error).toBe(true);
+    expect(git(root, ['show', '--name-only', '--format=', 'HEAD']).trim()).toBe(`${B}/render.png`);
+  });
+
+  test('a name with brackets is judged literally, not as a glob matching a tracked file', () => {
+    const { bundle } = palace('*.wav');
+    writeFileSync(path.join(bundle, 'take1.wav'), 'tracked');
+    git(root, ['add', '-f', `${B}/take1.wav`]);
+    git(root, ['commit', '-q', '-m', 'a tracked take']);
+    writeFileSync(path.join(bundle, 'take[1].wav'), 'new and ignored');
+    expect(ignoredPaths(root, [`${B}/take[1].wav`, `${B}/take1.wav`])).toEqual([`${B}/take[1].wav`]);
+  });
+
+  test('a tracked file named in decomposed Unicode is not called ignored, and commits', () => {
+    const { bundle } = palace('*.wav');
+    const nfc = 'Café phrase.wav';
+    const nfd = 'Café phrase.wav';
+    writeFileSync(path.join(bundle, nfd), 'v1');
+    git(root, ['add', '-f', `${B}/${nfc}`]);
+    git(root, ['commit', '-q', '-m', 'tracked']);
+    writeFileSync(path.join(bundle, nfd), 'v2');
+    writeFileSync(path.join(bundle, 'render.png'), 'png');
+    expect(ignoredPaths(root, [`${B}/${nfd}`])).toEqual([]);
+    const res = commitPaths({ palaceRoot: root, paths: [`${B}/render.png`, `${B}/${nfd}`], scope: 'Test Steward', summary: 'cycle 1 — accents' });
+    expect(res.ok, res.error).toBe(true);
+    expect(git(root, ['-c', 'core.quotepath=false', 'show', '--name-only', '--format=', 'HEAD']).trim().split('\n').length).toBe(2);
+  });
+
+  test('a path git cannot find does not hide an ignored one beside it', () => {
+    const { bundle } = palace('*.wav');
+    writeFileSync(path.join(bundle, 'phrase.wav'), 'audio');
+    expect(ignoredPaths(root, [`${B}/gone.png`, `${B}/phrase.wav`])).toEqual([`${B}/phrase.wav`]);
+  });
+
+  test('when git cannot say where the index is, nothing is called ignored', () => {
+    const { bundle } = palace('*.wav');
+    writeFileSync(path.join(bundle, 'take.wav'), 'v1');
+    git(root, ['add', '-f', `${B}/take.wav`]);
+    git(root, ['commit', '-q', '-m', 'tracked']);
+    writeFileSync(path.join(bundle, 'take.wav'), 'v2');
+    const shim = mkdtempSync(path.join(tmpdir(), 'git-shim-'));
+    const realGit = execFileSync('/usr/bin/which', ['git'], { encoding: 'utf8' }).trim();
+    writeFileSync(path.join(shim, 'git'), `#!/bin/sh\n[ "$1" = rev-parse ] && [ "$2" = --git-path ] && exit 1\nexec "${realGit}" "$@"\n`);
+    chmodSync(path.join(shim, 'git'), 0o755);
+    const before = process.env.PATH;
+    process.env.PATH = `${shim}:${before}`;
+    try {
+      expect(ignoredPaths(root, [`${B}/take.wav`])).toEqual([]);
+    } finally {
+      process.env.PATH = before;
+      rmSync(shim, { recursive: true, force: true });
+    }
+  });
+
+  test('the backstop still gets its try when no retries are left', () => {
+    const { bundle } = palace('*.wav');
+    writeFileSync(path.join(bundle, 'phrase.wav'), 'audio');
+    writeFileSync(path.join(bundle, 'render.png'), 'png');
+    const res = commitPaths({ palaceRoot: root, paths: [`${B}/render.png`, `${B}/phrase.wav`], scope: 'Test Steward', summary: 'cycle 1 — no retries', retries: 0 });
+    expect(res.ok, res.error).toBe(true);
+    expect(res.ignored).toEqual([`${B}/phrase.wav`]);
+  });
+
+  test('when the backstop drops a shipped file, the body lists it once, as ignored, not as shipped', () => {
+    const { bundle } = palace('*.wav');
+    writeFileSync(path.join(bundle, 'phrase.wav'), 'audio');
+    writeFileSync(path.join(bundle, 'take.wav'), 'audio');
+    writeFileSync(path.join(bundle, 'render.png'), 'png');
+    const parts = { shipped: [`${B}/render.png`, `${B}/phrase.wav`], ignored: [`${B}/take.wav`] };
+    const res = commitPaths({ palaceRoot: root, paths: [`${B}/render.png`, `${B}/phrase.wav`], scope: 'Test Steward', summary: 'cycle 1 — rebuilt', body: cycleBody(parts), parts });
+    expect(res.ok, res.error).toBe(true);
+    const body = git(root, ['log', '-1', '--format=%b']);
+    expect(body.startsWith(cycleBody({ shipped: [`${B}/render.png`], ignored: [`${B}/take.wav`, `${B}/phrase.wav`] }))).toBe(true); // the committer's trailers follow
+    expect(body.match(/ignored by \.gitignore/g)).toHaveLength(1);
   });
 });

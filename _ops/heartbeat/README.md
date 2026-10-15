@@ -72,7 +72,8 @@ The batch runs the agent in a **shadow posture** and lets the *wrapper* commit:
 - **Each cycle commits what it shipped (decided 2026-09-25).** When a cycle
   ends, `process-cycle.js` commits the files that cycle's messages listed in
   `artifacts` — text and media alike, each at most 10 MB, only inside the
-  steward's own bundle, never a file carrying entry frontmatter — together
+  steward's own bundle, never a file carrying entry frontmatter, never a file
+  `.gitignore` ignores (named in the commit body; the rest still commits) — together
   with its machinery, its scroll and the board, in one commit scoped to exactly
   those paths (`palace-commit.mjs --only`; `cycle-commit.js`). A shipped thing
   is a made thing, not a proposal awaiting review; one left uncommitted is lost
