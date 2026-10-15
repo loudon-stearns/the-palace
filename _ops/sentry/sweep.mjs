@@ -239,12 +239,12 @@ const CHECKS = {
         '-F', `owner=${slug.split('/')[0]}`, '-F', `name=${slug.split('/')[1]}`, '-F', `ref=${branch}`])
       : null;
     const guard = judgeTrunkGuard({ ...trunkGuardInputs({ branch, rulesRead, rulesetReads, classicRead, graphRead }), branch, defaultBranch: repo.default_branch ?? null });
-    for (const p of guard.problems) findings.push(finding('hosting', p.rule, p.sev, slug, 0, `${slug}:${branch}:${p.rule}`, p.context, allow, `${slug}:${branch}:${p.rule}:${p.who}`, branch));
+    for (const p of guard.problems) findings.push(finding('hosting', p.rule, p.sev, slug, 0, `${slug}:${branch}:${p.rule}`, p.context, allow, `${slug}:${branch}:${p.rule}:${p.whoKey ?? ''}`, branch));
     const pagesRead = ghRead(`repos/${slug}/pages`);
     const pagesState = pagesRead.ok ? 'on' : /not found/i.test(pagesRead.body?.message || '') ? 'off' : 'unreadable';
     const alerts = gh(`repos/${slug}/secret-scanning/alerts?state=open&per_page=100`);
     if (Array.isArray(alerts) && alerts.length) findings.push(finding('hosting', 'github-secret-alerts', 'high', slug, 0, `${slug}:alerts:${alerts.length}`, `${alerts.length} open GitHub secret-scanning alert(s)`, allow, null, String(alerts.length)));
-    report.notes.push(`hosting: ${slug} is ${repo.visibility}; ${branch} ${guard.summary}; Pages ${pagesState === 'on' ? `on (${pagesRead.body.html_url})` : pagesState}; secret-scanning alerts ${Array.isArray(alerts) ? alerts.length : 'unreadable'}; Dependabot alerts ${Array.isArray(dep) ? dep.length : 'unreadable'}, open Dependabot pull requests ${Array.isArray(pulls) ? botPulls.length : 'unreadable'}`);
+    report.notes.push(`hosting: ${slug} is ${repo.visibility}; ${guard.summary}; Pages ${pagesState === 'on' ? `on (${pagesRead.body.html_url})` : pagesState}; secret-scanning alerts ${Array.isArray(alerts) ? alerts.length : 'unreadable'}; Dependabot alerts ${Array.isArray(dep) ? dep.length : 'unreadable'}, open Dependabot pull requests ${Array.isArray(pulls) ? botPulls.length : 'unreadable'}`);
     return { findings, meta: { visibility: repo.visibility, pages: pagesState === 'on' ? true : pagesState === 'off' ? false : null, summary: `${repo.visibility}, Pages ${pagesState}` } };
   },
 };
@@ -293,7 +293,7 @@ export function judgeTrunkGuard({ branch, rules, rulesets = {}, classic, classic
   const problems = [];
   const said = [];
   if (defaultBranch && defaultBranch !== branch) {
-    problems.push({ rule: 'github-default-branch-moved', sev: 'low', who: defaultBranch, context: `the default branch is ${defaultBranch}, not ${branch}; a ruleset aimed at the default branch no longer guards ${branch}` });
+    problems.push({ rule: 'github-default-branch-moved', sev: 'low', whoKey: defaultBranch, context: `the default branch is ${defaultBranch}, not ${branch}; a ruleset aimed at the default branch no longer guards ${branch}` });
   }
   const actorBypasses = a => { const m = a.bypass_mode ?? 'always'; return m === 'pull_request' ? false : m === 'always' || m === 'exempt' ? true : null; };
   for (const [type, key, what, word, sev] of [
@@ -305,29 +305,35 @@ export function judgeTrunkGuard({ branch, rules, rulesets = {}, classic, classic
     for (const r of (rules || []).filter(x => x.type === type)) {
       const rs = rulesets[r.ruleset_id];
       const name = rs?.name ? `ruleset "${rs.name}"` : `ruleset ${r.ruleset_id}`;
-      if (!rs) { guards.push({ name, binds: null, who: [] }); continue; }
+      if (!rs) { guards.push({ name, binds: null, who: [], whoKey: [] }); continue; }
       const forUs = BINDS[rs.current_user_can_bypass] ?? null;
-      const modes = Array.isArray(rs.bypass_actors) ? rs.bypass_actors.map(actorBypasses) : null;
-      const others = modes && !modes.includes(null) ? [...new Set(rs.bypass_actors.filter((a, i) => modes[i]).map(a => a.actor_type || 'an actor'))] : null;
-      const who = [...(forUs === false ? [GH_ACCOUNT] : []), ...(others || [])];
-      guards.push({ name, who, binds: forUs === false || (others && others.length) ? false : forUs === true && others ? true : null });
+      const actors = Array.isArray(rs.bypass_actors) ? rs.bypass_actors : null;
+      const modes = actors ? actors.map(actorBypasses) : null;
+      const bypassers = actors ? actors.filter((a, i) => modes[i] === true) : [];
+      const unknown = !actors || modes.includes(null);
+      const who = [...(forUs === false ? [GH_ACCOUNT] : []), ...new Set(bypassers.map(a => a.actor_type || 'an actor'))];
+      const whoKey = [...(forUs === false ? ['gh-account'] : []), ...bypassers.map(a => `${a.actor_type || '?'}:${a.actor_id ?? '*'}`)];
+      // A certain bypass settles it, whatever else the list holds; only then does an unknown leave it unread.
+      guards.push({ name, who, whoKey, binds: forUs === false || bypassers.length ? false : forUs === true && !unknown ? true : null });
     }
     if (classic && classic[key]?.enabled === false) {
-      if (type === 'deletion') guards.push({ name: 'classic branch protection', binds: true, who: [] });
-      else guards.push({ name: 'classic branch protection', who: classicForceBypass > 0 ? ['people classic protection lets force push'] : [], binds: classicForceBypass === 0 ? true : Number.isInteger(classicForceBypass) ? false : null });
+      if (type === 'deletion') guards.push({ name: 'classic branch protection', binds: true, who: [], whoKey: [] });
+      else guards.push({ name: 'classic branch protection', who: classicForceBypass > 0 ? ['the people classic protection lists to force push'] : [], whoKey: classicForceBypass > 0 ? [`classic:${classicForceBypass}`] : [], binds: classicForceBypass === 0 ? true : Number.isInteger(classicForceBypass) ? false : null });
     }
     const binding = guards.filter(g => g.binds === true);
-    if (binding.length) { said.push(`refuses ${what} (${binding.map(g => g.name).join(' and ')})`); continue; }
-    if (!guards.length && rules !== null && classic !== null) {
-      problems.push({ rule: `github-${word}-allowed`, sev, who: '', context: `GitHub lets ${what} of ${branch} through: no active rule refuses it` });
-      said.push(`lets ${what} through`);
-    } else if (guards.length && guards.every(g => g.binds === false)) {
+    if (binding.length) { said.push(`${branch} refuses ${what} (${binding.map(g => g.name).join(' and ')})`); continue; }
+    // "Lets it through" and "can be bypassed" are said only when both sources were read: an unread one may hold a guard.
+    const bothRead = rules !== null && classic !== null;
+    if (!guards.length && bothRead) {
+      problems.push({ rule: `github-${word}-allowed`, sev, context: `GitHub lets ${what} of ${branch} through: no active rule refuses it` });
+      said.push(`${branch} lets ${what} through`);
+    } else if (guards.length && bothRead && guards.every(g => g.binds === false)) {
       const who = [...new Set(guards.flatMap(g => g.who))].sort();
-      problems.push({ rule: `github-${word}-bypass`, sev, who: who.join('|'), context: `${guards.map(g => g.name).join(' and ')} refuse${guards.length === 1 ? 's' : ''} ${what} of ${branch}, but ${who.join(', ')} can bypass ${guards.length === 1 ? 'it' : 'them'}; every session pushes as ${GH_ACCOUNT}` });
-      said.push(`refuses ${what}, but it can be bypassed`);
+      problems.push({ rule: `github-${word}-bypass`, sev, whoKey: [...new Set(guards.flatMap(g => g.whoKey))].sort().join('|'), context: `${guards.map(g => g.name).join(' and ')} refuse${guards.length === 1 ? 's' : ''} ${what} of ${branch}, but ${who.join(', ')} can bypass ${guards.length === 1 ? 'it' : 'them'}; every session pushes as ${GH_ACCOUNT}` });
+      said.push(`${branch} refuses ${what}, but the guard can be bypassed`);
     } else {
-      problems.push({ rule: 'github-trunk-guard-unreadable', sev: 'low', who: '', context: `could not read whether GitHub refuses ${what} of ${branch} for everyone who can push` });
-      said.push(`${what}: could not tell`);
+      problems.push({ rule: 'github-trunk-guard-unreadable', sev: 'low', context: `could not read whether GitHub refuses ${what} of ${branch} for everyone who can push` });
+      said.push(`could not tell whether GitHub refuses ${what} of ${branch}`);
     }
   }
   // Unreadable is said once, whichever guard it was.
@@ -509,6 +515,10 @@ function selftest() {
     ['an unreadable ruleset is not taken on trust', { rules: [nff(3)], rulesets: { 3: null }, classic: false }, 'github-trunk-guard-unreadable'],
     ['main no longer the default branch is raised, and its deletion judged', { rules: [nff(1)], rulesets: { 1: set('never') }, classic: false, defaultBranch: 'trunk' }, 'github-default-branch-moved,github-deletion-allowed'],
   ];
+  guardCases.push(
+    ['a certain bypass is not hidden by an unknown mode beside it', { rules: [nff(2)], rulesets: { 2: set('never', [{ actor_type: 'DeployKey', bypass_mode: 'always' }, { actor_type: 'Team', bypass_mode: 'merge_queue' }]) }, classic: false }, 'github-force-push-bypass'],
+    ['a bypass is not called certain while classic protection is unread', { rules: [nff(2)], rulesets: { 2: set('always') }, classic: null }, 'github-trunk-guard-unreadable'],
+  );
   for (const [name, input, want] of guardCases) {
     const got = judged(input); const hit = got === want; ok &&= hit;
     console.log(`${hit ? 'caught' : 'MISSED'}  trunk guard: ${name}${hit ? '' : ` (got "${got}", want "${want}")`}`);
@@ -526,6 +536,12 @@ function selftest() {
     ['GraphQL\'s force-push list is counted', inputs({ graphRead: yes({ data: { repository: { branchProtectionRules: { nodes: [{ allowsForcePushes: false, bypassForcePushAllowances: { totalCount: 2 }, matchingRefs: { nodes: [{ name: 'main' }] } }] } } } }) }).classicForceBypass === 2],
   ];
   for (const [name, hit] of readCases) { ok &&= hit; console.log(`${hit ? 'caught' : 'MISSED'}  trunk guard reads: ${name}`); }
+  // An allowed bypass holds for the bypassers reviewed, not for a new one of the same kind
+  const keyOf = actors => judgeTrunkGuard({ branch: 'main', defaultBranch: 'main', rules: [nff(2)], rulesets: { 2: set('never', actors) }, classic: false }).problems[0]?.whoKey;
+  const one = keyOf([{ actor_type: 'DeployKey', actor_id: 11, bypass_mode: 'always' }]);
+  const two = keyOf([{ actor_type: 'DeployKey', actor_id: 11, bypass_mode: 'always' }, { actor_type: 'DeployKey', actor_id: 99, bypass_mode: 'always' }]);
+  const fpHolds = !!one && !!two && one !== two; ok &&= fpHolds;
+  console.log(`${fpHolds ? 'caught' : 'MISSED'}  trunk guard: a new bypasser of the same kind changes the fingerprint`);
   console.log(ok ? '\nselftest: every planted secret caught' : '\nselftest: FAILED');
   process.exitCode = ok ? 0 : 1;
 }
