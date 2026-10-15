@@ -5,12 +5,22 @@ links:
   - target: "[[Enrichment]]"
     type: connects-to
     label: tuning-for
-forward_vector: "I am Enrichment's record of what each run taught it, numbered, each lesson tied to the spec change it forced, so the ceremony's version has a reason you can read. Every run leaves a line here; a run that changed the ceremony also leaves a numbered item. Never prune what a real run taught."
+forward_vector: "I am Enrichment's record of what each run taught it, numbered, each lesson naming the spec change it forced, if any, so the ceremony's version has a reason you can read. Every run leaves a line here; a run that taught something also leaves a numbered item. Never prune what a real run taught."
+ledger: tuning
+standards:
+  for: "what each enrichment taught Enrichment"
+  run: "one enrichment of one page"
+  line: "- run · <date> · v<version> · <what it ran on> · nothing new | taught item N"
+  read: "the last 40 lines with run lines set aside, plus every line not yet paid"
+  writes: "the run itself, in the commit that records it"
+  merge: union
+  kept: git
+  trim: never
 ---
 
 # Enrichment — tuning
 
-What each enrichment taught the ceremony, appended after a run that changed it. Each item names what the run showed and the spec change it forced. Lessons that changed only the tool live in `_ops/rich-face/README.md`. Newest last.
+What each enrichment taught the ceremony, appended after a run that taught it something. Each item names what the run showed and the spec change it forced, if any. Lessons that changed only the tool live in `_ops/rich-face/README.md`. Newest last.
 
 ## From the assessment and the first rich face — Kuramoto Coupling, 2026-09-24
 

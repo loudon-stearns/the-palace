@@ -5,12 +5,22 @@ links:
   - target: "[[Return Ceremony]]"
     type: connects-to
     label: tuning-for
-forward_vector: "I am the Return's record of what each run taught it, numbered, each lesson tied to the spec change it forced, so the ceremony's version has a reason you can read. Every run leaves a line here; a run that changed the ceremony also leaves a numbered item. Never prune what a real run taught."
+forward_vector: "I am the Return's record of what each run taught it, numbered, each lesson naming the spec change it forced, if any, so the ceremony's version has a reason you can read. Every run leaves a line here; a run that taught something also leaves a numbered item. Never prune what a real run taught."
+ledger: tuning
+standards:
+  for: "what each return taught the Return Ceremony"
+  run: "one return"
+  line: "- run · <date> · v<version> · <what it ran on> · nothing new | taught item N"
+  read: "the last 40 lines with run lines set aside, plus every line not yet paid"
+  writes: "the run itself, in the commit that records it"
+  merge: union
+  kept: git
+  trim: never
 ---
 
 # Return Ceremony — tuning
 
-What each return taught the ceremony, and the lessons that reached it from elsewhere. Each item names what the run showed and the spec change it forced, or says **owed** when the change hasn't landed. Newest last. Hashes are commits to `_ops/Return Ceremony.md` unless noted.
+What each return taught the ceremony, and the lessons that reached it from elsewhere. Each item names what the run showed and the spec change it forced, if any, or says **owed** when a change hasn't landed. Newest last. Hashes are commits to `_ops/Return Ceremony.md` unless noted.
 
 **v1.0 (2026-09-25)** is the card as it stood that day, plus the opening read in Step 0. It marks where counting starts, not a ranking of what came before. The number moves when the procedure does — a step, a probe in the query block, a postcondition — never for prose. A return leaves no report file, so its record is its `return(YYYY-MM-DD)` commit, whose body names the version and what the run taught.
 

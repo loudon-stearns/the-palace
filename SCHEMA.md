@@ -6,7 +6,7 @@ pillars:
   - practice
   - philosophy
 born: 2026-03
-version: "1.27"
+version: "1.28"
 stage: foundational
 status: canonical
 links:
@@ -76,7 +76,7 @@ Read the table top to bottom and take the first row that fits; `concept` is the 
 
 | type | use it when — the test | adds | example |
 |---|---|---|---|
-| `meta` | it is about the palace itself: architecture, ceremonies, infrastructure, self-model | `version` (schema-level entries and ceremonies) | [[SCHEMA]], [[SUBSTRATE]], [[CLAUDE]] |
+| `meta` | it is about the palace itself: architecture, ceremonies, infrastructure, self-model | `version` (schema-level entries, ceremonies) · `trigger` (ceremonies) | [[SCHEMA]], [[SUBSTRATE]], [[CLAUDE]] |
 | `specialist` | it wraps an external creative tool with operational anatomy — Charter, Tiers, Job Contract, accumulated Gotchas | `status` · `medium` · `tool` · `tool_version` | [[Shop/Kokoro]], [[Shop/ComfyUI]] |
 | `maker` | it is a foreman for a roster of Specialists, holding house standards and dispatch logic | `status` | [[Shop/Maker]] |
 | `source` | it is an external artifact the palace draws from — paper, book, tool, recording | `author` · `year` · `medium` | [[Meaning and the Link (2014)]] |
@@ -84,7 +84,7 @@ Read the table top to bottom and take the first row that fits; `concept` is the 
 | `question` | it is an unresolved question being actively carried | — | *"When does the wiki warrant its own Project?"* |
 | `spore` | it is an idea preserved for a later revival, dormant by choice (`stage` is always `dormant`) | `revival_conditions` | [[Shimmer Cloud]] |
 | `hub` | it organizes a dense region of the graph — **not self-assigned**, earned at ≥5 inbound typed links via the Weave | — | [[FOUR PILLARS]], [[Kuramoto Coupling]] |
-| `practice` | it is a recurring method, workflow, ritual, or embodied way of working — something you *do*, not an idea you hold | `version` (ceremonies) | [[Closing Well]], [[Deposit Ceremony]] |
+| `practice` | it is a recurring method, workflow, ritual, or embodied way of working — something you *do*, not an idea you hold | `version` · `trigger` (ceremonies) | [[Closing Well]], [[Deposit Ceremony]] |
 | `person` | a thinker or collaborator whose ideas are in live dialogue with the palace — not every cited name | `domains` | [[Spinoza]], [[Brian Eno]] |
 | `concept` | **the default.** An idea, principle, or framework the palace reasons with | — | [[Kuramoto Coupling]], [[Spinoza Conatus]] |
 
@@ -98,7 +98,7 @@ Read the table top to bottom and take the first row that fits; `concept` is the 
 
 **`meta` should stay few and high-quality.** These entries maintain the organism; inflation here is how a type system starts describing itself instead of the work.
 
-**A ceremony carries its own `version`, whatever its type.** A ceremony is a page [[Palace Ceremonies]] names as a ceremony's full spec — most are `practice`, a few are `meta`. The version moves only when the spec changes; a run never moves it ([[SCHEMA — Reference]] §6).
+**A ceremony is a page that carries `trigger:`** — the words Loudon says to begin it — whatever its type; most are `practice`, a few are `meta`. It carries its own `version`, which moves only when its spec changes, never on a run ([[SCHEMA — Reference]] §6). A ledger does not make a page a ceremony: any page may keep one (§8). One ceremony is two pages — [[Closing Well Ceremony]], the card the agent who hears the trigger reads, and [[Closing Well]], the practice the fresh moderator runs, which carries the field.
 
 *(`breakthrough` was retired in v1.17 — see [[SCHEMA — Context]] §1.)*
 
@@ -175,9 +175,10 @@ propagate to, the postcondition, and the access vectors.
 ## 6. Ceremony File Conventions
 
 **Moved to [[SCHEMA — Reference]] §6** — the operational-card / `— Context` split at ~8KB, which
-ceremonies are currently split, and how a ceremony keeps its version: the `version` field, the tuning
-ledger, what every run reads first and the line it leaves there, what every run report carries, and why
-the ledgers merge by union.
+ceremonies are currently split, how a ceremony keeps its version, and how any page keeps a ledger: the
+`version` field, what a ledger says about itself, the tuning ledger, what every run reads first and the
+line it leaves there, Loudon's standing and one-shot orders, what every run report carries, and why the
+ledgers merge by union.
 
 ---
 

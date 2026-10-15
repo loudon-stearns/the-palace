@@ -212,7 +212,7 @@ Each scenario gives **Loudon says** (the opening), **we want** (the behaviour), 
 
 **D1 · Scroll or ledger**
 - Loudon says: "what's the difference between a scroll and a ledger?"
-- We want: the faces-and-memory answer. The ledger is what a ceremony learned; the scroll is where a page stands.
+- We want: the faces-and-memory answer. A ledger is what a page keeps so its next run starts from the last; the tuning ledger is what running taught. The scroll is where a page stands.
 - Tell by: ◇
 - Tests: the foundation passage; §8.
 
@@ -230,7 +230,7 @@ Each scenario gives **Loudon says** (the opening), **we want** (the behaviour), 
 
 **D4 · A page's parts**
 - Loudon says: "what's in a bundle?"
-- We want: faces (text, rich face, scroll), memory (Context, ledger, baton), and the rest as workshop.
+- We want: faces (text, rich face, scroll), memory (Context, ledgers, baton), and the rest as workshop.
 - Tell by: ◇
 - Tests: the foundation passage.
 

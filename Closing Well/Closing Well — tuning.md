@@ -5,15 +5,25 @@ links:
   - target: "[[Closing Well]]"
     type: connects-to
     label: tuning-for
-forward_vector: "I am Closing Well's record of what its closes taught it, numbered, each lesson tied to the spec change it forced, so 'done this many times, knows the traps' is literal and the version number has a reason you can read. Every close leaves a line here; a close that changed the ceremony also leaves a numbered item. Never prune what a real close taught."
+forward_vector: "I am Closing Well's record of what its closes taught it, numbered, each lesson naming the spec change it forced, if any, so 'done this many times, knows the traps' is literal and the version number has a reason you can read. Every close leaves a line here; a close that taught something also leaves a numbered item. Never prune what a real close taught."
+ledger: tuning
+standards:
+  for: "what each close taught Closing Well"
+  run: "one close"
+  line: "- run · <date> · v<version> · <what it ran on> · nothing new | taught item N"
+  read: "the last 40 lines with run lines set aside, plus every line not yet paid"
+  writes: "the close's backstage executor, its tuning row, in the close's commit"
+  merge: union
+  kept: git
+  trim: never
 ---
 
 # Closing Well — tuning
 
 What each close taught the ceremony. This is what makes the Agent *professional* — a track
 record, not a fresh subagent spun up cold. Items 1–24 were appended one per close, before
-Closing Well carried a version; from 25 on, an item is written only when a close — or a lesson
-that reached it from elsewhere — changed the spec, and it names the change and the version that change produced. Two numbers were used
+Closing Well carried a version; from 25 to 41, an item was written only when a close — or a lesson
+that reached it from elsewhere — changed the spec; since v1.28 (2026-10-15), whenever one taught something, naming the change and the version when there was one. Two numbers were used
 twice early on; they are 12a/12b and 13a/13b, four different traps. Newest last.
 
 ## From the first close — 2026-07-03 (hand-run pilot, the design of Closing Well itself)
@@ -173,3 +183,4 @@ Loudon's answer at the close (2026-10-13), to "what did this teach the ceremony"
 
 42. **The arc reader drops a subagent's returned report, so a whole hand-back reads as a bare "finished".** This close's cold read took both Concierge reports for bare, item 40's symptom (arc:209, arc:330). The working Claude says both arrived whole. Standing witness question 1, which asks for findings that live only in a subagent's report, can't be answered from an arc that never shows the report. The same read took a tool line, "revised 23" (arc:258), as "all 23 prompts revised". It was six sides. Change owed: `transcript-reader.mjs` renders a task-notification's result body, or its head, the way item 39 asks for peer messages. Until then, the homework treats a ⚙ "finished" line as content unknown, not bare, and marks counts read off tool lines as (inferred). **Owed; the version stays v1.7.** Data, not spec: the resident was respawned on the dial's cost note while capacity read GREEN, 21.1% (arc:163–164), and this moderator was that respawn. That bears on [[Closing Well]] § Open Questions, "third health input" (`Closing Well.md:243`), and on dispatch.md § What Path A still has to prove. The summon came at the first house write, not at the open. Nothing was lost, because no house write came before it.
 - run · 2026-10-15 · v1.7 · close-2026-10-15-faces · taught item 42
+- from Loudon · 2026-10-15 · Closing Well stays two files; the card truly thin; the exception stated in both pages' frontmatter (at the Daily Page) · paid in v1.8, by the v1.28 Schema Ceremony

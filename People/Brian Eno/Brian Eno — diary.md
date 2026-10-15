@@ -1,14 +1,24 @@
 ---
-title: "Brian Eno — context"
+title: "Brian Eno — diary"
 born: 2026-07-02
 links:
   - target: "[[Brian Eno]]"
     type: connects-to
-    label: memory-of
+    label: diary-of
 forward_vector: "I am Brian Eno's own memory — the first-person record of the encounters he has been through, kept so that when he is cast again he arrives remembering. I hold what he said, what he privately thought, and what others said aloud to him; I never hold what anyone else privately thought, because he was never given that. I grow one encounter at a time, and it is from me — not from a single afternoon — that his self-edits are eventually earned."
+ledger: diary
+standards:
+  for: "Brian Eno's own memory: the first-person record of the encounters he has lived, so he wakes remembering"
+  run: "one encounter: a waking that met someone"
+  line: "## Encounter N — <what it was> · <date>, then his standing, inner and outer, and what others said aloud to him"
+  read: "whole, at each waking; Palace Enchantment loads it"
+  writes: "the coordinator, at the encounter's close, in the citizen's own first-person words; never revised, never rebuilt from a transcript"
+  merge: union
+  kept: git
+  trim: never
 ---
 
-# Brian Eno — context
+# Brian Eno — diary
 
 Eno's retained memory. Loaded when he is re-cast (a Dialectic, an Excellent Adventure, a lens) so he does not wake blank.
 

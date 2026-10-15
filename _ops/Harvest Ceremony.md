@@ -7,6 +7,7 @@ pillars:
 born: 2026-03
 stage: mature
 version: "1.1"
+trigger: ["harvest", "let's harvest"]
 links:
   - target: "[[Deposit Ceremony]]"
     type: spawned

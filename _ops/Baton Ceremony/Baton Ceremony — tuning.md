@@ -5,12 +5,22 @@ links:
   - target: "[[Baton Ceremony]]"
     type: connects-to
     label: tuning-for
-forward_vector: "I am the Baton's record of what each run taught it, numbered, each lesson tied to the spec change it forced, so the ceremony's version has a reason you can read. Every run leaves a line here; a run that changed the ceremony also leaves a numbered item. Never prune what a real run taught."
+forward_vector: "I am the Baton's record of what each run taught it, numbered, each lesson naming the spec change it forced, if any, so the ceremony's version has a reason you can read. Every run leaves a line here; a run that taught something also leaves a numbered item. Never prune what a real run taught."
+ledger: tuning
+standards:
+  for: "what each baton taught the Baton Ceremony"
+  run: "one baton passed"
+  line: "- run · <date> · v<version> · <what it ran on> · nothing new | taught item N"
+  read: "the last 40 lines with run lines set aside, plus every line not yet paid"
+  writes: "the run itself, in the commit that records it"
+  merge: union
+  kept: git
+  trim: never
 ---
 
 # Baton Ceremony — tuning
 
-What each baton taught the ceremony. Each item names what the run showed and the spec change it forced, or says **owed** when the change hasn't landed. Newest last. Hashes are commits to `_ops/Baton Ceremony.md` unless noted. The number moves when the procedure does — a step, the footer, a completion signal — never for prose; why v1.0 starts where it does is in [[Baton Ceremony — Context]] § The Version and the Tuning File.
+What each baton taught the ceremony. Each item names what the run showed and the spec change it forced, if any, or says **owed** when a change hasn't landed. Newest last. Hashes are commits to `_ops/Baton Ceremony.md` unless noted. The number moves when the procedure does — a step, the footer, a completion signal — never for prose; why v1.0 starts where it does is in [[Baton Ceremony — Context]] § The Version and the Tuning File.
 
 ## From the first batons — 2026-06-09
 

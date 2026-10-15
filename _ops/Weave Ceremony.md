@@ -5,6 +5,7 @@ pillars: [practice, tools, philosophy]
 born: 2026-03
 stage: mature
 version: "1.5"
+trigger: ["weave", "let's weave"]
 links:
   - target: "[[Palace Ceremonies]]"
     type: connects-to

@@ -5,12 +5,22 @@ links:
   - target: "[[Weave Ceremony]]"
     type: connects-to
     label: tuning-for
-forward_vector: "I am the Weave's record of what each run taught it, numbered, each lesson tied to the spec change it forced, so the ceremony's version number has a reason you can read. Append after every run; never prune what a real run taught."
+forward_vector: "I am the Weave's record of what each run taught it, numbered, each lesson naming the spec change it forced, if any, so the ceremony's version number has a reason you can read. Append after every run; never prune what a real run taught."
+ledger: tuning
+standards:
+  for: "what each weave taught the Weave"
+  run: "one weave"
+  line: "- run · <date> · v<version> · <what it ran on> · nothing new | taught item N"
+  read: "the last 40 lines with run lines set aside, plus every line not yet paid"
+  writes: "the run itself, in the commit that records it"
+  merge: union
+  kept: git
+  trim: never
 ---
 
 # Weave Ceremony — tuning
 
-What each weave taught the ceremony, appended after the run. Each entry names the trap, where it came from, and the spec change it forced — or says plainly that none has landed yet. Newest last. Hashes are commits to `_ops/Weave Ceremony.md` unless noted.
+What each weave taught the ceremony, appended after the run. Each entry names the trap, where it came from, and the spec change it forced, if any — or says plainly that none has landed yet. Newest last. Hashes are commits to `_ops/Weave Ceremony.md` unless noted.
 
 ## From the 2026-03-30 weave
 

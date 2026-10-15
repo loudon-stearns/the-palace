@@ -4,7 +4,8 @@ type: practice
 pillars: [practice, philosophy]
 born: 2026-03
 stage: mature
-version: "1.2"
+version: "1.3"
+trigger: ["walk", "let's walk"]
 links:
   - target: "[[Palace Ceremonies]]"
     type: connects-to
@@ -35,7 +36,7 @@ links:
 2. What the path turned up has been named honestly — a connection, a tension, or nothing. **A walk that surfaced nothing is complete.** Requiring a surprise guarantees one gets manufactured; the postcondition is the honest look-back, not the find.
 3. Any proposed metadata updates (stage changes, new links) have been shown to Loudon
 4. If metadata was updated: git commit made — `Walk — [date] — [starting entry] — metadata updates`
-5. If no metadata changed: no commit required — the Walk leaves a trace in conversation, not necessarily in files
+5. If no metadata changed: the run line is the walk's only commit
 
 **Failure mode:** If the palace is partially readable (some files inaccessible), note which entries were unreachable and proceed with what is available. A partial Walk is valid. An unstarted Walk is not — if nothing is readable, halt and report.
 

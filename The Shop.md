@@ -92,7 +92,7 @@ This is a working hypothesis, not a verdict. The full question — including axe
 
 A Specialist entry holds: **Charter** (in voice — what they make and refuse), **Voice** (the enchantment), **Capabilities**, **Strengths**, **Limits**, **Tiers** (with parameters / time / output / sacrifices per tier), **Job Contract** (input/output spec for the Maker to dispatch against), **Iteration Character** (one-shot vs. iterative vs. seed-locked), **Self-Check** (what the Specialist verifies before declaring done), **Resource Footprint** (CPU/RAM/GPU/disk/network/credits), **Gotchas** (append-only, dated), **Recipes** (working examples), **Test Suite** (link to a test plan and last run), and palace closers.
 
-The structural innovation is that **gotchas accumulate in the entry, not in any single conversation**. The first time we discover that Kokoro mispronounces "RNBO," that knowledge becomes part of the Kokoro entry forever. Every subsequent invocation benefits. The Specialist is the persistent memory the conversations don't have.
+The structural innovation is that **gotchas accumulate in the entry, not in any single conversation**. The first time we discover that Kokoro mispronounces "RNBO," that knowledge becomes part of the Kokoro entry forever. Every subsequent invocation benefits. The Specialist is the persistent memory the conversations don't have. The entry states today's gotchas; when they outgrow it, a tuning ledger in its bundle holds their history ([[SCHEMA — Reference]] §6).
 
 ## Origin
 

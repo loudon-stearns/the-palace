@@ -8,6 +8,7 @@ pillars:
 born: 2026-03
 stage: mature
 version: "1.2"
+trigger: ["self-model update"]
 links:
   - target: "[[Palace Ceremonies]]"
     type: connects-to

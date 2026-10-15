@@ -26,7 +26,7 @@ node "/Users/loudonstearns/Documents/The Palace/_ops/daily-page/wake.mjs" "<Entr
 
 The verdicts are `keep`, `trim`, `tune`, `fold`, `compost`, `revive` and `open`. A fold needs `--into`, and the dealer refuses one without it. `revive` is for a page that is dormant or composting. If the main checkout is off `main`, a deal or a `--sat` refuses and says why; tell Loudon and stop.
 
-The dealer still accepts `--feel`, and the practice no longer passes it. `visits.jsonl` is tracked, and Loudon's own words stay in the page's ledger, which is kept off git.
+The dealer still accepts `--feel`, and the practice no longer passes it. `visits.jsonl` is tracked, and Loudon's own words stay in the page's diary, which is kept off git.
 
 ## The scheduled task
 
@@ -34,4 +34,4 @@ The task's model is set only in its Edit form in the app (Code tab → Routines 
 
 ## The record
 
-A morning leaves two records. Its commit holds what it changed in the palace. [[The Daily Page — tuning]] holds what it showed about Loudon; that ledger and its scroll are kept off git and live only in the main checkout (`_ops/The Daily Page/.gitignore` says why). The trial's one hand-kept morning is in the page's bundle, under `Archive/`.
+A morning leaves two records. Its commit holds what it changed in the palace. [[The Daily Page — tuning]] holds what it taught the practice, in git; what it showed about Loudon is in the page's diary, which with the scroll is kept off git and lives only in the main checkout (`_ops/The Daily Page/.gitignore` says why). The trial's one hand-kept morning is in the page's bundle, under `Archive/`.

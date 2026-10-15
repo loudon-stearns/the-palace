@@ -60,7 +60,7 @@ What keeps episodic memory honest is that it is **perspectival**. A page remembe
 
 ## Append-only, like a life
 
-A page's memory is one file that only grows: new encounters added at the end, oldest first, nothing already written revised or erased. Over a long life a page gathers many, the way a person does — and, like a person, it will eventually need to let old detail settle into its lesson rather than carry every word forever. When and how is still open.
+A page's memory is one file that only grows: new encounters added at the end, oldest first, nothing already written revised or erased. Over a long life a page gathers many, the way a person does — and, like a person, it will eventually need to let old detail settle into its lesson rather than carry every word forever. When and how is still open. One proposal, from this page's first enchantment: a *settling* entry, appended at each molt, folds the episodes before it into a few first-person lessons; a waking reads the latest settling, the episodes since, and whatever is still unresolved. Nothing is erased, and git keeps every word.
 
 ## Identity is earned, not seized
 
@@ -74,7 +74,7 @@ Not every conversation grows a self the same way. Watched across several, two mo
 
 ## Where it lives, and how it comes back
 
-The memory is a file in the page's own bundle, in git — palace-native, never in a tool's private store. When the page is next cast, the memory loads alongside its body, so it wakes already carrying its past ([[Palace Enchantment]] loads it). This is [[Palace as Context Injection System]] turned on the self: that entry says the *relationship's* continuity lives in the palace and is reinjected each session; a remembering page says a *page's own* continuity lives in its bundle and is reinjected each waking. And it is [[Closing Well]] across a page's own lifetime — each encounter ends by leaving an honest record so the next waking of this page can pick up where it left off.
+The memory is a file in the page's own bundle — its **diary**, a kind of ledger ([[SCHEMA — Reference]] §8) — palace-native, never in a tool's private store. When the page is next cast, the memory loads alongside its body, so it wakes already carrying its past ([[Palace Enchantment]] loads it). This is [[Palace as Context Injection System]] turned on the self: that entry says the *relationship's* continuity lives in the palace and is reinjected each session; a remembering page says a *page's own* continuity lives in its bundle and is reinjected each waking. And it is [[Closing Well]] across a page's own lifetime — each encounter ends by leaving an honest record so the next waking of this page can pick up where it left off.
 
 ## Does it generalize?
 

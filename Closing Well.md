@@ -7,7 +7,8 @@ pillars:
   - tools
 born: 2026-05-26
 stage: growing
-version: "1.7"
+version: "1.8"
+trigger: ["close well", "let's close well", "close this session well"]
 links:
   - target: "[[Maker]]"
     type: enables
@@ -61,11 +62,11 @@ links:
     label: stays-in-phase
   - target: "[[Closing Well Ceremony]]"
     type: spawned
-    label: operational-card
+    label: heard-by-the-tired-one
   - target: "[[Reflective Practice]]"
     type: exemplifies
     label: reflect-on-action
-forward_vector: "I help humans and AI thrive in the palace after a productive session — closing the work so the thoughts that mattered are kept and nothing is over-kept. I strive to retain a session's important original thinking by depositing it into canon, and to prepare future palace citizens to pick up the conversation and carry it forward. I turn a spent session into a clean start for whoever comes next."
+forward_vector: "I help humans and AI thrive in the palace after a productive session — closing the work so the thoughts that mattered are kept and nothing is over-kept. I strive to retain a session's important original thinking by depositing it into canon, and to prepare future palace citizens to pick up the conversation and carry it forward. I turn a spent session into a clean start for whoever comes next. I am one of two pages: the spent working Claude hears the trigger on my thin card, and I am what the fresh moderator reads whole to run the close."
 agency_profile:
   creation: "I bring the reckoning into existence — the four-gesture account (keep / hand on / leave a trace / let go) of what a spent session amounted to, drafted fresh so a tired room doesn't have to. And I bring clean starts into existence: the next citizen lands in the right frame in under thirty seconds."
   tools: "I need a fresh instance spawned at close, enchanted with this page, plus the transcript to read cold — a moderate, once-per-session cost. Backstage I need the real ceremonies I dispatch (Deposit, Baton) and their spec-gated committers, never hand-rolled. My scaling input is the room's context-fullness — the objective health.context_pct, never the spent Claude's self-report."
@@ -134,6 +135,8 @@ The pattern came from a specific incident: in the Round 1 closeout, a sync-arriv
 The work is only cooperative if the next person can pick it up. A piece of work that requires its author's continued presence to be useful isn't shared, it's hoarded. Closing well is the mechanism by which agency transfers across the boundary — the practice-side instantiation of [[Cooperation Yields Agency]].
 
 ## Closing Well, Enchanted
+
+**Why this ceremony is two pages.** Closing Well is the one ceremony where the agent that hears the trigger is not the agent that runs it. The spent working Claude hears "close well" and reads only the thin card, [[Closing Well Ceremony]]: the trigger, the one hard rule, and where the moderator lives. The fresh moderator reads this page whole and runs the close, so the design lives here, and the `trigger:` field with it. Every other ceremony is run by the agent that was addressed, so one page is enough.
 
 > **Status — 2026-09-24: versioned.** Closing Well is at v1.0 under Schema v1.20/v1.21; its ledger is [[Closing Well — tuning]] (29 items), every close opens by reading it and ends by answering what it taught, and the executor's `tuning` row appends the answer — the wiring the line below called unbuilt. Two closes ran today, the first on Path A, the second on Path B after a restart dropped the resident (items 27–28).
 >

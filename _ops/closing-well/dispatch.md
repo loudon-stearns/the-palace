@@ -66,7 +66,7 @@ so it cannot tell where the first close ended. Put the start line of the second 
 brief as prose. A lesson with no tool change yet (tuning item 29).
 
 > **Neither path is ever "the working Claude closes its own session."** That is the one
-> disqualified option ([[Closing Well Ceremony]] § Failure mode), licensed only by the two named
+> disqualified option ([[Closing Well Ceremony]] § The one hard rule), licensed only by the two named
 > exceptions: a rewound/garbled transcript the cold reader can't parse, or an outage that blocks
 > the dispatch *after* Pass 1's cold read already ran.
 

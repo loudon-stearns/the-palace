@@ -7,6 +7,7 @@ pillars:
 born: 2026-03
 stage: growing
 version: "2.5"
+trigger: ["map build", "build the map"]
 links:
   - target: "[[Palace Ceremonies]]"
     type: connects-to
