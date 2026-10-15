@@ -41,7 +41,7 @@ const LAST = join(here, 'last-batch.json');
 const log = (line) => process.stdout.write(`${new Date().toISOString().slice(11, 19)} ${line}\n`);
 
 function readLimits() {
-  const defaults = { max_stewards_per_batch: 4, max_cycles_per_steward: 2, max_minutes: 60, max_usd: 15, debounce_hours: 12 };
+  const defaults = { max_stewards_per_batch: 4, max_cycles_per_steward: 2, max_cycle_minutes: 25, max_minutes: 60, max_usd: 15, debounce_hours: 12 };
   try { return { ...defaults, ...JSON.parse(readFileSync(join(here, 'limits.json'), 'utf8')) }; } catch { return defaults; }
 }
 
@@ -79,7 +79,7 @@ function readLastCycle() {
 async function main() {
   const limits = readLimits();
   const started = new Date();
-  log(`heartbeat batch — limits: ${limits.max_stewards_per_batch} stewards · ${limits.max_cycles_per_steward} cycles each · ${limits.max_minutes} min · $${limits.max_usd} · debounce ${limits.debounce_hours} h`);
+  log(`heartbeat batch — limits: ${limits.max_stewards_per_batch} stewards · ${limits.max_cycles_per_steward} cycles each · ${limits.max_cycle_minutes} min per cycle · ${limits.max_minutes} min · $${limits.max_usd} · debounce ${limits.debounce_hours} h`);
   const { due } = plan(limits);
   const names = due.slice(0, limits.max_stewards_per_batch).map((d) => d.agent);
   log(`due: ${due.length} (${due.map((d) => d.agent).join(', ') || 'none'})`);
@@ -91,7 +91,7 @@ async function main() {
   const before = await status();
   if (before.running) { log(`the lane is busy (${before.current}) — not firing; try again next morning`); record.stopped_because = 'lane_busy'; record.ended = new Date().toISOString(); writeFileSync(LAST, JSON.stringify(record, null, 2) + '\n'); return; }
 
-  const r = await fetch(`${APP}/api/stewards/advance-all`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ names, max_cycles: limits.max_cycles_per_steward, max_minutes: limits.max_minutes, max_usd: limits.max_usd, source: 'heartbeat' }) });
+  const r = await fetch(`${APP}/api/stewards/advance-all`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ names, max_cycles: limits.max_cycles_per_steward, max_cycle_minutes: limits.max_cycle_minutes, max_minutes: limits.max_minutes, max_usd: limits.max_usd, source: 'heartbeat' }) });
   const fired = await r.json().catch(() => ({}));
   if (!r.ok || !fired.ok) { log(`advance-all refused: ${fired.msg || fired.error || r.status}`); record.stopped_because = 'refused'; record.ended = new Date().toISOString(); writeFileSync(LAST, JSON.stringify(record, null, 2) + '\n'); process.exitCode = 1; return; }
   log(`lane: ${fired.current} fired; ${(fired.queue || []).length} queued`);

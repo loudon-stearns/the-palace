@@ -153,6 +153,11 @@ export function stewardRow({ entry, state, manifest, board, palaceRoot }) {
  * `stopping_conditions.max_iterations`, else 1. (`max_iterations` was validated
  * but never enforced before 2026-09-23; the run gives it its meaning.)
  */
+// A single cycle that runs longer than this is stopped by the watchdog, batch
+// or no batch: the longest honest cycle seen so far was 37 minutes (Waveguide,
+// 2026-10-13); 91 minutes was a stall. Overridable per batch (max_cycle_minutes).
+export const DEFAULT_CYCLE_CEILING_MIN = 45;
+
 export function runCapFor(manifest, override = null) {
   if (Number.isInteger(override) && override > 0) return override;
   const m = manifest && manifest.stopping_conditions && manifest.stopping_conditions.max_iterations;
@@ -267,6 +272,38 @@ export function createStewardLane(opts = {}) {
       return typeof r.total_cost_usd === 'number' ? r.total_cost_usd : null;
     } catch (_) { return null; }
   }
+  // The watchdog (2026-10-15): the clock used to be checked only at a reap, so
+  // one slow cycle ran 91 minutes under a 60-minute limit (the first heartbeat
+  // under limits — Semantic Webcam, 20 turns in 87 minutes, API-bound). Now a
+  // timer looks every 30 s while a worker is alive and sends it SIGTERM when
+  // the batch clock or the per-cycle ceiling is passed; the reap then counts
+  // the cycle as interrupted and limitHit drops the queue as before.
+  let watchdog = null;
+  let cycleStarted = null;
+  let cycleCeilingMin = null;  // per-cycle ceiling for the live fire, minutes (null = none)
+  function cycleOverrun() {
+    const now = Date.now();
+    const L = batch.limits;
+    if (L && Number.isFinite(L.max_minutes) && L.max_minutes > 0 && batch.started && (now - batch.started) / 60000 >= L.max_minutes) return `batch clock: ${Math.round((now - batch.started) / 60000)} of ${L.max_minutes} min`;
+    if (Number.isFinite(cycleCeilingMin) && cycleCeilingMin > 0 && cycleStarted && (now - cycleStarted) / 60000 >= cycleCeilingMin) return `cycle ceiling: ${Math.round((now - cycleStarted) / 60000)} of ${cycleCeilingMin} min`;
+    return null;
+  }
+  function startWatchdog() {
+    stopWatchdog();
+    watchdog = setInterval(() => {
+      const why = cycleOverrun();
+      if (!why) return;
+      const alive = actuator.isAlive();
+      if (!alive.running || !alive.pid) { stopWatchdog(); return; }
+      logLine(`watchdog — ${why}: stopping ${current || 'the live worker'} (pid ${alive.pid})`);
+      if (!batch.stopped_because) batch.stopped_because = why;
+      try { process.kill(alive.pid, 'SIGTERM'); } catch (_) { /* already gone */ }
+      stopWatchdog();
+    }, 30000);
+    if (typeof watchdog.unref === 'function') watchdog.unref();
+  }
+  function stopWatchdog() { if (watchdog) { clearInterval(watchdog); watchdog = null; } }
+
   // Which batch limit, if any, is now exceeded. Checked after every reap.
   function limitHit() {
     const L = batch.limits;
@@ -308,6 +345,7 @@ export function createStewardLane(opts = {}) {
   // The reap: runs in the worker's exit handler (after pid cleanup). Wrapped so
   // a throw can never escape into the exit handler -- that would crash Vite.
   function reap(ctx) {
+    stopWatchdog();
     const meta = ctx && ctx.meta;
     const run = (meta && meta.run) || { cap: 1, position: 1, retried: false };
     // A live run honours a cap lowered mid-run (2026-10-13): re-read the
@@ -478,6 +516,7 @@ export function createStewardLane(opts = {}) {
     });
     current = r.fired ? name : null;
     currentRun = r.fired ? { name, ...thisRun, cycle_n: cycleN } : null;
+    if (r.fired) { cycleStarted = Date.now(); startWatchdog(); } else { cycleStarted = null; }
     currentTranscript = r.fired ? transcriptPath : null;
     return { ok: !!r.fired, fired: !!r.fired, found: true, msg: r.msg, name, cycle_n: cycleN, model, run: thisRun };
   }
@@ -556,6 +595,7 @@ export function createStewardLane(opts = {}) {
     // Not part of a batch: clear batch state so status() reads cleanly.
     queue = [];
     batch = freshBatch(0);
+    cycleCeilingMin = DEFAULT_CYCLE_CEILING_MIN;
     pendingCapOverride = Number.isInteger(maxCycles) && maxCycles > 0 ? maxCycles : null;
     return fireOne(name);
   }
@@ -575,7 +615,7 @@ export function createStewardLane(opts = {}) {
    * worker alive, the targets join the queue behind it instead of being refused;
    * `queued` then lists only the ones newly added.
    */
-  function advanceAll({ names, maxCycles, maxMinutes, maxUsd, source } = {}) {
+  function advanceAll({ names, maxCycles, maxMinutes, maxUsd, maxCycleMinutes, source } = {}) {
     const targets = Array.isArray(names) && names.length ? names.slice() : readyNames();
     if (actuator.isAlive().running) {
       const added = enqueue(targets);
@@ -585,9 +625,10 @@ export function createStewardLane(opts = {}) {
       return { ok: true, queued: [], msg: 'no stewards have grants waiting', ...status() };
     }
     queue = targets.slice();
-    const limits = (Number.isFinite(maxMinutes) && maxMinutes > 0) || (Number.isFinite(maxUsd) && maxUsd > 0)
-      ? { max_minutes: Number.isFinite(maxMinutes) && maxMinutes > 0 ? maxMinutes : null, max_usd: Number.isFinite(maxUsd) && maxUsd > 0 ? maxUsd : null, max_cycles: Number.isInteger(maxCycles) && maxCycles > 0 ? maxCycles : null }
+    const limits = (Number.isFinite(maxMinutes) && maxMinutes > 0) || (Number.isFinite(maxUsd) && maxUsd > 0) || (Number.isFinite(maxCycleMinutes) && maxCycleMinutes > 0)
+      ? { max_minutes: Number.isFinite(maxMinutes) && maxMinutes > 0 ? maxMinutes : null, max_usd: Number.isFinite(maxUsd) && maxUsd > 0 ? maxUsd : null, max_cycles: Number.isInteger(maxCycles) && maxCycles > 0 ? maxCycles : null, max_cycle_minutes: Number.isFinite(maxCycleMinutes) && maxCycleMinutes > 0 ? maxCycleMinutes : null }
       : null;
+    cycleCeilingMin = limits && limits.max_cycle_minutes ? limits.max_cycle_minutes : DEFAULT_CYCLE_CEILING_MIN;
     batch = freshBatch(targets.length, { source: typeof source === 'string' && source ? source : null, limits });
     pendingCapOverride = Number.isInteger(maxCycles) && maxCycles > 0 ? maxCycles : null;
     const first = queue.shift();
@@ -604,6 +645,8 @@ export function createStewardLane(opts = {}) {
       current,
       current_run: currentRun,
       current_transcript: a.running ? currentTranscript : null,
+      cycle_minutes: a.running && cycleStarted ? Math.round((Date.now() - cycleStarted) / 600) / 100 : null,
+      cycle_ceiling_minutes: cycleCeilingMin,
       queue: queue.slice(),
       batch: { total: batch.total, done: batch.done, remaining: queue.length, usd: Math.round(batch.usd * 100) / 100, started: batch.started ? new Date(batch.started).toISOString() : null, source: batch.source, limits: batch.limits, stopped_because: batch.stopped_because },
       last_cycle: readLastCycle(),

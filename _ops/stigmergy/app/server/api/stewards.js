@@ -92,7 +92,8 @@ export async function stewardsRoutes(ctx) {
     const maxMinutes = Number.isFinite(body.max_minutes) && body.max_minutes > 0 ? body.max_minutes : undefined;
     const maxUsd = Number.isFinite(body.max_usd) && body.max_usd > 0 ? body.max_usd : undefined;
     const source = typeof body.source === 'string' ? body.source.slice(0, 40) : undefined;
-    const result = stewardLane.advanceAll({ names, maxCycles, maxMinutes, maxUsd, source });
+    const maxCycleMinutes = Number.isFinite(body.max_cycle_minutes) && body.max_cycle_minutes > 0 ? body.max_cycle_minutes : undefined;
+    const result = stewardLane.advanceAll({ names, maxCycles, maxMinutes, maxUsd, maxCycleMinutes, source });
     if (!result.ok && result.busy) {
       jsonResponse(res, 409, { ...result });
       return true;

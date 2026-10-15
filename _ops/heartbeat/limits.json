@@ -1,7 +1,8 @@
 {
-  "_": "The heartbeat's limits (2026-10-14; Loudon: 'this was way too much'). Edit by hand; batch.mjs reads this at every run. A run ends when ANY limit is reached; what was not fired stays due for the next morning.",
+  "_": "The heartbeat's limits (2026-10-14; Loudon: 'this was way too much'). Edit by hand; batch.mjs reads this at every run. A run ends when ANY limit is reached; what was not fired stays due for the next morning. max_cycle_minutes (2026-10-15): one cycle running longer than this is stopped by the lane's watchdog.",
   "max_stewards_per_batch": 4,
   "max_cycles_per_steward": 2,
+  "max_cycle_minutes": 25,
   "max_minutes": 60,
   "max_usd": 15,
   "debounce_hours": 12,
