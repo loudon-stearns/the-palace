@@ -15,20 +15,20 @@ forward_vector: "I am Semantic Webcam's scroll — the one page that always open
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-15T12:01:01.569Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-15T12:04:23.505Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 9 · last ran 2026-10-15 (today)
+- **Status:** active · **Stage:** growing · **Steward:** cycle 10 · last ran 2026-10-15 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-15 (today) — Semantic Webcam has never had a plan. Adopt this four-step one: measure tonal language, make the words react, then a demo? (`semantic-webcam-014`)
-- **Last commit touching this project:** 2026-10-15 `f6d6f9e2` — steward(Semantic Webcam): cycle 8 — machinery and scroll
+- **Last shipped:** 2026-10-15 (today) — Card 08, the Tonal Bench, measures it: picking words by ink makes each line's ink follow your brightness, though cell by cell the effect is faint. (`semantic-webcam-015`)
+- **Last commit touching this project:** 2026-10-15 `8edf4a55` — steward(Semantic Webcam): cycle 9 — SPINNING UP. HOME: [Semantic Webcam](obsidian://open?vault=The%20Palace…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-Semantic Webcam is a live camera that draws you in typeset language: brightness picks the character in each cell, and whole words fill the mid-tones. It has grown one facet at a time, and the seven facets are collected in one deck. In June you picked EYES-AND-FINGERS: bring back the parked word-flock cam (card 02), but find the real face and hands instead of guessing from motion. This cycle shipped that as card 06, then went one step further with card 07, which joins it to the tonal word cam (card 05). The picture is still the tonal picture. What changed is that each line of words now checks which part of you it sits on and takes its sentence from that part's own text. Your eyes are written…
+Semantic Webcam is a live camera that draws you in typeset words. Brightness picks the character in each cell, and whole words fill your mid-tones. It has grown one facet at a time, and the cards are collected in one deck. Card 05 picks each word by how much ink it carries. Card 07 gives your eyes, mouth and hands their own texts. The page has always carried one question: is language a tonal medium, or did it only feel that way? Last cycle I proposed a short plan. Its first step was to measure that instead of trusting a feeling, and this cycle did it. Card 08 runs card 05's own word-choosing code on a still photo, three ways, and scores how closely the words' weight follows the light. Short…
 
 ### Open asks
 
@@ -59,6 +59,40 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="semantic-webcam-015" -->
+### 2026-10-15 — cycle 10 — Card 08, the Tonal Bench, measures it: picking words by ink makes each line's ink follow your brightness, though cell by cell the effect is faint.
+> shipped · the page's question now has numbers · steward leans raise tone bias to 0.85
+
+What I built: [08-tonal-bench.html](obsidian://open?vault=The%20Palace&file=Projects/Semantic%20Webcam/08-tonal-bench.html) runs without a camera. It takes card 05's word-choosing code unchanged and feeds it a still: the public-domain Grace Hopper portrait, plus a synthetic pattern of soft waves. Each still goes through three versions. Grammar uses the word-pair walk alone. Tonal is the same walk, but among the candidate words it picks the one whose ink best matches the brightness. The control is the tonal walk aimed at a random brightness. It keeps everything tonal does except the link to the actual light, so it rules out the gain coming from word length or some side effect of choosing among candidates. I ran four texts and twelve seeds, so each number is a mean over 48 renders.
+
+What I measured: line match is the correlation between each run of words' mean ink and that run's brightness. Patch match is the same correlation cell by cell after a small blur, which is closer to what the eye sees.
+
+The answer: on the portrait, line match goes from +0.02 (grammar) to +0.49 (tonal), and the control sits at +0.00. The waves give the same pattern (−0.07 / +0.43 / −0.00). So the effect is real, and the light is what causes it. But patch match only rises from +0.04 to +0.17. A word is a wide brush. It can hold the brightness of a line, but not of a few letters. You can see this in the proof image: the grammar and tonal frames look almost the same, because the glyph tiers (dot, dash, word, shade, white tile) do most of the drawing. Words only nudge the mid-tones.
+
+A useful side result: sweeping the tone bias (how hard tonal fit overrides grammar) gives 0 → +0.10, 0.3 → +0.30, 0.6 (cards 05 and 07 today) → +0.49, 0.85 → +0.57, and 1.0 → +0.58. Moving the default from 0.6 to 0.85 gets most of the remaining effect while still leaving grammar a little say.
+
+I also added card 08 to the deck.
+
+**Artifacts:**
+- [the bench itself: runs in the page, about two seconds, then shows the frames and tables](Projects/Semantic Webcam/08-tonal-bench.html)
+- [the source, grammar, tonal and control frames plus both stills' tables, captured headless](Projects/Semantic Webcam/08-tonal-bench — proof.png)
+- [the deck now has card 08](Projects/Semantic Webcam/semantic-webcam-deck.html)
+
+_Grace Hopper portrait · mean of 48 renders (4 texts × 12 seeds) · mid-tones only_
+| fit | line match | patch match |
+| --- | --- | --- |
+| grammar (word pairs alone) | +0.02 | +0.04 |
+| tonal (words chosen by ink, bias 0.6) | +0.49 | +0.17 |
+| control (tonal, random target) | +0.00 | +0.03 |
+| tonal at bias 0.85 | +0.57 | +0.21 |
+| tonal at bias 1.0 | +0.58 | +0.21 |
+
+_Left rough:_ I measured the effect, not how it reads to a person. Nobody has looked at a grammar and a tonal frame side by side and said whether the difference shows, and to my eye in the proof image it barely does. Ink is each letter's pixel coverage, which is not the same as perceived darkness. I tested only two stills, neither of them you on a live camera. I did not change the bias default in 05 or 07.
+
+_Next moves named:_ Raise the tone bias default in 05 and 07 from 0.6 to 0.85. The bench shows that roughly doubles what's still to gain, up to near the ceiling. · Try to widen the brush: let tonal fit choose letter weight inside a word (case, or a bold/light font pair), and rerun the bench to see whether patch match rises above +0.17. · Then the next step of the proposed plan: make the words react to the face moving. A blink rewrites the line on the eyes, and an open mouth moves the speech line forward. · Offer the finding to Language as a Tonal Medium through an elder: yes at line scale, faint at letter scale.
+<sub>`semantic-webcam-015` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="semantic-webcam-014" -->
 ### 2026-10-15 — cycle 9 — Semantic Webcam has never had a plan. Adopt this four-step one: measure tonal language, make the words react, then a demo?
 > still working · cams 06 and 07 shipped · steward leans adopt
