@@ -42,6 +42,7 @@ On 2026-10-14, in his words or by his yes:
 *As of 2026-10-14, all on main.*
 - The door and the ear, at 48c923ad: one kernel lock every committer holds from its first `git add` to its commit; the ear writes every move of a branch to `.git/palace-ear.jsonl`, marked `door` or `around`.
 - `palace-land` and the heal, at 96248960 (`_ops/stigmergy/app/scripts/palace-land.mjs`, `server/landing.js`). Thirty-two landing tests, and 32 kill-and-heal rounds of a 941-file landing on a full clone of the palace, 14 of them inside git's checkout, all healed.
+- A heal now writes every file whole, the file in flight first, so a heal killed partway never leaves a file missing, at 008ad0df (the review's last verdict; 32 more double-kill rounds on the clone, all clean).
 - `palace-push` and `trunk-state`, at 34771c74. Nothing has been pushed with `palace-push` yet; main is 134 ahead of origin.
 - The words, at 0957bb0e: Worktree Practice's five trunk sentences, the Concierge charter's sentence, Deposit's pointer, Closing Well 1.7, Return 1.2 (and a `trunk` probe in `return-map.mjs`), Weave 1.4.
 - The ear's first day: 5 moves of main by 23:09 UTC, all through the door.
