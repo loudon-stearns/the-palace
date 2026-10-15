@@ -91,7 +91,7 @@ Loudon's answers, taken question by question through the survey's Part B. **Agre
      for: what running the Map Build taught it
      run: one map build
      line: "- run · <date> · v<version> · <what it ran on> · nothing new | taught item N"
-     read: the last 40 lines with run lines set aside, plus every line still owed
+     read: the last 40 lines with run lines set aside, plus every line not yet paid
      writes: the run itself, in the commit that records it
    ```
 5. **A tuning item records what a run taught**, version or not. A page that has a version moves it when a lesson changes how it runs. The Remembering Page's two ideas go in as examples, not rules: a lesson about *how* applies after one run, a lesson about *who* — what the page wants — waits until it recurs; and a "seen again" mark on an item shows a fix that keeps being re-fixed. A Specialist's page keeps today's gotchas; its ledger, once it has one, keeps their history. (Survey Q3, option b; 2026-09-27 open question 5.)
@@ -151,7 +151,7 @@ Loudon asked that these stay visible, not smoothed over. All four were settled o
 3. ~~Settle them with him.~~ Done 2026-10-14: § Decided 2026-10-14.
 4. **Plan how the answers propagate through the palace, with Loudon** (asked 2026-10-14): the canon the Schema Ceremony changes, the code, every existing ledger brought up to decision 4 (its standards stated in its frontmatter), the ceremony field on every ceremony page, and proposals for new ledgers — pages whose bodies carry history a ledger should hold, or whose use a ledger would refine. The plan lives beside this baton as a sketch: [[Palace Ceremonies — sketch — propagation plan]], drafted 2026-10-14 and waiting on Loudon's yes, wave by wave.
 5. Land the canon and code through a Schema Ceremony (SCHEMA — Reference §5), on Loudon's yes to the plan. The survey's Part C is the starting list.
-6. Pilot on pages that aren't ceremonies: the Hero and Avatar Maker (tuning, seeded from the faces lessons above) and Generative Sample Libraries (tuning, from the lesson sections of its `DESIGN.md`) — **only after the code's ceremony test reads `trigger:`**, because on today's code any `— tuning.md` makes its page a ceremony. Brian Eno's and John Cage's diaries move inside the Schema Ceremony itself; the code never looks at diaries. Then the plan's Wave 3b proposals, one at a time.
+6. Pilot on pages that aren't ceremonies: the Hero and Avatar Maker (tuning, seeded from the faces lessons above) and Generative Sample Libraries (tuning, from the lesson sections of its `DESIGN.md`) — **only after the code's ceremony test reads `trigger:`**. On today's code a `— tuning.md` in a bundle makes its page a ceremony (`ceremony-scroll.js:142-151`): it shows in CEREMONIES as "not versioned yet", its Plan is refused and its orders go to the ledger; a stewarded page like GSL is also listed twice and its Now gets two writers. (Checked in the code by the Concierge, 2026-10-14.) Brian Eno's and John Cage's diaries move inside the Schema Ceremony itself; the code never looks at diaries. Then the plan's Wave 3b proposals, one at a time.
 
 ## Calibrations from this session
 - Loudon: "We must not get myopic around the shop and adding a specific carve out for it."
