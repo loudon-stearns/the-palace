@@ -7,9 +7,9 @@ pillars:
   - philosophy
 born: 2026-03
 stage: foundational
-version: "1.27"
+version: "1.28"
 schema: SCHEMA.md
-last_schema_ceremony: 2026-10-13
+last_schema_ceremony: 2026-10-15
 github: https://github.com/loudon-stearns/the-palace
 github_raw: https://raw.githubusercontent.com/loudon-stearns/the-palace/main
 links:
@@ -52,7 +52,7 @@ A page may keep a bundle — a folder of the same name. Two kinds of file in it 
 
 **Faces** are what a reader meets. The **text** is what the page says, and when faces disagree, the text wins. The **rich face** is what the page can be played as — sound, image and interaction laid beside the words, section by section, never changing them. The **scroll** is the page's life in order — where it stands now and the plan it is following, then everything it has made or done, newest first: a project's proofs and media, a ceremony's runs. The plan is agreed with Loudon and changes only with his yes.
 
-**Memory** is what the next worker reads. The **Context** holds what the page left out, and why it is shaped this way. The **ledger**, kept only by ceremonies, holds what running them taught; every run leaves a line. The **baton** is a move in flight, deleted once caught.
+**Memory** is what the next worker reads. The **Context** holds what the page left out, and why it is shaped this way. A **ledger** is any append-only file a page keeps so its next run starts from the last; a page grows one when it is useful, and each says in its own frontmatter what it is for and how it is kept. The **tuning** ledger holds what running taught, a line for every run; the **diary** is a page's own record of the encounters it has lived. The **baton** is a move in flight, deleted once caught.
 
 Everything else is **workshop**: what was made along the way.
 
