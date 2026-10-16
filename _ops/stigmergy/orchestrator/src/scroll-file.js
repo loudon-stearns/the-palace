@@ -47,7 +47,7 @@ import { parseFrontmatter } from './entry-frontmatter.js';
 import { reconcilePendingRequests } from './process-cycle.js';
 import { readTrigger } from './ceremony-scroll.js';
 import {
-  readTuningState, readDiaryState, diaryPathFor, ledgerTrail, renderLedgerSection, runText, isGitIgnored,
+  readTuningState, readDiaryState, diaryPathFor, ledgerTrail, renderLedgerSection, runText, isGitIgnored, roughText,
 } from './ledger.js';
 
 export const MARK = {
@@ -143,7 +143,7 @@ function firstParagraph(text, max = 700) {
 }
 
 // Payload keys that are wire plumbing, never prose worth showing on a trail.
-const PLUMBING_KEYS = new Set(['kind', 'entry', 'entry_path', 'turn_id', 'in_reply_to', 'worktree', 'headline', 'ground', 'catchup', 'content', 'rationale', 'summary', 'subject', 'artifacts', 'artifact_path', 'caption', 'options', 'table', 'left_rough', 'next_moves', 'equations', 'resource', 'blocking', 'choice_mode', 'prompt', 'request_id', 'plan', 'off_plan']);
+const PLUMBING_KEYS = new Set(['kind', 'entry', 'entry_path', 'turn_id', 'in_reply_to', 'worktree', 'headline', 'ground', 'catchup', 'content', 'rationale', 'summary', 'subject', 'artifacts', 'artifact_path', 'caption', 'options', 'table', 'left_rough', 'next_moves', 'equations', 'resource', 'blocking', 'choice_mode', 'prompt', 'request_id', 'plan', 'off_plan', 'debt_key', 'debt_text']);
 
 /**
  * The prose a message carries, in order of preference: the canonical fields,
@@ -294,7 +294,7 @@ export function renderMakingSection(m, { cycle } = {}) {
     lines.push(`| ${p.table.columns.map(() => '---').join(' | ')} |`);
     for (const r of p.table.rows) lines.push(`| ${(Array.isArray(r) ? r : [r]).map((c) => escapePipes(dash(c))).join(' | ')} |`);
   }
-  if (p.left_rough) { lines.push(''); lines.push(`_Left rough:_ ${String(p.left_rough).trim()}`); }
+  if (roughText(p.left_rough)) { lines.push(''); lines.push(`_Left rough:_ ${roughText(p.left_rough)}`); }
   if (Array.isArray(p.next_moves) && p.next_moves.length) { lines.push(''); lines.push(`_Next moves named:_ ${p.next_moves.map(String).join(' · ')}`); }
   lines.push(`<sub>\`${m.id}\` · ${m.type} on ${m.board}</sub>`);
   lines.push('<!-- /scroll:entry -->');
@@ -469,11 +469,15 @@ function runsLines(st, noun) {
   }
   L.push(`- **Last run:** ${st.last_run ? `${runText(st.last_run)}${st.last_run.version ? ` (under v${st.last_run.version})` : ''}` : 'none in the ledger yet'}`);
   const orders = (st.orders || []).filter((o) => o.owed);
-  const owedCount = st.owed.length + orders.length;
+  const rough = (st.debts || []).filter((d) => d.unpaid && d.who === 'cycle');
+  const waiting = (st.debts || []).filter((d) => d.unpaid && d.who === 'loudon');
+  const owedCount = st.owed.length + orders.length + rough.length;
   const parts = [];
   if (st.owed.length) parts.push(`item${st.owed.length === 1 ? '' : 's'} ${st.owed.map((o) => o.n).join(', ')}`);
   if (orders.length) parts.push(`${orders.length} order${orders.length === 1 ? '' : 's'} from Loudon`);
+  if (rough.length) parts.push(`${rough.length} thing${rough.length === 1 ? '' : 's'} left rough`);
   L.push(`- **Owed in the ledger:** ${owedCount ? `${owedCount} — ${parts.join(' and ')}; the next run's tail read picks ${owedCount === 1 ? 'it' : 'them'} up first` : 'nothing'}`);
+  if (waiting.length) L.push(`- **Waiting on Loudon:** ${waiting.length} — ${waiting.map((d) => `${d.text}${d.seen ? ` (seen again ${d.seen}×)` : ''}`).join('; ')}`);
   if (st.latest && st.latest.heading) L.push(`- **Latest lesson:** item ${dash(st.latest.item)}, ${st.latest.heading.replace(/^From /, 'from ')} — [[${st.home} — tuning]]`);
   return L;
 }
@@ -492,10 +496,19 @@ function runsSections(st) {
   const orders = (st.orders || []).filter((o) => o.owed);
   L.push('### Owed');
   L.push('');
-  if (!st.owed.length && !orders.length) L.push('_Nothing owed._');
+  const rough = (st.debts || []).filter((d) => d.unpaid && d.who === 'cycle');
+  const waiting = (st.debts || []).filter((d) => d.unpaid && d.who === 'loudon');
+  if (!st.owed.length && !orders.length && !rough.length) L.push('_Nothing owed._');
   for (const o of st.owed) L.push(`- **${o.n}.** ${o.text}`);
   for (const o of orders) L.push(`- **From Loudon, ${o.date}.** ${o.text}`);
+  for (const d of rough) L.push(`- **Left rough${d.cycle != null ? ` in cycle ${d.cycle}` : ''}.** ${d.text}${d.seen ? ` _(seen again ${d.seen}×)_` : ''}`);
   L.push('');
+  if (waiting.length) {
+    L.push('### Waiting on Loudon');
+    L.push('');
+    for (const d of waiting) L.push(`- ${d.text}${d.cycle != null ? ` — since cycle ${d.cycle}` : ''}${d.seen ? ` _(seen again ${d.seen}×)_` : ''}`);
+    L.push('');
+  }
   return L;
 }
 

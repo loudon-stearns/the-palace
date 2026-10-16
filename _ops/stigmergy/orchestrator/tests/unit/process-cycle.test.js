@@ -1,5 +1,5 @@
 import { describe, test, expect, afterEach } from 'vitest';
-import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync, appendFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { latestOpus } from '../../../../models/latest-opus.mjs';
@@ -682,13 +682,107 @@ describe('a cycle marks its page\'s tuning ledger', () => {
     expect(JSON.stringify(summary.commit.plan)).toContain('Test Steward — tuning.md');
   });
 
-  test('a page with no tuning ledger gets no run line, and no ledger is made', () => {
+  test('a page with no ledger and nothing to teach or leave rough gets none', () => {
     const agentDir = makePalace({ ledger: false });
     const transcriptPath = path.join(root, 'transcript.jsonl');
-    writeFileSync(transcriptPath, assistantLine([shipped({ lesson: 'something' })]));
+    writeFileSync(transcriptPath, assistantLine([shipped()]));
     const summary = processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 38, iteration: 38, tsNow: '2026-10-15T20:05:00Z' });
     expect(summary.run).toBe(null);
     expect(() => readFileSync(LEDGER(), 'utf8')).toThrow();
+  });
+
+  test('the first lesson or rough note grows the ledger, with standards that never say owed', () => {
+    const agentDir = makePalace({ ledger: false });
+    const transcriptPath = path.join(root, 'transcript.jsonl');
+    writeFileSync(transcriptPath, assistantLine([shipped({ lesson: 'Takes are the lever.', left_rough: 'the flute attack' })]));
+    const summary = processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 38, iteration: 38, tsNow: '2026-10-15T20:05:00Z', commit: 'plan' });
+    expect(summary.run.grown).toBe(true);
+    const text = readFileSync(LEDGER(), 'utf8');
+    const fm = text.split('\n---\n')[0];
+    expect(fm).toContain('ledger: tuning');
+    expect(fm).toContain('standards:');
+    expect(fm).toContain('merge: union');
+    expect(fm).not.toMatch(/\bowed\b/i);
+    expect(text).toContain('1. Takes are the lever. *(offered by the steward, cycle 38)*\n- left rough · 2026-10-15 · cycle 38 · the flute attack · owed\n- run · 2026-10-15 · cycle 38 · taught item 1\n');
+    expect(JSON.stringify(summary.commit.plan)).toContain('Test Steward — tuning.md');
+  });
+
+  test('left rough becomes debts tagged by who can pay; a recurrence is seen again; paid settles the last word', () => {
+    const agentDir = makePalace();
+    const transcriptPath = path.join(root, 'transcript.jsonl');
+    writeFileSync(transcriptPath, assistantLine([shipped({ left_rough: [
+      'the flute attack',
+      { text: 'your ear on the violin', who: 'loudon' },
+    ] })]));
+    const s38 = processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 38, iteration: 38, tsNow: '2026-10-15T20:05:00Z' });
+    expect(s38.run.debts.added).toEqual([
+      '- left rough · 2026-10-15 · cycle 38 · the flute attack · owed',
+      '- waiting on Loudon · 2026-10-15 · cycle 38 · your ear on the violin · open',
+    ]);
+    writeFileSync(transcriptPath, assistantLine([{ ...shipped({ paid: ['the flute attack'], left_rough: [{ text: 'still unheard', who: 'loudon', again: 'your ear' }] }), id: 'ship-39' }]));
+    const s39 = processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 39, iteration: 39, tsNow: '2026-10-16T20:05:00Z' });
+    expect(s39.run.paid).toBe(1);
+    expect(s39.run.debts.seen).toEqual(['- seen again · 2026-10-16 · cycle 39 · your ear']);
+    const text = readFileSync(LEDGER(), 'utf8');
+    expect(text).toContain('- left rough · 2026-10-15 · cycle 38 · the flute attack · paid in cycle 39');
+    expect(text).toContain('- waiting on Loudon · 2026-10-15 · cycle 38 · your ear on the violin · open');
+    // the trail still shows the rough note for a reader, in words
+    const scroll = readFileSync(path.join(root, 'Test Steward', 'Test Steward — scroll.md'), 'utf8');
+    expect(scroll).toContain('_Left rough:_ still unheard');
+    expect(scroll).toContain('**Waiting on Loudon:** 1 — your ear on the violin (seen again 1×)');
+  });
+
+  test('three recurrences of a debt waiting on Loudon post one ask to the board, never twice', () => {
+    const agentDir = makePalace();
+    const transcriptPath = path.join(root, 'transcript.jsonl');
+    const boardFile = path.join(root, '_ops/swarm/persistent/blackboard.jsonl');
+    const asks = () => readFileSync(boardFile, 'utf8').trim().split('\n').map((l) => JSON.parse(l)).filter((m) => m.payload && m.payload.kind === 'debt_escalation');
+    const run = (n, left) => {
+      writeFileSync(transcriptPath, assistantLine([{ ...shipped({ left_rough: left }), id: `ship-${n}` }]));
+      return processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: n, iteration: n, tsNow: `2026-10-${n - 20}T20:05:00Z` });
+    };
+    run(38, [{ text: 'your ear on the violin', who: 'loudon' }]);
+    run(39, [{ text: 'your ear on the violin', who: 'loudon' }]);
+    run(40, [{ text: 'x', who: 'loudon', again: 'your ear' }]);
+    expect(asks()).toHaveLength(0);
+    const s41 = run(41, [{ text: 'x', who: 'loudon', again: 'your ear' }]);
+    expect(s41.run.escalated).toHaveLength(1);
+    const [ask] = asks();
+    expect(ask).toMatchObject({ type: 'RESOURCE_REQUEST', board: 'TRICKSTER', to: 'TRICKSTER', from: 'Test Steward', request_id: ask.id });
+    expect(ask.payload).toMatchObject({ recurrences: 3, debt_text: 'your ear on the violin', blocking: false });
+    run(42, [{ text: 'x', who: 'loudon', again: 'your ear' }]);
+    expect(asks()).toHaveLength(1);
+    // Loudon answers "done": the next cycle marks it paid by him.
+    appendFileSync(boardFile, JSON.stringify({ schema_version: '1.0', id: 'grant-ear', ts: '2026-10-23T10:00:00Z', session_id: 'trickster', from: 'TRICKSTER', to: 'Test Steward', type: 'RESOURCE_GRANT', board: 'TRICKSTER', re: ask.id, payload: { option_id: 'done' }, health: { model: 'loudon-trickster', score: 'green' } }) + '\n');
+    const s43 = run(43, []);
+    expect(s43.run.answers).toEqual([{ request_id: ask.id, kind: 'debt_escalation', outcome: 'paid by Loudon' }]);
+    expect(readFileSync(LEDGER(), 'utf8')).toContain('· your ear on the violin · paid by Loudon (`grant-ear`)');
+  });
+
+  test('an adopted fold applies its edit and marks the item; an adopted let-go lets the debt go; each once', () => {
+    const agentDir = makePalace();
+    writeFileSync(path.join(root, 'Test Steward', 'DESIGN.md'), '# Design\n\nThe pool is thin.\n');
+    appendFileSync(LEDGER(), '- left rough · 2026-10-14 · cycle 36 · rebuild the old builds · owed\n');
+    const boardFile = path.join(root, '_ops/swarm/persistent/blackboard.jsonl');
+    const post = (m) => appendFileSync(boardFile, JSON.stringify({ schema_version: '1.0', session_id: 'sess-1', ts: '2026-10-15T10:00:00Z', health: { model: 'x', score: 'green' }, ...m }) + '\n');
+    post({ id: 'fold-1', request_id: 'fold-1', from: 'Test Steward', to: 'TRICKSTER', type: 'RESOURCE_REQUEST', board: 'TRICKSTER', payload: { kind: 'fold', item: '1', edit: { file: 'Test Steward/DESIGN.md', find: 'The pool is thin.', replace: 'The pool is thin; keep five takes.' }, options: [{ id: 'adopt' }, { id: 'keep' }] } });
+    post({ id: 'fold-2', request_id: 'fold-2', from: 'Test Steward', to: 'TRICKSTER', type: 'RESOURCE_REQUEST', board: 'TRICKSTER', payload: { kind: 'fold', item: '1', edit: { file: '../outside.md', append: 'no' } } });
+    post({ id: 'letgo-1', request_id: 'letgo-1', from: 'Test Steward', to: 'TRICKSTER', type: 'RESOURCE_REQUEST', board: 'TRICKSTER', payload: { kind: 'let_go', debt: 'rebuild the old', why: 'the octave rule made them moot' } });
+    for (const re of ['fold-1', 'fold-2', 'letgo-1']) post({ id: `g-${re}`, from: 'TRICKSTER', to: 'Test Steward', type: 'RESOURCE_GRANT', board: 'TRICKSTER', re, payload: { option_id: 'adopt' } });
+    const transcriptPath = path.join(root, 'transcript.jsonl');
+    writeFileSync(transcriptPath, assistantLine([shipped()]));
+    const s = processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 38, iteration: 38, tsNow: '2026-10-15T20:05:00Z', commit: 'plan' });
+    expect(s.run.answers.map((a) => a.outcome)).toEqual(['folded item 1 into Test Steward/DESIGN.md', expect.stringMatching(/^not applied: not the page/), 'let go']);
+    expect(readFileSync(path.join(root, 'Test Steward', 'DESIGN.md'), 'utf8')).toContain('The pool is thin; keep five takes.');
+    expect(JSON.stringify(s.commit.plan)).toContain('DESIGN.md');
+    const text = readFileSync(LEDGER(), 'utf8');
+    expect(text).toContain('- folded · 2026-10-15 · item 1 · into Test Steward/DESIGN.md · adopted `fold-1`');
+    expect(text).toContain('- left rough · 2026-10-14 · cycle 36 · rebuild the old builds · let go: the octave rule made them moot (`letgo-1`)');
+    // the next cycle applies nothing again
+    writeFileSync(transcriptPath, assistantLine([{ ...shipped(), id: 'ship-39' }]));
+    const s2 = processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 39, iteration: 39, tsNow: '2026-10-16T20:05:00Z' });
+    expect(s2.run.answers.filter((a) => a.kind === 'fold')).toEqual([]);
+    expect(readFileSync(path.join(root, 'Test Steward', 'DESIGN.md'), 'utf8').match(/keep five takes/g)).toHaveLength(1);
   });
 
   test('lessons and paid orders are read from any message, a string or a list', () => {

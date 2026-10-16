@@ -6,7 +6,8 @@ import {
   parseRunLine, parseRuns, runLine, parseOrders, orderLine, appendLedgerLine, payOrders,
   normVersion, parseOwed, parseLatestLesson, nextItemNumber, tailRead, recordRun, lastRunDate,
   bodyLead, ledgerBody, readStandards, isPrivateLedger, lastEncounter, readDiaryState, readTuningState,
-  listTuningLedgers, localDate,
+  listTuningLedgers, localDate, parseDebts, parseDebtLine, debtLine, roughItems, roughText, recordDebts,
+  settleDebts, stewardTailRead, stewardLedgerText, growTuningLedger, readStandards as standardsOf,
 } from '../../src/ledger.js';
 
 describe('run lines', () => {
@@ -258,5 +259,93 @@ describe('where ledgers live', () => {
     expect(st).toMatchObject({ version: null, spec: null, runs_since: [], tuning: 'Shop/Hero and Avatar Maker/Hero and Avatar Maker — tuning.md' });
     expect(st.runs.map((r) => r.what)).toEqual(['Kuramoto Coupling, hero']);
     expect(readTuningState(root, 'Nobody')).toBe(null);
+  });
+});
+
+// GSL's ledger as it was seeded by hand on 2026-10-16 — the worked example.
+const GSL = [
+  '---', 'title: "GSL — tuning"', 'ledger: tuning', 'standards:', '  for: "what each cycle taught"', '---', '',
+  '# GSL — tuning', '', '## Seeded', '',
+  '1. **The guide picks the note, never the octave.**',
+  '2. **Takes are the lever.**', '',
+  '## Debts open as of cycle 38', '',
+  '- waiting on Loudon · 2026-10-16 · cycle 38 · your ear on the finished violin and its redo of A#3, C4 and C5 · open',
+  '- seen again · 2026-10-16 · cycle 38 · your ear — unheard in every cycle from 20 to 38, seventeen in a row',
+  '- waiting on Loudon · 2026-10-16 · cycle 38 · your ear on the flute and the marimba · open',
+  '- waiting on Loudon · 2026-10-16 · cycle 37 · the finished violin loaded in a real sampler (sforzando or DecentSampler) · open',
+  '- left rough · 2026-10-16 · cycle 34 · the flute still uses the violin\'s bow attack; it may want its own · owed',
+  '- left rough · 2026-10-16 · cycle 37 · the finishing pass for the flute and the marimba · owed',
+  '- left rough · 2026-10-16 · cycle 31 · rebuild the older asked-mode builds under the octave rule · owed',
+  '- left rough · 2026-10-16 · cycle 38 · the new C4 sits 10 c sharp, now the violin\'s worst key · owed', '',
+].join('\n');
+
+describe('debts — what a cycle left rough, tagged by who can pay', () => {
+  let root;
+  afterEach(() => { if (root) rmSync(root, { recursive: true, force: true }); root = null; });
+
+  test('the line forms read and write', () => {
+    expect(debtLine({ who: 'cycle', date: '2026-10-16', cycle: 34, text: 'the flute · attack' })).toBe('- left rough · 2026-10-16 · cycle 34 · the flute, attack · owed');
+    expect(debtLine({ who: 'loudon', date: '2026-10-16', cycle: 38, text: 'your ear' })).toBe('- waiting on Loudon · 2026-10-16 · cycle 38 · your ear · open');
+    expect(parseDebtLine('- left rough · 2026-10-16 · cycle 31 · rebuild · paid in cycle 40')).toMatchObject({ who: 'cycle', cycle: 31, text: 'rebuild', status: 'paid in cycle 40', unpaid: false });
+    expect(parseDebtLine('- waiting on Loudon · 2026-10-16 · your ear · let go: moot')).toMatchObject({ who: 'loudon', cycle: null, text: 'your ear', unpaid: false });
+  });
+
+  test("GSL's ledger: four debts a cycle can pay, three waiting on Loudon, the violin's ear seen again once", () => {
+    const d = parseDebts(GSL);
+    expect(d.filter((x) => x.unpaid && x.who === 'cycle')).toHaveLength(4);
+    const waiting = d.filter((x) => x.unpaid && x.who === 'loudon');
+    expect(waiting.map((x) => x.seen)).toEqual([1, 0, 0]);
+    const t = stewardTailRead(GSL);
+    expect(t.toDo.map((x) => x.cycle)).toEqual([34, 37, 31, 38]);
+    expect(t.waiting.map((x) => x.text)[0]).toMatch(/^your ear on the finished violin/);
+    expect(t.recent.join('\n')).not.toMatch(/left rough|waiting on Loudon|seen again/);
+    expect(t.recent.join('\n')).toContain('Takes are the lever');
+    expect(t.owed).toEqual([]);
+  });
+
+  test('left_rough in every form: a string, a list, structured', () => {
+    expect(roughItems('the flute')).toEqual([{ text: 'the flute', who: 'cycle', again: null }]);
+    expect(roughItems([' ', { text: 'your ear', who: 'Loudon' }, { again: 'the C4' }, 7])).toEqual([
+      { text: 'your ear', who: 'loudon', again: null }, { text: 'the C4', who: 'cycle', again: 'the C4' },
+    ]);
+    expect(roughText([{ text: 'a' }, 'b'])).toBe('a; b');
+    expect(roughText(undefined)).toBe('');
+  });
+
+  test('a debt named again is seen again, not duplicated; paid and let go change only the last word; a union-merged copy reads settled', () => {
+    root = mkdtempSync(path.join(tmpdir(), 'ledger-debts-'));
+    const p = path.join(root, 'l.md');
+    writeFileSync(p, GSL);
+    const r = recordDebts(p, { date: '2026-10-17', cycle: 39, items: [
+      { text: 'the finishing pass for the flute and the marimba', who: 'cycle', again: null },
+      { text: 'still unheard', who: 'loudon', again: 'your ear on the flute' },
+      { text: 'a new trap', who: 'cycle', again: null },
+    ] });
+    expect(r.seen).toEqual(['- seen again · 2026-10-17 · cycle 39 · the finishing pass for the flute and the marimba', '- seen again · 2026-10-17 · cycle 39 · your ear on the flute']);
+    expect(r.added).toEqual(['- left rough · 2026-10-17 · cycle 39 · a new trap · owed']);
+    expect(settleDebts(p, ['rebuild the older'], 'paid in cycle 39')).toBe(1);
+    expect(settleDebts(p, ['your ear on the flute'], 'let go: no', { who: 'cycle' })).toBe(0);
+    const text = readFileSync(p, 'utf8');
+    expect(text).toContain('· rebuild the older asked-mode builds under the octave rule · paid in cycle 39');
+    const d = parseDebts(text + '- left rough · 2026-10-16 · cycle 31 · rebuild the older asked-mode builds under the octave rule · owed\n');
+    expect(d.filter((x) => /rebuild/.test(x.text)).map((x) => x.status)).toEqual(['paid in cycle 39']);
+    expect(d.find((x) => /flute and the marimba/.test(x.text) && x.who === 'loudon').seen).toBe(1);
+  });
+
+  test('a grown ledger states its standards, never saying owed in its frontmatter', () => {
+    root = mkdtempSync(path.join(tmpdir(), 'ledger-grow-'));
+    writeFileSync(path.join(root, 'Foo.md'), '---\ntitle: Foo\n---\n# Foo');
+    const p = growTuningLedger(root, 'Foo', { date: '2026-10-16' });
+    expect(p).toBe(path.join(root, 'Foo', 'Foo — tuning.md'));
+    const text = readFileSync(p, 'utf8');
+    const { ledger, standards } = standardsOf(text);
+    expect(ledger).toBe('tuning');
+    expect(standards).toMatchObject({ run: 'one steward cycle', merge: 'union', kept: 'git', trim: 'never' });
+    expect(JSON.stringify(standards)).not.toMatch(/\bowed\b/i);
+    expect(tailRead(text).owed).toEqual([]);
+    writeFileSync(p, 'kept');
+    expect(growTuningLedger(root, 'Foo', { date: '2026-10-17' })).toBe(p);
+    expect(readFileSync(p, 'utf8')).toBe('kept');
+    expect(stewardLedgerText('Foo', '2026-10-16')).toContain('title: "Foo — tuning"');
   });
 });
