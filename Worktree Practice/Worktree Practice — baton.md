@@ -69,7 +69,7 @@ After a day of commits (from the evening of 2026-10-15), run `node _ops/stigmerg
 ## Load these files first
 
 1. [[Worktree Practice — spec — the door]], the plan in this bundle (its page with the diagram: https://claude.ai/artifact/GezVoiegoGJA3ztJtHvUr6)
-2. [[Worktree Practice]] § Rules at the trunk
+2. [[How the Palace Commits]] § Rules at the trunk
 3. `_ops/stigmergy/app/scripts/trunk-state.mjs`, `palace-land.mjs` and `palace-push.mjs`
 4. The research and design behind the plan, on this Mac only: `~/.claude/projects/-Users-loudonstearns-Documents-The-Palace/8307b946-f7b8-4493-b58e-44aac2ef06af/keeper-plan/`
 

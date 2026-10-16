@@ -5,7 +5,10 @@ links:
   - target: "[[Worktree Practice]]"
     type: connects-to
     label: "spec-for"
-forward_vector: "I hold the plan Loudon said yes to on 2026-10-14 for how the palace commits, lands, pushes and tends its history, so the next session needs no link outside git; I fold into Worktree Practice move by move, and go to Archive when the last move lands."
+  - target: "[[How the Palace Commits]]"
+    type: connects-to
+    label: "folds-into"
+forward_vector: "I hold the plan Loudon said yes to on 2026-10-14 for how the palace commits, lands, pushes and tends its history, so the next session needs no link outside git; I fold into [[How the Palace Commits]] move by move, and go to Archive when the last move lands."
 ---
 
 # The door: how the palace commits
