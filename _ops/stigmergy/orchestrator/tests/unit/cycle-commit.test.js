@@ -3,7 +3,8 @@ import { mkdtempSync, mkdirSync, writeFileSync, rmSync, chmodSync } from 'node:f
 import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { shippedPaths, selectCommitPaths, headlineOf, commitPathsAsync, commitPaths, ignoredPaths, planCycleCommit, cycleBody } from '../../src/cycle-commit.js';
+import { shippedPaths, selectCommitPaths, headlineOf, commitPathsAsync, commitPaths, ignoredPaths, planCycleCommit, cycleBody, pageEditsOf, checkFrontmatter, vetPageEdits } from '../../src/cycle-commit.js';
+import { readFileSync } from 'node:fs';
 import { processCycle } from '../../src/process-cycle.js';
 
 function assistantLine(fences) {
@@ -358,5 +359,143 @@ describe('the screen judges as the committer\'s git add does', () => {
     const body = git(root, ['log', '-1', '--format=%b']);
     expect(body.startsWith(cycleBody({ shipped: [`${B}/render.png`], ignored: [`${B}/take.wav`, `${B}/phrase.wav`] }))).toBe(true); // the committer's trailers follow
     expect(body.match(/ignored by \.gitignore/g)).toHaveLength(1);
+  });
+});
+
+// A steward is grown up for its own page and bundle (decided 2026-10-16): it
+// edits its own entry and bundle and lists each edit as `page_edits`; the cycle
+// commits them once their frontmatter parses, and refuses everything else.
+describe('a steward\'s own page edits', () => {
+  const ENTRY = 'Projects/Test Steward.md';
+  const B = 'Projects/Test Steward';
+
+  test('pageEditsOf reads { path, why } items and bare strings', () => {
+    expect(pageEditsOf([
+      { payload: { page_edits: [{ path: ' Projects/A.md ', why: ' because ' }, 'Projects/A/b.md', { why: 'no path' }] } },
+      { payload: {} },
+    ])).toEqual([{ path: 'Projects/A.md', why: 'because' }, { path: 'Projects/A/b.md', why: '' }]);
+  });
+
+  test('checkFrontmatter is strict where the reader is forgiving', () => {
+    expect(checkFrontmatter('---\ntitle: A\nstage: sprout\n---\nbody\n', { required: true })).toEqual({ ok: true });
+    expect(checkFrontmatter('---\ntitle: A\nstage: [sprout\n---\nbody\n').ok).toBe(false);
+    expect(checkFrontmatter('---\ntitle: A\nbody, never closed\n').ok).toBe(false);
+    expect(checkFrontmatter('just prose\n').ok).toBe(true);
+    expect(checkFrontmatter('just prose\n', { required: true }).ok).toBe(false);
+  });
+
+  test('vetPageEdits allows its own entry and bundle, refuses the rest with reasons', () => {
+    const { bundle } = makePalace();
+    writeFileSync(path.join(root, 'Projects/Other.md'), '---\ntitle: Other\ntype: concept\n---\n');
+    writeFileSync(path.join(bundle, 'Test Steward — Context.md'), '---\ntitle: Test Steward — Context\ntype: context\n---\nwhy\n');
+    writeFileSync(path.join(bundle, 'Dialectic.md'), '---\ntitle: Dialectic\ntype: concept\n---\nanother page\n');
+    writeFileSync(path.join(bundle, 'Test Steward — scroll.md'), 'scroll\n');
+    writeFileSync(path.join(bundle, 'broken.md'), '---\ntitle: [broken\n---\n');
+    writeFileSync(path.join(bundle, 'synth.py'), 'print(1)\n');
+    const v = vetPageEdits({
+      palaceRoot: root, home: 'Test Steward', entryFile: path.join(root, ENTRY), bundleDir: bundle,
+      edits: [
+        { path: ENTRY, why: 'stage: sprout' },
+        { path: `${B}/Test Steward — Context.md`, why: 'folded lesson 3' },
+        { path: `${B}/synth.py`, why: 'code' },
+        { path: 'Projects/Other.md', why: 'a mirror link' },
+        { path: `${B}/Dialectic.md`, why: 'tidy' },
+        { path: `${B}/Test Steward — scroll.md`, why: 'orders' },
+        { path: `${B}/broken.md`, why: 'oops' },
+        { path: `${B}/gone.md`, why: 'never made' },
+        { path: '../escape.md', why: 'no' },
+      ],
+    });
+    expect(v.allowed.map((e) => e.path)).toEqual([ENTRY, `${B}/Test Steward — Context.md`, `${B}/synth.py`]);
+    const why = Object.fromEntries(v.refused.map((e) => [e.path, e]));
+    expect(why['Projects/Other.md'].proposal).toBe(true);
+    expect(why[`${B}/Dialectic.md`].reason).toMatch(/another entry/);
+    expect(why[`${B}/Dialectic.md`].proposal).toBe(true);
+    expect(why[`${B}/Test Steward — scroll.md`].reason).toMatch(/the cycle writes/);
+    expect(why[`${B}/broken.md`].reason).toMatch(/frontmatter does not parse/);
+    expect(why[`${B}/gone.md`].reason).toBe('no such file');
+    expect(why['../escape.md'].reason).toBe('outside the palace');
+  });
+
+  test('its own entry with broken frontmatter is refused loudly', () => {
+    const { bundle } = makePalace();
+    writeFileSync(path.join(root, ENTRY), '---\ntitle: Test Steward\ntype: project\nstage: sprout: oops\n---\n# Test Steward\n');
+    const v = vetPageEdits({ palaceRoot: root, home: 'Test Steward', entryFile: path.join(root, ENTRY), bundleDir: bundle, edits: [{ path: ENTRY, why: 'stage' }] });
+    expect(v.allowed).toEqual([]);
+    expect(v.refused[0].reason).toMatch(/frontmatter does not parse/);
+  });
+
+  function gitPalace() {
+    const made = makePalace();
+    git(root, ['init', '-q', '-b', 'main']);
+    git(root, ['config', 'user.name', 'test']);
+    git(root, ['config', 'user.email', 'test@example.com']);
+    writeFileSync(path.join(root, '.gitignore'), 'transcript.jsonl\n');
+    writeFileSync(path.join(root, 'Projects/Other.md'), '---\ntitle: Other\ntype: concept\n---\n# Other\n');
+    git(root, ['add', '-A']);
+    git(root, ['commit', '-q', '-m', 'init']);
+    return made;
+  }
+  const editMsg = (id) => ({
+    schema_version: '1.0', id, ts: '2026-10-16T08:00:00-04:00', session_id: 's',
+    from: 'Test Steward', to: '*', type: 'BROADCAST', board: 'GENERAL',
+    payload: {
+      kind: 'shipped_artifact', headline: 'Grew to sprout', content: 'Two runs proved it alive.',
+      page_edits: [
+        { path: ENTRY, why: 'two runs proved it alive, so stage: sprout' },
+        { path: 'Projects/Other.md', why: 'a mirror link back' },
+      ],
+    },
+  });
+  const steward = (cycleTs) => {
+    writeFileSync(path.join(root, ENTRY), '---\ntitle: Test Steward\ntype: project\nstage: sprout\nstatus: active\n---\n# Test Steward\nNow alive.\n');
+    writeFileSync(path.join(root, 'Projects/Other.md'), '---\ntitle: Other\ntype: concept\n---\n# Other\nmirrors Test Steward\n');
+  };
+
+  test('the cycle commits its own entry by name, refuses the other page, and the trail and board say so', () => {
+    const { agentDir, bundle } = gitPalace();
+    steward();
+    const transcriptPath = path.join(root, 'transcript.jsonl');
+    writeFileSync(transcriptPath, assistantLine([editMsg('pe-1')]));
+    const summary = processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 14, iteration: 1, tsNow: '2026-10-16T08:12:00-04:00', commit: true });
+    expect(summary.commit.ok, summary.commit.error).toBe(true);
+    expect(summary.page_edits.allowed.map((e) => e.path)).toEqual([ENTRY]);
+    expect(summary.page_edits.refused.map((e) => e.path)).toEqual(['Projects/Other.md']);
+    const files = git(root, ['-c', 'core.quotepath=false', 'show', '--name-only', '--format=', 'HEAD']).trim().split('\n');
+    expect(files).toContain(ENTRY);
+    expect(files).not.toContain('Projects/Other.md');
+    const body = git(root, ['log', '-1', '--format=%b']);
+    expect(body).toMatch(/Changed the page:\n- Projects\/Test Steward\.md — two runs proved it alive/);
+    expect(body).toMatch(/Page edits NOT committed:\n- Projects\/Other\.md — another page .*; it stays a proposal/);
+    // The board carries the vetted truth, and the trail reads it.
+    const board = readFileSync(path.join(root, '_ops/swarm/persistent/blackboard.jsonl'), 'utf8').trim().split('\n').map((l) => JSON.parse(l));
+    const posted = board.find((m) => m.id === 'pe-1');
+    expect(posted.payload.page_edits.map((e) => e.path)).toEqual([ENTRY]);
+    expect(posted.payload.page_edits_refused[0].proposal).toBe(true);
+    const scroll = readFileSync(path.join(bundle, 'Test Steward — scroll.md'), 'utf8');
+    expect(scroll).toContain('_Changed the page:_ Test Steward — two runs proved it alive, so stage: sprout');
+    expect(scroll).toContain('_Page edit not committed:_ Projects/Other.md');
+    const hist = readFileSync(path.join(root, agentDir, 'history.jsonl'), 'utf8');
+    expect(hist).toMatch(/"event":"PAGE_EDIT","ts":[^\n]*"path":"Projects\/Test Steward\.md"/);
+    expect(hist).toMatch(/"event":"PAGE_EDIT_REFUSED"/);
+    // The other page is left on disk, uncommitted, for a person to look at.
+    expect(git(root, ['status', '--porcelain', '--', 'Projects/Other.md'])).toMatch(/M/);
+  });
+
+  test('a broken frontmatter on its own entry is not committed, and the rest of the cycle still is', async () => {
+    const { agentDir } = gitPalace();
+    writeFileSync(path.join(root, ENTRY), '---\ntitle: Test Steward\ntype: project\nstage: [sprout\n---\n# Test Steward\n');
+    const transcriptPath = path.join(root, 'transcript.jsonl');
+    writeFileSync(transcriptPath, assistantLine([{ ...editMsg('pe-2'), payload: { ...editMsg('pe-2').payload, page_edits: [{ path: ENTRY, why: 'stage' }] } }]));
+    const summary = processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 15, iteration: 1, tsNow: '2026-10-16T08:12:00-04:00', commit: 'plan' });
+    expect(summary.page_edits.allowed).toEqual([]);
+    expect(summary.page_edits.refused[0].reason).toMatch(/frontmatter does not parse/);
+    expect(summary.commit.plan.paths).not.toContain(ENTRY);
+    expect(summary.commit.plan.body).toMatch(/Page edits NOT committed:\n- Projects\/Test Steward\.md — frontmatter does not parse/);
+    const res = await commitPathsAsync({ palaceRoot: root, ...summary.commit.plan });
+    expect(res.ok, res.error).toBe(true);
+    const files = git(root, ['-c', 'core.quotepath=false', 'show', '--name-only', '--format=', 'HEAD']).trim().split('\n');
+    expect(files).not.toContain(ENTRY);
+    expect(files).toContain('_ops/agents/permanent/test-steward/state.json');
   });
 });

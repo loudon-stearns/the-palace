@@ -12,19 +12,29 @@
 //   - inside the steward's own bundle folder (a steward's workshop),
 //   - an existing file, 10 MB or smaller (larger files stay uncommitted and are
 //     named in the commit body),
-//   - never an entry: a `.md` whose frontmatter carries `type:` is the house,
-//     and the house changes only through an elder. Some bundles hold entries
+//   - never an entry by way of `artifacts`: a `.md` whose frontmatter carries
+//     `type:` is the house. Some bundles hold entries
 //     (`Modes of Collaboration/Dialectic.md`), so the folder rule alone is not
 //     enough;
 //   - never a file .gitignore ignores: the committer refuses a commit that names
 //     one, so a single ignored artifact would leave the whole cycle uncommitted.
 //     It is left out and named in the commit body, like an oversize file.
+//
+// A steward is grown up for its own page and bundle (decided 2026-10-16): it
+// may edit its own entry, body and frontmatter alike, and its bundle's files,
+// and lists each edit in its post as `page_edits: [{ path, why }]`. Those go
+// through vetPageEdits, not the artifact rule: its own entry `.md` and its
+// bundle's files ride, once any frontmatter they carry parses (a page whose
+// frontmatter fails to parse reads as blank to the deck and to the steward, so
+// it is refused loudly). Another page, a new entry, canon, the scroll the cycle
+// writes and the ledger it keeps are refused, and stay proposals.
 
 import { execFileSync, spawn, spawnSync } from 'node:child_process';
 import { existsSync, statSync, readFileSync, copyFileSync, mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { resolve, relative, isAbsolute, join, dirname } from 'node:path';
+import { resolve, relative, isAbsolute, join, dirname, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { parse as parseYaml } from 'yaml';
 import { payloadPathArtifacts } from './scroll-file.js';
 import { declaredPathsOf } from './artifact-backstop.js';
 
@@ -53,6 +63,87 @@ export function isEntryFile(absPath) {
   try { head = readFileSync(absPath, 'utf8').slice(0, 4096); } catch { return false; }
   const m = head.match(/^---\n([\s\S]*?)\n---/);
   return !!(m && /^type:\s*\S/m.test(m[1]));
+}
+
+/** The page edits a cycle's messages list: each `payload.page_edits` item, as { path, why }. */
+export function pageEditsOf(messages) {
+  const out = [];
+  for (const m of messages || []) {
+    const l = m && m.payload ? m.payload.page_edits : null;
+    for (const e of Array.isArray(l) ? l : []) {
+      const path = typeof e === 'string' ? e : e && typeof e.path === 'string' ? e.path : '';
+      if (!path.trim()) continue;
+      const why = e && typeof e.why === 'string' ? e.why.trim() : '';
+      out.push({ path: path.trim(), why });
+    }
+  }
+  return out;
+}
+
+const FRONTMATTER_BLOCK = /^---\r?\n([\s\S]*?)\r?\n---\s*(?:\r?\n|$)/;
+
+/**
+ * Does a markdown file's frontmatter parse? Strict where parseFrontmatter is
+ * forgiving: that one reads a broken block as {}, which is how a page goes
+ * blank without a word. `required` demands a block (the steward's own entry
+ * must keep one); otherwise a file with no block passes.
+ * @returns {{ ok: true } | { ok: false, error: string }}
+ */
+export function checkFrontmatter(text, { required = false } = {}) {
+  const t = String(text ?? '');
+  const m = FRONTMATTER_BLOCK.exec(t);
+  if (!m) {
+    if (/^---\r?\n/.test(t)) return { ok: false, error: 'the frontmatter block never closes' };
+    return required ? { ok: false, error: 'no frontmatter block' } : { ok: true };
+  }
+  let data;
+  try { data = parseYaml(m[1]); } catch (e) { return { ok: false, error: String(e && e.message || e).split('\n')[0] }; }
+  if (data == null && !required) return { ok: true };
+  if (!data || typeof data !== 'object' || Array.isArray(data)) return { ok: false, error: 'the frontmatter is not a set of fields' };
+  return { ok: true };
+}
+
+/**
+ * Sort a steward's page edits into what the cycle may commit and what it may
+ * not. Allowed: its own entry `.md`, and files in its bundle other than the
+ * scroll and the tuning ledger (the cycle writes those) and other entries kept
+ * there (another page). Every allowed `.md` must have frontmatter that parses;
+ * its own entry must have some. Paths come back palace-relative; each refusal
+ * carries a reason and whether it stays a proposal.
+ *
+ * @returns {{ allowed: {path, why}[], refused: {path, why, reason, proposal: boolean}[] }}
+ */
+export function vetPageEdits({ palaceRoot, home, entryFile, bundleDir, edits = [] }) {
+  const root = resolve(palaceRoot);
+  const entry = entryFile ? resolve(root, entryFile) : null;
+  const bundle = bundleDir ? resolve(root, bundleDir) : null;
+  const kept = new Set(bundle ? [join(bundle, `${home} — scroll.md`), join(bundle, `${home} — tuning.md`)] : []);
+  const allowed = [];
+  const refused = [];
+  const seen = new Set();
+  for (const e of edits) {
+    const abs = isAbsolute(e.path) ? resolve(e.path) : resolve(root, e.path);
+    const rel = relative(root, abs);
+    if (seen.has(rel)) continue;
+    seen.add(rel);
+    const refuse = (reason, proposal = false) => refused.push({ path: rel, why: e.why, reason, proposal });
+    const isOwnEntry = entry && abs === entry;
+    const r = bundle ? relative(bundle, abs) : '..';
+    const inBundle = !!bundle && !!r && !r.startsWith('..') && !isAbsolute(r);
+    if (rel.startsWith('..') || isAbsolute(rel)) { refuse('outside the palace'); continue; }
+    if (!isOwnEntry && !inBundle) { refuse('another page or canon, outside its own page and bundle', true); continue; }
+    if (kept.has(abs)) { refuse('the cycle writes this file; the steward does not'); continue; }
+    if (!existsSync(abs) || !statSync(abs).isFile()) { refuse('no such file'); continue; }
+    if (!isOwnEntry && isEntryFile(abs) && !basename(abs).startsWith(`${home} — `)) { refuse('another entry kept in the bundle, so another page', true); continue; }
+    if (abs.toLowerCase().endsWith('.md')) {
+      let text = '';
+      try { text = readFileSync(abs, 'utf8'); } catch (err) { refuse(`unreadable: ${err.message}`); continue; }
+      const fm = checkFrontmatter(text, { required: isOwnEntry });
+      if (!fm.ok) { refuse(`frontmatter does not parse (${fm.error})`); continue; }
+    }
+    allowed.push({ path: rel, why: e.why });
+  }
+  return { allowed, refused };
 }
 
 /**
@@ -151,11 +242,13 @@ const COMMITTED_BY = 'Committed by process-cycle.js after the cycle; the steward
 const ignoredNote = (paths) => `Not committed — ignored by .gitignore:\n${paths.map((p) => `- ${p}`).join('\n')}`;
 
 // A cycle commit's body, from what rode and what was left out and why.
-export function cycleBody({ shipped = [], oversize = [], entries = [], outside = [], ignored = [], maxBytes = MAX_COMMIT_BYTES }) {
+export function cycleBody({ shipped = [], pageEdits = [], refusedEdits = [], oversize = [], entries = [], outside = [], ignored = [], maxBytes = MAX_COMMIT_BYTES }) {
   const lines = [];
+  if (pageEdits.length) lines.push(`Changed the page:\n${pageEdits.map((e) => `- ${e.path}${e.why ? ` — ${e.why}` : ''}`).join('\n')}`);
+  if (refusedEdits.length) lines.push(`Page edits NOT committed:\n${refusedEdits.map((e) => `- ${e.path} — ${e.reason}${e.proposal ? '; it stays a proposal' : ''}`).join('\n')}`);
   if (shipped.length) lines.push(`Shipped this cycle:\n${shipped.map((p) => `- ${p}`).join('\n')}`);
   if (oversize.length) lines.push(`Left uncommitted, over ${Math.round(maxBytes / 1048576)} MB:\n${oversize.map((o) => `- ${o.path} (${(o.bytes / 1048576).toFixed(1)} MB)`).join('\n')}`);
-  if (entries.length) lines.push(`Not committed — entries change only through an elder:\n${entries.map((p) => `- ${p}`).join('\n')}`);
+  if (entries.length) lines.push(`Not committed — an entry rides only as the steward's own page edit:\n${entries.map((p) => `- ${p}`).join('\n')}`);
   if (outside.length) lines.push(`Not committed — outside the steward's bundle:\n${outside.map((p) => `- ${p}`).join('\n')}`);
   if (ignored.length) lines.push(ignoredNote(ignored));
   lines.push(COMMITTED_BY);
@@ -178,7 +271,7 @@ export function dropIgnored({ palaceRoot, paths, body, parts = null }) {
   // A cycle's body is rebuilt from its parts, so a dropped file leaves the
   // shipped list and joins the one ignored list; any other body gets a note.
   const nextBody = parts
-    ? cycleBody({ ...parts, shipped: (parts.shipped || []).filter((p) => !ignored.includes(p)), ignored: [...(parts.ignored || []), ...ignored] })
+    ? cycleBody({ ...parts, shipped: (parts.shipped || []).filter((p) => !ignored.includes(p)), pageEdits: (parts.pageEdits || []).filter((e) => !ignored.includes(e.path)), ignored: [...(parts.ignored || []), ...ignored] })
     : body && body.includes(COMMITTED_BY) ? body.replace(COMMITTED_BY, `${ignoredNote(ignored)}\n\n${COMMITTED_BY}`)
       : [body, ignoredNote(ignored)].filter(Boolean).join('\n\n');
   return { paths: rest, body: nextBody, ignored };
@@ -276,23 +369,29 @@ export function commitPathsAsync({ palaceRoot, paths, kind = 'steward', scope, s
  * the message, and what was left out and why. commitCycle makes the commit
  * here and now; the STIGMERGY server hands the plan to commitPathsAsync.
  */
-export function planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths = [], maxBytes = MAX_COMMIT_BYTES }) {
+export function planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths = [], pageEdits = [], refusedEdits = [], maxBytes = MAX_COMMIT_BYTES }) {
   const pick = selectCommitPaths({ palaceRoot, bundleDir, paths: shippedPaths(messages), maxBytes });
   const root = resolve(palaceRoot);
+  // Page edits arrive already vetted (vetPageEdits); a path the steward also
+  // listed as an artifact rides as the edit, not as a refused entry.
+  const edited = new Set(pageEdits.map((e) => e.path));
   const extras = extraPaths
     .map((p) => relative(root, isAbsolute(p) ? p : join(root, p)))
     .filter((rel) => !rel.startsWith('..') && existsSync(join(root, rel)));
-  const candidates = [...new Set([...pick.paths, ...extras])];
+  const candidates = [...new Set([...pick.paths, ...edited, ...extras])];
   const ignored = ignoredPaths(root, candidates);
   const all = candidates.filter((p) => !ignored.includes(p));
-  const shipped = pick.paths.filter((p) => !ignored.includes(p));
-  const parts = { shipped, oversize: pick.oversize, entries: pick.entries, outside: pick.outside, ignored, maxBytes };
+  const shipped = pick.paths.filter((p) => !ignored.includes(p) && !edited.has(p));
+  const edits = pageEdits.filter((e) => !ignored.includes(e.path));
+  const entries = pick.entries.filter((p) => !edited.has(p));
+  const outside = pick.outside.filter((p) => !edited.has(p));
+  const parts = { shipped, pageEdits: edits, refusedEdits, oversize: pick.oversize, entries, outside, ignored, maxBytes };
   return {
     palaceRoot, paths: all, kind: 'steward', scope: home,
     summary: `cycle ${cycleN} — ${headlineOf(messages)}`,
     body: cycleBody(parts), parts,
     verify: 'unverified', author: 'claude',
-    shipped, oversize: pick.oversize, entries: pick.entries, outside: pick.outside, missing: pick.missing, ignored,
+    shipped, pageEdits: edits, refusedEdits, oversize: pick.oversize, entries, outside, missing: pick.missing, ignored,
   };
 }
 
@@ -300,12 +399,12 @@ export function planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages,
  * The whole step for one cycle: pick what may ride, then commit it with the
  * cycle's machinery, scroll and the board.
  */
-export function commitCycle({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths = [], maxBytes = MAX_COMMIT_BYTES, committer, exec }) {
-  const plan = planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths, maxBytes });
+export function commitCycle({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths = [], pageEdits = [], refusedEdits = [], maxBytes = MAX_COMMIT_BYTES, committer, exec }) {
+  const plan = planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths, pageEdits, refusedEdits, maxBytes });
   const res = commitPaths({
     palaceRoot, paths: plan.paths, kind: plan.kind, scope: plan.scope,
     summary: plan.summary, body: plan.body, parts: plan.parts, committer, exec,
   });
   const late = res.ignored || [];
-  return { ...res, paths: plan.paths.filter((p) => !late.includes(p)), shipped: plan.shipped.filter((p) => !late.includes(p)), oversize: plan.oversize, entries: plan.entries, outside: plan.outside, missing: plan.missing, ignored: [...plan.ignored, ...late] };
+  return { ...res, paths: plan.paths.filter((p) => !late.includes(p)), shipped: plan.shipped.filter((p) => !late.includes(p)), pageEdits: plan.pageEdits.filter((e) => !late.includes(e.path)), refusedEdits: plan.refusedEdits, oversize: plan.oversize, entries: plan.entries, outside: plan.outside, missing: plan.missing, ignored: [...plan.ignored, ...late] };
 }

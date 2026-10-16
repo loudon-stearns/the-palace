@@ -14,6 +14,10 @@
 //      and any lesson the steward offered (`payload.lesson`) as a numbered item
 //      the line names; a page with none grows one at its first offered lesson
 //      (SCHEMA — Reference §6; recordStewardRun),
+//   6b. vets the steward's own page edits (`payload.page_edits`, each a path
+//      and a why): its own entry and bundle may ride once their frontmatter
+//      parses; anything else is refused, stays on the board as
+//      `page_edits_refused`, and remains a proposal (vetPageEdits),
 //   7. materializes the bundle-local `[Entry] — scroll.md` (the project's front
 //      door — Now zone + append-only making trail) from the board-derived view.
 //      The scroll replaced the older plan.md read-model on 2026-09-23.
@@ -40,7 +44,7 @@ import { materializeScroll } from './scroll-file.js';
 import { resolveBundleDir } from './entry-paths.js';
 import { readEntryMeta } from './entry-frontmatter.js';
 import { tuningPathFor, recordRun, payOrders, localDate, growTuningLedger } from './ledger.js';
-import { commitCycle, planCycleCommit } from './cycle-commit.js';
+import { commitCycle, planCycleCommit, pageEditsOf, vetPageEdits } from './cycle-commit.js';
 import { resolveModel } from '../../../models/latest-opus.mjs';
 
 const PALACE_ROOT_DEFAULT = resolve(fileURLToPath(new URL('.', import.meta.url)), '../../../..');
@@ -404,6 +408,24 @@ export function processCycle(opts) {
     return m;
   });
 
+  // ── Page edits: a steward is grown up for its own page and bundle ─────────
+  // (decided 2026-10-16). Each message's `payload.page_edits` is vetted here,
+  // before it reaches the board, so the board says what really happened: an
+  // edit the cycle may commit stays in `page_edits`; one it may not (another
+  // page, a frontmatter that does not parse, the scroll or ledger the cycle
+  // writes) moves to `page_edits_refused` with its reason, and the trail shows
+  // both. Refused edits stay on disk, uncommitted, for a person to look at.
+  for (let i = 0; i < messagesForBoard.length; i++) {
+    const m = messagesForBoard[i];
+    const edits = pageEditsOf([m]);
+    if (!edits.length) continue;
+    const v = vetPageEdits({ palaceRoot, home, entryFile: bundle ? bundle.entryFile : null, bundleDir: bundle ? bundle.bundleDir : null, edits });
+    const payload = { ...m.payload, page_edits: v.allowed };
+    if (v.refused.length) payload.page_edits_refused = v.refused;
+    else delete payload.page_edits_refused;
+    messagesForBoard[i] = { ...m, payload };
+  }
+
   // ── Layer 3: referenced-in-prose lint (warn-only) ─────────────────────────
   // Surface (never block) any RESOURCE_REQUEST that declares artifacts whose
   // prose never refers to them, so players and words don't drift apart.
@@ -541,9 +563,22 @@ export function processCycle(opts) {
   }
   const ledgerPaths = run && run.ledger ? [run.ledger] : [];
 
+  // The vetted page edits of the messages that reached the board, and the
+  // refusals, said loudly: in history (greppable) and on the summary.
+  const posted = valid.filter((m) => appended.includes(m.id));
+  const pageEdits = posted.flatMap((m) => (Array.isArray(m.payload.page_edits) ? m.payload.page_edits : []));
+  const refusedEdits = posted.flatMap((m) => (Array.isArray(m.payload.page_edits_refused) ? m.payload.page_edits_refused : []));
+  if (pageEdits.length || refusedEdits.length) {
+    const ev = [
+      ...pageEdits.map((e) => ({ event: 'PAGE_EDIT', ts: tsNow, cycle: cycleN, path: e.path, why: e.why })),
+      ...refusedEdits.map((e) => ({ event: 'PAGE_EDIT_REFUSED', ts: tsNow, cycle: cycleN, path: e.path, why: e.why, reason: e.reason, proposal: e.proposal })),
+    ];
+    for (const e of ev) appendFileSync(histPath, JSON.stringify(e) + '\n');
+  }
+
   // ── Commit what the cycle shipped (decided 2026-09-25) ────────────────────
   // The files this cycle's messages declared, inside the steward's bundle and
-  // at most 10 MB each, plus its machinery, its scroll and the board — one
+  // at most 10 MB each, its vetted page edits, plus its machinery, its scroll and the board — one
   // commit scoped to exactly those paths. Runs last, so a failure here costs
   // nothing already written; the files simply stay uncommitted.
   let commitResult = null;
@@ -556,7 +591,8 @@ export function processCycle(opts) {
         plan: planCycleCommit({
           palaceRoot, home, cycleN,
           bundleDir: bundle ? bundle.bundleDir : null,
-          messages: valid.filter((m) => appended.includes(m.id)),
+          messages: posted,
+          pageEdits, refusedEdits,
           extraPaths: [
             join(agentDirAbs, 'state.json'),
             join(agentDirAbs, 'history.jsonl'),
@@ -574,7 +610,8 @@ export function processCycle(opts) {
       commitResult = commitCycle({
         palaceRoot, home, cycleN,
         bundleDir: bundle ? bundle.bundleDir : null,
-        messages: valid.filter((m) => appended.includes(m.id)),
+        messages: posted,
+        pageEdits, refusedEdits,
         extraPaths: [
           join(agentDirAbs, 'state.json'),
           join(agentDirAbs, 'history.jsonl'),
@@ -608,6 +645,8 @@ export function processCycle(opts) {
     usage_limit,
     // The run line the cycle left in the page's tuning ledger (null: it keeps none).
     run,
+    // The steward's own page edits: what may ride, and what was refused and why.
+    page_edits: { allowed: pageEdits, refused: refusedEdits },
     // Where the project's scroll landed (replaces the plan.md read-model).
     scroll,
     // What the cycle committed (null when the caller did not opt in).

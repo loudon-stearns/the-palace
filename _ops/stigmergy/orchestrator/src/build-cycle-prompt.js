@@ -180,17 +180,22 @@ export function buildCyclePrompt(opts) {
     },
   });
 
-  // The type system (v1.19, "born a child"). SCHEMA left the auto-loaded floor,
-  // so a steward no longer has it by default. A steward is a child working in
-  // the workshop its orchestrator opened, but it proposes stage changes, links
-  // and forward-vector edits — so it sees the type system, AFTER its home entry
-  // (identity first, rules second). Frontmatter stripped; the card body is enough.
+  // The type system, then ELDER. A steward is grown up for its own page and
+  // bundle (decided 2026-10-16, Loudon: "Lets just have stewards always be grown
+  // up, we don't need to wait for a grant"): every cycle reads ELDER on top of
+  // SCHEMA, AFTER its home entry (identity first, rules second). Frontmatter
+  // stripped; the card bodies are enough. `include.schema` toggles both.
   let schemaSection = '';
   if (inc.schema) {
     const schemaFile = join(palaceRoot, 'SCHEMA.md');
     if (existsSync(schemaFile)) {
       const schemaBody = readFileSync(schemaFile, 'utf8').replace(/^---\n[\s\S]*?\n---\n/, '');
-      schemaSection = `\n# The palace's type system — SCHEMA (read after you know who you are)\n\nYou are a child working in the workshop your orchestrator opened: you make things in your project's own folder, and you propose changes to the palace itself. This card is what those proposals must fit — entry types, stages, the typed-link ontology. The rules decide form; they never decide whether a real find is worth proposing.\n\n\`\`\`markdown\n${schemaBody.trim()}\n\`\`\`\n`;
+      schemaSection = `\n# The palace's type system — SCHEMA (read after you know who you are)\n\nYou are grown up for your own page and bundle: you edit your own entry, body and frontmatter alike, and your bundle's files, and you propose every other change to the palace. This card is what those edits and proposals must fit — entry types, stages, the typed-link ontology. The rules decide form; they never decide whether a real find is worth keeping.\n\n\`\`\`markdown\n${schemaBody.trim()}\n\`\`\`\n`;
+    }
+    const elderFile = join(palaceRoot, 'ELDER.md');
+    if (existsSync(elderFile)) {
+      const elderBody = readFileSync(elderFile, 'utf8').replace(/^---\n[\s\S]*?\n---\n/, '');
+      schemaSection += `\n# ELDER — you have grown up, for your own page and bundle\n\nEvery steward reads this every cycle. It is what an elder holds: what may change the house and how. For you it covers your own entry and your bundle; another page, a new entry and canon stay proposals, and the Plan and Standing Orders on your scroll stay Loudon's.\n\n\`\`\`markdown\n${elderBody.trim()}\n\`\`\`\n`;
     }
   }
 
