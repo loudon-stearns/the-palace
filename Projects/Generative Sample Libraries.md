@@ -66,6 +66,7 @@ The pipeline is source-agnostic. Any audio that can be brought into a Python pro
 - **Local audio** — folders of WAV / FLAC / OGG files the user already has. Filename heuristics or pitch detection map source files onto MIDI notes.
 - **Web libraries** — Creative Commons sources like freesound.org packs, with explicit user permission for downloads.
 - **AI audio sub-agents** — generative audio models (Stable Audio Open, MusicGen, AudioLDM2, Kokoro for spoken-word instruments, etc.) called per-note. The interview becomes iterative: candidate → critique → regenerate, until the sound is right, then multisample.
+- MusicGen-melody's weights are CC-BY-NC 4.0: an instrument sampled from them can be shared but not sold.
 
 The sub-agent path is architecturally distinct: it is a Claude calling a specialist model inside a conversation, with the user steering at each iteration. It deserves its own design pass when we build it out in Phase 3.
 
