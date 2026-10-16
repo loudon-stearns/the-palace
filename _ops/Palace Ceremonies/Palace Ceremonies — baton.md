@@ -38,7 +38,7 @@ Canon says a ledger is a family any page may keep, and a ceremony is a page carr
 
 ## Next move
 0. ~~**The steward-ledger code**~~ Landed 2026-10-16 (`1921ee8b`): Now lists recurring left-rough notes, oldest first; the first design is backed out. Check it on GSL's next cycle (39).
-1. **Wave 3a, the pilots**: the Hero and Avatar Maker's tuning ledger (seeded from its two lists and the 2026-09-26 faces lessons, which are in this baton's git history at `fe3a8216`), then GSL's (from the lesson sections of `ai-source-probe/DESIGN.md`). Each page's first face or cycle after its ledger lands should leave a run line by itself; check that it did. Both 2026-10-15 answers below first bite here: the Maker's `last_tested` comes off its frontmatter in the commit that lands its ledger, and GSL's first ledgered cycle files its steward's lesson straight into the ledger.
+1. ~~**Wave 3a, the pilots**~~ Landed 2026-10-16: the Hero and Avatar Maker (`e36d8efd`) and GSL (`6d659dee`, simplified `9e8cb8c6`). Check each page's first run line by itself: the Maker's on its next face, GSL's on cycle 39. A steward now grows its own ledger at its first offered lesson (Loudon, 2026-10-16; the code session is restoring it from `73d06fa8`).
 2. **Wave 3b and 3c**, one ledger at a time, each on Loudon's yes; the test for each: would a worker who ignored the line today be wrong? If so it stays on the page.
 
 ## Still open (from 2026-10-14)
@@ -46,6 +46,7 @@ Canon says a ledger is a family any page may keep, and a ceremony is a page carr
 - what one run is when three or more pages meet;
 - whether a diary settles between molts, for a page lived often that never changes;
 - whether the Schema Ceremony, which has no page and no trigger words in CLAUDE.md, should learn from its runs.
+- **folding** (parked by Loudon, 2026-10-16): how a settled lesson leaves a ledger for its page or design doc. Revisit when a ledger is long enough to bury one. Built once as a steward's fold ask and let-go ask (`73d06fa8`) and held back; once stewards grow up, folding may just be a steward writing its own page. Let-go is gone with the debts, which now stay on the scroll's trail.
 
 ## Calibrations
 - Loudon (10-14): "Write it loosely so pages can innovate, don't over-specify and allow pages to even use them outside of spec so that we have examples to grow with."
