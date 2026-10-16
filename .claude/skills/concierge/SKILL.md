@@ -18,10 +18,9 @@ product.** The search never enters this conversation; only the finished thing do
 
 ## The lifecycle — resident, not fresh-per-request
 
-0. **Summon at the open.** Spawn it at the top of any palace discussion, not when a task finally
-   looks expensive enough — and **narrate the spawn so Loudon can see it**, which is how he knows
-   the process is running. Where the surface cannot spawn, say so at the open instead. Step 1 *is*
-   that spawn; the rest is how.
+0. **Summon at the open.** When to summon, and that it be seen, is the rule in [[CLAUDE]] § Growing
+   up. Where the surface cannot spawn, say so at the open instead. Step 1 *is* that spawn; the
+   rest is how.
 
 1. **The spawn — one resident, and keep the agent ID.** Spawn one write-capable
    resident — subagent_type **`palace-writer`** ([[Agent Toolbox]] profile: sheds ~20K of unused
@@ -65,7 +64,7 @@ If you expect a genuinely large fan-out, tell Loudon the rough cost first (his s
 Fill the posture prompt's slots — `{{REQUEST}}` / `{{QUESTION}}` / `{{TOUCHED_ENTRIES}}`,
 `{{TRANSCRIPT_CONTEXT}}`, `{{PALACE_ROOT}} = /Users/loudonstearns/Documents/The Palace`. For a
 conversation-dependent address, distill the transcript
-(`node _ops/closing-well/transcript-reader.mjs --resolve` → `--distill`); for a self-contained
+(`node _ops/closing-well/transcript-reader.mjs --resolve --session <id>` → `--distill --session <id>`); for a self-contained
 one, a 2–3 line note is enough.
 
 ## Relay — and hold the safety line
