@@ -13,7 +13,7 @@ forward_vector: "I am the prompt Loudon carries to a project outside the palace,
 
 # The export prompt — lessons from outside
 
-*How to use it: open the outside project's own Claude, paste everything below the line, and fill in the craft on its first line. The craft is the tool or practice whose lessons you want: "Max, gen~ and RNBO", "Ableton Live sets", "working with Claude on hardware". Then follow [[Harvest Ceremony]] § Lessons from outside. The text below the line stands on its own: a Claude that has never seen the palace can follow it.*
+*How to use it: open the outside project's own Claude, paste everything from the line down to the second line, and fill in the craft on its first line. If the palace already sorts that craft by stages (its page in [[The Shop]], or its standards page), paste them into the slot near the end. The craft is the tool or practice whose lessons you want: "Max, gen~ and RNBO", "Ableton Live sets", "working with Claude on hardware". Then follow [[Harvest Ceremony]] § Lessons from outside. The text below the line stands on its own: a Claude that has never seen the palace can follow it.*
 
 ---
 
@@ -116,12 +116,25 @@ Use plain, direct language. Write the lessons so that someone who never saw this
 
 ## If the craft has stages
 
-If the craft moves through natural stages, from "it runs" to "it is good", group the gotchas by stage and say in each one which stage it bites at.
+Most crafts move through stages, from "it runs" to "it is good": each stage is a test that passes or fails. Group the gotchas by stage, and say in each one which stage it bites at.
 
-**For Max, gen~ and RNBO**, use these four stages. The palace sorts what comes in by them.
-1. **Loads.** The patcher opens: the file format, object names, boxes, connections, the Max for Live device wrapper, dependencies found or missing.
-2. **Compiles.** rnbo~ or gen~ builds it: what codebox and gen~ accept or reject, what exists inside rnbo~ under which name, and limits on arrays and buffers.
-3. **Sounds.** It makes the right sound: levels, timing, sample rate, denormals, voices, clicks, CPU.
-4. **Plays.** It works in a player's hands: the UI, parameters and mapping, presets, automation in Live, export targets.
+- **If I have pasted the craft's stages below**, use them. They are how the palace already sorts that craft.
+- **If not**, name three to five stages yourself, each a pass-or-fail test, and state them at the top of the Gotchas section. As rough shapes only, not rules: 3D work might run *model → materials → light → render*, and hardware design *schematic → layout → bring-up → in the hand*.
 
-Also say which Max and RNBO versions the lessons were learned on. And note anything Claude got wrong about Max's file format more than once: hand-written patches fail there first.
+Then add whatever only this craft needs said: the versions the lessons were learned on, and anything Claude got wrong about the craft more than once.
+
+**Stages pasted from the palace:**
+
+*(Paste here, or leave empty.)*
+
+---
+
+*The palace keeps each craft's stages on that craft's own page, and Loudon pastes them into the slot above. The first craft to have them, as the worked example:*
+
+> **Max, gen~ and RNBO.**
+> 1. **Loads.** The patcher opens: the file format, object names, boxes, connections, the Max for Live device wrapper, dependencies found or missing.
+> 2. **Compiles.** rnbo~ or gen~ builds it: what codebox and gen~ accept or reject, what exists inside rnbo~ under which name, and limits on arrays and buffers.
+> 3. **Sounds.** It makes the right sound: levels, timing, sample rate, denormals, voices, clicks, CPU.
+> 4. **Plays.** It works in a player's hands: the UI, parameters and mapping, presets, automation in Live, export targets.
+>
+> Say which Max and RNBO versions the lessons were learned on. Hand-written patches fail first at the file format, so note anything Claude got wrong about it more than once.
