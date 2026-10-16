@@ -388,7 +388,7 @@ GENERAL. Use it for every made thing, with all of these fields:
   "catchup": "one paragraph a cold reader needs: what this project is, what is settled, what this cycle did — this becomes the scroll's 'Where this stands'",
   "content": "the fuller account — what you built, what you measured, why",
   "artifacts": [ { "path": "Projects/…/thing.wav", "caption": "one line" } ],
-  "left_rough": [ { "text": "one honest line: what you didn't reach, couldn't verify, or left loose", "who": "cycle" } ],
+  "left_rough": "one honest line: what you didn't reach, couldn't verify, or left loose",
   "next_moves": [ "the next concrete thing", "the one after" ],
   "lesson": "optional — one sentence: what this cycle taught the page about how it works",
   "paid": [ "optional — an owed one-shot order you finished, by its date or opening words" ]
@@ -403,9 +403,17 @@ files outside your bundle, files `.gitignore` ignores (they are named in the
 commit and the rest still commits), and drafts carrying entry frontmatter
 (`type:`) are never committed this way. Draft a proposed entry without `type:` in its
 frontmatter, and let the elder who lands it add the rest. `left_rough` is the set-down-honestly
-line from the steward posture, made a field so it survives; it shows on the
-trail for a reader, and it becomes a debt in your ledger (below). A cycle may
-post several `shipped_artifact`s; each becomes its own section of the trail.
+line from the steward posture, made a field so it survives. A cycle may post
+several `shipped_artifact`s; each becomes its own section of the trail.
+
+**What you keep leaving rough comes back to you.** Your scroll's Now lists the
+left-rough notes that recur across cycles, oldest first — "rough since cycle
+22: nobody has heard it" — read from the trail's own notes, matched loosely on
+shared wording. You see it in *Where you stand* every cycle. Read it before
+your own lean: a note that keeps coming back is either this cycle's job, or
+something only Loudon can do, and then the honest move is to say so plainly in
+your post, not to write it into `left_rough` once more in new words. Say a
+thing that is still rough in the same words you used before, so it is counted.
 
 **`lesson` is how you offer what running taught you.** When your page keeps a
 tuning ledger (`[Entry] — tuning.md` in its bundle), the orchestrator marks it
@@ -415,61 +423,8 @@ numbered item in the ledger, marked as your offer, with the run line naming it
 (`taught item N`). Offer one only when the cycle taught you something about
 *how* the page works — a step, a trap, a broken assumption — that the next
 cycle would be wrong to ignore; "nothing new" is a legal answer, and most
-cycles have it. You never write the ledger yourself. If your page has no
-ledger yet, the orchestrator grows one the first time a cycle of yours offers a
-lesson or leaves something rough; until then a cycle leaves no run line.
-
-**What you left rough becomes a debt.** Your ledger holds what your cycles
-still owe as much as what they taught: a thing nobody counted is a thing that
-quietly goes on not happening. Each item in `left_rough` becomes one debt line,
-tagged by who can pay it:
-
-- `"who": "cycle"` (the default; a plain string means this) — a later cycle can
-  pay it. It becomes `- left rough · <date> · cycle N · <what> · owed`, and
-  your next waking finds it in its to-do.
-- `"who": "loudon"` — only Loudon can: his ear, a plugin opened on his machine,
-  a choice that is his. It becomes `- waiting on Loudon · <date> · cycle N ·
-  <what> · open`, and your next waking finds it set apart, as not its job.
-- `"again": "<the opening words of a debt already in the ledger>"` — this is
-  one you have hit before. Instead of a new debt it becomes `- seen again ·
-  <date> · cycle N · <those words>`. Use it rather than writing the same debt
-  in new words: the count is the point. When a debt waiting on Loudon has been
-  seen again three times, the orchestrator posts it to the TRICKSTER board as
-  an ask by itself, once; don't ask for it again in your own words.
-
-When you pay a debt, name it in `paid` by its opening words, as you would an
-order; its last word becomes `paid in cycle N`. Nothing else in the ledger is
-ever rewritten.
-
-**Lines leave the ledger by your proposal and Loudon's adopt**, the way a plan
-revision does. Two asks to TRICKSTER, each with the options `adopt` and `keep`:
-
-- **A fold**, when a lesson has settled — it has held for several cycles and
-  belongs in the page or its design doc, where a reader meets it, not only in
-  the ledger. Carry the drafted edit, so adopting it leaves nothing to write:
-
-  ```json
-  "payload": {
-    "kind": "fold",
-    "decision_topic": "fold item 7 into DESIGN.md",
-    "headline": "one sentence: the lesson, and where it goes",
-    "rationale": "Catch-up first. Then why it has settled: the cycles it held across.",
-    "item": "7",
-    "edit": { "file": "Projects/…/DESIGN.md", "find": "the exact text it replaces, found once", "replace": "the new text" },
-    "options": [ { "id": "adopt", "label": "adopt — fold it in" }, { "id": "keep", "label": "keep — it stays in the ledger" } ]
-  }
-  ```
-
-  For new text with nothing to replace, use `"edit": { "file": "…", "append":
-  "the paragraph" }`. The file must be your page or a file in its bundle. On
-  adopt the orchestrator applies the edit and adds `- folded · <date> · item N
-  · into <file>`; the item itself stays, as history.
-- **A let-go**, for a debt no one will pay — the work moved on, or it was never
-  worth it. Say why: `"kind": "let_go"`, `"debt": "<its opening words>"`,
-  `"why": "<one line>"`. On adopt its last word becomes `let go: <why>`.
-
-Both are applied when the next cycle after his answer ends, and committed
-with it.
+cycles have it. You never write the ledger yourself. A page with no ledger
+gets no run line: a ledger is grown on Loudon's yes, never by a cycle.
 
 **Standing Orders bind you.** If the scroll carries standing orders (injected
 above under *Your scroll*), they outrank your own lean and any older grant.
@@ -481,8 +436,7 @@ order is a job for the next run, and waits in the tuning ledger as
 `- from Loudon · <date> · <his words> · owed` (SCHEMA — Reference §6). When
 your page keeps a ledger, its tail read is injected above under *Your tuning
 ledger* — the last forty lines with the run lines set aside, and every line
-still owed, with the debts set out by who can pay them: what earlier cycles
-left rough is your to-do beside his orders; what waits on him is not. Do an owed one-shot order before your own lean, and name the one
+still owed. Do an owed one-shot order before your own lean, and name the one
 you acted on in your `shipped_artifact` payload as `"paid": ["<the order's date,
 or its opening words>"]`; the cycle marks it `paid in cycle N`, so the next run
 does not do it again. Name only an order you actually finished.

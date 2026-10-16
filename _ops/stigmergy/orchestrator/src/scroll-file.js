@@ -47,7 +47,7 @@ import { parseFrontmatter } from './entry-frontmatter.js';
 import { reconcilePendingRequests } from './process-cycle.js';
 import { readTrigger } from './ceremony-scroll.js';
 import {
-  readTuningState, readDiaryState, diaryPathFor, ledgerTrail, renderLedgerSection, runText, isGitIgnored, roughText,
+  readTuningState, readDiaryState, diaryPathFor, ledgerTrail, renderLedgerSection, runText, isGitIgnored,
 } from './ledger.js';
 
 export const MARK = {
@@ -143,7 +143,7 @@ function firstParagraph(text, max = 700) {
 }
 
 // Payload keys that are wire plumbing, never prose worth showing on a trail.
-const PLUMBING_KEYS = new Set(['kind', 'entry', 'entry_path', 'turn_id', 'in_reply_to', 'worktree', 'headline', 'ground', 'catchup', 'content', 'rationale', 'summary', 'subject', 'artifacts', 'artifact_path', 'caption', 'options', 'table', 'left_rough', 'next_moves', 'equations', 'resource', 'blocking', 'choice_mode', 'prompt', 'request_id', 'plan', 'off_plan', 'debt_key', 'debt_text']);
+const PLUMBING_KEYS = new Set(['kind', 'entry', 'entry_path', 'turn_id', 'in_reply_to', 'worktree', 'headline', 'ground', 'catchup', 'content', 'rationale', 'summary', 'subject', 'artifacts', 'artifact_path', 'caption', 'options', 'table', 'left_rough', 'next_moves', 'equations', 'resource', 'blocking', 'choice_mode', 'prompt', 'request_id', 'plan', 'off_plan']);
 
 /**
  * The prose a message carries, in order of preference: the canonical fields,
@@ -294,7 +294,7 @@ export function renderMakingSection(m, { cycle } = {}) {
     lines.push(`| ${p.table.columns.map(() => '---').join(' | ')} |`);
     for (const r of p.table.rows) lines.push(`| ${(Array.isArray(r) ? r : [r]).map((c) => escapePipes(dash(c))).join(' | ')} |`);
   }
-  if (roughText(p.left_rough)) { lines.push(''); lines.push(`_Left rough:_ ${roughText(p.left_rough)}`); }
+  if (p.left_rough) { lines.push(''); lines.push(`_Left rough:_ ${String(p.left_rough).trim()}`); }
   if (Array.isArray(p.next_moves) && p.next_moves.length) { lines.push(''); lines.push(`_Next moves named:_ ${p.next_moves.map(String).join(' · ')}`); }
   lines.push(`<sub>\`${m.id}\` · ${m.type} on ${m.board}</sub>`);
   lines.push('<!-- /scroll:entry -->');
@@ -353,7 +353,7 @@ export function lastGitTouch(palaceRoot, paths) {
  * `ledger` is ledger.js's readTuningState, `diary` its readDiaryState; either
  * may be null, and `kind` defaults from the entry's frontmatter (scrollKind).
  */
-export function computeNow({ home, board = [], state = null, history = [], meta = {}, entryText = '', tsNow, lastTouch = null, bundleMedia = [], plan = null, ledger = null, diary = null, kind = null }) {
+export function computeNow({ home, board = [], state = null, history = [], meta = {}, entryText = '', tsNow, lastTouch = null, bundleMedia = [], plan = null, ledger = null, diary = null, kind = null, rough = [] }) {
   const own = ownMessages(board, home);
   const { stillPending, nowResolved } = reconcilePendingRequests(board, home);
   const lastActiveMs = state && state.last_active ? Date.parse(state.last_active) : NaN;
@@ -423,10 +423,105 @@ export function computeNow({ home, board = [], state = null, history = [], meta 
     drift,
     plan: planView,
     stands,
+    rough,
     last_touch: lastTouch,
     bundle_media_count: bundleMedia.length,
     ts_now: tsNow,
   };
+}
+
+// ── What keeps being left rough ────────────────────────────────────────────
+//
+// Loudon, 2026-10-16: Now lists the left-rough notes that recur, oldest first —
+// "rough since cycle 22: nobody has heard it". GSL's trail said "nobody has
+// heard it" in seventeen cycles running and no later cycle counted it. Read
+// from the trail's own `_Left rough:_` notes, so it needs no ledger and no new
+// field. Recurrence is matched loosely, on shared wording: each sentence of a
+// note becomes its two-word phrases (small words dropped, "no one / nobody /
+// haven't" read as "not", "heard / listened" as "hear"), and a sentence that
+// shares a phrase with one from an earlier cycle's note continues it.
+
+const ROUGH_SMALL = new Set('a an and are as at be been but by can could did do does each either for from had has have her his how i if in into is it its just me more most my of on one only or our so some still than that the their them then there these they this those to up us was we were what when where whether which while who why will with would you your yet any all also about after before both every here like may might much must new now off over same should such too under very well'.split(' '));
+const ROUGH_NOT = /^(?:no|nobody|none|not|never|haven't|hasn't|hadn't|isn't|wasn't|didn't|don't|doesn't|can't|couldn't|won't|unheard|untested|unverified|unrun)$/;
+
+/** A sentence's two-word phrases, normalized loosely enough to catch a note said again in new words. */
+export function roughPhrases(sentence) {
+  const toks = String(sentence || '').toLowerCase().replace(/’/g, "'").replace(/\bno one\b/g, 'nobody').match(/[a-z][a-z'#0-9-]*/g) || [];
+  const seq = [];
+  for (let t of toks) {
+    if (ROUGH_NOT.test(t)) {
+      seq.push('not');
+      if (/^un(heard|tested|verified|run)$/.test(t)) seq.push(t === 'unheard' ? 'hear' : t.slice(2).replace(/ed$/, ''));
+      continue;
+    }
+    t = t.replace(/'s$/, '');
+    if (t.length < 3 || ROUGH_SMALL.has(t)) continue;
+    t = t.replace(/(?:ing|ed|es|s)$/, '');
+    if (/^(listen|hear|heard)$/.test(t)) t = 'hear';
+    seq.push(t);
+  }
+  const out = new Set();
+  for (let i = 1; i < seq.length; i++) out.add(`${seq[i - 1]} ${seq[i]}`);
+  return out;
+}
+
+/** The trail's `_Left rough:_` notes, oldest first: [{ id, date, cycle, note }]. */
+export function leftRoughNotes(scrollText) {
+  const making = String(scrollText || '');
+  const at = making.indexOf(MARK.makingStart);
+  const trail = at >= 0 ? making.slice(at) : making;
+  const out = [];
+  const re = /<!-- scroll:entry id="([^"]+)" -->([\s\S]*?)<!-- \/scroll:entry -->/g;
+  let m;
+  while ((m = re.exec(trail))) {
+    const h = /^### (\d{4}-\d{2}-\d{2}) — (?:cycle (\d+) — )?/m.exec(m[2]);
+    const r = /^_Left rough:_ (.+)$/m.exec(m[2]);
+    if (r) out.push({ id: m[1], date: h ? h[1] : null, cycle: h && h[2] ? parseInt(h[2], 10) : null, note: r[1].trim() });
+  }
+  return out.reverse();
+}
+
+/**
+ * The left-rough notes that recur, oldest first: [{ since: { cycle, date },
+ * cycles, last: { cycle, date }, latest, first }]. A thread counts once per
+ * note. Only threads still live — named in one of the newest `live` notes —
+ * are kept; one that stopped recurring was most likely paid.
+ */
+export function recurringRough(scrollText, { live = 5, max = 8 } = {}) {
+  const notes = leftRoughNotes(scrollText);
+  const threads = [];
+  notes.forEach((n, ni) => {
+    for (const sentence of n.note.split(/(?<=[.!?;])\s+/).map((x) => x.trim()).filter(Boolean)) {
+      const ph = roughPhrases(sentence);
+      if (!ph.size) continue;
+      let best = null; let bestN = 0;
+      for (const t of threads) {
+        if (t.lastNote === ni) continue;
+        for (const s of t.said) { const k = [...ph].filter((x) => s.has(x)).length; if (k > bestN) { bestN = k; best = t; } }
+      }
+      const at = { cycle: n.cycle, date: n.date, sentence };
+      if (best) { best.hits.push(at); best.said.push(ph); best.lastNote = ni; }
+      else threads.push({ hits: [at], said: [ph], lastNote: ni });
+    }
+  });
+  return threads
+    .filter((t) => t.hits.length > 1 && t.lastNote >= notes.length - live)
+    .slice(0, max)
+    .map((t) => ({
+      since: { cycle: t.hits[0].cycle, date: t.hits[0].date },
+      cycles: t.hits.length,
+      last: { cycle: t.hits[t.hits.length - 1].cycle, date: t.hits[t.hits.length - 1].date },
+      latest: t.hits[t.hits.length - 1].sentence,
+      first: t.hits[0].sentence,
+    }));
+}
+
+const when = (w) => (w.cycle != null ? `cycle ${w.cycle}` : dash(w.date));
+
+/** One recurring note, as Now lists it. */
+export function roughLine(r) {
+  const said = r.latest.length > 220 ? `${r.latest.slice(0, 219)}…` : r.latest;
+  return `- **rough since ${when(r.since)}:** ${said} _(in ${r.cycles} notes, the latest ${when(r.last)})_`;
 }
 
 /** The Now zone's one-line read of the plan. */
@@ -469,15 +564,11 @@ function runsLines(st, noun) {
   }
   L.push(`- **Last run:** ${st.last_run ? `${runText(st.last_run)}${st.last_run.version ? ` (under v${st.last_run.version})` : ''}` : 'none in the ledger yet'}`);
   const orders = (st.orders || []).filter((o) => o.owed);
-  const rough = (st.debts || []).filter((d) => d.unpaid && d.who === 'cycle');
-  const waiting = (st.debts || []).filter((d) => d.unpaid && d.who === 'loudon');
-  const owedCount = st.owed.length + orders.length + rough.length;
+  const owedCount = st.owed.length + orders.length;
   const parts = [];
   if (st.owed.length) parts.push(`item${st.owed.length === 1 ? '' : 's'} ${st.owed.map((o) => o.n).join(', ')}`);
   if (orders.length) parts.push(`${orders.length} order${orders.length === 1 ? '' : 's'} from Loudon`);
-  if (rough.length) parts.push(`${rough.length} thing${rough.length === 1 ? '' : 's'} left rough`);
   L.push(`- **Owed in the ledger:** ${owedCount ? `${owedCount} — ${parts.join(' and ')}; the next run's tail read picks ${owedCount === 1 ? 'it' : 'them'} up first` : 'nothing'}`);
-  if (waiting.length) L.push(`- **Waiting on Loudon:** ${waiting.length} — ${waiting.map((d) => `${d.text}${d.seen ? ` (seen again ${d.seen}×)` : ''}`).join('; ')}`);
   if (st.latest && st.latest.heading) L.push(`- **Latest lesson:** item ${dash(st.latest.item)}, ${st.latest.heading.replace(/^From /, 'from ')} — [[${st.home} — tuning]]`);
   return L;
 }
@@ -496,19 +587,10 @@ function runsSections(st) {
   const orders = (st.orders || []).filter((o) => o.owed);
   L.push('### Owed');
   L.push('');
-  const rough = (st.debts || []).filter((d) => d.unpaid && d.who === 'cycle');
-  const waiting = (st.debts || []).filter((d) => d.unpaid && d.who === 'loudon');
-  if (!st.owed.length && !orders.length && !rough.length) L.push('_Nothing owed._');
+  if (!st.owed.length && !orders.length) L.push('_Nothing owed._');
   for (const o of st.owed) L.push(`- **${o.n}.** ${o.text}`);
   for (const o of orders) L.push(`- **From Loudon, ${o.date}.** ${o.text}`);
-  for (const d of rough) L.push(`- **Left rough${d.cycle != null ? ` in cycle ${d.cycle}` : ''}.** ${d.text}${d.seen ? ` _(seen again ${d.seen}×)_` : ''}`);
   L.push('');
-  if (waiting.length) {
-    L.push('### Waiting on Loudon');
-    L.push('');
-    for (const d of waiting) L.push(`- ${d.text}${d.cycle != null ? ` — since cycle ${d.cycle}` : ''}${d.seen ? ` _(seen again ${d.seen}×)_` : ''}`);
-    L.push('');
-  }
   return L;
 }
 
@@ -568,6 +650,14 @@ export function renderNow(now, { home }) {
     L.push('');
     L.push(now.stands || (now.stewarded ? '_The steward has not spoken yet._' : `_No steward has spoken for this ${noun}. Its direction is the \`forward_vector\` in [[${home}]]'s frontmatter${noun === 'project' ? '; enchant a steward to start the trail' : ''}._`));
     L.push('');
+    if (now.rough && now.rough.length) {
+      L.push('### Left rough, again and again');
+      L.push('');
+      L.push('_What the trail\'s left-rough notes keep saying, oldest first, in its latest words._');
+      L.push('');
+      for (const r of now.rough) L.push(roughLine(r));
+      L.push('');
+    }
     L.push('### Open asks');
     L.push('');
     if (!now.open.length) L.push('_None — nothing is waiting on you._');
@@ -961,7 +1051,7 @@ export function materializeScroll(opts) {
   // change lands on the trail. Then Now is computed against the plan as it stands.
   const adopted = applyAdoptedPlans(text, board, home);
   text = adopted.text;
-  const now = computeNow({ home, board, state, history, meta, entryText, tsNow, lastTouch, bundleMedia, plan: readPlanInfo(text), ledger, diary, kind });
+  const now = computeNow({ home, board, state, history, meta, entryText, tsNow, lastTouch, bundleMedia, plan: readPlanInfo(text), ledger, diary, kind, rough: recurringRough(text) });
   text = updateScrollText(text, { nowText: renderNow(now, { home }), newSections: [] }).text;
 
   if (!dryRun) {

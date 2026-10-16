@@ -10,13 +10,9 @@
 //   4. reconciles the steward's asks against the board (the board is the single
 //      source of truth for decision state — open vs. resolved),
 //   5. updates state.json (pure runtime now) + history.jsonl, and
-//   6. marks the page's tuning ledger with the cycle's run line, any lesson the
-//      steward offered (`payload.lesson`) as a numbered item the line names,
-//      and what it left rough (`payload.left_rough`) as debts tagged by who can
-//      pay — growing the ledger at the first lesson or rough note, applying
-//      Loudon's answers to its fold and let-go asks, and posting a debt that
-//      waits on him to the board once it recurs three times (SCHEMA — Reference
-//      §6; recordStewardRun, ledger-asks.js),
+//   6. when the page keeps a tuning ledger, marks it with the cycle's run line,
+//      and any lesson the steward offered (`payload.lesson`) as a numbered item
+//      the line names (SCHEMA — Reference §6; recordStewardRun),
 //   7. materializes the bundle-local `[Entry] — scroll.md` (the project's front
 //      door — Now zone + append-only making trail) from the board-derived view.
 //      The scroll replaced the older plan.md read-model on 2026-09-23.
@@ -42,10 +38,7 @@ import { scanBundleMedia, applyArtifactBackstop, lintArtifactReferences } from '
 import { materializeScroll } from './scroll-file.js';
 import { resolveBundleDir } from './entry-paths.js';
 import { readEntryMeta } from './entry-frontmatter.js';
-import {
-  tuningPathFor, recordRun, payOrders, localDate, roughItems, recordDebts, settleDebts, growTuningLedger,
-} from './ledger.js';
-import { applyLedgerAnswers, escalations } from './ledger-asks.js';
+import { tuningPathFor, recordRun, payOrders, localDate } from './ledger.js';
 import { commitCycle, planCycleCommit } from './cycle-commit.js';
 import { resolveModel } from '../../../models/latest-opus.mjs';
 
@@ -247,57 +240,28 @@ export const offeredLessons = (messages) => gather(messages, 'lesson');
 /** The one-shot orders a cycle says it acted on: each `payload.paid` (an order's date or its words). */
 export const paidOrders = (messages) => gather(messages, 'paid');
 
-/** What a cycle's messages left rough: each `payload.left_rough`, as [{ text, who, again }]. */
-export function leftRough(messages) {
-  const out = [];
-  for (const m of messages || []) if (m && m.payload && m.payload.left_rough != null) out.push(...roughItems(m.payload.left_rough));
-  return out;
-}
-
 /**
  * Mark a stewarded page's tuning ledger with one cycle's run (SCHEMA —
- * Reference §6; decided for stewards 2026-10-16):
- *
- * - the ledger is grown the first time a cycle offers a lesson or leaves
- *   something rough; a page with neither and no ledger gets nothing;
- * - Loudon's answers to the ledger's asks are applied first (a fold he adopted,
- *   a debt he let go or paid — ledger-asks.js);
- * - a one-shot order or a debt the cycle says it paid (`payload.paid`) has its
- *   last word replaced with `paid in cycle N`;
- * - a lesson the steward offered becomes a numbered item marked as its offer;
- * - what it left rough (`payload.left_rough`) becomes a debt, tagged by who can
- *   pay it, or a `seen again` line when it names one still unpaid;
- * - then the run line: `- run · <date> · [v<version> ·] cycle N · nothing new`,
- *   or `taught item N`.
- *
- * Returns { ledger, grown, line, items, paid, debts, answers, files } or null.
+ * Reference §6): `- run · <date> · [v<version> ·] cycle N · nothing new`, or
+ * `taught item N` when the steward offered a lesson, which goes in as a
+ * numbered item marked as its offer; a one-shot order from Loudon the cycle
+ * says it acted on (`payload.paid`) has its `owed` replaced with "paid in cycle
+ * N". A page with no tuning ledger gets nothing: a ledger is grown on Loudon's
+ * yes, never by a cycle. Returns { ledger, line, items, paid } or null.
  */
-export function recordStewardRun({ palaceRoot, home, cycleN, tsNow, messages = [], barren = false, board = [] }) {
-  const lessons = offeredLessons(messages);
-  const rough = leftRough(messages);
-  const date = localDate(tsNow || new Date());
-  let ledger = tuningPathFor(palaceRoot, home);
-  let grown = false;
-  if (!ledger) {
-    if (!lessons.length && !rough.length) return null;
-    ledger = growTuningLedger(palaceRoot, home, { date });
-    if (!ledger) return null;
-    grown = true;
-  }
+export function recordStewardRun({ palaceRoot, home, cycleN, tsNow, messages = [], barren = false }) {
+  const ledger = tuningPathFor(palaceRoot, home);
+  if (!ledger) return null;
   const meta = readEntryMeta(palaceRoot, home);
-  const answers = applyLedgerAnswers({ palaceRoot, home, board, ledgerPath: ledger, date });
-  const refs = paidOrders(messages);
-  const paid = payOrders(ledger, refs, `paid in cycle ${cycleN}`) + settleDebts(ledger, refs, `paid in cycle ${cycleN}`);
-  let debts = { added: [], seen: [] };
+  const paid = payOrders(ledger, paidOrders(messages), `paid in cycle ${cycleN}`);
   const r = recordRun(ledger, {
-    date,
+    date: localDate(tsNow || new Date()),
     version: meta && meta.data ? meta.data.version : null,
     what: `cycle ${cycleN}${barren ? ', posted nothing' : ''}`,
-    lessons,
+    lessons: offeredLessons(messages),
     by: `offered by the steward, cycle ${cycleN}`,
-    beforeLine: (p) => { debts = recordDebts(p, { date, cycle: cycleN, items: rough }); },
   });
-  return { ledger, grown, ...r, paid, debts, answers: answers.applied, files: answers.files };
+  return { ledger, ...r, paid };
 }
 
 /** A scroll result as a cycle's summary carries it — the text and the states it read left out. */
@@ -545,30 +509,9 @@ export function processCycle(opts) {
   // before the scroll, so Now counts this cycle, and committed with it.
   let run = null;
   try {
-    run = recordStewardRun({ palaceRoot, home, cycleN, tsNow, messages: valid.filter((m) => appended.includes(m.id)), barren, board });
+    run = recordStewardRun({ palaceRoot, home, cycleN, tsNow, messages: valid.filter((m) => appended.includes(m.id)), barren });
   } catch (e) {
     run = { error: e.message };
-  }
-
-  // ── A debt waiting on Loudon, seen again three times, goes to the board ────
-  // Once per debt, as a TRICKSTER ask (ledger-asks.js). Posted by the
-  // orchestrator in the steward's name; it rides in the cycle's commit with
-  // the board.
-  const escalated = [];
-  if (run && run.ledger) {
-    try {
-      const sessionId = [...board].reverse().find((m) => m && m.from === home && m.session_id)?.session_id || manifest.session_id || basename(agentDirAbs);
-      for (const m of escalations({ ledgerText: readFileSync(run.ledger, 'utf8'), board, home, sessionId, ts: tsNow || new Date().toISOString(), cycleN })) {
-        const withHealth = { ...m, health };
-        const res = validateForPosting(withHealth);
-        if (!res.valid) { errors.push({ id: m.id, errors: res.errors }); continue; }
-        appendMessage(boardFile, withHealth);
-        escalated.push(m.id);
-      }
-    } catch (e) {
-      errors.push({ escalation_error: e.message });
-    }
-    run.escalated = escalated;
   }
 
   // ── Materialize the bundle-local scroll (the project's front door) ────────
@@ -585,7 +528,7 @@ export function processCycle(opts) {
   } catch (e) {
     scroll = { written: false, reason: `error: ${e.message}` };
   }
-  const ledgerPaths = run && run.ledger ? [run.ledger, ...(run.files || [])] : [];
+  const ledgerPaths = run && run.ledger ? [run.ledger] : [];
 
   // ── Commit what the cycle shipped (decided 2026-09-25) ────────────────────
   // The files this cycle's messages declared, inside the steward's bundle and
