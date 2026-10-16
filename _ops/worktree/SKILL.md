@@ -35,7 +35,8 @@ state (runtime pid/log dirs) must **not** be shared. That manifest is `symlinks.
 _ops/worktree/
 ├── SKILL.md            ← this file (process + rationale)
 ├── symlinks.json       ← the manifest: exactly what to symlink, by profile, with why/size/secret flags
-└── new-worktree.mjs    ← the script: create a worktree + apply the manifest; --remove tears down safely
+├── new-worktree.mjs    ← the script: create a worktree + apply the manifest; --remove tears down safely
+└── new-worktree.test.mjs ← teardown proved on a throwaway repo: `node --test _ops/worktree/new-worktree.test.mjs`
 ```
 
 ## Create
@@ -105,8 +106,14 @@ worktree land in the same files. A birth with no memory needs its own repository
 ## Teardown (safe by construction)
 
 ```sh
-node _ops/worktree/new-worktree.mjs --name feature/blueline --remove [--delete-branch]
+node _ops/worktree/new-worktree.mjs --name feature/blueline --remove [--delete-branch] [--dry-run]
 ```
+
+**Preview first.** `--dry-run` with `--remove` changes nothing: it names the worktree and the branch it
+is on, lists the borrowed links it would unlink, says whether the tree is clean enough for `git worktree
+remove`, and says whether the branch is merged and what `--delete-branch` (`-d`) or `--force-delete`
+(`-D`) would do with it. Until 2026-10-15 it didn't — the remove ran before the dry-run check, and a
+Closing Well preview removed two worktrees for real.
 
 `--remove` **unlinks the borrowed symlinks first**, then runs `git worktree remove`. This matters: a
 plain `rm -rf` / `git worktree remove --force` on a worktree containing a `_tools` symlink does *not*
