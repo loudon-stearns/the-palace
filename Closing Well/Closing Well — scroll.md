@@ -15,27 +15,28 @@ forward_vector: "I am Closing Well's scroll — the one page that opens on which
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-16T00:45:37.279Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-16T01:50:08.799Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** — · **Stage:** growing
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
-- **Version:** v1.8 · the spec last changed 2026-10-15 (`9f9d1cf1`) — Schema Ceremony — ledgers become a family; a field marks a ceremony — v1.28
-- **Runs since the change:** none yet — v1.8 has not run
-- **Last run:** 2026-10-15 — close-2026-10-15-faces · taught item 42 (under v1.7)
-- **Owed in the ledger:** 5 — items 12b, 32, 39, 40, 42; the next run's tail read picks them up first
-- **Latest lesson:** item 42, from the face close — 2026-10-15 — [[Closing Well — tuning]]
+- **Version:** v1.9 · the spec last changed 2026-10-15 (`0781f749`) — edit(Closing Well): v1.9 — the arc is the record of what Loudon read between tool calls; items 43 and 44, 39 and 42 paid
+- **Runs since the change:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-15 — close-2026-10-15-wave-2 · taught items 45, 46 (under v1.9)
+- **Owed in the ledger:** 6 — items 12b, 32, 40, 44, 45, 46; the next run's tail read picks them up first
+- **Latest lesson:** item 46, from the Wave 2 close — 2026-10-15 — [[Closing Well — tuning]]
 
-### Runs since v1.8
+### Runs since v1.9
 
-_None yet._
+- 2026-10-15 — close-2026-10-15-wave-2 · taught items 45, 46
 
 ### Owed
 
 - **12b.** `baton-executor.mjs` assumes every entry lives at the tree root — nested-bundle entries misfire silently. "The Palace Speaks" lives under `Palace development/`, so running the e…
 - **32.** The prepare path has no status that reaches it. A keep row whose words Loudon hasn't read is `provisional` (`executor.md:41`), and `provisional` executes nothing (`:30–32`; `dis…
-- **39.** The reader cuts every peer-session message at about 257 characters, and peers relay Loudon's own words. All 11 peer messages in this close's arc (arc:440–829) stop mid-sentence …
 - **40.** A resident's hand-backs can arrive as a bare notification, with no content. On this resident path the Concierge reported to the working Claude only through SubagentHandback. Thr…
-- **42.** The arc reader drops a subagent's returned report, so a whole hand-back reads as a bare "finished". This close's cold read took both Concierge reports for bare, item 40's sympto…
+- **44.** A sealed second reckoning is a test the close can run on itself. At the 2026-10-15 Daily Page a fresh reader sealed its reckoning from the arc before the room sealed its own, an…
+- **45.** A sent session's brief reaches the cold read cut at 240 characters. Another session (local_8312a470) started this one, with the whole Wave 2 task as an `sdk` note. The arc shows…
+- **46.** Item 42 seen again: the resident came at the first house write, not the open — and the birth text allows that reading. The working Claude read CLAUDE.md § Growing up — "stays a …
 
 <!-- scroll:now:end -->
 
@@ -54,6 +55,22 @@ _Loudon's standing direction for this ceremony — never regenerated. It holds u
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="run-d6dd1d39d8" -->
+### 2026-10-15 — close-2026-10-15-wave-2
+
+taught items 45, 46
+<sub>a run under v1.9 · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="version-0781f749150dbb95c33b0bd8b09615113bef3f46" -->
+### 2026-10-15 — the spec moved to v1.9
+
+edit(Closing Well): v1.9 — the arc is the record of what Loudon read between tool calls; items 43 and 44, 39 and 42 paid
+
+Prepared for Loudon's read; not landed. The reader change is 7ef64f16; this commit is the ceremony's side of it, and moves Closing Well 1.8 → 1.9.
+<sub>`0781f749` · version change</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="version-9f9d1cf1b0155086451f55326cf958dc5c487760" -->
 ### 2026-10-15 — the spec moved to v1.8
 
