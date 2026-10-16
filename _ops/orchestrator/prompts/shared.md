@@ -409,7 +409,7 @@ several `shipped_artifact`s; each becomes its own section of the trail.
 **`lesson` is how you offer what running taught you.** When your page keeps a
 tuning ledger (`[Entry] — tuning.md` in its bundle), the orchestrator marks it
 with one run line for every cycle when the cycle ends —
-`- run · <date> · cycle N · nothing new` — and a `lesson` you offer becomes a
+`- run · <date> · [v<version> ·] cycle N · nothing new` — and a `lesson` you offer becomes a
 numbered item in the ledger, marked as your offer, with the run line naming it
 (`taught item N`). Offer one only when the cycle taught you something about
 *how* the page works — a step, a trap, a broken assumption — that the next

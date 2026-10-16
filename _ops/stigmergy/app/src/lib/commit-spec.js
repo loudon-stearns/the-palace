@@ -42,8 +42,8 @@ export const VERIFY_VALUES = ['verified', 'unverified', 'couldnt'];
 // `trigger:` (SCHEMA v1.28), and the scripts pass those pages' titles in
 // (`ceremonyKinds(titles)`; commit-msg-hook.mjs reads them from the palace). Kept
 // here, because this module stays pure: the kind a ceremony's commits take when
-// it is not `ops`, and the ceremonies that have no page of their own, which stay
-// rows in the tables.
+// it is not `ops`, and the rites with no page of their own — the Schema Ceremony
+// (SCHEMA — Reference §5), and Connection and Query, rows in the tables.
 export const CEREMONY_COMMIT_KINDS = {
   'Weave': 'weave',
   'Schema Ceremony': 'schema',

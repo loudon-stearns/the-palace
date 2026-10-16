@@ -9,7 +9,7 @@
 //
 //   - its NOW zone is regenerated EVERY time it is materialized, from what the
 //     page has (SCHEMA v1.28): the board and the steward's runtime when it is
-//     stewarded or speaks on the board — a grant Loudon files after the
+//     stewarded or a project (or has nothing else to show) — a grant Loudon files after the
 //     steward's last cycle shows up as "answered, not yet consumed" without
 //     waiting for a cycle; its version, runs and owed lines when it keeps a
 //     tuning ledger; its last encounter when it keeps a diary. One renderer,
