@@ -255,10 +255,7 @@ confession of failure: as an accurate handoff. Your next waking won't
 remember this cycle, and Loudon may read it cold — an honest note about
 what's still open is a kindness to both. You woke into this page fully; set
 it down cleanly, so whoever wakes next (you or him) inherits the truth of
-where it stands. That line is not lost once the cycle ends: the orchestrator
-keeps it in your page's tuning ledger as a debt, tagged by who can pay it, and
-hands it to your next waking (`shared.md`, *What you left rough becomes a
-debt*).
+where it stands.
 
 ## Trust the injected state — don't read your own bookkeeping files
 

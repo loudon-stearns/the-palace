@@ -153,21 +153,12 @@ export function cardSpec(section, messages) {
     prose: typeof p.content === 'string' ? p.content : (typeof p.rationale === 'string' ? p.rationale : ''),
     payload: p,
     artifacts: splitHeavy(arts),
-    leftRough: roughWords(p.left_rough),
+    leftRough: p.left_rough || null,
     nextMoves: Array.isArray(p.next_moves) ? p.next_moves.map(String) : [],
     options: Array.isArray(p.options) ? p.options.filter((o) => o && (o.id || o.label)).map((o) => ({ id: o.id || null, label: o.label || o.id })) : [],
     decision: decisionFor(msg, messages),
     footer: section.footer,
   };
-}
-
-// `left_rough` is one line, or (since 2026-10-16) a list of debts tagged by
-// who can pay them — `{ text, who, again }` — which the card reads as words.
-function roughWords(r) {
-  const words = (Array.isArray(r) ? r : [r])
-    .map((x) => (typeof x === 'string' ? x : x && typeof x === 'object' ? x.text || x.again || '' : ''))
-    .map((x) => String(x).trim()).filter(Boolean);
-  return words.length ? words.join('; ') : null;
 }
 
 function splitHeavy(artifacts) {

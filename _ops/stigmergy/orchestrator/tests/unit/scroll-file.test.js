@@ -7,6 +7,7 @@ import {
   existingEntryIds, updateScrollText, readZone, readStandingOrders, readStall,
   readConsolidationCycle, materializeScroll, scrollPathFor,
   readPlan, readPlanInfo, ensurePlanZone, applyPlan, adoptedPlanRevisions, writePlan,
+  roughPhrases, leftRoughNotes, recurringRough, roughLine,
 } from '../../src/scroll-file.js';
 import { resolveBundleDir } from '../../src/entry-paths.js';
 
@@ -462,5 +463,55 @@ describe('a page\'s Now, from what the page has', () => {
     const b = materializeScroll({ palaceRoot: root, home: 'Brian Eno', tsNow: 'T', board: [], dryRun: true }).text;
     expect(b).toContain('- **Diary:** kept privately on this machine — not read into this scroll');
     expect(b).not.toContain('something of his');
+  });
+});
+
+describe('what keeps being left rough (Loudon, 2026-10-16): Now lists recurring notes, oldest first', () => {
+  // A trail as the scroll keeps it, newest first, each section carrying its cycle.
+  const section = (id, cycle, rough) => [
+    `<!-- scroll:entry id="${id}" -->`, `### 2026-10-${String(cycle - 20).padStart(2, '0')} — cycle ${cycle} — made a thing`, '', 'What I made.', '',
+    ...(rough ? [`_Left rough:_ ${rough}`, ''] : []), `<sub>\`${id}\` · BROADCAST on GENERAL</sub>`, '<!-- /scroll:entry -->',
+  ].join('\n');
+  const trail = (...secs) => `## Now\n\n${MARK.makingStart}\n${secs.reverse().join('\n\n')}\n`;
+
+  test('"heard", "listened" and "unheard" with "no one", "nobody", "haven\'t" read as the same phrase', () => {
+    for (const s of ['No one has heard it.', 'Nobody has listened yet.', "I haven't heard the tunes.", 'Unheard, by me or by you.']) {
+      expect(roughPhrases(s).has('not hear')).toBe(true);
+    }
+    expect(roughPhrases('The flute still uses the violin\'s bow attack.').has('bow attack')).toBe(true);
+  });
+
+  test('a note said again in new words is one thread, dated from its first cycle, in its latest words', () => {
+    const text = trail(
+      section('s-22', 22, 'Nobody has heard it yet. The top octave is stretched.'),
+      section('s-23', 23, 'The marimba rolls on E5.'),
+      section('s-24', 24, "I haven't listened to either build. The flute uses the violin's bow attack."),
+      section('s-25', 25, null),
+      section('s-26', 26, 'Unheard, by me or by you. And the flute still uses the violin\'s bow attack.'),
+    );
+    expect(leftRoughNotes(text).map((n) => n.cycle)).toEqual([22, 23, 24, 26]);
+    const r = recurringRough(text);
+    expect(r.map((x) => [x.since.cycle, x.cycles, x.last.cycle])).toEqual([[22, 3, 26], [24, 2, 26]]);
+    expect(r[0].latest).toBe('Unheard, by me or by you.');
+    expect(roughLine(r[0])).toBe('- **rough since cycle 22:** Unheard, by me or by you. _(in 3 notes, the latest cycle 26)_');
+  });
+
+  test('a thread that stopped recurring, and a note said once, are not listed', () => {
+    const text = trail(
+      section('s-1', 21, 'Nobody has heard it.'), section('s-2', 22, 'Nobody has heard it.'),
+      ...['The marimba rolls.', 'A loop clicks at C3.', 'Torch would not install.', 'The grader pins at the band edge.', 'The report has no players.'].map((r, i) => section(`s-${i + 23}`, i + 23, r)),
+    );
+    expect(recurringRough(text)).toEqual([]);
+  });
+
+  test('Now shows the list under Where this stands, and leaves the section out when nothing recurs', () => {
+    const base = computeNow({ home: 'Shep', board: BOARD, state: { iteration: 26, last_active: '2026-10-06T00:00:00Z' }, tsNow: '2026-10-07T00:00:00Z' });
+    const rough = [{ since: { cycle: 22, date: '2026-10-02' }, cycles: 3, last: { cycle: 26, date: '2026-10-06' }, latest: 'Nobody has heard it.', first: 'Nobody has heard it.' }];
+    const shown = renderNow({ ...base, rough }, { home: 'Shep' });
+    expect(shown).toContain('### Left rough, again and again');
+    expect(shown.indexOf('### Where this stands')).toBeLessThan(shown.indexOf('### Left rough, again and again'));
+    expect(shown.indexOf('### Left rough, again and again')).toBeLessThan(shown.indexOf('### Open asks'));
+    expect(shown).toContain('- **rough since cycle 22:** Nobody has heard it. _(in 3 notes, the latest cycle 26)_');
+    expect(renderNow(base, { home: 'Shep' })).not.toContain('Left rough, again');
   });
 });

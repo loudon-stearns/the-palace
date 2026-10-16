@@ -118,13 +118,6 @@ describe('the trail as cards (2026-10-13): a section joins its board message', (
   };
   const grant = { id: 'resp-1', ts: '2026-07-02T09:00:00Z', type: 'RESOURCE_GRANT', re: 'gsl-039', from: 'TRICKSTER', payload: { option_id: 'SHIP', option_label: 'SHIP — ship it', notes: 'yes, and louder' } };
 
-  test('a structured left_rough reads as words on the card', () => {
-    const sec = sections.find((s) => s.id === 'gsl-039');
-    const tagged = { ...msg, payload: { ...msg.payload, left_rough: [{ text: 'your ear', who: 'loudon' }, 'the flute attack', { again: 'the C4' }] } };
-    expect(cardSpec(sec, [tagged]).leftRough).toBe('your ear; the flute attack; the C4');
-    expect(cardSpec(sec, [{ ...msg, payload: { ...msg.payload, left_rough: [] } }]).leftRough).toBe(null);
-  });
-
   test('finds the message by the section id and splits artifacts into light and heavy', () => {
     const sec = sections.find((s) => s.id === 'gsl-039');
     expect(messageForSection(sec, [msg])).toBe(msg);
