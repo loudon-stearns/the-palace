@@ -5,25 +5,27 @@ links:
   - target: "[[Walk Ceremony]]"
     type: connects-to
     label: scroll-for
-forward_vector: "I am Walk Ceremony's scroll — the one page that opens on which version of the ceremony is live, whether it has run since it last changed, and what its tuning ledger still owes, then reads down through its runs and version changes, newest first. My top is regenerated whenever anyone looks; my standing orders are Loudon's; my trail only ever grows."
+forward_vector: "I am Walk Ceremony's scroll — the one page that opens on which version of the ceremony is live, whether it has run since it last changed, and what its tuning ledger still owes, then the plan it is following, then reads down through its runs and version changes, newest first. My top is regenerated whenever anyone looks; my plan changes only when Loudon agrees; my standing orders are Loudon's and hold until he revokes them; my trail only ever grows."
 ---
 
 # Walk Ceremony — scroll
 
-> The ceremony's front door. **Now** is regenerated on every look — its version, its runs since the spec last changed, what its ledger owes; **Standing Orders** are Loudon's; **The making** is the trail of runs and version changes, newest first. The card [[Walk Ceremony]] stays the spec, and its lessons live in [[Walk Ceremony — tuning]]. Rendered in [[STIGMERGY]]'s PROJECTS deck. See [[The Scroll]].
+> The ceremony's front door. **Now** is regenerated on every look — its version, its runs since the spec last changed, what its ledger owes; the **Plan** is the path agreed with Loudon, changed only with his yes, and the ledger's owed lines are the next run's to-do beneath it; **Standing Orders** are Loudon's, and hold until he revokes them; **The making** is the trail of runs and version changes, newest first. The card [[Walk Ceremony]] stays the spec, and its lessons live in [[Walk Ceremony — tuning]]. Rendered in [[STIGMERGY]]'s PROJECTS deck. See [[The Scroll]].
 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-25T17:20:24.853Z from the card's frontmatter, its tuning ledger and git. This zone is machine-owned — steer the ceremony in **Standing Orders** below, never here._
+> _Regenerated 2026-10-16T00:45:38.962Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Version:** v1.1 · the spec last changed 2026-09-25 (`033f5da5`) — edit(ceremonies): every card marks its ledger — the versions move
-- **Runs since the change:** none yet — v1.1 has not run
+- **Status:** — · **Stage:** mature
+- **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
+- **Version:** v1.3 · the spec last changed 2026-10-15 (`9f9d1cf1`) — Schema Ceremony — ledgers become a family; a field marks a ceremony — v1.28
+- **Runs since the change:** none yet — v1.3 has not run
 - **Last run:** none in the ledger yet
 - **Owed in the ledger:** 1 — item 2; the next run's tail read picks it up first
 - **Latest lesson:** item 2, from the versioning read — 2026-09-25 — [[Walk Ceremony — tuning]]
 
-### Runs since v1.1
+### Runs since v1.3
 
 _None yet._
 
@@ -33,15 +35,39 @@ _None yet._
 
 <!-- scroll:now:end -->
 
+## Plan
+
+<!-- scroll:plan:start -->
+_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+<!-- scroll:plan:end -->
+
 ## Standing Orders
 
 <!-- scroll:orders:start -->
-_Loudon's standing direction for this ceremony. An order saved on the PROJECTS deck goes into the tuning ledger as owed; the next run's tail read picks it up, and Now shows it as owed until a run acts on it._
+_Loudon's standing direction for this ceremony — never regenerated. It holds until he revokes it, and every run reads it before it starts, beside the tuning ledger's tail read. An order meant for the next run only goes into the ledger as owed instead: "once" on the PROJECTS deck._
 <!-- scroll:orders:end -->
 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="version-9f9d1cf1b0155086451f55326cf958dc5c487760" -->
+### 2026-10-15 — the spec moved to v1.3
+
+Schema Ceremony — ledgers become a family; a field marks a ceremony — v1.28
+
+A ledger stops marking a ceremony and becomes a family any page may keep: an append-only file in its bundle so its next run or waking starts from the last, stating its own standards in frontmatter (ledger, standards). Kinds so far: tuning, the new diary (a page's first-person record of its encounters), and the placements JSONL ledger. A ceremony is now a page carrying trigger:. A run is the page's own unit; a tuning item records what a run taught; standing orders stay on the scroll, one-shot orders are owed in the ledger; any scroll may hold a Plan.
+<sub>`9f9d1cf1` · version change</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="version-32cb19ede0b68720fc20048aef30a0c093eb96ae" -->
+### 2026-09-26 — the spec moved to v1.2
+
+Schema Ceremony — retire activation_count/last_activated; use is computed from git — v1.26
+
+The two fields asked every agent that read a page to bump them by hand. Most sessions are children and may not write the house, so the count measured who remembered: 127 of 347 entries had none, FOUR PILLARS (loaded every session) read 35, and counts tracked neither reads nor edits.
+<sub>`32cb19ed` · version change</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="version-033f5da533205712d73d6f6f2a661355112f8b38" -->
 ### 2026-09-25 — the spec moved to v1.1
 

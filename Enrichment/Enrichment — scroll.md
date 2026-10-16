@@ -5,43 +5,76 @@ links:
   - target: "[[Enrichment]]"
     type: connects-to
     label: scroll-for
-forward_vector: "I am Enrichment's scroll — the one page that opens on which version of the ceremony is live, whether it has run since it last changed, and what its tuning ledger still owes, then reads down through its runs and version changes, newest first. My top is regenerated whenever anyone looks; my standing orders are Loudon's; my trail only ever grows."
+forward_vector: "I am Enrichment's scroll — the one page that opens on which version of the ceremony is live, whether it has run since it last changed, and what its tuning ledger still owes, then the plan it is following, then reads down through its runs and version changes, newest first. My top is regenerated whenever anyone looks; my plan changes only when Loudon agrees; my standing orders are Loudon's and hold until he revokes them; my trail only ever grows."
 ---
 
 # Enrichment — scroll
 
-> The ceremony's front door. **Now** is regenerated on every look — its version, its runs since the spec last changed, what its ledger owes; **Standing Orders** are Loudon's; **The making** is the trail of runs and version changes, newest first. The card [[Enrichment]] stays the spec, and its lessons live in [[Enrichment — tuning]]. Rendered in [[STIGMERGY]]'s PROJECTS deck. See [[The Scroll]].
+> The ceremony's front door. **Now** is regenerated on every look — its version, its runs since the spec last changed, what its ledger owes; the **Plan** is the path agreed with Loudon, changed only with his yes, and the ledger's owed lines are the next run's to-do beneath it; **Standing Orders** are Loudon's, and hold until he revokes them; **The making** is the trail of runs and version changes, newest first. The card [[Enrichment]] stays the spec, and its lessons live in [[Enrichment — tuning]]. Rendered in [[STIGMERGY]]'s PROJECTS deck. See [[The Scroll]].
 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-25T17:20:24.167Z from the card's frontmatter, its tuning ledger and git. This zone is machine-owned — steer the ceremony in **Standing Orders** below, never here._
+> _Regenerated 2026-10-16T00:45:37.614Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Version:** v2.2 · the spec last changed 2026-09-25 (`033f5da5`) — edit(ceremonies): every card marks its ledger — the versions move
-- **Runs since the change:** none yet — v2.2 has not run
-- **Last run:** none in the ledger yet
-- **Owed in the ledger:** nothing
-- **Latest lesson:** item 5, from Closing Well, 2026-09-25 — [[Enrichment — tuning]]
+- **Status:** — · **Stage:** growing
+- **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
+- **Version:** v2.4 · the spec last changed 2026-10-13 (`5c6d7863`) — edit(Enrichment): DRAFT v2.4 — step 1 reads Loudon's earlier notes
+- **Runs since the change:** none yet — v2.4 has not run
+- **Last run:** 2026-10-13 — Language as a Tonal Medium · nothing new (under v2.3)
+- **Owed in the ledger:** 1 — item 8; the next run's tail read picks it up first
+- **Latest lesson:** item 8, from the Kuramoto face-switch cleanup, 2026-10-13 — [[Enrichment — tuning]]
 
-### Runs since v2.2
+### Runs since v2.4
 
 _None yet._
 
 ### Owed
 
-_Nothing owed._
+- **8.** A bare `--stamp` re-stamps a section held drifted on purpose. Step 5 runs `fingerprint.mjs "<Entry>" --stamp` bare, and a bare stamp covers every drifted section with no sign th…
 
 <!-- scroll:now:end -->
+
+## Plan
+
+<!-- scroll:plan:start -->
+_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+<!-- scroll:plan:end -->
 
 ## Standing Orders
 
 <!-- scroll:orders:start -->
-_Loudon's standing direction for this ceremony. An order saved on the PROJECTS deck goes into the tuning ledger as owed; the next run's tail read picks it up, and Now shows it as owed until a run acts on it._
+_Loudon's standing direction for this ceremony — never regenerated. It holds until he revokes it, and every run reads it before it starts, beside the tuning ledger's tail read. An order meant for the next run only goes into the ledger as owed instead: "once" on the PROJECTS deck._
 <!-- scroll:orders:end -->
 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="version-5c6d78631856b1d25bfe7f2f820f0e53d80986d5" -->
+### 2026-10-13 — the spec moved to v2.4
+
+edit(Enrichment): DRAFT v2.4 — step 1 reads Loudon's earlier notes
+
+A draft for Loudon's yes, not canon until he gives it. If he says no, drop this commit; nothing else on the branch depends on it.
+<sub>`5c6d7863` · version change</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-96d69c3c7d" -->
+### 2026-10-13 — Language as a Tonal Medium
+
+nothing new
+<sub>a run under v2.3 · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="version-3b272eefa45fcf30be102f10569640e6440b6636" -->
+### 2026-09-25 — the spec moved to v2.3
+
+edit(Enrichment): v2.3 — the face switch replaces the door line
+
+The face switch (617745f0, landed in 207d937e) reads an entry's faces from its bundle and offers the rich face wherever the manifest sits, so the hand-written door under the hero is retired. Loudon: "right now it is a link in the body text, as we have more and more enriched pages this will not be acceptable."
+<sub>`3b272eef` · version change</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="version-033f5da533205712d73d6f6f2a661355112f8b38" -->
 ### 2026-09-25 — the spec moved to v2.2
 
