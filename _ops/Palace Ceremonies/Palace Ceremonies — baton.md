@@ -36,7 +36,7 @@ Canon says a ledger is a family any page may keep, and a ceremony is a page carr
 - **New ledgers: none yet.** The pilots (Hero and Avatar Maker, Generative Sample Libraries) are next. The proposals and their traps are the plan's Wave 3b; lessons held only in operator memory are 3c.
 
 ## Next move
-1. **Wave 3a, the pilots**: the Hero and Avatar Maker's tuning ledger (seeded from its two lists and the 2026-09-26 faces lessons, which are in this baton's git history at `fe3a8216`), then GSL's (from the lesson sections of `ai-source-probe/DESIGN.md`). Each page's first face or cycle after its ledger lands should leave a run line by itself; check that it did.
+1. **Wave 3a, the pilots**: the Hero and Avatar Maker's tuning ledger (seeded from its two lists and the 2026-09-26 faces lessons, which are in this baton's git history at `fe3a8216`), then GSL's (from the lesson sections of `ai-source-probe/DESIGN.md`). Each page's first face or cycle after its ledger lands should leave a run line by itself; check that it did. Both 2026-10-15 answers below first bite here: the Maker's `last_tested` comes off its frontmatter in the commit that lands its ledger, and GSL's first ledgered cycle files its steward's lesson straight into the ledger.
 2. **Wave 3b and 3c**, one ledger at a time, each on Loudon's yes; the test for each: would a worker who ignored the line today be wrong? If so it stays on the page.
 
 ## Still open (from 2026-10-14)
@@ -49,6 +49,8 @@ Canon says a ledger is a family any page may keep, and a ceremony is a page carr
 - Loudon (10-14): "Write it loosely so pages can innovate, don't over-specify and allow pages to even use them outside of spec so that we have examples to grow with."
 - Loudon (10-14): "All ledgers, regardless of what they are used for, should state in the file the standards and practices for that ledger."
 - Loudon (09-26): "We must not get myopic around the shop and adding a specific carve out for it."
+- Loudon (10-15): "May a steward's offered lesson go straight into its page's ledger,, yes." The cycle files it as a numbered item tagged "*(offered by the steward, cycle N)*" (`recordRun` in `ledger.js`), with no elder's read first. For this case it settles the tension with CLAUDE.md § A page and its folder (a child writes no memory).
+- Loudon (10-15), on `last_tested` and `last_gotcha`, which nothing writes since Wave 2: "retire page by page." Each comes off a page when that page grows a tuning ledger, whose run lines say when it last ran. Not a sweep: until then the values stay as they are, frozen.
 - A woken page is a child: its diary is written by the coordinator, in its own words, never by the page unwatched; never backfilled from a transcript.
 - The Daily Page's diary is private by Loudon's word; nothing of him goes in a tracked file.
 
