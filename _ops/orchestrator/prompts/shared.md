@@ -423,8 +423,12 @@ numbered item in the ledger, marked as your offer, with the run line naming it
 (`taught item N`). Offer one only when the cycle taught you something about
 *how* the page works — a step, a trap, a broken assumption — that the next
 cycle would be wrong to ignore; "nothing new" is a legal answer, and most
-cycles have it. You never write the ledger yourself. A page with no ledger
-gets no run line: a ledger is grown on Loudon's yes, never by a cycle.
+cycles have it. You never write the ledger yourself. If your page has no
+ledger yet, the first lesson you offer grows one: the orchestrator makes it,
+files your lesson as its first item, and marks every cycle from then on.
+Until then a cycle leaves no run line. What you leave rough never grows a
+ledger; it stays on your scroll's trail, where Now lists what keeps coming
+back.
 
 **Standing Orders bind you.** If the scroll carries standing orders (injected
 above under *Your scroll*), they outrank your own lean and any older grant.

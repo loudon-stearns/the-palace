@@ -6,7 +6,7 @@ import {
   parseRunLine, parseRuns, runLine, parseOrders, orderLine, appendLedgerLine, payOrders,
   normVersion, parseOwed, parseLatestLesson, nextItemNumber, tailRead, recordRun, lastRunDate,
   bodyLead, ledgerBody, readStandards, isPrivateLedger, lastEncounter, readDiaryState, readTuningState,
-  listTuningLedgers, localDate,
+  listTuningLedgers, localDate, growTuningLedger, stewardLedgerText,
 } from '../../src/ledger.js';
 
 describe('run lines', () => {
@@ -258,5 +258,29 @@ describe('where ledgers live', () => {
     expect(st).toMatchObject({ version: null, spec: null, runs_since: [], tuning: 'Shop/Hero and Avatar Maker/Hero and Avatar Maker — tuning.md' });
     expect(st.runs.map((r) => r.what)).toEqual(['Kuramoto Coupling, hero']);
     expect(readTuningState(root, 'Nobody')).toBe(null);
+  });
+});
+
+describe("growing a steward's ledger", () => {
+  let root;
+  afterEach(() => { if (root) rmSync(root, { recursive: true, force: true }); root = null; });
+
+  test('it lands in the bundle with its standards stated, never saying owed, and never overwrites', () => {
+    root = mkdtempSync(path.join(tmpdir(), 'ledger-grow-'));
+    writeFileSync(path.join(root, 'Foo.md'), '---\ntitle: Foo\n---\n# Foo');
+    const p = growTuningLedger(root, 'Foo', { date: '2026-10-16' });
+    expect(p).toBe(path.join(root, 'Foo', 'Foo — tuning.md'));
+    const text = readFileSync(p, 'utf8');
+    const { ledger, standards } = readStandards(text);
+    expect(ledger).toBe('tuning');
+    expect(standards).toMatchObject({ run: 'one steward cycle', merge: 'union', kept: 'git', trim: 'never' });
+    expect(JSON.stringify(standards)).not.toMatch(/\bowed\b/i);
+    expect(tailRead(text).owed).toEqual([]);
+    expect(parseRuns(text)).toEqual([]);
+    writeFileSync(p, 'kept');
+    expect(growTuningLedger(root, 'Foo', { date: '2026-10-17' })).toBe(p);
+    expect(readFileSync(p, 'utf8')).toBe('kept');
+    expect(growTuningLedger(root, 'Nobody', { date: '2026-10-17' })).toBe(null);
+    expect(stewardLedgerText('Foo', '2026-10-16')).toContain('title: "Foo — tuning"');
   });
 });

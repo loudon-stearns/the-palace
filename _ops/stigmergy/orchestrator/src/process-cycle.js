@@ -12,7 +12,8 @@
 //   5. updates state.json (pure runtime now) + history.jsonl, and
 //   6. when the page keeps a tuning ledger, marks it with the cycle's run line,
 //      and any lesson the steward offered (`payload.lesson`) as a numbered item
-//      the line names (SCHEMA — Reference §6; recordStewardRun),
+//      the line names; a page with none grows one at its first offered lesson
+//      (SCHEMA — Reference §6; recordStewardRun),
 //   7. materializes the bundle-local `[Entry] — scroll.md` (the project's front
 //      door — Now zone + append-only making trail) from the board-derived view.
 //      The scroll replaced the older plan.md read-model on 2026-09-23.
@@ -38,7 +39,7 @@ import { scanBundleMedia, applyArtifactBackstop, lintArtifactReferences } from '
 import { materializeScroll } from './scroll-file.js';
 import { resolveBundleDir } from './entry-paths.js';
 import { readEntryMeta } from './entry-frontmatter.js';
-import { tuningPathFor, recordRun, payOrders, localDate } from './ledger.js';
+import { tuningPathFor, recordRun, payOrders, localDate, growTuningLedger } from './ledger.js';
 import { commitCycle, planCycleCommit } from './cycle-commit.js';
 import { resolveModel } from '../../../models/latest-opus.mjs';
 
@@ -246,22 +247,32 @@ export const paidOrders = (messages) => gather(messages, 'paid');
  * `taught item N` when the steward offered a lesson, which goes in as a
  * numbered item marked as its offer; a one-shot order from Loudon the cycle
  * says it acted on (`payload.paid`) has its `owed` replaced with "paid in cycle
- * N". A page with no tuning ledger gets nothing: a ledger is grown on Loudon's
- * yes, never by a cycle. Returns { ledger, line, items, paid } or null.
+ * N". A page with no tuning ledger grows one the first time a cycle offers a
+ * lesson (Loudon, 2026-10-16); until then it gets nothing. A left-rough note
+ * never grows one — it stays on the trail, and the scroll's Now lists the ones
+ * that recur. Returns { ledger, grown, line, items, paid } or null.
  */
 export function recordStewardRun({ palaceRoot, home, cycleN, tsNow, messages = [], barren = false }) {
-  const ledger = tuningPathFor(palaceRoot, home);
-  if (!ledger) return null;
+  const lessons = offeredLessons(messages);
+  const date = localDate(tsNow || new Date());
+  let ledger = tuningPathFor(palaceRoot, home);
+  let grown = false;
+  if (!ledger) {
+    if (!lessons.length) return null;
+    ledger = growTuningLedger(palaceRoot, home, { date });
+    if (!ledger) return null;
+    grown = true;
+  }
   const meta = readEntryMeta(palaceRoot, home);
   const paid = payOrders(ledger, paidOrders(messages), `paid in cycle ${cycleN}`);
   const r = recordRun(ledger, {
-    date: localDate(tsNow || new Date()),
+    date,
     version: meta && meta.data ? meta.data.version : null,
     what: `cycle ${cycleN}${barren ? ', posted nothing' : ''}`,
-    lessons: offeredLessons(messages),
+    lessons,
     by: `offered by the steward, cycle ${cycleN}`,
   });
-  return { ledger, ...r, paid };
+  return { ledger, grown, ...r, paid };
 }
 
 /** A scroll result as a cycle's summary carries it — the text and the states it read left out. */

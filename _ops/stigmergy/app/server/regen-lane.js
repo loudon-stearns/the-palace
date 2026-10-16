@@ -17,7 +17,8 @@
 // Reference §6). When the Maker keeps a tuning ledger, the reap marks it with
 // the run line — `- run · <date> · [v<version> ·] <entry>, <target> · nothing
 // new` — in the same commit as the face (makerRunLine). A Maker with no ledger
-// gets none: a ledger is grown on Loudon's yes, never by a render.
+// gets none: a render never grows a ledger (only a steward's cycle grows its
+// own, at its first offered lesson — process-cycle.js).
 //
 // Its own actuator lane (.actuator-regen/) so a render NEVER collides with a
 // companion turn (Loudon keeps chatting while it renders) — and single-worker-

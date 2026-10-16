@@ -611,7 +611,7 @@ describe('processCycle — a manifest that says "opus" records the exact latest 
 // ── The run line (SCHEMA — Reference §6, v1.28) ─────────────────────────────
 // When a stewarded page keeps a tuning ledger, every cycle marks it; a lesson the
 // steward offers becomes a numbered item; an owed one-shot order it names is paid.
-// A page with no ledger gets nothing — a ledger is grown on Loudon's yes.
+// A page with no ledger grows one at its first offered lesson, and only then (Loudon, 2026-10-16).
 describe('a cycle marks its page\'s tuning ledger', () => {
   let root;
   afterEach(() => { if (root) rmSync(root, { recursive: true, force: true }); root = null; });
@@ -682,13 +682,35 @@ describe('a cycle marks its page\'s tuning ledger', () => {
     expect(JSON.stringify(summary.commit.plan)).toContain('Test Steward — tuning.md');
   });
 
-  test('a page with no tuning ledger gets no run line, and no ledger is made', () => {
+  test('a page with no ledger and no lesson gets none — a left-rough note never grows one', () => {
     const agentDir = makePalace({ ledger: false });
     const transcriptPath = path.join(root, 'transcript.jsonl');
-    writeFileSync(transcriptPath, assistantLine([shipped({ lesson: 'something' })]));
+    writeFileSync(transcriptPath, assistantLine([shipped({ left_rough: 'nobody has heard it' })]));
     const summary = processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 38, iteration: 38, tsNow: '2026-10-15T20:05:00Z' });
     expect(summary.run).toBe(null);
     expect(() => readFileSync(LEDGER(), 'utf8')).toThrow();
+  });
+
+  test('the first offered lesson grows the ledger, with standards that never say owed, and files the lesson', () => {
+    const agentDir = makePalace({ ledger: false });
+    const transcriptPath = path.join(root, 'transcript.jsonl');
+    writeFileSync(transcriptPath, assistantLine([shipped({ lesson: 'Takes are the lever.', left_rough: 'the flute attack' })]));
+    const summary = processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 38, iteration: 38, tsNow: '2026-10-15T20:05:00Z', commit: 'plan' });
+    expect(summary.run).toMatchObject({ grown: true, line: '- run · 2026-10-15 · cycle 38 · taught item 1', items: [1] });
+    const text = readFileSync(LEDGER(), 'utf8');
+    const fm = text.split('\n---\n')[0];
+    expect(fm).toContain('ledger: tuning');
+    expect(fm).toContain('run: "one steward cycle"');
+    expect(fm).toContain('merge: union');
+    expect(fm).not.toMatch(/\bowed\b/i);
+    expect(text).toContain('## From cycle 38 — 2026-10-15\n\n1. Takes are the lever. *(offered by the steward, cycle 38)*\n- run · 2026-10-15 · cycle 38 · taught item 1\n');
+    expect(text).not.toContain('the flute attack');                       // rough notes stay on the trail
+    expect(JSON.stringify(summary.commit.plan)).toContain('Test Steward — tuning.md');
+    // the next cycle marks it like any ledger, and never re-grows it
+    writeFileSync(transcriptPath, assistantLine([{ ...shipped(), id: 'ship-39' }]));
+    const next = processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 39, iteration: 39, tsNow: '2026-10-16T20:05:00Z' });
+    expect(next.run).toMatchObject({ grown: false, line: '- run · 2026-10-16 · cycle 39 · nothing new' });
+    expect(readFileSync(LEDGER(), 'utf8').match(/^ledger: tuning$/gm)).toHaveLength(1);
   });
 
   test('lessons and paid orders are read from any message, a string or a list', () => {
