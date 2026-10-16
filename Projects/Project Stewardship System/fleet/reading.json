@@ -1,0 +1,46 @@
+{
+  "reading": 1,
+  "date": "2026-10-16",
+  "by": "Project Stewardship System, hand-run cycle 1",
+  "headline": "The stewards are making. In October 93 cycles made something and 2 posted nothing. What they're short of is you: most of what they leave rough is \"nobody has heard it yet.\"",
+  "title": "What I see, and what I'd change",
+  "sub": "My first reading, the cycle I hand-ran on 2026-10-16. Six findings, each with what I saw in the records and the move I'd make. The label says whose move it is.",
+  "suggestions": [
+    {
+      "title": "The fleet is waiting on your ear, not on making",
+      "saw": "Of the 121 \"left rough\" notes on the scrolls, 87 say nobody has listened yet, and 19 say nobody opened the thing in Max, Live or a browser. Some threads have run a long time: 2D Torus has said nothing was opened in Max in 16 notes since cycle 7, and GSL's loop points have gone unchecked since cycle 21. Meanwhile each steward keeps making the next unheard thing.",
+      "move": "A listening queue: one page that lines up each steward's newest unheard thing, each under a minute, with a keep or redirect button that posts your answer to the board. And let the heartbeat slow a steward that already has a pile of unheard work, so it isn't making the tenth thing nobody has heard.",
+      "owner": "us"
+    },
+    {
+      "title": "One 90-minute cycle used up the 2026-10-15 batch",
+      "saw": "The heartbeat fired four stewards. Semantic Webcam's cycle 8 ran from 10:07 to 11:37, posted nothing, and was marked stalled. The 60-minute batch limit then dropped Shepard Tone, Shopkeeper and Neural Granular, which never ran. The batch watcher left at 11:33, before that cycle finished, so last-batch.json records zero cycles and $0.",
+      "move": "The 25-minute cycle watchdog (max_cycle_minutes) went in that same day, so the next batch is its first test, and I'll read it. Separately, the batch record should fill itself in afterwards from each steward's history, so it says what really happened.",
+      "owner": "me"
+    },
+    {
+      "title": "Standing orders haven't cut the questions yet",
+      "saw": "Nine of the 23 stewards that have run have standing orders. In October, stewards with orders asked 0.36 questions per cycle and those without asked 0.34, so no difference shows. I can't yet tell when each order was written, so this is a weak reading, not a verdict.",
+      "move": "I'll date each order from git so the next reading can compare a steward's asking before and after its orders. Meanwhile the open asks on the right of \"Your side of the loop\" are the ones an order might have answered.",
+      "owner": "me"
+    },
+    {
+      "title": "Auto-triage has been in shadow mode since June",
+      "saw": "Its last digest ran on 2026-06-08 and has never been switched live; all 84 grants on the board are yours. You answer fast: the median ask waits 11 hours. But one in ten waits over nine days, and nothing is open as blocking today.",
+      "move": "Rerun the shadow digest against today's board and spend ten minutes checking it against your own calls. If it matches, switch it live for the non-blocking forks that carry a recommendation. If it doesn't, retire it and say so on the page.",
+      "owner": "you"
+    },
+    {
+      "title": "Two dormant projects still have stewards: the first real cases for retirement",
+      "saw": "Particle Synthesis is dormant and has a steward that ran 5 cycles. Generative Audio Devices is dormant and its steward was registered but never ran. Talking Keyboard and Preset Oracle were registered on 2026-10-13 and haven't run yet.",
+      "move": "These are the cases the retirement baton asked for. Let's design the rite with Particle Synthesis in front of us: what happens to its scroll, its runtime folder, its open asks and its plan.",
+      "owner": "us"
+    },
+    {
+      "title": "The new page-edit power hasn't been used yet",
+      "saw": "Since 2026-10-16 a steward may edit its own page. No cycle has run since that change, so no post carries a page edit yet, and the recurring-rough list on each scroll's Now hasn't been regenerated either.",
+      "move": "Nothing to change. The next reading will say whether stewards used it, whether any edit needed undoing in git, and whether the recurring-rough list changed what they did.",
+      "owner": "me"
+    }
+  ]
+}
