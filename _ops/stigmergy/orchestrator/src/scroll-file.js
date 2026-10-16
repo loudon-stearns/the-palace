@@ -404,10 +404,11 @@ export function computeNow({ home, board = [], state = null, history = [], meta 
     kind: pageKind,
     status: typeof meta?.data?.status === 'string' ? meta.data.status : null,
     stage: meta?.stage || null,
-    // The board block shows when the page lives on the board — a steward, a
-    // project, a page that has spoken there — or when it has nothing else to
-    // show. A ceremony with a ledger and no voice on the board shows its runs.
-    show_board: !!state || pageKind === 'project' || own.length > 0 || (!ledger && !diary),
+    // The board block shows when the page lives on the board — it has a
+    // steward, or it is a project — or when it has nothing else to show. A
+    // ceremony, or a page with a ledger and no steward, shows its runs instead;
+    // a handoff once posted in its name does not make it a board page.
+    show_board: !!state || pageKind === 'project' || (!ledger && !diary),
     ledger,
     diary,
     stewarded: !!state,

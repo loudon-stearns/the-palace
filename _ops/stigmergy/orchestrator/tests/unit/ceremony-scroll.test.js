@@ -141,6 +141,14 @@ describe('a ceremony\'s scroll, drawn by the one materializer', () => {
     expect(t).not.toContain('### Open asks');
   });
 
+  test('a handoff once posted in the ceremony\'s name does not make it a board page', () => {
+    palace();
+    const board = [{ id: 'h-1', ts: '2026-09-04T10:00:00Z', from: 'Return Ceremony', to: '*', type: 'BROADCAST', board: 'GENERAL', payload: { kind: 'handoff_ready', entry: 'Return Ceremony', move: 'x' } }];
+    const t = materializeScroll({ palaceRoot: root, home: 'Return Ceremony', tsNow: 'x', board, dryRun: true }).text;
+    expect(t).not.toContain('### Where this stands');
+    expect(t).toContain('**Version:** v1.1');
+  });
+
   test('an owed one-shot order shows in Now until a run pays it', () => {
     palace();
     appendLedgerLine(LEDGER(), orderLine('2026-09-08', 'Ask before adding a probe.'));
