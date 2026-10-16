@@ -7,7 +7,7 @@ import {
   existingEntryIds, updateScrollText, readZone, readStandingOrders, readStall,
   readConsolidationCycle, materializeScroll, scrollPathFor,
   readPlan, readPlanInfo, ensurePlanZone, applyPlan, adoptedPlanRevisions, writePlan,
-  roughPhrases, leftRoughNotes, recurringRough, roughLine,
+  roughPhrases, leftRoughNotes, recurringRough, roughLine, pageEditLines,
 } from '../../src/scroll-file.js';
 import { resolveBundleDir } from '../../src/entry-paths.js';
 
@@ -513,5 +513,33 @@ describe('what keeps being left rough (Loudon, 2026-10-16): Now lists recurring 
     expect(shown.indexOf('### Left rough, again and again')).toBeLessThan(shown.indexOf('### Open asks'));
     expect(shown).toContain('- **rough since cycle 22:** Nobody has heard it. _(in 3 notes, the latest cycle 26)_');
     expect(renderNow(base, { home: 'Shep' })).not.toContain('Left rough, again');
+  });
+});
+
+// A steward is grown up for its own page and bundle (2026-10-16): each edit it
+// made to its page shows on the trail with its why; a refused one says why not.
+describe('page edits on the trail', () => {
+  const msg = {
+    id: 'pe-1', ts: '2026-10-16T09:00:00-04:00', type: 'BROADCAST', board: 'GENERAL', from: 'Demo',
+    payload: {
+      kind: 'shipped_artifact', headline: 'Moved to sprout', content: 'It is alive.',
+      page_edits: [{ path: 'Projects/Demo.md', why: 'two runs proved it alive, so stage: sprout' }],
+      page_edits_refused: [{ path: 'Projects/Other.md', why: 'add a mirror link', reason: 'another page or canon, outside its own page and bundle', proposal: true }],
+    },
+  };
+
+  test('renders "Changed the page: … — why" and the refusal with its reason', () => {
+    expect(pageEditLines(msg.payload)).toEqual([
+      '_Changed the page:_ Demo — two runs proved it alive, so stage: sprout',
+      '_Page edit not committed:_ Projects/Other.md — another page or canon, outside its own page and bundle; it stays a proposal (wanted: add a mirror link)',
+    ]);
+    const s = renderMakingSection(msg, { cycle: 14 });
+    expect(s).toContain('_Changed the page:_ Demo — two runs proved it alive, so stage: sprout');
+    expect(s).not.toContain('**page edits');
+  });
+
+  test('a message whose only news is a page edit still makes the trail', () => {
+    expect(isMakingMessage({ type: 'BROADCAST', payload: { kind: 'note', page_edits: [{ path: 'Projects/Demo.md', why: 'x' }] } })).toBe(true);
+    expect(pageEditLines({ page_edits: [{ path: 'Projects/Demo/notes.md' }] })).toEqual(['_Changed the page:_ notes — no reason given']);
   });
 });

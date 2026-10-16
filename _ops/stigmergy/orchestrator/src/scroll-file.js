@@ -143,7 +143,7 @@ function firstParagraph(text, max = 700) {
 }
 
 // Payload keys that are wire plumbing, never prose worth showing on a trail.
-const PLUMBING_KEYS = new Set(['kind', 'entry', 'entry_path', 'turn_id', 'in_reply_to', 'worktree', 'headline', 'ground', 'catchup', 'content', 'rationale', 'summary', 'subject', 'artifacts', 'artifact_path', 'caption', 'options', 'table', 'left_rough', 'next_moves', 'equations', 'resource', 'blocking', 'choice_mode', 'prompt', 'request_id', 'plan', 'off_plan']);
+const PLUMBING_KEYS = new Set(['kind', 'entry', 'entry_path', 'turn_id', 'in_reply_to', 'worktree', 'headline', 'ground', 'catchup', 'content', 'rationale', 'summary', 'subject', 'artifacts', 'artifact_path', 'caption', 'options', 'table', 'left_rough', 'next_moves', 'equations', 'resource', 'blocking', 'choice_mode', 'prompt', 'request_id', 'plan', 'off_plan', 'page_edits', 'page_edits_refused']);
 
 /**
  * The prose a message carries, in order of preference: the canonical fields,
@@ -236,7 +236,28 @@ export function isMakingMessage(m) {
   if (SHIPPED_KINDS.has(p.kind)) return true;
   if (Array.isArray(p.artifacts) && p.artifacts.length) return true;
   if (typeof p.artifact_path === 'string' && p.artifact_path) return true;
+  if (Array.isArray(p.page_edits) && p.page_edits.length) return true;
+  if (Array.isArray(p.page_edits_refused) && p.page_edits_refused.length) return true;
   return false;
+}
+
+/**
+ * A steward's own page edits as trail lines (grown up for its own page and
+ * bundle, 2026-10-16): "Changed the page: <path> — <why>" for each edit the
+ * cycle committed, and a plain line for each it refused, with the reason.
+ */
+export function pageEditLines(p) {
+  const lines = [];
+  const name = (path) => basename(String(path)).replace(/\.md$/i, '');
+  for (const e of Array.isArray(p && p.page_edits) ? p.page_edits : []) {
+    if (!e || !e.path) continue;
+    lines.push(`_Changed the page:_ ${name(e.path)} — ${e.why || 'no reason given'}`);
+  }
+  for (const e of Array.isArray(p && p.page_edits_refused) ? p.page_edits_refused : []) {
+    if (!e || !e.path) continue;
+    lines.push(`_Page edit not committed:_ ${e.path} — ${e.reason}${e.proposal ? '; it stays a proposal' : ''}${e.why ? ` (wanted: ${e.why})` : ''}`);
+  }
+  return lines;
 }
 
 /** The cycle number a message belongs to, from the history's TOOL_CALL events. */
@@ -294,6 +315,8 @@ export function renderMakingSection(m, { cycle } = {}) {
     lines.push(`| ${p.table.columns.map(() => '---').join(' | ')} |`);
     for (const r of p.table.rows) lines.push(`| ${(Array.isArray(r) ? r : [r]).map((c) => escapePipes(dash(c))).join(' | ')} |`);
   }
+  const edits = pageEditLines(p);
+  if (edits.length) { lines.push(''); lines.push(...edits); }
   if (p.left_rough) { lines.push(''); lines.push(`_Left rough:_ ${String(p.left_rough).trim()}`); }
   if (Array.isArray(p.next_moves) && p.next_moves.length) { lines.push(''); lines.push(`_Next moves named:_ ${p.next_moves.map(String).join(' · ')}`); }
   lines.push(`<sub>\`${m.id}\` · ${m.type} on ${m.board}</sub>`);

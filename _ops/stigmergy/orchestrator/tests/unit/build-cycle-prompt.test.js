@@ -293,6 +293,34 @@ describe('buildCyclePrompt — the type system layer (v1.19)', () => {
     const off = buildCyclePrompt({ palaceRoot: root, agentDir: agentRel, cycleN: 1, today: '2026-09-22', include: { schema: false } }).userTurn;
     expect(off).not.toContain("The palace's type system");
   });
+
+  // A steward is grown up for its own page and bundle (2026-10-16): every
+  // cycle reads ELDER on top of SCHEMA, after it.
+  test('injects ELDER every cycle, after SCHEMA, and says the steward is grown up', () => {
+    root = mkdtempSync(path.join(tmpdir(), 'bcp-elder-'));
+    const agentRel = '_ops/agents/permanent/demo';
+    mkdirSync(path.join(root, agentRel), { recursive: true });
+    writeFileSync(path.join(root, 'Demo.md'), '---\ntitle: Demo\ntype: project\nstage: sprout\n---\n# Demo\n');
+    writeFileSync(path.join(root, 'SCHEMA.md'), '---\ntitle: SCHEMA\n---\n# SCHEMA\ntypes here\n');
+    writeFileSync(path.join(root, 'ELDER.md'), '---\ntitle: ELDER\n---\n# ELDER\n## Age and its limits\nA steward is grown up for its own page and bundle.\n');
+    writeFileSync(path.join(root, agentRel, 'manifest.json'), JSON.stringify({ agent_id: 'Demo', home: 'Demo' }));
+    writeFileSync(path.join(root, agentRel, 'state.json'), JSON.stringify({ iteration: 3, last_active: null, last_read_cursor: null }));
+    writeFileSync(path.join(root, agentRel, 'history.jsonl'), '');
+    mkdirSync(path.join(root, '_ops/swarm/persistent'), { recursive: true });
+    writeFileSync(path.join(root, '_ops/swarm/persistent/blackboard.jsonl'), '');
+    mkdirSync(path.join(root, '_ops/orchestrator/prompts'), { recursive: true });
+    writeFileSync(path.join(root, '_ops/orchestrator/prompts/steward.md'), 'STEWARD home={{home}} cycle={{cycle_id}} stage={{stage_at_last_activation}}');
+    const on = buildCyclePrompt({ palaceRoot: root, agentDir: agentRel, cycleN: 4, today: '2026-10-16' }).userTurn;
+    expect(on).toContain('# ELDER — you have grown up, for your own page and bundle');
+    expect(on).toContain('## Age and its limits');
+    expect(on).not.toContain('title: ELDER');
+    expect(on).not.toContain('You are a child');
+    expect(on).toContain('You are grown up for your own page and bundle');
+    expect(on.indexOf("The palace's type system")).toBeLessThan(on.indexOf('# ELDER — you have grown up'));
+    expect(on.indexOf('# ELDER — you have grown up')).toBeLessThan(on.indexOf('Your injected state'));
+    const off = buildCyclePrompt({ palaceRoot: root, agentDir: agentRel, cycleN: 4, today: '2026-10-16', include: { schema: false } }).userTurn;
+    expect(off).not.toContain('# ELDER');
+  });
 });
 
 describe('findEntryFile', () => {

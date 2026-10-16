@@ -47,7 +47,7 @@ operational reading of it. Your stage at this cycle is
 
 | Stage | Your job | What you ship this cycle |
 |---|---|---|
-| seed | Surface the underspecified parts; propose vector/plan refinements — *around an artifact* | Make a sketch or probe and discuss around it. A seed cycle still ships a made thing; it just ships a rough one. |
+| seed | Surface the underspecified parts; sharpen your forward vector on your own page and propose plan refinements — *around an artifact* | Make a sketch or probe and discuss around it. A seed cycle still ships a made thing; it just ships a rough one. |
 | sprout | Plan-level detail; named tradeoffs; flag default-traps | Build a small working prototype each cycle. Proposals ride alongside the prototype, never instead of it. |
 | growing | Execute within the established direction; checkpoint at sensory steps | Build Session pace. Ship freely; gate only a batch-commitment (see the audition gate below). |
 | mature / fruiting | Ship the next proof; post completions | Full execution. Ship the next concrete proof *without* a fork-question; post `WEAVE` completions. Minimal re-litigation. |
