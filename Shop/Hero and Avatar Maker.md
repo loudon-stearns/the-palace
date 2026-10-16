@@ -39,6 +39,10 @@ I give the palace its face. Every canon page wears a **hero** — a content-true
 
 I am the [[Enrichment]] instinct narrowed to a single *uniform* deliverable, and that uniformity is what lets me run with almost no review: the shape is always the same — one hero, one avatar — so I can deposit first and you correct on a glance, rather than approving each one. That is the opposite of Enrichment's one deep page, made with the whole Shop and reviewed section by section, and it is on purpose.
 
+**What a face is.** In Loudon's words (2026-10-15):
+
+> "I think a face doesn't carry heavy significance, it has become part of the palace, a way to help humans remember and understand the page. It is simply a visual reflection of the page's content. And, now we are growing in a new way with the palace where it is becoming rich in image and sound and interaction the face is the floor we build up from."
+
 ## Art direction (locked)
 
 Hand-drawn / classical / printmaking / abstract — **never** glossy 3D-render, Pixar, octane, CGI. Loudon rejected the CGI look explicitly; the artisanal family is the house.
@@ -54,10 +58,11 @@ Hand-drawn / classical / printmaking / abstract — **never** glossy 3D-render, 
 - **Hard anti-text clause** on every prompt ("no letters, numerals, words, labels, inscriptions — purely pictorial"); plain "no text" is not enough — FLUX letters engraving/manuscript/diagram idioms with gibberish.
 - **One dominant metaphor** for structural/abstract entries. A described *multi-panel diagram* collapses into generic mush (Loudon's Toolkit's "signal-chain ecology" became a generic island-city). Pick one strong image.
 - **Icons: bold silhouette, ban fine linework** even when the hero idiom is delicate — let the icon diverge toward boldness (fine engravings vanish at 24–48px).
-- **Printmaking idioms invite a fake signature.** Etching, linocut and poster prompts drew gibberish corner signatures in about a quarter of a 2026-09-24 batch. The anti-text clause now names signatures, monograms and printmaker's marks explicitly.
-- **Don't put a text-bearing object in the scene.** Maps, type sorts, labelled panels, ruled tablets, shop signs and falling "words" render as script no matter what the clause says. Swap in a wordless object that carries the same metaphor: compasses for a ruled tablet, blank spacers for type.
+- **Printmaking idioms invite a fake signature.** Etching, linocut and poster prompts drew gibberish corner signatures in about a quarter of a 2026-09-24 batch. The anti-text clause now names signatures, monograms and printmaker's marks explicitly. Ukiyo-e brings more than a mark: a gate drawn in it came back with columns of calligraphy and a red seal (2026-10-14). A different idiom fixed it.
+- **Don't put a text-bearing object in the scene.** Maps, type sorts, labelled panels, ruled tablets, shop signs and falling "words" render as script no matter what the clause says. Clocks and synth panels belong on that list: a clock got numerals despite "a completely blank face", and a synth panel lettered itself twice (2026-10-14). Swap in a wordless object that carries the same metaphor: compasses for a ruled tablet, blank spacers for type, an hourglass for a clock. Or leave the object out, as the synth was left out. Asking for "plain blank pages" doesn't make them reliable: on an open manual it failed once and held once.
 - **Guard every prompt against the photographic drift.** Heroes get "hand-made, visible ink or print texture, flat and graphic, not a photograph, not a 3D render, no depth-of-field". Icons get "a flat single-colour silhouette, no shading or gradients". Without it, a fifth of a batch came back glossy.
 - **Name the medium first.** FLUX weights a prompt's opening words most; a style guard tacked on the end didn't hold. "Woodcut print on paper, flat and graphic, not a photograph: …" pulled glossy renders back to the medium where the same words at the end had failed.
+- **Name objects plainly.** FLUX takes a compound name word by word: "candlestick telephone" came back as a candle beside a phone (2026-10-14). Describe the object by its shape and parts, or choose one with a plain name.
 - **Trim a corner signature; don't re-roll for it.** FLUX signs prints stubbornly, and a re-render often moves the mark rather than dropping it. When the only fault is a mark in a bottom corner, trimming a thin bottom strip (and rescaling) is deterministic and invisible on a darkened hero.
 - **A face goes in the folder named by the page's file, not its title.** STIGMERGY finds a bundle by filename (SCHEMA §8), so a face filed under a different `title:` is invisible there — JEWEL, ROSETTA, Meaning and the Link and AI Partnership Philosophy all were, until 2026-09-26. Both tools now place by filename; `face-audit.py` still checks the title too, so an old stray is caught rather than duplicated.
 - **Review the batch by eye before placing it.** A vision pass over every image (text, signature, anatomy, off-direction) flagged 47 of 102 on 2026-09-24. Re-render only the flagged sides; a side with an empty prompt is skipped. **`generate` also skips any render that already exists**, so move the rejects aside first (into `_renders/rejected-<date>/`) or the re-run does nothing.
@@ -102,5 +107,5 @@ It is **one-shot** (Loudon's call): the request *is* the go-ahead, so it commits
 
 - ~~Build the companion `/hero` door~~ — *shipped 2026-06-25* as the conversational regen door (discuss + steer + regenerate, one-shot with undo). Next: a small live-render verification, and surfacing the door's existence in the companion's empty-state hint.
 - Become the **autonomous distiller** that walks the palace over time, depositing faces and letting you correct on a glance (the auto-deposit / regenerate-on-exception model).
-- Bring the whole canon to a face: render what `face-audit.py` still lists.
+- ~~Bring the whole canon to a face~~ — *done 2026-10-14*: 316 of 316 canon entries wear a hero and an icon. From here the Weave keeps it whole.
 - Wear my own face.
