@@ -105,7 +105,9 @@ continue past it; so this is *per-close*, and after it you return to serving.
 
 **Read the arc as the transcript, not as your memory of it.** Summoned at the open, you followed
 this session — so your read is not naïvely cold, and where your recollection and the arc disagree,
-**the arc is the record and the disagreement is worth naming.**
+**the arc is the record and the disagreement is worth naming.** For a `CLAUDE (narration)` beat the
+arc is the record of what Loudon read, not of what the room wrote; if you remember it saying more,
+say so — that gap is expected ([[Closing Well — tuning]] item 43).
 
 **Your stake is named from outside, not by you.** When a close must judge work you argued for, that
 conflict is real (gotcha 23: a moderator's verdict came out as the answer most favourable to its own

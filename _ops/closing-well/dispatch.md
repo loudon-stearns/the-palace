@@ -103,6 +103,8 @@ Read _ops/closing-well/prompts/closing-well-agent.md and follow its "Task" secti
   {{ARC_PATH}}          = <abs path to the distilled arc above>
 Read the arc COLD — as the transcript, not as your memory of the session. Where your own
 recollection and the arc disagree, the arc is the record and the disagreement is worth naming.
+For a CLAUDE (narration) beat the arc is the record of what Loudon read, not of what the room
+wrote; if you remember it saying more, say so — that gap is expected.
 Return exactly the two parts it specifies (Part A homework, Part B coaching); nothing else.
 ```
 
@@ -134,7 +136,9 @@ Return the reckoning (front of house) then the backstage checklist; nothing else
 
 **Relay the reckoning in the moderator's voice, as the moderator's** — not narrated as your own
 ([[Closing Well]] § The relay discipline, gotcha 12a). You answer as a panelist; the decisions stay
-with the moderator. Show it to Loudon: the single gate. He assents or names revisions — and a
+with the moderator. Show it to Loudon: the single gate. Show it as the last thing in your turn,
+after every tool call (a scratch copy included), or point him at the file: words written between
+tool calls reach him only as a paraphrase (tuning item 43). He assents or names revisions — and a
 revision goes *back to the moderator*, not into your own rewrite.
 
 ### Pass 3 — the backstage execution: still a FRESH dispatch
@@ -196,7 +200,8 @@ with these slot values:
 Return the reckoning (front of house) then the backstage checklist; nothing else.
 ```
 
-Show the **reckoning** to Loudon — the single gate. He assents or names revisions.
+Show the **reckoning** to Loudon — the single gate — last in your turn, after every tool call,
+or as a file, as on Path A. He assents or names revisions.
 
 ### On assent — Pass 3, the backstage execution (a subagent, not the main loop)
 
@@ -222,8 +227,8 @@ Return only the placement report; place what was assented, re-decide nothing.
 The executors it runs (deposit → owner committer; baton → `baton-executor.mjs`; artifact →
 bundle + index) and the two routing rules live in `executor.md`. `landed` / `provisional` /
 `none` rows execute nothing. The working instance's whole job by now is to relay the report —
-and, for a row the executor *prepared* rather than landed, to show Loudon its diff and land the
-branch on his yes (`executor.md` § keep → deposit).
+and, for a row the executor *prepared* rather than landed, to show Loudon its diff, last in the
+turn as at the gate, and land the branch on his yes (`executor.md` § keep → deposit).
 
 **When an executor is cut off, verify the tree before believing its last sentence** (gotcha 22).
 A partial report's final claim is the least reliable thing in it — the 2026-08-25 run said

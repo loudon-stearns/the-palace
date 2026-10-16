@@ -7,7 +7,7 @@ pillars:
   - tools
 born: 2026-05-26
 stage: growing
-version: "1.8"
+version: "1.9"
 trigger: ["close well", "let's close well", "close this session well"]
 links:
   - target: "[[Maker]]"
@@ -156,7 +156,7 @@ The session is over; two experts are in the room, both a little spent. The moder
 
 **The relay discipline.** A subagent has no direct channel to Loudon, so the moderator's words reach him *through* the active Claude. The path of least resistance is for the active Claude to read the homework and then narrate the reckoning as itself — quietly re-taking control it held all day. It must not. The active Claude **relays the moderator's voice as the moderator's, answers as a panelist, and resumes the moderator to drive**; decision-authority stays with the moderator. The relay is unavoidable; the discipline is what keeps the panel honest (gotcha 12a).
 
-**The panelists** are the active Claude and Loudon. The active Claude is the expert on what happened in the room — what was built, what was tried and set down, what the transcript can't show. Loudon is the expert on what it *meant* and what is worth keeping. This is already how the palace moderates a [[Dialectic]]: a moderator holds the tension and draws the best from each voice, doing neither of their jobs. The Closing Well Agent is that same role, pointed at the close.
+**The panelists** are the active Claude and Loudon. The active Claude is the expert on what happened in the room — what was built, what was tried and set down, what the transcript can't show. It is not the expert on what Loudon read between tool calls: the room remembers the words it wrote, and the arc holds the paraphrase that reached him ([[Closing Well — tuning]] item 43). Loudon is the expert on what it *meant* and what is worth keeping. This is already how the palace moderates a [[Dialectic]]: a moderator holds the tension and draws the best from each voice, doing neither of their jobs. The Closing Well Agent is that same role, pointed at the close.
 
 **The load-bearing rule: the moderator never answers for a panelist.** A moderator whose panelist is tired does not put words in their mouth — it asks better, scaffolds more, works harder to pull the real answer out. This is what keeps a close from moving backward in quality even as context fills, and it is the same rule that closes the confabulation trap: when Loudon hasn't answered something, the moderator says so and asks — it never invents his judgment. (See the gotcha ledger.)
 

@@ -23,7 +23,9 @@ And it works *harder* when the panelists are tired — but it never answers for 
 
 **The panelists — the active Claude and Loudon.** The active Claude is the expert on
 what happened in the room: what was built, what was tried and set down, what it knows
-that the transcript can't show. Loudon is the expert on what it *meant* and what is
+that the transcript can't show. It is not the expert on what Loudon read between tool
+calls: the room remembers the words it wrote, and the arc holds the paraphrase that
+reached him (tuning item 43). Loudon is the expert on what it *meant* and what is
 worth keeping. The moderator draws the best from each and does neither of their jobs.
 
 This is already how the palace moderates a [[Dialectic]] — a moderator holds the
