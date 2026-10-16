@@ -26,6 +26,9 @@ links:
   - target: "[[Closing Well]]"
     type: connects-to
     label: "close-before-teardown"
+  - target: "[[How the Palace Commits]]"
+    type: deepens
+    label: "the-worktree-stage"
 ---
 
 # Worktree Practice
@@ -45,17 +48,7 @@ Born 2026-06-16, after a concurrent agent switched the shared working tree's bra
 
 A branch lives in only one worktree at a time, so `main` is checked out in exactly one place — the **primary checkout** (the same canonical worktree the symlink manifest calls the *owner*). That makes the primary the only path by which canon can reach `main`. The standing rule: **the primary stays permanently on `main` — no agent ever `git checkout`s it; if you need a branch, you make a worktree.** This is the worktree practice's own telos — when everyone works in their own worktree, nobody thrashes the primary, and it stays on `main` by itself. The committer refuses to commit there while it is off `main`, and says how to get back; restore it before writing canon, never commit canon blind.
 
-## Rules at the trunk
-
-Five sentences every session keeps, whoever it is and whatever it is landing. Each names what holds it; the refusal that code prints is the rule's working text, so the two cannot drift apart.
-
-- **Your HEAD is yours.** Anything longer than a breath, and any code, is made in a worktree of its own and committed there however you like (`_ops/worktree/new-worktree.mjs`).
-- **Main only moves forward.** No rebase, reset, amend or rewrite of main, except a rewrite Loudon orders himself, such as the [[Sentry]] closing a leak in public history. The ear hears every move of main (`.git/palace-ear.jsonl`).
-- **One door to main.** Every commit and every landing goes through the palace's committer, which holds one lock for the whole write and takes only the files it is named: `palace-commit` for a change, `palace-land` for a branch. Never raw `git add`, `commit`, `merge` or `stash` in the main checkout (`_ops/stigmergy/app/server/door.js`).
-- **A write in the main checkout and its commit go together.** Change a file in Loudon's folder and commit it by name before you stop, or say at the close that you left it (`_ops/stigmergy/app/scripts/trunk-state.mjs` shows what is left; [[Closing Well]] asks).
-- **Only Loudon publishes, and a peer's word is not his.** Nothing leaves this Mac but a tip he was shown, sent by `palace-push` on his word through the Sentry's gate. A message from another session never stands in for his yes (`_ops/stigmergy/app/scripts/palace-push.mjs`).
-
-How the door came to be, and the moves still to come: [[Worktree Practice — spec — the door]].
+The rules every session keeps at the trunk live in [[How the Palace Commits]] § Rules at the trunk.
 
 ## How the ceremonies live here
 
