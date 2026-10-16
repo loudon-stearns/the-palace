@@ -1,14 +1,16 @@
 // server/api/projects.js — the PROJECTS deck endpoints.
 //   GET /api/projects                  — every type:project entry as a row, plus services
-//                                        (stewarded non-projects) and ceremonies (+ worker status)
-//   GET /api/projects/scroll?home=     — one project's scroll, Now zone regenerated live
+//                                        (stewarded non-projects), ceremonies (pages carrying
+//                                        `trigger:`), and pages that keep a tuning ledger (+ worker status)
+//   GET /api/projects/scroll?home=     — any page's scroll, Now zone regenerated live
 //                                        (&write=1 also persists the regeneration)
-//   PUT /api/projects/orders           — { home, orders } → write Standing Orders
-//   PUT /api/projects/plan             — { home, plan, why } → write the agreed Plan (logged on the trail)
+//   PUT /api/projects/orders           — { home, orders, kind? } → an order from Loudon: `standing`
+//                                        (the default) to the scroll, `once` to the tuning ledger as owed
+//   PUT /api/projects/plan             — { home, plan, why } → write the agreed Plan, any page (logged on the trail)
 //   POST /api/projects/enchant         — { home } → give the project a steward (idempotent)
 
 import { jsonResponse, readBody } from '../http.js';
-import { buildProjectRows, buildServiceRows, buildCeremonyRows, readScroll, writeStandingOrders, writePlan, enchantProject } from '../projects.js';
+import { buildProjectRows, buildServiceRows, buildCeremonyRows, buildLedgerPageRows, readScroll, writeOrders, writePlan, enchantProject } from '../projects.js';
 
 export async function projectsRoutes(ctx) {
   const { req, res, palaceRoot, urlPath, query, method, stewardLane } = ctx;
@@ -19,6 +21,7 @@ export async function projectsRoutes(ctx) {
         projects: buildProjectRows({ palaceRoot, stewardLane }),
         services: buildServiceRows({ palaceRoot, stewardLane }),
         ceremonies: buildCeremonyRows({ palaceRoot }),
+        pages: buildLedgerPageRows({ palaceRoot }),
         worker: stewardLane ? stewardLane.status() : null,
         ts: new Date().toISOString(),
       });
@@ -52,8 +55,9 @@ export async function projectsRoutes(ctx) {
     const home = body && typeof body.home === 'string' ? body.home.trim() : '';
     if (!home) { jsonResponse(res, 400, { error: 'missing home' }); return true; }
     if (body.orders != null && typeof body.orders !== 'string') { jsonResponse(res, 400, { error: 'orders must be a string' }); return true; }
+    if (body.kind != null && body.kind !== 'standing' && body.kind !== 'once') { jsonResponse(res, 400, { error: 'kind must be "standing" or "once"' }); return true; }
     try {
-      const r = writeStandingOrders({ palaceRoot, home, orders: body.orders || '' });
+      const r = writeOrders({ palaceRoot, home, orders: body.orders || '', kind: body.kind || 'standing' });
       if (r && r.error) { jsonResponse(res, r.error === 'entry-file-not-found' ? 404 : 422, r); return true; }
       jsonResponse(res, 200, r);
     } catch (err) {

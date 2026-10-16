@@ -22,6 +22,7 @@
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { checkAllowList, checkPathSafety } from '../src/lib/entry-edit.js';
+import { ceremonyPathsFor } from './ceremony-register.js';
 import { execGit } from './git-wrapper.js';
 import { commitSelected, clearStaleLocks, LockHeldError } from './commit.js';
 import { withDoor, trunkProblem, DoorBusyError } from './door.js';
@@ -381,7 +382,7 @@ export function applyOp(body, op) {
  */
 export function previewEdit(repoRoot, relPath, op, { trickster = false } = {}) {
   if (!repoRoot) return { ok: false, error: 'no repo configured' };
-  const allow = trickster ? checkPathSafety(relPath) : checkAllowList(relPath);
+  const allow = trickster ? checkPathSafety(relPath) : checkAllowList(relPath, { ceremonyPaths: ceremonyPathsFor(repoRoot) });
   if (!allow.allowed) return { ok: false, status: 403, error: allow.reason };
 
   const abs = resolve(repoRoot, relPath);

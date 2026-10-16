@@ -10,10 +10,13 @@
 //   4. reconciles the steward's asks against the board (the board is the single
 //      source of truth for decision state — open vs. resolved),
 //   5. updates state.json (pure runtime now) + history.jsonl, and
-//   6. materializes the bundle-local `[Entry] — scroll.md` (the project's front
+//   6. when the page keeps a tuning ledger, marks it with the cycle's run line,
+//      and any lesson the steward offered (`payload.lesson`) as a numbered item
+//      the line names (SCHEMA — Reference §6; recordStewardRun),
+//   7. materializes the bundle-local `[Entry] — scroll.md` (the project's front
 //      door — Now zone + append-only making trail) from the board-derived view.
 //      The scroll replaced the older plan.md read-model on 2026-09-23.
-//   7. returns a `stop_hint` so a multi-cycle run (steward-lane.js) knows
+//   8. returns a `stop_hint` so a multi-cycle run (steward-lane.js) knows
 //      whether to keep going: 'shipped' | 'barren' | 'blocking_ask' |
 //      'interactive_session' | 'spawn_failed' (the worker never spoke — the
 //      cycle is not counted at all).
@@ -34,6 +37,8 @@ import { appendMessage, readJsonl } from '@stigmergy/core/blackboard';
 import { scanBundleMedia, applyArtifactBackstop, lintArtifactReferences } from './artifact-backstop.js';
 import { materializeScroll } from './scroll-file.js';
 import { resolveBundleDir } from './entry-paths.js';
+import { readEntryMeta } from './entry-frontmatter.js';
+import { tuningPathFor, recordRun, payOrders, localDate } from './ledger.js';
 import { commitCycle, planCycleCommit } from './cycle-commit.js';
 import { resolveModel } from '../../../models/latest-opus.mjs';
 
@@ -217,6 +222,53 @@ export function buildCycleNote(usage, leaf, cycleN) {
   return `${leaf} cycle ${cycleN} — ${turns} assistant turn(s); `
     + `cumulative output tokens ${usage.total_output_tokens || 0}, avg cache_read/turn ${avgCache}. `
     + `Path 2 (claude-code-subagent): token-level metrics are not authoritatively tracked; see the Palace Orchestrator entry (Definitions of record).`;
+}
+
+/** A payload field gathered across a cycle's messages: each value a string or a list of them. */
+function gather(messages, field) {
+  const out = [];
+  for (const m of messages || []) {
+    const l = m && m.payload ? m.payload[field] : null;
+    for (const x of Array.isArray(l) ? l : [l]) if (typeof x === 'string' && x.trim()) out.push(x.trim());
+  }
+  return out;
+}
+
+/** The lessons a cycle's messages offer: each `payload.lesson`. */
+export const offeredLessons = (messages) => gather(messages, 'lesson');
+
+/** The one-shot orders a cycle says it acted on: each `payload.paid` (an order's date or its words). */
+export const paidOrders = (messages) => gather(messages, 'paid');
+
+/**
+ * Mark a stewarded page's tuning ledger with one cycle's run (SCHEMA —
+ * Reference §6): `- run · <date> · [v<version> ·] cycle N · nothing new`, or
+ * `taught item N` when the steward offered a lesson, which goes in as a
+ * numbered item marked as its offer; a one-shot order from Loudon the cycle
+ * says it acted on (`payload.paid`) has its `owed` replaced with "paid in cycle
+ * N". A page with no tuning ledger gets nothing: a ledger is grown on Loudon's
+ * yes, never by a cycle. Returns { ledger, line, items, paid } or null.
+ */
+export function recordStewardRun({ palaceRoot, home, cycleN, tsNow, messages = [], barren = false }) {
+  const ledger = tuningPathFor(palaceRoot, home);
+  if (!ledger) return null;
+  const meta = readEntryMeta(palaceRoot, home);
+  const paid = payOrders(ledger, paidOrders(messages), `paid in cycle ${cycleN}`);
+  const r = recordRun(ledger, {
+    date: localDate(tsNow || new Date()),
+    version: meta && meta.data ? meta.data.version : null,
+    what: `cycle ${cycleN}${barren ? ', posted nothing' : ''}`,
+    lessons: offeredLessons(messages),
+    by: `offered by the steward, cycle ${cycleN}`,
+  });
+  return { ledger, ...r, paid };
+}
+
+/** A scroll result as a cycle's summary carries it — the text and the states it read left out. */
+function scrollSummary(r) {
+  if (!r) return r;
+  const { text, ledger, diary, nowView, ...rest } = r;
+  return rest;
 }
 
 /**
@@ -451,19 +503,32 @@ export function processCycle(opts) {
   const askedSession = valid.some((m) => m.type === 'RESOURCE_REQUEST' && m.payload && m.payload.kind === 'interactive_session');
   const stop_hint = barren ? 'barren' : askedSession ? 'interactive_session' : askedBlocking ? 'blocking_ask' : 'shipped';
 
+  // ── The run line, when the page keeps a tuning ledger ─────────────────────
+  // Every run marks the ledger, whatever it taught (SCHEMA — Reference §6); a
+  // lesson the steward offered becomes a numbered item the line names. Written
+  // before the scroll, so Now counts this cycle, and committed with it.
+  let run = null;
+  try {
+    run = recordStewardRun({ palaceRoot, home, cycleN, tsNow, messages: valid.filter((m) => appended.includes(m.id)), barren });
+  } catch (e) {
+    run = { error: e.message };
+  }
+
   // ── Materialize the bundle-local scroll (the project's front door) ────────
   // Write `[Entry] — scroll.md` into the entry's bundle: the Now zone from the
-  // board-derived view + the state we just wrote, and one new making section
-  // per shipped message this cycle. Additive and defensive: it runs AFTER
-  // state.json/history.jsonl are written, so a failure here never costs the
-  // cycle its runtime state. Everything it shows is read live (entry
-  // frontmatter, the board, git) — never from a copy.
+  // board-derived view + the state we just wrote (and the runs block, when the
+  // page keeps a tuning ledger), and one new making section per shipped message
+  // this cycle. Additive and defensive: it runs AFTER state.json/history.jsonl
+  // are written, so a failure here never costs the cycle its runtime state.
+  // Everything it shows is read live (entry frontmatter, the board, the
+  // ledgers, git) — never from a copy. The deck draws the same scroll.
   let scroll;
   try {
-    scroll = materializeScroll({ palaceRoot, home, agentDir: agentDirAbs, boardPath: boardFile, tsNow });
+    scroll = scrollSummary(materializeScroll({ palaceRoot, home, agentDir: agentDirAbs, boardPath: boardFile, tsNow }));
   } catch (e) {
     scroll = { written: false, reason: `error: ${e.message}` };
   }
+  const ledgerPaths = run && run.ledger ? [run.ledger] : [];
 
   // ── Commit what the cycle shipped (decided 2026-09-25) ────────────────────
   // The files this cycle's messages declared, inside the steward's bundle and
@@ -485,6 +550,7 @@ export function processCycle(opts) {
             join(agentDirAbs, 'state.json'),
             join(agentDirAbs, 'history.jsonl'),
             ...(scroll && scroll.scrollPath ? [scroll.scrollPath] : []),
+            ...ledgerPaths,
             boardFile,
           ],
         }),
@@ -502,6 +568,7 @@ export function processCycle(opts) {
           join(agentDirAbs, 'state.json'),
           join(agentDirAbs, 'history.jsonl'),
           ...(scroll && scroll.scrollPath ? [scroll.scrollPath] : []),
+          ...ledgerPaths,
           boardFile,
         ],
       });
@@ -528,6 +595,8 @@ export function processCycle(opts) {
     // True when the transcript ended on a usage limit, even after shipping:
     // the lane and the batch stop firing stewards until the limit resets.
     usage_limit,
+    // The run line the cycle left in the page's tuning ledger (null: it keeps none).
+    run,
     // Where the project's scroll landed (replaces the plan.md read-model).
     scroll,
     // What the cycle committed (null when the caller did not opt in).

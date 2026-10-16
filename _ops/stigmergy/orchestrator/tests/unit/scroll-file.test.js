@@ -372,3 +372,95 @@ describe('the plan', () => {
     });
   });
 });
+
+// ── Now from what the page has (SCHEMA v1.28) ───────────────────────────────
+// A ledger no longer makes a page a ceremony. A project that keeps one stays a
+// project — its board block and its runs block, one renderer, one materializer;
+// a page with a diary shows its last encounter; any page takes a Plan.
+describe('a page\'s Now, from what the page has', () => {
+  let root;
+  afterEach(() => { if (root) rmSync(root, { recursive: true, force: true }); root = null; });
+
+  function palace() {
+    root = mkdtempSync(path.join(tmpdir(), 'palace-has-'));
+    mkdirSync(path.join(root, `Projects/${HOME}`), { recursive: true });
+    writeFileSync(path.join(root, 'Projects', `${HOME}.md`), '---\ntitle: "Shepard Tone Synthesizer"\ntype: project\nstatus: active\nstage: growing\n---\n# x\n\n**As of last consolidation:** cycle 4');
+    const agentDir = path.join(root, '_ops/agents/permanent/shepard');
+    mkdirSync(agentDir, { recursive: true });
+    writeFileSync(path.join(agentDir, 'state.json'), JSON.stringify(STATE));
+    writeFileSync(path.join(agentDir, 'history.jsonl'), HISTORY.map((e) => JSON.stringify(e)).join('\n') + '\n');
+    mkdirSync(path.join(root, '_ops/swarm/persistent'), { recursive: true });
+    writeFileSync(path.join(root, '_ops/swarm/persistent/blackboard.jsonl'), BOARD.map((m) => JSON.stringify(m)).join('\n') + '\n');
+    return agentDir;
+  }
+
+  test('a page with nothing but the board renders as it always did', () => {
+    const now = computeNow({ home: HOME, board: BOARD, state: STATE, history: HISTORY, meta: { data: { type: 'project' } }, tsNow: 'T' });
+    const text = renderNow(now, { home: HOME });
+    expect(text).toContain("> _Regenerated T from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._");
+    expect(text).not.toContain('**Version:**');
+    expect(text).not.toContain('### Owed');
+  });
+
+  test('a stewarded project that keeps a tuning ledger shows its board AND its runs, and stays a project', () => {
+    const agentDir = palace();
+    writeFileSync(path.join(root, `Projects/${HOME}/${HOME} — tuning.md`), [
+      '---', `title: "${HOME} — tuning"`, 'ledger: tuning', 'standards:', '  for: what each cycle taught', '---', '', `# ${HOME} — tuning`, '',
+      '## From cycle 33 — 2026-06-05', '', '1. **Velocity layers thin.** Owed: widen the pool to five takes.',
+      '- run · 2026-06-05 · cycle 33 · taught item 1',
+      '- from Loudon · 2026-06-06 · Re-render the top octave once. · owed', '',
+    ].join('\n'));
+    const r = materializeScroll({ palaceRoot: root, home: HOME, agentDir, tsNow: '2026-06-10T00:00:00Z' });
+    expect(r.kind).toBe('project');
+    const t = readFileSync(r.scrollPath, 'utf8');
+    // board block
+    expect(t).toMatch(/\*\*Steward:\*\* cycle 6/);
+    expect(t).toContain('- **Waiting on you:** 1 open ask');
+    expect(t).toContain('### Open asks');
+    // runs block — no version on the page, so all runs are counted
+    expect(t).not.toContain('**Version:**');
+    expect(t).toContain("- **Runs:** 1 run on 1 day, counted from the ledger's run lines");
+    expect(t).toContain('- **Last run:** 2026-06-05 — cycle 33 · taught item 1\n');
+    expect(t).toMatch(/\*\*Owed in the ledger:\*\* 2 — item 1 and 1 order from Loudon/);
+    expect(t).toContain('### Runs\n');
+    expect(t).toContain('- **From Loudon, 2026-06-06.** Re-render the top octave once.');
+    expect(t).toContain("the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git");
+    // the trail: the made thing and the run, newest first; a Plan zone like any scroll
+    expect(t.indexOf('id="shep-003"')).toBeLessThan(t.indexOf('### 2026-06-05 — cycle 33'));
+    expect(t).toContain(MARK.planStart);
+    expect(t).toContain(ORDERS_PLACEHOLDER);   // a project's standing orders, unchanged by the ledger
+  });
+
+  test('a page that keeps a ledger and is no ceremony takes a Plan, and opens as a page', () => {
+    root = mkdtempSync(path.join(tmpdir(), 'palace-maker-'));
+    mkdirSync(path.join(root, 'Shop/Hero and Avatar Maker'), { recursive: true });
+    writeFileSync(path.join(root, 'Shop/Hero and Avatar Maker.md'), '---\ntitle: "Hero and Avatar Maker"\ntype: maker\nstatus: alive\n---\n# Maker\n');
+    writeFileSync(path.join(root, 'Shop/Hero and Avatar Maker/Hero and Avatar Maker — tuning.md'), '# t\n\n- run · 2026-10-14 · Kuramoto Coupling, hero + avatar · nothing new\n- run · 2026-10-15 · Spinoza, hero · nothing new\n');
+    const r = materializeScroll({ palaceRoot: root, home: 'Hero and Avatar Maker', tsNow: '2026-10-15T20:00:00Z', board: [] });
+    expect(r.kind).toBe('page');
+    const t = readFileSync(r.scrollPath, 'utf8');
+    expect(t).toContain('- **Runs:** 2 runs on 2 days');
+    expect(t).toContain('- **Last run:** 2026-10-15 — Spinoza, hero · nothing new');
+    expect(t).not.toContain('Waiting on you');   // it has never spoken on the board
+    expect(t).toContain("> The page's front door.");
+    const w = writePlan({ palaceRoot: root, home: 'Hero and Avatar Maker', plan: 'Give every canon entry its face.', why: 'first plan', ts: '2026-10-15T21:00:00+00:00' });
+    expect(w.written).toBe(true);
+    expect(readPlan(readFileSync(r.scrollPath, 'utf8'))).toBe('Give every canon entry its face.');
+  });
+
+  test('a page with a diary shows its last encounter; a private one never reaches a tracked scroll', () => {
+    root = mkdtempSync(path.join(tmpdir(), 'palace-diary-scroll-'));
+    mkdirSync(path.join(root, 'People/Brian Eno'), { recursive: true });
+    writeFileSync(path.join(root, 'People/Brian Eno.md'), '---\ntitle: "Brian Eno"\ntype: person\n---\n# Eno\n');
+    const diary = path.join(root, 'People/Brian Eno/Brian Eno — diary.md');
+    writeFileSync(diary, '---\nledger: diary\nstandards:\n  for: his memory\n  kept: git\n---\n\n## Encounter 3 — a walk with John Cage · 2026-07-02\n');
+    const a = materializeScroll({ palaceRoot: root, home: 'Brian Eno', tsNow: 'T', board: [], dryRun: true }).text;
+    expect(a).toContain('- **Last encounter:** Encounter 3 — a walk with John Cage · 2026-07-02 — [[Brian Eno — diary]]');
+    expect(a).toContain("from the entry's frontmatter, its diary and git");
+    expect(a).not.toContain('**Runs');
+    writeFileSync(diary, '---\nledger: diary\nstandards:\n  for: his memory\n  kept: "private: this machine only"\n---\n\n## Encounter 4 — something of his · 2026-07-03\n');
+    const b = materializeScroll({ palaceRoot: root, home: 'Brian Eno', tsNow: 'T', board: [], dryRun: true }).text;
+    expect(b).toContain('- **Diary:** kept privately on this machine — not read into this scroll');
+    expect(b).not.toContain('something of his');
+  });
+});

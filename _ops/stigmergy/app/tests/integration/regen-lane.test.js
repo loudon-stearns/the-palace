@@ -142,6 +142,21 @@ describe('regen lane (companion hero/avatar door)', () => {
     expect(showHead).toMatch(/Face Me — face\.json/);
   }, 40000);
 
+  test('when the Maker keeps a tuning ledger, the face\'s commit carries its run line (SCHEMA — Reference §6)', async () => {
+    mkdirSync(join(root, 'Shop/Hero and Avatar Maker'), { recursive: true });
+    writeFileSync(join(root, 'Shop/Hero and Avatar Maker.md'), '---\ntitle: "Hero and Avatar Maker"\ntype: maker\nstatus: alive\n---\n# Maker\n');
+    const ledger = join(root, 'Shop/Hero and Avatar Maker/Hero and Avatar Maker — tuning.md');
+    writeFileSync(ledger, '---\ntitle: "Hero and Avatar Maker — tuning"\nledger: tuning\nstandards:\n  for: what each face taught\n---\n\n# Hero and Avatar Maker — tuning\n');
+    git(root, ['add', '-A']);
+    git(root, ['commit', '-q', '-m', 'ops: the Maker keeps a ledger']);
+    const turnId = 'companion-face-me-ledger';
+    expect(lane.regen({ path: 'Face Me.md', target: 'hero', heroPrompt: 'a bold woodcut banner', turnId }).fired).toBe(true);
+    await waitFor(() => readBoard(root).some((m) => m.payload?.kind === 'companion_regen_done' && m.payload.turn_id === turnId), { timeout: 20000 });
+    expect(readFileSync(ledger, 'utf8')).toMatch(/\n- run · \d{4}-\d{2}-\d{2} · Face Me, hero · nothing new\n$/);
+    expect(git(root, ['show', '--stat', 'HEAD'])).toMatch(/Hero and Avatar Maker — tuning\.md/);
+    expect(git(root, ['status', '--porcelain', '--', 'Shop'])).toBe('');   // nothing left uncommitted
+  }, 40000);
+
   test('target "icon" remakes only the avatar (no hero png, no md embed)', async () => {
     const turnId = 'companion-face-me-icon-1';
     lane.regen({ path: 'Face Me.md', target: 'icon', idiom: 'bold glyph', iconPrompt: 'a bold emblem', turnId });

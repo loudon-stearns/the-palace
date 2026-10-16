@@ -1,35 +1,43 @@
-// scroll-file.js — materialize `[Entry] — scroll.md`, the project's front door.
+// scroll-file.js — materialize `[Entry] — scroll.md`, a page's front door.
 //
-// A scroll is the one page a project keeps that always opens on where the
-// project stands NOW, then reads down through everything it has made, newest
-// first. It replaces the older `[Entry] — plan.md` read-model (2026-09-23): the
-// plan carried decision state only, was regenerated only when a steward cycled
-// (so it lied whenever the steward slept), and was never rendered in the
-// terminal. The scroll fixes all three:
+// A scroll is the one page a project — or a ceremony, or any page — keeps that
+// always opens on where it stands NOW, then reads down through everything it
+// has made or done, newest first. It replaces the older `[Entry] — plan.md`
+// read-model (2026-09-23): the plan carried decision state only, was
+// regenerated only when a steward cycled (so it lied whenever the steward
+// slept), and was never rendered in the terminal. The scroll fixes all three:
 //
-//   - its NOW zone is regenerated from the board + the steward's runtime + the
-//     entry's frontmatter + git EVERY time it is materialized — a grant Loudon
-//     files after the steward's last cycle shows up as "answered, not yet
-//     consumed" without waiting for a cycle;
+//   - its NOW zone is regenerated EVERY time it is materialized, from what the
+//     page has (SCHEMA v1.28): the board and the steward's runtime when it is
+//     stewarded or a project (or has nothing else to show) — a grant Loudon files after the
+//     steward's last cycle shows up as "answered, not yet consumed" without
+//     waiting for a cycle; its version, runs and owed lines when it keeps a
+//     tuning ledger; its last encounter when it keeps a diary. One renderer,
+//     one materializer, for every kind of page — so a steward cycle, the CLI
+//     and the deck never draw two different fronts of one page;
 //   - its PLAN zone is the path agreed with Loudon. It is never regenerated:
 //     it changes only when Loudon agrees — saved on the deck, written by an
 //     elder on his yes, or a steward's proposal he adopts (a plan_revision ask
 //     granted with option `adopt`, applied here) — and every change lands on
 //     the making trail as a `plan-` section saying what changed and why;
 //   - its STANDING ORDERS zone is Loudon's and is never regenerated — the
-//     steward reads it every cycle before anything else;
-//   - its MAKING zone is append-only: each shipped thing on the board becomes
-//     one section keyed on the message id, so re-materializing never
-//     duplicates or deletes, and a human may append sections by hand.
+//     steward, or a ceremony's run, reads it before anything else. Standing
+//     orders live here for every page; a one-shot order goes to the page's
+//     tuning ledger as owed instead (SCHEMA — Reference §6);
+//   - its MAKING zone is append-only: each shipped thing on the board, each
+//     run line and each version change in a tuning ledger becomes one section
+//     keyed on the message id, the run line or the commit, so re-materializing
+//     never duplicates or deletes, and a human may append sections by hand.
 //
-// Four HTML-comment marker pairs delimit the zones (a ceremony's scroll has
-// no plan — its tuning ledger's owed lines are its plan). Regeneration rewrites ONLY
-// the text between `scroll:now:start/end`, and INSERTS new making sections
-// directly after `scroll:making:start` — every other byte is preserved.
+// Four HTML-comment marker pairs delimit the zones; every scroll has all four,
+// a ceremony's too. Regeneration rewrites ONLY the text between
+// `scroll:now:start/end`, and INSERTS new making sections directly after
+// `scroll:making:start` — every other byte is preserved.
 //
 // SCHEMA §8 bundle type `scroll`. Canon: [[The Scroll]], [[Project Stewardship
 // System]] § The Machinery/Content Split. Machinery lives here; the file lives
-// with the entry.
+// with the entry. What the ledgers say: ledger.js. Which pages are ceremonies:
+// ceremony-scroll.js.
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, extname, basename } from 'node:path';
@@ -37,6 +45,10 @@ import { execFileSync } from 'node:child_process';
 import { resolveBundleDir } from './entry-paths.js';
 import { parseFrontmatter } from './entry-frontmatter.js';
 import { reconcilePendingRequests } from './process-cycle.js';
+import { readTrigger } from './ceremony-scroll.js';
+import {
+  readTuningState, readDiaryState, diaryPathFor, ledgerTrail, renderLedgerSection, runText, isGitIgnored,
+} from './ledger.js';
 
 export const MARK = {
   nowStart: '<!-- scroll:now:start -->',
@@ -52,8 +64,10 @@ export const MARK = {
 export const ORDERS_PLACEHOLDER =
   '_Loudon\'s standing direction for this project. The steward reads this zone every cycle before anything else, and it is never regenerated. Taste, priorities, "stop asking me about X", "always prefer Y" — write it once here instead of answering it every cycle._';
 
-export const CEREMONY_ORDERS_PLACEHOLDER =
-  '_Loudon\'s standing direction for this ceremony. An order saved on the PROJECTS deck goes into the tuning ledger as owed; the next run\'s tail read picks it up, and Now shows it as owed until a run acts on it._';
+// A ceremony's standing orders, like every page's, stay on its scroll
+// (SCHEMA v1.28); its runs read them beside the tuning ledger's tail read.
+export const CEREMONY_STANDING_PLACEHOLDER =
+  '_Loudon\'s standing direction for this ceremony — never regenerated. It holds until he revokes it, and every run reads it before it starts, beside the tuning ledger\'s tail read. An order meant for the next run only goes into the ledger as owed instead: "once" on the PROJECTS deck._';
 
 export const PAGE_ORDERS_PLACEHOLDER =
   '_Loudon\'s standing direction for this page — never regenerated. A steward, if the page ever has one, reads it every cycle before anything else._';
@@ -61,7 +75,31 @@ export const PAGE_ORDERS_PLACEHOLDER =
 export const PLAN_PLACEHOLDER =
   '_No plan agreed yet. Until there is one, the work leans on the page\'s forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._';
 
-const ORDERS_PLACEHOLDERS = new Set([ORDERS_PLACEHOLDER, CEREMONY_ORDERS_PLACEHOLDER, PAGE_ORDERS_PLACEHOLDER]);
+// Until v1.28 a ceremony's scroll said every order went to its ledger. Retired:
+// it still reads as "no orders", and the next write swaps in the placeholder
+// the page's kind carries now (retireOldShape).
+const RETIRED_CEREMONY_ORDERS_PLACEHOLDER =
+  '_Loudon\'s standing direction for this ceremony. An order saved on the PROJECTS deck goes into the tuning ledger as owed; the next run\'s tail read picks it up, and Now shows it as owed until a run acts on it._';
+
+const ORDERS_PLACEHOLDERS = new Set([ORDERS_PLACEHOLDER, CEREMONY_STANDING_PLACEHOLDER, PAGE_ORDERS_PLACEHOLDER, RETIRED_CEREMONY_ORDERS_PLACEHOLDER]);
+
+/** The placeholder a new scroll's Standing Orders zone opens with, by the page's kind. */
+export function ordersPlaceholderFor(kind, { stewarded = false } = {}) {
+  if (kind === 'ceremony') return CEREMONY_STANDING_PLACEHOLDER;
+  if (kind === 'page' && !stewarded) return PAGE_ORDERS_PLACEHOLDER;
+  return ORDERS_PLACEHOLDER;
+}
+
+/**
+ * What kind of page a scroll fronts, from its frontmatter: a `ceremony` carries
+ * `trigger:`; a `project` is `type: project` (or untyped); anything else is a
+ * `page`. The kind only words the scroll — what Now shows comes from what the
+ * page has.
+ */
+export function scrollKind(fm) {
+  if (readTrigger(fm)) return 'ceremony';
+  return fm && fm.type && fm.type !== 'project' ? 'page' : 'project';
+}
 
 // Payload kinds a steward has used to say "here is what I made". The scroll
 // keys on artifact PRESENCE as well, so an undeclared kind with media still
@@ -310,10 +348,12 @@ export function lastGitTouch(palaceRoot, paths) {
 
 /**
  * Compute everything the NOW zone needs from raw inputs. Pure given its inputs
- * (board, state, history, entry meta) — the filesystem/git reads happen in
- * materializeScroll and are passed in.
+ * (board, state, history, entry meta, the page's ledger states) — the
+ * filesystem/git reads happen in materializeScroll and are passed in.
+ * `ledger` is ledger.js's readTuningState, `diary` its readDiaryState; either
+ * may be null, and `kind` defaults from the entry's frontmatter (scrollKind).
  */
-export function computeNow({ home, board = [], state = null, history = [], meta = {}, entryText = '', tsNow, lastTouch = null, bundleMedia = [], plan = null }) {
+export function computeNow({ home, board = [], state = null, history = [], meta = {}, entryText = '', tsNow, lastTouch = null, bundleMedia = [], plan = null, ledger = null, diary = null, kind = null }) {
   const own = ownMessages(board, home);
   const { stillPending, nowResolved } = reconcilePendingRequests(board, home);
   const lastActiveMs = state && state.last_active ? Date.parse(state.last_active) : NaN;
@@ -358,10 +398,19 @@ export function computeNow({ home, board = [], state = null, history = [], meta 
     waiting: stillPending.filter((r) => r.kind === 'plan_revision').length,
   };
 
+  const pageKind = kind || scrollKind(meta?.data || {});
   return {
     type: typeof meta?.data?.type === 'string' ? meta.data.type : null,
+    kind: pageKind,
     status: typeof meta?.data?.status === 'string' ? meta.data.status : null,
     stage: meta?.stage || null,
+    // The board block shows when the page lives on the board — it has a
+    // steward, or it is a project — or when it has nothing else to show. A
+    // ceremony, or a page with a ledger and no steward, shows its runs instead;
+    // a handoff once posted in its name does not make it a board page.
+    show_board: !!state || pageKind === 'project' || (!ledger && !diary),
+    ledger,
+    diary,
     stewarded: !!state,
     iteration,
     last_active: state?.last_active || null,
@@ -384,68 +433,150 @@ export function computeNow({ home, board = [], state = null, history = [], meta 
 function planLine(now) {
   const p = now.plan || { agreed: false };
   const waiting = p.waiting ? ` · **a proposed revision is waiting on you**` : '';
-  if (!p.agreed) return `none agreed yet — the work leans on the forward vector${waiting}`;
+  if (!p.agreed) return `none agreed yet — ${now.ledger ? 'the next run works from what the ledger owes and the forward vector' : 'the work leans on the forward vector'}${waiting}`;
   if (!p.revised) return `agreed (no dated change on the trail yet)${waiting}`;
   const made = p.shipped_since == null ? '' : ` · ${p.shipped_since} made thing${p.shipped_since === 1 ? '' : 's'} since`;
   return `agreed ${day(p.revised)} (${ago(p.revised, now.ts_now)})${made}${waiting}`;
 }
 
-/** Render the NOW zone (between the markers, markers excluded). */
+/** What the Now zone was regenerated from, said in the order it is read. */
+function sourcesLine(now) {
+  const parts = [];
+  if (now.show_board !== false) parts.push('the board', "the steward's runtime");
+  parts.push("the entry's frontmatter");
+  if (now.ledger) parts.push('its tuning ledger');
+  if (now.diary) parts.push('its diary');
+  parts.push('git');
+  return `${parts.slice(0, -1).join(', ')} and ${parts[parts.length - 1]}`;
+}
+
+/** The runs block's summary lines, from a page's tuning ledger (ledger.js). */
+function runsLines(st, noun) {
+  const L = [];
+  const v = st.version ? `v${st.version}` : null;
+  if (st.spec && st.spec.hash) L.push(`- **Version:** ${v} · the spec last changed ${day(st.spec.ts)} (\`${st.spec.hash.slice(0, 8)}\`) — ${st.spec.subject}`);
+  else if (st.spec) L.push(`- **Version:** ${v} · changed in the working tree, not committed yet`);
+  else if (noun === 'ceremony') L.push('- **Version:** none on the card — the ceremony is not versioned yet');
+  const n = st.runs_since.length;
+  if (!v) {
+    const all = st.runs.length;
+    const days = new Set(st.runs.map((r) => r.date)).size;
+    L.push(`- **Runs:** ${all ? `${all} run${all === 1 ? '' : 's'} on ${days} day${days === 1 ? '' : 's'}, counted from the ledger's run lines` : 'none in the ledger yet'}`);
+  } else if (!n) L.push(`- **Runs since the change:** none yet — ${v} has not run`);
+  else {
+    const days = new Set(st.runs_since.map((r) => r.date)).size;
+    L.push(`- **Runs since the change:** ${n} run${n === 1 ? '' : 's'} on ${days} day${days === 1 ? '' : 's'}, counted from the ledger's run lines`);
+  }
+  L.push(`- **Last run:** ${st.last_run ? `${runText(st.last_run)}${st.last_run.version ? ` (under v${st.last_run.version})` : ''}` : 'none in the ledger yet'}`);
+  const orders = (st.orders || []).filter((o) => o.owed);
+  const owedCount = st.owed.length + orders.length;
+  const parts = [];
+  if (st.owed.length) parts.push(`item${st.owed.length === 1 ? '' : 's'} ${st.owed.map((o) => o.n).join(', ')}`);
+  if (orders.length) parts.push(`${orders.length} order${orders.length === 1 ? '' : 's'} from Loudon`);
+  L.push(`- **Owed in the ledger:** ${owedCount ? `${owedCount} — ${parts.join(' and ')}; the next run's tail read picks ${owedCount === 1 ? 'it' : 'them'} up first` : 'nothing'}`);
+  if (st.latest && st.latest.heading) L.push(`- **Latest lesson:** item ${dash(st.latest.item)}, ${st.latest.heading.replace(/^From /, 'from ')} — [[${st.home} — tuning]]`);
+  return L;
+}
+
+/** The runs block's two lists: the runs it counts, and what the ledger owes. */
+function runsSections(st) {
+  const L = [];
+  const v = st.version ? `v${st.version}` : null;
+  const list = v ? st.runs_since : st.runs;
+  L.push(v ? `### Runs since ${v}` : '### Runs');
+  L.push('');
+  if (!list.length) L.push('_None yet._');
+  for (const r of list.slice(0, 8)) L.push(`- ${runText(r)}`);
+  if (list.length > 8) L.push(`- _…and ${list.length - 8} more in the trail below._`);
+  L.push('');
+  const orders = (st.orders || []).filter((o) => o.owed);
+  L.push('### Owed');
+  L.push('');
+  if (!st.owed.length && !orders.length) L.push('_Nothing owed._');
+  for (const o of st.owed) L.push(`- **${o.n}.** ${o.text}`);
+  for (const o of orders) L.push(`- **From Loudon, ${o.date}.** ${o.text}`);
+  L.push('');
+  return L;
+}
+
+/** The diary's one line: its last encounter, or that it is kept off this scroll. */
+function diaryLine(d, home) {
+  if (!d.readable) return '- **Diary:** kept privately on this machine — not read into this scroll';
+  if (!d.last) return `- **Last encounter:** none in the diary yet — [[${home} — diary]]`;
+  const { date, text } = d.last;
+  return `- **Last encounter:** ${date && !text.includes(date) ? `${date} — ${text}` : text} — [[${home} — diary]]`;
+}
+
+/**
+ * Render the NOW zone (between the markers, markers excluded) from what the
+ * page has: a status line from its frontmatter and the Plan line, always; the
+ * board block when it lives on the board; the runs block when it keeps a tuning
+ * ledger; its last encounter when it keeps a diary.
+ */
 export function renderNow(now, { home }) {
-  const noun = now.type && now.type !== 'project' ? 'page' : 'project';
+  const noun = now.kind === 'ceremony' ? 'ceremony'
+    : now.kind === 'page' || (!now.kind && now.type && now.type !== 'project') ? 'page' : 'project';
+  const board = now.show_board !== false;
   const L = [];
   L.push('## Now');
   L.push('');
-  L.push(`> _Regenerated ${dash(now.ts_now)} from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the ${noun} is steered by the **Plan** and **Standing Orders** below, never here._`);
+  L.push(`> _Regenerated ${dash(now.ts_now)} from ${sourcesLine(now)}. This zone is machine-owned — the ${noun} is steered by the **Plan** and **Standing Orders** below, never here._`);
   L.push('');
   const stewardBit = now.stewarded
     ? `**Steward:** cycle ${dash(now.iteration)} · last ran ${day(now.last_active)}${now.last_active ? ` (${ago(now.last_active, now.ts_now)})` : ''}`
     : `**Steward:** none — this ${noun} has no permanent steward yet`;
-  L.push(`- **Status:** ${dash(now.status)} · **Stage:** ${dash(now.stage)} · ${stewardBit}`);
+  L.push(`- **Status:** ${dash(now.status)} · **Stage:** ${dash(now.stage)}${noun === 'ceremony' && !now.stewarded ? '' : ` · ${stewardBit}`}`);
   L.push(`- **Plan:** ${planLine(now)}`);
-  L.push(`- **Waiting on you:** ${now.open.length ? `${now.open.length} open ask${now.open.length === 1 ? '' : 's'}${now.open.some((r) => r.blocking) ? ' — one of them has the steward paused' : ''}` : 'nothing'}`);
-  if (now.stewarded) {
-    L.push(`- **Ready to advance:** ${now.answered_unconsumed.length ? `${now.answered_unconsumed.length} answer${now.answered_unconsumed.length === 1 ? '' : 's'} filed since the steward last ran — a cycle will consume ${now.answered_unconsumed.length === 1 ? 'it' : 'them'}` : 'no unread answers'}`);
+  if (board) {
+    L.push(`- **Waiting on you:** ${now.open.length ? `${now.open.length} open ask${now.open.length === 1 ? '' : 's'}${now.open.some((r) => r.blocking) ? ' — one of them has the steward paused' : ''}` : 'nothing'}`);
+    if (now.stewarded) {
+      L.push(`- **Ready to advance:** ${now.answered_unconsumed.length ? `${now.answered_unconsumed.length} answer${now.answered_unconsumed.length === 1 ? '' : 's'} filed since the steward last ran — a cycle will consume ${now.answered_unconsumed.length === 1 ? 'it' : 'them'}` : 'no unread answers'}`);
+    }
+    if (now.last_shipped) {
+      const p = now.last_shipped.payload || {};
+      L.push(`- **Last shipped:** ${day(now.last_shipped.ts)} (${ago(now.last_shipped.ts, now.ts_now)}) — ${dash(p.headline || p.subject || p.kind)} (\`${now.last_shipped.id}\`)`);
+    } else {
+      L.push(`- **Last shipped:** nothing on the board yet${now.bundle_media_count ? ` — but the bundle holds ${now.bundle_media_count} media file${now.bundle_media_count === 1 ? '' : 's'} (see the making trail)` : ''}`);
+    }
+    if (now.last_touch) L.push(`- **Last commit touching this ${noun}:** ${day(now.last_touch.ts)} \`${now.last_touch.hash}\` — ${now.last_touch.subject}`);
+    if (now.stewarded) {
+      if (now.stall.stalled) L.push(`- **Signal:** ⚠ **STALLED** — the last ${now.stall.barren_streak} cycle${now.stall.barren_streak === 1 ? '' : 's'} posted nothing. The loop is broken until a cycle ships; the lane retries once, then flags here.`);
+      else if (now.stall.last_cycle_barren) L.push('- **Signal:** ⚠ the last cycle posted nothing (one barren cycle — the lane will retry before calling it stalled)');
+      else L.push('- **Signal:** steady');
+      if (now.drift) L.push(`- **Drift:** ${now.drift.cycles} cycle${now.drift.cycles === 1 ? '' : 's'} since the entry was last consolidated (cycle ${now.drift.consolidated_at}) — the entry body may lag; this scroll does not.`);
+      else L.push('- **Drift:** no consolidation marker on the entry — nothing to measure against.');
+    }
   }
-  if (now.last_shipped) {
-    const p = now.last_shipped.payload || {};
-    L.push(`- **Last shipped:** ${day(now.last_shipped.ts)} (${ago(now.last_shipped.ts, now.ts_now)}) — ${dash(p.headline || p.subject || p.kind)} (\`${now.last_shipped.id}\`)`);
-  } else {
-    L.push(`- **Last shipped:** nothing on the board yet${now.bundle_media_count ? ` — but the bundle holds ${now.bundle_media_count} media file${now.bundle_media_count === 1 ? '' : 's'} (see the making trail)` : ''}`);
-  }
-  if (now.last_touch) L.push(`- **Last commit touching this ${noun}:** ${day(now.last_touch.ts)} \`${now.last_touch.hash}\` — ${now.last_touch.subject}`);
-  if (now.stewarded) {
-    if (now.stall.stalled) L.push(`- **Signal:** ⚠ **STALLED** — the last ${now.stall.barren_streak} cycle${now.stall.barren_streak === 1 ? '' : 's'} posted nothing. The loop is broken until a cycle ships; the lane retries once, then flags here.`);
-    else if (now.stall.last_cycle_barren) L.push('- **Signal:** ⚠ the last cycle posted nothing (one barren cycle — the lane will retry before calling it stalled)');
-    else L.push('- **Signal:** steady');
-    if (now.drift) L.push(`- **Drift:** ${now.drift.cycles} cycle${now.drift.cycles === 1 ? '' : 's'} since the entry was last consolidated (cycle ${now.drift.consolidated_at}) — the entry body may lag; this scroll does not.`);
-    else L.push('- **Drift:** no consolidation marker on the entry — nothing to measure against.');
-  }
+  if (now.ledger) L.push(...runsLines(now.ledger, noun));
+  if (now.diary) L.push(diaryLine(now.diary, home));
   L.push('');
-  L.push('### Where this stands');
-  L.push('');
-  L.push(now.stands || (now.stewarded ? '_The steward has not spoken yet._' : `_No steward has spoken for this ${noun}. Its direction is the \`forward_vector\` in [[${home}]]'s frontmatter${noun === 'project' ? '; enchant a steward to start the trail' : ''}._`));
-  L.push('');
-  L.push('### Open asks');
-  L.push('');
-  if (!now.open.length) L.push('_None — nothing is waiting on you._');
-  for (const r of now.open) {
-    L.push(`- \`${r.request_id}\` — ${r.kind === 'plan_revision' ? 'proposed plan revision: ' : ''}${dash(r.decision_topic || r.resource)}${r.blocking ? ' · **steward paused on this**' : ''} · posted ${day(r.posted_at)}${optionsLine(r.options) ? ` · options: ${optionsLine(r.options)}` : ''}`);
-  }
-  if (now.stewarded) {
+  if (board) {
+    L.push('### Where this stands');
     L.push('');
-    L.push('### Answered, not yet consumed');
+    L.push(now.stands || (now.stewarded ? '_The steward has not spoken yet._' : `_No steward has spoken for this ${noun}. Its direction is the \`forward_vector\` in [[${home}]]'s frontmatter${noun === 'project' ? '; enchant a steward to start the trail' : ''}._`));
     L.push('');
-    if (!now.answered_unconsumed.length) L.push('_None._');
-    for (const r of now.answered_unconsumed) L.push(`- \`${r.request_id}\` — ${dash(r.outcome)} · answered ${day(r.resolved_at)} — waiting for the next cycle`);
+    L.push('### Open asks');
+    L.push('');
+    if (!now.open.length) L.push('_None — nothing is waiting on you._');
+    for (const r of now.open) {
+      L.push(`- \`${r.request_id}\` — ${r.kind === 'plan_revision' ? 'proposed plan revision: ' : ''}${dash(r.decision_topic || r.resource)}${r.blocking ? ' · **steward paused on this**' : ''} · posted ${day(r.posted_at)}${optionsLine(r.options) ? ` · options: ${optionsLine(r.options)}` : ''}`);
+    }
+    if (now.stewarded) {
+      L.push('');
+      L.push('### Answered, not yet consumed');
+      L.push('');
+      if (!now.answered_unconsumed.length) L.push('_None._');
+      for (const r of now.answered_unconsumed) L.push(`- \`${r.request_id}\` — ${dash(r.outcome)} · answered ${day(r.resolved_at)} — waiting for the next cycle`);
+    }
+    L.push('');
+    L.push('### Decided');
+    L.push('');
+    const decided = now.resolved.slice().reverse().slice(0, 8);
+    if (!decided.length) L.push('_Nothing decided on the board yet._');
+    for (const r of decided) L.push(`- \`${r.request_id}\` — ${dash(r.decision_topic || r.resource)} → ${dash(r.outcome)} (${day(r.resolved_at)})`);
+    L.push('');
   }
-  L.push('');
-  L.push('### Decided');
-  L.push('');
-  const decided = now.resolved.slice().reverse().slice(0, 8);
-  if (!decided.length) L.push('_Nothing decided on the board yet._');
-  for (const r of decided) L.push(`- \`${r.request_id}\` — ${dash(r.decision_topic || r.resource)} → ${dash(r.outcome)} (${day(r.resolved_at)})`);
-  L.push('');
+  if (now.ledger) L.push(...runsSections(now.ledger));
   return L.join('\n');
 }
 
@@ -459,8 +590,8 @@ const SKELETON_VOICE = {
     intro: (h) => `> The project's front door. **Now** is regenerated on every look; the **Plan** is the path agreed with Loudon, changed only with his yes; **Standing Orders** are Loudon's; **The making** is the trail, newest first. Rendered in [[STIGMERGY]]'s PROJECTS deck; the entry [[${h}]] stays the considered truth and this is the live one. See [[The Scroll]].`,
   },
   ceremony: {
-    vector: (h) => `I am ${h}'s scroll — the one page that opens on which version of the ceremony is live, whether it has run since it last changed, and what its tuning ledger still owes, then reads down through its runs and version changes, newest first. My top is regenerated whenever anyone looks; my standing orders are Loudon's; my trail only ever grows.`,
-    intro: (h) => `> The ceremony's front door. **Now** is regenerated on every look — its version, its runs since the spec last changed, what its ledger owes; **Standing Orders** are Loudon's; **The making** is the trail of runs and version changes, newest first. The card [[${h}]] stays the spec, and its lessons live in [[${h} — tuning]]. Rendered in [[STIGMERGY]]'s PROJECTS deck. See [[The Scroll]].`,
+    vector: (h) => `I am ${h}'s scroll — the one page that opens on which version of the ceremony is live, whether it has run since it last changed, and what its tuning ledger still owes, then the plan it is following, then reads down through its runs and version changes, newest first. My top is regenerated whenever anyone looks; my plan changes only when Loudon agrees; my standing orders are Loudon's and hold until he revokes them; my trail only ever grows.`,
+    intro: (h, { ledger = true } = {}) => `> The ceremony's front door. **Now** is regenerated on every look — its version, its runs since the spec last changed, what its ledger owes; the **Plan** is the path agreed with Loudon, changed only with his yes, and the ledger's owed lines are the next run's to-do beneath it; **Standing Orders** are Loudon's, and hold until he revokes them; **The making** is the trail of runs and version changes, newest first. The card [[${h}]] stays the spec${ledger ? `, and its lessons live in [[${h} — tuning]]` : ''}. Rendered in [[STIGMERGY]]'s PROJECTS deck. See [[The Scroll]].`,
   },
   page: {
     vector: (h) => `I am ${h}'s scroll — the page's front door, opening on where it stands now and the plan it is following, then reading down through what was made from it, newest first. My top is regenerated whenever anyone looks; my plan changes only when Loudon agrees; my standing orders are Loudon's; my trail only ever grows.`,
@@ -468,7 +599,37 @@ const SKELETON_VOICE = {
   },
 };
 
-export function renderSkeleton({ home, born, nowText, planText = PLAN_PLACEHOLDER, ordersText = ORDERS_PLACEHOLDER, makingText = '', kind = 'project' }) {
+// The ceremony scroll's voice until v1.28, which had no Plan and sent every
+// order to the ledger. A scroll still carrying it word for word is re-made on
+// its next write (retireOldShape); a hand-edited one is left alone.
+const RETIRED_CEREMONY_VOICE = {
+  vector: (h) => `I am ${h}'s scroll — the one page that opens on which version of the ceremony is live, whether it has run since it last changed, and what its tuning ledger still owes, then reads down through its runs and version changes, newest first. My top is regenerated whenever anyone looks; my standing orders are Loudon's; my trail only ever grows.`,
+  intro: (h) => `> The ceremony's front door. **Now** is regenerated on every look — its version, its runs since the spec last changed, what its ledger owes; **Standing Orders** are Loudon's; **The making** is the trail of runs and version changes, newest first. The card [[${h}]] stays the spec, and its lessons live in [[${h} — tuning]]. Rendered in [[STIGMERGY]]'s PROJECTS deck. See [[The Scroll]].`,
+};
+
+/**
+ * Bring a scroll made under an older shape up to the one every scroll has now:
+ * a Plan zone, and — for a ceremony's scroll from before v1.28 — the voice and
+ * the Standing Orders placeholder its kind carries today. Only text that still
+ * matches the old wording exactly is replaced; everything else is byte-kept.
+ * Idempotent.
+ */
+export function retireOldShape(text, { home, kind = 'project', ledger = true, stewarded = false } = {}) {
+  let t = ensurePlanZone(text);
+  const voice = SKELETON_VOICE[kind] || SKELETON_VOICE.project;
+  const oldVector = `forward_vector: "${RETIRED_CEREMONY_VOICE.vector(home)}"`;
+  if (t.includes(oldVector)) t = t.replace(oldVector, `forward_vector: "${voice.vector(home)}"`);
+  const oldIntro = RETIRED_CEREMONY_VOICE.intro(home);
+  if (t.includes(oldIntro)) t = t.replace(oldIntro, voice.intro(home, { ledger }));
+  const os = t.indexOf(MARK.ordersStart);
+  const oe = os >= 0 ? t.indexOf(MARK.ordersEnd, os) : -1;
+  if (os >= 0 && oe >= 0 && t.slice(os + MARK.ordersStart.length, oe).trim() === RETIRED_CEREMONY_ORDERS_PLACEHOLDER) {
+    t = `${t.slice(0, os + MARK.ordersStart.length)}\n${ordersPlaceholderFor(kind, { stewarded })}\n${t.slice(oe)}`;
+  }
+  return t;
+}
+
+export function renderSkeleton({ home, born, nowText, planText = PLAN_PLACEHOLDER, ordersText = ORDERS_PLACEHOLDER, makingText = '', kind = 'project', ledger = true }) {
   const voice = SKELETON_VOICE[kind] || SKELETON_VOICE.project;
   const fm = [
     '---',
@@ -486,14 +647,20 @@ export function renderSkeleton({ home, born, nowText, planText = PLAN_PLACEHOLDE
     '',
     `# ${home} — scroll`,
     '',
-    voice.intro(home),
+    voice.intro(home, { ledger }),
     '',
     MARK.nowStart,
     nowText,
     MARK.nowEnd,
     '',
-    // A ceremony's plan is its tuning ledger's owed lines, which Now shows.
-    ...(kind === 'ceremony' ? [] : ['## Plan', '', MARK.planStart, planText, MARK.planEnd, '']),
+    // Every scroll has a Plan, a ceremony's too (v1.28); a tuning ledger's owed
+    // lines are the next run's to-do beneath it, and Now shows them.
+    '## Plan',
+    '',
+    MARK.planStart,
+    planText,
+    MARK.planEnd,
+    '',
     '## Standing Orders',
     '',
     MARK.ordersStart,
@@ -686,9 +853,12 @@ export function updateScrollText(existing, { nowText, newSections }) {
 }
 
 /**
- * Materialize `[Entry] — scroll.md` for one project. Reads everything it needs
- * from the palace; writes the file; returns a summary. Never throws on a
- * missing entry — returns { written:false, reason }.
+ * Materialize `[Entry] — scroll.md` for any page — a project, a ceremony, a
+ * page with a ledger or none. The one materializer: a steward cycle, the CLI
+ * and the deck all come through here, so a page has one front. Reads
+ * everything it needs from the palace; writes the file unless `dryRun`;
+ * returns a summary with the text. Never throws on a missing entry — returns
+ * { written:false, reason }.
  *
  * @param {object} opts
  * @param {string} opts.palaceRoot
@@ -704,6 +874,7 @@ export function materializeScroll(opts) {
   const bundle = resolveBundleDir(palaceRoot, home);
   if (!bundle) return { written: false, reason: 'entry-file-not-found' };
   const { entryFile, bundleDir } = bundle;
+  const scrollPath = join(bundleDir, `${home} — scroll.md`);
 
   let board = opts.board;
   if (!board) {
@@ -725,43 +896,59 @@ export function materializeScroll(opts) {
   const entryText = (() => { try { return readFileSync(entryFile, 'utf8'); } catch { return ''; } })();
   const fm = parseFrontmatter(entryText);
   const meta = { file: entryFile, stage: typeof fm.stage === 'string' ? fm.stage : undefined, data: fm };
+  const kind = scrollKind(fm);
   const lastTouch = lastGitTouch(palaceRoot, [relative(palaceRoot, entryFile), relative(palaceRoot, bundleDir)].filter(Boolean));
   const bundleMedia = scanBundleMediaFiles(palaceRoot, bundleDir);
 
-  const scrollPath = join(bundleDir, `${home} — scroll.md`);
+  // What the page keeps besides the board: a tuning ledger, a diary. A private
+  // diary is read into a scroll only when git ignores that scroll too.
+  const ledger = readTuningState(palaceRoot, home);
+  const scrollPrivate = diaryPathFor(palaceRoot, home) ? isGitIgnored(palaceRoot, scrollPath) : false;
+  const diary = readDiaryState(palaceRoot, home, { scrollPrivate });
+
   const existing = existsSync(scrollPath) ? readFileSync(scrollPath, 'utf8') : null;
   const have = existingEntryIds(existing || '');
   const cycles = cycleIndex(history);
-  const making = ownMessages(board, home).filter(isMakingMessage).filter((m) => !have.has(m.id));
-  // newest first in the file → build sections newest-first
-  const newSections = making.slice().reverse().map((m) => renderMakingSection(m, { cycle: cycles.get(m.id) }));
+  // New trail sections, newest first: what the page made on the board (in the
+  // board's own order, newest first), and its runs and version changes from the
+  // tuning ledger, merged in by when they happened.
+  const made = ownMessages(board, home).filter(isMakingMessage).filter((m) => !have.has(m.id)).reverse()
+    .map((m) => ({ ms: Date.parse(m.ts) || 0, text: renderMakingSection(m, { cycle: cycles.get(m.id) }) }));
+  const ran = ledgerTrail(ledger).filter((t) => !have.has(t.key)).map((t) => ({ ms: t.ms || 0, text: renderLedgerSection(t) }));
+  const newSections = [];
+  for (let a = 0, b = 0; a < made.length || b < ran.length;) {
+    if (b >= ran.length || (a < made.length && made[a].ms >= ran[b].ms)) newSections.push(made[a++].text);
+    else newSections.push(ran[b++].text);
+  }
 
   let text;
   if (existing == null) {
     let seed = newSections.join('\n\n');
-    if (!seed && bundleMedia.length) {
+    if (!seed && bundleMedia.length && !ledger) {
       // Unstewarded backfill: the bundle's media is the only trail there is.
       const top = bundleMedia.slice(0, 20).map((f) => `- [${basename(f.path)}](${f.path})${f.mtime ? ` · ${day(f.mtime)}` : ''}`).join('\n');
       seed = [`<!-- scroll:entry id="backfill-${day(tsNow)}" -->`, `### ${day(tsNow)} — backfilled from the bundle`, '', `No steward has posted a made thing for this project yet, so the trail opens with what the bundle already holds (${bundleMedia.length} media file${bundleMedia.length === 1 ? '' : 's'}, newest first):`, '', top, `<sub>backfill · scroll born ${day(tsNow)}</sub>`, '<!-- /scroll:entry -->'].join('\n');
     }
-    const kind = fm.type && fm.type !== 'project' ? 'page' : 'project';
     text = renderSkeleton({
-      home, born: day(tsNow), nowText: '', kind,
-      ordersText: kind === 'page' && !state ? PAGE_ORDERS_PLACEHOLDER : ORDERS_PLACEHOLDER,
-      makingText: seed || '_Nothing made yet — the first shipped thing will open the trail._',
+      home, born: day(tsNow), nowText: '', kind, ledger: !!ledger,
+      ordersText: ordersPlaceholderFor(kind, { stewarded: !!state }),
+      makingText: seed || (ledger
+        ? '_No run in the ledger yet — the first run\'s line will open the trail._'
+        : '_Nothing made yet — the first shipped thing will open the trail._'),
     });
   } else {
     const r = updateScrollText(existing, { nowText: '', newSections });
     if (!r.applied) return { written: false, reason: r.reason, scrollPath };
-    // An older scroll gains its (empty) Plan zone the first time it is regenerated.
-    text = ensurePlanZone(r.text);
+    // An older scroll gains its (empty) Plan zone, and a ceremony's from before
+    // v1.28 its current voice and orders placeholder, the first time it is regenerated.
+    text = retireOldShape(r.text, { home, kind, ledger: !!ledger, stewarded: !!state });
   }
 
   // A proposal Loudon adopted since the last look becomes the plan, and the
   // change lands on the trail. Then Now is computed against the plan as it stands.
   const adopted = applyAdoptedPlans(text, board, home);
   text = adopted.text;
-  const now = computeNow({ home, board, state, history, meta, entryText, tsNow, lastTouch, bundleMedia, plan: readPlanInfo(text) });
+  const now = computeNow({ home, board, state, history, meta, entryText, tsNow, lastTouch, bundleMedia, plan: readPlanInfo(text), ledger, diary, kind });
   text = updateScrollText(text, { nowText: renderNow(now, { home }), newSections: [] }).text;
 
   if (!dryRun) {
@@ -773,6 +960,11 @@ export function materializeScroll(opts) {
     created: existing == null,
     scrollPath,
     bundleDir,
+    kind,
+    text,
+    ledger,
+    diary,
+    nowView: now,
     added_sections: newSections.length,
     plan_adopted: adopted.applied,
     now: { open: now.open.length, answered_unconsumed: now.answered_unconsumed.length, stalled: now.stall.stalled, iteration: now.iteration },
@@ -780,10 +972,10 @@ export function materializeScroll(opts) {
 }
 
 /**
- * Write an agreed plan into a project's (or page's) scroll — the deck's save and
- * an elder's CLI write on Loudon's yes. Creates the scroll first if needed, logs
- * the change on the trail (`why` says what changed and why), then regenerates Now.
- * Not for ceremonies: a ceremony's plan is its tuning ledger's owed lines.
+ * Write an agreed plan into any page's scroll — a project's, a ceremony's, a
+ * page's — the deck's save and an elder's CLI write on Loudon's yes. Creates the
+ * scroll first if needed, logs the change on the trail (`why` says what changed
+ * and why), then regenerates Now.
  */
 export function writePlan({ palaceRoot, home, plan, headline = '', why = '', by = 'Loudon', agentDir, ts = localIso() }) {
   const bundle = resolveBundleDir(palaceRoot, home);

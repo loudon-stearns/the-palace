@@ -18,7 +18,7 @@ forward_vector: "I am the plan for carrying Loudon's 2026-10-14 answers about le
 
 How the answers in [[Palace Ceremonies — baton]] § Decided 2026-10-14 reach the rest of the palace. Read that section first; this page assumes it and uses its numbering. The survey's Part C ([[Palace Ceremonies — sketch — runs survey]]) is the file list this plan starts from; the [[Concierge]] checked it against [[SCHEMA — Reference]] §5 on 2026-10-14 and its corrections are folded in.
 
-**Where it stands, 2026-10-15:** Waves 0 and 1 have landed — the v1.28 Schema Ceremony (`ec1a3b11`) and the Daily Page split (`d598db29`); batch D folded in the Concierge's after-write fixes. Waves 2 and 3 are carried by [[Palace Ceremonies — baton]]. The rest of this page is kept as the plan was agreed.
+**Where it stands, 2026-10-15:** Waves 0, 1 and 2 have landed — the v1.28 Schema Ceremony (`ec1a3b11`), the Daily Page split (`d598db29`), and the code (`8899b03c`, `b12b1f13`, `323e0be7`); batch D folded in the Concierge's after-write fixes. Wave 3 is carried by [[Palace Ceremonies — baton]]. The rest of this page is kept as the plan was agreed.
 
 **Nothing here is decided.** Each wave waits for Loudon's yes. Where I recommend, I say so. A wave he agrees stays written here as a sketch; it is not the page's Plan (that lives on a scroll), and this file goes to Archive when the baton closes.
 

@@ -23,27 +23,21 @@ forward_vector: "I carry the in-progress move on [[Palace Ceremonies]] across a 
 # Baton: Palace Ceremonies
 
 ## Move
-Make the code follow Schema v1.28, so the deck reads `trigger:` instead of a ledger to find a ceremony; then grow the first ledgers on pages that aren't ceremonies, one at a time on Loudon's yes. The waves are laid out in [[Palace Ceremonies — sketch — propagation plan]] (Wave 2, then Wave 3).
+Grow the first ledgers on pages that aren't ceremonies, one at a time on Loudon's yes: the two pilots first, then the proposals. The waves are laid out in [[Palace Ceremonies — sketch — propagation plan]] (Wave 3).
 
-*Provenance: posed 2026-09-26, widened 2026-09-27, answered by Loudon 2026-10-14/15. The canon half landed 2026-10-15 as the v1.28 Schema Ceremony (`ec1a3b11`) and the Daily Page split (`d598db29`); this baton carries the rest. What was decided, and why, is now canon: [[SCHEMA — Context]] § v1.28. Earlier versions of this baton, with the survey's questions and the two days' disagreements, are in git.*
+*Provenance: posed 2026-09-26, widened 2026-09-27, answered by Loudon 2026-10-14/15. The canon half landed 2026-10-15 as the v1.28 Schema Ceremony (`ec1a3b11`) and the Daily Page split (`d598db29`); the code followed the same day (Wave 2: `8899b03c`, `b12b1f13`, `323e0be7`, and the canon notes that waited on it, `1641291f`). This baton carries the rest. What was decided, and why, is now canon: [[SCHEMA — Context]] § v1.28. Earlier versions of this baton, with the survey's questions, the two days' disagreements and the Wave 2 file list, are in git.*
 
 ## Why this move matters
-Canon now says a ledger is a family any page may keep, and a ceremony is a page carrying `trigger:` ([[SCHEMA]] §1; [[SCHEMA — Reference]] §6, §8). The code still says the opposite. `isCeremony` is "a `— tuning.md` exists in the bundle" (`_ops/stigmergy/orchestrator/src/ceremony-scroll.js:142-151`), so a tuning ledger on any other page makes the deck list it as a ceremony "not versioned yet", refuse its Plan (`_ops/stigmergy/app/server/projects.js:382`; `scroll.js:84`), and send every order to the ledger (`projects.js:348-352`); a stewarded page is also listed twice and its Now gets two writers (`projects.js:92,108`; `process-cycle.js:463`). Until the code changes, no page that isn't a ceremony can safely grow a tuning ledger, and the deck contradicts canon on Plans and orders. (Diaries are safe: both matchers look only for `— tuning.md`.)
+Canon says a ledger is a family any page may keep, and a ceremony is a page carrying `trigger:` ([[SCHEMA]] §1; [[SCHEMA — Reference]] §6, §8), and since Wave 2 the code agrees. A page with a tuning ledger and no `trigger:` lists under PAGES on the PROJECTS deck as itself, keeps a Plan and its standing orders on its scroll, and takes a one-shot order into its ledger as owed (`_ops/stigmergy/app/server/projects.js`; `orchestrator/src/scroll-file.js`, `ledger.js`). A stewarded page with a ledger gets a run line every cycle and can offer a lesson (`process-cycle.js`; `_ops/orchestrator/prompts/shared.md`). So a ledger can now be grown on any page safely; none has been yet.
 
 ## Current state
 - **Canon: landed.** Ledgers state their standards in frontmatter (`ledger`, `standards`); all fifteen existing ledgers and the two diaries carry them. Fourteen ceremonies carry `trigger:` (Closing Well's on the practice page; the trigger table names the card). Brian Eno's and John Cage's records are now `— diary.md`. The Daily Page's ledger is split: tuning tracked, diary private.
-- **Code: unchanged.** The list is Wave 2 of the propagation plan, plus what the Concierge found on 2026-10-15:
-  - `CEREMONY_ORDERS_PLACEHOLDER` (`scroll-file.js:55-56`) still tells every tracked ceremony scroll that orders go to the ledger as owed; re-make those scrolls once the routing changes.
-  - comments that state the old rule: `ceremony-scroll.js:7`, `projects.js:377`, `scroll.js:84`.
-  - `_ops/swarm/lint-doc-drift.py:243,249` finds ceremony specs by "ceremony" in the filename; it should read `trigger:` (it misses `Closing Well.md`, Sentry, Enrichment, The Daily Page today).
-  - the hand-kept lists in `entry-edit.js:119-125` and `commit-spec.js:40-54` should come from `trigger:`.
-  - `_ops/orchestrator/prompts/shared.md` is deliberately unchanged: the steward's lesson field and its read of owed lines land with `process-cycle.js` writing the run line, not before.
-- **New ledgers: none yet.** The pilots (Hero and Avatar Maker, Generative Sample Libraries) wait for Wave 2's ceremony test. The proposals and their traps are the plan's Wave 3b; lessons held only in operator memory are 3c.
+- **Code: landed** (Wave 2). A ceremony is found by `trigger:` everywhere: the deck, the canon guard, the commit hook, `lint-doc-drift` W2. One materializer and one Now for every page, from what it has (the board when it is stewarded or a project, the runs from a tuning ledger, the last encounter from a diary). A Plan on every scroll; standing orders on the scroll, one-shot orders owed in the ledger. Run lines come from steward cycles (`process-cycle.js`), the face maker (`regen-lane.js`) and the Shop's smoke tests (`Shop/Maker/run-tests.mjs`, which no longer writes `last_tested`); the baton executor writes a qualifier and the `targets` link. The thirteen tracked ceremony scrolls were re-made.
+- **New ledgers: none yet.** The pilots (Hero and Avatar Maker, Generative Sample Libraries) are next. The proposals and their traps are the plan's Wave 3b; lessons held only in operator memory are 3c.
 
 ## Next move
-1. **Wave 2, the code** — its own session, in a `stigmergy` worktree, landed with `palace-land`. Before touching any file in the Vite config graph, check no steward is running (an edit mid-run blinds the deck). The plan's Wave 2 list plus the Concierge's items above; tests beside each.
-2. **Wave 3a, the pilots**, once the ceremony test reads `trigger:`: the Hero and Avatar Maker's tuning ledger (seeded from its two lists and the 2026-09-26 faces lessons, which are in this baton's git history at `fe3a8216`), then GSL's (from the lesson sections of `ai-source-probe/DESIGN.md`).
-3. **Wave 3b and 3c**, one ledger at a time, each on Loudon's yes; the test for each: would a worker who ignored the line today be wrong? If so it stays on the page.
+1. **Wave 3a, the pilots**: the Hero and Avatar Maker's tuning ledger (seeded from its two lists and the 2026-09-26 faces lessons, which are in this baton's git history at `fe3a8216`), then GSL's (from the lesson sections of `ai-source-probe/DESIGN.md`). Each page's first face or cycle after its ledger lands should leave a run line by itself; check that it did.
+2. **Wave 3b and 3c**, one ledger at a time, each on Loudon's yes; the test for each: would a worker who ignored the line today be wrong? If so it stays on the page.
 
 ## Still open (from 2026-10-14)
 - how many recurrences earn a change to what a page wants ([[The Remembering Page]]: a clean same-direction drift by the third, one pair, one topic);
@@ -60,9 +54,9 @@ Canon now says a ledger is a family any page may keep, and a ceremony is a page 
 
 ## Load these files first
 1. [[SCHEMA — Context]] § v1.28, and [[SCHEMA — Reference]] §6 and §8.
-2. [[Palace Ceremonies — sketch — propagation plan]], Waves 2 and 3.
-3. [[Palace Ceremonies — sketch — runs survey]], § The code, once.
-4. The header comments of `_ops/stigmergy/orchestrator/src/ceremony-scroll.js`, `scroll-file.js` and `_ops/stigmergy/app/server/projects.js`.
+2. [[Palace Ceremonies — sketch — propagation plan]], Wave 3.
+3. [[Palace Ceremonies — sketch — runs survey]], § A2 (where each candidate's runs and lessons live today). Its § The code, once describes the code before Wave 2.
+4. The header comments of `_ops/stigmergy/orchestrator/src/ledger.js` (how a new ledger is read), `scroll-file.js` and `_ops/stigmergy/app/server/projects.js`.
 
 ## On pickup (fixed — the catcher's checklist; do not rewrite per session)
 *Identical in every baton. It rides along because the catching Claude loads the

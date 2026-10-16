@@ -22,12 +22,14 @@ export async function fetchScroll(home, { write = false } = {}) {
   }
 }
 
-export async function saveStandingOrders(home, orders) {
+// An order from Loudon. `standing` (the default) replaces the scroll's Standing
+// Orders zone; `once` appends one owed line to the page's tuning ledger.
+export async function saveStandingOrders(home, orders, kind = 'standing') {
   try {
     const res = await fetch('/api/projects/orders', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({ home, orders }),
+      body: JSON.stringify({ home, orders, kind }),
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) return { ok: false, status: res.status, error: data.error || `http ${res.status}` };

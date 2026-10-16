@@ -116,21 +116,26 @@ export const DENIED_CANON_PATHS = new Set([
   'FOUR PILLARS.md',
   '_ops/Substrate Skill.md',
   '_ops/Palace Ceremonies.md',
-  // Ceremony specs that live outside _ops/, where the pattern below cannot see
-  // them. Named one by one rather than by a wider pattern: what counts as a
-  // ceremony is still an open question (Palace Ceremonies — baton).
-  'Enrichment.md',
-  'Palace development/Sentry.md',
-  'Closing Well.md',                          // carries the Close's version and ledger
-  'Closing Well/Closing Well — Context.md',
 ]);
 
-// Canon path patterns -- ceremony cards in _ops/, and each ceremony's Context
-// companion, which lives in the ceremony's bundle (SCHEMA — Reference §6).
+// Ceremony canon is not a list kept here. A ceremony is a page carrying
+// `trigger:` (SCHEMA v1.28), wherever it lives — Enrichment and Closing Well at
+// the root, Sentry under Palace development/ — so the server passes the
+// register in as `ceremonyPaths` (each ceremony's page and its Context
+// companion; ceremony-scroll.js `ceremonyCanonPaths`), and a caller holding the
+// page's own frontmatter may pass that instead. These patterns stay beside the
+// register as a floor: they also cover a ceremony's thin card that carries no
+// trigger of its own (`_ops/Closing Well Ceremony.md`), and they still hold
+// where no register is at hand (the browser, before the server has answered).
 const DENIED_CANON_PATTERNS = [
   /^_ops\/[^/]*Ceremony[^/]*\.md$/,
   /^_ops\/([^/]*Ceremony)\/\1 — Context\.md$/,
 ];
+
+const CEREMONY_REFUSAL = {
+  allowed: false,
+  reason: 'ceremony canon: edit through Claude conversation (show-before-write)',
+};
 
 // SECURITY refusal — filesystem / repo integrity. Returns { allowed, reason }.
 // This is the guard the Trickster keeps; bypassing it is never licensed.
@@ -154,8 +159,11 @@ export function checkPathSafety(relPath) {
 
 // CARE refusal — canon + ceremony + running machinery. Returns { allowed,
 // reason }. The line the careful Companion will not cross and the Trickster may.
-// Assumes path-safety has already passed.
-export function checkCanon(relPath) {
+// Assumes path-safety has already passed. `ceremonyPaths` (a Set of palace-
+// relative paths, from the register) and `frontmatter` (the page's own, when
+// the caller has it) say which pages are ceremonies; without either, only the
+// patterns above do.
+export function checkCanon(relPath, { ceremonyPaths = null, frontmatter = null } = {}) {
   for (const prefix of DENIED_CANON_PREFIXES) {
     if (relPath.startsWith(prefix)) {
       return { allowed: false, reason: `path under ${prefix} is infrastructure, not knowledge` };
@@ -167,24 +175,28 @@ export function checkCanon(relPath) {
       reason: 'canon file: edit through Claude conversation (show-before-write)',
     };
   }
+  if (ceremonyPaths && ceremonyPaths.has(relPath)) return CEREMONY_REFUSAL;
+  if (frontmatter && carriesTrigger(frontmatter)) return CEREMONY_REFUSAL;
   for (const re of DENIED_CANON_PATTERNS) {
-    if (re.test(relPath)) {
-      return {
-        allowed: false,
-        reason: 'ceremony canon: edit through Claude conversation (show-before-write)',
-      };
-    }
+    if (re.test(relPath)) return CEREMONY_REFUSAL;
   }
   return { allowed: true, reason: null };
 }
 
-// The careful guardrail: security first, then care. Byte-identical in `allowed`
-// to the pre-split behavior, so every non-trickster caller is unchanged.
-// Returns { allowed, reason } for a proposed save target.
-export function checkAllowList(relPath) {
+// A page's frontmatter marks it a ceremony when it carries trigger words.
+function carriesTrigger(fm) {
+  const t = fm && fm.trigger;
+  if (Array.isArray(t)) return t.some((w) => String(w ?? '').trim() !== '');
+  return typeof t === 'string' && t.trim() !== '';
+}
+
+// The careful guardrail: security first, then care. Returns { allowed, reason }
+// for a proposed save target; `opts` goes to checkCanon (the ceremony register,
+// or the page's frontmatter).
+export function checkAllowList(relPath, opts = {}) {
   const safety = checkPathSafety(relPath);
   if (!safety.allowed) return safety;
-  return checkCanon(relPath);
+  return checkCanon(relPath, opts);
 }
 
 // ── Dirty tracking ───────────────────────────────────────────────────────────

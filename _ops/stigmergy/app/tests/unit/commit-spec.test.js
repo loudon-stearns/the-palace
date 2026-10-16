@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   validateCommitMessage, annotateOutOfBand, deriveTrailers, formatCommitMessage, parseNameStatus,
+  ceremonyKinds, parseCeremonySubject, CEREMONY_KINDS,
 } from '../../src/lib/commit-spec.js';
 import { diffEntryText } from '../../src/lib/frontmatter-diff.js';
 
@@ -295,5 +296,32 @@ describe('formatCommitMessage', () => {
       trailers: deriveTrailers({ paths: ['Foo.md'], kind: 'edit', verify: 'verified' }),
     });
     expect(validateCommitMessage(msg).valid).toBe(true);
+  });
+});
+
+// Which names are ceremonies comes from the pages carrying `trigger:` (SCHEMA
+// v1.28), passed in by the scripts; commit-spec keeps only the kinds that differ
+// from ops, and the ceremonies that have no page of their own.
+describe('ceremony subjects, from the pages carrying trigger:', () => {
+  const TITLES = ['Walk Ceremony', 'Weave Ceremony', 'Closing Well', 'The Daily Page', 'Sentry', 'Baton Ceremony'];
+
+  it('a page title becomes the subject name, and keeps its own kind or takes ops', () => {
+    const kinds = ceremonyKinds(TITLES);
+    expect(kinds).toMatchObject({ Walk: 'ops', Weave: 'weave', 'Closing Well': 'ops', 'The Daily Page': 'ops', Sentry: 'ops', Baton: 'handoff' });
+    expect(kinds['Schema Ceremony']).toBe('schema');   // table-only: no page, still a ceremony
+    expect(kinds.Connection).toBe('ops');
+  });
+
+  it('a subject is a ceremony subject when the register names it', () => {
+    const kinds = ceremonyKinds(TITLES);
+    expect(parseCeremonySubject('Walk — 2026-10-15 — a walk', kinds)).toEqual({ ceremony: 'Walk', kind: 'ops', declared: true });
+    expect(parseCeremonySubject('The Daily Page — Kuramoto Coupling', kinds).declared).toBe(true);
+    expect(validateCommitMessage('Closing Well — the close of 2026-10-15', { ceremonyKinds: kinds }).valid).toBe(true);
+    expect(validateCommitMessage('Checkpoint — full state dump', { ceremonyKinds: kinds }).valid).toBe(false);
+  });
+
+  it('with no palace at hand, only the ceremonies named by kind are known', () => {
+    expect(Object.keys(CEREMONY_KINDS).sort()).toEqual(['Baton', 'Connection', 'Deposit', 'Enrichment', 'Query', 'Schema Ceremony', 'Weave']);
+    expect(parseCeremonySubject('Walk — x').declared).toBe(false);
   });
 });

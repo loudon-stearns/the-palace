@@ -29,11 +29,13 @@ import ScrollView from './ScrollView.jsx';
 // its steward directory + registry line (POST /api/projects/enchant, the same
 // act as `node enchant.js "<Title>"`), and the row moves up to tended.
 //
-// Two more boxes share the deck (2026-09-25). SERVICES: stewarded pages that
-// are not projects, rendered with the project row. CEREMONIES: every entry with
-// a tuning ledger — its version, when the spec last changed, how many runs it
-// has had since, and what its ledger still owes. A ceremony's name opens its
-// scroll the same way a project's does; it has no steward to advance.
+// More boxes share the deck. SERVICES (2026-09-25): stewarded pages that are
+// not projects, rendered with the project row. CEREMONIES: every page carrying
+// `trigger:` (SCHEMA v1.28) — its version, when the spec last changed, how many
+// runs it has had since, and what its tuning ledger still owes. PAGES: any
+// other page that keeps a tuning ledger, in the same row. A name opens the
+// page's scroll the same way a project's does — Plan and Standing Orders
+// included; it has no steward to advance.
 
 const SIGNAL_COLOR = { ok: 'var(--phosphor)', warn: 'var(--warn)', err: 'var(--error)', dim: 'var(--phosphor-dim)' };
 
@@ -50,15 +52,15 @@ function SignalCell({ row }) {
 
 const CEREMONY_COLS = 'minmax(180px, 2fr) 56px 90px 90px minmax(140px, 1.6fr) 90px';
 
-export function CeremonyRow({ row, onOpen, onOpenEntry }) {
+export function CeremonyRow({ row, onOpen, onOpenEntry, prefix = 'ceremony' }) {
   const sid = slug(row.home);
   const dim = { color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11, whiteSpace: 'nowrap' };
   const unrun = row.spec_changed && row.spec_changed.hash && row.runs_since === 0;
   return (
-    <div data-testid={`ceremony-row-${sid}`} style={{ display: 'grid', gridTemplateColumns: CEREMONY_COLS, gap: 10, alignItems: 'center', padding: '4px 0', borderBottom: '1px solid var(--fg4, rgba(31,138,60,.25))' }}>
+    <div data-testid={`${prefix}-row-${sid}`} style={{ display: 'grid', gridTemplateColumns: CEREMONY_COLS, gap: 10, alignItems: 'center', padding: '4px 0', borderBottom: '1px solid var(--fg4, rgba(31,138,60,.25))' }}>
       <span style={{ display: 'flex', alignItems: 'baseline', gap: 6, minWidth: 0 }}>
         <span
-          data-testid={`ceremony-open-${sid}`}
+          data-testid={`${prefix}-open-${sid}`}
           onClick={() => onOpen(row.home)}
           style={{ color: 'var(--link)', textShadow: 'var(--glow)', cursor: 'pointer', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
           title={`${row.home} — open the scroll`}
@@ -69,20 +71,20 @@ export function CeremonyRow({ row, onOpen, onOpenEntry }) {
             tabIndex={0}
             onClick={(e) => { e.stopPropagation(); onOpenEntry(row.path); }}
             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); onOpenEntry(row.path); } }}
-            title={`read the card — ${row.path}`}
+            title={`read the ${prefix === 'ceremony' ? 'card' : 'page'} — ${row.path}`}
             style={{ fontFamily: 'var(--font-mono)', fontSize: 9, lineHeight: 1, letterSpacing: '.08em', textTransform: 'uppercase', padding: '0 3px', border: '1px solid currentColor', color: 'var(--phosphor)', textShadow: 'var(--glow)', cursor: 'pointer', userSelect: 'none', whiteSpace: 'nowrap' }}
-          >card</span>
+          >{prefix === 'ceremony' ? 'card' : 'page'}</span>
         ) : null}
       </span>
       <span style={{ ...dim, color: 'var(--phosphor)', textShadow: 'var(--glow)' }}>{row.version ? `v${row.version}` : '—'}</span>
       <span style={dim} title={row.spec_changed ? row.spec_changed.subject || '' : ''}>{row.spec_changed && row.spec_changed.ts ? ageOf(row.spec_changed.ts) : '—'}</span>
-      <span data-testid={`ceremony-runs-${sid}`} style={{ ...dim, color: unrun ? 'var(--phosphor-dim)' : 'var(--phosphor)' }}>
-        {unrun ? 'not yet run' : `${row.runs_since} since`}
+      <span data-testid={`${prefix}-runs-${sid}`} style={{ ...dim, color: unrun ? 'var(--phosphor-dim)' : 'var(--phosphor)' }}>
+        {unrun ? 'not yet run' : (row.version ? `${row.runs_since} since` : `${row.runs_since} run${row.runs_since === 1 ? '' : 's'}`)}
       </span>
       <span style={{ ...dim, overflow: 'hidden', textOverflow: 'ellipsis' }} title={row.last_run ? row.last_run.subject || '' : ''}>
         {row.last_run ? `${ageOf(row.last_run.ts)} · ${row.last_run.subject}` : 'no run recorded'}
       </span>
-      <span data-testid={`ceremony-owed-${sid}`} style={{ ...dim, color: row.owed.length ? 'var(--warn)' : 'var(--phosphor-dim)', textShadow: row.owed.length ? 'var(--glow)' : 'none' }}>
+      <span data-testid={`${prefix}-owed-${sid}`} style={{ ...dim, color: row.owed.length ? 'var(--warn)' : 'var(--phosphor-dim)', textShadow: row.owed.length ? 'var(--glow)' : 'none' }}>
         {row.owed.length ? `${row.owed.length} owed` : 'nothing owed'}
       </span>
     </div>
@@ -185,6 +187,7 @@ export default function ProjectsDeck({ messages = [], onConfirmed, project = nul
   const rows = data?.projects ?? [];
   const services = data?.services ?? [];
   const ceremonies = data?.ceremonies ?? [];
+  const pages = data?.pages ?? [];
   const worker = data?.worker ?? {};
   const running = !!worker.running;
   const readyRows = rows.filter((r) => r.stewarded && r.answered_unconsumed > 0 && !r.running && !r.queued);
@@ -234,7 +237,8 @@ export default function ProjectsDeck({ messages = [], onConfirmed, project = nul
   const fbColor = { ok: 'var(--phosphor)', warn: 'var(--warn)', err: 'var(--error)', dim: 'var(--phosphor-dim)' };
 
   if (project) {
-    const ceremony = ceremonies.find((r) => r.home === project) || null;
+    // A ceremony or a page with a ledger has no steward to advance or enchant.
+    const ceremony = ceremonies.find((r) => r.home === project) || pages.find((r) => r.home === project) || null;
     const row = rows.find((r) => r.home === project) || services.find((r) => r.home === project) || ceremony;
     return (
       <div data-testid="projects-screen" style={{ width: '100%' }}>
@@ -278,7 +282,7 @@ export default function ProjectsDeck({ messages = [], onConfirmed, project = nul
   return (
     <div data-testid="projects-screen" style={{ width: '100%' }}>
       <div style={{ color: 'var(--phosphor-dim)', textShadow: 'none', marginBottom: 10, fontSize: 13 }}>
-        {rows.length} projects &middot; {groups.needs_you.length} need you &middot; {readyRows.length} ready to advance &middot; {groups.stuck.length} stalled &middot; {groups.untended.length} without a steward{ceremonies.length ? <> &middot; {ceremonies.length} ceremonies</> : null}.
+        {rows.length} projects &middot; {groups.needs_you.length} need you &middot; {readyRows.length} ready to advance &middot; {groups.stuck.length} stalled &middot; {groups.untended.length} without a steward{ceremonies.length ? <> &middot; {ceremonies.length} ceremonies</> : null}{pages.length ? <> &middot; {pages.length} other page{pages.length === 1 ? '' : 's'} with a ledger</> : null}.
         {data?.stubbed ? <span style={{ color: 'var(--warn)', textShadow: 'var(--glow)', marginLeft: 10 }}>&middot; stub worker (no live cycle)</span> : null}
       </div>
 
@@ -357,6 +361,21 @@ export default function ProjectsDeck({ messages = [], onConfirmed, project = nul
               </div>
               {ceremonies.map((row) => (
                 <CeremonyRow key={row.home} row={row} onOpen={onOpenProject} onOpenEntry={openEntry} />
+              ))}
+            </div>
+          </Box>
+        </div>
+      ) : null}
+
+      {pages.length ? (
+        <div style={{ marginTop: 10 }} data-testid="pages-box">
+          <Box title="PAGES  --  other pages that keep a tuning ledger: the version each runs under, and what it still owes" tone="single">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: CEREMONY_COLS, gap: 10, color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 10, letterSpacing: '.1em', textTransform: 'uppercase', padding: '2px 0' }}>
+                <span>page</span><span>version</span><span>changed</span><span>runs</span><span>last run</span><span>ledger</span>
+              </div>
+              {pages.map((row) => (
+                <CeremonyRow key={row.home} row={row} prefix="page" onOpen={onOpenProject} onOpenEntry={openEntry} />
               ))}
             </div>
           </Box>

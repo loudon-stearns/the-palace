@@ -4,7 +4,7 @@ import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { resolve, join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { runHook } from '../../scripts/commit-msg-hook.mjs';
+import { runHook, ceremonyKindsHere } from '../../scripts/commit-msg-hook.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const APP_ROOT = resolve(__dirname, '..', '..');
@@ -103,5 +103,32 @@ describe('commit-msg hook installed in a real repo', () => {
     run();
     expect(readFileSync(sharedHook, 'utf8')).toMatch(/Palace commit-msg hook/);
     expect(existsSync(join(wt, '.git', 'hooks'))).toBe(false);
+  });
+});
+
+describe('the hook reads which subjects are ceremonies from the palace', () => {
+  let dir;
+  beforeEach(() => { dir = mkdtempSync(join(tmpdir(), 'hook-register-')); });
+  afterEach(() => { rmSync(dir, { recursive: true, force: true }); });
+
+  test('a page carrying trigger: makes its subject a ceremony subject; elsewhere it is annotated', async () => {
+    execFileSync('git', ['init', '-q'], { cwd: dir });
+    mkdirSync(join(dir, '_ops'), { recursive: true });
+    writeFileSync(join(dir, '_ops/Walk Ceremony.md'), '---\ntitle: "Walk Ceremony"\ntrigger: ["walk"]\n---\n# Walk\n');
+    const kinds = await ceremonyKindsHere(dir);
+    expect(kinds.Walk).toBe('ops');
+    const msgPath = join(dir, 'MSG');
+    writeFileSync(msgPath, 'Walk — 2026-10-15 — through the shop\n');
+    expect(runHook(msgPath, { author: 'claude', ceremonyKinds: kinds })).toBe(0);
+    expect(readFileSync(msgPath, 'utf8')).toBe('Walk — 2026-10-15 — through the shop\n');   // conformant: untouched
+    writeFileSync(msgPath, 'Walk — 2026-10-15 — through the shop\n');
+    runHook(msgPath, { author: 'claude' });                                                  // no register: not a ceremony
+    expect(readFileSync(msgPath, 'utf8')).toMatch(/Palace-Annotated: commit-msg-hook/);
+  });
+
+  test('outside a git checkout it falls back to the kinds commit-spec names, and never throws', async () => {
+    const kinds = await ceremonyKindsHere(dir);
+    expect(kinds.Weave).toBe('weave');
+    expect(kinds.Walk).toBe(undefined);
   });
 });

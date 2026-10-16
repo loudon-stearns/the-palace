@@ -5,18 +5,20 @@ links:
   - target: "[[Sentry]]"
     type: connects-to
     label: scroll-for
-forward_vector: "I am Sentry's scroll — the one page that opens on which version of the ceremony is live, whether it has run since it last changed, and what its tuning ledger still owes, then reads down through its runs and version changes, newest first. My top is regenerated whenever anyone looks; my standing orders are Loudon's; my trail only ever grows."
+forward_vector: "I am Sentry's scroll — the one page that opens on which version of the ceremony is live, whether it has run since it last changed, and what its tuning ledger still owes, then the plan it is following, then reads down through its runs and version changes, newest first. My top is regenerated whenever anyone looks; my plan changes only when Loudon agrees; my standing orders are Loudon's and hold until he revokes them; my trail only ever grows."
 ---
 
 # Sentry — scroll
 
-> The ceremony's front door. **Now** is regenerated on every look — its version, its runs since the spec last changed, what its ledger owes; **Standing Orders** are Loudon's; **The making** is the trail of runs and version changes, newest first. The card [[Sentry]] stays the spec, and its lessons live in [[Sentry — tuning]]. Rendered in [[STIGMERGY]]'s PROJECTS deck. See [[The Scroll]].
+> The ceremony's front door. **Now** is regenerated on every look — its version, its runs since the spec last changed, what its ledger owes; the **Plan** is the path agreed with Loudon, changed only with his yes, and the ledger's owed lines are the next run's to-do beneath it; **Standing Orders** are Loudon's, and hold until he revokes them; **The making** is the trail of runs and version changes, newest first. The card [[Sentry]] stays the spec, and its lessons live in [[Sentry — tuning]]. Rendered in [[STIGMERGY]]'s PROJECTS deck. See [[The Scroll]].
 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-15T01:28:05.249Z from the card's frontmatter, its tuning ledger and git. This zone is machine-owned — steer the ceremony in **Standing Orders** below, never here._
+> _Regenerated 2026-10-16T00:45:38.465Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
 
+- **Status:** — · **Stage:** growing
+- **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
 - **Version:** v1.3 · the spec last changed 2026-10-14 (`5c473ad9`) — ops(Sentry): the hosting check reads whether GitHub refuses a force push to main for everyone who can push
 - **Runs since the change:** 1 run on 1 day, counted from the ledger's run lines
 - **Last run:** 2026-10-15 — sweep (hosting) of 3778f4a0, nothing raised · taught item 12 (under v1.3)
@@ -33,10 +35,16 @@ forward_vector: "I am Sentry's scroll — the one page that opens on which versi
 
 <!-- scroll:now:end -->
 
+## Plan
+
+<!-- scroll:plan:start -->
+_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+<!-- scroll:plan:end -->
+
 ## Standing Orders
 
 <!-- scroll:orders:start -->
-_Loudon's standing direction for this ceremony. An order saved on the PROJECTS deck goes into the tuning ledger as owed; the next run's tail read picks it up, and Now shows it as owed until a run acts on it._
+_Loudon's standing direction for this ceremony — never regenerated. It holds until he revokes it, and every run reads it before it starts, beside the tuning ledger's tail read. An order meant for the next run only goes into the ledger as owed instead: "once" on the PROJECTS deck._
 <!-- scroll:orders:end -->
 
 ## The making

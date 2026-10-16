@@ -21,6 +21,7 @@ import { resolve, join, dirname } from 'node:path';
 import { existsSync, readFileSync, mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { checkAllowList, checkPathSafety, validateFrontmatter } from '../src/lib/entry-edit.js';
+import { ceremonyPathsFor } from './ceremony-register.js';
 import { emitEntryFile } from '../src/lib/yaml-emit.js';
 import { detectArrayStyles } from '../src/lib/yaml-frontmatter.js';
 import { diffEntryText } from '../src/lib/frontmatter-diff.js';
@@ -66,7 +67,9 @@ export function composePreview(opts) {
 
   // The trickster preview bypasses the CARE gate (canon/machinery) but never
   // path-safety — so the form can audition a canon edit. See [[Trickster Commit]].
-  const allow = trickster ? checkPathSafety(relPath) : checkAllowList(relPath);
+  const allow = trickster
+    ? checkPathSafety(relPath)
+    : checkAllowList(relPath, { ceremonyPaths: ceremonyPathsFor(palaceRoot), frontmatter });
   if (!allow.allowed) {
     return { ok: false, status: 403, error: allow.reason };
   }

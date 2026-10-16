@@ -5,25 +5,27 @@ links:
   - target: "[[Weave Ceremony]]"
     type: connects-to
     label: scroll-for
-forward_vector: "I am Weave Ceremony's scroll — the one page that opens on which version of the ceremony is live, whether it has run since it last changed, and what its tuning ledger still owes, then reads down through its runs and version changes, newest first. My top is regenerated whenever anyone looks; my standing orders are Loudon's; my trail only ever grows."
+forward_vector: "I am Weave Ceremony's scroll — the one page that opens on which version of the ceremony is live, whether it has run since it last changed, and what its tuning ledger still owes, then the plan it is following, then reads down through its runs and version changes, newest first. My top is regenerated whenever anyone looks; my plan changes only when Loudon agrees; my standing orders are Loudon's and hold until he revokes them; my trail only ever grows."
 ---
 
 # Weave Ceremony — scroll
 
-> The ceremony's front door. **Now** is regenerated on every look — its version, its runs since the spec last changed, what its ledger owes; **Standing Orders** are Loudon's; **The making** is the trail of runs and version changes, newest first. The card [[Weave Ceremony]] stays the spec, and its lessons live in [[Weave Ceremony — tuning]]. Rendered in [[STIGMERGY]]'s PROJECTS deck. See [[The Scroll]].
+> The ceremony's front door. **Now** is regenerated on every look — its version, its runs since the spec last changed, what its ledger owes; the **Plan** is the path agreed with Loudon, changed only with his yes, and the ledger's owed lines are the next run's to-do beneath it; **Standing Orders** are Loudon's, and hold until he revokes them; **The making** is the trail of runs and version changes, newest first. The card [[Weave Ceremony]] stays the spec, and its lessons live in [[Weave Ceremony — tuning]]. Rendered in [[STIGMERGY]]'s PROJECTS deck. See [[The Scroll]].
 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-25T17:20:24.951Z from the card's frontmatter, its tuning ledger and git. This zone is machine-owned — steer the ceremony in **Standing Orders** below, never here._
+> _Regenerated 2026-10-16T00:45:39.112Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Version:** v1.2 · the spec last changed 2026-09-25 (`033f5da5`) — edit(ceremonies): every card marks its ledger — the versions move
-- **Runs since the change:** none yet — v1.2 has not run
+- **Status:** — · **Stage:** mature
+- **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
+- **Version:** v1.5 · the spec last changed 2026-10-14 (`02e8a535`) — edit(Weave Ceremony, Hero and Avatar Maker): every canon entry wears a face; the face audit prints one list
+- **Runs since the change:** none yet — v1.5 has not run
 - **Last run:** none in the ledger yet
 - **Owed in the ledger:** 5 — items 21, 24, 29, 30, 39; the next run's tail read picks them up first
-- **Latest lesson:** item 39, from the 2026-09-24 close (the ceremony-evolution close, after the weave) — [[Weave Ceremony — tuning]]
+- **Latest lesson:** item 41, from Loudon's word — 2026-10-14 — [[Weave Ceremony — tuning]]
 
-### Runs since v1.2
+### Runs since v1.5
 
 _None yet._
 
@@ -37,15 +39,48 @@ _None yet._
 
 <!-- scroll:now:end -->
 
+## Plan
+
+<!-- scroll:plan:start -->
+_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+<!-- scroll:plan:end -->
+
 ## Standing Orders
 
 <!-- scroll:orders:start -->
-_Loudon's standing direction for this ceremony. An order saved on the PROJECTS deck goes into the tuning ledger as owed; the next run's tail read picks it up, and Now shows it as owed until a run acts on it._
+_Loudon's standing direction for this ceremony — never regenerated. It holds until he revokes it, and every run reads it before it starts, beside the tuning ledger's tail read. An order meant for the next run only goes into the ledger as owed instead: "once" on the PROJECTS deck._
 <!-- scroll:orders:end -->
 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="version-02e8a535094b6b39c63e3cc9bc7fbb16f2e43493" -->
+### 2026-10-14 — the spec moved to v1.5
+
+edit(Weave Ceremony, Hero and Avatar Maker): every canon entry wears a face; the face audit prints one list
+
+Loudon, 2026-10-14: "I want it to be simpler, every canon gets a face and hero." Every canon entry (a .md whose frontmatter carries a SCHEMA §1 type) wears a hero and an icon in its bundle folder. No stage, type, link or use band decides it, and no face is retired: spores, questions and composting entries keep theirs. Applied on his yes to all ten Concierge offers, relayed by the working session.
+<sub>`02e8a535` · version change</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="version-c1b28febfea1f45067919579ed84f7226d7d30d1" -->
+### 2026-10-14 — the spec moved to v1.4
+
+edit(Closing Well, Return, Weave): the rites take the history half: each reads the trunk's state, one sentence each
+
+Prepared for Loudon's read; not landed. A move of the door plan (Who Keeps Main?, his yes to the direction 2026-10-14): the history half goes to the rites, one sentence each, through each ceremony's own ledger.
+<sub>`c1b28feb` · version change</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="version-32cb19ede0b68720fc20048aef30a0c093eb96ae" -->
+### 2026-09-26 — the spec moved to v1.3
+
+Schema Ceremony — retire activation_count/last_activated; use is computed from git — v1.26
+
+The two fields asked every agent that read a page to bump them by hand. Most sessions are children and may not write the house, so the count measured who remembered: 127 of 347 entries had none, FOUR PILLARS (loaded every session) read 35, and counts tracked neither reads nor edits.
+<sub>`32cb19ed` · version change</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="version-033f5da533205712d73d6f6f2a661355112f8b38" -->
 ### 2026-09-25 — the spec moved to v1.2
 

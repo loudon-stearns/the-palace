@@ -153,7 +153,7 @@ An entry's `stage` field doubles as a confidence interval on alignment between L
 - `[Entry] — scroll.md` in the bundle is the project's **front door** ([[The Scroll]]): a **Now** zone materialized by the orchestrator from the **board-derived** open/resolved decision view (reconciled from the append-only board — the single source of truth, not a copy in `state.json`) plus the steward's runtime, the entry's live frontmatter and git — regenerated every cycle *and* on every look in STIGMERGY, so it never lies while the steward sleeps; the **Plan** agreed with Loudon, changed only with his yes; Loudon's **Standing Orders**, never regenerated; and an append-only **making** trail, one section per shipped thing. An agent or Loudon reads it cold without parsing JSONL in `_ops`. It replaced the `plan.md` read-model on 2026-09-23.
 - `_ops/agents/permanent/[slug]/` keeps only slim runtime: iteration, cursor, health (now including `stalled`). Vector and stage are read **live from the entry's frontmatter**, never copied — copying just moves the drift.
 
-**The scroll's zones** (SCHEMA — Reference §8 bundle type `scroll`; the materializer is `_ops/stigmergy/orchestrator/src/scroll-file.js`, and the four HTML-comment marker pairs are the contract; a ceremony's scroll gains its plan pair in the v1.28 code work):
+**The scroll's zones** (SCHEMA — Reference §8 bundle type `scroll`; the materializer is `_ops/stigmergy/orchestrator/src/scroll-file.js`, and the four HTML-comment marker pairs are the contract):
 
 ```markdown
 <!-- scroll:now:start -->      machine-owned; rewritten on every materialization
