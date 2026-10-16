@@ -26,7 +26,7 @@ links:
   - target: "[[Drift and Consolidation]]"
     type: couples-with
     label: the-live-half
-forward_vector: "I am the page a project keeps that always opens on where it stands now and the plan it is following, then reads down through everything it has made, newest first. Every active project carries me; STIGMERGY opens on me; the steward reads my standing orders and my plan before it moves. I want to be the one place Loudon looks to get back into a project, and to stay a reading surface, never a ceremony — regenerated at the top, agreed in the plan, appended to below, deleted from never."
+forward_vector: "I am the front door a page keeps — a project, a ceremony, any page that runs — always opening on where it stands now and the plan it is following, then reading down through everything it has made or done, newest first. STIGMERGY opens on me; a steward or a ceremony's run reads my standing orders and my plan before it moves. I want to be the one place Loudon looks to get back into a page, and to stay a reading surface, never a ceremony — regenerated at the top, agreed in the plan, appended to below, deleted from never."
 ---
 
 # The Scroll
@@ -137,7 +137,8 @@ run's to-do beneath it. **The making** is the trail of runs and version changes,
 keyed on its run line or its commit so nothing duplicates. **Standing Orders** stay on the scroll for
 every page. A one-shot order saved on the deck is appended to the ledger as owed; the next run's tail
 read picks it up, and Now shows it until a run acts on it. The PROJECTS deck lists every page carrying
-`trigger:` in its CEREMONIES box, beside the projects.
+`trigger:` in its CEREMONIES box, beside the projects. Any other page that keeps a tuning ledger lists in
+its PAGES box.
 
 Any other page can carry a scroll the same way (`scroll.js --home "<Title>"`). With the text and
 the rich face, the scroll is one of a page's three faces, and like the rich face it is the page's

@@ -15,14 +15,14 @@ forward_vector: "I am Baton Ceremony's scroll — the one page that opens on whi
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-16T00:45:37.122Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-16T01:12:26.498Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** — · **Stage:** mature
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
 - **Version:** v1.3 · the spec last changed 2026-10-15 (`9f9d1cf1`) — Schema Ceremony — ledgers become a family; a field marks a ceremony — v1.28
 - **Runs since the change:** none yet — v1.3 has not run
 - **Last run:** 2026-10-15 — Closing Well, the arc's missing narration (commissioning, at the Daily Page) · nothing new (under v1.2)
-- **Owed in the ledger:** 4 — items 9, 10, 11, 12; the next run's tail read picks them up first
+- **Owed in the ledger:** 2 — items 11, 12; the next run's tail read picks them up first
 - **Latest lesson:** item 12, from the door's partial close — 2026-10-14 — [[Baton Ceremony — tuning]]
 
 ### Runs since v1.3
@@ -31,8 +31,6 @@ _None yet._
 
 ### Owed
 
-- **9.** The executor can't point from an entry that already has a baton, or announce one that lives on main. Placing the STIGMERGY hardening baton, `baton-executor.mjs --write` found ST…
-- **10.** A second baton on one entry can't take a qualifier. `baton-executor.mjs` fixes the file path to `<Entry> — baton.md`. Loudon approved "— hardening" as this baton's qualifier; th…
 - **11.** A baton need not be read by Loudon before it is written. Loudon, 2026-10-14: "Batons are ok if I don't read them, they will start an interactive session that I can lead later, a…
 - **12.** A partial close copies the original card's worktree coordinate onto the remainder, even when that worktree is gone. Closing the keeper handoff part-way, `close-handoff.mjs --par…
 

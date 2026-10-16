@@ -159,8 +159,11 @@ An entry's `stage` field doubles as a confidence interval on alignment between L
 <!-- scroll:now:start -->      machine-owned; rewritten on every materialization
 ## Now
 - Status · Stage · Steward (cycle, last ran) · Plan (agreed when · made since · revision waiting) · Waiting on you · Ready to advance · Last shipped · Signal (steady | barren once | STALLED) · Drift
+- (with a tuning ledger) Version · Runs since the change · Last run · Owed in the ledger · Latest lesson
+- (with a diary) Last encounter
 ### Where this stands        (the steward's latest catch-up, in its own words)
 ### Open asks · ### Answered, not yet consumed · ### Decided
+### Runs since v… · ### Owed  (with a tuning ledger)
 <!-- scroll:now:end -->
 ## Plan
 <!-- scroll:plan:start -->     agreed with Loudon; changed only through applyPlan (the deck, an elder's
@@ -175,7 +178,7 @@ An entry's `stage` field doubles as a confidence interval on alignment between L
 <!-- scroll:making:end -->
 ```
 
-**The read seam.** The steward reads its scroll's **Standing Orders**, its **Plan** and its **Now** zone, injected at the top of every cycle in that order; the orders bind, and the plan is the path it builds along. But the steward **never writes the scroll**: it is materialized by the orchestrator from what the steward *posts* (a `shipped_artifact` BROADCAST with `headline · ground · catchup · content · artifacts · left_rough` is the shape that lands cleanly), and the orders and the plan change only with Loudon's yes. When building argues for a different path, the steward posts a `plan_revision` ask carrying its evidence and the whole revised plan; a grant choosing `adopt` makes it the plan on the next look. Off-plan work is welcome as proof of a different direction, flagged `off_plan` so the trail labels it. Any reference to the plan restates the move and catches Loudon up. Read freely, post what you made, propose changes to the path with evidence.
+**The read seam.** The steward reads its scroll's **Standing Orders**, its **Plan** and its **Now** zone, injected at the top of every cycle in that order; the orders bind, and the plan is the path it builds along. When the page keeps a tuning ledger, its tail read follows (`build-cycle-prompt.js`), and the one-shot orders owed there are the cycle's first jobs. But the steward **never writes the scroll**: it is materialized by the orchestrator from what the steward *posts* (a `shipped_artifact` BROADCAST with `headline · ground · catchup · content · artifacts · left_rough` is the shape that lands cleanly), and the orders and the plan change only with Loudon's yes. Nor does it write its ledger: the cycle writes the run line when it ends, files a `lesson` the steward offers as a numbered item, and marks paid an order it names in `paid` (`process-cycle.js`; `_ops/orchestrator/prompts/shared.md`). When building argues for a different path, the steward posts a `plan_revision` ask carrying its evidence and the whole revised plan; a grant choosing `adopt` makes it the plan on the next look. Off-plan work is welcome as proof of a different direction, flagged `off_plan` so the trail labels it. Any reference to the plan restates the move and catches Loudon up. Read freely, post what you made, propose changes to the path with evidence.
 
 **The run.** One activation cycles a steward up to its manifest's `stopping_conditions.max_iterations` (3 since 2026-10-13; 10 before) consecutive times while each cycle ships and nothing waits on Loudon. A cycle that posts nothing is *barren*: it earns one retry, and a second barren cycle marks the steward **STALLED** (health red, the scroll and the PROJECTS deck say so) until a cycle ships. A paused ask (`blocking: true`) or a request for a live session ends the run — the next move is Loudon's.
 
