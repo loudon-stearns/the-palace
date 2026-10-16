@@ -103,7 +103,7 @@ A ceremony is a rite the palace runs on itself, called by name: its page carries
 - **It carries a version**, in its frontmatter. The version moves when the spec changes — a step, a gate, a postcondition — and never on a run.
 - **Every run opens with the tail read** of its ledger: the last 40 lines once the run lines are set aside, and every item still owed.
 - **Every run closes by marking the ledger** with one line: `- run · <date> · v<version> · <what it ran on> · nothing new`, or `taught item N`. A numbered item is written when the run taught something; when it changed the spec, the item names the change and the version.
-- **Where to see it:** the CEREMONIES box on STIGMERGY's PROJECTS deck gives each ceremony's version, its runs since the spec changed, and what its ledger owes. A ceremony's name there opens its scroll; a standing order saved in the scroll stays there; a one-shot order goes into the ledger as owed. (The deck's routing catches up in the v1.28 code work.)
+- **Where to see it:** the CEREMONIES box on STIGMERGY's PROJECTS deck gives each ceremony's version, its runs since the spec changed, and what its ledger owes. A ceremony's name there opens its scroll; a standing order saved in the scroll stays there; a one-shot order goes into the ledger as owed.
 
 The rules and the exact commands: [[SCHEMA — Reference]] §6.
 

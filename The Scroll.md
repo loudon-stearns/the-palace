@@ -81,8 +81,9 @@ live one ([[Drift and Consolidation]]).
 
 Machinery: `_ops/stigmergy/orchestrator/src/scroll-file.js` materializes it (every steward
 cycle via `process-cycle.js`, on demand via `scroll.js --home | --all`); STIGMERGY serves it
-with a live Now zone at `GET /api/projects/scroll`. A ceremony's scroll comes from
-`ceremony-scroll.js` (`scroll.js --ceremonies`), through the same endpoint. Loose standards kept from the first scroll:
+with a live Now zone at `GET /api/projects/scroll`. A ceremony's scroll, and any page's, comes
+from the same materializer through the same endpoint; `scroll.js --ceremonies` re-makes every page
+carrying `trigger:`. Loose standards kept from the first scroll:
 one per entry, append as you go, each section points at the real media, nothing deleted. A section the
 work later proves wrong stays too, labelled: the GenAI Camera scroll keeps renders the thin-pose bug
 invalidated, each with a caveat line, because the record of being wrong is worth more than a clean
@@ -136,8 +137,7 @@ run's to-do beneath it. **The making** is the trail of runs and version changes,
 keyed on its run line or its commit so nothing duplicates. **Standing Orders** stay on the scroll for
 every page. A one-shot order saved on the deck is appended to the ledger as owed; the next run's tail
 read picks it up, and Now shows it until a run acts on it. The PROJECTS deck lists every page carrying
-`trigger:` in its CEREMONIES box, beside the projects. *(Until the v1.28 code work lands, the deck still
-finds ceremonies by their ledgers, gives them no Plan, and sends every order to the ledger.)*
+`trigger:` in its CEREMONIES box, beside the projects.
 
 Any other page can carry a scroll the same way (`scroll.js --home "<Title>"`). With the text and
 the rich face, the scroll is one of a page's three faces, and like the rich face it is the page's

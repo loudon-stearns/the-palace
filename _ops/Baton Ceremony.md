@@ -146,7 +146,7 @@ Stating it out loud is also how the ceremony announces itself: it tells Loudon a
 
 **Step 1: Locate or create the home**
 
-Place the baton according to its shape (§ Where the Baton Lives). For the entry-bundle default, it lives at `[Entry]/[Entry] — baton.md`; if the entry has no bundle yet, the bundle is created lazily — not by ceremony, just because a file needs a place to live (see [[SCHEMA]] §8). A baton aimed at one part of a bundle — an output, the rich face, a ledger — takes a qualifier, `[Entry]/[Entry] — baton — [part].md`, and a second link, `connects-to` labelled `targets`, to the file it is about ([[SCHEMA — Reference]] §8). Until the baton executor learns to write both (tuning item 10, still owed), write them by hand.
+Place the baton according to its shape (§ Where the Baton Lives). For the entry-bundle default, it lives at `[Entry]/[Entry] — baton.md`; if the entry has no bundle yet, the bundle is created lazily — not by ceremony, just because a file needs a place to live (see [[SCHEMA]] §8). A baton aimed at one part of a bundle — an output, the rich face, a ledger — takes a qualifier, `[Entry]/[Entry] — baton — [part].md`, and a second link, `connects-to` labelled `targets`, to the file it is about ([[SCHEMA — Reference]] §8). The baton executor writes both when given `--qualifier` and `--targets` (`_ops/closing-well/executor.md`).
 
 If an un-consumed baton already exists at that path, something went wrong — a prior baton was never caught. Surface it to Loudon rather than overwriting it.
 
