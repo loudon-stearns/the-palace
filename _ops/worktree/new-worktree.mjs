@@ -17,13 +17,15 @@
 //   --dry-run  print the plan, change nothing
 //
 // Teardown:
-//   node _ops/worktree/new-worktree.mjs --name feature/blueline --remove [--delete-branch] [--force-delete]
+//   node _ops/worktree/new-worktree.mjs --name feature/blueline --remove [--delete-branch] [--force-delete] [--dry-run]
 //   --remove        unlink the borrowed symlinks (safe — never deletes through to the owner),
 //                   then `git worktree remove`.
 //   --delete-branch also drop the branch — SAFE delete (`git branch -d`): refuses if the branch has
 //                   commits not merged to the trunk, so teardown can't silently strand work (a
 //                   Closing Well guard — see Closing Well.md).
 //   --force-delete  discard the branch even if unmerged (`git branch -D`). Deliberate loss only.
+//   --dry-run       preview the teardown, change nothing: the links it would unlink, whether the
+//                   tree is clean, whether the branch is merged and what -d / -D would do with it.
 
 import { execFileSync } from "node:child_process";
 import fs from "node:fs";
@@ -68,16 +70,17 @@ const dir = path.resolve(owner, opt("--dir", path.join("..", `palace-${slug}`)))
 if (flag("--remove")) {
   if (!fs.existsSync(dir)) { console.error(`error: ${dir} does not exist`); process.exit(1); }
   if (path.resolve(dir) === path.resolve(owner)) { console.error("refusing to remove the owner worktree"); process.exit(1); }
-  console.log(`\n  Removing worktree: ${dir}`);
-  // Unlink every symlink that points back INTO the owner — the explicit borrows
-  // AND the auto-mirrored dependency dirs — so `git worktree remove` sees a clean
-  // tree. General by construction: it sweeps for what was ACTUALLY linked rather
-  // than trusting the manifest to still match, so it can never strand a link the
-  // way the old MANIFEST.links-only loop did. lstat-only (never follows a link),
-  // skips .git, recurses only into real dirs, and unlinks ONLY owner-pointing
-  // links — a real file or an unrelated symlink is never touched. unlink on a
-  // symlink removes the link, never the target: zero chance of deleting into the
-  // owner's real _tools/ (16 GB).
+  const deleteBranch = flag("--delete-branch") || flag("--force-delete");
+  const force = flag("--force-delete");
+  // Find every symlink that points back INTO the owner — the explicit borrows
+  // AND the auto-mirrored dependency dirs — so they can be unlinked before
+  // `git worktree remove` and it sees a clean tree. General by construction: it
+  // sweeps for what was ACTUALLY linked rather than trusting the manifest to
+  // still match, so it can never strand a link the way the old MANIFEST.links-only
+  // loop did. lstat-only (never follows a link), skips .git, recurses only into
+  // real dirs, and collects ONLY owner-pointing links — a real file or an
+  // unrelated symlink is never touched. unlink on a symlink removes the link,
+  // never the target: zero chance of deleting into the owner's real _tools/ (16 GB).
   const ownerReal = fs.realpathSync(owner);
   const intoOwner = (p) => {
     const hit = (x) => x && (x === ownerReal || x.startsWith(ownerReal + path.sep));
@@ -86,38 +89,104 @@ if (flag("--remove")) {
     try { tgt = path.resolve(path.dirname(p), fs.readlinkSync(p)); } catch { /* not a link */ }
     return hit(real) || hit(tgt);
   };
-  let unlinked = 0;
+  const borrowed = [];
   const sweep = (d) => {
     let entries; try { entries = fs.readdirSync(d, { withFileTypes: true }); } catch { return; }
     for (const e of entries) {
       const p = path.join(d, e.name);
       let st; try { st = fs.lstatSync(p); } catch { continue; }
-      if (st.isSymbolicLink()) {
-        if (intoOwner(p)) { try { fs.unlinkSync(p); unlinked++; console.log(`  ✓ unlinked ${path.relative(dir, p)}`); } catch { /* ignore */ } }
-      } else if (st.isDirectory() && e.name !== ".git") {
-        sweep(p);
-      }
+      if (st.isSymbolicLink()) { if (intoOwner(p)) borrowed.push(p); }
+      else if (st.isDirectory() && e.name !== ".git") sweep(p);
     }
   };
   sweep(dir);
+  // Older runs of --memory left a link here (named by the '/'-only rule they used); point at it if it exists.
+  const memLink = path.join(os.homedir(), ".claude", "projects", dir.replace(/[\/]/g, "-"), "memory");
+  const memNote = () => { try { if (fs.lstatSync(memLink).isSymbolicLink()) console.log(`  note: an old --memory link is still here — remove it:  rm "${memLink}"\n`); } catch {} };
+
+  // --dry-run: everything above only read. Say what the teardown would do, then stop
+  // before the first unlink — many agents share this repo, and a preview must never delete.
+  if (dryRun) { previewTeardown(borrowed); memNote(); console.log("  --dry-run: nothing changed.\n"); process.exit(0); }
+
+  console.log(`\n  Removing worktree: ${dir}`);
+  let unlinked = 0;
+  for (const p of borrowed) { try { fs.unlinkSync(p); unlinked++; console.log(`  ✓ unlinked ${path.relative(dir, p)}`); } catch { /* ignore */ } }
   console.log(`  ✓ ${unlinked} owner-pointing symlink(s) unlinked`);
   try { execFileSync("git", ["worktree", "remove", dir], { stdio: "inherit" }); console.log(`  ✓ worktree removed`); }
   catch { console.error(`  ! git worktree remove refused (other untracked files?). Inspect, then:  git worktree remove --force "${dir}"`); process.exit(1); }
-  if (flag("--delete-branch") || flag("--force-delete")) {
+  if (deleteBranch) {
     // Closing Well guard: SAFE delete (-d) by default — git refuses if the branch has commits not
     // merged to the trunk, so teardown can't silently strand work. --force-delete (-D) is the
     // deliberate-discard escape. See Closing Well.md.
-    const force = flag("--force-delete");
     try { execFileSync("git", ["branch", force ? "-D" : "-d", name]); console.log(`  ✓ branch ${name} deleted${force ? " (forced)" : ""}`); }
     catch (e) {
       console.warn(`  ! branch ${force ? "-D" : "-d"} ${name} refused: ${(e.stderr || e.message).toString().trim()}`);
       if (!force) console.warn(`    closing-well guard: unmerged commits would be lost. Merge/cherry-pick them to the trunk first, or re-run with --force-delete to discard deliberately.`);
     }
   }
-  // Older runs of --memory left a link here (named by the '/'-only rule they used); point at it if it exists.
-  const memLink = path.join(os.homedir(), ".claude", "projects", dir.replace(/[\/]/g, "-"), "memory");
-  try { if (fs.lstatSync(memLink).isSymbolicLink()) console.log(`  note: an old --memory link is still here — remove it:  rm "${memLink}"\n`); } catch {}
+  memNote();
   process.exit(0);
+
+  // The teardown preview. Read-only git throughout (GIT_OPTIONAL_LOCKS=0, so even `status`
+  // leaves the index alone). Each answer mirrors the check the real step makes.
+  function previewTeardown(links) {
+    const probe = (...a) => { try { return execFileSync("git", a, { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"], env: { ...process.env, GIT_OPTIONAL_LOCKS: "0" } }); } catch { return null; } };
+    const real = (p) => { try { return fs.realpathSync(p); } catch { return path.resolve(p); } };
+    const trees = [];
+    for (const l of (probe("worktree", "list", "--porcelain") || "").split("\n")) {
+      if (l.startsWith("worktree ")) trees.push({ path: real(l.slice("worktree ".length)), branch: null });
+      else if (l.startsWith("branch refs/heads/") && trees.length) trees.at(-1).branch = l.slice("branch refs/heads/".length);
+    }
+    const here = trees.find(t => t.path === real(dir));
+
+    console.log(`\n  Teardown preview (--dry-run)`);
+    console.log(`  ─────────────────────────────────────────────`);
+    console.log(`  worktree:  ${dir}   ${here ? `(on ${here.branch || "a detached HEAD"})` : "— not a worktree of this repo: `git worktree remove` would refuse"}`);
+    console.log(`  borrowed:  ${links.length} owner-pointing symlink(s) would be unlinked`);
+    for (const p of links) console.log(`      ↳ ${path.relative(dir, p)}`);
+
+    // Clean = what `git worktree remove` checks (`status --porcelain --ignore-submodules=none`
+    // comes back empty), less the borrowed links, which are gone by then. -z keeps odd paths unquoted.
+    const st = probe("-C", dir, "status", "--porcelain", "-z", "--untracked-files=all", "--ignore-submodules=none");
+    if (st === null) console.log(`  tree:      could not read its status — inspect it before removing`);
+    else {
+      const gone = new Set(links.map(p => path.relative(dir, p)));
+      const dirty = [];
+      const recs = st.split("\0").filter(Boolean);
+      for (let i = 0; i < recs.length; i++) {
+        const xy = recs[i].slice(0, 2), p = recs[i].slice(3);
+        if (xy[0] === "R" || xy[0] === "C") i++; // a rename's next record is its old path
+        if (!gone.has(p)) dirty.push(`${xy} ${p}`);
+      }
+      if (!dirty.length) console.log(`  tree:      clean — \`git worktree remove\` would go ahead`);
+      else {
+        console.log(`  tree:      NOT clean — ${dirty.length} changed or untracked path(s); \`git worktree remove\` would refuse`);
+        for (const d of dirty.slice(0, 10)) console.log(`      ↳ ${d}`);
+        if (dirty.length > 10) console.log(`      ↳ … and ${dirty.length - 10} more`);
+      }
+    }
+
+    // Merged = what `git branch -d` checks: into the branch's upstream if it has one, else HEAD
+    // of the checkout this runs from.
+    if (probe("rev-parse", "--verify", "--quiet", `refs/heads/${name}`) === null) {
+      console.log(`  branch:    ${name} — no such branch${deleteBranch ? ", nothing to delete" : ""}`);
+    } else {
+      const upstream = probe("rev-parse", "--abbrev-ref", "--symbolic-full-name", `${name}@{upstream}`)?.trim();
+      const ref = upstream || "HEAD";
+      const refName = upstream || `HEAD (${probe("rev-parse", "--abbrev-ref", "HEAD")?.trim() || "?"})`;
+      const ahead = Number(probe("rev-list", "--count", `${ref}..refs/heads/${name}`)?.trim() ?? NaN);
+      const merged = probe("merge-base", "--is-ancestor", `refs/heads/${name}`, ref) !== null;
+      const elsewhere = trees.find(t => t.branch === name && t.path !== real(dir));
+      const state = merged ? `merged into ${refName}` : `${Number.isNaN(ahead) ? "some" : ahead} commit(s) not merged into ${refName}`;
+      let verdict;
+      if (!deleteBranch) verdict = "kept (no --delete-branch)";
+      else if (elsewhere) verdict = `\`git branch ${force ? "-D" : "-d"}\` would refuse: it is checked out at ${elsewhere.path}`;
+      else if (force) verdict = merged ? "`git branch -D` would delete it" : "`git branch -D` would DISCARD those commits";
+      else verdict = merged ? "`git branch -d` would delete it" : "`git branch -d` would refuse (closing-well guard)";
+      console.log(`  branch:    ${name} — ${state}; ${verdict}`);
+    }
+    console.log("");
+  }
 }
 
 // ---- plan the symlinks ----
