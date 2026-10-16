@@ -58,15 +58,15 @@ node _ops/worktree/new-worktree.mjs --name feature/blueline --profile blueline
 
 | Profile | Symlinks | For |
 |---|---|---|
-| `docs` | *(none)* | pure markdown / canon / ceremony work — fastest, safest |
+| `docs` | auto-mirrored `node_modules` only | pure markdown / canon / ceremony work — fastest, safest |
 | `shop` | `_tools` · `.venvs` · `settings.local.json` | Shop tools + GPU + audio Specialists |
 | `blueline` | `_tools` · RunPod `config.json` · `settings.local.json` | BLUELINE (local ComfyUI + cloud RunPod) |
 | `stigmergy` | `settings.local.json` + auto-mirrored `node_modules` | the STIGMERGY React/Vite app + its tests |
 | `full` | all explicit links above + auto-mirrored `node_modules` | a worktree that does everything |
 
-A `docs` worktree has no `node_modules`, so its own copy of `palace-commit` throws `ERR_MODULE_NOT_FOUND` on `js-yaml`; run the owner's copy from inside the worktree instead (`cd <worktree> && node "<owner>/_ops/stigmergy/app/scripts/palace-commit.mjs" …`), which takes the worktree as its checkout from where it is run and goes through the same door, one lock at `<git common dir>/palace-door.mutex`.
+Since 2026-10-16 a `docs` worktree gets the auto-mirrored `node_modules` too, so its own copy of `palace-commit` runs. One made before then has none, and its copy throws `ERR_MODULE_NOT_FOUND` on `js-yaml`; there, run the owner's copy from inside the worktree (`cd <worktree> && node "<owner>/_ops/stigmergy/app/scripts/palace-commit.mjs" …`), which takes the worktree as its checkout from where it is run and goes through the same door, one lock at `<git common dir>/palace-door.mutex`.
 
-*Auto-mirror:* for the `stigmergy` / `full` profiles the script also discovers and symlinks **every** ignored `node_modules` in the owner by class (workspace root, app, orchestrator, …) — not just one — so vitest and the dev server work in a fresh worktree with no manifest upkeep (`symlinks.json` → `auto_mirror`).
+*Auto-mirror:* for the `docs` / `stigmergy` / `full` profiles the script also discovers and symlinks **every** ignored `node_modules` in the owner by class (workspace root, app, orchestrator, …) — not just one — so vitest and the dev server work in a fresh worktree with no manifest upkeep (`symlinks.json` → `auto_mirror`).
 
 **Before any install, cut the links.** A mirrored `node_modules` is the owner's install, not a copy: `npm install`, `npm ci`, `npm update` or `npm uninstall` run in the worktree writes into the owner's — the packages Loudon's running STIGMERGY and every other `stigmergy` worktree use. For a dependency change, remove each link first — `rm _ops/stigmergy/node_modules` and its siblings, **no trailing slash** (`rm -rf node_modules/` follows the link and empties the owner's) — then install in the worktree. `--remove` takes the worktree's own install with it and leaves the owner's alone. The owner's install catches up after the change lands, with Loudon: `npm ci` in `_ops/stigmergy` while :5173 is stopped.
 

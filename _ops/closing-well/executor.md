@@ -50,9 +50,8 @@ reaches `main` unread, and the words he reads already exist as a commit (tuning 
 
 When the words are approved, the Deposit Ceremony's own rule holds: **the commit is the record**;
 use the committer, never a hand-rolled `git commit`. Run the **owner's** copy of the committer,
-from the owner tree — canon lands there (rule 1), and only the owner tree reliably has the
-committer's deps (`js-yaml`; a `docs`-profile worktree does not, so the worktree copy throws
-`ERR_MODULE_NOT_FOUND`). Give `--path` once per file. The committer commits only the paths you name, and it refuses a
+from the owner tree — canon lands there (rule 1), and the owner's copy always has the
+committer's deps (`js-yaml`), which a `docs` worktree made before 2026-10-16 lacks. Give `--path` once per file. The committer commits only the paths you name, and it refuses a
 commit with no `--path` or a flag it does not know.
 
 ```bash
@@ -96,7 +95,7 @@ the file `<Entry> — baton — <part>.md`, and `--targets`, which writes its se
 worktree coordinate; one on any other branch needs `--wt-branch` and `--wt-dir`. The printed
 command runs the owner's copy of `palace-commit.mjs` with `PALACE_ROOT` set to the checkout the
 baton was written in, so it commits there by name, through the door, even from a worktree with no
-`node_modules` (`_ops/worktree/SKILL.md`; [[Worktree Practice]] § Rules at the trunk).
+`node_modules` (`_ops/worktree/SKILL.md`; [[How the Palace Commits]] § Rules at the trunk).
 *Executor check:* the announce validates (§9); the worktree coordinate is real
 (`git worktree list`); the baton file + pointer are committed so git is its archive.
 
