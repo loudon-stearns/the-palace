@@ -78,6 +78,8 @@ How much an entry is being used is not a frontmatter field. `_ops/swarm/entry-us
 
 Reading is not recorded. A child reading a page may not write the house, so a count only some readers could bump measured who remembered to bump it. *(`activation_count` and `last_activated` were retired in v1.26 — see [[SCHEMA — Context]] §3. Do not add them.)*
 
+When a page last ran is computed the same way, from its tuning ledger's run lines (§6). `last_tested` and `last_gotcha`, which some Shop pages still carry, are not schema fields and nothing writes them; each comes off its page when that page grows a tuning ledger. Do not add them to a new page.
+
 ### Enum values for the type-specific fields
 
 Which types require which fields is the `adds` column in §1. The allowed values:

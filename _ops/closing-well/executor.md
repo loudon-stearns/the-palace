@@ -89,15 +89,14 @@ node _ops/closing-well/baton-executor.mjs \
 It writes `<Entry>/<Entry> — baton.md`, adds the `## Active Baton` pointer to the parent
 entry (one more line inside the section when an earlier baton opened it), validates + (with
 `--post`) appends the `handoff_ready` line to the owner's persistent
-board, and prints the exact `git commit` command to land the file + pointer. A baton aimed at
+board, and prints the exact `palace-commit --kind handoff` command to land the file + pointer. A baton aimed at
 one part of the bundle — an output, the rich face, a ledger — takes `--qualifier`, which names
 the file `<Entry> — baton — <part>.md`, and `--targets`, which writes its second link,
 `connects-to` labelled `targets` (SCHEMA — Reference §8). A baton on main announces with no
-worktree coordinate; one on any other branch needs `--wt-branch` and `--wt-dir`. A feature-branch
-baton is non-canon and committed *in the worktree* with plain git (subject `baton(<Entry>):`,
-trailer `Palace-Kind: handoff` — the commit-msg hook reads `baton` as the Baton Ceremony's
-spelling of `handoff`) — the committer is reserved for deposits, which need its deps and land on
-the owner.
+worktree coordinate; one on any other branch needs `--wt-branch` and `--wt-dir`. The printed
+command runs the owner's copy of `palace-commit.mjs` with `PALACE_ROOT` set to the checkout the
+baton was written in, so it commits there by name, through the door, even from a worktree with no
+`node_modules` (`_ops/worktree/SKILL.md`; [[Worktree Practice]] § Rules at the trunk).
 *Executor check:* the announce validates (§9); the worktree coordinate is real
 (`git worktree list`); the baton file + pointer are committed so git is its archive.
 

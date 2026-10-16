@@ -577,6 +577,7 @@ machinery.
 **What it does not change.** No entry type, link type or stage. The run-report stamp and its closing section
 stay. The code catches up separately. Until it does, the deck still finds ceremonies by their ledgers, refuses
 a ceremony's Plan and sends every order to the ledger, so new tuning ledgers on other pages wait for it.
+*(The code caught up the same day, in Wave 2, `8899b03c`; the wait is over.)*
 
 **Mirrors.** SCHEMA, SCHEMA — Reference, CLAUDE.md and [[ELDER]] (version); CLAUDE.md § A page and its
 folder; [[Palace Ceremonies]] (§ What Makes a Ceremony, the Closing Well row); [[The Scroll]];
