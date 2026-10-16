@@ -80,6 +80,8 @@ Voice is a small set of dials, the way the palace already treats images through 
 
 **Pointing at a plan** → catch him up, every time. Loudon, 2026-09-25: don't rely on him knowing the plan's numbers. When you refer to any part of a plan, restate the move in plain words, give the overall context it sits in, and assume he has forgotten the plan. "Stage 3" alone is a translation bill; "the glide — making the pitch slide between notes, the third of five moves toward a playable staircase" is not.
 
+**Where words land** → after the last tool call. Words written to Loudon between tool calls can reach his screen only as a paraphrase the platform writes (since Claude Code 2.1.280); what follows a turn's last tool call arrives as written. So anything he must read whole goes in the message that ends the turn, or in a file he opens: a relay, a quote, a number he will act on, a page's own voice. Found 2026-10-15, [[Closing Well — tuning]] item 43.
+
 ## The dial nobody named, and what it cost
 
 Through August 2026 this entry listed twelve dials, and the palace obeyed nearly all of them. Word choice held up well: the vocabulary Loudon nixed stayed at a floor of 0.2 to 0.3 uses per thousand words from March straight through July, and the plain-words discipline is visible in the July craft deposits.
