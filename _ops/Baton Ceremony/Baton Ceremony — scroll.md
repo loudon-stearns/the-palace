@@ -15,19 +15,19 @@ forward_vector: "I am Baton Ceremony's scroll — the one page that opens on whi
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-16T01:12:26.498Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-16T01:50:09.191Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** — · **Stage:** mature
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
 - **Version:** v1.3 · the spec last changed 2026-10-15 (`9f9d1cf1`) — Schema Ceremony — ledgers become a family; a field marks a ceremony — v1.28
-- **Runs since the change:** none yet — v1.3 has not run
-- **Last run:** 2026-10-15 — Closing Well, the arc's missing narration (commissioning, at the Daily Page) · nothing new (under v1.2)
+- **Runs since the change:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-15 — Palace Ceremonies, Wave 3 re-batoned after Wave 2's partial close · taught item 13 (under v1.3)
 - **Owed in the ledger:** 2 — items 11, 12; the next run's tail read picks them up first
-- **Latest lesson:** item 12, from the door's partial close — 2026-10-14 — [[Baton Ceremony — tuning]]
+- **Latest lesson:** item 13, from the Wave 2 partial close — 2026-10-15 — [[Baton Ceremony — tuning]]
 
 ### Runs since v1.3
 
-_None yet._
+- 2026-10-15 — Palace Ceremonies, Wave 3 re-batoned after Wave 2's partial close · taught item 13
 
 ### Owed
 
@@ -51,6 +51,13 @@ _Loudon's standing direction for this ceremony — never regenerated. It holds u
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="run-4e2c5c8f7f" -->
+### 2026-10-15 — Palace Ceremonies, Wave 3 re-batoned after Wave 2's partial close
+
+taught item 13
+<sub>a run under v1.3 · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="version-9f9d1cf1b0155086451f55326cf958dc5c487760" -->
 ### 2026-10-15 — the spec moved to v1.3
 

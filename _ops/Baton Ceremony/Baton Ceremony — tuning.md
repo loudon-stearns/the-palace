@@ -80,3 +80,8 @@ What each baton taught the ceremony. Each item names what the run showed and the
 12. **A partial close copies the original card's worktree coordinate onto the remainder, even when that worktree is gone.** Closing the keeper handoff part-way, `close-handoff.mjs --partial` gave the remainder card `close/2026-10-13-handoffs` at `palace-close-2026-10-13`, a worktree torn down the day before. The catcher's on-pickup check would send it to rebuild a dead `docs` worktree for a move that lives on main. Worked around in the remainder's own text. Owed: the close takes the remainder's coordinate, or none, instead of copying it.
 - run · 2026-10-14 · v1.2 · Worktree Practice, the rest of the door after a partial close · taught item 12
 - run · 2026-10-15 · v1.2 · Closing Well, the arc's missing narration (commissioning, at the Daily Page) · nothing new
+
+## From the Wave 2 partial close — 2026-10-15
+
+13. **A remainder card's words went stale within the hour.** Closing Wave 2 partial, the remainder put two open questions for Loudon in its move text (`bd0fbb77`); a first draft had even said they were "carried on the baton" when they weren't (arc:792). He answered them twenty minutes later, on the baton (`e94c79af`). The board can't be edited, so the open card still asks them. The baton supersedes it, and On-pickup step 2 sends the catcher there. Lesson: a remainder names the move and points at the baton; questions live on the baton, which can change. Spec change: none forced.
+- run · 2026-10-15 · v1.3 · Palace Ceremonies, Wave 3 re-batoned after Wave 2's partial close · taught item 13
