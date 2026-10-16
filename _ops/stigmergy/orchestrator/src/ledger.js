@@ -21,7 +21,7 @@
 // Which pages are ceremonies is not decided here — a ledger no longer marks
 // one; `trigger:` does (ceremony-scroll.js). Canon: [[The Scroll]], [[SCHEMA]].
 
-import { existsSync, readFileSync, readdirSync, appendFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, appendFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, relative, basename } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -283,6 +283,56 @@ export function recordRun(ledgerPath, { date, version = null, what = '', lessons
   const line = runLine({ date, version, what, outcome });
   appendLedgerLine(ledgerPath, line);
   return { line, items };
+}
+
+// ── Growing a steward's ledger ──────────────────────────────────────────────
+
+/**
+ * The tuning ledger the orchestrator grows on a stewarded page the first time
+ * a cycle offers a lesson (Loudon, 2026-10-16). A left-rough note never grows
+ * one; those stay on the trail, where the scroll's Now lists the ones that
+ * recur. Standard frontmatter (§6, §8); no `standards` value says owed,
+ * because the tail read's grep would find it.
+ */
+export function stewardLedgerText(home, date) {
+  const q = (s) => JSON.stringify(s);
+  return [
+    '---',
+    `title: ${q(`${home} — tuning`)}`,
+    `born: ${date}`,
+    'links:',
+    `  - target: ${q(`[[${home}]]`)}`,
+    '    type: connects-to',
+    '    label: tuning-for',
+    `forward_vector: ${q(`I am ${home}'s record of what its steward's cycles taught it: a line for every cycle, and a numbered item when a cycle taught something the next one should carry.`)}`,
+    'ledger: tuning',
+    'standards:',
+    `  for: ${q(`what each steward cycle taught ${home} about how it works`)}`,
+    '  run: "one steward cycle"',
+    '  line: "- run · <date> · cycle <N> · nothing new | taught item N"',
+    '  read: "the last 40 lines with run lines set aside, plus every line not yet paid, at the start of a cycle"',
+    '  writes: "the steward cycle (process-cycle.js), in the cycle\'s commit; a lesson the steward offers is filed straight in as an item tagged as its offer"',
+    '  merge: union',
+    '  kept: git',
+    '  trim: never',
+    '---',
+    '',
+    `# ${home} — tuning`,
+    '',
+    `What ${home}'s steward cycles taught the page. The orchestrator grew this ledger on ${date}, when a cycle first offered a lesson, and writes every line in it. What a cycle leaves rough stays on the scroll's trail, and the scroll's Now lists what keeps recurring.`,
+    '',
+  ].join('\n');
+}
+
+/** Grow a stewarded page's tuning ledger in its bundle; returns its path. Never overwrites. */
+export function growTuningLedger(palaceRoot, home, { date }) {
+  const b = resolveBundleDir(palaceRoot, home);
+  if (!b) return null;
+  const p = join(b.bundleDir, `${home} — tuning.md`);
+  if (existsSync(p)) return p;
+  mkdirSync(b.bundleDir, { recursive: true });
+  writeFileSync(p, stewardLedgerText(home, date));
+  return p;
 }
 
 // ── Where a page keeps its ledgers ──────────────────────────────────────────
