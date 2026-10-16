@@ -349,7 +349,7 @@ The pattern of the conversation itself was the first concrete instance of the sy
 
 ## Open Questions
 
-- Should Stewards be allowed to modify project entries directly (write back), or only propose changes via the BBS for Trickster approval? Lean: read-only-with-proposals at first; loosen as confidence grows.
+- Should Stewards be allowed to modify project entries directly (write back), or only propose changes via the BBS for Trickster approval? Lean: read-only-with-proposals at first; loosen as confidence grows. Loudon, 2026-10-15: "I think we will soon make the stewards grow up." The first loosening has landed: a steward's offered lesson goes straight into its page's tuning ledger, tagged as its offer (`recordRun`, `_ops/stigmergy/orchestrator/src/ledger.js`).
 - How does this system interact with existing palace ceremonies (Weave, Spore Check, Deposit)? Are Stewards full participants, or do ceremonies remain human-led?
 - What is the relationship between the Steward's per-project schedule and the natural rhythm of the work? A weekly Steward on a `seed` project that wants daily attention is wrong; so is a daily Steward on a `mature` project that wants quarterly review.
 - Does this entry itself benefit from an `agency_profile` (per [[SCHEMA]] §3.1)? The four-pillar expansion is plausible — tools dimension is heavy (orchestrator build), philosophy dimension is heavy (governance posture), practice dimension is heavy (when ceremonies trigger). First enchantment will reveal whether the single forward vector carries the load.
