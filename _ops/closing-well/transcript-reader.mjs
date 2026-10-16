@@ -6,7 +6,9 @@
 //   2. DISTILL  — project that raw JSONL into a readable *arc* a cold reader can
 //                 ingest cheaply: user/assistant text kept verbatim, tool calls
 //                 collapsed to one-liners, tool-output noise stripped, thinking
-//                 dropped by default.
+//                 dropped by default — except the platform's paraphrase of what
+//                 Claude wrote partway through a turn, which is kept as a
+//                 CLAUDE (narration) beat (see § narration).
 //
 // The distillation is a *projection, not a summary*. It strips noise; it never
 // interprets. That is load-bearing: the Closing Well Agent must reconstruct the
@@ -217,13 +219,20 @@ function machineLine(kind, text) {
   if (kind === 'task-notification') {
     const tag = (t) => { const m = text.match(new RegExp(`<${t}>([\\s\\S]*?)</${t}>`)); return m ? m[1].trim() : null; };
     const summary = tag('summary');
+    // A subagent's report rides in <result>; kept whole, or a hand-back reads as a bare
+    // "finished" (tuning item 42). Background commands carry none.
+    const result = tag('result');
+    if (summary && result) return oneLine(`${summary} — ${result}`, Infinity);
     if (summary) return oneLine(summary, 240);
   }
+  // A message from another session is kept whole: peers relay the human's own words,
+  // and a resident's hand-back arrives this way too (tuning item 39).
   const peer = /<cross-session-message\b([^>]*)>([\s\S]*?)(?:<\/cross-session-message>|$)/.exec(text);
   if (peer) {
     const from = /from-name="([^"]*)"/.exec(peer[1]);
-    return oneLine(`${from ? `"${from[1]}" — ` : ''}${peer[2]}`, 240);
+    return oneLine(`${from ? `"${from[1]}" — ` : ''}${peer[2]}`, Infinity);
   }
+  if (kind === 'peer') return oneLine(text, Infinity);
   return oneLine(text, 240);
 }
 
@@ -290,6 +299,34 @@ function popupAnswer(call, tr, body, result) {
   return null;
 }
 
+// ---- narration -------------------------------------------------------------
+// Since 2026-09-23 (Claude Code 2.1.280), words Claude writes to the human partway
+// through a turn can reach them only as a paraphrase the platform writes, and the
+// record keeps that paraphrase as a `thinking` block, not a `text` block. Loudon
+// confirmed on 2026-10-15 that the paraphrase is what his screen shows. It is what
+// the app showed, so the arc shows it as a CLAUDE beat, marked (narration); Claude's
+// own words there are not readable in the record. Told from thinking by shape and
+// timing alone, never by the signature:
+//   - it is not the first thinking block of its API message (real thinking opens a
+//     message; narration stands later, in the slot where text would go), or
+//   - it arrived whole, in under 200 ms (real thinking streams for seconds; across
+//     every session on disk, narration took at most 41 ms and real thinking at
+//     least 1,441 ms, nothing between).
+// A block timed at 200 ms or more is real thinking wherever it stands, which keeps a
+// replayed record from passing for narration. The timing is the record's, so it is
+// used only when the record holds one thinking block. Versions before 2.1.288 record
+// no timing; there a paraphrase that opens its message can't be told from thinking,
+// and the arc counts those blocks instead of guessing ([[Closing Well — tuning]]
+// item 43). None has been seen after a turn's last tool call.
+const NARRATION_MS = 200;
+function thinkingMs(record, thinkingInRecord) {
+  return thinkingInRecord === 1 && typeof record.thinkingDurationMs === 'number' ? record.thinkingDurationMs : null;
+}
+function isNarration(nth, ms) {
+  if (ms !== null) return ms < NARRATION_MS;
+  return nth > 1;
+}
+
 function distill(file, opts) {
   let raw;
   try { raw = fs.readFileSync(file, 'utf8'); } catch (e) { die(`cannot read ${file}: ${e.message}`, 2); }
@@ -297,13 +334,16 @@ function distill(file, opts) {
 
   const beats = [];
   let meta = { sessionId: null, cwd: null, branches: new Set(), firstTs: null, lastTs: null, models: new Set() };
-  let userTurns = 0, midTurns = 0, popups = 0, machineNotes = 0, asstTurns = 0, toolCalls = 0;
+  let userTurns = 0, midTurns = 0, popups = 0, machineNotes = 0, asstTurns = 0, toolCalls = 0, narrations = 0, untimed = 0;
   const calls = new Map(); // tool_use id → { name, input }, so a result knows what it answers
+  const thinkingSeen = new Map(); // API message id → thinking blocks so far, to tell narration from thinking
+  const seen = new Set(); // record uuids: the harness can write a record twice (a replay after an api_error)
 
-  for (const l of lines) {
+  for (const [n, l] of lines.entries()) {
     let o;
     try { o = JSON.parse(l); } catch { continue; }
     if (o.isSidechain === true) continue; // subagent noise — not the session arc
+    if (o.uuid) { if (seen.has(o.uuid)) continue; seen.add(o.uuid); }
     const t = o.type;
     const ts = o.timestamp;
 
@@ -365,12 +405,24 @@ function distill(file, opts) {
     } else { // assistant
       asstTurns++;
       const blocks = Array.isArray(content) ? content : [];
+      const msgKey = msg.id || `record ${n}`;
+      const thinkingInRecord = blocks.filter(b => b && b.type === 'thinking').length;
       for (const b of blocks) {
         if (!b || typeof b !== 'object') continue;
         if (b.type === 'text' && b.text && b.text.trim()) {
           beats.push({ role: 'CLAUDE', text: b.text.trim(), ts });
-        } else if (b.type === 'thinking' && opts.thinking && b.thinking) {
-          beats.push({ role: 'think', text: oneLine(b.thinking, 400), ts });
+        } else if (b.type === 'thinking') {
+          const nth = (thinkingSeen.get(msgKey) || 0) + 1;
+          thinkingSeen.set(msgKey, nth);
+          const said = typeof b.thinking === 'string' ? b.thinking.trim() : '';
+          const ms = thinkingMs(o, thinkingInRecord);
+          if (said && isNarration(nth, ms)) {
+            narrations++;
+            beats.push({ role: 'CLAUDE', tag: 'narration', text: said, ts });
+          } else {
+            if (said && nth === 1 && ms === null && msg.stop_reason === 'tool_use') untimed++;
+            if (said && opts.thinking) beats.push({ role: 'think', text: oneLine(said, 400), ts });
+          }
         } else if (b.type === 'tool_use') {
           toolCalls++;
           calls.set(b.id, { name: b.name, input: b.input });
@@ -422,7 +474,7 @@ function distill(file, opts) {
     beats.splice(head, dropped, { role: 'ELIDED', text: `… ${dropped} interior beats elided (--max-turns) …` });
   }
 
-  return { meta, beats, stats: { userTurns, midTurns, popups, machineNotes, asstTurns, toolCalls, lines: lines.length, navDropped } };
+  return { meta, beats, stats: { userTurns, midTurns, popups, machineNotes, asstTurns, toolCalls, narrations, untimed, lines: lines.length, navDropped } };
 }
 
 function render({ meta, beats, stats }, file) {
@@ -431,10 +483,14 @@ function render({ meta, beats, stats }, file) {
   out.push('');
   out.push('> Mechanical projection of the raw session transcript (Closing Well —');
   out.push('> transcript-reader). Text kept verbatim; tool calls collapsed to');
-  out.push('> one-liners; tool output truncated; thinking dropped unless --thinking.');
+  out.push('> one-liners; tool output truncated; real thinking dropped unless --thinking.');
   out.push('> HUMAN is everything the human typed or clicked: turns, messages sent');
   out.push('> (mid-turn) while Claude worked, and (popup) answers. ⚙ lines are user');
   out.push('> records a machine wrote — notifications, injections — never theirs.');
+  out.push('> CLAUDE (narration) stands where Claude wrote to the human partway through');
+  out.push('> a turn. The record keeps only a paraphrase the platform wrote, which is what');
+  out.push('> the app showed there; Claude\'s own words are not readable in the record, and');
+  out.push('> Claude may remember saying more. Whether anyone was watching is not recorded.');
   out.push('> **This is not a summary — reconstruct the arc yourself.**');
   out.push('');
   out.push(`- source: \`${file}\``);
@@ -444,6 +500,8 @@ function render({ meta, beats, stats }, file) {
   out.push(`- models: ${[...meta.models].join(', ') || '?'}`);
   out.push(`- span: ${meta.firstTs || '?'} → ${meta.lastTs || '?'}`);
   out.push(`- turns: ${stats.userTurns} human (+${stats.midTurns} mid-turn, ${stats.popups} popup) · ${stats.asstTurns} assistant · ${stats.toolCalls} tool calls · ${stats.machineNotes} ⚙ machine notes · ${stats.lines} records`);
+  if (stats.narrations) out.push(`- narration: ${stats.narrations} CLAUDE beat${stats.narrations === 1 ? '' : 's'} kept only as the platform's paraphrase`);
+  if (stats.untimed) out.push(`- narration unknowable: ${stats.untimed} thinking block${stats.untimed === 1 ? '' : 's'} with no timing opened ${stats.untimed === 1 ? 'its message' : 'their messages'}; a paraphrase there can't be told from thinking and is left out`);
   if (stats.navDropped) out.push(`- spine mode: ${stats.navDropped} navigation beats dropped (reads/greps/routine results)`);
   out.push('');
   out.push('---');
@@ -451,7 +509,7 @@ function render({ meta, beats, stats }, file) {
   for (const b of beats) {
     if (b.role === 'HUMAN') { out.push(`### 🧑 HUMAN${b.tag ? ` (${b.tag})` : ''}`); out.push(b.text); out.push(''); }
     else if (b.role === 'MACHINE') { out.push(`  · ⚙ ${b.text}`); }
-    else if (b.role === 'CLAUDE') { out.push(`### 🤖 CLAUDE`); out.push(b.text); out.push(''); }
+    else if (b.role === 'CLAUDE') { out.push(`### 🤖 CLAUDE${b.tag ? ` (${b.tag})` : ''}`); out.push(b.text); out.push(''); }
     else if (b.role === 'call') { out.push(`  · call → ${b.text}`); }
     else if (b.role === 'RESULT') { out.push(`  · ${b.text}`); }
     else if (b.role === 'think') { out.push(`  · (thinking) ${b.text}`); }

@@ -117,11 +117,16 @@ explicitly; the reader also skips sidechain-only files as a backstop.
 
 A raw session transcript is large and mostly tool-output noise. Distillation is a
 **mechanical projection** — text kept verbatim, tool calls collapsed to one-liners,
-output truncated, thinking dropped by default. It strips noise; it never interprets.
+output truncated, real thinking dropped by default. It strips noise; it never interprets.
 (`--thinking` exists to keep a truncated form, but note: Claude's thinking is
 usually **redacted to an empty string** in the persisted transcript — only a
-signature survives — so the flag is a harmless no-op on most sessions. Thinking is
-not reconstructable from the transcript; the cold read works from text and actions.) That line is load-bearing: the Agent
+signature survives — so the flag is a harmless no-op on most sessions; since 2026-09-23
+a few blocks in a hundred hold a short summary of the thinking, and the flag shows those.
+Thinking is not reconstructable from the transcript. One kind of thinking block is not
+thinking at all: the platform's paraphrase of words Claude wrote to the human partway
+through a turn, which the arc shows as a narration beat wherever it can tell one (§ Whose
+voice). So the
+cold read works from the text Claude wrote, the narration beats, and the actions.) That line is load-bearing: the Agent
 must reconstruct the arc itself, or the "cold, from the transcript alone" test is
 meaningless. `--max-turns N` elides interior beats (keeping head and tail) for very
 long sessions.
@@ -137,7 +142,23 @@ permission prompt rejected, bare or with words. User records a machine wrote —
 notifications, messages from other sessions, skill bodies and other `isMeta` injections,
 scheduled/SDK launches, local-command output, the compaction summary — render as `· ⚙`
 one-liners, never HUMAN. `tests/transcript-reader.test.mjs` holds this line on real
-records ([[Closing Well — tuning]] item 31).
+records ([[Closing Well — tuning]] item 31). A message from another session and a
+subagent's report in a task notification are kept whole on their ⚙ line, because peers
+relay the human's own words and a hand-back is content, not a bare "finished" (items 39
+and 42); a background command carries no report and stays one short line.
+
+A `### 🤖 CLAUDE` beat is text Claude wrote, verbatim. A `### 🤖 CLAUDE (narration)` beat
+stands where Claude wrote to the human partway through a turn. Since Claude Code 2.1.280
+(2026-09-23) those words can reach the screen only as a paraphrase the platform writes,
+and the record keeps the paraphrase as a `thinking` block: it is what the app showed, and
+Claude's own words there are not readable in the record. The reader tells it from real
+thinking by shape and timing, never by the signature: a thinking block that is not the
+first in its API message, or one that arrived in under 200 ms (narration has taken at most
+41 ms, real thinking at least 1,441 ms). A block timed at 200 ms or more is real thinking
+wherever it stands. Versions before 2.1.288 record no timing, and there a paraphrase that
+opens its message can't be told from thinking; the arc's header counts those blocks as
+`narration unknowable` rather than guess. The tests hold both voices on real records
+(items 31 and 43).
 
 ## transcript-reader.mjs — reference
 
@@ -148,7 +169,7 @@ records ([[Closing Well — tuning]] item 31).
 --distill --file <path>        distill a specific transcript
 --distill --session <id>       distill by session id
 --distill --out <path>         write the arc to a file (prints the path)
---distill --thinking           include truncated thinking blocks
+--distill --thinking           include truncated real-thinking blocks (narration is shown either way)
 --distill --spine              collapse runs of reads/greps/routine results (HUMAN beats always kept)
 --distill --max-turns N        elide interior beats past N (keeps opening + close)
 ```

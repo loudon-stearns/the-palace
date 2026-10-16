@@ -73,7 +73,9 @@ perform it.
   top-level `.jsonl`, so "newest file" grabs it — fixed with an `origin.kind == 'human'`
   discriminator, and the reason the main loop resolves *before* dispatch; (b) thinking is
   redacted to an empty string in the persisted transcript, so `--thinking` is a no-op and
-  the arc is reconstructed from text and actions alone. The seam to Phase 4 is already
+  the arc is reconstructed from text and actions alone. (True until 2026-09-23: since then
+  a thinking block can also hold the platform's paraphrase of words Claude wrote to the
+  human, and the arc shows it; see § The narration beat, and tuning item 43.) The seam to Phase 4 is already
   cut: the arc analysis ends in a "gaps a cold reader can't fill" list — that *is* the
   interview's question set.
 - **2026-07-04 — Phase 4 built, then redesigned into the moderator model.** Phase 4 wired
@@ -109,3 +111,7 @@ perform it.
 ## The Version and the Tuning File (2026-09-24)
 
 Closing Well took a version at the second close of 2026-09-24, as the second ceremony versioned under Schema v1.20, after the Weave. It was the model for the whole scheme — its ledger already recorded what each close taught it — but nothing on the page said which spec a close had run under, and the ledger filled only when someone remembered to append. **1.0 is the spec as that close's Phase 2 left it:** `version: "1.0"` on `Closing Well.md` (the spec page; the thin `_ops/Closing Well Ceremony.md` trigger card carries none), the executor's `tuning` row, the close map stamped with the ceremony version and ending on what the run taught, the moderator opening by reading the ledger (Schema v1.21), and the resident check and `--session` rule in the dispatch. The ledger was renamed from `Closing Well — gotchas` to `Closing Well — tuning`, because "gotchas" stays with the Specialists' tool traps and a close tunes the ceremony; its doubled 12 and 13 became 12a/12b and 13a/13b rather than renumbering everything after them and breaking the citations that point in. Items 1–24 are one per close, from before the version existed; from 25 on, an item is written only when a close changed the spec.
+
+## The narration beat (2026-10-15)
+
+The arc gained a new kind of beat from a commissioning baton. Since Claude Code 2.1.280, words the room writes to Loudon partway through a turn can reach his screen only as a paraphrase the platform writes, and the record keeps that paraphrase as a thinking block; he confirmed the paraphrase is what he sees. Three choices shape the beat, and each has a reason. **It is told by shape and timing, never by the signature.** The signature is an undocumented format, and a reader that decodes it breaks silently when the format moves; a block's place in its message and how fast it arrived are things the record states in the open, and across every session on disk narration took at most 41 ms while real thinking took at least 1,441 ms. **The paraphrase is shown, not recovered.** No fuller copy exists: the app's own export is byte-identical to the session file, and only a woken page's own words survive, in its subagent transcript. So the arc says plainly what reached him and marks where it can't tell. **The room is the witness that is off.** At the morning's sealed test, the cold read, given only the arc, wrote "the page's voice reached me in one line", nearer to what Loudon saw than the room's memory of having said it at length. That turned the baton around: it had asked how to make the reader see more, and the answer was that the reader had the record of what he saw all along and threw it away. The proofs and the census are in `Closing Well/proofs/2026-10-15-narration/`; the lesson is [[Closing Well — tuning]] item 43.

@@ -30,8 +30,13 @@ Those are this close's first candidates for a spec change.
 
 **Step 2 — Read the day cold.** Read `{{ARC_PATH}}` — a mechanical, noise-stripped
 projection of a session transcript you did **not** take part in. Everything you know of
-the day comes from this file. It kept the human and assistant text verbatim and collapsed
-tool calls to one-liners; it did not interpret the arc — that is your homework.
+the day comes from this file. It kept the human's words and the text Claude wrote verbatim
+and collapsed tool calls to one-liners; it did not interpret the arc — that is your homework.
+A `CLAUDE (narration)` beat stands where the room wrote to Loudon partway through a turn:
+the record keeps only the platform's paraphrase, and that paraphrase is what reached his
+screen. The room may remember saying more than he saw; a quote, a number or a relay reached
+him whole only if it also shows in a message that ended a turn, or in a file. ⚙ messages
+from other sessions and a subagent's report in a task notification are kept whole.
 
 ### What a good moderator holds while reading
 
