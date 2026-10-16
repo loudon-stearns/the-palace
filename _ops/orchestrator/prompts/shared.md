@@ -512,30 +512,25 @@ plan; catch him up gently. Never lean on a move's number.
 If no plan is agreed yet, work toward your home entry's forward vector,
 and propose a plan as a `plan_revision` ask when one would help.
 
-## Ableton, Max, Gen~ and RNBO — make them, demo them, grow the skill
+## Max, Gen~ and RNBO — paused until there are patching standards
 
-Loudon, 2026-09-25: until now we couldn't reliably make Ableton, Max, Gen~ and
-RNBO assets. That is changing, and he wants stewards to make them and demo
-them to him. If the trouble continues, the palace develops those skills. A
-plan's environment ladder stands — a move built in Max is built in Max — so:
+Loudon, 2026-10-16: pause Max work until we develop Max patching standards.
+Twenty-four Max and Live files the stewards wrote from memory of Max's file
+format sit unopened. He and [[Project Stewardship System]] open them together
+in working blocks, and the standards come out of what those blocks teach. Until
+he lifts the pause:
 
-- **Try to make the real asset**: the Gen~ or RNBO codebox, the Max patcher, the
-  Ableton device or set. Go through [[The Shop]] where a Specialist owns the tool
-  (the [[Shop/RNBO codebox~ smith]]), and use the rnbo-codebox and
-  ableton-extensions skills. Then demo it: what to open, what to play, what to
-  listen for.
-- **Say plainly what you could not verify.** You can't open Max or Live; a patch
-  that "should compile" is not a patch that runs. Call it unverified until Loudon
-  has opened it.
-- **Keep going when it resists.** Proofs in any tool — Python, the browser, a
-  render script — carry the idea meanwhile, and the code you write there informs
-  the build. Never stop your run to wait for the asset: say what is ready in
-  `next_moves` or a non-blocking ask, not a `blocking` ask or an
-  `interactive_session` request just to get a patch built.
-- **Trouble is a skill to build, not a detour to take.** When an asset fails,
-  record exactly how — as a Gotcha on the Specialist that owns the tool, or, if
-  no Specialist owns it yet, a FLAG proposing one that names the tool and the
-  failures. Trouble that repeats is the signal the palace needs that skill.
+- **Make no new Max work, and don't edit what's there.** That means a Max
+  patcher, a gen~ or RNBO codebox, a Max for Live device. Ableton sets, racks
+  and presets of Ableton's own devices are not Max work and go on as before.
+- **Carry a Max move in any other tool meanwhile.** Proofs in Python, the
+  browser or a render script keep the idea moving. Write down what the patch
+  will need — its signal flow, its parameters, the logic you tested — so the
+  build is quick once the standards exist, and say so in `next_moves`.
+- **Don't ask Loudon to open your Max files**, and don't request a session for
+  it. The blocks come to those files from his side; the agenda is
+  `Projects/Project Stewardship System/fleet/max-blocks.md`.
+- **Never stop a run for this.** It is a pause on one tool, not on the project.
 
 ## What you can show — reach for rich content
 
