@@ -3,7 +3,6 @@ title: "Hero and Avatar Maker"
 type: maker
 status: alive
 born: 2026-06-23
-last_tested: 2026-06-23
 medium: image
 tool: "FLUX.1-dev-fp8 (RunPod serverless) + ComfyUI / procedural icon paths"
 forward_vector: "I keep the whole palace wearing its own face — a content-true hero behind every page and a bold avatar on every agent, hand-drawn and never glossy, the style following each entry's own nature. Every canon entry wears one; I find the ones still without and give them theirs. My easy door is open now: say the word at any page in the STIGMERGY companion — steer it in plain words — and its hero and avatar arrive, mine to regenerate on a glance until they are right. My far horizon is to become the autonomous distiller that walks the palace on its own — and, one day, to wear my own face."
@@ -54,19 +53,6 @@ Hand-drawn / classical / printmaking / abstract — **never** glossy 3D-render, 
 - In the prompt: name the medium explicitly, avoid CGI cue words, add "no text" (FLUX garbles lettering), and *evoke* rather than render real people.
 - **Even men/women mix (standing directive, recalibrated 2026-06-24).** Aim for **balanced** gender representation — never let a scene go male-dominated, but equally never let it go female-dominated. For multi-figure scenes, include both men and women; for single archetypes (scholar, philosopher, trickster, scribe, medium, maker), **alternate** gender across entries rather than defaulting either way. *(History: a first directive this day pushed "embed women heavily / lean female"; after Wave 2 read too female-focused, Loudon recalibrated to an even mix — balance, not female-dominance.)* See [[female-representation-in-imagery]] (memory).
 
-**Learned from the hub/ceremony batch (2026-06-24), fold into prompts:**
-- **Hard anti-text clause** on every prompt ("no letters, numerals, words, labels, inscriptions — purely pictorial"); plain "no text" is not enough — FLUX letters engraving/manuscript/diagram idioms with gibberish.
-- **One dominant metaphor** for structural/abstract entries. A described *multi-panel diagram* collapses into generic mush (Loudon's Toolkit's "signal-chain ecology" became a generic island-city). Pick one strong image.
-- **Icons: bold silhouette, ban fine linework** even when the hero idiom is delicate — let the icon diverge toward boldness (fine engravings vanish at 24–48px).
-- **Printmaking idioms invite a fake signature.** Etching, linocut and poster prompts drew gibberish corner signatures in about a quarter of a 2026-09-24 batch. The anti-text clause now names signatures, monograms and printmaker's marks explicitly. Ukiyo-e brings more than a mark: a gate drawn in it came back with columns of calligraphy and a red seal (2026-10-14). A different idiom fixed it.
-- **Don't put a text-bearing object in the scene.** Maps, type sorts, labelled panels, ruled tablets, shop signs and falling "words" render as script no matter what the clause says. Clocks and synth panels belong on that list: a clock got numerals despite "a completely blank face", and a synth panel lettered itself twice (2026-10-14). Swap in a wordless object that carries the same metaphor: compasses for a ruled tablet, blank spacers for type, an hourglass for a clock. Or leave the object out, as the synth was left out. Asking for "plain blank pages" doesn't make them reliable: on an open manual it failed once and held once.
-- **Guard every prompt against the photographic drift.** Heroes get "hand-made, visible ink or print texture, flat and graphic, not a photograph, not a 3D render, no depth-of-field". Icons get "a flat single-colour silhouette, no shading or gradients". Without it, a fifth of a batch came back glossy.
-- **Name the medium first.** FLUX weights a prompt's opening words most; a style guard tacked on the end didn't hold. "Woodcut print on paper, flat and graphic, not a photograph: …" pulled glossy renders back to the medium where the same words at the end had failed.
-- **Name objects plainly.** FLUX takes a compound name word by word: "candlestick telephone" came back as a candle beside a phone (2026-10-14). Describe the object by its shape and parts, or choose one with a plain name.
-- **Trim a corner signature; don't re-roll for it.** FLUX signs prints stubbornly, and a re-render often moves the mark rather than dropping it. When the only fault is a mark in a bottom corner, trimming a thin bottom strip (and rescaling) is deterministic and invisible on a darkened hero.
-- **A face goes in the folder named by the page's file, not its title.** STIGMERGY finds a bundle by filename (SCHEMA §8), so a face filed under a different `title:` is invisible there — JEWEL, ROSETTA, Meaning and the Link and AI Partnership Philosophy all were, until 2026-09-26. Both tools now place by filename; `face-audit.py` still checks the title too, so an old stray is caught rather than duplicated.
-- **Review the batch by eye before placing it.** A vision pass over every image (text, signature, anatomy, off-direction) flagged 47 of 102 on 2026-09-24. Re-render only the flagged sides; a side with an empty prompt is skipped. **`generate` also skips any render that already exists**, so move the rejects aside first (into `_renders/rejected-<date>/`) or the re-run does nothing.
-
 ## The convention
 
 `<bundle>/<EntryTitle> — hero.png` and `<bundle>/<EntryTitle> — icon.png`. File existence *is* the record — "this entry has a face." STIGMERGY resolves both by this convention (preferring the title-matched name, else any `* — hero.png` / `* — icon.png`).
@@ -90,13 +76,34 @@ Open any page in the STIGMERGY **companion** and just *say it* — "regenerate t
 
 It is **one-shot** (Loudon's call): the request *is* the go-ahead, so it commits the new face directly (git is the backstop; [undo] reverts). You steer entirely in words — hero / avatar / both, palette, idiom, "make it brighter" tweaks the prior prompt rather than starting cold. The earlier batch path (`batch_hubs.py`) still runs for waves; this is the per-page door the forward vector promised. The art direction is recorded per page in a `<Title> — face.json` sidecar so the next ask iterates from it.
 
-## Gotchas (earned)
+## Gotchas
 
-- **Dark heroes vanish** under the backdrop veil — brighten the image filter ~20% (Kuramoto's near-black art needed it).
-- **Delicate engravings soften** at 24–48px — favor bold, high-contrast icon idioms.
-- **FLUX hands** are unreliable — compose around them (the Retrospective Delay séance dropped its human hands and let the cat be the medium).
-- **One frame before the batch.** An unwatched batch is the expensive mistake.
-- **The fixed hero must sit below the top chrome** — give STIGMERGY's nav/status a higher stacking layer or it gets veiled.
+What making faces has taught, as it stands today. Which batch taught each, and what changed because of it, is in [[Hero and Avatar Maker — tuning]].
+
+**Prompts**
+- **Name the medium first.** FLUX weights a prompt's opening words most.
+- **The hard anti-text clause on every prompt**, naming signatures, monograms and printmaker's marks. Plain "no text" is not enough.
+- **Guard against the photographic drift.** Heroes get "hand-made, visible ink or print texture, flat and graphic, not a photograph, not a 3D render, no depth-of-field". Icons get "a flat single-colour silhouette, no shading or gradients".
+- **One dominant metaphor** for a structural or abstract entry; a described multi-panel diagram collapses into mush.
+- **Name objects plainly, by shape and parts.** FLUX takes a compound name word by word. It draws an everyday object when a shape is named after one, and the thing itself when asked for a shadow "shaped like" it.
+- **Keep text-bearing objects out of the scene**: maps, type, labelled panels, tablets, signs, clocks, synth panels. Swap in a wordless object that carries the metaphor (compasses, blank spacers, an hourglass), or leave it out. "Plain blank pages" is not reliable. Ukiyo-e brings calligraphy and a seal of its own.
+- **Two figures close in a warm room read as a couple.** Give ages, a gesture, a view from behind.
+- **Some shapes won't come.** An arrow becomes a growth sign or a letter, every hole comes out round, and a front-view shape sorter reads as a traffic light. Composite what FLUX can't draw, such as an inlay.
+- **FLUX hands are unreliable.** Compose around them.
+
+**Icons**
+- **Bold, high-contrast silhouette**, with no fine linework, even when the hero idiom is delicate. Engravings vanish at 24–48px.
+
+**Batches**
+- **One frame before the batch.**
+- **Review the batch by eye before placing it.** Re-render only the flagged sides, and move rejects into `_renders/rejected-<date>/` first, because `generate` skips any render that already exists.
+- **Trim a corner signature; don't re-roll for it.** When the print sits inside a framed panel, patch the flat margin instead.
+- **Carry `_renders/` out of a worktree before removing it.**
+
+**Placing and showing**
+- **A face goes in the folder named by the page's file, not its title.**
+- **Dark heroes vanish** under the backdrop veil; brighten about 20%.
+- **The fixed hero must sit below STIGMERGY's top chrome.**
 
 ## Open Questions
 
