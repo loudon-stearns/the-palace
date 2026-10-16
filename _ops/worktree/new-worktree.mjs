@@ -82,8 +82,14 @@ if (flag("--remove")) {
   // unrelated symlink is never touched. unlink on a symlink removes the link,
   // never the target: zero chance of deleting into the owner's real _tools/ (16 GB).
   const ownerReal = fs.realpathSync(owner);
+  const dirReal = fs.realpathSync(dir);
+  const inside = (x, root) => !!x && (x === root || x.startsWith(root + path.sep));
+  // A worktree the desktop app makes lives INSIDE the owner (.claude/worktrees/…), so a
+  // link pointing within the worktree itself — the World files' tracked `_` links — also
+  // resolves under the owner. Only a link that leaves the worktree is a borrow; unlinking
+  // the others would delete tracked files and git would refuse the removal (2026-10-16).
   const intoOwner = (p) => {
-    const hit = (x) => x && (x === ownerReal || x.startsWith(ownerReal + path.sep));
+    const hit = (x) => inside(x, ownerReal) && !inside(x, dirReal);
     let real = null, tgt = null;
     try { real = fs.realpathSync(p); } catch { /* dangling */ }
     try { tgt = path.resolve(path.dirname(p), fs.readlinkSync(p)); } catch { /* not a link */ }
