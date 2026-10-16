@@ -12,8 +12,10 @@
 //   - run · 2026-09-25 · v1.1 · close-2026-09-25-ceremonies · taught item 31
 //   - run · 2026-10-15 · cycle 38 · nothing new          (a page with no version)
 //
-// numbered items for what a run taught, and Loudon's one-shot orders, owed
-// until a run pays them: `- from Loudon · <date> · <his words> · owed`. Version
+// numbered items for what a run taught, Loudon's one-shot orders, owed until a
+// run pays them (`- from Loudon · <date> · <his words> · owed`), and on a
+// steward's page the debts its cycles left rough, tagged by who can pay them
+// (`left rough … owed`, `waiting on Loudon … open`, `seen again …`). Version
 // changes are read from git: the commits where the page's version value
 // changed. Trail sections are keyed on the version commit or on the run line
 // itself, so re-materializing a scroll never duplicates or deletes.
@@ -21,7 +23,7 @@
 // Which pages are ceremonies is not decided here — a ledger no longer marks
 // one; `trigger:` does (ceremony-scroll.js). Canon: [[The Scroll]], [[SCHEMA]].
 
-import { existsSync, readFileSync, readdirSync, appendFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, appendFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, relative, basename } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -179,6 +181,259 @@ export function payOrders(ledgerPath, refs, how) {
   return n;
 }
 
+// ── Debts: what a run left rough ────────────────────────────────────────────
+
+// What a steward cycle leaves rough becomes a debt, tagged by who can pay it
+// (decided 2026-10-16, [[Project Stewardship System]] § What's Decided):
+//
+//   - left rough · <date> · cycle <N> · <what> · owed          a later cycle can pay
+//   - waiting on Loudon · <date> · cycle <N> · <what> · open   only Loudon can
+//   - seen again · <date> · cycle <N> · <opening words>        it came back
+//
+// The last field is the only thing ever edited in place: `paid in cycle N`
+// when a run pays it, `let go: <why>` when Loudon adopts letting it go. A seen
+// again line belongs to the oldest debt still unpaid whose words begin with
+// its opening words (the part before any ` — `, which may add a comment).
+const DEBT_RE = /^- (left rough|waiting on Loudon) · (\d{4}-\d{2}-\d{2}) · (.+) · ([^·]+?)\s*$/;
+const SEEN_RE = /^- seen again · (\d{4}-\d{2}-\d{2}) · (?:cycle (\d+) · )?(.+?)\s*$/;
+const CYCLE_FIELD_RE = /^cycle (\d+) · /;
+
+const flat = (s) => String(s || '').replace(/\s+/g, ' ').replace(/ · /g, ', ').trim();
+const norm = (s) => String(s || '').replace(/\*\*/g, '').replace(/\s+/g, ' ').trim().toLowerCase();
+
+/** Who can pay a debt: 'cycle' (a later cycle) or 'loudon'. */
+export const debtWho = (kind) => (kind === 'waiting on Loudon' ? 'loudon' : 'cycle');
+
+/** The line a debt becomes. `who` is 'cycle' or 'loudon'. */
+export function debtLine({ who = 'cycle', date, cycle = null, text }) {
+  const c = cycle != null && cycle !== '' ? `cycle ${cycle} · ` : '';
+  return who === 'loudon'
+    ? `- waiting on Loudon · ${date} · ${c}${flat(text)} · open`
+    : `- left rough · ${date} · ${c}${flat(text)} · owed`;
+}
+
+/** The line a recurrence becomes: its opening words name the debt it is. */
+export function seenAgainLine({ date, cycle = null, words }) {
+  return `- seen again · ${date} · ${cycle != null && cycle !== '' ? `cycle ${cycle} · ` : ''}${flat(words)}`;
+}
+
+/** One debt line → { kind, who, date, cycle, text, status, unpaid }, or null. */
+export function parseDebtLine(line) {
+  const m = DEBT_RE.exec(String(line || '').trim());
+  if (!m) return null;
+  let rest = m[3];
+  let cycle = null;
+  const c = CYCLE_FIELD_RE.exec(rest);
+  if (c) { cycle = parseInt(c[1], 10); rest = rest.slice(c[0].length); }
+  const status = m[4].trim();
+  return {
+    kind: m[1], who: debtWho(m[1]), date: m[2], cycle, text: rest.trim(), status,
+    unpaid: /^(owed|open)$/i.test(status),
+  };
+}
+
+/** The words a seen again line names its debt by: before any ` — ` comment. */
+const seenWords = (s) => norm(String(s || '').split(' — ')[0]);
+
+/** True when a debt's words are the ones a reference names (whole or opening). */
+export function debtMatches(debt, ref) {
+  const w = seenWords(ref);
+  const t = norm(debt.text);
+  return !!w && (t === w || t.startsWith(w));
+}
+
+/**
+ * Every debt in a ledger, oldest first, each with how many times it was seen
+ * again: [{ kind, who, date, cycle, text, status, unpaid, seen, line }]. A union
+ * merge can keep both forms of a debt paid in place (SCHEMA — Reference §6), so
+ * a debt paid or let go anywhere is settled.
+ */
+export function parseDebts(ledgerText) {
+  const all = [];
+  const seenLines = [];
+  ledgerBody(ledgerText).split('\n').forEach((line, i) => {
+    const d = parseDebtLine(line);
+    if (d) { all.push({ ...d, index: i, line: line.trim() }); return; }
+    const s = SEEN_RE.exec(line.trim());
+    if (s) seenLines.push({ date: s[1], cycle: s[2] ? parseInt(s[2], 10) : null, words: s[3], index: i });
+  });
+  const k = (d) => `${d.kind}\u0000${d.date}\u0000${d.cycle}\u0000${norm(d.text)}`;
+  const settled = new Set(all.filter((d) => !d.unpaid).map(k));
+  const shown = new Set();
+  const out = [];
+  for (const d of all) {
+    if (d.unpaid && settled.has(k(d))) continue;
+    if (shown.has(`${k(d)}\u0000${d.status}`)) continue;
+    shown.add(`${k(d)}\u0000${d.status}`);
+    out.push({ ...d, seen: 0 });
+  }
+  // A recurrence counts toward the oldest unpaid debt it names, else the oldest
+  // debt it names at all.
+  for (const s of seenLines) {
+    const before = out.filter((d) => d.index < s.index && debtMatches(d, s.words));
+    const hit = before.find((d) => d.unpaid) || before[0];
+    if (hit) hit.seen += 1;
+  }
+  return out.map(({ index, ...d }) => d);
+}
+
+/** A cycle's `left_rough`, in any of its forms, as [{ text, who, again }]. */
+export function roughItems(leftRough) {
+  const list = Array.isArray(leftRough) ? leftRough : [leftRough];
+  const out = [];
+  for (const x of list) {
+    if (typeof x === 'string') { if (x.trim()) out.push({ text: x.trim(), who: 'cycle', again: null }); continue; }
+    if (!x || typeof x !== 'object') continue;
+    const text = typeof x.text === 'string' ? x.text.trim() : '';
+    const again = typeof x.again === 'string' && x.again.trim() ? x.again.trim() : null;
+    if (!text && !again) continue;
+    out.push({ text: text || again, who: /^loudon$/i.test(String(x.who || '').trim()) ? 'loudon' : 'cycle', again });
+  }
+  return out;
+}
+
+/** `left_rough` as one line for a reader — the trail and the deck show it so. */
+export function roughText(leftRough) {
+  return roughItems(leftRough).map((r) => r.text).join('; ');
+}
+
+/**
+ * Record what a cycle left rough: a new debt for each thing it names, or a
+ * seen again line when it names (by `again`, or by the same words) a debt
+ * still unpaid. Returns { added: [line], seen: [line] }.
+ */
+export function recordDebts(ledgerPath, { date, cycle = null, items = [] }) {
+  const added = [];
+  const seen = [];
+  for (const it of items) {
+    const text = existsSync(ledgerPath) ? readFileSync(ledgerPath, 'utf8') : '';
+    const open = parseDebts(text).filter((d) => d.unpaid);
+    const ref = it.again || it.text;
+    const same = open.find((d) => (it.again ? debtMatches(d, it.again) : norm(d.text) === norm(it.text)));
+    if (same) {
+      const words = it.again ? it.again : ref;
+      const line = seenAgainLine({ date, cycle, words });
+      appendLedgerLine(ledgerPath, line);
+      seen.push(line);
+      continue;
+    }
+    const line = debtLine({ who: it.who, date, cycle, text: it.text });
+    if (text.split('\n').some((l) => l.trim() === line)) continue; // already there, word for word
+    appendLedgerLine(ledgerPath, line);
+    added.push(line);
+  }
+  return { added, seen };
+}
+
+/**
+ * Settle unpaid debts in place: the last field becomes `how` (`paid in cycle
+ * N`, or `let go: <why>`). Each ref names a debt by its opening words; `who`
+ * limits it to one kind ('cycle' | 'loudon'). Returns the number settled.
+ */
+export function settleDebts(ledgerPath, refs, how, { who = null } = {}) {
+  const wanted = (refs || []).map((r) => String(r || '').trim()).filter(Boolean);
+  if (!wanted.length || !existsSync(ledgerPath)) return 0;
+  const text = readFileSync(ledgerPath, 'utf8');
+  let n = 0;
+  const out = text.split('\n').map((line) => {
+    const d = parseDebtLine(line);
+    if (!d || !d.unpaid || (who && d.who !== who)) return line;
+    if (!wanted.some((w) => debtMatches(d, w))) return line;
+    n += 1;
+    return line.replace(/ · (owed|open)\s*$/i, ` · ${flat(how)}`);
+  });
+  if (n) writeFileSync(ledgerPath, out.join('\n'));
+  return n;
+}
+
+/**
+ * The tail read a steward cycle opens with: tailRead's window and owed grep
+ * with the debts taken out and sorted by who can pay — `toDo`, what a later
+ * cycle can pay (this cycle's to-do), and `waiting`, what only Loudon can
+ * (not the cycle's job). Each debt carries how often it was seen again.
+ * Returns { recent, owed, toDo, waiting }.
+ */
+export function stewardTailRead(ledgerText, n = 40) {
+  const debtish = (t) => !!parseDebtLine(t) || SEEN_RE.test(String(t).trim());
+  const body = ledgerBody(ledgerText);
+  const offset = String(ledgerText || '').split('\n').length - body.split('\n').length;
+  const lines = body.split('\n').map((text, i) => ({ text, line: i + 1 + offset }));
+  const kept = lines.filter((l) => !parseRunLine(l.text) && !debtish(l.text));
+  while (kept.length && !kept[kept.length - 1].text.trim()) kept.pop();
+  const recent = kept.slice(-n);
+  const inRecent = new Set(recent.map((l) => l.line));
+  const owed = lines.filter((l) => /\bowed\b/i.test(l.text) && !debtish(l.text) && !inRecent.has(l.line));
+  const unpaid = parseDebts(ledgerText).filter((d) => d.unpaid);
+  return {
+    recent: recent.map((l) => l.text),
+    owed,
+    toDo: unpaid.filter((d) => d.who === 'cycle'),
+    waiting: unpaid.filter((d) => d.who === 'loudon'),
+  };
+}
+
+// ── Folding: a settled lesson leaves for the page ───────────────────────────
+
+/** The line that marks an item folded into its page, on Loudon's adopt. */
+export function foldedLine({ date, item, into, by = '' }) {
+  return `- folded · ${date} · item ${flat(item)} · into ${flat(into)}${by ? ` · ${flat(by)}` : ''}`;
+}
+
+/** True when a ledger already says this ask was applied (its id is on a line). */
+export function ledgerNamesAsk(ledgerText, requestId) {
+  return !!requestId && ledgerBody(ledgerText).split('\n').some((l) => l.includes(`\`${requestId}\``));
+}
+
+// ── Growing a steward's ledger ──────────────────────────────────────────────
+
+/**
+ * The tuning ledger the orchestrator grows on a stewarded page the first time
+ * a cycle offers a lesson or leaves something rough (decided 2026-10-16).
+ * Standard frontmatter (§6, §8); no `standards` value says owed, because the
+ * tail read's grep would find it.
+ */
+export function stewardLedgerText(home, date) {
+  const q = (s) => JSON.stringify(s);
+  return [
+    '---',
+    `title: ${q(`${home} — tuning`)}`,
+    `born: ${date}`,
+    'links:',
+    `  - target: ${q(`[[${home}]]`)}`,
+    '    type: connects-to',
+    '    label: tuning-for',
+    `forward_vector: ${q(`I am ${home}'s record of what its steward's cycles taught it and what they still have to pay: a line for every cycle, a numbered item when a cycle taught something, and a debt for what a cycle left rough, tagged by who can pay it.`)}`,
+    'ledger: tuning',
+    'standards:',
+    `  for: ${q(`what each steward cycle taught ${home}, and what it left rough`)}`,
+    '  run: "one steward cycle"',
+    '  line: "- run · <date> · cycle <N> · nothing new | taught item N"',
+    '  read: "the last 40 lines with run lines and debts set aside, plus every debt and line not yet paid, at the start of a cycle"',
+    '  writes: "the steward cycle (process-cycle.js), in the cycle\'s commit; a lesson the steward offers is filed straight in as an item tagged as its offer"',
+    '  debts: "a left rough line for what a later cycle can pay (the cycle\'s to-do); a waiting on Loudon line, ending open, for what only he can; a seen again line when one recurs (three on a debt waiting on Loudon go to the board as an ask). A debt leaves by its last word only: paid in cycle N, or let go with why, on Loudon\'s adopt"',
+    '  merge: union',
+    '  kept: git',
+    '  trim: never',
+    '---',
+    '',
+    `# ${home} — tuning`,
+    '',
+    `What ${home}'s steward cycles taught the page, and what they left rough. The orchestrator grew this ledger on ${date}, at the first cycle that offered a lesson or left something rough, and writes every line in it.`,
+    '',
+  ].join('\n');
+}
+
+/** Grow a stewarded page's tuning ledger in its bundle; returns its path. Never overwrites. */
+export function growTuningLedger(palaceRoot, home, { date }) {
+  const b = resolveBundleDir(palaceRoot, home);
+  if (!b) return null;
+  const p = join(b.bundleDir, `${home} — tuning.md`);
+  if (existsSync(p)) return p;
+  mkdirSync(b.bundleDir, { recursive: true });
+  writeFileSync(p, stewardLedgerText(home, date));
+  return p;
+}
+
 // ── Items ───────────────────────────────────────────────────────────────────
 
 // An item is owed when it says so as its status — "spec change owed", "change
@@ -264,10 +519,11 @@ export function appendLedgerLine(ledgerPath, line) {
  * when the run taught something, a `## From <what> — <date>` group with one
  * numbered item per lesson, then the run line naming them; otherwise the run
  * line alone, "nothing new". `by` says whose lesson it is when the page did not
- * write it itself (a steward's offer, carried by the machinery). Returns
+ * write it itself (a steward's offer, carried by the machinery); `beforeLine`
+ * writes whatever else the run leaves (its debts) just before its line. Returns
  * { line, items } — the run line written and the item numbers it names.
  */
-export function recordRun(ledgerPath, { date, version = null, what = '', lessons = [], by = '' }) {
+export function recordRun(ledgerPath, { date, version = null, what = '', lessons = [], by = '', beforeLine = null }) {
   const text = existsSync(ledgerPath) ? readFileSync(ledgerPath, 'utf8') : '';
   const taught = [...new Set((lessons || []).map((l) => String(l || '').replace(/\s+/g, ' ').trim()).filter(Boolean))];
   const items = [];
@@ -280,6 +536,7 @@ export function recordRun(ledgerPath, { date, version = null, what = '', lessons
   }
   const outcome = !items.length ? 'nothing new'
     : items.length === 1 ? `taught item ${items[0]}` : `taught items ${items.join(', ')}`;
+  if (beforeLine) beforeLine(ledgerPath); // e.g. the run's debts, between its items and its line
   const line = runLine({ date, version, what, outcome });
   appendLedgerLine(ledgerPath, line);
   return { line, items };
@@ -453,6 +710,7 @@ export function readTuningState(palaceRoot, home) {
     last_run: runs[0] || null,
     owed: parseOwed(ledger),
     orders: parseOrders(ledger),
+    debts: parseDebts(ledger),
     latest: parseLatestLesson(ledger),
   };
 }

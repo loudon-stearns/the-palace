@@ -410,6 +410,28 @@ describe('the scroll seam + the run mandate (2026-09-23)', () => {
     expect(userTurn.indexOf('## Standing Orders')).toBeLessThan(userTurn.indexOf('# Your tuning ledger'));
   });
 
+  test("debts show apart: what a cycle can pay is this cycle's to-do, what waits on Loudon is not its job", () => {
+    const { agentDir } = palace({ orders: ORDERS_PLACEHOLDER });
+    writeFileSync(path.join(root, 'Projects', 'Shep', 'Shep — tuning.md'), [
+      '---', 'title: "Shep — tuning"', 'ledger: tuning', 'standards:', '  for: what each cycle taught', '---', '', '# Shep — tuning', '',
+      '1. **Takes are the lever.**',
+      '- waiting on Loudon · 2026-10-16 · cycle 38 · your ear on the violin · open',
+      '- seen again · 2026-10-16 · cycle 38 · your ear — seventeen in a row',
+      '- left rough · 2026-10-16 · cycle 34 · the flute attack · owed',
+      '- left rough · 2026-10-16 · cycle 33 · an old thing · paid in cycle 36', '',
+    ].join('\n'));
+    const { userTurn } = buildCyclePrompt({ palaceRoot: root, agentDir, cycleN: 39, skillRoot: path.join(root, '_ops/orchestrator'), today: '2026-10-16' });
+    const todo = userTurn.indexOf("## Left rough — this cycle's to-do");
+    const waiting = userTurn.indexOf('## Waiting on Loudon — not your job');
+    expect(todo).toBeGreaterThan(0);
+    expect(waiting).toBeGreaterThan(todo);
+    expect(userTurn.slice(todo, waiting)).toContain('- the flute attack (cycle 34)');
+    expect(userTurn.slice(todo, waiting)).not.toContain('your ear');
+    expect(userTurn.slice(waiting)).toContain('- your ear on the violin (since cycle 38) _(seen again 1×)_');
+    expect(userTurn).not.toContain('an old thing');                 // a paid debt is not shown
+    expect(userTurn).toContain('1. **Takes are the lever.**');      // the recent window keeps the lessons
+  });
+
   test('no tuning ledger, no ledger section', () => {
     const { agentDir } = palace({ orders: ORDERS_PLACEHOLDER });
     expect(buildCyclePrompt({ palaceRoot: root, agentDir, cycleN: 4, skillRoot: path.join(root, '_ops/orchestrator'), today: '2026-10-15' }).userTurn).not.toContain('# Your tuning ledger');

@@ -22,7 +22,7 @@ import { readEntryMeta } from './entry-frontmatter.js';
 import { reconcilePendingRequests } from './process-cycle.js';
 import { MARK, readZone, readStandingOrders, readPlan } from './scroll-file.js';
 import { resolveBundleDir } from './entry-paths.js';
-import { tailRead } from './ledger.js';
+import { stewardTailRead } from './ledger.js';
 
 const PALACE_ROOT_DEFAULT = resolve(fileURLToPath(new URL('.', import.meta.url)), '../../../..');
 
@@ -49,6 +49,24 @@ export function sliceBoardSinceCursor(boardLines, cursor) {
     try { const m = JSON.parse(line); if (m.id === cursor) found = true; } catch { /* not the cursor */ }
   }
   return slice;
+}
+
+/**
+ * The tuning ledger's section of a cycle prompt: the tail read (SCHEMA —
+ * Reference §6) with the steward's debts sorted by who can pay them (decided
+ * 2026-10-16). What a cycle can pay — a left rough debt, an owed order or item
+ * — is this cycle's to-do; what waits on Loudon is shown apart, as not the
+ * cycle's job, with how often it has come back.
+ */
+export function renderLedgerSection({ recent, owed, toDo, waiting }, ledgerRel) {
+  const seen = (d) => (d.seen ? ` _(seen again ${d.seen}×)_` : '');
+  return `# Your tuning ledger — what running has taught this page, and what it still owes\n\n`
+    + `\`${ledgerRel}\`: one run line for every cycle, a numbered item for each lesson, and a debt for each thing a cycle left rough, tagged by who can pay it. The orchestrator writes every line when the cycle ends. Its tail read, as every run opens with it:\n\n`
+    + `## The last ${recent.length} lines, run lines and debts set aside\n\n${recent.join('\n').trim() || '(nothing yet)'}\n\n`
+    + (owed.length ? `## Still owed, from earlier in the ledger\n\n${owed.map((o) => `${o.line}: ${o.text}`).join('\n')}\n\n` : '')
+    + `## Left rough — this cycle's to-do\n\n${toDo.length ? toDo.map((d) => `- ${d.text}${d.cycle != null ? ` (cycle ${d.cycle})` : ''}${seen(d)}`).join('\n') : '(nothing — no earlier cycle left anything rough that a cycle can pay)'}\n\n`
+    + (waiting.length ? `## Waiting on Loudon — not your job\n\nOnly he can pay these. Do not work around them or ask for them again in your own words; if one blocks you this cycle, name it in \`left_rough\` with \`"who": "loudon"\` and \`"again"\` set to its opening words, and the orchestrator counts the recurrence. At three it goes to the board as an ask by itself.\n\n${waiting.map((d) => `- ${d.text}${d.cycle != null ? ` (since cycle ${d.cycle})` : ''}${seen(d)}`).join('\n')}\n\n` : '')
+    + `A line that says **owed**, a left rough debt, or a one-shot order from Loudon is this cycle's to-do before your own lean. When you pay one, name it in your \`shipped_artifact\` payload as \`"paid": ["<its date, or its opening words>"]\` and the cycle marks it paid. You do not edit the ledger. When this cycle teaches you something about how this page works, offer it as \`"lesson"\` (one sentence; the cycle files it as a numbered item). What you leave rough goes in \`left_rough\`, tagged by who can pay it; see the output protocol.\n\n`;
 }
 
 // A message whose recipient is the whole swarm (BROADCAST/FLAG-style).
@@ -243,12 +261,7 @@ export function buildCyclePrompt(opts) {
     let ledgerText = '';
     if (ledgerPath && existsSync(ledgerPath)) { try { ledgerText = readFileSync(ledgerPath, 'utf8'); } catch { /* unreadable */ } }
     if (ledgerText) {
-      const { recent, owed } = tailRead(ledgerText);
-      ledgerSection = `# Your tuning ledger — what running has taught this page\n\n`
-        + `\`${relative(palaceRoot, ledgerPath)}\`: one run line for every cycle (the orchestrator writes it when the cycle ends) and a numbered item for each lesson. Its tail read, as every run opens with it:\n\n`
-        + `## The last ${recent.length} lines, run lines set aside\n\n${recent.join('\n').trim() || '(nothing yet)'}\n\n`
-        + (owed.length ? `## Still owed, from earlier in the ledger\n\n${owed.map((o) => `${o.line}: ${o.text}`).join('\n')}\n\n` : '')
-        + `A line that says **owed** — a one-shot order from Loudon, or a lesson whose change has not landed — is this cycle's to-do before your own lean. When you finish a one-shot order, name it in your \`shipped_artifact\` payload as \`"paid": ["<its date, or its opening words>"]\` and the cycle marks it paid. You do not edit the ledger. When this cycle teaches you something about how this page works, offer it as \`"lesson"\` in your \`shipped_artifact\` payload: one sentence, and the cycle files it as a numbered item.\n\n`;
+      ledgerSection = renderLedgerSection(stewardTailRead(ledgerText), relative(palaceRoot, ledgerPath));
     }
   }
 
