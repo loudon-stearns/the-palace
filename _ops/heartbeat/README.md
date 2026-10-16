@@ -52,17 +52,23 @@ every-other-morning, matching the old Cowork cadence. Change `INTERVAL_DAYS` at 
 top of a wrapper (1 = daily), or the plist `Hour`/`Minute` to move the time. If the
 Mac is asleep at the scheduled minute, launchd runs the job at next wake.
 
-## Posture — shadow agent, wrapper commits
+## Posture — grown up for its own page, the cycle commits
 
-The batch runs the agent in a **shadow posture** and lets the *wrapper* commit:
+The batch runs each steward **grown up for its own page and bundle**
+(since `10751829`, 2026-10-16; [[Project Stewardship System]] § What's Decided),
+and the deterministic steps commit — never the agent:
 
-- **The agent never edits canon and never runs git.** It does not touch a
-  project entry's `.md` body or frontmatter, and it does not deposit. It *does*
-  write its normal cycle output: the bundle-local `[Entry] — scroll.md`
+- **The steward may edit its own page and bundle, and never runs git.** Each
+  cycle reads ELDER on top of SCHEMA and may edit its own entry, body and
+  frontmatter alike, and anything in its bundle. It lists each edit in its post
+  as `page_edits` with a line of why; `process-cycle.js` commits those by name
+  once the frontmatter parses, and the scroll's trail shows each one. An edit to
+  another page, a new entry, canon, the scroll (its Plan and Standing Orders
+  stay Loudon's) and the ledger are refused (`page_edits_refused`, named in the commit body) and
+  stay proposals on the board. It does not deposit. Its normal cycle output
+  still goes where it always did: the bundle-local `[Entry] — scroll.md`
   read-model, the steward machinery (`state.json` / `history.jsonl`), and
-  append-only Trickster-board messages. This is the Bundle-Local Stewardship
-  cycle (Bundle-Local Stewardship — Production Plan) — "shadow" means
-  *touches no canon*, not *writes nothing*.
+  append-only Trickster-board messages.
 - **The wrapper makes one scoped, lock-safe commit** after the agent returns,
   via the palace committer (`_ops/stigmergy/app/scripts/palace-commit.mjs`),
   which stages only the paths the wrapper names — **never `git add -A`**

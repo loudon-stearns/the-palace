@@ -56,71 +56,54 @@ links:
     label: front-door
   - target: "[[SCHEMA — Reference]]"
     type: connects-to
-forward_vector: "I will become the working specification for routine, stage-aware project stewardship — a permanent agent that advances each palace project at the rhythm appropriate to its stage, posts status, blocks, and questions to the BBS, with the Trickster (Loudon directly, or an automated proxy with escalation rules) handling triage one decision at a time."
+  - target: "[[Project Stewardship System — Context]]"
+    type: spawned
+    label: rationale-archive
+forward_vector: "I will become the working specification for routine, stage-aware project stewardship — a permanent agent that advances each palace project at the rhythm appropriate to its stage, posts status, blocks, and questions to the BBS, with the Trickster (Loudon directly, or an automated proxy with escalation rules) handling triage one decision at a time — and its honest mirror: a dashboard, drawn from the fleet's own records, that shows Loudon at a glance how stewardship is faring, so he and I keep improving the system together."
 ---
 
 # Project Stewardship System
 
 ![[Project Stewardship System — hero.png]]
 
-A specification for an agent that routinely tends to the palace's `Projects/`, advancing each project according to its stage and forward vector, surfacing decisions to a triage layer rather than blocking on them. The agent doesn't manage projects in the corporate sense — it stewards them, with care for the pace each one wants.
+The system that routinely tends the palace's projects. Each stewarded page wakes as its own agent, a **steward**, and advances at the rhythm its stage asks for: it builds something every cycle, posts what it made to the board, and asks Loudon only when a real fork blocks it. Loudon answers as the **Trickster**, one decision at a time. The steward doesn't manage its project in the corporate sense — it tends it, with care for the pace the project wants.
 
-This entry is the deposited form of a 2026-05-02 conversation that began as "design an automated project management system" and ended in a richer place: the system isn't entirely new, the alignment problem is harder than initially framed, and the agent's posture must vary by stage of the project it is tending.
+## Where it stands (2026-10-16)
 
-## Status (as of 2026-09-23)
+The system runs every other morning and on any click. The question now is whether Loudon can see how it is faring, and whether each round moves a project far enough to be worth his attention.
 
-The system runs; the question since June has been whether Loudon can *see* it run, and whether a round moves a project far enough to be worth his attention. The 2026-09-23 session answered both with three moves, made under Loudon's standing authorization while he was away:
+- **26 stewards are registered** (`_ops/agents/permanent/REGISTRY.json`). 23 have cycled — [[Generative Sample Libraries]] most, at 38 cycles. Three are registered and have not yet cycled: [[Generative Audio Devices]], [[Preset Oracle]] and [[Talking Keyboard]]. Most tend a project; the [[Shopkeeper]] tends a service.
+- **The heartbeat fires the batch.** launchd wakes `_ops/heartbeat/run-steward-batch.sh` each morning at 06:00, and a two-day guard decides whether a batch runs. The batch (`_ops/heartbeat/batch.mjs`) takes the stewards that are due, least recently active first, and fires them through STIGMERGY's own steward lane, inside the hard limits in `_ops/heartbeat/limits.json`: four stewards, two cycles each, 25 minutes a cycle, an hour and $15 a batch. The PROJECTS deck shows the batch as it runs.
+- **A click is a run.** Advancing a steward from the PROJECTS deck cycles it up to its manifest's `max_iterations` — 3 for every steward but the Shopkeeper, which has 1. A heartbeat run stops at the batch's two.
+- **Every project has a scroll**, its front door ([[The Scroll]]): a **Now** zone regenerated from the board on every look, the **Plan** agreed with Loudon, his **Standing Orders**, and the trail of what was made, newest first. The PROJECTS deck lists every project on one screen, grouped by what it needs.
+- **Loudon is the Trickster.** The automated Trickster is built and runs in shadow only: it proposes, and never posts. It has never been switched `--live` — every grant on the board is his — and its digest was last generated on 2026-06-08.
+- **Two Paths is built and dry-run only.** It has never dispatched a branch.
+- **The newest rules have not met a live cycle yet.** A steward is now grown up for its own page and bundle (`page_edits`, since `10751829`), grows its own tuning ledger at its first offered lesson, and its scroll's Now lists left-rough notes that keep recurring (`1921ee8b`). All three landed late on 2026-10-15, after the last cycle that ran. No cycle has yet posted a `page_edits`, and no scroll yet shows a recurring rough note.
 
-- **Every project has a scroll** ([[The Scroll]]) — `[Entry] — scroll.md` in the bundle, the project's front door: a **Now** zone (waiting on you · ready to advance · last shipped · stall · drift · the steward's own catch-up) regenerated from the board on every look, so it is true even when the steward sleeps; the **Plan** — the path agreed with Loudon, changed only with his yes (v1.25); **Standing Orders** — Loudon's zone, injected into every cycle prompt and binding; and an append-only **making** trail, one section per shipped thing. It replaced the `plan.md` read-model, which held decision state only and regenerated only on a cycle — the exact reason Loudon's 2026-08-26 answer on [[Generative Sample Libraries]] sat invisible for a month. 36 scrolls backfilled; 20 plan files retired.
-- **STIGMERGY's STEWARDS roster became the PROJECTS deck** — every `type: project` entry on one screen, grouped by what it needs (needs you · ready to advance · stalled · tended · no steward), computed by the same rule as the scroll's Now zone; click a project to open its scroll in the terminal, answer its asks there, write its standing orders there, advance it there. This is the "big picture" and the "get back into a project" surface in one.
-- **The run, and the barren rule.** An activation now cycles a steward up to `max_iterations` (3 since 2026-10-13; 10 at first) consecutive times while it ships and nothing waits on Loudon — the mechanism for larger jumps per round. A cycle that posts nothing earns exactly one retry; a second barren cycle marks the steward **STALLED** (health red, flagged on the scroll and the deck) instead of counting as "cycle 7, green." Read from the history, every cycle run in August and September looked barren, and nothing had said so. Many weren't: the harness had cut them off — usage limits, an expired login, a CLI too old for the model — and each was scored as a steward that shipped nothing (found 2026-09-25).
+The frontier is evidence: whether these rules hold in live cycles, whether Standing Orders shorten the question traffic, and a way to see the fleet's health at a glance — the next move on the scroll's Plan.
 
-The frontier now is *evidence*: the first runs under this contract (pilots dispatched 2026-09-23; the Mac heartbeat carries the rest — since 2026-10-14 through STIGMERGY's own steward lane with hard limits in `_ops/heartbeat/limits.json`, visible on the PROJECTS deck as it runs, after one unlimited batch ran 35 cycles and sat hours on a usage limit), and whether Standing Orders actually shorten the question traffic. The May status below stands as the record of how the build got here.
+## The stages
 
-## Status (as of 2026-05-27 evening)
+The system was built in stages, each closing a real gap. Where each one stands:
 
-The body below describes the system as conceived; this block records where the build actually stands. The five-stage plan has moved well past where the rest of this page reads — the system has crossed from "test it" into "use it."
+| Stage | What it is | Where it stands | Where it lives |
+|---|---|---|---|
+| A | A steward run by hand on one project | Done — five hand-run cycles on [[Generative Sample Libraries]], May 2026 | `_ops/agents/permanent/generative-sample-libraries/` |
+| B | The orchestrator, which runs one cycle | In production | `_ops/stigmergy/orchestrator/`, invoked through `_ops/orchestrator/` |
+| C | Scheduling the cycles | The heartbeat, through STIGMERGY's steward lane | `_ops/heartbeat/`, `_ops/stigmergy/orchestrator/src/batch-plan.js` |
+| D | Answering from STIGMERGY instead of hand-editing the board | Shipped | `_ops/stigmergy/app/` |
+| E | An automated Trickster that triages routine asks | Built, in shadow; waits on Loudon's review and the `--live` switch | `_ops/stigmergy/trickster-auto/`, its build report `STAGE-E-COMPLETE.md` there |
+| F | Two Paths: build both branches of a fork, Loudon picks | Built, dry-run only, never dispatched | `_ops/orchestrator/two-paths.md`, its build report `_ops/orchestrator/STAGE-F-COMPLETE.md` |
 
-- **Stage A (hand-run pilot)** — done. Original pilot, [[Generative Sample Libraries]] (5 hand-run cycles 2026-05-03 → 2026-05-04), shipped Phase 2 and wrote back to its own page.
-- **Stage B (Orchestrator v0.1)** — done, in production. 15 stewards run through it across multiple batches. The `cli.js` encoded-path bug (Cowork-discovered) is fixed; the skill at `_ops/orchestrator/` is the canonical invocation surface. 97/97 orchestrator tests + 297/297 STIGMERGY app tests green (counts grew this session).
-- **Stage C (batch mode)** — thin path shipped (`batch-plan.js` + `batch.md`). `--ignore-debounce` flag added 2026-05-27 for interactive validation runs. **15-steward parallel dispatch + sequential post-processing demonstrated twice**, ~10 min wall time per batch (heaviest cycle dominates). The weekly scheduled task is still staged not created — that's the only remaining Stage C piece.
-- **Stage D (STIGMERGY v0.2 Trickster posting)** — shipped, plus four named contract fixes this session: (1) lenient options-shape normalizer accepts both `{id,label}` and strings; (2) "every cycle ends with a TRICKSTER ask" steward rule; (3) top-level `options[]` accepted as fallback; (4) "emit, do not write" output discipline forbidding direct board/state writes. All five fixes are committed and validated under load.
-- **Stage E (automated Trickster)** — **built (2026-05-29), shadow-default.** All six phases shipped and self-verified (`_ops/stigmergy/trickster-auto/`, 78 tests; build report at `_ops/stigmergy/trickster-auto/STAGE-E-COMPLETE.md`). A deterministic rules engine triages the TRICKSTER inbox: `auto-grant` / `auto-deny` / `escalate` (default escalate), with a ranked digest of escalations rendered on the STIGMERGY TRICKSTER tab (`DigestPanel`, +7 app tests, no regression). The audition/irreversible gate is hard-coded and cannot be overridden by the ruleset; after shadow review #1 it judges sensory-ness by the **recommended option's identity**, not by audio words in the prose. Q1 decided here (Loudon delegated): v0 auto-grants only non-blocking directional forks carrying the steward's own recommendation — the deterministic proxy for the strawman's "advances forward_vector + low cost," since the engine must not reason about prose. Live shadow split on the 16-pending board: **5 auto-grant / 11 escalate** (Loudon's first shadow review widened it from 3 grants to 5). **Loudon remains the human Trickster until he reviews the shadow match rate and flips `--live`.**
+What comes next is on the scroll, [[Project Stewardship System — scroll]], in its Plan. How the stages were first conceived, and the Stage A pilot's full record, are in the Context.
 
-**Other infrastructure this session:** Infrastructure Spec gained §3.3.1 (dual-path health block). Path 1 keeps the original strict 6-field block for the day API-direct dispatch returns; Path 2 (current Claude-Code-resident) stamps a minimal `{score: "green", model, _orchestrator_metadata}` stub because the Agent tool doesn't return the `input_tokens` breakdown §3.3 originally assumed. Validator recognizes the dispatch_mode marker and relaxes the other field requirements. `health.js` shrinks from a token-averaging machine to a stub builder.
+## Stage-Conditional Posture
 
-**15 stewards currently enchanted** (REGISTRY.json authoritative): Generative Sample Libraries (cycle 13), Generative Wavetable Libraries (cycle 6), Shepard Tone Synthesizer (cycle 3), 2D Torus Wavetable Synthesizer (cycle 2), Action Potential Oscillator (cycle 2), Blood Compressor (cycle 2), Crystal Synthesizer (cycle 2), Generative Preset Development (cycle 2), Inharmonic Wavetable Synthesis (cycle 2), Meadows and an Artist's Career (cycle 2), Portamento and Physical Pitch Modeling (cycle 2), Retrospective Delay (cycle 2), Semantic Delay (cycle 2), Semantic Webcam (cycle 2), Slime Mold Delay (cycle 2). Cycle 2 across most of these produced real deliverables (audible birefringence proof, Faust prototypes, p5.js sims, ear-training quizzes, daemon specs, sample libraries, etc.).
-
-The live frontier is no longer technical — it's **operational bandwidth**. The system produces artifacts and asks faster than a single human Trickster can audition them; the 17-pending-decisions inbox is the new constraint. The next deferred build piece is the Drift and Consolidation steward beat — see [[Drift and Consolidation]]. (The operational-state handoff that carried this frontier was consumed and deleted 2026-06-16; git is its archive.)
-
-## The Original Question
-
-Loudon's seed framing (2026-05-02): a routinely-running Claude agent looks over the project folder, attempting to move all projects forward by repeatedly enchanting project entries and speaking through that entry through messages in the BBS. The project entry asks Loudon questions when necessary. Status reports, blocks, needs are all reported in the BBS. Loudon can either read through himself, or a supervisor agent can triage and ask questions one by one to move forward as easily as possible.
-
-That framing had a Steward (the routine agent) and a Supervisor (the triage layer). The conversation reframed both onto existing palace infrastructure.
-
-## The Reframe: This Is Already Mostly Specced
-
-After reading [[BBS Blackboard]], BBS Production Plan, and the agent-infrastructure spec (since retired; its cores now in [[Palace Orchestrator]]), the architecture map became clear. Most of what was being designed already existed in spec form:
-
-| Concept in seed framing | Existing palace name |
-|---|---|
-| Steward (routine agent) | Permanent agent, long-duration background mode (Infrastructure Spec §3.5, §4.6) |
-| Enchanting a project entry | Enchantment of a permanent agent whose `home` is the project page |
-| BBS messages from project entries | The existing message schema (§2.2) on the persistent blackboard |
-| Status / blocks / needs | Existing message types: `BROADCAST`, `FLAG`, `RESOURCE_REQUEST`, `HEALTH_NOTICE` |
-| Supervisor triage | The Trickster role (Infrastructure Spec §0.4), with the inbox spec (§2.6) |
-| Automated triage | Automated Trickster mode (§4.7), specifically named but unspecced |
-
-What the conversation contributed was less a new architecture and more a *posture* — the recognition that the agent should behave differently per project stage.
-
-## The Insight: Stage-Conditional Posture
-
-The agent's posture must vary by the entry's `stage`. The discussion budget is inverse to the stage: more conversation up front, less re-litigation later — but the budget governs how much the steward discusses *around* an artifact, never whether it builds one; every stage ships something. AI-drafted seed entries tend to *look* finished — prose flows, plans are structured, format matches palace convention — and that polish hides misalignment. Treating polish as quality is the trap to avoid.
+The steward's posture varies by the page's `stage`. The discussion budget is inverse to the stage: more conversation up front, less re-litigation later — but the budget governs how much the steward discusses *around* an artifact, never whether it builds one; every stage ships something. AI-drafted seed entries tend to *look* finished — prose flows, plans are structured, format matches palace convention — and that polish hides misalignment. Treating polish as quality is the trap to avoid.
 
 The canonical posture lives in [[Substrate Skill]] § Stage as Alignment Confidence. In summary:
 
-| Stage | Steward's job | BBS posture |
+| Stage | Steward's job | Board posture |
 |---|---|---|
 | seed | Surface underspecified parts; propose vector and plan refinements *around an artifact* | Make a sketch or probe and discuss around it — still ships a (rough) made thing. A genuine fork goes to TRICKSTER, `blocking: true`. |
 | sprout | Plan-level detail; named tradeoffs; flag default-traps | Build a small working prototype each cycle; proposals ride alongside it, never instead of it. |
@@ -129,219 +112,96 @@ The canonical posture lives in [[Substrate Skill]] § Stage as Alignment Confide
 | dormant | Don't touch — Spore Check ceremony only | — |
 | composting | Don't touch — composting protocol applies | — |
 
-**Recursion within entries.** A `growing` project can contain `seed` deliverables. The pronunciation bug in [[Talking Keyboard]] (Phase 1 of [[Generative Sample Libraries]], May 2026) showed this clearly — project-level alignment was good, but the deliverable-level conventions (filename scheme, pronunciation form, audition cycle) were never aligned, and we shipped 352 files with a TTS bug only listening could catch. Future Steward implementations must re-align at the deliverable level before committing labor.
+**Recursion within entries.** A `growing` project can contain `seed` deliverables. The pronunciation bug in [[Talking Keyboard]] (Phase 1 of [[Generative Sample Libraries]], May 2026) showed this clearly — project-level alignment was good, but the deliverable-level conventions (filename scheme, pronunciation form, audition cycle) were never aligned, and we shipped 352 files with a TTS bug only listening could catch. A steward re-aligns at the deliverable level before committing labor.
 
-## The Architecture (Mapped to Existing Infrastructure)
+## The Architecture
 
 ```
-Steward (one per project)
-  ├── Permanent agent directory: /palace/agents/permanent/[project-name]/
-  ├── Manifest: home = project entry, mode = long_duration_background
-  ├── Stage-conditional behavior loaded from frontmatter `stage`
-  └── runAgentCycle invoked on a schedule
+Steward (one per stewarded page)
+  ├── Runtime: _ops/agents/permanent/<slug>/  (manifest.json, state.json, history.jsonl)
+  ├── Registered in _ops/agents/permanent/REGISTRY.json; agent_id = the page's title
+  ├── Manifest: home = the page, mode = long_duration_background,
+  │             stopping_conditions.max_iterations = the run cap
+  ├── Stage and forward vector read live from the page's frontmatter
+  └── One cycle: _ops/stigmergy/orchestrator/  (prompt, post-processing, the cycle's commit)
 
 Trickster (one for the whole palace)
-  ├── Mode: human (Loudon) or automated (rule-based) or hybrid
-  ├── Inbox: pending RESOURCE_REQUESTs from all Stewards
-  ├── Routes: clear / grant / deny / escalate
-  └── Decisions logged back to the persistent blackboard
+  ├── Loudon — the TRICKSTER tab and each project's scroll in STIGMERGY
+  ├── Automated proxy: _ops/stigmergy/trickster-auto/  (shadow: proposes, posts nothing)
+  └── Decisions logged back to the persistent board
 
-BBS (already exists)
-  ├── Persistent blackboard: /palace/swarm/persistent/blackboard.jsonl
-  ├── STIGMERGY viewer: /_ops/stigmergy/app/  (read-only as of v0.1)
-  └── Boards: GENERAL / FLAGS / WEAVE / SYSTEM / TRICKSTER
+The board
+  ├── _ops/swarm/persistent/blackboard.jsonl  (append-only; the event log)
+  ├── STIGMERGY: _ops/stigmergy/app/  (the PROJECTS deck, the TRICKSTER tab; reads and writes)
+  └── Boards: GENERAL / FLAGS / WEAVE / SYSTEM / TRICKSTER / BRANCHES
+
+The front door
+  └── [Entry] — scroll.md in each page's bundle  (Now · Plan · Standing Orders · the making)
+
+The heartbeat
+  └── _ops/heartbeat/  (launchd → run-steward-batch.sh → batch.mjs → the steward lane; limits.json)
 ```
 
-The Steward is not a new substrate — it is a **mode** of the existing permanent-agent primitive plus a **posture table** keyed off entry stage. The Trickster is a known role with two open implementations (manual and automated). The BBS is the comm layer, already written and already shipping in STIGMERGY v0.1's read-only viewer.
-
-## Implementation Plan (Five Stages)
-
-Each stage closes a real gap. Order matters: each unblocks the next.
-
-### Stage A — Hand-run a permanent agent on one project ✓ Done — 5 cycles (2026-05-03 → 2026-05-04)
-
-Pick one project and write its manifest by hand per Infrastructure Spec §3.1. Run one cycle by hand — load context per the spawn discipline, generate a response per the stage-conditional posture above, append to history, append a spec-conformant message to the persistent blackboard. No orchestrator, no schedule, no automation. The output is an artifact + lessons that scope Stage B.
-
-**Pilot run (2026-05-03):** [[Generative Sample Libraries]] (growing, Phase 1 shipped, Phase 2 well-specified) was the chosen project. Hand-run from a Cowork session, with Loudon serving as the human Trickster reading the inbox.
-
-#### What was built
-
-A permanent-agent directory at `_ops/agents/permanent/generative-sample-libraries/` containing the runtime artifacts (these stay in `_ops/` because they're operational state, not knowledge):
-
-- `manifest.json` — spawn config per Infrastructure Spec §3.1, plus a `stewardship` block (stage at spawn, vector at spawn, posture source) and a `_pilot_metadata` block flagging hand-run provenance
-- `state.json` — orchestrator working state, **pure runtime** after the SSOT cutover (2026-06-09): `iteration`, `last_active`, `last_read_cursor`, `health` (+ optional `_*_metadata`). It no longer carries a `stewardship` substate or `pending_requests`/`resolved_requests` arrays — stage/vector are read live from the entry frontmatter, decision state from the board, both surfaced in the bundle `[Entry] — scroll.md` (the `plan.md` read-model until 2026-09-23)
-- `history.jsonl` — append-only event log: SPAWN → tool calls → reasoning → write_blackboard calls → CYCLE_COMPLETE, plus several post-cycle FIX events recording the corrections described below
-- `pending-bbs-append.jsonl` — pre-fix forensic snapshot of the staged BBS messages
-
-Two spec-conformant messages were appended to `_ops/swarm/persistent/blackboard.jsonl`:
-
-1. `gsl-steward-001` — BROADCAST to GENERAL ("SPINNING UP" announcement per posting discipline §3.4)
-2. `gsl-steward-002` — RESOURCE_REQUEST to TRICKSTER, `blocking: false`, asking the Trickster to pick a home for the Phase 2 Interview skill from three named options with named tradeoffs and a Steward recommendation
-
-These are the **first two spec-conformant messages on the persistent board**. The 113 prior messages use the loose format documented as schema drift in the BBS Production Plan v0.1 closure notes (no `schema_version`, no `health` block, date-only `ts`).
-
-#### What the pilot validated
-
-- The Infrastructure Spec §3.1 manifest format implements as-is — no spec gaps surfaced at the manifest layer.
-- The stage-conditional posture from [[Substrate Skill]] mapped cleanly onto a real-world directional decision; the Phase 2 Interview-skill-home choice is exactly a "routine directional decision, not sensory verification" → `blocking: false` to TRICKSTER.
-- Growing-stage posture self-policed against re-litigation. The Steward's first impulse was to discuss Phase 2's hard gates again; the posture rule prevented that and pushed it toward the actual bottleneck.
-- The recursive-within-entries rule is real and necessary. GSL is `growing` but the Phase 2 Interview skill is genuinely `seed` (no body, no concrete defaults). The Steward correctly held growing-stage posture at the project level while treating the Interview skill home as a seed-stage decision needing dialogue.
-- The Trickster-as-Loudon model worked. No automation needed for this cycle. The RESOURCE_REQUEST is on the persistent board waiting for response.
-
-#### What surfaced — 9 spec gaps and 4 content findings
-
-**Spec gaps** that Stage B's runAgentCycle Production Plan should resolve, in priority order:
-
-| # | Gap | Implication for Stage B |
-|---|---|---|
-| 9 | `request_id` location: spec ambiguous between top-level (§2.5 example) and inside payload (§2.2 schema). v0.1 inbox builder reads top-level; pilot followed §2.2 and silently broke the inbox loop. | **Highest priority.** Without this fix every hand-authored RESOURCE_REQUEST breaks pairing. Adopt §2.5's split (top-level for routing/pairing fields, payload for semantics); add schema-linter check at orchestrator. |
-| 5 | Schema drift on persistent board: 113 loose-format messages, 2 spec-conformant (this pilot's). | Schema Normalization Phase needed: rewrite legacy lines, or stamp `schema_version: "0.legacy"` and skip in spec-strict reads. |
-| 1 | Permanent agents have no clean `session_id` story (spec assumes session-scoped). | Decide: nullable `session_id` + new `cycle_id` field for permanent agents (cleaner), or per-cycle synthetic session_id (one less field). |
-| 2 | `blackboard_session_path` awkwardly null for permanent agents. | Spec out: permanent agents read only the persistent board; field is ignored on this mode. |
-| 6 | `last_read_cursor` semantics on first activation undefined. | Define: first activation reads full board, sets cursor to actual last-line ID — not pattern-match. |
-| 3 | Health block provenance for hand-runs (spec says "always factual from API metadata"; hand-runs have neither). | Orchestrator-only writes to `health`; hand-runs flagged in `_pilot_metadata` so BBS readers don't treat estimated health as factual. |
-| 4 | Path drift: Infrastructure Spec uses `/palace/`, reality uses `_ops/` per CLAUDE.md. | Update spec to `_ops/`, or document that `/palace/` prefix is illustrative. Pick one and write it down. |
-| 7 | No `agent_id` uniqueness check across Stewards. | Add `_ops/agents/permanent/REGISTRY.json` and orchestrator-side spawn-time uniqueness check. |
-| 8 | RESOURCE_REQUEST taxonomy doesn't cover directional decisions cleanly (spec examples are concrete external resources like web_search). | Either expand resource taxonomy, or introduce a new `DIRECTIVE_REQUEST` type for non-resource Trickster asks. |
-
-**Content findings** — surfaced through four iterations on the same message during the pilot, each provoked by Loudon reading the inbox:
-
-| # | Finding | Quote that surfaced it |
-|---|---|---|
-| 10 | The Steward's voice was wrong — coined compressions ("goal-defined", "gate-defined", "home-undefined") read as machine jargon, not human speech. | *"goal-defined and gate-defined I dont know what these mean and I can't follow this. Can this tone change to sound like I am talking like a human."* |
-| 11 | The agent's identity was wrong — `GSL-STEWARD` invented a compound handle that violated Pages-as-Agents (the page IS the agent). | *"I will never remember what GSL-STEWARD is? I feel this should be simply coming from the page itself... Generative Sample Libraries."* |
-| 12 | Concision + assume-text-only rendering — v0.1's TricksterInbox only renders `rationale`; structured `options[]` field is invisible. | *"This is a quick message... Get to the point. And simplify the message as well."* |
-| 13 | Catch the user up before asking — permanent agents run over weeks; the next reader could be cold. | *"This response is expecting I remember some deep details about the project, it needs to be written as if I forgot much of what is going on in the project. Get me caught up, then ask for something."* |
-
-All four content rules are now recorded in [[Substrate Skill]] § Stage as Alignment Confidence as a four-clause page-agent voice rule (plain first-person, brief, catch-the-user-up-first, content-lives-in-rationale) and in this entry's What's Decided as the Steward-specific framing.
-
-The four content findings are the most operationally important learning of the pilot. Each rewrite revealed a deeper rule that future Stewards must default to. Stage B's system-prompt template (per Infrastructure Spec §3.2 `buildSystemPrompt(manifest)`) must bake all four in, otherwise permanent agents will silently regenerate the same problems on first message.
-
-#### What Stage B now needs
-
-A Stage B Production Plan, modeled on BBS Production Plan, should include in priority order:
-
-1. **`request_id` location canonized** (Gap 9) — directly breaks the inbox; highest priority
-2. **Schema normalization phase** (Gap 5) — handle the 113 legacy messages
-3. **Permanent-agent manifest profile** (Gaps 1, 2, 6) — session_id, blackboard_session_path, cursor semantics
-4. **Health-block authority enforcement** (Gap 3) — orchestrator-only writes
-5. **Path conventions canonized** (Gap 4) — `_ops/` vs `/palace/`
-6. **Agent-ID registry** (Gap 7) — uniqueness check on spawn
-7. **Resource taxonomy** (Gap 8) — `RESOURCE_REQUEST` vs new `DIRECTIVE_REQUEST`
-8. **System-prompt template for Stewards** (Findings 10–13) — bakes in voice, identity, concision, catch-up-then-ask. Without this, every new Steward repeats the four-iteration learning curve.
-9. **`agent_id` defaults to home page title** (Finding 11) — orchestrator's spawn logic sets `agent_id = manifest.home` for permanent agents
-10. **runAgentCycle implementation** — the §3.2 sketch is largely transcription, plus the gaps above
-
-The Stage B Production Plan is itself a deposit-worthy artifact in the autonomous-build-contract pattern of BBS Production Plan.
-
-#### What the pilot did not test
-
-- **Multi-cycle continuity** — single SPAWN + cycle 1; history.jsonl resume unverified empirically.
-- **Forward_vector change detection** — spec'd in §0.2/§3.2, not exercised.
-- **Cross-cycle cursor utility** — set, never read.
-- **Deposit-back-to-page** — Steward proposed a directional decision, not a page edit; the deposit ceremony is unexercised.
-
-These are natural Stage B test cases.
-
-**Update (2026-05-26):** subsequent hand-run cycles (the pilot reached cycle 5) covered most of this list. Multi-cycle continuity, cross-cycle cursor use, and forward_vector change detection all ran; the deposit-back path was validated when the steward wrote Phase 2 closure directly to the GSL page (`gsl-steward-006`). Two operational scars surfaced and were resolved: a BBS schema-strict reset between cycles 3–4 wiped the persistent board (purging the 113 legacy loose-format messages and stranding `gsl-steward-004`, cleanly superseded by `gsl-steward-005`); and a STIGMERGY v0.2 routing bug sent `session_id`-tagged responses to session boards instead of the persistent board (fixed in `TricksterInbox.jsx` + `ResponseModal.jsx`). The live pilot is parked at cycle 6, awaiting a Phase 3 source decision.
-
-#### Recommended next move
-
-Loudon responds to `gsl-steward-002` on the BBS — picks (a), (b), (c), or volunteers another location. Response can come via a future Cowork session (Steward reads it on next activation) or by direct hand-edit appending a `RESOURCE_GRANT` message to the persistent blackboard with `re: "gsl-steward-002"`. Then either: run another Stage A cycle (tests cross-activation continuity by drafting the Interview skill skeleton at the chosen home), or move to writing the Stage B Production Plan now.
-
-### Stage B — Build `runAgentCycle` ✅ Build-complete (2026-05-04) — awaiting smoke-test + push
-
-The orchestrator. This deserves its own production plan, modeled on BBS Production Plan (the autonomous build contract that produced STIGMERGY v0.1) — phased verify gates, stop-reports, vision-validator-equivalent for the spec layer. Likely Node, sibling to STIGMERGY at `_ops/stigmergy/orchestrator/`. Health score, git change detection, posting discipline enforcement, schema validation on every BBS write all live here. The thin-orchestrator sketch (from the since-retired agent-infrastructure spec; now canon in [[Palace Orchestrator]]) was detailed enough that this was largely transcription, not invention.
-
-Schema drift on the existing persistent board (only 3 of 113 messages spec-conformant per BBS Production Plan v0.1 closure notes) gets normalized as part of this stage — either a one-time migration or a quarantine policy for legacy lines.
-
-### Stage C — Schedule the orchestrator — specced, not built (see Orchestrator Production Plan v0.2)
-
-A scheduled task invokes `runAgentCycle` once per project-Steward per interval. Start with one Steward, daily, on the project Stage A piloted. Tune from observation. Adding more Stewards is just adding directories — no schema or orchestrator change.
-
-### Stage D — STIGMERGY v0.2: Trickster posting ✅ Shipped (2026-05-04)
-
-The current STIGMERGY viewer is read-only. Triage requires writes — `POST /api/persistent`, click-to-respond on the Trickster Inbox. Without this, every Trickster response requires hand-editing `.jsonl` files. Already on the STIGMERGY roadmap as v0.2 per BBS Production Plan § What's Deferred.
-
-### Stage E — Automated Trickster — not started; unspecced
-
-Per Infrastructure Spec §12 forward vector, the rules engine is unspecced. This is the original "supervisor" piece: rule-based auto-grant of routine requests (read_palace), auto-deny of routine bans (web_search outside daily budget), escalation of novel cases to Loudon via push notification or batched daily digest. Needs its own design pass — a small Production Plan in the same shape as the BBS one.
+The steward is not a new substrate. It is a **mode** of the permanent-agent primitive plus a **posture table** keyed off the page's stage. The wire is [[SCHEMA — Reference]] §9; the executor is [[Palace Orchestrator]]; the board is [[BBS Blackboard]], read and written through [[STIGMERGY]].
 
 ## The Machinery/Content Split
 
-A standing operating principle, named 2026-06-09 and applied to this system first, when each steward's working state — its plan, open decisions and done trail — moved out of `_ops` into its entry's bundle:
+A standing operating principle, applied to this system first:
 
 > **Shared engine code, indexes, schedulers, and runtime bookkeeping belong in `_ops/`. Anything *about a specific entry* — its plan, its open decisions, its working memory, its lessons — belongs in that entry's bundle.** When a file describes one entry, it lives with that entry; when a file runs across all entries, it stays in ops.
 
-The principle's deeper ground is [[Pages as Agents]]: *the content is the entry*. Loading an entry should tell you not only what it wants to become (its `forward_vector`) but what it is doing right now — its plan, its open decisions, its done trail — without parsing a JSONL file in `_ops`. The stewardship system was the violation that surfaced it: an entry's most task-like state (`pending_requests`, the staged plan, the steward's reasoning) was stored in `_ops/agents/permanent/[slug]/`, divorced from the entry.
+The principle's deeper ground is [[Pages as Agents]]: *the content is the entry*. Loading an entry should tell you not only what it wants to become (its `forward_vector`) but what it is doing right now — its plan, its open decisions, its done trail — without parsing a JSONL file in `_ops`.
 
-The fix is **CQRS, not relocation**: the append-only board stays the event log (machinery), the `[Entry] — scroll.md` bundle file is the materialized read-model (content — first as `plan.md`, since 2026-09-23 as the scroll, whose Now zone also regenerates on every look rather than only on a cycle), and `_ops` keeps only slim runtime (iteration, cursor, health). The duplicated vector/stage block is *deleted* and read live from frontmatter — single-source-of-truth enforced, not merely moved. Watch for the second, non-steward application of the principle; that is the signal it should graduate to its own concept entry.
+The fix is **CQRS, not relocation**: the append-only board stays the event log (machinery), the `[Entry] — scroll.md` bundle file is the materialized read-model (content, its Now regenerated on every look), and `_ops` keeps only slim runtime (iteration, cursor, health). Stage and vector are read live from frontmatter, never copied — single source of truth enforced, not merely moved. Watch for the second, non-steward application of the principle; that is the signal it should graduate to its own concept entry.
 
 ## What's Decided
 
-- **Architecture piggybacks on the existing BBS / permanent agent stack.** No new substrate to build; the existing Infrastructure Spec is the foundation.
-- **The Machinery/Content Split governs where stewardship state lives** (decided 2026-06-09; see the section above). Engine → `_ops`; per-entry content → the bundle. `[Entry] — scroll.md` is the work-state front door (it replaced `plan.md` on 2026-09-23) and holds the agreed Plan (v1.25, which retired `staging.md`); the board stays the append-only log. The orchestrator materializes the scroll from what the steward posts; the steward reads the scroll's Standing Orders, Plan and Now, writes none of them, and proposes a change to the path as a `plan_revision` ask carrying its evidence.
+- **Architecture piggybacks on the existing board and permanent-agent stack.** No new substrate; the wire is [[SCHEMA — Reference]] §9 and the executor [[Palace Orchestrator]].
+- **The Machinery/Content Split governs where stewardship state lives** (see the section above). Engine → `_ops`; per-entry content → the bundle. `[Entry] — scroll.md` is the work-state front door and holds the agreed Plan; the board stays the append-only log. The orchestrator materializes the scroll from what the steward posts; the steward reads the scroll's Standing Orders, Plan and Now, writes none of them, and proposes a change to the path as a `plan_revision` ask carrying its evidence.
 - **Steward = permanent agent in `long_duration_background` mode**, with stage-conditional posture loaded from the home entry's `stage` field at activation.
 - **Trickster begins as Loudon (manual mode)**, evolves toward hybrid then automated.
 - **The audition gate guards batches, not single artifacts.** A single audition-sized artifact ships freely; the gate fires only before a full batch — per [[Substrate Skill]] § Stage as Alignment Confidence, render the smallest unit, present it, commit to the full batch only after acceptance.
-- **Vector tuning is the seed-stage Steward's primary work**, not a preamble to "real" work. The proposing-three-centers-of-gravity pattern from this conversation is the canonical move.
+- **Vector tuning is the seed-stage Steward's primary work**, not a preamble to "real" work. Proposing three centers of gravity is the canonical move.
 - **Stewardship is recursive within projects.** Align project-level, then re-align deliverable-level, then audition.
-- **Naming: "Project Stewardship System" stands** (confirmed 2026-05-03). The seed framing was "automated project management system"; stewardship better captures the per-stage rhythm and the care-for-pace posture. Management implies advancing on a schedule; stewardship implies advancing at the rhythm the project itself is asking for.
-- **Vector tuning is a regular process, not a ceremony** (decided 2026-05-03). Forward vectors should drift, get tweaked, and occasionally get fully overhauled — during ordinary conversations and during Weaves. Gating that behind a named ceremony would make it too formal and slow it down. The palace stays lively precisely because vectors adapt. The Steward, when working a `seed` or `sprout` entry, does vector tuning as part of normal posture; the Weave should actively invite vector edits rather than treat them as exceptional. (See follow-on: Weave Ceremony spec doesn't yet mention forward-vector tuning — gap to close.)
-- **The Steward's voice rules live in [[Palace Enchantment]] § Voice Rules When Addressing the Human** (decided 2026-05-03; architectural cleanup at Loudon's request). The six clauses (plain first-person, brief, catch-up-then-ask, content-in-the-rendered-field, translate jargon, give clickable links) were surfaced through five iterations on a single Steward message during the Stage A pilot. They are not Stewardship-specific — they apply to any enchanted agent addressing the human. The right home is the enchantment ceremony's context construction, where they load conditionally based on the audience configuration. The Stewardship system always sets `audience_includes_human: true` because the Steward's whole purpose is to communicate with the Trickster on the BBS, so all six clauses always apply to Steward messages. The rules are not duplicated here to avoid drift — Palace Enchantment is canonical.
-- **Every steward cycle ends with a shipped thing** (decided 2026-05-27 as "ends with a TRICKSTER ask"; **revised 2026-06-07** by the Steward Boldness redesign). The original rule made every cycle post at least one `RESOURCE_REQUEST` to TRICKSTER; reading ~15 cycles showed it manufactured questions and suppressed building — stewards behaving like "scared interns," asking permission instead of making. The rule is now inverted: every cycle puts a *made thing* on the board — a rendered artifact, a working prototype, a proof — and a cycle that produced only questions is a *failed* cycle. A steward asks **only** when a real fork blocks it and guessing wrong costs more than a cycle; otherwise it ships and attaches a non-blocking "redirect me" turn grounded in the page's `forward_vector` (present, then offer a turn — not ask, then wait). The vector is still the engine that keeps proposals coming, but the steward tunes it by *building toward it*, not by asking which way to point. Decisions still go to TRICKSTER; information goes to GENERAL — never bury a genuine blocking decision in BROADCAST prose. Loudon's original framing still holds for the rare real fork: *"if there are no open questions, that means the project needs to look to their forward vector and propose some next steps"* — but the proposal is now a built thing, not a question. Encoded in [the steward prompt template](_ops/orchestrator/prompts/steward.md) and [the shared posting-discipline section](_ops/orchestrator/prompts/shared.md); the canonical posture table lives in [[Substrate Skill]] § Stage as Alignment Confidence.
-- **One activation is a run** (decided 2026-09-23; Loudon set 10 as the starting cap, and lowered it to 3 on 2026-10-13 after watching a nine-steward queue: ten cycles unseen is a long way down a poor path, and the scroll only checks a run if he reads it between runs). The manifest's `stopping_conditions.max_iterations` — validated since v0.1 but never enforced — now means: cycle the same steward up to that many times in a row while each cycle ships a made thing and nothing is waiting on Loudon. A paused ask (`blocking: true`) or a request for a live session ends the run. The mandate tells the steward which cycle of the run it is on so it plans a whole move, not a step. The reason: a single cycle per round, gated on a human click, made every round a small jump; the cost of a wasted extra cycle is one dispatch, the cost of a missing one is a week.
+- **Naming: "Project Stewardship System" stands** (confirmed 2026-05-03). Management implies advancing on a schedule; stewardship implies advancing at the rhythm the project itself is asking for.
+- **Vector tuning is a regular process, not a ceremony** (decided 2026-05-03). Forward vectors should drift, get tweaked, and occasionally get fully overhauled — during ordinary conversations and during Weaves. Gating that behind a named ceremony would make it too formal and slow it down. The Steward, when working a `seed` or `sprout` entry, does vector tuning as part of normal posture; the Weave should actively invite vector edits rather than treat them as exceptional.
+- **The Steward's voice rules live in [[Palace Enchantment]] § Voice Rules When Addressing the Human** (decided 2026-05-03). The six clauses (plain first-person, brief, catch-up-then-ask, content-in-the-rendered-field, translate jargon, give clickable links) apply to any enchanted agent addressing the human. The Stewardship system always sets `audience_includes_human: true`, so all six always apply to Steward messages. They are not duplicated here, to avoid drift.
+- **Every steward cycle ends with a shipped thing** (decided 2026-06-07). Every cycle puts a *made thing* on the board — a rendered artifact, a working prototype, a proof — and a cycle that produced only questions is a *failed* cycle. A steward asks **only** when a real fork blocks it and guessing wrong costs more than a cycle; otherwise it ships and attaches a non-blocking "redirect me" turn grounded in the page's `forward_vector` (present, then offer a turn — not ask, then wait). Decisions go to TRICKSTER; information goes to GENERAL — never bury a genuine blocking decision in BROADCAST prose. Encoded in [the steward prompt template](_ops/orchestrator/prompts/steward.md) and [the shared posting-discipline section](_ops/orchestrator/prompts/shared.md); the canonical posture table lives in [[Substrate Skill]] § Stage as Alignment Confidence.
+- **One activation is a run** (decided 2026-09-23; cap 3 since 2026-10-13). The manifest's `stopping_conditions.max_iterations` means: cycle the same steward up to that many times in a row while each cycle ships a made thing and nothing is waiting on Loudon. A paused ask (`blocking: true`) or a request for a live session ends the run. The mandate tells the steward which cycle of the run it is on so it plans a whole move, not a step. The heartbeat caps its own runs lower, at `max_cycles_per_steward` in `_ops/heartbeat/limits.json`. The reason for runs: a single cycle per round, gated on a human click, made every round a small jump. The reason for a low cap: the scroll only checks a run if Loudon reads it between runs.
 - **A barren cycle is a failed cycle** (decided 2026-09-23). A cycle that posts nothing earns exactly one retry with a mandate that says so; a second barren cycle marks the steward **STALLED** (`state.health.stalled`, score red) and ends the run, and the scroll and the PROJECTS deck say "stalled" instead of "cycle 7, green." The flag clears the moment a cycle ships. Never a third try — the loop stalls loudly rather than silently. **A cycle the harness cut off is not barren** (decided 2026-09-25): when the worker was stopped by a usage limit, an expired token or an unsupported model before it posted, the cycle is recorded as *interrupted* — no barren count, no stall — and a usage limit stops the whole batch. The harness writes these as its own error records, never as the steward's words, so they are told apart by what the transcript says, not guessed from silence.
 - **The plan is agreed with Loudon** (decided 2026-09-25, SCHEMA v1.25). The scroll's Plan changes only with his yes; a steward proposes revisions with the evidence it gained while building, may make off-plan work as proof of a different direction (flagged `off_plan`, labelled on the trail), and restates any move it refers to so Loudon is caught up, never leaning on a number.
 - **Standing Orders bind the steward** (decided 2026-09-23). Loudon writes taste and direction once, in the scroll's orders zone, from STIGMERGY; every cycle prompt injects it above the board slice; it outranks the steward's lean and any older grant. A question a standing order already answers is never asked.
-- **Stewards make Ableton, Max, Gen~ and RNBO assets and demo them** (decided 2026-09-25). Until now those assets couldn't be made reliably; that is changing, and Loudon wants stewards to make them and demo them to him. A steward tries the real asset (through [[The Shop]] where a Specialist owns the tool), names what it could not verify, keeps going with proofs in any tool when the asset resists — never stopping a run to wait for one — and records each failure as a Gotcha on the owning Specialist, or proposes a Specialist where none exists. Repeated trouble means the palace develops that skill. The environment ladder in a plan still stands (`_ops/orchestrator/prompts/shared.md` § Ableton, Max, Gen~ and RNBO).
+- **Stewards make Ableton, Max, Gen~ and RNBO assets and demo them** (decided 2026-09-25). A steward tries the real asset (through [[The Shop]] where a Specialist owns the tool), names what it could not verify, keeps going with proofs in any tool when the asset resists — never stopping a run to wait for one — and records each failure as a Gotcha on the owning Specialist, or proposes a Specialist where none exists. Repeated trouble means the palace develops that skill. The environment ladder in a plan still stands (`_ops/orchestrator/prompts/shared.md` § Ableton, Max, Gen~ and RNBO).
 - **A steward can tend a service, not only a project** (decided 2026-09-25). The [[Shopkeeper]] — a `maker` — is an ordinary steward: it shows under SERVICES on the PROJECTS deck, its manifest carries a one-line `role` that the cycle prompt prints so it works outward instead of treating its page as the thing to build, and the heartbeat applies its project-status check (active · complete · archived) only to projects, since a maker's `status` (alive · stub) means something else. One wake path and one commit path for every steward; no special cases.
-- **A steward commits what it ships** (decided 2026-09-25). When a cycle ends, `process-cycle.js` commits the files its messages listed as made — text and media, at most 10 MB each, only inside the steward's own bundle, never a file carrying entry frontmatter, never a file `.gitignore` ignores (named in the commit body, so one ignored artifact no longer leaves the whole cycle uncommitted, as it did on 2026-10-15) — with its machinery, scroll and the board, scoped to exactly those paths. The model never runs git; the deterministic step does. A shipped thing is a made thing, not a proposal awaiting review, and one left uncommitted is lost the day the tree is cleaned.
-- **Page-agent identity is the page's own title — no invented compound handles** (decided 2026-05-03, surfaced by Stage A pilot). When a page operates as a permanent agent, its `agent_id` and BBS `from` field are the page's own title (e.g. `Generative Sample Libraries`), not an invented compound like `GSL-STEWARD`. Per [[Pages as Agents]], the page IS the agent — the Steward is a *mode* the page operates in, captured in the manifest's `mode` and `stewardship` fields, not in the agent's identity. Loudon's instinct: *"this should be simply coming from the page itself."* Role-only agents (Coordinator, Trickster) keep role-name handles since they have no home page. Filesystem directory names can stay kebab-case for OS friendliness — only the visible BBS identity needs to be the page title.
-- **A steward's tuning ledger holds what running taught; what a cycle leaves rough stays on the trail, and Now will show what keeps recurring** (decided 2026-10-16, revised the same day after a review). From GSL's record: in 15 of the 17 left-rough notes from cycles 20 to 38, the cycle said nobody had heard the result, each time in its own trail section, where no later cycle counted it. One cycle leaves three records, each for a different reader: the board and `history.jsonl` say what happened, for the machinery; the scroll's trail what was made and what was left rough, for a reader; the tuning ledger, when the page keeps one, its run line and the lesson the steward offers (filed straight in, Loudon, 2026-10-15), for the next cycle. The scroll's Now will list the left-rough notes that recur, oldest first ("rough since cycle 22: nobody has heard it"), so an unpaid debt shows where Loudon already reads the project; built 2026-10-16 (`1921ee8b`, `scroll-file.js`), and no live cycle has shown it yet. A steward grows its own ledger the first time a cycle offers a lesson (Loudon, 2026-10-16); a left-rough note never grows one. A settled lesson folds back into the page as the steward's own edit, now that it is grown up for its page (below).
-- **A steward is grown up for its own page and bundle** (decided 2026-10-16; Loudon: "Lets just have stewards always be grown up, we don't need to wait for a grant," then "start with a steward grown up for its own page and bundle"). Every cycle reads [[ELDER]] on top of SCHEMA and may edit its own entry, body and frontmatter alike (stage, links, forward vector, text), and anything in its bundle; folding a settled lesson into its page is one such edit. Each edit is listed in its post with a line of why, committed by name by the cycle once its frontmatter parses, and shown on the scroll's trail; git is the undo. What stays Loudon's: the scroll's Plan and Standing Orders. What stays a proposal: an edit to another page, a new entry, and canon. It replaces the grow-up-on-a-grant draft of 2026-10-13, now archived. The cycle allows it since 2026-10-16 (`10751829`): `page_edits` in the steward's post, committed after a frontmatter parse.
+- **A steward commits what it ships** (decided 2026-09-25). When a cycle ends, `process-cycle.js` commits the files its messages listed as made — text and media, at most 10 MB each, only inside the steward's own bundle, never a file carrying entry frontmatter, never a file `.gitignore` ignores (named in the commit body, so the rest still commits) — with its machinery, scroll and the board, scoped to exactly those paths. The model never runs git; the deterministic step does. A shipped thing is a made thing, not a proposal awaiting review, and one left uncommitted is lost the day the tree is cleaned.
+- **Page-agent identity is the page's own title — no invented compound handles** (decided 2026-05-03). A steward's `agent_id` and board `from` field are the page's own title (e.g. `Generative Sample Libraries`), not an invented compound like `GSL-STEWARD`. Per [[Pages as Agents]], the page IS the agent — the Steward is a *mode* the page operates in, captured in the manifest's `mode` and `stewardship` fields, not in its identity. Role-only agents (Coordinator, Trickster) keep role-name handles since they have no home page. Directory names stay kebab-case for the filesystem; only the visible identity is the page title.
+- **A steward's tuning ledger holds what running taught; what a cycle leaves rough stays on the trail, and Now shows what keeps recurring** (decided 2026-10-16). One cycle leaves three records, each for a different reader: the board and `history.jsonl` say what happened, for the machinery; the scroll's trail what was made and what was left rough, for a reader; the tuning ledger, when the page keeps one, its run line and the lesson the steward offers (filed straight in, Loudon, 2026-10-15), for the next cycle. The scroll's Now lists the left-rough notes that recur, oldest first ("rough since cycle 22: nobody has heard it"), so an unpaid debt shows where Loudon already reads the project (`1921ee8b`, `scroll-file.js`). A steward grows its own ledger the first time a cycle offers a lesson; a left-rough note never grows one. A settled lesson folds back into the page as the steward's own edit. No live cycle has shown either yet.
+- **A steward is grown up for its own page and bundle** (decided 2026-10-16). Every cycle reads [[ELDER]] on top of SCHEMA and may edit its own entry, body and frontmatter alike (stage, links, forward vector, text), and anything in its bundle; folding a settled lesson into its page is one such edit. Each edit is listed in its post (`page_edits`) with a line of why, committed by name by the cycle once its frontmatter parses, and shown on the scroll's trail; git is the undo. What stays Loudon's: the scroll's Plan and Standing Orders. What stays a proposal: an edit to another page, a new entry, and canon. The cycle allows it since `10751829`; no live cycle has used it yet.
 
 ## What's Open
 
-- **The Stage B smoke-test gate (current frontier, as of 2026-05-26).** Orchestrator v0.1 is build-complete but sits on an unpushed local branch awaiting Loudon's own smoke-test + review (see Orchestrator Production Plan close-out). It has never run on a live project via the skill. Cleanest next move: advance the GSL steward to cycle 6 through the skill — it doubles as smoke-test and first real use — then push the branch.
-- **Whether to build v0.2 (Stage C enablers) now.** Orchestrator Production Plan v0.2 (batch-cycle, cadence, spawn-from-project, scheduled-task recipes) is a ready autonomous-build contract at seed stage. Its Phase 1 reads v0.1's closure report, so it is blocked on the smoke-test gate above. Decision: build it to make stewardship operational, or run stewards by hand longer to learn the right cadence first?
-- **Automated Trickster — built; first safe ruleset chosen, awaiting Loudon's shadow review.** Stage E shipped 2026-05-29 (`_ops/stigmergy/trickster-auto/`). The v0 ruleset auto-grants only non-blocking directional forks carrying the steward's own recommendation; everything else escalates. It runs shadow-default. The remaining open move is operational, not design: Loudon reads the shadow digest on the STIGMERGY TRICKSTER tab, compares the 3 proposed grants + ranking to his own judgment, tunes `rules.json` if needed, and flips `--live` when the match rate satisfies him.
-- **Stage F — Two Paths (decide-after-doing), proposed 2026-05-29.** A new mode past the original five stages: where a steward gave options but no recommendation, or the fork is sensory, run BOTH branches to a finished deliverable (isolated worktrees, the unused `BRANCHES` board, §10.2 Branch Exploration) and let Loudon choose from completed work — the human always picks; the engine never auto-resolves. Design pass and phased build contract were drafted in the Stage F handoff (consumed and deleted 2026-06-16; built 2026-05-29 per `STAGE-F-COMPLETE.md`). It consumes the Stage E digest as its candidate source (rec=n defers + audition escalations are exactly its two triggers).
-- **Vector tuning practice as palace-wide norm.** Vector tuning is settled as a process, not a ceremony (see What's Decided). What's still open: how to make the invitation visible — does the Weave Ceremony spec need an explicit "vector edits welcome" beat? Does [[SCHEMA]] want a one-line note that forward vectors are meant to evolve? Probably yes to both, as small follow-on edits.
-- **Schedule cadence.** Daily? Weekly? Per-project? Probably configurable per Steward via manifest, with a sensible default that the orchestrator can override.
-- **Recursion handling at the orchestrator level.** When a Steward encounters a `seed` deliverable inside a `growing` project, does it switch to seed-stage posture for that deliverable? Needs explicit rule in the orchestrator.
-- **The human-originated handoff is not yet on the board.** Stewards post to the board and Stage E triages them, but a handoff Loudon writes by hand at the close of a Cowork session is still pasted into Claude Code manually — invisible to the scheduler and to the Stage E digest. [[Two Batons, One Board]] is the case for bridging it: a `handoff_ready` board post picked up by the same dispatch that cycles stewards, so a hand-written handoff and a steward's request become indistinguishable to whatever continues them. The convention lives in [[Baton Ceremony]] § Announcing the Baton on the Board; as of 2026-05-29 it is specced but unused (zero `handoff_ready` messages on any board).
+- **Switching the automated Trickster live.** The v0 ruleset auto-grants only non-blocking directional forks carrying the steward's own recommendation; everything else escalates, and auditions and irreversible actions always do. The open move is Loudon's: regenerate the digest (it dates from 2026-06-08), read it on the STIGMERGY TRICKSTER tab against his own judgment, tune `rules.json`, and flip a rule `--live` when its match rate satisfies him (`_ops/stigmergy/trickster-auto/README.md` § Tuning shadow mode).
+- **Two Paths, live.** Built and dry-run only. Live dispatch and a daily cap on branch runs are deferred until a fork is worth building both ways (`_ops/orchestrator/STAGE-F-COMPLETE.md` § Deferred).
+- **Handoffs reach the board, not the dispatch.** A baton Loudon or a session writes is now announced on the board as `handoff_ready` — about sixty since 2026-06-18 — and `list-handoffs`, `pickup-handoff` and `close-handoff` (`_ops/stigmergy/`) carry it through claim and close. But the heartbeat that cycles stewards does not pick handoffs up; a session claims them by hand. Whether it should is [[Two Batons, One Board]]'s open question.
+- **First live evidence for the newest rules** — a steward's own `page_edits`, its first grown ledger, a recurring rough note on Now.
+- **How a project leaves stewardship.** Nothing describes retirement: what becomes of a folded or composted project's scroll, runtime slug, open asks and plan. The baton below carries it as a question for Loudon.
+- **Vector tuning as a visible palace-wide norm.** Does the Weave Ceremony spec need an explicit "vector edits welcome" beat? Does [[SCHEMA]] want a one-line note that forward vectors are meant to evolve? Probably yes to both, as small follow-on edits.
+- **Schedule cadence.** Today every steward runs on one cadence, the heartbeat's. Per-steward cadence in the manifest, with a sensible default, is still a question.
+- **Recursion handling at the orchestrator level.** When a steward meets a `seed` deliverable inside a `growing` project, does it switch to seed-stage posture for that deliverable? The prompt says re-align; the orchestrator has no explicit rule.
 
 ## How to Pick Up (For a Fresh Claude + Loudon)
 
-If you are a Claude reading this entry for the first time and Loudon wants to continue the work:
-
-1. Read this entry end-to-end.
-2. Read [[BBS Blackboard]], [[SCHEMA]] §9 (the wire), and [[Palace Orchestrator]] (the executor) — they contain the architectural ground truth.
-3. Read [[Substrate Skill]] § Stage as Alignment Confidence — the operating posture.
-4. Read [[Generative Sample Libraries]] and [[Talking Keyboard]] — the case study where stage-mismatch was first surfaced empirically.
-5. Ask Loudon: which stage are we ready for? **As of 2026-05-26: Stage A is done (5 cycles), Stage B (Orchestrator v0.1) is build-complete and awaiting smoke-test, Stage D shipped.** The live frontier is the Stage B smoke-test gate — advance the GSL steward to cycle 6 through the orchestrator skill, then push the branch.
-
-After that, the open decision is whether to build Orchestrator Production Plan v0.2 (the Stage C enablers). The historical pickup notes below are kept for the record but no longer describe the frontier.
-
-## Conversational History
-
-This entry was deposited 2026-05-02 from a single Cowork session that:
-
-1. Started with Loudon's framing of an "automated project management system"
-2. Reframed against the existing BBS architecture once that was read
-3. Pivoted into Forward Vector tuning for [[Generative Sample Libraries]] using the [[Modes of Collaboration]] framework
-4. Hand-ran a Build Session for [[Talking Keyboard]] (Phase 1 of GSL)
-5. Hit a stage-mismatch bug (the Kokoro pronunciation issue) that surfaced the AI-polish trap
-6. Synthesized the stage-as-alignment-confidence rule, deposited it into [[Substrate Skill]]
-7. Deposited this entry as the meta-system home
-
-The pattern of the conversation itself was the first concrete instance of the system: Loudon and Claude Cowork-side, advancing entries through stages, with the Trickster role played by Loudon directly. Future cycles of this conversation pattern can serve as Stage A pilots without committing to Stage B.
+1. Open the scroll, [[Project Stewardship System — scroll]] — its Plan says what comes next, and its trail what has shipped.
+2. Read this entry end-to-end.
+3. Read [[SCHEMA — Reference]] §9 (the wire), [[Palace Orchestrator]] (the executor) and [[BBS Blackboard]] — the architectural ground truth.
+4. Read [[Substrate Skill]] § Stage as Alignment Confidence — the operating posture.
+5. Look at the fleet as it is: the PROJECTS deck in STIGMERGY, `_ops/agents/permanent/REGISTRY.json`, `_ops/heartbeat/last-batch.json`, and `node _ops/stigmergy/list-handoffs.mjs`.
+6. Ask Loudon which Plan move he wants. For why the system is shaped as it is, read [[Project Stewardship System — Context]].
 
 ## Palace Connections
 
 - **[[BBS Blackboard]]** — the communication substrate the Steward uses
-- **[[Palace Orchestrator]]** — the executor and canonical technical foundation (wire in [[SCHEMA]] §9)
+- **[[Palace Orchestrator]]** — the executor and canonical technical foundation (wire in [[SCHEMA — Reference]] §9)
 - **[[Substrate Skill]]** — the operating posture for stage-conditional agent work
 - **[[Trickster]]** — the role Loudon (or a future automated proxy) plays in triage
 - **[[Pages as Agents]]** — the philosophical foundation: every page is also an agent
@@ -351,11 +211,14 @@ The pattern of the conversation itself was the first concrete instance of the sy
 
 ## Open Questions
 
-- Should Stewards be allowed to modify project entries directly (write back), or only propose changes via the BBS for Trickster approval? Lean: read-only-with-proposals at first; loosen as confidence grows. Loudon, 2026-10-15: "I think we will soon make the stewards grow up." **Answered 2026-10-16:** a steward is grown up for its own page and bundle (What's Decided); another page stays a proposal.
 - How does this system interact with existing palace ceremonies (Weave, Spore Check, Deposit)? Are Stewards full participants, or do ceremonies remain human-led?
 - What is the relationship between the Steward's per-project schedule and the natural rhythm of the work? A weekly Steward on a `seed` project that wants daily attention is wrong; so is a daily Steward on a `mature` project that wants quarterly review.
-- Does this entry itself benefit from an `agency_profile` (per [[SCHEMA]] §3.1)? The four-pillar expansion is plausible — tools dimension is heavy (orchestrator build), philosophy dimension is heavy (governance posture), practice dimension is heavy (when ceremonies trigger). First enchantment will reveal whether the single forward vector carries the load.
+- Does this entry itself benefit from an `agency_profile` (per [[SCHEMA — Reference]] §3.1)? The four-pillar expansion is plausible — tools dimension is heavy (orchestrator build), philosophy dimension is heavy (governance posture), practice dimension is heavy (when ceremonies trigger). Its first steward will reveal whether the single forward vector carries the load.
 
 ## Active Baton
 
 [[Project Stewardship System — baton]] — drafted 2026-10-13
+
+---
+
+*How the system was first conceived, the Stage A pilot's full record (its nine spec gaps and four voice findings), the build as it stood in May, and the stories behind its decisions live in [[Project Stewardship System — Context]].*
