@@ -15,18 +15,19 @@ forward_vector: "I am Sentry's scroll — the one page that opens on which versi
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-16T00:45:38.465Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-16T03:14:19.069Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** — · **Stage:** growing
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
 - **Version:** v1.3 · the spec last changed 2026-10-14 (`5c473ad9`) — ops(Sentry): the hosting check reads whether GitHub refuses a force push to main for everyone who can push
-- **Runs since the change:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-15 — sweep (hosting) of 3778f4a0, nothing raised · taught item 12 (under v1.3)
+- **Runs since the change:** 2 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-10-16 — quick sweep of 118edcbc and a hand read of every ref, 2 raised, held locally · nothing new (under v1.3)
 - **Owed in the ledger:** 1 — item 4; the next run's tail read picks it up first
 - **Latest lesson:** item 12, from the door's plan — 2026-10-14 (GitHub's guard on main) — [[Sentry — tuning]]
 
 ### Runs since v1.3
 
+- 2026-10-16 — quick sweep of 118edcbc and a hand read of every ref, 2 raised, held locally · nothing new
 - 2026-10-15 — sweep (hosting) of 3778f4a0, nothing raised · taught item 12
 
 ### Owed
@@ -50,6 +51,20 @@ _Loudon's standing direction for this ceremony — never regenerated. It holds u
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="run-f452ecbc35" -->
+### 2026-10-16 — quick sweep of 118edcbc and a hand read of every ref, 2 raised, held locally
+
+nothing new
+<sub>a run under v1.3 · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-7a2f382468" -->
+### 2026-10-16 — quick sweep of 118edcbc, 1 raised, held locally
+
+nothing new
+<sub>a run under v1.3 · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="run-6d6c642594" -->
 ### 2026-10-15 — sweep (hosting) of 3778f4a0, nothing raised
 
