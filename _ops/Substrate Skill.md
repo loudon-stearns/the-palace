@@ -199,7 +199,7 @@ Read CLAUDE.md first, then [[ELDER]], then SCHEMA.md (and `SCHEMA — Reference.
 
 #### Committing from Cowork
 
-Never raw-commit from Cowork — it can rename but not delete files, so a bare `git commit` strands lockfiles and wedges the repo. Use the lock-safe committer instead: [[cowork-git]] (`_ops/cowork-git/SKILL.md`), reserved for small non-canon changes (canon still goes through the Deposit Ceremony). From a Mac-side Claude Code session, commit normally — the restriction does not apply.
+Never raw-commit from Cowork — it can rename but not delete files, so a bare `git commit` strands lockfiles and wedges the repo. Use the lock-safe committer instead: [[cowork-git]] (`_ops/cowork-git/SKILL.md`), reserved for small non-canon changes (canon still goes through the Deposit Ceremony). From a Mac-side Claude Code session the Cowork restriction does not apply, but the door does: commit by name through the palace committer, as every session does ([[How the Palace Commits]]).
 
 ### Directory Structure
 
