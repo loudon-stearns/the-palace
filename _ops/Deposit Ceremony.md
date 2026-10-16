@@ -68,7 +68,7 @@ The deposit is the palace's protection. It is the one gate a find passes on its 
 
 **Loudon** is the palace's human, and his pace leads. Ask at least one genuine question before proposing anything. If he slows down, slow further. Treat surprise and correction as signal, not friction. When what he says reframes the find, his words become part of the deposit, quoted or edited lightly for clarity; the palace is mostly written by AI, and these lines are in his voice. If he says he is too tired to read what would be written (his word, not your read of him), don't press: offer to hand it on as a baton, which stays out of canon, and deposit it fresh when he can.
 
-**A child** (a page, a steward, a worker, a session that hasn't grown up) offers; it does not place. Take its find seriously enough to read its source, not just its summary. The [[Concierge]] or an elder gives it form and writes it, and the child hears what became of its offer.
+**A child** (a page, a worker, a session that hasn't grown up) offers; it does not place. Take its find seriously enough to read its source, not just its summary. The [[Concierge]] or an elder gives it form and writes it, and the child hears what became of its offer.
 
 **A spent session at a close** starts here, it doesn't finish here. The reckoning's *keep* is beat one of a deposit, and every step below still runs. If Loudon can't read the words tonight, offer him the row back as a *hand on*; don't make that call for him, because it changes a reckoning he already agreed to.
 
