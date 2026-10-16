@@ -11,6 +11,8 @@ import { buildEntryTree } from '../../src/lib/entry-tree.js';
 import { readLiveMap } from '../../src/lib/topology-live.js';
 import { findUnsungEdges, buildPalaceIndex } from '../../src/lib/unsung-paths.js';
 import { entryUse } from '../../src/lib/entry-use.js';
+import { checkAllowList } from '../../src/lib/entry-edit.js';
+import { ceremonyPathsFor } from '../ceremony-register.js';
 
 export async function entriesRoutes(ctx) {
   const { res, palaceRoot, urlPath, query, method } = ctx;
@@ -53,7 +55,10 @@ export async function entriesRoutes(ctx) {
     return true;
   }
 
-  // One entry: { path, title, frontmatter, body, links, bundle, summary }.
+  // One entry: { path, title, frontmatter, body, links, bundle, summary, care }.
+  // `care` is the careful edit path's answer for this file, with the ceremony
+  // register the browser cannot read for itself (a ceremony is a page carrying
+  // `trigger:`, wherever it lives).
   if (urlPath === '/api/entry' && method === 'GET') {
     const rel = query.get('path');
     if (!rel) {
@@ -65,7 +70,8 @@ export async function entriesRoutes(ctx) {
       jsonResponse(res, 404, { error: 'entry not found or excluded', path: rel });
       return true;
     }
-    jsonResponse(res, 200, entry);
+    const care = checkAllowList(entry.path, { ceremonyPaths: ceremonyPathsFor(palaceRoot), frontmatter: entry.frontmatter });
+    jsonResponse(res, 200, { ...entry, care });
     return true;
   }
 

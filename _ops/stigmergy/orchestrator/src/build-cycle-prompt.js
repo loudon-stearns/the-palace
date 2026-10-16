@@ -22,6 +22,7 @@ import { readEntryMeta } from './entry-frontmatter.js';
 import { reconcilePendingRequests } from './process-cycle.js';
 import { MARK, readZone, readStandingOrders, readPlan } from './scroll-file.js';
 import { resolveBundleDir } from './entry-paths.js';
+import { tailRead } from './ledger.js';
 
 const PALACE_ROOT_DEFAULT = resolve(fileURLToPath(new URL('.', import.meta.url)), '../../../..');
 
@@ -230,6 +231,27 @@ export function buildCyclePrompt(opts) {
     }
   }
 
+  // The tuning ledger's tail read (SCHEMA v1.28, Reference §6), when the page
+  // keeps one: what earlier cycles taught, and every line still owed — among
+  // them Loudon's one-shot orders, `- from Loudon · <date> · <words> · owed`,
+  // which are jobs for this run, beside the standing orders above. The cycle
+  // writes the run line itself; the steward offers a lesson as `payload.lesson`.
+  let ledgerSection = '';
+  if (inc.scroll) {
+    const bundle = resolveBundleDir(palaceRoot, manifest.home);
+    const ledgerPath = bundle ? join(bundle.bundleDir, `${manifest.home} — tuning.md`) : null;
+    let ledgerText = '';
+    if (ledgerPath && existsSync(ledgerPath)) { try { ledgerText = readFileSync(ledgerPath, 'utf8'); } catch { /* unreadable */ } }
+    if (ledgerText) {
+      const { recent, owed } = tailRead(ledgerText);
+      ledgerSection = `# Your tuning ledger — what running has taught this page\n\n`
+        + `\`${relative(palaceRoot, ledgerPath)}\`: one run line for every cycle (the orchestrator writes it when the cycle ends) and a numbered item for each lesson. Its tail read, as every run opens with it:\n\n`
+        + `## The last ${recent.length} lines, run lines set aside\n\n${recent.join('\n').trim() || '(nothing yet)'}\n\n`
+        + (owed.length ? `## Still owed, from earlier in the ledger\n\n${owed.map((o) => `${o.line}: ${o.text}`).join('\n')}\n\n` : '')
+        + `A line that says **owed** — a one-shot order from Loudon, or a lesson whose change has not landed — is this cycle's to-do before your own lean. When you finish a one-shot order, name it in your \`shipped_artifact\` payload as \`"paid": ["<its date, or its opening words>"]\` and the cycle marks it paid. You do not edit the ledger. When this cycle teaches you something about how this page works, offer it as \`"lesson"\` in your \`shipped_artifact\` payload: one sentence, and the cycle files it as a numbered item.\n\n`;
+    }
+  }
+
   let historyTail = '';
   try {
     const lines = readFileSync(join(agentDirAbs, 'history.jsonl'), 'utf8').trim().split('\n').filter(Boolean);
@@ -341,7 +363,7 @@ ${schemaSection}
 ${JSON.stringify(stateForPrompt, null, 2)}
 \`\`\`
 
-${scrollSection}${historySection}${boardSection}${pageChangeSection}# This cycle's mandate
+${scrollSection}${ledgerSection}${historySection}${boardSection}${pageChangeSection}# This cycle's mandate
 
 ${extraMandate || defaultMandate({ cycleN, runPosition, runCap, retryOfBarren })}
 

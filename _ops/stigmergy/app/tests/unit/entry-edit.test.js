@@ -99,21 +99,40 @@ describe('entry-edit', () => {
       expect(checkCanon('Jewel — Context.md').allowed).toBe(true);
     });
 
-    // Three ceremony specs live outside _ops/, so the _ops/ pattern never saw
-    // them: Enrichment (root), Sentry (Palace development/), and Closing Well
-    // (root — the page that holds the Close's version and ledger).
-    it('checkCanon refuses the ceremony specs that live outside _ops/', () => {
-      expect(checkCanon('Enrichment.md').allowed).toBe(false);
-      expect(checkCanon('Palace development/Sentry.md').allowed).toBe(false);
-      expect(checkCanon('Closing Well.md').allowed).toBe(false);
-      expect(checkCanon('Closing Well/Closing Well — Context.md').allowed).toBe(false);
+    // A ceremony is a page carrying `trigger:` (SCHEMA v1.28), wherever it
+    // lives: Enrichment (root), Sentry (Palace development/), Closing Well
+    // (root). No list is kept here; the register comes in from the server.
+    const REGISTER = new Set([
+      'Enrichment.md', 'Palace development/Sentry.md', 'Closing Well.md', 'Closing Well/Closing Well — Context.md',
+    ]);
+
+    it('checkCanon refuses the ceremonies the register names, wherever they live', () => {
+      for (const p of REGISTER) expect(checkCanon(p, { ceremonyPaths: REGISTER })).toEqual({ allowed: false, reason: expect.stringMatching(/^ceremony canon/) });
+    });
+
+    it('checkCanon refuses a page whose own frontmatter carries trigger:, register or not', () => {
+      expect(checkCanon('Some New Rite.md', { frontmatter: { title: 'Some New Rite', trigger: ['new rite'] } }).allowed).toBe(false);
+      expect(checkCanon('Some New Rite.md', { frontmatter: { trigger: 'new rite' } }).allowed).toBe(false);
+      expect(checkCanon('Some New Rite.md', { frontmatter: { trigger: [] } }).allowed).toBe(true);
+      expect(checkCanon('Some New Rite.md', { frontmatter: { title: 'x' } }).allowed).toBe(true);
+    });
+
+    it('without a register, a page outside _ops/ is not known to be a ceremony — no list is kept here', () => {
+      expect(checkCanon('Enrichment.md').allowed).toBe(true);
+      expect(checkCanon('Palace development/Sentry.md').allowed).toBe(true);
+    });
+
+    it('the _ops/ patterns still hold: a card, its Context, and a thin card with no trigger of its own', () => {
+      expect(checkCanon('_ops/Walk Ceremony.md').allowed).toBe(false);
+      expect(checkCanon('_ops/Walk Ceremony/Walk Ceremony — Context.md').allowed).toBe(false);
+      expect(checkCanon('_ops/Closing Well Ceremony.md', { ceremonyPaths: REGISTER }).allowed).toBe(false);
     });
 
     it('checkCanon still ALLOWS those ceremonies\' tuning ledgers, and their neighbours in the same folders', () => {
-      expect(checkCanon('Enrichment/Enrichment — tuning.md').allowed).toBe(true);
-      expect(checkCanon('Palace development/Sentry/Sentry — tuning.md').allowed).toBe(true);
-      expect(checkCanon('Closing Well/Closing Well — tuning.md').allowed).toBe(true);
-      expect(checkCanon('Palace development/Concierge.md').allowed).toBe(true);
+      expect(checkCanon('Enrichment/Enrichment — tuning.md', { ceremonyPaths: REGISTER }).allowed).toBe(true);
+      expect(checkCanon('Palace development/Sentry/Sentry — tuning.md', { ceremonyPaths: REGISTER }).allowed).toBe(true);
+      expect(checkCanon('Closing Well/Closing Well — tuning.md', { ceremonyPaths: REGISTER }).allowed).toBe(true);
+      expect(checkCanon('Palace development/Concierge.md', { ceremonyPaths: REGISTER }).allowed).toBe(true);
     });
 
     it('checkCanon ALLOWS ordinary entries and non-canon _ops notes', () => {

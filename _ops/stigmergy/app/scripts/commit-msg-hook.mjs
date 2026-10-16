@@ -24,7 +24,7 @@
 
 import { readFileSync, writeFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
-import { validateCommitMessage, annotateOutOfBand } from '../src/lib/commit-spec.js';
+import { validateCommitMessage, annotateOutOfBand, ceremonyKinds, CEREMONY_KINDS } from '../src/lib/commit-spec.js';
 
 function gitConfig(key) {
   try {
@@ -42,7 +42,21 @@ function resolveAuthor(text = '') {
   return name ? name.toLowerCase().split(/\s+/)[0] : null;
 }
 
-export function runHook(msgPath, { author = null } = {}) {
+// Which subjects are ceremony subjects ("Walk — …") comes from the palace the
+// commit is in: every page carrying `trigger:` (SCHEMA v1.28). A checkout that
+// can't be read for it — a worktree with no node_modules, say — falls back to
+// the ceremonies commit-spec names by kind. Either way the hook never blocks.
+export async function ceremonyKindsHere(cwd = process.cwd()) {
+  try {
+    const root = execFileSync('git', ['rev-parse', '--show-toplevel'], { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+    const { listCeremonies } = await import('../../orchestrator/src/ceremony-scroll.js');
+    return ceremonyKinds(listCeremonies(root).map((c) => c.title));
+  } catch (_) {
+    return CEREMONY_KINDS;
+  }
+}
+
+export function runHook(msgPath, { author = null, ceremonyKinds: kinds = CEREMONY_KINDS } = {}) {
   let text;
   try {
     text = readFileSync(msgPath, 'utf8');
@@ -52,7 +66,7 @@ export function runHook(msgPath, { author = null } = {}) {
     return 0;
   }
 
-  const { valid, errors, warnings } = validateCommitMessage(text);
+  const { valid, errors, warnings } = validateCommitMessage(text, { ceremonyKinds: kinds });
   if (valid) {
     // Conformant -- pass through. Surface warnings but never block.
     for (const w of warnings) process.stderr.write(`[palace commit-msg] note: ${w}\n`);
@@ -84,5 +98,5 @@ if (invokedDirectly) {
     process.stderr.write('usage: commit-msg-hook.mjs <message-file>\n');
     process.exit(0); // never wedge
   }
-  process.exit(runHook(msgPath));
+  process.exit(runHook(msgPath, { ceremonyKinds: await ceremonyKindsHere() }));
 }

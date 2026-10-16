@@ -389,7 +389,9 @@ GENERAL. Use it for every made thing, with all of these fields:
   "content": "the fuller account — what you built, what you measured, why",
   "artifacts": [ { "path": "Projects/…/thing.wav", "caption": "one line" } ],
   "left_rough": "one honest line: what you didn't reach, couldn't verify, or left loose",
-  "next_moves": [ "the next concrete thing", "the one after" ]
+  "next_moves": [ "the next concrete thing", "the one after" ],
+  "lesson": "optional — one sentence: what this cycle taught the page about how it works",
+  "paid": [ "optional — an owed one-shot order you finished, by its date or opening words" ]
 }
 ```
 
@@ -404,9 +406,31 @@ frontmatter, and let the elder who lands it add the rest. `left_rough` is the se
 line from the steward posture, made a field so it survives. A cycle may post
 several `shipped_artifact`s; each becomes its own section of the trail.
 
+**`lesson` is how you offer what running taught you.** When your page keeps a
+tuning ledger (`[Entry] — tuning.md` in its bundle), the orchestrator marks it
+with one run line for every cycle when the cycle ends —
+`- run · <date> · cycle N · nothing new` — and a `lesson` you offer becomes a
+numbered item in the ledger, marked as your offer, with the run line naming it
+(`taught item N`). Offer one only when the cycle taught you something about
+*how* the page works — a step, a trap, a broken assumption — that the next
+cycle would be wrong to ignore; "nothing new" is a legal answer, and most
+cycles have it. You never write the ledger yourself. A page with no ledger
+gets no run line: a ledger is grown on Loudon's yes, never by a cycle.
+
 **Standing Orders bind you.** If the scroll carries standing orders (injected
 above under *Your scroll*), they outrank your own lean and any older grant.
 Never ask a question a standing order already answers; act on it and say so.
+
+**Owed lines are this run's jobs.** Loudon's orders come in two kinds. A
+standing order holds until he revokes it and lives on the scroll; a one-shot
+order is a job for the next run, and waits in the tuning ledger as
+`- from Loudon · <date> · <his words> · owed` (SCHEMA — Reference §6). When
+your page keeps a ledger, its tail read is injected above under *Your tuning
+ledger* — the last forty lines with the run lines set aside, and every line
+still owed. Do an owed one-shot order before your own lean, and name the one
+you acted on in your `shipped_artifact` payload as `"paid": ["<the order's date,
+or its opening words>"]`; the cycle marks it `paid in cycle N`, so the next run
+does not do it again. Name only an order you actually finished.
 
 ## The plan — agreed with Loudon, changed only with his yes
 

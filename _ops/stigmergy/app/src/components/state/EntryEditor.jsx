@@ -43,8 +43,14 @@ export default function EntryEditor({ path, index, onCancel, onSaved }) {
   // refuse genuinely unsafe paths (repo escape, NUL, non-.md, VCS dirs).
   const safety = useMemo(() => checkPathSafety(path), [path]);
   // Whether the CAREFUL path would allow this (false = canon/machinery): drives
-  // the "only a trickster commit can write here" notice.
-  const careAllowed = useMemo(() => checkAllowList(path).allowed, [path]);
+  // the "only a trickster commit can write here" notice. Once the entry has
+  // loaded, the server's answer wins — it holds the ceremony register (a page
+  // carrying `trigger:`, wherever it lives); until then, the page's own
+  // frontmatter and the path patterns.
+  const careAllowed = useMemo(() => {
+    if (state.kind === 'ok' && state.care) return state.care.allowed;
+    return checkAllowList(path, { frontmatter: state.kind === 'ok' ? state.original.frontmatter : null }).allowed;
+  }, [path, state]);
 
   useEffect(() => {
     if (!safety.allowed) {
@@ -60,7 +66,7 @@ export default function EntryEditor({ path, index, onCancel, onSaved }) {
       if (cancelled) return;
       if (r.ok) {
         const orig = { frontmatter: r.frontmatter ?? {}, body: r.body ?? '' };
-        setState({ kind: 'ok', original: orig, title: r.title });
+        setState({ kind: 'ok', original: orig, title: r.title, care: r.care || null });
         setProposed({
           frontmatter: JSON.parse(JSON.stringify(orig.frontmatter)),
           body: orig.body,

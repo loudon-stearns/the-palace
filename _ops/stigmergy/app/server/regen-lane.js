@@ -13,6 +13,12 @@
 // companion lane's existing revert path). No proposal gate. The art-direction
 // gate is the conversation itself — the worker echoes what it's rendering.
 //
+// Every face it makes is one run of the Hero and Avatar Maker (SCHEMA —
+// Reference §6). When the Maker keeps a tuning ledger, the reap marks it with
+// the run line — `- run · <date> · [v<version> ·] <entry>, <target> · nothing
+// new` — in the same commit as the face (makerRunLine). A Maker with no ledger
+// gets none: a ledger is grown on Loudon's yes, never by a render.
+//
 // Its own actuator lane (.actuator-regen/) so a render NEVER collides with a
 // companion turn (Loudon keeps chatting while it renders) — and single-worker-
 // per-lane means one face at a time (scar #4). Board posts are HAND-WRITTEN by
@@ -23,13 +29,15 @@
 // --mock (tiny PNGs, no RunPod).
 
 import { existsSync, readFileSync, writeFileSync, mkdirSync, appendFileSync, unlinkSync } from 'node:fs';
-import { resolve, join } from 'node:path';
+import { resolve, join, relative } from 'node:path';
 
 import { createActuator } from './actuator.js';
 import { readEntry } from '../src/lib/entries.js';
 import { commitSelected } from './commit.js';
 import { appendMessage } from '@stigmergy/core/blackboard';
 import { validateMessage } from '@stigmergy/core/schema';
+import { tuningPathFor, recordRun, localDate } from '../../orchestrator/src/ledger.js';
+import { readEntryMeta } from '../../orchestrator/src/entry-frontmatter.js';
 
 const DEFAULT_REGEN_STATE_DIR_REL = '_ops/stigmergy/.actuator-regen';
 // The render script lives in TRACKED Shop space (alongside the RunPod client),
@@ -54,6 +62,33 @@ export function regenSummary(target) {
   if (target === 'hero') return 'regenerate hero via companion — visual identity (hand-drawn)';
   if (target === 'icon') return 'regenerate avatar via companion — visual identity (hand-drawn)';
   return 'regenerate hero + icon via companion — visual identity (hand-drawn)';
+}
+
+/** What a face run ran on, for its run line: the entry, and which faces. */
+export function regenWhat(title, target) {
+  const faces = target === 'hero' ? 'hero' : target === 'icon' ? 'avatar' : 'hero + avatar';
+  return `${title}, ${faces}`;
+}
+
+/**
+ * Mark the Maker's tuning ledger with one face run, when it keeps one. Returns
+ * the ledger's palace-relative path (to commit with the face) and the line, or
+ * null when the Maker keeps no ledger. Never throws.
+ */
+export function makerRunLine(palaceRoot, { title, target, ts = new Date() }) {
+  try {
+    const ledger = tuningPathFor(palaceRoot, MAKER_FROM);
+    if (!ledger) return null;
+    const meta = readEntryMeta(palaceRoot, MAKER_FROM);
+    const { line } = recordRun(ledger, {
+      date: localDate(ts),
+      version: meta && meta.data ? meta.data.version : null,
+      what: regenWhat(title, target),
+    });
+    return { ledger: relative(palaceRoot, ledger), line };
+  } catch (_) {
+    return null;
+  }
 }
 
 // Stub health — these board posts are hand-written by Node (no LLM call), so the
@@ -273,10 +308,12 @@ export function createRegenLane(opts = {}) {
       }
 
       const summary = regenSummary(target);
+      // The run line rides in the face's commit (the commit that records the run).
+      const run = makerRunLine(root, { title, target });
       let commit;
       try {
         commit = await commitSelected(root, {
-          paths: stage,
+          paths: run ? [...stage, run.ledger] : stage,
           kind: 'enrich',
           scope: title,
           summary,

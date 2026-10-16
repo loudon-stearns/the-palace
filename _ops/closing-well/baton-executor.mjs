@@ -5,8 +5,12 @@
 //   1. scaffolds the bundle file  <Entry>/<Entry> — baton.md  with correct §8
 //      frontmatter and the FIXED On-pickup checklist appended — read at write time
 //      from its single home, `_ops/Baton Ceremony/Baton Ceremony — on-pickup.md`,
-//      so it can never drift from the ceremony that specifies it,
-//   2. adds the "## Active Baton" pointer to the parent entry,
+//      so it can never drift from the ceremony that specifies it. A baton aimed
+//      at one part of the bundle takes a qualifier — <Entry> — baton — <part>.md —
+//      and a second link, connects-to labelled `targets`, to the file it is about
+//      (SCHEMA — Reference §8; Baton Ceremony tuning item 10),
+//   2. adds the pointer line to the parent entry: a new "## Active Baton" section,
+//      or one more line inside the section an earlier baton opened (item 9),
 //   3. builds + validates the handoff_ready announce and (with --post) appends it to the
 //      OWNER persistent board via the canonical _ops/commons/board-post.mjs,
 //   4. prints the exact palace-commit --kind baton command to land the file + pointer.
@@ -21,11 +25,17 @@
 //     --entry "<Entry>" --move "<one sentence>" --body-file <drafted-baton.md> \
 //     --wt-branch <branch> --wt-dir <dir> --wt-profile <profile> \
 //     --session-id <slug> --owner "<owner-root>" [--from "<Entry>"] \
+//     [--qualifier <part> [--targets "<file the baton is about>"]] \
 //     [--write] [--post] [--id <id>] [--ts <iso>] [--model <api-id>]
 //
 //   (no flags)  full PREVIEW — writes nothing, posts nothing, validates the announce.
 //   --write     write the baton file + the parent "## Active Baton" pointer.
 //   --post      also append the validated handoff_ready to the owner board (implies --write).
+//               A baton that lives on main posts with no worktree coordinate; one on
+//               any other branch needs --wt-branch and --wt-dir (item 9).
+//   --qualifier names the part of the bundle the baton is about ("marimba-top").
+//   --targets   the file it is about, as a palace path or a [[wikilink]]; it becomes
+//               the `targets` link. Allowed only with --qualifier.
 //
 // Exit codes: 0 ok · 1 usage / precondition · 2 validation failed · 3 infra failure.
 
@@ -96,6 +106,8 @@ const sessionId = arg('--session-id');
 const owner = arg('--owner');
 const from = arg('--from', entry);
 const model = arg('--model') || latestOpus();
+const qualifier = (arg('--qualifier') || '').trim();
+const targets = (arg('--targets') || '').trim();
 const doWrite = has('--write') || has('--post');
 const doPost = has('--post');
 
@@ -103,14 +115,43 @@ if (!entry || !move || !bodyFile || !owner || !sessionId) {
   die(1, 'missing required arg (need --entry --move --body-file --session-id --owner). See header.');
 }
 if (!existsSync(bodyFile)) die(1, `--body-file not found: ${bodyFile}`);
-if (doPost && (!wtBranch || !wtDir)) {
-  die(1, 'a cross-worktree announce (--post) needs --wt-branch and --wt-dir (the coordinate the catcher navigates to).');
+if (qualifier && /[\/\[\]|#^]|\s—\s/.test(qualifier)) {
+  die(1, `--qualifier "${qualifier}" can't be part of a filename here (no slashes, brackets, |, #, ^ or " — ").`);
+}
+if (targets && !qualifier) {
+  die(1, 'a --targets link names the part of the bundle a baton is about, so it needs a --qualifier naming that part (SCHEMA — Reference §8).');
+}
+
+// Where the baton lives. One on main needs no worktree coordinate to be caught;
+// one on any other branch is invisible from every other worktree unless the
+// announce carries it (Baton Ceremony § Where the Baton Lives; tuning item 9).
+function branchOf(root) {
+  try {
+    return execFileSync('git', ['-C', root, 'rev-parse', '--abbrev-ref', 'HEAD'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+  } catch { return null; }
+}
+const onMain = branchOf(REPO) === 'main';
+if (doPost && !onMain && (!wtBranch || !wtDir)) {
+  die(1, 'a baton off main is invisible from other worktrees: its announce (--post) needs --wt-branch and --wt-dir (the coordinate the catcher navigates to).');
 }
 
 // ISO timestamp without millis, matching the board's existing convention.
 const ts = arg('--ts') || new Date().toISOString().replace(/\.\d{3}Z$/, 'Z');
-const slug = entry.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-const id = arg('--id') || `${slug}-handoff-${ts.slice(0, 10)}`;
+const slugOf = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const slug = slugOf(entry);
+// A qualified baton is a second baton on the same entry, so its id names its part.
+const id = arg('--id') || `${slug}${qualifier ? `-${slugOf(qualifier)}` : ''}-handoff-${ts.slice(0, 10)}`;
+
+// The `targets` link: a wikilink to the file the baton is about. A palace path
+// loses its folders (wikilinks resolve flat across the vault) and a markdown
+// file its extension; a [[wikilink]] is taken as given.
+function targetsLink(t) {
+  if (!t) return null;
+  if (/^\[\[.*\]\]$/.test(t)) return t;
+  const name = t.split('/').filter(Boolean).pop() || t;
+  return `[[${name.replace(/\.md$/i, '')}]]`;
+}
+const targetsTarget = targetsLink(targets);
 
 // ---- the fixed On-pickup checklist (read from its ONE home, never retyped) ----
 // The text lives in the Baton Ceremony's own bundle. This script does NOT carry a
@@ -145,14 +186,18 @@ const ON_PICKUP = loadOnPickup();
 // ---- 1 & 2: scaffold the baton file + the parent pointer ------------------
 const born = ts.slice(0, 10);
 const body = readFileSync(bodyFile, 'utf8').trim();
+const batonName = `${entry} — baton${qualifier ? ` — ${qualifier}` : ''}`;
+const targetsYaml = targetsTarget
+  ? `\n  - target: "${targetsTarget.replace(/"/g, '\\"')}"\n    type: connects-to\n    label: "targets"`
+  : '';
 const batonMd = `---
-title: "${entry} — baton"
+title: "${batonName}"
 born: ${born}
 links:
   - target: "[[${entry}]]"
     type: connects-to
-    label: "baton-for"
-forward_vector: "I carry the in-progress move on [[${entry}]] across a boundary, waiting to be caught by the next Claude and deleted once the move is picked up."
+    label: "baton-for"${targetsYaml}
+forward_vector: "I carry the in-progress move on [[${entry}]]${qualifier ? ` — ${qualifier} —` : ''} across a boundary, waiting to be caught by the next Claude and deleted once the move is picked up."
 ---
 
 ${body}
@@ -164,10 +209,27 @@ ${ON_PICKUP}
 // bundle is [Entry]/ sitting beside [Entry].md, wherever that turns out to be.
 const entryPath = resolveEntryFile(REPO, entry);
 const bundleDir = join(dirname(entryPath), entry);
-const batonPath = join(bundleDir, `${entry} — baton.md`);
+const batonPath = join(bundleDir, `${batonName}.md`);
 const relEntry = relative(REPO, entryPath);
 const relBaton = relative(REPO, batonPath);
-const pointer = `\n## Active Baton\n\n[[${entry} — baton]] — drafted ${born}\n`;
+const pointerLine = `[[${batonName}]] — drafted ${born}`;
+const pointer = `\n## Active Baton\n\n${pointerLine}\n`;
+
+/**
+ * The parent entry with this baton's pointer in it: a new "## Active Baton"
+ * section at the end, or — when an earlier baton opened one — one more line at
+ * the end of that section, so a second baton is pointed at too (item 9).
+ */
+function withPointer(text) {
+  if (text.includes(`[[${batonName}]]`)) return null;
+  const m = /^## Active Baton[ \t]*$/m.exec(text);
+  if (!m) return text.replace(/\s*$/, '\n') + pointer;
+  const after = m.index + m[0].length;
+  const next = text.slice(after).search(/^#{1,2} /m);
+  const end = next < 0 ? text.length : after + next;
+  const section = text.slice(m.index, end).replace(/\s*$/, '');
+  return `${text.slice(0, m.index)}${section}\n${pointerLine}\n${next < 0 ? '' : '\n'}${text.slice(end)}`;
+}
 
 // ---- 3: build the handoff_ready announce ----------------------------------
 const announce = {
@@ -185,6 +247,7 @@ const announce = {
     handoff_path: relBaton,
     receiving_surface: wtDir ? `Claude Code, worktree ${wtBranch} (${wtDir})` : 'Claude Code (Mac)',
     move,
+    ...(qualifier ? { qualifier } : {}),
     ...(wtBranch ? { worktree: { branch: wtBranch, dir: wtDir, profile: wtProfile } } : {}),
   },
 };
@@ -238,8 +301,8 @@ mkdirSync(bundleDir, { recursive: true });   // bundles are lazy (§8) — creat
 writeFileSync(batonPath, batonMd);
 let wrotePointer = false;
 {
-  const cur = readFileSync(entryPath, 'utf8');
-  if (!cur.includes('## Active Baton')) { writeFileSync(entryPath, cur.replace(/\s*$/, '\n') + pointer); wrotePointer = true; }
+  const next = withPointer(readFileSync(entryPath, 'utf8'));
+  if (next != null) { writeFileSync(entryPath, next); wrotePointer = true; }
 }
 
 let posted = null;
@@ -247,7 +310,7 @@ if (doPost) { const r = runBoardPost('post'); posted = r.ok ? r.path : null; if 
 
 process.stdout.write(
   `wrote baton : ${batonPath}\n` +
-  `parent ptr  : ${wrotePointer ? entryPath + '  ("## Active Baton" added)' : 'already had "## Active Baton" — left as is'}\n` +
+  `parent ptr  : ${wrotePointer ? entryPath + `  ([[${batonName}]] pointed at under "## Active Baton")` : `already points at [[${batonName}]] — left as is`}\n` +
   `announce    : ${posted ? `POSTED to ${posted} (id ${id})` : `validated, not posted (no --post)`}\n\n` +
   `now land it (baton file + pointer):\n  ${commitCmd}\n` +
   (doPost ? '' : `\n(announce not posted — add --post, or announce by hand, for a cross-worktree baton.)\n`),

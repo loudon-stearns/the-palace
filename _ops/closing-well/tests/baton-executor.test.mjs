@@ -124,3 +124,95 @@ test('a missing fragment fails loud, never writes a footerless baton', () => {
     rmSync(tree, { recursive: true, force: true });
   }
 });
+
+// ── Qualified batons (Baton Ceremony tuning items 9 and 10; SCHEMA — Reference §8) ──
+// A baton aimed at one part of a bundle takes a qualifier in its name and a second
+// link, `targets`, to the file it is about; a second baton on an entry that already
+// has one is pointed at inside the existing "## Active Baton" section.
+
+function runExecutor(tree, extra, { entry = 'Test Entry', move = 'a one-sentence move' } = {}) {
+  const bodyFile = join(tree, 'body.md');
+  writeFileSync(bodyFile, '## Move\nA one-sentence move.\n');
+  return execFileSync('node', [
+    EXECUTOR, '--entry', entry, '--move', move, '--body-file', bodyFile,
+    '--session-id', 'test', '--owner', PALACE, '--tree', tree, ...extra,
+  ], { encoding: 'utf8', stdio: 'pipe' });
+}
+
+test('a qualifier names the file, and --targets writes the second link', () => {
+  const tree = mkdtempSync(join(tmpdir(), 'baton-exec-qual-'));
+  try {
+    writeFileSync(join(tree, 'Test Entry.md'), '# Test Entry\n\nA stand-in entry.\n');
+    runExecutor(tree, ['--qualifier', 'marimba-top', '--targets', 'Projects/Test Entry/instruments/marimba.md', '--write']);
+    const baton = readFileSync(join(tree, 'Test Entry', 'Test Entry — baton — marimba-top.md'), 'utf8');
+    assert.match(baton, /^title: "Test Entry — baton — marimba-top"$/m);
+    assert.match(baton, /- target: "\[\[Test Entry\]\]"\n {4}type: connects-to\n {4}label: "baton-for"/);
+    assert.match(baton, /- target: "\[\[marimba\]\]"\n {4}type: connects-to\n {4}label: "targets"/);
+    assert.ok(baton.includes(canonicalFooter()), 'a qualified baton carries the checklist too');
+    assert.match(readFileSync(join(tree, 'Test Entry.md'), 'utf8'), /## Active Baton\n\n\[\[Test Entry — baton — marimba-top\]\] — drafted /);
+  } finally {
+    rmSync(tree, { recursive: true, force: true });
+  }
+});
+
+test('a second baton is pointed at inside the section the first one opened', () => {
+  const tree = mkdtempSync(join(tmpdir(), 'baton-exec-second-'));
+  try {
+    writeFileSync(join(tree, 'Test Entry.md'), '# Test Entry\n\n## Active Baton\n\n[[Test Entry — baton]] — drafted 2026-10-01\n\n## Notes\n\nKept.\n');
+    const out = runExecutor(tree, ['--qualifier', 'hardening', '--targets', '[[Test Entry — tuning]]', '--write']);
+    assert.match(out, /pointed at under "## Active Baton"/);
+    const entry = readFileSync(join(tree, 'Test Entry.md'), 'utf8');
+    assert.match(entry, /## Active Baton\n\n\[\[Test Entry — baton\]\] — drafted 2026-10-01\n\[\[Test Entry — baton — hardening\]\] — drafted \d{4}-\d{2}-\d{2}\n\n## Notes\n\nKept\.\n$/);
+    assert.equal((entry.match(/## Active Baton/g) || []).length, 1);
+    // A re-run (say --write, then --post) points at it once, not twice.
+    runExecutor(tree, ['--qualifier', 'hardening', '--targets', '[[Test Entry — tuning]]', '--write']);
+    assert.equal((readFileSync(join(tree, 'Test Entry.md'), 'utf8').match(/baton — hardening\]\]/g) || []).length, 1);
+    assert.match(readFileSync(join(tree, 'Test Entry', 'Test Entry — baton — hardening.md'), 'utf8'), /- target: "\[\[Test Entry — tuning\]\]"\n {4}type: connects-to\n {4}label: "targets"/);
+  } finally {
+    rmSync(tree, { recursive: true, force: true });
+  }
+});
+
+test('a targets link needs a qualifier, and the qualifier must fit a filename', () => {
+  const tree = mkdtempSync(join(tmpdir(), 'baton-exec-refuse-'));
+  try {
+    writeFileSync(join(tree, 'Test Entry.md'), '# Test Entry\n');
+    assert.throws(() => runExecutor(tree, ['--targets', 'x.md', '--write']), /needs a --qualifier/);
+    assert.throws(() => runExecutor(tree, ['--qualifier', 'a/b', '--write']), /can't be part of a filename/);
+  } finally {
+    rmSync(tree, { recursive: true, force: true });
+  }
+});
+
+test('the preview of a qualified baton names its own id and path', () => {
+  const tree = mkdtempSync(join(tmpdir(), 'baton-exec-preview-'));
+  try {
+    writeFileSync(join(tree, 'Test Entry.md'), '# Test Entry\n');
+    const out = runExecutor(tree, ['--qualifier', 'marimba-top', '--ts', '2026-10-15T12:00:00Z']);
+    assert.match(out, /announce {4}: VALID \(id test-entry-marimba-top-handoff-2026-10-15/);
+    assert.match(out, /Test Entry — baton — marimba-top\.md/);
+  } finally {
+    rmSync(tree, { recursive: true, force: true });
+  }
+});
+
+test('a baton on main announces with no worktree coordinate; off main it needs one', () => {
+  const tree = mkdtempSync(join(tmpdir(), 'baton-exec-main-'));
+  const board = join(tree, 'board.jsonl');
+  try {
+    writeFileSync(join(tree, 'Test Entry.md'), '# Test Entry\n');
+    writeFileSync(board, '');
+    const git = (...a) => execFileSync('git', a, { cwd: tree, stdio: 'ignore' });
+    git('init', '-q', '-b', 'main'); git('config', 'user.email', 't@t'); git('config', 'user.name', 't');
+    git('add', '-A'); git('commit', '-q', '-m', 'init');
+    const out = runExecutor(tree, ['--board', board, '--post']);
+    assert.match(out, /POSTED to/);
+    const posted = JSON.parse(readFileSync(board, 'utf8').trim().split('\n').pop());
+    assert.equal(posted.payload.kind, 'handoff_ready');
+    assert.equal(posted.payload.worktree, undefined);
+    git('checkout', '-q', '-b', 'feature/x');
+    assert.throws(() => runExecutor(tree, ['--board', board, '--post', '--qualifier', 'other']), /needs --wt-branch and --wt-dir/);
+  } finally {
+    rmSync(tree, { recursive: true, force: true });
+  }
+});

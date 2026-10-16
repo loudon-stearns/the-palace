@@ -158,11 +158,22 @@ the terminal, read by the steward at the top of every cycle), and **The making**
 manifest's `stopping_conditions.max_iterations` consecutive cycles while the
 steward ships and nothing waits on Loudon.
 
-- `GET /api/projects` — the rows + the lane's worker status.
-- `GET /api/projects/scroll?home=<Title>[&write=1]` — the scroll with a live Now
+Below the projects (SCHEMA v1.28): **SERVICES**, stewarded pages that are not
+projects; **CEREMONIES**, every page carrying `trigger:` — a ledger no longer
+makes a page a ceremony; and **PAGES**, any other page that keeps a tuning
+ledger. Every row opens the same scroll, drawn by one materializer
+(`orchestrator/src/scroll-file.js`) from what the page has: the board block when
+it lives on the board, the runs block when it keeps a tuning ledger
+(`orchestrator/src/ledger.js`), its last encounter when it keeps a diary. Every
+scroll has a Plan, a ceremony's too. When the page keeps a tuning ledger the
+orders box asks *standing, or once?*: a standing order stays on the scroll, a
+one-shot order goes into the ledger as owed for the next run to pay.
+
+- `GET /api/projects` — the rows (`projects`, `services`, `ceremonies`, `pages`) + the lane's worker status.
+- `GET /api/projects/scroll?home=<Title>[&write=1]` — any page's scroll with a live Now
   zone (in memory; `write=1` persists it).
-- `PUT /api/projects/orders` `{ home, orders }` — write Standing Orders.
-- `PUT /api/projects/plan` `{ home, plan, why }` — write the agreed Plan; the change is logged on the trail.
+- `PUT /api/projects/orders` `{ home, orders, kind? }` — an order from Loudon: `standing` (the default) to the scroll's Standing Orders, `once` to the tuning ledger as owed.
+- `PUT /api/projects/plan` `{ home, plan, why }` — write the agreed Plan, any page; the change is logged on the trail.
 - `POST /api/steward/advance` `{ name, max_cycles? }` — start a run.
 
 ## Run

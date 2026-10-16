@@ -13,25 +13,29 @@ import { RunningTag, QueuedTag } from './status.jsx';
 import MakingCard from './MakingCard.jsx';
 import WatchPane from './WatchPane.jsx';
 
-// ScrollView — one project's scroll, rendered live in the terminal.
+// ScrollView — any page's scroll (a project's, a ceremony's, a page's),
+// rendered live in the terminal.
 //
 //   Now              — the regenerated top zone (server computes it on every
-//                      fetch, so an answer Loudon filed a minute ago already
-//                      shows as "ready to advance").
-//   Plan             — the path agreed with Loudon (not for a ceremony, whose
-//                      plan is its tuning ledger's owed lines). Revised here
+//                      fetch from what the page has, so an answer Loudon filed
+//                      a minute ago already shows as "ready to advance", and a
+//                      run line written a minute ago already counts).
+//   Plan             — the path agreed with Loudon, on every scroll, a
+//                      ceremony's too (SCHEMA v1.28); a tuning ledger's owed
+//                      lines are the next run's to-do beneath it. Revised here
 //                      and saved with a line on what changed and why, which
 //                      lands on the making trail; a steward's proposed
 //                      revision arrives as an ask below and becomes the plan
 //                      when he adopts it.
-//   Open asks        — the project's pending TRICKSTER cards, answerable here
+//   Open asks        — the page's pending TRICKSTER cards, answerable here
 //                      with the same TricksterCard the TRICKSTER deck uses
 //                      (one card component, one grant builder — no fork).
 //   Standing Orders  — Loudon's zone, editable here and nowhere else in the
-//                      terminal. A project's are saved to the scroll file and
-//                      read by the steward at the top of every cycle; a
-//                      ceremony's go into its tuning ledger as owed lines,
-//                      which the next run's tail read picks up.
+//                      terminal. When the page keeps a tuning ledger the box
+//                      asks "standing, or once?": a standing order is saved to
+//                      the scroll file and read by the steward (or the
+//                      ceremony's run) every time; a one-shot order goes into
+//                      the ledger as owed, and the next run pays it.
 //   The making       — the trail, newest first, each section's media inline.
 //
 // The scroll text is markdown; EntryBody (the STATE deck's renderer) draws it
@@ -71,6 +75,10 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
   const [planWhy, setPlanWhy] = useState('');
   const [planSaving, setPlanSaving] = useState(false);
   const [planSaved, setPlanSaved] = useState(null);
+  const [orderKind, setOrderKind] = useState('standing');
+  const [onceDraft, setOnceDraft] = useState('');
+  // A ceremony, or another page that keeps a tuning ledger and no steward.
+  const isLedgerRow = !!row && (row.kind === 'ceremony' || row.kind === 'page');
   const isCeremony = !!row && row.kind === 'ceremony';
   const palace = usePalaceRef();
   useEffect(() => { palace?.ensureLoaded?.(); }, [palace?.ensureLoaded]);
@@ -80,8 +88,8 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
     if (!r.ok) { setError(r.error || 'could not load the scroll'); return; }
     setError(null);
     setScroll(r);
-    // A ceremony's box takes a new order; its standing ones live in the ledger.
-    setOrders((cur) => (ordersDirty || r.kind === 'ceremony' ? cur : (r.zones?.orders || '')));
+    // Standing orders live on the scroll for every page, a ceremony's too.
+    setOrders((cur) => (ordersDirty ? cur : (r.zones?.orders || '')));
   }, [home, ordersDirty]);
 
   useEffect(() => { load(); }, [load]);
@@ -125,12 +133,20 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
   });
   const running = !!(worker && worker.running && worker.current === home);
 
+  const hasLedger = !!(scroll && scroll.tuning);
+  const once = hasLedger && orderKind === 'once';
+
   async function doSave() {
     setSaving(true); setSaved(null);
-    const r = await saveStandingOrders(home, orders);
-    if (r.ok && r.kind === 'ceremony') { setScroll(r); setOrders(''); setOrdersDirty(false); setSaved({ tone: 'ok', text: `added to ${r.tuning} as owed — the next run's tail read picks it up` }); }
-    else if (r.ok) { setScroll(r); setOrdersDirty(false); setSaved({ tone: 'ok', text: `saved to ${r.path} — the steward reads it at its next cycle` }); }
-    else setSaved({ tone: 'err', text: r.error === 'empty-order' ? 'nothing to add' : (r.error || 'save failed') });
+    if (once) {
+      const r = await saveStandingOrders(home, onceDraft, 'once');
+      if (r.ok) { setScroll(r); setOnceDraft(''); setSaved({ tone: 'ok', text: `added to ${r.tuning} as owed — the next run's tail read picks it up` }); }
+      else setSaved({ tone: 'err', text: r.error === 'empty-order' ? 'nothing to add' : (r.error || 'save failed') });
+    } else {
+      const r = await saveStandingOrders(home, orders, 'standing');
+      if (r.ok) { setScroll(r); setOrdersDirty(false); setSaved({ tone: 'ok', text: `saved to ${r.path} — ${row && row.stewarded ? 'the steward reads it at its next cycle' : 'every run reads it before it starts'}` }); }
+      else setSaved({ tone: 'err', text: r.error || 'save failed' });
+    }
     setSaving(false);
   }
 
@@ -161,7 +177,7 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
           title={row && row.path ? `read the entry — ${row.path}` : undefined}
           style={{ fontFamily: 'var(--font-display)', color: 'var(--phosphor-white)', textShadow: 'var(--glow-strong)', fontSize: 24, textTransform: 'uppercase', cursor: row && row.path && onNavigate ? 'pointer' : 'default' }}
         >{home}</span>
-        {row && row.kind === 'ceremony' ? <span data-testid="scroll-ceremony-meta" style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 }}>ceremony · {row.version ? `v${row.version}` : 'unversioned'} · {row.runs_since ? `${row.runs_since} run${row.runs_since === 1 ? '' : 's'} since it changed` : 'not yet run since it changed'}{row.owed && row.owed.length ? ` · ${row.owed.length} owed` : ''}</span>
+        {isLedgerRow ? <span data-testid="scroll-ceremony-meta" style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 }}>{isCeremony ? 'ceremony' : 'page'} · {row.version ? `v${row.version}` : 'unversioned'} · {row.version ? (row.runs_since ? `${row.runs_since} run${row.runs_since === 1 ? '' : 's'} since it changed` : 'not yet run since it changed') : `${row.runs_since || 0} run${row.runs_since === 1 ? '' : 's'}`}{row.owed && row.owed.length ? ` · ${row.owed.length} owed` : ''}</span>
           : row ? <span style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 }}>{row.status || '—'} · {row.stage || '—'}{row.stewarded ? ` · cycle ${row.iteration ?? 0}` : ' · no steward'}</span> : null}
         {running ? <RunningTag name={home} /> : row && row.queued ? <QueuedTag name={home} position={row.queued} /> : null}
         <span style={{ flex: 1 }} />
@@ -180,7 +196,7 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
         ) : (
           <span data-testid="scroll-enchant"><Button tone="primary" disabled={!canEnchant} onClick={() => setConfirmEnchant(true)}>enchant a steward</Button></span>
         )) : null}
-        {scroll ? <a href={`/api/open?path=${encodeURIComponent(scroll.path)}`} style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11, textDecoration: 'none', borderBottom: '1px dashed currentColor' }} title={scroll.path}>{scroll.exists ? 'open the file' : (isCeremony ? 'not on disk yet — scroll.js --ceremonies writes it' : 'not on disk yet — first cycle or save creates it')}</a> : null}
+        {scroll ? <a href={`/api/open?path=${encodeURIComponent(scroll.path)}`} style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11, textDecoration: 'none', borderBottom: '1px dashed currentColor' }} title={scroll.path}>{scroll.exists ? 'open the file' : (isCeremony ? 'not on disk yet — scroll.js --ceremonies writes it' : isLedgerRow ? 'not on disk yet — a save, or scroll.js --home, writes it' : 'not on disk yet — first cycle or save creates it')}</a> : null}
         <FaceSwitch faces={scrollFaces} current="scroll" onSelect={selectFace} />
       </div>
       {watching ? <WatchPane home={home} running={running} onClose={() => setWatching(false)} /> : null}
@@ -196,7 +212,6 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
             </div>
           </Box>
 
-          {isCeremony ? null : <>
           <ZoneTitle right={<span style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 }}>agreed with you — it changes only with your yes, and every change lands on the trail</span>}>Plan</ZoneTitle>
           <div data-testid="scroll-plan">
             {planEditing ? (
@@ -235,6 +250,7 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
             )}
           </div>
 
+          {isLedgerRow && !myAsks.length ? null : <>
           <ZoneTitle right={<span style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 }}>{myAsks.length ? 'answer here — same cards as the TRICKSTER deck' : 'nothing waiting on you'}</span>}>Open asks</ZoneTitle>
           <div data-testid="scroll-asks">
             {myAsks.length === 0 ? <div style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 12 }}>none.</div> : null}
@@ -252,11 +268,20 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
           </div>
           </>}
 
-          <ZoneTitle right={<span style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 }}>{isCeremony ? 'yours — each order goes into the tuning ledger, owed until a run acts on it' : 'yours — the steward reads this before anything else, every cycle'}</span>}>Standing Orders</ZoneTitle>
+          <ZoneTitle right={<span style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 }}>{once ? 'once — goes into the tuning ledger as owed, and the next run pays it' : (row && row.stewarded ? 'yours — the steward reads this before anything else, every cycle' : 'yours — they hold until you revoke them, and every run reads them first')}</span>}>Standing Orders</ZoneTitle>
           <div data-testid="scroll-orders">
-            {isCeremony ? (
+            {hasLedger ? (
+              // The deck asks which kind (SCHEMA — Reference §6): a standing
+              // order stays on the scroll; a one-shot order is the next run's job.
+              <div data-testid="scroll-order-kind" style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 6, fontSize: 11 }}>
+                <span style={{ color: 'var(--phosphor-dim)', textShadow: 'none' }}>standing, or once?</span>
+                <span data-testid="scroll-order-kind-standing"><Button tone={orderKind === 'standing' ? 'primary' : 'default'} onClick={() => { setOrderKind('standing'); setSaved(null); }}>standing</Button></span>
+                <span data-testid="scroll-order-kind-once"><Button tone={orderKind === 'once' ? 'primary' : 'default'} onClick={() => { setOrderKind('once'); setSaved(null); }}>once</Button></span>
+              </div>
+            ) : null}
+            {once ? (
               <div data-testid="scroll-ledger-orders" style={{ fontSize: 12, marginBottom: 8 }}>
-                {(scroll.ledger_orders || []).length === 0 ? <div style={{ color: 'var(--phosphor-dim)', textShadow: 'none' }}>no orders in the ledger yet.</div> : null}
+                {(scroll.ledger_orders || []).length === 0 ? <div style={{ color: 'var(--phosphor-dim)', textShadow: 'none' }}>no one-shot orders in the ledger yet.</div> : null}
                 {(scroll.ledger_orders || []).map((o, i) => (
                   <div key={`${o.date}-${i}`} style={{ display: 'flex', gap: 10, alignItems: 'baseline', padding: '2px 0' }}>
                     <span style={{ color: 'var(--phosphor-dim)', textShadow: 'none', whiteSpace: 'nowrap' }}>{o.date}</span>
@@ -264,25 +289,35 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
                     <span style={{ color: o.owed ? 'var(--warn)' : 'var(--phosphor-dim)', textShadow: o.owed ? 'var(--glow)' : 'none', fontSize: 11, whiteSpace: 'nowrap', textTransform: 'uppercase', letterSpacing: '.04em' }}>{o.status}</span>
                   </div>
                 ))}
-                {scroll.zones.orders ? <div style={{ color: 'var(--phosphor-dim)', textShadow: 'none', marginTop: 6 }}>written in the scroll file, and not in the ledger: <span style={{ color: 'var(--phosphor)' }}>{scroll.zones.orders}</span></div> : null}
               </div>
             ) : null}
-            <textarea
-              data-testid="scroll-orders-input"
-              value={orders}
-              onChange={(e) => { setOrders(e.target.value); setOrdersDirty(true); setSaved(null); }}
-              placeholder={isCeremony ? 'A direction for this ceremony. It goes into the tuning ledger as owed, and the next run reads it first.' : "Taste, priorities, 'stop asking me about X', 'always prefer Y'. Write it once here instead of answering it every cycle."}
-              rows={Math.max(4, Math.min(16, (orders.match(/\n/g) || []).length + 2))}
-              style={{ width: '100%', boxSizing: 'border-box', background: 'var(--phosphor-deep)', color: 'var(--phosphor)', textShadow: 'var(--glow)', border: '1px solid var(--phosphor-dim)', borderRadius: 0, fontFamily: 'var(--font-mono)', fontSize: 13, padding: 8, outline: 'none', caretColor: 'var(--phosphor-white)', resize: 'vertical' }}
-            />
+            {once ? (
+              <textarea
+                data-testid="scroll-orders-once-input"
+                value={onceDraft}
+                onChange={(e) => { setOnceDraft(e.target.value); setSaved(null); }}
+                placeholder="A job for the next run only. It goes into the tuning ledger as owed; the run that does it marks it paid."
+                rows={3}
+                style={{ width: '100%', boxSizing: 'border-box', background: 'var(--phosphor-deep)', color: 'var(--phosphor)', textShadow: 'var(--glow)', border: '1px solid var(--phosphor-dim)', borderRadius: 0, fontFamily: 'var(--font-mono)', fontSize: 13, padding: 8, outline: 'none', caretColor: 'var(--phosphor-white)', resize: 'vertical' }}
+              />
+            ) : (
+              <textarea
+                data-testid="scroll-orders-input"
+                value={orders}
+                onChange={(e) => { setOrders(e.target.value); setOrdersDirty(true); setSaved(null); }}
+                placeholder={isLedgerRow ? 'A direction that holds until you revoke it. Every run reads it before it starts.' : "Taste, priorities, 'stop asking me about X', 'always prefer Y'. Write it once here instead of answering it every cycle."}
+                rows={Math.max(4, Math.min(16, (orders.match(/\n/g) || []).length + 2))}
+                style={{ width: '100%', boxSizing: 'border-box', background: 'var(--phosphor-deep)', color: 'var(--phosphor)', textShadow: 'var(--glow)', border: '1px solid var(--phosphor-dim)', borderRadius: 0, fontFamily: 'var(--font-mono)', fontSize: 13, padding: 8, outline: 'none', caretColor: 'var(--phosphor-white)', resize: 'vertical' }}
+              />
+            )}
             <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginTop: 6 }}>
-              <span data-testid="scroll-orders-save"><Button tone="primary" disabled={saving || !ordersDirty} onClick={doSave}>{saving ? 'saving…' : (isCeremony ? 'add to the ledger' : 'save standing orders')}</Button></span>
-              {ordersDirty ? <span style={{ color: 'var(--warn)', textShadow: 'var(--glow)', fontSize: 11 }}>unsaved</span> : null}
+              <span data-testid="scroll-orders-save"><Button tone="primary" disabled={saving || (once ? !onceDraft.trim() : !ordersDirty)} onClick={doSave}>{saving ? 'saving…' : (once ? 'add to the ledger' : 'save standing orders')}</Button></span>
+              {!once && ordersDirty ? <span style={{ color: 'var(--warn)', textShadow: 'var(--glow)', fontSize: 11 }}>unsaved</span> : null}
               {saved ? <span style={{ color: fbColor[saved.tone], textShadow: 'var(--glow)', fontSize: 11 }}>{saved.text}</span> : null}
             </div>
           </div>
 
-          <ZoneTitle right={<span style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 }}>{sections.filter((s) => s.id).length} {isCeremony ? `run${sections.filter((s) => s.id).length === 1 ? '' : 's'} and changes` : `made thing${sections.filter((s) => s.id).length === 1 ? '' : 's'}`} · newest first</span>}>The making</ZoneTitle>
+          <ZoneTitle right={<span style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 }}>{sections.filter((s) => s.id).length} {isLedgerRow ? `run${sections.filter((s) => s.id).length === 1 ? '' : 's'} and changes` : `made thing${sections.filter((s) => s.id).length === 1 ? '' : 's'}`} · newest first</span>}>The making</ZoneTitle>
           <div data-testid="scroll-making" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {cards.map((c, i) => (
               <MakingCard key={c.id || `free-${i}`} spec={c} index={index} refIndex={refIndex} onNavigate={onNavigate} />

@@ -3,10 +3,13 @@
 // and the summary. The fire/reap side-effects are covered by the integration
 // test (which runs regen_one.py --mock against a temp git palace).
 
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, afterEach } from 'vitest';
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { validateMessage } from '@stigmergy/core/schema';
 import {
-  slugify, regenSummary, extractRenderResult,
+  slugify, regenSummary, extractRenderResult, regenWhat, makerRunLine,
   buildRegenStartedMessage, buildRegenDoneMessage, buildRegenFailedMessage,
 } from '../../server/regen-lane.js';
 
@@ -89,5 +92,31 @@ describe('slugify', () => {
   it('kebabs a title', () => {
     expect(slugify('Kuramoto Coupling')).toBe('kuramoto-coupling');
     expect(slugify('')).toBe('entry');
+  });
+});
+
+describe('the face maker\'s run line', () => {
+  let root;
+  afterEach(() => { if (root) rmSync(root, { recursive: true, force: true }); root = null; });
+
+  it('names the entry and the faces it made', () => {
+    expect(regenWhat('Kuramoto Coupling', 'both')).toBe('Kuramoto Coupling, hero + avatar');
+    expect(regenWhat('Kuramoto Coupling', 'hero')).toBe('Kuramoto Coupling, hero');
+    expect(regenWhat('Kuramoto Coupling', 'icon')).toBe('Kuramoto Coupling, avatar');
+  });
+
+  it('marks the Maker\'s ledger when it keeps one, under its version if it has one; otherwise writes nothing', () => {
+    root = mkdtempSync(join(tmpdir(), 'maker-run-'));
+    mkdirSync(join(root, 'Shop/Hero and Avatar Maker'), { recursive: true });
+    writeFileSync(join(root, 'Shop/Hero and Avatar Maker.md'), '---\ntitle: "Hero and Avatar Maker"\ntype: maker\n---\n');
+    expect(makerRunLine(root, { title: 'Spinoza', target: 'both', ts: new Date(2026, 9, 15, 12) })).toBe(null);
+    writeFileSync(join(root, 'Shop/Hero and Avatar Maker.md'), '---\ntitle: "Hero and Avatar Maker"\ntype: maker\nversion: "1.0"\n---\n');
+    const ledger = join(root, 'Shop/Hero and Avatar Maker/Hero and Avatar Maker — tuning.md');
+    writeFileSync(ledger, '# t\n');
+    expect(makerRunLine(root, { title: 'Spinoza', target: 'both', ts: new Date(2026, 9, 15, 12) })).toEqual({
+      ledger: 'Shop/Hero and Avatar Maker/Hero and Avatar Maker — tuning.md',
+      line: '- run · 2026-10-15 · v1.0 · Spinoza, hero + avatar · nothing new',
+    });
+    expect(readFileSync(ledger, 'utf8')).toBe('# t\n\n- run · 2026-10-15 · v1.0 · Spinoza, hero + avatar · nothing new\n');
   });
 });

@@ -5,10 +5,10 @@
 //   node _ops/stigmergy/orchestrator/src/scroll.js --home "Generative Sample Libraries"
 //   node _ops/stigmergy/orchestrator/src/scroll.js --all            # every active project
 //   node _ops/stigmergy/orchestrator/src/scroll.js --all --dry-run  # report, write nothing
-//   node _ops/stigmergy/orchestrator/src/scroll.js --ceremonies     # every ceremony (entries with a tuning ledger)
-//   node _ops/stigmergy/orchestrator/src/scroll.js --home "Weave Ceremony"   # any page; a ceremony gets a ceremony's scroll
+//   node _ops/stigmergy/orchestrator/src/scroll.js --ceremonies     # every ceremony (every page carrying `trigger:`)
+//   node _ops/stigmergy/orchestrator/src/scroll.js --home "Weave Ceremony"   # any page; Now shows what the page has
 //   node _ops/stigmergy/orchestrator/src/scroll.js --home "Crystal Synthesizer" --plan plan.md --why "what changed and why" [--headline "…"] [--by "…"]
-//        # write an agreed plan (only on Loudon's yes); the change is logged on the trail
+//        # write an agreed plan (only on Loudon's yes) — any page, a ceremony too; the change is logged on the trail
 //
 // `--all` walks every `type: project` entry whose status is `active` (or has
 // no status) — stewarded or not — and joins each to its steward via
@@ -20,7 +20,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { resolve, join, relative } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { materializeScroll, writePlan } from './scroll-file.js';
-import { listCeremonies, materializeCeremonyScroll, materializeAnyScroll, isCeremony } from './ceremony-scroll.js';
+import { listCeremonies } from './ceremony-scroll.js';
 import { parseFrontmatter } from './entry-frontmatter.js';
 import { EXCLUDE_DIRS } from './entry-paths.js';
 import { readRegistry } from './registry.js';
@@ -61,6 +61,11 @@ export function stewardIndex(palaceRoot) {
   return idx;
 }
 
+/** What the CLI prints of a materialize: the result less its text and the states it read. */
+function summary({ text, ledger, diary, nowView, ...r }) {
+  return r;
+}
+
 export function scrollAll({ palaceRoot, dryRun = false, tsNow = new Date().toISOString(), includeInactive = false }) {
   const stewards = stewardIndex(palaceRoot);
   const results = [];
@@ -68,7 +73,7 @@ export function scrollAll({ palaceRoot, dryRun = false, tsNow = new Date().toISO
     const active = p.status == null || p.status === 'active';
     if (!active && !includeInactive) { results.push({ home: p.title, skipped: `status_${p.status}` }); continue; }
     const s = stewards.get(p.title);
-    const r = materializeScroll({ palaceRoot, home: p.title, agentDir: s ? s.dir : undefined, tsNow, dryRun });
+    const r = summary(materializeScroll({ palaceRoot, home: p.title, agentDir: s ? s.dir : undefined, tsNow, dryRun }));
     results.push({ home: p.title, stewarded: !!s, ...r });
   }
   return results;
@@ -81,7 +86,6 @@ function main() {
   const dryRun = argv.includes('--dry-run');
   const home = arg('--home');
   if (home && arg('--plan')) {
-    if (isCeremony(palaceRoot, home)) { process.stderr.write('a ceremony has no Plan zone — its plan is its tuning ledger\'s owed lines\n'); process.exit(2); }
     const s = stewardIndex(palaceRoot).get(home);
     const plan = readFileSync(resolve(arg('--plan')), 'utf8');
     const r = writePlan({ palaceRoot, home, plan, headline: arg('--headline', ''), why: arg('--why', ''), by: arg('--by', 'Loudon'), agentDir: s ? s.dir : undefined });
@@ -91,14 +95,14 @@ function main() {
   }
   if (home) {
     const s = stewardIndex(palaceRoot).get(home);
-    const { text, state, ...r } = materializeAnyScroll({ palaceRoot, home, agentDir: s ? s.dir : undefined, dryRun });
-    process.stdout.write(JSON.stringify(r, null, 2) + '\n');
+    process.stdout.write(JSON.stringify(summary(materializeScroll({ palaceRoot, home, agentDir: s ? s.dir : undefined, dryRun })), null, 2) + '\n');
     return;
   }
   if (argv.includes('--ceremonies')) {
+    const stewards = stewardIndex(palaceRoot);
     const rs = listCeremonies(palaceRoot).map((c) => {
-      const { text, state, ...r } = materializeCeremonyScroll({ palaceRoot, home: c.title, dryRun });
-      return { home: c.title, ...r };
+      const s = stewards.get(c.title);
+      return { home: c.title, ...summary(materializeScroll({ palaceRoot, home: c.title, agentDir: s ? s.dir : undefined, dryRun })) };
     });
     process.stdout.write(JSON.stringify(rs, null, 2) + '\n');
     return;

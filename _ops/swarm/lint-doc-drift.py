@@ -26,9 +26,12 @@ Checks implemented:
                               glob markers) resolving to neither a file nor a directory.
   W1  Dangling section pin  - a "[[Doc]] section" reference whose target file has no heading
                               matching those words.
-  W2  Trigger coverage gap  - a **Trigger:** phrase in a ceremony spec not present in
-                              CLAUDE.md's trigger table. Bracketed slots are stripped before
-                              comparison ("revive [entry]" -> "revive").
+  W2  Trigger coverage gap  - a trigger phrase on a ceremony not present in CLAUDE.md's
+                              trigger table. A ceremony is a page carrying `trigger:` in its
+                              frontmatter (SCHEMA v1.28), wherever it lives and whatever its
+                              filename; its field and any **Trigger:** line in its body are
+                              both checked. Bracketed slots are stripped before comparison
+                              ("revive [entry]" -> "revive").
 
 Usage: python3 _ops/swarm/lint-doc-drift.py [palace-root]
        (defaults to the palace root two levels above this script)
@@ -225,6 +228,42 @@ def strip_slots(phrase):
     return re.sub(r"\s+", " ", re.sub(r"\[[^\]]*\]", "", phrase)).strip()
 
 
+FRONTMATTER_RE = re.compile(r"\A---\r?\n(.*?)\r?\n---", re.S)
+QUOTED_RE = re.compile(r'"([^"]+)"|\'([^\']+)\'|[“”]([^“”]+)[“”]')
+
+
+def trigger_field(text):
+    """The phrases of a page's `trigger:` frontmatter field, or None when it has none.
+
+    Reads the two shapes pages write - an inline list (`trigger: ["a", "b"]`), or a
+    block list (`trigger:` then `  - "a"` lines) - and a bare string, without a YAML
+    parser, so the linter keeps no dependencies.
+    """
+    m = FRONTMATTER_RE.match(text)
+    if not m:
+        return None
+    lines = m.group(1).split("\n")
+    for i, line in enumerate(lines):
+        t = re.match(r"^trigger:[ \t]*(.*)$", line)
+        if not t:
+            continue
+        value = t.group(1).strip()
+        if value.startswith("["):
+            return [a or b or c for a, b, c in QUOTED_RE.findall(value)] or None
+        if value:
+            q = QUOTED_RE.findall(value)
+            return [q[0][0] or q[0][1] or q[0][2]] if q else [value]
+        out = []
+        for nxt in lines[i + 1:]:
+            item = re.match(r"^\s+-\s+(.*)$", nxt)
+            if not item:
+                break
+            q = QUOTED_RE.findall(item.group(1))
+            out.append(q[0][0] or q[0][1] or q[0][2] if q else item.group(1).strip())
+        return out or None
+    return None
+
+
 def check_trigger_coverage(root, basenames_lower):
     warns = []
     claude = basenames_lower.get("claude.md", [])
@@ -237,22 +276,33 @@ def check_trigger_coverage(root, basenames_lower):
     claude_triggers |= {strip_slots(q.lower()) for q in re.findall(r"[“”]([^“”]+)[“”]", table)}
     claude_triggers.discard("")
 
+    def covered(phrase):
+        return any(phrase in ct or ct in phrase for ct in claude_triggers)
+
     for ap, rp, is_dir in walk(root):
-        if is_dir or not rp.lower().endswith(".md"):
+        if is_dir or not rp.lower().endswith(".md") or os.path.islink(ap):
             continue
-        if "ceremony" not in os.path.basename(rp).lower():
+        if "Archive" in rp.split(os.sep):
             continue
         try:
             text = open(ap, encoding="utf-8", errors="ignore").read()
         except OSError:
             continue
+        field = trigger_field(text)
+        if field is None:
+            continue
+        seen = set()
+        for raw in field:
+            phrase = strip_slots(raw.lower())
+            if phrase and phrase not in seen and not covered(phrase):
+                seen.add(phrase)
+                warns.append(f"W2  trigger not in CLAUDE.md table:  \"{phrase}\"  (trigger: in {rp})")
         for tm in re.finditer(r"\*\*Trigger:?\*\*\s*(.+)", text):
             for a, b in re.findall(r'"([^"]+)"|[“”]([^“”]+)[“”]', tm.group(1)):
                 phrase = strip_slots((a or b).lower())
-                if not phrase:
-                    continue
-                if not any(phrase in ct or ct in phrase for ct in claude_triggers):
-                    warns.append(f"W2  trigger not in CLAUDE.md table:  \"{phrase}\"  (defined in {rp})")
+                if phrase and phrase not in seen and not covered(phrase):
+                    seen.add(phrase)
+                    warns.append(f"W2  trigger not in CLAUDE.md table:  \"{phrase}\"  (**Trigger:** in {rp})")
     return warns
 
 

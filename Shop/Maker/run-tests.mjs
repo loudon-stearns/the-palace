@@ -10,7 +10,11 @@
 //
 // Run:   node Shop/Maker/run-tests.mjs
 //        node Shop/Maker/run-tests.mjs --write-back --date 2026-06-16
-//          (updates last_tested: on the entries whose smoke passed this run)
+//          (marks a run line in the tuning ledger of each Specialist whose smoke
+//          passed and that keeps one — `- run · <date> · smoke test on <host> ·
+//          nothing new`. It no longer writes `last_tested:` in frontmatter: when a
+//          Specialist was last tested is computed from its run lines (SCHEMA v1.28;
+//          the scroll's "Last run", and `last_run` in test-results.json).)
 //
 // Coverage is deliberately partial and self-reported (see SUMMARY). Wiring more
 // smokes is a one-line addition to SMOKES below — that is the growth path.
@@ -21,6 +25,11 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { check, detectHost, loadManifest } from './host-capability-check.js';
+
+// The ledger reader lives with the scroll machinery. It needs the STIGMERGY
+// install (js-yaml); a checkout without one still runs every smoke, and only the
+// write-back refuses.
+const ledger = await import('../../_ops/stigmergy/orchestrator/src/ledger.js').catch(() => null);
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));      // …/Shop/Maker
 const SHOP = path.dirname(HERE);
@@ -93,6 +102,8 @@ const results = [];
 for (const s of specialists().sort((a, b) => a.title.localeCompare(b.title))) {
   const reach = check(s.title, { host, manifest });
   let row = { specialist: s.title, status: s.status, host, reachable: reach.reachable, via: reach.via || null };
+  const tuning = ledger ? ledger.tuningPathFor(PALACE, s.file.replace(/\.md$/, '')) : null;
+  if (tuning) { row.tuning = path.relative(PALACE, tuning); row.last_run = ledger.lastRunDate(fs.readFileSync(tuning, 'utf8')); }
   if (!reach.reachable) {
     row.result = 'skip'; row.detail = `unreachable on '${host}'${reach.fallback ? `; fallback ${reach.fallback}` : ''}`;
   } else if (SMOKES[s.title]) {
@@ -122,19 +133,24 @@ const report = { host, date: DATE, self_test_host_capability: selfOk, summary: t
 fs.writeFileSync(path.join(HERE, 'test-results.json'), JSON.stringify(report, null, 2) + '\n');
 console.log(`\nWrote Shop/Maker/test-results.json`);
 
-// --- optional write-back of last_tested for passed smokes ---------------------
+// --- optional write-back: a run line for each passed smoke ---------------------
+// Every run marks its page's tuning ledger (SCHEMA — Reference §6). A smoke test
+// is a run of the Specialist it tests; a Specialist with no ledger yet gets none
+// (a ledger is grown on Loudon's yes), and its pass stays in test-results.json.
 if (WRITE_BACK) {
   if (!DATE) { console.error('--write-back requires --date YYYY-MM-DD'); process.exit(2); }
-  let n = 0;
+  if (!ledger) { console.error('--write-back needs the STIGMERGY install (the ledger reader); run it from the main checkout.'); process.exit(2); }
+  let n = 0; const without = [];
   for (const r of results.filter((x) => x.result === 'pass')) {
+    if (!r.tuning) { without.push(r.specialist); continue; }
     const file = path.join(SHOP, specialists().find((s) => s.title === r.specialist).file);
-    const txt = fs.readFileSync(file, 'utf8');
-    if (/^last_tested:[ \t]*.+$/m.test(txt)) {
-      fs.writeFileSync(file, txt.replace(/^last_tested:[ \t]*.+$/m, `last_tested: ${DATE}`));
-      n++;
-    }
+    const version = (fs.readFileSync(file, 'utf8').match(/^version:[ \t]*["']?([^"'\n]+?)["']?[ \t]*$/m) || [])[1] || null;
+    ledger.recordRun(path.join(PALACE, r.tuning), { date: DATE, version, what: `smoke test on ${host}` });
+    r.last_run = DATE;
+    n++;
   }
-  console.log(`Write-back: updated last_tested: ${DATE} on ${n} passing Specialist entr${n === 1 ? 'y' : 'ies'}.`);
+  fs.writeFileSync(path.join(HERE, 'test-results.json'), JSON.stringify(report, null, 2) + '\n');
+  console.log(`Write-back: a run line in ${n} passing Specialist ledger${n === 1 ? '' : 's'}${without.length ? `; no tuning ledger yet, so nothing written, for ${without.join(', ')}` : ''}.`);
 }
 
 process.exit(results.some((r) => r.result === 'fail') || !selfOk ? 1 : 0);

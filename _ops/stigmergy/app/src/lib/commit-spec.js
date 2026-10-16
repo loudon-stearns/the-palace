@@ -37,30 +37,50 @@ export const VERIFY_VALUES = ['verified', 'unverified', 'couldnt'];
 // These are first-class and spec-conformant; they map to a structured kind so the
 // LOG renders them truthfully. Recognizing them keeps the hook from annotating a
 // correct ceremony commit as "non-spec".
-export const CEREMONY_KINDS = {
+//
+// WHICH names are ceremonies is not kept here: a ceremony is a page carrying
+// `trigger:` (SCHEMA v1.28), and the scripts pass those pages' titles in
+// (`ceremonyKinds(titles)`; commit-msg-hook.mjs reads them from the palace). Kept
+// here, because this module stays pure: the kind a ceremony's commits take when
+// it is not `ops`, and the ceremonies that have no page of their own, which stay
+// rows in the tables.
+export const CEREMONY_COMMIT_KINDS = {
   'Weave': 'weave',
   'Schema Ceremony': 'schema',
   'Deposit': 'deposit',
-  'Harvest': 'ops',
-  'Walk': 'ops',
-  'Spore Check': 'ops',
-  'Revival': 'ops',
-  'Map Build': 'ops',
-  'Self-Model Update': 'ops',
-  'Connection': 'ops',
-  'Query': 'ops',
   'Baton': 'handoff',
   'Enrichment': 'enrich',
 };
+export const TABLE_ONLY_CEREMONIES = ['Schema Ceremony', 'Connection', 'Query'];
+
+/**
+ * The subject-name → kind map for a set of ceremony page titles. A page titled
+ * "Weave Ceremony" commits as "Weave — …", so the " Ceremony" suffix comes off;
+ * "Closing Well" and "The Daily Page" keep their titles. Every ceremony not in
+ * CEREMONY_COMMIT_KINDS maps to `ops`.
+ */
+export function ceremonyKinds(titles = []) {
+  const map = {};
+  const names = [
+    ...TABLE_ONLY_CEREMONIES,
+    ...Object.keys(CEREMONY_COMMIT_KINDS),
+    ...titles.map((t) => String(t || '').trim().replace(/ Ceremony$/, '')),
+  ];
+  for (const name of names) if (name) map[name] = CEREMONY_COMMIT_KINDS[name] || 'ops';
+  return map;
+}
+
+// The map with no palace at hand: the ceremonies this module can name by kind.
+export const CEREMONY_KINDS = ceremonyKinds();
 
 // Parse a ceremony subject into { ceremony, kind, declared }. `declared` is true
 // only when the leading token (before the first em-dash/hyphen separator) is a
-// known ceremony name.
-export function parseCeremonySubject(subject) {
+// known ceremony name. `kinds` is a ceremonyKinds map (default: CEREMONY_KINDS).
+export function parseCeremonySubject(subject, kinds = CEREMONY_KINDS) {
   const raw = typeof subject === 'string' ? subject.trim() : '';
   const m = raw.match(/^([A-Z][A-Za-z]*(?:[ -][A-Z][A-Za-z]*)*)\s+[—–-]\s+/);
-  if (m && Object.prototype.hasOwnProperty.call(CEREMONY_KINDS, m[1])) {
-    return { ceremony: m[1], kind: CEREMONY_KINDS[m[1]], declared: true };
+  if (m && Object.prototype.hasOwnProperty.call(kinds, m[1])) {
+    return { ceremony: m[1], kind: kinds[m[1]], declared: true };
   }
   return { ceremony: null, kind: null, declared: false };
 }
@@ -71,7 +91,7 @@ export function parseCeremonySubject(subject) {
 // when the message is spec-conformant. The HOOK never hard-blocks on !valid --
 // it annotates instead (see annotateOutOfBand). validity drives whether
 // annotation is needed, not whether the commit is allowed.
-export function validateCommitMessage(text) {
+export function validateCommitMessage(text, { ceremonyKinds: kinds = CEREMONY_KINDS } = {}) {
   const errors = [];
   const warnings = [];
   const raw = typeof text === 'string' ? text : '';
@@ -92,7 +112,7 @@ export function validateCommitMessage(text) {
   }
 
   const subj = parseSubject(subjectLine);
-  const ceremony = parseCeremonySubject(subjectLine);
+  const ceremony = parseCeremonySubject(subjectLine, kinds);
   const body = lines.slice(subjectIdx + 1).join('\n');
   const trailers = parseTrailers(body);
   // The effective kind: the structured subject kind, else the ceremony's mapped kind.

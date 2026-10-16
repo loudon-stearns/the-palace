@@ -9,6 +9,8 @@ import {
   reconcilePendingRequests,
   buildCycleNote,
   processCycle,
+  offeredLessons,
+  paidOrders,
 } from '../../src/process-cycle.js';
 
 // Build a one-line assistant transcript record whose text carries `fences`
@@ -603,5 +605,95 @@ describe('processCycle — a manifest that says "opus" records the exact latest 
 
     const history = readFileSync(path.join(root, agentDir, 'history.jsonl'), 'utf8').trim().split('\n').map((l) => JSON.parse(l));
     expect(history[history.length - 1].model).toBe(recorded);
+  });
+});
+
+// ── The run line (SCHEMA — Reference §6, v1.28) ─────────────────────────────
+// When a stewarded page keeps a tuning ledger, every cycle marks it; a lesson the
+// steward offers becomes a numbered item; an owed one-shot order it names is paid.
+// A page with no ledger gets nothing — a ledger is grown on Loudon's yes.
+describe('a cycle marks its page\'s tuning ledger', () => {
+  let root;
+  afterEach(() => { if (root) rmSync(root, { recursive: true, force: true }); root = null; });
+  const LEDGER = () => path.join(root, 'Test Steward', 'Test Steward — tuning.md');
+
+  function makePalace({ ledger = true, version = null } = {}) {
+    root = mkdtempSync(path.join(tmpdir(), 'palace-pc-run-'));
+    const agentDir = path.join(root, '_ops/agents/permanent/test-steward');
+    mkdirSync(agentDir, { recursive: true });
+    mkdirSync(path.join(root, '_ops/swarm/persistent'), { recursive: true });
+    mkdirSync(path.join(root, 'Test Steward'), { recursive: true });
+    writeFileSync(path.join(agentDir, 'manifest.json'), JSON.stringify({ agent_id: 'Test Steward', home: 'Test Steward', mode: 'long_duration_background', session_id: 'sess-1', model: { name: 'claude-opus-4-7' } }));
+    writeFileSync(path.join(agentDir, 'state.json'), JSON.stringify({ iteration: 37, last_active: null, last_read_cursor: null }));
+    writeFileSync(path.join(agentDir, 'history.jsonl'), '');
+    writeFileSync(path.join(root, '_ops/swarm/persistent/blackboard.jsonl'), '');
+    writeFileSync(path.join(root, 'Test Steward.md'), `---\ntitle: "Test Steward"\ntype: project\nstage: growing\nstatus: active\n${version ? `version: "${version}"\n` : ''}---\n# Test Steward`);
+    if (ledger) {
+      writeFileSync(LEDGER(), [
+        '---', 'title: "Test Steward — tuning"', 'ledger: tuning', 'standards:', '  for: what each cycle taught', '---', '', '# Test Steward — tuning', '',
+        '## From cycle 36 — 2026-10-14', '', '1. **The pool is thin.**', '- run · 2026-10-14 · cycle 36 · taught item 1',
+        "- from Loudon · 2026-10-14 · Re-render the marimba's top octave once. · owed", '',
+      ].join('\n'));
+    }
+    return '_ops/agents/permanent/test-steward';
+  }
+
+  function shipped(payloadExtra = {}) {
+    return {
+      schema_version: '1.0', id: 'ship-38', ts: '2026-10-15T16:01:00-04:00', session_id: 'sess-1', from: 'Test Steward', to: '*', type: 'BROADCAST', board: 'GENERAL',
+      payload: { kind: 'shipped_artifact', headline: 'the top octave, again', ground: 'shipped', content: 'Catch-up — re-rendered.', ...payloadExtra },
+    };
+  }
+
+  test('a cycle that offers a lesson and names a paid order leaves an item, a run line, and a paid order', () => {
+    const agentDir = makePalace({ version: '1.0' });
+    const transcriptPath = path.join(root, 'transcript.jsonl');
+    writeFileSync(transcriptPath, assistantLine([shipped({ lesson: 'Velocity layers thin above C6; widen the pool to five takes.', paid: ['re-render the marimba'] })]));
+    const summary = processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 38, iteration: 38, tsNow: '2026-10-15T20:05:00Z' });
+    expect(summary.run).toMatchObject({ line: '- run · 2026-10-15 · v1.0 · cycle 38 · taught item 2', items: [2], paid: 1 });
+    const text = readFileSync(LEDGER(), 'utf8');
+    expect(text).toContain('## From cycle 38 — 2026-10-15\n\n2. Velocity layers thin above C6; widen the pool to five takes. *(offered by the steward, cycle 38)*\n- run · 2026-10-15 · v1.0 · cycle 38 · taught item 2\n');
+    expect(text).toContain("- from Loudon · 2026-10-14 · Re-render the marimba's top octave once. · paid in cycle 38");
+    // The scroll counts the run the moment the cycle ends — one materializer, so no second front.
+    const scroll = readFileSync(path.join(root, 'Test Steward', 'Test Steward — scroll.md'), 'utf8');
+    expect(scroll).toContain('- **Last run:** 2026-10-15 — cycle 38 · taught item 2 (under v1.0)');
+    expect(scroll).toContain('**Steward:** cycle 38');
+    expect(scroll).toMatch(/\*\*Owed in the ledger:\*\* nothing/);
+    // and the ledger rides in the cycle's commit plan
+    expect(summary.commit).toBe(null);   // the caller did not opt in
+  });
+
+  test('a cycle with nothing to teach still marks the ledger; a barren one says so', () => {
+    const agentDir = makePalace();
+    const transcriptPath = path.join(root, 'transcript.jsonl');
+    writeFileSync(transcriptPath, assistantLine([shipped()]));
+    expect(processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 38, iteration: 38, tsNow: '2026-10-15T20:05:00Z' }).run.line)
+      .toBe('- run · 2026-10-15 · cycle 38 · nothing new');
+    writeFileSync(transcriptPath, JSON.stringify({ type: 'assistant', message: { usage: { output_tokens: 3 }, content: [{ type: 'text', text: 'thinking, posting nothing' }] } }));
+    expect(processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 39, iteration: 39, tsNow: '2026-10-15T21:05:00Z' }).run.line)
+      .toBe('- run · 2026-10-15 · cycle 39, posted nothing · nothing new');
+  });
+
+  test('the ledger is committed with the cycle', () => {
+    const agentDir = makePalace();
+    const transcriptPath = path.join(root, 'transcript.jsonl');
+    writeFileSync(transcriptPath, assistantLine([shipped()]));
+    const summary = processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 38, iteration: 38, tsNow: '2026-10-15T20:05:00Z', commit: 'plan' });
+    expect(JSON.stringify(summary.commit.plan)).toContain('Test Steward — tuning.md');
+  });
+
+  test('a page with no tuning ledger gets no run line, and no ledger is made', () => {
+    const agentDir = makePalace({ ledger: false });
+    const transcriptPath = path.join(root, 'transcript.jsonl');
+    writeFileSync(transcriptPath, assistantLine([shipped({ lesson: 'something' })]));
+    const summary = processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 38, iteration: 38, tsNow: '2026-10-15T20:05:00Z' });
+    expect(summary.run).toBe(null);
+    expect(() => readFileSync(LEDGER(), 'utf8')).toThrow();
+  });
+
+  test('lessons and paid orders are read from any message, a string or a list', () => {
+    const msgs = [{ payload: { lesson: 'one' } }, { payload: { lesson: ['two', ' ', 3], paid: '2026-10-14' } }, { payload: {} }, null];
+    expect(offeredLessons(msgs)).toEqual(['one', 'two']);
+    expect(paidOrders(msgs)).toEqual(['2026-10-14']);
   });
 });

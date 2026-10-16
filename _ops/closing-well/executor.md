@@ -84,10 +84,16 @@ node _ops/closing-well/baton-executor.mjs \
   --entry "<Entry>" --move "<one sentence>" --body-file <drafted-baton.md> \
   --wt-branch <branch> --wt-dir <dir> --wt-profile <profile> \
   --session-id <slug> --owner "<owner>" [--post]      # omit --post to dry-run (validate only)
+  [--qualifier <part> [--targets "<file the baton is about>"]]
 ```
 It writes `<Entry>/<Entry> — baton.md`, adds the `## Active Baton` pointer to the parent
-entry, validates + (with `--post`) appends the `handoff_ready` line to the owner's persistent
-board, and prints the exact `git commit` command to land the file + pointer. A feature-branch
+entry (one more line inside the section when an earlier baton opened it), validates + (with
+`--post`) appends the `handoff_ready` line to the owner's persistent
+board, and prints the exact `git commit` command to land the file + pointer. A baton aimed at
+one part of the bundle — an output, the rich face, a ledger — takes `--qualifier`, which names
+the file `<Entry> — baton — <part>.md`, and `--targets`, which writes its second link,
+`connects-to` labelled `targets` (SCHEMA — Reference §8). A baton on main announces with no
+worktree coordinate; one on any other branch needs `--wt-branch` and `--wt-dir`. A feature-branch
 baton is non-canon and committed *in the worktree* with plain git (subject `baton(<Entry>):`,
 trailer `Palace-Kind: handoff` — the commit-msg hook reads `baton` as the Baton Ceremony's
 spelling of `handoff`) — the committer is reserved for deposits, which need its deps and land on

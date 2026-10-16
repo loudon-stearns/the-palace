@@ -386,6 +386,35 @@ describe('the scroll seam + the run mandate (2026-09-23)', () => {
     expect(r3.userTurn).not.toContain('# Your scroll');
   });
 
+  test('a page that keeps a tuning ledger hands the steward its tail read: recent lines and every owed one', () => {
+    const { agentDir } = palace({ orders: 'Never ask about crossfades.' });
+    const old = Array.from({ length: 45 }, (_, i) => `${i + 2}. **Lesson ${i + 2}.** Nothing owed here at all.`).map((l) => l.replace(' owed', ' due'));
+    writeFileSync(path.join(root, 'Projects', 'Shep', 'Shep — tuning.md'), [
+      '---', 'title: "Shep — tuning"', 'ledger: tuning', 'standards:', '  for: what each cycle taught', '  read: the tail, plus every line not yet paid', '---', '', '# Shep — tuning', '',
+      '1. **An early trap.** Owed: the glide needs a slower attack.',
+      ...old,
+      '- run · 2026-10-14 · cycle 3 · taught item 46',
+      '- from Loudon · 2026-10-15 · Re-render the top octave once. · owed', '',
+    ].join('\n'));
+    const { userTurn } = buildCyclePrompt({ palaceRoot: root, agentDir, cycleN: 4, skillRoot: path.join(root, '_ops/orchestrator'), today: '2026-10-15' });
+    expect(userTurn).toContain('# Your tuning ledger');
+    expect(userTurn).toContain('Projects/Shep/Shep — tuning.md');
+    expect(userTurn).toContain('- from Loudon · 2026-10-15 · Re-render the top octave once. · owed');   // in the recent window
+    expect(userTurn).toContain('## Still owed, from earlier in the ledger');
+    expect(userTurn).toMatch(/\d+: 1\. \*\*An early trap\.\*\* Owed: the glide/);                   // outside it, found by the grep
+    expect(userTurn).not.toContain('- run · 2026-10-14');                                              // run lines set aside
+    expect(userTurn).not.toContain('read: the tail, plus every line not yet paid');                    // frontmatter never read
+    expect(userTurn).toContain('"paid"');
+    expect(userTurn).toContain('`"lesson"`');
+    // after the scroll's orders, before the history
+    expect(userTurn.indexOf('## Standing Orders')).toBeLessThan(userTurn.indexOf('# Your tuning ledger'));
+  });
+
+  test('no tuning ledger, no ledger section', () => {
+    const { agentDir } = palace({ orders: ORDERS_PLACEHOLDER });
+    expect(buildCyclePrompt({ palaceRoot: root, agentDir, cycleN: 4, skillRoot: path.join(root, '_ops/orchestrator'), today: '2026-10-15' }).userTurn).not.toContain('# Your tuning ledger');
+  });
+
   test('the default mandate is ship-first, names the run position, and marks a barren retry', () => {
     expect(defaultMandate({ cycleN: 4 })).toContain('**ship a made thing**');
     expect(defaultMandate({ cycleN: 4 })).not.toContain('every cycle ends with a TRICKSTER ask');
