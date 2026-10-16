@@ -2,7 +2,7 @@
 
 *Workshop draft, 2026-10-16. Drawn from reading 1 (`reading.json`) and the stewards' own left-rough notes.*
 
-Seventeen Max patches and devices sit across eight projects. The stewards wrote all of them from memory of Max's file format, and nobody has opened any of them. Almost every one of those stewards ends its cycle saying so. A block is how we pay that down together: open the patch, fix it while it's open, play it, decide.
+Twenty-four Max and Live files sit across eight projects. The stewards wrote all of them from memory of Max's file format, and nobody has opened any of them. Almost every one of those stewards ends its cycle saying so. A block is how we pay that down together: open the patch, fix it while it's open, play it, decide.
 
 ## How a block runs (about 90 minutes)
 
