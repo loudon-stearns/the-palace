@@ -61,7 +61,7 @@ Where this is going: a first prototype in Loudon's hand, so the seven feels get 
 ## Standing Orders
 
 <!-- scroll:orders:start -->
-_Loudon's standing direction for this project. The steward reads this zone every cycle before anything else, and it is never regenerated. Taste, priorities, "stop asking me about X", "always prefer Y" — write it once here instead of answering it every cycle._
+- **Max work is paused until we have Max patching standards** (Loudon, 2026-10-16). Make no new Max patcher, gen~ or RNBO codebox, or Max for Live device, and don't edit the ones already made. Carry the Max moves in other tools meanwhile, and write down what each patch will need. This holds over anything below and over the Plan until Loudon lifts it.
 <!-- scroll:orders:end -->
 
 ## The making

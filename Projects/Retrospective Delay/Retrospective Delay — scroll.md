@@ -70,6 +70,8 @@ The April session designs for these moves are archived: [[Retrospective Delay ‚Ä
 ## Standing Orders
 
 <!-- scroll:orders:start -->
+- **Max work is paused until we have Max patching standards** (Loudon, 2026-10-16). Make no new Max patcher, gen~ or RNBO codebox, or Max for Live device, and don't edit the ones already made. Carry the Max moves in other tools meanwhile, and write down what each patch will need. This holds over anything below and over the Plan until Loudon lifts it.
+
 Decided with Loudon when the Loudon Live arc was designed (April 2026), and seeded here once from the retired staging file on 2026-09-25:
 
 - **The environment grows with the moves**: vanilla Max as a Max for Live audio effect for the witness and the s√©ance, a Gen~ subpatcher inside the device for the grammar, a JSUI layer for the face, and RNBO codebox~ out to VST/AU and the H90 for the portal.

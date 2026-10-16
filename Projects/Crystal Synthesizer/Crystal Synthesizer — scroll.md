@@ -62,6 +62,8 @@ _None._
 ## Standing Orders
 
 <!-- scroll:orders:start -->
+- **Max work is paused until we have Max patching standards** (Loudon, 2026-10-16). Make no new Max patcher, gen~ or RNBO codebox, or Max for Live device, and don't edit the ones already made. Carry the Max moves in other tools meanwhile, and write down what each patch will need. This holds over anything below and over the Plan until Loudon lifts it.
+
 Decided with Loudon when the Loudon Live arc was designed (April 2026), and seeded here once from the retired staging file on 2026-09-25:
 
 - **Build in Gen~ inside RNBO** — Gen~ for the sound, RNBO for portability.
