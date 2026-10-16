@@ -59,11 +59,6 @@ _No plan agreed yet. Until there is one, the work leans on the page's forward ve
 ## Standing Orders
 
 <!-- scroll:orders:start -->
-Written by Claude on Loudon's explicit instruction, 2026-09-23: "Quantum Synthesizer and Particle Synthesis, give them cycles."
-
-This page is marked `stage: dormant`, and the usual posture says don't touch. Loudon has overridden that for this project. Treat every run as a **revival probe**: ignore the dormant posture, ship the smallest real thing that moves the forward vector (a render, a sim, a probe — something audible or visible, not prose), and set it down honestly. End the run by saying plainly, in your last message, whether the work felt alive enough to revive the stage to `sprout` — that call is Loudon's, so make it a non-blocking RESOURCE_REQUEST with options REVIVE-TO-SPROUT · STAY-DORMANT · NOT-SURE-YET, never a stage edit.
-
-This container has no Shop (no ComfyUI, Kokoro, Max, or GPU) — Python with numpy/scipy is what you have. Make what can be made here; name what needs the Mac.
 <!-- scroll:orders:end -->
 
 ## The making

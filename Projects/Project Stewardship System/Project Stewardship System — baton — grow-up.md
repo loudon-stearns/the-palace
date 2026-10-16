@@ -27,7 +27,7 @@ Loudon decided on 2026-10-16: "Lets just have stewards always be grown up, we do
 2. `build-cycle-prompt.js` injects `ELDER.md` every cycle, after SCHEMA.
 3. A field in the shipped post (for example `page_edits: [{ path, why }]`); `process-cycle.js` and its commit allow the steward's own entry `.md` and bundle files it names, parse the entry's frontmatter first and refuse the commit loudly if it fails, refuse any other path and report it back as a proposal.
 4. The scroll's trail shows each edit as "Changed the page: … — why".
-5. Quantum's standing order ("never a stage edit") gets reworded on Loudon's yes, since the orders zone is his.
+5. ~~Quantum's standing order~~ Deleted whole on Loudon's word, 2026-10-16: its revival probe ended when the page reached sprout, and its "never a stage edit" contradicted a grown-up steward. Quantum's direction now rides on its plan (ask `quantum-synth-043`).
 6. Tests beside each; before touching any file in the Vite config graph, check that no steward is running.
 
 ## Calibrations
