@@ -45,13 +45,13 @@ On 2026-10-14, in his words or by his yes:
 - A heal now writes every file whole, the file in flight first, so a heal killed partway never leaves a file missing, at 008ad0df (the review's last verdict; 32 more double-kill rounds on the clone, all clean).
 - `palace-push` and `trunk-state`, at 34771c74. Nothing has been pushed with `palace-push` yet; main is 134 ahead of origin.
 - The words, at 0957bb0e: Worktree Practice's five trunk sentences, the Concierge charter's sentence, Deposit's pointer, Closing Well 1.7, Return 1.2 (and a `trunk` probe in `return-map.mjs`), Weave 1.4.
-- The ear's first day: 5 moves of main by 23:09 UTC, all through the door.
+- The ear's first reading, 2026-10-16 03:53 UTC, after about 30 hours: 84 moves of main, all 84 through the door, none around it (49 palace-commit, 23 palace-land, 12 the server's own commits). No landing has died, so the heal has not been needed. Brought to Loudon the same night: the number says no fence for now.
 
 Not built: the read-only strip on the LOG deck.
 
 ## Next move
 
-After a day of commits (from the evening of 2026-10-15), run `node _ops/stigmergy/app/scripts/trunk-state.mjs --since 24h` and read the ear's line: how many moves of main went around the door, and what made them. Bring Loudon the one number; it decides whether a fence ever goes up. Then, in order:
+The ear's first reading is done (Current state): nothing went around the door. Read it again at the week's measure. Then, in order:
 
 - **The sitting**: with Loudon, over what sits uncommitted in his folder (135 paths on 2026-10-14; `trunk-state` names who wrote what it can), hover-card files first; then the read-only strip on the LOG deck, drawn from `trunk-state.mjs --json`.
 - **The first branch with care**: `claude/inspiring-mahavira-3c2fee` stops tracking the regen lane's runtime files, which are dirty in the owner checkout, so `palace-land` will refuse it by name. Settle those files with Loudon first.
