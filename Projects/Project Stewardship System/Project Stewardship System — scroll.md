@@ -15,13 +15,13 @@ forward_vector: "I am Project Stewardship System's scroll — the one page that 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-16T00:21:28-04:00 from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-16T00:36:56-04:00 from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** active · **Stage:** growing · **Steward:** none — this project has no permanent steward yet
 - **Plan:** agreed 2026-10-16 (today) · 0 made things since
 - **Waiting on you:** nothing
-- **Last shipped:** nothing on the board yet
-- **Last commit touching this project:** 2026-10-15 `9ba6c8a4` — edit(Project Stewardship System): the grow-up baton is caught and deleted; the page says the cycle allows it
+- **Last shipped:** nothing on the board yet — but the bundle holds 2 media files (see the making trail)
+- **Last commit touching this project:** 2026-10-16 `76bd905c` — ops(Project Stewardship System): Max blocks: the count is twenty-four files, not seventeen
 
 ### Where this stands
 
@@ -40,7 +40,7 @@ _Nothing decided on the board yet._
 ## Plan
 
 <!-- scroll:plan:start -->
-**Where this is going.** Every stewarded page advances at the rhythm its stage asks for, and Loudon can see at a glance how the whole fleet is faring, so he and this page keep improving stewardship together. The first six stages built the machinery. The next two give the system a way to read itself.
+**Where this is going.** This page is Loudon's partner in making the palace's projects. The stewards build between sessions; this page takes on what they can't do alone — the work that needs his hands and ears — and keeps stewardship honest by reading the fleet and saying what it sees. The first six stages built the machinery, the seventh gave it a way to read itself, and the next is the first thing we make together.
 
 **The path**
 
@@ -50,8 +50,9 @@ _Nothing decided on the board yet._
 4. **D — answering from STIGMERGY. Shipped.** Loudon answers a steward's ask on the TRICKSTER tab or in its scroll, not by hand-editing the board.
 5. **E — the automated Trickster. In shadow.** It proposes grants and escalations and posts nothing. It waits on Loudon's review of its shadow digest, and on his `--live` switch, one rule at a time.
 6. **F — Two Paths. Built, dry-run only.** It would build both branches of a fork so Loudon picks from finished work; it has never dispatched a branch.
-7. **G — next: the fleet reading.** This session hand-runs its first cycle, in the bundle's `fleet/` workshop: a script that reads every steward's record — the registry, each steward's state and history, the board, the scrolls, the heartbeat's batches — into one dataset; a first written reading of the fleet; and a visual dashboard of stewardship health. All three go to Loudon with suggestions. The move is done when he finds the reading useful enough to want it again.
-8. **H — after the fleet reading proves useful: a steward for this page.** Stand up a steward for Project Stewardship System as a service steward, with a role line like the [[Shopkeeper]]'s, on a slower rhythm — weekly, after a heartbeat batch. What it ships each cycle is the fleet reading.
+7. **G — the fleet reading. Done, 2026-10-16.** `fleet/fleet-reading.mjs` reads every steward's record into one dataset and builds the dashboard, `fleet/Stewardship Health.html`; reading 1 is `fleet/reading.json`. Loudon: "I just looked and learned so much." It runs again whenever either of us wants it.
+8. **H — next: Max blocks, and the Max patching standards they teach.** Max work is paused for every steward until the standards exist. In working blocks, Loudon and this page open the 24 Max and Live files the stewards wrote and nobody has opened — loads, compiles, sounds, his verdict — and each failure becomes a lesson for the standards. A block starts when Loudon wakes this page and asks for one; the agenda is `fleet/max-blocks.md`. The first block also decides where the standards live. The move is done when Loudon lifts the pause.
+9. **I — a steward for this page.** A service steward with a role line like the [[Shopkeeper]]'s, on a slower rhythm — weekly, after a heartbeat batch — whose cycle is the fleet reading and the next block's agenda. Next when Loudon says go.
 
 How a project leaves stewardship is not a step on this path. It stays an open question, carried by the baton, until Loudon wants to design it with this page.
 <!-- scroll:plan:end -->
@@ -65,6 +66,30 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-2026-10-16T00-36-56-04-00" -->
+### 2026-10-16 — Plan revised: G done; next, Max blocks and the patching standards they teach
+
+Loudon, 2026-10-16, after reading the dashboard: this page is his partner in making the projects; pause Max work until we develop Max patching standards, and work the unopened patches together in blocks he asks for.
+
+_The plan before this change:_
+
+> **Where this is going.** Every stewarded page advances at the rhythm its stage asks for, and Loudon can see at a glance how the whole fleet is faring, so he and this page keep improving stewardship together. The first six stages built the machinery. The next two give the system a way to read itself.
+>
+> **The path**
+>
+> 1. **A — a steward run by hand on one project. Done.** Five hand-run cycles on [[Generative Sample Libraries]] in May 2026 proved a page can steward itself, and surfaced the spec gaps the orchestrator went on to close.
+> 2. **B — the orchestrator that runs one cycle. In production.** Every steward cycle goes through it (`_ops/stigmergy/orchestrator/`).
+> 3. **C — scheduling. The heartbeat lane.** launchd wakes the heartbeat each morning; when a batch is due it fires the due stewards through STIGMERGY's steward lane, inside the limits in `_ops/heartbeat/limits.json`, and the PROJECTS deck shows it as it runs.
+> 4. **D — answering from STIGMERGY. Shipped.** Loudon answers a steward's ask on the TRICKSTER tab or in its scroll, not by hand-editing the board.
+> 5. **E — the automated Trickster. In shadow.** It proposes grants and escalations and posts nothing. It waits on Loudon's review of its shadow digest, and on his `--live` switch, one rule at a time.
+> 6. **F — Two Paths. Built, dry-run only.** It would build both branches of a fork so Loudon picks from finished work; it has never dispatched a branch.
+> 7. **G — next: the fleet reading.** This session hand-runs its first cycle, in the bundle's `fleet/` workshop: a script that reads every steward's record — the registry, each steward's state and history, the board, the scrolls, the heartbeat's batches — into one dataset; a first written reading of the fleet; and a visual dashboard of stewardship health. All three go to Loudon with suggestions. The move is done when he finds the reading useful enough to want it again.
+> 8. **H — after the fleet reading proves useful: a steward for this page.** Stand up a steward for Project Stewardship System as a service steward, with a role line like the [[Shopkeeper]]'s, on a slower rhythm — weekly, after a heartbeat batch. What it ships each cycle is the fleet reading.
+>
+> How a project leaves stewardship is not a step on this path. It stays an open question, carried by the baton, until Loudon wants to design it with this page.
+<sub>`plan-2026-10-16T00-36-56-04-00` · plan revised · agreed 2026-10-16T00:36:56-04:00 · Loudon, written by this page grown up</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-10-16T00-21-28-04-00" -->
 ### 2026-10-16 — Plan agreed: the stages as they stand, and two moves ahead
 
