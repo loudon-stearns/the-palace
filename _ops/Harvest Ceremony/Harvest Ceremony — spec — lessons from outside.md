@@ -39,7 +39,7 @@ A lesson about the tool, the method, or how we worked together crosses. A lesson
 
 Write every lesson as a fact about the craft: what works, what breaks, and why. Don't write it as an instruction to whoever reads it. The document will be read by other AI agents, and it should inform them, not command them.
 
-- **Rule:** what holds, and why. *"A codebox that declares a constant at its top level does not compile in RNBO, because …; declaring it inside the function works."*
+- **Rule:** what holds, and why. The shape, as an illustration only: *"An object that does A inside environment B fails silently, because …; doing C instead works."*
 - **Gotcha:** what you see → why it happens → what fixes it.
 - **Pattern:** a named approach, when it fits, and **a small example built fresh for this document.** A toy, made new. Never a trimmed copy of something in the project.
 - **Working with Claude:** what helped or hurt in the collaboration. This covers how requests were phrased, how results were checked, and what Claude got wrong more than once and how we caught it.
@@ -75,11 +75,11 @@ Don't be the only one who checks your own work. When the draft is done, I will o
 
 > Here is a draft that must not reveal anything about this project. Search this project for every distinctive word, name, number and phrase in the draft. List each one that appears in the project, and where. Don't fix anything; just list.
 
-Then you fix every hit that gives the project away. The hit list stays here with me; it never goes into the output.
+So when the draft is done, save it somewhere in this project, outside anything that will be shared, and stop. I'll bring the second reader's list back to you. Then you fix every hit that gives the project away. The hit list stays here with me; it never goes into the output.
 
 ## 7. The output
 
-One markdown file, named `Lessons from outside — <craft> — <year-month-day>.md`. The name and the title carry the craft and the date, and nothing else.
+One markdown file, named `Lessons from outside — <craft> — <year-month-day>.md`, with no slashes in the craft. The name and the title carry the craft and the date, and nothing else.
 
 It begins with exactly this header, with the craft and date filled in:
 
@@ -118,7 +118,7 @@ Use plain, direct language. Write the lessons so that someone who never saw this
 
 If the craft moves through natural stages, from "it runs" to "it is good", group the gotchas by stage and say in each one which stage it bites at.
 
-**For Max, gen~ and RNBO**, use these four stages. The palace's Max patching standards are organized by them.
+**For Max, gen~ and RNBO**, use these four stages. The palace sorts what comes in by them.
 1. **Loads.** The patcher opens: the file format, object names, boxes, connections, the Max for Live device wrapper, dependencies found or missing.
 2. **Compiles.** rnbo~ or gen~ builds it: what codebox and gen~ accept or reject, what exists inside rnbo~ under which name, and limits on arrays and buffers.
 3. **Sounds.** It makes the right sound: levels, timing, sample rate, denormals, voices, clicks, CPU.

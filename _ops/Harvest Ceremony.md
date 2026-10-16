@@ -115,7 +115,7 @@ Many of Loudon's projects live outside the palace, some of them private. What th
 1. **Commission.** Loudon pastes [[Harvest Ceremony — spec — lessons from outside]] into the outside project's own Claude, naming the craft. That Claude distills the lessons there, and a second, fresh Claude in the same project lists every word in the draft that also appears in the project. The checking can only happen where the contents are: the palace has no way to know a private project's names.
 2. **Land, untracked.** The lessons file goes into `_ops/Harvest Ceremony/inbox/` and stays out of git until the gate passes. Everything tracked is public.
 3. **The gate.** Loudon reads it first: only he can tell when an "example" is his project in disguise. Then comes "sentry, check" on the file, which the quick sweep reads from disk before its first commit. Only then is it committed.
-4. **The close reading**, as above: one section at a time, a deposit map shown before each write. A craft lesson usually folds into the craft's own standards or a Specialist's Gotchas. Then ask what it is a case of.
+4. **The close reading**, as above: one section at a time, a deposit map shown before each write. A craft lesson usually folds into the craft's own standards or a Specialist's Gotchas. Then ask what it is a case of. The worthiness list above is for new entries: a craft lesson that holds beyond its output is worth keeping as a standard or a Gotcha.
 
 Everything around the file is public too: its name, the harvest record's title and rows, the commit subject. None of these names the outside project or says what was kept out.
 
