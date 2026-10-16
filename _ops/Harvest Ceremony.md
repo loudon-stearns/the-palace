@@ -6,7 +6,7 @@ pillars:
   - tools
 born: 2026-03
 stage: mature
-version: "1.1"
+version: "1.2"
 trigger: ["harvest", "let's harvest"]
 links:
   - target: "[[Deposit Ceremony]]"
@@ -28,6 +28,12 @@ links:
   - target: "[[Tool Builder]]"
     type: enables
     label: checklist-growth
+  - target: "[[Sentry]]"
+    type: connects-to
+    label: gated-by
+  - target: "[[Harvest Ceremony — spec — lessons from outside]]"
+    type: spawned
+    label: export-prompt
 ---
 
 # Harvest Ceremony
@@ -99,6 +105,19 @@ Here depositing happens inside the loop, each write through the [[Deposit Ceremo
 **Use scripting.** Do not load large logs or archives into context. Write small scripts to extract what you need — the IDs that have already been deposited, the conversation list, the date ranges. Document successful scripting approaches in [[Harvest Ceremony — Context]] for future harvests to build from. Each harvest should leave the next one better equipped.
 
 **Commit when done:** `Harvest — [scope] — [N candidates surfaced]`. The harvest's record in this bundle carries `ceremony_version` in its frontmatter and ends with **What this run taught the ceremony** ("nothing" is a legal answer); the run marks the tuning file with its run line, and a lesson that changes the spec also goes there as a numbered item.
+
+---
+
+## Lessons from outside
+
+Many of Loudon's projects live outside the palace, some of them private. What they taught can come in, but what they contain cannot: the palace is public (git, and a read view on the web; [[Sentry]]). So only the lessons cross, written fresh on the private side, and the close reading takes it from there.
+
+1. **Commission.** Loudon pastes [[Harvest Ceremony — spec — lessons from outside]] into the outside project's own Claude, naming the craft. That Claude distills the lessons there, and a second, fresh Claude in the same project lists every word in the draft that also appears in the project. The checking can only happen where the contents are: the palace has no way to know a private project's names.
+2. **Land, untracked.** The lessons file goes into `_ops/Harvest Ceremony/inbox/` and stays out of git until the gate passes. Everything tracked is public.
+3. **The gate.** Loudon reads it first: only he can tell when an "example" is his project in disguise. Then comes "sentry, check" on the file, which the quick sweep reads from disk before its first commit. Only then is it committed.
+4. **The close reading**, as above: one section at a time, a deposit map shown before each write. A craft lesson usually folds into the craft's own standards or a Specialist's Gotchas. Then ask what it is a case of.
+
+Everything around the file is public too: its name, the harvest record's title and rows, the commit subject. None of these names the outside project or says what was kept out.
 
 ---
 
