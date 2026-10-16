@@ -1,0 +1,54 @@
+taken: 2026-10-16T00:00:47.568Z
+sessions scanned: 338 (main-session files with a user record; 338 files)
+sessions with narration blocks: 142 (134 holding narration no earlier session held; the rest are fork copies)
+first session with narration: 2026-09-23T01:00:22.336Z versions 2.1.280
+narration blocks: 2350 in tool_use messages, 0 in end_turn messages, 1 other (no stop reason: an interrupted turn); 2268 distinct API messages
+text blocks:      13088 in tool_use messages, 3506 in end_turn messages, 185 other
+how told: timed under 200 ms 720 (of which 24 open their message), untimed and second in their message 1631
+unknowable: 355 untimed non-empty thinking blocks open a message that ends in a tool call; a paraphrase among them can't be told
+narration in a message whose tool call is wrap_up (a recap paraphrased): 4
+
+since narration began — by entrypoints:
+  claude-desktop               sessions  118  with narration   89  narration blocks  2165  between-call text  2635
+  cli                          sessions   10  with narration    2  narration blocks    14  between-call text    72
+  sdk-cli                      sessions   95  with narration   51  narration blocks   172  between-call text   338
+
+since narration began — by efforts:
+  high                         sessions   21  with narration   13  narration blocks   147  between-call text   272
+  low                          sessions   13  with narration    5  narration blocks   174  between-call text   246
+  max                          sessions    3  with narration    3  narration blocks   123  between-call text   121
+  medium                       sessions  109  with narration   59  narration blocks   411  between-call text   608
+  xhigh                        sessions   70  with narration   66  narration blocks  1779  between-call text  2070
+
+since narration began — by models:
+  <synthetic>                  sessions   27  with narration   16  narration blocks   354  between-call text   428
+  claude-fable-5-1             sessions   41  with narration   33  narration blocks   670  between-call text   942
+  claude-opus-5-5              sessions  167  with narration  110  narration blocks  1841  between-call text  2227
+  claude-sonnet-5              sessions    5  with narration    0  narration blocks     0  between-call text    27
+
+sessions begun since the onset: 225, with narration 142
+
+by day the session began:
+  2026-09-23  sessions  10  with narration   5  narration   81  between-call text  159
+  2026-09-24  sessions  16  with narration   8  narration  293  between-call text  277
+  2026-09-25  sessions  19  with narration  15  narration  425  between-call text  425
+  2026-09-26  sessions  18  with narration   7  narration  178  between-call text  364
+  2026-09-27  sessions  12  with narration   5  narration  215  between-call text  257
+  2026-09-28  sessions   4  with narration   2  narration   82  between-call text  135
+  2026-09-29  sessions   1  with narration   0  narration    0  between-call text    0
+  2026-09-30  sessions   7  with narration   5  narration   69  between-call text   67
+  2026-10-01  sessions   6  with narration   3  narration    9  between-call text   58
+  2026-10-02  sessions   3  with narration   1  narration   39  between-call text   54
+  2026-10-03  sessions   8  with narration   5  narration   22  between-call text   43
+  2026-10-04  sessions   6  with narration   3  narration   42  between-call text   34
+  2026-10-05  sessions   8  with narration   5  narration   74  between-call text   72
+  2026-10-06  sessions   8  with narration   7  narration   42  between-call text   63
+  2026-10-07  sessions   4  with narration   4  narration   39  between-call text   92
+  2026-10-09  sessions   1  with narration   0  narration    0  between-call text    0
+  2026-10-11  sessions   4  with narration   3  narration  148  between-call text  147
+  2026-10-12  sessions  11  with narration  11  narration  142  between-call text  155
+  2026-10-13  sessions  52  with narration  32  narration  144  between-call text  295
+  2026-10-14  sessions  12  with narration   9  narration  202  between-call text  228
+  2026-10-15  sessions  15  with narration  12  narration  105  between-call text  120
+
+sessions that ran the reader (a Bash call, node transcript-reader.mjs --distill): 31; with narration blocks before the first run: 18
