@@ -171,6 +171,23 @@ describe('launchDesktop (server)', () => {
     expect(prompt.length).toBeGreaterThan(200_000);
   });
 
+  it('opens q with the role, because q is the line Loudon sends himself', () => {
+    const p = '/x/The Palace/_ops/stigmergy/launches/f.txt';
+    const tail = `"${p}" in full — it is your construction for this session — and follow it.`;
+    expect(desktopPointer(p, 'grow')).toBe(`Grow up (read ELDER.md, then SCHEMA.md), then read ${tail}`);
+    expect(desktopPointer(p, 'grown')).toBe(`Grow up: ELDER and SCHEMA are inside your construction. Read ${tail}`);
+    expect(desktopPointer(p, 'child')).toBe(`You stay a child. Read ${tail}`);
+    expect(desktopPointer(p)).toBe(`Read ${tail}`);
+    expect(desktopPointer(p, 'emperor')).toBe(`Read ${tail}`);   // an unknown role adds nothing
+  });
+
+  it('carries the role into the link it opens', async () => {
+    root = mkdtempSync(join(tmpdir(), 'launch-desktop-'));
+    const r = await launchDesktop('x', { platform: 'darwin', palaceRoot: root, spawnImpl: () => fakeChild(0), role: 'child' });
+    expect(new URL(r.link).searchParams.get('q')).toBe(desktopPointer(r.stagedPath, 'child'));
+    expect(new URL(r.link).searchParams.get('q').startsWith('You stay a child. Read "')).toBe(true);
+  });
+
   it('gives two launches in the same second two files', async () => {
     root = mkdtempSync(join(tmpdir(), 'launch-desktop-'));
     const o = { platform: 'darwin', palaceRoot: root, spawnImpl: () => fakeChild(0), now: Date.UTC(2026, 9, 18) };

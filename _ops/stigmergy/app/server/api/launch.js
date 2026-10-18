@@ -157,7 +157,9 @@ async function handleAgentLaunch(ctx) {
   const effort = EFFORTS.has(body.effort) ? body.effort : undefined;
   const model = (typeof body.model === 'string' && /^[A-Za-z0-9._-]+$/.test(body.model)) ? body.model : undefined;
   const launch = pickLauncher(body, opts);
-  const result = await launch(prompt, { palaceRoot, model, effort, label: `agent ${home}`, ...(opts.launchOpts || {}) });
+  // role: on the desktop door q opens with it (server/launch.js); the
+  // construction carries ELDER and SCHEMA, so the steward is told it is grown.
+  const result = await launch(prompt, { palaceRoot, model, effort, label: `agent ${home}`, role: 'grown', ...(opts.launchOpts || {}) });
   if (!result.launched) {
     jsonResponse(res, result.supported === false ? 501 : 500, { ...result, home, cycle });
     return true;
@@ -262,7 +264,8 @@ async function handleEphemeralLaunch(ctx) {
   const model = (typeof body.model === 'string' && /^[A-Za-z0-9._-]+$/.test(body.model)) ? body.model : undefined;
   const launch = pickLauncher(body, opts);
   const label = lensSubject ? `lens ${home} ${lensSubject}` : `enchant ${home}`;
-  const result = await launch(built.full, { palaceRoot, model, effort, label, ...(opts.launchOpts || {}) });
+  // A woken page, lens or not, is a child (ephemeral-prompt.js); q says so.
+  const result = await launch(built.full, { palaceRoot, model, effort, label, role: 'child', ...(opts.launchOpts || {}) });
   if (!result.launched) {
     jsonResponse(res, result.supported === false ? 501 : 500, { ...result, home, ephemeral: true, lens });
     return true;
@@ -304,8 +307,11 @@ export async function launchRoutes(ctx) {
   // opts.launchImpl / opts.desktopLaunchImpl let a test intercept the spawn
   // without opening anything; opts.launchOpts threads platform/spawnImpl/tmpDir
   // into the real impl.
+  // Every prompt LaunchModal builds (handoff, card, steward fallback) carries
+  // the grow-before-writing step (src/lib/launch-prompt.js ORIENT), so q
+  // says grow up too.
   const launch = pickLauncher(body, opts);
-  const result = await launch(prompt, { palaceRoot, label, ...(opts.launchOpts || {}) });
+  const result = await launch(prompt, { palaceRoot, label, role: 'grow', ...(opts.launchOpts || {}) });
 
   if (!result.launched) {
     // not-on-macOS -> 501 (client falls back to copy); any other failure -> 500.

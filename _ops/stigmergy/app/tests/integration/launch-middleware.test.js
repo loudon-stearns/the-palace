@@ -257,7 +257,8 @@ describe('launch target: desktop', () => {
     expect(res.body.stagedPath).toBe('/p/x.txt');
     expect(res.body.link).toBe('claude://code/new?q=x');
     expect(d.seen).toHaveLength(1);
-    expect(d.seen[0]).toMatchObject({ door: 'desktop', prompt: 'catch the baton', palaceRoot: root, label: 'handoff h-1' });
+    // every LaunchModal prompt says to grow before writing, so q does too
+    expect(d.seen[0]).toMatchObject({ door: 'desktop', prompt: 'catch the baton', palaceRoot: root, label: 'handoff h-1', role: 'grow' });
   });
 
   test('/api/launch: no target, or target terminal, stays on the terminal door', async () => {
@@ -298,7 +299,8 @@ describe('launch target: desktop', () => {
     expect(res.status).toBe(200);
     expect(res.body.cycle).toBe(10);
     expect(res.body.construction.tiers).toHaveLength(4);
-    expect(d.seen[0]).toMatchObject({ door: 'desktop', prompt: 'THE CONSTRUCTED PROMPT', label: 'agent Kuramoto Coupling' });
+    // the construction carries ELDER + SCHEMA, so the steward is told it is grown
+    expect(d.seen[0]).toMatchObject({ door: 'desktop', prompt: 'THE CONSTRUCTED PROMPT', label: 'agent Kuramoto Coupling', role: 'grown' });
   });
 
   test('/api/launch/ephemeral: an enchant and a lens go to the desktop door, labelled by kind', async () => {
@@ -310,8 +312,9 @@ describe('launch target: desktop', () => {
     }));
     await request(srv).post('/api/launch/ephemeral').send({ home: 'Murmuration', target: 'desktop' });
     await request(srv).post('/api/launch/ephemeral').send({ home: 'The Lens', lensSubject: 'Kuramoto Coupling', target: 'desktop' });
-    expect(d.seen[0]).toMatchObject({ door: 'desktop', prompt: 'AWAKEN Murmuration', label: 'enchant Murmuration' });
-    expect(d.seen[1]).toMatchObject({ door: 'desktop', prompt: 'LENS Kuramoto Coupling THROUGH The Lens', label: 'lens The Lens Kuramoto Coupling' });
+    // a woken page, lens or not, stays a child
+    expect(d.seen[0]).toMatchObject({ door: 'desktop', prompt: 'AWAKEN Murmuration', label: 'enchant Murmuration', role: 'child' });
+    expect(d.seen[1]).toMatchObject({ door: 'desktop', prompt: 'LENS Kuramoto Coupling THROUGH The Lens', label: 'lens The Lens Kuramoto Coupling', role: 'child' });
   });
 
   test('through the real desktop door: the prompt is staged in the palace and the link points at it', async () => {
@@ -332,6 +335,7 @@ describe('launch target: desktop', () => {
     const url = new URL(res.body.link);
     expect(url.searchParams.get('folder')).toBe(root);
     expect(url.searchParams.get('q')).toContain(res.body.stagedPath);
+    expect(url.searchParams.get('q').startsWith('Grow up (read ELDER.md, then SCHEMA.md), then read "')).toBe(true);
   });
 
   test('501 when the host is not macOS (client falls back to copy)', async () => {

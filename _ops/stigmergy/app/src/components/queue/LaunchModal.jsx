@@ -77,7 +77,7 @@ export default function LaunchModal({ context, onPickedUp, onClose }) {
   // Launch the prompt directly — no paste. 'terminal': the server spawns
   // Terminal.app, seeded with the prompt, at the palace root. 'desktop': the
   // server stages the prompt under the palace root and opens a Claude app Code
-  // session there with a one-line pointer to it prefilled (not sent).
+  // session there with a one-line pointer to it prefilled.
   // Falls back to copy on any failure; a non-macOS host says so plainly.
   const launchVia = useCallback(async (target) => {
     if (launching) return;
