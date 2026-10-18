@@ -46,15 +46,39 @@ function entrySection(id, inner) {
   return { id, heading, body, footer, artifacts: liftArtifacts(body) };
 }
 
-/** Markdown links whose target looks like a media file → [{ path, caption }]. */
+/**
+ * The palace path a trail link names, or null. A scroll is written by many
+ * hands, so one file arrives in every form the palace writes (2026-10-18
+ * census: 39 web pages on 16 scrolls missed the trail for their form alone):
+ * a plain path, spaces and all, which is most project bundles; one in
+ * <angle brackets> or %20-encoded; `open:<path>`, the open-in-its-app link;
+ * an `obsidian://open?…&file=<path>` vault link; a palace-absolute `/path`.
+ * A web address is not a palace file.
+ */
+export function palacePathOf(target) {
+  let t = String(target || '').trim();
+  if (t.startsWith('<') && t.endsWith('>')) t = t.slice(1, -1).trim();
+  t = t.replace(/\s+"[^"]*"$/, '');
+  if (/^obsidian:/i.test(t)) {
+    try { t = new URL(t).searchParams.get('file') || ''; } catch { return null; }
+  } else if (/^open:/i.test(t)) {
+    t = t.slice('open:'.length);
+  } else if (/^[a-z][a-z0-9+.-]*:/i.test(t)) {
+    return null;
+  }
+  if (/%[0-9a-f]{2}/i.test(t)) { try { t = decodeURIComponent(t); } catch { /* keep it as written */ } }
+  t = t.replace(/^\/+/, '').trim();
+  return t || null;
+}
+
+/** Markdown links whose target is a palace media file → [{ path, caption }]. */
 export function liftArtifacts(body) {
   const out = [];
-  const re = /\[([^\]]*)\]\(([^)\s]+)\)/g;
+  const re = /\[([^\]]*)\]\(\s*(<[^>]*>|[^)]*?)\s*\)/g;
   let m;
   while ((m = re.exec(String(body || ''))) !== null) {
-    const path = m[2];
-    if (/^[a-z]+:\/\//i.test(path) || path.startsWith('open:') || path.startsWith('obsidian:')) continue;
-    if (!MEDIA_EXT.test(path)) continue;
+    const path = palacePathOf(m[2]);
+    if (!path || !MEDIA_EXT.test(path)) continue;
     if (out.some((a) => a.path === path)) continue;
     out.push({ path, caption: m[1] || null });
   }
