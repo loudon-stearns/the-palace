@@ -620,3 +620,14 @@ and [[README - The Palace Guide]] (the weave's row, which now names carrying dec
 back-links flagged for the Weave; `:136`, stewards' completions on `WEAVE`); [[SUBSTRATE]] states no weave-flag
 rule. Beyond the mirror set: none, because §9 keeps the words "palace-weaving flags" that [[The Lens]] quotes;
 history in ledgers is left as it is. **MINOR:** additive; nothing removed.
+
+**The commit, and the check that watches it.** The ceremony's own commit (`9142b19e`) went out as
+`schema(SCHEMA): Schema Ceremony — … — v1.29`, because the door's committer could write only `kind(scope):`
+subjects. The worktree rule had let earlier ceremonies write theirs by hand ("Your HEAD is yours"), but the
+committer every session reaches for could not, and in the main checkout nothing else may commit. The same day
+`palace-commit` learned `--ceremony`, and §5 step 6 names it. The failure mode's check moved with it: it had
+told the next Weave to flag version moves without the subject, a duty the Weave card never carried, and it
+pointed the reconstructed rationale at SCHEMA.md, where none has lived since v1.18. Each Schema Ceremony now
+reads its own version history at the open and writes any missing rationale here. `9142b19e` is v1.29's
+ceremony commit, and this record is its rationale. This closing commit carries CLAUDE.md's line, on Loudon's
+word.

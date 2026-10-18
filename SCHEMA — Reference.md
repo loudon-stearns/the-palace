@@ -161,13 +161,13 @@ When any of the following change, a Schema Ceremony is required:
    each the change touches; if none, say so explicitly. Any other page that restates what
    changed is beyond the mirror set: post one propagate flag for it (§9), so the next weave
    carries the change there.
-6. Git commit with message: `Schema Ceremony — [what changed] — v[new version]`
+6. Commit through the door with the ceremony's subject: `palace-commit --ceremony "Schema Ceremony" --summary "[what changed] — v[new version]"` writes `Schema Ceremony — [what changed] — v[new version]`
 
 **Postcondition:** SCHEMA.md, CLAUDE.md, ROSETTA.md, README, SUBSTRATE, `_ops/Substrate Skill.md`,
 and (for ceremony changes) `_ops/Palace Ceremonies` are internally consistent — verified by
 `_ops/swarm/lint-doc-drift.py` exiting clean on errors. Git commit made with Schema Ceremony message.
 
-**Failure mode:** If a schema change is made but the commit message does not follow the Schema Ceremony format, the change is not considered a Schema Ceremony — it is an undocumented structural edit. On next Weave: flag any version increments whose git commit messages lack the Schema Ceremony format. Reconstruct the rationale from the diff and add it retroactively as a note in SCHEMA.md.
+**Failure mode:** If a schema change is made but its commit does not carry the Schema Ceremony subject, the change is not a Schema Ceremony; it is an undocumented structural edit. So each Schema Ceremony opens by reading the version moves since the last one (`git log --format='%h %s' -G'^version:' -- SCHEMA.md`). For any whose commit lacks the subject, it reconstructs the rationale from the diff and adds it to [[SCHEMA — Context]].
 
 **Access vectors:**
 - *Full:* Claude Code / Cowork (filesystem read/write + git)

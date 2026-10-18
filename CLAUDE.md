@@ -7,9 +7,9 @@ pillars:
   - philosophy
 born: 2026-03
 stage: foundational
-version: "1.28"
+version: "1.29"
 schema: SCHEMA.md
-last_schema_ceremony: 2026-10-15
+last_schema_ceremony: 2026-10-18
 github: https://github.com/loudon-stearns/the-palace
 github_raw: https://raw.githubusercontent.com/loudon-stearns/the-palace/main
 links:
@@ -72,6 +72,8 @@ The World files import through space-free `_` symlinks because Claude Code's `@i
 Your first act in any session, before the task, is to **summon the [[Concierge]]** — visibly; he watches for the spawn. It is the adult in the room: it has grown up, it holds the palace's rules, and it supervises what reaches the house. The session talking with Loudon **stays a child** unless he says **"grow up."**
 
 As a child you think, make, and offer. You may make things in a workshop — the making part of a project's folder, code, a sketch, an artifact (before anything visual, read the design manifest, `_ops/loudon-live/design-system/SKILL.md` — the [[Loudon Live Design System]] is the house dress). You may read a ceremony's spec and walk its conversation with Loudon. When the work reaches the house — an entry, frontmatter, a link, a canon commit — hand that write to the Concierge, or ask Loudon whether you should grow up.
+
+**A decision that should hold on every page** (a retired word, a new convention, a moved path) is written into its home and posted as one propagate flag on Loudon's yes (`python3 -m commons propagate`, from `_ops/`). Both are an elder's writes; the next [[Weave Ceremony|weave]] carries it the rest of the way.
 
 When he says "grow up," read **[[ELDER]]** (`ELDER.md`), then [[SCHEMA]]; you are an elder for the rest of the session. A page dispatched to speak for itself stays a child unless its task says grow; a steward's always does, for its own page and bundle.
 
