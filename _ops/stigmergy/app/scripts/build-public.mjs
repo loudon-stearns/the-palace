@@ -24,7 +24,7 @@
 // Standing Orders stay in STIGMERGY. Nothing from the board is published.
 
 import { mkdirSync, writeFileSync, copyFileSync, readFileSync, readdirSync, existsSync, statSync, rmSync } from 'node:fs';
-import { resolve, join, dirname, relative, sep, normalize, posix } from 'node:path';
+import { resolve, join, dirname, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -35,8 +35,8 @@ import { findUnsungEdges, buildPalaceIndex } from '../src/lib/unsung-paths.js';
 import { resolveQuotes } from '../src/lib/quotes.js';
 import { loadEntryUse } from '../src/lib/entry-use.js';
 import { pathId, encodeSegments } from '../src/lib/public-mode.js';
-import { makeFinder } from '../../../rich-face/palace-find.mjs';
-import { vendorFiles } from '../../../rich-face/rich-handler.mjs';
+import { makeResolver } from '../../../rich-face/resolve.mjs';
+import { vendorFiles, richReferences } from '../../../rich-face/rich-handler.mjs';
 import { isPiecePage, pieceBytes } from '../../../rich-face/kit/inject.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -95,7 +95,6 @@ const servedFile = (f) => ({ ...f, relPath: servedAs(f.relPath) });
 // Memory, by the suffix its name carries. These stay in git.
 const MEMORY = / — (Context|Handoff|baton|tuning|ledger|Log|dossier)( |$)/i;
 const IMAGE = /\.(png|jpe?g|gif|webp|svg|avif)$/i;
-const RICH_MEDIA = /\.(mp4|webm|mov|wav|mp3|png|jpe?g|gif|webp|svg|html?|md)$/i;
 // What a text may link a reader to: its media, never its code or working docs.
 const LINKABLE = /\.(mp4|webm|mov|wav|mp3|ogg|m4a|flac|png|jpe?g|gif|webp|svg|avif|html?|pdf)$/i;
 const SCROLL_MARK = {
@@ -105,7 +104,6 @@ const SCROLL_MARK = {
 };
 
 const stemOf = (p) => p.split('/').pop().replace(/\.md$/, '');
-const toRel = (abs) => relative(ROOT, abs).split(sep).join('/');
 const safeDecode = (s) => { try { return decodeURIComponent(s); } catch { return s; } };
 const localDay = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
 
@@ -142,26 +140,14 @@ const pubPaths = new Set(published.map((e) => e.path));
 const scrollOf = (e) => (Array.isArray(e.faces) && e.faces.includes('scroll')
   ? `${e.path.replace(/\.md$/, '')}/${stemOf(e.path)} — scroll.md` : null);
 const readablePaths = new Set([...pubPaths, ...published.map(scrollOf).filter(Boolean)]);
-const finder = makeFinder(ROOT);
+// The one resolver the live rich page and the fingerprint use (resolve.mjs),
+// so the read view finds every file the way the palace does, or not at all.
+const resolver = makeResolver(ROOT);
 
-// Where a link or embed in `fromPath` lands, the way a reader would find it:
-// beside the text, from the palace root, in the entry's bundle, then by name
-// anywhere (Obsidian's rule). Palace-relative, or null.
+// Where a link or embed in `fromPath` lands: palace-relative, or null.
 function resolveLink(target, fromPath) {
-  const isFile = (rel) => {
-    if (!rel || rel.startsWith('..')) return false;
-    const abs = join(ROOT, rel);
-    return abs.startsWith(ROOT + sep) && existsSync(abs) && statSync(abs).isFile();
-  };
-  const here = posix.dirname(fromPath);
-  const candidates = [
-    posix.normalize(posix.join(here === '.' ? '' : here, target)),
-    posix.normalize(target),
-    posix.join(fromPath.replace(/\.md$/, ''), target),
-  ];
-  for (const c of candidates) if (isFile(c)) return c;
-  const hit = finder.findByName(target.split('/').pop(), join(ROOT, fromPath.replace(/\.md$/, '')));
-  return hit ? toRel(hit) : null;
+  const r = resolver.resolve(target, fromPath);
+  return r.ok ? r.path : null;
 }
 
 const files = new Set();   // palace-relative paths copied under files/
@@ -188,10 +174,6 @@ function embedTargets(body) {
   for (const m of body.matchAll(/!\[[^\]]*\]\(\s*<?([^)\s>]+)>?\s*\)/g)) out.push(safeDecode(m[1].trim()));
   return out;
 }
-function resolveInBundle(target, bundleFiles) {
-  const base = target.split('/').pop();
-  return bundleFiles.find((f) => f.name === target || f.name === base || f.relPath === target || f.relPath.split('/').pop() === base) || null;
-}
 
 // A published text's links, made to work for a reader who has only the read
 // view: media it links (a scroll's proofs, an entry's pieces) are copied and
@@ -205,7 +187,7 @@ function publicBody(body, fromPath) {
     if (/^(https?:|mailto:|#|\?)/i.test(target)) return whole;
     let rel = target;
     if (/^open:/i.test(rel)) rel = rel.slice(5).split('?')[0];
-    else if (/^[a-z][a-z0-9+.-]*:/i.test(rel) || rel.startsWith('/')) return label;
+    else if (/^[a-z][a-z0-9+.-]*:/i.test(rel)) return label;
     rel = safeDecode(rel.split('#')[0]);
     const found = resolveLink(rel, fromPath);
     if (!found) return label;
@@ -256,9 +238,10 @@ for (const s of published) {
   }
   for (const t of embedTargets(e.body || '')) {
     if (/^https?:\/\//i.test(t) || !IMAGE.test(t)) continue;
-    const hit = resolveInBundle(t, bundleFiles);
-    if (hit) keep.set(hit.relPath, hit);
-    else { const found = resolveLink(t, e.path); if (found) addFile(found); }
+    const found = resolveLink(t, e.path);
+    if (!found) continue;
+    const inBundle = bundleFiles.find((f) => f.relPath === found);
+    if (inBundle) keep.set(found, inBundle); else addFile(found);
   }
   const kept = [...keep.values()].filter((f) => addFile(f.relPath));
 
@@ -363,20 +346,17 @@ for (const s of published) {
   const bundleRel = e.path.replace(/\.md$/, '');
   const manifestRel = e.face_files?.rich;
   if (!manifestRel || !addFile(e.path) || !addFile(manifestRel)) continue;
-  const names = new Set();
-  (function collect(v, key) {
-    if (Array.isArray(v)) v.forEach((x) => collect(x, key));
-    else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) collect(x, k);
-    else if (typeof v === 'string' && (key === 'file' || key === 'name') && RICH_MEDIA.test(v)) names.add(v);
-  })(JSON.parse(readFileSync(join(ROOT, manifestRel), 'utf8')));
-  for (const m of (e.body || '').matchAll(/!?\[\[([^\]|#]+)(?:[|#][^\]]*)?\]\]/g)) if (RICH_MEDIA.test(m[1].trim())) names.add(m[1].trim());
+  // The same table the live page gets from _api/resolve: every file the text
+  // and the manifest name, and where it landed or why not. A failure keeps
+  // its label, so the read view shows the same box the live page does.
+  const refs = richReferences(resolver, e.path, readFileSync(join(ROOT, e.path), 'utf8'), JSON.parse(readFileSync(join(ROOT, manifestRel), 'utf8')));
   const media = {};
-  for (const n of names) {
-    const hit = finder.findByName(n, join(ROOT, bundleRel));
-    if (hit && addFile(toRel(hit))) media[n] = `../files/${encodeSegments(servedAs(toRel(hit)))}`;
+  for (const [n, r] of refs) {
+    if (!r.ok) media[n] = { error: r.reason, label: r.label };
+    else if (addFile(r.path)) media[n] = { path: r.path, url: `../files/${encodeSegments(servedAs(r.path))}` };
+    else media[n] = { path: r.path, error: 'skipped', label: `“${n}” is not in the read view (${skipped.find((x) => x.path === r.path)?.reason || 'left out'}).` };
   }
-  let bundleNames = [];
-  try { bundleNames = readdirSync(join(ROOT, bundleRel)).filter((f) => !f.startsWith('.')); } catch { /* none */ }
+  const bundleNames = resolver.filesIn(bundleRel);
   rich[stem] = {
     title: stem,
     path: e.path,
