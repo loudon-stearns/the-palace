@@ -426,6 +426,7 @@ describe('a steward\'s own page edits', () => {
     writeFileSync(path.join(root, 'Shop/OCR Smith.md'), '---\ntitle: OCR Smith\ntype: specialist\nstatus: stub\n---\n# OCR Smith\n');
     writeFileSync(path.join(root, 'Shop/FLUX/recipe.md'), 'notes, no frontmatter\n');
     writeFileSync(path.join(root, 'Shop/FLUX/FLUX — scroll.md'), 'scroll\n');
+    writeFileSync(path.join(root, 'Shop/FLUX/FLUX — tuning.md'), '---\ntitle: FLUX — tuning\n---\nrun lines\n');
     writeFileSync(path.join(root, 'Shop/Broken.md'), '---\ntitle: [broken\n---\n');
     writeFileSync(path.join(root, 'Shopping.md'), '---\ntitle: Shopping\ntype: concept\n---\n');
     writeFileSync(path.join(root, 'Projects/Other.md'), '---\ntitle: Other\ntype: concept\n---\n');
@@ -436,6 +437,7 @@ describe('a steward\'s own page edits', () => {
       { path: 'Shop/OCR Smith.md', why: 'new stub Specialist' },
       { path: 'Shop/FLUX/recipe.md', why: 'recipe' },
       { path: 'Shop/FLUX/FLUX — scroll.md', why: 'orders' },
+      { path: 'Shop/FLUX/FLUX — tuning.md', why: 'a run line' },
       { path: 'Shop/Broken.md', why: 'oops' },
       { path: 'Shopping.md', why: 'a sibling name is not the folder' },
       { path: 'Projects/Other.md', why: 'a mirror link' },
@@ -445,6 +447,7 @@ describe('a steward\'s own page edits', () => {
     expect(wide.allowed.map((e) => e.path)).toEqual([ENTRY, 'Shop/FLUX.md', 'Shop/OCR Smith.md', 'Shop/FLUX/recipe.md']);
     const why = Object.fromEntries(wide.refused.map((e) => [e.path, e]));
     expect(why['Shop/FLUX/FLUX — scroll.md'].reason).toMatch(/a scroll/);
+    expect(why['Shop/FLUX/FLUX — tuning.md'].reason).toMatch(/tuning ledger/);
     expect(why['Shop/Broken.md'].reason).toMatch(/frontmatter does not parse/);
     expect(why['Shopping.md'].reason).toBe('another page or canon, outside its own page, bundle and Shop/');
     expect(why['Projects/Other.md'].proposal).toBe(true);

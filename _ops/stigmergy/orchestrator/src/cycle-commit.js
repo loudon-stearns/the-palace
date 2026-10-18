@@ -32,7 +32,8 @@
 // One steward may be grown up for more than that. Its manifest's `grown_up_for`
 // names palace folders where it writes as an elder: any page there, new
 // entries included, rides as a page edit. Every scroll there stays refused,
-// since its Plan and Standing Orders are Loudon's. Only the Shopkeeper has one,
+// since its Plan and Standing Orders are Loudon's, and so does every other
+// page's tuning ledger, which its own runs keep. Only the Shopkeeper has one,
 // for `Shop` (Loudon, 2026-10-18: "the shopmaster needs to be an elder that
 // can create documents anywhere in the shop ... the rest of the stewards
 // should be restricted").
@@ -118,7 +119,7 @@ export function checkFrontmatter(text, { required = false } = {}) {
  * there (another page). Every allowed `.md` must have frontmatter that parses;
  * its own entry must have some. `grownUpFor` (the manifest's `grown_up_for`)
  * widens the allowed set to every file under those folders, entries included,
- * except any scroll. Paths come back palace-relative; each refusal carries a
+ * except any scroll and another page's tuning ledger. Paths come back palace-relative; each refusal carries a
  * reason and whether it stays a proposal.
  *
  * @returns {{ allowed: {path, why}[], refused: {path, why, reason, proposal: boolean}[] }}
@@ -153,6 +154,7 @@ export function vetPageEdits({ palaceRoot, home, entryFile, bundleDir, grownUpFo
     if (!isOwnEntry && !inBundle && !inWider) { refuse(outsideReason, true); continue; }
     if (kept.has(abs)) { refuse('the cycle writes this file; the steward does not'); continue; }
     if (!isOwnEntry && !inBundle && basename(abs).endsWith(' — scroll.md')) { refuse('a scroll: its Plan and Standing Orders are Loudon\'s', true); continue; }
+    if (!isOwnEntry && !inBundle && basename(abs).endsWith(' — tuning.md')) { refuse('another page\'s tuning ledger: its own runs keep it', true); continue; }
     if (!existsSync(abs) || !statSync(abs).isFile()) { refuse('no such file'); continue; }
     if (!isOwnEntry && !inWider && isEntryFile(abs) && !basename(abs).startsWith(`${home} — `)) { refuse('another entry kept in the bundle, so another page', true); continue; }
     if (abs.toLowerCase().endsWith('.md')) {
