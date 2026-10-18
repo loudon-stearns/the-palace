@@ -78,3 +78,4 @@ Anything longer than a breath is made in a worktree of its own: its own branch a
 ## Active Baton
 
 [[How the Palace Commits — baton — union-merge]] — drafted 2026-10-18
+[[How the Palace Commits — baton — retire-cowork]] — drafted 2026-10-18
