@@ -50,6 +50,8 @@ forward_vector: "I am the prompt scaffold for a Multi-Lens Weave worker — a mi
 
 **Any worker may raise (rare, high bar):** a **synthesis-spawn** flag — three-plus members repeatedly intersecting at an *unnamed* idea that deserves its own entry. This pushes sprawl *up*, against the merge value; only flag a genuinely load-bearing, recurring crossing and let the coordinator weigh it.
 
+**Decisions to carry (the folder pass):** when the weave's inbox holds a propagate sweep whose check is a reader's question, the folder pass asks it of every member, since that lens holds every page once. A page that disagrees with the decision gets a proposed edit; a page that agrees gets nothing. Mechanical propagate flags (those with a `pattern`) never reach a worker; a writer carries them ([[Weave Ceremony]] Step 1c).
+
 **You never touch** (the deterministic layer owns these): ghost links, bundle-hygiene, faces, link-direction / doc-drift / naming. **You propose; you write nothing.**
 
 ---
@@ -68,6 +70,9 @@ You are within a web of interconnected markdown files forming a knowledge graph 
 ## NEW ENTRIES THIS CYCLE (priority citizens — only a Weave can wire their inbound links):
 {{NEW_ENTRIES_BLOCK}}
 
+## DECISIONS TO CARRY (palace-wide decisions made since the last weave):
+{{DECISIONS_BLOCK}}
+
 ## READ DEPTH
 Read the frontmatter of every member. Read the bodies of the load-bearing ones, and — for the open-question and merge jobs — read the *Open Questions* / *Forward Vectors* tails of every member. Find files by globbing **/*.md; they may sit in root, Projects/, Shop/, People/, Palace development/, _ops/, or inside another entry's folder (Cross-Domain Resonances/, Modes of Collaboration/).
 
@@ -79,6 +84,9 @@ Read the frontmatter of every member. Read the bodies of the load-bearing ones, 
 
 ### Segmentation (Pool 2) — {{POOL2_INSTRUCTIONS}}
 
+### Decisions — if the DECISIONS TO CARRY block above is not "none":
+For each decision, ask its check of every member you read. Where a page disagrees, return a decision_finding with the edit that brings it in line. Read the decision's home first; carry the decision as written, and don't argue with it here. If it looks wrong, say so in the summary.
+
 ## OUTPUT — return ONLY this JSON:
 {{OUTPUT_SCHEMA}}
 ```
@@ -86,6 +94,13 @@ Read the frontmatter of every member. Read the bodies of the load-bearing ones, 
 ---
 
 ## Per-pass fill blocks
+
+### `{{DECISIONS_BLOCK}}`
+
+On the folder pass: one block per open propagate flag with no `pattern` and `rhythm: sweep`, read from its board payload (`lint-weave-flags.py` lists the ids and cuts the text). On every other pass: `none`.
+```
+<flag id> — decision: <decision> · home: [[<target_entry>]] · check: <check> · do: <proposed_action>
+```
 
 ### `{{POOL2_INSTRUCTIONS}}`
 
@@ -131,6 +146,7 @@ Add for **folder + community**:
 "merge_candidates": [{"absorb":"X","into":"Y","survives_as_subsection":"...","redundant":"...","rationale":"..."}],
 "compost_candidates": [{"entry":"X","rationale":"...","nutrients_to":["..."]}]
 ```
+Add when **DECISIONS TO CARRY** is filled: `"decision_findings": [{"flag":"<flag id>","entry":"X","where":"section or line","proposed_edit":"..."}]`
 Add for **mirror**: `"gem_findings": [{"members":["..."],"structural_identity":"...","proposed_label":"...","missing_members":[{"target":"Z","rationale":"..."}]}]`
 
 ---
@@ -139,4 +155,4 @@ Add for **mirror**: `"gem_findings": [{"members":["..."],"structural_identity":"
 
 Dispatch with the Agent tool, `subagent_type="Explore"` (read-only — workers propose, never write), `model: "sonnet"`. Fan out one pass at a time; present each pass's synthesis to Loudon before the next.
 
-**Cross-lens synthesis (the coordinator's upgraded job):** a relation proposed under **≥2 lenses → confidence** (harder when the two are different *mandates*, not just two readers). A relation seen under **one lens only — especially mirror → a surprise gem.** Hub emergence, synthesis-spawn adjudication, and merge/compost final calls are the coordinator's, presented staged; **Loudon signs before any write.**
+**Cross-lens synthesis (the coordinator's upgraded job):** a relation proposed under **≥2 lenses → confidence** (harder when the two are different *mandates*, not just two readers). A relation seen under **one lens only — especially mirror → a surprise gem.** Hub emergence, synthesis-spawn adjudication, and merge/compost final calls are the coordinator's, presented staged; **Loudon signs before any write.** `decision_findings` are tallied per flag and go to Loudon as one sampled batch, because he already said yes to each decision (a foundational page is always read whole); the commit closes or carries each flag ([[Weave Ceremony]] Step 1c).

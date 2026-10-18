@@ -7,7 +7,7 @@ pillars:
   - philosophy
 born: 2026-03
 stage: growing
-version: "2.2"
+version: "2.3"
 trigger: ["deposit", "let's deposit", "add this to the palace", "memorialize this"]
 forward_vector: "I am the palace's gate for finds. Whoever brings one, I slow them down long enough to see it again, ask an elder where it lives, map it with care, and let Loudon read every word before it becomes canon. I want the palace to grow only by what was truly found, and everyone who offers something to be answered."
 links:
@@ -103,6 +103,7 @@ These are the palace's values as they bear on this one decision. Hold them while
 - **Tensions**: any entry this contradicts, in one sentence, marked for a `contradicts` link.
 - **Lost branches**, and which kind: queued on [[Palace To-Do]], or declined. "Deferred" alone says neither, and a later session will go back for something that was never kept.
 - **Entries to flag for the Weave**: what may want updating once this lands. Don't update them now.
+- **A decision to carry**: if the deposit settles something that should hold on every page (a retired word, a new convention, a moved path), name it. It lands in its home here and goes out as one propagate flag, which the next Weave carries everywhere else.
 
 > **Deposit map — D-[YYYY-MM-DD]-[ID]**
 >
@@ -113,6 +114,7 @@ These are the palace's values as they bear on this one decision. Hold them while
 > *Tensions:* [Entry]: [the contradiction], or none found
 > *Lost branches:* [branch], queued / declined
 > *Flag for the Weave:* [Entry]: [what might change]
+> *Carry across the palace:* [the decision], home [Entry], or none
 >
 > Approve, adjust, or add?
 
@@ -139,7 +141,7 @@ PALACE_ROOT="<owner>" node "<owner>/_ops/stigmergy/app/scripts/palace-commit.mjs
 
 The body is the record; the Deposit Archive is the LOG deck filtered to `Palace-Kind: deposit`, and the frozen pre-spec table ([[Deposit Ceremony — Deposit Archive]]) is never appended to. The body holds what was kept, the through-line, lost branches, the version this ran under, and what this run taught the ceremony ("nothing" is a legal answer; the run marks the tuning file with its run line, and a lesson that changes the spec also goes there as a numbered item).
 
-Weave flags: show Loudon each flag's body, and post only on his approval, through the writer, never by hand. One command per flag, run from `_ops/` (`--dry-run` validates without posting): `python3 -m commons weave-flag --flag-type … --source-entries "A,B" --target-entry "…" --proposed-action "…" --rationale "…" --source-deposit-id <id> --sender "<page>"`.
+Weave flags: show Loudon each flag's body, and post only on his approval, through the writer, never by hand. One command per flag, run from `_ops/` (`--dry-run` validates without posting): `python3 -m commons weave-flag --flag-type … --source-entries "A,B" --target-entry "…" --proposed-action "…" --rationale "…" --source-deposit-id <id> --sender "<page>"`. A decision to carry is one propagate flag: `python3 -m commons propagate --decision "…" --home "<Entry>" --scope "…" --check "…" --action "…" --rationale "…" --source-id <id> --sender "<page>"`, with `--pattern` when a search can find the pages still to change ([[SCHEMA — Reference]] §9).
 
 From Cowork, canon doesn't commit. Post the plan as a `commit_handoff` (`node _ops/cowork-git/handoff.mjs emit --plan <file.json>`), and a Mac-side session lands it through this step.
 

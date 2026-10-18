@@ -3,6 +3,8 @@ easy cleanup.
 
   python3 -m commons status              # every resource across all providers + owners + age
   python3 -m commons whoami              # this agent's slug and namespace
+  python3 -m commons weave-flag …        # one flag for the next Weave, about named entries
+  python3 -m commons propagate …         # one decision for the next Weave to carry to every page
 
 Run from the _ops dir, or with the repo's _ops on PYTHONPATH. reap/terminate arrive
 in Phase 5 (the reaper).
@@ -117,6 +119,52 @@ def cmd_weave_flag(args):
     return 0
 
 
+def cmd_propagate(args):
+    """Post one propagate flag: a decision the next Weave carries to every page it reaches.
+
+    A weave_flag with flag_type `propagate` and no source entries, so no touch can close it
+    (Weave Ceremony Step 1c). It closes by `Palace-Resolves: <id>` once its check is clean.
+    The decision is written into its home page first; the flag points at it.
+    """
+    if args.rhythm == "by-touch" and not args.pattern:
+        print("a by-touch flag needs --pattern: the weave measures its spread and never sweeps it", file=sys.stderr)
+        return 2
+    payload = {
+        "kind": "weave_flag",
+        "flag_type": "propagate",
+        "source_entries": [],
+        "target_entry": args.home,
+        "decision": args.decision,
+        "scope": args.scope,
+        "check": args.check,
+        "rhythm": args.rhythm,
+        "proposed_action": args.action,
+        "rationale": args.rationale,
+        "source_deposit_id": args.source_id,
+    }
+    if args.pattern:
+        payload["pattern"] = args.pattern
+    if args.paths:
+        payload["paths"] = [p.strip() for p in args.paths.split(",") if p.strip()]
+    msg = _board.make_message("BROADCAST", "WEAVE", payload,
+                              from_=args.sender, session_id=args.session_id)
+    payload["stale_if"] = f"a commit carries Palace-Resolves: {msg['id']} once the check is clean"
+    if args.dry_run:
+        print(json.dumps(msg, ensure_ascii=False, indent=2))
+        res = _board.validate(msg)
+        ok = bool(res.get("ok"))
+        print(f"\nvalidate: {'OK' if ok else 'INVALID'}")
+        for e in res.get("errors") or []:
+            print(f"  {e.get('path')}: {e.get('message')}")
+        return 0 if ok else 1
+    res = _board.post(msg, silent=False)
+    if not res.get("ok"):
+        print(f"NOT POSTED: {res}", file=sys.stderr)
+        return 1
+    print(f"posted {msg['id']} -> WEAVE (propagate; home: {args.home})")
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(prog="commons", description="The Commons — shared-resource coordination")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -147,6 +195,30 @@ def main(argv=None):
     wf.add_argument("--session-id", default=None)
     wf.add_argument("--dry-run", action="store_true", help="print + validate the envelope, do not post")
     wf.set_defaults(func=cmd_weave_flag)
+
+    pg = sub.add_parser("propagate", help="post one propagate flag: a decision the next Weave carries to every page")
+    pg.add_argument("--decision", required=True, help="what changed, in a sentence or two")
+    pg.add_argument("--home", required=True, help="the page the decision now lives in (written there first)")
+    pg.add_argument("--scope", required=True, help="which pages it reaches, in words: every canon entry, the ceremony cards, a folder")
+    pg.add_argument("--check", required=True, help="how a reader tells a page is already in line")
+    pg.add_argument("--action", required=True, help="what to do to a page that isn't")
+    pg.add_argument("--rationale", required=True, help="why, with Loudon's words when he said it")
+    pg.add_argument("--source-id", required=True, help="where it was decided: deposit id, close id, or commit")
+    pg.add_argument("--sender", required=True,
+                    help="whose flag this is: the posting page's title, or TRICKSTER when Loudon asked for it")
+    pg.add_argument("--pattern", default=None,
+                    help="a regex that a page still needing the change matches; the flag linter counts them")
+    pg.add_argument("--paths", default=None,
+                    help="comma-separated git pathspecs the pattern searches (default: every .md except "
+                         "session folders, archives, ledgers, diaries and Contexts); exclude the home when "
+                         "it quotes the old form, e.g. '*.md,:(exclude)The Palace Voice.md'")
+    pg.add_argument("--rhythm", choices=["sweep", "by-touch"], default="sweep",
+                    help="sweep: the next weave carries it everywhere; by-touch: pages change when next "
+                         "edited for their own reasons, and the weave only measures how far it has spread "
+                         "(so a by-touch flag needs --pattern)")
+    pg.add_argument("--session-id", default=None)
+    pg.add_argument("--dry-run", action="store_true", help="print + validate the envelope, do not post")
+    pg.set_defaults(func=cmd_propagate)
 
     args = ap.parse_args(argv)
     return args.func(args)

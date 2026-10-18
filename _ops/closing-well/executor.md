@@ -107,7 +107,7 @@ pointer under the entry's artifacts list, or the bundle's own index). Commit wit
 *Executor check:* the file is inside the bundle (not the deprecated `Artifacts/`), the index
 line points at it, the commit is not mis-stamped `deposit`.
 
-### flag to Weave → weave-flag  (reuse: the board line-append)
+### flag to Weave → weave-flag  (reuse: the Commons writer)
 A hygiene debt the close *saw* but shouldn't settle from a session-only vantage — a deposit
 owing reciprocal inbound links, a touched entry that looks like demotion-substrate, a faceless
 entry grown to merit one, a memory to weave home. Post **one** `weave_flag` through the writer — `python3 -m commons weave-flag` from `_ops/`,
@@ -120,8 +120,14 @@ flags and invented field names reached the board (2026-09-02); the arg parser no
 payload shape the Weave's Step 1c reader expects.
 The Weave's Step 1c reads the flag and rules it with whole-graph context. The close sees; the
 Weave acts.
+A **decision** the session made that should hold on every page (a retired word, a new
+convention, a moved path) goes the same way with a wider reach: once it is written into its home,
+post one propagate flag (`python3 -m commons propagate --decision --home --scope --check --action
+--rationale --source-id --sender`, plus `--pattern` when a search can find the pages still to
+change). Carry what the session can now; the flag lets the Weave confirm and finish the rest.
 *Executor check:* the appended line validates (§9); it names a concrete `proposed_action`; it
-lands on the **owner** board (the only global rendezvous), not a worktree copy.
+lands on the **owner** board (the only global rendezvous), not a worktree copy; a propagate
+flag's home already states the decision.
 
 ### tuning → append  (reuse: the ledger file)
 Tuning is a ledger append, not a close-map species: it rides every close, whatever the map
