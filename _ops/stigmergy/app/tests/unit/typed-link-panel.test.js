@@ -1,8 +1,9 @@
 // The typed-links frame (2026-10-18). Loudon: "I often can't read the second
 // column in the typed links frame." A link's label ran 18 characters at the
 // median and 48 at most, and a 14ch column cut it with an ellipsis in the
-// dimmest green. Now the label has a line of its own beside the type, whole and
-// wrapping, and the target sits beneath it.
+// dimmest green. Now each row reads TYPE -> target, and the label sits on the
+// line beneath, in italics, whole and wrapping ("[Mirrors]->[Entry] and then the
+// next line below (description) in italics").
 import { describe, it, expect } from 'vitest';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -28,12 +29,12 @@ describe('the typed-links frame', () => {
     expect(label.slice(0, label.indexOf('>'))).toContain('color:var(--phosphor)');
   });
 
-  it('puts the target beneath the label, and leaves no placeholder when there is no label', () => {
+  it('puts the target beside the type and the label beneath it, and leaves no placeholder when there is no label', () => {
     const html = render([
       { type: 'mirrors', label: 'higher-dimensional-unity', target: 'Hyperdimensional Prism' },
       { type: 'connects-to', target: 'Not Yet Written' },
     ]);
-    expect(html.indexOf('higher-dimensional-unity')).toBeLessThan(html.indexOf('-&gt; Hyperdimensional Prism'));
+    expect(html.indexOf('-&gt; Hyperdimensional Prism')).toBeLessThan(html.indexOf('higher-dimensional-unity'));
     expect(html.match(/data-testid="typed-link-label"/g)).toHaveLength(1);
     expect(html).toContain('?? Not Yet Written');
     expect(html).not.toContain('>--<');

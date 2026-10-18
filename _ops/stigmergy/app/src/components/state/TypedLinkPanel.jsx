@@ -8,10 +8,11 @@ import { resolveRef } from '../../lib/entry-ref.js';
 // inline in EntryBody. Two registers, two treatments. Obsidian flattens
 // them; STATE separates them.
 //
-// Each row: the link's type on the left, and beside it its label, then
-// `-> [[target]]` beneath. The label is the link's register (SCHEMA §4) and
-// runs 18 characters at the median, 48 at most, so it gets a line of its own
-// and wraps rather than being cut to a fixed column. Clicking the target
+// Each row reads `TYPE -> [[target]]`, and beneath the target, in italics,
+// its label: the link's register (SCHEMA §4), which runs 18 characters at the
+// median and 48 at most, so it gets a line of its own and wraps rather than
+// being cut to a fixed column (Loudon, 2026-10-18: "[Mirrors]->[Entry] and
+// then the next line below (description) in italics"). Clicking the target
 // navigates to that entry (when resolved against the wikilink index).
 
 // Group entries by link type for readability. Order mirrors SCHEMA's table.
@@ -59,12 +60,6 @@ function LinkRow({ link, onNavigate, index, refIndex }) {
         textTransform: 'uppercase', letterSpacing: '.04em',
       }}>{link.type}</span>
       <span style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
-        {link.label ? (
-          <span data-testid="typed-link-label" style={{
-            color: 'var(--phosphor)', textShadow: 'none',
-            fontSize: 12, fontStyle: 'italic', overflowWrap: 'anywhere',
-          }}>{link.label}</span>
-        ) : null}
         <span style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', minWidth: 0 }}>
           <span
             style={{
@@ -81,6 +76,12 @@ function LinkRow({ link, onNavigate, index, refIndex }) {
               the target's STATE view (where its bundle renders). */}
           <EntryRefChips resolved={ref} onOpen={onNavigate} />
         </span>
+        {link.label ? (
+          <span data-testid="typed-link-label" style={{
+            color: 'var(--phosphor)', textShadow: 'none', marginTop: 1,
+            fontSize: 12, fontStyle: 'italic', overflowWrap: 'anywhere',
+          }}>{link.label}</span>
+        ) : null}
       </span>
     </div>
   );
