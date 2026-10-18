@@ -65,7 +65,7 @@ It is two things at once. Seen by a human, it is a **front-end** — a phosphor 
 
 ## Active Baton
 
-> **[[STIGMERGY — baton — rich-face pieces]]** (2026-10-13) — the piece origin: pieces run on an origin of their own, declare what they need, and a check keeps them honest. The plan is [[STIGMERGY — spec — rich-face pieces]]; the exact-origin guard and the piece kit have landed (the kit first, on Loudon's word), and the build goes on at the shared file resolver.
+> **[[STIGMERGY — baton — rich-face pieces]]** (2026-10-13) — the piece origin: pieces run on an origin of their own, declare what they need, and a check keeps them honest. The plan is [[STIGMERGY — spec — rich-face pieces]]; the exact-origin guard, the piece kit's first part and the shared file resolver have landed, and the build goes on at the piece server.
 
 ## The honesty discipline, made structural
 
