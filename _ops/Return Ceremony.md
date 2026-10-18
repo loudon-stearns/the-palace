@@ -80,12 +80,12 @@ This was written from a live failure. On 2026-08-25 a full palace assessment ran
 
 Then take the tail read of [[Return Ceremony — tuning]] ([[SCHEMA — Reference]] §6). Those are this run's first candidates for a spec change, and an owed probe is run by hand beside the script until it lands.
 
-**Step 1 — The query block.** Run all of it before interpreting any of it. The map opens with the trunk's state and a dated account of what changed since Loudon left, and that account is kept in the return commit's body. **One command runs the whole block** — `node _ops/concierge/return-map.mjs` (`--json` for structured output, `--since <date>` when the last session's date is known). It prints each probe beside the command that produced it, so every row of a map can cite a command rather than an inference, and prints `unavailable` with the error for any probe it cannot run. The block below is what it runs, kept here as the readable spec and the by-hand fallback.
+**Step 1 — The query block.** Run all of it before interpreting any of it. The map opens with the trunk's state and a dated account of what changed since Loudon left, and that account is kept in the return commit's body. **One command runs the whole block** — `node _ops/concierge/return-map.mjs`, with `--json` for structured output. Give it `--since` when you know when the last session was (a date, read as that day's midnight; a span like `72h` or `3d`; or a phrase git reads, like `"3 days ago"`), and the arc and the trunk both start at that one instant. Without it, the arc is the last twelve commits. It prints each probe beside the command that produced it, so every row of a map can cite a command rather than an inference, and prints `unavailable` with the error for any probe it cannot run. The block below is what it runs, kept here as the readable spec and the by-hand fallback.
 
 ```sh
 # where the palace stopped, and the arc across the gap
 git log -1 --format='%ad %h %s' --date=short
-git log --since=<last-session-date> --format='%ad %s' --date=short
+git log --since='<last-session-date> 00:00' --format='%ad %h %s' --date=short
 
 # the trunk: unsent commits, the last push, what the ear heard, a landing that
 # died, what sits unsaved in the main checkout and who wrote it, leftover worktrees,
