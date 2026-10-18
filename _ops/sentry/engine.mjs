@@ -1,5 +1,5 @@
-// The Sentry's engine — reads content (a file on disk or a git blob) against the rules
-// and returns findings. Shared by the sweep (sweep.mjs) and the push gate (pre-push.mjs).
+// The Sentry's engine — reads content (a file on disk, a git blob, or a commit or tag message)
+// against the rules and returns findings. Shared by the sweep (sweep.mjs) and the push gate (pre-push.mjs).
 //
 // A finding never carries a raw value: `masked` is for eyes, `fp` is for allow.json.
 
@@ -11,6 +11,11 @@ import {
   SECRET_RULES, PLACEHOLDER, BINARY_SAFE, PII_RULES, EMAIL_IGNORE, PII_TEXT_EXT, luhn,
   INJECT_RULES, INJECT_TEXT_EXT, PATH_RULES, mask, fingerprint, SEV_RANK,
 } from './rules.mjs';
+
+// Read what a push sends. pack-objects ignores refs/replace while rev-list and cat-file honour
+// them, so a message "fixed" with `git replace --edit` would be read clean while the original went
+// out. Every git this process starts, gitleaks's included, reads the real objects.
+process.env.GIT_NO_REPLACE_OBJECTS = '1';
 
 export const SENTRY_DIR = dirname(fileURLToPath(import.meta.url));
 export const MAX_BYTES = 32 * 1024 * 1024;
@@ -79,12 +84,15 @@ function skipped(allow, family, path) {
   return allow.skip.some(s => s.families.has(family) && path.startsWith(s.prefix));
 }
 
-// families: any of 'secret', 'pii', 'inject'. piiLevel 'all' | 'high' (history/push read only ssn/card).
-export function scanContent(path, buf, { families = ['secret', 'pii', 'inject'], piiLevel = 'all', allow } = {}) {
+// families: any of 'secret', 'pii', 'inject'. piiLevel 'all' | 'high' ('high' reads only ssn/card: the
+// history check uses it, while the push reads every PII rule, messages included).
+// textAs: the name the extension tests read instead of `path`, for text that is not a file
+// (a commit message is prose, read as 'message.txt', while its findings keep their own label).
+export function scanContent(path, buf, { families = ['secret', 'pii', 'inject'], piiLevel = 'all', allow, textAs = path } = {}) {
   const out = [];
   // An archive's insides are opaque to the text rules, but its file names are not: hold them to the path rules.
-  if (/\.zip$/i.test(path)) out.push(...scanPaths(zipMembers(buf).map(m => `${path}!${m}`), allow));
-  if (JPEG_EXT.test(path)) {
+  if (/\.zip$/i.test(textAs)) out.push(...scanPaths(zipMembers(buf).map(m => `${path}!${m}`), allow));
+  if (JPEG_EXT.test(textAs)) {
     if (families.includes('pii') && jpegHasGps(buf)) out.push(finding('pii', 'exif-gps', 'high', path, 0, '(GPS in EXIF)', 'photo carries location metadata', allow, 'gps'));
     return out;
   }
@@ -93,11 +101,18 @@ export function scanContent(path, buf, { families = ['secret', 'pii', 'inject'],
   const lineOf = lineIndex(text);
 
   if (families.includes('secret') && !skipped(allow, 'secret', path)) {
+    // One value matched by several rules (anthropic-key and anthropic-loose; a format rule and a
+    // name rule) is one finding, the first rule's. Keyed on where the value sits, never on its mask:
+    // two numbers can mask alike.
+    const spans = new Set();
     for (const r of SECRET_RULES) {
       if (binary && !BINARY_SAFE.has(r.id)) continue;
       for (const m of text.matchAll(r.re)) {
         const value = r.group ? m[r.group] : m[0];
         const start = m.index, end = m.index + m[0].length;
+        const span = `${r.group ? start + m[0].indexOf(value) : start}\0${value}`;
+        if (spans.has(span)) continue;
+        spans.add(span);
         const ctx = contextOf(text, start, end, value);
         // A format rule is downgraded only when the VALUE is a placeholder; a name rule when the line is.
         const lineText = text.slice(text.lastIndexOf('\n', start) + 1, (text.indexOf('\n', end) + 1 || text.length + 1) - 1);
@@ -105,14 +120,12 @@ export function scanContent(path, buf, { families = ['secret', 'pii', 'inject'],
         out.push(finding('secret', r.id, placeholder ? 'info' : r.sev, path, lineOf(start), value, ctx, allow));
       }
     }
-    // anthropic-loose duplicates anthropic-key on the same span; keep the specific one
-    dedupeSpans(out);
   }
 
-  if (!binary && families.includes('pii') && PII_TEXT_EXT.test(path) && !skipped(allow, 'pii', path)) {
+  if (!binary && families.includes('pii') && PII_TEXT_EXT.test(textAs) && !skipped(allow, 'pii', path)) {
     for (const r of PII_RULES) {
       if (piiLevel === 'high' && r.sev !== 'high') continue;
-      if (r.ext && !r.ext.test(path)) continue;
+      if (r.ext && !r.ext.test(textAs)) continue;
       for (const m of text.matchAll(r.re)) {
         const value = m[0];
         if (r.id === 'email' && EMAIL_IGNORE.test(value)) continue;
@@ -122,7 +135,7 @@ export function scanContent(path, buf, { families = ['secret', 'pii', 'inject'],
     }
   }
 
-  if (!binary && families.includes('inject') && INJECT_TEXT_EXT.test(path) && !skipped(allow, 'inject', path)) {
+  if (!binary && families.includes('inject') && INJECT_TEXT_EXT.test(textAs) && !skipped(allow, 'inject', path)) {
     for (const r of INJECT_RULES) {
       for (const m of text.matchAll(r.re)) {
         const value = m[0];
@@ -134,16 +147,6 @@ export function scanContent(path, buf, { families = ['secret', 'pii', 'inject'],
     }
   }
   return out;
-}
-
-function dedupeSpans(list) {
-  const seen = new Set();
-  for (let i = 0; i < list.length; i++) {
-    const f = list[i];
-    const key = `${f.path}:${f.line}:${f.masked}`;
-    if (seen.has(key)) { list.splice(i--, 1); continue; }
-    seen.add(key);
-  }
 }
 
 export function finding(family, rule, sev, path, line, value, context, allow, fpValue = null, shown = null) {
@@ -235,23 +238,89 @@ export async function* catBlobs(root, oids) {
   }
 }
 
-// Objects (with a path) reachable from `revArgs` — e.g. ['--all'] or ['B', '^A'].
-export function listBlobs(root, revArgs) {
+// Everything reachable from `revArgs` — e.g. ['--all'] or ['B', '^A'] — sorted into what the
+// rules read: blobs (with a path) and messages (each commit, and each annotated tag the range
+// starts from, since a pushed tag carries its own message). One rev-list, one type check.
+export function listObjects(root, revArgs) {
   const out = execFileSync('git', ['rev-list', '--objects', ...revArgs], { cwd: root, maxBuffer: 1 << 30 });
-  const paths = new Map();
+  const names = new Map();
   for (const line of out.toString('utf8').split('\n')) {
+    if (!line) continue;
     const sp = line.indexOf(' ');
-    if (sp > 0 && !paths.has(line.slice(0, sp))) paths.set(line.slice(0, sp), line.slice(sp + 1));
+    const oid = sp > 0 ? line.slice(0, sp) : line;
+    if (!names.has(oid) || (names.get(oid) === null && sp > 0)) names.set(oid, sp > 0 ? line.slice(sp + 1) : null);
   }
-  if (!paths.size) return [];
+  const blobs = [], messages = [];
+  if (!names.size) return { blobs, messages };
   const chk = execFileSync('git', ['cat-file', '--batch-check=%(objecttype) %(objectname) %(objectsize)'],
-    { cwd: root, input: [...paths.keys()].join('\n') + '\n', maxBuffer: 1 << 30 }).toString('utf8');
-  const blobs = [];
+    { cwd: root, input: [...names.keys()].join('\n') + '\n', maxBuffer: 1 << 30 }).toString('utf8');
   for (const line of chk.split('\n')) {
     const [type, oid, size] = line.split(' ');
-    if (type === 'blob') blobs.push({ oid, path: paths.get(oid), size: Number(size) });
+    if (type === 'blob' && names.get(oid) !== null) blobs.push({ oid, path: names.get(oid), size: Number(size) });
+    else if (type === 'commit' || type === 'tag') messages.push({ oid, type, name: names.get(oid) || null, size: Number(size) });
   }
-  return blobs;
+  return { blobs, messages };
+}
+
+export function listBlobs(root, revArgs) { return listObjects(root, revArgs).blobs; }
+
+// The message of a raw commit or tag object: everything after the header block. A header that
+// runs on (gpgsig, mergetag) continues with a leading space, so the first empty line ends the headers.
+export function messageOf(data) {
+  const buf = Buffer.isBuffer(data) ? data : Buffer.from(String(data));
+  const at = buf.indexOf('\n\n');
+  return at < 0 ? Buffer.alloc(0) : buf.subarray(at + 2);
+}
+
+export function headersOf(data) {
+  const buf = Buffer.isBuffer(data) ? data : Buffer.from(String(data));
+  const at = buf.indexOf('\n\n');
+  return at < 0 ? buf : buf.subarray(0, at + 1);
+}
+
+// The signed tags a merge carries whole in its `mergetag` headers (one per tag; an octopus can
+// carry several), each unfolded back into the tag object it was: one leading space off each line.
+export function carriedTags(data) {
+  const tags = [];
+  let cur = null;
+  for (const line of headersOf(data).toString('utf8').split('\n')) {
+    if (cur && line.startsWith(' ')) { cur.push(line.slice(1)); continue; }
+    if (cur) { tags.push(Buffer.from(cur.join('\n') + '\n')); cur = null; }
+    if (line.startsWith('mergetag ')) cur = [line.slice('mergetag '.length)];
+  }
+  if (cur) tags.push(Buffer.from(cur.join('\n') + '\n'));
+  return tags;
+}
+
+// Read each commit and tag the way a reader on GitHub can. A commit is read three ways, a tag two:
+// the message in full, as prose; the headers for credentials only (a tag's name, an author line, and
+// everything a merge carries; read whole, emails would flood); and, for a merge, each carried signed
+// tag's message for the other families. A finding is labelled `commit 1a2b3c4d message` (or
+// `… header`, `… mergetag message`, `tag …`) and carries its object, so the sweep can say whether a
+// public ref reaches it.
+export async function scanMessages(root, messages, opts) {
+  const findings = [];
+  const byOid = new Map(messages.map(m => [m.oid, m]));
+  const families = opts.families || ['secret', 'pii', 'inject'];
+  const secretOnly = families.filter(f => f === 'secret'), restOnly = families.filter(f => f !== 'secret');
+  let scanned = 0;
+  for await (const { oid, data } of catBlobs(root, messages.map(m => m.oid))) {
+    const m = byOid.get(oid);
+    const name = `${m.type} ${oid.slice(0, 8)}`;
+    const read = (label, buf, fams) => {
+      if (!fams.length) return;
+      for (const f of scanContent(label, buf, { ...opts, families: fams, textAs: 'message.txt' })) {
+        f.message = m.type;
+        if (m.type === 'commit') f.commit = oid; else { f.tag = oid; if (m.name) f.context = `tag ${scrub(m.name)}: ${f.context}`; }
+        findings.push(f);
+      }
+    };
+    read(`${name} message`, messageOf(data), families);
+    read(`${name} header`, headersOf(data), secretOnly); // a carried tag's credentials are read here
+    if (m.type === 'commit') for (const t of carriedTags(data)) read(`${name} mergetag message`, messageOf(t), restOnly);
+    scanned++;
+  }
+  return { findings, scanned };
 }
 
 export async function scanBlobs(root, blobs, opts) {

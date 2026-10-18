@@ -128,6 +128,8 @@ export const INVENTORY_RULES = [
 // ── helpers ───────────────────────────────────────────────────────────────────
 export function mask(value) {
   const s = String(value);
+  // A number (an ID, a card, a phone) can be guessed from its first digits; show only its last two.
+  if (/^[\d\s().+\-]+$/.test(s) && s.replace(/\D/g, '').length >= 7) return `…${s.slice(-2)} [len ${s.length}]`;
   if (s.length <= 10) return `${s.slice(0, 3)}…[len ${s.length}]`;
   return `${s.slice(0, 8)}…${s.slice(-2)} [len ${s.length}]`;
 }

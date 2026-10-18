@@ -9,16 +9,18 @@ and Loudon decides. The one thing with teeth is the push gate, and it only says 
 | Run | What it does | Cost |
 |---|---|---|
 | `node _ops/sentry/sweep.mjs` | **quick** — the working tree (secrets, personal data, text aimed at agents), tracked paths that should never be tracked, agent permissions, the script census | offline, ~20 s |
-| `node _ops/sentry/sweep.mjs --deep` | quick **+ history** (every blob in every ref, and gitleaks over the full log) **+ deps** (`npm audit` per lockfile) **+ hosting** (GitHub repo settings, whether GitHub refuses a force push to main for everyone who can push, each open Dependabot alert, and each open Dependabot pull request's lockfile against its title, via `gh`) | network, ~3 min |
+| `node _ops/sentry/sweep.mjs --deep` | quick **+ history** (every blob, commit and tag in every ref, and gitleaks over the full log) **+ deps** (`npm audit` per lockfile) **+ hosting** (GitHub repo settings, whether GitHub refuses a force push to main for everyone who can push, each open Dependabot alert, and each open Dependabot pull request's lockfile against its title, via `gh`) | network, ~3 min |
 | `node _ops/sentry/sweep.mjs --gate` | the check before anything widens the public surface: `--deep`, and exits 1 on any open high finding | same as deep |
 | `node _ops/sentry/sweep.mjs --only history,hosting` | named checks only | — |
 | `node _ops/sentry/sweep.mjs --record [--taught "item N"]` | also marks the ledger with the run's line (scope and a bare count, never a finding) and rebuilds the scroll with the palace's own generator | — |
 | `node _ops/sentry/guard-watch.mjs` | the daily guard watch the heartbeat runs when the Mac is awake: whether GitHub still refuses a force push to main for everyone who can push; one line, exit 0 holds / 3 raise it / 4 could not tell | network, seconds |
 | `node _ops/sentry/sweep.mjs --selftest` | plants one of everything in memory and proves each rule still catches it | instant |
+| `node --test _ops/sentry/tests/*.test.mjs` | the push gate and the history check against real git in throwaway repos: a key in a commit message, a merge's message, a tag's notes and name, a branch's name, a message hidden behind `git replace`, and whether a hit is public | seconds |
 | `node _ops/sentry/install-hooks.mjs [--check\|--uninstall]` | installs the push gate (a shim in the shared hooks dir) | — |
 
-The deep sweep sends the dependency list to the npm registry and reads repo settings through `gh`. Nothing else
-leaves the machine.
+The deep sweep sends the dependency list to the npm registry, reads repo settings through `gh`, and, when a
+history hit is open, asks each git remote for its tag list (`git ls-remote --tags`, up to 30 s per remote) to
+settle whether the hit is public. Nothing else leaves the machine.
 
 ## What goes where — faces are public, findings are held
 
@@ -37,7 +39,13 @@ The repository is public, so the scroll is public. A scroll that names an open f
   fine; never the value, never the path. `must_stay_ignored` lists local secret files whose ignore rule must
   hold. `skip` exempts a path prefix from one family (the Sentry's own docs quote the phrases it hunts).
 
-No value is ever printed or stored whole. `mask()` in `rules.mjs` is the only way a value leaves the engine.
+No value is ever printed or stored whole. `mask()` in `rules.mjs` is the only way a value leaves the engine;
+a number (an ID, a card, a phone) shows only its last two digits.
+
+A history hit says whether it is public: `yes` when a remote-tracking branch reaches it, or a tag the remote
+lists (git never fetches tags under `refs/remotes`, so the history check asks each remote for its tags once);
+`unknown` when a remote could not be asked and none that answered shows it public, for a tag's own message
+or a commit only a local tag reaches; `no` otherwise.
 
 ## Severity
 
@@ -51,8 +59,20 @@ setting that is off. `info` is a placeholder (`your-api-key-here`) — counted, 
 ## The push gate
 
 `pre-push.mjs` reads every blob the push would add (what the remote does not have yet — for a new branch,
-everything no remote-tracking ref reaches), runs the Sentry rules on them, and runs gitleaks on the same
-range when it is installed. It blocks on high, prints the rest. `git push --no-verify` skips it once. It
+everything no remote-tracking ref reaches), every commit and tag in the same range, and the names of the
+refs it updates; runs the Sentry rules on them, and runs gitleaks on the same range when it is installed.
+Once pushed, a message is as public as a file. A commit is read three ways, a tag two: its message in full,
+as prose (`commit 1a2b3c4d message:3`); its headers for credentials only — a tag's name, an author line, and
+everything a merge carries, so a key in a carried tag shows as `… header` — without flooding on emails; and,
+for a merge, the message of each signed tag it carries, for personal data and text aimed at agents
+(`… mergetag message`). A ref's name is read for credentials and never printed or logged. Objects are read
+as push sends them, with `refs/replace` ignored, so a message "fixed" with `git replace` is still caught.
+
+The gate reads a new ref against the remote-tracking branches, and an updated ref against its old tip. So
+anything the remote already holds only through a tag is read again: a tag wrapping a pushed tag, a branch
+on a commit only a pushed tag reaches. A hit there is already public, not a false positive, and an fp in
+`allow.json` would hide it from the history check too. Run `sweep.mjs --only history` to see it, and bring
+it to Loudon. It blocks on high, prints the rest. `git push --no-verify` skips it once. It
 **fails closed** ([[Tool Builder]]: fail-closed on safety): if node or the logic is missing, or the gate
 errors, the push is refused and the message names `--no-verify` as the way through. A missing gitleaks is
 only a warning — the Sentry's own rules still read every blob. The shim is shared by every worktree
@@ -62,9 +82,9 @@ owner checkout's for a branch older than the Sentry.
 ## Engines
 
 The Sentry's own rules (`rules.mjs`, read by `engine.mjs`) always run — they need nothing but node and git,
-they read every blob including merge results, they read the file names inside zip archives, and they carry
-the palace's own formats (RunPod keys). **gitleaks** (Homebrew, ~150 rules) runs beside them when installed: broader, but it reads
-`git log -p`, which skips merge commits, and it opens archives only when told to (`--max-archive-depth=3`
+they read every blob including merge results, every commit and tag, the file names inside zip
+archives, and they carry the palace's own formats (RunPod keys). **gitleaks** (Homebrew, ~150 rules) runs beside them when installed: broader, but it reads
+only the added lines of each patch in `git log -p` (none for a merge commit, and never a commit or tag message), and it opens archives only when told to (`--max-archive-depth=3`
 on history sweeps). Each covers the other's blind spot. Neither decodes JSON strings yet
 ([[Sentry — tuning]] item 4).
 
