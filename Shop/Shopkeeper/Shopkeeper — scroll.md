@@ -15,14 +15,14 @@ forward_vector: "I am Shopkeeper's scroll — the page's front door, opening on 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-18T10:20:46.294Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-18T14:06:06.282Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** alive · **Stage:** — · **Steward:** cycle 3 · last ran 2026-10-18 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
 - **Last shipped:** 2026-10-18 (today) — I confirmed a real pattern across two flagship Spaces, and found the Roster's FLUX entry is five months stale right as FLUX 3 shipped. (`shopkeeper-cycle-3-2026-10-18`)
-- **Last commit touching this page:** 2026-10-18 `3f83e18e` — steward(Shopkeeper): cycle 2 — I ran a real tool with my own hands (fish-audio's drama-3) and a Roster…
+- **Last commit touching this page:** 2026-10-18 `6e1be4fc` — edit(Shopkeeper): the Shopkeeper writes the Shop itself: new Specialists, gotchas, statuses; the roster is the generated one in The Shop
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
@@ -75,12 +75,11 @@ _No plan agreed yet. Until there is one, the work leans on the page's forward ve
 
 **Never write a token into a palace file** — it would be committed. A token is used only in the session it was pasted into, or the leg goes to the Mac.
 
-**The house isn't yours to change.** New Specialists and edits to existing entries are drafted in your bundle and proposed on the board; an elder lands them after my yes. One card per decision.
+The Shop is yours to keep. You’re grown up for everything under Shop/: date a gotcha, correct a status, fix a stale pin, and write a new Specialist once you’ve run the tool and it clears your bar. Do it directly, and list each change in your post with a line of why. I read them on your trail; git is the undo. Outside Shop/ — The Shop page and its roster, any other page, canon — draft in your bundle and propose on the board. One card per decision.
 
 **Already decided (2026-09-25 — don't re-ask):**
 - **Image-to-3D Smith** — approved as a stub. Hi3DGen primary, Hunyuan3D-2 the fast fallback. TripoSplat stays a lane note inside the Smith until a brief wants splats. First real job: the Blender import test.
-- **AuK** — approved as a stub Specialist; draft it and propose it, with the unchecked speaker-identity claim as a known gap.
-- **Stable Audio Open** — add a dated Stable Audio 3 gotcha; re-check the facts on the Hub first, then propose.
+
 - **Viggle and the rest of the video lane** — parked until a real brief asks for motion.
 - **Qwen-Image-2.1** — try it the next time ComfyUI is in use for real work, not as its own errand.
 <!-- scroll:orders:end -->
