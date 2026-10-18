@@ -103,7 +103,7 @@ baton was written in, so it commits there by name, through the door, even from a
 File the artifact in the owning entry's bundle (`<Entry>/<Entry> — <type> — <qualifier>.<ext>`,
 SCHEMA §8) with its minimal bundle frontmatter for `.md` assets, and index it (a one-line
 pointer under the entry's artifacts list, or the bundle's own index). Commit with
-`palace-commit --kind ops` (or `artifact`). Non-canon, durable evidence — not a deposit.
+`palace-commit --kind ops`. Non-canon, durable evidence — not a deposit.
 *Executor check:* the file is inside the bundle (not the deprecated `Artifacts/`), the index
 line points at it, the commit is not mis-stamped `deposit`.
 

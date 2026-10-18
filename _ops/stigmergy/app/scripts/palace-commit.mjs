@@ -12,6 +12,12 @@
 //     --verify verified [--body "..."] [--campaign slug] [--resolves id] \
 //     --path "Foo.md" [--path "Bar.md"] [--author claude] [--dry-run]
 //
+// A ceremony whose spec names its subject commits with --ceremony instead of
+// --kind/--scope: `--ceremony "Schema Ceremony" --summary "… — v1.29"` writes
+// "Schema Ceremony — … — v1.29" and takes the ceremony's kind (schema). The name
+// must be one the commit-msg hook knows: a page carrying `trigger:`, " Ceremony"
+// dropped ("Weave"), or a rite with no page of its own ("Schema Ceremony").
+//
 // It commits exactly the named paths, nothing else: anything another writer
 // has staged stays staged and out of this commit (`git commit --only`), and
 // the new hash is printed as `palace-commit: committed <hash>`. With no --path
@@ -51,6 +57,8 @@ import { existsSync, rmSync, writeFileSync, mkdtempSync, readdirSync } from 'nod
 import { resolve, join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { deriveTrailers, formatCommitMessage, parseNameStatus, VERIFY_VALUES } from '../src/lib/commit-spec.js';
+import { canonicalKind, KNOWN_KINDS } from '../src/lib/commit-parse.js';
+import { ceremonyKindsHere } from './commit-msg-hook.mjs';
 import { diffEntryText } from '../src/lib/frontmatter-diff.js';
 import { clearStaleLocksSync, LockHeldError } from '../server/git-locks.js';
 import { withDoorSync, trunkProblem, DoorBusyError } from '../server/door.js';
@@ -160,13 +168,14 @@ export function buildMessageFromStaged(palaceRoot, opts, gitOpts = {}) {
     summary: opts.summary,
     body: opts.body ?? '',
     trailers,
+    ceremony: opts.ceremony ?? null,
   });
 }
 
 // Flags that take a value, and flags that stand alone. Anything else is
 // refused: a misspelt flag once passed silently, and a deposit template's
 // `--paths` (which does not exist) meant "commit whatever happens to be staged".
-const VALUE_FLAGS = new Set(['--kind', '--scope', '--summary', '--body', '--verify', '--author', '--campaign', '--resolves', '--path']);
+const VALUE_FLAGS = new Set(['--kind', '--ceremony', '--scope', '--summary', '--body', '--verify', '--author', '--campaign', '--resolves', '--path']);
 const BARE_FLAGS = new Set(['--dry-run', '--only']);
 
 export function parseArgs(argv) {
@@ -178,6 +187,7 @@ export function parseArgs(argv) {
       if (v === undefined) { opts.unknown.push(`${a} (no value)`); break; }
       switch (a) {
         case '--kind': opts.kind = v; break;
+        case '--ceremony': opts.ceremony = v; break;
         case '--scope': opts.scope = v; break;
         case '--summary': opts.summary = v; break;
         case '--body': opts.body = v; break;
@@ -308,7 +318,33 @@ function fail(code, text) {
   process.exit(code);
 }
 
-function main() {
+// Settle the subject's kind before anything is staged. A ceremony takes its own
+// kind, and its name must be one the hook reads as a ceremony, or the hook would
+// annotate the commit as made outside the committer. A plain kind must be one
+// the spec knows ("Schema Ceremony" as a --kind once wrote "Palace-Kind: Schema
+// Ceremony", a kind no reader knows). Returns a sentence, or null when it is settled.
+export function kindProblem(opts, kinds) {
+  if (opts.ceremony) {
+    if (opts.scope) return `--ceremony takes no --scope: a ceremony's subject is "${opts.ceremony} — <summary>".`;
+    if (!Object.prototype.hasOwnProperty.call(kinds, opts.ceremony)) {
+      return `"${opts.ceremony}" is not a ceremony this palace names. Known: ${Object.keys(kinds).sort().join(', ')}.`;
+    }
+    const kind = kinds[opts.ceremony];
+    if (opts.kind && canonicalKind(opts.kind) !== kind) {
+      return `--kind ${opts.kind} disagrees with --ceremony "${opts.ceremony}", whose kind is ${kind}. Leave --kind off.`;
+    }
+    opts.kind = kind;
+    return null;
+  }
+  if (!opts.kind) return null;
+  if (!canonicalKind(opts.kind)) {
+    const asCeremony = Object.prototype.hasOwnProperty.call(kinds, opts.kind) ? ` "${opts.kind}" is a ceremony: pass --ceremony "${opts.kind}" instead.` : '';
+    return `--kind must be one of ${KNOWN_KINDS.join(', ')}, not "${opts.kind}".${asCeremony}`;
+  }
+  return null;
+}
+
+async function main() {
   const opts = parseArgs(process.argv.slice(2));
   if (opts.unknown.length) {
     const hint = opts.unknown.some((u) => u.startsWith('--paths')) ? ' Did you mean --path, given once per file?' : '';
@@ -318,9 +354,12 @@ function main() {
     ? resolve(process.env.PALACE_ROOT)
     : resolve(git(process.cwd(), ['rev-parse', '--show-toplevel']).trim());
 
-  if (!opts.kind || !opts.summary || !opts.verify) {
-    fail(2, 'palace-commit: --kind, --summary, and --verify are required.');
+  if (!(opts.kind || opts.ceremony) || !opts.summary || !opts.verify) {
+    fail(2, 'palace-commit: --kind (or --ceremony), --summary, and --verify are required.');
   }
+  const kinds = opts.ceremony || !canonicalKind(opts.kind) ? await ceremonyKindsHere(palaceRoot) : {};
+  const kindIssue = kindProblem(opts, kinds);
+  if (kindIssue) fail(2, `palace-commit: ${kindIssue} Nothing was staged or committed.`);
   // The spec knows three honest states. Anything else would be written as a commit made outside
   // the committer (the commit-msg hook annotates what it cannot read), and git would lose its
   // trailers; three commits said "partial" that way on 2026-10-14 and 15.
@@ -422,4 +461,9 @@ function warnHalfMove(h) {
 }
 
 const invokedDirectly = process.argv[1] && process.argv[1].endsWith('palace-commit.mjs');
-if (invokedDirectly) main();
+if (invokedDirectly) {
+  main().catch((e) => {
+    process.stderr.write(`palace-commit: ${e && e.stack ? e.stack : e}\n`);
+    process.exit(1);
+  });
+}

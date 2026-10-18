@@ -117,6 +117,60 @@ describe('palace-commit', () => {
     expect(g('diff', '--cached', '--name-only').trim()).toBe('');
   });
 
+  describe('--ceremony: a ceremony that names its subject', () => {
+    const env = () => ({ ...process.env, PALACE_ROOT: root });
+    const run = (...args) => spawnSync('node', [CLI, ...args], { cwd: root, encoding: 'utf8', env: env() });
+    const dry = (...args) => execFileSync('node', [CLI, ...args, '--dry-run'], { cwd: root, encoding: 'utf8', env: env() });
+
+    test('writes "<Ceremony> — <summary>" with the ceremony\'s kind, and the validator reads it as spec', async () => {
+      writeFileSync(resolve(root, 'Foo.md'), '---\ntitle: Foo\nstage: seed\n---\nrules\n');
+      const r = run('--ceremony', 'Schema Ceremony', '--summary', 'a field added — v9.1', '--verify', 'verified', '--path', 'Foo.md');
+      expect(r.status).toBe(0);
+      const msg = g('log', '-1', '--format=%B');
+      expect(msg.split('\n')[0]).toBe('Schema Ceremony — a field added — v9.1');
+      expect(msg).toMatch(/^Palace-Kind: schema$/m);
+      const { validateCommitMessage } = await import('../../src/lib/commit-spec.js');
+      expect(validateCommitMessage(msg).valid).toBe(true);
+    });
+
+    test('a page carrying trigger: names a ceremony, its " Ceremony" dropped', () => {
+      writeFileSync(resolve(root, 'Walk Ceremony.md'), '---\ntitle: Walk Ceremony\ntype: practice\ntrigger: ["walk"]\n---\n# Walk\n');
+      writeFileSync(resolve(root, 'Foo.md'), '---\ntitle: Foo\nstage: seed\n---\nwalked\n');
+      const out = dry('--ceremony', 'Walk', '--summary', 'Foo to Bar', '--verify', 'verified', '--path', 'Foo.md');
+      expect(out.split('\n')[0]).toBe('Walk — Foo to Bar');
+      expect(out).toMatch(/^Palace-Kind: ops$/m);
+    });
+
+    test('an unknown ceremony, a --scope beside it, or a --kind that disagrees is refused before staging', () => {
+      writeFileSync(resolve(root, 'Foo.md'), '---\ntitle: Foo\nstage: seed\n---\nx\n');
+      const headBefore = g('rev-parse', 'HEAD').trim();
+      for (const [args, said] of [
+        [['--ceremony', 'Tea Ceremony'], /"Tea Ceremony" is not a ceremony this palace names/],
+        [['--ceremony', 'Weave', '--scope', 'Foo'], /--ceremony takes no --scope/],
+        [['--ceremony', 'Weave', '--kind', 'edit'], /--kind edit disagrees with --ceremony "Weave", whose kind is weave/],
+      ]) {
+        const r = run(...args, '--summary', 'x', '--verify', 'verified', '--path', 'Foo.md');
+        expect(r.status).toBe(2);
+        expect(r.stderr).toMatch(said);
+      }
+      expect(g('rev-parse', 'HEAD').trim()).toBe(headBefore);
+      expect(g('diff', '--cached', '--name-only').trim()).toBe('');
+    });
+
+    test('a --kind no reader knows is refused, and a ceremony name there is pointed at --ceremony', () => {
+      writeFileSync(resolve(root, 'Foo.md'), '---\ntitle: Foo\nstage: seed\n---\nx\n');
+      const r = run('--kind', 'Schema Ceremony', '--summary', 'x', '--verify', 'verified', '--path', 'Foo.md');
+      expect(r.status).toBe(2);
+      expect(r.stderr).toMatch(/pass --ceremony "Schema Ceremony" instead/);
+    });
+
+    test('an alias kind still commits under the spelling given (baton)', () => {
+      writeFileSync(resolve(root, 'Foo.md'), '---\ntitle: Foo\nstage: seed\n---\nbaton\n');
+      const out = dry('--kind', 'baton', '--scope', 'Foo', '--summary', 'x', '--verify', 'verified', '--path', 'Foo.md');
+      expect(out.split('\n')[0]).toBe('baton(Foo): x');
+    });
+  });
+
   test('clearStaleLocks keeps a fresh index.lock and removes an old one nobody holds', () => {
     const lock = resolve(root, '.git', 'index.lock');
     writeFileSync(lock, '');
