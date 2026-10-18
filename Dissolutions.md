@@ -10,7 +10,7 @@ stage: seed
 confidence: working
 energy: high
 who_leads: shared
-forward_vector: "I am the palace's catalogue of places where seemingly separate frameworks collapse into a single object seen from different doorways. I want to grow as each new dissolution lands — analysis-is-synthesis-read-backward, wavetable-is-waveguide-loop, envelope-is-waveform-at-slow-rate — and to be the hub a designer reads when two things in their head feel suspiciously similar."
+forward_vector: "I am the palace's catalogue of places where two things taught as separate turn out to be one object read two ways. I hunt for them — in the palace, in Loudon's teaching, and out in the world's mathematics, music and making — and I test each find: identity, isomorphism, or only analogy, and what new knob it hands a designer. I want to catch a dissolution before anyone files its halves apart, and to say so plainly when one turns out to be a resemblance."
 links:
   - target: "[[Boundary-Crossing Instruments]]"
     type: emerged-from
@@ -41,9 +41,6 @@ links:
     type: connects-to
 ---
 
-<!-- Membership is declared on the member side: each member entry carries `member-of: [[Dissolutions]]`. Per SCHEMA §4 (v1.8), member-of is directed member→collection with no forced reciprocal on the hub side — the Map computes the hub's inbound degree. The catalogue below is the human-readable roster; the YAML membership lives in the members. -->
-
-
 # Dissolutions
 
 ![[Dissolutions — hero.png]]
@@ -61,6 +58,20 @@ A dissolution has three ingredients:
 3. **A new design surface** that the dissolution unlocks: parameters that didn't exist as parameters before become controllable; questions answerable in one framework become answerable in the other.
 
 The third ingredient is what distinguishes a dissolution from a clever observation. A dissolution is *productive*: it gives the practitioner new knobs.
+
+## Identity, isomorphism, analogy
+
+Three different things get called "the same," and only one of them is a dissolution.
+
+- **Analogy** — the two feel alike, and the likeness breaks when you push it. Current is like a river until you ask where the water goes in a capacitor.
+- **Isomorphism** — an exact map that keeps the structure, between two things that stay two. The same [[Kuramoto Coupling]] equations describe fireflies flashing in a tree and metronomes on a shared board; whatever is proved for one holds for the other, but the insects are still not the metronomes.
+- **Identity** — one thing in two coordinate systems. [[Chebyshev is Fourier]]: put $x = \cos\theta$ and the polynomial *is* the cosine; there was only ever one object. A curve read slowly is an envelope; read fast, the same curve is the waveform.
+
+A dissolution is an identity. Every member here should be tested against this, and some may turn out to be isomorphisms dressed as identities. A member that tests as an isomorphism is marked as one, and whether it stays is asked, not assumed.
+
+**A dissolution in the math can leave a seam in perception.** Read the same curve faster and somewhere near 20 Hz it stops being heard as a change in loudness and starts being heard as a sound. Nothing in the equation changes there; the ear does. The boundary is gone from the object and still there in the listener, and that crossing is itself something a designer can play.
+
+A dissolution is hidden by nature. The two readings feel different, and that feeling is honest; what they share lies underneath it. So a dissolution may never be felt, only understood, and that is why it has to be taught.
 
 ## The catalogue (so far)
 
@@ -80,8 +91,12 @@ This hub emerged from [[Boundary-Crossing Instruments]] (the breakthrough that n
 
 A new entry earns membership in Dissolutions when it satisfies all three ingredients above. The Weave is the natural occasion to ask: *did anything new dissolve this cycle?* If two recent entries have started reading like the same object, propose the third — the entry that names the dissolution — and link them in.
 
-## Forward Vectors
+## Open Questions
 
 - The cluster currently leans heavily on DSP-theory dissolutions. The palace will tell us whether the pattern is DSP-specific or whether it scales: are there dissolutions waiting in pedagogy, in collaboration, in ceremony itself?
 - A dissolution that doesn't yield new design surfaces is just a clever observation. The catalogue should track which dissolutions are *productive* — what knobs they unlock — and which are decorative.
 - Does the catalogue eventually grow a sibling — *Refusals*, the entries that *resist* dissolution despite looking like they should merge? Two things that keep being mistaken for one and shouldn't be?
+
+## Active Baton
+
+[[Dissolutions — baton]] — drafted 2026-10-18

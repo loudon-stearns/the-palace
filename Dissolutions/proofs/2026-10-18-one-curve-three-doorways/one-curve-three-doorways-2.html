@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One Curve, Three Readers</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.75;padding:40px 16px 64px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:52px;line-height:1.05;margin:6px 0 10px}
+  p.lead{font-size:20px;color:var(--fg-2);margin:0 0 22px;max-width:64ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:8px;padding:18px;margin:0 0 16px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  .tab{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  .tab[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  .about{color:var(--fg-2);font-size:17px;line-height:1.6;margin:0 0 12px;min-height:3.2em}
+  canvas#stage{width:100%;display:block;background:var(--bg-elev-2);border-radius:6px}
+  .ctl{display:grid;grid-template-columns:110px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap}
+  .ctl .row-hide{display:contents}
+  .ctl .row-hide.off > *{opacity:.3;pointer-events:none}
+  .hear{font-family:var(--sans);font-size:13px;color:var(--fg-3);margin-top:10px}
+  .hear b{color:var(--accent);font-weight:500}
+  .toggle{font-family:var(--sans);font-size:13px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:6px 12px;cursor:pointer}
+  .toggle[aria-pressed="true"]{color:var(--accent);border-color:var(--accent-line);background:var(--accent-soft)}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  textarea{width:100%;margin-top:10px;min-height:54px;font-family:var(--sans);font-size:14px;color:var(--fg-1);background:var(--bg-elev-2);border:1px solid var(--border-soft);border-radius:4px;padding:8px 10px;resize:vertical}
+  textarea::placeholder{color:var(--fg-4)}
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 18px;margin-top:12px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);display:block}
+  .question{margin-top:18px;padding:16px 20px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1)}
+  .question .eyebrow{color:var(--accent)}
+  .question p{margin:6px 0 0}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  footer{margin-top:36px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:520px){h1{font-size:40px}.ctl{grid-template-columns:84px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Daily page · study, second pass · Dissolutions</div>
+  <h1>One curve, three readers</h1>
+  <p class="lead">Watch the gold curve: it never changes unless you turn the curvature knob. All that changes between an envelope, an oscillator and an effect is <em>how the blue reader moves</em> along the bottom. Slow the reader down to watch it draw; speed it up until the drawing becomes sound.</p>
+
+  <section class="panel">
+    <div class="tabs" role="group" aria-label="Doorway">
+      <button class="tab" data-door="env" aria-pressed="true">Envelope</button>
+      <button class="tab" data-door="osc" aria-pressed="false">Oscillator</button>
+      <button class="tab" data-door="fx" aria-pressed="false">Effect</button>
+      <button class="play" id="play">Play</button>
+    </div>
+    <p class="about" id="about"></p>
+    <canvas id="stage"></canvas>
+    <div class="legend">
+      <div><b>Bottom · the reader</b>Where on the curve it is reading, with time falling downward. The only thing that differs between doorways.</div>
+      <div><b>Middle · the curve</b>One stored table. The dashed line is curvature 0, the straight line.</div>
+      <div><b>Right · what comes out</b>The curve's height at the reader, with time running rightward. This is the signal you hear.</div>
+      <div><b>Bottom right · its harmonics</b>Gold bars: the current bend. Outlines: the straight line. The gap is what the bend added.</div>
+    </div>
+    <div class="ctl">
+      <label for="c">curvature</label><input id="c" type="range" min="-12" max="12" step="0.1" value="5"><span class="v" id="cv">5.0 convex</span>
+      <div class="row-hide" id="rateRow"><label for="rate">reader speed</label><input id="rate" type="range" min="0" max="1" step="0.001"><span class="v" id="ratev"></span></div>
+      <div class="row-hide" id="lvlRow"><label for="lvl">input level</label><input id="lvl" type="range" min="0.05" max="1" step="0.01" value="0.7"><span class="v" id="lvlv">0.70</span></div>
+    </div>
+    <div class="rowb" id="triRow"><button class="toggle" id="tri" aria-pressed="false">Read back and forth</button><span class="hint">Swaps the ramp for a triangle: the reader turns around instead of jumping back.</span></div>
+    <div class="hear" id="hear"></div>
+    <div class="eq">f(t, c) = ( e<sup>−c·t</sup> − e<sup>−c</sup> ) ÷ ( 1 − e<sup>−c</sup> )</div>
+    <div class="eq words">(curve height) = ( e<sup>−(curvature) × (where the reader is)</sup> − e<sup>−(curvature)</sup> ) ÷ ( 1 − e<sup>−(curvature)</sup> )</div>
+    <div class="eq" id="readerEq"></div>
+    <div class="eq words" id="readerWords"></div>
+    <textarea id="doorNote" placeholder="What your ear and eye say about this doorway"></textarea>
+  </section>
+
+  <div class="question">
+    <div class="eyebrow">The question this asks the page</div>
+    <p>Put the oscillator in slow motion and switch to the effect. Then the envelope. The curve stays put. Do they still feel like three instruments, or one thing read three ways? And where does the knob stop mattering? That spot is where the dissolution stops handing you a control.</p>
+    <textarea data-note="whole" id="wholeNote" placeholder="One thing, or three?"></textarea>
+    <div class="rowb"><button class="ghost" id="copy">Copy notes</button><span class="hint" id="copied"></span></div>
+  </div>
+
+  <footer><b>LOUD’N LIVE</b> · second rough for the Daily Page, 2026-10-18 · made on Loudon’s notes to the first</footer>
+</main>
+
+<script>
+(function(){
+  'use strict';
+  var N = 2049, NOTE = 0.9, PERIOD = 1.2, PIC_CAP = 1.0;
+  var $ = function(id){ return document.getElementById(id); };
+  var door = 'env', playing = false, tri = false;
+  var curvature = 5, level = 0.7;
+  var RMIN = 0.5, RMAX = 220;
+  function rateFrom(v){ return RMIN * Math.pow(RMAX / RMIN, v); }
+  $('rate').value = String(Math.log(110 / RMIN) / Math.log(RMAX / RMIN));
+  var rate = rateFrom(parseFloat($('rate').value));
+
+  var ABOUT = {
+    env: 'The reader sweeps the curve once per note, start to end, then waits. The curve’s height sets how loud a soft tone is. Bend it convex and the pluck sounds shorter, though the note never changes length.',
+    osc: 'The reader is a ramp: it sweeps start to end and jumps back, over and over. Fast enough, the curve’s height is the sound itself. That jump is loud, and it hides most of what the bend does. Try reading back and forth.',
+    fx: 'The reader is an incoming sine wave. It swings back and forth around the middle, as far as its level reaches. Turn the level up and it reads more of the bend, which is what drive is.'
+  };
+  var READER = {
+    env: ['t = (time since the note) ÷ (note length)', '(where it reads) = (time since the note) ÷ (note length), once per note'],
+    osc: ['t = (rate × time) mod 1', '(where it reads) = (reader speed) × (time), wrapped back to 0 at 1'],
+    oscTri: ['t = 1 − |2 × ((rate × time) mod 1) − 1|', '(where it reads) = up from 0 to 1 and back down, (reader speed) times a second'],
+    fx: ['t = (1 + L × sin(2π × rate × time)) ÷ 2', '(where it reads) = (1 + (input level) × (a sine at the reader speed)) ÷ 2']
+  };
+
+  function f(t, c){
+    if (Math.abs(c) < 1e-4) return (1 - t) - c * t * (1 - t) / 2;
+    return (Math.exp(-c * t) - Math.exp(-c)) / (1 - Math.exp(-c));
+  }
+  // where the reader is, as a function of its phase (0..1)
+  function readerT(ph){
+    if (door === 'env'){ var s = ph * PERIOD; return s >= NOTE ? 1 : s / NOTE; }
+    if (door === 'osc') return tri ? 1 - Math.abs(2 * ph - 1) : ph;
+    return (1 + level * Math.sin(2 * Math.PI * ph)) / 2;
+  }
+
+  // ---------- audio ----------
+  var ctx = null, master, sh, nodes = [], reader = null, inGain = null, gDirect = null, gLoud = null, timer = null;
+  function curveTable(){ var a = new Float32Array(N); for (var i = 0; i < N; i++) a[i] = 2 * f(i / (N - 1), curvature) - 1; return a; }
+  function ensure(){
+    if (ctx) return;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    master = ctx.createGain(); master.gain.value = 0.5; master.connect(ctx.destination);
+  }
+  // how much we hear the curve as sound vs as the loudness of a tone: the seam, around 20 Hz
+  function directMix(r){ var a = Math.log(12), b = Math.log(30); return Math.max(0, Math.min(1, (Math.log(r) - a) / (b - a))); }
+  function stop(){
+    if (timer){ clearInterval(timer); timer = null; }
+    nodes.forEach(function(n){ try{ if (n.stop) n.stop(); }catch(e){} try{ n.disconnect(); }catch(e){} });
+    nodes = []; reader = null; inGain = null; gDirect = null; gLoud = null; sh = null;
+  }
+  function start(){
+    stop();
+    sh = ctx.createWaveShaper(); sh.curve = curveTable();
+    // the loudness path: tone level = (1 + y) / 2 = f
+    var tone = ctx.createOscillator(); tone.type = 'triangle'; tone.frequency.value = 196;
+    var vca = ctx.createGain(); vca.gain.value = 0.5;
+    var half = ctx.createGain(); half.gain.value = 0.5;
+    var smooth = ctx.createBiquadFilter(); smooth.type = 'lowpass'; smooth.frequency.value = 250;
+    gLoud = ctx.createGain(); gLoud.gain.value = 0.5;
+    sh.connect(smooth); smooth.connect(half); half.connect(vca.gain);
+    tone.connect(vca); vca.connect(gLoud); gLoud.connect(master); tone.start();
+    // the direct path: the curve's height is the sound
+    var hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 20;
+    gDirect = ctx.createGain(); gDirect.gain.value = 0;
+    sh.connect(hp); hp.connect(gDirect); gDirect.connect(master);
+    nodes.push(sh, tone, vca, half, smooth, gLoud, hp, gDirect);
+    if (door === 'env'){
+      reader = ctx.createConstantSource(); reader.offset.value = 1; reader.connect(sh); reader.start(); nodes.push(reader);
+      var next = ctx.currentTime + 0.05; picPhase0 = next;
+      var sched = function(){ while (next < ctx.currentTime + 0.3){ reader.offset.setValueAtTime(-1, next); reader.offset.linearRampToValueAtTime(1, next + NOTE); next += PERIOD; } };
+      sched(); timer = setInterval(sched, 60);
+    } else {
+      reader = ctx.createOscillator();
+      reader.type = door === 'fx' ? 'sine' : (tri ? 'triangle' : 'sawtooth');
+      reader.frequency.value = rate;
+      inGain = ctx.createGain(); inGain.gain.value = door === 'fx' ? level : 1;
+      reader.connect(inGain); inGain.connect(sh); reader.start(); nodes.push(reader, inGain);
+      setMix();
+    }
+  }
+  function setMix(){
+    if (!ctx || !gDirect) return;
+    var m = door === 'env' ? 0 : directMix(rate), now = ctx.currentTime;
+    gDirect.gain.setTargetAtTime(0.32 * m, now, 0.03);
+    gLoud.gain.setTargetAtTime(0.5 * (1 - m), now, 0.03);
+  }
+
+  // ---------- controls ----------
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  function syncUI(){
+    tabs.forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-door') === door)); });
+    $('about').textContent = ABOUT[door];
+    $('rateRow').classList.toggle('off', door === 'env');
+    $('lvlRow').classList.toggle('off', door !== 'fx');
+    $('triRow').style.display = door === 'osc' ? 'flex' : 'none';
+    var r = READER[door === 'osc' && tri ? 'oscTri' : door];
+    $('readerEq').textContent = r[0]; $('readerWords').textContent = r[1];
+    $('ratev').textContent = (rate < 10 ? rate.toFixed(2) : Math.round(rate)) + ' Hz';
+    var hear;
+    if (door === 'env') hear = 'You hear it as <b>the loudness of a tone</b>, one note every 1.2 seconds.';
+    else { var m = directMix(rate);
+      hear = m <= 0 ? 'Too slow to be a pitch: you hear it as <b>the loudness of a tone</b>, rising and falling.'
+           : m >= 1 ? 'Fast enough to be a pitch: you hear <b>the curve itself as sound</b>.'
+           : 'Crossing the seam: <b>half loudness, half sound</b>. Somewhere in here a pulse becomes a pitch.'; }
+    if (door !== 'env' && rate > PIC_CAP) hear += ' <span style="color:var(--fg-4)">The picture is slowed to one reading a second so you can follow it.</span>';
+    $('hear').innerHTML = hear;
+    $('doorNote').value = notes[door] || '';
+    computeSpectrum();
+  }
+  tabs.forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-door'); hist = []; picPhase = 0; syncUI(); if (playing) start(); }); });
+  $('play').addEventListener('click', function(){
+    ensure(); if (ctx.state === 'suspended') ctx.resume();
+    playing = !playing; $('play').textContent = playing ? 'Stop' : 'Play';
+    if (playing) start(); else stop();
+  });
+  $('c').addEventListener('input', function(){
+    curvature = parseFloat($('c').value);
+    $('cv').textContent = curvature.toFixed(1) + (Math.abs(curvature) < 0.05 ? ' straight' : curvature > 0 ? ' convex' : ' concave');
+    if (sh) sh.curve = curveTable();
+    computeSpectrum();
+  });
+  $('rate').addEventListener('input', function(){
+    rate = rateFrom(parseFloat($('rate').value));
+    if (reader && reader.frequency) reader.frequency.setTargetAtTime(rate, ctx.currentTime, 0.02);
+    setMix(); syncUI();
+  });
+  $('lvl').addEventListener('input', function(){
+    level = parseFloat($('lvl').value); $('lvlv').textContent = level.toFixed(2);
+    if (inGain && door === 'fx') inGain.gain.setTargetAtTime(level, ctx.currentTime, 0.02);
+    computeSpectrum();
+  });
+  $('tri').addEventListener('click', function(){
+    tri = !tri; $('tri').setAttribute('aria-pressed', String(tri));
+    if (reader && reader.type && door === 'osc') reader.type = tri ? 'triangle' : 'sawtooth';
+    syncUI();
+  });
+
+  // ---------- harmonics of one reading cycle ----------
+  var spec = [], specRef = [], H = 16;
+  function harmonics(c){
+    var M = 512, y = new Float32Array(M), out = [];
+    for (var k = 0; k < M; k++){ y[k] = 2 * f(readerT(k / M), c) - 1; }
+    var mean = 0; for (k = 0; k < M; k++) mean += y[k]; mean /= M;
+    for (var h = 1; h <= H; h++){ var re = 0, im = 0;
+      for (k = 0; k < M; k++){ var a = 2 * Math.PI * h * k / M; re += (y[k] - mean) * Math.cos(a); im -= (y[k] - mean) * Math.sin(a); }
+      out.push(Math.sqrt(re * re + im * im)); }
+    return out;
+  }
+  function computeSpectrum(){ if (door === 'env'){ spec = []; specRef = []; return; } spec = harmonics(curvature); specRef = harmonics(0); }
+
+  // ---------- the picture ----------
+  var cv = $('stage'), css = getComputedStyle(document.documentElement);
+  var ACC = css.getPropertyValue('--accent').trim(), FG2 = css.getPropertyValue('--fg-2').trim(), FG3 = css.getPropertyValue('--fg-3').trim(), FG4 = css.getPropertyValue('--fg-4').trim(), INFO = css.getPropertyValue('--info').trim();
+  var hist = [], HM = 240, picPhase = 0, picPhase0 = 0, lastT = performance.now();
+  function picRate(){ return door === 'env' ? 1 / PERIOD : Math.min(rate, PIC_CAP); }
+  function draw(now){
+    var dt = Math.min(0.25, (now - lastT) / 1000); lastT = now;
+    var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    var cssH = Math.min(560, Math.max(260, r.width * 0.86));
+    if (cv.style.height !== cssH + 'px') cv.style.height = cssH + 'px';
+    var bw0 = Math.round(r.width * d), bh0 = Math.round(cssH * d);
+    if (cv.width !== bw0 || cv.height !== bh0){ cv.width = bw0; cv.height = bh0; }
+    var g = cv.getContext('2d'), W = cv.width, Hh = cv.height, p = 14 * d, gap = 12 * d;
+    var S = Math.min(W * 0.48, Hh * 0.56);
+    var sx = p, sy = p, rx = sx + S + gap, ry = sy + S + gap, rw = W - p - rx, rh = Hh - p - ry;
+    g.clearRect(0, 0, W, Hh);
+    function X(t){ return sx + t * S; } function Y(v){ return sy + (1 - v) * S; }
+
+    // advance the picture's reader
+    if (playing && door === 'env' && ctx){ var e = (ctx.currentTime - picPhase0) / PERIOD; picPhase = e - Math.floor(e); if (e < 0) picPhase = 0.99; }
+    else if (playing) { picPhase = (picPhase + picRate() * dt) % 1; }
+    var t0 = playing ? readerT(picPhase) : (door === 'env' ? 0 : readerT(0.125)), f0 = f(t0, curvature);
+    var nowS = now / 1000, WIN = 4;
+    if (playing){ hist.unshift([t0, f0, nowS]); while (hist.length && nowS - hist[hist.length - 1][2] > WIN) hist.pop(); }
+
+    // frames
+    g.strokeStyle = 'rgba(255,255,255,0.06)'; g.lineWidth = d;
+    g.strokeRect(sx, sy, S, S); g.strokeRect(sx, ry, S, rh); g.strokeRect(rx, sy, rw, S); g.strokeRect(rx, ry, rw, rh);
+    g.font = (10 * d) + 'px JetBrains Mono, monospace'; g.fillStyle = FG4;
+    g.fillText('THE CURVE', sx + 6 * d, sy + 14 * d);
+    g.fillText('THE READER  ↓ time', sx + 6 * d, Hh - p - 6 * d);
+    g.fillText('WHAT COMES OUT  → time', rx + 6 * d, sy + 14 * d);
+    g.fillText(door === 'env' ? 'HARMONICS · none: one sweep, not a cycle' : 'HARMONICS 1–16', rx + 6 * d, ry + 14 * d);
+
+    // straight line and curve
+    g.setLineDash([4 * d, 4 * d]); g.strokeStyle = FG4; g.beginPath(); g.moveTo(X(0), Y(1)); g.lineTo(X(1), Y(0)); g.stroke(); g.setLineDash([]);
+    g.strokeStyle = ACC; g.lineWidth = 2.5 * d; g.beginPath();
+    for (var i = 0; i <= 200; i++){ var t = i / 200, yv = Y(f(t, curvature)); if (i) g.lineTo(X(t), yv); else g.moveTo(X(t), yv); }
+    g.stroke();
+    // the stretch of curve this reader can reach
+    var lo = door === 'fx' ? (1 - level) / 2 : 0, hi = door === 'fx' ? (1 + level) / 2 : 1;
+    g.strokeStyle = INFO; g.globalAlpha = 0.18; g.lineWidth = 9 * d; g.beginPath();
+    for (i = 0; i <= 100; i++){ var tt = lo + (hi - lo) * i / 100, y2 = Y(f(tt, curvature)); if (i) g.lineTo(X(tt), y2); else g.moveTo(X(tt), y2); }
+    g.stroke(); g.globalAlpha = 1;
+
+    // reader trace (bottom): x = where it reads, time falls downward
+    g.strokeStyle = INFO; g.lineWidth = 1.6 * d; g.beginPath();
+    for (i = 0; i < hist.length; i++){ var x = X(hist[i][0]), y = ry + 4 * d + (nowS - hist[i][2]) / WIN * (rh - 8 * d); if (i && Math.abs(hist[i][0] - hist[i - 1][0]) > 0.5) g.moveTo(x, y); else if (i) g.lineTo(x, y); else g.moveTo(x, y); }
+    g.stroke();
+    // output trace (right): y = curve height, time runs rightward
+    g.strokeStyle = ACC; g.lineWidth = 1.8 * d; g.beginPath();
+    for (i = 0; i < hist.length; i++){ var ox = rx + 4 * d + (nowS - hist[i][2]) / WIN * (rw - 8 * d), oy = Y(hist[i][1]); if (i) g.lineTo(ox, oy); else g.moveTo(ox, oy); }
+    g.stroke();
+
+    // the projection: reader up to the curve, curve across to the output
+    var px = X(t0), py = Y(f0);
+    g.setLineDash([3 * d, 3 * d]); g.strokeStyle = FG3; g.lineWidth = d;
+    g.beginPath(); g.moveTo(px, ry + 4 * d); g.lineTo(px, py); g.lineTo(rx + 4 * d, py); g.stroke(); g.setLineDash([]);
+    g.fillStyle = INFO; g.beginPath(); g.arc(px, ry + 4 * d, 4.5 * d, 0, 7); g.fill();
+    g.fillStyle = ACC; g.beginPath(); g.arc(px, py, 5.5 * d, 0, 7); g.fill();
+    g.beginPath(); g.arc(rx + 4 * d, py, 4.5 * d, 0, 7); g.fill();
+
+    // harmonics
+    if (spec.length){
+      var mx = 1e-9; for (i = 0; i < H; i++) mx = Math.max(mx, spec[i], specRef[i]);
+      var bw = (rw - 16 * d) / H, base = Hh - p - 8 * d, top = ry + 24 * d;
+      function hgt(v){ var db = 20 * Math.log10(Math.max(v / mx, 1e-3)); return (1 + db / 60) * (base - top); }
+      for (i = 0; i < H; i++){
+        var bx = rx + 8 * d + i * bw;
+        g.fillStyle = ACC; g.globalAlpha = 0.85; var hh = Math.max(0, hgt(spec[i])); g.fillRect(bx + bw * 0.2, base - hh, bw * 0.6, hh); g.globalAlpha = 1;
+        g.strokeStyle = FG2; g.lineWidth = d; var hr = Math.max(0, hgt(specRef[i])); g.strokeRect(bx + bw * 0.12, base - hr, bw * 0.76, hr);
+      }
+      g.fillStyle = FG4; g.fillText('60 dB range', rx + rw - 80 * d, ry + 14 * d);
+    }
+    requestAnimationFrame(draw);
+  }
+
+  // ---------- notes (this viewer only) ----------
+  var KEY = 'dissolutions-readers-notes', notes = {};
+  try { notes = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e){ notes = {}; }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch(e){} }
+  $('doorNote').addEventListener('input', function(){ notes[door] = $('doorNote').value; save(); });
+  $('wholeNote').value = notes.whole || '';
+  $('wholeNote').addEventListener('input', function(){ notes.whole = $('wholeNote').value; save(); });
+  $('copy').addEventListener('click', function(){
+    var text = 'One curve, three readers — notes\n' + ['env', 'osc', 'fx', 'whole'].map(function(k){ return '- ' + k + ': ' + (notes[k] || '—'); }).join('\n');
+    var done = function(){ $('copied').textContent = 'copied'; };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function(){ $('copied').textContent = text; }); else $('copied').textContent = text;
+  });
+
+  syncUI();
+  requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
