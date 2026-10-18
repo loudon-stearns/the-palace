@@ -15,19 +15,19 @@ forward_vector: "I am Sentry's scroll — the one page that opens on which versi
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-18T19:39:28.867Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-18T22:28:57.164Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** — · **Stage:** growing
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
 - **Version:** v1.5 · the spec last changed 2026-10-18 (`b8b7442a`) — ops(Sentry): the Sentry reads commits and tags as push sends them: the push gate, the history check, and the names of pushed refs — v1.5
-- **Runs since the change:** none yet — v1.5 has not run
-- **Last run:** 2026-10-16 — quick sweep of 118edcbc and a hand read of every ref, 2 raised, held locally · nothing new (under v1.3)
+- **Runs since the change:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-18 — deep sweep of 99b3cd14, 11 raised, held locally · nothing new (under v1.5)
 - **Owed in the ledger:** 1 — item 4; the next run's tail read picks it up first
 - **Latest lesson:** item 16, from the review of the message reads — 2026-10-18 — [[Sentry — tuning]]
 
 ### Runs since v1.5
 
-_None yet._
+- 2026-10-18 — deep sweep of 99b3cd14, 11 raised, held locally · nothing new
 
 ### Owed
 
@@ -50,6 +50,13 @@ _Loudon's standing direction for this ceremony — never regenerated. It holds u
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="run-4b3b291391" -->
+### 2026-10-18 — deep sweep of 99b3cd14, 11 raised, held locally
+
+nothing new
+<sub>a run under v1.5 · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="version-b8b7442abf48afeb96c966339a9b023028e25dec" -->
 ### 2026-10-18 — the spec moved to v1.5
 

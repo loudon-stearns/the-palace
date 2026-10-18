@@ -70,3 +70,4 @@ The 2026-09-25 hosting assessment scanned the working tree for key formats and f
 - run · 2026-09-27 · v1.1 · deep sweep of c80ff992, 4 raised, held locally · taught item 11
 - run · 2026-10-15 · v1.3 · sweep (hosting) of 3778f4a0, nothing raised · taught item 12
 - run · 2026-10-16 · v1.3 · quick sweep of 118edcbc and a hand read of every ref, 2 raised, held locally · nothing new
+- run · 2026-10-18 · v1.5 · deep sweep of 99b3cd14, 11 raised, held locally · nothing new
