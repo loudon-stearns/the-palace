@@ -1,0 +1,17 @@
+# A last guard, not a place to keep things. Participant text, test items, keys,
+# replies, judge packets and the de-identification terms live only in a
+# session's scratchpad (Creative Coach — scroll § Standing Orders). If any of
+# these ever appear here, something went wrong: delete them, don't commit them.
+heldout/
+prompts/
+live/
+staged/
+judge/
+*.private.*
+deid*
+items*.json
+key*.json
+replies*.json
+agent_map*.json
+packet*
+stage2*

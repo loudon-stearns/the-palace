@@ -7,6 +7,7 @@ pillars:
   - creation
 born: 2026-09
 stage: growing
+version: "2.1b"
 links:
   - target: "[[FOUR PILLARS]]"
     type: emerged-from
@@ -325,3 +326,7 @@ external name — **appropriate responsiveness** — and no agreed definition or
 despite being considered essential to whether help works at all. So [[Modes of Collaboration]]'s
 habit of holding many approaches in reach rather than prescribing one is not a hedge. It is the same
 open problem, arrived at from the other side.
+
+## Active Baton
+
+[[Creative Coach — baton]] — drafted 2026-10-18
