@@ -222,7 +222,8 @@ export default function EntryReader({
 
   // The entry's hero, faint behind the top of the reading column (HeroBackdrop,
   // which a page's scroll draws too).
-  const heroFile = heroFileOf(entry.bundle?.files, entry.title);
+  const bundleFiles = entry.bundle?.files || [];
+  const heroFile = heroFileOf(bundleFiles, entry.title);
 
   // The face switch. SCROLL opens the scroll view right here, over STATE (it
   // reads any entry's scroll, ceremonies included, with a live Now zone), keyed
