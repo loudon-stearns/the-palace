@@ -191,6 +191,8 @@ free.
 becomes a teammate, and its words come back cut off, late and twice, with no token count for the
 dial. Unnamed, it stays a subagent everywhere and resumes by its ID all the same (2026-09-26).
 
+**One companion held the whole way.** A session keeps one Concierge from its open to its close, however long it runs (Loudon, 2026-10-18). A compaction summary can drop the held ID, so before summoning a Concierge partway through a session, look for the one already held, an `agent-<id>.jsonl` file in the session's `subagents/` folder (`~/.claude/projects/<project>/<session-id>/subagents/`), and resume it with `SendMessage`. Summon a new one only when that one is gone or the dial says to respawn, and tell Loudon plainly which happened; a summon partway through is never the start of a session.
+
 The cost model that follows sets two disciplines:
 
 - **Curate the startup neighborhood.** What you load into the companion at spawn sets its baseline
