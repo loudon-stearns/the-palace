@@ -9,11 +9,14 @@
 //   audio  — <audio> element
 //   image  — <img> element
 //   iframe — sandboxed <iframe> (HTML artifacts: sims, decks, players)
+//   video  — <video> element
+//   pdf    — the browser's own PDF viewer in a frame
 //   file   — anything else; the renderer falls back to an open-link
 
 const AUDIO_EXT = new Set(['wav', 'mp3', 'ogg', 'm4a', 'flac']);
 const IMAGE_EXT = new Set(['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp']);
 const HTML_EXT = new Set(['html', 'htm']);
+const VIDEO_EXT = new Set(['mp4', 'webm', 'mov', 'm4v']);
 
 // Lowercased extension without the dot. '' when there is no real extension
 // (no dot, or a dotfile like ".gitignore" whose dot is leading).
@@ -30,6 +33,8 @@ export function detectArtifactType(path) {
   if (AUDIO_EXT.has(ext)) return 'audio';
   if (IMAGE_EXT.has(ext)) return 'image';
   if (HTML_EXT.has(ext)) return 'iframe';
+  if (VIDEO_EXT.has(ext)) return 'video';
+  if (ext === 'pdf') return 'pdf';
   return 'file';
 }
 

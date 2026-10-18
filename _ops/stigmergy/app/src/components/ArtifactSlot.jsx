@@ -72,6 +72,34 @@ function FrameBody({ url, name, initialHeight = FRAME_HEIGHT }) {
   );
 }
 
+// A video, played in place with the browser's controls. It takes its turn with
+// every other sound on the page: starting it tells the deck ('rich:play'), and
+// any other start pauses it.
+function VideoBody({ url, name }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+    const onPlay = () => document.dispatchEvent(new CustomEvent('rich:play', { detail: el }));
+    const onOtherPlay = (e) => { if (e.detail !== el && !el.paused) el.pause(); };
+    el.addEventListener('play', onPlay);
+    document.addEventListener('rich:play', onOtherPlay);
+    return () => { el.removeEventListener('play', onPlay); document.removeEventListener('rich:play', onOtherPlay); };
+  }, []);
+  return (
+    <video
+      ref={ref}
+      data-testid="artifact-video"
+      title={name}
+      src={url}
+      controls
+      preload="metadata"
+      playsInline
+      style={{ display: 'block', width: '100%', height: 'auto', background: 'var(--bg)', border: '1px solid var(--phosphor-dim)', borderRadius: 0 }}
+    />
+  );
+}
+
 // One rendered artifact. The element depends on the detected type; the frame
 // is the same BBS phosphor card for all of them.
 function ArtifactBody({ path, frameHeight }) {
@@ -101,6 +129,20 @@ function ArtifactBody({ path, frameHeight }) {
     );
   }
   if (type === 'iframe') return <FrameBody url={url} name={name} initialHeight={frameHeight} />;
+  if (type === 'video') return <VideoBody url={url} name={name} />;
+  if (type === 'pdf') {
+    // The browser's own PDF viewer, in place. It will not run in a sandboxed
+    // frame, so this one is plain; a PDF is a document the viewer draws, not a
+    // page of ours that runs (2026-10-18; Loudon: "could they render in the page?").
+    return (
+      <iframe
+        data-testid="artifact-pdf"
+        title={name}
+        src={url}
+        style={{ width: '100%', height: frameHeight || FRAME_HEIGHT, border: '1px solid var(--phosphor-dim)', background: 'var(--bg)', borderRadius: 0 }}
+      />
+    );
+  }
   // Unknown type — fall back to a native-open link (reuses GET /api/open).
   return (
     <a
@@ -125,6 +167,7 @@ const TYPE_LABEL = {
   audio: 'audio',
   video: 'video',
   iframe: 'web',
+  pdf: 'pdf',
   file: 'artifact',
 };
 

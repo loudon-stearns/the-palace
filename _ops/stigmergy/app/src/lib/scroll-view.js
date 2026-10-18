@@ -4,7 +4,7 @@
 // and lift each section's artifacts so ArtifactSlot can render them inline.
 
 const ENTRY_RE = /<!--\s*scroll:entry id="([^"]+)"\s*-->([\s\S]*?)<!--\s*\/scroll:entry\s*-->/g;
-const MEDIA_EXT = /\.(png|jpe?g|gif|webp|svg|wav|mp3|ogg|m4a|flac|mp4|mov|html?|pdf)$/i;
+const MEDIA_EXT = /\.(png|jpe?g|gif|webp|svg|wav|mp3|ogg|m4a|flac|mp4|webm|mov|m4v|html?|pdf)$/i;
 
 /**
  * Split the making zone into sections: [{ id, heading, body, artifacts }],
@@ -132,7 +132,7 @@ export function groupProjects(rows) {
 // of the flattened markdown the scroll file keeps. The file stays the durable
 // text; the card is how it is played.
 
-const HEAVY_EXT = /\.(html?|mp4|mov|pdf)$/i;
+const HEAVY_EXT = /\.(html?|mp4|webm|mov|m4v|pdf)$/i;
 
 /** The board message a section was written from, or null. */
 export function messageForSection(section, messages) {

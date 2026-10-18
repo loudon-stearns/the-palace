@@ -5,6 +5,7 @@ import BundlePanel from './BundlePanel.jsx';
 import EntryBody from './EntryBody.jsx';
 import AgentLaunchModal from '../queue/AgentLaunchModal.jsx';
 import { fetchEntry } from '../../adapters/entries.js';
+import HeroBackdrop, { heroFileOf } from '../HeroBackdrop.jsx';
 import { fetchQuotes, decideQuote } from '../../adapters/quotes.js';
 import { applyDecision } from '../../lib/quote-walk.js';
 import { fetchLensSuggestions } from '../../adapters/launch.js';
@@ -15,7 +16,7 @@ import { rowSignal } from '../../lib/scroll-view.js';
 import FaceSwitch from '../FaceSwitch.jsx';
 import RichFaceFrame, { useRichFace, openRichFace } from './RichFaceFrame.jsx';
 import { orderFaces, nextFace, richHref } from '../../lib/faces.js';
-import { fileUrl, IS_PUBLIC, BASE, getSiteMeta } from '../../lib/public-mode.js';
+import { IS_PUBLIC, BASE, getSiteMeta } from '../../lib/public-mode.js';
 import NoCarrier from '../public/NoCarrier.jsx';
 import Combobox from '../Combobox.jsx';
 
@@ -219,18 +220,9 @@ export default function EntryReader({
   // drawn inside the editor, not here.
   const editAllow = checkPathSafety(entry.path);
 
-  // The entry's hero ("<Title> — hero.png" in its bundle) becomes a faint,
-  // darkened backdrop behind the top of the reading column — ambient identity,
-  // never at the cost of phosphor legibility. Prefer the title-matched hero,
-  // else any "* — hero.png". Served by the existing GET /api/file.
-  const bundleFiles = entry.bundle?.files || [];
-  const heroFile = bundleFiles.find((f) => f.name === `${entry.title} — hero.png`)
-    || bundleFiles.find((f) => / — hero\.png$/i.test(f.name));
-  const heroPath = heroFile ? heroFile.relPath : null;
-  // Cache-buster: a companion regen overwrites the hero PNG in place (same path),
-  // so the browser would keep showing the old backdrop after a reload. The file's
-  // byte size changes between renders — append it so the new image loads.
-  const heroVersion = heroFile && typeof heroFile.size === 'number' ? heroFile.size : null;
+  // The entry's hero, faint behind the top of the reading column (HeroBackdrop,
+  // which a page's scroll draws too).
+  const heroFile = heroFileOf(entry.bundle?.files, entry.title);
 
   // The face switch. SCROLL opens the scroll view right here, over STATE (it
   // reads any entry's scroll, ceremonies included, with a live Now zone), keyed
@@ -255,30 +247,7 @@ export default function EntryReader({
 
   return (
     <div data-testid="entry-reader" data-path={entry.path} style={{ position: 'relative', zIndex: 1 }}>
-      {heroPath ? (
-        <div
-          aria-hidden="true"
-          data-testid="entry-hero-backdrop"
-          style={{
-            // Fixed to the viewport top so it stays put as the entry scrolls —
-            // a persistent "which page am I on" reminder. EntryReader is its own
-            // stacking context (z-index:1 above), so this z-index:0 sits above
-            // the Shell's opaque background but below the entry content (z-index:1).
-            position: 'fixed', top: 0, left: 0, right: 0, height: 540,
-            zIndex: 0, pointerEvents: 'none',
-            // Image under a top-to-bottom veil that fades it into the terminal
-            // black before the body text begins; desaturated + dimmed so it
-            // reads as ambient, not as a competing surface.
-            backgroundImage:
-              `linear-gradient(to bottom, color-mix(in srgb, var(--bg) 55%, transparent) 0%, var(--bg) 95%), url("${fileUrl(heroPath, heroVersion)}")`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center 22%',
-            backgroundRepeat: 'no-repeat',
-            filter: 'saturate(0.8) brightness(1.2)',
-            opacity: 0.72,
-          }}
-        />
-      ) : null}
+      <HeroBackdrop file={heroFile} />
       <div style={{ position: 'relative', zIndex: 1 }}>
       <div style={{ marginBottom: 8, display: 'flex', alignItems: 'flex-start', gap: 12, flexWrap: 'wrap' }}>
       {/* A basis wide enough for the buttons, so on a narrow screen the face
