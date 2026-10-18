@@ -9,6 +9,8 @@ import EntryBody from '../state/EntryBody.jsx';
 import TricksterCard from '../trickster/TricksterCard.jsx';
 import AgentLaunchModal from '../queue/AgentLaunchModal.jsx';
 import { usePalaceRef } from '../../lib/palace-ref.jsx';
+import { fetchEntry } from '../../adapters/entries.js';
+import HeroBackdrop, { heroFileOf } from '../HeroBackdrop.jsx';
 import { RunningTag, QueuedTag } from './status.jsx';
 import MakingCard from './MakingCard.jsx';
 import WatchPane from './WatchPane.jsx';
@@ -40,6 +42,11 @@ import WatchPane from './WatchPane.jsx';
 //
 // The scroll text is markdown; EntryBody (the STATE deck's renderer) draws it
 // so headings, lists, tables, links and wikilinks read the same everywhere.
+
+// A zone's plain description, under its title, for whoever meets it cold.
+function ZoneNote({ children }) {
+  return <div style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 12, margin: '-2px 0 8px', maxWidth: '78ch' }}>{children}</div>;
+}
 
 function ZoneTitle({ children, right }) {
   return (
@@ -114,6 +121,14 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
   const homeRef = palace?.refIndex?.get?.(home) ?? null;
   const homePath = (row && row.path) || homeRef?.path || null;
   const scrollFaces = orderFaces([...(homeRef?.faces || ['text']), 'scroll']);
+  // The page's hero behind the scroll, as it sits behind the page in the reader.
+  const [hero, setHero] = useState(null);
+  useEffect(() => {
+    if (!homePath) { setHero(null); return undefined; }
+    let live = true;
+    fetchEntry(homePath).then((r) => { if (live && r.ok) setHero(heroFileOf(r.bundle?.files, r.title)); });
+    return () => { live = false; };
+  }, [homePath]);
   const selectFace = (f) => {
     if (f === 'text' && homePath && onNavigate) return onNavigate(homePath);
     if (f === 'rich' && homePath) return window.location.assign(richHref(homePath, import.meta.env.BASE_URL));
@@ -168,7 +183,9 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
   const fbColor = { ok: 'var(--phosphor)', warn: 'var(--warn)', err: 'var(--error)', dim: 'var(--phosphor-dim)' };
 
   return (
-    <div data-testid="scroll-view" data-home={home}>
+    <div data-testid="scroll-view" data-home={home} style={{ position: 'relative', zIndex: 1 }}>
+      <HeroBackdrop file={hero} testId="scroll-hero-backdrop" />
+      <div style={{ position: 'relative', zIndex: 1 }}>
       <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap', marginBottom: 6 }}>
         <span data-testid="scroll-back" onClick={onBack} style={{ color: 'var(--phosphor)', textShadow: 'var(--glow)', cursor: 'pointer', border: '1px solid var(--phosphor-dim)', padding: '1px 8px', fontSize: 12, textTransform: 'uppercase', letterSpacing: '.04em' }}>← {backLabel}</span>
         <span
@@ -220,6 +237,7 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
           </details>
 
           <ZoneTitle right={<span style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 }}>agreed with you — it changes only with your yes, and every change lands on the trail</span>}>Plan</ZoneTitle>
+          <ZoneNote>The route: where this page's work is going, then the moves ahead, in order. What happens next lives here.</ZoneNote>
           <div data-testid="scroll-plan">
             {planEditing ? (
               <>
@@ -276,6 +294,7 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
           </>}
 
           <ZoneTitle right={<span style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 }}>{once ? 'once — goes into the tuning ledger as owed, and the next run pays it' : (row && row.stewarded ? 'yours — the steward reads this before anything else, every cycle' : 'yours — they hold until you revoke them, and every run reads them first')}</span>}>Standing Orders</ZoneTitle>
+          <ZoneNote>The rules of the road: taste, priorities, what not to ask you again. They hold whatever the plan says; if it would still be true after the plan changed, it belongs here, not in the Plan.</ZoneNote>
           <div data-testid="scroll-orders">
             {hasLedger ? (
               // The deck asks which kind (SCHEMA — Reference §6): a standing
@@ -334,6 +353,7 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
       ) : null}
 
       {launch ? <AgentLaunchModal home={home} onClose={() => setLaunch(false)} /> : null}
+      </div>
     </div>
   );
 }
