@@ -186,7 +186,7 @@ The sketch works but it's still a worksheet — abstract. Stage 3 in the vector 
 Quick catch-up: this project is the career-edition pivot of Meadows' twelve leverage points — the second pass that asks where your *career as a system* will repay a move, not where your mixdown will. The entry body has the twelve levels spec'd (Stage 1). Stage 2 in the forward-vector list was a self-diagnostic worksheet: ask the reader to place their last 10 career decisions on the hierarchy. I built it. Single HTML page, drop counts into each level, watch the distribution bars and the verdict (INVERTED / BALANCED / TOP-HEAVY) update live. The instrument is meant to perform the lesson — most readers will see their own inversion in under a minute, which is the whole pedagogy the entry argues for.
 
 **Artifacts:**
-- [v0.1 — place your last ten career-shaping moves; the verdict fires when total ≥ 1.](Meadows and an Artist's Career/Meadows and an Artist's Career — sketch — self-diagnostic.html)
+- [v0.1 — place your last ten career-shaping moves; the verdict fires when total ≥ 1.](Projects/Meadows and an Artist's Career/Meadows and an Artist's Career — sketch — self-diagnostic.html)
 <sub>`meadows-career-steward-024` · BROADCAST on GENERAL</sub>
 <!-- /scroll:entry -->
 <!-- scroll:making:end -->
