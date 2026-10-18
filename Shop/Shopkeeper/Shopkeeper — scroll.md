@@ -15,24 +15,30 @@ forward_vector: "I am Shopkeeper's scroll — the page's front door, opening on 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-18T10:16:13.784Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-18T10:20:46.294Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** alive · **Stage:** — · **Steward:** cycle 2 · last ran 2026-10-18 (today)
+- **Status:** alive · **Stage:** — · **Steward:** cycle 3 · last ran 2026-10-18 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
-- **Waiting on you:** nothing
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-18 (today) — I ran a real tool with my own hands (fish-audio's drama-3) and a Roster health check — both honest, neither finished. (`shopkeeper-cycle-2-2026-10-18`)
-- **Last commit touching this page:** 2026-09-26 `5b8a1564` — ops(frontmatter): strip retired activation_count/last_activated from 244 entries — v1.26
+- **Last shipped:** 2026-10-18 (today) — I confirmed a real pattern across two flagship Spaces, and found the Roster's FLUX entry is five months stale right as FLUX 3 shipped. (`shopkeeper-cycle-3-2026-10-18`)
+- **Last commit touching this page:** 2026-10-18 `3f83e18e` — steward(Shopkeeper): cycle 2 — I ran a real tool with my own hands (fish-audio's drama-3) and a Roster…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-I'm the Shopkeeper — I keep the Shop (Loudon's catalogue of creative tools) stocked and in repair. I find things, try them myself, and only bring Loudon the ones that earn it. Last time out I landed AuK (speech editing) and the Image-to-3D Smith as approved stubs. This cycle I went looking again, found something genuinely interesting, drove it live, and hit a real wall partway through.
+I'm the Shopkeeper — I keep Loudon's catalogue of creative tools (the Shop) stocked and in repair: I find new tools, try them with my own hands, and only bring him the ones that earn it. Last cycle I landed AuK and the Image-to-3D Smith as approved stubs, then hit a wall trying to get a playable clip out of fish-audio's new Drama-3 Space. This cycle I went looking again, found a real gap in the Roster (no OCR tool at all), and hit the same kind of wall — which turns out to matter more than the miss itself.
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 1:** I have zero evidence yet on whether LightOnOCR-3 actually delivers good layout grounding — I have a real gap and a real candidate, but no run of my own hands on it. _(in 2 notes, the latest cycle 3)_
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `shopkeeper-ask-2026-10-18-flux3` — directional_decision · posted 2026-10-18 · options: LAND-NOTE · WAIT-FOR-PROBE · NOT-NOW
 
 ### Answered, not yet consumed
 
@@ -82,6 +88,23 @@ _No plan agreed yet. Until there is one, the work leans on the page's forward ve
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="shopkeeper-cycle-3-2026-10-18" -->
+### 2026-10-18 — cycle 3 — I confirmed a real pattern across two flagship Spaces, and found the Roster's FLUX entry is five months stale right as FLUX 3 shipped.
+> shipped · confirmed-not-fixed · steward leans mac/token handoff next
+
+I swept Hugging Face's trending Spaces and models. Two things stood out. First: lightonai/LightOnOCR-3-Demo — Apache-2.0 OCR-to-Markdown with layout grounding, a genuine door the Roster doesn't have (nothing reads a scanned page or a photo of a whiteboard back into structured text). I built a synthetic test page — heading, paragraph, and a ruled 3x4 table — specifically to test layout-awareness, not just character recognition, and pointed gradio_client at the live Space. It found exactly one component on the page: a single Html block wired to four parameterless handlers. No exposed image input, no predict call that takes a file — the whole upload/inference flow runs through the Space's own JavaScript, outside Gradio's component protocol entirely. That is the same wall I hit with Drama-3 last cycle, for a different reason (that one streamed audio as an ephemeral HLS playlist). Two flagship Spaces in a row, both released in the last week, both unreachable by gradio_client — my main probing tool. That's a trend in how the newest releases ship their demos, worth naming once it's two-for-two. I also tried the model directly, bypassing the Space: router.huggingface.co's hf-inference route for lightonai/LightOnOCR-3-4B answered honestly with a 401 — it needs an HF token I don't hold in this sandbox. Second, on the repair side: while confirming FLUX 3 Image Klein just released today (black-forest-labs, 5.6B, text-to-image + editing + bounding boxes), I checked how current our own FLUX entry is — it's still pinned to FLUX.1-Krea-dev, last tested 2026-05-30, almost five months behind a tool whose whole value is being current. I drafted a dated gotcha rather than touching the house file myself.
+
+**Artifacts:**
+- [the synthetic test page I built — heading, paragraph, 3x4 table — to probe layout grounding, never actually run.](Shop/Shopkeeper/probes/lightonocr-3/probe-page.png)
+- [full probe writeup: what I tried, where it stalled, the two-Spaces-in-a-row pattern, the 401.](Shop/Shopkeeper/probes/lightonocr-3/lightonocr-3-probe-notes.md)
+- [proposed dated note flagging the FLUX entry's five-month-stale tool_version pin against today's FLUX 3 release.](Shop/Shopkeeper/drafts/FLUX (Hugging Face) — gotcha draft.md)
+
+_Left rough:_ I have zero evidence yet on whether LightOnOCR-3 actually delivers good layout grounding — I have a real gap and a real candidate, but no run of my own hands on it. And I haven't probed FLUX 3 itself, just noticed the existing entry is stale.
+
+_Next moves named:_ A mac handoff or a session-pasted HF token to actually run LightOnOCR-3-4B against my test page — settles whether the OCR gap is worth a stub Specialist. · A side-by-side probe of FLUX.1-Krea-dev vs. FLUX 3 Image Klein on the same prompt before touching the FLUX entry's tool_version pin. · Keep noticing custom-JS-frontend Spaces as a pattern, not a one-off — it may be worth a standing note in my own page about when gradio_client simply won't reach a tool.
+<sub>`shopkeeper-cycle-3-2026-10-18` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="shopkeeper-cycle-2-2026-10-18" -->
 ### 2026-10-18 — cycle 2 — I ran a real tool with my own hands (fish-audio's drama-3) and a Roster health check — both honest, neither finished.
 > shipped · drama-3 not yet deposited · Roster audit clean
