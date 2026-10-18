@@ -42,7 +42,7 @@ No piece reaches the board, `/api/*` or the reader. `127.0.0.1` is a different s
 - **Size** is either `flow` (the piece reports its height) or `fill <ratio>` (the page sizes it from the column, which is what the webcams need).
 - **Gathered proofs.** A proof nobody should edit gets a `contract` block in its manifest entry instead, and the checker marks it as owed.
 
-**A piece includes nothing.** The piece origin injects one kit, `_ops/rich-face/kit/piece.js` (about 90 lines), into every HTML file it serves. The public build does the same when it copies files. The kit:
+**A piece includes nothing.** Every server that sends a piece injects one kit, `_ops/rich-face/kit/piece.js`, through one function, `kit/inject.mjs`: STIGMERGY's `/api/file`, the rich face's `/rich/<path>` and the public build today, and the piece origin when it comes. The kit:
 - reports the piece's height
 - posts `rich:play` when sound starts and suspends it on `rich:hush`
 - reports errors
@@ -79,7 +79,7 @@ Flocking's three figures fail today because `findByName` matches bare names only
    - Each response carries the piece's CSP (shelf CDNs, plus `connect-src 'self'` and the declared hosts), CORP and `nosniff`.
    - If the port is taken, every figure says so. It never falls back to the app origin.
 3. **The rich page.** `_api/resolve` returns a table of pieces, and `rich.html` builds every frame from it. The inline module (`rich.html:174`) moves to `_rich/rich.js` so the page itself can carry `script-src 'self'`.
-4. **The companion frame.** `RichFaceFrame.jsx` gets `allow="camera; microphone; midi; fullscreen"` and stays same-origin, since `rich-frame.js` reads the page. `ArtifactSlot.jsx:33-46` (fixed at 480 px, no hush) moves onto the piece origin. Only after that do app-origin files get CORP.
+4. **The companion frame.** `RichFaceFrame.jsx` gets `allow="camera; microphone; midi; fullscreen"` and stays same-origin, since `rich-frame.js` reads the page. `ArtifactSlot.jsx`'s frame (it has taken a piece's height, relayed play and hush, and shown its errors since 2026-10-18) moves onto the piece origin. Only after that do app-origin files get CORP.
 
 ## 5. The process change: no one has to remember a rule
 
@@ -114,7 +114,6 @@ A proof is a record, so it gets adopted when a face gathers it, not in a sweep. 
 - Pages on other localhost ports can no longer write to :5173. No tracked file does that; untracked tools are unknown.
 - All pieces share one origin, so any piece can read every registered file. One origin per bundle is the next step.
 - Chrome partitions framed storage by the top-level site, so a piece opened on its own may not see state saved inside the face. Not checked yet.
-- Auto-hush only works if the kit wraps AudioContext before Tone.js does. Unproven.
 - The camera through two nested frames is verified only in headless Chromium.
 - CSP limits where data goes, not what code runs, so pinned SRI hashes are the real defense. The CSP ships report-only for one round. Whether mermaid works under `script-src 'self'` is unverified.
 - 8843 is a single port, so STIGMERGY instances in worktrees need their own.
@@ -150,3 +149,7 @@ Loudon: "yes on the three decisions."
 1. **Camera grants:** a grant line per piece in `_ops/rich-face/grants.json`, written only on his yes.
 2. **Camera on the public site:** a camera piece opens in its own tab.
 3. **Gathered proofs:** the manifest speaks for the proof. The page's recommendation stands: only CDN pins get edited, after he has seen the diff.
+
+## Reordered, 2026-10-18
+
+Loudon: "Script first." The kit (step 4) was built before the resolver and the piece origin (`5e6b6f9d`, landed in `44e7f6e6`), injected by the app origin's own servers: height, play and hush, and errors, on every served page. Its camera and storage wait for the piece origin (step 3). The Tone.js unknown (§7) is answered: the kit runs first in `<head>`, and its wrap reaches Tone.js 15.0.4's own context. Kuramoto's gathered explorer goes quiet on hush in headless Chromium (`rich-kit.test.js`).
