@@ -83,7 +83,10 @@ and the deterministic steps commit — never the agent:
   once the frontmatter parses, and the scroll's trail shows each one. An edit to
   another page, a new entry, canon, the scroll (its Plan and Standing Orders
   stay Loudon's) and the ledger are refused (`page_edits_refused`, named in the commit body) and
-  stay proposals on the board. It does not deposit. Its normal cycle output
+  stay proposals on the board. It does not deposit. The one exception is the
+  Shopkeeper, grown up for all of `Shop/` since 2026-10-18: its manifest's
+  `grown_up_for` lets it edit any page there and create new entries, never a
+  scroll. Every other steward keeps its own page and bundle. Its normal cycle output
   still goes where it always did: the bundle-local `[Entry] — scroll.md`
   read-model, the steward machinery (`state.json` / `history.jsonl`), and
   append-only Trickster-board messages.

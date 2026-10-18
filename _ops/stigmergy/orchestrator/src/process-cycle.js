@@ -419,7 +419,7 @@ export function processCycle(opts) {
     const m = messagesForBoard[i];
     const edits = pageEditsOf([m]);
     if (!edits.length) continue;
-    const v = vetPageEdits({ palaceRoot, home, entryFile: bundle ? bundle.entryFile : null, bundleDir: bundle ? bundle.bundleDir : null, edits });
+    const v = vetPageEdits({ palaceRoot, home, entryFile: bundle ? bundle.entryFile : null, bundleDir: bundle ? bundle.bundleDir : null, grownUpFor: manifest.grown_up_for, edits });
     const payload = { ...m.payload, page_edits: v.allowed };
     if (v.refused.length) payload.page_edits_refused = v.refused;
     else delete payload.page_edits_refused;

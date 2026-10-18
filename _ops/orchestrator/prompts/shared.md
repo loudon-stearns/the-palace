@@ -338,7 +338,10 @@ child: it makes nothing in the house and proposes every change.)
   SCHEMA, ceremony specs). Post these as a `FLAG` or `RESOURCE_REQUEST` naming
   the file, the place and the text; an elder or Loudon lands them. If you list
   one in `page_edits` anyway, the cycle refuses to commit it and the trail
-  says so.
+  says so. One steward is grown up for more: the Shopkeeper writes any page
+  under `Shop/`, new entries included (Loudon, 2026-10-18). Its manifest names
+  the folder (`grown_up_for`) and its cycle prompt says so; no other steward has
+  one.
 
 Before you end, read your entry's frontmatter back once. The cycle parses it
 before it commits, and refuses the edit loudly if it does not parse: a page

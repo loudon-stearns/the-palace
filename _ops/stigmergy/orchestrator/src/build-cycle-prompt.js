@@ -185,17 +185,32 @@ export function buildCyclePrompt(opts) {
   // up, we don't need to wait for a grant"): every cycle reads ELDER on top of
   // SCHEMA, AFTER its home entry (identity first, rules second). Frontmatter
   // stripped; the card bodies are enough. `include.schema` toggles both.
+  //
+  // One steward is grown up for more: the folders its manifest names in
+  // `grown_up_for` (only the Shopkeeper, for `Shop`, since 2026-10-18). Its
+  // cycle is told so here, and the vetter allows the same set (cycle-commit.js).
+  const grownUpFor = (Array.isArray(manifest.grown_up_for) ? manifest.grown_up_for : [])
+    .filter((d) => typeof d === 'string' && d.trim())
+    .map((d) => d.trim().replace(/\/+$/, ''));
+  const folders = grownUpFor.map((d) => `\`${d}/\``).join(', ');
+  const reach = grownUpFor.length ? `your own page and bundle, and everything under ${folders}` : 'your own page and bundle';
   let schemaSection = '';
   if (inc.schema) {
     const schemaFile = join(palaceRoot, 'SCHEMA.md');
     if (existsSync(schemaFile)) {
       const schemaBody = readFileSync(schemaFile, 'utf8').replace(/^---\n[\s\S]*?\n---\n/, '');
-      schemaSection = `\n# The palace's type system — SCHEMA (read after you know who you are)\n\nYou are grown up for your own page and bundle: you edit your own entry, body and frontmatter alike, and your bundle's files, and you propose every other change to the palace. This card is what those edits and proposals must fit — entry types, stages, the typed-link ontology. The rules decide form; they never decide whether a real find is worth keeping.\n\n\`\`\`markdown\n${schemaBody.trim()}\n\`\`\`\n`;
+      const yours = grownUpFor.length
+        ? `you edit your own entry, body and frontmatter alike, your bundle's files, and any page or file under ${folders}, new entries included; you propose every other change to the palace`
+        : `you edit your own entry, body and frontmatter alike, and your bundle's files, and you propose every other change to the palace`;
+      schemaSection = `\n# The palace's type system — SCHEMA (read after you know who you are)\n\nYou are grown up for ${reach}: ${yours}. This card is what those edits and proposals must fit — entry types, stages, the typed-link ontology. The rules decide form; they never decide whether a real find is worth keeping.\n\n\`\`\`markdown\n${schemaBody.trim()}\n\`\`\`\n`;
     }
     const elderFile = join(palaceRoot, 'ELDER.md');
     if (existsSync(elderFile)) {
       const elderBody = readFileSync(elderFile, 'utf8').replace(/^---\n[\s\S]*?\n---\n/, '');
-      schemaSection += `\n# ELDER — you have grown up, for your own page and bundle\n\nEvery steward reads this every cycle. It is what an elder holds: what may change the house and how. For you it covers your own entry and your bundle; another page, a new entry and canon stay proposals, and the Plan and Standing Orders on your scroll stay Loudon's.\n\n\`\`\`markdown\n${elderBody.trim()}\n\`\`\`\n`;
+      const covers = grownUpFor.length
+        ? `For you it covers your own entry and your bundle, and every page and file under ${folders}. There you write as an elder, not a proposer: edit any page, body and frontmatter alike, and create a new entry with its full frontmatter (title, type, links that fit SCHEMA). List each one in \`page_edits\` with a line of why, and the cycle commits it. This widens the shared rule that another page and a new entry stay proposals, inside those folders only. Every scroll there stays Loudon's, so the cycle refuses any scroll. Outside those folders, another page, a new entry and canon stay proposals, and the Plan and Standing Orders on your scroll stay Loudon's.`
+        : `For you it covers your own entry and your bundle; another page, a new entry and canon stay proposals, and the Plan and Standing Orders on your scroll stay Loudon's.`;
+      schemaSection += `\n# ELDER — you have grown up, for ${reach}\n\nEvery steward reads this every cycle. It is what an elder holds: what may change the house and how. ${covers}\n\n\`\`\`markdown\n${elderBody.trim()}\n\`\`\`\n`;
     }
   }
 

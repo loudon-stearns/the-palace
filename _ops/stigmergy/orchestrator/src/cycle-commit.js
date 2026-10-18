@@ -28,6 +28,14 @@
 // frontmatter fails to parse reads as blank to the deck and to the steward, so
 // it is refused loudly). Another page, a new entry, canon, the scroll the cycle
 // writes and the ledger it keeps are refused, and stay proposals.
+//
+// One steward may be grown up for more than that. Its manifest's `grown_up_for`
+// names palace folders where it writes as an elder: any page there, new
+// entries included, rides as a page edit. Every scroll there stays refused,
+// since its Plan and Standing Orders are Loudon's. Only the Shopkeeper has one,
+// for `Shop` (Loudon, 2026-10-18: "the shopmaster needs to be an elder that
+// can create documents anywhere in the shop ... the rest of the stewards
+// should be restricted").
 
 import { execFileSync, spawn, spawnSync } from 'node:child_process';
 import { existsSync, statSync, readFileSync, copyFileSync, mkdtempSync, rmSync } from 'node:fs';
@@ -108,16 +116,26 @@ export function checkFrontmatter(text, { required = false } = {}) {
  * not. Allowed: its own entry `.md`, and files in its bundle other than the
  * scroll and the tuning ledger (the cycle writes those) and other entries kept
  * there (another page). Every allowed `.md` must have frontmatter that parses;
- * its own entry must have some. Paths come back palace-relative; each refusal
- * carries a reason and whether it stays a proposal.
+ * its own entry must have some. `grownUpFor` (the manifest's `grown_up_for`)
+ * widens the allowed set to every file under those folders, entries included,
+ * except any scroll. Paths come back palace-relative; each refusal carries a
+ * reason and whether it stays a proposal.
  *
  * @returns {{ allowed: {path, why}[], refused: {path, why, reason, proposal: boolean}[] }}
  */
-export function vetPageEdits({ palaceRoot, home, entryFile, bundleDir, edits = [] }) {
+export function vetPageEdits({ palaceRoot, home, entryFile, bundleDir, grownUpFor = [], edits = [] }) {
   const root = resolve(palaceRoot);
   const entry = entryFile ? resolve(root, entryFile) : null;
   const bundle = bundleDir ? resolve(root, bundleDir) : null;
   const kept = new Set(bundle ? [join(bundle, `${home} — scroll.md`), join(bundle, `${home} — tuning.md`)] : []);
+  // Folders it is grown up for, kept only when they sit inside the palace.
+  const wider = (Array.isArray(grownUpFor) ? grownUpFor : [])
+    .filter((d) => typeof d === 'string' && d.trim())
+    .map((d) => resolve(root, d.trim()))
+    .filter((d) => { const r = relative(root, d); return !!r && !r.startsWith('..') && !isAbsolute(r); });
+  const outsideReason = wider.length
+    ? `another page or canon, outside its own page, bundle and ${wider.map((d) => `${relative(root, d)}/`).join(', ')}`
+    : 'another page or canon, outside its own page and bundle';
   const allowed = [];
   const refused = [];
   const seen = new Set();
@@ -130,11 +148,13 @@ export function vetPageEdits({ palaceRoot, home, entryFile, bundleDir, edits = [
     const isOwnEntry = entry && abs === entry;
     const r = bundle ? relative(bundle, abs) : '..';
     const inBundle = !!bundle && !!r && !r.startsWith('..') && !isAbsolute(r);
+    const inWider = wider.some((d) => { const w = relative(d, abs); return !!w && !w.startsWith('..') && !isAbsolute(w); });
     if (rel.startsWith('..') || isAbsolute(rel)) { refuse('outside the palace'); continue; }
-    if (!isOwnEntry && !inBundle) { refuse('another page or canon, outside its own page and bundle', true); continue; }
+    if (!isOwnEntry && !inBundle && !inWider) { refuse(outsideReason, true); continue; }
     if (kept.has(abs)) { refuse('the cycle writes this file; the steward does not'); continue; }
+    if (!isOwnEntry && !inBundle && basename(abs).endsWith(' — scroll.md')) { refuse('a scroll: its Plan and Standing Orders are Loudon\'s', true); continue; }
     if (!existsSync(abs) || !statSync(abs).isFile()) { refuse('no such file'); continue; }
-    if (!isOwnEntry && isEntryFile(abs) && !basename(abs).startsWith(`${home} — `)) { refuse('another entry kept in the bundle, so another page', true); continue; }
+    if (!isOwnEntry && !inWider && isEntryFile(abs) && !basename(abs).startsWith(`${home} — `)) { refuse('another entry kept in the bundle, so another page', true); continue; }
     if (abs.toLowerCase().endsWith('.md')) {
       let text = '';
       try { text = readFileSync(abs, 'utf8'); } catch (err) { refuse(`unreadable: ${err.message}`); continue; }

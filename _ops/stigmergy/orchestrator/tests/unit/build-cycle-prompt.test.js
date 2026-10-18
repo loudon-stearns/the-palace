@@ -321,6 +321,37 @@ describe('buildCyclePrompt — the type system layer (v1.19)', () => {
     const off = buildCyclePrompt({ palaceRoot: root, agentDir: agentRel, cycleN: 4, today: '2026-10-16', include: { schema: false } }).userTurn;
     expect(off).not.toContain('# ELDER');
   });
+
+  // Only a steward whose manifest names `grown_up_for` folders (the Shopkeeper,
+  // for Shop, 2026-10-18) is told it may write there; the rest are not.
+  test('a steward grown up for a folder is told so; one without stays fenced', () => {
+    root = mkdtempSync(path.join(tmpdir(), 'bcp-wider-'));
+    const agentRel = '_ops/agents/permanent/keeper';
+    mkdirSync(path.join(root, agentRel), { recursive: true });
+    mkdirSync(path.join(root, 'Shop'), { recursive: true });
+    writeFileSync(path.join(root, 'Shop/Keeper.md'), '---\ntitle: Keeper\ntype: maker\n---\n# Keeper\n');
+    writeFileSync(path.join(root, 'SCHEMA.md'), '---\ntitle: SCHEMA\n---\n# SCHEMA\ntypes here\n');
+    writeFileSync(path.join(root, 'ELDER.md'), '---\ntitle: ELDER\n---\n# ELDER\n## Age and its limits\n');
+    writeFileSync(path.join(root, agentRel, 'state.json'), JSON.stringify({ iteration: 3, last_active: null, last_read_cursor: null }));
+    writeFileSync(path.join(root, agentRel, 'history.jsonl'), '');
+    mkdirSync(path.join(root, '_ops/swarm/persistent'), { recursive: true });
+    writeFileSync(path.join(root, '_ops/swarm/persistent/blackboard.jsonl'), '');
+    mkdirSync(path.join(root, '_ops/orchestrator/prompts'), { recursive: true });
+    writeFileSync(path.join(root, '_ops/orchestrator/prompts/steward.md'), 'STEWARD home={{home}}');
+    const prompt = (manifest) => {
+      writeFileSync(path.join(root, agentRel, 'manifest.json'), JSON.stringify({ agent_id: 'Keeper', home: 'Keeper', ...manifest }));
+      return buildCyclePrompt({ palaceRoot: root, agentDir: agentRel, cycleN: 4, today: '2026-10-18' }).userTurn;
+    };
+    const wide = prompt({ grown_up_for: ['Shop/'] });
+    expect(wide).toContain('# ELDER — you have grown up, for your own page and bundle, and everything under `Shop/`');
+    expect(wide).toContain('You are grown up for your own page and bundle, and everything under `Shop/`');
+    expect(wide).toContain('create a new entry with its full frontmatter');
+    expect(wide).toContain('the cycle refuses any scroll');
+    const fenced = prompt({});
+    expect(fenced).toContain('# ELDER — you have grown up, for your own page and bundle\n');
+    expect(fenced).not.toContain('everything under');
+    expect(fenced).toContain('another page, a new entry and canon stay proposals');
+  });
 });
 
 describe('findEntryFile', () => {
