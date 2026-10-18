@@ -8,6 +8,7 @@ import {
   bodyLead, ledgerBody, readStandards, isPrivateLedger, lastEncounter, readDiaryState, readTuningState,
   listTuningLedgers, localDate, growTuningLedger, stewardLedgerText,
   proposalLines, parseProposals, listOwedProposals, PROPOSAL_OWED, MAX_PROPOSAL_LINES,
+  settleProposals, payProposal, declineProposal, proposalOutcome, proposalsForRun, paidStatus, declinedStatus, settleStamp,
 } from '../../src/ledger.js';
 
 describe('run lines', () => {
@@ -123,9 +124,9 @@ describe('orders from Loudon', () => {
 
     test('recordRun writes the run line, and a lesson as a numbered item the line names', () => {
       const p = ledger('---\ntitle: "X — tuning"\nledger: tuning\nstandards:\n  for: what X learns\n---\n\n# X — tuning\n\n## From the first run — 2026-09-01\n\n1. **A lesson.**\n4a. **A sub-item.**\n- run · 2026-09-01 · first · taught item 1\n');
-      expect(recordRun(p, { date: '2026-10-15', what: 'cycle 37' })).toEqual({ line: '- run · 2026-10-15 · cycle 37 · nothing new', items: [], proposed: [], filed: [], skipped: [] });
+      expect(recordRun(p, { date: '2026-10-15', what: 'cycle 37' })).toEqual({ line: '- run · 2026-10-15 · cycle 37 · nothing new', items: [], proposed: [], filed: [], skipped: [], superseded: [] });
       const r = recordRun(p, { date: '2026-10-15', version: '1.0', what: 'cycle 38', lessons: ['Velocity layers thin; widen the pool.', '  '], by: 'offered by the steward, cycle 38' });
-      expect(r).toEqual({ line: '- run · 2026-10-15 · v1.0 · cycle 38 · taught item 5', items: [5], proposed: [], filed: [], skipped: [] });
+      expect(r).toEqual({ line: '- run · 2026-10-15 · v1.0 · cycle 38 · taught item 5', items: [5], proposed: [], filed: [], skipped: [], superseded: [] });
       const text = readFileSync(p, 'utf8');
       expect(text.endsWith([
         '- run · 2026-10-15 · cycle 37 · nothing new',
@@ -393,5 +394,85 @@ describe('proposals for canon', () => {
     expect(owed[0]).toMatchObject({ ledger: 'Shop/Shopkeeper/Shopkeeper — tuning.md', n: '1', path: null, exists: false, words: 'A new Specialist.', by: 'proposed by the steward, cycle 4', line: 3 });
     expect(owed[1]).toMatchObject({ ledger: 'Projects/Shep/Shep — tuning.md', path: 'Projects/Shep.md', place: '§ Now' });
     expect(listOwedProposals(path.join(root, 'nowhere'))).toEqual([]);
+  });
+});
+
+// Closing the loop (Loudon's review design, 2026-10-18): a yes pays a proposal
+// with the commit that landed it, a no declines it with his one-line reason,
+// a steward's newer proposal supersedes the one it replaces, and the steward
+// reads a yes or a no back once.
+describe('settling proposals', () => {
+  let root;
+  afterEach(() => { if (root) rmSync(root, { recursive: true, force: true }); root = null; });
+
+  const STAGE = { page: 'Foo', path: 'Foo.md', entry: true, exists: true, place: 'frontmatter', words: 'stage: sprout', why: 'two runs proved it alive' };
+  const GOTCHA = { page: 'Foo', path: 'Foo.md', entry: true, exists: true, place: '§ Gotchas', words: 'Keep the attack slow.', why: 'it clicks', urgent: true, ask: 'foo-msg-urgent-1' };
+  const AT = new Date(2026, 9, 25, 15, 2);
+  const ledger = () => {
+    root = mkdtempSync(path.join(tmpdir(), 'ledger-settle-'));
+    const p = path.join(root, 'Foo — tuning.md');
+    writeFileSync(p, '# Foo — tuning\n\n');
+    recordRun(p, { date: '2026-10-18', what: 'cycle 3', proposals: [STAGE, GOTCHA], proposedBy: 'proposed by the steward, cycle 3' });
+    return p;
+  };
+
+  test('the statuses say what became of it, and read back', () => {
+    expect(settleStamp(AT)).toBe('2026-10-25 15:02');
+    expect(paidStatus('abc1234def', AT)).toBe('paid in abc1234def on 2026-10-25 15:02');
+    expect(declinedStatus('the Now zone · is regenerated', AT)).toBe('declined on 2026-10-25 15:02: the Now zone, is regenerated');
+    expect(proposalOutcome('paid in abc1234 on 2026-10-25 15:02')).toMatchObject({ kind: 'paid', commit: 'abc1234', at: '2026-10-25 15:02' });
+    expect(proposalOutcome('declined on 2026-10-25 15:02: not its job')).toMatchObject({ kind: 'declined', reason: 'not its job', at: '2026-10-25 15:02' });
+    expect(proposalOutcome('superseded by item 7')).toMatchObject({ kind: 'superseded', by: '7' });
+    expect(proposalOutcome(PROPOSAL_OWED)).toMatchObject({ kind: 'owed' });
+  });
+
+  test('an urgent proposal carries its ask in the tag, and the seam returns it', () => {
+    const p = ledger();
+    const text = readFileSync(p, 'utf8');
+    expect(text).toContain(`2. **Proposed for canon** · 2026-10-18 · [[Foo]] · § Gotchas · ${PROPOSAL_OWED} *(proposed by the steward, cycle 3; urgent, asked as foo-msg-urgent-1)*`);
+    expect(parseProposals(text).map((x) => [x.n, x.urgent, x.ask, x.by])).toEqual([['1', false, '', 'proposed by the steward, cycle 3'], ['2', true, 'foo-msg-urgent-1', 'proposed by the steward, cycle 3']]);
+    mkdirSync(path.join(root, 'Foo'));
+    writeFileSync(path.join(root, 'Foo', 'Foo — tuning.md'), text);
+    expect(listOwedProposals(root).map((o) => [o.steward, o.n, o.urgent, o.words])).toEqual([['Foo', '1', false, 'stage: sprout'], ['Foo', '2', true, 'Keep the attack slow.']]);
+  });
+
+  test('a yes pays it with the commit, a no declines it with the reason; each keeps its tag and is no longer owed', () => {
+    const p = ledger();
+    expect(payProposal(p, 1, 'abc1234', { at: AT })).toBe(true);
+    expect(declineProposal(p, '2', 'already in the gotchas', { at: AT })).toBe(true);
+    expect(payProposal(p, 1, 'fff0000', { at: AT })).toBe(false); // already settled
+    expect(settleProposals(p, [{ n: 9, status: 'x' }])).toEqual([]);
+    const text = readFileSync(p, 'utf8');
+    expect(text).toContain('1. **Proposed for canon** · 2026-10-18 · [[Foo]] · frontmatter · paid in abc1234 on 2026-10-25 15:02 *(proposed by the steward, cycle 3)*');
+    expect(text).toContain('2. **Proposed for canon** · 2026-10-18 · [[Foo]] · § Gotchas · declined on 2026-10-25 15:02: already in the gotchas *(proposed by the steward, cycle 3; urgent, asked as foo-msg-urgent-1)*');
+    expect(parseOwed(text)).toEqual([]);
+    expect(tailRead(text).owed).toEqual([]);
+    expect(parseProposals(text).map((x) => [x.n, x.owed, x.outcome.kind])).toEqual([['1', false, 'paid'], ['2', false, 'declined']]);
+  });
+
+  test('the next run reads a yes or a no once: only what was settled after its last run', () => {
+    const p = ledger();
+    payProposal(p, 1, 'abc1234', { at: AT });
+    declineProposal(p, 2, 'already said', { at: new Date(2026, 9, 20, 9, 0) });
+    const text = readFileSync(p, 'utf8');
+    expect(proposalsForRun(text, { since: '2026-10-22T06:00:00-04:00' }).settled.map((x) => x.n)).toEqual(['1']);
+    expect(proposalsForRun(text, { since: '2026-10-26T06:00:00-04:00' }).settled).toEqual([]);
+    expect(proposalsForRun(text, { since: null }).settled.map((x) => x.n)).toEqual(['1', '2']);
+    expect(proposalsForRun(text, { since: null }).pending).toEqual([]);
+  });
+
+  test('a proposal that replaces an owed one supersedes it: latest wins', () => {
+    const p = ledger();
+    const r = recordRun(p, { date: '2026-10-19', what: 'cycle 4', proposals: [{ ...STAGE, words: 'stage: growing', replaces: ['1', '7'] }], proposedBy: 'proposed by the steward, cycle 4' });
+    expect(r.proposed).toEqual([3]);
+    expect(r.superseded).toEqual([{ n: '1', by: 3 }]);
+    const text = readFileSync(p, 'utf8');
+    expect(text).toContain('1. **Proposed for canon** · 2026-10-18 · [[Foo]] · frontmatter · superseded by item 3 *(proposed by the steward, cycle 3)*');
+    expect(proposalsForRun(text).pending.map((x) => [x.n, x.words])).toEqual([['2', 'Keep the attack slow.'], ['3', 'stage: growing']]);
+    // A proposal re-made after a no is filed again, not taken for the declined one's twin.
+    declineProposal(p, 3, 'not yet', { at: AT });
+    const again = recordRun(p, { date: '2026-10-27', what: 'cycle 5', proposals: [{ ...STAGE, words: 'stage: growing' }], proposedBy: 'proposed by the steward, cycle 5' });
+    expect(again.proposed).toEqual([4]);
+    expect(proposalsForRun(readFileSync(p, 'utf8')).pending.map((x) => x.n)).toEqual(['2', '4']);
   });
 });

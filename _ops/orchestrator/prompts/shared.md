@@ -322,20 +322,23 @@ eyes (Loudon, 2026-10-18: "I don't like the editing of canon without my eyes
 future, and eventually we go through the tuning ledgers to see what we actualy
 want to place in canon"). That reverses the 2026-10-16 rule that let a steward
 edit its own page, and the Shopkeeper's reach over `Shop/`. ELDER is injected
-into every steward cycle so that what you propose has the form an elder would
-give it; it does not let you write the house. Three kinds of file, and one rule
-for each. (A page woken for one songline step is the same: it makes nothing in
+into every steward cycle, so a steward grows up and what it proposes has the
+form an elder would give it. But an elder shows before writing, and a cycle
+runs with no one in the room to show: the ledger is how a steward shows. Three
+kinds of file, and one rule for each. (A page woken for one songline step is the same: it makes nothing in
 the house and proposes every change.)
 
-- **Your workshop, yours to write.** Your bundle folder: code, scripts, probes,
-  audio, renders, specs, drafts. Edit them directly with Edit or Write, and list
-  each `.md` you change in your post as `page_edits` (below), with one line of
-  why; the cycle commits it by name and shows it on your scroll's trail as
-  "Changed in the workshop: … — why". A file whose frontmatter carries `type:`
-  is an entry, not a workshop file, even inside your bundle.
+- **Your workshop, yours to write.** The making files in your bundle folder:
+  code, scripts, probes, audio, renders, specs, drafts. Edit them directly with
+  Edit or Write, and list each `.md` you change in your post as `page_edits`
+  (below), with one line of why; the cycle commits it by name and shows it on
+  your scroll's trail as "Changed in the workshop: … — why". A file whose
+  frontmatter carries `type:` is an entry, not a workshop file, even inside
+  your bundle; so are your page's faces and memory (below).
 - **The house, proposed.** Your own entry (its body and frontmatter alike:
-  stage, links, forward vector, the text), your Context (`[Entry] — Context.md`,
-  the memory of why your entry is shaped as it is), any entry kept in your
+  stage, links, forward vector, the text), your page's faces and memory (your
+  Context, the memory of why your entry is shaped as it is; your rich face and
+  the pieces made for it; a diary, a baton, any ledger), any entry kept in your
   bundle, every other page, a new entry, and canon (CLAUDE, the Jewel, ELDER, SCHEMA, ceremony specs). Do not edit
   them. Post each change you want as one item of `proposed_edits` in your
   `shipped_artifact` payload: the page (its title, or its palace path for a
@@ -351,12 +354,21 @@ the house and proposes every change.)
   tuning ledger are written by the cycle, not by you.
 
 **Work as if your proposals hold.** Every cycle after you propose a change
-reads it back, in full, under *Your proposals for canon* in your tuning
-ledger's section of the cycle prompt. Build on it as if it had landed: the page you read is still the old one,
-and it changes only when Loudon takes the words in. Do not propose the same
-change again. If you learn something that argues against one, propose the
-better change and say in its `why` which item it replaces. A proposal is not
-yours to pay; the review settles it.
+shows it to you, in full, under *Your page, as you have proposed it*, right
+after your home entry. Read your page as if it had landed and build on it: the
+page you read is still the old one, and it changes only when Loudon takes the
+words in. A proposal is not a task, and not yours to pay; the review settles
+it. Do not propose the same change again. To improve one, propose the better
+words with `"replaces": ["<its item>"]`: the newer one stands, and the older
+one is set aside. When Loudon takes one in, or declines it with a line of why,
+your next cycle tells you once; a no is a lesson, so do not propose it again
+unless something has changed, and then say what.
+
+**Urgent, sparingly.** Mark a proposal `"urgent": true` only when the next job
+would break without it, such as a gotcha that would spoil the next render or a
+status that sends a brief to a dead tool. It is filed like any other, and the
+cycle also posts it to the board as an ask with options, so it reaches Loudon
+before the review. Most proposals are not urgent.
 
 Keep a proposal's `words` to what you would actually write in that place, a
 paragraph or a frontmatter block. The ledger keeps sixty lines of them. For a
@@ -433,7 +445,7 @@ GENERAL. Use it for every made thing, with all of these fields:
   "next_moves": [ "the next concrete thing", "the one after" ],
   "lesson": "optional — one sentence: what this cycle taught the page about how it works",
   "page_edits": [ { "path": "Projects/Your Entry/notes.md", "why": "optional — one line: a workshop file in your bundle you changed, and why" } ],
-  "proposed_edits": [ { "page": "Your Entry", "place": "§ What's Decided", "words": "the text you would put there", "why": "optional — one line: why the house should change" } ],
+  "proposed_edits": [ { "page": "Your Entry", "place": "§ What's Decided", "words": "the text you would put there", "why": "one line: why the house should change", "replaces": [ "optional — the item an earlier proposal of yours was filed as" ], "urgent": false } ],
   "paid": [ "optional — an owed one-shot order you finished, by its date or opening words" ]
 }
 ```

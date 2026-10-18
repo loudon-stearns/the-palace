@@ -3,7 +3,7 @@ import { mkdtempSync, mkdirSync, writeFileSync, rmSync, chmodSync } from 'node:f
 import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { shippedPaths, selectCommitPaths, headlineOf, commitPathsAsync, commitPaths, ignoredPaths, planCycleCommit, cycleBody, pageEditsOf, checkFrontmatter, vetPageEdits, proposedEditsOf, proposalTarget, vetProposedEdits } from '../../src/cycle-commit.js';
+import { shippedPaths, selectCommitPaths, headlineOf, commitPathsAsync, commitPaths, ignoredPaths, planCycleCommit, cycleBody, pageEditsOf, checkFrontmatter, vetPageEdits, proposedEditsOf, proposalTarget, vetProposedEdits, faceOrMemory } from '../../src/cycle-commit.js';
 import { parseProposals, parseOwed, tailRead } from '../../src/ledger.js';
 import { readFileSync } from 'node:fs';
 import { processCycle } from '../../src/process-cycle.js';
@@ -438,6 +438,37 @@ describe('a steward\'s page edits: the workshop rides, the house is refused', ()
     expect(v.refused.map((e) => [e.path, e.proposal])).toEqual([['Shop/FLUX.md', true], ['Shop/OCR Smith.md', true]]);
   });
 
+  // The workshop is "not its faces or its memory" (ELDER § Age and its limits),
+  // and no bundle file carries `type:`, so the vetter names them.
+  test('its faces and memory are refused like its entry: Context, rich face, diary, batons, any ledger', () => {
+    const { bundle } = makePalace();
+    const files = {
+      'Test Steward — rich.json': '{}',
+      'Test Steward — rich — marimba.wav': 'wav',
+      'Test Steward — diary.md': '---\ntitle: d\n---\n',
+      'Test Steward — baton.md': '---\ntitle: b\n---\n',
+      'Test Steward — baton — marimba-top.md': '---\ntitle: b\n---\n',
+      'probe log.md': '---\ntitle: probe log\nledger: probes\n---\n- a line\n',
+      'Test Steward — spec — visuals.md': '---\ntitle: spec\n---\na spec is workshop\n',
+      'renders/hero-try.png': 'png',
+    };
+    mkdirSync(path.join(bundle, 'renders'), { recursive: true });
+    for (const [f, t] of Object.entries(files)) writeFileSync(path.join(bundle, f), t);
+    const v = vetPageEdits({ palaceRoot: root, home: 'Test Steward', entryFile: path.join(root, ENTRY), bundleDir: bundle, edits: Object.keys(files).map((f) => ({ path: `${B}/${f}`, why: 'x' })) });
+    expect(v.allowed.map((e) => e.path)).toEqual([`${B}/Test Steward — spec — visuals.md`, `${B}/renders/hero-try.png`]);
+    expect(Object.fromEntries(v.refused.map((e) => [path.basename(e.path), e.reason.split(',')[0]]))).toEqual({
+      'Test Steward — rich.json': 'its own rich face',
+      'Test Steward — rich — marimba.wav': 'its own rich face',
+      'Test Steward — diary.md': 'its own diary',
+      'Test Steward — baton.md': 'its own baton',
+      'Test Steward — baton — marimba-top.md': 'its own baton',
+      'probe log.md': 'its own ledger',
+    });
+    expect(v.refused.every((e) => e.proposal)).toBe(true);
+    expect(faceOrMemory('Test Steward', path.join(bundle, 'Test Steward — Context.md'))).toBe('Context');
+    expect(faceOrMemory('Test Steward', path.join(bundle, 'renders/hero-try.png'))).toBeNull();
+  });
+
   function gitPalace() {
     const made = makePalace();
     git(root, ['init', '-q', '-b', 'main']);
@@ -552,9 +583,11 @@ describe('a steward\'s proposals for canon', () => {
       ] } },
       { payload: {} },
     ])).toEqual([
-      { page: '[[Shopkeeper]]', place: '§ Roster', words: 'Line one.\n\nLine two.', why: 'the roster is generated now' },
-      { page: 'Shop/FLUX.md', place: 'Gotchas', words: 'FLUX 3 shipped.', why: '' },
+      { page: '[[Shopkeeper]]', place: '§ Roster', words: 'Line one.\n\nLine two.', why: 'the roster is generated now', urgent: false, replaces: [] },
+      { page: 'Shop/FLUX.md', place: 'Gotchas', words: 'FLUX 3 shipped.', why: '', urgent: false, replaces: [] },
     ]);
+    expect(proposedEditsOf([{ payload: { proposed_edits: [{ page: 'A', words: 'w', urgent: true, replaces: ['item 4', 7, 'x'] }, { page: 'B', words: 'w', urgent: 'yes', replaces: '5' }] } }])
+      .map((e) => [e.urgent, e.replaces])).toEqual([[true, ['4', '7']], [true, ['5']]]);
   });
 
   test('proposalTarget names an entry by title or path, a plain file by path, and a new page as new', () => {
@@ -666,6 +699,55 @@ describe('a steward\'s proposals for canon', () => {
     expect(board.find((m) => m.id === 'pr-3').payload.proposed_edits).toEqual([]);
     expect(readFileSync(path.join(bundle, 'Test Steward — scroll.md'), 'utf8')).toContain('_Proposal not filed:_ The Shop — carries no words');
     expect(readFileSync(path.join(root, agentDir, 'history.jsonl'), 'utf8')).toMatch(/"event":"PROPOSAL_DROPPED"/);
+  });
+
+  // Urgent (Loudon's review design, 2026-10-18): filed like any other, and the
+  // cycle also posts a Trickster ask, the way the Shopkeeper's FLUX ask reached him.
+  test('an urgent proposal is filed and also posted to the board as a Trickster ask with options', () => {
+    const { agentDir, bundle } = gitPalace();
+    const URGENT = { ...HUB, urgent: true, why: 'the next brief reads the old bet' };
+    const summary = run(agentDir, 'pr-5', [STAGE, URGENT], 25);
+    expect(summary.invalid_ids).toEqual([]);
+    expect(summary.posted_ids).toEqual(['pr-5', 'pr-5-urgent-1']);
+    expect(summary.stop_hint).toBe('shipped'); // not blocking: the run goes on
+    const board = readFileSync(path.join(root, '_ops/swarm/persistent/blackboard.jsonl'), 'utf8').trim().split('\n').map((l) => JSON.parse(l));
+    const ask = board.find((m) => m.id === 'pr-5-urgent-1');
+    expect(ask).toMatchObject({ type: 'RESOURCE_REQUEST', board: 'TRICKSTER', to: 'TRICKSTER', from: 'Test Steward', request_id: 'pr-5-urgent-1' });
+    expect(ask.payload).toMatchObject({ kind: 'choice', blocking: false, urgent_proposal: true, proposal: { page: 'The Shop', place: '§ Current Bet' } });
+    expect(ask.payload.options.map((o) => o.id)).toEqual(['LAND-NOW', 'REVIEW', 'DECLINE']);
+    expect(ask.payload.headline).toMatch(/^Urgent, for canon: The Shop \(§ Current Bet\) — the next brief reads the old bet/);
+    expect(ask.payload.rationale).toContain('> The bet now:');
+    expect(ask.health).toBeTruthy();
+    // The ledger item names the ask; the proposal on the board does too.
+    const ledger = readFileSync(path.join(root, LEDGER), 'utf8');
+    expect(ledger).toContain('canon change owed *(proposed by the steward, cycle 25; urgent, asked as pr-5-urgent-1)*');
+    expect(board.find((m) => m.id === 'pr-5').payload.proposed_edits.map((p) => [p.page, !!p.urgent, p.ask || null])).toEqual([['Test Steward', false, null], ['The Shop', true, 'pr-5-urgent-1']]);
+    expect(summary.pending_after).toContain('pr-5-urgent-1');
+    const scroll = readFileSync(path.join(bundle, 'Test Steward — scroll.md'), 'utf8');
+    expect(scroll).toContain('_Proposed for canon, urgent:_ The Shop (§ Current Bet) — the next brief reads the old bet');
+    expect(git(root, ['log', '-1', '--format=%b'])).toMatch(/- The Shop \(§ Current Bet\), item 2 — the next brief reads the old bet \(urgent; asked as pr-5-urgent-1\)/);
+  });
+
+  test('a message that fails validation posts no urgent ask, and files nothing', () => {
+    const { agentDir } = gitPalace();
+    const transcriptPath = path.join(root, 'transcript.jsonl');
+    const bad = proposeMsg('pr-6', [{ ...HUB, urgent: true }]);
+    delete bad.session_id;
+    writeFileSync(transcriptPath, assistantLine([bad]));
+    const summary = processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 26, iteration: 26, tsNow: '2026-10-18T08:12:00-04:00', commit: 'plan' });
+    expect(summary.invalid_ids).toEqual(['pr-6']);
+    expect(summary.posted_ids).toEqual([]);
+    expect(readFileSync(path.join(root, '_ops/swarm/persistent/blackboard.jsonl'), 'utf8')).toBe('');
+  });
+
+  test('a proposal that replaces an earlier one supersedes it through the cycle', () => {
+    const { agentDir } = gitPalace();
+    run(agentDir, 'pr-7', [STAGE], 27);
+    const summary = run(agentDir, 'pr-8', [{ ...STAGE, words: 'stage: growing', why: 'a third run', replaces: ['1'] }], 28);
+    expect(summary.proposed_edits.superseded).toEqual([{ n: '1', by: 2 }]);
+    const ledger = readFileSync(path.join(root, LEDGER), 'utf8');
+    expect(parseProposals(ledger).filter((p) => p.owed).map((p) => [p.n, p.words])).toEqual([['2', 'stage: growing']]);
+    expect(readFileSync(path.join(root, agentDir, 'history.jsonl'), 'utf8')).toMatch(/"event":"PROPOSAL_SUPERSEDED"[^\n]*"item":"1","by":2/);
   });
 
   test("the server path (commit: 'plan') carries the ledger and names the proposals in the body", () => {

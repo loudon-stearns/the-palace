@@ -73,6 +73,32 @@ export function isEntryFile(absPath) {
   return !!(m && /^type:\s*\S/m.test(m[1]));
 }
 
+/**
+ * Which of a page's faces or memory a bundle file is, by the names SCHEMA §8
+ * gives them, or null for a workshop file: its Context, its rich face (the
+ * manifest and the pieces made for it), its diary, a baton, or any ledger (a
+ * `.md` whose frontmatter says `ledger:`). The scroll and the tuning ledger are
+ * kept apart: the cycle writes those.
+ */
+export function faceOrMemory(home, absPath) {
+  const name = basename(absPath);
+  const own = `${home} — `;
+  if (name.startsWith(own)) {
+    const rest = name.slice(own.length);
+    if (/^context\.md$/i.test(rest)) return 'Context';
+    if (/^diary\.md$/i.test(rest)) return 'diary';
+    if (/^baton(?: — .+)?\.md$/i.test(rest)) return 'baton';
+    if (/^rich(?:\.json| — .+)$/i.test(rest)) return 'rich face';
+  }
+  if (name.toLowerCase().endsWith('.md')) {
+    let head = '';
+    try { head = readFileSync(absPath, 'utf8').slice(0, 4096); } catch { return null; }
+    const m = head.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+    if (m && /^ledger:\s*\S/m.test(m[1])) return 'ledger';
+  }
+  return null;
+}
+
 /** The page edits a cycle's messages list: each `payload.page_edits` item, as { path, why }. */
 export function pageEditsOf(messages) {
   const out = [];
@@ -119,13 +145,15 @@ const TO_REVIEW = 'it changes only through Loudon\'s review: post it in `propose
  * Sort a steward's page edits into what the cycle may commit and what it may
  * not (Loudon, 2026-10-18: no canon edit without his eyes). Allowed: workshop
  * files in its own bundle, never an entry (a `.md` whose frontmatter carries
- * `type:`), never the scroll or tuning ledger the cycle writes, never its
- * Context, and only once any frontmatter they carry parses. Its own entry, its
- * Context, every other page and canon are refused, marked `proposal` so the
- * trail says where they belong. The Context carries no `type:` (no bundle file
- * does), but it is the page's memory of why the entry is shaped as it is, and
- * changes with the entry. Paths come back palace-relative; each refusal
- * carries a reason.
+ * `type:`), never the scroll or tuning ledger the cycle writes, never the
+ * page's other faces or memory, and only once any frontmatter they carry
+ * parses. The workshop is "not its faces or its memory" (ELDER § Age and its
+ * limits), and no bundle file carries `type:`, so those are named here: its
+ * Context, its rich face and the pieces made for it, its diary, its batons, and
+ * any other ledger it keeps (a `.md` whose frontmatter says `ledger:`). Its own
+ * entry, those, every other page and canon are refused, marked `proposal` so
+ * the trail says where they belong. Paths come back palace-relative; each
+ * refusal carries a reason.
  *
  * @returns {{ allowed: {path, why}[], refused: {path, why, reason, proposal: boolean}[] }}
  */
@@ -134,7 +162,6 @@ export function vetPageEdits({ palaceRoot, home, entryFile, bundleDir, edits = [
   const entry = entryFile ? resolve(root, entryFile) : null;
   const bundle = bundleDir ? resolve(root, bundleDir) : null;
   const kept = new Set(bundle ? [join(bundle, `${home} — scroll.md`), join(bundle, `${home} — tuning.md`)] : []);
-  const context = bundle ? join(bundle, `${home} — Context.md`) : null;
   const allowed = [];
   const refused = [];
   const seen = new Set();
@@ -150,7 +177,8 @@ export function vetPageEdits({ palaceRoot, home, entryFile, bundleDir, edits = [
     if (entry && abs === entry) { refuse(`its own entry: ${TO_REVIEW}`, true); continue; }
     if (!inBundle) { refuse(`another page or canon, outside its own bundle: ${TO_REVIEW}`, true); continue; }
     if (kept.has(abs)) { refuse('the cycle writes this file; the steward does not'); continue; }
-    if (abs === context) { refuse(`its own Context, the memory beside its entry: ${TO_REVIEW}`, true); continue; }
+    const kind = inBundle ? faceOrMemory(home, abs) : null;
+    if (kind) { refuse(`its own ${kind}, a face or memory of its page and not workshop: ${TO_REVIEW}`, true); continue; }
     if (!existsSync(abs) || !statSync(abs).isFile()) { refuse('no such file'); continue; }
     if (isEntryFile(abs)) { refuse(`an entry kept in its bundle: ${TO_REVIEW}`, true); continue; }
     if (abs.toLowerCase().endsWith('.md')) {
@@ -171,9 +199,11 @@ const firstText = (...vs) => { for (const v of vs) if (typeof v === 'string' && 
 
 /**
  * The canon edits a cycle's messages propose: each `payload.proposed_edits`
- * item as { page, place, words, why }. `page` names the target by title or by
- * palace path; `place` is where on it (a section, `frontmatter`); `words` are
- * the proposed text, kept with its line breaks; `why` is one line.
+ * item as { page, place, words, why, urgent, replaces }. `page` names the
+ * target by title or by palace path; `place` is where on it (a section,
+ * `frontmatter`); `words` are the proposed text, kept with its line breaks;
+ * `why` is one line; `urgent` (true) marks one that cannot wait for the review;
+ * `replaces` names the item numbers of earlier proposals it supersedes.
  */
 export function proposedEditsOf(messages) {
   const out = [];
@@ -186,6 +216,9 @@ export function proposedEditsOf(messages) {
         place: oneLine(firstText(e.place, e.section)),
         words: firstText(e.words, e.text).replace(/\r\n/g, '\n').replace(/^\s*\n/, '').replace(/\s+$/, ''),
         why: oneLine(e.why),
+        urgent: e.urgent === true || /^(true|yes)$/i.test(String(e.urgent || '')),
+        replaces: (Array.isArray(e.replaces) ? e.replaces : e.replaces != null ? [e.replaces] : [])
+          .map((r) => String(r).replace(/^item\s+/i, '').trim()).filter((r) => /^\d+[a-z]?$/.test(r)),
       });
     }
   }
@@ -220,8 +253,8 @@ export function proposalTarget(palaceRoot, page, { findEntry = findEntryFile } =
  * Name each proposal's target and set aside the ones that cannot be filed: no
  * page named, no words, or a path outside the palace. Every target is fair to
  * propose, its own entry, canon and a new page included; nothing here writes
- * the page. Returns { filed: [{ page, path, entry, exists, place, words, why }],
- * dropped: [{ page, why, reason }] }.
+ * the page. Returns { filed: [{ page, path, entry, exists, place, words, why,
+ * urgent, replaces }], dropped: [{ page, why, reason }] }.
  */
 export function vetProposedEdits({ palaceRoot, edits = [], findEntry = findEntryFile }) {
   const filed = [];
@@ -231,7 +264,7 @@ export function vetProposedEdits({ palaceRoot, edits = [], findEntry = findEntry
     if (!e.words.trim()) { dropped.push({ page: e.page, why: e.why, reason: 'carries no words' }); continue; }
     const t = proposalTarget(palaceRoot, e.page, { findEntry });
     if (!t || t.error) { dropped.push({ page: e.page, why: e.why, reason: t ? t.error : 'names no page' }); continue; }
-    filed.push({ page: t.page, path: t.path, entry: t.entry, exists: t.exists, place: e.place, words: e.words, why: e.why });
+    filed.push({ page: t.page, path: t.path, entry: t.entry, exists: t.exists, place: e.place, words: e.words, why: e.why, urgent: !!e.urgent, replaces: e.replaces || [] });
   }
   return { filed, dropped };
 }
@@ -353,6 +386,35 @@ function rosterLines(roster) {
   return [];
 }
 
+/**
+ * The Trickster ask an urgent proposal also posts (Loudon, 2026-10-18): one
+ * that cannot wait for the ledger review, such as a gotcha that would break the
+ * next job, reaches him as a RESOURCE_REQUEST with options, beside its ledger
+ * item. Not blocking: the steward keeps working as if it holds.
+ */
+export function urgentProposalAsk({ proposal, home, sessionId, ts, requestId }) {
+  const name = proposalName(proposal);
+  const quoted = String(proposal.words || '').split('\n').map((l) => `> ${l}`.trimEnd()).join('\n');
+  const one = (t, n) => (t.length > n ? `${t.slice(0, n - 1)}…` : t);
+  return {
+    schema_version: '1.0', id: requestId, request_id: requestId, ts, session_id: sessionId,
+    from: home, to: 'TRICKSTER', type: 'RESOURCE_REQUEST', board: 'TRICKSTER',
+    payload: {
+      resource: 'directional_decision', kind: 'choice', urgent_proposal: true,
+      headline: one(`Urgent, for canon: ${name}${proposal.why ? ` — ${proposal.why}` : ''}. Land it now, or leave it for the ledger review?`, 220),
+      ground: 'not blocking · filed in my tuning ledger · marked urgent',
+      rationale: `I proposed this change to ${name} and marked it urgent, because it should not wait for the ledger review: ${proposal.why || 'no reason given'}. It is filed in my tuning ledger like every proposal, and I keep working as if it holds. The words:\n\n${quoted}`,
+      proposal: { page: proposal.page, path: proposal.path, place: proposal.place, why: proposal.why },
+      blocking: false,
+      options: [
+        { id: 'LAND-NOW', label: 'LAND-NOW — an elder writes it into canon now, as proposed, and the ledger item is paid with that commit.' },
+        { id: 'REVIEW', label: 'REVIEW — not urgent after all; it waits in the ledger for the review with the rest.' },
+        { id: 'DECLINE', label: 'DECLINE — not this change; a line of why, and I read it on my next run.' },
+      ],
+    },
+  };
+}
+
 // How a proposal names its target in a body or on a trail: the page, then the place.
 export function proposalName(p) {
   const named = p.entry || !p.exists || !p.path ? p.page : p.path;
@@ -364,7 +426,7 @@ export function cycleBody({ shipped = [], pageEdits = [], refusedEdits = [], pro
   const lines = [];
   if (pageEdits.length) lines.push(`Changed in the workshop:\n${pageEdits.map((e) => `- ${e.path}${e.why ? ` — ${e.why}` : ''}`).join('\n')}`);
   if (refusedEdits.length) lines.push(`Page edits NOT committed:\n${refusedEdits.map((e) => `- ${e.path} — ${e.reason}`).join('\n')}`);
-  if (proposals.length) lines.push(`Proposed for canon, filed in the tuning ledger and owed until Loudon's review:\n${proposals.map((p) => `- ${proposalName(p)}${p.item ? `, item ${p.item}` : ''}${p.why ? ` — ${p.why}` : ''}`).join('\n')}`);
+  if (proposals.length) lines.push(`Proposed for canon, filed in the tuning ledger and owed until Loudon's review:\n${proposals.map((p) => `- ${proposalName(p)}${p.item ? `, item ${p.item}` : ''}${p.why ? ` — ${p.why}` : ''}${p.urgent ? ` (urgent; asked as ${p.ask || 'a Trickster ask'})` : ''}`).join('\n')}`);
   lines.push(...rosterLines(roster));
   if (shipped.length) lines.push(`Shipped this cycle:\n${shipped.map((p) => `- ${p}`).join('\n')}`);
   if (oversize.length) lines.push(`Left uncommitted, over ${Math.round(maxBytes / 1048576)} MB:\n${oversize.map((o) => `- ${o.path} (${(o.bytes / 1048576).toFixed(1)} MB)`).join('\n')}`);

@@ -49,7 +49,7 @@ import { materializeScroll } from './scroll-file.js';
 import { resolveBundleDir } from './entry-paths.js';
 import { readEntryMeta } from './entry-frontmatter.js';
 import { tuningPathFor, recordRun, payOrders, localDate, growTuningLedger } from './ledger.js';
-import { commitCycle, planCycleCommit, pageEditsOf, vetPageEdits, proposedEditsOf, vetProposedEdits } from './cycle-commit.js';
+import { commitCycle, planCycleCommit, pageEditsOf, vetPageEdits, proposedEditsOf, vetProposedEdits, urgentProposalAsk } from './cycle-commit.js';
 import { refreshShopRoster, rosterTriggers, ROSTER_BUILDER } from './shop-roster.js';
 import { resolveModel } from '../../../models/latest-opus.mjs';
 
@@ -434,7 +434,9 @@ export function processCycle(opts) {
   // look at. Each `payload.proposed_edits` item has its target named here
   // (vetProposedEdits); the cycle files the vetted ones in the tuning ledger as
   // owed until Loudon's review, and one it cannot file (no page, no words)
-  // moves to `proposed_edits_dropped`.
+  // moves to `proposed_edits_dropped`. An urgent one also posts a Trickster
+  // ask, right after the message that proposed it, and its item names the ask.
+  const urgentAsks = [];
   for (let i = 0; i < messagesForBoard.length; i++) {
     const m = messagesForBoard[i];
     const edits = pageEditsOf([m]);
@@ -449,11 +451,23 @@ export function processCycle(opts) {
     }
     if ('proposed_edits' in payload) {
       const p = vetProposedEdits({ palaceRoot, edits: proposals });
-      payload.proposed_edits = p.filed;
+      let k = 0;
+      payload.proposed_edits = p.filed.map((f) => {
+        if (!f.urgent) return f;
+        const requestId = `${m.id || `${home}-cycle-${cycleN}`}-urgent-${++k}`;
+        urgentAsks.push({ after: m, ask: urgentProposalAsk({ proposal: f, home, sessionId: manifest.session_id || m.session_id, ts: tsNow || m.ts, requestId }) });
+        return { ...f, ask: requestId };
+      });
       if (p.dropped.length) payload.proposed_edits_dropped = p.dropped;
       else delete payload.proposed_edits_dropped;
     }
     messagesForBoard[i] = { ...m, payload };
+  }
+  const askSource = new Map();
+  for (const { after, ask } of urgentAsks.reverse()) {
+    const at = messagesForBoard.findIndex((x) => x.id === after.id);
+    messagesForBoard.splice(at + 1, 0, ask);
+    askSource.set(ask.id, after.id);
   }
 
   // ── Layer 3: referenced-in-prose lint (warn-only) ─────────────────────────
@@ -467,6 +481,9 @@ export function processCycle(opts) {
   const invalid_ids = [];
   const errors = [];
   for (const m of messagesForBoard) {
+    // An urgent proposal's ask goes only where its proposal goes: not when the
+    // message that proposed it failed validation, since nothing was filed.
+    if (askSource.has(m.id) && invalid_ids.includes(askSource.get(m.id))) continue;
     const withHealth = { ...m, health };
     const res = validateForPosting(withHealth);
     if (res.valid) valid.push(withHealth);
@@ -602,6 +619,7 @@ export function processCycle(opts) {
   const filed = filedProposals(posted);
   const proposals = run && Array.isArray(run.filed) ? run.filed : [];
   const skippedProposals = run && Array.isArray(run.skipped) ? run.skipped : [];
+  const superseded = run && Array.isArray(run.superseded) ? run.superseded : [];
   const droppedProposals = posted.flatMap((m) => (Array.isArray(m.payload.proposed_edits_dropped) ? m.payload.proposed_edits_dropped : []));
   // Proposals the cycle could not file (no ledger: the bundle is missing, or the write failed) are said so, not claimed as filed.
   const unfiled = run && run.ledger ? [] : filed;
@@ -609,7 +627,8 @@ export function processCycle(opts) {
     const ev = [
       ...pageEdits.map((e) => ({ event: 'PAGE_EDIT', ts: tsNow, cycle: cycleN, path: e.path, why: e.why })),
       ...refusedEdits.map((e) => ({ event: 'PAGE_EDIT_REFUSED', ts: tsNow, cycle: cycleN, path: e.path, why: e.why, reason: e.reason, proposal: e.proposal })),
-      ...proposals.map((p) => ({ event: 'PROPOSED_FOR_CANON', ts: tsNow, cycle: cycleN, page: p.page, path: p.path, place: p.place, why: p.why, item: p.item, ledger: relative(palaceRoot, run.ledger) })),
+      ...proposals.map((p) => ({ event: 'PROPOSED_FOR_CANON', ts: tsNow, cycle: cycleN, page: p.page, path: p.path, place: p.place, why: p.why, item: p.item, ledger: relative(palaceRoot, run.ledger), ...(p.urgent ? { urgent: true, ask: p.ask || null } : {}) })),
+      ...superseded.map((x) => ({ event: 'PROPOSAL_SUPERSEDED', ts: tsNow, cycle: cycleN, item: x.n, by: x.by })),
       ...skippedProposals.map((p) => ({ event: 'PROPOSAL_ALREADY_OWED', ts: tsNow, cycle: cycleN, page: p.page, path: p.path, why: p.why })),
       ...unfiled.map((p) => ({ event: 'PROPOSAL_NOT_FILED', ts: tsNow, cycle: cycleN, page: p.page, path: p.path, why: p.why, reason: run && run.error ? `error: ${run.error}` : 'no tuning ledger could be kept: the page has no bundle' })),
       ...droppedProposals.map((p) => ({ event: 'PROPOSAL_DROPPED', ts: tsNow, cycle: cycleN, page: p.page, why: p.why, reason: p.reason })),
@@ -713,8 +732,9 @@ export function processCycle(opts) {
     // The steward's page edits: the workshop files that rode, and what was refused and why.
     page_edits: { allowed: pageEdits, refused: refusedEdits },
     // The canon edits it proposed: filed in the tuning ledger (each with its
-    // item), already owed there, not filed for want of a ledger, or dropped.
-    proposed_edits: { filed: proposals, already_owed: skippedProposals, unfiled, dropped: droppedProposals },
+    // item; an urgent one with the ask it posted), already owed there, the
+    // older items they replaced, not filed for want of a ledger, or dropped.
+    proposed_edits: { filed: proposals, already_owed: skippedProposals, superseded, unfiled, dropped: droppedProposals },
     // What the cycle did with the Shop roster (null: no Shop page changed, or no commit).
     shop_roster: roster,
     // Where the project's scroll landed (replaces the plan.md read-model).

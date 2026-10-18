@@ -264,7 +264,8 @@ export function pageEditLines(p) {
   for (const e of Array.isArray(p && p.proposed_edits) ? p.proposed_edits : []) {
     if (!e || !e.page) continue;
     const page = e.entry || !e.exists || !e.path ? e.page : e.path;
-    lines.push(`_Proposed for canon:_ ${page}${e.place ? ` (${e.place})` : ''}${e.exists === false ? ', a new page' : ''} — ${e.why || 'no reason given'}; owed in the tuning ledger until Loudon's review`);
+    const replaces = Array.isArray(e.replaces) && e.replaces.length ? `; it replaces item${e.replaces.length === 1 ? '' : 's'} ${e.replaces.join(', ')}` : '';
+    lines.push(`_Proposed for canon${e.urgent ? ', urgent' : ''}:_ ${page}${e.place ? ` (${e.place})` : ''}${e.exists === false ? ', a new page' : ''} — ${e.why || 'no reason given'}; owed in the tuning ledger until Loudon's review${replaces}${e.urgent ? ', and asked on the board' : ''}`);
   }
   for (const e of Array.isArray(p && p.proposed_edits_dropped) ? p.proposed_edits_dropped : []) {
     if (!e) continue;
