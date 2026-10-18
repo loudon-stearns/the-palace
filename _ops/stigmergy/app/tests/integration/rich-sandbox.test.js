@@ -21,7 +21,6 @@ const RICH_SRC = resolve(HERE, '../../../../rich-face');
 const PALACE = resolve(HERE, '../../../../..');
 const KURAMOTO = resolve(PALACE, 'Kuramoto Coupling');
 const ENTRY = 'Probe Entry';
-const DEFAULT_HEIGHT = '800px';
 
 const require = createRequire(import.meta.url);
 let chromium = null;
@@ -173,10 +172,14 @@ describe.skipIf(!chromium)('the rich face in a browser', () => {
     } finally { await top.close(); }
   }, 30000);
 
-  test('a piece that says nothing keeps its manifest height, and one without gets the default', async () => {
+  // Since 2026-10-18 every served page carries the piece kit (rich-face/kit),
+  // which reports its content's height: a piece that says nothing itself is
+  // sized to what it holds (bare.html: a 1200 px div and the body's 8 px
+  // margins), and one with nothing laid out keeps its manifest height.
+  test('a piece that says nothing is sized by the kit; one with nothing laid out keeps its manifest height', async () => {
     const heights = await page.$$eval('figure[data-piece]', (fs) => Object.fromEntries(fs.filter((f) => f.querySelector('iframe')).map((f) => [f.dataset.piece, f.querySelector('iframe').style.height])));
     expect(heights['probe.html']).toBe('500px');
-    expect(heights['bare.html']).toBe(DEFAULT_HEIGHT);
+    expect(heights['bare.html']).toBe('1216px');
   });
 
   // Kuramoto's manifest heights were measured in a 1130 px column; narrower,

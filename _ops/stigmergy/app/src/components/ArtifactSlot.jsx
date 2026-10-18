@@ -1,10 +1,80 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { detectArtifactType, fileUrl, artifactsFromPayload, basenameOf } from '../lib/artifact.js';
 import PhosphorAudio from './PhosphorAudio.jsx';
 
+// A web page, played in place. sandbox="allow-scripts" ONLY — deliberately no
+// allow-same-origin. The artifact loads from STIGMERGY's own origin, so
+// withholding same-origin forces it into an opaque origin: scripts run, but it
+// cannot touch the BBS DOM/storage or call the orchestrator's POST endpoint.
+//
+// The page cannot read a sandboxed frame, so the piece talks over the rich
+// face's postMessage protocol, which the piece kit gives every served page
+// (_ops/rich-face/kit/piece.js). Each message is known by its frame, never by
+// origin (a sandboxed piece's origin is "null"):
+//   rich:height -- the piece's content height; taken within rich.html's bounds.
+//                  Until it speaks, the slot's frameHeight: FRAME_HEIGHT on a
+//                  TRICKSTER card, taller where a surface asks.
+//   rich:play   -- it started a sound. One voice at a time: the deck hears it
+//                  as a 'rich:play' event on the document, and every other
+//                  frame and PhosphorAudio player goes quiet (rich:hush).
+//   rich:error  -- its script failed; the first one shows under the frame.
+const FRAME_HEIGHT = 480;
+
+function FrameBody({ url, name, initialHeight = FRAME_HEIGHT }) {
+  const ref = useRef(null);
+  const [height, setHeight] = useState(initialHeight);
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    const mine = () => (ref.current ? ref.current.contentWindow : null);
+    function onMessage(e) {
+      const win = mine();
+      if (!win || e.source !== win || !e.data) return;
+      const { type } = e.data;
+      if (type === 'rich:height') {
+        const px = Math.ceil(Number(e.data.height));
+        if (px >= 120 && px <= 8000) setHeight(px);
+      } else if (type === 'rich:play') {
+        document.dispatchEvent(new CustomEvent('rich:play', { detail: win }));
+      } else if (type === 'rich:error') {
+        setError((cur) => cur || { message: String(e.data.message || 'error'), where: String(e.data.where || '') });
+      }
+    }
+    function onOtherPlay(e) {
+      const win = mine();
+      if (win && e.detail !== win) win.postMessage({ type: 'rich:hush' }, '*');
+    }
+    window.addEventListener('message', onMessage);
+    document.addEventListener('rich:play', onOtherPlay);
+    return () => {
+      window.removeEventListener('message', onMessage);
+      document.removeEventListener('rich:play', onOtherPlay);
+    };
+  }, []);
+  return (
+    <>
+      <iframe
+        ref={ref}
+        data-testid="artifact-iframe"
+        title={name}
+        src={url}
+        sandbox="allow-scripts"
+        style={{
+          width: '100%', height,
+          border: '1px solid var(--phosphor-dim)', background: 'var(--bg)', borderRadius: 0,
+        }}
+      />
+      {error ? (
+        <div data-testid="artifact-piece-error" style={{ color: 'var(--warn)', textShadow: 'none', fontSize: 11, marginTop: 4, fontFamily: 'var(--font-mono)' }}>
+          the piece reported an error: {error.message}{error.where ? ` (${error.where})` : ''}
+        </div>
+      ) : null}
+    </>
+  );
+}
+
 // One rendered artifact. The element depends on the detected type; the frame
 // is the same BBS phosphor card for all of them.
-function ArtifactBody({ path }) {
+function ArtifactBody({ path, frameHeight }) {
   const type = detectArtifactType(path);
   const url = fileUrl(path);
   const name = basenameOf(path);
@@ -30,24 +100,7 @@ function ArtifactBody({ path }) {
       </div>
     );
   }
-  if (type === 'iframe') {
-    // sandbox="allow-scripts" ONLY — deliberately no allow-same-origin. The
-    // artifact loads from STIGMERGY's own origin, so withholding same-origin
-    // forces it into an opaque origin: scripts run, but it cannot touch the
-    // BBS DOM/storage or call the orchestrator's POST endpoint.
-    return (
-      <iframe
-        data-testid="artifact-iframe"
-        title={name}
-        src={url}
-        sandbox="allow-scripts"
-        style={{
-          width: '100%', height: 480,
-          border: '1px solid var(--phosphor-dim)', background: 'var(--bg)', borderRadius: 0,
-        }}
-      />
-    );
-  }
+  if (type === 'iframe') return <FrameBody url={url} name={name} initialHeight={frameHeight} />;
   // Unknown type — fall back to a native-open link (reuses GET /api/open).
   return (
     <a
@@ -111,7 +164,7 @@ function OpenExternalChip({ path, type }) {
 // The artifact slot: renders alongside (not inside) the type-specific payload
 // rendering, for any message type. Keyed on artifact presence in the payload,
 // per BBS Production Plan v0.3.
-export default function ArtifactSlot({ payload }) {
+export default function ArtifactSlot({ payload, frameHeight }) {
   const artifacts = artifactsFromPayload(payload);
   if (artifacts.length === 0) return null;
 
@@ -144,7 +197,7 @@ export default function ArtifactSlot({ payload }) {
               <span style={{ flex: 1 }} />
               <OpenExternalChip path={a.path} type={type} />
             </div>
-            <ArtifactBody path={a.path} />
+            <ArtifactBody path={a.path} frameHeight={frameHeight} />
             {a.caption ? (
               <div
                 data-testid="artifact-caption"
