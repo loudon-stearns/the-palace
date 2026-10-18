@@ -64,11 +64,15 @@ on the present. Four zones, delimited by HTML-comment markers so machinery can t
   not computed, and changed only with his yes; every change lands on the trail. See below.
 - **Standing Orders** — Loudon's zone, never regenerated. Taste, priorities, "stop asking me
   about X," written once. The steward reads it before anything else every cycle and it outranks
-  the steward's lean and any older grant. Edited on STIGMERGY's PROJECTS deck, nowhere else.
+  the steward's lean and any older grant. Edited on the scroll in STIGMERGY, nowhere else.
 - **The making** — the trail, newest first, append-only. Every made thing the project posts to
   the board (`shipped_artifact`, a `PROOF`, an audition with media) becomes one section keyed on
   its message id: headline, ground, the account, the artifacts inline, the honest *left rough*
   line. Re-materializing never duplicates or deletes; a human may add sections by hand.
+  In STIGMERGY every artifact on the trail plays in place, a web page included. To put one
+  there, list it in a board message's `artifacts`, or link it by its palace path in a section
+  written by hand (`[caption](Dissolutions/proofs/x.html)`). A web page runs sandboxed, so make it
+  one self-contained file; the palace sizes it and quiets it for you.
 
 The source is **markdown** — a steward's output lands as one appended section, git diffs it
 cleanly, and STIGMERGY renders it natively in the phosphor register (the [[BBS Design System]]
@@ -104,7 +108,7 @@ own catch-up.
 the making trail as a dated section saying what changed and why, quoting the plan it replaced.
 Three ways in:
 
-- Loudon revises it on the PROJECTS deck, with a line on what changed and why.
+- Loudon revises it on the scroll in STIGMERGY, with a line on what changed and why.
 - An elder writes it on his word — `scroll.js --home "<Title>" --plan <file> --why "…"`.
 - A steward proposes it. When building teaches it the path should change, it posts a
   `plan_revision` ask carrying its evidence and the whole revised plan; the TRICKSTER card shows
