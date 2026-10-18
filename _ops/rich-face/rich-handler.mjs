@@ -20,6 +20,7 @@ import { createReadStream, existsSync, statSync, readdirSync, realpathSync } fro
 import { join, extname, normalize, relative, sep, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { makeFinder } from './palace-find.mjs';
+import { isPiecePage, pieceBytes } from './kit/inject.mjs';
 
 const CT = {
   '.html': 'text/html; charset=utf-8', '.htm': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
@@ -173,6 +174,21 @@ export function createRichHandler({ root, here, base = '', app }) {
   function serveFile(req, res, file, size, palaceFile = false) {
     const headers = { 'Content-Type': CT[extname(file).toLowerCase()] || 'application/octet-stream', 'Accept-Ranges': 'bytes', 'Cache-Control': 'no-store' };
     if (palaceFile && ACTIVE.test(file)) headers['Content-Security-Policy'] = ACTIVE_SANDBOX;
+    // A palace web page goes out as a piece, the kit first in its <head>
+    // (kit/inject.mjs): whole, never as a byte range.
+    if (palaceFile && isPiecePage(file)) {
+      let body;
+      try { body = pieceBytes(file); } catch (e) {
+        res.writeHead(e.code === 'ENOENT' ? 404 : 403, { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' });
+        res.end('cannot read: ' + relative(ROOT, file));
+        return;
+      }
+      delete headers['Accept-Ranges'];
+      headers['Content-Length'] = body.length;
+      res.writeHead(200, headers);
+      res.end(req.method === 'HEAD' ? undefined : body);
+      return;
+    }
     const range = req.headers.range && req.headers.range.match(/bytes=(\d*)-(\d*)/);
     let status = 200, opts;
     if (range) {

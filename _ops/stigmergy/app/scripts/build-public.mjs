@@ -37,6 +37,7 @@ import { loadEntryUse } from '../src/lib/entry-use.js';
 import { pathId, encodeSegments } from '../src/lib/public-mode.js';
 import { makeFinder } from '../../../rich-face/palace-find.mjs';
 import { vendorFiles } from '../../../rich-face/rich-handler.mjs';
+import { isPiecePage, pieceBytes } from '../../../rich-face/kit/inject.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const APP = resolve(HERE, '..');
@@ -441,6 +442,8 @@ for (const rel of files) {
   mkdirSync(dirname(dest), { recursive: true });
   const kind = IS_HERO.test(rel) ? 'hero' : IS_ICON.test(rel) ? 'icon' : null;
   if (IMG_TOOL && kind) shrink(join(ROOT, rel), dest, kind);
+  // A web page ships as a piece, the kit in its <head>, as the live server sends it.
+  else if (isPiecePage(rel)) writeFileSync(dest, pieceBytes(join(ROOT, rel)));
   else copyFileSync(join(ROOT, rel), dest);
   bytes += statSync(dest).size;
 }

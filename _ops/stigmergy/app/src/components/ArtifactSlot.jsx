@@ -7,38 +7,68 @@ import PhosphorAudio from './PhosphorAudio.jsx';
 // withholding same-origin forces it into an opaque origin: scripts run, but it
 // cannot touch the BBS DOM/storage or call the orchestrator's POST endpoint.
 //
-// The page cannot measure a sandboxed frame, so a piece that knows its height
-// says so, {type:'rich:height', height}, the rich face's own contract
-// (_ops/rich-face/README.md); it is known by its frame and taken within the
-// same bounds rich.html uses. A piece that never says keeps the slot's
-// frameHeight: FRAME_HEIGHT on a TRICKSTER card, taller where a surface asks.
+// The page cannot read a sandboxed frame, so the piece talks over the rich
+// face's postMessage protocol, which the piece kit gives every served page
+// (_ops/rich-face/kit/piece.js). Each message is known by its frame, never by
+// origin (a sandboxed piece's origin is "null"):
+//   rich:height -- the piece's content height; taken within rich.html's bounds.
+//                  Until it speaks, the slot's frameHeight: FRAME_HEIGHT on a
+//                  TRICKSTER card, taller where a surface asks.
+//   rich:play   -- it started a sound. One voice at a time: the deck hears it
+//                  as a 'rich:play' event on the document, and every other
+//                  frame and PhosphorAudio player goes quiet (rich:hush).
+//   rich:error  -- its script failed; the first one shows under the frame.
 const FRAME_HEIGHT = 480;
 
 function FrameBody({ url, name, initialHeight = FRAME_HEIGHT }) {
   const ref = useRef(null);
   const [height, setHeight] = useState(initialHeight);
+  const [error, setError] = useState(null);
   useEffect(() => {
+    const mine = () => (ref.current ? ref.current.contentWindow : null);
     function onMessage(e) {
-      if (!ref.current || e.source !== ref.current.contentWindow) return;
-      if (!e.data || e.data.type !== 'rich:height') return;
-      const px = Math.ceil(Number(e.data.height));
-      if (px >= 120 && px <= 8000) setHeight(px);
+      const win = mine();
+      if (!win || e.source !== win || !e.data) return;
+      const { type } = e.data;
+      if (type === 'rich:height') {
+        const px = Math.ceil(Number(e.data.height));
+        if (px >= 120 && px <= 8000) setHeight(px);
+      } else if (type === 'rich:play') {
+        document.dispatchEvent(new CustomEvent('rich:play', { detail: win }));
+      } else if (type === 'rich:error') {
+        setError((cur) => cur || { message: String(e.data.message || 'error'), where: String(e.data.where || '') });
+      }
+    }
+    function onOtherPlay(e) {
+      const win = mine();
+      if (win && e.detail !== win) win.postMessage({ type: 'rich:hush' }, '*');
     }
     window.addEventListener('message', onMessage);
-    return () => window.removeEventListener('message', onMessage);
+    document.addEventListener('rich:play', onOtherPlay);
+    return () => {
+      window.removeEventListener('message', onMessage);
+      document.removeEventListener('rich:play', onOtherPlay);
+    };
   }, []);
   return (
-    <iframe
-      ref={ref}
-      data-testid="artifact-iframe"
-      title={name}
-      src={url}
-      sandbox="allow-scripts"
-      style={{
-        width: '100%', height,
-        border: '1px solid var(--phosphor-dim)', background: 'var(--bg)', borderRadius: 0,
-      }}
-    />
+    <>
+      <iframe
+        ref={ref}
+        data-testid="artifact-iframe"
+        title={name}
+        src={url}
+        sandbox="allow-scripts"
+        style={{
+          width: '100%', height,
+          border: '1px solid var(--phosphor-dim)', background: 'var(--bg)', borderRadius: 0,
+        }}
+      />
+      {error ? (
+        <div data-testid="artifact-piece-error" style={{ color: 'var(--warn)', textShadow: 'none', fontSize: 11, marginTop: 4, fontFamily: 'var(--font-mono)' }}>
+          the piece reported an error: {error.message}{error.where ? ` (${error.where})` : ''}
+        </div>
+      ) : null}
+    </>
   );
 }
 
