@@ -20,6 +20,11 @@
 //   node _ops/concierge/return-map.mjs --json     # machine-readable, same data
 //   node _ops/concierge/return-map.mjs --since 2026-07-04   # override gap start
 //
+// --since takes a date (2026-07-04, read as that day's midnight here), a span
+// in trunk-state's own form (72h, 3d, 90m), or anything git reads as a date
+// ("3 days ago", "2026-07-04 14:00"). Whatever the form, it becomes one instant,
+// and the arc and the trunk window both start there.
+//
 // Exit code is 0 even when individual probes fail — a probe that cannot run is
 // reported as `unavailable` with its error, never silently dropped. A missing
 // answer must stay visible; that is what stops it being replaced by a guess.
@@ -37,14 +42,26 @@ const sinceArg = argv.includes('--since') ? argv[argv.indexOf('--since') + 1] : 
 
 // ---------------------------------------------------------------- probe shell
 
+// One argument as a shell would need it typed, so a printed command pastes and
+// runs as it ran: `--format='%ad %h %s'` quotes only the value.
+const shq = (a) => {
+  const m = /^(--[\w-]+=)(.*)$/s.exec(a);
+  if (m && m[2]) return m[1] + shq(m[2]);
+  return /^[\w@%+=:,./-]+$/.test(a) ? a : `'${a.replace(/'/g, `'\\''`)}'`;
+};
+
 // Run a command and capture it as an evidence block. Failure is data, not an
 // exception: an unavailable probe is reported so the reader knows what is
-// missing rather than assuming it was empty.
+// missing rather than assuming it was empty. A command given as an argv array
+// runs without a shell, and prints quoted the way a reader would paste it.
 function probe(label, cmd, { cwd = ROOT, allowFail = false } = {}) {
+  const argv = Array.isArray(cmd) ? cmd : null;
+  if (argv) cmd = argv.map(shq).join(' ');
   try {
     // GIT_OPTIONAL_LOCKS=0: a `git status` here must not take the shared
     // index's lock out from under a committer (server/door.js).
-    const out = execSync(cmd, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], env: { ...process.env, GIT_OPTIONAL_LOCKS: '0' } });
+    const opts = { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], env: { ...process.env, GIT_OPTIONAL_LOCKS: '0' } };
+    const out = argv ? execFileSync(argv[0], argv.slice(1), opts) : execSync(cmd, opts);
     return { label, cmd, ok: true, out: out.replace(/\s+$/, '') };
   } catch (e) {
     const out = `${e.stdout || ''}${e.stderr || ''}`.replace(/\s+$/, '');
@@ -68,20 +85,6 @@ const gapDays = lastDate
   ? Math.max(0, Math.round((Date.now() - Date.parse(`${lastDate}T12:00:00Z`)) / 86400000))
   : null;
 
-// The window worth showing: enough commits to see what Loudon was mid-sentence
-// on. `--since` overrides for an explicitly known last-session date.
-const arcCmd = sinceArg
-  ? `git log --since=${sinceArg} --format='%ad %h %s' --date=short`
-  : `git log -12 --format='%ad %h %s' --date=short`;
-const arc = probe('the arc', arcCmd);
-
-// The trunk probe looks back across the same gap, in trunk-state's own --since
-// (72h, 3d), as the card's query block runs it. The gap starts where git reads
-// --since, the instant the arc starts from; a --since already in trunk-state's
-// form passes through, since git misreads "72h" as 1972. Without --since it
-// starts at the last commit, and never reaches back less than trunk-state's
-// own 24h: on a palace that commits on its own, the last commit is often
-// minutes old.
 const gitSeconds = (args) => {
   try {
     const out = execFileSync('git', args, { cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], env: { ...process.env, GIT_OPTIONAL_LOCKS: '0' } });
@@ -90,12 +93,73 @@ const gitSeconds = (args) => {
   } catch { return null; }
 };
 const utc = (ms) => `${new Date(ms).toISOString().slice(0, 16).replace('T', ' ')} UTC`;
+// The instant as git reads it back exactly, in this machine's time, with its
+// offset: 2026-10-15T00:00:00-04:00. Nothing in it needs a shell's quotes.
+const localIso = (ms) => {
+  const d = new Date(ms);
+  const p = (n) => String(Math.abs(n)).padStart(2, '0');
+  const off = -d.getTimezoneOffset();
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`
+    + `${off < 0 ? '-' : '+'}${p(Math.trunc(off / 60))}:${p(off % 60)}`;
+};
+
+// Where the gap starts, worked out once, so the arc and the trunk window share
+// one instant. git alone misreads two of the forms a reader will type: "72h"
+// becomes 1972 and "3d" the 3rd of this month, so trunk-state's own form is
+// read as trunk-state reads it. A bare date is read as that day's midnight
+// here; git would start it at this time of day on that date, and drop that
+// morning's commits from a day the arc prints whole. Anything else is git's
+// reading. A start that is not in the past is refused: git reads a form it
+// does not know as now, which would print an empty arc as if nothing happened.
+function gapStart(text) {
+  if (!text || text.startsWith('--')) return { error: '--since needs a value: a date, 72h, or "3 days ago"' };
+  let ms = parseSince(text);
+  let read = null;
+  const day = /^(\d{4})-(\d{2})-(\d{2})$/.exec(text);
+  if (ms === null && day) {
+    const d = new Date(Number(day[1]), Number(day[2]) - 1, Number(day[3]));
+    if (d.getMonth() !== Number(day[2]) - 1) return { error: `--since ${text} is not a date` };
+    ms = d.getTime();
+    read = 'midnight here';
+  } else if (ms === null) {
+    ms = gitSeconds(['rev-parse', `--since=${text}`]);
+    read = 'as git reads it';
+  }
+  if (ms === null) return { error: `git could not read --since ${shq(text)}` };
+  ms = Math.floor(ms / 1000) * 1000;
+  if (ms > Date.now() - 60000) {
+    const why = ms > Date.now() + 60000 ? 'in the future' : 'which is now: git reads a form it does not know as now';
+    return { error: `--since ${shq(text)} reads as ${utc(ms)}, ${why}` };
+  }
+  return { ms, read };
+}
+const gap = sinceArg !== null ? gapStart(sinceArg) : null;
+
+// The window worth showing: enough commits to see what Loudon was mid-sentence
+// on, ending at the last commit. `--since` overrides for an explicitly known
+// last-session date, and the arc then starts at the gap's instant.
+const ARC_FORMAT = ['--format=%ad %h %s', '--date=short'];
+const arc = !gap
+  ? probe('the arc', ['git', 'log', '-12', ...ARC_FORMAT])
+  : gap.error
+    ? { label: 'the arc', cmd: ['git', 'log', `--since=${sinceArg ?? ''}`, ...ARC_FORMAT].map(shq).join(' '), ok: false, error: gap.error }
+    : { ...probe('the arc', ['git', 'log', `--since=${localIso(gap.ms)}`, ...ARC_FORMAT]), from: new Date(gap.ms).toISOString() };
+
+// The trunk probe looks back across the same gap, in trunk-state's own --since
+// (72h, 3d), as the card's query block runs it. A --since already in that form
+// passes through; any other reaches back to the gap's instant, rounded up to
+// the hour (to the day past a week), so the trunk never starts after the arc.
+// Without --since it starts at the last commit, and never reaches back less
+// than trunk-state's own 24h: on a palace that commits on its own, the last
+// commit is often minutes old.
 let trunkWindow = null;
-if (sinceArg && parseSince(sinceArg) !== null) {
-  trunkWindow = { since: sinceArg, note: `--since ${sinceArg}, passed through` };
-} else if (sinceArg) {
-  const from = gitSeconds(['rev-parse', `--since=${sinceArg}`]);
-  if (from) trunkWindow = { since: sinceFor(from), from: new Date(from).toISOString(), note: `back to --since ${sinceArg} as git reads it, ${utc(from)}, where the arc starts` };
+if (gap?.error) {
+  trunkWindow = { since: null, note: `${gap.error}; trunk-state's own 24h` };
+} else if (gap) {
+  const from = new Date(gap.ms).toISOString();
+  trunkWindow = parseSince(sinceArg) !== null
+    ? { since: sinceArg.replace(/\s/g, ''), from, note: `--since ${sinceArg}, passed through: ${utc(gap.ms)}, where the arc starts` }
+    : { since: sinceFor(gap.ms), from, note: `back to --since ${sinceArg}, ${gap.read}, ${utc(gap.ms)}, where the arc starts` };
 } else {
   const from = gitSeconds(['log', '-1', '--format=%ct']);
   if (from) trunkWindow = { since: sinceFor(from, { floorMs: 86400000 }), from: new Date(from).toISOString(), note: `back to the last commit, ${utc(from)}, and never less than 24h` };
@@ -188,7 +252,7 @@ const linters = [
 ].map(([label, cmd]) => probe(label, cmd, { allowFail: true }));
 
 const repo = [
-  { ...probe('trunk', `node _ops/stigmergy/app/scripts/trunk-state.mjs${trunkWindow ? ` --since ${trunkWindow.since}` : ''} --sessions`, { allowFail: true }), window: trunkWindow },
+  { ...probe('trunk', `node _ops/stigmergy/app/scripts/trunk-state.mjs${trunkWindow?.since ? ` --since ${trunkWindow.since}` : ''} --sessions`, { allowFail: true }), window: trunkWindow },
   probe('unpushed', `git log --oneline origin/main..main | wc -l | tr -d ' '`, { allowFail: true }),
   probe('worktrees', 'git worktree list'),
   probe('branches', 'git branch -v'),
