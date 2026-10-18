@@ -47,8 +47,9 @@ reaches it the same way.
 Bare filenames resolve in the bundle, then vault-wide by name; `/…` is palace-absolute. `near` anchors
 a piece right after that paragraph or figure; otherwise it goes at the section's end. Audio, images and
 text pieces default to the margin; video, interactives and diagrams to the band. An interactive's
-`height` (px) is its size until the piece reports its own (`rich:height`, below), and the only size a
-piece that never reports gets; with neither, 800. Kuramoto's were measured in a 1130 px column.
+`height` (px) is its size until the piece reports its own. Every served piece reports through the kit
+(below), so the manifest `height` matters for what the kit can't measure: a piece sized by the viewport,
+or one with nothing laid out. With neither, 800. Kuramoto's were measured in a 1130 px column.
 
 ## The parser's rules
 
@@ -81,6 +82,15 @@ The page is served from STIGMERGY's origin, so anything that runs in it runs as 
   STIGMERGY's `GET /api/file`) comes with `Content-Security-Policy: sandbox allow-scripts`, so a piece
   opened any other way — a link in the prose, a new tab — still runs in an opaque origin. Only the
   renderer itself (`/rich/`), `_rich/parse.js` and `_vendor/*` come without it.
+- **Every served page carries the piece kit.** `kit/inject.mjs` puts `kit/piece.js` first in the
+  `<head>` of every palace `.html` and `.htm` served at `/rich/<path>`, through STIGMERGY's
+  `GET /api/file`, and in the public build. Inside the sandbox it reports the piece's height and posts
+  `rich:play` when a sound the reader asked for starts. On `rich:hush` it suspends the piece's audio and
+  pauses its media, and the next touch brings them back. It posts `rich:error` for the first three
+  script errors. A piece whose own inline script already says `rich:height` or `rich:hush` is left to
+  do that part itself. STIGMERGY's frames show a piece's first error under it; the rich face does not
+  show errors yet. Camera, storage and declared files wait for the piece origin
+  ([[STIGMERGY — spec — rich-face pieces]]).
 - **Every link goes to the web, to mail, or into the palace.** After marked, the HTML is parsed inert
   and every element and attribute the page did not choose is dropped; an `href` or `src` survives only
   if it resolves to `http:`, `https:` or `mailto:` (a relative palace path resolves to the page's own),
@@ -99,16 +109,14 @@ The page is served from STIGMERGY's origin, so anything that runs in it runs as 
   stereo in both places, a compressor after it ([[Web Audio Worklet]]).
 - **A piece runs sandboxed, so it must stand alone.** Inline everything; a `fetch` of a file beside
   it, an ES module from the palace, or `localStorage` will fail. Worklets from a Blob URL work.
-- **A made piece reports its height.** The page cannot measure a sandboxed piece, and a height
-  measured at one width overflows at another — Kuramoto's waveform piece is 914 px tall in a 1130 px
-  column and 1025 at 760. So post `{type:'rich:height', height}` to the parent on load and on every
-  resize (a `ResizeObserver` on the root element), giving the root element's box height
-  (`document.documentElement.getBoundingClientRect().height`) — not `scrollHeight`, which never drops
-  below the frame — and tie no height to the viewport, or the two feed each other. Still give it a
-  manifest `height`: the size until the first report, and the fallback if it never sends one.
-- **One voice at a time.** Post `{type:'rich:play'}` to the parent when sound starts; stop on
-  `{type:'rich:hush'}`. The page hushes every other video, strip and piece. It hears the play by the
-  frame it came from and sends the hush to any origin, since a sandboxed piece's origin is `null`.
+- **The kit sizes a piece; the maker writes nothing for it.** It measures the content on load and on
+  every change, so a piece fits its frame at any width (Kuramoto's waveform piece is 914 px tall in a
+  1130 px column and 1025 at 760). Size by content, not the viewport: the kit stops growing a
+  viewport-tied piece after two equal steps. A piece with nothing laid out (a fixed full-frame canvas)
+  keeps its manifest `height`, so still give every interactive one.
+- **One voice at a time, by the kit.** It hears an `AudioContext` start (Tone.js's own included) or an
+  `<audio>`/`<video>` start after a click, and tells the page, which hushes every other video, strip
+  and piece. A piece that answers `rich:hush` itself is left to it.
 - **Test the claim headless.** Pull the worklet source out of the page and run it in Node against the
   equation the section states before trusting what the page shows. `check-kuramoto-pieces.mjs` is the worked example:
   `node _ops/rich-face/check-kuramoto-pieces.mjs` re-checks every claim Kuramoto's pieces make.
