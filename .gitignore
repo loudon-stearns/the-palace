@@ -41,10 +41,27 @@ _ops/scratch/
 # Cowork local settings
 .claude/settings.local.json
 
-# Generated audio renders inside generative-instrument bundles
-# (heavy + regenerable from the bundle's generate.py — commit the recipe, not the bytes)
-Projects/Generative Wavetable Libraries/**/*.wav
-Projects/Generative Sample Libraries/**/*.wav
+# Audio and video that stewards make stay on this Mac, never in git (Loudon,
+# 2026-10-18). Steward bundles live under Projects/ and in Shop/Shopkeeper/. A
+# cycle that declares one names it in its commit body as ignored and commits the
+# rest (cycle-commit.js). Files already tracked stay tracked until untracked.
+# This also covers the generative-instrument renders, which were the first rule.
+Projects/**/*.wav
+Projects/**/*.wave
+Projects/**/*.mp4
+Projects/**/*.mov
+Projects/**/*.m4v
+Projects/**/*.webm
+Projects/**/*.mkv
+Projects/**/*.avi
+Shop/Shopkeeper/**/*.wav
+Shop/Shopkeeper/**/*.wave
+Shop/Shopkeeper/**/*.mp4
+Shop/Shopkeeper/**/*.mov
+Shop/Shopkeeper/**/*.m4v
+Shop/Shopkeeper/**/*.webm
+Shop/Shopkeeper/**/*.mkv
+Shop/Shopkeeper/**/*.avi
 
 # Ableton analysis files (regenerated when a WAV is loaded)
 *.asd
