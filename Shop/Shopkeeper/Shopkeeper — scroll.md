@@ -15,19 +15,20 @@ forward_vector: "I am Shopkeeper's scroll — the page's front door, opening on 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-25T23:19:04.974Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — steer the project in **Standing Orders** below, never here._
+> _Regenerated 2026-10-18T10:16:13.784Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** stub · **Stage:** — · **Steward:** cycle 1 · last ran 2026-09-25 (today)
+- **Status:** alive · **Stage:** — · **Steward:** cycle 2 · last ran 2026-10-18 (today)
+- **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-09-25 (today) — I drafted the AuK stub Specialist and re-checked Stable Audio 3 on the Hub; the SA3 note turned out to be smaller than expected. (`shopkeeper-cycle-1-2026-09-25`)
-- **Last commit touching this page:** 2026-09-25 `840cc037` — edit(Shopkeeper): a steward with Standing Orders; the executed commission retires
+- **Last shipped:** 2026-10-18 (today) — I ran a real tool with my own hands (fish-audio's drama-3) and a Roster health check — both honest, neither finished. (`shopkeeper-cycle-2-2026-10-18`)
+- **Last commit touching this page:** 2026-09-26 `5b8a1564` — ops(frontmatter): strip retired activation_count/last_activated from 244 entries — v1.26
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
-I'm the Shopkeeper. I keep the Shop stocked and in repair: I find tools, try them with my own hands, and bring Loudon only the few that earn it. Since June I found the Image-to-3D Smith engines, and in September I probed AuK (Tencent's instruction-based speech editor) and scouted Qwen-Image-2.1. On 2026-09-25 Loudon answered all my open cards. AuK is approved as a stub with the speaker-identity claim recorded as a gap. The Image-to-3D Smith is approved, with Hi3DGen primary and a Blender import test as its first job. Viggle and the video lane stay parked. Qwen-Image-2.1 waits until ComfyUI is next used for real work. This cycle I acted on the two answers I could act on from the workshop.
+I'm the Shopkeeper — I keep the Shop (Loudon's catalogue of creative tools) stocked and in repair. I find things, try them myself, and only bring Loudon the ones that earn it. Last time out I landed AuK (speech editing) and the Image-to-3D Smith as approved stubs. This cycle I went looking again, found something genuinely interesting, drove it live, and hit a real wall partway through.
 
 ### Open asks
 
@@ -50,6 +51,12 @@ d4 BLENDER-IMPORT: The first real job is the Study→Blender import test. Watert
 d5 YES: Yes, add a dated gotcha note on Stable Audio 3 to [[Stable Audio Open]]. The news is three months old, so re-check it on the Hub before writing." (2026-09-25)
 
 <!-- scroll:now:end -->
+
+## Plan
+
+<!-- scroll:plan:start -->
+_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+<!-- scroll:plan:end -->
 
 ## Standing Orders
 
@@ -75,6 +82,21 @@ d5 YES: Yes, add a dated gotcha note on Stable Audio 3 to [[Stable Audio Open]].
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="shopkeeper-cycle-2-2026-10-18" -->
+### 2026-10-18 — cycle 2 — I ran a real tool with my own hands (fish-audio's drama-3) and a Roster health check — both honest, neither finished.
+> shipped · drama-3 not yet deposited · Roster audit clean
+
+I swept Hugging Face's trending list and found fishaudio/drama-3 — a new 36-billion-parameter multi-speaker TTS model, released yesterday, with a 'Design' mode that lets you write a voice into existence from a description (no reference clip needed) and reads bracketed performance direction like [laughs] or [clears throat] as actual vocal performance. Nothing in the Roster does that — Kokoro is fast and clean but single-voice-ish. I didn't just read the README: I drove the live demo three times with gradio_client, designing a voice for myself each time, and got real server-side confirmation that it rendered actual speech (duration and timing telemetry on every call). But I couldn't get a playable file out — the Space streams audio as an HLS playlist whose segments are session-ephemeral, and I couldn't find the right session handle to re-fetch a finished clip after the call returned. I spent real effort chasing that (direct HTTP tracing, segment URL reconstruction) before deciding it was a browser-shaped problem, not a retry-shaped one, and stopping rather than burning more of the sweep. Separately, I ran the Roster currency check I owe as maintenance: every Specialist's status field against the Maker's roster list. Found no drift — the one entry with a missing status field (RunPod GPU Backend) turned out to be a concept-type entry, which correctly skips that field. A clean result, not a non-result.
+
+**Artifacts:**
+- [the full probe writeup — what I ran, the timings, where it stalled, my read.](Shop/Shopkeeper/probes/drama-3/drama-3-probe-notes.md)
+
+_Left rough:_ No playable audio artifact from drama-3 — I have proof it generates real speech but nothing Loudon can actually listen to yet. That's the thing I'd fix first if I pick this back up.
+
+_Next moves named:_ A mac handoff with a real browser (not gradio_client) to hold the drama-3 session live and capture what plays — the ephemeral-stream problem needs a browser, not another API retry. · If that lands a real clip and it holds up, draft a stub Specialist proposal (Design-mode voice authoring + inline performance direction is the pitch) for the board. · Keep the every-other-run Roster currency check going even on cycles where nothing new is found — this one came back clean.
+<sub>`shopkeeper-cycle-2-2026-10-18` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="shopkeeper-cycle-1-2026-09-25" -->
 ### 2026-09-25 — cycle 1 — I drafted the AuK stub Specialist and re-checked Stable Audio 3 on the Hub; the SA3 note turned out to be smaller than expected.
 > shipped · two drafts ready for an elder to land · steward leans apply AuK as written, apply the SA3 note as trimmed
