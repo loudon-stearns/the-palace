@@ -55,6 +55,14 @@ The 2026-09-25 hosting assessment scanned the working tree for key formats and f
 
 13. **A check that runs only when someone asks cannot catch a guard switched off.** Anyone who pushes as Loudon can also remove GitHub's guard on main, and the hosting check had not run for two days when the sweep looked. So the heartbeat now runs `guard-watch.mjs` once a day when the Mac is awake: the hosting check's own read of the guard, a few seconds, raising a notification when a force push could rewrite main, and looking again later when it cannot tell. *(v1.4)*
 
+14. **A message is as public as a file, and nothing read one.** Item 6 counts commit bodies among what reaches GitHub, yet the push gate read only blobs and paths, the history check blobs and every path ever tracked, and gitleaks reads patches, never a message. A key pasted into a commit message, a merge's own message, an annotated tag's notes or name, or a branch's name would have gone out unchecked. The door-health sweep read every message then waiting to go out with the Sentry's rules and found nothing; on 2026-10-18 all 2,231 commits and tags in history raised nothing either. Now each commit is read three ways and each tag two: its message in full as prose, its headers for credentials (a tag's name, an author line, and any signed tag a merge carries), and, for a merge, each carried tag's message for personal data and text aimed at agents. The gate also reads the names of the refs a push updates, for credentials. Both read objects as push sends them: `git replace` can show a scrubbed message while push sends the original, so the Sentry ignores replace refs. *(v1.5)*
+
+## From the review of the message reads — 2026-10-18
+
+15. **A tag reaches GitHub without a remote-tracking branch.** The history check judged a hit public when a branch under `refs/remotes` reached its commit, but git never fetches tags there. A pushed tag's message, or a commit only a pushed tag reaches, read as private: the most urgent hit looked like the least. Now the history check asks each remote for its tags once, and says `unknown`, never `no`, when a remote cannot be asked and a tag could still make the hit public. *(v1.5)*
+
+16. **A masked number still gave itself away.** `mask()` kept a value's first eight characters, which for an ID number in a message or a file is eight of its nine digits. A number made of digits and separators now shows only its last two. *(v1.5)*
+
 - run · 2026-09-25 · v0 · hand-run history scan, before the Sentry had a page · taught items 1–9
 - run · 2026-09-25 · v1.0 · deep sweep of b63b896b, 7 raised, held locally · nothing new
 - run · 2026-09-25 · v1.1 · public-surface gate of 9ef47639, 11 raised, held locally · nothing new

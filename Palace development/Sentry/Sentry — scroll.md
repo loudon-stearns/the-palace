@@ -15,20 +15,19 @@ forward_vector: "I am Sentry's scroll — the one page that opens on which versi
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-16T03:14:19.069Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-18T19:39:28.867Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** — · **Stage:** growing
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
-- **Version:** v1.3 · the spec last changed 2026-10-14 (`5c473ad9`) — ops(Sentry): the hosting check reads whether GitHub refuses a force push to main for everyone who can push
-- **Runs since the change:** 2 runs on 2 days, counted from the ledger's run lines
+- **Version:** v1.5 · the spec last changed 2026-10-18 (`b8b7442a`) — ops(Sentry): the Sentry reads commits and tags as push sends them: the push gate, the history check, and the names of pushed refs — v1.5
+- **Runs since the change:** none yet — v1.5 has not run
 - **Last run:** 2026-10-16 — quick sweep of 118edcbc and a hand read of every ref, 2 raised, held locally · nothing new (under v1.3)
 - **Owed in the ledger:** 1 — item 4; the next run's tail read picks it up first
-- **Latest lesson:** item 12, from the door's plan — 2026-10-14 (GitHub's guard on main) — [[Sentry — tuning]]
+- **Latest lesson:** item 16, from the review of the message reads — 2026-10-18 — [[Sentry — tuning]]
 
-### Runs since v1.3
+### Runs since v1.5
 
-- 2026-10-16 — quick sweep of 118edcbc and a hand read of every ref, 2 raised, held locally · nothing new
-- 2026-10-15 — sweep (hosting) of 3778f4a0, nothing raised · taught item 12
+_None yet._
 
 ### Owed
 
@@ -51,6 +50,24 @@ _Loudon's standing direction for this ceremony — never regenerated. It holds u
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="version-b8b7442abf48afeb96c966339a9b023028e25dec" -->
+### 2026-10-18 — the spec moved to v1.5
+
+ops(Sentry): the Sentry reads commits and tags as push sends them: the push gate, the history check, and the names of pushed refs — v1.5
+
+On Loudon's word (2026-10-18): close the message gap. The repo is public, so a commit or tag message is as public as a file once pushed, yet the push gate read only blobs and paths, the history check only blobs and paths, and gitleaks reads patches, never a message.
+<sub>`b8b7442a` · version change</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="version-450129067cef33479ef3a37eec876bc04e3bf2e7" -->
+### 2026-10-18 — the spec moved to v1.4
+
+ops(heartbeat): the steward batch runs when the Mac is truly awake, counts calendar days, and the Sentry watches GitHub's guard daily
+
+On Loudon's yes (2026-10-18). The 06:00 timer met a Mac asleep on battery with the lid closed, inside a few-second dark wake (pmset log, 10-15 to 10-17); on 10-15 the batch stalled until he opened the lid, and its guard counted whole 24-hour days, so the 06:07 start of that run made 10-17 06:00 count as one day and skip. launchd now fires every 30 minutes and the wrapper decides: a batch only in a full wake with the lid open (pmset lists Graphics; AppleClamshellState is No), at 06:00 or later, two calendar days after the last; caffeinate holds off idle sleep while it runs; a skipped tick writ…
+<sub>`45012906` · version change</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="run-f452ecbc35" -->
 ### 2026-10-16 — quick sweep of 118edcbc and a hand read of every ref, 2 raised, held locally
 
