@@ -1,0 +1,39 @@
+{
+ "tap": {
+  "peak": 0.4285774528980255,
+  "bad": 0
+ },
+ "counts": {
+  "probes": 11,
+  "captured": 11,
+  "starved": 0,
+  "retracted": 144,
+  "budget_refused": 2,
+  "forks": 4,
+  "meshed": 1
+ },
+ "tubes": 6,
+ "meshLeft": 0,
+ "law": "power",
+ "drain": "shared",
+ "tick": 882,
+ "rate": 29.92640547230542,
+ "log": [
+  " 26.3s  the tube a fork – a bare spot is pulling back",
+  " 26.3s  the tube a fork – a fork is pulling back",
+  " 26.3s  the tube a fork – a bare spot is pulling back",
+  " 26.3s  the tube a bare spot – flake 3 is pulling back",
+  " 24.7s  the tube the mesh – a fork is pulling back",
+  " 24.7s  the tube a bare spot – the mesh is pulling back",
+  " 24.2s  a tip reached flake 3 from a fork",
+  " 24.2s  the tube the listener – a bare spot budded a tip partway along",
+  " 23.9s  a tip reached flake 4 from a bare spot",
+  " 23.4s  a tip reached a bare spot from a bare spot",
+  " 23.4s  a tip reached a bare spot from a bare spot",
+  " 23.1s  a tip reached a bare spot from a fork",
+  " 23.1s  the tube the mesh – a fork budded a tip partway along",
+  " 21.1s  the tube a bare spot – flake 3 is pulling back"
+ ],
+ "peak_dbfs": -7.4,
+ "errors": []
+}

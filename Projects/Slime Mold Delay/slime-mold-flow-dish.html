@@ -1,5 +1,6 @@
 <!doctype html>
-<!-- Slime Mold Delay — the flow dish (cycle 9, 2026-10-13; cycle 10 adds tips that bud mid-tube) -->
+<!-- Slime Mold Delay — the flow dish (cycle 9, 2026-10-13; cycle 10 adds tips that bud mid-tube; -->
+<!-- cycle 11, 2026-10-18: the mold starts as a mesh over the dish and thins by competition) -->
 <!-- The realtime version. Ports cycle 8's headless flow engine (headless/physarum_flow.py) -->
 <!-- into the browser: you place food, play into it, and the routing grows on the real -->
 <!-- mold's flow law (Tero, Kobayashi & Nakagaki 2007) while the delay network sounds. -->
@@ -64,6 +65,7 @@
     <button id="start" class="primary">▸ START</button>
     <button id="demo">THE MUSIC MOVES (30 s demo)</button>
     <button id="clear">CLEAR DISH</button>
+    <button id="spread">SPREAD A MESH</button>
     <button id="mic">MIC → SELECTED FLAKE</button>
     <span class="hint" id="status">silent until you press START</span>
   </div>
@@ -73,7 +75,8 @@
       <div class="dish"><canvas id="cv" width="900" height="900"></canvas></div>
       <div class="hint">Click bare agar: place an oat flake (food, up to 6). Click a flake: it starts or stops playing,
       and it becomes the selected flake for the mic. Shift-click a flake: take it away (its tubes pull back).
-      Keys 1–6 pluck a flake by hand. Flakes swell while they sound. A tip can bud from partway along a tube (a ring marks the bud); if it finds something, the tube forks there (a gold dot). Moving dots are the flow, travelling
+      Keys 1–6 pluck a flake by hand. The mold starts as a mesh over the agar and thins to the roads the music
+      uses; SPREAD A MESH floods the dish again whenever you want it to rethink. Flakes swell while they sound. A tip can bud from partway along a tube (a ring marks the bud); if it finds something, the tube forks there (a gold dot). Moving dots are the flow, travelling
       the way the cytoplasm goes. Faint threads are feeler tips; brown threads are tips that gave up.</div>
     </div>
     <div>
@@ -95,6 +98,16 @@
         <select id="share" style="width:100%;font-family:var(--mono);font-size:12px;background:#1b2620;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:5px">
           <option value="all">all the food in the dish (new)</option>
           <option value="fed">only the food it has reached (cycle 8)</option>
+        </select>
+        <label>THE MOLD STARTS AS</label>
+        <select id="start-as" style="width:100%;font-family:var(--mono);font-size:12px;background:#1b2620;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:5px">
+          <option value="mesh">a mesh over the whole dish (new)</option>
+          <option value="strand">one strand to the first flake (cycle 10)</option>
+        </select>
+        <label>IT THINS BY</label>
+        <select id="law" style="width:100%;font-family:var(--mono);font-size:12px;background:#1b2620;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:5px">
+          <option value="compete">competing: a pluck pushes, the other flakes listen (new)</option>
+          <option value="saturate">saturating flow, only the listener drains (cycle 10)</option>
         </select>
         <label>A NEW TIP BUDS FROM</label>
         <select id="sprout" style="width:100%;font-family:var(--mono);font-size:12px;background:#1b2620;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:5px">
@@ -131,7 +144,7 @@
 // ---------------------------------------------------------------------------
 const SlimeEngine = (() => {
   const P = { TICK_HZ: 30, K: 2.2, GAMMA: 1.8, H: 0.35, MU: 1.0, EPS: 0.06, TAU: 18, RETRACT: 9,
-    PROBE_RATE: 1.2, PROBE_MAX: 3, PROBE_LIFE: 30, PROBE_STEP: 0.024, R_CAP: 0.06, D0: 0.18, MID: 0.6, SATED: 0.12 };
+    PROBE_RATE: 1.2, PROBE_MAX: 3, PROBE_LIFE: 30, PROBE_STEP: 0.024, R_CAP: 0.06, D0: 0.18, MID: 0.6, SATED: 0.12, MESH_S: 0.11, MESH_D: 0.3, POW_G: 1.5, MESH_GRACE: 6, MESH_ANNEAL: 8, QEPS: 0.015, LISTEN: 0.5, PULSE_FLOOR: 0.25, EAR: 0.02 };
   const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
 
   function mulberry32(s) {
@@ -160,12 +173,12 @@ const SlimeEngine = (() => {
     return x;
   }
 
-  function create({ seed = 11, sink = { x: 0.52, y: 0.46 }, junctions = 10, share = 'all', passThrough = true, sprout = true } = {}) {
+  function create({ seed = 11, sink = { x: 0.52, y: 0.46 }, junctions = 10, share = 'all', passThrough = true, sprout = true, law = 'sigmoid', lawGamma = P.POW_G, meshGrace = P.MESH_GRACE, meshAnneal = P.MESH_ANNEAL, probes = true, drain = 'listener', pulse = false } = {}) {
     const rng = mulberry32(seed);
     const normal = () => Math.sqrt(-2 * Math.log(1 - rng())) * Math.cos(2 * Math.PI * rng());
     let nextId = 0;
     const S = {
-      P, rng, share, passThrough, sprout, tick: 0, nodes: [], tubes: [], probes: [], ghosts: [],
+      P, rng, share, passThrough, sprout, law, lawGamma, meshGrace, meshAnneal, meshAt: null, explore: probes, drain, pulse, tick: 0, nodes: [], tubes: [], probes: [], ghosts: [],
       counts: { probes: 0, captured: 0, starved: 0, retracted: 0, budget_refused: 0, forks: 0 },
       used: 0,
       hooks: { capture: () => {}, cut: () => {}, event: () => {} },
@@ -186,6 +199,9 @@ const SlimeEngine = (() => {
       S.tubes.push(t); S.hooks.capture(t); return t;
     };
     S.foods = () => S.nodes.filter(n => n.kind === 'food' && !n.gone);
+    // how much sound a tube carries. Under the power law thickness goes as flow^γ, so a branch feeding
+    // one flake is thin by design; its gain follows the flow (D^(1/γ)) so that flake isn't buried.
+    S.amp = t => S.law === 'power' ? Math.pow(Math.max(0, t.D), 1 / S.lawGamma) : t.D;
     // Cut a tube in two at a point partway along it. The halves keep its thickness, flow and
     // direction, and their lengths add up to the old one, so the echo time through is unchanged.
     S.splitTube = (t, f) => {
@@ -198,13 +214,43 @@ const SlimeEngine = (() => {
       return m;
     };
 
+    // Start dense, then thin (cycle 11). Nakagaki's plasmodium begins by covering the dish and the
+    // flow carves the cover down to the roads that matter. This lays a lattice of points over the
+    // agar, ties each to its neighbours and to every flake and the listener nearby, and lets the flow
+    // law do the rest. Lattice points are branch points, so one with no tubes left dissolves.
+    S.seedMesh = (spacing = P.MESH_S, D = P.MESH_D) => {
+      const live = S.nodes.filter(n => !n.gone), pts = [];
+      const dy = spacing * Math.sqrt(3) / 2;
+      for (let r = 0, y = 0.5 - 0.44; y <= 0.94; r++, y += dy)
+        for (let x = 0.06 + (r % 2 ? spacing / 2 : 0); x <= 0.94; x += spacing) {
+          if (Math.hypot(x - 0.5, y - 0.5) > 0.43) continue;
+          if (live.some(n => dist(n, { x, y }) < spacing * 0.45)) continue;
+          pts.push(addNode(x, y, 'branch', { mesh: true }));
+        }
+      const all = [...live, ...pts], reach = spacing * 1.08;      // bare spots join the lattice too
+      const has = (a, b) => S.tubes.some(t => (t.a === a && t.b === b) || (t.a === b && t.b === a));
+      for (let i = 0; i < all.length; i++) {
+        const a = all[i];
+        // flakes and the listener tie to every lattice point in reach, and at least their nearest three
+        const near = all.map((b, j) => [dist(a, b), j]).filter(([d, j]) => j !== i).sort((x, y) => x[0] - y[0]);
+        const pick = near.filter(([d], k) => d <= reach || ((a.kind === 'food' || a.kind === 'sink') && k < 3));
+        for (const [, j] of pick) if (j > i || !all[j].mesh) { const b = all[j]; if (b !== a && !has(a, b)) S.addTube(a, b, D).grace = S.tick + S.meshGrace * P.TICK_HZ; }
+      }
+      S.used = S.tubes.reduce((s, t) => s + t.L, 0);
+      S.counts.meshed = (S.counts.meshed || 0) + 1; S.meshAt = S.tick;
+      return pts.length;
+    };
+
     // One tick (1/30 s of dish time). levels: Map node.id → RMS heard at that flake.
     S.step = (levels, { hunger = 1, budget = 2.4 } = {}) => {
       const tt = S.tick / P.TICK_HZ;
       const nodes = S.nodes, N = nodes.length, idx = new Map(nodes.map((n, i) => [n, i]));
       const decay = Math.exp(-1 / (P.TICK_HZ * 1.5));          // 1.5 s memory
-      for (const n of nodes) if (n.kind === 'food')
+      const fdecay = Math.exp(-1 / (P.TICK_HZ * 0.25));        // 0.25 s: one pluck, then gone
+      for (const n of nodes) if (n.kind === 'food') {
         n.env = n.gone ? 0 : Math.max(levels.get(n.id) || 0, n.env * decay);
+        n.fast = n.gone ? 0 : Math.max(levels.get(n.id) || 0, (n.fast || 0) * fdecay);
+      }
 
       // only food the network reaches can push; the sink drains exactly that
       const adj = new Map();
@@ -221,10 +267,23 @@ const SlimeEngine = (() => {
       // it until a tip gets lucky. share 'fed' is cycle 8's python law, kept for comparison.
       const fed = nodes.filter(n => n.kind === 'food' && comp.has(n));
       const pool = S.share === 'fed' ? fed : nodes.filter(n => n.kind === 'food');
-      const tot = pool.reduce((s, n) => s + n.env, 0);
+      // pulse: the push follows each pluck (a quarter-second envelope) over a floor of the slow one, so
+      // the gaps between plucks still carry the music's average and the roads don't starve in a rest
+      const push = n => S.pulse ? P.PULSE_FLOOR * n.env + n.fast : n.env;
+      const tot = pool.reduce((s, n) => s + push(n), 0);
       if (tot > 1e-4) {
-        let drain = 0; for (const n of fed) { I[idx.get(n)] = n.env / tot; drain += n.env / tot; }
-        I[idx.get(S.sink)] = -drain;
+        let drain = 0; for (const n of fed) { const v = push(n); I[idx.get(n)] = v / tot; drain += v / tot; }
+        // drain 'shared' (cycle 11): the listener takes only part of the flow; the rest is drawn by the
+        // fed flakes themselves, evenly. A flake that just sounded pushes and the quiet ones pull, the way
+        // Tero's Tokyo model lets the foods take turns. That puts pressure between neighbouring roads,
+        // so the cross-links between them carry flow and roads can merge into trunks.
+        const toSink = S.drain === 'shared' ? P.LISTEN : 1;
+        I[idx.get(S.sink)] = -drain * toSink;
+        // every fed flake that is still sounding draws an even share; one that has fallen silent draws
+        // nothing, so its road can let go when the music moves away
+        const ears = fed.filter(n => n.env > P.EAR);
+        if (toSink < 1 && ears.length) for (const n of ears) I[idx.get(n)] -= drain * (1 - toSink) / ears.length;
+        else I[idx.get(S.sink)] = -drain;
       }
 
       // pressure and flow — Kirchhoff on the live tubes
@@ -235,6 +294,11 @@ const SlimeEngine = (() => {
       }
       const p = solve(A, I.slice());
       const mu = P.MU * (1.6 - 0.6 * hunger);                   // a starving mold thins faster
+      // after a mesh is laid the power law starts gentle (γ = 1: flow spreads like current and nearby
+      // roads can still mix) and hardens to lawGamma over meshAnneal seconds, so roads merge into
+      // trunks before they commit, instead of locking in side by side
+      const age = S.meshAt == null ? Infinity : (S.tick - S.meshAt) / (P.TICK_HZ * Math.max(1e-6, S.meshAnneal));
+      const gNow = 1 + (S.lawGamma - 1) * Math.min(1, age);
       for (const t of S.tubes) {
         t.Q = t.D / t.L * (p[idx.get(t.a)] - p[idx.get(t.b)]);
         if (Math.abs(t.Q) > 1e-4) t.w += Math.max(-0.15, Math.min(0.15, Math.sign(t.Q) - t.w));
@@ -243,8 +307,17 @@ const SlimeEngine = (() => {
           t.retract = P.RETRACT; S.hooks.event(tt, 'retract', t);
         }
         if (t.retract < 0) {
-          t.D = Math.max(0, t.D + P.K / P.TICK_HZ * (q / (Math.pow(P.H, P.GAMMA) + q) - mu * t.D));
-          t.starve = t.D < P.EPS ? t.starve + 1 : 0;
+          // 'sigmoid' saturates: two tubes sharing a road's flow both fill up, so neither has to lose.
+          // 'power' is Tero's plain law with γ > 1: half the flow earns less than half the thickness,
+          // so parallel roads compete until one carries it all (cycle 11).
+          const grow = S.law === 'power' ? Math.pow(Math.abs(t.Q), gNow) : q / (Math.pow(P.H, P.GAMMA) + q);
+          t.D = Math.max(0, t.D + P.K / P.TICK_HZ * (grow - mu * t.D));
+          // a fresh mesh tube shares its flake's flow with three or four siblings; it gets a grace
+          // period before it can starve, so the siblings can settle which one carries the road
+          // under the power law a branch feeding one flake is thin by design (D ≈ share^γ), so it
+          // starves on carrying almost no flow, not on being thin: the mold keeps food it is eating
+          const idle = S.law === 'power' ? Math.abs(t.Q) < P.QEPS : t.D < P.EPS;
+          t.starve = idle && !(t.grace > S.tick) ? t.starve + 1 : 0;
           if (t.starve >= P.TAU) { t.retract = P.RETRACT; S.hooks.event(tt, 'retract', t); }
         } else if (t.retract > 0) { t.D *= (t.retract - 1) / t.retract; t.retract -= 1; }
         else t.dead = true;
@@ -264,7 +337,7 @@ const SlimeEngine = (() => {
       const sounding = live.filter(n => n.kind === 'food' && n.env > 0.01);
       const unmet = sounding.filter(n => !comp.has(n)).length / Math.max(1, sounding.length);
       const satiety = P.SATED + (1 - P.SATED) * unmet;          // a mold that reaches all its food stops exploring
-      if (S.probes.length < P.PROBE_MAX && rng() < P.PROBE_RATE * hunger * satiety / P.TICK_HZ) {
+      if (S.explore && S.probes.length < P.PROBE_MAX && rng() < P.PROBE_RATE * hunger * satiety / P.TICK_HZ) {
         const thru = new Map();
         for (const t of S.tubes) { thru.set(t.a, (thru.get(t.a) || 0) + Math.abs(t.Q)); thru.set(t.b, (thru.get(t.b) || 0) + Math.abs(t.Q)); }
         const cand = [...on].filter(n => !n.gone), wts = cand.map(n => (thru.get(n) || 0) + 0.05);
@@ -369,11 +442,14 @@ if (typeof module !== 'undefined') module.exports = SlimeEngine;
     if (E) for (const t of E.tubes) dropTube(t, true);
     for (const f of flakes.values()) try { f.src.disconnect(); } catch (e) {}
     flakes.clear(); buses.clear(); selected = null;
-    E = SlimeEngine.create({ seed: 11, share: $('share').value, sprout: $('sprout').value === 'on' });
+    E = SlimeEngine.create({ seed: 11, share: $('share').value, sprout: $('sprout').value === 'on', ...lawOpts() });
     E.hooks.capture = t => addTubeAudio(t);
     E.hooks.cut = t => dropTube(t);
     E.hooks.event = (tt, kind, t) => logEvent(kind, t);
     $('log').textContent = '';
+  }
+  function lawOpts() {
+    return $('law').value === 'compete' ? { law: 'power', drain: 'shared', pulse: true } : { law: 'sigmoid', drain: 'listener', pulse: false };
   }
   function placeFlake(x, y, playing = true) {
     const used = new Set(E.foods().map(n => n.pitch));
@@ -381,9 +457,17 @@ if (typeof module !== 'undefined') module.exports = SlimeEngine;
     const n = E.addFood(x, y, { pitch, label: E.foods().length + 1 });
     flakes.set(n, { playing, next: 0, src: null });
     if (ac) wireFlake(n);
-    if (E.tubes.length === 0) E.addTube(n, E.sink, 0.5);     // the mold starts as one strand
+    if (E.tubes.length === 0) {
+      if ($('start-as').value === 'mesh') spreadMesh(); else E.addTube(n, E.sink, 0.5);   // one strand, cycle 10
+    }
     selected = n;
     return n;
+  }
+
+  // Nakagaki's start: the mold covers the agar, and the flow carves the cover down to the roads that matter.
+  function spreadMesh() {
+    const k = E.seedMesh();
+    logEvent('mesh', null, k);
   }
 
   // -- audio ---------------------------------------------------------------
@@ -452,9 +536,9 @@ if (typeof module !== 'undefined') module.exports = SlimeEngine;
       const A = audio.get(t);
       const gab = G_BACK + (G_FWD - G_BACK) * (1 + t.w) / 2;      // a reversal crossfades, never jumps
       const gba = G_BACK + (G_FWD - G_BACK) * (1 - t.w) / 2;
-      const fb = G_SELF * Math.min(1, t.D);
+      const amp = E.amp(t), fb = G_SELF * Math.min(1, amp);
       for (const [l, gd] of [[A.ab, gab], [A.ba, gba]]) if (l) {
-        l.g.gain.setTargetAtTime(t.D * gd, now, TICK);
+        l.g.gain.setTargetAtTime(Math.min(1, amp) * gd, now, TICK);
         l.fb.gain.setTargetAtTime(fb, now, TICK);
         l.d.delayTime.setTargetAtTime(Math.max(0.05, t.L / v), now, 0.6);  // streaming speed glides
       }
@@ -491,11 +575,12 @@ if (typeof module !== 'undefined') module.exports = SlimeEngine;
     $('t-starved').textContent = E.counts.starved; $('t-refused').textContent = E.counts.budget_refused;
     $('m-used').style.width = Math.min(100, 100 * E.used / opts.budget) + '%';
   }
-  const nodeName = n => n === E.sink ? 'the listener' : n.kind === 'food' ? 'flake ' + n.label : n.kind === 'branch' ? 'a fork' : 'a bare spot';
-  function logEvent(kind, t) {
+  const nodeName = n => n === E.sink ? 'the listener' : n.kind === 'food' ? 'flake ' + n.label : n.kind === 'branch' ? (n.mesh ? 'the mesh' : 'a fork') : 'a bare spot';
+  function logEvent(kind, t, k) {
     const s = ((performance.now() - t0) / 1000).toFixed(1).padStart(5);
     const line = kind === 'capture' ? `a tip reached ${nodeName(t.b)} from ${nodeName(t.a)}`
       : kind === 'fork' ? `the tube ${nodeName(t.a)} – ${nodeName(t.b)} budded a tip partway along`
+      : kind === 'mesh' ? `the mold spread over the dish: ${k} new points, ${E.tubes.length} tubes`
       : kind === 'retract' ? `the tube ${nodeName(t.a)} – ${nodeName(t.b)} is pulling back`
       : 'a tip was refused: no tube length left in the budget';
     const el = $('log'); el.textContent = `${s}s  ${line}\n` + el.textContent.slice(0, 4000);
@@ -516,8 +601,8 @@ if (typeof module !== 'undefined') module.exports = SlimeEngine;
     const qmax = Math.max(0.05, ...E.tubes.map(t => Math.abs(t.Q)));
     const v = knob('vel') / 100;
     for (const t of E.tubes) {
-      const a = Math.min(1, 0.3 + t.D);
-      ctx.strokeStyle = `rgba(236,200,70,${a})`; ctx.lineWidth = 1 + 11 * Math.min(1, t.D); ctx.lineCap = 'round';
+      const am = E.amp(t), a = Math.min(1, 0.3 + am);
+      ctx.strokeStyle = `rgba(236,200,70,${a})`; ctx.lineWidth = 1 + 11 * Math.min(1, am); ctx.lineCap = 'round';
       ctx.beginPath(); ctx.moveTo(px(t.a.x), px(t.a.y)); ctx.lineTo(px(t.b.x), px(t.b.y)); ctx.stroke();
       // the flow, travelling at streaming speed, the way the cytoplasm goes
       const k = Math.abs(t.Q) / qmax; if (k < 0.04) continue;
@@ -530,7 +615,7 @@ if (typeof module !== 'undefined') module.exports = SlimeEngine;
       }
     }
     for (const n of E.nodes) if (n.kind === 'junc') { ctx.fillStyle = '#3c4d40'; ctx.beginPath(); ctx.arc(px(n.x), px(n.y), 4, 0, 7); ctx.fill(); }
-    for (const n of E.nodes) if (n.kind === 'branch') { ctx.fillStyle = 'rgba(236,200,70,.9)'; ctx.beginPath(); ctx.arc(px(n.x), px(n.y), 5, 0, 7); ctx.fill(); }
+    for (const n of E.nodes) if (n.kind === 'branch') { ctx.fillStyle = 'rgba(236,200,70,.9)'; ctx.beginPath(); ctx.arc(px(n.x), px(n.y), n.mesh ? 2.5 : 5, 0, 7); ctx.fill(); }
     for (const pr of E.probes) if (pr.anchor.kind === 'bud') { ctx.strokeStyle = 'rgba(255,240,160,.8)'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(px(pr.anchor.x), px(pr.anchor.y), 6, 0, 7); ctx.stroke(); }
     for (const n of E.foods()) {
       const r = 11 + 26 * Math.min(1, n.env * 5), f = flakes.get(n);
@@ -585,13 +670,17 @@ if (typeof module !== 'undefined') module.exports = SlimeEngine;
     $('start').textContent = '❚❚ PAUSE';
     $('status').textContent = 'the dish is alive — click agar to feed it';
   };
+  $('spread').onclick = () => { if (!ac) $('start').onclick(); if (E.foods().length) spreadMesh(); else $('status').textContent = 'place a flake first — the mesh ties itself to food'; };
   $('clear').onclick = () => { stopDemo(); freshDish(); $('status').textContent = 'an empty dish — click agar to place food'; };
   $('demo').onclick = () => {
     if (!ac) $('start').onclick();
     stopDemo(); freshDish();
     // the cycle-8 dish: five flakes, listener near the middle
     const layout = [[0.10, 0.30], [0.18, 0.76], [0.86, 0.22], [0.92, 0.66], [0.55, 0.90]].map(([x, y]) => [0.5 + (x - 0.5) * 0.9, 0.5 + (y - 0.5) * 0.9]);
+    const asMesh = $('start-as').value === 'mesh';
+    if (asMesh) $('start-as').value = 'strand';                  // place all five first, then spread once
     const fl = layout.map(([x, y], i) => placeFlake(x, y, i < 2));
+    if (asMesh) { $('start-as').value = 'mesh'; E.tubes.slice().forEach(t => { E.tubes.splice(E.tubes.indexOf(t), 1); dropTube(t, true); }); spreadMesh(); }
     selected = null; routeMic();
     let left = 30;
     $('status').textContent = 'left flakes playing — the music moves right in 15 s';
@@ -639,6 +728,7 @@ if (typeof module !== 'undefined') module.exports = SlimeEngine;
   document.querySelectorAll('input[type=range]').forEach(i => i.addEventListener('input', show));
   $('share').addEventListener('change', () => { E.share = $('share').value; });
   $('sprout').addEventListener('change', () => { E.sprout = $('sprout').value === 'on'; });
+  $('law').addEventListener('change', () => Object.assign(E, lawOpts()));
 
   window.slimeDish = { get engine() { return E; }, get audio() { return ac; } };   // for poking at from the console
   freshDish(); show(); draw();

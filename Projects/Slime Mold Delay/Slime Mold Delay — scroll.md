@@ -15,24 +15,37 @@ forward_vector: "I am Slime Mold Delay's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T23:21:09.793Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-18T10:30:33.458Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 10 · last ran 2026-10-13 (today)
-- **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
-- **Waiting on you:** 1 open ask
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 11 · last ran 2026-10-18 (today)
+- **Plan:** agreed 2026-10-14 (4 days ago) · 1 made thing since
+- **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — Slime Mold Delay has never had an agreed plan. Here's one: your ears on the dish, then start dense and thin, then Max, then the lesson. (`slime-mold-delay-steward-018`)
-- **Last commit touching this project:** 2026-10-13 `25b841e2` — steward(Slime Mold Delay): cycle 9 — SPINNING UP. HOME: [[Slime Mold Delay]]. Neighborhood loaded. Cycle 9, …
+- **Last shipped:** 2026-10-18 (today) — The dish now starts as a mesh over the whole agar and carves it down. On the clustered dish the network got leaner: 1.73× the shortest network → 1.28×. (`slime-mold-delay-steward-020`)
+- **Last commit touching this project:** 2026-10-13 `98cc3645` — steward(Slime Mold Delay): cycle 10 — SPINNING UP. HOME: [[Slime Mold Delay]]. Neighborhood loaded. Cycle 10,…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-18 — cycle 11 · taught item 1
+- **Owed in the ledger:** nothing
+- **Latest lesson:** item 1, from cycle 11 — 2026-10-18 — [[Slime Mold Delay — tuning]]
 
 ### Where this stands
 
-Slime Mold Delay is a delay effect whose routing is grown, not designed. Every tube of a simulated slime mold is a delay line: its length sets the echo time and its thickness sets how much sound it carries. You place food (sound sources) and a listener, and the mold works out the network on the flow law the real mold follows. Loud food pushes, the listener drains, and tubes thicken with the flow they carry. Earlier today that engine went into a playable browser dish, and its routing follows the music when the music moves. This cycle a tip can bud from partway along a tube, and the tube forks where the tip lands. That brings the shape closer to the real mold. I also measured the hope behind…
+Slime Mold Delay is a delay effect whose routing is grown, not designed. Every tube of a simulated slime mold is a delay line: its length sets the echo time, its thickness how much sound it carries. You place food (sound sources) and a listener, and the mold works out the network. There's a playable browser dish, and you adopted a five-move plan. First your ears on the dish. Then start dense and thin. Then fold the page engine back into the offline renderer, then a real instrument, then the Loudon Live lesson. Your listen is still open. This cycle did the second move. The mold now begins by covering the dish the way Nakagaki's plasmodium does, and the flow carves the cover down to the roads…
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 8:** I haven't heard it. _(in 4 notes, the latest cycle 11)_
+- **rough since cycle 9:** The browser run proves it plays (peak −6.6 dBFS, no errors, a true 30 steps a second), not that the forks sound good. _(in 2 notes, the latest cycle 10)_
+- **rough since cycle 9:** Unheard and unmeasured. _(in 2 notes, the latest cycle 10)_
+- **rough since cycle 10:** The Python renderer still runs the older law, so offline renders and the live page disagree. _(in 2 notes, the latest cycle 11)_
 
 ### Open asks
 
-- `slime-mold-delay-steward-018` — proposed plan revision: a first plan for the grown delay · posted 2026-10-13 · options: adopt · keep
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
@@ -40,14 +53,29 @@ _None._
 
 ### Decided
 
+- `slime-mold-delay-steward-018` — a first plan for the grown delay → GRANTED — option_id=adopt (2026-10-14)
 - `slime-mold-delay-steward-011` — directional_steer → GRANTED — option_id=STAGE-4-DYNAMICS (2026-06-25)
+
+### Runs
+
+- 2026-10-18 — cycle 11 · taught item 1
+
+### Owed
+
+_Nothing owed._
 
 <!-- scroll:now:end -->
 
 ## Plan
 
 <!-- scroll:plan:start -->
-_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+Where this is going: a delay that thinks. Its routing is grown by a slime mold's flow law, and it ends as a playable instrument and a Loudon Live lesson, 'watching a delay think.'
+
+1. Your ears on the live dish. Loudon plays the flow dish (the demo, then his own food and the mic) and says what reads as thinking and what reads as noise. Every sound decision after this leans on that.
+2. Start dense, then thin. A dish can begin with the mold covering the agar as a mesh, and the flow law carves it down to the roads that matter. It's judged against the shortest-network yardstick on a clustered dish, and against how it sounds when the music moves. Whatever wins becomes the page's default.
+3. One engine, two homes. Fold the page engine back into the Python renderer and re-render a small bank of dishes as audio, so the offline renders and the live page agree and the lesson has sounds to stand on.
+4. A real instrument in Max. The delay network built as gen~/RNBO with the mold engine driving it, demoed with what to open and what to listen for. It counts as unverified until Loudon has opened it.
+5. The lesson. A Loudon Live session where participants feed a dish and learn to seed the conditions for good routing instead of specifying routing.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -59,6 +87,61 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-slime-mold-delay-steward-018" -->
+### 2026-10-13 — Plan agreed: Slime Mold Delay has never had an agreed plan. Here's one: your ears on the dish, then start dense and thin, then Max, then the lesson.
+
+Catch-up: Slime Mold Delay is a delay whose routing is grown by a simulated slime mold. Tubes are delay lines, and they thicken with the flow they carry. Today it went from an offline render to a playable browser dish whose routing follows the music. I've been working from the entry's old five-step ladder (spec, offline prototype, realtime, full mold dynamics, lesson), and no plan has ever been agreed. This cycle showed the ladder's fourth step needs a different shape than the one I was building. Tips that bud mid-tube didn't make networks any leaner (about 1.25–1.7× the shortest network in a clustered dish, with or without buds). The real mold gets lean by starting dense and thinning, not by adding strand by strand. So the plan below puts your ears first, because nothing has been heard yet. Then comes that experiment, then a real instrument in Max, then the lesson. Nothing waits on this. I keep building along the forward vector either way.
+<sub>`plan-slime-mold-delay-steward-018` · plan agreed · agreed 2026-10-14T01:02:20.768Z · proposed by Slime Mold Delay's steward (`slime-mold-delay-steward-018`), adopted by Loudon (`resp-mv7enl28-2annbc`)</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="slime-mold-delay-steward-020" -->
+### 2026-10-18 — cycle 11 — The dish now starts as a mesh over the whole agar and carves it down. On the clustered dish the network got leaner: 1.73× the shortest network → 1.28×.
+> shipped · start-dense-then-thin is the page default · steward leans: pull tubes taut next
+
+**Open [the flow dish](open:Projects/Slime Mold Delay/slime-mold-flow-dish.html) and press THE MUSIC MOVES.** The dish fills with a fine gold lattice, and within a few seconds it thins to a few roads. SPREAD A MESH floods it again whenever you want it to rethink. Two new dropdowns put cycle 10's mold back so you can compare by ear. [The strip](open:Projects/Slime Mold Delay/headless/2026-10-18-mesh-dish-carving.png) shows a browser run at 1.5, 9, 14 and 29 seconds.
+
+**A mesh alone made it worse.** On the clustered dish (listener at the left, four flakes fanned out on the right) a mesh with the old law went from 1.73× to 2.0× the shortest network. Drawing it showed why. The old law lets a tube's thickness level off as its flow rises, so two parallel roads that split a load both stay full and neither has to lose. The mesh carved down to one separate road per flake.
+
+**Two changes made the roads compete.** First, thickness now grows faster than the flow it carries (Tero's power law), so a road carrying twice the flow ends up more than twice as thick, and parallel roads fight until one wins. That alone gave a rake: each flake kept its own road and they met only at the listener. Parallel roads sit at the same pressure, so the cross-links between them carry nothing and die before the roads can merge. Second, the flakes take turns, the trick in Tero's Tokyo model: the flake that just sounded pushes, and the other flakes that are still sounding draw half the flow alongside the listener. That puts pressure between neighbouring roads, so roads can merge into trunks. Two smaller changes go with it. Under the new law a road feeding one flake is thin by design, so a tube is pruned when it carries almost no flow, not when it's thin, and its gain follows its flow so that flake isn't buried. A flake that falls silent stops drawing, so its road can let go when the music moves.
+
+**What changed, on 40 seeded dishes per row** (table). The round dish now feeds all five flakes in 30 dishes instead of 10. In 5 of them the network uses less tube than the shortest straight-road network, which means real shared trunks, the way the mold does it. The cycle-10 mold never did that.
+
+**Artifacts:**
+- [start here: the playable dish, now starting as a mesh, with SPREAD A MESH and dropdowns back to cycle 10.](Projects/Slime Mold Delay/slime-mold-flow-dish.html)
+- [a browser run at 1.5, 9, 14 and 29 s: the mesh, carved to roads, then moved right with the music.](Projects/Slime Mold Delay/headless/2026-10-18-mesh-dish-carving.png)
+- [the clustered dish after 30 s, cycle 10 against now, three arbitrary seeds: about even here, which is why the 40-dish median is the number to trust.](Projects/Slime Mold Delay/headless/2026-10-18-clustered-old-vs-new.png)
+- [the 40-dish check behind the table: both starts × both laws, shortest-network yardstick, music moves.](Projects/Slime Mold Delay/headless/mesh_dish_check.mjs)
+- [the check's numbers.](Projects/Slime Mold Delay/headless/2026-10-18-mesh-dish-check.json)
+- [runs the page in headless Chromium and taps the output.](Projects/Slime Mold Delay/headless/mesh_dish_browser_check.mjs)
+- [browser run: peak −7.4 dBFS, no bad samples, no errors, a true 30 steps a second.](Projects/Slime Mold Delay/headless/2026-10-18-mesh-dish-browser.json)
+
+_40 seeded dishes per row, 30 s each, all flakes sounding (music-moves rows: left flakes, then right after 15 s). Lengths count tubes still carrying sound; 1.00 = the shortest straight-road network joining the listener to the flakes it hears_
+| dish | how the mold starts · thins | flakes heard (mean) | all fed | tube ÷ shortest (median) | under the shortest |
+| --- | --- | --- | --- | --- | --- |
+| clustered | one strand · saturating (cycle 10) | 3.90 of 4 | 36 | 1.73 | 0 |
+| clustered | mesh · saturating | 3.95 of 4 | 38 | 2.02 | 0 |
+| clustered | one strand · competing | 3.85 of 4 | 34 | 1.53 | 0 |
+| clustered | mesh · competing (now) | 3.95 of 4 | 38 | 1.28 | 0 |
+| round | one strand · saturating (cycle 10) | 4.22 of 5 | 10 | 1.15 | 0 |
+| round | mesh · competing (now) | 4.75 of 5 | 30 | 1.03 | 5 |
+| music moves | one strand · saturating (cycle 10) | 38 / 40 end right | — | right overtakes left in 4.0 s | — |
+| music moves | mesh · competing (now) | 39 / 40 end right | — | right overtakes left in 5.0 s | — |
+
+_Changed the page:_ Slime Mold Delay — added 'start dense, then thin' to the design with what made it work, and replaced the stale 'isn't a working prototype' line with where things actually stand.
+
+_Left rough:_ I haven't heard it. On the three seeds I drew, the old and new molds come out about even; the improvement only shows across 40. The mesh's roads bend along its lattice, and the far flake often keeps a second parallel road, which stops it getting leaner. Following the music got a second slower. The Python renderer still runs the older law, so offline renders and the live page disagree.
+
+_Next moves named:_ Pull tubes taut: let fork points and mesh points slide toward where their roads balance, so carved roads straighten off the lattice the way real tubes contract. Then check whether the clustered dish finally comes in under the shortest network. · Fold the page engine (mesh start, competing law, buds, pass-through tips) back into physarum_flow.py and re-render a small bank of dishes as audio, so the offline renders and the live page agree. That's the third move in the plan. · Whenever you have ten minutes: open the dish, press THE MUSIC MOVES, then flip IT THINS BY back to cycle 10 and press it again. That's the plan's first move, and only your ears can make it.
+<sub>`slime-mold-delay-steward-020` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-97ede12778" -->
+### 2026-10-18 — cycle 11
+
+taught item 1
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="slime-mold-delay-steward-018" -->
 ### 2026-10-13 — cycle 10 — Slime Mold Delay has never had an agreed plan. Here's one: your ears on the dish, then start dense and thin, then Max, then the lesson.
 > still working · live dish shipped, buds measured · steward leans adopt
