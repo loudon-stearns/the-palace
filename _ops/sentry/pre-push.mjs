@@ -9,7 +9,7 @@
 // file / data export, an SSN or card number in prose, a GPS-tagged photo, invisible
 // Unicode smuggling. Everything else is printed as a warning and the push goes on.
 //
-// Override once, knowingly:   git push --no-verify
+// Override once, knowingly, and only on Loudon's word:   git push --no-verify (it also goes around palace-push)
 // Accept a false positive:     add its fp to _ops/sentry/allow.json with a reason.
 //
 // It fails CLOSED ([[Tool Builder]]: fail-closed on safety). If the gate cannot run, the push
@@ -62,9 +62,9 @@ async function main() {
   if (high.length) {
     console.error(`\nsentry: PUSH BLOCKED — ${high.length} finding(s) that must not reach ${remote}:`);
     for (const f of high) console.error(`  HIGH   ${f.family}/${f.rule}  ${f.path}${f.line ? ':' + f.line : ''}  ${f.masked}  fp ${f.fp}`);
-    console.error(`\n  Remove it from the commits (amend or rebase — it is not public yet), then push again.`);
-    console.error(`  A false positive? Add its fp to _ops/sentry/allow.json with a reason.`);
-    console.error(`  Certain and in a hurry? git push --no-verify skips the gate once.`);
+    console.error(`\n  It is not public yet. Taking it out of commits on main is a rewrite, and only Loudon orders one;`);
+    console.error(`  bring it to him. A false positive? Add its fp to _ops/sentry/allow.json with a reason, and run palace-push again.`);
+    console.error(`  Going around the gate (git push --no-verify) is Loudon's call alone: it also goes around palace-push and leaves no receipt.`);
     process.exitCode = 1;
   }
 }
@@ -93,6 +93,6 @@ function logRun(root, ranges, high, warn) {
 
 main().catch(e => {
   console.error(`sentry: PUSH REFUSED — the gate hit an error and could not check this push: ${e.message}`);
-  console.error('sentry: fix the gate, or push once unchecked with `git push --no-verify` and run `node _ops/sentry/sweep.mjs` after.');
+  console.error('sentry: fix the gate and run palace-push again. Pushing unchecked (`git push --no-verify`) is Loudon\'s call alone: it goes around palace-push too, so run `node _ops/sentry/sweep.mjs` after.');
   process.exitCode = 1;
 });

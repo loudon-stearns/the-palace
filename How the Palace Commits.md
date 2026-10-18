@@ -33,7 +33,7 @@ links:
 
 # How the Palace Commits
 
-Every change reaches the palace the same way: made on a branch, committed through one door, landed on main, and published only on Loudon's word. The door keeps many writers from tangling, and the ear keeps an honest count of anything that went around it.
+Every change reaches the palace the same way: made on a branch, committed through one door, landed on main, and published only on Loudon's word. The door keeps many writers from tangling, and the ear counts every move of main that went around it.
 
 ## The path
 
@@ -49,13 +49,13 @@ flowchart LR
 
 **Commit.** `palace-commit` takes the files you name and nothing else, under one lock held from the first `git add` to the commit (`_ops/stigmergy/app/server/door.js`). It writes the message, and the message is the record: a subject, `kind(scope): summary`, and trailers saying what kind of change it is, which entries it touched, whether it was verified, and who wrote it (`Palace-Kind`, `Palace-Entry`, `Palace-Verify`, `Palace-Author`; `_ops/stigmergy/app/src/lib/commit-spec.js`). Git shows Loudon as the author, because that is this Mac's identity; `Palace-Author` says who wrote. A change of a breath may be made in his folder and committed by name; it passes the same door. Loudon never commits by hand, and his one hand path, the [[Trickster Commit]], goes through that door too.
 
-**Land.** `palace-land` merges a branch into main as a true merge commit, main first and the branch second, under one lock for the whole write, so no other writer slips in halfway. It tries the merge against main as it stands and refuses a conflict, naming the files; a conflict is settled in the branch's own worktree, never in Loudon's folder. If a landing dies partway, the next writer to take the door finishes it quietly when every file sits at the old or the new version, and leaves alone, and names, any file at neither: that is someone's edit (`_ops/stigmergy/app/scripts/palace-land.mjs`, `_ops/stigmergy/app/server/landing.js`). Canon lands only on Loudon's yes, and the [[Concierge]] lands a branch that carries house writes.
+**Land.** `palace-land` merges a branch into main as a true merge commit, main first and the branch second, under one lock for the whole write, so no other writer slips in halfway. It tries the merge against main as it stands and refuses a conflict, naming the files; a conflict is settled in the branch's own worktree, never in Loudon's folder. If a landing dies partway, the next writer to take the door heals it: it finishes the landing quietly when every file sits at the old or the new version; when a file sits at neither, that is someone's edit, so it leaves that file alone, names it, and puts the rest back, and the branch lands again once the file is settled (`_ops/stigmergy/app/scripts/palace-land.mjs`, `_ops/stigmergy/app/server/landing.js`). Canon lands only on Loudon's yes, and the [[Concierge]] lands a branch that carries house writes.
 
 **Publish.** `palace-push` is the one way anything leaves this Mac. Run plain, it only reports what is waiting: how many commits, by kind, how old the oldest is, and the tip. To send, it is run again with `--tip` and one full 40-character commit id, and it sends exactly that commit as a fast-forward, nothing newer, and leaves a receipt. The [[Sentry]]'s gate checks the push and can still refuse it (`_ops/stigmergy/app/scripts/palace-push.mjs`). Past the Mac, GitHub keeps its own guard on main: a ruleset that refuses a force push and a deletion, which the Sentry's hosting check reads (`_ops/sentry/sweep.mjs`; the ruleset is recorded in [[Worktree Practice — spec — the door]]).
 
 ## Rules at the trunk
 
-Five sentences every session keeps, whoever it is and whatever it is landing. Each names what holds it; the refusal that code prints is the rule's working text, so the two cannot drift apart.
+Five sentences every session keeps, whoever it is and whatever it is landing. Each names what holds it. The tools refuse the worst slips: the committer will not take a file it was not named, or write while the main checkout is off main; the lander refuses a conflict, or a landing over someone's unsaved file; GitHub refuses a force push to main. Past those, the rules rest on habit. The ear counts any move of main that went around the door, and that count decides whether a fence ever goes up; it cannot hear a raw `git add` or `stash`, which move no branch.
 
 - **Your HEAD is yours.** Anything longer than a breath, and any code, is made in a worktree of its own and committed there however you like (`_ops/worktree/new-worktree.mjs`).
 - **Main only moves forward.** No rebase, reset, amend or rewrite of main, except a rewrite Loudon orders himself, such as the [[Sentry]] closing a leak in public history. The ear hears every move of main (`.git/palace-ear.jsonl`).

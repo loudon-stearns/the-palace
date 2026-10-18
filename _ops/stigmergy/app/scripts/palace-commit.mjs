@@ -50,7 +50,7 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, rmSync, writeFileSync, mkdtempSync, readdirSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { deriveTrailers, formatCommitMessage, parseNameStatus } from '../src/lib/commit-spec.js';
+import { deriveTrailers, formatCommitMessage, parseNameStatus, VERIFY_VALUES } from '../src/lib/commit-spec.js';
 import { diffEntryText } from '../src/lib/frontmatter-diff.js';
 import { clearStaleLocksSync, LockHeldError } from '../server/git-locks.js';
 import { withDoorSync, trunkProblem, DoorBusyError } from '../server/door.js';
@@ -320,6 +320,12 @@ function main() {
 
   if (!opts.kind || !opts.summary || !opts.verify) {
     fail(2, 'palace-commit: --kind, --summary, and --verify are required.');
+  }
+  // The spec knows three honest states. Anything else would be written as a commit made outside
+  // the committer (the commit-msg hook annotates what it cannot read), and git would lose its
+  // trailers; three commits said "partial" that way on 2026-10-14 and 15.
+  if (!VERIFY_VALUES.includes(opts.verify)) {
+    fail(2, `palace-commit: --verify must be one of ${VERIFY_VALUES.join(', ')}, not "${opts.verify}". Partly checked? Say unverified, and name what was and was not checked in --body. Nothing was committed.`);
   }
   if (opts.paths.length === 0) {
     fail(2, 'palace-commit: name what you are committing with --path, once per file or folder. '
