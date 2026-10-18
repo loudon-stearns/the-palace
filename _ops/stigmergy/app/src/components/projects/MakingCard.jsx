@@ -4,7 +4,6 @@ import ArtifactSlot from '../ArtifactSlot.jsx';
 import EquationBlock from '../EquationBlock.jsx';
 import TableBlock from '../TableBlock.jsx';
 import Linkify from '../../lib/linkify.jsx';
-import { basenameOf, detectArtifactType } from '../../lib/artifact.js';
 
 // MakingCard — one made thing on a project's trail, played the way the
 // Trickster card played it the day it shipped (2026-10-13; Loudon: "a showcase
@@ -14,8 +13,12 @@ import { basenameOf, detectArtifactType } from '../../lib/artifact.js';
 //   1. The card's media mount only when the card is near the viewport
 //      (LazyMount, an IntersectionObserver with a screen of margin) and
 //      unmount again when it is far behind you. The prose stays.
-//   2. Images and audio come up on their own. Web pages, video and pdf — the
-//      heavy ones — sit behind a "play it here" button, one click each.
+//   2. Everything plays in place, through the same ArtifactSlot a TRICKSTER
+//      card uses: images and audio, and web pages too, which run right there
+//      in the scroll (2026-10-18; Loudon: "play there instead of having to
+//      open new pages"). A web page is the heavy one, so it gets a tighter
+//      LazyMount of its own: it loads as it nears the screen and unloads once
+//      you have scrolled past, so only the pieces you are looking at run.
 //   3. A section with no board message behind it falls back to its own prose
 //      and whatever links lift, which is what the trail showed before.
 
@@ -37,20 +40,22 @@ export function LazyMount({ children, placeholderHeight = 120, margin = '900px' 
   return <div ref={ref} data-testid="lazy-mount" data-near={near ? 'true' : 'false'} style={near ? undefined : { minHeight: height }}>{near ? children : null}</div>;
 }
 
+// A heavy artifact (a web page, video or pdf) mounts only while it is within
+// HEAVY_MARGIN of the screen. The placeholder holds the frame's height while it
+// is away, so scrolling never jumps. A web page that does not report its own
+// height (rich:height) gets PIECE_HEIGHT, the rich face's size for the same
+// case; a TRICKSTER card's 480 cut the Dissolutions proofs off above their
+// curve and knob.
+const HEAVY_MARGIN = '300px';
+const PIECE_HEIGHT = 800;
+const FRAME_PLACEHOLDER = PIECE_HEIGHT + 60;
+
 function HeavyArtifact({ artifact }) {
-  const [open, setOpen] = useState(false);
-  const type = detectArtifactType(artifact.path);
-  const label = type === 'iframe' ? 'web page' : type === 'video' ? 'video' : type === 'file' && /\.pdf$/i.test(artifact.path) ? 'pdf' : type;
-  if (open) return <ArtifactSlot payload={{ artifacts: [artifact] }} />;
   return (
-    <div data-testid="heavy-artifact" style={{ display: 'flex', alignItems: 'baseline', gap: 10, border: '1px dashed var(--phosphor-dim)', padding: '6px 10px' }}>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        style={{ background: 'transparent', color: 'var(--phosphor)', textShadow: 'var(--glow)', border: '1px solid var(--phosphor)', padding: '1px 8px', fontFamily: 'var(--font-mono)', fontSize: 11, textTransform: 'uppercase', letterSpacing: '.05em', cursor: 'pointer' }}
-      >▶ play it here</button>
-      <span style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11, textTransform: 'uppercase', letterSpacing: '.05em' }}>{label}</span>
-      <span style={{ color: 'var(--phosphor)', fontSize: 12, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0 }}>{artifact.caption || basenameOf(artifact.path)}</span>
+    <div data-testid="heavy-artifact" data-artifact-path={artifact.path}>
+      <LazyMount margin={HEAVY_MARGIN} placeholderHeight={FRAME_PLACEHOLDER}>
+        <ArtifactSlot payload={{ artifacts: [artifact] }} frameHeight={PIECE_HEIGHT} />
+      </LazyMount>
     </div>
   );
 }

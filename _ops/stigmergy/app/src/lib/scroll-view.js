@@ -128,8 +128,10 @@ export function decisionFor(msg, messages) {
 
 /**
  * What a making card shows. With a message: the payload's fields, artifacts split
- * into `light` (images, audio — mount when near) and `heavy` (web, video, pdf —
- * mount on a click). Without one: the section's own prose and lifted artifacts.
+ * into `light` (images, audio — mount when the card is near) and `heavy` (web,
+ * video, pdf — each mounts only while it is near the screen, and unloads once
+ * you have scrolled past). Without one: the section's own prose and lifted
+ * artifacts.
  */
 export function cardSpec(section, messages) {
   const msg = messageForSection(section, messages);
