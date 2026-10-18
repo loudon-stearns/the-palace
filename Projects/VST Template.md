@@ -23,3 +23,7 @@ forward_vector: "I turn an algorithm proven in a numpy sketch into a plugin Loud
 A reusable template for turning a per-sample algorithm, written first as a numpy sketch, into a VST3/AU plugin for further exploration. Loudon, 2026-10-17: "a 'VST template' that creates a template so that future algorithms like this can be quickly turned into a VST for further explorations."
 
 The palace already has one native plugin, [[Tract Mirror]] (JUCE 8, VST3 + AU, validated with pluginval and auval). The template generalises that path: state, a per-sample update, named parameters, and a check that the plugin sounds like the sketch it came from. Its first test case is the frustration model from [[Harmonicity and Inharmonicity]].
+
+## Active Baton
+
+[[VST Template — baton]] — drafted 2026-10-17
