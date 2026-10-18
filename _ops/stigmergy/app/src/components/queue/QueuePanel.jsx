@@ -3,7 +3,7 @@ import { Box } from '../primitives.jsx';
 import QueueItem from './QueueItem.jsx';
 import LaunchModal from './LaunchModal.jsx';
 import ResponseModal from '../ResponseModal.jsx';
-import { buildQueue, reconcileQueue, partitionQueue, laneCounts, rankQueue } from '../../lib/queue-model.js';
+import { buildQueue, reconcileQueue, reconcileWeaveFlags, partitionQueue, laneCounts, rankQueue } from '../../lib/queue-model.js';
 import { handoffLaunchContext } from '../../lib/launch-prompt.js';
 import { fetchLog } from '../../adapters/log.js';
 import { buildResponse, buildRequestOptionResponse } from '../../lib/response-builder.js';
@@ -237,7 +237,8 @@ export default function QueuePanel({ messages, onJumpEntry }) {
   }
 
   const loadCommits = () => {
-    fetchLog({ limit: 200 }).then((r) => { if (r.ok) setCommits(r.commits || []); });
+    // Only the commits that close or carry a weave flag, across all of history.
+    fetchLog({ limit: 2000, flags: true }).then((r) => { if (r.ok) setCommits(r.commits || []); });
   };
   useEffect(() => { loadCommits(); }, []);
 
@@ -274,12 +275,16 @@ export default function QueuePanel({ messages, onJumpEntry }) {
     // you might act on, none of which a steward is blocked waiting on. buildQueue
     // still models resource_requests (the model is complete + unit-tested); this
     // view simply doesn't surface them, so a decision never appears twice.
-    const built = buildQueue(messages).filter((it) => it.kind !== 'resource_request');
+    const built = reconcileWeaveFlags(buildQueue(messages).filter((it) => it.kind !== 'resource_request'), commits);
     // Staleness (git auto-resolution via reconcileQueue) is DISABLED for now —
     // the heuristic was mis-firing. Items stay OPEN until the human clears them
     // with the card's clear button; nothing greys or self-retires off a git
     // guess. reconcileQueue + the `commits` feed are still imported/fetched, so
     // re-enabling is a one-line change once the heuristic is fixed.
+    // Weave flags are the exception, because their close is no guess: a
+    // Palace-Resolves trailer, or a Declined flag line for an entry flag, greys
+    // the card ("looks done"), and a Carried flag line notes how far a propagate
+    // flag has got — the same rules lint-weave-flags.py gates the Weave with.
     // Re-attach decided items buildQueue has since dropped (a GRANT/DENY landed
     // on the board), so their verdict badge survives until the human clears it.
     const present = new Set(built.map((it) => it.id));
@@ -290,7 +295,7 @@ export default function QueuePanel({ messages, onJumpEntry }) {
     return rankQueue(merged)
       .filter((it) => !dismissed.has(it.id))
       .map((it) => (decisions.has(it.id) ? { ...it, decision: decisions.get(it.id) } : it));
-  }, [messages, dismissed, decisions, snapshots]);
+  }, [messages, commits, dismissed, decisions, snapshots]);
 
   const lanes = useMemo(() => laneCounts(items), [items]);
   // Lanes are filters. The board chips slice by `board`; the handoffs chip
