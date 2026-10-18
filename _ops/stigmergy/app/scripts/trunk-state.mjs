@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // trunk-state -- what the trunk looks like right now, read and never touched.
 //
-//   node _ops/stigmergy/app/scripts/trunk-state.mjs [--since 24h] [--json] [--no-writers]
+//   node _ops/stigmergy/app/scripts/trunk-state.mjs [--since 24h] [--json] [--no-writers] [--sessions]
 //
 // One reader for every place that asks "what is in flight": the Return's map,
 // Closing Well's cold read, the Weave's sweep, and the LOG deck's strip. It
@@ -14,13 +14,18 @@
 //   - what sits unsaved in the main checkout, grouped by folder, with its age
 //     and, where a session transcript names the file, its writer (Loudon's
 //     okay, 2026-10-14); --no-writers skips that search;
-//   - worktrees and local branches: merged and clean, or still holding work.
+//   - worktrees and local branches: merged and clean, or still holding work;
+//   - with --sessions, the roll call of every unarchived Claude desktop session
+//     and the pile each seems to be in (session-roll-call.mjs, read from the
+//     app's records and transcripts, never waking one); a session the writer
+//     search names for an unsaved file is held back from "can go".
 // Every git call is a read with optional locks off.
 
 import { execFileSync, spawnSync } from 'node:child_process';
 import { existsSync, readFileSync, statSync, readdirSync } from 'node:fs';
 import { resolve, join, dirname } from 'node:path';
 import { homedir } from 'node:os';
+import { rollCall, render as renderRollCall } from './session-roll-call.mjs';
 
 function git(root, args, { allowFail = true } = {}) {
   try {
@@ -206,6 +211,7 @@ function main() {
   const argv = process.argv.slice(2);
   const json = argv.includes('--json');
   const noWriters = argv.includes('--no-writers');
+  const withSessions = argv.includes('--sessions');
   const si = argv.indexOf('--since');
   const sinceText = si >= 0 ? argv[si + 1] : '24h';
   const from = process.env.PALACE_ROOT ? resolve(process.env.PALACE_ROOT) : resolve(git(process.cwd(), ['rev-parse', '--show-toplevel'], { allowFail: false }).trim());
@@ -229,9 +235,13 @@ function main() {
   const found = noWriters ? { by: {}, truncated: false } : writers(owner, dirt);
   const who = Object.fromEntries(Object.entries(found.by).map(([p, w]) => [p, w.session]));
   const wb = worktreesAndBranches(owner);
+  // Each session the writer search names for an unsaved file is held back from "can go".
+  const byWriter = new Map();
+  for (const [p, w] of Object.entries(found.by)) byWriter.set(w.session, [...(byWriter.get(w.session) || []), p]);
+  const sessions = withSessions ? rollCall({ mainWriters: noWriters ? null : byWriter }) : null;
 
   if (json) {
-    process.stdout.write(`${JSON.stringify({ owner, since: new Date(sinceMs).toISOString(), remote, lastPush, ear, marker, writers_truncated: found.truncated, unsaved: dirt.map((d) => ({ ...d, writer: who[d.path] || null, overtaken: found.by[d.path] ? found.by[d.path].overtaken : null })), ...wb }, null, 1)}\n`);
+    process.stdout.write(`${JSON.stringify({ owner, since: new Date(sinceMs).toISOString(), remote, lastPush, ear, marker, writers_truncated: found.truncated, unsaved: dirt.map((d) => ({ ...d, writer: who[d.path] || null, overtaken: found.by[d.path] ? found.by[d.path].overtaken : null })), ...wb, ...(sessions ? { sessions } : {}) }, null, 1)}\n`);
     return;
   }
 
@@ -268,6 +278,7 @@ function main() {
     out.push(`    ${t.branch}: ${state} (${t.path})`);
   }
   out.push(`- branches: ${wb.branches} besides main, ${wb.unmerged.length} with work not on main${wb.unmerged.length ? `: ${wb.unmerged.slice(0, 8).join(', ')}` : ''}`);
+  if (sessions) out.push('', renderRollCall(sessions).trimEnd());
   process.stdout.write(`${out.join('\n')}\n`);
 }
 
