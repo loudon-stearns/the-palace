@@ -1,5 +1,6 @@
 import { describe, test, expect, beforeEach, afterEach } from 'vitest';
-import { mkdtempSync, rmSync, existsSync, readFileSync } from 'node:fs';
+import { spawn, execFileSync } from 'node:child_process';
+import { mkdtempSync, rmSync, existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -74,6 +75,84 @@ describe('actuator', () => {
     expect(alive.running).toBe(false);
     // stale pid file cleaned
     expect(existsSync(act.paths.pidFile)).toBe(false);
+  });
+
+  test('a live session carrying the worker flag is not our worker (scar #2)', async () => {
+    // What a lane's folder holds after a restart when its last worker is long
+    // gone and the OS has since given that pid to an ordinary Claude session:
+    // the pid file, and beside it the fire time the earlier server wrote down.
+    // The session carries the flag the lane's own argv carries -- as one word,
+    // `--permission-mode=bypassPermissions` (how the desktop app and Claude Code
+    // start theirs: 18 to 20 such processes on this Mac, 2026-10-12), or as two (the
+    // heartbeat's batch, a `claude -p` run by hand). Neither spelling makes it
+    // a lane worker. A real process and the real ps; nothing here is faked.
+    const commandLine = (pid) => {
+      try { return execFileSync('ps', ['-p', String(pid), '-o', 'command='], { encoding: 'utf8' }); } catch (_) { return ''; }
+    };
+    const gone = (pid) => { try { process.kill(pid, 0); return false; } catch (_) { return true; } };
+    const sessions = [];
+    const lanes = [];
+    try {
+      for (const flag of [['--permission-mode=bypassPermissions'], ['--permission-mode', 'bypassPermissions']]) {
+        const session = spawn('node', [STUB, ...flag, '--sleep', '20000'], { stdio: 'ignore' });
+        sessions.push(session.pid);
+        // it is alive, and ps can read the flag on its command line
+        await waitFor(() => commandLine(session.pid).includes('bypassPermissions'), { timeout: 3000 });
+        const lane = mkdtempSync(join(tmpdir(), 'actuator-session-'));
+        lanes.push(lane);
+        const act = createActuator({ palaceRoot: lane, stateDir: lane, buildArgv: stubArgv() });
+        // the worker this lane fired an hour ago is gone; its pid now names the session
+        writeFileSync(act.paths.startedFile, new Date(Date.now() - 60 * 60 * 1000).toISOString());
+        writeFileSync(act.paths.pidFile, String(session.pid));
+        expect({ flag, alive: act.isAlive(), kept: existsSync(act.paths.pidFile) })
+          .toEqual({ flag, alive: { running: false, pid: null }, kept: false });
+      }
+    } finally {
+      for (const pid of sessions) { try { process.kill(pid, 'SIGKILL'); } catch (_) { /* already gone */ } }
+      await waitFor(() => sessions.every(gone), { timeout: 4000 });
+      for (const l of lanes) rmSync(l, { recursive: true, force: true });
+    }
+  });
+
+  test('only a start time ps could read, set against a fire time on disk, frees a flagged pid (scars #5 + #6)', () => {
+    // ps answers the command-line ask with a worker's line, and the start-time
+    // ask with `lstart`. The pid is this test process: alive, and no worker.
+    const ask = ({ lstart, fired }) => {
+      const lane = mkdtempSync(join(tmpdir(), 'actuator-start-'));
+      const act = createActuator({ palaceRoot: lane, stateDir: lane, buildArgv: stubArgv() });
+      if (fired != null) writeFileSync(act.paths.startedFile, fired);
+      writeFileSync(act.paths.pidFile, String(process.pid));
+      const restore = fakePs(`case "$*" in *lstart*) ${lstart} ;; *) echo "node /palace/stub-worker.mjs --permission-mode bypassPermissions" ;; esac`);
+      try {
+        return { running: act.isAlive().running, kept: existsSync(act.paths.pidFile) };
+      } finally {
+        restore();
+        rmSync(lane, { recursive: true, force: true });
+      }
+    };
+    const FIRED = '2026-10-01T03:44:33.482Z';
+    const THEN = 'echo "Thu Oct  1 03:44:33 2026"';
+    const AN_HOUR_ON = 'echo "Thu Oct  1 04:44:33 2026"';
+    // it started when the lane fired: ours
+    expect(ask({ lstart: THEN, fired: FIRED })).toEqual({ running: true, kept: true });
+    // it started an hour after: the pid has gone to someone else
+    expect(ask({ lstart: AN_HOUR_ON, fired: FIRED })).toEqual({ running: false, kept: false });
+    // ps is asked in UTC and the C locale, whatever the server's own are --
+    // this stand-in says nothing at all unless it was
+    expect(ask({ lstart: `[ "$TZ $LC_ALL" = "UTC C" ] && ${AN_HOUR_ON}`, fired: FIRED })).toEqual({ running: false, kept: false });
+    // Nothing to set the start against, or no start ps could read: the command
+    // line decides alone, as before, and the lane stays held.
+    for (const row of [
+      { lstart: AN_HOUR_ON, fired: null },                 // no fire time on disk
+      { lstart: AN_HOUR_ON, fired: '2026-10-01' },         // not a time fire() writes
+      { lstart: 'true', fired: FIRED },                    // ps printed nothing
+      { lstart: 'echo "(node)"', fired: FIRED },           // not a start time
+      { lstart: 'echo "node /x/stub 12"', fired: FIRED },  // nor this, though Date.parse reads 2001 in it
+      { lstart: 'exit 2', fired: FIRED },                  // ps failed
+      { lstart: 'exit 1', fired: FIRED },                  // the process went between the two asks
+    ]) {
+      expect({ ...row, ...ask(row) }).toEqual({ ...row, running: true, kept: true });
+    }
   });
 
   test('a worker it fired stays running when ps cannot read its command line (scar #5)', async () => {
