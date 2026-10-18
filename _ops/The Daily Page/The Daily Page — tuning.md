@@ -102,3 +102,14 @@ What each morning taught the practice. Each item names what the morning showed a
 - from Loudon · 2026-10-15 · "This script was a fantastic way to demonstrate an idea… could have been even better as a full 'radio play' as we have a shop agent for." · paid in item 26 (the radio play itself is carried on the Closing Well baton)
 - run · 2026-10-15 · v0.2 · Closing Well Ceremony, tune · taught items 24–27
 - from Loudon · 2026-10-14 · "Split, no gates" — the ledger: his words and the session's reading of him to a private diary, the practice's lessons tracked here · paid in v0.4, by the v1.28 Schema Ceremony
+
+## From the fourth morning — Harmonicity and Inharmonicity, 2026-10-17
+
+28. **The greeting assumed the hour.** The prep ran at about 10:40, and the sit came in the evening. The greeting still said "good morning". Prep step 6 tells the session to say good morning, and he may arrive at any hour. **Change owed, open:** step 6's wording, so the hello meets him at the hour he arrives.
+29. **The page grew into a long build, and to him it stayed light.** The build was driven by what he added mid-sit: quick, percussive and sequenced gestures, a warm rolled-off source, a bass note. Each idea became a render within minutes. Nothing forced; it is "push hard into making when he leans in" working.
+30. **A recap claimed findings "drafted" that he had not seen.** The turn ended in the app's next-step box, and the findings reached him only on the next turn. Anything he must read goes in the closing text; the box only asks. **Change owed, open:** perhaps a line in [[The Palace Voice]] § Where words land.
+31. **The numbers were corrected in the open.** There were two simulation fixes mid-sit and a threshold guess shown wrong by the data (the 6-partial tone held to a 24 Hz mismatch, not the guessed 6 Hz). Before commit, the Concierge checked the reports and caught three more: the edge comes about 130 to 180 times sooner, not 300; the dive depth can't be pinned on the far-pull gate alone; the bass slowdown is the pitch ratio, not a measurement. A reader who checks the numbers without having made them is worth keeping. Nothing forced.
+32. **One sit left three batons and a mint.** The card's rule is that a small edit lands the same morning and larger work goes by baton. It bent on his explicit "do it all", with the page edits shown before commit. A question for week one's review: does an evening sit get a different size rule?
+33. **The workarounds held.** Roughs were made through Bash heredocs and copied with `cp`, and the browser pane stayed shut (items 19 and 27). Item 20 was honoured: the steward registry was checked before any route was named. Items 19 and 20 still owe their card changes.
+- Also: week one's "very meta" order, morning four of seven.
+- run · 2026-10-17 · v0.4 · Harmonicity and Inharmonicity, tune · taught items 28–33
