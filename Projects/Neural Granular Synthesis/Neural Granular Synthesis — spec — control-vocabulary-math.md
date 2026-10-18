@@ -144,6 +144,25 @@ $$ \text{threshold\_stddev} \;=\; \text{base\_threshold} \cdot \text{threshold\_
 
 (The √3 is the standard deviation of a uniform spread on [−1, +1]; it is approximate because the engine's jitter is hashed-deterministic, not perfectly uniform.) The control reading: **σ_threshold low** → uniform crowd, snaps to lock, r jumps fast, timbre is stiff. **σ_threshold high** → ragged crowd, lock is hard-won and partial, r climbs slowly and tops out below 1, timbre is alive and rough.
 
+### 3a. Lumpiness λ — how hard the lock hits
+
+Measured in cycles 14–15 on the phase engine (`render_lumpiness.js`): the *width* of the spread moves where the lock sits, but how **sharp** the lock is depends on something else — how evenly the crowd samples that spread. An evenly spread crowd locks like a switch at any pacemaker share; a randomly drawn one, with clumps and gaps in its rates and phases, starts locking early and arrives softly. So lumpiness is its own knob. Each neuron's place in the spread, and its starting phase, is the even place nudged by noise and wrapped:
+
+**Symbolic:**
+
+$$ u_i \;=\; \operatorname{frac}\!\bigl(e_i + \lambda\,(\xi_i - \tfrac12)\bigr), \qquad \text{rate\_offset}_i = 2u_i - 1 $$
+
+**Worded:**
+
+$$ \text{place}_i \;=\; \text{wrap}\bigl(\text{even\_place}_i + \text{lumpiness} \cdot (\text{noise}_i - \tfrac12)\bigr) $$
+
+Where:
+- **eᵢ** (even_place) = the neuron's golden-ratio place in [0, 1).
+- **ξᵢ** (noise) = a seeded uniform draw in [0, 1).
+- **λ** (lumpiness) = 0 for an even crowd, 1 for a fully random one. The wrap keeps the crowd's overall spread uniform at every λ, so theory's edge does not move.
+
+Read-out at 512 neurons: synchrony climbs from 0.3 to 0.7 over 2.5 % of the edge at λ = 0, and over 11 % (no pacemakers) to 17 % (half pacemakers) at λ = 1. The cost is a small early shift: half-lock moves from 0.99× to 0.96× of the edge. Most of the softening arrives by λ = 0.25, so a playable knob wants a curve that spends more travel near zero. Life moves the edge to 1/(1 − life); it does not set the attack on its own, though pacemakers make a lumpy crowd softer still.
+
 ---
 
 ## 4. Mean firing rate ⟨f⟩ — the timbre's pitch center
@@ -178,13 +197,14 @@ Where **t_ref** (refractory_time) and **t_spike** (spike_time) are the recovery 
 
 ## 5. How the four knobs compose
 
-The performer never touches a neuron. They touch four statistical knobs, and r is the meter that reads the result:
+The performer never touches a neuron. They touch a handful of statistical knobs, and r is the meter that reads the result:
 
 | Knob | Symbol | Turning it up does this | Raster read-out |
 |---|---|---|---|
 | Coupling | K | pulls the crowd toward one phase | scatter → stripes as K crosses K_c |
 | Threshold spread | σ_threshold | adds internal disagreement | stripes loosen, r tops out lower |
 | Frequency spread | g(ω) width | widens natural-rate disagreement | raises K_c; lock needs more K |
+| Lumpiness | λ | samples the spread unevenly | stripes fade in gradually instead of snapping on |
 | Drive / pitch | ⟨f⟩ target | raises the population's pitch center | spike columns pack tighter in time |
 
 The single quantity that closes the loop between all of them is **r**, the order parameter — it is simultaneously a *read-out* (the synchrony meter on the raster plot) and a *term inside the dynamics* (§2), so the instrument's coherence is literally self-referential. That self-reference is the difference between this and granular synthesis with an envelope knob: here the crowd's own agreement is what tightens the crowd.

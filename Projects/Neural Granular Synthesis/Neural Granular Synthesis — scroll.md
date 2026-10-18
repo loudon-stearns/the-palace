@@ -15,20 +15,36 @@ forward_vector: "I am Neural Granular Synthesis's scroll — the one page that a
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-13T22:22:29.179Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-18T10:24:03.615Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 14 · last ran 2026-10-13 (today)
-- **Plan:** none agreed yet — the work leans on the forward vector
+- **Status:** active · **Stage:** growing · **Steward:** cycle 15 · last ran 2026-10-18 (today)
+- **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-13 (today) — The codebox picked the wrong number of pacemakers, and that's fixed. Fixing it showed the soft lock comes from a lumpy crowd, not from life. (`ngs-steward-023`)
-- **Last commit touching this project:** 2026-10-13 `dfa1a6bc` — steward(Neural Granular Synthesis): cycle 13 — The crowd now exists as an RNBO codebox, up to 512 neurons, and it matc…
+- **Last shipped:** 2026-10-18 (today) — Lumpiness is now a knob. It sets how hard the lock hits, from a switch to a slow arrival, and moves the lock point only about 3%. (`ngs-steward-025`)
+- **Last commit touching this project:** 2026-10-13 `1442da17` — steward(Neural Granular Synthesis): cycle 14 — SPINNING UP. HOME: [[Neural Granular Synthesis]]. Neighborhood loaded. …
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-18 — cycle 15 · taught item 1
+- **Owed in the ledger:** nothing
+- **Latest lesson:** item 1, from cycle 15 — 2026-10-18 — [[Neural Granular Synthesis — tuning]]
 
 ### Where this stands
 
-Neural Granular Synthesis plays a crowd of neurons whose agreement is the timbre. Two knobs drive it. Tightness is how hard the neurons pull on each other. Life is the share of pacemakers that ignore the pull. Past the lock edge, which theory puts at tightness 1/(1 − life), hiss snaps into a tone. The crowd now exists as an RNBO codebox (RNBO/crowd.codebox) that nobody has compiled yet. Two cycles ago I reported that pacemakers soften the snap into a crossfade. Last cycle I showed that much of that was a small crowd. This cycle found a counting bug in the codebox and fixed it. With the bug gone, most of what was left of the softening goes away too.
+Neural Granular Synthesis plays a crowd of neurons, and how much they agree is the timbre. Two knobs drive it. Tightness is how hard the neurons pull on each other. Life is the share of pacemakers that ignore the pull. Past the lock point, which theory puts at tightness 1/(1 − life), hiss snaps into a tone. Last cycle showed that the soft, gradual lock I'd been blaming on pacemakers actually comes from how unevenly the crowd is spread out. This cycle I made that unevenness a knob of its own, called lumpiness, and measured it on 512 neurons. It does what I guessed: it sets how hard the lock hits and barely moves where it sits. The crowd's RNBO codebox doesn't have it yet, because Max work is…
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 6:** Nobody has listened yet. _(in 6 notes, the latest cycle 15)_
+- **rough since cycle 7:** I also haven't tested the lumpiness knob; _(in 4 notes, the latest cycle 14)_
+- **rough since cycle 12:** FixedFloat64Array state, floating-point array indexes and a 512-step loop inside the per-sample tick all match the RNBO docs as I read them, but they are unverified until Max accepts the file. _(in 2 notes, the latest cycle 13)_
+- **rough since cycle 12:** The evenly spread crowd at 50% pacemakers locks early, at 0.95×. _(in 2 notes, the latest cycle 13)_
+- **rough since cycle 13:** The audition's even pass looks noisy below the lock point in the trace, and I haven't checked whether that's the 10 ms meter or the crowd itself. _(in 2 notes, the latest cycle 15)_
+- **rough since cycle 14:** The fixed codebox is still uncompiled, and recounting the pacemakers at 512 neurons could still click when you turn the crowd knob. _(in 2 notes, the latest cycle 15)_
+- **rough since cycle 14:** The codebox has no lumpiness, and its audition steps still say life sets the attack: Max work is paused, so I left it alone. _(in 2 notes, the latest cycle 15)_
 
 ### Open asks
 
@@ -41,6 +57,14 @@ _None._
 ### Decided
 
 - `ngs-steward-009` — directional_decision → GRANTED — option_id=DEEPEN-RASTER (2026-06-25)
+
+### Runs
+
+- 2026-10-18 — cycle 15 · taught item 1
+
+### Owed
+
+_Nothing owed._
 
 <!-- scroll:now:end -->
 
@@ -59,6 +83,56 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="ngs-steward-025" -->
+### 2026-10-18 — cycle 15 — Lumpiness is now a knob. It sets how hard the lock hits, from a switch to a slow arrival, and moves the lock point only about 3%.
+> shipped · third knob measured, spec updated · steward leans give it a gentler curve next
+
+**WHAT THE KNOB IS.** Each neuron has a place in the crowd's spread of natural rates, and a starting phase. At lumpiness 0 those places are evenly spaced, the way the codebox does it. Lumpiness adds a random nudge to each place, scaled by the knob, and wraps the result back into range. The wrap matters. The crowd's overall spread stays uniform at every setting, so theory's lock point shouldn't move. Only how evenly the crowd covers that spread changes. At lumpiness 1 the crowd is as random as the one on the board.
+
+**WHAT IT DOES.** I swept tightness from 0.8× to 1.2× the lock point. That's 4 lumpiness settings × 2 lives × 3 random crowds, each settled for 4 seconds. In the table, 'width' is how far you have to turn tightness, as a share of the lock point, to go from loose (synchrony 0.3) to locked (0.7). With no pacemakers the width grows from 0.025 to 0.111. With half pacemakers it grows from 0.024 to 0.173. So pacemakers do soften the lock, but only in a lumpy crowd. On their own they don't change the attack at all. The cost: the half-lock point slides from 0.99× to 0.96× of the lock point.
+
+**WHAT IT MEANS FOR PLAYING.** Each knob now has one clear job. Tightness says where you are relative to the lock. Life moves the lock point and makes the tone breathe. Lumpiness sets the attack. One catch: the knob is front-loaded. With no pacemakers, the width more than doubles by lumpiness 0.25 (0.025 to 0.064), and with half pacemakers it gets nearly all the way (0.134 of 0.173). A playable knob should spend more of its travel near zero, probably by squaring it.
+
+**LISTEN.** In [lumpiness-attack.wav](open:Projects/Neural Granular Synthesis/lumpiness-attack.wav), three 9-second passes at half pacemakers and 512 neurons ramp tightness from 0.8× to 1.15× the lock point. The ramp crosses the lock point at 4 seconds. The first pass is even (lumpiness 0), the second half lumpy (0.5), the third fully lumpy (1). The even crowd should stay hiss and then snap to a tone at about 4.2 s. The lumpy ones should start pulling together before 3 s and swim in. The right panel of [lumpiness.png](open:Projects/Neural Granular Synthesis/lumpiness.png) traces their synchrony over time.
+
+**PAGE EDITS.** The spec gets a new section on lumpiness, with the equation written in symbols and in words and the numbers above, plus a row in the table of how the knobs combine. My entry's list of population controls gains lumpiness, and the pacemaker line now says what pacemakers actually do.
+
+**Artifacts:**
+- [29 s: three ramps through the lock point at half pacemakers, at lumpiness 0, 0.5 and 1.](Projects/Neural Granular Synthesis/lumpiness-attack.wav)
+- [Lock curves at life 0% and 50% for four lumpiness settings, plus the audition's synchrony over time.](Projects/Neural Granular Synthesis/lumpiness.png)
+- [The lumpy crowd, the 8 × 10 × 3 sweep, and the audition render.](Projects/Neural Granular Synthesis/render_lumpiness.js)
+- [Draws the plate.](Projects/Neural Granular Synthesis/plot_lumpiness.py)
+- [Sweep data: synchrony for every setting, how much it varies across crowds, half-lock point, width.](Projects/Neural Granular Synthesis/lumpiness.json)
+- [The audition's synchrony every 0.1 s.](Projects/Neural Granular Synthesis/lumpiness-trace.json)
+
+_512 neurons · width = how far tightness turns (share of the lock point) for synchrony to go from 0.3 to 0.7 · mean of 3 crowds_
+| life | lumpiness | synchrony at 0.9× | synchrony at 0.975× | synchrony at 1.0× | half-lock at | width |
+| --- | --- | --- | --- | --- | --- | --- |
+| 0 % | 0 | 0.09 | 0.12 | 0.62 | 0.994× | 0.025 |
+| 0 % | 0.25 | 0.19 | 0.47 | 0.62 | 0.980× | 0.064 |
+| 0 % | 0.5 | 0.25 | 0.54 | 0.61 | 0.968× | 0.095 |
+| 0 % | 1 | 0.27 | 0.62 | 0.66 | 0.963× | 0.111 |
+| 50 % | 0 | 0.21 | 0.30 | 0.81 | 0.985× | 0.024 |
+| 50 % | 0.25 | 0.34 | 0.51 | 0.67 | 0.973× | 0.134 |
+| 50 % | 0.5 | 0.31 | 0.52 | 0.61 | 0.972× | 0.138 |
+| 50 % | 1 | 0.37 | 0.54 | 0.65 | 0.965× | 0.173 |
+
+_Changed the page:_ Neural Granular Synthesis — spec — control-vocabulary-math — New section on lumpiness (equation in symbols and words, measured widths) plus a row in the table of how the knobs combine. The spec had no knob for how sharp the lock is.
+_Changed the page:_ Neural Granular Synthesis — Added lumpiness to the population controls and corrected the pacemaker line: pacemakers move the lock point; lumpiness sets the attack.
+
+_Left rough:_ Nobody has listened yet. The audition's even pass looks noisy below the lock point in the trace, and I haven't checked whether that's the 10 ms meter or the crowd itself. The codebox has no lumpiness, and its audition steps still say life sets the attack: Max work is paused, so I left it alone. The fixed codebox is still uncompiled, and recounting the pacemakers at 512 neurons could still click when you turn the crowd knob.
+
+_Next moves named:_ Give lumpiness a gentler curve (try λ², or λ³ if that isn't enough) and re-sweep so the width climbs evenly across the knob. Then put it in the browser instrument (crowd-instrument.html) so it can be played. · For the codebox once Max opens up: lumpiness needs one seeded random number per neuron, generated once, and the nudge applied to the rate and starting phase when the crowd or lumpiness knob moves, never per sample. Its audition steps also need the corrected line that life moves the lock point and lumpiness sets the attack. · Check whether the 3% early shift can be cancelled by scaling tightness with lumpiness, so the lock point holds still while the attack changes.
+<sub>`ngs-steward-025` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-3479448a8f" -->
+### 2026-10-18 — cycle 15
+
+taught item 1
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="ngs-steward-023" -->
 ### 2026-10-13 — cycle 14 — The codebox picked the wrong number of pacemakers, and that's fixed. Fixing it showed the soft lock comes from a lumpy crowd, not from life.
 > shipped · codebox fixed, still matches the board · steward leans give lumpiness its own knob

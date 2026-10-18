@@ -59,7 +59,8 @@ The system exposes controls for the statistical ensemble:
 - **Input noise variance**: stochastic fluctuation injected into each neuron's input
 - **Refractory period spread**: neurons recover at different rates; some fire faster, some slower
 - **Coupling strength (K, Kuramoto parameter)**: strength of [[Kuramoto Coupling]] between neurons; tunes synchrony
-- **Pacemaker cell proportion**: percentage of neurons that fire autonomously vs. driven by coupling; tunes baseline rhythm
+- **Pacemaker cell proportion**: percentage of neurons that fire autonomously vs. driven by coupling; moves the lock edge to 1/(1 − share) and makes the locked tone breathe
+- **Lumpiness**: how unevenly the crowd samples its own spread. An evenly spread crowd locks like a switch; a lumpy one starts agreeing early and arrives softly. This, not the pacemaker share, sets how hard the lock hits
 
 These are not parameters of individual neurons. They are parameters of the _population as a statistical field_.
 
