@@ -24,7 +24,7 @@ Any entry opens. `&review=0` hides the review layer.
 | `rich.html` | the renderer — reads the `.md` every few seconds, lays prose + figures + manifest pieces, marks drift, carries the review dock. All its URLs are relative, so it works at `/` and at `/rich/`. |
 | `rich-handler.mjs` | the request handler: renderer + palace files (byte ranges), `_api/resolve`, `_api/find`, `_api/media`, `_api/review` → STIGMERGY `POST /api/persistent` as a `human_eval`. Mounted by STIGMERGY (`app/server/api/rich.js`) and by `rich-server.mjs`. |
 | `rich-server.mjs` | the standalone server |
-| `palace-find.mjs` | find an entry or a media file by name, Obsidian-style |
+| `resolve.mjs` | the one resolver: the page, `fingerprint.mjs` and the public build find an entry, or the file a reference names, the same way, from git's index. A miss comes back with a one-line label the page shows in the figure's place. |
 | `fingerprint.mjs` | section fingerprints and drift; `--stamp [section…]` records the "still true" verdict |
 | `manifests/` | a workshop home for a manifest before its entry is placed; a manifest in the entry's bundle wins, and the face switch offers only the bundle's |
 
@@ -44,7 +44,15 @@ A section is named by its heading. When the text repeats a heading, the repeat i
 place — the second `## Notes` is `"heading": "Notes (2)"` — and `fingerprint.mjs --stamp "Notes (2)"`
 reaches it the same way.
 
-Bare filenames resolve in the bundle, then vault-wide by name; `/…` is palace-absolute. `near` anchors
+Every file the text or the manifest names is found by `resolve.mjs`, the same way live and in the read
+view. `/…` is palace-absolute. A path with a slash is tried beside the `.md`, then from the palace root,
+then in the entry's bundle, and never by its last name alone. A bare name is looked up in the bundle (its
+top folder, then anywhere under it), then across the palace, and each step counts only if exactly one
+file has that name. The index is git's: on the live page, tracked files plus new files git doesn't ignore;
+in the public build, committed files only, so a build on the Mac publishes what CI's would. A hidden
+folder, an ignored file, a symlink that leads outside the palace, or a name in the wrong case is refused.
+A file that doesn't resolve shows as a labelled box in the figure's place, naming the file and why, e.g.
+`3 files are named “index.html” (…). Give its path to choose one.` `near` anchors
 a piece right after that paragraph or figure; otherwise it goes at the section's end. Audio, images and
 text pieces default to the margin; video, interactives and diagrams to the band. An interactive's
 `height` (px) is its size until the piece reports its own. Every served piece reports through the kit
