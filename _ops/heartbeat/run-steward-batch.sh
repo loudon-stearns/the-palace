@@ -8,9 +8,11 @@
 # This is the same spawn STIGMERGY's actuator already uses to advance a steward
 # from the board — just fired by a timer instead of a click. No API key needed.
 #
-# Fired by: ~/Library/LaunchAgents/com.loudon.palace.steward-batch.plist, every 30 min.
-#          launchd never starts a second copy while one runs, and a missed tick
-#          during sleep fires once at wake.
+# Fired by: ~/Library/LaunchAgents/com.loudon.palace.steward-batch.plist, at 06:00
+#          and every 30 min. launchd never starts a second copy while one runs. A
+#          30-min tick that falls in sleep is dropped (StartInterval); the 06:00
+#          fire, missed in sleep, runs once at the next wake (StartCalendarInterval).
+#          After landing a change to the plist, reinstall it: see the README.
 # Decides: a steward batch runs only when all hold (2026-10-18; Loudon's Mac
 #          sleeps on battery with the lid closed, and a 06:00 timer only ever met a
 #          few-second dark wake there):
@@ -19,8 +21,10 @@
 #            - INTERVAL_DAYS calendar days have passed since the last batch (calendar
 #              days, so a run that started late does not cost a day).
 #          A skipped check writes no log; .last-check records the latest decision.
-#          Once a day, when awake, it also runs the Sentry's guard watch: is GitHub
-#          still refusing a force push to main? If not, a notification.
+#          Once a day, when awake (even while paused: it is read-only), it also runs
+#          the Sentry's guard watch: is GitHub still refusing a force push to main?
+#          If not, a notification; if GitHub has been unreadable for over two days,
+#          a notification saying so.
 # Test:    HEARTBEAT_DRY=1 prints the decision and stops; HEARTBEAT_NOW (epoch),
 #          HEARTBEAT_STAMP, HEARTBEAT_GUARD_STAMP and HEARTBEAT_ASSUME_AWAKE=1|0 stand in
 #          for the clock, the stamps and the wake state.
@@ -65,35 +69,51 @@ day_start() { date -j -f '%Y-%m-%d %H:%M:%S' "$(date -r "$1" +%Y-%m-%d) 00:00:00
 days_between() { echo $(( ( $(day_start "$2") - $(day_start "$1") + 43200 ) / 86400 )); }
 # Fully awake with the lid open: macOS lists Graphics among the system's capabilities in a full
 # wake and not in a dark wake; a closed lid is AppleClamshellState = Yes (no lid: not listed).
+# Read each answer whole before matching: under pipefail, grep -q exiting early would
+# kill the writer with SIGPIPE and turn a match into a failure.
 awake() {
   case "${HEARTBEAT_ASSUME_AWAKE:-}" in 1) return 0 ;; 0) return 1 ;; esac
-  pmset -g systemstate 2>/dev/null | grep -q 'Graphics' || return 1
-  ioreg -r -k AppleClamshellState -d 4 2>/dev/null | grep -q '"AppleClamshellState" = Yes' && return 1
+  local sys lid
+  sys="$(pmset -g systemstate 2>/dev/null)"
+  case "$sys" in *Graphics*) ;; *) return 1 ;; esac
+  lid="$(ioreg -r -k AppleClamshellState -d 4 2>/dev/null)"
+  case "$lid" in *'"AppleClamshellState" = Yes'*) return 1 ;; esac
   return 0
 }
+
+awake || decide "skip: the Mac is asleep or its lid is closed"
+
+# The Sentry's guard watch, once a calendar day while awake, paused or not (it only reads).
+# The day counts as watched only when GitHub was actually read (exit 0 or 3); anything else
+# looks again next tick, and after more than two days without a reading it says so, once a day.
+today="$(date -r "$NOW" +%Y-%m-%d)"
+GUARD_NAG="${GUARD_STAMP}-nag"
+if [ "$(cat "$GUARD_STAMP" 2>/dev/null)" != "$today" ]; then
+  if [ -n "$DRY" ]; then
+    echo "would run: the Sentry's guard watch"
+  else
+    gw="$(cd "$PALACE" && node _ops/sentry/guard-watch.mjs 2>&1)"; gw_rc=$?
+    echo "$(date '+%Y-%m-%d %H:%M') exit $gw_rc · $(printf '%s' "$gw" | tail -1)" >> "$LOG_DIR/guard-watch.log"
+    case "$gw_rc" in
+      0) echo "$today" > "$GUARD_STAMP" ;;
+      3) echo "$today" > "$GUARD_STAMP"
+         osascript -e 'display notification "GitHub may let a force push rewrite main. Run: node _ops/sentry/sweep.mjs --only hosting" with title "Palace Sentry"' >/dev/null 2>&1 || true ;;
+      *) last_read="$(cat "$GUARD_STAMP" 2>/dev/null)"
+         unread_days=99
+         [ -n "$last_read" ] && unread_days="$(days_between "$(date -j -f '%Y-%m-%d %H:%M:%S' "$last_read 12:00:00" +%s 2>/dev/null || echo 0)" "$NOW")"
+         if [ "$unread_days" -gt 2 ] && [ "$(cat "$GUARD_NAG" 2>/dev/null)" != "$today" ]; then
+           osascript -e 'display notification "The guard watch has not been able to read GitHub for over two days. Run: gh auth status" with title "Palace Sentry"' >/dev/null 2>&1 || true
+           echo "$today" > "$GUARD_NAG"
+         fi ;;
+    esac
+  fi
+fi
 
 # global pause flag — STIGMERGY (or you) can pause the whole heartbeat without
 # touching launchd: while _ops/heartbeat/.paused exists, every run no-ops and
 # leaves the cadence stamp untouched. STIGMERGY only toggles this file (via the
 # STEWARDS deck pause/resume); it never runs launchctl.
 [ -f "$PALACE/_ops/heartbeat/.paused" ] && decide "skip: paused (flag present: $PALACE/_ops/heartbeat/.paused)"
-awake || decide "skip: the Mac is asleep or its lid is closed"
-
-# The Sentry's guard watch, once a calendar day while awake.
-today="$(date -r "$NOW" +%Y-%m-%d)"
-if [ "$(cat "$GUARD_STAMP" 2>/dev/null)" != "$today" ]; then
-  if [ -n "$DRY" ]; then
-    echo "would run: the Sentry's guard watch"
-  else
-    gw="$(cd "$PALACE" && node _ops/sentry/guard-watch.mjs 2>&1)"; gw_rc=$?
-    echo "$(date '+%Y-%m-%d %H:%M') exit $gw_rc · $gw" >> "$LOG_DIR/guard-watch.log"
-    if [ "$gw_rc" -eq 3 ]; then
-      osascript -e 'display notification "GitHub may let a force push rewrite main. Run: node _ops/sentry/sweep.mjs --only hosting" with title "Palace Sentry"' >/dev/null 2>&1 || true
-    fi
-    [ "$gw_rc" -ne 4 ] && echo "$today" > "$GUARD_STAMP"   # could not tell: look again next tick
-  fi
-fi
-
 [ "$(date -r "$NOW" +%H | sed 's/^0//')" -ge "$START_HOUR" ] || decide "skip: before ${START_HOUR}:00"
 if [ -f "$STAMP" ]; then
   last="$(cat "$STAMP" 2>/dev/null || echo 0)"

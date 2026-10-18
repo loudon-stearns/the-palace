@@ -13,9 +13,11 @@
 //         allow.json counts as fine).
 // Exit 3: a finding of medium or above stands — the heartbeat raises a notification.
 // Exit 4: it could not tell (gh missing, offline, rate-limited) — try again later; never a pass.
-import { execFileSync } from 'node:child_process';
-import { repoRoot, git, loadAllow, finding } from './engine.mjs';
-import { ghRead, readTrunkGuard } from './sweep.mjs';
+// Any failure of its own (a malformed allow.json, a module that will not load) is "could not
+// tell", exit 4, never a crash the caller would read as a finished look.
+process.on('uncaughtException', (e) => { console.log(`sentry guard-watch: could not finish (${e.message.split('\n')[0]}); will look again`); process.exit(4); });
+const { repoRoot, git, loadAllow, finding } = await import('./engine.mjs');
+const { ghRead, readTrunkGuard } = await import('./sweep.mjs');
 
 const root = repoRoot();
 let slug;

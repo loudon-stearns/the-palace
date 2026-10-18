@@ -13,12 +13,19 @@
     <string>/Users/loudonstearns/Documents/The Palace/_ops/heartbeat/run-steward-batch.sh</string>
   </array>
 
-  <!-- Fires every 30 minutes; the wrapper decides (2026-10-18). A batch runs only
-       when the Mac is fully awake with the lid open, at 06:00 or later, two
-       calendar days after the last one; once a day it also runs the Sentry's
-       guard watch. A 06:00-only timer met a sleeping Mac in a few-second dark
-       wake. launchd starts no second copy while one runs, and a tick missed in
-       sleep fires once at wake. -->
+  <!-- Fires at 06:00 and every 30 minutes; the wrapper decides (2026-10-18). A
+       batch runs only when the Mac is fully awake with the lid open, at 06:00 or
+       later, two calendar days after the last one; once a day it also runs the
+       Sentry's guard watch. A 30-min tick that falls in sleep is dropped
+       (StartInterval); the 06:00 fire, missed in sleep, runs once at the next
+       wake (StartCalendarInterval), so a wake brings a check at once. launchd
+       starts no second copy while one runs. Reinstall after any change: see the
+       heartbeat README. -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key><integer>6</integer>
+    <key>Minute</key><integer>0</integer>
+  </dict>
   <key>StartInterval</key>
   <integer>1800</integer>
 

@@ -48,16 +48,19 @@ a one-line script that execs the newest bundled version, removed once Homebrew c
 
 ## Cadence note
 
-**The steward batch (since 2026-10-18)** fires every 30 minutes and decides for
-itself. It runs a batch only when the Mac is fully awake with the lid open (a dark
+**The steward batch (since 2026-10-18)** fires at 06:00 and every 30 minutes, and
+decides for itself. A 30-minute tick that falls in sleep is dropped (StartInterval);
+the 06:00 fire, missed in sleep, runs once at the next wake (StartCalendarInterval). It runs a batch only when the Mac is fully awake with the lid open (a dark
 wake lists no Graphics in `pmset -g systemstate`), at `START_HOUR` (06:00) or later,
 and `INTERVAL_DAYS` (2) **calendar** days after the last batch, so a run that started
 late does not cost a day; `caffeinate` keeps the Mac from idle-sleeping while it
 runs. Why: the old 06:00 timer met a sleeping Mac in a few-second dark wake, and its
 guard counted whole 24-hour days, so one late start turned every other morning into
 every third. Once a day, when awake, it also runs the Sentry's guard watch
-(`_ops/sentry/guard-watch.mjs`) and raises a notification if GitHub would let a
-force push rewrite main. Test the decision without firing anything:
+(`_ops/sentry/guard-watch.mjs`), even while the heartbeat is paused, since it only
+reads: a notification if GitHub would let a force push rewrite main, and another,
+once a day, if the watch has not been able to read GitHub for over two days (for
+example, `gh` logged out). Test the decision without firing anything:
 `HEARTBEAT_DRY=1 zsh -l _ops/heartbeat/run-steward-batch.sh` (with `HEARTBEAT_NOW`,
 `HEARTBEAT_STAMP`, `HEARTBEAT_ASSUME_AWAKE=1|0` to stand in for the clock, stamp and
 wake state).
@@ -139,6 +142,14 @@ launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.loudon.palace.stewar
 ```
 
 (Older macOS: use `launchctl load -w ~/Library/LaunchAgents/com.loudon.palace.steward-batch.plist` instead of `bootstrap`.)
+
+**After a change to a plist lands, reinstall it.** The installed job is a copy, so a landed plist changes nothing until it is reloaded, and `bootstrap` refuses a job that is already loaded:
+```sh
+launchctl bootout gui/$(id -u)/com.loudon.palace.steward-batch
+cp _ops/heartbeat/launchd/com.loudon.palace.steward-batch.plist ~/Library/LaunchAgents/
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.loudon.palace.steward-batch.plist
+launchctl print gui/$(id -u)/com.loudon.palace.steward-batch | grep -E 'run interval|state'
+```
 
 ### Optional — wake the Mac so it can fire unattended at dawn
 ```sh

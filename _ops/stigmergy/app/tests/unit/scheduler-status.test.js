@@ -10,6 +10,8 @@ import {
   parseIntervalDays,
   nextFireAfter,
   humanCadence,
+  parsePlistInterval,
+  calendarDaysBetween,
   readSchedulerStatus,
   setSchedulerPaused,
 } from '../../server/scheduler.js';
@@ -96,6 +98,17 @@ describe('scheduler pure parsers', () => {
   test('humanCadence renders the every-N-days guard', () => {
     expect(humanCadence({ hour: 6, minute: 0, intervalDays: 2 })).toBe('06:00 daily · every 2 days (guard)');
     expect(humanCadence({ hour: 6, minute: 30, intervalDays: 1 })).toBe('06:30 daily');
+  });
+
+  test('a job that also checks every 30 minutes says so, and counts calendar days', () => {
+    expect(parsePlistInterval('<key>StartInterval</key>\n  <integer>1800</integer>')).toBe(1800);
+    expect(parsePlistInterval('<key>StartCalendarInterval</key><dict></dict>')).toBeNull();
+    expect(humanCadence({ hour: 6, minute: 0, intervalDays: 2, checkSeconds: 1800 })).toBe('06:00, then every 30 min while awake · a batch every 2 calendar days');
+    // The 2026-10-15 06:07 run and the 2026-10-17 06:00 fire are two calendar days apart, though under 48 hours.
+    const last = new Date(2026, 9, 15, 6, 7, 1).getTime();
+    const next = new Date(2026, 9, 17, 6, 0, 59).getTime();
+    expect(calendarDaysBetween(next, last)).toBe(2);
+    expect(calendarDaysBetween(new Date(2026, 9, 16, 23, 59).getTime(), last)).toBe(1);
   });
 });
 

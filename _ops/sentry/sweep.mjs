@@ -15,7 +15,8 @@
 // what was checked and how much was found, never where. See [[Sentry]].
 
 import { execFileSync, spawnSync } from 'node:child_process';
-import { readFileSync, writeFileSync, existsSync, mkdirSync, statSync, mkdtempSync, rmSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync, statSync, mkdtempSync, rmSync, realpathSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { join, dirname } from 'node:path';
 import { tmpdir } from 'node:os';
 import {
@@ -555,4 +556,6 @@ function selftest() {
 }
 
 // Run only when invoked as a command: guard-watch.mjs imports readTrunkGuard without a sweep.
-if (process.argv[1] && /sweep\.mjs$/.test(process.argv[1])) main().catch(e => { console.error('sentry sweep failed:', e); process.exitCode = 2; });
+// Compares real paths, so a symlinked name still runs it and no other file ending in sweep.mjs does.
+const invokedDirectly = (() => { try { return !!process.argv[1] && realpathSync(process.argv[1]) === fileURLToPath(import.meta.url); } catch { return false; } })();
+if (invokedDirectly) main().catch(e => { console.error('sentry sweep failed:', e); process.exitCode = 2; });
