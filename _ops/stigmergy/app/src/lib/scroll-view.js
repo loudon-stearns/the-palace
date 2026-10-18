@@ -164,9 +164,22 @@ export function cardSpec(section, messages) {
   }
   const p = msg.payload || {};
   const arts = [];
-  if (Array.isArray(p.artifacts)) for (const a of p.artifacts) if (a && a.path) arts.push({ path: a.path, caption: a.caption || null });
-  if (typeof p.artifact_path === 'string' && p.artifact_path && !arts.some((a) => a.path === p.artifact_path)) arts.push({ path: p.artifact_path, caption: p.caption || null });
-  for (const a of section.artifacts || []) if (!arts.some((x) => x.path === a.path)) arts.push(a);
+  const norm = (path) => palacePathOf(path) || path;
+  if (Array.isArray(p.artifacts)) for (const a of p.artifacts) if (a && a.path) arts.push({ path: norm(a.path), caption: a.caption || null });
+  if (typeof p.artifact_path === 'string' && p.artifact_path && !arts.some((a) => a.path === norm(p.artifact_path))) arts.push({ path: norm(p.artifact_path), caption: p.caption || null });
+  // The scroll is the durable text and can be corrected; the board is
+  // append-only and cannot. So where the two name one file by different paths
+  // (an older post from before a project moved under Projects/), the scroll's
+  // path wins and the post keeps its caption -- one frame, the one that loads.
+  // Only when exactly one post path shares the file name; otherwise both stand.
+  const own = new Set((section.artifacts || []).map((a) => a.path));
+  const nameOf = (path) => String(path).split('/').pop();
+  for (const a of section.artifacts || []) {
+    if (arts.some((x) => x.path === a.path)) continue;
+    const stale = arts.filter((x) => nameOf(x.path) === nameOf(a.path) && !own.has(x.path));
+    if (stale.length === 1) { stale[0].path = a.path; continue; }
+    arts.push(a);
+  }
   return {
     id: section.id,
     heading: section.heading,

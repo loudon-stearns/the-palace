@@ -52,6 +52,22 @@ describe('parseMakingSections', () => {
 
   // The 2026-10-18 census: 39 web pages on 16 scrolls missed the trail for the
   // way their link was written, most for a space in a project bundle's path.
+  // Meadows, cycle 9: the post and the section both named the sketch without
+  // its Projects/ prefix. The scroll's line can be corrected, the post cannot.
+  test('cardSpec: where the scroll corrects a post\'s path to the same file, the scroll\'s path wins and the post keeps its caption', () => {
+    const msgs = [{ id: 'm-024', type: 'BROADCAST', payload: { artifacts: [{ path: "Meadows/sketch.html", caption: 'v0.1' }, { path: 'Meadows/other.png' }] } }];
+    const section = { id: 'm-024', heading: 'h', body: '', footer: null, artifacts: [{ path: 'Projects/Meadows/sketch.html', caption: 'fixed' }] };
+    const c = cardSpec(section, msgs);
+    expect(c.artifacts.heavy).toEqual([{ path: 'Projects/Meadows/sketch.html', caption: 'v0.1' }]);
+    expect(c.artifacts.light.map((a) => a.path)).toEqual(['Meadows/other.png']);
+  });
+
+  test('cardSpec: two post paths with one file name are ambiguous, so the scroll\'s path is added beside them', () => {
+    const msgs = [{ id: 'w', type: 'BROADCAST', payload: { artifacts: [{ path: 'W/v1.8/index.html' }, { path: 'W/v1.9/index.html' }] } }];
+    const section = { id: 'w', heading: 'h', body: '', footer: null, artifacts: [{ path: 'Projects/W/v1.9/index.html' }] };
+    expect(cardSpec(section, msgs).artifacts.heavy.map((a) => a.path)).toEqual(['W/v1.8/index.html', 'W/v1.9/index.html', 'Projects/W/v1.9/index.html']);
+  });
+
   test('palacePathOf reads every form a palace file arrives in', () => {
     expect(palacePathOf('Projects/Floquet Time-Modulated Loops/interactives/02_mathieu_simulator.html')).toBe('Projects/Floquet Time-Modulated Loops/interactives/02_mathieu_simulator.html');
     expect(palacePathOf('<Projects/Loudon Live/proofs/the-logo-heard.html>')).toBe('Projects/Loudon Live/proofs/the-logo-heard.html');
