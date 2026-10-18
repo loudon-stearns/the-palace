@@ -148,6 +148,15 @@ describe('resolve.mjs, the one resolver', () => {
     expect(r.resolve('x.png', 'Demo.md').reason).toBe('missing');
   });
 
+  test("the build's resolver counts only committed files, and never says a file is ignored", () => {
+    const r = makeResolver(root, { tracked: true });
+    expect(r.resolve('Kept/held.wav')).toEqual({ ok: true, path: 'Kept/held.wav' });
+    expect(r.resolve(FLOCKING[0], 'Flocking.md').reason).toBe('missing');   // on disk, not yet committed
+    const ign = r.resolve('ignored/clip.mp4');
+    expect(ign.reason).toBe('missing');
+    expect(ign.label).not.toMatch(/git/);
+  });
+
   test('case counts, as it does on the Linux host that builds the read view', () => {
     const r = makeResolver(root);
     const x = r.resolve('flocking/flocking-p5-expressive.html', 'Flocking.md');
@@ -194,6 +203,9 @@ describe('the live server and the public build agree', () => {
   });
 
   beforeAll(async () => {
+    // Committed, as the palace is when CI builds it: the build counts only what git holds.
+    git(root, 'add', '-A');
+    git(root, 'commit', '-qm', 'the palace');
     const handle = createRichHandler({ root, here: resolve(root, '_ops/rich-face'), base: '', app: () => 'http://127.0.0.1:9' });
     server = http.createServer(async (req, res) => { if (!(await handle(req, res))) { res.writeHead(405); res.end(); } });
     port = await new Promise((ok) => server.listen(0, '127.0.0.1', () => ok(server.address().port)));

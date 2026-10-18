@@ -18,6 +18,11 @@
 //
 // A miss is not an exception: it comes back as { ok: false, reason, label },
 // and the label is what the page shows in the figure's place.
+//
+// The public build asks with { tracked: true }: committed files only, and a
+// file outside that index is simply missing, never looked for on disk. CI builds
+// from a clean checkout, so a build on the Mac then publishes exactly what CI's
+// would, and never says that an ignored file sits at some path on this Mac.
 
 import { execFileSync } from 'node:child_process';
 import { realpathSync, statSync } from 'node:fs';
@@ -59,7 +64,7 @@ const fail = (reason, ref, extra = {}) => {
 /**
  * Bind a resolver to a palace root.
  * @param {string} [root] the palace (a git checkout or worktree)
- * @param {{ files?: string[] }} [opts] `files` replaces git's index (tests)
+ * @param {{ tracked?: boolean, files?: string[] }} [opts] `tracked`: committed files only (the build); `files` replaces git's index (tests)
  */
 export function makeResolver(root = ROOT, opts = {}) {
   const ROOT_ABS = resolve(root);
@@ -72,7 +77,8 @@ export function makeResolver(root = ROOT, opts = {}) {
     if (opts.files) list = opts.files;
     else {
       try {
-        list = execFileSync('git', ['-c', 'core.quotepath=off', 'ls-files', '-z', '--cached', '--others', '--exclude-standard'],
+        const which = opts.tracked ? ['--cached'] : ['--cached', '--others', '--exclude-standard'];
+        list = execFileSync('git', ['-c', 'core.quotepath=off', 'ls-files', '-z', ...which],
           { cwd: ROOT_ABS, maxBuffer: 256 * 1024 * 1024, stdio: ['ignore', 'pipe', 'ignore'] }).toString('utf8').split('\0');
       } catch { list = null; }
     }
@@ -100,6 +106,7 @@ export function makeResolver(root = ROOT, opts = {}) {
     const abs = join(ROOT_ABS, ...rel.split('/'));
     if (!files.has(rel)) {
       if (lower.has(rel.toLowerCase())) return { refused: 'case', as: lower.get(rel.toLowerCase()) };
+      if (opts.tracked) return null;
       let st;
       try { st = statSync(abs); } catch { return null; }
       return st.isFile() ? { refused: 'ignored' } : null;

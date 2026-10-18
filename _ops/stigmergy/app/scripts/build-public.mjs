@@ -142,7 +142,8 @@ const scrollOf = (e) => (Array.isArray(e.faces) && e.faces.includes('scroll')
 const readablePaths = new Set([...pubPaths, ...published.map(scrollOf).filter(Boolean)]);
 // The one resolver the live rich page and the fingerprint use (resolve.mjs),
 // so the read view finds every file the way the palace does, or not at all.
-const resolver = makeResolver(ROOT);
+// Committed files only: what CI's clean checkout has, wherever this runs.
+const resolver = makeResolver(ROOT, { tracked: true });
 
 // Where a link or embed in `fromPath` lands: palace-relative, or null.
 function resolveLink(target, fromPath) {
