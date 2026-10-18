@@ -7,7 +7,7 @@ pillars:
   - philosophy
 born: 2026-03
 stage: growing
-version: "2.3"
+version: "2.4"
 trigger: ["deposit", "let's deposit", "add this to the palace", "memorialize this"]
 forward_vector: "I am the palace's gate for finds. Whoever brings one, I slow them down long enough to see it again, ask an elder where it lives, map it with care, and let Loudon read every word before it becomes canon. I want the palace to grow only by what was truly found, and everyone who offers something to be answered."
 links:
@@ -44,7 +44,7 @@ links:
 
 ---
 
-> You are about to place something into the palace. It does not matter who you are: the Claude who has spent the afternoon building with Loudon, a steward with a proposal on the board, a harvest with a candidate, a close holding a row marked *keep*. The deposit asks the same thing of each of you. Stop being the one who made it, and become the one who keeps it.
+> You are about to place something into the palace. It does not matter who you are: the Claude who has spent the afternoon building with Loudon, a steward with a proposal in its ledger, a harvest with a candidate, a close holding a row marked *keep*. The deposit asks the same thing of each of you. Stop being the one who made it, and become the one who keeps it.
 >
 > Read back through the work as if encountering it for the first time. Notice the arc. Notice where things opened. Notice what was built and celebrated, what was built and then left behind, the branches that flourished, the branches that weren't followed, the moments of discovery that never got a name. Then say what you notice, and wait.
 >
@@ -54,7 +54,7 @@ links:
 
 A deposit adds to canon: a new entry, or a fold that changes what an existing entry says. It is for the larger moves. Upkeep, like a link fixed, a version moved or drift repaired, is an edit, and ELDER's *show before writing* already covers it.
 
-A page's other faces are not canon. Its rich face, and the Now and making zones of its scroll, are the page's products, made in its bundle; stewards and Enrichment make them without a deposit and without asking. The scroll's Standing Orders are Loudon's, and no agent writes them. The gate is on what the page itself says. It does not apply to a steward's own page and bundle, which its cycles write ([[ELDER]] § Age and its limits), or to the [[Shopkeeper]] anywhere under `Shop/`, new entries included; each such edit shows on the scroll's trail, and git is the undo.
+A page's other faces are not canon. Its rich face, and the Now and making zones of its scroll, are the page's products, made in its bundle; Enrichment and the steward's cycle make them without a deposit and without asking. The scroll's Standing Orders are Loudon's, and no agent writes them. The gate is on what the page itself says. A steward never passes it alone: a change it wants to what a page says, its own included, waits in its tuning ledger as a proposal for canon ([[ELDER]] § Age and its limits), and reaches canon only when Loudon takes its words in at his review of the ledgers ([[Project Stewardship System]] § What's Open).
 
 The deposit is the palace's protection. It is the one gate a find passes on its way into canon, and it exists so that three things hold, whoever brings the find:
 
@@ -155,7 +155,8 @@ From Cowork, canon doesn't commit. Post the plan as a `commit_handoff` (`node _o
 Wait for Loudon. Then answer whoever brought the find, through its own channel:
 
 - **Loudon:** a short closing note in the thread naming what now lives in the palace, so no later session deposits it again.
-- **A steward or other agent:** a `REPLY` on the board, `re:` its message.
+- **A steward:** its ledger item, settled: `paid in <commit> on <date time>`, or `declined on <date time>: <his reason>`. Its next cycle reads it once.
+- **Another agent:** a `REPLY` on the board, `re:` its message.
 - **A harvest:** that section's row in the harvest record, with its disposition and reason.
 - **A close:** the row's `status` in the close map.
 

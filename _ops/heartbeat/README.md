@@ -70,31 +70,39 @@ the off day. Change `INTERVAL_DAYS` at the top of a wrapper (1 = daily), or the 
 `Hour`/`Minute` to move the time. If the Mac is asleep at the scheduled minute,
 launchd runs the job at next wake.
 
-## Posture — grown up for its own page, the cycle commits
+## Posture — the steward writes its workshop and proposes the house; the cycle commits
 
-The batch runs each steward **grown up for its own page and bundle**
-(since `10751829`, 2026-10-16; [[Project Stewardship System]] § What's Decided),
-and the deterministic steps commit — never the agent:
+The batch runs each steward with ELDER read every cycle and no reach into the
+house (since `83d6f4e8`, 2026-10-18; Loudon: "I don't like the editing of canon
+without my eyes"; [[Project Stewardship System]] § What's Decided), and the
+deterministic steps commit — never the agent:
 
-- **The steward may edit its own page and bundle, and never runs git.** Each
-  cycle reads ELDER on top of SCHEMA and may edit its own entry, body and
-  frontmatter alike, and anything in its bundle. It lists each edit in its post
-  as `page_edits` with a line of why; `process-cycle.js` commits those by name
-  once the frontmatter parses, and the scroll's trail shows each one. An edit to
-  another page, a new entry, canon, the scroll (its Plan and Standing Orders
-  stay Loudon's) and the ledger are refused (`page_edits_refused`, named in the commit body) and
-  stay proposals on the board. It does not deposit. The one exception is the
-  Shopkeeper, grown up for all of `Shop/` since 2026-10-18: its manifest's
-  `grown_up_for` lets it edit any page there and create new entries, never a
-  scroll. Every other steward keeps its own page and bundle. When a committed
-  edit touches a page directly under `Shop/`, the cycle reruns
-  `Shop/Maker/build-roster.mjs`, and a regenerated `The Shop.md` rides the same
-  commit as machinery, never a page edit: only its ROSTER block may change, and
-  only a committed builder may write it; anything else is refused and named in
-  the commit body (`shop-roster.js`). Its normal cycle output
-  still goes where it always did: the bundle-local `[Entry] — scroll.md`
-  read-model, the steward machinery (`state.json` / `history.jsonl`), and
-  append-only Trickster-board messages.
+- **The steward writes its workshop and never runs git.** It may change the
+  making files in its own bundle (code, probes, renders, drafts, specs: any
+  file without `type:` in its frontmatter) and lists each `.md` it changes as
+  `page_edits` with a line of why; `process-cycle.js` commits those by name,
+  and the scroll's trail shows each one. Its own entry, the page's other faces
+  and memory (its Context, rich face, diary, batons and ledgers), any entry in
+  its bundle, another page, a new entry, canon and the scroll (its Plan and
+  Standing Orders stay Loudon's) are refused as edits (`page_edits_refused`,
+  named in the commit body). It does not deposit.
+- **What it wants in the house goes to its ledger.** Each `proposed_edits`
+  item (page, place, words, why) is filed by the cycle as a numbered item in
+  the steward's own tuning ledger, growing one if none, marked `canon change
+  owed` until Loudon's review. A yes marks it `paid in <commit> on <date
+  time>`, a no `declined on <date time>: <reason>`, and a later proposal with
+  `replaces` marks it `superseded by item N`. An `urgent` proposal is filed the
+  same way and also posted as a Trickster ask. How the review runs is still
+  open ([[Project Stewardship System]] § What's Open). No steward has wider
+  reach: no manifest names a folder, and the cycle reads none. The Shop roster
+  rebuild (`shop-roster.js`) stays wired, but it fires only on a committed
+  edit to a page directly under `Shop/`, which no cycle now makes; whoever
+  lands a Shop page change re-runs `Shop/Maker/build-roster.mjs`, and the
+  drift check (E4) catches it when nobody did.
+
+Its normal cycle output still goes where it always did: the bundle-local
+`[Entry] — scroll.md` read-model, the steward machinery (`state.json` /
+`history.jsonl`), its tuning ledger, and append-only Trickster-board messages.
 - **The wrapper makes one scoped, lock-safe commit** after the agent returns,
   via the palace committer (`_ops/stigmergy/app/scripts/palace-commit.mjs`),
   which stages only the paths the wrapper names — **never `git add -A`**
