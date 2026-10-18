@@ -39,6 +39,8 @@ On 2026-10-18, at a close, Loudon withdrew the stewards' own-page rule (2026-10-
   - a way to withdraw a proposal outright (only `replaces` exists).
 
   Edits a steward writes to disk anyway stay refused and uncommitted; nothing turns them into proposals.
+
+  **Two fixes for later, on Loudon's word at the close (2026-10-18): "reading page edits and lint doc-drift should be fixed in the future."** `Projects/Project Stewardship System/fleet/fleet-reading.mjs:94` reads `page_edits` as the sign a steward changed its page; it now means workshop files only, so count `proposed_edits` too. `_ops/swarm/lint-doc-drift.py:318`'s comment says a steward cycle refreshes a generated block; no cycle edits a source now.
 - **The canon that describes all this is drafted but unwritten.** It covers ELDER, Deposit v2.4 with tuning item 26, the stewardship page and its Context, the Shopkeeper's page, the Maker drift note, the Weave Context, SCHEMA — Reference §6 and Substrate Skill:181. It waits on Loudon's read in `canon-drafts-ledger-route.md`, outside the palace: `~/Library/Application Support/Claude/side-session-notes/local_ef89e62b-bb3f-4db0-ab7d-a32dc0c906e2/`. If it has neither landed nor been committed to a branch when you catch this, make that branch commit first: a docs worktree, committed, never merged, shown to Loudon.
 - **The Shopkeeper's first proposal** will likely be the FLUX staleness note Loudon granted (LAND-NOTE, 2026-10-18 16:10Z), already drafted in `Shop/Shopkeeper/drafts/`. Its order (`3a00f6e1`) sends its changes to `proposed_edits`.
 
