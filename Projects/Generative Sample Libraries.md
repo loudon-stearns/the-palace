@@ -295,3 +295,7 @@ This page is tended by a permanent steward and **may lag its live state** — th
 - **Not yet folded in here:** the full Crystal (Hexagonal) instrument lives at `Projects/Generative Sample Libraries/crystal-instrument/` (88 notes A0–C8 × 2 velocity layers, 176-region SFZ); the Shepard-tone instrument lives at `Projects/Generative Sample Libraries/shepard-instrument/` (12 octave-class WAVs, 191-line SFZ, interior-loop seam <0.07 dB by measurement) coordinated with the [[Shepard Tone Synthesizer]] steward via `gsl-steward-017` SECOND-PALACE; the Interview skill at `_ops/sample-libraries/skills/interview/SKILL.md` has been `status: active` since `gsl-steward-012` APPROVE (cycle 9) with a deposit proposal drafted at `Projects/Generative Sample Libraries/interview-skill-promotion-proposal.md` to move it to `/skills/sample-library-interview/SKILL.md` — not yet committed; the F1 12.7-cent bottom-octave wrinkle is FFT-bin quantization in the verifier, not a synthesis artifact; Phase 3 source three (local WAV folder via librosa pitch detect) is the next named direction in the steward's baton but not yet scaffolded.
 
 This footer is placed at enchantment and pruned at consolidation. See [[Drift and Consolidation]].
+
+## Active Baton
+
+[[Generative Sample Libraries — baton]] — drafted 2026-10-17
