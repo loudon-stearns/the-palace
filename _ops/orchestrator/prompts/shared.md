@@ -568,7 +568,9 @@ via `artifacts[]`:
 }
 ```
 
-HTML runs in a sandboxed iframe (sims, players, decks). **Prefer this over
+HTML runs in a sandboxed iframe (sims, players, decks), so it must stand alone:
+one file, everything inline, no fetch of a file beside it, no storage. The
+palace sizes it and quiets it for you. **Prefer this over
 `open:` when you want Loudon to experience the thing right there in the board;**
 reserve `open:` for handing a file to a native app (a WAV into his DAW).
 
