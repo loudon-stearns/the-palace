@@ -59,7 +59,7 @@ The ear's first reading is done (Current state): nothing went around the door. R
 
 - **The sitting** was held on 2026-10-18: the deck's hover-card code was committed after the suite passed (b3b1a30b); Semantic Delay's killed cycle 10 was committed after its tests passed (64883716); the Waveguide frames and stills, Generative Wavetable Libraries' cycles.npz and the loose audition presets stay local by name (96c1785b). Still to build: the read-only strip on the LOG deck, drawn from `trunk-state.mjs --json`.
 - **`claude/inspiring-mahavira-3c2fee` landed** on 2026-10-18 (1d176ef4), after the full suite passed on it merged with that day's main; the regen lane's runtime state was set aside, the branch untracked it, and it was put back, now ignored.
-- **The next Weave**: set its date; the last ran on 2026-09-24. Its step 2.5 now runs `trunk-state`.
+- **The next Weave**: right after the week's measure, around 2026-10-21 (Loudon, 2026-10-18), so its trunk read has the door's first week to look at. The last ran on 2026-09-24; its step 2.5 now runs `trunk-state`.
 - **The measure**, after a week (around 2026-10-21): the fence, the live-preview trade, whether isolated sessions need landing by pointer, and whether a Lander or an Archivist page has earned its place.
 
 ## Calibrations from this session
