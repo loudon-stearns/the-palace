@@ -279,9 +279,13 @@ if (!vres.ok) die(2, `handoff_ready announce is invalid:\n${JSON.stringify(vres.
 // committer runs it, because a `docs`-profile worktree has no node_modules (no js-yaml);
 // PALACE_ROOT points it at this worktree, so the commit lands here, not on main.
 const shq = (s) => `'${String(s).replace(/'/g, `'\\''`)}'`;
+// The commit's summary is the whole move, one sentence by the ceremony's own rule, less a
+// closing full stop. It used to be cut at 60 characters, which ended subjects mid-word
+// (2026-10-18: "…edited in pl", "…on 2026-1"); the palace sets no limit on a subject.
+const summaryOf = (m) => String(m).replace(/\s+/g, ' ').trim().replace(/\.$/, '');
 const commitCmd =
   `PALACE_ROOT=${shq(REPO)} node ${shq(join(owner, '_ops/stigmergy/app/scripts/palace-commit.mjs'))} ` +
-  `--kind handoff --scope ${shq(entry)} --summary ${shq(move.slice(0, 60))} --verify unverified ` +
+  `--kind handoff --scope ${shq(entry)} --summary ${shq(summaryOf(move))} --verify unverified ` +
   `--path ${shq(relBaton)} --path ${shq(relEntry)}`;
 
 if (!doWrite) {
