@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One Curve, Three Doorways</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.75;padding:40px 16px 64px}
+  main{max-width:900px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:52px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;letter-spacing:.01em;margin:0 0 4px}
+  p.lead{font-size:20px;color:var(--fg-2);margin:0 0 28px;max-width:62ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:8px;padding:22px;margin:0 0 18px}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:6px}
+  #curve{height:260px}
+  .scope{height:120px;margin-top:12px}
+  .knob{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:16px}
+  .knob label{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .knob input[type=range]{flex:1;min-width:180px;accent-color:var(--accent)}
+  .knob .v{font-family:var(--mono);font-size:18px;color:var(--fg-1);min-width:6ch;text-align:right}
+  .knob .word{font-family:var(--sans);font-size:13px;color:var(--fg-3);min-width:12ch}
+  .eq{font-family:var(--mono);font-size:14px;color:var(--fg-1);margin:18px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:13px;margin-top:4px}
+  .doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+  .door{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:8px;padding:18px;display:flex;flex-direction:column}
+  .door.on{border-color:var(--accent-line)}
+  .door p{margin:4px 0 10px;color:var(--fg-2);font-size:16px;line-height:1.55}
+  .door .reader{font-family:var(--mono);font-size:12px;color:var(--fg-3);margin:0 0 10px;overflow-wrap:anywhere}
+  .door .reader.w{font-size:11px;color:var(--fg-4);margin-top:-8px}
+  button{font-family:var(--sans);font-size:14px;cursor:pointer;border-radius:4px;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  button.play{color:var(--fg-2);background:transparent;border:1px solid var(--border);padding:9px 16px;align-self:flex-start}
+  button.play:hover{border-color:var(--fg-3)}
+  .door.on button.play{color:#0a0a0f;background:var(--accent);border-color:var(--accent)}
+  .door.on button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  .sub{display:flex;gap:10px;align-items:center;margin-top:10px}
+  .sub label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-4)}
+  .sub input{flex:1;accent-color:var(--accent)}
+  textarea{width:100%;margin-top:12px;min-height:58px;font-family:var(--sans);font-size:14px;color:var(--fg-1);background:var(--bg-elev-2);border:1px solid var(--border-soft);border-radius:4px;padding:8px 10px;resize:vertical}
+  textarea::placeholder{color:var(--fg-4)}
+  .question{margin-top:22px;padding:18px 22px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1)}
+  .question .eyebrow{color:var(--accent)}
+  .question p{margin:6px 0 0}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.ghost{color:var(--fg-2);background:transparent;border:1px solid var(--border);padding:8px 14px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  footer{margin-top:40px;font-family:var(--sans);font-size:13px;color:var(--fg-4);letter-spacing:.04em}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:520px){h1{font-size:40px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Daily page · study · Dissolutions</div>
+  <h1>One curve, three doorways</h1>
+  <p class="lead">One stored curve and one knob. Three readers take turns with it. If the hub is right, the knob should feel like one thing heard three ways, not three knobs that happen to share a formula.</p>
+
+  <section class="panel">
+    <canvas id="curve"></canvas>
+    <div class="knob">
+      <label for="c">curvature</label>
+      <input id="c" type="range" min="-12" max="12" step="0.1" value="5">
+      <span class="v" id="cv">5.0</span>
+      <span class="word" id="cw">convex</span>
+    </div>
+    <div class="eq">f(t, c) = ( e<sup>−c·t</sup> − e<sup>−c</sup> ) ÷ ( 1 − e<sup>−c</sup> )</div>
+    <div class="eq words">(curve height) = ( e<sup>−(curvature) × (where the reader is)</sup> − e<sup>−(curvature)</sup> ) ÷ ( 1 − e<sup>−(curvature)</sup> )</div>
+    <div class="hint" style="margin-top:10px">Curvature 0 is the 0 ÷ 0 case. Its limit is the straight line, and every doorway goes plain there at once.</div>
+  </section>
+
+  <div class="doors">
+    <section class="door" data-door="env">
+      <h2>Envelope</h2>
+      <p>A slow ramp reads the curve once per note. You hear it as the loudness of a pluck.</p>
+      <div class="reader">t = (time since the note) ÷ (note length)</div>
+      <div class="reader w">read once, start to end, about every 1.2 seconds</div>
+      <button class="play">Play</button>
+      <textarea data-note="env" placeholder="What your ear says about this doorway"></textarea>
+    </section>
+    <section class="door" data-door="osc">
+      <h2>Oscillator</h2>
+      <p>A ramp reads the same curve 110 times a second. Now the curve is the waveform itself.</p>
+      <div class="reader">t = (110 × time) wrapped to 0…1</div>
+      <div class="reader w">read start to end, 110 times a second</div>
+      <button class="play">Play</button>
+      <textarea data-note="osc" placeholder="What your ear says about this doorway"></textarea>
+    </section>
+    <section class="door" data-door="fx">
+      <h2>Effect</h2>
+      <p>A sine wave is the reader now. It swings back and forth across the curve, as far as its level reaches. The curve is a waveshaper.</p>
+      <div class="reader">t = (1 + x) ÷ 2,  x = L × sin(2π × 110 × time)</div>
+      <div class="reader w">(where it reads) = (1 + input) ÷ 2,  input = (level) × (a 110 Hz sine)</div>
+      <button class="play">Play</button>
+      <div class="sub"><label for="lvl">input level</label><input id="lvl" type="range" min="0.05" max="1" step="0.01" value="0.6"></div>
+      <textarea data-note="fx" placeholder="What your ear says about this doorway"></textarea>
+    </section>
+  </div>
+
+  <section class="panel" style="margin-top:18px">
+    <div class="eyebrow">What is coming out</div>
+    <canvas id="scope" class="scope"></canvas>
+  </section>
+
+  <div class="question">
+    <div class="eyebrow">The question this asks the page</div>
+    <p>Turn the knob in each doorway. On the envelope it is <em>snap</em>, on the oscillator it is <em>timbre</em>, on the effect it is <em>drive character</em>. Is that one knob, or three? If it is one, the hub's third ingredient holds: the dissolution gave you a control that travels. If it is three, the catalogue entry is a nice observation.</p>
+    <textarea data-note="whole" placeholder="One knob, or three?"></textarea>
+    <div class="row"><button class="ghost" id="copy">Copy notes</button><span class="hint" id="copied"></span></div>
+  </div>
+
+  <footer><b>LOUD’N LIVE</b> · a rough for the Daily Page, 2026-10-18 · one stored table, three readers</footer>
+</main>
+
+<script>
+(function(){
+  'use strict';
+  var N = 2049;
+  var cEl = document.getElementById('c'), cv = document.getElementById('cv'), cw = document.getElementById('cw');
+  var lvlEl = document.getElementById('lvl');
+  var curvature = parseFloat(cEl.value);
+
+  // The one shape function (Exponential Decay Curvature), with the Taylor branch near zero.
+  function f(t, c){
+    if (Math.abs(c) < 1e-4) return (1 - t) - c * t * (1 - t) / 2;
+    return (Math.exp(-c * t) - Math.exp(-c)) / (1 - Math.exp(-c));
+  }
+  // One table. The shaper maps input x in [-1,1] to t = (x+1)/2.
+  function tables(c){
+    var uni = new Float32Array(N), bi = new Float32Array(N);
+    for (var i = 0; i < N; i++){
+      var t = i / (N - 1), v = f(t, c);
+      uni[i] = v; bi[i] = 2 * v - 1;
+    }
+    return {uni: uni, bi: bi};
+  }
+
+  // ---------- audio ----------
+  var ctx = null, master, analyser, shU, shB1, shB2, active = null, nodes = [], timer = null, nextNote = 0, noteStarts = [];
+  var NOTE = 0.9, PERIOD = 1.2;
+  function ensure(){
+    if (ctx) return;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    master = ctx.createGain(); master.gain.value = 0.5;
+    analyser = ctx.createAnalyser(); analyser.fftSize = 2048;
+    master.connect(analyser); analyser.connect(ctx.destination);
+    shU = ctx.createWaveShaper(); shB1 = ctx.createWaveShaper(); shB2 = ctx.createWaveShaper();
+    setCurves();
+  }
+  function setCurves(){
+    if (!ctx) return;
+    var tb = tables(curvature);
+    shU.curve = tb.uni; shB1.curve = tb.bi; shB2.curve = tb.bi;
+  }
+  function stopAll(){
+    if (timer){ clearInterval(timer); timer = null; }
+    nodes.forEach(function(n){ try{ if (n.stop) n.stop(); }catch(e){} try{ n.disconnect(); }catch(e){} });
+    nodes = []; noteStarts = [];
+    [shU, shB1, shB2].forEach(function(s){ if (s) try{ s.disconnect(); }catch(e){} });
+    active = null;
+  }
+  function dcBlock(){ var h = ctx.createBiquadFilter(); h.type = 'highpass'; h.frequency.value = 20; nodes.push(h); return h; }
+
+  function startEnv(){
+    var tone = ctx.createOscillator(); tone.type = 'triangle'; tone.frequency.value = 196;
+    var vca = ctx.createGain(); vca.gain.value = 0;
+    var reader = ctx.createConstantSource(); reader.offset.value = 1;
+    var smooth = ctx.createBiquadFilter(); smooth.type = 'lowpass'; smooth.frequency.value = 250;
+    var out = ctx.createGain(); out.gain.value = 0.55;
+    reader.connect(shU); shU.connect(smooth); smooth.connect(vca.gain);
+    tone.connect(vca); vca.connect(out); out.connect(master);
+    tone.start(); reader.start();
+    nodes.push(tone, vca, reader, smooth, out);
+    nextNote = ctx.currentTime + 0.08;
+    function schedule(){
+      while (nextNote < ctx.currentTime + 0.3){
+        reader.offset.setValueAtTime(-1, nextNote);
+        reader.offset.linearRampToValueAtTime(1, nextNote + NOTE);
+        noteStarts.push(nextNote); if (noteStarts.length > 8) noteStarts.shift();
+        nextNote += PERIOD;
+      }
+    }
+    schedule(); timer = setInterval(schedule, 60);
+  }
+  function startOsc(){
+    var ramp = ctx.createOscillator(); ramp.type = 'sawtooth'; ramp.frequency.value = 110;
+    var out = ctx.createGain(); out.gain.value = 0.22;
+    var h = dcBlock();
+    ramp.connect(shB1); shB1.connect(h); h.connect(out); out.connect(master);
+    ramp.start(); nodes.push(ramp, out);
+  }
+  var inGain = null;
+  function startFx(){
+    var src = ctx.createOscillator(); src.type = 'sine'; src.frequency.value = 110;
+    inGain = ctx.createGain(); inGain.gain.value = parseFloat(lvlEl.value);
+    var out = ctx.createGain(); out.gain.value = 0.3;
+    var h = dcBlock();
+    src.connect(inGain); inGain.connect(shB2); shB2.connect(h); h.connect(out); out.connect(master);
+    src.start(); nodes.push(src, inGain, out);
+  }
+
+  var doors = Array.prototype.slice.call(document.querySelectorAll('.door'));
+  doors.forEach(function(d){
+    d.querySelector('button.play').addEventListener('click', function(){
+      ensure(); if (ctx.state === 'suspended') ctx.resume();
+      var which = d.getAttribute('data-door'), was = active;
+      stopAll();
+      doors.forEach(function(x){ x.classList.remove('on'); x.querySelector('button.play').textContent = 'Play'; });
+      if (was === which) return;
+      if (which === 'env') startEnv(); else if (which === 'osc') startOsc(); else startFx();
+      active = which; d.classList.add('on'); d.querySelector('button.play').textContent = 'Stop';
+    });
+  });
+  lvlEl.addEventListener('input', function(){ if (inGain && ctx) inGain.gain.setTargetAtTime(parseFloat(lvlEl.value), ctx.currentTime, 0.02); });
+  cEl.addEventListener('input', function(){
+    curvature = parseFloat(cEl.value);
+    cv.textContent = curvature.toFixed(1);
+    cw.textContent = Math.abs(curvature) < 0.05 ? 'straight line' : (curvature > 0 ? 'convex' : 'concave');
+    setCurves();
+  });
+
+  // ---------- drawing ----------
+  var cc = document.getElementById('curve'), sc = document.getElementById('scope');
+  var css = getComputedStyle(document.documentElement);
+  var ACC = css.getPropertyValue('--accent').trim(), FG3 = css.getPropertyValue('--fg-3').trim(), FG4 = css.getPropertyValue('--fg-4').trim(), INFO = css.getPropertyValue('--info').trim();
+  function fit(cv){ var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1; cv.width = Math.round(r.width * d); cv.height = Math.round(r.height * d); return d; }
+  var envHist = [];
+  function drawCurve(){
+    var d = fit(cc), g = cc.getContext('2d'), W = cc.width, H = cc.height, p = 24 * d;
+    g.clearRect(0, 0, W, H);
+    function X(t){ return p + t * (W - 2 * p); } function Y(v){ return H - p - v * (H - 2 * p); }
+    g.strokeStyle = FG4; g.setLineDash([4 * d, 4 * d]); g.lineWidth = 1 * d;
+    g.beginPath(); g.moveTo(X(0), Y(1)); g.lineTo(X(1), Y(0)); g.stroke(); g.setLineDash([]);
+    g.strokeStyle = ACC; g.lineWidth = 2 * d; g.beginPath();
+    for (var i = 0; i <= 300; i++){ var t = i / 300, y = Y(f(t, curvature)); if (i) g.lineTo(X(t), y); else g.moveTo(X(t), y); }
+    g.stroke();
+    // where the reader is
+    if (active && ctx){
+      var now = ctx.currentTime;
+      if (active === 'env'){
+        var st = null; for (var k = noteStarts.length - 1; k >= 0; k--) if (noteStarts[k] <= now){ st = noteStarts[k]; break; }
+        var t = st === null ? 1 : Math.min(1, (now - st) / NOTE);
+        g.fillStyle = INFO; g.beginPath(); g.arc(X(t), Y(f(t, curvature)), 5 * d, 0, 7); g.fill();
+      } else {
+        var lo = 0, hi = 1;
+        if (active === 'fx'){ var L = parseFloat(lvlEl.value); lo = (1 - L) / 2; hi = (1 + L) / 2; }
+        g.strokeStyle = INFO; g.lineWidth = 5 * d; g.globalAlpha = 0.45; g.beginPath();
+        for (var j = 0; j <= 120; j++){ var tt = lo + (hi - lo) * j / 120, yy = Y(f(tt, curvature)); if (j) g.lineTo(X(tt), yy); else g.moveTo(X(tt), yy); }
+        g.stroke(); g.globalAlpha = 1;
+      }
+    }
+    g.fillStyle = FG3; g.font = (10 * d) + 'px JetBrains Mono, monospace';
+    g.fillText('t = 0', X(0), H - 6 * d); g.fillText('t = 1', X(1) - 30 * d, H - 6 * d);
+    g.fillText('the reader', W - p - 70 * d, 14 * d);
+  }
+  var buf = new Float32Array(2048);
+  function drawScope(){
+    var d = fit(sc), g = sc.getContext('2d'), W = sc.width, H = sc.height;
+    g.clearRect(0, 0, W, H);
+    g.strokeStyle = FG4; g.lineWidth = 1 * d; g.beginPath(); g.moveTo(0, H / 2); g.lineTo(W, H / 2); g.stroke();
+    if (!active || !ctx) return;
+    g.strokeStyle = ACC; g.lineWidth = 1.5 * d; g.beginPath();
+    if (active === 'env'){
+      // the envelope itself, as a strip chart over the last three seconds
+      var now = ctx.currentTime, st = null;
+      for (var k = noteStarts.length - 1; k >= 0; k--) if (noteStarts[k] <= now){ st = noteStarts[k]; break; }
+      var v = st === null ? 0 : ((now - st) >= NOTE ? 0 : f((now - st) / NOTE, curvature));
+      envHist.push(v); if (envHist.length > 180) envHist.shift();
+      for (var i = 0; i < envHist.length; i++){ var x = W * i / 180, y = H - 8 * d - envHist[i] * (H - 16 * d); if (i) g.lineTo(x, y); else g.moveTo(x, y); }
+    } else {
+      analyser.getFloatTimeDomainData(buf);
+      var z = 0; for (var q = 1; q < 1024; q++) if (buf[q - 1] < 0 && buf[q] >= 0){ z = q; break; }
+      var span = 900, peak = 0.001; for (var a = z; a < z + span; a++) peak = Math.max(peak, Math.abs(buf[a]));
+      for (var s = 0; s < span; s++){ var xx = W * s / span, yy = H / 2 - (buf[z + s] / peak) * (H / 2 - 8 * d); if (s) g.lineTo(xx, yy); else g.moveTo(xx, yy); }
+    }
+    g.stroke();
+  }
+  function frame(){ drawCurve(); drawScope(); requestAnimationFrame(frame); }
+  requestAnimationFrame(frame);
+
+  // ---------- notes (this viewer only) ----------
+  var KEY = 'dissolutions-doorways-notes';
+  var notes = {}; try { notes = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e){ notes = {}; }
+  var tas = Array.prototype.slice.call(document.querySelectorAll('textarea[data-note]'));
+  tas.forEach(function(ta){
+    var k = ta.getAttribute('data-note'); if (notes[k]) ta.value = notes[k];
+    ta.addEventListener('input', function(){ notes[k] = ta.value; try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch(e){} });
+  });
+  document.getElementById('copy').addEventListener('click', function(){
+    var text = 'One curve, three doorways — notes\n' + tas.map(function(ta){ return '- ' + ta.getAttribute('data-note') + ': ' + (ta.value || '—'); }).join('\n');
+    var done = function(){ document.getElementById('copied').textContent = 'copied'; };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function(){ document.getElementById('copied').textContent = text; });
+    else document.getElementById('copied').textContent = text;
+  });
+})();
+</script>
+</body>
+</html>

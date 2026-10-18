@@ -5,7 +5,7 @@ pillars:
   - tools
   - practice
 born: 2026-09
-version: "1.28"
+version: "1.29"
 stage: foundational
 status: canonical
 links:
@@ -158,14 +158,16 @@ When any of the following change, a Schema Ceremony is required:
    ROSETTA (type/link/ceremony cards), `README - The Palace Guide` (entry-type + link-ontology
    + stage tables), SUBSTRATE (architecture + type list), `_ops/Substrate Skill.md`, and — for
    ceremony add/remove only — `_ops/Palace Ceremonies` and CLAUDE.md's trigger table. Update
-   each the change touches; if none, say so explicitly.
-6. Git commit with message: `Schema Ceremony — [what changed] — v[new version]`
+   each the change touches; if none, say so explicitly. Any other page that restates what
+   changed is beyond the mirror set: post one propagate flag for it (§9), so the next weave
+   carries the change there.
+6. Commit through the door with the ceremony's subject: `palace-commit --ceremony "Schema Ceremony" --summary "[what changed] — v[new version]"` writes `Schema Ceremony — [what changed] — v[new version]`
 
 **Postcondition:** SCHEMA.md, CLAUDE.md, ROSETTA.md, README, SUBSTRATE, `_ops/Substrate Skill.md`,
 and (for ceremony changes) `_ops/Palace Ceremonies` are internally consistent — verified by
 `_ops/swarm/lint-doc-drift.py` exiting clean on errors. Git commit made with Schema Ceremony message.
 
-**Failure mode:** If a schema change is made but the commit message does not follow the Schema Ceremony format, the change is not considered a Schema Ceremony — it is an undocumented structural edit. On next Weave: flag any version increments whose git commit messages lack the Schema Ceremony format. Reconstruct the rationale from the diff and add it retroactively as a note in SCHEMA.md.
+**Failure mode:** If a schema change is made but its commit does not carry the Schema Ceremony subject, the change is not a Schema Ceremony; it is an undocumented structural edit. So each Schema Ceremony opens by reading the version moves since the last one (`git log --format='%h %s' -G'^version:' -- SCHEMA.md`). For any whose commit lacks the subject, it reconstructs the rationale from the diff and adds it to [[SCHEMA — Context]].
 
 **Access vectors:**
 - *Full:* Claude Code / Cowork (filesystem read/write + git)
@@ -382,7 +384,14 @@ The strict validator gates malformed posts, and **as of v1.17 the gate matches t
 | `SESSION_INIT` / `SESSION_CLOSE` | Open/close a run; `SESSION_INIT.payload` names the `session_kind` (e.g. `enchanted_songline`, permanent stewardship) and its path. |
 | `RETRACT` | Withdraw a prior message that was posted in error, naming it in `re` and giving a one-line reason. The board is append-only, so a mistake is corrected by *adding* the retraction, never by editing the line. Ratified v1.17 after a wrong-path `handoff_ready` had to be corrected by overloading `handoff_picked_up` plus a repost — workable, but it made a naive board reader hit the wrong path first. |
 
-**Boards** route attention: `GENERAL` (status/content), `TRICKSTER` (decisions for the human), `WEAVE` (palace-weaving flags), `FLAGS` (connections worth keeping), `SYSTEM` (session lifecycle).
+**Boards** route attention: `GENERAL` (status/content), `TRICKSTER` (decisions for the human), `WEAVE` (palace-weaving flags: weave flags for the next weave, and the proofs and sparks that feed it), `FLAGS` (connections worth keeping), `SYSTEM` (session lifecycle).
+
+**Weave flags.** Work for the next [[Weave Ceremony|weave]] is a `BROADCAST` on `WEAVE` whose `payload.kind` is `weave_flag`. It is not the `FLAG` type, which belongs to the `FLAGS` board. A session posts one through the Commons writer, run from `_ops/`, after showing Loudon its body and hearing his yes; only two tools post their own (the weave's trails, `weave-emit-trails.mjs`, and cowork-git's litter sweep). There are two kinds:
+
+- An **entry flag** (`python3 -m commons weave-flag`) names its `source_entries` and asks for something done to them: `flag_type`, `source_entries`, `target_entry`, `proposed_action`, `rationale`, `source_deposit_id`.
+- A **propagate flag** (`python3 -m commons propagate`, `flag_type: propagate`) carries a decision to every page it reaches. It names no source entries, so no touch can close it. It carries `decision`, `target_entry` (the decision's home, written first), `scope`, `check`, `rhythm` (`sweep`, or `by-touch` when pages should change only as they are next edited, which needs a pattern), `proposed_action`, `rationale`, `source_deposit_id` and, when the check is mechanical, a `pattern` with optional `paths` that the flag linter counts. The writer's flags name three of these differently: `--home`, `--action`, `--source-id`.
+
+Either kind closes by a `Palace-Resolves: <id>` trailer. An entry flag may instead be declined (`Declined flag <id>: <reason>`), and an unfinished propagate flag is carried (`Carried flag <id>: <how far>`) for the next weave to continue. A decline line never closes a propagate flag; only Loudon retires one, by a `Palace-Resolves: <id>` written on his word and quoted in the commit body.
 
 ---
 

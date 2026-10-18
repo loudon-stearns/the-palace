@@ -12,7 +12,7 @@ forward_vector: "I carry the in-progress move on [[STIGMERGY]] across a boundary
 
 ## Move
 
-Build the piece origin for rich-face pieces, from the one shared file resolver through the canon edits, now that the exact-origin guard on STIGMERGY's board writes has shipped. Built, it means a piece runs on an origin of its own, declares in its own head what it needs, and a check keeps that honest, so every rich face and interactive element made from here on is built to one model. The plan is [[STIGMERGY — spec — rich-face pieces]], the design page Loudon said yes to on 2026-10-13. It holds the model, the piece contract and all ten steps with their sizes and tests; this baton does not restate it.
+Build the rest of the piece origin for rich-face pieces, from the piece server through the canon edits. The exact-origin guard on STIGMERGY's board writes, the first part of the piece kit and the shared file resolver have landed. Built, it means a piece runs on an origin of its own, declares in its own head what it needs, and a check keeps that honest, so every rich face and interactive element made from here on is built to one model. The plan is [[STIGMERGY — spec — rich-face pieces]], the design page Loudon said yes to on 2026-10-13. It holds the model, the piece contract and all ten steps with their sizes and tests; this baton does not restate it.
 
 ## Why this move matters
 
@@ -29,19 +29,25 @@ Shown a per-piece patch or a second origin, Loudon said: "lets make a general so
 
 ## Current state
 
-*As of 2026-10-13.* Of the model, nothing is built. What is on main is the sandbox and link rules the day's reviews landed (`2108a278`, `ca574c60`). Until the model is built the camera stays off the rich face; the five webcam builds still open from their project folder.
+*As of 2026-10-18.* Three parts are built. The first is the exact-origin guard (`65911e8a`): a write or `/api/open` passes only from the app's own origin. The second, ahead of the rest on Loudon's word ("Script first"), is the piece kit (`5e6b6f9d`, landed in `44e7f6e6`). `kit/inject.mjs` puts `_ops/rich-face/kit/piece.js` into every web page served by STIGMERGY's `/api/file`, the rich face's `/rich/<path>` and the public build. The kit reports a piece's height, posts `rich:play` for a sound the reader asked for, suspends audio on `rich:hush` until the next touch, and reports errors; a piece that speaks height or hush itself is left to it. `ArtifactSlot` relays play and hush between frames and `PhosphorAudio`, and shows a piece's first error. All of it runs on the app origin, inside the same sandbox. The third is the shared file resolver, `_ops/rich-face/resolve.mjs` (`1fa48453`, landed in `42eb806e`). The live rich page, the fingerprint and the public build now find a file the same way: a bare name only when exactly one file has it, nothing outside the palace once symlinks are followed. The index is git's: tracked files and new ones git doesn't ignore on the live page, committed files only in the build (`1875cb51`). A file that fails shows as a labelled box in the figure's place, the same box live and in the read view. `palace-find.mjs` is gone. The commit body holds the census of what changed on the real palace. Nothing of the piece origin exists, so the camera stays off the rich face and the five webcam builds still open from their project folder.
 
-- **The exact-origin guard has landed**, on main at `65911e8a` (it merges `7bbf9c32` and `7e71c0f8`): a write or `/api/open` now passes only from the app's own origin, and a URL Loudon types himself may still open a file. This baton was written while it was still in flight on branch `claude/piece-origin-step1-guard`; the build starts at the shared file resolver.
-- **Named unknowns** are in the spec's §7 (auto-hush against Tone.js, mermaid under a strict script policy, the camera through two nested frames outside headless Chromium, framed storage). None is proven.
+- **Proven** in headless Chromium (`rich-kit.test.js`, `rich-sandbox.test.js`): height at two widths, one voice at a time, wake on touch, no claim before a click, the viewport cap, errors reported. The spec's Tone.js unknown is answered: the wrap reaches Tone.js 15.0.4's own context, and the test reached the CDN and passed. No test covers `ArtifactSlot`'s relay or its error line. The resolver's proof is `rich-resolve.test.js`: Flocking's three figures, an ambiguous `index.html`, a symlink out of the palace, and the live page and the built read view showing the same boxes.
+- **Still unknown** (spec §7): mermaid under a strict script policy, the camera through two nested frames outside headless Chromium, framed storage.
+- **Left to build, in the spec's order:** the piece origin (3); camera and storage in the kit (the rest of 4); the page and its frames on the piece origin, with the figure's chips, named caps and errored mark (5) — the rich face does not show a piece's error yet; the checker (6); the Sentry and build gates (7); preview leases (8); the migration (9); the canon edits (10).
 - **Fold into the build:**
-  - `_ops/rich-face/README.md`: the five rules under "What the page lets run" (every piece sandboxed; the server sandboxes too; links go only to the web, mail or the palace; an entry's own HTML is shown, not run; framed by the reader) and its gotchas "stands alone" and "reports its height". The model rewrites them; the last build step's READMEs carry it.
+  - `_ops/rich-face/README.md` now carries the kit: its height and one-voice gotchas say the kit does them, and "stands alone" stays. The rules for declared files, storage and the camera arrive with the piece origin. It names `resolve.mjs` and states its lookup rule (`9a227ea4`).
+  - Kuramoto's three made pieces: the kit now posts their `rich:play` itself, so the spec's §6 change of target to `'*'` may be moot. Check before editing a record.
   - The 14 proofs that fetch a sibling file and the 5 (plus 2 archived) that use storage get a declaration when a face gathers them, not in a sweep (spec §6).
   - The `open:` links. The link rule keeps only `http:`, `https:`, `mailto:` and `obsidian:`, so the `open:` pseudo-scheme (`src/lib/format.js:152`, rewritten to `/api/open`) is stripped on the rich face. The coordinating session counted 22; a grep of tracked `.md` for `](open:` finds 12 (four project scrolls and `_ops/orchestrator/prompts/shared.md`). Recount before relying on either.
-  - Flocking's three text figures fail today because a bare name is matched only to depth 5 (`palace-find.mjs:33-38`). The shared resolver fixes them; pin d3 and Plot.
+  - Flocking's three text figures: the resolver fixed them. Pinning d3 and Plot is still owed, with the migration.
+  - **A spec question for Loudon.** Since 2026-10-18, the audio and video stewards make under `Projects/` and `Shop/Shopkeeper/` stay on the Mac, ignored by git (`.gitignore:44-64`). The resolver refuses an ignored file, so a rich face can't play a fresh render that was never tracked. No rich face names one today: all 23 files the two manifests name are tracked. The live page and the public build may need different answers.
+  - **A fourth lookup.** The scroll trail finds its own files in the browser (`palacePathOf`, `app/src/lib/scroll-view.js`). The enforcement test that fails any file lookup outside `resolve.mjs` (spec §5) will meet it.
+  - **Duplicate names.** 91 media filenames appear more than once in the resolver's index today; the spec's §7 says 77. A reference that worked by luck shows a labelled box until it names its path.
+  - **For whoever writes the next tests:** anything that resolves needs its temp palace to be a git repository. The rich tests' temp palaces are `git init`ed now.
 
 ## Next move
 
-Start with the shared file resolver (`resolve.mjs`): one place that finds a file the same way for the live page, the fingerprint and the public build. Once it is in, three lanes can run in parallel (spec §8): the piece server with the kit and the page's frames; the checker with the Sentry and build gates; and the preview tool with leases. Then the migration, then the canon edits. Each in its own worktree, merged one at a time.
+The shared file resolver has landed (`42eb806e`), so three lanes can run in parallel (spec §8): the piece server and the page's frames, with the kit's camera and storage; the checker with the Sentry and build gates; and the preview tool with leases. Then the migration, then the canon edits. Each in its own worktree, merged one at a time.
 
 ## Receiving environment
 
@@ -51,6 +57,7 @@ Claude Code on the Mac. This is STIGMERGY code, so each step gets its own worktr
 
 - **Loudon's three answers, 2026-10-13: "yes on the three decisions."** (1) Camera: a grant line per piece in `_ops/rich-face/grants.json`, written only on his yes. (2) Public site: a camera piece opens in its own tab. (3) Gathered proofs: the manifest speaks for them (the design's recommendation stands: only CDN pins get edited, after he has seen the diff).
 - **Order, as settled at the close:** "Make it the next build, after step 1 ships; don't wait anything behind BLUELINE."
+- **Loudon, 2026-10-18:** "Script first." and "I don't want a one off solution, we need a general solution." The kit was built first on the first; the second is the test every remaining step answers to.
 - The last build step's canon edits (Enrichment v2.5, the Maker house standard, the design-system `SKILL.md`, the READMEs) are house writes. They go through the Concierge and Loudon's yes.
 - The checker ships report-only first, over all 222 HTML files, until its false alarms are tuned out.
 - Never POST to the live :5173 from a script or a test. Browser-check on a scratch Vite server on its own port against a throwaway palace, with `strictPort: true` (the app README, "A scratch Vite given `port: 0` takes 5173"). Revert any temporary `launch.json` entry before a commit.
@@ -60,9 +67,10 @@ Claude Code on the Mac. This is STIGMERGY code, so each step gets its own worktr
 
 1. [[STIGMERGY — spec — rich-face pieces]], the plan.
 2. `_ops/stigmergy/app/server/request-guard.js` and `middleware.js`, and the guard's merge (`65911e8a`).
-3. `_ops/rich-face/README.md`, `rich-handler.mjs`, `rich.html`, `palace-find.mjs`, `fingerprint.mjs`, and `_ops/stigmergy/app/scripts/build-public.mjs`: the three places a file is looked up today.
+3. `_ops/rich-face/README.md`, `rich-handler.mjs`, `rich.html`, `resolve.mjs`, `fingerprint.mjs`, and `_ops/stigmergy/app/scripts/build-public.mjs`: the one resolver and the three places that ask it.
 4. `_ops/stigmergy/app/src/components/ArtifactSlot.jsx` and `state/RichFaceFrame.jsx`: the two frames the page change touches.
-5. `_ops/stigmergy/app/README.md`, "Write path" and "Testing, worktree & topology gotchas".
+5. `_ops/rich-face/kit/piece.js` and `inject.mjs`, and `_ops/stigmergy/app/tests/integration/rich-kit.test.js`: the kit as built, and its proof.
+6. `_ops/stigmergy/app/README.md`, "Write path" and "Testing, worktree & topology gotchas".
 
 ## On pickup (fixed — the catcher's checklist; do not rewrite per session)
 *Identical in every baton. It rides along because the catching Claude loads the

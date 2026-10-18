@@ -136,7 +136,7 @@ rendering on any message type, no validator/schema change:
   `choice` or `ranking`) correlated to the card — the asking agent reads the
   result. Picking writes only on `SEND`.
 
-## The PROJECTS deck + project scrolls (2026-09-23)
+## The PROJECTS deck and every page's scroll (2026-09-23)
 
 The STEWARDS roster became the **PROJECTS** deck (`[P]`; `W` and `?deck=stewards`
 still land there). Every `type: project` entry is one row — stewarded or not —
@@ -146,7 +146,7 @@ cycles) · *tended* · *no steward*. The signal column is computed by the same
 rule as the scroll's Now zone (`server/projects.js` → the orchestrator's
 `computeNow`), so the table and the scroll never disagree.
 
-Click a name to open the project's **scroll** (`[Entry] — scroll.md` in its
+Click a name to open the page's **scroll** (`[Entry] — scroll.md` in its
 bundle, the front door that replaced `plan.md`): the **Now** zone regenerated on
 every fetch, the **Plan** agreed with Loudon (revised here with a line on what
 changed and why, which lands on the trail; a steward's `plan_revision` ask shows
@@ -168,6 +168,25 @@ it lives on the board, the runs block when it keeps a tuning ledger
 scroll has a Plan, a ceremony's too. When the page keeps a tuning ledger the
 orders box asks *standing, or once?*: a standing order stays on the scroll, a
 one-shot order goes into the ledger as owed for the next run to pay.
+
+**A scroll opens over the deck you are on** (2026-10-18). `?scroll=<home>` rides
+beside the open deck and entry, and `ScrollHost`
+(`src/components/projects/ScrollHost.jsx`) draws it over that deck. SCROLL on a
+STATE entry keeps STATE lit, and back returns to the page: a history step when
+this tab opened it, a close when you landed by link. Old `?project=` links still
+land. The Now zone sits in a closed fold, kept for the steward and the runs;
+Open asks stays open below it.
+
+**The trail plays in place.** Every artifact goes through `ArtifactSlot`, the
+TRICKSTER card's player. A web page, video or pdf mounts in its own `LazyMount`
+(300 px margin) and unmounts once you have scrolled past, so only the pieces in
+view run, and a sound stops when its piece leaves. A web frame starts at 800 px
+(a TRICKSTER card's starts at 480) until the piece reports its height. A section
+keyed on a board message plays the message's `artifacts`; any section plays the
+palace files its markdown links name (`palacePathOf` + `liftArtifacts`,
+`src/lib/scroll-view.js`), in every form the palace writes: a plain path with
+spaces, `<angle brackets>`, `%20`, `open:<path>`, an `obsidian://open?…&file=`
+link, or a palace-absolute `/path`. A web address is never lifted.
 
 - `GET /api/projects` — the rows (`projects`, `services`, `ceremonies`, `pages`) + the lane's worker status.
 - `GET /api/projects/scroll?home=<Title>[&write=1]` — any page's scroll with a live Now
@@ -227,11 +246,12 @@ Hard-won cautions for anyone building or testing this app:
 - **`core/` edits are inert in a worktree.** `@stigmergy/core` is imported as a *package*; a worktree's `node_modules` symlinks to the owner's, whose `@stigmergy/core` points back at the owner's `_ops/stigmergy/core/`. So a worktree edit to `core/` is not what the tests/app load — make and verify `core/` changes on the **owner (main)**. (App `src/…` edits import by relative path and are fine in a worktree.)
 - **A preview server run from a worktree traps board writes.** The app roots its board at its own cwd, so a dev server launched from a worktree writes companion/coordination state to *that worktree's* `blackboard.jsonl` + `.actuator-companion` — lost on `git worktree remove --force`. Before tearing down a stigmergy worktree, `git status` for a modified board and rescue any messages you didn't author to the owner tree. Prefer running previews from the owner.
 - **No shebangs in app-imported orchestrator files.** The app (Vite/esbuild) bundles orchestrator modules imported by relative path, and esbuild does *not* strip a leading `#!/usr/bin/env node` — it becomes a `Syntax error "!"` and the dev server fails to start. Drop the shebang and invoke such files via `node <file>`. Vitest won't catch this; only a real `vite` start does.
-- **Rich-face pieces run sandboxed, like artifacts.** Every piece frame on `/rich/` is `sandbox="allow-scripts"` — the rule `ArtifactSlot.jsx` applies — so a piece cannot write, run `/api/open`, or read the page. The page sizes a piece by the height it reports (`rich:height`), else its manifest `height`, else 800, and knows it by its frame, not its origin, for `rich:play`, `rich:hush` and `rich:height`; an entry's own raw HTML is escaped, and mermaid renders `strict`. `tests/integration/rich-sandbox.test.js` checks all of it in headless Chromium against the middleware on a temp palace, never :5173, and skips with a warning when Playwright's Chromium isn't installed. The rules for whoever makes a piece: `_ops/rich-face/README.md` § What the page lets run, and its gotchas. *(2026-10-13)*
+- **Rich-face pieces run sandboxed, like artifacts.** Every piece frame on `/rich/` is `sandbox="allow-scripts"` — the rule `ArtifactSlot.jsx` applies — so a piece cannot write, run `/api/open`, or read the page. Every served web page carries the piece kit (`_ops/rich-face/kit/`), which reports height, play and errors and answers hush with no line from its maker. `ArtifactSlot` speaks the same protocol: it takes the height, relays play and hush between frames and `PhosphorAudio`, and shows a piece's first error. The page sizes a piece by the reported height, else its manifest `height`, else 800, and knows it by its frame, not its origin, for `rich:play`, `rich:hush` and `rich:height`; an entry's own raw HTML is escaped, and mermaid renders `strict`. `tests/integration/rich-sandbox.test.js` (the rich face) and `rich-kit.test.js` (the kit; its Tone.js case skips when the CDN is out of reach) check it in headless Chromium against the middleware on a temp palace, never :5173, and skip with a warning when Playwright's Chromium isn't installed. The rules for whoever makes a piece: `_ops/rich-face/README.md` § What the page lets run, and its gotchas. *(2026-10-13; the kit 2026-10-18)*
 - **A scratch Vite given `port: 0` takes 5173.** Vite reads 0 as "use the default", and the live server listens on `[::1]:5173` only, so a scratch `createServer({ server: { host: '127.0.0.1', port: 0 } })` binds `127.0.0.1:5173` beside it, and anything aimed at `127.0.0.1:5173` meanwhile reaches the scratch server. Pick a free port first and pass it with `strictPort: true`. *(2026-10-13)*
 - **Reuse the styled media components.** Surfacing audio → `src/components/PhosphorAudio.jsx`; image / iframe / file → `src/components/ArtifactSlot.jsx` (+ `src/lib/artifact.js`). Never drop a raw native `<audio controls>` / player — it breaks the phosphor language. Grep for the existing component before building a new media display.
 - **The TOPOLOGY lens reads your files live; the dated map is the Weave's.** `/api/topology` and `/api/lens/suggest` build the typed-link graph from the entries' own frontmatter on every request (`src/lib/topology-live.js`, ~90 ms on the real palace) — compost, rename, demote or link a page and it shows. The lens still fetches once on mount, so **reload the page** to see a change. The dated `_ops/maps/palace-map-full-*.json` that `_ops/swarm/build-map-*.py` writes is no longer what the lens draws, in the app or on the public site: it stays the fixed picture the Weave, the linters and the partitioner argue from. The public read view reads the same graph once, at publish time (`scripts/build-public.mjs`, cut to the public set — published pages, and links with both ends published), so it is as new as the last push and its header says the day. Two builders now draw one graph, and they must not drift: every node and edge rule in `topology-live.js` restates the Python builder's, and `tests/integration/topology-parity.test.js` runs the real builder over the real tree and fails on any difference (it needs `python3` + PyYAML, and skips loudly without them). **Change a rule in one, change it in the other.** *(Until 2026-10-06 the lens drew the snapshot, and a page composted after the last build kept its node — and a 404 behind it — until the next one.)*
 - **The map builder must skip `@import` symlinks or it mints phantom duplicate nodes.** The five `_`-underscore files at the palace root (`Cooperation_Yields_Agency.md`, `FOUR_PILLARS.md`, `Hilaritas_Generator.md`, `Modes_of_Collaboration.md`, `Palace_Philosophies.md`) are symlinks to their spaced originals, existing only so CLAUDE.md's `@import` floor resolves (the spaces bug). Python's `rglob("*.md")` yields them and `parse_fm` follows the link, so without an `if p.is_symlink(): continue` guard the builder emits duplicate underscore-id nodes (`Cooperation_Yields_Agency`) that have **no bundle folder** — hence no avatar and an ugly underscore label in the graph. `listEntries` (the JS walker) already skips them — a symlink Dirent reports `isFile()===false` — so only the Python builder needed the guard. Fixed in `build-map-2026-07-04.py`; keep the guard in any successor builder. *(2026-07-05)*
+- **An edit in the Vite config's import graph while a steward runs blinds the deck.** The steward lane is built inside `vite.config.js` → `server/middleware.js`. Saving a file that graph imports (`server/`, `orchestrator/src/`, `core/`, much of `src/lib/`) makes Vite re-import the config in the same process and build a fresh, empty lane, while the old one finishes its run unseen. `src/components/*` and tests are outside it. Land such a change between cycles: check `curl localhost:5173/api/stewards` for `worker.running`. The fix (lane state on disk, a fresh lane adopting a live worker) is not built. *(2026-10-13)*
 
 ## Directory map
 

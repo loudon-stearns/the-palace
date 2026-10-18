@@ -5,7 +5,8 @@ Doc-Drift Linter - the Weave's checkable postcondition for foundational-doc cons
 Companion to lint-link-directions.py. Where that linter checks the *graph* (typed-link
 directionality), this one checks the *prose*: the recurring ways foundational docs drift
 out of sync with each other and with the filesystem. Mechanical, deterministic, no API
-calls, reads markdown directly. Exit code 0 = clean (no errors), 1 = errors found.
+calls, reads markdown directly (and runs each generated block's own builder in --check
+mode, E4). Exit code 0 = clean (no errors), 1 = errors found.
 
 The six drift mechanisms (see Palace Foundational Doc Drift Assessment, 2026-06-09):
   A  unmanaged mirrors        D  path/case drift (case-insensitive-FS masked)
@@ -20,6 +21,9 @@ Checks implemented:
   E3  Wrong-case reference   - a referenced filename whose case doesn't match the real file
                               (a case-insensitive match exists). The FS resolves it; the
                               reference still misleads agents about the canonical name.
+  E4  Stale generated block  - a block a builder computes into an entry (GENERATED_BLOCKS,
+                              today The Shop.md's Roster) no longer matches what its builder
+                              would write: its sources moved and nobody re-ran it.
 
   WARNINGS (lower confidence - review, don't necessarily block):
   W0  Broken path reference - a backtick-quoted CONCRETE path (no placeholder / command /
@@ -32,12 +36,15 @@ Checks implemented:
                               filename; its field and any **Trigger:** line in its body are
                               both checked. Bracketed slots are stripped before comparison
                               ("revive [entry]" -> "revive").
+  W3  Generated-block source - a builder's own warning about a block's sources (a Shop page
+                              of type specialist/maker with no `member-of [[The Shop]]` is
+                              still listed), or a builder that could not run at all.
 
 Usage: python3 _ops/swarm/lint-doc-drift.py [palace-root]
        (defaults to the palace root two levels above this script)
 """
 from __future__ import annotations
-import os, re, sys
+import os, re, subprocess, sys
 from collections import defaultdict
 
 # Skipped when INDEXING the filesystem (these hold no referenceable palace artifacts).
@@ -306,6 +313,45 @@ def check_trigger_coverage(root, basenames_lower):
     return warns
 
 
+# Generated blocks - drift mechanism E (stale snapshots) with a builder behind it. Each is
+# computed from the palace and committed into an entry, so it goes stale the moment its
+# sources change without a re-run. A steward cycle that edits a source refreshes its block;
+# a session that moves or re-statuses a source does not, so the check lives here, where the
+# Weave, the Deposit and the Return already look. Each builder honours `--check`: exit 0
+# when its block is current, exit 1 printing STALE when it is not, and every `warn:` line
+# it prints is a finding about its sources. Add a block here when a second builder appears.
+GENERATED_BLOCKS = [
+    ("The Shop.md § Roster", "Shop/Maker/build-roster.mjs"),
+]
+
+
+def check_generated_blocks(root):
+    """E4 stale generated block (ERROR) + W3 builder warning (WARN). Runs the root's own copy
+    of each builder, so a worktree or sandbox root is checked as itself; a root without the
+    builder has no block to check."""
+    errs, warns = [], []
+    for block, builder in GENERATED_BLOCKS:
+        script = os.path.join(root, builder)
+        if not os.path.isfile(script):
+            continue
+        try:
+            r = subprocess.run(["node", script, "--check"], cwd=root,
+                               capture_output=True, text=True, timeout=60)
+        except (OSError, subprocess.TimeoutExpired) as ex:
+            warns.append(f"W3  generated block not checked:  {block}  ({builder} --check could not run: {ex})")
+            continue
+        if r.returncode == 1 and "STALE" in r.stdout:
+            errs.append(f"E4  stale generated block:  {block}  (its sources changed; refresh with: node {builder})")
+        elif r.returncode != 0:
+            last = (r.stderr.strip().splitlines() or ["no output"])[-1]
+            warns.append(f"W3  generated block not checked:  {block}  ({builder} --check exited {r.returncode}: {last})")
+        for line in (r.stdout + r.stderr).splitlines():
+            m = re.match(r"\s*warn:\s*(.+)", line)
+            if m:
+                warns.append(f"W3  generated-block source in {block}:  {m.group(1)}")
+    return errs, warns
+
+
 # Transient/working docs are EXPECTED to reference moved/archived/example paths; excluding
 # them from path checks keeps the signal on the canonical spec layer. (Case checks still
 # run everywhere via E3 since a wrong-case canonical name is wrong wherever it appears.)
@@ -349,6 +395,8 @@ def main():
     errors += e; warns += w
     warns += check_section_pins(root, basenames_lower, scan)
     warns += check_trigger_coverage(root, basenames_lower)
+    e, w = check_generated_blocks(root)
+    errors += e; warns += w
 
     errors = sorted(set(errors)); warns = sorted(set(warns))
 

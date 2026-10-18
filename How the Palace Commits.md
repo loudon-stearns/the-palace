@@ -47,7 +47,7 @@ flowchart LR
 ```
 *The road has one door in and one gate out: the committer and the lander keep the writing orderly, and only Loudon's word opens the gate to GitHub.*
 
-**Commit.** `palace-commit` takes the files you name and nothing else, under one lock held from the first `git add` to the commit (`_ops/stigmergy/app/server/door.js`). It writes the message, and the message is the record: a subject, `kind(scope): summary`, and trailers saying what kind of change it is, which entries it touched, whether it was verified, and who wrote it (`Palace-Kind`, `Palace-Entry`, `Palace-Verify`, `Palace-Author`; `_ops/stigmergy/app/src/lib/commit-spec.js`). Git shows Loudon as the author, because that is this Mac's identity; `Palace-Author` says who wrote. A change of a breath may be made in his folder and committed by name; it passes the same door. Loudon never commits by hand, and his one hand path, the [[Trickster Commit]], goes through that door too.
+**Commit.** `palace-commit` takes the files you name and nothing else, under one lock held from the first `git add` to the commit (`_ops/stigmergy/app/server/door.js`). It writes the message, and the message is the record: a subject, `kind(scope): summary`, and trailers saying what kind of change it is, which entries it touched, whether it was verified, and who wrote it (`Palace-Kind`, `Palace-Entry`, `Palace-Verify`, `Palace-Author`; `_ops/stigmergy/app/src/lib/commit-spec.js`). A ceremony whose spec names its subject passes `--ceremony "<Name>"` in place of a kind and scope: the subject becomes `<Name> — <summary>` (`Schema Ceremony — … — v1.29`, `Weave — 2026-10-21 — …`) and the trailer takes the ceremony's kind. The name is one the commit-msg hook reads as a ceremony, and a kind no reader knows is refused. Git shows Loudon as the author, because that is this Mac's identity; `Palace-Author` says who wrote. A change of a breath may be made in his folder and committed by name; it passes the same door. Loudon never commits by hand, and his one hand path, the [[Trickster Commit]], goes through that door too.
 
 **Land.** `palace-land` merges a branch into main as a true merge commit, main first and the branch second, under one lock for the whole write, so no other writer slips in halfway. It tries the merge against main as it stands and refuses a conflict, naming the files; a conflict is settled in the branch's own worktree, never in Loudon's folder. If a landing dies partway, the next writer to take the door heals it: it finishes the landing quietly when every file sits at the old or the new version; when a file sits at neither, that is someone's edit, so it leaves that file alone, names it, and puts the rest back, and the branch lands again once the file is settled (`_ops/stigmergy/app/scripts/palace-land.mjs`, `_ops/stigmergy/app/server/landing.js`). Canon lands only on Loudon's yes, and the [[Concierge]] lands a branch that carries house writes.
 
@@ -74,3 +74,8 @@ How the door came to be, and the moves still to come: [[Worktree Practice — sp
 ## Worktrees
 
 Anything longer than a breath is made in a worktree of its own: its own branch and HEAD, the heavy state linked back from the owner, torn down safely when the work lands. The how-to (profiles, symlinks, closing a worktree well) is [[Worktree Practice]].
+
+## Active Baton
+
+[[How the Palace Commits — baton — union-merge]] — drafted 2026-10-18
+[[How the Palace Commits — baton — retire-cowork]] — drafted 2026-10-18

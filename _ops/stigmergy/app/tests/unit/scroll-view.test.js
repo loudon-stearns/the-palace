@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import { parseMakingSections, liftArtifacts, ageOf, rowSignal, groupProjects, cardSpec, messageForSection, decisionFor } from '../../src/lib/scroll-view.js';
+import { parseMakingSections, liftArtifacts, palacePathOf, ageOf, rowSignal, groupProjects, cardSpec, messageForSection, decisionFor } from '../../src/lib/scroll-view.js';
 import { sortProjects, projectSortKey } from '../../server/projects.js';
 
 const MAKING = [
@@ -45,9 +45,48 @@ describe('parseMakingSections', () => {
     expect(s[0].id).toBeNull();
   });
 
-  test('liftArtifacts ignores urls, open:/obsidian: schemes and duplicates', () => {
+  test('liftArtifacts ignores web urls and lifts each palace file once, whatever form names it', () => {
     const a = liftArtifacts('[x](https://a/b.png) [y](open:Projects/x.wav) [z](Projects/x.wav) [z again](Projects/x.wav) [o](obsidian://open?file=a.png)');
-    expect(a).toEqual([{ path: 'Projects/x.wav', caption: 'z' }]);
+    expect(a).toEqual([{ path: 'Projects/x.wav', caption: 'y' }, { path: 'a.png', caption: 'o' }]);
+  });
+
+  // The 2026-10-18 census: 39 web pages on 16 scrolls missed the trail for the
+  // way their link was written, most for a space in a project bundle's path.
+  // Meadows, cycle 9: the post and the section both named the sketch without
+  // its Projects/ prefix. The scroll's line can be corrected, the post cannot.
+  test('cardSpec: where the scroll corrects a post\'s path to the same file, the scroll\'s path wins and the post keeps its caption', () => {
+    const msgs = [{ id: 'm-024', type: 'BROADCAST', payload: { artifacts: [{ path: "Meadows/sketch.html", caption: 'v0.1' }, { path: 'Meadows/other.png' }] } }];
+    const section = { id: 'm-024', heading: 'h', body: '', footer: null, artifacts: [{ path: 'Projects/Meadows/sketch.html', caption: 'fixed' }] };
+    const c = cardSpec(section, msgs);
+    expect(c.artifacts.heavy).toEqual([{ path: 'Projects/Meadows/sketch.html', caption: 'v0.1' }]);
+    expect(c.artifacts.light.map((a) => a.path)).toEqual(['Meadows/other.png']);
+  });
+
+  test('cardSpec: two post paths with one file name are ambiguous, so the scroll\'s path is added beside them', () => {
+    const msgs = [{ id: 'w', type: 'BROADCAST', payload: { artifacts: [{ path: 'W/v1.8/index.html' }, { path: 'W/v1.9/index.html' }] } }];
+    const section = { id: 'w', heading: 'h', body: '', footer: null, artifacts: [{ path: 'Projects/W/v1.9/index.html' }] };
+    expect(cardSpec(section, msgs).artifacts.heavy.map((a) => a.path)).toEqual(['W/v1.8/index.html', 'W/v1.9/index.html', 'Projects/W/v1.9/index.html']);
+  });
+
+  test('palacePathOf reads every form a palace file arrives in', () => {
+    expect(palacePathOf('Projects/Floquet Time-Modulated Loops/interactives/02_mathieu_simulator.html')).toBe('Projects/Floquet Time-Modulated Loops/interactives/02_mathieu_simulator.html');
+    expect(palacePathOf('<Projects/Loudon Live/proofs/the-logo-heard.html>')).toBe('Projects/Loudon Live/proofs/the-logo-heard.html');
+    expect(palacePathOf('Projects/Loudon%20Live/proofs/the-logo-heard.html')).toBe('Projects/Loudon Live/proofs/the-logo-heard.html');
+    expect(palacePathOf('open:Projects/Blood Compressor/stage2-vessel-prototype-v3.html')).toBe('Projects/Blood Compressor/stage2-vessel-prototype-v3.html');
+    expect(palacePathOf('obsidian://open?vault=The%20Palace&file=Projects/Semantic%20Webcam/08-tonal-bench.html')).toBe('Projects/Semantic Webcam/08-tonal-bench.html');
+    expect(palacePathOf('/Dissolutions/proofs/x/a.html')).toBe('Dissolutions/proofs/x/a.html');
+    expect(palacePathOf('Projects/A B/c.html "a title"')).toBe('Projects/A B/c.html');
+    expect(palacePathOf('https://example.com/a.html')).toBe(null);
+    expect(palacePathOf('mailto:x@y.z')).toBe(null);
+    expect(palacePathOf('')).toBe(null);
+  });
+
+  test('liftArtifacts lifts a spaced path, and stops at the link\'s own closing paren', () => {
+    const a = liftArtifacts('- [the sim](Projects/Floquet Time-Modulated Loops/interactives/03_pumped_swing.html) (see also [kap](<Projects/Floquet Time-Modulated Loops/interactives/15_kapitza_pendulum.html>))');
+    expect(a.map((x) => x.path)).toEqual([
+      'Projects/Floquet Time-Modulated Loops/interactives/03_pumped_swing.html',
+      'Projects/Floquet Time-Modulated Loops/interactives/15_kapitza_pendulum.html',
+    ]);
   });
 });
 

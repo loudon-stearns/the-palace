@@ -7,6 +7,7 @@ import { execFileSync } from 'node:child_process';
 import request from 'supertest';
 import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 function makeServer(palaceRoot) {
   const plugin = blackboardMiddleware(palaceRoot);
@@ -352,11 +353,12 @@ describe('POST /api/entry/save — Phase 5 Stage A dry-run preview', () => {
 // repo stands in for the live palace so the commit can land.
 describe('trickster write surfaces (canon bypass, path-safety kept)', () => {
   let root, base;
-  const git = (args) => execFileSync('git', args, { cwd: root, encoding: 'utf8' });
+  const git = (args) => execFileSync('git', args, { cwd: root, encoding: 'utf8', env: gitFreeEnv() });
 
   beforeAll(async () => {
     root = makeTempPalace();
     git(['init', '-q', '-b', 'main']);
+    assertScratchRepo(root);
     git(['config', 'user.email', 'test@example.com']);
     git(['config', 'user.name', 'Test User']);
     git(['config', 'commit.gpgsign', 'false']);

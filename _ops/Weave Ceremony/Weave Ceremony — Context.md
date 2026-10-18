@@ -50,6 +50,18 @@ The Weave began as a link-maintenance ceremony — topology, unsung paths, stage
 
 **Memory as cache.** The palace is the store; memory is a volatile cache holding only operator-environment-native facts (this harness, this machine — no palace analog). The Weave reads memory and weaves home anything that would matter to a fresh agent elsewhere. The asymmetry it corrects: an agent reaches for memory by reflex; the value redirects it to canon.
 
+## Decisions Reach Every Page (2026-10-18)
+
+Loudon widened the mandate once more: anything a session decides that should hold across the palace is posted as a weave flag, and the next weave carries it. Before this, a decision spread however the deciding session improvised. Some went out in a same-day sweep, some in a propagation plan with a baton, some only as far as the Schema Ceremony's six mirror docs, and some as a sentence saying "flagged for the next Weave" with nothing on the board for the next weave to meet.
+
+**Why the weave.** It is the one ceremony that reads every page, and carrying a decision to the pages it hasn't reached is coherence in the plainest sense, not growth: the palace agreeing with what it has already decided. It also extends a hinge the palace already had. Closing Well's rule is "the close sees; the Weave acts", and a decision is the largest thing a close can see.
+
+**The tension it holds.** The September weave turned some flags away as bigger than a weave. A propagate flag answers that by arriving with its work already shaped: the home where the decision lives, the pages it reaches, the check that tells a page is in line, and, when the check is mechanical, a pattern the flag linter counts before the weave begins. The weave does the carrying, not the rediscovering.
+
+**Two choices Loudon made with it.** Some decisions are meant to spread slowly. His "retire `last_tested` page by page" from Schema v1.28 is one, so a flag can carry `rhythm: by-touch`, and then the weave measures how far it has spread and leaves the pages alone. And a decision need not wait a month: the deciding session does what it can at once and posts the flag anyway, so the weave becomes the second reader that confirms the decision reached everywhere ([[No Mind Checks Itself]]).
+
+**The flag points at the rule; it is never the rule.** The decision is written into its home first, for the same reason memory may not hold canon: the board is a carrier, and a carrier can be lost.
+
 ## Cadence Rationale
 
 The Weave is monthly. More frequent and it becomes overhead. Less frequent and the palace begins to drift — orphan entries accumulate, stale metadata misleads, the topology report loses its ability to surprise.
@@ -87,6 +99,10 @@ Loudon decided on 2026-09-24 that ceremonies should change in plain view, and th
 **Where the lessons live:** `_ops/Weave Ceremony/Weave Ceremony — tuning.md`, numbered and grouped by run, with each entry tied to the spec change it forced — or marked as owed. Every run report stamps `ceremony_version` and ends with "What this run taught the ceremony". "Nothing" is a legal answer. Anything else becomes the next tuning entry. The stamp-and-teach step itself (Protocol Step 6.7, postcondition 5c) is part of 1.0: the version was born with its own mechanism.
 
 **v1.1 (2026-09-24) — open by reading the ledger.** Tuning item 38. 1.0 asked every run what it taught and never pointed the next run at the answer, so the four owed changes sat where no weave would meet them. Step 0 now reads the tuning file — owed items first, then anything after the version the last weave ran under — and those are the run's first candidates for a spec change. Schema v1.21 made the same rule general; the Weave took it first because its ledger was the one already holding debts.
+
+**v1.6 (2026-10-18) — a stale generated block fails the gate.** Tuning item 42. [[The Shop]]'s roster is computed by `Shop/Maker/build-roster.mjs` but committed as text, so it goes stale whenever a Specialist is added, moved or re-statused and nobody re-runs the builder. Two weaves found it stale and fixed it by hand, and both filed the fix as mechanical, which is the proof a hard gate waits for (Protocol, the note on judgment). So `lint-doc-drift.py` gained E4: it runs each generated block's own builder with `--check`, and postcondition 2e fails while a block is stale. W3 passes the builder's own warnings through for review. The linter already ran in the Deposit's check, the Return's map and the Schema Ceremony, so one check reaches a session's drift wherever someone next looks, not only at the monthly weave. A steward cycle that edits a Shop page refreshes the block itself.
+
+**v1.7 (2026-10-18) — decisions reach every page.** Tuning item 43. A propagate flag (`flag_type: propagate`) names no source entries, so no touch closes it; it carries a scope, a check, an optional pattern and a rhythm, and closes by `Palace-Resolves:` once its check is clean. Step 1c now has two kinds of flag: entry flags close by trailer or decline, with a touch read by hand (paying items 21 and 24); propagate flags are carried first, and an unfinished one leaves a `Carried flag` line for the next weave to start from. Postcondition 2b, the commit line and the report count them, and the linter gates them with `--since`. See § Decisions Reach Every Page.
 
 ## Open Questions
 

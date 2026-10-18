@@ -51,7 +51,7 @@ function ZoneTitle({ children, right }) {
   );
 }
 
-export default function ScrollView({ home, row, worker, messages = [], onConfirmed, onBack, onAdvance, canAdvance, feedback, onEnchant, canEnchant }) {
+export default function ScrollView({ home, row, worker, messages = [], onConfirmed, onBack, backLabel = 'back', onAdvance, canAdvance, feedback, onEnchant, canEnchant }) {
   const [confirmEnchant, setConfirmEnchant] = useState(false);
   // Option selection on a TricksterCard is CONTROLLED by its parent (the
   // TRICKSTER deck keeps a per-request_id map so keys and clicks share one
@@ -170,7 +170,7 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
   return (
     <div data-testid="scroll-view" data-home={home}>
       <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap', marginBottom: 6 }}>
-        <span data-testid="scroll-back" onClick={onBack} style={{ color: 'var(--phosphor)', textShadow: 'var(--glow)', cursor: 'pointer', border: '1px solid var(--phosphor-dim)', padding: '1px 8px', fontSize: 12, textTransform: 'uppercase', letterSpacing: '.04em' }}>← projects</span>
+        <span data-testid="scroll-back" onClick={onBack} style={{ color: 'var(--phosphor)', textShadow: 'var(--glow)', cursor: 'pointer', border: '1px solid var(--phosphor-dim)', padding: '1px 8px', fontSize: 12, textTransform: 'uppercase', letterSpacing: '.04em' }}>← {backLabel}</span>
         <span
           data-testid="scroll-title"
           onClick={row && row.path && onNavigate ? () => onNavigate(row.path) : undefined}
@@ -206,11 +206,18 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
 
       {scroll ? (
         <>
-          <Box title={`NOW  --  regenerated ${scroll.ts ? scroll.ts.replace('T', ' ').slice(0, 16) + 'Z' : ''} · this zone is machine-owned`} tone="double">
-            <div data-testid="scroll-now">
+          {/* The Now zone is written by the machine for the steward and the runs
+              to read, so it sits folded (2026-10-18; Loudon: "looks important
+              but not really needed for the human users"). What waits on him is
+              under Open asks below, unfolded. */}
+          <details data-testid="scroll-now-fold" style={{ border: '1px dashed var(--phosphor-dim)', padding: '4px 10px', marginBottom: 4 }}>
+            <summary style={{ cursor: 'pointer', color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 12, textTransform: 'uppercase', letterSpacing: '.06em' }}>
+              {`now  --  regenerated ${scroll.ts ? scroll.ts.replace('T', ' ').slice(0, 16) + 'Z' : ''} · machine-owned, kept for the steward and the runs`}
+            </summary>
+            <div data-testid="scroll-now" style={{ marginTop: 8 }}>
               <EntryBody body={scroll.zones.now.replace(/^## Now\s*/, '')} index={index} refIndex={refIndex} onNavigate={onNavigate} />
             </div>
-          </Box>
+          </details>
 
           <ZoneTitle right={<span style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 }}>agreed with you — it changes only with your yes, and every change lands on the trail</span>}>Plan</ZoneTitle>
           <div data-testid="scroll-plan">

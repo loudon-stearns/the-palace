@@ -5,6 +5,7 @@
 import { existsSync, statSync, createReadStream } from 'node:fs';
 import { execFile } from 'node:child_process';
 import { jsonResponse, resolveInsidePalace, contentTypeFor } from '../http.js';
+import { isPiecePage, pieceBytes } from '../../../../rich-face/kit/inject.mjs';
 
 // Native open command: macOS `open`, otherwise `xdg-open` (Linux).
 const OPEN_CMD = process.platform === 'darwin' ? 'open' : 'xdg-open';
@@ -57,6 +58,20 @@ export async function filesRoutes(ctx) {
     const stat = statSync(abs);
     if (stat.isDirectory()) {
       jsonResponse(res, 400, { error: 'path is a directory, not a file', path: rel });
+      return true;
+    }
+    // A web page goes out as a piece: the piece kit first in its <head>
+    // (rich-face/kit), so it sizes its frame, quiets the others when it plays
+    // and reports its errors with no line from its maker. Sent whole, never as
+    // a byte range, and sandboxed like any active document below.
+    if (isPiecePage(abs)) {
+      const body = pieceBytes(abs);
+      res.statusCode = 200;
+      res.setHeader('Content-Type', contentTypeFor(abs));
+      res.setHeader('Content-Security-Policy', 'sandbox allow-scripts');
+      res.setHeader('Content-Length', String(body.length));
+      res.setHeader('Cache-Control', 'no-cache');
+      res.end(body);
       return true;
     }
     // Byte ranges (2026-10-13): without them a browser cannot seek inside an

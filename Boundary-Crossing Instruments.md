@@ -31,7 +31,7 @@ links:
   - target: "[[DSP in Looping Dimensions]]"
     type: mirrors
     label: dimensional-reframing
-forward_vector: "I want to become the palace's named pattern for apparent discontinuities that dissolve when you find the right coordinate system — with a growing catalogue of specific instances: compression ratio as slope, frequency-time as a single axis, octave equivalence as a circular space. I want to be the first entry a designer reads when a parameter seems to hit a wall, because the wall is usually in the representation, not the phenomenon."
+forward_vector: "I am the palace's named pattern for a wall inside one parameter that dissolves when you find the right coordinate system: compression ratio as slope, frequency-time as a single axis, octave equivalence as a circular space. I want to be the first entry a designer reads when a parameter seems to hit a wall, because the wall is usually in the representation, not the phenomenon, and to carry the three-layer interface (musical, technical, mathematical) that teaches one reality at three depths."
 ---
 
 # Boundary-Crossing Instruments

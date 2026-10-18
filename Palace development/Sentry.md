@@ -4,7 +4,7 @@ type: meta
 pillars: [tools, practice, philosophy]
 born: 2026-09
 stage: growing
-version: "1.4"
+version: "1.5"
 trigger: ["sentry sweep", "security sweep", "sentry, check [X]"]
 forward_vector: "I am the palace's watch at the doors it is opening — I sweep for what should not leave and raise it, masked, to Loudon, who decides, so the palace can grow more public without growing careless."
 links:
@@ -65,11 +65,11 @@ It has one tooth. At `git push` it reads what is about to leave and says no to a
 
 ## How to reach it
 
-- **A sweep.** `node _ops/sentry/sweep.mjs` is quick and offline. `--deep` adds every blob in every ref, gitleaks over the full log, `npm audit`, and the repo's GitHub settings.
+- **A sweep.** `node _ops/sentry/sweep.mjs` is quick and offline. `--deep` adds every blob, commit and tag in every ref, gitleaks over the full log, `npm audit`, and the repo's GitHub settings.
 - **The gate.** `--gate` before a public step: the deep sweep, failing on any open high finding.
 - **The daily watch.** The heartbeat runs `_ops/sentry/guard-watch.mjs` once a day when the Mac is awake, and notifies Loudon if GitHub would let a force push rewrite main.
 - **Ask it.** Wake the page for advice — *"sentry, is it safe to publish this?"* A woken Sentry reads this page, its ledger and the held report, and answers from them.
-- **The push gate.** Installed once (`node _ops/sentry/install-hooks.mjs`), it runs on every push from every worktree on this Mac. It blocks high findings only; `git push --no-verify` skips it once. It fails closed ([[Tool Builder]]): a gate that cannot run says no and names the way through. It covers this Mac only — GitHub's push protection and its guard on main cover every surface, and whether they are on is Loudon's switch.
+- **The push gate.** Installed once (`node _ops/sentry/install-hooks.mjs`), it runs on every push from every worktree on this Mac. It reads every file, commit and tag the push would add, messages included, and the names of the refs it updates, and blocks high findings only; `git push --no-verify` skips it once. It fails closed ([[Tool Builder]]): a gate that cannot run says no and names the way through. It covers this Mac only — GitHub's push protection and its guard on main cover every surface, and whether they are on is Loudon's switch.
 
 Commands, severities and the two engines (the Sentry's own rules, and gitleaks beside them): `_ops/sentry/README.md`.
 

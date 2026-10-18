@@ -7,8 +7,11 @@
 //   1. Serve the renderer (rich.html, _rich/*), its two libraries (_vendor/*,
 //      from STIGMERGY's own install — never a CDN) and any palace file — the
 //      live .md, the bundle's media — with byte ranges, so video and audio can seek.
-//   2. Resolve an entry name to its .md, its bundle and its manifest.
-//   3. Find media by bare filename, the way an Obsidian embed does.
+//   2. Resolve an entry name to its .md, its bundle, its manifest, and every
+//      file its text and manifest name — where each landed, or why it didn't.
+//   3. Answer one more lookup for a name the page meets later (a live edit).
+//   Both lookups are resolve.mjs's, the one resolver the fingerprint and the
+//   public build use too.
 //   4. Forward review notes to STIGMERGY as a `human_eval` BROADCAST — the
 //      message shape _ops/loudon-eval proved against the board's strict
 //      validator, posted to the sanctioned write path (POST /api/persistent).
@@ -16,10 +19,12 @@
 // Every URL it hands the page is relative, so the page works under any base.
 // It never writes to the palace.
 
-import { createReadStream, existsSync, statSync, readdirSync, realpathSync } from 'node:fs';
+import { createReadStream, existsSync, statSync, readdirSync, readFileSync, realpathSync } from 'node:fs';
 import { join, extname, normalize, relative, sep, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { makeFinder } from './palace-find.mjs';
+import { makeResolver } from './resolve.mjs';
+import { mediaRefs, isMedia } from './parse.js';
+import { isPiecePage, pieceBytes } from './kit/inject.mjs';
 
 const CT = {
   '.html': 'text/html; charset=utf-8', '.htm': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
@@ -82,6 +87,27 @@ export function vendorFiles() {
   return rels.map((rel) => ({ rel, abs: vendorFile(rel) })).filter((f) => f.abs && existsSync(f.abs));
 }
 
+/**
+ * Every file a rich face names, in its text (the three shapes parse.js reads,
+ * the shapes the page lays as figures) and in its manifest (a piece's `file`),
+ * and where each lands by the one resolver. The live page gets this table from
+ * _api/resolve and the public build writes it into data/rich.json, so the two
+ * cannot disagree about a file.
+ * @returns {Map<string, { ok: true, path: string } | { ok: false, reason: string, label: string }>}
+ */
+export function richReferences(resolver, mdRel, text, manifest) {
+  const names = new Set(mediaRefs(text || '').map((m) => m.name));
+  (function collect(v, key) {
+    if (Array.isArray(v)) v.forEach((x) => collect(x, key));
+    else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) collect(x, k);
+    else if (typeof v === 'string' && (key === 'file' || key === 'name') && (isMedia(v) || /\.md$/i.test(v))) names.add(v);
+  })(manifest);
+  const out = new Map();
+  for (const n of names) out.set(n, resolver.resolve(n, mdRel));
+  return out;
+}
+
+const safeDecode = (s) => { try { return decodeURIComponent(s); } catch { return s; } };
 const json = (res, code, obj) => { res.writeHead(code, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }); res.end(JSON.stringify(obj)); };
 const statOrNull = (p) => { try { return statSync(p); } catch { return null; } };
 const isPlainObject = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
@@ -138,7 +164,7 @@ export function buildReviewMessage(data) {
  */
 export function createRichHandler({ root, here, base = '', app }) {
   const ROOT = resolve(root), HERE = resolve(here);
-  const { findEntry, findByName } = makeFinder(ROOT);
+  const resolver = makeResolver(ROOT);
 
   const inside = (dir, rel) => {
     let r;
@@ -157,22 +183,40 @@ export function createRichHandler({ root, here, base = '', app }) {
     try { realDir = realpathSync(dir); } catch { return false; }
     return real === realDir || real.startsWith(realDir + sep);
   };
-  const relUrl = (abs) => relative(ROOT, abs).split(sep).map(encodeURIComponent).join('/');
+  const relUrl = (rel) => rel.split('/').map(encodeURIComponent).join('/');
 
+  // An entry, its bundle and manifest as relative urls, the names in the
+  // bundle's top folder, and the media table: every file the text and the
+  // manifest name → { path, url } or { error, label } for the labelled box.
   function resolveEntry(name) {
-    const md = findEntry(name);
-    if (!md) return null;
-    const bundle = md.replace(/\.md$/i, '');
-    const title = bundle.split(sep).pop();
-    const manifest = [join(bundle, `${title} — rich.json`), join(HERE, 'manifests', `${title} — rich.json`)].find((p) => existsSync(p)) || null;
-    let files = [];
-    try { files = existsSync(bundle) ? readdirSync(bundle).filter((f) => !f.startsWith('.')) : []; } catch { /* none */ }
-    return { title, md: relUrl(md), bundle: existsSync(bundle) ? relUrl(bundle) + '/' : null, manifest: manifest ? relUrl(manifest) : null, files };
+    const e = resolver.entry(name);
+    if (!e) return null;
+    let text = '', manifest = null;
+    try { text = readFileSync(resolver.abs(e.md), 'utf8'); } catch { /* the page reports it */ }
+    try { manifest = e.manifest ? JSON.parse(readFileSync(resolver.abs(e.manifest), 'utf8')) : null; } catch { /* the page reports it */ }
+    const media = {};
+    for (const [n, r] of richReferences(resolver, e.md, text, manifest)) media[n] = r.ok ? { path: r.path, url: relUrl(r.path) } : { error: r.reason, label: r.label };
+    return { title: e.title, path: e.md, md: relUrl(e.md), bundle: e.bundle ? relUrl(e.bundle) + '/' : null, manifest: e.manifest ? relUrl(e.manifest) : null, files: e.files, media };
   }
 
   function serveFile(req, res, file, size, palaceFile = false) {
     const headers = { 'Content-Type': CT[extname(file).toLowerCase()] || 'application/octet-stream', 'Accept-Ranges': 'bytes', 'Cache-Control': 'no-store' };
     if (palaceFile && ACTIVE.test(file)) headers['Content-Security-Policy'] = ACTIVE_SANDBOX;
+    // A palace web page goes out as a piece, the kit first in its <head>
+    // (kit/inject.mjs): whole, never as a byte range.
+    if (palaceFile && isPiecePage(file)) {
+      let body;
+      try { body = pieceBytes(file); } catch (e) {
+        res.writeHead(e.code === 'ENOENT' ? 404 : 403, { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' });
+        res.end('cannot read: ' + relative(ROOT, file));
+        return;
+      }
+      delete headers['Accept-Ranges'];
+      headers['Content-Length'] = body.length;
+      res.writeHead(200, headers);
+      res.end(req.method === 'HEAD' ? undefined : body);
+      return;
+    }
     const range = req.headers.range && req.headers.range.match(/bytes=(\d*)-(\d*)/);
     let status = 200, opts;
     if (range) {
@@ -225,12 +269,15 @@ export function createRichHandler({ root, here, base = '', app }) {
       r ? json(res, 200, r) : json(res, 404, { error: `no entry named "${u.searchParams.get('entry')}"` });
       return true;
     }
+    // `from` is the .md the name is written in; `prefer`, an older page's
+    // bundle folder, stands for the .md that owns it.
     if (path === '/_api/find' || path === '/_api/media') {
-      const prefer = u.searchParams.get('prefer') ? inside(ROOT, u.searchParams.get('prefer')) : null;
-      const hit = findByName(u.searchParams.get('name') || '', prefer);
-      if (path === '/_api/find') { hit ? json(res, 200, { url: relUrl(hit) }) : json(res, 404, { error: 'not found' }); return true; }
-      if (!hit) { res.writeHead(404); res.end('not found'); return true; }
-      res.writeHead(302, { Location: (base || '') + '/' + relUrl(hit), 'Cache-Control': 'no-store' });
+      const prefer = u.searchParams.get('prefer');
+      const from = u.searchParams.get('from') || (prefer ? safeDecode(prefer).replace(/\/+$/, '') + '.md' : '');
+      const r = resolver.resolve(u.searchParams.get('name') || '', from || undefined);
+      if (path === '/_api/find') { r.ok ? json(res, 200, { path: r.path, url: relUrl(r.path) }) : json(res, 404, { error: r.label, reason: r.reason, label: r.label }); return true; }
+      if (!r.ok) { res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' }); res.end(r.label); return true; }
+      res.writeHead(302, { Location: (base || '') + '/' + relUrl(r.path), 'Cache-Control': 'no-store' });
       res.end();
       return true;
     }

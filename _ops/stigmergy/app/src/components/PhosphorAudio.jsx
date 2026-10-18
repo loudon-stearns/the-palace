@@ -35,7 +35,11 @@ export default function PhosphorAudio({ src, testId = 'phosphor-audio', showOpen
       setReady(true);
     };
     const onTime = () => setCurrentTime(el.currentTime);
-    const onPlay = () => setPlaying(true);
+    // One voice at a time, the rich face's rule: starting this player tells
+    // the deck ('rich:play' on the document, detail = who started), and any
+    // other start -- another player, a piece in a frame -- pauses this one.
+    const onPlay = () => { setPlaying(true); document.dispatchEvent(new CustomEvent('rich:play', { detail: el })); };
+    const onOtherPlay = (e) => { if (e.detail !== el && !el.paused) el.pause(); };
     const onPause = () => setPlaying(false);
     const onEnded = () => setPlaying(false);
     const onError = () => setError('could not load audio');
@@ -45,7 +49,9 @@ export default function PhosphorAudio({ src, testId = 'phosphor-audio', showOpen
     el.addEventListener('pause', onPause);
     el.addEventListener('ended', onEnded);
     el.addEventListener('error', onError);
+    document.addEventListener('rich:play', onOtherPlay);
     return () => {
+      document.removeEventListener('rich:play', onOtherPlay);
       el.removeEventListener('loadedmetadata', onLoaded);
       el.removeEventListener('timeupdate', onTime);
       el.removeEventListener('play', onPlay);

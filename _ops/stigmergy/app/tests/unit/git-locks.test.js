@@ -16,6 +16,7 @@ import {
 } from '../../server/git-locks.js';
 import { clearStaleLocks as cliClearStaleLocks } from '../../scripts/palace-commit.mjs';
 import { clearStaleLocks as serverClearStaleLocks } from '../../server/commit.js';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const APP_ROOT = resolve(__dirname, '..', '..');
@@ -34,11 +35,12 @@ describe('git-locks', () => {
   let root;
   let indexLock;
   let headLock;
-  const g = (...args) => execFileSync('git', args, { cwd: root, encoding: 'utf8' });
+  const g = (...args) => execFileSync('git', args, { cwd: root, encoding: 'utf8', env: gitFreeEnv() });
 
   beforeEach(() => {
     root = mkdtempSync(join(tmpdir(), 'gitlocks-'));
     g('init', '-q');
+    assertScratchRepo(root);
     g('config', 'user.email', 'test@palace');
     g('config', 'user.name', 'Test Palace');
     g('config', 'commit.gpgsign', 'false');
@@ -90,7 +92,7 @@ describe('git-locks', () => {
     writeFileSync(indexLock, '');
     backdate(indexLock, 120);
     const r = spawnSync('node', [CLI, '--kind', 'edit', '--summary', 'x', '--verify', 'verified', '--path', 'Foo.md', '--dry-run'], {
-      cwd: root, encoding: 'utf8', env: { ...process.env, PALACE_ROOT: root },
+      cwd: root, encoding: 'utf8', env: gitFreeEnv({ PALACE_ROOT: root }),
     });
     expect(r.status).toBe(0);
     expect(r.stdout).toMatch(/edit: x/);
@@ -266,7 +268,7 @@ describe('git-locks', () => {
 
     it('sees a real git holding this checkout, and nothing once it is gone', async () => {
       // A git that waits on stdin, started in the checkout: live for as long as we hold the pipe.
-      const child = spawn('git', ['cat-file', '--batch'], { cwd: root, stdio: ['pipe', 'ignore', 'ignore'] });
+      const child = spawn('git', ['cat-file', '--batch'], { cwd: root, stdio: ['pipe', 'ignore', 'ignore'], env: gitFreeEnv() });
       try {
         await new Promise((r) => setTimeout(r, 300));
         const seen = gitProcessesFor(root);
@@ -293,7 +295,7 @@ describe('git-locks', () => {
     backdate(indexLock, 600);
     const headBefore = g('rev-parse', 'HEAD').trim();
     const r = spawnSync('node', [CLI, '--kind', 'edit', '--scope', 'Foo', '--summary', 'grow', '--verify', 'verified', '--path', 'Foo.md'], {
-      cwd: root, encoding: 'utf8', env: { ...process.env, PALACE_ROOT: root },
+      cwd: root, encoding: 'utf8', env: gitFreeEnv({ PALACE_ROOT: root }),
     });
     expect(r.status).toBe(0);
     // 10m plus whatever the sweep waited if a short-lived git elsewhere made it look twice.

@@ -98,3 +98,8 @@ What each deposit taught the ceremony. Each item names what the run showed and t
 
 24. **An approved route to a steward was never checked against `REGISTRY.json`.** The map sent the Floquet note to its steward and Loudon approved it; the project has no steward, so the note could not go. It was routed by hand as a one-line edit on his word. **Spec change owed:** before the map names a steward route, check `_ops/agents/permanent/REGISTRY.json`.
 - run · 2026-10-14 · v2.1 · D-2026-10-14-LOUDLIVE · taught item 24
+
+## From Loudon's word on the Shopkeeper — 2026-10-18
+
+25. **The gate met stewards that write the house.** Since 2026-10-16 a steward's cycle edits its own page, body and frontmatter alike, and commits it; on 2026-10-18 Loudon grew the [[Shopkeeper]] up for everything under `Shop/` — "the shopmaster needs to be an elder that can create documents anywhere in the shop," and, of new Specialists, "shopkeeper can create." Both change what a page says, and the second mints entries, with no map. The card said no steward deposits without his approval of the map and named no exception, so the card and the cycle disagreed. Forced: **v2.2** — § What a deposit is says the gate does not apply to a steward's own page and bundle, or to the Shopkeeper anywhere under `Shop/`, new entries included; each such edit shows on the scroll's trail, and git is the undo.
+- run · 2026-10-18 · v2.2 · D-2026-10-18-HELD-COMPANION · nothing new

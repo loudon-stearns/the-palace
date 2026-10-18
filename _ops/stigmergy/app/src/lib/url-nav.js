@@ -363,50 +363,71 @@ export function deckFromSearch(searchString) {
 }
 
 // ---------------------------------------------------------------------------
-// Project navigation — `?project=<home>` opens that project's scroll on the
-// PROJECTS deck. Same push-in-setter discipline as the sibling hooks, so the
-// browser back button steps from the scroll back to the table.
+// Scroll navigation — `?scroll=<home>` opens that page's scroll on whatever
+// deck you are on. Any page may keep a scroll (a project's, a ceremony's, a
+// hub's), so the scroll is a face of the page, not a corner of the PROJECTS
+// deck: reading an entry in STATE and switching to its scroll keeps STATE lit,
+// and closing the scroll drops only this param, which lands you back where you
+// were. `?project=` is the old name, still read so old links land.
 
-export function parseProjectFromUrl(searchString) {
+export function parseScrollFromUrl(searchString) {
   if (typeof searchString !== 'string') return null;
-  const v = new URLSearchParams(searchString).get('project');
+  const params = new URLSearchParams(searchString);
+  const v = params.get('scroll') || params.get('project');
   return v && v !== '' ? v : null;
 }
 
-export function buildProjectSearch(searchString, home) {
+export function buildScrollSearch(searchString, home) {
   const params = new URLSearchParams(searchString || '');
+  params.delete('scroll');
   params.delete('project');
-  if (home) params.set('project', home);
+  if (home) params.set('scroll', home);
   const s = params.toString();
   return s === '' ? '' : `?${s}`;
 }
 
-export function useProjectNavigation() {
-  const initial = typeof window === 'undefined' ? null : parseProjectFromUrl(window.location.search);
-  const [project, setProjectState] = useState(initial);
+// Push-in-setter like the siblings. `backFromScroll` is the scroll's own back
+// button: when this tab opened the scroll (the history entry carries it), it
+// is a real history step, so the page you came from comes back as you left it;
+// a scroll you landed on by link has nothing behind it, so it closes instead.
+export function useScrollNavigation() {
+  const initial = typeof window === 'undefined' ? null : parseScrollFromUrl(window.location.search);
+  const [scroll, setScrollState] = useState(initial);
 
   useEffect(() => {
     if (typeof window === 'undefined') return undefined;
-    function onPop() { setProjectState(parseProjectFromUrl(window.location.search)); }
+    function onPop() { setScrollState(parseScrollFromUrl(window.location.search)); }
     window.addEventListener('popstate', onPop);
     return () => window.removeEventListener('popstate', onPop);
   }, []);
 
-  const openProject = useCallback((home) => {
+  const openScroll = useCallback((home) => {
     const target = home || null;
     if (typeof window !== 'undefined') {
-      const nextSearch = buildProjectSearch(window.location.search, target);
+      const nextSearch = buildScrollSearch(window.location.search, target);
       const currentSearch = window.location.search || '';
       if (nextSearch !== currentSearch) {
         const nextUrl = `${window.location.pathname}${nextSearch}${window.location.hash}`;
-        window.history.pushState({ project: target }, '', nextUrl);
+        window.history.pushState({ scroll: target }, '', nextUrl);
       }
     }
-    setProjectState(target);
+    setScrollState(target);
   }, []);
 
-  const closeProject = useCallback(() => openProject(null), [openProject]);
-  return { project, openProject, closeProject };
+  const closeScroll = useCallback(() => openScroll(null), [openScroll]);
+
+  const backFromScroll = useCallback(() => {
+    if (typeof window !== 'undefined') {
+      const here = parseScrollFromUrl(window.location.search);
+      if (here && window.history.state && window.history.state.scroll === here) {
+        window.history.back();
+        return;
+      }
+    }
+    closeScroll();
+  }, [closeScroll]);
+
+  return { scroll, openScroll, closeScroll, backFromScroll };
 }
 
 // Build a search string with `deck` set (uppercased), preserving every other

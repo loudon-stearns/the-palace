@@ -9,6 +9,7 @@ import { execFileSync } from 'node:child_process';
 import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 import { buildReviewMessage } from '../../../../rich-face/rich-handler.mjs';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 // The rich face's pieces run sandboxed (sandbox="allow-scripts", the rule
 // ArtifactSlot.jsx applies to served HTML): a piece cannot act as STIGMERGY.
@@ -21,7 +22,6 @@ const RICH_SRC = resolve(HERE, '../../../../rich-face');
 const PALACE = resolve(HERE, '../../../../..');
 const KURAMOTO = resolve(PALACE, 'Kuramoto Coupling');
 const ENTRY = 'Probe Entry';
-const DEFAULT_HEIGHT = '800px';
 
 const require = createRequire(import.meta.url);
 let chromium = null;
@@ -47,6 +47,10 @@ const KPIECES = [['waveform-locking', 914], ['ensemble', 840], ['stubbornness', 
 
 function makeTempPalace() {
   const root = mkdtempSync(resolve(tmpdir(), 'rich-sandbox-test-'));
+  // The rich face finds files through git's index (resolve.mjs), never by walking
+  // the disk, so the temp palace is a repository; new files count untracked.
+  execFileSync('git', ['init', '-q'], { cwd: root, env: gitFreeEnv() });
+  assertScratchRepo(root);
   mkdirSync(resolve(root, '_ops/swarm/persistent'), { recursive: true });
   mkdirSync(resolve(root, '_ops/swarm/sessions'), { recursive: true });
   writeFileSync(resolve(root, '_ops/swarm/persistent/blackboard.jsonl'), '', 'utf8');
@@ -111,7 +115,7 @@ function makeServer(palaceRoot, log) {
 describe('every rich manifest in the palace sizes its interactives', () => {
   // A sandboxed piece cannot be measured by the page, so a made piece carries its height.
   test('each .html piece in a — rich.json has a height', () => {
-    const manifests = execFileSync('git', ['ls-files', '-z', '*— rich.json'], { cwd: PALACE }).toString().split('\0').filter(Boolean);
+    const manifests = execFileSync('git', ['ls-files', '-z', '*— rich.json'], { cwd: PALACE, env: gitFreeEnv() }).toString().split('\0').filter(Boolean);
     expect(manifests.length).toBeGreaterThan(0);
     for (const m of manifests) {
       const json = JSON.parse(readFileSync(resolve(PALACE, m), 'utf8'));
@@ -173,10 +177,14 @@ describe.skipIf(!chromium)('the rich face in a browser', () => {
     } finally { await top.close(); }
   }, 30000);
 
-  test('a piece that says nothing keeps its manifest height, and one without gets the default', async () => {
+  // Since 2026-10-18 every served page carries the piece kit (rich-face/kit),
+  // which reports its content's height: a piece that says nothing itself is
+  // sized to what it holds (bare.html: a 1200 px div and the body's 8 px
+  // margins), and one with nothing laid out keeps its manifest height.
+  test('a piece that says nothing is sized by the kit; one with nothing laid out keeps its manifest height', async () => {
     const heights = await page.$$eval('figure[data-piece]', (fs) => Object.fromEntries(fs.filter((f) => f.querySelector('iframe')).map((f) => [f.dataset.piece, f.querySelector('iframe').style.height])));
     expect(heights['probe.html']).toBe('500px');
-    expect(heights['bare.html']).toBe(DEFAULT_HEIGHT);
+    expect(heights['bare.html']).toBe('1216px');
   });
 
   // Kuramoto's manifest heights were measured in a 1130 px column; narrower,

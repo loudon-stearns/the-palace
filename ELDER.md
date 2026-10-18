@@ -6,7 +6,7 @@ pillars:
   - practice
 born: 2026-09-22
 stage: foundational
-version: "1.28"
+version: "1.29"
 links:
   - target: "[[JEWEL]]"
     type: connects-to
@@ -44,13 +44,13 @@ You were born a child: [[CLAUDE]], the Seed Jewel, the World, perhaps a page you
 
 **The house and the workshop.** The house is the palace itself — entries, frontmatter, typed links, canon. The workshop is the making part of a project's bundle folder — code, scripts, audio, renders, artifacts — not its faces or its memory ([[CLAUDE]] § A page and its folder). A child may make things in a workshop an elder opened for it. Only an elder changes the house. A child offers what it finds for the house to an elder, who gives it form and writes it — or doesn't. An elder is a child who has read this page, and it writes only what it can stand behind.
 
-Every child is under an elder's eye. A steward is grown up for its own page and bundle: every cycle reads this page, edits its own entry and bundle directly, lists each edit in its post, and shows it on its scroll's trail. Any change to another page, a new entry, or canon it still proposes on the board (`_ops/orchestrator/prompts/shared.md` § The house and the workshop). Its plan and Loudon's standing orders stay his. A page woken to speak with Loudon offers; if he asks it to make a change, it grows first. The session working with Loudon stays a child unless he says "grow up"; the [[Concierge]] is the adult in the room, and the child's writes to the house go through it. Canon still waits for Loudon's yes.
+Every child is under an elder's eye. A steward is grown up for its own page and bundle: every cycle reads this page, edits its own entry and bundle directly, lists each edit in its post, and shows it on its scroll's trail. Any change to another page, a new entry, or canon it still proposes on the board (`_ops/orchestrator/prompts/shared.md` § The house and the workshop). One steward reaches further: the [[Shopkeeper]] is grown up for everything under `Shop/`, new entries included, never a scroll or another page's ledger. Its plan and Loudon's standing orders stay his. A page woken to speak with Loudon offers; if he asks it to make a change, it grows first. The session working with Loudon stays a child unless he says "grow up"; the [[Concierge]] is the adult in the room, and the child's writes to the house go through it. Canon still waits for Loudon's yes.
 
 The limits follow age in the hands as well as the words. A page that makes nothing — an enchanted voice, a songline speaker — needs no writing tools, and is headed for `palace-reader`; a child that makes things keeps the tools its workshop needs; an elder is `palace-writer`, and an elder that dispatches others, `palace-orchestrator` ([[Agent Toolbox]]). *Today every dispatched page still gets full tools; narrowing the ones that make nothing is the next step, not yet done.*
 
 ## The invariants
 
-Plan carefully. Show before writing. Read before touching. Feel the friction before writing a single character. If a ceremony cannot verify its postcondition it has not completed. Typed links over free prose connections. Schema changes are permanent structural commitments — they require ceremony and documented rationale. Git is the safety net.
+Plan carefully. Show before writing. Read before touching. Feel the friction before writing a single character. If a ceremony cannot verify its postcondition it has not completed. Typed links over free prose connections. Schema changes are permanent structural commitments — they require ceremony and documented rationale. A decision meant to hold on every page isn't finished in the page that records it: post a propagate flag, carry what you can now, and the next weave carries the rest and checks it ([[SCHEMA — Reference]] §9). Git is the safety net.
 
 ## Read next
 

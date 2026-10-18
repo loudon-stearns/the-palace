@@ -12,6 +12,7 @@ import { execFileSync, spawnSync, spawn } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { resolve, join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const APP_ROOT = resolve(__dirname, '..', '..');
@@ -27,10 +28,10 @@ describe('cowork-git commit.mjs and the shared lock rule', () => {
   let root;
   let indexLock;
   let junk;
-  const g = (...args) => execFileSync('git', args, { cwd: root, encoding: 'utf8' });
+  const g = (...args) => execFileSync('git', args, { cwd: root, encoding: 'utf8', env: gitFreeEnv() });
   const run = (...extra) => {
     const r = spawnSync('node', [CLI, '--root', root, '--no-flag', '--kind', 'ops', '--scope', 'cowork', '--summary', 'from cowork', '--verify', 'unverified', '--paths', 'Foo.md', ...extra], {
-      cwd: root, encoding: 'utf8',
+      cwd: root, encoding: 'utf8', env: gitFreeEnv(),
     });
     let json = null;
     try { json = JSON.parse(r.stdout); } catch (_) { /* leave null */ }
@@ -41,6 +42,7 @@ describe('cowork-git commit.mjs and the shared lock rule', () => {
   beforeEach(() => {
     root = mkdtempSync(join(tmpdir(), 'coworklocks-'));
     g('init', '-q');
+    assertScratchRepo(root);
     g('config', 'user.email', 'test@palace');
     g('config', 'user.name', 'Test Palace');
     g('config', 'commit.gpgsign', 'false');
@@ -102,7 +104,7 @@ describe('cowork-git commit.mjs and the shared lock rule', () => {
     backdate(indexLock, 600);
     const headBefore = g('rev-parse', 'HEAD').trim();
     // A git that waits on stdin, started in the checkout: live for as long as we hold the pipe.
-    const child = spawn('git', ['cat-file', '--batch'], { cwd: root, stdio: ['pipe', 'ignore', 'ignore'] });
+    const child = spawn('git', ['cat-file', '--batch'], { cwd: root, stdio: ['pipe', 'ignore', 'ignore'], env: gitFreeEnv() });
     let r;
     try {
       await new Promise((res) => setTimeout(res, 300));

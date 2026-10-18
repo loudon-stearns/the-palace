@@ -7,6 +7,7 @@ import { tmpdir } from 'node:os';
 import request from 'supertest';
 import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 function makeServer(palaceRoot) {
   const plugin = blackboardMiddleware(palaceRoot);
@@ -27,8 +28,9 @@ function makeServer(palaceRoot) {
 // actual git adapter (not a mock). Each commit uses the v1.0 commit spec
 // or a pre-spec subject so we cover both parsing paths.
 function gitInit(root) {
-  const g = (...args) => execFileSync('git', args, { cwd: root, stdio: 'pipe' });
+  const g = (...args) => execFileSync('git', args, { cwd: root, stdio: 'pipe', env: gitFreeEnv() });
   g('init', '-q');
+  assertScratchRepo(root);
   g('config', 'user.email', 'test@palace');
   g('config', 'user.name', 'Test Palace');
   g('config', 'commit.gpgsign', 'false');
@@ -116,14 +118,14 @@ describe('GET /api/commit', () => {
   beforeAll(async () => {
     root = makeTempPalace();
     base = await listen(makeServer(root));
-    headSha = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root }).toString().trim();
-    depositSha = execFileSync('git', ['rev-parse', 'HEAD~2'], { cwd: root }).toString().trim();
+    headSha = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, env: gitFreeEnv() }).toString().trim();
+    depositSha = execFileSync('git', ['rev-parse', 'HEAD~2'], { cwd: root, env: gitFreeEnv() }).toString().trim();
   });
   afterAll(async () => { await closeAll(); rmSync(root, { recursive: true, force: true }); });
 
   test('returns a palace-aware diff with frontmatter field changes', async () => {
     // HEAD~1 is the "grow it to a sprout" commit -- stage seed→sprout + pillar add.
-    const growSha = execFileSync('git', ['rev-parse', 'HEAD~1'], { cwd: root }).toString().trim();
+    const growSha = execFileSync('git', ['rev-parse', 'HEAD~1'], { cwd: root, env: gitFreeEnv() }).toString().trim();
     const res = await request(base).get('/api/commit').query({ sha: growSha });
     expect(res.status).toBe(200);
     const fooDiff = res.body.fileDiffs.find((f) => f.path === 'Foo.md');
@@ -160,7 +162,7 @@ describe('GET /api/commit', () => {
 describe('GET /api/commit -- a moved entry', () => {
   const GOTCHAS = 'Foo — gotchas.md';
   let root, base;
-  const g = (...args) => execFileSync('git', args, { cwd: root, stdio: 'pipe' }).toString();
+  const g = (...args) => execFileSync('git', args, { cwd: root, stdio: 'pipe', env: gitFreeEnv() }).toString();
   beforeEach(async () => {
     root = makeTempPalace();
     base = await listen(makeServer(root));
@@ -239,7 +241,7 @@ describe('GET /api/uncommitted', () => {
     // It used to arrive as the single string `Foo.md -> "My Projects/Foo.md"`,
     // which is not a path anything can select.
     mkdirSync(resolve(root, 'My Projects'));
-    execFileSync('git', ['mv', 'Foo.md', 'My Projects/Foo.md'], { cwd: root, stdio: 'pipe' });
+    execFileSync('git', ['mv', 'Foo.md', 'My Projects/Foo.md'], { cwd: root, stdio: 'pipe', env: gitFreeEnv() });
     const res = await request(base).get('/api/uncommitted');
     expect(res.body.staged).toEqual([{ path: 'My Projects/Foo.md', status: 'R', renamedFrom: 'Foo.md' }]);
     expect(res.body.total).toBe(1);

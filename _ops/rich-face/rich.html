@@ -95,6 +95,11 @@
   .fig .also button { font: inherit; color: var(--accent); background: none; border: 0; border-bottom: 1px solid var(--accent-dim); padding: 0; cursor: pointer; }
   .rf-drift { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--warn); margin: 0 0 8px; line-height: 1.5; }
   .rf-drift::before { content: '◐ '; }
+  .rf-error { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--warn); margin: 8px 0 0; line-height: 1.5; }
+  .rf-error::before { content: '✕ '; }
+  /* A file the resolver could not find, in the figure's place: named, never blank. */
+  .rf-missing { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: var(--warn); border: 1px dashed var(--warn); border-radius: 2px; padding: 14px 16px; line-height: 1.6; overflow-wrap: anywhere; }
+  .rf-missing b { display: block; color: var(--fg-1); font-weight: 500; margin-bottom: 4px; }
 
   /* ── audio strip (no browser chrome) ── */
   .aud { display: grid; grid-template-columns: 34px 1fr auto; gap: 12px; align-items: center; padding: 12px 14px; }
@@ -274,16 +279,32 @@ const SMALL = new Set(['audio', 'image', 'text']);
 
 let info, manifest, lastMd = '', entry, lastRead = Date.now();
 
-// ── media urls: bundle first, then the vault-wide lookup Obsidian would do.
-// Every URL is relative, so the page works at / and under STIGMERGY's /rich/.
+// ── media urls. Every file the text and manifest name was found by the
+// server's one resolver (resolve.mjs) before the page was laid: info.media maps
+// each name to { url } or to { error, label }. Live and static read the same
+// table; the static build wrote its copy with the served names (a hero is a .jpg
+// there). A name met later (a live edit) asks the same resolver. Every URL is
+// relative, so the page works at / and under STIGMERGY's /rich/.
 function mediaUrl(name) {
-  if (name.startsWith('/')) return name.slice(1).split('/').map((p) => encodeURIComponent(decodeURIComponent(p))).join('/');
-  // Static: the snapshot's own map first — it knows the served name (a hero is a .jpg there).
-  if (STATIC && info.media && info.media[name]) return info.media[name];
+  const m = info.media && info.media[name];
+  if (m) return m.url || '';
   if (info.bundle && info.files.includes(name)) return info.bundle + encodeURIComponent(name);
-  if (STATIC) return info.bundle ? info.bundle + encodeURIComponent(name) : '';
-  return `_api/media?name=${encodeURIComponent(name)}&prefer=${encodeURIComponent(info.bundle || '')}`;
+  if (STATIC) return '';
+  return `_api/media?name=${encodeURIComponent(name)}&from=${encodeURIComponent(info.path || '')}`;
 }
+// Where a file lands, or why it doesn't → { url } or { error, label }.
+async function locate(name) {
+  const m = info.media && info.media[name];
+  if (m) return m;
+  if (info.bundle && info.files.includes(name)) return { url: info.bundle + encodeURIComponent(name) };
+  if (STATIC) return { error: 'missing', label: `No file “${name}” in the read view.` };
+  try {
+    const r = await fetch(`_api/find?name=${encodeURIComponent(name)}&from=${encodeURIComponent(info.path || '')}`, { cache: 'no-store' });
+    const j = await r.json();
+    return r.ok ? j : { error: j.reason || 'missing', label: j.label || `No file “${name}”.` };
+  } catch (e) { return { error: 'unreachable', label: `“${name}” could not be looked up: ${e.message}` }; }
+}
+const missingBox = (name, label) => h('div', { class: 'rf-missing', role: 'note' }, h('b', {}, name), label);
 
 // ── markdown: Obsidian wikilinks → links to other rich faces ──
 function mdToHtml(md, inline = false) {
@@ -343,6 +364,18 @@ window.addEventListener('message', (e) => {
   const f = frameOf(e.source), px = Math.ceil(Number(e.data.height));
   if (f && px >= 120 && px <= 8000) f.style.height = px + 'px';
 });
+// A piece whose script failed says so ({type:'rich:error'}, from the piece kit
+// every served page carries). Its figure is marked errored and the first error
+// shows under the frame, as STIGMERGY's frames show it, so a broken piece is
+// never a silent blank. Known by its frame; the text goes in as text.
+window.addEventListener('message', (e) => {
+  if (e.data?.type !== 'rich:error') return;
+  const f = frameOf(e.source), fig = f && f.closest('figure');
+  if (!fig || fig.dataset.errored) return;
+  fig.dataset.errored = '1';
+  const where = e.data.where ? ` (${String(e.data.where)})` : '';
+  f.after(h('div', { class: 'rf-error' }, `the piece reported an error: ${String(e.data.message || 'error')}${where}`));
+});
 
 // A piece runs sandboxed to scripts alone — the rule STIGMERGY's ArtifactSlot
 // applies to every HTML file it serves. Its origin is opaque, so it cannot call
@@ -358,7 +391,9 @@ function iframeFor(src, height) {
 }
 
 async function mediaEl(name, opts = {}) {
-  const src = mediaUrl(name), kind = kindOf(name);
+  const found = await locate(name);
+  if (!found.url) return missingBox(name, found.label || `No file “${name}”.`);
+  const src = found.url, kind = kindOf(name);
   if (kind === 'video') { const v = h('video', { src, controls: true, preload: 'metadata', playsinline: true }); v.addEventListener('play', () => document.dispatchEvent(new CustomEvent('rich:play', { detail: v }))); return v; }
   if (kind === 'audio') { const s = audioStrip(src, opts.label || name); return s; }
   if (kind === 'image') return h('img', { src, alt: opts.label || name, loading: 'lazy' });

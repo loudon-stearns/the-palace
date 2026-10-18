@@ -13,7 +13,7 @@ rationale lives in [[Closing Well]] § The close map; this is its operational sh
 | **deposit** (memory) | synthesis that became true | entry body + typed links | permanent — woven, maintained as truth | complete but not inflated |
 | **baton** (message) | the in-flight move | bundle file / board | disposable — deleted on catch | lossy on purpose |
 | **artifact** (evidence) | proofs, HTML explainers, machinery | the entry's bundle, indexed | durable, non-canon | as-built |
-| **weave-flag** (hand-off to the Weave) | a hygiene debt the session *saw* but shouldn't fix here | `_ops/swarm/persistent/blackboard.jsonl` (WEAVE board) | disposable — cleared when the Weave acts | one line |
+| **weave-flag** (hand-off to the Weave) | a hygiene debt the session *saw* but shouldn't fix here, or a decision that should reach every page (a propagate flag) | `_ops/swarm/persistent/blackboard.jsonl` (WEAVE board) | disposable — cleared when the Weave acts; a propagate flag stays until its check is clean | one line |
 
 The axis under the map: *does this want to be re-encountered by the organism, or
 consumed and forgotten?* A deposit is what the palace **keeps**; a baton is what it
@@ -112,9 +112,10 @@ until Loudon signs. One gate, not one-per-row:
 2. Loudon signs — `approve`, or `revise` naming the rows to change.
 3. On `approve`, each `candidate` / `in-flight` row executes through its **own**
    existing ceremony (deposit → [[Deposit Ceremony]]; baton → [[Baton Ceremony]];
-   artifact → bundle + index; weave-flag → append a `weave_flag` BROADCAST to the
-   persistent WEAVE board, the same line-append a deposit uses) — *that wiring is
-   the Phase 5 executors, live since 2026-07-04*.
+   artifact → bundle + index; weave-flag → post through the Commons writer to the
+   owner's WEAVE board, `python3 -m commons weave-flag`, or `propagate` for a decision,
+   the same writer a deposit uses) — *that wiring is the Phase 5 executors, live since
+   2026-07-04*.
 4. `landed` and `none` rows execute nothing — they are ledger, not work.
 
 **Failure mode:** an unsigned map is a draft, not a completed close. Never execute an

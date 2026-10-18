@@ -255,7 +255,7 @@ For cloud generation (FLUX via Hugging Face Inference) I track usage against the
 
 ## Roster
 
-The authoritative roster — every Specialist with its status, medium, and tool — is **generated into [[The Shop]] § Roster** from each Specialist's `member-of [[The Shop]]` declaration. Run `node Shop/Maker/build-roster.mjs` to refresh it; do not hand-maintain a second copy here. (This pointer replaced a hand-listed roster that had drifted three Specialists stale — the exact rot the Drift note below was written to catch, now closed structurally.) The taxonomy and promotion history the table can't carry stay here.
+The authoritative roster — every Specialist with its status, medium, and tool — is **generated into [[The Shop]] § Roster** from each Specialist's `member-of [[The Shop]]` declaration. Run `node Shop/Maker/build-roster.mjs` to refresh it; do not hand-maintain a second copy here. (This pointer replaced a hand-listed roster that had drifted three Specialists stale.) The taxonomy and promotion history the table can't carry stay here.
 
 **Status taxonomy** (definitions — the live status of each Specialist lives in its frontmatter `status` and renders into [[The Shop]] § Roster):
 
@@ -281,7 +281,7 @@ The authoritative roster — every Specialist with its status, medium, and tool 
 
 More to come as briefs reveal need: Plotly, Graphviz, HTML/React Artifact Smith, **game engines** (Godot-first, on a real interactive-3D-application brief). The Roster grows; it does not pre-grow.
 
-> Drift note (closed 2026-06-16): the roster is no longer hand-maintained. The single source of truth is each Specialist's frontmatter `status` + `member-of [[The Shop]]` link; `Shop/Maker/build-roster.mjs` renders them into [[The Shop]] § Roster. So there is no second copy to drift — re-run the script after any status change (a clean Weave step). The three-place inconsistency this section once carried (frontmatter vs. an alive-list vs. a stub-list) is now structurally impossible, not just discouraged.
+> Drift note: the roster is no longer hand-maintained. The single source of truth is each Specialist's frontmatter `status` + `member-of [[The Shop]]` link; `Shop/Maker/build-roster.mjs` renders them into [[The Shop]] § Roster. The rendered block is still a committed copy, so it goes stale when a Specialist is added, moves or changes status and nobody re-runs the script. The doc-drift linter catches that (`_ops/swarm/lint-doc-drift.py`, E4): while the block is stale it fails the Weave's gate and the Deposit's check. Re-run the script after any such change. A steward cycle that edits a Shop page refreshes the block itself. The three-place inconsistency this section once carried (frontmatter vs. an alive-list vs. a stub-list) is gone: one source, and one block computed from it.
 
 ## Recipes
 

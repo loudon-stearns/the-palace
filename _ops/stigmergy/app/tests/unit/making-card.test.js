@@ -23,8 +23,10 @@ describe('MakingCard', () => {
     expect(html).toContain('data-testid="equation-block"');
     expect(html).toContain('data-testid="table-block"');
     expect(html).toContain('data-testid="artifact-slot"');         // the light one mounts
-    expect(html).toContain('data-testid="heavy-artifact"');         // the heavy one waits for a click
-    expect(html).toContain('play it here');
+    expect(html).toContain('data-testid="heavy-artifact"');         // the heavy one plays in place,
+    expect(html).toContain('data-testid="artifact-iframe"');        // no click: the same frame a TRICKSTER card draws
+    expect(html).toContain('sandbox="allow-scripts"');
+    expect(html).not.toContain('play it here');
     expect(html).toContain('Membrane silent');
     expect(html).toContain('data-chosen="true"');
     expect(html).toContain('you answered');
@@ -34,5 +36,12 @@ describe('MakingCard', () => {
     const html = renderToStaticMarkup(React.createElement(MakingCard, { spec: { id: 'x', heading: 'h', fromMessage: false, prose: 'plain **text**', artifacts: { light: [], heavy: [] }, footer: null } }));
     expect(html).toContain('data-card="prose"');
     expect(html).toContain('text');
+  });
+  it('a heavy artifact sits in a lazy mount of its own, apart from the light ones', () => {
+    const html = renderToStaticMarkup(React.createElement(MakingCard, { spec: { id: 'y', heading: 'h', fromMessage: false, prose: 'p', artifacts: { light: [], heavy: [{ path: 'Dissolutions/proofs/x/one-curve.html', caption: null }] }, footer: null } }));
+    const at = html.indexOf('data-testid="heavy-artifact"');
+    expect(at).toBeGreaterThan(-1);
+    expect(html.indexOf('data-testid="lazy-mount"', at)).toBeGreaterThan(at);  // its own mount, inside the card's
+    expect(html).toContain('/api/file?path=Dissolutions%2Fproofs%2Fx%2Fone-curve.html');
   });
 });

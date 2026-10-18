@@ -42,11 +42,16 @@ export function safeRef(ref) {
 }
 
 // Fetch the commit stream. `limit` caps the number of commits; `pathspec`
-// (optional, palace-relative) filters to a single entry's history. Returns
-// an array of fully classified commit cards, newest first.
-export async function readLog(palaceRoot, { limit = 100, pathspec = null } = {}) {
+// (optional, palace-relative) filters to a single entry's history. `flags`
+// keeps only the commits that close or carry a weave flag (a Palace-Resolves
+// trailer, a Declined or Carried flag line), across all of history: a weave
+// commit closes dozens at once, so they are few, and a page of recent commits
+// would lose any flag closed more than a few days ago. Returns an array of
+// fully classified commit cards, newest first.
+export const FLAG_LINE_GREPS = ['--grep=Palace-Resolves:', '--grep=[Dd]eclined? flag', '--grep=[Cc]arried flag'];
+export async function readLog(palaceRoot, { limit = 100, pathspec = null, flags = false } = {}) {
   const safeLimit = Math.max(1, Math.min(2000, parseInt(limit, 10) || 100));
-  const baseArgs = ['log', `-n`, String(safeLimit), '--no-color'];
+  const baseArgs = ['log', `-n`, String(safeLimit), '--no-color', ...(flags ? ['-E', ...FLAG_LINE_GREPS] : [])];
 
   let pathArgs = [];
   if (pathspec) {

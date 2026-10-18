@@ -5,9 +5,11 @@
 // migration). This script enumerates every `Shop/*.md` of type specialist/maker,
 // reads its frontmatter, and writes a roster table between the
 //   <!-- ROSTER:START ... --> / <!-- ROSTER:END -->
-// markers in `The Shop.md`. Re-run it whenever a Specialist's status/medium/tool
-// changes — the hand-maintained roster that drifted (Maker's prose list was 3+
-// Specialists stale) is gone; this can never drift because it is computed.
+// markers in `The Shop.md`. Re-run it whenever a Specialist is added, moves, or
+// its status/medium/tool changes. The hand-maintained roster that drifted (Maker's
+// prose list was 3+ Specialists stale) is gone; the block is computed, so the only
+// drift left is a block nobody re-ran, which `--check` catches (lint-doc-drift E4
+// runs it).
 //
 // Run:  node Shop/Maker/build-roster.mjs            (rewrite the block)
 //       node Shop/Maker/build-roster.mjs --check    (exit 1 if the block is stale)

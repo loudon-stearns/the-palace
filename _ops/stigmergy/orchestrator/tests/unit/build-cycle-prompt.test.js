@@ -294,15 +294,16 @@ describe('buildCyclePrompt — the type system layer (v1.19)', () => {
     expect(off).not.toContain("The palace's type system");
   });
 
-  // A steward is grown up for its own page and bundle (2026-10-16): every
-  // cycle reads ELDER on top of SCHEMA, after it.
-  test('injects ELDER every cycle, after SCHEMA, and says the steward is grown up', () => {
+  // Every cycle reads ELDER on top of SCHEMA, after it, for form and not for
+  // reach: no steward edits the house without Loudon's eyes (2026-10-18),
+  // reversing the 2026-10-16 own-page grant.
+  test('injects ELDER every cycle, after SCHEMA, and says the house is proposed, never written', () => {
     root = mkdtempSync(path.join(tmpdir(), 'bcp-elder-'));
     const agentRel = '_ops/agents/permanent/demo';
     mkdirSync(path.join(root, agentRel), { recursive: true });
     writeFileSync(path.join(root, 'Demo.md'), '---\ntitle: Demo\ntype: project\nstage: sprout\n---\n# Demo\n');
     writeFileSync(path.join(root, 'SCHEMA.md'), '---\ntitle: SCHEMA\n---\n# SCHEMA\ntypes here\n');
-    writeFileSync(path.join(root, 'ELDER.md'), '---\ntitle: ELDER\n---\n# ELDER\n## Age and its limits\nA steward is grown up for its own page and bundle.\n');
+    writeFileSync(path.join(root, 'ELDER.md'), '---\ntitle: ELDER\n---\n# ELDER\n## Age and its limits\nOnly an elder changes the house.\n');
     writeFileSync(path.join(root, agentRel, 'manifest.json'), JSON.stringify({ agent_id: 'Demo', home: 'Demo' }));
     writeFileSync(path.join(root, agentRel, 'state.json'), JSON.stringify({ iteration: 3, last_active: null, last_read_cursor: null }));
     writeFileSync(path.join(root, agentRel, 'history.jsonl'), '');
@@ -310,16 +311,49 @@ describe('buildCyclePrompt — the type system layer (v1.19)', () => {
     writeFileSync(path.join(root, '_ops/swarm/persistent/blackboard.jsonl'), '');
     mkdirSync(path.join(root, '_ops/orchestrator/prompts'), { recursive: true });
     writeFileSync(path.join(root, '_ops/orchestrator/prompts/steward.md'), 'STEWARD home={{home}} cycle={{cycle_id}} stage={{stage_at_last_activation}}');
-    const on = buildCyclePrompt({ palaceRoot: root, agentDir: agentRel, cycleN: 4, today: '2026-10-16' }).userTurn;
-    expect(on).toContain('# ELDER — you have grown up, for your own page and bundle');
+    const on = buildCyclePrompt({ palaceRoot: root, agentDir: agentRel, cycleN: 4, today: '2026-10-18' }).userTurn;
+    const ELDER_HEAD = '# ELDER — read every cycle: you grow up, and write nothing in the house';
+    expect(on).toContain(ELDER_HEAD);
     expect(on).toContain('## Age and its limits');
     expect(on).not.toContain('title: ELDER');
-    expect(on).not.toContain('You are a child');
-    expect(on).toContain('You are grown up for your own page and bundle');
-    expect(on.indexOf("The palace's type system")).toBeLessThan(on.indexOf('# ELDER — you have grown up'));
-    expect(on.indexOf('# ELDER — you have grown up')).toBeLessThan(on.indexOf('Your injected state'));
-    const off = buildCyclePrompt({ palaceRoot: root, agentDir: agentRel, cycleN: 4, today: '2026-10-16', include: { schema: false } }).userTurn;
+    expect(on).toContain('You change nothing in the house.');
+    expect(on).toContain("I don't like the editing of canon without my eyes.");
+    expect(on).toContain("Your own entry (body and frontmatter alike), your Context and your page's other faces and memory (its rich face, diary, batons, ledgers), an entry kept in your bundle, every other page, a new entry, and canon. Do not edit them.");
+    expect(on).toContain('a cycle runs with no one in the room to show');
+    expect(on).toContain('**Urgent, sparingly.**');
+    expect(on).toContain('`"replaces": ["<its item>"]`');
+    expect(on).toContain('`proposed_edits`');
+    expect(on).toContain('Work as if your proposals hold.');
+    expect(on).toContain('that was written before Loudon withdrew it on 2026-10-18');
+    expect(on.indexOf("The palace's type system")).toBeLessThan(on.indexOf(ELDER_HEAD));
+    expect(on.indexOf(ELDER_HEAD)).toBeLessThan(on.indexOf('Your injected state'));
+    const off = buildCyclePrompt({ palaceRoot: root, agentDir: agentRel, cycleN: 4, today: '2026-10-18', include: { schema: false } }).userTurn;
     expect(off).not.toContain('# ELDER');
+  });
+
+  // The Shopkeeper's reach over Shop/ (2026-10-18) is withdrawn: a stale
+  // `grown_up_for` in a manifest changes nothing the cycle tells it.
+  test('a manifest that still names grown_up_for folders is told the same as every steward', () => {
+    root = mkdtempSync(path.join(tmpdir(), 'bcp-wider-'));
+    const agentRel = '_ops/agents/permanent/keeper';
+    mkdirSync(path.join(root, agentRel), { recursive: true });
+    mkdirSync(path.join(root, 'Shop'), { recursive: true });
+    writeFileSync(path.join(root, 'Shop/Keeper.md'), '---\ntitle: Keeper\ntype: maker\n---\n# Keeper\n');
+    writeFileSync(path.join(root, 'SCHEMA.md'), '---\ntitle: SCHEMA\n---\n# SCHEMA\ntypes here\n');
+    writeFileSync(path.join(root, 'ELDER.md'), '---\ntitle: ELDER\n---\n# ELDER\n## Age and its limits\n');
+    writeFileSync(path.join(root, agentRel, 'state.json'), JSON.stringify({ iteration: 3, last_active: null, last_read_cursor: null }));
+    writeFileSync(path.join(root, agentRel, 'history.jsonl'), '');
+    mkdirSync(path.join(root, '_ops/swarm/persistent'), { recursive: true });
+    writeFileSync(path.join(root, '_ops/swarm/persistent/blackboard.jsonl'), '');
+    mkdirSync(path.join(root, '_ops/orchestrator/prompts'), { recursive: true });
+    writeFileSync(path.join(root, '_ops/orchestrator/prompts/steward.md'), 'STEWARD home={{home}}');
+    const prompt = (manifest) => {
+      writeFileSync(path.join(root, agentRel, 'manifest.json'), JSON.stringify({ agent_id: 'Keeper', home: 'Keeper', ...manifest }));
+      return buildCyclePrompt({ palaceRoot: root, agentDir: agentRel, cycleN: 4, today: '2026-10-18' }).userTurn;
+    };
+    const stale = prompt({ grown_up_for: ['Shop/'] });
+    expect(stale).toBe(prompt({}));
+    expect(stale).not.toContain('everything under');
   });
 });
 
@@ -436,6 +470,83 @@ describe('the scroll seam + the run mandate (2026-09-23)', () => {
     expect(userTurn).toContain('`"lesson"`');
     // after the scroll's orders, before the history
     expect(userTurn.indexOf('## Standing Orders')).toBeLessThan(userTurn.indexOf('# Your tuning ledger'));
+  });
+
+  // Loudon, 2026-10-18: "Will Stewards know to look to the ledger for their own
+  // edits when the work again? They will be treating their own ledger items as
+  // page additions before they do their work." So pending proposals come right
+  // after the home entry, as the page as proposed, and never as to-dos; a newer
+  // one replaces the older; a paid or declined one is said once.
+  test('pending proposals read as the page as proposed, right after the home entry, and never as to-dos', () => {
+    const { agentDir } = palace({ orders: 'Never ask about crossfades.' });
+    writeFileSync(path.join(root, 'Projects', 'Shep', 'Shep — tuning.md'), [
+      '---', 'title: "Shep — tuning"', 'ledger: tuning', '---', '', '# Shep — tuning', '',
+      '## From cycle 3 — 2026-10-18', '',
+      '1. **An early trap.** Owed: the glide needs a slower attack.',
+      '2. **Proposed for canon** · 2026-10-18 · [[Shep]] · § What\'s Decided · superseded by item 4 *(proposed by the steward, cycle 3)*',
+      '   Why: the first try',
+      '   Path: `Projects/Shep.md`',
+      '   > The illusion holds.',
+      '3. **Proposed for canon** · 2026-10-18 · [[Shep Staircase]] · — · canon change owed *(proposed by the steward, cycle 3; urgent, asked as m-urgent-1)*',
+      '   Why: a page of its own',
+      '   Path: none yet (a new page)',
+      '   > A staircase you can play.',
+      '4. **Proposed for canon** · 2026-10-18 · [[Shep]] · § What\'s Decided · canon change owed *(proposed by the steward, cycle 3)*',
+      '   Why: the illusion holds without the glide',
+      '   Path: `Projects/Shep.md`',
+      '   > The illusion holds on its own;',
+      '   > the glide is a second voice, not a fix.',
+      '5. **Proposed for canon** · 2026-10-17 · [[Shep]] · § Now · declined on 2026-10-18 15:00: the Now zone is regenerated, never written *(proposed by the steward, cycle 2)*',
+      '   Why: tidy the Now',
+      '   Path: `Projects/Shep.md`',
+      '   > Now: stable.',
+      '6. **Proposed for canon** · 2026-10-16 · [[Shep]] · § Gotchas · declined on 2026-10-16 09:00: already said *(proposed by the steward, cycle 1)*',
+      '   Why: old news',
+      '   Path: `Projects/Shep.md`',
+      '   > A gotcha.',
+      '- run · 2026-10-18 · cycle 3 · taught item 1, proposed items 2, 3, 4 for canon', '',
+    ].join('\n'));
+    // The steward last ran the morning of 2026-10-17, so only item 5's decline is news.
+    writeFileSync(path.join(root, agentDir, 'state.json'), JSON.stringify({ iteration: 3, last_active: '2026-10-17T08:00:00-04:00', last_read_cursor: null }));
+    const { userTurn } = buildCyclePrompt({ palaceRoot: root, agentDir, cycleN: 4, skillRoot: path.join(root, '_ops/orchestrator'), today: '2026-10-19' });
+    const asIf = userTurn.indexOf('# Your page, as you have proposed it');
+    expect(asIf).toBeGreaterThan(userTurn.indexOf('# Your home entry'));
+    expect(asIf).toBeLessThan(userTurn.indexOf('# Your scroll'));
+    expect(asIf).toBeLessThan(userTurn.indexOf('# Your tuning ledger'));
+    expect(asIf).toBeLessThan(userTurn.indexOf('# This cycle\'s mandate'));
+    const section = userTurn.slice(asIf, userTurn.indexOf('# Your injected state'));
+    // The pending ones, its own page first, in full, framed as holding and not as tasks.
+    expect(section).toContain("## [[Shep]], § What's Decided (`Projects/Shep.md`) — item 4, proposed 2026-10-18\n\nWhy: the illusion holds without the glide\n\n> The illusion holds on its own;\n> the glide is a second voice, not a fix.");
+    expect(section).toContain('## [[Shep Staircase]], a new page — item 3, proposed 2026-10-18, urgent: asked Loudon on the board');
+    expect(section.indexOf('item 4,')).toBeLessThan(section.indexOf('item 3,'));
+    expect(section).toContain('Read your page above as if they already hold');
+    expect(section).toContain('They are not tasks');
+    // Latest wins: the superseded item never shows.
+    expect(section).not.toContain('The illusion holds.\n');
+    expect(section).not.toContain('item 2,');
+    // A decline since the last run shows once, with Loudon's reason; an older one does not.
+    expect(section).toContain('## Since your last run, Loudon settled these');
+    expect(section).toContain('- **Item 5, [[Shep]], § Now (`Projects/Shep.md`): declined.** Loudon: "the Now zone is regenerated, never written"');
+    expect(section).not.toContain('Item 6');
+    // The ledger's to-do list keeps only real to-dos.
+    const ledger = userTurn.slice(userTurn.indexOf('# Your tuning ledger'), userTurn.indexOf('# Your recent history'));
+    expect(ledger).toContain('An early trap');
+    expect(ledger).not.toContain('Proposed for canon');
+    expect(ledger).not.toContain('The illusion holds');
+    expect(ledger).toContain('they are under *Your page, as you have proposed it*');
+    // The next run, after this one, no longer hears about the decline.
+    writeFileSync(path.join(root, agentDir, 'state.json'), JSON.stringify({ iteration: 4, last_active: '2026-10-19T08:00:00-04:00', last_read_cursor: 'x' }));
+    const next = buildCyclePrompt({ palaceRoot: root, agentDir, cycleN: 5, skillRoot: path.join(root, '_ops/orchestrator'), today: '2026-10-21' }).userTurn;
+    expect(next).toContain('# Your page, as you have proposed it');
+    expect(next).not.toContain('Since your last run, Loudon settled these');
+  });
+
+  test('a page whose ledger holds no proposals gets no as-if section', () => {
+    const { agentDir } = palace({ orders: 'Never ask about crossfades.' });
+    writeFileSync(path.join(root, 'Projects', 'Shep', 'Shep — tuning.md'), '# Shep — tuning\n\n1. A lesson.\n- run · 2026-10-18 · cycle 3 · taught item 1\n');
+    const { userTurn } = buildCyclePrompt({ palaceRoot: root, agentDir, cycleN: 4, skillRoot: path.join(root, '_ops/orchestrator'), today: '2026-10-19' });
+    expect(userTurn).not.toContain('# Your page, as you have proposed it');
+    expect(userTurn).not.toContain('Your proposals for canon are kept in this ledger');
   });
 
   test('no tuning ledger, no ledger section', () => {

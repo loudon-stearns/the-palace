@@ -216,3 +216,23 @@ test('a baton on main announces with no worktree coordinate; off main it needs o
     rmSync(tree, { recursive: true, force: true });
   }
 });
+
+test('the printed commit carries the whole move as its summary, never cut mid-word', () => {
+  const tree = mkdtempSync(join(tmpdir(), 'baton-exec-summary-'));
+  try {
+    const entry = 'Test Entry';
+    writeFileSync(join(tree, `${entry}.md`), `# ${entry}\n\nA stand-in entry.\n`);
+    const bodyFile = join(tree, 'body.md');
+    writeFileSync(bodyFile, '## Move\nA move.\n\n## Next move\nDo the thing.\n');
+    const move = 'Decide with Loudon how a ledger whose items are edited in place should merge when a branch lands, then build the guard he chooses.';
+    const out = execFileSync('node', [
+      EXECUTOR, '--entry', entry, '--move', move, '--body-file', bodyFile,
+      '--session-id', 'test', '--owner', PALACE, '--tree', tree,
+    ], { encoding: 'utf8', stdio: 'pipe' });
+    const want = move.replace(/\.$/, '');
+    assert.ok(out.includes(`--summary '${want}'`), `the preview's commit summary is not the whole move:\n${out}`);
+  } finally {
+    rmSync(tree, { recursive: true, force: true });
+  }
+});
+

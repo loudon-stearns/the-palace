@@ -4,10 +4,12 @@ import { resolve, dirname, join, normalize, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { mkdtempSync, rmSync, mkdirSync, writeFileSync, copyFileSync, existsSync, readFileSync, symlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
+import { execFileSync } from 'node:child_process';
 import request from 'supertest';
 import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 import { selfOrigin } from '../../server/api/rich.js';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 // The rich face mounted at /rich/ (server/api/rich.js → _ops/rich-face/).
 // A temp palace carries the renderer's two files plus one entry with a bundle
@@ -34,6 +36,10 @@ const WAV = 'RIFF' + 'x'.repeat(2000);
 
 function makeTempPalace() {
   const root = mkdtempSync(resolve(tmpdir(), 'stigmergy-rich-test-'));
+  // The rich face finds files through git's index (resolve.mjs), never by walking
+  // the disk, so the temp palace is a repository; new files count untracked.
+  execFileSync('git', ['init', '-q'], { cwd: root, env: gitFreeEnv() });
+  assertScratchRepo(root);
   mkdirSync(resolve(root, '_ops/swarm/persistent'), { recursive: true });
   mkdirSync(resolve(root, '_ops/swarm/sessions'), { recursive: true });
   writeFileSync(resolve(root, '_ops/swarm/persistent/blackboard.jsonl'), '', 'utf8');

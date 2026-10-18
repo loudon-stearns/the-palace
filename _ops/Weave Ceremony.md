@@ -4,7 +4,7 @@ type: practice
 pillars: [practice, tools, philosophy]
 born: 2026-03
 stage: mature
-version: "1.5"
+version: "1.7"
 trigger: ["weave", "let's weave"]
 links:
   - target: "[[Palace Ceremonies]]"
@@ -58,6 +58,8 @@ A weave is more than links — it is the palace's periodic tending of its own **
 
 Links are one instrument of entry-health. The weave tends all three bodies; it is done well when each leaves more able to act than before.
 
+The weave is also where a decision reaches every page. When a session settles something that should hold across the palace (a retired word, a new convention, a moved path), it writes the decision into its home and posts a **propagate flag**; the next weave carries it to every page it hasn't reached yet (Step 1c). That is coherence too: the palace agreeing with what it has already decided.
+
 For metaphor, cadence rationale, the widened-charter rationale, and swarm architecture history, see [[Weave Ceremony — Context]].
 
 ## Execution Method
@@ -84,10 +86,10 @@ The single-agent protocol below remains valid for: palaces under ~20 entries, qu
 **Postconditions:**
 1. A topology report has been produced covering: total entry count, hub nodes, orphan entries, most-connected nodes, cross-pillar bridges, dormant entries, stale metadata
 2a. An **unsung paths** audit has been completed: all plain-text body references to known entry titles have been surfaced and formalized as YAML frontmatter links. Any that should NOT be formalized have been flagged with a one-line reason. Unsung paths are mandatory — the prose already asserts the connection; the YAML is simply catching up.
-2b. The **`weave_flag` inbox** has been read from the persistent board, and every open flag has either been acted on by the Weave or had an explicit decision recorded in the commit body. **Verified mechanically by `_ops/swarm/lint-weave-flags.py`** (exits 0 only when no flag is left un-addressed and un-declined). This is the checkable backstop that makes 2b unmissable *however the Weave was launched* — a baton whose move-list omits Step 1c no longer bypasses it — the sibling of the 2d/2e/2f linters. (Added 2026-07-06 after a baton-launched Multi-Lens Weave skipped the honour-system inbox read; [[The Palace Hardens Around Values]]: a rule earns a gate once its check proves mechanical.)
+2b. The **`weave_flag` inbox** has been read from the persistent board, and every open flag is settled. An entry flag is acted on (`Palace-Resolves: <id>`) or declined (`Declined flag <id>: <reason>`). A propagate flag is finished (`Palace-Resolves: <id>`) or carried as far as this weave could take it (`Carried flag <id>: <how far>`). **Verified mechanically by `_ops/swarm/lint-weave-flags.py --since <the date the weave began>`**, which exits 0 when no flag is open: each is closed, declined, carried, or touched and read by hand. It is the checkable backstop that makes 2b unmissable *however the Weave was launched*, the sibling of the 2d/2e/2f linters: a baton-launched weave once skipped the inbox read when it was honour-system ([[The Palace Hardens Around Values]]: a rule earns a gate once its check proves mechanical).
 2c. A **substrate sweep** has been completed: uncommitted edits, stashes, dangling commits, unmerged branches, and recent rewrites have been triaged per finding (recover / discard / leave). Recoveries are additive only; discards are recorded so the LOG stays honest.
 2d. The **link-direction linter** (`_ops/swarm/lint-link-directions.py`) has been run against a freshly rebuilt map. It reports **no link-direction errors introduced by this Weave** — E1 reciprocal contradictions for asymmetric types, E2 hubs emitting `member-of`. Pre-existing errors the Weave chose not to resolve are listed in the commit body with a one-line reason; a silent red linter violates the LOG. This is the checkable directional postcondition that the 2026-06-05 schema-compliance miss showed the Weave needed.
-2e. The **doc-drift linter** (`_ops/swarm/lint-doc-drift.py`) exits **0 on errors** (warnings reviewed). This is the prose-consistency counterpart to 2d: it catches foundational-doc drift — wrong-case refs, broken paths, dangling section pins, trigger-coverage gaps. Any warning left standing is a deliberate review-list item, not a silent miss.
+2e. The **doc-drift linter** (`_ops/swarm/lint-doc-drift.py`) exits **0 on errors** (warnings reviewed). This is the prose-consistency counterpart to 2d: it catches foundational-doc drift — wrong-case refs, broken paths, dangling section pins, trigger-coverage gaps, and a generated block gone stale (E4: today [[The Shop]]'s roster, when a Specialist is added, moved or re-statused and nobody re-runs its builder; the error line names the command that refreshes it). Any warning left standing is a deliberate review-list item, not a silent miss.
 
 2g. The **voice-drift linter** (`_ops/swarm/lint-voice-drift.py`) has been run and its flagged entries reviewed. It measures markup density — bold spans and em-dashes per thousand words — against the ~p90 ceilings, catching the one [[The Palace Voice]] dial that has no other check. **Flag-only, never gates**: dense bolding can be legitimate structure (the `Cross-Domain Resonances/` family and the `_ops/swarm/` prompt templates trip it by design), so a flag asks for a read, not a rewrite. Added 2026-08-25 after the drift was measured — em-dashes up 41% and bold up 53% from the March baseline, in a palace whose *word choice* had held perfectly. The lesson it encodes: a stated value without a check drifts to whatever the writer's default is, and the palace had gated link direction, doc drift, bundle hygiene, and weave flags while leaving its own prose on the honour system.
 
@@ -98,7 +100,7 @@ The single-agent protocol below remains valid for: palaces under ~20 entries, qu
 5a. A **face audit** has run — every canon entry missing a hero or an icon is proposed for the gated [[Hero and Avatar Maker]] batch.
 5b. A **visual Weave report** (HTML, per the [[Loudon Live Design System]]) has been produced and saved to the session folder — the human-facing companion to the topology report, summarizing findings across lenses (cross-lens convergences, single-lens gems, the staged decision surface, and — after an oblique pass — what the randomness revealed and which segmentations to prioritize next). This is a standard Weave output, not a one-off. The studio floor applies (Graphite skin, the Lissajous sigil, the `Loud'n Live` footer, no cyan / emoji / hype); entry avatars may be embedded to reinforce the findings visually. Codified 2026-07-06.
 5c. The run report carries `ceremony_version` and ends with *What this run taught the ceremony*.
-6. Git commit made: `Weave — [date] — [N links added, N entries promoted, N orphans flagged, N vectors tuned, N flags closed, N orphans recovered/discarded, N faces added]`
+6. Git commit made: `Weave — [date] — [N links added, N entries promoted, N orphans flagged, N vectors tuned, N flags closed, N decisions carried, N orphans recovered/discarded, N faces added]`
 
 **Failure mode:** If the palace is only partially readable (some files inaccessible), produce a partial topology report and note which entries were unreachable. A partial Weave is valid. Do not commit until all accessible files have been processed.
 
@@ -152,9 +154,19 @@ The Weave always runs with full filesystem access. No GitHub URL fallback.
 
 **Step 1c: Read the `weave_flag` inbox**
 
-Read `_ops/swarm/persistent/blackboard.jsonl` and filter for unresolved `weave_flag` BROADCASTs on the `WEAVE` board (the channel established by STIGMERGY — Weave Flag Item Type Build Plan). Each flag carries `flag_type`, `source_entries`, `target_entry`, `proposed_action`, `rationale`, and `source_deposit_id`. Pass each flag to the worker assigned to `source_entries[0]` as a directed prompt — *"a deposit asked you to do X — confirm, refuse, or refine."* These are the Weave's first-class inputs, not free-form discoveries; the work of seeing the connection has already happened in the deposit, and the YAML/topology just hasn't caught up.
+Run `python3 _ops/swarm/lint-weave-flags.py` (from a worktree, add `--board` with the owner's live `_ops/swarm/persistent/blackboard.jsonl`). It reads the `weave_flag` BROADCASTs on the `WEAVE` board and lists what is still open. Flags come from deposits, closes, stewards, the last weave's trails, and decisions, most posted through `python3 -m commons weave-flag` or `python3 -m commons propagate`, the rest by the two tools named in [[SCHEMA — Reference]] §9. They are the Weave's first-class inputs, not free-form discoveries: someone has already seen the work, and the palace hasn't caught up.
 
-A flag is resolved either by the Weave taking the proposed action (the commit touches an entry in `source_entries` — the existing entry-touch auto-close in `queue-model.js` retires the card) or by an explicit decision recorded in the Weave's commit body (`Declined flag msg-<id>: <reason>` — acknowledging keeps the LOG honest).
+**Entry flags** name their `source_entries` and ask for something done to them. Pass each to the worker assigned to `source_entries[0]` as a directed prompt: *"a session asked you to do X — confirm, refuse, or refine."* An entry flag closes by a `Palace-Resolves: <id>` trailer on the commit that acts on it, or by a `Declined flag <id>: <reason>` line in the Weave's commit body. A commit that only touched a source entry shows as touched-unverified; entry files are high-traffic, so read the entry, and close the flag with a trailer if the work is there.
+
+**Propagate flags** (`flag_type: propagate`) carry a decision to every page it reaches. Each names its home (`target_entry`), its `scope`, a `check`, a `rhythm`, and, when the check is mechanical, a `pattern` whose matching pages the linter has already counted. Carry them first, while the decision's home is fresh in mind:
+
+- Read the decision's home before touching any page.
+- **A pattern** makes the linter's list the work: the pages that still match. A writer carries them as one mechanical pass, examples and templates first, because drift rides stale examples. Loudon already said yes to the decision, so these edits go to him as one batch he samples (tuning item 34). A foundational page (CLAUDE, JEWEL, ELDER, SCHEMA) is always read whole.
+- **A sweep with no pattern** is a reader's question. Thread it into the folder pass, which holds every page once (the worker template's DECISIONS TO CARRY slot): *"these decisions were made since the last weave; does your page agree? If not, propose the edit."*
+- **`rhythm: by-touch`** means Loudon chose to let pages change as they are next edited for their own reasons. Don't sweep; report how far its pattern has spread (the poster refuses a by-touch flag without one).
+- Some arrive part-carried: the deciding session did what it could at once and posted the flag so a second reader confirms the decision reached everywhere. The check says what is left.
+- Finished, with the check clean: `Palace-Resolves: <id>`. Not finished: a `Carried flag <id>: <how far>` line in the commit body. The flag stays on the board, and the next weave starts where this one stopped.
+- A weave never declines a propagate flag. If a decision now looks wrong, ask Loudon. Only he retires one: on his word the weave writes `Palace-Resolves: <id>` and quotes him in the commit body.
 
 **Step 2: Produce the topology report**
 
@@ -281,9 +293,9 @@ After all confirmed edits are written, rebuild the map and run the linters. Ther
 ```bash
 python3 "$(ls -1 _ops/swarm/build-map-*.py | sort | tail -1)"   # newest dated map builder
 python3 _ops/swarm/lint-link-directions.py                       # §4 link directionality (E1/E2 gate)
-python3 _ops/swarm/lint-doc-drift.py                             # foundational-doc consistency (E1/E3 gate)
+python3 _ops/swarm/lint-doc-drift.py                             # foundational-doc consistency (E1/E3/E4 gate)
 python3 _ops/swarm/lint-entry-naming.py                          # entry title↔filename, bundle-folder case (E1 gate)
-python3 _ops/swarm/lint-weave-flags.py                           # weave_flag inbox addressed/declined (2b gate)
+python3 _ops/swarm/lint-weave-flags.py --since <weave start>     # weave_flag inbox settled (2b gate); --board <owner's board> from a worktree
 python3 _ops/swarm/lint-ghost-links.py                           # dead body wikilinks — flag-only, never gates
 python3 _ops/swarm/lint-bundle-hygiene.py                        # frontmatter demotion candidates (invalid type gates)
 python3 _ops/swarm/lint-voice-drift.py                           # markup density vs the voice floor — flag-only, never gates
@@ -313,9 +325,9 @@ Stamp the run report with `ceremony_version` — in frontmatter when the report 
 
 **Step 7: Commit**
 
-After all confirmed changes are written: `Weave — [date] — [N links added, N entries promoted, N orphans flagged, N vectors tuned, N flags closed, N orphans recovered/discarded]`
+After all confirmed changes are written: `Weave — [date] — [N links added, N entries promoted, N orphans flagged, N vectors tuned, N flags closed, N decisions carried, N orphans recovered/discarded]`
 
-The commit body lists every substrate disposition (one line each) and every declined `weave_flag` with a one-line reason. The LOG is the record; silent discards violate it.
+The commit body lists every substrate disposition (one line each), a `Palace-Resolves: <id>` trailer for every flag closed, every declined `weave_flag` with a one-line reason, and a `Carried flag <id>: <how far>` line for every propagate flag still spreading. The LOG is the record; silent discards violate it.
 
 ## The Topology Report Format
 
@@ -324,7 +336,10 @@ The commit body lists every substrate disposition (one line each) and every decl
 
 **Palace state:** [N] entries | [N] typed links | [N] orphans
 
-**Inbox — `weave_flag` pending:** [N]
+**Decisions carried:** [N propagate flags]
+1. [decision] — home [[target_entry]] — [sweep | by-touch] — [N pages changed, N left · closed | carried]
+
+**Inbox — entry flags pending:** [N]
 1. [flag_type] from [source_deposit_id] → [[source_entry]] (target: [[target_entry]]) — [proposed_action]
 
 **Substrate sweep:**

@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os';
 import { resolve, join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runHook, ceremonyKindsHere } from '../../scripts/commit-msg-hook.mjs';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const APP_ROOT = resolve(__dirname, '..', '..');
@@ -43,12 +44,13 @@ describe('runHook (against a message file)', () => {
 
 describe('commit-msg hook installed in a real repo', () => {
   let root;
-  function g(...args) { return execFileSync('git', args, { cwd: root, encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] }); }
-  function lastMsg() { return execFileSync('git', ['log', '-1', '--format=%B'], { cwd: root, encoding: 'utf8' }); }
+  function g(...args) { return execFileSync('git', args, { cwd: root, encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'], env: gitFreeEnv() }); }
+  function lastMsg() { return execFileSync('git', ['log', '-1', '--format=%B'], { cwd: root, encoding: 'utf8', env: gitFreeEnv() }); }
 
   beforeEach(() => {
     root = mkdtempSync(join(tmpdir(), 'hookrepo-'));
     g('init', '-q');
+    assertScratchRepo(root);
     g('config', 'user.email', 'test@palace');
     g('config', 'user.name', 'Test Palace');
     g('config', 'commit.gpgsign', 'false');
@@ -80,10 +82,10 @@ describe('commit-msg hook installed in a real repo', () => {
   });
 
   test('installer --check / --uninstall round-trip works on a real repo', () => {
-    const out1 = execFileSync('node', [INSTALLER, '--check'], { cwd: root, encoding: 'utf8' });
+    const out1 = execFileSync('node', [INSTALLER, '--check'], { cwd: root, encoding: 'utf8', env: gitFreeEnv() });
     expect(out1).toMatch(/INSTALLED|present/);
-    execFileSync('node', [INSTALLER, '--uninstall'], { cwd: root, encoding: 'utf8' });
-    const out2 = execFileSync('node', [INSTALLER, '--check'], { cwd: root, encoding: 'utf8' });
+    execFileSync('node', [INSTALLER, '--uninstall'], { cwd: root, encoding: 'utf8', env: gitFreeEnv() });
+    const out2 = execFileSync('node', [INSTALLER, '--check'], { cwd: root, encoding: 'utf8', env: gitFreeEnv() });
     expect(out2).toMatch(/NOT installed/);
   });
 
@@ -94,7 +96,7 @@ describe('commit-msg hook installed in a real repo', () => {
     g('commit', '-m', 'seed\n\nPalace-Kind: ops\nPalace-Verify: verified\nPalace-Author: claude');
     const wt = join(root, 'wt');
     g('worktree', 'add', '-q', wt);
-    const run = (...a) => execFileSync('node', [INSTALLER, ...a], { cwd: wt, encoding: 'utf8' });
+    const run = (...a) => execFileSync('node', [INSTALLER, ...a], { cwd: wt, encoding: 'utf8', env: gitFreeEnv() });
     const sharedHook = join(root, '.git', 'hooks', 'commit-msg');
 
     expect(run('--check')).toMatch(/INSTALLED/);
@@ -112,7 +114,8 @@ describe('the hook reads which subjects are ceremonies from the palace', () => {
   afterEach(() => { rmSync(dir, { recursive: true, force: true }); });
 
   test('a page carrying trigger: makes its subject a ceremony subject; elsewhere it is annotated', async () => {
-    execFileSync('git', ['init', '-q'], { cwd: dir });
+    execFileSync('git', ['init', '-q'], { cwd: dir, env: gitFreeEnv() });
+    assertScratchRepo(dir);
     mkdirSync(join(dir, '_ops'), { recursive: true });
     writeFileSync(join(dir, '_ops/Walk Ceremony.md'), '---\ntitle: "Walk Ceremony"\ntrigger: ["walk"]\n---\n# Walk\n');
     const kinds = await ceremonyKindsHere(dir);

@@ -39,7 +39,7 @@ product.** The search never enters this conversation; only the finished thing do
    spawns in CLI sessions.)
 2. **Every later address → resume the same agent** (`SendMessage` to the held ID), naming the
    posture and filling that posture prompt's slots. It carries its prior context forward — don't
-   re-spawn, and don't re-feed what it already holds.
+   re-spawn, and don't re-feed what it already holds. After a compaction the ID may be missing from the summary: find it in the session's `subagents/` folder and resume that one before spawning another ([[Concierge]] § The mechanism).
 3. **Watch its health with the dial.** Each resume returns `subagent_tokens` in the Agent tool's
    `<usage>` block — the objective read (never its self-report). Pass it to the dial:
    `node _ops/concierge/dial.mjs --tokens <N> --model <companion-model>`. Headline is **trust** = capacity

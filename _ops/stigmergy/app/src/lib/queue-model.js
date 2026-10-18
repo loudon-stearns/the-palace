@@ -23,7 +23,10 @@
 //      missing_connection_audit, section_expansion, hub_candidate,
 //      mirror_link_sweep, standard_reference. Carries source_entries: [string]
 //      so a commit touching any one of them closes it via reconcileQueue.
-//      Same RESOURCE_GRANT/RESOURCE_DENY close path as vector_proposal.)
+//      Same RESOURCE_GRANT/RESOURCE_DENY close path as vector_proposal.
+//      A PROPAGATE flag (flag_type 'propagate') is a decision for every page:
+//      no source entries, never closed by a GRANT/DENY or a touch, only by a
+//      Palace-Resolves trailer — see reconcileWeaveFlags.)
 //   - BROADCAST with payload.kind 'human_eval' naming a page → 'human_eval'
 //     (Loudon's review notes from a page's rich face, posted by
 //      _ops/rich-face/rich-handler.mjs. Keyed on the kind and the page the
@@ -174,7 +177,9 @@ export function buildQueue(messages) {
       continue;
     }
 
-    if (p.kind === 'weave_flag' && !responded.has(m.id)) {
+    // A propagate flag is a decision Loudon already made; a GRANT/DENY on the
+    // board neither finishes nor retires it (Weave Ceremony Step 1c), so it stays.
+    if (p.kind === 'weave_flag' && (p.flag_type === 'propagate' || !responded.has(m.id))) {
       // source_entries is an array of entry titles. We expose it as `entries`
       // on the queue item so reconcileQueue's array-aware entry-touch path
       // can close the flag when a commit touches any one of them. We also
@@ -186,7 +191,18 @@ export function buildQueue(messages) {
       const flagType = typeof p.flag_type === 'string' ? p.flag_type : 'unknown';
       const targetEntry = typeof p.target_entry === 'string' ? p.target_entry : null;
       const proposedAction = typeof p.proposed_action === 'string' ? p.proposed_action : null;
-      const ask = proposedAction || synthesizeFlagAsk(flagType, sourceEntries, targetEntry);
+      const str = (v) => (typeof v === 'string' && v.trim() !== '' ? v.trim() : null);
+      const propagate = flagType === 'propagate'
+        ? {
+            decision: str(p.decision),
+            scope: str(p.scope),
+            check: str(p.check),
+            rhythm: p.rhythm === 'by-touch' ? 'by-touch' : 'sweep',
+            pattern: str(p.pattern),
+            paths: Array.isArray(p.paths) ? p.paths.filter((x) => typeof x === 'string') : null,
+          }
+        : null;
+      const ask = proposedAction || synthesizeFlagAsk(flagType, sourceEntries, targetEntry, propagate);
       const primary = sourceEntries[0] || null;
       items.push({
         id: m.id,
@@ -201,8 +217,9 @@ export function buildQueue(messages) {
         source_entries: sourceEntries,
         target_entry: targetEntry,
         ask,
-        summary: ask,
+        summary: propagate?.decision || ask,
         rationale: typeof p.rationale === 'string' ? p.rationale : null,
+        propagate,
         // `entry` aliases the primary source entry; `entries` carries the full
         // set for reconcileQueue's array-aware entry-touch matching.
         entry: primary,
@@ -212,10 +229,16 @@ export function buildQueue(messages) {
         apply: normalizeApplyOp(p.apply),
         stale_if: typeof p.stale_if === 'string' && p.stale_if !== ''
           ? p.stale_if
-          : (sourceEntries.length > 0
-              ? `a commit touches any of [${sourceEntries.join(', ')}], or a RESOURCE_GRANT/DENY answers this flag`
-              : 'a RESOURCE_GRANT or RESOURCE_DENY answers this flag'),
-        pointer: primary ? { type: 'entry', target: primary } : { type: 'board', target: m.board },
+          : propagate
+            ? `a commit carries Palace-Resolves: ${m.id} once the check is clean`
+            : (sourceEntries.length > 0
+                ? `a commit touches any of [${sourceEntries.join(', ')}], or a RESOURCE_GRANT/DENY answers this flag`
+                : 'a RESOURCE_GRANT or RESOURCE_DENY answers this flag'),
+        // A propagate flag points at its decision's home; it still names no
+        // `entry`, so no touch to that page can close it.
+        pointer: primary ? { type: 'entry', target: primary }
+          : (propagate && targetEntry ? { type: 'entry', target: targetEntry } : { type: 'board', target: m.board }),
+        carried: null,
         resolved: { done: false, reason: null, commit: null },
         blocking: p.blocking === true,
         health: m.health || null,
@@ -514,6 +537,49 @@ export function reconcileQueue(items, commits) {
   });
 }
 
+// The weave flags' own close rules, the ones `_ops/swarm/lint-weave-flags.py`
+// gates the Weave with (Weave Ceremony Step 1c), and nothing else:
+//   - a commit carrying `Palace-Resolves: <id>` closes any weave flag;
+//   - a `Declined flag <id>: <reason>` line closes an entry flag, never a
+//     propagate flag (only Loudon retires one, by a trailer on his word);
+//   - a `Carried flag <id>: <how far>` line marks a propagate flag a weave
+//     carried but did not finish: it stays open, with the latest note shown.
+// No touch path: a commit touching a flag's entry proves nothing (the guess
+// that switched reconcileQueue off in the QUEUE deck). Items of other kinds
+// pass through untouched. Returns a NEW array; resolution stays advisory (the
+// card greys with "looks done", and the human clears it).
+export function reconcileWeaveFlags(items, commits) {
+  if (!Array.isArray(items)) return [];
+  const cs = Array.isArray(commits) ? commits : [];
+  const names = (id) => [id, `msg-${id}`];
+  const resolvesId = (c, id) => Array.isArray(c.resolves)
+    && c.resolves.some((r) => String(r).split(/[\s,]+/).includes(id));
+  const lineFor = (list, id) => (Array.isArray(list) ? list.find((d) => names(id).includes(d.id)) : null);
+  return items.map((item) => {
+    if (item?.kind !== 'weave_flag' || item.resolved?.done) return item;
+    const isPropagate = item.flag_type === 'propagate';
+    const byResolve = cs.find((c) => resolvesId(c, item.id));
+    if (byResolve) {
+      return { ...item, resolved: { done: true, reason: `resolved by commit ${byResolve.shortHash}`, commit: byResolve.shortHash } };
+    }
+    if (!isPropagate) {
+      for (const c of cs) {
+        const d = lineFor(c.declined, item.id);
+        if (d) {
+          return { ...item, resolved: { done: true, reason: `declined in commit ${c.shortHash}${d.note ? `: ${d.note}` : ''}`, commit: c.shortHash } };
+        }
+      }
+      return item;
+    }
+    // Commits arrive newest first, so the first Carried line is the latest.
+    for (const c of cs) {
+      const d = lineFor(c.carried, item.id);
+      if (d) return { ...item, carried: { commit: c.shortHash, date: c.date ?? null, note: d.note } };
+    }
+    return item;
+  });
+}
+
 // Convenience: split a reconciled list into open vs resolved, preserving rank.
 export function partitionQueue(items) {
   const open = [];
@@ -583,7 +649,7 @@ export function synthesizeProposalAsk(proposalType, source, target) {
 // Synthesize a human-language ask from a weave_flag's structured fields
 // when the author didn't supply a `proposed_action` string. The flag_type
 // enum is open; renderer falls back to "Weave flag" for unknown types.
-export function synthesizeFlagAsk(flagType, sourceEntries, targetEntry) {
+export function synthesizeFlagAsk(flagType, sourceEntries, targetEntry, propagate = null) {
   const srcs = Array.isArray(sourceEntries) ? sourceEntries.filter(Boolean) : [];
   const wikilink = (s) => `[[${String(s).replace(/\.md$/, '')}]]`;
   const srcList = srcs.length > 0
@@ -607,6 +673,11 @@ export function synthesizeFlagAsk(flagType, sourceEntries, targetEntry) {
       return tgt
         ? `reference ${tgt} as a standard from ${srcList}`
         : `reference ${srcList} as a standard`;
+    case 'propagate': {
+      const what = propagate?.decision ? `"${propagate.decision}"` : 'a decision';
+      const where = propagate?.scope || 'every page it reaches';
+      return `carry ${what}${tgt ? ` (home ${tgt})` : ''} to ${where}`;
+    }
     default:
       return `Weave flag on ${srcList}`;
   }

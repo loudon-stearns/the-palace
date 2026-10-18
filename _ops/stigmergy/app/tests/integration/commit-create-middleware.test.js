@@ -8,15 +8,17 @@ import request from 'supertest';
 import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 import { movesIn, rowPaths } from '../../src/lib/uncommitted-selection.js';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 function git(cwd, args) {
-  return execFileSync('git', args, { cwd, encoding: 'utf8' });
+  return execFileSync('git', args, { cwd, encoding: 'utf8', env: gitFreeEnv() });
 }
 
 // A throwaway git repo with one initial commit (so HEAD exists).
 function makeRepo() {
   const root = mkdtempSync(resolve(tmpdir(), 'stig-commit-test-'));
   git(root, ['init', '-q', '-b', 'main']);
+  assertScratchRepo(root);
   git(root, ['config', 'user.email', 'test@example.com']);
   git(root, ['config', 'user.name', 'Test User']);
   git(root, ['config', 'commit.gpgsign', 'false']);

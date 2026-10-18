@@ -2,7 +2,8 @@
 // The Sentry's sweep — one command, every check, masked output.
 //
 //   node _ops/sentry/sweep.mjs                 quick: tree, paths, agents (offline, ~seconds)
-//   node _ops/sentry/sweep.mjs --deep          + history (every blob in every ref, and gitleaks),
+//   node _ops/sentry/sweep.mjs --deep          + history (every blob, commit and tag in every ref, and gitleaks;
+//                                                each remote is asked for its tags when a hit is open),
 //                                                deps (npm audit), hosting (GitHub settings) — network
 //   node _ops/sentry/sweep.mjs --gate          the before-going-more-public check: --deep, exits 1 on any open high
 //   node _ops/sentry/sweep.mjs --only history  run named checks (comma list)
@@ -20,7 +21,7 @@ import { fileURLToPath } from 'node:url';
 import { join, dirname } from 'node:path';
 import { tmpdir } from 'node:os';
 import {
-  SENTRY_DIR, repoRoot, git, heldDir, loadAllow, scanContent, scanPaths, listBlobs, scanBlobs,
+  SENTRY_DIR, repoRoot, git, heldDir, loadAllow, scanContent, scanPaths, listObjects, scanBlobs, scanMessages, messageOf, carriedTags, catBlobs,
   hasGitleaks, sortFindings, finding, MEDIA_EXT, JPEG_EXT, MAX_BYTES,
 } from './engine.mjs';
 import { SCRIPT_EXT, INVENTORY_RULES, mask, fingerprint, SEV_RANK } from './rules.mjs';
@@ -35,7 +36,8 @@ const PAGE = join(ROOT, 'Palace development', 'Sentry.md');
 const LEDGER = join(ROOT, 'Palace development', 'Sentry', 'Sentry — tuning.md');
 const ALL_CHECKS = ['tree', 'paths', 'agents', 'history', 'deps', 'hosting'];
 const QUICK = ['tree', 'paths', 'agents'];
-// One stalled gh call must not hang a deep sweep or the gate: past this, the read counts as unreadable.
+// One stalled gh call or git ls-remote must not hang a deep sweep or the gate: past this, a gh read
+// counts as unreadable, and a remote as not asked (a hit only a tag could make public reads 'unknown').
 const GH_TIMEOUT_MS = 30_000;
 
 async function main() {
@@ -130,11 +132,14 @@ const CHECKS = {
       summary: `${settingsFiles.length} settings files, ${scripts.length} scripts (${n('deletes')} delete, ${n('network')} network)` } };
   },
 
-  // Every blob reachable from every ref, plus gitleaks over the full log when it is installed.
+  // Every blob and every commit and tag message reachable from every ref, plus gitleaks over
+  // the full log when it is installed (gitleaks reads patches; the messages are ours alone).
   async history(allow, report) {
-    const blobs = listBlobs(ROOT, ['--all']);
-    const { findings, scanned, skippedLarge } = await scanBlobs(ROOT, blobs,
-      { families: ['secret', 'pii', 'inject'], piiLevel: 'high', allow });
+    const { blobs, messages } = listObjects(ROOT, ['--all']);
+    const opts = { families: ['secret', 'pii', 'inject'], piiLevel: 'high', allow };
+    const { findings, scanned, skippedLarge } = await scanBlobs(ROOT, blobs, opts);
+    const read = await scanMessages(ROOT, messages, opts);
+    findings.push(...read.findings);
     const kept = findings.filter(f => f.family !== 'inject' || f.sev === 'high'); // history: only the invisible-smuggling kind of inject
     const everPaths = [...new Set(git(ROOT, ['log', '--all', '--format=', '--name-only']).split('\n').filter(Boolean))];
     const pathHits = scanPaths(everPaths, allow).map(f => ({ ...f, context: 'in history: ' + f.context }));
@@ -143,8 +148,8 @@ const CHECKS = {
     const gl = runGitleaks(['--log-opts=--all', '--max-archive-depth=3'], allow);
     all.push(...gl.findings);
     await markPublic(all);
-    return { findings: all, meta: { blobs: blobs.length, scanned, gitleaks: gl.status,
-      summary: `${scanned} blobs read of ${blobs.length}; gitleaks ${gl.status}` } };
+    return { findings: all, meta: { blobs: blobs.length, scanned, messages: read.scanned, gitleaks: gl.status,
+      summary: `${scanned} blobs read of ${blobs.length}, ${read.scanned} messages; gitleaks ${gl.status}` } };
   },
 
   // npm audit on every tracked package with a lockfile. Sends the dependency list to the npm registry.
@@ -401,11 +406,19 @@ function runGitleaks(gitArgs, allow) {
 }
 
 // For history hits: the commit that introduced the blob, and whether a public ref can reach it.
+// Public refs are the remote-tracking branches and the tags each remote lists: git never fetches a
+// tag under refs/remotes, so a tag, or a commit only a pushed tag reaches, would read as private.
+// When a remote cannot be asked, a hit no listed ref reaches but a local tag does is 'unknown', never 'no'.
 async function markPublic(list) {
-  const remotes = git(ROOT, ['for-each-ref', '--format=%(refname)', 'refs/remotes']).split('\n').filter(Boolean);
+  const pending = list.filter(f => !f.allowed && f.sev !== 'info');
+  if (!pending.length) return;
+  const refs = prefix => git(ROOT, ['for-each-ref', '--format=%(refname)', prefix]).split('\n').filter(Boolean);
+  const listed = await remoteTags();
+  const pub = reachable([...refs('refs/remotes'), ...listed.tips]);
+  const viaLocalTag = listed.known ? new Set() : reachable(refs('refs/tags'));
   const cache = new Map();
-  for (const f of list) {
-    if (f.allowed) continue;
+  for (const f of pending) {
+    if (f.tag) { f.public = listed.tagObjects.has(f.tag) ? true : listed.known ? false : 'unknown'; continue; }
     let commit = f.commit;
     if (!commit && f.blob) {
       commit = cache.get(f.blob) ?? git(ROOT, ['log', '--all', '--format=%H', '--reverse', `--find-object=${f.blob}`]).split('\n')[0];
@@ -414,8 +427,43 @@ async function markPublic(list) {
     if (!commit && f.family === 'path') commit = git(ROOT, ['log', '--all', '--format=%H', '--reverse', '--', f.path]).split('\n')[0];
     if (!commit) continue;
     f.commit = commit;
-    f.public = remotes.some(r => { try { git(ROOT, ['merge-base', '--is-ancestor', commit, r]); return true; } catch { return false; } });
+    f.public = pub.has(commit) ? true : viaLocalTag.has(commit) ? 'unknown' : false;
   }
+}
+
+// Every commit the given refs or commits reach, in one walk.
+function reachable(tips) {
+  if (!tips.length) return new Set();
+  return new Set(git(ROOT, ['rev-list', '--stdin'], { input: tips.join('\n') + '\n' }).split('\n').filter(Boolean));
+}
+
+// The tags each remote lists, asked once: the tag objects (a tag's message is public when its
+// object is listed, or carried inside one that is) and the local commits they name.
+async function remoteTags() {
+  const tagObjects = new Set(), tips = new Set();
+  let known = true;
+  const types = oids => new Map(git(ROOT, ['cat-file', '--batch-check=%(objectname) %(objecttype)'], { input: oids.join('\n') + '\n' })
+    .split('\n').map(l => l.split(' ')).filter(([, t]) => t && t !== 'missing'));
+  for (const remote of git(ROOT, ['remote']).split('\n').filter(Boolean)) {
+    let out;
+    try { out = execFileSync('git', ['ls-remote', '--tags', remote], { cwd: ROOT, encoding: 'utf8', timeout: GH_TIMEOUT_MS, maxBuffer: 1 << 30, stdio: ['ignore', 'pipe', 'ignore'], env: { ...process.env, GIT_TERMINAL_PROMPT: '0' } }); }
+    catch { known = false; continue; }
+    // Walk each listed oid down to what it names; one the repo lacks reaches nothing here.
+    let frontier = [...new Set(out.split('\n').map(l => l.split('\t')[0]).filter(o => /^[0-9a-f]{40,64}$/.test(o)))];
+    while (frontier.length) {
+      const t = types(frontier), tags = [];
+      for (const o of frontier) {
+        if (t.get(o) === 'commit') tips.add(o);
+        else if (t.get(o) === 'tag' && !tagObjects.has(o)) { tagObjects.add(o); tags.push(o); }
+      }
+      frontier = [];
+      for await (const { data } of catBlobs(ROOT, tags)) {
+        const named = (data.toString('utf8').match(/^object (\S+)/) || [])[1];
+        if (named) frontier.push(named);
+      }
+    }
+  }
+  return { tagObjects, tips: [...tips], known };
 }
 
 // ── output ────────────────────────────────────────────────────────────────────
@@ -425,7 +473,7 @@ function printSummary(report, open) {
     ` · allowed ${report.allowedCount} · placeholders ${report.infoCount}`);
   for (const n of report.notes) console.log(`  note  ${n}`);
   const show = open.slice(0, Number(opt('--limit', 40)));
-  for (const f of show) console.log(`  ${f.sev.padEnd(6)} ${f.family}/${f.rule}  ${f.path}${f.line ? ':' + f.line : ''}  ${f.masked}${f.public ? '  [PUBLIC]' : ''}`);
+  for (const f of show) console.log(`  ${f.sev.padEnd(6)} ${f.family}/${f.rule}  ${f.path}${f.line ? ':' + f.line : ''}  ${f.masked}${f.public === 'unknown' ? '  [PUBLIC?]' : f.public ? '  [PUBLIC]' : ''}`);
   if (open.length > show.length) console.log(`  … ${open.length - show.length} more in the held report`);
   console.log(`\nfull masked report: ${join(HELD, 'latest.md')} (local, never tracked)`);
 }
@@ -436,7 +484,7 @@ function renderHeld(report, open) {
     `high ${report.counts.high} · medium ${report.counts.medium} · low ${report.counts.low} · allowed ${report.allowedCount} · placeholders ${report.infoCount}`, ``];
   for (const n of report.notes) lines.push(`- note: ${n}`);
   lines.push('', '| sev | check | rule | where | value | context | public | fp |', '|---|---|---|---|---|---|---|---|');
-  for (const f of open) lines.push(`| ${f.sev} | ${f.check} | ${f.rule} | \`${f.path}${f.line ? ':' + f.line : ''}\`${f.commit ? ` @${f.commit.slice(0, 8)}` : ''} | ${f.masked} | ${String(f.context || '').replace(/\|/g, '\\|')} | ${f.public === undefined ? '' : f.public ? 'yes' : 'no'} | \`${f.fp}\` |`);
+  for (const f of open) lines.push(`| ${f.sev} | ${f.check} | ${f.rule} | \`${f.path}${f.line ? ':' + f.line : ''}\`${f.commit && !f.message ? ` @${f.commit.slice(0, 8)}` : ''} | ${f.masked} | ${String(f.context || '').replace(/\|/g, '\\|')} | ${f.public === undefined ? '' : f.public === 'unknown' ? 'unknown' : f.public ? 'yes' : 'no'} | \`${f.fp}\` |`);
   lines.push('', 'To accept a finding as a false positive, add its fp to `_ops/sentry/allow.json` with a reason.');
   return lines.join('\n') + '\n';
 }
@@ -551,6 +599,30 @@ function selftest() {
   const two = keyOf([{ actor_type: 'DeployKey', actor_id: 11, bypass_mode: 'always' }, { actor_type: 'DeployKey', actor_id: 99, bypass_mode: 'always' }]);
   const fpHolds = !!one && !!two && one !== two; ok &&= fpHolds;
   console.log(`${fpHolds ? 'caught' : 'MISSED'}  trunk guard: a new bypasser of the same kind changes the fingerprint`);
+  // Commit and tag messages: the message is what follows the headers, a signature's blank line
+  // included in its header, and it is read as prose under its own label. The author's domain is
+  // reserved, and not one EMAIL_IGNORE skips, so reading the raw object still finds it.
+  const sig = 'gpgsig -----BEGIN PGP SIGNATURE-----\n \n iQEz\n -----END PGP SIGNATURE-----';
+  const commitRaw = `tree ${'a'.repeat(40)}\nauthor Ada <ada@studio.invalid> 1 +0000\ncommitter Ada <ada@studio.invalid> 1 +0000\n${sig}\n\nsubject line\n\nbody ${planted['github-token']}\n`;
+  const tagRaw = `object ${'b'.repeat(40)}\ntype commit\ntag v1\ntagger A <a@b.c> 1 +0000\n\nnotes ${planted['us-ssn']}\n`;
+  const msgCases = [
+    ['a commit message starts after its headers, signature and all', messageOf(Buffer.from(commitRaw)).toString().startsWith('subject line\n')],
+    ['a tag message starts after its headers', messageOf(Buffer.from(tagRaw)).toString() === `notes ${planted['us-ssn']}\n`],
+    ['a key in a commit message is caught', scanContent('commit 1a2b3c4d message', messageOf(Buffer.from(commitRaw)), { allow: loadAllow(), textAs: 'message.txt' }).some(f => f.rule === 'github-token')],
+    ['an ID number in a tag message is caught as prose', scanContent('tag 1a2b3c4d message', messageOf(Buffer.from(tagRaw)), { allow: loadAllow(), textAs: 'message.txt' }).some(f => f.rule === 'us-ssn')],
+    ['the author line is not read as the message', scanContent('raw', Buffer.from(commitRaw), { allow: loadAllow(), textAs: 'message.txt' }).some(f => f.rule === 'email') && !scanContent('commit 1a2b3c4d message', messageOf(Buffer.from(commitRaw)), { allow: loadAllow(), textAs: 'message.txt' }).some(f => f.rule === 'email')],
+  ];
+  // A merge carries a signed tag whole, folded into its header; a number is masked to its last two digits.
+  const tagFolded = 'mergetag ' + tagRaw.replace(/\n$/, '').split('\n').join('\n ');
+  const mergeRaw = `tree ${'a'.repeat(40)}\nparent ${'c'.repeat(40)}\n${tagFolded}\n${sig}\n\nmerge(v1): clean\n`;
+  const carried = carriedTags(Buffer.from(mergeRaw));
+  msgCases.push(
+    ['a tag a merge carries unfolds back into the tag it was', carried.length === 1 && carried[0].toString() === tagRaw],
+    ['the merge\'s own message is still its message', messageOf(Buffer.from(mergeRaw)).toString() === 'merge(v1): clean\n'],
+    ['an ID number shows only its last two digits', mask(planted['us-ssn']) === `…20 [len 11]` && mask(planted['card-number']).startsWith('…11 ')],
+    ['two numbers that mask alike on one line stay two findings', scanContent('conf.json', Buffer.from(`{"api_token": "${'1138673' + '21012'}", "client_secret": "${'9299475' + '61012'}"}`), { families: ['secret'], allow: loadAllow() }).length === 2],
+  );
+  for (const [name, hit] of msgCases) { ok &&= hit; console.log(`${hit ? 'caught' : 'MISSED'}  messages: ${name}`); }
   console.log(ok ? '\nselftest: every planted secret caught' : '\nselftest: FAILED');
   process.exitCode = ok ? 0 : 1;
 }

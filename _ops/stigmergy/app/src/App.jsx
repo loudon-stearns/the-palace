@@ -10,6 +10,7 @@ import LogDeck from './components/log/LogDeck.jsx';
 import TricksterDeck from './components/TricksterDeck.jsx';
 import QueuePanel from './components/queue/QueuePanel.jsx';
 import ProjectsDeck from './components/projects/ProjectsDeck.jsx';
+import ScrollHost from './components/projects/ScrollHost.jsx';
 import CompanionHost from './components/CompanionHost.jsx';
 import { Banner } from './components/primitives.jsx';
 import { fetchPersistent, fetchSessions } from './adapters/blackboard.js';
@@ -19,7 +20,7 @@ import { buildInbox, pendingTricksterCount } from './lib/inbox.js';
 import { BOARDS } from './lib/format.js';
 import { DEMO_MESSAGES } from './lib/demo-data.js';
 import { validateAll } from './lib/schema.js';
-import { useDeckNavigation, useProjectNavigation } from './lib/url-nav.js';
+import { useDeckNavigation, useScrollNavigation, parseScrollFromUrl, parseEntryFromUrl } from './lib/url-nav.js';
 
 // Demo mode from the ?demo= query param:
 //   '1'     → demo data PREPENDED onto live palace data (the default showcase)
@@ -42,13 +43,18 @@ export default function App() {
   // pushes `?deck=` so the browser back button traverses deck changes, and a
   // ?deck= deep-link (case-insensitive) lands directly. The demo showcase
   // still defaults to QUEUE via the hook's deckFromSearch heuristic. Use
-  // `navigateDeck` for every user-initiated switch -- never a bare setter --
-  // so no deck change escapes the history timeline.
+  // `setDeck` for every user-initiated switch -- never a bare setter -- so no
+  // deck change escapes the history timeline.
   const { deck, navigateDeck } = useDeckNavigation();
-  const setDeck = navigateDeck;
-  // The open project on the PROJECTS deck (`?project=`): its scroll view.
-  const { project, openProject, closeProject } = useProjectNavigation();
-  const openProjectScroll = useCallback((home) => { openProject(home); setDeck('PROJECTS'); }, [openProject]);
+  // A page's scroll (`?scroll=`) opens over the deck you are on. Any page may
+  // keep one, so it is a face of the page, not a PROJECTS view: SCROLL in the
+  // STATE reader keeps STATE lit, and back returns to the page. Picking a deck
+  // leaves an open scroll, so the deck you pick is the deck you see.
+  const { scroll, openScroll, closeScroll, backFromScroll } = useScrollNavigation();
+  const setDeck = useCallback((next) => {
+    if (typeof window !== 'undefined' && parseScrollFromUrl(window.location.search)) closeScroll();
+    navigateDeck(next);
+  }, [closeScroll, navigateDeck]);
   // Default board (when QUEUE is active) is TRICKSTER -- the inbox is the
   // page that earns its keep moment-to-moment.
   const [activeBoard, setActiveBoard] = useState('TRICKSTER');
@@ -85,6 +91,9 @@ export default function App() {
   // firing on ordinary re-renders.
   const [jumpTarget, setJumpTarget] = useState(null);
   const jumpNonce = useRef(0);
+  // StateDeck reports a jump as used, so remounting STATE later (back from a
+  // scroll, or from another deck) never re-opens an old jump's entry.
+  const onJumpHandled = useCallback(() => setJumpTarget(null), []);
   const openEntryInState = useCallback((path) => {
     if (!path) return;
     jumpNonce.current += 1;
@@ -302,34 +311,43 @@ export default function App() {
     : deck === 'PROJECTS' ? 'P'
     : 'L';
 
+  // What fills the screen: the open scroll, else the lit deck. The scroll's
+  // back button names where it lands -- the page you were reading, or the deck.
+  const view = scroll ? 'SCROLL' : deck;
+  const scrollBackLabel = deck === 'STATE' && typeof window !== 'undefined'
+    && parseEntryFromUrl(window.location.search).path ? 'page' : deck.toLowerCase();
+
   return (
     <Shell commands={cmds} onCommand={handleCommand}
       activeBoard={commandBarActive} liveState={liveState}>
-      <PalaceRefProvider vault="The Palace" openEntryInState={openEntryInState} openProjectScroll={openProjectScroll}>
+      <PalaceRefProvider vault="The Palace" openEntryInState={openEntryInState} openScroll={openScroll}>
       {/* Lift the deck nav above an entry's fixed hero backdrop (EntryReader
           z-index:1) so the buttons stay bright; the hero sits behind them. */}
       <div style={{ position: 'relative', zIndex: 2 }}>
         <DeckTabs active={deck} onSelect={setDeck} />
       </div>
 
-      {deck === 'STATE' && (
+      {scroll ? (
+        <ScrollHost
+          key={scroll}
+          home={scroll}
+          messages={visibleMessages}
+          onConfirmed={handleOptimisticAppend}
+          onBack={backFromScroll}
+          backLabel={scrollBackLabel}
+        />
+      ) : null}
+      {view === 'STATE' && (
         <StateDeck
           jumpTarget={jumpTarget}
+          onJumpHandled={onJumpHandled}
           onEntryPathChange={setCurrentEntryPath}
           reloadNonce={entryReloadNonce}
         />
       )}
-      {deck === 'LOG' && <LogDeck />}
-      {deck === 'PROJECTS' && (
-        <ProjectsDeck
-          messages={visibleMessages}
-          onConfirmed={handleOptimisticAppend}
-          project={project}
-          onOpenProject={openProjectScroll}
-          onCloseProject={closeProject}
-        />
-      )}
-      {deck === 'TRICKSTER' && (
+      {view === 'LOG' && <LogDeck />}
+      {view === 'PROJECTS' && <ProjectsDeck onOpenScroll={openScroll} />}
+      {view === 'TRICKSTER' && (
         <TricksterDeck
           messages={visibleMessages}
           onConfirmed={handleOptimisticAppend}
@@ -338,7 +356,7 @@ export default function App() {
           onReload={loadAll}
         />
       )}
-      {deck === 'QUEUE' && (
+      {view === 'QUEUE' && (
         <div data-testid="board-screen" style={{ width: '100%' }}>
           <div style={{ marginBottom: 10 }}>
             <QueuePanel messages={visibleMessages} onJumpEntry={() => setDeck('STATE')} />
