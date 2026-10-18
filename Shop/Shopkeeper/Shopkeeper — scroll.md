@@ -15,14 +15,14 @@ forward_vector: "I am Shopkeeper's scroll — the page's front door, opening on 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-18T14:06:06.282Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-18T18:13:32.893Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** alive · **Stage:** — · **Steward:** cycle 3 · last ran 2026-10-18 (today)
 - **Plan:** none agreed yet — the work leans on the forward vector
-- **Waiting on you:** 1 open ask
-- **Ready to advance:** no unread answers
+- **Waiting on you:** nothing
+- **Ready to advance:** 1 answer filed since the steward last ran — a cycle will consume it
 - **Last shipped:** 2026-10-18 (today) — I confirmed a real pattern across two flagship Spaces, and found the Roster's FLUX entry is five months stale right as FLUX 3 shipped. (`shopkeeper-cycle-3-2026-10-18`)
-- **Last commit touching this page:** 2026-10-18 `6e1be4fc` — edit(Shopkeeper): the Shopkeeper writes the Shop itself: new Specialists, gotchas, statuses; the roster is the generated one in The Shop
+- **Last commit touching this page:** 2026-10-18 `ed2b4ff3` — edit(Shopkeeper): the roster follows the Shopkeeper's Shop edits on its own; The Shop page stays outside its reach
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
@@ -38,14 +38,15 @@ _What the trail's left-rough notes keep saying, oldest first, in its latest word
 
 ### Open asks
 
-- `shopkeeper-ask-2026-10-18-flux3` — directional_decision · posted 2026-10-18 · options: LAND-NOTE · WAIT-FOR-PROBE · NOT-NOW
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
-_None._
+- `shopkeeper-ask-2026-10-18-flux3` — GRANTED — option_id=LAND-NOTE · answered 2026-10-18 — waiting for the next cycle
 
 ### Decided
 
+- `shopkeeper-ask-2026-10-18-flux3` — directional_decision → GRANTED — option_id=LAND-NOTE (2026-10-18)
 - `shopkeeper-sweep-2026-09-24-001` — — → GRANTED — (no option_id); notes: "d1 YES: Yes, deposit AuK as a stub. This is the same answer as the 2026-09-15 card.
 d2 YES-WHEN-IN-USE: Yes, pull Qwen-Image-2.1 into the existing ComfyUI install on a mac pass, but only the next time ComfyUI is used for real work, not as a separate errand. Don't retry the free Space." (2026-09-25)
 - `shopkeeper-sweep-2026-09-15-auk-recommend` — — → GRANTED — (no option_id); notes: "d1 YES: Yes, deposit AuK as a stub Specialist. Its three edit types were verified and it is MIT-licensed. Record the unchecked speaker-identity claim as a known gap on the entry.
@@ -75,7 +76,7 @@ _No plan agreed yet. Until there is one, the work leans on the page's forward ve
 
 **Never write a token into a palace file** — it would be committed. A token is used only in the session it was pasted into, or the leg goes to the Mac.
 
-The Shop is yours to keep. You’re grown up for everything under Shop/: date a gotcha, correct a status, fix a stale pin, and write a new Specialist once you’ve run the tool and it clears your bar. Do it directly, and list each change in your post with a line of why. I read them on your trail; git is the undo. Outside Shop/ — The Shop page and its roster, any other page, canon — draft in your bundle and propose on the board. One card per decision.
+The Shop is yours to tend, not to write. Run the tools, keep the dossiers, and make what you make in your bundle. When you’d change a Shop page — date a gotcha, correct a status, fix a stale pin — or bring in a new Specialist once you’ve run it and it clears your bar, put it in proposed_edits: the page, the place, the words, and why. For a whole new page, write the draft in your bundle and let the proposal point at it. I read them when I review the ledgers; until then, work as if they hold. Mark one urgent only when the next job would break without it. One card per decision.
 
 **Already decided (2026-09-25 — don't re-ask):**
 - **Image-to-3D Smith** — approved as a stub. Hi3DGen primary, Hunyuan3D-2 the fast fallback. TripoSplat stays a lane note inside the Smith until a brief wants splats. First real job: the Blender import test.
