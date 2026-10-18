@@ -9,6 +9,7 @@ import request from 'supertest';
 import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 import { createStewardLane } from '../../server/steward-lane.js';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const STUB = resolve(__dirname, '../fixtures/stub-steward-worker.mjs');
@@ -199,8 +200,9 @@ describe('POST /api/steward/advance', () => {
   // commit still lands, and last-cycle.json gets its result once it settles.
   test('in a git palace the cycle commit lands asynchronously and is recorded', async () => {
     seedSteward(root, { name: 'Test Steward', slug: 'test-steward', requestId: 'test-steward-001' });
-    const g = (...a) => execFileSync('git', a, { cwd: root, encoding: 'utf8' });
+    const g = (...a) => execFileSync('git', a, { cwd: root, encoding: 'utf8', env: gitFreeEnv() });
     g('init', '-q', '-b', 'main');
+    assertScratchRepo(root);
     g('config', 'user.name', 'test');
     g('config', 'user.email', 'test@example.com');
     g('config', 'commit.gpgsign', 'false');

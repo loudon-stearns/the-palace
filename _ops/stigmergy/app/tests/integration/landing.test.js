@@ -8,6 +8,7 @@ import { tmpdir } from 'node:os';
 import { resolve, join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { writeMarker, readMarker } from '../../server/landing.js';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const APP = resolve(__dirname, '..', '..');
@@ -17,8 +18,8 @@ const COMMIT = join(APP, 'scripts', 'palace-commit.mjs');
 let base;
 let owner;
 let wt;
-const g = (cwd, ...a) => execFileSync('git', a, { cwd, encoding: 'utf8' });
-const env = (extra = {}) => ({ ...process.env, PALACE_DOOR_NO_BOARD: '1', ...extra });
+const g = (cwd, ...a) => execFileSync('git', a, { cwd, encoding: 'utf8', env: gitFreeEnv() });
+const env = (extra = {}) => gitFreeEnv({ PALACE_DOOR_NO_BOARD: '1', ...extra });
 const land = (cwd, ...a) => spawnSync('node', [LAND, ...a], { cwd, encoding: 'utf8', env: env() });
 const commit = (cwd, file, extra = {}) => spawnSync('node', [COMMIT, '--kind', 'edit', '--summary', `touch ${file}`, '--verify', 'verified', '--path', file], { cwd, encoding: 'utf8', env: env(extra) });
 // An unrelated commit in the main checkout: the next pass through the door.
@@ -32,6 +33,7 @@ beforeEach(() => {
   owner = join(base, 'owner');
   mkdirSync(owner);
   g(owner, 'init', '-q', '-b', 'main');
+  assertScratchRepo(owner, base);
   g(owner, 'config', 'user.email', 't@t');
   g(owner, 'config', 'user.name', 't');
   g(owner, 'config', 'commit.gpgsign', 'false');
@@ -41,6 +43,7 @@ beforeEach(() => {
   g(owner, 'commit', '-qm', 'init');
   wt = join(base, 'wt');
   g(owner, 'worktree', 'add', '-q', '-b', 'feature/x', wt);
+  assertScratchRepo(wt, base);
 });
 afterEach(() => { rmSync(base, { recursive: true, force: true }); });
 

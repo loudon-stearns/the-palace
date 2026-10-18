@@ -8,15 +8,17 @@ import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { readLog } from '../../server/git.js';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 describe('readLog — flags', () => {
   let root;
-  const g = (...args) => execFileSync('git', args, { cwd: root, encoding: 'utf8' });
+  const g = (...args) => execFileSync('git', args, { cwd: root, encoding: 'utf8', env: gitFreeEnv() });
   const commit = (file, msg) => { writeFileSync(join(root, file), msg); g('add', '--', file); g('commit', '-q', '-m', msg); };
 
   beforeAll(() => {
     root = mkdtempSync(join(tmpdir(), 'readlog-flags-'));
     g('init', '-q');
+    assertScratchRepo(root);
     g('config', 'user.email', 'test@palace');
     g('config', 'user.name', 'Test Palace');
     g('config', 'commit.gpgsign', 'false');

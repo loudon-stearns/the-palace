@@ -9,6 +9,7 @@ import { tmpdir } from 'node:os';
 import { resolve, join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validateMessage } from '@stigmergy/core/schema';
+import { gitFreeEnv } from '../helpers/git-env.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const APP_ROOT = resolve(__dirname, '..', '..');
@@ -16,7 +17,7 @@ const SCRIPT = join(APP_ROOT, 'scripts', 'weave-emit-unsung.mjs');
 
 describe('weave-emit-unsung CLI', () => {
   let root, board;
-  const run = (...args) => execFileSync('node', [SCRIPT, '--root', root, '--board', board, ...args], { cwd: APP_ROOT, encoding: 'utf8' });
+  const run = (...args) => execFileSync('node', [SCRIPT, '--root', root, '--board', board, ...args], { cwd: APP_ROOT, encoding: 'utf8', env: gitFreeEnv() });
   const readBoard = () =>
     (existsSync(board) ? readFileSync(board, 'utf8').trim().split('\n').filter(Boolean) : []).map((l) => JSON.parse(l));
 

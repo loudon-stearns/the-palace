@@ -18,16 +18,18 @@ import { tmpdir } from 'node:os';
 import { execFileSync } from 'node:child_process';
 import { createRegenLane } from '../../server/regen-lane.js';
 import { fakePs } from '../helpers/fake-ps.js';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 const REGEN_SCRIPT_SRC = fileURLToPath(new URL('../../../../../Shop/Hero and Avatar Maker/regen_one.py', import.meta.url));
 
 // -c core.quotepath=false → raw UTF-8 paths in output (else em-dash bundle paths
 // come back octal-escaped, e.g. `Face Me \342\200\224 hero.png`).
-function git(cwd, args) { return execFileSync('git', ['-c', 'core.quotepath=false', ...args], { cwd, encoding: 'utf8' }); }
+function git(cwd, args) { return execFileSync('git', ['-c', 'core.quotepath=false', ...args], { cwd, encoding: 'utf8', env: gitFreeEnv() }); }
 
 function makeTempPalace() {
   const root = mkdtempSync(resolve(tmpdir(), 'stig-regen-'));
   git(root, ['init', '-q', '-b', 'main']);
+  assertScratchRepo(root);
   git(root, ['config', 'user.email', 'test@example.com']);
   git(root, ['config', 'user.name', 'Test User']);
   git(root, ['config', 'commit.gpgsign', 'false']);

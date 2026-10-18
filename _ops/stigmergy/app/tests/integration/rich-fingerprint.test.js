@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { mkdtempSync, rmSync, mkdirSync, writeFileSync, readFileSync, copyFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { fingerprint } from '../../../../rich-face/parse.js';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 // _ops/rich-face/fingerprint.mjs --stamp, run in a temp palace. The script
 // finds entries from its own checkout root, so the three files it needs are
@@ -19,7 +20,7 @@ const STALE = '000000000000';
 let root;
 const manifestText = () => readFileSync(resolve(root, MANIFEST_REL), 'utf8');
 function stamp(...names) {
-  const r = spawnSync(process.execPath, [resolve(root, '_ops/rich-face/fingerprint.mjs'), 'Demo Entry', '--stamp', ...names], { encoding: 'utf8' });
+  const r = spawnSync(process.execPath, [resolve(root, '_ops/rich-face/fingerprint.mjs'), 'Demo Entry', '--stamp', ...names], { encoding: 'utf8', env: gitFreeEnv() });
   return { status: r.status, out: r.stdout + r.stderr };
 }
 
@@ -28,7 +29,8 @@ describe('fingerprint.mjs --stamp', () => {
     root = mkdtempSync(resolve(tmpdir(), 'rich-fingerprint-test-'));
     // The rich face finds files through git's index (resolve.mjs), never by walking
     // the disk, so the temp palace is a repository; new files count untracked.
-    execFileSync('git', ['init', '-q'], { cwd: root });
+    execFileSync('git', ['init', '-q'], { cwd: root, env: gitFreeEnv() });
+    assertScratchRepo(root);
     mkdirSync(resolve(root, '_ops/rich-face'), { recursive: true });
     for (const f of ['fingerprint.mjs', 'parse.js', 'resolve.mjs']) copyFileSync(resolve(RICH_SRC, f), resolve(root, '_ops/rich-face', f));
     writeFileSync(resolve(root, 'Demo Entry.md'), '# Demo Entry\n\nSome words.\n\n## A Section\n\nMore words.\n\n## Another\n\nStill more.\n', 'utf8');

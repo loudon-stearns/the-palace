@@ -17,15 +17,17 @@ import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 import { createCompanionLane } from '../../server/companion-lane.js';
 import { buildQueue } from '../../src/lib/queue-model.js';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 const STUB = fileURLToPath(new URL('../fixtures/stub-companion-worker.mjs', import.meta.url));
 const REPLY = 'the flesh is the medium of perception.';
 
-function git(cwd, args) { return execFileSync('git', args, { cwd, encoding: 'utf8' }); }
+function git(cwd, args) { return execFileSync('git', args, { cwd, encoding: 'utf8', env: gitFreeEnv() }); }
 
 function makeTempPalace() {
   const root = mkdtempSync(resolve(tmpdir(), 'stig-companion-'));
   git(root, ['init', '-q', '-b', 'main']);
+  assertScratchRepo(root);
   git(root, ['config', 'user.email', 'test@example.com']);
   git(root, ['config', 'user.name', 'Test User']);
   git(root, ['config', 'commit.gpgsign', 'false']);

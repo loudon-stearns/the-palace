@@ -10,6 +10,7 @@ import { tmpdir } from 'node:os';
 import { resolve, join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validateMessage } from '@stigmergy/core/schema';
+import { gitFreeEnv } from '../helpers/git-env.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const APP_ROOT = resolve(__dirname, '..', '..');
@@ -21,7 +22,7 @@ const STUB = JSON.stringify({ proposed_vector: STUB_VECTOR, rationale: 'rest →
 describe('weave-emit-vector-tuning CLI', () => {
   let root, board;
   const run = (...args) => execFileSync('node', [SCRIPT, '--root', root, '--board', board, ...args], {
-    cwd: APP_ROOT, encoding: 'utf8', env: { ...process.env, WEAVE_VT_GENERATE_STUB: STUB },
+    cwd: APP_ROOT, encoding: 'utf8', env: gitFreeEnv({ WEAVE_VT_GENERATE_STUB: STUB }),
   });
   const readBoard = () =>
     (existsSync(board) ? readFileSync(board, 'utf8').trim().split('\n').filter(Boolean) : []).map((l) => JSON.parse(l));

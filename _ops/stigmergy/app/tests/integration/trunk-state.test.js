@@ -5,18 +5,21 @@ import { execFileSync, spawnSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { resolve, join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 const TS = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..', 'scripts', 'trunk-state.mjs');
 let base;
 let root;
-const g = (cwd, ...a) => execFileSync('git', a, { cwd, encoding: 'utf8' });
+const g = (cwd, ...a) => execFileSync('git', a, { cwd, encoding: 'utf8', env: gitFreeEnv() });
 
 beforeEach(() => {
   base = mkdtempSync(join(tmpdir(), 'trunkstate-'));
   const remote = join(base, 'remote.git');
   g(base, 'init', '-q', '--bare', '-b', 'main', remote);
+  assertScratchRepo(remote, base);
   root = join(base, 'palace');
   g(base, 'init', '-q', '-b', 'main', root);
+  assertScratchRepo(root, base);
   g(root, 'config', 'user.email', 't@t');
   g(root, 'config', 'user.name', 't');
   writeFileSync(join(root, 'a.md'), 'a\n');
@@ -38,7 +41,7 @@ describe('trunk-state', () => {
     writeFileSync(join(root, 'Projects', 'P', 'x.md'), 'unsaved\n');
     g(root, 'branch', 'leftover');
     const before = g(root, 'status', '--porcelain=v1');
-    const r = spawnSync('node', [TS, '--json', '--no-writers'], { cwd: root, encoding: 'utf8' });
+    const r = spawnSync('node', [TS, '--json', '--no-writers'], { cwd: root, encoding: 'utf8', env: gitFreeEnv() });
     expect(r.status, r.stderr).toBe(0);
     const s = JSON.parse(r.stdout);
     expect(s.remote.ahead).toBe(1);
@@ -49,12 +52,12 @@ describe('trunk-state', () => {
     expect(s.branches).toBe(1);
     expect(s.unmerged).toEqual([]);
     expect(g(root, 'status', '--porcelain=v1')).toBe(before);
-    const human = spawnSync('node', [TS, '--no-writers'], { cwd: root, encoding: 'utf8' });
+    const human = spawnSync('node', [TS, '--no-writers'], { cwd: root, encoding: 'utf8', env: gitFreeEnv() });
     expect(human.stdout).toMatch(/main is 1 ahead of origin/);
     expect(human.stdout).toMatch(/2 moves of main, 1 through the door, 1 around it/);
   });
   test('a bad --since is refused', () => {
-    const r = spawnSync('node', [TS, '--since', 'banana', '--no-writers'], { cwd: root, encoding: 'utf8' });
+    const r = spawnSync('node', [TS, '--since', 'banana', '--no-writers'], { cwd: root, encoding: 'utf8', env: gitFreeEnv() });
     expect(r.status).toBe(2);
     expect(r.stderr).toMatch(/--since takes/);
   });
@@ -72,7 +75,7 @@ describe('trunk-state', () => {
     writeFileSync(join(dir, 'writer-s.jsonl'), use('Write', join(owner, 'Projects', 'P', 'x.md'), t(5)));
     writeFileSync(join(dir, 'reader-s.jsonl'), use('Read', join(owner, 'Projects', 'P', 'x.md'), t(1)) + use('Read', join(owner, 'a.md'), t(1)));
     writeFileSync(join(dir, 'parent-s', 'subagents', 'agent-1.jsonl'), use('Edit', join(owner, 'a.md'), t(3)));
-    const r = spawnSync('node', [TS, '--json'], { cwd: root, encoding: 'utf8', env: { ...process.env, HOME: home } });
+    const r = spawnSync('node', [TS, '--json'], { cwd: root, encoding: 'utf8', env: gitFreeEnv({ HOME: home }) });
     expect(r.status, r.stderr).toBe(0);
     const s = JSON.parse(r.stdout);
     const by = Object.fromEntries(s.unsaved.map((u) => [u.path, u.writer]));
@@ -89,18 +92,18 @@ describe('trunk-state', () => {
     writeFileSync(join(root, 'a.md'), 'changed\n');
     const old = new Date(Date.now() - 3600000);
     writeFileSync(join(dir, 'old-s.jsonl'), `${JSON.stringify({ timestamp: old.toISOString(), message: { content: [{ type: 'tool_use', name: 'Edit', input: { file_path: join(owner, 'a.md') } }] } })}\n`);
-    const r = spawnSync('node', [TS, '--json'], { cwd: root, encoding: 'utf8', env: { ...process.env, HOME: home } });
+    const r = spawnSync('node', [TS, '--json'], { cwd: root, encoding: 'utf8', env: gitFreeEnv({ HOME: home }) });
     const row = JSON.parse(r.stdout).unsaved.find((u) => u.path === 'a.md');
     expect(row.writer).toBe('old-s');
     expect(row.overtaken).toBe(true);
     utimesSync(join(root, 'a.md'), old, old);
-    const again = JSON.parse(spawnSync('node', [TS, '--json'], { cwd: root, encoding: 'utf8', env: { ...process.env, HOME: home } }).stdout).unsaved.find((u) => u.path === 'a.md');
+    const again = JSON.parse(spawnSync('node', [TS, '--json'], { cwd: root, encoding: 'utf8', env: gitFreeEnv({ HOME: home }) }).stdout).unsaved.find((u) => u.path === 'a.md');
     expect(again.overtaken).toBe(false);
   });
 
   test('a landing marker reads as in progress, died, or unreadable', () => {
     const markerFile = join(root, '.git', 'palace-land.json');
-    const read = () => spawnSync('node', [TS, '--no-writers'], { cwd: root, encoding: 'utf8' }).stdout;
+    const read = () => spawnSync('node', [TS, '--no-writers'], { cwd: root, encoding: 'utf8', env: gitFreeEnv() }).stdout;
     writeFileSync(markerFile, JSON.stringify({ old: 'a'.repeat(40), new: 'b'.repeat(40), branch: 'feature/x', pid: process.pid }));
     expect(read()).toMatch(/a landing is in progress: feature\/x/);
     writeFileSync(markerFile, JSON.stringify({ old: 'a'.repeat(40), new: 'b'.repeat(40), branch: 'feature/x', pid: 2 ** 22 + 7 }));

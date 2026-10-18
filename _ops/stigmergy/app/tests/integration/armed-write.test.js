@@ -10,12 +10,14 @@ import { mkdtempSync, rmSync, writeFileSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { execFileSync } from 'node:child_process';
 import { armedWriteEntry, previewEdit, revertCommit } from '../../server/armed-write.js';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
-function git(cwd, args) { return execFileSync('git', args, { cwd, encoding: 'utf8' }); }
+function git(cwd, args) { return execFileSync('git', args, { cwd, encoding: 'utf8', env: gitFreeEnv() }); }
 
 function makeRepo() {
   const root = mkdtempSync(resolve(tmpdir(), 'stig-armed-'));
   git(root, ['init', '-q', '-b', 'main']);
+  assertScratchRepo(root);
   git(root, ['config', 'user.email', 'test@example.com']);
   git(root, ['config', 'user.name', 'Test User']);
   git(root, ['config', 'commit.gpgsign', 'false']);
