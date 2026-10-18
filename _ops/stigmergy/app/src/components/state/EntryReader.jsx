@@ -64,9 +64,10 @@ export default function EntryReader({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [litQuoteId, state.kind, quotes.length]);
   // "enchant" opens the AgentLaunchModal in ephemeral mode: build this page's
-  // interactive context and launch a Claude Code terminal on it, without
-  // registering a permanent steward. Self-contained — the modal calls the
-  // adapters itself, so nothing needs threading through StateDeck.
+  // interactive context and launch a Claude Code session on it — a terminal or
+  // the Claude desktop app — without registering a permanent steward.
+  // Self-contained — the modal calls the adapters itself, so nothing needs
+  // threading through StateDeck.
   const [enchanting, setEnchanting] = useState(false);
   // "lens" runs [[The Lens]]'s procedure: pick a GLASS page from the index,
   // then wake it in the same AgentLaunchModal, with THIS entry handed to it
@@ -304,7 +305,7 @@ export default function EntryReader({
         <span
           data-testid="enchant-entry"
           onClick={() => setEnchanting(true)}
-          title="enchant — build this page's context and launch a Claude Code terminal on it (one-off; no steward registered)"
+          title="enchant — build this page's context and launch a Claude Code session on it, in a terminal or the desktop app (one-off; no steward registered)"
           style={{
             marginLeft: 8,
             cursor: 'pointer',

@@ -93,6 +93,8 @@ _ops/stigmergy/.actuator-steward/
 _ops/stigmergy/.actuator-companion/
 # STIGMERGY regen lane runtime state (pid/log + per-render specs + transcripts + last-run)
 _ops/stigmergy/.actuator-regen/
+# STIGMERGY "open in desktop" staged prompts (a claude:// link points at one; pruned after a week)
+_ops/stigmergy/launches/
 
 # Atomic-write temp files (state.json.tmp etc. — transient write-then-rename
 # intermediates left behind if a write is interrupted; never knowledge)

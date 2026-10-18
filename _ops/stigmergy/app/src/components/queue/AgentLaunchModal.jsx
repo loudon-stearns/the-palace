@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { Banner } from '../primitives.jsx';
-import { previewAgent, launchAgent, previewEphemeral, launchEphemeral } from '../../adapters/launch.js';
+import { previewAgent, launchAgent, previewEphemeral, launchEphemeral, desktopDefaultsNote } from '../../adapters/launch.js';
 
 // AgentLaunchModal — CONSTRUCT a page as a page-agent, then launch it.
 //
@@ -24,7 +24,9 @@ import { previewAgent, launchAgent, previewEphemeral, launchEphemeral } from '..
 //
 // It previews on open (and on a debounced mandate change) so "view constructed
 // prompt" always reflects what will actually wake. LAUNCH TERMINAL re-builds with
-// the current knobs server-side and opens the TUI; copy is the fallback.
+// the current knobs server-side and opens the TUI; OPEN IN DESKTOP re-builds the
+// same way, stages it under the palace root and opens a Claude app session on a
+// pointer to it (model + effort do not travel); copy is the fallback.
 
 // "opus" is resolved server-side to the latest Opus as an exact id
 // (_ops/models/latest-opus.mjs), so the default follows each new release.
@@ -57,7 +59,7 @@ function ModalButton({ children, onClick, tone = 'default', disabled, testId }) 
         textShadow: disabled ? 'none' : 'var(--glow)',
         border: `1px solid ${border}`, padding: '4px 12px',
         fontFamily: 'var(--font-mono)', fontSize: 12, cursor: disabled ? 'default' : 'pointer',
-        textTransform: 'uppercase', letterSpacing: '.05em',
+        textTransform: 'uppercase', letterSpacing: '.05em', whiteSpace: 'nowrap',
       }}
     >{children}</button>
   );
@@ -103,8 +105,9 @@ export default function AgentLaunchModal({ home, mandateSeed = '', mode = 'stewa
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showPrompt, setShowPrompt] = useState(false);
-  const [launching, setLaunching] = useState(false);
+  const [launching, setLaunching] = useState(null);   // null | 'terminal' | 'desktop'
   const [launchMsg, setLaunchMsg] = useState(null);
+  const [stagedPath, setStagedPath] = useState(null);
   const [copied, setCopied] = useState(false);
   const backdropRef = useRef(null);
   const debounce = useRef(null);
@@ -147,13 +150,17 @@ export default function AgentLaunchModal({ home, mandateSeed = '', mode = 'stewa
     } catch { /* selectable in the <pre> */ }
   }, [preview]);
 
-  const launch = useCallback(async () => {
+  const launch = useCallback(async (target) => {
     if (launching) return;
-    setLaunching(true); setLaunchMsg(null); setError(null);
-    const r = await doLaunch({ home, mandate, model, effort, include, lensSubject });
-    if (r.ok) setLaunchMsg('opening a Claude Code terminal…');
-    else setError(r.error);
-    setLaunching(false);
+    setLaunching(target); setLaunchMsg(null); setError(null); setStagedPath(null);
+    const r = await doLaunch({ home, mandate, model, effort, include, lensSubject, target });
+    if (r.ok) {
+      setLaunchMsg(target === 'desktop'
+        ? 'opening the Claude app — confirm the folder, then send'
+        : 'opening a Claude Code terminal…');
+      if (r.stagedPath) setStagedPath(r.stagedPath);
+    } else setError(r.error);
+    setLaunching(null);
   }, [launching, home, mandate, model, effort, include, lensSubject]);
 
   const construction = preview?.construction || null;
@@ -261,7 +268,7 @@ export default function AgentLaunchModal({ home, mandateSeed = '', mode = 'stewa
                       <input
                         type="checkbox"
                         checked={include[tg.key]}
-                        disabled={launching}
+                        disabled={!!launching}
                         onChange={() => setInclude((p) => ({ ...p, [tg.key]: !p[tg.key] }))}
                       />
                       {tg.label}
@@ -276,12 +283,20 @@ export default function AgentLaunchModal({ home, mandateSeed = '', mode = 'stewa
           {/* The Core knobs. */}
           <div style={{ display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
             <label style={{ fontSize: 11, color: 'var(--phosphor-dim)', textShadow: 'none', textTransform: 'uppercase', letterSpacing: '.05em', display: 'flex', gap: 6, alignItems: 'center' }}>
-              model <Select value={model} onChange={setModel} options={MODELS} testId="agent-model" disabled={launching} />
+              model <Select value={model} onChange={setModel} options={MODELS} testId="agent-model" disabled={!!launching} />
             </label>
             <label style={{ fontSize: 11, color: 'var(--phosphor-dim)', textShadow: 'none', textTransform: 'uppercase', letterSpacing: '.05em', display: 'flex', gap: 6, alignItems: 'center' }}>
-              effort <Select value={effort} onChange={setEffort} options={EFFORTS} testId="agent-effort" disabled={launching} />
+              effort <Select value={effort} onChange={setEffort} options={EFFORTS} testId="agent-effort" disabled={!!launching} />
             </label>
           </div>
+          <div data-testid="agent-desktop-note" style={{ fontSize: 11, color: 'var(--phosphor-dim)', textShadow: 'none' }}>
+            {desktopDefaultsNote(`${(MODELS.find((m) => m.id === model) || { label: model }).label} · ${effort}`)}
+          </div>
+          {stagedPath ? (
+            <div data-testid="agent-staged" style={{ fontSize: 11, color: 'var(--phosphor-dim)', textShadow: 'none', wordBreak: 'break-all' }}>
+              staged: <span style={{ color: 'var(--ansi-bright-cyan)' }}>{stagedPath}</span>
+            </div>
+          ) : null}
           <div>
             <div style={{ fontSize: 11, color: 'var(--phosphor-dim)', textShadow: 'none', textTransform: 'uppercase', letterSpacing: '.05em', marginBottom: 4 }}>
               {isLens ? 'extra note — on top of the lens procedure' : "mandate — this session's focus"}
@@ -292,7 +307,7 @@ export default function AgentLaunchModal({ home, mandateSeed = '', mode = 'stewa
               onChange={(e) => setMandate(e.target.value)}
               placeholder={isLens ? 'leave blank for just the standard lens procedure' : 'leave blank for the standard next-cycle mandate'}
               rows={2}
-              disabled={launching}
+              disabled={!!launching}
               style={{
                 width: '100%', background: 'transparent', color: 'var(--phosphor)', textShadow: 'var(--glow)',
                 border: '1px dashed var(--phosphor-dim)', fontFamily: 'var(--font-mono)', fontSize: 12,
@@ -317,12 +332,15 @@ export default function AgentLaunchModal({ home, mandateSeed = '', mode = 'stewa
           ) : null}
         </div>
 
-        <div style={{ borderTop: '1px solid var(--phosphor-dim)', padding: '8px 12px', display: 'flex', gap: 10, justifyContent: 'flex-end', alignItems: 'center', flexShrink: 0 }}>
+        <div style={{ borderTop: '1px solid var(--phosphor-dim)', padding: '8px 12px', display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'flex-end', alignItems: 'center', flexShrink: 0 }}>
           {launchMsg ? <span data-testid="agent-launch-ok" style={{ marginRight: 'auto', color: 'var(--phosphor)', textShadow: 'var(--glow)', fontSize: 12 }}>{launchMsg}</span> : null}
-          <ModalButton tone="default" onClick={handleClose} disabled={launching} testId="agent-close">close</ModalButton>
+          <ModalButton tone="default" onClick={handleClose} disabled={!!launching} testId="agent-close">close</ModalButton>
           <ModalButton tone="default" onClick={copy} disabled={!preview} testId="agent-copy">{copied ? 'copied' : 'copy prompt'}</ModalButton>
-          <ModalButton tone="primary" onClick={launch} disabled={launching || !preview} testId="agent-launch-terminal">
-            {launching ? 'opening…' : 'launch terminal'}
+          <ModalButton tone="primary" onClick={() => launch('desktop')} disabled={!!launching || !preview} testId="agent-launch-desktop">
+            {launching === 'desktop' ? 'opening…' : 'open in desktop'}
+          </ModalButton>
+          <ModalButton tone="primary" onClick={() => launch('terminal')} disabled={!!launching || !preview} testId="agent-launch-terminal">
+            {launching === 'terminal' ? 'opening…' : 'launch terminal'}
           </ModalButton>
         </div>
       </div>
