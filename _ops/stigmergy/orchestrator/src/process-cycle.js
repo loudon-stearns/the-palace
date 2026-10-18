@@ -18,6 +18,10 @@
 //      and a why): its own entry and bundle may ride once their frontmatter
 //      parses; anything else is refused, stays on the board as
 //      `page_edits_refused`, and remains a proposal (vetPageEdits),
+//   6c. when the cycle commits and its vetted page edits touch a page directly
+//      under Shop/, reruns the Shop roster; a regenerated `The Shop.md` rides
+//      the commit as machinery, and only its generated block may change
+//      (refreshShopRoster),
 //   7. materializes the bundle-local `[Entry] — scroll.md` (the project's front
 //      door — Now zone + append-only making trail) from the board-derived view.
 //      The scroll replaced the older plan.md read-model on 2026-09-23.
@@ -45,6 +49,7 @@ import { resolveBundleDir } from './entry-paths.js';
 import { readEntryMeta } from './entry-frontmatter.js';
 import { tuningPathFor, recordRun, payOrders, localDate, growTuningLedger } from './ledger.js';
 import { commitCycle, planCycleCommit, pageEditsOf, vetPageEdits } from './cycle-commit.js';
+import { refreshShopRoster, rosterTriggers, ROSTER_BUILDER } from './shop-roster.js';
 import { resolveModel } from '../../../models/latest-opus.mjs';
 
 const PALACE_ROOT_DEFAULT = resolve(fileURLToPath(new URL('.', import.meta.url)), '../../../..');
@@ -576,6 +581,28 @@ export function processCycle(opts) {
     for (const e of ev) appendFileSync(histPath, JSON.stringify(e) + '\n');
   }
 
+  // ── The Shop roster follows its pages (2026-10-18) ────────────────────────
+  // A cycle that commits an edit to a page directly under Shop/ reruns
+  // Shop/Maker/build-roster.mjs, so a Specialist the Shopkeeper creates or
+  // re-statuses reaches The Shop.md § Roster in the same commit, as machinery.
+  // Only when the cycle commits: a regenerated block left uncommitted would
+  // be one more dirty file. A refusal (the block is the only thing it may
+  // change) is said in history, the commit body and the summary.
+  let roster = null;
+  if (commit) {
+    try {
+      roster = refreshShopRoster({ palaceRoot, pageEdits });
+    } catch (e) {
+      roster = { triggers: rosterTriggers(pageEdits), builder: ROSTER_BUILDER, changed: false, path: null, added: [], removed: [], refused: `error: ${e.message}` };
+    }
+    if (roster) {
+      appendFileSync(histPath, JSON.stringify({
+        event: roster.refused ? 'SHOP_ROSTER_REFUSED' : 'SHOP_ROSTER', ts: tsNow, cycle: cycleN, after: roster.triggers,
+        ...(roster.refused ? { reason: roster.refused } : { changed: roster.changed }),
+      }) + '\n');
+    }
+  }
+
   // ── Commit what the cycle shipped (decided 2026-09-25) ────────────────────
   // The files this cycle's messages declared, inside the steward's bundle and
   // at most 10 MB each, its vetted page edits, plus its machinery, its scroll and the board — one
@@ -592,7 +619,7 @@ export function processCycle(opts) {
           palaceRoot, home, cycleN,
           bundleDir: bundle ? bundle.bundleDir : null,
           messages: posted,
-          pageEdits, refusedEdits,
+          pageEdits, refusedEdits, roster,
           extraPaths: [
             join(agentDirAbs, 'state.json'),
             join(agentDirAbs, 'history.jsonl'),
@@ -611,7 +638,7 @@ export function processCycle(opts) {
         palaceRoot, home, cycleN,
         bundleDir: bundle ? bundle.bundleDir : null,
         messages: posted,
-        pageEdits, refusedEdits,
+        pageEdits, refusedEdits, roster,
         extraPaths: [
           join(agentDirAbs, 'state.json'),
           join(agentDirAbs, 'history.jsonl'),
@@ -647,6 +674,8 @@ export function processCycle(opts) {
     run,
     // The steward's own page edits: what may ride, and what was refused and why.
     page_edits: { allowed: pageEdits, refused: refusedEdits },
+    // What the cycle did with the Shop roster (null: no Shop page changed, or no commit).
+    shop_roster: roster,
     // Where the project's scroll landed (replaces the plan.md read-model).
     scroll,
     // What the cycle committed (null when the caller did not opt in).

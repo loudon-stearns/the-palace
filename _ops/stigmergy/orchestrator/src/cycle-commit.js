@@ -37,6 +37,10 @@
 // for `Shop` (Loudon, 2026-10-18: "the shopmaster needs to be an elder that
 // can create documents anywhere in the shop ... the rest of the stewards
 // should be restricted").
+//
+// When such an edit touches a Shop page, the cycle reruns the Shop roster
+// (shop-roster.js), and a regenerated `The Shop.md` rides the same commit as
+// machinery: only its generated block changed, and the body says so.
 
 import { execFileSync, spawn, spawnSync } from 'node:child_process';
 import { existsSync, statSync, readFileSync, copyFileSync, mkdtempSync, rmSync } from 'node:fs';
@@ -263,11 +267,34 @@ export function isRetryable(text) {
 const COMMITTED_BY = 'Committed by process-cycle.js after the cycle; the steward did not run git.';
 const ignoredNote = (paths) => `Not committed — ignored by .gitignore:\n${paths.map((p) => `- ${p}`).join('\n')}`;
 
+// What the cycle did with the Shop roster (shop-roster.js), for the body: a
+// regenerated block rides as machinery, with the block lines that changed
+// (some may be drift older than the cycle), and a refusal is named with its reason.
+const ROSTER_LINES_SHOWN = 8;
+const rosterChanges = (label, lines = []) => (lines.length
+  ? [`- ${label}:`, ...lines.slice(0, ROSTER_LINES_SHOWN).map((l) => `  ${l}`), ...(lines.length > ROSTER_LINES_SHOWN ? [`  … and ${lines.length - ROSTER_LINES_SHOWN} more`] : [])]
+  : []);
+function rosterLines(roster) {
+  if (!roster) return [];
+  const after = `after this cycle changed ${roster.triggers.join(', ')}`;
+  if (roster.changed) {
+    return [[
+      'Regenerated the Shop roster, as machinery and not a page edit:',
+      `- ${roster.path} § Roster — rebuilt by ${roster.builder} ${after}; nothing outside the generated block changed`,
+      ...rosterChanges('now reads', roster.added),
+      ...rosterChanges('no longer reads', roster.removed),
+    ].join('\n')];
+  }
+  if (roster.refused) return [`Shop roster NOT regenerated, ${after}:\n- ${roster.refused}; run node ${roster.builder} by hand once that is settled`];
+  return [];
+}
+
 // A cycle commit's body, from what rode and what was left out and why.
-export function cycleBody({ shipped = [], pageEdits = [], refusedEdits = [], oversize = [], entries = [], outside = [], ignored = [], maxBytes = MAX_COMMIT_BYTES }) {
+export function cycleBody({ shipped = [], pageEdits = [], refusedEdits = [], roster = null, oversize = [], entries = [], outside = [], ignored = [], maxBytes = MAX_COMMIT_BYTES }) {
   const lines = [];
   if (pageEdits.length) lines.push(`Changed the page:\n${pageEdits.map((e) => `- ${e.path}${e.why ? ` — ${e.why}` : ''}`).join('\n')}`);
   if (refusedEdits.length) lines.push(`Page edits NOT committed:\n${refusedEdits.map((e) => `- ${e.path} — ${e.reason}${e.proposal ? '; it stays a proposal' : ''}`).join('\n')}`);
+  lines.push(...rosterLines(roster));
   if (shipped.length) lines.push(`Shipped this cycle:\n${shipped.map((p) => `- ${p}`).join('\n')}`);
   if (oversize.length) lines.push(`Left uncommitted, over ${Math.round(maxBytes / 1048576)} MB:\n${oversize.map((o) => `- ${o.path} (${(o.bytes / 1048576).toFixed(1)} MB)`).join('\n')}`);
   if (entries.length) lines.push(`Not committed — an entry rides only as the steward's own page edit:\n${entries.map((p) => `- ${p}`).join('\n')}`);
@@ -282,6 +309,12 @@ export function isIgnoredRefusal(text) {
   return /paths are ignored by one of your \.gitignore files/i.test(String(text || ''));
 }
 
+// A regenerated roster the commit no longer carries (git ignores it) is not
+// claimed as regenerated; the ignored list names it instead.
+function rosterRiding(roster, paths) {
+  return roster && roster.changed && !paths.includes(roster.path) ? null : roster;
+}
+
 // The backstop: when the committer refuses because a path is ignored (the
 // screen missed it, or .gitignore changed since), ask git again and return the
 // paths and body for one more try without the ignored ones, or null when there
@@ -293,7 +326,7 @@ export function dropIgnored({ palaceRoot, paths, body, parts = null }) {
   // A cycle's body is rebuilt from its parts, so a dropped file leaves the
   // shipped list and joins the one ignored list; any other body gets a note.
   const nextBody = parts
-    ? cycleBody({ ...parts, shipped: (parts.shipped || []).filter((p) => !ignored.includes(p)), pageEdits: (parts.pageEdits || []).filter((e) => !ignored.includes(e.path)), ignored: [...(parts.ignored || []), ...ignored] })
+    ? cycleBody({ ...parts, shipped: (parts.shipped || []).filter((p) => !ignored.includes(p)), pageEdits: (parts.pageEdits || []).filter((e) => !ignored.includes(e.path)), roster: rosterRiding(parts.roster, rest), ignored: [...(parts.ignored || []), ...ignored] })
     : body && body.includes(COMMITTED_BY) ? body.replace(COMMITTED_BY, `${ignoredNote(ignored)}\n\n${COMMITTED_BY}`)
       : [body, ignoredNote(ignored)].filter(Boolean).join('\n\n');
   return { paths: rest, body: nextBody, ignored };
@@ -390,30 +423,35 @@ export function commitPathsAsync({ palaceRoot, paths, kind = 'steward', scope, s
  * What one cycle's commit holds, without making it: the paths that may ride,
  * the message, and what was left out and why. commitCycle makes the commit
  * here and now; the STIGMERGY server hands the plan to commitPathsAsync.
+ * `roster` is what refreshShopRoster did this cycle (shop-roster.js): a
+ * regenerated The Shop.md rides as machinery, named as such in the body.
  */
-export function planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths = [], pageEdits = [], refusedEdits = [], maxBytes = MAX_COMMIT_BYTES }) {
+export function planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths = [], pageEdits = [], refusedEdits = [], roster = null, maxBytes = MAX_COMMIT_BYTES }) {
   const pick = selectCommitPaths({ palaceRoot, bundleDir, paths: shippedPaths(messages), maxBytes });
   const root = resolve(palaceRoot);
   // Page edits arrive already vetted (vetPageEdits); a path the steward also
-  // listed as an artifact rides as the edit, not as a refused entry.
+  // listed as an artifact rides as the edit, not as a refused entry. So does a
+  // regenerated roster: it rides as machinery.
   const edited = new Set(pageEdits.map((e) => e.path));
-  const extras = extraPaths
+  const rosterPath = roster && roster.changed && roster.path ? roster.path : null;
+  const rides = (p) => edited.has(p) || p === rosterPath;
+  const extras = [...extraPaths, ...(rosterPath ? [rosterPath] : [])]
     .map((p) => relative(root, isAbsolute(p) ? p : join(root, p)))
     .filter((rel) => !rel.startsWith('..') && existsSync(join(root, rel)));
   const candidates = [...new Set([...pick.paths, ...edited, ...extras])];
   const ignored = ignoredPaths(root, candidates);
   const all = candidates.filter((p) => !ignored.includes(p));
-  const shipped = pick.paths.filter((p) => !ignored.includes(p) && !edited.has(p));
+  const shipped = pick.paths.filter((p) => !ignored.includes(p) && !rides(p));
   const edits = pageEdits.filter((e) => !ignored.includes(e.path));
-  const entries = pick.entries.filter((p) => !edited.has(p));
-  const outside = pick.outside.filter((p) => !edited.has(p));
-  const parts = { shipped, pageEdits: edits, refusedEdits, oversize: pick.oversize, entries, outside, ignored, maxBytes };
+  const entries = pick.entries.filter((p) => !rides(p));
+  const outside = pick.outside.filter((p) => !rides(p));
+  const parts = { shipped, pageEdits: edits, refusedEdits, roster: rosterRiding(roster, all), oversize: pick.oversize, entries, outside, ignored, maxBytes };
   return {
     palaceRoot, paths: all, kind: 'steward', scope: home,
     summary: `cycle ${cycleN} — ${headlineOf(messages)}`,
     body: cycleBody(parts), parts,
     verify: 'unverified', author: 'claude',
-    shipped, pageEdits: edits, refusedEdits, oversize: pick.oversize, entries, outside, missing: pick.missing, ignored,
+    shipped, pageEdits: edits, refusedEdits, roster: parts.roster, oversize: pick.oversize, entries, outside, missing: pick.missing, ignored,
   };
 }
 
@@ -421,12 +459,13 @@ export function planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages,
  * The whole step for one cycle: pick what may ride, then commit it with the
  * cycle's machinery, scroll and the board.
  */
-export function commitCycle({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths = [], pageEdits = [], refusedEdits = [], maxBytes = MAX_COMMIT_BYTES, committer, exec }) {
-  const plan = planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths, pageEdits, refusedEdits, maxBytes });
+export function commitCycle({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths = [], pageEdits = [], refusedEdits = [], roster = null, maxBytes = MAX_COMMIT_BYTES, committer, exec }) {
+  const plan = planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths, pageEdits, refusedEdits, roster, maxBytes });
   const res = commitPaths({
     palaceRoot, paths: plan.paths, kind: plan.kind, scope: plan.scope,
     summary: plan.summary, body: plan.body, parts: plan.parts, committer, exec,
   });
   const late = res.ignored || [];
-  return { ...res, paths: plan.paths.filter((p) => !late.includes(p)), shipped: plan.shipped.filter((p) => !late.includes(p)), pageEdits: plan.pageEdits.filter((e) => !late.includes(e.path)), refusedEdits: plan.refusedEdits, oversize: plan.oversize, entries: plan.entries, outside: plan.outside, missing: plan.missing, ignored: [...plan.ignored, ...late] };
+  const paths = plan.paths.filter((p) => !late.includes(p));
+  return { ...res, paths, shipped: plan.shipped.filter((p) => !late.includes(p)), pageEdits: plan.pageEdits.filter((e) => !late.includes(e.path)), refusedEdits: plan.refusedEdits, roster: rosterRiding(plan.roster, paths), oversize: plan.oversize, entries: plan.entries, outside: plan.outside, missing: plan.missing, ignored: [...plan.ignored, ...late] };
 }
