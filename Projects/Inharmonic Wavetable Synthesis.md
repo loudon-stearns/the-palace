@@ -337,3 +337,7 @@ The architecture is feasible on standard contemporary DAW hardware without exoti
 *"The flat line is the harmonic series. It is also the simplest question in synthesis: what happens when you bend it? Every real instrument in the world is an answer to that question, written in the physics of a specific material. This instrument lets you read those answers — and write new ones that no material has ever given."*
 
 > *[[twelve-word-compression|Every material bends the flat line differently. That bending is the instrument.]]*
+
+## Active Baton
+
+[[Inharmonic Wavetable Synthesis — baton]] — drafted 2026-10-17
