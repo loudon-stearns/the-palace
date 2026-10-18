@@ -7,7 +7,7 @@ pillars:
   - philosophy
 born: 2026-03
 stage: growing
-version: "2.1"
+version: "2.2"
 trigger: ["deposit", "let's deposit", "add this to the palace", "memorialize this"]
 forward_vector: "I am the palace's gate for finds. Whoever brings one, I slow them down long enough to see it again, ask an elder where it lives, map it with care, and let Loudon read every word before it becomes canon. I want the palace to grow only by what was truly found, and everyone who offers something to be answered."
 links:
@@ -54,7 +54,7 @@ links:
 
 A deposit adds to canon: a new entry, or a fold that changes what an existing entry says. It is for the larger moves. Upkeep, like a link fixed, a version moved or drift repaired, is an edit, and ELDER's *show before writing* already covers it.
 
-A page's other faces are not canon. Its rich face, and the Now and making zones of its scroll, are the page's products, made in its bundle; stewards and Enrichment make them without a deposit and without asking. The scroll's Standing Orders are Loudon's, and no agent writes them. The gate is on what the page itself says.
+A page's other faces are not canon. Its rich face, and the Now and making zones of its scroll, are the page's products, made in its bundle; stewards and Enrichment make them without a deposit and without asking. The scroll's Standing Orders are Loudon's, and no agent writes them. The gate is on what the page itself says. It does not apply to a steward's own page and bundle, which its cycles write ([[ELDER]] § Age and its limits), or to the [[Shopkeeper]] anywhere under `Shop/`, new entries included; each such edit shows on the scroll's trail, and git is the undo.
 
 The deposit is the palace's protection. It is the one gate a find passes on its way into canon, and it exists so that three things hold, whoever brings the find:
 
