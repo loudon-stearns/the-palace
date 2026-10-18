@@ -417,6 +417,47 @@ describe('a steward\'s own page edits', () => {
     expect(why['../escape.md'].reason).toBe('outside the palace');
   });
 
+  // The Shopkeeper is grown up for the whole Shop (2026-10-18); every other
+  // steward keeps its own page and bundle.
+  test('grownUpFor lets a steward write any page under those folders, new entries too, but never a scroll', () => {
+    const { bundle } = makePalace();
+    mkdirSync(path.join(root, 'Shop/FLUX'), { recursive: true });
+    writeFileSync(path.join(root, 'Shop/FLUX.md'), '---\ntitle: FLUX\ntype: specialist\n---\n# FLUX\nstale note\n');
+    writeFileSync(path.join(root, 'Shop/OCR Smith.md'), '---\ntitle: OCR Smith\ntype: specialist\nstatus: stub\n---\n# OCR Smith\n');
+    writeFileSync(path.join(root, 'Shop/FLUX/recipe.md'), 'notes, no frontmatter\n');
+    writeFileSync(path.join(root, 'Shop/FLUX/FLUX — scroll.md'), 'scroll\n');
+    writeFileSync(path.join(root, 'Shop/FLUX/FLUX — tuning.md'), '---\ntitle: FLUX — tuning\n---\nrun lines\n');
+    writeFileSync(path.join(root, 'Shop/Broken.md'), '---\ntitle: [broken\n---\n');
+    writeFileSync(path.join(root, 'Shopping.md'), '---\ntitle: Shopping\ntype: concept\n---\n');
+    writeFileSync(path.join(root, 'Projects/Other.md'), '---\ntitle: Other\ntype: concept\n---\n');
+    writeFileSync(path.join(bundle, 'Dialectic.md'), '---\ntitle: Dialectic\ntype: concept\n---\nanother page\n');
+    const edits = [
+      { path: ENTRY, why: 'stage' },
+      { path: 'Shop/FLUX.md', why: 'dated staleness note' },
+      { path: 'Shop/OCR Smith.md', why: 'new stub Specialist' },
+      { path: 'Shop/FLUX/recipe.md', why: 'recipe' },
+      { path: 'Shop/FLUX/FLUX — scroll.md', why: 'orders' },
+      { path: 'Shop/FLUX/FLUX — tuning.md', why: 'a run line' },
+      { path: 'Shop/Broken.md', why: 'oops' },
+      { path: 'Shopping.md', why: 'a sibling name is not the folder' },
+      { path: 'Projects/Other.md', why: 'a mirror link' },
+      { path: `${B}/Dialectic.md`, why: 'tidy' },
+    ];
+    const wide = vetPageEdits({ palaceRoot: root, home: 'Test Steward', entryFile: path.join(root, ENTRY), bundleDir: bundle, grownUpFor: ['Shop/', '../outside'], edits });
+    expect(wide.allowed.map((e) => e.path)).toEqual([ENTRY, 'Shop/FLUX.md', 'Shop/OCR Smith.md', 'Shop/FLUX/recipe.md']);
+    const why = Object.fromEntries(wide.refused.map((e) => [e.path, e]));
+    expect(why['Shop/FLUX/FLUX — scroll.md'].reason).toMatch(/a scroll/);
+    expect(why['Shop/FLUX/FLUX — tuning.md'].reason).toMatch(/tuning ledger/);
+    expect(why['Shop/Broken.md'].reason).toMatch(/frontmatter does not parse/);
+    expect(why['Shopping.md'].reason).toBe('another page or canon, outside its own page, bundle and Shop/');
+    expect(why['Projects/Other.md'].proposal).toBe(true);
+    expect(why[`${B}/Dialectic.md`].reason).toMatch(/another entry/);
+
+    const fenced = vetPageEdits({ palaceRoot: root, home: 'Test Steward', entryFile: path.join(root, ENTRY), bundleDir: bundle, edits });
+    expect(fenced.allowed.map((e) => e.path)).toEqual([ENTRY]);
+    expect(Object.fromEntries(fenced.refused.map((e) => [e.path, e.reason]))['Shop/FLUX.md']).toBe('another page or canon, outside its own page and bundle');
+  });
+
   test('its own entry with broken frontmatter is refused loudly', () => {
     const { bundle } = makePalace();
     writeFileSync(path.join(root, ENTRY), '---\ntitle: Test Steward\ntype: project\nstage: sprout: oops\n---\n# Test Steward\n');
@@ -480,6 +521,31 @@ describe('a steward\'s own page edits', () => {
     expect(hist).toMatch(/"event":"PAGE_EDIT_REFUSED"/);
     // The other page is left on disk, uncommitted, for a person to look at.
     expect(git(root, ['status', '--porcelain', '--', 'Projects/Other.md'])).toMatch(/M/);
+  });
+
+  test('a manifest\'s grown_up_for carries through the cycle: a new Shop entry and an edit to another Shop page both ride', () => {
+    const { agentDir } = gitPalace();
+    const manifestPath = path.join(root, agentDir, 'manifest.json');
+    writeFileSync(manifestPath, JSON.stringify({ ...JSON.parse(readFileSync(manifestPath, 'utf8')), grown_up_for: ['Shop'] }));
+    mkdirSync(path.join(root, 'Shop'), { recursive: true });
+    writeFileSync(path.join(root, 'Shop/FLUX.md'), '---\ntitle: FLUX\ntype: specialist\n---\n# FLUX\n');
+    git(root, ['add', '-A']);
+    git(root, ['commit', '-q', '-m', 'shop']);
+    writeFileSync(path.join(root, 'Shop/FLUX.md'), '---\ntitle: FLUX\ntype: specialist\n---\n# FLUX\n\n**2026-10-18** — FLUX 3 shipped; this entry is pinned to Krea-dev.\n');
+    writeFileSync(path.join(root, 'Shop/OCR Smith.md'), '---\ntitle: OCR Smith\ntype: specialist\nstatus: stub\n---\n# OCR Smith\n');
+    const transcriptPath = path.join(root, 'transcript.jsonl');
+    const msg = editMsg('pe-shop');
+    msg.payload.page_edits = [
+      { path: 'Shop/FLUX.md', why: 'dated staleness note' },
+      { path: 'Shop/OCR Smith.md', why: 'new stub Specialist' },
+      { path: 'Projects/Other.md', why: 'still outside the Shop' },
+    ];
+    writeFileSync(transcriptPath, assistantLine([msg]));
+    const summary = processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 16, iteration: 1, tsNow: '2026-10-18T08:12:00-04:00', commit: 'plan' });
+    expect(summary.page_edits.allowed.map((e) => e.path)).toEqual(['Shop/FLUX.md', 'Shop/OCR Smith.md']);
+    expect(summary.page_edits.refused.map((e) => e.path)).toEqual(['Projects/Other.md']);
+    expect(summary.commit.plan.paths).toEqual(expect.arrayContaining(['Shop/FLUX.md', 'Shop/OCR Smith.md']));
+    expect(summary.commit.plan.paths).not.toContain('Projects/Other.md');
   });
 
   test('a broken frontmatter on its own entry is not committed, and the rest of the cycle still is', async () => {
