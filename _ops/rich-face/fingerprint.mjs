@@ -8,21 +8,19 @@
 // Uses parse.js, the same code the page runs, so a stamp written here is the
 // stamp the page compares against. Writes only the manifest, never the entry.
 
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
-import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { parseEntry, sectionProse, sectionKey, fingerprint } from './parse.js';
-import { findEntry } from './palace-find.mjs';
+import { makeResolver } from './resolve.mjs';
 
-const HERE = dirname(fileURLToPath(import.meta.url));
 const [name, flag, ...only] = process.argv.slice(2);
 if (!name) { console.error('usage: node fingerprint.mjs "<Entry>" [--stamp [section …]]'); process.exit(2); }
 
-const mdPath = findEntry(name);
-if (!mdPath) { console.error(`no entry named "${name}"`); process.exit(1); }
-const title = mdPath.split('/').pop().replace(/\.md$/, '');
-const bundle = mdPath.replace(/\.md$/, '');
-const manifestPath = [join(bundle, `${title} — rich.json`), join(HERE, 'manifests', `${title} — rich.json`)].find(existsSync);
+// The entry and its manifest, found the way the page and the build find them.
+const resolver = makeResolver();
+const found = resolver.entry(name);
+if (!found) { console.error(`no entry named "${name}"`); process.exit(1); }
+const mdPath = resolver.abs(found.md);
+const manifestPath = found.manifest && resolver.abs(found.manifest);
 
 const entry = parseEntry(readFileSync(mdPath, 'utf8'));
 const fps = new Map();
@@ -49,7 +47,7 @@ if (flag === '--stamp') {
     if (!cur) { console.log(`  skip  "${m.heading}" — the text has no such heading (lost its place)`); continue; }
     if (m.made_against !== cur.fp) { m.made_against = cur.fp; m.stamped = today; n++; console.log(`  stamp "${m.heading}" → ${cur.fp}`); }
   }
-  const where = manifestPath.replace(HERE + '/', '');
+  const where = found.manifest;
   // Written only when a stamp changed: nothing matched, or everything was
   // already in step, leaves the file exactly as it was.
   if (n) { writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + '\n'); console.log(`${n} section(s) stamped in ${where}`); }

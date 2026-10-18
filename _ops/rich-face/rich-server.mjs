@@ -15,7 +15,7 @@ import http from 'node:http';
 import { realpathSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { ROOT } from './palace-find.mjs';
+import { ROOT } from './resolve.mjs';
 import { createRichHandler } from './rich-handler.mjs';
 import { checkRequest } from '../stigmergy/app/server/request-guard.js';
 

@@ -46,6 +46,9 @@ const KPIECES = [['waveform-locking', 914], ['ensemble', 840], ['stubbornness', 
 
 function makeTempPalace() {
   const root = mkdtempSync(resolve(tmpdir(), 'rich-sandbox-test-'));
+  // The rich face finds files through git's index (resolve.mjs), never by walking
+  // the disk, so the temp palace is a repository; new files count untracked.
+  execFileSync('git', ['init', '-q'], { cwd: root });
   mkdirSync(resolve(root, '_ops/swarm/persistent'), { recursive: true });
   mkdirSync(resolve(root, '_ops/swarm/sessions'), { recursive: true });
   writeFileSync(resolve(root, '_ops/swarm/persistent/blackboard.jsonl'), '', 'utf8');

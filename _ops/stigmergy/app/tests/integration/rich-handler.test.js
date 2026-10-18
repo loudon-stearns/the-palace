@@ -4,6 +4,7 @@ import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { mkdtempSync, rmSync, mkdirSync, writeFileSync, copyFileSync, chmodSync, readFileSync, readdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
+import { execFileSync } from 'node:child_process';
 import { createRichHandler, buildReviewMessage } from '../../../../rich-face/rich-handler.mjs';
 import * as richHandler from '../../../../rich-face/rich-handler.mjs';
 
@@ -42,6 +43,9 @@ describe('the rich-face handler', () => {
 
   beforeAll(async () => {
     root = mkdtempSync(resolve(tmpdir(), 'rich-handler-test-'));
+    // The rich face finds files through git's index (resolve.mjs), never by walking
+    // the disk, so the temp palace is a repository; new files count untracked.
+    execFileSync('git', ['init', '-q'], { cwd: root });
     mkdirSync(resolve(root, '_ops/rich-face'), { recursive: true });
     for (const f of ['rich.html', 'parse.js']) copyFileSync(resolve(RICH_SRC, f), resolve(root, '_ops/rich-face', f));
     writeFileSync(resolve(root, 'Demo Entry.md'), '# Demo Entry\n\nSome words.\n', 'utf8');

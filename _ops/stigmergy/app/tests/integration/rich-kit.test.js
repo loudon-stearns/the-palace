@@ -6,6 +6,7 @@ import { mkdtempSync, rmSync, mkdirSync, writeFileSync, existsSync, copyFileSync
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
+import { execFileSync } from 'node:child_process';
 import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 
@@ -70,6 +71,9 @@ parent.postMessage({ type: 'rich:height', height: 333 }, '*');
 
 function makeTempPalace() {
   const root = mkdtempSync(resolve(tmpdir(), 'rich-kit-test-'));
+  // The rich face finds files through git's index (resolve.mjs), never by walking
+  // the disk, so the temp palace is a repository; new files count untracked.
+  execFileSync('git', ['init', '-q'], { cwd: root });
   mkdirSync(resolve(root, '_ops/swarm/persistent'), { recursive: true });
   mkdirSync(resolve(root, '_ops/swarm/sessions'), { recursive: true });
   writeFileSync(resolve(root, '_ops/swarm/persistent/blackboard.jsonl'), '', 'utf8');
