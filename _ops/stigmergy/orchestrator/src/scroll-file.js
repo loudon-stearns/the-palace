@@ -143,7 +143,7 @@ function firstParagraph(text, max = 700) {
 }
 
 // Payload keys that are wire plumbing, never prose worth showing on a trail.
-const PLUMBING_KEYS = new Set(['kind', 'entry', 'entry_path', 'turn_id', 'in_reply_to', 'worktree', 'headline', 'ground', 'catchup', 'content', 'rationale', 'summary', 'subject', 'artifacts', 'artifact_path', 'caption', 'options', 'table', 'left_rough', 'next_moves', 'equations', 'resource', 'blocking', 'choice_mode', 'prompt', 'request_id', 'plan', 'off_plan', 'page_edits', 'page_edits_refused']);
+const PLUMBING_KEYS = new Set(['kind', 'entry', 'entry_path', 'turn_id', 'in_reply_to', 'worktree', 'headline', 'ground', 'catchup', 'content', 'rationale', 'summary', 'subject', 'artifacts', 'artifact_path', 'caption', 'options', 'table', 'left_rough', 'next_moves', 'equations', 'resource', 'blocking', 'choice_mode', 'prompt', 'request_id', 'plan', 'off_plan', 'page_edits', 'page_edits_refused', 'proposed_edits', 'proposed_edits_dropped']);
 
 /**
  * The prose a message carries, in order of preference: the canonical fields,
@@ -238,24 +238,37 @@ export function isMakingMessage(m) {
   if (typeof p.artifact_path === 'string' && p.artifact_path) return true;
   if (Array.isArray(p.page_edits) && p.page_edits.length) return true;
   if (Array.isArray(p.page_edits_refused) && p.page_edits_refused.length) return true;
+  if (Array.isArray(p.proposed_edits) && p.proposed_edits.length) return true;
   return false;
 }
 
 /**
- * A steward's own page edits as trail lines (grown up for its own page and
- * bundle, 2026-10-16): "Changed the page: <path> — <why>" for each edit the
- * cycle committed, and a plain line for each it refused, with the reason.
+ * A steward's page edits and proposals as trail lines. No steward edits the
+ * house (Loudon, 2026-10-18), so an edit that rode is a workshop file:
+ * "Changed in the workshop: <file> — <why>"; one the cycle refused is said with
+ * its reason. Each canon edit it proposed reads "Proposed for canon: <page> —
+ * <why>", owed in its tuning ledger until Loudon's review; one the cycle could
+ * not file is said with its reason.
  */
 export function pageEditLines(p) {
   const lines = [];
   const name = (path) => basename(String(path)).replace(/\.md$/i, '');
   for (const e of Array.isArray(p && p.page_edits) ? p.page_edits : []) {
     if (!e || !e.path) continue;
-    lines.push(`_Changed the page:_ ${name(e.path)} — ${e.why || 'no reason given'}`);
+    lines.push(`_Changed in the workshop:_ ${name(e.path)} — ${e.why || 'no reason given'}`);
   }
   for (const e of Array.isArray(p && p.page_edits_refused) ? p.page_edits_refused : []) {
     if (!e || !e.path) continue;
-    lines.push(`_Page edit not committed:_ ${e.path} — ${e.reason}${e.proposal ? '; it stays a proposal' : ''}${e.why ? ` (wanted: ${e.why})` : ''}`);
+    lines.push(`_Page edit not committed:_ ${e.path} — ${e.reason}${e.why ? ` (wanted: ${e.why})` : ''}`);
+  }
+  for (const e of Array.isArray(p && p.proposed_edits) ? p.proposed_edits : []) {
+    if (!e || !e.page) continue;
+    const page = e.entry || !e.exists || !e.path ? e.page : e.path;
+    lines.push(`_Proposed for canon:_ ${page}${e.place ? ` (${e.place})` : ''}${e.exists === false ? ', a new page' : ''} — ${e.why || 'no reason given'}; owed in the tuning ledger until Loudon's review`);
+  }
+  for (const e of Array.isArray(p && p.proposed_edits_dropped) ? p.proposed_edits_dropped : []) {
+    if (!e) continue;
+    lines.push(`_Proposal not filed:_ ${e.page || '(no page named)'} — ${e.reason}`);
   }
   return lines;
 }
@@ -592,6 +605,8 @@ function runsLines(st, noun) {
   if (st.owed.length) parts.push(`item${st.owed.length === 1 ? '' : 's'} ${st.owed.map((o) => o.n).join(', ')}`);
   if (orders.length) parts.push(`${orders.length} order${orders.length === 1 ? '' : 's'} from Loudon`);
   L.push(`- **Owed in the ledger:** ${owedCount ? `${owedCount} — ${parts.join(' and ')}; the next run's tail read picks ${owedCount === 1 ? 'it' : 'them'} up first` : 'nothing'}`);
+  const proposed = st.proposed || [];
+  if (proposed.length) L.push(`- **Proposed for canon:** ${proposed.length} — item${proposed.length === 1 ? '' : 's'} ${proposed.map((o) => o.n).join(', ')}; waiting on Loudon's review, and the page has not changed`);
   if (st.latest && st.latest.heading) L.push(`- **Latest lesson:** item ${dash(st.latest.item)}, ${st.latest.heading.replace(/^From /, 'from ')} — [[${st.home} — tuning]]`);
   return L;
 }
@@ -614,6 +629,15 @@ function runsSections(st) {
   for (const o of st.owed) L.push(`- **${o.n}.** ${o.text}`);
   for (const o of orders) L.push(`- **From Loudon, ${o.date}.** ${o.text}`);
   L.push('');
+  const proposed = st.proposed || [];
+  if (proposed.length) {
+    L.push('### Proposed for canon');
+    L.push('');
+    L.push("_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._");
+    L.push('');
+    for (const o of proposed) L.push(`- **${o.n}.** ${o.date} · ${o.target}${o.place ? ` · ${o.place}` : ''} — ${o.why || 'no reason given'}`);
+    L.push('');
+  }
   return L;
 }
 

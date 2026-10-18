@@ -7,6 +7,7 @@ import {
   normVersion, parseOwed, parseLatestLesson, nextItemNumber, tailRead, recordRun, lastRunDate,
   bodyLead, ledgerBody, readStandards, isPrivateLedger, lastEncounter, readDiaryState, readTuningState,
   listTuningLedgers, localDate, growTuningLedger, stewardLedgerText,
+  proposalLines, parseProposals, listOwedProposals, PROPOSAL_OWED, MAX_PROPOSAL_LINES,
 } from '../../src/ledger.js';
 
 describe('run lines', () => {
@@ -122,9 +123,9 @@ describe('orders from Loudon', () => {
 
     test('recordRun writes the run line, and a lesson as a numbered item the line names', () => {
       const p = ledger('---\ntitle: "X — tuning"\nledger: tuning\nstandards:\n  for: what X learns\n---\n\n# X — tuning\n\n## From the first run — 2026-09-01\n\n1. **A lesson.**\n4a. **A sub-item.**\n- run · 2026-09-01 · first · taught item 1\n');
-      expect(recordRun(p, { date: '2026-10-15', what: 'cycle 37' })).toEqual({ line: '- run · 2026-10-15 · cycle 37 · nothing new', items: [] });
+      expect(recordRun(p, { date: '2026-10-15', what: 'cycle 37' })).toEqual({ line: '- run · 2026-10-15 · cycle 37 · nothing new', items: [], proposed: [], filed: [], skipped: [] });
       const r = recordRun(p, { date: '2026-10-15', version: '1.0', what: 'cycle 38', lessons: ['Velocity layers thin; widen the pool.', '  '], by: 'offered by the steward, cycle 38' });
-      expect(r).toEqual({ line: '- run · 2026-10-15 · v1.0 · cycle 38 · taught item 5', items: [5] });
+      expect(r).toEqual({ line: '- run · 2026-10-15 · v1.0 · cycle 38 · taught item 5', items: [5], proposed: [], filed: [], skipped: [] });
       const text = readFileSync(p, 'utf8');
       expect(text.endsWith([
         '- run · 2026-10-15 · cycle 37 · nothing new',
@@ -282,5 +283,115 @@ describe("growing a steward's ledger", () => {
     expect(readFileSync(p, 'utf8')).toBe('kept');
     expect(growTuningLedger(root, 'Nobody', { date: '2026-10-17' })).toBe(null);
     expect(stewardLedgerText('Foo', '2026-10-16')).toContain('title: "Foo — tuning"');
+  });
+});
+
+// No steward edits the house (Loudon, 2026-10-18): what it wants there is filed
+// in its tuning ledger as a numbered item owed until Loudon's review, and the
+// review reads every steward's owed proposals through listOwedProposals.
+describe('proposals for canon', () => {
+  let root;
+  afterEach(() => { if (root) rmSync(root, { recursive: true, force: true }); root = null; });
+
+  const STAGE = { page: 'Foo', path: 'Foo.md', entry: true, exists: true, place: 'frontmatter', words: 'stage: sprout', why: 'two runs proved it alive' };
+  const NEW = { page: 'Foo Staircase', path: null, entry: false, exists: false, place: '', words: 'A staircase.\n\nYou can play it.', why: 'a page of its own' };
+
+  test('an item is a numbered head, indented why and path, and the words as a quote', () => {
+    expect(proposalLines(7, { ...STAGE, date: '2026-10-18', by: 'proposed by the steward, cycle 3' })).toEqual([
+      `7. **Proposed for canon** · 2026-10-18 · [[Foo]] · frontmatter · ${PROPOSAL_OWED} *(proposed by the steward, cycle 3)*`,
+      '   Why: two runs proved it alive',
+      '   Path: `Foo.md`',
+      '   > stage: sprout',
+    ]);
+    expect(proposalLines(12, { ...NEW, date: '2026-10-18' })).toEqual([
+      `12. **Proposed for canon** · 2026-10-18 · [[Foo Staircase]] · — · ${PROPOSAL_OWED}`,
+      '    Why: a page of its own',
+      '    Path: none yet (a new page)',
+      '    > A staircase.',
+      '    >',
+      '    > You can play it.',
+    ]);
+    const readme = proposalLines(3, { page: '_ops/x/README.md', path: '_ops/x/README.md', entry: false, exists: true, place: '§ A · B', words: 'w', why: 'a · b', date: '2026-10-18' });
+    expect(readme[0]).toBe(`3. **Proposed for canon** · 2026-10-18 · \`_ops/x/README.md\` · § A, B · ${PROPOSAL_OWED}`);
+    expect(readme[1]).toBe('   Why: a, b');
+  });
+
+  test('words past the cap are cut, and the item says where the rest is', () => {
+    const long = Array.from({ length: MAX_PROPOSAL_LINES + 3 }, (_, i) => `line ${i + 1}`).join('\n');
+    const lines = proposalLines(1, { ...STAGE, words: long, date: '2026-10-18' });
+    expect(lines.filter((l) => l.startsWith('   >'))).toHaveLength(MAX_PROPOSAL_LINES);
+    expect(lines[lines.length - 1]).toBe("   Cut here, 3 more lines: the whole text is in the cycle's post on the board.");
+  });
+
+  test('recordRun files lessons then proposals in one group, names both, and never files an owed one twice', () => {
+    root = mkdtempSync(path.join(tmpdir(), 'ledger-prop-'));
+    const p = path.join(root, 'Foo — tuning.md');
+    writeFileSync(p, '# Foo — tuning\n\n1. An old lesson.\n');
+    const r = recordRun(p, { date: '2026-10-18', what: 'cycle 3', lessons: ['a lesson'], by: 'offered by the steward, cycle 3', proposals: [STAGE, NEW], proposedBy: 'proposed by the steward, cycle 3' });
+    expect(r).toMatchObject({ items: [2], proposed: [3, 4], skipped: [] });
+    expect(r.filed.map((f) => [f.page, f.item])).toEqual([['Foo', 3], ['Foo Staircase', 4]]);
+    expect(r.line).toBe('- run · 2026-10-18 · cycle 3 · taught item 2, proposed items 3, 4 for canon');
+    const again = recordRun(p, { date: '2026-10-19', what: 'cycle 4', proposals: [STAGE, { ...STAGE, words: 'stage: growing' }], proposedBy: 'proposed by the steward, cycle 4' });
+    expect(again).toMatchObject({ proposed: [5], skipped: [STAGE] });
+    expect(again.line).toBe('- run · 2026-10-19 · cycle 4 · proposed item 5 for canon');
+    const text = readFileSync(p, 'utf8');
+    expect(nextItemNumber(text)).toBe(6);
+    expect(parseOwed(text).map((o) => o.n)).toEqual(['3', '4', '5']);
+    expect(parseRuns(text).map((x) => x.outcome)).toEqual(['taught item 2, proposed items 3, 4 for canon', 'proposed item 5 for canon']);
+  });
+
+  test('parseProposals reads every field back, and a settled one stops being owed, even beside its stale owed twin', () => {
+    const text = [
+      '---', 'title: "Foo — tuning"', '---', '# Foo — tuning', '',
+      ...proposalLines(1, { ...STAGE, date: '2026-10-18', by: 'proposed by the steward, cycle 3' }),
+      ...proposalLines(2, { ...NEW, date: '2026-10-18' }),
+      '2. **Proposed for canon** · 2026-10-18 · [[Foo Staircase]] · — · taken into canon 2026-10-25 (abc1234)',
+      '    Why: a page of its own',
+      '    Path: none yet (a new page)',
+      '    > A staircase.',
+      '    >',
+      '    > You can play it.',
+      '- run · 2026-10-18 · cycle 3 · proposed items 1, 2 for canon', '',
+    ].join('\n');
+    const all = parseProposals(text);
+    expect(all.map((x) => [x.n, x.page, x.owed])).toEqual([['1', 'Foo', true], ['2', 'Foo Staircase', false], ['2', 'Foo Staircase', false]]);
+    expect(all[0]).toMatchObject({ date: '2026-10-18', target: '[[Foo]]', path: 'Foo.md', exists: true, place: 'frontmatter', status: PROPOSAL_OWED, by: 'proposed by the steward, cycle 3', why: 'two runs proved it alive', words: 'stage: sprout', line: 6, end: 9 });
+    expect(all[1]).toMatchObject({ path: null, exists: false, place: '', words: 'A staircase.\n\nYou can play it.' });
+    expect(all[2].status).toBe('taken into canon 2026-10-25 (abc1234)');
+  });
+
+  test("readTuningState lists owed proposals apart from the run's owed items", () => {
+    root = mkdtempSync(path.join(tmpdir(), 'ledger-prop-'));
+    writeFileSync(path.join(root, 'Foo.md'), '---\ntitle: Foo\n---\n# Foo');
+    const p = growTuningLedger(root, 'Foo', { date: '2026-10-18' });
+    appendLedgerLine(p, '1. **A trap.** Owed: the glide needs a slower attack.');
+    recordRun(p, { date: '2026-10-18', what: 'cycle 3', proposals: [STAGE], proposedBy: 'proposed by the steward, cycle 3' });
+    const st = readTuningState(root, 'Foo');
+    expect(st.owed.map((o) => o.n)).toEqual(['1']);
+    expect(st.proposed.map((o) => [o.n, o.page])).toEqual([['2', 'Foo']]);
+  });
+
+  test("listOwedProposals is every steward's owed proposals across the palace, oldest first", () => {
+    root = mkdtempSync(path.join(tmpdir(), 'ledger-seam-'));
+    mkdirSync(path.join(root, 'Projects/Shep'), { recursive: true });
+    mkdirSync(path.join(root, 'Shop/Shopkeeper'), { recursive: true });
+    writeFileSync(path.join(root, 'Projects/Shep/Shep — tuning.md'), [
+      '# Shep — tuning', '',
+      ...proposalLines(4, { page: 'Shep', path: 'Projects/Shep.md', entry: true, exists: true, place: '§ Now', words: 'w', why: 'the illusion holds', date: '2026-10-20', by: 'proposed by the steward, cycle 9' }),
+      '5. **Proposed for canon** · 2026-10-17 · [[Shep]] · — · declined 2026-10-21', '   Why: old', '   > x', '',
+    ].join('\n'));
+    writeFileSync(path.join(root, 'Shop/Shopkeeper/Shopkeeper — tuning.md'), [
+      '# Shopkeeper — tuning', '',
+      ...proposalLines(1, { page: 'OCR Smith', path: null, entry: false, exists: false, place: '', words: 'A new Specialist.', why: 'it cleared the bar', date: '2026-10-19', by: 'proposed by the steward, cycle 4' }),
+      '',
+    ].join('\n'));
+    const owed = listOwedProposals(root);
+    expect(owed.map((o) => [o.steward, o.page, o.why, o.date])).toEqual([
+      ['Shopkeeper', 'OCR Smith', 'it cleared the bar', '2026-10-19'],
+      ['Shep', 'Shep', 'the illusion holds', '2026-10-20'],
+    ]);
+    expect(owed[0]).toMatchObject({ ledger: 'Shop/Shopkeeper/Shopkeeper — tuning.md', n: '1', path: null, exists: false, words: 'A new Specialist.', by: 'proposed by the steward, cycle 4', line: 3 });
+    expect(owed[1]).toMatchObject({ ledger: 'Projects/Shep/Shep — tuning.md', path: 'Projects/Shep.md', place: '§ Now' });
+    expect(listOwedProposals(path.join(root, 'nowhere'))).toEqual([]);
   });
 });

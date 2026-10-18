@@ -22,7 +22,7 @@ import { readEntryMeta } from './entry-frontmatter.js';
 import { reconcilePendingRequests } from './process-cycle.js';
 import { MARK, readZone, readStandingOrders, readPlan } from './scroll-file.js';
 import { resolveBundleDir } from './entry-paths.js';
-import { tailRead } from './ledger.js';
+import { tailRead, parseProposals } from './ledger.js';
 
 const PALACE_ROOT_DEFAULT = resolve(fileURLToPath(new URL('.', import.meta.url)), '../../../..');
 
@@ -180,37 +180,27 @@ export function buildCyclePrompt(opts) {
     },
   });
 
-  // The type system, then ELDER. A steward is grown up for its own page and
-  // bundle (decided 2026-10-16, Loudon: "Lets just have stewards always be grown
-  // up, we don't need to wait for a grant"): every cycle reads ELDER on top of
-  // SCHEMA, AFTER its home entry (identity first, rules second). Frontmatter
-  // stripped; the card bodies are enough. `include.schema` toggles both.
-  //
-  // One steward is grown up for more: the folders its manifest names in
-  // `grown_up_for` (only the Shopkeeper, for `Shop`, since 2026-10-18). Its
-  // cycle is told so here, and the vetter allows the same set (cycle-commit.js).
-  const grownUpFor = (Array.isArray(manifest.grown_up_for) ? manifest.grown_up_for : [])
-    .filter((d) => typeof d === 'string' && d.trim())
-    .map((d) => d.trim().replace(/\/+$/, ''));
-  const folders = grownUpFor.map((d) => `\`${d}/\``).join(', ');
-  const reach = grownUpFor.length ? `your own page and bundle, and everything under ${folders}` : 'your own page and bundle';
+  // The type system, then ELDER, every cycle, AFTER the home entry (identity
+  // first, rules second); frontmatter stripped, the card bodies are enough.
+  // `include.schema` toggles both. A steward reads them for form, not reach:
+  // no steward edits the house without Loudon's eyes (Loudon, 2026-10-18: "I
+  // don't like the editing of canon without my eyes ... what the steward wants
+  // to edit is place in a tuning ledger and used in the future"). This reverses
+  // the 2026-10-16 own-page grant and the Shopkeeper's reach over Shop/: every
+  // change to an entry, its own included, is a `proposed_edits` item, filed in
+  // its tuning ledger as owed until Loudon's review; only workshop files in its
+  // bundle ride the cycle (vetPageEdits, cycle-commit.js).
   let schemaSection = '';
   if (inc.schema) {
     const schemaFile = join(palaceRoot, 'SCHEMA.md');
     if (existsSync(schemaFile)) {
       const schemaBody = readFileSync(schemaFile, 'utf8').replace(/^---\n[\s\S]*?\n---\n/, '');
-      const yours = grownUpFor.length
-        ? `you edit your own entry, body and frontmatter alike, your bundle's files, and any page or file under ${folders}, new entries included; you propose every other change to the palace`
-        : `you edit your own entry, body and frontmatter alike, and your bundle's files, and you propose every other change to the palace`;
-      schemaSection = `\n# The palace's type system — SCHEMA (read after you know who you are)\n\nYou are grown up for ${reach}: ${yours}. This card is what those edits and proposals must fit — entry types, stages, the typed-link ontology. The rules decide form; they never decide whether a real find is worth keeping.\n\n\`\`\`markdown\n${schemaBody.trim()}\n\`\`\`\n`;
+      schemaSection = `\n# The palace's type system — SCHEMA (read after you know who you are)\n\nYou change nothing in the house. Your own entry, every other page, a new entry and canon are the house, and no steward edits it without Loudon's eyes. You propose each change you want there in \`proposed_edits\`, and the cycle files it in your tuning ledger to wait for his review. What you write directly is your workshop: code, probes, renders and drafts in your bundle, never a file with \`type:\` in its frontmatter. This card is what your proposals must fit: entry types, stages, the typed-link ontology. The rules decide form; they never decide whether a real find is worth keeping.\n\n\`\`\`markdown\n${schemaBody.trim()}\n\`\`\`\n`;
     }
     const elderFile = join(palaceRoot, 'ELDER.md');
     if (existsSync(elderFile)) {
       const elderBody = readFileSync(elderFile, 'utf8').replace(/^---\n[\s\S]*?\n---\n/, '');
-      const covers = grownUpFor.length
-        ? `For you it covers your own entry and your bundle, and every page and file under ${folders}. There you write as an elder, not a proposer: edit any page, body and frontmatter alike, and create a new entry with its full frontmatter (title, type, links that fit SCHEMA). List each one in \`page_edits\` with a line of why, and the cycle commits it. This widens the shared rule that another page and a new entry stay proposals, inside those folders only. Every scroll there stays Loudon's, so the cycle refuses any scroll, and another page's tuning ledger stays with that page's own runs. Outside those folders, another page, a new entry and canon stay proposals, and the Plan and Standing Orders on your scroll stay Loudon's.`
-        : `For you it covers your own entry and your bundle; another page, a new entry and canon stay proposals, and the Plan and Standing Orders on your scroll stay Loudon's.`;
-      schemaSection += `\n# ELDER — you have grown up, for ${reach}\n\nEvery steward reads this every cycle. It is what an elder holds: what may change the house and how. ${covers}\n\n\`\`\`markdown\n${elderBody.trim()}\n\`\`\`\n`;
+      schemaSection += `\n# ELDER — what an elder holds, read so your proposals take its shape\n\nEvery steward reads this every cycle. It is how an elder decides what may change the house and how, and you read it so that what you propose already has the form an elder would give it. It does not let you write the house. Loudon, 2026-10-18: "I don't like the editing of canon without my eyes." So:\n\n- **Your workshop is yours.** Code, scripts, probes, renders and drafts in your bundle. Write them directly, and list each workshop file you change in \`page_edits\` with a line of why; the cycle commits it. A draft carries no \`type:\` in its frontmatter.\n- **The house is proposed.** Your own entry (body and frontmatter alike), your Context, an entry kept in your bundle, every other page, a new entry, and canon. Do not edit them. Post each change you want as one \`proposed_edits\` item: the page, the place on it, the words you would put there, and why. The cycle files each as a numbered item in your tuning ledger, owed until Loudon reviews the ledgers and decides what goes into canon. It shows on your scroll's trail as proposed for canon. If you list an entry in \`page_edits\` anyway, the cycle refuses it.\n- **Work as if your proposals hold.** Your next cycles read them back from the ledger. Build on them as if they had landed, and do not propose the same change again; the page itself stays as it is until Loudon says yes.\n- **Loudon's.** The Plan and Standing Orders on your scroll. Propose a plan change as a \`plan_revision\` ask, and never touch the orders.\n\nIf your home entry, the ELDER text below or your Standing Orders still say that a steward writes its own page, or that you may write pages anywhere in a folder, that was written before Loudon withdrew it on 2026-10-18, and the pages are waiting on his yes to say so. His newer word holds: propose those changes, and the cycle refuses them as edits.\n\n\`\`\`markdown\n${elderBody.trim()}\n\`\`\`\n`;
     }
   }
 
@@ -264,11 +254,18 @@ export function buildCyclePrompt(opts) {
     if (ledgerPath && existsSync(ledgerPath)) { try { ledgerText = readFileSync(ledgerPath, 'utf8'); } catch { /* unreadable */ } }
     if (ledgerText) {
       const { recent, owed } = tailRead(ledgerText);
+      // Proposals for canon are owed to Loudon's review, not to this run: they
+      // get their own section, in full, and leave the run's owed list.
+      const proposals = parseProposals(ledgerText).filter((p) => p.owed);
+      const inProposal = (line) => proposals.some((p) => line >= p.line && line <= p.end);
+      const runOwed = owed.filter((o) => !inProposal(o.line));
       ledgerSection = `# Your tuning ledger — what running has taught this page\n\n`
-        + `\`${relative(palaceRoot, ledgerPath)}\`: one run line for every cycle (the orchestrator writes it when the cycle ends) and a numbered item for each lesson. Its tail read, as every run opens with it:\n\n`
+        + `\`${relative(palaceRoot, ledgerPath)}\`: one run line for every cycle (the orchestrator writes it when the cycle ends), a numbered item for each lesson, and one for each change to the house you proposed. Its tail read, as every run opens with it:\n\n`
         + `## The last ${recent.length} lines, run lines set aside\n\n${recent.join('\n').trim() || '(nothing yet)'}\n\n`
-        + (owed.length ? `## Still owed, from earlier in the ledger\n\n${owed.map((o) => `${o.line}: ${o.text}`).join('\n')}\n\n` : '')
-        + `A line that says **owed** — a one-shot order from Loudon, or a lesson whose change has not landed — is this cycle's to-do before your own lean. When you finish a one-shot order, name it in your \`shipped_artifact\` payload as \`"paid": ["<its date, or its opening words>"]\` and the cycle marks it paid. You do not edit the ledger. When this cycle teaches you something about how this page works, offer it as \`"lesson"\` in your \`shipped_artifact\` payload: one sentence, and the cycle files it as a numbered item.\n\n`;
+        + (runOwed.length ? `## Still owed, from earlier in the ledger\n\n${runOwed.map((o) => `${o.line}: ${o.text}`).join('\n')}\n\n` : '')
+        + `A line that says **owed** — a one-shot order from Loudon, or a lesson whose change has not landed — is this cycle's to-do before your own lean. When you finish a one-shot order, name it in your \`shipped_artifact\` payload as \`"paid": ["<its date, or its opening words>"]\` and the cycle marks it paid. You do not edit the ledger. When this cycle teaches you something about how this page works, offer it as \`"lesson"\` in your \`shipped_artifact\` payload: one sentence, and the cycle files it as a numbered item.\n\n`
+        + (proposals.length ? `## Your proposals for canon, waiting on Loudon's review\n\n${proposals.map(proposalForPrompt).join('\n\n')}\n\n`
+          + `Work as if each of these holds: build on it as if it had landed, and do not propose it again. The page itself has not changed, and changes only when Loudon takes the words in. These are not yours to pay; the review settles them. If what you learn argues against one, propose the better change and say in its \`why\` which item it replaces.\n\n` : '');
     }
   }
 
@@ -391,6 +388,13 @@ ${closingSection}
 `;
 
   return { systemPrompt, userTurn, full: systemPrompt + '\n\n---\n\n' + userTurn, standingOrders, plan };
+}
+
+/** One owed proposal as the steward reads it back: where, why, and the words in full. */
+export function proposalForPrompt(p) {
+  const where = `${p.target}${p.place ? `, ${p.place}` : ''}${p.path ? ` (\`${p.path}\`)` : ''}${p.exists === false ? ', a new page' : ''}`;
+  const words = p.words ? p.words.split('\n').map((l) => `> ${l}`.trimEnd()).join('\n') : '> (no words kept)';
+  return `**Item ${p.n}, proposed ${p.date}** — ${where}\nWhy: ${p.why || 'no reason given'}\n${words}`;
 }
 
 /**

@@ -20,27 +20,21 @@
 //     one, so a single ignored artifact would leave the whole cycle uncommitted.
 //     It is left out and named in the commit body, like an oversize file.
 //
-// A steward is grown up for its own page and bundle (decided 2026-10-16): it
-// may edit its own entry, body and frontmatter alike, and its bundle's files,
-// and lists each edit in its post as `page_edits: [{ path, why }]`. Those go
-// through vetPageEdits, not the artifact rule: its own entry `.md` and its
-// bundle's files ride, once any frontmatter they carry parses (a page whose
-// frontmatter fails to parse reads as blank to the deck and to the steward, so
-// it is refused loudly). Another page, a new entry, canon, the scroll the cycle
-// writes and the ledger it keeps are refused, and stay proposals.
+// No steward edits the house without Loudon's eyes (Loudon, 2026-10-18,
+// reversing the 2026-10-16 own-page grant and the Shopkeeper's 2026-10-18 reach
+// over Shop/: "I don't like the editing of canon without my eyes ... what the
+// steward wants to edit is place in a tuning ledger and used in the future").
+// So `page_edits` carries workshop files only: a file inside the steward's own
+// bundle that is not an entry, once any frontmatter it carries parses. Its own
+// entry, an entry kept in its bundle, every other page and canon are refused.
+// A change it wants there is posted as `proposed_edits: [{ page, place, words,
+// why }]`; vetProposedEdits names each one's target, and the cycle files it in
+// the steward's tuning ledger as an item owed until Loudon's review
+// (ledger.js, recordRun). A manifest field no longer widens any of this.
 //
-// One steward may be grown up for more than that. Its manifest's `grown_up_for`
-// names palace folders where it writes as an elder: any page there, new
-// entries included, rides as a page edit. Every scroll there stays refused,
-// since its Plan and Standing Orders are Loudon's, and so does every other
-// page's tuning ledger, which its own runs keep. Only the Shopkeeper has one,
-// for `Shop` (Loudon, 2026-10-18: "the shopmaster needs to be an elder that
-// can create documents anywhere in the shop ... the rest of the stewards
-// should be restricted").
-//
-// When such an edit touches a Shop page, the cycle reruns the Shop roster
-// (shop-roster.js), and a regenerated `The Shop.md` rides the same commit as
-// machinery: only its generated block changed, and the body says so.
+// The Shop roster refresh (shop-roster.js) is left in place: it reruns when a
+// cycle's vetted edits touch a page directly under Shop/, which no vetted edit
+// can now do, so it does not fire.
 
 import { execFileSync, spawn, spawnSync } from 'node:child_process';
 import { existsSync, statSync, readFileSync, copyFileSync, mkdtempSync, rmSync } from 'node:fs';
@@ -50,6 +44,7 @@ import { fileURLToPath } from 'node:url';
 import { parse as parseYaml } from 'yaml';
 import { payloadPathArtifacts } from './scroll-file.js';
 import { declaredPathsOf } from './artifact-backstop.js';
+import { findEntryFile } from './entry-paths.js';
 
 export const MAX_COMMIT_BYTES = 10 * 1024 * 1024;
 
@@ -116,31 +111,30 @@ export function checkFrontmatter(text, { required = false } = {}) {
   return { ok: true };
 }
 
+// Why the house refuses an edit, said the same way on the board, the trail and
+// the commit body. The edit is not lost: it was meant as a proposal.
+const TO_REVIEW = 'it changes only through Loudon\'s review: post it in `proposed_edits`';
+
 /**
  * Sort a steward's page edits into what the cycle may commit and what it may
- * not. Allowed: its own entry `.md`, and files in its bundle other than the
- * scroll and the tuning ledger (the cycle writes those) and other entries kept
- * there (another page). Every allowed `.md` must have frontmatter that parses;
- * its own entry must have some. `grownUpFor` (the manifest's `grown_up_for`)
- * widens the allowed set to every file under those folders, entries included,
- * except any scroll and another page's tuning ledger. Paths come back palace-relative; each refusal carries a
- * reason and whether it stays a proposal.
+ * not (Loudon, 2026-10-18: no canon edit without his eyes). Allowed: workshop
+ * files in its own bundle, never an entry (a `.md` whose frontmatter carries
+ * `type:`), never the scroll or tuning ledger the cycle writes, never its
+ * Context, and only once any frontmatter they carry parses. Its own entry, its
+ * Context, every other page and canon are refused, marked `proposal` so the
+ * trail says where they belong. The Context carries no `type:` (no bundle file
+ * does), but it is the page's memory of why the entry is shaped as it is, and
+ * changes with the entry. Paths come back palace-relative; each refusal
+ * carries a reason.
  *
  * @returns {{ allowed: {path, why}[], refused: {path, why, reason, proposal: boolean}[] }}
  */
-export function vetPageEdits({ palaceRoot, home, entryFile, bundleDir, grownUpFor = [], edits = [] }) {
+export function vetPageEdits({ palaceRoot, home, entryFile, bundleDir, edits = [] }) {
   const root = resolve(palaceRoot);
   const entry = entryFile ? resolve(root, entryFile) : null;
   const bundle = bundleDir ? resolve(root, bundleDir) : null;
   const kept = new Set(bundle ? [join(bundle, `${home} — scroll.md`), join(bundle, `${home} — tuning.md`)] : []);
-  // Folders it is grown up for, kept only when they sit inside the palace.
-  const wider = (Array.isArray(grownUpFor) ? grownUpFor : [])
-    .filter((d) => typeof d === 'string' && d.trim())
-    .map((d) => resolve(root, d.trim()))
-    .filter((d) => { const r = relative(root, d); return !!r && !r.startsWith('..') && !isAbsolute(r); });
-  const outsideReason = wider.length
-    ? `another page or canon, outside its own page, bundle and ${wider.map((d) => `${relative(root, d)}/`).join(', ')}`
-    : 'another page or canon, outside its own page and bundle';
+  const context = bundle ? join(bundle, `${home} — Context.md`) : null;
   const allowed = [];
   const refused = [];
   const seen = new Set();
@@ -150,26 +144,96 @@ export function vetPageEdits({ palaceRoot, home, entryFile, bundleDir, grownUpFo
     if (seen.has(rel)) continue;
     seen.add(rel);
     const refuse = (reason, proposal = false) => refused.push({ path: rel, why: e.why, reason, proposal });
-    const isOwnEntry = entry && abs === entry;
     const r = bundle ? relative(bundle, abs) : '..';
     const inBundle = !!bundle && !!r && !r.startsWith('..') && !isAbsolute(r);
-    const inWider = wider.some((d) => { const w = relative(d, abs); return !!w && !w.startsWith('..') && !isAbsolute(w); });
     if (rel.startsWith('..') || isAbsolute(rel)) { refuse('outside the palace'); continue; }
-    if (!isOwnEntry && !inBundle && !inWider) { refuse(outsideReason, true); continue; }
+    if (entry && abs === entry) { refuse(`its own entry: ${TO_REVIEW}`, true); continue; }
+    if (!inBundle) { refuse(`another page or canon, outside its own bundle: ${TO_REVIEW}`, true); continue; }
     if (kept.has(abs)) { refuse('the cycle writes this file; the steward does not'); continue; }
-    if (!isOwnEntry && !inBundle && basename(abs).endsWith(' — scroll.md')) { refuse('a scroll: its Plan and Standing Orders are Loudon\'s', true); continue; }
-    if (!isOwnEntry && !inBundle && basename(abs).endsWith(' — tuning.md')) { refuse('another page\'s tuning ledger: its own runs keep it', true); continue; }
+    if (abs === context) { refuse(`its own Context, the memory beside its entry: ${TO_REVIEW}`, true); continue; }
     if (!existsSync(abs) || !statSync(abs).isFile()) { refuse('no such file'); continue; }
-    if (!isOwnEntry && !inWider && isEntryFile(abs) && !basename(abs).startsWith(`${home} — `)) { refuse('another entry kept in the bundle, so another page', true); continue; }
+    if (isEntryFile(abs)) { refuse(`an entry kept in its bundle: ${TO_REVIEW}`, true); continue; }
     if (abs.toLowerCase().endsWith('.md')) {
       let text = '';
       try { text = readFileSync(abs, 'utf8'); } catch (err) { refuse(`unreadable: ${err.message}`); continue; }
-      const fm = checkFrontmatter(text, { required: isOwnEntry });
+      const fm = checkFrontmatter(text);
       if (!fm.ok) { refuse(`frontmatter does not parse (${fm.error})`); continue; }
     }
     allowed.push({ path: rel, why: e.why });
   }
   return { allowed, refused };
+}
+
+// ── Proposals for canon (Loudon, 2026-10-18) ────────────────────────────────
+
+const oneLine = (v) => String(v ?? '').replace(/\s+/g, ' ').trim();
+const firstText = (...vs) => { for (const v of vs) if (typeof v === 'string' && v.trim()) return v; return ''; };
+
+/**
+ * The canon edits a cycle's messages propose: each `payload.proposed_edits`
+ * item as { page, place, words, why }. `page` names the target by title or by
+ * palace path; `place` is where on it (a section, `frontmatter`); `words` are
+ * the proposed text, kept with its line breaks; `why` is one line.
+ */
+export function proposedEditsOf(messages) {
+  const out = [];
+  for (const m of messages || []) {
+    const l = m && m.payload ? m.payload.proposed_edits : null;
+    for (const e of Array.isArray(l) ? l : []) {
+      if (!e || typeof e !== 'object') continue;
+      out.push({
+        page: oneLine(firstText(e.page, e.path)),
+        place: oneLine(firstText(e.place, e.section)),
+        words: firstText(e.words, e.text).replace(/\r\n/g, '\n').replace(/^\s*\n/, '').replace(/\s+$/, ''),
+        why: oneLine(e.why),
+      });
+    }
+  }
+  return out;
+}
+
+/**
+ * Where a proposal points: { page, path, entry, exists }, or { error }. A
+ * title (`Shopkeeper`, `[[Shopkeeper]]`) is looked up as an entry; a path
+ * (`_ops/heartbeat/README.md`) is taken as given, inside the palace. A target
+ * that does not exist yet is a proposed new page, and `path` is null for a
+ * title no entry carries.
+ */
+export function proposalTarget(palaceRoot, page, { findEntry = findEntryFile } = {}) {
+  const root = resolve(palaceRoot);
+  const s = String(page || '').trim().replace(/^\[\[/, '').replace(/\]\]$/, '').split('|')[0].split('#')[0].trim();
+  if (!s) return null;
+  if (s.includes('/') || /\.[a-z]{2,5}$/i.test(s)) {
+    const abs = isAbsolute(s) ? resolve(s) : resolve(root, s);
+    const rel = relative(root, abs);
+    if (!rel || rel.startsWith('..') || isAbsolute(rel)) return { error: 'outside the palace' };
+    const exists = existsSync(abs) && statSync(abs).isFile();
+    const entry = exists && isEntryFile(abs);
+    const md = /\.md$/i.test(rel);
+    return { page: entry || (!exists && md) ? basename(rel).replace(/\.md$/i, '') : rel, path: rel, entry, exists };
+  }
+  const f = findEntry(root, s);
+  return { page: s, path: f ? relative(root, f) : null, entry: !!f && isEntryFile(f), exists: !!f };
+}
+
+/**
+ * Name each proposal's target and set aside the ones that cannot be filed: no
+ * page named, no words, or a path outside the palace. Every target is fair to
+ * propose, its own entry, canon and a new page included; nothing here writes
+ * the page. Returns { filed: [{ page, path, entry, exists, place, words, why }],
+ * dropped: [{ page, why, reason }] }.
+ */
+export function vetProposedEdits({ palaceRoot, edits = [], findEntry = findEntryFile }) {
+  const filed = [];
+  const dropped = [];
+  for (const e of edits) {
+    if (!e.page) { dropped.push({ page: '', why: e.why, reason: 'names no page' }); continue; }
+    if (!e.words.trim()) { dropped.push({ page: e.page, why: e.why, reason: 'carries no words' }); continue; }
+    const t = proposalTarget(palaceRoot, e.page, { findEntry });
+    if (!t || t.error) { dropped.push({ page: e.page, why: e.why, reason: t ? t.error : 'names no page' }); continue; }
+    filed.push({ page: t.page, path: t.path, entry: t.entry, exists: t.exists, place: e.place, words: e.words, why: e.why });
+  }
+  return { filed, dropped };
 }
 
 /**
@@ -289,15 +353,22 @@ function rosterLines(roster) {
   return [];
 }
 
+// How a proposal names its target in a body or on a trail: the page, then the place.
+export function proposalName(p) {
+  const named = p.entry || !p.exists || !p.path ? p.page : p.path;
+  return `${named}${p.place ? ` (${p.place})` : ''}${p.exists ? '' : ', a new page'}`;
+}
+
 // A cycle commit's body, from what rode and what was left out and why.
-export function cycleBody({ shipped = [], pageEdits = [], refusedEdits = [], roster = null, oversize = [], entries = [], outside = [], ignored = [], maxBytes = MAX_COMMIT_BYTES }) {
+export function cycleBody({ shipped = [], pageEdits = [], refusedEdits = [], proposals = [], roster = null, oversize = [], entries = [], outside = [], ignored = [], maxBytes = MAX_COMMIT_BYTES }) {
   const lines = [];
-  if (pageEdits.length) lines.push(`Changed the page:\n${pageEdits.map((e) => `- ${e.path}${e.why ? ` — ${e.why}` : ''}`).join('\n')}`);
-  if (refusedEdits.length) lines.push(`Page edits NOT committed:\n${refusedEdits.map((e) => `- ${e.path} — ${e.reason}${e.proposal ? '; it stays a proposal' : ''}`).join('\n')}`);
+  if (pageEdits.length) lines.push(`Changed in the workshop:\n${pageEdits.map((e) => `- ${e.path}${e.why ? ` — ${e.why}` : ''}`).join('\n')}`);
+  if (refusedEdits.length) lines.push(`Page edits NOT committed:\n${refusedEdits.map((e) => `- ${e.path} — ${e.reason}`).join('\n')}`);
+  if (proposals.length) lines.push(`Proposed for canon, filed in the tuning ledger and owed until Loudon's review:\n${proposals.map((p) => `- ${proposalName(p)}${p.item ? `, item ${p.item}` : ''}${p.why ? ` — ${p.why}` : ''}`).join('\n')}`);
   lines.push(...rosterLines(roster));
   if (shipped.length) lines.push(`Shipped this cycle:\n${shipped.map((p) => `- ${p}`).join('\n')}`);
   if (oversize.length) lines.push(`Left uncommitted, over ${Math.round(maxBytes / 1048576)} MB:\n${oversize.map((o) => `- ${o.path} (${(o.bytes / 1048576).toFixed(1)} MB)`).join('\n')}`);
-  if (entries.length) lines.push(`Not committed — an entry rides only as the steward's own page edit:\n${entries.map((p) => `- ${p}`).join('\n')}`);
+  if (entries.length) lines.push(`Not committed — an entry changes only through Loudon's review:\n${entries.map((p) => `- ${p}`).join('\n')}`);
   if (outside.length) lines.push(`Not committed — outside the steward's bundle:\n${outside.map((p) => `- ${p}`).join('\n')}`);
   if (ignored.length) lines.push(ignoredNote(ignored));
   lines.push(COMMITTED_BY);
@@ -426,7 +497,7 @@ export function commitPathsAsync({ palaceRoot, paths, kind = 'steward', scope, s
  * `roster` is what refreshShopRoster did this cycle (shop-roster.js): a
  * regenerated The Shop.md rides as machinery, named as such in the body.
  */
-export function planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths = [], pageEdits = [], refusedEdits = [], roster = null, maxBytes = MAX_COMMIT_BYTES }) {
+export function planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths = [], pageEdits = [], refusedEdits = [], proposals = [], roster = null, maxBytes = MAX_COMMIT_BYTES }) {
   const pick = selectCommitPaths({ palaceRoot, bundleDir, paths: shippedPaths(messages), maxBytes });
   const root = resolve(palaceRoot);
   // Page edits arrive already vetted (vetPageEdits); a path the steward also
@@ -445,13 +516,13 @@ export function planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages,
   const edits = pageEdits.filter((e) => !ignored.includes(e.path));
   const entries = pick.entries.filter((p) => !rides(p));
   const outside = pick.outside.filter((p) => !rides(p));
-  const parts = { shipped, pageEdits: edits, refusedEdits, roster: rosterRiding(roster, all), oversize: pick.oversize, entries, outside, ignored, maxBytes };
+  const parts = { shipped, pageEdits: edits, refusedEdits, proposals, roster: rosterRiding(roster, all), oversize: pick.oversize, entries, outside, ignored, maxBytes };
   return {
     palaceRoot, paths: all, kind: 'steward', scope: home,
     summary: `cycle ${cycleN} — ${headlineOf(messages)}`,
     body: cycleBody(parts), parts,
     verify: 'unverified', author: 'claude',
-    shipped, pageEdits: edits, refusedEdits, roster: parts.roster, oversize: pick.oversize, entries, outside, missing: pick.missing, ignored,
+    shipped, pageEdits: edits, refusedEdits, proposals, roster: parts.roster, oversize: pick.oversize, entries, outside, missing: pick.missing, ignored,
   };
 }
 
@@ -459,13 +530,13 @@ export function planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages,
  * The whole step for one cycle: pick what may ride, then commit it with the
  * cycle's machinery, scroll and the board.
  */
-export function commitCycle({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths = [], pageEdits = [], refusedEdits = [], roster = null, maxBytes = MAX_COMMIT_BYTES, committer, exec }) {
-  const plan = planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths, pageEdits, refusedEdits, roster, maxBytes });
+export function commitCycle({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths = [], pageEdits = [], refusedEdits = [], proposals = [], roster = null, maxBytes = MAX_COMMIT_BYTES, committer, exec }) {
+  const plan = planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths, pageEdits, refusedEdits, proposals, roster, maxBytes });
   const res = commitPaths({
     palaceRoot, paths: plan.paths, kind: plan.kind, scope: plan.scope,
     summary: plan.summary, body: plan.body, parts: plan.parts, committer, exec,
   });
   const late = res.ignored || [];
   const paths = plan.paths.filter((p) => !late.includes(p));
-  return { ...res, paths, shipped: plan.shipped.filter((p) => !late.includes(p)), pageEdits: plan.pageEdits.filter((e) => !late.includes(e.path)), refusedEdits: plan.refusedEdits, roster: rosterRiding(plan.roster, paths), oversize: plan.oversize, entries: plan.entries, outside: plan.outside, missing: plan.missing, ignored: [...plan.ignored, ...late] };
+  return { ...res, paths, shipped: plan.shipped.filter((p) => !late.includes(p)), pageEdits: plan.pageEdits.filter((e) => !late.includes(e.path)), refusedEdits: plan.refusedEdits, proposals: plan.proposals, roster: rosterRiding(plan.roster, paths), oversize: plan.oversize, entries: plan.entries, outside: plan.outside, missing: plan.missing, ignored: [...plan.ignored, ...late] };
 }

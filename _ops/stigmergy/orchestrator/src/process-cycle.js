@@ -11,17 +11,18 @@
 //      source of truth for decision state — open vs. resolved),
 //   5. updates state.json (pure runtime now) + history.jsonl, and
 //   6. when the page keeps a tuning ledger, marks it with the cycle's run line,
-//      and any lesson the steward offered (`payload.lesson`) as a numbered item
-//      the line names; a page with none grows one at its first offered lesson
-//      (SCHEMA — Reference §6; recordStewardRun),
-//   6b. vets the steward's own page edits (`payload.page_edits`, each a path
-//      and a why): its own entry and bundle may ride once their frontmatter
-//      parses; anything else is refused, stays on the board as
-//      `page_edits_refused`, and remains a proposal (vetPageEdits),
+//      any lesson the steward offered (`payload.lesson`) and any canon edit it
+//      proposed (`payload.proposed_edits`) as numbered items the line names; a
+//      proposal stays owed until Loudon's review. A page with none grows one
+//      at its first lesson or proposal (SCHEMA — Reference §6; recordStewardRun),
+//   6b. vets the steward's page edits (`payload.page_edits`, each a path and a
+//      why): only workshop files in its own bundle ride, never an entry, its
+//      own included; anything else is refused and stays on the board as
+//      `page_edits_refused` (vetPageEdits). No steward edits the house without
+//      Loudon's eyes (2026-10-18); what it wants there is a proposal,
 //   6c. when the cycle commits and its vetted page edits touch a page directly
-//      under Shop/, reruns the Shop roster; a regenerated `The Shop.md` rides
-//      the commit as machinery, and only its generated block may change
-//      (refreshShopRoster),
+//      under Shop/, reruns the Shop roster (refreshShopRoster). Since
+//      2026-10-18 no vetted edit can, so it does not fire,
 //   7. materializes the bundle-local `[Entry] — scroll.md` (the project's front
 //      door — Now zone + append-only making trail) from the board-derived view.
 //      The scroll replaced the older plan.md read-model on 2026-09-23.
@@ -48,7 +49,7 @@ import { materializeScroll } from './scroll-file.js';
 import { resolveBundleDir } from './entry-paths.js';
 import { readEntryMeta } from './entry-frontmatter.js';
 import { tuningPathFor, recordRun, payOrders, localDate, growTuningLedger } from './ledger.js';
-import { commitCycle, planCycleCommit, pageEditsOf, vetPageEdits } from './cycle-commit.js';
+import { commitCycle, planCycleCommit, pageEditsOf, vetPageEdits, proposedEditsOf, vetProposedEdits } from './cycle-commit.js';
 import { refreshShopRoster, rosterTriggers, ROSTER_BUILDER } from './shop-roster.js';
 import { resolveModel } from '../../../models/latest-opus.mjs';
 
@@ -250,24 +251,31 @@ export const offeredLessons = (messages) => gather(messages, 'lesson');
 /** The one-shot orders a cycle says it acted on: each `payload.paid` (an order's date or its words). */
 export const paidOrders = (messages) => gather(messages, 'paid');
 
+/** The canon edits a cycle's posted messages propose, as the board holds them (already vetted). */
+export const filedProposals = (messages) => (messages || []).flatMap((m) => (m && m.payload && Array.isArray(m.payload.proposed_edits) ? m.payload.proposed_edits : []));
+
 /**
  * Mark a stewarded page's tuning ledger with one cycle's run (SCHEMA —
  * Reference §6): `- run · <date> · [v<version> ·] cycle N · nothing new`, or
  * `taught item N` when the steward offered a lesson, which goes in as a
- * numbered item marked as its offer; a one-shot order from Loudon the cycle
- * says it acted on (`payload.paid`) has its `owed` replaced with "paid in cycle
- * N". A page with no tuning ledger grows one the first time a cycle offers a
- * lesson (Loudon, 2026-10-16); until then it gets nothing. A left-rough note
- * never grows one — it stays on the trail, and the scroll's Now lists the ones
- * that recur. Returns { ledger, grown, line, items, paid } or null.
+ * numbered item marked as its offer, and `proposed item N for canon` for each
+ * canon edit it proposed, filed as an item owed until Loudon's review (Loudon,
+ * 2026-10-18); a one-shot order from Loudon the cycle says it acted on
+ * (`payload.paid`) has its `owed` replaced with "paid in cycle N". A page with
+ * no tuning ledger grows one the first time a cycle offers a lesson (Loudon,
+ * 2026-10-16) or proposes a canon edit; until then it gets nothing. A
+ * left-rough note never grows one — it stays on the trail, and the scroll's
+ * Now lists the ones that recur. Returns { ledger, grown, line, items,
+ * proposed, filed, skipped, paid } or null.
  */
 export function recordStewardRun({ palaceRoot, home, cycleN, tsNow, messages = [], barren = false }) {
   const lessons = offeredLessons(messages);
+  const proposals = filedProposals(messages);
   const date = localDate(tsNow || new Date());
   let ledger = tuningPathFor(palaceRoot, home);
   let grown = false;
   if (!ledger) {
-    if (!lessons.length) return null;
+    if (!lessons.length && !proposals.length) return null;
     ledger = growTuningLedger(palaceRoot, home, { date });
     if (!ledger) return null;
     grown = true;
@@ -280,6 +288,8 @@ export function recordStewardRun({ palaceRoot, home, cycleN, tsNow, messages = [
     what: `cycle ${cycleN}${barren ? ', posted nothing' : ''}`,
     lessons,
     by: `offered by the steward, cycle ${cycleN}`,
+    proposals,
+    proposedBy: `proposed by the steward, cycle ${cycleN}`,
   });
   return { ledger, grown, ...r, paid };
 }
@@ -413,21 +423,36 @@ export function processCycle(opts) {
     return m;
   });
 
-  // ── Page edits: a steward is grown up for its own page and bundle ─────────
-  // (decided 2026-10-16). Each message's `payload.page_edits` is vetted here,
-  // before it reaches the board, so the board says what really happened: an
-  // edit the cycle may commit stays in `page_edits`; one it may not (another
-  // page, a frontmatter that does not parse, the scroll or ledger the cycle
-  // writes) moves to `page_edits_refused` with its reason, and the trail shows
-  // both. Refused edits stay on disk, uncommitted, for a person to look at.
+  // ── Page edits and proposals: no steward edits the house ──────────────────
+  // (Loudon, 2026-10-18: "I don't like the editing of canon without my eyes").
+  // Each message's `payload.page_edits` is vetted here, before it reaches the
+  // board, so the board says what really happened: a workshop file in its own
+  // bundle stays in `page_edits` and rides the commit; anything else (any
+  // entry, its own included, another page, canon, a frontmatter that does not
+  // parse, the scroll or ledger the cycle writes) moves to `page_edits_refused`
+  // with its reason. Refused edits stay on disk, uncommitted, for a person to
+  // look at. Each `payload.proposed_edits` item has its target named here
+  // (vetProposedEdits); the cycle files the vetted ones in the tuning ledger as
+  // owed until Loudon's review, and one it cannot file (no page, no words)
+  // moves to `proposed_edits_dropped`.
   for (let i = 0; i < messagesForBoard.length; i++) {
     const m = messagesForBoard[i];
     const edits = pageEditsOf([m]);
-    if (!edits.length) continue;
-    const v = vetPageEdits({ palaceRoot, home, entryFile: bundle ? bundle.entryFile : null, bundleDir: bundle ? bundle.bundleDir : null, grownUpFor: manifest.grown_up_for, edits });
-    const payload = { ...m.payload, page_edits: v.allowed };
-    if (v.refused.length) payload.page_edits_refused = v.refused;
-    else delete payload.page_edits_refused;
+    const proposals = proposedEditsOf([m]);
+    if (!edits.length && !proposals.length && !(m.payload && 'proposed_edits' in m.payload)) continue;
+    const payload = { ...m.payload };
+    if (edits.length) {
+      const v = vetPageEdits({ palaceRoot, home, entryFile: bundle ? bundle.entryFile : null, bundleDir: bundle ? bundle.bundleDir : null, edits });
+      payload.page_edits = v.allowed;
+      if (v.refused.length) payload.page_edits_refused = v.refused;
+      else delete payload.page_edits_refused;
+    }
+    if ('proposed_edits' in payload) {
+      const p = vetProposedEdits({ palaceRoot, edits: proposals });
+      payload.proposed_edits = p.filed;
+      if (p.dropped.length) payload.proposed_edits_dropped = p.dropped;
+      else delete payload.proposed_edits_dropped;
+    }
     messagesForBoard[i] = { ...m, payload };
   }
 
@@ -568,15 +593,26 @@ export function processCycle(opts) {
   }
   const ledgerPaths = run && run.ledger ? [run.ledger] : [];
 
-  // The vetted page edits of the messages that reached the board, and the
-  // refusals, said loudly: in history (greppable) and on the summary.
+  // The vetted page edits of the messages that reached the board, the
+  // refusals, and the canon edits proposed, said loudly: in history (greppable)
+  // and on the summary. A proposal carries the ledger item it was filed as.
   const posted = valid.filter((m) => appended.includes(m.id));
   const pageEdits = posted.flatMap((m) => (Array.isArray(m.payload.page_edits) ? m.payload.page_edits : []));
   const refusedEdits = posted.flatMap((m) => (Array.isArray(m.payload.page_edits_refused) ? m.payload.page_edits_refused : []));
-  if (pageEdits.length || refusedEdits.length) {
+  const filed = filedProposals(posted);
+  const proposals = run && Array.isArray(run.filed) ? run.filed : [];
+  const skippedProposals = run && Array.isArray(run.skipped) ? run.skipped : [];
+  const droppedProposals = posted.flatMap((m) => (Array.isArray(m.payload.proposed_edits_dropped) ? m.payload.proposed_edits_dropped : []));
+  // Proposals the cycle could not file (no ledger: the bundle is missing, or the write failed) are said so, not claimed as filed.
+  const unfiled = run && run.ledger ? [] : filed;
+  if (pageEdits.length || refusedEdits.length || filed.length || droppedProposals.length) {
     const ev = [
       ...pageEdits.map((e) => ({ event: 'PAGE_EDIT', ts: tsNow, cycle: cycleN, path: e.path, why: e.why })),
       ...refusedEdits.map((e) => ({ event: 'PAGE_EDIT_REFUSED', ts: tsNow, cycle: cycleN, path: e.path, why: e.why, reason: e.reason, proposal: e.proposal })),
+      ...proposals.map((p) => ({ event: 'PROPOSED_FOR_CANON', ts: tsNow, cycle: cycleN, page: p.page, path: p.path, place: p.place, why: p.why, item: p.item, ledger: relative(palaceRoot, run.ledger) })),
+      ...skippedProposals.map((p) => ({ event: 'PROPOSAL_ALREADY_OWED', ts: tsNow, cycle: cycleN, page: p.page, path: p.path, why: p.why })),
+      ...unfiled.map((p) => ({ event: 'PROPOSAL_NOT_FILED', ts: tsNow, cycle: cycleN, page: p.page, path: p.path, why: p.why, reason: run && run.error ? `error: ${run.error}` : 'no tuning ledger could be kept: the page has no bundle' })),
+      ...droppedProposals.map((p) => ({ event: 'PROPOSAL_DROPPED', ts: tsNow, cycle: cycleN, page: p.page, why: p.why, reason: p.reason })),
     ];
     for (const e of ev) appendFileSync(histPath, JSON.stringify(e) + '\n');
   }
@@ -587,7 +623,9 @@ export function processCycle(opts) {
   // re-statuses reaches The Shop.md § Roster in the same commit, as machinery.
   // Only when the cycle commits: a regenerated block left uncommitted would
   // be one more dirty file. A refusal (the block is the only thing it may
-  // change) is said in history, the commit body and the summary.
+  // change) is said in history, the commit body and the summary. Since the
+  // house closed to stewards (Loudon, 2026-10-18), no vetted edit reaches a
+  // Shop page, so this does not fire; it is kept for when one may again.
   let roster = null;
   if (commit) {
     try {
@@ -619,7 +657,7 @@ export function processCycle(opts) {
           palaceRoot, home, cycleN,
           bundleDir: bundle ? bundle.bundleDir : null,
           messages: posted,
-          pageEdits, refusedEdits, roster,
+          pageEdits, refusedEdits, proposals, roster,
           extraPaths: [
             join(agentDirAbs, 'state.json'),
             join(agentDirAbs, 'history.jsonl'),
@@ -638,7 +676,7 @@ export function processCycle(opts) {
         palaceRoot, home, cycleN,
         bundleDir: bundle ? bundle.bundleDir : null,
         messages: posted,
-        pageEdits, refusedEdits, roster,
+        pageEdits, refusedEdits, proposals, roster,
         extraPaths: [
           join(agentDirAbs, 'state.json'),
           join(agentDirAbs, 'history.jsonl'),
@@ -672,8 +710,11 @@ export function processCycle(opts) {
     usage_limit,
     // The run line the cycle left in the page's tuning ledger (null: it keeps none).
     run,
-    // The steward's own page edits: what may ride, and what was refused and why.
+    // The steward's page edits: the workshop files that rode, and what was refused and why.
     page_edits: { allowed: pageEdits, refused: refusedEdits },
+    // The canon edits it proposed: filed in the tuning ledger (each with its
+    // item), already owed there, not filed for want of a ledger, or dropped.
+    proposed_edits: { filed: proposals, already_owed: skippedProposals, unfiled, dropped: droppedProposals },
     // What the cycle did with the Shop roster (null: no Shop page changed, or no commit).
     shop_roster: roster,
     // Where the project's scroll landed (replaces the plan.md read-model).

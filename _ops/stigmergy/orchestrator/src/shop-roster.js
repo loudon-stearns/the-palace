@@ -9,6 +9,11 @@
 // and when the block changed, The Shop.md rides the cycle's commit as
 // machinery, not as a page edit.
 //
+// Later on 2026-10-18 Loudon withdrew that reach, and every steward's: no
+// steward edits the house without his eyes, and its edits there are proposals
+// filed in its tuning ledger (cycle-commit.js). No vetted edit reaches a Shop
+// page now, so this step does not fire; it is left as it was, for when one may.
+//
 // The Shop.md itself stays outside every steward's reach: its body holds
 // judgment calls (The Current Bet, Lost Branches). So this step may change the
 // block and nothing else. It refuses, and leaves The Shop.md as it found it,

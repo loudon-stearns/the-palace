@@ -12,8 +12,10 @@
 //   - run · 2026-09-25 · v1.1 · close-2026-09-25-ceremonies · taught item 31
 //   - run · 2026-10-15 · cycle 38 · nothing new          (a page with no version)
 //
-// numbered items for what a run taught, and Loudon's one-shot orders, owed
-// until a run pays them: `- from Loudon · <date> · <his words> · owed`. Version
+// numbered items for what a run taught, Loudon's one-shot orders, owed
+// until a run pays them: `- from Loudon · <date> · <his words> · owed`, and a
+// steward's proposals for canon, numbered items owed until Loudon's review
+// (Loudon, 2026-10-18; see Proposals for canon below). Version
 // changes are read from git: the commits where the page's version value
 // changed. Trail sections are keyed on the version commit or on the run line
 // itself, so re-materializing a scroll never duplicates or deletes.
@@ -261,38 +263,186 @@ export function appendLedgerLine(ledgerPath, line) {
 
 /**
  * Record one run in a tuning ledger, in the shape the existing ledgers keep:
- * when the run taught something, a `## From <what> — <date>` group with one
- * numbered item per lesson, then the run line naming them; otherwise the run
- * line alone, "nothing new". `by` says whose lesson it is when the page did not
- * write it itself (a steward's offer, carried by the machinery). Returns
- * { line, items } — the run line written and the item numbers it names.
+ * when the run taught something or proposed a canon edit, a `## From <what> —
+ * <date>` group with one numbered item per lesson and then one per proposal
+ * (proposalLines), then the run line naming them; otherwise the run line
+ * alone, "nothing new". `by` says whose lesson it is when the page did not
+ * write it itself (a steward's offer, carried by the machinery), `proposedBy`
+ * whose proposal. A proposal already owed here, for the same target in the same
+ * words, is not filed twice. Returns { line, items, proposed, filed, skipped }:
+ * the run line written, the lesson and proposal item numbers it names, each
+ * proposal filed with its `item`, and the proposals left out as already owed.
  */
-export function recordRun(ledgerPath, { date, version = null, what = '', lessons = [], by = '' }) {
+export function recordRun(ledgerPath, { date, version = null, what = '', lessons = [], by = '', proposals = [], proposedBy = '' }) {
   const text = existsSync(ledgerPath) ? readFileSync(ledgerPath, 'utf8') : '';
   const taught = [...new Set((lessons || []).map((l) => String(l || '').replace(/\s+/g, ' ').trim()).filter(Boolean))];
+  const owedNow = new Set(parseProposals(text).filter((p) => p.owed).map(proposalKey));
+  const fresh = [];
+  const skipped = [];
+  for (const p of proposals || []) {
+    const k = proposalKey({ target: proposalTargetText(p), words: cutWords(p.words).kept });
+    if (owedNow.has(k)) { skipped.push(p); continue; }
+    owedNow.add(k);
+    fresh.push(p);
+  }
   const items = [];
-  if (taught.length) {
+  const proposed = [];
+  const filed = [];
+  if (taught.length || fresh.length) {
     let n = nextItemNumber(text);
     const heading = `## From ${String(what || 'a run').replace(/\s+/g, ' ').trim()} — ${date}`;
     const lines = taught.map((l) => { items.push(n); return `${n++}. ${l}${by ? ` *(${by})*` : ''}`; });
+    for (const p of fresh) { proposed.push(n); filed.push({ ...p, item: n }); lines.push(...proposalLines(n++, { ...p, date, by: proposedBy })); }
     const pre = text === '' ? '' : (text.endsWith('\n\n') ? '' : (text.endsWith('\n') ? '\n' : '\n\n'));
     appendFileSync(ledgerPath, `${pre}${heading}\n\n${lines.join('\n')}\n`);
   }
-  const outcome = !items.length ? 'nothing new'
-    : items.length === 1 ? `taught item ${items[0]}` : `taught items ${items.join(', ')}`;
+  const plural = (ns) => (ns.length === 1 ? `item ${ns[0]}` : `items ${ns.join(', ')}`);
+  const parts = [];
+  if (items.length) parts.push(`taught ${plural(items)}`);
+  if (proposed.length) parts.push(`proposed ${plural(proposed)} for canon`);
+  const outcome = parts.length ? parts.join(', ') : 'nothing new';
   const line = runLine({ date, version, what, outcome });
   appendLedgerLine(ledgerPath, line);
-  return { line, items };
+  return { line, items, proposed, filed, skipped };
+}
+
+// ── Proposals for canon ─────────────────────────────────────────────────────
+//
+// No steward writes the house without Loudon's eyes (Loudon, 2026-10-18: "what
+// the steward wants to edit is place in a tuning ledger and used in the future,
+// and eventually we go through the tuning ledgers to see what we actualy want
+// to place in canon"). Each canon edit a steward proposes (`proposed_edits`) is
+// filed in its own tuning ledger as a numbered item, and its next runs read it
+// back and work as if it holds, while the page itself stays as it is:
+//
+//   43. **Proposed for canon** · 2026-10-20 · [[Shopkeeper]] · § Standing duties · canon change owed *(proposed by the steward, cycle 41)*
+//       Why: one line.
+//       Path: `Shop/Shopkeeper.md`
+//       > the proposed words, as many lines as they take
+//
+// The field before the tag is the item's status. "canon change owed" is the
+// owed status every reader here already counts (parseOwed, tailRead), so no
+// second machinery keeps these. Settling one is the review's to do: it replaces
+// those words with what became of the proposal, as a paid order's `owed` is
+// replaced (payOrders), and the item is no longer owed.
+
+/** The status a proposal is filed with; replacing it settles the proposal. */
+export const PROPOSAL_OWED = 'canon change owed';
+/** Proposed words kept in the ledger; longer text belongs in a workshop draft the words point to. */
+export const MAX_PROPOSAL_LINES = 60;
+
+const PROPOSAL_HEAD_RE = /^(\d+[a-z]?)\.\s+\*\*Proposed for canon\*\* · (\d{4}-\d{2}-\d{2}) · (.+?)\s*$/;
+const field = (v) => String(v ?? '').replace(/\s+/g, ' ').replace(/ · /g, ', ').trim();
+
+/** How a proposal names its target in the ledger: `[[Title]]` for a page, a backticked path for any other file. */
+export function proposalTargetText(p) {
+  if (p.target) return p.target;
+  const md = !p.path || /\.md$/i.test(p.path);
+  return p.entry || (!p.exists && md) ? `[[${field(p.page)}]]` : `\`${field(p.path || p.page)}\``;
+}
+
+function cutWords(words) {
+  const all = String(words || '').replace(/\r\n/g, '\n').replace(/\s+$/, '').split('\n');
+  return { kept: all.slice(0, MAX_PROPOSAL_LINES).join('\n'), cut: Math.max(0, all.length - MAX_PROPOSAL_LINES) };
+}
+
+const proposalKey = (p) => `${String(p.target || '').toLowerCase()}\u0000${String(p.words || '').replace(/\s+/g, ' ').trim()}`;
+
+/**
+ * The lines one proposal is filed as: its numbered head (date, target, place,
+ * status, whose), then indented Why, Path and the words as a quote. Words past
+ * MAX_PROPOSAL_LINES are cut, and the item says so; the whole text stays in the
+ * cycle's post on the board.
+ */
+export function proposalLines(n, { date, page, path = null, entry = false, exists = false, place = '', words = '', why = '', by = '' }) {
+  const pad = ' '.repeat(String(n).length + 2);
+  const target = proposalTargetText({ page, path, entry, exists });
+  const { kept, cut } = cutWords(words);
+  return [
+    `${n}. **Proposed for canon** · ${date} · ${target} · ${field(place) || '—'} · ${PROPOSAL_OWED}${by ? ` *(${field(by)})*` : ''}`,
+    `${pad}Why: ${field(why) || 'no reason given'}`,
+    `${pad}Path: ${path ? `\`${field(path)}\`` : 'none yet'}${exists ? '' : ' (a new page)'}`,
+    ...kept.split('\n').map((l) => `${pad}>${l.trim() ? ` ${l.replace(/\s+$/, '')}` : ''}`),
+    ...(cut ? [`${pad}Cut here, ${cut} more line${cut === 1 ? '' : 's'}: the whole text is in the cycle's post on the board.`] : []),
+  ];
+}
+
+/**
+ * The proposals for canon a ledger holds, in file order: [{ n, date, target,
+ * page, path, exists, place, status, owed, by, why, words, line, end }]. `line` and
+ * `end` are the item's first and last line numbers in the file (1-based), so a
+ * reader can set the whole item aside. `page` is the target's title, or its
+ * path when it is not a page. A proposal is owed until its status stops saying
+ * so; a union merge that keeps both a settled and an owed form of the same
+ * item counts it settled, as parseOrders does.
+ */
+export function parseProposals(ledgerText) {
+  const text = String(ledgerText || '');
+  const offset = text.split('\n').length - ledgerBody(text).split('\n').length;
+  const lines = ledgerBody(text).split('\n');
+  const out = [];
+  for (let i = 0; i < lines.length; i++) {
+    const m = PROPOSAL_HEAD_RE.exec(lines[i]);
+    if (!m) continue;
+    const fields = m[3].split(' · ');
+    const last = fields.pop();
+    const tag = /\s*\*\((.+)\)\*\s*$/.exec(last);
+    const status = (tag ? last.slice(0, tag.index) : last).trim();
+    const target = (fields.shift() || '').trim();
+    const place = fields.join(', ').trim();
+    const p = {
+      n: m[1], date: m[2], target,
+      page: target.replace(/^\[\[|\]\]$/g, '').replace(/^`|`$/g, ''),
+      path: null, exists: true, place: place === '—' ? '' : place, status,
+      owed: /\bowed\b/i.test(status) && !/\bpaid\b/i.test(status),
+      by: tag ? tag[1].trim() : '', why: '', words: '', line: i + 1 + offset, end: i + 1 + offset,
+    };
+    const words = [];
+    for (let j = i + 1; j < lines.length && /^\s{2,}\S/.test(lines[j]); j++) {
+      const l = lines[j].trim();
+      p.end = j + 1 + offset;
+      if (l.startsWith('>')) words.push(l.replace(/^> ?/, ''));
+      else if (/^Why: /.test(l)) p.why = l.slice(5).trim();
+      else if (/^Path: /.test(l)) { const pm = /`([^`]+)`/.exec(l); p.path = pm ? pm[1] : null; p.exists = !/\(a new page\)/.test(l); }
+    }
+    p.words = words.join('\n');
+    out.push(p);
+  }
+  const settled = new Set(out.filter((p) => !p.owed).map(proposalKey));
+  return out.map((p) => (p.owed && settled.has(proposalKey(p)) ? { ...p, owed: false } : p));
+}
+
+/**
+ * The seam the canon review plugs into: every steward's proposals for canon
+ * still owed, across the palace, oldest first — [{ steward, ledger, page, path,
+ * exists, place, why, words, date, n, by, line }]. A steward here is the page whose
+ * tuning ledger holds the item; only a steward cycle files these. Read-only:
+ * how and when the review settles them is its own to design.
+ */
+export function listOwedProposals(palaceRoot) {
+  const out = [];
+  for (const { title, tuning } of listTuningLedgers(palaceRoot)) {
+    let text = '';
+    try { text = readFileSync(join(palaceRoot, tuning), 'utf8'); } catch { continue; }
+    for (const p of parseProposals(text)) {
+      if (!p.owed) continue;
+      const { owed, status, target, end, ...rest } = p;
+      out.push({ steward: title, ledger: tuning, ...rest });
+    }
+  }
+  const num = (n) => parseInt(n, 10) || 0;
+  return out.sort((a, b) => a.date.localeCompare(b.date) || a.steward.localeCompare(b.steward) || num(a.n) - num(b.n));
 }
 
 // ── Growing a steward's ledger ──────────────────────────────────────────────
 
 /**
  * The tuning ledger the orchestrator grows on a stewarded page the first time
- * a cycle offers a lesson (Loudon, 2026-10-16). A left-rough note never grows
- * one; those stay on the trail, where the scroll's Now lists the ones that
- * recur. Standard frontmatter (§6, §8); no `standards` value says owed,
- * because the tail read's grep would find it.
+ * a cycle offers a lesson (Loudon, 2026-10-16) or proposes a canon edit
+ * (2026-10-18). A left-rough note never grows one; those stay on the trail,
+ * where the scroll's Now lists the ones that recur. Standard frontmatter (§6,
+ * §8); no `standards` value and no line of the body says owed, because the
+ * tail read's grep would find it.
  */
 export function stewardLedgerText(home, date) {
   const q = (s) => JSON.stringify(s);
@@ -304,14 +454,14 @@ export function stewardLedgerText(home, date) {
     `  - target: ${q(`[[${home}]]`)}`,
     '    type: connects-to',
     '    label: tuning-for',
-    `forward_vector: ${q(`I am ${home}'s record of what its steward's cycles taught it: a line for every cycle, and a numbered item when a cycle taught something the next one should carry.`)}`,
+    `forward_vector: ${q(`I am ${home}'s record of what its steward's cycles taught it: a line for every cycle, a numbered item when a cycle taught something the next one should carry, and one for each change to the house its steward proposed, kept here until Loudon's review.`)}`,
     'ledger: tuning',
     'standards:',
     `  for: ${q(`what each steward cycle taught ${home} about how it works`)}`,
     '  run: "one steward cycle"',
-    '  line: "- run · <date> · cycle <N> · nothing new | taught item N"',
+    '  line: "- run · <date> · cycle <N> · nothing new | taught item N | proposed item N for canon"',
     '  read: "the last 40 lines with run lines set aside, plus every line not yet paid, at the start of a cycle"',
-    '  writes: "the steward cycle (process-cycle.js), in the cycle\'s commit; a lesson the steward offers is filed straight in as an item tagged as its offer"',
+    '  writes: "the steward cycle (process-cycle.js), in the cycle\'s commit; a lesson the steward offers is filed straight in as an item tagged as its offer, and a canon edit it proposes as an item tagged as its proposal, which the page does not take in until Loudon\'s review"',
     '  merge: union',
     '  kept: git',
     '  trim: never',
@@ -319,7 +469,7 @@ export function stewardLedgerText(home, date) {
     '',
     `# ${home} — tuning`,
     '',
-    `What ${home}'s steward cycles taught the page. The orchestrator grew this ledger on ${date}, when a cycle first offered a lesson, and writes every line in it. What a cycle leaves rough stays on the scroll's trail, and the scroll's Now lists what keeps recurring.`,
+    `What ${home}'s steward cycles taught the page, and the changes to the house its steward proposed. The orchestrator grew this ledger on ${date}, when a cycle first offered a lesson or proposed a change, and writes every line in it. A proposal waits here for Loudon's review; the page takes it in only on his yes. What a cycle leaves rough stays on the scroll's trail, and the scroll's Now lists what keeps recurring.`,
     '',
   ].join('\n');
 }
@@ -501,7 +651,13 @@ export function readTuningState(palaceRoot, home) {
     runs,
     runs_since: version ? runs.filter((r) => r.version === version) : [],
     last_run: runs[0] || null,
-    owed: parseOwed(ledger),
+    // A proposal for canon is owed to Loudon's review, not to the next run, so
+    // it is listed apart (parseProposals) and not among the run's owed items.
+    ...(() => {
+      const proposed = parseProposals(ledger).filter((p) => p.owed);
+      const isProposal = new Set(proposed.map((p) => p.n));
+      return { owed: parseOwed(ledger).filter((o) => !isProposal.has(o.n)), proposed };
+    })(),
     orders: parseOrders(ledger),
     latest: parseLatestLesson(ledger),
   };
