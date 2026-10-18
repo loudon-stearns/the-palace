@@ -284,8 +284,10 @@ export function deriveTrailers({
 }
 
 // Assemble a full commit message from parts.
-export function formatCommitMessage({ kind, scope, summary, body = '', trailers = [] }) {
-  const subject = scope ? `${kind}(${scope}): ${summary}` : `${kind}: ${summary}`;
+// A ceremony whose spec names its subject ("Schema Ceremony — … — v1.29") passes
+// `ceremony`; the subject is then "<Ceremony> — <summary>" and `kind` rides the trailer.
+export function formatCommitMessage({ kind, scope, summary, body = '', trailers = [], ceremony = null }) {
+  const subject = ceremony ? `${ceremony} — ${summary}` : (scope ? `${kind}(${scope}): ${summary}` : `${kind}: ${summary}`);
   const parts = [subject];
   if (body && body.trim() !== '') parts.push('', body.trim());
   if (trailers.length > 0) parts.push('', trailers.join('\n'));
