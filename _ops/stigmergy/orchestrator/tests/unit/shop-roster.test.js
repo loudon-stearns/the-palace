@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { rosterTriggers, outsideRoster, refreshShopRoster } from '../../src/shop-roster.js';
-import { commitPathsAsync } from '../../src/cycle-commit.js';
+import { commitPathsAsync, commitCycle, planCycleCommit } from '../../src/cycle-commit.js';
 import { processCycle } from '../../src/process-cycle.js';
 
 const FIXTURES = fileURLToPath(new URL('../fixtures/shop-roster/', import.meta.url));
@@ -29,7 +29,7 @@ const specialist = (title, status) => `---\ntitle: ${title}\ntype: specialist\ns
 let root;
 afterEach(() => { if (root) rmSync(root, { recursive: true, force: true }); root = null; });
 
-// A committed palace: a steward grown up for Shop, one Specialist, and a hub
+// A committed palace: a steward, one Specialist, and a hub
 // whose roster is current for the stand-in builder (or `rows`, when given).
 function shopPalace({ rows = ['| FLUX | alive |'], builder = STAND_IN } = {}) {
   root = mkdtempSync(path.join(tmpdir(), 'palace-roster-'));
@@ -42,7 +42,7 @@ function shopPalace({ rows = ['| FLUX | alive |'], builder = STAND_IN } = {}) {
   const agentDir = '_ops/agents/permanent/test-steward';
   mkdirSync(path.join(root, agentDir), { recursive: true });
   mkdirSync(path.join(root, '_ops/swarm/persistent'), { recursive: true });
-  writeFileSync(path.join(root, agentDir, 'manifest.json'), JSON.stringify({ agent_id: 'Test Steward', home: 'Test Steward', mode: 'long_duration_background', session_id: 's', model: { name: 'claude-sonnet-5' }, grown_up_for: ['Shop'] }));
+  writeFileSync(path.join(root, agentDir, 'manifest.json'), JSON.stringify({ agent_id: 'Test Steward', home: 'Test Steward', mode: 'long_duration_background', session_id: 's', model: { name: 'claude-sonnet-5' } }));
   writeFileSync(path.join(root, agentDir, 'state.json'), JSON.stringify({ iteration: 0, last_active: null, last_read_cursor: null }));
   writeFileSync(path.join(root, agentDir, 'history.jsonl'), '');
   writeFileSync(path.join(root, '_ops/swarm/persistent/blackboard.jsonl'), '');
@@ -198,91 +198,75 @@ describe('refreshShopRoster', () => {
   });
 });
 
-describe('a cycle that changes a Shop page commits the roster with it', () => {
-  test('the CLI path (commit: true): The Shop.md rides as machinery, and the body says so', () => {
-    const { agentDir } = shopPalace();
+// Since 2026-10-18 no steward edits the house (Loudon: "I don't like the
+// editing of canon without my eyes"), so no vetted page edit reaches a Shop
+// page and the cycle never runs the builder. The refresh and the commit's
+// handling of it are kept for when one may again.
+describe('a cycle no longer reaches a Shop page, so the roster never runs from one', () => {
+  test('a new Specialist and an edit to The Shop.md are both refused; the builder never runs; both stay on disk, uncommitted', () => {
+    const { agentDir } = shopPalace({ rows: ['| FLUX | stub |'] }); // stale, so a builder run would change it
     writeFileSync(path.join(root, 'Shop/OCR Smith.md'), specialist('OCR Smith', 'stub'));
-    const summary = cycle(agentDir, cycleTranscript('sr-1', NEW_SPECIALIST), true);
-    expect(summary.commit.ok, summary.commit.error).toBe(true);
-    expect(summary.shop_roster).toMatchObject({ changed: true, path: HUB, triggers: ['Shop/OCR Smith.md'] });
-    expect(summary.commit.roster).toMatchObject({ changed: true });
+    const edited = read(HUB).replace("Loudon's call, not the cycle's.", 'The Shopkeeper rewrote the bet.');
+    writeFileSync(path.join(root, HUB), edited);
+    const summary = cycle(agentDir, cycleTranscript('sr-1', [...NEW_SPECIALIST, { path: HUB, why: 'a new bet' }]), 'plan');
+    expect(summary.page_edits.allowed).toEqual([]);
+    expect(summary.page_edits.refused.map((e) => [e.path, e.proposal])).toEqual([['Shop/OCR Smith.md', true], [HUB, true]]);
+    expect(summary.shop_roster).toBeNull();
+    expect(summary.commit.plan.paths).not.toContain('Shop/OCR Smith.md');
+    expect(summary.commit.plan.paths).not.toContain(HUB);
+    expect(summary.commit.plan.body).not.toMatch(/Shop roster/);
+    expect(read(HUB)).toBe(edited);
+    expect(history(agentDir).some((e) => /^SHOP_ROSTER/.test(e.event))).toBe(false);
+  });
+});
+
+// The commit still carries a roster it is handed (cycle-commit.js), called
+// here directly with the Shop page edit a cycle once followed.
+describe('the commit carries a roster it is handed', () => {
+  const shipped = [{ id: 'sr', type: 'BROADCAST', payload: { kind: 'shipped_artifact', headline: 'A new Specialist' } }];
+  const args = (roster) => ({ palaceRoot: root, home: 'Test Steward', cycleN: 17, bundleDir: path.join(root, 'Projects/Test Steward'), messages: shipped, pageEdits: NEW_SPECIALIST, roster });
+
+  test('commitCycle (the CLI path): The Shop.md rides as machinery, and the body says so', () => {
+    shopPalace();
+    writeFileSync(path.join(root, 'Shop/OCR Smith.md'), specialist('OCR Smith', 'stub'));
+    const roster = refreshShopRoster({ palaceRoot: root, pageEdits: NEW_SPECIALIST });
+    const res = commitCycle(args(roster));
+    expect(res.ok, res.error).toBe(true);
+    expect(res.roster).toMatchObject({ changed: true });
     expect(headFiles()).toEqual(expect.arrayContaining(['Shop/OCR Smith.md', HUB]));
     expect(git(root, ['show', `HEAD:${HUB}`])).toContain('| OCR Smith | stub |');
     expect(git(root, ['status', '--porcelain', '--', HUB])).toBe('');
     const body = git(root, ['log', '-1', '--format=%b']);
-    expect(body).toMatch(/Changed the page:\n- Shop\/OCR Smith\.md — new stub Specialist/);
     expect(body).toMatch(/Regenerated the Shop roster, as machinery and not a page edit:\n- The Shop\.md § Roster — rebuilt by Shop\/Maker\/build-roster\.mjs after this cycle changed Shop\/OCR Smith\.md; nothing outside the generated block changed\n- now reads:\n  \| OCR Smith \| stub \|/);
-    // Machinery, not a page edit: the board and the trail never call it one.
-    expect(summary.page_edits.allowed.map((e) => e.path)).toEqual(['Shop/OCR Smith.md']);
-    expect(body.split('\n\n').find((para) => para.startsWith('Changed the page:'))).not.toContain(HUB);
-    expect(history(agentDir).find((e) => e.event === 'SHOP_ROSTER')).toMatchObject({ cycle: 17, after: ['Shop/OCR Smith.md'], changed: true });
+    expect(body.split('\n\n').find((para) => para.startsWith('Changed in the workshop:'))).not.toContain(HUB);
   });
 
-  test("the server path (commit: 'plan'): the plan carries The Shop.md, and commitPathsAsync commits it", async () => {
-    const { agentDir } = shopPalace();
+  test("planCycleCommit (the server path): the plan carries The Shop.md, and commitPathsAsync commits it", async () => {
+    shopPalace();
     writeFileSync(path.join(root, 'Shop/OCR Smith.md'), specialist('OCR Smith', 'stub'));
-    const summary = cycle(agentDir, cycleTranscript('sr-2', NEW_SPECIALIST), 'plan');
-    expect(summary.commit.planned).toBe(true);
-    const { plan } = summary.commit;
+    const plan = planCycleCommit(args(refreshShopRoster({ palaceRoot: root, pageEdits: NEW_SPECIALIST })));
     expect(plan.paths).toEqual(expect.arrayContaining(['Shop/OCR Smith.md', HUB]));
     expect(plan.body).toMatch(/Regenerated the Shop roster, as machinery and not a page edit:\n- The Shop\.md § Roster/);
     expect(git(root, ['rev-list', '--count', 'HEAD']).trim()).toBe('1'); // nothing committed yet
     const res = await commitPathsAsync({ palaceRoot: root, ...plan });
     expect(res.ok, res.error).toBe(true);
     expect(headFiles()).toEqual(expect.arrayContaining(['Shop/OCR Smith.md', HUB]));
-    expect(git(root, ['show', `HEAD:${HUB}`])).toContain('| OCR Smith | stub |');
     expect(git(root, ['log', '-1', '--format=%b'])).toMatch(/Regenerated the Shop roster/);
   });
 
-  test('no Shop page in the edits: the builder never runs, and The Shop.md stays out of the commit', () => {
-    // The committed block is stale, so a builder run would have changed it.
-    const { agentDir } = shopPalace({ rows: ['| FLUX | stub |'] });
-    const before = read(HUB);
-    writeFileSync(path.join(root, ENTRY), '---\ntitle: Test Steward\ntype: project\nstage: sprout\nstatus: active\n---\n# Test Steward\nNow alive.\n');
-    const summary = cycle(agentDir, cycleTranscript('sr-3', [{ path: ENTRY, why: 'stage: sprout' }]), 'plan');
-    expect(summary.shop_roster).toBeNull();
-    expect(summary.commit.plan.paths).toContain(ENTRY);
-    expect(summary.commit.plan.paths).not.toContain(HUB);
-    expect(summary.commit.plan.body).not.toMatch(/Shop roster/);
-    expect(read(HUB)).toBe(before);
-    expect(history(agentDir).some((e) => /^SHOP_ROSTER/.test(e.event))).toBe(false);
-  });
-
-  test('with commit off, the roster is left alone even when a Shop page changed', () => {
-    const { agentDir } = shopPalace();
+  test('a builder that strays is refused: the Shop page still rides, The Shop.md does not, and the note says why', async () => {
+    shopPalace({ builder: OVERREACHING });
     const before = read(HUB);
     writeFileSync(path.join(root, 'Shop/OCR Smith.md'), specialist('OCR Smith', 'stub'));
-    const summary = cycle(agentDir, cycleTranscript('sr-4', NEW_SPECIALIST), false);
-    expect(summary.shop_roster).toBeNull();
-    expect(read(HUB)).toBe(before);
-  });
-
-  test('a builder that strays is refused in the cycle: the Shop page still rides, The Shop.md does not, and the note says why', async () => {
-    const { agentDir } = shopPalace({ builder: OVERREACHING });
-    const before = read(HUB);
-    writeFileSync(path.join(root, 'Shop/OCR Smith.md'), specialist('OCR Smith', 'stub'));
-    const summary = cycle(agentDir, cycleTranscript('sr-5', NEW_SPECIALIST), 'plan');
-    expect(summary.shop_roster.refused).toMatch(/outside the roster block/);
-    const { plan } = summary.commit;
+    const roster = refreshShopRoster({ palaceRoot: root, pageEdits: NEW_SPECIALIST });
+    expect(roster.refused).toMatch(/outside the roster block/);
+    const plan = planCycleCommit(args(roster));
     expect(plan.paths).toContain('Shop/OCR Smith.md');
     expect(plan.paths).not.toContain(HUB);
     expect(plan.body).toMatch(/Shop roster NOT regenerated, after this cycle changed Shop\/OCR Smith\.md:\n- the builder changed The Shop\.md outside the roster block, so the file was put back as it was; run node Shop\/Maker\/build-roster\.mjs by hand once that is settled/);
     expect(read(HUB)).toBe(before);
-    expect(history(agentDir).find((e) => e.event === 'SHOP_ROSTER_REFUSED')).toMatchObject({ cycle: 17, reason: expect.stringMatching(/outside the roster block/) });
     const res = await commitPathsAsync({ palaceRoot: root, ...plan });
     expect(res.ok, res.error).toBe(true);
     expect(headFiles()).not.toContain(HUB);
-  });
-
-  test("a steward's own edit to The Shop.md is refused as a page edit, and the roster will not carry it in", () => {
-    const { agentDir } = shopPalace();
-    writeFileSync(path.join(root, 'Shop/OCR Smith.md'), specialist('OCR Smith', 'stub'));
-    const edited = read(HUB).replace("Loudon's call, not the cycle's.", 'The Shopkeeper rewrote the bet.');
-    writeFileSync(path.join(root, HUB), edited);
-    const summary = cycle(agentDir, cycleTranscript('sr-6', [...NEW_SPECIALIST, { path: HUB, why: 'a new bet' }]), 'plan');
-    expect(summary.page_edits.refused.map((e) => e.path)).toEqual([HUB]);
-    expect(summary.shop_roster.refused).toMatch(/uncommitted changes outside the roster block/);
-    expect(summary.commit.plan.paths).not.toContain(HUB);
-    expect(read(HUB)).toBe(edited);
   });
 });

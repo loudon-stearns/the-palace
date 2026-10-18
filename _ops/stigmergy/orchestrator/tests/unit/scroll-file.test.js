@@ -516,30 +516,43 @@ describe('what keeps being left rough (Loudon, 2026-10-16): Now lists recurring 
   });
 });
 
-// A steward is grown up for its own page and bundle (2026-10-16): each edit it
-// made to its page shows on the trail with its why; a refused one says why not.
-describe('page edits on the trail', () => {
+// No steward edits the house (2026-10-18): an edit that rode is a workshop
+// file, a refused one says why, and each canon edit it proposed shows as
+// proposed for canon, owed in its tuning ledger until Loudon's review.
+describe('page edits and proposals on the trail', () => {
   const msg = {
-    id: 'pe-1', ts: '2026-10-16T09:00:00-04:00', type: 'BROADCAST', board: 'GENERAL', from: 'Demo',
+    id: 'pe-1', ts: '2026-10-18T09:00:00-04:00', type: 'BROADCAST', board: 'GENERAL', from: 'Demo',
     payload: {
-      kind: 'shipped_artifact', headline: 'Moved to sprout', content: 'It is alive.',
-      page_edits: [{ path: 'Projects/Demo.md', why: 'two runs proved it alive, so stage: sprout' }],
-      page_edits_refused: [{ path: 'Projects/Other.md', why: 'add a mirror link', reason: 'another page or canon, outside its own page and bundle', proposal: true }],
+      kind: 'shipped_artifact', headline: 'A probe, and the stage it argues for', content: 'It is alive.',
+      page_edits: [{ path: 'Projects/Demo/probe.py', why: 'the probe' }],
+      page_edits_refused: [{ path: 'Projects/Demo.md', why: 'stage: sprout', reason: "its own entry: it changes only through Loudon's review: post it in `proposed_edits`", proposal: true }],
+      proposed_edits: [
+        { page: 'Demo', path: 'Projects/Demo.md', entry: true, exists: true, place: 'frontmatter', words: 'stage: sprout', why: 'two runs proved it alive' },
+        { page: '_ops/heartbeat/README.md', path: '_ops/heartbeat/README.md', entry: false, exists: true, place: '§ Posture', words: 'w', why: 'the rule moved' },
+        { page: 'Demo Staircase', path: null, entry: false, exists: false, place: '', words: 'w', why: '' },
+      ],
+      proposed_edits_dropped: [{ page: 'The Shop', why: 'x', reason: 'carries no words' }],
     },
   };
 
-  test('renders "Changed the page: … — why" and the refusal with its reason', () => {
+  test('renders the workshop edit, the refusal, each proposal and the one not filed', () => {
     expect(pageEditLines(msg.payload)).toEqual([
-      '_Changed the page:_ Demo — two runs proved it alive, so stage: sprout',
-      '_Page edit not committed:_ Projects/Other.md — another page or canon, outside its own page and bundle; it stays a proposal (wanted: add a mirror link)',
+      '_Changed in the workshop:_ probe.py — the probe',
+      "_Page edit not committed:_ Projects/Demo.md — its own entry: it changes only through Loudon's review: post it in `proposed_edits` (wanted: stage: sprout)",
+      "_Proposed for canon:_ Demo (frontmatter) — two runs proved it alive; owed in the tuning ledger until Loudon's review",
+      "_Proposed for canon:_ _ops/heartbeat/README.md (§ Posture) — the rule moved; owed in the tuning ledger until Loudon's review",
+      "_Proposed for canon:_ Demo Staircase, a new page — no reason given; owed in the tuning ledger until Loudon's review",
+      '_Proposal not filed:_ The Shop — carries no words',
     ]);
     const s = renderMakingSection(msg, { cycle: 14 });
-    expect(s).toContain('_Changed the page:_ Demo — two runs proved it alive, so stage: sprout');
+    expect(s).toContain('_Proposed for canon:_ Demo (frontmatter)');
     expect(s).not.toContain('**page edits');
+    expect(s).not.toContain('**proposed edits');
   });
 
-  test('a message whose only news is a page edit still makes the trail', () => {
-    expect(isMakingMessage({ type: 'BROADCAST', payload: { kind: 'note', page_edits: [{ path: 'Projects/Demo.md', why: 'x' }] } })).toBe(true);
-    expect(pageEditLines({ page_edits: [{ path: 'Projects/Demo/notes.md' }] })).toEqual(['_Changed the page:_ notes — no reason given']);
+  test('a message whose only news is a page edit or a proposal still makes the trail', () => {
+    expect(isMakingMessage({ type: 'BROADCAST', payload: { kind: 'note', page_edits: [{ path: 'Projects/Demo/notes.md', why: 'x' }] } })).toBe(true);
+    expect(isMakingMessage({ type: 'BROADCAST', payload: { kind: 'note', proposed_edits: [{ page: 'Demo', words: 'w' }] } })).toBe(true);
+    expect(pageEditLines({ page_edits: [{ path: 'Projects/Demo/notes.md' }] })).toEqual(['_Changed in the workshop:_ notes — no reason given']);
   });
 });

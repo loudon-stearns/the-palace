@@ -12,8 +12,10 @@
 //   - run · 2026-09-25 · v1.1 · close-2026-09-25-ceremonies · taught item 31
 //   - run · 2026-10-15 · cycle 38 · nothing new          (a page with no version)
 //
-// numbered items for what a run taught, and Loudon's one-shot orders, owed
-// until a run pays them: `- from Loudon · <date> · <his words> · owed`. Version
+// numbered items for what a run taught, Loudon's one-shot orders, owed
+// until a run pays them: `- from Loudon · <date> · <his words> · owed`, and a
+// steward's proposals for canon, numbered items owed until Loudon's review
+// (Loudon, 2026-10-18; see Proposals for canon below). Version
 // changes are read from git: the commits where the page's version value
 // changed. Trail sections are keyed on the version commit or on the run line
 // itself, so re-materializing a scroll never duplicates or deletes.
@@ -229,19 +231,22 @@ export function nextItemNumber(ledgerText) {
  * lines once the run lines are set aside, and every line that says owed,
  * wherever it sits. Frontmatter is not read, so `standards` never lands in it.
  * Returns { recent: string[], owed: [{ line, text }] } — owed lines already in
- * the recent window are not repeated.
+ * the recent window are not repeated. `setAside(line)` leaves out more lines,
+ * by their line number in the file, the way run lines are left out: the cycle
+ * prompt sets proposals for canon aside, since it shows them in full elsewhere.
  */
-export function tailRead(ledgerText, n = 40) {
+export function tailRead(ledgerText, n = 40, { setAside = null } = {}) {
   const body = ledgerBody(ledgerText);
   const offset = String(ledgerText || '').split('\n').length - body.split('\n').length;
   const lines = body.split('\n');
-  const kept = lines.map((text, i) => ({ text, line: i + 1 + offset })).filter((l) => !parseRunLine(l.text));
+  const aside = (line) => !!(setAside && setAside(line));
+  const kept = lines.map((text, i) => ({ text, line: i + 1 + offset })).filter((l) => !parseRunLine(l.text) && !aside(l.line));
   while (kept.length && !kept[kept.length - 1].text.trim()) kept.pop();
   const recent = kept.slice(-n);
   const inRecent = new Set(recent.map((l) => l.line));
   const owed = lines
     .map((text, i) => ({ text, line: i + 1 + offset }))
-    .filter((l) => /\bowed\b/i.test(l.text) && !inRecent.has(l.line));
+    .filter((l) => /\bowed\b/i.test(l.text) && !inRecent.has(l.line) && !aside(l.line));
   return { recent: recent.map((l) => l.text), owed };
 }
 
@@ -261,38 +266,291 @@ export function appendLedgerLine(ledgerPath, line) {
 
 /**
  * Record one run in a tuning ledger, in the shape the existing ledgers keep:
- * when the run taught something, a `## From <what> — <date>` group with one
- * numbered item per lesson, then the run line naming them; otherwise the run
- * line alone, "nothing new". `by` says whose lesson it is when the page did not
- * write it itself (a steward's offer, carried by the machinery). Returns
- * { line, items } — the run line written and the item numbers it names.
+ * when the run taught something or proposed a canon edit, a `## From <what> —
+ * <date>` group with one numbered item per lesson and then one per proposal
+ * (proposalLines), then the run line naming them; otherwise the run line
+ * alone, "nothing new". `by` says whose lesson it is when the page did not
+ * write it itself (a steward's offer, carried by the machinery), `proposedBy`
+ * whose proposal. A proposal already owed here, for the same target in the same
+ * words, is not filed twice, and one that names items it `replaces` leaves
+ * them superseded. Returns { line, items, proposed, filed, skipped,
+ * superseded }: the run line written, the lesson and proposal item numbers it
+ * names, each proposal filed with its `item`, the proposals left out as
+ * already owed, and the items the new ones replaced.
  */
-export function recordRun(ledgerPath, { date, version = null, what = '', lessons = [], by = '' }) {
+export function recordRun(ledgerPath, { date, version = null, what = '', lessons = [], by = '', proposals = [], proposedBy = '' }) {
   const text = existsSync(ledgerPath) ? readFileSync(ledgerPath, 'utf8') : '';
   const taught = [...new Set((lessons || []).map((l) => String(l || '').replace(/\s+/g, ' ').trim()).filter(Boolean))];
+  const owedNow = new Set(parseProposals(text).filter((p) => p.owed).map(proposalKey));
+  const fresh = [];
+  const skipped = [];
+  for (const p of proposals || []) {
+    const k = proposalKey({ target: proposalTargetText(p), words: cutWords(p.words).kept });
+    if (owedNow.has(k)) { skipped.push(p); continue; }
+    owedNow.add(k);
+    fresh.push(p);
+  }
   const items = [];
-  if (taught.length) {
+  const proposed = [];
+  const filed = [];
+  if (taught.length || fresh.length) {
     let n = nextItemNumber(text);
     const heading = `## From ${String(what || 'a run').replace(/\s+/g, ' ').trim()} — ${date}`;
     const lines = taught.map((l) => { items.push(n); return `${n++}. ${l}${by ? ` *(${by})*` : ''}`; });
+    for (const p of fresh) { proposed.push(n); filed.push({ ...p, item: n }); lines.push(...proposalLines(n++, { ...p, date, by: proposedBy })); }
     const pre = text === '' ? '' : (text.endsWith('\n\n') ? '' : (text.endsWith('\n') ? '\n' : '\n\n'));
     appendFileSync(ledgerPath, `${pre}${heading}\n\n${lines.join('\n')}\n`);
   }
-  const outcome = !items.length ? 'nothing new'
-    : items.length === 1 ? `taught item ${items[0]}` : `taught items ${items.join(', ')}`;
+  // A proposal that names an owed one it replaces (`replaces`) supersedes it:
+  // latest wins, and the older one is no longer owed.
+  const superseded = [];
+  for (const f of filed) {
+    for (const r of Array.isArray(f.replaces) ? f.replaces : []) {
+      for (const k of settleProposals(ledgerPath, [{ n: r, status: supersededStatus(f.item) }])) superseded.push({ n: k, by: f.item });
+    }
+  }
+  const plural = (ns) => (ns.length === 1 ? `item ${ns[0]}` : `items ${ns.join(', ')}`);
+  const parts = [];
+  if (items.length) parts.push(`taught ${plural(items)}`);
+  if (proposed.length) parts.push(`proposed ${plural(proposed)} for canon`);
+  const outcome = parts.length ? parts.join(', ') : 'nothing new';
   const line = runLine({ date, version, what, outcome });
   appendLedgerLine(ledgerPath, line);
-  return { line, items };
+  return { line, items, proposed, filed, skipped, superseded };
+}
+
+// ── Proposals for canon ─────────────────────────────────────────────────────
+//
+// No steward writes the house without Loudon's eyes (Loudon, 2026-10-18: "what
+// the steward wants to edit is place in a tuning ledger and used in the future,
+// and eventually we go through the tuning ledgers to see what we actualy want
+// to place in canon"). Each canon edit a steward proposes (`proposed_edits`) is
+// filed in its own tuning ledger as a numbered item, and its next runs read it
+// back and work as if it holds, while the page itself stays as it is:
+//
+//   43. **Proposed for canon** · 2026-10-20 · [[Shopkeeper]] · § Standing duties · canon change owed *(proposed by the steward, cycle 41; urgent, asked as Shopkeeper-…-urgent-1)*
+//       Why: one line.
+//       Path: `Shop/Shopkeeper.md`
+//       > the proposed words, as many lines as they take
+//
+// The field before the tag is the item's status. "canon change owed" is the
+// owed status every reader here already counts (parseOwed, tailRead), so no
+// second machinery keeps these. A proposal is settled the way a paid order is
+// (payOrders): its owed status is replaced in place with what became of it.
+//
+//   paid in <commit> on <YYYY-MM-DD HH:MM>             Loudon said yes; the commit landed it
+//   declined on <YYYY-MM-DD HH:MM>: <his one line>     Loudon said no, and why
+//   superseded by item N                               the steward's newer proposal replaced it
+//
+// The steward reads a paid or declined item back once, on its first run after
+// the moment it was settled (build-cycle-prompt.js), so a no teaches it
+// something. How the review decides is its own; these are only its ledger end.
+
+/** The status a proposal is filed with; replacing it settles the proposal. */
+export const PROPOSAL_OWED = 'canon change owed';
+/** Proposed words kept in the ledger; longer text belongs in a workshop draft the words point to. */
+export const MAX_PROPOSAL_LINES = 60;
+
+const PROPOSAL_HEAD_RE = /^(\d+[a-z]?)\.\s+\*\*Proposed for canon\*\* · (\d{4}-\d{2}-\d{2}) · (.+?)\s*$/;
+const TAG_RE = /\s*\*\((.+)\)\*\s*$/;
+const field = (v) => String(v ?? '').replace(/\s+/g, ' ').replace(/ · /g, ', ').trim();
+
+/** How a proposal names its target in the ledger: `[[Title]]` for a page, a backticked path for any other file. */
+export function proposalTargetText(p) {
+  if (p.target) return p.target;
+  const md = !p.path || /\.md$/i.test(p.path);
+  return p.entry || (!p.exists && md) ? `[[${field(p.page)}]]` : `\`${field(p.path || p.page)}\``;
+}
+
+function cutWords(words) {
+  const all = String(words || '').replace(/\r\n/g, '\n').replace(/\s+$/, '').split('\n');
+  return { kept: all.slice(0, MAX_PROPOSAL_LINES).join('\n'), cut: Math.max(0, all.length - MAX_PROPOSAL_LINES) };
+}
+
+const proposalKey = (p) => `${String(p.target || '').toLowerCase()}\u0000${String(p.words || '').replace(/\s+/g, ' ').trim()}`;
+
+/** The local moment a settlement is stamped with: `YYYY-MM-DD HH:MM`. */
+export function settleStamp(at = new Date()) {
+  const d = at instanceof Date ? at : new Date(at);
+  return `${localDate(d)} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+}
+
+/** The status a yes leaves: the commit that landed the proposal, and when. */
+export const paidStatus = (commit, at = new Date()) => `paid in ${field(commit).slice(0, 40)} on ${settleStamp(at)}`;
+/** The status a no leaves: when, and Loudon's one-line reason. */
+export const declinedStatus = (reason, at = new Date()) => `declined on ${settleStamp(at)}: ${field(reason) || 'no reason given'}`;
+/** The status a steward's newer proposal leaves on the one it replaces. */
+export const supersededStatus = (n) => `superseded by item ${n}`;
+
+/**
+ * What became of a proposal, read from its status: { kind: 'owed' | 'paid' |
+ * 'declined' | 'superseded' | 'settled', at, commit, reason, by }. `at` is the
+ * stamp a settlement carries (`YYYY-MM-DD HH:MM`, or a bare date when one was
+ * settled by hand), or null.
+ */
+export function proposalOutcome(status) {
+  const s = String(status || '').trim();
+  const at = (/\b(\d{4}-\d{2}-\d{2}(?: \d{2}:\d{2})?)\b/.exec(s) || [])[1] || null;
+  if (/\bpaid\b/i.test(s)) return { kind: 'paid', at, commit: (/\bpaid in ([0-9a-f]{7,40})\b/i.exec(s) || [])[1] || null, reason: '', by: null };
+  if (/^declined\b/i.test(s)) return { kind: 'declined', at, commit: null, reason: (/^declined(?: on \d{4}-\d{2}-\d{2}(?: \d{2}:\d{2})?)?\s*:\s*(.*)$/i.exec(s) || [])[1] || '', by: null };
+  const sup = /^superseded by item (\d+[a-z]?)/i.exec(s);
+  if (sup) return { kind: 'superseded', at, commit: null, reason: '', by: sup[1] };
+  if (/\bowed\b/i.test(s)) return { kind: 'owed', at: null, commit: null, reason: '', by: null };
+  return { kind: 'settled', at, commit: null, reason: '', by: null };
+}
+
+/**
+ * The lines one proposal is filed as: its numbered head (date, target, place,
+ * status, whose, and whether it is urgent), then indented Why, Path and the
+ * words as a quote. Words past MAX_PROPOSAL_LINES are cut, and the item says
+ * so; the whole text stays in the cycle's post on the board.
+ */
+export function proposalLines(n, { date, page, path = null, entry = false, exists = false, place = '', words = '', why = '', by = '', urgent = false, ask = '' }) {
+  const pad = ' '.repeat(String(n).length + 2);
+  const target = proposalTargetText({ page, path, entry, exists });
+  const { kept, cut } = cutWords(words);
+  const tagParts = [field(by), urgent ? `urgent${ask ? `, asked as ${field(ask)}` : ''}` : ''].filter(Boolean);
+  return [
+    `${n}. **Proposed for canon** · ${date} · ${target} · ${field(place) || '—'} · ${PROPOSAL_OWED}${tagParts.length ? ` *(${tagParts.join('; ')})*` : ''}`,
+    `${pad}Why: ${field(why) || 'no reason given'}`,
+    `${pad}Path: ${path ? `\`${field(path)}\`` : 'none yet'}${exists ? '' : ' (a new page)'}`,
+    ...kept.split('\n').map((l) => `${pad}>${l.trim() ? ` ${l.replace(/\s+$/, '')}` : ''}`),
+    ...(cut ? [`${pad}Cut here, ${cut} more line${cut === 1 ? '' : 's'}: the whole text is in the cycle's post on the board.`] : []),
+  ];
+}
+
+/**
+ * The proposals for canon a ledger holds, in file order: [{ n, date, target,
+ * page, path, exists, place, status, owed, outcome, by, urgent, ask, why,
+ * words, line, end }]. `line` and `end` are the item's first and last line
+ * numbers in the file (1-based), so a reader can set the whole item aside.
+ * `page` is the target's title, or its path when it is not a page; `outcome`
+ * is proposalOutcome(status). A proposal is owed until its status stops saying
+ * so; a union merge that keeps both a settled and an owed form of the same
+ * item counts it settled, as parseOrders does.
+ */
+export function parseProposals(ledgerText) {
+  const text = String(ledgerText || '');
+  const offset = text.split('\n').length - ledgerBody(text).split('\n').length;
+  const lines = ledgerBody(text).split('\n');
+  const out = [];
+  for (let i = 0; i < lines.length; i++) {
+    const m = PROPOSAL_HEAD_RE.exec(lines[i]);
+    if (!m) continue;
+    const fields = m[3].split(' · ');
+    const last = fields.pop();
+    const tag = TAG_RE.exec(last);
+    const status = (tag ? last.slice(0, tag.index) : last).trim();
+    const target = (fields.shift() || '').trim();
+    const place = fields.join(', ').trim();
+    const tagParts = tag ? tag[1].split('; ').map((t) => t.trim()) : [];
+    const urgentPart = tagParts.find((t) => /^urgent\b/i.test(t));
+    const outcome = proposalOutcome(status);
+    const p = {
+      n: m[1], date: m[2], target,
+      page: target.replace(/^\[\[|\]\]$/g, '').replace(/^`|`$/g, ''),
+      path: null, exists: true, place: place === '—' ? '' : place, status,
+      owed: outcome.kind === 'owed', outcome,
+      by: tagParts.filter((t) => t !== urgentPart).join('; '),
+      urgent: !!urgentPart, ask: urgentPart ? ((/asked as (\S+)/.exec(urgentPart) || [])[1] || '') : '',
+      why: '', words: '', line: i + 1 + offset, end: i + 1 + offset,
+    };
+    const words = [];
+    for (let j = i + 1; j < lines.length && /^\s{2,}\S/.test(lines[j]); j++) {
+      const l = lines[j].trim();
+      p.end = j + 1 + offset;
+      if (l.startsWith('>')) words.push(l.replace(/^> ?/, ''));
+      else if (/^Why: /.test(l)) p.why = l.slice(5).trim();
+      else if (/^Path: /.test(l)) { const pm = /`([^`]+)`/.exec(l); p.path = pm ? pm[1] : null; p.exists = !/\(a new page\)/.test(l); }
+    }
+    p.words = words.join('\n');
+    out.push(p);
+  }
+  const twin = (p) => `${p.n}\u0000${proposalKey(p)}`;
+  const settled = new Set(out.filter((p) => !p.owed).map(twin));
+  return out.map((p) => (p.owed && settled.has(twin(p)) ? { ...p, owed: false } : p));
+}
+
+/**
+ * Settle owed proposals in place, as payOrders pays orders: each { n, status }
+ * replaces item n's `canon change owed` with `status` (paidStatus,
+ * declinedStatus, supersededStatus), keeping its tag. An item already settled
+ * is left alone. Returns the item numbers settled.
+ */
+export function settleProposals(ledgerPath, settles = []) {
+  const wanted = new Map((settles || []).filter((x) => x && x.n != null && x.status).map((x) => [String(x.n), field(x.status)]));
+  if (!wanted.size || !existsSync(ledgerPath)) return [];
+  const done = [];
+  const out = readFileSync(ledgerPath, 'utf8').split('\n').map((line) => {
+    const m = PROPOSAL_HEAD_RE.exec(line);
+    if (!m || !wanted.has(m[1])) return line;
+    const cut = line.lastIndexOf(' · ');
+    const last = line.slice(cut + 3);
+    const tag = TAG_RE.exec(last);
+    const status = (tag ? last.slice(0, tag.index) : last).trim();
+    if (proposalOutcome(status).kind !== 'owed') return line;
+    done.push(m[1]);
+    return `${line.slice(0, cut)} · ${wanted.get(m[1])}${tag ? ` ${tag[0].trim()}` : ''}`;
+  });
+  if (done.length) writeFileSync(ledgerPath, out.join('\n'));
+  return [...new Set(done)];
+}
+
+/** A yes: item n is paid with the commit that landed it. Returns true when it was owed. */
+export const payProposal = (ledgerPath, n, commit, { at } = {}) => settleProposals(ledgerPath, [{ n, status: paidStatus(commit, at) }]).length > 0;
+/** A no: item n is declined with Loudon's one-line reason. Returns true when it was owed. */
+export const declineProposal = (ledgerPath, n, reason, { at } = {}) => settleProposals(ledgerPath, [{ n, status: declinedStatus(reason, at) }]).length > 0;
+
+/**
+ * What a steward's next run reads back from its ledger's proposals: `pending`,
+ * every proposal still owed (a superseded one is not, so the newer one stands
+ * alone), and `settled`, each paid or declined one settled after `since` (the
+ * steward's last run; every one when it has not run), shown once and then no
+ * more. A settlement with no time on it counts from the start of its day.
+ */
+export function proposalsForRun(ledgerText, { since = null } = {}) {
+  const all = parseProposals(ledgerText);
+  const from = since ? Date.parse(since) : NaN;
+  const when = (at) => (at ? Date.parse(at.includes(' ') ? at.replace(' ', 'T') : `${at}T00:00`) : NaN);
+  return {
+    pending: all.filter((p) => p.owed),
+    settled: all.filter((p) => !p.owed && (p.outcome.kind === 'paid' || p.outcome.kind === 'declined')
+      && (Number.isNaN(from) || (!Number.isNaN(when(p.outcome.at)) && when(p.outcome.at) > from))),
+  };
+}
+
+/**
+ * The seam the canon review plugs into: every steward's proposals for canon
+ * still owed, across the palace, oldest first — [{ steward, ledger, page, path,
+ * exists, place, why, words, date, n, by, urgent, ask, line }], enough to group
+ * them by target page. A steward here is the page whose tuning ledger holds
+ * the item; only a steward cycle files these. Read-only: the review settles
+ * an item with payProposal or declineProposal on the ledger it names.
+ */
+export function listOwedProposals(palaceRoot) {
+  const out = [];
+  for (const { title, tuning } of listTuningLedgers(palaceRoot)) {
+    let text = '';
+    try { text = readFileSync(join(palaceRoot, tuning), 'utf8'); } catch { continue; }
+    for (const p of parseProposals(text)) {
+      if (!p.owed) continue;
+      const { owed, status, outcome, target, end, ...rest } = p;
+      out.push({ steward: title, ledger: tuning, ...rest });
+    }
+  }
+  const num = (n) => parseInt(n, 10) || 0;
+  return out.sort((a, b) => a.date.localeCompare(b.date) || a.steward.localeCompare(b.steward) || num(a.n) - num(b.n));
 }
 
 // ── Growing a steward's ledger ──────────────────────────────────────────────
 
 /**
  * The tuning ledger the orchestrator grows on a stewarded page the first time
- * a cycle offers a lesson (Loudon, 2026-10-16). A left-rough note never grows
- * one; those stay on the trail, where the scroll's Now lists the ones that
- * recur. Standard frontmatter (§6, §8); no `standards` value says owed,
- * because the tail read's grep would find it.
+ * a cycle offers a lesson (Loudon, 2026-10-16) or proposes a canon edit
+ * (2026-10-18). A left-rough note never grows one; those stay on the trail,
+ * where the scroll's Now lists the ones that recur. Standard frontmatter (§6,
+ * §8); no `standards` value and no line of the body says owed, because the
+ * tail read's grep would find it.
  */
 export function stewardLedgerText(home, date) {
   const q = (s) => JSON.stringify(s);
@@ -304,14 +562,14 @@ export function stewardLedgerText(home, date) {
     `  - target: ${q(`[[${home}]]`)}`,
     '    type: connects-to',
     '    label: tuning-for',
-    `forward_vector: ${q(`I am ${home}'s record of what its steward's cycles taught it: a line for every cycle, and a numbered item when a cycle taught something the next one should carry.`)}`,
+    `forward_vector: ${q(`I am ${home}'s record of what its steward's cycles taught it: a line for every cycle, a numbered item when a cycle taught something the next one should carry, and one for each change to the house its steward proposed, kept here until Loudon's review.`)}`,
     'ledger: tuning',
     'standards:',
     `  for: ${q(`what each steward cycle taught ${home} about how it works`)}`,
     '  run: "one steward cycle"',
-    '  line: "- run · <date> · cycle <N> · nothing new | taught item N"',
+    '  line: "- run · <date> · cycle <N> · nothing new | taught item N | proposed item N for canon"',
     '  read: "the last 40 lines with run lines set aside, plus every line not yet paid, at the start of a cycle"',
-    '  writes: "the steward cycle (process-cycle.js), in the cycle\'s commit; a lesson the steward offers is filed straight in as an item tagged as its offer"',
+    '  writes: "the steward cycle (process-cycle.js), in the cycle\'s commit; a lesson the steward offers is filed straight in as an item tagged as its offer, and a canon edit it proposes as an item tagged as its proposal, which the page does not take in until Loudon\'s review"',
     '  merge: union',
     '  kept: git',
     '  trim: never',
@@ -319,7 +577,7 @@ export function stewardLedgerText(home, date) {
     '',
     `# ${home} — tuning`,
     '',
-    `What ${home}'s steward cycles taught the page. The orchestrator grew this ledger on ${date}, when a cycle first offered a lesson, and writes every line in it. What a cycle leaves rough stays on the scroll's trail, and the scroll's Now lists what keeps recurring.`,
+    `What ${home}'s steward cycles taught the page, and the changes to the house its steward proposed. The orchestrator grew this ledger on ${date}, when a cycle first offered a lesson or proposed a change, and writes every line in it. A proposal waits here for Loudon's review; the page takes it in only on his yes. What a cycle leaves rough stays on the scroll's trail, and the scroll's Now lists what keeps recurring.`,
     '',
   ].join('\n');
 }
@@ -501,7 +759,13 @@ export function readTuningState(palaceRoot, home) {
     runs,
     runs_since: version ? runs.filter((r) => r.version === version) : [],
     last_run: runs[0] || null,
-    owed: parseOwed(ledger),
+    // A proposal for canon is owed to Loudon's review, not to the next run, so
+    // it is listed apart (parseProposals) and not among the run's owed items.
+    ...(() => {
+      const proposed = parseProposals(ledger).filter((p) => p.owed);
+      const isProposal = new Set(proposed.map((p) => p.n));
+      return { owed: parseOwed(ledger).filter((o) => !isProposal.has(o.n)), proposed };
+    })(),
     orders: parseOrders(ledger),
     latest: parseLatestLesson(ledger),
   };

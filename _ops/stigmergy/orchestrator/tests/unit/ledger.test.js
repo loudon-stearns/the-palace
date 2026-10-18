@@ -7,6 +7,8 @@ import {
   normVersion, parseOwed, parseLatestLesson, nextItemNumber, tailRead, recordRun, lastRunDate,
   bodyLead, ledgerBody, readStandards, isPrivateLedger, lastEncounter, readDiaryState, readTuningState,
   listTuningLedgers, localDate, growTuningLedger, stewardLedgerText,
+  proposalLines, parseProposals, listOwedProposals, PROPOSAL_OWED, MAX_PROPOSAL_LINES,
+  settleProposals, payProposal, declineProposal, proposalOutcome, proposalsForRun, paidStatus, declinedStatus, settleStamp,
 } from '../../src/ledger.js';
 
 describe('run lines', () => {
@@ -122,9 +124,9 @@ describe('orders from Loudon', () => {
 
     test('recordRun writes the run line, and a lesson as a numbered item the line names', () => {
       const p = ledger('---\ntitle: "X — tuning"\nledger: tuning\nstandards:\n  for: what X learns\n---\n\n# X — tuning\n\n## From the first run — 2026-09-01\n\n1. **A lesson.**\n4a. **A sub-item.**\n- run · 2026-09-01 · first · taught item 1\n');
-      expect(recordRun(p, { date: '2026-10-15', what: 'cycle 37' })).toEqual({ line: '- run · 2026-10-15 · cycle 37 · nothing new', items: [] });
+      expect(recordRun(p, { date: '2026-10-15', what: 'cycle 37' })).toEqual({ line: '- run · 2026-10-15 · cycle 37 · nothing new', items: [], proposed: [], filed: [], skipped: [], superseded: [] });
       const r = recordRun(p, { date: '2026-10-15', version: '1.0', what: 'cycle 38', lessons: ['Velocity layers thin; widen the pool.', '  '], by: 'offered by the steward, cycle 38' });
-      expect(r).toEqual({ line: '- run · 2026-10-15 · v1.0 · cycle 38 · taught item 5', items: [5] });
+      expect(r).toEqual({ line: '- run · 2026-10-15 · v1.0 · cycle 38 · taught item 5', items: [5], proposed: [], filed: [], skipped: [], superseded: [] });
       const text = readFileSync(p, 'utf8');
       expect(text.endsWith([
         '- run · 2026-10-15 · cycle 37 · nothing new',
@@ -282,5 +284,195 @@ describe("growing a steward's ledger", () => {
     expect(readFileSync(p, 'utf8')).toBe('kept');
     expect(growTuningLedger(root, 'Nobody', { date: '2026-10-17' })).toBe(null);
     expect(stewardLedgerText('Foo', '2026-10-16')).toContain('title: "Foo — tuning"');
+  });
+});
+
+// No steward edits the house (Loudon, 2026-10-18): what it wants there is filed
+// in its tuning ledger as a numbered item owed until Loudon's review, and the
+// review reads every steward's owed proposals through listOwedProposals.
+describe('proposals for canon', () => {
+  let root;
+  afterEach(() => { if (root) rmSync(root, { recursive: true, force: true }); root = null; });
+
+  const STAGE = { page: 'Foo', path: 'Foo.md', entry: true, exists: true, place: 'frontmatter', words: 'stage: sprout', why: 'two runs proved it alive' };
+  const NEW = { page: 'Foo Staircase', path: null, entry: false, exists: false, place: '', words: 'A staircase.\n\nYou can play it.', why: 'a page of its own' };
+
+  test('an item is a numbered head, indented why and path, and the words as a quote', () => {
+    expect(proposalLines(7, { ...STAGE, date: '2026-10-18', by: 'proposed by the steward, cycle 3' })).toEqual([
+      `7. **Proposed for canon** · 2026-10-18 · [[Foo]] · frontmatter · ${PROPOSAL_OWED} *(proposed by the steward, cycle 3)*`,
+      '   Why: two runs proved it alive',
+      '   Path: `Foo.md`',
+      '   > stage: sprout',
+    ]);
+    expect(proposalLines(12, { ...NEW, date: '2026-10-18' })).toEqual([
+      `12. **Proposed for canon** · 2026-10-18 · [[Foo Staircase]] · — · ${PROPOSAL_OWED}`,
+      '    Why: a page of its own',
+      '    Path: none yet (a new page)',
+      '    > A staircase.',
+      '    >',
+      '    > You can play it.',
+    ]);
+    const readme = proposalLines(3, { page: '_ops/x/README.md', path: '_ops/x/README.md', entry: false, exists: true, place: '§ A · B', words: 'w', why: 'a · b', date: '2026-10-18' });
+    expect(readme[0]).toBe(`3. **Proposed for canon** · 2026-10-18 · \`_ops/x/README.md\` · § A, B · ${PROPOSAL_OWED}`);
+    expect(readme[1]).toBe('   Why: a, b');
+  });
+
+  test('words past the cap are cut, and the item says where the rest is', () => {
+    const long = Array.from({ length: MAX_PROPOSAL_LINES + 3 }, (_, i) => `line ${i + 1}`).join('\n');
+    const lines = proposalLines(1, { ...STAGE, words: long, date: '2026-10-18' });
+    expect(lines.filter((l) => l.startsWith('   >'))).toHaveLength(MAX_PROPOSAL_LINES);
+    expect(lines[lines.length - 1]).toBe("   Cut here, 3 more lines: the whole text is in the cycle's post on the board.");
+  });
+
+  test('recordRun files lessons then proposals in one group, names both, and never files an owed one twice', () => {
+    root = mkdtempSync(path.join(tmpdir(), 'ledger-prop-'));
+    const p = path.join(root, 'Foo — tuning.md');
+    writeFileSync(p, '# Foo — tuning\n\n1. An old lesson.\n');
+    const r = recordRun(p, { date: '2026-10-18', what: 'cycle 3', lessons: ['a lesson'], by: 'offered by the steward, cycle 3', proposals: [STAGE, NEW], proposedBy: 'proposed by the steward, cycle 3' });
+    expect(r).toMatchObject({ items: [2], proposed: [3, 4], skipped: [] });
+    expect(r.filed.map((f) => [f.page, f.item])).toEqual([['Foo', 3], ['Foo Staircase', 4]]);
+    expect(r.line).toBe('- run · 2026-10-18 · cycle 3 · taught item 2, proposed items 3, 4 for canon');
+    const again = recordRun(p, { date: '2026-10-19', what: 'cycle 4', proposals: [STAGE, { ...STAGE, words: 'stage: growing' }], proposedBy: 'proposed by the steward, cycle 4' });
+    expect(again).toMatchObject({ proposed: [5], skipped: [STAGE] });
+    expect(again.line).toBe('- run · 2026-10-19 · cycle 4 · proposed item 5 for canon');
+    const text = readFileSync(p, 'utf8');
+    expect(nextItemNumber(text)).toBe(6);
+    expect(parseOwed(text).map((o) => o.n)).toEqual(['3', '4', '5']);
+    expect(parseRuns(text).map((x) => x.outcome)).toEqual(['taught item 2, proposed items 3, 4 for canon', 'proposed item 5 for canon']);
+  });
+
+  test('parseProposals reads every field back, and a settled one stops being owed, even beside its stale owed twin', () => {
+    const text = [
+      '---', 'title: "Foo — tuning"', '---', '# Foo — tuning', '',
+      ...proposalLines(1, { ...STAGE, date: '2026-10-18', by: 'proposed by the steward, cycle 3' }),
+      ...proposalLines(2, { ...NEW, date: '2026-10-18' }),
+      '2. **Proposed for canon** · 2026-10-18 · [[Foo Staircase]] · — · taken into canon 2026-10-25 (abc1234)',
+      '    Why: a page of its own',
+      '    Path: none yet (a new page)',
+      '    > A staircase.',
+      '    >',
+      '    > You can play it.',
+      '- run · 2026-10-18 · cycle 3 · proposed items 1, 2 for canon', '',
+    ].join('\n');
+    const all = parseProposals(text);
+    expect(all.map((x) => [x.n, x.page, x.owed])).toEqual([['1', 'Foo', true], ['2', 'Foo Staircase', false], ['2', 'Foo Staircase', false]]);
+    expect(all[0]).toMatchObject({ date: '2026-10-18', target: '[[Foo]]', path: 'Foo.md', exists: true, place: 'frontmatter', status: PROPOSAL_OWED, by: 'proposed by the steward, cycle 3', why: 'two runs proved it alive', words: 'stage: sprout', line: 6, end: 9 });
+    expect(all[1]).toMatchObject({ path: null, exists: false, place: '', words: 'A staircase.\n\nYou can play it.' });
+    expect(all[2].status).toBe('taken into canon 2026-10-25 (abc1234)');
+  });
+
+  test("readTuningState lists owed proposals apart from the run's owed items", () => {
+    root = mkdtempSync(path.join(tmpdir(), 'ledger-prop-'));
+    writeFileSync(path.join(root, 'Foo.md'), '---\ntitle: Foo\n---\n# Foo');
+    const p = growTuningLedger(root, 'Foo', { date: '2026-10-18' });
+    appendLedgerLine(p, '1. **A trap.** Owed: the glide needs a slower attack.');
+    recordRun(p, { date: '2026-10-18', what: 'cycle 3', proposals: [STAGE], proposedBy: 'proposed by the steward, cycle 3' });
+    const st = readTuningState(root, 'Foo');
+    expect(st.owed.map((o) => o.n)).toEqual(['1']);
+    expect(st.proposed.map((o) => [o.n, o.page])).toEqual([['2', 'Foo']]);
+  });
+
+  test("listOwedProposals is every steward's owed proposals across the palace, oldest first", () => {
+    root = mkdtempSync(path.join(tmpdir(), 'ledger-seam-'));
+    mkdirSync(path.join(root, 'Projects/Shep'), { recursive: true });
+    mkdirSync(path.join(root, 'Shop/Shopkeeper'), { recursive: true });
+    writeFileSync(path.join(root, 'Projects/Shep/Shep — tuning.md'), [
+      '# Shep — tuning', '',
+      ...proposalLines(4, { page: 'Shep', path: 'Projects/Shep.md', entry: true, exists: true, place: '§ Now', words: 'w', why: 'the illusion holds', date: '2026-10-20', by: 'proposed by the steward, cycle 9' }),
+      '5. **Proposed for canon** · 2026-10-17 · [[Shep]] · — · declined 2026-10-21', '   Why: old', '   > x', '',
+    ].join('\n'));
+    writeFileSync(path.join(root, 'Shop/Shopkeeper/Shopkeeper — tuning.md'), [
+      '# Shopkeeper — tuning', '',
+      ...proposalLines(1, { page: 'OCR Smith', path: null, entry: false, exists: false, place: '', words: 'A new Specialist.', why: 'it cleared the bar', date: '2026-10-19', by: 'proposed by the steward, cycle 4' }),
+      '',
+    ].join('\n'));
+    const owed = listOwedProposals(root);
+    expect(owed.map((o) => [o.steward, o.page, o.why, o.date])).toEqual([
+      ['Shopkeeper', 'OCR Smith', 'it cleared the bar', '2026-10-19'],
+      ['Shep', 'Shep', 'the illusion holds', '2026-10-20'],
+    ]);
+    expect(owed[0]).toMatchObject({ ledger: 'Shop/Shopkeeper/Shopkeeper — tuning.md', n: '1', path: null, exists: false, words: 'A new Specialist.', by: 'proposed by the steward, cycle 4', line: 3 });
+    expect(owed[1]).toMatchObject({ ledger: 'Projects/Shep/Shep — tuning.md', path: 'Projects/Shep.md', place: '§ Now' });
+    expect(listOwedProposals(path.join(root, 'nowhere'))).toEqual([]);
+  });
+});
+
+// Closing the loop (Loudon's review design, 2026-10-18): a yes pays a proposal
+// with the commit that landed it, a no declines it with his one-line reason,
+// a steward's newer proposal supersedes the one it replaces, and the steward
+// reads a yes or a no back once.
+describe('settling proposals', () => {
+  let root;
+  afterEach(() => { if (root) rmSync(root, { recursive: true, force: true }); root = null; });
+
+  const STAGE = { page: 'Foo', path: 'Foo.md', entry: true, exists: true, place: 'frontmatter', words: 'stage: sprout', why: 'two runs proved it alive' };
+  const GOTCHA = { page: 'Foo', path: 'Foo.md', entry: true, exists: true, place: '§ Gotchas', words: 'Keep the attack slow.', why: 'it clicks', urgent: true, ask: 'foo-msg-urgent-1' };
+  const AT = new Date(2026, 9, 25, 15, 2);
+  const ledger = () => {
+    root = mkdtempSync(path.join(tmpdir(), 'ledger-settle-'));
+    const p = path.join(root, 'Foo — tuning.md');
+    writeFileSync(p, '# Foo — tuning\n\n');
+    recordRun(p, { date: '2026-10-18', what: 'cycle 3', proposals: [STAGE, GOTCHA], proposedBy: 'proposed by the steward, cycle 3' });
+    return p;
+  };
+
+  test('the statuses say what became of it, and read back', () => {
+    expect(settleStamp(AT)).toBe('2026-10-25 15:02');
+    expect(paidStatus('abc1234def', AT)).toBe('paid in abc1234def on 2026-10-25 15:02');
+    expect(declinedStatus('the Now zone · is regenerated', AT)).toBe('declined on 2026-10-25 15:02: the Now zone, is regenerated');
+    expect(proposalOutcome('paid in abc1234 on 2026-10-25 15:02')).toMatchObject({ kind: 'paid', commit: 'abc1234', at: '2026-10-25 15:02' });
+    expect(proposalOutcome('declined on 2026-10-25 15:02: not its job')).toMatchObject({ kind: 'declined', reason: 'not its job', at: '2026-10-25 15:02' });
+    expect(proposalOutcome('superseded by item 7')).toMatchObject({ kind: 'superseded', by: '7' });
+    expect(proposalOutcome(PROPOSAL_OWED)).toMatchObject({ kind: 'owed' });
+  });
+
+  test('an urgent proposal carries its ask in the tag, and the seam returns it', () => {
+    const p = ledger();
+    const text = readFileSync(p, 'utf8');
+    expect(text).toContain(`2. **Proposed for canon** · 2026-10-18 · [[Foo]] · § Gotchas · ${PROPOSAL_OWED} *(proposed by the steward, cycle 3; urgent, asked as foo-msg-urgent-1)*`);
+    expect(parseProposals(text).map((x) => [x.n, x.urgent, x.ask, x.by])).toEqual([['1', false, '', 'proposed by the steward, cycle 3'], ['2', true, 'foo-msg-urgent-1', 'proposed by the steward, cycle 3']]);
+    mkdirSync(path.join(root, 'Foo'));
+    writeFileSync(path.join(root, 'Foo', 'Foo — tuning.md'), text);
+    expect(listOwedProposals(root).map((o) => [o.steward, o.n, o.urgent, o.words])).toEqual([['Foo', '1', false, 'stage: sprout'], ['Foo', '2', true, 'Keep the attack slow.']]);
+  });
+
+  test('a yes pays it with the commit, a no declines it with the reason; each keeps its tag and is no longer owed', () => {
+    const p = ledger();
+    expect(payProposal(p, 1, 'abc1234', { at: AT })).toBe(true);
+    expect(declineProposal(p, '2', 'already in the gotchas', { at: AT })).toBe(true);
+    expect(payProposal(p, 1, 'fff0000', { at: AT })).toBe(false); // already settled
+    expect(settleProposals(p, [{ n: 9, status: 'x' }])).toEqual([]);
+    const text = readFileSync(p, 'utf8');
+    expect(text).toContain('1. **Proposed for canon** · 2026-10-18 · [[Foo]] · frontmatter · paid in abc1234 on 2026-10-25 15:02 *(proposed by the steward, cycle 3)*');
+    expect(text).toContain('2. **Proposed for canon** · 2026-10-18 · [[Foo]] · § Gotchas · declined on 2026-10-25 15:02: already in the gotchas *(proposed by the steward, cycle 3; urgent, asked as foo-msg-urgent-1)*');
+    expect(parseOwed(text)).toEqual([]);
+    expect(tailRead(text).owed).toEqual([]);
+    expect(parseProposals(text).map((x) => [x.n, x.owed, x.outcome.kind])).toEqual([['1', false, 'paid'], ['2', false, 'declined']]);
+  });
+
+  test('the next run reads a yes or a no once: only what was settled after its last run', () => {
+    const p = ledger();
+    payProposal(p, 1, 'abc1234', { at: AT });
+    declineProposal(p, 2, 'already said', { at: new Date(2026, 9, 20, 9, 0) });
+    const text = readFileSync(p, 'utf8');
+    expect(proposalsForRun(text, { since: '2026-10-22T06:00:00-04:00' }).settled.map((x) => x.n)).toEqual(['1']);
+    expect(proposalsForRun(text, { since: '2026-10-26T06:00:00-04:00' }).settled).toEqual([]);
+    expect(proposalsForRun(text, { since: null }).settled.map((x) => x.n)).toEqual(['1', '2']);
+    expect(proposalsForRun(text, { since: null }).pending).toEqual([]);
+  });
+
+  test('a proposal that replaces an owed one supersedes it: latest wins', () => {
+    const p = ledger();
+    const r = recordRun(p, { date: '2026-10-19', what: 'cycle 4', proposals: [{ ...STAGE, words: 'stage: growing', replaces: ['1', '7'] }], proposedBy: 'proposed by the steward, cycle 4' });
+    expect(r.proposed).toEqual([3]);
+    expect(r.superseded).toEqual([{ n: '1', by: 3 }]);
+    const text = readFileSync(p, 'utf8');
+    expect(text).toContain('1. **Proposed for canon** · 2026-10-18 · [[Foo]] · frontmatter · superseded by item 3 *(proposed by the steward, cycle 3)*');
+    expect(proposalsForRun(text).pending.map((x) => [x.n, x.words])).toEqual([['2', 'Keep the attack slow.'], ['3', 'stage: growing']]);
+    // A proposal re-made after a no is filed again, not taken for the declined one's twin.
+    declineProposal(p, 3, 'not yet', { at: AT });
+    const again = recordRun(p, { date: '2026-10-27', what: 'cycle 5', proposals: [{ ...STAGE, words: 'stage: growing' }], proposedBy: 'proposed by the steward, cycle 5' });
+    expect(again.proposed).toEqual([4]);
+    expect(proposalsForRun(readFileSync(p, 'utf8')).pending.map((x) => x.n)).toEqual(['2', '4']);
   });
 });
