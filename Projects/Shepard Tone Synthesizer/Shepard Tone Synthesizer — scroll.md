@@ -15,24 +15,30 @@ forward_vector: "I am Shepard Tone Synthesizer's scroll — the one page that al
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-18T10:00:06.624Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-18T10:08:04.486Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 10 · last ran 2026-10-18 (today)
-- **Plan:** agreed 2026-09-26 (22 days ago) · 1 made thing since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 11 · last ran 2026-10-18 (today)
+- **Plan:** agreed 2026-09-26 (22 days ago) · 2 made things since
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-18 (today) — The glide is built and measured. With one shared glide the octaves agree to 0.0 cents; give each voice its own and they split by 32 to 1006 cents. (`shepard-steward-026`)
-- **Last commit touching this project:** 2026-10-16 `929de8c5` — edit(Standing Orders): five scrolls whose Plans lead into Max carry Loudon's pause at the top of their orders
+- **Last shipped:** 2026-10-18 (today) — The timbre layer is built and measured. Overtones keep the illusion if each filter follows its voice and the window sits on the voice, not the sum. (`shepard-steward-028`)
+- **Last commit touching this project:** 2026-10-18 `212c2005` — steward(Shepard Tone Synthesizer): cycle 10 — SPINNING UP — cycle 10
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-18 — cycle 10 · taught item 1
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-18 — cycle 11 · taught item 2
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 1, from cycle 10 — 2026-10-18 — [[Shepard Tone Synthesizer — tuning]]
+- **Latest lesson:** item 2, from cycle 11 — 2026-10-18 — [[Shepard Tone Synthesizer — tuning]]
 
 ### Where this stands
 
-The Shepard Tone Synthesizer is a teaching instrument that reveals the endless-staircase illusion one layer at a time, after Escher's impossible staircase. The first two layers are done: a still drone that the ear hears as one note across seven octaves, and a stepping climb with the seam deliberately shown. In June you chose the glide as the next layer: every octave slides together, so the pitch moves smoothly instead of in steps. The question is why the octaves must move as one. Six glide renders from September were never posted. This cycle measured that question directly, built a version you can play in the browser, wrote the matching theory section on my page, and wrote down what the Gen…
+The Shepard Tone Synthesizer is a teaching instrument that shows Escher's endless staircase in sound, one layer at a time. Three layers are done and measured: a still drone the ear hears as one note across seven octaves, a stepping climb that shows its seam, and the glide, where every octave slides together because they all share one pitch path. The plan's next layer was the timbre: give each voice overtones and its own tone filter that follows its octave, and hear what that does to the illusion. Max work is paused, so this cycle built that layer in Python and in the browser. Six renders, a figure, and an instrument you can play in the browser are in the bundle. There's a matching theory se…
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 10:** Nobody has listened yet: the thump and flutter are measured from numbers, not heard. _(in 2 notes, the latest cycle 11)_
 
 ### Open asks
 
@@ -49,6 +55,7 @@ _None._
 
 ### Runs
 
+- 2026-10-18 — cycle 11 · taught item 2
 - 2026-10-18 — cycle 10 · taught item 1
 
 ### Owed
@@ -87,6 +94,50 @@ Decided with Loudon when the Loudon Live arc was designed (April 2026), and seed
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="shepard-steward-028" -->
+### 2026-10-18 — cycle 11 — The timbre layer is built and measured. Overtones keep the illusion if each filter follows its voice and the window sits on the voice, not the sum.
+> shipped · timbre layer proven in Python and browser · steward leans tuning next, in Python
+
+Each voice is now a sawtooth through its own tone filter. Every clip is the same endless climb at 2 semitones a second, and only the wiring changes. A filter set four times above each voice's pitch keeps 92 % of the energy on the played note. At sixteen times it is 84 %, plus 9 % on the fifth, which the ear takes as color because every voice adds the same fifth. There are two ways to break it. If the filter follows the played note instead of each voice ([D](open:Projects/Shepard Tone Synthesizer/proofs/2026-10-18-stage4-D-tracks-note.wav)), the pitch stays seamless but the brightness drops about 0.2 octave once per octave: the seam comes back in the tone. If the loudness window sits on the summed audio, as my architecture section drew it ([E](open:Projects/Shepard Tone Synthesizer/proofs/2026-10-18-stage4-E-sum-window-11.wav)), voices far below hearing get in through their overtones. The wrapping voice arrives at −30 dB instead of −134, and voices under 20 Hz flutter. Widening the stack to 15 voices ([F](open:Projects/Shepard Tone Synthesizer/proofs/2026-10-18-stage4-F-sum-window-15.wav)) pushes the thump down to −64 dB, but the flutter stays. With sine waves those two wirings were identical, which is why Stages 1 to 3 never caught it. I've corrected the architecture section on my page. Try it in [the browser instrument](open:Projects/Shepard Tone Synthesizer/session-4-interactive.html). Its spectra match the Python renders: 1.0000 on A and D, 0.9975 at worst on E.
+
+**Artifacts:**
+- [the browser instrument: switch the filter tracking and the window placement while the climb runs](Projects/Shepard Tone Synthesizer/session-4-interactive.html)
+- [every overtone of the six climbs; the tone seam in D and the wrap thumps in E show as vertical edges](Projects/Shepard Tone Synthesizer/proofs/2026-10-18-stage4-timbre.png)
+- [A · the build that works: filter ×4 on each voice, window on each voice](Projects/Shepard Tone Synthesizer/proofs/2026-10-18-stage4-A-ratio4.wav)
+- [B · brighter, ×16: the fifth grows to 9 % but the note holds](Projects/Shepard Tone Synthesizer/proofs/2026-10-18-stage4-B-ratio16.wav)
+- [C · filter 1000 Hz above each voice, the page's old example: fine](Projects/Shepard Tone Synthesizer/proofs/2026-10-18-stage4-C-offset1000.wav)
+- [D · filter follows the played note: brightness steps once an octave](Projects/Shepard Tone Synthesizer/proofs/2026-10-18-stage4-D-tracks-note.wav)
+- [E · window on the sum: −30 dB thump at each wrap, flutter underneath](Projects/Shepard Tone Synthesizer/proofs/2026-10-18-stage4-E-sum-window-11.wav)
+- [F · window on the sum, stack widened: the thump drops to −64 dB, the flutter stays](Projects/Shepard Tone Synthesizer/proofs/2026-10-18-stage4-F-sum-window-15.wav)
+- [the proof: renders and measures all six](Projects/Shepard Tone Synthesizer/proofs/stage4_timbre_proof.py)
+- [every measured number, per clip](Projects/Shepard Tone Synthesizer/proofs/2026-10-18-stage4-manifest.json)
+
+_Endless climb, 2 st/s, 32 overtones per voice · measured from the partial table, plus loudness flutter from the audio_
+| clip | wiring | energy on the note | fifth | brightness step | wrap arrives at | from voices < 20 Hz |
+| --- | --- | --- | --- | --- | --- | --- |
+| A | filter ×4 on each voice, window on each voice | 92 % | 7 % | 0.000 oct | −134 dB | 0 % |
+| B | filter ×16, window on each voice | 84 % | 9 % | 0.000 oct | −134 dB | 0 % |
+| C | filter +1000 Hz above each voice | 91 % | 7 % | 0.000 oct | −133 dB | 0 % |
+| D | filter follows the played note | 90 % | 7 % | 0.195 oct | −133 dB | 0 % |
+| E | window on the sum, 11 voices | 84 % | 9 % | 0.001 oct | −30 dB | 1.8 % |
+| F | window on the sum, 15 voices | 84 % | 9 % | 0.000 oct | −64 dB | 1.9 % |
+
+_Changed the page:_ Shepard Tone Synthesizer — Added Theory § Stage 4 (the timbre: the filter follows the voice, the window sits on the voice), a measured correction under Global Shepard Filter, and marked Design Challenge 3 answered.
+_Changed the page:_ Shepard Tone Synthesizer — spec — the timbre build — New bundle spec: the two wiring rules, signal flow, parameters, the measured table, and the checks a gen~ timbre layer must pass, written down while Max is paused.
+
+_Left rough:_ Nobody has listened yet: the thump and flutter are measured from numbers, not heard. The proof's filter is a magnitude model with no phase or resonance, and the browser instrument was checked in Node, not played in a browser.
+
+_Next moves named:_ Carry the tuning half of the portal (the last layer on the plan: plugin export, then tunings outside equal temperament) in Python while Max is paused. Stretch the octave as a piano does, and measure where the Stage 2 seam stops being free. · When the Max pause lifts, build the glide and timbre gen~ patch from the two spec files and check it against the A renders. · Listen to D and E against A, and test filter resonance, which is still untested.
+<sub>`shepard-steward-028` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-cf96fbf932" -->
+### 2026-10-18 — cycle 11
+
+taught item 2
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="shepard-steward-026" -->
 ### 2026-10-18 — cycle 10 — The glide is built and measured. With one shared glide the octaves agree to 0.0 cents; give each voice its own and they split by 32 to 1006 cents.
 > shipped · six measured clips, playable browser glide, theory section, Gen~ notes · steward leans the timbre move next

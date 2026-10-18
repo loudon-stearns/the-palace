@@ -113,6 +113,8 @@ As you play ascending pitch classes, the octaves that pass through this filter c
 - **Bandwidth (Q)**: A 2-octave window is typical (about 1.4 × center frequency)
 - **Envelope shape**: Smooth (Gaussian or raised-cosine) to avoid discontinuities as voices cross the filter boundary
 
+*Measured in Stage 4 (2026-10-18):* a filter on the summed audio is only the same as a loudness window on each voice while the voices are sines. Once voices carry overtones, a filter on the sum lets voices far below hearing in through their upper partials. The wrapping voice then arrives as a thump, and the lowest voices flutter. Put the window on each voice, by its fundamental, and keep any filter on the sum for tone color only. See Theory § Stage 4.
+
 ## Portamento in a Polyphonic Shepard
 
 This is a subtle but important design question. The synth has *multiple oscillators* (all octaves), yet the *control* is monophonic (one pitch at a time). How does portamento interact with this?
@@ -146,7 +148,7 @@ It also reinforces an important psychoacoustic insight: the Shepard tone proves 
 
 2. **Discontinuities at octave boundaries**: When a voice crosses the Shepard filter boundary (fading in or out), there can be audible artifacts if the crossfade isn't smooth. The amplitude envelope must be continuous in log-frequency space.
 
-3. **Per-voice filter tracking**: How should the per-voice filters behave at extreme octaves? At very low octaves, a key-tracked filter might go subsonic. At very high octaves, it might be above audible range. Should there be limits or saturation?
+3. **Per-voice filter tracking**: How should the per-voice filters behave at extreme octaves? At very low octaves, a key-tracked filter might go subsonic. At very high octaves, it might be above audible range. Should there be limits or saturation? *Answered by Stage 4 (2026-10-18):* no limits are needed for the illusion, as long as the window sits on each voice. The extreme voices are already 100 dB down when their filters go out of range. What does matter is that each voice's filter follows that voice's own octave, not the played note. See Theory § Stage 4.
 
 4. **Portamento timing across octaves**: With a large octave stack (C1 through C8), do all octaves arrive at the target pitch simultaneously, or does the glide duration feel slightly different for lower vs. higher voices? *Answered by Stage 3 (2026-10-18):* they arrive together when one glide runs on pitch before the stack. A separate glide per voice, or a fixed Hz-per-second slew per voice, fans the stack out. See Theory § Stage 3.
 
@@ -215,6 +217,23 @@ The glide also showed something I didn't expect. On an endless climb the drift n
 > (how far voice k sits off its octave, in cents) ≈ (climb speed in semitones per second) × (voice k's glide time − the shared glide time) × 100
 
 At 2 semitones a second, ±30 % drift leaves the audible voices about 16 cents apart, measured and predicted alike. This is the Escher point made exact. The staircase is endless only because every step is one step. If the steps disagree about where they are, the eye finds the trick. That answers Design Challenge 4 above: all the octaves arrive together exactly when they share a single path.
+
+### Stage 4 — The Timbre, and Where the Window Lives
+
+Pair with Stage 4 above (the timbre, playable at `Projects/Shepard Tone Synthesizer/session-4-interactive.html`, measured in `proofs/stage4_timbre_proof.py`).
+
+Stages 1 to 3 used sine waves, so every voice was a single partial. Stage 4 gives each voice overtones: a sawtooth through its own tone filter. Now the ear hears partials that aren't octaves of the played note. The third overtone of every voice is a fifth above it. So the question becomes: what does octave equivalence still hold together, and what does the wiring have to respect?
+
+The first answer is that the fifth is color, not a second note. With the filter set four times above each voice's pitch, 92 % of the energy lands on the played pitch class in some octave, and 7 % on its fifth. Open the filter to sixteen times and it is 84 % and 9 %. The note blurs but holds. Every voice adds the same fifth, the way every voice of a real instrument does, and the ear files it as timbre.
+
+The second answer is that **the filter must follow the voice.** When the cutoff is a fixed multiple of each voice's own pitch, every voice has exactly the same shape of tone. One octave of climb then turns each voice into its upper neighbour, and the sound is unchanged:
+
+> L(h · f_k ; r · f_k) = 1 / √(1 + (h / r)⁴)
+> (tone filter at overtone h of voice k) = 1 ÷ √(1 + (overtone number ÷ ratio)⁴), the same for every voice at every pitch
+
+Wire the key tracking from the played note instead, one signal shared by every voice, and the cutoff folds back an octave each time the note does while the voices keep climbing. The pitch stays seamless, but the brightness drops by a fifth of an octave in an instant, once per octave. The seam Stage 2 showed was free comes back, in the tone. A fixed offset (cutoff 1000 Hz above each voice) is fine. Low voices get many overtones and high ones few, but the change tracks the voice, so it repeats every octave without a jump.
+
+The third answer is the one that corrects my own architecture: **the window belongs on the voice, not on the sum.** With sines, a bright filter on the summed audio and a loudness window on each voice are the same thing. With overtones they aren't. A filter on the sum weighs each overtone by where it lands, so a voice that has just wrapped down eleven octaves, to 6 Hz, gets in through its 32nd overtone. Measured with the filter at sixteen times: the wrapping voice arrives at −30 dB, against −134 dB with the window on the voice, and voices under 20 Hz carry 2 % of the sound and make it flutter. Widening the stack by four octaves (log₂ 32 − 1, how far the overtones reach) brings the arrival down to −64 dB, but the flutter stays. The Escher point again, from a new side: the staircase is endless only while every step is the same shape. A voice is a step, and its overtones belong to it. If the window weighs each overtone separately, part of the step comes in early, and you hear it.
 
 ### Where the Theory Still Has an Edge
 

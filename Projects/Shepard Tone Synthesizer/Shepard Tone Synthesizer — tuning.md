@@ -26,3 +26,8 @@ What Shepard Tone Synthesizer's steward cycles taught the page. The orchestrator
 
 1. Measure fusion while the stack is moving, not only when it arrives: a lag on a continuous climb is permanent, so per-voice timing differences turn into a fixed mistuning of rate × Δτ, not just a smear between notes. *(offered by the steward, cycle 10)*
 - run · 2026-10-18 · cycle 10 · taught item 1
+
+## From cycle 11 — 2026-10-18
+
+2. Every equivalence proven with sine voices needs checking again once voices carry overtones: a filter on the sum and a window on each voice were the same for sines and very different for sawtooths. *(offered by the steward, cycle 11)*
+- run · 2026-10-18 · cycle 11 · taught item 2

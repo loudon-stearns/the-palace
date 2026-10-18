@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shepard Tone Synthesizer · Stage 4 · The Timbre</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --serif: 'Cormorant Garamond', 'Source Serif 4', Georgia, serif;
+  --sans: 'Manrope', system-ui, -apple-system, Helvetica, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  --bg: #0a0a0f; --bg-elev-1: #12121a; --bg-elev-2: #1a1a28; --bg-elev-3: #22222e;
+  --border: #4a4a5e; --border-soft: rgba(255,255,255,0.06);
+  --fg-1: #e8e8f0; --fg-2: #c8c8d8; --fg-3: #8a8aa0;
+  --accent: #e8b84a; --warn: #ff5a5a; --r-sm: 2px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--fg-2); font-family:var(--serif); font-size:19px; line-height:1.75; -webkit-font-smoothing:antialiased; }
+.wrap { max-width:960px; margin:0 auto; padding:40px 24px 120px; }
+header { padding:56px 0 40px; border-bottom:1px solid var(--border-soft); margin-bottom:40px; }
+.eyebrow { font-family:var(--mono); font-size:0.72rem; color:var(--accent); letter-spacing:0.14em; text-transform:uppercase; margin-bottom:14px; }
+h1 { font-family:var(--sans); font-weight:300; font-size:clamp(2rem,5vw,3rem); color:var(--fg-1); letter-spacing:-0.02em; line-height:1.15; margin-bottom:10px; }
+h1 em { font-family:var(--serif); font-style:italic; font-weight:300; color:var(--accent); }
+.lead { font-size:1.15rem; color:var(--fg-2); max-width:44em; }
+section { margin-bottom:44px; }
+h2 { font-family:var(--sans); font-size:0.78rem; font-weight:500; color:var(--accent); letter-spacing:0.14em; text-transform:uppercase; margin-bottom:14px; }
+p { margin-bottom:12px; }
+strong { color:var(--fg-1); font-weight:500; }
+.console { background:var(--bg-elev-1); border:1px solid var(--border-soft); border-radius:var(--r-sm); padding:20px; }
+.views { display:grid; grid-template-columns: 1fr 1.6fr; gap:16px; margin-bottom:16px; }
+canvas { width:100%; display:block; background:var(--bg); border:1px solid var(--border-soft); border-radius:var(--r-sm); }
+.cap { font-family:var(--mono); font-size:0.66rem; color:var(--fg-3); letter-spacing:0.06em; margin-top:6px; }
+.readout { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:16px; font-family:var(--mono); }
+.cell { background:var(--bg-elev-2); border:1px solid var(--border-soft); border-radius:var(--r-sm); padding:8px 10px; }
+.cell .l { color:var(--fg-3); font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; }
+.cell .v { color:var(--fg-1); font-size:1rem; }
+.cell .v.bad { color:var(--warn); }
+.keys { display:grid; grid-template-columns:repeat(12,1fr); gap:4px; margin-bottom:16px; }
+.key { font-family:var(--mono); font-size:0.75rem; padding:12px 0 8px; text-align:center; background:var(--bg-elev-2); color:var(--fg-2); border:1px solid var(--border-soft); border-radius:var(--r-sm); cursor:pointer; user-select:none; }
+.key small { display:block; color:var(--fg-3); font-size:0.6rem; }
+.key.on { border-color:var(--accent); color:var(--accent); }
+.controls { display:grid; grid-template-columns:repeat(2,1fr); gap:12px 24px; font-family:var(--sans); font-size:0.85rem; }
+.ctl label { display:flex; justify-content:space-between; color:var(--fg-2); }
+.ctl label span { font-family:var(--mono); color:var(--fg-1); }
+.ctl input[type=range] { width:100%; accent-color:var(--accent); }
+.ctl .hint { color:var(--fg-3); font-size:0.75rem; }
+.row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+button { font-family:var(--mono); font-size:0.75rem; letter-spacing:0.06em; padding:8px 14px; background:var(--bg-elev-2); color:var(--fg-1); border:1px solid var(--border); border-radius:var(--r-sm); cursor:pointer; }
+button.primary { border-color:var(--accent); color:var(--accent); box-shadow:0 0 18px rgba(232,184,74,0.18); }
+button.on { background:var(--bg-elev-3); border-color:var(--accent); }
+.try li { margin:0 0 10px 1.2em; }
+.eq { background:var(--bg-elev-1); border-left:2px solid var(--accent); padding:12px 16px; margin:12px 0; font-family:var(--mono); font-size:0.82rem; color:var(--fg-1); }
+.eq .w { color:var(--fg-3); margin-top:4px; }
+footer { border-top:1px solid var(--border-soft); padding-top:20px; font-family:var(--sans); font-size:0.8rem; color:var(--fg-3); }
+@media (max-width:760px){ .views{grid-template-columns:1fr;} .controls{grid-template-columns:1fr;} .readout{grid-template-columns:repeat(2,1fr);} }
+.views { grid-template-columns: 1fr; }
+.readout { grid-template-columns:repeat(5,1fr); }
+.legend { font-family:var(--mono); font-size:0.66rem; color:var(--fg-3); margin-top:6px; }
+.legend b { font-weight:500; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">Shepard Tone Synthesizer · Stage 4 · Study</div>
+  <h1>The timbre, and where <em>the window lives</em></h1>
+  <p class="lead">Until now every voice was a sine: one partial each. Here every voice becomes a sawtooth with its own tone filter that follows its own octave. The illusion survives, as long as two things are wired right: the filter follows the voice, not the note, and the bright window weighs each voice, not each overtone.</p>
+</header>
+
+<section id="instrument">
+  <h2>The instrument</h2>
+  <div class="console">
+    <div class="row">
+      <button id="start" class="primary">▸ start sound</button>
+      <button id="endlessUp">endless up</button>
+      <button id="endlessDown">endless down</button>
+      <button id="stop">hold still</button>
+    </div>
+    <div class="readout">
+      <div class="cell"><div class="l">played note</div><div class="v" id="r-pc">C</div></div>
+      <div class="cell"><div class="l">energy on that note</div><div class="v" id="r-pur">–</div></div>
+      <div class="cell"><div class="l">next loudest</div><div class="v" id="r-next">–</div></div>
+      <div class="cell"><div class="l">wrapping voice arrives at</div><div class="v" id="r-seam">–</div></div>
+      <div class="cell"><div class="l">from voices under 20 Hz</div><div class="v" id="r-sub">–</div></div>
+    </div>
+    <div class="views">
+      <div><canvas id="spec" width="1200" height="380"></canvas>
+        <div class="legend">every partial now · left to right = octaves from C4 · height = level (0 to −60 dB) · <b style="color:#e8b84a">gold</b> = the played note, any octave · <b style="color:#6fb6ff">blue</b> = its fifth · grey = everything else · the curve is the window</div></div>
+      <div><canvas id="bright" width="1200" height="200"></canvas>
+        <div class="cap">brightness over the last 8 seconds · a smooth line is a seamless climb; a sudden step is a seam you can hear</div></div>
+    </div>
+    <div class="controls">
+      <div class="ctl"><label>what the tone filter follows</label>
+        <div class="row" style="margin:4px 0 0"><button id="t-ratio" class="on">each voice, × ratio</button><button id="t-offset">each voice, + 1000 Hz</button><button id="t-note">the played note</button></div>
+        <div class="hint">"the played note" is a wiring mistake: one key-tracking signal from before the stack, shared by every voice</div></div>
+      <div class="ctl"><label>brightness (cutoff ÷ the voice's pitch) <span id="v-ratio">× 4</span></label><input id="ratio" type="range" min="1" max="24" step="0.5" value="4"><div class="hint">how many overtones each voice keeps</div></div>
+      <div class="ctl"><label>where the bright window sits</label>
+        <div class="row" style="margin:4px 0 0"><button id="w-voice" class="on">on each voice</button><button id="w-sum">on the summed audio</button></div>
+        <div class="hint">on the sum, the window weighs every overtone by where it lands, so voices far below hearing leak in through theirs</div></div>
+      <div class="ctl"><label>voices in the stack <span id="v-voices">11</span></label><input id="voices" type="range" min="11" max="15" step="2" value="11"><div class="hint">a wider stack puts the wrap further below the window</div></div>
+      <div class="ctl"><label>endless climb rate <span id="v-rate">2.00 st/s</span></label><input id="rate" type="range" min="0.25" max="12" step="0.25" value="2"></div>
+    </div>
+  </div>
+</section>
+
+<section id="try">
+  <h2>Four things to try</h2>
+  <ol class="try">
+    <li><strong>The build that works.</strong> Press endless up with the defaults. Each voice is a sawtooth whose filter sits four times above its own pitch. It sounds like an instrument now, not a test tone, and it still never arrives. Over 90 % of the energy is on the played note in some octave.</li>
+    <li><strong>Turn the brightness up.</strong> Push the ratio toward 16. The tone opens, and the fifth (blue) grows, because the third overtone of every voice is a fifth above it. At 16 the note holds about 84 % and the fifth about 9 %. The note blurs a little but doesn't break: every voice adds the same fifth, so it sounds like color, not a second pitch.</li>
+    <li><strong>Make the wiring mistake.</strong> Switch to "the played note." Now every voice's filter follows one shared signal that folds back once per octave. Watch the brightness line: once an octave it drops by a fifth of an octave in an instant. The pitch is still seamless, but the tone has a seam.</li>
+    <li><strong>Move the window to the sum.</strong> Set the ratio to 16, then put the window on the summed audio, which is how the page first drew it. Voices far below hearing now get in through their overtones. The wrapping voice arrives at about −30 dB, a thump once an octave, and the lowest voices flutter like a motor. Widen the stack to 15: the thump drops to about −64 dB, but the flutter stays. The fix is to put the window back on each voice.</li>
+  </ol>
+</section>
+
+<section id="math">
+  <h2>The math, twice</h2>
+  <div class="eq">a_k,h = (1/h) · L(h·f_k ; r·f_k) · W(x_k)       L(f ; fc) = 1 / √(1 + (f/fc)⁴)
+    <div class="w">(level of overtone h of voice k) = (sawtooth weight 1 ÷ h) × (tone filter at that overtone, cutoff = ratio × voice's pitch) × (window at the voice's octave)</div></div>
+  <div class="eq">L(h·f_k ; r·f_k) = 1 / √(1 + (h/r)⁴)   → the same for every voice, at every pitch
+    <div class="w">(tone filter at overtone h) = 1 ÷ √(1 + (overtone number ÷ ratio)⁴), which doesn't depend on the pitch at all</div></div>
+  <div class="eq">window on the sum:  W(x_k + log₂ h)  instead of  W(x_k)
+    <div class="w">(window on the sum) weighs each overtone by its own octave, (window on the voice) by the voice's fundamental. Overtone h sits log₂ h octaves above its voice: 5 octaves for the 32nd.</div></div>
+  <p>The second line is why ratio tracking is safe. When the cutoff is a fixed multiple of the voice's own pitch, every voice has the same shape of tone, so climbing an octave turns each voice into exactly what its upper neighbour was. Tracking the played note breaks that, because the cutoff folds back an octave when the note does, while the voices don't.</p>
+</section>
+
+<footer>Loud’n Live · Shepard Tone Synthesizer · Stage 4 study · rendered proofs and measurements in <span style="font-family:var(--mono)">proofs/stage4_timbre_proof.py</span></footer>
+</div>
+
+<script id="engine-src" type="text/plain">
+// The DSP. Runs in an AudioWorklet when allowed, else in a ScriptProcessor.
+// Same model as proofs/stage4_timbre_proof.py: band-limited sawtooth voices,
+// a 2-pole lowpass magnitude per voice, a Gaussian window on the voice or on each partial.
+function TimbreEngine(sr) {
+  const H = 32, SIGMA = 1.0, F_C4 = 261.6255653005986, TBL = 4096;
+  const s = this;
+  const sine = new Float32Array(TBL + 1);
+  for (let i = 0; i <= TBL; i++) sine[i] = Math.sin(2 * Math.PI * i / TBL);
+  s.sr = sr; s.p = 0; s.endless = 0; s.rate = 2;
+  s.track = 'ratio'; s.ratio = 4; s.where = 'voice'; s.voices = 11;
+  s.ph = new Float64Array(15); s.prev = new Float32Array(15 * H); s.next = new Float32Array(15 * H);
+  s.x = new Float64Array(15);
+  s.set = function (m) { for (const k in m) s[k] = m[k]; };
+  const win = (x) => Math.exp(-(x * x) / (2 * SIGMA * SIGMA));
+  // Positions (octaves from C4) and partial levels at pitch p (semitones).
+  s.table = function (p, V, x, amps) {
+    const half = (V - 1) / 2, span = V;
+    const fNote = F_C4 * Math.pow(2, (((p % 12) + 12) % 12) / 12);
+    for (let k = 0; k < V; k++) {
+      let xk = p / 12 + (k - half);
+      xk = ((((xk + span / 2) % span) + span) % span) - span / 2;
+      x[k] = xk;
+      const f = F_C4 * Math.pow(2, xk);
+      const fc = s.track === 'ratio' ? s.ratio * f : s.track === 'offset' ? f + 1000 : s.ratio * fNote;
+      const wv = win(xk);
+      for (let h = 1; h <= H; h++) {
+        const fh = h * f;
+        const q = fh / fc;
+        let a = (1 / h) / Math.sqrt(1 + q * q * q * q);
+        a *= s.where === 'voice' ? wv : win(xk + Math.log2(h));
+        const tp = Math.min(1, Math.max(0, (0.45 * sr - fh) / (0.05 * sr)));
+        amps[k * H + h - 1] = a * tp * tp * (3 - 2 * tp);
+      }
+    }
+  };
+  s.process = function (out) {
+    const n = out.length, V = s.voices;
+    const p1 = s.p + s.endless * s.rate * n / s.sr;
+    s.table(p1, V, s.x, s.next);
+    const freqs = new Float64Array(V);
+    for (let k = 0; k < V; k++) freqs[k] = F_C4 * Math.pow(2, s.x[k]) / s.sr;
+    out.fill(0);
+    for (let k = 0; k < V; k++) {
+      const base = s.ph[k];
+      for (let h = 1; h <= H; h++) {
+        const j = k * H + h - 1, a0 = s.prev[j], a1 = s.next[j];
+        if (a0 < 1e-5 && a1 < 1e-5) continue;
+        const inc = h * freqs[k];
+        if (inc >= 0.5) continue;
+        let ph = (h * base) % 1;
+        const da = (a1 - a0) / n;
+        for (let i = 0; i < n; i++) {
+          const fi = ph * TBL, i0 = fi | 0;
+          out[i] += (a0 + da * i) * (sine[i0] + (sine[i0 + 1] - sine[i0]) * (fi - i0));
+          ph += inc; if (ph >= 1) ph -= 1;
+        }
+      }
+      s.ph[k] = (base + n * freqs[k]) % 1;
+    }
+    // Level: aim at the same loudness whatever the settings, from the partial table.
+    let e = 0; for (let j = 0; j < V * H; j++) e += s.next[j] * s.next[j];
+    const g1 = 0.15 / Math.sqrt(Math.max(e / 2, 1e-9)), g0 = s.g || g1;
+    s.g = g0 + 0.05 * (g1 - g0);
+    for (let i = 0; i < n; i++) { const g = g0 + (s.g - g0) * i / n; out[i] = Math.max(-0.98, Math.min(0.98, out[i] * g)); }
+    const t = s.prev; s.prev = s.next; s.next = t;
+    s.p = p1;
+    if (s.p > 1200 || s.p < -1200) s.p = ((s.p % 132) + 132) % 132;
+  };
+  s.snapshot = function () { return { p: s.p }; };
+}
+</script>
+
+<script>
+const ENGINE_SRC = document.getElementById('engine-src').textContent;
+const NAMES = ['C','C♯','D','D♯','E','F','F♯','G','G♯','A','A♯','B'];
+const INTERVALS = ['unison','minor 2nd','major 2nd','minor 3rd','major 3rd','4th','tritone','5th','minor 6th','major 6th','minor 7th','major 7th'];
+let ctx = null, node = null, local = null, snap = null, worklet = false;
+const params = { track: 'ratio', ratio: 4, where: 'voice', voices: 11, rate: 2, endless: 0 };
+const $ = (id) => document.getElementById(id);
+
+// A copy of the engine on the page side, used only for the drawings and readouts.
+const view = new (new Function(ENGINE_SRC + '; return TimbreEngine;')())(48000);
+let viewP = 0, lastT = performance.now();
+
+function send(msg) {
+  Object.assign(params, msg);
+  if (worklet) node.port.postMessage(msg); else if (local) local.set(msg);
+}
+
+async function start() {
+  if (ctx) { ctx.resume(); return; }
+  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const proc = `${ENGINE_SRC}
+  class P extends AudioWorkletProcessor {
+    constructor(){ super(); this.e = new TimbreEngine(sampleRate); this.t = 0;
+      this.port.onmessage = (ev) => this.e.set(ev.data); }
+    process(_, outputs){ const o = outputs[0][0]; this.e.process(o);
+      for (let c = 1; c < outputs[0].length; c++) outputs[0][c].set(o);
+      if ((this.t += o.length) > sampleRate / 40) { this.t = 0; this.port.postMessage(this.e.snapshot()); }
+      return true; } }
+  registerProcessor('shepard-timbre', P);`;
+  try {
+    const url = URL.createObjectURL(new Blob([proc], { type: 'application/javascript' }));
+    await ctx.audioWorklet.addModule(url);
+    node = new AudioWorkletNode(ctx, 'shepard-timbre', { outputChannelCount: [2] });
+    node.port.onmessage = (ev) => { snap = ev.data; };
+    worklet = true;
+  } catch (err) {
+    // Sandboxed frames can refuse a worklet module; fall back to the old processor.
+    local = new (new Function(ENGINE_SRC + '; return TimbreEngine;')())(ctx.sampleRate);
+    node = ctx.createScriptProcessor(1024, 0, 2);
+    node.onaudioprocess = (ev) => {
+      const L = ev.outputBuffer.getChannelData(0);
+      for (let i = 0; i < L.length; i += 128) local.process(L.subarray(i, i + 128));
+      ev.outputBuffer.getChannelData(1).set(L); snap = local.snapshot();
+    };
+  }
+  node.connect(ctx.destination);
+  const { endless, ...rest } = params; send(rest);
+  $('start').textContent = worklet ? '● sound on' : '● sound on (fallback)';
+}
+
+$('start').onclick = start;
+$('endlessUp').onclick = async () => { if (!ctx) await start(); send({ endless: 1 }); };
+$('endlessDown').onclick = async () => { if (!ctx) await start(); send({ endless: -1 }); };
+$('stop').onclick = () => send({ endless: 0 });
+function group(ids, key, vals) {
+  ids.forEach((id, i) => $(id).onclick = () => { send({ [key]: vals[i] }); ids.forEach((o, j) => $(o).classList.toggle('on', i === j)); });
+}
+group(['t-ratio', 't-offset', 't-note'], 'track', ['ratio', 'offset', 'note']);
+group(['w-voice', 'w-sum'], 'where', ['voice', 'sum']);
+$('ratio').oninput = (e) => { $('v-ratio').textContent = '× ' + e.target.value; send({ ratio: +e.target.value }); };
+$('voices').oninput = (e) => { $('v-voices').textContent = e.target.value; send({ voices: +e.target.value }); };
+$('rate').oninput = (e) => { $('v-rate').textContent = (+e.target.value).toFixed(2) + ' st/s'; send({ rate: +e.target.value }); };
+
+// Analysis of one pitch, from the same partial table the sound uses.
+const H = 32, xs = new Float64Array(15), amps = new Float32Array(15 * H);
+function analyse(p) {
+  view.set(params);
+  const V = params.voices;
+  view.table(p, V, xs, amps);
+  const share = new Float64Array(12); let tot = 0, bright = 0, sub = 0;
+  for (let k = 0; k < V; k++) for (let h = 1; h <= H; h++) {
+    const e = amps[k * H + h - 1] ** 2; if (!e) continue;
+    const pos = xs[k] + Math.log2(h);
+    const rel = (((pos * 12 - p + 6) % 12) + 12) % 12 - 6;
+    share[((Math.round(rel) % 12) + 12) % 12] += e; tot += e; bright += e * pos;
+    if (261.6255653005986 * Math.pow(2, xs[k]) < 20) sub += e;
+  }
+  for (let i = 0; i < 12; i++) share[i] /= tot;
+  return { share, bright: bright / tot, sub: sub / tot, tot };
+}
+function seamDb() {
+  const V = params.voices, x = -V / 2 + 1e-9, f = 261.6255653005986 * Math.pow(2, x);
+  let e = 0;
+  for (let h = 1; h <= H; h++) {
+    const fc = params.track === 'ratio' ? params.ratio * f : params.track === 'offset' ? f + 1000 : params.ratio * 261.6;
+    const q = h * f / fc; let a = (1 / h) / Math.sqrt(1 + q ** 4);
+    a *= params.where === 'voice' ? Math.exp(-x * x / 2) : Math.exp(-((x + Math.log2(h)) ** 2) / 2);
+    e += a * a;
+  }
+  let tot = 0; for (let p = 0; p < 12; p += 0.5) tot += analyse(p).tot; tot /= 24;
+  return 10 * Math.log10(Math.max(e, 1e-30) / tot);
+}
+
+const spec = $('spec').getContext('2d'), br = $('bright').getContext('2d');
+const trace = [];
+let seamCache = null, seamKey = '';
+function draw() {
+  requestAnimationFrame(draw);
+  const now = performance.now();
+  if (snap) viewP = snap.p; else viewP += params.endless * params.rate * (now - lastT) / 1000;
+  lastT = now;
+  const a = analyse(viewP);
+  trace.push({ t: now, b: a.bright });
+  while (trace.length && now - trace[0].t > 8000) trace.shift();
+
+  const key = JSON.stringify([params.track, params.ratio, params.where, params.voices]);
+  if (key !== seamKey) { seamKey = key; seamCache = seamDb(); }
+  const pc = ((Math.round(viewP) % 12) + 12) % 12;
+  $('r-pc').textContent = NAMES[pc];
+  $('r-pur').textContent = (a.share[0] * 100).toFixed(0) + ' %';
+  let best = 1; for (let i = 2; i < 12; i++) if (a.share[i] > a.share[best]) best = i;
+  $('r-next').textContent = `${INTERVALS[best]} ${(a.share[best] * 100).toFixed(0)} %`;
+  $('r-seam').textContent = seamCache.toFixed(0) + ' dB';
+  $('r-seam').classList.toggle('bad', seamCache > -60);
+  $('r-sub').textContent = (a.sub * 100).toFixed(1) + ' %';
+  $('r-sub').classList.toggle('bad', a.sub > 0.005);
+
+  // Spectrum
+  const W = 1200, Ht = 380, lo = -6, hi = 7;
+  const X = (o) => (o - lo) / (hi - lo) * W;
+  spec.fillStyle = '#0a0a0f'; spec.fillRect(0, 0, W, Ht);
+  spec.strokeStyle = 'rgba(255,255,255,0.06)'; spec.fillStyle = '#8a8aa0'; spec.font = '13px JetBrains Mono';
+  for (let o = lo; o <= hi; o++) { spec.beginPath(); spec.moveTo(X(o), 0); spec.lineTo(X(o), Ht - 18); spec.stroke(); spec.fillText(o === 0 ? 'C4' : (o > 0 ? '+' : '') + o, X(o) + 3, Ht - 4); }
+  spec.strokeStyle = 'rgba(232,184,74,0.35)'; spec.beginPath();
+  for (let i = 0; i <= W; i += 4) { const o = lo + i / W * (hi - lo); const y = (Ht - 20) * (1 - Math.exp(-o * o / 2)) + 2; i ? spec.lineTo(i, y) : spec.moveTo(i, y); }
+  spec.stroke();
+  let peak = 0; for (let j = 0; j < params.voices * H; j++) peak = Math.max(peak, amps[j]);
+  for (let k = 0; k < params.voices; k++) for (let h = 1; h <= H; h++) {
+    const amp = amps[k * H + h - 1]; if (!amp) continue;
+    const db = 20 * Math.log10(amp / peak); if (db < -60) continue;
+    const pos = xs[k] + Math.log2(h);
+    const rel = ((Math.round(((pos * 12 - viewP) % 12 + 12) % 12)) % 12);
+    spec.strokeStyle = rel === 0 ? '#e8b84a' : rel === 7 ? '#6fb6ff' : '#5a5a6e';
+    spec.lineWidth = 2;
+    const y = (Ht - 20) * (-db / 60);
+    spec.beginPath(); spec.moveTo(X(pos), Ht - 20); spec.lineTo(X(pos), y + 2); spec.stroke();
+  }
+  spec.lineWidth = 1;
+
+  // Brightness trace
+  const BW = 1200, BH = 200;
+  br.fillStyle = '#0a0a0f'; br.fillRect(0, 0, BW, BH);
+  if (trace.length > 1) {
+    let mn = Infinity, mx = -Infinity; trace.forEach((q) => { mn = Math.min(mn, q.b); mx = Math.max(mx, q.b); });
+    const mid = (mn + mx) / 2, half = Math.max(0.15, (mx - mn) / 2 + 0.05);
+    br.strokeStyle = '#e8b84a'; br.lineWidth = 2; br.beginPath();
+    trace.forEach((q, i) => { const x = BW - (now - q.t) / 8000 * BW; const y = BH / 2 - (q.b - mid) / half * (BH / 2 - 14); i ? br.lineTo(x, y) : br.moveTo(x, y); });
+    br.stroke(); br.lineWidth = 1;
+    br.fillStyle = '#8a8aa0'; br.font = '12px JetBrains Mono';
+    br.fillText(`window ±${half.toFixed(2)} oct`, 8, 16);
+  }
+}
+draw();
+</script>
+</body>
+</html>
