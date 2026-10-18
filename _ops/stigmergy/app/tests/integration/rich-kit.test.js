@@ -9,6 +9,7 @@ import { tmpdir } from 'node:os';
 import { execFileSync } from 'node:child_process';
 import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 // The piece kit (_ops/rich-face/kit/piece.js) is injected into every web page
 // the palace serves as a piece, so a piece sizes its frame, quiets the others
@@ -73,7 +74,8 @@ function makeTempPalace() {
   const root = mkdtempSync(resolve(tmpdir(), 'rich-kit-test-'));
   // The rich face finds files through git's index (resolve.mjs), never by walking
   // the disk, so the temp palace is a repository; new files count untracked.
-  execFileSync('git', ['init', '-q'], { cwd: root });
+  execFileSync('git', ['init', '-q'], { cwd: root, env: gitFreeEnv() });
+  assertScratchRepo(root);
   mkdirSync(resolve(root, '_ops/swarm/persistent'), { recursive: true });
   mkdirSync(resolve(root, '_ops/swarm/sessions'), { recursive: true });
   writeFileSync(resolve(root, '_ops/swarm/persistent/blackboard.jsonl'), '', 'utf8');

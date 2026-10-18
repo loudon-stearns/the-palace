@@ -8,6 +8,7 @@ import {
   buildMessageFromStaged, readStagedDiff, clearStaleLocks, isStagedDeletion, halfNamedMoves,
 } from '../../scripts/palace-commit.mjs';
 import { commitSelected, isStagedDeletion as isStagedDeletionServer } from '../../server/commit.js';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const APP_ROOT = resolve(__dirname, '..', '..');
@@ -15,11 +16,12 @@ const CLI = join(APP_ROOT, 'scripts', 'palace-commit.mjs');
 
 describe('palace-commit', () => {
   let root;
-  function g(...args) { return execFileSync('git', args, { cwd: root, encoding: 'utf8' }); }
+  function g(...args) { return execFileSync('git', args, { cwd: root, encoding: 'utf8', env: gitFreeEnv() }); }
 
   beforeEach(() => {
     root = mkdtempSync(join(tmpdir(), 'palacecommit-'));
     g('init', '-q');
+    assertScratchRepo(root);
     g('config', 'user.email', 'test@palace');
     g('config', 'user.name', 'Test Palace');
     g('config', 'commit.gpgsign', 'false');
@@ -75,13 +77,13 @@ describe('palace-commit', () => {
     // An UNRELATED dirty file that must NOT be swept (the N-writer lesson).
     writeFileSync(resolve(root, 'Other Session.md'), 'do not commit me');
     execFileSync('node', [CLI, '--kind', 'edit', '--scope', 'Foo', '--summary', 'grow', '--verify', 'verified', '--path', 'Foo.md'], {
-      cwd: root, encoding: 'utf8', env: { ...process.env, PALACE_ROOT: root },
+      cwd: root, encoding: 'utf8', env: gitFreeEnv({ PALACE_ROOT: root }),
     });
-    const msg = execFileSync('git', ['log', '-1', '--format=%B'], { cwd: root, encoding: 'utf8' });
+    const msg = execFileSync('git', ['log', '-1', '--format=%B'], { cwd: root, encoding: 'utf8', env: gitFreeEnv() });
     expect(msg).toMatch(/edit\(Foo\): grow/);
     // Committed Foo is seed, staged Foo is sprout -> the derived transition.
     expect(msg).toMatch(/Palace-Stage: Foo: seed->sprout/);
-    const status = execFileSync('git', ['status', '--porcelain=v1'], { cwd: root, encoding: 'utf8' });
+    const status = execFileSync('git', ['status', '--porcelain=v1'], { cwd: root, encoding: 'utf8', env: gitFreeEnv() });
     expect(status).toMatch(/Other Session\.md/); // never swept
   });
 
@@ -89,7 +91,7 @@ describe('palace-commit', () => {
     writeFileSync(resolve(root, 'Foo.md'), '---\ntitle: Foo\nstage: sprout\n---\npartly checked\n');
     const headBefore = g('rev-parse', 'HEAD').trim();
     const r = spawnSync('node', [CLI, '--kind', 'edit', '--summary', 'x', '--verify', 'partial', '--path', 'Foo.md'], {
-      cwd: root, encoding: 'utf8', env: { ...process.env, PALACE_ROOT: root },
+      cwd: root, encoding: 'utf8', env: gitFreeEnv({ PALACE_ROOT: root }),
     });
     expect(r.status).toBe(2);
     expect(r.stderr).toMatch(/--verify must be one of verified, unverified, couldnt, not "partial"/);
@@ -102,7 +104,7 @@ describe('palace-commit', () => {
     g('add', '--', 'Foo.md');
     const headBefore = g('rev-parse', 'HEAD').trim();
     const out = execFileSync('node', [CLI, '--kind', 'edit', '--summary', 'x', '--verify', 'verified', '--path', 'Foo.md', '--dry-run'], {
-      cwd: root, encoding: 'utf8', env: { ...process.env, PALACE_ROOT: root },
+      cwd: root, encoding: 'utf8', env: gitFreeEnv({ PALACE_ROOT: root }),
     });
     expect(out).toMatch(/edit: x/);
     expect(g('rev-parse', 'HEAD').trim()).toBe(headBefore);
@@ -111,14 +113,14 @@ describe('palace-commit', () => {
   test('--dry-run stages nothing: it builds the message in a throwaway index', () => {
     writeFileSync(resolve(root, 'Foo.md'), '---\ntitle: Foo\nstage: sprout\n---\nx\n');
     const out = execFileSync('node', [CLI, '--kind', 'edit', '--summary', 'x', '--verify', 'verified', '--path', 'Foo.md', '--dry-run'], {
-      cwd: root, encoding: 'utf8', env: { ...process.env, PALACE_ROOT: root },
+      cwd: root, encoding: 'utf8', env: gitFreeEnv({ PALACE_ROOT: root }),
     });
     expect(out).toMatch(/Palace-Stage: Foo: seed->sprout/);
     expect(g('diff', '--cached', '--name-only').trim()).toBe('');
   });
 
   describe('--ceremony: a ceremony that names its subject', () => {
-    const env = () => ({ ...process.env, PALACE_ROOT: root });
+    const env = () => gitFreeEnv({ PALACE_ROOT: root });
     const run = (...args) => spawnSync('node', [CLI, ...args], { cwd: root, encoding: 'utf8', env: env() });
     const dry = (...args) => execFileSync('node', [CLI, ...args, '--dry-run'], { cwd: root, encoding: 'utf8', env: env() });
 
@@ -194,7 +196,7 @@ describe('palace-commit', () => {
     writeFileSync(lock, ''); // fresh: another session could be mid-commit
     const headBefore = g('rev-parse', 'HEAD').trim();
     const r = spawnSync('node', [CLI, '--kind', 'edit', '--summary', 'x', '--verify', 'verified', '--path', 'Foo.md'], {
-      cwd: root, encoding: 'utf8', env: { ...process.env, PALACE_ROOT: root, PALACE_DOOR_INDEX_PATIENCE_MS: '3000' },
+      cwd: root, encoding: 'utf8', env: gitFreeEnv({ PALACE_ROOT: root, PALACE_DOOR_INDEX_PATIENCE_MS: '3000' }),
     });
     expect(r.status).toBe(75);
     expect(r.stderr).toMatch(/index\.lock is held/);
@@ -241,7 +243,7 @@ describe('palace-commit', () => {
     const GOTCHAS = 'Foo — gotchas.md';
     const derived = (msg) => msg.split('\n').filter((l) => /^Palace-(Stage|Vector):/.test(l));
     const cli = (...args) => spawnSync('node', [CLI, ...args], {
-      cwd: root, encoding: 'utf8', env: { ...process.env, PALACE_ROOT: root },
+      cwd: root, encoding: 'utf8', env: gitFreeEnv({ PALACE_ROOT: root }),
     });
     const MOVE = ['--kind', 'edit', '--scope', 'Foo', '--summary', 'move into Projects/', '--verify', 'verified'];
 

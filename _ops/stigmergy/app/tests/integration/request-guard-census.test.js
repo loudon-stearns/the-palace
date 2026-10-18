@@ -17,6 +17,7 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { gitFreeEnv } from '../helpers/git-env.js';
 
 const APP = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const PALACE = resolve(APP, '../../..');
@@ -32,7 +33,7 @@ const CALLS_GUARD = /\bcheckRequest\s*\(\s*req\b/;
 const MUTATES = /['"](?:POST|PUT|PATCH|DELETE)['"]|\b(?:writeFile|appendFile|rename|unlink|rm|mkdir)(?:Sync)?\s*\(|\b(?:exec|execFile|spawn|fork)(?:Sync)?\s*\(|\bdo_(?:POST|PUT|PATCH|DELETE)\b/;
 
 function trackedOpsCode() {
-  const out = execFileSync('git', ['-c', 'core.quotepath=off', 'ls-files', '-z', '--', '_ops'], { cwd: PALACE, maxBuffer: 64 * 1024 * 1024 });
+  const out = execFileSync('git', ['-c', 'core.quotepath=off', 'ls-files', '-z', '--', '_ops'], { cwd: PALACE, maxBuffer: 64 * 1024 * 1024, env: gitFreeEnv() });
   return out.toString('utf8').split('\0').filter((p) => p && CODE.test(p) && !NOT_A_SERVER.test(p));
 }
 

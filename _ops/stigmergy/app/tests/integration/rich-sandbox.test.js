@@ -9,6 +9,7 @@ import { execFileSync } from 'node:child_process';
 import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 import { buildReviewMessage } from '../../../../rich-face/rich-handler.mjs';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 // The rich face's pieces run sandboxed (sandbox="allow-scripts", the rule
 // ArtifactSlot.jsx applies to served HTML): a piece cannot act as STIGMERGY.
@@ -48,7 +49,8 @@ function makeTempPalace() {
   const root = mkdtempSync(resolve(tmpdir(), 'rich-sandbox-test-'));
   // The rich face finds files through git's index (resolve.mjs), never by walking
   // the disk, so the temp palace is a repository; new files count untracked.
-  execFileSync('git', ['init', '-q'], { cwd: root });
+  execFileSync('git', ['init', '-q'], { cwd: root, env: gitFreeEnv() });
+  assertScratchRepo(root);
   mkdirSync(resolve(root, '_ops/swarm/persistent'), { recursive: true });
   mkdirSync(resolve(root, '_ops/swarm/sessions'), { recursive: true });
   writeFileSync(resolve(root, '_ops/swarm/persistent/blackboard.jsonl'), '', 'utf8');
@@ -113,7 +115,7 @@ function makeServer(palaceRoot, log) {
 describe('every rich manifest in the palace sizes its interactives', () => {
   // A sandboxed piece cannot be measured by the page, so a made piece carries its height.
   test('each .html piece in a — rich.json has a height', () => {
-    const manifests = execFileSync('git', ['ls-files', '-z', '*— rich.json'], { cwd: PALACE }).toString().split('\0').filter(Boolean);
+    const manifests = execFileSync('git', ['ls-files', '-z', '*— rich.json'], { cwd: PALACE, env: gitFreeEnv() }).toString().split('\0').filter(Boolean);
     expect(manifests.length).toBeGreaterThan(0);
     for (const m of manifests) {
       const json = JSON.parse(readFileSync(resolve(PALACE, m), 'utf8'));

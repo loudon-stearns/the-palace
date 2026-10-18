@@ -9,10 +9,11 @@ import { tmpdir } from 'node:os';
 import { resolve, join } from 'node:path';
 import { applyWeaveProposal } from '../../server/weave-apply.js';
 import { validateMessage } from '@stigmergy/core/schema';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 describe('applyWeaveProposal — set-type (promote hub) end-to-end', () => {
   let root, boardPath;
-  function g(...args) { return execFileSync('git', args, { cwd: root, encoding: 'utf8' }); }
+  function g(...args) { return execFileSync('git', args, { cwd: root, encoding: 'utf8', env: gitFreeEnv() }); }
   const readBoard = () =>
     (existsSync(boardPath) ? readFileSync(boardPath, 'utf8').trim().split('\n').filter(Boolean) : [])
       .map((l) => JSON.parse(l));
@@ -21,6 +22,7 @@ describe('applyWeaveProposal — set-type (promote hub) end-to-end', () => {
     root = mkdtempSync(join(tmpdir(), 'weave-settype-'));
     boardPath = join(root, 'board.jsonl');
     g('init', '-q');
+    assertScratchRepo(root);
     g('config', 'user.email', 'test@palace');
     g('config', 'user.name', 'Test Palace');
     g('config', 'commit.gpgsign', 'false');

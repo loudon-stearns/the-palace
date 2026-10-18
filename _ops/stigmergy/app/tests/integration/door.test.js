@@ -12,6 +12,7 @@ import { trunkProblem, withDoorSync, doorEnv } from '../../server/door.js';
 import { commitPathsAsync, isRetryable } from '../../../orchestrator/src/cycle-commit.js';
 import { randomBytes } from 'node:crypto';
 import { commitSelected } from '../../server/commit.js';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const APP_ROOT = resolve(__dirname, '..', '..');
@@ -21,17 +22,17 @@ const EAR = join(APP_ROOT, 'scripts', 'ear.sh');
 const INSTALL = join(APP_ROOT, 'scripts', 'install-hooks.mjs');
 
 let root;
-function g(...args) { return execFileSync('git', args, { cwd: root, encoding: 'utf8' }); }
+function g(...args) { return execFileSync('git', args, { cwd: root, encoding: 'utf8', env: gitFreeEnv() }); }
 function cliArgs(file, extra = []) {
   return [CLI, '--kind', 'edit', '--scope', file, '--summary', `touch ${file}`, '--verify', 'verified', '--path', file, ...extra];
 }
 function runCli(args, env = {}) {
-  return spawnSync('node', args, { cwd: root, encoding: 'utf8', env: { ...process.env, PALACE_ROOT: root, PALACE_DOOR_NO_BOARD: '1', ...env } });
+  return spawnSync('node', args, { cwd: root, encoding: 'utf8', env: gitFreeEnv({ PALACE_ROOT: root, PALACE_DOOR_NO_BOARD: '1', ...env }) });
 }
 function runCliAsync(args, env = {}) {
   return new Promise((done) => {
     const t0 = Date.now();
-    const c = spawn('node', args, { cwd: root, env: { ...process.env, PALACE_ROOT: root, PALACE_DOOR_NO_BOARD: '1', ...env } });
+    const c = spawn('node', args, { cwd: root, env: gitFreeEnv({ PALACE_ROOT: root, PALACE_DOOR_NO_BOARD: '1', ...env }) });
     let out = '';
     let err = '';
     c.stdout.on('data', (b) => { out += b; });
@@ -46,13 +47,14 @@ function holdDoor(ms) {
       process.stdout.write('held\\n');
       Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ${ms});
     });`;
-  const c = spawn('node', ['--input-type=module', '-e', code], { cwd: root });
+  const c = spawn('node', ['--input-type=module', '-e', code], { cwd: root, env: gitFreeEnv() });
   return new Promise((ready) => { c.stdout.on('data', () => ready(c)); });
 }
 
 beforeEach(() => {
   root = mkdtempSync(join(tmpdir(), 'palacedoor-'));
   g('init', '-q', '-b', 'main');
+  assertScratchRepo(root);
   g('config', 'user.email', 'test@palace');
   g('config', 'user.name', 'Test Palace');
   g('config', 'commit.gpgsign', 'false');
@@ -95,7 +97,7 @@ describe('the trunk\'s refusals', () => {
     g('switch', '-q', 'main');
     writeFileSync(join(root, 'seed.md'), 'main side\n');
     g('commit', '-q', '-am', 'main');
-    spawnSync('git', ['merge', 'other'], { cwd: root }); // conflicts, leaves MERGE_HEAD
+    spawnSync('git', ['merge', 'other'], { cwd: root, env: gitFreeEnv() }); // conflicts, leaves MERGE_HEAD
     expect(trunkProblem(root)).toMatch(/a merge is half done.*git merge --abort/);
   });
 });
@@ -182,7 +184,7 @@ describe('a committer killed mid-commit', () => {
     writeFileSync(join(root, 'a.md'), 'a\n');
     writeFileSync(join(root, 'b.md'), 'b\n');
 
-    const a = spawn('node', cliArgs('a.md'), { cwd: root, env: { ...process.env, PALACE_ROOT: root, PALACE_DOOR_NO_BOARD: '1' } });
+    const a = spawn('node', cliArgs('a.md'), { cwd: root, env: gitFreeEnv({ PALACE_ROOT: root, PALACE_DOOR_NO_BOARD: '1' }) });
     for (let waited = 0; !existsSync(inHook) && waited < 15_000; waited += 25) await new Promise((s) => setTimeout(s, 25));
     expect(existsSync(inHook)).toBe(true);
     a.kill('SIGKILL');
@@ -230,7 +232,7 @@ describe('the ear', () => {
     // The shim runs the main checkout's copy of ear.sh; give this repo one.
     mkdirSync(join(root, '_ops', 'stigmergy', 'app', 'scripts'), { recursive: true });
     copyFileSync(EAR, join(root, '_ops', 'stigmergy', 'app', 'scripts', 'ear.sh'));
-    const r = spawnSync('node', [INSTALL, '--ear'], { cwd: root, encoding: 'utf8' });
+    const r = spawnSync('node', [INSTALL, '--ear'], { cwd: root, encoding: 'utf8', env: gitFreeEnv() });
     expect(r.status, r.stderr).toBe(0);
   });
 
@@ -261,7 +263,7 @@ describe('the ear', () => {
   test('the installer will not overwrite someone else\'s hook', () => {
     const hook = join(root, '.git', 'hooks', 'reference-transaction');
     writeFileSync(hook, '#!/bin/sh\nexit 0\n# someone else\'s\n');
-    const r = spawnSync('node', [INSTALL, '--ear'], { cwd: root, encoding: 'utf8' });
+    const r = spawnSync('node', [INSTALL, '--ear'], { cwd: root, encoding: 'utf8', env: gitFreeEnv() });
     expect(r.status).toBe(1);
     expect(readFileSync(hook, 'utf8')).toMatch(/someone else/);
     expect(existsSync(hook)).toBe(true);
@@ -399,7 +401,7 @@ describe('the ear, after the review', () => {
   beforeEach(() => {
     mkdirSync(join(root, '_ops', 'stigmergy', 'app', 'scripts'), { recursive: true });
     copyFileSync(EAR, join(root, '_ops', 'stigmergy', 'app', 'scripts', 'ear.sh'));
-    expect(spawnSync('node', [INSTALL, '--ear'], { cwd: root, encoding: 'utf8' }).status).toBe(0);
+    expect(spawnSync('node', [INSTALL, '--ear'], { cwd: root, encoding: 'utf8', env: gitFreeEnv() }).status).toBe(0);
   });
   const lines = () => (existsSync(join(root, '.git', 'palace-ear.jsonl'))
     ? readFileSync(join(root, '.git', 'palace-ear.jsonl'), 'utf8').trim().split('\n').filter(Boolean).map((l) => JSON.parse(l))

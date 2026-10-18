@@ -9,6 +9,7 @@ import { createRequire } from 'node:module';
 import { makeResolver } from '../../../../rich-face/resolve.mjs';
 import { createRichHandler } from '../../../../rich-face/rich-handler.mjs';
 import { pathId } from '../../src/lib/public-mode.js';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 // The one resolver (_ops/rich-face/resolve.mjs) against a throwaway palace that
 // is a git repository, the way the real one is: the spec's four tests (Flocking's
@@ -18,7 +19,7 @@ import { pathId } from '../../src/lib/public-mode.js';
 const HERE = dirname(fileURLToPath(import.meta.url));
 const APP = resolve(HERE, '../..');
 const RICH_SRC = resolve(APP, '../../rich-face');
-const git = (cwd, ...args) => execFileSync('git', ['-c', 'user.email=test@example.com', '-c', 'user.name=test', ...args], { cwd, stdio: 'ignore' });
+const git = (cwd, ...args) => execFileSync('git', ['-c', 'user.email=test@example.com', '-c', 'user.name=test', ...args], { cwd, stdio: 'ignore', env: gitFreeEnv() });
 const PAGE = (t) => `<!doctype html><title>${t}</title><body>${t}</body>`;
 
 const require = createRequire(import.meta.url);
@@ -40,6 +41,7 @@ beforeAll(() => {
   root = mkdtempSync(resolve(tmpdir(), 'rich-resolve-test-'));
   outside = mkdtempSync(resolve(tmpdir(), 'rich-resolve-outside-'));
   git(root, 'init', '-q');
+  assertScratchRepo(root);
   writeFileSync(join(outside, 'escape.html'), PAGE('outside the palace'));
 
   write('Flocking.md', ['---', 'title: Flocking', 'type: concept', '---', '# Flocking', '', 'Words.', '',
@@ -214,7 +216,7 @@ describe('the live server and the public build agree', () => {
     out = mkdtempSync(resolve(tmpdir(), 'rich-resolve-out-'));
     mkdirSync(join(out, 'assets'), { recursive: true });
     writeFileSync(join(out, 'index.html'), '<!doctype html><title>x</title>');
-    execFileSync(process.execPath, [join(APP, 'scripts/build-public.mjs'), '--no-vite', '--root', root, '--out', out], { cwd: APP, stdio: 'pipe' });
+    execFileSync(process.execPath, [join(APP, 'scripts/build-public.mjs'), '--no-vite', '--root', root, '--out', out], { cwd: APP, stdio: 'pipe', env: gitFreeEnv() });
   }, 60_000);
 
   afterAll(() => {

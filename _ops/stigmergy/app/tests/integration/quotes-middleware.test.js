@@ -13,6 +13,7 @@ import request from 'supertest';
 import { listen, closeAll } from '../helpers/loopback.js';
 import { blackboardMiddleware } from '../../server/middleware.js';
 import { LEDGER_REL } from '../../src/lib/quotes.js';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 function makeServer(palaceRoot, opts = {}) {
   const plugin = blackboardMiddleware(palaceRoot, opts);
@@ -170,10 +171,11 @@ describe('POST /api/quotes/decide', () => {
 
 describe('POST /api/quotes/decide with a real repo', () => {
   let root, base;
-  const git = (args) => execFileSync('git', args, { cwd: root, encoding: 'utf8' });
+  const git = (args) => execFileSync('git', args, { cwd: root, encoding: 'utf8', env: gitFreeEnv() });
   beforeAll(async () => {
     root = makeTempPalace();
     git(['init', '-q', '-b', 'main']);
+    assertScratchRepo(root);
     git(['config', 'user.email', 'test@palace']);
     git(['config', 'user.name', 'test']);
     git(['add', '-A']);

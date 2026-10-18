@@ -10,6 +10,7 @@ import { blackboardMiddleware } from '../../server/middleware.js';
 import { createStewardLane } from '../../server/steward-lane.js';
 import { buildCeremonyRows, buildServiceRows, buildLedgerPageRows, ceremonyStates, writeOrders, readScroll } from '../../server/projects.js';
 import { MARK, CEREMONY_STANDING_PLACEHOLDER, readStandingOrders } from '../../../orchestrator/src/scroll-file.js';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 function makeServer(palaceRoot) {
   const stewardLane = createStewardLane({
@@ -37,7 +38,7 @@ const LEDGER_REL = '_ops/Return Ceremony/Return Ceremony — tuning.md';
 const MAKER_LEDGER_REL = 'Shop/Hero and Avatar Maker/Hero and Avatar Maker — tuning.md';
 function makePalace({ withGit = true } = {}) {
   const root = mkdtempSync(resolve(tmpdir(), 'stigmergy-ceremonies-test-'));
-  const git = (...args) => execFileSync('git', args, { cwd: root, stdio: ['ignore', 'pipe', 'ignore'] });
+  const git = (...args) => execFileSync('git', args, { cwd: root, stdio: ['ignore', 'pipe', 'ignore'], env: gitFreeEnv() });
   mkdirSync(resolve(root, '_ops/swarm/persistent'), { recursive: true });
   mkdirSync(resolve(root, '_ops/Return Ceremony'), { recursive: true });
   mkdirSync(resolve(root, '_ops/agents/permanent/shopkeeper'), { recursive: true });
@@ -62,7 +63,7 @@ function makePalace({ withGit = true } = {}) {
   writeFileSync(resolve(root, MAKER_LEDGER_REL), '# Hero and Avatar Maker — tuning\n\n- run · 2026-10-15 · Kuramoto Coupling, hero + avatar · nothing new\n');
   writeFileSync(resolve(root, '_ops/Return Ceremony/Return Ceremony — tuning.md'), '# Return Ceremony — tuning\n\n## From the first return — 2026-09-25\n\n7. **A probe.** Spec change owed: the probe joins the block.\n');
   if (withGit) {
-    git('init', '-q'); git('config', 'user.email', 't@t'); git('config', 'user.name', 't');
+    git('init', '-q'); assertScratchRepo(root); git('config', 'user.email', 't@t'); git('config', 'user.name', 't');
     git('add', '-A'); git('commit', '-q', '-m', 'edit(Return Ceremony): v1.0 — version, tuning ledger');
     writeFileSync(resolve(root, LEDGER_REL), readFileSync(resolve(root, LEDGER_REL), 'utf8') + '- run · 2026-09-25 · v1.0 · ten hours · taught item 7\n');
     git('add', '-A'); git('commit', '-q', '-m', 'return(2026-09-25): ten hours');
@@ -99,7 +100,7 @@ describe('the deck lists ceremonies by trigger:, and every other page as itself'
     const a = pick();
     expect(pick()).toBe(a);   // same object: served from cache
     writeFileSync(resolve(root, LEDGER_REL), readFileSync(resolve(root, LEDGER_REL), 'utf8') + '- run · 2026-09-26 · v1.0 · again · nothing new\n');
-    execFileSync('git', ['commit', '-q', '-am', 'return(2026-09-26): again'], { cwd: root, stdio: 'ignore' });
+    execFileSync('git', ['commit', '-q', '-am', 'return(2026-09-26): again'], { cwd: root, stdio: 'ignore', env: gitFreeEnv() });
     const b = pick();
     expect(b).not.toBe(a);
     expect(b.runs_since).toHaveLength(2);
@@ -186,7 +187,7 @@ describe('a ceremony scroll through the projects endpoints', () => {
 
   test('scroll.js --ceremonies writes every trigger: page\'s scroll, with the standing-orders placeholder', () => {
     root = makePalace();
-    execFileSync('node', [resolve(__dirname, '../../../orchestrator/src/scroll.js'), '--ceremonies', '--root', root], { stdio: 'ignore' });
+    execFileSync('node', [resolve(__dirname, '../../../orchestrator/src/scroll.js'), '--ceremonies', '--root', root], { stdio: 'ignore', env: gitFreeEnv() });
     const text = readFileSync(resolve(root, '_ops/Return Ceremony/Return Ceremony — scroll.md'), 'utf8');
     expect(text).toContain(`${MARK.ordersStart}\n${CEREMONY_STANDING_PLACEHOLDER}\n${MARK.ordersEnd}`);
     expect(text).toContain(MARK.planStart);

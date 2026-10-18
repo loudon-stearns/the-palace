@@ -7,13 +7,14 @@ import { execFileSync, spawnSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { resolve, join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 const PUSH = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..', 'scripts', 'palace-push.mjs');
 let base;
 let remote;
 let root;
-const g = (cwd, ...a) => execFileSync('git', a, { cwd, encoding: 'utf8' });
-const push = (...a) => spawnSync('node', [PUSH, ...a], { cwd: root, encoding: 'utf8', env: { ...process.env } });
+const g = (cwd, ...a) => execFileSync('git', a, { cwd, encoding: 'utf8', env: gitFreeEnv() });
+const push = (...a) => spawnSync('node', [PUSH, ...a], { cwd: root, encoding: 'utf8', env: gitFreeEnv() });
 function commit(subject, file) {
   writeFileSync(join(root, file), `${subject}\n`);
   g(root, 'add', file);
@@ -25,8 +26,10 @@ beforeEach(() => {
   base = mkdtempSync(join(tmpdir(), 'palacepush-'));
   remote = join(base, 'remote.git');
   g(base, 'init', '-q', '--bare', '-b', 'main', remote);
+  assertScratchRepo(remote, base);
   root = join(base, 'palace');
   g(base, 'init', '-q', '-b', 'main', root);
+  assertScratchRepo(root, base);
   g(root, 'config', 'user.email', 't@t');
   g(root, 'config', 'user.name', 't');
   g(root, 'config', 'commit.gpgsign', 'false');
@@ -127,6 +130,7 @@ describe('palace-push', () => {
   test('a remote with no main branch is refused', () => {
     const empty = join(base, 'empty.git');
     g(base, 'init', '-q', '--bare', '-b', 'main', empty);
+    assertScratchRepo(empty, base);
     g(root, 'remote', 'add', 'empty', empty);
     const tip = commit('edit(Foo): one', 'one.md');
     expect(push('--remote', 'empty').status).toBe(2);
