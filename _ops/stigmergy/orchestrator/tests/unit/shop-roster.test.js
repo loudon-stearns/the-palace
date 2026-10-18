@@ -7,13 +7,14 @@ import { fileURLToPath } from 'node:url';
 import { rosterTriggers, outsideRoster, refreshShopRoster } from '../../src/shop-roster.js';
 import { commitPathsAsync, commitCycle, planCycleCommit } from '../../src/cycle-commit.js';
 import { processCycle } from '../../src/process-cycle.js';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 const FIXTURES = fileURLToPath(new URL('../fixtures/shop-roster/', import.meta.url));
 const STAND_IN = path.join(FIXTURES, 'build-roster.mjs');
 const OVERREACHING = path.join(FIXTURES, 'overreaching-builder.mjs');
 const REAL_BUILDER = fileURLToPath(new URL('../../../../../Shop/Maker/build-roster.mjs', import.meta.url));
 
-const git = (root, args) => execFileSync('git', args, { cwd: root, encoding: 'utf8' });
+const git = (root, args) => execFileSync('git', args, { cwd: root, encoding: 'utf8', env: gitFreeEnv() });
 const ENTRY = 'Projects/Test Steward.md';
 const HUB = 'The Shop.md';
 
@@ -48,6 +49,7 @@ function shopPalace({ rows = ['| FLUX | alive |'], builder = STAND_IN } = {}) {
   writeFileSync(path.join(root, '_ops/swarm/persistent/blackboard.jsonl'), '');
   writeFileSync(path.join(root, '.gitignore'), 'transcript.jsonl\n');
   git(root, ['init', '-q', '-b', 'main']);
+  assertScratchRepo(root);
   git(root, ['config', 'user.name', 'test']);
   git(root, ['config', 'user.email', 'test@example.com']);
   git(root, ['add', '-A']);

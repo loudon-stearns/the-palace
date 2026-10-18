@@ -15,8 +15,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
-import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync, cpSync } from 'node:fs';
-import { join, dirname, resolve } from 'node:path';
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync, cpSync, realpathSync } from 'node:fs';
+import { join, dirname, resolve, sep } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 
@@ -25,6 +25,11 @@ const PALACE = resolve(HERE, '../../..');
 const EXECUTOR = join(PALACE, '_ops/closing-well/baton-executor.mjs');
 const FRAGMENT = join(PALACE, '_ops/Baton Ceremony/Baton Ceremony — on-pickup.md');
 const HEADING = '## On pickup';
+
+// Every GIT_* the caller carries is dropped: a hook or `rebase -x` sets GIT_DIR, and the
+// executor reads the branch with git, so a run under one would ask the palace's own
+// repository instead of the throwaway tree (and this file's own git would write to it).
+const ENV = Object.fromEntries(Object.entries(process.env).filter(([k]) => !k.startsWith('GIT_')));
 
 /** The checklist as it lives in its single home. */
 function canonicalFooter() {
@@ -56,7 +61,7 @@ function writeBatonInScratch({ entry = 'Test Entry', move = 'a one-sentence move
       '--owner', PALACE,
       '--tree', tree,
       '--write',
-    ], { encoding: 'utf8', stdio: 'pipe' });
+    ], { encoding: 'utf8', stdio: 'pipe', env: ENV });
 
     return readFileSync(join(tree, entry, `${entry} — baton.md`), 'utf8');
   } finally {
@@ -117,7 +122,7 @@ test('a missing fragment fails loud, never writes a footerless baton', () => {
       join(tree, '_ops/closing-well/baton-executor.mjs'),
       '--entry', 'Test Entry', '--move', 'm', '--body-file', bodyFile,
       '--session-id', 'test', '--owner', PALACE, '--tree', tree, '--write',
-    ], { encoding: 'utf8', stdio: 'pipe' }),
+    ], { encoding: 'utf8', stdio: 'pipe', env: ENV }),
     /canonical On-pickup checklist is missing/,
     'the executor ran with no canonical checklist available — it must refuse instead');
   } finally {
@@ -136,7 +141,7 @@ function runExecutor(tree, extra, { entry = 'Test Entry', move = 'a one-sentence
   return execFileSync('node', [
     EXECUTOR, '--entry', entry, '--move', move, '--body-file', bodyFile,
     '--session-id', 'test', '--owner', PALACE, '--tree', tree, ...extra,
-  ], { encoding: 'utf8', stdio: 'pipe' });
+  ], { encoding: 'utf8', stdio: 'pipe', env: ENV });
 }
 
 test('a qualifier names the file, and --targets writes the second link', () => {
@@ -202,8 +207,10 @@ test('a baton on main announces with no worktree coordinate; off main it needs o
   try {
     writeFileSync(join(tree, 'Test Entry.md'), '# Test Entry\n');
     writeFileSync(board, '');
-    const git = (...a) => execFileSync('git', a, { cwd: tree, stdio: 'ignore' });
-    git('init', '-q', '-b', 'main'); git('config', 'user.email', 't@t'); git('config', 'user.name', 't');
+    const git = (...a) => execFileSync('git', a, { cwd: tree, env: ENV, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
+    git('init', '-q', '-b', 'main');
+    if (!git('rev-parse', '--path-format=absolute', '--git-common-dir').trim().startsWith(realpathSync(tree) + sep)) throw new Error('git is not aimed at the scratch repo');
+    git('config', 'user.email', 't@t'); git('config', 'user.name', 't');
     git('add', '-A'); git('commit', '-q', '-m', 'init');
     const out = runExecutor(tree, ['--board', board, '--post']);
     assert.match(out, /POSTED to/);
@@ -228,7 +235,7 @@ test('the printed commit carries the whole move as its summary, never cut mid-wo
     const out = execFileSync('node', [
       EXECUTOR, '--entry', entry, '--move', move, '--body-file', bodyFile,
       '--session-id', 'test', '--owner', PALACE, '--tree', tree,
-    ], { encoding: 'utf8', stdio: 'pipe' });
+    ], { encoding: 'utf8', stdio: 'pipe', env: ENV });
     const want = move.replace(/\.$/, '');
     assert.ok(out.includes(`--summary '${want}'`), `the preview's commit summary is not the whole move:\n${out}`);
   } finally {

@@ -9,6 +9,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { findWinningPick, resolveOutcome, mergeWinner, loserNote, preserveLoserOnPage, ALT_BLOCK_START } from '../../src/two-paths-merge.js';
 import { buildChoiceResponse } from '../../../app/src/lib/richcontent.js';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 const REQ = 'apo-steward-004';
 const card = {
@@ -46,11 +47,12 @@ describe('findWinningPick + resolveOutcome (pure)', () => {
 
 describe('mergeWinner — round-trip on a throwaway repo', () => {
   let repo;
-  const g = (...args) => execFileSync('git', args, { cwd: repo, encoding: 'utf8' }).trim();
+  const g = (...args) => execFileSync('git', args, { cwd: repo, encoding: 'utf8', env: gitFreeEnv() }).trim();
 
   beforeAll(() => {
     repo = mkdtempSync(path.join(tmpdir(), 'tp-merge-'));
     g('init', '-q', '-b', 'main');
+    assertScratchRepo(repo);
     g('config', 'user.email', 'test@example.com');
     g('config', 'user.name', 'Test');
     g('config', 'commit.gpgsign', 'false');

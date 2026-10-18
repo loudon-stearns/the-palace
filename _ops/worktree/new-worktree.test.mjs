@@ -17,9 +17,17 @@ import { fileURLToPath } from "node:url";
 
 const SCRIPT = path.join(path.dirname(fileURLToPath(import.meta.url)), "new-worktree.mjs");
 
+// Every GIT_* the caller carries is dropped: a hook or `rebase -x` sets GIT_DIR, and then this
+// file's git, and the teardown it runs (`git worktree remove`, `git branch -D`), would act on the
+// palace's own repository instead of the throwaway owner.
+const ENV = Object.fromEntries(Object.entries(process.env).filter(([k]) => !k.startsWith("GIT_")));
+
 let base, owner;
-const g = (cwd, ...a) => execFileSync("git", a, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
-const run = (...a) => spawnSync("node", [SCRIPT, ...a], { cwd: owner, encoding: "utf8" });
+const g = (cwd, ...a) => execFileSync("git", a, { cwd, env: ENV, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
+const run = (...a) => spawnSync("node", [SCRIPT, ...a], { cwd: owner, env: ENV, encoding: "utf8" });
+const ownRepo = (cwd) => {
+  if (!g(cwd, "rev-parse", "--path-format=absolute", "--git-common-dir").trim().startsWith(base + path.sep)) throw new Error(`git is not aimed at the scratch repo: ${cwd}`);
+};
 const isLink = (p) => { try { return fs.lstatSync(p).isSymbolicLink(); } catch { return false; } };
 const hasBranch = (b) => { try { g(owner, "rev-parse", "--verify", "--quiet", `refs/heads/${b}`); return true; } catch { return false; } };
 const listed = (dir) => g(owner, "worktree", "list", "--porcelain").split("\n").some(l => l === `worktree ${dir}`);
@@ -29,6 +37,7 @@ const listed = (dir) => g(owner, "worktree", "list", "--porcelain").split("\n").
 function makeWorktree(branch, { merged = false, dirty = false } = {}) {
   const dir = path.join(base, `wt-${branch.replace(/\//g, "-")}`);
   g(owner, "worktree", "add", "-q", dir, "-b", branch, "main");
+  ownRepo(dir);
   fs.writeFileSync(path.join(dir, `${branch.replace(/\//g, "-")}.md`), "work\n");
   g(dir, "add", "-A");
   g(dir, "commit", "-q", "-m", `work on ${branch}`);
@@ -48,6 +57,7 @@ beforeEach(() => {
   owner = path.join(base, "owner");
   fs.mkdirSync(owner);
   g(owner, "init", "-q", "-b", "main");
+  ownRepo(owner);
   g(owner, "config", "user.email", "test@palace");
   g(owner, "config", "user.name", "Test Palace");
   g(owner, "config", "commit.gpgsign", "false");

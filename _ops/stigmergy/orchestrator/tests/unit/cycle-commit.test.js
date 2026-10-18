@@ -7,13 +7,14 @@ import { shippedPaths, selectCommitPaths, headlineOf, commitPathsAsync, commitPa
 import { parseProposals, parseOwed, tailRead } from '../../src/ledger.js';
 import { readFileSync } from 'node:fs';
 import { processCycle } from '../../src/process-cycle.js';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 function assistantLine(fences) {
   const text = fences.map((f) => '```json\n' + JSON.stringify(f) + '\n```').join('\n\n');
   return JSON.stringify({ type: 'assistant', message: { usage: {}, content: [{ type: 'text', text }] } });
 }
 
-const git = (root, args) => execFileSync('git', args, { cwd: root, encoding: 'utf8' });
+const git = (root, args) => execFileSync('git', args, { cwd: root, encoding: 'utf8', env: gitFreeEnv() });
 
 let root;
 // maxRetries: on macOS a fresh git repo's folder can still be settling when it
@@ -86,6 +87,7 @@ describe('processCycle with commit', () => {
   test('commits exactly what the cycle shipped, and leaves another writer\'s staged work alone', () => {
     const { bundle, agentDir } = makePalace();
     git(root, ['init', '-q', '-b', 'main']);
+    assertScratchRepo(root);
     git(root, ['config', 'user.name', 'test']);
     git(root, ['config', 'user.email', 'test@example.com']);
     git(root, ['add', '-A']);
@@ -131,6 +133,7 @@ describe('processCycle with commit', () => {
   test('with commit off (the default) nothing is committed', () => {
     const { agentDir } = makePalace();
     git(root, ['init', '-q', '-b', 'main']);
+    assertScratchRepo(root);
     git(root, ['config', 'user.name', 'test']);
     git(root, ['config', 'user.email', 'test@example.com']);
     git(root, ['add', '-A']);
@@ -149,6 +152,7 @@ describe('processCycle with commit', () => {
   test("commit: 'plan' makes no commit, and the plan commits through commitPathsAsync", async () => {
     const { bundle, agentDir } = makePalace();
     git(root, ['init', '-q', '-b', 'main']);
+    assertScratchRepo(root);
     git(root, ['config', 'user.name', 'test']);
     git(root, ['config', 'user.email', 'test@example.com']);
     writeFileSync(path.join(root, '.gitignore'), 'transcript.jsonl\n');
@@ -181,6 +185,7 @@ describe('an ignored file in a cycle', () => {
   function palaceWithIgnoredWav() {
     const made = makePalace();
     git(root, ['init', '-q', '-b', 'main']);
+    assertScratchRepo(root);
     git(root, ['config', 'user.name', 'test']);
     git(root, ['config', 'user.email', 'test@example.com']);
     writeFileSync(path.join(root, '.gitignore'), 'transcript.jsonl\n*.wav\n');
@@ -269,6 +274,7 @@ describe('the screen judges as the committer\'s git add does', () => {
   function palace(rules) {
     const made = makePalace();
     git(root, ['init', '-q', '-b', 'main']);
+    assertScratchRepo(root);
     git(root, ['config', 'user.name', 'test']);
     git(root, ['config', 'user.email', 'test@example.com']);
     writeFileSync(path.join(root, '.gitignore'), `transcript.jsonl\n${rules}\n`);
@@ -472,6 +478,7 @@ describe('a steward\'s page edits: the workshop rides, the house is refused', ()
   function gitPalace() {
     const made = makePalace();
     git(root, ['init', '-q', '-b', 'main']);
+    assertScratchRepo(root);
     git(root, ['config', 'user.name', 'test']);
     git(root, ['config', 'user.email', 'test@example.com']);
     writeFileSync(path.join(root, '.gitignore'), 'transcript.jsonl\n');
@@ -618,6 +625,7 @@ describe('a steward\'s proposals for canon', () => {
   function gitPalace() {
     const made = makePalace();
     git(root, ['init', '-q', '-b', 'main']);
+    assertScratchRepo(root);
     git(root, ['config', 'user.name', 'test']);
     git(root, ['config', 'user.email', 'test@example.com']);
     writeFileSync(path.join(root, '.gitignore'), 'transcript.jsonl\n');

@@ -9,6 +9,7 @@ import {
   MARK, materializeScroll, readStandingOrders, readPlan, writePlan, updateScrollText, retireOldShape,
   CEREMONY_STANDING_PLACEHOLDER, PLAN_PLACEHOLDER,
 } from '../../src/scroll-file.js';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 describe('the trigger field', () => {
   test('a list of words, a single string read as one, nothing when empty', () => {
@@ -79,15 +80,16 @@ describe('a ceremony\'s scroll, drawn by the one materializer', () => {
   let root;
   afterEach(() => { if (root) rmSync(root, { recursive: true, force: true }); root = null; });
 
-  const git = (...args) => execFileSync('git', args, { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
+  const git = (...args) => execFileSync('git', args, { cwd: root, encoding: 'utf8', env: gitFreeEnv(), stdio: ['ignore', 'pipe', 'ignore'] });
   const card = (v) => ['---', 'title: "Return Ceremony"', 'type: practice', 'stage: growing', 'trigger: ["I\'m back", "return"]', v == null ? null : `version: ${v}`, '---', '', '# Return Ceremony', ''].filter((l) => l != null).join('\n');
   const LEDGER = () => path.join(root, '_ops/Return Ceremony/Return Ceremony — tuning.md');
   const SCROLL = () => path.join(root, '_ops/Return Ceremony/Return Ceremony — scroll.md');
-  const commit = (msg, date) => { git('add', '-A'); execFileSync('git', ['commit', '-q', '-m', msg], { cwd: root, env: { ...process.env, GIT_AUTHOR_DATE: date, GIT_COMMITTER_DATE: date } }); };
+  const commit = (msg, date) => { git('add', '-A'); execFileSync('git', ['commit', '-q', '-m', msg], { cwd: root, env: gitFreeEnv({ GIT_AUTHOR_DATE: date, GIT_COMMITTER_DATE: date }) }); };
 
   function palace() {
     root = mkdtempSync(path.join(tmpdir(), 'palace-ceremony-'));
     git('init', '-q');
+    assertScratchRepo(root);
     git('config', 'user.email', 't@t'); git('config', 'user.name', 't');
     mkdirSync(path.join(root, '_ops/Return Ceremony'), { recursive: true });
     mkdirSync(path.join(root, '_ops/swarm/persistent'), { recursive: true });
