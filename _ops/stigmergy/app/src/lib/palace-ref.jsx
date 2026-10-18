@@ -31,7 +31,7 @@ export function usePalaceRef() {
   return useContext(PalaceRefContext);
 }
 
-export function PalaceRefProvider({ vault = 'The Palace', openEntryInState, openProjectScroll = null, children }) {
+export function PalaceRefProvider({ vault = 'The Palace', openEntryInState, openScroll = null, children }) {
   const [entries, setEntries] = useState(null);
   const started = useRef(false);
 
@@ -46,8 +46,8 @@ export function PalaceRefProvider({ vault = 'The Palace', openEntryInState, open
 
   const refIndex = useMemo(() => buildRefIndex(entries ?? []), [entries]);
   const value = useMemo(
-    () => ({ refIndex, ensureLoaded, openEntryInState, openProjectScroll, vault }),
-    [refIndex, ensureLoaded, openEntryInState, openProjectScroll, vault],
+    () => ({ refIndex, ensureLoaded, openEntryInState, openScroll, vault }),
+    [refIndex, ensureLoaded, openEntryInState, openScroll, vault],
   );
 
   return (

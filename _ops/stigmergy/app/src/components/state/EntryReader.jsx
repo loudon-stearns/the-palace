@@ -232,11 +232,12 @@ export default function EntryReader({
   // byte size changes between renders — append it so the new image loads.
   const heroVersion = heroFile && typeof heroFile.size === 'number' ? heroFile.size : null;
 
-  // The face switch. SCROLL always opens the scroll view on the PROJECTS deck
-  // (it reads any entry's scroll, ceremonies included, with a live Now zone),
-  // keyed on the bundle stem; the scroll file in this reader is the fallback
-  // where that deck isn't mounted. A project with a row has its scroll view
-  // even before the file is written, so the row alone lights SCROLL.
+  // The face switch. SCROLL opens the scroll view right here, over STATE (it
+  // reads any entry's scroll, ceremonies included, with a live Now zone), keyed
+  // on the bundle stem, and its back button returns to this page. The scroll
+  // file in this reader is the fallback where there is no scroll view (the
+  // public read view). A project with a row has its scroll view even before
+  // the file is written, so the row alone lights SCROLL.
   const faces = orderFaces(projectRow ? [...(faceOwner.faces || []), 'scroll'] : faceOwner.faces);
   const currentFace = rich.shown ? 'rich' : entry.face_of ? entry.face_of.face : 'text';
   const ownerStem = faceOwner.path.split('/').pop().replace(/\.md$/, '');
@@ -245,7 +246,7 @@ export default function EntryReader({
     if (f === 'text') return onNavigate?.(faceOwner.path);
     if (f === 'rich') return openRichFace({ isPublic: IS_PUBLIC, show: rich.show, assign: (u) => window.location.assign(u), href: richHref(faceOwner.path, import.meta.env.BASE_URL), owner: faceOwner.path, path, navigate: onNavigate });
     if (f === 'scroll') {
-      if (palace?.openProjectScroll) return palace.openProjectScroll(projectRow?.home ?? ownerStem);
+      if (palace?.openScroll) return palace.openScroll(projectRow?.home ?? ownerStem);
       if (faceOwner.files?.scroll) return onNavigate?.(faceOwner.files.scroll);
     }
     return undefined;

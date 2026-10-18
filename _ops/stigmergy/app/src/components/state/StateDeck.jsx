@@ -22,7 +22,7 @@ import { IS_PUBLIC } from '../../lib/public-mode.js';
 // is in-memory (the EntryReader fetches the chosen entry's full read
 // shape via /api/entry).
 
-export default function StateDeck({ jumpTarget = null, onEntryPathChange, reloadNonce = 0 }) {
+export default function StateDeck({ jumpTarget = null, onJumpHandled, onEntryPathChange, reloadNonce = 0 }) {
   const [state, setState] = useState({ kind: 'loading' });
   // STATE has two lenses: PULSE (the ranked list, default) and TOPOLOGY
   // (the typed-link graph). Lens choice is URL-driven (?lens=topology), so
@@ -106,9 +106,13 @@ export default function StateDeck({ jumpTarget = null, onEntryPathChange, reload
   // A cross-deck jump (e.g. clicking [BUN] on a Trickster card's @steward)
   // sets jumpTarget and flips the deck to STATE; open that entry when it
   // arrives. Keyed on the nonce so the same entry can be re-jumped, and so an
-  // ordinary StateDeck re-render never re-fires the open.
+  // ordinary StateDeck re-render never re-fires the open. Reported as used, so
+  // App drops it and a later remount (back from a scroll) starts clean.
   useEffect(() => {
-    if (jumpTarget && jumpTarget.path) nav.openEntry(jumpTarget.path);
+    if (jumpTarget && jumpTarget.path) {
+      nav.openEntry(jumpTarget.path);
+      onJumpHandled?.();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [jumpTarget?.nonce]);
 

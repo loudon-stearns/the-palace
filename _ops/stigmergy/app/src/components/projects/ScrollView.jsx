@@ -51,7 +51,7 @@ function ZoneTitle({ children, right }) {
   );
 }
 
-export default function ScrollView({ home, row, worker, messages = [], onConfirmed, onBack, onAdvance, canAdvance, feedback, onEnchant, canEnchant }) {
+export default function ScrollView({ home, row, worker, messages = [], onConfirmed, onBack, backLabel = 'back', onAdvance, canAdvance, feedback, onEnchant, canEnchant }) {
   const [confirmEnchant, setConfirmEnchant] = useState(false);
   // Option selection on a TricksterCard is CONTROLLED by its parent (the
   // TRICKSTER deck keeps a per-request_id map so keys and clicks share one
@@ -170,7 +170,7 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
   return (
     <div data-testid="scroll-view" data-home={home}>
       <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap', marginBottom: 6 }}>
-        <span data-testid="scroll-back" onClick={onBack} style={{ color: 'var(--phosphor)', textShadow: 'var(--glow)', cursor: 'pointer', border: '1px solid var(--phosphor-dim)', padding: '1px 8px', fontSize: 12, textTransform: 'uppercase', letterSpacing: '.04em' }}>← projects</span>
+        <span data-testid="scroll-back" onClick={onBack} style={{ color: 'var(--phosphor)', textShadow: 'var(--glow)', cursor: 'pointer', border: '1px solid var(--phosphor-dim)', padding: '1px 8px', fontSize: 12, textTransform: 'uppercase', letterSpacing: '.04em' }}>← {backLabel}</span>
         <span
           data-testid="scroll-title"
           onClick={row && row.path && onNavigate ? () => onNavigate(row.path) : undefined}

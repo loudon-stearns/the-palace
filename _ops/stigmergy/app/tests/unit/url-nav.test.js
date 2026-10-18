@@ -5,6 +5,7 @@ import {
   parseLensFromUrl, buildLensSearch,
   parseTreeTargetFromUrl, buildTreeTargetSearch,
   deckFromSearch, buildDeckSearch,
+  parseScrollFromUrl, buildScrollSearch,
 } from '../../src/lib/url-nav.js';
 
 describe('parseEntryFromUrl', () => {
@@ -210,5 +211,32 @@ describe('buildDeckSearch', () => {
     expect(out).toContain('entry=Foo.md');
     expect(out).toContain('lens=topology');
     expect(out).toContain('demo=1');
+  });
+});
+
+// Any page may keep a scroll, so `?scroll=` rides beside whatever deck and
+// entry are open; closing it must leave them exactly as they were.
+describe('parseScrollFromUrl / buildScrollSearch', () => {
+  it('reads ?scroll=, and the old ?project= so old links land', () => {
+    expect(parseScrollFromUrl('')).toBe(null);
+    expect(parseScrollFromUrl('?scroll=Dissolutions')).toBe('Dissolutions');
+    expect(parseScrollFromUrl('?deck=PROJECTS&project=BLUELINE')).toBe('BLUELINE');
+  });
+
+  it('opens on top of the deck and entry, without touching them', () => {
+    expect(buildScrollSearch('?deck=STATE&entry=Dissolutions.md', 'Dissolutions'))
+      .toBe('?deck=STATE&entry=Dissolutions.md&scroll=Dissolutions');
+  });
+
+  it('closing returns the exact search it opened from', () => {
+    const before = '?deck=STATE&entry=Dissolutions.md';
+    const open = buildScrollSearch(before, 'Dissolutions');
+    expect(buildScrollSearch(open, null)).toBe(before);
+  });
+
+  it('writes the new name and drops the old one', () => {
+    expect(buildScrollSearch('?deck=PROJECTS&project=BLUELINE', 'BLUELINE'))
+      .toBe('?deck=PROJECTS&scroll=BLUELINE');
+    expect(buildScrollSearch('?project=BLUELINE', null)).toBe('');
   });
 });

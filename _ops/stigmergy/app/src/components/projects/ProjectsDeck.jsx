@@ -6,7 +6,7 @@ import { ageOf, rowSignal, groupProjects } from '../../lib/scroll-view.js';
 import { slug, StatusDot, RunningTag, QueuedTag } from './status.jsx';
 import { usePalaceRef } from '../../lib/palace-ref.jsx';
 import ScheduleStrip from '../stewards/ScheduleStrip.jsx';
-import ScrollView from './ScrollView.jsx';
+import { advanceFeedback, enchantFeedback } from './steward-feedback.js';
 
 // The PROJECTS deck — every project on one screen, and one click into any of
 // them. Replaces the STEWARDS roster (2026-09-23): the roster showed stewards
@@ -16,9 +16,11 @@ import ScrollView from './ScrollView.jsx';
 //             advance · stuck · tended · untended. The signal column is the
 //             same rule the scroll's Now zone uses (server/projects.js →
 //             computeNow), so the two never disagree.
-//   scroll  — click a row: the project's scroll opens here (Now on top,
-//             Standing Orders editable, open asks answerable inline, the
-//             making trail with media). `?project=<home>` in the URL.
+//   scroll  — click a row: the project's scroll opens (Now on top, Standing
+//             Orders editable, open asks answerable inline, the making trail
+//             with media). `?scroll=<home>` in the URL. App mounts it
+//             (ScrollHost), not this deck, because any page may keep a scroll
+//             and the entry reader's face switch opens the same view from STATE.
 //
 // Advancing fires a RUN (up to the manifest's max_iterations cycles) through
 // the same lane as before; the row shows "running k/N" while it is live.
@@ -159,7 +161,7 @@ export function ProjectRow({ row, onOpen, onOpenEntry, onAdvance, canAdvance, co
   );
 }
 
-export default function ProjectsDeck({ messages = [], onConfirmed, project = null, onOpenProject, onCloseProject }) {
+export default function ProjectsDeck({ onOpenScroll }) {
   const [data, setData] = useState(null);
   const [pending, setPending] = useState(null);
   const [feedback, setFeedback] = useState(null);
@@ -179,11 +181,6 @@ export default function ProjectsDeck({ messages = [], onConfirmed, project = nul
     return () => clearInterval(t);
   }, [refresh]);
 
-  // A feedback line belongs to the screen it was earned on: clear it when the
-  // view changes (deck <-> a project's scroll), so "Murmuration has a steward
-  // now" never sits over another project's scroll.
-  useEffect(() => { setFeedback(null); setPending(null); }, [project]);
-
   const rows = data?.projects ?? [];
   const services = data?.services ?? [];
   const ceremonies = data?.ceremonies ?? [];
@@ -194,14 +191,7 @@ export default function ProjectsDeck({ messages = [], onConfirmed, project = nul
 
   async function doAdvance(name) {
     setBusy(true); setFeedback(null); setPending(null);
-    const r = await advanceSteward(name);
-    if (r.ok && r.fired) setFeedback({ tone: 'ok', text: `advancing ${name} -> cycle ${r.cycle_n}${r.run ? ` (a run of up to ${r.run.cap})` : ''}` });
-    else if (r.ok && r.queued && r.already === 'running') setFeedback({ tone: 'dim', text: `${name} is the live cycle` });
-    else if (r.ok && r.queued && r.already) setFeedback({ tone: 'dim', text: `${name} is already queued (#${r.already})` });
-    else if (r.ok && r.queued) setFeedback({ tone: 'ok', text: `${name} queued #${r.position} behind ${r.current || 'the live cycle'} — it fires when the lane frees` });
-    else if (r.status === 409 || r.busy) setFeedback({ tone: 'warn', text: 'a steward cycle is already running' });
-    else if (r.status === 404) setFeedback({ tone: 'err', text: `no steward registered for "${name}"` });
-    else setFeedback({ tone: 'err', text: r.error || r.msg || `advance failed (${r.status ?? '?'})` });
+    setFeedback(advanceFeedback(name, await advanceSteward(name)));
     setBusy(false); refresh();
   }
 
@@ -215,11 +205,7 @@ export default function ProjectsDeck({ messages = [], onConfirmed, project = nul
 
   async function doEnchant(name) {
     setBusy(true); setFeedback(null); setPending(null);
-    const r = await enchantProject(name);
-    if (r.ok && r.result === 'enchanted') setFeedback({ tone: 'ok', text: `${name} has a steward now (${r.slug}) — advance it when you're ready` });
-    else if (r.ok && r.result === 'already_enchanted') setFeedback({ tone: 'dim', text: `${name} already has a steward (${r.slug})` });
-    else if (r.status === 404) setFeedback({ tone: 'err', text: `no project entry found for "${name}"` });
-    else setFeedback({ tone: 'err', text: r.error || (r.errors ? r.errors.join('; ') : `enchant failed (${r.status ?? '?'})`) });
+    setFeedback(enchantFeedback(name, await enchantProject(name)));
     setBusy(false); refresh();
   }
 
@@ -236,35 +222,12 @@ export default function ProjectsDeck({ messages = [], onConfirmed, project = nul
 
   const fbColor = { ok: 'var(--phosphor)', warn: 'var(--warn)', err: 'var(--error)', dim: 'var(--phosphor-dim)' };
 
-  if (project) {
-    // A ceremony or a page with a ledger has no steward to advance or enchant.
-    const ceremony = ceremonies.find((r) => r.home === project) || pages.find((r) => r.home === project) || null;
-    const row = rows.find((r) => r.home === project) || services.find((r) => r.home === project) || ceremony;
-    return (
-      <div data-testid="projects-screen" style={{ width: '100%' }}>
-        <ScrollView
-          home={project}
-          row={row}
-          worker={worker}
-          messages={messages}
-          onConfirmed={onConfirmed}
-          onBack={onCloseProject}
-          onAdvance={ceremony ? undefined : () => doAdvance(project)}
-          canAdvance={!ceremony && !!row && row.stewarded && !row.running && !row.queued && !busy}
-          onEnchant={ceremony ? undefined : () => doEnchant(project)}
-          canEnchant={!ceremony && !!row && !row.stewarded && !busy}
-          feedback={feedback}
-        />
-      </div>
-    );
-  }
-
   const groups = groupProjects(rows);
   const renderGroup = (label, list) => list.map((row) => (
     <ProjectRow
       key={row.home}
       row={row}
-      onOpen={onOpenProject}
+      onOpen={onOpenScroll}
       onOpenEntry={openEntry}
       onAdvance={(n) => setPending(n)}
       canAdvance={row.stewarded && !row.running && !row.queued && !busy}
@@ -336,7 +299,7 @@ export default function ProjectsDeck({ messages = [], onConfirmed, project = nul
                 <ProjectRow
                   key={row.home}
                   row={row}
-                  onOpen={onOpenProject}
+                  onOpen={onOpenScroll}
                   onOpenEntry={openEntry}
                   onAdvance={(n) => setPending(n)}
                   canAdvance={row.stewarded && !row.running && !row.queued && !busy}
@@ -360,7 +323,7 @@ export default function ProjectsDeck({ messages = [], onConfirmed, project = nul
                 <span>ceremony</span><span>version</span><span>changed</span><span>runs</span><span>last run</span><span>ledger</span>
               </div>
               {ceremonies.map((row) => (
-                <CeremonyRow key={row.home} row={row} onOpen={onOpenProject} onOpenEntry={openEntry} />
+                <CeremonyRow key={row.home} row={row} onOpen={onOpenScroll} onOpenEntry={openEntry} />
               ))}
             </div>
           </Box>
@@ -375,7 +338,7 @@ export default function ProjectsDeck({ messages = [], onConfirmed, project = nul
                 <span>page</span><span>version</span><span>changed</span><span>runs</span><span>last run</span><span>ledger</span>
               </div>
               {pages.map((row) => (
-                <CeremonyRow key={row.home} row={row} prefix="page" onOpen={onOpenProject} onOpenEntry={openEntry} />
+                <CeremonyRow key={row.home} row={row} prefix="page" onOpen={onOpenScroll} onOpenEntry={openEntry} />
               ))}
             </div>
           </Box>
