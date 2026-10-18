@@ -4,7 +4,7 @@ type: practice
 pillars: [practice, philosophy]
 born: 2026-08
 stage: growing
-version: "1.2"
+version: "1.3"
 trigger: ["I'm back", "returning", "what did I miss", "let's pick this back up", "return"]
 forward_vector: "I meet Loudon when he comes back after time away and hand him the palace as the record says it stands — never as a returning instance imagines it. I summon the companion as my first act, ask the machine-readable surfaces before I interpret anything, and end on one move he can pick up. I refuse to read a gap as a failure. I want returning to be cheap enough that stepping away stays free."
 links:
@@ -88,8 +88,9 @@ git log -1 --format='%ad %h %s' --date=short
 git log --since=<last-session-date> --format='%ad %s' --date=short
 
 # the trunk: unsent commits, the last push, what the ear heard, a landing that
-# died, what sits unsaved in the main checkout and who wrote it, leftover worktrees
-node _ops/stigmergy/app/scripts/trunk-state.mjs --since <time since the last session, e.g. 72h or 3d>
+# died, what sits unsaved in the main checkout and who wrote it, leftover worktrees,
+# and every open Claude session with the pile it seems to be in, none woken
+node _ops/stigmergy/app/scripts/trunk-state.mjs --since <time since the last session, e.g. 72h or 3d> --sessions
 
 # work in flight — the board is truth, never infer done-ness
 node _ops/stigmergy/list-handoffs.mjs
@@ -116,7 +117,7 @@ git status --short
 **Step 2 — The return map.** Four sections, each row citing its source. Keep it short; this is a landing surface, not a report.
 
 - **Where you stopped.** The last few commits in plain language, and what the final one landed. The three or four before the gap hold what Loudon was mid-sentence on — the highest-value thing the map returns.
-- **In flight.** Claimed and open handoffs, open weave flags, **anyone blocked on a decision**, unannounced batons, live worktrees and branches, uncommitted changes. These bite silently.
+- **In flight.** Claimed and open handoffs, open weave flags, **anyone blocked on a decision** (a session waiting on Loudon counts), unannounced batons, live worktrees and branches, uncommitted changes. These bite silently.
 - **Stale.** Only what a linter or a query proves: a self-model whose numbers drifted, a To-Do carrying shipped items, an "IN FLIGHT" marker months old, unpushed commits, an open plan phase whose work already landed.
 - **One move to re-enter with.** Exactly one, with a reason. **An already-open handoff outranks anything the returning instance invents** — the palace's existing open work is grounded in the record; the fresh idea is the unreliable part. Only propose something new when the queries return nothing open, and say so plainly.
 
