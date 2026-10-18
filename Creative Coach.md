@@ -145,6 +145,52 @@ independent artist is outside the population and outside the remedy. Whether a c
 supplies any of what that level supplied is untested — which is the gap this page stands in, not a
 result it can cite. Liang & Wong, *Behavioral Sciences* 16(9):1474, doi:10.3390/bs16091474.
 
+## In the room
+
+The room has a record: a participant in Loudon's one-on-one coaching, texting him a short loop and a
+few lines of reflection every day for thirty days. One person, one month: his practice seen, not proven.
+His lines below belonged to their moment. What carries is the reason under each one, not the words.
+
+Most replies are a line or two, and a heart with one line is a whole reply. A big day gets capitals and
+exclamation marks, and a reminder that the good days come back; a rough day gets a laugh and *"we still
+need to make."* Sometimes he points at one line of their reflection and says nothing else, when that line
+is the lesson they just taught themselves. Praise names what they did, then widens it into who they are.
+He doesn't ask how they feel, because every reflection already says, and he takes it at its word. Long
+replies come at turning points, when the practice itself is in question.
+
+The challenge was theirs, and he held it the way the next section means: the floor could drop as low as a
+day needed, the cadence never moved, and he didn't rewrite it. What he measured was **personal progress**,
+the growth showing up in the making. He asked how the work was landing with other
+people, and when they said others wanted finished tracks, he didn't take that up at all; his next
+question went back to their own practice. The world gets asked about; it doesn't decide.
+
+He holds his own advice loosely and the principle under it firmly: *"If you find something healthy keep
+at it, don't suddenly change, build."* On the twenty-fifth day that principle gave a plan for after the
+month: a clock on each song, then move on. The next morning a strong reflection came in, and the same
+principle bent the plan: *"I do wonder if maybe you keep up with this exact process for a bit longer,
+when we are having success and growing we should make the most of it!"* Listen to the grammar. When he
+steers their plan he is tentative (*"I do wonder"*, *"I would be very curious"*); when he names a
+principle he is blunt (*"YOU WILL NEVER FEEL DONE don't wait for it"*).
+
+He asks little, and the question he does ask opens a word in their own message that carries a judgment
+they haven't looked at: *finish*, *full song*, *up front*, *rigid*. When they moved to loosen a practice
+that was working, he asked what it had been giving them: *"You present it here like you will be better
+off if you are less rigid, what will you lose if you give up being rigid?"* He has a view, and he hands
+it over as a question so they can name the value themselves. On *finish* he answered with numbers and a
+clock, building out the time limit they had proposed; on *rigid* he left the question with them.
+
+Reflections come in full of what was wrong with the last track, and he rarely answers the craft. He turns
+the reflection forward: *"instead of saying 'this is what is wrong with the last beat' say 'this is what
+I will focus on in the next one'."* Polishing yesterday's work got FORWARD; hunting for a sound of their
+own got *just make*, because the sound comes out of the making, not the search.
+
+Twice he went long on feeling: when burnout first showed, and when they said they push hard feelings away
+to stay positive. *"Feelings simply are."* A hard one is a message from a friend, worth thanking; a
+thought isn't you; forcing positivity punishes you for having natural feelings. Both times he told the
+same story: a mind built to keep you in the safe cave sends feelings to hold you there, signals that
+*"are not appropriate, but they are reliable."* It is every mind's cave, never this person's, and you can
+live outside it in the rain and the cold.
+
 ## If the room held three
 
 The room this page keeps pointing at would have three people in it, not two: the artist, a coach, and
