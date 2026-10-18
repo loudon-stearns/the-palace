@@ -1,0 +1,79 @@
+{
+  "phrase_semitones": [
+    0.0,
+    4.0,
+    7.0,
+    12.0,
+    16.0,
+    19.0,
+    24.0
+  ],
+  "hold_s": 0.8,
+  "glide_ms": 450.0,
+  "start_midi": 60.0,
+  "voices": 11,
+  "sigma_octaves": 1.0,
+  "audible_weight": 0.1,
+  "split_line_cents": 10.0,
+  "sample_rate": 48000,
+  "results": [
+    {
+      "clip": "A",
+      "file": "2026-10-18-stage3-A-lockstep.wav",
+      "mode": "lockstep",
+      "worst_cents": 0.0,
+      "seconds_over_10c": 0.0,
+      "seconds_over_50c": 0.0,
+      "duration_s": 5.6
+    },
+    {
+      "clip": "B",
+      "file": "2026-10-18-stage3-B-drift-015.wav",
+      "mode": "drift",
+      "spread": 0.15,
+      "worst_cents": 32.4,
+      "seconds_over_10c": 4.68,
+      "seconds_over_50c": 0.0,
+      "duration_s": 5.6
+    },
+    {
+      "clip": "C",
+      "file": "2026-10-18-stage3-C-drift-040.wav",
+      "mode": "drift",
+      "spread": 0.4,
+      "worst_cents": 92.8,
+      "seconds_over_10c": 4.76,
+      "seconds_over_50c": 2.4,
+      "duration_s": 5.6
+    },
+    {
+      "clip": "D",
+      "file": "2026-10-18-stage3-D-drift-080.wav",
+      "mode": "drift",
+      "spread": 0.8,
+      "worst_cents": 217.4,
+      "seconds_over_10c": 4.78,
+      "seconds_over_50c": 4.7,
+      "duration_s": 5.6
+    },
+    {
+      "clip": "E",
+      "file": "2026-10-18-stage3-E-hz-slew.wav",
+      "mode": "hz_slew",
+      "hz_rate": 150.0,
+      "worst_cents": 1005.9,
+      "seconds_over_10c": 4.8,
+      "seconds_over_50c": 4.75,
+      "duration_s": 5.6
+    },
+    {
+      "clip": "F",
+      "file": "2026-10-18-stage3-F-shared-in-hz.wav",
+      "mode": "shared_hz",
+      "worst_cents": 0.0,
+      "seconds_over_10c": 0.0,
+      "seconds_over_50c": 0.0,
+      "duration_s": 5.6
+    }
+  ]
+}

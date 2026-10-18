@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shepard Tone Synthesizer · Stage 3 · The Glide</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --serif: 'Cormorant Garamond', 'Source Serif 4', Georgia, serif;
+  --sans: 'Manrope', system-ui, -apple-system, Helvetica, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  --bg: #0a0a0f; --bg-elev-1: #12121a; --bg-elev-2: #1a1a28; --bg-elev-3: #22222e;
+  --border: #4a4a5e; --border-soft: rgba(255,255,255,0.06);
+  --fg-1: #e8e8f0; --fg-2: #c8c8d8; --fg-3: #8a8aa0;
+  --accent: #e8b84a; --warn: #ff5a5a; --r-sm: 2px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--fg-2); font-family:var(--serif); font-size:19px; line-height:1.75; -webkit-font-smoothing:antialiased; }
+.wrap { max-width:960px; margin:0 auto; padding:40px 24px 120px; }
+header { padding:56px 0 40px; border-bottom:1px solid var(--border-soft); margin-bottom:40px; }
+.eyebrow { font-family:var(--mono); font-size:0.72rem; color:var(--accent); letter-spacing:0.14em; text-transform:uppercase; margin-bottom:14px; }
+h1 { font-family:var(--sans); font-weight:300; font-size:clamp(2rem,5vw,3rem); color:var(--fg-1); letter-spacing:-0.02em; line-height:1.15; margin-bottom:10px; }
+h1 em { font-family:var(--serif); font-style:italic; font-weight:300; color:var(--accent); }
+.lead { font-size:1.15rem; color:var(--fg-2); max-width:44em; }
+section { margin-bottom:44px; }
+h2 { font-family:var(--sans); font-size:0.78rem; font-weight:500; color:var(--accent); letter-spacing:0.14em; text-transform:uppercase; margin-bottom:14px; }
+p { margin-bottom:12px; }
+strong { color:var(--fg-1); font-weight:500; }
+.console { background:var(--bg-elev-1); border:1px solid var(--border-soft); border-radius:var(--r-sm); padding:20px; }
+.views { display:grid; grid-template-columns: 1fr 1.6fr; gap:16px; margin-bottom:16px; }
+canvas { width:100%; display:block; background:var(--bg); border:1px solid var(--border-soft); border-radius:var(--r-sm); }
+.cap { font-family:var(--mono); font-size:0.66rem; color:var(--fg-3); letter-spacing:0.06em; margin-top:6px; }
+.readout { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:16px; font-family:var(--mono); }
+.cell { background:var(--bg-elev-2); border:1px solid var(--border-soft); border-radius:var(--r-sm); padding:8px 10px; }
+.cell .l { color:var(--fg-3); font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; }
+.cell .v { color:var(--fg-1); font-size:1rem; }
+.cell .v.bad { color:var(--warn); }
+.keys { display:grid; grid-template-columns:repeat(12,1fr); gap:4px; margin-bottom:16px; }
+.key { font-family:var(--mono); font-size:0.75rem; padding:12px 0 8px; text-align:center; background:var(--bg-elev-2); color:var(--fg-2); border:1px solid var(--border-soft); border-radius:var(--r-sm); cursor:pointer; user-select:none; }
+.key small { display:block; color:var(--fg-3); font-size:0.6rem; }
+.key.on { border-color:var(--accent); color:var(--accent); }
+.controls { display:grid; grid-template-columns:repeat(2,1fr); gap:12px 24px; font-family:var(--sans); font-size:0.85rem; }
+.ctl label { display:flex; justify-content:space-between; color:var(--fg-2); }
+.ctl label span { font-family:var(--mono); color:var(--fg-1); }
+.ctl input[type=range] { width:100%; accent-color:var(--accent); }
+.ctl .hint { color:var(--fg-3); font-size:0.75rem; }
+.row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+button { font-family:var(--mono); font-size:0.75rem; letter-spacing:0.06em; padding:8px 14px; background:var(--bg-elev-2); color:var(--fg-1); border:1px solid var(--border); border-radius:var(--r-sm); cursor:pointer; }
+button.primary { border-color:var(--accent); color:var(--accent); box-shadow:0 0 18px rgba(232,184,74,0.18); }
+button.on { background:var(--bg-elev-3); border-color:var(--accent); }
+.try li { margin:0 0 10px 1.2em; }
+.eq { background:var(--bg-elev-1); border-left:2px solid var(--accent); padding:12px 16px; margin:12px 0; font-family:var(--mono); font-size:0.82rem; color:var(--fg-1); }
+.eq .w { color:var(--fg-3); margin-top:4px; }
+footer { border-top:1px solid var(--border-soft); padding-top:20px; font-family:var(--sans); font-size:0.8rem; color:var(--fg-3); }
+@media (max-width:760px){ .views{grid-template-columns:1fr;} .controls{grid-template-columns:1fr;} .readout{grid-template-columns:repeat(2,1fr);} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">Shepard Tone Synthesizer · Stage 3 · Study</div>
+  <h1>The glide, and why the stack <em>moves as one</em></h1>
+  <p class="lead">Stage 2 climbed the endless staircase in steps. Here it slides. Eleven sine waves, an octave apart, glide together under a fixed bright window. As long as every octave rides one shared pitch path, the ear hears a single note sliding up forever. Give each octave a mind of its own and the note comes apart.</p>
+</header>
+
+<section id="instrument">
+  <h2>The instrument</h2>
+  <div class="console">
+    <div class="row">
+      <button id="start" class="primary">▸ start sound</button>
+      <button id="endlessUp">endless up</button>
+      <button id="endlessDown">endless down</button>
+      <button id="stop">hold still</button>
+      <button id="alwaysUp" class="on">keys always climb</button>
+    </div>
+    <div class="keys" id="keys"></div>
+    <div class="readout">
+      <div class="cell"><div class="l">pitch class</div><div class="v" id="r-pc">C</div></div>
+      <div class="cell"><div class="l">octaves disagree by</div><div class="v" id="r-dis">0.0 ¢</div></div>
+      <div class="cell"><div class="l">audible voices</div><div class="v" id="r-aud">5</div></div>
+      <div class="cell"><div class="l">climbed so far</div><div class="v" id="r-climb">0 st</div></div>
+    </div>
+    <div class="views">
+      <div><canvas id="circle" width="560" height="560"></canvas><div class="cap">the pitch-class circle · angle = note name, ring = octave, brightness = loudness</div></div>
+      <div><canvas id="lanes" width="900" height="560"></canvas><div class="cap">the last 8 seconds · height = octaves from C4, the bright band is the window</div></div>
+    </div>
+    <div class="controls">
+      <div class="ctl"><label>glide time <span id="v-glide">450 ms</span></label><input id="glide" type="range" min="0" max="1500" step="10" value="450"><div class="hint">how long the stack takes to reach a new note</div></div>
+      <div class="ctl"><label>drift between octaves <span id="v-drift">0 %</span></label><input id="drift" type="range" min="0" max="80" step="1" value="0"><div class="hint">0 = one shared glide. Above 0 the low octaves glide faster than the high ones</div></div>
+      <div class="ctl"><label>endless glide rate <span id="v-rate">2.00 st/s</span></label><input id="rate" type="range" min="0.25" max="12" step="0.25" value="2"><div class="hint">semitones per second for the endless buttons</div></div>
+      <div class="ctl"><label>how the glide is computed</label>
+        <div class="row" style="margin:4px 0 0"><button id="m-pitch" class="on">on pitch, shared</button><button id="m-hz">Hz slew, per voice</button></div>
+        <div class="hint">Hz slew is a common patching mistake: every oscillator ramps at the same Hz per second, so low voices arrive first</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="try">
+  <h2>Four things to try</h2>
+  <ol class="try">
+    <li><strong>Climb forever by hand.</strong> Leave the drift at 0 and play C, E, G, then C again, and keep going. Every C is "higher" than the last, but the window never moves. On the circle, all the dots stay on one spoke.</li>
+    <li><strong>Pull the octaves apart.</strong> Raise the drift to 20 %, then 50 %, and play the same notes. The spoke fans out on every move, and the readout tells you by how many cents. Listen for the moment the one note becomes a chord of slightly wrong octaves.</li>
+    <li><strong>Make the classic mistake.</strong> Set the drift back to 0 and switch to Hz slew. Every voice now moves the same number of Hz per second, so the low voices land almost instantly and the high ones crawl. Each move becomes a smear that sweeps through the stack.</li>
+    <li><strong>The surprise.</strong> Press endless up with the drift at 30 %. You might expect the error to show only while the stack changes notes, but the glide never stops, and voices with different glide times trail the target by different amounts. The octaves stay out of tune for as long as the climb lasts.</li>
+  </ol>
+</section>
+
+<section id="math">
+  <h2>The math, twice</h2>
+  <p>One smoothing step per sample, run on pitch in semitones, not on frequency. Every voice adds its own whole number of octaves to the same smoothed path.</p>
+  <div class="eq">p[n] = a · p[n−1] + (1 − a) · target[n] ,   a = e^(−1 / (τ · sr))
+    <div class="w">(pitch now) = (smoothing) × (pitch a sample ago) + (1 − smoothing) × (target pitch) ,   smoothing = e^(−1 / (glide time × sample rate))</div></div>
+  <div class="eq">f_k[n] = 2^( log2(f_C4) + p[n] / 12 + k )   → every pair of neighbours stays exactly 2 : 1
+    <div class="w">(frequency of voice k) = 2^( (C4 in octaves) + (pitch now) ÷ 12 + (voice k's octave number) )</div></div>
+  <div class="eq">error_k ≈ rate × (τ_k − τ_shared) × 100 ¢   on an endless glide
+    <div class="w">(how far voice k sits off its octave, in cents) ≈ (glide speed in semitones per second) × (voice k's glide time − the shared glide time) × 100</div></div>
+  <p>The third line is why drift never heals on an endless climb. A voice with a longer glide time follows the moving target further behind. At 2 semitones a second, a 100 ms difference leaves that voice 20 cents flat for as long as the climb lasts.</p>
+</section>
+
+<footer>Loud’n Live · Shepard Tone Synthesizer · Stage 3 study · rendered proofs and measurements in <span style="font-family:var(--mono)">proofs/stage3_glide_proof.py</span></footer>
+</div>
+
+<script id="engine-src" type="text/plain">
+// The DSP. Runs in an AudioWorklet when allowed, else in a ScriptProcessor.
+// Kept as one function so a Gen~ build can follow it line for line.
+function ShepardEngine(sr) {
+  const N = 11, HALF = 5, SPAN = 11, SIGMA = 1.0;
+  const C4 = Math.log2(261.6255653005986);
+  const s = this;
+  s.sr = sr; s.T = 0; s.glideMs = 450; s.drift = 0; s.mode = 'pitch';
+  s.endless = 0; s.rate = 2; s.climb = 0;
+  s.cur = new Float64Array(N); s.ph = new Float64Array(N); s.amp = new Float64Array(N);
+  for (let k = 0; k < N; k++) s.cur[k] = C4 + (k - HALF);
+  s.set = function (m) { for (const key in m) s[key] = m[key]; };
+  s.press = function (pc, alwaysUp) {
+    const curPc = ((Math.round(s.T) % 12) + 12) % 12;
+    let d = ((pc - curPc) % 12 + 12) % 12;
+    if (!alwaysUp && d > 6) d -= 12;
+    if (alwaysUp && d === 0) d = 12;
+    s.T = Math.round(s.T) + d; s.climb += d; s.endless = 0;
+  };
+  s.process = function (out) {
+    const n = out.length, sr = s.sr;
+    const step = s.endless * s.rate / sr;
+    for (let i = 0; i < n; i++) {
+      s.T += step; s.climb += step;
+      if (s.T > 132 || s.T < -132) s.T -= 132 * Math.sign(s.T);
+      let y = 0;
+      for (let k = 0; k < N; k++) {
+        const raw = C4 + s.T / 12 + (k - HALF);
+        const tgt = s.cur[k] + ((((raw - s.cur[k] + SPAN / 2) % SPAN) + SPAN) % SPAN) - SPAN / 2;
+        if (s.mode === 'hz') {
+          const st = 150 / sr; let f = Math.pow(2, s.cur[k]); const ft = Math.pow(2, tgt);
+          const d = ft - f; f += d > st ? st : (d < -st ? -st : d);
+          s.cur[k] = Math.log2(f);
+        } else {
+          const tc = s.glideMs * (1 + s.drift * (k - HALF) / HALF);
+          const a = tc > 0 ? Math.exp(-1 / (tc * 1e-3 * sr)) : 0;
+          s.cur[k] = a * s.cur[k] + (1 - a) * tgt;
+        }
+        if (s.cur[k] > C4 + SPAN / 2) s.cur[k] -= SPAN;
+        else if (s.cur[k] < C4 - SPAN / 2) s.cur[k] += SPAN;
+        const x = s.cur[k] - C4;
+        const amp = Math.exp(-(x * x) / (2 * SIGMA * SIGMA));
+        s.amp[k] = amp;
+        const f = Math.min(Math.pow(2, s.cur[k]), sr * 0.45);
+        s.ph[k] += f / sr; if (s.ph[k] >= 1) s.ph[k] -= 1;
+        y += amp * Math.sin(2 * Math.PI * s.ph[k]);
+      }
+      out[i] = 0.2 * y;
+    }
+  };
+  // Spread (cents) of pitch class among voices louder than -20 dB.
+  s.disagreement = function () {
+    let ref = 0, best = 0;
+    for (let k = 0; k < N; k++) if (s.amp[k] > best) { best = s.amp[k]; ref = k; }
+    let hi = -1e9, lo = 1e9, aud = 0;
+    for (let k = 0; k < N; k++) {
+      if (s.amp[k] < 0.1) continue; aud++;
+      let d = (s.cur[k] - s.cur[ref]) * 1200; d = ((d + 600) % 1200 + 1200) % 1200 - 600;
+      if (d > hi) hi = d; if (d < lo) lo = d;
+    }
+    return { cents: aud ? hi - lo : 0, audible: aud };
+  };
+  s.snapshot = function () {
+    const dis = s.disagreement();
+    return { cur: Array.from(s.cur), amp: Array.from(s.amp), T: s.T, climb: s.climb, dis: dis.cents, aud: dis.audible };
+  };
+}
+</script>
+
+<script>
+const ENGINE_SRC = document.getElementById('engine-src').textContent;
+const NAMES = ['C','C♯','D','D♯','E','F','F♯','G','G♯','A','A♯','B'];
+const KEYMAP = 'awsedftgyhuj';
+let ctx = null, node = null, local = null, snap = null, worklet = false;
+const params = { glideMs: 450, drift: 0, mode: 'pitch', rate: 2 };
+let alwaysUp = true;
+const history = [];
+
+function send(msg) {
+  if (worklet) node.port.postMessage(msg);
+  else if (local) {
+    if (msg.press !== undefined) local.press(msg.press, msg.alwaysUp);
+    else local.set(msg);
+  }
+}
+
+async function start() {
+  if (ctx) { ctx.resume(); return; }
+  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const proc = `${ENGINE_SRC}
+  class P extends AudioWorkletProcessor {
+    constructor(){ super(); this.e = new ShepardEngine(sampleRate); this.t = 0;
+      this.port.onmessage = (ev) => { const m = ev.data;
+        if (m.press !== undefined) this.e.press(m.press, m.alwaysUp); else this.e.set(m); }; }
+    process(_, outputs){ const o = outputs[0][0]; this.e.process(o);
+      for (let c = 1; c < outputs[0].length; c++) outputs[0][c].set(o);
+      if ((this.t += o.length) > sampleRate / 40) { this.t = 0; this.port.postMessage(this.e.snapshot()); }
+      return true; } }
+  registerProcessor('shepard-glide', P);`;
+  try {
+    const url = URL.createObjectURL(new Blob([proc], { type: 'application/javascript' }));
+    await ctx.audioWorklet.addModule(url);
+    node = new AudioWorkletNode(ctx, 'shepard-glide', { outputChannelCount: [2] });
+    node.port.onmessage = (ev) => { snap = ev.data; };
+    worklet = true;
+  } catch (err) {
+    // Sandboxed frames can refuse a worklet module; fall back to the old processor.
+    local = new (new Function(ENGINE_SRC + '; return ShepardEngine;')())(ctx.sampleRate);
+    node = ctx.createScriptProcessor(1024, 0, 2);
+    node.onaudioprocess = (ev) => {
+      const L = ev.outputBuffer.getChannelData(0); local.process(L);
+      ev.outputBuffer.getChannelData(1).set(L); snap = local.snapshot();
+    };
+  }
+  node.connect(ctx.destination);
+  send(params);
+  document.getElementById('start').textContent = worklet ? '● sound on' : '● sound on (fallback)';
+}
+
+// Controls
+const $ = (id) => document.getElementById(id);
+const keysEl = $('keys');
+NAMES.forEach((n, i) => {
+  const b = document.createElement('div'); b.className = 'key'; b.dataset.pc = i;
+  b.innerHTML = `${n}<small>${KEYMAP[i]}</small>`;
+  b.addEventListener('pointerdown', () => press(i));
+  keysEl.appendChild(b);
+});
+async function press(pc) {
+  if (!ctx) await start();
+  send({ press: pc, alwaysUp });
+  document.querySelectorAll('.key').forEach((k) => k.classList.toggle('on', +k.dataset.pc === pc));
+}
+window.addEventListener('keydown', (e) => {
+  if (e.repeat || e.metaKey || e.ctrlKey) return;
+  if (e.target && (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT')) return;
+  const i = KEYMAP.indexOf(e.key.toLowerCase()); if (i >= 0) press(i);
+});
+$('start').onclick = start;
+$('endlessUp').onclick = async () => { if (!ctx) await start(); send({ endless: 1 }); };
+$('endlessDown').onclick = async () => { if (!ctx) await start(); send({ endless: -1 }); };
+$('stop').onclick = () => send({ endless: 0 });
+$('alwaysUp').onclick = (e) => { alwaysUp = !alwaysUp; e.target.classList.toggle('on', alwaysUp);
+  e.target.textContent = alwaysUp ? 'keys always climb' : 'keys take the short way'; };
+$('glide').oninput = (e) => { params.glideMs = +e.target.value; $('v-glide').textContent = e.target.value + ' ms'; send({ glideMs: params.glideMs }); };
+$('drift').oninput = (e) => { params.drift = e.target.value / 100; $('v-drift').textContent = e.target.value + ' %'; send({ drift: params.drift }); };
+$('rate').oninput = (e) => { params.rate = +e.target.value; $('v-rate').textContent = (+e.target.value).toFixed(2) + ' st/s'; send({ rate: params.rate }); };
+function setMode(m) { params.mode = m; send({ mode: m }); $('m-pitch').classList.toggle('on', m === 'pitch'); $('m-hz').classList.toggle('on', m === 'hz'); }
+$('m-pitch').onclick = () => setMode('pitch');
+$('m-hz').onclick = () => setMode('hz');
+
+// Drawing
+const C4 = Math.log2(261.6255653005986);
+const circ = $('circle').getContext('2d'), lanes = $('lanes').getContext('2d');
+function draw() {
+  requestAnimationFrame(draw);
+  const s = snap || { cur: Array.from({ length: 11 }, (_, k) => C4 + k - 5), amp: Array.from({ length: 11 }, (_, k) => Math.exp(-((k - 5) ** 2) / 2)), dis: 0, aud: 5, T: 0, climb: 0 };
+  history.push({ t: performance.now(), cur: s.cur, amp: s.amp });
+  while (history.length && performance.now() - history[0].t > 8000) history.shift();
+
+  // Circle
+  const W = 560, cx = W / 2, cy = W / 2;
+  circ.fillStyle = '#0a0a0f'; circ.fillRect(0, 0, W, W);
+  circ.strokeStyle = 'rgba(255,255,255,0.06)';
+  for (let r = 1; r <= 5; r++) { circ.beginPath(); circ.arc(cx, cy, 30 + r * 42, 0, 2 * Math.PI); circ.stroke(); }
+  circ.font = '15px JetBrains Mono'; circ.fillStyle = '#8a8aa0'; circ.textAlign = 'center'; circ.textBaseline = 'middle';
+  NAMES.forEach((n, i) => { const a = i / 12 * 2 * Math.PI - Math.PI / 2; circ.fillText(n, cx + 262 * Math.cos(a), cy + 262 * Math.sin(a)); });
+  s.cur.forEach((l2, k) => {
+    const x = l2 - C4; const pc = ((x % 1) + 1) % 1; const a = pc * 2 * Math.PI - Math.PI / 2;
+    const r = 30 + (x + 2.5) * 42; if (r < 10 || r > 245) return;
+    const amp = s.amp[k];
+    circ.strokeStyle = `rgba(232,184,74,${0.15 + 0.5 * amp})`; circ.beginPath(); circ.moveTo(cx, cy); circ.lineTo(cx + r * Math.cos(a), cy + r * Math.sin(a)); circ.stroke();
+    circ.fillStyle = `rgba(232,184,74,${Math.max(0.08, amp)})`;
+    circ.beginPath(); circ.arc(cx + r * Math.cos(a), cy + r * Math.sin(a), 4 + 10 * amp, 0, 2 * Math.PI); circ.fill();
+  });
+
+  // Lanes
+  const LW = 900, LH = 560, now = performance.now();
+  lanes.fillStyle = '#0a0a0f'; lanes.fillRect(0, 0, LW, LH);
+  const yOf = (x) => LH / 2 - x * (LH / 7.2);
+  const band = Math.sqrt(2 * Math.log(10));
+  lanes.fillStyle = 'rgba(255,255,255,0.035)'; lanes.fillRect(0, yOf(band), LW, yOf(-band) - yOf(band));
+  for (const h of history) {
+    const px = LW - (now - h.t) / 8000 * LW;
+    for (let k = 0; k < 11; k++) {
+      const a = h.amp[k]; if (a < 0.02) continue;
+      lanes.fillStyle = `rgba(232,184,74,${a})`;
+      lanes.fillRect(px, yOf(h.cur[k] - C4) - 1 - 2 * a, 2, 2 + 4 * a);
+    }
+  }
+  const pc = ((Math.round(s.T) % 12) + 12) % 12;
+  $('r-pc').textContent = NAMES[pc];
+  $('r-dis').textContent = s.dis.toFixed(1) + ' ¢'; $('r-dis').classList.toggle('bad', s.dis > 10);
+  $('r-aud').textContent = s.aud;
+  $('r-climb').textContent = (s.climb >= 0 ? '+' : '') + s.climb.toFixed(1) + ' st';
+}
+draw();
+</script>
+<script>/* =====================================================================
+ *  Review Layer — drop-in per-moment commenting surface
+ *  Palace concept: [[Review Layer]].  One method (DOM-anchored), not the
+ *  definition of the layer — for slides / video / image / sound, invent
+ *  an anchoring that fits the format (see the entry).
+ *
+ *  Usage (single-file artifact):
+ *    <script src="review-layer.js"><\/script>   // or paste this whole file
+ *    <script>
+ *      mountReviewLayer({
+ *        project: 'wavetable-scanner',          // names the storage key + export
+ *        round: 1,                              // bump each revision pass
+ *        review: true,                          // false (or omit) ships clean
+ *        moments: [
+ *          { id:'concept', label:'Concept & framing', tag:'text',    sel:'.lead' },
+ *          { id:'sound',   label:'Overall sound & mix', tag:'sound' },           // panel-only
+ *          // GRANULARITY: one moment per natural section — NOT one per slider.
+ *        ],
+ *      });
+ *    <\/script>
+ *
+ *  Styling reads Loudon Live design tokens (--accent, --bg, --fg-*, --border,
+ *  --mono, --sans…) with safe fallbacks, so it also works outside the system.
+ *  Export gives both shapes: JSON keyed per moment (individual responses) and
+ *  a markdown digest ("Copy for Claude").
+ * ===================================================================== */
+(function (global) {
+  function injectStyles() {
+    if (document.getElementById('rv-styles')) return;
+    const css = `
+    .rv-pin{display:inline-flex;align-items:center;justify-content:center;cursor:pointer;
+      font-family:var(--mono,'JetBrains Mono',monospace);font-size:11px;line-height:1;
+      color:var(--fg-3,#8a8a99);background:transparent;border:1px solid var(--border,#4a4a5e);
+      border-radius:3px;width:17px;height:17px;margin-left:6px;vertical-align:middle;
+      transition:color .12s,border-color .12s;user-select:none}
+    .rv-pin:hover{color:var(--accent,#e8b84a);border-color:var(--accent,#e8b84a)}
+    .rv-pin.filled{color:var(--bg,#0a0a0f);background:var(--accent,#e8b84a);border-color:var(--accent,#e8b84a)}
+    #rv-panel{position:fixed;top:0;right:0;height:100vh;width:326px;z-index:2147483600;
+      display:flex;flex-direction:column;
+      background:color-mix(in srgb, var(--bg-elev-2,#16161d) 94%, transparent);
+      border-left:1px solid var(--border,#4a4a5e);box-shadow:-8px 0 28px rgba(0,0,0,.4);
+      transform:translateX(0);transition:transform .22s ease}
+    #rv-panel.collapsed{transform:translateX(326px)}
+    #rv-panel .rv-head{padding:14px 14px 10px;border-bottom:1px solid var(--border-soft,#2a2a36)}
+    #rv-panel .rv-title{font-family:var(--mono,monospace);text-transform:uppercase;
+      letter-spacing:.08em;font-size:11px;color:var(--accent,#e8b84a)}
+    #rv-panel .rv-sub{font-family:var(--mono,monospace);font-size:10px;color:var(--fg-3,#8a8a99);
+      margin-top:4px;letter-spacing:.03em}
+    #rv-panel .rv-body{flex:1;overflow-y:auto;padding:6px 12px 12px}
+    #rv-panel .rv-row{padding:9px 0 7px;border-bottom:1px solid var(--border-soft,#2a2a36)}
+    #rv-panel .rv-row label{display:flex;align-items:baseline;justify-content:space-between;gap:8px;
+      font-family:var(--sans,'Manrope',system-ui,sans-serif);font-weight:500;font-size:12.5px;
+      color:var(--fg-1,#ececf2);cursor:pointer}
+    #rv-panel .rv-row .tag{font-family:var(--mono,monospace);font-size:9px;text-transform:uppercase;
+      letter-spacing:.06em;color:var(--fg-3,#8a8a99);border:1px solid var(--border-soft,#2a2a36);
+      border-radius:2px;padding:1px 4px;white-space:nowrap}
+    #rv-panel textarea{width:100%;margin-top:6px;background:var(--bg,#0a0a0f);color:var(--fg-1,#ececf2);
+      border:1px solid var(--border,#4a4a5e);border-radius:var(--r-sm,3px);
+      font-family:var(--mono,monospace);font-size:11.5px;line-height:1.45;padding:6px 7px;
+      resize:vertical;min-height:0;height:30px;transition:height .12s,border-color .12s;box-sizing:border-box}
+    #rv-panel textarea:focus{outline:none;border-color:var(--accent,#e8b84a);height:64px}
+    #rv-panel textarea.has{height:56px;border-color:var(--accent,#e8b84a)}
+    #rv-panel .rv-foot{padding:10px 12px;border-top:1px solid var(--border-soft,#2a2a36);
+      display:flex;flex-wrap:wrap;gap:6px}
+    #rv-panel .rv-foot button{font-family:var(--mono,monospace);font-size:10.5px;letter-spacing:.04em;
+      text-transform:uppercase;cursor:pointer;border:1px solid var(--border,#4a4a5e);
+      background:var(--bg-elev-1,#101017);color:var(--fg-2,#c4c4d0);padding:6px 9px;border-radius:var(--r-sm,3px)}
+    #rv-panel .rv-foot button.primary{background:var(--accent,#e8b84a);color:var(--bg,#0a0a0f);
+      border-color:var(--accent,#e8b84a);font-weight:500}
+    #rv-panel .rv-foot button:hover{border-color:var(--accent,#e8b84a)}
+    #rv-tab{position:fixed;top:14px;right:14px;z-index:2147483601;font-family:var(--mono,monospace);
+      font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;cursor:pointer;padding:6px 10px;
+      border-radius:var(--r-sm,3px);border:1px solid var(--border,#4a4a5e);
+      background:var(--bg-elev-1,#101017);color:var(--fg-2,#c4c4d0)}
+    #rv-tab:hover{border-color:var(--accent,#e8b84a);color:var(--accent,#e8b84a)}
+    #rv-toast{position:fixed;bottom:18px;right:18px;z-index:2147483602;font-family:var(--mono,monospace);
+      font-size:11px;background:var(--accent,#e8b84a);color:var(--bg,#0a0a0f);padding:8px 12px;
+      border-radius:var(--r-sm,3px);opacity:0;transition:opacity .2s;pointer-events:none}
+    #rv-toast.show{opacity:1}`;
+    const s = document.createElement('style'); s.id = 'rv-styles'; s.textContent = css;
+    document.head.appendChild(s);
+  }
+
+  function mountReviewLayer(opts) {
+    opts = opts || {};
+    if (opts.review === false) return;            // shipped clean — mount nothing
+    const project = opts.project || 'artifact';
+    const round = opts.round || 1;
+    const moments = opts.moments || [];
+    const KEY = (opts.storageKey || ('review-' + project)) + '-r' + round;
+    if (!moments.length) { console.warn('[review-layer] no moments given'); return; }
+
+    injectStyles();
+
+    let store = {};
+    try { store = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { store = {}; }
+    const save = () => { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} };
+    const count = () => Object.values(store).filter(v => v && v.trim()).length;
+
+    const panel = document.createElement('div'); panel.id = 'rv-panel';
+    panel.innerHTML =
+      `<div class="rv-head"><div class="rv-title">Review · Round ${round}</div>
+         <div class="rv-sub" id="rv-sub"></div></div>
+       <div class="rv-body" id="rv-body"></div>
+       <div class="rv-foot">
+         <button class="primary" id="rv-copy">Copy for Claude</button>
+         <button id="rv-json">Download .json</button>
+         <button id="rv-md">Download .md</button>
+         <button id="rv-hide">Hide</button>
+         <button id="rv-clear">Clear all</button>
+       </div>`;
+    document.body.appendChild(panel);
+    const tab = document.createElement('div'); tab.id = 'rv-tab'; tab.textContent = '◇ Review';
+    document.body.appendChild(tab);
+    const toast = document.createElement('div'); toast.id = 'rv-toast'; document.body.appendChild(toast);
+    const body = panel.querySelector('#rv-body'), sub = panel.querySelector('#rv-sub');
+    const flash = (m) => { toast.textContent = m; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 1400); };
+    const refreshSub = () => { sub.textContent = `${count()} of ${moments.length} moments noted`; };
+
+    const areas = {}, pins = {};
+    function syncPin(id) { const p = pins[id]; if (!p) return; const has = (store[id] || '').trim(); p.textContent = has ? '◆' : '◇'; p.classList.toggle('filled', !!has); }
+    function openTo(id) { panel.classList.remove('collapsed'); const ta = areas[id]; if (ta) { ta.scrollIntoView({ block: 'center' }); ta.focus(); } }
+
+    moments.forEach(m => {
+      const row = document.createElement('div'); row.className = 'rv-row';
+      row.innerHTML = `<label>${m.label}${m.tag ? `<span class="tag">${m.tag}</span>` : ''}</label>`;
+      const ta = document.createElement('textarea'); ta.placeholder = 'note for next round…'; ta.value = store[m.id] || '';
+      if (ta.value.trim()) ta.classList.add('has');
+      ta.addEventListener('input', () => { store[m.id] = ta.value; ta.classList.toggle('has', !!ta.value.trim()); save(); syncPin(m.id); refreshSub(); });
+      row.appendChild(ta); body.appendChild(row); areas[m.id] = ta;
+
+      if (m.sel) {
+        const el = document.querySelector(m.sel);
+        if (el) {
+          const pin = document.createElement('span'); pin.className = 'rv-pin'; pin.title = 'Comment on this'; pin.textContent = '◇';
+          pin.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); openTo(m.id); });
+          el.appendChild(pin); pins[m.id] = pin; syncPin(m.id);
+        }
+      }
+    });
+
+    function buildJSON() {
+      return {
+        project, round, exported: new Date().toISOString(),
+        responses: moments
+          .map(m => ({ id: m.id, label: m.label, tag: m.tag || null, note: (store[m.id] || '').trim() }))
+          .filter(r => r.note),
+      };
+    }
+    function buildMarkdown() {
+      const d = new Date().toISOString().slice(0, 10);
+      let md = `# ${project} — Round ${round} review notes\n_${count()} of ${moments.length} moments · ${d}_\n`;
+      let any = false;
+      moments.forEach(m => { const v = (store[m.id] || '').trim(); if (v) { any = true; md += `\n## ${m.label}\n${v}\n`; } });
+      if (!any) md += `\n_(no notes yet)_\n`;
+      return md;
+    }
+    function download(name, text, type) {
+      const blob = new Blob([text], { type }); const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = name; a.click(); URL.revokeObjectURL(url);
+    }
+
+    panel.querySelector('#rv-copy').addEventListener('click', async () => {
+      const md = buildMarkdown();
+      try { await navigator.clipboard.writeText(md); flash('Copied — paste to Claude'); return; } catch (e) {}
+      const t = document.createElement('textarea'); t.value = md; document.body.appendChild(t); t.select();
+      try { document.execCommand('copy'); flash('Copied — paste to Claude'); } catch (e) { flash('Copy blocked — use Download'); }
+      t.remove();
+    });
+    panel.querySelector('#rv-json').addEventListener('click', () => { download(`${project}-review-r${round}.json`, JSON.stringify(buildJSON(), null, 2), 'application/json'); flash('Downloaded .json'); });
+    panel.querySelector('#rv-md').addEventListener('click', () => { download(`${project}-review-r${round}.md`, buildMarkdown(), 'text/markdown'); flash('Downloaded .md'); });
+    panel.querySelector('#rv-clear').addEventListener('click', () => {
+      if (!confirm('Clear all notes for this round?')) return;
+      store = {}; save(); moments.forEach(m => { areas[m.id].value = ''; areas[m.id].classList.remove('has'); syncPin(m.id); }); refreshSub();
+    });
+    panel.querySelector('#rv-hide').addEventListener('click', () => panel.classList.add('collapsed'));
+    tab.addEventListener('click', () => panel.classList.toggle('collapsed'));
+    refreshSub();
+  }
+
+  global.mountReviewLayer = mountReviewLayer;
+})(typeof window !== 'undefined' ? window : this);
+</script>
+<script>
+mountReviewLayer({
+  project: 'shepard-stage3-glide', round: 1, review: true,
+  moments: [
+    { id: 'framing', label: 'The framing: why the stack moves as one', tag: 'text', sel: '.lead' },
+    { id: 'views', label: 'The circle and the lanes', tag: 'design', sel: '.views' },
+    { id: 'controls', label: 'Keys, glide, drift, Hz slew', tag: 'control', sel: '.controls' },
+    { id: 'sound', label: 'How it sounds', tag: 'sound' },
+    { id: 'try', label: 'The four things to try', tag: 'text', sel: '.try' },
+    { id: 'math', label: 'The math, twice', tag: 'text', sel: '#math .eq' },
+  ],
+});
+</script>
+</body>
+</html>

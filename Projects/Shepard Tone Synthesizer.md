@@ -148,7 +148,7 @@ It also reinforces an important psychoacoustic insight: the Shepard tone proves 
 
 3. **Per-voice filter tracking**: How should the per-voice filters behave at extreme octaves? At very low octaves, a key-tracked filter might go subsonic. At very high octaves, it might be above audible range. Should there be limits or saturation?
 
-4. **Portamento timing across octaves**: With a large octave stack (C1 through C8), do all octaves arrive at the target pitch simultaneously, or does the glide duration feel slightly different for lower vs. higher voices? Testing required.
+4. **Portamento timing across octaves**: With a large octave stack (C1 through C8), do all octaves arrive at the target pitch simultaneously, or does the glide duration feel slightly different for lower vs. higher voices? *Answered by Stage 3 (2026-10-18):* they arrive together when one glide runs on pitch before the stack. A separate glide per voice, or a fixed Hz-per-second slew per voice, fans the stack out. See Theory § Stage 3.
 
 5. **CPU efficiency**: Synthesizing all 128 MIDI octaves is expensive. In practice, you might limit to 6–8 octaves around the "bright zone" of the Shepard filter, then compute fewer octaves farther away (since they're nearly inaudible anyway).
 
@@ -200,6 +200,21 @@ A worded form of the step, keeping the operator symbols:
 > wrap when frequencyᵢ > ceiling → frequencyᵢ ÷ 2^9 (down nine octaves, same pitch class)
 
 The division by 2^9 is the formal statement of "the seam is free": dividing a frequency by an exact power of two moves it by whole octaves only, and octave equivalence is exactly the proposition that whole-octave moves preserve pitch class. The mathematics of the wrap and the perception of the wrap are the same fact written twice.
+
+### Stage 3 — The Glide, and Why the Stack Must Move as One
+
+Pair with Stage 3 above (the glide, playable at `Projects/Shepard Tone Synthesizer/session-3-interactive.html`, measured in `proofs/stage3_glide_proof.py`).
+
+Stage 2 let the seam be seen. Stage 3 removes the steps, and the question changes from "where is the join?" to "what has to stay true while everything is moving?" The answer is narrow. Octave equivalence fuses the stack only while every audible pair of voices is *exactly* 2 : 1. A glide is safe if it keeps that ratio at every instant. It doesn't matter what curve the glide follows. What matters is that there is only one glide.
+
+So the glide is computed once, on pitch, before the stack exists, and every voice adds a whole number of octaves to that single path. Measured over a climbing phrase, the audible octaves then disagree by 0.0 cents. Give each voice its own glide time and the agreement breaks: ±15 % spread across the stack gives up to 32 cents, ±40 % gives 93. Let each oscillator ramp at a fixed rate in Hz, a common patching mistake, and the low voices land almost at once while the high ones crawl, with up to 1006 cents of disagreement. Running the one shared glide on Hz instead of pitch changes its shape but keeps the octaves exact, because a single linear smoother keeps the ratios of the inputs it is fed.
+
+The glide also showed something I didn't expect. On an endless climb the drift never heals. Each voice trails the moving target by its own glide time, so a stack with mismatched glide times stays mistuned for as long as it climbs:
+
+> error_k ≈ rate × (τ_k − τ_shared) × 100 ¢
+> (how far voice k sits off its octave, in cents) ≈ (climb speed in semitones per second) × (voice k's glide time − the shared glide time) × 100
+
+At 2 semitones a second, ±30 % drift leaves the audible voices about 16 cents apart, measured and predicted alike. This is the Escher point made exact. The staircase is endless only because every step is one step. If the steps disagree about where they are, the eye finds the trick. That answers Design Challenge 4 above: all the octaves arrive together exactly when they share a single path.
 
 ### Where the Theory Still Has an Edge
 
