@@ -74,3 +74,7 @@ How the door came to be, and the moves still to come: [[Worktree Practice — sp
 ## Worktrees
 
 Anything longer than a breath is made in a worktree of its own: its own branch and HEAD, the heavy state linked back from the owner, torn down safely when the work lands. The how-to (profiles, symlinks, closing a worktree well) is [[Worktree Practice]].
+
+## Active Baton
+
+[[How the Palace Commits — baton — union-merge]] — drafted 2026-10-18
