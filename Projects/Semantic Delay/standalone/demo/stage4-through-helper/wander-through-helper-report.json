@@ -1,0 +1,82 @@
+{
+  "hello": {
+    "build": "semantic-delay-daemon 0.2.0",
+    "protocol_version": "0.2",
+    "features": [
+      "coupling"
+    ],
+    "device": "mps",
+    "seconds_to_ready": 16.6
+  },
+  "instrument": {
+    "phrases": 1,
+    "delay_sec": 11.0,
+    "late": 1,
+    "echoes": [
+      {
+        "phrase": 1,
+        "tap": 1,
+        "k": 1.0,
+        "due_sec": 16.31,
+        "ready_sec": 16.88,
+        "late": true,
+        "rtf": 2.413,
+        "asked_vs_source_st": 0.553
+      },
+      {
+        "phrase": 1,
+        "tap": 2,
+        "k": 0.5,
+        "due_sec": 27.31,
+        "ready_sec": 26.39,
+        "late": false,
+        "rtf": 1.984,
+        "asked_vs_source_st": 2.475
+      },
+      {
+        "phrase": 1,
+        "tap": 3,
+        "k": 0.0,
+        "due_sec": 38.31,
+        "ready_sec": 35.94,
+        "late": false,
+        "rtf": 1.992,
+        "asked_vs_source_st": 4.378
+      }
+    ],
+    "wall_seconds": 30.8
+  },
+  "echoes_measured": [
+    {
+      "k": 1.0,
+      "rtf": 2.413,
+      "auto_shift_st": 2,
+      "asked_vs_source_st (helper)": 0.553,
+      "sung_vs_asked_st": 0.34,
+      "sung_vs_source_st": 0.86,
+      "timbre_to_source": 100.5,
+      "timbre_to_singer": 40.3
+    },
+    {
+      "k": 0.5,
+      "rtf": 1.984,
+      "auto_shift_st": 2,
+      "asked_vs_source_st (helper)": 2.475,
+      "sung_vs_asked_st": 0.18,
+      "sung_vs_source_st": 2.49,
+      "timbre_to_source": 121.5,
+      "timbre_to_singer": 38.5
+    },
+    {
+      "k": 0.0,
+      "rtf": 1.992,
+      "auto_shift_st": 2,
+      "asked_vs_source_st (helper)": 4.378,
+      "sung_vs_asked_st": 0.24,
+      "sung_vs_source_st": 4.32,
+      "timbre_to_source": 110.9,
+      "timbre_to_singer": 33.2
+    }
+  ],
+  "source_to_singer_timbre": 111.0
+}

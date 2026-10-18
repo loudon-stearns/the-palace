@@ -19,7 +19,14 @@ The three Apple-Silicon patches from Stage 0 (April 2026):
      `load()` checks it is still there and refuses to start on MPS without it.
   3. `PYTORCH_ENABLE_MPS_FALLBACK=1` — set below, before torch is imported.
 
-Wire shape is untouched: `convert` returns exactly the dict the stub returned.
+Wire shape is untouched: `convert` returns exactly the dict the stub returned,
+plus (RPC v0.2) an optional `coupling` report when the caller set the knob.
+
+RPC v0.2 (2026-10-14): `options.coupling = {"k": 0..1, ...}` bends the phrase's
+own pitch contour before the model sings it — k = 1 sings the melody, k = 0
+lets the echo wander onto the scale the phrase sits on. The knob lives in
+`../standalone/coupling.py`, shared with the proofs so the helper and the
+instrument never disagree about what a setting means.
 """
 
 from __future__ import annotations
@@ -40,6 +47,38 @@ MODEL_SR = 24000
 HOP = 480  # the model's 20 ms frame grid at 24 kHz
 
 DEFAULT_SOULX = Path.home() / "Documents" / "soulx" / "SoulX-Singer"
+
+_STANDALONE = Path(__file__).resolve().parent.parent / "standalone"
+
+
+def apply_coupling(tgt_f0: np.ndarray, spec: Any) -> Tuple[np.ndarray, Optional[Dict[str, Any]]]:
+    """RPC v0.2 `options.coupling` -> (the contour the model is asked to sing, report).
+
+    `spec` is None (no knob: sing the phrase's own pitch, the v0.1 behaviour)
+    or a dict with `k` in [0, 1] and optional `seed`, `scale`,
+    `drift_semitones`, `vibrato_semitones`. Raises ValueError on a bad spec.
+    """
+    if spec is None:
+        return tgt_f0, None
+    if not isinstance(spec, dict) or "k" not in spec:
+        raise ValueError("options.coupling must be an object with a numeric k")
+    k = float(spec["k"])
+    if not (0.0 <= k <= 1.0):
+        raise ValueError(f"options.coupling.k must be in [0, 1], got {k}")
+    if str(_STANDALONE) not in sys.path:
+        sys.path.insert(0, str(_STANDALONE))
+    from coupling import couple_phrase
+    scale = spec.get("scale")
+    if scale is not None:
+        scale = tuple(int(x) % 12 for x in scale)
+        if not scale:
+            raise ValueError("options.coupling.scale must not be empty")
+    tap, report = couple_phrase(
+        tgt_f0, k, hop_sec=HOP / MODEL_SR,
+        seed=int(spec.get("seed", 7)), scale=scale,
+        drift_semitones=float(spec.get("drift_semitones", 3.0)),
+        vibrato_semitones=float(spec.get("vibrato_semitones", 0.4)))
+    return np.asarray(tap, np.float32), report
 
 
 def resample(audio: np.ndarray, sr_in: int, sr_out: int) -> np.ndarray:
@@ -66,6 +105,7 @@ class SoulXBackend:
         self.n_steps_default = n_steps_default
         self.cfg_default = cfg_default
         self.load_seconds: Optional[float] = None
+        self.warmup_seconds: Optional[float] = None
         self._f0_lock = threading.Lock()  # RMVPE is not re-entrant
 
     # -- load ---------------------------------------------------------------
@@ -121,6 +161,31 @@ class SoulXBackend:
             os.chdir(cwd)
         self.device = device
         self.load_seconds = time.monotonic() - t0
+        self.warmup_seconds = self._warm_up()
+
+    def _warm_up(self) -> float:
+        """One throwaway conversion on a synthetic tone, before `hello` says ready.
+
+        Measured 2026-10-14 through the helper: the first conversion after a
+        load ran ~20% slower (RTF 2.41 against 1.98 for the next two), which
+        made the first echo of a session miss an 11 s delay that every later
+        echo met. Paying that cost at startup keeps it off the first phrase.
+        No RMVPE needed: the tone's pitch is known.
+        """
+        import torch
+        t0 = time.monotonic()
+        n = MODEL_SR  # 1 s
+        t = np.arange(n, dtype=np.float32) / MODEL_SR
+        tone = (0.2 * np.sin(2 * np.pi * 220.0 * t)).astype(np.float32)
+        f0 = np.full(int(np.ceil(n / HOP)), 220.0, np.float32)
+        dev = self.device
+        wav = torch.from_numpy(tone).unsqueeze(0).to(dev)
+        f0t = torch.from_numpy(f0).float().unsqueeze(0).to(dev)
+        with torch.no_grad():
+            self.model.infer(pt_wav=wav, gt_wav=wav, pt_f0=f0t, gt_f0=f0t,
+                             auto_shift=False, pitch_shift=0,
+                             n_steps=self.n_steps_default, cfg=self.cfg_default)
+        return round(time.monotonic() - t0, 2)
 
     # -- pitch --------------------------------------------------------------
 
@@ -168,6 +233,8 @@ class SoulXBackend:
             return self._result(out, output_sr, 0, wall, len(audio_in) / input_sr,
                                 note="unvoiced phrase; returned silence")
 
+        tgt_f0, coupling_report = apply_coupling(tgt_f0, options.get("coupling"))  # v0.2
+
         dev = self.device
         pt_wav = torch.from_numpy(np.ascontiguousarray(prompt_pcm_24k, np.float32)).unsqueeze(0).to(dev)
         gt_wav = torch.from_numpy(np.ascontiguousarray(src, np.float32)).unsqueeze(0).to(dev)
@@ -187,7 +254,10 @@ class SoulXBackend:
         y = gen.squeeze().float().cpu().numpy()
         out = resample(y, MODEL_SR, output_sr)                            # 5
         wall = time.monotonic() - t0
-        return self._result(out, output_sr, int(applied), wall, len(audio_in) / input_sr)  # 6
+        r = self._result(out, output_sr, int(applied), wall, len(audio_in) / input_sr)  # 6
+        if coupling_report is not None:
+            r["coupling"] = coupling_report
+        return r
 
     @staticmethod
     def _result(out: np.ndarray, sr: int, shift: int, wall: float, in_sec: float,

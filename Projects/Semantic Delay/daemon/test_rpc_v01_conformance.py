@@ -125,7 +125,7 @@ def run() -> int:
 
         # 1 — hello negotiates v0.1 and reports model + prompt_count fields.
         with DaemonClient(sock_path) as c:
-            h = c.hello()
+            h = c.hello(protocol_version=PROTOCOL_VERSION)  # a v0.1 client, still served
             chk.eq(h.get("ok"), True, "hello.ok")
             chk.eq(h.get("protocol_version"), PROTOCOL_VERSION, "hello.protocol_version")
             chk.ok("model" in h and "sr" in h["model"], "hello.model.sr present")

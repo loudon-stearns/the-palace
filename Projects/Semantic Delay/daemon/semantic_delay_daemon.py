@@ -2,7 +2,8 @@
 Semantic Delay — Inference Daemon (Stage 1 skeleton + Stage 1.5 model)
 =======================================================================
 
-Protocol: RPC v0.1 — see ./RPC-v0.1.md
+Protocol: RPC v0.2 — see ./RPC-v0.1.md (the contract) and ./RPC-v0.2.md (what
+v0.2 adds: the coupling knob on `convert`). A v0.1 client is still served.
 
 This file is the *runnable skeleton* of the daemon: transport, framing,
 dispatcher, prompt-wav registry, lifecycle. **Model wiring is deliberately
@@ -52,8 +53,9 @@ from typing import Any, Awaitable, Callable, Dict, List, Optional
 # Constants — see RPC-v0.1.md §2
 # ----------------------------------------------------------------------------
 
-PROTOCOL_VERSION = "0.1"
-BUILD_ID = "semantic-delay-daemon 0.1.5"
+PROTOCOL_VERSION = "0.2"
+SUPPORTED_PROTOCOL_VERSIONS = ("0.1", "0.2")  # v0.2 only adds; a v0.1 client is still served
+BUILD_ID = "semantic-delay-daemon 0.2.0"
 MAX_FRAME_BYTES = 64 * 1024 * 1024  # 64 MiB
 
 KIND_REQUEST_HEADER = 0x01
@@ -299,6 +301,27 @@ class PromptRegistry:
         return entry
 
 
+def _validate_coupling(spec: Any) -> None:
+    """RPC v0.2 `options.coupling`: absent/null, or {"k": number in [0, 1], ...}."""
+    if spec is None:
+        return
+    if not isinstance(spec, dict):
+        raise FrameError("E_OPTION_INVALID", "options.coupling must be an object or null")
+    k = spec.get("k")
+    if isinstance(k, bool) or not isinstance(k, (int, float)) or not (0.0 <= float(k) <= 1.0):
+        raise FrameError("E_OPTION_INVALID", f"options.coupling.k must be a number in [0, 1], got {k!r}")
+    for key in ("seed",):
+        if key in spec and (isinstance(spec[key], bool) or not isinstance(spec[key], int)):
+            raise FrameError("E_OPTION_INVALID", f"options.coupling.{key} must be an integer")
+    for key in ("drift_semitones", "vibrato_semitones"):
+        if key in spec and (isinstance(spec[key], bool) or not isinstance(spec[key], (int, float))):
+            raise FrameError("E_OPTION_INVALID", f"options.coupling.{key} must be a number")
+    sc = spec.get("scale")
+    if sc is not None and (not isinstance(sc, list) or not sc
+                           or not all(isinstance(x, int) and not isinstance(x, bool) for x in sc)):
+        raise FrameError("E_OPTION_INVALID", "options.coupling.scale must be a non-empty list of integers")
+
+
 # ----------------------------------------------------------------------------
 # Inference worker — single thread owns the GPU/MPS context
 # ----------------------------------------------------------------------------
@@ -324,6 +347,7 @@ class _InferenceWorker(threading.Thread):
         self.backend = backend
         self.device = "stub" if backend is None else "loading"
         self.load_error: Optional[str] = None
+        self.stub_rtf = 0.0  # stub only: simulated compute per second of audio
         self.queue: "Queue[Optional[ConvertJob]]" = Queue()
         self.model_loaded = threading.Event()
         self._stopping = threading.Event()
@@ -346,8 +370,9 @@ class _InferenceWorker(threading.Thread):
                 return
             self.device = self.backend.device
             self.model_loaded.set()
-            log.info("inference worker: model loaded on %s in %.1f s; ready for jobs",
-                     self.device, self.backend.load_seconds or 0.0)
+            log.info("inference worker: model loaded on %s in %.1f s, warmed up in %.1f s; "
+                     "ready for jobs", self.device, self.backend.load_seconds or 0.0,
+                     getattr(self.backend, "warmup_seconds", None) or 0.0)
             self._serve()
             return
         log.info("inference worker: starting model load (stubbed)")
@@ -414,18 +439,26 @@ class _InferenceWorker(threading.Thread):
         prompt = self.registry.get(job.prompt_id)
         if prompt is None:
             raise FrameError("E_PROMPT_UNKNOWN", f"no such prompt: {job.prompt_id}")
-        # Pass-through stub.
+        # Pass-through stub. With --stub-rtf it takes as long as a model would.
+        if self.stub_rtf > 0:
+            time.sleep(self.stub_rtf * len(job.audio_in) / (job.input_sr * 4))
         audio_out = job.audio_in
         wall_ms = int((time.monotonic() - t0) * 1000)
         input_sec = len(job.audio_in) / (job.input_sr * 4)
         rtf = (wall_ms / 1000.0) / max(input_sec, 1e-6)
-        return {
+        r = {
             "audio_out": audio_out,
             "output_sample_rate": job.output_sr,
             "applied_pitch_shift": int(job.options.get("pitch_shift", 0)),
             "wall_clock_ms": wall_ms,
             "rtf": round(rtf, 3),
         }
+        spec = job.options.get("coupling")
+        if spec is not None:
+            # The stub has no pitch to bend; say so instead of pretending.
+            r["coupling"] = {"k": float(spec["k"]), "applied": False,
+                             "note": "stub backend passes audio through unchanged"}
+        return r
 
 
 # ----------------------------------------------------------------------------
@@ -625,15 +658,20 @@ class Daemon:
         header: Dict[str, Any],
     ) -> None:
         client_pv = header.get("protocol_version")
-        if client_pv != PROTOCOL_VERSION:
+        if client_pv not in SUPPORTED_PROTOCOL_VERSIONS:
             raise FrameError(
                 "E_PROTOCOL_MISMATCH",
-                f"daemon speaks {PROTOCOL_VERSION}, client speaks {client_pv!r}",
+                f"daemon speaks {', '.join(SUPPORTED_PROTOCOL_VERSIONS)}, "
+                f"client speaks {client_pv!r}",
             )
+        # Answer in the client's own version, so a client pinned to a range
+        # (RPC §9) sees a version it accepts. Everything v0.2 adds is optional.
         body = {
             "ok": True,
             "id": header.get("id"),
-            "protocol_version": PROTOCOL_VERSION,
+            "protocol_version": client_pv,
+            "supported_versions": list(SUPPORTED_PROTOCOL_VERSIONS),
+            "features": ["coupling"],
             "model": {
                 "name": "SoulX-Singer-SVC",
                 "sr": MODEL_SAMPLE_RATE,
@@ -702,11 +740,13 @@ class Daemon:
         writer: asyncio.StreamWriter,
         header: Dict[str, Any],
     ) -> None:
-        if not self.worker.model_loaded.is_set():
-            raise FrameError("E_MODEL_NOT_LOADED", "model still loading; retry shortly")
-        prompt_id = header.get("prompt_id")
-        if not isinstance(prompt_id, str):
-            raise FrameError("E_AUDIO_FORMAT", "prompt_id is required")
+        # The client sends its REQUEST_BLOB straight after this header (RPC §4),
+        # so read the blob before refusing anything. A non-fatal error raised
+        # with the blob still unread would leave it in the stream, and the next
+        # call on this connection would trip over it as a malformed frame.
+        # (Caught reading the code on 2026-10-14, not in a run: a convert sent
+        # while the real model was still loading would have closed the
+        # connection instead of letting the client retry.)
         inp = header.get("input") or {}
         opts = header.get("options") or {}
         try:
@@ -716,14 +756,20 @@ class Daemon:
             channels = int(inp.get("channels", 1))
         except (KeyError, TypeError, ValueError) as e:
             raise FrameError("E_AUDIO_FORMAT", f"bad input descriptor: {e}")
+        audio_in = await self._read_blob(reader, byte_length)
+
+        if not self.worker.model_loaded.is_set():
+            raise FrameError("E_MODEL_NOT_LOADED", "model still loading; retry shortly")
+        prompt_id = header.get("prompt_id")
+        if not isinstance(prompt_id, str):
+            raise FrameError("E_AUDIO_FORMAT", "prompt_id is required")
         if encoding != "pcm_f32le" or channels != 1:
             raise FrameError(
                 "E_AUDIO_FORMAT",
-                f"v0.1 supports pcm_f32le mono only; got {encoding} ch={channels}",
+                f"pcm_f32le mono only; got {encoding} ch={channels}",
             )
         out_sr = int(opts.get("output_sample_rate") or in_sr)
-
-        audio_in = await self._read_blob(reader, byte_length)
+        _validate_coupling(opts.get("coupling"))  # v0.2
 
         loop = asyncio.get_running_loop()
         future: "asyncio.Future[Any]" = loop.create_future()
@@ -753,6 +799,10 @@ class Daemon:
             "rtf": result["rtf"],
             "wall_clock_ms": result["wall_clock_ms"],
         }
+        if "coupling" in result:  # v0.2
+            body["coupling"] = result["coupling"]
+        if result.get("note"):
+            body["note"] = result["note"]
         await write_frame(writer, KIND_RESPONSE_HEADER, encode_json(body))
         await write_frame(writer, KIND_RESPONSE_BLOB, out_bytes)
 
@@ -817,6 +867,9 @@ def _parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
     p.add_argument("--soulx-root", type=Path,
                    default=Path.home() / "Documents" / "soulx" / "SoulX-Singer",
                    help="SoulX-Singer working copy (with the April MPS patches)")
+    p.add_argument("--stub-rtf", type=float, default=0.0,
+                   help="stub only: sleep this many seconds per second of audio, to "
+                        "rehearse the real model's timing (e.g. 2.0) with no model")
     p.add_argument("--device", default=None, help="force mps / cuda / cpu (default: best available)")
     p.add_argument("--log-level", default="INFO")
     return p.parse_args(argv)
@@ -838,6 +891,7 @@ async def _amain(args: argparse.Namespace) -> int:
         prompts_dir=args.prompts_dir.expanduser().resolve(),
         backend=backend,
     )
+    daemon.worker.stub_rtf = max(0.0, args.stub_rtf)
     await daemon.start()
     await daemon.serve_until_shutdown()
     return 0

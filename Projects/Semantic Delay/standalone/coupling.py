@@ -195,3 +195,70 @@ def amplitude_envelope(audio: np.ndarray, hop_samples: int) -> np.ndarray:
     n_frames = max(1, len(audio) // hop_samples)
     frames = np.asarray(audio[: n_frames * hop_samples], dtype=np.float64).reshape(n_frames, hop_samples)
     return np.sqrt(np.mean(frames ** 2, axis=1))
+
+
+# ---------------------------------------------------------------------------
+# The knob as the helper uses it (RPC v0.2, 2026-10-14)
+# ---------------------------------------------------------------------------
+
+MINOR_PENTATONIC = (0, 3, 5, 7, 10)
+
+
+def fit_scale_root(f0_hz: np.ndarray, scale: tuple = MINOR_PENTATONIC) -> int:
+    """The pitch class (0-11) whose `scale` the phrase sits on best.
+
+    Moved here from the Stage 4 real-model proof so the helper and the proof
+    pick the same grid for a relaxed echo to fall onto.
+    """
+    m = f0_to_midi(f0_hz)
+    m = m[np.isfinite(m)]
+    if m.size == 0:
+        return 9  # A, the old default
+    cands = np.array(tuple(scale) + (12,), dtype=float)
+    best, best_err = 0, 1e9
+    for root in range(12):
+        pc = (m - root) % 12.0
+        err = float(np.mean(np.min(np.abs(pc[:, None] - cands[None, :]), axis=1)))
+        if err < best_err:
+            best, best_err = root, err
+    return best
+
+
+def couple_phrase(
+    target_f0: np.ndarray,
+    k: float,
+    *,
+    hop_sec: float,
+    seed: int = 7,
+    scale: tuple | None = None,
+    drift_semitones: float = 3.0,
+    vibrato_semitones: float = 0.4,
+) -> tuple[np.ndarray, dict]:
+    """Couple one phrase's own contour at strength k, with a spirit fitted to it.
+
+    The spirit is centred on the phrase's median pitch and wanders on the
+    scale the phrase already sits on best (minor pentatonic unless `scale` is
+    given), so a relaxed echo drifts somewhere that still belongs to the song.
+    Returns (tap F0 in Hz with 0.0 unvoiced, a small report).
+    """
+    scale = tuple(scale) if scale else MINOR_PENTATONIC
+    mid = f0_to_midi(target_f0)
+    voiced = np.isfinite(mid)
+    if not np.any(voiced):
+        return np.asarray(target_f0, np.float32), {"k": float(k), "voiced": False}
+    center = float(np.nanmedian(mid))
+    root_pc = fit_scale_root(target_f0, scale)
+    root_midi = int(12 * np.floor((center - root_pc) / 12) + root_pc)
+    spirit = Spirit(name="fitted", center_midi=center, drift_semitones=drift_semitones,
+                    vibrato_semitones=vibrato_semitones, seed=int(seed), scale=scale,
+                    scale_root_midi=root_midi)
+    tap = couple(target_f0, spirit, k, hop_sec=hop_sec)
+    return tap, {
+        "k": float(np.clip(k, 0.0, 1.0)),
+        "voiced": True,
+        "seed": int(seed),
+        "scale": list(scale),
+        "scale_root_midi": root_midi,
+        "center_midi": round(center, 2),
+        "asked_vs_source_st": round(coupling_error_semitones(target_f0, tap), 3),
+    }

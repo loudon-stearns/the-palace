@@ -54,18 +54,33 @@ class DelayEngine:
         feedback: float = 0.0,
         taps: int = 1,
         delay_samples: int = 0,
-    ) -> None:
-        """Lay down one phrase plus its feedback train."""
+        not_before: int | None = None,
+    ) -> dict:
+        """Lay down one phrase plus its feedback train.
+
+        Late-echo guard (2026-10-14): an echo whose start lies before
+        `not_before` (default: the render cursor — the audio arrived after its
+        moment) is skipped whole, never clipped. Live, a converted phrase that
+        comes back late would otherwise play in from its middle; skipping lets
+        the next repeat land cleanly instead. Returns {"scheduled", "skipped"}.
+        """
         audio = np.asarray(audio, dtype=np.float32)
+        floor = self._cursor if not_before is None else max(self._cursor, not_before)
         gain = wet_gain
+        scheduled = skipped = 0
         for k in range(max(1, taps)):
             start = at_sample + k * delay_samples
             if gain < 1e-4:
                 break
-            self._events.append(_Event(start=start, audio=audio, gain=gain))
+            if start < floor:
+                skipped += 1
+            else:
+                self._events.append(_Event(start=start, audio=audio, gain=gain))
+                scheduled += 1
             gain *= feedback
             if feedback <= 0.0:
                 break
+        return {"scheduled": scheduled, "skipped": skipped}
 
     def render(self, n: int) -> np.ndarray:
         """Render the next `n` wet samples; drop events that are fully past."""

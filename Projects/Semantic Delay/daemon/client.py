@@ -16,7 +16,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, Optional, Tuple
 
-PROTOCOL_VERSION = "0.1"
+PROTOCOL_VERSION = "0.2"  # v0.2 adds options.coupling on convert; see RPC-v0.2.md
 MAX_FRAME_BYTES = 64 * 1024 * 1024
 
 KIND_REQUEST_HEADER = 0x01
@@ -44,6 +44,7 @@ class ConvertResult:
     applied_pitch_shift: int
     rtf: float
     wall_clock_ms: int
+    coupling: Optional[Dict[str, Any]] = None  # v0.2: what the knob did, when set
 
 
 class DaemonClient:
@@ -121,8 +122,8 @@ class DaemonClient:
 
     # -- public API --
 
-    def hello(self) -> Dict[str, Any]:
-        self._send_header({"method": "hello", "id": "h-1", "protocol_version": PROTOCOL_VERSION})
+    def hello(self, protocol_version: str = PROTOCOL_VERSION) -> Dict[str, Any]:
+        self._send_header({"method": "hello", "id": "h-1", "protocol_version": protocol_version})
         return self._recv_header()
 
     def prompts_list(self) -> Dict[str, Any]:
@@ -162,6 +163,7 @@ class DaemonClient:
         auto_shift: bool = True,
         pitch_shift: int = 0,
         output_sample_rate: Optional[int] = None,
+        coupling: Optional[Dict[str, Any]] = None,
     ) -> ConvertResult:
         self._send_header({
             "method": "convert",
@@ -179,6 +181,7 @@ class DaemonClient:
                 "auto_shift": auto_shift,
                 "pitch_shift": pitch_shift,
                 "output_sample_rate": output_sample_rate,
+                **({"coupling": coupling} if coupling is not None else {}),
             },
         })
         self._send_frame(KIND_REQUEST_BLOB, pcm)
@@ -191,6 +194,7 @@ class DaemonClient:
             applied_pitch_shift=int(header.get("applied_pitch_shift", 0)),
             rtf=float(header.get("rtf", 0.0)),
             wall_clock_ms=int(header.get("wall_clock_ms", 0)),
+            coupling=header.get("coupling"),
         )
 
     def shutdown(self) -> Dict[str, Any]:
