@@ -2,9 +2,10 @@
 // column in the typed links frame." A link's label ran 18 characters at the
 // median and 48 at most, and a 14ch column cut it with an ellipsis in the
 // dimmest green. Now each row reads as a statement, "Connects to Hyperdimensional
-// Prism", and the label sits on the line beneath, in italics, whole and wrapping
-// ("[Mirrors]->[Entry] and then the next line below (description) in italics";
-// "we also dont need '->' it can just read like a statement").
+// Prism", and the label runs beneath the whole statement, in italics, whole and
+// wrapping ("[Mirrors]->[Entry] and then the next line below (description) in
+// italics"; "it can just read like a statement"; "the label can have more space
+// and go under the entire 'connects to' as well as the destination page").
 import { describe, it, expect } from 'vitest';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -53,8 +54,14 @@ describe('the typed-links frame', () => {
     expect(html).not.toContain('text-transform:uppercase');
   });
 
-  it('gives the type column room for its longest names on one line', () => {
-    const html = render([{ type: 'emerged-from', label: 'x', target: 'Dispersion Table' }]);
-    expect(html).toContain('grid-template-columns:13ch minmax(0, 1fr)');
+  it('is no table: the statement is one line, and the label runs under all of it', () => {
+    const html = render([{ type: 'emerged-from', label: 'representation-dissolves-discontinuity', target: 'Dispersion Table' }]);
+    expect(html).not.toContain('grid-template-columns');
+    const row = html.slice(html.indexOf('data-testid="typed-link-row"'));
+    // The label is a direct child of the row, after the statement line, not nested beside the target.
+    const line = row.indexOf('data-testid="typed-link-type"');
+    const label = row.indexOf('data-testid="typed-link-label"');
+    expect(line).toBeLessThan(label);
+    expect(row.slice(line, label)).toMatch(/Emerged from<\/span> <span[^>]*>Dispersion Table<\/span>(<small[\s\S]*?<\/small>)?<\/div><div/);
   });
 });
