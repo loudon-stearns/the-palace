@@ -6,6 +6,7 @@ import { tmpdir } from 'node:os';
 import { resolve, join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
+import { parseSince, sinceFor } from '../../scripts/trunk-state.mjs';
 
 const TS = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..', 'scripts', 'trunk-state.mjs');
 let base;
@@ -60,6 +61,23 @@ describe('trunk-state', () => {
     const r = spawnSync('node', [TS, '--since', 'banana', '--no-writers'], { cwd: root, encoding: 'utf8', env: gitFreeEnv() });
     expect(r.status).toBe(2);
     expect(r.stderr).toMatch(/--since takes/);
+  });
+
+  test('sinceFor gives the --since that reaches back to a start, short of it by a minute at most', () => {
+    const now = Date.parse('2026-10-18T12:00:00Z');
+    const H = 3600000;
+    expect(sinceFor(now - 50 * H, { now })).toBe('50h');
+    expect(sinceFor(now - 72 * H - 5000, { now })).toBe('72h');
+    expect(sinceFor(now - 50 * H - 2 * 60000, { now })).toBe('51h');
+    expect(sinceFor(now - 3 * 60000, { now })).toBe('1h');
+    expect(sinceFor(now - 3 * 60000, { now, floorMs: 24 * H })).toBe('24h');
+    expect(sinceFor(now - 30 * H, { now, floorMs: 24 * H })).toBe('30h');
+    expect(sinceFor(now - 168 * H, { now })).toBe('168h');
+    expect(sinceFor(now - 169 * H, { now })).toBe('8d');
+    expect(sinceFor(now - 17 * 24 * H - 5000, { now })).toBe('17d');
+    for (const start of [now - 1, now - 7 * H, now - 50 * H - 1, now - 169 * H, now - 40 * 24 * H - 5 * 60000]) {
+      expect(parseSince(sinceFor(start, { now }), now)).toBeLessThanOrEqual(start + 60000);
+    }
   });
 
   test('names the session that wrote each unsaved file, not one that only read it', () => {

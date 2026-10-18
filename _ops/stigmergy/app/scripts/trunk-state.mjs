@@ -47,6 +47,18 @@ export function parseSince(text, now = Date.now()) {
   return now - n * (m[2] === 'd' ? 86400000 : m[2] === 'h' ? 3600000 : 60000);
 }
 
+// The other way: the --since that reaches back to startMs, for a caller that
+// knows when its gap began (the Return's map). Whole hours, or whole days past
+// a week, rounded up so the window falls short of the start by a minute at
+// most; never under floorMs. The minute is grace for the seconds a caller
+// spends between finding the start and asking: git reads a bare date as that
+// day at this time of day, which should come out 72h, not 73h.
+export function sinceFor(startMs, { now = Date.now(), floorMs = 0 } = {}) {
+  const ms = Math.max(now - startMs - 60000, floorMs);
+  const hours = Math.max(1, Math.ceil(ms / 3600000));
+  return hours > 168 ? `${Math.ceil(ms / 86400000)}d` : `${hours}h`;
+}
+
 function readJsonl(path) {
   if (!existsSync(path)) return [];
   return readFileSync(path, 'utf8').split('\n').filter(Boolean).map((l) => { try { return JSON.parse(l); } catch (_) { return null; } }).filter(Boolean);

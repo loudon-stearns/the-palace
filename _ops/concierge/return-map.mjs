@@ -24,10 +24,11 @@
 // reported as `unavailable` with its error, never silently dropped. A missing
 // answer must stay visible; that is what stops it being replaced by a guess.
 
-import { execSync } from 'node:child_process';
+import { execSync, execFileSync } from 'node:child_process';
 import { readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { boardPath, loadBoard, foldHandoffs, age, C, ownerRoot } from '../stigmergy/handoff-model.mjs';
+import { parseSince, sinceFor } from '../stigmergy/app/scripts/trunk-state.mjs';
 
 const ROOT = ownerRoot();
 const argv = process.argv.slice(2);
@@ -73,6 +74,32 @@ const arcCmd = sinceArg
   ? `git log --since=${sinceArg} --format='%ad %h %s' --date=short`
   : `git log -12 --format='%ad %h %s' --date=short`;
 const arc = probe('the arc', arcCmd);
+
+// The trunk probe looks back across the same gap, in trunk-state's own --since
+// (72h, 3d), as the card's query block runs it. The gap starts where git reads
+// --since, the instant the arc starts from; a --since already in trunk-state's
+// form passes through, since git misreads "72h" as 1972. Without --since it
+// starts at the last commit, and never reaches back less than trunk-state's
+// own 24h: on a palace that commits on its own, the last commit is often
+// minutes old.
+const gitSeconds = (args) => {
+  try {
+    const out = execFileSync('git', args, { cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], env: { ...process.env, GIT_OPTIONAL_LOCKS: '0' } });
+    const n = Number(/(\d+)\s*$/.exec(out)?.[1]);
+    return n > 0 ? n * 1000 : null;
+  } catch { return null; }
+};
+const utc = (ms) => `${new Date(ms).toISOString().slice(0, 16).replace('T', ' ')} UTC`;
+let trunkWindow = null;
+if (sinceArg && parseSince(sinceArg) !== null) {
+  trunkWindow = { since: sinceArg, note: `--since ${sinceArg}, passed through` };
+} else if (sinceArg) {
+  const from = gitSeconds(['rev-parse', `--since=${sinceArg}`]);
+  if (from) trunkWindow = { since: sinceFor(from), from: new Date(from).toISOString(), note: `back to --since ${sinceArg} as git reads it, ${utc(from)}, where the arc starts` };
+} else {
+  const from = gitSeconds(['log', '-1', '--format=%ct']);
+  if (from) trunkWindow = { since: sinceFor(from, { floorMs: 86400000 }), from: new Date(from).toISOString(), note: `back to the last commit, ${utc(from)}, and never less than 24h` };
+}
 
 // ------------------------------------------------------------- 2. work in flight
 
@@ -161,7 +188,7 @@ const linters = [
 ].map(([label, cmd]) => probe(label, cmd, { allowFail: true }));
 
 const repo = [
-  probe('trunk', 'node _ops/stigmergy/app/scripts/trunk-state.mjs', { allowFail: true }),
+  { ...probe('trunk', `node _ops/stigmergy/app/scripts/trunk-state.mjs${trunkWindow ? ` --since ${trunkWindow.since}` : ''}`, { allowFail: true }), window: trunkWindow },
   probe('unpushed', `git log --oneline origin/main..main | wc -l | tr -d ' '`, { allowFail: true }),
   probe('worktrees', 'git worktree list'),
   probe('branches', 'git branch -v'),
@@ -243,6 +270,7 @@ for (const l of linters) {
 }
 for (const r of repo) {
   cmdLine(r.cmd);
+  if (r.window) console.log(`${C.D}    window: ${r.window.note}${C.R}`);
   if (r.ok) body(r.out || '(nothing)');
   else body(`${C.Rd}unavailable${C.R} — ${r.error}`);
 }
