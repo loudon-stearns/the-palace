@@ -6,7 +6,7 @@ pillars:
   - practice
 born: 2026-09-22
 stage: foundational
-version: "1.28"
+version: "1.29"
 links:
   - target: "[[JEWEL]]"
     type: connects-to
@@ -50,7 +50,7 @@ The limits follow age in the hands as well as the words. A page that makes nothi
 
 ## The invariants
 
-Plan carefully. Show before writing. Read before touching. Feel the friction before writing a single character. If a ceremony cannot verify its postcondition it has not completed. Typed links over free prose connections. Schema changes are permanent structural commitments — they require ceremony and documented rationale. Git is the safety net.
+Plan carefully. Show before writing. Read before touching. Feel the friction before writing a single character. If a ceremony cannot verify its postcondition it has not completed. Typed links over free prose connections. Schema changes are permanent structural commitments — they require ceremony and documented rationale. A decision meant to hold on every page isn't finished in the page that records it: post a propagate flag, carry what you can now, and the next weave carries the rest and checks it ([[SCHEMA — Reference]] §9). Git is the safety net.
 
 ## Read next
 

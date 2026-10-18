@@ -584,3 +584,39 @@ folder; [[Palace Ceremonies]] (§ What Makes a Ceremony, the Closing Well row); 
 `_ops/Substrate Skill.md`; [[SUBSTRATE]] (Context companions); [[README - The Palace Guide]] (the bundle
 paragraph). [[ROSETTA]] states no ledger rule, and its ceremony table is unchanged. **MINOR:** a new shared
 field and a widened bundle pattern; nothing removed.
+
+## Weave flags named; a decision reaches every page — v1.29 (2026-10-18)
+
+**What changes.** §9 names the weave flag for the first time: a `BROADCAST` on `WEAVE` whose `payload.kind`
+is `weave_flag`, posted through the Commons writer, in two kinds. An entry flag asks for something done to
+named entries, as before. A propagate flag (`flag_type: propagate`) carries a decision to every page it
+reaches: it names no source entries, so no touch closes it, and it carries its home, scope, check, rhythm and,
+when the check is mechanical, a pattern the flag linter counts. §5's mirror step now sends any page beyond the
+mirror set to a propagate flag. CLAUDE.md and [[ELDER]] each carry one line saying a decision meant for every
+page isn't finished in the page that records it.
+
+**Why.** Loudon, 2026-10-18: *"There have been a few times recently when we made a change that would later
+need to propagate throughout the palace. I believe that any task/item/decision that needs to spread throughout
+the palace should be presented as a weave flag, and then in the next weave the weave agents should know about
+what needs to propagate and perform the tasks at the next weave."* Decisions had been spreading however the
+deciding session improvised: v1.28's ledgers by a propagation plan and a baton, v1.26's `activation_count` by a
+same-day sweep, this ceremony's own changes only as far as six mirror docs, and some only as a sentence saying
+"flagged for the next Weave" with nothing on the board. The weave flag couldn't carry one, because a touch to
+any entry it named closed it. §9 had never described the weave flag at all, which is why [[Closing Well]] told
+closes to post `FLAG` to `WEAVE`, the wrong wire.
+
+**Two choices Loudon made with it.** A flag may carry `rhythm: by-touch` for a decision meant to spread slowly,
+as v1.28's "retire `last_tested` page by page" was; the weave then measures how far it has spread and leaves the
+pages alone. And a decision need not wait for the weave: the deciding session carries what it can and posts the
+flag anyway, so the weave is the second reader that confirms it reached everywhere.
+
+**What it does not change.** No entry type, link type, required field, stage, ceremony or message type. A weave
+flag is still a `BROADCAST`. The [[Weave Ceremony]] (v1.7) carries the procedure; its Context holds the
+rationale at length (§ Decisions Reach Every Page).
+
+**Mirrors.** SCHEMA, SCHEMA — Reference, CLAUDE.md and [[ELDER]] (version); [[Palace Ceremonies]], [[ROSETTA]]
+and [[README - The Palace Guide]] (the weave's row, which now names carrying decisions; ROSETTA's stale
+"≥3 links proposed" postcondition corrected with it). `_ops/Substrate Skill.md` still holds (`:68`, a deposit's
+back-links flagged for the Weave; `:136`, stewards' completions on `WEAVE`); [[SUBSTRATE]] states no weave-flag
+rule. Beyond the mirror set: none, because §9 keeps the words "palace-weaving flags" that [[The Lens]] quotes;
+history in ledgers is left as it is. **MINOR:** additive; nothing removed.

@@ -34,7 +34,7 @@ When working within the palace with an AI:
 
 - **"Add this to the palace"** — The AI will draft a new entry based on the current conversation and write it to the palace.
 - **"Let's walk"** — The AI reads the current state of the palace and surfaces connections, orphans, or surprises. The Walk ceremony.
-- **"Let's weave"** — Full graph review. The AI reads all entries, reports on topology, suggests new links, identifies what's dormant. The Weave ceremony.
+- **"Let's weave"** — Full graph review. The AI reads all entries, reports on topology, suggests new links, identifies what's dormant, and carries any decision posted as a propagate flag to every page it hasn't reached. The Weave ceremony.
 - **"What does the palace say about...?"** — The AI searches the palace for relevant entries and synthesizes.
 - **"Connect this to the palace"** — The AI proposes which existing entries relate to what you're currently discussing and what link types apply.
 
@@ -227,7 +227,7 @@ The palace stays alive through periodic ceremonies — intentional acts of revie
 
 **The Walk** (weekly, ~15 min) — Pick a starting entry. Follow links. Read. Note what surprises you. This is the songline walk — the act of traversal generates understanding.
 
-**The Weave** (monthly, ~30-60 min) — Review the full graph. Which entries are growing? Which are orphaned? Which clusters are forming? Update metadata. Propose new connections. This is the elder weaving the blanket.
+**The Weave** (monthly, ~30-60 min) — Review the full graph. Which entries are growing? Which are orphaned? Which clusters are forming? Update metadata. Propose new connections. Carry the decisions made since the last weave to every page. This is the elder weaving the blanket.
 
 **The Return** (on coming back after a gap) — Summon the companion, ask the machine-readable surfaces (handoff board, linters, the persistent board, git) *before* interpreting anything, and show a return map: where you stopped, what is in flight, what a linter proves stale, and one move to re-enter with. Every row cites a command or a file; inference is disqualifying. Report the gap's length, never a theory about its cause.
 
