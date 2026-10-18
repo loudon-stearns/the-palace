@@ -21,6 +21,19 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 // Tone builds its own context, so it is the test of whether the kit's wrap
 // reaches a library's audio (the spec's named unknown, § 7).
 const TONE_EXPLORER = resolve(HERE, '../../../../../Kuramoto Coupling/two-oscillators-coupling-explorer-audio.html');
+const RICH_SRC = resolve(HERE, '../../../../rich-face');
+const APP = resolve(HERE, '../..');
+const ENTRY = 'Kit Entry';
+
+// One second of a quiet 440 Hz tone: what PhosphorAudio plays on a card.
+function toneWav() {
+  const rate = 8000, n = rate, buf = Buffer.alloc(44 + n * 2);
+  buf.write('RIFF', 0); buf.writeUInt32LE(36 + n * 2, 4); buf.write('WAVE', 8); buf.write('fmt ', 12);
+  buf.writeUInt32LE(16, 16); buf.writeUInt16LE(1, 20); buf.writeUInt16LE(1, 22); buf.writeUInt32LE(rate, 24);
+  buf.writeUInt32LE(rate * 2, 28); buf.writeUInt16LE(2, 32); buf.writeUInt16LE(16, 34); buf.write('data', 36); buf.writeUInt32LE(n * 2, 40);
+  for (let i = 0; i < n; i++) buf.writeInt16LE(Math.round(800 * Math.sin((2 * Math.PI * 440 * i) / rate)), 44 + i * 2);
+  return buf;
+}
 const require = createRequire(import.meta.url);
 let chromium = null;
 try { ({ chromium } = require('playwright')); if (!existsSync(chromium.executablePath())) chromium = null; } catch { chromium = null; }
@@ -63,6 +76,14 @@ function makeTempPalace() {
   mkdirSync(resolve(root, 'Kit'), { recursive: true });
   for (const [name, html] of Object.entries(PIECES)) writeFileSync(resolve(root, 'Kit', name), html, 'utf8');
   copyFileSync(TONE_EXPLORER, resolve(root, 'Kit', 'tone.html'));
+  writeFileSync(resolve(root, 'Kit', 'tone.wav'), toneWav());
+  // A rich face with one broken piece, for the errored mark.
+  mkdirSync(resolve(root, '_ops/rich-face'), { recursive: true });
+  for (const f of ['rich.html', 'parse.js']) copyFileSync(resolve(RICH_SRC, f), resolve(root, '_ops/rich-face', f));
+  writeFileSync(resolve(root, `${ENTRY}.md`), ['---', `title: ${ENTRY}`, '---', `# ${ENTRY}`, '', '## Pieces', '', 'Here.', ''].join('\n'), 'utf8');
+  mkdirSync(resolve(root, ENTRY), { recursive: true });
+  writeFileSync(resolve(root, ENTRY, 'broken.html'), PIECES['broken.html'], 'utf8');
+  writeFileSync(resolve(root, ENTRY, `${ENTRY} — rich.json`), JSON.stringify({ entry: ENTRY, sections: [{ heading: 'Pieces', pieces: [{ file: 'broken.html', origin: 'made', height: 300 }] }] }), 'utf8');
   return root;
 }
 
@@ -85,12 +106,44 @@ window.addEventListener('message', (e) => {
 </script></body>`;
 }
 
+// The deck's own half of the protocol: STIGMERGY's real ArtifactSlot (and the
+// PhosphorAudio it plays audio with), bundled by esbuild into a page that
+// mounts one slot per piece, the way a scroll's trail or a TRICKSTER card does.
+let deckJs = null;
+async function deckBundle() {
+  if (deckJs) return deckJs;
+  const esbuild = createRequire(resolve(APP, 'package.json'))('esbuild');
+  const out = await esbuild.build({
+    stdin: {
+      resolveDir: APP, loader: 'js', sourcefile: 'deck-host.js',
+      contents: `import React from 'react'; import { createRoot } from 'react-dom/client';
+import ArtifactSlot from './src/components/ArtifactSlot.jsx';
+const names = new URLSearchParams(location.search).get('p').split(',');
+createRoot(document.getElementById('root')).render(React.createElement(React.Fragment, null,
+  names.map((n) => React.createElement('div', { key: n, 'data-slot': n }, React.createElement(ArtifactSlot, { payload: { artifacts: [{ path: 'Kit/' + n }] } })))));`,
+    },
+    bundle: true, format: 'esm', write: false, loader: { '.jsx': 'jsx' },
+    define: { 'process.env.NODE_ENV': '"development"' },
+  });
+  deckJs = out.outputFiles[0].text;
+  return deckJs;
+}
+
 function makeServer(palaceRoot) {
   const plugin = blackboardMiddleware(palaceRoot);
   const handlers = [];
   plugin.configureServer({ middlewares: { use: (fn) => handlers.push(fn) } });
   return http.createServer((req, res) => {
     const u = new URL(req.url, 'http://x');
+    if (u.pathname === '/deck') {
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.end('<!doctype html><body style="margin:0;width:900px"><div id="root"></div><script type="module" src="/deck-host.js"></script></body>');
+      return;
+    }
+    if (u.pathname === '/deck-host.js') {
+      deckBundle().then((js) => { res.writeHead(200, { 'Content-Type': 'text/javascript' }); res.end(js); }, (e) => { res.writeHead(500); res.end(String(e)); });
+      return;
+    }
     if (u.pathname === '/host') {
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.end(hostPage(u.searchParams.get('p').split(','), Number(u.searchParams.get('w') || 900)));
@@ -214,4 +267,57 @@ describe.skipIf(!chromium)('the piece kit', () => {
     await expect.poll(() => T().evaluate(() => Tone.getContext().state), { timeout: 5000 }).toBe('suspended');
     await page.close();
   }, 40000);
+
+  test('the rich face marks a piece whose script failed, and shows the error under it', async () => {
+    const page = await browser.newPage({ viewport: { width: 1200, height: 900 } });
+    await page.goto(`${base}/rich/?entry=${encodeURIComponent(ENTRY)}&review=0`);
+    const fig = page.locator('figure[data-piece="broken.html"]');
+    await fig.locator('iframe').scrollIntoViewIfNeeded({ timeout: 20000 });
+    await expect.poll(() => fig.getAttribute('data-errored'), { timeout: 8000 }).toBe('1');
+    expect(await fig.locator('.rf-error').textContent()).toMatch(/the piece reported an error: .*(null|boom)/i);
+    await page.close();
+  }, 30000);
+
+  describe('in the deck: STIGMERGY\'s own ArtifactSlot', () => {
+    const openDeck = async (names) => {
+      const page = await browser.newPage({ viewport: { width: 940, height: 900 } });
+      await page.goto(`${base}/deck?p=${names.join(',')}`);
+      await page.waitForSelector('[data-testid="artifact-slot"]', { timeout: 20000 });
+      return page;
+    };
+    const slotFrame = (page, n) => page.frameLocator(`[data-slot="${n}"] iframe`);
+
+    test('one voice at a time across frames and the phosphor player', async () => {
+      const page = await openDeck(['a.html', 'b.html', 'tone.wav']);
+      const state = (n) => frameOf(page, n).evaluate(() => window.toneState());
+      const audioPaused = () => page.$eval('[data-slot="tone.wav"] audio', (a) => a.paused);
+      await slotFrame(page, 'a.html').locator('#go').click();
+      await expect.poll(() => state('a.html'), { timeout: 5000 }).toBe('running');
+      await slotFrame(page, 'b.html').locator('#go').click();
+      await expect.poll(() => state('a.html'), { timeout: 5000 }).toBe('suspended');
+      // The player starts: the frame that was playing goes quiet.
+      await page.locator('[data-slot="tone.wav"] [data-testid="phosphor-audio-toggle"]').click();
+      await expect.poll(audioPaused, { timeout: 5000 }).toBe(false);
+      await expect.poll(() => state('b.html'), { timeout: 5000 }).toBe('suspended');
+      // A touch wakes a frame, and the player pauses for it.
+      await slotFrame(page, 'a.html').locator('div').first().click();
+      await expect.poll(() => state('a.html'), { timeout: 5000 }).toBe('running');
+      await expect.poll(audioPaused, { timeout: 5000 }).toBe(true);
+      await page.close();
+    }, 40000);
+
+    test('a frame takes the piece\'s height, and a failed script shows under it', async () => {
+      const page = await openDeck(['flow.html', 'broken.html']);
+      const f = frameOf(page, 'flow.html');
+      await f.waitForLoadState();
+      const content = await f.evaluate(() => Math.ceil(document.querySelector('p').getBoundingClientRect().bottom + 8));
+      const frameH = () => page.$eval('[data-slot="flow.html"] iframe', (el) => el.clientHeight);
+      await expect.poll(frameH, { timeout: 5000 }).toBeGreaterThan(content - 3);
+      expect(Math.abs((await frameH()) - content)).toBeLessThanOrEqual(3);
+      const err = page.locator('[data-slot="broken.html"] [data-testid="artifact-piece-error"]');
+      await expect.poll(() => err.count(), { timeout: 5000 }).toBe(1);
+      expect(await err.textContent()).toMatch(/the piece reported an error: .*(null|boom)/i);
+      await page.close();
+    }, 30000);
+  });
 });

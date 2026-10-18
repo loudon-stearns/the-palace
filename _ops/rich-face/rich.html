@@ -95,6 +95,8 @@
   .fig .also button { font: inherit; color: var(--accent); background: none; border: 0; border-bottom: 1px solid var(--accent-dim); padding: 0; cursor: pointer; }
   .rf-drift { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--warn); margin: 0 0 8px; line-height: 1.5; }
   .rf-drift::before { content: '◐ '; }
+  .rf-error { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--warn); margin: 8px 0 0; line-height: 1.5; }
+  .rf-error::before { content: '✕ '; }
 
   /* ── audio strip (no browser chrome) ── */
   .aud { display: grid; grid-template-columns: 34px 1fr auto; gap: 12px; align-items: center; padding: 12px 14px; }
@@ -342,6 +344,18 @@ window.addEventListener('message', (e) => {
   if (e.data?.type !== 'rich:height') return;
   const f = frameOf(e.source), px = Math.ceil(Number(e.data.height));
   if (f && px >= 120 && px <= 8000) f.style.height = px + 'px';
+});
+// A piece whose script failed says so ({type:'rich:error'}, from the piece kit
+// every served page carries). Its figure is marked errored and the first error
+// shows under the frame, as STIGMERGY's frames show it, so a broken piece is
+// never a silent blank. Known by its frame; the text goes in as text.
+window.addEventListener('message', (e) => {
+  if (e.data?.type !== 'rich:error') return;
+  const f = frameOf(e.source), fig = f && f.closest('figure');
+  if (!fig || fig.dataset.errored) return;
+  fig.dataset.errored = '1';
+  const where = e.data.where ? ` (${String(e.data.where)})` : '';
+  f.after(h('div', { class: 'rf-error' }, `the piece reported an error: ${String(e.data.message || 'error')}${where}`));
 });
 
 // A piece runs sandboxed to scripts alone — the rule STIGMERGY's ArtifactSlot
