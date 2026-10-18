@@ -45,7 +45,8 @@ On 2026-10-14, in his words or by his yes:
 - A heal now writes every file whole, the file in flight first, so a heal killed partway never leaves a file missing, at 008ad0df (the review's last verdict; 32 more double-kill rounds on the clone, all clean).
 - `palace-push` and `trunk-state`, at 34771c74. Nothing has been pushed with `palace-push` yet; main was 258 ahead of origin on 2026-10-16, the oldest unsent two days old.
 - The words, at 0957bb0e: the five trunk sentences (since 2026-10-15 in [[How the Palace Commits]] § Rules at the trunk, an entry another session deposited), the Concierge charter's sentence, Deposit's pointer, Closing Well 1.7, Return 1.2 (and a `trunk` probe in `return-map.mjs`), Weave 1.4.
-- No steward cycle has run since 2026-10-15: the heartbeat fires at 06:00, when the Mac was asleep on battery with the lid closed, inside a few-second dark wake; on 10-16 and 10-17 its every-other-morning guard also skipped, because it counts whole days and the 10-15 run had started at 06:07. The ignored-file fix in cycle-commit.js has not had its first real use yet.
+- First push through `palace-push`, 2026-10-18 03:55 UTC: 297 commits, a4103f44 to 9191f2e8, gate high=0 warn=0, receipt written. Two reviewed exceptions went into the Sentry's allow list first (9191f2e8).
+- The heartbeat ran on 2026-10-18 at 06:00 (7 cycles, all committed through the door; the ignored-file screen left Shepard Tone's and Neural Granular's WAVs out and named them, its first real use). On 2026-10-15 to 10-17 it had met a Mac asleep on battery; its rework to run when the Mac is truly awake is under review (branch feature/heartbeat-awake).
 - The ear's first reading, 2026-10-16 03:53 UTC, after about 30 hours: 84 moves of main, all 84 through the door, none around it (49 palace-commit, 23 palace-land, 12 the server's own commits). No landing has died, so the heal has not been needed. Brought to Loudon the same night: the number says no fence for now.
 
 Not built: the read-only strip on the LOG deck.
@@ -56,8 +57,8 @@ Not built: the read-only strip on the LOG deck.
 
 The ear's first reading is done (Current state): nothing went around the door. Read it again at the week's measure. Then, in order:
 
-- **The sitting**: with Loudon, over what sits uncommitted in his folder (135 paths on 2026-10-14; `trunk-state` names who wrote what it can), hover-card files first; then the read-only strip on the LOG deck, drawn from `trunk-state.mjs --json`.
-- **The first branch with care**: `claude/inspiring-mahavira-3c2fee` stops tracking the regen lane's runtime files, which are dirty in the owner checkout, so `palace-land` will refuse it by name. Settle those files with Loudon first.
+- **The sitting** was held on 2026-10-18: the deck's hover-card code was committed after the suite passed (b3b1a30b); Semantic Delay's killed cycle 10 was committed after its tests passed (64883716); the Waveguide frames and stills, Generative Wavetable Libraries' cycles.npz and the loose audition presets stay local by name (96c1785b). Still to build: the read-only strip on the LOG deck, drawn from `trunk-state.mjs --json`.
+- **`claude/inspiring-mahavira-3c2fee` landed** on 2026-10-18 (1d176ef4), after the full suite passed on it merged with that day's main; the regen lane's runtime state was set aside, the branch untracked it, and it was put back, now ignored.
 - **The next Weave**: set its date; the last ran on 2026-09-24. Its step 2.5 now runs `trunk-state`.
 - **The measure**, after a week (around 2026-10-21): the fence, the live-preview trade, whether isolated sessions need landing by pointer, and whether a Lander or an Archivist page has earned its place.
 
