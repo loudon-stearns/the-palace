@@ -62,6 +62,19 @@ export function parsePlistCalendar(xml) {
   };
 }
 
+/** Parse a launchd plist's StartInterval (seconds), or null when it has none. */
+export function parsePlistInterval(xml) {
+  const m = /<key>StartInterval<\/key>\s*<integer>(\d+)<\/integer>/.exec(String(xml || ''));
+  return m ? Number(m[1]) : null;
+}
+
+/** Whole calendar days (local) from one instant to another. */
+export function calendarDaysBetween(laterMs, earlierMs) {
+  if (!Number.isFinite(laterMs) || !Number.isFinite(earlierMs)) return null;
+  const day = (ms) => { const d = new Date(ms); d.setHours(0, 0, 0, 0); return d.getTime(); };
+  return Math.round((day(laterMs) - day(earlierMs)) / 86400000);
+}
+
 /** Parse the `INTERVAL_DAYS=N` cadence guard from a wrapper script. */
 export function parseIntervalDays(sh) {
   const m = String(sh ?? '').match(/^\s*INTERVAL_DAYS=(\d+)/m);
@@ -82,11 +95,20 @@ export function nextFireAfter({ hour, minute, now = Date.now() }) {
   return fire;
 }
 
-/** A one-line human cadence string, e.g. "06:00 daily · every 2 days (guard)". */
-export function humanCadence({ hour, minute, intervalDays }) {
+/**
+ * A one-line human cadence string, e.g. "06:00 daily · every 2 days (guard)", or, for a job that
+ * also checks on an interval and decides for itself (the steward batch since 2026-10-18),
+ * "06:00, then every 30 min while awake · a batch every 2 calendar days".
+ */
+export function humanCadence({ hour, minute, intervalDays, checkSeconds = null }) {
   if (!Number.isFinite(hour)) return 'unknown';
   const hh = String(hour).padStart(2, '0');
   const mm = String(Number.isFinite(minute) ? minute : 0).padStart(2, '0');
+  if (Number.isFinite(checkSeconds) && checkSeconds > 0) {
+    const every = `${Math.round(checkSeconds / 60)} min`;
+    const days = Number.isFinite(intervalDays) && intervalDays > 1 ? `every ${intervalDays} calendar days` : 'daily';
+    return `${hh}:${mm}, then every ${every} while awake · a batch ${days}`;
+  }
   const base = `${hh}:${mm} daily`;
   if (Number.isFinite(intervalDays) && intervalDays > 1) return `${base} · every ${intervalDays} days (guard)`;
   return base;
@@ -159,8 +181,13 @@ export function readSchedulerStatus({ palaceRoot, launchAgentsDir, now = Date.no
     const repoPlistPath = join(heartbeatDir, 'launchd', j.plist);
     const repoPlist = existsSync(repoPlistPath);
     let cadence = null;
+    let checkSeconds = null;
     if (repoPlist) {
-      try { cadence = parsePlistCalendar(readFileSync(repoPlistPath, 'utf8')); } catch { /* unparsable */ }
+      try {
+        const xml = readFileSync(repoPlistPath, 'utf8');
+        cadence = parsePlistCalendar(xml);
+        checkSeconds = parsePlistInterval(xml);
+      } catch { /* unparsable */ }
     }
     let intervalDays = null;
     try { intervalDays = parseIntervalDays(readFileSync(join(heartbeatDir, j.wrapper), 'utf8')); } catch { /* missing */ }
@@ -174,8 +201,9 @@ export function readSchedulerStatus({ palaceRoot, launchAgentsDir, now = Date.no
     // The 2-day stamp guard would skip the next clock fire if too soon after the
     // last real run — surfaced honestly so "fires daily" isn't mistaken for
     // "runs daily".
+    // A job that checks on an interval counts calendar days (the steward batch's wrapper does).
     const wouldSkipGuard = (Number.isFinite(nextFireMs) && Number.isFinite(stampMs) && Number.isFinite(intervalDays))
-      ? hoursBetween(nextFireMs, stampMs) < intervalDays * 24
+      ? (Number.isFinite(checkSeconds) ? calendarDaysBetween(nextFireMs, stampMs) < intervalDays : hoursBetween(nextFireMs, stampMs) < intervalDays * 24)
       : false;
 
     let state;
@@ -195,7 +223,8 @@ export function readSchedulerStatus({ palaceRoot, launchAgentsDir, now = Date.no
         hour: cadence.hour,
         minute: cadence.minute,
         interval_days: intervalDays,
-        human: humanCadence({ hour: cadence.hour, minute: cadence.minute, intervalDays }),
+        check_every_minutes: Number.isFinite(checkSeconds) ? Math.round(checkSeconds / 60) : null,
+        human: humanCadence({ hour: cadence.hour, minute: cadence.minute, intervalDays, checkSeconds }),
       } : null,
       last_run: {
         stamp_at: isoOrNull(stampMs),

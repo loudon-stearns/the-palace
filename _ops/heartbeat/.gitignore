@@ -5,6 +5,10 @@
 # committer — never this dir's runtime.
 logs/
 .last-steward-batch
+# the wrapper's latest decision, and the Sentry's guard-watch day stamps (2026-10-18)
+.last-check
+.last-guard-watch
+.last-guard-watch-nag
 # global pause flag toggled by STIGMERGY (STEWARDS deck) — per-machine runtime
 # state, never canon. The wrappers no-op while it is present.
 .paused

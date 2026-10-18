@@ -51,6 +51,10 @@ The 2026-09-25 hosting assessment scanned the working tree for key formats and f
 
 12. **The one guard against rewriting main that lives off this Mac comes off on purpose, and can stay off.** On this Mac nothing stands in the way of a forced push but the habit of pushing through `palace-push`, which only ever sends a fast-forward; whenever GitHub's guard is off, a plain `git push --force`, from any checkout or any other machine, rewrites main. On 2026-10-14 Loudon turned on a GitHub ruleset that refuses a force push to main and its deletion, with no bypass ([[Worktree Practice — spec — the door]]). Closing a leak in public history needs exactly that force push, so the guard comes off for one push and has to go back on. The hosting check now reads the rules GitHub enforces on main. It raises at medium a force push that gets through, or a force-push guard that anyone who can push may bypass: the account `gh` is logged in as, which every session pushes as, a deploy key or app listed as a bypass, or people classic protection still lets force push. It raises at low a guard it cannot read, main no longer being the default branch, and, once main is not the default, a deletion that gets through or a deletion guard that can be bypassed. It covers main only: tags and other branches are neither guarded nor checked. *(v1.3)*
 
+## From the door-health sweep — 2026-10-17
+
+13. **A check that runs only when someone asks cannot catch a guard switched off.** Anyone who pushes as Loudon can also remove GitHub's guard on main, and the hosting check had not run for two days when the sweep looked. So the heartbeat now runs `guard-watch.mjs` once a day when the Mac is awake: the hosting check's own read of the guard, a few seconds, raising a notification when a force push could rewrite main, and looking again later when it cannot tell. *(v1.4)*
+
 - run · 2026-09-25 · v0 · hand-run history scan, before the Sentry had a page · taught items 1–9
 - run · 2026-09-25 · v1.0 · deep sweep of b63b896b, 7 raised, held locally · nothing new
 - run · 2026-09-25 · v1.1 · public-surface gate of 9ef47639, 11 raised, held locally · nothing new

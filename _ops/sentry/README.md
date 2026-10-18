@@ -13,6 +13,7 @@ and Loudon decides. The one thing with teeth is the push gate, and it only says 
 | `node _ops/sentry/sweep.mjs --gate` | the check before anything widens the public surface: `--deep`, and exits 1 on any open high finding | same as deep |
 | `node _ops/sentry/sweep.mjs --only history,hosting` | named checks only | — |
 | `node _ops/sentry/sweep.mjs --record [--taught "item N"]` | also marks the ledger with the run's line (scope and a bare count, never a finding) and rebuilds the scroll with the palace's own generator | — |
+| `node _ops/sentry/guard-watch.mjs` | the daily guard watch the heartbeat runs when the Mac is awake: whether GitHub still refuses a force push to main for everyone who can push; one line, exit 0 holds / 3 raise it / 4 could not tell | network, seconds |
 | `node _ops/sentry/sweep.mjs --selftest` | plants one of everything in memory and proves each rule still catches it | instant |
 | `node _ops/sentry/install-hooks.mjs [--check\|--uninstall]` | installs the push gate (a shim in the shared hooks dir) | — |
 

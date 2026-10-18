@@ -15,7 +15,8 @@
 // what was checked and how much was found, never where. See [[Sentry]].
 
 import { execFileSync, spawnSync } from 'node:child_process';
-import { readFileSync, writeFileSync, existsSync, mkdirSync, statSync, mkdtempSync, rmSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync, statSync, mkdtempSync, rmSync, realpathSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { join, dirname } from 'node:path';
 import { tmpdir } from 'node:os';
 import {
@@ -173,14 +174,6 @@ const CHECKS = {
     try { slug = git(ROOT, ['remote', 'get-url', 'origin']).trim().replace(/^.*github\.com[:\/]/, '').replace(/\.git$/, ''); }
     catch { return { findings, meta: { summary: 'no origin remote' } }; }
     const gh = path => { try { return JSON.parse(execFileSync('gh', ['api', path], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], maxBuffer: 64 << 20, timeout: GH_TIMEOUT_MS, killSignal: 'SIGKILL' })); } catch (e) { return { __error: String(e.status ?? e.message) }; } };
-    // Like gh, but keeps GitHub's answer when it says no: a 404 "Branch not protected" is an answer,
-    // not a failure to read.
-    const ghRead = (path, extra = []) => {
-      const r = spawnSync('gh', ['api', path, ...extra], { encoding: 'utf8', maxBuffer: 64 << 20, timeout: GH_TIMEOUT_MS, killSignal: 'SIGKILL' });
-      let body = null;
-      try { body = JSON.parse(r.stdout || ''); } catch { /* not JSON: unreadable */ }
-      return r.status === 0 && body !== null ? { ok: true, body } : { ok: false, body };
-    };
     const repo = gh(`repos/${slug}`);
     if (repo.__error) return { findings: [finding('hosting', 'gh-unreachable', 'low', slug, 0, slug, 'could not read repo settings via gh', allow, null, slug)], meta: { summary: 'gh unavailable' } };
     const sa = repo.security_and_analysis || {};
@@ -224,21 +217,10 @@ const CHECKS = {
       if (installs) findings.push(finding('hosting', 'dependabot-pr-mismatch', 'medium', lockPath, 0, `pr:${pr.number}:${claim.pkg}:${claim.to}`,
         `pull request #${pr.number} claims ${claim.pkg} ${claim.to}; its lockfile installs ${installs}`, allow, null, `#${pr.number} ${claim.pkg}`));
     }
-    // GitHub's own guard on main: whether it refuses a force push, and a deletion, for everyone who
-    // can push. It is the one guard against rewriting main that lives off this Mac, and it comes off
-    // on purpose when Loudon closes a leak by rewriting history. Main is read by name, because main is
-    // what palace-push sends, whichever branch is the default.
+    // GitHub's own guard on main (readTrunkGuard, below): the one guard against rewriting main that
+    // lives off this Mac. The heartbeat also reads it daily through guard-watch.mjs.
     const branch = 'main';
-    const rulesRead = ghRead(`repos/${slug}/rules/branches/${branch}?per_page=100`);
-    const ids = [...new Set((Array.isArray(rulesRead.body) ? rulesRead.body : []).filter(r => r && (r.type === 'non_fast_forward' || r.type === 'deletion')).map(r => r.ruleset_id))];
-    const rulesetReads = Object.fromEntries(ids.map(id => [id, ghRead(`repos/${slug}/rulesets/${id}`)]));
-    const classicRead = ghRead(`repos/${slug}/branches/${branch}/protection`);
-    // Classic protection can block force pushes and still let a named list force push; only GraphQL shows the list.
-    const graphRead = classicRead.ok && classicRead.body?.allow_force_pushes?.enabled === false
-      ? ghRead('graphql', ['-f', `query=query($owner:String!,$name:String!,$ref:String!){ repository(owner:$owner,name:$name){ branchProtectionRules(first:100){ nodes{ allowsForcePushes bypassForcePushAllowances(first:1){ totalCount } matchingRefs(first:100, query:$ref){ nodes{ name } } } } } }`,
-        '-F', `owner=${slug.split('/')[0]}`, '-F', `name=${slug.split('/')[1]}`, '-F', `ref=${branch}`])
-      : null;
-    const guard = judgeTrunkGuard({ ...trunkGuardInputs({ branch, rulesRead, rulesetReads, classicRead, graphRead }), branch, defaultBranch: repo.default_branch ?? null });
+    const guard = readTrunkGuard(slug, repo.default_branch ?? null);
     for (const p of guard.problems) findings.push(finding('hosting', p.rule, p.sev, slug, 0, `${slug}:${branch}:${p.rule}`, p.context, allow, `${slug}:${branch}:${p.rule}:${p.whoKey ?? ''}`, branch));
     const pagesRead = ghRead(`repos/${slug}/pages`);
     const pagesState = pagesRead.ok ? 'on' : /not found/i.test(pagesRead.body?.message || '') ? 'off' : 'unreadable';
@@ -248,6 +230,33 @@ const CHECKS = {
     return { findings, meta: { visibility: repo.visibility, pages: pagesState === 'on' ? true : pagesState === 'off' ? false : null, summary: `${repo.visibility}, Pages ${pagesState}` } };
   },
 };
+
+// gh api, keeping GitHub's answer when it says no: a 404 "Branch not protected" is an answer, not a
+// failure to read. Read-only; a stalled call gives up after GH_TIMEOUT_MS.
+export function ghRead(path, extra = []) {
+  const r = spawnSync('gh', ['api', path, ...extra], { encoding: 'utf8', maxBuffer: 64 << 20, timeout: GH_TIMEOUT_MS, killSignal: 'SIGKILL' });
+  let body = null;
+  try { body = JSON.parse(r.stdout || ''); } catch { /* not JSON: unreadable */ }
+  return r.status === 0 && body !== null ? { ok: true, body } : { ok: false, body };
+}
+
+// GitHub's own guard on main: whether it refuses a force push, and a deletion, for everyone who can
+// push. It is the one guard against rewriting main that lives off this Mac, and it comes off on
+// purpose when Loudon closes a leak by rewriting history. Main is read by name, because main is what
+// palace-push sends, whichever branch is the default. Returns judgeTrunkGuard's { problems, summary }.
+export function readTrunkGuard(slug, defaultBranch = null) {
+  const branch = 'main';
+  const rulesRead = ghRead(`repos/${slug}/rules/branches/${branch}?per_page=100`);
+  const ids = [...new Set((Array.isArray(rulesRead.body) ? rulesRead.body : []).filter(r => r && (r.type === 'non_fast_forward' || r.type === 'deletion')).map(r => r.ruleset_id))];
+  const rulesetReads = Object.fromEntries(ids.map(id => [id, ghRead(`repos/${slug}/rulesets/${id}`)]));
+  const classicRead = ghRead(`repos/${slug}/branches/${branch}/protection`);
+  // Classic protection can block force pushes and still let a named list force push; only GraphQL shows the list.
+  const graphRead = classicRead.ok && classicRead.body?.allow_force_pushes?.enabled === false
+    ? ghRead('graphql', ['-f', `query=query($owner:String!,$name:String!,$ref:String!){ repository(owner:$owner,name:$name){ branchProtectionRules(first:100){ nodes{ allowsForcePushes bypassForcePushAllowances(first:1){ totalCount } matchingRefs(first:100, query:$ref){ nodes{ name } } } } } }`,
+      '-F', `owner=${slug.split('/')[0]}`, '-F', `name=${slug.split('/')[1]}`, '-F', `ref=${branch}`])
+    : null;
+  return judgeTrunkGuard({ ...trunkGuardInputs({ branch, rulesRead, rulesetReads, classicRead, graphRead }), branch, defaultBranch });
+}
 
 // GitHub's raw answers, turned into what judgeTrunkGuard reads; anything of the wrong shape is
 // unreadable (null), never trusted. Each read is { ok, body } as ghRead returns it.
@@ -546,4 +555,7 @@ function selftest() {
   process.exitCode = ok ? 0 : 1;
 }
 
-main().catch(e => { console.error('sentry sweep failed:', e); process.exitCode = 2; });
+// Run only when invoked as a command: guard-watch.mjs imports readTrunkGuard without a sweep.
+// Compares real paths, so a symlinked name still runs it and no other file ending in sweep.mjs does.
+const invokedDirectly = (() => { try { return !!process.argv[1] && realpathSync(process.argv[1]) === fileURLToPath(import.meta.url); } catch { return false; } })();
+if (invokedDirectly) main().catch(e => { console.error('sentry sweep failed:', e); process.exitCode = 2; });
