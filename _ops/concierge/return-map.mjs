@@ -270,7 +270,9 @@ const data = {
 };
 
 if (JSON_OUT) {
-  console.log(JSON.stringify(data, null, 2));
+  // On macOS a pipe takes stdout asynchronously, and process.exit drops what it
+  // has not taken yet: a reader piping --json got the first 64K, cut mid-string.
+  await new Promise((done) => process.stdout.write(`${JSON.stringify(data, null, 2)}\n`, done));
   process.exit(0);
 }
 
