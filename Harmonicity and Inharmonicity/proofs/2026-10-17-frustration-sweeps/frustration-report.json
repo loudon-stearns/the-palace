@@ -1,0 +1,77 @@
+[
+ {
+  "scene": "harmonic, low inertia",
+  "B": 0.0,
+  "inertia": 1,
+  "ratios": [
+   1.0,
+   2.0,
+   3.0,
+   4.0,
+   5.0,
+   6.0
+  ],
+  "fundamental_mean_hz": 110.08,
+  "fundamental_wander_hz": 0.0
+ },
+ {
+  "scene": "slight stretch (piano-ish), low inertia",
+  "B": 0.0004,
+  "inertia": 1,
+  "ratios": [
+   1.0,
+   2.002,
+   3.005,
+   4.013,
+   5.025,
+   6.043
+  ],
+  "fundamental_mean_hz": 109.54,
+  "fundamental_wander_hz": 0.0
+ },
+ {
+  "scene": "strong stretch, low inertia",
+  "B": 0.004,
+  "inertia": 1,
+  "ratios": [
+   1.002,
+   2.016,
+   3.054,
+   4.126,
+   5.244,
+   6.417
+  ],
+  "fundamental_mean_hz": 106.01,
+  "fundamental_wander_hz": 4.437
+ },
+ {
+  "scene": "bell-wide stretch, low inertia",
+  "B": 0.02,
+  "inertia": 1,
+  "ratios": [
+   1.01,
+   2.078,
+   3.259,
+   4.596,
+   6.124,
+   7.869
+  ],
+  "fundamental_mean_hz": 92.4,
+  "fundamental_wander_hz": 12.765
+ },
+ {
+  "scene": "bell-wide stretch, high-inertia master",
+  "B": 0.02,
+  "inertia": 60,
+  "ratios": [
+   1.01,
+   2.078,
+   3.259,
+   4.596,
+   6.124,
+   7.869
+  ],
+  "fundamental_mean_hz": 109.76,
+  "fundamental_wander_hz": 0.819
+ }
+]

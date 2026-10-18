@@ -1,0 +1,193 @@
+{
+ "N": 40,
+ "K_hz": 6.0,
+ "seconds": 120.0,
+ "B_range": [
+  1e-07,
+  2.2459050550367935e+20
+ ],
+ "break_time_s": 13.48,
+ "break_B": 1.72e-05,
+ "marks": [
+  {
+   "t": 2,
+   "B": 0.0,
+   "fund": 109.94,
+   "lowest_partial_hz": 109.9,
+   "wobble": 0.11,
+   "top_partial_hz": 4400,
+   "audible_partials": 40,
+   "shape": 0.986
+  },
+  {
+   "t": 8,
+   "B": 8.77e-07,
+   "fund": 109.89,
+   "lowest_partial_hz": 109.9,
+   "wobble": 0.12,
+   "top_partial_hz": 4403,
+   "audible_partials": 40,
+   "shape": 0.937
+  },
+  {
+   "t": 12,
+   "B": 7.7e-06,
+   "fund": 109.68,
+   "lowest_partial_hz": 109.7,
+   "wobble": 0.16,
+   "top_partial_hz": 4420,
+   "audible_partials": 40,
+   "shape": 0.865
+  },
+  {
+   "t": 16,
+   "B": 6.75e-05,
+   "fund": 107.06,
+   "lowest_partial_hz": 107.1,
+   "wobble": 1.29,
+   "top_partial_hz": 4489,
+   "audible_partials": 40,
+   "shape": 0.14
+  },
+  {
+   "t": 20,
+   "B": 0.000592,
+   "fund": 95.48,
+   "lowest_partial_hz": 95.5,
+   "wobble": 2.83,
+   "top_partial_hz": 5191,
+   "audible_partials": 40,
+   "shape": -0.196
+  },
+  {
+   "t": 24,
+   "B": 0.0052,
+   "fund": 70.36,
+   "lowest_partial_hz": 70.5,
+   "wobble": 3.63,
+   "top_partial_hz": 9625,
+   "audible_partials": 40,
+   "shape": -0.417
+  },
+  {
+   "t": 28,
+   "B": 0.0456,
+   "fund": 88.16,
+   "lowest_partial_hz": 90.2,
+   "wobble": 5.82,
+   "top_partial_hz": 29980,
+   "audible_partials": 28,
+   "shape": 0.123
+  },
+  {
+   "t": 32,
+   "B": 0.4,
+   "fund": 102.15,
+   "lowest_partial_hz": 120.9,
+   "wobble": 4.11,
+   "top_partial_hz": 121955,
+   "audible_partials": 15,
+   "shape": -0.365
+  },
+  {
+   "t": 36,
+   "B": 3.51,
+   "fund": 105.46,
+   "lowest_partial_hz": 224.0,
+   "wobble": 6.46,
+   "top_partial_hz": 294405,
+   "audible_partials": 8,
+   "shape": -0.11
+  },
+  {
+   "t": 40,
+   "B": 30.8,
+   "fund": 110.01,
+   "lowest_partial_hz": 620.2,
+   "wobble": 0.54,
+   "top_partial_hz": 680706,
+   "audible_partials": 5,
+   "shape": 0.071
+  },
+  {
+   "t": 44,
+   "B": 270.0,
+   "fund": 112.04,
+   "lowest_partial_hz": 1844.7,
+   "wobble": 0.62,
+   "top_partial_hz": 3049059,
+   "audible_partials": 2,
+   "shape": -0.037
+  },
+  {
+   "t": 48,
+   "B": 2370.0,
+   "fund": 109.75,
+   "lowest_partial_hz": 5343.5,
+   "wobble": 0.03,
+   "top_partial_hz": 8054890,
+   "audible_partials": 1,
+   "shape": -0.016
+  },
+  {
+   "t": 52,
+   "B": 20800.0,
+   "fund": 112.74,
+   "lowest_partial_hz": 16255.0,
+   "wobble": 2.03,
+   "top_partial_hz": 22008051,
+   "audible_partials": 0,
+   "shape": 0.124
+  },
+  {
+   "t": 56,
+   "B": 182000.0,
+   "fund": 110.0,
+   "lowest_partial_hz": 46976.2,
+   "wobble": 0.0,
+   "top_partial_hz": 75161761,
+   "audible_partials": 0,
+   "shape": NaN
+  },
+  {
+   "t": 64,
+   "B": 14000000.0,
+   "fund": 110.0,
+   "lowest_partial_hz": 412124.5,
+   "wobble": 0.0,
+   "top_partial_hz": 659399135,
+   "audible_partials": 0,
+   "shape": NaN
+  },
+  {
+   "t": 80,
+   "B": 83200000000.0,
+   "fund": 110.0,
+   "lowest_partial_hz": 31719858.8,
+   "wobble": 0.0,
+   "top_partial_hz": 50751774012,
+   "audible_partials": 0,
+   "shape": NaN
+  },
+  {
+   "t": 100,
+   "B": 4320000000000000.0,
+   "fund": 110.0,
+   "lowest_partial_hz": 7231190671.8,
+   "wobble": 0.0,
+   "top_partial_hz": 11569905074918,
+   "audible_partials": 0,
+   "shape": NaN
+  },
+  {
+   "t": 116,
+   "B": 2.56e+19,
+   "fund": 110.0,
+   "lowest_partial_hz": 556560868189.6,
+   "wobble": 0.0,
+   "top_partial_hz": 890497389103420,
+   "audible_partials": 0,
+   "shape": NaN
+  }
+ ]
+}

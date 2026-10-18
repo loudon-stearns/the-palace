@@ -27,7 +27,10 @@ links:
     type: connects-to
   - target: "[[Hyperdimensional Prism]]"
     type: connects-to
-forward_vector: "I ask what happens to coupling when the relationships break — how inharmonic partials create frustrated forces — and I use that frustration to clarify both instrument design and the physics of coherence."
+  - target: "[[Portamento and Physical Pitch Modeling]]"
+    type: connects-to
+    label: mode-locking-built-there
+forward_vector: "I find where coupling holds, shimmers and tears as a tone's partials stretch away from whole numbers, and I hand that edge to instrument designers as the place an instrument should live."
 ---
 
 # Harmonicity and Inharmonicity
@@ -46,7 +49,7 @@ All partials of a single oscillator are **not independent sine waves**. They are
 
 **With harmonic partials** (integer ratios: 2, 3, 4...), coupling forces from external oscillators locking to different partials are **commensurate** — they agree about where the fundamental should be. Every locking event reinforces every other. This is why harmonic timbres sound stable: the internal structure is self-consistent.
 
-**With inharmonic partials** (non-integer ratios: 2.03, 2.97, 5.1...), coupling forces are **incommensurate**. External oscillators locked to different inharmonic partials pull the fundamental in contradictory directions. This creates **frustration** in the physics sense: not all constraints can be simultaneously satisfied. This is worse than noise — noise averages out, but these are sustained, coherent, contradictory forces.
+**With inharmonic partials** (non-integer ratios: 2.03, 2.97, 5.1...), coupling forces are **incommensurate**. External oscillators locked to different inharmonic partials pull the fundamental in contradictory directions. This creates **frustration** in the physics sense: not all constraints can be simultaneously satisfied. But frustration is a strain before it is a failure. Mildly stretched, the tone doesn't fight: it settles a touch flat, holds its pitch, and its colour shimmers. It tears only past an edge.
 
 ## The Asymmetry
 
@@ -54,31 +57,32 @@ Inharmonic oscillators as **high-inertia masters**: works beautifully. External 
 
 Inharmonic oscillators as **low-inertia participants**: problematic. The contradictory forces create a tug-of-war on the fundamental. Depending on coupling strengths: chaotic wandering, dominant-coupling-wins-and-others-break, or oscillation between attracting positions. Aurally unstable.
 
+This one-phase picture fits **self-sustained** tones (bowed strings, voices, reeds), whose partials really are held together by one driven motion; it is mode locking in Fletcher's sense (1978), already built in [[Portamento and Physical Pitch Modeling]] (`multi-mode/mode_locking.py`). A plucked string or a struck bell rings its modes freely and is not bound this way.
+
+## What the Sweeps Showed
+
+Tested on the Daily Page, 2026-10-17, in a toy model: one tone, its partials pulled by outside voices tuned to the plain harmonic series. Trust the shapes; the numbers depend on the model.
+
+- **A path with five places.** As stretch rises the tone goes frozen → alive → edge → torn → released. Alive, just under the edge, is where the music is.
+- **The top partials set the edge.** Stretch bites the nth partial roughly as B·n³, so a tall spectrum tears long before a short one: 40 partials tore over a hundred times sooner than six.
+- **The light tone bargains by sagging**, drifting flat while it holds on. **Few voices snap; many fray.**
+- **Two exits:** stubbornness (a heavy tone holds even at bell-wide stretch) and difference (stretched far enough, the partials are out of reach and the tone goes free).
+- **Pinned stretch runs string → bar** and lands periodic again, at 1, 4, 9, 16. Whether a spectrum repeats and whether its partials agree with their neighbours are separate questions.
+
+Hear it and learn to find the edge yourself: [[Harmonicity and Inharmonicity — scroll]], starting from its field guide.
+
 ## Where This Appears
 
-- Piano strings: stretched partials due to stiffness (fourth-order spatial derivative in the wave equation)
-- Bells and cymbals: wildly inharmonic mode shapes from two-dimensional vibrating surfaces
-- Metallic percussion: Bessel function eigenmodes producing irrational frequency ratios
-- Additive synthesis: designer spectra with arbitrary partial relationships
-- All-pass filter networks in feedback paths (see below)
-- [[Action Potential Oscillator]]: the nerve impulse waveform is rich but not necessarily harmonic
-
-## All-Pass Networks as Inharmonic Resonators
-
-All-pass filters shift phase without changing amplitude. Seemingly neutral. But a network of all-pass filters in a feedback path creates frequency-dependent phase accumulation. Different frequencies accumulate different total phase shift per round trip. This changes the period of resonance for each frequency independently, stretching or compressing the partial spacing.
-
-**An all-pass-based reverb tail is an inharmonic synthesizer in disguise.**
-
-The reverb-as-resonator is one of the cleanest examples of designer inharmonicity in software DSP — sitting alongside piano stretch (mechanical) and Bessel modes (geometric) as a third route to incommensurate partials. The mechanism is purely topological: the *graph* of the all-pass network determines the partial spacing, not any physical material. This makes it a uniquely instructive case for thinking about what inharmonicity *is*.
-
-Surfaced from [[Compressor Design]] in late February 2026, where the cascade ran forward into the kaleidoscope interface concept now living in [[Hyperdimensional Prism]].
+Where inharmonic spectra come from (stiff strings, Bessel modes, scatter, all-pass phase accumulation and the rest) is mapped in [[Categorizing Inharmonicity]]; the all-pass reverb as an inharmonic resonator is its §6.
 
 ## Open Questions
 
-- Can frustrated coupling be musically useful as an *effect* — a deliberate texture of unresolvable tension?
-- Is there a threshold of inharmonicity below which coupling still works well? Piano stretch is small; cymbal inharmonicity is large. Where does the coupling break?
+- Can frustrated coupling be musically useful as an effect? Yes, at the edge: breathing across it, striking past it and stepping through it all play (see the scroll).
+- Where does coupling break? Partly answered: the top partials set the edge, roughly as B·n³, and more coupling pushes it out. The values are the model's, not yet any real instrument's.
 - How does the harmonic/inharmonic distinction map to consonance/dissonance perception? Is perceived consonance literally the absence of coupling frustration?
 - The [[Boundary-Crossing Instruments]] insight about rhythm/pitch and delay/filtering boundaries — does the harmonic/inharmonic boundary belong in that family?
+- If the voices were free to re-pair with whichever partial is nearest during a dive, would the tear heal sooner, or wander between partners?
+- What does an instrument that dwells at the edge look like: a stretch held just under the threshold, with coupling as the expressive control?
 
 ---
 
