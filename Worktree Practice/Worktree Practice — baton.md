@@ -43,9 +43,10 @@ On 2026-10-14, in his words or by his yes:
 - The door and the ear, at 48c923ad: one kernel lock every committer holds from its first `git add` to its commit; the ear writes every move of a branch to `.git/palace-ear.jsonl`, marked `door` or `around`.
 - `palace-land` and the heal, at 96248960 (`_ops/stigmergy/app/scripts/palace-land.mjs`, `server/landing.js`). Thirty-two landing tests, and 32 kill-and-heal rounds of a 941-file landing on a full clone of the palace, 14 of them inside git's checkout, all healed.
 - A heal now writes every file whole, the file in flight first, so a heal killed partway never leaves a file missing, at 008ad0df (the review's last verdict; 32 more double-kill rounds on the clone, all clean).
-- `palace-push` and `trunk-state`, at 34771c74. Nothing has been pushed with `palace-push` yet; main was 258 ahead of origin on 2026-10-16, the oldest unsent two days old.
+- `palace-push` and `trunk-state`, at 34771c74. Two pushes have gone out through it, both on Loudon's word (below).
 - The words, at 0957bb0e: the five trunk sentences (since 2026-10-15 in [[How the Palace Commits]] § Rules at the trunk, an entry another session deposited), the Concierge charter's sentence, Deposit's pointer, Closing Well 1.7, Return 1.2 (and a `trunk` probe in `return-map.mjs`), Weave 1.4.
 - First push through `palace-push`, 2026-10-18 03:55 UTC: 297 commits, a4103f44 to 9191f2e8, gate high=0 warn=0, receipt written. Two reviewed exceptions went into the Sentry's allow list first (9191f2e8).
+- Second push, 2026-10-18 12:27 UTC: 26 commits, 9191f2e8 to 389363d6, gate high=0 warn=0, receipt written.
 - The heartbeat ran on 2026-10-18 at 06:00 (7 cycles, all committed through the door; the ignored-file screen left Shepard Tone's and Neural Granular's WAVs out and named them, its first real use). On 2026-10-15 to 10-17 it had met a Mac asleep on battery; its rework landed on 2026-10-18 (149bbbb9) after an independent review: launchd fires at 06:00 and every 30 minutes, and a batch runs only in a full wake with the lid open, two calendar days after the last; once a day the Sentry's guard-watch.mjs checks GitHub's guard on main. The new plist is installed and loaded, and its first tick (08:24) ran the watch and skipped the batch as it should.
 - The ear's first reading, 2026-10-16 03:53 UTC, after about 30 hours: 84 moves of main, all 84 through the door, none around it (49 palace-commit, 23 palace-land, 12 the server's own commits). No landing has died, so the heal has not been needed. Brought to Loudon the same night: the number says no fence for now.
 
@@ -67,7 +68,7 @@ The ear's first reading is done (Current state): nothing went around the door. R
 - Lighter first. Build the catch-up and isolated landing only on evidence.
 - Every rule lives once, beside the code that enforces it; cards point to it.
 - Prove a mechanism on this Mac before building on it; stress it on a full clone; land in a gap between steward cycles (check `curl localhost:5173/api/stewards` for `worker.running`).
-- An independent review earns its cost: the landing's found 29 real defects, none refuted. When a review finds many edge cases in hand-rolled code, lean on the tool's own machinery instead of patching each one.
+- An independent review earns its cost when the stakes are high: the landing's found 29 real defects, none refuted, and the door's found a server self-deadlock. When a review finds many edge cases in hand-rolled code, lean on the tool's own machinery instead of patching each one. Loudon, 2026-10-18, of the Sentry trunk-guard check's three review rounds (about 36 agents and 3.6M tokens) for a check that never raises above medium: "I think that is heavy", more than the stakes deserved.
 - A test that fails can be the test's fault: a zsh array counted from 1, a symlink target, a fixed sleep that lost a race under load, and a kill-round probe file named like a file the palace already tracks.
 
 ## Load these files first

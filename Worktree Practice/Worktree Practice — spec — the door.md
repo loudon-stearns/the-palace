@@ -47,8 +47,8 @@ On 2026-10-13 main moved 118 times; 96 were direct commits, 46 by unattended ste
 3. The ear, listening only. Landed at 48c923ad and installed 2026-10-14.
 4. `palace-land` from the main checkout, with the halfway-landing marker. Landed at 96248960 on 2026-10-14, after an independent review whose 29 confirmed findings are part of it: the heal is git's own comparing and writing, and a refused landing never lands later.
 5. The trunk sentences in Worktree Practice, one sentence in the Concierge's charter, Deposit's last step pointing there; on Loudon's yes to the words. Landed at 0957bb0e on 2026-10-14.
-6. `palace-push` with a pinned tip and a receipt, and `trunk-state`, the survey's read-only line. Landed at 34771c74 on 2026-10-14; nothing has been pushed with it yet.
-7. A sitting with Loudon over his folder's uncommitted files, then the read-only strip.
+6. `palace-push` with a pinned tip and a receipt, and `trunk-state`, the survey's read-only line. Landed at 34771c74 on 2026-10-14; first used on 2026-10-18, two pushes on Loudon's word.
+7. A sitting with Loudon over his folder's uncommitted files, then the read-only strip. The sitting was held on 2026-10-18; the strip is not built.
 8. The rites take the archivist's stance, one sentence each, through their own ledgers. Landed at 0957bb0e on 2026-10-14: Closing Well 1.7, Return 1.2, Weave 1.4.
 9. After a week, the measure: the fence, the live-preview trade, whether isolated sessions need landing by pointer, and whether a Lander or an Archivist page has earned its place.
 
