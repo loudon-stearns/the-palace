@@ -161,7 +161,7 @@ const linters = [
 ].map(([label, cmd]) => probe(label, cmd, { allowFail: true }));
 
 const repo = [
-  probe('trunk', 'node _ops/stigmergy/app/scripts/trunk-state.mjs', { allowFail: true }),
+  probe('trunk', 'node _ops/stigmergy/app/scripts/trunk-state.mjs --sessions', { allowFail: true }),
   probe('unpushed', `git log --oneline origin/main..main | wc -l | tr -d ' '`, { allowFail: true }),
   probe('worktrees', 'git worktree list'),
   probe('branches', 'git branch -v'),
