@@ -1,5 +1,5 @@
 import React, {
-  useEffect, useLayoutEffect, useMemo, useRef, useState,
+  useEffect, useMemo, useRef, useState,
 } from 'react';
 import {
   forceSimulation, forceLink, forceManyBody, forceCenter, forceCollide,
@@ -18,6 +18,7 @@ import {
   buildIconByPath, attachIcons, avatarRadiusFor, avatarCount,
 } from '../../lib/topology-avatars.js';
 import { fileUrl } from '../../lib/public-mode.js';
+import EntryHoverCard, { usePointerCard } from './EntryHoverCard.jsx';
 
 // TOPOLOGY -- the typed-link graph lens. Renders the graph (read from the
 // files: live in the app, at publish time in the public view) as a
@@ -153,35 +154,9 @@ export default function TopologyLens({ onSelect, entries = [], defaultDim = DEFA
   const graphRef = useRef(null);
   const hoverRef = useRef(null);
   const [hoverInfo, setHoverInfo] = useState(null);
-  // The hover card floats to the cursor. It lives permanently in the DOM
-  // (visibility toggled by hoverInfo) so the pointer handler can position it
-  // imperatively without waiting on a React mount; positionTooltipRef holds the
-  // placement fn set inside the canvas effect. Placement flips to the other
-  // side of the cursor near a viewport edge so the card is never clipped.
-  const tooltipRef = useRef(null);
-  const mouseRef = useRef({ x: 0, y: 0 });
-  const positionTooltipRef = useRef(null);
-  positionTooltipRef.current = (clientX, clientY) => {
-    mouseRef.current = { x: clientX, y: clientY };
-    const el = tooltipRef.current;
-    if (!el) return;
-    const pad = 16;
-    const w = el.offsetWidth || 280;
-    const h = el.offsetHeight || 140;
-    let left = clientX + pad;
-    let top = clientY + pad;
-    if (left + w > window.innerWidth - 8) left = clientX - w - pad;
-    if (top + h > window.innerHeight - 8) top = clientY - h - pad;
-    el.style.left = `${Math.max(8, left)}px`;
-    el.style.top = `${Math.max(8, top)}px`;
-  };
-  // Position the card the moment it mounts on a new hover (using the last known
-  // cursor spot) so it never flashes at a stale corner before the next move.
-  useLayoutEffect(() => {
-    if (hoverInfo && positionTooltipRef.current) {
-      positionTooltipRef.current(mouseRef.current.x, mouseRef.current.y);
-    }
-  }, [hoverInfo]);
+  // The hover card floats to the cursor; usePointerCard places it
+  // imperatively on each move and flips it off a viewport edge.
+  const { cardRef: tooltipRef, placeRef: positionTooltipRef } = usePointerCard(!!hoverInfo);
   // Avatar image cache (icon path -> HTMLImageElement), persisted across
   // effect re-runs so we never re-fetch art. drawRef always points at the
   // latest draw() so a late image load repaints the current canvas (not a
@@ -724,7 +699,10 @@ export default function TopologyLens({ onSelect, entries = [], defaultDim = DEFA
           style={{ display: 'block', background: 'var(--terminal-black)' }}
         />
         {hoverInfo ? (
-          <HoverCard tooltipRef={tooltipRef} info={hoverInfo} entry={entryByPath.get(hoverInfo.path)} />
+          <EntryHoverCard
+            cardRef={tooltipRef} testId="topology-hover" footer="click to open in STATE"
+            info={hoverInfo} entry={entryByPath.get(hoverInfo.path)}
+          />
         ) : null}
       </div>
     </Box>
@@ -739,81 +717,6 @@ function Dot({ style }) {
       border: style.ring ? `1px solid ${style.ring}` : 'none',
       marginRight: 6, verticalAlign: 'middle',
     }} />
-  );
-}
-
-// The floating hover card — a detail panel that rides the cursor. Always in the
-// DOM (visibility toggled) so the pointer handler can place it without a mount
-// wait. Merges the map node's structural fields (degree, role, group) with the
-// entry's own record (forward vector, born, activity) for a real read of what
-// you're pointing at.
-function HoverCard({ tooltipRef, info, entry }) {
-  const dimStyle = { color: 'var(--phosphor-dim)', textShadow: 'none' };
-  const title = (entry && entry.title) || info.id || '';
-  const lifecycle = info.stage ?? (entry && entry.status) ?? '--';
-  return (
-    <div
-      ref={tooltipRef}
-      data-testid="topology-hover"
-      style={{
-        position: 'fixed', left: -9999, top: -9999, zIndex: 60,
-        width: 300, maxWidth: '80vw',
-        background: 'rgba(4, 10, 6, 0.94)', border: '1px solid var(--phosphor-dim)',
-        boxShadow: '0 4px 18px rgba(0,0,0,0.6)',
-        padding: '8px 10px', fontSize: 11, lineHeight: 1.5, color: 'var(--phosphor)',
-        pointerEvents: 'none',
-      }}
-    >
-      {info.icon ? (
-            <img
-              src={fileUrl(info.icon)}
-              alt=""
-              width={38}
-              height={38}
-              style={{
-                float: 'right', marginLeft: 8, borderRadius: '50%',
-                border: '1px solid var(--phosphor-dim)', objectFit: 'cover',
-                filter: 'saturate(0.85) brightness(0.92)',
-              }}
-            />
-          ) : null}
-          <div style={{ fontWeight: 700, textShadow: 'var(--glow)', paddingRight: 44 }}>{title}</div>
-          <div style={dimStyle}>
-            {(info.type ?? '--')} · {lifecycle} · {info.role}
-          </div>
-          <div style={dimStyle}>
-            degree {info.degree}
-            {typeof info.outbound === 'number' ? ` (${info.outbound}↑ out · ${info.inbound}↓ in)` : ''}
-          </div>
-          <div style={dimStyle}>
-            pillars: {info.pillars.length ? info.pillars.join(' / ') : '--'}
-          </div>
-          {info.group ? (
-            <div style={dimStyle}>
-              group: <span style={{ color: info.groupColor ?? 'var(--phosphor)' }}>{info.group}</span>
-            </div>
-          ) : null}
-          {entry && entry.forward_vector ? (
-            <div style={{
-              marginTop: 6, paddingTop: 6, borderTop: '1px dashed var(--phosphor-dim)',
-              fontStyle: 'italic', color: 'var(--phosphor)', textShadow: 'none',
-            }}>
-              &ldquo;{entry.forward_vector}&rdquo;
-            </div>
-          ) : null}
-          {entry ? (
-            <div style={{ ...dimStyle, marginTop: 6, opacity: 0.75, fontSize: 10 }}>
-              {[
-                entry.born ? `born ${entry.born}` : null,
-                entry.last_used ? `used ${entry.last_used}` : null,
-                entry.use?.recent?.use > 0 ? `${entry.use.recent.use} recent` : null,
-                typeof entry.link_count === 'number' ? `${entry.link_count} typed links` : null,
-                entry.energy ? `energy ${entry.energy}` : null,
-              ].filter(Boolean).join('  ·  ')}
-            </div>
-          ) : null}
-          <div style={{ ...dimStyle, marginTop: 6, opacity: 0.5, fontSize: 10 }}>click to open in STATE</div>
-    </div>
   );
 }
 

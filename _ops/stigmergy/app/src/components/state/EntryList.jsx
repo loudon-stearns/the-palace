@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Box, Check } from '../primitives.jsx';
 import StageGlyph from './StageGlyph.jsx';
 import { pulseSort, pulseUniverse } from '../../lib/pulse.js';
@@ -7,6 +7,7 @@ import { activeIndex, stepCursor } from '../../lib/list-cursor.js';
 import { parseFilterFromUrl, replaceFilterInUrl } from '../../lib/url-nav.js';
 import EntryAvatar from '../EntryAvatar.jsx';
 import PulseDot from './PulseDot.jsx';
+import EntryHoverCard, { usePointerCard } from './EntryHoverCard.jsx';
 import { typeColor } from '../../lib/entry-style.js';
 import { IS_PUBLIC } from '../../lib/public-mode.js';
 
@@ -18,11 +19,12 @@ import { IS_PUBLIC } from '../../lib/public-mode.js';
 // A filter input narrows by title/type/path; clicking a row opens that
 // entry in EntryReader. From the keyboard, ↑/↓ move a highlight through the
 // list and Enter opens the highlighted entry; typing a filter highlights the
-// top match, so filter-then-Enter opens the best hit.
+// top match, so filter-then-Enter opens the best hit. The mouse drives the
+// same highlight, and a row under the pointer shows the TOPOLOGY hover card.
 
 // Memoized so holding ↓ repaints the two rows whose highlight changed, not
 // the whole several-hundred-row index.
-const EntryRow = React.memo(function EntryRow({ entry, onSelect, active }) {
+const EntryRow = React.memo(function EntryRow({ entry, onSelect, onHover, active }) {
   const rowColor = typeColor(entry.type);
   return (
     <div
@@ -33,6 +35,10 @@ const EntryRow = React.memo(function EntryRow({ entry, onSelect, active }) {
       role="option"
       aria-selected={active}
       onClick={() => onSelect?.(entry.path)}
+      // mousemove, not mouseenter: a keyboard scroll slides rows under a
+      // still pointer and fires mouseenter, which would yank the highlight
+      // back from the key that just moved it.
+      onMouseMove={(e) => onHover?.(entry.path, e.clientX, e.clientY)}
       style={{
         display: 'grid',
         gridTemplateColumns: '8ch 9ch 1fr 16ch 10ch',
@@ -154,6 +160,21 @@ export default function EntryList({ entries = [], loadState, error, onSelect, in
   const boxRef = useRef(null);
   const listRef = useRef(null);
 
+  // The row under the pointer: moves the highlight and shows the hover card.
+  // Cleared when the pointer leaves the list or a key takes the highlight.
+  const [hoverPath, setHoverPath] = useState(null);
+  const { cardRef, placeRef } = usePointerCard(!!hoverPath);
+  const hoverPathRef = useRef(null);
+  hoverPathRef.current = hoverPath;
+  const onHover = useCallback((path, x, y) => {
+    placeRef.current(x, y);
+    if (path !== hoverPathRef.current) {
+      setHoverPath(path);
+      setCursorPath(path);
+    }
+  }, [placeRef]);
+  const hoverEntry = hoverPath ? filtered.find((e) => e.path === hoverPath) : null;
+
   const onFilterChange = (value) => {
     setFilter(value);
     setCursorPath(null);
@@ -176,6 +197,7 @@ export default function EntryList({ entries = [], loadState, error, onSelect, in
     if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
       if (filtered.length === 0) return;
       e.preventDefault();
+      setHoverPath(null);
       const next = stepCursor(active, e.key === 'ArrowDown' ? 1 : -1, filtered.length);
       setCursorPath(filtered[next].path);
       listRef.current?.children[next]?.scrollIntoView?.({ block: 'nearest' });
@@ -308,9 +330,15 @@ export default function EntryList({ entries = [], loadState, error, onSelect, in
         })}
       </div>
 
-      <div ref={listRef} role="listbox" style={{ maxHeight: '60vh', overflowY: 'auto' }}>
+      <div
+        ref={listRef}
+        role="listbox"
+        className="bbs-scroll"
+        onMouseLeave={() => setHoverPath(null)}
+        style={{ maxHeight: '60vh', overflowY: 'auto' }}
+      >
         {filtered.map((e, i) => (
-          <EntryRow key={e.path} entry={e} onSelect={onSelect} active={i === active} />
+          <EntryRow key={e.path} entry={e} onSelect={onSelect} onHover={onHover} active={i === active} />
         ))}
         {filtered.length === 0 ? (
           <div style={{
@@ -322,6 +350,12 @@ export default function EntryList({ entries = [], loadState, error, onSelect, in
         ) : null}
       </div>
     </Box>
+    {hoverEntry ? (
+      <EntryHoverCard
+        cardRef={cardRef} testId="pulse-hover" footer="click to open"
+        info={{ path: hoverEntry.path }} entry={hoverEntry}
+      />
+    ) : null}
     </div>
   );
 }
