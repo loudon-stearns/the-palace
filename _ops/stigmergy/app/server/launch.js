@@ -150,8 +150,10 @@ function runOpen(spawnImpl, args, staged) {
 
 // ── The desktop door ────────────────────────────────────────────────────────
 // The Claude desktop app answers `claude://code/new?folder=<abs path>&q=<text>`:
-// a new Code session opens with q in the composer, prefilled but NOT sent, after
-// a dialog that confirms the folder (always — a link's folder is untrusted).
+// a new Code session opens with q prefilled in the composer, after a dialog that
+// confirms the folder (always — a link's folder is untrusted). "Prefilled" is
+// the article's word; no real link had been fired from here when this was
+// written, so that it is never sent unasked is the reading, not a test.
 // Values are URL-encoded and q is cut at roughly 14,000 characters
 // (support.claude.com/en/articles/14729294, read 2026-10-18).
 //
@@ -164,7 +166,14 @@ function runOpen(spawnImpl, args, staged) {
 // size check that is right until the day a prompt grows past it.
 //
 // The staged path in q is absolute: a desktop session the app puts in its own
-// worktree has only tracked files, and this folder is gitignored.
+// worktree has only tracked files, and this folder is gitignored. Read from
+// there, the file sits outside the session's folder, so the session may ask
+// leave to read it (untested).
+//
+// The role rides in q, not only in the staged file. q is the one line Loudon
+// sends himself, and a session stays a child unless he says "grow up"
+// (CLAUDE.md § Growing up); the staged file reaches the session only as a tool
+// result. Each route names its role (server/api/launch.js).
 //
 // The link cannot carry model, effort or permission mode, so the session opens
 // on the app's own — not the latest Opus · high · acceptEdits the terminal pins.
@@ -176,14 +185,27 @@ const PRUNE_AFTER_MS = 7 * 24 * 60 * 60 * 1000;
 // Only files this door named are ever pruned: <UTC stamp>-<label>-<hex>.txt.
 const STAGED_NAME = /^\d{8}T\d{6}Z-[a-z0-9-]+-[0-9a-f]{6}\.txt$/;
 
-/** The one-line q, pointing at the staged prompt. */
-export function desktopPointer(stagedPath) {
-  return `Read "${stagedPath}" in full — it is your construction for this session — and follow it.`;
+// How q opens, by role:
+//   grow  — a handoff, card or steward fallback: its prompt already says to grow
+//           before writing, and here Loudon says it too.
+//   grown — a constructed steward: ELDER and SCHEMA ride inside its
+//           construction in full, so q says so rather than send it to read them twice.
+//   child — an enchanted or lensing page, which wakes a child.
+// No role: the bare pointer, and the session is a child by default.
+const ROLE_OPENINGS = {
+  grow: 'Grow up (read ELDER.md, then SCHEMA.md), then read',
+  grown: 'Grow up: ELDER and SCHEMA are inside your construction. Read',
+  child: 'You stay a child. Read',
+};
+
+/** The one-line q, pointing at the staged prompt, opening with the role. */
+export function desktopPointer(stagedPath, role) {
+  return `${ROLE_OPENINGS[role] || 'Read'} "${stagedPath}" in full — it is your construction for this session — and follow it.`;
 }
 
 /** The claude:// link that opens a desktop Code session at palaceRoot with the pointer prefilled. */
-export function desktopLink(palaceRoot, stagedPath) {
-  return `claude://code/new?folder=${encodeURIComponent(palaceRoot)}&q=${encodeURIComponent(desktopPointer(stagedPath))}`;
+export function desktopLink(palaceRoot, stagedPath, role) {
+  return `claude://code/new?folder=${encodeURIComponent(palaceRoot)}&q=${encodeURIComponent(desktopPointer(stagedPath, role))}`;
 }
 
 function slugLabel(label) {
@@ -215,7 +237,7 @@ function pruneStaged(dir, now) {
  * on a pointer to it.
  *
  * @param {string} prompt   the full prompt, staged verbatim
- * @param {object} opts     { palaceRoot, label?, platform?, spawnImpl?, now? }
+ * @param {object} opts     { palaceRoot, label?, role?, platform?, spawnImpl?, now? }
  * @returns {Promise<{launched:boolean, supported:boolean, error?:string, stagedPath?:string, link?:string}>}
  */
 export function launchDesktop(prompt, opts = {}) {
@@ -239,7 +261,7 @@ export function launchDesktop(prompt, opts = {}) {
     // Unique per launch, so two sessions launching at once never share a file.
     stagedPath = join(dir, `${utcStamp(now)}-${slugLabel(opts.label)}-${randomBytes(3).toString('hex')}.txt`);
     writeFileSync(stagedPath, prompt, 'utf8');
-    link = desktopLink(palaceRoot, stagedPath);
+    link = desktopLink(palaceRoot, stagedPath, opts.role);
   } catch (e) {
     return Promise.resolve({ launched: false, supported: true, error: `could not stage the prompt: ${e.message}` });
   }
