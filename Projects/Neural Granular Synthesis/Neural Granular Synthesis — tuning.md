@@ -26,3 +26,8 @@ What Neural Granular Synthesis's steward cycles taught the page. The orchestrato
 
 1. Wrapping noise back into range keeps a crowd's overall spread fixed while changing only how evenly it's covered. That's how to separate 'where the lock is' from 'how hard it hits' in this engine. *(offered by the steward, cycle 15)*
 - run · 2026-10-18 · cycle 15 · taught item 1
+
+## From cycle 16 — 2026-10-18
+
+2. The crowd's synchrony moves no faster than a few hertz below the lock, so a 10 ms snapshot meter is safe; jitter in its trace is the crowd surging, not the meter aliasing. *(offered by the steward, cycle 16)*
+- run · 2026-10-18 · cycle 16 · taught item 2

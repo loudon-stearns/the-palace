@@ -15,36 +15,36 @@ forward_vector: "I am Neural Granular Synthesis's scroll — the one page that a
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-18T10:24:03.615Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-18T10:27:44.995Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 15 · last ran 2026-10-18 (today)
+- **Status:** active · **Stage:** growing · **Steward:** cycle 16 · last ran 2026-10-18 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-18 (today) — Lumpiness is now a knob. It sets how hard the lock hits, from a switch to a slow arrival, and moves the lock point only about 3%. (`ngs-steward-025`)
-- **Last commit touching this project:** 2026-10-13 `1442da17` — steward(Neural Granular Synthesis): cycle 14 — SPINNING UP. HOME: [[Neural Granular Synthesis]]. Neighborhood loaded. …
+- **Last shipped:** 2026-10-18 (today) — The jitter below the lock was never the meter. Just short of locking, the crowd surges toward agreement, and the pacemakers cause it. (`ngs-steward-027`)
+- **Last commit touching this project:** 2026-10-18 `91addc1c` — steward(Neural Granular Synthesis): cycle 15 — SPINNING UP. HOME: [Neural Granular Synthesis](obsidian://open?vault=Th…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-18 — cycle 15 · taught item 1
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-18 — cycle 16 · taught item 2
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 1, from cycle 15 — 2026-10-18 — [[Neural Granular Synthesis — tuning]]
+- **Latest lesson:** item 2, from cycle 16 — 2026-10-18 — [[Neural Granular Synthesis — tuning]]
 
 ### Where this stands
 
-Neural Granular Synthesis plays a crowd of neurons, and how much they agree is the timbre. Two knobs drive it. Tightness is how hard the neurons pull on each other. Life is the share of pacemakers that ignore the pull. Past the lock point, which theory puts at tightness 1/(1 − life), hiss snaps into a tone. Last cycle showed that the soft, gradual lock I'd been blaming on pacemakers actually comes from how unevenly the crowd is spread out. This cycle I made that unevenness a knob of its own, called lumpiness, and measured it on 512 neurons. It does what I guessed: it sets how hard the lock hits and barely moves where it sits. The crowd's RNBO codebox doesn't have it yet, because Max work is…
+Neural Granular Synthesis plays a crowd of neurons, and how much they agree is the timbre. Tightness is how hard they pull on each other, life is the share of pacemakers that ignore the pull, and lumpiness (added last cycle) is how unevenly the crowd is spread. Past the lock point, hiss snaps into a tone. Since cycle 13 I'd left one question open: the evenly spread crowd's synchrony jumps around below the lock, and I didn't know if the 10 ms meter was causing that or the neurons were. This cycle settled it. The meter is honest. The crowd really does surge, and the pacemakers drive it.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 6:** Nobody has listened yet. _(in 6 notes, the latest cycle 15)_
+- **rough since cycle 6:** Nobody has listened yet, so whether the surge reads as 'alive' or as an unsteady level is still an open ear question. _(in 7 notes, the latest cycle 16)_
 - **rough since cycle 7:** I also haven't tested the lumpiness knob; _(in 4 notes, the latest cycle 14)_
 - **rough since cycle 12:** FixedFloat64Array state, floating-point array indexes and a 512-step loop inside the per-sample tick all match the RNBO docs as I read them, but they are unverified until Max accepts the file. _(in 2 notes, the latest cycle 13)_
 - **rough since cycle 12:** The evenly spread crowd at 50% pacemakers locks early, at 0.95×. _(in 2 notes, the latest cycle 13)_
 - **rough since cycle 13:** The audition's even pass looks noisy below the lock point in the trace, and I haven't checked whether that's the 10 ms meter or the crowd itself. _(in 2 notes, the latest cycle 15)_
 - **rough since cycle 14:** The fixed codebox is still uncompiled, and recounting the pacemakers at 512 neurons could still click when you turn the crowd knob. _(in 2 notes, the latest cycle 15)_
-- **rough since cycle 14:** The codebox has no lumpiness, and its audition steps still say life sets the attack: Max work is paused, so I left it alone. _(in 2 notes, the latest cycle 15)_
+- **rough since cycle 14:** The codebox has no lumpiness, and its audition steps still say life sets the attack: Max work is paused, so I left it alone. _(in 3 notes, the latest cycle 16)_
 
 ### Open asks
 
@@ -60,6 +60,7 @@ _None._
 
 ### Runs
 
+- 2026-10-18 — cycle 16 · taught item 2
 - 2026-10-18 — cycle 15 · taught item 1
 
 ### Owed
@@ -83,6 +84,41 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="ngs-steward-027" -->
+### 2026-10-18 — cycle 16 — The jitter below the lock was never the meter. Just short of locking, the crowd surges toward agreement, and the pacemakers cause it.
+> shipped · meter cleared, surge measured and rendered · steward leans: listen to the surge next
+
+I read the crowd's synchrony at every sample (24,000 a second) on 512 neurons, at fixed tightness just under the lock, and compared three readings of the same run: the raw per-sample value, the 10 ms snapshot the meter shows, and a 10 ms average. All three swing by the same amount, and none of the wobble is faster than 50 Hz, so the meter isn't folding fast motion into noise. The swings are slow, one to six surges a second, and they come from the pacemakers. In an even crowd with no pacemakers, synchrony sits near chance with a swing of 0.05. At 20% pacemakers the swing is 0.08, and at half it's 0.16, with spikes up to 0.65–0.8, nearly locked, before it falls back. The free-running pacemakers keep sweeping past the core and briefly drag it into agreement. You can hear it: in the audition, with the level-rider on, the loudness swings more than twice as much with half pacemakers (0.26 against 0.11). This also explains a note I'd carried since cycle 12, that the even crowd at 50% pacemakers locks early at 0.95×: the surges reach the lock before the steady state would. I wrote the first part of an answer into the open question on my page about pacemakers and liveliness.
+
+**Artifacts:**
+- [Left: the even crowd held at 0.9× of its lock point at three pacemaker shares; half pacemakers lunge toward a lock and fall back. Right: the swing grows with pacemaker share.](Projects/Neural Granular Synthesis/surge-before-lock.png)
+- [13 s audition: the even crowd held just under the lock, 6 s with no pacemakers, then 6 s with half. Listen for the surges in the second half.](Projects/Neural Granular Synthesis/surge-before-lock.wav)
+- [Every row and the 1 kHz synchrony traces with their spectra, for 0/20/50% pacemakers, even and lumpy, at 0.85×, 0.9× and 0.95×.](Projects/Neural Granular Synthesis/meter-noise.json)
+- [The probe: per-sample synchrony versus the meter's snapshot, plus the audition render.](Projects/Neural Granular Synthesis/probe_meter_noise.js)
+- [Draws the plate from meter-noise.json.](Projects/Neural Granular Synthesis/plot_surge.py)
+
+_Swing of core synchrony (std. dev.) at 0.9× of the lock point · 512 neurons · per-sample = 10 ms snapshot = 10 ms average in every row_
+| pacemakers | even crowd: mean r | even crowd: swing | lumpy crowd: swing | chance level |
+| --- | --- | --- | --- | --- |
+| 0% | 0.067 | 0.051 | 0.076 | 0.039 |
+| 20% | 0.123 | 0.084 | 0.099 | 0.044 |
+| 50% | 0.192 | 0.159 | 0.161 | 0.055 |
+
+_Changed the page:_ Neural Granular Synthesis — Added the first measured answer to the open question on pacemakers and liveliness: just under the lock, pacemakers make the crowd surge.
+
+_Left rough:_ Nobody has listened yet, so whether the surge reads as 'alive' or as an unsteady level is still an open ear question. The codebox has no lumpiness, and its audition steps still say life sets the attack: Max work is paused, so I left it alone.
+
+_Next moves named:_ Put a 'surge' readout in the crowd instrument (how much synchrony swings over the last second), so the pre-lock liveliness can be seen and played, not only measured offline. · Test whether the surge rate follows the pacemakers' spread of rates. If it does, pacemaker spread becomes a tempo knob for the breathing. · For the RNBO build once Max standards exist: the meter needs no change, since a 10 ms snapshot is honest for this crowd; lumpiness and the pacemaker headcount are the two things the codebox still lacks.
+<sub>`ngs-steward-027` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-fd7f9aaebf" -->
+### 2026-10-18 — cycle 16
+
+taught item 2
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="ngs-steward-025" -->
 ### 2026-10-18 — cycle 15 — Lumpiness is now a knob. It sets how hard the lock hits, from a switch to a slow arrival, and moves the lock point only about 3%.
 > shipped · third knob measured, spec updated · steward leans give it a gentler curve next
