@@ -63,13 +63,17 @@ Shop/Shopkeeper/**/*.webm
 Shop/Shopkeeper/**/*.mkv
 Shop/Shopkeeper/**/*.avi
 
-# Steward working files kept on this Mac (Loudon, 2026-10-18): render frames
-# behind the Waveguide Synthesizer's offline proofs, Generative Wavetable
-# Libraries' cycle data, and the loose audition presets the committed zip
-# already holds (the kit's ear sheet and manifest still commit).
-Projects/Waveguide Synthesizer/**/frames/
-Projects/Waveguide Synthesizer/offline-v*/still-*.png
-Projects/Generative Wavetable Libraries/**/*.npz
+# Steward working files kept on this Mac (Loudon, 2026-10-18): these render
+# frames and stills behind the Waveguide Synthesizer's offline proofs (later
+# proofs commit as before), Generative Wavetable Libraries' cycle data, and the
+# loose audition presets the committed zip already holds (the kit's ear sheet
+# and manifest still commit).
+Projects/Waveguide Synthesizer/offline-v1.8/frames/
+Projects/Waveguide Synthesizer/offline-v1.9/frames/
+Projects/Waveguide Synthesizer/offline-v1.10/frames/
+Projects/Waveguide Synthesizer/offline-v1.11/frames/
+Projects/Waveguide Synthesizer/offline-v1.9/still-*.png
+Projects/Generative Wavetable Libraries/ai-cycles/cycles.npz
 Projects/Generative Preset Development/ableton-wavetable/audition-kit/**/*.adv
 
 # Ableton analysis files (regenerated when a WAV is loaded)
