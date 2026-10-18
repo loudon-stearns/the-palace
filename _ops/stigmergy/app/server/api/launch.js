@@ -1,9 +1,14 @@
-// server/api/launch.js — open an interactive Claude Code session in a terminal.
-//   POST /api/launch            { prompt }                  -> launch a raw prompt
+// server/api/launch.js — open an interactive Claude Code session in a terminal
+// or in the Claude desktop app.
+//   POST /api/launch            { prompt, label? }          -> launch a raw prompt
 //   POST /api/launch/agent      { home, mandate?, model?,   -> CONSTRUCT a page-agent
 //                                 effort?, preview? }            (registered steward) + launch
 //   POST /api/launch/ephemeral  { home, ... }               -> CONSTRUCT ANY page as a
 //                                                                one-off (no registration) + launch
+// Each takes `target`: 'terminal' (the default) opens Terminal.app on the prompt;
+// 'desktop' stages the prompt under the palace root and opens a desktop Code
+// session on a claude:// link that points at it (server/launch.js § The desktop
+// door). The prompt is built the same way for both.
 //
 // The human-driven counterpart to a headless `claude -p` worker: this
 // hands a prompt to a real TUI the user watches + steers. macOS-only; a
@@ -20,7 +25,7 @@
 // how the agent is being built before committing.
 
 import { jsonResponse, readBody } from '../http.js';
-import { launchInteractive } from '../launch.js';
+import { launchInteractive, launchDesktop } from '../launch.js';
 import { buildCyclePrompt } from '../../../orchestrator/src/build-cycle-prompt.js';
 import { buildEphemeralPrompt } from '../../../orchestrator/src/ephemeral-prompt.js';
 import { buildLensMandate } from '../../../orchestrator/src/lens-mandate.js';
@@ -32,6 +37,20 @@ import { buildQuoteMandate, GLASS as QUOTES_GLASS } from '../../../../quotes/man
 const GLASS_MANDATES = { [QUOTES_GLASS]: buildQuoteMandate };
 
 const EFFORTS = new Set(['low', 'medium', 'high', 'xhigh', 'max']);
+const TARGETS = new Set(['terminal', 'desktop']);
+
+// Which door: an unknown target is refused rather than quietly sent to the
+// terminal. Tests inject launchImpl (terminal) and desktopLaunchImpl (desktop).
+function badTarget(body, res) {
+  if (body.target === undefined || TARGETS.has(body.target)) return false;
+  jsonResponse(res, 400, { error: `unknown launch target "${body.target}" — use "terminal" or "desktop"` });
+  return true;
+}
+function pickLauncher(body, opts) {
+  return body.target === 'desktop'
+    ? (opts.desktopLaunchImpl || launchDesktop)
+    : (opts.launchImpl || launchInteractive);
+}
 
 // The agent's construction, born then grown (v1.19 — [[ELDER]]). Rows 0–1 are
 // the birth: CLAUDE + the Seed Jewel + the World, auto-`@import`ed into any
@@ -80,6 +99,7 @@ async function handleAgentLaunch(ctx) {
 
   const home = body && typeof body.home === 'string' ? body.home.trim() : '';
   if (!home) { jsonResponse(res, 400, { error: 'missing steward home (page title)' }); return true; }
+  if (badTarget(body, res)) return true;
 
   // Resolve the page to a registered steward (its dir + current cycle). Only a
   // registered permanent steward has the dir/state buildCyclePrompt needs; a
@@ -136,8 +156,8 @@ async function handleAgentLaunch(ctx) {
   // them shell-safe regardless) and let launchInteractive default the rest.
   const effort = EFFORTS.has(body.effort) ? body.effort : undefined;
   const model = (typeof body.model === 'string' && /^[A-Za-z0-9._-]+$/.test(body.model)) ? body.model : undefined;
-  const launch = opts.launchImpl || launchInteractive;
-  const result = await launch(prompt, { palaceRoot, model, effort, ...(opts.launchOpts || {}) });
+  const launch = pickLauncher(body, opts);
+  const result = await launch(prompt, { palaceRoot, model, effort, label: `agent ${home}`, ...(opts.launchOpts || {}) });
   if (!result.launched) {
     jsonResponse(res, result.supported === false ? 501 : 500, { ...result, home, cycle });
     return true;
@@ -171,7 +191,7 @@ function buildAwakenConstruction({ home, stage }) {
 // WITHOUT registering it as a permanent steward. buildEphemeralPrompt wakes the
 // page as itself — its identity, its forward vector (its desire), its neighbors —
 // per [[Pages as Agents]]; it is NOT a steward cycle, touches no registry, and
-// stages no files. Any canon page (not just stewards) can be enchanted.
+// stages no agent files. Any canon page (not just stewards) can be enchanted.
 async function handleEphemeralLaunch(ctx) {
   const { req, res, palaceRoot, opts } = ctx;
 
@@ -185,6 +205,7 @@ async function handleEphemeralLaunch(ctx) {
 
   const home = body && typeof body.home === 'string' ? body.home.trim() : '';
   if (!home) { jsonResponse(res, 400, { error: 'missing page title' }); return true; }
+  if (badTarget(body, res)) return true;
 
   // `mandate` is an optional human note for this session ("wake and let's work on
   // X"). There are no context-layer toggles — a woken page is not a steward, so it
@@ -239,8 +260,9 @@ async function handleEphemeralLaunch(ctx) {
 
   const effort = EFFORTS.has(body.effort) ? body.effort : undefined;
   const model = (typeof body.model === 'string' && /^[A-Za-z0-9._-]+$/.test(body.model)) ? body.model : undefined;
-  const launch = opts.launchImpl || launchInteractive;
-  const result = await launch(built.full, { palaceRoot, model, effort, ...(opts.launchOpts || {}) });
+  const launch = pickLauncher(body, opts);
+  const label = lensSubject ? `lens ${home} ${lensSubject}` : `enchant ${home}`;
+  const result = await launch(built.full, { palaceRoot, model, effort, label, ...(opts.launchOpts || {}) });
   if (!result.launched) {
     jsonResponse(res, result.supported === false ? 501 : 500, { ...result, home, ephemeral: true, lens });
     return true;
@@ -274,11 +296,16 @@ export async function launchRoutes(ctx) {
     jsonResponse(res, 400, { error: 'missing or empty prompt' });
     return true;
   }
+  if (badTarget(body, res)) return true;
+  // `label` names the staged file on the desktop door ("handoff <id>"); the
+  // launcher reduces it to [a-z0-9-], so any string is safe.
+  const label = typeof body.label === 'string' ? body.label : undefined;
 
-  // opts.launchImpl lets a test intercept the spawn without opening a Terminal;
-  // opts.launchOpts threads platform/spawnImpl/tmpDir into the real impl.
-  const launch = opts.launchImpl || launchInteractive;
-  const result = await launch(prompt, { palaceRoot, ...(opts.launchOpts || {}) });
+  // opts.launchImpl / opts.desktopLaunchImpl let a test intercept the spawn
+  // without opening anything; opts.launchOpts threads platform/spawnImpl/tmpDir
+  // into the real impl.
+  const launch = pickLauncher(body, opts);
+  const result = await launch(prompt, { palaceRoot, label, ...(opts.launchOpts || {}) });
 
   if (!result.launched) {
     // not-on-macOS -> 501 (client falls back to copy); any other failure -> 500.

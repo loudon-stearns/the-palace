@@ -6,8 +6,9 @@ import { test, expect } from '@playwright/test';
 //
 // Hermetic ?demo=only; render + open only. We never click MARK PICKED UP (that
 // posts a handoff_picked_up to the live board) nor LAUNCH TERMINAL (that POSTs
-// /api/launch and would open a real Terminal) — those paths are covered at the
-// model level (handoff-builder.test.js, launch-server.test.js).
+// /api/launch and would open a real Terminal) nor OPEN IN DESKTOP (a real Claude
+// app session) — those paths are covered at the model level
+// (handoff-builder.test.js, launch-server.test.js, launch-middleware.test.js).
 
 async function gotoQueue(page) {
   await page.goto('/?demo=only&deck=QUEUE');
@@ -35,8 +36,11 @@ test.describe('Launch Interactive — handoff pickup', () => {
     await expect(page.getByTestId('launch-copy')).toBeVisible();
     await expect(page.getByTestId('launch-mark-picked-up')).toBeVisible();
     // The one-click "launch terminal" action is offered too (not clicked here —
-    // it would POST /api/launch and open a real Terminal).
+    // it would POST /api/launch and open a real Terminal), and beside it "open
+    // in desktop" (not clicked either — it would open a real Claude app session).
     await expect(page.getByTestId('launch-terminal')).toBeVisible();
+    await expect(page.getByTestId('launch-desktop')).toBeVisible();
+    await expect(page.getByTestId('launch-desktop-note')).toContainText(/own model, effort and permission mode/);
     // Esc closes without posting anything.
     await page.keyboard.press('Escape');
     await expect(modal).toHaveCount(0);

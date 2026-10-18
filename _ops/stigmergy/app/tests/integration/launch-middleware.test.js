@@ -4,7 +4,8 @@
 
 import { describe, test, expect, beforeEach, afterEach } from 'vitest';
 import http from 'node:http';
-import { mkdtempSync, rmSync, mkdirSync, writeFileSync } from 'node:fs';
+import { EventEmitter } from 'node:events';
+import { mkdtempSync, rmSync, mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import request from 'supertest';
@@ -227,6 +228,115 @@ describe('POST /api/launch/ephemeral', () => {
     const launchImpl = () => ({ launched: false, supported: false, error: 'open-in-terminal is macOS-only — use copy prompt.' });
     const res = await request(await listen(makeServer(root, { buildEphemeralPromptImpl: okBuild, launchImpl })))
       .post('/api/launch/ephemeral').send({ home: 'Murmuration' });
+    expect(res.status).toBe(501);
+    expect(res.body.supported).toBe(false);
+  });
+});
+
+// target: 'desktop' — the same three routes, built the same way, handed to the
+// desktop door instead of the terminal. Both impls are injected, so a test can
+// see which door a request reached; nothing opens.
+describe('launch target: desktop', () => {
+  let root;
+  beforeEach(() => { root = makeTempPalace(); });
+  afterEach(async () => { await closeAll(); rmSync(root, { recursive: true, force: true }); });
+
+  // Records which door was used and with what.
+  function doors() {
+    const seen = [];
+    const ok = (door) => (prompt, o) => { seen.push({ door, prompt, ...o }); return { launched: true, supported: true, ...(door === 'desktop' ? { stagedPath: '/p/x.txt', link: 'claude://code/new?q=x' } : { scriptPath: '/tmp/x/launch.command' }) }; };
+    return { seen, launchImpl: ok('terminal'), desktopLaunchImpl: ok('desktop') };
+  }
+
+  test('/api/launch: target desktop reaches the desktop door with the prompt, root and label', async () => {
+    const d = doors();
+    const res = await request(await listen(makeServer(root, d)))
+      .post('/api/launch').send({ prompt: 'catch the baton', target: 'desktop', label: 'handoff h-1' });
+    expect(res.status).toBe(200);
+    expect(res.body.launched).toBe(true);
+    expect(res.body.stagedPath).toBe('/p/x.txt');
+    expect(res.body.link).toBe('claude://code/new?q=x');
+    expect(d.seen).toHaveLength(1);
+    expect(d.seen[0]).toMatchObject({ door: 'desktop', prompt: 'catch the baton', palaceRoot: root, label: 'handoff h-1' });
+  });
+
+  test('/api/launch: no target, or target terminal, stays on the terminal door', async () => {
+    const d = doors();
+    const srv = await listen(makeServer(root, d));
+    await request(srv).post('/api/launch').send({ prompt: 'a' });
+    await request(srv).post('/api/launch').send({ prompt: 'b', target: 'terminal' });
+    expect(d.seen.map((x) => x.door)).toEqual(['terminal', 'terminal']);
+  });
+
+  test('400 on an unknown target, on all three routes, before anything is built or opened', async () => {
+    const d = doors();
+    let built = 0;
+    const srv = await listen(makeServer(root, {
+      ...d,
+      stewardLane: { list: () => [{ agent_id: 'K', home: 'K', dir: 'd', iteration: 0 }] },
+      buildCyclePromptImpl: () => { built++; return { full: 'P' }; },
+      buildEphemeralPromptImpl: () => { built++; return { ok: true, full: 'P' }; },
+    }));
+    for (const [path, body] of [
+      ['/api/launch', { prompt: 'x', target: 'cowork' }],
+      ['/api/launch/agent', { home: 'K', target: 'cowork' }],
+      ['/api/launch/ephemeral', { home: 'K', target: 'cowork' }],
+    ]) {
+      const res = await request(srv).post(path).send(body);
+      expect(res.status).toBe(400);
+      expect(res.body.error).toMatch(/unknown launch target/);
+    }
+    expect(built).toBe(0);
+    expect(d.seen).toHaveLength(0);
+  });
+
+  test('/api/launch/agent: the constructed steward prompt goes to the desktop door, labelled', async () => {
+    const d = doors();
+    const ROW = { agent_id: 'Kuramoto Coupling', home: 'Kuramoto Coupling', dir: '_ops/agents/permanent/kuramoto-coupling', iteration: 9 };
+    const res = await request(await listen(makeServer(root, { ...d, stewardLane: { list: () => [ROW] }, buildCyclePromptImpl: () => ({ full: 'THE CONSTRUCTED PROMPT' }) })))
+      .post('/api/launch/agent').send({ home: 'Kuramoto Coupling', target: 'desktop' });
+    expect(res.status).toBe(200);
+    expect(res.body.cycle).toBe(10);
+    expect(res.body.construction.tiers).toHaveLength(4);
+    expect(d.seen[0]).toMatchObject({ door: 'desktop', prompt: 'THE CONSTRUCTED PROMPT', label: 'agent Kuramoto Coupling' });
+  });
+
+  test('/api/launch/ephemeral: an enchant and a lens go to the desktop door, labelled by kind', async () => {
+    const d = doors();
+    const srv = await listen(makeServer(root, {
+      ...d,
+      buildEphemeralPromptImpl: (o) => ({ ok: true, full: `AWAKEN ${o.title}` }),
+      buildLensMandateImpl: (o) => ({ ok: true, full: `LENS ${o.subjectTitle} THROUGH ${o.glassTitle}` }),
+    }));
+    await request(srv).post('/api/launch/ephemeral').send({ home: 'Murmuration', target: 'desktop' });
+    await request(srv).post('/api/launch/ephemeral').send({ home: 'The Lens', lensSubject: 'Kuramoto Coupling', target: 'desktop' });
+    expect(d.seen[0]).toMatchObject({ door: 'desktop', prompt: 'AWAKEN Murmuration', label: 'enchant Murmuration' });
+    expect(d.seen[1]).toMatchObject({ door: 'desktop', prompt: 'LENS Kuramoto Coupling THROUGH The Lens', label: 'lens The Lens Kuramoto Coupling' });
+  });
+
+  test('through the real desktop door: the prompt is staged in the palace and the link points at it', async () => {
+    // Only the spawn is faked (launchOpts reaches the real launchDesktop).
+    const opened = [];
+    const spawnImpl = (cmd, args) => {
+      opened.push({ cmd, args });
+      const child = new EventEmitter();
+      queueMicrotask(() => child.emit('close', 0));
+      return child;
+    };
+    const res = await request(await listen(makeServer(root, { launchOpts: { platform: 'darwin', spawnImpl } })))
+      .post('/api/launch').send({ prompt: 'catch [[Foo]] — "go"', target: 'desktop', label: 'handoff h-9' });
+    expect(res.status).toBe(200);
+    expect(res.body.stagedPath.startsWith(resolve(root, '_ops/stigmergy/launches') + '/')).toBe(true);
+    expect(readFileSync(res.body.stagedPath, 'utf8')).toBe('catch [[Foo]] — "go"');
+    expect(opened).toEqual([{ cmd: 'open', args: [res.body.link] }]);
+    const url = new URL(res.body.link);
+    expect(url.searchParams.get('folder')).toBe(root);
+    expect(url.searchParams.get('q')).toContain(res.body.stagedPath);
+  });
+
+  test('501 when the host is not macOS (client falls back to copy)', async () => {
+    const res = await request(await listen(makeServer(root, { launchOpts: { platform: 'linux' } })))
+      .post('/api/launch').send({ prompt: 'x', target: 'desktop' });
     expect(res.status).toBe(501);
     expect(res.body.supported).toBe(false);
   });
