@@ -275,6 +275,7 @@ Harmonic spectra → white light. Inharmonic spectra → light through a prism (
 - **The shortest path through inharmonic space**: What is the shortest path through inharmonic space between a piano timbre and a bell timbre? Can synthesis interpolate between them by following that path? This is both a technical question and a compositional one.
 
 - **Kuramoto inharmonicity**: When you couple inharmonic partials via Kuramoto dynamics, the coupling strength creates a phase-locking field. But inharmonic partials have mismatched natural frequencies. Does this create "frustrated coupling"—a regime where phase-locking breaks down? Is there a critical inharmonicity magnitude beyond which coherent coupling fails? This directly affects [[Granular Synthesis|granular attractor architectures]].
+  - Tested 2026-10-17 in a toy model: yes, there is an edge, set by the top partials (roughly B·n³), and the tone frays rather than snaps when there are many partials. Sweeps, edge map and a field guide: [[Harmonicity and Inharmonicity — scroll]].
 
 - **Interpolation**: Can you smoothly morph the inharmonicity type from Bessel → stretched → stochastic → chaotic by animating parameters in a latent space? Or are these categories topologically disjoint?
 
