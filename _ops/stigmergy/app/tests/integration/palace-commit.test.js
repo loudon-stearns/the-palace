@@ -85,6 +85,18 @@ describe('palace-commit', () => {
     expect(status).toMatch(/Other Session\.md/); // never swept
   });
 
+  test('an invalid --verify is refused before anything is staged or committed', () => {
+    writeFileSync(resolve(root, 'Foo.md'), '---\ntitle: Foo\nstage: sprout\n---\npartly checked\n');
+    const headBefore = g('rev-parse', 'HEAD').trim();
+    const r = spawnSync('node', [CLI, '--kind', 'edit', '--summary', 'x', '--verify', 'partial', '--path', 'Foo.md'], {
+      cwd: root, encoding: 'utf8', env: { ...process.env, PALACE_ROOT: root },
+    });
+    expect(r.status).toBe(2);
+    expect(r.stderr).toMatch(/--verify must be one of verified, unverified, couldnt, not "partial"/);
+    expect(g('rev-parse', 'HEAD').trim()).toBe(headBefore);
+    expect(g('diff', '--cached', '--name-only').trim()).toBe('');
+  });
+
   test('--dry-run prints the message without committing', () => {
     writeFileSync(resolve(root, 'Foo.md'), '---\ntitle: Foo\nstage: sprout\n---\nx\n');
     g('add', '--', 'Foo.md');

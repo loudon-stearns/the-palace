@@ -35,7 +35,7 @@ if [ -f "$LOGIC" ] && command -v node >/dev/null 2>&1; then
 fi
 # Fail closed: a gate that cannot run says no, and names the way through.
 echo "sentry: PUSH REFUSED — the gate could not run (no node, or no _ops/sentry/pre-push.mjs here or in the owner checkout)." >&2
-echo "sentry: push once unchecked with: git push --no-verify" >&2
+echo "sentry: pushing unchecked (git push --no-verify) is Loudon's call alone; it also goes around palace-push" >&2
 exit 1
 `;
 
