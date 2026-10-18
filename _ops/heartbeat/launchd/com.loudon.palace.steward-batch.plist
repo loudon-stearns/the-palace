@@ -13,14 +13,14 @@
     <string>/Users/loudonstearns/Documents/The Palace/_ops/heartbeat/run-steward-batch.sh</string>
   </array>
 
-  <!-- Fires daily at 06:00 local; the wrapper's 2-day stamp guard makes the real
-       cadence every-other-morning. If the Mac was asleep at 06:00, launchd runs
-       it at next wake. -->
-  <key>StartCalendarInterval</key>
-  <dict>
-    <key>Hour</key><integer>6</integer>
-    <key>Minute</key><integer>0</integer>
-  </dict>
+  <!-- Fires every 30 minutes; the wrapper decides (2026-10-18). A batch runs only
+       when the Mac is fully awake with the lid open, at 06:00 or later, two
+       calendar days after the last one; once a day it also runs the Sentry's
+       guard watch. A 06:00-only timer met a sleeping Mac in a few-second dark
+       wake. launchd starts no second copy while one runs, and a tick missed in
+       sleep fires once at wake. -->
+  <key>StartInterval</key>
+  <integer>1800</integer>
 
   <key>RunAtLoad</key>
   <false/>

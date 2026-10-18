@@ -8,9 +8,22 @@
 # This is the same spawn STIGMERGY's actuator already uses to advance a steward
 # from the board — just fired by a timer instead of a click. No API key needed.
 #
-# Fired by: ~/Library/LaunchAgents/com.loudon.palace.steward-batch.plist (daily 06:00).
-# Cadence: the 2-day stamp guard below makes the real cadence every-other-morning
-#          even though launchd fires daily (launchd can't express "every 2 days").
+# Fired by: ~/Library/LaunchAgents/com.loudon.palace.steward-batch.plist, every 30 min.
+#          launchd never starts a second copy while one runs, and a missed tick
+#          during sleep fires once at wake.
+# Decides: a steward batch runs only when all hold (2026-10-18; Loudon's Mac
+#          sleeps on battery with the lid closed, and a 06:00 timer only ever met a
+#          few-second dark wake there):
+#            - the Mac is fully awake, lid open — not a dark wake;
+#            - it is START_HOUR or later;
+#            - INTERVAL_DAYS calendar days have passed since the last batch (calendar
+#              days, so a run that started late does not cost a day).
+#          A skipped check writes no log; .last-check records the latest decision.
+#          Once a day, when awake, it also runs the Sentry's guard watch: is GitHub
+#          still refusing a force push to main? If not, a notification.
+# Test:    HEARTBEAT_DRY=1 prints the decision and stops; HEARTBEAT_NOW (epoch),
+#          HEARTBEAT_STAMP, HEARTBEAT_GUARD_STAMP and HEARTBEAT_ASSUME_AWAKE=1|0 stand in
+#          for the clock, the stamps and the wake state.
 # Posture: the agent runs SHADOW (writes bundle scroll.md + machinery + board, but
 #          never touches canon entry bodies/frontmatter and never runs git). Each
 #          cycle's process-cycle.js commits what that cycle shipped; the WRAPPER
@@ -19,7 +32,8 @@ set -uo pipefail
 
 # ── config ──────────────────────────────────────────────────────────────────
 PALACE="/Users/loudonstearns/Documents/The Palace"   # MAIN worktree (where stewards + tools live)
-INTERVAL_DAYS=2                                       # every-other-morning; set 1 for daily
+INTERVAL_DAYS=2                                       # every other calendar day; set 1 for daily
+START_HOUR=6                                          # no batch before this hour (local)
 CLAUDE_BIN="${CLAUDE_BIN:-claude}"                    # if launchd can't find it, hardcode: which claude
 
 # ── make `claude`/node resolvable under launchd's minimal environment ────────
@@ -34,28 +48,68 @@ MODEL="$(CLAUDE_BIN="$CLAUDE_BIN" node "$PALACE/_ops/models/latest-opus.mjs" 2>/
 
 LOG_DIR="$PALACE/_ops/heartbeat/logs"
 mkdir -p "$LOG_DIR"
+STAMP="${HEARTBEAT_STAMP:-$PALACE/_ops/heartbeat/.last-steward-batch}"
+GUARD_STAMP="${HEARTBEAT_GUARD_STAMP:-$PALACE/_ops/heartbeat/.last-guard-watch}"
+LAST_CHECK="$PALACE/_ops/heartbeat/.last-check"
+DRY="${HEARTBEAT_DRY:-}"
+NOW="${HEARTBEAT_NOW:-$(date +%s)}"
+
+# Record the decision (overwritten each tick) and stop. Nothing else is written.
+decide() {
+  [ -n "$DRY" ] && echo "$1"
+  [ -z "$DRY" ] && echo "$(date -r "$NOW" '+%Y-%m-%d %H:%M') $1" > "$LAST_CHECK"
+  exit 0
+}
+# Local midnight of the day an epoch falls on, and whole calendar days between two epochs.
+day_start() { date -j -f '%Y-%m-%d %H:%M:%S' "$(date -r "$1" +%Y-%m-%d) 00:00:00" +%s; }
+days_between() { echo $(( ( $(day_start "$2") - $(day_start "$1") + 43200 ) / 86400 )); }
+# Fully awake with the lid open: macOS lists Graphics among the system's capabilities in a full
+# wake and not in a dark wake; a closed lid is AppleClamshellState = Yes (no lid: not listed).
+awake() {
+  case "${HEARTBEAT_ASSUME_AWAKE:-}" in 1) return 0 ;; 0) return 1 ;; esac
+  pmset -g systemstate 2>/dev/null | grep -q 'Graphics' || return 1
+  ioreg -r -k AppleClamshellState -d 4 2>/dev/null | grep -q '"AppleClamshellState" = Yes' && return 1
+  return 0
+}
+
+# global pause flag — STIGMERGY (or you) can pause the whole heartbeat without
+# touching launchd: while _ops/heartbeat/.paused exists, every run no-ops and
+# leaves the cadence stamp untouched. STIGMERGY only toggles this file (via the
+# STEWARDS deck pause/resume); it never runs launchctl.
+[ -f "$PALACE/_ops/heartbeat/.paused" ] && decide "skip: paused (flag present: $PALACE/_ops/heartbeat/.paused)"
+awake || decide "skip: the Mac is asleep or its lid is closed"
+
+# The Sentry's guard watch, once a calendar day while awake.
+today="$(date -r "$NOW" +%Y-%m-%d)"
+if [ "$(cat "$GUARD_STAMP" 2>/dev/null)" != "$today" ]; then
+  if [ -n "$DRY" ]; then
+    echo "would run: the Sentry's guard watch"
+  else
+    gw="$(cd "$PALACE" && node _ops/sentry/guard-watch.mjs 2>&1)"; gw_rc=$?
+    echo "$(date '+%Y-%m-%d %H:%M') exit $gw_rc · $gw" >> "$LOG_DIR/guard-watch.log"
+    if [ "$gw_rc" -eq 3 ]; then
+      osascript -e 'display notification "GitHub may let a force push rewrite main. Run: node _ops/sentry/sweep.mjs --only hosting" with title "Palace Sentry"' >/dev/null 2>&1 || true
+    fi
+    [ "$gw_rc" -ne 4 ] && echo "$today" > "$GUARD_STAMP"   # could not tell: look again next tick
+  fi
+fi
+
+[ "$(date -r "$NOW" +%H | sed 's/^0//')" -ge "$START_HOUR" ] || decide "skip: before ${START_HOUR}:00"
+if [ -f "$STAMP" ]; then
+  last="$(cat "$STAMP" 2>/dev/null || echo 0)"
+  since="$(days_between "$last" "$NOW")"
+  [ "$since" -lt "$INTERVAL_DAYS" ] && decide "skip: last batch ${since} calendar day(s) ago, due every ${INTERVAL_DAYS}"
+fi
+[ -n "$DRY" ] && { echo "would fire: the steward batch"; exit 0; }
+
 LOG="$LOG_DIR/steward-batch-$(date +%Y-%m-%dT%H-%M-%S).log"
-STAMP="$PALACE/_ops/heartbeat/.last-steward-batch"
+echo "$(date -r "$NOW" '+%Y-%m-%d %H:%M') fired the steward batch" > "$LAST_CHECK"
 
 {
   echo "=== palace steward batch — $(date) ==="
-
-  # global pause flag — STIGMERGY (or you) can pause the whole heartbeat without
-  # touching launchd: while _ops/heartbeat/.paused exists, every run no-ops and
-  # leaves the cadence stamp untouched. STIGMERGY only toggles this file (via the
-  # STEWARDS deck pause/resume); it never runs launchctl.
-  if [ -f "$PALACE/_ops/heartbeat/.paused" ]; then
-    echo "skip: paused (flag present: $PALACE/_ops/heartbeat/.paused)"; exit 0
-  fi
-
-  # every-other-morning guard
-  if [ -f "$STAMP" ]; then
-    last="$(cat "$STAMP" 2>/dev/null || echo 0)"; now="$(date +%s)"
-    if [ $(( (now - last) / 86400 )) -lt "$INTERVAL_DAYS" ]; then
-      echo "skip: last run < ${INTERVAL_DAYS}d ago"; exit 0
-    fi
-  fi
   date +%s > "$STAMP"
+  # Keep the Mac from idle-sleeping while the batch runs (a closed lid still sleeps it).
+  caffeinate -i -w $$ >/dev/null 2>&1 &
 
   cd "$PALACE" || { echo "ERROR: palace not found at $PALACE"; exit 1; }
   command -v node >/dev/null 2>&1 || { echo "ERROR: node not in PATH"; exit 127; }

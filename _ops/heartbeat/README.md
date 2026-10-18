@@ -17,9 +17,11 @@ already uses to advance a steward from the board).
 | `batch.mjs` | **The batch (2026-10-14).** Reads `limits.json`, asks `batch-plan.js` which stewards are due, takes the first N (least recently active first), and fires them through STIGMERGY's own steward lane (`POST /api/stewards/advance-all`, source `heartbeat`) with a per-steward cycle cap, a wall clock and a dollar budget. Same worker, same transcripts (the WATCH pane works), same per-cycle commits as a click on the PROJECTS deck; the deck shows the batch while it runs. Starts the app if it is down. Writes one log line per reap and `last-batch.json` when it ends (the scheduler strip reads it). |
 | `limits.json` | The limits, edited by hand: stewards per batch, cycles per steward, minutes, dollars, debounce hours. A batch ends when any one is reached; what was not fired stays due. |
 | `run-steward-batch.sh` | Wrapper: gives every *due* steward a **run** (up to its manifest `max_iterations` cycles, stopping on a blocking ask, a session request, or a stall) via the orchestrator skill (batch mode), then makes one scoped, text-only commit (machinery + `[Entry] — scroll.md` + board). See **Posture** below. |
-| `launchd/com.loudon.palace.steward-batch.plist` | Timer: daily 06:00 (→ every-other-morning via the wrapper's guard). |
+| `launchd/com.loudon.palace.steward-batch.plist` | Timer: every 30 min; the wrapper decides whether a batch is due (see Cadence note). |
 | `logs/` | Per-run logs + launchd stdout/stderr. |
-| `.last-steward-batch` | Stamp file the 2-day cadence guard reads/writes. |
+| `.last-steward-batch` | Stamp of the last batch; the cadence guard counts calendar days from it. |
+| `.last-guard-watch`, `logs/guard-watch.log` | The Sentry's daily guard watch: the day it last ran, and each line it printed. |
+| `.last-check` | The wrapper's latest decision (overwritten each tick; a skip writes no log). |
 
 ## Why the batch moved onto the lane (2026-10-14)
 
@@ -46,11 +48,24 @@ a one-line script that execs the newest bundled version, removed once Homebrew c
 
 ## Cadence note
 
-launchd can't express "every 2 days," so each plist fires **daily** and each
-wrapper holds a 2-day **stamp guard** that no-ops on the off day — net effect is
-every-other-morning, matching the old Cowork cadence. Change `INTERVAL_DAYS` at the
-top of a wrapper (1 = daily), or the plist `Hour`/`Minute` to move the time. If the
-Mac is asleep at the scheduled minute, launchd runs the job at next wake.
+**The steward batch (since 2026-10-18)** fires every 30 minutes and decides for
+itself. It runs a batch only when the Mac is fully awake with the lid open (a dark
+wake lists no Graphics in `pmset -g systemstate`), at `START_HOUR` (06:00) or later,
+and `INTERVAL_DAYS` (2) **calendar** days after the last batch, so a run that started
+late does not cost a day; `caffeinate` keeps the Mac from idle-sleeping while it
+runs. Why: the old 06:00 timer met a sleeping Mac in a few-second dark wake, and its
+guard counted whole 24-hour days, so one late start turned every other morning into
+every third. Once a day, when awake, it also runs the Sentry's guard watch
+(`_ops/sentry/guard-watch.mjs`) and raises a notification if GitHub would let a
+force push rewrite main. Test the decision without firing anything:
+`HEARTBEAT_DRY=1 zsh -l _ops/heartbeat/run-steward-batch.sh` (with `HEARTBEAT_NOW`,
+`HEARTBEAT_STAMP`, `HEARTBEAT_ASSUME_AWAKE=1|0` to stand in for the clock, stamp and
+wake state).
+
+**The other jobs** still fire **daily** with a 2-day **stamp guard** that no-ops on
+the off day. Change `INTERVAL_DAYS` at the top of a wrapper (1 = daily), or the plist
+`Hour`/`Minute` to move the time. If the Mac is asleep at the scheduled minute,
+launchd runs the job at next wake.
 
 ## Posture — grown up for its own page, the cycle commits
 
