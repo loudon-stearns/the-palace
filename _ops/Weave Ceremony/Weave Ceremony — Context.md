@@ -88,6 +88,8 @@ Loudon decided on 2026-09-24 that ceremonies should change in plain view, and th
 
 **v1.1 (2026-09-24) — open by reading the ledger.** Tuning item 38. 1.0 asked every run what it taught and never pointed the next run at the answer, so the four owed changes sat where no weave would meet them. Step 0 now reads the tuning file — owed items first, then anything after the version the last weave ran under — and those are the run's first candidates for a spec change. Schema v1.21 made the same rule general; the Weave took it first because its ledger was the one already holding debts.
 
+**v1.6 (2026-10-18) — a stale generated block fails the gate.** Tuning item 42. [[The Shop]]'s roster is computed by `Shop/Maker/build-roster.mjs` but committed as text, so it goes stale whenever a Specialist is added, moved or re-statused and nobody re-runs the builder. Two weaves found it stale and fixed it by hand, and both filed the fix as mechanical, which is the proof a hard gate waits for (Protocol, the note on judgment). So `lint-doc-drift.py` gained E4: it runs each generated block's own builder with `--check`, and postcondition 2e fails while a block is stale. W3 passes the builder's own warnings through for review. The linter already ran in the Deposit's check, the Return's map and the Schema Ceremony, so one check reaches a session's drift wherever someone next looks, not only at the monthly weave. A steward cycle that edits a Shop page refreshes the block itself.
+
 ## Open Questions
 
 - Is median link-degree the right proxy for a new entry's catch-up target, or should it weight body-length and cross-pillar reach so a deeply-linked-but-shallow entry isn't mistaken for a healthy one?

@@ -4,7 +4,7 @@ type: practice
 pillars: [practice, tools, philosophy]
 born: 2026-03
 stage: mature
-version: "1.5"
+version: "1.6"
 trigger: ["weave", "let's weave"]
 links:
   - target: "[[Palace Ceremonies]]"
@@ -87,7 +87,7 @@ The single-agent protocol below remains valid for: palaces under ~20 entries, qu
 2b. The **`weave_flag` inbox** has been read from the persistent board, and every open flag has either been acted on by the Weave or had an explicit decision recorded in the commit body. **Verified mechanically by `_ops/swarm/lint-weave-flags.py`** (exits 0 only when no flag is left un-addressed and un-declined). This is the checkable backstop that makes 2b unmissable *however the Weave was launched* — a baton whose move-list omits Step 1c no longer bypasses it — the sibling of the 2d/2e/2f linters. (Added 2026-07-06 after a baton-launched Multi-Lens Weave skipped the honour-system inbox read; [[The Palace Hardens Around Values]]: a rule earns a gate once its check proves mechanical.)
 2c. A **substrate sweep** has been completed: uncommitted edits, stashes, dangling commits, unmerged branches, and recent rewrites have been triaged per finding (recover / discard / leave). Recoveries are additive only; discards are recorded so the LOG stays honest.
 2d. The **link-direction linter** (`_ops/swarm/lint-link-directions.py`) has been run against a freshly rebuilt map. It reports **no link-direction errors introduced by this Weave** — E1 reciprocal contradictions for asymmetric types, E2 hubs emitting `member-of`. Pre-existing errors the Weave chose not to resolve are listed in the commit body with a one-line reason; a silent red linter violates the LOG. This is the checkable directional postcondition that the 2026-06-05 schema-compliance miss showed the Weave needed.
-2e. The **doc-drift linter** (`_ops/swarm/lint-doc-drift.py`) exits **0 on errors** (warnings reviewed). This is the prose-consistency counterpart to 2d: it catches foundational-doc drift — wrong-case refs, broken paths, dangling section pins, trigger-coverage gaps. Any warning left standing is a deliberate review-list item, not a silent miss.
+2e. The **doc-drift linter** (`_ops/swarm/lint-doc-drift.py`) exits **0 on errors** (warnings reviewed). This is the prose-consistency counterpart to 2d: it catches foundational-doc drift — wrong-case refs, broken paths, dangling section pins, trigger-coverage gaps, and a generated block gone stale (E4: today [[The Shop]]'s roster, when a Specialist is added, moved or re-statused and nobody re-runs its builder; the error line names the command that refreshes it). Any warning left standing is a deliberate review-list item, not a silent miss.
 
 2g. The **voice-drift linter** (`_ops/swarm/lint-voice-drift.py`) has been run and its flagged entries reviewed. It measures markup density — bold spans and em-dashes per thousand words — against the ~p90 ceilings, catching the one [[The Palace Voice]] dial that has no other check. **Flag-only, never gates**: dense bolding can be legitimate structure (the `Cross-Domain Resonances/` family and the `_ops/swarm/` prompt templates trip it by design), so a flag asks for a read, not a rewrite. Added 2026-08-25 after the drift was measured — em-dashes up 41% and bold up 53% from the March baseline, in a palace whose *word choice* had held perfectly. The lesson it encodes: a stated value without a check drifts to whatever the writer's default is, and the palace had gated link direction, doc drift, bundle hygiene, and weave flags while leaving its own prose on the honour system.
 
@@ -281,7 +281,7 @@ After all confirmed edits are written, rebuild the map and run the linters. Ther
 ```bash
 python3 "$(ls -1 _ops/swarm/build-map-*.py | sort | tail -1)"   # newest dated map builder
 python3 _ops/swarm/lint-link-directions.py                       # §4 link directionality (E1/E2 gate)
-python3 _ops/swarm/lint-doc-drift.py                             # foundational-doc consistency (E1/E3 gate)
+python3 _ops/swarm/lint-doc-drift.py                             # foundational-doc consistency (E1/E3/E4 gate)
 python3 _ops/swarm/lint-entry-naming.py                          # entry title↔filename, bundle-folder case (E1 gate)
 python3 _ops/swarm/lint-weave-flags.py                           # weave_flag inbox addressed/declined (2b gate)
 python3 _ops/swarm/lint-ghost-links.py                           # dead body wikilinks — flag-only, never gates
