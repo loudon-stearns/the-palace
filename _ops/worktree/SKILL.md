@@ -130,6 +130,13 @@ in-progress move merged, cherry-picked, or **batoned** (with its worktree coordi
 branches parked in their owning entries? what couldn't you verify? A teardown that drops an unmerged
 thread with no punchlist is a failed close — the worktree analog of a baton that omits its punchlist.
 
+**Before archiving a desktop session** that worked in one of the app's worktrees (under
+`.claude/worktrees/`), run `node _ops/stigmergy/app/scripts/trunk-state.mjs --sessions` (`--json` for
+the data). For each open session it says whether the worktree folder is still there, how many paths sit
+unsaved in it, and how many commits each branch the session wrote holds that main lacks, then a
+suggested pile (waiting on Loudon, unclear, can go) with a `because:` line. It reads files and wakes no
+session. The pile is a suggestion for Loudon to check, not a close.
+
 ## Ceremonies in a worktree
 
 The palace ceremonies assume a single working tree; worktrees split that. The rule: **canon and
