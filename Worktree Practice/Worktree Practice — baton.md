@@ -39,12 +39,13 @@ On 2026-10-14, in his words or by his yes:
 
 ## Current state
 
-*As of 2026-10-14, all on main.*
+*As of 2026-10-18, all on main.*
 - The door and the ear, at 48c923ad: one kernel lock every committer holds from its first `git add` to its commit; the ear writes every move of a branch to `.git/palace-ear.jsonl`, marked `door` or `around`.
 - `palace-land` and the heal, at 96248960 (`_ops/stigmergy/app/scripts/palace-land.mjs`, `server/landing.js`). Thirty-two landing tests, and 32 kill-and-heal rounds of a 941-file landing on a full clone of the palace, 14 of them inside git's checkout, all healed.
 - A heal now writes every file whole, the file in flight first, so a heal killed partway never leaves a file missing, at 008ad0df (the review's last verdict; 32 more double-kill rounds on the clone, all clean).
 - `palace-push` and `trunk-state`, at 34771c74. Nothing has been pushed with `palace-push` yet; main was 258 ahead of origin on 2026-10-16, the oldest unsent two days old.
 - The words, at 0957bb0e: the five trunk sentences (since 2026-10-15 in [[How the Palace Commits]] § Rules at the trunk, an entry another session deposited), the Concierge charter's sentence, Deposit's pointer, Closing Well 1.7, Return 1.2 (and a `trunk` probe in `return-map.mjs`), Weave 1.4.
+- No steward cycle has run since 2026-10-15: the heartbeat fires at 06:00, when the Mac was asleep on battery with the lid closed, inside a few-second dark wake; on 10-16 and 10-17 its every-other-morning guard also skipped, because it counts whole days and the 10-15 run had started at 06:07. The ignored-file fix in cycle-commit.js has not had its first real use yet.
 - The ear's first reading, 2026-10-16 03:53 UTC, after about 30 hours: 84 moves of main, all 84 through the door, none around it (49 palace-commit, 23 palace-land, 12 the server's own commits). No landing has died, so the heal has not been needed. Brought to Loudon the same night: the number says no fence for now.
 
 Not built: the read-only strip on the LOG deck.
