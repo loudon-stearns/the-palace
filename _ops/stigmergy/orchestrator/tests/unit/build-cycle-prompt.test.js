@@ -324,7 +324,9 @@ describe('buildCyclePrompt — the type system layer (v1.19)', () => {
     expect(on).toContain('`"replaces": ["<its item>"]`');
     expect(on).toContain('`proposed_edits`');
     expect(on).toContain('Work as if your proposals hold.');
-    expect(on).toContain('that was written before Loudon withdrew it on 2026-10-18');
+    // The canon words landed (1ee6107e), so the transition sentence that
+    // overrode the old wording is gone.
+    expect(on).not.toContain('written before Loudon withdrew it');
     expect(on.indexOf("The palace's type system")).toBeLessThan(on.indexOf(ELDER_HEAD));
     expect(on.indexOf(ELDER_HEAD)).toBeLessThan(on.indexOf('Your injected state'));
     const off = buildCyclePrompt({ palaceRoot: root, agentDir: agentRel, cycleN: 4, today: '2026-10-18', include: { schema: false } }).userTurn;
