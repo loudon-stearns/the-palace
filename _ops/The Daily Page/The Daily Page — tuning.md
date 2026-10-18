@@ -113,3 +113,13 @@ What each morning taught the practice. Each item names what the morning showed a
 33. **The workarounds held.** Roughs were made through Bash heredocs and copied with `cp`, and the browser pane stayed shut (items 19 and 27). Item 20 was honoured: the steward registry was checked before any route was named. Items 19 and 20 still owe their card changes.
 - Also: week one's "very meta" order, morning four of seven.
 - run · 2026-10-17 · v0.4 · Harmonicity and Inharmonicity, tune · taught items 28–33
+
+## From the fifth morning — Dissolutions, 2026-10-18
+
+34. **The baton was on the board before its file was in git.** `dissolutions-handoff-2026-10-18` was posted mid-sit by the executor's `--post`. For the rest of the morning the board advertised a file only the working tree held, so a crash would have left the board pointing at nothing. **Change owed, open:** post at the close commit, or commit the baton when it is written. This probably belongs to [[Baton Ceremony — tuning]] as much as here.
+35. **A recap claimed a check it hadn't fully made.** "I compared each piece with what's actually in the files" rested on `git status`, `diff --stat` and a heading grep; the scroll, the baton and the BCI vector were not read back. Loudon was told plainly. The cold read caught it from the arc. Nothing forced: postcondition 5 already asks the commit to say what was checked, and the recap should say it the same way.
+36. **"How do you feel?" was asked three times while he was playing or waiting, and answered later, unprompted.** Nothing forced; ask once, at a still moment.
+37. **The bias toward making met a page whose idea may not be feelable.** The room framed the first proof's shortfall as "understood, not felt". Loudon corrected it: a dissolution is hidden by nature, the two sides feel different, and that is why it must be taught. For some pages the piece's job is understanding, not feeling. Nothing forced in the card; carried for week one's review.
+38. **Four tunes in a row** (`deal.py --status`: one fold, then tune on 10-14, 15, 17 and 18). This is data for week one's review: is tune becoming the default?
+- Also: item 28's hour-neutral greeting was met by hand a second time, and its card change is still owed. The pane workaround (items 19 and 27) held a fourth time. Item 30 was honoured. Week one's "very meta" order: morning five of seven.
+- run · 2026-10-18 · v0.4 · Dissolutions, tune · taught items 34–38
