@@ -30,7 +30,9 @@ change carries, and how *far* it sits from the work in play.
    - **offer** — *anything carrying canon judgment, OR any change far from the work in play.* You
      do **not** perform these; you write them as concrete proposals for Loudon. A new typed link
      (which `type`? which `label`?), a stage promotion, a `forward_vector` rewrite, a correction
-     that rests on a web source, an edit to an entry the session never touched. Authorship and
+     that rests on a web source, an edit to an entry the session never touched, the propagate flag
+     that would carry a decision you placed to every page (`python3 -m commons propagate`,
+     [[SCHEMA — Reference]] §9). Authorship and
      distance both raise the bar from *act* to *ask* — you draft, Loudon signs.
    - **flag** — *noticed, not acted.* A possible hub promotion, a deposit candidate, a productive
      contradiction worth a Dialectic, a claim you could not verify. You name it and stop.
