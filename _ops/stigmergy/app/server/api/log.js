@@ -12,12 +12,14 @@ import { commitSelected } from '../commit.js';
 export async function logRoutes(ctx) {
   const { req, res, palaceRoot, urlPath, query, method } = ctx;
 
-  // ?limit=N caps the stream; ?path=<rel> filters to one entry's history.
+  // ?limit=N caps the stream; ?path=<rel> filters to one entry's history;
+  // ?flags=1 keeps only the commits that close or carry a weave flag.
   if (urlPath === '/api/log' && method === 'GET') {
     try {
       const limit = query.get('limit') ?? '100';
       const pathspec = query.get('path');
-      const result = await readLog(palaceRoot, { limit, pathspec });
+      const flags = query.get('flags') === '1';
+      const result = await readLog(palaceRoot, { limit, pathspec, flags });
       if (result.error) { jsonResponse(res, 400, { error: result.error }); return true; }
       jsonResponse(res, 200, { ...result, ts: new Date().toISOString() });
       return true;

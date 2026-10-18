@@ -133,6 +133,22 @@ export function parseTrailers(body) {
   return out;
 }
 
+// The two body lines a Weave writes about its flags (Weave Ceremony Step 1c), which
+// are not trailers: `Declined flag <id>: <reason>` closes an entry flag, and
+// `Carried flag <id>: <how far>` records a propagate flag this weave carried but
+// did not finish. An older decline names the id as `msg-<id>`; readers match both.
+export function parseFlagLines(body) {
+  const out = { declined: [], carried: [] };
+  if (typeof body !== 'string' || body === '') return out;
+  for (const line of body.split(/\r?\n/)) {
+    const m = line.match(/^\s*(?:[-*]\s+)?([Dd]eclined?|[Cc]arried) flag\s+([^\s:]+)\s*:?\s*(.*?)\s*$/);
+    if (!m) continue;
+    const entry = { id: m[2], note: m[3] || null };
+    (/^[Cc]/.test(m[1]) ? out.carried : out.declined).push(entry);
+  }
+  return out;
+}
+
 // Infer a kind from the touched paths when neither a Palace-Kind trailer nor
 // a spec-declared subject is present. Low-confidence; flagged `inferred`.
 // Heuristics, in priority order:
@@ -174,6 +190,7 @@ export function inferKind(paths = [], addedPaths = []) {
 export function classifyCommit({ subject, body, paths = [], addedPaths = [] }) {
   const subj = parseSubject(subject);
   const trailers = parseTrailers(body);
+  const flagLines = parseFlagLines(body);
 
   let kind, kindSource;
   if (trailers.kind && KNOWN_KINDS.includes(trailers.kind)) {
@@ -202,6 +219,8 @@ export function classifyCommit({ subject, body, paths = [], addedPaths = [] }) {
     stage: trailers.stage,
     vector: trailers.vector,
     resolves: trailers.resolves,
+    declined: flagLines.declined,
+    carried: flagLines.carried,
     verify: trailers.verify,
     author: trailers.author,
     campaign: trailers.campaign,

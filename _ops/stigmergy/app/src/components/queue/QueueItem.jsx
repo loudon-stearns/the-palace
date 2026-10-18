@@ -73,6 +73,7 @@ const FLAG_TYPE_LABEL = {
   hub_candidate: 'hub candidate',
   mirror_link_sweep: 'mirror-link sweep',
   standard_reference: 'standard reference',
+  propagate: 'propagate',
 };
 
 export default function QueueItem({ item, onJump, onClear, onDismissHandoff, onClaimHandoff, onRespond, onLaunch, onApply }) {
@@ -107,7 +108,11 @@ export default function QueueItem({ item, onJump, onClear, onDismissHandoff, onC
     } catch { /* clipboard blocked — launch interactive still exposes the prompt */ }
   };
 
-  const canRespond = !resolved && !decided
+  // A propagate flag carries a decision Loudon already made: nothing here
+  // grants or denies it. It closes by a Palace-Resolves trailer once a weave
+  // finds its check clean, and only Loudon retires it (Weave Ceremony Step 1c).
+  const propagate = item.kind === 'weave_flag' ? item.propagate : null;
+  const canRespond = !resolved && !decided && !propagate
     && (item.kind === 'resource_request'
         || item.kind === 'vector_proposal'
         || item.kind === 'weave_flag'
@@ -201,8 +206,35 @@ export default function QueueItem({ item, onJump, onClear, onDismissHandoff, onC
           textDecoration: resolved ? 'line-through' : 'none',
         }}
       >
-        {item.ask || item.summary}
+        {propagate?.decision || item.ask || item.summary}
       </div>
+
+      {propagate ? (
+        <div data-testid="queue-item-propagate" style={{
+          fontSize: 12, lineHeight: 1.45, color: 'var(--phosphor-dim)', textShadow: 'none',
+          maxWidth: '78ch', marginBottom: 6,
+        }}>
+          {propagate.scope ? <div>reaches: {propagate.scope}</div> : null}
+          {propagate.check ? <div>check: {propagate.check}</div> : null}
+          {item.ask && item.ask !== propagate.decision ? <div>do: {item.ask}</div> : null}
+          {propagate.pattern ? (
+            <div data-testid="queue-item-propagate-pattern">
+              pattern: <span style={{ fontFamily: 'var(--font-mono)' }}>{propagate.pattern}</span>
+              {' '}(the weave's flag linter counts the pages still matching)
+            </div>
+          ) : null}
+          {item.carried ? (
+            <div data-testid="queue-item-carried" style={{ color: 'var(--phosphor)' }}>
+              carried in {item.carried.commit}{item.carried.note ? `: ${item.carried.note}` : ''}
+            </div>
+          ) : null}
+          {!resolved ? (
+            <div data-testid="queue-item-propagate-close">
+              closes when a weave&apos;s commit carries Palace-Resolves: {item.id}; only Loudon retires it
+            </div>
+          ) : null}
+        </div>
+      ) : null}
 
       {/* Demoted metadata row: resource type chip + board lane. */}
       {item.kind === 'resource_request' ? (
@@ -257,11 +289,19 @@ export default function QueueItem({ item, onJump, onClear, onDismissHandoff, onC
               flag: {FLAG_TYPE_LABEL[item.flag_type] || item.flag_type}
             </span>
           ) : null}
+          {propagate ? (
+            <span data-testid="queue-item-flag-rhythm" style={{
+              border: '1px dotted var(--phosphor-dim)', padding: '0 6px',
+              fontFamily: 'var(--font-mono)',
+            }}>
+              {propagate.rhythm === 'by-touch' ? 'by touch: measured, never swept' : 'sweep'}
+            </span>
+          ) : null}
           {item.source_deposit_id ? (
             <span data-testid="queue-item-flag-deposit" style={{
               fontFamily: 'var(--font-mono)',
             }}>
-              deposit: {item.source_deposit_id}
+              {propagate ? 'decided' : 'deposit'}: {item.source_deposit_id}
             </span>
           ) : null}
           {Array.isArray(item.source_entries) && item.source_entries.length > 0 ? (
@@ -284,7 +324,7 @@ export default function QueueItem({ item, onJump, onClear, onDismissHandoff, onC
               fontFamily: 'var(--font-mono)',
               color: 'var(--ansi-bright-cyan)', textShadow: 'var(--glow)',
             }}>
-              --&gt; {item.target_entry.replace(/\.md$/, '')}
+              {propagate ? 'home: ' : '--> '}{item.target_entry.replace(/\.md$/, '')}
             </span>
           ) : null}
           <span>{vantage(item)}</span>

@@ -24,10 +24,12 @@ Two kinds of flag (Weave Ceremony Step 1c):
     old form on purpose), so every weave sees how far the decision has spread. The
     pattern is passed to git grep as an argument, never to a shell.
 
-The deck (`queue-model.js` reconcileQueue) also closes a flag on a Palace-Resolves
-trailer, but it greys a card on a touch, hides it on a GRANT/DENY, and reads no
-decline or carried line. Until it learns the propagate kind, this linter is the gate
-and the deck is advisory. Resolution here:
+The QUEUE deck reads the same lines (`queue-model.js` reconcileWeaveFlags): a trailer
+greys any flag, a decline greys an entry flag, a carried line shows on a propagate
+card, and no touch closes anything. One difference stands: a GRANT/DENY clicked on
+the deck hides an entry flag, and this linter, which reads git and not the board's
+answers, still counts it open. A propagate flag is never hidden that way. This linter
+is the gate; the deck is the reading surface. Resolution here:
   - explicit: a commit carries `Palace-Resolves: <id>`, or a `Declined flag <id>: <reason>`
     line. Only those two forms, and a decline never closes a propagate flag: only
     Loudon retires one, by a trailer written on his word. (Until 2026-10-18 any commit body that named the id
