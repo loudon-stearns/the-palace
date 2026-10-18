@@ -8,8 +8,11 @@ import { resolveRef } from '../../lib/entry-ref.js';
 // inline in EntryBody. Two registers, two treatments. Obsidian flattens
 // them; STATE separates them.
 //
-// Each row: `<type>  <label>  -> [[target]]`. Clicking the target navigates
-// to that entry (when resolved against the wikilink index).
+// Each row: the link's type on the left, and beside it its label, then
+// `-> [[target]]` beneath. The label is the link's register (SCHEMA §4) and
+// runs 18 characters at the median, 48 at most, so it gets a line of its own
+// and wraps rather than being cut to a fixed column. Clicking the target
+// navigates to that entry (when resolved against the wikilink index).
 
 // Group entries by link type for readability. Order mirrors SCHEMA's table.
 const TYPE_ORDER = [
@@ -43,10 +46,11 @@ function LinkRow({ link, onNavigate, index, refIndex }) {
       data-testid="typed-link-row"
       data-known={known ? 'true' : 'false'}
       style={{
+        // 13ch fits the longest type, EMERGED-FROM and COUPLES-WITH, on one line.
         display: 'grid',
-        gridTemplateColumns: '11ch 14ch 1fr',
+        gridTemplateColumns: '13ch minmax(0, 1fr)',
         gap: 8, alignItems: 'baseline',
-        padding: '2px 0',
+        padding: '3px 0',
       }}
     >
       <span style={{
@@ -54,26 +58,29 @@ function LinkRow({ link, onNavigate, index, refIndex }) {
         fontFamily: 'var(--font-mono)', fontSize: 12,
         textTransform: 'uppercase', letterSpacing: '.04em',
       }}>{link.type}</span>
-      <span style={{
-        color: link.label ? 'var(--phosphor-dim)' : 'transparent',
-        textShadow: 'none', fontSize: 12, fontStyle: 'italic',
-        whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
-      }}>{link.label ? `(${link.label})` : '--'}</span>
-      <span style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', minWidth: 0 }}>
-        <span
-          style={{
-            color: known ? 'var(--link)' : 'var(--phosphor-dim)',
-            textShadow: known ? 'var(--glow)' : 'none',
-            cursor: known && onNavigate ? 'pointer' : 'default',
-            borderBottom: known ? '1px dashed currentColor' : 'none',
-          }}
-          onClick={() => { if (known && onNavigate) onNavigate(resolvedPath); }}
-        >
-          {known ? `-> ${link.target}` : `?? ${link.target}`}
+      <span style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+        {link.label ? (
+          <span data-testid="typed-link-label" style={{
+            color: 'var(--phosphor)', textShadow: 'none',
+            fontSize: 12, fontStyle: 'italic', overflowWrap: 'anywhere',
+          }}>{link.label}</span>
+        ) : null}
+        <span style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', minWidth: 0 }}>
+          <span
+            style={{
+              color: known ? 'var(--link)' : 'var(--phosphor-dim)',
+              textShadow: known ? 'var(--glow)' : 'none',
+              cursor: known && onNavigate ? 'pointer' : 'default',
+              borderBottom: known ? '1px dashed currentColor' : 'none',
+            }}
+            onClick={() => { if (known && onNavigate) onNavigate(resolvedPath); }}
+          >
+            {known ? `-> ${link.target}` : `?? ${link.target}`}
+          </span>
+          {/* [OBS]/[BUN] ride the resolved target. onOpen navigates in-deck to
+              the target's STATE view (where its bundle renders). */}
+          <EntryRefChips resolved={ref} onOpen={onNavigate} />
         </span>
-        {/* [OBS]/[BUN] ride the resolved target. onOpen navigates in-deck to
-            the target's STATE view (where its bundle renders). */}
-        <EntryRefChips resolved={ref} onOpen={onNavigate} />
       </span>
     </div>
   );
