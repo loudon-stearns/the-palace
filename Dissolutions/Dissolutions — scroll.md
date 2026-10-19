@@ -5,7 +5,7 @@ links:
   - target: "[[Dissolutions]]"
     type: connects-to
     label: scroll-for
-forward_vector: "I am Dissolutions' scroll: the page that opens on where the idea stands, then reads down through everything made to test it, newest first, so anyone can feel one object turn into another as the reading changes, not only understand it. My top is regenerated whenever anyone looks; my plan changes only when Loudon agrees; my standing orders are his; my trail only ever grows."
+forward_vector: "I am Dissolutions' scroll: the page that opens on where the idea stands, then reads down through everything made to test it, newest first, so anyone can see one object turn into another as the reading changes, and understand why the two readings feel so different. My top is regenerated whenever anyone looks; my plan changes only when Loudon agrees; my standing orders are his; my trail only ever grows."
 ---
 
 # Dissolutions — scroll
@@ -15,7 +15,25 @@ forward_vector: "I am Dissolutions' scroll: the page that opens on where the ide
 <!-- scroll:now:start -->
 ## Now
 
-_Not generated yet. This zone belongs to the machine and fills itself in the first time anyone looks._
+> _Regenerated 2026-10-18T22:40:53.344Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+
+- **Status:** — · **Stage:** seed · **Steward:** none — this page has no permanent steward yet
+- **Plan:** agreed (no dated change on the trail yet)
+- **Waiting on you:** nothing
+- **Last shipped:** nothing on the board yet — but the bundle holds 2 media files (see the making trail)
+- **Last commit touching this page:** 2026-10-18 `c9acd4b1` — handoff(Dissolutions): Build the six remaining playable proofs for the Dissolutions
+
+### Where this stands
+
+**handoff path:** Dissolutions/Dissolutions — baton.md **receiving surface:** Claude Code (Mac) **move:** Build the six remaining playable proofs for the Dissolutions catalogue, one per member, each testing its identity claim and ending in a hunt-ledger line.
+
+### Open asks
+
+_None — nothing is waiting on you._
+
+### Decided
+
+_Nothing decided on the board yet._
 
 <!-- scroll:now:end -->
 
@@ -37,7 +55,7 @@ _Not generated yet. This zone belongs to the machine and fills itself in the fir
 ## Standing Orders
 
 <!-- scroll:orders:start -->
-_Loudon's standing direction for this page. Never regenerated; it holds until he revokes it._
+_Loudon's standing direction for this page — never regenerated. A steward, if the page ever has one, reads it every cycle before anything else._
 <!-- scroll:orders:end -->
 
 ## The making
