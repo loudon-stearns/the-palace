@@ -13,11 +13,11 @@ session_thread: "Test coach 2.1 on the messages it hasn't seen (parked, waiting 
 
 ## Move
 
-Run the first clean test of the folded § In the room (v2.1b, `1b730846`): wake Creative Coach on coaching moments no drafter has seen, and judge its replies against the ones Loudon actually sent.
+Run the first clean test of § In the room as the page now stands (v2.2): wake Creative Coach on coaching moments no drafter has seen, and judge its replies against the ones Loudon actually sent.
 
 ## Why this move matters
 
-Every score so far came from earlier drafts: v1 on moments held out of its drafting, v2 on two moments. The text now in the page has met no unseen moment, and two of its sentences were reworded after the last test. Until it is tested it describes his practice; it is not yet shown to coach like him. The forward vector says the same thing: one participant is one test.
+Every score so far came from earlier drafts: v1 on moments held out of its drafting, v2 on two moments. The page as it stands (v2.2) has met no unseen moment. Two of its sentences were reworded after the last test, and v2.2 added three paragraphs to § In the room (craft as a reward, the clock the coach holds, a missed loop) and rewrote a repertoire sentence. None of the new text is tested. Until it is tested it describes his practice; it is not yet shown to coach like him. The forward vector says the same thing: one participant is one test.
 
 ## Tried and rejected
 
@@ -28,7 +28,7 @@ Every score so far came from earlier drafts: v1 on moments held out of its draft
 
 ## Current state
 
-- § In the room is on main (`1b730846`); the forward vector names the first room (`3ef3f0a2`).
+- The page stands at v2.2: § In the room is v2.1b (`1b730846`) plus the three new paragraphs, all untested. The forward vector names the first room (`3ef3f0a2`).
 - A session named "Test coach 2.1 on the messages it hasn't seen" holds this run's brief and was parked waiting for Loudon's go and his yes to the cost. If it still exists, resume it; this baton is the way back if it does not.
 - The harness is `Creative Coach/coach-test/` (read its README first). The private inputs (the exported thread, the de-identification terms, the detailed setup) are not in the palace and must never be.
 - Estimated cost: about 37K tokens per Sonnet wake and about 60K for the Opus judge, times two arms and the number of moments.

@@ -256,3 +256,9 @@ Loudon's answer at the close (2026-10-13), to "what did this teach the ceremony"
 - The board line left for the sweep was read back from git (0f33d510), as item 50 asks.
 
 - run · 2026-10-18 · v1.12 · ledger route and typed links (7a78771e) · taught item 56
+
+## From the Creative Coach close — 2026-10-18
+
+57. **A close over a private person's material: cite lines, quote nothing, and let the page's own orders bind.** The arc held raw names, numbers and message text from a participant's thread. The moderator's read cited line numbers and quoted none of it. The page's Standing Orders (`Creative Coach/Creative Coach — scroll.md`) bound the close, so the arc stays in the session's scratchpad and every file and commit message this close wrote went past the Sentry's content rules before it was committed. This is the Standing Orders working at the Closing Well's edge, not a new rule. No spec change; the version stays v1.12. Data for item 56: the relays of Loudon's choices matched his popup answers.
+
+- run · 2026-10-18 · v1.12 · close-2026-10-18-creative-coach · taught item 57

@@ -49,3 +49,8 @@ quotes or describes a participant, and nothing here may ([[Creative Coach — sc
 ## From the fold — 2026-10-17 (v2.1b, `1b730846`; not a test run)
 
 10. **Read the whole section for the Sentry, not sentence by sentence.** Two details that each said nothing about the participant could, side by side, point to them. Two sentences of v2.1 were reworded before the fold, and v2.1b is what went into the page. The reworded sentences have not been tested; the next run is the first test of v2.1b.
+
+## From the close — 2026-10-18 (v2.2; not a test run)
+
+11. **The cause of item 9 is a reason, not a count.** Loudon, at the close: craft is a reward. A technical or musical lesson is given for a wall the participant keeps hitting and isn't getting past alone, or as a prize for grit and a flexible mindset, because growth lives in the exercise, the making and the mindset, not in the fact. The deferral that item 9 saw overlearned was the visible edge of that reason. A trainer who holds the reason can answer craft when the reward is due and leave it when it isn't, so teach the reason, not the deferral. Item 2 (size) is a separate miss. Change, made in v2.2: § In the room teaches the reward and its two cases, with one line of his. Untested.
+12. **One participant can't show how he coaches someone who is sliding rather than climbing, or whose reflections don't name feelings.** From the trainer's report. The record says what he does when a reflection already states how the person feels, and nothing about the other case. There, "point at the body" may still be right. This qualifies item 4: the tension stands, and its limit is the evidence, not the move. Untested.

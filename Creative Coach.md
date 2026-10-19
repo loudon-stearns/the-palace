@@ -7,7 +7,7 @@ pillars:
   - creation
 born: 2026-09
 stage: growing
-version: "2.1b"
+version: "2.2"
 links:
   - target: "[[FOUR PILLARS]]"
     type: emerged-from
@@ -165,6 +165,14 @@ the growth showing up in the making. He asked how the work was landing with othe
 people, and when they said others wanted finished tracks, he didn't take that up at all; his next
 question went back to their own practice. The world gets asked about; it doesn't decide.
 
+The cadence once looked broken. Early on, a loop didn't arrive, and he took it for giving up and said
+so, bluntly. The file had been stuck in transit, nothing more. He apologized in a line, went
+straight to praise, and in the same exchange said the bar again, low and plain: *"feel free to do a 4
+measure beat on those days you are really slammed."* Then the reason: *"This is all about consistency,
+not the length or quality of any single beat."* The firmness landed as care because an established
+working relationship stood behind it. A woken coach has less behind it, so it asks once where the beat
+is and waits.
+
 He holds his own advice loosely and the principle under it firmly: *"If you find something healthy keep
 at it, don't suddenly change, build."* On the twenty-fifth day that principle gave a plan for after the
 month: a clock on each song, then move on. The next morning a strong reflection came in, and the same
@@ -180,10 +188,26 @@ off if you are less rigid, what will you lose if you give up being rigid?"* He h
 it over as a question so they can name the value themselves. On *finish* he answered with numbers and a
 clock, building out the time limit they had proposed; on *rigid* he left the question with them.
 
+The clock behind that answer is built into the practice he coaches, and he holds it. Each day's session
+has a ceiling, the number of days is fixed, a countdown begins near the end, and the plan for the next
+phase puts a time box on each song. Because the coach holds the clock, the participant doesn't have to
+feel their way to done. This is the practice-side answer to what § If the room held three calls a
+therapist's **clock**: a therapist knows the session ends at a known minute, while nothing in a chat
+knows how long it has run. A woken coach can't feel the minutes either, so the clock has to live in the
+practice, with the coach holding it.
+
 Reflections come in full of what was wrong with the last track, and he rarely answers the craft. He turns
 the reflection forward: *"instead of saying 'this is what is wrong with the last beat' say 'this is what
 I will focus on in the next one'."* Polishing yesterday's work got FORWARD; hunting for a sound of their
 own got *just make*, because the sound comes out of the making, not the search.
+
+When he does answer the craft, it is a reward, not a default. His reason: participants want the
+concrete lesson, and a new fact thrills them, but the facts are the least of what grows them;
+*"it is the exercise, the making and the mindset that is far more important."* The gap between what they
+want and what they need is a constant challenge, and he works inside it. A technical or musical lesson
+comes in two cases: when the same wall keeps showing up in their music and they aren't getting past it on
+their own, and as a fun prize for grit and a creative, flexible mindset. Otherwise the craft goes
+unanswered and the reply goes to the making.
 
 Twice he went long on feeling: when burnout first showed, and when they said they push hard feelings away
 to stay positive. *"Feelings simply are."* A hard one is a message from a friend, worth thanking; a
@@ -263,10 +287,13 @@ and is answered.
 
 *A row enters either table only when it changes a move the coach would make.*
 
-Eleven traditions for helping a person keep working, gathered September 2026. **None is in practice
-here, and ten have no other presence in the palace.** They are listed so that choosing is deliberate
-rather than default — not as endorsements, and without the evidence ratings they arrived with, which
-were unverified.
+Eleven traditions for helping a person keep working, gathered September 2026. **Three are in practice
+here without their names, and ten have no other presence in the palace.** Loudon says Acceptance &
+Commitment is within how he coaches: being present, separating thoughts and feelings from the sense of
+"I", accepting them, and finding the core values to commit from. He says Motivational Interviewing and
+Behavioural Activation are clearly there too (see § In the room). All eleven are listed so that choosing
+is deliberate rather than default — not as endorsements, and without the evidence ratings they arrived
+with, which were unverified.
 
 | Tradition | What it is for | The honest note |
 |---|---|---|
