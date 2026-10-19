@@ -157,8 +157,9 @@ async function handleAgentLaunch(ctx) {
   const effort = EFFORTS.has(body.effort) ? body.effort : undefined;
   const model = (typeof body.model === 'string' && /^[A-Za-z0-9._-]+$/.test(body.model)) ? body.model : undefined;
   const launch = pickLauncher(body, opts);
-  // role: on the desktop door q opens with it (server/launch.js); the
-  // construction carries ELDER and SCHEMA, so the steward is told it is grown.
+  // role: on the desktop door q carries it, after the folder check
+  // (server/launch.js); the construction carries ELDER and SCHEMA, so the
+  // steward is told it is grown.
   const result = await launch(prompt, { palaceRoot, model, effort, label: `agent ${home}`, role: 'grown', ...(opts.launchOpts || {}) });
   if (!result.launched) {
     jsonResponse(res, result.supported === false ? 501 : 500, { ...result, home, cycle });

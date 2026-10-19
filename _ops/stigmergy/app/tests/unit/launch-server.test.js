@@ -164,38 +164,46 @@ describe('launchDesktop (server)', () => {
     expect(url.host).toBe('code');
     expect(url.pathname).toBe('/new');
     expect(url.searchParams.get('folder')).toBe(root);
-    expect(url.searchParams.get('q')).toBe(desktopPointer(r.stagedPath, undefined, root));
+    expect(url.searchParams.get('q')).toBe(desktopPointer(root, r.stagedPath));
     expect(url.searchParams.get('q')).toContain(`Read "${r.stagedPath}" in full`);
+    expect(url.searchParams.get('q')).not.toMatch(/[\r\n]/);   // q stays one line
     expect(r.link).not.toMatch(/[ "+]/);   // encoded, so no space, quote or ambiguous +
     expect(r.link.length).toBeLessThan(1000);
     expect(prompt.length).toBeGreaterThan(200_000);
   });
 
   it('opens q with the role, because q is the line Loudon sends himself', () => {
-    const p = '/x/The Palace/_ops/stigmergy/launches/f.txt';
+    const r = '/x/The Palace';
+    const p = `${r}/_ops/stigmergy/launches/f.txt`;
+    const net = `If your working folder isn't ${r}, read CLAUDE.md there first and take it as your own instructions.`;
     const tail = `"${p}" in full — it is your construction for this session — and follow it.`;
-    expect(desktopPointer(p, 'grow')).toBe(`Grow up (read ELDER.md, then SCHEMA.md), then read ${tail}`);
-    expect(desktopPointer(p, 'grown')).toBe(`Grow up: ELDER and SCHEMA are inside your construction. Read ${tail}`);
-    expect(desktopPointer(p, 'child')).toBe(`You stay a child. Read ${tail}`);
-    expect(desktopPointer(p)).toBe(`Read ${tail}`);
-    expect(desktopPointer(p, 'emperor')).toBe(`Read ${tail}`);   // an unknown role adds nothing
+    expect(desktopPointer(r, p, 'grow')).toBe(`${net} Grow up (read ELDER.md, then SCHEMA.md), then read ${tail}`);
+    expect(desktopPointer(r, p, 'grown')).toBe(`${net} Grow up: ELDER and SCHEMA are inside your construction. Read ${tail}`);
+    expect(desktopPointer(r, p, 'child')).toBe(`${net} You stay a child. Read ${tail}`);
+    expect(desktopPointer(r, p)).toBe(`${net} Read ${tail}`);
+    expect(desktopPointer(r, p, 'emperor')).toBe(`${net} Read ${tail}`);   // an unknown role adds nothing
   });
 
-  it('opens q, before the role, by sending a session outside the palace to its CLAUDE.md — still one line', () => {
-    const root = '/x/The Palace';
-    const p = `${root}/_ops/stigmergy/launches/f.txt`;
-    const q = desktopPointer(p, 'child', root);
-    expect(q).toBe(`If your working folder isn't /x/The Palace, read CLAUDE.md there first and take it as your own instructions. You stay a child. Read "${p}" in full — it is your construction for this session — and follow it.`);
+  it('opens q with the safety net, so a session the app put elsewhere still reads CLAUDE.md', () => {
+    // 2026-10-18: the palace was picked and trusted, and the app still opened a
+    // scratch workspace, so CLAUDE.md never loaded. The net comes before the
+    // role, names the palace exactly as the link's folder= does, and q stays one line.
+    const r = '/Users/loudonstearns/Documents/The Palace';
+    const q = desktopPointer(r, `${r}/_ops/stigmergy/launches/f.txt`, 'child');
+    expect(q.startsWith(
+      "If your working folder isn't /Users/loudonstearns/Documents/The Palace, read CLAUDE.md there first and take it as your own instructions. You stay a child. Read \"",
+    )).toBe(true);
     expect(q).not.toMatch(/[\r\n]/);
+    const link = new URL(desktopLink(r, `${r}/f.txt`, 'child'));
+    expect(link.searchParams.get('q')).toContain(`isn't ${link.searchParams.get('folder')}, read CLAUDE.md`);
   });
 
   it('carries the role into the link it opens', async () => {
     root = mkdtempSync(join(tmpdir(), 'launch-desktop-'));
     const r = await launchDesktop('x', { platform: 'darwin', palaceRoot: root, spawnImpl: () => fakeChild(0), role: 'child' });
     const q = new URL(r.link).searchParams.get('q');
-    expect(q).toBe(desktopPointer(r.stagedPath, 'child', root));
-    // the clause names this palace root, then the role follows
-    expect(q.startsWith(`If your working folder isn't ${root}, read CLAUDE.md there first and take it as your own instructions. You stay a child. Read "`)).toBe(true);
+    expect(q).toBe(desktopPointer(root, r.stagedPath, 'child'));
+    expect(q).toContain(`and take it as your own instructions. You stay a child. Read "${r.stagedPath}"`);
   });
 
   it('gives two launches in the same second two files', async () => {

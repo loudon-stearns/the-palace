@@ -73,6 +73,7 @@ Relay the product as returned (already file-cited). For the **curator**: report 
 (reversible), **surface its `offer`s for Loudon's yes; on his yes, address the Concierge again to apply them — the child session does not write the house**, and pass
 along its flags and anything it web-verified. The companion's heavy bias is to draft, not act;
 your job on the other end is to keep the review real — drafts get read, not rubber-stamped.
+Hand each offer on as the curator wrote it — its plain sentence, every rule it writes down, its exact words — and if you have promised Loudon the words, show them; a summary in their place is said aloud as a summary.
 
 ## The guard (carry it every time)
 

@@ -138,8 +138,11 @@ Return the reckoning (front of house) then the backstage checklist; nothing else
 ([[Closing Well]] § The relay discipline, gotcha 12a). You answer as a panelist; the decisions stay
 with the moderator. Show it to Loudon: the single gate. Show it as the last thing in your turn,
 after every tool call (a scratch copy included), or point him at the file: words written between
-tool calls reach him only as a paraphrase (tuning item 43). He assents or names revisions — and a
-revision goes *back to the moderator*, not into your own rewrite.
+tool calls reach him only as a paraphrase (tuning item 43). A plain account is welcome (item 47),
+but it names every rule its words write down, before anything lands, not after (items 49, 52). And
+if you have told him he will see the words, he sees them: a promise to show words is kept, or
+withdrawn aloud (item 53). He assents or names revisions — and a revision goes *back to the
+moderator*, not into your own rewrite.
 
 ### Pass 3 — the backstage execution: still a FRESH dispatch
 
@@ -228,8 +231,9 @@ The executors it runs (deposit → owner committer; baton → `baton-executor.mj
 bundle + index) and the two routing rules live in `executor.md`. `landed` / `provisional` /
 `none` rows execute nothing. The working instance's whole job by now is to relay the report —
 and, for a row the executor *prepared* rather than landed, to show Loudon in plain words what
-changed (the new words themselves where a row rewrites prose), last in the turn as at the gate,
-and land the branch on his yes (`executor.md` § keep → deposit).
+changed, naming every rule those words write down (the new words themselves where a row rewrites
+prose), last in the turn as at the gate, and land the branch on his yes (`executor.md` § keep →
+deposit).
 
 **When an executor is cut off, verify the tree before believing its last sentence** (gotcha 22).
 A partial report's final claim is the least reliable thing in it — the 2026-08-25 run said

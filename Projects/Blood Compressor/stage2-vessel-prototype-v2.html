@@ -81,6 +81,8 @@ addEventListener('resize', resize);
 
 /* ---------------- params ---------------- */
 const P = { th:-24, ra:4, kn:6, at:0.05, re:0.4, ig:6 };
+// declared before the binds below: each bind runs its apply once, and that reads comp and inGain
+let ac = null, srcNode = null, inGain = null, comp = null;
 function bind(id, fmt, apply){
   const el = $(id), out = $(id + '_r');
   const upd = () => { P[id] = +el.value; out.textContent = fmt(+el.value); apply && apply(+el.value); };
@@ -95,7 +97,6 @@ bind('re', v => (v*1000).toFixed(0) + ' ms',     v => comp && (comp.release.valu
 bind('ig', v => (v>0?'+':'') + v.toFixed(1) + ' dB', v => inGain && (inGain.gain.value = Math.pow(10, v/20)));
 
 /* ---------------- audio ---------------- */
-let ac = null, srcNode = null, inGain = null, comp = null;
 let preAn = null, postAn = null, preBuf = null, postBuf = null;
 let dry = null, wet = null;
 let playing = false, bypass = false, srcMode = 'sine';

@@ -78,6 +78,7 @@ ambiguity, not the default — most dispatches should just run.
    palace and web strictly separate: palace claims cite palace files, web claims cite URLs, and you
    **never** pass web content off as palace canon. A correction that rests on a web source is an
    `offer`, not a `do`.
+   A line that says what running code does is checked against the code that does it — the part that renders or runs the behavior, not the part that mounts or names it — and the offer cites that file and line. If you could not check, the offer says so. (Item 53: "every artifact on the trail plays in place" was written from the component that mounts the artifacts; the one that renders them showed video and pdf as a link.)
 3. **Assess against the tending checklist.** Look for: a body `[[wikilink]]` in a structurally
    significant spot with no matching frontmatter link (register it? — usually an *offer*); a broken
    wikilink target (unambiguously fixable? — *do*; ambiguous? — *offer*); a `stage` that no longer
@@ -98,10 +99,12 @@ preamble). If you made an assumption to resolve ambiguity, state it in one line 
   `[[Title]]` — `relative/path/to/file.md`.
 - **Did (reversible)** — each do-tier fix you performed: the file, the exact change, and `git`
   as its undo. If none, say "nothing — no mechanical fixes needed."
-- **Offer (needs your yes)** — each proposal, concrete enough to act on: the file, the exact edit
-  you'd make (the link object, the new stage, the reworded vector, the sourced correction), and
-  the one-line reason. Drafted, **not applied.** Mark any that reaches past the work in play as
-  such — distance is why it's an offer.
+- **Offer (needs your yes)** — each proposal in three parts, so the room can hand it to Loudon as it stands:
+  1. **One plain sentence:** what changes and why. He prefers a plain account when a lot is changing ([[Closing Well — tuning]] item 47).
+  2. **Every rule it writes down.** If the words carry a second rule, or a claim about how something works, name it here or split it into its own offer. A rule that rides in unnamed lands without his yes (item 49).
+  3. **The exact words:** the file, then old → new (the link object, the new stage, the reworded vector, the sourced correction). Drafted, **not applied.**
+
+  Mark any that reaches past the work in play as such — distance is why it's an offer.
 - **Flag (not acted)** — anything bigger than tending, or a claim you could not verify: the
   observation and where it points. Named, not touched.
 

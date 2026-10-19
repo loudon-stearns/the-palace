@@ -152,10 +152,10 @@ function runOpen(spawnImpl, args, staged) {
 // The Claude desktop app answers `claude://code/new?folder=<abs path>&q=<text>`:
 // a new Code session opens with q prefilled in the composer, after a dialog that
 // confirms the folder (always — a link's folder is untrusted). "Prefilled" is
-// the article's word. Values are URL-encoded and q is cut at roughly 14,000
-// characters (support.claude.com/en/articles/14729294, read 2026-10-18). The
-// first real click (2026-10-18, enchant Buckminster Fuller) opened a session
-// that followed q.
+// the article's word; no real link had been fired from here when this was
+// written, so that it is never sent unasked is the reading, not a test.
+// Values are URL-encoded and q is cut at roughly 14,000 characters
+// (support.claude.com/en/articles/14729294, read 2026-10-18).
 //
 // So the prompt never rides in the link. A construction runs from ~2K chars (a
 // handoff) to 256K (a steward, whose shared + steward prompts alone are 52K),
@@ -169,16 +169,6 @@ function runOpen(spawnImpl, args, staged) {
 // worktree has only tracked files, and this folder is gitignored. Read from
 // there, the file sits outside the session's folder, so the session may ask
 // leave to read it (untested).
-//
-// The confirmed folder is not always the one the session runs in. On that
-// first click Loudon confirmed the palace in the folder dialog and the app
-// trusted it (its log: `saveTrust: cwd=<palace>` at 19:46:33), then made a
-// scratch workspace (`createScratchWorkspace` at 19:46:44) and ran the session
-// there. CLAUDE.md, memory, palace skills and settings never loaded. That looks
-// like the app's bug, not one we can fix, so q covers for it. It opens by
-// telling a session outside the palace root to read CLAUDE.md there first and
-// take it as its own instructions; a session that did land in the palace reads
-// the clause and carries on.
 //
 // The role rides in q, not only in the staged file. q is the one line Loudon
 // sends himself, and a session stays a child unless he says "grow up"
@@ -195,33 +185,34 @@ const PRUNE_AFTER_MS = 7 * 24 * 60 * 60 * 1000;
 // Only files this door named are ever pruned: <UTC stamp>-<label>-<hex>.txt.
 const STAGED_NAME = /^\d{8}T\d{6}Z-[a-z0-9-]+-[0-9a-f]{6}\.txt$/;
 
-// How q opens, by role:
+// How q goes on, after the safety net below, by role:
 //   grow  — a handoff, card or steward fallback: its prompt already says to grow
 //           before writing, and here Loudon says it too.
 //   grown — a constructed steward: ELDER and SCHEMA ride inside its
 //           construction in full, so q says so rather than send it to read them twice.
 //   child — an enchanted or lensing page, which wakes a child.
-// No role: the bare pointer, and the session is a child by default.
+// No role: the plain pointer, and the session is a child by default.
 const ROLE_OPENINGS = {
   grow: 'Grow up (read ELDER.md, then SCHEMA.md), then read',
   grown: 'Grow up: ELDER and SCHEMA are inside your construction. Read',
   child: 'You stay a child. Read',
 };
 
-/**
- * The one-line q: the outside-the-palace clause (when palaceRoot is given),
- * then the role, then the pointer at the staged prompt.
- */
-export function desktopPointer(stagedPath, role, palaceRoot) {
-  const homing = palaceRoot
-    ? `If your working folder isn't ${palaceRoot}, read CLAUDE.md there first and take it as your own instructions. `
-    : '';
-  return `${homing}${ROLE_OPENINGS[role] || 'Read'} "${stagedPath}" in full — it is your construction for this session — and follow it.`;
+// The safety net q opens with, before the role. The desktop app can open the
+// session in a scratch workspace even when the palace was picked and trusted
+// (seen 2026-10-18), and then CLAUDE.md never loads as instructions; this sends
+// the session to read it. It names the same folder the link's folder= does.
+const safetyNet = (palaceRoot) =>
+  `If your working folder isn't ${palaceRoot}, read CLAUDE.md there first and take it as your own instructions.`;
+
+/** The one-line q, pointing at the staged prompt: the safety net, then the role. */
+export function desktopPointer(palaceRoot, stagedPath, role) {
+  return `${safetyNet(palaceRoot)} ${ROLE_OPENINGS[role] || 'Read'} "${stagedPath}" in full — it is your construction for this session — and follow it.`;
 }
 
 /** The claude:// link that opens a desktop Code session at palaceRoot with the pointer prefilled. */
 export function desktopLink(palaceRoot, stagedPath, role) {
-  return `claude://code/new?folder=${encodeURIComponent(palaceRoot)}&q=${encodeURIComponent(desktopPointer(stagedPath, role, palaceRoot))}`;
+  return `claude://code/new?folder=${encodeURIComponent(palaceRoot)}&q=${encodeURIComponent(desktopPointer(palaceRoot, stagedPath, role))}`;
 }
 
 function slugLabel(label) {
