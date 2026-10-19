@@ -185,27 +185,34 @@ const PRUNE_AFTER_MS = 7 * 24 * 60 * 60 * 1000;
 // Only files this door named are ever pruned: <UTC stamp>-<label>-<hex>.txt.
 const STAGED_NAME = /^\d{8}T\d{6}Z-[a-z0-9-]+-[0-9a-f]{6}\.txt$/;
 
-// How q opens, by role:
+// How q goes on, after the safety net below, by role:
 //   grow  — a handoff, card or steward fallback: its prompt already says to grow
 //           before writing, and here Loudon says it too.
 //   grown — a constructed steward: ELDER and SCHEMA ride inside its
 //           construction in full, so q says so rather than send it to read them twice.
 //   child — an enchanted or lensing page, which wakes a child.
-// No role: the bare pointer, and the session is a child by default.
+// No role: the plain pointer, and the session is a child by default.
 const ROLE_OPENINGS = {
   grow: 'Grow up (read ELDER.md, then SCHEMA.md), then read',
   grown: 'Grow up: ELDER and SCHEMA are inside your construction. Read',
   child: 'You stay a child. Read',
 };
 
-/** The one-line q, pointing at the staged prompt, opening with the role. */
-export function desktopPointer(stagedPath, role) {
-  return `${ROLE_OPENINGS[role] || 'Read'} "${stagedPath}" in full — it is your construction for this session — and follow it.`;
+// The safety net q opens with, before the role. The desktop app can open the
+// session in a scratch workspace even when the palace was picked and trusted
+// (seen 2026-10-18), and then CLAUDE.md never loads as instructions; this sends
+// the session to read it. It names the same folder the link's folder= does.
+const safetyNet = (palaceRoot) =>
+  `If your working folder isn't ${palaceRoot}, read CLAUDE.md there first and take it as your own instructions.`;
+
+/** The one-line q, pointing at the staged prompt: the safety net, then the role. */
+export function desktopPointer(palaceRoot, stagedPath, role) {
+  return `${safetyNet(palaceRoot)} ${ROLE_OPENINGS[role] || 'Read'} "${stagedPath}" in full — it is your construction for this session — and follow it.`;
 }
 
 /** The claude:// link that opens a desktop Code session at palaceRoot with the pointer prefilled. */
 export function desktopLink(palaceRoot, stagedPath, role) {
-  return `claude://code/new?folder=${encodeURIComponent(palaceRoot)}&q=${encodeURIComponent(desktopPointer(stagedPath, role))}`;
+  return `claude://code/new?folder=${encodeURIComponent(palaceRoot)}&q=${encodeURIComponent(desktopPointer(palaceRoot, stagedPath, role))}`;
 }
 
 function slugLabel(label) {
