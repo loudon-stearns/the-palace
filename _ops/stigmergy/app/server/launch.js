@@ -152,10 +152,18 @@ function runOpen(spawnImpl, args, staged) {
 // The Claude desktop app answers `claude://code/new?folder=<abs path>&q=<text>`:
 // a new Code session opens with q prefilled in the composer, after a dialog that
 // confirms the folder (always — a link's folder is untrusted). "Prefilled" is
-// the article's word; no real link had been fired from here when this was
-// written, so that it is never sent unasked is the reading, not a test.
-// Values are URL-encoded and q is cut at roughly 14,000 characters
-// (support.claude.com/en/articles/14729294, read 2026-10-18).
+// the article's word. Values are URL-encoded and q is cut at roughly 14,000
+// characters (support.claude.com/en/articles/14729294, read 2026-10-18). The
+// first real click (2026-10-18, enchant Buckminster Fuller) opened a session
+// that followed q.
+//
+// The confirmed folder is not always the one the session runs in. On that
+// first click Loudon confirmed the palace in the folder dialog and the app
+// trusted it (its log: `saveTrust: cwd=<palace>` at 19:46:33), then made a
+// scratch workspace (`createScratchWorkspace` at 19:46:44) and ran the session
+// there, so CLAUDE.md, memory, palace skills and settings never loaded. That
+// looks like the app's bug, not one we can fix; q's safety net (below) covers
+// for it.
 //
 // So the prompt never rides in the link. A construction runs from ~2K chars (a
 // handoff) to 256K (a steward, whose shared + steward prompts alone are 52K),
