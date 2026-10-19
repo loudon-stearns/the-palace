@@ -164,7 +164,7 @@ describe('launchDesktop (server)', () => {
     expect(url.host).toBe('code');
     expect(url.pathname).toBe('/new');
     expect(url.searchParams.get('folder')).toBe(root);
-    expect(url.searchParams.get('q')).toBe(desktopPointer(r.stagedPath));
+    expect(url.searchParams.get('q')).toBe(desktopPointer(r.stagedPath, undefined, root));
     expect(url.searchParams.get('q')).toContain(`Read "${r.stagedPath}" in full`);
     expect(r.link).not.toMatch(/[ "+]/);   // encoded, so no space, quote or ambiguous +
     expect(r.link.length).toBeLessThan(1000);
@@ -181,11 +181,21 @@ describe('launchDesktop (server)', () => {
     expect(desktopPointer(p, 'emperor')).toBe(`Read ${tail}`);   // an unknown role adds nothing
   });
 
+  it('opens q, before the role, by sending a session outside the palace to its CLAUDE.md — still one line', () => {
+    const root = '/x/The Palace';
+    const p = `${root}/_ops/stigmergy/launches/f.txt`;
+    const q = desktopPointer(p, 'child', root);
+    expect(q).toBe(`If your working folder isn't /x/The Palace, read CLAUDE.md there first and take it as your own instructions. You stay a child. Read "${p}" in full — it is your construction for this session — and follow it.`);
+    expect(q).not.toMatch(/[\r\n]/);
+  });
+
   it('carries the role into the link it opens', async () => {
     root = mkdtempSync(join(tmpdir(), 'launch-desktop-'));
     const r = await launchDesktop('x', { platform: 'darwin', palaceRoot: root, spawnImpl: () => fakeChild(0), role: 'child' });
-    expect(new URL(r.link).searchParams.get('q')).toBe(desktopPointer(r.stagedPath, 'child'));
-    expect(new URL(r.link).searchParams.get('q').startsWith('You stay a child. Read "')).toBe(true);
+    const q = new URL(r.link).searchParams.get('q');
+    expect(q).toBe(desktopPointer(r.stagedPath, 'child', root));
+    // the clause names this palace root, then the role follows
+    expect(q.startsWith(`If your working folder isn't ${root}, read CLAUDE.md there first and take it as your own instructions. You stay a child. Read "`)).toBe(true);
   });
 
   it('gives two launches in the same second two files', async () => {

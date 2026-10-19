@@ -335,7 +335,7 @@ describe('launch target: desktop', () => {
     const url = new URL(res.body.link);
     expect(url.searchParams.get('folder')).toBe(root);
     expect(url.searchParams.get('q')).toContain(res.body.stagedPath);
-    expect(url.searchParams.get('q').startsWith('Grow up (read ELDER.md, then SCHEMA.md), then read "')).toBe(true);
+    expect(url.searchParams.get('q').startsWith(`If your working folder isn't ${root}, read CLAUDE.md there first and take it as your own instructions. Grow up (read ELDER.md, then SCHEMA.md), then read "`)).toBe(true);
   });
 
   test('501 when the host is not macOS (client falls back to copy)', async () => {

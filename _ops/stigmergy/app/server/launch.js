@@ -152,10 +152,10 @@ function runOpen(spawnImpl, args, staged) {
 // The Claude desktop app answers `claude://code/new?folder=<abs path>&q=<text>`:
 // a new Code session opens with q prefilled in the composer, after a dialog that
 // confirms the folder (always — a link's folder is untrusted). "Prefilled" is
-// the article's word; no real link had been fired from here when this was
-// written, so that it is never sent unasked is the reading, not a test.
-// Values are URL-encoded and q is cut at roughly 14,000 characters
-// (support.claude.com/en/articles/14729294, read 2026-10-18).
+// the article's word. Values are URL-encoded and q is cut at roughly 14,000
+// characters (support.claude.com/en/articles/14729294, read 2026-10-18). The
+// first real click (2026-10-18, enchant Buckminster Fuller) opened a session
+// that followed q.
 //
 // So the prompt never rides in the link. A construction runs from ~2K chars (a
 // handoff) to 256K (a steward, whose shared + steward prompts alone are 52K),
@@ -169,6 +169,16 @@ function runOpen(spawnImpl, args, staged) {
 // worktree has only tracked files, and this folder is gitignored. Read from
 // there, the file sits outside the session's folder, so the session may ask
 // leave to read it (untested).
+//
+// The confirmed folder is not always the one the session runs in. On that
+// first click Loudon confirmed the palace in the folder dialog and the app
+// trusted it (its log: `saveTrust: cwd=<palace>` at 19:46:33), then made a
+// scratch workspace (`createScratchWorkspace` at 19:46:44) and ran the session
+// there. CLAUDE.md, memory, palace skills and settings never loaded. That looks
+// like the app's bug, not one we can fix, so q covers for it. It opens by
+// telling a session outside the palace root to read CLAUDE.md there first and
+// take it as its own instructions; a session that did land in the palace reads
+// the clause and carries on.
 //
 // The role rides in q, not only in the staged file. q is the one line Loudon
 // sends himself, and a session stays a child unless he says "grow up"
@@ -198,14 +208,20 @@ const ROLE_OPENINGS = {
   child: 'You stay a child. Read',
 };
 
-/** The one-line q, pointing at the staged prompt, opening with the role. */
-export function desktopPointer(stagedPath, role) {
-  return `${ROLE_OPENINGS[role] || 'Read'} "${stagedPath}" in full — it is your construction for this session — and follow it.`;
+/**
+ * The one-line q: the outside-the-palace clause (when palaceRoot is given),
+ * then the role, then the pointer at the staged prompt.
+ */
+export function desktopPointer(stagedPath, role, palaceRoot) {
+  const homing = palaceRoot
+    ? `If your working folder isn't ${palaceRoot}, read CLAUDE.md there first and take it as your own instructions. `
+    : '';
+  return `${homing}${ROLE_OPENINGS[role] || 'Read'} "${stagedPath}" in full — it is your construction for this session — and follow it.`;
 }
 
 /** The claude:// link that opens a desktop Code session at palaceRoot with the pointer prefilled. */
 export function desktopLink(palaceRoot, stagedPath, role) {
-  return `claude://code/new?folder=${encodeURIComponent(palaceRoot)}&q=${encodeURIComponent(desktopPointer(stagedPath, role))}`;
+  return `claude://code/new?folder=${encodeURIComponent(palaceRoot)}&q=${encodeURIComponent(desktopPointer(stagedPath, role, palaceRoot))}`;
 }
 
 function slugLabel(label) {
