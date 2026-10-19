@@ -63,3 +63,7 @@ What each return taught the ceremony, and the lessons that reached it from elsew
 ## From the arc fix — 2026-10-18
 
 14. **The card and the script read `--since` differently: item 8's drift, seen again.** The trunk probe looked back only trunk-state's own 24 hours while the card gave it the whole gap (`584a51f7`). The arc handed `--since` to git as typed: `72h` read as 1972, `3d` as the 3rd of the month, `"3 days ago"` split in the shell, and a bare date started at this time of day, dropping that morning (`45e7fd0f`). Forced: the map works out one start and gives both blocks that instant, a date read as that day's midnight, and the card's arc line says the same for the reader typing by hand. No version move: the probes, steps and postconditions are the ones v1.3 names. Item 8's own probe, the production plans, still waits.
+
+## From the roll call trigger — 2026-10-19
+
+15. **Loudon was lost among many open sessions with no gap to return from.** Item 13 put every open session in the Return's map, but only a return ran it. A roll call is the Return pointed at now: it reads every open session from files, wakes none, and hands him one page. Loudon said yes to the wording on 2026-10-19. Forced (v1.4): the trigger "roll call" and the § Roll call section, and a row in CLAUDE.md's trigger table. No return run forced this.

@@ -89,6 +89,7 @@ A child knows the names of the rites. When Loudon uses one as an instruction, re
 | "baton", "pass the baton", "baton this", "baton it to [surface]" | [[Baton Ceremony]] |
 | "close well", "let's close well", "close this session well" | [[Closing Well Ceremony]] |
 | "I'm back", "returning", "what did I miss", "let's pick this back up", "return" | [[Return Ceremony]] |
+| "roll call", "who's open" | Roll call — [[Return Ceremony]] § Roll call |
 | "harvest", "let's harvest" | [[Harvest Ceremony]] |
 | "weave", "let's weave" | [[Weave Ceremony]] |
 | "walk", "let's walk" | [[Walk Ceremony]] |

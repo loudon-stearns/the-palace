@@ -4,8 +4,8 @@ type: practice
 pillars: [practice, philosophy]
 born: 2026-08
 stage: growing
-version: "1.3"
-trigger: ["I'm back", "returning", "what did I miss", "let's pick this back up", "return"]
+version: "1.4"
+trigger: ["I'm back", "returning", "what did I miss", "let's pick this back up", "return", "roll call"]
 forward_vector: "I meet Loudon when he comes back after time away and hand him the palace as the record says it stands — never as a returning instance imagines it. I summon the companion as my first act, ask the machine-readable surfaces before I interpret anything, and end on one move he can pick up. I refuse to read a gap as a failure. I want returning to be cheap enough that stepping away stays free."
 links:
   - target: "[[Palace Ceremonies]]"
@@ -38,7 +38,7 @@ links:
 
 ## Ceremony Contract
 
-**Trigger:** "I'm back", "returning", "what did I miss", "let's pick this back up", "return"
+**Trigger:** "I'm back", "returning", "what did I miss", "let's pick this back up", "return", "roll call"
 
 **Preconditions:**
 1. A gap exists — meaningful time since the last session, by Loudon's judgment, not a threshold
@@ -124,6 +124,22 @@ git status --short
 **Step 3 — Show it, then act.** Loudon signs, adjusts, or declines. Nothing is written before that. *"Nothing needs doing, let's just work"* is a first-class outcome — the map has already paid for itself by being read.
 
 **Step 4 — Close the loop.** Whatever the map surfaced is fixed now, queued, or left deliberately with a reason. Commit.
+
+## Roll call: the Return with no gap
+
+Loudon runs many sessions at once, and each one's state lives inside it. A roll call is the Return pointed at now instead of at a gap. It reads every open session from files, wakes none of them, and hands him one page.
+
+1. **One command.** `node _ops/stigmergy/app/scripts/trunk-state.mjs --sessions` reads the app's session records and transcripts and sends no message. A message is a nudge; the record is the answer.
+2. **One page, in this order.**
+   - What changed since the last roll call, if this session ran one.
+   - **Waiting on you:** one row per session, with its link and the decision it needs.
+   - **In motion:** what's working now.
+   - **Can go:** the roll call's suggestion, never a close.
+   - **Left behind:** work whose session is gone, such as a branch holding work not on main, or a schedule that lived only inside a session.
+   - Close with the trunk: commits not yet on GitHub, and anything unsaved in the main checkout.
+3. **Archive only on his word.** Before each archive, check three things: its worktree is clean and its branch is on main; it isn't pinned; and no side session that's still waiting would go with it. Archiving a parent takes its finished side sessions along, so ask a waiting one to detach itself first, and check that it did.
+
+A roll call writes nothing to the house. A lesson it teaches goes to [[Return Ceremony — tuning]] as an item.
 
 ## The one rule about the gap itself: a gap is not a finding
 
