@@ -41,7 +41,7 @@ links:
 **Trigger:** "I'm back", "returning", "what did I miss", "let's pick this back up", "return", "roll call"
 
 **Preconditions:**
-1. A gap exists — meaningful time since the last session, by Loudon's judgment, not a threshold
+1. A gap exists — meaningful time since the last session, by Loudon's judgment, not a threshold; or, for a roll call, sessions are open at once
 2. Git history and the persistent board are readable from the current vector
 
 **Postconditions:**
