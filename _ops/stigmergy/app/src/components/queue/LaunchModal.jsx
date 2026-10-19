@@ -3,7 +3,7 @@ import { Banner } from '../primitives.jsx';
 import { buildLaunchPrompt } from '../../lib/launch-prompt.js';
 import { buildHandoffClaim } from '../../lib/handoff-builder.js';
 import { postMessage, InvalidMessageError } from '../../adapters/blackboard.js';
-import { launchInteractiveSession, desktopDefaultsNote } from '../../adapters/launch.js';
+import { launchInteractiveSession } from '../../adapters/launch.js';
 
 // LaunchModal — "launch interactive" for a handoff (baton).
 //
@@ -32,7 +32,7 @@ function ModalButton({ children, onClick, tone = 'default', disabled, testId }) 
         textShadow: disabled ? 'none' : 'var(--glow)',
         border: `1px solid ${border}`, padding: '4px 12px',
         fontFamily: 'var(--font-mono)', fontSize: 12, cursor: disabled ? 'default' : 'pointer',
-        textTransform: 'uppercase', letterSpacing: '.05em', whiteSpace: 'nowrap',
+        textTransform: 'uppercase', letterSpacing: '.05em',
       }}
     >{children}</button>
   );
@@ -42,9 +42,8 @@ export default function LaunchModal({ context, onPickedUp, onClose }) {
   const [copied, setCopied] = useState(false);
   const [sending, setSending] = useState(false);
   const [errors, setErrors] = useState([]);
-  const [launching, setLaunching] = useState(null);   // null | 'terminal' | 'desktop'
+  const [launching, setLaunching] = useState(false);
   const [launchMsg, setLaunchMsg] = useState(null);
-  const [stagedPath, setStagedPath] = useState(null);
   const backdropRef = useRef(null);
 
   // Only a handoff (a baton) has pickup semantics — it gets the MARK PICKED UP
@@ -74,26 +73,20 @@ export default function LaunchModal({ context, onPickedUp, onClose }) {
     } catch { /* clipboard blocked — the prompt is selectable in the <pre> */ }
   }, [prompt]);
 
-  // Launch the prompt directly — no paste. 'terminal': the server spawns
-  // Terminal.app, seeded with the prompt, at the palace root. 'desktop': the
-  // server stages the prompt under the palace root and opens a Claude app Code
-  // session there with a one-line pointer to it prefilled.
+  // Launch the prompt directly into a real Claude Code terminal (the server
+  // spawns Terminal.app, seeded with the prompt, at the palace root) — no paste.
   // Falls back to copy on any failure; a non-macOS host says so plainly.
-  const launchVia = useCallback(async (target) => {
+  const launchTerminal = useCallback(async () => {
     if (launching) return;
-    setLaunching(target); setErrors([]); setLaunchMsg(null); setStagedPath(null);
-    const label = isHandoff ? `handoff ${context.id || ''}` : `${context.kind || 'prompt'} ${context.entry || ''}`;
-    const r = await launchInteractiveSession(prompt, { target, label });
+    setLaunching(true); setErrors([]); setLaunchMsg(null);
+    const r = await launchInteractiveSession(prompt);
     if (r.ok) {
-      setLaunchMsg(target === 'desktop'
-        ? 'opening the Claude app — confirm the folder, then send'
-        : 'opening a Claude Code terminal…');
-      if (r.stagedPath) setStagedPath(r.stagedPath);
+      setLaunchMsg('opening a Claude Code terminal…');
     } else {
-      setErrors([r.error]);
+      setErrors([r.supported === false ? `${r.error}` : r.error]);
     }
-    setLaunching(null);
-  }, [launching, prompt, isHandoff, context]);
+    setLaunching(false);
+  }, [launching, prompt]);
 
   const markPickedUp = useCallback(async () => {
     if (sending) return;
@@ -142,7 +135,7 @@ export default function LaunchModal({ context, onPickedUp, onClose }) {
 
         <div style={{ overflowY: 'auto', flex: 1, padding: '12px', display: 'flex', flexDirection: 'column', gap: 10 }}>
           <div style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11, textTransform: 'uppercase', letterSpacing: '.05em' }}>
-            launch a Claude Code terminal or open the Claude app at the palace root — or copy the prompt for Cowork / the web
+            launch a Claude Code terminal at the palace root — or copy the prompt for Cowork / the web
           </div>
           <pre data-testid="launch-prompt" style={{
             margin: 0, border: '1px solid var(--phosphor-dim)', padding: '10px',
@@ -156,14 +149,6 @@ export default function LaunchModal({ context, onPickedUp, onClose }) {
               {isHandoff ? 'baton' : 'source'}: <span style={{ color: 'var(--ansi-bright-cyan)' }}>{context.sourcePath}</span>
             </div>
           ) : null}
-          <div data-testid="launch-desktop-note" style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 }}>
-            {desktopDefaultsNote()}
-          </div>
-          {stagedPath ? (
-            <div data-testid="launch-staged" style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11, wordBreak: 'break-all' }}>
-              staged: <span style={{ color: 'var(--ansi-bright-cyan)' }}>{stagedPath}</span>
-            </div>
-          ) : null}
           {errors.length > 0 ? (
             <div data-testid="launch-errors" style={{ border: '1px solid var(--error)', padding: '6px 10px', color: 'var(--error)', fontSize: 12, lineHeight: 1.5 }}>
               {errors.map((e, i) => <div key={i}>{e}</div>)}
@@ -171,17 +156,14 @@ export default function LaunchModal({ context, onPickedUp, onClose }) {
           ) : null}
         </div>
 
-        <div style={{ borderTop: '1px solid var(--phosphor-dim)', padding: '8px 12px', display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'flex-end', alignItems: 'center', flexShrink: 0 }}>
+        <div style={{ borderTop: '1px solid var(--phosphor-dim)', padding: '8px 12px', display: 'flex', gap: 10, justifyContent: 'flex-end', alignItems: 'center', flexShrink: 0 }}>
           {launchMsg ? (
             <span data-testid="launch-ok" style={{ marginRight: 'auto', color: 'var(--phosphor)', textShadow: 'var(--glow)', fontSize: 12 }}>{launchMsg}</span>
           ) : null}
-          <ModalButton tone="default" onClick={handleClose} disabled={sending || !!launching} testId="launch-close">close</ModalButton>
+          <ModalButton tone="default" onClick={handleClose} disabled={sending || launching} testId="launch-close">close</ModalButton>
           <ModalButton tone="default" onClick={copy} testId="launch-copy">{copied ? 'copied' : 'copy prompt'}</ModalButton>
-          <ModalButton tone="primary" onClick={() => launchVia('desktop')} disabled={!!launching || sending} testId="launch-desktop">
-            {launching === 'desktop' ? 'opening…' : 'open in desktop'}
-          </ModalButton>
-          <ModalButton tone="primary" onClick={() => launchVia('terminal')} disabled={!!launching || sending} testId="launch-terminal">
-            {launching === 'terminal' ? 'opening…' : 'launch terminal'}
+          <ModalButton tone="primary" onClick={launchTerminal} disabled={launching || sending} testId="launch-terminal">
+            {launching ? 'opening…' : 'launch terminal'}
           </ModalButton>
           {isHandoff ? (
             <ModalButton tone="primary" onClick={markPickedUp} disabled={sending} testId="launch-mark-picked-up">

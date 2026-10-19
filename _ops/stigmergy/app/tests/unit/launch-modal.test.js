@@ -23,17 +23,6 @@ describe('LaunchModal — launch terminal action', () => {
     expect(html).not.toContain('data-testid="launch-mark-picked-up"');
   });
 
-  it('offers open-in-desktop beside launch-terminal, with the one-line note on what desktop starts on', () => {
-    const html = render({ kind: 'handoff', id: 'h-1', entry: 'Foo', from: 'Foo', sourcePath: 'Foo/Foo — baton.md' });
-    expect(html).toContain('data-testid="launch-desktop"');
-    expect(html).toContain('open in desktop');
-    expect(html).toContain('data-testid="launch-desktop-note"');
-    expect(html).toContain('the Claude app&#x27;s own model, effort and permission mode');
-    expect(html).toContain('latest Opus · high · acceptEdits');
-    // nothing staged until a desktop launch succeeds
-    expect(html).not.toContain('data-testid="launch-staged"');
-  });
-
   it('keeps mark-picked-up for a handoff, alongside launch-terminal', () => {
     const html = render({
       kind: 'handoff', id: 'h-1', entry: 'Foo', from: 'Foo',

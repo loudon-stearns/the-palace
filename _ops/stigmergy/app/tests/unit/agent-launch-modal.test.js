@@ -39,19 +39,6 @@ describe('AgentLaunchModal — construction chrome', () => {
     for (const e of ['high', 'medium', 'xhigh', 'max', 'low']) expect(html).toContain(`>${e}<`);
   });
 
-  it('offers open-in-desktop beside launch-terminal, and says the picked model + effort pin the terminal only', () => {
-    for (const mode of ['steward', 'ephemeral']) {
-      const html = render({ mode });
-      expect(html).toContain('data-testid="agent-launch-desktop"');
-      expect(html).toContain('open in desktop');
-      expect(html).toContain('data-testid="agent-desktop-note"');
-      expect(html).toContain('the Claude app&#x27;s own model, effort and permission mode');
-      // the note names the picker's current choice (the defaults on first render)
-      expect(html).toContain('Opus (latest) · high · acceptEdits the terminal pins');
-      expect(html).not.toContain('data-testid="agent-staged"');
-    }
-  });
-
   it('prefills the mandate from mandateSeed', () => {
     const html = render({ mandateSeed: 'resolve the stage-2 decision' });
     expect(html).toContain('resolve the stage-2 decision');

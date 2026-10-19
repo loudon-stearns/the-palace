@@ -6,10 +6,10 @@
 
 import { describe, it, expect, afterEach } from 'vitest';
 import { EventEmitter } from 'node:events';
-import { mkdtempSync, mkdirSync, readFileSync, readdirSync, rmSync, utimesSync, writeFileSync, existsSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { launchInteractive, launchDesktop, desktopLink, desktopPointer, DESKTOP_LAUNCHES_DIR } from '../../server/launch.js';
+import { launchInteractive } from '../../server/launch.js';
 import { latestOpus } from '../../../../models/latest-opus.mjs';
 
 // A fake child process that resolves the launch by emitting `close` with a code.
@@ -107,154 +107,5 @@ describe('launchInteractive (server)', () => {
     expect(r.launched).toBe(false);
     expect(r.supported).toBe(true);
     expect(r.error).toMatch(/open/);
-  });
-});
-
-// The desktop door: the prompt is staged under the palace root and the Claude
-// app is handed a claude:// link whose q is one line pointing at it. The spawn is
-// faked, so no link is ever opened.
-describe('launchDesktop (server)', () => {
-  let root;
-  afterEach(() => { if (root) rmSync(root, { recursive: true, force: true }); root = null; });
-  const launchesDir = () => join(root, DESKTOP_LAUNCHES_DIR);
-
-  it('refuses on a non-macOS platform with supported:false', async () => {
-    const r = await launchDesktop('hi', { platform: 'linux' });
-    expect(r.launched).toBe(false);
-    expect(r.supported).toBe(false);
-    expect(r.error).toMatch(/macOS/i);
-  });
-
-  it('refuses an empty prompt (supported:true) and stages nothing', async () => {
-    root = mkdtempSync(join(tmpdir(), 'launch-desktop-'));
-    const r = await launchDesktop('  ', { platform: 'darwin', palaceRoot: root, spawnImpl: () => fakeChild(0) });
-    expect(r.launched).toBe(false);
-    expect(r.supported).toBe(true);
-    expect(existsSync(launchesDir())).toBe(false);
-  });
-
-  it('stages the prompt verbatim under the palace root and opens a short pointer link', async () => {
-    root = join(mkdtempSync(join(tmpdir(), 'launch-desktop-')), 'The Palace');
-    mkdirSync(root);
-    const calls = [];
-    const spawnImpl = (cmd, args) => { calls.push({ cmd, args }); return fakeChild(0); };
-    // A steward-sized prompt with the characters that break naive passing, and
-    // the closing instruction a truncated link would lose.
-    const prompt = 'Drive [[Kuramoto Coupling]] — "go" & $VAR `tick` 100%\n'.repeat(5000) + '# Begin';
-    const r = await launchDesktop(prompt, {
-      platform: 'darwin', palaceRoot: root, spawnImpl, label: 'agent Kuramoto Coupling', now: Date.UTC(2026, 9, 18, 9, 30, 5),
-    });
-
-    expect(r.launched).toBe(true);
-    expect(r.supported).toBe(true);
-    // Named <UTC stamp>-<label>-<hex>.txt in the gitignored launches folder.
-    expect(r.stagedPath.startsWith(launchesDir() + '/')).toBe(true);
-    expect(r.stagedPath).toMatch(/\/20261018T093005Z-agent-kuramoto-coupling-[0-9a-f]{6}\.txt$/);
-    expect(readFileSync(r.stagedPath, 'utf8')).toBe(prompt);
-
-    // `open <link>` — LaunchServices hands claude:// to the desktop app.
-    expect(calls).toEqual([{ cmd: 'open', args: [r.link] }]);
-    expect(r.link).toBe(desktopLink(root, r.stagedPath));
-
-    // The link: folder is the palace root, q the one-line pointer at the
-    // absolute staged path; both decode back exactly, and the whole link stays
-    // far under the ~14,000-char cut however big the prompt.
-    const url = new URL(r.link);
-    expect(url.protocol).toBe('claude:');
-    expect(url.host).toBe('code');
-    expect(url.pathname).toBe('/new');
-    expect(url.searchParams.get('folder')).toBe(root);
-    expect(url.searchParams.get('q')).toBe(desktopPointer(root, r.stagedPath));
-    expect(url.searchParams.get('q')).toContain(`Read "${r.stagedPath}" in full`);
-    expect(url.searchParams.get('q')).not.toMatch(/[\r\n]/);   // q stays one line
-    expect(r.link).not.toMatch(/[ "+]/);   // encoded, so no space, quote or ambiguous +
-    expect(r.link.length).toBeLessThan(1000);
-    expect(prompt.length).toBeGreaterThan(200_000);
-  });
-
-  it('opens q with the role, because q is the line Loudon sends himself', () => {
-    const r = '/x/The Palace';
-    const p = `${r}/_ops/stigmergy/launches/f.txt`;
-    const net = `If your working folder isn't ${r}, read CLAUDE.md there first and take it as your own instructions.`;
-    const tail = `"${p}" in full — it is your construction for this session — and follow it.`;
-    expect(desktopPointer(r, p, 'grow')).toBe(`${net} Grow up (read ELDER.md, then SCHEMA.md), then read ${tail}`);
-    expect(desktopPointer(r, p, 'grown')).toBe(`${net} Grow up: ELDER and SCHEMA are inside your construction. Read ${tail}`);
-    expect(desktopPointer(r, p, 'child')).toBe(`${net} You stay a child. Read ${tail}`);
-    expect(desktopPointer(r, p)).toBe(`${net} Read ${tail}`);
-    expect(desktopPointer(r, p, 'emperor')).toBe(`${net} Read ${tail}`);   // an unknown role adds nothing
-  });
-
-  it('opens q with the safety net, so a session the app put elsewhere still reads CLAUDE.md', () => {
-    // 2026-10-18: the palace was picked and trusted, and the app still opened a
-    // scratch workspace, so CLAUDE.md never loaded. The net comes before the
-    // role, names the palace exactly as the link's folder= does, and q stays one line.
-    const r = '/Users/loudonstearns/Documents/The Palace';
-    const q = desktopPointer(r, `${r}/_ops/stigmergy/launches/f.txt`, 'child');
-    expect(q.startsWith(
-      "If your working folder isn't /Users/loudonstearns/Documents/The Palace, read CLAUDE.md there first and take it as your own instructions. You stay a child. Read \"",
-    )).toBe(true);
-    expect(q).not.toMatch(/[\r\n]/);
-    const link = new URL(desktopLink(r, `${r}/f.txt`, 'child'));
-    expect(link.searchParams.get('q')).toContain(`isn't ${link.searchParams.get('folder')}, read CLAUDE.md`);
-  });
-
-  it('carries the role into the link it opens', async () => {
-    root = mkdtempSync(join(tmpdir(), 'launch-desktop-'));
-    const r = await launchDesktop('x', { platform: 'darwin', palaceRoot: root, spawnImpl: () => fakeChild(0), role: 'child' });
-    const q = new URL(r.link).searchParams.get('q');
-    expect(q).toBe(desktopPointer(root, r.stagedPath, 'child'));
-    expect(q).toContain(`and take it as your own instructions. You stay a child. Read "${r.stagedPath}"`);
-  });
-
-  it('gives two launches in the same second two files', async () => {
-    root = mkdtempSync(join(tmpdir(), 'launch-desktop-'));
-    const o = { platform: 'darwin', palaceRoot: root, spawnImpl: () => fakeChild(0), now: Date.UTC(2026, 9, 18) };
-    const a = await launchDesktop('one', o);
-    const b = await launchDesktop('two', o);
-    expect(a.stagedPath).not.toBe(b.stagedPath);
-    expect(readFileSync(a.stagedPath, 'utf8')).toBe('one');
-    expect(readFileSync(b.stagedPath, 'utf8')).toBe('two');
-  });
-
-  it('reduces any label to a safe slug, and falls back to "prompt"', async () => {
-    root = mkdtempSync(join(tmpdir(), 'launch-desktop-'));
-    const o = { platform: 'darwin', palaceRoot: root, spawnImpl: () => fakeChild(0) };
-    const lens = await launchDesktop('x', { ...o, label: 'lens The Lens / ../../etc "Kuramoto"' });
-    expect(lens.stagedPath).toMatch(/-lens-the-lens-etc-kuramoto-[0-9a-f]{6}\.txt$/);
-    expect(lens.stagedPath.startsWith(launchesDir() + '/')).toBe(true);
-    const bare = await launchDesktop('x', { ...o, label: '—' });
-    expect(bare.stagedPath).toMatch(/-prompt-[0-9a-f]{6}\.txt$/);
-  });
-
-  it("prunes this door's files older than a week, and nothing else", async () => {
-    root = mkdtempSync(join(tmpdir(), 'launch-desktop-'));
-    mkdirSync(launchesDir(), { recursive: true });
-    const now = Date.UTC(2026, 9, 18);
-    const day = 24 * 60 * 60 * 1000;
-    const put = (name, ageDays) => {
-      const p = join(launchesDir(), name);
-      writeFileSync(p, 'old');
-      const t = (now - ageDays * day) / 1000;
-      utimesSync(p, t, t);
-    };
-    put('20261001T000000Z-handoff-h-1-abcdef.txt', 17);   // ours, stale -> pruned
-    put('20261015T000000Z-enchant-foo-123456.txt', 3);    // ours, fresh -> kept
-    put('notes.txt', 30);                                  // not ours -> kept
-    const r = await launchDesktop('new', { platform: 'darwin', palaceRoot: root, spawnImpl: () => fakeChild(0), now });
-    const left = readdirSync(launchesDir()).sort();
-    expect(left).not.toContain('20261001T000000Z-handoff-h-1-abcdef.txt');
-    expect(left).toContain('20261015T000000Z-enchant-foo-123456.txt');
-    expect(left).toContain('notes.txt');
-    expect(left).toContain(r.stagedPath.split('/').pop());
-  });
-
-  it('surfaces a non-zero `open` exit as a real failure (no URL handler)', async () => {
-    root = mkdtempSync(join(tmpdir(), 'launch-desktop-'));
-    const spawnImpl = () => fakeChild(1, 'No application knows how to open URL claude://code/new');
-    const r = await launchDesktop('hello', { platform: 'darwin', palaceRoot: root, spawnImpl });
-    expect(r.launched).toBe(false);
-    expect(r.supported).toBe(true);
-    expect(r.error).toMatch(/open exited 1/);
-    expect(r.error).toMatch(/No application knows/);
   });
 });

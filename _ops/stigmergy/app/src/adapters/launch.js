@@ -4,27 +4,13 @@
 // The client side of /api/launch. On any failure the UI keeps "copy prompt" as
 // the fallback; a 501 (non-macOS) comes back with supported:false so the UI can
 // say so plainly.
-//
-// Every launch takes `target`: 'terminal' (the default) or 'desktop', where the
-// server stages the prompt under the palace root and opens a Claude desktop Code
-// session on a claude:// link pointing at it. The server opens the link itself,
-// through `open` — the same LaunchServices door as the terminal — so it works
-// from whatever browser shows the deck, and the reply carries `link` and
-// `stagedPath` for the modal to show.
 
-// What a desktop session starts on: the link cannot pin model, effort or
-// permission mode, so the app's own choices apply. One line for the modals;
-// `pinned` names what the terminal would have pinned (a picker's choice).
-export function desktopDefaultsNote(pinned = 'latest Opus · high') {
-  return `open in desktop starts on the Claude app's own model, effort and permission mode — not the ${pinned} · acceptEdits the terminal pins`;
-}
-
-export async function launchInteractiveSession(prompt, { target, label } = {}) {
+export async function launchInteractiveSession(prompt) {
   try {
     const res = await fetch('/api/launch', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt, target, label }),
+      body: JSON.stringify({ prompt }),
     });
     let data = {};
     try { data = await res.json(); } catch { /* non-JSON body */ }
@@ -66,12 +52,12 @@ export async function previewAgent({ home, mandate, include }) {
   }
 }
 
-export async function launchAgent({ home, mandate, model, effort, include, target }) {
+export async function launchAgent({ home, mandate, model, effort, include }) {
   try {
     const res = await fetch('/api/launch/agent', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ home, mandate, model, effort, include, target }),
+      body: JSON.stringify({ home, mandate, model, effort, include }),
     });
     let data = {};
     try { data = await res.json(); } catch { /* non-JSON */ }
@@ -134,12 +120,12 @@ export async function fetchLensSuggestions(subject, limit = 8) {
 // as itself, then reads `lensSubject`'s page through its own apparatus per the
 // fixed procedure in buildLensMandate. `mandate` here becomes an extra note on
 // top of that procedure, same as previewEphemeral/launchEphemeral otherwise.
-export async function launchEphemeral({ home, mandate, model, effort, include, lensSubject, target }) {
+export async function launchEphemeral({ home, mandate, model, effort, include, lensSubject }) {
   try {
     const res = await fetch('/api/launch/ephemeral', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ home, mandate, model, effort, include, lensSubject, target }),
+      body: JSON.stringify({ home, mandate, model, effort, include, lensSubject }),
     });
     let data = {};
     try { data = await res.json(); } catch { /* non-JSON */ }

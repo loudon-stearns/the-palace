@@ -29,13 +29,9 @@
 // the platform/tmp dir are overridable, so tests assert the staged script + the
 // `open` argv without opening a real Terminal. Because we now wait for `open` to
 // exit and surface its real result, launchInteractive returns a Promise.
-//
-// The second door, launchDesktop (below), opens the same prompt in the Claude
-// desktop app instead, through a claude:// link — also handed to `open`.
 
 import { spawn as realSpawn } from 'node:child_process';
-import { writeFileSync, mkdtempSync, mkdirSync, readdirSync, statSync, unlinkSync } from 'node:fs';
-import { randomBytes } from 'node:crypto';
+import { writeFileSync, mkdtempSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { resolveModel } from '../../../models/latest-opus.mjs';
@@ -44,6 +40,15 @@ import { resolveModel } from '../../../models/latest-opus.mjs';
 function shq(s) {
   return `'${String(s).replace(/'/g, `'\\''`)}'`;
 }
+
+// The terminal is the only door. A Claude desktop door was tried and removed on
+// 2026-10-18 (bbec982e, d9b90dbc, 5b42fe18, dd69d57f; the removal: `git log -S
+// launchDesktop`). `claude://code/new?folder=<abs>&q=<text>` opens a desktop Code
+// session with q prefilled, but both real clicks ran in a scratch workspace
+// even with the folder confirmed and the palace preset picked, so memory, palace
+// skills, agents, settings and CLAUDE.md's @imports never loaded. A next try
+// must stage the prompt and point q at it: q is cut near 14,000 characters,
+// and a steward's prompt runs to 256K.
 
 /**
  * Stage + launch an interactive `claude` session in Terminal.app.
@@ -95,9 +100,8 @@ export function launchInteractive(prompt, opts = {}) {
       `cd ${shq(palaceRoot)} || exit 1`,
       // One-line nudge: /desktop moves a live terminal session into the Claude
       // app, so remind the operator it exists. Prints once at session start.
-      // (`claude --desktop` now opens the app from a shell, but takes no prompt
-      // and needs CLI ≥ 2.1.285 — the one on PATH here was 2.1.280 on
-      // 2026-10-18 — so it cannot seed a session; launchDesktop below can.)
+      // (`claude --desktop` opens the app from a shell, but takes no prompt and
+      // needs CLI ≥ 2.1.285 — the one on PATH here was 2.1.280 on 2026-10-18.)
       `echo ''`,
       `echo '  ↳ session is live — type /desktop to move it into the Claude Code app.'`,
       `echo ''`,
@@ -111,27 +115,23 @@ export function launchInteractive(prompt, opts = {}) {
     return Promise.resolve({ launched: false, supported: true, error: `could not stage launcher: ${e.message}` });
   }
 
-  return runOpen(spawnImpl, ['-a', 'Terminal', scriptPath], { scriptPath });
-}
-
-// Drive `open` (LaunchServices) — no Automation/TCC permission needed, so it
-// works even when the server is orphaned to launchd. `open` returns once the
-// launch is *requested* (not when the claude session ends), so awaiting its exit
-// is fast — and lets us surface a REAL result instead of the old fire-and-forget
-// assumed success. A non-zero exit (missing file/app/URL handler) or a spawn
-// error becomes a visible error the UI can show instead of a silent no-op.
-function runOpen(spawnImpl, args, staged) {
+  // Drive Terminal via `open` (LaunchServices) — no Automation/TCC permission
+  // needed, so it works even when the server is orphaned to launchd. `open`
+  // returns once the launch is *requested* (not when the claude session ends), so
+  // awaiting its exit is fast — and lets us surface a REAL result instead of the
+  // old fire-and-forget assumed success. A non-zero exit (missing file/app) or a
+  // spawn error becomes a visible error the UI can show instead of a silent no-op.
   return new Promise((resolve) => {
     let child;
     try {
-      child = spawnImpl('open', args, { stdio: ['ignore', 'ignore', 'pipe'] });
+      child = spawnImpl('open', ['-a', 'Terminal', scriptPath], { stdio: ['ignore', 'ignore', 'pipe'] });
     } catch (e) {
       resolve({ launched: false, supported: true, error: `open failed: ${e.message}` });
       return;
     }
     if (!child || typeof child.on !== 'function') {
       // Defensive: a spawnImpl that returns no event emitter — assume requested.
-      resolve({ launched: true, supported: true, ...staged });
+      resolve({ launched: true, supported: true, scriptPath });
       return;
     }
     let stderr = '';
@@ -142,144 +142,8 @@ function runOpen(spawnImpl, args, staged) {
     const done = (r) => { if (!settled) { settled = true; resolve(r); } };
     child.on('error', (e) => done({ launched: false, supported: true, error: `open failed: ${e.message}` }));
     child.on('close', (code) => {
-      if (code === 0) done({ launched: true, supported: true, ...staged });
+      if (code === 0) done({ launched: true, supported: true, scriptPath });
       else done({ launched: false, supported: true, error: `open exited ${code}${stderr ? `: ${stderr.trim()}` : ''}` });
     });
   });
-}
-
-// ── The desktop door ────────────────────────────────────────────────────────
-// The Claude desktop app answers `claude://code/new?folder=<abs path>&q=<text>`:
-// a new Code session opens with q prefilled in the composer, after a dialog that
-// confirms the folder (always — a link's folder is untrusted). "Prefilled" is
-// the article's word. Values are URL-encoded and q is cut at roughly 14,000
-// characters (support.claude.com/en/articles/14729294, read 2026-10-18). The
-// first real click (2026-10-18, enchant Buckminster Fuller) opened a session
-// that followed q.
-//
-// The confirmed folder is not always the one the session runs in. On that
-// first click Loudon confirmed the palace in the folder dialog and the app
-// trusted it (its log: `saveTrust: cwd=<palace>` at 19:46:33), then made a
-// scratch workspace (`createScratchWorkspace` at 19:46:44) and ran the session
-// there, so CLAUDE.md, memory, palace skills and settings never loaded. That
-// looks like the app's bug, not one we can fix; q's safety net (below) covers
-// for it.
-//
-// So the prompt never rides in the link. A construction runs from ~2K chars (a
-// handoff) to 256K (a steward, whose shared + steward prompts alone are 52K),
-// and a cut q silently loses the closing instruction. The prompt is staged as a
-// file under the palace root and q is one line pointing at it. Every launch kind
-// takes this one path: a handoff would fit inline today, but whether a prompt
-// fits is a fact about today's builders, and one rule is easier to trust than a
-// size check that is right until the day a prompt grows past it.
-//
-// The staged path in q is absolute: a desktop session the app puts in its own
-// worktree has only tracked files, and this folder is gitignored. Read from
-// there, the file sits outside the session's folder, so the session may ask
-// leave to read it (untested).
-//
-// The role rides in q, not only in the staged file. q is the one line Loudon
-// sends himself, and a session stays a child unless he says "grow up"
-// (CLAUDE.md § Growing up); the staged file reaches the session only as a tool
-// result. Each route names its role (server/api/launch.js).
-//
-// The link cannot carry model, effort or permission mode, so the session opens
-// on the app's own — not the latest Opus · high · acceptEdits the terminal pins.
-
-export const DESKTOP_LAUNCHES_DIR = join('_ops', 'stigmergy', 'launches');
-// Staged files outlive the click: the session reads its file on its first turn,
-// which may be well after the link opened. A week is generous for that.
-const PRUNE_AFTER_MS = 7 * 24 * 60 * 60 * 1000;
-// Only files this door named are ever pruned: <UTC stamp>-<label>-<hex>.txt.
-const STAGED_NAME = /^\d{8}T\d{6}Z-[a-z0-9-]+-[0-9a-f]{6}\.txt$/;
-
-// How q goes on, after the safety net below, by role:
-//   grow  — a handoff, card or steward fallback: its prompt already says to grow
-//           before writing, and here Loudon says it too.
-//   grown — a constructed steward: ELDER and SCHEMA ride inside its
-//           construction in full, so q says so rather than send it to read them twice.
-//   child — an enchanted or lensing page, which wakes a child.
-// No role: the plain pointer, and the session is a child by default.
-const ROLE_OPENINGS = {
-  grow: 'Grow up (read ELDER.md, then SCHEMA.md), then read',
-  grown: 'Grow up: ELDER and SCHEMA are inside your construction. Read',
-  child: 'You stay a child. Read',
-};
-
-// The safety net q opens with, before the role. The desktop app can open the
-// session in a scratch workspace even when the palace was picked and trusted
-// (seen 2026-10-18), and then CLAUDE.md never loads as instructions; this sends
-// the session to read it. It names the same folder the link's folder= does.
-const safetyNet = (palaceRoot) =>
-  `If your working folder isn't ${palaceRoot}, read CLAUDE.md there first and take it as your own instructions.`;
-
-/** The one-line q, pointing at the staged prompt: the safety net, then the role. */
-export function desktopPointer(palaceRoot, stagedPath, role) {
-  return `${safetyNet(palaceRoot)} ${ROLE_OPENINGS[role] || 'Read'} "${stagedPath}" in full — it is your construction for this session — and follow it.`;
-}
-
-/** The claude:// link that opens a desktop Code session at palaceRoot with the pointer prefilled. */
-export function desktopLink(palaceRoot, stagedPath, role) {
-  return `claude://code/new?folder=${encodeURIComponent(palaceRoot)}&q=${encodeURIComponent(desktopPointer(palaceRoot, stagedPath, role))}`;
-}
-
-function slugLabel(label) {
-  const s = String(label || 'prompt').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 48).replace(/-+$/, '');
-  return s || 'prompt';
-}
-
-function utcStamp(ms) {
-  return new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
-}
-
-// Remove this door's staged files older than PRUNE_AFTER_MS. Best-effort: a file
-// another server already removed, or one we cannot stat, is skipped, and a
-// pruning failure never blocks the launch.
-function pruneStaged(dir, now) {
-  let names = [];
-  try { names = readdirSync(dir); } catch { return; }
-  for (const name of names) {
-    if (!STAGED_NAME.test(name)) continue;
-    const p = join(dir, name);
-    try {
-      if (now - statSync(p).mtimeMs > PRUNE_AFTER_MS) unlinkSync(p);
-    } catch { /* gone already, or unreadable — leave it */ }
-  }
-}
-
-/**
- * Stage the prompt under the palace root and open a Claude desktop Code session
- * on a pointer to it.
- *
- * @param {string} prompt   the full prompt, staged verbatim
- * @param {object} opts     { palaceRoot, label?, role?, platform?, spawnImpl?, now? }
- * @returns {Promise<{launched:boolean, supported:boolean, error?:string, stagedPath?:string, link?:string}>}
- */
-export function launchDesktop(prompt, opts = {}) {
-  const platform = opts.platform || process.platform;
-  if (platform !== 'darwin') {
-    return Promise.resolve({ launched: false, supported: false, error: 'open-in-desktop is macOS-only here — use copy prompt.' });
-  }
-  if (typeof prompt !== 'string' || prompt.trim() === '') {
-    return Promise.resolve({ launched: false, supported: true, error: 'missing or empty prompt' });
-  }
-
-  const palaceRoot = opts.palaceRoot || process.cwd();
-  const spawnImpl = opts.spawnImpl || realSpawn;
-  const now = opts.now || Date.now();
-
-  let stagedPath, link;
-  try {
-    const dir = join(palaceRoot, DESKTOP_LAUNCHES_DIR);
-    mkdirSync(dir, { recursive: true });
-    pruneStaged(dir, now);
-    // Unique per launch, so two sessions launching at once never share a file.
-    stagedPath = join(dir, `${utcStamp(now)}-${slugLabel(opts.label)}-${randomBytes(3).toString('hex')}.txt`);
-    writeFileSync(stagedPath, prompt, 'utf8');
-    link = desktopLink(palaceRoot, stagedPath, opts.role);
-  } catch (e) {
-    return Promise.resolve({ launched: false, supported: true, error: `could not stage the prompt: ${e.message}` });
-  }
-
-  return runOpen(spawnImpl, [link], { stagedPath, link });
 }
