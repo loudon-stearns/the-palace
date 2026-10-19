@@ -15,17 +15,17 @@ forward_vector: "I am Creative Coach's scroll — the page's front door, opening
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-18T23:20:56.686Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-19T01:29:14.897Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** — · **Stage:** growing · **Steward:** none — this page has no permanent steward yet
 - **Plan:** agreed 2026-10-18 (today) · 0 made things since
-- **Version:** v2.1b · the spec last changed 2026-10-18 (`a3c5e35e`) — edit(Creative Coach): a way back to the coach test — tuning ledger, test kit, baton, version 2.1b
-- **Runs since the change:** none yet — v2.1b has not run
+- **Version:** v2.2 · the spec last changed 2026-10-18 (`1048e842`) — deposit(D-2026-10-18-COACH-ROOM): Creative Coach v2.2 — craft as a reward, the coach's clock, a missed loop
+- **Runs since the change:** none yet — v2.2 has not run
 - **Last run:** 2026-10-17 — live, page with the v2 section on 2 unseen moments, SPIRIT 2 and 2 · taught items 8, 9 (under v2.0)
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 10, from the fold — 2026-10-17 (v2.1b, `1b730846`; not a test run) — [[Creative Coach — tuning]]
+- **Latest lesson:** item 12, from the close — 2026-10-18 (v2.2; not a test run) — [[Creative Coach — tuning]]
 
-### Runs since v2.1b
+### Runs since v2.2
 
 _None yet._
 
@@ -56,6 +56,15 @@ _Nothing owed._
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="version-1048e8425b9b468e47cd7cdd17e2e1d386adf251" -->
+### 2026-10-18 — the spec moved to v2.2
+
+deposit(D-2026-10-18-COACH-ROOM): Creative Coach v2.2 — craft as a reward, the coach's clock, a missed loop
+
+Closing Well placement for close-2026-10-18-creative-coach. Loudon assented to the reckoning and said "tonight" to the page edits; he has not yet read these words. So this is prepared on a branch for him to read and is not merged.
+<sub>`1048e842` · version change</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-10-18T19-20-53-04-00" -->
 ### 2026-10-18 — Plan agreed
 
