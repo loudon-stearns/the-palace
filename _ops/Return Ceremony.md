@@ -52,6 +52,8 @@ links:
 5. No entry was edited on the strength of an inference about *why* the gap happened
 6. Git commit: `return(YYYY-MM-DD): [what the gap held, in one line]`. A return leaves no report file, so this commit is its record: the body names the version the run ran under and ends with what this run taught the ceremony ("nothing" is a legal answer); the run marks the tuning file with its run line, and a lesson that changes the spec also goes there as a numbered item
 
+**A roll call** keeps postconditions 2, 3 and 5, its page shown and signed before anything is written and nothing edited on a guess about why, and leaves no commit unless it teaches a tuning item.
+
 **Failure mode:** If the queries cannot run, say so and stop. A return map assembled by reading the current snapshot is a guess wearing citations, and handing Loudon a confident guess is worse than handing him nothing.
 
 ---
