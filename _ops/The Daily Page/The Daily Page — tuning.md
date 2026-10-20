@@ -123,3 +123,13 @@ What each morning taught the practice. Each item names what the morning showed a
 38. **Four tunes in a row** (`deal.py --status`: one fold, then tune on 10-14, 15, 17 and 18). This is data for week one's review: is tune becoming the default?
 - Also: item 28's hour-neutral greeting was met by hand a second time, and its card change is still owed. The pane workaround (items 19 and 27) held a fourth time. Item 30 was honoured. Week one's "very meta" order: morning five of seven.
 - run · 2026-10-18 · v0.4 · Dissolutions, tune · taught items 34–38
+
+## From the sixth morning — Palace as Context Injection System, 2026-10-20
+
+39. **The prep stayed light, and the sit fanned out.** On his yes, the sit ran ten headless `claude -p` children and a blind judge, each in a clean folder, to test the birth order. The card keeps the prep from fanning out (§ Before Loudon arrives); it says nothing about the sit, which can fan out with him in the room. Nothing forced; worth week one's review: does the sit want a line on when a fan-out is right, and on saying its size first?
+40. **The session restarted mid-sit.** The woken page and the Concierge could not be resumed, and both had to be woken or summoned again with a recap. **Change owed, open:** the card could say what to do when a sit loses its subagents: re-wake the page from the same prompt file, summon a fresh Concierge, and hand both a short recap.
+41. **Draft-then-show caught an over-fit.** A rename of the loading stages was drafted across several pages and shown before anything was written. When he widened the scope to every injection site, the rename was held, and nothing had to be undone. Nothing forced; it is show-before-writing working.
+42. **A tracked proof was scrubbed.** A test prompt in the A/B was drawn from what he said of his day. The public copy in the proofs folder was rebuilt without it, and the original stays in the ignored roughs. He did not rule on it, so postcondition 6 held by default. Nothing forced; a test prompt meant for a tracked proof should be written clean from the start.
+43. **The workarounds held.** Item 28's hour-neutral greeting was met by hand again, and its card change is still owed. The pane workaround (items 19 and 27) held for the prep; the pane was used in the sit, with him there.
+- Also: item 38 again: a fifth tune in a row. Week one's "very meta" order: morning six of seven.
+- run · 2026-10-20 · v0.4 · Palace as Context Injection System, tune · taught items 39–43
