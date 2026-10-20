@@ -8,11 +8,13 @@
 // it is asked.
 //
 //   node _ops/daily-page/wake.mjs "Kuramoto Coupling"
+//   node _ops/daily-page/wake.mjs "Kuramoto Coupling" --out "<a scratch file>"
 //
-// Hand the printed prompt to a read-only subagent (palace-reader), spawned
-// unnamed. Its reply is the page's side of the morning.
+// Hand the prompt to a read-only subagent (palace-reader), spawned unnamed.
+// Its reply is the page's side of the morning. With --out the prompt goes to
+// that file and one line says where; without it, to stdout, as before.
 //
-// Two choices worth knowing:
+// Three choices worth knowing:
 //   - The page is read from the MAIN checkout, as deal.py's brief is, so the
 //     page that wakes is the page Loudon reads (canon is main — Worktree
 //     Practice).
@@ -21,13 +23,19 @@
 //     "# Begin" asks the page to propose a first move. The last words in a
 //     prompt carry the most weight (Palace Enchantment § Context Construction),
 //     so ours come last.
+//   - The tool writes the file itself, so the morning's command is one bare
+//     call with no shell redirect. A `>` into a folder outside the session's
+//     own held the 2026-10-14 prep for 58 minutes on a permission prompt
+//     (The Daily Page — tuning).
 
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
+import { mkdirSync, writeFileSync } from 'node:fs';
 import { buildEphemeralPrompt } from '../stigmergy/orchestrator/src/ephemeral-prompt.js';
 
 const HERE_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
+const USAGE = 'usage: node _ops/daily-page/wake.mjs "<Entry title>" [--out <file>]';
 
 // The main checkout: the first line of `git worktree list --porcelain`. The same
 // lookup as ownerRoot() in _ops/stigmergy/handoff-model.mjs — written out here
@@ -42,12 +50,40 @@ function mainCheckout(from) {
   return from;
 }
 
+// The words that are not flags make the title, as before. `--out <file>` (or
+// `--out=<file>`) is taken out first, so it can never become part of a title,
+// and any other `--` word is refused rather than read as one: no page title
+// starts with two dashes, and a misspelt flag should stop the tool, not wake
+// a page that does not exist.
+function parseArgs(argv) {
+  const words = [];
+  let out = null;
+  for (let i = 0; i < argv.length; i++) {
+    const a = argv[i];
+    if (a === '--out') {
+      out = argv[i + 1];
+      i += 1;
+      if (!out || out.startsWith('--')) return { error: '--out needs a file path after it' };
+    } else if (a.startsWith('--out=')) {
+      out = a.slice('--out='.length);
+      if (!out) return { error: '--out needs a file path after it' };
+    } else if (a.startsWith('--')) {
+      return { error: `unknown flag ${a}` };
+    } else {
+      words.push(a);
+    }
+  }
+  return { title: words.join(' ').trim(), out };
+}
+
 const ROOT = mainCheckout(HERE_ROOT);
-const title = process.argv.slice(2).join(' ').trim();
-if (!title) {
-  console.error('usage: node _ops/daily-page/wake.mjs "<Entry title>"');
+const args = parseArgs(process.argv.slice(2));
+if (args.error || !args.title) {
+  if (args.error) console.error(`wake.mjs: ${args.error}`);
+  console.error(USAGE);
   process.exit(2);
 }
+const title = args.title;
 
 // The page is asked what it needs and wants. It is not asked whether it should
 // exist: a page is written to want more, so that judgment is made from outside.
@@ -75,4 +111,12 @@ if (!built.ok) {
   console.error(`wake.mjs: could not wake "${title}" — ${built.status}`);
   process.exit(1);
 }
-process.stdout.write(built.full + note);
+const prompt = built.full + note;
+if (args.out) {
+  const file = resolve(args.out);
+  mkdirSync(dirname(file), { recursive: true });
+  writeFileSync(file, prompt);
+  console.log(`wake.mjs: wrote the prompt that wakes "${title}" to ${file} (${prompt.length} characters)`);
+} else {
+  process.stdout.write(prompt);
+}
