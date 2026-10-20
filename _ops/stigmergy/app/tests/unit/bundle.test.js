@@ -35,6 +35,10 @@ describe('bundleDirFor + listBundleFiles', () => {
     writeFileSync(join(root, 'Foo', 'Archive', 'old.md'), '# old\n');
     mkdirSync(join(root, 'Foo', 'media'));
     writeFileSync(join(root, 'Foo', 'media', 'song.wav'), 'WAVDATA');
+    mkdirSync(join(root, 'Foo', 'proofs', '2026-10-20-reader', 'ab-test', 'out', 'too-deep'), { recursive: true });
+    writeFileSync(join(root, 'Foo', 'proofs', '2026-10-20-reader', 'reader.html'), '<html>');
+    writeFileSync(join(root, 'Foo', 'proofs', '2026-10-20-reader', 'ab-test', 'out', 'reply.txt'), 'r');
+    writeFileSync(join(root, 'Foo', 'proofs', '2026-10-20-reader', 'ab-test', 'out', 'too-deep', 'x.txt'), 'x');
   });
   afterAll(() => {
     rmSync(root, { recursive: true, force: true });
@@ -54,9 +58,9 @@ describe('bundleDirFor + listBundleFiles', () => {
     expect(bundleDirFor(null)).toBeNull();
   });
 
-  it('listBundleFiles walks 2 levels, skips hidden/Archive, classifies', () => {
+  it('listBundleFiles walks 2 levels when asked, skips hidden/Archive, classifies', () => {
     const bundle = bundleDirFor(join(root, 'Foo.md'));
-    const files = listBundleFiles(root, bundle);
+    const files = listBundleFiles(root, bundle, { maxDepth: 2 });
     const names = files.map((f) => f.name).sort();
     expect(names).toEqual(['Foo — handoff.md', 'image.png', 'song.wav']);
     const png = files.find((f) => f.name === 'image.png');
@@ -66,6 +70,14 @@ describe('bundleDirFor + listBundleFiles', () => {
     const wav = files.find((f) => f.name === 'song.wav');
     expect(wav.kind).toBe('audio');
     expect(wav.depth).toBe(2);
+  });
+
+  it('listBundleFiles walks 5 levels by default, so dated proof folders show', () => {
+    const bundle = bundleDirFor(join(root, 'Foo.md'));
+    const rel = listBundleFiles(root, bundle).map((f) => f.relPath);
+    expect(rel).toContain('Foo/proofs/2026-10-20-reader/reader.html');
+    expect(rel).toContain('Foo/proofs/2026-10-20-reader/ab-test/out/reply.txt');
+    expect(rel).not.toContain('Foo/proofs/2026-10-20-reader/ab-test/out/too-deep/x.txt');
   });
 });
 
