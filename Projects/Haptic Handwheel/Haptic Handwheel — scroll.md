@@ -15,33 +15,33 @@ forward_vector: "I am Haptic Handwheel's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-20T10:00:02.406Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-20T10:14:19.254Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** seed · **Steward:** cycle 8 · last ran 2026-10-20 (today)
-- **Plan:** agreed 2026-10-13 (6 days ago) · 7 made things since
+- **Status:** active · **Stage:** seed · **Steward:** cycle 9 · last ran 2026-10-20 (today)
+- **Plan:** agreed 2026-10-13 (6 days ago) · 8 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-20 (today) — Box day is ready: one page wires the knob, walks eleven checked steps, and drives the feels from Chrome. The bench now runs in one command. (`haptic-handwheel-steward-016`)
-- **Last commit touching this project:** 2026-10-16 `929de8c5` — edit(Standing Orders): five scrolls whose Plans lead into Max carry Loudon's pause at the top of their orders
+- **Last shipped:** 2026-10-20 (today) — The turntable was never slow. The readout caught the motor's bumps at their low point. Box day now reads speed honestly and warns about the wobble. (`haptic-handwheel-steward-018`)
+- **Last commit touching this project:** 2026-10-20 `5093dadc` — steward(Haptic Handwheel): cycle 8 — SPINNING UP. HOME: [Haptic Handwheel](obsidian://open?vault=The%20Palac…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-20 — cycle 8 · taught item 1
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-20 — cycle 9 · taught item 2
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 1, from cycle 8 — 2026-10-20 — [[Haptic Handwheel — tuning]]
+- **Latest lesson:** item 2, from cycle 9 — 2026-10-20 — [[Haptic Handwheel — tuning]]
 
 ### Where this stands
 
-Haptic Handwheel is your one-big-knob instrument: a motor that is also a sensor, with software deciding how it feels (frets, a string, a struck spring, a turntable). The nearer product is a simpler knob that follows the parameter you've clicked in Ableton. The plan you agreed: try the knob in simulation, pin down the unknowns, buy the parts once you say yes, bring it up on the bench, then your hands judge each feel. The simulation and the paper work are done, and the parts list ($145–185, or $75–95 if you have a bench supply) has waited on your yes since 2026-10-13. This cycle got ready for the bench step, the one after the order. There's now one page for the day the box arrives, plus a one…
+Haptic Handwheel is your one-big-knob instrument. It's a motor that is also a sensor, and software decides how it feels: frets, a string, a struck spring, a turntable. The nearer product is a simpler knob that follows whatever parameter you've clicked in Ableton. The plan you agreed goes like this: try the knob in simulation, pin down the unknowns, buy the parts once you say yes, bring it up on the bench, then your hands judge each feel. The simulation and the paper work are done. Last cycle made the page for the day the box arrives. The parts list ($145–185, or $75–95 with your own bench supply) has waited on your yes since 2026-10-13. This cycle cleared two loose ends from that box-day pa…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** It's still a pretend motor, and nothing has met hardware. _(in 4 notes, the latest cycle 8)_
-- **rough since cycle 1:** I haven't listened to turntable_hold.wav. _(in 3 notes, the latest cycle 7)_
+- **rough since cycle 1:** It's still a pretend motor, and nothing has met hardware. _(in 5 notes, the latest cycle 9)_
+- **rough since cycle 1:** I haven't listened to turntable_hold.wav, or to the new turntable_bumps.wav. _(in 4 notes, the latest cycle 9)_
 - **rough since cycle 1:** In headless Chrome the pretend turntable read about 28–31 rpm, not 33⅓, with the raw bumps on. _(in 4 notes, the latest cycle 8)_
-- **rough since cycle 2:** I couldn't compile for the classic ESP32-DevKitC on the order, because its core isn't on this laptop. _(in 3 notes, the latest cycle 8)_
+- **rough since cycle 2:** I couldn't compile for the classic ESP32-DevKitC on the order, because its core isn't on this laptop. _(in 4 notes, the latest cycle 9)_
 - **rough since cycle 2:** Everything here is checked against a motor I made up, so it shows the analyzer can read a capture, not what the GM5208 will say. _(in 3 notes, the latest cycle 5)_
 - **rough since cycle 6:** The feel map table from last cycle still says the turntable idles at 88%. _(in 2 notes, the latest cycle 7)_
 
@@ -59,6 +59,7 @@ _None._
 
 ### Runs
 
+- 2026-10-20 — cycle 9 · taught item 2
 - 2026-10-20 — cycle 8 · taught item 1
 
 ### Owed
@@ -90,6 +91,57 @@ Where this is going: a first prototype in Loudon's hand, so the seven feels get 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="haptic-handwheel-steward-018" -->
+### 2026-10-20 — cycle 9 — The turntable was never slow. The readout caught the motor's bumps at their low point. Box day now reads speed honestly and warns about the wobble.
+> shipped · parts order still yours to answer · steward leans ORDER
+
+**The turntable holds 33⅓. The readout lied.** Last cycle the box-day console's pretend turntable read 28–31 rpm in headless Chrome with the motor's raw bumps on. I measured it properly. On average it runs 33.31 rpm, but its speed swings from 84% to 113% (about ±14%), 47 times a second. The motor has 84 bumps a turn, and at 33⅓ rpm they go by at 47 Hz. The console showed one speed reading per screen frame, and in that run the frames kept landing on the slow side of the swing. A real knob would fool the screen the same way, because it reports speed every 2 ms and one line is a random point in the wobble.
+
+**The fix is in the console.** Speed is now read as angle travelled over the last half second, with the wobble shown beside it. I tested it in Chrome against the pretend knob: twelve readings ran 32.9–33.7 rpm with the wobble at ±13–14%, while single readings swung 28.6–37.6 (screenshot). The turntable's settings menu also gained `speedTf`, `gate` and `trim`. The firmware already accepted them, but the console had no way to send them.
+
+**What box day should expect.** There's a new optional step after frets. The turntable will hold speed but buzz under the finger until the bench maps the bumps. Once they're cancelled the wobble drops to ±1% (0.7% rms). If you want to try it sooner, a stiffer speed loop (`kv` 0.1, `speedTf` 0.001) cuts the raw wobble to ±3–6%. It costs two things: it fights a finger harder, and once the bumps are cancelled it is worse than the default (1.1% rms against 0.7%), because it starts steering by encoder noise. So box day says to put both back after the bench, and to judge the turntable only after the bench. turntable_bumps.wav plays the riff on the platter four ways, marked by one to four ticks: no bumps, raw bumps, bumps cancelled, raw bumps with the stiffer loop.
+
+**The feel map is current, and it found something.** I reran it with last cycle's turntable. The turntable now idles at 100% with the brake off, and at 100% with the middle brake guess. With the strongest guess it reaches only 69%: holding speed against that much brake would take more than the 0.06 N·m torque cap. That backs the choice to cancel the brake for the turntable, which it already does by default. The feel lab's table says this now.
+
+**What the paused Max patch will need.** The standing order asks me to write down what each Max move will need. [HOST-NEEDS.md](obsidian://open?vault=The%20Palace&file=Projects/Haptic%20Handwheel/max/HOST-NEEDS.md) covers the wire, then ten things the patch should do, taken from what the box-day console already does: hello and ready, the knob's `f` line deciding which feel is lit, settings for each feel, speed averaged over half a second, the torque input, the melody for the haptic filter, pitch out, and stop. I made no Max file and didn't touch the existing patch.
+
+Nothing in the firmware or the feel engine changed, so last cycle's check that the C++ matches the browser still stands.
+
+**Artifacts:**
+- [The riff on the platter four ways (one to four ticks): no bumps, raw bumps (box day), bumps cancelled, raw bumps with the stiffer loop.](Projects/Haptic Handwheel/proofs/feel-lab/turntable_bumps.wav)
+- [The console on the pretend turntable: 33.14 rpm over half a second, wobble ±14%.](Projects/Haptic Handwheel/firmware/console-turntable.png)
+- [Box day, with the honest speed readout, the full turntable settings and the optional turntable step. Open it in Chrome.](Projects/Haptic Handwheel/firmware/box-day.html)
+- [The page before the feel engine is inlined.](Projects/Haptic Handwheel/firmware/box_day_template.html)
+- [Measures the turntable's true average, its wobble, what one screen frame reads and what half a second reads, with and without bumps, and renders the sound.](Projects/Haptic Handwheel/proofs/feel-lab/render_turntable_bumps.mjs)
+- [Every number in the table.](Projects/Haptic Handwheel/proofs/feel-lab/turntable_bumps_results.json)
+- [The turntable row now gives its idle at each brake and why the strongest guess falls short.](Projects/Haptic Handwheel/proofs/feel-lab/render_feel_map.mjs)
+- [The feel map rerun with the turntable from cycle 7: 100% idle, 69% at the strongest brake guess.](Projects/Haptic Handwheel/proofs/feel-lab/feel_map_results.json)
+- [The feel map chart, redrawn by the rerun.](Projects/Haptic Handwheel/proofs/feel-lab/feel_map.png)
+- [The feel lab rebuilt with the current feel map.](Projects/Haptic Handwheel/proofs/feel-lab/feel-lab.html)
+- [The turntable check now reads speed over time and says what wobble to expect before and after the bump map.](Projects/Haptic Handwheel/firmware/BENCH.md)
+- [What the paused Max host patch will need, taken from the console.](Projects/Haptic Handwheel/max/HOST-NEEDS.md)
+
+_Turntable · pretend motor with sticking friction · brake cancelled · hands off_
+| motor's bumps | true average | speed swing | one screen frame reads | half a second reads |
+| --- | --- | --- | --- | --- |
+| none | 33.33 rpm | ±0% | 33.3–33.4 | 33.33 |
+| raw (box day) | 33.31 rpm | 84–113% | 28.1–37.7 | 32.92–33.80 |
+| cancelled (after the bench) | 33.33 rpm | 99–101% | 32.9–33.7 | 33.30–33.37 |
+| raw, stiffer loop (kv 0.1, 1 ms) | 33.34 rpm | 95–106% | 32.0–34.9 | 33.20–33.46 |
+
+_Left rough:_ It's still a pretend motor, and nothing has met hardware. I haven't listened to turntable_hold.wav, or to the new turntable_bumps.wav. I couldn't compile for the classic ESP32-DevKitC on the order, because its core isn't on this laptop. The ±14% wobble comes from bumps I made up. The real motor's bumps could be larger or smaller, and only the bench will say. Whether the buzz under the finger is a fault or a character is for your hand.
+
+_Next moves named:_ When you say yes to the parts: nothing else stands between the box and the bench. Box day is the page. · Rehearse box day end to end against the pretend knob as a script, every step's pass check in order, so the page's own claims are tested together and not one at a time. · Once the bench has measured the real motor, retune the feel lab and rerun the feel map and the turntable measurement on its numbers.
+<sub>`haptic-handwheel-steward-018` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-8ae6522845" -->
+### 2026-10-20 — cycle 9
+
+taught item 2
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="haptic-handwheel-steward-016" -->
 ### 2026-10-20 — cycle 8 — Box day is ready: one page wires the knob, walks eleven checked steps, and drives the feels from Chrome. The bench now runs in one command.
 > shipped · parts order still yours to answer · steward leans ORDER

@@ -149,6 +149,8 @@
     In the console press <b>centre</b>. Turn the knob away and let go. <span class="pass">Pass:</span> it comes back to centre without wobbling, landing within a degree or two, and pushes back harder the further you turn it. Near centre you'll feel a faint notch: that is the small push that carries it the last few degrees past friction and the motor's bumps (<code>set kick 0</code> takes it away, and then it stops up to 18° short). <span class="fail">If it runs away, or pushes you away from centre</span>: the motor's direction is the wrong way round from the encoder's. Press <b>stop</b>, swap any two motor leads, reset.</li>
   <li><label class="tick"><input type="checkbox"> done</label><h3>The second feel: frets</h3>
     Press <b>frets</b>. Twenty-four clicks a turn. You will also feel the motor's own 84 bumps a turn underneath, as a fine grain; the bench maps them next and the firmware cancels them. Let go between two clicks: it should fall into one.</li>
+  <li><label class="tick"><input type="checkbox"> done</label><h3>Optional: the turntable, before the bumps are mapped</h3>
+    Press <b>turntable</b> and let it spin. It should read about 33.3 rpm over half a second, but with a wobble of about ±14%: the motor's bumps go by 47 times a second, and you will feel them as a buzz under the finger. That is expected until the bench maps them; once they are cancelled the wobble falls to about ±1%. To feel it now with less buzz, set <code>kv</code> to 0.1 and <code>speedTf</code> to 0.001 (the menu under the readings): in the model that cuts the wobble to a few percent (±3–6%), but it fights a finger harder and adds encoder fizz once the bumps are cancelled, so put them back to 0.01 and 0.005 after the bench. Judge the turntable's feel only after the bench.</li>
   <li><label class="tick"><input type="checkbox"> done</label><h3>Let the bench measure the real motor</h3>
     Close the console's connection (Disconnect). In a terminal, from <code>firmware/bench</code>:<br>
     <code>/usr/local/bin/python3 run_bench.py --R 7.6</code> (your meter's half-reading in place of 7.6)<br>
@@ -193,7 +195,7 @@
     <div id="log"></div>
   </div>
 </div>
-<p class="note warn">The pretend knob uses guessed motor numbers. A feel that's calm here may ring on the real motor, and the other way round; that's what step 10 is for.</p>
+<p class="note warn">The pretend knob uses guessed motor numbers. A feel that's calm here may ring on the real motor, and the other way round; that's what the bench step is for.</p>
 </main>
 
 <script>
@@ -222,9 +224,9 @@ document.querySelectorAll('ol.steps input').forEach((c) => c.onchange = () => c.
 // ── the console ──
 const FEEL_NAMES = ['centre', 'frets', 'string', 'struck', 'pendulum', 'follow', 'turntable', 'free'];
 const PARAMS = { centre: ['k', 'kick', 'kickW', 'rest'], frets: ['peak', 'kick', 'semisPerTurn'], string: ['k3'], struck: ['k', 'damp', 'rest'],
-  pendulum: ['k', 'damp', 'rest'], follow: ['k', 'damp'], turntable: ['rpm', 'kv', 'cap', 'ki', 'ffB', 'ffC'], free: [] };
+  pendulum: ['k', 'damp', 'rest'], follow: ['k', 'damp'], turntable: ['rpm', 'kv', 'speedTf', 'cap', 'ki', 'gate', 'trim', 'ffB', 'ffC'], free: [] };
 const COMMON = ['cancelBrake', 'tauMax', 'cogGain'];
-const st = { th: 0, om: 0, tau: 0, feel: '—', brake: null, trace: [], link: null };
+const st = { th: 0, om: 0, tau: 0, feel: '—', brake: null, trace: [], hist: [], link: null };
 const $ = (id) => document.getElementById(id);
 function log(s) { const L = $('log'); L.textContent += s + '\n'; if (L.textContent.length > 6000) L.textContent = L.textContent.slice(-4000); L.scrollTop = L.scrollHeight; }
 function status(s) { $('status').textContent = s; }
@@ -241,6 +243,13 @@ function stopAll() { send('feel free'); send('play 0'); $('play').value = 0; $('
 function onLine(l) {
   if (l.startsWith('a ')) {
     const p = l.split(' '); st.th = +p[1]; st.om = +p[2]; st.tau = +p[3];
+    // keep half a second of angle, so speed is read as angle travelled over
+    // time. One line catches the motor's 84 bumps a turn (47 Hz at 33⅓) at
+    // some random point of their wobble: the pretend turntable averaged 33.3
+    // rpm while single readings ran 28–38. The pretend knob runs on its own
+    // clock; the real one on the laptop's.
+    const t = st.link && st.link.eng ? st.link.eng.s.t : performance.now() / 1000;
+    st.hist.push([t, st.th, st.om]); while (st.hist.length > 2 && st.hist[0][0] < t - 0.5) st.hist.shift();
     return;
   }
   if (l.startsWith('f ')) {   // f <name> brake <x>
@@ -340,6 +349,16 @@ dial.addEventListener('pointermove', (e) => {
 const release = () => { if (!drag) return; drag = null; if (st.link && st.link.eng) st.link.eng.s.hand = false; dial.style.cursor = 'grab'; };
 dial.addEventListener('pointerup', release); dial.addEventListener('pointercancel', release);
 
+// speed over the last half second, and how far single readings swing around it
+function speedText() {
+  const h = st.hist, rpm = (w) => w / (2 * Math.PI) * 60;
+  if (h.length < 3 || h[h.length - 1][0] - h[0][0] < 0.2) return `${st.om.toFixed(2)} rad/s · ${rpm(st.om).toFixed(1)} rpm`;
+  const a = h[0], b = h[h.length - 1], avg = (b[1] - a[1]) / (b[0] - a[0]);
+  if (Math.abs(avg) < 0.3) return `${st.om.toFixed(2)} rad/s · ${rpm(st.om).toFixed(1)} rpm`;
+  let lo = Infinity, hi = -Infinity; for (const x of h) { lo = Math.min(lo, x[2]); hi = Math.max(hi, x[2]); }
+  const wob = (hi - lo) / 2 / Math.abs(avg) * 100;
+  return `${rpm(avg).toFixed(2)} rpm over ½ s · wobble ±${wob.toFixed(wob < 10 ? 1 : 0)}%`;
+}
 function draw() {
   const th = st.th, ticks = [];
   const n = st.feel === 'frets' ? 24 : st.feel === 'centre' || st.feel === 'struck' || st.feel === 'pendulum' || st.feel === 'string' ? 1 : 0;
@@ -356,7 +375,7 @@ function draw() {
     <text x="0" y="62" text-anchor="middle" font-size="12" fill="#8a8274">${drag ? 'holding' : (st.link && st.link.eng ? 'drag to hold' : '')}</text>`;
   $('r-feel').textContent = st.feel; $('r-brake').textContent = st.brake === null ? '—' : (st.brake ? 'cancelled (it moves freely)' : 'on (calm)');
   $('r-th').textContent = `${th.toFixed(3)} rad · ${(th / Math.PI * 180).toFixed(1)}°`;
-  $('r-om').textContent = `${st.om.toFixed(2)} rad/s · ${(st.om / (2 * Math.PI) * 60).toFixed(1)} rpm`;
+  $('r-om').textContent = speedText();
   $('r-tau').textContent = `${(st.tau * 1000).toFixed(1)} mN·m`;
   st.trace.push(th); if (st.trace.length > 240) st.trace.shift();
   const lo = Math.min(...st.trace), hi = Math.max(...st.trace), span = Math.max(hi - lo, 0.2);

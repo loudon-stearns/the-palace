@@ -1,0 +1,46 @@
+{
+ "assumed": "feel_engine defaults · sticking friction · brake cancelled · 40 g, 80 mm cap",
+ "rows": [
+  {
+   "pass": "no bumps",
+   "trueAvgRpm": 33.33,
+   "wobbleRangePct": "100–100",
+   "wobbleRmsPct": 0,
+   "oneFrameReadsRpm": "33.3–33.4",
+   "halfSecondReadsRpm": "33.33–33.33",
+   "afterDragPeakPct": 104,
+   "afterDragBackWithin1pctMs": 87
+  },
+  {
+   "pass": "raw bumps (box day)",
+   "trueAvgRpm": 33.31,
+   "wobbleRangePct": "84–113",
+   "wobbleRmsPct": 9.4,
+   "oneFrameReadsRpm": "28.1–37.7",
+   "halfSecondReadsRpm": "32.92–33.80",
+   "afterDragPeakPct": 104,
+   "afterDragBackWithin1pctMs": 1897
+  },
+  {
+   "pass": "bumps cancelled (after the bench)",
+   "trueAvgRpm": 33.33,
+   "wobbleRangePct": "99–101",
+   "wobbleRmsPct": 0.7,
+   "oneFrameReadsRpm": "32.9–33.7",
+   "halfSecondReadsRpm": "33.30–33.37",
+   "afterDragPeakPct": 104,
+   "afterDragBackWithin1pctMs": 85
+  },
+  {
+   "pass": "raw bumps, stiffer loop (kv 0.1, 1 ms)",
+   "trueAvgRpm": 33.34,
+   "wobbleRangePct": "95–106",
+   "wobbleRmsPct": 1.8,
+   "oneFrameReadsRpm": "32.0–34.9",
+   "halfSecondReadsRpm": "33.20–33.46",
+   "afterDragPeakPct": 101,
+   "afterDragBackWithin1pctMs": 51
+  }
+ ],
+ "bumpHz": 46.7
+}

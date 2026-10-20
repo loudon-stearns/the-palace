@@ -84,7 +84,14 @@ platter can't teach it to shove. The analyzer prints the two numbers after
 `bench coast` (`send to the knob: … set ffB … set ffC …`); send them with the
 turntable selected. In the model, numbers 30% off still idle at full speed. On
 the bench: `feel turntable`, hands off for five seconds, then read the speed
-from the `a` lines (the target is 3.49 rad/s). Then drag it nearly to a stop for
+as angle travelled over time, not from one `a` line (the target is 3.49 rad/s).
+The box-day console does this over half a second and shows the wobble beside
+it. Before the bumps are cancelled, single readings swing about ±14% at 47 Hz
+(84 bumps a turn at 33⅓) while the average holds 33.3 rpm; a pretend run read
+28–31 rpm in headless Chrome only because the screen caught the low side of
+that wobble (`proofs/feel-lab/render_turntable_bumps.mjs`). After the bumps
+are cancelled the wobble should fall to about ±1%. If it doesn't, the bump map
+is off, not the speed loop. Then drag it nearly to a stop for
 a second and let go: it should be back within 1% in well under a second, with no
 surge past about 115%. If it hunts or surges, lower `ki`; if it idles short,
 check that `ffB` and `ffC` were sent to the turntable, not another feel (each

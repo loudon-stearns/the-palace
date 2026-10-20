@@ -39,7 +39,7 @@
    "struckWobbles": 3,
    "glideMs": 28.604166666666682,
    "glideOvershootPct": 17.587080496400986,
-   "turntablePct": 87.89152223836005
+   "turntablePct": 99.99968551882169
   },
   {
    "brake": "low",
@@ -47,7 +47,7 @@
    "struckWobbles": 2,
    "glideMs": 39.27083333333214,
    "glideOvershootPct": 2.7357350078629716,
-   "turntablePct": 72.44992904172936
+   "turntablePct": 99.99977694060108
   },
   {
    "brake": "mid",
@@ -55,7 +55,7 @@
    "struckWobbles": 1,
    "glideMs": 88.97916666665994,
    "glideOvershootPct": 0,
-   "turntablePct": 51.77520663011388
+   "turntablePct": 99.99977954338931
   },
   {
    "brake": "high",
@@ -63,7 +63,7 @@
    "struckWobbles": 1,
    "glideMs": 253.9374999999992,
    "glideOvershootPct": 0,
-   "turntablePct": 26.68090388289275
+   "turntablePct": 69.1500787227115
   }
  ],
  "landing": [
@@ -186,7 +186,7 @@
    "feel": "turntable",
    "K": 0,
    "brake": "off",
-   "why": "idles at 88% off, 52% on; a speed loop, not a spring",
+   "why": "idles at 100% off; on, 100% at the middle guess but 69% at the strongest, where the brake costs more than the 0.06 N·m cap; a speed loop, not a spring",
    "where": "on the knob (speed loop)"
   },
   {

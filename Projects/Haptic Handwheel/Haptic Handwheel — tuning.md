@@ -26,3 +26,8 @@ What Haptic Handwheel's steward cycles taught the page, and the changes to the h
 
 1. Give the pretend motor sticking friction and its raw bumps whenever you test a feel for box day: the smooth model passed the soft centring spring, and the sticky one showed it stopping 18° short. *(offered by the steward, cycle 8)*
 - run · 2026-10-20 · cycle 8 · taught item 1
+
+## From cycle 9 — 2026-10-20
+
+2. Read a speed as angle travelled over time, never as one sample: the motor's 84 bumps a turn make a single reading land anywhere in a ±14% wobble, which is how the pretend turntable seemed to run at 28–31 rpm while holding 33⅓. *(offered by the steward, cycle 9)*
+- run · 2026-10-20 · cycle 9 · taught item 2
