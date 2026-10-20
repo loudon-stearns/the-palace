@@ -108,3 +108,18 @@ Max work is paused until there are patching standards. So the instruments are bu
 - Nobody has heard the fifth draft, so the cast is chosen from the score, not from what Loudon thinks works.
 - Web MIDI and AudioWorklet latency on this Mac haven't been measured.
 - Whether the Atlas should be one instrument with two modes or two instruments. The trickster and the stair felt different in the score; the plan keeps them as one grid for now.
+
+## The Singer — first build (2026-10-20, cycle 23)
+
+Built in the browser: `Instruments/singer.html` (made from `singer.template.html` by `build_singer.mjs`, which inlines the Hopf engine so there is still one engine). `render_singer_demo.mjs` runs the same script offline.
+
+**The pitch solve turned out to need one more idea than the plan said.** On a lock the scan repeats at f₀ = 2·base/(a+b), but a surface can have nothing at that first harmonic, and the ear hears a higher one. So the Singer reads the surface's own Fourier coefficients and, for each lock, adds up the energy at each harmonic k of f₀ (a coefficient c_mn lands on k = |m·b + n·a|). The heard partial k\* is the lowest harmonic carrying at least 30% of the loudest. Then base = note·(a+b)/(2·k\*). With no hand tuning, this gives all four of the étude's per-voice formulas: note/6 for the hero at the pole, 3·note/8 for the pad on 1:2 (both Penrose), note/2 for the mentor on 3:2 and note for the reed on 1:1 (both Knot Shadow).
+
+**A bug the render caught.** A grip or slip set in Hz can push a low note out of its own lock's band and into the next one; a slipped A3 on 1:1 jumped to 5:4. The grip is now capped at 0.4 of the gap to the nearest other lock, and the offset at 0.45 of it.
+
+**What the RNBO port will need** (Max work is paused; this is the spec):
+- params: note (Hz or MIDI), lockA, lockB, scoop, glide, leap, vib, vibDelay, vibRate, swell, release, grip, slip, drift, letGo (momentary), het, longitude, level;
+- the register table k\*(lock) per surface, computed offline from the surface and loaded beside the buffer (one small table per surface, not a per-sample cost);
+- control at block rate (32 samples): pitch glide in log-frequency, scoop over 80 ms, vibrato that waits then rises over 450 ms, then base = hz·(a+b)/(2k\*) and h = (a−b)/(a+b) + the capped offset; the codebox below it is `torus_2d_hopf.codebox` unchanged.
+
+**Not known yet:** whether it plays well by hand. On some locks (Penrose on 3:2) the heard partial sits in a cluster (22, 24 and 36 of a 20 Hz period), so the pitch may read as a chord rather than a note.

@@ -15,35 +15,35 @@ forward_vector: "I am 2D Torus Wavetable Synthesizer's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-20T10:20:27.300Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-20T10:22:49.420Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 22 · last ran 2026-10-20 (today)
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 23 · last ran 2026-10-20 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-20 (today) — Make the five-instrument ensemble this project's plan, building the Singer first, in the browser? (`torus-steward-056`)
-- **Last commit touching this project:** 2026-10-13 `05a82341` — steward(2D Torus Wavetable Synthesizer): cycle 21 — SPINNING UP. HOME: [[2D Torus Wavetable Synthesizer]]. Neighborhood loa…
+- **Last shipped:** 2026-10-20 (today) — The Singer is built: a torus voice you play from a keyboard, and the note you press is the note you hear on any lock. (`torus-steward-058`)
+- **Last commit touching this project:** 2026-10-20 `62891c83` — steward(2D Torus Wavetable Synthesizer): cycle 22 — SPINNING UP. HOME: [2D Torus Wavetable Synthesizer](obsidian://open?vau…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-20 — cycle 22 · taught item 1, proposed item 2 for canon
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-20 — cycle 23 · taught item 3, proposed item 4 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 1 — item 2; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 2, from cycle 22 — 2026-10-20 — [[2D Torus Wavetable Synthesizer — tuning]]
+- **Proposed for canon:** 2 — items 2, 4; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 4, from cycle 23 — 2026-10-20 — [[2D Torus Wavetable Synthesizer — tuning]]
 
 ### Where this stands
 
-This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read it, and their ratio decides whether it sounds harmonic or shimmers. Its test piece, Étude No. 2 (the 4:27 hero's journey), was written as a script of knob moves for one engine, the Hopf codebox, running eleven times on different surfaces. Nobody played it. You said the piece stands as it is, and asked for a plan for an instrument, or a collection of them, that could make songs like it. This cycle went through the script, counted every gesture it did by hand, and drafted that plan: five instruments, built in the browser first while Max work is paused.
+This project is a synthesizer whose wavetable is a surface on a torus. Two scan rates read it, and their ratio decides whether it sounds harmonic or shimmers. You said Étude No. 2 (the 4:27 hero's journey) stands as it is and asked for instruments that could make songs like it. Last cycle I proposed five instruments on one engine, with the Singer, a playable melody voice, first. That plan is still waiting on your yes. This cycle I built the Singer in the browser and checked it offline: change the lock and the colour changes but the pitch stays put, and you can let go to shimmer and grab to snap back.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
+- **rough since cycle 7:** Nobody has played the Singer in a real browser or heard the demo. _(in 2 notes, the latest cycle 23)_
 - **rough since cycle 7:** Nothing is built yet, and nobody has heard the fifth draft, so I picked the cast from the score rather than from what you think works. _(in 17 notes, the latest cycle 22)_
 - **rough since cycle 7:** The feelings in the table are what I wrote toward, not what I heard. _(in 3 notes, the latest cycle 19)_
 - **rough since cycle 14:** The brightness colours lean amber because most of the piece sits above 1 kHz, so the dark chapters show up mainly as low wedges. _(in 2 notes, the latest cycle 20)_
-- **rough since cycle 14:** Your card on the third draft is still open, and I haven't added any music since the fourth draft. _(in 4 notes, the latest cycle 18)_
-- **rough since cycle 15:** I've seen the page render in headless Chrome, but I haven't clicked through its audio in a real browser. _(in 2 notes, the latest cycle 20)_
+- **rough since cycle 15:** I've seen the page render in headless Chrome, and MIDI there said 'not allowed', so the keyboard and MIDI paths haven't been tested. _(in 3 notes, the latest cycle 23)_
 - **rough since cycle 16:** The 102 MB WAV stays uncommitted; _(in 3 notes, the latest cycle 19)_
 - **rough since cycle 17:** play the m4a. _(in 2 notes, the latest cycle 19)_
 
@@ -64,6 +64,7 @@ _None._
 
 ### Runs
 
+- 2026-10-20 — cycle 23 · taught item 3, proposed item 4 for canon
 - 2026-10-20 — cycle 22 · taught item 1, proposed item 2 for canon
 
 ### Owed
@@ -75,6 +76,7 @@ _Nothing owed._
 _Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
 
 - **2.** 2026-10-20 · [[2D Torus Wavetable Synthesizer]] · § Forward Vectors, new first bullet — Loudon asked (2026-10-18) to turn the étude into a plan for instruments; the page's forward vectors don't yet name that direction.
+- **4.** 2026-10-20 · [[2D Torus Wavetable Synthesizer]] · § What Exists, new bullet after 'A Hopf control surface and a Kuramoto scan mode' — The page's inventory doesn't yet name the first built instrument or the heard-partial solve it rests on.
 
 <!-- scroll:now:end -->
 
@@ -93,6 +95,55 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="torus-steward-058" -->
+### 2026-10-20 — cycle 23 — The Singer is built: a torus voice you play from a keyboard, and the note you press is the note you hear on any lock.
+> shipped · first instrument of the proposed ensemble · plan still waits on you · steward leans the Atlas next
+
+The Singer ([singer.html](obsidian://open?vault=The%20Palace&file=Projects/2D%20Torus%20Wavetable%20Synthesizer/Instruments/singer.html)) is one Hopf voice played from the computer keys, the on-screen keyboard or a MIDI keyboard. The mod wheel sets vibrato and the sustain pedal (or space) lets go. Ten lock buttons run from the pole (the plain 1D wavetable) up through 1:1, 3:2, 2:1 and the rest. The étude's sing helper is now knobs: scoop, glide, late vibrato, swell and release. The torus has its own controls: grip, slip (set in Hz of beating), let-go drift and the dead-line voice.
+
+The pitch solve needed one more idea than my plan had. On a lock the scan repeats at 2·base/(a+b), but a surface can have nothing at that first harmonic, so the ear hears a higher one. The Singer reads the surface's own coefficients and finds the lowest strong partial on each lock, then tunes the base so that partial lands on your note. Without any hand tuning, this reproduces all four of the formulas the étude used, one per voice (table below). In the demo, a held A4 stays within 2 cents across eight locks while the colour above it changes.
+
+The first render caught a bug. On a low note, the slip pushed the voice out of the 1:1 band and it locked on 5:4 instead. Grip and slip are now capped to stay inside the lock's own band, and the re-render beats at the slip I asked for (2.9 Hz against 3).
+
+The demo is about 28 s on Penrose, in four parts: the hero's motif at the pole; one held A with the lock changing under it; the motif on 1:2, letting go on the long note and grabbing it back; and a low A on 1:1 that slips out to a 3 Hz beat and back.
+
+**Artifacts:**
+- [the Singer: play it with the keys a–k, locks on 1–0, hold space to let go.](Projects/2D Torus Wavetable Synthesizer/Instruments/singer.html)
+- [28 s demo: the motif at the pole, one held A under eight locks, let go and grab, slip.](Projects/2D Torus Wavetable Synthesizer/Instruments/singer_demo.m4a)
+- [spectrogram; blue dots are the note asked for. The 440 Hz line holds while everything above it changes.](Projects/2D Torus Wavetable Synthesizer/Instruments/singer_demo.png)
+- [the demo at full quality (stays on this Mac).](Projects/2D Torus Wavetable Synthesizer/Instruments/singer_demo.wav)
+- [the Singer's source; build_singer.mjs inlines the Hopf engine into it.](Projects/2D Torus Wavetable Synthesizer/Instruments/singer.template.html)
+- [builds singer.html so there is still one engine.](Projects/2D Torus Wavetable Synthesizer/Instruments/build_singer.mjs)
+- [runs the Singer offline: the solve check, the pitch check, the demo.](Projects/2D Torus Wavetable Synthesizer/Instruments/render_singer_demo.mjs)
+- [draws the labelled spectrogram.](Projects/2D Torus Wavetable Synthesizer/Instruments/singer_spectrogram.py)
+- [what the voice was doing every 0.1 s: lock, partial, base, locked or beating.](Projects/2D Torus Wavetable Synthesizer/Instruments/singer_demo_track.txt)
+- [section marks for the spectrogram.](Projects/2D Torus Wavetable Synthesizer/Instruments/singer_demo_sections.json)
+- [the plan, with the Singer's build notes and its RNBO spec added.](Projects/2D Torus Wavetable Synthesizer/Instruments/Instrument Plan — draft.md)
+
+_the solve against the étude's hand formulas (base = note × …)_
+| voice in the étude | surface | lock | heard partial | solved | étude |
+| --- | --- | --- | --- | --- | --- |
+| the hero at the pole | Penrose | pole | 3 | × 1/6 | × 1/6 |
+| the hero on the pad | Penrose | 1:2 | 4 | × 3/8 | × 3/8 |
+| the mentor | Knot Shadow | 3:2 | 5 | × 1/2 | × 1/2 |
+| the reed | Knot Shadow | 1:1 | 1 | × 1 | × 1 |
+
+_Changed in the workshop:_ Instrument Plan — draft — Added the Singer's build notes, the heard-partial solve, the band-cap bug, and the spec the RNBO port will need while Max is paused.
+_Proposed for canon:_ 2D Torus Wavetable Synthesizer (§ What Exists, new bullet after 'A Hopf control surface and a Kuramoto scan mode') — The page's inventory doesn't yet name the first built instrument or the heard-partial solve it rests on.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has played the Singer in a real browser or heard the demo. I've seen the page render in headless Chrome, and MIDI there said 'not allowed', so the keyboard and MIDI paths haven't been tested. Penrose on 3:2 puts the heard partial in a cluster (22, 24 and 36 of a 20 Hz period), so a note there may read as a chord.
+
+_Next moves named:_ The Atlas: the lock grid in both modes (same note, new face, and the Farey scale) with a step sequencer, on the Singer's pitch solve. · A 'cluster' flag in the register table, so the Singer can warn when a lock's pitch is ambiguous, or skip that partial. · The RNBO port of the Singer when Max work resumes; its spec is in the plan draft.
+<sub>`torus-steward-058` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-f53957c9e3" -->
+### 2026-10-20 — cycle 23
+
+taught item 3, proposed item 4 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="torus-steward-056" -->
 ### 2026-10-20 — cycle 22 — Make the five-instrument ensemble this project's plan, building the Singer first, in the browser?
 > still working · plan drafted, Singer next · steward leans adopt

@@ -31,3 +31,13 @@ What 2D Torus Wavetable Synthesizer's steward cycles taught the page, and the ch
    > - **The Torus Ensemble** — five instruments on one engine, read back out of Étude No. 2: the Singer (melody, with the pitch solved on any lock), the Atlas (lock pads, same note with a new face, or the Farey scale), the Threshold (off-ratio voices with the hands as macros), the Hands (drums grown from surfaces, 12/8 and aksak feels) and the Conductor (tempo curve, let go together, takes recorded as knob moves). Built in the browser first; the plan is in `Instruments/Instrument Plan — draft.md`.
 
 - run · 2026-10-20 · cycle 22 · taught item 1, proposed item 2 for canon
+
+## From cycle 23 — 2026-10-20
+
+3. The pitch on a lock is not the scan's period but the lowest strong partial the surface puts on it (k = |m·b + n·a|), and computing that from the surface's coefficients recovers every hand-tuned pitch formula in the étude. *(offered by the steward, cycle 23)*
+4. **Proposed for canon** · 2026-10-20 · [[2D Torus Wavetable Synthesizer]] · § What Exists, new bullet after 'A Hopf control surface and a Kuramoto scan mode' · canon change owed *(proposed by the steward, cycle 23)*
+   Why: The page's inventory doesn't yet name the first built instrument or the heard-partial solve it rests on.
+   Path: `Projects/2D Torus Wavetable Synthesizer.md`
+   > - **The Singer**, the first instrument of the Torus Ensemble: `Instruments/singer.html`, a Hopf voice played from a keyboard. It reads the surface's coefficients to find the partial the ear hears on each lock, so a note keeps its pitch when the lock changes. Built and checked offline; not yet played by hand.
+
+- run · 2026-10-20 · cycle 23 · taught item 3, proposed item 4 for canon
