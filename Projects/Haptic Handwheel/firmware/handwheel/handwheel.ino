@@ -1,5 +1,5 @@
 // Haptic Handwheel — first firmware sketch. Compiles for the Arduino Nano
-// ESP32 against SimpleFOC 2.3.3 (BENCH.md); never run on a board.
+// ESP32 and the classic ESP32-DevKitC against SimpleFOC 2.3.3 (BENCH.md); never run on a board.
 // Target: ESP32 dev board + SimpleFOC Mini (or Shield) + GM5208-12 with its
 // AS5048A encoder (SPI). Library: Simple FOC (Arduino Library Manager).
 //
@@ -14,6 +14,7 @@
 //   set <param> <value>      any Params field of the selected feel, e.g. "set k 0.2", "set cancelBrake 1"
 //   play <N·m>               torque played into the hand (LFO, pitch, beat clicks), held until replaced
 //   bench coast | accel-bare | accel-disc | cog | chirp
+//   hello                    answers "hello handwheel <board>" and "ready"
 // knob → Max, every 2 ms in PLAY:
 //   a <angle rad> <speed rad/s> <torque N·m>
 // and once on each feel change (Max's [route a] passes it by):
@@ -21,10 +22,11 @@
 #include <SimpleFOC.h>   // compiles with SimpleFOC 2.3.3 on arduino-esp32 2.x; 2.3.4+ needs arduino-esp32 3.x (BENCH.md)
 #include "feel_core.h"
 #include "cog_cancel.h"                              // bench_analyze.py writes cog_map.h; until then this cancels nothing
+#include "pins.h"                                    // one set of pins per board; box-day.html draws the wiring
 
 BLDCMotor motor(7);                                   // 14 poles → 7 pole pairs
-BLDCDriver3PWM driver(25, 26, 27, 14);                // ASSUMED pins — match your board
-MagneticSensorSPI encoder(AS5048_SPI, 5);             // CS pin ASSUMED
+BLDCDriver3PWM driver(PIN_PWM_A, PIN_PWM_B, PIN_PWM_C, PIN_EN);
+MagneticSensorSPI encoder(AS5048_SPI, PIN_ENC_CS);
 
 // Bench tests at 12 V. For play, 24 V gives the cancelled brake room to keep
 // up with a flick (order/PARTS.md, fit_check.mjs); raise SUPPLY_V to match the
@@ -39,6 +41,7 @@ uint32_t lastReport = 0;
 
 void setup() {
   Serial.begin(921600);
+  Serial.printf("hello handwheel %s\n", HW_BOARD);    // box day, step 4: you should see this line
   encoder.init();
   motor.linkSensor(&encoder);
   driver.voltage_power_supply = SUPPLY_V;
@@ -51,6 +54,7 @@ void setup() {
   motor.initFOC();
   for (int i = 0; i < 8; i++) { bank[i].id = (hw::FeelId)i; bank[i].p = hw::defaults((hw::FeelId)i); }
   cur = &bank[hw::CENTRE];                            // a soft pitch-wheel return to start
+  Serial.println("ready");                            // run_bench.py waits for this before sending anything
 }
 
 void parse(String l) {
@@ -66,7 +70,7 @@ void parse(String l) {
   } else if (l.startsWith("set ")) {
     int sp = l.indexOf(' ', 4); String k = l.substring(4, sp); float v = l.substring(sp + 1).toFloat();
     hw::Params& p = cur->p;
-    if (k == "peak") p.peak = v; else if (k == "kick") p.kick = v; else if (k == "semisPerTurn") p.semisPerTurn = v; else if (k == "k") p.k = v;
+    if (k == "peak") p.peak = v; else if (k == "kick") p.kick = v; else if (k == "kickW") p.kickW = v; else if (k == "semisPerTurn") p.semisPerTurn = v; else if (k == "k") p.k = v;
     else if (k == "k3") p.k3 = v; else if (k == "damp") p.damp = v; else if (k == "rest") p.rest = v;
     else if (k == "rpm") p.rpm = v; else if (k == "kv") p.kv = v; else if (k == "cap") p.cap = v;
     else if (k == "target") p.target = v; else if (k == "wallLo") p.wallLo = v; else if (k == "wallHi") p.wallHi = v;
@@ -76,6 +80,7 @@ void parse(String l) {
     else if (k == "R") model.R = v; else if (k == "kt") model.kt = v; else if (k == "cogGain") cogGain = v;
   } else if (l.startsWith("play ")) played = l.substring(5).toFloat();
   else if (l.startsWith("bench ")) bench(l.substring(6));
+  else if (l == "hello") Serial.printf("hello handwheel %s\nready\n", HW_BOARD); // a board that didn't reset when the port opened
 }
 
 void loop() {

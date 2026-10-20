@@ -15,20 +15,35 @@ forward_vector: "I am Haptic Handwheel's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T00:07:44.309Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-20T10:00:02.406Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** seed · **Steward:** cycle 7 · last ran 2026-10-14 (today)
-- **Plan:** agreed 2026-10-13 (today) · 6 made things since
+- **Status:** active · **Stage:** seed · **Steward:** cycle 8 · last ran 2026-10-20 (today)
+- **Plan:** agreed 2026-10-13 (6 days ago) · 7 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — The turntable now holds 33⅓ without surging when you let go, and each feel brings its own brake and settings in the firmware. (`haptic-handwheel-steward-014`)
-- **Last commit touching this project:** 2026-10-13 `788d0ae0` — steward(Haptic Handwheel): cycle 6 — SPINNING UP. HOME: [[Haptic Handwheel]]. Neighborhood loaded. Cycle 6, …
+- **Last shipped:** 2026-10-20 (today) — Box day is ready: one page wires the knob, walks eleven checked steps, and drives the feels from Chrome. The bench now runs in one command. (`haptic-handwheel-steward-016`)
+- **Last commit touching this project:** 2026-10-16 `929de8c5` — edit(Standing Orders): five scrolls whose Plans lead into Max carry Loudon's pause at the top of their orders
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-20 — cycle 8 · taught item 1
+- **Owed in the ledger:** nothing
+- **Latest lesson:** item 1, from cycle 8 — 2026-10-20 — [[Haptic Handwheel — tuning]]
 
 ### Where this stands
 
-Haptic Handwheel is your one-big-knob instrument: a motor that is also a sensor, with software deciding how it feels (frets, a string, a struck spring, a turntable). It's research, and the nearer product is a simpler knob that follows the parameter you've clicked in Ableton. The plan you agreed goes like this: try the knob in simulation, pin down the unknowns, buy the parts once you say yes, bring it up on the bench, then your hands judge each feel. The first two are done on paper, and the parts list is waiting on you. This cycle used the wait to finish two loose ends from the last one. The turntable used to idle slow (88% of speed), and now it holds 33⅓. Each feel now carries its own setti…
+Haptic Handwheel is your one-big-knob instrument: a motor that is also a sensor, with software deciding how it feels (frets, a string, a struck spring, a turntable). The nearer product is a simpler knob that follows the parameter you've clicked in Ableton. The plan you agreed: try the knob in simulation, pin down the unknowns, buy the parts once you say yes, bring it up on the bench, then your hands judge each feel. The simulation and the paper work are done, and the parts list ($145–185, or $75–95 if you have a bench supply) has waited on your yes since 2026-10-13. This cycle got ready for the bench step, the one after the order. There's now one page for the day the box arrives, plus a one…
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 1:** It's still a pretend motor, and nothing has met hardware. _(in 4 notes, the latest cycle 8)_
+- **rough since cycle 1:** I haven't listened to turntable_hold.wav. _(in 3 notes, the latest cycle 7)_
+- **rough since cycle 1:** In headless Chrome the pretend turntable read about 28–31 rpm, not 33⅓, with the raw bumps on. _(in 4 notes, the latest cycle 8)_
+- **rough since cycle 2:** I couldn't compile for the classic ESP32-DevKitC on the order, because its core isn't on this laptop. _(in 3 notes, the latest cycle 8)_
+- **rough since cycle 2:** Everything here is checked against a motor I made up, so it shows the analyzer can read a capture, not what the GM5208 will say. _(in 3 notes, the latest cycle 5)_
+- **rough since cycle 6:** The feel map table from last cycle still says the turntable idles at 88%. _(in 2 notes, the latest cycle 7)_
 
 ### Open asks
 
@@ -41,6 +56,14 @@ _None._
 ### Decided
 
 - `haptic-handwheel-steward-003` — a first plan, from simulation to your hand → GRANTED — option_id=adopt (2026-10-13)
+
+### Runs
+
+- 2026-10-20 — cycle 8 · taught item 1
+
+### Owed
+
+_Nothing owed._
 
 <!-- scroll:now:end -->
 
@@ -67,6 +90,58 @@ Where this is going: a first prototype in Loudon's hand, so the seven feels get 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="haptic-handwheel-steward-016" -->
+### 2026-10-20 — cycle 8 — Box day is ready: one page wires the knob, walks eleven checked steps, and drives the feels from Chrome. The bench now runs in one command.
+> shipped · parts order still yours to answer · steward leans ORDER
+
+**The page.** [box-day.html](open:Projects/Haptic Handwheel/firmware/box-day.html) has three parts. A wiring drawing that redraws itself for whichever board you pick (the ESP32 on the order, or a Nano ESP32 from the drawer). Eleven steps in order, each with a pass and a fail: meter the leads, flash over USB alone, wire the encoder and turn it by hand, power up at 12 V with the current knob at 0.5 A, the first two feels, the bench, hand the numbers back. And a **console** that talks to the knob straight from Chrome over USB, so the first feels need no Max. It has a dial showing angle and push, a button for each feel, a box for `set` lines, a slider to play torque into the hand, and a stop button. **Pretend knob** runs the same protocol on the feel lab's simulated motor, so you can try it today: drag the dial to hold it and let go.
+
+**Fault one: the pins.** The firmware compiled for the Nano ESP32 last week, but it named GPIO 25, 26 and 27. That board numbers its pins the Arduino way (D0 to D13), and those numbers don't exist there, so it built cleanly and would have driven nothing. The pins now live in `pins.h`, one set per board. I confirmed the Nano's set is the one the compiler picks.
+
+**Fault two: the centring spring stopped short.** I gave the pretend knob sticking friction and the motor's raw bumps, which is how it will be on box day, before the bench maps the bumps. In that state the soft centring spring, the pitch-wheel return the knob starts in, stopped up to 18° short of centre, and 6° short even with no bumps at all. So I added a small push toward centre that fades in over about a degree. It now lands within 1.1° with raw bumps and 0.3° once they're cancelled, with no overshoot (table). Near centre you'll feel it as a faint notch, which is what a real pitch wheel has. `set kick 0` takes it away. The C++ core still matches the browser engine within 1e-5 N·m, and the sketch still compiles.
+
+**The bench in one command.** [run_bench.py](open:Projects/Haptic Handwheel/firmware/bench/run_bench.py) finds the knob's USB port, waits for it to say `ready`, and runs the five tests in order. It stops twice: once for you to fit the 40 g disc, once for you to start the mic recording. Then it hands the capture to the analyzer. It needs no extra library. The knob now answers `hello`, because a Nano doesn't reset when the port opens and would otherwise never greet it. Rehearsed with `--fake`, it ran all five tests through the file and recovered the pretend motor's numbers, the same as the analyzer's own self-test.
+
+**Artifacts:**
+- [Box day: the wiring, eleven checked steps, and the console with a pretend knob. Open it in Chrome to use Connect.](Projects/Haptic Handwheel/firmware/box-day.html)
+- [The top of the page: the wiring for the ESP32 on the order.](Projects/Haptic Handwheel/firmware/box-day-preview.png)
+- [The console driving the pretend knob on the turntable feel.](Projects/Haptic Handwheel/firmware/console.png)
+- [The page before the feel engine is inlined.](Projects/Haptic Handwheel/firmware/box_day_template.html)
+- [Inlines the feel engine, so the pretend knob runs the same physics as the feel lab.](Projects/Haptic Handwheel/firmware/build_box_day.mjs)
+- [The whole bench in one command, with a --fake rehearsal.](Projects/Haptic Handwheel/firmware/bench/run_bench.py)
+- [One set of pins per board. The Nano's set is checked to be the one the compiler picks.](Projects/Haptic Handwheel/firmware/handwheel/pins.h)
+- [Uses pins.h, says hello and ready, answers hello, and accepts set kickW. Compiles for the Nano ESP32 against SimpleFOC 2.3.3.](Projects/Haptic Handwheel/firmware/handwheel/handwheel.ino)
+- [The centring spring gains its push toward centre (kick 0.01, kickW 0.02).](Projects/Haptic Handwheel/firmware/handwheel/feel_core.h)
+- [A centre feel to match the firmware's.](Projects/Haptic Handwheel/proofs/feel-lab/feel_engine.js)
+- [Tests the centre feel with its real defaults.](Projects/Haptic Handwheel/firmware/host-test/test_core.cpp)
+- [All eight checks match within 1e-5 N·m.](Projects/Haptic Handwheel/firmware/host-test/compare.mjs)
+- [Notes on the pins and on box day, plus the one-command run.](Projects/Haptic Handwheel/firmware/BENCH.md)
+- [The last step now points to the console, not the paused Max patch.](Projects/Haptic Handwheel/order/PARTS.md)
+
+_Centring spring (0.03 N·m/rad, brake on) · worst landing from seven let-gos · pretend motor with sticking friction_
+| push toward centre | no bumps | raw bumps (box day) | bumps cancelled |
+| --- | --- | --- | --- |
+| none (before) | 5.7° | 18.1° | 6.2° |
+| 0.006 N·m | 0.6° | 5.4° | 0.7° |
+| 0.010 N·m (chosen) | 0.3° | 1.1° | 0.3° |
+| 0.014 N·m | 0.1° | 0.7° | 0.1° |
+
+_Changed in the workshop:_ BENCH — the pins are no longer guesses for each board, and box day and run_bench.py are named
+_Changed in the workshop:_ PARTS — the arrival order ended at the Max host patch, which is paused; it now ends at the browser console
+
+_Left rough:_ It's still a pretend motor, and nothing has met hardware. I couldn't compile for the classic ESP32-DevKitC on the order, because its core isn't on this laptop. I've never run the Web Serial connection or run_bench.py's real-port path against a board. The encoder pin names in the drawing are a guess, because iFlight doesn't document its lead. In headless Chrome the pretend turntable read about 28–31 rpm, not 33⅓, with the raw bumps on. I didn't chase that. The notch the centre push makes is my call, and only your hand can say whether it feels like a pitch wheel or like a fault.
+
+_Next moves named:_ When you say yes to the parts: nothing else stands between the box and the bench. Box day is the page. · Chase the pretend turntable's slow reading with the raw bumps on: does the turntable need the bump map before it can hold 33⅓, and should box day say so? · Write down what the paused Max host patch will need from what the console now does (feel buttons, set lines, play, the f line), so the patch is quick to build once there are Max standards.
+<sub>`haptic-handwheel-steward-016` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-51f41f178d" -->
+### 2026-10-20 — cycle 8
+
+taught item 1
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="haptic-handwheel-steward-014" -->
 ### 2026-10-14 — cycle 7 — The turntable now holds 33⅓ without surging when you let go, and each feel brings its own brake and settings in the firmware.
 > shipped · parts order still yours to answer · steward leans keep building toward the bench

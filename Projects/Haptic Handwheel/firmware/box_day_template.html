@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Haptic Handwheel — box day</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --paper:#f6f1e7; --ink:#2b2620; --dim:#8a8274; --rule:#d8cfbd; --acc:#c2562a; --acc2:#2f6f73; --warn:#a33b1f; --brass:#a8823a; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink); font:15px/1.5 "Iowan Old Style", Georgia, serif; }
+  main { max-width: 980px; margin: 0 auto; padding: 28px 22px 80px; }
+  h1 { font-size: 30px; margin: 0 0 4px; letter-spacing: .01em; }
+  h2 { font-size: 20px; margin: 34px 0 8px; border-top: 1px solid var(--rule); padding-top: 16px; }
+  .sub { color: var(--dim); margin: 0 0 18px; }
+  .mono, code, kbd { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 13px; }
+  code { background: #ece4d4; padding: 1px 5px; border-radius: 3px; }
+  .note { border-left: 3px solid var(--brass); padding: 6px 12px; background: #efe7d6; margin: 10px 0; }
+  .warn { border-left-color: var(--warn); }
+  button, select, input { font: 14px ui-monospace, Menlo, monospace; color: var(--ink); background: #fbf8f1; border: 1px solid var(--dim); border-radius: 4px; padding: 5px 10px; }
+  button { cursor: pointer; }
+  button:hover { border-color: var(--acc); }
+  button.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  button.stop { border-color: var(--warn); color: var(--warn); }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 8px 0; }
+  ol.steps { list-style: none; padding: 0; counter-reset: s; }
+  ol.steps > li { counter-increment: s; position: relative; padding: 10px 0 12px 46px; border-bottom: 1px dotted var(--rule); }
+  ol.steps > li::before { content: counter(s); position: absolute; left: 0; top: 9px; width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--ink); text-align: center; line-height: 27px; font-weight: bold; }
+  ol.steps > li.done::before { content: "✓"; background: var(--acc2); color: var(--paper); border-color: var(--acc2); }
+  ol.steps > li h3 { margin: 4px 0 4px; font-size: 16px; }
+  .pass { color: var(--acc2); } .fail { color: var(--warn); }
+  label.tick { float: right; color: var(--dim); font-size: 13px; cursor: pointer; }
+  svg text { font-family: ui-monospace, Menlo, monospace; }
+  #console { display: grid; grid-template-columns: 340px 1fr; gap: 18px; }
+  @media (max-width: 760px) { #console { grid-template-columns: 1fr; } }
+  #dial { width: 340px; height: 340px; touch-action: none; cursor: grab; }
+  #trace { width: 100%; height: 120px; }
+  .read { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; }
+  .read b { font-weight: normal; color: var(--dim); }
+  #log { height: 120px; overflow: auto; background: #efe7d6; padding: 6px 8px; white-space: pre; font: 12px ui-monospace, Menlo, monospace; color: #5a5246; }
+  table { border-collapse: collapse; margin: 8px 0; }
+  td, th { padding: 3px 10px 3px 0; text-align: left; border-bottom: 1px solid var(--rule); font-size: 14px; }
+  th { color: var(--dim); font-weight: normal; }
+</style>
+</head>
+<body>
+<main>
+<h1>Haptic Handwheel — box day</h1>
+<p class="sub">What to do, in order, on the day the parts arrive: wire it, power it up safely, feel the first two feels, then let the bench measure the real motor. Nothing here has met hardware yet. It was written before the order, from the firmware and the parts list.</p>
+
+<div class="row">Your controller:
+  <button id="b-devkit" class="on" onclick="setBoard('devkit')">ESP32-DevKitC (on the order)</button>
+  <button id="b-nano" onclick="setBoard('nano')">Arduino Nano ESP32 (from the drawer)</button>
+</div>
+
+<h2>The wiring</h2>
+<svg id="wiring" viewBox="0 0 940 490" width="100%">
+  <defs><marker id="dot" viewBox="0 0 6 6" refX="3" refY="3" markerWidth="5" markerHeight="5"><circle cx="3" cy="3" r="3" fill="#2b2620"/></marker></defs>
+  <!-- bench supply -->
+  <rect x="20" y="30" width="170" height="120" rx="6" fill="#ece4d4" stroke="#2b2620"/>
+  <text x="34" y="54" font-size="14" font-weight="bold">BENCH SUPPLY</text>
+  <text x="34" y="76" font-size="12">12 V</text><text x="34" y="92" font-size="12">current knob 0.5 A</text>
+  <text x="34" y="116" font-size="12" fill="#a33b1f">output OFF</text><text x="34" y="132" font-size="12" fill="#a33b1f">until step 7</text>
+  <circle cx="176" cy="100" r="6" fill="#c2562a"/><text x="158" y="104" font-size="12">+</text>
+  <circle cx="176" cy="126" r="6" fill="#2b2620"/><text x="158" y="130" font-size="12">−</text>
+  <!-- capacitor across the rails -->
+  <g stroke="#2b2620" stroke-width="2.4" fill="none">
+    <line x1="262" y1="100" x2="262" y2="109"/><line x1="250" y1="109" x2="274" y2="109"/>
+    <path d="M 250 118 Q 262 113 274 118"/><line x1="262" y1="116" x2="262" y2="126"/>
+  </g>
+  <text x="206" y="52" font-size="11">470 µF 35 V</text>
+  <text x="206" y="66" font-size="11" fill="#a33b1f">long leg on +</text>
+  <text x="206" y="80" font-size="11" fill="#a33b1f">stripe on −</text>
+  <!-- driver -->
+  <rect x="330" y="30" width="230" height="250" rx="6" fill="#ece4d4" stroke="#2b2620"/>
+  <text x="344" y="54" font-size="14" font-weight="bold">SimpleFOC Mini</text>
+  <text x="344" y="72" font-size="11" fill="#8a8274">DRV8313 · 8–35 V</text>
+  <g font-size="12">
+    <text x="344" y="104">VM</text><text x="344" y="130">GND</text>
+    <text x="344" y="170">IN1</text><text x="344" y="194">IN2</text><text x="344" y="218">IN3</text>
+    <text x="344" y="242">EN</text><text x="344" y="266">GND</text>
+    <text x="510" y="104">M1</text><text x="510" y="130">M2</text><text x="510" y="156">M3</text>
+  </g>
+  <!-- motor -->
+  <circle cx="770" cy="110" r="70" fill="#ece4d4" stroke="#2b2620"/>
+  <circle cx="770" cy="110" r="14" fill="#f6f1e7" stroke="#2b2620"/>
+  <text x="726" y="30" font-size="13" font-weight="bold">GM5208-12</text>
+  <text x="716" y="200" font-size="11" fill="#8a8274">3 leads, any order</text>
+  <!-- encoder -->
+  <rect x="680" y="250" width="200" height="180" rx="6" fill="#ece4d4" stroke="#2b2620"/>
+  <text x="694" y="274" font-size="14" font-weight="bold">AS5048A encoder</text>
+  <text x="694" y="290" font-size="11" fill="#8a8274">on the motor's back · SPI</text>
+  <g font-size="12"><text x="704" y="316">3V3</text><text x="704" y="336">GND</text><text x="704" y="356">CSn</text><text x="704" y="376">CLK</text><text x="704" y="396">MISO</text><text x="704" y="416">MOSI</text></g>
+  <!-- esp32 -->
+  <rect x="20" y="230" width="240" height="220" rx="6" fill="#2b2620"/>
+  <text id="w-board" x="150" y="406" font-size="14" font-weight="bold" fill="#f6f1e7">ESP32-DevKitC</text>
+  <text x="150" y="424" font-size="11" fill="#d8cfbd">USB to the laptop</text>
+  <g font-size="12" fill="#f6f1e7">
+    <text id="w-a" x="34" y="300">GPIO25</text><text id="w-b" x="34" y="320">GPIO26</text><text id="w-c" x="34" y="340">GPIO27</text>
+    <text id="w-en" x="34" y="360">GPIO14</text><text x="34" y="384">GND</text><text x="34" y="406">3V3</text>
+    <text id="w-cs" x="150" y="300">GPIO5</text><text id="w-sck" x="150" y="320">GPIO18</text><text id="w-miso" x="150" y="340">GPIO19</text><text id="w-mosi" x="150" y="360">GPIO23</text>
+  </g>
+  <g fill="none" stroke-width="2.2">
+    <!-- power rails -->
+    <path d="M182 100 H340" stroke="#c2562a"/><path d="M182 126 H340" stroke="#2b2620"/>
+    <!-- motor -->
+    <path d="M540 100 H640 V82 H708" stroke="#a8823a"/><path d="M540 126 H660 V110 H700" stroke="#a8823a"/><path d="M540 152 H680 V138 H708" stroke="#a8823a"/>
+    <!-- board to driver: phases and enable -->
+    <path d="M90 296 H112 V166 H340" stroke="#2f6f73"/><path d="M90 316 H120 V190 H340" stroke="#2f6f73"/>
+    <path d="M90 336 H128 V214 H340" stroke="#2f6f73"/><path d="M90 356 H136 V238 H340" stroke="#2f6f73"/>
+    <!-- encoder SPI -->
+    <path d="M206 296 H600 V352 H700" stroke="#7a4f9a"/><path d="M214 316 H590 V372 H700" stroke="#7a4f9a"/>
+    <path d="M220 336 H580 V392 H700" stroke="#7a4f9a"/><path d="M220 356 H570 V412 H700" stroke="#7a4f9a"/>
+    <!-- 3V3 and the shared ground -->
+    <path d="M66 402 H300 V422 H640 V312 H700" stroke="#c2562a" stroke-dasharray="2 3"/>
+    <path d="M66 380 H310 V262 H340" stroke="#2b2620" stroke-dasharray="5 3"/>
+    <path d="M310 380 H630 V332 H700" stroke="#2b2620" stroke-dasharray="5 3"/>
+    <path d="M300 126 V262" stroke="#2b2620" stroke-dasharray="5 3"/>
+  </g>
+  <text x="330" y="470" font-size="11" fill="#8a8274">every ground meets: supply −, driver GND, board GND, encoder GND</text>
+  <text x="330" y="486" font-size="11" fill="#8a8274">keep the encoder wires short and away from the three motor leads</text>
+</svg>
+<table>
+  <tr><th>from the board</th><th>to</th><th>what it carries</th></tr>
+  <tr><td id="t-a">GPIO25, GPIO26, GPIO27</td><td>driver IN1, IN2, IN3</td><td>the three phase signals</td></tr>
+  <tr><td id="t-en">GPIO14</td><td>driver EN</td><td>enable; low = motor free</td></tr>
+  <tr><td id="t-cs">GPIO5</td><td>encoder CSn</td><td>chip select</td></tr>
+  <tr><td id="t-spi">GPIO18 / 19 / 23</td><td>encoder CLK / MISO / MOSI</td><td>the angle, 14 bits</td></tr>
+  <tr><td>3V3, GND</td><td>encoder 3V3, GND · driver GND</td><td>logic power, shared ground</td></tr>
+</table>
+<p class="note">These pins come from <code>handwheel/pins.h</code>, which picks the set by board when it compiles. The Nano ESP32 must be on <b>Tools → Pin Numbering → By Arduino pin</b> (its default). Check the pin names printed on your encoder's lead before trusting this drawing: iFlight's AS5048A board isn't documented on the shop page.</p>
+
+<h2>The day, in order</h2>
+<ol class="steps" id="steps">
+  <li><label class="tick"><input type="checkbox"> done</label><h3>Lay it out, nothing plugged in</h3>
+    Motor, encoder lead, two drivers (one is a spare), the board, the capacitor, the supply, the printed caps. Clamp the block to the desk; the base must not move when the knob pushes back. Fit the motor to the block with no cap on.</li>
+  <li><label class="tick"><input type="checkbox"> done</label><h3>Meter the three motor leads</h3>
+    Ohms across each pair: 1–2, 2–3, 1–3. The shop page says <b>15.2 Ω</b> across two leads. <span class="pass">Pass:</span> all three within about 5 % of each other. Half your reading is the per-phase number <code>--R</code> the bench wants (about 7.6). <span class="fail">If one pair reads open or very different</span>, stop: a broken winding, and the motor goes back.</li>
+  <li><label class="tick"><input type="checkbox"> done</label><h3>Prepare the Arduino IDE</h3>
+    <span id="ide-board">Board: <b>ESP32 Dev Module</b>. This needs the <b>esp32 by Espressif</b> core (Boards Manager), version 2.x; it is not on this laptop yet.</span> Library: <b>Simple FOC</b>, pinned to <b>2.3.3</b> (2.3.4 and later refuse the 2.x core). Open <code>firmware/handwheel/handwheel.ino</code>.</li>
+  <li><label class="tick"><input type="checkbox"> done</label><h3>Flash it over USB alone</h3>
+    Board on USB, nothing else connected. Upload. Open the console below (Connect), or the serial monitor at 921600. <span class="pass">Pass:</span> it says <code class="hello">hello handwheel ESP32-DevKitC</code> and <code>ready</code>. With no motor power the alignment does nothing; that's expected.</li>
+  <li><label class="tick"><input type="checkbox"> done</label><h3>If it says nothing</h3>
+    Press the board's reset button with the console connected. Check the baud is 921600. On the Nano, double-tap reset if the port vanished. Close the Arduino serial monitor before using the console or <code>run_bench.py</code>: only one program can hold the port.</li>
+  <li><label class="tick"><input type="checkbox"> done</label><h3>Wire the encoder, then turn it by hand</h3>
+    Board unplugged, wire the six encoder lines, plug back in. In the console, turn the motor by hand. <span class="pass">Pass:</span> the dial follows you smoothly, one turn of the motor is one turn on the dial, and it reads about 6.28 rad a turn. <span class="fail">If the angle is stuck at 0</span>: CSn or MISO. <span class="fail">If it jumps around</span>: the lead is too long or lies against the motor wires.</li>
+  <li><label class="tick"><input type="checkbox"> done</label><h3>Power, carefully</h3>
+    Board unplugged, supply output off. Wire driver to board, motor to driver, capacitor across VM and GND with the <b>long leg on +</b> (the stripe is −). Set the supply to <b>12 V</b> and the current knob to <b>0.5 A</b>. Plug in USB, then switch the supply output on, then press reset. <span class="pass">Pass:</span> a small twitch (the alignment), then <code>ready</code>, and the supply shows well under 0.3 A at rest. <span class="fail">If the current pins at 0.5 A or the motor buzzes</span>: output off, and check the phase wires and the grounds. Your hand on the supply's output button is the stop switch for the whole day.</li>
+  <li><label class="tick"><input type="checkbox"> done</label><h3>The first feel: the centring spring</h3>
+    In the console press <b>centre</b>. Turn the knob away and let go. <span class="pass">Pass:</span> it comes back to centre without wobbling, landing within a degree or two, and pushes back harder the further you turn it. Near centre you'll feel a faint notch: that is the small push that carries it the last few degrees past friction and the motor's bumps (<code>set kick 0</code> takes it away, and then it stops up to 18° short). <span class="fail">If it runs away, or pushes you away from centre</span>: the motor's direction is the wrong way round from the encoder's. Press <b>stop</b>, swap any two motor leads, reset.</li>
+  <li><label class="tick"><input type="checkbox"> done</label><h3>The second feel: frets</h3>
+    Press <b>frets</b>. Twenty-four clicks a turn. You will also feel the motor's own 84 bumps a turn underneath, as a fine grain; the bench maps them next and the firmware cancels them. Let go between two clicks: it should fall into one.</li>
+  <li><label class="tick"><input type="checkbox"> done</label><h3>Let the bench measure the real motor</h3>
+    Close the console's connection (Disconnect). In a terminal, from <code>firmware/bench</code>:<br>
+    <code>/usr/local/bin/python3 run_bench.py --R 7.6</code> (your meter's half-reading in place of 7.6)<br>
+    It runs the five tests in order and stops twice to ask: once to fit the 40 g disc, once to start recording the contact mic in your DAW (save it as <code>chirp_mic.wav</code> beside the script). About three minutes. That Python is the one on this laptop with numpy and scipy. Rehearse it any time with <code>--fake</code>.</li>
+  <li><label class="tick"><input type="checkbox"> done</label><h3>Hand the numbers back</h3>
+    The run ends by printing the motor's numbers, the <code>set</code> lines to paste into the console, a picture, and a new <code>handwheel/cog_map.h</code>. Upload the firmware once more so it cancels the bumps. Then tell the page; the next cycle retunes the feel lab to the real motor and the touch tests begin.</li>
+</ol>
+
+<h2>The console</h2>
+<p>Talks to the knob straight from Chrome over USB (Web Serial), so the first feels need nothing else. <b>Pretend knob</b> runs the same protocol against the feel lab's simulated motor, so you can try it today: drag the dial to hold it, release to let go.</p>
+<p class="note" id="serial-note" style="display:none">This browser can't reach USB from here. Open this file directly in Chrome (not inside the board's preview) to use Connect. Pretend knob works anywhere.</p>
+<div class="row">
+  <button id="connect" onclick="connect()">Connect</button>
+  <button id="pretend" onclick="startPretend()">Pretend knob</button>
+  <button class="stop" onclick="stopAll()">stop (feel free, play 0)</button>
+  <span id="status" class="mono" style="color:var(--dim)">not connected</span>
+</div>
+<div id="console">
+  <div>
+    <svg id="dial" viewBox="-170 -170 340 340"></svg>
+  </div>
+  <div>
+    <div class="row" id="feels"></div>
+    <div class="read mono">
+      <b>feel</b><span id="r-feel">—</span>
+      <b>motor's brake</b><span id="r-brake">—</span>
+      <b>angle</b><span id="r-th">—</span>
+      <b>speed</b><span id="r-om">—</span>
+      <b>torque</b><span id="r-tau">—</span>
+    </div>
+    <svg id="trace" viewBox="0 0 600 120" preserveAspectRatio="none"></svg>
+    <div class="row">
+      <select id="pk"></select>
+      <input id="pv" size="8" value="0.03">
+      <button onclick="sendSet()">set</button>
+      <span class="mono" style="color:var(--dim)">changes only the selected feel</span>
+    </div>
+    <div class="row">
+      play into the hand <input id="play" type="range" min="-0.05" max="0.05" step="0.001" value="0" oninput="send('play ' + this.value); document.getElementById('playv').textContent = (+this.value).toFixed(3) + ' N·m'">
+      <span id="playv" class="mono">0.000 N·m</span>
+    </div>
+    <div id="log"></div>
+  </div>
+</div>
+<p class="note warn">The pretend knob uses guessed motor numbers. A feel that's calm here may ring on the real motor, and the other way round; that's what step 10 is for.</p>
+</main>
+
+<script>
+/*__ENGINE__*/
+</script>
+<script>
+// ── board pins (mirror of firmware/handwheel/pins.h) ──
+const BOARDS = {
+  devkit: { name: 'ESP32-DevKitC', a: 'GPIO25', b: 'GPIO26', c: 'GPIO27', en: 'GPIO14', cs: 'GPIO5', sck: 'GPIO18', miso: 'GPIO19', mosi: 'GPIO23',
+    ide: 'Board: <b>ESP32 Dev Module</b>. This needs the <b>esp32 by Espressif</b> core (Boards Manager), version 2.x; it is not on this laptop yet.' },
+  nano: { name: 'Arduino Nano ESP32', a: 'D2', b: 'D3', c: 'D4', en: 'D5', cs: 'D10', sck: 'D13', miso: 'D12', mosi: 'D11',
+    ide: 'Board: <b>Arduino Nano ESP32</b>, with Tools → Pin Numbering → <b>By Arduino pin</b>. Its core is already on this laptop, and the sketch compiles for it.' },
+};
+function setBoard(k) {
+  const B = BOARDS[k], $ = (id) => document.getElementById(id);
+  $('b-devkit').classList.toggle('on', k === 'devkit'); $('b-nano').classList.toggle('on', k === 'nano');
+  $('w-board').textContent = B.name;
+  for (const p of ['a', 'b', 'c', 'en', 'cs', 'sck', 'miso', 'mosi']) $('w-' + p).textContent = B[p];
+  $('t-a').textContent = `${B.a}, ${B.b}, ${B.c}`; $('t-en').textContent = B.en; $('t-cs').textContent = B.cs;
+  $('t-spi').textContent = `${B.sck} / ${B.miso} / ${B.mosi}`;
+  $('ide-board').innerHTML = B.ide;
+  document.querySelectorAll('.hello').forEach((e) => e.textContent = 'hello handwheel ' + B.name);
+}
+document.querySelectorAll('ol.steps input').forEach((c) => c.onchange = () => c.closest('li').classList.toggle('done', c.checked));
+
+// ── the console ──
+const FEEL_NAMES = ['centre', 'frets', 'string', 'struck', 'pendulum', 'follow', 'turntable', 'free'];
+const PARAMS = { centre: ['k', 'kick', 'kickW', 'rest'], frets: ['peak', 'kick', 'semisPerTurn'], string: ['k3'], struck: ['k', 'damp', 'rest'],
+  pendulum: ['k', 'damp', 'rest'], follow: ['k', 'damp'], turntable: ['rpm', 'kv', 'cap', 'ki', 'ffB', 'ffC'], free: [] };
+const COMMON = ['cancelBrake', 'tauMax', 'cogGain'];
+const st = { th: 0, om: 0, tau: 0, feel: '—', brake: null, trace: [], link: null };
+const $ = (id) => document.getElementById(id);
+function log(s) { const L = $('log'); L.textContent += s + '\n'; if (L.textContent.length > 6000) L.textContent = L.textContent.slice(-4000); L.scrollTop = L.scrollHeight; }
+function status(s) { $('status').textContent = s; }
+
+FEEL_NAMES.forEach((n) => { const b = document.createElement('button'); b.textContent = n; b.id = 'f-' + n; b.onclick = () => send('feel ' + n); $('feels').appendChild(b); });
+function fillParams() {
+  const opts = (PARAMS[st.feel] || []).concat(COMMON);
+  $('pk').innerHTML = opts.map((o) => `<option>${o}</option>`).join('');
+}
+fillParams();
+function sendSet() { send(`set ${$('pk').value} ${$('pv').value}`); }
+function stopAll() { send('feel free'); send('play 0'); $('play').value = 0; $('playv').textContent = '0.000 N·m'; }
+
+function onLine(l) {
+  if (l.startsWith('a ')) {
+    const p = l.split(' '); st.th = +p[1]; st.om = +p[2]; st.tau = +p[3];
+    return;
+  }
+  if (l.startsWith('f ')) {   // f <name> brake <x>
+    const p = l.split(' '); st.feel = p[1]; st.brake = +p[3];
+    FEEL_NAMES.forEach((n) => $('f-' + n).classList.toggle('on', n === st.feel)); fillParams();
+  }
+  if (l.startsWith('b,')) return;
+  log('← ' + l);
+}
+function send(l) { if (!st.link) { log('(not connected) ' + l); return; } log('→ ' + l); st.link.write(l); }
+
+// real knob over Web Serial
+if (!('serial' in navigator)) { $('serial-note').style.display = ''; $('connect').disabled = true; }
+async function connect() {
+  if (st.link && st.link.close) { await st.link.close(); return; }
+  try {
+    const port = await navigator.serial.requestPort();
+    await port.open({ baudRate: 921600 });
+    const enc = new TextEncoderStream(); enc.readable.pipeTo(port.writable);
+    const writer = enc.writable.getWriter();
+    const dec = new TextDecoderStream(); port.readable.pipeTo(dec.writable).catch(() => {});
+    const reader = dec.readable.getReader();
+    let alive = true;
+    st.link = { write: (l) => writer.write(l + '\n'),
+      close: async () => { alive = false; try { await reader.cancel(); await writer.close(); await port.close(); } catch (e) {} st.link = null; $('connect').textContent = 'Connect'; status('disconnected'); } };
+    $('connect').textContent = 'Disconnect'; status('connected · 921600');
+    send('hello');
+    let buf = '';
+    while (alive) {
+      const { value, done } = await reader.read(); if (done) break;
+      buf += value; let i;
+      while ((i = buf.indexOf('\n')) >= 0) { onLine(buf.slice(0, i).trim()); buf = buf.slice(i + 1); }
+    }
+  } catch (e) { status('could not connect: ' + e.message); }
+}
+
+// pretend knob: the firmware's protocol on the feel lab's engine
+function startPretend() {
+  if (st.link && st.link.close) st.link.close();
+  const mid = BRAKES.find((b) => b.id === 'mid').b, off = BRAKES.find((b) => b.id === 'cancelled').b;
+  const eng = makeEngine({ cog: 1, cogLeft: 1, stick: true, bMotor: mid });
+  const make = {   // firmware defaults(): each feel its own settings and brake
+    centre: () => [FEELS.centre(), 0], frets: () => [FEELS.frets({ kick: 0.006 }), 0], string: () => [FEELS.string(), 0],
+    struck: () => [FEELS.struck(), 1], pendulum: () => [FEELS.struck({ law: 'pendulum' }), 1], follow: () => [FEELS.follow(), 0],
+    turntable: () => [FEELS.turntable(), 1], free: () => [null, 1],
+  };
+  const bank = {}; for (const n of FEEL_NAMES) { const [f, cb] = make[n](); bank[n] = { f, cb }; }
+  let cur = 'centre', pending = ['hello handwheel pretend knob', 'ready'];
+  const select = (n) => { cur = n; const b = bank[n]; eng.setFeel(b.f); eng.P.bMotor = b.cb ? off : mid; pending.push(`f ${n} brake ${b.cb.toFixed(2)}`); };
+  select('centre');
+  let alive = true;
+  st.link = {
+    write: (l) => {
+      const p = l.trim().split(' ');
+      if (p[0] === 'hello') pending.push('hello handwheel pretend knob', 'ready');
+      else if (p[0] === 'feel') select(FEEL_NAMES.includes(p[1]) ? p[1] : 'free');
+      else if (p[0] === 'play') eng.s.extTorque = +p[1] || 0;
+      else if (p[0] === 'set') {
+        const k = p[1], v = +p[2], b = bank[cur];
+        if (k === 'cancelBrake') { b.cb = v; eng.P.bMotor = v ? off : mid; }
+        else if (k === 'tauMax') eng.P.tauMax = v;
+        else if (k === 'cogGain') eng.P.cogLeft = 1 - Math.max(0, Math.min(1, v)) * 0.92;
+        else if (k === 'semisPerTurn') eng.P.semisPerTurn = v;
+        else if (k === 'k3' && b.f) b.f.k3 = v;
+        else if (b.f && k in b.f) b.f[k] = v;
+        else if (k === 'semisPerTurn') eng.P.semisPerTurn = v;
+      } else if (p[0] === 'bench') pending.push('(the pretend knob has no bench; run_bench.py --fake rehearses it)', 'b,done');
+    },
+    close: () => { alive = false; st.link = null; status('pretend knob stopped'); $('pretend').classList.remove('on'); },
+    eng,
+  };
+  $('pretend').classList.add('on'); status('pretend knob · guessed motor · cogging raw');
+  let last = performance.now(), emitT = 0;
+  (function tick(now) {
+    if (!alive) return;
+    let steps = Math.min(4800, Math.round((now - last) / 1000 * eng.P.fs)); last = now;
+    for (let i = 0; i < steps; i++) eng.step();
+    while (pending.length) onLine(pending.shift());
+    onLine(`a ${eng.s.th.toFixed(5)} ${eng.s.om.toFixed(4)} ${eng.s.tauFeel.toFixed(4)}`);
+    requestAnimationFrame(tick);
+  })(last);
+}
+
+// dial: drag to hold (pretend knob only; on the real knob your hand is the hand)
+const dial = $('dial');
+let drag = null;
+function ptrAngle(e) { const r = dial.getBoundingClientRect(); return Math.atan2(e.clientY - r.top - r.height / 2, e.clientX - r.left - r.width / 2) + Math.PI / 2; }
+dial.addEventListener('pointerdown', (e) => {
+  const eng = st.link && st.link.eng; if (!eng) return;
+  dial.setPointerCapture(e.pointerId); const a = ptrAngle(e);
+  drag = { prev: a, target: eng.s.th }; eng.s.hand = true; eng.s.handTarget = eng.s.th; dial.style.cursor = 'grabbing';
+});
+dial.addEventListener('pointermove', (e) => {
+  if (!drag) return; const eng = st.link.eng, a = ptrAngle(e);
+  let d = a - drag.prev; d -= 2 * Math.PI * Math.round(d / (2 * Math.PI)); drag.prev = a; drag.target += d; eng.s.handTarget = drag.target;
+});
+const release = () => { if (!drag) return; drag = null; if (st.link && st.link.eng) st.link.eng.s.hand = false; dial.style.cursor = 'grab'; };
+dial.addEventListener('pointerup', release); dial.addEventListener('pointercancel', release);
+
+function draw() {
+  const th = st.th, ticks = [];
+  const n = st.feel === 'frets' ? 24 : st.feel === 'centre' || st.feel === 'struck' || st.feel === 'pendulum' || st.feel === 'string' ? 1 : 0;
+  for (let i = 0; i < 84; i++) { const a = i / 84 * 2 * Math.PI; ticks.push(`<line x1="${Math.sin(a) * 150}" y1="${-Math.cos(a) * 150}" x2="${Math.sin(a) * 156}" y2="${-Math.cos(a) * 156}" stroke="#d8cfbd" stroke-width="1"/>`); }
+  for (let i = 0; i < n; i++) { const a = i / n * 2 * Math.PI; ticks.push(`<line x1="${Math.sin(a) * 140}" y1="${-Math.cos(a) * 140}" x2="${Math.sin(a) * 160}" y2="${-Math.cos(a) * 160}" stroke="#c2562a" stroke-width="2"/>`); }
+  const tq = Math.max(-1, Math.min(1, st.tau / 0.06)), arc = tq * 1.2;
+  const ax = Math.sin(th), ay = -Math.cos(th), ex = Math.sin(th + arc), ey = -Math.cos(th + arc);
+  dial.innerHTML = `${ticks.join('')}
+    <circle r="118" fill="#e7dcc6" stroke="#2b2620" stroke-width="2"/>
+    <circle r="104" fill="none" stroke="#a8823a" stroke-width="1" stroke-dasharray="2 4"/>
+    ${Math.abs(arc) > 0.02 ? `<path d="M ${ax * 128} ${ay * 128} A 128 128 0 0 ${arc > 0 ? 1 : 0} ${ex * 128} ${ey * 128}" fill="none" stroke="#2f6f73" stroke-width="6" stroke-linecap="round"/>` : ''}
+    <line x1="0" y1="0" x2="${ax * 110}" y2="${ay * 110}" stroke="#2b2620" stroke-width="5" stroke-linecap="round"/>
+    <circle r="14" fill="#2b2620"/>
+    <text x="0" y="62" text-anchor="middle" font-size="12" fill="#8a8274">${drag ? 'holding' : (st.link && st.link.eng ? 'drag to hold' : '')}</text>`;
+  $('r-feel').textContent = st.feel; $('r-brake').textContent = st.brake === null ? '—' : (st.brake ? 'cancelled (it moves freely)' : 'on (calm)');
+  $('r-th').textContent = `${th.toFixed(3)} rad · ${(th / Math.PI * 180).toFixed(1)}°`;
+  $('r-om').textContent = `${st.om.toFixed(2)} rad/s · ${(st.om / (2 * Math.PI) * 60).toFixed(1)} rpm`;
+  $('r-tau').textContent = `${(st.tau * 1000).toFixed(1)} mN·m`;
+  st.trace.push(th); if (st.trace.length > 240) st.trace.shift();
+  const lo = Math.min(...st.trace), hi = Math.max(...st.trace), span = Math.max(hi - lo, 0.2);
+  const pts = st.trace.map((v, i) => `${i * 600 / 239},${110 - (v - lo) / span * 100}`).join(' ');
+  $('trace').innerHTML = `<rect width="600" height="120" fill="#efe7d6"/><polyline points="${pts}" fill="none" stroke="#2b2620" stroke-width="1.5" vector-effect="non-scaling-stroke"/><text x="6" y="14" font-size="11" fill="#8a8274">angle, last 4 s</text>`;
+  requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
+</script>
+</body>
+</html>
