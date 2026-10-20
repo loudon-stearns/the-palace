@@ -152,3 +152,7 @@ A child's stack is the first part of an elder's, byte for byte. Growth adds; it 
 **[[Pages as Agents]]** — The dual view of the same mechanism. This entry names *what context injection does* (constructs an oriented mind); Pages as Agents names *what is being injected* (a dormant agent declared by the page itself, ready to wake). The two are coupled views of one system; neither is complete without the other.
 
 **[[Mixture of Experts]]** — The architectural pattern this injection enables. Each loaded entry is a routed expert; each person-page is an embodied expert in the practitioner's pool; the tiered loading protocol is the gating mechanism made explicit. See [[Mixture of Experts]] § The Three Substrates → Embodied for the substrate frame this injection system instantiates.
+
+## Active Baton
+
+[[Palace as Context Injection System — baton]] — drafted 2026-10-20

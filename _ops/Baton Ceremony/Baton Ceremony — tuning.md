@@ -85,3 +85,4 @@ What each baton taught the ceremony. Each item names what the run showed and the
 
 13. **A remainder card's words went stale within the hour.** Closing Wave 2 partial, the remainder put two open questions for Loudon in its move text (`bd0fbb77`); a first draft had even said they were "carried on the baton" when they weren't (arc:792). He answered them twenty minutes later, on the baton (`e94c79af`). The board can't be edited, so the open card still asks them. The baton supersedes it, and On-pickup step 2 sends the catcher there. Lesson: a remainder names the move and points at the baton; questions live on the baton, which can change. Spec change: none forced.
 - run · 2026-10-15 · v1.3 · Palace Ceremonies, Wave 3 re-batoned after Wave 2's partial close · taught item 13
+- run · 2026-10-20 · v1.3 · Palace as Context Injection System, the World files and every injection site (commissioning, at the Daily Page) · nothing new
