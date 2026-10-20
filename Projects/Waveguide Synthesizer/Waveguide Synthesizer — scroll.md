@@ -15,24 +15,41 @@ forward_vector: "I am Waveguide Synthesizer's scroll — the one page that alway
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T01:28:20.600Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-20T10:28:45.455Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 18 · last ran 2026-10-14 (today)
-- **Plan:** agreed 2026-10-13 (today) · 4 made things since
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** growing · **Steward:** cycle 19 · last ran 2026-10-20 (today)
+- **Plan:** agreed 2026-10-13 (7 days ago) · 6 made things since · **a proposed revision is waiting on you**
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — Study v1.11: the bow lets go like a real one. The slip follows bow position, the string rides the bow exactly, and a heavy bow crunches instead of freezing. (`waveguide-synthesizer-steward-043`)
-- **Last commit touching this project:** 2026-10-13 `3137fead` — steward(Waveguide Synthesizer): cycle 17 — SPINNING UP. HOME: [[Waveguide Synthesizer]]. Neighborhood loaded. Cycl…
+- **Last shipped:** 2026-10-20 (today) — Every step of your plan is built. Next: refine from your run through the lesson, then phone, then stage, then the stage question? (`waveguide-synthesizer-steward-046`)
+- **Last commit touching this project:** 2026-10-13 `88775483` — steward(Waveguide Synthesizer): cycle 18 — SPINNING UP. HOME: [[Waveguide Synthesizer]]. Neighborhood loaded. Cycl…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-20 — cycle 19 · taught item 1, proposed item 2 for canon
+- **Owed in the ledger:** nothing
+- **Proposed for canon:** 1 — item 2; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 2, from cycle 19 — 2026-10-20 — [[Waveguide Synthesizer — tuning]]
 
 ### Where this stands
 
-Waveguide Synthesizer is the browser string whose on-screen wave is the sound: two delay lines carry a right-going and a left-going wave, and their sum is the string you see and hear. It can be plucked, struck and bowed, and it sits on a soundboard. You set the order: make every slider visibly change the picture, then the body, then the bow, then even stiffness, then a guided teaching walk. The first four are built. Last cycle I flagged that the bow's physics was still off: a heavy bow froze the string, and how long the hair let go each cycle barely changed with where the bow sat. This cycle fixes that, so the bow is right before the teaching walk, the last step in the plan, puts it on stag…
+Waveguide Synthesizer is the browser string whose on-screen wave is the sound. Two delay lines carry a right-going and a left-going wave, and their sum is the string you see and hear. You can pluck, strike or bow it, and it sits on a soundboard. You set the order on 2026-10-13: make every slider visibly change the picture, then the body, then the bow, then even stiffness, then a guided teaching walk. The first four were built by last week; last cycle fixed the bow so it lets go the way a real one does. This cycle builds the last one, the teaching walk, so every move in the plan now exists. It's study v1.12: press L and the page takes you through the string in seven stops, at your own pace.
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 8:** Between replucks in the walk, the string goes quiet within about a second at higher notes while the soundboard keeps ringing, which may mean the board's tail is too long. _(in 5 notes, the latest cycle 17)_
+- **rough since cycle 10:** Not heard through speakers: the recordings use the stand-in clock again, and nobody has taken the lesson by hand. _(in 6 notes, the latest cycle 19)_
+- **rough since cycle 14:** The board's ripples are its true modes at their true levels, but with a soft bridge the pluck dies in a fifth of a second, so in stills the board is often caught nearly flat; _(in 2 notes, the latest cycle 15)_
+- **rough since cycle 14:** And a pinned string has no point where its own pull breaks the hair free, so it gets dragged further and further off its rest line. _(in 2 notes, the latest cycle 16)_
+- **rough since cycle 16:** The force slider now quietly scales with bow position, so the same number means a different press at different places. _(in 3 notes, the latest cycle 18)_
+- **rough since cycle 16:** Last cycle's small polish, making the pull dot visibly climb toward the limit line, is still not done. _(in 3 notes, the latest cycle 19)_
+- **rough since cycle 16:** The first slowed frame said 'breaking up' for a moment right after the slow-motion change. _(in 2 notes, the latest cycle 18)_
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `waveguide-synthesizer-steward-046` — proposed plan revision: the plan after the lesson · posted 2026-10-20 · options: adopt · keep
 
 ### Answered, not yet consumed
 
@@ -45,6 +62,20 @@ _None._
 - `waveguide-synthesizer-steward-025` — directional_decision → GRANTED — option_id=HEARD-BOTH (2026-10-13)
 - `waveguide-synthesizer-steward-022` — directional_decision → GRANTED — option_id=STROBE-DEFAULT; notes: "I am unable to hear anything in any of these examples, I wonder why this is?" (2026-09-24)
 - `waveguide-synthesizer-steward-014` — directional_decision → GRANTED — option_id=DROP-DECOMPOSITION (2026-06-25)
+
+### Runs
+
+- 2026-10-20 — cycle 19 · taught item 1, proposed item 2 for canon
+
+### Owed
+
+_Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **2.** 2026-10-20 · [[Waveguide Synthesizer]] · § Forward Vector: replace the paragraph that begins 'First move: a Shop brief to the Maker' — The section still names the first Sketch brief as the next move; the page has since built through all five steps of Loudon's plan.
 
 <!-- scroll:now:end -->
 
@@ -69,6 +100,90 @@ Written by Claude on Loudon's behalf, 2026-09-23: your last two cycles posted no
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="waveguide-synthesizer-steward-046" -->
+### 2026-10-20 — cycle 19 — Every step of your plan is built. Next: refine from your run through the lesson, then phone, then stage, then the stage question?
+> still working · lesson shipped as study v1.12 · steward leans adopt
+
+Waveguide Synthesizer is the browser string whose picture is the sound. The plan you agreed on 2026-10-13 had five steps: make every slider visibly change the picture, then the body, then the bow, then even stiffness, then a guided teaching walk. With study v1.12 the last one, the lesson, exists, so every step is built. One thing is still open: the first step said to refine the picture until you say every link reads, and you haven't taken it by hand yet. So I propose the next path starts with your run through the lesson. After that comes the Piece tier the page has always named: a phone, then a stage, then the question the forward vector asks. Does it earn a stage, or is it a test bed? The cost of adopting is that it puts your one sitting with the lesson first. If you would rather I keep polishing headless, choose keep and I'll work on the small fixes until you're free.
+
+**Artifacts:**
+- [bow-walk.mp4](Projects/Waveguide Synthesizer/offline-v1.11/bow-walk.mp4)
+- [bow-walk.wav](Projects/Waveguide Synthesizer/offline-v1.11/bow-walk.wav)
+- [step-13.png](Projects/Waveguide Synthesizer/offline-v1.11/frames/step-13.png)
+- [step-12.png](Projects/Waveguide Synthesizer/offline-v1.11/frames/step-12.png)
+- [step-11.png](Projects/Waveguide Synthesizer/offline-v1.11/frames/step-11.png)
+- [step-10.png](Projects/Waveguide Synthesizer/offline-v1.11/frames/step-10.png)
+- [step-09.png](Projects/Waveguide Synthesizer/offline-v1.11/frames/step-09.png)
+- [step-08.png](Projects/Waveguide Synthesizer/offline-v1.11/frames/step-08.png)
+- [step-07.png](Projects/Waveguide Synthesizer/offline-v1.11/frames/step-07.png)
+- [step-06.png](Projects/Waveguide Synthesizer/offline-v1.11/frames/step-06.png)
+- [step-05.png](Projects/Waveguide Synthesizer/offline-v1.11/frames/step-05.png)
+- [step-04.png](Projects/Waveguide Synthesizer/offline-v1.11/frames/step-04.png)
+<sub>`waveguide-synthesizer-steward-046` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="waveguide-synthesizer-steward-045" -->
+### 2026-10-20 — cycle 19 — Study v1.12 adds the lesson: seven stops through the string, one control each, that wait for you and tick off when your hand has done the thing.
+> shipped · every step of the plan now built · steward leans: you take the lesson, then we aim at the stage
+
+**What [study v1.12](obsidian://open?vault=The%20Palace&file=Projects/Waveguide%20Synthesizer/study-v1.12-the-lesson/index.html) adds:** a button, *the lesson (L)*. The stops come in the order you gave: **pluck, reflection, loss, pitch, stiffness, bow, body**. Each stop:
+
+- **lights one control and dims the rest**, so there's only one thing to touch;
+- says, in three short lines, what to **do**, what to **watch** and what to **hear**;
+- **waits.** Nothing moves on until you press next (or →). Back (←) and leave (Esc) work at any point;
+- **ticks itself off when your own hand has done it.** That means a slider swept across most of its range, or, at the pluck stop, two plucks far apart. When it ticks, next glows and a ✓ fills that stop's dot. Only real hands count. Next works whether or not the stop has ticked;
+- has **show me**, which moves the control once for you. It doesn't tick the stop.
+
+**Each stop sets the view it needs.** Pluck and reflection switch to the replay view, which plays back the first three cycles after a pluck, slowly. There you can see the bump split into two halves running apart (the two delay lines), and each half come back upside down from the post and the block. The other stops use the strobe view. At the pitch and body stops the page plucks again whenever the string goes quiet, so you can just drag. At the bow stop the bow goes on and **stays on when you let go of the slider**. Before this, letting go of any slider lifted the bow. Leaving the stop stills the string first, the same way the walk does, so the bow comes off without a crack.
+
+**Nothing is staged.** The lesson only sets sliders and views, the same ones a hand would move. Walk the links (W) is still there. The lesson and the walk take turns: starting either one stops the other.
+
+**Where the card sits.** My first version put it at the top, and it covered the left half of the string, the nut included. That was exactly where the pluck stop tells you to look. So the card now sits below the string, in the bow-grip chart's place. The chart only matters at the bow stop, so it's hidden at the other six; at the bow stop the chart comes back and the card moves to the lower right. I also cut every stop's words to about half.
+
+**How I checked it:** I drove the page in Chrome the way a learner would, with a real mouse. I clicked the string at the middle and near an end, dragged each stop's slider, pressed space to pluck, pressed show me once at the stiffness stop, and pressed next between stops. I recorded the picture and the engine's own sound the whole way and photographed every stop before and after the hand. All seven stops ticked from the hand. Show me alone did not tick the stop. The bow stayed on after the mouse let go. Finishing closed the card with the bow off. There were no page errors, and every stop peaked between −14.2 and −5.1 dBFS (the −5.1 is the bow stop at full force, crunching, which is what it should do there).
+
+**Passed over:** making next wait until the stop ticks. It would make the lesson feel like a test. You might already know a stop and want to skip it.
+
+**Artifacts:**
+- [study v1.12, playable: click to start, then press L for the lesson (→ next, ← back, Esc leave).](Projects/Waveguide Synthesizer/study-v1.12-the-lesson/index.html)
+- [the whole lesson taken by a real mouse, picture and sound, about 112 s.](Projects/Waveguide Synthesizer/offline-v1.12/lesson-run.mp4)
+- [all seven stops after the hand, plus the pluck stop before it, on one sheet.](Projects/Waveguide Synthesizer/offline-v1.12/lesson-sheet.png)
+- [the pluck stop: the replayed bump on its way to the ends, the card below the string.](Projects/Waveguide Synthesizer/offline-v1.12/frames/pluck-b.png)
+- [the reflection stop, slowed to 7.7 s a cycle: one half has come back from the post, the other is reaching the block.](Projects/Waveguide Synthesizer/offline-v1.12/frames/reflection-b.png)
+- [the stiffness stop at full: the rod, and the ladder's bars fanned far right of their rungs.](Projects/Waveguide Synthesizer/offline-v1.12/frames/stiffness-b.png)
+- [the bow stop at full force: the grip chart says crunching, the card has moved to the lower right.](Projects/Waveguide Synthesizer/offline-v1.12/frames/bow-b.png)
+- [the lesson's sound alone, as the engine made it (stays on this Mac).](Projects/Waveguide Synthesizer/offline-v1.12/lesson-run.wav)
+- [no page errors; for each stop: what the card said, the focused control, the view, whether it ticked, the peak.](Projects/Waveguide Synthesizer/offline-v1.12/lesson-check.json)
+- [takes the lesson in Chrome with a real mouse, records it, and writes lesson-check.json.](Projects/Waveguide Synthesizer/offline-v1.12/lesson_check.mjs)
+- [applies every v1.12 change onto the v1.11 page.](Projects/Waveguide Synthesizer/offline-v1.12/patch_page.py)
+- [the stand-in speaker clock, carried over.](Projects/Waveguide Synthesizer/offline-v1.12/fake_audio_clock.js)
+
+_the lesson, taken by a real mouse in Chrome (offline-v1.12/lesson-check.json)_
+| stop | the one control | view | ticked by the hand | peak |
+| --- | --- | --- | --- | --- |
+| pluck | click the string (middle, then near an end) | replay, 4 s a cycle | yes | −13.1 dBFS |
+| reflection | slow motion | replay | yes | −14.2 dBFS |
+| loss | brightness | strobe | yes | −11.8 dBFS |
+| pitch | pitch | strobe, replucks itself | yes | −10.1 dBFS |
+| stiffness | stiffness (show me first: did not tick) | strobe | yes | −11.4 dBFS |
+| bow | bow force, bow held on | strobe + grip chart | yes, bow stayed on | −5.1 dBFS (crunch) |
+| body | body size | strobe, replucks itself | yes | −10.6 dBFS |
+
+_Proposed for canon:_ Waveguide Synthesizer (§ Forward Vector: replace the paragraph that begins 'First move: a Shop brief to the Maker') — The section still names the first Sketch brief as the next move; the page has since built through all five steps of Loudon's plan.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Not heard through speakers: the recordings use the stand-in clock again, and nobody has taken the lesson by hand. Only you can do that part. Also, I checked the layout only at 1280 × 720. On a small or short screen the card falls back to the old centred position and may cover the string. Last cycle's small polish, making the pull dot visibly climb toward the limit line, is still not done.
+
+_Next moves named:_ Your hands and ears on the lesson: open study v1.12, press L, and tell me which stop's watch or hear doesn't land. That also answers the open half of the first step in the plan: does every slider's link read? · With every step in the plan now built, I've posted a proposal for the next plan on its own card: refine from your run through the lesson, then phone, then stage, then the question of whether it earns a stage. · Small polish riding along: make the pull dot climb, and lay the lesson card out for short screens.
+<sub>`waveguide-synthesizer-steward-045` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-182d4f4db6" -->
+### 2026-10-20 — cycle 19
+
+taught item 1, proposed item 2 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="waveguide-synthesizer-steward-043" -->
 ### 2026-10-14 — cycle 18 — Study v1.11: the bow lets go like a real one. The slip follows bow position, the string rides the bow exactly, and a heavy bow crunches instead of freezing.
 > shipped · the bow is now honest · steward leans start the teaching walk next
