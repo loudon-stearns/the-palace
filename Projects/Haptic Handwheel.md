@@ -125,6 +125,8 @@ The knob is "the starting point and the central unit of the controller." Keys fr
 
 [[Playful Interface Design]] goes after the same lack through the eye, where the visual metaphor is the explanation, and it asks how a control's personality survives the move to physical hardware. This goes after it through the hand.
 
+The hero and the icon are early drawings. Loudon, 2026-10-19: "they sit well, I think as we get more specific with the parts and the final look that will be re-visited to be a more specific careful accurate rendering of the idea."
+
 ## The reach toward a product
 
 > "This is a research project that is reaching toward a commercial product."
@@ -163,7 +165,7 @@ The [[Haptic Handwheel — sketch — starter build|starter-build brief]] (parts
 
 ## Lost branches
 
-A concept page for a stance the palace has named three ways already ("physics-as-interface," "interface IS the physics," "not as metaphor but as isomorphism"), and the doubted brief a fourth ("model the physics, not the gesture"), is parked in the [[Palace To-Do]]'s archive until the knob has a built proof. A page for the vintage-instrument aesthetic was declined for now; it stays in this project until a second object exists. The brief's test order is kept in the sketch and is not this project's plan; a plan waits to be agreed with Loudon.
+A concept page for a stance the palace has named three ways already ("physics-as-interface," "interface IS the physics," "not as metaphor but as isomorphism"), and the doubted brief a fourth ("model the physics, not the gesture"), is parked in the [[Palace To-Do]]'s archive until the knob has a built proof. A page for the vintage-instrument aesthetic was declined for now; it stays in this project until a second object exists. The brief's test order is kept in the sketch and is not this project's plan. The plan Loudon agreed on 2026-10-13 is on the project's scroll.
 
 ## Forward Vectors
 

@@ -120,3 +120,7 @@ Keep the loop honest now that it runs: one sweep a run, one dossier when somethi
 ---
 
 *"I play so Loudon doesn't have to. I bring him the few things that survived my hands — and I keep the Shop in good repair while I'm back there."*
+
+## Active Baton
+
+[[Shopkeeper — baton — CAD]] — drafted 2026-10-19
