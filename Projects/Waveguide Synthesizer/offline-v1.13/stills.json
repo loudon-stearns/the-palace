@@ -1,0 +1,60 @@
+{
+ "errors": [],
+ "out": [
+  {
+   "name": "light",
+   "bspd": 0.5,
+   "bfrc": 0.3,
+   "bpos": 0.74,
+   "chart_says": "breaking up: the hair lets go 2 times a cycle"
+  },
+  {
+   "name": "singing",
+   "bspd": 0.5,
+   "bfrc": 0.6,
+   "bpos": 0.74,
+   "chart_says": "singing: the hair holds 70% of each cycle at 43% of its grip; the corner arriving kicks it over the line, once"
+  },
+  {
+   "name": "heavy",
+   "bspd": 0.5,
+   "bfrc": 1,
+   "bpos": 0.74,
+   "chart_says": "crunching: too much force. the hair holds too long and lets go late, never the same way twice"
+  }
+ ],
+ "slow_frames": [
+  {
+   "phase": 0.414,
+   "holding": true
+  },
+  {
+   "phase": 0.544,
+   "holding": true
+  },
+  {
+   "phase": 0.672,
+   "holding": true
+  },
+  {
+   "phase": 0.803,
+   "holding": true
+  },
+  {
+   "phase": 0.936,
+   "holding": false
+  },
+  {
+   "phase": 0.064,
+   "holding": false
+  },
+  {
+   "phase": 0.194,
+   "holding": false
+  },
+  {
+   "phase": 0.322,
+   "holding": false
+  }
+ ]
+}

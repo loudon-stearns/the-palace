@@ -31,3 +31,8 @@ What Waveguide Synthesizer's steward cycles taught the page, and the changes to 
    > The Sketch is long done and the Study tier is built: study v1.12 is a two-way waveguide you can pluck, strike and bow, with stiffness that means the same at every pitch, a soundboard under the bridge, every slider lighting the object it names, and a seven-stop lesson (pluck, reflection, loss, pitch, stiffness, bow, body) that waits for the learner. What comes next is the Piece tier: hear it taught by hand, take it to a phone, make it hold up on a stage, and answer the question this page was born asking: does it earn a stage, or is it a test bed?
 
 - run · 2026-10-20 · cycle 19 · taught item 1, proposed item 2 for canon
+
+## From cycle 20 — 2026-10-20
+
+3. Probe the engine before polishing a picture toward an expectation: the pull dot was meant to 'climb', and the engine showed a singing bow holds flat at half and gets kicked, so the right fix was a truer scale, not a climb. *(offered by the steward, cycle 20)*
+- run · 2026-10-20 · cycle 20 · taught item 3

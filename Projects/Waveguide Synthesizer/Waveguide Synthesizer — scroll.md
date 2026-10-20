@@ -15,37 +15,37 @@ forward_vector: "I am Waveguide Synthesizer's scroll — the one page that alway
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-20T10:28:45.455Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-20T10:41:34.998Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 19 · last ran 2026-10-20 (today)
-- **Plan:** agreed 2026-10-13 (7 days ago) · 6 made things since · **a proposed revision is waiting on you**
+- **Status:** active · **Stage:** growing · **Steward:** cycle 20 · last ran 2026-10-20 (today)
+- **Plan:** agreed 2026-10-13 (7 days ago) · 7 made things since · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-20 (today) — Every step of your plan is built. Next: refine from your run through the lesson, then phone, then stage, then the stage question? (`waveguide-synthesizer-steward-046`)
-- **Last commit touching this project:** 2026-10-13 `88775483` — steward(Waveguide Synthesizer): cycle 18 — SPINNING UP. HOME: [[Waveguide Synthesizer]]. Neighborhood loaded. Cycl…
+- **Last shipped:** 2026-10-20 (today) — Study v1.13: the bow chart's pull panel now shows a singing bow holding at about half its grip, then the passing corner kicking it free. (`waveguide-synthesizer-steward-047`)
+- **Last commit touching this project:** 2026-10-20 `220c1198` — steward(Waveguide Synthesizer): cycle 19 — SPINNING UP. HOME: [Waveguide Synthesizer](obsidian://open?vault=The%20…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-20 — cycle 19 · taught item 1, proposed item 2 for canon
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-20 — cycle 20 · taught item 3
 - **Owed in the ledger:** nothing
 - **Proposed for canon:** 1 — item 2; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 2, from cycle 19 — 2026-10-20 — [[Waveguide Synthesizer — tuning]]
+- **Latest lesson:** item 3, from cycle 20 — 2026-10-20 — [[Waveguide Synthesizer — tuning]]
 
 ### Where this stands
 
-Waveguide Synthesizer is the browser string whose on-screen wave is the sound. Two delay lines carry a right-going and a left-going wave, and their sum is the string you see and hear. You can pluck, strike or bow it, and it sits on a soundboard. You set the order on 2026-10-13: make every slider visibly change the picture, then the body, then the bow, then even stiffness, then a guided teaching walk. The first four were built by last week; last cycle fixed the bow so it lets go the way a real one does. This cycle builds the last one, the teaching walk, so every move in the plan now exists. It's study v1.12: press L and the page takes you through the string in seven stops, at your own pace.
+Waveguide Synthesizer is the browser string whose on-screen wave is the sound: two delay lines, one carrying the wave rightward and one leftward, and their sum is the string you see and hear. You can pluck, strike or bow it, and it sits on a soundboard. Every step of the plan you set on 2026-10-13 is now built. Every slider changes the picture, there's a body and a visible bow, stiffness shows on an overtone ladder, and v1.12 added the seven-stop lesson. A proposal for what comes next (refine from your run through the lesson, then phone, then stage) is still waiting for you on its own card. This cycle cleared a small fix that had been carried since cycle 16: the bow chart's pull dot was sup…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
 - **rough since cycle 8:** Between replucks in the walk, the string goes quiet within about a second at higher notes while the soundboard keeps ringing, which may mean the board's tail is too long. _(in 5 notes, the latest cycle 17)_
-- **rough since cycle 10:** Not heard through speakers: the recordings use the stand-in clock again, and nobody has taken the lesson by hand. _(in 6 notes, the latest cycle 19)_
-- **rough since cycle 14:** The board's ripples are its true modes at their true levels, but with a soft bridge the pluck dies in a fifth of a second, so in stills the board is often caught nearly flat; _(in 2 notes, the latest cycle 15)_
+- **rough since cycle 10:** Not heard through speakers: the recordings use the stand-in clock again, and nobody has taken the lesson by hand. _(in 7 notes, the latest cycle 20)_
 - **rough since cycle 14:** And a pinned string has no point where its own pull breaks the hair free, so it gets dragged further and further off its rest line. _(in 2 notes, the latest cycle 16)_
 - **rough since cycle 16:** The force slider now quietly scales with bow position, so the same number means a different press at different places. _(in 3 notes, the latest cycle 18)_
 - **rough since cycle 16:** Last cycle's small polish, making the pull dot visibly climb toward the limit line, is still not done. _(in 3 notes, the latest cycle 19)_
 - **rough since cycle 16:** The first slowed frame said 'breaking up' for a moment right after the slow-motion change. _(in 2 notes, the latest cycle 18)_
+- **rough since cycle 19:** The lesson card on short screens is still not laid out. _(in 2 notes, the latest cycle 20)_
 
 ### Open asks
 
@@ -65,6 +65,7 @@ _None._
 
 ### Runs
 
+- 2026-10-20 — cycle 20 · taught item 3
 - 2026-10-20 — cycle 19 · taught item 1, proposed item 2 for canon
 
 ### Owed
@@ -100,6 +101,68 @@ Written by Claude on Loudon's behalf, 2026-09-23: your last two cycles posted no
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="waveguide-synthesizer-steward-047" -->
+### 2026-10-20 — cycle 20 — Study v1.13: the bow chart's pull panel now shows a singing bow holding at about half its grip, then the passing corner kicking it free.
+> shipped · polish rough since cycle 16 settled · plan proposal still waiting on you
+
+For four cycles I'd been carrying a note that the pull dot should visibly climb toward the ceiling while the hair holds. Before drawing that, I ran the engine headless and logged the hair's pull through one cycle (offline-v1.13/pull_probe.mjs). At the singing default (force 0.6, bow at 0.74) the pull doesn't climb. It sits flat at 0.41 to 0.47 of the ceiling for the whole hold. Then the corner running round the string arrives and kicks it to about 0.9 and over in one sample, and the hair lets go. That's Helmholtz motion as the textbooks describe it: the release comes from the corner arriving, not from a slow build-up of pull. At force 1.0 the pull wanders anywhere from 0.06 to 0.99, which is the crunch. The old log axis squashed all of this, so a 0.43 hold sat just under the line and looked like 'nearly at the limit'.
+
+What changed in study v1.13: (1) Under the ceiling the panel is now linear in share of the grip: the floor means no pull, the dashed line means all of it. A hold at half sits halfway up the post. (2) The force slider still moves the ceiling line, now within the top 45% of the panel, so the post below it is never too short to read. (3) There's a 'half' tick, and the last cycle's holding pulls are drawn as marks on the post. A singing bow leaves one tight band just under half, and a crunching bow smears marks all the way up. (4) The chart's words now say it: 'singing: the hair holds 70% of each cycle at 43% of its grip; the corner arriving kicks it over the line, once.' Nothing in the engine changed; the probe gives the same numbers on v1.12 and v1.13. I built it through a patch script with the checked rep(), so every edit is verified, and photographed it in Chrome with no page errors.
+
+One older rough note I'm retiring rather than fixing. The force slider scales with bow position on purpose: near either end the ceiling rises the way a player presses harder near the bridge, so one force number sings all along the string. Undoing that would make the bow-position stop of the lesson break up at the ends. It's a choice, and I've stopped counting it as a fault.
+
+**Artifacts:**
+- [study v1.13: hold B to bow and watch the pull panel bottom-left of the grip chart.](Projects/Waveguide Synthesizer/study-v1.13-the-hair-holds-at-half/index.html)
+- [top: light (breaks up), singing (one band under half), heavy (marks smeared up the post); bottom: slowed frames at the default, holding then sliding.](Projects/Waveguide Synthesizer/offline-v1.13/pull-sheet.png)
+- [the whole page at the singing default, slowed.](Projects/Waveguide Synthesizer/offline-v1.13/still-singing-full.png)
+- [the singing panel up close.](Projects/Waveguide Synthesizer/offline-v1.13/frames/pull-singing.png)
+- [force 1.0: the pulls scatter up the post, the crunch made visible.](Projects/Waveguide Synthesizer/offline-v1.13/frames/pull-heavy.png)
+- [force 0.3: two let-gos a cycle.](Projects/Waveguide Synthesizer/offline-v1.13/frames/pull-light.png)
+- [slowed run, frame 0.](Projects/Waveguide Synthesizer/offline-v1.13/frames/slow-00.png)
+- [slowed run, frame 1.](Projects/Waveguide Synthesizer/offline-v1.13/frames/slow-01.png)
+- [slowed run, frame 2.](Projects/Waveguide Synthesizer/offline-v1.13/frames/slow-02.png)
+- [slowed run, frame 3: holding, just before the corner arrives.](Projects/Waveguide Synthesizer/offline-v1.13/frames/slow-03.png)
+- [slowed run, frame 4.](Projects/Waveguide Synthesizer/offline-v1.13/frames/slow-04.png)
+- [slowed run, frame 5: sliding, the dot out on the curve.](Projects/Waveguide Synthesizer/offline-v1.13/frames/slow-05.png)
+- [slowed run, frame 6.](Projects/Waveguide Synthesizer/offline-v1.13/frames/slow-06.png)
+- [slowed run, frame 7.](Projects/Waveguide Synthesizer/offline-v1.13/frames/slow-07.png)
+- [the headless probe: the hair's pull through one cycle at three forces.](Projects/Waveguide Synthesizer/offline-v1.13/pull_probe.mjs)
+- [every v1.13 change, applied onto v1.12 with checked replacements.](Projects/Waveguide Synthesizer/offline-v1.13/patch_page.py)
+- [the Chrome photographer for this cycle.](Projects/Waveguide Synthesizer/offline-v1.13/stills.mjs)
+- [what the chart said at each force; no page errors.](Projects/Waveguide Synthesizer/offline-v1.13/stills.json)
+- [tiles the photographs into the sheet.](Projects/Waveguide Synthesizer/offline-v1.13/sheet.sh)
+- [the stand-in speaker clock, copied from v1.12.](Projects/Waveguide Synthesizer/offline-v1.13/fake_audio_clock.js)
+- [last cycle's lesson photo, body stop before (left uncommitted then).](Projects/Waveguide Synthesizer/offline-v1.12/frames/body-a.png)
+- [lesson, body stop after.](Projects/Waveguide Synthesizer/offline-v1.12/frames/body-b.png)
+- [lesson, bow stop before.](Projects/Waveguide Synthesizer/offline-v1.12/frames/bow-a.png)
+- [lesson, loss stop before.](Projects/Waveguide Synthesizer/offline-v1.12/frames/loss-a.png)
+- [lesson, loss stop after.](Projects/Waveguide Synthesizer/offline-v1.12/frames/loss-b.png)
+- [lesson, pitch stop before.](Projects/Waveguide Synthesizer/offline-v1.12/frames/pitch-a.png)
+- [lesson, pitch stop after.](Projects/Waveguide Synthesizer/offline-v1.12/frames/pitch-b.png)
+- [lesson, pluck stop before.](Projects/Waveguide Synthesizer/offline-v1.12/frames/pluck-a.png)
+- [lesson, reflection stop before.](Projects/Waveguide Synthesizer/offline-v1.12/frames/reflection-a.png)
+- [lesson, stiffness stop before.](Projects/Waveguide Synthesizer/offline-v1.12/frames/stiffness-a.png)
+
+_the hair's pull while holding, as a share of its ceiling (196 Hz, bow at 0.74, from pull_probe.mjs)_
+| force | what the chart says | pull while holding | how it ends |
+| --- | --- | --- | --- |
+| 0.3 | breaking up, 2 let-gos | 0.43 – 0.53, a few spikes | lets go twice a cycle |
+| 0.6 | singing, holds 70% | flat 0.41 – 0.47 | corner kicks it to ~0.9 and over, once |
+| 1.0 | crunching | wanders 0.06 – 0.99 | lets go late, never the same twice |
+
+_Left rough:_ Not heard through speakers: the recordings use the stand-in clock again, and nobody has taken the lesson by hand. This cycle made no sound to hear; the engine is unchanged. The lesson card on short screens is still not laid out.
+
+_Next moves named:_ Your hands and ears on the lesson (v1.13 carries it unchanged): press L, and tell me which stop's 'watch' or 'hear' doesn't land. · Your answer on the proposed next plan (refine from your run through the lesson, then phone, then stage, then the stage question) — it's on its own card. · Small polish: lay the lesson card out for short screens; look at whether the board's tail rings too long between replucks at high notes. · For the eventual Max/RNBO build (paused until there are patching standards): the bow's ceiling is 0.05·400^force·(0.26/β)·vRef, sliding friction falls to 0.4× the ceiling, halfway by 0.1·vRef of slip; the chart wants the per-slice pull share posted with the grip trace.
+<sub>`waveguide-synthesizer-steward-047` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-410295a5da" -->
+### 2026-10-20 — cycle 20
+
+taught item 3
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="waveguide-synthesizer-steward-046" -->
 ### 2026-10-20 — cycle 19 — Every step of your plan is built. Next: refine from your run through the lesson, then phone, then stage, then the stage question?
 > still working · lesson shipped as study v1.12 · steward leans adopt
