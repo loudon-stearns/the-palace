@@ -31,11 +31,13 @@ The three standards do not compete. They divide the visual world by what each dr
 
 ## The Decision Rule
 
-The palace draws four kinds of things, and each has one right tool:
+The palace draws five kinds of things, and each has one right tool:
 
 **Mermaid — relationship and concept graphs.** Typed-link fragments, ceremony flows, schema relationships, process diagrams. Anything whose content is *nodes and named edges*. This is [[Mermaid Diagram Standard]]'s domain and it remains first for these. Use Mermaid whenever the diagram is a graph of relationships.
 
 **LaTeX / TikZ + pgfplots — technical and quantitative diagrams.** Signal-flow graphs, DSP block diagrams, filter topologies, pole-zero plots, magnitude/phase responses, annotated equations, labeled geometric constructions. Anything whose content is *engineering or mathematical structure* — where a summing junction, a `z^{-1}` delay block, a gain triangle, a plotted curve, or a typeset fraction carries the meaning. This is the domain this entry governs.
+
+**build123d — mechanical parts.** Anything that will be printed, cut or bolted: dimensioned sheets and exact solids, from a Python dimensions file whose every number names its source. The [[CAD Drafter]] holds it. It passes the same test as LaTeX: the source is plain text, and the sheet's numbers are SVG text a diff can show.
 
 **Raw SVG — custom visual grammar neither tool covers.** The color-coded, double-ringed typed-link demo graph at `_ops/Image Embedding Standard/palace-typed-link-graph-demo.svg` is the archetype: a bespoke visual language that is neither a Mermaid graph nor a technical figure. Hand-authored SVG remains the escape hatch, governed by [[Image Embedding Standard]].
 
