@@ -186,20 +186,28 @@ An entry's `stage` field doubles as a confidence interval on alignment between L
 
 The palace is readable from any vector using these paths, in priority order:
 
-1. **Filesystem (primary for write operations)**
-   `/Users/loudonstearns/Documents/The Palace`
+1. **Filesystem (primary for write operations):** the palace folder you were started in, whether a worktree or a clone of `/Users/loudonstearns/Documents/The Palace`. Work only there, and never read or write another copy by an absolute path: the main checkout is Loudon's ([[How the Palace Commits]]).
 2. **GitHub repository**
    `https://github.com/loudon-stearns/the-palace`
    Available via: browser, GitHub API
 3. **Memory fallback (palace unreachable)**
    If no path is accessible, tell Loudon immediately. Do not operate the palace blind.
-   Minimum fallback context is in the claude.ai Substrate Skill.
+   The claude.ai skill `the-substrate` is a pointer only: on a surface with no palace folder it says so, and offers the find as a document for a Claude Code session.
 
 Read CLAUDE.md first, then [[ELDER]], then SCHEMA.md (and `SCHEMA — Reference.md` before any write) and the relevant ceremony entry. Write operations must be deferred to a Claude Code or Cowork session — note proposed changes in the conversation for later execution.
 
 #### Committing from Cowork
 
 Never raw-commit from Cowork — it can rename but not delete files, so a bare `git commit` strands lockfiles and wedges the repo. Use the lock-safe committer instead: [[cowork-git]] (`_ops/cowork-git/SKILL.md`), reserved for small non-canon changes (canon still goes through the Deposit Ceremony). From a Mac-side Claude Code session the Cowork restriction does not apply, but the door does: commit by name through the palace committer, as every session does ([[How the Palace Commits]]).
+
+### Operating this environment
+
+How this environment is run, for any session on Loudon's Mac. The spend rule itself is in CLAUDE.md, where every agent is born with it.
+
+- **Which model does the work.** The session supervises: it plans, dispatches, reviews and decides, and keeps its own window for judgment. Sonnet runs the wide legs: searches, finders, fan-out, the Closing Well executor. Opus takes the long reading and drafting where the judgment is structural, and the hardest synthesis and judging; it draws on a tighter weekly cap, so it is used where it earns it. Haiku only does shallow, known-shape work. Palace docs are written for Sonnet-level readers and up. (Loudon, 2026-09-24 and 2026-09-25.)
+- **"reveal"** means show it in Finder: `open -R "<absolute path>"` highlights the file in its folder. Resolve the name first, across the worktrees too, not only the main checkout. Whenever you find or make a file he'll want, reveal it and say so. (Loudon, 2026-06-16.)
+
+The subagent lifecycle (a parked subagent costs nothing; a resume keeps its context) is a fact about the harness, not a choice of Loudon's, and stays in auto-memory, labelled operator-env native.
 
 ### Directory Structure
 
