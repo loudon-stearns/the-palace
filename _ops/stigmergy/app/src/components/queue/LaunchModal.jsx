@@ -9,8 +9,8 @@ import { launchInteractiveSession } from '../../adapters/launch.js';
 //
 // Complex work (catching a baton) wants a watchable, steerable session you talk
 // to — not a fire-and-forget headless worker. So this hands you a ready prompt
-// to paste into a fresh interactive session (Claude Code / Cowork / the
-// Companion), where you watch + steer in dialogue. MARK PICKED UP posts the
+// to paste into a fresh interactive session (Claude Code / the Companion),
+// where you watch + steer in dialogue. MARK PICKED UP posts the
 // paired handoff_picked_up so the QUEUE item self-clears (the baton's own
 // On-pickup checklist still governs the actual catch + file deletion).
 //
@@ -135,7 +135,7 @@ export default function LaunchModal({ context, onPickedUp, onClose }) {
 
         <div style={{ overflowY: 'auto', flex: 1, padding: '12px', display: 'flex', flexDirection: 'column', gap: 10 }}>
           <div style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11, textTransform: 'uppercase', letterSpacing: '.05em' }}>
-            launch a Claude Code terminal at the palace root — or copy the prompt for Cowork / the web
+            launch a Claude Code terminal at the palace root — or copy the prompt
           </div>
           <pre data-testid="launch-prompt" style={{
             margin: 0, border: '1px solid var(--phosphor-dim)', padding: '10px',
