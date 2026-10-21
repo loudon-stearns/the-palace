@@ -172,7 +172,7 @@ and (for ceremony changes) `_ops/Palace Ceremonies` are internally consistent â€
 **Access vectors:**
 - *Full:* Claude Code on the Mac (filesystem read/write; commits through the door, [[How the Palace Commits]])
 - *Planning only:* claude.ai online (can deliberate and draft changes; cannot write files or commit)
-- *Manual:* Obsidian + human (human makes edits; human runs git commit)
+- *Manual:* Obsidian + Loudon (he makes the edits; a Claude session commits them by name through the door, since he never commits by hand â€” [[How the Palace Commits]])
 - *Not supported:* GitHub cloud alone
 
 ---
