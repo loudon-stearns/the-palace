@@ -51,5 +51,31 @@ const rand = (seed) => () => ((seed = (seed * 16807) % 2147483647) / 2147483647)
   check('circle: below full reach a curve leaks only downward, within its parity', up < 1e-12, `largest leak up or across parity ${up.toExponential(1)}`);
 }
 
+// ── The table that travels: Dispersion Table (wavetable = lossless loop) ──────
+{
+  const M = mathOf('2026-10-20-the-table-that-travels', 'the-table-that-travels.html',
+    ['makeCycle', 'apLag', 'loopConfig', 'predictPartials', 'readTable', 'runLoop', 'spectrumDb', 'peakNear', 'maxDiff']);
+  const sr = 48000, P = Math.round(sr / 110), n = 3 * sr;
+  let worst = 0;
+  for (const shape of ['saw', 'pulse', 'soft']) {
+    const cyc = M.makeCycle(shape, P), cfg = M.loopConfig(P, 0, 8, 0);
+    worst = Math.max(worst, M.maxDiff(M.readTable(cyc, P, n), M.runLoop(cyc, cfg, n), n));
+  }
+  check('table: with only the delay in the loop, table and loop give the same samples', worst === 0, `largest difference ${worst} over 3 s, three cycles`);
+  for (const a of [-0.6, -0.8, -0.9]) {
+    const cyc = M.makeCycle('saw', P), cfg = M.loopConfig(P, 0, 8, a), lp = M.runLoop(cyc, cfg, n);
+    const pred = M.predictPartials(cfg, 24, sr), N = 32768, db = M.spectrumDb(lp, 2 * P, N);
+    const miss = Math.max(...pred.map((f) => Math.abs(M.peakNear(db, sr / N, f, 0.3 * sr / P) - f)));
+    const sharp = (pred[23] / (24 * pred[0]) - 1) * 100;
+    check(`table: a = ${a}, the round-trip condition predicts where the loop's partials land`, miss < 0.1, `worst miss ${miss.toFixed(3)} Hz over 24 partials; partial 24 is ${sharp.toFixed(1)}% sharp`);
+  }
+  {
+    const cyc = M.makeCycle('saw', P), cfg = M.loopConfig(P, 0.5, 8, 0), lp = M.runLoop(cyc, cfg, n), N = 16384;
+    const f20 = 20 * sr / (P + 0.5), lvl = (s) => { const db = M.spectrumDb(lp, s, N); return db[Math.round(M.peakNear(db, sr / N, f20, 40) / (sr / N))]; };
+    const lost = lvl(2 * P) - lvl(2 * P + sr), w = 2 * Math.PI * f20 / sr, predicted = -20 * Math.log10(Math.cos(w / 2)) * sr / (P + 0.5);
+    check('table: half a sample longer, the loop dulls at the rate its interpolator predicts', Math.abs(lost - predicted) < 1, `harmonic 20 lost ${lost.toFixed(2)} dB in 1 s; predicted ${predicted.toFixed(2)}`);
+  }
+}
+
 console.log(fails ? `\n${fails} FAIL` : '\nall PASS');
 process.exit(fails ? 1 : 0);
