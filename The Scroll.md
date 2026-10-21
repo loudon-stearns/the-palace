@@ -64,7 +64,8 @@ on the present. Four zones, delimited by HTML-comment markers so machinery can t
   not computed, and changed only with his yes; every change lands on the trail. See below.
 - **Standing Orders** — Loudon's zone, never regenerated. Taste, priorities, "stop asking me
   about X," written once. The steward reads it before anything else every cycle and it outranks
-  the steward's lean and any older grant. Edited on the scroll in STIGMERGY, nowhere else.
+  the steward's lean and any older grant. Edited on the scroll in STIGMERGY, or written there by
+  an elder on his explicit word, quoting him and the date; nowhere else.
 - **The making** — the trail, newest first, append-only. Every made thing the project posts to
   the board (`shipped_artifact`, a `PROOF`, an audition with media) becomes one section keyed on
   its message id: headline, ground, the account, the artifacts inline, the honest *left rough*

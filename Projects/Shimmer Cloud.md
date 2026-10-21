@@ -10,7 +10,7 @@ energy: medium
 hook_quality: 8
 beauty: 9
 who_leads: shared
-forward_vector: "I want to become a reverb that is also a prism — dispersing any input into a cloud of lenses, each delaying its frequencies a little differently and drifting a few cents in pitch, a texture that swells in before the sound and hangs long after it, where the population of lenses itself becomes the space."
+forward_vector: "I want to become a reverb that is also a prism — dispersing any input into a cloud of lenses, each delaying its frequencies its own way and drifting a few cents in pitch, a texture that swells in before the sound and hangs long after it, where the population of lenses itself becomes the space."
 links:
   - target: "[[Granular Synthesis]]"
     type: emerged-from
@@ -86,15 +86,7 @@ This is the principle behind the Eventide H3000 "shimmer" reverb algorithm, wher
 
 ## Where it stands
 
-Three lens models were built in May 2026, each a different answer to what the cloud is made of, all processing the same spoken phrase. They are kept in the bundle with their code and listening guides, and its `README.md` traces the lineage.
-
-- **A feedback lens.** One pitch-shifter in a loop, up an octave on every pass: the familiar shimmer tail.
-- **A droplet cloud.** Hundreds of copies of the input, each played a hair faster or slower, panned and scattered in time, so pitch and timing drift together.
-- **A dispersion cloud.** Hundreds of lenses that leave the pitch alone and delay each frequency by a different amount, which is what a prism does to light.
-
-At the revival on 2026-10-21 Loudon heard them side by side ([the listening page](Projects/Shimmer Cloud/proofs/2026-10-21-listening.html)) and chose the droplet and dispersion clouds together, with dispersion as the start. Every pair he compared was close, and his ear asked for the dispersion to be pushed harder until the modes come apart. Of the feedback lens he said: jump up an octave once, then make only subtle shifts inside the loop, "so that we establish an interval of shift and then we disperse at that interval. Repeated large jumps within a feedback loop are rarely good and often sound dated." He also wants the cloud to swell in before the dry, like reversed sound leading into it, and to leave longer ambient tails.
-
-The work ahead is on the scroll's Plan.
+Three lens models live in the bundle: a feedback lens, a droplet cloud and a dispersion cloud. Loudon's ear chose the droplet and dispersion clouds together, with dispersion as the start, and asked for the dispersion to be pushed harder until the modes come apart. What was made, how he met it, and the plan ahead are on the scroll.
 
 ## Forward Vectors
 - Push the dispersion until droplets, prism and drift each say something the others can't
