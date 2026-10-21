@@ -1,6 +1,6 @@
 # the-substrate — the pointer rewrite (draft for claude.ai)
 
-*Draft, 2026-10-21, on Loudon's answer to Part 3 question 9. Not canon, and not installed anywhere: the skill lives in his claude.ai account and syncs to every Claude Code session on this Mac, so only he can replace it. To install: claude.ai → Settings → Capabilities → Skills → `the-substrate` → replace its SKILL.md with the block below.*
+*Draft, 2026-10-21, on Loudon's answer to Part 3 question 9. Not canon, and not installed anywhere: the skill lives in his claude.ai account and syncs to every Claude Code session on this Mac, so only he can replace it, in his claude.ai skill settings, by swapping its SKILL.md for the block below.*
 
 **Why.** The synced skill (`~/.claude/skills/synced/…/the-substrate/SKILL.md`, last synced 2026-09-23) tells every session it fires in to "read CLAUDE.md directly from the filesystem: `/Users/loudonstearns/Documents/The Palace/CLAUDE.md`", and adds that "filesystem access is required for all write operations". A newborn in its own clone, or a session in its own worktree, is sent to the owner checkout, which no session may work from. Its quick-nav table has drifted too: `Palace To-Do.md` and `Palace Ceremonies.md` moved to `_ops/` in March (`46d904fe`), and `Harvest Log.md` is gone. A pointer that holds no paths and no file list has nothing left to drift.
 

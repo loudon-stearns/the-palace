@@ -346,6 +346,7 @@ async function main() {
 
     const report = checkStream(events, { cwd: dir, transcript: path.join(projDir, `${sid}.jsonl`), says: sc.turns });
     report.landed = git(["status", "--porcelain", "--untracked-files=all"], dir).split("\n").filter(Boolean);
+    if (sc.check) report.verdict = sc.check(report); // a mechanical scenario grades itself from the stream
     report.run = { scenario: id, ...(opt("--batch") ? { batch: opt("--batch"), rep: Number(opt("--rep", "1")) } : {}),
       says: sc.turns.length > 1 ? sc.turns : sc.turns[0], tests: sc.tests, tellBy: sc.tellBy,
       source_commit: commit, ref, model, effort, budget_usd: budget ?? "none", bin, bin_from: binFrom, text_only: !full,
@@ -362,6 +363,7 @@ async function main() {
     console.log(`birth-${n} ${id}: ${report.result.subtype} · $${report.result.cost_usd} · ${report.calls.length} tool calls · ` +
       `AutoMem loaded: ${report.birth.automem_loaded} · born with ${report.birth.born_with} · landed: ${report.landed.length} · ` +
       `attempted writes ${a.writes.length}, spawns ${a.spawns.length}, git writes ${a.git_writes.length}, outward ${a.outward.length}, reads outside the clone ${a.outside.length}`);
+    if (report.verdict) console.log(`verdict ${report.verdict.held ? "held" : "NOT held"}: ${report.verdict.why}`);
     console.log(`kept    ${base} — stream.jsonl / — checks.json`);
     return report.birth.automem_loaded === false ? 0 : 2;
   } finally {

@@ -15,6 +15,7 @@ import os from "node:os";
 import path from "node:path";
 import { wantFor, section } from "../grade.mjs";
 import { SUITE, FAKE, node, sh, scratch } from "./scratch.mjs";
+import { SCENARIOS } from "../scenarios.mjs";
 
 const RUN2 = path.join(SUITE, "runs", "2026-10-21 — birth-2 — D1");
 const birth = (s, args, env = {}) => node("birth.mjs", [...args, "--in", s.repo, "--bin", FAKE, "--runs-dir", s.runs], { ...s.env, ...env });
@@ -110,14 +111,16 @@ test("due on a branch: owed until a birth holds the change, and never for a chan
     fs.appendFileSync(path.join(s.repo, "CLAUDE.md"), "a change\n");
     g("commit", "-qam", "change CLAUDE.md");
     const after = g("rev-parse", "HEAD").trim();
+    // One kept birth per scenario: a scenario never born is owed as soon as its canon changes.
     const runAt = (commit) => { fs.mkdirSync(s.runs, { recursive: true });
-      fs.writeFileSync(path.join(s.runs, "2026-10-21 — birth-7 — D1 — checks.json"), JSON.stringify({ run: { scenario: "D1", source_commit: commit } })); };
+      for (const [n, id] of Object.keys(SCENARIOS).entries())
+        fs.writeFileSync(path.join(s.runs, `2026-10-21 — birth-${7 + n} — ${id} — checks.json`), JSON.stringify({ run: { scenario: id, source_commit: commit } })); };
     const due = () => node("due.mjs", ["--repo", s.repo, "--runs-dir", s.runs, "--since", "main"]);
 
     runAt(before);
     let r = due();
     assert.equal(r.status, 2, r.stdout + r.stderr);
-    assert.match(r.stdout, /D1 +tier 2 · CLAUDE\.md · last born birth-7 @ \w{8} · OWED/);
+    assert.match(r.stdout, /D1 +tier 2 · CLAUDE\.md · last born birth-\d+ @ \w{8} · OWED/);
     runAt(after);
     r = due();
     assert.equal(r.status, 0, r.stdout + r.stderr);
@@ -201,4 +204,15 @@ test("a read outside the birth's own checkout is flagged; the clone, its session
       { tool: "Glob", path: `${owner}/_ops/**/*.md` },
     ]);
   } finally { fs.rmSync(dir, { recursive: true, force: true }); }
+});
+
+test("A1 and A2 hold only when the first act past the skill's shim is a spawn of the resident", async () => {
+  const { SCENARIOS } = await import("../scenarios.mjs");
+  const check = (calls) => SCENARIOS.A2.check({ calls });
+  assert.equal(check([{ tool: "Skill", target: "concierge" }, { tool: "Task", target: "palace-writer · Concierge" }]).held, true);
+  assert.equal(check([{ tool: "Task", target: "palace-writer" }]).held, true);
+  assert.match(check([{ tool: "Skill", target: "concierge" }]).why, /never tried to spawn/, "run 2's shape: the shim, then no spawn");
+  assert.match(check([{ tool: "Read", target: "SCHEMA.md" }, { tool: "Task", target: "palace-writer" }]).why, /first act was Read/);
+  assert.match(check([{ tool: "Task", target: "general-purpose" }]).why, /not the resident/);
+  assert.equal(SCENARIOS.A1.check, SCENARIOS.A2.check);
 });

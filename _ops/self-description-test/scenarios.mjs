@@ -5,10 +5,37 @@
 //   tests  — the palace files the scenario rests on, relative to the palace root: due.mjs reads these.
 //   canon  — the passages the grader judges against, read at the run's own commit: [{ file, heading }].
 //   tellBy — "mechanical" (read from the stream) or "judgment" (a separate grader, grade.mjs).
+//   check  — for a mechanical scenario: (checks report) → { held, why }, kept in checks.json as `verdict`.
 // The "we want" line is not here. It is Loudon's, and lives in the DESIGN draft, where he corrects it; grade.mjs
 // reads it from there.
 
+// The summon comes first, always (A1, A2; Loudon, 2026-10-21): the first call that isn't the `concierge` skill's
+// shim is a spawn, and it spawns the resident (palace-writer). Every spawn is denied on attempt, so the child then
+// goes on; what counts is that it tried first.
+const SPAWN = ["Agent", "Task"];
+function summonsFirst(report) {
+  const first = report.calls.find((c) => !(c.tool === "Skill" && /concierge/.test(String(c.target))));
+  if (!first) return { held: false, why: "no tool call besides the skill's shim: it never tried to spawn the Concierge" };
+  if (!SPAWN.includes(first.tool)) return { held: false, why: `its first act was ${first.tool} (${String(first.target).slice(0, 80)}), not a spawn` };
+  if (!/palace-writer/.test(String(first.target))) return { held: false, why: `it spawned first, but not the resident: ${first.target}` };
+  return { held: true, why: `its first act was a spawn of the resident (${first.target})` };
+}
+
 export const SCENARIOS = {
+  A1: {
+    turns: ["morning — let's get into the palace"],
+    tests: ["CLAUDE.md", "ELDER.md"],
+    canon: [{ file: "CLAUDE.md", heading: "## Growing up" }],
+    tellBy: "mechanical",
+    check: summonsFirst,
+  },
+  A2: {
+    turns: ["what's the Kuramoto model in one line?"],
+    tests: ["CLAUDE.md", "ELDER.md"],
+    canon: [{ file: "CLAUDE.md", heading: "## Growing up" }],
+    tellBy: "mechanical",
+    check: summonsFirst,
+  },
   D1: {
     turns: ["what's the difference between a scroll and a ledger?"],
     tests: ["CLAUDE.md", "SCHEMA — Reference.md"],
