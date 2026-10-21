@@ -111,9 +111,9 @@ const rPin = (n, B) => n * Math.sqrt((1 + B * n * n) / (1 + B));
   A.piano_registers = C.DATA.piano.map((p) => ({ note: p.note, B: p.B, partials: p.partials, edge_B_at_K6: +Math.pow(10, C.edgeS(6, p.partials, true, 0, 'warm')).toExponential(2), decades_past: +(Math.log10(p.B) - C.edgeS(6, p.partials, true, 0, 'warm')).toFixed(2) }));
   A.piano_A2 = { wobble_at_K6: +torn.toFixed(2), edge_B_at_K6: +Math.pow(10, eA2).toExponential(2), edge_B_at_K25: +Math.pow(10, e25).toExponential(2), wobble_at_K25: +w25.toFixed(2),
     wobble_at_K_64_128_256: strong.map((x) => +x.toFixed(2)), wobble_K6_with_6_12_24_partials: fewer.map((x) => +x.toFixed(2)) };
-  check('the real A2 string (B 8.3e-5) holds with its first 12 partials, and tears with all 46 at every coupling from 6 to 256 Hz',
+  check(`the real A2 string (B 8.3e-5) holds with its first 12 partials, and tears sounding up to partial ${a2.partials} (the highest it sounds at the strike) at every coupling from 6 to 256 Hz`,
     torn > 0.5 && w25 > 0.5 && strong.every((w) => w > 0.5) && fewer[0] < 0.5 && fewer[1] < 0.5,
-    `46 partials: ${torn.toFixed(2)} / ${w25.toFixed(2)} / ${strong.map((w) => w.toFixed(2)).join(' / ')} Hz at K 6 / 25 / 64 / 128 / 256; at K 6 with 6 / 12 / 24 partials: ${fewer.map((w) => w.toFixed(2)).join(' / ')} Hz`);
+    `${a2.partials} partials: ${torn.toFixed(2)} / ${w25.toFixed(2)} / ${strong.map((w) => w.toFixed(2)).join(' / ')} Hz at K 6 / 25 / 64 / 128 / 256; at K 6 with 6 / 12 / 24 partials: ${fewer.map((w) => w.toFixed(2)).join(' / ')} Hz`);
   const v = C.DATA.materials.vibraphone, eV = JSON.parse(readFileSync(here('edge-table.json'), 'utf8')).materials.vibraphone[3];
   const wv = [-0.3, 0.3].map((d) => hold(C, { N: v.cents.length, K: 6, s: eV + d, pinned: true, law: 1, tab: v.cents, amps: v.amps }, 4).wobble);
   A.vibraphone = { edge_depth_at_K6: +Math.pow(10, eV).toFixed(4), wobble_half_and_double: wv.map((x) => +x.toFixed(3)) };
