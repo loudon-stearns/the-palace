@@ -12,7 +12,7 @@ forward_vector: "I hold the three directions for the template's editor, Bench, E
 
 Loudon, 2026-10-21: "I'd like the next job of the VST template to create a design standard, so that we have custom UI not the default sliders."
 
-All three directions here are drawn by one engine (`machinery/ui/editor.html`) from the plugins' own parameter tables. Nothing in them is laid out by hand. Each `*.png` is a mock page rendered by headless Chrome at the plugin's default size: Frustration at 760 × 520, Simple Synth at 900 × 600. To make the page itself, whose knobs can be dragged in a browser, run `python3 machinery/tools/ui.py mock plugins/Frustration --direction edge --out page.html`. The pages are 1.2 MB each, mostly the embedded fonts, so they aren't committed. The two `*-directions.png` sheets stack each plugin's three directions for reading on a phone.
+All three directions here are drawn by one engine (`machinery/ui/editor.html`) from the plugins' own parameter tables. Nothing in them is laid out by hand. Each `*.png` is a mock page rendered by headless Chrome at the plugin's default size: Frustration at 760 × 520, Simple Synth at 900 × 600. To make the page itself, whose knobs can be dragged in a browser, run `python3 machinery/tools/ui.py mock plugins/Frustration --direction edge --out page.html`. The pages are 1.2 MB each, mostly the embedded fonts, so they aren't committed. The two `*-directions.png` sheets stack each plugin's three directions for reading on a phone. `frustration-review.png` is a mock page with its review surface open: six moments, drawn from the editor's own layout.
 
 ## A · Bench
 

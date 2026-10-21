@@ -78,7 +78,8 @@ target_link_libraries(${PLUGIN_target}Harness
 juce_add_console_app(${PLUGIN_target}HostCheck VERSION ${PLUGIN_version})
 target_sources(${PLUGIN_target}HostCheck PRIVATE "${MACHINERY_DIR}/src/HostCheck.cpp")
 target_compile_definitions(${PLUGIN_target}HostCheck PUBLIC
-    JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 JUCE_PLUGINHOST_VST3=1 JUCE_PLUGINHOST_AU=1)
+    JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 JUCE_PLUGINHOST_VST3=1 JUCE_PLUGINHOST_AU=1
+    JUCE_MODAL_LOOPS_PERMITTED=1)   # --editor runs the message loop while the plugin's page draws
 target_link_libraries(${PLUGIN_target}HostCheck
     PRIVATE juce::juce_audio_utils juce::juce_dsp
     PUBLIC  juce::juce_recommended_config_flags juce::juce_recommended_warning_flags)

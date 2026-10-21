@@ -1,6 +1,7 @@
 <!doctype html>
-<!-- editor.html — shared machinery: every plugin's editor, in the Loudon Live house dress.
-     tools/ui.py fills the four /*@@...@@*/ slots and writes build/ui/index.html (embedded in the
+<!-- editor.html — shared machinery: every plugin's editor, in the Drafting Table dress (Phosphor), or
+     the Loudon Live house dress when plugin.json asks for it.
+     tools/ui.py fills the six /*@@...@@*/ slots and writes build/ui/index.html (embedded in the
      plugin) or a mock page for a browser. Nothing here is plugin-specific: the controls are drawn
      from the parameter table the plugin hands over (pluginInfo), grouped by `group`, with `hero`
      parameters drawn large. The design standard is "VST Template — design standard.md" in the project bundle. -->
@@ -64,6 +65,17 @@
   /* ── heroes ─────────────────────────────────────────────────────────────── */
   .heroes { flex: 1; min-height: calc(var(--hero) + 64px); display: flex; gap: var(--s-8); align-items: center; justify-content: center; padding: var(--s-2) 0; }
   .heroes .ctl { --knob: var(--hero); }
+  /* ── the CRT (screen): a television drawn as an elevation around a screen the plugin owns ── */
+  .heroes .screen { flex: 1 1 0; align-self: stretch; min-width: 0; position: relative; }
+  .screen .casing { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+  .screen .casing * { fill: none; stroke: var(--ink-3, var(--fg-3)); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .screen .casing .outline { stroke: var(--ink-2, var(--fg-2)); }
+  .screen .casing .opening { stroke: var(--ink, var(--fg-1)); stroke-width: 1.25; }
+  .screen .glass, .screen .vignette { position: absolute; overflow: hidden; }
+  .screen .glass { background: #000; }
+  .screen .glass > * { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .screen .vignette { pointer-events: none; box-shadow: inset 0 0 18px 4px rgba(0, 0, 0, .5);
+                      background: radial-gradient(ellipse at center, transparent 62%, rgba(0, 0, 0, .3)); }
   .heroes .ctl .label { font-size: 14px; color: var(--fg-1); }
   .heroes .value { font-size: var(--t-meta); padding: 2px 8px; }
   .range { font-size: 10px; color: var(--fg-3); letter-spacing: .04em; }
@@ -93,17 +105,16 @@
   .dress-dt body { font-family: var(--font-mono, var(--mono)); }
   .dress-dt .top { padding: var(--space-4, 16px) var(--space-4, 16px) var(--space-3, 12px); }
   .dress-dt .top > .dt-tb { flex: 1; }
-  /* a plugin face is not an A4 sheet: the title block lies in one row (offered to Drafting Table as a variant) */
-  .dress-dt .top .dt-tb { grid-template-columns: auto auto 1fr auto; max-width: none; align-items: center; }
-  .dress-dt .top .dt-tb__cell, .dress-dt .top .dt-tb__cell--wide { grid-column: auto; border-top: 0; border-left: 1px solid var(--ink); }
-  .dress-dt .top .dt-tb__cell:first-child { border-left: 0; }
-  .dress-dt .top .dt-tb__sub { display: none; }
   .dress-dt .panel { background: var(--ground-000); box-shadow: none; border-radius: 0; padding-top: var(--space-5, 20px); }
   .dress-dt .pad { background: var(--ground-100); box-shadow: var(--shadow-recess, none); border-radius: 0; border-color: var(--rule); }
   .dress-dt .range { color: var(--ink-2); }
 
   /* ── directions ─────────────────────────────────────────────────────────── */
-  :root { --knob: clamp(40px, min(5.2vw, 8.5vh), 62px); --hero: clamp(92px, min(16vw, 24vh), 176px); --fader-base: clamp(64px, 15vh, 150px); --fader: var(--fader-base); }
+  /* The window sets each size; --fit-hero and --fit-knob step them down when the panels still overflow (fitWindow). */
+  :root { --fit-hero: 1; --fit-knob: 1;
+          --knob: max(32px, calc(clamp(40px, min(5.2vw, 8.5vh), 62px) * var(--fit-knob)));
+          --hero: max(72px, calc(clamp(92px, min(16vw, 24vh), 176px) * var(--fit-hero)));
+          --fader-base: calc(clamp(64px, 15vh, 150px) * var(--fit-knob)); --fader: var(--fader-base); }
   [data-direction="flow"] .panels { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: stretch; }
   [data-direction="flow"] .panel { box-shadow: none; background: transparent; border-width: 1.5px; flex: 1 1 auto; }
   [data-direction="flow"] .arrow { align-self: center; font-family: var(--mono); color: var(--accent); font-size: 18px; }
@@ -112,9 +123,9 @@
   [data-direction="flow"] .arrow.wrapped { visibility: hidden; }
   [data-direction="edge"] main { gap: var(--s-3); }
   [data-direction="edge"] .pad-wrap { flex: 1.3; min-height: 0; }
-  [data-direction="edge"] .pad-wrap { min-height: 180px; }
+  [data-direction="edge"] .pad-wrap { min-height: calc(180px * var(--fit-hero)); }
   [data-direction="edge"] .panel { padding: var(--s-2) var(--s-3); gap: var(--s-2); }
-  [data-direction="edge"] { --knob: clamp(34px, min(4.2vw, 7vh), 50px); }
+  [data-direction="edge"] { --knob: max(28px, calc(clamp(34px, min(4.2vw, 7vh), 50px) * var(--fit-knob))); }
 </style>
 </head>
 <body>
@@ -324,6 +335,48 @@ function toggle(p) {
   return wrap;
 }
 
+// ── the CRT: a television drawn as an elevation, in the dress's ink, around a screen the plugin owns ──
+// Loudon, 2026-10-21: "the look of the CRT should be a architecturally drawn frame, like a design of the
+// outside of a TV, but then we leave the inside to be anything, but there is a slight vingnette on the
+// edges." The casing and the vignette are the template's; whatever is drawn in .glass is the plugin's
+// and may break from the dress entirely. It is made once and moved into each rebuild, so what a
+// visualizer put in .glass (a canvas, its WebGL context) lives through every resize.
+let SCREEN = null;
+function crt() {
+  if (SCREEN) return SCREEN;
+  const el = document.createElement("div"); el.id = "screen"; el.className = "screen"; el.dataset.moment = "screen";
+  const casing = svgEl("svg", { class: "casing" });
+  const glass = document.createElement("div"); glass.className = "glass";
+  const vignette = document.createElement("div"); vignette.className = "vignette";
+  el.append(casing, glass, vignette);
+  const draw = () => {
+    const W = el.clientWidth, H = el.clientHeight;
+    if (!W || !H) return;
+    const feet = 6, cw = Math.min(W - 2, (H - feet - 2) * 1.55), ch = cw / 1.55;   // the set, about 3:2, standing on its feet
+    const x0 = (W - cw) / 2, y0 = (H - feet - ch) / 2;
+    const b = Math.max(8, ch * 0.07), strip = Math.max(22, cw * 0.16);               // bezel; the control strip on the right
+    const sx = x0 + b, sy = y0 + b, sw = cw - 2 * b - strip, sh = ch - 2 * b, r = Math.min(sw, sh) * 0.12;
+    const kx = x0 + cw - b / 2 - strip / 2, kr = Math.min(strip * 0.26, sh * 0.09);
+    const rect = (x, y, w, h, rr, cls) => svgEl("rect", { x, y, width: w, height: h, rx: rr, class: cls || "" });
+    const line = (x1, y1, x2, y2) => svgEl("line", { x1, y1, x2, y2 });
+    casing.replaceChildren(
+      rect(x0, y0, cw, ch, 3, "outline"),                                   // the cabinet
+      rect(x0 + 3, y0 + 3, cw - 6, ch - 6, 2),                              // its inner edge
+      rect(sx - 3, sy - 3, sw + 6, sh + 6, r + 2),                          // the bezel's lip
+      rect(sx, sy, sw, sh, r, "opening"),                                   // the tube's face
+      svgEl("circle", { cx: kx, cy: sy + kr * 1.6, r: kr }), line(kx, sy + kr * 0.6, kx, sy + kr * 1.3),   // two knobs, each with its pointer
+      svgEl("circle", { cx: kx, cy: sy + kr * 4.4, r: kr }), line(kx, sy + kr * 3.4, kx, sy + kr * 4.1),
+      ...Array.from({ length: 7 }, (_, i) => line(kx - strip * 0.3, sy + sh * 0.55 + i * sh * 0.06, kx + strip * 0.3, sy + sh * 0.55 + i * sh * 0.06)),   // the speaker grille
+      rect(x0 + cw * 0.1, y0 + ch, cw * 0.08, feet, 0), rect(x0 + cw * 0.82, y0 + ch, cw * 0.08, feet, 0),        // the feet
+      line(x0 + cw / 2, y0 - 5, x0 + cw / 2, y0 + 2), line(x0 + cw / 2, y0 + ch - 2, x0 + cw / 2, y0 + ch + 5),   // centre marks, as on a drawing
+      line(x0 - 5, y0 + ch / 2, x0 + 2, y0 + ch / 2), line(x0 + cw - 2, y0 + ch / 2, x0 + cw + 5, y0 + ch / 2));
+    for (const e of [glass, vignette]) Object.assign(e.style, { left: sx + "px", top: sy + "px", width: sw + "px", height: sh + "px", borderRadius: r + "px" });
+  };
+  new ResizeObserver(draw).observe(el);   // ResizeObserver still fires where WebKit has stopped animation frames
+  window.editorScreen = glass;            // where a visualizer draws
+  return SCREEN = { el, glass, draw };
+}
+
 // ── XY pad: two heroes on one surface, x first, y second; an optional backdrop (ui.backdrop) ──
 function pad(px, py, backdrop) {
   const sx = bindSlider(px), sy = bindSlider(py);
@@ -390,9 +443,12 @@ function pad(px, py, backdrop) {
 
 // ── the Drafting Table dress: its title block, panels and controls, bound through the same relays ──
 const DRESS_DT = () => window.DT && document.documentElement.classList.contains("dress-dt");
-function dtSizes() {   // Drafting Table's rule for small windows: controls scale, type does not
-  const w = innerWidth, h = innerHeight, m = Math.min(w, h * 1.6);
-  return { knob: m < 600 ? 40 : m < 1000 ? 56 : 72, hero: Math.round(Math.max(96, Math.min(176, Math.min(w * 0.16, h * 0.26)))) };
+function dtSizes() {   // Drafting Table's rule for small windows: controls scale, type does not, clamped on the smaller side
+  const w = innerWidth, h = innerHeight, m = Math.min(w, h);
+  let knob = m < 600 ? 40 : m < 1000 ? 56 : 72, hero = 8 * Math.round(Math.max(96, Math.min(176, Math.min(w * 0.16, h * 0.26))) / 8);
+  for (let k = 0; k < fitSteps; ++k)   // then fitWindow's steps: the heroes down to 96, then the knobs down to 40
+    if (hero > 96) hero = Math.max(96, hero - 16); else if (knob > 40) knob = knob > 56 ? 56 : 40;
+  return { knob, hero };
 }
 function dtControl(p, big) {
   const st = p.taper === "choice" ? bindChoice(p) : p.taper === "toggle" ? bindToggle(p) : bindSlider(p);
@@ -420,11 +476,13 @@ function build(info) {
   if (ui.dress === "drafting-table" && window.DT) {
     document.documentElement.className = "dress-dt";
     document.documentElement.setAttribute("data-theme", ui.theme || "phosphor");
+    const z = dtSizes(); dtDrawn = z.knob + "/" + z.hero;
+    document.documentElement.style.setProperty("--hero", z.hero + "px");   // the heroes' row is sized for them
     const top = document.querySelector(".top");
     top.innerHTML = "";
     top.append(DT.titleBlock({ name: info.name.toUpperCase(), subtitle: ui.kind || "instrument", version: info.version,
       status: (ui.tier || "sketch").toUpperCase(), statusSource: "measure", source: "VST Template", drawn: "Algorithm.h",
-      maker: info.company, tool: "JUCE 8 · WebView" }).el);
+      maker: info.company, tool: "JUCE 8 · WebView", variant: "row" }).el);
   } else
   document.documentElement.className = "skin-" + (ui.skin || (direction === "flow" ? "drafting" : "graphite"));
   document.title = info.name;
@@ -435,7 +493,15 @@ function build(info) {
   const main = document.getElementById("main"); main.innerHTML = "";
   const params = info.params, heroes = direction === "flow" ? [] : params.filter(p => p.hero);
   if (heroes.length === 2 && direction === "edge") main.append(pad(heroes[0], heroes[1], ui.backdrop));
-  else if (heroes.length) { const h = document.createElement("div"); h.className = "heroes"; h.dataset.moment = "heroes"; heroes.forEach(p => h.append(control(p, true, direction))); main.append(h); }
+  else if (heroes.length) {
+    const h = document.createElement("div"); h.className = "heroes"; h.dataset.moment = "heroes";
+    // The CRT sits between the heroes, hidden unless ui.screen is set. Shown, it stretches into the row's
+    // spare width, so nothing else moves (design standard § The CRT).
+    const screen = crt().el; screen.hidden = !ui.screen;
+    heroes.forEach((p, i) => { if (i === 1) h.append(screen); h.append(control(p, true, direction)); });
+    if (heroes.length === 1) h.append(screen);
+    main.append(h);
+  }
   const groups = new Map();
   params.filter(p => !heroes.includes(p)).forEach(p => { const g = p.group || "Controls"; if (!groups.has(g)) groups.set(g, []); groups.get(g).push(p); });
   const panels = document.createElement("div"); panels.className = "panels";
@@ -458,14 +524,36 @@ function build(info) {
   }
 }
 
+// ── fitting the window: its size sets each control's largest size (Drafting Table's rule, or the house
+// dress's clamps). If the panels still overflow, the heroes step down, then the knobs, until they fit.
+// The scroll bar is the last resort, for a window too small for even the smallest controls. ──
+const FIT_STEPS = 8;
+let fitSteps = 0, dtDrawn = "";   // dtDrawn: the sizes the Drafting Table controls were mounted at
+function overflowing() { const m = document.getElementById("main"); return m.scrollHeight > m.clientHeight + 1 || m.scrollWidth > m.clientWidth + 1; }
+function fitWindow(info) {
+  const root = document.documentElement.style;
+  for (fitSteps = 0; ; ++fitSteps) {
+    if (DRESS_DT()) { const z = dtSizes(); if (z.knob + "/" + z.hero !== dtDrawn) build(info); }   // it sizes a control when it mounts
+    else {
+      root.setProperty("--fit-hero", Math.pow(0.88, Math.min(fitSteps, 4)).toFixed(3));
+      root.setProperty("--fit-knob", Math.pow(0.9, Math.max(0, fitSteps - 4)).toFixed(3));
+    }
+    if (fitSteps >= FIT_STEPS || !overflowing()) return;
+  }
+}
+
 (async () => {
   const info = window.__IN_PLUGIN__ ? await Juce.getNativeFunction("pluginInfo")() : window.MOCK_INFO;
   const q = new URLSearchParams(location.search);
   if (q.get("direction")) info.ui = Object.assign({}, info.ui, { direction: q.get("direction"), skin: q.get("skin") || undefined });
   build(info);
-  if (window.__onEditorBuilt) window.__onEditorBuilt(info);
-  let t = 0;
-  if (DRESS_DT()) addEventListener("resize", () => { clearTimeout(t); t = setTimeout(() => build(info), 150); });   // the mock's review surface, if it has one
+  fitWindow(info);
+  if (window.__onEditorBuilt) window.__onEditorBuilt(info);   // the mock's review surface, if it has one
+  document.fonts.ready.then(() => fitWindow(info));   // the faces change every width
+  // Fitted again in the resize event itself, not on a later frame: WebKit stops animation frames in a
+  // plugin window it thinks is covered but still sends it resize events (seen in the host check's
+  // window, 2026-10-21), and headless Chrome can take its picture before a timer fires.
+  addEventListener("resize", () => fitWindow(info));
 })();
 </script>
 </body>
