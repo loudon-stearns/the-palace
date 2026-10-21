@@ -1,16 +1,16 @@
 ---
 title: "Shimmer Cloud"
-type: spore
+type: project
+status: active
 pillars: [creation, tools]
 born: 2026-03
-stage: dormant
+stage: sprout
 confidence: hypothesis
 energy: medium
 hook_quality: 8
 beauty: 9
 who_leads: shared
-revival_conditions: "When granular synthesis framework reaches maturity; when pitch-shifted reverb architectures become computationally accessible; when hyperreal spatial textures become a design goal in music production."
-forward_vector: "I want to become a reverb that is also a prism — dispersing input signals into pitch-shifted granular clouds that shimmer between simplicity and complexity, a hyperreal atmospheric texture where the grain population itself becomes the spatial environment."
+forward_vector: "I want to become a reverb that is also a prism — dispersing any input into a cloud of lenses, each delaying its frequencies a little differently and drifting a few cents in pitch, a texture that swells in before the sound and hangs long after it, where the population of lenses itself becomes the space."
 links:
   - target: "[[Granular Synthesis]]"
     type: emerged-from
@@ -22,6 +22,15 @@ links:
     type: deepens
   - target: "[[Dispersion]]"
     type: connects-to
+  - target: "[[Neural Granular Synthesis]]"
+    type: couples-with
+    label: grain-populations
+  - target: "[[Crystal Synthesizer]]"
+    type: connects-to
+    label: shared-dispersion-filter
+  - target: "[[Dispersion Table]]"
+    type: connects-to
+    label: phase-curve-lenses
 ---
 
 # Shimmer Cloud
@@ -75,24 +84,19 @@ This is the principle behind the Eventide H3000 "shimmer" reverb algorithm, wher
 
 **Shimmer in visual texture synthesis**: Procedural graphics use "shimmer" effects by adding high-frequency noise that flickers slightly out of phase across pixels. Shimmer Cloud is the audio equivalent: high-frequency pitch-shifted content that flickers slightly out of temporal sync, creating visual-like scintillation in the spectrogram.
 
-## The Seed
+## Where it stands
 
-Shimmer Cloud is dormant because the intersection of these ideas (granular synthesis + pitch-shifting + spatial diffusion + real-time GPU compute) has not yet crystallized into a implemented artifact. The concept is mature. The technology is available. What is missing is the will to build.
+Three lens models were built in May 2026, each a different answer to what the cloud is made of, all processing the same spoken phrase. They are kept in the bundle with their code and listening guides, and its `README.md` traces the lineage.
 
-Revival would look like:
+- **A feedback lens.** One pitch-shifter in a loop, up an octave on every pass: the familiar shimmer tail.
+- **A droplet cloud.** Hundreds of copies of the input, each played a hair faster or slower, panned and scattered in time, so pitch and timing drift together.
+- **A dispersion cloud.** Hundreds of lenses that leave the pitch alone and delay each frequency by a different amount, which is what a prism does to light.
 
-1. **Prototype in Max/MSP or Pure Data** with a small grain count (50–500) to verify the perceptual effect
-2. **Port to GPU compute** (WebGPU or GLSL) for real-time performance with thousands of grains
-3. **Integrate into Loudon's particle system work** — treating reverb design as a particle simulation problem
-4. **Archive the Max patch and GPU shader as pedagogical artifacts** — the code is the teaching
+At the revival on 2026-10-21 Loudon heard them side by side ([the listening page](Projects/Shimmer Cloud/proofs/2026-10-21-listening.html)) and chose the droplet and dispersion clouds together, with dispersion as the start. Every pair he compared was close, and his ear asked for the dispersion to be pushed harder until the modes come apart. Of the feedback lens he said: jump up an octave once, then make only subtle shifts inside the loop, "so that we establish an interval of shift and then we disperse at that interval. Repeated large jumps within a feedback loop are rarely good and often sound dated." He also wants the cloud to swell in before the dry, like reversed sound leading into it, and to leave longer ambient tails.
 
-The promise: a reverb algorithm that is simultaneously a texture synthesizer, a spatial renderer, and a demonstration of [[Granular Synthesis]], [[Particle Synthesis]], and [[Frequency-Time Duality]] in a single, audible form.
-
----
-
-*This is a seed. The concept is fully named but not yet grown. It waits for the conditions under which it becomes a fruiting project.*
+The work ahead is on the scroll's Plan.
 
 ## Forward Vectors
-- Prototype a pitch-shifted granular reverb in Max/MSP where grain density and pitch offset create emergent spatial textures
-- Test whether [[Dispersion]]-based spreading algorithms produce more "natural" shimmer than simple pitch shifting
+- Push the dispersion until droplets, prism and drift each say something the others can't
+- Make the cloud arrive before the sound, a swell into the dry, and leave long ambient tails
 - Define the threshold where shimmer becomes drone — is that a feature or a boundary?
