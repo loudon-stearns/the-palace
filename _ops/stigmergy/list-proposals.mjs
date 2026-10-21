@@ -19,8 +19,8 @@
 // canon is, as list-handoffs does. --full shows a long section whole.
 
 import { resolve } from 'node:path';
-import { ownerRoot, C } from './handoff-model.mjs';
-import { proposalsByPage, pageReview, reviewCount, reviewLine } from './orchestrator/src/ledger-review.js';
+import { ownerRoot, boardPath, loadBoard, C } from './handoff-model.mjs';
+import { proposalsByPage, pageReview, reviewCount, reviewLine, urgentAnswer } from './orchestrator/src/ledger-review.js';
 
 const argv = process.argv.slice(2);
 const flag = (f) => argv.includes(f);
@@ -31,6 +31,7 @@ const wantPage = opt('--page');
 const SHOWN = 24; // lines of a section shown before it is cut, unless --full
 
 const pages = proposalsByPage(root);
+const board = (() => { try { return loadBoard(boardPath()); } catch { return []; } })();
 const count = reviewCount(root);
 const line = reviewLine(count);
 
@@ -38,7 +39,7 @@ if (flag('--line')) { console.log(line); process.exit(0); }
 
 if (flag('--json')) {
   const chosen = wantPage ? pages.filter((g) => g.page.toLowerCase() === wantPage.toLowerCase()) : pages;
-  console.log(JSON.stringify({ root, line, count, pages: wantPage ? chosen.map((g) => pageReview(root, g)) : chosen }, null, 2));
+  console.log(JSON.stringify({ root, line, count, pages: wantPage ? chosen.map((g) => pageReview(root, g, { board })) : chosen }, null, 2));
   process.exit(0);
 }
 
@@ -49,6 +50,7 @@ const quote = (text, pad, max = Infinity) => {
   return kept.join('\n');
 };
 
+const said = (a) => (a ? ` ${C.Y}(you said ${a.option})${C.R}` : '');
 const head = (g) => `${g.urgent ? `${C.Rd}!${C.R}` : `${C.Y}●${C.R}`} ${C.B}${g.page}${C.R}  ${C.D}[${g.items.length} owed · oldest ${g.oldest} · from ${g.stewards.join(', ')}]${C.R}`;
 const where = (g) => (g.path ? `${C.D}${g.path}${g.exists ? '' : ' (a new page)'}${C.R}` : `${C.D}a new page, no path yet${C.R}`);
 
@@ -58,7 +60,7 @@ if (!wantPage) {
     console.log(head(g));
     console.log(`    ${where(g)}`);
     for (const p of g.items) {
-      console.log(`    ${C.B}${p.n}.${C.R} ${p.place || '—'}${p.urgent ? `  ${C.Rd}urgent${C.R}` : ''}  ${C.D}${p.date} · ${p.steward}'s ledger${C.R}`);
+      console.log(`    ${C.B}${p.n}.${C.R} ${p.place || '—'}${p.urgent ? `  ${C.Rd}urgent${C.R}${said(urgentAnswer(p, board))}` : ''}  ${C.D}${p.date} · ${p.steward}'s ledger${C.R}`);
       console.log(`       ${C.D}why: ${p.why}${C.R}`);
     }
     console.log('');
@@ -70,13 +72,14 @@ if (!wantPage) {
 const g = pages.find((x) => x.page.toLowerCase() === wantPage.toLowerCase());
 if (!g) { console.log(`${C.B}${wantPage}${C.R} — no proposals for canon owed. ${C.D}(${line})${C.R}`); process.exit(0); }
 
-const r = pageReview(root, g);
+const r = pageReview(root, g, { board });
 console.log(head(r));
 console.log(`  ${where(r)}\n`);
 for (const p of r.items) {
   console.log(`${C.B}${p.n}.${C.R} ${p.place || '—'}${p.urgent ? `  ${C.Rd}urgent${p.ask ? `, asked as ${p.ask}` : ''}${C.R}` : ''}`);
   console.log(`   ${C.D}${p.date} · ${p.by || 'proposed'} · ${p.ledger}, item ${p.n}${C.R}`);
   console.log(`   why: ${p.why}`);
+  if (p.answer) console.log(`   ${C.Y}you said ${p.answer.option}${p.answer.ts ? ` on ${p.answer.ts.slice(0, 10)}` : ''}${p.answer.notes ? `: "${p.answer.notes}"` : ''}${C.R}${p.answer.option === 'LAND-NOW' ? ' — land it first; it is paid when it lands' : p.answer.option === 'DECLINE' ? ' — settle-proposal.mjs --from-board declines it' : ''}`);
   if (p.now) {
     const label = p.now.kind === 'frontmatter' ? 'the frontmatter now' : `the page now, § ${p.now.heading} (lines ${p.now.line}–${p.now.end})`;
     console.log(`\n   ${C.D}${label}:${C.R}`);

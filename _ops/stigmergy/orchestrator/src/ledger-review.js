@@ -10,7 +10,8 @@
 // deck, the Return, the Weave. One reader, so the three never disagree.
 //
 // Read-only. A proposal is settled on its own ledger, by payProposal or
-// declineProposal, once Loudon has said yes or no; nothing here writes.
+// declineProposal, once Loudon has said yes or no (settle-proposal.mjs);
+// nothing here writes.
 // Canon: [[Project Stewardship System]] § What's Decided.
 
 import { readFileSync } from 'node:fs';
@@ -100,15 +101,35 @@ export function sectionNow(pageText, place) {
 }
 
 /**
+ * What Loudon already said to an urgent proposal's ask on the board, the latest
+ * answer `re:` its ask id: { option, notes, ts, id }, or null. LAND-NOW is his
+ * yes to the words the ask quoted: the review lands it first, and it is paid
+ * when it lands, not when he clicked. DECLINE, or a deny, declines it with his
+ * note. REVIEW leaves it owed with the rest (Loudon, 2026-10-21).
+ */
+export function urgentAnswer(proposal, board = []) {
+  if (!proposal || !proposal.urgent || !proposal.ask) return null;
+  let hit = null;
+  for (const m of board) {
+    if (m && (m.type === 'RESOURCE_GRANT' || m.type === 'RESOURCE_DENY') && m.re === proposal.ask) hit = m;
+  }
+  if (!hit) return null;
+  const p = hit.payload || {};
+  const option = hit.type === 'RESOURCE_DENY' ? 'DECLINE' : String(p.option_id || 'LAND-NOW').toUpperCase();
+  return { option, notes: typeof p.notes === 'string' ? p.notes.trim() : '', ts: hit.ts || null, id: hit.id || null };
+}
+
+/**
  * One page's review, read for a card: the group from proposalsByPage with each
  * item given `now`, the section it names as the page reads today (sectionNow),
- * or null when the page is new or the place names nothing it has. The page is
- * read once from the root the review runs on.
+ * or null when the page is new or the place names nothing it has; and
+ * `answer`, what Loudon already said to an urgent one on the board
+ * (urgentAnswer). The page is read once from the root the review runs on.
  */
-export function pageReview(palaceRoot, group) {
+export function pageReview(palaceRoot, group, { board = [] } = {}) {
   let text = '';
   if (group.path && group.exists) { try { text = readFileSync(join(palaceRoot, group.path), 'utf8'); } catch { text = ''; } }
-  return { ...group, readable: !!text, items: group.items.map((p) => ({ ...p, now: text ? sectionNow(text, p.place) : null })) };
+  return { ...group, readable: !!text, items: group.items.map((p) => ({ ...p, now: text ? sectionNow(text, p.place) : null, answer: urgentAnswer(p, board) })) };
 }
 
 /** How many proposals are owed, on how many pages, how many urgent, and the oldest date. */
