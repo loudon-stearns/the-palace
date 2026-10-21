@@ -1,0 +1,812 @@
+<!doctype html>
+<!--
+  title: Inharmonic Wavetable Synthesis — the coupling edge (study)
+  born: 2026-10-20
+  links: [[Inharmonic Wavetable Synthesis]] (connects-to · workshop-study) · from [[Harmonicity and Inharmonicity]]'s 2026-10-17 frustration sweeps
+  forward_vector: I am the frustration sweeps made playable — one stretched tone whose partials hang off a single phase, pulled by an outside ensemble, held at the edge where it starts to tear. I want to be the place the thresholds are played from, not hunted for.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The coupling edge</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#181822; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --amberdim:rgba(232,184,74,.16); --indigo:#6366F1; --indigodim:rgba(99,102,241,.55); --warn:#ff9b4a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; max-width: 1180px; margin: 0 auto; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  h1 { font-family: var(--serif); font-size: 34px; font-weight: 300; color: var(--fg1); margin: 0 0 8px; }
+  h2 { font-family: var(--serif); font-size: 24px; font-weight: 300; color: var(--fg1); margin: 0 0 4px; }
+  .lede, .sub { font-family: var(--serif); font-size: 17px; line-height: 1.75; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .sub { font-size: 16px; line-height: 1.65; }
+  section { border-top: 1px solid var(--soft); padding: 18px 0 16px; position: relative; }
+  .stage { display: grid; grid-template-columns: minmax(250px, 340px) 1fr; gap: 22px; align-items: start; }
+  @media (max-width: 760px) { .stage { grid-template-columns: 1fr; } }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .row { display: grid; grid-template-columns: 112px 1fr 76px; gap: 8px; align-items: center; margin: 7px 0; font-size: 13px; }
+  .row label { color: var(--fg3); font-family: var(--mono); font-size: 11px; letter-spacing: .06em; }
+  .row output { font-family: var(--mono); font-size: 11px; color: var(--fg1); text-align: right; white-space: nowrap; }
+  input[type=range] { width: 100%; accent-color: var(--amber); }
+  select { width: 100%; background: var(--e2); color: var(--fg1); border: 1px solid var(--ring); border-radius: 2px; font-family: var(--mono); font-size: 11px; padding: 4px; }
+  button { background: var(--e2); color: var(--fg1); border: 1px solid var(--ring); border-radius: 2px; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; padding: 6px 10px; cursor: pointer; }
+  button:hover { border-color: var(--border); }
+  button.on { border-color: var(--amberline); color: var(--amber); }
+  button.go { border-color: var(--amber); color: var(--bg); background: var(--amber); box-shadow: 0 0 18px rgba(232,184,74,.35); font-weight: 500; }
+  .btns { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+  canvas { width: 100%; display: block; background: var(--e1); border: 1px solid var(--soft); border-radius: 2px; }
+  .readout { font-family: var(--mono); font-size: 11px; color: var(--fg3); line-height: 1.7; margin-top: 8px; }
+  .readout b { color: var(--fg1); font-weight: 500; }
+  .eq { font-family: var(--mono); font-size: 12px; color: var(--fg1); margin: 10px 0 2px; }
+  .eqw { font-family: var(--serif); font-size: 15px; color: var(--fg3); margin: 0 0 10px; font-style: italic; }
+  .q { font-family: var(--serif); font-size: 16px; color: var(--amber); font-style: italic; margin: 2px 0 10px; }
+  .keys { display: flex; flex-wrap: wrap; gap: 4px; }
+  .keys button { min-width: 46px; }
+  .note { font-size: 12px; color: var(--fg3); line-height: 1.6; margin-top: 8px; max-width: 78ch; }
+  .pin { position: absolute; top: 16px; right: 0; background: none; border: none; color: var(--fg3); font-size: 14px; padding: 2px 6px; }
+  .pin.has { color: var(--amber); }
+  .review { display: none; margin-top: 10px; }
+  .review.open { display: block; }
+  .review textarea { width: 100%; min-height: 70px; background: var(--e2); color: var(--fg1); border: 1px solid var(--ring); border-radius: 2px; font-family: var(--sans); font-size: 13px; padding: 8px; }
+  .seq { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; margin: 6px 0; }
+  .seq input { writing-mode: vertical-lr; direction: rtl; height: 70px; width: 100%; }
+  footer { border-top: 1px solid var(--soft); margin-top: 10px; padding-top: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--fg3); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  .wordmark { font-family: var(--sans); letter-spacing: .02em; color: var(--fg2); }
+  .wordmark i { font-weight: 300; }
+</style>
+</head>
+<body>
+<div class="piece" id="piece">
+  <div class="kicker">Inharmonic Wavetable Synthesis · study · the coupling edge</div>
+  <h1>Play the edge</h1>
+  <p class="lede">One tone whose partials hang off a single phase, stretched away from whole-number ratios and pulled back by an outside ensemble tuned to the plain harmonic series. Somewhere along the stretch the tone stops holding and tears. This study keeps you there: it knows where the edge is for every note, partial count and coupling, and can put the stretch just under it. The engine is the 2026-10-17 frustration sweeps' toy model, run live, with the same random detuning the renders used. Trust the shapes and the directions, not the exact values.</p>
+  <div class="btns"><button id="go" class="go">▸ start</button><button id="gateBtn">drone</button><button id="strikeBtn">strike · space</button><button id="resetBtn">reset phases</button></div>
+  <div class="keys" id="keys"></div>
+  <div class="note">Keys a s d f g h j k play E1 to A4; space strikes. A MIDI keyboard plays any note, its mod wheel rides coupling and its pitch bend rides stretch.</div>
+
+  <section id="s-edge" data-title="Hold it just under the edge">
+    <button class="pin" title="leave a note on this section; it keeps the sound you were hearing">◇</button>
+    <h2>Hold it just under the edge</h2>
+    <p class="q">Can a playable tone sit just under the edge, with coupling or stretch as the gesture?</p>
+    <div class="stage">
+      <div class="panel">
+        <div class="row"><label>stretch</label><input id="s" type="range" min="-9" max="3" step="0.01" value="-5"><output id="sO"></output></div>
+        <div class="btns"><button id="under" class="on">just under</button><button id="onit">on the edge</button><button id="over">just over</button><button id="follow" class="on">keep the margin</button></div>
+        <div class="row"><label>coupling</label><input id="k" type="range" min="-0.3" max="1.45" step="0.005" value="0.778"><output id="kO"></output></div>
+        <div class="row"><label>partials</label><input id="n" type="range" min="6" max="96" step="1" value="64"><output id="nO"></output></div>
+        <div class="row"><label>inertia</label><input id="inertia" type="range" min="-0.5" max="1.5" step="0.01" value="0"><output id="inertiaO"></output></div>
+        <div class="row"><label>voices</label><input id="vox" type="range" min="0" max="1" step="0.01" value="0.45"><output id="voxO"></output></div>
+        <div class="row"><label>source</label><select id="src"><option value="warm">warm (ride_warm)</option><option value="bright">bright (sweeppin)</option><option value="own">the material's own levels</option></select><output></output></div>
+        <div class="row"><label>pull from</label><select id="partner"><option value="0">the ensemble</option><option value="2">nothing (the bare tone)</option></select><output></output></div>
+        <div class="btns"><button id="pin" class="on">partial 1 pinned</button></div>
+      </div>
+      <div>
+        <canvas id="line" height="270"></canvas>
+        <div class="readout" id="ro"></div>
+        <canvas id="map" height="180" style="margin-top:10px"></canvas>
+        <div class="note">Above: each partial's bend off the harmonic series in cents (the flat line is harmony, as in Wavetable B), glowing by level. <b style="color:var(--amber)">Amber</b> partials are locked to their voice; <span style="color:var(--indigo)">blue</span> ones are slipping, and flicker at their slip rate. The small ticks are the voices they are paired with. Below: where you are. Stretch runs left to right, coupling bottom to top, and the edge is the line where the tone first tears.</div>
+      </div>
+    </div>
+    <div class="eq">rₙ = n · √(1 + B·n²) &nbsp;·&nbsp; pinned: rₙ = n · √((1 + B·n²) ÷ (1 + B))</div>
+    <div class="eqw">(partial n's ratio) = (partial number) × √(1 + (stretch) × (partial number)²); pinned, the whole curve is divided by partial 1's own stretch, so partial 1 stays put</div>
+    <div class="eq">dθ/dt = f₀ + (21 ÷ Σn) ÷ I × K × Σ rₙ · sin 2π(φₙ − pₙ) &nbsp;·&nbsp; dφₙ/dt = wₙ − K · sin 2π(φₙ − pₙ)</div>
+    <div class="eqw">(the tone's pitch) = (its own pitch) + (pull scale) ÷ (inertia) × (coupling) × Σ (partial's ratio) × sin 2π (voice's phase − partial's phase); (a voice's pitch) = (its own pitch) − (coupling) × sin 2π (voice's phase − partial's phase)</div>
+    <p class="note answer" id="a-edge"></p>
+    <div class="review"><textarea placeholder="a note on this section; it keeps the sound you were hearing"></textarea></div>
+  </section>
+
+  <section id="s-gest" data-title="Gestures as modulators">
+    <button class="pin" title="leave a note on this section; it keeps the sound you were hearing">◇</button>
+    <h2>Gestures as modulators</h2>
+    <p class="q">Do the field guide's gestures play live, and does a strike's pitch drop follow how far past the edge it is thrown?</p>
+    <div class="stage">
+      <div class="panel">
+        <div class="btns"><button id="breathe">breathe</button><button id="flutter">flutter</button><button id="seq">sequence</button><button id="ride">ride coupling</button><button id="onNote">strike on each note</button></div>
+        <div class="row"><label>breathe depth</label><input id="brD" type="range" min="0.2" max="3" step="0.05" value="1.3"><output id="brDO"></output></div>
+        <div class="row"><label>breathe period</label><input id="brP" type="range" min="2" max="40" step="0.5" value="12"><output id="brPO"></output></div>
+        <div class="row"><label>flutter depth</label><input id="flD" type="range" min="0.1" max="2" step="0.05" value="1"><output id="flDO"></output></div>
+        <div class="row"><label>flutter rate</label><input id="flR" type="range" min="-0.5" max="1.7" step="0.01" value="0.477"><output id="flRO"></output></div>
+        <div class="row"><label>strike height</label><input id="strD" type="range" min="0" max="3" step="0.05" value="1.2"><output id="strDO"></output></div>
+        <div class="row"><label>strike decay</label><input id="strTau" type="range" min="0.05" max="2" step="0.01" value="0.25"><output id="strTauO"></output></div>
+        <div class="row"><label>ride low</label><input id="rideLo" type="range" min="-0.3" max="1.45" step="0.01" value="0.301"><output id="rideLoO"></output></div>
+        <div class="row"><label>ride high</label><input id="rideHi" type="range" min="-0.3" max="1.45" step="0.01" value="1.255"><output id="rideHiO"></output></div>
+        <div class="row"><label>ride period</label><input id="rideP" type="range" min="2" max="40" step="0.5" value="20"><output id="ridePO"></output></div>
+        <div class="row"><label>step length</label><input id="seqT" type="range" min="0.08" max="1" step="0.005" value="0.375"><output id="seqTO"></output></div>
+        <div class="seq" id="seqS"></div>
+        <div class="note">Breathe and flutter swing the stretch up from where you set it, in decades. A strike throws it to the set height above the edge and lets it decay. The sequence's eight steps are set relative to the edge (the middle of each slider is the edge itself), so the same pattern plays the threshold as a rhythm on any note. Ride swings coupling between its two values with the stretch held still.</div>
+      </div>
+      <div><canvas id="trace" height="200"></canvas><div class="readout" id="roG"></div></div>
+    </div>
+    <p class="note answer" id="a-gest"></p>
+    <div class="review"><textarea placeholder="a note on this section; it keeps the sound you were hearing"></textarea></div>
+  </section>
+
+  <section id="s-mat" data-title="Real materials at the edge">
+    <button class="pin" title="leave a note on this section; it keeps the sound you were hearing">◇</button>
+    <h2>Real materials at the edge</h2>
+    <p class="q">Where does a measured material sit against the edge, and how hard would a harmonic ensemble have to pull to hold it?</p>
+    <div class="stage">
+      <div class="panel">
+        <div class="row"><label>material</label><select id="law"><option value="stiff">stiff string (the law)</option><option value="piano">the measured piano</option><option value="vibraphone">vibraphone</option><option value="marimba">marimba</option><option value="bowl">singing bowl</option><option value="bell">small bell</option></select><output></output></div>
+        <div class="note">The measured piano sets its stretch from the note you play, using the string stiffness the trajectory library measured across the keyboard; the slider then scales it (1× is the real string). The modal objects bend each partial by the library's rank-filed cents, the k-th mode in slot k, scaled the same way. They have few modes, so they snap rather than fray.</div>
+      </div>
+      <div><div class="readout" id="roM"></div></div>
+    </div>
+    <p class="note answer" id="a-mat"></p>
+    <div class="review"><textarea placeholder="a note on this section; it keeps the sound you were hearing"></textarea></div>
+  </section>
+
+  <section id="s-pair" data-title="Let the voices re-pair">
+    <button class="pin" title="leave a note on this section; it keeps the sound you were hearing">◇</button>
+    <h2>Let the voices re-pair</h2>
+    <p class="q">If each partial may be gripped by whichever voice is nearest, does the bar lock to the ensemble again?</p>
+    <div class="stage">
+      <div class="panel">
+        <div class="row"><label>pairing</label><select id="pairing"><option value="0">fixed: partial n with voice n</option><option value="1">nearest voice</option></select><output></output></div>
+        <div class="btns"><button id="drone">ensemble holds its note</button><button id="morph">string → bar, slowly</button></div>
+        <div class="note">Fixed pairing is the sweeps' model: voice n pulls partial n wherever it has gone. Nearest pairing lets a partial be gripped by whichever voice it lands near. With the ensemble holding its note, play other notes over it, and the consonant intervals find voices to lock to. Nearest pairing switches on by itself while the ensemble holds.</div>
+      </div>
+      <div><div class="readout" id="roP"></div></div>
+    </div>
+    <p class="note answer" id="a-pair"></p>
+    <div class="review"><textarea placeholder="a note on this section; it keeps the sound you were hearing"></textarea></div>
+  </section>
+
+  <section id="s-loud" data-title="Quiet partials pull weakly">
+    <button class="pin" title="leave a note on this section; it keeps the sound you were hearing">◇</button>
+    <h2>Quiet partials pull weakly</h2>
+    <p class="q">With coupling that follows loudness, does the warm tone hold longer?</p>
+    <div class="stage">
+      <div class="panel">
+        <div class="row"><label>loudness counts</label><input id="gamma" type="range" min="0" max="1" step="0.05" value="0"><output id="gammaO"></output></div>
+      </div>
+      <div><div class="readout" id="roL"></div></div>
+    </div>
+    <div class="eq">Kₙ = K · (aₙ ÷ a₁)^γ</div>
+    <div class="eqw">(partial n's coupling) = (coupling) × ((partial n's level) ÷ (the loudest level)) raised to (how much loudness counts)</div>
+    <p class="note answer" id="a-loud"></p>
+    <div class="review"><textarea placeholder="a note on this section; it keeps the sound you were hearing"></textarea></div>
+  </section>
+
+  <section id="s-lfo" data-title="The tear as a modulator">
+    <button class="pin" title="leave a note on this section; it keeps the sound you were hearing">◇</button>
+    <h2>The tear as a modulator</h2>
+    <p class="q">Can the tear itself be a modulator, a rhythm whose tempo is the distance past the edge?</p>
+    <div class="stage">
+      <div class="panel">
+        <div class="btns"><button id="lfo">edge LFO on</button></div>
+        <div class="row"><label>source</label><select id="lfoSrc"><option value="0">one slipping pair (Adler)</option><option value="1">the tone's own sag</option></select><output></output></div>
+        <div class="row"><label>grip</label><input id="lfoK" type="range" min="-1" max="1.3" step="0.01" value="0.301"><output id="lfoKO"></output></div>
+        <div class="row"><label>past the edge</label><input id="lfoRho" type="range" min="0.5" max="4" step="0.005" value="1.05"><output id="lfoRhoO"></output></div>
+        <div class="row"><label>destination</label><select id="lfoDest"><option value="0">loudness</option><option value="1">stretch</option><option value="2">coupling</option><option value="3">pan</option></select><output></output></div>
+        <div class="row"><label>amount</label><input id="lfoAmt" type="range" min="0" max="1.5" step="0.01" value="0.6"><output id="lfoAmtO"></output></div>
+      </div>
+      <div><canvas id="scope" height="150"></canvas><div class="readout" id="roF"></div></div>
+    </div>
+    <div class="eq">dψ/dt = κ · (ρ − sin 2πψ) &nbsp;·&nbsp; pulses per second = κ · √(ρ² − 1)</div>
+    <div class="eqw">(how fast the LFO's phase moves) = (grip) × ((push past the edge) − sin 2π (its phase)); (pulses per second) = (grip) × √((push past the edge)² − 1)</div>
+    <p class="note answer" id="a-lfo"></p>
+    <div class="review"><textarea placeholder="a note on this section; it keeps the sound you were hearing"></textarea></div>
+  </section>
+
+  <section id="s-duo" data-title="Two tones pulling on each other">
+    <button class="pin" title="leave a note on this section; it keeps the sound you were hearing">◇</button>
+    <h2>Two tones pulling on each other</h2>
+    <p class="q">When two stretched tones pull on each other instead of on a fixed ensemble, what interval do they agree on, and where does it tear?</p>
+    <div class="stage">
+      <div class="panel">
+        <div class="btns"><button id="duo">two tones</button></div>
+        <div class="row"><label>interval</label><select id="ratio"><option value="2">octave</option><option value="1.5">fifth</option><option value="1.3333333333">fourth</option><option value="1.25">major third</option><option value="1.2">minor third</option><option value="3">twelfth</option><option value="1.4142135624">tritone (√2)</option></select><output></output></div>
+        <div class="row"><label>detune</label><input id="cents" type="range" min="-40" max="40" step="0.5" value="0"><output id="centsO"></output></div>
+        <div class="note">The second tone has the same stretch, partial count and source as the first. Each partial is paired with the nearest partial of the other tone, both ways, so the pairs change as the tones stretch.</div>
+      </div>
+      <div><div class="readout" id="roD"></div></div>
+    </div>
+    <p class="note answer" id="a-duo"></p>
+    <div class="review"><textarea placeholder="a note on this section; it keeps the sound you were hearing"></textarea></div>
+  </section>
+
+  <section id="s-review" data-title="Review">
+    <h2>Review notes</h2>
+    <p class="sub">Each ◇ keeps a note on its section, plus the full setting the instrument was in when you last wrote. Gather them here and copy them out; nothing is stored, so copy before you close.</p>
+    <div class="btns"><button id="gather">◇ gather review notes</button></div>
+    <textarea id="digest" style="display:none;width:100%;min-height:160px;background:var(--e2);color:var(--fg1);border:1px solid var(--ring);font-family:var(--mono);font-size:11px;padding:8px"></textarea>
+  </section>
+
+  <footer><span class="wordmark">Loud’n <i>Live</i></span><span>study · review layer on · numbers from one toy model</span></footer>
+</div>
+
+<script>
+// ─── The engine: the frustration sweeps' toy model, run at audio rate ────────
+// One tone whose partials hang off one phase θ, pulled by outside voices (the
+// ensemble) or by a second tone (the duo). Same equations as ride.py and
+// sweeppin.py (Harmonicity and Inharmonicity/proofs/2026-10-17-frustration-sweeps):
+//   ψ = partner phase − partial phase, s = sin 2πψ × (gate for far pairs) × (loudness weight)
+//   dθ/dt  = f0 + (21 / Σn) / inertia × K × Σ rₙ s        (the tone's own pitch)
+//   dpₙ/dt = rₙ × dθ/dt                                   (each partial keeps its own phase)
+//   dφₘ/dt = wₘ − K × Σ s                                 (each voice, pulled by its partials)
+// The checks in check-coupling-edge.mjs pull this string out and run it in Node.
+const WORKLET = `
+const TS = 4096, SINT = new Float64Array(TS + 2);
+for (let i = 0; i < TS + 2; i++) SINT[i] = Math.sin(2 * Math.PI * i / TS);
+const MAXN = 128, CTL = 16, TAU = 2 * Math.PI;
+function sn(x) { x -= Math.floor(x); const y = x * TS, q = y | 0; return SINT[q] + (y - q) * (SINT[q + 1] - SINT[q]); }
+
+class CouplingEdge extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    const F = () => new Float64Array(MAXN);
+    this.pA = F(); this.rA = F(); this.aA = F(); this.oA = F(); this.lwA = F(); this.gA = F(); this.slipAcc = F(); this.fvT = F();
+    this.ph = F(); this.wV = F(); this.det = F(); this.phInit = F(); this.aV = F(); this.lwV = F(); this.vpull = F();
+    this.pB = F(); this.rB = F(); this.aB = F(); this.oB = F(); this.lwB = F(); this.gB = F();
+    this.tab = F();
+    this.pa = new Int32Array(2 * MAXN); this.pb = new Int32Array(2 * MAXN); this.pk = new Float64Array(2 * MAXN); this.np = 0;
+    this.mate = new Int32Array(MAXN).fill(-1); this.mark = new Uint8Array(MAXN * MAXN);
+    this.ring = new Float64Array(100); this.ri = 0; this.rn = 0; this.traceA = null; this.traceB = null;
+    this.S = { f0: 110, f0V: 110, N: 40, Nv: 40, K: 6, s: -12, sEdge: -4.75, law: 0, pinned: 0, inertia: 1, gamma: 0,
+      pairing: 0, partner: 0, ratioB: 2, NB: 40, inertiaB: 1, toneGain: 1, partnerGain: 0.5, gated: 0, silent: 0, report: 1,
+      breathe: 0, brD: 1.3, brP: 12, flutter: 0, flD: 1, flR: 3,
+      seq: 0, seqS: [-1.26, -0.26, -0.08, 0.14, -1.26, 0.52, -0.18, 1.05], seqT: 0.375,
+      ride: 0, rideLo: 2, rideHi: 18, rideP: 20, strD: 1.2, strTau: 0.25,
+      lfo: 0, lfoSrc: 0, lfoK: 2, lfoRho: 1.05, lfoDest: 0, lfoAmt: 0.5 };
+    this.t = 0; this.strikeT = -1e9; this.seqT0 = 0; this.psi = 0.25; this.lfoV = 0; this.lfoL = 0;
+    this.x = 0; this.Ke = 6; this.FA = 110; this.FB = 220; this.dAs = 110; this.env = 1; this.envT = 1;
+    this.mAcc = 0; this.mAccB = 0; this.mCnt = 0; this.hop = Math.round(0.01 * sampleRate);
+    this.repN = 0; this.repF = 0; this.repFB = 0; this.repLen = Math.round(sampleRate / 30);
+    this.normA = 0; this.normP = 0; this.backA = 1; this.backB = 1; this.dirty = true;
+    this.port.onmessage = (e) => this.set(e.data);
+  }
+  set(d) {
+    const S = this.S;
+    for (const k in d) if (k in S) S[k] = d[k];
+    const put = (dst, src) => { dst.fill(0); for (let i = 0; i < Math.min(MAXN, src.length); i++) dst[i] = src[i]; };
+    if (d.amps) { put(this.aA, d.amps); if (!d.ampsV) put(this.aV, d.amps); }
+    if (d.ampsV) put(this.aV, d.ampsV);
+    if (d.offs) put(this.oA, d.offs);
+    if (d.ampsB) put(this.aB, d.ampsB);
+    if (d.offsB) put(this.oB, d.offsB);
+    if (d.det) put(this.det, d.det);
+    if (d.phInit) put(this.phInit, d.phInit);
+    if (d.tab) put(this.tab, d.tab);
+    if (d.trace !== undefined) { this.traceA = d.trace ? [] : null; this.traceB = d.trace ? [] : null; }
+    if (d.hop) this.hop = d.hop;
+    if (d.reset) this.reset();
+    if (d.strike) this.strikeT = this.t;
+    if (d.seqReset) this.seqT0 = this.t;
+    if (d.gate !== undefined) this.envT = d.gate ? 1 : 0;
+    this.dirty = true;
+  }
+  reset() {
+    const S = this.S;
+    this.pA.fill(0); this.pB.fill(0); this.ph.set(this.phInit); this.slipAcc.fill(0); this.mate.fill(-1);
+    this.ring.fill(0); this.ri = 0; this.rn = 0; this.mAcc = 0; this.mAccB = 0; this.mCnt = 0;
+    this.FA = S.f0; this.FB = S.f0 * S.ratioB; this.dAs = S.f0; this.psi = 0.25; this.t = 0; this.strikeT = -1e9; this.seqT0 = 0;
+  }
+  prepare() {
+    const S = this.S, N = S.N;
+    const weigh = (a, lw, n) => { let mx = 0, ss = 0; for (let i = 0; i < n; i++) { mx = Math.max(mx, a[i]); ss += a[i] * a[i]; }
+      for (let i = 0; i < MAXN; i++) lw[i] = i < n && a[i] > 0 ? (S.gamma ? Math.pow(a[i] / mx, S.gamma) : 1) : 0;
+      return ss > 0 ? 0.35 / Math.sqrt(ss) : 0; };
+    let sn_ = 0; for (let n = 1; n <= N; n++) sn_ += n;
+    this.normA = weigh(this.aA, this.lwA, N); this.backA = 21 / sn_ / S.inertia;
+    if (S.partner === 0) {
+      this.normP = weigh(this.aV, this.lwV, S.Nv);
+      for (let m = 0; m < S.Nv; m++) this.wV[m] = (m + 1) * S.f0V * this.det[m];
+    } else if (S.partner === 1) {
+      this.normP = weigh(this.aB, this.lwB, S.NB);
+      let sb = 0; for (let m = 1; m <= S.NB; m++) sb += m; this.backB = 21 / sb / S.inertiaB;
+    } else this.normP = 0;
+    this.dirty = false; this.modulate(); this.pairUp(); this.weigh();
+  }
+  ratios(r, N, x, pinned) {
+    const S = this.S;
+    if (S.law === 0) { const den = pinned ? 1 + x : 1; for (let n = 1; n <= N; n++) r[n - 1] = n * Math.sqrt((1 + x * n * n) / den); }
+    else { for (let n = 1; n <= N; n++) r[n - 1] = n * Math.pow(2, x * this.tab[n - 1] / 1200);
+      if (pinned) { const r1 = r[0]; for (let n = 0; n < N; n++) r[n] /= r1; } }
+  }
+  modulate() {
+    const S = this.S, t = this.t, dtc = CTL / sampleRate;
+    if (S.lfo) {
+      if (S.lfoSrc === 0) { this.psi += S.lfoK * (S.lfoRho - Math.sin(TAU * this.psi)) * dtc; this.psi -= Math.floor(this.psi);
+        this.lfoV = 0.5 - 0.5 * Math.cos(TAU * (this.psi - 0.25)); }
+      else { const v = (S.f0 - this.dAs) / (0.02 * S.f0); this.lfoV = v < 0 ? 0 : v > 1 ? 1 : v; }
+    } else this.lfoV = 0;
+    this.lfoL = S.lfo ? S.lfoAmt * this.lfoV : 0;
+    let s = S.seq ? S.sEdge + S.seqS[Math.floor((t - this.seqT0) / S.seqT) & 7] : S.s;
+    if (S.breathe) s += S.brD * (0.5 - 0.5 * Math.cos(TAU * t / S.brP));
+    if (S.flutter) s += S.flD * (0.5 - 0.5 * Math.cos(TAU * S.flR * t));
+    if (S.lfo && S.lfoDest === 1) s += this.lfoL;
+    let x = Math.pow(10, s);
+    const ts = t - this.strikeT; if (ts >= 0 && ts < 14 * S.strTau) x += Math.pow(10, S.sEdge + S.strD) * Math.exp(-ts / S.strTau);
+    let K = S.ride ? S.rideLo + (S.rideHi - S.rideLo) * (0.5 - 0.5 * Math.cos(TAU * t / S.rideP)) : S.K;
+    if (S.lfo && S.lfoDest === 2) K *= Math.pow(10, -this.lfoL);
+    this.x = x; this.Ke = K;
+    this.ratios(this.rA, S.N, x, S.pinned);
+    if (S.partner === 1) this.ratios(this.rB, S.NB, x, S.pinned);
+  }
+  pairUp() {
+    const S = this.S, N = S.N, pa = this.pa, pb = this.pb, mate = this.mate; let np = 0;
+    if (S.partner === 2) { this.np = 0; mate.fill(-1); return; }
+    if (S.partner === 0 && S.pairing === 0) {
+      for (let n = 0; n < N; n++) { if (n < S.Nv && this.lwA[n] > 0) { pa[np] = n; pb[np] = n; np++; mate[n] = n; } else mate[n] = -1; }
+      this.np = np; return;
+    }
+    if (S.partner === 0) {
+      const Nv = S.Nv, w = this.wV, sp = 0.1 * S.f0V;
+      for (let n = 0; n < N; n++) {
+        if (!(this.lwA[n] > 0)) { mate[n] = -1; continue; }
+        const f = this.rA[n] * this.FA; let m = Math.round(f / S.f0V) - 1;
+        if (m >= Nv && f - w[Nv - 1] > 0.5 * S.f0V) { mate[n] = -1; continue; }   // above every voice: nothing to grip it
+        m = m < 0 ? 0 : m >= Nv ? Nv - 1 : m;
+        let best = m, bd = Math.abs(f - w[m]);
+        if (m > 0 && Math.abs(f - w[m - 1]) < bd) { best = m - 1; bd = Math.abs(f - w[m - 1]); }
+        if (m + 1 < Nv && Math.abs(f - w[m + 1]) < bd) { best = m + 1; bd = Math.abs(f - w[m + 1]); }
+        const o = mate[n]; if (o >= 0 && o < Nv && Math.abs(f - w[o]) < bd + sp) best = o;
+        mate[n] = best; pa[np] = n; pb[np] = best; np++;
+      }
+      this.np = np; return;
+    }
+    const NB = S.NB, FA = this.FA, FB = this.FB, rA = this.rA, rB = this.rB, mark = this.mark;
+    let m = 0;
+    for (let n = 0; n < N; n++) {
+      if (!(this.lwA[n] > 0)) { mate[n] = -1; continue; }
+      const f = rA[n] * FA;
+      while (m + 1 < NB && rB[m + 1] * FB <= f) m++;
+      let best = m; if (m + 1 < NB && Math.abs(rB[m + 1] * FB - f) < Math.abs(rB[m] * FB - f)) best = m + 1;
+      if (!(this.lwB[best] > 0)) { mate[n] = -1; continue; }
+      mate[n] = best; const key = n * MAXN + best; if (!mark[key]) { mark[key] = 1; pa[np] = n; pb[np] = best; np++; }
+    }
+    let q = 0;
+    for (let k = 0; k < NB; k++) {
+      if (!(this.lwB[k] > 0)) continue;
+      const f = rB[k] * FB;
+      while (q + 1 < N && rA[q + 1] * FA <= f) q++;
+      let best = q; if (q + 1 < N && Math.abs(rA[q + 1] * FA - f) < Math.abs(rA[q] * FA - f)) best = q + 1;
+      if (!(this.lwA[best] > 0)) continue;
+      const key = best * MAXN + k; if (!mark[key]) { mark[key] = 1; pa[np] = best; pb[np] = k; np++; }
+    }
+    for (let j = 0; j < np; j++) mark[pa[j] * MAXN + pb[j]] = 0;
+    this.np = np;
+  }
+  weigh() {
+    // the duo: only nearly coincident partials pull (full within an eighth of the lower fundamental, none past a
+    // quarter). Each tone's pitch is held only by its own summed pull, so without this the pair slides into unison.
+    const S = this.S, ens = S.partner === 0, win = 0.125 * S.f0 * Math.min(1, S.ratioB);
+    for (let j = 0; j < this.np; j++) {
+      const n = this.pa[j], m = this.pb[j], fa = this.rA[n] * this.FA, fb = ens ? this.wV[m] : this.rB[m] * this.FB;
+      let g = ens ? (4000 - Math.abs(fa - fb)) / 1000 : 2 - Math.abs(fa - fb) / win; g = g < 0 ? 0 : g > 1 ? 1 : g;
+      this.pk[j] = g * Math.sqrt(this.lwA[n] * (ens ? this.lwV[m] : this.lwB[m]));
+    }
+    for (let n = 0; n < S.N; n++) { let g = (19000 - this.rA[n] * this.FA) / 3000; this.gA[n] = this.aA[n] * (g < 0 ? 0 : g > 1 ? 1 : g); }
+    if (S.partner === 1) for (let m = 0; m < S.NB; m++) { let g = (19000 - this.rB[m] * this.FB) / 3000; this.gB[m] = this.aB[m] * (g < 0 ? 0 : g > 1 ? 1 : g); }
+  }
+  process(_in, outs) {
+    const o = outs[0], L = o[0], R = o[1] || o[0], len = L.length, S = this.S, dt = 1 / sampleRate;
+    if (this.dirty) this.prepare();
+    const N = S.N, Nv = S.Nv, NB = S.NB, part = S.partner, silent = S.silent;
+    const pA = this.pA, rA = this.rA, gA = this.gA, oA = this.oA, ph = this.ph, wV = this.wV, aV = this.aV, vpull = this.vpull, fvT = this.fvT;
+    const pB = this.pB, rB = this.rB, gB = this.gB, oB = this.oB, mate = this.mate, slip = this.slipAcc;
+    const repair = part === 1 || (part === 0 && S.pairing === 1);
+    const atk = 1 - Math.exp(-1 / (0.008 * sampleRate)), rel = 1 - Math.exp(-1 / (0.35 * sampleRate)), sm = 1 - Math.exp(-TAU * 30 / sampleRate);
+    for (let i0 = 0; i0 < len; i0 += CTL) {
+      this.modulate(); if (i0 === 0 && repair) this.pairUp(); this.weigh();
+      const K = this.Ke, bk = this.backA * K, bkB = this.backB * K, f0 = S.f0, f0B = S.f0 * S.ratioB, np = this.np, pa = this.pa, pb = this.pb, pk = this.pk;
+      const ampL = S.lfo && S.lfoDest === 0 ? 1 - this.lfoL : 1;
+      const pan = S.lfo && S.lfoDest === 3 ? (this.lfoV * 2 - 1) * S.lfoAmt : 0, gl = Math.cos((pan + 1) * Math.PI / 4) * Math.SQRT2, gr = Math.sin((pan + 1) * Math.PI / 4) * Math.SQRT2;
+      for (let i = i0; i < i0 + CTL; i++) {
+        let dA = f0, dB = f0B;
+        if (part === 0) {
+          let acc = 0;
+          for (let j = 0; j < np; j++) { const n = pa[j], m = pb[j]; const s = sn(ph[m] - pA[n]) * pk[j]; acc += rA[n] * s; vpull[m] += s; }
+          dA = f0 + bk * acc;
+          for (let m = 0; m < Nv; m++) { const fv = wV[m] - K * vpull[m]; fvT[m] = fv; ph[m] += fv * dt; vpull[m] = 0; }
+          for (let n = 0; n < N; n++) { pA[n] += rA[n] * dA * dt; const m = mate[n]; if (m >= 0) slip[n] += (fvT[m] - rA[n] * dA) * dt; }
+        } else if (part === 1) {
+          let acc = 0, accB = 0;
+          for (let j = 0; j < np; j++) { const n = pa[j], m = pb[j]; const s = sn(pB[m] - pA[n]) * pk[j]; acc += rA[n] * s; accB += rB[m] * s; }
+          dA = f0 + bk * acc; dB = f0B - bkB * accB;
+          for (let m = 0; m < NB; m++) pB[m] += rB[m] * dB * dt;
+          for (let n = 0; n < N; n++) { pA[n] += rA[n] * dA * dt; const m = mate[n]; if (m >= 0) slip[n] += (rB[m] * dB - rA[n] * dA) * dt; }
+        } else {
+          for (let n = 0; n < N; n++) pA[n] += rA[n] * dA * dt;
+        }
+        this.FA = dA; this.FB = dB; this.dAs += (dA - this.dAs) * sm;
+        this.mAcc += dA; this.mAccB += dB;
+        if (++this.mCnt >= this.hop) {
+          const m = this.mAcc / this.mCnt; this.ring[this.ri] = m; this.ri = (this.ri + 1) % 100; if (this.rn < 100) this.rn++;
+          if (this.traceA) { this.traceA.push(m); this.traceB.push(this.mAccB / this.mCnt); }
+          this.mAcc = 0; this.mAccB = 0; this.mCnt = 0;
+        }
+        this.repF += dA; this.repFB += dB; this.repN++;
+        if (!silent) {
+          let y = 0; for (let n = 0; n < N; n++) y += gA[n] * sn(pA[n] + oA[n]);
+          let z = 0;
+          if (part === 0) for (let m = 0; m < Nv; m++) z += aV[m] * sn(ph[m]);
+          else if (part === 1) for (let m = 0; m < NB; m++) z += gB[m] * sn(pB[m] + oB[m]);
+          this.env += (this.envT - this.env) * (this.envT > this.env ? atk : rel);
+          const g = S.gated ? this.env : 1, v = this.normA * S.toneGain * y * ampL * g, w = this.normP * S.partnerGain * z * g;
+          L[i] = Math.tanh(v * gl + w); R[i] = Math.tanh(v * gr + w);
+        } else { L[i] = 0; R[i] = 0; }
+      }
+      this.t += CTL * dt;
+    }
+    for (let n = 0; n < N; n++) pA[n] -= Math.floor(pA[n]);
+    if (part === 0) for (let m = 0; m < Nv; m++) ph[m] -= Math.floor(ph[m]);
+    if (part === 1) for (let m = 0; m < NB; m++) pB[m] -= Math.floor(pB[m]);
+    if (S.report && this.repN >= this.repLen) {
+      const T = this.repN * dt; let mu = 0, v2 = 0;
+      for (let i = 0; i < this.rn; i++) mu += this.ring[i]; mu /= Math.max(1, this.rn);
+      for (let i = 0; i < this.rn; i++) v2 += (this.ring[i] - mu) * (this.ring[i] - mu);
+      const r = new Float32Array(N), sl = new Float32Array(N), mt = new Int16Array(N);
+      for (let n = 0; n < N; n++) { r[n] = rA[n]; mt[n] = mate[n]; sl[n] = mate[n] >= 0 ? slip[n] / T : NaN; slip[n] = 0; }
+      this.port.postMessage({ F: this.repF / this.repN, FB: this.repFB / this.repN, wob: Math.sqrt(v2 / Math.max(1, this.rn)),
+        x: this.x, K: this.Ke, lfo: this.lfoV, t: this.t, r, slip: sl, mate: mt });
+      this.repN = 0; this.repF = 0; this.repFB = 0;
+    }
+    return true;
+  }
+}
+registerProcessor('coupling-edge', CouplingEdge);`;
+</script>
+
+<script>
+// COMMON:start — shared by the page and the Node checks (edge-lab.mjs evaluates this block)
+/*DATA:start*/const DATA = {"seed7":[0.625095466605,0.89721380097,0.775685690245,0.225207189991,0.300166284911,0.873553445396,0.005265304566,0.821228418383,0.797069428752,0.467934952844,0.303032426819,0.278425612101,0.254869587654,0.445076305883,0.504548258958,0.553497352074,0.995500283434,0.792661919214,0.622179229441,0.988960147682,0.215308698236,0.160212033858,0.612539604273,0.043942007961,0.035680278774,0.514888820271,0.466206025325,0.917167773193,0.629226254491,0.5141176466,0.496873435394,0.247514922027,0.011794025543,0.192402143985,0.692032120882,0.200606723987,0.369536310602,0.003734242052,0.830047729802,0.154461081061,0.267599304564,0.880332153981,0.509790809868,0.847150246366,0.639717166943,0.741770947362,0.091495605063,0.541143821376,0.5077722363,0.871339376693,0.361264059014,0.598184067207,0.059251642346,0.387631801111,0.323036346258,0.15019972907,0.816338103819,0.37944617155,0.978747884411,0.589991693011,0.60505625383,0.637996580788,0.676450243813,0.150788019168,0.440313467188,0.23956396183,0.402498298104,0.096704093932,0.967828051049,0.215004037356,0.671765162611,0.300420081479,0.87407702615,0.662214738338,0.131615815808,0.845074320875,0.944948171145,0.903916788196,0.569719147859,0.145459953761,0.192463494968,0.927905684745,0.552326487667,0.180552498449,0.884056894196,0.641571705222,0.569694274474,0.37628783613,0.410955282157,0.239489212682,0.038057286691,0.876218808109,0.467730216814,0.547635199214,0.32216330978,0.751324919855,0.025196870802,0.372185272565,0.030350294384,0.122892102205,0.967148235397,0.657760730039,0.428220246389,0.52374010791,0.872809208565,0.344210666996,0.59029098229,0.68368437334,0.355413777024,0.519098486496,0.765247383279,0.909179313991,0.151062278077,0.933419392307,0.005178865815,0.752977503598,0.810526830317,0.136764051543,0.418903650913,0.815256277995,0.014271189685,0.628461947866,0.793023658098,0.513003582822,0.725849420551,0.226423482697,0.198521147993,0.36312695055,0.179406027567,0.346061439112,0.948124061411,0.573332717611,0.340068067421,0.271524619809,0.952039490708,0.444478209647,0.980394750881,0.515522669106,0.521166129026,0.896540523716,0.742767418215,0.580652863853,0.426649503836,0.878187859418,0.411646149907,0.922759576168,0.068715352122,0.429996861901,0.519514819878,0.950938195582,0.250999246665,0.806039147262,0.676471199999,0.717085904281,0.62962218284,0.971560708462,0.332681459211,0.398275559679,0.202911752214,0.050704055272,0.212908194975,0.915464397124,0.840168817158,0.112405741493,0.603779025317,0.47919649489,0.594684870488,0.659275006609,0.306659490889,0.961350844736,0.465840035061,0.628100854865,0.6352261839,0.18388939651,0.061865418156,0.411516823498,0.764030088438,0.815221788292,0.729989249002,0.113204952525,0.913354861531,0.802036577997,0.87769136665,0.523304152975,0.915635435101,0.046652237954,0.030288833932,0.020215573356,0.252768677952,0.248569773209,0.187503334356,0.567055818385,0.038985841033,0.590387867835,0.166011153047,0.677873708567,0.021075354444,0.310570197053,0.938341286865,0.538396379877,0.811587402747,0.658026081612,0.610750785614,0.191252680085,0.574394748258,0.039686418459,0.801664405092,0.960070917026,0.854009071342,0.050709645966,0.33866008338,0.318003197862,0.112716991723,0.626611819328,0.797458175366,0.313721472002,0.862809234919,0.797126912846,0.129137941474,0.766859156738,0.882620719902,0.197282569832,0.573641179499,0.638749966022,0.609334257493,0.096245677628,0.661191461015,0.63195472468,0.823885489002,0.80351269913,0.327168207933,0.722047332927,0.867273387572,0.892947758191,0.161512326947,0.026702350086,0.650807443422,0.214676272744,0.563709724267,0.944804529807,0.379319624253,0.252774550384,0.456510049962,0.657243913271,0.101098967855,0.380584763501,0.133721188839,0.662446221614,0.830552532263,0.376853781409,0.371723952774,0.539521658947,0.215057779638,0.247409591617,0.329852283282,0.457425698138],"seed11":[0.128570202769,0.49927786244,0.601498357623,0.028689008372,0.147926084577,0.92821102296,0.070420576154,0.129773949399,0.948328453292,0.621883592796,0.36899312373,0.511390021803,0.662842952517,0.275308815761,0.137968072867,0.788039594504,0.670360584102,0.512382313483,0.81673643597,0.54907526887,0.980913639297,0.20450946133,0.553730362865,0.483624696923,0.35327485506,0.591595303949,0.235301231668,0.802202683778,0.867333551842,0.128759671228,0.467073206738,0.277144892534,0.083116997735,0.89594430825,0.429948692048,0.147691299962,0.673362357276,0.202216027788,0.901431078688,0.217148257419,0.033074687377,0.200768954161,0.345747873756,0.468908163422,0.906134338896,0.697361088736,0.339320660742,0.016877215097,0.159823694105,0.99643587554,0.459715979893,0.691039916319,0.054668061402,0.034050278947,0.845890106445,0.587881940667,0.308709743205,0.317376638281,0.089237254418,0.172669601109,0.024586107465,0.839124848373,0.466303197203,0.127202916059,0.739246874034,0.195652829945,0.061920235148,0.598392107324,0.895757751741,0.026943411385,0.805135989892,0.190170016728,0.092901421637,0.017962035653,0.292975067012,0.727111743982,0.493178951008,0.852919994455,0.217211303521,0.315182747143,0.258140851855,0.978301137314,0.941005994651,0.340686175857,0.436001503592,0.314319628704,0.746508917305,0.040013102553,0.067438933092,0.404037587468,0.245094051114,0.845224981701,0.741807096475,0.545793982523,0.661475514314,0.692279106685,0.781054823398,0.927502597116,0.149735173788,0.626130157745,0.143621443113,0.443130941285,0.786284788624,0.894697793686,0.759228154125,0.035408204082,0.359412076434,0.163056832422,0.998802487632,0.14401535763,0.244314442846,0.35721971278,0.060886702909,0.870384917043,0.636361421863,0.159748239958,0.498268557713,0.078669758635,0.61097978736,0.231663228097,0.038638932865,0.115237503694,0.55526262262,0.636980610958,0.324800647134,0.643452429561,0.352066099909,0.13065900679],"piano":[{"note":"A1","f0":55.1423,"B":0.000046713,"partials":61},{"note":"A2","f0":110.248,"B":0.00008301,"partials":54},{"note":"A3","f0":220.975,"B":0.00026572,"partials":46},{"note":"A4","f0":442.751,"B":0.00074049,"partials":24},{"note":"A5","f0":885.422,"B":0.0023055,"partials":17},{"note":"C6","f0":1053.04,"B":0.0028863,"partials":11},{"note":"F#6","f0":1491.63,"B":0.0050269,"partials":7},{"note":"D7","f0":2352,"B":0.01,"partials":6}],"materials":{"vibraphone":{"label":"vibraphone (C4, tuned bar + resonator)","source":"Vibraphone C3.aif (Ableton Live 12 Core Library; read in place, not copied) -- tuned aluminium bar, resonator","f1":261.317,"ratios":[1,1.3788,1.6299,2.0034,2.3788,3.0031,4.0073,5.0097,5.9328,9.8941],"cents":[0,-643.904,-1056.21,-1197.06,-1286.03,-1198.21,-965.669,-810.331,-721.454,-18.4315],"amps":[1,0.0039,0.0037,0.0445,0.0027,0.0168,0.3281,0.0025,0.0091,0.0067]},"marimba":{"label":"marimba (C3, tuned wooden bar)","source":"Marimba Maple C2.aif (Ableton Live 12 Core Library; read in place, not copied) -- tuned wooden bar","f1":130.386,"ratios":[1,2.5045,3.0061,4.0086,10.524],"cents":[0,389.427,3.5166,3.71816,1288.42],"amps":[1,0.0075,0.0364,0.111,0.1139]},"bowl":{"label":"singing bowl (D4)","source":"Singing Bowl D.aif (Ableton Live 12 Core Library; read in place, not copied) -- singing bowl, struck and ringing","f1":299.514,"ratios":[1,1.9996,5.3464,5.7415,7.682,8.3361,8.3697,10.749,16.794],"cents":[0,-0.346281,1000.33,625.713,743.465,569.292,309.385,511.357,1079.94],"amps":[0.4175,0.479,0.0438,0.2444,0.001,0.0201,0.0502,0.0168,0.0181]},"bell":{"label":"small bell (Brooklyn, C6)","source":"Bell Brooklyn C5.aif (Ableton Live 12 Core Library; read in place, not copied) -- small struck bell","f1":1042.08,"ratios":[1,1.1353,1.4512,2.1783,2.3302,2.4521,3.453,3.5489,3.8176,4.0024,4.324,4.8517,5.0207,5.5295,5.6139,6.4553,6.6169,12.0073,13.8788,14.2633,14.6577,16.364,16.7562,16.8134],"cents":[0,-980.312,-1257.26,-1052.16,-1321.77,-1549.13,-1223.41,-1407.15,-1484.71,-1585.28,-1616.48,-1567.77,-1647.06,-1608.25,-1701.46,-1571.42,-1633.57,-700.902,-543.74,-585.231,-622.477,-512.374,-548.327,-616.107],"amps":[1,0.0079,0.3027,0.0071,0.0353,0.0669,0.037,0.0733,0.0059,0.0061,0.0135,0.0105,0.0315,0.0176,0.0056,0.0092,0.0112,0.0045,0.0083,0.0181,0.0082,0.0124,0.0086,0.0057]}}};/*DATA:end*/
+/*EDGE:start*/const EDGE = {"measured":"2026-10-21","rule":"first stretch whose 4 s hold wobbles > 0.5 Hz (std of 10 ms means, last 2 s), 44.1 kHz, seed-7 voicing; log10 B (stiff) or log10 depth (materials); -99 torn with no stretch, 99 never tears up to B = 1000","K":[1,2,4,6,10,16,25],"N":[6,12,24,40,64,96],"tables":{"warm|free|g0":[[-2.9969,-2.9256,-2.7763,-2.6628,-2.4672,-2.2588,-2.0409],[-4.1422,-3.9069,-3.7653,-3.5815,-3.4093,-3.2088,-3.0456],[-4.5531,-4.2787,-4.2309,-4.0862,-4.0078,-3.8618,-3.5815],[-4.9764,-4.9989,-4.8496,-4.7595,-4.6186,-4.293,-4.0908],[-5.1122,-5.1035,-5.0713,-5.0047,-4.895,-4.7257,-4.5469],[-5.3046,-5.3193,-5.3261,-5.322,-5.2124,-5.0977,-4.8799]],"warm|free|g0.25":[[-3.6922,-3.0428,-2.9638,-2.8347,-2.6703,-2.501,-2.3066],[-4.0797,-4.1178,-3.8981,-3.8237,-3.5968,-3.4431,-3.3346],[-4.3031,-4.3099,-4.27,-4.2502,-4.1328,-4.0259,-3.9565],[99,-5.0302,-5.0058,-5.033,-4.8764,-4.6993,-4.6064],[99,99,-5.0791,-5.1688,-5.0825,-4.9991,-4.8672],[99,99,99,-5.2049,-5.228,-5.2071,-5.0752]],"warm|free|g0.5":[[-3.3484,-3.3163,-3.081,-2.9362,-2.7953,-2.6807,-2.5331],[-3.7203,-3.9303,-3.9215,-3.8628,-3.6984,-3.5369,-3.4675],[99,-4.2709,-4.3871,-4.3284,-4.2656,-4.2603,-4.0659],[99,99,-4.3496,-4.2986,-4.2983,-4.3399,-4.2861],[99,99,99,99,99,99,-4.0235],[99,99,99,99,99,99,99]],"warm|free|g1":[[-3.4891,-3.5975,-3.3153,-3.2175,-2.975,-2.9072,-2.7284],[99,-3.4615,-3.5934,-3.5425,-3.5265,-3.5759,-3.5456],[99,99,99,99,-3.0546,-3.1978,-3.683],[99,99,99,99,99,99,-2.5986],[99,99,99,99,99,99,99],[99,99,99,99,99,99,99]],"warm|pinned|g0":[[-2.9969,-2.9256,-2.7763,-2.6706,-2.4672,-2.2588,-2.0409],[-4.1422,-3.9069,-3.7653,-3.5971,-3.4093,-3.2088,-3.0456],[-4.5531,-4.2787,-4.2309,-4.1018,-4.0078,-3.8618,-3.644],[-4.9764,-4.9989,-4.8183,-4.7283,-4.6264,-4.3165,-4.1064],[-5.12,-5.1035,-5.04,-5.0203,-4.8872,-4.7022,-4.5391],[-5.3046,-5.3271,-5.3261,-5.322,-5.2358,-5.1055,-4.9189]],"warm|pinned|g0.25":[[-3.6922,-3.0428,-2.9638,-2.8347,-2.6703,-2.501,-2.3066],[-4.0797,-4.1178,-3.8981,-3.8237,-3.5968,-3.4431,-3.3425],[-4.3343,-4.3256,-4.27,-4.2502,-4.1406,-4.0259,-3.9565],[99,-5.0302,-5.0058,-5.0095,-4.8764,-4.6993,-4.6142],[99,99,-5.0791,-5.1688,-5.0591,-4.9913,-4.8672],[99,99,99,-5.2595,-5.228,-5.1446,-5.1064]],"warm|pinned|g0.5":[[-3.3484,-3.3163,-3.081,-2.9362,-2.7953,-2.6807,-2.5331],[-3.7828,-3.9381,-3.9215,-3.8628,-3.6984,-3.5369,-3.4596],[99,-4.2709,-4.3871,-4.3518,-4.2499,-4.2759,-4.0659],[99,99,-4.3496,-4.3298,-4.3061,-4.3399,-4.2861],[99,99,99,99,99,99,-4.0781],[99,99,99,99,99,99,99]],"warm|pinned|g1":[[-3.4891,-3.5975,-3.3153,-3.2175,-2.975,-2.8916,-2.7206],[99,-3.4694,-3.6012,-3.6753,-3.5265,-3.5759,-3.5456],[99,99,99,99,-3.2031,-3.1978,-3.6284],[99,99,99,99,99,99,-2.5752],[99,99,99,99,99,99,99],[99,99,99,99,99,99,99]],"bright|free|g0":[[-2.9969,-2.9256,-2.7763,-2.6628,-2.4672,-2.2588,-2.0409],[-4.1422,-3.9069,-3.7653,-3.5815,-3.4093,-3.2088,-3.0456],[-4.5531,-4.2787,-4.2309,-4.0862,-4.0078,-3.8618,-3.5815],[-4.9764,-4.9989,-4.8496,-4.7595,-4.6186,-4.293,-4.0908],[-5.1122,-5.1035,-5.0713,-5.0047,-4.895,-4.7257,-4.5469],[-5.3046,-5.3193,-5.3261,-5.322,-5.2124,-5.0977,-4.8799]],"bright|pinned|g0":[[-2.9969,-2.9256,-2.7763,-2.6706,-2.4672,-2.2588,-2.0409],[-4.1422,-3.9069,-3.7653,-3.5971,-3.4093,-3.2088,-3.0456],[-4.5531,-4.2787,-4.2309,-4.1018,-4.0078,-3.8618,-3.644],[-4.9764,-4.9989,-4.8183,-4.7283,-4.6264,-4.3165,-4.1064],[-5.12,-5.1035,-5.04,-5.0203,-4.8872,-4.7022,-4.5391],[-5.3046,-5.3271,-5.3261,-5.322,-5.2358,-5.1055,-4.9189]]},"materials":{"vibraphone":[-1.8164,-1.7383,-1.5898,-1.5195,-1.457,-1.3867,-1.2305],"marimba":[-2.3086,-2.0742,-1.7773,-1.582,-1.3477,-1.1367,-0.9258],"bowl":[-1.6523,-1.5586,-1.3633,-1.2773,-1.2148,-1.0977,-0.9336],"bell":[-2.0898,-2.0273,-1.918,-1.8242,-1.7148,-1.5742,-1.3945]}};/*EDGE:end*/
+// The frozen sweeps' voicing: DET = 1 + uniform(−0.004, 0.004, Nv) then starting phases uniform(0, 1, Nv), both from default_rng(7)
+function voicing(Nv) { const u = DATA.seed7; return { det: u.slice(0, Nv).map((x) => 1 - 0.004 + 0.008 * x), phInit: u.slice(Nv, 2 * Nv) }; }
+// Two sources from the sweeps: bright (sweeppin.py, ride.py: n^−0.7, zero starting phases) and warm (ride_warm.py: 1/n rolled off above the 4th, random starting phases)
+function source(kind, N) {
+  const a = [], o = [];
+  for (let n = 1; n <= N; n++) {
+    a.push(kind === 'bright' ? Math.pow(n, -0.7) : (1 / n) * Math.min(1, 4 / n));
+    o.push(kind === 'bright' ? 0 : DATA.seed11[n - 1]);
+  }
+  return { amps: a, offs: o };
+}
+// The measured piano: string stiffness B by fundamental, log-log between the library's notes
+function pianoB(f) {
+  const P = DATA.piano; if (f <= P[0].f0) return P[0].B * Math.pow(f / P[0].f0, Math.log(P[1].B / P[0].B) / Math.log(P[1].f0 / P[0].f0));
+  for (let i = 1; i < P.length; i++) if (f <= P[i].f0) { const a = P[i - 1], b = P[i], u = Math.log(f / a.f0) / Math.log(b.f0 / a.f0); return Math.exp(Math.log(a.B) + u * Math.log(b.B / a.B)); }
+  const a = P[P.length - 2], b = P[P.length - 1]; return b.B * Math.pow(f / b.f0, Math.log(b.B / a.B) / Math.log(b.f0 / a.f0));
+}
+// The edge: log10 of the first stretch that tears, measured by measure-edge.mjs, interpolated in log K and log N
+function edgeS(kref, N, pinned, gamma, src) {
+  if (!EDGE) return -4.75;
+  const T = EDGE.tables[`${src || 'warm'}|${pinned ? 'pinned' : 'free'}|g${gamma}`] || EDGE.tables['warm|pinned|g0'];
+  const lk = Math.log(Math.max(EDGE.K[0], Math.min(EDGE.K[EDGE.K.length - 1], kref)));
+  const ln = Math.log(Math.max(EDGE.N[0], Math.min(EDGE.N[EDGE.N.length - 1], N)));
+  const seg = (arr, v) => { for (let i = 0; i < arr.length - 1; i++) if (v <= Math.log(arr[i + 1])) return [i, (v - Math.log(arr[i])) / (Math.log(arr[i + 1]) - Math.log(arr[i]))]; return [arr.length - 2, 1]; };
+  const [i, u] = seg(EDGE.N, ln), [j, w] = seg(EDGE.K, lk);
+  const at = (a, b) => { const v = T[a][b]; return v === null || v <= -99 ? -9.5 : v >= 99 ? 3.5 : v; };   // -99 torn with no stretch, 99 never tears
+  return (1 - u) * ((1 - w) * at(i, j) + w * at(i, j + 1)) + u * ((1 - w) * at(i + 1, j) + w * at(i + 1, j + 1));
+}
+// COMMON:end
+</script>
+
+<script>
+// ─── The instrument ──────────────────────────────────────────────────────────
+const $ = (id) => document.getElementById(id);
+const NOTES = [['E1', 41.2034], ['A1', 55], ['E2', 82.4069], ['A2', 110], ['E3', 164.814], ['A3', 220], ['E4', 329.628], ['A4', 440]];
+const KEYS = 'asdfghjk';
+const U = { f0: 110, kref: 6, N: 64, src: 'warm', pinned: true, inertia: 1, vox: 0.45, partner: 0, law: 'stiff', s: -5, follow: true, margin: -0.25,
+  pairing: 0, drone: false, f0V: 110, gamma: 0, gated: false, onNote: false,
+  breathe: false, brD: 1.3, brP: 12, flutter: false, flD: 1, flR: 3, seq: false, seqT: 0.375, seqS: [-1.26, -0.26, -0.08, 0.14, -1.26, 0.52, -0.18, 1.05],
+  ride: false, rideLo: 2, rideHi: 18, rideP: 20, strD: 1.2, strTau: 0.25,
+  lfo: false, lfoSrc: 0, lfoK: 2, lfoRho: 1.05, lfoDest: 0, lfoAmt: 0.6, duo: false, ratio: 2, cents: 0 };
+const RANGE = { stiff: [-9, 3], piano: [-3, 0.7], mat: [-4, 0.3] };
+const fmtE = (x) => (x < 1e-3 || x >= 1e3 ? x.toExponential(1) : x < 1 ? x.toPrecision(2) : x.toFixed(x < 10 ? 2 : 1));
+const mat = () => DATA.materials[U.law] || null;
+const nParts = () => (mat() ? mat().cents.length : U.N);
+const kHz = (kref = U.kref) => (kref * U.f0) / 110;   // coupling scales with pitch: a low note plays the same map on a slower clock
+const srcKey = () => (U.src === 'bright' ? 'bright' : 'warm');
+function gammaEdge(kref, N, pinned, gamma) {
+  if (gamma <= 0) return edgeS(kref, N, pinned, 0, srcKey());
+  const G = [0, 0.25, 0.5, 1], g = Math.min(1, gamma); let i = 0; while (i < G.length - 2 && g > G[i + 1]) i++;
+  const u = (g - G[i]) / (G[i + 1] - G[i]);
+  return (1 - u) * edgeS(kref, N, pinned, G[i], 'warm') + u * edgeS(kref, N, pinned, G[i + 1], 'warm');
+}
+function matEdge(name, kref) {
+  const T = EDGE && EDGE.materials[name]; if (!T) return -2;
+  const lk = Math.log(Math.max(EDGE.K[0], Math.min(EDGE.K[EDGE.K.length - 1], kref)));
+  for (let j = 0; j < EDGE.K.length - 1; j++) if (lk <= Math.log(EDGE.K[j + 1]) || j === EDGE.K.length - 2) {
+    const w = (lk - Math.log(EDGE.K[j])) / (Math.log(EDGE.K[j + 1]) - Math.log(EDGE.K[j])), a = T[j] ?? -8, b = T[j + 1] ?? -8;
+    return (1 - w) * a + w * b;
+  }
+  return -2;
+}
+// the edge in the engine's units (log10 B for the string laws, log10 depth for the modal objects)
+const edgeEngine = (kref = U.kref) => (mat() ? matEdge(U.law, kref) : gammaEdge(kref, U.N, U.pinned, U.gamma));
+// the stretch slider's units: log10 B for the stiff string, log10 depth (1 = the real thing) for the measured ones
+const offsetUI = () => (U.law === 'piano' ? Math.log10(pianoB(U.f0)) : 0);
+const edgeUI = (kref = U.kref) => edgeEngine(kref) - offsetUI();
+const engineS = () => U.s + offsetUI();
+const rangeUI = () => (U.law === 'stiff' ? RANGE.stiff : U.law === 'piano' ? RANGE.piano : RANGE.mat);
+const clampS = (s) => Math.max(rangeUI()[0], Math.min(rangeUI()[1], s));
+
+function engineMsg() {
+  const m = mat(), N = nParts();
+  const sr = U.src === 'own' && m ? { amps: m.amps, offs: DATA.seed11.slice(0, N) } : source(srcKey(), N);
+  const f0V = U.drone ? U.f0V : U.f0, Nv = U.drone ? Math.min(128, Math.max(N, Math.ceil((N * U.f0) / f0V) + 2)) : N;
+  const { det, phInit } = voicing(Nv);
+  const msg = { N, f0: U.f0, f0V, Nv, K: kHz(), s: engineS(), sEdge: edgeEngine(), law: m ? 1 : 0, pinned: U.pinned || m ? 1 : 0,
+    inertia: U.inertia, gamma: U.gamma, pairing: U.drone || U.pairing ? 1 : 0, partner: U.duo ? 1 : U.partner,
+    amps: sr.amps, offs: sr.offs, det, phInit, toneGain: 1, partnerGain: U.duo ? 0.9 : U.vox, gated: U.gated ? 1 : 0,
+    breathe: +U.breathe, brD: U.brD, brP: U.brP, flutter: +U.flutter, flD: U.flD, flR: U.flR, seq: +U.seq, seqS: U.seqS.slice(), seqT: U.seqT,
+    ride: +U.ride, rideLo: kHz(U.rideLo), rideHi: kHz(U.rideHi), rideP: U.rideP, strD: U.strD, strTau: U.strTau,
+    lfo: +U.lfo, lfoSrc: U.lfoSrc, lfoK: U.lfoK, lfoRho: U.lfoRho, lfoDest: U.lfoDest, lfoAmt: U.lfoAmt };
+  if (m) msg.tab = m.cents;
+  if (U.duo) Object.assign(msg, { NB: N, ratioB: U.ratio * Math.pow(2, U.cents / 1200), ampsB: sr.amps, offsB: sr.offs.map((x) => (x + 0.37) % 1), inertiaB: U.inertia });
+  return msg;
+}
+
+let ctx = null, node = null, master = null, running = false, last = null;
+const hist = [], trail = [];
+const push = () => { if (node) node.port.postMessage(engineMsg()); };
+// after a change of note, partials, pinning, material or loudness weighting, keep the stretch at its margin from the edge
+// (where the tone has no edge in range, the stretch stays where it is)
+const hasEdge = (e = edgeEngine()) => e > -9 && e < 3;
+function context() { if (U.follow && hasEdge()) U.s = clampS(edgeUI() + U.margin); syncSliders(); push(); }
+
+async function start() {
+  if (!ctx) {
+    ctx = new AudioContext();
+    const url = URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }));
+    await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+    node = new AudioWorkletNode(ctx, 'coupling-edge', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+    master = ctx.createGain(); master.gain.value = 0;
+    node.connect(comp).connect(master).connect(ctx.destination);
+    node.port.onmessage = (e) => { last = e.data; hist.push(last); if (hist.length > 330) hist.shift(); };
+    node.port.postMessage(engineMsg()); node.port.postMessage({ reset: true });
+  }
+  await ctx.resume();
+  master.gain.setTargetAtTime(0.8, ctx.currentTime, 0.08);
+  running = true; $('go').textContent = '❚❚ stop'; $('go').classList.remove('go');
+  try { if (parent !== window) parent.postMessage({ type: 'rich:play' }, '*'); } catch (e) {}
+}
+function stop() { if (!ctx) return; master.gain.setTargetAtTime(0, ctx.currentTime, 0.05); running = false; $('go').textContent = '▸ start'; $('go').classList.add('go'); }
+$('go').onclick = () => (running ? stop() : start());
+
+// ─── controls ────────────────────────────────────────────────────────────────
+const toggle = (id, key, after) => { const b = $(id); b.classList.toggle('on', !!U[key]); b.onclick = () => { U[key] = !U[key]; b.classList.toggle('on', U[key]); (after || push)(); }; };
+const slider = (id, key, fmt, map = (v) => v, after) => {
+  const el = $(id), out = $(id + 'O');
+  const show = () => { if (out) out.textContent = fmt(U[key]); };
+  el.oninput = () => { U[key] = map(+el.value); show(); (after || push)(); };
+  show(); return show;
+};
+function syncSliders() {
+  const [a, b] = rangeUI(); const el = $('s'); el.min = a; el.max = b; el.value = U.s;
+  const m = mat(), units = U.law === 'stiff' ? 'B' : 'depth';
+  $('sO').textContent = units === 'B' ? `B ${fmtE(Math.pow(10, U.s))}` : `×${fmtE(Math.pow(10, U.s))}`;
+  $('nO').textContent = m ? `${m.cents.length} modes` : `${U.N}`;
+  $('n').disabled = !!m;
+  ['under', 'onit', 'over'].forEach((id, i) => $(id).classList.toggle('on', U.follow && Math.abs(U.margin - [-0.25, 0, 0.2][i]) < 1e-6));
+  $('follow').classList.toggle('on', U.follow);
+}
+$('s').oninput = () => { U.s = +$('s').value; U.margin = U.s - edgeUI(); syncSliders(); push(); };
+[['under', -0.25], ['onit', 0], ['over', 0.2]].forEach(([id, mg]) => ($(id).onclick = () => { U.margin = mg; U.follow = true; context(); }));
+$('follow').onclick = () => { U.follow = !U.follow; if (U.follow) U.margin = U.s - edgeUI(); syncSliders(); };
+slider('k', 'kref', (v) => `${v.toFixed(1)} Hz`, (v) => Math.pow(10, v));
+$('n').oninput = () => { U.N = +$('n').value; context(); };
+slider('inertia', 'inertia', (v) => `${v.toFixed(2)}×`, (v) => Math.pow(10, v));
+slider('vox', 'vox', (v) => v.toFixed(2));
+$('src').onchange = () => { U.src = $('src').value; context(); };
+$('partner').onchange = () => { U.partner = +$('partner').value; push(); };
+toggle('pin', 'pinned', () => { $('pin').textContent = U.pinned ? 'partial 1 pinned' : 'partial 1 free'; context(); });
+
+toggle('breathe', 'breathe'); toggle('flutter', 'flutter'); toggle('ride', 'ride'); toggle('onNote', 'onNote', () => {});
+toggle('seq', 'seq', () => { push(); if (node) node.port.postMessage({ seqReset: true }); });
+slider('brD', 'brD', (v) => `${v.toFixed(2)} dec`); slider('brP', 'brP', (v) => `${v.toFixed(1)} s`);
+slider('flD', 'flD', (v) => `${v.toFixed(2)} dec`); slider('flR', 'flR', (v) => `${v.toFixed(2)} Hz`, (v) => Math.pow(10, v));
+slider('strD', 'strD', (v) => `+${v.toFixed(2)} dec`); slider('strTau', 'strTau', (v) => `${v.toFixed(2)} s`);
+slider('rideLo', 'rideLo', (v) => `${v.toFixed(1)} Hz`, (v) => Math.pow(10, v)); slider('rideHi', 'rideHi', (v) => `${v.toFixed(1)} Hz`, (v) => Math.pow(10, v));
+slider('rideP', 'rideP', (v) => `${v.toFixed(1)} s`); slider('seqT', 'seqT', (v) => `${v.toFixed(3)} s`);
+U.seqS.forEach((v, i) => { const el = document.createElement('input'); el.type = 'range'; el.min = -1.5; el.max = 1.5; el.step = 0.01; el.value = v;
+  el.title = 'step ' + (i + 1) + ', decades from the edge'; el.oninput = () => { U.seqS[i] = +el.value; push(); }; $('seqS').appendChild(el); });
+
+$('law').onchange = () => { U.law = $('law').value; if (U.law === 'piano') { const p = nearestPiano(U.f0); U.N = Math.min(96, Math.max(6, p.partials)); $('n').value = U.N; } context(); };
+$('pairing').onchange = () => { U.pairing = +$('pairing').value; push(); };
+toggle('drone', 'drone', () => { U.f0V = U.f0; push(); });
+$('morph').onclick = () => {   // the pinned string → bar morph of ride-string-bar, with whatever pairing is set
+  Object.assign(U, { law: 'stiff', pinned: true, follow: false, s: -3, breathe: true, brD: 5, brP: 40, kref: 6 });
+  $('law').value = 'stiff'; $('k').value = Math.log10(6); $('brD').value = 3; U.brD = 5; $('breathe').classList.add('on'); $('pin').classList.add('on');
+  syncSliders(); push();
+};
+slider('gamma', 'gamma', (v) => `γ ${v.toFixed(2)}`, (v) => v, () => context());
+toggle('lfo', 'lfo');
+$('lfoSrc').onchange = () => { U.lfoSrc = +$('lfoSrc').value; push(); };
+$('lfoDest').onchange = () => { U.lfoDest = +$('lfoDest').value; push(); };
+slider('lfoK', 'lfoK', (v) => `${v.toFixed(2)} Hz`, (v) => Math.pow(10, v)); slider('lfoRho', 'lfoRho', (v) => `ρ ${v.toFixed(3)}`); slider('lfoAmt', 'lfoAmt', (v) => v.toFixed(2));
+toggle('duo', 'duo');
+$('ratio').onchange = () => { U.ratio = +$('ratio').value; push(); };
+slider('cents', 'cents', (v) => `${v >= 0 ? '+' : ''}${v.toFixed(1)} ¢`);
+
+function nearestPiano(f) { let best = DATA.piano[0]; for (const p of DATA.piano) if (Math.abs(Math.log(p.f0 / f)) < Math.abs(Math.log(best.f0 / f))) best = p; return best; }
+function play(f) {
+  U.f0 = f; if (U.law === 'piano' && U.follow) { const p = nearestPiano(f); U.N = Math.min(96, Math.max(6, p.partials)); $('n').value = U.N; }
+  context();
+  if (node) { if (U.onNote) node.port.postMessage({ strike: true }); if (U.gated) node.port.postMessage({ gate: 1 }); }
+  document.querySelectorAll('#keys button').forEach((b) => b.classList.toggle('on', Math.abs(+b.dataset.f - f) < 0.01));
+}
+NOTES.forEach(([name, f], i) => { const b = document.createElement('button'); b.textContent = `${KEYS[i]} · ${name}`; b.dataset.f = f; b.onclick = () => play(f); $('keys').appendChild(b); });
+$('strikeBtn').onclick = () => node && node.port.postMessage({ strike: true });
+$('resetBtn').onclick = () => node && node.port.postMessage({ reset: true });
+$('gateBtn').onclick = () => { U.gated = !U.gated; $('gateBtn').textContent = U.gated ? 'key gate' : 'drone'; push(); if (node) node.port.postMessage({ gate: U.gated ? 0 : 1 }); };
+addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'TEXTAREA' || e.repeat) return;
+  const i = KEYS.indexOf(e.key); if (i >= 0) { if (!running) start(); play(NOTES[i][1]); }
+  if (e.key === ' ') { e.preventDefault(); node && node.port.postMessage({ strike: true }); }
+});
+addEventListener('keyup', (e) => { if (U.gated && KEYS.includes(e.key) && node) node.port.postMessage({ gate: 0 }); });
+try {
+  navigator.requestMIDIAccess && navigator.requestMIDIAccess().then((acc) => {
+    let s0 = null;
+    const hook = (inp) => (inp.onmidimessage = (ev) => {
+      const [st, d1, d2] = ev.data, cmd = st & 0xf0;
+      if (cmd === 0x90 && d2 > 0) { if (!running) start(); play(440 * Math.pow(2, (d1 - 69) / 12)); }
+      else if ((cmd === 0x80 || (cmd === 0x90 && d2 === 0)) && U.gated && node) node.port.postMessage({ gate: 0 });
+      else if (cmd === 0xb0 && d1 === 1) { U.kref = Math.pow(10, -0.3 + (d2 / 127) * 1.75); $('k').value = Math.log10(U.kref); $('kO').textContent = `${U.kref.toFixed(1)} Hz`; push(); }
+      else if (cmd === 0xe0) { const bend = ((d2 << 7) | d1) / 8192 - 1; if (s0 === null) s0 = U.s; U.s = clampS(s0 + bend); if (Math.abs(bend) < 0.01) s0 = null; syncSliders(); push(); }
+    });
+    acc.inputs.forEach(hook); acc.onstatechange = () => acc.inputs.forEach(hook);
+  }).catch(() => {});
+} catch (e) {}
+
+// ─── drawing ─────────────────────────────────────────────────────────────────
+const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+function fit(c) { const r = devicePixelRatio || 1, w = c.clientWidth, h = +(c.dataset.h ||= c.getAttribute('height')); if (c.width !== w * r) { c.width = w * r; c.height = h * r; c.style.height = h + 'px'; } const g = c.getContext('2d'); g.setTransform(r, 0, 0, r, 0, 0); return [g, w, h]; }
+function drawLine(now) {
+  const [g, w, h] = fit($('line')); g.clearRect(0, 0, w, h);
+  const m = last, N = m ? m.r.length : nParts(), padL = 44, padR = 10, top = 12, bot = 22, H = h - top - bot, W = w - padL - padR;
+  // asinh scale, linear within a few cents of the line and logarithmic far from it; most bends here are sharp,
+  // so the flat side gets only the room it needs
+  let cmax = 30, cmin = 12; const cents = [];
+  for (let n = 0; n < N; n++) { const c = m ? 1200 * Math.log2(m.r[n] / ((n + 1) * m.r[0])) : 0; cents.push(c); if (c > 0) cmax = Math.max(cmax, c * 1.08); else cmin = Math.max(cmin, -c * 1.08); }
+  cmax = Math.min(cmax, 9000); cmin = Math.min(cmin, 9000);
+  const up = Math.asinh(cmax / 5), dn = Math.asinh(cmin / 5), y0 = top + (H * up) / (up + dn);
+  const Y = (c) => y0 - (Math.asinh(c / 5) / (up + dn)) * H, X = (n) => padL + (N > 1 ? (n / (N - 1)) * W : W / 2);
+  g.font = '10px JetBrains Mono, monospace'; g.fillStyle = css('--fg4'); g.strokeStyle = css('--ring'); g.lineWidth = 1;
+  for (const c of [5, 20, 100, 500, 2000, 6000]) for (const sg of [1, -1]) if (c < (sg > 0 ? cmax : cmin)) { g.beginPath(); g.moveTo(padL, Y(sg * c)); g.lineTo(w - padR, Y(sg * c)); g.stroke(); g.fillText(`${sg > 0 ? '+' : '−'}${c}¢`, 2, Y(sg * c) + 3); }
+  g.strokeStyle = css('--fg3'); g.lineWidth = 1.5; g.beginPath(); g.moveTo(padL, Y(0)); g.lineTo(w - padR, Y(0)); g.stroke(); g.fillStyle = css('--fg3'); g.fillText('0¢', 18, Y(0) + 3);
+  g.fillText('the flat line: harmony', w - padR - 140, Y(0) + 14);
+  g.fillStyle = css('--fg4'); g.fillText('partial 1', padL, h - 6); g.fillText(`partial ${N}`, w - padR - 64, h - 6);
+  if (!m) { g.fillStyle = css('--fg3'); g.fillText('press start', padL + W / 2 - 30, Y(0) - 10); return; }
+  const amps = engineMsg().amps; let amax = 0; for (let n = 0; n < N; n++) amax = Math.max(amax, amps[n] || 0);
+  const det = voicing(U.drone ? Math.min(128, Math.max(N, Math.ceil((N * U.f0) / U.f0V) + 2)) : N).det, f0V = U.drone ? U.f0V : U.f0;
+  g.strokeStyle = css('--amberdim'); g.lineWidth = 1; g.beginPath(); for (let n = 0; n < N; n++) { const x = X(n), y = Y(cents[n]); n ? g.lineTo(x, y) : g.moveTo(x, y); } g.stroke();
+  for (let n = 0; n < N; n++) {
+    const mt = m.mate[n], slip = Math.abs(slipAvg(n)), locked = mt >= 0 && slip < 0.5, lv = Math.sqrt((amps[n] || 0) / (amax || 1));
+    if (mt >= 0) {   // the partner's position, in the same cents frame
+      const fP = U.duo ? m.r[mt] * m.FB : (mt + 1) * f0V * det[mt], cv = 1200 * Math.log2(fP / ((n + 1) * m.r[0] * m.F));
+      if (Math.abs(cv) < cmax * 1.2) { g.strokeStyle = locked ? css('--amberline') : css('--indigodim'); g.beginPath(); g.moveTo(X(n) - 3, Y(cv)); g.lineTo(X(n) + 3, Y(cv)); g.stroke(); }
+    }
+    const fl = locked ? 1 : 0.45 + 0.55 * Math.abs(Math.sin(Math.PI * Math.min(slip, 25) * now / 1000));
+    g.globalAlpha = Math.max(0.4, Math.min(1, 0.45 + 0.55 * lv)) * fl;
+    g.fillStyle = locked ? css('--amber') : mt >= 0 ? '#8b8ef7' : css('--fg4');
+    g.beginPath(); g.arc(X(n), Y(cents[n]), 2.2 + 4 * lv, 0, 2 * Math.PI); g.fill(); g.globalAlpha = 1;
+  }
+}
+function drawMap() {
+  const [g, w, h] = fit($('map')); g.clearRect(0, 0, w, h);
+  const [s0, s1] = rangeUI(), padL = 44, padB = 22, W = w - padL - 10, H = h - padB - 8, k0 = Math.log10(0.5), k1 = Math.log10(28);
+  const X = (s) => padL + ((s - s0) / (s1 - s0)) * W, Y = (k) => 8 + H - ((Math.log10(k) - k0) / (k1 - k0)) * H;
+  const pts = []; for (let i = 0; i <= 60; i++) { const k = Math.pow(10, k0 + ((k1 - k0) * i) / 60); pts.push([Math.max(s0, Math.min(s1, edgeUI(k))), k]); }
+  g.fillStyle = 'rgba(99,102,241,.13)'; g.beginPath(); g.moveTo(X(s1), Y(0.5)); pts.forEach(([s, k]) => g.lineTo(X(s), Y(k))); g.lineTo(X(s1), Y(28)); g.closePath(); g.fill();
+  g.strokeStyle = css('--indigo'); g.lineWidth = 1.5; g.beginPath(); pts.forEach(([s, k], i) => (i ? g.lineTo(X(s), Y(k)) : g.moveTo(X(s), Y(k)))); g.stroke();
+  g.font = '10px JetBrains Mono, monospace'; g.fillStyle = css('--fg4');
+  for (let s = Math.ceil(s0); s <= s1; s += U.law === 'stiff' ? 2 : 1) { g.fillText(U.law === 'stiff' ? `1e${s}` : `×${fmtE(Math.pow(10, s))}`, X(s) - 10, h - 6); }
+  for (const k of [1, 2, 6, 16]) g.fillText(`${k}`, 22, Y(k) + 3);
+  g.fillStyle = css('--fg3'); g.fillText('holds', padL + 6, 20); g.fillText('past the edge', w - 96, h - padB - 6); g.fillText(U.law === 'stiff' ? 'stretch B →' : 'depth →', padL + 6, h - padB - 6);
+  g.save(); g.translate(10, 8 + H / 2 + 30); g.rotate(-Math.PI / 2); g.fillText('coupling at A2, Hz', 0, 0); g.restore();
+  if (last) {
+    const s = Math.log10(Math.max(1e-12, last.x)) - offsetUI(), kr = (last.K * 110) / U.f0;
+    trail.push([s, kr]); if (trail.length > 120) trail.shift();
+    g.fillStyle = css('--amberdim'); trail.forEach(([a, b]) => { g.beginPath(); g.arc(X(Math.max(s0, Math.min(s1, a))), Y(Math.max(0.5, Math.min(28, b))), 2, 0, 7); g.fill(); });
+    g.fillStyle = css('--amber'); g.beginPath(); g.arc(X(Math.max(s0, Math.min(s1, s))), Y(Math.max(0.5, Math.min(28, kr))), 4.5, 0, 7); g.fill();
+  }
+}
+function drawTrace() {
+  const [g, w, h] = fit($('trace')); g.clearRect(0, 0, w, h);
+  if (hist.length < 2) return;
+  const half = h / 2 - 6, pts = hist.slice(-300), X = (i) => 40 + (i / 299) * (w - 50);
+  g.font = '10px JetBrains Mono, monospace'; g.fillStyle = css('--fg4'); g.fillText('pitch, ¢ off the note', 4, 12); g.fillText('stretch, decades from the edge', 4, half + 22);
+  g.strokeStyle = css('--ring'); g.beginPath(); g.moveTo(40, half / 2 + 8); g.lineTo(w - 10, half / 2 + 8); g.stroke();
+  g.strokeStyle = css('--fg2'); g.lineWidth = 1.2; g.beginPath();
+  pts.forEach((p, i) => { const c = 1200 * Math.log2(p.F / U.f0), y = half / 2 + 8 - Math.max(-1, Math.min(1, c / 60)) * (half / 2 - 4); i ? g.lineTo(X(i), y) : g.moveTo(X(i), y); }); g.stroke();
+  const e = edgeEngine(), yE = half + 10 + half / 2;
+  g.strokeStyle = css('--indigo'); g.setLineDash([4, 4]); g.beginPath(); g.moveTo(40, yE); g.lineTo(w - 10, yE); g.stroke(); g.setLineDash([]);
+  g.strokeStyle = css('--amber'); g.beginPath();
+  pts.forEach((p, i) => { const d = Math.log10(Math.max(1e-12, p.x)) - e, y = yE - Math.max(-1, Math.min(1, d / 2)) * (half / 2 - 4); i ? g.lineTo(X(i), y) : g.moveTo(X(i), y); }); g.stroke();
+  g.fillStyle = css('--fg4'); g.fillText('±60¢', w - 40, 12); g.fillText('edge', w - 40, yE - 4); g.fillText('10 s', 40, h - 2);
+}
+function drawScope() {
+  const [g, w, h] = fit($('scope')); g.clearRect(0, 0, w, h);
+  const pts = hist.slice(-120); if (pts.length < 2) return;
+  g.strokeStyle = css('--amber'); g.lineWidth = 1.4; g.beginPath();
+  pts.forEach((p, i) => { const x = 10 + (i / 119) * (w - 20), y = h - 12 - p.lfo * (h - 24); i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke();
+  g.font = '10px JetBrains Mono, monospace'; g.fillStyle = css('--fg4'); g.fillText('the edge LFO, last 4 s', 10, 12);
+}
+
+// ─── readouts: what each section's question needs ──────────────────────────
+// a partial counts as locked when its slip, averaged over the last half second, is under 0.5 Hz
+function slipAvg(n) { const h = hist.slice(-15); let a = 0, c = 0; for (const q of h) if (q.mate.length > n && q.mate[n] >= 0 && Number.isFinite(q.slip[n])) { a += q.slip[n]; c++; } return c ? a / c : NaN; }
+function lockedCount(m) { let k = 0, p = 0; for (let n = 0; n < m.mate.length; n++) if (m.mate[n] >= 0) { p++; if (Math.abs(slipAvg(n)) < 0.5) k++; } return [k, p]; }
+// wobble on the tone's own clock, in cents: 7.9 ¢ is the 0.5 Hz tear threshold at A2, the same at every pitch
+const wobC = (m) => 1200 * Math.log2(1 + m.wob / m.F), TORN = 1200 * Math.log2(1 + 0.5 / 110);
+function kToHold(Breal, N) {   // smallest coupling (at A2) whose edge sits beyond this stretch
+  for (let i = 0; i <= 80; i++) { const k = Math.pow(10, Math.log10(0.5) + (Math.log10(25) - Math.log10(0.5)) * (i / 80)); if (gammaEdge(k, N, U.pinned, U.gamma) > Math.log10(Breal)) return k; }
+  return null;
+}
+function readouts() {
+  const m = last, e = edgeUI(), units = U.law === 'stiff' ? 'B' : 'depth';
+  if (m) {
+    const [k, p] = lockedCount(m), sNow = Math.log10(Math.max(1e-12, m.x)) - offsetUI(), d = sNow - e, B = U.law === 'stiff' ? m.x : null;
+    $('ro').innerHTML = `pitch <b>${m.F.toFixed(2)} Hz</b> (note ${U.f0.toFixed(1)}) · wobble <b>${wobC(m).toFixed(1)} ¢</b> ${wobC(m) > TORN ? '<b style="color:#8b8ef7">torn</b>' : 'holding'} (tears past ${TORN.toFixed(1)} ¢)<br>` +
+      `locked <b>${k} of ${p}</b> partials · coupling ${m.K.toFixed(2)} Hz at this pitch<br>` +
+      `${units === 'B' ? `stretch B <b>${fmtE(m.x)}</b> (λ = B ÷ (1 + B) = ${(m.x / (1 + m.x)).toPrecision(2)}, string 0 → bar 1)` : `depth <b>×${fmtE(Math.pow(10, sNow))}</b> of the real ${U.law === 'piano' ? 'string' : U.law}`}<br>` +
+      (!hasEdge(edgeEngine()) ? (edgeEngine() >= 3 ? 'this setting has <b>no edge</b>: the tone never tears up to B = 1000' : 'this setting is <b>torn with no stretch</b>: over-coupled') :
+      `the edge here: ${units === 'B' ? `B ${fmtE(Math.pow(10, e))}` : `×${fmtE(Math.pow(10, e))}`} · you are <b>${Math.abs(d).toFixed(2)} decades ${d < 0 ? 'under' : 'past'}</b> it`);
+    $('roG').innerHTML = `stretch now ${Math.abs(d).toFixed(2)} decades ${d < 0 ? 'under' : 'past'} the edge · wobble ${wobC(m).toFixed(1)} ¢ · pitch ${(1200 * Math.log2(m.F / U.f0)).toFixed(1)} ¢ off the note`;
+    // re-pairing: which voices the low partials are gripped by
+    const moved = []; for (let n = 0; n < Math.min(12, m.mate.length); n++) if (m.mate[n] >= 0 && m.mate[n] !== n) moved.push(`${n + 1}→${m.mate[n] + 1}${Math.abs(slipAvg(n)) < 0.5 ? ' locked' : ''}`);
+    $('roP').innerHTML = `pairing <b>${U.drone || U.pairing ? 'nearest voice' : 'fixed'}</b>${U.drone ? ` · ensemble holds ${U.f0V.toFixed(1)} Hz, tone at ${U.f0.toFixed(1)} Hz` : ''}<br>locked <b>${k} of ${p}</b> partials<br>` +
+      (moved.length ? `partials gripped by another voice (partial→voice): ${moved.join(' · ')}` : 'every partial is paired with its own voice');
+    if (U.duo) {
+      const set = 1200 * Math.log2(U.ratio) + U.cents, got = 1200 * Math.log2(m.FB / m.F), recent = hist.slice(-30).map((q) => 1200 * Math.log2(q.FB / q.F));
+      const mu = recent.reduce((a, b) => a + b, 0) / recent.length, sd = Math.sqrt(recent.reduce((a, b) => a + (b - mu) * (b - mu), 0) / recent.length);
+      const PQ = { 2: [2, 1], 1.5: [3, 2], 1.3333333333: [4, 3], 1.25: [5, 4], 1.2: [6, 5], 3: [3, 1] }[U.ratio];
+      const co = PQ ? [1, 2].map((j) => `${PQ[0] * j}:${PQ[1] * j} → ${(1200 * Math.log2(m.r[PQ[0] * j - 1] / m.r[PQ[1] * j - 1])).toFixed(2)} ¢`).join(' · ') : 'no coincident partials at √2';
+      $('roD').innerHTML = `the two tones agree on <b>${got.toFixed(2)} ¢</b> (set ${set.toFixed(2)} ¢) · ${sd < 1 ? '<b>locked</b>' : `<b style="color:var(--indigo)">drifting</b> (±${sd.toFixed(1)} ¢)`}<br>` +
+        `where the coincident partials would put it: ${co}<br>locked ${k} of ${p} partial pairs`;
+    } else $('roD').innerHTML = 'switch on two tones to hear them negotiate';
+    const rho = U.lfoRho, pred = rho > 1 ? U.lfoK * Math.sqrt(rho * rho - 1) : 0;
+    let pulses = 0; const sc = hist.slice(-120); for (let i = 1; i < sc.length; i++) if (sc[i - 1].lfo < 0.5 && sc[i].lfo >= 0.5) pulses++;
+    $('roF').innerHTML = U.lfo ? (U.lfoSrc === 0 ? `${rho <= 1 ? 'ρ under 1: the pair is locked, the LFO sits still' : `predicted <b>${pred.toFixed(2)} pulses/s</b> (κ √(ρ² − 1))`} · counted ${(pulses / 4).toFixed(2)}/s on screen` : `following the tone's sag: ${(m.lfo * 100).toFixed(0)}% now`) : 'switch the edge LFO on';
+  }
+  // materials: where each measured piano register sits against the edge at this coupling
+  const rows = DATA.piano.map((p) => { const eB = gammaEdge(U.kref, p.partials, U.pinned, U.gamma), d = Math.log10(p.B) - eB, kh = kToHold(p.B, p.partials);
+    return `${p.note.padEnd(4)} B ${fmtE(p.B).padStart(7)} · ${String(p.partials).padStart(2)} partials · ${d > 0 ? `${d.toFixed(2)} decades past` : `${(-d).toFixed(2)} under`} · holds at ${kh ? kh.toFixed(1) + ' Hz' : 'over 25 Hz'}`; });
+  const mm = mat();
+  const modal = mm ? `<br><b>${mm.label}</b> modes ${mm.ratios.join(' : ')}<br>to grip each mode on its nearest harmonic, coupling (at A2) would need: ${mm.ratios.map((r) => (Math.abs(r - Math.round(r)) * 110).toFixed(1)).join(' · ')} Hz<br>edge at this coupling: depth ×${fmtE(Math.pow(10, matEdge(U.law, U.kref)))}` : '';
+  $('roM').innerHTML = `<b>the measured piano</b> at coupling ${U.kref.toFixed(1)} Hz (at A2, scaled with pitch), each string's own partial count:<br>${rows.join('<br>')}${modal}`;
+  const e0 = gammaEdge(U.kref, U.N, U.pinned, 0), eg = gammaEdge(U.kref, U.N, U.pinned, U.gamma);
+  $('roL').innerHTML = `edge with every partial pulling equally: B ${fmtE(Math.pow(10, e0))} · with γ ${U.gamma.toFixed(2)}: ` +
+    (eg >= 3 ? '<b>no edge</b>: it never tears' : `B ${fmtE(Math.pow(10, eg))} · <b>${Math.pow(10, eg - e0).toFixed(1)}× ${eg >= e0 ? 'later' : 'sooner'}</b>`) + ` (${U.N} partials, warm source)`;
+}
+function frame(now) { drawLine(now); drawMap(); drawTrace(); drawScope(); readouts(); requestAnimationFrame(frame); }
+
+// ─── review: a note per section that keeps the sound you were hearing ────────
+const NOTES_ = {};
+function snapshot() {
+  const m = last, keep = ['f0', 'kref', 'N', 'src', 'pinned', 'inertia', 'law', 's', 'margin', 'pairing', 'drone', 'gamma', 'breathe', 'flutter', 'seq', 'ride', 'lfo', 'duo', 'ratio', 'cents'];
+  const st = keep.map((k) => `${k}=${typeof U[k] === 'number' ? +U[k].toPrecision(4) : U[k]}`).join(' ');
+  return m ? `${st} | heard: pitch ${m.F.toFixed(2)} Hz, wobble ${m.wob.toFixed(2)} Hz, stretch ${fmtE(m.x)}, coupling ${m.K.toFixed(2)} Hz` : st;
+}
+document.querySelectorAll('section .pin').forEach((pin) => {
+  const sec = pin.closest('section'), box = sec.querySelector('.review'), ta = box.querySelector('textarea');
+  pin.onclick = () => box.classList.toggle('open');
+  ta.oninput = () => { NOTES_[sec.id] = { title: sec.dataset.title, text: ta.value, sound: snapshot() }; pin.textContent = ta.value ? '◆' : '◇'; pin.classList.toggle('has', !!ta.value); };
+});
+$('gather').onclick = async () => {
+  const lines = ['# The coupling edge · review round 1', ''];
+  for (const n of Object.values(NOTES_)) if (n.text.trim()) lines.push(`## ${n.title}`, '', n.text.trim(), '', `> the sound: ${n.sound}`, '');
+  const md = lines.length > 2 ? lines.join('\n') : '(no notes yet)';
+  const d = $('digest'); d.style.display = 'block'; d.value = md; d.select();
+  try { await navigator.clipboard.writeText(md); $('gather').textContent = '◆ copied'; } catch (e) { $('gather').textContent = '◇ selected: copy with ⌘C'; }
+  setTimeout(() => ($('gather').textContent = '◇ gather review notes'), 2200);
+};
+
+// ─── what each section answered (measured headless by check-coupling-edge.mjs; see the scroll) ───
+const ANSWERS = {};
+for (const [k, v] of Object.entries(ANSWERS)) { const el = $('a-' + k); if (el) el.innerHTML = '<b>Measured:</b> ' + v; }
+
+U.s = clampS(edgeUI() + U.margin); $('k').value = Math.log10(U.kref);
+syncSliders(); play(110); requestAnimationFrame(frame);
+</script>
+</body>
+</html>
