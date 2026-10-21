@@ -3,11 +3,54 @@
 //   GET  /api/commit?sha=  — one commit's palace-aware diff
 //   GET  /api/uncommitted  — the working-tree delta (the banner)
 //   GET  /api/git-state    — worktree topology (branches, ahead/behind, dirty)
+//   GET  /api/trunk-state  — the trunk as scripts/trunk-state.mjs reads it
 //   POST /api/commit/create — record a structured palace commit
 
+import { execFile } from 'node:child_process';
+import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { jsonResponse, readBody } from '../http.js';
 import { readLog, readCommit, readUncommitted, readGitState, readCommitGraph } from '../git.js';
 import { commitSelected } from '../commit.js';
+
+// The trunk for the LOG deck's strip: what `trunk-state.mjs --json
+// --no-writers --since 24h` prints, the same object by construction. It runs
+// as its own process rather than imported: its readers are synchronous git
+// calls (about 1.8 s on the real palace, most of it the worktree walk) that
+// would hold the dev server for that long, and a script outside the Vite
+// config's import graph can change without rebuilding the lanes. --no-writers
+// skips the slow transcript search. One read serves every caller for 30 s, and
+// a request that arrives while one runs waits for it rather than starting
+// another. Every git call in the script is a read with optional locks off.
+const TRUNK_STATE = fileURLToPath(new URL('../../scripts/trunk-state.mjs', import.meta.url));
+export const TRUNK_TTL_MS = 30_000;
+const trunkReads = new Map(); // palace root -> { at, pending, promise }
+
+export function readTrunkState(palaceRoot, { now = Date.now(), ttlMs = TRUNK_TTL_MS } = {}) {
+  const root = resolve(palaceRoot);
+  const held = trunkReads.get(root);
+  if (held && (held.pending || now - held.at < ttlMs)) return held.promise;
+  const read = { at: now, pending: true, promise: null };
+  read.promise = new Promise((ok, fail) => {
+    execFile(process.execPath, [TRUNK_STATE, '--json', '--no-writers', '--since', '24h'], {
+      cwd: root,
+      env: { ...process.env, PALACE_ROOT: root, GIT_OPTIONAL_LOCKS: '0' },
+      maxBuffer: 16 * 1024 * 1024,
+      timeout: 60_000,
+      windowsHide: true,
+    }, (err, stdout, stderr) => {
+      read.pending = false;
+      const drop = () => { if (trunkReads.get(root) === read) trunkReads.delete(root); };
+      if (err) { drop(); fail(new Error(String(stderr || '').trim() || err.message)); return; }
+      try {
+        read.at = Date.now();
+        ok({ ...JSON.parse(stdout), ts: new Date(read.at).toISOString() });
+      } catch (e) { drop(); fail(new Error(`unreadable output: ${e.message}`)); }
+    });
+  });
+  trunkReads.set(root, read);
+  return read.promise;
+}
 
 export async function logRoutes(ctx) {
   const { req, res, palaceRoot, urlPath, query, method } = ctx;
@@ -64,6 +107,17 @@ export async function logRoutes(ctx) {
       jsonResponse(res, 500, { error: `git worktree read failed: ${err.message}` });
       return true;
     }
+  }
+
+  // The trunk, for the strip at the top of GIT STATE. Read-only: no push, no
+  // heal, nothing pruned or removed. `ts` is when the held read was taken.
+  if (urlPath === '/api/trunk-state' && method === 'GET') {
+    try {
+      jsonResponse(res, 200, await readTrunkState(palaceRoot));
+    } catch (err) {
+      jsonResponse(res, 500, { error: `trunk read failed: ${err.message}` });
+    }
+    return true;
   }
 
   // The commit DAG behind the worktrees (LOG deck TOPOLOGY). Read-only.

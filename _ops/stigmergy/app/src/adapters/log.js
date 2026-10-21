@@ -46,6 +46,18 @@ export async function fetchGitState() {
   }
 }
 
+// The trunk for the strip at the top of GIT STATE (scripts/trunk-state.mjs,
+// held by the server for 30 s). Read-only.
+export async function fetchTrunkState() {
+  try {
+    const res = await fetch('/api/trunk-state', { headers: { Accept: 'application/json' } });
+    if (!res.ok) return { ok: false, status: res.status, error: `http ${res.status}` };
+    return { ok: true, ...(await res.json()) };
+  } catch (err) {
+    return { ok: false, error: err?.message ?? String(err) };
+  }
+}
+
 // The commit DAG behind the worktrees for the TOPOLOGY graph. Read-only.
 // `depth` walks the drawn root that many commits deeper down the trunk.
 export async function fetchCommitGraph({ depth = 0 } = {}) {

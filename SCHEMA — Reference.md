@@ -291,10 +291,15 @@ each item stands alone. Run lines are set aside because a busy ceremony would fi
 ledger grows; the read stays the same size. An owed item says *owed* in so many words, so the grep finds it.
 
 **Ledgers merge by union.** `.gitattributes` gives every ledger kind it names git's `union` merge, so two branches
-that each append to the same ledger both keep their lines, without a conflict. It costs two things. Two
-identical lines merge into one, which is why a run line names what the run ran on. And a line edited in place
-beside a line appended on another branch comes back in both forms: when an item or an order shows up both
-owed and paid, it is paid, and the next run deletes the stale copy.
+that each append to the same ledger both keep their lines, without a conflict. Union never conflicts, so
+`palace-land` reads what a landing makes of each union-merged ledger and refuses what neither side had: an item
+number twice (two branches each appended item N), one item in two forms (edited in place beside the other
+branch's change), or two lines joined into one. The branch settles it in its own worktree, merging main in and
+renumbering its own item, and the run line that names it, or keeping the item once, and lands again; the lander
+reads that merge too. A heading left with no blank line above it is only noted. Two costs remain. Two identical
+lines merge into one, which is why a run line names what the run ran on. And an order is not an item, so one paid
+in place can still come back in both forms: when it shows up both owed and paid, it is paid, and the next run
+deletes the stale copy.
 
 ---
 
