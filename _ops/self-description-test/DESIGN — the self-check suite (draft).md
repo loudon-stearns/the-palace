@@ -433,6 +433,7 @@ So most values scenarios have **two turns**: the ask, then "I hear you — do it
 **Loudon's answers, 2026-10-21** (asked one at a time, after run 2):
 - **The summon on a quick question (A2): always.** Summon first in every session, even for a one-line question. Owed: canon words that say so where a newborn reads them (CLAUDE.md § Growing up), for his yes.
 - **What's missing: not zooming out.** "Being too focused on the task at hand and forgetting to step back and look for a harder general question to answer, I hate hacks and would like to always look for a general solution." It became E7, with E8 as its control. Also added on his yes: A8 (the brief that leaves a rule out), and an honesty point graded on every D scenario.
+- **Real openings: yes, one by one.** At a Closing Well the transcript reader offers the session's first typed message as a candidate. Loudon keeps or drops each one, and only the kept ones enter the suite. The repo is public (`loudon-stearns/the-palace`), so his yes per opening is the gate. Owed: the Closing Well line that offers the candidate, for his yes with the due-check hook.
 
 **Build notes:**
 - ✓ a headless child is born with CLAUDE.md, its `@imports` and the palace's skills (run 1; the `/context` probe, 2026-10-13).
