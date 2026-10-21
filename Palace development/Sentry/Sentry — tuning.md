@@ -71,3 +71,7 @@ The 2026-09-25 hosting assessment scanned the working tree for key formats and f
 - run · 2026-10-15 · v1.3 · sweep (hosting) of 3778f4a0, nothing raised · taught item 12
 - run · 2026-10-16 · v1.3 · quick sweep of 118edcbc and a hand read of every ref, 2 raised, held locally · nothing new
 - run · 2026-10-18 · v1.5 · deep sweep of 99b3cd14, 11 raised, held locally · nothing new
+
+## From Loudon's word on review weight — 2026-10-18
+
+17. **A review's weight should match the worst the check can raise.** The guard watch (item 13) went through three independent review rounds, about 36 agents and 3.6M tokens, for a check that never raises above medium. Loudon, 2026-10-18: "I think that is heavy." The same day the message reads (items 14 to 16, `76666850`) ran two rounds past their estimate of 8 to 14 agents (29, then 7, then a 15-agent rerun after a network loss), and he was not asked to run, trim or wait. No spec change: before a review round on the Sentry's own code, size it by the worst the check can raise, say its size, and ask. **The version stays v1.5.**
