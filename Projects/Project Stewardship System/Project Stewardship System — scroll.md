@@ -40,7 +40,7 @@ _Nothing decided on the board yet._
 ## Plan
 
 <!-- scroll:plan:start -->
-**Where this is going.** This page is Loudon's partner in making the palace's projects. The stewards build between sessions; this page takes on what they can't do alone — the work that needs his hands and ears — and keeps stewardship honest by reading the fleet and saying what it sees. The first six stages built the machinery, the seventh gave it a way to read itself, and the next is the first thing we make together.
+**Where this is going.** This page is Loudon's partner in making the palace's projects. The stewards build between sessions; this page takes on what they can't do alone — the work that needs his hands and ears — and keeps stewardship honest by reading the fleet and saying what it sees. The first six stages built the machinery, the seventh gave it a way to read itself, and the next turns the stewards' instruments into products he can play.
 
 **The path**
 
@@ -51,8 +51,10 @@ _Nothing decided on the board yet._
 5. **E — the automated Trickster. In shadow.** It proposes grants and escalations and posts nothing. It waits on Loudon's review of its shadow digest, and on his `--live` switch, one rule at a time.
 6. **F — Two Paths. Built, dry-run only.** It would build both branches of a fork so Loudon picks from finished work; it has never dispatched a branch.
 7. **G — the fleet reading. Done, 2026-10-16.** `fleet/fleet-reading.mjs` reads every steward's record into one dataset and builds the dashboard, `fleet/Stewardship Health.html`; reading 1 is `fleet/reading.json`. Loudon: "I just looked and learned so much." It runs again whenever either of us wants it.
-8. **H — next: Max blocks, and the Max patching standards they teach.** Max work is paused for every steward until the standards exist. The seed is what Loudon's own Max work outside the palace already taught, brought in through the Harvest's Lessons from outside (`_ops/Harvest Ceremony.md`) and read closely with him. Then, in working blocks, Loudon and this page open the 24 Max and Live files the stewards wrote and nobody has opened — loads, compiles, sounds, his verdict — and each failure tests the standards or adds to them. A block starts when Loudon wakes this page and asks for one; the agenda is `fleet/max-blocks.md`. The first block also decides where the standards live. The move is done when Loudon lifts the pause.
-9. **I — a steward for this page.** A service steward with a role line like the [[Shopkeeper]]'s, on a slower rhythm — weekly, after a heartbeat batch — whose cycle is the fleet reading and the next block's agenda. Next when Loudon says go.
+8. **H — next: the VST production path.** On 2026-10-21 Loudon moved the nine stewards whose next work waited on Max to it: [[Shepard Tone Synthesizer]], [[Slime Mold Delay]], [[Neural Granular Synthesis]], [[Action Potential Oscillator]], [[2D Torus Wavetable Synthesizer]], [[Blood Compressor]], [[Bayesian Granular Synthesizer]], [[Crystal Synthesizer]], [[Retrospective Delay]]. Each is to become a VST prototype on the [[VST Template]], something he can play in Live: its controls in the template's interface, and in the centre a "CRT" holding a visualizer drawn from that instrument's own metaphor. The order is in each scroll's Standing Orders (`ca454ba2`). The template needs its CRT and a way to build a plugin inside a steward's bundle first; both are commissioned on its baton (`4385c8b3`). Until then each steward ports its sound to the template's sketch-and-Algorithm shape and sketches its visualizer as a web page in its workshop. This page reads the evidence: which stewards reach a plugin, which ones Loudon plays, and what they need from the template that it lacks. The move is done when each of the nine has a plugin Loudon has played in Live. Loudon: "lets make them products now."
+9. **I — a steward for this page.** A service steward with a role line like the [[Shopkeeper]]'s, on a slower rhythm — weekly, after a heartbeat batch — whose cycle is the fleet reading. Next when Loudon says go.
+
+**Max blocks are deferred.** Max work stays paused for every steward. The Max patching standards, and the blocks that would write them from the 24 unopened Max and Live files (`fleet/max-blocks.md`), wait until these instruments are wanted as teaching tools. Loudon, 2026-10-21: "we can come back to max later if we want to make these teaching tools."
 
 Two moves ran beside this path and are settled, both on 2026-10-21 and both in the page's What's Decided: how a project leaves stewardship (a steward leaves when its page ends, and [[Talking Keyboard]] was the first), and how Loudon reviews the stewards' proposals for canon. Its first verdict came the same day: Waveguide Synthesizer's proposal for its Forward Vector, placed and paid.
 <!-- scroll:plan:end -->
@@ -66,6 +68,31 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-2026-10-21T10-18-47-04-00" -->
+### 2026-10-21 — Plan revised: H is the VST production path; Max blocks deferred
+
+Loudon, 2026-10-21: "All stuck behind max, move them to the VST production path, we can come back to max later if we want to make these teaching tools, lets make them products now." The nine stewards whose next work waited on Max move to the VST Template; the Max blocks wait. Of the move's end: "H is done when each of the nine has a plugin I have played in Live."
+
+_The plan before this change:_
+
+> **Where this is going.** This page is Loudon's partner in making the palace's projects. The stewards build between sessions; this page takes on what they can't do alone — the work that needs his hands and ears — and keeps stewardship honest by reading the fleet and saying what it sees. The first six stages built the machinery, the seventh gave it a way to read itself, and the next is the first thing we make together.
+>
+> **The path**
+>
+> 1. **A — a steward run by hand on one project. Done.** Five hand-run cycles on [[Generative Sample Libraries]] in May 2026 proved a page can steward itself, and surfaced the spec gaps the orchestrator went on to close.
+> 2. **B — the orchestrator that runs one cycle. In production.** Every steward cycle goes through it (`_ops/stigmergy/orchestrator/`).
+> 3. **C — scheduling. The heartbeat lane.** launchd wakes the heartbeat each morning; when a batch is due it fires the due stewards through STIGMERGY's steward lane, inside the limits in `_ops/heartbeat/limits.json`, and the PROJECTS deck shows it as it runs.
+> 4. **D — answering from STIGMERGY. Shipped.** Loudon answers a steward's ask on the TRICKSTER tab or in its scroll, not by hand-editing the board.
+> 5. **E — the automated Trickster. In shadow.** It proposes grants and escalations and posts nothing. It waits on Loudon's review of its shadow digest, and on his `--live` switch, one rule at a time.
+> 6. **F — Two Paths. Built, dry-run only.** It would build both branches of a fork so Loudon picks from finished work; it has never dispatched a branch.
+> 7. **G — the fleet reading. Done, 2026-10-16.** `fleet/fleet-reading.mjs` reads every steward's record into one dataset and builds the dashboard, `fleet/Stewardship Health.html`; reading 1 is `fleet/reading.json`. Loudon: "I just looked and learned so much." It runs again whenever either of us wants it.
+> 8. **H — next: Max blocks, and the Max patching standards they teach.** Max work is paused for every steward until the standards exist. The seed is what Loudon's own Max work outside the palace already taught, brought in through the Harvest's Lessons from outside (`_ops/Harvest Ceremony.md`) and read closely with him. Then, in working blocks, Loudon and this page open the 24 Max and Live files the stewards wrote and nobody has opened — loads, compiles, sounds, his verdict — and each failure tests the standards or adds to them. A block starts when Loudon wakes this page and asks for one; the agenda is `fleet/max-blocks.md`. The first block also decides where the standards live. The move is done when Loudon lifts the pause.
+> 9. **I — a steward for this page.** A service steward with a role line like the [[Shopkeeper]]'s, on a slower rhythm — weekly, after a heartbeat batch — whose cycle is the fleet reading and the next block's agenda. Next when Loudon says go.
+>
+> Two moves ran beside this path and are settled, both on 2026-10-21 and both in the page's What's Decided: how a project leaves stewardship (a steward leaves when its page ends, and [[Talking Keyboard]] was the first), and how Loudon reviews the stewards' proposals for canon. Its first verdict came the same day: Waveguide Synthesizer's proposal for its Forward Vector, placed and paid.
+<sub>`plan-2026-10-21T10-18-47-04-00` · plan revised · agreed 2026-10-21T10:18:47-04:00 · Loudon</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-10-21T09-55-47-04-00" -->
 ### 2026-10-21 — Plan revised: Two side moves settled
 
