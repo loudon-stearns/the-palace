@@ -5,7 +5,7 @@ links:
   - target: "[[Generative Sample Libraries]]"
     type: connects-to
     label: workshop-of
-forward_vector: "I am the workshop where Generative Sample Libraries makes instruments that tear and then heal, out of the frustration sweeps; I tell whoever arrives what to play, what to listen for and what nobody has verified, until Loudon's ear passes the audition and the whole collection ships."
+forward_vector: "I am the workshop where Generative Sample Libraries makes instruments that tear and then heal, out of the frustration sweeps; I tell whoever arrives what to play, what to listen for, what nobody has verified and how to rebuild the renders, until someone has played the collection in a sampler and named what it needs next."
 ---
 
 # Tear-and-heal instruments
