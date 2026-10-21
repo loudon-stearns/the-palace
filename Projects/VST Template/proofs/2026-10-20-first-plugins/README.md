@@ -1,3 +1,13 @@
+---
+title: README
+born: 2026-10-20
+links:
+  - target: "[[VST Template]]"
+    type: connects-to
+    label: proof-for
+forward_vector: "I hold the proof that VST Template's first two plugins, Frustration and Simple Synth, pass every check (verify, pluginval, auval and the host check), how the tolerances were set, and six renders of the real plugins, until a load in Live 12 completes it."
+---
+
 # The first two plugins from the template, and how their checks were set
 
 Two plugins were made from the template on 2026-10-20 and taken all the way: built, checked against their numpy sketches, validated, installed to `~/Library/Audio/Plug-Ins`, and loaded through a host interface. Everything here was produced by the commands named; nothing was hand-edited.

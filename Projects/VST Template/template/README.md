@@ -1,3 +1,13 @@
+---
+title: README
+born: 2026-10-20
+links:
+  - target: "[[VST Template]]"
+    type: connects-to
+    label: recipe-for
+forward_vector: "I am VST Template's afternoon recipe: how a per-sample numpy sketch becomes a VST3 and AU checked against the sketch it came from, what each check can see, and the gotchas met building it, kept true as the template and its machinery change."
+---
+
 # VST Template — from a numpy sketch to a plugin in an afternoon
 
 A per-sample algorithm sketched in numpy becomes a VST3 and AU you can automate in Live, checked against the sketch it came from. JUCE 8 + CMake, cut down from [Tract Mirror](../../Tract%20Mirror/Tract%20Mirror%20—%20build%20plan%20—%20JUCE%20VST.md)'s build.

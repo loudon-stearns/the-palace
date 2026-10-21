@@ -1,3 +1,13 @@
+---
+title: README
+born: 2026-10-20
+links:
+  - target: "[[VST Template]]"
+    type: connects-to
+    label: proof-for
+forward_vector: "I hold the framework comparison VST Template put to Loudon on 2026-10-20, eight routes from a numpy sketch to a plugin with the timing and parity runs behind the choice of JUCE 8 + CMake, so the reasons can be re-run and re-read if the choice is revisited."
+---
+
 # Framework choice: how a numpy sketch becomes a plugin
 
 *Workshop, 2026-10-20. The comparison put to Loudon before any template code, with the two measurements behind it. The decision is his; this page holds the reasons.*

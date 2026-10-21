@@ -1,3 +1,13 @@
+---
+title: README
+born: 2026-10-20
+links:
+  - target: "[[VST Template]]"
+    type: connects-to
+    label: plugin-of
+forward_vector: "I am the front door of Frustration, the first plugin made from VST Template: ride.py's frustration model with Stretch and Coupling automatable, what each knob does, what to try, and what it was checked against."
+---
+
 # Frustration
 
 The frustration model from `Harmonicity and Inharmonicity/proofs/2026-10-17-frustration-sweeps/` as an instrument you can automate. One stretched tone of 40, 64 or 96 partials is pulled toward the plain harmonic series by as many outside voices. Near the edge it tears and heals. It drones as soon as it loads; MIDI notes are ignored, and Pitch sets the note.

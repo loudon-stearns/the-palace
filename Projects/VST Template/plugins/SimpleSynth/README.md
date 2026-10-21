@@ -1,3 +1,13 @@
+---
+title: README
+born: 2026-10-20
+links:
+  - target: "[[VST Template]]"
+    type: connects-to
+    label: plugin-of
+forward_vector: "I am the front door of Simple Synth, the second plugin made from VST Template and its worked example of MIDI notes: one oscillator, one filter, one amplifier, envelopes and vibrato, and what it was checked against."
+---
+
 # Simple Synth
 
 One oscillator, one filter, one amplifier, made from the template as its second test and its worked example of playing MIDI notes. Mono, last note priority: a new note retriggers the envelopes; let go of it while an older note is still held and the pitch returns to that note without a retrigger.
