@@ -25,6 +25,12 @@ const PALACE = resolve(APP, '../../..');
 // path (from the palace root) -> why it may listen without the guard. Empty today.
 const EXEMPT = {};
 
+// path -> what it is: a launcher that listens through Vite with the app's own vite.config.js, so
+// the guard it stands behind is the one the last block checks there, not a checkRequest of its own.
+const THROUGH_VITE = {
+  '_ops/stigmergy/app/scripts/scratch-vite.mjs': 'the scratch STIGMERGY: the app’s own config over a throwaway palace, on a leased port',
+};
+
 const CODE = /\.(?:m?js|cjs|ts|mts|py|sh)$/;
 const NOT_A_SERVER = /(?:^|\/)(?:tests?|node_modules)\/|\.(?:test|spec)\.[^/]+$/;
 const LISTENS = /\bcreateServer\s*\(|\.listen\s*\(|\bHTTPServer\b|\bhttp\.server\b|\bsocketserver\b|\bserve_forever\b|\bwebsockets\.serve\b|\buvicorn\b|\bFlask\s*\(|\bFastAPI\s*\(|\bBun\.serve\b|\bDeno\.serve\b/;
@@ -47,7 +53,7 @@ describe('every server under _ops/ runs checkRequest', () => {
 
   test('each server that listens imports checkRequest and calls it on the request', () => {
     const skipping = listeners
-      .filter((rel) => !(rel in EXEMPT))
+      .filter((rel) => !(rel in EXEMPT) && !(rel in THROUGH_VITE))
       .filter((rel) => { const src = read(rel); return !IMPORTS_GUARD.test(src) || !CALLS_GUARD.test(src); });
     expect(skipping, 'these listen without STIGMERGY’s request guard — import checkRequest from '
       + '_ops/stigmergy/app/server/request-guard.js and call it first in the request handler').toEqual([]);
@@ -66,6 +72,17 @@ describe('the STIGMERGY dev server keeps the same door', () => {
     const config = read('_ops/stigmergy/app/vite.config.js');
     expect(config).toMatch(/blackboardMiddleware\(/);
     expect(config).toMatch(/\bcors:\s*false\b/);
+  });
+
+  // A launcher that brought plugins or middleware of its own, or ran Vite in middleware mode
+  // behind its own server, would put a door the guard does not see in front of the app.
+  test('a launcher that listens through Vite loads the app’s own vite.config.js and adds nothing in front of it', () => {
+    for (const [rel, what] of Object.entries(THROUGH_VITE)) {
+      const src = read(rel);
+      expect(String(what).trim().length, `${rel}: says what it is`).toBeGreaterThan(0);
+      expect(src, `${rel} must load the app’s vite.config.js`).toMatch(/configFile:\s*join\(APP,\s*'vite\.config\.js'\)/);
+      expect(src, `${rel} must add no plugin, middleware or server of its own`).not.toMatch(/\bplugins\s*:|\bmiddlewareMode\b|\bconfigureServer\b|\bhttp\.createServer\b|\bcheckRequest\b/);
+    }
   });
 
   test('middleware.js runs guardRequest before any route family sees the request', () => {

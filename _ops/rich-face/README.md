@@ -8,8 +8,11 @@ serve. The ceremony (when and how to enrich a page) is `Enrichment.md`; this fol
 
 - From an entry in STIGMERGY: the face switch (`F`), when the entry's bundle holds the manifest.
 - With STIGMERGY running: `http://localhost:5173/rich/?entry=Kuramoto%20Coupling`
-- Standalone: `node _ops/rich-face/rich-server.mjs` → `http://127.0.0.1:8842/?entry=Kuramoto%20Coupling`
-  (or the `rich-face` launch config). Reviews still post to STIGMERGY (`--app`, default :5173).
+- Standalone: `node _ops/rich-face/rich-server.mjs [--root <palace>] [--detach]` prints its URL, on a
+  port leased to it (8850–8949), so several sessions can preview several palaces at once; add
+  `?entry=Kuramoto%20Coupling`. `--stop [port]` stops your own, `--list` shows them. Reviews reach
+  STIGMERGY's board only when started with `--app http://localhost:5173`. The app README's
+  § A preview of your own, on a leased port has the rest.
 - Public: the read view ships this page static under `rich/`. `_ops/stigmergy/app/scripts/build-public.mjs`
   sets `RICH_STATIC`, so its lookups come from the snapshot (`data/rich.json`), its text is the
   snapshot's rather than re-read live, and nothing is posted.
@@ -23,7 +26,7 @@ Any entry opens. `&review=0` hides the review layer.
 | `parse.js` | entry → sections → prose blocks and figures; the section fingerprint. Shared by the page and `fingerprint.mjs`, so a stamp and a check can't disagree. |
 | `rich.html` | the renderer — reads the `.md` every few seconds, lays prose + figures + manifest pieces, marks drift, carries the review dock. All its URLs are relative, so it works at `/` and at `/rich/`. |
 | `rich-handler.mjs` | the request handler: renderer + palace files (byte ranges), `_api/resolve`, `_api/find`, `_api/media`, `_api/review` → STIGMERGY `POST /api/persistent` as a `human_eval`. Mounted by STIGMERGY (`app/server/api/rich.js`) and by `rich-server.mjs`. |
-| `rich-server.mjs` | the standalone server |
+| `rich-server.mjs` | the standalone server, the preview: any palace root, on a port leased from `_ops/commons/port-lease.mjs` |
 | `resolve.mjs` | the one resolver: the page, `fingerprint.mjs` and the public build find an entry, or the file a reference names, the same way, from git's index. A miss comes back with a one-line label the page shows in the figure's place. |
 | `fingerprint.mjs` | section fingerprints and drift; `--stamp [section…]` records the "still true" verdict |
 | `manifests/` | a workshop home for a manifest before its entry is placed; a manifest in the entry's bundle wins, and the face switch offers only the bundle's |

@@ -9,7 +9,7 @@ editing to add a provider.
 1. **identity** — one per-agent slug (`identity.agent_slug()`), shared across all services.
 2. **ownership** — tag everything you create with `owner=<slug>`.
 3. **scoping** — `list_mine()` never enumerates-all-then-acts-all; it filters `list_all()` by `owns()`.
-4. **leasing** — serialize on genuinely-scarce singletons (advisory today; see `../lease.py`).
+4. **leasing** — serialize on genuinely-scarce singletons (advisory today for outside services; see `../lease.py`). A loopback port on this Mac has a hard lease, a kernel lock per port: `../port-lease.mjs`.
 5. **reaping** — leaks are attributable and cleanable (`../reaper.py` sweeps `list_all()`).
 
 ## Steps
