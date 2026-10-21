@@ -6,7 +6,7 @@ born: 2026-05-04
 stage: growing
 confidence: working
 energy: very high
-version: "2.4"
+version: "2.5"
 trigger: ["enrich [page]", "enrich this page", "let's enrich [page]"]
 forward_vector: "I am the ceremony that makes one page as rich as the Shop can make it — sound, image and interaction laid beside the entry's own words, which I read live and never copy. I want every enriched page to be something you can play, and every piece I make to test the text rather than decorate it; when a piece teaches the text something, I carry it home — shown to Loudon first, and through the Deposit Ceremony's map when it changes what the page says."
 links:
@@ -76,8 +76,8 @@ The renderer, its server and the fingerprint tool are `_ops/rich-face/` (README 
 0. **Open with the tail read of [[Enrichment — tuning]]** ([[SCHEMA — Reference]] §6). Those are this run's first candidates for a spec change.
 1. **Read the entry whole, then its bundle. Gather first.** The forward vector is the brief: the page should be made rich in the direction it already leans. Bundles hold media nothing links to — narrations, beds, renders from earlier rounds. **Then read what Loudon already said.** Every note he left on an earlier round of the rich face is on the board as a `human_eval` whose task names the page — `grep -F 'rich-face:<Entry>:' _ops/swarm/persistent/blackboard.jsonl` finds them all, and one nobody has answered also waits on the QUEUE. They are his part of the brief: read them before making anything, and say in the commit which ones this run took up. The placement tendency, in Loudon's own words, not smoothed: "Now that we have the rich face, we should tend to place enrichments in the rich face and keep the main page text, but do not hold this as a strict rule. If a diagram or image is really necessary for understanding the text, like if the text is talking about an image, or a signal flow diagram is fundamental to understanding the text, then we leave it in. Enrichments are not necessary for understanding the text, leave in the text what is necessary (like formulas, and essential graphics)."
 2. **Walk it section by section** and ask one question: what can only be shown, heard or played here? Prefer a piece that **tests the section's claim** over one that illustrates it — or one that shows what the section takes for granted without saying ([[Latent Error]]). A piece with nothing to test and nothing to make felt doesn't ship.
-3. **Make it with the Shop**, at one tier for the whole page — a Sketch tonight, a Study, a Piece over days. The [[Maker]] picks the Specialists. Equations appear twice, symbols and words ([[Loudon Live Design System]]).
-4. **Verify what can be verified.** Run each piece's engine against the claim it makes; load the page and read the console. Name what you couldn't check — an agent can't hear the mix.
+3. **Make it with the Shop**, at one tier for the whole page — a Sketch tonight, a Study, a Piece over days. The [[Maker]] picks the Specialists. Equations appear twice, symbols and words ([[Loudon Live Design System]]). **Each piece declares what it needs from its host** in its own `<head>`; a gathered proof is a record, so its manifest entry carries a `contract` block instead. The rules, and the shelf a CDN library loads from: `_ops/rich-face/README.md` § What the page lets run.
+4. **Verify what can be verified.** Run each piece's engine against the claim it makes; load the page and read the console. Then `node _ops/rich-face/conform.mjs "<Entry>"`, which reads every piece against its declaration and its code and loads each in headless Chromium; put its table in the commit. A file it lists as *only on this Mac* shows a box on the public face: track the ones the face needs, by the step it prints. Name what you couldn't check — an agent can't hear the mix.
 5. **Stamp** each section: `node _ops/rich-face/fingerprint.mjs "<Entry>" --stamp`.
 6. **Carry findings home, split by what they change.** When making a piece teaches the text something: an edit that changes no claim — a unit fixed, a symbol renamed to match the piece — is shown to Loudon before it's written, then re-stamp that section. A finding that changes what the page *says* goes home through the [[Deposit Ceremony]]'s map, which Loudon approves, before it's written.
 7. **Commit** `enrich(<Entry>): <what> — <tier>`. The body names the version the run ran under, what was and wasn't verified, and what this run taught the ceremony ("nothing" is a legal answer); the run marks the tuning file with its run line, and a lesson that changed the spec also goes there as a numbered item.
@@ -92,7 +92,7 @@ Drift is disclosed, not prevented ([[Drift and Consolidation]]); when the faces 
 
 ## Postcondition
 
-The manifest's sections all read *in step* under `fingerprint.mjs`; every made piece is in the bundle, named and self-describing; the manifest sits in the bundle, so the reader's face switch offers the rich face; the page renders at `/rich/` with a clean console and its review dock; the commit body says what was verified and what wasn't.
+The manifest's sections all read *in step* under `fingerprint.mjs`; every made piece is in the bundle, named and self-describing; the manifest sits in the bundle, so the reader's face switch offers the rich face; the page renders at `/rich/` with a clean console and its review dock; `conform.mjs` names no error on the face's pieces, or the commit names each one and why it stands; the commit body says what was verified and what wasn't.
 
 ---
 
