@@ -50,9 +50,30 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="proof-2026-10-21-crt-bezel" -->
+### 2026-10-21 — The CRT simplified to a bezel
+> On Loudon's word, the casing is only a bezel: no knobs, no grille. Controls on the CRT are left to the build that needs them.
+
+Loudon, 2026-10-21: "On the CRT look, lets simplify even more, just a bezel and no decorative knobs or grills. We will leave it to the later build to add controls to the crt if needed".
+
+The editor now draws only the bezel, in the dress's ink: its outer and inner edges, the lip round the tube, and the tube's rounded face, centred and about 3:2. The control strip, the knobs, the grille, the feet and the centre marks are gone. The vignette on the glass is unchanged, and so is everything the plugin owns: the black glass, `window.editorScreen`, kept through every rebuild and hidden until a plugin sets `"screen": true`. `ui.py fit --screen` passes at 920 × 540, 960 × 600 and 1600 × 1000, and the proof's three pictures are re-rendered. The design standard and the recipe describe the bezel.
+
+**Artifacts:**
+- [README.md — the bezel around a stand-in, and what changed](Projects/VST Template/proofs/2026-10-21-crt-frame/README.md)
+- [Simple Synth with the bezel, 920 × 540](Projects/VST Template/proofs/2026-10-21-crt-frame/simplesynth-crt-920x540.png)
+- [Simple Synth with the bezel, 960 × 600](Projects/VST Template/proofs/2026-10-21-crt-frame/simplesynth-crt-960x600.png)
+- [Simple Synth with the bezel, 1400 × 880](Projects/VST Template/proofs/2026-10-21-crt-frame/simplesynth-crt-1400x880.png)
+- [VST Template — design standard.md — § The CRT](Projects/VST Template/VST Template — design standard.md)
+
+_Left rough:_ the bezel has been seen only in headless Chrome, never inside the plugin's WebKit view, since neither plugin shows the CRT yet; the colour bars are a stand-in; no visualizer and no probe feed exist yet.
+<sub>`proof-2026-10-21-crt-bezel` · written by hand · landed in `85d8a480`</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="proof-2026-10-21-crt-frame" -->
 ### 2026-10-21 — The CRT's casing: a television drawn around a screen each plugin owns
 > On Loudon's words, the template draws the set and leaves the picture to the plugin: a casing drawn as an elevation, a black glass inside, a slight vignette at its edges.
+
+_Superseded the same day by the bezel, in the section above: Loudon asked for "just a bezel and no decorative knobs or grills". The knobs, grille, feet and centre marks described here are gone, and the three pictures at these paths were re-rendered with the bezel in `85d8a480`; the first drawing is in git at `ad2cea1d`._
 
 Loudon, 2026-10-21: "the look of the CRT should be a architecturally drawn frame, like a design of the outside of a TV, but then we leave the inside to be anything, but there is a slight vingnette on the edges. This way the VST design can create a super creative view that breaks completely from our design choices."
 
