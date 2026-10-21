@@ -189,7 +189,8 @@ describe('a server leaves with its session', () => {
     let out = '';
     child.stdout.on('data', (b) => { out += b; });
     expect(await until(() => out.includes('rich face up'), 10_000)).toBe(true);
-    expect(list({ env })).toHaveLength(1);
+    // One preview, two leases: its page and its pieces' origin.
+    expect(list({ env }).map((n) => n.name).sort()).toEqual(['page', 'piece']);
     session.kill('SIGKILL');
     expect(await until(() => child.exitCode !== null, 10_000)).toBe(true);
     expect(out).toMatch(/stopping: its session ended/);

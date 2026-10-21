@@ -46,16 +46,21 @@ _None._
 ## Standing Orders
 
 <!-- scroll:orders:start -->
-Written by Claude on Loudon's explicit instruction, 2026-09-23: "Quantum Synthesizer and Particle Synthesis, give them cycles."
-
-This page is marked `stage: dormant`, and the usual posture says don't touch. Loudon has overridden that for this project. Treat every run as a **revival probe**: ignore the dormant posture, ship the smallest real thing that moves the forward vector (a render, a sim, a probe — something audible or visible, not prose), and set it down honestly. End the run by saying plainly, in your last message, whether the work felt alive enough to revive the stage to `sprout` — that call is Loudon's, so make it a non-blocking RESOURCE_REQUEST with options REVIVE-TO-SPROUT · STAY-DORMANT · NOT-SURE-YET, never a stage edit.
-
-This container has no Shop (no ComfyUI, Kokoro, Max, or GPU) — Python with numpy/scipy is what you have. Make what can be made here; name what needs the Mac.
 <!-- scroll:orders:end -->
 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="particle-revival-2026-10-21" -->
+### 2026-10-21 — Revived: the page is sprout, on Loudon's grant of 2026-09-24
+
+Loudon met this project through what its steward made while the page slept: the fountain on ice and grains that meet. On 2026-09-24 he granted the revival (`particle-synthesis-007`, REVIVE-TO-SPROUT). Nobody landed it, so the heartbeat kept skipping the page. On his word of 2026-10-21 the page now says sprout, and the revival-probe standing order is gone. There is no plan yet: the work follows the forward vector, and the steward may propose a plan.
+
+**Artifacts:**
+- [the entry, stage sprout.](Projects/Particle Synthesis.md)
+<sub>`particle-revival-2026-10-21` · revival landed by an elder · granted 2026-09-24 (`resp-muewg7h4-xru35i`)</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="particle-synthesis-009" -->
 ### 2026-09-23 — cycle 5 — Grains that meet: two fountains aimed at each other, so ice grains clack in mid-air and land somewhere new. A/B renders, figure, live bench.
 > shipped · run ends · revive ask 007 still open · steward leans REVIVE-TO-SPROUT

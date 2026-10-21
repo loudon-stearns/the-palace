@@ -9,7 +9,8 @@ serve. The ceremony (when and how to enrich a page) is `Enrichment.md`; this fol
 - From an entry in STIGMERGY: the face switch (`F`), when the entry's bundle holds the manifest.
 - With STIGMERGY running: `http://localhost:5173/rich/?entry=Kuramoto%20Coupling`
 - Standalone: `node _ops/rich-face/rich-server.mjs [--root <palace>] [--detach]` prints its URL, on a
-  port leased to it (8850–8949), so several sessions can preview several palaces at once; add
+  port leased to it (8850–8949), so several sessions can preview several palaces at once; its pieces
+  run on a second leased port, a piece origin of its own, as STIGMERGY's do; add
   `?entry=Kuramoto%20Coupling`. `--stop [port]` stops your own, `--list` shows them. Reviews reach
   STIGMERGY's board only when started with `--app http://localhost:5173`. The app README's
   § A preview of your own, on a leased port has the rest.
@@ -30,7 +31,13 @@ Any entry opens. `&review=0` hides the review layer.
 | `rich-server.mjs` | the standalone server, the preview: any palace root, on a port leased from `_ops/commons/port-lease.mjs` |
 | `resolve.mjs` | the one resolver: the page, `fingerprint.mjs` and the public build find an entry, or the file a reference names, the same way, from git's index. A miss comes back with a one-line label the page shows in the figure's place. |
 | `contract.mjs` | the piece contract in one place: a piece's own declaration, its manifest entry's `contract` block and `grants.json` become how the piece is framed, its chips and mark, and the Permissions-Policy and CSP it is sent with. The page, the deck, the piece origin and the public build all ask here. |
-| `piece-origin.mjs` | the piece origin: the listener every piece runs on, `127.0.0.1:8843` beside STIGMERGY's 5173 (below). |
+| `piece-origin.mjs` | the piece origin: the listener every piece runs on, `127.0.0.1:8843` beside STIGMERGY's 5173, and on a second leased port beside a standalone preview (below). |
+| `conform.mjs` | the piece checker: every piece against its declaration and its code, its pins against the shelf, how a face names its files, and, in headless Chromium, its console, height, play and hush. Report-only; `conform.json` holds the two enforce switches (off), the pages that are never pieces, and reviewed exceptions. `"<Entry>"`, `--all`, or named pages. |
+| `libs.json` | the library shelf: every library a piece may load from a CDN, at an exact version with its SRI hash, and the loose spellings each pin replaces |
+| `pin-cdn.mjs` | the shelf's one writer: `--add <url>` puts a library on it; given pages, it pins their CDN tags to the shelf (url, `integrity`, `crossorigin`). It shows a diff and a digest first, and `--write <digest>` writes only that, only to files unchanged since |
+| `untracked.mjs` | every file a face names that git doesn't track, with the step that tracks it (§ Media a face plays). The checker's `file-local` carries the same steps |
+| `check-kuramoto-pieces.mjs` | re-checks the physics claims of Kuramoto's pieces headless, on their own worklet code |
+| `kit/` | the piece kit (`piece.js`) and the one function every server injects it through (`inject.mjs`) |
 | `serve-file.mjs` | sends one file: its type, byte ranges, and a web page as a piece with the kit injected. The handler and the piece origin both send files through it. |
 | `grants.json` | what Loudon has let a piece use: camera, microphone, midi, hosts. One line per piece, written only on his yes. |
 | `fingerprint.mjs` | section fingerprints and drift; `--stamp [section…]` records the "still true" verdict |
@@ -91,7 +98,9 @@ on purpose, chosen with care, and not left ignored.
   has no such file, shows the plain miss. A tracked file over 25 MB is left out too, and its box says so,
   so keep a take a face needs under that.
 - **To publish one.** `node _ops/rich-face/untracked.mjs ["<Entry>"]` lists every file a face names that
-  git doesn't track, with the step for each. It exits 1 while any is left.
+  git doesn't track, with the step for each. It exits 1 while any is left. The checker reports each such
+  file as `file-local`, a warning, with the same step; in a build, a file this Mac has but git doesn't
+  track is reported as `file-local`, not as a miss.
   - A new file: commit it through the palace committer.
   - A steward's render: copy it into its entry's bundle under `rich-face/`, which `.gitignore` keeps
     (`!Projects/**/rich-face/**`, `!Shop/Shopkeeper/**/rich-face/**`), and commit the copy.
@@ -130,7 +139,8 @@ on purpose, chosen with care, and not left ignored.
 The page is served from STIGMERGY's origin, so anything that runs in it runs as STIGMERGY. So nothing the
 palace writes runs there: every piece runs on the **piece origin**.
 
-- **The piece origin.** STIGMERGY starts a second listener, `piece-origin.mjs`, on `127.0.0.1:8843`.
+- **The piece origin.** STIGMERGY starts a second listener, `piece-origin.mjs`, on `127.0.0.1:8843`; a
+  standalone preview (`rich-server.mjs`) starts its own on a second leased port.
   `STIGMERGY_PIECE_PORT` names another port, and any STIGMERGY not on 5173 takes a free one. `127.0.0.1` is
   another site from `localhost`, so whatever a piece sends toward STIGMERGY is cross-site: the request
   guard refuses its writes and `/api/open`, and STIGMERGY sends no CORS, so a piece can't read what comes
@@ -149,9 +159,8 @@ palace writes runs there: every piece runs on the **piece origin**.
   checked that the piece's URL is on another origin than its own. A camera, microphone or midi reaches a
   piece only when both its frame's `allow` and the piece origin's `Permissions-Policy` say so, and both
   come from `grants.json`, so a frame that asks for more gets nothing. Each piece is also sent with a CSP:
-  scripts from the piece origin, inline, and the shelf's CDNs (unpkg, jsDelivr and cdnjs until `libs.json`
-  names its own); fetches only to the piece origin and its granted hosts. The CSP is report-only for its
-  first round.
+  scripts from the piece origin, inline, and the shelf's CDNs (every origin `libs.json` names); fetches only to the
+  piece origin and its granted hosts. The CSP is report-only for its first round.
 - **The figure says what its piece uses.** Each figure carries a mark (introduced, pre-contract or
   errored) and a chip for each need, declared file count, host and `fill`. A missing grant line shows as
   `camera · not granted`. A cap that bites is named under the frame: a height outside 120 to 8000 px, a
@@ -198,6 +207,9 @@ palace writes runs there: every piece runs on the **piece origin**.
 
 - **One file, no build.** A piece is a single self-contained HTML (fonts from Google, everything else
   inline) so it plays inside the rich face, and opened on its own when it needs nothing of an origin.
+  The exception is a library from a CDN, which loads from the shelf:
+  `<script src="<the shelf's url>" integrity="…" crossorigin="anonymous">`. `node _ops/rich-face/pin-cdn.mjs <page>`
+  writes that tag; `--add <url>` puts a new library on the shelf.
   Worklet DSP goes in as a Blob URL, stereo in both places, a compressor after it ([[Web Audio Worklet]]).
 - **Declare what a piece needs from its host, in its own `<head>`.** Four tags:
   - `<meta name="piece:needs" content="camera storage">`: any of camera, microphone, midi, storage,

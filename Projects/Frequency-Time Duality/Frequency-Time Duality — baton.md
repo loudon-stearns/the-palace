@@ -8,43 +8,50 @@ links:
 forward_vector: "I carry the in-progress move on [[Frequency-Time Duality]] across a boundary, waiting to be caught by the next Claude and deleted once the move is picked up."
 ---
 
-# Baton: Frequency-Time Duality — fold the Explorer in
+# Baton: Frequency-Time Duality — the first rich face
+
+> **Re-batoned 2026-10-21** from the partial close of `frequency-time-duality-handoff-2026-10-13` against `41f41dbd`, the deposit. The remainder card is `frequency-time-duality-remainder-20261021T135522Z`. The fold is done; this baton carries only the face.
 
 ## Move
-Run a [[Deposit Ceremony]] that carries the [[Frequency-Time Explorer]]'s five-movement walk and its three doorways into [[Frequency-Time Duality]] as the design of Duality's rich face. Then compost the Explorer.
+
+Enrich [[Frequency-Time Duality]]: lay the first rich face from its spec, [[Frequency-Time Duality — spec — rich face]], as the scroll's Plan says in its first move — at Sketch tier, from what already exists — once each gathered piece has a copy that stops on a hidden tab and stops on its own after a set time. The [[Enrichment]] run (v2.5) is the ceremony; this baton does not restate the spec.
 
 ## Why this move matters
-The first Daily Page morning (2026-10-13) dealt the Explorer. The verdict was a fold: Duality consumes the Explorer. The Explorer was never stewarded and has no build; its whole substance is the walk and the doorways, and Duality is the page that already holds the idea. Loudon's rule for the practice: the Daily Page decides on the fly; proper palace machinery does the lifting. So the deposit is its own rite, in its own session, not done at the sit.
 
-## Seed of the Enrichment
-**`Projects/Frequency-Time Duality/proofs/2026-10-13-the-flip-three-axes.html`** is the rough Loudon played that morning, kept and indexed on Duality's page beside the two 2026-05-04 sketches. One log axis from 0.5 Hz to 2 kHz, three modes: a click train; a sine through a wobbled delay; two drum voices with the 24-second ride. Each axis carries a bottom-and-top zone mark. Start the rich face from it.
-
-## Enrichment brief: three findings
-- The polyrhythm-to-interval axis was missing from the Explorer. Polyrhythms below the threshold become intervals above it, and the Explorer's walk had no axis for that.
-- The threshold is a zone, not a line, and its top edge sits below the page's 40 Hz.
-- Drum onset and length decide the fused timbre. Tune by ear.
-
-## Loudon's Reaktor ride
-Drum sounds in a polyrhythm, sped up until the polyrhythm becomes a buzz, then a clear interval, with the voices toggled so the interval is obvious, then slowed back down. The proof's third mode is built on this.
-
-## Three sentences that ride this deposit
-Loudon said to keep them in the Duality deposit. They are not written anywhere yet:
-1. The Reaktor lesson (the ride above, said as a lesson).
-2. "Daily cognition" as a domain the 20 Hz boundary reaches.
-3. "What is the rhythm of a perfect fifth?"
+The text now walks the Explorer's path, from the flip to three doorways, and the face hangs its pieces on the text's headings, so the face can walk too. Loudon means to teach from it in STIGMERGY as it grows (the spec's first lines; the scroll's Plan). The deposit was the words; the face is the thing a class can hear.
 
 ## Current state
-- Nothing is in canon. The only house touches so far are the proof file, one index line on Duality's page at the proofs callout, and the Active Baton pointer.
-- The proof was copied unchanged from `_ops/daily-page/roughs/Frequency-Time Explorer/the-flip.html`. The rough's own copy is gitignored and was only meant to last the morning.
+
+- **The deposit landed** (`41f41dbd`, 2026-10-21, on Loudon's yes after two cold reads): the page walks — The Flip, Polyrhythms Become Intervals, The Echo Walk, The Bridge, The Recursion, Three Doorways; its Context, its scroll (the Plan agreed and logged) and the spec were born in the bundle; the [[Frequency-Time Explorer]] is `stage: composting`, `status: archived`, and its deletion waits on the next Weave — the composting-confirmation flag is `commons-the-palace-1792590978864` on WEAVE (posted 2026-10-21 from Frequency-Time Duality, on Loudon's word: "let the next Weave confirm the Explorer's deletion"). An FM synthesis page is queued on Palace To-Do; Deposit Ceremony tuning item 28 records what the run taught.
+- **What exists for the face**, in the bundle or named by the spec: the seed, `proofs/2026-10-13-the-flip-three-axes.html` (already a figure in the text; three modes on one log axis); `proofs/2026-05-04-delay-time-axis-v2.html` for the echo walk; `proofs/2026-05-04-mod-rate-sweep.html` for the recursion; `Projects/Waveguide Synthesizer/sketch-karplus-strong/index.html` for the first doorway. No manifest yet (`Frequency-Time Duality — rich.json` does not exist); no made piece yet.
+- **What is not there, and gates the first face:** nothing in the bundle stops on a hidden tab or on its own — the seed's ride sweeps for 24 s and then keeps playing at 2 Hz — and the rich face hushes a piece only when another starts (`_ops/rich-face/rich.js:195`); neither `rich.js` nor `kit/piece.js` listens for `visibilitychange`. So the gathered pieces get copies made for the face, with a stop on hidden and a time cap, before the first face lays them (spec § Every piece). A kit change would make every face safe; that is a find for the Weave or the close, not this move.
+- The spec's other rules for a copy (the Graphite skin, every equation twice, radii no larger than 4 px, the categorical colours `--cat-2` to `--cat-4`, `piece:needs storage` for a listener's marks, no review kit) are the spec's: read it there.
 
 ## Next move
-1. Deposit: fold the walk, the three doorways and the three findings into Duality as the design of its rich face (Enrichment), seeded by the proof.
-2. Add the standalone-app line to Duality's forward vector: a project spawns again only if the face earns it; teach from the face in STIGMERGY as it grows.
-3. Then compost the Explorer: `stage: composting`, with a Spore Check note. It carries a ghost, `[[Haas Effect]]`, and a BBS link; those go with it.
+
+1. Copies of the four gathered pieces for the face, `Frequency-Time Duality — rich — <name>.html` in the bundle, each stopping on a hidden tab and after a set time (spec § Every piece); the originals stay untouched as records.
+2. The Enrichment run at Sketch tier (v2.5): step 3, each piece declares what it needs in its own head; step 4, load the face on a leased preview (`node _ops/rich-face/rich-server.mjs --root <palace>` prints its address), read its console, run `node _ops/rich-face/conform.mjs "Frequency-Time Duality"` and put its table in the commit. The manifest, `Frequency-Time Duality — rich.json`, lays one piece beside each stop as the spec's table says — the opening, the echo walk, the recursion and the first doorway in this round. `untracked.mjs` stays clean: every sound is synthesized in the page.
+3. The face's commit through the Concierge on Loudon's yes; then close the card against it (`node _ops/stigmergy/close-handoff.mjs frequency-time-duality-remainder-20261021T135522Z --commit <hash>`), delete this baton and the page's Active Baton pointer — a complete close.
+
+The made pieces — the ride, the bridge, the remakes of the flip and the echo walk — are the Plan's moves 2 to 4, not this baton.
+
+## Receiving environment
+
+The card names the main checkout (`worktree main`, profile `docs`). A worktree of your own for the making is better, landed with `palace-land` on Loudon's yes; the bundle writes are house writes either way. Preview on a leased port, never 5173.
 
 ## Calibrations
-- Loudon read and approved the fold verdict in the panel. He has not yet read the deposit's words, so the deposit needs his read and his map before it lands.
-- The weave debt for the Haas ghost and the BBS link is the compost's, not a separate flag.
+
+- Loudon, 2026-10-13: mark a zone, never a point — the bottom and the top. Loudon on the seed: "for the modulation axis, while noise might be good to hear the phasing/flanging, I think sine waves would be a much better choice."
+- The ride's drums are tuned with Loudon by ear (the Plan's move 2), not in this round.
+- Every sound is synthesized in the page, so the face names no audio file; the one take worth tracking later is a recording of Loudon's own Reaktor ride, copied into `rich-face/`, under 25 MB (spec § Every piece).
+- Whether a projected teaching face wants a lighter skin than Graphite is Loudon's call (spec § Where Loudon's design-system rework may move this).
+
+## Load these files first
+
+1. `node _ops/stigmergy/pickup-handoff.mjs frequency-time-duality-remainder-20261021T135522Z` — what moved since the card posted; then it claims.
+2. [[Frequency-Time Duality — spec — rich face]], whole; the Plan on [[Frequency-Time Duality — scroll]].
+3. [[Enrichment]] (v2.5), steps 3 to 5; `_ops/rich-face/README.md` § Making pieces and § What the page lets run.
+4. The four gathered pieces above, and the page's own headings the manifest keys on (`node _ops/rich-face/fingerprint.mjs "Frequency-Time Duality"` lists the sections).
 
 ## On pickup (fixed — the catcher's checklist; do not rewrite per session)
 *Identical in every baton. It rides along because the catching Claude loads the

@@ -4,9 +4,11 @@ import {
   classifyWorktree, accentFor, stateStyle, formatDivergence, STATE_STYLE,
 } from '../../lib/git-state-view.js';
 import CommitDag from './CommitDag.jsx';
+import TrunkStrip from './TrunkStrip.jsx';
 
 // The GIT STATE section of the LOG deck -- the worktree topology made visible.
-// Three tiers, densest-first:
+// The trunk strip first (TrunkStrip.jsx: main against origin, the ear, a
+// landing that died, unsaved in main), then three tiers, densest-first:
 //   1. RAIL     -- one line: where HEAD is, which branch the next commit lands on
 //   2. WORKTREES-- a lane per checkout, colored by state
 //   3. TOPOLOGY -- an ASCII lane graph of branch divergence from the base
@@ -112,6 +114,8 @@ export default function GitStatePanel({ nonce = 0, uncommittedCount = 0 }) {
         <span><span style={{ color: 'var(--phosphor)' }}>◈ GIT STATE</span>{state.kind === 'ok' ? ` · ${worktrees.length} worktree${worktrees.length === 1 ? '' : 's'}` : ''}</span>
         <span style={{ opacity: 0.7 }}>read-only · never prunes</span>
       </div>
+
+      <TrunkStrip nonce={nonce} />
 
       {state.kind === 'err' ? (
         <div data-testid="git-state-error" style={{ color: 'var(--error)', textShadow: 'var(--glow)', border: '1px solid var(--error)', padding: 8, fontSize: 12 }}>

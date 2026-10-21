@@ -23,6 +23,9 @@
 //                      file the piece loads, declared and present beside it
 //   pins               a CDN script at an exact version, with its SRI hash, and on
 //                      the shelf (libs.json) once there is one
+//   only on this Mac   every file a face names or a piece declares or loads that
+//                      git does not track: it plays here, and the public face
+//                      shows a box (file-local, with the step that tracks it)
 //   root-absolute URLs a /path lands on whatever origin serves the piece
 //   addressing         how a rich face names its files (a bare name found only by
 //                      the palace-wide lookup worked by luck), and how a piece
@@ -48,6 +51,7 @@ import { fileURLToPath } from 'node:url';
 import { makeResolver } from './resolve.mjs';
 import { richReferences, createRichHandler } from './rich-handler.mjs';
 import { checkRequest } from '../stigmergy/app/server/request-guard.js';
+import { stepsFor, ignoredPaths } from './untracked.mjs';
 import {
   readDeclaration, contractOf, declaredPath, readGrants,
   GRANTED_NEEDS, GRANTS_FILE, SHELF_FILE, DESIGN_SYSTEM,
@@ -121,6 +125,7 @@ export const RULES = {
   'file-missing':      { level: 'error', family: 'needs', what: 'a file the piece loads or declares is not in the palace' },
   'file-outside':      { level: 'error', family: 'needs', what: 'a file the piece names leads outside the palace, into a hidden folder, or to an ignored file' },
   'file-ignored':      { level: 'warn',  family: 'needs', what: 'a file the piece loads is one git ignores (renders stay on the Mac), so it works only where that file sits' },
+  'file-local':        { level: 'warn',  family: 'needs', what: 'a file a face names or a piece declares or loads that git does not track: it plays on this Mac, and the public face shows a box until it is tracked' },
   'net-undeclared':    { level: 'error', family: 'needs', soft: true, what: 'the code reaches a host piece:net does not name' },
   'cdn-unpinned':      { level: 'error', family: 'pins', what: 'a CDN script or stylesheet not at an exact version' },
   'cdn-no-sri':        { level: 'warn',  family: 'pins', what: 'a CDN script or stylesheet with no integrity hash' },
@@ -207,7 +212,10 @@ export function readFace(ctx, mdRel, manifestRel) {
   const bundle = resolver.bundleOf(mdRel);
   const pieces = [];
   for (const [name, r] of richReferences(resolver, mdRel, text, manifest)) {
+    // In a build, a file this Mac has and git does not track is a miss marked local.
+    if (!r.ok && r.reason === 'missing' && r.local) { findings.push(localFinding(mdRel, name, r.path, { built: true })); continue; }
     if (!r.ok) { findings.push(finding('ref-missing', mdRel, name, r.label)); continue; }
+    if (r.local) findings.push(localFinding(mdRel, name, r.path));
     if (!name.includes('/') && !r.path.startsWith(bundle + '/')) {
       findings.push(finding('ref-loose', mdRel, name, `“${name}” is found at ${r.path} only by looking across the palace; write “/${r.path}”`));
     }
@@ -439,6 +447,19 @@ function finding(rule, piece, key, detail, line = 0) {
 }
 
 /**
+ * A file git does not track, named or loaded by `piece`: file-local. Its steps
+ * (how to track it) are added for the whole run at once, by markLocal.
+ */
+function localFinding(piece, name, path, { built = false, line = 0, what = 'names' } = {}) {
+  const as = name === path ? path : `${name} (${path})`;
+  const f = finding('file-local', piece, path, built
+    ? `${what} ${as}, which is only on this Mac: the public build shows a box in its place until it is tracked`
+    : `${what} ${as}, which git does not track: it plays on this Mac, and the public face shows a box in its place`, line);
+  f.local = { path, name };
+  return f;
+}
+
+/**
  * Judge one page against its declaration and its code.
  * @param ctx  makeContext(...)
  * @param t    { path, via: [{ entry, name, manifestPiece }] }
@@ -507,7 +528,9 @@ export function checkPage(ctx, t, html = null) {
     }
     declaredFiles.add(rel);
     const r = present(ctx, rel);
-    if (!r.ok) { F(r.reason === 'missing' ? 'file-missing' : 'file-outside', f, `declares ${f}: ${r.label}`); findings[findings.length - 1].missing = rel; }
+    if (!r.ok && r.reason === 'missing' && r.local) findings.push(localFinding(piece, f, r.path || rel, { built: true, what: 'declares' }));
+    else if (!r.ok) { F(r.reason === 'missing' ? 'file-missing' : 'file-outside', f, `declares ${f}: ${r.label}`); findings[findings.length - 1].missing = rel; }
+    else if (r.local) findings.push(localFinding(piece, f, r.path, { what: 'declares' }));
   }
 
   // What it loads.
@@ -523,7 +546,9 @@ export function checkPage(ctx, t, html = null) {
       if (where === 'root') F('url-root-absolute', l.raw, `${l.raw} (line ${l.line}) lands at the root of whatever serves the piece; the read view serves it under files/, so write it relative to the piece`, l.line);
       if (rel.startsWith('../') || rel === '..') { F('file-outside', l.raw, `${l.raw} (line ${l.line}) climbs out of the palace`, l.line); continue; }
       const r = present(ctx, rel);
+      if (!r.ok && r.reason === 'missing' && r.local) { if (!declaredFiles.has(rel)) findings.push(localFinding(piece, l.raw, r.path || rel, { built: true, line: l.line, what: 'loads' })); continue; }
       if (!r.ok) { F(r.reason === 'missing' ? 'file-missing' : 'file-outside', l.raw, `loads ${l.raw} (line ${l.line}): ${r.label}`, l.line); findings[findings.length - 1].missing = rel; continue; }
+      if (r.local && !declaredFiles.has(rel) && !declaredFiles.has(r.path)) findings.push(localFinding(piece, l.raw, r.path, { line: l.line, what: 'loads' }));
       const shared = SHARED_DIRS.some((d) => r.path.startsWith(d));
       if (!shared && !declaredFiles.has(rel) && !declaredFiles.has(r.path) && !declaredDirs.some((d) => rel.startsWith(d) || r.path.startsWith(d))) {
         S('file-undeclared', rel, declared ? `loads ${l.raw} (line ${l.line}), which piece:files does not name` : `loads ${l.raw} (line ${l.line}); a declaration would name it in piece:files`, l.line);
@@ -629,6 +654,7 @@ export function checkStatic(ctx, scope) {
   }
   const results = [...targets.values()].sort((a, b) => a.path.localeCompare(b.path)).map((t) => checkPage(ctx, t));
   markIgnored(ctx, results);
+  markLocal(ctx, faces, results);
   const faceFindings = faces.flatMap((f) => f.findings);
   for (const f of faceFindings) f.allowed = ctx.config.allows(f);
   return { faces, results, faceFindings, scope };
@@ -659,6 +685,25 @@ function markIgnored(ctx, results) {
     f.detail = f.detail.replace(/: no file .*$/, `: git ignores ${f.missing}, so it is kept only where it was rendered`);
   }
   for (const r of results) remark(ctx, r);
+}
+
+/**
+ * Give every file-local finding the steps that track its file (untracked.mjs
+ * stepsFor): commit a new file; copy a file git ignores into the face's bundle
+ * under rich-face/ and commit the copy. Asked of git once for the whole run.
+ */
+export function markLocal(ctx, faces, results) {
+  const found = [
+    ...faces.flatMap((face) => face.findings.map((f) => ({ f, entry: face.entry, md: face.md }))),
+    ...results.flatMap((r) => r.findings.map((f) => ({ f, entry: r.via?.[0]?.entry || null, md: null }))),
+  ].filter((x) => x.f.rule === 'file-local' && x.f.local);
+  if (!found.length) return;
+  const ignored = ignoredPaths(ctx.gitRoot, [...new Set(found.map((x) => x.f.local.path))]);
+  for (const { f, entry, md } of found) {
+    const at = md || (entry && ctx.resolver.entry(entry)?.md) || null;
+    f.ignored = ignored.has(f.local.path);
+    f.steps = stepsFor({ path: f.local.path, name: f.local.name, title: entry, bundle: at ? at.replace(/\.md$/i, '') : null, ignored: f.ignored });
+  }
 }
 
 /** Every open error in a run: what an enforced gate refuses on. */
@@ -1016,6 +1061,17 @@ export function renderReport(run, { title = 'conform', browser = null, enforce =
         if (detail) L.push(`| \`${esc(f.piece)}\` | ${f.rule}${f.allowed ? ' (allowed)' : ''} | ${f.level} | ${esc(detail)} |`);
         else for (const x of fs) L.push(`| \`${esc(x.piece)}\` | ${x.rule}${x.allowed ? ' (allowed)' : ''} | ${x.level} | ${esc(x.detail)} |`);
       }
+    }
+  }
+  const local = [...run.faceFindings, ...pieceFindings].filter((f) => f.rule === 'file-local' && f.steps?.length && !f.allowed);
+  if (local.length) {
+    L.push('', '## Only on this Mac', '', 'Each plays here and shows a box on the public face until it is tracked (`_ops/rich-face/README.md` § Media a face plays). `node _ops/rich-face/untracked.mjs "<Entry>"` prints the same steps for one face.', '');
+    const listed = new Set();
+    for (const f of local) {
+      if (listed.has(f.local.path)) continue;
+      listed.add(f.local.path);
+      L.push(`- \`${f.local.path}\` (${f.ignored ? 'ignored by git' : 'not committed'}; ${f.piece})`);
+      for (const step of f.steps) L.push(`  - \`${step.replace(/`/g, "'")}\``);
     }
   }
   const byRule = {};

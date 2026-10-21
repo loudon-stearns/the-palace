@@ -75,26 +75,37 @@ export function untrackedFor(resolver, entryName) {
       if (x.ok && x.local) note(x.path, f, `declared by ${posix.basename(r.path)}`);
     }
   }
-  const ignoredSet = ignored(resolver.root, [...found.keys()]);
+  const ignoredSet = ignoredPaths(resolver.root, [...found.keys()]);
   const files = [...found].map(([path, { name, via }]) => {
     const isIgnored = ignoredSet.has(path);
-    const steps = [];
-    if (!isIgnored) {
-      steps.push(`node ${COMMITTER} --kind ops --scope ${q(e.title)} --summary ${q(`the rich face keeps ${posix.basename(path)}`)} --verify verified --path ${q(path)}`);
-    } else {
-      const keep = `${bundle}/${KEEP_FOLDER}`;
-      const copy = `${keep}/${posix.basename(path)}`;
-      steps.push(`mkdir -p ${q(keep)} && cp ${q(path)} ${q(copy)}`);
-      steps.push(`node ${COMMITTER} --kind ops --scope ${q(e.title)} --summary ${q(`the rich face keeps ${posix.basename(path)}, so the public face plays it`)} --verify verified --path ${q(copy)}`);
-      if (name.includes('/')) steps.push(`then name it ${q(posix.basename(path))} where the face names ${q(name)}, so it finds the copy`);
-    }
-    return { path, name, via, ignored: isIgnored, steps };
+    return { path, name, via, ignored: isIgnored, steps: stepsFor({ path, name, title: e.title, bundle, ignored: isIgnored }) };
   });
   return { entry: e.title, md: e.md, bundle, files };
 }
 
-// Which of these paths git ignores (the rest are new files it would take).
-function ignored(root, paths) {
+/**
+ * How to track one file a face needs, by README § Media a face plays: a new
+ * file is committed; a file git ignores is copied into the bundle's rich-face/
+ * folder and the copy committed. `title` and `bundle` are the face's entry and
+ * its bundle; a piece no face shows yet has neither, and is told so.
+ * The checker's file-local rule carries these same steps (conform.mjs).
+ */
+export function stepsFor({ path, name = path, title = null, bundle = null, ignored: isIgnored = false }) {
+  const scope = q(title || '<the entry whose face shows it>');
+  if (!isIgnored) return [`node ${COMMITTER} --kind ops --scope ${scope} --summary ${q(`the rich face keeps ${posix.basename(path)}`)} --verify verified --path ${q(path)}`];
+  if (!bundle) return [`no rich face shows it yet: when one does, copy ${q(path)} into that entry's bundle under ${KEEP_FOLDER}/ and commit the copy`];
+  const keep = `${bundle}/${KEEP_FOLDER}`;
+  const copy = `${keep}/${posix.basename(path)}`;
+  const steps = [
+    `mkdir -p ${q(keep)} && cp ${q(path)} ${q(copy)}`,
+    `node ${COMMITTER} --kind ops --scope ${scope} --summary ${q(`the rich face keeps ${posix.basename(path)}, so the public face plays it`)} --verify verified --path ${q(copy)}`,
+  ];
+  if (name.includes('/')) steps.push(`then name it ${q(posix.basename(path))} where the face names ${q(name)}, so it finds the copy`);
+  return steps;
+}
+
+/** Which of these paths git ignores (the rest are new files it would take). */
+export function ignoredPaths(root, paths) {
   if (!paths.length) return new Set();
   try {
     const out = execFileSync('git', ['-c', 'core.quotepath=off', 'check-ignore', '-z', '--no-index', '--stdin'],

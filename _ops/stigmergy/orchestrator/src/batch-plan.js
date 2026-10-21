@@ -13,8 +13,9 @@
 //     batch loops what is already enchanted; it never auto-spawns.
 //   - The cron IS the cadence. There is no cadence enum here.
 //   - The BBS IS the record. There is no digest writer here.
-//   - No retire/pause/resume lifecycle, no status registry, no lock files.
-//     Let those earn their way in from real runs if they ever do.
+//   - No pause/resume lifecycle, no status registry, no lock files. A steward
+//     rests when its page is dormant, and leaves when its page ends, by
+//     leave-stewardship.mjs (leave.js) — never by the batch.
 //
 // The one rule it DOES enforce is stage-posture's floor: never wake a
 // dormant or composting page (Substrate Skill § Stage as Alignment

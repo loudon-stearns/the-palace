@@ -128,7 +128,8 @@ Per the thin-Stage-C decision (see [[Project Stewardship System]]), batch
 has **no cadence enum** (the cron is the cadence), **no digest writer**
 (the BBS is the record; the human-readable review digest is a separate
 `trickster-auto` product — `heartbeat-latest.md` — not a batch output),
-**no retire/pause/resume lifecycle** (delete the dir to retire), **no
+**no pause/resume lifecycle** (a steward rests while its page is dormant, and
+leaves when its page ends, through `_ops/stigmergy/leave-stewardship.mjs`), **no
 auto-spawn**, and **no lock file**. Each of those was
 in the v0.2 plan; none is built. If a real run makes one necessary, let it
 earn its way in then.

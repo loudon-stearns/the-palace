@@ -4,7 +4,7 @@ type: meta
 pillars: [tools, practice, philosophy]
 born: 2026-09
 stage: growing
-version: "1.5"
+version: "1.6"
 trigger: ["sentry sweep", "security sweep", "sentry, check [X]"]
 forward_vector: "I am the palace's watch at the doors it is opening — I sweep for what should not leave and raise it, masked, to Loudon, who decides, so the palace can grow more public without growing careless."
 links:
@@ -62,6 +62,7 @@ It has one tooth. At `git push` it reads what is about to leave and says no to a
 - **Text aimed at agents** — every page here is loaded into an agent as context, so harvested web text that tells its reader to drop its rules, or hides instructions in invisible Unicode, is an attack on the palace's readers.
 - **Agents and tools** — the permissions agents run under, and the scripts that delete or reach the network ([[Agent Toolbox]], [[assume multi-agent]]).
 - **Dependencies and hosting** — npm advisories in the palace's apps, GitHub's own Dependabot alerts across every manifest — each one on its own, with the version that closes it — whether a Dependabot pull request's lockfile installs what its title claims, and GitHub's settings: secret scanning, push protection, Pages, and whether GitHub itself refuses a force push to main for everyone who can push.
+- **Rich-face pieces** — what each piece on a rich face declares against what its code does, its CDN pins against the shelf, and how a face names its files (`_ops/rich-face/conform.mjs`). It only names: the switch that would let it block a push is Loudon's, and it is off.
 
 ## How to reach it
 
@@ -69,7 +70,7 @@ It has one tooth. At `git push` it reads what is about to leave and says no to a
 - **The gate.** `--gate` before a public step: the deep sweep, failing on any open high finding.
 - **The daily watch.** The heartbeat runs `_ops/sentry/guard-watch.mjs` once a day when the Mac is awake, and notifies Loudon if GitHub would let a force push rewrite main.
 - **Ask it.** Wake the page for advice — *"sentry, is it safe to publish this?"* A woken Sentry reads this page, its ledger and the held report, and answers from them.
-- **The push gate.** Installed once (`node _ops/sentry/install-hooks.mjs`), it runs on every push from every worktree on this Mac. It reads every file, commit and tag the push would add, messages included, and the names of the refs it updates, and blocks high findings only; `git push --no-verify` skips it once. It fails closed ([[Tool Builder]]): a gate that cannot run says no and names the way through. It covers this Mac only — GitHub's push protection and its guard on main cover every surface, and whether they are on is Loudon's switch.
+- **The push gate.** Installed once (`node _ops/sentry/install-hooks.mjs`), it runs on every push from every worktree on this Mac. It reads every file, commit and tag the push would add, messages included, and the names of the refs it updates, and blocks high findings only; when the push touches what a rich face depends on — a manifest, `grants.json`, `libs.json`, a piece — it also runs the rich check on the commit being pushed, and reports. `git push --no-verify` skips it once. It fails closed ([[Tool Builder]]): a gate that cannot run says no and names the way through. It covers this Mac only — GitHub's push protection and its guard on main cover every surface, and whether they are on is Loudon's switch.
 
 Commands, severities and the two engines (the Sentry's own rules, and gitleaks beside them): `_ops/sentry/README.md`.
 

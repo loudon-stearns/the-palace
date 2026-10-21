@@ -104,6 +104,7 @@ export function rowSignal(row) {
   if (!row) return { text: '—', tone: 'dim' };
   if (row.running) return { text: row.run ? `running ${row.run.position}/${row.run.cap}` : 'running', tone: 'warn' };
   if (row.open_asks > 0) return { text: row.open_blocking ? 'paused on you' : `${row.open_asks} ask${row.open_asks === 1 ? '' : 's'}`, tone: 'warn' };
+  if (row.proposed_owed > 0) return { text: `${row.proposed_owed} proposed${row.proposed_urgent ? ', urgent' : ''}`, tone: 'warn' };
   if (row.answered_unconsumed > 0) return { text: `${row.answered_unconsumed} ready`, tone: 'ok' };
   if (row.stalled) return { text: 'stalled', tone: 'err' };
   if (row.barren_streak > 0) return { text: 'barren once', tone: 'warn' };
@@ -115,7 +116,7 @@ export function rowSignal(row) {
 export function groupProjects(rows) {
   const g = { needs_you: [], ready: [], stuck: [], tended: [], untended: [] };
   for (const r of rows || []) {
-    if (r.running || r.open_asks > 0) g.needs_you.push(r);
+    if (r.running || r.open_asks > 0 || r.proposed_owed > 0) g.needs_you.push(r);
     else if (r.answered_unconsumed > 0) g.ready.push(r);
     else if (r.stalled) g.stuck.push(r);
     else if (r.stewarded) g.tended.push(r);
