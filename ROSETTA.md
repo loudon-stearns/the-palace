@@ -205,7 +205,7 @@ The link ontology above types edges *between entries*. The Palace also has a sec
 
 The gap in the last row is the point: where the harness has a word, the palace should use the **shim** and not reinvent it; where it has none ([[STIGMERGY]]), the palace grew its own. That is the working lesson of [[Skills Are Enchantable Pages]].
 
-**One harness anatomy under all of these.** However a dispatch surface is triggered — a harness `description`, a CLAUDE.md word, a cron cadence — the palace wraps the entry the same way: the **canon page is the organ**, shared **machinery lives in `_ops/`** (`_ops/concierge/`, `_ops/agents/permanent/[slug]/`, the orchestrator), a **thin trigger surface** fires it (the `.claude/skills/…` shim, a trigger row, a scheduled task), and **entry-specific working state lives in the bundle** (`[Entry] — scroll.md`, with stage and `forward_vector` read live from frontmatter, never copied). That is the **Machinery/Content Split** — engine in ops, content with the entry. The [[Project Stewardship System]] is its most built-out instance; the [[Concierge]] is the same shape at a one-shot tempo.
+**One harness anatomy under all of these.** However a dispatch surface is triggered — a harness `description`, a CHILD.md word, a cron cadence — the palace wraps the entry the same way: the **canon page is the organ**, shared **machinery lives in `_ops/`** (`_ops/concierge/`, `_ops/agents/permanent/[slug]/`, the orchestrator), a **thin trigger surface** fires it (the `.claude/skills/…` shim, a trigger row, a scheduled task), and **entry-specific working state lives in the bundle** (`[Entry] — scroll.md`, with stage and `forward_vector` read live from frontmatter, never copied). That is the **Machinery/Content Split** — engine in ops, content with the entry. The [[Project Stewardship System]] is its most built-out instance; the [[Concierge]] is the same shape at a one-shot tempo.
 
 ---
 
@@ -226,9 +226,9 @@ The gap in the last row is the point: where the harness has a word, the palace s
 | **Map Build** | "map build" / "build the map" | ≥1 entry with frontmatter | Scan frontmatter; compile edge list + ghost nodes | Map artifact produced under `_ops/maps/` (or session dir) | [[Map Build Ceremony]] |
 | **Enrichment** | "enrich [page]" / "enrich this page" / "let's enrich [page]" | One entry, read whole with its bundle and Loudon's earlier notes | The whole Shop makes the page's rich face — sound, image and interactives beside its headings, via a manifest in the bundle; pieces test the text, and what making teaches goes home shown first, or through the Deposit map when it changes what the page says | Every manifest section *in step*; the manifest and its pieces in the bundle, so the face switch offers the rich face; the page renders at `/rich/`; `conform.mjs` names no error, or the commit names each | [[Enrichment]] |
 | **Self-Model Update** | "Self-model update" | SUBSTRATE.md is readable; palace state has changed | Read current SUBSTRATE.md; compare to actual state; draft and apply corrections | SUBSTRATE.md reflects current reality; commit made | [[Self-Model Update Ceremony]] |
-| **Schema Ceremony** | "Let's update the schema" | Current SCHEMA.md version on record | Deliberate → document rationale → update SCHEMA.md → bump CLAUDE.md version → propagate to mirrors (ROSETTA, README, SUBSTRATE, `_ops/Substrate Skill.md`; + `_ops/Palace Ceremonies` & CLAUDE.md trigger table for ceremony add/remove) | SCHEMA, CLAUDE, ROSETTA, README, SUBSTRATE, Substrate Skill internally consistent — `_ops/swarm/lint-doc-drift.py` clean on errors; commit made | [[SCHEMA]] |
+| **Schema Ceremony** | "Let's update the schema" | Current SCHEMA.md version on record | Deliberate → document rationale → update SCHEMA.md → bump CLAUDE.md version → propagate to mirrors (ROSETTA, README, SUBSTRATE, `_ops/Substrate Skill.md`; + `_ops/Palace Ceremonies` & CHILD.md trigger table for ceremony add/remove) | SCHEMA, CLAUDE, ROSETTA, README, SUBSTRATE, Substrate Skill internally consistent — `_ops/swarm/lint-doc-drift.py` clean on errors; commit made | [[SCHEMA]] |
 
-*Connection and Query are informal ceremonies (no postcondition file); their triggers live in [[CLAUDE]]'s ceremony table.*
+*Connection and Query are informal ceremonies (no postcondition file); their triggers live in [[CHILD]]'s ceremony table.*
 
 ---
 
@@ -236,7 +236,8 @@ The gap in the last row is the point: where the harness has a word, the palace s
 
 ```
 The Palace/
-├── CLAUDE.md               ← The birth. Read first, by every agent. Contains: version, the child/elder rule, ceremony trigger words.
+├── CLAUDE.md               ← The birth. Read first, by every agent. Contains: version, the child/elder rule, the born-with imports.
+├── CHILD.md                ← How a child works here, imported at birth after the World: a page and its folder, growing up, ceremony trigger words, the voice.
 ├── ELDER.md                ← What an agent reads to grow up: the limits of age, the invariants, what to read next.
 ├── SCHEMA.md               ← Type system (TBox), read on growing up. Entry types, stages, link types, self-description test.
 ├── SCHEMA — Reference.md   ← The writing rules. YAML fields, change protocol, bundles, STIGMERGY wire (§§3,5,6,8,9).

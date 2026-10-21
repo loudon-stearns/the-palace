@@ -18,7 +18,7 @@ product.** The search never enters this conversation; only the finished thing do
 
 ## The lifecycle — resident, not fresh-per-request
 
-0. **Summon at the open.** When to summon, and that it be seen, is the rule in [[CLAUDE]] § Growing
+0. **Summon at the open.** When to summon, and that it be seen, is the rule in [[CHILD]] § Growing
    up. Where the surface cannot spawn, say so at the open instead. Step 1 *is* that spawn; the
    rest is how.
 

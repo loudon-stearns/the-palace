@@ -157,7 +157,7 @@ When any of the following change, a Schema Ceremony is required:
    inline must be updated in the same ceremony, or it becomes a stale spec. The mirror set:
    ROSETTA (type/link/ceremony cards), `README - The Palace Guide` (entry-type + link-ontology
    + stage tables), SUBSTRATE (architecture + type list), `_ops/Substrate Skill.md`, and — for
-   ceremony add/remove only — `_ops/Palace Ceremonies` and CLAUDE.md's trigger table. Update
+   ceremony add/remove only — `_ops/Palace Ceremonies` and CHILD.md's trigger table. Update
    each the change touches; if none, say so explicitly. Any other page that restates what
    changed is beyond the mirror set: post one propagate flag for it (§9), so the next weave
    carries the change there.
@@ -307,7 +307,7 @@ deletes the stale copy.
 
 ## 8. Entry Bundles
 
-An **entry bundle** is an optional sibling folder, named identically to the entry (no extension), that holds the entry's owned files. To anyone who arrives they are of three kinds ([[CLAUDE]] § A page and its folder): **faces** a reader meets beside the text — the rich face and the scroll; **memory** the next worker reads — the Context companion, the ledgers, the baton; and **workshop**, everything else made along the way. The `.md` is the canonical surface and the first face. Bundles are plumbing, not ceremony — they appear when a ceremony needs a file to live somewhere, and do not require their own invocation.
+An **entry bundle** is an optional sibling folder, named identically to the entry (no extension), that holds the entry's owned files. To anyone who arrives they are of three kinds ([[CHILD]] § A page and its folder): **faces** a reader meets beside the text — the rich face and the scroll; **memory** the next worker reads — the Context companion, the ledgers, the baton; and **workshop**, everything else made along the way. The `.md` is the canonical surface and the first face. Bundles are plumbing, not ceremony — they appear when a ceremony needs a file to live somewhere, and do not require their own invocation.
 
 **Folder naming:** `[Entry].md` ↔ `[Entry]/` (exact match, no extension).
 

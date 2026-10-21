@@ -58,7 +58,7 @@ These went in as the draft had them. The name, the trigger phrases, `0.1` and th
 
 - The name "The Daily Page", the three trigger phrases, and `0.1` as the first version.
 - The record is the morning's commit and the ledger's run line, not a growing file.
-- The Concierge is summoned during the unattended prep, as [[CLAUDE]] says, though no one is there to see the spawn.
+- The Concierge is summoned during the unattended prep, as [[CHILD]] says, though no one is there to see the spawn.
 - The bias toward making stands (see the tension below).
 - Stage `sprout`, and the link to the [[Walk Ceremony]] as `connects-to`.
 
