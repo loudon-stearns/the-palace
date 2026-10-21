@@ -176,7 +176,7 @@ Documented in the helpers' README at
 
 ## Smoke-test recipe (for Loudon)
 
-In Cowork or a Claude Code session opened in the palace root:
+In a Claude Code session opened in the palace root:
 
 1. **Songline mode:**
    > "Run the Cooperation → Kuramoto → Hilaritas songline through the

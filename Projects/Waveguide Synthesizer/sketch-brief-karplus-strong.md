@@ -1,8 +1,6 @@
 # Waveguide Synthesizer — Sketch Brief (Karplus-Strong, see-it-hear-it)
 
 > The Maker's resolved Job Contract for the first build. This is what the Maker produces *after* intake: the brief decoded, the cascade resolved, the host checked, the segment plan written, success criteria named. A build session (Claude Code, Mac-side) executes against it directly — no further decoding needed. Authored 2026-05-30.
->
-> **First, clear the stale lock:** `rm -f ".git/index.lock"` at the palace root before any git op. Nothing is damaged; this is the known Cowork→Mac handoff residue.
 
 ---
 
