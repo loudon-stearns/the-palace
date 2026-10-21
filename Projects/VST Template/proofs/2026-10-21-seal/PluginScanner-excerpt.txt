@@ -1,0 +1,14 @@
+From ~/Library/Preferences/Ableton/Live 12.4.6/PluginScanner.txt, verbatim.
+
+-- 23:50, before the re-seal: Frustration refused
+2026-10-20T23:50:08.813452: info: VST3: check plugin at path: "~/Library/Audio/Plug-Ins/VST3/Frustration.vst3"
+2026-10-20T23:50:08.829442: error: Failed to load plugin: a sealed resource is missing or invalid
+2026-10-20T23:50:08.829475: info: VST3: not a plugin
+
+-- 00:03, after the re-seal: both found
+2026-10-21T00:03:14.803371: info: VST3: check plugin at path: "~/Library/Audio/Plug-Ins/VST3/Frustration.vst3"
+2026-10-21T00:03:14.803485: info: VST3: plugin already scanned. Rescan
+2026-10-21T00:03:14.827669: info: VST3: found: Frustration
+2026-10-21T00:03:49.319434: info: VST3: check plugin at path: "~/Library/Audio/Plug-Ins/VST3/Simple Synth.vst3"
+2026-10-21T00:03:49.319608: info: VST3: plugin already scanned. Rescan
+2026-10-21T00:03:49.350927: info: VST3: found: Simple Synth

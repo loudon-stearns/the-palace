@@ -1,0 +1,67 @@
+signature verified (strict): ~/Library/Audio/Plug-Ins/VST3/Simple Synth.vst3
+signature verified (strict): ~/Library/Audio/Plug-Ins/Components/Simple Synth.component
+Starting tests in: pluginval / Scan for plugins located in: ~/Library/Audio/Plug-Ins/VST3/Simple Synth.vst3...
+Starting tests in: pluginval / Open plugin (cold)...
+Starting tests in: pluginval / Open plugin (warm)...
+Starting tests in: pluginval / Plugin info...
+Starting tests in: pluginval / Plugin programs...
+Starting tests in: pluginval / Editor...
+Starting tests in: pluginval / Open editor whilst processing...
+Starting tests in: pluginval / Audio processing...
+Starting tests in: pluginval / Plugin state...
+Starting tests in: pluginval / Automation...
+Starting tests in: pluginval / Editor Automation...
+Starting tests in: pluginval / Automatable Parameters...
+Starting tests in: pluginval / auval...
+Starting tests in: pluginval / vst3 validator...
+Starting tests in: pluginval / Basic bus...
+Starting tests in: pluginval / Listing available buses...
+Starting tests in: pluginval / Enabling all buses...
+Starting tests in: pluginval / Disabling non-main busses...
+Starting tests in: pluginval / Restoring default layout...
+SUCCESS
+* * PASS
+* * PASS
+* * PASS
+* * PASS
+    PASS
+* * PASS
+    PASS
+    PASS
+* * PASS
+    PASS
+    PASS
+    PASS
+* * PASS
+  -parameter PASS
+  -parameter PASS
+  -parameter PASS
+  -parameter PASS
+  -parameter PASS
+  -parameter PASS
+  -parameter PASS
+  -parameter PASS
+  -parameter PASS
+  -parameter PASS
+  -parameter PASS
+  -parameter PASS
+  -parameter PASS
+  -parameter PASS
+  -parameter PASS
+  -parameter PASS
+  -parameter PASS
+  -parameter PASS
+  -parameter PASS
+  -parameter PASS
+  PASS
+* * PASS
+* * PASS
+  PASS
+  PASS
+  PASS
+  PASS
+  PASS
+  PASS
+  PASS
+* * PASS
+AU VALIDATION SUCCEEDED.

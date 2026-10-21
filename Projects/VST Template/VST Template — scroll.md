@@ -49,6 +49,27 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="proof-2026-10-21-seal" -->
+### 2026-10-21 — A broken seal: Live 12 refused Frustration after every other check had passed
+> JUCE could break its own code signature. Live's scanner checks the seal; pluginval, auval and the host check do not. The machinery now re-seals every bundle and gates on a strict check.
+
+- **The symptom.** Live's `PluginScanner.txt` at 23:50:08 on 2026-10-20: "Failed to load plugin: a sealed resource is missing or invalid", then "VST3: not a plugin". Frustration never reached Live, and a Set naming it opened with "The VST3 plug-in could not be found".
+- **The cause.** JUCE signs each bundle ad hoc during the build and can then write the VST3's `Contents/Resources/moduleinfo.json`, so the signature no longer covers the bundle. Both AU components were sealed for resources they don't have. Simple Synth's VST3 happened to come out whole.
+- **Why the other checks passed.** pluginval, auval and the host check load a bundle's code without checking its seal strictly. Live's scanner does check it.
+- **The check.** `codesign --verify --deep --strict` on the bundle shows all three faults.
+- **The fix** (`machinery/plugin.sh`). `build` re-seals each bundle ad hoc after JUCE has finished writing into it. `install` refuses a bundle that fails the strict check, and `validate` opens with that check before pluginval and auval. After the fix all four installed bundles pass, Live's scanner logged "found: Frustration" and "found: Simple Synth" at 00:03, and `validate` passes for both. The gotcha is in the recipe, `template/README.md`.
+
+**Artifacts:**
+- [README.md — the seal proof, and the Live 12 load that was not done](Projects/VST Template/proofs/2026-10-21-seal/README.md)
+- [PluginScanner-excerpt.txt — Live's scanner log, before and after the re-seal](Projects/VST Template/proofs/2026-10-21-seal/PluginScanner-excerpt.txt)
+- [codesign.txt — the strict check on all four bundles, before and after](Projects/VST Template/proofs/2026-10-21-seal/codesign.txt)
+- [Frustration-validate.txt](Projects/VST Template/proofs/2026-10-21-seal/Frustration-validate.txt)
+- [SimpleSynth-validate.txt](Projects/VST Template/proofs/2026-10-21-seal/SimpleSynth-validate.txt)
+
+_Left rough:_ the Live 12 load is still not done: Live's browser index never listed the two plugins, even after a full rescan in a fresh second instance; the long-running instance, with an unsaved Set, was not restarted; its audio device is set to No Device, so no sound could have been checked; the plan's "load them in Live 12" stays open.
+<sub>`proof-2026-10-21-seal` · written by hand · the fix landed in `321f157c`, the proof in `a9f65ac2`</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-10-20T23-48-02-04-00" -->
 ### 2026-10-20 — Plan revised: a second plugin, Simple Synth
 

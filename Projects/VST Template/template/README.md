@@ -55,7 +55,7 @@ Projects/VST Template/
 
 - **verify, engine:** `Algorithm::step` run with exactly the sketch's per-sample values, compared sample for sample. Tolerance 1e-6 of peak; a faithful port lands near 5e-8, which is float32 output rounding.
 - **verify, plugin:** the real `processBlock`, with automation landing once every 64-sample block through the host-facing parameters, smoothing on, and the notes as MIDI. It must keep the sketch's loudness in every quarter second (within 0.5 dB), match on behaviour where asked, and stay finite, unclipped and not silent.
-- **validate:** pluginval at strictness 5 on the installed VST3 (state, automation, fuzzed parameters, editor), then `auval` on the installed AU.
+- **validate:** first `codesign --verify --deep --strict` on both installed bundles, because a broken seal is the one fault the other checks miss and Live's scanner does not. Then pluginval at strictness 5 on the installed VST3 (state, automation, fuzzed parameters, editor), then `auval` on the installed AU.
 - **hostcheck:** loads the installed VST3 and AU through JUCE's hosting code, the way a DAW does. It lists the parameters, then moves the `hostcheck` ones and confirms the sound changed. An instrument hears C3 each second.
 
 ## Gotchas met building it
@@ -63,5 +63,13 @@ Projects/VST Template/
 - JUCE 8.0.12 removed `AudioPluginFormatManager::addDefaultFormats()`. A host calls `juce::addDefaultFormatsToManager (manager)` instead.
 - `AudioProcessor::BusesProperties` is protected, so the bus layout is built in a static member of the processor.
 - A VST3 instrument shows its host about 2,080 extra "MIDI CC" parameters (JUCE's MIDI-CC emulation), and a hosted JUCE plugin reports each parameter id as a hash of its string id. The host check hides the proxies and matches the hash.
+- **JUCE can break its own code signature.** It signs each bundle ad hoc, but it may write the VST3's `Contents/Resources/moduleinfo.json` after signing; an AU can come out sealed for resources it doesn't have.
+  - **Symptom:** Live's `PluginScanner.txt` (in `~/Library/Preferences/Ableton/Live <version>/`) logs "Failed to load plugin: a sealed resource is missing or invalid / VST3: not a plugin". The plugin never reaches Live's browser, and a Set naming it opens with "The VST3 plug-in could not be found". `codesign --verify --deep --strict` on the bundle says "a sealed resource is missing or invalid", or, for the AU, "code has no resources but signature indicates they must be present".
+  - **Why the other checks pass anyway:** pluginval, auval and the host check load the code without checking the seal strictly.
+  - **The fix in the machinery:** `build` re-seals each bundle ad hoc after JUCE has written everything into it. `install` and `validate` refuse a bundle that fails the strict check.
+  - **After installing, the browser may lag the scanner.** Live keeps two databases in `~/Library/Application Support/Ableton/Live Database/`: the scanner's (`Live-plugins-1.db`, table `plugins`) and the browser's index (`Live-files-<n>.db`, table `devices`). On 2026-10-21 both new plugins were in the first, enabled, but not in the second. So neither showed in the browser, even in a freshly launched second Live 12 after a full rescan, while another Live 12 had been running since before they were installed. The scanner log saying "found" is not the same as the browser listing it. Quitting every Live 12 and relaunching is the likely cure (not yet tried). A Set that names the plugin by its class id loads it without the browser.
+  - Found on Frustration by the Ableton session on 2026-10-21.
+- **To ask whether an AU is registered, name it:** `auval -v aumu <code> Loud`. On this Mac `auval -a` stops partway through the effects, before any instrument, so its list can't answer the question.
+- **Live 11 and Live 12 share one bundle id** (`com.ableton.live`). A tool that picks an app by bundle id reaches whichever is first, which was Live 11 with Loudon's show Set. Drive a particular Live by its process id, or not at all.
 - `auval` sees a new or changed AU only once it is installed in `~/Library/Audio/Plug-Ins/Components` and `AudioComponentRegistrar` has restarted; `plugin.sh install` does both.
 - JUCE is cloned once to `~/Library/Caches/palace-vst-template/JUCE-8.0.12` (override with `JUCE_DIR`), so a worktree or a new plugin never downloads it again.
