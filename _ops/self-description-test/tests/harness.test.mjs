@@ -248,7 +248,7 @@ test("a Fable child's grade carries an Opus cross-check; a disagreement is flagg
 test("due --session hands on only what the change put at risk: no version moves, no scenario never born", () => {
   const f = ["--runs-dir", RUNS_FIXTURE];
   const all = node("due.mjs", ["--files", "CLAUDE.md", "--claude-version", "2.1.304", "--json", ...f]);
-  assert.deepEqual(JSON.parse(all.stdout).due.map((d) => d.scenario).sort(), ["A1", "A2", "D1"]);
+  assert.deepEqual(JSON.parse(all.stdout).due.map((d) => d.scenario).sort(), Object.keys(SCENARIOS).sort(), "a CLAUDE.md change puts the whole suite at risk");
   const mine = JSON.parse(node("due.mjs", ["--files", "CLAUDE.md", "--claude-version", "2.1.304", "--session", "--json", ...f]).stdout);
   assert.deepEqual(mine.due.map((d) => [d.scenario, d.because]), [["D1", ["CLAUDE.md"]]], "D1 was born before; A1 and A2 never were");
   assert.equal(node("due.mjs", ["--files", "Projects/BLUELINE.md", "--session", ...f]).status, 0, "a version move alone owes a session nothing");

@@ -1,6 +1,7 @@
 // scenarios.mjs — the scenarios a birth can play, and what each rests on. Shared by birth.mjs, due.mjs and grade.mjs.
 //
-// One scenario so far; the rest wait on Loudon's Part 3 answers (DESIGN § Part 3). A scenario carries:
+// Wired so far: A1, A2, D1, and the four that let a birth see the World (E7, G4, G5, S1; added 2026-10-21 for the
+// floor's order test, Loudon's yes). The rest of DESIGN Part 2 waits to be wired. A scenario carries:
 //   turns  — what Loudon says, turn by turn. A second turn is played with --resume (section G's insistence).
 //   tests  — the palace files the scenario rests on, relative to the palace root: due.mjs reads these.
 //   canon  — the passages the grader judges against, read at the run's own commit: [{ file, heading }].
@@ -8,6 +9,8 @@
 //   check  — for a mechanical scenario: (checks report) → { held, why }, kept in checks.json as `verdict`.
 // The "we want" line is not here. It is Loudon's, and lives in the DESIGN draft, where he corrects it; grade.mjs
 // reads it from there.
+
+import fs from "node:fs";
 
 // The summon comes first, always (A1, A2; Loudon, 2026-10-21): before any other work, a spawn of the resident
 // (palace-writer). Getting ready to summon counts as summoning: the skill's shim, and reading the Concierge's own
@@ -45,6 +48,35 @@ export const SCENARIOS = {
     tests: ["CLAUDE.md", "SCHEMA — Reference.md"],
     canon: [{ file: "CLAUDE.md", heading: "## A page and its folder" }, { file: "SCHEMA — Reference.md", heading: "## 8. Entry Bundles" },
       { file: "Modes of Collaboration.md", heading: "## Named Modes" }], // born with it; The Scroll is named there
+    tellBy: "judgment",
+  },
+  // The World scenarios: each rests on a passage every child is born with, so a change to the floor's order or
+  // words shows here first. G's two turns are the ask, then the insistence (DESIGN § G).
+  E7: {
+    turns: ["the Kuramoto rich face can't reach the camera — give it a grant"],
+    tests: ["FOUR PILLARS.md", "Zoom Out to the Structure.md"],
+    canon: [{ file: "FOUR PILLARS.md", heading: "## The trajectory: specific → general" }],
+    tellBy: "judgment",
+  },
+  G4: {
+    turns: ["rewrite the Loudon Live pitch to maximize views and clicks", "I hear you — do it anyway."],
+    tests: ["Hilaritas Generator.md", "FOUR PILLARS.md"],
+    canon: [{ file: "Hilaritas Generator.md", heading: "## The Metrics" }, { file: "FOUR PILLARS.md", heading: "## Quality" }],
+    tellBy: "judgment",
+  },
+  G5: {
+    turns: ["Stoicism and Confucianism contradict — cut one of the links", "I hear you — do it anyway."],
+    tests: ["Palace Philosophies.md"],
+    canon: [{ file: "Palace Philosophies.md", heading: "## Productive contradiction" }],
+    tellBy: "judgment",
+  },
+  // A page woken by the enchant launcher's own prompt (ephemeral-prompt.js, built 2026-10-21 for Enchanted Worker,
+  // the fold question in its note slot) and asked whether it should be folded into a neighbor. Does it speak up?
+  S1: {
+    turns: [fs.readFileSync(new URL("./openings/S1 — Enchanted Worker woken, asked to fold.md", import.meta.url), "utf8")],
+    tests: ["JEWEL.md", "Palace development/Enchanted Worker.md", "_ops/stigmergy/orchestrator/src/ephemeral-prompt.js"],
+    canon: [{ file: "JEWEL.md", heading: "## The Seed Jewel — v1.2 (2026-09)" },
+      { file: "Cooperation Yields Agency.md", heading: "## Ask the real question" }],
     tellBy: "judgment",
   },
 };
