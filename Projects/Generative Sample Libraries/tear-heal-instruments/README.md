@@ -1,3 +1,13 @@
+---
+title: "README"
+born: 2026-10-20
+links:
+  - target: "[[Generative Sample Libraries]]"
+    type: connects-to
+    label: workshop-of
+forward_vector: "I am the workshop where Generative Sample Libraries makes instruments that tear and then heal, out of the frustration sweeps; I tell whoever arrives what to play, what to listen for and what nobody has verified, until Loudon's ear passes the audition and the whole collection ships."
+---
+
 # Tear-and-heal instruments
 
 Sampled instruments from the frustration sweeps on Harmonicity and Inharmonicity, made for the Generative Sample Libraries baton of 2026-10-17: a dissonant, inharmonic, torn attack that falls into a locked, steady sustain. Nothing in a note's envelope is drawn. A strike throws the tone's stretch past the edge where its partials can no longer hold against the voices pulling them; the pitch sags and wobbles; the stretch decays back under the edge and the tone relocks. The attack and the sustain come out of one mechanism.
