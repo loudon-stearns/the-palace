@@ -276,15 +276,3 @@ return, takes the wheel at the close.**
   reviewed, not rubber-stamped. If it drifts toward acting, tighten the charter.
 - When has the companion earned a place among the always-loaded invariants? Promoting "keep both
   modes open" to [[ELDER]]'s invariants is a Schema-Ceremony-weight act, done once proven.
-
-## Active Baton
-
-> **[[Concierge — baton]]** (re-batoned 2026-08-25) — from the partial close of the work-choice
-> handoff (`concierge-remainder-20260825T225852Z`). **Three of the four moves have landed:** the
-> health dial (`dial.mjs`, 2026-07-08), the fold of the companion character + moderator into
-> [[Closing Well]] (`02e949a`), and the **work-choice vector** — the scout posture +
-> `return-map.mjs` (`fc0b980`). What remains is the one thing building cannot finish: **live
-> validation.** The V3 "companion takes the wheel" close has exactly one real data point, and the
-> scout has never chosen work in a real return. Both are tuned by use, not by more machinery — the
-> right session to catch this baton is one that was going to return or close anyway.
-
