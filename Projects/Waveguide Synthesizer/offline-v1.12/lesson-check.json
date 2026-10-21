@@ -1,0 +1,122 @@
+{
+ "errors": [],
+ "audio_seconds": 111.5,
+ "stops": [
+  {
+   "stop": "pluck",
+   "card": "the lesson · 1 of 7 · pluck",
+   "focus": [],
+   "mode": "replay",
+   "bowing_on_entry": false,
+   "ticked": true,
+   "next_lit": true,
+   "got": "✓ two plucks, far apart: you made both shapes.",
+   "chart_said": "hold B to bow, and watch the hair catch and let go",
+   "peak_dbfs": -13.1,
+   "seconds": 14.283
+  },
+  {
+   "stop": "reflection",
+   "card": "the lesson · 2 of 7 · reflection",
+   "focus": [
+    "slow"
+   ],
+   "mode": "replay",
+   "bowing_on_entry": false,
+   "ticked": true,
+   "next_lit": true,
+   "got": "✓ slowed right down: you can follow a half there and back.",
+   "chart_said": "hold B to bow, and watch the hair catch and let go",
+   "peak_dbfs": -14.2,
+   "seconds": 13.784
+  },
+  {
+   "stop": "loss",
+   "card": "the lesson · 3 of 7 · loss",
+   "focus": [
+    "bright"
+   ],
+   "mode": "strobe",
+   "bowing_on_entry": false,
+   "ticked": true,
+   "next_lit": true,
+   "got": "✓ swept from bright to dark: you heard the loop eat the highs.",
+   "chart_said": "hold B to bow, and watch the hair catch and let go",
+   "peak_dbfs": -11.8,
+   "seconds": 13.471
+  },
+  {
+   "stop": "pitch",
+   "card": "the lesson · 4 of 7 · pitch",
+   "focus": [
+    "freq"
+   ],
+   "mode": "strobe",
+   "bowing_on_entry": false,
+   "ticked": true,
+   "next_lit": true,
+   "got": "✓ low to high: you counted the loop in beads.",
+   "chart_said": "hold B to bow, and watch the hair catch and let go",
+   "peak_dbfs": -10.1,
+   "seconds": 8.771
+  },
+  {
+   "note": "show me on stiffness ticked the stop?",
+   "value": false
+  },
+  {
+   "stop": "stiffness",
+   "card": "the lesson · 5 of 7 · stiffness",
+   "focus": [
+    "stiff"
+   ],
+   "mode": "strobe",
+   "bowing_on_entry": false,
+   "ticked": true,
+   "next_lit": true,
+   "got": "✓ flexible to stiff: you heard the series bend.",
+   "chart_said": "hold B to bow, and watch the hair catch and let go",
+   "peak_dbfs": -11.4,
+   "seconds": 21.219
+  },
+  {
+   "note": "bow still on after letting go of the slider?",
+   "value": true
+  },
+  {
+   "stop": "bow",
+   "card": "the lesson · 6 of 7 · bow",
+   "focus": [
+    "bfrc"
+   ],
+   "mode": "strobe",
+   "bowing_on_entry": true,
+   "ticked": true,
+   "next_lit": true,
+   "got": "✓ light to heavy: you found where it sings.",
+   "chart_said": "crunching: too much force. the hair holds too long and lets go late, never the same way twice",
+   "peak_dbfs": -5.1,
+   "seconds": 15.669
+  },
+  {
+   "stop": "body",
+   "card": "the lesson · 7 of 7 · body",
+   "focus": [
+    "body"
+   ],
+   "mode": "strobe",
+   "bowing_on_entry": false,
+   "ticked": true,
+   "next_lit": true,
+   "got": "✓ nothing to big: you heard the wood arrive.",
+   "chart_said": "hold B to bow, and watch the hair catch and let go",
+   "peak_dbfs": -10.6,
+   "seconds": 8.788
+  }
+ ],
+ "after_finish": {
+  "lesson_open": false,
+  "card_shown": "none",
+  "bowing": false
+ }
+}

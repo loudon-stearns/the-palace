@@ -109,8 +109,9 @@ function isHidden(name) {
 // List files inside a bundle folder. Returns an array of:
 //   { name, relPath, ext, kind, size, depth }
 // `relPath` is relative to the palace root (so it can be served by /api/file).
-// Walks up to maxDepth levels deep (default 2). Always sorted by relPath.
-export function listBundleFiles(palaceRoot, absBundleDir, { maxDepth = 2 } = {}) {
+// Walks up to maxDepth levels deep (default 5, so a dated proof folder such as
+// proofs/2026-10-20-name/ and the folders inside it are listed). Always sorted by relPath.
+export function listBundleFiles(palaceRoot, absBundleDir, { maxDepth = 5 } = {}) {
   const root = resolve(palaceRoot);
   const out = [];
   function walk(dir, depth) {

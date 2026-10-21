@@ -180,6 +180,15 @@ const FEELS = {
   // The struck spring: strike it, let it wobble down into pitch, damp with a finger.
   // 'spring' rings at one rate all the way down; 'pendulum' (sin law) starts slow
   // at a big swing and quickens as it settles.
+  // The pitch-wheel return (sketch 4, box day): a soft spring to centre plus a
+  // small push toward it. Alone, k = 0.03 stops up to 18° short against the
+  // motor's raw bumps and friction (6° with no bumps at all). The push, faded in
+  // over kickW rad, lands it within about 1° raw and 0.3° with bumps cancelled.
+  centre: (o) => Object.assign({
+    name: 'centre', k: 0.03, kick: 0.01, kickW: 0.02, rest: 0,
+    torque(e) { const x = e.s.sensedTh - this.rest; return -this.k * x - this.kick * Math.tanh(x / this.kickW); },
+    voice: (e) => ({ midi: e.pitch(), amp: 0.5 }),
+  }, o),
   struck: (o) => Object.assign({
     name: 'struck', law: 'spring', k: 0.085, damp: 0, rest: 0,
     torque(e) {

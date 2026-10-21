@@ -65,5 +65,8 @@ held still, under the Mini's 2.5 A but over the 2 A it likes long term.
 1. Meter the leads. 2. Flash the firmware at 12 V, current knob at 0.5 A.
 3. `bench coast`, then the two `accel` runs, `cog`, and `chirp` with the contact
 mic (see [BENCH.md](../firmware/BENCH.md)). 4. Run `bench_analyze.py` and send
-me the numbers; the feel lab gets re-tuned to the real motor. 5. Open
-[`handwheel-host.maxpat`](../max/handwheel-host.maxpat) and play the feels.
+me the numbers; the feel lab gets re-tuned to the real motor. 5. Play the
+feels from the console in [`box-day.html`](../firmware/box-day.html), which talks
+to the knob from Chrome; the Max host patch waits for the Max standards.
+The whole day, step by step, is that page; `bench/run_bench.py` runs step 3 in
+one command.

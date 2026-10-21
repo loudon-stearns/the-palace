@@ -1,0 +1,373 @@
+{
+ "port_edgemap": {
+  "cells": 63,
+  "worst_hz": 0.034
+ },
+ "port_rides": {
+  "string_bar_max_diff_after_5s_hz": 0.069,
+  "string_bar_max_1s_mean_diff_hz": 0.0465,
+  "coupling_mean": [
+   108.99,
+   108.97
+  ],
+  "coupling_wobble": [
+   0.52,
+   0.52
+  ]
+ },
+ "edge_vs_map": {
+  "N40_K6": 0.0000174,
+  "N6_K6": 0.002174
+ },
+ "overcoupled_band": {
+  "wobble_hz_at": {
+   "22050": 0.549,
+   "44100": 0,
+   "88200": 0
+  }
+ },
+ "margin_by_pitch": {
+  "41.2": {
+   "under": 0.296,
+   "over": 0.612
+  },
+  "110.0": {
+   "under": 0.309,
+   "over": 0.702
+  },
+  "440.0": {
+   "under": 0.293,
+   "over": 0.729
+  }
+ },
+ "coupling_as_knob": {
+  "s": -4.82,
+  "wobble_at_K_2_6_16": [
+   0.777,
+   0.712,
+   0.356
+  ]
+ },
+ "strike_drop_cents": {
+  "1": -161.5,
+  "0.25": -37.7,
+  "0.5": -61.3,
+  "1.5": -258.4
+ },
+ "sequence_step_wobble": {
+  "-1.26": 0.102,
+  "-0.26": 0.318,
+  "0.52": 1.2,
+  "1.05": 1.797,
+  "-0.5": 0.148,
+  "0.25": 0.683
+ },
+ "piano_registers": [
+  {
+   "note": "A1",
+   "B": 0.000046713,
+   "partials": 61,
+   "edge_B_at_K6": 0.0000102,
+   "decades_past": 0.66
+  },
+  {
+   "note": "A2",
+   "B": 0.00008301,
+   "partials": 54,
+   "edge_B_at_K6": 0.0000122,
+   "decades_past": 0.83
+  },
+  {
+   "note": "A3",
+   "B": 0.00026572,
+   "partials": 46,
+   "edge_B_at_K6": 0.0000153,
+   "decades_past": 1.24
+  },
+  {
+   "note": "A4",
+   "B": 0.00074049,
+   "partials": 24,
+   "edge_B_at_K6": 0.0000791,
+   "decades_past": 0.97
+  },
+  {
+   "note": "A5",
+   "B": 0.0023055,
+   "partials": 17,
+   "edge_B_at_K6": 0.000141,
+   "decades_past": 1.21
+  },
+  {
+   "note": "C6",
+   "B": 0.0028863,
+   "partials": 11,
+   "edge_B_at_K6": 0.000331,
+   "decades_past": 0.94
+  },
+  {
+   "note": "F#6",
+   "B": 0.0050269,
+   "partials": 7,
+   "edge_B_at_K6": 0.00133,
+   "decades_past": 0.58
+  },
+  {
+   "note": "D7",
+   "B": 0.01,
+   "partials": 6,
+   "edge_B_at_K6": 0.00214,
+   "decades_past": 0.67
+  }
+ ],
+ "piano_A2": {
+  "wobble_at_K6": 1.7,
+  "edge_B_at_K6": 0.0000122,
+  "edge_B_at_K25": 0.0000414,
+  "wobble_at_K25": 1.72,
+  "wobble_at_K_64_128_256": [
+   0.64,
+   1.04,
+   9.41
+  ],
+  "wobble_K6_with_6_12_24_partials": [
+   0,
+   0,
+   0.52
+  ]
+ },
+ "vibraphone": {
+  "edge_depth_at_K6": 0.0302,
+  "wobble_half_and_double": [
+   0.234,
+   1.009
+  ]
+ },
+ "bar_repairing": {
+  "voices": [
+   1,
+   4,
+   9,
+   16,
+   25,
+   36
+  ],
+  "max_slip_hz": 0,
+  "wobble": 0,
+  "fixed_min_slip_hz": 217.9
+ },
+ "morph_nearest": [
+  {
+   "s": -6,
+   "wobble": 0.15,
+   "locked": 25,
+   "paired": 40,
+   "mean": 109.9
+  },
+  {
+   "s": -4,
+   "wobble": 3.87,
+   "locked": 2,
+   "paired": 37,
+   "mean": 109.9
+  },
+  {
+   "s": -3,
+   "wobble": 3.62,
+   "locked": 3,
+   "paired": 29,
+   "mean": 110
+  },
+  {
+   "s": -2,
+   "wobble": 3.33,
+   "locked": 3,
+   "paired": 18,
+   "mean": 108.5
+  },
+  {
+   "s": -1,
+   "wobble": 2.21,
+   "locked": 3,
+   "paired": 11,
+   "mean": 109.9
+  },
+  {
+   "s": 0,
+   "wobble": 0.25,
+   "locked": 3,
+   "paired": 7,
+   "mean": 110.2
+  },
+  {
+   "s": 1,
+   "wobble": 0,
+   "locked": 6,
+   "paired": 6,
+   "mean": 114.8
+  },
+  {
+   "s": 2,
+   "wobble": 0,
+   "locked": 6,
+   "paired": 6,
+   "mean": 110.3
+  },
+  {
+   "s": 3,
+   "wobble": 0,
+   "locked": 6,
+   "paired": 6,
+   "mean": 109.8
+  }
+ ],
+ "loudness": {
+  "stretches": [
+   -9,
+   -7,
+   -6,
+   -5.5,
+   -5,
+   -4.5,
+   -4,
+   -3.5,
+   -3
+  ],
+  "wobble_g0": [
+   0.12,
+   0.13,
+   0.1,
+   0.16,
+   0.52,
+   1.19,
+   1.83,
+   2.36,
+   2.24
+  ],
+  "wobble_g025": [
+   0.21,
+   0.19,
+   0.23,
+   0.33,
+   0.64,
+   0.92,
+   0.66,
+   0.56,
+   0.36
+  ],
+  "wobble_g1": [
+   0.07,
+   0.05,
+   0.06,
+   0.07,
+   0.06,
+   0.08,
+   0.06,
+   0.07,
+   0.07
+  ]
+ },
+ "edge_lfo": [
+  {
+   "kappa": 2,
+   "rho": 1.02,
+   "predicted": 0.402,
+   "counted": 0.4
+  },
+  {
+   "kappa": 2,
+   "rho": 1.1,
+   "predicted": 0.917,
+   "counted": 0.9
+  },
+  {
+   "kappa": 2,
+   "rho": 1.5,
+   "predicted": 2.236,
+   "counted": 2.233
+  },
+  {
+   "kappa": 2,
+   "rho": 3,
+   "predicted": 5.657,
+   "counted": 5.667
+  },
+  {
+   "kappa": 0.5,
+   "rho": 1.2,
+   "predicted": 0.332,
+   "counted": 0.333
+  },
+  {
+   "kappa": 8,
+   "rho": 1.05,
+   "predicted": 2.561,
+   "counted": 2.533
+  },
+  {
+   "kappa": 2,
+   "rho": 0.95,
+   "predicted": 0,
+   "counted": 0
+  }
+ ],
+ "tone_slips": {
+  "points": [
+   {
+    "decades_past": 0.01,
+    "slips_per_s": 2.9
+   },
+   {
+    "decades_past": 0.03,
+    "slips_per_s": 4.45
+   },
+   {
+    "decades_past": 0.06,
+    "slips_per_s": 6.05
+   },
+   {
+    "decades_past": 0.1,
+    "slips_per_s": 6.75
+   },
+   {
+    "decades_past": 0.2,
+    "slips_per_s": 10.55
+   },
+   {
+    "decades_past": 0.3,
+    "slips_per_s": 15.8
+   }
+  ],
+  "loglog_slope": 0.472
+ },
+ "duo_unstretched": {
+  "octave_from_plus10": 1200,
+  "fifth_from_plus8": 701.955
+ },
+ "duo_stretched": {
+  "B": 0.004,
+  "octave": 1230.37,
+  "sd": 0.83,
+  "between": [
+   1210.28,
+   1239.96
+  ],
+  "piano_like": [
+   {
+    "B": 0.0001,
+    "interval": 1205,
+    "sd": 24.7
+   },
+   {
+    "B": 0.0003,
+    "interval": 1205.4,
+    "sd": 27.3
+   },
+   {
+    "B": 0.00074,
+    "interval": 1362.6,
+    "sd": 0.9
+   }
+  ]
+ }
+}

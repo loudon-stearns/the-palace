@@ -122,7 +122,7 @@ out.map = [
   { feel: 'soft centring spring', K: 0.03, brake: 'on', why: 'a pitch wheel return should not wobble' },
   { feel: 'haptic filter (knob follows a melody)', K: 0.25, brake: 'on', why: `glide ${B.mid.glideMs?.toFixed(0)} ms with it, ${B.cancelled.glideMs?.toFixed(0)} ms and ${B.cancelled.glideOvershootPct.toFixed(0)}% overshoot without` },
   { feel: 'struck spring, struck pendulum', K: 0.085, brake: 'off', why: `${B.cancelled.struckWobbles} wobbles with it off, ${B.mid.struckWobbles} on` },
-  { feel: 'turntable', K: 0, brake: 'off', why: `idles at ${B.cancelled.turntablePct.toFixed(0)}% off, ${B.mid.turntablePct.toFixed(0)}% on; a speed loop, not a spring` },
+  { feel: 'turntable', K: 0, brake: 'off', why: `idles at ${B.cancelled.turntablePct.toFixed(0)}% off; on, ${B.mid.turntablePct.toFixed(0)}% at the middle guess but ${B.high.turntablePct.toFixed(0)}% at the strongest, where the brake costs more than the 0.06 N·m cap; a speed loop, not a spring` },
   { feel: 'LFO, the pitch, beat clicks', K: 0, brake: 'either', why: 'played into the hand; they don\'t depend on where it is' },
 ].map(r => ({ ...r, where: r.feel.startsWith('turntable') ? 'on the knob (speed loop)' : where(r.K, r.brake !== 'off') }));
 

@@ -7,7 +7,7 @@ const { makeEngine, FEELS } = new Function(src + '\nreturn { makeEngine, FEELS }
 const e = makeEngine({});
 const js = {
   frets: FEELS.frets({ kick: 0.006 }), string: FEELS.string(), struck: FEELS.struck(), pendulum: FEELS.struck({ law: 'pendulum' }),
-  follow: Object.assign(FEELS.follow(), { target: () => 0.785 }), turntable: FEELS.turntable({ ffB: 1e-4, ffC: 0.003 }),
+  follow: Object.assign(FEELS.follow(), { target: () => 0.785 }), turntable: FEELS.turntable({ ffB: 1e-4, ffC: 0.003 }), centre: FEELS.centre(),
 };
 const rows = fs.readFileSync(path.join(here, 'core.csv'), 'utf8').trim().split('\n').slice(1);
 const worst = {};

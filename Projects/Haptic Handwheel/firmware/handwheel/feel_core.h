@@ -27,6 +27,8 @@ enum FeelId : uint8_t { FREE = 0, FRETS, STRING, STRUCK, PENDULUM, FOLLOW, TURNT
 struct Params {         // one set per feel; Max can change any of them
   float peak = 0.03f;       // frets: pull toward the nearest semitone, N·m
   float kick = 0.006f;      // frets: push off the ridge between notes, N·m (beat the friction)
+                            // centre: push toward rest, so the spring lands on centre past friction and bumps
+  float kickW = 0.02f;      // centre: the push fades in over this many rad either side of rest
   float semisPerTurn = 24;  // pitch range of one turn
   float k = 0.085f;         // spring stiffness, N·m/rad (struck, centre, follow)
   float k3 = 0.25f;         // string: cubic stiffening, N·m/rad³
@@ -72,7 +74,7 @@ inline Params defaults(FeelId id) {
     case PENDULUM:  p.cancelBrake = 1; break;
     case FOLLOW:    p.k = 0.25f; p.damp = 0.004f; break;   // brake on: 89 ms glide, no overshoot
     case TURNTABLE: p.cancelBrake = 1; break;              // idles at full speed with less to fight
-    case CENTRE:    p.k = 0.03f; break;                    // brake on: no wobble on return
+    case CENTRE:    p.k = 0.03f; p.kick = 0.01f; break;    // brake on: no wobble on return; the kick lands it within ~1° (box-day check)
   }
   return p;
 }
@@ -97,7 +99,7 @@ struct Feel {
       case STRING: { const float x = s.th; tau = -(0.04f * x + p.k3 * x * x * x); } break;
       case STRUCK:   tau = -p.k * (s.th - p.rest); break;
       case PENDULUM: tau = -p.k * sinf(s.th - p.rest); break;
-      case CENTRE:   tau = -p.k * (s.th - p.rest); break;
+      case CENTRE: { const float x = s.th - p.rest; tau = -p.k * x - p.kick * tanhf(x / p.kickW); } break;
       case FOLLOW:   tau = p.k * (p.target - s.th); break;
       case TURNTABLE: {
         const float a = p.speedTf > 0 ? s.dt / (p.speedTf + s.dt) : 1.0f;

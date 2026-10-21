@@ -8,6 +8,7 @@ import { execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { makeResolver } from '../../../../rich-face/resolve.mjs';
 import { createRichHandler } from '../../../../rich-face/rich-handler.mjs';
+import { startPieceOrigin } from '../../../../rich-face/piece-origin.mjs';
 import { pathId } from '../../src/lib/public-mode.js';
 import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
@@ -60,6 +61,7 @@ beforeAll(() => {
     { file: 'escape.html', origin: 'gathered' },           // a symlink out of the palace
     { file: '/Elsewhere/abs.html', origin: 'gathered' },   // palace-absolute
     { file: 'gone.html', origin: 'gathered' },             // nowhere
+    { file: 'take.wav', origin: 'made' },                  // a steward's render git ignores: only on this Mac
   ] }] }));
   symlinkSync(join(outside, 'escape.html'), join(root, 'Demo/escape.html'));
   write('Other/index.html', PAGE('another index'));
@@ -74,11 +76,17 @@ beforeAll(() => {
 
   write('.hidden/x.png', 'PNG');
   write('ignored/clip.mp4', 'MP4');
+  write('ignored/notes.txt', 'not media');
   // Tracked before an ignore rule came to match it: tracked stays reachable.
   write('Kept/held.wav', 'RIFF');
   git(root, 'add', 'Kept/held.wav');
   git(root, 'commit', '-qm', 'tracked');
-  write('.gitignore', 'ignored/\nKept/*.wav\n');
+  // A steward's renders, ignored by a file rule (as Projects/**/*.wav is), one
+  // of them sharing its name with the tracked take.
+  write('Demo/renders/take.wav', 'RIFF');
+  write('Demo/renders/held.wav', 'RIFF');
+  write('Demo/renders/log.txt', 'a log');
+  write('.gitignore', 'ignored/\nKept/*.wav\nDemo/renders/*\n');
 
   write('_ops/loudon-live/design-system/colors_and_type.css', ':root{}');
   mkdirSync(join(root, '_ops/rich-face'), { recursive: true });
@@ -91,9 +99,10 @@ afterAll(() => {
 });
 
 describe('resolve.mjs, the one resolver', () => {
+  // Written, not yet committed: found, and marked local, since git does not track them yet.
   test("Flocking's three text figures resolve: a path with a slash, tried beside the .md", () => {
     const r = makeResolver(root);
-    for (const p of FLOCKING) expect(r.resolve(p, 'Flocking.md')).toEqual({ ok: true, path: p });
+    for (const p of FLOCKING) expect(r.resolve(p, 'Flocking.md')).toEqual({ ok: true, path: p, local: true });
   });
 
   test('a path with a slash: beside the .md, then the root, then the bundle — and never by its last name', () => {
@@ -119,7 +128,7 @@ describe('resolve.mjs, the one resolver', () => {
     expect(amb.candidates).toEqual(['Demo/proofs/gathered/index.html', 'Other/index.html', 'Third/index.html']);
     expect(amb.label).toMatch(/^3 files are named “index\.html”/);
     // Demo's bundle holds exactly one copy, deep in its tree, so Demo's page finds it.
-    expect(r.resolve('index.html', 'Demo.md')).toEqual({ ok: true, path: 'Demo/proofs/gathered/index.html' });
+    expect(r.resolve('index.html', 'Demo.md')).toEqual({ ok: true, path: 'Demo/proofs/gathered/index.html', local: true });
     expect(r.resolve('shared.html', 'Demo.md').reason).toBe('ambiguous');
   });
 
@@ -136,27 +145,59 @@ describe('resolve.mjs, the one resolver', () => {
 
   test('an alias inside the palace lands on its real file, counted once', () => {
     const r = makeResolver(root);
-    expect(r.resolve('FOUR_PILLARS.md')).toEqual({ ok: true, path: 'FOUR PILLARS.md' });
+    expect(r.resolve('FOUR_PILLARS.md')).toEqual({ ok: true, path: 'FOUR PILLARS.md', local: true });
     expect(r.findEntry('four pillars')).toBe('FOUR PILLARS.md');
   });
 
-  test('git decides what exists: ignored files are refused, tracked ones stay, hidden folders are never searched', () => {
+  // Loudon, 2026-10-20: the live page plays a file that is only on this Mac,
+  // and says so; the public build plays only what git tracks.
+  test('git decides what exists: a render git ignores plays live, marked local; anything else ignored is refused', () => {
     const r = makeResolver(root);
-    expect(r.resolve('ignored/clip.mp4').reason).toBe('ignored');
-    expect(r.resolve('clip.mp4', 'Demo.md').reason).toBe('missing');
+    expect(r.resolve('ignored/clip.mp4')).toEqual({ ok: true, path: 'ignored/clip.mp4', local: true }); // inside a folder ignored whole
+    expect(r.resolve('ignored/notes.txt').reason).toBe('ignored');
+    expect(r.resolve('take.wav', 'Demo.md')).toEqual({ ok: true, path: 'Demo/renders/take.wav', local: true }); // by its bare name
+    expect(r.resolve('log.txt', 'Demo.md').reason).toBe('missing');
+    expect(r.resolve('clip.mp4', 'Demo.md').reason).toBe('missing'); // a folder ignored whole is reached only by a path
     expect(r.resolve('Kept/held.wav')).toEqual({ ok: true, path: 'Kept/held.wav' });
     expect(r.resolve('.hidden/x.png').reason).toBe('hidden');
     expect(r.resolve('/.git/HEAD').reason).toBe('hidden');
     expect(r.resolve('x.png', 'Demo.md').reason).toBe('missing');
   });
 
-  test("the build's resolver counts only committed files, and never says a file is ignored", () => {
+  test('a tracked file and a local one by the same name: the tracked one wins, as the build would choose', () => {
+    const r = makeResolver(root);
+    expect(r.resolve('held.wav', 'Flocking.md')).toEqual({ ok: true, path: 'Kept/held.wav' });
+    expect(r.resolve('held.wav', 'Demo.md')).toEqual({ ok: true, path: 'Demo/renders/held.wav', local: true }); // its own bundle first
+    expect(makeResolver(root, { tracked: true }).resolve('held.wav', 'Flocking.md')).toEqual({ ok: true, path: 'Kept/held.wav' });
+  });
+
+  test('in a bundle, a tracked file anywhere in it beats a local one in its top folder; among local ones the top folder comes first', () => {
+    write('Tops.md', '# Tops\n');
+    write('Tops/one.png', 'PNG');          // local (not committed), top folder
+    write('Tops/deep/one.png', 'PNG');     // local, deeper
+    const r = makeResolver(root);
+    expect(r.resolve('one.png', 'Tops.md')).toEqual({ ok: true, path: 'Tops/one.png', local: true });
+    write('Tops/kept/one.png', 'PNG');
+    git(root, 'add', '--', 'Tops/kept/one.png');
+    git(root, 'commit', '-qm', 'a tracked copy');
+    expect(makeResolver(root).resolve('one.png', 'Tops.md')).toEqual({ ok: true, path: 'Tops/kept/one.png' });
+    expect(makeResolver(root, { tracked: true }).resolve('one.png', 'Tops.md')).toEqual({ ok: true, path: 'Tops/kept/one.png' });
+  });
+
+  test("the build ships only committed files, and names a file that is only on this Mac", () => {
     const r = makeResolver(root, { tracked: true });
     expect(r.resolve('Kept/held.wav')).toEqual({ ok: true, path: 'Kept/held.wav' });
-    expect(r.resolve(FLOCKING[0], 'Flocking.md').reason).toBe('missing');   // on disk, not yet committed
-    const ign = r.resolve('ignored/clip.mp4');
-    expect(ign.reason).toBe('missing');
-    expect(ign.label).not.toMatch(/git/);
+    for (const [ref, from] of [[FLOCKING[0], 'Flocking.md'], ['ignored/clip.mp4'], ['take.wav', 'Demo.md']]) {
+      const x = r.resolve(ref, from);
+      expect(x.ok, ref).toBe(false);
+      // Still a miss to the build, and to every caller that asks why (the checker files it as missing).
+      expect(x.reason, ref).toBe('missing');
+      expect(x.local, ref).toBe(true);
+      expect(x.label).toBe(`“${ref}” is only on this Mac: track it to publish.`);
+    }
+    expect(r.resolve('gone.wav', 'Demo.md')).toMatchObject({ reason: 'missing', label: expect.stringMatching(/^No file “gone\.wav”/) });
+    expect(r.resolve('gone.wav', 'Demo.md').local).toBeUndefined();
+    expect(r.resolve('ignored/notes.txt').reason).toBe('missing'); // never served, so not offered for publishing either
   });
 
   test('case counts, as it does on the Linux host that builds the read view', () => {
@@ -173,7 +214,7 @@ describe('resolve.mjs, the one resolver', () => {
       expect(r.resolve('fresh.png', 'Demo.md').reason).toBe('missing');
       write('Demo/fresh.png', 'PNG');
       vi.setSystemTime(Date.now() + 1500);
-      expect(r.resolve('fresh.png', 'Demo.md')).toEqual({ ok: true, path: 'Demo/fresh.png' });
+      expect(r.resolve('fresh.png', 'Demo.md')).toEqual({ ok: true, path: 'Demo/fresh.png', local: true });
     } finally { vi.useRealTimers(); }
   });
 
@@ -195,7 +236,7 @@ describe('resolve.mjs, the one resolver', () => {
 });
 
 describe('the live server and the public build agree', () => {
-  let server, port, out;
+  let server, port, out, pieces;
   const get = (path) => new Promise((ok, fail) => {
     http.get({ host: '127.0.0.1', port, path }, (res) => {
       const parts = [];
@@ -208,7 +249,9 @@ describe('the live server and the public build agree', () => {
     // Committed, as the palace is when CI builds it: the build counts only what git holds.
     git(root, 'add', '-A');
     git(root, 'commit', '-qm', 'the palace');
-    const handle = createRichHandler({ root, here: resolve(root, '_ops/rich-face'), base: '', app: () => 'http://127.0.0.1:9' });
+    // Its pieces run on a piece origin of their own, on a free port (piece-origin.mjs).
+    pieces = await startPieceOrigin({ root, port: 0 });
+    const handle = createRichHandler({ root, base: '', app: () => 'http://127.0.0.1:9', pieces });
     server = http.createServer(async (req, res) => { if (!(await handle(req, res))) { res.writeHead(405); res.end(); } });
     port = await new Promise((ok) => server.listen(0, '127.0.0.1', () => ok(server.address().port)));
 
@@ -219,8 +262,9 @@ describe('the live server and the public build agree', () => {
     execFileSync(process.execPath, [join(APP, 'scripts/build-public.mjs'), '--no-vite', '--root', root, '--out', out], { cwd: APP, stdio: 'pipe', env: gitFreeEnv() });
   }, 60_000);
 
-  afterAll(() => {
+  afterAll(async () => {
     server.close();
+    await pieces?.close();
     rmSync(out, { recursive: true, force: true });
   });
 
@@ -230,7 +274,11 @@ describe('the live server and the public build agree', () => {
     expect(Object.keys(built).sort()).toEqual(Object.keys(live).sort());
     for (const [name, l] of Object.entries(live)) {
       const b = built[name];
-      if (l.path) {
+      if (l.local) {
+        // Plays on this Mac, marked so; the build refuses it and says why.
+        expect(l, name).toMatchObject({ path: 'Demo/renders/take.wav', local: true });
+        expect(b, name).toMatchObject({ error: 'missing', label: `“${name}” is only on this Mac: track it to publish.` });
+      } else if (l.path) {
         expect(b.path, name).toBe(l.path);
         expect(existsSync(join(out, decodeURIComponent(b.url.replace(/^\.\.\//, '')))), name).toBe(true);
       } else {
@@ -286,6 +334,9 @@ describe('the live server and the public build agree', () => {
       const got = await page.evaluate(() => ({
         boxes: Object.fromEntries([...document.querySelectorAll('.rf-missing')].map((b) => [b.querySelector('b').textContent, b.textContent])),
         frames: [...document.querySelectorAll('iframe')].map((f) => decodeURIComponent(f.getAttribute('src'))),
+        local: [...document.querySelectorAll('figure .rf-chip[data-key="local"]')].map((c) => c.closest('figure').dataset.piece),
+        list: [...document.querySelectorAll('.head .rf-local li code')].map((c) => c.textContent),
+        strips: [...document.querySelectorAll('figure[data-piece] .aud')].map((a) => a.closest('figure').dataset.piece),
       }));
       await page.close();
       return got;
@@ -297,14 +348,23 @@ describe('the live server and the public build agree', () => {
       expect(Object.keys(live.boxes).sort()).toEqual(['escape.html', 'gone.html', 'shared.html']);
       expect(live.boxes['shared.html']).toMatch(/2 files are named “shared\.html”/);
       expect(live.boxes['escape.html']).toMatch(/outside the palace/);
-      expect(built.boxes).toEqual(live.boxes);
-      expect(live.frames).toEqual(expect.arrayContaining(['Demo/proofs/gathered/index.html', 'Elsewhere/abs.html']));
+      // A render only on this Mac plays live, marked on its figure and in the
+      // head's list; the read view shows its box instead, saying why.
+      expect(live.strips).toContain('take.wav');
+      expect(live.local).toEqual(['take.wav']);
+      expect(live.list).toEqual(['Demo/renders/take.wav']);
+      const { 'take.wav': takeBox, ...rest } = built.boxes;
+      expect(takeBox).toBe('take.wav“take.wav” is only on this Mac: track it to publish.');
+      expect(rest).toEqual(live.boxes);
+      expect(built.local).toEqual([]);
+      expect(built.list).toEqual([]);
+      expect(live.frames).toEqual(expect.arrayContaining(['Demo/proofs/gathered/index.html', 'Elsewhere/abs.html'].map((p) => `${pieces.status.origin}/${p}`)));
       expect(built.frames).toEqual(expect.arrayContaining(['../files/Demo/proofs/gathered/index.html', '../files/Elsewhere/abs.html']));
     }, 60_000);
 
     test("Flocking's three figures are frames on the live page", async () => {
       const live = await laid(`http://127.0.0.1:${port}/?entry=Flocking&review=0`);
-      expect(live.frames).toEqual(FLOCKING);
+      expect(live.frames).toEqual(FLOCKING.map((p) => `${pieces.status.origin}/${p}`));
       expect(live.boxes).toEqual({});
     }, 30_000);
   });

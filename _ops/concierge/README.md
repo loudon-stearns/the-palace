@@ -201,13 +201,13 @@ is the one thing that would make it worse than nothing.
 
 ## Scope discipline (what is deliberately not built yet)
 
-- **The dial is built** (2026-07-08, `dial.mjs`) but **not yet live-run** end to end — proven on real
-  measured token counts, not yet exercised in an actual heavy close or a long resident session. That
-  live validation is the remaining thread.
-- **The scout is built** (2026-08-25) but **not yet run in a real return** — the ranking rules are
-  reasoned from the 2026-08-25 failure, not yet tuned by a live work-choice. Watch whether "an open
-  handoff outranks a fresh idea" holds when the fresh idea is genuinely better, and whether the
-  one-move discipline survives a board with three equally live candidates.
+- **The dial is built** (2026-07-08, `dial.mjs`) and has run for real — a retire-for-cost and a
+  respawn on measured counts (Closing Well — tuning item 58; 2026-10-21). Its thresholds stay
+  first-cut; each heavy close re-tunes them.
+- **The scout is built** (2026-08-25) and has chosen work in real returns (2026-09-25, twice; the
+  2026-10-20 fan-out triage). Its ranking rules are tuned from those runs now, not from the
+  2026-08-25 failure alone; the two watch-points stand (an open handoff vs. a genuinely better fresh
+  idea; one move under three live candidates).
 - **Does not add "keep both modes open" to the formal always-loaded invariant list** (ELDER's
   invariants). That is a Schema-Ceremony-weight act, done *once the pattern has
   earned it*. Stated here as a working rule; promoting it is later. (It was the last step of the roadmap Loudon retired on 2026-09-25, [[The Palace Speaks — production plan]]; this is now its home.)

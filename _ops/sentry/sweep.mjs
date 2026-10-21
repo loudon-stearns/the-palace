@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // The Sentry's sweep — one command, every check, masked output.
 //
-//   node _ops/sentry/sweep.mjs                 quick: tree, paths, agents (offline, ~seconds)
+//   node _ops/sentry/sweep.mjs                 quick: tree, paths, agents, rich faces (offline, ~seconds)
 //   node _ops/sentry/sweep.mjs --deep          + history (every blob, commit and tag in every ref, and gitleaks;
 //                                                each remote is asked for its tags when a hit is open),
 //                                                deps (npm audit), hosting (GitHub settings) — network
@@ -25,6 +25,8 @@ import {
   hasGitleaks, sortFindings, finding, MEDIA_EXT, JPEG_EXT, MAX_BYTES,
 } from './engine.mjs';
 import { SCRIPT_EXT, INVENTORY_RULES, mask, fingerprint, SEV_RANK } from './rules.mjs';
+import { richSweep, toSentry } from './rich.mjs';
+import { checkPage, makeContext } from '../rich-face/conform.mjs';
 
 const args = process.argv.slice(2);
 const flag = f => args.includes(f);
@@ -34,8 +36,8 @@ const ROOT = repoRoot();
 const HELD = heldDir(ROOT);
 const PAGE = join(ROOT, 'Palace development', 'Sentry.md');
 const LEDGER = join(ROOT, 'Palace development', 'Sentry', 'Sentry — tuning.md');
-const ALL_CHECKS = ['tree', 'paths', 'agents', 'history', 'deps', 'hosting'];
-const QUICK = ['tree', 'paths', 'agents'];
+const ALL_CHECKS = ['tree', 'paths', 'agents', 'rich', 'history', 'deps', 'hosting'];
+const QUICK = ['tree', 'paths', 'agents', 'rich'];
 // One stalled gh call or git ls-remote must not hang a deep sweep or the gate: past this, a gh read
 // counts as unreadable, and a remote as not asked (a hit only a tag could make public reads 'unknown').
 const GH_TIMEOUT_MS = 30_000;
@@ -130,6 +132,13 @@ const CHECKS = {
     report.notes.push(`inventory: ${n('deletes')} scripts delete, ${n('network')} reach the network${prev ? `, ${added.length} new since last sweep` : ' (first census — baseline set)'}`);
     return { findings, meta: { settings: settingsFiles.length, scripts: scripts.length,
       summary: `${settingsFiles.length} settings files, ${scripts.length} scripts (${n('deletes')} delete, ${n('network')} network)` } };
+  },
+
+  // Every piece a rich face shows, by the piece checker (rich.mjs → _ops/rich-face/conform.mjs):
+  // its declaration, needs, pins, root-absolute URLs, and how the face names it. Report-only
+  // (medium at most) until enforce.push is on in _ops/rich-face/conform.json.
+  async rich(allow) {
+    return richSweep(ROOT, allow);
   },
 
   // Every blob and every commit and tag message reachable from every ref, plus gitleaks over
@@ -623,6 +632,15 @@ function selftest() {
     ['two numbers that mask alike on one line stay two findings', scanContent('conf.json', Buffer.from(`{"api_token": "${'1138673' + '21012'}", "client_secret": "${'9299475' + '61012'}"}`), { families: ['secret'], allow: loadAllow() }).length === 2],
   );
   for (const [name, hit] of msgCases) { ok &&= hit; console.log(`${hit ? 'caught' : 'MISSED'}  messages: ${name}`); }
+  // The rich check: an unpinned CDN in a piece is caught, high only while the checker is enforced.
+  const piece = checkPage({ ...makeContext(ROOT, { files: [] }) }, { path: 'P/piece.html', via: [] },
+    '<!doctype html><head><meta name="piece:needs" content=""><script src="https://cdn.jsdelivr.net/npm/d3@7"></script></head><body></body>');
+  const pin = piece.findings.find(f => f.rule === 'cdn-unpinned');
+  const richCases = [
+    ['an unpinned CDN in a piece is caught', !!pin],
+    ['it blocks only while the checker is enforced', !!pin && toSentry(pin, { enforce: true }).sev === 'high' && toSentry(pin, { enforce: false }).sev === 'medium'],
+  ];
+  for (const [name, hit] of richCases) { ok &&= hit; console.log(`${hit ? 'caught' : 'MISSED'}  rich: ${name}`); }
   console.log(ok ? '\nselftest: every planted secret caught' : '\nselftest: FAILED');
   process.exitCode = ok ? 0 : 1;
 }

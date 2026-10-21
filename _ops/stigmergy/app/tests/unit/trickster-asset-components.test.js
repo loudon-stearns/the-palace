@@ -81,8 +81,8 @@ describe('TricksterCard — asset integration', () => {
   it('renders the slime-mold embed through the shared ArtifactSlot iframe', () => {
     const html = card('slime-mold-delay-steward-004');
     expect(html).toContain('data-testid="artifact-slot"');
-    expect(html).toContain('data-testid="artifact-iframe"');
-    // Loaded via /api/file (the basename survives encoding unescaped).
+    // Framed on the piece origin once /api/piece answers; the first render asks.
+    expect(html).toContain('data-testid="artifact-piece-pending"');
     expect(html).toContain('index.html');
     expect(html).toContain('slime mold field'); // the descriptive caption
   });

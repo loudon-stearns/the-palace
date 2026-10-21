@@ -1,0 +1,3 @@
+#!/bin/sh
+# tiles the pull-panel photographs into pull-sheet.png (top: light, singing, heavy; bottom: three slowed frames at the default)
+ffmpeg -loglevel error -y -i frames/pull-light.png -i frames/pull-singing.png -i frames/pull-heavy.png -i frames/slow-03.png -i frames/slow-05.png -i frames/slow-06.png -filter_complex '[0]pad=360:260:0:0:color=black[p0];[1]pad=360:260:0:0:color=black[p1];[2]pad=360:260:0:0:color=black[p2];[3]pad=360:260:0:0:color=black[p3];[4]pad=360:260:0:0:color=black[p4];[5]pad=360:260:0:0:color=black[p5];[p0][p1][p2]hstack=inputs=3[a];[p3][p4][p5]hstack=inputs=3[b];[a][b]vstack' pull-sheet.png

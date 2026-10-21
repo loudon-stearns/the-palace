@@ -6,9 +6,12 @@
 // Four jobs, all same-origin so the page has no CORS to fight:
 //   1. Serve the renderer (rich.html, _rich/*), its two libraries (_vendor/*,
 //      from STIGMERGY's own install — never a CDN) and any palace file — the
-//      live .md, the bundle's media — with byte ranges, so video and audio can seek.
+//      live .md, the bundle's media — with byte ranges, so video and audio can
+//      seek (serve-file.mjs, which the piece origin sends files with too).
 //   2. Resolve an entry name to its .md, its bundle, its manifest, and every
-//      file its text and manifest name — where each landed, or why it didn't.
+//      file its text and manifest name — where each landed, or why it didn't —
+//      and, for each piece, how it is framed on the piece origin (contract.mjs
+//      through piece-origin.mjs's describe).
 //   3. Answer one more lookup for a name the page meets later (a live edit).
 //   Both lookups are resolve.mjs's, the one resolver the fingerprint and the
 //   public build use too.
@@ -19,21 +22,13 @@
 // Every URL it hands the page is relative, so the page works under any base.
 // It never writes to the palace.
 
-import { createReadStream, existsSync, statSync, readdirSync, readFileSync, realpathSync } from 'node:fs';
-import { join, extname, normalize, relative, sep, resolve, dirname } from 'node:path';
+import { existsSync, statSync, readdirSync, readFileSync, realpathSync } from 'node:fs';
+import { join, normalize, sep, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { makeResolver } from './resolve.mjs';
 import { mediaRefs, isMedia } from './parse.js';
-import { isPiecePage, pieceBytes } from './kit/inject.mjs';
-
-const CT = {
-  '.html': 'text/html; charset=utf-8', '.htm': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
-  '.mjs': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8',
-  '.md': 'text/markdown; charset=utf-8', '.txt': 'text/plain; charset=utf-8', '.svg': 'image/svg+xml',
-  '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.gif': 'image/gif', '.webp': 'image/webp',
-  '.mp4': 'video/mp4', '.webm': 'video/webm', '.mov': 'video/quicktime',
-  '.wav': 'audio/wav', '.mp3': 'audio/mpeg', '.ogg': 'audio/ogg', '.m4a': 'audio/mp4', '.flac': 'audio/flac',
-};
+import { isPiecePage } from './kit/inject.mjs';
+import { serveFile } from './serve-file.mjs';
 // A palace .html or .svg is an active document. The rich face frames its pieces
 // sandboxed, but a piece reached any other way — a link in the prose, a
 // top-level navigation — would run on this origin with its authority, so it is
@@ -44,7 +39,31 @@ export const ACTIVE_SANDBOX = 'sandbox allow-scripts';
 const ACTIVE = /\.(?:html?|svg)$/i;
 
 // The renderer's own files; nothing else in this folder is served as _rich/*.
-const RENDERER_FILES = new Set(['parse.js']);
+const RENDERER_FILES = new Set(['parse.js', 'rich.js']);
+// The renderer's own folder: the code that is running, whatever palace it reads.
+export const RICH_FACE_DIR = dirname(fileURLToPath(import.meta.url));
+
+/**
+ * The rich page's own policy. Its scripts are its own files (rich.js and what
+ * it imports), so an entry's text that slipped past the sanitizer still runs
+ * nothing; it frames only the piece origin.
+ */
+export function pageCsp(pieceOrigin) {
+  return ["script-src 'self'", "object-src 'none'", "base-uri 'self'", "form-action 'none'", `frame-src ${pieceOrigin || "'none'"}`].join('; ');
+}
+
+// A manifest entry's own contract block, for a gathered proof (contract.mjs).
+function manifestContracts(manifest) {
+  const out = new Map();
+  for (const s of (manifest && manifest.sections) || []) for (const p of s.pieces || []) if (p && typeof p.file === 'string' && p.contract) out.set(p.file, p.contract);
+  return out;
+}
+
+// What a figure shows when no piece origin is there to run its piece.
+function unframed(path, why) {
+  return { path, blocked: why, mark: 'pre-contract', chips: [], needs: [], files: [], net: [], size: { mode: 'flow' }, problems: [], refused: [], sameOrigin: false, allow: 'autoplay' };
+}
+const NO_ORIGIN = 'this server runs no piece origin, so no piece runs here';
 
 // The page's two libraries — marked, and mermaid with its chunks — come from STIGMERGY's
 // install, which npm checked against the lockfile's hashes, so a reader never runs code
@@ -160,9 +179,11 @@ export function buildReviewMessage(data) {
  * @param {string} o.here   the rich-face folder (rich.html, parse.js, manifests/)
  * @param {string} [o.base] mount point, '' or e.g. '/rich'
  * @param {(req) => string} o.app  STIGMERGY origin for review forwarding
+ * @param {object|Promise<object>} [o.pieces] the piece origin (piece-origin.mjs's
+ *   startPieceOrigin); without one, every piece's figure says it cannot run
  * @returns {(req, res) => Promise<boolean>} true when it owned the response
  */
-export function createRichHandler({ root, here, base = '', app }) {
+export function createRichHandler({ root, here = RICH_FACE_DIR, base = '', app, pieces = null }) {
   const ROOT = resolve(root), HERE = resolve(here);
   const resolver = makeResolver(ROOT);
 
@@ -185,61 +206,36 @@ export function createRichHandler({ root, here, base = '', app }) {
   };
   const relUrl = (rel) => rel.split('/').map(encodeURIComponent).join('/');
 
+  // How each piece is framed, from the piece origin, or why it cannot run.
+  async function pieceOrigin() {
+    const po = await pieces;
+    return po && typeof po.describe === 'function' ? po : null;
+  }
+  const originStatus = (po) => (po ? po.status : { ok: false, origin: null, error: NO_ORIGIN });
+  const planFor = (po, path, manifestContract) => (po ? po.describe(path, { manifestContract }) : unframed(path, NO_ORIGIN));
+
   // An entry, its bundle and manifest as relative urls, the names in the
-  // bundle's top folder, and the media table: every file the text and the
-  // manifest name → { path, url } or { error, label } for the labelled box.
-  function resolveEntry(name) {
+  // bundle's top folder, the media table — every file the text and the
+  // manifest name → { path, url } or { error, label } for the labelled box —
+  // and the pieces table: every web page among them → how it is framed.
+  async function resolveEntry(name) {
     const e = resolver.entry(name);
     if (!e) return null;
     let text = '', manifest = null;
     try { text = readFileSync(resolver.abs(e.md), 'utf8'); } catch { /* the page reports it */ }
     try { manifest = e.manifest ? JSON.parse(readFileSync(resolver.abs(e.manifest), 'utf8')) : null; } catch { /* the page reports it */ }
-    const media = {};
-    for (const [n, r] of richReferences(resolver, e.md, text, manifest)) media[n] = r.ok ? { path: r.path, url: relUrl(r.path) } : { error: r.reason, label: r.label };
-    return { title: e.title, path: e.md, md: relUrl(e.md), bundle: e.bundle ? relUrl(e.bundle) + '/' : null, manifest: e.manifest ? relUrl(e.manifest) : null, files: e.files, media };
-  }
-
-  function serveFile(req, res, file, size, palaceFile = false) {
-    const headers = { 'Content-Type': CT[extname(file).toLowerCase()] || 'application/octet-stream', 'Accept-Ranges': 'bytes', 'Cache-Control': 'no-store' };
-    if (palaceFile && ACTIVE.test(file)) headers['Content-Security-Policy'] = ACTIVE_SANDBOX;
-    // A palace web page goes out as a piece, the kit first in its <head>
-    // (kit/inject.mjs): whole, never as a byte range.
-    if (palaceFile && isPiecePage(file)) {
-      let body;
-      try { body = pieceBytes(file); } catch (e) {
-        res.writeHead(e.code === 'ENOENT' ? 404 : 403, { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' });
-        res.end('cannot read: ' + relative(ROOT, file));
-        return;
-      }
-      delete headers['Accept-Ranges'];
-      headers['Content-Length'] = body.length;
-      res.writeHead(200, headers);
-      res.end(req.method === 'HEAD' ? undefined : body);
-      return;
+    const po = await pieceOrigin();
+    const contracts = manifestContracts(manifest);
+    const media = {}, pieceTable = {};
+    for (const [n, r] of richReferences(resolver, e.md, text, manifest)) {
+      // `local`: git does not track it, so the public face will not have it.
+      media[n] = r.ok ? { path: r.path, url: relUrl(r.path), ...(r.local ? { local: true } : {}) } : { error: r.reason, label: r.label };
+      if (r.ok && isPiecePage(r.path)) pieceTable[n] = planFor(po, r.path, contracts.get(n));
     }
-    const range = req.headers.range && req.headers.range.match(/bytes=(\d*)-(\d*)/);
-    let status = 200, opts;
-    if (range) {
-      const start = range[1] === '' ? size - parseInt(range[2], 10) : parseInt(range[1], 10);
-      let end = range[1] !== '' && range[2] !== '' ? parseInt(range[2], 10) : size - 1;
-      if (!(start >= 0) || start >= size || end < start) { res.writeHead(416, { 'Content-Range': `bytes */${size}` }); res.end(); return; }
-      end = Math.min(end, size - 1);
-      status = 206; opts = { start, end };
-      Object.assign(headers, { 'Content-Range': `bytes ${start}-${end}/${size}`, 'Content-Length': end - start + 1 });
-    } else headers['Content-Length'] = size;
-    // HEAD answers from the stat alone and never opens the file.
-    if (req.method === 'HEAD') { res.writeHead(status, headers); res.end(); return; }
-    // Answer only once the file is open: one that went missing since the stat,
-    // or that can't be read, gets an honest status instead of a half-sent 200,
-    // and a stream error is always handled here — never an uncaught 'error'.
-    const stream = createReadStream(file, opts);
-    stream.on('open', () => { res.writeHead(status, headers); stream.pipe(res); });
-    stream.on('error', (e) => {
-      if (res.headersSent) { res.destroy(); return; }
-      res.writeHead(e.code === 'ENOENT' ? 404 : 403, { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' });
-      res.end('cannot read: ' + relative(ROOT, file));
-    });
-    res.on('close', () => stream.destroy());
+    return {
+      title: e.title, path: e.md, md: relUrl(e.md), bundle: e.bundle ? relUrl(e.bundle) + '/' : null, manifest: e.manifest ? relUrl(e.manifest) : null,
+      files: e.files, media, pieceOrigin: originStatus(po), pieces: pieceTable,
+    };
   }
 
   // A bad request must never take the server down: whatever throws on the way
@@ -265,7 +261,7 @@ export function createRichHandler({ root, here, base = '', app }) {
     }
 
     if (path === '/_api/resolve') {
-      const r = resolveEntry(u.searchParams.get('entry') || '');
+      const r = await resolveEntry(u.searchParams.get('entry') || '');
       r ? json(res, 200, r) : json(res, 404, { error: `no entry named "${u.searchParams.get('entry')}"` });
       return true;
     }
@@ -275,7 +271,13 @@ export function createRichHandler({ root, here, base = '', app }) {
       const prefer = u.searchParams.get('prefer');
       const from = u.searchParams.get('from') || (prefer ? safeDecode(prefer).replace(/\/+$/, '') + '.md' : '');
       const r = resolver.resolve(u.searchParams.get('name') || '', from || undefined);
-      if (path === '/_api/find') { r.ok ? json(res, 200, { path: r.path, url: relUrl(r.path) }) : json(res, 404, { error: r.label, reason: r.reason, label: r.label }); return true; }
+      if (path === '/_api/find') {
+        if (!r.ok) { json(res, 404, { error: r.label, reason: r.reason, label: r.label }); return true; }
+        const found = { path: r.path, url: relUrl(r.path), ...(r.local ? { local: true } : {}) };
+        if (isPiecePage(r.path)) { const po = await pieceOrigin(); found.piece = planFor(po, r.path); found.pieceOrigin = originStatus(po); }
+        json(res, 200, found);
+        return true;
+      }
       if (!r.ok) { res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' }); res.end(r.label); return true; }
       res.writeHead(302, { Location: (base || '') + '/' + relUrl(r.path), 'Cache-Control': 'no-store' });
       res.end();
@@ -301,8 +303,12 @@ export function createRichHandler({ root, here, base = '', app }) {
     }
 
     if (req.method !== 'GET' && req.method !== 'HEAD') return false;
-    let file, palaceFile = false;
-    if (path === '/' || path === '/index.html') file = join(HERE, 'rich.html');
+    let file, palaceFile = false, headers = {};
+    if (path === '/' || path === '/index.html') {
+      file = join(HERE, 'rich.html');
+      const po = await pieceOrigin();
+      headers = { 'Content-Security-Policy': pageCsp(originStatus(po).origin) };
+    }
     else if (path.startsWith('/_rich/')) {
       const name = path.slice('/_rich/'.length);
       file = RENDERER_FILES.has(name) ? join(HERE, name) : null;
@@ -310,7 +316,8 @@ export function createRichHandler({ root, here, base = '', app }) {
     else { file = inside(ROOT, path); palaceFile = true; }
     const st = file ? statOrNull(file) : null;
     if (!st || !st.isFile()) { res.writeHead(404); res.end('not found: ' + path); return true; }
-    serveFile(req, res, file, st.size, palaceFile);
+    if (palaceFile && ACTIVE.test(file)) headers['Content-Security-Policy'] = ACTIVE_SANDBOX;
+    serveFile(req, res, file, { size: st.size, root: ROOT, piece: palaceFile, headers });
     return true;
   }
 }

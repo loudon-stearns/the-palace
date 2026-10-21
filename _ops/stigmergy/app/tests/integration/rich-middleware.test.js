@@ -87,11 +87,12 @@ describe('the rich face at /rich/', () => {
     const r = await request(base).get('/rich/?entry=Demo%20Entry');
     expect(r.status).toBe(200);
     expect(r.headers['content-type']).toMatch(/text\/html/);
-    expect(r.text).toContain('./_rich/parse.js');
+    expect(r.text).toContain('src="_rich/rich.js"');
   });
 
   test('only the renderer files are served under _rich/', async () => {
     expect((await request(base).get('/rich/_rich/parse.js')).status).toBe(200);
+    expect((await request(base).get('/rich/_rich/rich.js')).status).toBe(200);
     expect((await request(base).get('/rich/_rich/secret.txt')).status).toBe(404);
   });
 
@@ -124,7 +125,8 @@ describe('the rich face at /rich/', () => {
     expect(await csp('/rich/Demo%20Entry/piece.html')).toBe('sandbox allow-scripts');
     expect(await csp('/rich/Demo%20Entry/piece.html', 'head')).toBe('sandbox allow-scripts');
     expect(await csp('/rich/Demo%20Entry/pic.svg')).toBe('sandbox allow-scripts');
-    expect(await csp('/rich/?entry=Demo%20Entry')).toBeUndefined();
+    // The page carries a policy of its own: its scripts are its own files.
+    expect(await csp('/rich/?entry=Demo%20Entry')).toMatch(/^script-src 'self';/);
     expect(await csp('/rich/_rich/parse.js')).toBeUndefined();
     expect(await csp('/rich/Demo%20Entry/bed.wav')).toBeUndefined();
   });

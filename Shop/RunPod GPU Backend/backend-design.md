@@ -192,6 +192,6 @@ the root. Natural home: `Shop/Image-to-3D/runpod-backend/` (alongside the
 Specialist this first serves) or `_ops/runpod/` if it becomes Shop-wide
 infrastructure. Merge `host-capability.runpod-patch.json` into
 `Shop/Maker/host-capability.json` **in lockstep with the Maker Roster** to
-avoid three-place drift. Per the Cowork git-lock hazard, commit Mac-side.
+avoid three-place drift. Commit it through the palace committer, by name.
 
 _Loudon Live · Autodidact Polymaths_

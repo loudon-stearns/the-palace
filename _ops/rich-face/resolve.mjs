@@ -8,21 +8,30 @@
 //   a/b    beside the .md, then at the palace root, then in the page's bundle.
 //   name   in the page's bundle (its top folder, then anywhere under it), then
 //          anywhere in the palace, each only if exactly one file has that name.
-// The index is `git ls-files`: every tracked file, and every new file git does
-// not ignore. A file is never found by walking the disk, so nothing under
-// .gitignore is reached (a tracked file stays reachable even where an ignore
-// rule now matches it). Hidden folders are never searched. A result must land
-// inside the palace once its symlinks are followed, and it is named by where
-// it lands, so an alias (the root's `_` @import links) is never a second copy
-// and never leaks into a link.
+// The index is `git ls-files`: every tracked file, every new file git does not
+// ignore, and, on the live page, the media git ignores: the renders that stay
+// on this Mac (Loudon, 2026-10-20: "the rich face can play on a local machine
+// if the files are only on the local machine, if public, then they can't
+// play"). A tracked file stays reachable even where an ignore rule now matches
+// it. Anything else under .gitignore is never reached, and hidden folders are
+// never searched. A result must land inside the palace once its symlinks are
+// followed, and it is named by where it lands, so an alias (the root's `_`
+// @import links) is never a second copy and never leaks into a link.
+//
+// A file git does not track comes back marked { local: true }, so the page can
+// say the public face will not have it. Where a bare name could mean a tracked
+// file or a local one, the tracked one wins: the live page and the build then
+// land on the same file wherever the build can.
 //
 // A miss is not an exception: it comes back as { ok: false, reason, label },
 // and the label is what the page shows in the figure's place.
 //
-// The public build asks with { tracked: true }: committed files only, and a
-// file outside that index is simply missing, never looked for on disk. CI builds
-// from a clean checkout, so a build on the Mac then publishes exactly what CI's
-// would, and never says that an ignored file sits at some path on this Mac.
+// The public build asks with { tracked: true }: committed files only. CI builds
+// from a clean checkout, so a build on the Mac publishes exactly the files CI's
+// would. A file the build cannot publish but this Mac has (new, or ignored) is
+// still a miss (reason 'missing', so every caller treats it as one), marked
+// { local: true } and labelled "only on this Mac: track it to publish", so the
+// author sees why where the box sits; in CI the same figure is a plain miss.
 
 import { execFileSync } from 'node:child_process';
 import { realpathSync, statSync } from 'node:fs';
@@ -39,10 +48,15 @@ const MISS_AGE_MS = 1_000;
 
 const hidden = (rel) => rel.split('/').some((s) => s.startsWith('.'));
 const baseOf = (rel) => rel.slice(rel.lastIndexOf('/') + 1);
+// The files git ignores that the live page may still serve: sound, video and
+// images, what a steward renders. Nothing else git ignores is ever served.
+export const LOCAL_MEDIA = /\.(?:wav|wave|aiff?|mp3|ogg|oga|opus|m4a|flac|mp4|m4v|mov|webm|mkv|avi|png|jpe?g|gif|webp|svg)$/i;
 
 /** What the page shows for a failed lookup: one line, in plain words. */
 export function labelFor(r) {
   const ref = r.ref || '';
+  // A miss in the build that this Mac has: the author can track it.
+  if (r.reason === 'missing' && r.local) return `“${ref}” is only on this Mac: track it to publish.`;
   switch (r.reason) {
     case 'ambiguous': return `${r.candidates.length} files are named “${ref}” (${r.candidates.slice(0, 3).join(', ')}${r.candidates.length > 3 ? ', …' : ''}). Give its path to choose one.`;
     case 'outside': return `“${ref}” leads outside the palace, so it is not shown.`;
@@ -71,16 +85,25 @@ export function makeResolver(root = ROOT, opts = {}) {
   let realRoot;
   try { realRoot = realpathSync(ROOT_ABS); } catch { realRoot = ROOT_ABS; }
   let idx = null;
+  let onThisMac = null; // the build's live twin, asked only to name why a file can't ship
+
+  const lsFiles = (...which) => execFileSync('git', ['-c', 'core.quotepath=off', 'ls-files', '-z', ...which],
+    { cwd: ROOT_ABS, maxBuffer: 256 * 1024 * 1024, stdio: ['ignore', 'pipe', 'ignore'] }).toString('utf8').split('\0').filter(Boolean);
 
   function load() {
-    let list;
-    if (opts.files) list = opts.files;
+    let list, tracked;
+    if (opts.files) { list = opts.files; tracked = new Set(list); }
     else {
       try {
-        const which = opts.tracked ? ['--cached'] : ['--cached', '--others', '--exclude-standard'];
-        list = execFileSync('git', ['-c', 'core.quotepath=off', 'ls-files', '-z', ...which],
-          { cwd: ROOT_ABS, maxBuffer: 256 * 1024 * 1024, stdio: ['ignore', 'pipe', 'ignore'] }).toString('utf8').split('\0');
-      } catch { list = null; }
+        tracked = new Set(lsFiles('--cached'));
+        list = [...tracked];
+        if (!opts.tracked) {
+          list.push(...lsFiles('--others', '--exclude-standard'));
+          // Media git ignores (a whole ignored folder is one line here, and only
+          // a path into it reaches what is inside).
+          for (const p of lsFiles('--others', '--ignored', '--exclude-standard', '--directory')) if (!p.endsWith('/') && LOCAL_MEDIA.test(p)) list.push(p);
+        }
+      } catch { list = null; tracked = new Set(); }
     }
     const files = new Set((list || []).filter(Boolean));
     const byName = new Map(), lower = new Map();
@@ -90,13 +113,29 @@ export function makeResolver(root = ROOT, opts = {}) {
       const b = baseOf(p);
       (byName.get(b) || byName.set(b, []).get(b)).push(p);
     }
-    idx = { at: Date.now(), ok: !!list, files, byName, lower };
+    idx = { at: Date.now(), ok: !!list, files, tracked, byName, lower };
     return idx;
   }
   const index = (maxAge = MAX_AGE_MS) => (idx && Date.now() - idx.at < maxAge ? idx : load());
 
-  // Is `rel` a file the palace keeps? → { path } with the path it really lands
-  // at, or { refused } naming why not, or null when there is no such file.
+  // Where a file that is there lands, once its symlinks are followed, or why it
+  // may not be served. `listed` says the index has it.
+  function land(rel, abs, listed) {
+    let real, st;
+    try { real = realpathSync(abs); st = statSync(real); } catch { return null; }
+    if (real !== realRoot && !real.startsWith(realRoot + sep)) return { refused: 'outside' };
+    if (!st.isFile()) return null;
+    const landed = relative(realRoot, real).split(sep).join('/');
+    const { files, tracked } = index();
+    const at = (p) => ({ path: p, local: !tracked.has(p) });
+    if (landed === rel) return listed ? at(rel) : { path: rel, local: true };
+    if (hidden(landed)) return { refused: 'hidden' };
+    if (files.has(landed)) return at(landed);
+    return !opts.tracked && LOCAL_MEDIA.test(landed) ? { path: landed, local: true } : { refused: 'ignored' };
+  }
+
+  // Is `rel` a file the palace keeps? → { path, local } with the path it really
+  // lands at, or { refused } naming why not, or null when there is no such file.
   // Membership is exact, case and all: a Mac finds `flocking/x.html` on disk
   // where a Linux build would not, and the two must agree.
   function check(rel) {
@@ -109,17 +148,15 @@ export function makeResolver(root = ROOT, opts = {}) {
       if (opts.tracked) return null;
       let st;
       try { st = statSync(abs); } catch { return null; }
-      return st.isFile() ? { refused: 'ignored' } : null;
+      if (!st.isFile()) return null;
+      // Ignored and not in the index: inside a folder git ignores whole. A
+      // render is served all the same, marked local; anything else is refused.
+      return LOCAL_MEDIA.test(rel) ? land(rel, abs, false) : { refused: 'ignored' };
     }
-    let real, st;
-    try { real = realpathSync(abs); st = statSync(real); } catch { return null; }
-    if (real !== realRoot && !real.startsWith(realRoot + sep)) return { refused: 'outside' };
-    if (!st.isFile()) return null;
-    const landed = relative(realRoot, real).split(sep).join('/');
-    if (landed === rel) return { path: rel };
-    if (hidden(landed)) return { refused: 'hidden' };
-    return files.has(landed) ? { path: landed } : { refused: 'ignored' };
+    return land(rel, abs, true);
   }
+
+  const hit = (r) => (r.local ? { ok: true, path: r.path, local: true } : { ok: true, path: r.path });
 
   // The first candidate that is a kept file; if none is, why not.
   function firstOf(ref, cands) {
@@ -129,23 +166,28 @@ export function makeResolver(root = ROOT, opts = {}) {
       if (tried.includes(c)) continue;
       tried.push(c);
       const r = check(c);
-      if (r && r.path) return { ok: true, path: r.path };
+      if (r && r.path) return hit(r);
       if (r && r.refused && !refused) refused = r;
     }
     return refused ? fail(refused.refused, ref, refused.as ? { as: refused.as } : {}) : fail('missing', ref, { tried });
   }
 
   // The one kept file among `paths`, counting a file reached by two names once.
+  // Tracked files are asked first: a local copy of the same name never makes a
+  // tracked one ambiguous, so the page lands where the build does.
   function onlyOne(ref, paths) {
-    const found = new Set();
+    const { tracked } = index();
     let refused = null;
-    for (const p of paths) {
-      const r = check(p);
-      if (r && r.path) found.add(r.path);
-      else if (r && r.refused && !refused) refused = r.refused;
+    for (const tier of [paths.filter((p) => tracked.has(p)), paths.filter((p) => !tracked.has(p))]) {
+      const found = new Map();
+      for (const p of tier) {
+        const r = check(p);
+        if (r && r.path) found.set(r.path, r);
+        else if (r && r.refused && !refused) refused = r.refused;
+      }
+      if (found.size === 1) return hit([...found.values()][0]);
+      if (found.size > 1) return fail('ambiguous', ref, { candidates: [...found.keys()].sort() });
     }
-    if (found.size === 1) return { ok: true, path: [...found][0] };
-    if (found.size > 1) return fail('ambiguous', ref, { candidates: [...found].sort() });
     return refused ? fail(refused, ref) : null;
   }
 
@@ -162,8 +204,14 @@ export function makeResolver(root = ROOT, opts = {}) {
     }
     if (bundle) {
       const top = check(`${bundle}/${ref}`);
-      if (top && top.path) return { ok: true, path: top.path };
+      if (top && top.path && !top.local) return hit(top);
       const under = onlyOne(ref, (index().byName.get(ref) || []).filter((p) => p.startsWith(bundle + '/')));
+      // A tracked file anywhere in the bundle (the copy kept in rich-face/) beats
+      // a local one in its top folder, as the build, which sees only the tracked
+      // one, would choose; two tracked ones are ambiguous to both.
+      if (under && under.ok && !under.local) return under;
+      if (under && under.reason === 'ambiguous' && under.candidates.every((p) => index().tracked.has(p))) return under;
+      if (top && top.path) return hit(top);
       if (under && (under.ok || under.reason === 'ambiguous')) return under;
     }
     return onlyOne(ref, index().byName.get(ref) || []) || fail('missing', ref, { tried: [bundle ? `${bundle}/` : null, 'the palace'].filter(Boolean) });
@@ -179,11 +227,17 @@ export function makeResolver(root = ROOT, opts = {}) {
     const r = String(ref ?? '').trim();
     if (!r) return fail('empty', r);
     const f = from ? posix.normalize(String(from).replace(/^\/+/, '')) : null;
-    const first = lookup(r, f);
+    let res = lookup(r, f);
     // A miss may be a file made since the index was read: read it again, once.
-    if (first.ok || first.reason === 'ambiguous' || !idx || Date.now() - idx.at < MISS_AGE_MS) return first;
-    load();
-    return lookup(r, f);
+    if (!res.ok && res.reason !== 'ambiguous' && idx && Date.now() - idx.at >= MISS_AGE_MS) { load(); res = lookup(r, f); }
+    // The build cannot ship a file git does not track; if this Mac has it, say
+    // so, so the author knows to track it (`files` is a test's whole palace).
+    if (!res.ok && opts.tracked && !opts.files && (res.reason === 'missing' || res.reason === 'case')) {
+      onThisMac = onThisMac || makeResolver(ROOT_ABS);
+      const here = onThisMac.resolve(r, f);
+      if (here.ok) return fail('missing', r, { local: true, path: here.path });
+    }
+    return res;
   }
 
   /** The .md an entry name means (any case), when exactly one has it → palace path, or null. */
@@ -232,5 +286,8 @@ export function makeResolver(root = ROOT, opts = {}) {
     return { title, md, bundle: files.length || [...index().files].some((p) => p.startsWith(bundle + '/')) ? bundle : null, manifest, files };
   }
 
-  return { root: ROOT_ABS, resolve: resolveRef, findEntry, entry, bundleOf, filesIn, refresh: load, abs: (rel) => join(ROOT_ABS, ...rel.split('/')) };
+  /** Is a palace path one git tracks? */
+  const isTracked = (rel) => index().tracked.has(rel);
+
+  return { root: ROOT_ABS, resolve: resolveRef, findEntry, entry, bundleOf, filesIn, isTracked, refresh: load, abs: (rel) => join(ROOT_ABS, ...rel.split('/')) };
 }

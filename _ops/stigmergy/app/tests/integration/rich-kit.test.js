@@ -168,7 +168,8 @@ describe.skipIf(!chromium)('the piece kit', () => {
     await page.goto(`${base}/host?p=${names.join(',')}&w=${width}`);
     return page;
   };
-  const frameOf = (page, n) => page.frames().find((f) => f.url().includes(encodeURIComponent(`Kit/${n}`)));
+  // A host page asks /api/file for its pieces; the deck's slot frames them on the piece origin, by path.
+  const frameOf = (page, n) => page.frames().find((f) => f.url().includes(encodeURIComponent(`Kit/${n}`)) || f.url().endsWith(`/Kit/${n}`));
   const heard = (page, n, type) => page.evaluate(([n, type]) => window.__heard.filter((m) => m.n === n && m.type === type), [n, type]);
   const frameHeight = (page, n) => page.$eval(`iframe[data-n="${n}"]`, (f) => f.getBoundingClientRect().height);
 

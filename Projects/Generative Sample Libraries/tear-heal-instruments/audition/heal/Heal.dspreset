@@ -1,0 +1,36 @@
+<DecentSampler minVersion="1.0.0">
+  <!-- written by build.py beside Heal.sfz; same map -->
+  <!-- SFZ tune (cents) written as tuning (semitones) = tune/100 -->
+  <ui width="812" height="200" bgColor="FF0A0A0F">
+    <tab name="main">
+      <label x="20" y="6" width="772" height="24" text="Heal" textColor="FFE8B84A" textSize="18" />
+      <label x="20" y="150" width="772" height="40" text="The centre of the collection: the warm source, up to 96 partials. A strike throws the stretch past the key's edge; the tone tears, sags and wobbles, then relocks into a sustain resting at a third of its edge." textColor="FFE8E6DF" textSize="12" />
+      <labeled-knob x="20" y="40" width="90" height="90" textSize="14" label="Attack" type="float" minValue="0" maxValue="2" value="0.002" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="ENV_ATTACK" />
+      </labeled-knob>
+      <labeled-knob x="130" y="40" width="90" height="90" textSize="14" label="Release" type="float" minValue="0" maxValue="8" value="0.8" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="ENV_RELEASE" />
+      </labeled-knob>
+      <labeled-knob x="240" y="40" width="90" height="90" textSize="14" label="Volume" type="float" minValue="0" maxValue="1" value="0.8" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="AMP_VOLUME" />
+      </labeled-knob>
+    </tab>
+  </ui>
+  <groups attack="0.002" decay="0" sustain="1" release="0.8" volume="0.8">
+    <group ampVelTrack="0.6">
+      <!-- soft: thrown 2x past the key's edge, decaying with tau 0.25 s at 110 Hz -->
+      <sample path="Samples/heal_C1_soft.wav" rootNote="24" loNote="23" hiNote="25" loVel="1" hiVel="42" tuning="0.04" loopEnabled="true" loopStart="76604" loopEnd="137446" loopCrossfade="0" />
+      <sample path="Samples/heal_C7_soft.wav" rootNote="96" loNote="95" hiNote="97" loVel="1" hiVel="42" tuning="0.11" loopEnabled="true" loopStart="12339" loopEnd="79621" loopCrossfade="0" />
+    </group>
+    <group ampVelTrack="0.6">
+      <!-- mid: thrown 6x past the key's edge, decaying with tau 0.25 s at 110 Hz -->
+      <sample path="Samples/heal_C1_mid.wav" rootNote="24" loNote="23" hiNote="25" loVel="43" hiVel="85" tuning="0.05" loopEnabled="true" loopStart="116735" loopEnd="216794" loopCrossfade="0" />
+      <sample path="Samples/heal_C7_mid.wav" rootNote="96" loNote="95" hiNote="97" loVel="43" hiVel="85" tuning="0.11" loopEnabled="true" loopStart="15499" loopEnd="82781" loopCrossfade="0" />
+    </group>
+    <group ampVelTrack="0.6">
+      <!-- hard: thrown 20x past the key's edge, decaying with tau 0.25 s at 110 Hz -->
+      <sample path="Samples/heal_C1_hard.wav" rootNote="24" loNote="23" hiNote="25" loVel="86" hiVel="127" tuning="0.04" loopEnabled="true" loopStart="154084" loopEnd="240604" loopCrossfade="0" />
+      <sample path="Samples/heal_C7_hard.wav" rootNote="96" loNote="95" hiNote="97" loVel="86" hiVel="127" tuning="0.11" loopEnabled="true" loopStart="18675" loopEnd="85957" loopCrossfade="0" />
+    </group>
+  </groups>
+</DecentSampler>

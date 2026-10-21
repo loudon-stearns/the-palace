@@ -38,6 +38,8 @@ import { pathId, encodeSegments } from '../src/lib/public-mode.js';
 import { makeResolver } from '../../../rich-face/resolve.mjs';
 import { vendorFiles, richReferences } from '../../../rich-face/rich-handler.mjs';
 import { isPiecePage, pieceBytes } from '../../../rich-face/kit/inject.mjs';
+import { contractOf, framePlan } from '../../../rich-face/contract.mjs';
+import { makeContext, readFace, checkPage, openErrors, renderTable, markLocal } from '../../../rich-face/conform.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const APP = resolve(HERE, '..');
@@ -338,8 +340,24 @@ writeJson('data/unsung-paths.json', { edges, entry_count: records.length, edge_c
 }
 
 // ── 5. rich faces ───────────────────────────────────────────────────────────
+// Each published face is read by the piece checker (_ops/rich-face/conform.mjs)
+// with this build's own resolver, so it judges exactly what ships: a file the
+// face names that does not resolve, a piece's declared file that is missing,
+// an unpinned CDN. With `enforce.build` on in _ops/rich-face/conform.json an
+// error fails the build, and so does a checker that cannot run (fail closed);
+// off, the build prints the table and goes on. A piece's declared files ship
+// beside it, so the read view can serve what the piece asked for.
 const rich = {};
 const namePaths = Object.fromEntries(published.map((e) => [stemOf(e.path), e.path]));
+const conformCtx = makeContext(ROOT, { tracked: true, resolver });
+const conformRun = { faces: [], results: [], faceFindings: [] };
+const conformCheck = (fn) => {
+  try { return fn(); } catch (e) {
+    if (conformCtx.config.enforce.build) throw new Error(`rich face: the piece checker could not run, and the build is enforced: ${e.message}`);
+    console.warn(`  rich face: the piece checker could not run (${e.message}); report-only, so the build goes on`);
+    return null;
+  }
+};
 for (const s of published) {
   if (!Array.isArray(s.faces) || !s.faces.includes('rich')) continue;
   const e = readEntry(ROOT, s.path, { use: USE });
@@ -350,13 +368,35 @@ for (const s of published) {
   // The same table the live page gets from _api/resolve: every file the text
   // and the manifest name, and where it landed or why not. A failure keeps
   // its label, so the read view shows the same box the live page does.
-  const refs = richReferences(resolver, e.path, readFileSync(join(ROOT, e.path), 'utf8'), JSON.parse(readFileSync(join(ROOT, manifestRel), 'utf8')));
-  const media = {};
+  const manifestJson = JSON.parse(readFileSync(join(ROOT, manifestRel), 'utf8'));
+  const refs = richReferences(resolver, e.path, readFileSync(join(ROOT, e.path), 'utf8'), manifestJson);
+  // A gathered proof's contract block, by the name its manifest gives it.
+  const contracts = new Map((manifestJson.sections || []).flatMap((m) => m.pieces || []).filter((p) => p && p.contract).map((p) => [p.file, p.contract]));
+  const media = {}, pieces = {};
   for (const [n, r] of refs) {
     if (!r.ok) media[n] = { error: r.reason, label: r.label };
     else if (addFile(r.path)) media[n] = { path: r.path, url: `../files/${encodeSegments(servedAs(r.path))}` };
     else media[n] = { path: r.path, error: 'skipped', label: `“${n}” is not in the read view (${skipped.find((x) => x.path === r.path)?.reason || 'left out'}).` };
+    // Each piece framed as the live page frames it, from the same contract, but
+    // opaque on this site: storage in memory, a camera piece in its own tab.
+    if (media[n].url && isPiecePage(r.path)) {
+      pieces[n] = framePlan({ path: r.path, contract: contractOf({ html: readFileSync(join(ROOT, r.path), 'utf8'), manifestContract: contracts.get(n) }), mode: 'static', url: media[n].url });
+    }
   }
+  conformCheck(() => {
+    const face = readFace(conformCtx, e.path, manifestRel);
+    conformRun.faces.push(face);
+    conformRun.faceFindings.push(...face.findings);
+    for (const p of face.pieces) {
+      const r = checkPage(conformCtx, { path: p.path, via: [{ entry: face.entry, name: p.name, manifestPiece: p.manifestPiece }] });
+      conformRun.results.push(r);
+      const dir = p.path.slice(0, p.path.lastIndexOf('/') + 1);
+      for (const f of r.declaration?.files || []) {
+        const found = resolver.resolve(f.startsWith('/') ? f : `/${dir}${f}`);
+        if (found.ok) addFile(found.path);
+      }
+    }
+  });
   const bundleNames = resolver.filesIn(bundleRel);
   rich[stem] = {
     title: stem,
@@ -367,21 +407,33 @@ for (const s of published) {
     // Only what was copied is listed, so the page never reaches for a file that isn't there.
     files: bundleNames.filter((f) => files.has(`${bundleRel}/${f}`) || shownPaths.has(`${bundleRel}/${f}`)),
     media,
+    pieces,
     paths: namePaths,
   };
 }
 writeJson('data/rich.json', { entries: rich });
 
+if (conformRun.faces.length) {
+  markLocal(conformCtx, conformRun.faces, conformRun.results);
+  const errors = openErrors(conformRun);
+  const enforced = conformCtx.config.enforce.build;
+  console.log(`  rich faces checked: ${conformRun.faces.length} faces, ${conformRun.results.length} pieces, ${errors.length} error(s)${enforced ? '' : ' (report-only)'}`);
+  // What a face names that is only on this Mac ships as a box (README § Media a face plays).
+  const local = new Set([...conformRun.faceFindings, ...conformRun.results.flatMap((r) => r.findings)].filter((f) => f.rule === 'file-local').map((f) => f.local.path));
+  if (local.size) console.log(`  ${local.size} file(s) a face needs are only on this Mac and ship as a box: node _ops/rich-face/untracked.mjs prints how to track each`);
+  if (errors.length) console.log(renderTable(conformRun));
+  if (enforced && errors.length) throw new Error(`rich face: ${errors.length} error(s) from the piece checker, and the build is enforced: ${errors.slice(0, 3).map((f) => `${f.rule} ${f.piece}`).join('; ')}`);
+}
+
 const richSrc = join(APP, '../../rich-face/rich.html');
 const richHtml = readFileSync(richSrc, 'utf8')
-  .replace('<script type="module">', '<script>window.RICH_STATIC = true;</script>\n<script type="module">')
-  .replace('<meta charset="utf-8">', '<meta charset="utf-8">\n<meta name="robots" content="noindex, nofollow">');
-if (!richHtml.includes('window.RICH_STATIC = true')) throw new Error('rich.html: could not mark it static');
+  .replace('<meta charset="utf-8">', '<meta charset="utf-8">\n<meta name="robots" content="noindex, nofollow">\n<meta name="rich:static" content="1">');
+if (!richHtml.includes('<meta name="rich:static"')) throw new Error('rich.html: could not mark it static');
 mkdirSync(join(OUT, 'rich'), { recursive: true });
 writeFileSync(join(OUT, 'rich/index.html'), richHtml);
-// The renderer's own module, which the live handler serves as _rich/parse.js.
+// The renderer's own modules, which the live handler serves as _rich/*.
 mkdirSync(join(OUT, 'rich/_rich'), { recursive: true });
-copyFileSync(join(APP, '../../rich-face/parse.js'), join(OUT, 'rich/_rich/parse.js'));
+for (const f of ['rich.js', 'parse.js']) copyFileSync(join(APP, '../../rich-face', f), join(OUT, 'rich/_rich', f));
 // Its two libraries, which the live handler serves as _vendor/* from the install npm
 // just checked against the lockfile — so the published page loads nothing from a CDN.
 const vendor = vendorFiles();

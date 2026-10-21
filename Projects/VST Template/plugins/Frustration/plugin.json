@@ -1,0 +1,18 @@
+{
+  "name": "Frustration",
+  "target": "Frustration",
+  "company": "Loudon Live",
+  "bundle_id": "com.LoudonLive.Frustration",
+  "manufacturer_code": "Loud",
+  "plugin_code": "Frst",
+  "kind": "instrument",
+  "version": "0.1.0",
+  "hostcheck": [
+    "B=6e-5",
+    "K=18",
+    "inertia=10",
+    "f0=220",
+    "voices=0.5",
+    "source=bright"
+  ]
+}

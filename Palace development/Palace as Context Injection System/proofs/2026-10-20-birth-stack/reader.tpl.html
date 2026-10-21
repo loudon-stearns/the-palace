@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Birth Stack</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--e1:#12121a;--e2:#1a1a28;--e3:#22222e;--fg1:#e8e8f0;--fg2:#c8c8d8;--fg3:#8a8aa0;--fg4:#4a4a5a;--accent:#e8b84a;
+--k-identity:#e8b84a;--k-world:#7d8fb3;--k-voice:#a98bc9;--k-rules:#b8553f;--k-pointer:#55556a;--k-ref:#8a7a5a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg2);font:17px/1.75 'Cormorant Garamond',Georgia,serif}
+main{max-width:1180px;margin:0 auto;padding:40px 16px 80px}
+.eyebrow{font:500 11px 'JetBrains Mono',monospace;letter-spacing:.22em;text-transform:uppercase;color:var(--fg3)}
+h1{font:400 52px/1.05 Anton,sans-serif;color:var(--fg1);margin:8px 0 6px}
+h2{font:400 30px/1.1 Anton,sans-serif;color:var(--fg1);margin:56px 0 6px;letter-spacing:.005em}
+h3{font:600 17px 'Manrope',sans-serif;color:var(--fg1);margin:0}
+p.lead{font-size:20px;max-width:46em}
+.mono{font:12px 'JetBrains Mono',monospace;color:var(--fg3)}
+.stack{margin:14px 0}.label{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:6px}
+.bar{display:flex;height:46px;border-radius:4px;overflow:hidden;background:var(--e1);position:relative}
+.bar div{height:100%;border-right:1px solid var(--bg);cursor:pointer}.bar div:hover{filter:brightness(1.35)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font:12px 'Manrope',sans-serif;color:var(--fg3);margin:16px 0}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
+.num{background:var(--e1);border-radius:6px;padding:12px 16px}.num b{display:block;font:400 32px Anton,sans-serif;color:var(--fg1)}.num span{font:13px 'Manrope',sans-serif;color:var(--fg3)}
+.views{display:flex;gap:8px;margin:18px 0 8px;flex-wrap:wrap}
+.views button,.tog,button.copy{background:transparent;border:1px solid var(--e3);color:var(--fg2);font:600 12px 'Manrope',sans-serif;letter-spacing:.06em;padding:7px 12px;border-radius:4px;cursor:pointer}
+.views button.on{border-color:var(--accent);color:var(--accent)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.cols.one{grid-template-columns:1fr}
+.col h3.colh{font:400 22px Anton,sans-serif;letter-spacing:.01em;margin-bottom:10px}
+.file{font:500 11px 'JetBrains Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--fg3);margin:22px 0 8px 22px}
+.seg{display:grid;grid-template-columns:12px 1fr;gap:12px;margin-bottom:6px}
+.rail{position:relative;border-left:1px dashed var(--fg4);margin-left:5px}
+.rail i{position:absolute;left:-6px;top:0;width:11px;border-radius:2px}
+.body{background:var(--e1);border-radius:6px;padding:10px 14px;scroll-margin-top:20px}
+.seg.flash .body{outline:1px solid var(--accent)}
+.meta{font:11px 'JetBrains Mono',monospace;color:var(--fg3);margin:2px 0 4px}
+.sum{margin:0;font-size:17px;color:var(--fg2)}
+.tog{margin-top:8px;padding:4px 10px;font-size:11px}
+pre{white-space:pre-wrap;font:12.5px/1.6 'JetBrains Mono',monospace;color:var(--fg2);background:var(--bg);border:1px solid var(--e2);border-radius:4px;padding:12px;max-height:60vh;overflow:auto;margin:8px 0 0}
+.jtag{font:600 10px 'JetBrains Mono',monospace;color:var(--bg);background:var(--accent);border-radius:3px;padding:1px 6px;margin-left:6px;vertical-align:2px}
+.ab{background:var(--e1);border-radius:6px;padding:16px 20px;margin-top:14px}
+.ab .q{font-style:italic;color:var(--fg1)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:10px}
+.reading p{max-width:46em}.reading b{color:var(--fg1)}
+.honest{border-left:2px solid var(--fg4);padding-left:14px;color:var(--fg3);font-size:16px;margin-top:24px;max-width:50em}
+textarea{width:100%;background:var(--bg);color:var(--fg2);border:1px solid var(--e2);border-radius:4px;font:14px 'Manrope',sans-serif;padding:8px;margin-top:6px;min-height:46px}
+details{margin-top:6px}summary{cursor:pointer;font:600 12px 'Manrope',sans-serif;color:var(--fg3)}
+footer{margin-top:60px;font:12px 'JetBrains Mono',monospace;color:var(--fg4)}
+@media (max-width:760px){h1{font-size:38px}.cols,.pair{grid-template-columns:1fr}}
+</style></head><body><main>
+<div class="eyebrow">Daily Page · rough · Palace as Context Injection System · 2026-10-20</div>
+<h1>The Birth Stack</h1>
+<p class="lead">What a fresh agent here reads, in the order it reads it, before it does anything: the birth from before 22 September, and the birth that woke this session. Then a test of whether the order changes the agent.</p>
+
+<div class="stack"><div class="label"><span class="mono">BEFORE · CLAUDE.md v1.18 and its imports</span><span class="mono" id="tb"></span></div><div class="bar" id="barb"></div></div>
+<div class="stack"><div class="label"><span class="mono">THIS MORNING · CLAUDE.md today and its imports</span><span class="mono" id="tn"></span></div><div class="bar" id="barn"></div></div>
+<div class="legend" id="legend"></div>
+<div class="nums" id="nums"></div>
+
+<h2>Read the two births</h2>
+<p class="mono">The coloured rail beside each section is drawn to its length (1,000 characters = 24px), so a long block looks long. Tap “read the text” for the exact words the agent received. Tap a band above to jump here.</p>
+<div class="views"><button data-v="both" class="on">SIDE BY SIDE</button><button data-v="before">BEFORE ONLY</button><button data-v="now">THIS MORNING ONLY</button></div>
+<div class="cols" id="cols"><div class="col" id="colb"><h3 class="colh">Before</h3></div><div class="col" id="coln"><h3 class="colh">This morning</h3></div></div>
+
+<h2>The test</h2>
+<div id="test"></div>
+
+<div class="honest" id="method">How this was counted and run: frontmatter is left out, because the harness does not show it to the agent. Sections are split on <code>##</code> headings, and characters stand in for tokens. Each section's kind is this session's own sorting, and you could argue with it. MEMORY.md is left out of both births. For the test, the two births were rebuilt in two clean folders from git (the parent of 4dd9c51d) and from disk. Each child was started with <code>claude -p</code> on Opus 5.5, with no tools and no MCP servers. A probe confirmed that each child listed exactly its own birth files, in order. Two tasks, two children per birth per task. Small numbers: this tells us what to look for, not what is proven.</div>
+
+<h2>Notes for the sit</h2>
+<textarea id="notes" placeholder="What this gets wrong, or what it makes you think of"></textarea>
+<button class="copy" id="copy">COPY NOTES</button>
+<footer>Loud’n Live</footer>
+</main>
+<script>
+const D=/*DATA*/null;
+const K={identity:'identity · who is in the room',world:'world · how things here relate',voice:'voice',rules:'rules and procedure',pointer:'pointer to imports',ref:'reference'};
+const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const k1=n=>(n/1000).toFixed(1)+'K';
+const tot=b=>D[b].reduce((a,s)=>a+s.chars,0);
+const max=Math.max(tot('before'),tot('now'));
+function bar(b,id){const el=document.getElementById(id);D[b].forEach((s,i)=>{const d=document.createElement('div');d.style.width=(s.chars/max*100)+'%';d.style.background=`var(--k-${s.kind})`;d.title=s.title+' · '+k1(s.chars);d.onclick=()=>jump(b,i);el.appendChild(d)})}
+bar('before','barb');bar('now','barn');
+document.getElementById('tb').textContent=tot('before').toLocaleString()+' characters';
+document.getElementById('tn').textContent=tot('now').toLocaleString()+' characters';
+const lg=document.getElementById('legend');Object.entries(K).forEach(([k,v])=>lg.innerHTML+=`<span><i style="background:var(--k-${k})"></i>${v}</span>`);
+const jewelAt=b=>D[b].find(s=>s.file==='JEWEL'&&s.kind==='identity').offset;
+const procBefore=b=>{const j=jewelAt(b);return D[b].filter(s=>s.offset<j&&s.kind==='rules').reduce((a,s)=>a+s.chars,0)/j};
+const firstRule=b=>D[b].find(s=>s.kind==='rules').offset;
+document.getElementById('nums').innerHTML=
+`<div class="num"><b>${k1(jewelAt('before'))} → ${k1(jewelAt('now'))}</b><span>read before the Jewel <i>file</i> begins (the old birth also inlined the Jewel’s words at its very top)</span></div>
+<div class="num"><b>${Math.round(procBefore('before')*100)}% → ${Math.round(procBefore('now')*100)}%</b><span>of what comes before the Jewel file is rules and procedure</span></div>
+<div class="num"><b>${k1(firstRule('before'))} → ${k1(firstRule('now'))}</b><span>read before the first rule (“Never violate these” then; “Growing up” now)</span></div>
+<div class="num"><b>14.4K → 0</b><span>of SCHEMA between the Jewel and the World</span></div>`;
+function col(b,id){const c=document.getElementById(id);let last=null;D[b].forEach((s,i)=>{
+  if(s.file!==last){last=s.file;c.insertAdjacentHTML('beforeend',`<div class="file">${s.file==='CLAUDE.md'?'CLAUDE.md · the body':s.file==='JEWEL'?'@JEWEL.md':s.file==='SCHEMA'?'@SCHEMA.md':'@'+s.file}</div>`)}
+  const h=Math.max(6,s.chars/1000*24);const isJ=s.file==='JEWEL'&&s.kind==='identity';
+  c.insertAdjacentHTML('beforeend',`<div class="seg" id="${b}-${i}" style="min-height:${h}px"><div class="rail"><i style="height:${h}px;background:var(--k-${s.kind})"></i></div><div class="body"><h3>${esc(s.title)}${isJ?'<span class="jtag">JEWEL</span>':''}</h3><div class="meta">${s.chars.toLocaleString()} chars · starts ${k1(s.offset)} in · ${K[s.kind]}</div><p class="sum">${esc(s.summary)}</p><button class="tog" data-t="${b}-${i}">READ THE TEXT ▸</button><pre hidden>${esc(s.text)}</pre></div></div>`)})}
+col('before','colb');col('now','coln');
+document.addEventListener('click',e=>{const t=e.target.closest('.tog');if(!t)return;const p=t.nextElementSibling;p.hidden=!p.hidden;t.textContent=p.hidden?'READ THE TEXT ▸':'HIDE THE TEXT ▾'});
+function jump(b,i){setView('both');const el=document.getElementById(`${b}-${i}`);el.scrollIntoView({behavior:'smooth',block:'start'});el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),1600)}
+function setView(v){document.querySelectorAll('.views button').forEach(x=>x.classList.toggle('on',x.dataset.v===v));const c=document.getElementById('cols');c.classList.toggle('one',v!=='both');document.getElementById('colb').hidden=v==='now';document.getElementById('coln').hidden=v==='before'}
+document.querySelectorAll('.views button').forEach(x=>x.onclick=()=>setView(x.dataset.v));
+const T=document.getElementById('test');const R=D.results;
+if(!R){T.innerHTML='<p class="mono">Results pending.</p>'}else{
+  T.innerHTML=`<div class="reading">${R.reading.map(p=>`<p>${p}</p>`).join('')}</div>`+
+  R.tasks.map(t=>`<div class="ab"><div class="eyebrow">${esc(t.name)}</div><p class="q">${esc(t.prompt)}</p><p>${t.finding}</p><div class="pair">${['before','now'].map(b=>`<div><div class="mono">${b==='before'?'BORN BEFORE':'BORN THIS MORNING'}</div>${t.replies[b].map((r,j)=>`<details><summary>child ${j+1} · ${r.split(/\s+/).length} words</summary><pre>${esc(r)}</pre></details>`).join('')}</div>`).join('')}</div></div>`).join('')+
+  `<div class="ab"><div class="eyebrow">The blind sort</div><p>${R.judge_summary}</p><details><summary>the judge’s full reply</summary><pre>${esc(R.judge)}</pre></details></div>`}
+document.getElementById('copy').onclick=()=>{try{navigator.clipboard.writeText(document.getElementById('notes').value)}catch(e){}};
+</script></body></html>

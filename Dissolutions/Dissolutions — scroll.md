@@ -61,6 +61,72 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="proof-2026-10-20-the-shadow-that-locks" -->
+### 2026-10-20 — The shadow that locks: Phase Reduction is two claims
+
+Two van der Pol oscillators nudge each other while their phase-only shadow runs beside them: Kuramoto's equation, with a coupling function built from the PRC. The page's two claims came apart. The PRC is Floquet data exactly. Taken from the left eigenvector of one trip round the loop, it matches the curve measured by kicking the oscillator, closer in step with smaller kicks. Kuramoto as the shadow holds only in a limit. On the van der Pol loop the shadow's tongue matches the full pair cell for cell up to a coupling of 0.1, and the two have parted by 0.4. On a nearly round loop the shadow misses locking even at weak coupling, because the part of this coupling's averaged pull that draws the pair together nearly vanishes there. How weak "weak" must be depends on the loop. Marked an isomorphism, an asymptotic one; whether it stays is Loudon's question.
+
+**Artifacts:**
+- [the shadow that locks](Dissolutions/proofs/2026-10-20-the-shadow-that-locks/the-shadow-that-locks.html)
+
+<sub>hand-appended · proof · study · its numbers re-run headless by check-dissolutions-proofs.mjs and seen in the browser; not yet played through in a sit</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="proof-2026-10-20-the-lattice-read-back" -->
+### 2026-10-20 — The lattice read back: Rank-N analysis returns the lattice, not the hand
+
+A few points lit on a grid of whole-number pairs are played through two generators, and the analysis is given only the sound. At √2 it hands back rank 2, the two generators and every point. At 3 ÷ 2 the rows fall onto one harmonic series and the rank is honestly 1. On a diagonal field it returns the same lattice in a different basis, (g₁, g₁ + g₂): it recovers the lattice, not the hand that drew it. At 7 ÷ 5 the rank is 1 or 2 depending only on how large the whole numbers may grow, and with no bound every set of peaks is rank 1. The page calls rank a property of the source; the proof says it is a property of the source and of a bound you choose.
+
+**Artifacts:**
+- [the lattice read back](Dissolutions/proofs/2026-10-20-the-lattice-read-back/the-lattice-read-back.html)
+
+<sub>hand-appended · proof · study · its numbers re-run headless by check-dissolutions-proofs.mjs and seen in the browser; not yet played through in a sit</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="proof-2026-10-20-one-field-two-hands" -->
+### 2026-10-20 — One field, two hands: the synth and the effect are one field; the kernel is a map of it
+
+One stored field is read by two phasors (the torus synthesizer) or by the input now and a lag ago (an effect). Lined up, the two hands null to rounding error: one field, one lookup. The Volterra kernel is a different matter. Written as a Volterra series the reading is exact, but its kernel lives on lags while the field lives on heights of the signal. That is a faithful map between two things, so field and kernel are marked an isomorphism. The test also corrects a sentence on the member page. The diagonal keeps intermodulation; what it loses is intermodulation whose strength depends on the tones that made it. Off the diagonal, a 30 Hz difference tone swings by more than 30 dB as both tones slide up, which no Hammerstein structure can do.
+
+**Artifacts:**
+- [one field, two hands](Dissolutions/proofs/2026-10-20-one-field-two-hands/one-field-two-hands.html)
+
+<sub>hand-appended · proof · study · its numbers re-run headless by check-dissolutions-proofs.mjs and seen in the browser; not yet played through in a sit</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="proof-2026-10-20-the-equation-read-backward" -->
+### 2026-10-20 — The equation read backward: LPC is one equation solved twice
+
+A made voice sings ah, ee, oo. One line, today's sample as a weighted sum of the last few plus a residual, is solved for the residual (analysis) and then for the voice (synthesis), with the same weights. The voice comes back to rounding error at every order from 1 to 32. Order decides only how the sound is shared between the weights and the residual. Swap the residual for a buzz or a whisper and the vowels survive while the life goes: LPC-10's robot voice. The two filters are inverses, not one filter; what is identical is the equation and its numbers.
+
+**Artifacts:**
+- [the equation read backward](Dissolutions/proofs/2026-10-20-the-equation-read-backward/the-equation-read-backward.html)
+
+<sub>hand-appended · proof · study · its numbers re-run headless by check-dissolutions-proofs.mjs and seen in the browser; not yet played through in a sit</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="proof-2026-10-20-the-table-that-travels" -->
+### 2026-10-20 — The table that travels: a wavetable is a loop with its filter slot empty
+
+One stored cycle kept two ways: a table that holds still under a moving reader, and a delay loop whose samples travel past a still tap. With only the delay in the loop, the two give the same samples, a difference of exactly zero. Put eight allpasses in the loop and only the loop can follow: its partials walk off the harmonic grid to where the round-trip condition says, matched to 0.02 Hz. The identity is strict. Half a sample longer, the loop must read between samples on every trip, and that reading is already a filter, dulling the highs at exactly the rate it predicts. A fractional length opens the same slot the dispersion curve goes in.
+
+**Artifacts:**
+- [the table that travels](Dissolutions/proofs/2026-10-20-the-table-that-travels/the-table-that-travels.html)
+
+<sub>hand-appended · proof · study · its numbers re-run headless by check-dissolutions-proofs.mjs and seen in the browser; not yet played through in a sit</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="proof-2026-10-20-the-circles-shadow" -->
+### 2026-10-20 — The circle's shadow: Chebyshev and Fourier null
+
+Drawbars set once, built two ways: as one Chebyshev curve, read by the shadow of a point going round a circle, and as a stack of cosines. At full reach the two null to rounding error for any drawbars, and the measured harmonics are the drawbars. Pull the reach down and only the curve changes: each drawbar leaks downward into harmonics of its own parity, the third coming out mostly as the first. The reach moves the reader out of the coordinate where the two are one, and hands back drive as a timbre control the stack of cosines does not have.
+
+**Artifacts:**
+- [the circle's shadow](Dissolutions/proofs/2026-10-20-the-circles-shadow/the-circles-shadow.html)
+
+<sub>hand-appended · proof · study · its numbers re-run headless by check-dissolutions-proofs.mjs and seen in the browser; not yet played through in a sit</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="daily-2026-10-18-three-readers" -->
 ### 2026-10-18 — One curve, three readers: the projection picture
 

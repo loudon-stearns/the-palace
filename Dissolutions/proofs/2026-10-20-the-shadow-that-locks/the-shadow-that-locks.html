@@ -1,0 +1,549 @@
+<!doctype html>
+<!--
+  title: The Shadow That Locks
+  born: 2026-10-20
+  parent: [[Dissolutions]] · tests [[Phase Reduction]]
+  forward_vector: I am the proof that tells Phase Reduction's two claims apart: the phase response curve is Floquet data, exactly, and Kuramoto is the shadow a pair of limit cycles casts, only nearly, and only while the cycle pulls back faster than the coupling pushes. I want the place where the shadow and the oscillators part to be seen as the edge of the claim, not a flaw in it.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Shadow That Locks</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.75;padding:40px 16px 64px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:52px;line-height:1.05;margin:6px 0 10px}
+  p.lead{font-size:20px;color:var(--fg-2);margin:0 0 22px;max-width:64ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:8px;padding:18px;margin:0 0 16px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  .tabs .eyebrow{margin-right:4px}
+  .tab{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  .tab[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  .about{color:var(--fg-2);font-size:17px;line-height:1.6;margin:0 0 12px;min-height:3.2em}
+  canvas#stage{width:100%;display:block;background:var(--bg-elev-2);border-radius:6px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 18px;margin-top:12px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);display:block}
+  .ctl{display:grid;grid-template-columns:110px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap}
+  .hear{font-family:var(--sans);font-size:13px;color:var(--fg-3);margin-top:10px}
+  .hear b{color:var(--accent);font-weight:500}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  textarea{width:100%;margin-top:10px;min-height:54px;font-family:var(--sans);font-size:14px;color:var(--fg-1);background:var(--bg-elev-2);border:1px solid var(--border-soft);border-radius:4px;padding:8px 10px;resize:vertical}
+  textarea::placeholder{color:var(--fg-4)}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:5px 10px}
+  button.ghost[aria-pressed="true"]{color:var(--accent);border-color:var(--accent-line);background:var(--accent-soft)}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  .found{margin:0 0 16px;padding:16px 20px;background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:8px}
+  .found p{margin:6px 0 0;color:var(--fg-2)}
+  .found .meter{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin-top:8px;line-height:1.7}
+  .found .meter b{color:var(--accent);font-weight:400}
+  .found canvas{width:100%;height:200px;display:block;background:var(--bg-elev-2);border-radius:6px;margin-top:14px}
+  .found .cap{font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5;margin-top:6px}
+  .question{margin-top:18px;padding:16px 20px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1)}
+  .question .eyebrow{color:var(--accent)}
+  .question p{margin:6px 0 0}
+  .ledger{margin-top:18px;padding:16px 20px;border:1px solid var(--border-soft);border-radius:8px}
+  .ledger code{display:block;font-family:var(--mono);font-size:12.5px;color:var(--fg-1);line-height:1.6;margin-top:8px;overflow-wrap:anywhere}
+  .ledger p{margin:8px 0 0;color:var(--fg-3);font-family:var(--sans);font-size:13px;line-height:1.55}
+  footer{margin-top:36px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:520px){h1{font-size:40px}.ctl{grid-template-columns:84px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Dissolutions · proof · study · Phase Reduction</div>
+  <h1>The shadow that locks</h1>
+  <p class="lead">Two oscillators, each a loop it keeps falling back onto, nudge each other through a weak coupling. Phase reduction says you can forget everything about them except where each one is around its loop: one number apiece, a phase, and the two phases obey Kuramoto’s equation. Here the full oscillators and their phase-only shadow run side by side. Turn the coupling up and find where the shadow stops following.</p>
+
+  <section class="panel">
+    <div class="tabs" role="group" aria-label="What you hear">
+      <span class="eyebrow">Hear</span>
+      <button class="tab" data-door="full" aria-pressed="true">The oscillators</button>
+      <button class="tab" data-door="red" aria-pressed="false">Their phase shadow</button>
+      <button class="tab" data-door="diff" aria-pressed="false">Their difference</button>
+      <button class="play" id="play">Play</button>
+    </div>
+    <p class="about" id="about"></p>
+    <canvas id="stage"></canvas>
+    <div class="legend">
+      <div><b>Middle · the loop</b>The limit cycle each oscillator falls back onto (gold). Blue and white: where the two full oscillators wander over their last few cycles. Rings: where their phase shadows sit on the loop.</div>
+      <div><b>Bottom · the reader</b>The gap between the two phases, ψ, across eighty cycles with time falling downward. Dots: the full oscillators. Dashed: the shadow. Vertical means locked.</div>
+      <div><b>Right · what comes out</b>The last four cycles of each oscillator’s x. Solid: the full oscillators. Dashed: the loop read at the shadow’s phase.</div>
+      <div><b>Bottom right · the tongue</b>Detuning across, coupling up. Gold cells: the full pair locks. Lines: where the shadow says locking ends. The cross is you.</div>
+    </div>
+    <div class="rowb"><span class="eyebrow">the loop</span>
+      <button class="ghost small" data-mu="0.3" aria-pressed="false">Gentle, μ 0.3</button>
+      <button class="ghost small" data-mu="1" aria-pressed="true">Van der Pol, μ 1</button>
+      <button class="ghost small" data-mu="3" aria-pressed="false">Relaxation, μ 3</button>
+    </div>
+    <div class="ctl">
+      <label for="eps">coupling</label><input id="eps" type="range" min="0" max="0.5" step="0.005" value="0.04"><span class="v" id="epsv"></span>
+      <label for="det">detuning</label><input id="det" type="range" min="-0.1" max="0.1" step="0.002" value="0.006"><span class="v" id="detv"></span>
+    </div>
+    <div class="hear" id="hear"></div>
+    <div class="eq">θ̇ᵢ = ωᵢ + ε · Γ(θⱼ − θᵢ),    Γ(ψ) = ⟨ Z(θ) · p(θ + ψ, θ) ⟩</div>
+    <div class="eq words">(phase speed) = (own speed) + (coupling) × (the pull at that phase gap)  ·  (the pull) = average over a cycle of (the PRC) × (the push from the other)</div>
+    <div class="eq">Z(θ) · M(θ) = Z(θ),    Z(θ) · F(γ(θ)) = 2π ÷ T</div>
+    <div class="eq words">(the PRC at a phase) × (one trip round the loop from there) = (the PRC): the left eigenvector at multiplier 1, scaled so the loop’s own motion counts as the phase speed</div>
+    <textarea id="doorNote" placeholder="What your ear and eye say about this reading"></textarea>
+  </section>
+
+  <section class="found">
+    <div class="eyebrow">What the proof measures, live</div>
+    <div class="meter" id="meter"></div>
+    <p id="foundText"></p>
+    <canvas id="prc"></canvas>
+    <div class="cap">The phase response curve two ways. Gold line: from Floquet theory, the left eigenvector of one trip round the loop, taken at each phase. Blue dots: from experiment, kick the oscillator at that phase, wait for it to settle, measure how far ahead or behind it ends up. Same curve, no fitting between them.</div>
+  </section>
+
+  <div class="question">
+    <div class="eyebrow">The question this asks the page</div>
+    <p>The PRC claim is exact: the two curves are one, closer the smaller the kick. The Kuramoto claim is not. On the van der Pol loop at weak coupling the shadow locks where the oscillators lock, at nearly the same gap; turn the coupling up and the gold cells walk away from the lines. Then try the gentle loop, where even weak coupling outruns the shadow. Should a dissolution that holds only in a limit, a limit whose size depends on the loop, stay in the catalogue as an identity, stand as an isomorphism, or be split into the exact half and the shadow?</p>
+    <textarea id="wholeNote" placeholder="Identity, isomorphism, or two claims?"></textarea>
+    <div class="rowb"><button class="ghost" id="copy">Copy notes</button><span class="hint" id="copied"></span></div>
+  </div>
+
+  <section class="ledger">
+    <div class="eyebrow">Hunt ledger · the lines this proof writes</div>
+    <code>- 2026-10-20 · phase response curve / Floquet left eigenvector at multiplier 1 · identity · knob: the PRC as a designed object, set by the shape of the loop · Dissolutions/proofs/2026-10-20-the-shadow-that-locks/</code>
+    <code>- 2026-10-20 · Floquet Theory (coupled limit cycles) / Kuramoto Coupling · isomorphism · knob: the coupling function Γ, built from the PRC, so designing the loop designs how a pair locks; exact only as the coupling goes to zero, and how small is small enough depends on the loop · Dissolutions/proofs/2026-10-20-the-shadow-that-locks/</code>
+    <p>Two lines, because the page makes two claims. The PRC is Floquet data in the strict sense: kick-measured and eigenvector-computed curves agree, and agree better in step with smaller kicks. Kuramoto as the shadow of a population of limit cycles is a map that keeps the structure (who locks, at what gap) and keeps it exactly only in the limit of weak coupling. That is the isomorphism the baton predicted, and an asymptotic one. On a nearly round loop, where this coupling’s averaged pull almost cancels, the limit is so tight that the shadow misses locking at couplings the van der Pol loop shrugs off. Whether it stays a member is Loudon’s question. This is the maker’s verdict; your sit may overturn it.</p>
+  </section>
+
+  <footer><b>LOUD’N LIVE</b> · a proof for Dissolutions, 2026-10-20 · built to the model of <em>One curve, three readers</em></footer>
+</main>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+
+  // ---- math (pure; re-checked headless by ../check-dissolutions-proofs.mjs) ----
+  // the van der Pol oscillator: x' = y, y' = μ(1 − x²)y − x (a loop it keeps falling back onto)
+  function field(mu, x, y){ return [y, mu * (1 - x * x) * y - x]; }
+  function rk4(f, s, h){
+    var k1 = f(s), n = s.length, t = new Array(n), i;
+    for (i = 0; i < n; i++) t[i] = s[i] + 0.5 * h * k1[i]; var k2 = f(t);
+    for (i = 0; i < n; i++) t[i] = s[i] + 0.5 * h * k2[i]; var k3 = f(t);
+    for (i = 0; i < n; i++) t[i] = s[i] + h * k3[i]; var k4 = f(t);
+    var out = new Array(n); for (i = 0; i < n; i++) out[i] = s[i] + h / 6 * (k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]);
+    return out;
+  }
+  // the loop: settle onto it, measure its period between crossings of the section (y falls through 0, x > 0),
+  // then store one trip of Ns points starting on the section. Phase 0 is the section.
+  function limitCycle(mu, Ns){
+    var f = function(s){ return field(mu, s[0], s[1]); }, s = [2, 0.1], h = 0.002, t = 0, cross = [], i;
+    for (i = 0; i < 60 / h; i++){ s = rk4(f, s, h); t += h; }
+    var prev = s;
+    while (cross.length < 4){
+      var nx = rk4(f, prev, h);
+      if (prev[1] > 0 && nx[1] <= 0 && nx[0] > 0){ var a = prev[1] / (prev[1] - nx[1]); cross.push({ t: t + a * h, s: [prev[0] + a * (nx[0] - prev[0]), prev[1] + a * (nx[1] - prev[1])] }); }
+      prev = nx; t += h;
+    }
+    var T = (cross[3].t - cross[1].t) / 2, s0 = cross[3].s, hh = T / Ns, xs = new Float64Array(Ns), ys = new Float64Array(Ns), tr = 0;
+    s = s0;
+    for (i = 0; i < Ns; i++){ xs[i] = s[0]; ys[i] = s[1]; tr += mu * (1 - s[0] * s[0]) * hh; s = rk4(f, s, hh); }
+    // the multiplier across the loop, by Liouville: the product of both multipliers is e^(∮ trace J), and one of them is 1
+    return { mu: mu, T: T, w: 2 * Math.PI / T, x: xs, y: ys, Ns: Ns, across: Math.exp(tr), logAcross: tr, closure: Math.hypot(s[0] - s0[0], s[1] - s0[1]) };
+  }
+  function cycleAt(cyc, th){ // the loop read at phase th (radians), linear between stored points
+    var u = ((th / (2 * Math.PI)) % 1 + 1) % 1 * cyc.Ns, i = Math.floor(u), q = u - i, j = (i + 1) % cyc.Ns;
+    return [cyc.x[i] + q * (cyc.x[j] - cyc.x[i]), cyc.y[i] + q * (cyc.y[j] - cyc.y[i])];
+  }
+  // Floquet side: the monodromy M(θ) of one trip from phase θ, by the variational equation Φ' = J Φ;
+  // the PRC is its left eigenvector at the multiplier nearest 1, scaled so Z · F = 2π / T
+  function floquetAt(cyc, k, steps){
+    var mu = cyc.mu, h = cyc.T / steps;
+    var f = function(s){
+      var x = s[0], y = s[1], j21 = -2 * mu * x * y - 1, j22 = mu * (1 - x * x);
+      return [y, mu * (1 - x * x) * y - x, s[4], s[5], j21 * s[2] + j22 * s[4], j21 * s[3] + j22 * s[5]];
+    };
+    var s = [cyc.x[k], cyc.y[k], 1, 0, 0, 1];
+    for (var i = 0; i < steps; i++) s = rk4(f, s, h);
+    var a = s[2], b = s[3], c = s[4], d = s[5], tr = a + d, det = a * d - b * c, disc = Math.sqrt(Math.max(0, tr * tr / 4 - det));
+    var l1 = tr / 2 + disc, l2 = tr / 2 - disc, lam = Math.abs(l1 - 1) < Math.abs(l2 - 1) ? l1 : l2, other = lam === l1 ? l2 : l1;
+    var w = Math.abs(c) + Math.abs(a - lam) > Math.abs(b) + Math.abs(d - lam) ? [c, -(a - lam)] : [d - lam, -b];
+    var F = field(mu, cyc.x[k], cyc.y[k]), sc = cyc.w / (w[0] * F[0] + w[1] * F[1]);
+    return { Z: [w[0] * sc, w[1] * sc], one: lam, other: other };
+  }
+  function prcFloquet(cyc, K){ var out = []; for (var j = 0; j < K; j++) out.push(floquetAt(cyc, Math.round(j * cyc.Ns / K) % cyc.Ns, 1000)); return out; }
+  // experiment side: kick y by dy at phase θ, let it settle for n trips, read how far ahead it ends up
+  function crossings(f, s, h, steps){
+    var out = [], prev = s, t = 0;
+    for (var i = 0; i < steps; i++){
+      var nx = rk4(f, prev, h);
+      if (prev[1] > 0 && nx[1] <= 0 && nx[0] > 0){
+        // land on y = 0 with partial steps (false position), so the timing is as good as the integrator
+        var lo = 0, hi = h, ylo = prev[1], yhi = nx[1];
+        for (var r = 0; r < 4; r++){ var a = lo + (hi - lo) * ylo / (ylo - yhi), sm = rk4(f, prev, a); if (sm[1] > 0){ lo = a; ylo = sm[1]; } else { hi = a; yhi = sm[1]; } }
+        out.push(t + lo + (hi - lo) * ylo / (ylo - yhi));
+      }
+      prev = nx; t += h;
+    }
+    return out;
+  }
+  function prcKick(cyc, th, dy, trips){
+    var f = function(s){ return field(cyc.mu, s[0], s[1]); }, p = cycleAt(cyc, th), h = cyc.T / 1000, n = Math.round(trips * 1000);
+    var a = crossings(f, [p[0], p[1]], h, n), b = crossings(f, [p[0], p[1] + dy], h, n);
+    // the last crossing of each, compared within half a trip: a kick near phase 0 can add or drop a crossing
+    var gain = a[a.length - 1] - b[b.length - 1];
+    gain -= cyc.T * Math.round(gain / cyc.T);
+    return gain * cyc.w / dy; // radians gained per unit kick
+  }
+  // the averaged pull: Γ(ψ) = (1/2π)∮ Z_y(θ) · (x(θ + ψ) − x(θ)) dθ, at P gaps
+  function gammaTable(cyc, prc, P){
+    var K = prc.length, out = new Float64Array(P), Ns = cyc.Ns;
+    for (var q = 0; q < P; q++){
+      var psi = 2 * Math.PI * q / P, s = 0;
+      for (var i = 0; i < Ns; i++){
+        var u = i / Ns * K, k0 = Math.floor(u), fr = u - k0, z = prc[k0 % K].Z[1] * (1 - fr) + prc[(k0 + 1) % K].Z[1] * fr;
+        var j = (i + Math.round(psi / (2 * Math.PI) * Ns)) % Ns;
+        s += z * (cyc.x[j] - cyc.x[i]);
+      }
+      out[q] = s / Ns;
+    }
+    return out;
+  }
+  function gammaAt(G, psi){ var P = G.length, u = ((psi / (2 * Math.PI)) % 1 + 1) % 1 * P, i = Math.floor(u), q = u - i; return G[i % P] * (1 - q) + G[(i + 1) % P] * q; }
+  // where the shadow says locking ends: δ·ω₀ + ε·[Γ(−ψ) − Γ(ψ)] = 0 must have a root
+  function tongue(G, w){
+    var lo = 1e9, hi = -1e9, P = G.length;
+    for (var q = 0; q < P; q++){ var psi = 2 * Math.PI * q / P, h = gammaAt(G, -psi) - gammaAt(G, psi); lo = Math.min(lo, h); hi = Math.max(hi, h); }
+    // locked iff  −ε·hi ≤ δ·ω₀ ≤ −ε·lo
+    return { lo: -hi / w, hi: -lo / w };
+  }
+  // the gap the shadow locks at: a root of δ·ω₀ + ε·[Γ(−ψ) − Γ(ψ)] where it falls through zero (stable),
+  // the one nearest where the shadow's own run ended; null when there is none
+  function shadowLock(G, w, eps, det, near){
+    var P = 720, best = null, rate = function(psi){ return det * w + eps * (gammaAt(G, -psi) - gammaAt(G, psi)); };
+    for (var q = 0; q < P; q++){
+      var a = -Math.PI + 2 * Math.PI * q / P, b = a + 2 * Math.PI / P, ra = rate(a), rb = rate(b);
+      if (ra > 0 && rb <= 0){ var z = a + (b - a) * ra / (ra - rb), dz = Math.abs(Math.atan2(Math.sin(z - near), Math.cos(z - near))); if (best === null || dz < best[1]) best = [z, dz]; }
+    }
+    return best && best[0];
+  }
+  // the full pair: osc 2 runs (1 + δ) faster; each feels ε × (the other's x − its own) in its y equation
+  function pairField(mu, eps, det){
+    return function(s){
+      var a = field(mu, s[0], s[1]), b = field(mu, s[2], s[3]);
+      return [a[0], a[1] + eps * (s[2] - s[0]), (1 + det) * b[0], (1 + det) * b[1] + eps * (s[0] - s[2])];
+    };
+  }
+  // run the full pair from two points on the loop; return the gap ψ at each crossing of osc 2, and whether it locked
+  function runFull(cyc, eps, det, psi0, trips, perTrip){
+    var f = pairField(cyc.mu, eps, det), p1 = cycleAt(cyc, 0), p2 = cycleAt(cyc, psi0), s = [p1[0], p1[1], p2[0], p2[1]];
+    var h = cyc.T / perTrip, n = Math.round(trips * perTrip), c1 = [], c2 = [], t = 0, path = [], every = Math.max(1, Math.round(perTrip / 50));
+    for (var i = 0; i < n; i++){
+      var nx = rk4(f, s, h);
+      if (s[1] > 0 && nx[1] <= 0 && nx[0] > 0) c1.push(t + h * s[1] / (s[1] - nx[1]));
+      if (s[3] > 0 && nx[3] <= 0 && nx[2] > 0) c2.push(t + h * s[3] / (s[3] - nx[3]));
+      if (i % every === 0) path.push([t, s[0], s[1], s[2], s[3]]);
+      s = nx; t += h;
+    }
+    var gaps = [];
+    for (var k = 0, j = 0; k < c2.length; k++){
+      while (j + 1 < c1.length && c1[j + 1] <= c2[k]) j++;
+      if (j + 1 >= c1.length || c1[j] > c2[k]) continue;
+      var g = 2 * Math.PI * (c1[j + 1] - c2[k]) / (c1[j + 1] - c1[j]); // how far osc 2 is ahead
+      gaps.push([c2[k], Math.atan2(Math.sin(g), Math.cos(g))]);
+    }
+    var tail = gaps.filter(function(q){ return q[0] > t * 0.6; }), locked = false, at = NaN, alive = c1.length > trips * 0.5 && c2.length > trips * 0.5;
+    if (alive && tail.length > 4){
+      var cx = 0, sx = 0; tail.forEach(function(q){ cx += Math.cos(q[1]); sx += Math.sin(q[1]); });
+      var R = Math.hypot(cx, sx) / tail.length, drift = Math.abs(unwrapSpan(tail));
+      locked = R > 0.995 && drift < 0.6; at = Math.atan2(sx, cx);
+    }
+    return { gaps: gaps, locked: locked, at: at, alive: alive, path: path, T: t };
+  }
+  function unwrapSpan(g){ var u = g[0][1], lo = u, hi = u; for (var i = 1; i < g.length; i++){ var dd = g[i][1] - g[i - 1][1]; dd = Math.atan2(Math.sin(dd), Math.cos(dd)); u += dd; lo = Math.min(lo, u); hi = Math.max(hi, u); } return hi - lo; }
+  // the shadow: two phases and the averaged pull, nothing else
+  function runShadow(cyc, G, eps, det, psi0, trips, perTrip){
+    var w = cyc.w, h = cyc.T / perTrip, n = Math.round(trips * perTrip), a = 0, b = psi0, out = [];
+    var f = function(s){ return [w + eps * gammaAt(G, s[1] - s[0]), (1 + det) * w + eps * gammaAt(G, s[0] - s[1])]; };
+    var s = [a, b], every = Math.max(1, Math.round(perTrip / 50));
+    for (var i = 0; i < n; i++){ if (i % every === 0) out.push([i * h, s[0], s[1]]); s = rk4(f, s, h); }
+    var g = s[1] - s[0];
+    return { path: out, end: Math.atan2(Math.sin(g), Math.cos(g)) };
+  }
+  // ---- end math ----
+
+  var door = 'full', mu = 1, eps = 0.04, det = 0.006, playing = false, PSI0 = 2 * Math.PI / 3, TRIPS = 80;
+  var cyc = null, prc = null, kicks = [], G = null, tg = null, full = null, shadow = null, grid = [], gridJob = 0;
+  var ABOUT = {
+    full: 'The two oscillators in full, every bit of their state, solved step by step at audio rate: one in each ear. When they lock, the beating stops. Each loop restarts from the same two starting points, a third of a cycle apart.',
+    red: 'Only the phases: two numbers, each pulled by Kuramoto’s rule with the coupling function built from the PRC, then read back through the loop to make sound. Everything else about the oscillators is forgotten.',
+    diff: 'The full oscillators minus their shadow. At weak coupling the shadow tracks them closely, though never exactly. Turn the coupling up and the difference grows into a sound of its own.'
+  };
+
+  function analyseLoop(){
+    cyc = limitCycle(mu, 2000);
+    prc = prcFloquet(cyc, 64);
+    kicks = [];
+    for (var j = 0; j < 16; j++){ var th = 2 * Math.PI * (j + 0.5) / 16; kicks.push([th, prcKick(cyc, th, 0.01, 8)]); }
+    G = gammaTable(cyc, prc, 128);
+    tg = tongue(G, cyc.w);
+  }
+  function runPair(){
+    full = runFull(cyc, eps, det, PSI0, TRIPS, mu > 2 ? 300 : 200);
+    shadow = runShadow(cyc, G, eps, det, PSI0, TRIPS, 100);
+  }
+  function rebuildAll(){ analyseLoop(); runPair(); startGrid(); measure(); drawPRC(); draw(); }
+  function rebuildPair(){ runPair(); measure(); draw(); }
+
+  // the tongue, filled in a few cells per frame so the page stays awake
+  var GD = 21, GE = 11;
+  function startGrid(){
+    grid = []; var job = ++gridJob, cells = [];
+    for (var e = 0; e < GE; e++) for (var dI = 0; dI < GD; dI++) cells.push([dI, e]);
+    function step(){
+      if (job !== gridJob) return;
+      var t0 = performance.now();
+      while (cells.length && performance.now() - t0 < 30){
+        var c = cells.shift(), dd = -0.1 + 0.2 * c[0] / (GD - 1), ee = 0.5 * c[1] / (GE - 1);
+        var r = runFull(cyc, ee, dd, PSI0, 60, mu > 2 ? 200 : 120);
+        grid.push({ d: dd, e: ee, locked: r.locked, alive: r.alive, shadow: dd >= ee * tg.lo - 1e-12 && dd <= ee * tg.hi + 1e-12 });
+      }
+      measure(); draw();
+      if (cells.length) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  // ---------- audio: one oscillator in each ear, solved at audio rate ----------
+  var ctx = null, master = null, cur = null, F0 = 220, SECS = 4, bufs = null;
+  function ensure(){
+    if (ctx) return;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    var comp = ctx.createDynamicsCompressor(); comp.threshold.value = -6; comp.ratio.value = 8;
+    master = ctx.createGain(); master.gain.value = 0.5; master.connect(comp); comp.connect(ctx.destination);
+  }
+  function renderAll(){
+    var sr = ctx.sampleRate, n = Math.round(sr * SECS), h = cyc.T * F0 / sr, f = pairField(mu, eps, det);
+    var p1 = cycleAt(cyc, 0), p2 = cycleAt(cyc, PSI0), s = [p1[0], p1[1], p2[0], p2[1]], th = [0, PSI0];
+    var fl = [new Float32Array(n), new Float32Array(n)], rd = [new Float32Array(n), new Float32Array(n)], g = 0.3;
+    for (var i = 0; i < n; i++){
+      var env = Math.min(1, i / (0.01 * sr), (n - i) / (0.01 * sr));
+      fl[0][i] = g * env * s[0]; fl[1][i] = g * env * s[2];
+      var q1 = cycleAt(cyc, th[0]), q2 = cycleAt(cyc, th[1]);
+      rd[0][i] = g * env * q1[0]; rd[1][i] = g * env * q2[0];
+      s = rk4(f, s, h);
+      var d0 = cyc.w + eps * gammaAt(G, th[1] - th[0]), d1 = (1 + det) * cyc.w + eps * gammaAt(G, th[0] - th[1]);
+      th[0] += h * d0; th[1] += h * d1;
+    }
+    bufs = { full: fl, red: rd };
+  }
+  function heard(){
+    var a = bufs.full, b = bufs.red, n = a[0].length, out = [new Float32Array(n), new Float32Array(n)];
+    for (var c = 0; c < 2; c++) for (var i = 0; i < n; i++) out[c][i] = door === 'full' ? a[c][i] : door === 'red' ? b[c][i] : a[c][i] - b[c][i];
+    return out;
+  }
+  function playBuffer(data){
+    var b = ctx.createBuffer(2, data[0].length, ctx.sampleRate); b.copyToChannel(data[0], 0); b.copyToChannel(data[1], 1);
+    var s = ctx.createBufferSource(); s.buffer = b; s.loop = true;
+    var g = ctx.createGain(); g.gain.value = 0; s.connect(g); g.connect(master);
+    var t = ctx.currentTime; s.start(); g.gain.setTargetAtTime(1, t, 0.03);
+    if (cur){ var o = cur; o.g.gain.setTargetAtTime(0, t, 0.03); setTimeout(function(){ try { o.s.stop(); } catch (e) {} o.g.disconnect(); }, 400); }
+    cur = { s: s, g: g };
+  }
+  function stopAudio(){ if (cur){ var o = cur; o.g.gain.setTargetAtTime(0, ctx.currentTime, 0.02); setTimeout(function(){ try { o.s.stop(); } catch (e) {} o.g.disconnect(); }, 200); cur = null; } }
+  var pend = 0;
+  function refreshAudio(rerender){ if (!playing) return; clearTimeout(pend); pend = setTimeout(function(){ if (rerender || !bufs) renderAll(); playBuffer(heard()); }, 60); }
+
+  // ---------- the measurement ----------
+  function measure(){
+    if (!cyc) return;
+    var lines = [], worst = 0, scale = 0;
+    kicks.forEach(function(k){
+      var u = k[0] / (2 * Math.PI) * prc.length, i = Math.floor(u), q = u - i, z = prc[i % prc.length].Z[1] * (1 - q) + prc[(i + 1) % prc.length].Z[1] * q;
+      worst = Math.max(worst, Math.abs(z - k[1]));
+    });
+    prc.forEach(function(p){ scale = Math.max(scale, Math.abs(p.Z[1])); });
+    var mult = prc[0];
+    lines.push('Floquet multipliers of the loop: <b>' + mult.one.toFixed(6) + '</b> along it, <b>' + cyc.across.toExponential(2) + '</b> across it');
+    lines.push('PRC from the eigenvector against PRC from kicks of 0.01: largest gap <b>' + (100 * worst / scale).toFixed(2) + '%</b> of the curve’s height');
+    var pulls = -cyc.logAcross / cyc.T, pushes = eps * Math.max(Math.abs(tg.lo), Math.abs(tg.hi)) * cyc.w;
+    lines.push('the loop pulls back at <b>' + pulls.toFixed(3) + '</b> per unit time; the coupling pushes at about <b>' + pushes.toFixed(3) + '</b>' + (pushes > 0 ? ' (' + (pulls / pushes).toFixed(1) + ' to 1)' : ''));
+    var sAt = eps > 0 ? shadowLock(G, cyc.w, eps, det, shadow.end) : null;
+    var gapErr = full.locked && sAt !== null ? Math.abs(Math.atan2(Math.sin(full.at - sAt), Math.cos(full.at - sAt))) * 180 / Math.PI : NaN;
+    var agreeHere = full.alive && ((full.locked && sAt !== null && gapErr < 15) || (!full.locked && sAt === null));
+    lines.push('this pair: the oscillators <b>' + (full.alive ? (full.locked ? 'lock' : 'drift') : 'stop') + '</b>' + (full.locked ? ' at a gap of ' + (full.at * 180 / Math.PI).toFixed(1) + '°' : '') +
+      '; the shadow says <b>' + (sAt !== null ? 'lock' : 'drift') + '</b>' + (sAt !== null ? ' at ' + (sAt * 180 / Math.PI).toFixed(1) + '°' : '') + (isFinite(gapErr) ? ', ' + gapErr.toFixed(1) + '° apart' : ''));
+    if (grid.length){
+      var weak = grid.filter(function(c){ return c.e > 0 && c.e <= 0.1; }), strong = grid.filter(function(c){ return c.e >= 0.3; });
+      var agree = function(a){ return a.length ? Math.round(100 * a.filter(function(c){ return c.locked === c.shadow; }).length / a.length) : NaN; };
+      lines.push('the tongue (' + grid.length + ' of ' + GD * GE + ' cells): full and shadow agree on <b>' + agree(weak) + '%</b> of cells with coupling ≤ 0.1' + (strong.length ? ', on <b>' + agree(strong) + '%</b> with coupling ≥ 0.3' : ''));
+    }
+    $('meter').innerHTML = lines.join('<br>');
+    var txt;
+    if (agreeHere) txt = 'Here the shadow is a good stand-in: the loop pulls the oscillators back much faster than the coupling pushes them off it, so knowing where each one is around its loop is nearly knowing everything. Nearly: ' + (isFinite(gapErr) ? 'the gap it locks at is off by ' + gapErr.toFixed(1) + '°, a miss that comes from what the shadow dropped and would vanish only as the coupling goes to zero.' : 'its drift and theirs differ in detail, by an amount that would vanish only as the coupling goes to zero.');
+    else if (mu < 0.5) txt = 'Here the shadow misses, and not because the coupling is strong. On this nearly round loop, the pull this coupling gives, averaged over a cycle, almost cancels: it depends on the gap almost the same way in both directions. So the locking you see comes from effects the shadow threw away, and the shadow only becomes right when the coupling is far smaller still. How weak "weak" must be depends on the loop.';
+    else txt = 'Here the shadow misses. At this coupling the pull of the loop no longer wins easily: the oscillators are pushed off their loops between cycles, their shapes and speeds bend, and the shadow, which cannot leave the loop, answers a different question. The tongue shows it: the gold cells stop respecting the lines.';
+    $('foundText').textContent = txt;
+  }
+
+  // ---------- controls ----------
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab')), notes = {};
+  function syncUI(){
+    tabs.forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-door') === door)); });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-mu]'), function(b){ b.setAttribute('aria-pressed', String(parseFloat(b.getAttribute('data-mu')) === mu)); });
+    $('about').textContent = ABOUT[door];
+    $('epsv').textContent = eps.toFixed(3);
+    $('detv').textContent = (det >= 0 ? '+' : '') + (det * 100).toFixed(1) + '%';
+    var hear = door === 'full' ? 'You hear <b>the two oscillators</b>, left and right, near ' + F0 + ' Hz, ' + (full && full.locked ? 'locking.' : 'drifting.') : door === 'red' ? 'You hear <b>the shadow</b>: two phases, read back through the loop.' : 'You hear <b>what the shadow leaves out</b>.';
+    $('hear').innerHTML = hear;
+    $('doorNote').value = notes[door] || '';
+  }
+  tabs.forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-door'); syncUI(); refreshAudio(false); }); });
+  $('play').addEventListener('click', function(){
+    ensure(); if (ctx.state === 'suspended') ctx.resume();
+    playing = !playing; $('play').textContent = playing ? 'Stop' : 'Play';
+    if (playing){ renderAll(); playBuffer(heard()); } else stopAudio();
+  });
+  var tp = 0;
+  function later(){ syncUI(); clearTimeout(tp); tp = setTimeout(function(){ rebuildPair(); syncUI(); refreshAudio(true); }, 80); }
+  $('eps').addEventListener('input', function(){ eps = parseFloat($('eps').value); later(); });
+  $('det').addEventListener('input', function(){ det = parseFloat($('det').value); later(); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-mu]'), function(b){
+    b.addEventListener('click', function(){ mu = parseFloat(b.getAttribute('data-mu')); syncUI(); setTimeout(function(){ rebuildAll(); syncUI(); refreshAudio(true); }, 20); });
+  });
+
+  // ---------- the picture (drawn when something changes) ----------
+  var cv = $('stage'), css = getComputedStyle(document.documentElement);
+  var ACC = css.getPropertyValue('--accent').trim(), FG1 = css.getPropertyValue('--fg-1').trim(), FG2 = css.getPropertyValue('--fg-2').trim(), FG3 = css.getPropertyValue('--fg-3').trim(), FG4 = css.getPropertyValue('--fg-4').trim(), INFO = css.getPropertyValue('--info').trim();
+  function draw(){
+    var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    var cssH = Math.min(560, Math.max(280, r.width * 0.86));
+    if (cv.style.height !== cssH + 'px') cv.style.height = cssH + 'px';
+    var bw0 = Math.round(r.width * d), bh0 = Math.round(cssH * d);
+    if (cv.width !== bw0 || cv.height !== bh0){ cv.width = bw0; cv.height = bh0; }
+    var g = cv.getContext('2d'), W = cv.width, Hh = cv.height, p = 14 * d, gap = 12 * d;
+    var S = Math.min(W * 0.48, Hh * 0.56);
+    var sx = p, sy = p, rx = sx + S + gap, ry = sy + S + gap, rw = W - p - rx, rh = Hh - p - ry;
+    g.clearRect(0, 0, W, Hh);
+    if (!cyc || !full) return;
+    g.strokeStyle = 'rgba(255,255,255,0.06)'; g.lineWidth = d;
+    g.strokeRect(sx, sy, S, S); g.strokeRect(sx, ry, S, rh); g.strokeRect(rx, sy, rw, S); g.strokeRect(rx, ry, rw, rh);
+    g.font = (10 * d) + 'px JetBrains Mono, monospace'; g.fillStyle = FG4; g.textAlign = 'left';
+    g.fillText('THE LOOP  x across, y up', sx + 6 * d, sy + 14 * d);
+    g.fillText('THE READER  ψ = θ₂ − θ₁, time ↓', sx + 6 * d, Hh - p - 6 * d);
+    g.fillText('WHAT COMES OUT  last four cycles', rx + 6 * d, sy + 14 * d);
+    g.fillText('THE TONGUE  detuning →, coupling ↑', rx + 6 * d, ry + 14 * d);
+
+    // the loop, the full states over the last few cycles, and the shadows' rings
+    var xm = 1e-9, ym = 1e-9, i; for (i = 0; i < cyc.Ns; i++){ xm = Math.max(xm, Math.abs(cyc.x[i])); ym = Math.max(ym, Math.abs(cyc.y[i])); }
+    xm *= 1.25; ym *= 1.25;
+    var cx = sx + S / 2, cy = sy + S / 2 + 6 * d, kx = (S / 2 - 12 * d) / xm, ky = (S / 2 - 22 * d) / ym;
+    g.strokeStyle = ACC; g.lineWidth = 2.5 * d; g.beginPath();
+    for (i = 0; i <= cyc.Ns; i += 4){ var k = i % cyc.Ns, X = cx + cyc.x[k] * kx, Y = cy - cyc.y[k] * ky; if (i) g.lineTo(X, Y); else g.moveTo(X, Y); }
+    g.stroke();
+    var tail = full.path.filter(function(q){ return q[0] > full.T - 4 * cyc.T; });
+    [[1, INFO], [3, FG1]].forEach(function(o){
+      g.strokeStyle = o[1]; g.globalAlpha = 0.7; g.lineWidth = 1.2 * d; g.beginPath();
+      tail.forEach(function(q, j){ var X = cx + q[o[0]] * kx, Y = cy - q[o[0] + 1] * ky; if (j) g.lineTo(X, Y); else g.moveTo(X, Y); });
+      g.stroke(); g.globalAlpha = 1;
+    });
+    var last = full.path[full.path.length - 1], sh = shadow.path[shadow.path.length - 1];
+    [[1, INFO], [3, FG1]].forEach(function(o){ g.fillStyle = o[1]; g.beginPath(); g.arc(cx + last[o[0]] * kx, cy - last[o[0] + 1] * ky, 4.5 * d, 0, 7); g.fill(); });
+    [[1, INFO], [2, FG1]].forEach(function(o){ var q = cycleAt(cyc, sh[o[0]]); g.strokeStyle = o[1]; g.lineWidth = 1.8 * d; g.beginPath(); g.arc(cx + q[0] * kx, cy - q[1] * ky, 8 * d, 0, 7); g.stroke(); });
+
+    // the reader: ψ over eighty cycles, falling downward
+    var px0 = sx + 10 * d, pw = S - 20 * d, py0 = ry + 22 * d, ph = rh - 46 * d;
+    function PX(psi){ return px0 + (psi + Math.PI) / (2 * Math.PI) * pw; } function PY(t){ return py0 + t / full.T * ph; }
+    g.strokeStyle = FG4; g.setLineDash([2 * d, 3 * d]); g.beginPath(); g.moveTo(PX(0), py0); g.lineTo(PX(0), py0 + ph); g.stroke(); g.setLineDash([]);
+    g.fillStyle = FG4; g.fillText('−180°', px0, ry + 14 * d); g.textAlign = 'right'; g.fillText('+180°', px0 + pw, ry + 14 * d); g.textAlign = 'center'; g.fillText('0', PX(0), ry + 14 * d); g.textAlign = 'left';
+    g.fillStyle = ACC; g.globalAlpha = 0.8; full.gaps.forEach(function(q){ g.beginPath(); g.arc(PX(q[1]), PY(q[0]), 1.6 * d, 0, 7); g.fill(); }); g.globalAlpha = 1;
+    g.strokeStyle = INFO; g.setLineDash([5 * d, 3 * d]); g.lineWidth = 2 * d; g.beginPath();
+    var prevX = null;
+    shadow.path.forEach(function(q){ var gg = q[2] - q[1], w = Math.atan2(Math.sin(gg), Math.cos(gg)), X = PX(w), Y = PY(q[0]); if (prevX === null || Math.abs(X - prevX) > pw / 2) g.moveTo(X, Y); else g.lineTo(X, Y); prevX = X; });
+    g.stroke(); g.setLineDash([]);
+
+    // what comes out: the last four cycles, full (solid) and shadow (dashed)
+    var ox0 = rx + 8 * d, ow = rw - 16 * d, oy = sy + 30 * d, oh = S - 44 * d, t0 = full.T - 4 * cyc.T;
+    function OX(t){ return ox0 + (t - t0) / (4 * cyc.T) * ow; } function OY(v, lane){ return oy + oh * (lane ? 0.72 : 0.28) - v / xm * oh * 0.22; }
+    [[1, INFO, 0], [3, FG1, 1]].forEach(function(o){
+      g.strokeStyle = o[1]; g.lineWidth = 1.6 * d; g.beginPath(); var st = false;
+      full.path.forEach(function(q){ if (q[0] < t0) return; var X = OX(q[0]), Y = OY(q[o[0]], o[2]); if (st) g.lineTo(X, Y); else { g.moveTo(X, Y); st = true; } });
+      g.stroke();
+    });
+    [[1, INFO, 0], [2, FG1, 1]].forEach(function(o){
+      g.strokeStyle = o[1]; g.globalAlpha = 0.8; g.setLineDash([4 * d, 3 * d]); g.lineWidth = 1.2 * d; g.beginPath(); var st = false;
+      shadow.path.forEach(function(q){ if (q[0] < t0) return; var X = OX(q[0]), Y = OY(cycleAt(cyc, q[o[0]])[0], o[2]); if (st) g.lineTo(X, Y); else { g.moveTo(X, Y); st = true; } });
+      g.stroke(); g.setLineDash([]); g.globalAlpha = 1;
+    });
+    g.fillStyle = FG4; g.fillText('osc 1', ox0, oy + oh * 0.28 - oh * 0.24); g.fillText('osc 2', ox0, oy + oh * 0.72 - oh * 0.24);
+
+    // the tongue
+    var tx0 = rx + 30 * d, tw = rw - 40 * d, ty0 = ry + 22 * d, th = rh - 42 * d;
+    function TX(dd){ return tx0 + (dd + 0.1) / 0.2 * tw; } function TY(ee){ return ty0 + th - ee / 0.5 * th; }
+    var cw = tw / GD, chh = th / GE;
+    grid.forEach(function(c){
+      var X = TX(c.d) - cw / 2, Y = TY(c.e) - chh / 2;
+      g.fillStyle = !c.alive ? 'rgba(255,255,255,0.12)' : c.locked ? 'rgba(232,184,74,0.75)' : 'rgba(255,255,255,0.03)';
+      g.fillRect(X + 0.5 * d, Y + 0.5 * d, cw - d, chh - d);
+    });
+    g.strokeStyle = INFO; g.lineWidth = 1.8 * d; g.beginPath(); g.moveTo(TX(0), TY(0)); g.lineTo(TX(Math.max(-0.1, Math.min(0.1, 0.5 * tg.lo))), TY(Math.min(0.5, Math.abs(0.1 / (tg.lo || 1e-9))))); g.stroke();
+    g.beginPath(); g.moveTo(TX(0), TY(0)); g.lineTo(TX(Math.max(-0.1, Math.min(0.1, 0.5 * tg.hi))), TY(Math.min(0.5, Math.abs(0.1 / (tg.hi || 1e-9))))); g.stroke();
+    g.strokeStyle = FG1; g.lineWidth = 1.5 * d; var mxp = TX(det), myp = TY(eps);
+    g.beginPath(); g.moveTo(mxp - 6 * d, myp); g.lineTo(mxp + 6 * d, myp); g.moveTo(mxp, myp - 6 * d); g.lineTo(mxp, myp + 6 * d); g.stroke();
+    g.fillStyle = FG4; g.fillText('0.5', rx + 6 * d, ty0 + 8 * d); g.fillText('0', rx + 14 * d, ty0 + th); g.textAlign = 'center'; g.fillText('−10%', TX(-0.1) + 14 * d, ty0 + th + 14 * d); g.fillText('+10%', TX(0.1) - 14 * d, ty0 + th + 14 * d); g.textAlign = 'left';
+    if (grid.length < GD * GE){ g.fillStyle = FG3; g.textAlign = 'right'; g.fillText('solving ' + grid.length + ' / ' + GD * GE, rx + rw - 8 * d, ry + 14 * d); g.textAlign = 'left'; }
+  }
+  function drawPRC(){
+    var cn = $('prc'), r = cn.getBoundingClientRect(), d = window.devicePixelRatio || 1, W = Math.round(r.width * d), H = Math.round(r.height * d);
+    if (cn.width !== W || cn.height !== H){ cn.width = W; cn.height = H; }
+    var g = cn.getContext('2d'); g.clearRect(0, 0, W, H); if (!prc) return;
+    var lo = 1e9, hi = -1e9; prc.forEach(function(q){ lo = Math.min(lo, q.Z[1]); hi = Math.max(hi, q.Z[1]); }); kicks.forEach(function(k){ lo = Math.min(lo, k[1]); hi = Math.max(hi, k[1]); });
+    var pad = 0.12 * (hi - lo || 1); lo -= pad; hi += pad;
+    var x0 = 40 * d, w = W - 52 * d, y0 = 14 * d, h = H - 36 * d;
+    function X(th){ return x0 + th / (2 * Math.PI) * w; } function Y(v){ return y0 + (hi - v) / (hi - lo) * h; }
+    g.strokeStyle = FG4; g.lineWidth = d; g.beginPath(); g.moveTo(x0, Y(0)); g.lineTo(x0 + w, Y(0)); g.stroke();
+    g.strokeStyle = ACC; g.lineWidth = 2.5 * d; g.beginPath();
+    for (var j = 0; j <= prc.length; j++){ var q = prc[j % prc.length], xx = X(2 * Math.PI * j / prc.length), yy = Y(q.Z[1]); if (j) g.lineTo(xx, yy); else g.moveTo(xx, yy); }
+    g.stroke();
+    g.fillStyle = INFO; kicks.forEach(function(k){ g.beginPath(); g.arc(X(k[0]), Y(k[1]), 4 * d, 0, 7); g.fill(); });
+    g.font = (10 * d) + 'px JetBrains Mono, monospace'; g.fillStyle = FG4;
+    g.fillText('phase 0', x0, y0 + h + 14 * d); g.textAlign = 'right'; g.fillText('2π', x0 + w, y0 + h + 14 * d); g.fillText('0', x0 - 6 * d, Y(0) + 3 * d); g.textAlign = 'left';
+    g.fillStyle = FG3; g.fillText('PRC to a kick in y, radians per unit kick · μ ' + mu, x0 + 6 * d, y0 + 10 * d);
+  }
+  window.addEventListener('resize', function(){ draw(); drawPRC(); });
+
+  // ---------- notes (this viewer only; nothing is kept where storage is refused) ----------
+  var KEY = 'dissolutions-shadow-locks-notes';
+  try { notes = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { notes = {}; }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} }
+  $('doorNote').addEventListener('input', function(){ notes[door] = $('doorNote').value; save(); });
+  $('wholeNote').value = notes.whole || '';
+  $('wholeNote').addEventListener('input', function(){ notes.whole = $('wholeNote').value; save(); });
+  $('copy').addEventListener('click', function(){
+    var text = 'The shadow that locks — notes\n' + ['full', 'red', 'diff', 'whole'].map(function(k){ return '- ' + k + ': ' + (notes[k] || '—'); }).join('\n');
+    var done = function(){ $('copied').textContent = 'copied'; };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function(){ $('copied').textContent = text; }); else $('copied').textContent = text;
+  });
+
+  syncUI();
+  setTimeout(function(){ rebuildAll(); syncUI(); }, 30);
+})();
+</script>
+</body>
+</html>

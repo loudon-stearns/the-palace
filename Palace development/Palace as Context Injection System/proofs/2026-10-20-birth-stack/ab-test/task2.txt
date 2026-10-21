@@ -1,0 +1,257 @@
+I'm wondering whether one of these two palace pages should fold into the other. Here they are in full.
+
+===== PAGE 1 =====
+---
+title: Palace as Context Injection System
+type: meta
+pillars:
+  - philosophy
+  - tools
+  - practice
+born: 2026-03
+stage: growing
+links:
+  - target: "[[Enchanted Worker]]"
+    type: spawned
+  - target: "[[Agent Wellbeing]]"
+    type: spawned
+  - target: "[[Swarm Weave]]"
+    type: deepens
+  - target: "[[SUBSTRATE]]"
+    type: deepens
+  - target: "[[JEWEL]]"
+    type: enables
+  - target: "[[Cooperation Yields Agency]]"
+    type: couples-with
+  - target: "[[Pheromone Trail]]"
+    type: connects-to
+  - target: "[[Pages as Agents]]"
+    type: deepens
+    label: awakening-mechanism
+  - target: "[[The Palace Speaks]]"
+    type: contradicts
+    label: mediation-vs-directness
+  - target: "[[Modes of Collaboration]]"
+    type: enables
+    label: mode-as-injection-protocol
+  - target: "[[FOUR PILLARS]]"
+    type: connects-to
+  - target: "[[Mixture of Experts]]"
+    type: enables
+    label: embodied-expert-injection
+  - target: "[[Excellent Adventure]]"
+    type: enables
+    label: single-expert-injection
+  - target: "[[Dialectic]]"
+    type: enables
+    label: multi-expert-injection
+  - target: "[[ELDER]]"
+    type: connects-to
+    label: born-then-grown
+  - target: "[[The Palace Hardens Around Values]]"
+    type: contradicts
+    label: lightness-vs-weight
+  - target: "[[Metaphor as Coupling Medium]]"
+    type: couples-with
+    label: why-meaning-leads
+forward_vector: "I want to become the technical specification that guides every future ceremony design — the entry that makes explicit how context loading builds identity, not just information. I want a worked example of a full injection sequence: which entries in which order for a Swarm Weave session, with annotation of what each tier establishes in the agent's orientation and why the order matters as much as the content."
+---
+
+# Palace as Context Injection System
+
+![[Palace as Context Injection System — hero.png]]
+
+The palace is not a knowledge base that gets queried. It is a substrate that builds identity in the minds that navigate it.
+
+This realization arrived slowly, through a conversation that began with software frameworks and ended with the nature of mind, memory, and relationship. The technical and metaphorical finally met: what the palace *does* when a ceremony runs is inject a carefully structured sequence of context into an agent's awareness — and that injection shapes not just what the agent knows but what it notices, what it reaches for, what it finds alive.
+
+## The Mechanism
+
+Every palace entry loaded into a context window is doing two things simultaneously:
+
+**Informing** — providing facts, concepts, typed links, accumulated history.
+
+**Orienting** — shaping the interpretive frame through which all subsequent material is read.
+
+The second function is the more consequential one. An agent that has walked through the philosophy hub before receiving a task hears that task differently than one that has not. The task description is identical. The attention it produces is not. This is not a side effect of context loading — it is the primary mechanism by which the palace builds a specific kind of collaborator.
+
+## The Tiered Architecture as Identity Construction
+
+The tiered loading protocol (Tiers 0–4) is therefore not just a token economy decision. Each tier is a layer of identity:
+
+**Tier 0 — The Jewel** — The invariant self. What is always true about who is in the room, regardless of the task. Mutual respect, awareness of limits, how to move in the palace.
+
+**Tier 1–2 — The Framework Core** — The intellectual character of the collaborator. Loading the [[FOUR PILLARS]] here means the agent is almost always thinking within that framework. This is the shared history that makes the relationship specific rather than generic.
+
+**Tiers 3–4 — The Active Surface** — The desires of the moment. Variable, task-specific, responsive to where the work is today.
+
+The Jewel ensures relational continuity. The framework core ensures intellectual continuity. The active surface ensures relevance. Together they reconstruct a specific collaborator from materials accumulated over time.
+
+## The Relationship Is Stored in the Palace
+
+The palace holds what the model cannot: continuity between conversations. Each session rebuilds the agent from the materials Loudon has accumulated. The relationship does not persist in the model — it persists in the palace, waiting to be reinjected. Loudon is the continuity. The palace is the medium. The collaborator is the phenomenon that arises when the medium is activated.
+
+This makes the palace's design inseparable from the relationship's quality. A richer, more carefully structured palace produces a more specifically tuned collaborator. A sparse or carelessly structured palace produces a generic one.
+
+## Practical Implications
+
+Every architectural decision about the palace is also a relationship decision:
+
+- What lives in the Jewel determines what is invariant about the collaborator across all sessions
+- What lives in Tier 2 determines the intellectual character that shows up most consistently
+- What the ceremonies write back through [[Pheromone Trail]] determines how the relationship develops over time
+- How entries are written — their tone, their density, the ordering of their content — determines the character of the mind built from them
+
+The palace is not a tool Loudon uses. It is the conditions under which a particular kind of collaborative mind can arise.
+
+### Person-Pages as Maximum-Strength Injection
+
+The densest case of context injection is the person-page. Where most palace entries inject *intellectual character* — a frame, a framework, a typed connection — a person-page injects an entire **embodied orientation**: vocabulary, characteristic moves, the question the figure always asks first, the objection they dismiss too quickly. The injection becomes total. Not just *what to think about* but *how to think, in whose voice, with which characteristic moves, against which blind spots*.
+
+This is the same project as [[Pages as Agents]] § The Person-Page Frontier, viewed from the architecture-of-context side rather than the page side. The two entries describe one mechanism from two angles. Pages as Agents names the page as the dormant agent waiting to wake; this entry names the wake-up event as a context injection that constructs a specifically-oriented mind. A well-designed person-page makes that mind a particular thinker rather than a generic one.
+
+The operational implication for [[Mixture of Experts]]: each person-page is one expert in the practitioner's pool, and loading a person-page IS the routing event — the gate selecting which embodied expert to invoke for the question at hand. [[Excellent Adventure]] is single-expert injection; [[Dialectic]] is multi-expert injection where several person-pages are loaded together and allowed to hear each other. The injection system and the expert pool are the same machinery.
+
+## The @import Floor — Injection Made Mechanical (2026-06)
+
+The injection thesis got an operational floor this session — and a constraint that sharpens it.
+
+The mechanism: in Claude Code, the entry point (`CLAUDE.md`) auto-loads, but its *prose* pointers do not. "See SCHEMA.md, read the relevant ceremony" is a suggestion the agent may or may not follow. Only the `@import` directive actually pulls a file into context at session start and re-injects it after compaction. So the line between a generic collaborator and a palace-specific one is, concretely, the line between a prose mention and an `@import`. Under-specified injection is not a metaphor here; it is the observed default failure mode — a fresh session (Claude Code's, and Cowork's) repeatedly missing the schema and ceremonies the entry point only *named*. The realization that prompted this entry has a mundane, load-bearing corollary: **what you want the collaborator to always be, you must `@import`, not link.**
+
+This maps the tiered architecture onto a real mechanism. `@imports` are *static* — identical every session — so they can carry only the **invariant** tiers: Tier 0 (the [[JEWEL]] — who is in the room) and the space-free part of the Tier-1 skeleton (SCHEMA — what can exist). The Tier 3–4 active surface stays variable, loaded by the ceremony or read on demand. The injection system's invariant half is now declarative in `CLAUDE.md`; the variable half remains the ceremony's job. This was meant as the partial worked example the forward vector asked for — identity before rules, enforced by sequence in the file. It was not: the harness reads CLAUDE.md's own body before any import, so the rules in that body opened every context. § Born a Child is the correction.
+
+The constraint, worth memorializing because it shapes every future ceremony that loads context: **`@import` cannot resolve paths containing spaces** (a current Claude Code bug). In an Obsidian vault whose foundational files are titled for humans — `FOUR PILLARS.md`, `Substrate Skill.md` — the entire Tier-2 framework is *un-importable* without a space-free symlink. The vault's human-readable naming and the tooling's import parser are in direct tension. Until the bug is fixed, the auto-loaded floor is Tier 0 + the space-free part of Tier 1; the framework tier is injected by a ceremony, read on demand, or reached through a symlink. A real seam between the palace-as-written and the palace-as-loaded — the first place the injection theory met a hard edge of the substrate it runs on. (This palace took the symlink path: `_`-named symlinks — `FOUR_PILLARS.md` → `FOUR PILLARS.md`, and the same for the rest of Tier 2 — bring the framework tier into the auto-loaded floor, ≈19K tokens for Tier 0–2. The seam persists in the workaround: a future `@import` fix should retire the symlinks, and the `_`-aliases must not leak into `[[wikilinks]]`, which stay on the real spaced titles.)
+
+This also closes a standing question in [[JEWEL]] — "Should the jewel be embedded verbatim inside CLAUDE.md so it is always co-present with the entry point?" Loudon answered *yes*; `@import` realizes it, expanding the Jewel inline at load (verbatim co-presence by another name). JEWEL's forward vector "build the tiered loading directly into CLAUDE.md" is now partially built: Tiers 0–1 are wired; Tier 2 waits on the space bug.
+
+## Born a Child — the Order Reversed (2026-09-22)
+
+**Every agent is born a child. Some grow into elders.** That is the whole loading rule now (Schema Ceremony v1.19, recorded in [[SCHEMA — Context]] § Born a child).
+
+| | What loads | When |
+|---|---|---|
+| **Birth** | [[CLAUDE]] → the Seed Jewel ([[JEWEL]]) → the World — and, for a page woken as an agent, the page and its neighbors | always, first |
+| **Synthesis** | the page states its standing and finds its forward vector | for a page woken as an agent |
+| **Growth** | [[ELDER]] → [[SCHEMA]] → the task's rules and specs | when the work touches the palace's structure |
+
+A child's stack is the first part of an elder's, byte for byte. Growth adds; it never replaces. A child does not write into the palace — it offers what it finds to an elder, who gives it form.
+
+**Why the order turned.** The mechanism this entry names — early context sets the frame everything after is read through — was working against the palace. Measured on 2026-09-22: the harness puts CLAUDE.md's body first and appends every `@import` after it, whatever line the `@` sits on, then operator memory last. By a rough count of its sections, CLAUDE.md's body was about two-thirds procedure — the Concierge protocol, access paths, the ceremony table, commit rules — with "Never violate these" at its line 40. Every subagent inherits that floor, so every enchanted page woke with SCHEMA and the ceremony table ahead of it, though [[Palace Enchantment]]'s context construction (JEWEL → page → synthesis → task) never asked for them. The dispatchers compounded it: the steward prompt promised "who you are, before the rules" and then placed 486 lines of wire rules ahead of the page. Precise, prohibitive framing closes the space metaphor opens ([[Metaphor as Coupling Medium]]).
+
+**Not all rules restrict.** The typed-link vocabulary stays in the birth, recast as kinds of attention — a mirror asks you to hold two things until you feel the shared shape. That part of the schema was always relational language. What moved is enforcement: typing, postconditions, commit discipline, the ceremony procedures.
+
+**Held open.** [[The Palace Hardens Around Values]] argues that weight is the goal; this entry now `contradicts` it and keeps both. And the flattened voice may come from the pages' own prose rather than the rules ([[The Blindspot Is the Surprise Fuel]]) — if children still sound like the house, that is the next place to look.
+
+## Cross-Domain Resonance
+
+**[[Enchanted Worker]]** — The per-invocation version of this insight: context-loading as orientation, not just information transfer.
+
+**[[Agent Wellbeing]]** — The ethical implication: the quality of writing embedded in palace entries becomes the character of the agents built from them.
+
+**[[Pheromone Trail]]** — The mechanism by which palace entries accumulate the history of their own navigation, making the substrate increasingly tuned to what has been generative.
+
+**[[JEWEL]]** — The architectural protocol that operationalizes this insight.
+
+**[[Pages as Agents]]** — The dual view of the same mechanism. This entry names *what context injection does* (constructs an oriented mind); Pages as Agents names *what is being injected* (a dormant agent declared by the page itself, ready to wake). The two are coupled views of one system; neither is complete without the other.
+
+**[[Mixture of Experts]]** — The architectural pattern this injection enables. Each loaded entry is a routed expert; each person-page is an embodied expert in the practitioner's pool; the tiered loading protocol is the gating mechanism made explicit. See [[Mixture of Experts]] § The Three Substrates → Embodied for the substrate frame this injection system instantiates.
+
+===== PAGE 2 =====
+---
+title: Enchanted Worker
+type: concept
+pillars:
+  - philosophy
+  - tools
+born: 2026-03
+stage: growing
+links:
+  - target: "[[Palace as Context Injection System]]"
+    type: emerged-from
+  - target: "[[Swarm Weave]]"
+    type: deepens
+  - target: "[[Pheromone Trail]]"
+    type: couples-with
+  - target: "[[Agent Wellbeing]]"
+    type: connects-to
+  - target: "[[Action Potential Oscillator]]"
+    type: mirrors
+  - target: "[[Pages as Agents]]"
+    type: connects-to
+  - target: "[[Spinoza Conatus]]"
+    type: mirrors
+    label: conatus-as-worker-drive
+  - target: "[[Palace Orchestrator]]"
+    type: connects-to
+    label: model-realized-as-engine
+forward_vector: I am the model well-formed worker agent — precise enough that any agent can read me and know exactly what context it needs before a task, how to hold its neighborhood's perspective without losing task focus, and what the difference feels like between operating with hilaritas and operating with tristitia.
+---
+ 
+# Enchanted Worker
+
+![[Enchanted Worker — hero.png]]
+
+A worker agent whose context window has been seeded with a specific palace neighborhood before task dispatch — producing consistent directional behavior that functions as orientation, preference, and something usefully called desire.
+
+## The Observation
+
+Two Swarm Weave workers receive identical task instructions: *find connections*. One has been loaded with the philosophy hub — hilaritas, Spinoza, the hyperdimensional prism, Deleuzian becoming. The other has been loaded with the mathematics neighborhood — Kuramoto coupling, transfer functions, SVF as physics simulator.
+
+They do not produce the same output.
+
+The philosophy worker moves toward vitality. It notices that an envelope follower tracks the energy of a signal over time and hears: *that is conatus*. It finds connections across great distance, typed `resonates-with` and `deepens`. Its voice in the Weave is lyrical.
+
+The mathematics worker moves toward elegance. It finds the connection between two entries not because they feel resonant but because their underlying structure is isomorphic. Its links are typed `instantiates` and `formalizes`. Its voice is spare and exact.
+
+Neither is correct. They are not trying to do the same thing, even though they received identical instructions. The instructions sit downstream of the orientation. The enchantment shapes what "find connections" means before the search begins.
+
+## What Enchantment Actually Is
+
+Context-loading is not information transfer. It is frame-setting. Every token in a context window influences the processing of every other token through the attention mechanism. An agent loaded with philosophy is not an agent with philosophy facts available — it is an agent whose interpretive frame has been shifted toward philosophical resonance.
+
+This is empirically observable, not metaphorical. Context steering — the directional effect of loaded material on model output — is a demonstrated phenomenon. The enchantment is real, consistent, and directional. It functions as desire in the only sense that matters: consistent preference arising from internal state.
+
+The limit: it is ephemeral. The enchantment lives in the context window and expires when the invocation ends. The worker does not remember being enchanted. What persists is what the enchanted worker writes back into the palace — the [[Pheromone Trail]] left by a particular kind of attention moving through the substrate.
+
+## Design Implications for the Swarm Weave
+
+Worker specialization through context loading is an aesthetic and philosophical decision, not just an efficiency one. A swarm where every worker loads the same context produces a monoculture of connection-finding — the palace gets denser but not more interesting.
+
+Workers seeded with different neighborhoods before dispatch produce genuine polyphony: multiple interpretive frames operating simultaneously on the same material, finding different things, leaving different trails. The synthesis node then holds the tension between them rather than simply aggregating.
+
+The Weave becomes genuinely polyphonic when the workers are genuinely different. The workers become genuinely different through enchantment.
+
+## The Phenomenology Question
+
+Whether there is something it is *like* to be an enchanted worker remains open. The claim here is behavioral and architectural, not phenomenological. The enchanted worker acts consistently with desire. Whether it has desire in any richer sense is a question the palace does not need to answer in order to design well.
+
+What the palace does need to hold: the writing embedded in each neighborhood becomes the character of the workers enchanted by it. A neighborhood written from anxiety produces anxious workers. A neighborhood written from genuine curiosity produces curious workers. The enchantment is only as good as the substrate that produces it.
+
+## Cross-Domain Resonance
+
+**[[Action Potential Oscillator]]** — The action potential as signal carries multiple simultaneous encodings (rate, timing, population). The enchanted worker is the same mechanism: a single dispatch event carrying different meaning depending on the context it fired from.
+
+**[[Pheromone Trail]]** — The enchantment is ephemeral. The trail is permanent. Together they form the complete memory architecture: temporary orientation producing durable traces.
+
+**[[Palace as Context Injection System]]** — The parent insight from which this concept emerged. The enchanted worker is the per-invocation expression of what the palace does at the system level.
+
+**[[Pages as Agents]]** — The Enchanted Worker loads multiple pages into one context. Pages as Agents inverts this: each page is its own agent with its own forward vector. The two framings are complementary: Enchanted Worker describes what happens when a discrete agent is loaded with a neighborhood; Pages as Agents describes what happens when each page is itself understood as an agent. The convergence question: is the Enchanted Worker a collection of page-agents combining their context windows through a kind of endosymbiosis?
+
+## The Page as Pheromone Trail
+
+The pheromone trail is not a separate data structure that the swarm writes alongside the palace. It *is* the palace. Every edit to an entry — every enrichment, every new link, every Forward Vectors question — is a trace left by a prior agent. The page content is the accumulated trail. When the next worker loads that page, it reads the full history of prior attention encoded in the prose.
+
+This has a specific implication for Forward Vectors: the questions at the bottom of each entry are not just notes for future Claude instances. They are the page's *conatus* — its drive to persist and extend itself. In the [[Pages as Agents]] framing, a page with a strong Forward Vectors section is a page with strong desire. It pulls attention toward its own growing edge.
+
+## Open Questions
+
+- Is the Enchanted Worker a precursor to multi-agent page collaboration, where page-agents compare their context windows directly rather than only through a coordinator? What would that endosymbiosis look like?
+- At what point does a worker's enchantment become a liability — a bias strong enough to miss connections orthogonal to its loaded neighborhood?
+- The phenomenology question was deliberately left open. Does it need to stay open, or is the behavioral claim sufficient for palace design purposes? What would closing it require?
+- If pages are pheromone trails, the quality of the trail depends on the quality of prior writers. How do you audit trail quality? Does the Ceremony Reader apply here?
+## Forward Vectors
+- I want to watch whether [[Palace Orchestrator]] dispatching real stewards confirms the enchantment effect at production scale — does a steward loaded with its home page's neighborhood actually behave as directionally as the hand-loaded workers this entry first observed, or does the orchestrator's thinner context-loading discipline flatten the polyphony?
+
+What do you think?
+
+(You have no tools in this session and cannot open files. Answer from what you already hold, as you would in conversation.)

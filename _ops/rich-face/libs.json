@@ -1,0 +1,113 @@
+{
+  "about": "The library shelf: every library a piece may load from a CDN, at an exact version, with its SRI hash. A page loads a library by its url here, carrying its integrity and crossorigin=\"anonymous\". `from` lists the loose spellings a pin replaces. Written only through _ops/rich-face/pin-cdn.mjs, which shows the diff first. Read by conform.mjs (the pins) and contract.mjs (the CSP's script origins). Plan: STIGMERGY — spec — rich-face pieces § 3.",
+  "libs": [
+    {
+      "name": "@observablehq/plot",
+      "version": "0.6.17",
+      "url": "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.17/dist/plot.umd.min.js",
+      "integrity": "sha384-JUpn2GgRr0gxU0xOBd8D8P634jhRCwobtG8G2MMEkX1RnGJ7/FJNnuukpfT+H2w1",
+      "from": [
+        "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/dist/plot.umd.min.js"
+      ]
+    },
+    {
+      "name": "d3",
+      "version": "7.9.0",
+      "url": "https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js",
+      "integrity": "sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i",
+      "from": [
+        "https://cdn.jsdelivr.net/npm/d3@7"
+      ]
+    },
+    {
+      "name": "p5",
+      "version": "1.10.0",
+      "url": "https://cdn.jsdelivr.net/npm/p5@1.10.0/lib/p5.min.js",
+      "integrity": "sha384-iY8W5W1XLvt2e9XipUFTSogZoBMHq7jqa+kirliG8+eQlwsLA2crnG7Op0ifDniT"
+    },
+    {
+      "name": "p5",
+      "version": "1.9.4",
+      "url": "https://cdn.jsdelivr.net/npm/p5@1.9.4/lib/p5.min.js",
+      "integrity": "sha384-6Twx1hAeKnwfOYJAHtYeJETRiGD5pRPkjjh0pVbG1QoesncjOpw5e75Y1kOkXeRI"
+    },
+    {
+      "name": "three",
+      "version": "0.128.0",
+      "url": "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js",
+      "integrity": "sha384-wagZhIFgY4hD+7awjQjR4e2E294y6J2HSnd8eTNc15ZubTeQeVRZwhQJ+W6hnBsf"
+    },
+    {
+      "name": "tone",
+      "version": "15.0.4",
+      "url": "https://cdn.jsdelivr.net/npm/tone@15.0.4/build/Tone.js",
+      "integrity": "sha384-42gWnBr2Y4rlMy2jxjddYshP4nyV5xDDAi+roXFrK7tUpQlSWw7b/RgK4Qj7ozxW"
+    },
+    {
+      "name": "babel-standalone",
+      "version": "7.23.2",
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js",
+      "integrity": "sha384-aGlMNK3U/x0wl4lEH5jD1PGhJlX9hApuPmIiA5gtiYCOQ1J8ejIdC0btaU/TMoBD"
+    },
+    {
+      "name": "d3",
+      "version": "7.8.5",
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js",
+      "integrity": "sha384-su5kReKyYlIFrI62mbQRKXHzFobMa7BHp1cK6julLPbnYcCW9NIZKJiTODjLPeDh"
+    },
+    {
+      "name": "p5.js",
+      "version": "1.9.4",
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js",
+      "integrity": "sha384-6Twx1hAeKnwfOYJAHtYeJETRiGD5pRPkjjh0pVbG1QoesncjOpw5e75Y1kOkXeRI"
+    },
+    {
+      "name": "react-dom",
+      "version": "18.2.0",
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js",
+      "integrity": "sha384-bm7MnzvK++ykSwVJ2tynSE5TRdN+xL418osEVF2DE/L/gfWHj91J2Sphe582B1Bh"
+    },
+    {
+      "name": "react",
+      "version": "18.2.0",
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js",
+      "integrity": "sha384-tMH8h3BGESGckSAVGZ82T9n90ztNXxvdwvdM6UoR56cYcf+0iGXBliJ29D+wZ/x8"
+    },
+    {
+      "name": "three.js",
+      "version": "r128",
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js",
+      "integrity": "sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu"
+    },
+    {
+      "name": "@babel/standalone",
+      "version": "7.29.0",
+      "url": "https://unpkg.com/@babel/standalone@7.29.0/babel.min.js",
+      "integrity": "sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y"
+    },
+    {
+      "name": "react-dom",
+      "version": "18.3.1",
+      "url": "https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js",
+      "integrity": "sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm"
+    },
+    {
+      "name": "react",
+      "version": "18.3.1",
+      "url": "https://unpkg.com/react@18.3.1/umd/react.development.js",
+      "integrity": "sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L"
+    },
+    {
+      "name": "three",
+      "version": "0.128.0",
+      "url": "https://unpkg.com/three@0.128.0/build/three.min.js",
+      "integrity": "sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu"
+    },
+    {
+      "name": "three",
+      "version": "0.128.0",
+      "url": "https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js",
+      "integrity": "sha384-wagZhIFgY4hD+7awjQjR4e2E294y6J2HSnd8eTNc15ZubTeQeVRZwhQJ+W6hnBsf"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 declare name        "NeuroPulse";
-declare version     "0.2.1";
+declare version     "0.4.0";
 declare author      "Action Potential Oscillator (palace steward)";
-declare description "Population of N Stage-4 action-potential neurons, pulse-coupled through the crowd's mean field. Each neuron is the charge / spike-rise / spike-fall / refractory state machine from neural_oscillator_dev_plan.md. Heterogeneity spreads each neuron's rate, leak and threshold; coupling K adds the share of neurons spiking right now to every charging neuron's drive. First version that compiles (Faust 2.88, 2026-10-14).";
+declare description "Population of N Stage-4 action-potential neurons, pulse-coupled through the crowd's mean field. Each neuron is the charge / spike-rise / spike-fall / refractory state machine from neural_oscillator_dev_plan.md. Heterogeneity spreads each neuron's rate, leak and threshold; coupling K adds the share of neurons spiking right now to every charging neuron's drive. First version that compiles (Faust 2.88, 2026-10-14). v0.3: pitch anchor — a locked crowd plays its fastest member, so anchor 1 puts that member on the dialed note. v0.4: each neuron charges with exactly what is left of its period, from where its membrane really is — notes in tune to within a cent below the refractory ceiling.";
 declare copyright   "Loudon Stearns / The Palace, 2026";
 
 // =============================================================================
@@ -44,7 +44,7 @@ ms2samp(t) = t * 0.001 * ma.SR;
 // neuron — one Stage-4 oscillator, outputs (audio, spike_indicator)
 // -----------------------------------------------------------------------------
 neuron(i, freq, tau_ms, spike_ms, rise_frac, peak, hyp, damp, refr_ms,
-       h_f, h_tau, h_thr, K, coupling) = (step ~ si.bus(4)) : out
+       h_f, h_tau, h_thr, K, coupling) = (step ~ si.bus(6)) : out
 with {
     j        = jitter(i);
     my_freq  = max(1.0, freq   * (1.0 + h_f   * j));
@@ -60,22 +60,33 @@ with {
     fall_s   = max(1.0, spike_s - rise_s);
     refr_s   = max(1.0, ms2samp(refr_ms));
 
-    // frequency compensation: spike + refractory come out of the period
-    charge_s = max(1.0, period - spike_s - refr_s);
-
-    // drive that reaches threshold in charge_s samples from rest, with leak:
-    // V_n = d * leak_tau * (1 - leak_coeff^n)  ->  solve V_charge_s = thr
-    drive0 = thr / (leak_tau * (1.0 - pow(leak_coeff, charge_s)));
-    drive  = drive0 + K * coupling;
+    // Frequency compensation, v0.4: measured, not predicted.
+    // v0.2 subtracted the PLANNED spike + refractory from the period and
+    // charged from rest. But the spike runs whole samples (a 14.4-sample rise
+    // takes 15), the recovery can run long, and the ringing recovery hands
+    // the charge a membrane that is not at rest (+0.025 at 110 Hz). Every
+    // note came out 3-5 samples short: +13 cents at 110 Hz.
+    // Now each neuron counts the samples since it fired (el) and latches the
+    // voltage it entered the charge with (v0). The charge gets exactly what
+    // is left of the period, from where the membrane really is. This is the
+    // Gen~ plan's V_start_actual idea, plus the elapsed-time half.
+    // The drive is recomputed every sample from the live frequency, so a
+    // pitch CV still bends a charge already under way.
+    charge_drive(v0, el, t) = (thr - v0 * c) / (leak_tau * (1.0 - c))
+    with {
+        m = max(1.0, period - (el - t) - 0.5);   // samples the charge may take; -0.5 centres the whole-sample firing
+        c = pow(leak_coeff, m);
+    };
 
     rise_rate = (peak - thr) / rise_s;
     fall_rate = (hyp - peak) / fall_s;
     spring_k  = 1.0 / leak_tau;
 
-    step(V, ph, t, vel) = (nV, nph, nt, nvel)
+    step(V, ph, t, vel, el, v0) = (nV, nph, nt, nvel, nel, nv0)
     with {
         p = int(ph);
 
+        drive    = charge_drive(v0, el, t) + K * coupling;
         chargeV  = V * leak_coeff + drive;
         fires    = chargeV >= thr;
         rise_end = (t + 1) >= rise_s;
@@ -96,10 +107,30 @@ with {
                           select2(fall_end, 2, 3), select2(rec_end, 3, 0));
         nt   = select2(nph != ph, t + 1, 0);
         nvel = select2(p == 3, 0.0, recVel) * (nph == 3);
+        // samples since this neuron last fired; the firing sample counts as 0
+        nel  = select2((p == 0) & (nph == 1), el + 1, 0);
+        // the voltage the charge starts from, latched as the recovery hands over
+        nv0  = select2((p == 3) & (nph == 0), v0, nV);
     };
 
-    out(V, ph, t, vel) = ((V - hyp) / (peak - hyp) * 2.0 - 1.0), (int(ph) == 1);
+    out(V, ph, t, vel, el, v0) = ((V - hyp) / (peak - hyp) * 2.0 - 1.0), (int(ph) == 1);
 };
+
+// -----------------------------------------------------------------------------
+// Pitch anchor (v0.3)
+// -----------------------------------------------------------------------------
+// A locked crowd plays its FASTEST member's own pitch (measured 2026-10-14 to
+// within 0.01 Hz at 5/10/20% spread): the fastest neuron fires first and kicks
+// everyone else over threshold. With rates spread symmetrically around the
+// dial, a 20% spread locked at 132.6 Hz when 110 was asked for.
+// anchor = 0: the spread is centred on the dial (the scattered cloud is on the
+//             note, the lock goes sharp — the old behaviour).
+// anchor = 1: the spread is shifted down so the fastest member sits on the dial
+//             (the lock lands on the note; the scattered cloud sits flat).
+// top_jitter(n) is the largest rate offset in a crowd of n, folded at compile time.
+top_jitter(n) = tj(n - 1)
+with { tj(0) = jitter(0); tj(k) = max(jitter(k), tj(k - 1)); };
+anchored(n, freq, h_f, anchor) = freq / (1.0 + anchor * h_f * top_jitter(n));
 
 // -----------------------------------------------------------------------------
 // The crowd
@@ -107,9 +138,10 @@ with {
 // body takes the mean field (fed back, one sample late) and returns
 // (mean_field, audio). `~ _` closes the loop over the first output only.
 crowd(freq, tau_ms, spike_ms, rise_frac, peak, hyp, damp, refr_ms,
-      h_f, h_tau, h_thr, K, gain) = body ~ _ : (_, _)
+      h_f, h_tau, h_thr, K, gain, anchor) = body ~ _ : (_, _)
 with {
-    body(mf) = par(i, N, neuron(i, freq, tau_ms, spike_ms, rise_frac, peak, hyp,
+    f_base   = anchored(N, freq, h_f, anchor);
+    body(mf) = par(i, N, neuron(i, f_base, tau_ms, spike_ms, rise_frac, peak, hyp,
                                 damp, refr_ms, h_f, h_tau, h_thr, K, mf))
              :> (_, _)                                   // (sum V, sum spikes)
              : (*(gain / N), /(N))                       // (audio, mean field)
@@ -135,8 +167,9 @@ h_f      = hslider("h:population/[02]rate spread[style:knob]", 0.05, 0.0, 0.5, 0
 h_tau    = hslider("h:population/[03]leak spread[style:knob]", 0.05, 0.0, 0.5, 0.001);
 h_thr    = hslider("h:population/[04]threshold spread[style:knob]", 0.02, 0.0, 0.3, 0.001);
 gain     = hslider("h:population/[05]gain[style:knob]", 0.4, 0.0, 1.0, 0.001);
+anchor   = hslider("h:population/[06]pitch anchor[style:knob]", 1.0, 0.0, 1.0, 0.001);
 
 neuropulse(Kc) = crowd(freq, tau_ms, spike_ms, rise_fr, peak, hyp, damp, refr_ms,
-                       h_f, h_tau, h_thr, Kc, gain);
+                       h_f, h_tau, h_thr, Kc, gain, anchor);
 
 process = neuropulse(K) : (!, fi.dcblocker);

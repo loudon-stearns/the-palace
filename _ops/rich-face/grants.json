@@ -1,0 +1,41 @@
+{
+  "title": "rich-face grants",
+  "about": "What Loudon has let a piece use. Camera, microphone and midi, and every host a piece fetches from (net), need a line here as well as the piece's own declaration (<meta name=\"piece:needs\">, <meta name=\"piece:net\">). The piece origin sends each piece a Permissions-Policy from this file, so a frame that asks for more gets nothing. A line is written only on Loudon's yes, one per piece, naming the piece by its palace path: { \"piece\": \"<palace path>\", \"allow\": [\"camera\"], \"net\": [\"<host>\"], \"yes\": \"Loudon, <date>\" }. Plan: STIGMERGY — spec — rich-face pieces § 3, decided 2026-10-13.",
+  "grants": [
+    {
+      "piece": "Projects/Semantic Webcam/01-live-stigmergy-cam.html",
+      "allow": [
+        "camera"
+      ],
+      "yes": "Loudon, 2026-10-21"
+    },
+    {
+      "piece": "Projects/Semantic Webcam/02-word-flock-cam.html",
+      "allow": [
+        "camera"
+      ],
+      "yes": "Loudon, 2026-10-21"
+    },
+    {
+      "piece": "Projects/Semantic Webcam/03-character-multiply-cam.html",
+      "allow": [
+        "camera"
+      ],
+      "yes": "Loudon, 2026-10-21"
+    },
+    {
+      "piece": "Projects/Semantic Webcam/04-grammar-fit-cam.html",
+      "allow": [
+        "camera"
+      ],
+      "yes": "Loudon, 2026-10-21"
+    },
+    {
+      "piece": "Projects/Semantic Webcam/05-tonal-word-cam.html",
+      "allow": [
+        "camera"
+      ],
+      "yes": "Loudon, 2026-10-21"
+    }
+  ]
+}

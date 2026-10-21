@@ -1,0 +1,36 @@
+<DecentSampler minVersion="1.0.0">
+  <!-- written by build.py beside Snap.sfz; same map -->
+  <!-- SFZ tune (cents) written as tuning (semitones) = tune/100 -->
+  <ui width="812" height="200" bgColor="FF0A0A0F">
+    <tab name="main">
+      <label x="20" y="6" width="772" height="24" text="Snap" textColor="FFE8B84A" textSize="18" />
+      <label x="20" y="150" width="772" height="40" text="Eight bright partials: few partials snap instead of fraying. The edge is a cliff, so the tear is a run of slips and the sustain is dead still." textColor="FFE8E6DF" textSize="12" />
+      <labeled-knob x="20" y="40" width="90" height="90" textSize="14" label="Attack" type="float" minValue="0" maxValue="2" value="0.002" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="ENV_ATTACK" />
+      </labeled-knob>
+      <labeled-knob x="130" y="40" width="90" height="90" textSize="14" label="Release" type="float" minValue="0" maxValue="8" value="0.5" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="ENV_RELEASE" />
+      </labeled-knob>
+      <labeled-knob x="240" y="40" width="90" height="90" textSize="14" label="Volume" type="float" minValue="0" maxValue="1" value="0.8" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="AMP_VOLUME" />
+      </labeled-knob>
+    </tab>
+  </ui>
+  <groups attack="0.002" decay="0" sustain="1" release="0.5" volume="0.8">
+    <group ampVelTrack="0.6">
+      <!-- soft: thrown 2x past the key's edge, decaying with tau 0.15 s at 110 Hz -->
+      <sample path="Samples/snap_C3_soft.wav" rootNote="48" loNote="47" hiNote="49" loVel="1" hiVel="42" tuning="0.11" loopEnabled="true" loopStart="47106" loopEnd="166157" loopCrossfade="0" />
+      <sample path="Samples/snap_C7_soft.wav" rootNote="96" loNote="95" hiNote="97" loVel="1" hiVel="42" tuning="0.11" loopEnabled="true" loopStart="21359" loopEnd="88746" loopCrossfade="0" />
+    </group>
+    <group ampVelTrack="0.6">
+      <!-- mid: thrown 6x past the key's edge, decaying with tau 0.15 s at 110 Hz -->
+      <sample path="Samples/snap_C3_mid.wav" rootNote="48" loNote="47" hiNote="49" loVel="43" hiVel="85" tuning="0.11" loopEnabled="true" loopStart="45539" loopEnd="164590" loopCrossfade="0" />
+      <sample path="Samples/snap_C7_mid.wav" rootNote="96" loNote="95" hiNote="97" loVel="43" hiVel="85" tuning="0.11" loopEnabled="true" loopStart="18059" loopEnd="85446" loopCrossfade="0" />
+    </group>
+    <group ampVelTrack="0.6">
+      <!-- hard: thrown 20x past the key's edge, decaying with tau 0.15 s at 110 Hz -->
+      <sample path="Samples/snap_C3_hard.wav" rootNote="48" loNote="47" hiNote="49" loVel="86" hiVel="127" tuning="0.11" loopEnabled="true" loopStart="59547" loopEnd="178598" loopCrossfade="0" />
+      <sample path="Samples/snap_C7_hard.wav" rootNote="96" loNote="95" hiNote="97" loVel="86" hiVel="127" tuning="0.11" loopEnabled="true" loopStart="22800" loopEnd="90187" loopCrossfade="0" />
+    </group>
+  </groups>
+</DecentSampler>

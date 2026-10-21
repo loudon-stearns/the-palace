@@ -40,3 +40,9 @@
 {"event":"TOOL_CALL","ts":"2026-10-14T11:12:47.290Z","tool":"write_blackboard","args":{"message_id":"apo-steward-017"},"result":"emitted+validated+appended"}
 {"event":"TOOL_CALL","ts":"2026-10-14T11:12:47.290Z","tool":"write_blackboard","args":{"message_id":"apo-steward-018"},"result":"emitted+validated+appended"}
 {"event":"CYCLE_COMPLETE","ts":"2026-10-14T11:12:47.290Z","iteration":8,"stop_reason":"end_turn","posted_messages":["apo-steward-016","apo-steward-017","apo-steward-018"],"pending_after":["apo-steward-012"]}
+{"event":"CYCLE_9_SPAWN","ts":"2026-10-20T10:45:01.956Z","dispatched_by":"bbs-actuator","model":"claude-opus-5-5"}
+{"event":"TOOL_CALL","ts":"2026-10-20T10:45:01.956Z","tool":"write_blackboard","args":{"message_id":"apo-steward-019"},"result":"emitted+validated+appended"}
+{"event":"TOOL_CALL","ts":"2026-10-20T10:45:01.956Z","tool":"write_blackboard","args":{"message_id":"apo-steward-020"},"result":"emitted+validated+appended"}
+{"event":"CYCLE_COMPLETE","ts":"2026-10-20T10:45:01.956Z","iteration":9,"stop_reason":"end_turn","posted_messages":["apo-steward-019","apo-steward-020"],"pending_after":["apo-steward-012"]}
+{"event":"PAGE_EDIT","ts":"2026-10-20T10:45:01.956Z","cycle":9,"path":"Projects/Action Potential Oscillator/rnbo/codebox-port-notes.md","why":"New workshop note: the codebox can't be edited while Max is paused, so the exact port for the anchor and the compensation is written down for when it reopens."}
+{"event":"PROPOSED_FOR_CANON","ts":"2026-10-20T10:45:01.956Z","cycle":9,"page":"Action Potential Oscillator","path":"Projects/Action Potential Oscillator.md","place":"§ Implementation Status, end of the 'Key implementation decisions' list","why":"The entry records the single neuron's tuning decisions but not the crowd's, and 'the lock lands on the note' is the fact a player needs first.","item":2,"ledger":"Projects/Action Potential Oscillator/Action Potential Oscillator — tuning.md"}

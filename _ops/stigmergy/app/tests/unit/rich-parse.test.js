@@ -166,8 +166,8 @@ describe('one media list, shared with the page', () => {
     for (const n of ['notes.md', 'Some Entry', 'data.json', 'Kuramoto Coupling']) expect(richParse.isMedia(n)).toBe(false);
   });
 
-  test('rich.html keeps no extension list of its own', () => {
-    const html = readFileSync(resolve(RICH_SRC, 'rich.html'), 'utf8');
+  test('the page keeps no extension list of its own', () => {
+    const html = readFileSync(resolve(RICH_SRC, 'rich.html'), 'utf8') + readFileSync(resolve(RICH_SRC, 'rich.js'), 'utf8');
     // An alternation of extensions — the shape both of its old lists had: \.(mp4|webm|mov)
     expect(html.match(/\\\.\((?:\?:)?[\w?]+\|[\w?|]+\)/g)).toBeNull();
   });

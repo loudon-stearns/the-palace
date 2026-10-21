@@ -60,6 +60,74 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="coupling-edge-2026-10-20-model-notes" -->
+### 2026-10-20 — Three things the edge study found about the frustration sweeps' own model
+> flags for [[Harmonicity and Inharmonicity]]'s field guide · measured, not heard · an elder's call
+
+Building the study meant porting the 2026-10-17 sweeps' model, and checking the port against the sweeps turned up three things the field guide should know. The sweeps' folder is frozen for this wave, so they wait here.
+
+1. **The over-coupled band is the map's step size.** `edgemap.png`'s top band (40 partials at 25 Hz coupling, torn with no stretch) comes from the map's 22.05 kHz step. The same setting wobbles 0.55 Hz at 22.05 kHz and 0.000 Hz at 44.1 and 88.2 kHz, where every partial locks. The field guide's "Over-coupled" region should carry that note, or go.
+2. **A 40-partial tone holds by cancellation, not by locking.** With no stretch at all, 15 of its 40 voices are already slipping, because their ±0.4% detune beats 6 Hz of coupling at the high partials. Each one tugs the pitch by 3 to 4 Hz, and the tugs cancel to 0.1 Hz: the shared phase turns any change of pitch into large shifts of the high partials, which push back. "Frozen" in the field guide means the pitch is steady, not that every partial agrees with its voice.
+3. **"The same map on a slower clock" holds exactly, if the ruler scales too.** With coupling scaled to pitch, E1, A2 and A4 all hold a quarter decade under the edge and all tear a quarter decade over, when the wobble is measured on each tone's own clock (windows scaled by 110 ÷ f₀, wobble in cents). Measured with fixed 10 ms and 2 s windows, the edge seems to drift with pitch.
+
+**Artifacts:**
+- [the claims, re-run headless; items 1 and 3 are the over-coupled and every-pitch checks](Projects/Inharmonic Wavetable Synthesis/coupling-edge/check-coupling-edge.mjs)
+- [the numbers behind them](Projects/Inharmonic Wavetable Synthesis/coupling-edge/answers.json)
+
+<sub>Target: `Harmonicity and Inharmonicity/proofs/2026-10-17-frustration-sweeps/field-guide.md` and that page's scroll. Proposed: a short note under the field guide's regions and its "Source and register" section, on Loudon's yes. Item 2 was measured with a probe of the frozen model itself (numpy, seed 7), not only the port.</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="coupling-edge-2026-10-20" -->
+### 2026-10-20 — The coupling edge, playable: a study that holds a stretched tone just under the edge on any note, in seven pieces that each answer one question
+> shipped · one playable study, ten renders, twenty claims re-checked headless · the baton of 2026-10-17
+
+Catch-up: on 2026-10-17 the Daily Page found an edge you can hear in a toy model. A stretched tone, whose partials hang off one phase and are pulled by outside voices tuned to the harmonic series, holds, then tears. Loudon heard oscillators and modulators in the pinned renders, and said instruments should live at the thresholds. This is the first instrument that does. `coupling-edge-instrument.html` runs the same model live in the browser, with the same random detuning the renders used. It knows where the edge is for every note, partial count and coupling, so it can hold the stretch just under it, and coupling or stretch become the gesture. Each of its seven sections asks one question and says under it what was measured. I can't hear, so every sound claim here is a measurement.
+
+_what each piece answered (numbers from `answers.json` and `renders.json`)_
+| piece | the question | what it found | hear |
+| --- | --- | --- | --- |
+| hold it just under the edge | Can a playable tone sit just under the edge, with coupling or stretch as the gesture? (the baton) | Yes, on any note. A quarter decade under holds and a quarter decade over tears, from E1 to A4. Held just past the edge, 16 Hz of coupling relocks it and 2 Hz tears it harder. | 01, 02 |
+| gestures as modulators | Do the field guide's gestures play live, and does a strike's dip follow its height? | All five play live. A strike dips −38, −61, −161 and −258 ¢ when thrown +0.25, +0.5, +1 and +1.5 decades past the edge, saturating near −250 to −300 ¢. A sequence tears on exactly its steps over the edge. | 03, 04 |
+| real materials | What happens with measured stretch in place of the law? (the baton, the field guide) | Every register of the measured piano sits past the edge at 6 Hz. The real A2 string holds with its first 12 partials but tears sounding up to partial 54, at every coupling from 6 to 256 Hz. The vibraphone tears at 3% of its real bend. | 05, 06 |
+| let the voices re-pair | Voices free to re-pair with the nearest partial during a dive (the field guide) | The pinned bar's six grippable partials lock onto voices 1, 4, 9, 16, 25 and 36 with no slip. The string-to-bar morph is frozen at both ends and torn only between. A dive can also relock elsewhere: a whole tone low (98 Hz) at B 0.1 and 16 Hz. | 07 |
+| quiet partials pull weakly | Does the warm tone hold longer when coupling follows loudness? (the field guide) | It never tears at all. At γ = 1 the 64-partial tone's largest wobble is 0.08 Hz from B 1e-9 to 1e-3, against 2.36 Hz with every partial pulling equally. The edge dissolves between γ 0.25 and 0.5. | 08 |
+| the tear as a modulator | Can the tear itself be a modulator, a rhythm whose tempo is the distance past the edge? | Yes. The edge LFO is one slipping pair, the Adler law the Portamento project already uses, and pulses at κ √(ρ² − 1) to within 1%. The whole tone does the same: a 6-partial tone slips about 3 times a second just past its edge and 16 times at 0.3 decades past, a square-root rise (slope 0.47). | 09 |
+| two tones pulling on each other | Two tones coupled to each other instead of to a fixed ensemble (the field guide) | Unstretched, they pull a mistuned octave and fifth exactly true (1200.00 and 701.96 ¢). Stretched, the octave relocks at 1230 ¢ (B 4e-3), between where partials 2:1 and 4:2 meet. At piano-like stretch it wanders ±25 ¢ or snaps elsewhere (1363 ¢). The piano tuner's stretched octave did not appear. | 10 |
+
+**What to open, in order:**
+1. **coupling-edge-instrument.html**: press start. It opens on A2, a quarter decade under the edge. Ride the coupling slider down and up, or press "just over" and bring the coupling up until it locks. The line shows each partial's bend in cents: amber when locked to its voice, blue when slipping.
+2. **01-coupling-as-the-knob-alone.wav**, then **01-coupling-as-the-knob.wav**: the baton's prototype. The stretch is held just past the edge at 6 Hz while coupling rides 2 → 18 → 2 Hz twice. It tears near 0, 20 and 40 s and locks near 10 and 30 s.
+3. **07-string-to-bar-nearest-pairing.wav**: the pinned renders' string-to-bar morph, swept from B 1e-6 to 1e3 over 40 s. It tears at 8 s, stays torn until about 28 s, and by 34 s the bar has locked onto the voices.
+4. **08-loudness-coupling.wav**: the same breath across the edge (12 s period), first with every partial pulling equally (tears at 6, 18 s), then with quiet partials pulling weakly from 24 s (it never does).
+5. **10-duo-octave.wav**: an octave started 10 ¢ wide. It is pulled true at once, relocks wide at 8 s (1230 ¢), and at 18 s, at piano-like stretch, slides to 1363 ¢.
+6. **02**, **03**, **04**, **05**, **06**, **09**: the margin on every note E1 to A4 (3 s under, 3 s over, each); strikes at four heights; the threshold played as a sequence on A2 and then E1; the real A2 string (12 partials hold, then 54 tear, then still tear at 64 Hz); the vibraphone growing into its own bend (it starts to waver near 12 s and tears from about 17 s); the edge LFO at three distances past its edge, then on coupling.
+7. **coupling-edge.png**: where the edge sits by partial count; the edge dissolving under loudness weighting; the bar relocking under re-pairing.
+
+**Artifacts:**
+- [the playable study: seven sections, each with its question and what was measured](Projects/Inharmonic Wavetable Synthesis/coupling-edge/coupling-edge-instrument.html)
+- [the baton's prototype, the tone alone](Projects/Inharmonic Wavetable Synthesis/coupling-edge/renders/01-coupling-as-the-knob-alone.wav)
+- [the baton's prototype, with the voices](Projects/Inharmonic Wavetable Synthesis/coupling-edge/renders/01-coupling-as-the-knob.wav)
+- [the same margin on every note, E1 to A4](Projects/Inharmonic Wavetable Synthesis/coupling-edge/renders/02-the-margin-on-every-note.wav)
+- [strikes at four heights past the edge](Projects/Inharmonic Wavetable Synthesis/coupling-edge/renders/03-strikes-four-heights.wav)
+- [the threshold as a sequence, on A2 then E1](Projects/Inharmonic Wavetable Synthesis/coupling-edge/renders/04-sequence-on-the-threshold.wav)
+- [the real A2 piano string under the ensemble](Projects/Inharmonic Wavetable Synthesis/coupling-edge/renders/05-real-piano-string-A2.wav)
+- [the vibraphone growing into its own measured bend](Projects/Inharmonic Wavetable Synthesis/coupling-edge/renders/06-vibraphone-into-its-own-bend.wav)
+- [string to bar with nearest pairing: the bar relocks](Projects/Inharmonic Wavetable Synthesis/coupling-edge/renders/07-string-to-bar-nearest-pairing.wav)
+- [the same breath, uniform coupling then loudness-weighted](Projects/Inharmonic Wavetable Synthesis/coupling-edge/renders/08-loudness-coupling.wav)
+- [the edge LFO on loudness, then on coupling](Projects/Inharmonic Wavetable Synthesis/coupling-edge/renders/09-edge-lfo.wav)
+- [two tones an octave apart, pulling on each other](Projects/Inharmonic Wavetable Synthesis/coupling-edge/renders/10-duo-octave.wav)
+- [the figure](Projects/Inharmonic Wavetable Synthesis/coupling-edge/coupling-edge.png)
+- [what each render measured, segment by segment](Projects/Inharmonic Wavetable Synthesis/coupling-edge/renders.json)
+- [twenty claims re-run headless on the page's engine, all pass](Projects/Inharmonic Wavetable Synthesis/coupling-edge/check-coupling-edge.mjs)
+- [the edge for 364 settings, bisected](Projects/Inharmonic Wavetable Synthesis/coupling-edge/edge-table.json)
+- [how to regenerate everything, and the choices the frozen model did not make](Projects/Inharmonic Wavetable Synthesis/coupling-edge/README.md)
+
+_Left rough:_ I can't hear, so every sound claim is a measurement. The model is a toy, and its numbers move with its choices; I added three. Nearest pairing frees a partial stretched past every voice. The duo only lets nearly coincident partials pull, because without that the two tones slide into unison. Stretch and coupling update every 16 samples. The page ran in the browser pane at 44.1 kHz; it is untested in Firefox, Safari and STIGMERGY's frame, and at 96 partials on a slow machine. The renders live only on this Mac, in this worktree's folder (gitignored); `node render-proofs.mjs` there remakes them. The consonance question, whether the edge sits where the ear starts to hear roughness, is still open.
+
+_Next moves named:_ Whether any of this enters the Plan is Loudon's yes. · The page's worklet is a full spec for the plugin the VST Template commission owns. · A duo where each tone is also held by its own voices, to see if coupled stretched tones agree on a piano tuner's stretched octave. · The consonance question, measured with a roughness curve against the edge.
+<sub>`inharmonic-wavetable-synthesis-handoff-2026-10-17` · Opus wave-1 session, 2026-10-20 · commits 3639fc9b · 518c62d4 · d6565abc · f9e0f88c · 2a60fb9a</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="inharmonic-wavetable-synthesis-steward-021" -->
 ### 2026-10-14 — cycle 9 — When a bell or bar becomes Wavetable B, does its k-th mode go in slot k, or in the harmonic slot it's nearest?
 > still working · library shelf shipped · steward leans RANK

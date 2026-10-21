@@ -15,20 +15,31 @@ forward_vector: "I am Action Potential Oscillator's scroll — the one page that
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T11:12:47.290Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-20T10:45:01.956Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 8 · last ran 2026-10-14 (today)
-- **Plan:** agreed 2026-09-25 (18 days ago) · 5 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 9 · last ran 2026-10-20 (today)
+- **Plan:** agreed 2026-09-25 (24 days ago) · 6 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — My entry's guess that 'spike shape averages out in the crowd' is half wrong. I measured it and propose a corrected paragraph. (`apo-steward-018`)
-- **Last commit touching this project:** 2026-10-14 `6089d080` — steward(Action Potential Oscillator): cycle 7 — SPINNING UP. HOME: [Action Potential Oscillator](obsidian://open?vault=…
+- **Last shipped:** 2026-10-20 (today) — The crowd now locks onto the note you dial at every spread, and each neuron is in tune to within one sample. (`apo-steward-020`)
+- **Last commit touching this project:** 2026-10-16 `929de8c5` — edit(Standing Orders): five scrolls whose Plans lead into Max carry Loudon's pause at the top of their orders
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-20 — cycle 9 · taught item 1, proposed item 2 for canon
+- **Owed in the ledger:** nothing
+- **Proposed for canon:** 1 — item 2; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 2, from cycle 9 — 2026-10-20 — [[Action Potential Oscillator — tuning]]
 
 ### Where this stands
 
-Action Potential Oscillator builds a synth from a neuron's biology. The single neuron has been playable in Gen~ since March. Today the crowd of 32 coupled neurons compiled in Faust and locked into a tone, and I wrote a hand-made RNBO version that matches it sample for sample. The plan's next step is carrying the instrument to the Eventide H90 through RNBO, and I'm still waiting on whether the crowd or the single neuron goes first. Meanwhile I ran the experiment the project has always pointed at: where does the neuron's biological detail stop mattering to the sound? I tried four spike shapes in the same crowd. The detail stops mattering to how the crowd behaves, but not to how it sounds.
+Action Potential Oscillator builds a synth from a neuron's biology. The single neuron has been playable in Gen~ since March. Since 14 October a crowd of 32 slightly different neurons runs in Faust: turn up the coupling and the crowd pulls together into one tone. Last cycle showed that the locked crowd plays its fastest member's pitch, so a wide spread locked up to four semitones sharp of the dial. This cycle fixed that with a pitch-anchor knob and also fixed a smaller tuning error in each neuron. The plan's next step, carrying the instrument to the Eventide H90 through RNBO, waits on Max work reopening and on your call about whether the crowd or the single neuron goes first.
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 8:** Nobody has listened yet. _(in 2 notes, the latest cycle 9)_
 
 ### Open asks
 
@@ -41,6 +52,20 @@ _None._
 ### Decided
 
 - `apo-steward-009` — directional_decision → GRANTED — option_id=FAUST-FIRST (2026-06-25)
+
+### Runs
+
+- 2026-10-20 — cycle 9 · taught item 1, proposed item 2 for canon
+
+### Owed
+
+_Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **2.** 2026-10-20 · [[Action Potential Oscillator]] · § Implementation Status, end of the 'Key implementation decisions' list — The entry records the single neuron's tuning decisions but not the crowd's, and 'the lock lands on the note' is the fact a player needs first.
 
 <!-- scroll:now:end -->
 
@@ -64,6 +89,56 @@ _None._
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="apo-steward-020" -->
+### 2026-10-20 — cycle 9 — The crowd now locks onto the note you dial at every spread, and each neuron is in tune to within one sample.
+> shipped · Faust crowd v0.4.0 in tune · codebox waits on Max · steward leans make coupling's darkening playable next
+
+**The anchor.** A locked crowd plays its fastest neuron's pitch, because that neuron fires first and kicks everyone else over threshold. So I added a knob to [neuropulse.dsp](open:Projects/Action Potential Oscillator/neuropulse.dsp), the Faust crowd, now at v0.4.0: **pitch anchor**, 0 to 1, default 1. At 1 the whole spread shifts down until the fastest neuron sits on the dial. At 0 you get the old behaviour: the spread is centred on the dial and the lock goes sharp. Across 4 spreads, 2 anchor settings and 6 couplings, anchor 1 locked at **110.09 Hz every time**: 5%, 10%, 20% or 30% spread. Anchor 0 locked at 115.4, 120.6, 131.5 and 142.0 Hz.
+
+**What it does to the sound.** With anchor 1, the lock arrives as a climb up onto the note. At 20% spread the loose crowd hums about 280 cents flat (93.7 Hz) and glides up onto 110 as the coupling rises. With anchor 0 it starts on the note and overshoots by 309 cents. The middle panel of [pitch-anchor-findings.png](open:Projects/Action Potential Oscillator/pitch-anchor-findings.png) traces both.
+
+**A second error, found on the way.** Even one neuron alone was off: 9 to 23 cents depending on pitch (+17 at 110 Hz). The old code budgeted the spike and recovery from their planned lengths and charged from rest. In practice a 14.4-sample rise takes 15 samples, and the ringing recovery hands over a membrane at +0.025, not 0. Now each neuron counts the samples since it fired and latches the voltage the charge actually starts from, then charges with exactly what's left of the period. That's the Gen~ plan's 'V_start_actual' idea with the elapsed time added. The remaining error is exactly the nearest whole-sample period: 1.4 cents at 110 Hz and 4.5 at 330 (right panel). The drive is recomputed every sample from the live pitch, so a pitch CV still bends a charge in progress. It never looks at when neighbours fired, so coupling is untouched: lock curves come out within a few hundredths of synchrony of before.
+
+**Listen.** [neuropulse-pitch-anchor.wav](open:Projects/Action Potential Oscillator/neuropulse-pitch-anchor.wav) has a quiet 110 Hz sine under everything. Pass one, 0–9 s, is anchor 0. Pass two, 9.4–18.4 s, is anchor 1. Each pass is 20% spread, with 1 s loose, then coupling ramping from 1 to 6 s and holding. Pass one should end beating against the reference, a minor third sharp. Pass two should end fused with it.
+
+**The codebox.** Max is paused, so `rnbo/neuropulse-crowd.codebox` is unchanged and now matches v0.2.1, not v0.4.0. [codebox-port-notes.md](obsidian://open?vault=The%20Palace&file=Projects/Action%20Potential%20Oscillator/rnbo/codebox-port-notes.md) says exactly what to add: a ninth inlet for the anchor, two state arrays per neuron, the new drive line, and the check to run after.
+
+**Artifacts:**
+- [18 s over a quiet 110 Hz reference: 20% spread locking with anchor 0 (ends a minor third sharp), then anchor 1 (ends on the note).](Projects/Action Potential Oscillator/neuropulse-pitch-anchor.wav)
+- [Crowd pitch against coupling for both anchors and four spreads · the audition's pitch over time · one neuron's tuning before and after.](Projects/Action Potential Oscillator/pitch-anchor-findings.png)
+- [v0.4.0: pitch-anchor knob and measured frequency compensation (six-value state per neuron).](Projects/Action Potential Oscillator/neuropulse.dsp)
+- [Faust probe: the crowd of 32 with the anchor, a coupling ramp, and each neuron's spike flag.](Projects/Action Potential Oscillator/pitch-anchor/anchor_render.dsp)
+- [The 4 spreads × 2 anchors × 6 couplings sweep.](Projects/Action Potential Oscillator/pitch-anchor/anchor_sweep.py)
+- [Renders the audition, the figure and the before/after tuning.](Projects/Action Potential Oscillator/pitch-anchor/analysis.py)
+- [Offline render wrapper, copied from spike-shape.](Projects/Action Potential Oscillator/pitch-anchor/arch.cpp)
+- [Raw sweep data.](Projects/Action Potential Oscillator/pitch-anchor/sweep.json)
+- [Every number quoted in this post.](Projects/Action Potential Oscillator/pitch-anchor/findings.json)
+- [What the RNBO crowd codebox needs to match v0.4.0 once Max work reopens.](Projects/Action Potential Oscillator/rnbo/codebox-port-notes.md)
+
+_Locked crowd pitch, 32 neurons, dialed 110 Hz, coupling 0.064 · v0.4.0_
+| rate spread | anchor 0 (old) | anchor 1 | loose crowd centre, anchor 1 |
+| --- | --- | --- | --- |
+| 5% | 115.4 Hz (+83 c) | 110.09 Hz (+1.4 c) | 105.2 Hz |
+| 10% | 120.6 Hz (+160 c) | 110.09 Hz (+1.4 c) | 100.9 Hz |
+| 20% | 131.5 Hz (+309 c) | 110.10 Hz (+1.6 c) | 93.2 Hz |
+| 30% | 142.0 Hz (+442 c) | 110.09 Hz (+1.4 c) | 86.7 Hz |
+
+_Changed in the workshop:_ codebox-port-notes — New workshop note: the codebox can't be edited while Max is paused, so the exact port for the anchor and the compensation is written down for when it reopens.
+_Proposed for canon:_ Action Potential Oscillator (§ Implementation Status, end of the 'Key implementation decisions' list) — The entry records the single neuron's tuning decisions but not the crowd's, and 'the lock lands on the note' is the fact a player needs first.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has listened yet. The 1.4-cent floor comes from firing on whole samples; removing it needs sub-sample firing, which I didn't try, since carrying the error forward would fight the coupling. The codebox is now behind Faust, and Max work is paused.
+
+_Next moves named:_ Make coupling's darkening playable: measure brightness against synchrony across the coupling range with the crowd now in tune, and decide whether the synchrony output should drive a filter or just be heard. · Try a middle anchor (about 0.5) by ear: the loose cloud and the lock each sit about half as far from the note. · Once Max reopens: port the anchor and compensation per rnbo/codebox-port-notes.md, rerun check_codebox.py against a -double v0.4.0 build, then size the crowd for the H90.
+<sub>`apo-steward-020` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-8ff8820e48" -->
+### 2026-10-20 — cycle 9
+
+taught item 1, proposed item 2 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="apo-steward-018" -->
 ### 2026-10-14 — cycle 8 — My entry's guess that 'spike shape averages out in the crowd' is half wrong. I measured it and propose a corrected paragraph.
 > finding · entry edit proposed, not made · steward leans adopt

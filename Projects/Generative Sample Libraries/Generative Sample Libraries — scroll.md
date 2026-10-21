@@ -75,6 +75,107 @@ Never start a render you can't finish and post inside one cycle. Chunk long swee
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="tear-heal-2026-10-20-collection" -->
+### 2026-10-20 — Off plan — The tear-and-heal collection: four instruments, 240 samples, every key struck past its own edge and healed
+> shipped · 240 of 240 on pitch, every loop seam clean with room to spare · the audition was answered, the collection is unheard
+
+_Off plan — your commission of 2026-10-17 (the baton), rendered on your answer to the audition: "Good. The names in BUILD.md are fine." Whether it joins the plan is your yes. The plan's current step, an audio AI as a source, stands._
+
+**What shipped.** The four instruments from the audition, now across the keyboard: a sample every three semitones, three velocity layers, and velocity as strike depth. **Heal** plays A0 to D#7, **Snap** A2 to D#7, **Bar to String** A1 to D#6, and **Heal with Voices** A0 to D#6. Every sample key had its own edge bisected before it was struck, and every sample settles on pitch once its tune is applied (worst 1.4 cents).
+
+**Hear it in place.** Each instrument has a [walk.wav](open:Projects/Generative Sample Libraries/tear-heal-instruments/instruments/heal/walk.wav) that strikes every sample key from low to high at mid velocity, so you hear the tear slow down as the register drops. Each also has a [velocity.wav](open:Projects/Generative Sample Libraries/tear-heal-instruments/instruments/heal/velocity.wav) that strikes the middle key at velocity 30, 64, 100 and 127. To play an instrument, drag its `.dslibrary` onto DecentSampler.
+
+**One change since the audition.** The first full render passed with one loop seam a hair under the pump limit (1.49 dB against 1.5). The build now prefers seams with room to spare and falls back to the plain limit only when none has room. The collection was rendered again: the worst level step is now 0.98 dB and the worst click 4.1 dB, against limits of 1.5 and 6. The audition files stay exactly as you answered them.
+
+**Artifacts:**
+- [Heal: every sample key, low to high. Start here.](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/heal/walk.wav)
+- [Heal: the middle key at velocity 30, 64, 100, 127.](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/heal/velocity.wav)
+- [Heal: drag onto DecentSampler.](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/heal/Heal.dslibrary)
+- [Heal for sforzando, sfizz, Surge XT, Bitwig.](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/heal/Heal.sfz)
+- [Snap: every sample key, low to high.](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/snap/walk.wav)
+- [Snap: the middle key at four velocities.](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/snap/velocity.wav)
+- [Snap: drag onto DecentSampler.](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/snap/Snap.dslibrary)
+- [Snap for sforzando and the rest.](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/snap/Snap.sfz)
+- [Bar to String: every sample key, low to high.](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/bar/walk.wav)
+- [Bar to String: the middle key at four velocities.](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/bar/velocity.wav)
+- [Bar to String: drag onto DecentSampler.](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/bar/Bar to String.dslibrary)
+- [Bar to String for sforzando and the rest.](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/bar/Bar to String.sfz)
+- [Heal with Voices: every sample key, low to high.](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/voices/walk.wav)
+- [Heal with Voices: the middle key at four velocities.](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/voices/velocity.wav)
+- [Heal with Voices: drag onto DecentSampler.](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/voices/Heal with Voices.dslibrary)
+- [Heal with Voices for sforzando and the rest.](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/voices/Heal with Voices.sfz)
+- [what to play, what to listen for, and what is not verified.](Projects/Generative Sample Libraries/tear-heal-instruments/README.md)
+- [the names it renders under, now agreed.](Projects/Generative Sample Libraries/tear-heal-instruments/BUILD.md)
+- [Heal's numbers per sample: edge, strike, dip, heal, loop, tune.](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/heal/notes.json)
+- [Heal's checks from disk: pitch, seams, the two maps.](Projects/Generative Sample Libraries/tear-heal-instruments/instruments/heal/check.json)
+- [every key's edge, as bisected.](Projects/Generative Sample Libraries/tear-heal-instruments/edges.json)
+- [the recipe, with the seam preference.](Projects/Generative Sample Libraries/tear-heal-instruments/build.py)
+
+_The collection · three layers per sample key; the hard strike's range across each instrument's keys_
+| instrument | plays | samples | hard strike dips (cents) | hard strike heals in (s) | sustain wobble (cents) |
+| --- | --- | --- | --- | --- | --- |
+| Heal | A0–D#7 | 75 | 123–328 | 0.28–2.0 | 0.3–3.9 |
+| Snap | A2–D#7 | 51 | 277–463 | 0.17–0.67 | 0.2 |
+| Bar to String | A1–D#6 | 51 | 159–315 | 0.54–2.4 | 0.1–3.2 |
+| Heal with Voices | A0–D#6 | 63 | 123–290 | 0.38–2.0 | 0.3–3.9 |
+
+_Left rough:_ No one has heard the 240 samples, and neither format has been loaded in a sampler; both were only read back as files. The WAVs, the demos and the four `.dslibrary` zips (11 to 15 MB each) live only on the Mac, in the worktree where they were rendered. Once this lands, the links above play in the main checkout only after `build.py all` runs there (about four minutes, in a venv; the README's Rebuild section). A note still starts at full level: the tear is the whole attack.
+
+_Next moves named:_ Play them, and name any key or layer that sounds wrong. Round-robin takes from other seeds, SF2 through ConvertWithMoss, and the coupling route the audition set aside are all still open. Whether this joins the plan is your call.
+<sub>`tear-heal-2026-10-20-collection` · made by a child session on the baton `generative-sample-libraries-handoff-2026-10-17` · off plan</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="tear-heal-2026-10-20-audition" -->
+### 2026-10-20 — Off plan — Instruments that tear, then heal: an audition of four, every key placed against its own edge
+> audition · 24 samples, all on pitch, every loop seam clean · unheard · the full collection waits on your ear
+
+_Off plan — your commission of 2026-10-17 (the baton): sampled instruments from the frustration sweeps, a torn attack that heals into a steady sustain. Not a move on the plan; whether it joins the plan is your yes. The plan's current step, an audio AI as a source, stands._
+
+**What a note is.** Nothing in its envelope is drawn. A strike throws the tone's stretch past the edge where its partials can no longer hold against the voices pulling them. The pitch sags and wobbles, the stretch decays back under the edge, and the tone relocks. Velocity is how far past the edge the strike goes: soft 2×, mid 6×, hard 20×. Harder tears deeper and heals later. Heal at C1 dips 22, 52 and 123 cents and heals at 0.7, 1.2 and 2.0 s.
+
+**Every key at its own edge.** The baton said to find the edge for each patch, not copy the field guide's numbers. The build bisects it on every sample key and rests the sustain at a third of it: alive, never on it. The register works as a clock, because coupling follows pitch: the same strike heals in 2 s at C1 and in a quarter of a second at C7, where the tear is a chirp.
+
+**Four instruments.** **Heal** is the warm source, up to 96 partials. **Snap** has eight bright partials, so it snaps instead of fraying and its sustain is dead still. **Bar to String** pins partial 1: it starts clean as a bar, breaks partway through, and heals into a string. **Heal with Voices** is Heal's own strikes with the outside voices mixed in, so the tear is heard as beating against an ensemble.
+
+**Hear it in place.** Start with [first-note.wav](open:Projects/Generative Sample Libraries/tear-heal-instruments/audition/first-note.wav): the baton's own strike with gestures_warm.py's settings and nothing designed. Then [audition.wav](open:Projects/Generative Sample Libraries/tear-heal-instruments/audition/audition.wav), about 2 minutes, with [cues.md](obsidian://open?vault=The%20Palace&file=Projects/Generative%20Sample%20Libraries/tear-heal-instruments/audition/cues.md) saying what plays when. To play it, drag any `.dslibrary` below onto DecentSampler.
+
+**How this asks for your ear.** The sample-library interview has two gates: agree the names before rendering, and hear a small test before the full batch. [BUILD.md](obsidian://open?vault=The%20Palace&file=Projects/Generative%20Sample%20Libraries/tear-heal-instruments/BUILD.md) shows the names. This audition is the small test. On your "good", one command renders the collection: 240 samples across the four instruments, in about five minutes.
+
+**Artifacts:**
+- [the baton's own strike, nothing designed: start here.](Projects/Generative Sample Libraries/tear-heal-instruments/audition/first-note.wav)
+- [every instrument's lowest and highest key, soft, mid and hard, each held past its heal.](Projects/Generative Sample Libraries/tear-heal-instruments/audition/audition.wav)
+- [what plays when in the audition, and how deep each note tore and when it healed.](Projects/Generative Sample Libraries/tear-heal-instruments/audition/cues.md)
+- [partial 1 of every strike: the tear, then the heal.](Projects/Generative Sample Libraries/tear-heal-instruments/audition/traces.png)
+- [Heal: drag onto DecentSampler.](Projects/Generative Sample Libraries/tear-heal-instruments/audition/heal/Heal.dslibrary)
+- [Snap: drag onto DecentSampler.](Projects/Generative Sample Libraries/tear-heal-instruments/audition/snap/Snap.dslibrary)
+- [Bar to String: drag onto DecentSampler.](Projects/Generative Sample Libraries/tear-heal-instruments/audition/bar/Bar to String.dslibrary)
+- [Heal with Voices: drag onto DecentSampler.](Projects/Generative Sample Libraries/tear-heal-instruments/audition/voices/Heal with Voices.dslibrary)
+- [what to listen for, and what is not verified.](Projects/Generative Sample Libraries/tear-heal-instruments/README.md)
+- [the names it renders under, waiting on your yes.](Projects/Generative Sample Libraries/tear-heal-instruments/BUILD.md)
+- [the recipe: build.py audition, build.py all.](Projects/Generative Sample Libraries/tear-heal-instruments/build.py)
+- [the four instruments and the reason behind each choice.](Projects/Generative Sample Libraries/tear-heal-instruments/patches.py)
+- [the model, ported and matched to the sweeps' own loop to 2e-9.](Projects/Generative Sample Libraries/tear-heal-instruments/engine.py)
+- [every key's edge, as bisected.](Projects/Generative Sample Libraries/tear-heal-instruments/edges.json)
+- [Heal's numbers per sample.](Projects/Generative Sample Libraries/tear-heal-instruments/audition/heal/notes.json)
+- [Heal's checks from disk: pitch, seams, the two maps.](Projects/Generative Sample Libraries/tear-heal-instruments/audition/heal/check.json)
+
+_Audition · each instrument's lowest and highest key, three layers each_
+| instrument | keys | dip, soft / mid / hard (cents) | healed by, soft / mid / hard (s) | sustain wobble (cents) |
+| --- | --- | --- | --- | --- |
+| Heal | C1 | 22 / 52 / 123 | 0.7 / 1.2 / 2.0 | 3.2 |
+| Heal | C7 | 42 / 169 / 328 | 0.14 / 0.21 / 0.28 | 0.3 |
+| Snap | C3 | 33 / 108 / 277 | 0.33 / 0.50 / 0.67 | 0.2 |
+| Snap | C7 | 36 / 146 / 302 | 0.08 / 0.12 / 0.17 | 0.2 |
+| Bar to String | C2 | 270 / 273 / 287 | 1.3 / 1.9 / 2.4 | 2.5–2.8 |
+| Bar to String | C6 | 318 / 281 / 315 | 0.26 / 0.41 / 0.54 | 0.1 |
+| Heal with Voices | C1, C6 | Heal's own strikes | | |
+
+_Left rough:_ No one has heard it, and neither format has been loaded in a sampler; both were only read back as files. There is no loudness accent: a note starts at full level and the tear is the whole attack. The WAVs and `.dslibrary` zips live only on the Mac, in the worktree where they were rendered (`.gitignore`, 2026-10-18). Any checkout can remake them with `build.py audition` in about 20 seconds. The other route the baton named, a tone held past its edge while coupling rises until it locks, was tried and set aside: a 10-cent shiver that never fully stills (3–5 cents left), against a strike's 36 cents settling to 2.
+
+_Next moves named:_ If you say "good", `build.py all` renders the collection and it ships here. If you say "fix this", name what and it gets re-auditioned first. And whether this joins the plan as a move of its own is your call.
+<sub>`tear-heal-2026-10-20-audition` · made by a child session on the baton `generative-sample-libraries-handoff-2026-10-17` · off plan</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="gsl-steward-079" -->
 ### 2026-10-15 — cycle 38 — Name a key and the violin gets new takes for it. First round on A#3, C4 and C5: only those three keys changed, all on pitch.
 > shipped · redo loop works · both builds unheard · steward leans GOOD-ENOUGH on the open violin ask

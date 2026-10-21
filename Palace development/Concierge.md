@@ -259,32 +259,18 @@ return, takes the wheel at the close.**
 
 ## Forward Vectors
 
-- Live-run the resident model end to end: spawn a companion at a session's start, curate its
-  startup neighborhood, re-address it across the work, watch its `context_pct`, and let it flip to
-  moderator at close — then tune the charter from what the first real run teaches.
-- **Tune the health dial** (`_ops/concierge/dial.mjs`, built 2026-07-08 on the objective
-  `subagent_tokens` read, two arms — capacity + economy). Its thresholds are first-cut from the
-  sensor-B characterization; re-tune them from real long-session runs, and re-check the sensor
-  semantics periodically (they are inferred black-box). Still to live-run it end to end — build proven
-  on real numbers, not yet exercised in an actual heavy close.
-- **Run the scout on a real return** and tune its ranking rules from what the choice actually needed.
-  The rules are reasoned from the 2026-08-25 failure, not yet from a live work-choice — watch whether
-  *an open handoff outranks a fresh idea* holds when the fresh idea is genuinely better, and whether
-  the one-move discipline survives a board with three equally live candidates.
+- Keep tuning the charter from each real close; the record is [[Closing Well — tuning]] (the
+  resident has moderated real closes since 2026-07-04, items 24, 34–35, 46–58).
+- Tune the health dial (`_ops/concierge/dial.mjs`): its thresholds are first-cut from the sensor-B
+  characterization and real runs now exercise them (a retire-for-cost at 49.6% GREEN, item 58; a
+  respawn at 443K on 2026-10-21) — re-tune from those, and re-check the sensor semantics
+  periodically.
+- Tune the scout's ranking rules from its real returns (2026-09-25, twice; the 2026-10-20 fan-out
+  triage, which chose by freshness and collision rather than prose): watch whether an open handoff
+  outranks a fresh idea when the fresh idea is genuinely better, and whether the one-move discipline
+  survives a board with three equally live candidates.
 - Keep the review real. The read/write safety now lives in the companion's *character*, not the
   architecture — watch that the draft-for-approval bias holds and that drafts get genuinely
   reviewed, not rubber-stamped. If it drifts toward acting, tighten the charter.
 - When has the companion earned a place among the always-loaded invariants? Promoting "keep both
   modes open" to [[ELDER]]'s invariants is a Schema-Ceremony-weight act, done once proven.
-
-## Active Baton
-
-> **[[Concierge — baton]]** (re-batoned 2026-08-25) — from the partial close of the work-choice
-> handoff (`concierge-remainder-20260825T225852Z`). **Three of the four moves have landed:** the
-> health dial (`dial.mjs`, 2026-07-08), the fold of the companion character + moderator into
-> [[Closing Well]] (`02e949a`), and the **work-choice vector** — the scout posture +
-> `return-map.mjs` (`fc0b980`). What remains is the one thing building cannot finish: **live
-> validation.** The V3 "companion takes the wheel" close has exactly one real data point, and the
-> scout has never chosen work in a real return. Both are tuned by use, not by more machinery — the
-> right session to catch this baton is one that was going to return or close anyway.
-

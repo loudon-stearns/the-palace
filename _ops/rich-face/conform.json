@@ -1,0 +1,34 @@
+{
+  "about": "Settings for the piece checker (conform.mjs) and the two gates that run it: the Sentry's rich check at git push, and the public build. While enforce is false a gate reports and never blocks; the checker runs report-only over every web page until its false alarms are tuned out (STIGMERGY — spec — rich-face pieces § 5). Turning enforce on is Loudon's call. not_pieces names pages that are never served as a piece. allow holds reviewed exceptions: piece, rule, the finding's key, and why it is fine.",
+  "enforce": {
+    "push": false,
+    "build": false
+  },
+  "not_pieces": [
+    {
+      "path": "_ops/rich-face/rich.html",
+      "why": "the renderer itself: it frames pieces, it is not one"
+    },
+    {
+      "path": "_ops/stigmergy/app/index.html",
+      "why": "STIGMERGY's app shell, built by Vite"
+    },
+    {
+      "prefix": "_ops/stigmergy/app/public/",
+      "why": "the app's own static files, served by Vite on its origin, never as a piece"
+    },
+    {
+      "path": "_ops/loudon-eval/rate.html",
+      "why": "the rating page of eval-server.mjs, served by that server with its own /eval API, never as a piece"
+    },
+    {
+      "prefix": "_ops/stigmergy/app/mockups/",
+      "why": "design mockups for the app, viewed through Vite against the app's own root (/fonts/), never as a piece"
+    },
+    {
+      "pattern": "(^|/)[^/]*(template|\\.tpl)[^/]*\\.html?$",
+      "why": "a template a script fills in to make a page (its data is a placeholder like /*__DATA__*/); as written it is never served as a piece"
+    }
+  ],
+  "allow": []
+}

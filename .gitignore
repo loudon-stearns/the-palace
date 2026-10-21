@@ -36,9 +36,9 @@ _tools
 
 # Vitest config timestamp temp files (transient)
 **/vitest.config.js.timestamp-*.mjs
-# Cowork scratch — relocated junk Cowork couldn't delete (not knowledge)
+# Scratch — working files that aren't knowledge
 _ops/scratch/
-# Cowork local settings
+# Claude Code local settings (this machine's own)
 .claude/settings.local.json
 
 # Audio and video that stewards make stay on this Mac, never in git (Loudon,
@@ -75,6 +75,15 @@ Projects/Waveguide Synthesizer/offline-v1.11/frames/
 Projects/Waveguide Synthesizer/offline-v1.9/still-*.png
 Projects/Generative Wavetable Libraries/ai-cycles/cycles.npz
 Projects/Generative Preset Development/ableton-wavetable/audition-kit/**/*.adv
+
+# A take a rich face plays is kept in git on purpose (Loudon, 2026-10-20: media
+# a rich face needs is placed in git, so the public face can play it). Copy the
+# chosen take into its entry's bundle, under rich-face/, and commit it; the face
+# names it as before, since a tracked file wins over the render it was copied
+# from. The steward's own render stays ignored where it is, and the face's copy
+# changes only when someone copies it again. _ops/rich-face/README.md has the rule.
+!Projects/**/rich-face/**
+!Shop/Shopkeeper/**/rich-face/**
 
 # Ableton analysis files (regenerated when a WAV is loaded)
 *.asd

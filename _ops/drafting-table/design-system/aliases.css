@@ -1,0 +1,121 @@
+/* Drafting Table — alias sheet for pages written against Loudon Live's token names.
+   Load after tokens.css. Every Loudon Live custom property an editor reads resolves to a
+   Drafting Table token, so editor.html runs unchanged on day one. New code uses the Drafting
+   Table names directly; this file is a bridge, not a second vocabulary.
+
+   Skins: Loudon Live switched palettes with .skin-* classes on the root. Drafting Table
+   switches grounds with data-theme="paper" | "phosphor". Set that attribute instead; the
+   classes below are kept only so a stale class on the root does nothing harmful.
+
+   Spacing drift, said once: Loudon Live's --s-5 was 20px and --s-8 was 40px; Drafting Table's
+   scale has no 20 or 40, so they round up to 24 and 48. */
+
+:root, .skin-graphite, .skin-crt, .skin-strobe, .skin-cobalt-grid, .skin-drafting, .skin-amber-lab {
+  /* ground */
+  --bg:           var(--ground-000);
+  --bg-elev-1:    var(--ground-100);
+  --bg-elev-2:    var(--ground-200);
+  --bg-elev-3:    var(--slab-face);
+  --border:       var(--rule);
+  --border-soft:  var(--rule-soft);
+  --border-hover: var(--accent);
+
+  /* ink */
+  --fg-1:         var(--ink);
+  --fg-2:         var(--ink-2);
+  --fg-3:         var(--ink-2);   /* Loudon Live's fg-3 was legible text; Drafting Table's ink-3 is not, so fg-3 keeps to ink-2 */
+  --fg-4:         var(--ink-3);
+  --fg-on-accent: var(--on-accent);
+
+  /* signal */
+  /* --accent keeps its own name in both systems; no alias (a self-reference would invalidate it) */
+  --accent-dim:   var(--accent);
+  --accent-soft:  color-mix(in srgb, var(--accent) 10%, transparent);
+  --accent-line:  var(--accent);
+  --info:         var(--source-datasheet);
+  --info-soft:    color-mix(in srgb, var(--source-datasheet) 8%, transparent);
+  --info-line:    var(--source-datasheet);
+  --success:      var(--ok);
+  --success-soft: color-mix(in srgb, var(--ok) 8%, transparent);
+  --success-line: var(--ok);
+  --warn:         var(--source-assumed);
+  --danger:       var(--source-measure);
+  --danger-soft:  color-mix(in srgb, var(--source-measure) 8%, transparent);
+  --danger-line:  var(--source-measure);
+
+  /* categorical: same names in both systems */
+
+  /* radii: the sheet is square; the bevel is the ceiling */
+  --r-xs:   var(--radius-0);
+  --r-sm:   var(--radius-0);
+  --r-md:   var(--radius-bevel);
+  --r-pill: var(--radius-round);
+
+  /* spacing */
+  --s-1:  var(--space-1);
+  --s-2:  var(--space-2);
+  --s-3:  var(--space-3);
+  --s-4:  var(--space-4);
+  --s-5:  var(--space-5);   /* 20 → 24 */
+  --s-6:  var(--space-5);
+  --s-7:  var(--space-6);
+  --s-8:  var(--space-7);   /* 40 → 48 */
+  --s-9:  var(--space-7);
+  --s-10: var(--space-8);
+  --s-11: 80px;
+  --s-12: 120px;
+
+  /* elevation */
+  --shadow-1:    var(--shadow-slab);
+  --shadow-2:    var(--shadow-slab);
+  --shadow-3:    var(--shadow-slab);
+  --glow-accent: none;
+  --glow-danger: none;
+  --glow-success: none;
+  --text-glow-accent: none;
+  --text-glow-danger: none;
+
+  /* type: the sheet is monospace throughout */
+  --serif:   var(--font-mono);
+  --sans:    var(--font-mono);
+  --display: var(--font-display);
+  --mono:    var(--font-mono);
+  --pixel:   var(--font-display);
+
+  --t-eyebrow:    11px;
+  --t-meta:       12px;
+  --t-caption:    13px;
+  --t-body:       15px;
+  --t-body-lg:    15px;
+  --t-lead:       18px;
+  --t-h4:         18px;
+  --t-h3:         22px;
+  --t-h2:         28px;
+  --t-h1:         28px;
+  --t-display:    48px;
+  --t-display-xl: 96px;
+
+  --lh-tight:   1.05;
+  --lh-snug:    1.2;
+  --lh-normal:  1.4;
+  --lh-reading: 1.47;
+  --tr-display:  0.04em;
+  --tr-tight:    0;
+  --tr-normal:   0;
+  --tr-soft:     0;
+  --tr-eyebrow:  0.18em;
+  --tr-overline: 0.18em;
+
+  --w-light:   400;   /* the mono has no 300 */
+  --w-regular: 400;
+  --w-medium:  500;
+  --w-semi:    600;
+  --w-bold:    600;
+
+  /* motion: short and plain */
+  --ease:     linear;
+  --ease-out: linear;
+  --t-fast:   120ms;
+  --t-base:   120ms;
+  --t-slow:   120ms;
+}

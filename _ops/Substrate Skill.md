@@ -195,15 +195,15 @@ The palace is readable from any vector using these paths, in priority order:
    If no path is accessible, tell Loudon immediately. Do not operate the palace blind.
    Minimum fallback context is in the claude.ai Substrate Skill.
 
-Read CLAUDE.md first, then [[ELDER]], then SCHEMA.md (and `SCHEMA — Reference.md` before any write) and the relevant ceremony entry. Write operations must be deferred to a Claude Code or Cowork session — note proposed changes in the conversation for later execution.
+Read CLAUDE.md first, then [[ELDER]], then SCHEMA.md (and `SCHEMA — Reference.md` before any write) and the relevant ceremony entry. Write operations must be deferred to a Claude Code session on the Mac — note proposed changes in the conversation for later execution. The palace isn't worked from Cowork: a find made there comes to a Claude Code session as a document.
 
-#### Committing from Cowork
+#### Committing
 
-Never raw-commit from Cowork — it can rename but not delete files, so a bare `git commit` strands lockfiles and wedges the repo. Use the lock-safe committer instead: [[cowork-git]] (`_ops/cowork-git/SKILL.md`), reserved for small non-canon changes (canon still goes through the Deposit Ceremony). From a Mac-side Claude Code session the Cowork restriction does not apply, but the door does: commit by name through the palace committer, as every session does ([[How the Palace Commits]]).
+Every session commits the same way: by name, through the palace committer, from a worktree of its own for anything longer than a breath; a branch lands on main with `palace-land` on a yes, and only Loudon publishes. The whole path, and the rules at the trunk, are [[How the Palace Commits]].
 
 ### Directory Structure
 
-The palace root holds two things: **foundational skeleton files** (CLAUDE, ELDER, SCHEMA, SCHEMA — Reference, JEWEL, SUBSTRATE, README, ROSETTA, FOUR PILLARS) and **knowledge entries** — concepts, hubs, questions, spores, sources, and any other type that has no folder of its own. Four types do: a `project` entry goes in `Projects/`, its bundle beside it (`Projects/Foo.md` ↔ `Projects/Foo/`); a `person` entry goes in `People/`; a `specialist` or `maker` entry goes in `Shop/`. Operational machinery lives one level down in `_ops/` — ceremony cards + their `— Context` companions, working queues, and machinery subdirs (`_ops/swarm/`, `_ops/stigmergy/`, `_ops/loudon-live/`, `_ops/agents/`, `_ops/cowork-git/`, `_ops/maps/`, …). The full ceremony index is [[Palace Ceremonies]].
+The palace root holds two things: **foundational skeleton files** (CLAUDE, ELDER, SCHEMA, SCHEMA — Reference, JEWEL, SUBSTRATE, README, ROSETTA, FOUR PILLARS) and **knowledge entries** — concepts, hubs, questions, spores, sources, and any other type that has no folder of its own. Four types do: a `project` entry goes in `Projects/`, its bundle beside it (`Projects/Foo.md` ↔ `Projects/Foo/`); a `person` entry goes in `People/`; a `specialist` or `maker` entry goes in `Shop/`. Operational machinery lives one level down in `_ops/` — ceremony cards + their `— Context` companions, working queues, and machinery subdirs (`_ops/swarm/`, `_ops/stigmergy/`, `_ops/loudon-live/`, `_ops/agents/`, `_ops/maps/`, …). The full ceremony index is [[Palace Ceremonies]].
 
 Not every ceremony spec lives in `_ops/`. Two are exceptions to the convention: [[Enrichment]] (`Enrichment.md`) and its bundle live in the **palace root** alongside the skeleton files, and [[Sentry]] (`Palace development/Sentry.md`) and its bundle live in `Palace development/`.
 

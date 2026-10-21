@@ -178,12 +178,15 @@ describe('the rich-face handler', () => {
   // ── the page's own libraries, served from STIGMERGY's install, never a CDN ──
   const MERMAID_CHUNKS = resolve(RICH_SRC, '../stigmergy/node_modules/mermaid/dist/chunks/mermaid.esm.min');
 
-  test('rich.html imports nothing from another origin', () => {
+  test('the page imports nothing from another origin', () => {
+    // rich.html's one script is its own module, _rich/rich.js (so it can carry script-src 'self').
     const html = readFileSync(resolve(RICH_SRC, 'rich.html'), 'utf8');
-    const imports = [...html.matchAll(/\bimport\s*(?:[^'"()]*\bfrom\s*)?\(?\s*['"]([^'"]+)['"]/g)].map((m) => m[1]);
+    expect([...html.matchAll(/<script\b[^>]*>/g)].map((m) => m[0])).toEqual(['<script type="module" src="_rich/rich.js">']);
+    const js = readFileSync(resolve(RICH_SRC, 'rich.js'), 'utf8');
+    const imports = [...js.matchAll(/\bimport\s*(?:[^'"()]*\bfrom\s*)?\(?\s*['"]([^'"]+)['"]/g)].map((m) => m[1]);
     expect(imports.length).toBeGreaterThan(0);
-    for (const spec of imports) expect(spec, spec).toMatch(/^\.\//);
-    expect(html).not.toMatch(/cdn\.jsdelivr|unpkg\.com|cdnjs/);
+    for (const spec of imports) expect(spec, spec).toMatch(/^\.\.?\//);
+    expect(html + js).not.toMatch(/cdn\.jsdelivr|unpkg\.com|cdnjs/);
   });
 
   test('marked is served from the install, at the version the page pins', async () => {

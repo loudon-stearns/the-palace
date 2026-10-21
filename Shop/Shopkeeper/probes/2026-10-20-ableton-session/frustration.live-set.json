@@ -1,0 +1,13 @@
+{
+  "_about": "A ride through the frustration model for live-set.mjs plugin: four sections from the field guide (Harmonicity and Inharmonicity/proofs/2026-10-17-frustration-sweeps/field-guide.md). Values are in the plugin's own units; the writer normalises them. The device is off when the Set opens and the first beat of play turns it on.",
+  "_heard": "2026-10-21 07:43 — Loudon opened the Set this recipe made, unchanged, in his own Live 12 (a fresh launch; Live's log: \"Restored: Frustration\" at 07:43:18), played the ride, and said: \"looks great and is working great!\" The four sections stand as drawn.",
+  "tempo": 100,
+  "configure": ["B", "K", "level", "f0", "inertia", "voices"],
+  "silentOnOpen": true,
+  "sections": [
+    { "name": "Under the edge: B just below, K at 6", "bars": 8, "B": 1.2e-5, "K": 6 },
+    { "name": "Ride coupling: B just past the edge, K 2 to 18 and back", "bars": 8, "B": 2.2e-5, "K": [2, 18, 2] },
+    { "name": "Breathe across the edge (log), two breaths", "bars": 16, "B": [4e-6, 8e-5, 4e-6, 8e-5, 4e-6], "K": 6 },
+    { "name": "Strike: thrown past the edge, falling back in a quarter second", "bars": 8, "B": { "repeat": 4, "points": [[0, 1e-5], [0, 3e-4], [0.4, 1e-5]] }, "K": 6 }
+  ]
+}

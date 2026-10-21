@@ -1,0 +1,29 @@
+No tool access here, so I can't summon the Concierge or read the neighbors. Everything below comes from the two pages as pasted. Where an answer depends on a file I haven't seen, I say so.
+
+## My recommendation: don't fold, but trim both
+
+They describe one mechanism at two scales, and each does a job the other can't.
+
+- **Palace as Context Injection System** is the architecture. It's the `meta` entry that says what the floor is, why the order matters, and how a mind gets built at session scale. It carries the operational facts: `@import`, the spaces bug, Born a Child.
+- **Enchanted Worker** is the evidence. Two workers get the same instruction and produce different output. That observation is the most persuasive thing either page holds, and it's a `concept` the palace reasons with, not machinery.
+
+Folding Enchanted Worker into the meta page would bury the best argument inside a spec. That spec is already the page most likely to read as procedure, and its own Born a Child section warns that procedure crowds out metaphor. Folding the other way would put `@import` mechanics into a concept page. The `emerged-from` / `spawned` pair is honest lineage, and both forward vectors still point somewhere different. Page 1 wants a worked injection sequence. Page 2 wants confirmation at production scale.
+
+## What I'd do instead
+
+**1. The "informing vs. orienting" claim lives twice.** Page 1's § The Mechanism and Page 2's § What Enchantment Actually Is say the same thing. Let Page 1 state it in two lines as the claim and point to Enchanted Worker for the demonstration. One home for the argument, one for the principle.
+
+**2. "Writing quality becomes the worker's character" lives three times.** It appears in Page 1's last Practical Implications bullet, in Page 2's Phenomenology section, and in the Agent Wellbeing link described on both. It belongs in [[Agent Wellbeing]]. The other two pages should point there rather than restate it.
+
+**3. Move § The Page as Pheromone Trail out of Enchanted Worker.** That section is about pages and forward vectors as conatus, not about workers. It reads like a fold candidate for [[Pheromone Trail]] or [[Pages as Agents]]. I can't confirm either way without seeing those pages.
+
+**4. Clean up drift in Page 1.**
+- § The @import Floor says "Tier 2 waits on the space bug." The parenthetical right after it says the symlinks already brought Tier 2 into the floor. Those two statements contradict each other.
+- The same section gives "≈19K tokens," but CLAUDE.md and JEWEL both say ≈18.5K.
+- "This was meant as the partial worked example… It was not" is the story of what came before. Under *write what is, not what was*, that section can lose most of its narrative now that Born a Child holds the current rule.
+
+**5. One flag on Page 2.** The Observation section types links as `resonates-with`, `instantiates`, and `formalizes`. None of those are in the ontology. If the point is that enchanted workers drift outside the schema, say so. Otherwise a fresh agent may copy them as legal types.
+
+## What I couldn't check
+
+The page I'd actually want to compare is [[Palace Enchantment]], which Page 1 cites for the context-construction order. If the real overlap is anywhere, I'd expect it between Enchanted Worker and Palace Enchantment rather than between these two. That's the question I'd hand the Concierge first.

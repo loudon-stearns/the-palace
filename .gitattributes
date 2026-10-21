@@ -10,3 +10,11 @@
 # Placement ledgers are append-only JSONL: two branches that each lay a quote
 # (or decide one) keep both lines, without a conflict (_ops/quotes/README.md).
 "* — placements.jsonl" merge=union
+
+# Site ledgers are append-only readings (SCHEMA — Reference §6): two branches
+# that each add a dated reading keep both.
+"* — sites.md" merge=union
+
+# Hunt ledgers are append-only, one line per candidate tested (SCHEMA — Reference
+# §6): two branches that each add a line keep both.
+"* — hunt.md" merge=union

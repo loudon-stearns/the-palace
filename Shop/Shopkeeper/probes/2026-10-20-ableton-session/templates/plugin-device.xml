@@ -1,0 +1,150 @@
+<PluginDevice Id="0">
+								<LomId Value="0" />
+								<LomIdView Value="0" />
+								<IsExpanded Value="true" />
+								<BreakoutIsExpanded Value="false" />
+								<On>
+									<LomId Value="0" />
+									<Manual Value="true" />
+									<AutomationTarget Id="51364">
+										<LockEnvelope Value="0" />
+									</AutomationTarget>
+									<MidiCCOnOffThresholds>
+										<Min Value="64" />
+										<Max Value="127" />
+									</MidiCCOnOffThresholds>
+								</On>
+								<ModulationSourceCount Value="0" />
+								<ParametersListWrapper LomId="0" />
+								<Pointee Id="51365" />
+								<LastSelectedTimeableIndex Value="1" />
+								<LastSelectedClipEnvelopeIndex Value="1" />
+								<LastPresetRef>
+									<Value />
+								</LastPresetRef>
+								<LockedScripts />
+								<IsFolded Value="false" />
+								<ShouldShowPresetName Value="true" />
+								<UserName Value="" />
+								<Annotation Value="" />
+								<SourceContext>
+									<Value />
+								</SourceContext>
+								<MpePitchBendUsesTuning Value="false" />
+								<ViewData Value="{}" />
+								<PluginDesc>
+									<Vst3PluginInfo Id="0">
+										<WinPosX Value="-1" />
+										<WinPosY Value="-1" />
+										<NumAudioInputs Value="0" />
+										<NumAudioOutputs Value="1" />
+										<IsPlaceholderDevice Value="false" />
+										<Preset>
+											<Vst3Preset Id="82">
+												<OverwriteProtectionNumber Value="3076" />
+												<MpeEnabled Value="0" />
+												<MpeSettings>
+													<ZoneType Value="0" />
+													<FirstNoteChannel Value="1" />
+													<LastNoteChannel Value="15" />
+												</MpeSettings>
+												<ParameterSettings />
+												<IsOn Value="true" />
+												<PowerMacroControlIndex Value="-1" />
+												<PowerMacroMappingRange>
+													<Min Value="64" />
+													<Max Value="127" />
+												</PowerMacroMappingRange>
+												<IsFolded Value="false" />
+												<StoredAllParameters Value="true" />
+												<DeviceLomId Value="0" />
+												<DeviceViewLomId Value="0" />
+												<IsOnLomId Value="0" />
+												<ParametersListWrapperLomId Value="0" />
+												<Uid>
+													<Fields.0 Value="0" />
+													<Fields.1 Value="0" />
+													<Fields.2 Value="0" />
+													<Fields.3 Value="0" />
+												</Uid>
+												<DeviceType Value="1" />
+												<ProcessorState />
+												<ControllerState />
+												<Name Value="" />
+												<PresetRef />
+											</Vst3Preset>
+										</Preset>
+										<Name Value="" />
+										<Uid>
+											<Fields.0 Value="0" />
+											<Fields.1 Value="0" />
+											<Fields.2 Value="0" />
+											<Fields.3 Value="0" />
+										</Uid>
+										<DeviceType Value="1" />
+									</Vst3PluginInfo>
+								</PluginDesc>
+								<MpeEnabled Value="false" />
+								<MpeSettings>
+									<ZoneType Value="0" />
+									<FirstNoteChannel Value="1" />
+									<LastNoteChannel Value="15" />
+								</MpeSettings>
+								<ParameterList />
+								<AxisX Value="0" />
+								<AxisY Value="0" />
+								<SideChain>
+									<OnOff>
+										<LomId Value="0" />
+										<Manual Value="true" />
+										<AutomationTarget Id="51622">
+											<LockEnvelope Value="0" />
+										</AutomationTarget>
+										<MidiCCOnOffThresholds>
+											<Min Value="64" />
+											<Max Value="127" />
+										</MidiCCOnOffThresholds>
+									</OnOff>
+									<RoutedInput>
+										<Routable>
+											<Target Value="AudioIn/None" />
+											<UpperDisplayString Value="No Output" />
+											<LowerDisplayString Value="" />
+											<MpeSettings>
+												<ZoneType Value="0" />
+												<FirstNoteChannel Value="1" />
+												<LastNoteChannel Value="15" />
+											</MpeSettings>
+											<MpePitchBendUsesTuning Value="true" />
+										</Routable>
+										<Volume>
+											<LomId Value="0" />
+											<Manual Value="1" />
+											<MidiControllerRange>
+												<Min Value="0.0003162277571" />
+												<Max Value="15.8489332" />
+											</MidiControllerRange>
+											<AutomationTarget Id="51623">
+												<LockEnvelope Value="0" />
+											</AutomationTarget>
+											<ModulationTarget Id="51624">
+												<LockEnvelope Value="0" />
+											</ModulationTarget>
+										</Volume>
+									</RoutedInput>
+									<DryWet>
+										<LomId Value="0" />
+										<Manual Value="1" />
+										<MidiControllerRange>
+											<Min Value="0" />
+											<Max Value="1" />
+										</MidiControllerRange>
+										<AutomationTarget Id="51625">
+											<LockEnvelope Value="0" />
+										</AutomationTarget>
+										<ModulationTarget Id="51626">
+											<LockEnvelope Value="0" />
+										</ModulationTarget>
+									</DryWet>
+								</SideChain>
+							</PluginDevice>

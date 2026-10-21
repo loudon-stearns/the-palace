@@ -16,8 +16,21 @@ Arduino Nano ESP32 (an ESP32-S3; the core already on this laptop) against
 SimpleFOC **2.3.3**. SimpleFOC 2.3.4 and 2.4.0 refuse to build on that core:
 they need arduino-esp32 3.x. So either pin SimpleFOC to 2.3.3, or update the
 ESP32 core to 3.x first. Not yet compiled for the classic ESP32-DevKitC in the
-parts order (its core isn't installed), and never run on a board. The pins are
-still guesses.
+parts order (its core isn't installed), and never run on a board.
+
+**Pins** (2026-10-20) live in `handwheel/pins.h`, one set per board. The first
+compile wrote GPIO 25/26/27/14 for every board; on the Nano ESP32, which numbers
+pins the Arduino way by default, those numbers don't exist, so it built cleanly
+and would have driven nothing. The Nano now uses D2–D5 and D10 (SPI on D11–D13).
+
+**Box day** is [`box-day.html`](box-day.html): the wiring, the steps in order with
+a pass and a fail for each, and a console that drives the knob from Chrome over
+USB. The whole bench below runs in one command, which asks when to fit the disc
+and when to start the mic recording:
+
+    /usr/local/bin/python3 bench/run_bench.py --R <ohms per phase>
+
+Rehearse it with `--fake`. (That Python is the one on this laptop with numpy and scipy.)
 
 | Test | What you do | What it pins | Why it matters |
 |---|---|---|---|
@@ -71,7 +84,14 @@ platter can't teach it to shove. The analyzer prints the two numbers after
 `bench coast` (`send to the knob: … set ffB … set ffC …`); send them with the
 turntable selected. In the model, numbers 30% off still idle at full speed. On
 the bench: `feel turntable`, hands off for five seconds, then read the speed
-from the `a` lines (the target is 3.49 rad/s). Then drag it nearly to a stop for
+as angle travelled over time, not from one `a` line (the target is 3.49 rad/s).
+The box-day console does this over half a second and shows the wobble beside
+it. Before the bumps are cancelled, single readings swing about ±14% at 47 Hz
+(84 bumps a turn at 33⅓) while the average holds 33.3 rpm; a pretend run read
+28–31 rpm in headless Chrome only because the screen caught the low side of
+that wobble (`proofs/feel-lab/render_turntable_bumps.mjs`). After the bumps
+are cancelled the wobble should fall to about ±1%. If it doesn't, the bump map
+is off, not the speed loop. Then drag it nearly to a stop for
 a second and let go: it should be back within 1% in well under a second, with no
 surge past about 115%. If it hunts or surges, lower `ki`; if it idles short,
 check that `ffB` and `ffC` were sent to the turntable, not another feel (each

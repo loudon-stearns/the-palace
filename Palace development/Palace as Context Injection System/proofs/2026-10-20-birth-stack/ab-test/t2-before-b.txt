@@ -1,0 +1,33 @@
+I can't summon the Concierge here, since this session has no tools. So this is my read alone, and it's worth running past the Concierge before anything gets written.
+
+## My recommendation: don't fold
+
+They overlap on one idea, but they do different jobs at different scales.
+
+- **Palace as Context Injection System** is about building *one* specific collaborator, the same one every session, from an invariant floor. Its real subject is sequence: what loads first and why order shapes identity.
+- **Enchanted Worker** is about building *many different* workers from different neighborhoods. Its real subject is difference, the polyphony that makes a Weave worth running.
+
+That isn't duplication. It's a tension the palace should keep visible. One page wants every agent to wake up the same; the other needs them to wake up distinct. Folding them would blur that tension instead of holding it.
+
+## Where they do repeat themselves
+
+Two passages say nearly the same thing:
+
+1. **"Informing vs. Orienting"** in Page 1 and **"What Enchantment Actually Is"** in Page 2 both make the claim that loaded context sets the frame, not just the facts.
+2. **"How entries are written determines the character of the mind"** in Page 1 and **"a neighborhood written from anxiety produces anxious workers"** in Page 2 both make the same point about writing quality.
+
+I'd keep the general claim in Page 1, since it's the parent, and let Page 2 keep only its sharper, per-invocation version: the two-worker observation and the ephemerality limit. That trims a few paragraphs. No merge needed.
+
+## The connection that's actually missing
+
+Page 1's **Born a Child § Held open** worries that children may "sound like the house." Page 2's **Forward Vector** asks whether the orchestrator's loading "flattens the polyphony." These are the same question asked from both ends.
+
+Born a Child makes every child's stack identical up to the page, which enlarges the shared floor relative to the part that differs. If Enchanted Worker is right that difference comes from what's loaded, the new birth order is a bet that the woken page alone carries enough difference. Each page should name the other at that exact spot. A typed link from Enchanted Worker back to Page 1 already exists, but nothing says *this* is where they meet.
+
+## Smaller things I noticed
+
+- **Page 1 carries its own history.** The @import section narrates a past: "this session," "this was meant as… it was not," "§ Born a Child is the correction." The palace rule is to write what is and let git hold what was. I'd restate it in the present tense. One caution: CLAUDE.md points at "§ The @import Floor" by name, so the heading has to survive or that pointer breaks.
+- **Enchanted Worker's example uses link types the ontology doesn't have:** `resonates-with`, `instantiates`, `formalizes`. Read as quotes of what the workers produced, they're fine. But a fresh agent may copy them. One clause would fix it, saying they were off-ontology types the workers invented, which itself shows the frame bending the output. Or recast them as labels.
+- **Something I couldn't check.** The CLAUDE.md in my context still `@import`s SCHEMA into the floor and is dated 2026-09-04. Born a Child (v1.19, 2026-09-22) says SCHEMA moved to Growth. So either this copy is stale, or the page describes a change that hasn't landed. I can't tell which from here. It's worth confirming before trusting Page 1's table as current.
+
+If you want, the next move is to draft the cross-reference at the "flattening" seam on both pages. That's the smallest change that adds the most.
