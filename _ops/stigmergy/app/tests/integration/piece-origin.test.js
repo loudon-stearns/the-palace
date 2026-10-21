@@ -182,6 +182,15 @@ describe('the piece origin', () => {
     expect(tokens.headers['content-type']).toMatch(/javascript/);
   });
 
+  // An opaque piece (one with no origin of its own) loads the design system by a
+  // tag, and an opaque origin is never this one: so those files may be embedded
+  // anywhere, and a piece and the files it declares only by its own origin.
+  test('CORP: cross-origin for the design system, same-origin for a piece and its declared files', async () => {
+    expect((await send(enc('_ops/loudon-live/design-system/palace-tokens.js'))).headers['cross-origin-resource-policy']).toBe('cross-origin');
+    expect((await send(enc('Demo/piece.html'))).headers['cross-origin-resource-policy']).toBe('same-origin');
+    expect((await send(enc('Demo/frames.json'))).headers['cross-origin-resource-policy']).toBe('same-origin');
+  });
+
   test('the root is not a page', async () => {
     expect((await send('/')).status).toBe(404);
   });
@@ -196,6 +205,22 @@ describe('when its port is taken', () => {
     expect(status.ok).toBe(false);
     expect(status.error).toBe(`port ${held} is taken by another program, so no piece runs here`);
     expect(o.describe('Demo/plain.html').blocked).toBe(status.error);
+  });
+
+  test('a palace has one free-port piece origin in a process, until it stops', async () => {
+    const again = await startPieceOrigin({ root, port: 0 });
+    expect(again).toBe(po);
+    const other = mkdtempSync(resolve(tmpdir(), 'piece-origin-other-'));
+    try {
+      const theirs = await startPieceOrigin({ root: other, port: 0 });
+      expect(theirs).not.toBe(po);
+      await theirs.close();
+      expect(theirs.status.ok).toBe(false);
+      const fresh = await startPieceOrigin({ root: other, port: 0 });
+      expect(fresh).not.toBe(theirs);
+      expect(fresh.status.ok).toBe(true);
+      await fresh.close();
+    } finally { rmSync(other, { recursive: true, force: true }); }
   });
 
   test('a second start on a held port in the same process finds the first instead', async () => {

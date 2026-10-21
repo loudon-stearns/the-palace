@@ -2,8 +2,9 @@
 // 127.0.0.1:8843, where every rich-face piece runs. Authority lives on the app's
 // own origin (the board, /api/open, the reader); nothing the palace writes runs
 // there. 127.0.0.1 is another site from localhost, so whatever a piece sends
-// toward STIGMERGY is cross-site, and the request guard refuses it. Plan:
-// STIGMERGY — spec — rich-face pieces § 2 and § 4.2.
+// toward STIGMERGY is cross-site: the request guard refuses its writes and
+// /api/open, and STIGMERGY sends no CORS, so a piece cannot read what comes
+// back. Plan: STIGMERGY — spec — rich-face pieces § 2 and § 4.2.
 //
 // It holds nothing and serves little:
 //   · GET and HEAD only, for its exact Host, with no CORS.
@@ -15,7 +16,10 @@
 //     (describe). Anything else gets a 404 that says why.
 //   · Each piece goes out with the kit injected, its Permissions-Policy (what
 //     grants.json allows it: the real gate), its CSP (report-only for a round),
-//     CORP same-origin and nosniff.
+//     CORP and nosniff. CORP is same-origin for a piece and its declared files,
+//     which only a piece with this origin loads; the design system's files are
+//     cross-origin, since a piece with no origin of its own (opaque) loads them
+//     too, and an opaque origin is never the same origin as this one.
 //   · If its port is taken, it says so, and every figure says so in turn. A
 //     piece never falls back to the app's origin.
 
@@ -141,10 +145,11 @@ export function createPieceOrigin({ root, port = PIECE_PORT, host = PIECE_HOST }
     if (hidden(rel)) return { why: `“${rel}” is in a hidden folder; the piece origin never serves one.` };
     if (rel.startsWith(REVIEW_LAYER)) return { why: 'The review layer stays out of faces: its notes land in storage a face does not keep.' };
     if (pieces.has(rel)) return { piece: true };
-    for (const p of pieces.values()) if (p.files.has(rel) || p.folders.some((d) => rel.startsWith(d))) return { ok: true };
+    if (declaredByAny(rel)) return { ok: true };
     if (rel.startsWith(DESIGN_SYSTEM)) return { ok: true };
     return null;
   }
+  const declaredByAny = (rel) => { for (const p of pieces.values()) if (p.files.has(rel) || p.folders.some((d) => rel.startsWith(d))) return true; return false; };
 
   async function handle(req, res) {
     const [rawPath] = String(req.url || '/').split('?');
@@ -175,7 +180,8 @@ export function createPieceOrigin({ root, port = PIECE_PORT, host = PIECE_HOST }
     const abs = resolver.abs(rel);
     let st;
     try { st = statSync(abs); } catch { text(res, 404, `“${rel}” is gone.`); return; }
-    const headers = { 'X-Content-Type-Options': 'nosniff', 'Cross-Origin-Resource-Policy': 'same-origin', 'Referrer-Policy': 'no-referrer' };
+    const shared = !a.piece && rel.startsWith(DESIGN_SYSTEM); // public assets, which the build publishes anyway
+    const headers = { 'X-Content-Type-Options': 'nosniff', 'Cross-Origin-Resource-Policy': shared ? 'cross-origin' : 'same-origin', 'Referrer-Policy': 'no-referrer' };
     if (isPiecePage(rel)) {
       headers['Permissions-Policy'] = piecePolicy(plan && !plan.error ? plan : null);
       headers['Content-Security-Policy-Report-Only'] = pieceCsp(plan && !plan.error ? plan : null, shelfOrigins(root));
@@ -213,13 +219,18 @@ export function createPieceOrigin({ root, port = PIECE_PORT, host = PIECE_HOST }
     describe,
     scan,
     start,
-    close: () => new Promise((done) => (server && server.listening ? server.close(() => done()) : done())),
+    close: () => new Promise((done) => {
+      if (status.ok) status = { ok: false, starting: false, origin: null, error: 'the piece origin has stopped' };
+      if (server && server.listening) { server.close(() => done()); server.closeAllConnections?.(); } else done();
+    }),
   };
 }
 
-// One piece origin per port in a process. Vite builds its server again when its
-// config's imports change, and calls configureServer before the old one closes;
-// the second start must find the first, not a port it already holds.
+// One piece origin per palace and port in a process, and one per palace for "any
+// free port". Vite builds its server again when its config's imports change, and
+// calls configureServer before the old one closes: the second start must find the
+// first, not a port the first still holds, nor leave the first listening with no
+// one to close it. One that has stopped, or whose port was taken, is started anew.
 const LIVE = Symbol.for('palace.rich-face.piece-origins');
 const live = globalThis[LIVE] || (globalThis[LIVE] = new Map());
 
@@ -229,16 +240,17 @@ const live = globalThis[LIVE] || (globalThis[LIVE] = new Map());
  * { status: { ok: false, error } }, which every figure then shows.
  */
 export async function startPieceOrigin({ root, port = PIECE_PORT, host = PIECE_HOST }) {
-  const key = `${root}\0${host}\0${port}`;
-  if (port !== 0 && live.has(key)) {
+  const key = `${root}\0${host}\0${port || 'any'}`;
+  if (live.has(key)) {
     const o = live.get(key);
     await o.ready;
     if (o.status.ok) return o;
-    live.delete(key); // its port was taken last time: try again
+    if (live.get(key) === o) live.delete(key); // stopped, or its port was taken last time: try again
   }
   const o = createPieceOrigin({ root, port, host });
   o.ready = o.start();
-  if (port !== 0) live.set(key, o);
-  await o.ready;
+  live.set(key, o);
+  const status = await o.ready;
+  if (!status.ok && live.get(key) === o) live.delete(key);
   return o;
 }
