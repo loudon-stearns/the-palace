@@ -126,4 +126,4 @@ Nothing above requires pixels. Gaver's Drift Table was a coffee table; Hassenzah
 
 ---
 
-<!-- CLAUDE → LOUDON (2026-10-21): The technical direction left this page on your ask, so it reads as design direction and can cover hardware. What was cut — the implementation palette (JSUI / Canvas / WebGL / SVG / AI-generated frames) and the five-step workflow with its parameter-to-frame table — waits in this page's bundle as [[Playful Interface Design — sketch — cut technical direction]] until you say where it lives: JSUI, or the how-to entry on the character-animation workflow the old note here proposed. The old note's accessibility suggestion is folded into Open questions. -->
+<!-- CLAUDE → LOUDON (2026-10-21): The technical direction (implementation palette, five-step character-animation workflow, the gain ladder) left this page on your word and was not kept anywhere else — git holds it at 99978d05 if ever wanted. The old note's accessibility suggestion is folded into Open questions. -->
