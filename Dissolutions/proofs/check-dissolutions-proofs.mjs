@@ -99,5 +99,35 @@ const rand = (seed) => () => ((seed = (seed * 16807) % 2147483647) / 2147483647)
     `ah at 0.3 s: voice ${a.map(Math.round).join(', ')} Hz; buzz-driven ${b.map(Math.round).join(', ')} Hz (made at 730, 1090)`);
 }
 
+// ── One field, two hands: Volterra Kernels and the Torus ─────────────────────
+{
+  const M = mathOf('2026-10-20-one-field-two-hands', 'one-field-two-hands.html',
+    ['GAP', 'FIELDS', 'fieldAt', 'readSynth', 'inputAt', 'readEffect', 'volterraKernels', 'volterraEval', 'levelAt', 'maxDiff']);
+  const sr = 48000, N = 24000;
+  let worst = 0;
+  for (const name of Object.keys(M.FIELDS)) for (const lag of [12, 30, 77]) for (const f of [110, 220, 437]) {
+    const off = ((-f * lag / sr) % 1 + 1) % 1;
+    worst = Math.max(worst, M.maxDiff(M.readSynth(M.FIELDS[name], f, 1, off, sr, N), M.readEffect(M.FIELDS[name], 'one', f, lag, sr, N)));
+  }
+  check('field: one tone read now and a lag ago is two phasors at 1:1, a fixed offset apart — they null', worst < 1e-9, `largest difference ${worst.toExponential(1)} over 3 fields × 3 lags × 3 tones`);
+  const swing = (c, lag) => { const l = []; for (let f = 110; f <= 660; f += 10) l.push(M.levelAt(M.readEffect(c, 'two', f, lag, sr, 16384), M.GAP, sr)); return Math.max(...l) - Math.min(...l); };
+  const flat = Math.max(...Object.keys(M.FIELDS).map((k) => swing(M.FIELDS[k], 0)));
+  check('field: on the diagonal (lag 0) the difference tone keeps one level as the tones slide, as a Hammerstein must', flat < 0.05, `largest swing ${flat.toFixed(3)} dB over all three fields`);
+  const s30 = swing(M.FIELDS.ring, 30);
+  check('field: off the diagonal (lag 30) the difference tone swings with the input frequencies, which no Hammerstein can do', s30 > 10, `swing ${s30.toFixed(1)} dB`);
+  {
+    const f = 220, lag = 30, a0 = M.levelAt(M.readEffect(M.FIELDS.ring, 'two', f, 0, sr, 16384), M.GAP, sr), a = M.levelAt(M.readEffect(M.FIELDS.ring, 'two', f, lag, sr, 16384), M.GAP, sr);
+    const predicted = 20 * Math.log10(Math.abs(Math.cos(Math.PI * (2 * f + M.GAP) * lag / sr)));
+    check('field: for the ring, the difference tone follows |cos(π(f₁+f₂)τ)|, set by the tones that made it', Math.abs((a - a0) - predicted) < 0.2, `measured ${(a - a0).toFixed(2)} dB, predicted ${predicted.toFixed(2)} dB`);
+  }
+  let vworst = 0;
+  const r = rand(3), x = Array.from({ length: 400 }, () => 2 * r() - 1);
+  for (const name of Object.keys(M.FIELDS)) for (const lag of [0, 5, 40]) {
+    const ks = M.volterraKernels(M.FIELDS[name], lag), xf = (t) => x[t];
+    for (let t = 60; t < 400; t++) vworst = Math.max(vworst, Math.abs(M.volterraEval(ks, xf, t) - M.fieldAt(M.FIELDS[name], x[t], x[t - lag])));
+  }
+  check('field: written as a Volterra series on the lags 0 and τ, the reading is exact', vworst < 1e-12, `largest difference ${vworst.toExponential(1)}, random input, 3 fields × 3 lags`);
+}
+
 console.log(fails ? `\n${fails} FAIL` : '\nall PASS');
 process.exit(fails ? 1 : 0);
