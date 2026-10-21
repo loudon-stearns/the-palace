@@ -77,5 +77,27 @@ const rand = (seed) => () => ((seed = (seed * 16807) % 2147483647) / 2147483647)
   }
 }
 
+// ── The equation read backward: LPC analysis = synthesis read backward ───────
+{
+  const M = mathOf('2026-10-20-the-equation-read-backward', 'the-equation-read-backward.html',
+    ['makeVoice', 'levinson', 'lpcFrames', 'analyse', 'synthesise', 'standIn', 'maxDiff', 'energy', 'envelopeDb']);
+  const SR = 16000, HOP = 160, WIN = 400, v = M.makeVoice(SR, 2.2, 11), X = v.x;
+  const gains = [];
+  let worst = 0;
+  for (const p of [1, 4, 16, 32]) {
+    const fr = M.lpcFrames(X, p, HOP, WIN), E = M.analyse(X, fr, p, HOP);
+    worst = Math.max(worst, M.maxDiff(X, M.synthesise(E, fr, p, HOP)));
+    gains.push(10 * Math.log10(M.energy(X) / M.energy(E)));
+  }
+  check('lpc: solved for the voice from its own residual, the voice comes back, at every order', worst < 1e-10, `largest difference ${worst.toExponential(1)} at orders 1, 4, 16, 32`);
+  check('lpc: more weights carry more of the voice; the line holds regardless', gains[0] < gains[1] && gains[1] < gains[2], `prediction gain ${gains.map((g) => g.toFixed(1)).join(' / ')} dB`);
+  const peaks = (env) => { const out = []; for (let b = 1; b < env.length - 1 && out.length < 2; b++) if (env[b] > env[b - 1] && env[b] >= env[b + 1]) out.push(b * 8000 / (env.length - 1)); return out; };
+  const p = 16, fr = M.lpcFrames(X, p, HOP, WIN), E = M.analyse(X, fr, p, HOP);
+  const Yb = M.synthesise(M.standIn('buzz', E, v.f0, SR, HOP, 5), fr, p, HOP), frB = M.lpcFrames(Yb, p, HOP, WIN);
+  const f = Math.round(0.3 * SR / HOP), a = peaks(M.envelopeDb(fr[f].a, 129)), b = peaks(M.envelopeDb(frB[f].a, 129));
+  check('lpc: driven by a buzz, the vowel keeps its first two formants', a.length === 2 && b.length === 2 && Math.abs(a[0] - b[0]) <= 125 && Math.abs(a[1] - b[1]) <= 125,
+    `ah at 0.3 s: voice ${a.map(Math.round).join(', ')} Hz; buzz-driven ${b.map(Math.round).join(', ')} Hz (made at 730, 1090)`);
+}
+
 console.log(fails ? `\n${fails} FAIL` : '\nall PASS');
 process.exit(fails ? 1 : 0);
