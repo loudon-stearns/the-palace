@@ -205,7 +205,7 @@ Never raw-commit from Cowork — it can rename but not delete files, so a bare `
 How this environment is run, for any session on Loudon's Mac. The spend rule itself is in CLAUDE.md, where every agent is born with it.
 
 - **Which model does the work.** The session supervises: it plans, dispatches, reviews and decides, and keeps its own window for judgment. Sonnet runs the wide legs: searches, finders, fan-out, the Closing Well executor. Opus takes the long reading and drafting where the judgment is structural, and the hardest synthesis and judging; it draws on a tighter weekly cap, so it is used where it earns it. Haiku only does shallow, known-shape work. Palace docs are written for Sonnet-level readers and up. (Loudon, 2026-09-24 and 2026-09-25.)
-- **"reveal"** means show it in Finder: `open -R "<absolute path>"` highlights the file in its folder. Resolve the name first, across the worktrees too, not only the main checkout. Whenever you find or make a file he'll want, reveal it and say so. (Loudon, 2026-06-16.)
+- **"reveal"** means show it in Finder: `open -R "<absolute path>"` highlights the file in its folder. Look for the file in the folder you're working in first; if it lives in another worktree, revealing it there is fine, because revealing only shows a file in Finder, it doesn't work on it. Whenever you find or make a file he'll want, reveal it and say so. (Loudon, 2026-06-16.)
 
 The subagent lifecycle (a parked subagent costs nothing; a resume keeps its context) is a fact about the harness, not a choice of Loudon's, and stays in auto-memory, labelled operator-env native.
 
