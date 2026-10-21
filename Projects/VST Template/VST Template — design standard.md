@@ -5,10 +5,13 @@ links:
   - target: "[[VST Template]]"
     type: connects-to
     label: standard-for
+  - target: "[[Drafting Table Design System]]"
+    type: connects-to
+    label: editor-dress
   - target: "[[Loudon Live Design System]]"
     type: connects-to
-    label: plugin-editor
-forward_vector: "I am the standard every plugin made from VST Template follows for its editor: the header, type, colour, space, the controls for each kind of parameter, values and resizing, all drawn from the parameter table with no editor code per plugin. I record Loudon's choice of direction once he makes it, and I hand what the house dress lacks for a plugin window back to the design system."
+    label: optional-dress
+forward_vector: "I am the standard every plugin made from VST Template follows for its editor: Drafting Table on Phosphor, the bench layout or the edge-map pad where two heroes make a map, a control for each kind of parameter, values, resizing and the CRT, all drawn from the parameter table with no editor code per plugin. I want every new plugin to wear me without a line of its own, and I hand what a plugin window still needs back to the design systems."
 ---
 
 # VST Template — design standard
