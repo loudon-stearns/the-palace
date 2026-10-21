@@ -28,6 +28,7 @@ Drafting Table is the workshop's dress. It is the STIGMERGY terminal grown up an
 - **A plugin ships on Phosphor** in a DAW's dark room; Paper is for pages, prints and proofs.
 - **Tier, never "v1".** The title block's status line carries `SKETCH` / `STUDY` / `PIECE`; the version cell carries the build.
 - **Reviewable first versions, on the mock page.** A UI that runs inside another application keeps its review surface on its browser mock, drawn by the same code from the same data; the shipped window stays clean (Loudon, 2026-10-21).
+- **A web piece declares what it needs.** Anything the palace shows in a frame (a rich face, a scroll's trail, a TRICKSTER card) runs on the piece origin, sandboxed, and gets only what it declares in its own `<head>`: `piece:needs`, `piece:files`, `piece:net`, `piece:size`. One HTML file, no build; a CDN library from the shelf, pinned. A piece made for a rich face leaves the review kit out; the face carries it ([[Review Layer]]). Rules: `_ops/rich-face/README.md` § What the page lets run.
 - **The gestures are one rule:** 150px of drag for the full range, Shift a fifth, wheel 2% / 0.4%, double-click to default, arrows; every move inside a host gesture.
 
 ## If invoked without other guidance
