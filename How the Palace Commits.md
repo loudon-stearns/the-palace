@@ -55,7 +55,7 @@ flowchart LR
 
 ## Rules at the trunk
 
-Five sentences every session keeps, whoever it is and whatever it is landing. Each names what holds it. The tools refuse the worst slips: the committer will not take a file it was not named, or write while the main checkout is off main; the lander refuses a conflict, a ledger union merged into a doubled item, or a landing over someone's unsaved file; GitHub refuses a force push to main. Past those, the rules rest on habit. The ear counts any move of main that went around the door, and that count decides whether a fence ever goes up; it cannot hear a raw `git add` or `stash`, which move no branch.
+Five sentences every session keeps, whoever it is and whatever it is landing. Each names what holds it. The tools refuse the worst slips: the committer will not take a file it was not named, or write while the main checkout is off main; the lander refuses a conflict, a ledger the union merge left doubled or joined, or a landing over someone's unsaved file; GitHub refuses a force push to main. Past those, the rules rest on habit. The ear counts any move of main that went around the door, and that count decides whether a fence ever goes up; it cannot hear a raw `git add` or `stash`, which move no branch.
 
 - **Your HEAD is yours.** Anything longer than a breath, and any code, is made in a worktree of its own and committed there however you like (`_ops/worktree/new-worktree.mjs`).
 - **Main only moves forward.** No rebase, reset, amend or rewrite of main, except a rewrite Loudon orders himself, such as the [[Sentry]] closing a leak in public history. The ear hears every move of main (`.git/palace-ear.jsonl`).

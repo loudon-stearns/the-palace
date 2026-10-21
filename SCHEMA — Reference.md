@@ -295,10 +295,11 @@ that each append to the same ledger both keep their lines, without a conflict. U
 `palace-land` reads what a landing makes of each union-merged ledger and refuses what neither side had: an item
 number twice (two branches each appended item N), one item in two forms (edited in place beside the other
 branch's change), or two lines joined into one. The branch settles it in its own worktree, merging main in and
-renumbering or keeping the item once, and lands again; the lander reads that merge too. A heading left with no
-blank line above it is only noted. One cost remains: two identical lines merge into one, which is why a run line
-names what the run ran on. If an item or an order still shows up both owed and paid, it is paid, and the next
-run deletes the stale copy.
+renumbering its own item, and the run line that names it, or keeping the item once, and lands again; the lander
+reads that merge too. A heading left with no blank line above it is only noted. Two costs remain. Two identical
+lines merge into one, which is why a run line names what the run ran on. And an order is not an item, so one paid
+in place can still come back in both forms: when it shows up both owed and paid, it is paid, and the next run
+deletes the stale copy.
 
 ---
 
