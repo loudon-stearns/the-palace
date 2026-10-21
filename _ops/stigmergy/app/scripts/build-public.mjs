@@ -39,6 +39,7 @@ import { makeResolver } from '../../../rich-face/resolve.mjs';
 import { vendorFiles, richReferences } from '../../../rich-face/rich-handler.mjs';
 import { isPiecePage, pieceBytes } from '../../../rich-face/kit/inject.mjs';
 import { contractOf, framePlan } from '../../../rich-face/contract.mjs';
+import { makeContext, readFace, checkPage, openErrors, renderTable } from '../../../rich-face/conform.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const APP = resolve(HERE, '..');
@@ -339,8 +340,24 @@ writeJson('data/unsung-paths.json', { edges, entry_count: records.length, edge_c
 }
 
 // ── 5. rich faces ───────────────────────────────────────────────────────────
+// Each published face is read by the piece checker (_ops/rich-face/conform.mjs)
+// with this build's own resolver, so it judges exactly what ships: a file the
+// face names that does not resolve, a piece's declared file that is missing,
+// an unpinned CDN. With `enforce.build` on in _ops/rich-face/conform.json an
+// error fails the build, and so does a checker that cannot run (fail closed);
+// off, the build prints the table and goes on. A piece's declared files ship
+// beside it, so the read view can serve what the piece asked for.
 const rich = {};
 const namePaths = Object.fromEntries(published.map((e) => [stemOf(e.path), e.path]));
+const conformCtx = makeContext(ROOT, { tracked: true, resolver });
+const conformRun = { faces: [], results: [], faceFindings: [] };
+const conformCheck = (fn) => {
+  try { return fn(); } catch (e) {
+    if (conformCtx.config.enforce.build) throw new Error(`rich face: the piece checker could not run, and the build is enforced: ${e.message}`);
+    console.warn(`  rich face: the piece checker could not run (${e.message}); report-only, so the build goes on`);
+    return null;
+  }
+};
 for (const s of published) {
   if (!Array.isArray(s.faces) || !s.faces.includes('rich')) continue;
   const e = readEntry(ROOT, s.path, { use: USE });
@@ -366,6 +383,20 @@ for (const s of published) {
       pieces[n] = framePlan({ path: r.path, contract: contractOf({ html: readFileSync(join(ROOT, r.path), 'utf8'), manifestContract: contracts.get(n) }), mode: 'static', url: media[n].url });
     }
   }
+  conformCheck(() => {
+    const face = readFace(conformCtx, e.path, manifestRel);
+    conformRun.faces.push(face);
+    conformRun.faceFindings.push(...face.findings);
+    for (const p of face.pieces) {
+      const r = checkPage(conformCtx, { path: p.path, via: [{ entry: face.entry, name: p.name, manifestPiece: p.manifestPiece }] });
+      conformRun.results.push(r);
+      const dir = p.path.slice(0, p.path.lastIndexOf('/') + 1);
+      for (const f of r.declaration?.files || []) {
+        const found = resolver.resolve(f.startsWith('/') ? f : `/${dir}${f}`);
+        if (found.ok) addFile(found.path);
+      }
+    }
+  });
   const bundleNames = resolver.filesIn(bundleRel);
   rich[stem] = {
     title: stem,
@@ -381,6 +412,14 @@ for (const s of published) {
   };
 }
 writeJson('data/rich.json', { entries: rich });
+
+if (conformRun.faces.length) {
+  const errors = openErrors(conformRun);
+  const enforced = conformCtx.config.enforce.build;
+  console.log(`  rich faces checked: ${conformRun.faces.length} faces, ${conformRun.results.length} pieces, ${errors.length} error(s)${enforced ? '' : ' (report-only)'}`);
+  if (errors.length) console.log(renderTable(conformRun));
+  if (enforced && errors.length) throw new Error(`rich face: ${errors.length} error(s) from the piece checker, and the build is enforced: ${errors.slice(0, 3).map((f) => `${f.rule} ${f.piece}`).join('; ')}`);
+}
 
 const richSrc = join(APP, '../../rich-face/rich.html');
 const richHtml = readFileSync(richSrc, 'utf8')

@@ -11,6 +11,10 @@
 // file / data export, an SSN or card number in prose, a GPS-tagged photo, invisible
 // Unicode smuggling. Everything else is printed as a warning and the push goes on.
 //
+// The rich check (rich.mjs) reads the pushed commit's rich faces with the piece checker when
+// the push touches one. Its errors are HIGH only once Loudon turns `enforce.push` on in
+// _ops/rich-face/conform.json; until then it prints and never blocks.
+//
 // Override once, knowingly, and only on Loudon's word:   git push --no-verify (it also goes around palace-push)
 // Accept a false positive:     add its fp to _ops/sentry/allow.json with a reason.
 //
@@ -26,6 +30,7 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { repoRoot, heldDir, loadAllow, listObjects, scanBlobs, scanMessages, scanContent, scanPaths, hasGitleaks, sortFindings } from './engine.mjs';
 import { fingerprint } from './rules.mjs';
+import { richGate, touchedPaths } from './rich.mjs';
 
 const ZERO = /^0+$/;
 const remote = process.argv[2] || 'origin';
@@ -38,8 +43,8 @@ async function main() {
   for (const [, localSha, remoteRef, remoteSha] of lines) {
     if (ZERO.test(localSha)) continue; // deleting a remote branch sends nothing
     ranges.push(ZERO.test(remoteSha)
-      ? { label: remoteRef, rev: [localSha, '--not', `--remotes=${remote}`] } // new branch: what the remote lacks
-      : { label: remoteRef, rev: [localSha, `^${remoteSha}`] });
+      ? { label: remoteRef, sha: localSha, rev: [localSha, '--not', `--remotes=${remote}`] } // new branch: what the remote lacks
+      : { label: remoteRef, sha: localSha, rev: [localSha, `^${remoteSha}`] });
   }
   if (!ranges.length) return;
   if (!hasGitleaks()) console.error('sentry: gitleaks is not installed — checking with the Sentry rules alone (brew install gitleaks for its ~150 more)');
@@ -52,6 +57,7 @@ async function main() {
     findings.push(...(await scanMessages(root, messages, opts)).findings);
     findings.push(...scanPaths([...new Set(blobs.map(b => b.path))], allow));
     findings.push(...gitleaksRange(root, r.rev, allow));
+    findings.push(...richRange(root, r, allow));
   }
   // A ref's name is in no object, and it goes out too (credentials only; the name is never printed).
   findings.push(...scanContent('pushed ref names', Buffer.from(ranges.map(r => r.label).join('\n') + '\n'), { families: ['secret'], allow, textAs: 'message.txt' })
@@ -77,11 +83,31 @@ async function main() {
     console.error(`\n  This push has not sent it.`);
     if (high.some(f => f.ref)) console.error(`  A branch or tag name carries it: push it under a clean name. Nothing to rewrite.`);
     if (high.some(f => f.tag)) console.error(`  A tag that has not left is fixed here, no rewrite: delete it (git tag -d), make it again with a clean name and message, push again.`);
-    if (high.some(f => !f.tag && !f.ref)) console.error(`  Taking it out of commits on main is a rewrite, and only Loudon orders one; bring it to him.`);
+    if (high.some(f => !f.tag && !f.ref && f.family !== 'rich')) console.error(`  Taking it out of commits on main is a rewrite, and only Loudon orders one; bring it to him.`);
+    if (high.some(f => f.family === 'rich')) console.error(`  A rich-face piece fails the checker: fix it in a new commit, no rewrite (node _ops/rich-face/conform.mjs "<Entry>" shows the table), or add a reviewed exception to _ops/rich-face/conform.json.`);
     console.error(`  A false positive? Add its fp to _ops/sentry/allow.json with a reason, and run the push again.`);
     console.error(`  Going around the gate (git push --no-verify) is Loudon's call alone: it also goes around palace-push and leaves no receipt.`);
     process.exitCode = 1;
   }
+}
+
+// The rich check for one pushed ref. Enforced, a check that cannot run refuses the push (the throw
+// reaches main's catch); report-only, it says so and the push goes on.
+function richRange(root, r, allow) {
+  try {
+    const out = richGate(root, r.sha, touchedPaths(root, r.rev), allow);
+    if (out.ran) console.error(`sentry: rich check — ${out.why}${out.enforce ? '' : ' (report-only: nothing it finds blocks)'}`);
+    return out.findings;
+  } catch (e) {
+    if (richEnforcedAt(root, r.sha)) throw new Error(`the rich check could not run: ${e.message}`);
+    console.error(`sentry: the rich check could not run (${e.message}); it is report-only, so the push goes on`);
+    return [];
+  }
+}
+
+function richEnforcedAt(root, sha) {
+  try { return !!JSON.parse(execFileSync('git', ['show', `${sha}:_ops/rich-face/conform.json`], { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] })).enforce?.push; }
+  catch { return false; }
 }
 
 function gitleaksRange(root, rev, allow) {
