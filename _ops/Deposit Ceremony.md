@@ -7,7 +7,7 @@ pillars:
   - philosophy
 born: 2026-03
 stage: growing
-version: "2.5"
+version: "2.6"
 trigger: ["deposit", "let's deposit", "add this to the palace", "memorialize this"]
 forward_vector: "I am the palace's gate for finds. Whoever brings one, I slow them down long enough to see it again, ask an elder where it lives, map it with care, and let Loudon read every word before it becomes canon. I want the palace to grow only by what was truly found, and everyone who offers something to be answered."
 links:
@@ -54,7 +54,7 @@ links:
 
 A deposit adds to canon: a new entry, or a fold that changes what an existing entry says. It is for the larger moves. Upkeep, like a link fixed, a version moved or drift repaired, is an edit, and ELDER's *show before writing* already covers it.
 
-A page's other faces are not canon. Its rich face, and the Now and making zones of its scroll, are the page's products, made in its bundle; Enrichment and the steward's cycle make them without a deposit and without asking. The scroll's Standing Orders are Loudon's, and no agent writes them. The gate is on what the page itself says. A steward never passes it alone: a change it wants to what a page says, its own included, waits in its tuning ledger as a proposal for canon ([[ELDER]] § Age and its limits), and reaches canon only when Loudon takes its words in at his review of the ledgers ([[Project Stewardship System]] § What's Open).
+A page's other faces are not canon. Its rich face, and the Now and making zones of its scroll, are the page's products, made in its bundle; Enrichment and the steward's cycle make them without a deposit and without asking. The scroll's Standing Orders are Loudon's, and no agent writes them. The gate is on what the page itself says. A steward never passes it alone: a change it wants to what a page says, its own included, waits in its tuning ledger as a proposal for canon ([[ELDER]] § Age and its limits), and reaches canon only when Loudon takes its words in at his review of the ledgers ([[Project Stewardship System]] § What's Decided). A proposal that would mint a page crosses here; one that only changes the page it names lands as an edit at the review.
 
 The deposit is the palace's protection. It is the one gate a find passes on its way into canon, and it exists so that three things hold, whoever brings the find:
 
