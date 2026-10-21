@@ -29,9 +29,10 @@ Projects/VST Template/
 
 - **Same operations, same order.** `a*b*c` is `(a*b)*c` on both sides. A numpy `.sum()` adds in a different order than a C++ loop does. The difference is a rounding error, harmless unless the model is chaotic.
 - **Scalar code in the sketch uses `math`, not numpy.** `math.exp`, `math.sin` and `math.tan` call the same system library the C++ does, so they agree to the last bit.
-- **Wrap phases in C++** (`p -= std::floor (p)`). A plugin runs for hours, and an unwrapped phase loses precision within minutes. The sketch needn't wrap. Away from chaos the two still agree to float32 precision.
+- **Wrap phases on both sides** (`p -= floor (p)`). A plugin runs for hours, and an unwrapped phase loses precision. The sketch should wrap too. In Frustration's string–bar path the top partials race at about 176 kHz, and the unwrapped sketch drifted 1.4e-6 of peak from its own wrapped self within 21 s. The C++ was the more exact of the two.
 - **Size state for the largest case.** `std::array<double, 96>` with an active count, never a vector resized in `step()`. A choice that changes the state's size (Frustration's partial count) restarts the state, so make it a non-automatable `Choice`.
-- **Chaos breaks sample parity, and that is not a bug.** Where a model amplifies rounding (Frustration at the edge), two correct implementations part after a second or two. Gate those stretches on behaviour (a probe's mean and spread in half-second windows), and keep the sample-exact gate for the stretch before it. Where the paths cross the edge, find the parting point first with `--quick`, then set `exact_until` just short of it.
+- **Chaos breaks sample parity, and that is not a bug.** Where a model amplifies rounding (Frustration at the edge), two correct implementations part after a second or two. Find the parting point with a first run, set `exact_until` just short of it, and gate the rest on behaviour (a probe's mean and spread in half-second windows).
+- **Know what each gate can see.** The sample-exact stretch is the proof: in Frustration it catches a coupling 0.5 % off at 0.15 of peak. The behaviour gate past the edge only shows the plugin stays in the same regime. There, coupling 5 % off fell inside the scatter between two correct implementations. So every path that crosses into chaos needs an exact stretch before it, and every term of the model needs a path that exercises it while it is still exact.
 
 ## The pieces
 
