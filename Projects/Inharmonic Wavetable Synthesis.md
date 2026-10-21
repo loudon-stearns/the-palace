@@ -218,6 +218,16 @@ The most extreme version: route a wavetable LFO running at audio rate (30–200 
 
 ---
 
+## At the Coupling Edge
+
+Wavetable B bends each partial off the flat line. Hang those partials off one phase, let voices tuned to the plain harmonic series pull on them, and the bend fights the pull: each voice tugs the shared phase toward a different fundamental. The 2026-10-17 sweeps on [[Harmonicity and Inharmonicity]] found the edge where the tone stops holding and tears. The study in `coupling-edge/` plays that edge live and keeps the stretch just under it as you play; what it measured is on [[Inharmonic Wavetable Synthesis — scroll|the scroll]] (2026-10-20). It is a toy model, so trust the shapes, not the values. Three findings bear on this instrument:
+
+- **Coupling is the cleaner performance knob.** Hold the bend fixed: more pull locks the tone, less lets it tear.
+- **The pinned string-to-bar morph is steady at both ends and torn between**, once each partial may be gripped by whichever voice is nearest. The bar's partials, 1, 4, 9, 16, are harmonics again, so the voices can hold the ones within reach.
+- **Coupling that follows loudness dissolves the edge.** When quiet partials pull weakly, the warm tone held at every stretch tried; the edge did not move out, it went away.
+
+---
+
 ## Physical Trajectory Library
 
 The Wavetable B format enables a library of pre-analyzed physical instrument trajectories. Each library entry is a set of Wavetable B frames derived from SMS analysis of a real instrument recording. The frames capture the temporal inharmonicity evolution of that instrument at a specific pitch and dynamic.
