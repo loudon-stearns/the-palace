@@ -112,6 +112,15 @@ describe('computeNow + renderNow', () => {
     expect(text).not.toContain('Ready to advance');
   });
 
+  // A page that has ended takes no steward (Loudon, 2026-10-21), so its Now
+  // says so instead of promising one "yet".
+  test('an ended project without a steward says it has ended, not that it has none yet', () => {
+    const now = computeNow({ home: 'Keys', board: [], state: null, history: [], meta: { stage: 'fruiting', data: { status: 'complete' } }, entryText: '', tsNow: '2026-10-21T00:00:00Z' });
+    expect(renderNow(now, { home: 'Keys' })).toContain('**Steward:** none — this project has ended (complete) and takes no steward');
+    const resting = computeNow({ home: 'Keys', board: [], state: null, history: [], meta: { stage: 'dormant', data: { status: 'active' } }, entryText: '', tsNow: '2026-10-21T00:00:00Z' });
+    expect(renderNow(resting, { home: 'Keys' })).toContain('has no permanent steward yet');
+  });
+
   test('readConsolidationCycle tolerates bold markers and case', () => {
     expect(readConsolidationCycle('**As of last consolidation:** cycle 17 (2026-06-23)')).toBe(17);
     expect(readConsolidationCycle('as of last consolidation: Cycle 3')).toBe(3);

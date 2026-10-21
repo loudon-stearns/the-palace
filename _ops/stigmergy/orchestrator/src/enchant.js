@@ -19,6 +19,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { registerAgent } from './registry.js';
 import { loadManifest } from './manifest.js';
 import { findEntryFile } from './entry-paths.js';
+import { pageEnded } from './batch-due.js';
 
 // findEntryFile is canonical in entry-paths.js (shared with the plan materializer
 // and the prompt builder). Re-exported to preserve enchant.js's export surface.
@@ -40,11 +41,11 @@ export function kebab(title) {
 
 /**
  * Parse the fields enchantment needs out of a page's YAML frontmatter, without
- * a YAML dependency: stage, forward_vector (quoted or bare), and links[].target
+ * a YAML dependency: stage, status, forward_vector (quoted or bare), and links[].target
  * wikilink names.
  *
  * @param {string} text — full page contents
- * @returns {{ stage: string|null, forward_vector: string, links: {target:string}[] }}
+ * @returns {{ stage: string|null, status: string|null, forward_vector: string, links: {target:string}[] }}
  */
 export function parseFrontmatter(text) {
   const m = String(text).match(/^---\n([\s\S]*?)\n---/);
@@ -53,6 +54,8 @@ export function parseFrontmatter(text) {
 
   const stageMatch = fmText.match(/^stage:\s*(.+)$/m);
   const stage = stageMatch ? stageMatch[1].trim().replace(/^["']|["']$/g, '') : null;
+  const statusMatch = fmText.match(/^status:\s*(.+)$/m);
+  const status = statusMatch ? statusMatch[1].trim().replace(/^["']|["']$/g, '') : null;
 
   const fvMatch = fmText.match(/^forward_vector:\s*"((?:[^"\\]|\\.)*)"$/m)
     || fmText.match(/^forward_vector:\s*'((?:[^'\\]|\\.)*)'$/m)
@@ -64,7 +67,7 @@ export function parseFrontmatter(text) {
     links.push({ target: linkMatch[1] });
   }
 
-  return { stage, forward_vector, links };
+  return { stage, status, forward_vector, links };
 }
 
 /**
@@ -180,6 +183,10 @@ export function enchantSteward(opts) {
   const slug = kebab(title);
   const dir = join(palaceRoot, '_ops/agents/permanent', slug);
   if (existsSync(dir)) return { title, status: 'already_enchanted', dir, slug };
+  // A page that has ended takes no steward until the Revival Ceremony wakes it
+  // (Loudon, 2026-10-21) — the deck's ENCHANT button gave finished pages one.
+  const ended = pageEnded(fm);
+  if (ended) return { title, status: 'page_ended', slug, errors: [`${title} takes no steward: ${ended.sentence}. Revive it first.`] };
 
   mkdirSync(dir, { recursive: true });
   const manifestPath = join(dir, 'manifest.json');

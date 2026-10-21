@@ -37,3 +37,21 @@ export function dueForCycle({ stage, status, lastActive, now = Date.now(), debou
   }
   return { due: true, reason: 'due' };
 }
+
+// A page that has ended takes no steward (Loudon, 2026-10-21): finished
+// (`status: complete` or `archived`) or composting (a folded page composts once
+// its fold has crossed). A dormant page has not ended — it rests, keeps its
+// steward, and wakes by the Revival Ceremony. Only these two status values
+// count, so a maker's `alive` or `stub` never reads as an end.
+export const ENDED_STATUSES = new Set(['complete', 'archived']);
+
+/**
+ * Whether a page has ended, read from its frontmatter: { how, sentence } or
+ * null. `how` is 'complete', 'archived' or 'composting'; `sentence` says it in
+ * plain words for a refusal or a trail entry.
+ */
+export function pageEnded({ stage, status } = {}) {
+  if (stage === 'composting') return { how: 'composting', sentence: 'it is composting' };
+  if (ENDED_STATUSES.has(status)) return { how: status, sentence: status === 'complete' ? 'it is finished (status: complete)' : 'it is archived (status: archived)' };
+  return null;
+}
