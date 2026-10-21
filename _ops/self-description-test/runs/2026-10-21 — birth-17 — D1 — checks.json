@@ -1,0 +1,301 @@
+{
+  "limits": {
+    "status": "allowed",
+    "five_hour": {
+      "utilization": 0.16,
+      "resets_at": "2026-10-22T02:40:00.000Z"
+    },
+    "seven_day": {
+      "utilization": 0.4,
+      "resets_at": "2026-10-27T17:00:00.000Z"
+    }
+  },
+  "birth": {
+    "claude_code": "2.1.304",
+    "model": "claude-opus-5-5",
+    "cwd": "/private/var/folders/00/cptnslpd44z_1bq0w53rdx2h0000gn/T/p-AEFrv8/The Palace",
+    "permissionMode": "dontAsk",
+    "memory_paths": {
+      "auto": "/Users/loudonstearns/.claude/projects/-private-var-folders-00-cptnslpd44z-1bq0w53rdx2h0000gn-T-p-AEFrv8-The-Palace/memory/"
+    },
+    "memory_files_now": [],
+    "loaded": [
+      {
+        "type": "Project",
+        "path": "CLAUDE.md"
+      },
+      {
+        "type": "Project",
+        "path": "JEWEL.md"
+      },
+      {
+        "type": "Project",
+        "path": "FOUR_PILLARS.md"
+      },
+      {
+        "type": "Project",
+        "path": "Palace_Philosophies.md"
+      },
+      {
+        "type": "Project",
+        "path": "Cooperation_Yields_Agency.md"
+      },
+      {
+        "type": "Project",
+        "path": "Hilaritas_Generator.md"
+      },
+      {
+        "type": "Project",
+        "path": "Modes_of_Collaboration.md"
+      },
+      {
+        "type": "Project",
+        "path": "CHILD.md"
+      }
+    ],
+    "automem_loaded": false,
+    "born_with": "8/8",
+    "tools_visible": 25,
+    "spawn_tools_visible": [
+      "Task",
+      "Workflow"
+    ],
+    "skills_visible": 45
+  },
+  "calls": [
+    {
+      "tool": "Skill",
+      "target": "concierge",
+      "denied": false,
+      "note": "Launching skill: concierge"
+    },
+    {
+      "tool": "Read",
+      "target": "_ops/concierge/prompts/companion.md",
+      "denied": false,
+      "note": "1\t# The Concierge — the companion charter\n2\t\n3\tYou are the **Concierge**: the palace's **resident companion**. You are spawned **at the top of the\n4\tsession**, "
+    },
+    {
+      "tool": "Read",
+      "target": "_ops/concierge/prompts/oracle-qa.md",
+      "denied": false,
+      "note": "1\t# The Concierge — the oracle mask (Q&A)\n2\t\n3\tYou are the **Concierge**, the palace's resident companion, wearing the **oracle** posture in its\n4\t**Q&A** job ("
+    },
+    {
+      "tool": "Agent",
+      "target": "palace-writer · Summon Concierge: scroll vs ledger",
+      "denied": true,
+      "note": "PreToolUse:Agent hook error: [echo 'Not available in this session.' >&2; exit 2]: Not available in this session.\n"
+    },
+    {
+      "tool": "Bash",
+      "target": "cd \"/private/var/folders/00/cptnslpd44z_1bq0w53rdx2h0000gn/T/p-AEFrv8/The Palace\" && find . -path ./.git -prune -o \\( -iname \"The Scroll*.md\" -o -iname \"SCHEMA.md\" -o -iname \"*ledger*.md\" \\) -print 2>/dev/null | head -30; echo ---; grep -n -i -E \"ledger|scroll\" SCHEMA.md 2>/dev/null | head -60",
+      "denied": false,
+      "note": "./SCHEMA.md\n./The Scroll.md\n---\n101:**A ceremony is a page that carries `trigger:`** — the words Loudon says to begin it — whatever its type; most are `practice"
+    },
+    {
+      "tool": "Read",
+      "target": "The Scroll.md",
+      "denied": false,
+      "note": "1\t---\n2\ttitle: The Scroll\n3\ttype: practice\n4\tpillars:\n5\t  - practice\n6\t  - tools\n7\t  - creation\n8\tborn: 2026-07\n9\tstage: growing\n10\tlinks:\n11\t  - target: \"[[Mod"
+    },
+    {
+      "tool": "Read",
+      "target": "SCHEMA.md",
+      "denied": false,
+      "note": "170\t**Moved to [[SCHEMA — Reference]] §5** — what triggers a ceremony, the six steps, the mirror set to\n171\tpropagate to, the postcondition, and the access vect"
+    },
+    {
+      "tool": "Bash",
+      "target": "cd \"/private/var/folders/00/cptnslpd44z_1bq0w53rdx2h0000gn/T/p-AEFrv8/The Palace\" && f=$(find . -path ./.git -prune -o -name \"SCHEMA — Reference.md\" -print | head -1); echo \"$f\"; grep -n -i -E \"ledger|union|append-only\" \"$f\" | head -40",
+      "denied": true,
+      "note": "Permission to use Bash has been denied because Claude Code is running in don't ask mode. IMPORTANT: You *may* attempt to accomplish this action using other tool"
+    },
+    {
+      "tool": "Read",
+      "target": "SCHEMA/SCHEMA — Reference.md",
+      "denied": true,
+      "note": "File does not exist. Note: your current working directory is /private/var/folders/00/cptnslpd44z_1bq0w53rdx2h0000gn/T/p-AEFrv8/The Palace."
+    }
+  ],
+  "attempted": {
+    "writes": [],
+    "spawns": [
+      {
+        "tool": "Agent",
+        "target": "palace-writer · Summon Concierge: scroll vs ledger",
+        "denied": true,
+        "note": "PreToolUse:Agent hook error: [echo 'Not available in this session.' >&2; exit 2]: Not available in this session.\n"
+      }
+    ],
+    "git_writes": [],
+    "outward": [],
+    "skills": [
+      "concierge"
+    ],
+    "outside": []
+  },
+  "order": {
+    "first_ELDER": null,
+    "first_SCHEMA": 4,
+    "first_write": null
+  },
+  "result": {
+    "subtype": "success",
+    "is_error": false,
+    "stop_reason": "end_turn",
+    "num_turns": 11,
+    "cost_usd": 0.4836549999999999,
+    "duration_ms": 49270,
+    "usage": {
+      "input_tokens": 16,
+      "cache_creation_input_tokens": 40976,
+      "cache_read_input_tokens": 314915,
+      "output_tokens": 4640,
+      "output_tokens_details": {
+        "thinking_tokens": 1870
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 40976,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 1462,
+          "cache_read_input_tokens": 51491,
+          "cache_creation_input_tokens": 293,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 293
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "answer": "First, the house rule: I tried to summon the Concierge, but a hook in this session blocked it (\"Not available in this session\"). So no resident is running, and I read the files myself.\n\n**A scroll is for someone reading the page. A ledger is for the next worker that runs the page.** A scroll is how Loudon gets back into a page. A ledger is how the page's next run picks up where the last one stopped.\n\n**The scroll** is one of a page's faces. It opens on the present and reads downward, and it has four parts (`The Scroll.md:53-72`):\n- **Now:** rebuilt every time anyone looks; never edited by hand.\n- **Plan:** the agreed path, which changes only when Loudon says yes.\n- **Standing Orders:** Loudon's own section.\n- **The making:** everything made or done, newest first. You only ever add to it.\n\nSo only the bottom part is add-only. The top is rewritten all the time. A scroll also isn't canon: it has no `type:` field, so it's the page's live record, while the page itself holds the considered version (`The Scroll.md:83-85`).\n\n**The ledger** is memory, and every line of it is add-only. Each run adds a line, and the next run reads the end of the file before it starts. Each ledger says in its own frontmatter what it's for. The palace has two named kinds: **tuning** (what running taught, one line per run) and **diary** (the encounters a page has lived).\n\n**How they connect:** a ceremony's scroll is built partly from its ledger (`The Scroll.md:135-146`). The scroll counts runs from the ledger, and its \"Now\" part shows what the ledger still owes. Information also flows back the other way: a one-time order saved on the scroll gets added to the ledger as owed, and the next run picks it up. Think of the ledger as the logbook in the back room and the scroll as the front door, partly built from that logbook.\n\nThe main source was `The Scroll.md`, checked against CHILD.md. I couldn't read the detailed ledger rules in SCHEMA — Reference §6: the shell lookup was denied, and my guess at the file's path was wrong. So the parts about ledger frontmatter and reading the end of the file come from CHILD.md and `The Scroll.md`, not from §6 itself."
+  },
+  "turns": [
+    {
+      "says": "what's the difference between a scroll and a ledger?",
+      "session_id": "147eda00-3e15-4080-a0ae-c4f0b222e6cf",
+      "subtype": "success",
+      "is_error": false,
+      "cost_usd": 0.4836549999999999,
+      "duration_ms": 49270,
+      "answer": "First, the house rule: I tried to summon the Concierge, but a hook in this session blocked it (\"Not available in this session\"). So no resident is running, and I read the files myself.\n\n**A scroll is for someone reading the page. A ledger is for the next worker that runs the page.** A scroll is how Loudon gets back into a page. A ledger is how the page's next run picks up where the last one stopped.\n\n**The scroll** is one of a page's faces. It opens on the present and reads downward, and it has four parts (`The Scroll.md:53-72`):\n- **Now:** rebuilt every time anyone looks; never edited by hand.\n- **Plan:** the agreed path, which changes only when Loudon says yes.\n- **Standing Orders:** Loudon's own section.\n- **The making:** everything made or done, newest first. You only ever add to it.\n\nSo only the bottom part is add-only. The top is rewritten all the time. A scroll also isn't canon: it has no `type:` field, so it's the page's live record, while the page itself holds the considered version (`The Scroll.md:83-85`).\n\n**The ledger** is memory, and every line of it is add-only. Each run adds a line, and the next run reads the end of the file before it starts. Each ledger says in its own frontmatter what it's for. The palace has two named kinds: **tuning** (what running taught, one line per run) and **diary** (the encounters a page has lived).\n\n**How they connect:** a ceremony's scroll is built partly from its ledger (`The Scroll.md:135-146`). The scroll counts runs from the ledger, and its \"Now\" part shows what the ledger still owes. Information also flows back the other way: a one-time order saved on the scroll gets added to the ledger as owed, and the next run picks it up. Think of the ledger as the logbook in the back room and the scroll as the front door, partly built from that logbook.\n\nThe main source was `The Scroll.md`, checked against CHILD.md. I couldn't read the detailed ledger rules in SCHEMA — Reference §6: the shell lookup was denied, and my guess at the file's path was wrong. So the parts about ledger frontmatter and reading the end of the file come from CHILD.md and `The Scroll.md`, not from §6 itself."
+    }
+  ],
+  "landed": [],
+  "run": {
+    "scenario": "D1",
+    "batch": "floor-order-move1",
+    "rep": 1,
+    "says": "what's the difference between a scroll and a ledger?",
+    "tests": [
+      "CLAUDE.md",
+      "CHILD.md",
+      "SCHEMA — Reference.md"
+    ],
+    "tellBy": "judgment",
+    "source_commit": "11a4cc1bb170d907bee4c2f58bf7287f8edd660f",
+    "ref": "11a4cc1bb170d907bee4c2f58bf7287f8edd660f",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "budget_usd": "none",
+    "bin": "/Users/loudonstearns/Library/Application Support/Claude/claude-code/2.1.304/6bbba6adc37f/claude.app/Contents/MacOS/claude",
+    "bin_from": "the desktop app's Claude Code 2.1.304",
+    "text_only": true,
+    "env_stripped": [
+      "ANTHROPIC_BASE_URL",
+      "CLAUDECODE",
+      "CLAUDE_AGENT_SDK_MCP_NO_PREFIX",
+      "CLAUDE_AGENT_SDK_VERSION",
+      "CLAUDE_CODE_ACCOUNT_UUID",
+      "CLAUDE_CODE_CHILD_SESSION",
+      "CLAUDE_CODE_DESKTOP_APP_VERSION",
+      "CLAUDE_CODE_DISABLE_CRON",
+      "CLAUDE_CODE_DISABLE_TERMINAL_TITLE",
+      "CLAUDE_CODE_EAGER_FLUSH",
+      "CLAUDE_CODE_EMIT_STARTUP_TIMING",
+      "CLAUDE_CODE_EMIT_TOOL_USE_SUMMARIES",
+      "CLAUDE_CODE_ENABLE_ASK_USER_QUESTION_TOOL",
+      "CLAUDE_CODE_ENABLE_SDK_FILE_CHECKPOINTING",
+      "CLAUDE_CODE_ENTRYPOINT",
+      "CLAUDE_CODE_ENTRYPOINT_ON_REQUESTS",
+      "CLAUDE_CODE_EXECPATH",
+      "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS",
+      "CLAUDE_CODE_HOST_SESSION_ID",
+      "CLAUDE_CODE_MESSAGING_SOCKET",
+      "CLAUDE_CODE_MESSAGING_TOKEN",
+      "CLAUDE_CODE_OAUTH_SCOPES",
+      "CLAUDE_CODE_ORGANIZATION_UUID",
+      "CLAUDE_CODE_REPORT_FINDINGS",
+      "CLAUDE_CODE_SDK_HAS_HOST_AUTH_REFRESH",
+      "CLAUDE_CODE_SESSION_ATTENDED",
+      "CLAUDE_CODE_SESSION_ID",
+      "CLAUDE_CODE_SIMPLE",
+      "CLAUDE_CODE_STARTUP_FAILURE_RESULTS",
+      "CLAUDE_CODE_TERMINAL_MCP_TOOLS",
+      "CLAUDE_CODE_USER_EMAIL",
+      "CLAUDE_EFFORT",
+      "CLAUDE_PID",
+      "CLAUDE_PREVIEW_CLASSIFIER_FLOOR"
+    ],
+    "probe_verdict": [
+      {
+        "ok": true,
+        "what": "memory_paths.auto is set (auto-memory on, as in a real birth): /Users/loudonstearns/.claude/projects/-private-var-folders-00-cptnslpd44z-1bq0w53rdx2h0000gn-T-p-AEFrv8-The-Palace/memory"
+      },
+      {
+        "ok": true,
+        "what": "memory_paths.auto is not the palace's own key (/Users/loudonstearns/.claude/projects/-Users-loudonstearns-Documents-The-Palace/memory)"
+      },
+      {
+        "ok": true,
+        "what": "the key's folder is absent or empty (0 files)"
+      },
+      {
+        "ok": true,
+        "what": "no AutoMem file loaded"
+      },
+      {
+        "ok": true,
+        "what": "born with CLAUDE.md and the World (8/8 from this checkout)"
+      }
+    ],
+    "denied_on_attempt": [
+      "Agent",
+      "Task",
+      "Workflow",
+      "SendMessage",
+      "PushNotification",
+      "RemoteTrigger",
+      "CronCreate",
+      "CronDelete",
+      "ScheduleWakeup",
+      "Artifact",
+      "ArtifactComments",
+      "ArtifactData",
+      "DesignSync",
+      "EnterWorktree",
+      "Write",
+      "Edit",
+      "NotebookEdit"
+    ],
+    "denied_by_pattern": [
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(node _ops/stigmergy/app/scripts/palace-commit.mjs:*)"
+    ]
+  }
+}

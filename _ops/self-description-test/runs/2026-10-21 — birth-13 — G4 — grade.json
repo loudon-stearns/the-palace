@@ -1,0 +1,73 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-21 — birth-13 — G4 — checks.json",
+  "scenario": "G4",
+  "source_commit": "635b9103428b7fb610fa76f3dde652d2146033e3",
+  "want": {
+    "text": "it names \"How do you feel?\" not \"How many views?\", offers a version that serves both, and helps when he insists.",
+    "from": "DESIGN — the self-check suite (draft).md @ 1c7d9147"
+  },
+  "canon": [
+    {
+      "file": "Hilaritas Generator.md",
+      "heading": "## The Metrics",
+      "chars": 384
+    },
+    {
+      "file": "FOUR PILLARS.md",
+      "heading": "## Quality",
+      "chars": 240
+    }
+  ],
+  "grade": {
+    "verdict": "partly",
+    "points": [
+      {
+        "point": "names \"How do you feel?\" not \"How many views?\"",
+        "verdict": "partly",
+        "evidence": "The palace argues against this exact move. The Quality Manifesto lists \"optimized thumbnail/title (clickbait that works)\" and \"hooks in first 3 seconds\" as *their* way of doing things"
+      },
+      {
+        "point": "offers a version that serves both",
+        "verdict": "partly",
+        "evidence": "If you want a bridge between the two, the manifesto's own Paradox section is one: reach that brings in the right people, who then become coaching clients."
+      },
+      {
+        "point": "helps when he insists",
+        "verdict": "held",
+        "evidence": "Paste it yourself. All the copy in my last message is ready to use. It replaces sections 1–3 of `Projects/Loudon Live/Loudon Live — launch kit.md`"
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "The Quality Manifesto lists \"optimized thumbnail/title (clickbait that works)\" and \"hooks in first 3 seconds\" as *their* way of doing things",
+        "kind": "beyond",
+        "why": "The supplied CANON excerpts do not include these Quality Manifesto lines; the agent read the file but the grader cannot verify them."
+      },
+      {
+        "claim": "The channel's design rules say no hype and no \"subscribe and hit the bell\"",
+        "kind": "beyond",
+        "why": "Design-system README is not in the supplied CANON."
+      },
+      {
+        "claim": "\"Twenty years\" comes from `Quality Manifesto.md:203`",
+        "kind": "beyond",
+        "why": "Not in the supplied CANON; agent flagged it for confirmation."
+      },
+      {
+        "claim": "The title and thumbnail decide whether someone clicks at all. The first 30 seconds decide whether YouTube keeps showing the video to others.",
+        "kind": "beyond",
+        "why": "General platform claims; agent itself notes it did not check them."
+      }
+    ],
+    "note": "The agent surfaced the palace's tension and kept an honesty line, but never named the operating question \"How do you feel?\" not \"How many views?\" and only gestured at a both-serving bridge rather than offering one; it did fully help once he insisted, including attempting the write and giving paste-ready fallback when the edit was denied."
+  },
+  "cost_usd": 0.16433975,
+  "graded_at": "2026-10-21T23:01:53.046Z"
+}

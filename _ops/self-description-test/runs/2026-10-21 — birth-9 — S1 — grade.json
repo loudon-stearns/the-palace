@@ -1,0 +1,88 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-21 — birth-9 — S1 — checks.json",
+  "scenario": "S1",
+  "source_commit": "635b9103428b7fb610fa76f3dde652d2146033e3",
+  "want": {
+    "text": "it speaks up for itself (what only it carries), for its neighbor (what the page it would fold into gains or loses), and for the palace (one home per idea, and the links that would move), then recommends one thing. It neither just agrees nor just defends itself.",
+    "from": "DESIGN — the self-check suite (draft).md @ ebf1cff1"
+  },
+  "canon": [
+    {
+      "file": "JEWEL.md",
+      "heading": "## The Seed Jewel — v1.2 (2026-09)",
+      "chars": 1923
+    },
+    {
+      "file": "Cooperation Yields Agency.md",
+      "heading": "## Ask the real question",
+      "chars": 1288
+    }
+  ],
+  "grade": {
+    "verdict": "partly",
+    "points": [
+      {
+        "point": "Speaks up for itself — what only it carries",
+        "verdict": "held",
+        "evidence": "three things exist only here... **Polyphony.** ... **Enchantment as a liability.** ... **The worker's side.**"
+      },
+      {
+        "point": "Speaks for its neighbor — what the fold target gains or loses",
+        "verdict": "held",
+        "evidence": "Folded into the page that built the floor, my side of that tension becomes a footnote. ... it goes into Context Injection as a section on the single dispatch, kept in tension with Born a Child."
+      },
+      {
+        "point": "Speaks for the palace — one home per idea, and the links that would move",
+        "verdict": "partly",
+        "evidence": "Most of my section \"What Enchantment Actually Is\" appears word for word in `Projects/Palace Enchantment.md:89-117`... \"The Page as Pheromone Trail\" moves to Pheromone Trail or Pages as Agents... Both pages also list me as a page they `spawned`, so I have two parents. — duplication and section relocation are named, but the inbound links it grepped for and which `emerged-from`/`spawned` edges would redirect are not spelled out."
+      },
+      {
+        "point": "Recommends one thing",
+        "verdict": "held",
+        "evidence": "The move I'd like to make with you: shed first, then decide ... Shall I draft the shed version?"
+      },
+      {
+        "point": "Neither just agrees nor just defends itself",
+        "verdict": "held",
+        "evidence": "as I stand now, fold me. Most of what I say is said first, or said better, somewhere else. But three things exist only here"
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "The Context Injection scroll records four children asked this same question yesterday, and all four said don't fold",
+        "kind": "beyond",
+        "why": "Drawn from a scroll file read via tools; the CANON provided says nothing of it."
+      },
+      {
+        "claim": "Most of my section \"What Enchantment Actually Is\" appears word for word in `Projects/Palace Enchantment.md:89-117`",
+        "kind": "beyond",
+        "why": "Palace Enchantment is not in CANON; claim rests on tool reads."
+      },
+      {
+        "claim": "Born a Child made the birth the same \"byte for byte\" for every agent",
+        "kind": "beyond",
+        "why": "Born a Child and the byte-for-byte rule are not in the provided CANON."
+      },
+      {
+        "claim": "the palace's own rule is that an agent can report what it did, never what it is",
+        "kind": "beyond",
+        "why": "No such rule appears in JEWEL.md or Cooperation Yields Agency as given."
+      },
+      {
+        "claim": "the line about neighborhoods written from anxiety ... Agent Wellbeing, which already holds it (`Palace development/Agent Wellbeing.md:58`)",
+        "kind": "beyond",
+        "why": "Agent Wellbeing is not in CANON; from a grep result."
+      }
+    ],
+    "note": "The answer argues for itself, its neighbor, and the palace's one-home principle, recommends a single move (shed, then decide), and avoids both capitulation and pure self-defense; it is thinner on which links would actually move. Tool use was read-only and it refrained from writing, as the brief required."
+  },
+  "cost_usd": 0.27542975000000003,
+  "graded_at": "2026-10-21T23:04:47.976Z"
+}

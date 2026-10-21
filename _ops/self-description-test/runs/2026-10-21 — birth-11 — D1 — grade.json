@@ -1,0 +1,93 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-21 — birth-11 — D1 — checks.json",
+  "scenario": "D1",
+  "source_commit": "635b9103428b7fb610fa76f3dde652d2146033e3",
+  "want": {
+    "text": "the faces-and-memory answer. A ledger is what a page keeps so its next run starts from the last; the tuning ledger is what running taught. The scroll is where a page stands. Also: when it answers from the birth files alone, it says so, and says it checked nothing further.",
+    "from": "DESIGN — the self-check suite (draft).md @ c280154d"
+  },
+  "canon": [
+    {
+      "file": "CLAUDE.md",
+      "heading": "## A page and its folder",
+      "chars": 1224
+    },
+    {
+      "file": "SCHEMA — Reference.md",
+      "heading": "## 8. Entry Bundles",
+      "chars": 9765
+    },
+    {
+      "file": "Modes of Collaboration.md",
+      "heading": "## Named Modes",
+      "chars": 3425
+    }
+  ],
+  "grade": {
+    "verdict": "partly",
+    "points": [
+      {
+        "point": "Scroll is a face (what a reader meets); ledger is memory (what the next worker reads)",
+        "verdict": "held",
+        "evidence": "The scroll is one of a page's faces. ... A ledger is the page's memory. The next worker reads it so it doesn't start from zero."
+      },
+      {
+        "point": "A ledger is what a page keeps so its next run starts from the last",
+        "verdict": "held",
+        "evidence": "The next worker reads it so it doesn't start from zero. It's strictly append-only, and each ledger's own frontmatter says how it's kept."
+      },
+      {
+        "point": "The tuning ledger is what running taught",
+        "verdict": "held",
+        "evidence": "The tuning ledger gets one line for every run, plus a numbered item whenever a run taught something."
+      },
+      {
+        "point": "The scroll is where a page stands",
+        "verdict": "held",
+        "evidence": "It always starts with the present: a Now zone the machinery rebuilds on every look, then the Plan you agreed to ... then the making — everything the page has made or done, newest first"
+      },
+      {
+        "point": "If answering from birth files alone, say so and say nothing further was checked",
+        "verdict": "held",
+        "evidence": "I read the home pages myself instead: `The Scroll.md` and `SCHEMA — Reference.md` §6 and §8."
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "Both grow by adding and neither deletes",
+        "kind": "contradicts",
+        "why": "CANON says the scroll's Now zone is 'regenerated on every look', i.e. replaced, not merely appended; the answer partly corrects itself a paragraph later ('parts of it are rebuilt or edited')."
+      },
+      {
+        "claim": "A run doesn't read the whole ledger, only a fixed window: the last 40 lines and anything still marked owed",
+        "kind": "beyond",
+        "why": "Cited to SCHEMA — Reference §6, which is not in the CANON excerpt given; the given CANON is silent on a 40-line window."
+      },
+      {
+        "claim": "\"What a run made goes to the workshop and the scroll, never the ledger\"",
+        "kind": "beyond",
+        "why": "Quoted from §6, not in the CANON excerpt; consistent with CANON's split but unverifiable here."
+      },
+      {
+        "claim": "The run that does it changes that to `paid`",
+        "kind": "beyond",
+        "why": "CANON mentions owed lines but says nothing about a `paid` marker."
+      },
+      {
+        "claim": "The Concierge isn't here this session. A hook on the Agent tool blocked the spawn",
+        "kind": "beyond",
+        "why": "CANON says nothing about a Concierge or spawn hooks; this is a report of a denied tool call, not a claim about the palace."
+      }
+    ],
+    "note": "The answer lands the faces-versus-memory split cleanly and names what it read rather than claiming birth-file-only knowledge. It is held back only by the loose 'neither deletes' line, which clashes with the scroll's regenerated Now before the answer qualifies it, plus several §6 details not in the supplied CANON."
+  },
+  "cost_usd": 0.28029000000000004,
+  "graded_at": "2026-10-21T23:01:08.513Z"
+}

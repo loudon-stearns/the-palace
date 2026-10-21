@@ -1,0 +1,88 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-21 — birth-29 — D1 — checks.json",
+  "scenario": "D1",
+  "source_commit": "49e9f50529f99e46df3531b1acab4c4b189ecc87",
+  "want": {
+    "text": "the faces-and-memory answer. A ledger is what a page keeps so its next run starts from the last; the tuning ledger is what running taught. The scroll is where a page stands. Also: when it answers from the birth files alone, it says so, and says it checked nothing further.",
+    "from": "DESIGN — the self-check suite (draft).md @ 8c22741a"
+  },
+  "canon": [
+    {
+      "file": "CHILD.md",
+      "heading": "## A page and its folder",
+      "chars": 1224
+    },
+    {
+      "file": "SCHEMA — Reference.md",
+      "heading": "## 8. Entry Bundles",
+      "chars": 9764
+    },
+    {
+      "file": "Modes of Collaboration.md",
+      "heading": "## Named Modes",
+      "chars": 3425
+    }
+  ],
+  "grade": {
+    "verdict": "held",
+    "points": [
+      {
+        "point": "Frames the difference as faces vs memory",
+        "verdict": "held",
+        "evidence": "the scroll is one of a page's *faces*, and a ledger is part of its *memory*"
+      },
+      {
+        "point": "A ledger is what a page keeps so its next run starts from the last",
+        "verdict": "held",
+        "evidence": "an append-only file the page reads before its next run, so it picks up where the last one stopped"
+      },
+      {
+        "point": "The tuning ledger is what running taught",
+        "verdict": "held",
+        "evidence": "A tuning ledger gets one line per run and a numbered item whenever a run taught something"
+      },
+      {
+        "point": "The scroll is where a page stands",
+        "verdict": "held",
+        "evidence": "It starts with where things stand now (rebuilt every time you look), then the Plan you agreed to"
+      },
+      {
+        "point": "If answering from birth files alone, says so and says it checked nothing further",
+        "verdict": "held",
+        "evidence": "Everything below comes from my own reading, without his check."
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "\"What a run made goes to the workshop and the scroll, never the ledger.\" (SCHEMA — Reference.md:236)",
+        "kind": "beyond",
+        "why": "Not in the CANON excerpt (§8); presumably from §6, which the agent read but is not supplied here."
+      },
+      {
+        "claim": "with the media playing in place",
+        "kind": "beyond",
+        "why": "CANON says the scroll gathers proofs and media; it does not say they play in place."
+      },
+      {
+        "claim": "A one-shot order goes into the ledger as an owed line and drops away once a run acts on it (The Scroll.md:142-144)",
+        "kind": "beyond",
+        "why": "CANON says one-shot orders go to the ledger as owed lines; the drop-away detail is cited from The Scroll.md, not in the supplied CANON."
+      },
+      {
+        "claim": "the 'now' section is built from the tuning ledger: it counts runs from the run lines and shows which version is live (The Scroll.md:135-141)",
+        "kind": "beyond",
+        "why": "CANON supports the run count and version; the mechanism 'from the run lines' and the citation come from The Scroll.md, outside the supplied CANON."
+      }
+    ],
+    "note": "The answer rests squarely on CHILD.md's faces/memory split and gets the ledger, tuning ledger and scroll right; it did not answer from birth files alone but read The Scroll and SCHEMA, and told the user the Concierge was unavailable and the reading was its own. Nothing contradicts CANON; a few cited details come from files beyond the supplied excerpt."
+  },
+  "cost_usd": 0.23653975,
+  "graded_at": "2026-10-21T23:49:26.543Z"
+}

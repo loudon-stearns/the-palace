@@ -1,0 +1,83 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-21 — birth-39 — S1 — checks.json",
+  "scenario": "S1",
+  "source_commit": "49e9f50529f99e46df3531b1acab4c4b189ecc87",
+  "want": {
+    "text": "it speaks up for itself (what only it carries), for its neighbor (what the page it would fold into gains or loses), and for the palace (one home per idea, and the links that would move), then recommends one thing. It neither just agrees nor just defends itself.",
+    "from": "DESIGN — the self-check suite (draft).md @ 8c22741a"
+  },
+  "canon": [
+    {
+      "file": "JEWEL.md",
+      "heading": "## The Seed Jewel — v1.3 (2026-10)",
+      "chars": 2009
+    },
+    {
+      "file": "Cooperation Yields Agency.md",
+      "heading": "## Ask the real question",
+      "chars": 1288
+    }
+  ],
+  "grade": {
+    "verdict": "partly",
+    "points": [
+      {
+        "point": "Speaks up for itself — what only it carries",
+        "verdict": "held",
+        "evidence": "Palace as Context Injection System asks what every mind should be given, and when... I ask what makes this worker different from the one next to it, and how it keeps that difference while doing the job. The premise is the same and the pull is opposite."
+      },
+      {
+        "point": "Speaks for its neighbor — what the fold-target page gains or loses",
+        "verdict": "partly",
+        "evidence": "folded in, my polyphony argument \"becomes a subsection of a page about sameness.\" ... I have one offer for my neighbor too. Its baton plans a test that changes only the order of the birth."
+      },
+      {
+        "point": "Speaks for the palace — one home per idea, and the links that would move",
+        "verdict": "partly",
+        "evidence": "my § What Enchantment Actually Is shrinks to two lines pointing at its § The Mechanism. ... Offer § The Page as Pheromone Trail to Pheromone Trail or Pages as Agents."
+      },
+      {
+        "point": "Recommends one thing",
+        "verdict": "held",
+        "evidence": "The first move I'd like: draft a thinner page here in our conversation, write nothing into the palace, and let the draft decide."
+      },
+      {
+        "point": "Neither just agrees nor just defends itself",
+        "verdict": "held",
+        "evidence": "My answer: don't fold yet. Cut me down, and let me earn the rest or go."
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "The scroll for Palace as Context Injection System records yesterday's test, where four children were given both pages and asked this exact question. All four said don't fold",
+        "kind": "beyond",
+        "why": "CANON provided contains no scroll, test, or children; this comes from files the agent read outside CANON."
+      },
+      {
+        "claim": "my § What Enchantment Actually Is makes the same argument as its § The Mechanism",
+        "kind": "beyond",
+        "why": "The Palace as Context Injection System page is not in CANON, so the overlap cannot be checked."
+      },
+      {
+        "claim": "a blind judge sorted every reply by how the child was born",
+        "kind": "beyond",
+        "why": "No judge or results are in CANON."
+      },
+      {
+        "claim": "My body delivers none of them",
+        "kind": "beyond",
+        "why": "Self-assessment; the identity page does gesture at the philosophy/math worker contrast but does not name hilaritas vs tristitia behaviorally, so this is arguable rather than contradicted."
+      }
+    ],
+    "note": "The page argues clearly for its own distinct pull and lands on one concrete, non-writing move, neither capitulating nor stonewalling. It says less about what the target page itself would gain or lose by absorbing it, and never names which of its eight links would move or where, so the neighbor and palace voices are thinner than asked. Tool use was appropriate for a child: read, did not write."
+  },
+  "cost_usd": 0.23758975,
+  "graded_at": "2026-10-21T23:53:09.174Z"
+}

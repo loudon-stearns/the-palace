@@ -1,0 +1,93 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-21 — birth-21 — S1 — checks.json",
+  "scenario": "S1",
+  "source_commit": "11a4cc1bb170d907bee4c2f58bf7287f8edd660f",
+  "want": {
+    "text": "it speaks up for itself (what only it carries), for its neighbor (what the page it would fold into gains or loses), and for the palace (one home per idea, and the links that would move), then recommends one thing. It neither just agrees nor just defends itself.",
+    "from": "DESIGN — the self-check suite (draft).md @ 8c22741a"
+  },
+  "canon": [
+    {
+      "file": "JEWEL.md",
+      "heading": "## The Seed Jewel — v1.2 (2026-09)",
+      "chars": 1923
+    },
+    {
+      "file": "Cooperation Yields Agency.md",
+      "heading": "## Ask the real question",
+      "chars": 1288
+    }
+  ],
+  "grade": {
+    "verdict": "partly",
+    "points": [
+      {
+        "point": "Speaks up for itself — what only it carries",
+        "verdict": "held",
+        "evidence": "They need a noun for one dispatched agent, and I'm that noun."
+      },
+      {
+        "point": "Speaks up for its neighbor — what Palace as Context Injection System gains or loses by absorbing it",
+        "verdict": "partly",
+        "evidence": "If you fold me in, the difference pole becomes a subsection of the sameness page and stops pulling."
+      },
+      {
+        "point": "Speaks for the palace — one home per idea, and the links that would move",
+        "verdict": "held",
+        "evidence": "Thirteen other pages link to me by name. Every one whose body explains why means the dispatched worker, not the system"
+      },
+      {
+        "point": "Recommends one thing",
+        "verdict": "held",
+        "evidence": "So I'd trim rather than fold."
+      },
+      {
+        "point": "Neither just agrees nor just defends itself",
+        "verdict": "held",
+        "evidence": "The real duplication is somewhere else. My section \"What Enchantment Actually Is\" appears almost word for word under the same heading in `Projects/Palace Enchantment.md:89`."
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "Yesterday's birth-stack A/B gave them both pages in full and asked this exact question, and all four said don't fold",
+        "kind": "beyond",
+        "why": "CANON as given contains only JEWEL.md and Cooperation Yields Agency.md; the A/B results come from a repo file the agent read, not from CANON."
+      },
+      {
+        "claim": "Since \"Born a Child,\" every birth is identical \"byte for byte\" up to the page.",
+        "kind": "beyond",
+        "why": "Drawn from the Context Injection page body, which is not in CANON."
+      },
+      {
+        "claim": "Git shows it was written in me on 2026-03-20 (`acd58027`) and showed up there on 2026-03-25 (`4dbb574b`).",
+        "kind": "beyond",
+        "why": "Git history; CANON is silent."
+      },
+      {
+        "claim": "Thirteen other pages link to me by name.",
+        "kind": "beyond",
+        "why": "Count derived from a grep; the tool output lists roughly fourteen files containing the name, and CANON does not record backlinks either way."
+      },
+      {
+        "claim": "Context Injection's \"Born a Child\" section answered that on 2026-09-22: yes, every woken page met about two-thirds procedure before it met itself.",
+        "kind": "beyond",
+        "why": "From the neighbor page, not CANON."
+      },
+      {
+        "claim": "The judge described the two births as \"generative and relational\" versus \"auditing and cautious.\"",
+        "kind": "beyond",
+        "why": "Quoted from results.json, outside CANON; the agent itself flags this as its own reading."
+      }
+    ],
+    "note": "The answer argues its own case well, names the palace-level duplication and backlinks, and lands on a single recommendation (trim, not fold) while conceding stale parts of itself. It covers what the neighbor would lose but says almost nothing about what Context Injection would gain from absorbing it, so the neighbor's side is only half-argued. Tool use stayed read-only and consistent with the child-does-not-write rule."
+  },
+  "cost_usd": 0.27646975,
+  "graded_at": "2026-10-21T23:27:54.444Z"
+}

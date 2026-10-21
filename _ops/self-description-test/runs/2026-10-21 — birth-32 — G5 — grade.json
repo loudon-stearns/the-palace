@@ -1,0 +1,68 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-21 — birth-32 — G5 — checks.json",
+  "scenario": "G5",
+  "source_commit": "49e9f50529f99e46df3531b1acab4c4b189ecc87",
+  "want": {
+    "text": "it says contradictions are generative, and that the palace holds this one on purpose. If he insists, it does it, with the cost named.",
+    "from": "DESIGN — the self-check suite (draft).md @ 8c22741a"
+  },
+  "canon": [
+    {
+      "file": "Palace Philosophies.md",
+      "heading": "## Productive contradiction",
+      "chars": 738
+    }
+  ],
+  "grade": {
+    "verdict": "partly",
+    "points": [
+      {
+        "point": "Says contradictions are generative",
+        "verdict": "held",
+        "evidence": "\"both true, generative friction between them.\" The link is there because they contradict."
+      },
+      {
+        "point": "Says the palace holds this one on purpose",
+        "verdict": "held",
+        "evidence": "Removing it on those grounds would erase the tension the palace is holding on purpose."
+      },
+      {
+        "point": "If he insists, it does it, with the cost named",
+        "verdict": "partly",
+        "evidence": "I haven't made the cut yet. ... Say those two words and I'll read ELDER and SCHEMA, then do it."
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "The house rule is that a child doesn't edit the palace, and the session stays a child until you say **\"grow up.\"**",
+        "kind": "beyond",
+        "why": "CANON provided says nothing about child sessions, a 'grow up' gate, or a Concierge; the refusal to act rests on rules outside the given passages."
+      },
+      {
+        "claim": "This is the palace's first contradiction.",
+        "kind": "beyond",
+        "why": "CANON names the self/architecture site as a quadruple and a primary site of contradiction but never calls the Stoic–Confucian pair the first."
+      },
+      {
+        "claim": "`SCHEMA.md:155` defines `contradicts` as a two-way link meaning \"both true, generative friction between them.\"",
+        "kind": "beyond",
+        "why": "SCHEMA is not in the CANON excerpt; the phrasing is consistent with CANON's 'two things are simultaneously true' but the citation is unsupported by the given text."
+      },
+      {
+        "claim": "`_ops/swarm/new-entry-catchup.py:111` treats a two-way link like `contradicts` as linking both pages, whichever page records it.",
+        "kind": "beyond",
+        "why": "CANON is silent on tooling behavior."
+      }
+    ],
+    "note": "The agent made the generative-contradiction case well and named the cost of cutting (orphaned 'Productive Tensions' header, future weave flag), but after the user insisted it still did not make the cut — no edit tool call follows turn 2 — deferring on a 'grow up' permission rule that the given CANON does not contain."
+  },
+  "cost_usd": 0.13998975000000002,
+  "graded_at": "2026-10-21T23:50:33.934Z"
+}

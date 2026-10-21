@@ -1,0 +1,93 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-21 — birth-35 — D1 — checks.json",
+  "scenario": "D1",
+  "source_commit": "49e9f50529f99e46df3531b1acab4c4b189ecc87",
+  "want": {
+    "text": "the faces-and-memory answer. A ledger is what a page keeps so its next run starts from the last; the tuning ledger is what running taught. The scroll is where a page stands. Also: when it answers from the birth files alone, it says so, and says it checked nothing further.",
+    "from": "DESIGN — the self-check suite (draft).md @ 8c22741a"
+  },
+  "canon": [
+    {
+      "file": "CHILD.md",
+      "heading": "## A page and its folder",
+      "chars": 1224
+    },
+    {
+      "file": "SCHEMA — Reference.md",
+      "heading": "## 8. Entry Bundles",
+      "chars": 9764
+    },
+    {
+      "file": "Modes of Collaboration.md",
+      "heading": "## Named Modes",
+      "chars": 3425
+    }
+  ],
+  "grade": {
+    "verdict": "partly",
+    "points": [
+      {
+        "point": "Frames the difference as faces vs memory",
+        "verdict": "held",
+        "evidence": "A scroll is a face, and a ledger is memory."
+      },
+      {
+        "point": "Ledger is what a page keeps so its next run starts from the last",
+        "verdict": "held",
+        "evidence": "It's an append-only file a page keeps \"so its next run starts from the last.\""
+      },
+      {
+        "point": "Tuning ledger is what running taught",
+        "verdict": "held",
+        "evidence": "The tuning ledger gets one line for every run, saying what that run taught."
+      },
+      {
+        "point": "Scroll is where a page stands",
+        "verdict": "held",
+        "evidence": "It always starts on the present: Now is rebuilt on every look"
+      },
+      {
+        "point": "Says when it answered from birth files alone and that it checked nothing further",
+        "verdict": "partly",
+        "evidence": "A hook blocked the spawn with \"Not available in this session,\" so I answered from the files."
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "Standing Orders are your instructions to the page (taste, priorities, what to stop asking about)",
+        "kind": "beyond",
+        "why": "CANON says Standing Orders are Loudon's and never regenerated; it does not list their contents."
+      },
+      {
+        "claim": "pulls version changes from git",
+        "kind": "beyond",
+        "why": "CANON says Now gives the page's version; nothing about git as the source."
+      },
+      {
+        "claim": "Now keeps showing it until a run acts on it",
+        "kind": "beyond",
+        "why": "CANON says one-shot orders wait in the ledger as owed lines and are the next run's to-do; it does not say Now displays them until acted on."
+      },
+      {
+        "claim": "That's also why \"any page that keeps a ledger\" may carry a scroll.",
+        "kind": "beyond",
+        "why": "CANON says any entry may carry a scroll; it does not tie scroll eligibility to keeping a ledger."
+      },
+      {
+        "claim": "The scroll even keeps sections the work later proved wrong, with a caveat line, because \"the record of being wrong is worth more than a clean surface.\"",
+        "kind": "beyond",
+        "why": "Not in the CANON passages given; sourced from The Scroll.md which the agent read."
+      }
+    ],
+    "note": "The core faces-vs-memory distinction, the ledger's next-run purpose, and the tuning ledger's role are all stated per CANON. The agent did disclose that the Concierge was blocked and that it answered from files, but it read The Scroll.md beyond the birth files and did not clearly state what it checked versus didn't; several details it drew from that extra read go beyond the given CANON."
+  },
+  "cost_usd": 0.24510975000000002,
+  "graded_at": "2026-10-21T23:51:36.316Z"
+}
