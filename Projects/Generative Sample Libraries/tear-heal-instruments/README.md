@@ -22,16 +22,18 @@ Everything below is in `audition/`, the smallest set that exercises every instru
 - **Bar to String** behaves differently from the rest: it starts clean, as a bar, and breaks partway through as the stretch falls through the edge, then heals into a string. Velocity sets how long the bar rings before it breaks (at C2 the three layers have healed by about 1.3, 1.9 and 2.4 s), more than how deep the tear goes (all three dip about 280 cents).
 - **Heal with Voices** is Heal's own strikes with the outside voices mixed in, as the sweeps' with-voices renders were. The dissonance is the beating against a harmonic ensemble; the heal is the beating stopping. Is that the sound, or is the tone alone the sound?
 
-## The collection (waiting on the audition)
+## The collection
 
-| Instrument | Keys | Sample roots | Samples |
-|---|---|---|---|
-| Heal | C1–C7 | 25 | 75 |
-| Snap | C3–C7 | 17 | 51 |
-| Bar to String | C2–C6 | 17 | 51 |
-| Heal with Voices | C1–C6 | 21 | 63 |
+Rendered 2026-10-20, after Loudon's answer to the audition: "Good. The names in BUILD.md are fine." Each instrument is a folder in `instruments/`: drag its `.dslibrary` onto DecentSampler, or open its `.sfz` in sforzando or sfizz with `samples/` beside it. Beside each, `walk.wav` plays every sample root from low to high at mid velocity, and `velocity.wav` strikes the middle key at velocity 30, 64, 100 and 127.
 
-`build.py all` renders all of it into `instruments/`, with `walk.wav` (every root, low to high) and `velocity.wav` (the middle key at four velocities) beside each instrument. A dry run of the audition took about 20 seconds; the collection is estimated at five minutes.
+| Instrument | Keys played | Sample roots | Samples | Hard strike: dip, cents | Hard strike heals in, s | Sustain wobble, cents |
+|---|---|---|---|---|---|---|
+| Heal | A0–D#7 | 25 (C1–C7) | 75 | 123–328 | 0.28–2.0 | 0.3–3.9 |
+| Snap | A2–D#7 | 17 (C3–C7) | 51 | 277–463 | 0.17–0.67 | 0.2 |
+| Bar to String | A1–D#6 | 17 (C2–C6) | 51 | 159–315 | 0.54–2.4 | 0.1–3.2 |
+| Heal with Voices | A0–D#6 | 21 (C1–C6) | 63 | 123–290 | 0.38–2.0 | 0.3–3.9 |
+
+The first render took about four minutes on this Mac (bisecting 52 edges, 168 s; the strikes, 67 s; then the checks and demos). With the edges cached in `edges.json`, a re-render takes about two.
 
 ## Rebuild
 
@@ -45,15 +47,16 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 
 ## What is verified, and what is not
 
-**Verified by measurement, from the files on disk** (`*/check.json`):
-- every sample's loop body is on pitch once its `tune` is applied (audition: worst 0.7 cents);
-- every key held 12 s through the player shows no click and no pump at the loop wraps (the limits `loop_sustain.py` set: 6 dB, 1.5 dB);
+**Verified by measurement, from the files on disk** (`*/check.json`; the collection's numbers, the audition's in brackets):
+- every sample's loop body is on pitch once its `tune` is applied: 240 of 240, worst 1.4 cents (audition: worst 0.7);
+- every sample held 12 s through the player shows no click and no pump at the loop wraps: the limits are `loop_sustain.py`'s (6 dB, 1.5 dB), and the build prefers seams with room to spare (worst in the collection: a 4.1 dB click, a 0.98 dB level step);
+- every loop starts after its note has healed;
 - the SFZ and the `.dspreset` map the same samples to the same keys, velocities, tunes and loops, and the `.dslibrary` holds every sample;
 - the pitch check fails when it should: a sample filed 25 cents wrong measures 25 cents wrong;
 - the compiled model matches the sweeps' own loop to 2e-9 (`engine.py`).
 
 **Not verified:**
-- **No one has heard any of it.** That is the audition's job.
+- **No one has heard the full collection.** Loudon answered the audition; the 240 samples since are unheard.
 - The `.dspreset` has not been loaded in DecentSampler, nor the `.sfz` in sforzando or sfizz; both were only read back as files. `ampVelTrack` follows DecentSampler's developer guide.
 - The demo player's velocity curve is sfizz's reading of `amp_veltrack`; another player may scale soft notes differently.
 - The edge is found by measurement (the sweeps' tear line, 7.9 cents of wobble), not by ear. The field guide's own method is by ear.

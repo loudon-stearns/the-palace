@@ -1,0 +1,72 @@
+// Snap — tear-and-heal instruments, Generative Sample Libraries (collection)
+// built by build.py from the frustration model (engine.py); nothing here is edited by hand
+// Eight bright partials: few partials snap instead of fraying. The edge is a cliff, so the tear is a run of slips and the sustain is dead still.
+// sustain rests at 0.35 of each key's own edge (bisected per key, edges.json); velocity is strike depth
+// loops: after the heal, a length where the stretched partials come back into phase (or whole periods of partial 1), 100 ms crossfade baked into the WAV; same points in each WAV's smpl chunk
+// tune = the cents that bring where each strike settled back to its key
+
+<control>
+default_path=samples/
+
+<global>
+loop_mode=loop_continuous ampeg_attack=0.002 ampeg_release=0.5 amp_veltrack=60
+
+// soft: thrown 2x past the key's edge, decaying with tau 0.15 s at 110 Hz
+<group> lovel=1 hivel=42
+<region> sample=snap_C3_soft.wav lokey=45 hikey=49 pitch_keycenter=48 tune=11 loop_start=47106 loop_end=166157
+<region> sample=snap_D#3_soft.wav lokey=50 hikey=52 pitch_keycenter=51 tune=11 loop_start=35609 loop_end=135718
+<region> sample=snap_F#3_soft.wav lokey=53 hikey=55 pitch_keycenter=54 tune=11 loop_start=26858 loop_end=111039
+<region> sample=snap_A3_soft.wav lokey=56 hikey=58 pitch_keycenter=57 tune=11 loop_start=38628 loop_end=109416
+<region> sample=snap_C4_soft.wav lokey=59 hikey=61 pitch_keycenter=60 tune=11 loop_start=30137 loop_end=89662
+<region> sample=snap_D#4_soft.wav lokey=62 hikey=64 pitch_keycenter=63 tune=11 loop_start=20934 loop_end=121942
+<region> sample=snap_F#4_soft.wav lokey=65 hikey=67 pitch_keycenter=66 tune=11 loop_start=13632 loop_end=140302
+<region> sample=snap_A4_soft.wav lokey=68 hikey=70 pitch_keycenter=69 tune=11 loop_start=11817 loop_end=118233
+<region> sample=snap_C5_soft.wav lokey=71 hikey=73 pitch_keycenter=72 tune=11 loop_start=16569 loop_end=106391
+<region> sample=snap_D#5_soft.wav lokey=74 hikey=76 pitch_keycenter=75 tune=11 loop_start=14849 loop_end=90380
+<region> sample=snap_F#5_soft.wav lokey=77 hikey=79 pitch_keycenter=78 tune=11 loop_start=25388 loop_end=88961
+<region> sample=snap_A5_soft.wav lokey=80 hikey=82 pitch_keycenter=81 tune=11 loop_start=29059 loop_end=82517
+<region> sample=snap_C6_soft.wav lokey=83 hikey=85 pitch_keycenter=84 tune=11 loop_start=11899 loop_end=101721
+<region> sample=snap_D#6_soft.wav lokey=86 hikey=88 pitch_keycenter=87 tune=11 loop_start=21579 loop_end=97145
+<region> sample=snap_F#6_soft.wav lokey=89 hikey=91 pitch_keycenter=90 tune=11 loop_start=23999 loop_end=87542
+<region> sample=snap_A6_soft.wav lokey=92 hikey=94 pitch_keycenter=93 tune=11 loop_start=19599 loop_end=73082
+<region> sample=snap_C7_soft.wav lokey=95 hikey=99 pitch_keycenter=96 tune=11 loop_start=21359 loop_end=88746
+
+// mid: thrown 6x past the key's edge, decaying with tau 0.15 s at 110 Hz
+<group> lovel=43 hivel=85
+<region> sample=snap_C3_mid.wav lokey=45 hikey=49 pitch_keycenter=48 tune=11 loop_start=45539 loop_end=164590
+<region> sample=snap_D#3_mid.wav lokey=50 hikey=52 pitch_keycenter=51 tune=11 loop_start=39364 loop_end=139474
+<region> sample=snap_F#3_mid.wav lokey=53 hikey=55 pitch_keycenter=54 tune=11 loop_start=35364 loop_end=119545
+<region> sample=snap_A3_mid.wav lokey=56 hikey=58 pitch_keycenter=57 tune=11 loop_start=29841 loop_end=100629
+<region> sample=snap_C4_mid.wav lokey=59 hikey=61 pitch_keycenter=60 tune=11 loop_start=30457 loop_end=89982
+<region> sample=snap_D#4_mid.wav lokey=62 hikey=64 pitch_keycenter=63 tune=11 loop_start=37225 loop_end=138233
+<region> sample=snap_F#4_mid.wav lokey=65 hikey=67 pitch_keycenter=66 tune=11 loop_start=18086 loop_end=144756
+<region> sample=snap_A4_mid.wav lokey=68 hikey=70 pitch_keycenter=69 tune=11 loop_start=16138 loop_end=122554
+<region> sample=snap_C5_mid.wav lokey=71 hikey=73 pitch_keycenter=72 tune=11 loop_start=20758 loop_end=110580
+<region> sample=snap_D#5_mid.wav lokey=74 hikey=76 pitch_keycenter=75 tune=11 loop_start=18069 loop_end=93600
+<region> sample=snap_F#5_mid.wav lokey=77 hikey=79 pitch_keycenter=78 tune=11 loop_start=28563 loop_end=92136
+<region> sample=snap_A5_mid.wav lokey=80 hikey=82 pitch_keycenter=81 tune=11 loop_start=31196 loop_end=84654
+<region> sample=snap_C6_mid.wav lokey=83 hikey=85 pitch_keycenter=84 tune=11 loop_start=14168 loop_end=103990
+<region> sample=snap_D#6_mid.wav lokey=86 hikey=88 pitch_keycenter=87 tune=11 loop_start=27849 loop_end=103415
+<region> sample=snap_F#6_mid.wav lokey=89 hikey=91 pitch_keycenter=90 tune=11 loop_start=22019 loop_end=85562
+<region> sample=snap_A6_mid.wav lokey=92 hikey=94 pitch_keycenter=93 tune=11 loop_start=21359 loop_end=74842
+<region> sample=snap_C7_mid.wav lokey=95 hikey=99 pitch_keycenter=96 tune=11 loop_start=18059 loop_end=85446
+
+// hard: thrown 20x past the key's edge, decaying with tau 0.15 s at 110 Hz
+<group> lovel=86 hivel=127
+<region> sample=snap_C3_hard.wav lokey=45 hikey=49 pitch_keycenter=48 tune=11 loop_start=59547 loop_end=178598
+<region> sample=snap_D#3_hard.wav lokey=50 hikey=52 pitch_keycenter=51 tune=11 loop_start=52404 loop_end=152514
+<region> sample=snap_F#3_hard.wav lokey=53 hikey=55 pitch_keycenter=54 tune=11 loop_start=45146 loop_end=129328
+<region> sample=snap_A3_hard.wav lokey=56 hikey=58 pitch_keycenter=57 tune=11 loop_start=43230 loop_end=114018
+<region> sample=snap_C4_hard.wav lokey=59 hikey=61 pitch_keycenter=60 tune=11 loop_start=36717 loop_end=96242
+<region> sample=snap_D#4_hard.wav lokey=62 hikey=64 pitch_keycenter=63 tune=11 loop_start=34772 loop_end=135780
+<region> sample=snap_F#4_hard.wav lokey=65 hikey=67 pitch_keycenter=66 tune=11 loop_start=22541 loop_end=149211
+<region> sample=snap_A4_hard.wav lokey=68 hikey=70 pitch_keycenter=69 tune=11 loop_start=20195 loop_end=126611
+<region> sample=snap_C5_hard.wav lokey=71 hikey=73 pitch_keycenter=72 tune=11 loop_start=24330 loop_end=114152
+<region> sample=snap_D#5_hard.wav lokey=74 hikey=76 pitch_keycenter=75 tune=11 loop_start=21817 loop_end=97348
+<region> sample=snap_F#5_hard.wav lokey=77 hikey=79 pitch_keycenter=78 tune=11 loop_start=33938 loop_end=97511
+<region> sample=snap_A5_hard.wav lokey=80 hikey=82 pitch_keycenter=81 tune=11 loop_start=30191 loop_end=83649
+<region> sample=snap_C6_hard.wav lokey=83 hikey=85 pitch_keycenter=84 tune=11 loop_start=17078 loop_end=106900
+<region> sample=snap_D#6_hard.wav lokey=86 hikey=88 pitch_keycenter=87 tune=11 loop_start=32034 loop_end=107600
+<region> sample=snap_F#6_hard.wav lokey=89 hikey=91 pitch_keycenter=90 tune=11 loop_start=24895 loop_end=88438
+<region> sample=snap_A6_hard.wav lokey=92 hikey=94 pitch_keycenter=93 tune=11 loop_start=27333 loop_end=80816
+<region> sample=snap_C7_hard.wav lokey=95 hikey=99 pitch_keycenter=96 tune=11 loop_start=22800 loop_end=90187

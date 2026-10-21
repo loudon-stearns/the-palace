@@ -1,0 +1,105 @@
+<DecentSampler minVersion="1.0.0">
+  <!-- written by build.py beside Heal.sfz; same map -->
+  <!-- SFZ tune (cents) written as tuning (semitones) = tune/100 -->
+  <ui width="812" height="200" bgColor="FF0A0A0F">
+    <tab name="main">
+      <label x="20" y="6" width="772" height="24" text="Heal" textColor="FFE8B84A" textSize="18" />
+      <label x="20" y="150" width="772" height="40" text="The centre of the collection: the warm source, up to 96 partials. A strike throws the stretch past the key's edge; the tone tears, sags and wobbles, then relocks into a sustain resting at a third of its edge." textColor="FFE8E6DF" textSize="12" />
+      <labeled-knob x="20" y="40" width="90" height="90" textSize="14" label="Attack" type="float" minValue="0" maxValue="2" value="0.002" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="ENV_ATTACK" />
+      </labeled-knob>
+      <labeled-knob x="130" y="40" width="90" height="90" textSize="14" label="Release" type="float" minValue="0" maxValue="8" value="0.8" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="ENV_RELEASE" />
+      </labeled-knob>
+      <labeled-knob x="240" y="40" width="90" height="90" textSize="14" label="Volume" type="float" minValue="0" maxValue="1" value="0.8" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="AMP_VOLUME" />
+      </labeled-knob>
+    </tab>
+  </ui>
+  <groups attack="0.002" decay="0" sustain="1" release="0.8" volume="0.8">
+    <group ampVelTrack="0.6">
+      <!-- soft: thrown 2x past the key's edge, decaying with tau 0.25 s at 110 Hz -->
+      <sample path="Samples/heal_C1_soft.wav" rootNote="24" loNote="21" hiNote="25" loVel="1" hiVel="42" tuning="0.04" loopEnabled="true" loopStart="76604" loopEnd="137446" loopCrossfade="0" />
+      <sample path="Samples/heal_D#1_soft.wav" rootNote="27" loNote="26" hiNote="28" loVel="1" hiVel="42" tuning="0.06" loopEnabled="true" loopStart="81841" loopEnd="139845" loopCrossfade="0" />
+      <sample path="Samples/heal_F#1_soft.wav" rootNote="30" loNote="29" hiNote="31" loVel="1" hiVel="42" tuning="0.05" loopEnabled="true" loopStart="75561" loopEnd="129114" loopCrossfade="0" />
+      <sample path="Samples/heal_A1_soft.wav" rootNote="33" loNote="32" hiNote="34" loVel="1" hiVel="42" tuning="0.06" loopEnabled="true" loopStart="74275" loopEnd="127365" loopCrossfade="0" />
+      <sample path="Samples/heal_C2_soft.wav" rootNote="36" loNote="35" hiNote="37" loVel="1" hiVel="42" tuning="0.05" loopEnabled="true" loopStart="56218" loopEnd="110995" loopCrossfade="0" />
+      <sample path="Samples/heal_D#2_soft.wav" rootNote="39" loNote="38" hiNote="40" loVel="1" hiVel="42" tuning="0.05" loopEnabled="true" loopStart="57525" loopEnd="113812" loopCrossfade="0" />
+      <sample path="Samples/heal_F#2_soft.wav" rootNote="42" loNote="41" hiNote="43" loVel="1" hiVel="42" tuning="0.05" loopEnabled="true" loopStart="50365" loopEnd="103906" loopCrossfade="0" />
+      <sample path="Samples/heal_A2_soft.wav" rootNote="45" loNote="44" hiNote="46" loVel="1" hiVel="42" tuning="0.04" loopEnabled="true" loopStart="51112" loopEnd="104174" loopCrossfade="0" />
+      <sample path="Samples/heal_C3_soft.wav" rootNote="48" loNote="47" hiNote="49" loVel="1" hiVel="42" tuning="0.05" loopEnabled="true" loopStart="34612" loopEnd="87679" loopCrossfade="0" />
+      <sample path="Samples/heal_D#3_soft.wav" rootNote="51" loNote="50" hiNote="52" loVel="1" hiVel="42" tuning="0.05" loopEnabled="true" loopStart="45998" loopEnd="100004" loopCrossfade="0" />
+      <sample path="Samples/heal_F#3_soft.wav" rootNote="54" loNote="53" hiNote="55" loVel="1" hiVel="42" tuning="0.05" loopEnabled="true" loopStart="30292" loopEnd="83364" loopCrossfade="0" />
+      <sample path="Samples/heal_A3_soft.wav" rootNote="57" loNote="56" hiNote="58" loVel="1" hiVel="42" tuning="0.05" loopEnabled="true" loopStart="38416" loopEnd="91503" loopCrossfade="0" />
+      <sample path="Samples/heal_C4_soft.wav" rootNote="60" loNote="59" hiNote="61" loVel="1" hiVel="42" tuning="0.07" loopEnabled="true" loopStart="38150" loopEnd="94332" loopCrossfade="0" />
+      <sample path="Samples/heal_D#4_soft.wav" rootNote="63" loNote="62" hiNote="64" loVel="1" hiVel="42" tuning="0.07" loopEnabled="true" loopStart="31058" loopEnd="84119" loopCrossfade="0" />
+      <sample path="Samples/heal_F#4_soft.wav" rootNote="66" loNote="65" hiNote="67" loVel="1" hiVel="42" tuning="0.04" loopEnabled="true" loopStart="18564" loopEnd="71709" loopCrossfade="0" />
+      <sample path="Samples/heal_A4_soft.wav" rootNote="69" loNote="68" hiNote="70" loVel="1" hiVel="42" tuning="0.04" loopEnabled="true" loopStart="30082" loopEnd="83123" loopCrossfade="0" />
+      <sample path="Samples/heal_C5_soft.wav" rootNote="72" loNote="71" hiNote="73" loVel="1" hiVel="42" tuning="0.05" loopEnabled="true" loopStart="17400" loopEnd="70461" loopCrossfade="0" />
+      <sample path="Samples/heal_D#5_soft.wav" rootNote="75" loNote="74" hiNote="76" loVel="1" hiVel="42" tuning="0.04" loopEnabled="true" loopStart="16697" loopEnd="71017" loopCrossfade="0" />
+      <sample path="Samples/heal_F#5_soft.wav" rootNote="78" loNote="77" hiNote="79" loVel="1" hiVel="42" tuning="0.06" loopEnabled="true" loopStart="18222" loopEnd="95795" loopCrossfade="0" />
+      <sample path="Samples/heal_A5_soft.wav" rootNote="81" loNote="80" hiNote="82" loVel="1" hiVel="42" tuning="0.07" loopEnabled="true" loopStart="16853" loopEnd="96710" loopCrossfade="0" />
+      <sample path="Samples/heal_C6_soft.wav" rootNote="84" loNote="83" hiNote="85" loVel="1" hiVel="42" tuning="0.08" loopEnabled="true" loopStart="19052" loopEnd="73818" loopCrossfade="0" />
+      <sample path="Samples/heal_D#6_soft.wav" rootNote="87" loNote="86" hiNote="88" loVel="1" hiVel="42" tuning="0.07" loopEnabled="true" loopStart="13659" loopEnd="82649" loopCrossfade="0" />
+      <sample path="Samples/heal_F#6_soft.wav" rootNote="90" loNote="89" hiNote="91" loVel="1" hiVel="42" tuning="0.08" loopEnabled="true" loopStart="10579" loopEnd="120489" loopCrossfade="0" />
+      <sample path="Samples/heal_A6_soft.wav" rootNote="93" loNote="92" hiNote="94" loVel="1" hiVel="42" tuning="0.1" loopEnabled="true" loopStart="11679" loopEnd="100819" loopCrossfade="0" />
+      <sample path="Samples/heal_C7_soft.wav" rootNote="96" loNote="95" hiNote="99" loVel="1" hiVel="42" tuning="0.11" loopEnabled="true" loopStart="12339" loopEnd="79621" loopCrossfade="0" />
+    </group>
+    <group ampVelTrack="0.6">
+      <!-- mid: thrown 6x past the key's edge, decaying with tau 0.25 s at 110 Hz -->
+      <sample path="Samples/heal_C1_mid.wav" rootNote="24" loNote="21" hiNote="25" loVel="43" hiVel="85" tuning="0.05" loopEnabled="true" loopStart="116735" loopEnd="216794" loopCrossfade="0" />
+      <sample path="Samples/heal_D#1_mid.wav" rootNote="27" loNote="26" hiNote="28" loVel="43" hiVel="85" tuning="0.05" loopEnabled="true" loopStart="93356" loopEnd="150218" loopCrossfade="0" />
+      <sample path="Samples/heal_F#1_mid.wav" rootNote="30" loNote="29" hiNote="31" loVel="43" hiVel="85" tuning="0.05" loopEnabled="true" loopStart="82661" loopEnd="136203" loopCrossfade="0" />
+      <sample path="Samples/heal_A1_mid.wav" rootNote="33" loNote="32" hiNote="34" loVel="43" hiVel="85" tuning="0.05" loopEnabled="true" loopStart="92119" loopEnd="145210" loopCrossfade="0" />
+      <sample path="Samples/heal_C2_mid.wav" rootNote="36" loNote="35" hiNote="37" loVel="43" hiVel="85" tuning="0.05" loopEnabled="true" loopStart="76163" loopEnd="130257" loopCrossfade="0" />
+      <sample path="Samples/heal_D#2_mid.wav" rootNote="39" loNote="38" hiNote="40" loVel="43" hiVel="85" tuning="0.05" loopEnabled="true" loopStart="62525" loopEnd="115966" loopCrossfade="0" />
+      <sample path="Samples/heal_F#2_mid.wav" rootNote="42" loNote="41" hiNote="43" loVel="43" hiVel="85" tuning="0.04" loopEnabled="true" loopStart="60650" loopEnd="115625" loopCrossfade="0" />
+      <sample path="Samples/heal_A2_mid.wav" rootNote="45" loNote="44" hiNote="46" loVel="43" hiVel="85" tuning="0.05" loopEnabled="true" loopStart="64340" loopEnd="120618" loopCrossfade="0" />
+      <sample path="Samples/heal_C3_mid.wav" rootNote="48" loNote="47" hiNote="49" loVel="43" hiVel="85" tuning="0.05" loopEnabled="true" loopStart="54045" loopEnd="107117" loopCrossfade="0" />
+      <sample path="Samples/heal_D#3_mid.wav" rootNote="51" loNote="50" hiNote="52" loVel="43" hiVel="85" tuning="0.04" loopEnabled="true" loopStart="35590" loopEnd="89024" loopCrossfade="0" />
+      <sample path="Samples/heal_F#3_mid.wav" rootNote="54" loNote="53" hiNote="55" loVel="43" hiVel="85" tuning="0.05" loopEnabled="true" loopStart="47742" loopEnd="103446" loopCrossfade="0" />
+      <sample path="Samples/heal_A3_mid.wav" rootNote="57" loNote="56" hiNote="58" loVel="43" hiVel="85" tuning="0.06" loopEnabled="true" loopStart="49174" loopEnd="103266" loopCrossfade="0" />
+      <sample path="Samples/heal_C4_mid.wav" rootNote="60" loNote="59" hiNote="61" loVel="43" hiVel="85" tuning="0.07" loopEnabled="true" loopStart="33583" loopEnd="86548" loopCrossfade="0" />
+      <sample path="Samples/heal_D#4_mid.wav" rootNote="63" loNote="62" hiNote="64" loVel="43" hiVel="85" tuning="0.07" loopEnabled="true" loopStart="28655" loopEnd="82001" loopCrossfade="0" />
+      <sample path="Samples/heal_F#4_mid.wav" rootNote="66" loNote="65" hiNote="67" loVel="43" hiVel="85" tuning="0.04" loopEnabled="true" loopStart="39741" loopEnd="92889" loopCrossfade="0" />
+      <sample path="Samples/heal_A4_mid.wav" rootNote="69" loNote="68" hiNote="70" loVel="43" hiVel="85" tuning="0.04" loopEnabled="true" loopStart="43079" loopEnd="96120" loopCrossfade="0" />
+      <sample path="Samples/heal_C5_mid.wav" rootNote="72" loNote="71" hiNote="73" loVel="43" hiVel="85" tuning="0.05" loopEnabled="true" loopStart="29651" loopEnd="82626" loopCrossfade="0" />
+      <sample path="Samples/heal_D#5_mid.wav" rootNote="75" loNote="74" hiNote="76" loVel="43" hiVel="85" tuning="0.04" loopEnabled="true" loopStart="25415" loopEnd="80163" loopCrossfade="0" />
+      <sample path="Samples/heal_F#5_mid.wav" rootNote="78" loNote="77" hiNote="79" loVel="43" hiVel="85" tuning="0.06" loopEnabled="true" loopStart="19243" loopEnd="96698" loopCrossfade="0" />
+      <sample path="Samples/heal_A5_mid.wav" rootNote="81" loNote="80" hiNote="82" loVel="43" hiVel="85" tuning="0.07" loopEnabled="true" loopStart="21660" loopEnd="101517" loopCrossfade="0" />
+      <sample path="Samples/heal_C6_mid.wav" rootNote="84" loNote="83" hiNote="85" loVel="43" hiVel="85" tuning="0.08" loopEnabled="true" loopStart="22537" loopEnd="77303" loopCrossfade="0" />
+      <sample path="Samples/heal_D#6_mid.wav" rootNote="87" loNote="86" hiNote="88" loVel="43" hiVel="85" tuning="0.07" loopEnabled="true" loopStart="14655" loopEnd="83575" loopCrossfade="0" />
+      <sample path="Samples/heal_F#6_mid.wav" rootNote="90" loNote="89" hiNote="91" loVel="43" hiVel="85" tuning="0.08" loopEnabled="true" loopStart="14424" loopEnd="124693" loopCrossfade="0" />
+      <sample path="Samples/heal_A6_mid.wav" rootNote="93" loNote="92" hiNote="94" loVel="43" hiVel="85" tuning="0.1" loopEnabled="true" loopStart="15236" loopEnd="104376" loopCrossfade="0" />
+      <sample path="Samples/heal_C7_mid.wav" rootNote="96" loNote="95" hiNote="99" loVel="43" hiVel="85" tuning="0.11" loopEnabled="true" loopStart="15499" loopEnd="82781" loopCrossfade="0" />
+    </group>
+    <group ampVelTrack="0.6">
+      <!-- hard: thrown 20x past the key's edge, decaying with tau 0.25 s at 110 Hz -->
+      <sample path="Samples/heal_C1_hard.wav" rootNote="24" loNote="21" hiNote="25" loVel="86" hiVel="127" tuning="0.04" loopEnabled="true" loopStart="154084" loopEnd="240604" loopCrossfade="0" />
+      <sample path="Samples/heal_D#1_hard.wav" rootNote="27" loNote="26" hiNote="28" loVel="86" hiVel="127" tuning="0.05" loopEnabled="true" loopStart="128993" loopEnd="182439" loopCrossfade="0" />
+      <sample path="Samples/heal_F#1_hard.wav" rootNote="30" loNote="29" hiNote="31" loVel="86" hiVel="127" tuning="0.05" loopEnabled="true" loopStart="115867" loopEnd="215315" loopCrossfade="0" />
+      <sample path="Samples/heal_A1_hard.wav" rootNote="33" loNote="32" hiNote="34" loVel="86" hiVel="127" tuning="0.06" loopEnabled="true" loopStart="95462" loopEnd="148553" loopCrossfade="0" />
+      <sample path="Samples/heal_C2_hard.wav" rootNote="36" loNote="35" hiNote="37" loVel="86" hiVel="127" tuning="0.05" loopEnabled="true" loopStart="97320" loopEnd="177794" loopCrossfade="0" />
+      <sample path="Samples/heal_D#2_hard.wav" rootNote="39" loNote="38" hiNote="40" loVel="86" hiVel="127" tuning="0.05" loopEnabled="true" loopStart="84872" loopEnd="139458" loopCrossfade="0" />
+      <sample path="Samples/heal_F#2_hard.wav" rootNote="42" loNote="41" hiNote="43" loVel="86" hiVel="127" tuning="0.05" loopEnabled="true" loopStart="80705" loopEnd="135674" loopCrossfade="0" />
+      <sample path="Samples/heal_A2_hard.wav" rootNote="45" loNote="44" hiNote="46" loVel="86" hiVel="127" tuning="0.05" loopEnabled="true" loopStart="64591" loopEnd="117657" loopCrossfade="0" />
+      <sample path="Samples/heal_C3_hard.wav" rootNote="48" loNote="47" hiNote="49" loVel="86" hiVel="127" tuning="0.04" loopEnabled="true" loopStart="71855" loopEnd="128302" loopCrossfade="0" />
+      <sample path="Samples/heal_D#3_hard.wav" rootNote="51" loNote="50" hiNote="52" loVel="86" hiVel="127" tuning="0.05" loopEnabled="true" loopStart="59684" loopEnd="112839" loopCrossfade="0" />
+      <sample path="Samples/heal_F#3_hard.wav" rootNote="54" loNote="53" hiNote="55" loVel="86" hiVel="127" tuning="0.05" loopEnabled="true" loopStart="64353" loopEnd="119814" loopCrossfade="0" />
+      <sample path="Samples/heal_A3_hard.wav" rootNote="57" loNote="56" hiNote="58" loVel="86" hiVel="127" tuning="0.06" loopEnabled="true" loopStart="53820" loopEnd="107310" loopCrossfade="0" />
+      <sample path="Samples/heal_C4_hard.wav" rootNote="60" loNote="59" hiNote="61" loVel="86" hiVel="127" tuning="0.07" loopEnabled="true" loopStart="49088" loopEnd="102056" loopCrossfade="0" />
+      <sample path="Samples/heal_D#4_hard.wav" rootNote="63" loNote="62" hiNote="64" loVel="86" hiVel="127" tuning="0.07" loopEnabled="true" loopStart="33948" loopEnd="87717" loopCrossfade="0" />
+      <sample path="Samples/heal_F#4_hard.wav" rootNote="66" loNote="65" hiNote="67" loVel="86" hiVel="127" tuning="0.04" loopEnabled="true" loopStart="37695" loopEnd="91198" loopCrossfade="0" />
+      <sample path="Samples/heal_A4_hard.wav" rootNote="69" loNote="68" hiNote="70" loVel="86" hiVel="127" tuning="0.04" loopEnabled="true" loopStart="39129" loopEnd="92070" loopCrossfade="0" />
+      <sample path="Samples/heal_C5_hard.wav" rootNote="72" loNote="71" hiNote="73" loVel="86" hiVel="127" tuning="0.05" loopEnabled="true" loopStart="31860" loopEnd="85343" loopCrossfade="0" />
+      <sample path="Samples/heal_D#5_hard.wav" rootNote="75" loNote="74" hiNote="76" loVel="86" hiVel="127" tuning="0.04" loopEnabled="true" loopStart="24069" loopEnd="77041" loopCrossfade="0" />
+      <sample path="Samples/heal_F#5_hard.wav" rootNote="78" loNote="77" hiNote="79" loVel="86" hiVel="127" tuning="0.06" loopEnabled="true" loopStart="25901" loopEnd="103475" loopCrossfade="0" />
+      <sample path="Samples/heal_A5_hard.wav" rootNote="81" loNote="80" hiNote="82" loVel="86" hiVel="127" tuning="0.07" loopEnabled="true" loopStart="23606" loopEnd="103062" loopCrossfade="0" />
+      <sample path="Samples/heal_C6_hard.wav" rootNote="84" loNote="83" hiNote="85" loVel="86" hiVel="127" tuning="0.08" loopEnabled="true" loopStart="26508" loopEnd="81274" loopCrossfade="0" />
+      <sample path="Samples/heal_D#6_hard.wav" rootNote="87" loNote="86" hiNote="88" loVel="86" hiVel="127" tuning="0.07" loopEnabled="true" loopStart="22056" loopEnd="88627" loopCrossfade="0" />
+      <sample path="Samples/heal_F#6_hard.wav" rootNote="90" loNote="89" hiNote="91" loVel="86" hiVel="127" tuning="0.08" loopEnabled="true" loopStart="17688" loopEnd="127329" loopCrossfade="0" />
+      <sample path="Samples/heal_A6_hard.wav" rootNote="93" loNote="92" hiNote="94" loVel="86" hiVel="127" tuning="0.1" loopEnabled="true" loopStart="18324" loopEnd="107439" loopCrossfade="0" />
+      <sample path="Samples/heal_C7_hard.wav" rootNote="96" loNote="95" hiNote="99" loVel="86" hiVel="127" tuning="0.11" loopEnabled="true" loopStart="18675" loopEnd="85957" loopCrossfade="0" />
+    </group>
+  </groups>
+</DecentSampler>

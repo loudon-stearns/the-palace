@@ -1,0 +1,96 @@
+// Heal — tear-and-heal instruments, Generative Sample Libraries (collection)
+// built by build.py from the frustration model (engine.py); nothing here is edited by hand
+// The centre of the collection: the warm source, up to 96 partials. A strike throws the stretch past the key's edge; the tone tears, sags and wobbles, then relocks into a sustain resting at a third of its edge.
+// sustain rests at 0.35 of each key's own edge (bisected per key, edges.json); velocity is strike depth
+// loops: after the heal, a length where the stretched partials come back into phase (or whole periods of partial 1), 100 ms crossfade baked into the WAV; same points in each WAV's smpl chunk
+// tune = the cents that bring where each strike settled back to its key
+
+<control>
+default_path=samples/
+
+<global>
+loop_mode=loop_continuous ampeg_attack=0.002 ampeg_release=0.8 amp_veltrack=60
+
+// soft: thrown 2x past the key's edge, decaying with tau 0.25 s at 110 Hz
+<group> lovel=1 hivel=42
+<region> sample=heal_C1_soft.wav lokey=21 hikey=25 pitch_keycenter=24 tune=4 loop_start=76604 loop_end=137446
+<region> sample=heal_D#1_soft.wav lokey=26 hikey=28 pitch_keycenter=27 tune=6 loop_start=81841 loop_end=139845
+<region> sample=heal_F#1_soft.wav lokey=29 hikey=31 pitch_keycenter=30 tune=5 loop_start=75561 loop_end=129114
+<region> sample=heal_A1_soft.wav lokey=32 hikey=34 pitch_keycenter=33 tune=6 loop_start=74275 loop_end=127365
+<region> sample=heal_C2_soft.wav lokey=35 hikey=37 pitch_keycenter=36 tune=5 loop_start=56218 loop_end=110995
+<region> sample=heal_D#2_soft.wav lokey=38 hikey=40 pitch_keycenter=39 tune=5 loop_start=57525 loop_end=113812
+<region> sample=heal_F#2_soft.wav lokey=41 hikey=43 pitch_keycenter=42 tune=5 loop_start=50365 loop_end=103906
+<region> sample=heal_A2_soft.wav lokey=44 hikey=46 pitch_keycenter=45 tune=4 loop_start=51112 loop_end=104174
+<region> sample=heal_C3_soft.wav lokey=47 hikey=49 pitch_keycenter=48 tune=5 loop_start=34612 loop_end=87679
+<region> sample=heal_D#3_soft.wav lokey=50 hikey=52 pitch_keycenter=51 tune=5 loop_start=45998 loop_end=100004
+<region> sample=heal_F#3_soft.wav lokey=53 hikey=55 pitch_keycenter=54 tune=5 loop_start=30292 loop_end=83364
+<region> sample=heal_A3_soft.wav lokey=56 hikey=58 pitch_keycenter=57 tune=5 loop_start=38416 loop_end=91503
+<region> sample=heal_C4_soft.wav lokey=59 hikey=61 pitch_keycenter=60 tune=7 loop_start=38150 loop_end=94332
+<region> sample=heal_D#4_soft.wav lokey=62 hikey=64 pitch_keycenter=63 tune=7 loop_start=31058 loop_end=84119
+<region> sample=heal_F#4_soft.wav lokey=65 hikey=67 pitch_keycenter=66 tune=4 loop_start=18564 loop_end=71709
+<region> sample=heal_A4_soft.wav lokey=68 hikey=70 pitch_keycenter=69 tune=4 loop_start=30082 loop_end=83123
+<region> sample=heal_C5_soft.wav lokey=71 hikey=73 pitch_keycenter=72 tune=5 loop_start=17400 loop_end=70461
+<region> sample=heal_D#5_soft.wav lokey=74 hikey=76 pitch_keycenter=75 tune=4 loop_start=16697 loop_end=71017
+<region> sample=heal_F#5_soft.wav lokey=77 hikey=79 pitch_keycenter=78 tune=6 loop_start=18222 loop_end=95795
+<region> sample=heal_A5_soft.wav lokey=80 hikey=82 pitch_keycenter=81 tune=7 loop_start=16853 loop_end=96710
+<region> sample=heal_C6_soft.wav lokey=83 hikey=85 pitch_keycenter=84 tune=8 loop_start=19052 loop_end=73818
+<region> sample=heal_D#6_soft.wav lokey=86 hikey=88 pitch_keycenter=87 tune=7 loop_start=13659 loop_end=82649
+<region> sample=heal_F#6_soft.wav lokey=89 hikey=91 pitch_keycenter=90 tune=8 loop_start=10579 loop_end=120489
+<region> sample=heal_A6_soft.wav lokey=92 hikey=94 pitch_keycenter=93 tune=10 loop_start=11679 loop_end=100819
+<region> sample=heal_C7_soft.wav lokey=95 hikey=99 pitch_keycenter=96 tune=11 loop_start=12339 loop_end=79621
+
+// mid: thrown 6x past the key's edge, decaying with tau 0.25 s at 110 Hz
+<group> lovel=43 hivel=85
+<region> sample=heal_C1_mid.wav lokey=21 hikey=25 pitch_keycenter=24 tune=5 loop_start=116735 loop_end=216794
+<region> sample=heal_D#1_mid.wav lokey=26 hikey=28 pitch_keycenter=27 tune=5 loop_start=93356 loop_end=150218
+<region> sample=heal_F#1_mid.wav lokey=29 hikey=31 pitch_keycenter=30 tune=5 loop_start=82661 loop_end=136203
+<region> sample=heal_A1_mid.wav lokey=32 hikey=34 pitch_keycenter=33 tune=5 loop_start=92119 loop_end=145210
+<region> sample=heal_C2_mid.wav lokey=35 hikey=37 pitch_keycenter=36 tune=5 loop_start=76163 loop_end=130257
+<region> sample=heal_D#2_mid.wav lokey=38 hikey=40 pitch_keycenter=39 tune=5 loop_start=62525 loop_end=115966
+<region> sample=heal_F#2_mid.wav lokey=41 hikey=43 pitch_keycenter=42 tune=4 loop_start=60650 loop_end=115625
+<region> sample=heal_A2_mid.wav lokey=44 hikey=46 pitch_keycenter=45 tune=5 loop_start=64340 loop_end=120618
+<region> sample=heal_C3_mid.wav lokey=47 hikey=49 pitch_keycenter=48 tune=5 loop_start=54045 loop_end=107117
+<region> sample=heal_D#3_mid.wav lokey=50 hikey=52 pitch_keycenter=51 tune=4 loop_start=35590 loop_end=89024
+<region> sample=heal_F#3_mid.wav lokey=53 hikey=55 pitch_keycenter=54 tune=5 loop_start=47742 loop_end=103446
+<region> sample=heal_A3_mid.wav lokey=56 hikey=58 pitch_keycenter=57 tune=6 loop_start=49174 loop_end=103266
+<region> sample=heal_C4_mid.wav lokey=59 hikey=61 pitch_keycenter=60 tune=7 loop_start=33583 loop_end=86548
+<region> sample=heal_D#4_mid.wav lokey=62 hikey=64 pitch_keycenter=63 tune=7 loop_start=28655 loop_end=82001
+<region> sample=heal_F#4_mid.wav lokey=65 hikey=67 pitch_keycenter=66 tune=4 loop_start=39741 loop_end=92889
+<region> sample=heal_A4_mid.wav lokey=68 hikey=70 pitch_keycenter=69 tune=4 loop_start=43079 loop_end=96120
+<region> sample=heal_C5_mid.wav lokey=71 hikey=73 pitch_keycenter=72 tune=5 loop_start=29651 loop_end=82626
+<region> sample=heal_D#5_mid.wav lokey=74 hikey=76 pitch_keycenter=75 tune=4 loop_start=25415 loop_end=80163
+<region> sample=heal_F#5_mid.wav lokey=77 hikey=79 pitch_keycenter=78 tune=6 loop_start=19243 loop_end=96698
+<region> sample=heal_A5_mid.wav lokey=80 hikey=82 pitch_keycenter=81 tune=7 loop_start=21660 loop_end=101517
+<region> sample=heal_C6_mid.wav lokey=83 hikey=85 pitch_keycenter=84 tune=8 loop_start=22537 loop_end=77303
+<region> sample=heal_D#6_mid.wav lokey=86 hikey=88 pitch_keycenter=87 tune=7 loop_start=14655 loop_end=83575
+<region> sample=heal_F#6_mid.wav lokey=89 hikey=91 pitch_keycenter=90 tune=8 loop_start=14424 loop_end=124693
+<region> sample=heal_A6_mid.wav lokey=92 hikey=94 pitch_keycenter=93 tune=10 loop_start=15236 loop_end=104376
+<region> sample=heal_C7_mid.wav lokey=95 hikey=99 pitch_keycenter=96 tune=11 loop_start=15499 loop_end=82781
+
+// hard: thrown 20x past the key's edge, decaying with tau 0.25 s at 110 Hz
+<group> lovel=86 hivel=127
+<region> sample=heal_C1_hard.wav lokey=21 hikey=25 pitch_keycenter=24 tune=4 loop_start=154084 loop_end=240604
+<region> sample=heal_D#1_hard.wav lokey=26 hikey=28 pitch_keycenter=27 tune=5 loop_start=128993 loop_end=182439
+<region> sample=heal_F#1_hard.wav lokey=29 hikey=31 pitch_keycenter=30 tune=5 loop_start=115867 loop_end=215315
+<region> sample=heal_A1_hard.wav lokey=32 hikey=34 pitch_keycenter=33 tune=6 loop_start=95462 loop_end=148553
+<region> sample=heal_C2_hard.wav lokey=35 hikey=37 pitch_keycenter=36 tune=5 loop_start=97320 loop_end=177794
+<region> sample=heal_D#2_hard.wav lokey=38 hikey=40 pitch_keycenter=39 tune=5 loop_start=84872 loop_end=139458
+<region> sample=heal_F#2_hard.wav lokey=41 hikey=43 pitch_keycenter=42 tune=5 loop_start=80705 loop_end=135674
+<region> sample=heal_A2_hard.wav lokey=44 hikey=46 pitch_keycenter=45 tune=5 loop_start=64591 loop_end=117657
+<region> sample=heal_C3_hard.wav lokey=47 hikey=49 pitch_keycenter=48 tune=4 loop_start=71855 loop_end=128302
+<region> sample=heal_D#3_hard.wav lokey=50 hikey=52 pitch_keycenter=51 tune=5 loop_start=59684 loop_end=112839
+<region> sample=heal_F#3_hard.wav lokey=53 hikey=55 pitch_keycenter=54 tune=5 loop_start=64353 loop_end=119814
+<region> sample=heal_A3_hard.wav lokey=56 hikey=58 pitch_keycenter=57 tune=6 loop_start=53820 loop_end=107310
+<region> sample=heal_C4_hard.wav lokey=59 hikey=61 pitch_keycenter=60 tune=7 loop_start=49088 loop_end=102056
+<region> sample=heal_D#4_hard.wav lokey=62 hikey=64 pitch_keycenter=63 tune=7 loop_start=33948 loop_end=87717
+<region> sample=heal_F#4_hard.wav lokey=65 hikey=67 pitch_keycenter=66 tune=4 loop_start=37695 loop_end=91198
+<region> sample=heal_A4_hard.wav lokey=68 hikey=70 pitch_keycenter=69 tune=4 loop_start=39129 loop_end=92070
+<region> sample=heal_C5_hard.wav lokey=71 hikey=73 pitch_keycenter=72 tune=5 loop_start=31860 loop_end=85343
+<region> sample=heal_D#5_hard.wav lokey=74 hikey=76 pitch_keycenter=75 tune=4 loop_start=24069 loop_end=77041
+<region> sample=heal_F#5_hard.wav lokey=77 hikey=79 pitch_keycenter=78 tune=6 loop_start=25901 loop_end=103475
+<region> sample=heal_A5_hard.wav lokey=80 hikey=82 pitch_keycenter=81 tune=7 loop_start=23606 loop_end=103062
+<region> sample=heal_C6_hard.wav lokey=83 hikey=85 pitch_keycenter=84 tune=8 loop_start=26508 loop_end=81274
+<region> sample=heal_D#6_hard.wav lokey=86 hikey=88 pitch_keycenter=87 tune=7 loop_start=22056 loop_end=88627
+<region> sample=heal_F#6_hard.wav lokey=89 hikey=91 pitch_keycenter=90 tune=8 loop_start=17688 loop_end=127329
+<region> sample=heal_A6_hard.wav lokey=92 hikey=94 pitch_keycenter=93 tune=10 loop_start=18324 loop_end=107439
+<region> sample=heal_C7_hard.wav lokey=95 hikey=99 pitch_keycenter=96 tune=11 loop_start=18675 loop_end=85957

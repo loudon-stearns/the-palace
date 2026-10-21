@@ -1,6 +1,6 @@
 # BUILD — tear-and-heal instruments
 
-The conventions this build renders under (the interview skill's Rule 1). **Proposed 2026-10-20, waiting on Loudon's yes.** The audition was rendered under them ahead of that yes, because renaming costs nothing and re-rendering costs about twenty seconds; if a name changes, `build.py` changes and everything is remade.
+The conventions this build renders under (the interview skill's Rule 1). **Agreed 2026-10-20.** Loudon's answer to the audition: "Good. The names in BUILD.md are fine." The audition had been rendered under them ahead of that yes, because renaming costs nothing and re-rendering costs about twenty seconds; if a name changes, `build.py` changes and everything is remade.
 
 | | |
 |---|---|

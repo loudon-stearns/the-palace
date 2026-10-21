@@ -1,0 +1,701 @@
+{
+ "instrument": "Heal",
+ "samples": 75,
+ "maps_agree_sfz_dspreset": true,
+ "samples_missing_from_dslibrary": [],
+ "dslibrary_bytes": 15065413,
+ "on_pitch": 75,
+ "worst_cents_err": 1.37,
+ "seams_clean_12s_hold": 75,
+ "worst_click_db": 4.1,
+ "worst_level_step_db": 0.98,
+ "limits": {
+  "cents": 3.0,
+  "click_db": 6.0,
+  "level_step_db": 1.5,
+  "hold_s": 12.0
+ },
+ "check_can_fail": {
+  "sample": "heal_C4_mid.wav",
+  "filed_wrong_by_cents": 25,
+  "measured_err": 25.31,
+  "caught": true
+ },
+ "per_sample": [
+  {
+   "sample": "heal_C1_soft.wav",
+   "wraps": 7,
+   "worst_click_db": -2.67,
+   "worst_level_step_db": 0.02,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.14,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_D#1_soft.wav",
+   "wraps": 7,
+   "worst_click_db": 2.29,
+   "worst_level_step_db": -0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.79,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_F#1_soft.wav",
+   "wraps": 8,
+   "worst_click_db": 3.57,
+   "worst_level_step_db": 0.03,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.15,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_A1_soft.wav",
+   "wraps": 8,
+   "worst_click_db": 0.7,
+   "worst_level_step_db": -0.01,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.35,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_C2_soft.wav",
+   "wraps": 8,
+   "worst_click_db": 2.93,
+   "worst_level_step_db": 0.01,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.07,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_D#2_soft.wav",
+   "wraps": 8,
+   "worst_click_db": 2.13,
+   "worst_level_step_db": 0.01,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.05,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_F#2_soft.wav",
+   "wraps": 8,
+   "worst_click_db": 0.61,
+   "worst_level_step_db": -0.06,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.13,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_A2_soft.wav",
+   "wraps": 8,
+   "worst_click_db": 0.6,
+   "worst_level_step_db": 0.01,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.9,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_C3_soft.wav",
+   "wraps": 9,
+   "worst_click_db": 0.86,
+   "worst_level_step_db": -0.01,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.48,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_D#3_soft.wav",
+   "wraps": 8,
+   "worst_click_db": -1.4,
+   "worst_level_step_db": -0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.25,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_F#3_soft.wav",
+   "wraps": 9,
+   "worst_click_db": -0.17,
+   "worst_level_step_db": 0.04,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.03,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_A3_soft.wav",
+   "wraps": 9,
+   "worst_click_db": 0.07,
+   "worst_level_step_db": 0.01,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.51,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_C4_soft.wav",
+   "wraps": 8,
+   "worst_click_db": -0.31,
+   "worst_level_step_db": -0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.16,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_D#4_soft.wav",
+   "wraps": 9,
+   "worst_click_db": -0.74,
+   "worst_level_step_db": -0.01,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.81,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_F#4_soft.wav",
+   "wraps": 9,
+   "worst_click_db": -0.01,
+   "worst_level_step_db": -0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.61,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_A4_soft.wav",
+   "wraps": 9,
+   "worst_click_db": 0.73,
+   "worst_level_step_db": 0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.03,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_C5_soft.wav",
+   "wraps": 9,
+   "worst_click_db": 0.35,
+   "worst_level_step_db": 0.01,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.63,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_D#5_soft.wav",
+   "wraps": 9,
+   "worst_click_db": 0.03,
+   "worst_level_step_db": 0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.65,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_F#5_soft.wav",
+   "wraps": 6,
+   "worst_click_db": 0.16,
+   "worst_level_step_db": -0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": 1.07,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_A5_soft.wav",
+   "wraps": 6,
+   "worst_click_db": 0.07,
+   "worst_level_step_db": 0.03,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.11,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_C6_soft.wav",
+   "wraps": 9,
+   "worst_click_db": -0.11,
+   "worst_level_step_db": 0.02,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.48,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_D#6_soft.wav",
+   "wraps": 7,
+   "worst_click_db": -0.01,
+   "worst_level_step_db": 0.12,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.12,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_F#6_soft.wav",
+   "wraps": 4,
+   "worst_click_db": 0.12,
+   "worst_level_step_db": 0.91,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.24,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_A6_soft.wav",
+   "wraps": 5,
+   "worst_click_db": 0.14,
+   "worst_level_step_db": 0.74,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.49,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_C7_soft.wav",
+   "wraps": 7,
+   "worst_click_db": 0.18,
+   "worst_level_step_db": 0.45,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.02,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_C1_mid.wav",
+   "wraps": 4,
+   "worst_click_db": -4.07,
+   "worst_level_step_db": 0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.1,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_D#1_mid.wav",
+   "wraps": 7,
+   "worst_click_db": 0.01,
+   "worst_level_step_db": -0.01,
+   "seam_ok": true,
+   "cents_err_after_tune": -1.37,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_F#1_mid.wav",
+   "wraps": 8,
+   "worst_click_db": -2.74,
+   "worst_level_step_db": -0.04,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.18,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_A1_mid.wav",
+   "wraps": 8,
+   "worst_click_db": -0.83,
+   "worst_level_step_db": -0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": -1.14,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_C2_mid.wav",
+   "wraps": 8,
+   "worst_click_db": -2.62,
+   "worst_level_step_db": -0.01,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.19,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_D#2_mid.wav",
+   "wraps": 8,
+   "worst_click_db": 2.39,
+   "worst_level_step_db": 0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.41,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_F#2_mid.wav",
+   "wraps": 8,
+   "worst_click_db": -1.51,
+   "worst_level_step_db": 0.02,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.31,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_A2_mid.wav",
+   "wraps": 8,
+   "worst_click_db": -1.74,
+   "worst_level_step_db": 0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.59,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_C3_mid.wav",
+   "wraps": 8,
+   "worst_click_db": -1.98,
+   "worst_level_step_db": 0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.33,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_D#3_mid.wav",
+   "wraps": 9,
+   "worst_click_db": 0.14,
+   "worst_level_step_db": -0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.19,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_F#3_mid.wav",
+   "wraps": 8,
+   "worst_click_db": 0.3,
+   "worst_level_step_db": 0.02,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.18,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_A3_mid.wav",
+   "wraps": 8,
+   "worst_click_db": -0.07,
+   "worst_level_step_db": -0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.53,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_C4_mid.wav",
+   "wraps": 9,
+   "worst_click_db": 0.98,
+   "worst_level_step_db": 0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.31,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_D#4_mid.wav",
+   "wraps": 9,
+   "worst_click_db": 0.53,
+   "worst_level_step_db": 0.05,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.75,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_F#4_mid.wav",
+   "wraps": 9,
+   "worst_click_db": 0.2,
+   "worst_level_step_db": -0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.33,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_A4_mid.wav",
+   "wraps": 9,
+   "worst_click_db": 0.21,
+   "worst_level_step_db": 0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.05,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_C5_mid.wav",
+   "wraps": 9,
+   "worst_click_db": 0.3,
+   "worst_level_step_db": 0.01,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.64,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_D#5_mid.wav",
+   "wraps": 9,
+   "worst_click_db": -0.01,
+   "worst_level_step_db": 0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.62,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_F#5_mid.wav",
+   "wraps": 6,
+   "worst_click_db": -0.15,
+   "worst_level_step_db": 0.1,
+   "seam_ok": true,
+   "cents_err_after_tune": 1.06,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_A5_mid.wav",
+   "wraps": 6,
+   "worst_click_db": -0.09,
+   "worst_level_step_db": 0.06,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.11,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_C6_mid.wav",
+   "wraps": 9,
+   "worst_click_db": 0.15,
+   "worst_level_step_db": 0.03,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.48,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_D#6_mid.wav",
+   "wraps": 7,
+   "worst_click_db": 0.11,
+   "worst_level_step_db": 0.86,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.12,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_F#6_mid.wav",
+   "wraps": 4,
+   "worst_click_db": -0.05,
+   "worst_level_step_db": 0.83,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.24,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_A6_mid.wav",
+   "wraps": 5,
+   "worst_click_db": 0.16,
+   "worst_level_step_db": 0.63,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.49,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_C7_mid.wav",
+   "wraps": 7,
+   "worst_click_db": 0.16,
+   "worst_level_step_db": 0.42,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.02,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_C1_hard.wav",
+   "wraps": 4,
+   "worst_click_db": 2.3,
+   "worst_level_step_db": -0.01,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.3,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_D#1_hard.wav",
+   "wraps": 7,
+   "worst_click_db": -0.38,
+   "worst_level_step_db": 0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.56,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_F#1_hard.wav",
+   "wraps": 4,
+   "worst_click_db": 4.1,
+   "worst_level_step_db": 0.03,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.13,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_A1_hard.wav",
+   "wraps": 8,
+   "worst_click_db": 3.36,
+   "worst_level_step_db": 0.01,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.32,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_C2_hard.wav",
+   "wraps": 5,
+   "worst_click_db": 2.55,
+   "worst_level_step_db": -0.01,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.18,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_D#2_hard.wav",
+   "wraps": 8,
+   "worst_click_db": 1.65,
+   "worst_level_step_db": 0.04,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.23,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_F#2_hard.wav",
+   "wraps": 8,
+   "worst_click_db": -1.57,
+   "worst_level_step_db": -0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.15,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_A2_hard.wav",
+   "wraps": 8,
+   "worst_click_db": 0.36,
+   "worst_level_step_db": 0.01,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.02,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_C3_hard.wav",
+   "wraps": 8,
+   "worst_click_db": -2.03,
+   "worst_level_step_db": -0.01,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.81,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_D#3_hard.wav",
+   "wraps": 8,
+   "worst_click_db": 0.26,
+   "worst_level_step_db": 0.03,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.34,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_F#3_hard.wav",
+   "wraps": 8,
+   "worst_click_db": -0.2,
+   "worst_level_step_db": 0.02,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.0,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_A3_hard.wav",
+   "wraps": 8,
+   "worst_click_db": 0.65,
+   "worst_level_step_db": 0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.5,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_C4_hard.wav",
+   "wraps": 9,
+   "worst_click_db": 0.1,
+   "worst_level_step_db": 0.01,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.18,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_D#4_hard.wav",
+   "wraps": 9,
+   "worst_click_db": 0.27,
+   "worst_level_step_db": 0.01,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.99,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_F#4_hard.wav",
+   "wraps": 9,
+   "worst_click_db": 0.13,
+   "worst_level_step_db": 0.01,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.63,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_A4_hard.wav",
+   "wraps": 9,
+   "worst_click_db": -0.19,
+   "worst_level_step_db": -0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.03,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_C5_hard.wav",
+   "wraps": 9,
+   "worst_click_db": -0.03,
+   "worst_level_step_db": 0.02,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.63,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_D#5_hard.wav",
+   "wraps": 9,
+   "worst_click_db": 0.06,
+   "worst_level_step_db": 0.07,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.65,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_F#5_hard.wav",
+   "wraps": 6,
+   "worst_click_db": 0.07,
+   "worst_level_step_db": 0.05,
+   "seam_ok": true,
+   "cents_err_after_tune": 1.07,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_A5_hard.wav",
+   "wraps": 6,
+   "worst_click_db": -0.14,
+   "worst_level_step_db": 0.22,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.11,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_C6_hard.wav",
+   "wraps": 9,
+   "worst_click_db": 0.01,
+   "worst_level_step_db": 0.02,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.48,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_D#6_hard.wav",
+   "wraps": 7,
+   "worst_click_db": 0.23,
+   "worst_level_step_db": 0.07,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.12,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_F#6_hard.wav",
+   "wraps": 4,
+   "worst_click_db": 0.07,
+   "worst_level_step_db": 0.98,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.24,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_A6_hard.wav",
+   "wraps": 5,
+   "worst_click_db": 0.1,
+   "worst_level_step_db": 0.77,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.49,
+   "on_pitch": true
+  },
+  {
+   "sample": "heal_C7_hard.wav",
+   "wraps": 7,
+   "worst_click_db": 0.19,
+   "worst_level_step_db": 0.43,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.02,
+   "on_pitch": true
+  }
+ ]
+}

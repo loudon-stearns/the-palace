@@ -1,0 +1,72 @@
+// Bar to String — tear-and-heal instruments, Generative Sample Libraries (collection)
+// built by build.py from the frustration model (engine.py); nothing here is edited by hand
+// Partial 1 pinned. A strike starts as a bar (partials near 1, 4, 9, 16, free of the voices' grip), tears as the stretch falls through the edge, and heals into a string.
+// sustain rests at 0.35 of each key's own edge (bisected per key, edges.json); velocity is strike depth
+// loops: after the heal, a length where the stretched partials come back into phase (or whole periods of partial 1), 100 ms crossfade baked into the WAV; same points in each WAV's smpl chunk
+// tune = the cents that bring where each strike settled back to its key
+
+<control>
+default_path=samples/
+
+<global>
+loop_mode=loop_continuous ampeg_attack=0.002 ampeg_release=1.0 amp_veltrack=60
+
+// soft: thrown to B = 0.02, decaying with tau 0.12 s at 110 Hz
+<group> lovel=1 hivel=42
+<region> sample=bar_C2_soft.wav lokey=33 hikey=37 pitch_keycenter=36 tune=7 loop_start=100037 loop_end=153494
+<region> sample=bar_D#2_soft.wav lokey=38 hikey=40 pitch_keycenter=39 tune=7 loop_start=91388 loop_end=144317
+<region> sample=bar_F#2_soft.wav lokey=41 hikey=43 pitch_keycenter=42 tune=7 loop_start=67540 loop_end=123054
+<region> sample=bar_A2_soft.wav lokey=44 hikey=46 pitch_keycenter=45 tune=7 loop_start=79336 loop_end=135271
+<region> sample=bar_C3_soft.wav lokey=47 hikey=49 pitch_keycenter=48 tune=7 loop_start=64370 loop_end=118177
+<region> sample=bar_D#3_soft.wav lokey=50 hikey=52 pitch_keycenter=51 tune=7 loop_start=51896 loop_end=104826
+<region> sample=bar_F#3_soft.wav lokey=53 hikey=55 pitch_keycenter=54 tune=7 loop_start=59736 loop_end=112853
+<region> sample=bar_A3_soft.wav lokey=56 hikey=58 pitch_keycenter=57 tune=7 loop_start=54692 loop_end=109420
+<region> sample=bar_C4_soft.wav lokey=59 hikey=61 pitch_keycenter=60 tune=7 loop_start=54729 loop_end=110053
+<region> sample=bar_D#4_soft.wav lokey=62 hikey=64 pitch_keycenter=63 tune=7 loop_start=44248 loop_end=97446
+<region> sample=bar_F#4_soft.wav lokey=65 hikey=67 pitch_keycenter=66 tune=4 loop_start=43367 loop_end=96506
+<region> sample=bar_A4_soft.wav lokey=68 hikey=70 pitch_keycenter=69 tune=4 loop_start=39215 loop_end=92158
+<region> sample=bar_C5_soft.wav lokey=71 hikey=73 pitch_keycenter=72 tune=5 loop_start=26362 loop_end=79420
+<region> sample=bar_D#5_soft.wav lokey=74 hikey=76 pitch_keycenter=75 tune=5 loop_start=19578 loop_end=80389
+<region> sample=bar_F#5_soft.wav lokey=77 hikey=79 pitch_keycenter=78 tune=5 loop_start=19158 loop_end=98460
+<region> sample=bar_A5_soft.wav lokey=80 hikey=82 pitch_keycenter=81 tune=7 loop_start=16026 loop_end=95933
+<region> sample=bar_C6_soft.wav lokey=83 hikey=87 pitch_keycenter=84 tune=8 loop_start=15364 loop_end=70130
+
+// mid: thrown to B = 1, decaying with tau 0.12 s at 110 Hz
+<group> lovel=43 hivel=85
+<region> sample=bar_C2_mid.wav lokey=33 hikey=37 pitch_keycenter=36 tune=7 loop_start=107230 loop_end=161376
+<region> sample=bar_D#2_mid.wav lokey=38 hikey=40 pitch_keycenter=39 tune=7 loop_start=99492 loop_end=154130
+<region> sample=bar_F#2_mid.wav lokey=41 hikey=43 pitch_keycenter=42 tune=7 loop_start=97425 loop_end=150548
+<region> sample=bar_A2_mid.wav lokey=44 hikey=46 pitch_keycenter=45 tune=7 loop_start=83116 loop_end=136638
+<region> sample=bar_C3_mid.wav lokey=47 hikey=49 pitch_keycenter=48 tune=7 loop_start=95443 loop_end=150261
+<region> sample=bar_D#3_mid.wav lokey=50 hikey=52 pitch_keycenter=51 tune=7 loop_start=86215 loop_end=139427
+<region> sample=bar_F#3_mid.wav lokey=53 hikey=55 pitch_keycenter=54 tune=7 loop_start=61885 loop_end=115243
+<region> sample=bar_A3_mid.wav lokey=56 hikey=58 pitch_keycenter=57 tune=7 loop_start=59301 loop_end=112826
+<region> sample=bar_C4_mid.wav lokey=59 hikey=61 pitch_keycenter=60 tune=7 loop_start=48073 loop_end=101028
+<region> sample=bar_D#4_mid.wav lokey=62 hikey=64 pitch_keycenter=63 tune=7 loop_start=49998 loop_end=103062
+<region> sample=bar_F#4_mid.wav lokey=65 hikey=67 pitch_keycenter=66 tune=4 loop_start=54437 loop_end=107457
+<region> sample=bar_A4_mid.wav lokey=68 hikey=70 pitch_keycenter=69 tune=4 loop_start=38580 loop_end=91523
+<region> sample=bar_C5_mid.wav lokey=71 hikey=73 pitch_keycenter=72 tune=4 loop_start=44073 loop_end=97131
+<region> sample=bar_D#5_mid.wav lokey=74 hikey=76 pitch_keycenter=75 tune=5 loop_start=44060 loop_end=98902
+<region> sample=bar_F#5_mid.wav lokey=77 hikey=79 pitch_keycenter=78 tune=5 loop_start=24236 loop_end=103061
+<region> sample=bar_A5_mid.wav lokey=80 hikey=82 pitch_keycenter=81 tune=7 loop_start=23698 loop_end=103605
+<region> sample=bar_C6_mid.wav lokey=83 hikey=87 pitch_keycenter=84 tune=8 loop_start=21495 loop_end=76261
+
+// hard: thrown to B = 30, decaying with tau 0.12 s at 110 Hz
+<group> lovel=86 hivel=127
+<region> sample=bar_C2_hard.wav lokey=33 hikey=37 pitch_keycenter=36 tune=7 loop_start=143626 loop_end=199123
+<region> sample=bar_D#2_hard.wav lokey=38 hikey=40 pitch_keycenter=39 tune=7 loop_start=128846 loop_end=181776
+<region> sample=bar_F#2_hard.wav lokey=41 hikey=43 pitch_keycenter=42 tune=7 loop_start=124889 loop_end=180399
+<region> sample=bar_A2_hard.wav lokey=44 hikey=46 pitch_keycenter=45 tune=7 loop_start=99003 loop_end=152121
+<region> sample=bar_C3_hard.wav lokey=47 hikey=49 pitch_keycenter=48 tune=7 loop_start=110123 loop_end=167305
+<region> sample=bar_D#3_hard.wav lokey=50 hikey=52 pitch_keycenter=51 tune=7 loop_start=91354 loop_end=146846
+<region> sample=bar_F#3_hard.wav lokey=53 hikey=55 pitch_keycenter=54 tune=7 loop_start=85143 loop_end=138262
+<region> sample=bar_A3_hard.wav lokey=56 hikey=58 pitch_keycenter=57 tune=7 loop_start=70107 loop_end=123225
+<region> sample=bar_C4_hard.wav lokey=59 hikey=61 pitch_keycenter=60 tune=7 loop_start=74195 loop_end=127151
+<region> sample=bar_D#4_hard.wav lokey=62 hikey=64 pitch_keycenter=63 tune=7 loop_start=70480 loop_end=124391
+<region> sample=bar_F#4_hard.wav lokey=65 hikey=67 pitch_keycenter=66 tune=4 loop_start=63787 loop_end=117169
+<region> sample=bar_A4_hard.wav lokey=68 hikey=70 pitch_keycenter=69 tune=5 loop_start=62229 loop_end=115674
+<region> sample=bar_C5_hard.wav lokey=71 hikey=73 pitch_keycenter=72 tune=5 loop_start=42947 loop_end=96005
+<region> sample=bar_D#5_hard.wav lokey=74 hikey=76 pitch_keycenter=75 tune=5 loop_start=37301 loop_end=91646
+<region> sample=bar_F#5_hard.wav lokey=77 hikey=79 pitch_keycenter=78 tune=6 loop_start=34679 loop_end=113981
+<region> sample=bar_A5_hard.wav lokey=80 hikey=82 pitch_keycenter=81 tune=7 loop_start=30049 loop_end=109956
+<region> sample=bar_C6_hard.wav lokey=83 hikey=87 pitch_keycenter=84 tune=8 loop_start=27756 loop_end=82522

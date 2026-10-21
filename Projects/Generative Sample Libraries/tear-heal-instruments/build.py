@@ -94,6 +94,13 @@ def render_secs(key: int) -> float:
     return 6.0 + 4.0 * (c - 1.0)
 
 
+def clear(chk: dict) -> bool:
+    """A seam the build prefers: inside the check's limits with room to spare,
+    so no sample ships a hair under the line. A seam that only meets the
+    limits is the fallback."""
+    return chk["seam_ok"] and chk["worst_click_db"] < 4.5 and chk["worst_level_step_db"] < 1.0
+
+
 def _note_job(args):
     """Simulate one strike once, and write it for every patch that shares the
     simulation (heal and voices are the same strike, mixed differently)."""
@@ -131,9 +138,10 @@ def _note_job(args):
             zq = np.round(z * 32767.0) / 32767.0                    # what the 16-bit file will hold
             chk = sampler.seam_check(*sampler.hold_looped(zq, s, lp["loop_end"], HOLD_CHECK))
             tried.append((dict(lp, candidate_rank=rank), z, chk))
-            if chk["seam_ok"]:
+            if clear(chk):
                 break
-        lp, y, chk = next((x for x in tried if x[2]["seam_ok"]), tried[0])
+        lp, y, chk = next((x for x in tried if clear(x[2])),
+                          next((x for x in tried if x[2]["seam_ok"]), tried[0]))
         lp["candidates_tried"] = len(tried)
         s, e = lp["loop_start"], lp["loop_end"] + 1
         n = int(FADE_IN * SR)
