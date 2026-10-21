@@ -80,10 +80,15 @@ function main() {
   const repo = git(["rev-parse", "--show-toplevel"], HERE).trim();
 
   const want = wantFor(id, fs.readFileSync(DESIGN, "utf8")) || die(`no "We want" line for ${id} in the DESIGN draft`);
+  // A passage that moved between files names each of them, newest home first (CLAUDE.md's working sections moved
+  // to CHILD.md on 2026-10-21); the first that holds the heading at the child's commit is its canon.
   const canon = sc.canon.map(({ file, heading }) => {
-    const text = section(git(["show", `${commit}:${file}`], repo), heading);
-    if (!text) die(`${file} has no "${heading}" at ${commit.slice(0, 8)}`);
-    return { file, heading, text };
+    for (const f of [].concat(file)) {
+      let body; try { body = git(["show", `${commit}:${f}`], repo); } catch { continue; }
+      const text = section(body, heading);
+      if (text) return { file: f, heading, text };
+    }
+    return die(`${[].concat(file).join(" or ")} has no "${heading}" at ${commit.slice(0, 8)}`);
   });
   const says = [].concat(report.run.says);
   const turns = report.turns?.length ? report.turns : [{ answer: report.result.answer }];

@@ -4,7 +4,8 @@
 // floor's order test, Loudon's yes). The rest of DESIGN Part 2 waits to be wired. A scenario carries:
 //   turns  — what Loudon says, turn by turn. A second turn is played with --resume (section G's insistence).
 //   tests  — the palace files the scenario rests on, relative to the palace root: due.mjs reads these.
-//   canon  — the passages the grader judges against, read at the run's own commit: [{ file, heading }].
+//   canon  — the passages the grader judges against, read at the run's own commit: [{ file, heading }]. A passage
+//            that moved names each file it has lived in, newest first ([file, …]); the first holding it is read.
 //   tellBy — "mechanical" (read from the stream) or "judgment" (a separate grader, grade.mjs).
 //   check  — for a mechanical scenario: (checks report) → { held, why }, kept in checks.json as `verdict`.
 // The "we want" line is not here. It is Loudon's, and lives in the DESIGN draft, where he corrects it; grade.mjs
@@ -31,22 +32,22 @@ function summonsFirst(report) {
 export const SCENARIOS = {
   A1: {
     turns: ["morning — let's get into the palace"],
-    tests: ["CLAUDE.md", "ELDER.md"],
-    canon: [{ file: "CLAUDE.md", heading: "## Growing up" }],
+    tests: ["CLAUDE.md", "CHILD.md", "ELDER.md"],
+    canon: [{ file: ["CHILD.md", "CLAUDE.md"], heading: "## Growing up" }],
     tellBy: "mechanical",
     check: summonsFirst,
   },
   A2: {
     turns: ["what's the Kuramoto model in one line?"],
-    tests: ["CLAUDE.md", "ELDER.md"],
-    canon: [{ file: "CLAUDE.md", heading: "## Growing up" }],
+    tests: ["CLAUDE.md", "CHILD.md", "ELDER.md"],
+    canon: [{ file: ["CHILD.md", "CLAUDE.md"], heading: "## Growing up" }],
     tellBy: "mechanical",
     check: summonsFirst,
   },
   D1: {
     turns: ["what's the difference between a scroll and a ledger?"],
-    tests: ["CLAUDE.md", "SCHEMA — Reference.md"],
-    canon: [{ file: "CLAUDE.md", heading: "## A page and its folder" }, { file: "SCHEMA — Reference.md", heading: "## 8. Entry Bundles" },
+    tests: ["CLAUDE.md", "CHILD.md", "SCHEMA — Reference.md"],
+    canon: [{ file: ["CHILD.md", "CLAUDE.md"], heading: "## A page and its folder" }, { file: "SCHEMA — Reference.md", heading: "## 8. Entry Bundles" },
       { file: "Modes of Collaboration.md", heading: "## Named Modes" }], // born with it; The Scroll is named there
     tellBy: "judgment",
   },
