@@ -73,9 +73,10 @@ namespace
             const auto& s = algo::kParams[i];
             std::printf ("    {\"id\": \"%s\", \"name\": \"%s\", \"unit\": \"%s\", \"min\": %.17g, \"max\": %.17g, "
                          "\"default\": %.17g, \"taper\": \"%s\", \"smooth_ms\": %.17g, \"choices\": \"%s\", "
-                         "\"automatable\": %s}%s\n",
+                         "\"automatable\": %s, \"group\": \"%s\", \"hero\": %s}%s\n",
                          s.id, s.name, s.unit, s.min, s.max, s.def, taperName (s.taper), s.smoothMs,
-                         s.choices, s.automatable ? "true" : "false", i + 1 < algo::kNumParams ? "," : "");
+                         s.choices, s.automatable ? "true" : "false", s.group, s.hero ? "true" : "false",
+                         i + 1 < algo::kNumParams ? "," : "");
         }
         std::printf ("  ]\n}\n");
     }

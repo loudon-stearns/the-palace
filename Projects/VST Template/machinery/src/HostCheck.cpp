@@ -3,6 +3,7 @@
 // the sound. Don't edit per plugin.
 //
 //   HostCheck <plugin.vst3 | plugin.component> [id=value ...]
+//   HostCheck <plugin.vst3 | plugin.component> --editor WxH=shot.png [WxH=shot.png ...]
 //
 // Every render is one second from a fresh start (releaseResources, then
 // prepareToPlay). An instrument hears MIDI note 48 (C3) at the start, released
@@ -18,12 +19,23 @@
 // Exit 0 when the plugin loaded, its defaults rendered the same twice, every
 // named parameter was found and automatable, every render was finite, and
 // every move changed the sound.
+//
+// With --editor it opens the plugin's own editor instead, as a host does, in a
+// borderless window at each size, and has macOS photograph that window
+// (screencapture), so the picture is what a DAW shows. No audio device is
+// opened, so nothing sounds. Exit 0 when every editor opened at its size and
+// every picture was written.
 #include <juce_audio_processors/juce_audio_processors.h>
 #include <juce_dsp/juce_dsp.h>
 
 #include <cmath>
 #include <cstdio>
 #include <vector>
+
+#if JUCE_MAC
+ #include <objc/message.h>
+ #include <objc/runtime.h>
+#endif
 
 namespace
 {
@@ -88,6 +100,48 @@ namespace
         return d / juce::jmax (a.peak, 1e-9);
     }
 
+    // The plugin's editor at w x h, photographed into png.
+    bool shootEditor (juce::AudioPluginInstance& p, int w, int h, const juce::File& png)
+    {
+       #if JUCE_MAC
+        std::unique_ptr<juce::AudioProcessorEditor> ed (p.createEditorIfNeeded());
+        if (ed == nullptr) { std::printf ("  %dx%d: the plugin made no editor\n", w, h); return false; }
+        juce::Component frame;   // borderless, so the picture is the editor alone
+        frame.setOpaque (true);
+        frame.addAndMakeVisible (*ed);
+        frame.setSize (ed->getWidth(), ed->getHeight());
+        frame.addToDesktop (0);
+        frame.setTopLeftPosition (40, 60);
+        frame.setVisible (true);
+        // A plugin's view sets its own size when it attaches to the window, so the size is asked for
+        // after that and after the page has loaded, as a host resizes a window that is already open.
+        juce::MessageManager::getInstance()->runDispatchLoopUntil (2500);
+        ed->setSize (w, h);
+        juce::MessageManager::getInstance()->runDispatchLoopUntil (2500);   // the page lays out again and draws
+        frame.setSize (ed->getWidth(), ed->getHeight());
+        juce::MessageManager::getInstance()->runDispatchLoopUntil (500);
+
+        const auto view = (id) frame.getPeer()->getNativeHandle();
+        const auto window = ((id (*) (id, SEL)) objc_msgSend) (view, sel_registerName ("window"));
+        const auto number = ((long (*) (id, SEL)) objc_msgSend) (window, sel_registerName ("windowNumber"));
+        png.deleteFile();
+        juce::ChildProcess capture;
+        const bool ran = capture.start (juce::StringArray { "/usr/sbin/screencapture", "-x", "-o", "-l" + juce::String (number), png.getFullPathName() })
+                         && capture.waitForProcessToFinish (20000);
+        const bool sized = ed->getWidth() == w && ed->getHeight() == h;
+        std::printf ("  %dx%d: editor %dx%d%s, %s\n", w, h, ed->getWidth(), ed->getHeight(), sized ? "" : " (NOT THE SIZE ASKED)",
+                     ran && png.getSize() > 0 ? png.getFullPathName().toRawUTF8() : "NO PICTURE");
+        frame.removeFromDesktop();
+        frame.removeChildComponent (ed.get());
+        ed.reset();
+        return sized && ran && png.getSize() > 0;
+       #else
+        juce::ignoreUnused (p, w, h, png);
+        std::printf ("  editor pictures are made on macOS only\n");
+        return false;
+       #endif
+    }
+
     void report (const char* label, const Second& s, const char* note = "")
     {
         std::printf ("  %-26s rms %6.1f dBFS  peak %6.1f dBFS  centroid %6.0f Hz  %s%s\n", label,
@@ -119,6 +173,22 @@ int main (int argc, char** argv)
 
     std::printf ("loaded %s (%s, %s) from %s\n", plugin->getName().toRawUTF8(),
                  types[0]->pluginFormatName.toRawUTF8(), types[0]->manufacturerName.toRawUTF8(), path.toRawUTF8());
+
+    if (argc > 2 && juce::String (argv[2]) == "--editor")
+    {
+        bool shot = argc > 3;
+        std::printf ("editor:\n");
+        for (int a = 3; a < argc; ++a)
+        {
+            const juce::String arg (argv[a]);
+            const auto size = arg.upToFirstOccurrenceOf ("=", false, false);
+            const auto out = juce::File::getCurrentWorkingDirectory().getChildFile (arg.fromFirstOccurrenceOf ("=", false, false));
+            shot = shootEditor (*plugin, size.upToFirstOccurrenceOf ("x", false, false).getIntValue(),
+                                size.fromFirstOccurrenceOf ("x", false, false).getIntValue(), out) && shot;
+        }
+        std::printf ("%s\n", shot ? "EDITOR PICTURES MADE" : "EDITOR PICTURES FAILED");
+        return shot ? 0 : 1;
+    }
 
     // A JUCE plugin shows the host a hash of each string id (VST3 and AU alike),
     // so match the hash, the plain id, or the display name.

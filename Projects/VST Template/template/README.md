@@ -32,7 +32,7 @@ Projects/VST Template/
    - `plugin.json`: under `"hostcheck"`, a few `id=value` moves the host check should hear.
 4. **Build:** `./plugin.sh build`. The first build of a plugin takes five to eight minutes, because JUCE compiles once for each of the three targets. Builds after a change to `Algorithm.h` take well under a minute.
 5. **Check it against the sketch:** `./plugin.sh verify`. Use `--quick 2` while porting: it cuts every path to two seconds. The sketch's renders are cached until `sketch.py` or `paths.py` changes, so a C++ fix re-checks in seconds. Listen to `out/<path>-plugin.wav`.
-6. **Install, validate, host check:** `./plugin.sh install`, then `validate` (pluginval at strictness 5, then auval), then `hostcheck`. `./plugin.sh all` runs build, verify, install, validate and hostcheck in order and stops at the first failure.
+6. **Install, validate, host check:** `./plugin.sh install`, then `validate` (pluginval at strictness 5, then auval), then `hostcheck`. `./plugin.sh all` runs build, verify, install, validate and hostcheck in order and stops at the first failure. `./plugin.sh editor` then photographs the installed plugin's own editor at its minimum and default sizes, into `out/editor-<W>x<H>.png`.
 7. **In Live:** Settings → Plug-Ins → Rescan, then find it under Plug-Ins → Loudon Live. Every knob in the table is an automation lane.
 
 ## Porting so the two match
@@ -43,6 +43,22 @@ Projects/VST Template/
 - **Size state for the largest case.** `std::array<double, 96>` with an active count, never a vector resized in `step()`. A choice that changes the state's size (Frustration's partial count) restarts the state, so make it a non-automatable `Choice`.
 - **Chaos breaks sample parity, and that is not a bug.** Where a model amplifies rounding (Frustration at the edge), two correct implementations part after a second or two. Find the parting point with a first run, set `exact_until` just short of it, and gate the rest on behaviour (a probe's mean and spread in half-second windows).
 - **Know what each gate can see.** The sample-exact stretch is the proof: in Frustration it catches a coupling 0.5 % off at 0.15 of peak. The behaviour gate past the edge only shows the plugin stays in the same regime. There, coupling 5 % off fell inside the scatter between two correct implementations. So every path that crosses into chaos needs an exact stretch before it, and every term of the model needs a path that exercises it while it is still exact.
+
+## The editor, and reviewing it
+
+Every plugin gets the same editor with no editor code, dressed in Drafting Table on its Phosphor theme. `group` and `hero` on each row of `kParams` lay it out, and the `ui` block in `plugin.json` sets its size and direction. The standard is `VST Template — design standard.md` in the project bundle.
+
+To review an editor, make its mock page and open it in a browser: `python3 machinery/tools/ui.py mock plugins/<Name> --out review.html`. The page carries the review surface, one note per panel; the plugin itself never does. For a picture, use `ui.py shot … --size 760x520 --out shot.png`.
+
+To see the real editor, run `./plugin.sh editor` after `install`. The host check opens the installed VST3's editor the way a DAW does, in a borderless window, and macOS photographs that window. No audio device is opened, so nothing sounds, and Live is never involved.
+
+To check that the editor fits its window, run `python3 machinery/tools/ui.py fit plugins/<Name>`. It tries the minimum, default and maximum from `plugin.json` (or each `--size`) and exits 1 if the panels overflow at any of them. A plugin with many controls needs a larger `min`: Simple Synth's 20 controls under two heroes fit nothing smaller than 920 × 540. Find the size with a few `--size` values, then set it.
+
+**The CRT, and where its feed would hook in.** The editor keeps a screen between the heroes for a plugin's own visualizer: a bezel drawn in the dress's ink, with whatever the plugin likes inside (design standard § The CRT). `"screen": true` in the `ui` block shows it, and a visualizer draws into `window.editorScreen`. Nothing feeds it yet. The probes are the natural feed:
+- Each `step` already leaves its latest values in `alg.probes`, and `processBlock` copies them out only for the harness (`machinery/src/PluginProcessor.cpp:192`).
+- A live feed would copy them once per block, on the audio thread, into a `std::array<std::atomic<float>, algo::kNumProbes>` on the processor. Nothing on that thread waits or allocates.
+- The editor (`machinery/src/PluginEditor.cpp`) would read that array on a 60 Hz `juce::Timer` and send it with `web->emitEventIfBrowserIsVisible ("probes", …)`.
+- The page would listen with `window.__JUCE__.backend.addEventListener ("probes", …)` and hand the values to the visualizer.
 
 ## The pieces
 
@@ -69,6 +85,9 @@ Projects/VST Template/
   - **The fix in the machinery:** `build` re-seals each bundle ad hoc after JUCE has written everything into it. `install` and `validate` refuse a bundle that fails the strict check.
   - **After installing, the browser may lag the scanner.** Live keeps two databases in `~/Library/Application Support/Ableton/Live Database/`: the scanner's (`Live-plugins-1.db`, table `plugins`) and the browser's index (`Live-files-<n>.db`, table `devices`). On 2026-10-21 both new plugins were in the first, enabled, but not in the second. So neither showed in the browser, even in a freshly launched second Live 12 after a full rescan, while another Live 12 had been running since before they were installed. The scanner log saying "found" is not the same as the browser listing it. Quitting every Live 12 and relaunching is the likely cure (not yet tried). A Set that names the plugin by its class id loads it without the browser.
   - Found on Frustration by the Ableton session on 2026-10-21.
+- **Headless Chrome lays a page out 87 px shorter than the window it is given,** then resizes it for the picture. So a control sized by script when it mounts (Drafting Table's knobs) was drawn for the shorter window, and the picture looked like it fitted when the real window would not. The editor refits in the resize event, so `ui.py shot` pictures are true to their size, and `ui.py fit` grows its window until the page is the size asked.
+- **WebKit stops animation frames in a plugin window it thinks is covered,** but still sends it resize events and runs its timers. Found 2026-10-21 in the host check's window: an editor that refitted on the next frame after a resize never refitted, and the panels were cut off. Anything a resize must redo runs in the resize event itself.
+- **A plugin's view sets its own size when it attaches to the window.** A size set on a hosted editor before it is on screen comes back as the plugin's default. The host check asks for each size once the editor is showing and its page has loaded.
 - **To ask whether an AU is registered, name it:** `auval -v aumu <code> Loud`. On this Mac `auval -a` stops partway through the effects, before any instrument, so its list can't answer the question.
 - **Live 11 and Live 12 share one bundle id** (`com.ableton.live`). A tool that picks an app by bundle id reaches whichever is first, which was Live 11 with Loudon's show Set. Drive a particular Live by its process id, or not at all.
 - `auval` sees a new or changed AU only once it is installed in `~/Library/Audio/Plug-Ins/Components` and `AudioComponentRegistrar` has restarted; `plugin.sh install` does both.

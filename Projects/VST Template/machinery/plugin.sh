@@ -8,7 +8,9 @@
 #   validate    the installed bundles' code signatures checked strictly (what Live's scanner
 #               needs), then pluginval on the VST3 (STRICTNESS, default 5) and auval on the AU
 #   hostcheck   load the installed VST3 and AU as a DAW would, move the plugin.json parameters
-#   all         all five, in that order, stopping at the first failure
+#   editor      open the installed VST3's editor as a DAW would, at its minimum and default sizes
+#               (or each WxH given), and photograph it into out/editor-WxH.png. Nothing sounds.
+#   all         build, verify, install, validate and hostcheck, stopping at the first failure
 #
 # JUCE 8.0.12 is cloned once into $JUCE_DIR and shared by every plugin.
 set -e
@@ -37,6 +39,7 @@ build() {
         git clone --depth 1 --branch 8.0.12 https://github.com/juce-framework/JUCE.git "$JUCE_DIR"
     fi
     python3 "$MACH/tools/constants.py" "$HERE"
+    python3 "$MACH/tools/ui.py" build "$HERE" "$BUILD"
     cmake -S "$HERE" -B "$BUILD" -DCMAKE_BUILD_TYPE=Release -DFETCHCONTENT_SOURCE_DIR_JUCE="$JUCE_DIR" > "$BUILD.configure.log" 2>&1 \
         || { cat "$BUILD.configure.log"; exit 1; }
     cmake --build "$BUILD" --config Release -j "$(sysctl -n hw.logicalcpu)"
@@ -65,12 +68,23 @@ validate() {
     auval -v "$AUTYPE" "$PCODE" "$MCODE"
 }
 
+hostcheck_app() { find "$BUILD/${TARGET}HostCheck_artefacts" -name "${TARGET}HostCheck" -type f | head -1; }
+
 hostcheck() {
-    HC="$(find "$BUILD/${TARGET}HostCheck_artefacts" -name "${TARGET}HostCheck" -type f | head -1)"
+    HC="$(hostcheck_app)"
     # shellcheck disable=SC2046
     "$HC" "$VST3_DIR/$NAME.vst3" $(field hostcheck)
     # shellcheck disable=SC2046
     "$HC" "$AU_DIR/$NAME.component" $(field hostcheck)
+}
+
+editor() {
+    [ $# -gt 0 ] || set -- $(python3 -c 'import json,sys; u=json.load(open(sys.argv[1]))["ui"]; print("%dx%d %dx%d" % (*u["min"], u["width"], u["height"]))' "$HERE/plugin.json")
+    HC="$(hostcheck_app)"
+    mkdir -p "$HERE/out"
+    shots=""; for s in "$@"; do shots="$shots $s=editor-$s.png"; done   # named inside out/: the plugin's path has spaces
+    # shellcheck disable=SC2086
+    (cd "$HERE/out" && "$HC" "$VST3_DIR/$NAME.vst3" --editor $shots)
 }
 
 case "${1:-}" in
@@ -79,6 +93,7 @@ case "${1:-}" in
     install) install ;;
     validate) validate ;;
     hostcheck) hostcheck ;;
+    editor) shift; editor "$@" ;;
     all) build; verify; install; validate; hostcheck ;;
-    *) sed -n '2,12p' "$0"; exit 2 ;;
+    *) sed -n '2,14p' "$0"; exit 2 ;;
 esac

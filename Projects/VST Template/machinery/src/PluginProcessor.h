@@ -40,7 +40,7 @@ public:
     void processBlock (juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
     using juce::AudioProcessor::processBlock;
 
-    juce::AudioProcessorEditor* createEditor() override { return new juce::GenericAudioProcessorEditor (*this); }
+    juce::AudioProcessorEditor* createEditor() override;   // the house editor; the harness builds the generic one
     bool hasEditor() const override { return true; }
 
     const juce::String getName() const override { return PLUGIN_NAME; }

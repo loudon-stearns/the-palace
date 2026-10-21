@@ -1,0 +1,552 @@
+<!doctype html>
+<!-- editor.html — shared machinery: every plugin's editor, in the Drafting Table dress (Phosphor), or
+     the Loudon Live house dress when plugin.json asks for it.
+     tools/ui.py fills the six /*@@...@@*/ slots and writes build/ui/index.html (embedded in the
+     plugin) or a mock page for a browser. Nothing here is plugin-specific: the controls are drawn
+     from the parameter table the plugin hands over (pluginInfo), grouped by `group`, with `hero`
+     parameters drawn large. The design standard is "VST Template — design standard.md" in the project bundle. -->
+<html lang="en" class="skin-graphite" data-direction="bench">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editor</title>
+<style>/*@@FONTS@@*/</style>
+<style>/*@@TOKENS@@*/</style>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg-1); }
+  body { font-family: var(--sans); font-weight: var(--w-light); font-size: var(--t-caption);
+         display: flex; flex-direction: column; overflow: hidden; user-select: none; -webkit-user-select: none; }
+
+  /* ── header: mark · name · version — signature ─────────────────────────── */
+  .top { display: flex; align-items: center; gap: var(--s-3); padding: var(--s-3) var(--s-4); }
+  .mark { width: 28px; height: 28px; flex: none; }
+  .mark path { fill: none; stroke: var(--accent); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+  .mark circle { fill: none; stroke: var(--accent); stroke-opacity: .25; stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .name { font-family: var(--display); text-transform: uppercase; letter-spacing: var(--tr-display);
+          font-size: 24px; line-height: 1; color: var(--fg-1); }
+  .meta, .eyebrow, .sig, .axis, .value, .range, .tick { font-family: var(--mono); }
+  .meta { font-size: var(--t-eyebrow); letter-spacing: var(--tr-eyebrow); text-transform: uppercase; color: var(--fg-3); }
+  .sig { margin-left: auto; font-size: var(--t-eyebrow); letter-spacing: var(--tr-eyebrow); color: var(--fg-3); }
+  .sig b { font-weight: var(--w-medium); color: var(--accent); }
+
+  main { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: var(--s-3); padding: 0 var(--s-4) var(--s-4); overflow: auto; }
+  .eyebrow { font-size: var(--t-eyebrow); letter-spacing: var(--tr-eyebrow); text-transform: uppercase; color: var(--fg-3); }
+
+  /* ── panels ─────────────────────────────────────────────────────────────── */
+  .panels { flex: none; display: flex; flex-wrap: wrap; gap: var(--s-3); align-content: flex-start; }
+  .panel { flex: 1 1 auto; background: var(--bg-elev-1); border: 1px solid var(--border); border-radius: var(--r-sm);
+           box-shadow: var(--shadow-1); padding: var(--s-3); display: flex; flex-direction: column; gap: var(--s-3); }
+  .row { display: flex; flex-wrap: nowrap; gap: var(--s-3) var(--s-4); align-items: flex-start; }
+
+  /* ── one control: the drawing, its name, its value ──────────────────────── */
+  .ctl { display: flex; flex-direction: column; align-items: center; gap: var(--s-1); min-width: var(--knob); }
+  .ctl .label { font-weight: var(--w-medium); font-size: 12px; color: var(--fg-2); text-align: center; white-space: nowrap; }
+  .value { font-size: var(--t-eyebrow); color: var(--fg-1); background: var(--bg-elev-2); border: 1px solid var(--border-soft);
+           border-radius: var(--r-xs); padding: 1px 6px; min-width: 4.5em; text-align: center; white-space: nowrap; }
+  .value small { color: var(--fg-3); font-size: inherit; }
+
+  svg.knob { width: var(--knob); height: var(--knob); cursor: ns-resize; touch-action: none; }
+  svg.knob .track { fill: none; stroke: var(--bg-elev-3, var(--bg-elev-2)); stroke-linecap: butt; }
+  svg.knob .arc { fill: none; stroke: var(--accent); stroke-linecap: butt; }
+  svg.knob .body { fill: var(--bg-elev-2); stroke: var(--border); stroke-width: 1; }
+  svg.knob .needle { stroke: var(--fg-1); stroke-width: 2; stroke-linecap: round; }
+  svg.knob .tick { font-size: 7px; fill: var(--fg-3); }
+  svg.knob .tickmark { stroke: var(--fg-4); stroke-width: 1; }
+
+  .seg { display: flex; border: 1px solid var(--border); border-radius: var(--r-xs); overflow: hidden; }
+  .seg button { font-family: var(--mono); font-size: var(--t-eyebrow); letter-spacing: .04em; color: var(--fg-3);
+                background: transparent; border: 0; border-left: 1px solid var(--border); padding: 4px 8px; cursor: pointer; }
+  .seg button:first-child { border-left: 0; }
+  .seg button.on { color: var(--fg-on-accent); background: var(--accent); }
+  .toggle { width: 22px; height: 22px; border: 1.5px solid var(--border); border-radius: var(--r-xs); background: transparent; cursor: pointer; padding: 0; }
+  .toggle.on { background: var(--accent); border-color: var(--accent); }
+
+  /* ── heroes ─────────────────────────────────────────────────────────────── */
+  .heroes { flex: 1; min-height: calc(var(--hero) + 64px); display: flex; gap: var(--s-8); align-items: center; justify-content: center; padding: var(--s-2) 0; }
+  .heroes .ctl { --knob: var(--hero); }
+  /* ── the CRT (screen): a bezel drawn as an elevation around a screen the plugin owns ── */
+  .heroes .screen { flex: 1 1 0; align-self: stretch; min-width: 0; position: relative; }
+  .screen .casing { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+  .screen .casing * { fill: none; stroke: var(--ink-3, var(--fg-3)); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .screen .casing .outline { stroke: var(--ink-2, var(--fg-2)); }
+  .screen .casing .opening { stroke: var(--ink, var(--fg-1)); stroke-width: 1.25; }
+  .screen .glass, .screen .vignette { position: absolute; overflow: hidden; }
+  .screen .glass { background: #000; }
+  .screen .glass > * { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .screen .vignette { pointer-events: none; box-shadow: inset 0 0 18px 4px rgba(0, 0, 0, .5);
+                      background: radial-gradient(ellipse at center, transparent 62%, rgba(0, 0, 0, .3)); }
+  .heroes .ctl .label { font-size: 14px; color: var(--fg-1); }
+  .heroes .value { font-size: var(--t-meta); padding: 2px 8px; }
+  .range { font-size: 10px; color: var(--fg-3); letter-spacing: .04em; }
+
+  /* ── XY pad (direction: edge) ───────────────────────────────────────────── */
+  .pad-wrap { display: flex; gap: var(--s-4); align-items: stretch; }
+  .pad { position: relative; flex: 1; min-height: 0; border: 1px solid var(--border); border-radius: var(--r-sm);
+         background: var(--bg-elev-1); box-shadow: var(--shadow-1); cursor: crosshair; touch-action: none; overflow: hidden; }
+  .pad canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .pad .axis { position: absolute; font-size: 10px; color: var(--fg-3); letter-spacing: .04em; pointer-events: none; }
+  .pad-side { display: flex; flex-direction: column; justify-content: center; gap: var(--s-4); min-width: 150px; }
+  .readout { display: flex; flex-direction: column; gap: 2px; }
+  .readout .label { font-weight: var(--w-medium); font-size: 14px; color: var(--fg-1); }
+  .readout .value { align-self: flex-start; font-size: var(--t-meta); }
+
+  /* ── faders (direction: flow) ───────────────────────────────────────────── */
+  .fader { width: 26px; height: var(--fader); position: relative; cursor: ns-resize; touch-action: none; }
+  .fader .slot { position: absolute; left: 11px; top: 0; bottom: 0; width: 4px; background: var(--bg-elev-2); border: 1px solid var(--border); border-radius: var(--r-xs); }
+  .fader .fill { position: absolute; left: 11px; bottom: 0; width: 4px; background: var(--accent); border-radius: var(--r-xs); }
+  .fader .cap { position: absolute; left: 3px; width: 20px; height: 7px; background: var(--fg-1); border-radius: var(--r-xs); box-shadow: var(--shadow-1); }
+  .hero-fader .fader { --fader: calc(var(--fader-base) * 1.45); width: 34px; }
+  .hero-fader .fader .slot, .hero-fader .fader .fill { left: 14px; width: 6px; }
+  .hero-fader .fader .cap { left: 3px; width: 28px; height: 9px; }
+  .hero-fader .label { color: var(--fg-1); }
+
+  /* ── the Drafting Table dress ──────────────────────────────────────────── */
+  .dress-dt body { font-family: var(--font-mono, var(--mono)); }
+  .dress-dt .top { padding: var(--space-4, 16px) var(--space-4, 16px) var(--space-3, 12px); }
+  .dress-dt .top > .dt-tb { flex: 1; }
+  .dress-dt .panel { background: var(--ground-000); box-shadow: none; border-radius: 0; padding-top: var(--space-5, 20px); }
+  .dress-dt .pad { background: var(--ground-100); box-shadow: var(--shadow-recess, none); border-radius: 0; border-color: var(--rule); }
+  .dress-dt .range { color: var(--ink-2); }
+
+  /* ── directions ─────────────────────────────────────────────────────────── */
+  /* The window sets each size; --fit-hero and --fit-knob step them down when the panels still overflow (fitWindow). */
+  :root { --fit-hero: 1; --fit-knob: 1;
+          --knob: max(32px, calc(clamp(40px, min(5.2vw, 8.5vh), 62px) * var(--fit-knob)));
+          --hero: max(72px, calc(clamp(92px, min(16vw, 24vh), 176px) * var(--fit-hero)));
+          --fader-base: calc(clamp(64px, 15vh, 150px) * var(--fit-knob)); --fader: var(--fader-base); }
+  [data-direction="flow"] .panels { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: stretch; }
+  [data-direction="flow"] .panel { box-shadow: none; background: transparent; border-width: 1.5px; flex: 1 1 auto; }
+  [data-direction="flow"] .arrow { align-self: center; font-family: var(--mono); color: var(--accent); font-size: 18px; }
+  [data-direction="flow"] .eyebrow { color: var(--accent); }
+  [data-direction="flow"] .row { gap: var(--s-3); }
+  [data-direction="flow"] .arrow.wrapped { visibility: hidden; }
+  [data-direction="edge"] main { gap: var(--s-3); }
+  [data-direction="edge"] .pad-wrap { flex: 1.3; min-height: 0; }
+  [data-direction="edge"] .pad-wrap { min-height: calc(180px * var(--fit-hero)); }
+  [data-direction="edge"] .panel { padding: var(--s-2) var(--s-3); gap: var(--s-2); }
+  [data-direction="edge"] { --knob: max(28px, calc(clamp(34px, min(4.2vw, 7vh), 50px) * var(--fit-knob))); }
+</style>
+</head>
+<body>
+  <header class="top" data-moment="header">
+    <svg class="mark" viewBox="-1.1 -1.1 2.2 2.2" aria-hidden="true"><circle r="1"></circle><path id="trace"></path></svg>
+    <div class="name" id="name">Plugin</div>
+    <div class="meta" id="meta"></div>
+    <div class="sig">LOUD’N <b>LIVE</b></div>
+  </header>
+  <main id="main"></main>
+
+<script>window.__IN_PLUGIN__ = typeof window.__JUCE__ !== "undefined";</script>
+<script>/*@@DRESS@@*/</script>
+<script>/*@@JUCE@@*/</script>
+<script>/*@@MOCK@@*/</script>
+<script>/*@@REVIEW@@*/</script>
+<script>
+"use strict";
+// ── the trace: a 3:2 Lissajous, the channel's mark, drawn rather than embedded ──
+(function () {
+  let d = "";
+  for (let i = 0; i <= 400; ++i) {
+    const t = (i / 400) * 2 * Math.PI;
+    d += (i ? "L" : "M") + (0.92 * Math.sin(3 * t + Math.PI / 2)).toFixed(3) + " " + (0.92 * Math.sin(2 * t)).toFixed(3);
+  }
+  document.getElementById("trace").setAttribute("d", d);
+})();
+
+// ── values: natural units <-> 0..1 along the taper ──
+const toPos = (p, v) => p.taper === "log" ? Math.log(v / p.min) / Math.log(p.max / p.min) : (v - p.min) / (p.max - p.min);
+const fromPos = (p, x) => { x = Math.min(1, Math.max(0, x)); return p.taper === "log" ? p.min * Math.pow(p.max / p.min, x) : p.min + (p.max - p.min) * x; };
+const SUP = { "-": "⁻", "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹" };
+function sci(v, digits) {
+  const [m, e] = v.toExponential(digits).split("e");
+  return m + " × 10" + String(parseInt(e, 10)).split("").map(c => SUP[c] || c).join("");
+}
+// Units a musician reads: seconds under one as ms, Hz over a thousand as kHz; a unitless
+// value spanning decades (Frustration's stretch) in scientific form.
+function scaled(p, v) {
+  if (p.unit === "s" && Math.abs(v) < 1) return [v * 1000, "ms"];
+  if (p.unit === "Hz" && Math.abs(v) >= 1000) return [v / 1000, "kHz"];
+  return [v, p.unit];
+}
+function num(p, v) {
+  if (p.taper === "log") return (v !== 0 && (Math.abs(v) < 0.01 || Math.abs(v) >= 1e4)) ? sci(v, 2) : String(Number(v.toPrecision(3)));
+  return Math.abs(p.max - p.min) >= 20 ? v.toFixed(1) : v.toFixed(2);
+}
+function fmt(p, v) {
+  const [x, unit] = scaled(p, v);
+  const s = num(p.unit !== unit ? Object.assign({}, p, { taper: "log" }) : p, x);
+  return unit ? s + "\u2009<small>" + unit + "</small>" : s;
+}
+function decadeLabel(e) { return "10" + String(e).split("").map(c => SUP[c] || c).join(""); }
+
+// ── the plugin side: JUCE relays in a plugin, a stand-in in a browser ──
+const BINDINGS = new Map();   // id -> a binding whose on() fans out to the current drawing only
+function shared(p, make) {
+  if (!BINDINGS.has(p.id)) {
+    const b = make(p), subs = new Set();
+    b.on(() => subs.forEach(f => f()));
+    BINDINGS.set(p.id, Object.assign({}, b, { on: f => subs.add(f), clear: () => subs.clear() }));
+  }
+  return BINDINGS.get(p.id);
+}
+function bindSlider(p) { return shared(p, makeSlider); }
+function bindChoice(p) { return shared(p, makeChoice); }
+function bindToggle(p) { return shared(p, makeToggle); }
+function makeSlider(p) {
+  if (window.__IN_PLUGIN__) {
+    const s = Juce.getSliderState(p.id);
+    return { get: () => s.getScaledValue(),
+             set: v => { const pr = s.properties; s.setNormalisedValue(Math.pow((v - pr.start) / (pr.end - pr.start), pr.skew || 1)); },
+             begin: () => s.sliderDragStarted(), end: () => s.sliderDragEnded(),
+             on: fn => s.valueChangedEvent.addListener(fn) };
+  }
+  return mockState(p, p.mock !== undefined ? p.mock : p.default);
+}
+function makeChoice(p) {
+  if (window.__IN_PLUGIN__) {
+    const c = Juce.getComboBoxState(p.id);
+    return { get: () => c.getChoiceIndex(), set: i => c.setChoiceIndex(i), begin() {}, end() {}, on: fn => c.valueChangedEvent.addListener(fn) };
+  }
+  return mockState(p, p.mock !== undefined ? p.mock : p.default);
+}
+function makeToggle(p) {
+  if (window.__IN_PLUGIN__) {
+    const t = Juce.getToggleState(p.id);
+    return { get: () => t.getValue() ? 1 : 0, set: b => t.setValue(!!b), begin() {}, end() {}, on: fn => t.valueChangedEvent.addListener(fn) };
+  }
+  return mockState(p, p.mock !== undefined ? p.mock : p.default);
+}
+function mockState(p, v0) {
+  let v = v0; const fns = [];
+  return { get: () => v, set: x => { v = x; fns.forEach(f => f()); }, begin() {}, end() {}, on: f => fns.push(f) };
+}
+
+// ── drag helper, one rule with the Drafting Table system: 150 px of drag for the full range, Shift
+//    at a fifth of the speed, wheel 2 % (0.4 % with Shift), double-click for the default ──
+function draggable(el, p, st, onPos) {
+  let startY = 0, startX = 0;
+  el.addEventListener("pointerdown", e => {
+    el.setPointerCapture(e.pointerId); startY = e.clientY; startX = toPos(p, st.get()); st.begin();
+    const move = ev => { const k = ev.shiftKey ? 750 : 150; st.set(fromPos(p, startX + (startY - ev.clientY) / k)); };
+    const up = ev => { el.releasePointerCapture(ev.pointerId); el.removeEventListener("pointermove", move); el.removeEventListener("pointerup", up); st.end(); };
+    el.addEventListener("pointermove", move); el.addEventListener("pointerup", up);
+  });
+  el.addEventListener("dblclick", () => { st.begin(); st.set(p.default); st.end(); });
+  el.addEventListener("wheel", e => { e.preventDefault(); st.begin(); st.set(fromPos(p, toPos(p, st.get()) - Math.sign(e.deltaY) * (e.shiftKey ? 0.004 : 0.02))); st.end(); }, { passive: false });
+}
+
+// ── controls ──
+const NS = "http://www.w3.org/2000/svg";
+const A0 = 135, SWEEP = 270;   // knob arc: 7:30 to 4:30
+function polar(r, deg) { const a = (deg - 90) * Math.PI / 180; return [50 + r * Math.cos(a), 50 + r * Math.sin(a)]; }
+function arcPath(r, d0, d1) {
+  const [x0, y0] = polar(r, d0 + 90), [x1, y1] = polar(r, d1 + 90);
+  return `M${x0.toFixed(2)} ${y0.toFixed(2)} A${r} ${r} 0 ${d1 - d0 > 180 ? 1 : 0} 1 ${x1.toFixed(2)} ${y1.toFixed(2)}`;
+}
+function svgEl(tag, attrs) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; }
+// A host lists parameters by name alone, so names stay unique ("Filter attack", "Amp attack").
+// Inside its own panel a control drops the word it shares with the panel ("Attack" under "Filter envelope").
+function shortName(p) {
+  const lead = String(p.group || "").split(" ")[0];
+  if (lead && p.name.toLowerCase().startsWith(lead.toLowerCase() + " ")) { const r = p.name.slice(lead.length + 1); return r[0].toUpperCase() + r.slice(1); }
+  return p.name;
+}
+
+function knob(p, big) {
+  const st = bindSlider(p);
+  const wrap = document.createElement("div"); wrap.className = "ctl";
+  const svg = svgEl("svg", { class: "knob", viewBox: "0 0 100 100" });
+  const w = big ? 7 : 8, r = big ? 40 : 38;
+  svg.append(svgEl("path", { class: "track", d: arcPath(r, A0, A0 + SWEEP), "stroke-width": w }));
+  const arc = svgEl("path", { class: "arc", "stroke-width": w });
+  svg.append(arc, svgEl("circle", { class: "body", cx: 50, cy: 50, r: big ? 28 : 26 }));
+  const needle = svgEl("line", { class: "needle" });
+  svg.append(needle);
+  if (big) heroTicks(svg, p);
+  const label = document.createElement("div"); label.className = "label"; label.textContent = shortName(p);
+  const value = document.createElement("div"); value.className = "value";
+  wrap.append(svg, label, value);
+  if (big) { const rg = document.createElement("div"); rg.className = "range"; rg.innerHTML = rangeText(p); wrap.append(rg); }
+  const draw = () => {
+    const v = st.get(), x = Math.min(1, Math.max(0, toPos(p, v))), deg = A0 + SWEEP * x;
+    arc.setAttribute("d", x > 0.002 ? arcPath(r, A0, deg) : "");
+    const [x0, y0] = polar(big ? 10 : 9, deg + 90), [x1, y1] = polar(big ? 26 : 24, deg + 90);
+    needle.setAttribute("x1", x0); needle.setAttribute("y1", y0); needle.setAttribute("x2", x1); needle.setAttribute("y2", y1);
+    value.innerHTML = fmt(p, v);
+  };
+  draggable(svg, p, st, draw); st.on(draw); draw();
+  return wrap;
+}
+function heroTicks(svg, p) {
+  const marks = [];
+  if (p.taper === "log") { for (let e = Math.ceil(Math.log10(p.min)); e <= Math.floor(Math.log10(p.max)); ++e) marks.push([Math.pow(10, e), e % 2 ? "" : decadeLabel(e)]); }
+  else { const step = niceStep((p.max - p.min) / 4); for (let v = Math.ceil(p.min / step) * step; v <= p.max + 1e-9; v += step) marks.push([v, String(Number(v.toPrecision(3)))]); }
+  for (const [v, text] of marks) {
+    const deg = A0 + SWEEP * toPos(p, v) + 90, [ax, ay] = polar(45, deg), [bx, by] = polar(48.5, deg);
+    svg.append(svgEl("line", { class: "tickmark", x1: ax, y1: ay, x2: bx, y2: by }));
+  }
+}
+function niceStep(x) { const e = Math.pow(10, Math.floor(Math.log10(x))), m = x / e; return (m < 1.5 ? 1 : m < 3.5 ? 2.5 : m < 7.5 ? 5 : 10) * e; }
+function rangeText(p) {
+  const f = v => { const [x, unit] = scaled(p, v), t = (p.taper === "log" && !unit && (x < 0.01 || x >= 1e4)) ? sci(x, 0).replace("1 × ", "") : String(Number(x.toPrecision(3)));
+                   return t + (unit ? "\u2009" + unit : ""); };
+  return f(p.min) + " – " + f(p.max) + (p.taper === "log" ? " · log" : "");
+}
+
+function fader(p, big) {
+  const st = bindSlider(p);
+  const wrap = document.createElement("div"); wrap.className = "ctl" + (big ? " hero-fader" : "");
+  const f = document.createElement("div"); f.className = "fader";
+  f.innerHTML = '<div class="slot"></div><div class="fill"></div><div class="cap"></div>';
+  const label = document.createElement("div"); label.className = "label"; label.textContent = shortName(p);
+  const value = document.createElement("div"); value.className = "value";
+  wrap.append(f, label, value);
+  const draw = () => {
+    const v = st.get(), x = Math.min(1, Math.max(0, toPos(p, v))), h = f.clientHeight || 120;
+    f.querySelector(".fill").style.height = (x * 100) + "%";
+    f.querySelector(".cap").style.bottom = `calc(${x * 100}% - ${big ? 4.5 : 3.5}px)`;
+    value.innerHTML = fmt(p, v);
+  };
+  draggable(f, p, st, draw); st.on(draw); requestAnimationFrame(draw); draw();
+  return wrap;
+}
+
+function choice(p) {
+  const st = bindChoice(p), names = String(p.choices).split("|");
+  const wrap = document.createElement("div"); wrap.className = "ctl";
+  const seg = document.createElement("div"); seg.className = "seg";
+  names.forEach((n, i) => { const b = document.createElement("button"); b.textContent = n; b.onclick = () => st.set(i); seg.append(b); });
+  const label = document.createElement("div"); label.className = "label"; label.textContent = shortName(p);
+  wrap.append(seg, label);
+  const draw = () => [...seg.children].forEach((b, i) => b.classList.toggle("on", i === Math.round(st.get())));
+  st.on(draw); draw();
+  return wrap;
+}
+
+function toggle(p) {
+  const st = bindToggle(p);
+  const wrap = document.createElement("div"); wrap.className = "ctl";
+  const b = document.createElement("button"); b.className = "toggle"; b.onclick = () => st.set(st.get() ? 0 : 1);
+  const label = document.createElement("div"); label.className = "label"; label.textContent = shortName(p);
+  wrap.append(b, label);
+  const draw = () => b.classList.toggle("on", !!st.get());
+  st.on(draw); draw();
+  return wrap;
+}
+
+// ── the CRT: a bezel drawn as an elevation, in the dress's ink, around a screen the plugin owns ──
+// Loudon, 2026-10-21: "the look of the CRT should be a architecturally drawn frame, like a design of the
+// outside of a TV, but then we leave the inside to be anything, but there is a slight vingnette on the
+// edges", and then "just a bezel and no decorative knobs or grills". The bezel and the vignette are the
+// template's; whatever is drawn in .glass is the plugin's and may break from the dress entirely. Controls
+// on the CRT, if a plugin wants them, are its own to add. It is made once and moved into each rebuild,
+// so what a visualizer put in .glass (a canvas, its WebGL context) lives through every resize.
+let SCREEN = null;
+function crt() {
+  if (SCREEN) return SCREEN;
+  const el = document.createElement("div"); el.id = "screen"; el.className = "screen"; el.dataset.moment = "screen";
+  const casing = svgEl("svg", { class: "casing" });
+  const glass = document.createElement("div"); glass.className = "glass";
+  const vignette = document.createElement("div"); vignette.className = "vignette";
+  el.append(casing, glass, vignette);
+  const draw = () => {
+    const W = el.clientWidth, H = el.clientHeight;
+    if (!W || !H) return;
+    const cw = Math.min(W - 2, (H - 2) * 1.55), ch = cw / 1.55;   // the bezel, about 3:2
+    const x0 = (W - cw) / 2, y0 = (H - ch) / 2, b = Math.max(8, ch * 0.07);
+    const sx = x0 + b, sy = y0 + b, sw = cw - 2 * b, sh = ch - 2 * b, r = Math.min(sw, sh) * 0.12;
+    const rect = (x, y, w, h, rr, cls) => svgEl("rect", { x, y, width: w, height: h, rx: rr, class: cls || "" });
+    casing.replaceChildren(
+      rect(x0, y0, cw, ch, 3, "outline"),            // the bezel's outer edge
+      rect(x0 + 3, y0 + 3, cw - 6, ch - 6, 2),       // and its inner edge
+      rect(sx - 3, sy - 3, sw + 6, sh + 6, r + 2),   // the lip round the tube
+      rect(sx, sy, sw, sh, r, "opening"));           // the tube's face
+    for (const e of [glass, vignette]) Object.assign(e.style, { left: sx + "px", top: sy + "px", width: sw + "px", height: sh + "px", borderRadius: r + "px" });
+  };
+  new ResizeObserver(draw).observe(el);   // ResizeObserver still fires where WebKit has stopped animation frames
+  window.editorScreen = glass;            // where a visualizer draws
+  return SCREEN = { el, glass, draw };
+}
+
+// ── XY pad: two heroes on one surface, x first, y second; an optional backdrop (ui.backdrop) ──
+function pad(px, py, backdrop) {
+  const sx = bindSlider(px), sy = bindSlider(py);
+  const wrap = document.createElement("div"); wrap.className = "pad-wrap"; wrap.dataset.moment = "heroes";
+  const el = document.createElement("div"); el.className = "pad";
+  const cv = document.createElement("canvas"); el.append(cv);
+  const ax = document.createElement("div"); ax.className = "axis"; ax.style.right = "8px"; ax.style.bottom = "6px"; ax.textContent = px.name + (px.taper === "log" ? " (log) →" : " →");
+  const ay = document.createElement("div"); ay.className = "axis"; ay.style.left = "8px"; ay.style.top = "6px"; ay.textContent = "↑ " + py.name;
+  el.append(ax, ay);
+  if (backdrop && backdrop.label) { const bl = document.createElement("div"); bl.className = "axis"; bl.style.left = "8px"; bl.style.bottom = "6px"; bl.textContent = backdrop.label; el.append(bl); }
+  const side = document.createElement("div"); side.className = "pad-side";
+  const ro = (p) => { const r = document.createElement("div"); r.className = "readout"; r.innerHTML = `<div class="label">${p.name}</div><div class="value"></div><div class="range">${rangeText(p)}</div>`; return r; };
+  const rx = ro(px), ry = ro(py); side.append(rx, ry);
+  wrap.append(el, side);
+  const css = getComputedStyle(document.documentElement);
+  const draw = () => {
+    const dpr = window.devicePixelRatio || 1, W = el.clientWidth, H = el.clientHeight;
+    if (!W || !H) return;
+    cv.width = W * dpr; cv.height = H * dpr;
+    const g = cv.getContext("2d"); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+    const accent = css.getPropertyValue("--accent").trim(), grid = css.getPropertyValue("--border-soft").trim() || "rgba(255,255,255,.06)";
+    if (backdrop) {   // the backdrop: a field the plugin knows (Frustration: where the tone tears)
+      const { xs, ys, z } = backdrop, thr = backdrop.threshold || 0.5;
+      const cx = i => toPos(px, i <= 0 ? xs[0] : i >= xs.length ? xs[xs.length - 1] : Math.sqrt(xs[i - 1] * xs[i]));
+      const cy = j => toPos(py, j <= 0 ? py.min : j >= ys.length ? py.max : (ys[j - 1] + ys[j]) / 2);
+      const dt = DRESS_DT();
+      if (dt) {   // Drafting Table: 45° hatching in ink-3
+        const tile = document.createElement("canvas"); tile.width = tile.height = 8;
+        const tg = tile.getContext("2d"); tg.strokeStyle = css.getPropertyValue("--ink-3").trim(); tg.lineWidth = 1;
+        tg.beginPath(); tg.moveTo(0, 8); tg.lineTo(8, 0); tg.stroke();
+        g.fillStyle = g.createPattern(tile, "repeat");
+      } else { g.fillStyle = accent; g.globalAlpha = 0.10; }
+      for (let j = 0; j < ys.length; ++j) for (let i = 0; i < xs.length; ++i)
+        if (z[j][i] > thr) g.fillRect(cx(i) * W, (1 - cy(j + 1)) * H, (cx(i + 1) - cx(i)) * W + 0.5, (cy(j + 1) - cy(j)) * H + 0.5);
+      g.globalAlpha = 1;
+      const pts = [];   // the edge: for each coupling, the first stretch at which it tears
+      for (let j = 0; j < ys.length; ++j) { const i = z[j].findIndex(v => v > thr); if (i > 0) pts.push([cx(i) * W, (1 - toPos(py, ys[j])) * H]); }
+      if (pts.length > 1) {
+        g.strokeStyle = DRESS_DT() ? css.getPropertyValue("--ink-2").trim() : accent; g.lineWidth = 1.5; g.setLineDash([5, 4]); g.beginPath();
+        pts.forEach(([x, y], k) => k ? g.lineTo(x, y) : g.moveTo(x, y)); g.stroke(); g.setLineDash([]);
+        const [lx, ly] = pts[Math.min(pts.length - 1, 2)];
+        g.fillStyle = DRESS_DT() ? css.getPropertyValue("--ink-2").trim() : accent; g.font = "10px " + css.getPropertyValue("--mono"); g.fillText("the edge", lx + 6, ly - 6);
+      }
+    }
+    g.strokeStyle = grid; g.lineWidth = 1;
+    if (px.taper === "log") for (let e = Math.ceil(Math.log10(px.min)); e <= Math.floor(Math.log10(px.max)); ++e) { const x = toPos(px, Math.pow(10, e)) * W; g.beginPath(); g.moveTo(x, 0); g.lineTo(x, H); g.stroke(); }
+    for (let k = 1; k < 4; ++k) { const y = H * k / 4; g.beginPath(); g.moveTo(0, y); g.lineTo(W, y); g.stroke(); }
+    const X = Math.min(1, Math.max(0, toPos(px, sx.get()))) * W, Y = (1 - Math.min(1, Math.max(0, toPos(py, sy.get())))) * H;
+    g.strokeStyle = css.getPropertyValue(DRESS_DT() ? "--rule" : "--accent-line").trim(); g.beginPath(); g.moveTo(X, 0); g.lineTo(X, H); g.moveTo(0, Y); g.lineTo(W, Y); g.stroke();
+    g.fillStyle = accent; g.beginPath(); g.arc(X, Y, 6, 0, 2 * Math.PI); g.fill();
+    g.strokeStyle = css.getPropertyValue("--bg").trim(); g.lineWidth = 2; g.stroke();
+    rx.querySelector(".value").innerHTML = fmt(px, sx.get()); ry.querySelector(".value").innerHTML = fmt(py, sy.get());
+  };
+  el.addEventListener("pointerdown", e => {
+    el.setPointerCapture(e.pointerId); sx.begin(); sy.begin();
+    const at = ev => { const r = el.getBoundingClientRect(); sx.set(fromPos(px, (ev.clientX - r.left) / r.width)); sy.set(fromPos(py, 1 - (ev.clientY - r.top) / r.height)); };
+    at(e);
+    const up = ev => { el.releasePointerCapture(ev.pointerId); el.removeEventListener("pointermove", at); el.removeEventListener("pointerup", up); sx.end(); sy.end(); };
+    el.addEventListener("pointermove", at); el.addEventListener("pointerup", up);
+  });
+  sx.on(draw); sy.on(draw); new ResizeObserver(draw).observe(el); requestAnimationFrame(draw);
+  return wrap;
+}
+
+// ── the Drafting Table dress: its title block, panels and controls, bound through the same relays ──
+const DRESS_DT = () => window.DT && document.documentElement.classList.contains("dress-dt");
+function dtSizes() {   // Drafting Table's rule for small windows: controls scale, type does not, clamped on the smaller side
+  const w = innerWidth, h = innerHeight, m = Math.min(w, h);
+  let knob = m < 600 ? 40 : m < 1000 ? 56 : 72, hero = 8 * Math.round(Math.max(96, Math.min(176, Math.min(w * 0.16, h * 0.26))) / 8);
+  for (let k = 0; k < fitSteps; ++k)   // then fitWindow's steps: the heroes down to 96, then the knobs down to 40
+    if (hero > 96) hero = Math.max(96, hero - 16); else if (knob > 40) knob = knob > 56 ? 56 : 40;
+  return { knob, hero };
+}
+function dtControl(p, big) {
+  const st = p.taper === "choice" ? bindChoice(p) : p.taper === "toggle" ? bindToggle(p) : bindSlider(p);
+  const cap = { linear: "Linear", log: "Log", choice: "Choice", toggle: "Toggle" }[p.taper];
+  const spec = { id: p.id, name: shortName(p), unit: p.unit, min: p.min, max: p.max, def: p.default, taper: cap, choices: p.choices };
+  const binding = { get: st.get, set: st.set, begin: st.begin, end: st.end, on: fn => st.on(() => fn(st.get())) };
+  const holder = document.createElement("div"); holder.className = "ctl";
+  const z = dtSizes();
+  DT.mount(holder, spec, binding, { size: big ? z.hero : z.knob, ticks: big ? 11 : 5 });
+  if (big) { const rg = document.createElement("div"); rg.className = "range"; rg.innerHTML = rangeText(p); holder.append(rg); }
+  return holder;
+}
+
+// ── layout: header, heroes, then one panel per group in table order ──
+function control(p, big, direction) {
+  if (DRESS_DT() && direction !== "flow") return dtControl(p, big);
+  if (p.taper === "choice") return choice(p);
+  if (p.taper === "toggle") return toggle(p);
+  return direction === "flow" ? fader(p, big) : knob(p, big);
+}
+function build(info) {
+  const ui = info.ui || {}, direction = ui.direction || "bench";
+  BINDINGS.forEach(b => b.clear());   // the old drawing stops listening
+  document.documentElement.dataset.direction = direction;
+  if (ui.dress === "drafting-table" && window.DT) {
+    document.documentElement.className = "dress-dt";
+    document.documentElement.setAttribute("data-theme", ui.theme || "phosphor");
+    const z = dtSizes(); dtDrawn = z.knob + "/" + z.hero;
+    document.documentElement.style.setProperty("--hero", z.hero + "px");   // the heroes' row is sized for them
+    const top = document.querySelector(".top");
+    top.innerHTML = "";
+    top.append(DT.titleBlock({ name: info.name.toUpperCase(), subtitle: ui.kind || "instrument", version: info.version,
+      status: (ui.tier || "sketch").toUpperCase(), statusSource: "measure", source: "VST Template", drawn: "Algorithm.h",
+      maker: info.company, tool: "JUCE 8 · WebView", variant: "row" }).el);
+  } else
+  document.documentElement.className = "skin-" + (ui.skin || (direction === "flow" ? "drafting" : "graphite"));
+  document.title = info.name;
+  if (document.getElementById("name")) {
+    document.getElementById("name").textContent = info.name;
+    document.getElementById("meta").textContent = (ui.tier || "sketch") + " · " + info.version;
+  }
+  const main = document.getElementById("main"); main.innerHTML = "";
+  const params = info.params, heroes = direction === "flow" ? [] : params.filter(p => p.hero);
+  if (heroes.length === 2 && direction === "edge") main.append(pad(heroes[0], heroes[1], ui.backdrop));
+  else if (heroes.length) {
+    const h = document.createElement("div"); h.className = "heroes"; h.dataset.moment = "heroes";
+    // The CRT sits between the heroes, hidden unless ui.screen is set. Shown, it stretches into the row's
+    // spare width, so nothing else moves (design standard § The CRT).
+    const screen = crt().el; screen.hidden = !ui.screen;
+    heroes.forEach((p, i) => { if (i === 1) h.append(screen); h.append(control(p, true, direction)); });
+    if (heroes.length === 1) h.append(screen);
+    main.append(h);
+  }
+  const groups = new Map();
+  params.filter(p => !heroes.includes(p)).forEach(p => { const g = p.group || "Controls"; if (!groups.has(g)) groups.set(g, []); groups.get(g).push(p); });
+  const panels = document.createElement("div"); panels.className = "panels";
+  let first = true;
+  for (const [name, ps] of groups) {
+    if (direction === "flow" && !first) { const a = document.createElement("div"); a.className = "arrow"; a.textContent = "→"; panels.append(a); }
+    first = false;
+    const panel = document.createElement("section"); panel.className = DRESS_DT() ? "panel dt-panel dt-panel--card" : "panel";
+    panel.dataset.group = name; panel.dataset.moment = "panel-" + name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+    const eb = document.createElement("div"); eb.className = DRESS_DT() ? "eyebrow dt-panel__caption dt-eyebrow" : "eyebrow"; eb.textContent = name;
+    const row = document.createElement("div"); row.className = "row";
+    ps.forEach(p => row.append(control(p, direction === "flow" && p.hero, direction)));
+    panel.append(eb, row); panels.append(panel);
+  }
+  main.append(panels);
+  if (direction === "flow") {
+    const fix = () => panels.querySelectorAll(".arrow").forEach(a => { const n = a.nextElementSibling, pv = a.previousElementSibling;
+      a.classList.toggle("wrapped", !n || !pv || n.offsetTop !== pv.offsetTop); });
+    new ResizeObserver(fix).observe(panels); fix();
+  }
+}
+
+// ── fitting the window: its size sets each control's largest size (Drafting Table's rule, or the house
+// dress's clamps). If the panels still overflow, the heroes step down, then the knobs, until they fit.
+// The scroll bar is the last resort, for a window too small for even the smallest controls. ──
+const FIT_STEPS = 8;
+let fitSteps = 0, dtDrawn = "";   // dtDrawn: the sizes the Drafting Table controls were mounted at
+function overflowing() { const m = document.getElementById("main"); return m.scrollHeight > m.clientHeight + 1 || m.scrollWidth > m.clientWidth + 1; }
+function fitWindow(info) {
+  const root = document.documentElement.style;
+  for (fitSteps = 0; ; ++fitSteps) {
+    if (DRESS_DT()) { const z = dtSizes(); if (z.knob + "/" + z.hero !== dtDrawn) build(info); }   // it sizes a control when it mounts
+    else {
+      root.setProperty("--fit-hero", Math.pow(0.88, Math.min(fitSteps, 4)).toFixed(3));
+      root.setProperty("--fit-knob", Math.pow(0.9, Math.max(0, fitSteps - 4)).toFixed(3));
+    }
+    if (fitSteps >= FIT_STEPS || !overflowing()) return;
+  }
+}
+
+(async () => {
+  const info = window.__IN_PLUGIN__ ? await Juce.getNativeFunction("pluginInfo")() : window.MOCK_INFO;
+  const q = new URLSearchParams(location.search);
+  if (q.get("direction")) info.ui = Object.assign({}, info.ui, { direction: q.get("direction"), skin: q.get("skin") || undefined });
+  build(info);
+  fitWindow(info);
+  if (window.__onEditorBuilt) window.__onEditorBuilt(info);   // the mock's review surface, if it has one
+  document.fonts.ready.then(() => fitWindow(info));   // the faces change every width
+  // Fitted again in the resize event itself, not on a later frame: WebKit stops animation frames in a
+  // plugin window it thinks is covered but still sends it resize events (seen in the host check's
+  // window, 2026-10-21), and headless Chrome can take its picture before a timer fires.
+  addEventListener("resize", () => fitWindow(info));
+})();
+</script>
+</body>
+</html>

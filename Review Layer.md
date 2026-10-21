@@ -32,6 +32,9 @@ links:
     label: shared-respond-loop
   - target: "[[Palace as Context Injection System]]"
     type: connects-to
+  - target: "[[VST Template]]"
+    type: connects-to
+    label: review-on-the-mock
 ---
 
 # Review Layer
@@ -51,6 +54,8 @@ The default review loop is: Loudon looks at the build, switches to chat, and des
 The mistake would be to freeze a single implementation and stamp it onto everything. The principle is *reviewability designed into the early version*; the **method is invented to fit the format** — and inventing new methods is wanted, not a deviation. So this is not a menu to pick from; it's a couple of proven points and a lot of open territory.
 
 The one proven shape so far is the **card / item series**: one thing on screen at a time, each getting its own response, collected as individual records. The oblique harvest (below) is this. A deck is the same shape with slides as the unit. Everything else — timecoded notes on a video, a markup overlay on a generated image, notes against a playhead for sound, margin comments on prose, pins on an interactive — is worth trying, but none of it is settled, and the right move on a new format is to invent an anchoring and see how it feels, not to reach for the one method that already exists.
+
+**A UI that runs inside another application keeps its review surface on its browser mock page, not inside the host.** A plugin in a DAW or a Max for Live device lives in the host's window, and that window is the instrument: a built-in review panel has no place there. So the [[VST Template]] draws each plugin's editor and its browser mock page with one engine, from the same parameter table, and puts the review surface on the mock only. Reviewing the mock reviews the editor, and the plugin's own window stays clean. Every mock page opens with the review-layer kit mounted, its moments taken from the editor's own layout: the direction as a whole, the header, the heroes, and one per panel. Loudon settled the clash between this rule and a plugin window on 2026-10-21: "Lets fix the rule clash, I like your solution, review on the mockup." It mounts on both plugins' mocks in headless Chrome. The details are in [[VST Template — design standard]] § Review happens on the mock page.
 
 What *is* invariant: a named set of commentable **moments**, in-context capture, and a low-friction way for the responses to become the next round's brief. The export shape matters less than that friction — and the direction worth pushing is to drop copy-paste entirely (see below).
 
@@ -81,6 +86,8 @@ Per [[Palace as Context Injection System]], a habit only holds if it's planted w
 - **[[Loudon Live Design System]]** — invoked before any artifact is generated; carries the scoped Hard Rule ("interactive/stateful early versions ship reviewable") and the reference kit. This is the primary home.
 - **[[Maker]]** / [[The Shop]] — the floor for *made* things inherits the rule; an interactive Specialist's Self-Check confirms a Review Layer is present in the first version.
 - This entry — the canonical statement of the principle, which the rule and the kit are instances of.
+
+For a UI that runs inside another application, the template that builds it carries the rule: [[VST Template]]'s `ui.py mock` mounts the kit on every mock page, so each plugin made from it inherits a review surface with no setup.
 
 Deliberately *not* added to the Tier-0 CLAUDE.md floor — Loudon kept that lean. Recognition lives one link down, in the surface that's already loaded whenever a build is happening.
 

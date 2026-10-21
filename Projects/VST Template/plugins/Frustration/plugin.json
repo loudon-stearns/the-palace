@@ -14,5 +14,18 @@
     "f0=220",
     "voices=0.5",
     "source=bright"
-  ]
+  ],
+  "ui": {
+    "width": 760,
+    "height": 520,
+    "min": [
+      660,
+      500
+    ],
+    "max": [
+      1600,
+      1000
+    ],
+    "direction": "edge"
+  }
 }

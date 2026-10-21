@@ -26,8 +26,9 @@ forward_vector: "I am VST Template's scroll — the one page that always opens o
 1. **Build the template and its example.** Tract Mirror's JUCE scaffold, cut down to a template: the algorithm in one `Algorithm.h` that knows no JUCE, a console render harness, and `new-plugin.py`.
 2. **Make the Frustration plugin and check it against `ride.py`.** Port the per-sample body into the template, render `ride.py`'s three paths (breathe, coupling, string–bar) through the harness, and compare. Away from the edge it must match sample for sample. At the edge the check is behavioural: the fundamental's range and wobble, not the waveform.
 3. **Make Simple Synth and check it against its sketch.** One oscillator, one filter and one amplifier, with envelopes and a vibrato LFO, played from MIDI notes. Nothing in it is chaotic, so every path must match its sketch sample for sample.
-4. **Validate, install, and prove they load.** pluginval and auval for both plugins, install to the user plug-in folders, then load them in a host and in Live 12.
+4. **Validate, install, and prove they load.** pluginval and auval for both plugins, install to the user plug-in folders, then load them in a host and in Live 12. Where it stands: both pass every check. Frustration loaded in Live 12 from a Set at 00:16 on 2026-10-21 (Live's log, quoted in `proofs/2026-10-21-seal/README.md`), and the same proof records Simple Synth restored from a Set at 00:03. Neither has yet been inserted from Live's browser, so this move stays open.
 5. **Write the afternoon recipe.** How the next sketch gets from numpy to an installed plugin in one afternoon.
+6. **Give every plugin made from the template a custom editor in the [[Drafting Table Design System]] on its Phosphor theme**, generated from `Algorithm.h`'s parameter table, with no editor code per plugin. It starts with a written design standard in the template's bundle: the layout, the type, the control vocabulary for continuous, stepped and toggle parameters, how values are shown, how the editor resizes, and what the plugin shows about itself. Loudon picked from three rendered directions on 2026-10-21: the bench layout, with the edge-map pad on Frustration. Then it is finished on Frustration and Simple Synth and proved: screenshots at two sizes, pluginval and the seal checks still passing, and the recipe updated so the next plugin inherits it.
 
 **The five defaults Loudon accepted** (from the framework comparison, `Projects/VST Template/proofs/2026-10-20-framework-choice/README.md`):
 
@@ -37,7 +38,7 @@ forward_vector: "I am VST Template's scroll — the one page that always opens o
 - **The check.** As in the second move.
 - **Where it lives.** `Projects/VST Template/template/` and `new-plugin.py`, with the plugins beside the template.
 
-Agreed by Loudon on 2026-10-20, in the VST Template session. Simple Synth was added on his word the same evening.
+Agreed by Loudon on 2026-10-20, in the VST Template session. Simple Synth was added on his word the same evening, and the custom editor on his word of 2026-10-21.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -49,6 +50,155 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-2026-10-21T10-37-06-04-00" -->
+### 2026-10-21 — Plan revised: the editor's dress and direction, as Loudon picked them
+
+Loudon, 2026-10-21: "Yes, update the plan's design-standard move to record the pick: Drafting Table on Phosphor, bench layout, the edge-map pad on Frustration." The sixth move now names the dress he chose, the Drafting Table Design System on its Phosphor theme, in place of the Loudon Live house dress, and records his pick from the three rendered directions in place of the step that asked for it. Nothing else in the plan changed.
+
+_The plan before this change:_
+
+> **Where this is going.** A reusable plugin template at `Projects/VST Template/template/`, plus a `new-plugin.py` that copies and renames it, so the next numpy sketch becomes a plugin with one file to fill in and one command to run. The build, the JUCE wrapper, the harness, the host check and `verify.py` live once in a shared `machinery/` folder, so a plugin folder holds only what it fills in, and a fix to the machinery reaches every plugin. Two plugins come first. **Frustration** is the frustration model from `Harmonicity and Inharmonicity/proofs/2026-10-17-frustration-sweeps/ride.py`, with B and K automatable. **Simple Synth**, one oscillator, one filter and one amplifier with envelopes and a vibrato LFO, is the template's worked example of playing MIDI notes. It is built on JUCE 8 + CMake, cloned from [[Tract Mirror]].
+>
+> **The moves ahead**
+>
+> 1. **Build the template and its example.** Tract Mirror's JUCE scaffold, cut down to a template: the algorithm in one `Algorithm.h` that knows no JUCE, a console render harness, and `new-plugin.py`.
+> 2. **Make the Frustration plugin and check it against `ride.py`.** Port the per-sample body into the template, render `ride.py`'s three paths (breathe, coupling, string–bar) through the harness, and compare. Away from the edge it must match sample for sample. At the edge the check is behavioural: the fundamental's range and wobble, not the waveform.
+> 3. **Make Simple Synth and check it against its sketch.** One oscillator, one filter and one amplifier, with envelopes and a vibrato LFO, played from MIDI notes. Nothing in it is chaotic, so every path must match its sketch sample for sample.
+> 4. **Validate, install, and prove they load.** pluginval and auval for both plugins, install to the user plug-in folders, then load them in a host and in Live 12. Where it stands: both pass every check. Frustration loaded in Live 12 from a Set at 00:16 on 2026-10-21 (Live's log, quoted in `proofs/2026-10-21-seal/README.md`), and the same proof records Simple Synth restored from a Set at 00:03. Neither has yet been inserted from Live's browser, so this move stays open.
+> 5. **Write the afternoon recipe.** How the next sketch gets from numpy to an installed plugin in one afternoon.
+> 6. **Give every plugin made from the template a custom editor in the Loudon Live house dress** ([[Loudon Live Design System]]), generated from `Algorithm.h`'s parameter table, with no editor code per plugin. It starts with a written design standard in the template's bundle: the layout, the type, the control vocabulary for continuous, stepped and toggle parameters, how values are shown, how the editor resizes, and what the plugin shows about itself. First, two or three rendered directions go to Loudon, and he picks one. Then it is finished on Frustration and Simple Synth and proved: screenshots at two sizes, pluginval and the seal checks still passing, and the recipe updated so the next plugin inherits it.
+>
+> **The five defaults Loudon accepted** (from the framework comparison, `Projects/VST Template/proofs/2026-10-20-framework-choice/README.md`):
+>
+> - **Port path.** Claude ports the per-sample body by hand into `Algorithm.h`: a `State` struct, a `Params` table and a `process()`. The numpy sketch stays the reference, and the sketch's random constants are exported so both start identically.
+> - **Parameters.** B on a log taper from about 1e-7 to 30, K linear from 0 to 20 Hz, both smoothed per sample (B in the log domain, about 20 ms). Inertia is a continuous knob. N (40, 64 or 96) and pinning are set-and-forget.
+> - **Real-time cost.** Mono first. Polyphony is measured before it is promised.
+> - **The check.** As in the second move.
+> - **Where it lives.** `Projects/VST Template/template/` and `new-plugin.py`, with the plugins beside the template.
+>
+> Agreed by Loudon on 2026-10-20, in the VST Template session. Simple Synth was added on his word the same evening, and the custom editor on his word of 2026-10-21.
+<sub>`plan-2026-10-21T10-37-06-04-00` · plan revised · agreed 2026-10-21T10:37:06-04:00 · written by the Concierge on Loudon's word</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="proof-2026-10-21-crt-bezel" -->
+### 2026-10-21 — The CRT simplified to a bezel
+> On Loudon's word, the casing is only a bezel: no knobs, no grille. Controls on the CRT are left to the build that needs them.
+
+Loudon, 2026-10-21: "On the CRT look, lets simplify even more, just a bezel and no decorative knobs or grills. We will leave it to the later build to add controls to the crt if needed".
+
+The editor now draws only the bezel, in the dress's ink: its outer and inner edges, the lip round the tube, and the tube's rounded face, centred and about 3:2. The control strip, the knobs, the grille, the feet and the centre marks are gone. The vignette on the glass is unchanged, and so is everything the plugin owns: the black glass, `window.editorScreen`, kept through every rebuild and hidden until a plugin sets `"screen": true`. `ui.py fit --screen` passes at 920 × 540, 960 × 600 and 1600 × 1000, and the proof's three pictures are re-rendered. The design standard and the recipe describe the bezel.
+
+**Artifacts:**
+- [README.md — the bezel around a stand-in, and what changed](Projects/VST Template/proofs/2026-10-21-crt-frame/README.md)
+- [Simple Synth with the bezel, 920 × 540](Projects/VST Template/proofs/2026-10-21-crt-frame/simplesynth-crt-920x540.png)
+- [Simple Synth with the bezel, 960 × 600](Projects/VST Template/proofs/2026-10-21-crt-frame/simplesynth-crt-960x600.png)
+- [Simple Synth with the bezel, 1400 × 880](Projects/VST Template/proofs/2026-10-21-crt-frame/simplesynth-crt-1400x880.png)
+- [VST Template — design standard.md — § The CRT](Projects/VST Template/VST Template — design standard.md)
+
+_Left rough:_ the bezel has been seen only in headless Chrome, never inside the plugin's WebKit view, since neither plugin shows the CRT yet; the colour bars are a stand-in; no visualizer and no probe feed exist yet.
+<sub>`proof-2026-10-21-crt-bezel` · written by hand · landed in `85d8a480`</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="proof-2026-10-21-crt-frame" -->
+### 2026-10-21 — The CRT's casing: a television drawn around a screen each plugin owns
+> On Loudon's words, the template draws the set and leaves the picture to the plugin: a casing drawn as an elevation, a black glass inside, a slight vignette at its edges.
+
+_Superseded the same day by the bezel, in the section above: Loudon asked for "just a bezel and no decorative knobs or grills". The knobs, grille, feet and centre marks described here are gone, and the three pictures at these paths were re-rendered with the bezel in `85d8a480`; the first drawing is in git at `ad2cea1d`._
+
+Loudon, 2026-10-21: "the look of the CRT should be a architecturally drawn frame, like a design of the outside of a TV, but then we leave the inside to be anything, but there is a slight vingnette on the edges. This way the VST design can create a super creative view that breaks completely from our design choices."
+
+In the bench direction the editor now draws a television between the two heroes, in the dress's ink: the cabinet, the bezel's lip, the tube's rounded face, two knobs, a speaker grille, the feet, and centre marks as on a drawing, redrawn to whatever space it has. Inside is a black glass, `window.editorScreen`, which the plugin owns; anything can draw there. The glass is made once and moved into each rebuild, so a visualizer's canvas survives a resize. It stays hidden unless a plugin sets `"screen": true` in its `ui` block, and neither does yet. `ui.py mock --screen` or `shot --screen` shows it with colour bars standing in. Loading a plugin's own visualizer and feeding it the probes is the CRT move batoned on [[VST Template]]; the recipe names where that feed would hook in.
+
+**Artifacts:**
+- [README.md — the casing around a stand-in](Projects/VST Template/proofs/2026-10-21-crt-frame/README.md)
+- [Simple Synth with the CRT, 920 × 540](Projects/VST Template/proofs/2026-10-21-crt-frame/simplesynth-crt-920x540.png)
+- [Simple Synth with the CRT, 960 × 600](Projects/VST Template/proofs/2026-10-21-crt-frame/simplesynth-crt-960x600.png)
+- [Simple Synth with the CRT, 1400 × 880](Projects/VST Template/proofs/2026-10-21-crt-frame/simplesynth-crt-1400x880.png)
+
+_Left rough:_ the CRT has been seen only in headless Chrome, never inside the plugin's WebKit view, since neither plugin shows it yet; the colour bars are a stand-in; no visualizer and no probe feed exist yet.
+<sub>`proof-2026-10-21-crt-frame` · written by hand · landed in `ad2cea1d`</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="proof-2026-10-21-ui-dress" -->
+### 2026-10-21 — The editors wear Drafting Table on Phosphor, photographed from the plugins themselves
+> Loudon chose the dress: Drafting Table on its Phosphor theme, the bench layout, and the edge-map pad on Frustration.
+
+Loudon, 2026-10-21: "Yes: plugin editors move to Drafting Table on Phosphor, Bench layout, with the edge-map pad on Frustration."
+
+Drafting Table is now the template's default dress, inlined from `_ops/drafting-table/design-system/` at every build; Loudon Live stays selectable with `"dress": "loudon-live"`. Its title block, panels and controls draw the editor, bound to the plugin's parameters through the same relays, with one gesture rule shared with the system: 150 px for the full range, Shift a fifth as fast, the wheel 2 %. Frustration's direction is edge; Simple Synth and the template stay bench. The editor fits itself to its window, stepping the heroes down and then the knobs, and the minimums rose to the smallest windows that fit: Frustration 660 × 500, Simple Synth 920 × 540, with Simple Synth's default now 960 × 600. `./plugin.sh editor` opens the installed VST3's editor as a host does and photographs it; nothing sounds.
+
+- **The gates**, on the same build of both plugins: the strict code-seal check, pluginval at strictness 5 (which opens the editor while processing), auval, the host check on the VST3 and the AU, and `ui.py fit` at the minimum, default and maximum windows. A sweep of 56 windows per plugin, in both dresses and every direction, fitted: 336 of 336.
+- **What the real-editor pictures caught.** Headless Chrome lays a page out 87 px shorter than its window before it takes the picture, so the first browser renders sized their knobs for a smaller window, and Simple Synth looked as if it fitted when it didn't. Those renders were deleted, and `ui.py` now corrects for it. Inside the plugin, WebKit stopped animation frames in a window it took to be covered but still sent the resize, so a refit waiting on a frame never came and Simple Synth lost its bottom row at 920 × 540; the refit now runs in the resize event. And the editor had read Drafting Table's small-window rule loosely; it now clamps on the smaller of width and height, as the rule says.
+
+**Artifacts:**
+- [README.md — both editors, the gates, what the pictures caught](Projects/VST Template/proofs/2026-10-21-ui-dress/README.md)
+- [editors.png — the four pictures stacked, for a phone](Projects/VST Template/proofs/2026-10-21-ui-dress/editors.png)
+- [Frustration's editor at 660 × 500, its minimum](Projects/VST Template/proofs/2026-10-21-ui-dress/frustration-editor-660x500.png)
+- [Frustration's editor at 760 × 520, its default](Projects/VST Template/proofs/2026-10-21-ui-dress/frustration-editor-760x520.png)
+- [Simple Synth's editor at 920 × 540, its minimum](Projects/VST Template/proofs/2026-10-21-ui-dress/simplesynth-editor-920x540.png)
+- [Simple Synth's editor at 960 × 600, its default](Projects/VST Template/proofs/2026-10-21-ui-dress/simplesynth-editor-960x600.png)
+- [VST Template — design standard.md — the choice, what every editor shares, the CRT](Projects/VST Template/VST Template — design standard.md)
+
+_Left rough:_ the new editors have not been opened in Live, and neither plugin has yet been inserted from Live's browser; the hero knob and the XY pad are still provisional in Drafting Table, and the pad's dot stays in the accent where its notes ask for a slab dot; JetBrains Mono is read from the building Mac's `~/Library/Fonts` until Drafting Table ships it as a file.
+<sub>`proof-2026-10-21-ui-dress` · written by hand · the dress landed in `370e18dd` and `ad2cea1d`, the shared gesture rule in `4cf0f849`</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="proof-2026-10-21-ui-directions" -->
+### 2026-10-21 — Three directions for the template's editor, for Loudon to choose from
+> The sixth move's first step: one engine draws every plugin's editor in the house dress from its parameter table, and three directions are rendered for both plugins.
+
+The editor layer is in `machinery/` (`ui/editor.html`, `tools/ui.py`, `src/PluginEditor`), and each table row now carries a `group` and, for at most two parameters, `hero`. The design standard's draft says what every plugin shares: the header, the type, the colour, the 4 px grid, the layout from the table, a control for each kind of parameter (a knob for continuous, segments for stepped, a switch for on/off, a large ticked knob for a hero), how values read, and how the window resizes. It leaves one choice open. Each direction is drawn from the same tables, rendered by headless Chrome at the plugin's default size (Frustration 760 × 520, Simple Synth 900 × 600).
+
+- **A · Bench.** Knobs on cards, in Graphite, the two heroes large. It fits any table at its default size, but it says nothing about how the heroes relate.
+- **B · Edge map.** The two heroes become one XY pad. On Frustration the pad is drawn over the edge map from the frustration sweeps, so you can see where the tone tears before you hear it. On Simple Synth it is just a square.
+- **C · Signal flow.** Faders on Drafting paper, the groups left to right with arrows. It shows the structure, but it takes room, and a cream window is bright in Live at night.
+- **The recommendation:** Bench as the template's default, with the Edge map pad as an opt-in in `plugin.json` for a plugin whose two heroes make a map. Frustration would use the pad. The choice is Loudon's.
+
+**Artifacts:**
+- [Frustration, all three directions on one sheet](Projects/VST Template/proofs/2026-10-21-ui-directions/frustration-directions.png)
+- [Simple Synth, all three directions on one sheet](Projects/VST Template/proofs/2026-10-21-ui-directions/simplesynth-directions.png)
+- [Frustration · Bench](Projects/VST Template/proofs/2026-10-21-ui-directions/frustration-bench.png)
+- [Frustration · Edge map](Projects/VST Template/proofs/2026-10-21-ui-directions/frustration-edge.png)
+- [Frustration · Signal flow](Projects/VST Template/proofs/2026-10-21-ui-directions/frustration-flow.png)
+- [Simple Synth · Bench](Projects/VST Template/proofs/2026-10-21-ui-directions/simplesynth-bench.png)
+- [Simple Synth · Edge map](Projects/VST Template/proofs/2026-10-21-ui-directions/simplesynth-edge.png)
+- [Simple Synth · Signal flow](Projects/VST Template/proofs/2026-10-21-ui-directions/simplesynth-flow.png)
+- [README.md — the three directions, what each costs, the recommendation](Projects/VST Template/proofs/2026-10-21-ui-directions/README.md)
+- [VST Template — design standard.md — what every plugin's editor shares, and the open choice](Projects/VST Template/VST Template — design standard.md)
+
+_Left rough:_ the editor has not yet been seen inside the plugin's own WebView: it renders in headless Chrome, and pluginval's three editor tests pass on the built Frustration; Frustration's edge-map backdrop is fixed at 40 partials, unpinned, inertia 1; the Signal flow direction overflows Simple Synth at 900 × 600.
+<sub>`proof-2026-10-21-ui-directions` · written by hand · the editor layer landed in `e1b9bf05`, the standard and the directions in `9f630d99`</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="plan-2026-10-21T07-51-34-04-00" -->
+### 2026-10-21 — Plan revised: a custom editor for every plugin, from a design standard
+
+Loudon, 2026-10-21, relayed by the supervising session: "I'd like the next job of the VST template to create a design standard, so that we have custom UI not the default sliders." The plan gains a sixth move: a custom editor for every plugin made from the template, generated from the parameter table, starting from a written design standard and two or three rendered directions he picks between. The fourth move is restated with what the seal proof verified: Frustration loaded in Live 12 from a Set, but neither plugin has been inserted from Live's browser, so the move stays open.
+
+_The plan before this change:_
+
+> **Where this is going.** A reusable plugin template at `Projects/VST Template/template/`, plus a `new-plugin.py` that copies and renames it, so the next numpy sketch becomes a plugin with one file to fill in and one command to run. The build, the JUCE wrapper, the harness, the host check and `verify.py` live once in a shared `machinery/` folder, so a plugin folder holds only what it fills in, and a fix to the machinery reaches every plugin. Two plugins come first. **Frustration** is the frustration model from `Harmonicity and Inharmonicity/proofs/2026-10-17-frustration-sweeps/ride.py`, with B and K automatable. **Simple Synth**, one oscillator, one filter and one amplifier with envelopes and a vibrato LFO, is the template's worked example of playing MIDI notes. It is built on JUCE 8 + CMake, cloned from [[Tract Mirror]].
+>
+> **The moves ahead**
+>
+> 1. **Build the template and its example.** Tract Mirror's JUCE scaffold, cut down to a template: the algorithm in one `Algorithm.h` that knows no JUCE, a console render harness, and `new-plugin.py`.
+> 2. **Make the Frustration plugin and check it against `ride.py`.** Port the per-sample body into the template, render `ride.py`'s three paths (breathe, coupling, string–bar) through the harness, and compare. Away from the edge it must match sample for sample. At the edge the check is behavioural: the fundamental's range and wobble, not the waveform.
+> 3. **Make Simple Synth and check it against its sketch.** One oscillator, one filter and one amplifier, with envelopes and a vibrato LFO, played from MIDI notes. Nothing in it is chaotic, so every path must match its sketch sample for sample.
+> 4. **Validate, install, and prove they load.** pluginval and auval for both plugins, install to the user plug-in folders, then load them in a host and in Live 12.
+> 5. **Write the afternoon recipe.** How the next sketch gets from numpy to an installed plugin in one afternoon.
+>
+> **The five defaults Loudon accepted** (from the framework comparison, `Projects/VST Template/proofs/2026-10-20-framework-choice/README.md`):
+>
+> - **Port path.** Claude ports the per-sample body by hand into `Algorithm.h`: a `State` struct, a `Params` table and a `process()`. The numpy sketch stays the reference, and the sketch's random constants are exported so both start identically.
+> - **Parameters.** B on a log taper from about 1e-7 to 30, K linear from 0 to 20 Hz, both smoothed per sample (B in the log domain, about 20 ms). Inertia is a continuous knob. N (40, 64 or 96) and pinning are set-and-forget.
+> - **Real-time cost.** Mono first. Polyphony is measured before it is promised.
+> - **The check.** As in the second move.
+> - **Where it lives.** `Projects/VST Template/template/` and `new-plugin.py`, with the plugins beside the template.
+>
+> Agreed by Loudon on 2026-10-20, in the VST Template session. Simple Synth was added on his word the same evening.
+<sub>`plan-2026-10-21T07-51-34-04-00` · plan revised · agreed 2026-10-21T07:51:34-04:00 · written by the Concierge on Loudon's word</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="proof-2026-10-21-seal" -->
 ### 2026-10-21 — A broken seal: Live 12 refused Frustration after every other check had passed
 > JUCE could break its own code signature. Live's scanner checks the seal; pluginval, auval and the host check do not. The machinery now re-seals every bundle and gates on a strict check.

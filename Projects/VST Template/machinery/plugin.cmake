@@ -31,9 +31,17 @@ endif()
 
 set(COMMON_DEFS
     PLUGIN_NAME="${PLUGIN_name}"
-    JUCE_WEB_BROWSER=0
+    PLUGIN_VERSION="${PLUGIN_version}"
+    PLUGIN_COMPANY="${PLUGIN_company}"
     JUCE_USE_CURL=0)
 set(INCLUDES "${PLUGIN_DIR}/src" "${MACHINERY_DIR}/src")
+
+# The editor page, assembled before the build by tools/ui.py into build/ui/.
+set(UI_DIR "${CMAKE_BINARY_DIR}/ui")
+juce_add_binary_data(${PLUGIN_target}_EditorData
+    HEADER_NAME EditorData.h
+    NAMESPACE   EditorData
+    SOURCES     "${UI_DIR}/index.html")
 
 # ── The plugin: VST3 + AU + Standalone ───────────────────────────────────────
 juce_add_plugin(${PLUGIN_target}
@@ -50,18 +58,18 @@ juce_add_plugin(${PLUGIN_target}
     AU_MAIN_TYPE             ${AU_TYPE}
     EDITOR_WANTS_KEYBOARD_FOCUS FALSE)
 
-target_sources(${PLUGIN_target} PRIVATE "${MACHINERY_DIR}/src/PluginProcessor.cpp")
-target_include_directories(${PLUGIN_target} PRIVATE ${INCLUDES})
-target_compile_definitions(${PLUGIN_target} PUBLIC ${COMMON_DEFS} JUCE_VST3_CAN_REPLACE_VST2=0)
+target_sources(${PLUGIN_target} PRIVATE "${MACHINERY_DIR}/src/PluginProcessor.cpp" "${MACHINERY_DIR}/src/PluginEditor.cpp")
+target_include_directories(${PLUGIN_target} PRIVATE ${INCLUDES} "${UI_DIR}")
+target_compile_definitions(${PLUGIN_target} PUBLIC ${COMMON_DEFS} JUCE_WEB_BROWSER=1 JUCE_VST3_CAN_REPLACE_VST2=0)
 target_link_libraries(${PLUGIN_target}
-    PRIVATE juce::juce_audio_utils
+    PRIVATE juce::juce_audio_utils ${PLUGIN_target}_EditorData
     PUBLIC  juce::juce_recommended_config_flags juce::juce_recommended_lto_flags juce::juce_recommended_warning_flags)
 
 # ── Harness: runs the algorithm and the real processor for verify.py ────────
 juce_add_console_app(${PLUGIN_target}Harness VERSION ${PLUGIN_version})
 target_sources(${PLUGIN_target}Harness PRIVATE "${MACHINERY_DIR}/src/Harness.cpp" "${MACHINERY_DIR}/src/PluginProcessor.cpp")
 target_include_directories(${PLUGIN_target}Harness PRIVATE ${INCLUDES})
-target_compile_definitions(${PLUGIN_target}Harness PUBLIC ${COMMON_DEFS})
+target_compile_definitions(${PLUGIN_target}Harness PUBLIC ${COMMON_DEFS} JUCE_WEB_BROWSER=0)
 target_link_libraries(${PLUGIN_target}Harness
     PRIVATE juce::juce_audio_utils
     PUBLIC  juce::juce_recommended_config_flags juce::juce_recommended_warning_flags)
@@ -70,7 +78,8 @@ target_link_libraries(${PLUGIN_target}Harness
 juce_add_console_app(${PLUGIN_target}HostCheck VERSION ${PLUGIN_version})
 target_sources(${PLUGIN_target}HostCheck PRIVATE "${MACHINERY_DIR}/src/HostCheck.cpp")
 target_compile_definitions(${PLUGIN_target}HostCheck PUBLIC
-    JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 JUCE_PLUGINHOST_VST3=1 JUCE_PLUGINHOST_AU=1)
+    JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 JUCE_PLUGINHOST_VST3=1 JUCE_PLUGINHOST_AU=1
+    JUCE_MODAL_LOOPS_PERMITTED=1)   # --editor runs the message loop while the plugin's page draws
 target_link_libraries(${PLUGIN_target}HostCheck
     PRIVATE juce::juce_audio_utils juce::juce_dsp
     PUBLIC  juce::juce_recommended_config_flags juce::juce_recommended_warning_flags)
