@@ -124,7 +124,7 @@ function main() {
 
     console.log(`\n—— birth ${i + 1} of ${todo.length}: ${b.scenario} · ${b.model} · rep ${b.rep}`);
     const r = spawnSync(process.execPath, [path.join(HERE, "birth.mjs"), "--scenario", b.scenario, "--model", b.model,
-      "--batch", batch, "--rep", String(b.rep), "--bin", bin, ...pass], { stdio: "inherit" });
+      "--batch", batch, "--rep", String(b.rep), ...(opt("--bin") ? ["--bin", bin] : []), ...pass], { stdio: "inherit" });
     if (r.status === 4) { console.log(`STOPPED: the plan refused birth ${i + 1}. ${todo.length - i} left; run the same command after the reset.`); return 4; }
     if (r.status !== 0) { console.error(`suite: birth.mjs exited ${r.status} on ${b.scenario} · ${b.model}; stopping so the cause can be read.`); return 1; }
     lastBirth = fromBirth(kept(runsDir, batch).get(`${b.scenario}|${b.model}|${b.rep}`)?.limits);

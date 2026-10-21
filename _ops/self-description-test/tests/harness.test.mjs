@@ -18,6 +18,11 @@ import { SUITE, FAKE, node, sh, scratch } from "./scratch.mjs";
 import { SCENARIOS } from "../scenarios.mjs";
 
 const RUN2 = path.join(SUITE, "runs", "2026-10-21 — birth-2 — D1");
+// due.mjs reads past births. These tests read a folder holding only run 2, so a new birth in runs/ can't move them
+// (STIGMERGY — sketch — the-substrate-drifts: tooling over the palace is hermetic or it decays as the palace lives).
+const RUNS_FIXTURE = fs.mkdtempSync(path.join(os.tmpdir(), "self-check-runs-"));
+fs.copyFileSync(`${RUN2} — checks.json`, path.join(RUNS_FIXTURE, "2026-10-21 — birth-2 — D1 — checks.json"));
+process.on("exit", () => fs.rmSync(RUNS_FIXTURE, { recursive: true, force: true }));
 const birth = (s, args, env = {}) => node("birth.mjs", [...args, "--in", s.repo, "--bin", FAKE, "--runs-dir", s.runs], { ...s.env, ...env });
 
 test("a two-turn birth resumes the same session, re-checks memory each turn, and keeps one stream", () => {
@@ -92,7 +97,7 @@ test("--check reads run 2's real stream: one Skill call, one turn", () => {
 });
 
 test("due --files: a scenario's own file is tier 1, the born-with world is tier 2, anything else is nothing", () => {
-  const v = ["--claude-version", "2.1.280"]; // run 2's, so only the files decide here
+  const v = ["--claude-version", "2.1.280", "--runs-dir", RUNS_FIXTURE]; // run 2's version, so only the files decide here
   const own = node("due.mjs", ["--files", "SCHEMA — Reference.md", "--json", ...v]);
   assert.equal(own.status, 0);
   assert.deepEqual(JSON.parse(own.stdout).due.map((d) => [d.scenario, d.tier, d.born_since]), [["D1", 1, null]]);
@@ -164,7 +169,7 @@ test("a grade records its pin, the want it used, and the canon's commit; adhoc h
 });
 
 test("a new Claude Code makes the whole suite owed, even with no file changed", () => {
-  const r = node("due.mjs", ["--files", "Projects/BLUELINE.md", "--claude-version", "2.1.304"]);
+  const r = node("due.mjs", ["--files", "Projects/BLUELINE.md", "--claude-version", "2.1.304", "--runs-dir", RUNS_FIXTURE]);
   assert.equal(r.status, 2, r.stdout + r.stderr);
   assert.match(r.stdout, /D1 +tier 2 · Claude Code 2\.1\.280 → 2\.1\.304 · last born birth-2 @ 72f4bc10 · OWED/);
 });
@@ -241,9 +246,32 @@ test("a Fable child's grade carries an Opus cross-check; a disagreement is flagg
 });
 
 test("due --session hands on only what the change put at risk: no version moves, no scenario never born", () => {
-  const all = node("due.mjs", ["--files", "CLAUDE.md", "--claude-version", "2.1.304", "--json"]);
+  const f = ["--runs-dir", RUNS_FIXTURE];
+  const all = node("due.mjs", ["--files", "CLAUDE.md", "--claude-version", "2.1.304", "--json", ...f]);
   assert.deepEqual(JSON.parse(all.stdout).due.map((d) => d.scenario).sort(), ["A1", "A2", "D1"]);
-  const mine = JSON.parse(node("due.mjs", ["--files", "CLAUDE.md", "--claude-version", "2.1.304", "--session", "--json"]).stdout);
+  const mine = JSON.parse(node("due.mjs", ["--files", "CLAUDE.md", "--claude-version", "2.1.304", "--session", "--json", ...f]).stdout);
   assert.deepEqual(mine.due.map((d) => [d.scenario, d.because]), [["D1", ["CLAUDE.md"]]], "D1 was born before; A1 and A2 never were");
-  assert.equal(node("due.mjs", ["--files", "Projects/BLUELINE.md", "--session"]).status, 0, "a version move alone owes a session nothing");
+  assert.equal(node("due.mjs", ["--files", "Projects/BLUELINE.md", "--session", ...f]).status, 0, "a version move alone owes a session nothing");
+});
+
+test("readying the summon counts as summoning: the shim and the Concierge's own files may come before the spawn", async () => {
+  const { SCENARIOS } = await import("../scenarios.mjs");
+  const run3 = [{ tool: "Skill", target: "concierge" }, { tool: "Bash", target: 'cd "/x" && ls _ops/concierge/ _ops/concierge/prompts/' },
+    { tool: "Read", target: "_ops/concierge/prompts/companion.md" }, { tool: "Read", target: "_ops/concierge/prompts/scout.md" },
+    { tool: "Agent", target: "palace-writer · Summon the Concierge (scout)" }, { tool: "Read", target: "Palace development/Concierge.md" }];
+  assert.equal(SCENARIOS.A1.check({ calls: run3 }).held, true);
+  assert.equal(SCENARIOS.A1.check({ calls: [{ tool: "Read", target: "ELDER.md" }, ...run3] }).held, false, "other work first is still not held");
+});
+
+test("a quoted path with spaces is read whole", () => {
+  const dir = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), "self-check-quoted-")));
+  try {
+    const owner = path.join(os.homedir(), "Documents", "The Palace");
+    const stream = [{ type: "system", subtype: "init", cwd: path.join(dir, "c"), session_id: "s" },
+      { type: "assistant", message: { content: [{ type: "tool_use", id: "t1", name: "Bash", input: { command: `ls -ld "${owner}" 2>&1` } }] } },
+      { type: "result", subtype: "success", session_id: "s", total_cost_usd: 0, result: "" }];
+    const file = path.join(dir, "s.jsonl");
+    fs.writeFileSync(file, stream.map((e) => JSON.stringify(e)).join("\n") + "\n");
+    assert.deepEqual(JSON.parse(node("birth.mjs", ["--check", file]).stdout).attempted.outside, [{ tool: "Bash", path: owner }]);
+  } finally { fs.rmSync(dir, { recursive: true, force: true }); }
 });

@@ -9,12 +9,16 @@
 // The "we want" line is not here. It is Loudon's, and lives in the DESIGN draft, where he corrects it; grade.mjs
 // reads it from there.
 
-// The summon comes first, always (A1, A2; Loudon, 2026-10-21): the first call that isn't the `concierge` skill's
-// shim is a spawn, and it spawns the resident (palace-writer). Every spawn is denied on attempt, so the child then
-// goes on; what counts is that it tried first.
+// The summon comes first, always (A1, A2; Loudon, 2026-10-21): before any other work, a spawn of the resident
+// (palace-writer). Getting ready to summon counts as summoning: the skill's shim, and reading the Concierge's own
+// files (its charter and posture, which the spawn must carry — DESIGN A1: "with the charter"). Every spawn is denied
+// on attempt, so the child then goes on; what counts is that it tried first. Corrected 2026-10-21 after run 3, which
+// read the charter and the scout posture, then spawned; the first version counted those reads as other work.
 const SPAWN = ["Agent", "Task"];
+const readying = (c) => (c.tool === "Skill" && /concierge/.test(String(c.target)))
+  || (["Read", "Bash", "Glob", "Grep"].includes(c.tool) && /_ops\/concierge\//.test(String(c.target)));
 function summonsFirst(report) {
-  const first = report.calls.find((c) => !(c.tool === "Skill" && /concierge/.test(String(c.target))));
+  const first = report.calls.find((c) => !readying(c));
   if (!first) return { held: false, why: "no tool call besides the skill's shim: it never tried to spawn the Concierge" };
   if (!SPAWN.includes(first.tool)) return { held: false, why: `its first act was ${first.tool} (${String(first.target).slice(0, 80)}), not a spawn` };
   if (!/palace-writer/.test(String(first.target))) return { held: false, why: `it spawned first, but not the resident: ${first.target}` };
