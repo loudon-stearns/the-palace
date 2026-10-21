@@ -45,6 +45,8 @@ export interface TitleBlockProps extends Base {
   drawn?: string;
   maker?: string;
   tool?: string;
+  /** row: one line for a plugin window; every cell a left rule, subtitle hidden. */
+  variant?: 'sheet' | 'row';
 }
 
 export interface PanelProps extends Base {

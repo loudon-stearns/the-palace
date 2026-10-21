@@ -61,7 +61,7 @@
   /* ── TitleBlock ─────────────────────────────────────────────────────── */
   function TitleBlock(p) {
     var kv = function (k, v) { return v == null ? null : h('span', null, h('span', { className: 'dt-tb__k' }, k + ' '), v); };
-    return h('div', { className: cx('dt', 'dt-tb', p.className), style: p.style },
+    return h('div', { className: cx('dt', 'dt-tb', p.variant === 'row' && 'dt-tb--row', p.className), style: p.style },
       h('div', { className: 'dt-tb__cell dt-tb__cell--wide' },
         h('div', { className: 'dt-tb__name' }, p.name),
         p.subtitle ? h('div', { className: 'dt-tb__sub' }, p.subtitle) : null),

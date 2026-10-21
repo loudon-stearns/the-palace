@@ -58,6 +58,15 @@
 .dt-tb__k { color: var(--ink-2); }
 .dt-tb__status { font-size: 12px; line-height: 18px; font-weight: 600; }
 
+/* one-row title block for a plugin window: every cell a left rule, no top rules, subtitle hidden */
+.dt-tb--row { grid-template-columns: auto auto 1fr auto; max-width: none; }
+.dt-tb--row .dt-tb__cell, .dt-tb--row .dt-tb__cell--wide { grid-column: auto; border-top: 0; border-left: 1px solid var(--ink); padding: var(--space-1) var(--space-3); }
+.dt-tb--row .dt-tb__cell:first-child { border-left: 0; }
+.dt-tb--row .dt-tb__name { font-size: 15px; line-height: 20px; }
+.dt-tb--row .dt-tb__sub { display: none; }
+.dt-tb--row .dt-tb__row { line-height: 20px; }
+.dt-tb--row .dt-tb__status { line-height: 20px; }
+
 /* ── Dimension ──────────────────────────────────────────────────────── */
 .dt-dimension { display: flex; align-items: center; gap: var(--space-2); color: var(--source-design); min-width: 0; }
 .dt-dimension--v { flex-direction: column; }

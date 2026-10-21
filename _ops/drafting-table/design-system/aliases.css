@@ -28,7 +28,7 @@
   --fg-on-accent: var(--on-accent);
 
   /* signal */
-  --accent:       var(--accent);
+  /* --accent keeps its own name in both systems; no alias (a self-reference would invalidate it) */
   --accent-dim:   var(--accent);
   --accent-soft:  color-mix(in srgb, var(--accent) 10%, transparent);
   --accent-line:  var(--accent);

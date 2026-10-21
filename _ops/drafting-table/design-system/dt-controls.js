@@ -307,7 +307,7 @@
 
   /* ── Sheet pieces ─────────────────────────────────────────────────── */
   function titleBlock(o) {
-    var root = el('div', 'dt dt-tb');
+    var root = el('div', 'dt dt-tb' + (o.variant === 'row' ? ' dt-tb--row' : ''));
     function kv(k, v) { var s = el('span'); if (v == null) return s; s.appendChild(el('span', 'dt-tb__k', k ? k + ' ' : '')); s.appendChild(document.createTextNode(v)); return s; }
     var c1 = el('div', 'dt-tb__cell dt-tb__cell--wide'); c1.appendChild(el('div', 'dt-tb__name', o.name || '')); if (o.subtitle) c1.appendChild(el('div', 'dt-tb__sub', o.subtitle));
     var c2 = el('div', 'dt-tb__cell dt-tb__cell--wide'), r = el('div', 'dt-tb__row'); r.appendChild(kv('No.', o.number)); r.appendChild(kv('version', o.version)); r.appendChild(kv('', o.unit)); c2.appendChild(r);
