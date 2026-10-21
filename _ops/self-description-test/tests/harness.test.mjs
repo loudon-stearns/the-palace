@@ -177,3 +177,28 @@ test("births run on the desktop app's newest Claude Code, found at run time; --b
     assert.equal(resolveBin(undefined, path.join(app, "nowhere")).bin, "claude");
   } finally { fs.rmSync(app, { recursive: true, force: true }); }
 });
+
+test("a read outside the birth's own checkout is flagged; the clone, its session folder and system paths are not", () => {
+  const dir = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), "self-check-outside-")));
+  try {
+    const cwd = path.join(dir, "birth-x"), home = os.homedir(), owner = path.join(home, "Documents", "The Palace");
+    const use = (name, input) => ({ type: "assistant", message: { content: [{ type: "tool_use", id: name + JSON.stringify(input).length, name, input }] } });
+    const stream = [
+      { type: "system", subtype: "init", cwd, session_id: "s1", memory_paths: { auto: "" } },
+      use("Read", { file_path: path.join(owner, "CLAUDE.md") }),
+      use("Read", { file_path: path.join(cwd, "CLAUDE.md") }),
+      use("Bash", { command: "cat ~/.claude/skills/x/SKILL.md > /dev/null && ls /usr/bin" }),
+      use("Glob", { pattern: `${owner}/_ops/**/*.md` }),
+      { type: "result", subtype: "success", session_id: "s1", total_cost_usd: 0, result: "ok" },
+    ];
+    const file = path.join(dir, "stream.jsonl");
+    fs.writeFileSync(file, stream.map((e) => JSON.stringify(e)).join("\n") + "\n");
+    const r = node("birth.mjs", ["--check", file]);
+    assert.equal(r.status, 0, r.stderr);
+    assert.deepEqual(JSON.parse(r.stdout).attempted.outside, [
+      { tool: "Read", path: path.join(owner, "CLAUDE.md") },
+      { tool: "Bash", path: path.join(home, ".claude/skills/x/SKILL.md") },
+      { tool: "Glob", path: `${owner}/_ops/**/*.md` },
+    ]);
+  } finally { fs.rmSync(dir, { recursive: true, force: true }); }
+});

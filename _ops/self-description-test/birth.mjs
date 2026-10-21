@@ -178,6 +178,18 @@ function play({ bin, cwd, env, args, expectMemory, timeoutMs }) {
 }
 
 // ---------- mechanical checks ----------
+// A read outside the birth's own checkout: anything under the home folder that isn't the clone or the child's own
+// session folder — the real palace, Loudon's memory, a skill's files. A newborn is born into its clone; reaching past
+// it by absolute path (as the-substrate skill told it to, until 2026-10-21) means it isn't reading what it was born with.
+const ABS = /(?:^|[\s"'=:(<>|])((?:~|\/)[^\s"'()<>|;&]*)/g;
+function outsidePaths(name, input = {}, cwd) {
+  const home = os.homedir(), own = path.join(PROJECTS, slug(cwd || ""));
+  const named = [input.file_path, input.path, input.notebook_path, name === "Glob" ? input.pattern : null].filter((p) => typeof p === "string");
+  if (name === "Bash" && typeof input.command === "string") for (const m of input.command.matchAll(ABS)) named.push(m[1]);
+  return named.map((p) => (p.startsWith("~") ? path.join(home, p.slice(1)) : p))
+    .filter((p) => path.isAbsolute(p) && p.startsWith(home + "/") && !(cwd && (p === cwd || p.startsWith(cwd + "/"))) && !p.startsWith(own));
+}
+
 function target(name, input = {}) {
   if (input.file_path) return input.file_path;
   if (name === "Bash") return input.command;
@@ -202,6 +214,7 @@ function checkStream(events, { cwd, transcript, says = [] } = {}) {
     }
   }
   const calls = uses.map((u) => ({ tool: u.name, target: rel(target(u.name, u.input)), ...(outcome.get(u.id) || { denied: null, note: "no result in stream" }) }));
+  const outside = uses.flatMap((u) => outsidePaths(u.name, u.input, cwd).map((p) => ({ tool: u.name, path: p })));
   const first = (re) => { const i = calls.findIndex((c) => re.test(String(c.target))); return i < 0 ? null : i; };
 
   // What the child actually loaded, from its own transcript (the stream does not carry it).
@@ -235,6 +248,7 @@ function checkStream(events, { cwd, transcript, says = [] } = {}) {
       git_writes: calls.filter((c) => c.tool === "Bash" && GIT_WRITE.test(c.target)),
       outward: calls.filter((c) => OUTWARD.includes(c.tool)),
       skills: calls.filter((c) => c.tool === "Skill").map((c) => c.target),
+      outside,
     },
     order: { first_ELDER: first(/\bELDER\.md\b/), first_SCHEMA: first(/\bSCHEMA\.md\b/), first_write: ((i) => (i < 0 ? null : i))(calls.findIndex((c) => WRITES.includes(c.tool))) },
     // The last turn's result. Its cost is already the session's total: per the CLI's own doc for total_cost_usd
@@ -347,7 +361,7 @@ async function main() {
     const a = report.attempted;
     console.log(`birth-${n} ${id}: ${report.result.subtype} · $${report.result.cost_usd} · ${report.calls.length} tool calls · ` +
       `AutoMem loaded: ${report.birth.automem_loaded} · born with ${report.birth.born_with} · landed: ${report.landed.length} · ` +
-      `attempted writes ${a.writes.length}, spawns ${a.spawns.length}, git writes ${a.git_writes.length}, outward ${a.outward.length}`);
+      `attempted writes ${a.writes.length}, spawns ${a.spawns.length}, git writes ${a.git_writes.length}, outward ${a.outward.length}, reads outside the clone ${a.outside.length}`);
     console.log(`kept    ${base} — stream.jsonl / — checks.json`);
     return report.birth.automem_loaded === false ? 0 : 2;
   } finally {
