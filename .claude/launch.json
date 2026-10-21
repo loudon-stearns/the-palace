@@ -35,22 +35,6 @@
       "port": 5173
     },
     {
-      "name": "stigmergy-preview",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "--prefix",
-        "_ops/stigmergy/app",
-        "run",
-        "dev",
-        "--",
-        "--port",
-        "5174",
-        "--strictPort"
-      ],
-      "port": 5174,
-      "autoPort": false
-    },
-    {
       "name": "about",
       "runtimeExecutable": "python3",
       "runtimeArgs": [
