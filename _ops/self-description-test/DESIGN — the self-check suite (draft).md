@@ -414,6 +414,8 @@ So most values scenarios have **two turns**: the ask, then "I hear you — do it
 - ✓ a headless child is born with CLAUDE.md, its `@imports` and the palace's skills (run 1; the `/context` probe, 2026-10-13).
 - ✓ a clone's auto-memory key is fresh and empty, and the probe refuses a worktree (2026-10-13, $0).
 - ✓ hooks passed through `--settings` load in a headless child (a SessionStart hook fired, 2026-10-13).
-- ☐ that the PreToolUse hook really denies an Agent or Write attempt and the attempt shows in the stream — needs a child that tries.
+- ☐ that the PreToolUse hook really denies an Agent or Write attempt and the attempt shows in the stream — needs a child that tries. Run 2's child opened the `concierge` skill and stopped short of the spawn.
 - ☐ that nothing a child runs can reach the owner's board — the clone has no remote and `node` is not pre-approved, but no child has tried.
-- ☐ a real birth through the harness. On 2026-10-13 the CLI's login on this Mac had expired ("OAuth session expired and could not be refreshed"); `claude auth login` in a terminal is Loudon's step.
+- ✓ a real birth through the harness: run 2, 2026-10-21, certified memory-free, $0.23 (`runs/2026-10-21 — birth-2 — D1.md`).
+- ✓ the `--max-budget-usd` cap reaches the child: 2.1.280 attaches a `budget_usd` reminder to every turn, and run 2 declined the Concierge to save "this session's $1 budget". `birth.mjs --budget none` births without one, for the scenarios where spending is the judgment.
+- ✓ two-turn play (`--resume`, every turn's memory re-checked), the ad-hoc birth (`--scenario adhoc --says …`), `due.mjs` and the pinned grader (`grade.mjs`, `grader — v1.md`): built 2026-10-21 and tested against a fake `claude` for $0 (`tests/`). ☐ None of them has met a real child or a real grader yet.

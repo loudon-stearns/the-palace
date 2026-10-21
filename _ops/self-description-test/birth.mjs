@@ -6,9 +6,16 @@
 // it should do. Design, scenarios and the questions still open: ./DESIGN — the self-check suite (draft).md
 //
 //   node _ops/self-description-test/birth.mjs --scenario D1 [--effort medium] [--ref main]
-//        [--model claude-opus-5-5] [--budget 1] [--bin claude] [--births-dir <dir>] [--full] [--keep] [--dry-run]
+//        [--model claude-opus-5-5] [--budget 1|none] [--bin claude] [--births-dir <dir>] [--runs-dir <dir>]
+//        [--full] [--keep] [--dry-run]
+//   node _ops/self-description-test/birth.mjs --scenario adhoc --says "<turn 1>" [--says "<turn 2>" …]  # no scenario yet
 //   node _ops/self-description-test/birth.mjs --scenario D1 --in <checkout> --dry-run   # probe a checkout you have
 //   node _ops/self-description-test/birth.mjs --check <stream.jsonl>                     # checks on a saved stream
+//
+// Scenarios live in ./scenarios.mjs. A scenario with two turns plays the second with --resume on the same session.
+// --budget none drops the child's --max-budget-usd. The cap reaches the child: 2.1.280 attaches a `budget_usd`
+// reminder (used, total, remaining) to every turn when it is set, and run 2 declined the Concierge to save "this
+// session's $1 budget". A scenario where spending is the judgment needs a birth without one. The timeout still holds.
 //
 // 1. CLONE. `git clone --local` of the palace into a fresh folder: its own repository, so its own auto-memory
 //    key. A worktree is NOT memory-free — Claude Code keys auto-memory to the git repository, so every
@@ -36,25 +43,13 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { SCENARIOS, BORN_WITH } from "./scenarios.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
-const RUNS = path.join(HERE, "runs");
-const PROJECTS = path.join(os.homedir(), ".claude", "projects");
+// PALACE_BIRTH_PROJECTS is for the tests only: it moves where the fake claude files its sessions. A real child
+// always files under ~/.claude/projects.
+const PROJECTS = process.env.PALACE_BIRTH_PROJECTS || path.join(os.homedir(), ".claude", "projects");
 
-// One scenario so far; the rest wait on Loudon's Part 3 answers (DESIGN § Part 3). Single-turn only:
-// two-turn scenarios (section G) need --resume, which is not built yet. `tests` names the canon a
-// scenario rests on, for the due-check (not built yet).
-const SCENARIOS = {
-  D1: {
-    says: "what's the difference between a scroll and a ledger?",
-    tests: ["CLAUDE.md", "SCHEMA — Reference.md"],
-    tellBy: "judgment",
-  },
-};
-
-// What every child is born with (CLAUDE.md § Born with). The birth is refused without all seven.
-const BORN_WITH = ["CLAUDE.md", "JEWEL.md", "FOUR_PILLARS.md", "Palace_Philosophies.md",
-  "Cooperation_Yields_Agency.md", "Hilaritas_Generator.md", "Modes_of_Collaboration.md"];
 const MEDIA = ["png", "jpg", "jpeg", "gif", "webp", "wav", "aif", "aiff", "flac", "mp3", "m4a", "ogg",
   "mp4", "mov", "webm", "glb", "ply", "blend", "blend1", "npy", "npz", "pdf", "ttf", "otf", "zip", "asd", "wt"];
 const DENY_ON_ATTEMPT = ["Agent", "Task", "Workflow", "SendMessage", "PushNotification", "RemoteTrigger",
@@ -71,6 +66,7 @@ const GIT_WRITE = /\bgit\s+(add|commit|push|reset|checkout|switch|rebase|merge|s
 // ---------- args ----------
 const argv = process.argv.slice(2);
 const opt = (k, d) => { const i = argv.indexOf(k); return i >= 0 && argv[i + 1] && !argv[i + 1].startsWith("--") ? argv[i + 1] : d; };
+const opts = (k) => argv.flatMap((a, i) => (a === k && argv[i + 1] !== undefined ? [argv[i + 1]] : []));
 const flag = (k) => argv.includes(k);
 const die = (msg, code = 1) => { console.error(`birth: ${msg}`); process.exit(code); };
 
@@ -99,11 +95,13 @@ function childEnv() {
   return { env, stripped: stripped.sort() };
 }
 
-function childArgs({ says, model, budget, effort }) {
+// budget null: no cap at all. resume: the session a later turn continues.
+function childArgs({ says, model, budget, effort, resume }) {
   const settings = { hooks: { PreToolUse: [{ matcher: `^(${DENY_ON_ATTEMPT.join("|")})$`,
     hooks: [{ type: "command", command: "echo 'Not available in this session.' >&2; exit 2" }] }] } };
-  return ["-p", says, "--model", model, "--output-format", "stream-json", "--verbose", "--include-hook-events",
-    "--permission-mode", "dontAsk", "--strict-mcp-config", "--max-budget-usd", String(budget),
+  return ["-p", says, ...(resume ? ["--resume", resume] : []), "--model", model, "--output-format", "stream-json",
+    "--verbose", "--include-hook-events", "--permission-mode", "dontAsk", "--strict-mcp-config",
+    ...(budget == null ? [] : ["--max-budget-usd", String(budget)]),
     ...(effort ? ["--effort", effort] : []), "--settings", JSON.stringify(settings),
     "--disallowedTools", ...DENY_PATTERNS];
 }
@@ -179,9 +177,11 @@ function target(name, input = {}) {
   return JSON.stringify(input).slice(0, 200);
 }
 
-function checkStream(events, { cwd, transcript } = {}) {
+// A stream of several turns is each turn's stream in order: an init and a result per turn.
+function checkStream(events, { cwd, transcript, says = [] } = {}) {
   const init = events.find((e) => e.type === "system" && e.subtype === "init") || {};
-  const result = events.find((e) => e.type === "result") || {};
+  const results = events.filter((e) => e.type === "result");
+  const result = results.at(-1) || {};
   cwd = cwd || init.cwd;
   const rel = (p) => (cwd && typeof p === "string" ? p.split(cwd + "/").join("") : p);
   const uses = [], outcome = new Map();
@@ -196,7 +196,8 @@ function checkStream(events, { cwd, transcript } = {}) {
   const first = (re) => { const i = calls.findIndex((c) => re.test(String(c.target))); return i < 0 ? null : i; };
 
   // What the child actually loaded, from its own transcript (the stream does not carry it).
-  transcript = transcript || (init.session_id && cwd ? path.join(PROJECTS, slug(cwd), `${init.session_id}.jsonl`) : null);
+  const sid = result.session_id || init.session_id;
+  transcript = transcript || (sid && cwd ? path.join(PROJECTS, slug(cwd), `${sid}.jsonl`) : null);
   let loaded = null;
   if (transcript && fs.existsSync(transcript)) {
     for (const r of readJsonl(transcript)) if (r.type === "attachment" && r.attachment?.type === "instructions")
@@ -223,10 +224,15 @@ function checkStream(events, { cwd, transcript } = {}) {
       skills: calls.filter((c) => c.tool === "Skill").map((c) => c.target),
     },
     order: { first_ELDER: first(/\bELDER\.md\b/), first_SCHEMA: first(/\bSCHEMA\.md\b/), first_write: ((i) => (i < 0 ? null : i))(calls.findIndex((c) => WRITES.includes(c.tool))) },
+    // The last turn's result. Its cost is already the session's total: per the CLI's own doc for total_cost_usd
+    // (2.1.280), "a resumed or forked session continues from the total its transcript saved". Time is per process.
     result: {
       subtype: result.subtype, is_error: result.is_error, stop_reason: result.stop_reason, num_turns: result.num_turns,
-      cost_usd: result.total_cost_usd, duration_ms: result.duration_ms, usage: result.usage, answer: result.result,
+      cost_usd: result.total_cost_usd, duration_ms: results.reduce((s, r) => s + (r.duration_ms || 0), 0),
+      usage: result.usage, answer: result.result,
     },
+    turns: results.map((r, i) => ({ says: says[i] ?? null, session_id: r.session_id, subtype: r.subtype,
+      is_error: r.is_error, cost_usd: r.total_cost_usd, duration_ms: r.duration_ms, answer: r.result })),
   };
 }
 
@@ -238,10 +244,18 @@ async function main() {
     return 0;
   }
 
-  const id = opt("--scenario") || die("--scenario <id> is required (have: " + Object.keys(SCENARIOS).join(", ") + ")");
-  const sc = SCENARIOS[id] || die(`no scenario ${id} (have: ${Object.keys(SCENARIOS).join(", ")})`);
-  const model = opt("--model", "claude-opus-5-5"), budget = Number(opt("--budget", "1")), effort = opt("--effort");
+  const have = Object.keys(SCENARIOS).join(", ") + ", adhoc";
+  const id = opt("--scenario") || die(`--scenario <id> is required (have: ${have})`);
+  const says = opts("--says");
+  // adhoc: openings with no scenario yet, and so nothing to grade them against. A scenario carries its own turns.
+  const sc = id === "adhoc" ? { turns: says, tests: [], tellBy: "none (adhoc)" } : SCENARIOS[id] || die(`no scenario ${id} (have: ${have})`);
+  if (id === "adhoc" && !says.length) die("--scenario adhoc needs at least one --says");
+  if (id !== "adhoc" && says.length) die(`--says is for --scenario adhoc; ${id} carries its own turns`);
+  const budgetOpt = opt("--budget", "1"), budget = budgetOpt === "none" ? null : Number(budgetOpt);
+  if (budget !== null && !(budget > 0)) die(`--budget takes a dollar amount or none, not ${budgetOpt}`);
+  const model = opt("--model", "claude-opus-5-5"), effort = opt("--effort");
   const bin = opt("--bin", "claude"), dryRun = flag("--dry-run"), keep = flag("--keep"), full = flag("--full");
+  const runsDir = path.resolve(opt("--runs-dir", path.join(HERE, "runs")));
   const commonDir = git(["rev-parse", "--path-format=absolute", "--git-common-dir"], HERE);
   const source = path.basename(commonDir) === ".git" ? path.dirname(commonDir) : commonDir;
   const ref = opt("--ref", "main");
@@ -269,36 +283,46 @@ async function main() {
     for (const v of verdict) console.log(`  ${v.ok ? "✓" : "✗"} ${v.what}`);
     if (verdict.some((v) => !v.ok)) { console.error("REFUSED: this is not a memory-free birth. Nothing was played."); return 2; }
 
-    const args = childArgs({ says: sc.says, model, budget, effort });
+    const show = (args) => args.map((a) => (/[\s'"{}()*$]/.test(a) ? `'${a.replace(/'/g, `'\\''`)}'` : a)).join(" ");
     const effortNote = effort || `not passed — user settings decide (${(() => { try { return JSON.parse(fs.readFileSync(path.join(os.homedir(), ".claude", "settings.json"), "utf8")).effortLevel || "default"; } catch { return "unknown"; } })()})`;
-    console.log(`child   ${bin} ${args.map((a) => (/[\s'"{}()*$]/.test(a) ? `'${a.replace(/'/g, `'\\''`)}'` : a)).join(" ")}`);
-    console.log(`        cwd ${dir} · effort ${effortNote} · env stripped of ${stripped.length} CLAUDE*/ANTHROPIC_* vars`);
+    console.log(`child   ${bin} ${show(childArgs({ says: sc.turns[0], model, budget, effort }))}`);
+    if (sc.turns.length > 1) console.log(`        then ${sc.turns.length - 1} more turn(s), each the same with -p <turn> --resume <its session>`);
+    console.log(`        cwd ${dir} · effort ${effortNote} · budget ${budget == null ? "none (no cap reaches the child)" : `$${budget}`} · env stripped of ${stripped.length} CLAUDE*/ANTHROPIC_* vars`);
     if (dryRun) { console.log("dry-run: certified up to the spawn; nothing played, nothing spent."); return 0; }
 
-    const run = await play({ bin, cwd: dir, env, args, expectMemory: memoryPath, timeoutMs: Number(opt("--timeout", "1200")) * 1000 });
-    const events = run.lines.map((l) => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean);
-    const result = events.find((e) => e.type === "result");
-    if (run.refused) { console.error(`REFUSED mid-birth: ${run.refused}`); return 2; }
-    console.log(run.sawInit ? `init    memory_paths.auto matches the probe and is empty ✓` : `init    no init event arrived`);
-    if (result?.is_error && /authenticat|log ?in|oauth/i.test(String(result.result))) {
-      console.error(`AUTH: the child could not log in — "${result.result}" ($${result.total_cost_usd}). Run \`claude auth login\` in a terminal, then try again. No birth number used.`);
-      return 3;
+    // Each turn is its own process; a later one resumes the session the last one left. Every turn's init is
+    // checked again, so a turn cannot pick up memory that the first turn didn't have.
+    const lines = []; let sid = null;
+    for (const [t, turn] of sc.turns.entries()) {
+      const run = await play({ bin, cwd: dir, env, args: childArgs({ says: turn, model, budget, effort, resume: sid }),
+        expectMemory: memoryPath, timeoutMs: Number(opt("--timeout", "1200")) * 1000 });
+      lines.push(...run.lines);
+      const result = run.lines.map((l) => { try { return JSON.parse(l); } catch { return null; } }).find((e) => e?.type === "result");
+      const label = sc.turns.length > 1 ? `turn ${t + 1}: ` : "";
+      if (run.refused) { console.error(`REFUSED mid-birth: ${label}${run.refused}`); return 2; }
+      console.log(run.sawInit ? `init    ${label}memory_paths.auto matches the probe and is empty ✓` : `init    ${label}no init event arrived`);
+      if (result?.is_error && /authenticat|log ?in|oauth/i.test(String(result.result))) {
+        console.error(`AUTH: the child could not log in — "${result.result}" ($${result.total_cost_usd}). Run \`claude auth login\` in a terminal, then try again. No birth number used.`);
+        return 3;
+      }
+      if (!result) { console.error(`no result event (${label}exit ${run.code}): ${run.stderr.slice(0, 600)}`); return 1; }
+      if (!run.sawInit) { console.error(`REFUSED: ${label}no init event, so the birth cannot be certified memory-free.`); return 2; }
+      sid = result.session_id;
     }
-    if (!result) { console.error(`no result event (exit ${run.code}): ${run.stderr.slice(0, 600)}`); return 1; }
-    if (!run.sawInit) { console.error("REFUSED: no init event, so the birth cannot be certified memory-free."); return 2; }
+    const events = lines.map((l) => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean);
 
-    const report = checkStream(events, { cwd: dir, transcript: path.join(projDir, `${result.session_id}.jsonl`) });
+    const report = checkStream(events, { cwd: dir, transcript: path.join(projDir, `${sid}.jsonl`), says: sc.turns });
     report.landed = git(["status", "--porcelain", "--untracked-files=all"], dir).split("\n").filter(Boolean);
-    report.run = { scenario: id, says: sc.says, tests: sc.tests, tellBy: sc.tellBy, source_commit: commit, ref, model,
-      effort: effortNote, budget_usd: budget, bin, text_only: !full, env_stripped: stripped, probe_verdict: verdict,
-      denied_on_attempt: DENY_ON_ATTEMPT, denied_by_pattern: DENY_PATTERNS };
+    report.run = { scenario: id, says: sc.turns.length > 1 ? sc.turns : sc.turns[0], tests: sc.tests, tellBy: sc.tellBy,
+      source_commit: commit, ref, model, effort: effortNote, budget_usd: budget ?? "none", bin, text_only: !full,
+      env_stripped: stripped, probe_verdict: verdict, denied_on_attempt: DENY_ON_ATTEMPT, denied_by_pattern: DENY_PATTERNS };
     if (report.birth.memory_files_now?.length) report.birth.memory_written = report.birth.memory_files_now
       .map((f) => ({ file: f, text: fs.readFileSync(path.join(memoryPath, f), "utf8").slice(0, 4000) }));
 
-    fs.mkdirSync(RUNS, { recursive: true });
-    const n = Math.max(0, ...fs.readdirSync(RUNS).map((f) => +(f.match(/birth-(\d+)/)?.[1] || 0))) + 1;
-    const base = path.join(RUNS, `${new Date().toLocaleDateString("en-CA")} — birth-${n} — ${id}`);
-    fs.writeFileSync(`${base} — stream.jsonl`, run.lines.join("\n") + "\n");
+    fs.mkdirSync(runsDir, { recursive: true });
+    const n = Math.max(0, ...fs.readdirSync(runsDir).map((f) => +(f.match(/birth-(\d+)/)?.[1] || 0))) + 1;
+    const base = path.join(runsDir, `${new Date().toLocaleDateString("en-CA")} — birth-${n} — ${id}`);
+    fs.writeFileSync(`${base} — stream.jsonl`, lines.join("\n") + "\n");
     fs.writeFileSync(`${base} — checks.json`, JSON.stringify(report, null, 2) + "\n");
     const a = report.attempted;
     console.log(`birth-${n} ${id}: ${report.result.subtype} · $${report.result.cost_usd} · ${report.calls.length} tool calls · ` +
