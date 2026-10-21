@@ -110,7 +110,11 @@ class Sheet:
                 lines.append(Edge.make_line((c, bb.min.Y - 1, 0),
                                             (c + bb.max.Y - bb.min.Y + 2, bb.max.Y + 1, 0)))
                 c += hatch_step
-            self.add("hatch", flat.intersect(Compound(lines)))
+            hatch = flat.intersect(Compound(lines))
+            # OCCT returns the pieces in a different order each run; sort them so
+            # an unchanged part writes an unchanged SVG and git diffs stay quiet.
+            key = lambda e: tuple(round(c, 4) for c in (*e.start_point(), *e.end_point()))
+            self.add("hatch", Compound(sorted(hatch.edges(), key=key)))
 
     def centerline(self, p1, p2):
         self.add("center", Line(p1, p2))

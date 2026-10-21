@@ -23,6 +23,7 @@ from handwheel_dims import CAP, LADDER, LADDER_CLEARS, MOTOR, PLA_DENSITY, GM520
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "out")
 CHECKS = []
+STAMP = GM5208_READ + "T00:00:00"   # a fixed STEP header date: same source, same bytes
 
 
 # ── measuring the solid ───────────────────────────────────────────────────────
@@ -169,7 +170,7 @@ def motor_sheet():
                    "handwheel_dims.py MOTOR")
     finish(sh, "HH-MOT-00 motor reference")
     step = os.path.join(OUT, "HH-MOT-00 motor envelope.step")
-    export_step(m, step)
+    export_step(m, step, timestamp=STAMP)
     readback(m, step)
 
 
@@ -238,7 +239,7 @@ def cap_sheet():
                    "handwheel_dims.py CAP")
     finish(sh, "HH-CAP-01 light cap")
     step = os.path.join(OUT, "HH-CAP-01 light cap.step")
-    export_step(c, step)
+    export_step(c, step, timestamp=STAMP)
     readback(c, step)
     print("STL withheld for HH-CAP-01: the rotor bolt pattern is MEASURE")
     return mp
@@ -280,7 +281,7 @@ def ladder_sheet():
     finish(sh, "HH-LAD-01 fit ladder")
     both = Compound(rings)
     step, stl = (os.path.join(OUT, f"HH-LAD-01 fit ladder.{x}") for x in ("step", "stl"))
-    export_step(both, step)
+    export_step(both, step, timestamp=STAMP)
     export_stl(both, stl, tolerance=0.005, angular_tolerance=0.05)
     readback(both, step, stl)
 

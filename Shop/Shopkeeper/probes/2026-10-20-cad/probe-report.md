@@ -81,17 +81,22 @@ For this cap, `--disc-radius 0.0434`, not `0.040`. Both ways want 100 % infill: 
 1. ImageMagick's own SVG renderer drops `<line>` and `<circle>`: the first preview had no outlines at all. Headless Chrome draws what a browser and Obsidian draw.
 2. build123d draws text as glyph outlines, and its SVG writer took 35 of 47 seconds on one sheet's words, under a loaded machine. Writing real SVG `<text>` made the sheets 19 to 40 times smaller (the motor's went from 470 KB to 13 KB) and the numbers greppable.
 3. Fusing two bodies erases the seam between them. When the seam is a dimension (the shaft's outside), keep them as two bodies.
-4. A diameter dimension must pass through the centre. My first ladder sheet put it 12 mm low, where its arrows measured a chord. Caught by eye, not by a check: a check for this belongs in the sheet module.
+4. A diameter dimension must pass through the centre. My first ladder sheet put it 12 mm low, where its arrows measured a chord, and I caught it by eye, not by a check. The sheet module's `diameter()` now takes a centre and a radius, so it can only draw through the centre.
 5. build123d's built-in dimensions put the label between the arrows whether it fits or not. The sheet module now moves the arrows outside and the label beside them on a narrow span, as a draughtsman would.
 6. Headless Chrome can linger after writing its screenshot while other headless browsers load the machine. The build waits for the file, then closes it, with a throwaway profile each time.
 7. `Mesher().read` turns every STL triangle into a CAD face and took minutes; a signed-volume sum in numpy takes milliseconds.
 8. SVG collapses runs of spaces, and Chrome ignores `xml:space` on a group; runs are written as no-break spaces.
+9. The same source gave different bytes: OCCT hands back the hatch lines in a new order each run, and STEP files stamp the time they were written. Sorted hatch lines and a fixed STEP date make two builds byte-identical (SVG, STL, STEP and `check.json`, checked 2026-10-20), so a git diff of a sheet shows only what changed in the part. The PNG previews are Chrome's and are not held to this.
 
 ## The honest cost
 
 - **Host:** `mac`, CPU only. No GPU, no network after the install. Chrome for previews (already installed); JetBrains Mono for the house face (installed; falls back to any monospace).
 - **Footprint:** a 581 MB venv; about 20 s for three sheets.
 - **Licenses:** build123d Apache-2.0; the OCP bindings Apache-2.0; OpenCASCADE itself is LGPL-2.1 with an exception (general knowledge, not read here); ezdxf MIT; FreeCAD LGPL-2+ (its own banner). Nothing blocks a published drawing or a sold part.
+
+## Where it would live
+
+A new Specialist, **CAD Drafter** (tool build123d, status stub), drafted at `Shop/Shopkeeper/drafts/CAD Drafter — draft.md` with its test plan beside it. What an elder does to land it is in `Shop/Shopkeeper/drafts/CAD Drafter — proposal.md`. On 2026-10-20 Loudon agreed the commission's line: this probe names the gap and stays a probe, and the Handwheel's real drawings become the Specialist's first job, sent through the [[Maker]].
 
 ## My read
 
