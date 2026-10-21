@@ -183,10 +183,10 @@ export function enchantSteward(opts) {
   const slug = kebab(title);
   const dir = join(palaceRoot, '_ops/agents/permanent', slug);
   if (existsSync(dir)) return { title, status: 'already_enchanted', dir, slug };
-  // A page that has ended takes no steward until the Revival Ceremony wakes it
-  // (Loudon, 2026-10-21) — the deck's ENCHANT button gave finished pages one.
+  // A page that has ended takes no steward while it stays ended (Loudon,
+  // 2026-10-21) — the deck's ENCHANT button gave finished pages one.
   const ended = pageEnded(fm);
-  if (ended) return { title, status: 'page_ended', slug, errors: [`${title} takes no steward: ${ended.sentence}. Revive it first.`] };
+  if (ended) return { title, status: 'page_ended', slug, errors: [`${title} takes no steward: ${ended.sentence}, and a page that has ended takes none.`] };
 
   mkdirSync(dir, { recursive: true });
   const manifestPath = join(dir, 'manifest.json');

@@ -6,8 +6,9 @@
 // for canon). This is the reading end of that review, built on the seam's own
 // listOwedProposals: the proposals grouped by the page they would change, the
 // section each one names as the page reads it today (the words before), and
-// the one line every caller says when it mentions the review — the PROJECTS
-// deck, the Return, the Weave. One reader, so the three never disagree.
+// the count every caller reads: the PROJECTS deck counts each page's own, and
+// the Return and the Weave say it as one line (reviewLine). One reader, so
+// they never disagree.
 //
 // Read-only. A proposal is settled on its own ledger, by payProposal or
 // declineProposal, once Loudon has said yes or no (settle-proposal.mjs);
