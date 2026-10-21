@@ -232,3 +232,7 @@ The fix is **CQRS, not relocation**: the append-only board stays the event log (
 ---
 
 *How the system was first conceived, the Stage A pilot's full record (its nine spec gaps and four voice findings), the build as it stood in May, and the stories behind its decisions live in [[Project Stewardship System — Context]].*
+
+## Active Baton
+
+[[Project Stewardship System — baton]] — drafted 2026-10-21
