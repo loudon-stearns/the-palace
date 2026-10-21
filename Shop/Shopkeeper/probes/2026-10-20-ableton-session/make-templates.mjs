@@ -1,0 +1,173 @@
+#!/usr/bin/env node
+// make-templates.mjs: the XML shells live-set.mjs builds from, taken from files
+// Live itself wrote. Run once on a Mac with Live 12 Suite installed; the output
+// is checked in under templates/ so the writer needs nothing but Node.
+//
+//     node make-templates.mjs --midi-track-from "<a Live 12.4 set>.als" \
+//                             --plugin-from "<a Live 12.4 set holding a VST3 instrument>.als" \
+//                             --clip-from "<a Live 12.4 set holding a MIDI clip with notes>.als" \
+//                             --part-from "<a Live 12.4 set holding a Simpler with a sample>.als"
+//
+// What comes out, and where each piece came from:
+//   blank-set.als      Live's own empty set, copied: <Live 12 Suite.app>/Contents/App-Resources/Builtin/Templates/DefaultLiveSet.als
+//   Sampler.adv        Live's default Sampler, copied:  …/Core Library/Defaults/Instruments/Sampler.adv
+//   Limiter.adv        Live's default Limiter, copied:  …/Core Library/Defaults/Audio Effects/Limiter.adv
+//   midi-track.xml     one <MidiTrack> as Live 12.4 saved it, with its devices, clips, automation and name removed
+//   plugin-device.xml  one <PluginDevice> holding a VST3 instrument, with the plugin's name, id, state and parameters removed
+//   midi-clip.xml      one arrangement <MidiClip>, with its notes removed
+//   sample-part.xml    one <MultiSamplePart>, with its sample reference blanked
+//   README.md          this list, with the Live version that wrote each source
+//
+// The craft is GoButton's (Loudon's GoButton Local repo, tools/v2-convert.js § 2 THE XML):
+// clone elements the saving Live wrote, change only what must change. Nothing here
+// is written from a schema in someone's head.
+
+import fs from 'node:fs';
+import path from 'node:path';
+import zlib from 'node:zlib';
+import { fileURLToPath } from 'node:url';
+
+const HERE = path.dirname(fileURLToPath(import.meta.url));
+const OUT = path.join(HERE, 'templates');
+const LIVE = '/Applications/Ableton Live 12 Suite.app/Contents/App-Resources';
+
+const argv = process.argv.slice(2);
+const opt = (k) => { const i = argv.indexOf(k); return i >= 0 ? argv[i + 1] : null; };
+const need = (k) => { const v = opt(k); if (!v) { console.error('missing ' + k); process.exit(2); } return v; };
+
+const gunzip = (file) => zlib.gunzipSync(fs.readFileSync(file)).toString('utf8');
+const header = (xml) => (xml.match(/<Ableton [^>]*>/) || ['?'])[0];
+const creator = (xml) => (xml.match(/Creator="([^"]*)"/) || [, '?'])[1];
+
+// The whole element <tag …>…</tag> starting at the first match from `from`, nesting-aware.
+function element(xml, tag, from = 0, mustContain = null) {
+  const open = new RegExp('<' + tag + '(?= |>)', 'g');
+  open.lastIndex = from;
+  let m;
+  while ((m = open.exec(xml))) {
+    const start = m.index;
+    const re = new RegExp('<(/?)' + tag + '(?= |>|/>)[^>]*?(/?)>', 'g');
+    re.lastIndex = start;
+    let depth = 0, end = -1, t;
+    while ((t = re.exec(xml))) {
+      if (t[1]) { depth--; if (depth === 0) { end = t.index + t[0].length; break; } }
+      else if (!t[2]) depth++;
+      else if (depth === 0) { end = t.index + t[0].length; break; }
+    }
+    if (end < 0) throw new Error('unclosed <' + tag + '>');
+    const text = xml.slice(start, end);
+    if (!mustContain || text.includes(mustContain)) return { start, end, text };
+    open.lastIndex = end;
+  }
+  return null;
+}
+
+fs.mkdirSync(OUT, { recursive: true });
+const notes = [];
+
+// ---- copied whole ----
+for (const [name, rel] of [
+  ['blank-set.als', 'Builtin/Templates/DefaultLiveSet.als'],
+  ['Sampler.adv', 'Core Library/Defaults/Instruments/Sampler.adv'],
+  ['Limiter.adv', 'Core Library/Defaults/Audio Effects/Limiter.adv'],
+]) {
+  const src = path.join(LIVE, rel);
+  fs.copyFileSync(src, path.join(OUT, name));
+  notes.push(`- \`${name}\` — copied from \`<Live 12 Suite.app>/Contents/App-Resources/${rel}\`, written by ${creator(gunzip(src))}`);
+}
+
+// ---- a MIDI track shell ----
+{
+  const file = need('--midi-track-from');
+  const xml = gunzip(file);
+  const el = element(xml, 'MidiTrack');
+  if (!el) throw new Error('no MidiTrack in ' + file);
+  let t = el.text;
+  const name = element(t, 'Name');
+  t = t.slice(0, name.start) + '<Name>\n<EffectiveName Value="" />\n<UserName Value="" />\n<Annotation Value="" />\n<MemorizedFirstClipName Value="" />\n</Name>' + t.slice(name.end);
+  t = t.replace(/<AutomationEnvelopes>[\s\S]*?<\/AutomationEnvelopes>/, '<AutomationEnvelopes>\n<Envelopes />\n</AutomationEnvelopes>');
+  const devices = element(t, 'Devices');
+  t = t.slice(0, devices.start) + '<Devices />' + t.slice(devices.end);
+  const arr = element(t, 'ArrangerAutomation');
+  t = t.slice(0, arr.start) + '<ArrangerAutomation>\n<Events />\n<AutomationTransformViewState>\n<IsTransformPending Value="false" />\n<TimeAndValueTransforms />\n</AutomationTransformViewState>\n</ArrangerAutomation>' + t.slice(arr.end);
+  // one empty clip slot per scene is generated by the writer; keep one slot as the pattern
+  t = t.replace(/<ClipSlotList>[\s\S]*?<\/ClipSlotList>/g, (all) => {
+    const slot = element(all, 'ClipSlot');
+    return '<ClipSlotList>\n' + slot.text + '\n</ClipSlotList>';
+  });
+  t = t.replace(/<AutomationLanes>\s*<AutomationLanes>[\s\S]*?<\/AutomationLanes>/, '<AutomationLanes>\n<AutomationLanes />');
+  t = t.replace(/<MemorizedFirstClipName Value="[^"]*" \/>/, '<MemorizedFirstClipName Value="" />');
+  t = t.replace(/^<MidiTrack Id="\d+"/, '<MidiTrack Id="0"');
+  if (/<(MidiClip|AudioClip) /.test(t)) throw new Error('the MIDI track shell still holds a clip');
+  fs.writeFileSync(path.join(OUT, 'midi-track.xml'), t + '\n');
+  notes.push(`- \`midi-track.xml\` — a <MidiTrack> from a set written by ${creator(xml)}; devices, clips, automation lanes and name removed`);
+}
+
+// ---- a VST3 plugin device shell ----
+{
+  const file = need('--plugin-from');
+  const xml = gunzip(file);
+  const el = element(xml, 'PluginDevice', 0, '<Vst3PluginInfo');
+  if (!el) throw new Error('no VST3 PluginDevice in ' + file);
+  let d = el.text;
+  d = d.replace(/<ProcessorState>[\s\S]*?<\/ProcessorState>/, '<ProcessorState />')
+       .replace(/<ControllerState>[\s\S]*?<\/ControllerState>/, '<ControllerState />')
+       .replace(/<ParameterList>[\s\S]*?<\/ParameterList>/, '<ParameterList />')
+       .replace(/<Fields\.(\d) Value="-?\d+" \/>/g, '<Fields.$1 Value="0" />')
+       .replace(/<UserName Value="[^"]*" \/>/, '<UserName Value="" />')
+       .replace(/<ViewData Value="[^"]*" \/>/, '<ViewData Value="{}" />');
+  // the plugin's name sits after </Preset>: <Name Value="…" /> then <Uid>
+  d = d.replace(/(<\/Preset>\s*)<Name Value="[^"]*" \/>/, '$1<Name Value="" />');
+  d = d.replace(/<WinPosX Value="-?\d+" \/>/, '<WinPosX Value="-1" />').replace(/<WinPosY Value="-?\d+" \/>/, '<WinPosY Value="-1" />');
+  const presetName = d.match(/<Vst3Preset[\s\S]*?<Name Value="([^"]*)" \/>/);
+  if (presetName && presetName[1]) d = d.replace(presetName[0], presetName[0].replace(presetName[1], ''));
+  fs.writeFileSync(path.join(OUT, 'plugin-device.xml'), d + '\n');
+  notes.push(`- \`plugin-device.xml\` — a <PluginDevice> holding a VST3 instrument, from a set written by ${creator(xml)}; the plugin's name, class id, state and parameter list removed`);
+}
+
+// ---- an arrangement MIDI clip shell ----
+{
+  const file = need('--clip-from');
+  const xml = gunzip(file);
+  const el = element(xml, 'MidiClip', 0, '<MidiNoteEvent');
+  if (!el) throw new Error('no MIDI clip with notes in ' + file);
+  let c = el.text;
+  c = c.replace(/<KeyTracks>[\s\S]*?<\/KeyTracks>/, '<KeyTracks />')
+       .replace(/<EventLists>[\s\S]*?<\/EventLists>/, '<EventLists />')
+       .replace(/<NoteProbabilityGroups>[\s\S]*?<\/NoteProbabilityGroups>/, '<NoteProbabilityGroups />')
+       .replace(/<Envelopes>\s*<Envelopes>[\s\S]*?<\/Envelopes>\s*<\/Envelopes>/, '<Envelopes>\n<Envelopes />\n</Envelopes>')
+       .replace(/<Name Value="[^"]*" \/>/, '<Name Value="" />')
+       .replace(/<Annotation Value="[^"]*" \/>/, '<Annotation Value="" />')
+       .replace(/^<MidiClip Id="\d+" Time="[^"]+">/, '<MidiClip Id="0" Time="0">');
+  fs.writeFileSync(path.join(OUT, 'midi-clip.xml'), c + '\n');
+  notes.push(`- \`midi-clip.xml\` — an arrangement <MidiClip> from a set written by ${creator(xml)}; its notes and name removed`);
+}
+
+// ---- a sample part shell (Sampler and Simpler share it) ----
+{
+  const file = need('--part-from');
+  const xml = gunzip(file);
+  const el = element(xml, 'MultiSamplePart', 0, '<SampleRef>');
+  if (!el) throw new Error('no MultiSamplePart in ' + file);
+  let p = el.text;
+  p = p.replace(/<Name Value="[^"]*" \/>/, '<Name Value="" />')
+       .replace(/<RelativePath Value="[^"]*" \/>/g, '<RelativePath Value="" />')
+       .replace(/<Path Value="[^"]*" \/>/g, '<Path Value="" />')
+       .replace(/<OriginalFileSize Value="\d+" \/>/g, '<OriginalFileSize Value="0" />')
+       .replace(/<OriginalCrc Value="\d+" \/>/g, '<OriginalCrc Value="0" />')
+       .replace(/<LastModDate Value="\d+" \/>/, '<LastModDate Value="0" />')
+       .replace(/<SourceContext>[\s\S]*?<\/SourceContext>/, '<SourceContext />')
+       .replace(/<SlicePoints>[\s\S]*?<\/SlicePoints>/, '<SlicePoints />')
+       .replace(/^<MultiSamplePart Id="\d+"/, '<MultiSamplePart Id="0"');
+  if (/\/Users\//.test(p)) throw new Error('the sample part shell still holds a path');
+  fs.writeFileSync(path.join(OUT, 'sample-part.xml'), p + '\n');
+  notes.push(`- \`sample-part.xml\` — a <MultiSamplePart> from a Simpler in a set written by ${creator(xml)}; its sample reference blanked`);
+}
+
+fs.writeFileSync(path.join(OUT, 'README.md'),
+  '# Templates — what live-set.mjs clones from\n\n' +
+  'Made by `make-templates.mjs` on ' + new Date().toISOString().slice(0, 10) + '. Every shell is an element Live itself wrote; the writer changes only what must change (names, ids, values, references) and renumbers every pointee id from the set\'s `NextPointeeId`, which is GoButton\'s craft (`tools/v2-convert.js` § 2 THE XML in Loudon\'s GoButton Local repo).\n\n' +
+  notes.join('\n') + '\n\n' +
+  'The two `.adv` files and `blank-set.als` are Ableton\'s own defaults, kept as the gzipped originals. The `.xml` shells came from sets on Loudon\'s Mac and carry nothing of those sets but their shape.\n');
+console.log('wrote ' + OUT);
+for (const n of notes) console.log('  ' + n);
