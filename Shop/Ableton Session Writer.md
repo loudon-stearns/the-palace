@@ -120,7 +120,7 @@ The writer and `check` prove structure: Live opens the Set, the devices load, ev
 
 ## Known gaps
 
-- **No ear yet.** Both proofs are structural plus a transport run; nobody has listened to a Set with the intended plugin. The Frustration Set waits for a clean-signed build to be installed and scanned.
+- **No ear yet.** All three Sets have opened in Live 12.4.6: Simple Synth and Tear and Heal on the first run, and the Frustration Set at 00:16:02 on 2026-10-21, from the Set unchanged, after the plugin's re-seal and a rescan. What remains is that nobody has played the ride; the first job names that as Loudon's.
 - **Drum Rack not built.** A one-shot library would map better to pads; the Sampler path covers multisampled instruments. Simpler is unused.
 - **AU not targeted**; VST3 only. Live loads either; the writer knows the VST3 class id from the bundle's manifest.
 - **Macros unused** (lanes instead). A Piece-tier brief that wants a performance surface may want an Instrument Rack with macros; that is more XML, not a different craft.
