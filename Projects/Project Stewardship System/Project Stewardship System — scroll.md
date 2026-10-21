@@ -68,6 +68,20 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="proof-2026-10-21-listening-queue" -->
+### 2026-10-21 — The listening queue: seven unheard renders, put in front of Loudon's ears
+> Fleet reading 1's first suggestion, made. Each of seven stewards' newest unheard render plays for 45 seconds at most, with keep, redirect or not yet beside it. His answers led to the redirect: nine stewards to the VST path.
+
+- **What it is.** One page, made for The Daily Page's sit on this entry. It plays only on a press, stops when the tab is hidden, and posts nothing.
+- **What it plays.** Shepard Tone Synthesizer, Slime Mold Delay, Neural Granular Synthesis, Action Potential Oscillator, Haptic Handwheel, Waveguide Synthesizer and 2D Torus Wavetable Synthesizer, each from its own bundle. The audio stays where the stewards left it and is not tracked, so the page plays on this Mac only.
+
+**Artifacts:**
+- [index.html — the listening queue](Projects/Project Stewardship System/proofs/2026-10-21-listening-queue/index.html)
+
+_Left rough:_ the page is the rough as played. No agent heard any of the audio.
+<sub>`proof-2026-10-21-listening-queue` · written by hand · copied from the morning's rough</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-10-21T10-18-47-04-00" -->
 ### 2026-10-21 — Plan revised: H is the VST production path; Max blocks deferred
 

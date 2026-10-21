@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Listening Queue</title>
+<style>
+:root{
+  --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif;
+  --sans:'Manrope',system-ui,-apple-system,Helvetica,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  --bg:#0a0a0f;--e1:#12121a;--e2:#1a1a28;--border:#4a4a5e;--soft:rgba(255,255,255,.06);
+  --fg1:#e8e8f0;--fg2:#c8c8d8;--fg3:#8a8aa0;--fg4:#4a4a5a;
+  --accent:#e8b84a;--accent-soft:rgba(232,184,74,.10);--accent-line:rgba(232,184,74,.5);
+  --ok:#00ff66;--warn:#ff9b4a;--info:#4a8fff;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg1);font-family:var(--serif);font-size:17px;line-height:1.75}
+main{max-width:860px;margin:0 auto;padding:48px 16px 80px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--fg3)}
+h1{font-family:var(--sans);font-weight:300;font-size:40px;line-height:1.1;margin:.3em 0 .4em}
+.lead{font-size:20px;color:var(--fg2);max-width:640px}
+.stat{display:flex;gap:28px;flex-wrap:wrap;margin:28px 0 36px;font-family:var(--mono);font-size:12px;color:var(--fg3)}
+.stat b{display:block;font-family:var(--sans);font-weight:300;font-size:34px;color:var(--fg1)}
+.row{border:1px solid var(--soft);background:var(--e1);border-radius:6px;padding:18px 18px 16px;margin:0 0 14px;transition:border-color .2s cubic-bezier(.4,0,.2,1)}
+.row.on{border-color:var(--accent-line)}
+.row.done{opacity:.72}
+.top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.who{font-family:var(--sans);font-weight:500;font-size:18px}
+.since{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--warn);text-transform:uppercase}
+.ask{color:var(--fg2);margin:6px 0 12px}
+.ask q{font-style:italic}
+.file{font-family:var(--mono);font-size:11px;color:var(--fg4);word-break:break-all}
+.ctl{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:10px}
+button{font-family:var(--mono);font-size:12px;letter-spacing:.08em;background:var(--e2);color:var(--fg1);border:1px solid var(--border);border-radius:4px;padding:7px 12px;cursor:pointer}
+button:hover{border-color:var(--accent-line)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button.play{min-width:84px}
+.row.on button.play{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+button.v[aria-pressed=true]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.bar{flex:1 1 140px;height:4px;background:var(--e2);border-radius:2px;overflow:hidden;min-width:120px}
+.bar i{display:block;height:100%;width:0;background:var(--accent)}
+.t{font-family:var(--mono);font-size:11px;color:var(--fg3);min-width:72px}
+.note{width:100%;margin-top:10px;background:var(--bg);color:var(--fg1);border:1px solid var(--border);border-radius:4px;padding:8px 10px;font-family:var(--serif);font-size:16px;display:none}
+.row.redirect .note{display:block}
+.missing{color:var(--warn);font-family:var(--mono);font-size:12px}
+.out{margin-top:36px;border-top:1px solid var(--soft);padding-top:24px}
+pre{white-space:pre-wrap;background:var(--e1);border:1px solid var(--soft);border-radius:6px;padding:14px;font-family:var(--mono);font-size:12px;color:var(--fg2);min-height:3em}
+footer{margin-top:56px;font-family:var(--sans);font-size:13px;color:var(--fg3)}
+footer em{font-weight:300}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Sketch · the daily page · 2026-10-21</div>
+  <h1>The Listening Queue</h1>
+  <p class="lead">Seven stewards, each one's newest thing that nobody has heard. Each plays its first 45 seconds at most, only when you press play, and stops if you look away. Say keep, redirect or not yet. Nothing is posted; your answers gather at the bottom.</p>
+  <div class="stat">
+    <div><b>87</b>of 121 rough notes say nobody has heard it</div>
+    <div><b>93</b>October cycles made something</div>
+    <div><b id="heard">0</b>heard this morning</div>
+  </div>
+  <div id="q"></div>
+  <div class="out">
+    <div class="eyebrow">What you said</div>
+    <pre id="said">Nothing yet.</pre>
+    <button id="copy">Copy</button>
+  </div>
+  <footer>Loud’n <em>Live</em> · a rough for Project Stewardship System, from fleet reading 1’s first suggestion</footer>
+</main>
+<script>
+const ROOT = '../../../';
+const Q = [
+  {who:'Shepard Tone Synthesizer', since:10, file:'Shepard Tone Synthesizer/proofs/2026-10-18-stage4-F-sum-window-15.wav',
+   ask:'Nobody has listened yet: the thump and flutter are measured from numbers, not heard.', listen:'The thump should be gone. Is the flutter still there?'},
+  {who:'Slime Mold Delay', since:8, file:'Slime Mold Delay/headless/2026-10-13-flow-moves.wav',
+   ask:'I haven’t heard it.', listen:'The headline: left flakes for 15 seconds, then the right ones take over.'},
+  {who:'Neural Granular Synthesis', since:6, file:'Neural Granular Synthesis/surge-before-lock.wav',
+   ask:'Whether the surge reads as ‘alive’ or as an unsteady level is still an open ear question.', listen:'Alive, or just wobbly?'},
+  {who:'Action Potential Oscillator', since:8, file:'Action Potential Oscillator/neuropulse-pitch-anchor.wav',
+   ask:'Nobody has listened yet.', listen:'Does the spike train hold a pitch you could play?'},
+  {who:'Haptic Handwheel', since:1, file:'Haptic Handwheel/proofs/feel-lab/turntable_hold.wav',
+   ask:'I haven’t listened to turntable_hold.wav, or to the new turntable_bumps.wav.', listen:'The oldest unheard thing in the fleet.'},
+  {who:'Waveguide Synthesizer', since:10, file:'Waveguide Synthesizer/offline-v1.12/lesson-run.wav',
+   ask:'Not heard through speakers: nobody has taken the lesson by hand.', listen:'The bowed string’s lesson, start to finish.'},
+  {who:'2D Torus Wavetable Synthesizer', since:7, file:'2D Torus Wavetable Synthesizer/Instruments/singer_demo.m4a',
+   ask:'Nobody has played the Singer in a real browser or heard the demo.', listen:'The Singer, as the steward imagined it.'}
+];
+const CAP = 45;
+const verdict = {}, notes = {}, heard = new Set();
+let audio = null, cur = -1, timer = 0;
+const qEl = document.getElementById('q');
+function fmt(s){s=Math.max(0,Math.floor(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+Q.forEach((it,i)=>{
+  const r = document.createElement('section'); r.className='row'; r.id='r'+i;
+  r.innerHTML = `<div class="top"><span class="who">${it.who}</span><span class="since">rough since cycle ${it.since}</span></div>
+  <div class="ask"><q>${it.ask}</q><br>${it.listen}</div>
+  <div class="file">${it.file}</div>
+  <div class="ctl"><button class="play">▸ play</button><div class="bar"><i></i></div><span class="t">0:00</span>
+  <button class="v" data-v="keep" aria-pressed="false">keep</button><button class="v" data-v="redirect" aria-pressed="false">redirect</button><button class="v" data-v="not yet" aria-pressed="false">not yet</button></div>
+  <textarea class="note" rows="2" placeholder="What should it do instead?"></textarea>`;
+  r.querySelector('.play').onclick = ()=> cur===i ? stop() : play(i);
+  r.querySelectorAll('.v').forEach(b=> b.onclick = ()=>{
+    verdict[i] = verdict[i]===b.dataset.v ? undefined : b.dataset.v;
+    r.querySelectorAll('.v').forEach(x=>x.setAttribute('aria-pressed', String(x.dataset.v===verdict[i])));
+    r.classList.toggle('redirect', verdict[i]==='redirect');
+    r.classList.toggle('done', !!verdict[i]);
+    render();
+  });
+  r.querySelector('.note').oninput = e=>{notes[i]=e.target.value;render()};
+  qEl.appendChild(r);
+});
+function play(i){
+  stop();
+  const it = Q[i], r = document.getElementById('r'+i);
+  audio = new Audio(encodeURI(ROOT+it.file).replace(/#/g,'%23'));
+  audio.onerror = ()=>{ r.querySelector('.t').innerHTML='<span class="missing">not on this Mac</span>'; stop(); };
+  audio.ontimeupdate = ()=>{
+    const lim = Math.min(CAP, audio.duration||CAP);
+    r.querySelector('.bar i').style.width = Math.min(100,100*audio.currentTime/lim)+'%';
+    r.querySelector('.t').textContent = fmt(audio.currentTime)+' / '+fmt(lim);
+    if (audio.currentTime >= CAP) stop();
+  };
+  audio.onended = stop;
+  cur = i; r.classList.add('on'); r.querySelector('.play').textContent='■ stop';
+  audio.play().then(()=>{heard.add(i);document.getElementById('heard').textContent=heard.size}).catch(()=>stop());
+  timer = setTimeout(stop, (CAP+1)*1000);
+}
+function stop(){
+  clearTimeout(timer);
+  if (audio){ audio.pause(); audio.src=''; audio=null; }
+  if (cur>=0){ const r=document.getElementById('r'+cur); r.classList.remove('on'); r.querySelector('.play').textContent='▸ play'; }
+  cur = -1;
+}
+document.addEventListener('visibilitychange', ()=>{ if (document.hidden) stop(); });
+window.addEventListener('blur', stop);
+window.addEventListener('pagehide', stop);
+function render(){
+  const lines = Q.map((it,i)=> verdict[i] ? `- ${it.who} · ${it.file.split('/').pop()} · ${verdict[i]}${notes[i]?' · "'+notes[i].trim()+'"':''}` : null).filter(Boolean);
+  document.getElementById('said').textContent = lines.length ? lines.join('\n') : 'Nothing yet.';
+}
+document.getElementById('copy').onclick = ()=>{ try{ navigator.clipboard.writeText(document.getElementById('said').textContent); }catch(e){} };
+</script>
+</body>
+</html>

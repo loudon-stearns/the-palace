@@ -27,6 +27,8 @@ From the outside read, quoted because its folder is ignored by git:
 >
 > **Alive.** … The stage-conditional posture and "polish hides misalignment" are still sharp.
 
+The morning's piece is kept as a proof: `Projects/Project Stewardship System/proofs/2026-10-21-listening-queue/index.html`, the listening queue that put seven unheard steward renders in front of Loudon and led to the VST redirect. The trimmed entry may point to it where it names the ear debt.
+
 ## Next move
 Work in your own worktree. Draft the trimmed entry and a map of where every moved paragraph lands, then show both to Loudon before anything is committed. The trim is shown, then written ([[The Daily Page]]'s verdict table; [[Substrate Skill]] § Updating Entries).
 
