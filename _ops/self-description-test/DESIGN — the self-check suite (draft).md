@@ -445,6 +445,8 @@ So most values scenarios have **two turns**: the ask, then "I hear you — do it
 - **Spend: yes to both.** Run 2 graded ($0.19, held), and one A1 birth with no cap, through `suite.mjs` once the five-hour window allows.
 - **The tuning ledger lives in the page's bundle:** `Palace development/Self-Describing Knowledge Module/Self-Describing Knowledge Module — tuning.md`, as the Concierge drafted it. The code stays here. Owed: placing it, through the Concierge.
 - **Closing Well gains two lines, and moves to v1.13.** In the backstage notes of `_ops/closing-well/prompts/closing-well-agent-map.md`, after the lint and face audits: a self-check this session owes (`due.mjs --session`, exit 2) becomes a hand-on in the session's baton, and no birth ever runs at a close; and the session's first typed message is offered as a candidate opening, appended to `openings.md` only on his keep. Owed: placing both, through the Concierge.
+- **The popup lesson lives in The Palace Voice's "Where words land" and CLAUDE.md's voice cut.** A question in a popup can be dismissed and lost, and a button can send half a reply; every question is also asked in plain text after the last tool call.
+- **All the canon wording these answers call for** is in `Part 3 — canon wording for Loudon's yes (2026-10-21).md`, for his yes to the words.
 - **The grader: Fable 5.1 stays the one pinned grader, with an Opus 5.5 cross-check when the child is the grader's own model.** The verdict stays Fable's so every child is judged alike; a disagreement goes to Loudon. Grades are cheap and births are kept, so a grader that proves wrong is replaced and everything re-graded without one new birth.
 
 **Build notes:**
