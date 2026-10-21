@@ -93,7 +93,7 @@ Loudon, 2026-10-21: "the look of the CRT should be a architecturally drawn frame
 A plugin's own visualizer plays on a screen in the middle of its editor. The template draws the set; the plugin owns the picture.
 
 - **Where:** between the two heroes, in the bench direction. It sits in the row that already takes the window's spare height and stretches into that row's spare width, so showing it moves nothing else and the editor still fits at every size. In the edge direction the pad is the centre, and there is no CRT.
-- **The casing:** a television drawn as an elevation, in the dress's ink. The cabinet and its inner edge, the bezel's lip, the rounded face of the tube, two knobs, a speaker grille, the feet, and centre marks as on a drawing. It is redrawn to whatever space it has.
+- **The casing:** just a bezel, drawn as an elevation in the dress's ink: its outer and inner edges, the lip round the tube, and the tube's rounded face. It is redrawn to whatever space it has. Loudon, later the same day: "just a bezel and no decorative knobs or grills. We will leave it to the later build to add controls to the crt if needed". Controls on the CRT, if a plugin wants them, are its own to add.
 - **The glass:** `#screen .glass`, also reachable as `window.editorScreen`. It is black until the plugin draws, and anything goes in it: a canvas, WebGL, three.js, any colour at all.
 - **The vignette:** a slight darkening at the glass's edges, laid over whatever the plugin draws.
 - **It lives through rebuilds.** The screen is made once and moved into each rebuild, so a visualizer's canvas and its WebGL context survive every resize.

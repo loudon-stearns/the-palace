@@ -54,7 +54,7 @@ To see the real editor, run `./plugin.sh editor` after `install`. The host check
 
 To check that the editor fits its window, run `python3 machinery/tools/ui.py fit plugins/<Name>`. It tries the minimum, default and maximum from `plugin.json` (or each `--size`) and exits 1 if the panels overflow at any of them. A plugin with many controls needs a larger `min`: Simple Synth's 20 controls under two heroes fit nothing smaller than 920 × 540. Find the size with a few `--size` values, then set it.
 
-**The CRT, and where its feed would hook in.** The editor keeps a screen between the heroes for a plugin's own visualizer: a television drawn in the dress's ink, with whatever the plugin likes inside (design standard § The CRT). `"screen": true` in the `ui` block shows it, and a visualizer draws into `window.editorScreen`. Nothing feeds it yet. The probes are the natural feed:
+**The CRT, and where its feed would hook in.** The editor keeps a screen between the heroes for a plugin's own visualizer: a bezel drawn in the dress's ink, with whatever the plugin likes inside (design standard § The CRT). `"screen": true` in the `ui` block shows it, and a visualizer draws into `window.editorScreen`. Nothing feeds it yet. The probes are the natural feed:
 - Each `step` already leaves its latest values in `alg.probes`, and `processBlock` copies them out only for the harness (`machinery/src/PluginProcessor.cpp:192`).
 - A live feed would copy them once per block, on the audio thread, into a `std::array<std::atomic<float>, algo::kNumProbes>` on the processor. Nothing on that thread waits or allocates.
 - The editor (`machinery/src/PluginEditor.cpp`) would read that array on a 60 Hz `juce::Timer` and send it with `web->emitEventIfBrowserIsVisible ("probes", …)`.

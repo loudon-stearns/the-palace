@@ -65,7 +65,7 @@
   /* ── heroes ─────────────────────────────────────────────────────────────── */
   .heroes { flex: 1; min-height: calc(var(--hero) + 64px); display: flex; gap: var(--s-8); align-items: center; justify-content: center; padding: var(--s-2) 0; }
   .heroes .ctl { --knob: var(--hero); }
-  /* ── the CRT (screen): a television drawn as an elevation around a screen the plugin owns ── */
+  /* ── the CRT (screen): a bezel drawn as an elevation around a screen the plugin owns ── */
   .heroes .screen { flex: 1 1 0; align-self: stretch; min-width: 0; position: relative; }
   .screen .casing { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
   .screen .casing * { fill: none; stroke: var(--ink-3, var(--fg-3)); stroke-width: 1; vector-effect: non-scaling-stroke; }
@@ -335,12 +335,13 @@ function toggle(p) {
   return wrap;
 }
 
-// ── the CRT: a television drawn as an elevation, in the dress's ink, around a screen the plugin owns ──
+// ── the CRT: a bezel drawn as an elevation, in the dress's ink, around a screen the plugin owns ──
 // Loudon, 2026-10-21: "the look of the CRT should be a architecturally drawn frame, like a design of the
 // outside of a TV, but then we leave the inside to be anything, but there is a slight vingnette on the
-// edges." The casing and the vignette are the template's; whatever is drawn in .glass is the plugin's
-// and may break from the dress entirely. It is made once and moved into each rebuild, so what a
-// visualizer put in .glass (a canvas, its WebGL context) lives through every resize.
+// edges", and then "just a bezel and no decorative knobs or grills". The bezel and the vignette are the
+// template's; whatever is drawn in .glass is the plugin's and may break from the dress entirely. Controls
+// on the CRT, if a plugin wants them, are its own to add. It is made once and moved into each rebuild,
+// so what a visualizer put in .glass (a canvas, its WebGL context) lives through every resize.
 let SCREEN = null;
 function crt() {
   if (SCREEN) return SCREEN;
@@ -352,24 +353,15 @@ function crt() {
   const draw = () => {
     const W = el.clientWidth, H = el.clientHeight;
     if (!W || !H) return;
-    const feet = 6, cw = Math.min(W - 2, (H - feet - 2) * 1.55), ch = cw / 1.55;   // the set, about 3:2, standing on its feet
-    const x0 = (W - cw) / 2, y0 = (H - feet - ch) / 2;
-    const b = Math.max(8, ch * 0.07), strip = Math.max(22, cw * 0.16);               // bezel; the control strip on the right
-    const sx = x0 + b, sy = y0 + b, sw = cw - 2 * b - strip, sh = ch - 2 * b, r = Math.min(sw, sh) * 0.12;
-    const kx = x0 + cw - b / 2 - strip / 2, kr = Math.min(strip * 0.26, sh * 0.09);
+    const cw = Math.min(W - 2, (H - 2) * 1.55), ch = cw / 1.55;   // the bezel, about 3:2
+    const x0 = (W - cw) / 2, y0 = (H - ch) / 2, b = Math.max(8, ch * 0.07);
+    const sx = x0 + b, sy = y0 + b, sw = cw - 2 * b, sh = ch - 2 * b, r = Math.min(sw, sh) * 0.12;
     const rect = (x, y, w, h, rr, cls) => svgEl("rect", { x, y, width: w, height: h, rx: rr, class: cls || "" });
-    const line = (x1, y1, x2, y2) => svgEl("line", { x1, y1, x2, y2 });
     casing.replaceChildren(
-      rect(x0, y0, cw, ch, 3, "outline"),                                   // the cabinet
-      rect(x0 + 3, y0 + 3, cw - 6, ch - 6, 2),                              // its inner edge
-      rect(sx - 3, sy - 3, sw + 6, sh + 6, r + 2),                          // the bezel's lip
-      rect(sx, sy, sw, sh, r, "opening"),                                   // the tube's face
-      svgEl("circle", { cx: kx, cy: sy + kr * 1.6, r: kr }), line(kx, sy + kr * 0.6, kx, sy + kr * 1.3),   // two knobs, each with its pointer
-      svgEl("circle", { cx: kx, cy: sy + kr * 4.4, r: kr }), line(kx, sy + kr * 3.4, kx, sy + kr * 4.1),
-      ...Array.from({ length: 7 }, (_, i) => line(kx - strip * 0.3, sy + sh * 0.55 + i * sh * 0.06, kx + strip * 0.3, sy + sh * 0.55 + i * sh * 0.06)),   // the speaker grille
-      rect(x0 + cw * 0.1, y0 + ch, cw * 0.08, feet, 0), rect(x0 + cw * 0.82, y0 + ch, cw * 0.08, feet, 0),        // the feet
-      line(x0 + cw / 2, y0 - 5, x0 + cw / 2, y0 + 2), line(x0 + cw / 2, y0 + ch - 2, x0 + cw / 2, y0 + ch + 5),   // centre marks, as on a drawing
-      line(x0 - 5, y0 + ch / 2, x0 + 2, y0 + ch / 2), line(x0 + cw - 2, y0 + ch / 2, x0 + cw + 5, y0 + ch / 2));
+      rect(x0, y0, cw, ch, 3, "outline"),            // the bezel's outer edge
+      rect(x0 + 3, y0 + 3, cw - 6, ch - 6, 2),       // and its inner edge
+      rect(sx - 3, sy - 3, sw + 6, sh + 6, r + 2),   // the lip round the tube
+      rect(sx, sy, sw, sh, r, "opening"));           // the tube's face
     for (const e of [glass, vignette]) Object.assign(e.style, { left: sx + "px", top: sy + "px", width: sw + "px", height: sh + "px", borderRadius: r + "px" });
   };
   new ResizeObserver(draw).observe(el);   // ResizeObserver still fires where WebKit has stopped animation frames
