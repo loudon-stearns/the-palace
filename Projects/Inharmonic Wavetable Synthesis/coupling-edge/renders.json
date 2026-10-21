@@ -1,0 +1,485 @@
+{
+ "01-coupling-as-the-knob": {
+  "file": "renders/01-coupling-as-the-knob.wav",
+  "seconds": 40,
+  "peak_before_normalising": 0.717,
+  "nan": false,
+  "notes": "stretch held 0.15 decade past the edge at K 6; coupling at 2 Hz at 0, 20 and 40 s (torn), 18 Hz at 10 and 30 s (locked)",
+  "segments": [
+   {
+    "from_s": 0,
+    "to_s": 5,
+    "label": "K 2 → 10",
+    "pitch_hz": 108.67,
+    "wobble_hz": 0.673
+   },
+   {
+    "from_s": 5,
+    "to_s": 10,
+    "label": "K 10 → 18",
+    "pitch_hz": 108.92,
+    "wobble_hz": 0.292
+   },
+   {
+    "from_s": 10,
+    "to_s": 15,
+    "label": "K 18 → 10",
+    "pitch_hz": 108.93,
+    "wobble_hz": 0.37
+   },
+   {
+    "from_s": 15,
+    "to_s": 20,
+    "label": "K 10 → 2",
+    "pitch_hz": 108.57,
+    "wobble_hz": 0.724
+   },
+   {
+    "from_s": 20,
+    "to_s": 25,
+    "label": "K 2 → 10",
+    "pitch_hz": 108.56,
+    "wobble_hz": 0.739
+   },
+   {
+    "from_s": 25,
+    "to_s": 30,
+    "label": "K 10 → 18",
+    "pitch_hz": 108.93,
+    "wobble_hz": 0.299
+   },
+   {
+    "from_s": 30,
+    "to_s": 35,
+    "label": "K 18 → 10",
+    "pitch_hz": 108.9,
+    "wobble_hz": 0.401
+   },
+   {
+    "from_s": 35,
+    "to_s": 40,
+    "label": "K 10 → 2",
+    "pitch_hz": 108.57,
+    "wobble_hz": 0.709
+   }
+  ]
+ },
+ "01-coupling-as-the-knob-alone": {
+  "file": "renders/01-coupling-as-the-knob-alone.wav",
+  "seconds": 40,
+  "peak_before_normalising": 0.578,
+  "nan": false,
+  "notes": "the same, the tone alone",
+  "segments": [
+   {
+    "from_s": 0,
+    "to_s": 40,
+    "label": "the tone alone",
+    "pitch_hz": 108.76,
+    "wobble_hz": 0.578
+   }
+  ]
+ },
+ "02-the-margin-on-every-note": {
+  "file": "renders/02-the-margin-on-every-note.wav",
+  "seconds": 48,
+  "peak_before_normalising": 0.67,
+  "nan": false,
+  "notes": "E1 to A4, 6 s each: 3 s a quarter decade under the edge (holds), 3 s a quarter over (tears); coupling scaled with pitch",
+  "segments": [
+   {
+    "from_s": 0,
+    "to_s": 3,
+    "label": "E1 under",
+    "pitch_hz": 41,
+    "wobble_hz": 0.182
+   },
+   {
+    "from_s": 3,
+    "to_s": 6,
+    "label": "E1 over",
+    "pitch_hz": 40.54,
+    "wobble_hz": 0.442
+   },
+   {
+    "from_s": 6,
+    "to_s": 9,
+    "label": "A1 under",
+    "pitch_hz": 54.71,
+    "wobble_hz": 0.2
+   },
+   {
+    "from_s": 9,
+    "to_s": 12,
+    "label": "A1 over",
+    "pitch_hz": 54.15,
+    "wobble_hz": 0.476
+   },
+   {
+    "from_s": 12,
+    "to_s": 15,
+    "label": "E2 under",
+    "pitch_hz": 81.97,
+    "wobble_hz": 0.197
+   },
+   {
+    "from_s": 15,
+    "to_s": 18,
+    "label": "E2 over",
+    "pitch_hz": 81.04,
+    "wobble_hz": 0.603
+   },
+   {
+    "from_s": 18,
+    "to_s": 21,
+    "label": "A2 under",
+    "pitch_hz": 109.45,
+    "wobble_hz": 0.3
+   },
+   {
+    "from_s": 21,
+    "to_s": 24,
+    "label": "A2 over",
+    "pitch_hz": 108.21,
+    "wobble_hz": 0.747
+   },
+   {
+    "from_s": 24,
+    "to_s": 27,
+    "label": "E3 under",
+    "pitch_hz": 163.95,
+    "wobble_hz": 0.388
+   },
+   {
+    "from_s": 27,
+    "to_s": 30,
+    "label": "E3 over",
+    "pitch_hz": 162.19,
+    "wobble_hz": 0.979
+   },
+   {
+    "from_s": 30,
+    "to_s": 33,
+    "label": "A3 under",
+    "pitch_hz": 218.9,
+    "wobble_hz": 0.443
+   },
+   {
+    "from_s": 33,
+    "to_s": 36,
+    "label": "A3 over",
+    "pitch_hz": 216.64,
+    "wobble_hz": 1.079
+   },
+   {
+    "from_s": 36,
+    "to_s": 39,
+    "label": "E4 under",
+    "pitch_hz": 327.95,
+    "wobble_hz": 0.541
+   },
+   {
+    "from_s": 39,
+    "to_s": 42,
+    "label": "E4 over",
+    "pitch_hz": 324.43,
+    "wobble_hz": 1.391
+   },
+   {
+    "from_s": 42,
+    "to_s": 45,
+    "label": "A4 under",
+    "pitch_hz": 437.76,
+    "wobble_hz": 0.601
+   },
+   {
+    "from_s": 45,
+    "to_s": 48,
+    "label": "A4 over",
+    "pitch_hz": 432.91,
+    "wobble_hz": 1.625
+   }
+  ]
+ },
+ "03-strikes-four-heights": {
+  "file": "renders/03-strikes-four-heights.wav",
+  "seconds": 24,
+  "peak_before_normalising": 0.724,
+  "nan": false,
+  "notes": "held a quarter decade under the edge; strikes thrown +0.25, +0.5, +1 and +1.5 decades past it (decay 0.25 s), two of each",
+  "segments": [
+   {
+    "from_s": 0,
+    "to_s": 3,
+    "label": "strike +0.25 dec",
+    "pitch_hz": 109.44,
+    "wobble_hz": 0.301
+   },
+   {
+    "from_s": 3,
+    "to_s": 6,
+    "label": "strike +0.25 dec again",
+    "pitch_hz": 109.47,
+    "wobble_hz": 0.29
+   },
+   {
+    "from_s": 6,
+    "to_s": 9,
+    "label": "strike +0.5 dec",
+    "pitch_hz": 109.44,
+    "wobble_hz": 0.311
+   },
+   {
+    "from_s": 9,
+    "to_s": 12,
+    "label": "strike +0.5 dec again",
+    "pitch_hz": 109.44,
+    "wobble_hz": 0.29
+   },
+   {
+    "from_s": 12,
+    "to_s": 15,
+    "label": "strike +1 dec",
+    "pitch_hz": 109.44,
+    "wobble_hz": 0.321
+   },
+   {
+    "from_s": 15,
+    "to_s": 18,
+    "label": "strike +1 dec again",
+    "pitch_hz": 109.44,
+    "wobble_hz": 0.318
+   },
+   {
+    "from_s": 18,
+    "to_s": 21,
+    "label": "strike +1.5 dec",
+    "pitch_hz": 109.38,
+    "wobble_hz": 0.364
+   },
+   {
+    "from_s": 21,
+    "to_s": 24,
+    "label": "strike +1.5 dec again",
+    "pitch_hz": 109.38,
+    "wobble_hz": 0.322
+   }
+  ]
+ },
+ "04-sequence-on-the-threshold": {
+  "file": "renders/04-sequence-on-the-threshold.wav",
+  "seconds": 24,
+  "peak_before_normalising": 0.71,
+  "nan": false,
+  "notes": "steps (decades from the edge) -1.26 -0.26 -0.08 +0.14 -1.26 +0.52 -0.18 +1.05, 0.375 s each: A2 for 12 s, then E1",
+  "segments": [
+   {
+    "from_s": 0,
+    "to_s": 12,
+    "label": "A2",
+    "pitch_hz": 108.03,
+    "wobble_hz": 2.843
+   },
+   {
+    "from_s": 12,
+    "to_s": 24,
+    "label": "E1",
+    "pitch_hz": 40.49,
+    "wobble_hz": 1.1
+   }
+  ]
+ },
+ "05-real-piano-string-A2": {
+  "file": "renders/05-real-piano-string-A2.wav",
+  "seconds": 24,
+  "peak_before_normalising": 0.672,
+  "nan": false,
+  "notes": "the measured A2 string (B 0.00008301) pulled by the ensemble: its first 12 partials, then all 54, then all at 64 Hz coupling",
+  "segments": [
+   {
+    "from_s": 0,
+    "to_s": 8,
+    "label": "first 12 partials, K 6",
+    "pitch_hz": 109.54,
+    "wobble_hz": 0
+   },
+   {
+    "from_s": 8,
+    "to_s": 16,
+    "label": "up to partial 54, K 6",
+    "pitch_hz": 104.12,
+    "wobble_hz": 1.693
+   },
+   {
+    "from_s": 16,
+    "to_s": 24,
+    "label": "up to partial 54, K 64",
+    "pitch_hz": 106.99,
+    "wobble_hz": 0.647
+   }
+  ]
+ },
+ "06-vibraphone-into-its-own-bend": {
+  "file": "renders/06-vibraphone-into-its-own-bend.wav",
+  "seconds": 30,
+  "peak_before_normalising": 0.565,
+  "nan": false,
+  "notes": "depth swept from 0.001 to 1 of the measured bend over 30 s at 261.317 Hz; the edge sits near 0.03",
+  "segments": [
+   {
+    "from_s": 0,
+    "to_s": 10,
+    "label": "depth 0.001 → 0.01",
+    "pitch_hz": 261.68,
+    "wobble_hz": 0.128
+   },
+   {
+    "from_s": 10,
+    "to_s": 20,
+    "label": "→ 0.1 (the edge is 0.03)",
+    "pitch_hz": 267.77,
+    "wobble_hz": 5.232
+   },
+   {
+    "from_s": 20,
+    "to_s": 30,
+    "label": "→ 1, the real bend",
+    "pitch_hz": 267.55,
+    "wobble_hz": 6.958
+   }
+  ]
+ },
+ "07-string-to-bar-nearest-pairing": {
+  "file": "renders/07-string-to-bar-nearest-pairing.wav",
+  "seconds": 40,
+  "peak_before_normalising": 0.722,
+  "nan": false,
+  "notes": "stretch swept on a log curve from B 1e-6 to 1e3 over 40 s, partial 1 pinned, each partial gripped by its nearest voice",
+  "segments": [
+   {
+    "from_s": 0,
+    "to_s": 10,
+    "label": "B 1e-6 → ~1e-4",
+    "pitch_hz": 109.81,
+    "wobble_hz": 1.423
+   },
+   {
+    "from_s": 10,
+    "to_s": 20,
+    "label": "→ ~1e-1.5",
+    "pitch_hz": 108.7,
+    "wobble_hz": 3.516
+   },
+   {
+    "from_s": 20,
+    "to_s": 30,
+    "label": "→ ~1e1",
+    "pitch_hz": 109.94,
+    "wobble_hz": 2.23
+   },
+   {
+    "from_s": 30,
+    "to_s": 40,
+    "label": "→ 1e3, the bar",
+    "pitch_hz": 109.92,
+    "wobble_hz": 0.14
+   }
+  ]
+ },
+ "08-loudness-coupling": {
+  "file": "renders/08-loudness-coupling.wav",
+  "seconds": 48,
+  "peak_before_normalising": 0.722,
+  "nan": false,
+  "notes": "stretch breathes 0.65 decade under to 0.65 over the edge, 12 s period; 24 s uniform coupling, then 24 s with γ = 1",
+  "segments": [
+   {
+    "from_s": 0,
+    "to_s": 24,
+    "label": "γ 0: every partial pulls equally",
+    "pitch_hz": 108.28,
+    "wobble_hz": 1.689
+   },
+   {
+    "from_s": 24,
+    "to_s": 48,
+    "label": "γ 1: quiet partials pull weakly",
+    "pitch_hz": 109.96,
+    "wobble_hz": 0.057
+   }
+  ]
+ },
+ "09-edge-lfo": {
+  "file": "renders/09-edge-lfo.wav",
+  "seconds": 34,
+  "peak_before_normalising": 0.688,
+  "nan": false,
+  "notes": "κ 2 Hz. Loudness: ρ 1.02 (0.4 pulses/s), 1.2 (1.3/s), 2 (3.5/s). Then each pulse loosens coupling tenfold with the tone 0.1 decade under the edge",
+  "segments": [
+   {
+    "from_s": 0,
+    "to_s": 8,
+    "label": "on loudness, ρ 1.02",
+    "pitch_hz": 109.91,
+    "wobble_hz": 0.093
+   },
+   {
+    "from_s": 8,
+    "to_s": 16,
+    "label": "ρ 1.2",
+    "pitch_hz": 109.91,
+    "wobble_hz": 0.095
+   },
+   {
+    "from_s": 16,
+    "to_s": 24,
+    "label": "ρ 2",
+    "pitch_hz": 109.91,
+    "wobble_hz": 0.088
+   },
+   {
+    "from_s": 24,
+    "to_s": 34,
+    "label": "on coupling, ρ 1.1, tone just under the edge",
+    "pitch_hz": 109.28,
+    "wobble_hz": 0.445
+   }
+  ]
+ },
+ "10-duo-octave": {
+  "file": "renders/10-duo-octave.wav",
+  "seconds": 28,
+  "peak_before_normalising": 0.831,
+  "nan": false,
+  "notes": "octave started 10 ¢ wide: pulled true unstretched, relocks wide at B 4e-3, cannot settle near the octave at piano-like stretch",
+  "segments": [
+   {
+    "from_s": 0,
+    "to_s": 8,
+    "label": "no stretch, started 10 ¢ wide",
+    "pitch_hz": 110.51,
+    "wobble_hz": 0,
+    "interval_cents": 1200,
+    "interval_sd": 0
+   },
+   {
+    "from_s": 8,
+    "to_s": 18,
+    "label": "B 4e-3",
+    "pitch_hz": 109.41,
+    "wobble_hz": 1.653,
+    "interval_cents": 1230.38,
+    "interval_sd": 0.82
+   },
+   {
+    "from_s": 18,
+    "to_s": 28,
+    "label": "B 7.4e-4, piano-like",
+    "pitch_hz": 102.31,
+    "wobble_hz": 0.039,
+    "interval_cents": 1362.64,
+    "interval_sd": 0.81
+   }
+  ]
+ }
+}
