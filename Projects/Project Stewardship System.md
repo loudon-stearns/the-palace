@@ -228,10 +228,6 @@ The fix is **CQRS, not relocation**: the append-only board stays the event log (
 - What is the relationship between the Steward's per-project schedule and the natural rhythm of the work? A weekly Steward on a `seed` project that wants daily attention is wrong; so is a daily Steward on a `mature` project that wants quarterly review.
 - Does this entry itself benefit from an `agency_profile` (per [[SCHEMA — Reference]] §3.1)? The four-pillar expansion is plausible — tools dimension is heavy (orchestrator build), philosophy dimension is heavy (governance posture), practice dimension is heavy (when ceremonies trigger). Its first steward will reveal whether the single forward vector carries the load.
 
-## Active Baton
-
-[[Project Stewardship System — baton — ledger-review]] — drafted 2026-10-18
-
 ---
 
 *How the system was first conceived, the Stage A pilot's full record (its nine spec gaps and four voice findings), the build as it stood in May, and the stories behind its decisions live in [[Project Stewardship System — Context]].*
