@@ -1,6 +1,9 @@
 # Tuning ledgers merge by union: two branches that each append a line to the
-# same ledger keep both, without a conflict (SCHEMA — Reference §6). The quotes
-# keep the spaces inside the pattern; unquoted, it would split at them.
+# same ledger keep both, without a conflict (SCHEMA — Reference §6). Union never
+# conflicts, so palace-land reads what it made of each ledger and refuses an
+# item number twice, an item in two forms, or two lines joined
+# (_ops/stigmergy/app/src/lib/ledger-merge.js). The quotes keep the spaces
+# inside the pattern; unquoted, it would split at them.
 "* — tuning.md" merge=union
 
 # Diaries are ledgers too (SCHEMA — Reference §6, v1.28): two branches that each
