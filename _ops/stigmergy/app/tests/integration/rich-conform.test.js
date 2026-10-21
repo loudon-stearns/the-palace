@@ -55,7 +55,9 @@ const PIECES = {
   'commented.html': [page(NONE, '<script>/* <script src="gone.js"> fetch("gone.json") */ // localStorage\nconst u = "http://x/y"; loadPreset("smooth");</script>'), null],
   // The browser's rules.
   'console-error.html': [page(NONE, '<div>b</div><script>null.boom;</script>'), 'console-error'],
-  'sandbox-blocked.html': [page('', '<script>localStorage.getItem("k")</script>'), 'sandbox-blocked'],
+  // The kit stands in for storage inside the sandbox, so the fault the sandbox
+  // still causes is a fetch of the file beside the piece, refused to origin null.
+  'sandbox-blocked.html': [page('', '<script>fetch("data.json")</script>'), 'sandbox-blocked'],
   'height-silent.html': [page(NONE, '<div style="height:400px"></div><script>/* speaks rich:height itself, and never sends one */</script>'), 'height-silent'],
   'play-silent.html': [page(NONE, '<button id="go">play</button><script>const ctx = new AudioContext();</script>'), 'play-silent'],
   'hush-loud.html': [page(NONE, `${TONE_ON_CLICK}<script>/* answers rich:hush itself, and does nothing */</script>`), 'hush-loud'],
@@ -257,7 +259,7 @@ describe.skipIf(!chromium)('a planted case for every browser rule, in headless C
     const tripped = new Set([...run.results.flatMap((r) => r.findings), ...run.faceFindings, ...results.flatMap((r) => r.findings)].map((f) => f.rule));
     expect(Object.keys(RULES).filter((r) => !tripped.has(r) && !['cdn-off-shelf', 'cdn-sri-mismatch'].includes(r))).toEqual([]);
   });
-  test('a script error is an error; storage refused by the sandbox is a warning until the piece origin', () => {
+  test('a script error is an error; a fetch the sandbox refuses is a warning until the piece origin', () => {
     expect(of('console-error.html').mark).toBe('errored');
     expect(of('sandbox-blocked.html').findings.find((f) => f.rule === 'sandbox-blocked').level).toBe('warn');
   });
