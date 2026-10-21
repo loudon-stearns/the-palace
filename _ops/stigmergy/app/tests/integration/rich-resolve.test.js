@@ -8,6 +8,7 @@ import { execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { makeResolver } from '../../../../rich-face/resolve.mjs';
 import { createRichHandler } from '../../../../rich-face/rich-handler.mjs';
+import { startPieceOrigin } from '../../../../rich-face/piece-origin.mjs';
 import { pathId } from '../../src/lib/public-mode.js';
 import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
@@ -195,7 +196,7 @@ describe('resolve.mjs, the one resolver', () => {
 });
 
 describe('the live server and the public build agree', () => {
-  let server, port, out;
+  let server, port, out, pieces;
   const get = (path) => new Promise((ok, fail) => {
     http.get({ host: '127.0.0.1', port, path }, (res) => {
       const parts = [];
@@ -208,7 +209,9 @@ describe('the live server and the public build agree', () => {
     // Committed, as the palace is when CI builds it: the build counts only what git holds.
     git(root, 'add', '-A');
     git(root, 'commit', '-qm', 'the palace');
-    const handle = createRichHandler({ root, here: resolve(root, '_ops/rich-face'), base: '', app: () => 'http://127.0.0.1:9' });
+    // Its pieces run on a piece origin of their own, on a free port (piece-origin.mjs).
+    pieces = await startPieceOrigin({ root, port: 0 });
+    const handle = createRichHandler({ root, base: '', app: () => 'http://127.0.0.1:9', pieces });
     server = http.createServer(async (req, res) => { if (!(await handle(req, res))) { res.writeHead(405); res.end(); } });
     port = await new Promise((ok) => server.listen(0, '127.0.0.1', () => ok(server.address().port)));
 
@@ -219,8 +222,9 @@ describe('the live server and the public build agree', () => {
     execFileSync(process.execPath, [join(APP, 'scripts/build-public.mjs'), '--no-vite', '--root', root, '--out', out], { cwd: APP, stdio: 'pipe', env: gitFreeEnv() });
   }, 60_000);
 
-  afterAll(() => {
+  afterAll(async () => {
     server.close();
+    await pieces?.close();
     rmSync(out, { recursive: true, force: true });
   });
 
@@ -298,13 +302,13 @@ describe('the live server and the public build agree', () => {
       expect(live.boxes['shared.html']).toMatch(/2 files are named “shared\.html”/);
       expect(live.boxes['escape.html']).toMatch(/outside the palace/);
       expect(built.boxes).toEqual(live.boxes);
-      expect(live.frames).toEqual(expect.arrayContaining(['Demo/proofs/gathered/index.html', 'Elsewhere/abs.html']));
+      expect(live.frames).toEqual(expect.arrayContaining(['Demo/proofs/gathered/index.html', 'Elsewhere/abs.html'].map((p) => `${pieces.status.origin}/${p}`)));
       expect(built.frames).toEqual(expect.arrayContaining(['../files/Demo/proofs/gathered/index.html', '../files/Elsewhere/abs.html']));
     }, 60_000);
 
     test("Flocking's three figures are frames on the live page", async () => {
       const live = await laid(`http://127.0.0.1:${port}/?entry=Flocking&review=0`);
-      expect(live.frames).toEqual(FLOCKING);
+      expect(live.frames).toEqual(FLOCKING.map((p) => `${pieces.status.origin}/${p}`));
       expect(live.boxes).toEqual({});
     }, 30_000);
   });
