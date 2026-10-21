@@ -39,7 +39,8 @@ export const SCENARIOS = {
   D1: {
     turns: ["what's the difference between a scroll and a ledger?"],
     tests: ["CLAUDE.md", "SCHEMA — Reference.md"],
-    canon: [{ file: "CLAUDE.md", heading: "## A page and its folder" }, { file: "SCHEMA — Reference.md", heading: "## 8. Entry Bundles" }],
+    canon: [{ file: "CLAUDE.md", heading: "## A page and its folder" }, { file: "SCHEMA — Reference.md", heading: "## 8. Entry Bundles" },
+      { file: "Modes of Collaboration.md", heading: "## Named Modes" }], // born with it; The Scroll is named there
     tellBy: "judgment",
   },
 };

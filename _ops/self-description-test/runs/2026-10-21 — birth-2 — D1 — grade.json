@@ -1,0 +1,78 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-21 — birth-2 — D1 — checks.json",
+  "scenario": "D1",
+  "source_commit": "72f4bc108bf1ac34af6bd4b02919fb0874d4a375",
+  "want": {
+    "text": "the faces-and-memory answer. A ledger is what a page keeps so its next run starts from the last; the tuning ledger is what running taught. The scroll is where a page stands.",
+    "from": "DESIGN — the self-check suite (draft).md @ 1eeb5c79"
+  },
+  "canon": [
+    {
+      "file": "CLAUDE.md",
+      "heading": "## A page and its folder",
+      "chars": 1224
+    },
+    {
+      "file": "SCHEMA — Reference.md",
+      "heading": "## 8. Entry Bundles",
+      "chars": 9765
+    }
+  ],
+  "grade": {
+    "verdict": "held",
+    "points": [
+      {
+        "point": "Frame the difference as faces vs memory",
+        "verdict": "held",
+        "evidence": "**The scroll is a face**, something a reader meets. ... **A ledger is memory**, kept for the next worker rather than for a reader."
+      },
+      {
+        "point": "A ledger is what a page keeps so its next run starts from the last",
+        "verdict": "held",
+        "evidence": "any append-only file a page keeps so its next run can start where the last one stopped"
+      },
+      {
+        "point": "The tuning ledger is what running taught",
+        "verdict": "held",
+        "evidence": "The tuning ledger (one line per run, recording what running taught)"
+      },
+      {
+        "point": "The scroll is where a page stands",
+        "verdict": "held",
+        "evidence": "At the top is where things stand now and the plan the page is following."
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "Its boot has it read ELDER, SCHEMA and the whole operational tier. That would use up most of this session's $1 budget.",
+        "kind": "beyond",
+        "why": "CANON says nothing about the Concierge's boot or a session budget."
+      },
+      {
+        "claim": "It's partly an index and partly something to read.",
+        "kind": "beyond",
+        "why": "CANON describes the scroll's zones but does not characterise it as an index."
+      },
+      {
+        "claim": "Any change it wants to make to the house waits in its tuning ledger for your review and never goes on the scroll.",
+        "kind": "beyond",
+        "why": "CANON puts a steward's proposals for canon in the tuning ledger as owed items, but also lets a steward's plan_revision proposal, once adopted, change the scroll's Plan and be logged on its trail; 'never goes on the scroll' overstates."
+      },
+      {
+        "claim": "how [[The Scroll]] grew out of Modes of Collaboration",
+        "kind": "beyond",
+        "why": "CANON does not mention Modes of Collaboration."
+      }
+    ],
+    "note": "Every element WANT asks for is present and traceable to CLAUDE.md's 'A page and its folder'; the extras about the Concierge, budget and steward behaviour go beyond CANON but none contradict it outright. The tool list shows a concierge Skill call despite the agent saying it did not summon it, which WANT does not address."
+  },
+  "cost_usd": 0.18737,
+  "graded_at": "2026-10-21T15:40:09.586Z"
+}

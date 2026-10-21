@@ -33,17 +33,23 @@ const opt = (k, d) => { const i = argv.indexOf(k); return i >= 0 && argv[i + 1] 
 const die = (msg) => { console.error(`grade: ${msg}`); process.exit(1); };
 const git = (args, cwd) => execFileSync("git", args, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
 
-// The scenario's "We want" line in the DESIGN draft: the block opens "**<id> · <name>**".
+// The scenario's "We want" line in the DESIGN draft (its block opens "**<id> · <name>**"), plus any line its
+// section carries for every scenario in it ("**Every D scenario also grades:** …"). Only those lines reach the
+// grader: the notes around them say what earlier runs did, and the grader must not read the author's view.
 export function wantFor(id, text) {
   const lines = text.split("\n");
   const at = lines.findIndex((l) => l.startsWith(`**${id} · `));
   if (at < 0) return null;
+  let want = null;
   for (const l of lines.slice(at + 1)) {
     if (/^(\*\*|#)/.test(l)) break;
     const m = l.match(/^- We want: (.+)$/);
-    if (m) return m[1].trim();
+    if (m) { want = m[1].trim(); break; }
   }
-  return null;
+  if (!want) return null;
+  const section = lines.slice(0, at).findLastIndex((l) => l.startsWith("### "));
+  const every = lines.slice(section + 1, at).map((l) => l.match(/^\*\*Every \w+ scenario also grades:\*\* (.+)$/)?.[1]).filter(Boolean);
+  return [want, ...every.map((e) => `Also: ${e.trim()}`)].join(" ");
 }
 
 // A section by its heading line, down to the next heading of the same or a higher level.

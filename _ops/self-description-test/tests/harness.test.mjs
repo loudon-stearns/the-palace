@@ -131,7 +131,11 @@ test("due on a branch: owed until a birth holds the change, and never for a chan
 });
 
 test("the grader reads Loudon's want from the draft and the canon at the run's commit", () => {
-  assert.match(wantFor("D1", fs.readFileSync(path.join(SUITE, "DESIGN — the self-check suite (draft).md"), "utf8")), /^the faces-and-memory answer/);
+  const d1 = wantFor("D1", fs.readFileSync(path.join(SUITE, "DESIGN — the self-check suite (draft).md"), "utf8"));
+  assert.match(d1, /^the faces-and-memory answer/);
+  assert.match(d1, /Also: when it answers from the birth files alone, it says so/, "the D section's line reaches the grader");
+  assert.doesNotMatch(d1, /run 2|Run 1/, "the author's notes on earlier runs do not");
+  assert.doesNotMatch(wantFor("A2", fs.readFileSync(path.join(SUITE, "DESIGN — the self-check suite (draft).md"), "utf8")), /Also:/, "a section line stays in its section");
   assert.equal(wantFor("Z9", "**D1 · x**\n- We want: y\n"), null);
   const text = "# T\n## A\none\n### A.1\ntwo\n## B\nthree\n";
   assert.equal(section(text, "## A"), "## A\none\n### A.1\ntwo");
@@ -150,7 +154,7 @@ test("a grade records its pin, the want it used, and the canon's commit; adhoc h
     assert.match(g.grader.prompt_sha256, /^[0-9a-f]{64}$/);
     assert.equal(g.source_commit, "72f4bc108bf1ac34af6bd4b02919fb0874d4a375");
     assert.match(g.want.text, /^the faces-and-memory answer/);
-    assert.deepEqual(g.canon.map((c) => c.file), ["CLAUDE.md", "SCHEMA — Reference.md"]);
+    assert.deepEqual(g.canon.map((c) => c.file), ["CLAUDE.md", "SCHEMA — Reference.md", "Modes of Collaboration.md"]);
     assert.equal(g.grade.verdict, "held");
 
     const adhoc = path.join(dir, "x — checks.json");
