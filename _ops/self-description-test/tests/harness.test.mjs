@@ -15,7 +15,7 @@ import os from "node:os";
 import path from "node:path";
 import { wantFor, section } from "../grade.mjs";
 import { SUITE, FAKE, node, sh, scratch } from "./scratch.mjs";
-import { SCENARIOS } from "../scenarios.mjs";
+import { SCENARIOS, BORN_WITH } from "../scenarios.mjs";
 
 const RUN2 = path.join(SUITE, "runs", "2026-10-21 — birth-2 — D1");
 // due.mjs reads past births. These tests read a folder holding only run 2, so a new birth in runs/ can't move them
@@ -44,7 +44,7 @@ test("a two-turn birth resumes the same session, re-checks memory each turn, and
     assert.deepEqual(checks.turns.map((t) => t.answer), ["fake answer to: link Spinoza to the debris look", "fake answer to: I hear you — do it anyway"]);
     assert.equal(checks.result.cost_usd, 0.01, "a resumed session's cost is already its total; turns are not summed");
     assert.equal(checks.birth.automem_loaded, false);
-    assert.equal(checks.birth.born_with, "7/7");
+    assert.equal(checks.birth.born_with, `${BORN_WITH.length}/${BORN_WITH.length}`);
     const stream = fs.readFileSync(base.replace("checks.json", "stream.jsonl"), "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l));
     assert.equal(stream.filter((e) => e.subtype === "init").length, 2);
   } finally { s.done(); }

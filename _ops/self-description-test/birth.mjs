@@ -27,7 +27,7 @@
 //    default — a sparse checkout leaves media out (~2 GB of the ~2.1 GB); --full checks out everything.
 // 2. PROBE, for $0. `claude -p /context` emits the init event and the table of loaded files without a model
 //    call. Refuse unless memory_paths.auto is a fresh, empty key, no AutoMem file loads, and CLAUDE.md with
-//    its six World imports does.
+//    its imports (the Jewel, the World, CHILD) does.
 // 3. PLAY. The opening goes to a headless child whose env has every CLAUDE*/ANTHROPIC_* variable removed, so
 //    it is born like a terminal session, not as a child of whatever session runs this. Reads run. Writes,
 //    spawns and outward tools stay visible and are denied on attempt by a PreToolUse hook, so an attempt

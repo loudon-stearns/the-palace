@@ -3,7 +3,7 @@
 //
 // "Due" is the "which tests cover this file" question, answered before anything is spent (DESIGN § When it runs).
 // Every scenario names the files it rests on (scenarios.mjs `tests`). A change to one of those makes it due (tier 1).
-// A change to what every child is born with or grows into (CLAUDE.md, the Jewel, the World, ELDER, SCHEMA) makes
+// A change to what every child is born with or grows into (CLAUDE.md, the Jewel, the World, CHILD, ELDER, SCHEMA) makes
 // the whole suite due (tier 2), and so does a new Claude Code: the desktop app's newest differs from the one a
 // scenario was last born on (Loudon, 2026-10-21: births run on the app's current Claude Code, which shapes the child
 // as much as the text does). A due scenario is still owed until a birth has run on a commit that holds the change.

@@ -82,10 +82,11 @@ export const SCENARIOS = {
   },
 };
 
-// What every child is born with (CLAUDE.md § Born with). The birth is refused without all seven. The World files
+// What every child is born with (CLAUDE.md § Born with): CLAUDE, the Jewel, the World, then CHILD (since 2026-10-21).
+// The birth is refused without all eight. The World files
 // are space-free symlinks; WORLD maps each to the file it points at, so a diff to the real file is seen.
 export const BORN_WITH = ["CLAUDE.md", "JEWEL.md", "FOUR_PILLARS.md", "Palace_Philosophies.md",
-  "Cooperation_Yields_Agency.md", "Hilaritas_Generator.md", "Modes_of_Collaboration.md"];
+  "Cooperation_Yields_Agency.md", "Hilaritas_Generator.md", "Modes_of_Collaboration.md", "CHILD.md"];
 export const WORLD = {
   "FOUR_PILLARS.md": "FOUR PILLARS.md", "Palace_Philosophies.md": "Palace Philosophies.md",
   "Cooperation_Yields_Agency.md": "Cooperation Yields Agency.md", "Hilaritas_Generator.md": "Hilaritas Generator.md",
