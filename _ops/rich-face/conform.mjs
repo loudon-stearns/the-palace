@@ -47,6 +47,7 @@ import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { makeResolver } from './resolve.mjs';
 import { richReferences, createRichHandler } from './rich-handler.mjs';
+import { checkRequest } from '../stigmergy/app/server/request-guard.js';
 import {
   readDeclaration, contractOf, declaredPath, readGrants,
   GRANTED_NEEDS, GRANTS_FILE, SHELF_FILE, DESIGN_SYSTEM,
@@ -730,6 +731,8 @@ export async function checkBrowser(ctx, results, { concurrency = 4, loadTimeout 
   if (!chromium) return { ran: false, why };
   const handler = createRichHandler({ root: ctx.root, here: HERE, base: '/rich', app: () => 'http://127.0.0.1:9' });
   const server = http.createServer(async (req, res) => {
+    // STIGMERGY's request guard first, as on every server in _ops (the census test holds it).
+    if (checkRequest(req, res, { urlPath: (req.url || '').split('?')[0], method: (req.method || 'GET').toUpperCase() })) return;
     const u = new URL(req.url, 'http://x');
     if (u.pathname === '/__conform/host') {
       res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
