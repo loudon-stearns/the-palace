@@ -1,0 +1,4 @@
+.venv/
+__pycache__/
+# a .dslibrary is a zip of the WAVs, which stay on this Mac (.gitignore, 2026-10-18)
+*.dslibrary

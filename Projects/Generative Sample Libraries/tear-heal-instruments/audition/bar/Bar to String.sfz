@@ -1,0 +1,27 @@
+// Bar to String — tear-and-heal instruments, Generative Sample Libraries (audition)
+// built by build.py from the frustration model (engine.py); nothing here is edited by hand
+// Partial 1 pinned. A strike starts as a bar (partials near 1, 4, 9, 16, free of the voices' grip), tears as the stretch falls through the edge, and heals into a string.
+// sustain rests at 0.35 of each key's own edge (bisected per key, edges.json); velocity is strike depth
+// loops: after the heal, a length where the stretched partials come back into phase (or whole periods of partial 1), 100 ms crossfade baked into the WAV; same points in each WAV's smpl chunk
+// tune = the cents that bring where each strike settled back to its key
+
+<control>
+default_path=samples/
+
+<global>
+loop_mode=loop_continuous ampeg_attack=0.002 ampeg_release=1.0 amp_veltrack=60
+
+// soft: thrown to B = 0.02, decaying with tau 0.12 s at 110 Hz
+<group> lovel=1 hivel=42
+<region> sample=bar_C2_soft.wav lokey=35 hikey=37 pitch_keycenter=36 tune=7 loop_start=100037 loop_end=153494
+<region> sample=bar_C6_soft.wav lokey=83 hikey=85 pitch_keycenter=84 tune=8 loop_start=15364 loop_end=70130
+
+// mid: thrown to B = 1, decaying with tau 0.12 s at 110 Hz
+<group> lovel=43 hivel=85
+<region> sample=bar_C2_mid.wav lokey=35 hikey=37 pitch_keycenter=36 tune=7 loop_start=107230 loop_end=161376
+<region> sample=bar_C6_mid.wav lokey=83 hikey=85 pitch_keycenter=84 tune=8 loop_start=21495 loop_end=76261
+
+// hard: thrown to B = 30, decaying with tau 0.12 s at 110 Hz
+<group> lovel=86 hivel=127
+<region> sample=bar_C2_hard.wav lokey=35 hikey=37 pitch_keycenter=36 tune=7 loop_start=143626 loop_end=199123
+<region> sample=bar_C6_hard.wav lokey=83 hikey=85 pitch_keycenter=84 tune=8 loop_start=27756 loop_end=82522

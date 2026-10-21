@@ -1,0 +1,36 @@
+<DecentSampler minVersion="1.0.0">
+  <!-- written by build.py beside Heal with Voices.sfz; same map -->
+  <!-- SFZ tune (cents) written as tuning (semitones) = tune/100 -->
+  <ui width="812" height="200" bgColor="FF0A0A0F">
+    <tab name="main">
+      <label x="20" y="6" width="772" height="24" text="Heal with Voices" textColor="FFE8B84A" textSize="18" />
+      <label x="20" y="150" width="772" height="40" text="Heal's own strikes with the outside voices mixed in, as in the sweeps' with-voices renders: the tear is heard as beating against a harmonic ensemble, and the heal as the beating stopping." textColor="FFE8E6DF" textSize="12" />
+      <labeled-knob x="20" y="40" width="90" height="90" textSize="14" label="Attack" type="float" minValue="0" maxValue="2" value="0.002" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="ENV_ATTACK" />
+      </labeled-knob>
+      <labeled-knob x="130" y="40" width="90" height="90" textSize="14" label="Release" type="float" minValue="0" maxValue="8" value="0.8" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="ENV_RELEASE" />
+      </labeled-knob>
+      <labeled-knob x="240" y="40" width="90" height="90" textSize="14" label="Volume" type="float" minValue="0" maxValue="1" value="0.8" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="AMP_VOLUME" />
+      </labeled-knob>
+    </tab>
+  </ui>
+  <groups attack="0.002" decay="0" sustain="1" release="0.8" volume="0.8">
+    <group ampVelTrack="0.6">
+      <!-- soft: thrown 2x past the key's edge, decaying with tau 0.25 s at 110 Hz -->
+      <sample path="Samples/voices_C1_soft.wav" rootNote="24" loNote="23" hiNote="25" loVel="1" hiVel="42" tuning="0.04" loopEnabled="true" loopStart="76384" loopEnd="134522" loopCrossfade="0" />
+      <sample path="Samples/voices_C6_soft.wav" rootNote="84" loNote="83" hiNote="85" loVel="1" hiVel="42" tuning="0.08" loopEnabled="true" loopStart="21032" loopEnd="75798" loopCrossfade="0" />
+    </group>
+    <group ampVelTrack="0.6">
+      <!-- mid: thrown 6x past the key's edge, decaying with tau 0.25 s at 110 Hz -->
+      <sample path="Samples/voices_C1_mid.wav" rootNote="24" loNote="23" hiNote="25" loVel="43" hiVel="85" tuning="0.05" loopEnabled="true" loopStart="117835" loopEnd="220598" loopCrossfade="0" />
+      <sample path="Samples/voices_C6_mid.wav" rootNote="84" loNote="83" hiNote="85" loVel="43" hiVel="85" tuning="0.08" loopEnabled="true" loopStart="25617" loopEnd="80383" loopCrossfade="0" />
+    </group>
+    <group ampVelTrack="0.6">
+      <!-- hard: thrown 20x past the key's edge, decaying with tau 0.25 s at 110 Hz -->
+      <sample path="Samples/voices_C1_hard.wav" rootNote="24" loNote="23" hiNote="25" loVel="86" hiVel="127" tuning="0.04" loopEnabled="true" loopStart="151224" loopEnd="244504" loopCrossfade="0" />
+      <sample path="Samples/voices_C6_hard.wav" rootNote="84" loNote="83" hiNote="85" loVel="86" hiVel="127" tuning="0.08" loopEnabled="true" loopStart="31788" loopEnd="86554" loopCrossfade="0" />
+    </group>
+  </groups>
+</DecentSampler>

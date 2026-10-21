@@ -1,0 +1,84 @@
+// Heal with Voices — tear-and-heal instruments, Generative Sample Libraries (collection)
+// built by build.py from the frustration model (engine.py); nothing here is edited by hand
+// Heal's own strikes with the outside voices mixed in, as in the sweeps' with-voices renders: the tear is heard as beating against a harmonic ensemble, and the heal as the beating stopping.
+// sustain rests at 0.35 of each key's own edge (bisected per key, edges.json); velocity is strike depth
+// loops: after the heal, a length where the stretched partials come back into phase (or whole periods of partial 1), 100 ms crossfade baked into the WAV; same points in each WAV's smpl chunk
+// tune = the cents that bring where each strike settled back to its key
+
+<control>
+default_path=samples/
+
+<global>
+loop_mode=loop_continuous ampeg_attack=0.002 ampeg_release=0.8 amp_veltrack=60
+
+// soft: thrown 2x past the key's edge, decaying with tau 0.25 s at 110 Hz
+<group> lovel=1 hivel=42
+<region> sample=voices_C1_soft.wav lokey=21 hikey=25 pitch_keycenter=24 tune=4 loop_start=76384 loop_end=134522
+<region> sample=voices_D#1_soft.wav lokey=26 hikey=28 pitch_keycenter=27 tune=6 loop_start=84261 loop_end=143402
+<region> sample=voices_F#1_soft.wav lokey=29 hikey=31 pitch_keycenter=30 tune=5 loop_start=76001 loop_end=129554
+<region> sample=voices_A1_soft.wav lokey=32 hikey=34 pitch_keycenter=33 tune=6 loop_start=75375 loop_end=128466
+<region> sample=voices_C2_soft.wav lokey=35 hikey=37 pitch_keycenter=36 tune=5 loop_start=58638 loop_end=112062
+<region> sample=voices_D#2_soft.wav lokey=38 hikey=40 pitch_keycenter=39 tune=5 loop_start=56205 loop_end=111924
+<region> sample=voices_F#2_soft.wav lokey=41 hikey=43 pitch_keycenter=42 tune=5 loop_start=51465 loop_end=105006
+<region> sample=voices_A2_soft.wav lokey=44 hikey=46 pitch_keycenter=45 tune=4 loop_start=53752 loop_end=106814
+<region> sample=voices_C3_soft.wav lokey=47 hikey=49 pitch_keycenter=48 tune=5 loop_start=35052 loop_end=88119
+<region> sample=voices_D#3_soft.wav lokey=50 hikey=52 pitch_keycenter=51 tune=5 loop_start=46218 loop_end=100224
+<region> sample=voices_F#3_soft.wav lokey=53 hikey=55 pitch_keycenter=54 tune=5 loop_start=33592 loop_end=88339
+<region> sample=voices_A3_soft.wav lokey=56 hikey=58 pitch_keycenter=57 tune=5 loop_start=37976 loop_end=93074
+<region> sample=voices_C4_soft.wav lokey=59 hikey=61 pitch_keycenter=60 tune=7 loop_start=39690 loop_end=95194
+<region> sample=voices_D#4_soft.wav lokey=62 hikey=64 pitch_keycenter=63 tune=7 loop_start=31938 loop_end=85568
+<region> sample=voices_F#4_soft.wav lokey=65 hikey=67 pitch_keycenter=66 tune=4 loop_start=18784 loop_end=71928
+<region> sample=voices_A4_soft.wav lokey=68 hikey=70 pitch_keycenter=69 tune=4 loop_start=26342 loop_end=79383
+<region> sample=voices_C5_soft.wav lokey=71 hikey=73 pitch_keycenter=72 tune=5 loop_start=16520 loop_end=69581
+<region> sample=voices_D#5_soft.wav lokey=74 hikey=76 pitch_keycenter=75 tune=4 loop_start=18237 loop_end=71207
+<region> sample=voices_F#5_soft.wav lokey=77 hikey=79 pitch_keycenter=78 tune=6 loop_start=20642 loop_end=97738
+<region> sample=voices_A5_soft.wav lokey=80 hikey=82 pitch_keycenter=81 tune=7 loop_start=15533 loop_end=94888
+<region> sample=voices_C6_soft.wav lokey=83 hikey=87 pitch_keycenter=84 tune=8 loop_start=21032 loop_end=75798
+
+// mid: thrown 6x past the key's edge, decaying with tau 0.25 s at 110 Hz
+<group> lovel=43 hivel=85
+<region> sample=voices_C1_mid.wav lokey=21 hikey=25 pitch_keycenter=24 tune=5 loop_start=117835 loop_end=220598
+<region> sample=voices_D#1_mid.wav lokey=26 hikey=28 pitch_keycenter=27 tune=5 loop_start=93576 loop_end=151575
+<region> sample=voices_F#1_mid.wav lokey=29 hikey=31 pitch_keycenter=30 tune=5 loop_start=82221 loop_end=136720
+<region> sample=voices_A1_mid.wav lokey=32 hikey=34 pitch_keycenter=33 tune=5 loop_start=91899 loop_end=144990
+<region> sample=voices_C2_mid.wav lokey=35 hikey=37 pitch_keycenter=36 tune=5 loop_start=76823 loop_end=130917
+<region> sample=voices_D#2_mid.wav lokey=38 hikey=40 pitch_keycenter=39 tune=5 loop_start=63625 loop_end=117066
+<region> sample=voices_F#2_mid.wav lokey=41 hikey=43 pitch_keycenter=42 tune=4 loop_start=60870 loop_end=116323
+<region> sample=voices_A2_mid.wav lokey=44 hikey=46 pitch_keycenter=45 tune=5 loop_start=64120 loop_end=118791
+<region> sample=voices_C3_mid.wav lokey=47 hikey=49 pitch_keycenter=48 tune=5 loop_start=55585 loop_end=109332
+<region> sample=voices_D#3_mid.wav lokey=50 hikey=52 pitch_keycenter=51 tune=4 loop_start=36030 loop_end=89464
+<region> sample=voices_F#3_mid.wav lokey=53 hikey=55 pitch_keycenter=54 tune=5 loop_start=48182 loop_end=103408
+<region> sample=voices_A3_mid.wav lokey=56 hikey=58 pitch_keycenter=57 tune=6 loop_start=47854 loop_end=101946
+<region> sample=voices_C4_mid.wav lokey=59 hikey=61 pitch_keycenter=60 tune=7 loop_start=27203 loop_end=81015
+<region> sample=voices_D#4_mid.wav lokey=62 hikey=64 pitch_keycenter=63 tune=7 loop_start=28435 loop_end=81781
+<region> sample=voices_F#4_mid.wav lokey=65 hikey=67 pitch_keycenter=66 tune=4 loop_start=39301 loop_end=92449
+<region> sample=voices_A4_mid.wav lokey=68 hikey=70 pitch_keycenter=69 tune=4 loop_start=35819 loop_end=88860
+<region> sample=voices_C5_mid.wav lokey=71 hikey=73 pitch_keycenter=72 tune=5 loop_start=28551 loop_end=81526
+<region> sample=voices_D#5_mid.wav lokey=74 hikey=76 pitch_keycenter=75 tune=4 loop_start=25415 loop_end=78387
+<region> sample=voices_F#5_mid.wav lokey=77 hikey=79 pitch_keycenter=78 tune=6 loop_start=31563 loop_end=108539
+<region> sample=voices_A5_mid.wav lokey=80 hikey=82 pitch_keycenter=81 tune=7 loop_start=23420 loop_end=103277
+<region> sample=voices_C6_mid.wav lokey=83 hikey=87 pitch_keycenter=84 tune=8 loop_start=25617 loop_end=80383
+
+// hard: thrown 20x past the key's edge, decaying with tau 0.25 s at 110 Hz
+<group> lovel=86 hivel=127
+<region> sample=voices_C1_hard.wav lokey=21 hikey=25 pitch_keycenter=24 tune=4 loop_start=151224 loop_end=244504
+<region> sample=voices_D#1_hard.wav lokey=26 hikey=28 pitch_keycenter=27 tune=5 loop_start=131413 loop_end=184860
+<region> sample=voices_F#1_hard.wav lokey=29 hikey=31 pitch_keycenter=30 tune=5 loop_start=115867 loop_end=213403
+<region> sample=voices_A1_hard.wav lokey=32 hikey=34 pitch_keycenter=33 tune=6 loop_start=97222 loop_end=150313
+<region> sample=voices_C2_hard.wav lokey=35 hikey=37 pitch_keycenter=36 tune=5 loop_start=96440 loop_end=176238
+<region> sample=voices_D#2_hard.wav lokey=38 hikey=40 pitch_keycenter=39 tune=5 loop_start=83992 loop_end=137441
+<region> sample=voices_F#2_hard.wav lokey=41 hikey=43 pitch_keycenter=42 tune=5 loop_start=73445 loop_end=157099
+<region> sample=voices_A2_hard.wav lokey=44 hikey=46 pitch_keycenter=45 tune=5 loop_start=65251 loop_end=118317
+<region> sample=voices_C3_hard.wav lokey=47 hikey=49 pitch_keycenter=48 tune=4 loop_start=71415 loop_end=127862
+<region> sample=voices_D#3_hard.wav lokey=50 hikey=52 pitch_keycenter=51 tune=5 loop_start=62544 loop_end=119964
+<region> sample=voices_F#3_hard.wav lokey=53 hikey=55 pitch_keycenter=54 tune=5 loop_start=64133 loop_end=119594
+<region> sample=voices_A3_hard.wav lokey=56 hikey=58 pitch_keycenter=57 tune=6 loop_start=58220 loop_end=112312
+<region> sample=voices_C4_hard.wav lokey=59 hikey=61 pitch_keycenter=60 tune=7 loop_start=49088 loop_end=102056
+<region> sample=voices_D#4_hard.wav lokey=62 hikey=64 pitch_keycenter=63 tune=7 loop_start=31088 loop_end=84289
+<region> sample=voices_F#4_hard.wav lokey=65 hikey=67 pitch_keycenter=66 tune=4 loop_start=37255 loop_end=90280
+<region> sample=voices_A4_hard.wav lokey=68 hikey=70 pitch_keycenter=69 tune=4 loop_start=36049 loop_end=88990
+<region> sample=voices_C5_hard.wav lokey=71 hikey=73 pitch_keycenter=72 tune=5 loop_start=27900 loop_end=80877
+<region> sample=voices_D#5_hard.wav lokey=74 hikey=76 pitch_keycenter=75 tune=4 loop_start=30889 loop_end=83859
+<region> sample=voices_F#5_hard.wav lokey=77 hikey=79 pitch_keycenter=78 tune=6 loop_start=32281 loop_end=109377
+<region> sample=voices_A5_hard.wav lokey=80 hikey=82 pitch_keycenter=81 tune=7 loop_start=26686 loop_end=106141
+<region> sample=voices_C6_hard.wav lokey=83 hikey=87 pitch_keycenter=84 tune=8 loop_start=31788 loop_end=86554

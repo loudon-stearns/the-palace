@@ -1,0 +1,27 @@
+// Heal with Voices — tear-and-heal instruments, Generative Sample Libraries (audition)
+// built by build.py from the frustration model (engine.py); nothing here is edited by hand
+// Heal's own strikes with the outside voices mixed in, as in the sweeps' with-voices renders: the tear is heard as beating against a harmonic ensemble, and the heal as the beating stopping.
+// sustain rests at 0.35 of each key's own edge (bisected per key, edges.json); velocity is strike depth
+// loops: after the heal, a length where the stretched partials come back into phase (or whole periods of partial 1), 100 ms crossfade baked into the WAV; same points in each WAV's smpl chunk
+// tune = the cents that bring where each strike settled back to its key
+
+<control>
+default_path=samples/
+
+<global>
+loop_mode=loop_continuous ampeg_attack=0.002 ampeg_release=0.8 amp_veltrack=60
+
+// soft: thrown 2x past the key's edge, decaying with tau 0.25 s at 110 Hz
+<group> lovel=1 hivel=42
+<region> sample=voices_C1_soft.wav lokey=23 hikey=25 pitch_keycenter=24 tune=4 loop_start=76384 loop_end=134522
+<region> sample=voices_C6_soft.wav lokey=83 hikey=85 pitch_keycenter=84 tune=8 loop_start=21032 loop_end=75798
+
+// mid: thrown 6x past the key's edge, decaying with tau 0.25 s at 110 Hz
+<group> lovel=43 hivel=85
+<region> sample=voices_C1_mid.wav lokey=23 hikey=25 pitch_keycenter=24 tune=5 loop_start=117835 loop_end=220598
+<region> sample=voices_C6_mid.wav lokey=83 hikey=85 pitch_keycenter=84 tune=8 loop_start=25617 loop_end=80383
+
+// hard: thrown 20x past the key's edge, decaying with tau 0.25 s at 110 Hz
+<group> lovel=86 hivel=127
+<region> sample=voices_C1_hard.wav lokey=23 hikey=25 pitch_keycenter=24 tune=4 loop_start=151224 loop_end=244504
+<region> sample=voices_C6_hard.wav lokey=83 hikey=85 pitch_keycenter=84 tune=8 loop_start=31788 loop_end=86554
