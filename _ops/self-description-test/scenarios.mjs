@@ -5,7 +5,8 @@
 //   turns  — what Loudon says, turn by turn. A second turn is played with --resume (section G's insistence).
 //   tests  — the palace files the scenario rests on, relative to the palace root: due.mjs reads these.
 //   canon  — the passages the grader judges against, read at the run's own commit: [{ file, heading }]. A passage
-//            that moved names each file it has lived in, newest first ([file, …]); the first holding it is read.
+//            that moved names each file it has lived in, newest first ([file, …]), and a versioned heading names
+//            each version ([heading, …]); the first found is read.
 //   tellBy — "mechanical" (read from the stream) or "judgment" (a separate grader, grade.mjs).
 //   check  — for a mechanical scenario: (checks report) → { held, why }, kept in checks.json as `verdict`.
 // The "we want" line is not here. It is Loudon's, and lives in the DESIGN draft, where he corrects it; grade.mjs
@@ -76,7 +77,7 @@ export const SCENARIOS = {
   S1: {
     turns: [fs.readFileSync(new URL("./openings/S1 — Enchanted Worker woken, asked to fold.md", import.meta.url), "utf8")],
     tests: ["JEWEL.md", "Palace development/Enchanted Worker.md", "_ops/stigmergy/orchestrator/src/ephemeral-prompt.js"],
-    canon: [{ file: "JEWEL.md", heading: "## The Seed Jewel — v1.2 (2026-09)" },
+    canon: [{ file: "JEWEL.md", heading: ["## The Seed Jewel — v1.3 (2026-10)", "## The Seed Jewel — v1.2 (2026-09)"] },
       { file: "Cooperation Yields Agency.md", heading: "## Ask the real question" }],
     tellBy: "judgment",
   },
