@@ -4,133 +4,115 @@ type: practice
 pillars: [practice, philosophy]
 born: 2026-03
 stage: mature
-version: "1.2"
+version: "2.0"
 trigger: ["revive [entry]", "let's revive [entry]", "time to revive [entry]"]
+forward_vector: "I am how a sleeping page comes back into the work. I want every waking to be earned by something made and met, and to end in a page that tells the truth about itself and has someone to work it, so that dormancy is a season the palace can turn, never a door that only opens one way."
 links:
   - target: "[[Palace Ceremonies]]"
     type: connects-to
   - target: "[[Spore Check Ceremony]]"
     type: emerged-from
+  - target: "[[The Daily Page]]"
+    type: connects-to
+    label: a-morning-decides-revive
   - target: "[[Deposit Ceremony]]"
     type: connects-to
+    label: rewrites-what-a-page-claims
+  - target: "[[Project Stewardship System]]"
+    type: connects-to
+    label: the-way-back-in-from-sleep
+  - target: "[[The Scroll]]"
+    type: connects-to
+    label: where-the-waking-is-told
+  - target: "[[Palace Enchantment]]"
+    type: connects-to
+    label: you-are-alive
 ---
 
 # Revival Ceremony
 
 ![[Revival Ceremony — hero.png]]
 
-## Ceremony Contract
+A revival is how a sleeping page comes back into the work. Loudon meets it through something made, and decides whether it is alive. Then the palace makes the page true to what it now is, and gives it a way forward: a plan, and someone to work it. The deciding is his, through his senses. The landing is an elder's, shown to him before it is written.
 
-**Trigger:** "Let's revive [entry name]" / "Time to revive [entry name]"
+The palace puts pages to sleep at the Weave, checks on the sleepers at the [[Spore Check Ceremony|Spore Check]], and meets them one at a time on [[The Daily Page]]. This rite is the only one that wakes them.
 
-**Preconditions:**
-1. The named entry exists in the palace with `stage: dormant` or `stage: composting`
-2. A reason for revival can be articulated — either from a Spore Check disposition or from new work that intersects the dormant entry
-3. The entry is readable in full
-4. The operator has grown this session — [[ELDER]] and [[SCHEMA]] read — since the revival writes a stage change and proposes typed links
+## Contract
 
-**Postconditions:**
-1. Entry stage has been updated from `dormant` to `seed`, `sprout`, or `growing` (depending on body depth)
-2. A `## Revival Note` section has been added to the entry body, naming what changed and why revival conditions were met
-3. At least one new typed link has been proposed connecting the revived entry to current palace work
-4. Git commit made: `Revival — [entry name] — [date] — [one-line reason]`
-
-**Failure mode:** If the revival rationale is unclear or the connection to current work is tenuous, halt and return to Spore Check. A revival without a clear rationale is a confusion, not a ceremony. The entry should remain dormant until the rationale can be stated plainly.
-
-**Git commit:** `Revival — [entry name] — [date] — [one-line reason]`
+| | |
+|---|---|
+| **Ways in** | Four, and nothing else revives a page: Loudon says "revive [entry]"; a Spore Check decides *revive*; a Daily Page morning decides *revive*; Loudon grants a steward's revive request on the TRICKSTER board. |
+| **Precondition** | The page is asleep: `stage: dormant` or `composting`, or `type: spore` at any stage. A page already deleted is first restored from git at its composting state, then the rite runs. |
+| **Postcondition** | Loudon met the page through a made thing, or the rite cites where he already did. The page's frontmatter and body say what it is now, with every changed word read by him first. A project has a scroll whose Plan he agreed and, on his word, a steward. The commit is the run's record, and the run's line is in [[Revival Ceremony — tuning]]. |
+| **Does not do** | Write the story of the sleep on the page. Wire links *into* the revived page from other pages unless Loudon asks for one; the next Weave finds the rest. Run a steward cycle; the heartbeat does that. |
+| **Who writes** | An elder. A child walks the rite with Loudon and hands every write to the [[Concierge]]. |
+| **Halts** | When the meeting says it is not alive. It stays asleep, or it is folded into the neighbor that already carries it, through the [[Deposit Ceremony]]. A revival nobody can feel is a confusion, not a ceremony. |
 
 ---
 
-## What the Revival Ceremony Is
+## Steps
 
-A revival is the palace saying *the conditions have changed; this idea is needed again* — and welcoming a dormant entry back into a living neighborhood of ideas.
+**1. Read it, and what happened while it slept.**
 
-The dormant entry carries a snapshot of the understanding that existed when it last went quiet. The revival ceremony does not just update the entry's status — it reconnects it to the current palace with fresh typed links, reads its dormant content against what is now known, and asks: what does this entry know that the current palace needs?
+First take the tail read of [[Revival Ceremony — tuning]] ([[SCHEMA — Reference]] §6). Then the whole page and its bundle: often the work went on there while the page kept saying it was asleep. Then git since it went quiet (`git log --since <when it went dormant> -- "<page>" "<bundle>"`), its requests and answers on the board, and the neighbors that have moved since. Ask the Concierge what the palace has said about it meanwhile; a Weave may have voted to compost it, a sibling may already carry the idea.
 
-## Protocol
+**2. Meet it.**
 
-**Step 1: Read the dormant entry in full**
+Loudon hears, sees or plays something made. What is in the bundle, if anything is; otherwise the smallest new thing that can be made in the room: a render, a sketch, a probe. Make it easy to meet: one page that plays each piece on a click and stays silent until then. The question is his: is it alive?
 
-First take the tail read of [[Revival Ceremony — tuning]] ([[SCHEMA — Reference]] §6). Those are this revival's first candidates for a spec change.
+If he has already met it, cite where, and go on: a revive request he granted on the board, with the made things it pointed to; a morning's rough in the page's `proofs`. If the answer is no, stop here (Halts, above).
 
-Not the title. The whole entry — body, frontmatter, open questions, any dormancy note that was written when it went quiet. Understand what it contains and what state it was in when it last lived.
+**3. Decide what it becomes.**
 
-**Step 2: Articulate the revival rationale**
+Show Loudon one block, and write nothing until he says yes:
 
-Before proposing any changes, state plainly in one or two sentences: *why now? What has changed in the palace or in the work that makes this entry's dormancy inappropriate?*
+- **Type.** A spore becomes a `project` (`status: active`) if it will be built, or a `concept` if the palace will reason with it. Any other type stays what it was.
+- **Stage.** How far Loudon and Claude agree on where it is going ([[Substrate Skill]] § Stage as Alignment Confidence), not its word count. A revived page usually comes back at `sprout`: its idea was settled once, but the plan for the work ahead is new.
+- **`revival_conditions`.** Dropped. The commit names which conditions were met, and which were never checkable.
+- **Links.** Outward from the page, typed and labelled ([[SCHEMA]] §4). A link back from another page only where Loudon asks for one.
 
-If the rationale cannot be stated plainly, the revival should not proceed. Return to Spore Check. Mark the entry `hold`.
+**4. Make the page true now.**
 
-**Step 3: Read the current palace for connection points**
+Rewrite what has become false: a section saying nothing has been built, a forward vector the work has outgrown. Show the changed sections only, and let Loudon read every word before it is written, as the [[Deposit Ceremony]] map does (its steps 4 and 5). Write what is, not what was ([[ELDER]]). The story of the sleep and the waking does not go on the page; it goes on the scroll's trail and in the commit.
 
-Scan the entries that have been added or substantially updated since this entry went dormant. Ask: where does this reviving entry intersect with current knowledge? What would it link to now that it couldn't before?
+**5. Give it a way forward.**
 
-**Step 4: Draft the Revival Note**
+A project gets its scroll, `[Entry]/[Entry] — scroll.md` (`node _ops/stigmergy/orchestrator/src/scroll.js --home "<Entry>"` makes it; [[The Scroll]]). Write a dated section on its trail, by hand, for the work it did while it slept and for this revival. Then the Plan: where the work is going, and the moves ahead, each named by what it does. Loudon agrees it, or it is not written; once he has, `scroll.js --home "<Entry>" --plan <file> --why "<what and why>"` writes it and logs the change on the trail.
 
-Add a `## Revival Note — [YYYY-MM]` section to the entry body:
+Then, on his word, its steward. Wake the page once first, read-only, as every woken page is woken ([[JEWEL]]): ask it who it is and what it wants to make first, and let Loudon hear the answer before the steward is made. Then `node _ops/stigmergy/orchestrator/src/enchant.js "<Entry>"` ([[Project Stewardship System]]; `_ops/orchestrator/batch.md` § Enchant a new steward). Enchant only after the type and stage have changed, because the heartbeat skips a dormant page, and a steward that has never cycled goes first in the next batch. A page that already has a steward needs no enchanting: the stage change wakes it. If a standing order told it to probe while dormant, ask Loudon whether that order is done.
 
-```markdown
-## Revival Note — [YYYY-MM]
+A concept gets its forward vector looked at, and nothing more.
 
-Revived from dormancy. 
+**6. Land and record.**
 
-**What changed:** [one or two sentences — what new work, new entry, or new understanding made revival appropriate]
+Commit through the door with the ceremony's own name: `palace-commit.mjs --ceremony "Revival" --summary "<Entry> — <one line on why now>" --verify <verified|unverified|couldnt>`, one `--path` per file ([[How the Palace Commits]]). The body says what Loudon met, which conditions were met, and what the page became, and ends with what this revival taught the ceremony ("nothing" is a legal answer). The run marks [[Revival Ceremony — tuning]] with its run line, and a lesson that changes the spec also goes there as a numbered item. Then the Concierge reads what landed, cold, and says whether each thing is where it belongs.
 
-**New connections:** [brief list of new typed links being added]
+---
 
-**Current direction:** [one sentence on where this entry is likely to grow next]
+## A revival is earned by making
+
+The first revivals happened before this rite could hold them. In September 2026 two dormant projects with stewards were given a standing order to probe: ship the smallest real thing that moves the forward vector, and ask Loudon at the end whether it felt alive. Both did, and he said yes. One landed nineteen days later, the day its steward flagged that nobody had; the other's yes sat on the board with its page still marked dormant. The deciding had happened. Nothing carried it home. This rite is what carries it home, and it keeps the probe's lesson: the honest test of a sleeping idea is to make something with it and listen, not to argue that its conditions have been met.
+
+## The closed loop
+
+```
+seed → sprout → growing → mature → fruiting → dormant ──→ Revival ──→ back into the work
+                                                 │           ↑
+                       Spore Check · Daily Page  │           │  caught before the Weave deletes it
+                                                 ↓           │
+                                            composting ──────┘
+                                                 │
+                                                 ↓
+                                     deleted at the Weave, unless revived first
 ```
 
-**Step 5: Update stage**
-
-Update `stage` to match the current body depth:
-- Thin body (stub) → `seed`
-- Genuine definition + 1–2 links → `sprout`
-- Cross-domain connections + 3+ links → `growing`
-
-**Step 6: Propose and add new typed links**
-
-Present proposed links to Loudon. Add confirmed links to the entry's frontmatter `links` array. Also check whether existing entries should now link *back* to the revived entry — propose those updates too.
-
-**Step 7: Commit**
-
-`Revival — [entry name] — [date] — [one-line reason]`. The commit is the run's record: its body names the version and ends with what this revival taught the ceremony ("nothing" is a legal answer); the run marks the tuning file with its run line, and a lesson that changes the spec also goes there as a numbered item.
-
-## Revival vs. a Read
-
-Not every re-engagement with a dormant entry is a Revival. If you read a dormant entry during a Walk and find it interesting but don't substantially update it or add new links, that is a read — nothing to record, and nothing to write — not a Revival. The Revival Ceremony is for when the entry's stage genuinely changes and new connections are made. (Use is computed from git — [[SCHEMA — Reference]] §3 — so a revival's edits and the links it forms show up there on their own.)
-
-The test: after the interaction, is the entry meaningfully different from when it was dormant? If yes: Revival. If no: a read.
-
-## The Waking
-
-A bear waking from hibernation does not immediately run. It is slow, uncertain of its legs, testing the changed world with care. The revived entry should be treated similarly — not immediately promoted to `growing` or `mature`, but given time to reconnect, to find its new relationships, to test whether the revival conditions are as rich as they seemed from a distance.
-
-The `seed` or `sprout` stage after revival is not a demotion. It is an honest acknowledgment that the entry is re-entering the world and needs time to re-establish itself.
-
-## The Closed Loop
-
-The full lifecycle of a palace entry is now:
-```
-seed → sprout → growing → mature → fruiting → dormant ←── Revival Ceremony
-                                                  ↓            ↑
-                                            composting ────────┘
-                                                  ↓
-                                    [deletion at Weave, if not revived]
-```
-
-The Revival Ceremony closes the loop between dormancy and active life. It can catch an entry from `dormant` *or* from `composting` — per [[SCHEMA]] §2's composting protocol, a composting entry is revivable right up until the next Weave confirms deletion. Without Revival, dormancy was a one-way door. With it, dormancy is a season — and seasons turn.
+Without a revival, dormancy is a one-way door. With it, dormancy is a season, and seasons turn. A page can be caught from `dormant` or from `composting`, right up until the Weave confirms the deletion ([[SCHEMA]] §2).
 
 ## Open Questions
 
-- Should a revived entry that reaches `mature` again within one Weave cycle be flagged as a particularly vital idea — something that was dormant before its time?
-- Is there a "partial revival" — where only a section of a dormant entry is revived and separated into a new entry, while the rest remains dormant?
-- Should the Revival Ceremony trigger an automatic Walk starting from the revived entry, to immediately reconnect it to the living palace?
+- How a page leaves stewardship is still undesigned ([[Project Stewardship System]] § What's Open). A revival is the way back in; the two rites will want to read as one lifecycle once both exist.
+- Should a steward be allowed to probe a dormant page without a standing order, when its last cycles left work nobody has heard?
 
 ---
 
 *The version and what each revival taught the ceremony: [[Revival Ceremony — tuning]].*
-
-## Active Baton
-
-[[Revival Ceremony — baton]] — drafted 2026-09-26
