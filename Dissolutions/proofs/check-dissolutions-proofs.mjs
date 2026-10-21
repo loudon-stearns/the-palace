@@ -129,5 +129,45 @@ const rand = (seed) => () => ((seed = (seed * 16807) % 2147483647) / 2147483647)
   check('field: written as a Volterra series on the lags 0 and τ, the reading is exact', vworst < 1e-12, `largest difference ${vworst.toExponential(1)}, random input, 3 fields × 3 lags`);
 }
 
+// ── The lattice read back: Rank-N Lattice Analysis ──────────────────────────
+{
+  const M = mathOf('2026-10-20-the-lattice-read-back', 'the-lattice-read-back.html',
+    ['FIELDS', 'synth', 'spectrum', 'findPeaks', 'fitRank1', 'analyse', 'express']);
+  const sr = 48000, NA = 65536, G1 = 110;
+  const run = (field, ratio, K, tol = 0.5) => {
+    const pts = M.FIELDS[field], y = M.synth(pts, G1, G1 * ratio, sr, NA, 9), fs = M.findPeaks(M.spectrum(y, NA), sr / NA, 60, 24).map((p) => p.f);
+    return { pts, fs, fit: M.analyse(fs, tol, K) };
+  };
+  {
+    const { pts, fit } = run('bell', Math.SQRT2, 40), key = (q) => q.join(',');
+    const back = new Set(fit.coords.map(key)), drawn = new Set(pts.map((q) => key([q[0], q[1]])));
+    const same = back.size === drawn.size && [...drawn].every((k) => back.has(k));
+    check('lattice: at √2 the analysis finds rank 2, the drawing generators and every lit point', fit.rank === 2 && Math.abs(fit.gens[0] - 110) < 0.05 && Math.abs(fit.gens[1] - 110 * Math.SQRT2) < 0.05 && same,
+      `rank ${fit.rank}, generators ${fit.gens.map((g) => g.toFixed(3)).join(' / ')} Hz, points ${same ? 'identical' : 'differ'}`);
+  }
+  {
+    const { fit } = run('bell', 1.5, 40);
+    check('lattice: at 3 ÷ 2 the rows fall onto one series, rank 1 at 55 Hz', fit.rank === 1 && Math.abs(fit.gens[0] - 55) < 0.02, `rank ${fit.rank}, ${fit.gens[0].toFixed(3)} Hz`);
+  }
+  {
+    const a = run('bell', 1.4, 40).fit, b = run('bell', 1.4, 20).fit;
+    check('lattice: at 7 ÷ 5 the rank is 1 or 2 depending only on the whole-number bound', a.rank === 1 && Math.abs(a.gens[0] - 22) < 0.02 && b.rank === 2,
+      `bound 40: rank ${a.rank} (${a.gens[0].toFixed(2)} Hz); bound 20: rank ${b.rank}`);
+  }
+  {
+    const { pts, fit } = run('diag', Math.SQRT2, 40), g2 = 110 * Math.SQRT2;
+    const p = M.express(110, fit.gens, 1), q = M.express(g2, fit.gens, 1), det = p && q ? p[0] * q[1] - p[1] * q[0] : 0;
+    const freqsBack = fit.coords.map((c) => c[0] * fit.gens[0] + c[1] * fit.gens[1]).sort((x, y) => x - y);
+    const freqsDrawn = pts.map((c) => c[0] * 110 + c[1] * g2).sort((x, y) => x - y);
+    const err = Math.max(...freqsBack.map((f, k) => Math.abs(f - freqsDrawn[k])));
+    check('lattice: on the diagonal field it recovers the same lattice in another basis (a whole-number change, det ±1)', fit.rank === 2 && Math.abs(det) === 1 && !(p[0] === 1 && p[1] === 0 && q[0] === 0 && q[1] === 1) && err < 0.05,
+      `found ${fit.gens.map((g) => g.toFixed(2)).join(' / ')} Hz; g₁ = (${p}), g₂ = (${q}) in them; det ${det}; worst frequency ${err.toFixed(3)} Hz`);
+  }
+  {
+    const { fs } = run('bell', Math.SQRT2, 40), r1 = M.fitRank1(fs, 0.5, 100000);
+    check('lattice: with the whole numbers unbounded, the same √2 sound reads as rank 1', !!r1 && r1.g < 10, r1 ? `a ${r1.g.toFixed(2)} Hz fundamental, harmonics up to ${Math.max(...r1.coords.map((c) => c[0]))}` : 'no fit');
+  }
+}
+
 console.log(fails ? `\n${fails} FAIL` : '\nall PASS');
 process.exit(fails ? 1 : 0);
