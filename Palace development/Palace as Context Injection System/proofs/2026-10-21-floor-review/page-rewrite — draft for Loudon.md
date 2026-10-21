@@ -42,7 +42,7 @@ Where each site places its pieces, read from the code: [[Palace as Context Injec
 | until 2026-10-21 | 3.0k tokens, 2.3k of it procedure | 14.4k | CLAUDE (with its rules) → Jewel → World → memory 4.5k |
 | from 2026-10-21 | 0.6k | 11.7k | CLAUDE (the birth) → Jewel → World → CHILD 2.5k → memory 1.8k |
 
-Same words, a new order, and an index that points instead of telling. **What the order changed in children:** _[filled from the two arms of births: main against main plus the move, two of each of six scenarios, graded by the pinned grader]_.
+Same words, a new order, and an index that points instead of telling. **What it changed in children.** Memory-free children were born three ways (on main, with only the order changed, and with the Jewel's new line on top), six scenarios two runs each, graded blind. Nothing was lost at either step: the summon still came first though its rule now sits about 7k tokens further down, and the anatomy still held after it moved behind the World. Each step held a little more (headline verdicts 0, then 2, then 4 of 10; points held 67%, 77%, 78%), and no child quoted the new line. Two runs a scenario can't tell that from chance; what the move bought for certain is the order itself. The record is in `proofs/2026-10-21-floor-review/births — the order test and the Jewel line.md`.
 
 ---
 
