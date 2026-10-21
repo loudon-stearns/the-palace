@@ -321,7 +321,7 @@ The architecture is feasible on standard contemporary DAW hardware without exoti
 
 - What happens to the Sethares tuning-timbre relationship when Wavetable B is in motion (scanning frames)? If the inharmonicity profile is time-varying, the "consonant scale" is also time-varying. Is there a compositional use for a scale that shifts over the course of a note?
 
-- Is there a Wavetable B profile that produces beating patterns isomorphic to Kuramoto frustration — where adjacent partials fight each other? [[Harmonicity and Inharmonicity]] describes this physically; can this instrument make it audible and controllable?
+- Is there a Wavetable B profile that produces beating patterns isomorphic to Kuramoto frustration — where adjacent partials fight each other? [[Harmonicity and Inharmonicity]] describes this physically; can this instrument make it audible and controllable? Partly answered (2026-10-20): add the pull, and a stretched profile frustrates audibly and under control; the coupling-edge study plays it ([[Inharmonic Wavetable Synthesis — scroll|scroll]]). Whether a Wavetable B frame alone, with nothing pulling, can sound the same is still open.
 
 - Can the audio-rate wavetable LFO on B depth be tamed into a musically useful FM-like mode, or does it produce mostly incoherent noise at moderate depths?
 
