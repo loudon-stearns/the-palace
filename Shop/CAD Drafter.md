@@ -1,5 +1,6 @@
 ---
 title: CAD Drafter
+type: specialist
 status: stub
 medium: other
 tool: build123d
