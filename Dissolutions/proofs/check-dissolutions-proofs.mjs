@@ -169,5 +169,54 @@ const rand = (seed) => () => ((seed = (seed * 16807) % 2147483647) / 2147483647)
   }
 }
 
+// ── The shadow that locks: Phase Reduction (Floquet / Kuramoto) ──────────────
+{
+  const M = mathOf('2026-10-20-the-shadow-that-locks', 'the-shadow-that-locks.html',
+    ['limitCycle', 'prcFloquet', 'prcKick', 'gammaTable', 'gammaAt', 'tongue', 'shadowLock', 'runFull', 'runShadow']);
+  const loops = {};
+  for (const mu of [0.3, 1, 3]) {
+    const cyc = M.limitCycle(mu, 2000), prc = M.prcFloquet(cyc, 64), G = M.gammaTable(cyc, prc, 128);
+    loops[mu] = { cyc, prc, G, tg: M.tongue(G, cyc.w) };
+  }
+  {
+    const along = Math.max(...Object.values(loops).map((l) => Math.abs(l.prc[0].one - 1)));
+    const across = Math.max(...[0.3, 1].map((mu) => Math.abs(loops[mu].prc[0].other / loops[mu].cyc.across - 1)));
+    check('shadow: each loop has a Floquet multiplier of 1 along it; the other matches Liouville’s e^(∮ trace J)', along < 1e-5 && across < 1e-3, `largest |λ − 1| ${along.toExponential(1)}; across, eigenvector against Liouville, ${across.toExponential(1)}`);
+  }
+  {
+    const out = [];
+    let ok = true;
+    for (const mu of [0.3, 1, 3]) {
+      const { cyc, prc } = loops[mu];
+      let sc = 0; prc.forEach((p) => { sc = Math.max(sc, Math.abs(p.Z[1])); });
+      const gap = (k) => { let w = 0; for (let j = 0; j < 16; j++) w = Math.max(w, Math.abs(M.prcKick(cyc, 2 * Math.PI * j / 16, k, 8) - prc[j * 4].Z[1])); return 100 * w / sc; };
+      const a = gap(0.01), b = gap(0.001);
+      ok = ok && b < 0.2 && a / b > 5; out.push(`μ ${mu}: ${a.toFixed(3)}% → ${b.toFixed(3)}%`);
+    }
+    check('shadow: the PRC measured by kicks converges on the Floquet left eigenvector as the kick shrinks', ok, `kick 0.01 → 0.001, largest gap: ${out.join('; ')}`);
+  }
+  {
+    const { cyc, tg } = loops[1], fac = [-1.5, -1.2, -0.8, -0.5, 0, 0.5, 0.8, 1.2, 1.5], rows = [];
+    let ok = true;
+    for (const eps of [0.02, 0.05, 0.1]) {
+      const row = fac.map((f) => M.runFull(cyc, eps, f * eps * (f < 0 ? -tg.lo : tg.hi), 2 * Math.PI / 3, 300, 200).locked ? 'L' : 'd').join('');
+      ok = ok && row === 'ddLLLLLdd'; rows.push(`ε ${eps}: ${row}`);
+    }
+    check('shadow: van der Pol, weak coupling, the full pair locks exactly where the shadow’s tongue says', ok, `${rows.join(' · ')} (shadow: ddLLLLLdd, edges at ±1)`);
+  }
+  {
+    const { cyc, G, tg } = loops[1], eps = 0.4, det = 0.09, full = M.runFull(cyc, eps, det, 2 * Math.PI / 3, 300, 200);
+    const sh = M.shadowLock(G, cyc.w, eps, det, 0);
+    check('shadow: van der Pol, strong coupling, the full pair locks where the shadow says it drifts', full.locked && sh === null && det > eps * tg.hi, `ε 0.4, δ 0.09: full ${full.locked ? 'locks' : 'drifts'}, shadow edge at δ ${(eps * tg.hi).toFixed(3)}`);
+  }
+  {
+    const oddEven = (G) => { let o = 0, e = 0; for (let q = 0; q < 128; q++) { const p = 2 * Math.PI * q / 128; o = Math.max(o, Math.abs(M.gammaAt(G, p) - M.gammaAt(G, -p))); e = Math.max(e, Math.abs(M.gammaAt(G, p) + M.gammaAt(G, -p) - 2 * M.gammaAt(G, 0))); } return o / e; };
+    const r03 = oddEven(loops[0.3].G), r1 = oddEven(loops[1].G);
+    const { cyc, tg } = loops[0.3], miss = M.runFull(cyc, 0.05, 1.5 * 0.05 * tg.hi, 2 * Math.PI / 3, 300, 200).locked;
+    check('shadow: on the gentle loop the averaged pull is nearly even in the gap, and the shadow misses locking at weak coupling', r03 < 0.5 * r1 && miss,
+      `odd/even part of Γ: μ 0.3 ${r03.toFixed(3)}, μ 1 ${r1.toFixed(3)}; μ 0.3, ε 0.05, δ at 1.5× the shadow’s edge: full ${miss ? 'locks' : 'drifts'}`);
+  }
+}
+
 console.log(fails ? `\n${fails} FAIL` : '\nall PASS');
 process.exit(fails ? 1 : 0);
