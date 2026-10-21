@@ -1,3 +1,13 @@
+---
+title: README
+born: 2026-10-21
+links:
+  - target: "[[VST Template]]"
+    type: connects-to
+    label: proof-for
+forward_vector: "I hold the three directions for the template's editor, Bench, Edge map and Signal flow, rendered for both plugins from one engine with what each costs and a recommendation, so Loudon can pick one and the choice can be checked against what he saw."
+---
+
 # Three directions for the template's editor
 
 Loudon, 2026-10-21: "I'd like the next job of the VST template to create a design standard, so that we have custom UI not the default sliders."

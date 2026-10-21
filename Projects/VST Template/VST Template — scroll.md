@@ -50,6 +50,33 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="proof-2026-10-21-ui-directions" -->
+### 2026-10-21 — Three directions for the template's editor, for Loudon to choose from
+> The sixth move's first step: one engine draws every plugin's editor in the house dress from its parameter table, and three directions are rendered for both plugins.
+
+The editor layer is in `machinery/` (`ui/editor.html`, `tools/ui.py`, `src/PluginEditor`), and each table row now carries a `group` and, for at most two parameters, `hero`. The design standard's draft says what every plugin shares: the header, the type, the colour, the 4 px grid, the layout from the table, a control for each kind of parameter (a knob for continuous, segments for stepped, a switch for on/off, a large ticked knob for a hero), how values read, and how the window resizes. It leaves one choice open. Each direction is drawn from the same tables, rendered by headless Chrome at the plugin's default size (Frustration 760 × 520, Simple Synth 900 × 600).
+
+- **A · Bench.** Knobs on cards, in Graphite, the two heroes large. It fits any table at its default size, but it says nothing about how the heroes relate.
+- **B · Edge map.** The two heroes become one XY pad. On Frustration the pad is drawn over the edge map from the frustration sweeps, so you can see where the tone tears before you hear it. On Simple Synth it is just a square.
+- **C · Signal flow.** Faders on Drafting paper, the groups left to right with arrows. It shows the structure, but it takes room, and a cream window is bright in Live at night.
+- **The recommendation:** Bench as the template's default, with the Edge map pad as an opt-in in `plugin.json` for a plugin whose two heroes make a map. Frustration would use the pad. The choice is Loudon's.
+
+**Artifacts:**
+- [Frustration, all three directions on one sheet](Projects/VST Template/proofs/2026-10-21-ui-directions/frustration-directions.png)
+- [Simple Synth, all three directions on one sheet](Projects/VST Template/proofs/2026-10-21-ui-directions/simplesynth-directions.png)
+- [Frustration · Bench](Projects/VST Template/proofs/2026-10-21-ui-directions/frustration-bench.png)
+- [Frustration · Edge map](Projects/VST Template/proofs/2026-10-21-ui-directions/frustration-edge.png)
+- [Frustration · Signal flow](Projects/VST Template/proofs/2026-10-21-ui-directions/frustration-flow.png)
+- [Simple Synth · Bench](Projects/VST Template/proofs/2026-10-21-ui-directions/simplesynth-bench.png)
+- [Simple Synth · Edge map](Projects/VST Template/proofs/2026-10-21-ui-directions/simplesynth-edge.png)
+- [Simple Synth · Signal flow](Projects/VST Template/proofs/2026-10-21-ui-directions/simplesynth-flow.png)
+- [README.md — the three directions, what each costs, the recommendation](Projects/VST Template/proofs/2026-10-21-ui-directions/README.md)
+- [VST Template — design standard.md — what every plugin's editor shares, and the open choice](Projects/VST Template/VST Template — design standard.md)
+
+_Left rough:_ the editor has not yet been seen inside the plugin's own WebView: it renders in headless Chrome, and pluginval's three editor tests pass on the built Frustration; Frustration's edge-map backdrop is fixed at 40 partials, unpinned, inertia 1; the Signal flow direction overflows Simple Synth at 900 × 600.
+<sub>`proof-2026-10-21-ui-directions` · written by hand · the editor layer landed in `e1b9bf05`, the standard and the directions in `9f630d99`</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-10-21T07-51-34-04-00" -->
 ### 2026-10-21 — Plan revised: a custom editor for every plugin, from a design standard
 

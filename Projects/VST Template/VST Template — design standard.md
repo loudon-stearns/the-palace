@@ -1,3 +1,16 @@
+---
+title: "VST Template — design standard"
+born: 2026-10-21
+links:
+  - target: "[[VST Template]]"
+    type: connects-to
+    label: standard-for
+  - target: "[[Loudon Live Design System]]"
+    type: connects-to
+    label: plugin-editor
+forward_vector: "I am the standard every plugin made from VST Template follows for its editor: the header, type, colour, space, the controls for each kind of parameter, values and resizing, all drawn from the parameter table with no editor code per plugin. I record Loudon's choice of direction once he makes it, and I hand what the house dress lacks for a plugin window back to the design system."
+---
+
 # VST Template — design standard
 
 Every plugin made from the template gets the same editor: a custom one in the Loudon Live house dress, drawn from its parameter table, with no editor code of its own. This page says what that editor is. The machinery that draws it is `machinery/ui/editor.html` and `machinery/tools/ui.py`.
