@@ -129,7 +129,7 @@ The writer and `check` prove structure: Live opens the Set, the devices load, ev
 
 ## Test suite
 
-`Shop/Ableton Session Writer/tests/test-plan.md`. Last run 2026-10-21: smoke passed on all three Sets (`check` ends "nothing to look at"); capability: Simple Synth and Tear and Heal opened and played in a second Live 12.4.6 instance; the Frustration Set's re-open after Live's rescan is still pending — the plugin's code seal was broken and has since been fixed by the [[VST Template]] session, and `check` now finds it installed.
+`Shop/Ableton Session Writer/tests/test-plan.md`. Last run 2026-10-21: smoke passed on all three Sets (`check` ends "nothing to look at"); capability: Simple Synth and Tear and Heal opened and played in a second Live 12.4.6 instance; the Frustration Set loaded in Live 12.4.6 at 00:16:02 on 2026-10-21 after the plugin's re-seal and a rescan (`1847b68c`); nobody has yet played the ride.
 
 ## Resource footprint
 

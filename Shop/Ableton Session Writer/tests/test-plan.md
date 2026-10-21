@@ -10,7 +10,7 @@ forward_vector: "I am the Ableton Session Writer's test plan; I want every claim
 
 > Copied from the Maker's template (`Shop/Maker/_TEMPLATE/test-plan.md`) at minting, 2026-10-21, and filled from the probe of 2026-10-20 → 21 (`Shop/Shopkeeper/probes/2026-10-20-ableton-session/`). Until the Specialist's own job folder exists, every probe runs against the probe's three Sets in `out/`.
 
-Last run: **2026-10-21** — smoke passed on all three Sets; Simple Synth and Tear and Heal opened and played in a second Live 12.4.6 instance; the Frustration Set's re-open after Live's rescan is pending (its plugin's code seal was broken on the first open and has since been fixed by the VST Template session; `check` now finds it installed).
+Last run: **2026-10-21** — smoke passed on all three Sets; Simple Synth and Tear and Heal opened and played in a second Live 12.4.6 instance; the Frustration Set loaded in Live 12.4.6 at 00:16:02 on 2026-10-21 after the plugin's re-seal and a rescan (`1847b68c`); nobody has yet played the ride.
 
 ## Smoke
 One command: `node "Shop/Shopkeeper/probes/2026-10-20-ableton-session/live-set.mjs" check "Shop/Shopkeeper/probes/2026-10-20-ableton-session/out/Tear and Heal.als"`. It passes when it ends `nothing to look at`; it fails loud on a missing sample, a repeated pointee id, or an uninstalled plugin.
