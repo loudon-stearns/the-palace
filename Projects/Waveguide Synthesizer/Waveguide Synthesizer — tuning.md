@@ -25,7 +25,7 @@ What Waveguide Synthesizer's steward cycles taught the page, and the changes to 
 ## From cycle 19 — 2026-10-20
 
 1. Every change in a patch script goes through the asserting rep(): a bare str.replace in a quick fix-up matched nothing, said nothing, and hid the bow stop's own grip chart until the photographs showed it. *(offered by the steward, cycle 19)*
-2. **Proposed for canon** · 2026-10-20 · [[Waveguide Synthesizer]] · § Forward Vector: replace the paragraph that begins 'First move: a Shop brief to the Maker' · canon change owed *(proposed by the steward, cycle 19)*
+2. **Proposed for canon** · 2026-10-20 · [[Waveguide Synthesizer]] · § Forward Vector: replace the paragraph that begins 'First move: a Shop brief to the Maker' · paid in 9b59fa3b on 2026-10-21 09:49 *(proposed by the steward, cycle 19)*
    Why: The section still names the first Sketch brief as the next move; the page has since built through all five steps of Loudon's plan.
    Path: `Projects/Waveguide Synthesizer.md`
    > The Sketch is long done and the Study tier is built: study v1.12 is a two-way waveguide you can pluck, strike and bow, with stiffness that means the same at every pitch, a soundboard under the bridge, every slider lighting the object it names, and a seven-stop lesson (pluck, reflection, loss, pitch, stiffness, bow, body) that waits for the learner. What comes next is the Piece tier: hear it taught by hand, take it to a phone, make it hold up on a stage, and answer the question this page was born asking: does it earn a stage, or is it a test bed?
