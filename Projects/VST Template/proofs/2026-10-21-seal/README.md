@@ -1,3 +1,13 @@
+---
+title: README
+born: 2026-10-21
+links:
+  - target: "[[VST Template]]"
+    type: connects-to
+    label: proof-for
+forward_vector: "I hold the proof of the broken seal Live 12's scanner caught on 2026-10-20 after pluginval, auval and the host check had passed: the symptom, the cause, the strict check and the re-seal, and the Live 12 load still to do."
+---
+
 # A broken seal: why Live refused Frustration when every other check passed
 
 On the night of 2026-10-20, the Ableton session found that Live 12's plug-in scanner refused the installed Frustration.vst3. pluginval, auval and the template's own host check had all passed it.
