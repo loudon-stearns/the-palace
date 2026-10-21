@@ -228,8 +228,8 @@ previews (`--all`, everyone's), and `--stop [port]` stops yours: every one, or t
 Neither will touch another holder's.
 
 - **The scratch STIGMERGY** (`scripts/scratch-vite.mjs`) runs this checkout's app over a throwaway
-  palace, workers stubbed, with Vite's cache in a folder of the holder's own (never the owner's
-  `node_modules/.vite` behind a worktree's linked install). It refuses a checkout of this palace as
+  palace, workers stubbed, with Vite's cache in a folder of the holder's own, removed when it stops
+  (never the owner's `node_modules/.vite` behind a worktree's linked install). It refuses a checkout of this palace as
   its root, because that board is tracked. `--new` makes an empty throwaway palace: a git repository
   with an empty board. For a rich-face check at your branch, clone it there instead. It leases a
   second port for the piece origin and hands it over as `STIGMERGY_PIECE_PORT`. It goes through the

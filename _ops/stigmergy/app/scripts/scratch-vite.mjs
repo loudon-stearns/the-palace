@@ -18,9 +18,9 @@
 //     palace read are its own. A checkout of this repository is refused: its
 //     board is tracked, and a scratch write there rides into a commit.
 //   - Workers are stubbed (STIGMERGY_STUB_WORKER=1): no real steward fires.
-//   - Vite's cache is a folder of this holder's own. The app's node_modules
-//     is a link to the owner's install in a worktree, and the default cache
-//     would land in it, beside the live server's.
+//   - Vite's cache is a folder of this holder's own, removed when the server
+//     stops. The app's node_modules is a link to the owner's install in a
+//     worktree, and the default cache would land in it, beside the live server's.
 // It listens through Vite with the app's own vite.config.js, so the request
 // guard (blackboardMiddleware → guardRequest) stands in front of /api/ and
 // /rich/ exactly as on :5173. The guard census knows it by name.
@@ -30,13 +30,12 @@
 // background and returns once it is up; one a Claude session starts stops when
 // that session ends, unless --keep. Open it in the Browser pane by its URL.
 
-import os from 'node:os';
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, writeFileSync, realpathSync, statSync } from 'node:fs';
+import { existsSync, mkdirSync, writeFileSync, realpathSync, statSync, rmSync, readdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
-  acquire, agentSlug, watchSession, detach, announce, announceFailure, runListOrStop,
+  acquire, list, agentSlug, scratchDir, watchSession, detach, announce, announceFailure, runListOrStop,
 } from '../../../commons/port-lease.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -79,33 +78,68 @@ export function makeScratchPalace(root) {
  * `root`, and hand back how to stop it. The env is set before the config loads
  * (vite.config.js reads PALACE_ROOT then), and is this process's own.
  */
+/**
+ * Remove this slug's Vite caches whose port no live lease holds: what a server
+ * killed outright, or one whose last write raced its exit, left behind. Scoped
+ * to the slug, and a cache whose port is still leased (by any session) is kept.
+ */
+export function sweepCaches(env = process.env) {
+  const prefix = `vite-cache--${agentSlug(env)}--`;
+  const live = new Set(list({ all: true, kind: KIND, env }).map((n) => n.port));
+  let names;
+  try { names = readdirSync(scratchDir(env)); } catch { return []; }
+  const swept = [];
+  for (const name of names) {
+    if (!name.startsWith(prefix)) continue;
+    const port = Number(name.slice(prefix.length));
+    if (!Number.isInteger(port) || live.has(port)) continue;
+    rmSync(join(scratchDir(env), name), { recursive: true, force: true });
+    swept.push(name);
+  }
+  return swept;
+}
+
 export async function serve({ root, keep = false, env = process.env, onSessionEnd = null } = {}) {
   const lease = await acquire({ names: ['app', 'piece'], kind: KIND, env, meta: { root, app: APP, log: env.PALACE_LEASE_LOG || null } });
+  sweepCaches(env);
   process.env.PALACE_ROOT = root;
   process.env.STIGMERGY_STUB_WORKER = '1';
   process.env.STIGMERGY_PIECE_PORT = String(lease.ports.piece);
   const vite = await import('vite');
-  let server;
+  let server, cacheDir;
   for (let tries = 0; ; tries++) {
     const port = lease.ports.app;
+    // Its own while it runs, gone when it stops: a cache per holder and port, ~20 MB, would pile up.
+    cacheDir = join(scratchDir(env), `vite-cache--${agentSlug(env)}--${port}`);
     server = await vite.createServer({
       configFile: join(APP, 'vite.config.js'),
       configLoader: 'native',
       root: APP,
-      cacheDir: join(os.tmpdir(), 'palace-leases', `vite-cache--${agentSlug(env)}--${port}`),
+      cacheDir,
       clearScreen: false,
       server: { host: '127.0.0.1', port, strictPort: true },
     });
     try { await server.listen(); break; } catch (e) {
       await server.close().catch(() => {});
+      rmSync(cacheDir, { recursive: true, force: true });
       if (!/already in use/i.test(String(e && e.message)) || tries >= 4) { lease.release(); throw e; }
       await lease.renew('app');
     }
   }
   const url = `http://127.0.0.1:${lease.ports.app}/`;
-  lease.update({ url });
+  lease.update({ url, cache: cacheDir });
+  // On exit, not after close: Vite answers SIGTERM itself, closing and exiting
+  // before any handler of ours could finish.
+  const dropCache = () => rmSync(cacheDir, { recursive: true, force: true });
+  process.once('exit', dropCache);
   let unwatch = null;
-  const close = async () => { if (unwatch) unwatch(); await server.close(); lease.release(); };
+  const close = async () => {
+    if (unwatch) unwatch();
+    await server.close();
+    dropCache();
+    process.off('exit', dropCache);
+    lease.release();
+  };
   if (!keep) unwatch = watchSession(() => (onSessionEnd ? onSessionEnd() : close()), { env });
   return { server, lease, url, port: lease.ports.app, piecePort: lease.ports.piece, root, close };
 }

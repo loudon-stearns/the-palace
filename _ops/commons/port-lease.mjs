@@ -116,6 +116,14 @@ export function leaseDir(env = process.env) {
   return join(os.tmpdir(), 'palace-leases');
 }
 
+/**
+ * Where a leased server's log and caches go: the user's temp folder, or beside
+ * the leases when PALACE_LEASE_DIR moves them (as tests do, so a run leaves nothing behind).
+ */
+export function scratchDir(env = process.env) {
+  return env.PALACE_LEASE_DIR ? join(resolve(env.PALACE_LEASE_DIR), 'scratch') : join(os.tmpdir(), 'palace-leases');
+}
+
 /** [lo, hi], inclusive, from PALACE_LEASE_PORTS ("8850-8949") or the default. */
 export function portRange(env = process.env) {
   const m = /^\s*(\d+)\s*-\s*(\d+)\s*$/.exec(String(env.PALACE_LEASE_PORTS || ''));
@@ -436,7 +444,7 @@ export function watchSession(onGone, { env = process.env, intervalMs = Number(en
  * plus its pid and log.
  */
 export function detach({ script, args = [], kind = 'server', env = process.env, timeoutMs = 60_000 } = {}) {
-  const logDir = join(os.tmpdir(), 'palace-leases');
+  const logDir = scratchDir(env);
   mkdirSync(logDir, { recursive: true });
   const stamp = new Date().toISOString().replace(/[:.]/g, '-');
   const log = join(logDir, `${kind}--${agentSlug(env)}--${stamp}.log`);

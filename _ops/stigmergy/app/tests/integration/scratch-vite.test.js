@@ -1,12 +1,13 @@
 import { describe, test, expect, beforeAll, afterAll } from 'vitest';
 import { spawn, execFileSync } from 'node:child_process';
-import { mkdtempSync, rmSync, readFileSync, existsSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, rmSync, readFileSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import request from 'supertest';
 import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
-import { refuseRoot, makeScratchPalace } from '../../scripts/scratch-vite.mjs';
+import { refuseRoot, makeScratchPalace, sweepCaches, KIND } from '../../scripts/scratch-vite.mjs';
+import { acquire } from '../../../../commons/port-lease.mjs';
 
 // The scratch STIGMERGY (scripts/scratch-vite.mjs): this checkout's app over a
 // throwaway palace, on leased ports, workers stubbed. Two holders start one each
@@ -103,13 +104,37 @@ describe('two scratch servers at once', () => {
     expect(crossed.out).toMatch(/is not yours: it is stigmergy-vite for holder-a/);
     expect((await request(A).get('/')).status).toBe(200);
 
+    // Each holds a Vite cache of its own, beside its lease, and takes it away when it stops.
+    // The cache appears once Vite's dependency scan has written it, a few seconds in.
+    const cacheOf = (who, port) => join(dir, 'leases', 'scratch', `vite-cache--${who}--${port}`);
+    const until = async (fn, ms) => { const end = Date.now() + ms; while (Date.now() < end) { if (fn()) return true; await new Promise((r) => setTimeout(r, 100)); } return false; };
+    expect(await until(() => existsSync(join(cacheOf('holder-a', pa), 'deps')) && existsSync(join(cacheOf('holder-b', pb), 'deps')), 30_000)).toBe(true);
+
     const stopped = await run(['--stop'], 'holder-b');
     expect(stopped.code, stopped.out).toBe(0);
     expect(stopped.out).toContain(`stopped stigmergy-vite on ${pb}`);
     await expect(request(B).get('/')).rejects.toThrow();
     expect((await request(A).get('/')).status).toBe(200);
     expect(existsSync(join(dir, 'palace-b', BOARD))).toBe(true);
+    expect(existsSync(cacheOf('holder-b', pb))).toBe(false);
+    expect(existsSync(cacheOf('holder-a', pa))).toBe(true);
   }, 90_000);
+});
+
+// A cache left by a server killed outright is swept at the next start, but only this slug's,
+// and never one whose port a live lease still holds.
+test('a start sweeps this slug’s stale Vite caches and keeps the rest', async () => {
+  const dir = mkdtempSync(resolve(tmpdir(), 'scratch-vite-sweep-'));
+  const lo = 43000 + Math.floor(Math.random() * 100) * 20;
+  const env = gitFreeEnv({ PALACE_LEASE_DIR: join(dir, 'leases'), PALACE_LEASE_PORTS: `${lo}-${lo + 19}`, COMMONS_AGENT_SLUG: 'sweeper', CLAUDE_CODE_SESSION_ID: 'sweep-test' });
+  const lease = await acquire({ names: ['app'], kind: KIND, env });
+  const scratch = join(dir, 'leases', 'scratch');
+  const made = [`vite-cache--sweeper--${lo + 19}`, `vite-cache--sweeper--${lease.ports.app}`, `vite-cache--someone--${lo + 19}`, 'stigmergy-vite--sweeper--x.log'];
+  for (const name of made) mkdirSync(join(scratch, name), { recursive: true });
+  expect(sweepCaches(env)).toEqual([`vite-cache--sweeper--${lo + 19}`]);
+  expect(made.filter((name) => existsSync(join(scratch, name)))).toEqual(made.slice(1));
+  lease.release();
+  rmSync(dir, { recursive: true, force: true });
 });
 
 // The worktree's own board is never the scratch board.
