@@ -7,7 +7,7 @@ pillars:
   - tools
 born: 2026-05-26
 stage: growing
-version: "1.12"
+version: "1.13"
 trigger: ["close well", "let's close well", "close this session well"]
 links:
   - target: "[[Maker]]"

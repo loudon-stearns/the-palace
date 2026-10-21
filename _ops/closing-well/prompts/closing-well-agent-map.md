@@ -94,6 +94,18 @@ Backstage notes: <canon → owner/main, not a feature branch; weave-flags on the
 board (the close sees, the Weave acts); anything to validate before it's called done.>
 To surface weave-flag debts, run `_ops/swarm/lint-bundle-hygiene.py` and
 `_ops/swarm/face-audit.py` and read them scoped to the files this session touched.
+
+To find a self-check this session owes, run
+`node _ops/self-description-test/due.mjs --session` from the session's worktree (on main,
+add `--since <the commit the session started from>`). Exit 2 means the session changed
+canon a newborn is tested on, and no birth has run since: add a `hand on` row naming the
+owed scenarios and the birth command it prints, placed in the session's baton. Never run a
+birth at the close; a birth spends money, and that waits for Loudon's yes.
+
+To offer a real opening, take the first message Loudon typed this session (the arc reader
+keeps his typed words apart) and show it to him as a candidate opening for the self-check
+suite. On his keep, append it to `_ops/self-description-test/openings.md`; on his drop,
+let it go. The palace is public, so nothing enters without his yes.
 ```
 
 ### Return

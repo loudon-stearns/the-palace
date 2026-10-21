@@ -220,4 +220,4 @@ Anyone running Proof 2 should read the courses-as-seeds study first — not for 
 
 ## Active Baton
 
-[[Self-Describing Knowledge Module — baton]] — drafted 2026-09-25
+[[Self-Describing Knowledge Module — baton]] — drafted 2026-09-25, updated 2026-10-21
