@@ -80,7 +80,7 @@ export function makeScratchPalace(root) {
  * (vite.config.js reads PALACE_ROOT then), and is this process's own.
  */
 export async function serve({ root, keep = false, env = process.env, onSessionEnd = null } = {}) {
-  const lease = await acquire({ names: ['app', 'piece'], kind: KIND, env, meta: { root, app: APP } });
+  const lease = await acquire({ names: ['app', 'piece'], kind: KIND, env, meta: { root, app: APP, log: env.PALACE_LEASE_LOG || null } });
   process.env.PALACE_ROOT = root;
   process.env.STIGMERGY_STUB_WORKER = '1';
   process.env.STIGMERGY_PIECE_PORT = String(lease.ports.piece);

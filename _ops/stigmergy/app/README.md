@@ -238,6 +238,9 @@ Neither will touch another holder's.
   default. It reaches a board only when started with `--app http://localhost:5173`.
 - **Both stop when the session that started them ends** (the session's `$CLAUDE_PID`), unless
   `--keep`. A human at a terminal runs them in the foreground, without `--detach`; Ctrl-C stops them.
+- **A port is reused, and so is its browser storage.** The next holder of 8850 opens on the same
+  origin, `127.0.0.1:8850`, so the review dock's unsent notes and any piece's storage from the last
+  preview are still there in the same browser. Clear them when they matter.
 
 The lease is `_ops/commons/port-lease.mjs`, for any tool that needs a port of its own:
 `acquire({ names, kind })` hands back the ports, `node _ops/commons/port-lease.mjs list --all` shows

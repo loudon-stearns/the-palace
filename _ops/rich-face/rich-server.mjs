@@ -67,7 +67,7 @@ function bind(server, port) {
  * A port taken between the lease's probe and this start is let go for the next.
  */
 export async function serve({ root = ROOT, here = HERE, app = null, port = null, keep = false, env = process.env, onSessionEnd = null } = {}) {
-  const lease = await acquire({ names: ['page'], kind: KIND, port, env, meta: { root, app: app || null } });
+  const lease = await acquire({ names: ['page'], kind: KIND, port, env, meta: { root, app: app || null, log: env.PALACE_LEASE_LOG || null } });
   const server = createRichServer({ root, here, app });
   for (let tries = 0; ; tries++) {
     try { await bind(server, lease.ports.page); break; } catch (e) {
