@@ -4,7 +4,7 @@ type: practice
 pillars: [practice, philosophy]
 born: 2026-03
 stage: mature
-version: "1.2"
+version: "1.3"
 trigger: ["spore check"]
 links:
   - target: "[[Palace Ceremonies]]"
@@ -13,124 +13,111 @@ links:
     type: connects-to
   - target: "[[Substrate Skill]]"
     type: connects-to
+  - target: "[[Revival Ceremony]]"
+    type: connects-to
+    label: one-of-four-ways-in
+  - target: "[[The Daily Page]]"
+    type: connects-to
+    label: one-sleeper-at-a-time
 ---
 
 # Spore Check Ceremony
 
 ![[Spore Check Ceremony — hero.png]]
 
-## Ceremony Contract
+The one time the palace looks at everything asleep, together, and asks whether the world has moved around it. It decides. It does not revive (the [[Revival Ceremony]] does) and it does not delete (the [[Weave Ceremony|Weave]] does).
 
-**Trigger:** "Spore check"
+## Contract
 
-**Preconditions:**
-1. At least one entry exists with `stage: dormant`
-2. Palace folder is accessible via the current vector
-
-**Postconditions:**
-1. Every `stage: dormant` entry has been reviewed against current work and conditions
-2. Each dormant entry has been assigned a disposition: `revive`, `hold`, or `compost`
-3. `revive` entries have had their stage updated and a note added explaining the revival conditions that were met
-4. `compost` entries have been marked `stage: composting` — not deleted; deletion happens at the next Weave
-5. `hold` entries are unchanged — their dormancy is confirmed as appropriate
-6. Git commit made: `Spore Check — [date] — [N revived, N composted, N held]`
-
-**Failure mode:** If a dormant entry cannot be read (file corrupted or inaccessible), flag it in the report as unreviewed. Do not assign a disposition to an entry that hasn't been read. Unreviewed entries carry over to the next Spore Check.
-
-**Git commit:** `Spore Check — [date] — [N revived, N composted, N held]`
+| | |
+|---|---|
+| **Precondition** | At least one page is asleep (Step 1 says which pages count). |
+| **Postcondition** | Every sleeper was read and given a disposition Loudon agreed: revive, hold, compost or fold. Each revive went to the Revival Ceremony, run now or left as a baton on the page; each hold whose conditions could not be checked has conditions that can; each compost carries its composting note, `stage: composting`, and a flag for the Weave. The run's line in [[Spore Check Ceremony — tuning]] names every page and its disposition. |
+| **Does not do** | Change a page's type or stage except to `composting`. Edit a sleeping page beyond its conditions or its composting note: a page that wants editing wants reviving. Delete anything. |
+| **Who writes** | An elder. A child walks the check with Loudon and hands the writes to the [[Concierge]]. |
+| **Failure mode** | A page that cannot be read is named in the report as unread, given no disposition, and carried to the next check. |
 
 ---
 
-## What the Spore Check Is
+## What the Spore Check is
 
-Spores are not dead. They are alive at a lower metabolic rate, waiting for conditions that will let them grow. The Spore Check is not a cull — it is a temperature reading. For each dormant entry, the question is: have conditions changed? Is this spore ready to germinate?
+Spores are not dead. They are alive at a lower metabolic rate, waiting for conditions that will let them grow. The Spore Check is not a cull; it is a temperature reading. For each sleeper the question is: has anything changed? Is this one ready?
 
-The ceremony is quarterly because dormant ideas often need seasons, not weeks. Checking monthly creates false urgency. Checking less than quarterly means genuine revivals are missed.
+It is also the palace's honest moment about what will never grow here. Holding an idea forever is not respect for its potential; it is clutter, and the palace prefers depth over coverage. Composting is not abandonment. The nutrients go back into the soil, and the composting note says where.
 
-The Spore Check is also the palace's composting decision point. Some ideas never germinate. Holding them indefinitely is not respect for their potential — it is clutter. The palace prefers depth over coverage. An idea that has been dormant across multiple Spore Check cycles with no change in conditions is a candidate for composting. Composting is not abandonment; it is honest acknowledgment that this spore will not grow here, now. Its nutrients return to the soil.
+Other rites meet sleepers too. [[The Daily Page]] deals one when the shuffle reaches it, and asks the same question of that one page. The Weave puts pages to sleep when nothing has touched them, and lists the sleepers in its report. Only the Spore Check looks at all of them at once, which is how it sees what a single morning can't: two sleepers that are the same idea, a condition met by a page born last month, a granted revival that never landed.
 
-## Protocol
+The cadence is quarterly, because dormant ideas need seasons, not weeks. Nothing calls it on a schedule yet: Loudon calls it.
 
-**Step 1: Read all dormant entries**
+## Steps
 
-First take the tail read of [[Spore Check Ceremony — tuning]] ([[SCHEMA — Reference]] §6). Those are this run's first candidates for a spec change.
+**1. List the sleepers.**
 
-Read every entry with `stage: dormant`. For each, note:
-- When it was last used — `python3 _ops/swarm/entry-use.py --entry "<title>"` reads it from git
-- Its `revival_conditions` (from frontmatter, if set)
-- Its typed links — what is it connected to?
-- How many Spore Checks it has been held without revival
+First take the tail read of [[Spore Check Ceremony — tuning]] ([[SCHEMA — Reference]] §6): its run lines say which pages were held last time, and for how many checks.
 
-**Step 2: Check revival conditions against current work**
+A sleeper is any of:
 
-For each entry, ask: has anything changed since this entry went dormant that meets its revival conditions?
+- a page at `stage: dormant` (`git grep -l -E '^stage: *"?dormant' -- '*.md'`);
+- a spore at any stage (`git grep -l -E '^type: *"?spore' -- '*.md'`): [[SCHEMA]] says a spore is always dormant, so one that isn't is a finding to name;
+- a revive request Loudon granted on the TRICKSTER board whose page still says dormant: grep the persistent board (`_ops/swarm/persistent/blackboard.jsonl`; from a worktree, the main checkout's copy) for `REVIVE` grants and check each page.
 
-Consider:
-- New entries in the palace that are semantically adjacent
-- Current projects that this dormant idea could serve
-- Conversations or ideas currently active that this entry would deepen
-- Whether the revival condition itself has become obsolete — sometimes conditions are met without anyone noticing
+A page at `stage: composting` is the Weave's to confirm, not a sleeper here.
 
-**Step 3: Assign dispositions**
+**2. Read each one.**
 
-For each dormant entry, assign one of three dispositions:
+For each: the whole page, its `revival_conditions` if it carries them, its steward if it has one (`_ops/agents/permanent/`), and what has changed since it went quiet: git since that date, its typed neighbors, its board. Last use is computed from git (`python3 _ops/swarm/entry-use.py --entry "<title>"`; inside a `.claude/worktrees/` checkout it currently finds no entries, so read the dates from `git log` there until it is fixed). Then ask plainly whether its conditions were met, or have become obsolete, or were never something anyone could check.
 
-**`revive`** — The revival conditions have been met or close enough to warrant reactivation. Update `stage` to `seed` or `sprout` (whichever reflects current body depth). Add a brief `## Revival Note` section to the entry body explaining what changed. Propose new typed links if the revival reveals new connections.
-
-**`hold`** — The entry remains dormant intentionally. Conditions haven't changed. This is a valid and complete disposition — not inaction, but confirmed patience.
-
-**`compost`** — The idea has been dormant for multiple cycles, has no connection to current or foreseeable work, and holding it no longer serves the palace. Mark `stage: composting`. The entry will be deleted at the next Weave (which will ask for final confirmation before deleting). Document what was valuable about this entry in its body before marking — the composting note is the final trace.
-
-**Step 4: Show all dispositions to Loudon**
-
-Present the full list before applying any changes:
+**3. Show one table, and decide together.**
 
 ```
 ## Spore Check — [date]
 
-Dormant entries reviewed: [N]
+Sleepers read: [N]
 
-Revive:
-- [[Entry]] — [reason revival conditions are met]
-
-Hold:
-- [[Entry]] — [reason for continued dormancy]
-
-Compost:
-- [[Entry]] — [reason, and what was valuable about it]
+Revive:  [[Entry]] — what changed, in a sentence
+Hold:    [[Entry]] — why not yet; its conditions, rewritten if they couldn't be checked
+Compost: [[Entry]] — why, and what was valuable here
+Fold:    [[Entry]] → [[Neighbor]] — the neighbor that already carries it
 ```
 
-Wait for Loudon's confirmation or adjustments before writing.
+Write nothing until Loudon has read the table and said yes, or adjusted it.
 
-**Step 5: Apply and commit**
+**4. Apply.**
 
-Apply all confirmed dispositions. Then commit: `Spore Check — [date] — [N revived, N composted, N held]`. The commit is the run's record: its body names the version and ends with what this run taught the ceremony ("nothing" is a legal answer); the run marks the tuning file with its run line, and a lesson that changes the spec also goes there as a numbered item.
+- **Revive.** Each one goes to the [[Revival Ceremony]]: run it now, in this session, or leave a baton on the page saying why now. The Spore Check does not revive inline.
+- **Hold.** Nothing is written, unless its conditions could not be checked. Then rewrite them so the next reader can: a thing that exists or doesn't, a page that has been built or hasn't. "When the framework reaches maturity" never woke anything; Shimmer Cloud's three lens models were built while its conditions still said wait.
+- **Compost.** Write the composting note (below), set `stage: composting`, and post a flag so the Weave confirms the deletion: from `_ops/`, `python3 -m commons weave-flag --flag-type composting-confirmation --source-entries "<Entry>" --target-entry "<Entry>" --proposed-action "Confirm deletion of <Entry> — composted at the Spore Check of <date>" --rationale "<why>" --source-deposit-id "spore-check-<date>" --sender "Spore Check Ceremony"`. A page with a steward raises the open question of how a project leaves stewardship ([[Project Stewardship System]] § What's Open): name it to Loudon, and don't delete the steward.
+- **Fold.** The text crosses into the neighbor by the [[Deposit Ceremony]]; the emptied page then composts.
 
-## The Composting Note
+**5. Land and record.**
 
-Before any entry is marked `stage: composting`, write a brief composting note into the entry body. This is the entry's last act — a graceful acknowledgment of what it contained and why it is being released.
+Commit through the door: `palace-commit.mjs --ceremony "Spore Check" --summary "<date> — <N> revived, <N> held, <N> composted, <N> folded" --verify <verified|unverified|couldnt>`, one `--path` per file. The body names the version and ends with what this check taught the ceremony ("nothing" is a legal answer). The run marks [[Spore Check Ceremony — tuning]] with its run line, naming each sleeper and its disposition, so "held across three checks" is something the next run can count; a lesson that changes the spec also goes there as a numbered item.
 
-Format:
+## The composting note
+
+Before a page is marked `stage: composting`, write a short note into its body. It is the page's last act: a plain account of what it held and why it is being let go. [[The Daily Page]] uses the same note.
+
 ```markdown
 ## Composting Note — [YYYY-MM]
 
-This entry is being released. It has been dormant since [date] with no change in revival conditions across [N] Spore Checks.
+This entry is being released. It has been dormant since [date], held across [N] Spore Checks, with no change in what it was waiting for.
 
-What was valuable here: [one or two sentences — the idea's contribution, even if never fully developed].
+What was valuable here: [one or two sentences: the idea's contribution, even if never fully developed].
 
-Its nutrients: [what existing entries carry forward the most relevant aspect of this idea, if any].
+Its nutrients: [the pages that carry the most of it forward, if any].
 ```
 
-This note exists for any future operator who might wonder why something is gone. It makes the compost visible and intentional, not silent.
+The note is for whoever later wonders why something is gone. It makes the compost visible and chosen, not silent.
 
-## The Season
+## The season
 
-The Spore Check has a seasonal quality that should be honored. Doing it at the same time each quarter — or tying it to a natural rhythm in your work — makes it feel less like maintenance and more like the turning of a season. The palace has its own weather.
+Do it at the same time each quarter, or tie it to a natural turn in the work, and it feels less like maintenance and more like the season changing. The palace has its own weather.
 
 ## Open Questions
 
-- Should entries that have been held across 3+ consecutive Spore Checks without change be automatically flagged as composting candidates, with the human making the final call?
-- Should `revival_conditions` be a required field for all `stage: dormant` entries? (Currently optional in SCHEMA.)
+- Should a page held across three checks with nothing changed come to the table already marked as a compost candidate, with Loudon making the call?
+- Should the Weave's report offer a Spore Check when a quarter has passed since the last run line?
+- Should `revival_conditions` be required on every sleeper? (Optional in [[SCHEMA]]; today two growing pages carry it as a "waiting for" note, which is a different use.)
 
 ---
 
