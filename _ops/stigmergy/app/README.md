@@ -225,7 +225,8 @@ node _ops/rich-face/rich-server.mjs --root <palace> --detach
 Each prints its URL, pid and log, and returns once the server is up. Open the URL in the Browser
 pane with `preview_start` and that `url`; no `launch.json` entry is needed. `--list` shows your
 previews (`--all`, everyone's), and `--stop [port]` stops yours: every one, or the one on that port.
-Neither will touch another holder's.
+Neither will touch another holder's: stopping one of those is a `kill <pid>` by hand, on purpose, with
+the pid `--list --all` shows.
 
 - **The scratch STIGMERGY** (`scripts/scratch-vite.mjs`) runs this checkout's app over a throwaway
   palace, workers stubbed, with Vite's cache in a folder of the holder's own, removed when it stops
