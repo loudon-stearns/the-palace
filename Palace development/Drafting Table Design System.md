@@ -91,4 +91,5 @@ The Maker's own cascade table and the "only BBS" sentences in the Maker and the 
 ## Status
 
 - **2026-10-21.** Born as a Design System artifact from three sources read exactly; twelve components verified on both grounds in a local harness; the plain-JS controls, the alias sheet and the host binding (`get, set, begin, end, on`, every move inside a gesture) added at the VST Template session's request; exported to `_ops/drafting-table/design-system/`. Loudon: "grow up" and "the vst editor moves to drafting table."
-- **Not yet.** A logo (the name in mono is the mark). JetBrains Mono as a file. A hero knob and an XY pad, described in the brand book but not built. The CLAUDE.md design-manifest line and the propagate flag, waiting for Loudon's yes.
+- **2026-10-21, later.** Landed on main (199bcddf) on Loudon's yes; the CLAUDE.md design-manifest line names both dresses (eb246c96); propagate flag commons-the-palace-1792586388505 carries the three-dress rule to the pages that restate the old one, for the next weave.
+- **Not yet.** A logo (the name in mono is the mark). JetBrains Mono as a file. A hero knob and an XY pad, described in the brand book but not built.
