@@ -12,5 +12,18 @@
     "wave=square",
     "resonance=0.9",
     "vib_depth=80"
-  ]
+  ],
+  "ui": {
+    "width": 900,
+    "height": 600,
+    "min": [
+      720,
+      480
+    ],
+    "max": [
+      1600,
+      1000
+    ],
+    "direction": "bench"
+  }
 }

@@ -37,6 +37,7 @@ build() {
         git clone --depth 1 --branch 8.0.12 https://github.com/juce-framework/JUCE.git "$JUCE_DIR"
     fi
     python3 "$MACH/tools/constants.py" "$HERE"
+    python3 "$MACH/tools/ui.py" build "$HERE" "$BUILD"
     cmake -S "$HERE" -B "$BUILD" -DCMAKE_BUILD_TYPE=Release -DFETCHCONTENT_SOURCE_DIR_JUCE="$JUCE_DIR" > "$BUILD.configure.log" 2>&1 \
         || { cat "$BUILD.configure.log"; exit 1; }
     cmake --build "$BUILD" --config Release -j "$(sysctl -n hw.logicalcpu)"

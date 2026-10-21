@@ -4,6 +4,9 @@
 // the smoothed values go to Algorithm::step(), and MIDI notes reach the
 // algorithm on the sample they land on. Nothing in processBlock allocates or locks.
 #include "PluginProcessor.h"
+#if JUCE_WEB_BROWSER
+ #include "PluginEditor.h"
+#endif
 
 #include <cmath>
 #include <cstdio>
@@ -193,6 +196,15 @@ void Processor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer
             ++probeSink->pos;
         }
     }
+}
+
+juce::AudioProcessorEditor* Processor::createEditor()
+{
+   #if JUCE_WEB_BROWSER
+    return new Editor (*this);
+   #else
+    return new juce::GenericAudioProcessorEditor (*this);
+   #endif
 }
 
 void Processor::getStateInformation (juce::MemoryBlock& dest)

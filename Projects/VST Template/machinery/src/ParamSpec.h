@@ -24,5 +24,8 @@ namespace tpl
         double      smoothMs    = 20.0;   // one-pole time constant; 0 = jump
         const char* choices     = "";     // Choice only: "40|64|96"
         bool        automatable = true;
+        // The editor (machinery/ui) lays itself out from these two; no editor code per plugin.
+        const char* group       = "";     // controls with the same group share a panel, in table order
+        bool        hero        = false;  // drawn large, above the panels: the one or two knobs that matter most
     };
 }

@@ -24,27 +24,27 @@ namespace algo
     };
 
     inline constexpr ParamSpec kParams[kNumParams] = {
-        //  id             name              unit   min      max      default taper          smooth ms
-        { "wave",        "Wave",           "",    0.0,     3.0,     0.0,    Taper::Choice,  0.0, "saw|square|triangle|sine" },
-        { "tune",        "Tune",           "st",  -24.0,   24.0,    0.0,    Taper::Linear,  20.0 },
-        { "pitch_env",   "Pitch env",      "st",  -24.0,   24.0,    0.0,    Taper::Linear,  20.0 },
-        { "pitch_decay", "Pitch decay",    "s",   0.005,   5.0,     0.15,   Taper::Log,     0.0 },
-        { "vib_rate",    "Vibrato rate",   "Hz",  0.1,     20.0,    5.0,    Taper::Log,     20.0 },
-        { "vib_depth",   "Vibrato depth",  "ct",  0.0,     100.0,   10.0,   Taper::Linear,  20.0 },
-        { "cutoff",      "Cutoff",         "Hz",  20.0,    20000.0, 1200.0, Taper::Log,     20.0 },
-        { "resonance",   "Resonance",      "",    0.0,     1.0,     0.3,    Taper::Linear,  20.0 },
-        { "filter_env",  "Filter env",     "oct", -6.0,    6.0,     3.0,    Taper::Linear,  20.0 },
-        { "key_track",   "Key track",      "",    0.0,     1.0,     0.5,    Taper::Linear,  20.0 },
-        { "f_attack",    "Filter attack",  "s",   0.001,   10.0,    0.005,  Taper::Log,     0.0 },
-        { "f_decay",     "Filter decay",   "s",   0.001,   10.0,    0.4,    Taper::Log,     0.0 },
-        { "f_sustain",   "Filter sustain", "",    0.0,     1.0,     0.2,    Taper::Linear,  20.0 },
-        { "f_release",   "Filter release", "s",   0.001,   10.0,    0.3,    Taper::Log,     0.0 },
-        { "a_attack",    "Amp attack",     "s",   0.001,   10.0,    0.005,  Taper::Log,     0.0 },
-        { "a_decay",     "Amp decay",      "s",   0.001,   10.0,    0.3,    Taper::Log,     0.0 },
-        { "a_sustain",   "Amp sustain",    "",    0.0,     1.0,     0.7,    Taper::Linear,  20.0 },
-        { "a_release",   "Amp release",    "s",   0.001,   10.0,    0.25,   Taper::Log,     0.0 },
-        { "velocity",    "Velocity",       "",    0.0,     1.0,     0.5,    Taper::Linear,  20.0 },
-        { "level",       "Level",          "dB",  -60.0,   6.0,     -6.0,   Taper::Linear,  20.0 },
+        //  id              name               unit    min     max       default  taper           smooth choices                      auto   group               hero
+        { "wave",         "Wave",            "",     0.0,    3.0,      0.0,     Taper::Choice,  0.0,   "saw|square|triangle|sine",  true,  "Oscillator" },
+        { "tune",         "Tune",            "st",   -24.0,  24.0,     0.0,     Taper::Linear,  20.0,  "",                          true,  "Oscillator" },
+        { "pitch_env",    "Pitch env",       "st",   -24.0,  24.0,     0.0,     Taper::Linear,  20.0,  "",                          true,  "Oscillator" },
+        { "pitch_decay",  "Pitch decay",     "s",    0.005,  5.0,      0.15,    Taper::Log,     0.0,   "",                          true,  "Oscillator" },
+        { "vib_rate",     "Vibrato rate",    "Hz",   0.1,    20.0,     5.0,     Taper::Log,     20.0,  "",                          true,  "Vibrato" },
+        { "vib_depth",    "Vibrato depth",   "ct",   0.0,    100.0,    10.0,    Taper::Linear,  20.0,  "",                          true,  "Vibrato" },
+        { "cutoff",       "Cutoff",          "Hz",   20.0,   20000.0,  1200.0,  Taper::Log,     20.0,  "",                          true,  "Filter",           true },
+        { "resonance",    "Resonance",       "",     0.0,    1.0,      0.3,     Taper::Linear,  20.0,  "",                          true,  "Filter",           true },
+        { "filter_env",   "Filter env",      "oct",  -6.0,   6.0,      3.0,     Taper::Linear,  20.0,  "",                          true,  "Filter" },
+        { "key_track",    "Key track",       "",     0.0,    1.0,      0.5,     Taper::Linear,  20.0,  "",                          true,  "Filter" },
+        { "f_attack",     "Filter attack",   "s",    0.001,  10.0,     0.005,   Taper::Log,     0.0,   "",                          true,  "Filter envelope" },
+        { "f_decay",      "Filter decay",    "s",    0.001,  10.0,     0.4,     Taper::Log,     0.0,   "",                          true,  "Filter envelope" },
+        { "f_sustain",    "Filter sustain",  "",     0.0,    1.0,      0.2,     Taper::Linear,  20.0,  "",                          true,  "Filter envelope" },
+        { "f_release",    "Filter release",  "s",    0.001,  10.0,     0.3,     Taper::Log,     0.0,   "",                          true,  "Filter envelope" },
+        { "a_attack",     "Amp attack",      "s",    0.001,  10.0,     0.005,   Taper::Log,     0.0,   "",                          true,  "Amp envelope" },
+        { "a_decay",      "Amp decay",       "s",    0.001,  10.0,     0.3,     Taper::Log,     0.0,   "",                          true,  "Amp envelope" },
+        { "a_sustain",    "Amp sustain",     "",     0.0,    1.0,      0.7,     Taper::Linear,  20.0,  "",                          true,  "Amp envelope" },
+        { "a_release",    "Amp release",     "s",    0.001,  10.0,     0.25,    Taper::Log,     0.0,   "",                          true,  "Amp envelope" },
+        { "velocity",     "Velocity",        "",     0.0,    1.0,      0.5,     Taper::Linear,  20.0,  "",                          true,  "Output" },
+        { "level",        "Level",           "dB",   -60.0,  6.0,      -6.0,    Taper::Linear,  20.0,  "",                          true,  "Output" },
     };
 
     // ── 2. Audio in and out, and probes ────────────────────────────────────────

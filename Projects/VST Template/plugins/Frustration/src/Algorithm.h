@@ -25,16 +25,16 @@ namespace algo
     enum Param { B, K, Inertia, F0, Voices, Level, Partials, Pinned, Source, kNumParams };
 
     inline constexpr ParamSpec kParams[kNumParams] = {
-        //  id          name            unit   min    max    default taper          smooth ms
-        { "B",        "Stretch",       "",    1e-7,  30.0,  1e-5,   Taper::Log,     20.0 },
-        { "K",        "Coupling",      "Hz",  0.0,   20.0,  6.0,    Taper::Linear,  20.0 },
-        { "inertia",  "Inertia",       "",    0.1,   100.0, 1.0,    Taper::Log,     20.0 },
-        { "f0",       "Pitch",         "Hz",  20.0,  880.0, 110.0,  Taper::Log,     20.0 },
-        { "voices",   "Voices",        "",    0.0,   1.0,   0.0,    Taper::Linear,  20.0 },
-        { "level",    "Level",         "dB",  -60.0, 6.0,   -6.0,   Taper::Linear,  20.0 },
-        { "partials", "Partials",      "",    0.0,   2.0,   0.0,    Taper::Choice,  0.0, "40|64|96", false },
-        { "pinned",   "Pin partial 1", "",    0.0,   1.0,   0.0,    Taper::Toggle,  0.0 },
-        { "source",   "Source",        "",    0.0,   1.0,   1.0,    Taper::Choice,  0.0, "bright|warm" },
+        //  id           name              unit   min     max     default taper           smooth choices         auto    group        hero
+        { "B",         "Stretch",        "",    1e-7,   30.0,   1e-5,   Taper::Log,     20.0,  "",             true,   "The edge",  true },
+        { "K",         "Coupling",       "Hz",  0.0,    20.0,   6.0,    Taper::Linear,  20.0,  "",             true,   "The edge",  true },
+        { "inertia",   "Inertia",        "",    0.1,    100.0,  1.0,    Taper::Log,     20.0,  "",             true,   "Tone" },
+        { "f0",        "Pitch",          "Hz",  20.0,   880.0,  110.0,  Taper::Log,     20.0,  "",             true,   "Tone" },
+        { "voices",    "Voices",         "",    0.0,    1.0,    0.0,    Taper::Linear,  20.0,  "",             true,   "Output" },
+        { "level",     "Level",          "dB",  -60.0,  6.0,    -6.0,   Taper::Linear,  20.0,  "",             true,   "Output" },
+        { "partials",  "Partials",       "",    0.0,    2.0,    0.0,    Taper::Choice,  0.0,   "40|64|96",     false,  "Partials" },
+        { "pinned",    "Pin partial 1",  "",    0.0,    1.0,    0.0,    Taper::Toggle,  0.0,   "",             true,   "Partials" },
+        { "source",    "Source",         "",    0.0,    1.0,    1.0,    Taper::Choice,  0.0,   "bright|warm",  true,   "Partials" },
     };
 
     // ── 2. Audio in and out, and probes ────────────────────────────────────────

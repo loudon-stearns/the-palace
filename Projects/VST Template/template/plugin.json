@@ -7,5 +7,21 @@
   "plugin_code": "Hsin",
   "kind": "instrument",
   "version": "0.1.0",
-  "hostcheck": ["freq=440", "level=-6"]
+  "hostcheck": [
+    "freq=440",
+    "level=-6"
+  ],
+  "ui": {
+    "width": 560,
+    "height": 380,
+    "min": [
+      440,
+      320
+    ],
+    "max": [
+      1400,
+      900
+    ],
+    "direction": "bench"
+  }
 }
