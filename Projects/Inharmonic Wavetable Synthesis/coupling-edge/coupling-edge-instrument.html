@@ -65,7 +65,7 @@
   <p class="lede">One tone whose partials hang off a single phase, stretched away from whole-number ratios and pulled back by an outside ensemble tuned to the plain harmonic series. Somewhere along the stretch the tone stops holding and tears. This study keeps you there: it knows where the edge is for every note, partial count and coupling, and can put the stretch just under it. The engine is the 2026-10-17 frustration sweeps' toy model, run live, with the same random detuning the renders used. Trust the shapes and the directions, not the exact values.</p>
   <div class="btns"><button id="go" class="go">▸ start</button><button id="gateBtn">drone</button><button id="strikeBtn">strike · space</button><button id="resetBtn">reset phases</button></div>
   <div class="keys" id="keys"></div>
-  <div class="note">Keys a s d f g h j k play E1 to A4; space strikes. A MIDI keyboard plays any note, its mod wheel rides coupling and its pitch bend rides stretch.</div>
+  <div class="note">Keys a s d f g h j k play E1 to A4; space strikes. A MIDI keyboard plays any note, its mod wheel rides coupling and its pitch bend rides stretch. The page only sounds while you play it: silent until you press start, quiet the moment you leave the page or switch away, and it stops 6 s after your last touch unless you are holding something (a note key, a MIDI note, the mouse on a slider).</div>
 
   <section id="s-edge" data-title="Hold it just under the edge">
     <button class="pin" title="leave a note on this section; it keeps the sound you were hearing">◇</button>
@@ -552,6 +552,8 @@ const hasEdge = (e = edgeEngine()) => e > -9 && e < 3;
 function context() { if (U.follow && hasEdge()) U.s = clampS(edgeUI() + U.margin); syncSliders(); push(); }
 
 async function start() {
+  if (document.hidden) return;   // never start a sound nobody is looking at
+  touch();
   if (!ctx) {
     ctx = new AudioContext();
     const url = URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }));
@@ -568,8 +570,33 @@ async function start() {
   running = true; $('go').textContent = '❚❚ stop'; $('go').classList.remove('go');
   try { if (parent !== window) parent.postMessage({ type: 'rich:play' }, '*'); } catch (e) {}
 }
-function stop() { if (!ctx) return; master.gain.setTargetAtTime(0, ctx.currentTime, 0.05); running = false; $('go').textContent = '▸ start'; $('go').classList.add('go'); }
+function stop() {
+  running = false; $('go').textContent = '▸ start'; $('go').classList.add('go');
+  if (!ctx) return;
+  master.gain.setTargetAtTime(0, ctx.currentTime, 0.03);
+  setTimeout(() => { if (!running && ctx) ctx.suspend(); }, 150);   // suspended, the engine stops computing too
+}
 $('go').onclick = () => (running ? stop() : start());
+
+// ─── the page never sounds on its own: silent until a click, quiet the moment you leave, and a hard cap ──
+// Sound stops CAP seconds after your last touch unless something is held: the pointer, a note key, a MIDI note.
+const CAP = 6, heldKeys = new Set(), heldNotes = new Set();
+let lastTouch = 0, pointerHeld = false;
+function touch() { lastTouch = performance.now(); }
+const isHeld = () => pointerHeld || heldKeys.size > 0 || heldNotes.size > 0;
+addEventListener('pointerdown', () => { pointerHeld = true; touch(); }, true);
+for (const ev of ['pointerup', 'pointercancel']) addEventListener(ev, () => { pointerHeld = false; touch(); }, true);
+addEventListener('input', touch, true);
+addEventListener('blur', () => { pointerHeld = false; heldKeys.clear(); stop(); });
+addEventListener('pagehide', stop);
+document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
+setInterval(() => {
+  if (!running) return;
+  if (document.hidden) return stop();
+  if (isHeld()) { touch(); $('go').textContent = '❚❚ stop · held'; return; }
+  const left = CAP - (performance.now() - lastTouch) / 1000;
+  if (left <= 0) stop(); else $('go').textContent = `❚❚ stop · ${Math.ceil(left)} s`;
+}, 200);
 
 // ─── controls ────────────────────────────────────────────────────────────────
 const toggle = (id, key, after) => { const b = $(id); b.classList.toggle('on', !!U[key]); b.onclick = () => { U[key] = !U[key]; b.classList.toggle('on', U[key]); (after || push)(); }; };
@@ -640,17 +667,19 @@ $('resetBtn').onclick = () => node && node.port.postMessage({ reset: true });
 $('gateBtn').onclick = () => { U.gated = !U.gated; $('gateBtn').textContent = U.gated ? 'key gate' : 'drone'; push(); if (node) node.port.postMessage({ gate: U.gated ? 0 : 1 }); };
 addEventListener('keydown', (e) => {
   if (e.target.tagName === 'TEXTAREA' || e.repeat) return;
-  const i = KEYS.indexOf(e.key); if (i >= 0) { if (!running) start(); play(NOTES[i][1]); }
+  touch();
+  const i = KEYS.indexOf(e.key); if (i >= 0) { heldKeys.add(e.key); if (!running) start(); play(NOTES[i][1]); }
   if (e.key === ' ') { e.preventDefault(); node && node.port.postMessage({ strike: true }); }
 });
-addEventListener('keyup', (e) => { if (U.gated && KEYS.includes(e.key) && node) node.port.postMessage({ gate: 0 }); });
+addEventListener('keyup', (e) => { heldKeys.delete(e.key); touch(); if (U.gated && KEYS.includes(e.key) && node) node.port.postMessage({ gate: 0 }); });
 try {
   navigator.requestMIDIAccess && navigator.requestMIDIAccess().then((acc) => {
     let s0 = null;
     const hook = (inp) => (inp.onmidimessage = (ev) => {
       const [st, d1, d2] = ev.data, cmd = st & 0xf0;
-      if (cmd === 0x90 && d2 > 0) { if (!running) start(); play(440 * Math.pow(2, (d1 - 69) / 12)); }
-      else if ((cmd === 0x80 || (cmd === 0x90 && d2 === 0)) && U.gated && node) node.port.postMessage({ gate: 0 });
+      touch();
+      if (cmd === 0x90 && d2 > 0) { heldNotes.add(d1); if (!running) start(); play(440 * Math.pow(2, (d1 - 69) / 12)); }
+      else if (cmd === 0x80 || (cmd === 0x90 && d2 === 0)) { heldNotes.delete(d1); if (U.gated && node) node.port.postMessage({ gate: 0 }); }
       else if (cmd === 0xb0 && d1 === 1) { U.kref = Math.pow(10, -0.3 + (d2 / 127) * 1.75); $('k').value = Math.log10(U.kref); $('kO').textContent = `${U.kref.toFixed(1)} Hz`; push(); }
       else if (cmd === 0xe0) { const bend = ((d2 << 7) | d1) / 8192 - 1; if (s0 === null) s0 = U.s; U.s = clampS(s0 + bend); if (Math.abs(bend) < 0.01) s0 = null; syncSliders(); push(); }
     });
