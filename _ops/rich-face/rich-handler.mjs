@@ -228,7 +228,8 @@ export function createRichHandler({ root, here = RICH_FACE_DIR, base = '', app, 
     const contracts = manifestContracts(manifest);
     const media = {}, pieceTable = {};
     for (const [n, r] of richReferences(resolver, e.md, text, manifest)) {
-      media[n] = r.ok ? { path: r.path, url: relUrl(r.path) } : { error: r.reason, label: r.label };
+      // `local`: git does not track it, so the public face will not have it.
+      media[n] = r.ok ? { path: r.path, url: relUrl(r.path), ...(r.local ? { local: true } : {}) } : { error: r.reason, label: r.label };
       if (r.ok && isPiecePage(r.path)) pieceTable[n] = planFor(po, r.path, contracts.get(n));
     }
     return {
@@ -272,7 +273,7 @@ export function createRichHandler({ root, here = RICH_FACE_DIR, base = '', app, 
       const r = resolver.resolve(u.searchParams.get('name') || '', from || undefined);
       if (path === '/_api/find') {
         if (!r.ok) { json(res, 404, { error: r.label, reason: r.reason, label: r.label }); return true; }
-        const found = { path: r.path, url: relUrl(r.path) };
+        const found = { path: r.path, url: relUrl(r.path), ...(r.local ? { local: true } : {}) };
         if (isPiecePage(r.path)) { const po = await pieceOrigin(); found.piece = planFor(po, r.path); found.pieceOrigin = originStatus(po); }
         json(res, 200, found);
         return true;

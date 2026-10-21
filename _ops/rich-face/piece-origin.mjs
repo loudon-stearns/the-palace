@@ -135,6 +135,11 @@ export function createPieceOrigin({ root, port = PIECE_PORT, host = PIECE_HOST }
       const d = declaredPath(r.path, f);
       if (d && d.endsWith('/')) folders.push(d); else if (d) files.add(d);
     }
+    // A declared file git does not track plays here and not on the public face.
+    plan.localFiles = [...files].filter((f) => { const x = resolver.resolve('/' + f); return x.ok && x.local; });
+    if (plan.localFiles.length) {
+      plan.chips.push({ text: `files · ${plan.localFiles.length} only on this Mac`, state: 'warn', title: `git does not track ${plan.localFiles.join(', ')}, so the public face will not have ${plan.localFiles.length === 1 ? 'it' : 'them'}: track ${plan.localFiles.length === 1 ? 'it' : 'them'} to publish` });
+    }
     pieces.set(r.path, { plan, files, folders });
     return plan;
   }

@@ -40,7 +40,9 @@ beforeAll(async () => {
   root = mkdtempSync(resolve(tmpdir(), 'piece-origin-test-'));
   execFileSync('git', ['init', '-q'], { cwd: root, env: gitFreeEnv() });
   assertScratchRepo(root);
-  write('.gitignore', 'Demo/ignored.json\n');
+  write('.gitignore', 'Demo/ignored.json\nDemo/loop.wav\n');
+  write('Demo/loop.wav', Buffer.alloc(32, 3));
+  write('Demo/looper.html', PAGE('<meta name="piece:files" content="loop.wav">'));
   write('Demo.md', '---\ntitle: Demo\n---\n# Demo\n\n## Pieces\n\nWords.\n\n![[inline.html]]\n');
   write('Demo/Demo — rich.json', JSON.stringify({ entry: 'Demo', sections: [{ heading: 'Pieces', pieces: [
     { file: 'piece.html', origin: 'made', height: 400 },
@@ -130,6 +132,15 @@ describe('the piece origin', () => {
     const ignored = await send(enc('Demo/ignored.json'));
     expect(ignored.status).toBe(404);
     expect(ignored.text).toMatch(/ignored by git/);
+  });
+
+  // Loudon, 2026-10-20: a file only on this Mac plays here, and the figure says the public face will lack it.
+  test('a declared render git ignores is served here, and the plan names it as only on this Mac', async () => {
+    const plan = po.describe('Demo/looper.html');
+    expect(plan.localFiles).toEqual(['Demo/loop.wav']);
+    expect(plan.chips).toContainEqual(expect.objectContaining({ text: 'files · 1 only on this Mac', state: 'warn' }));
+    expect((await send(enc('Demo/loop.wav'))).status).toBe(200);
+    expect(po.describe('Demo/plain.html').localFiles).toEqual([]);
   });
 
   test('declared media streams with byte ranges', async () => {
