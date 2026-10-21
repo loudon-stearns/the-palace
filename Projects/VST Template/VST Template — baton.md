@@ -17,16 +17,19 @@ Give the template a CRT, a centre screen in the editor that plays the plugin's o
 On 2026-10-21 Loudon moved nine stewarded instruments and effects off the Max path and onto this one: "lets make them products now." Each is to become a VST he can play in Live, with its controls in the template's interface and, in the middle, a visualizer drawn from that instrument's own metaphor, 3D welcome, "uniquely weird and stunning." Two things in the template stand between those stewards and that work. The editor has nowhere to put a visualizer and no live values to feed one. And `new-plugin.py` can only make a plugin under `Projects/VST Template/plugins/`, while a steward may write only inside its own bundle (`_ops/orchestrator/prompts/shared.md:331-342`). Until both land, each steward can only port its sound to the sketch-and-Algorithm shape and sketch its visualizer as a web page in its workshop. That is the holding pattern its standing order names.
 
 ## Cold start
-COLD START. This work has not begun; no prior state, no tried-and-rejected. What is true today, checked on `main` at `ca454ba2`:
+COLD START. This work has not begun; no prior state, no tried-and-rejected. What is true today, checked on `main` after the UI landing (`ff175004`):
 
-- **The editor on `main` is JUCE's generic one** (`machinery/src/PluginProcessor.h:43`). The web editor lives on the unlanded branch `claude/vst-template-ui` (head `370e18dd`), with three design directions waiting for Loudon's pick. It binds parameters only, through JUCE's slider, toggle and combo relays (`machinery/src/PluginEditor.cpp:46-55` on that branch), plus one native `pluginInfo` call. It carries no probes.
-- **Probes exist, but only the harness reads them.** A plugin names them in `src/Algorithm.h` as `kProbes` (Simple Synth: `freq`, `cutoff`, `amp_env`, `plugins/SimpleSynth/src/Algorithm.h:53`). `processBlock` writes them only into the harness's `ProbeSink` (`machinery/src/PluginProcessor.cpp:189-193`), and from there they reach `verify.py`, nothing live. `plugin.json` does not name them today.
+- **The house editor has landed, and the CRT's set is already drawn.** Every plugin's editor is a web page in Drafting Table on Phosphor, drawn from its parameter table (`machinery/ui/editor.html`; Loudon's pick: bench for Simple Synth, the edge-map pad for Frustration). The CRT is a bezel drawn as an elevation around a black glass, with a slight vignette (`editor.html:338-369`; design standard § The CRT, `VST Template — design standard.md:89-101`). It sits between the two heroes in the bench direction and is made once and moved into each rebuild, so a visualizer's canvas and WebGL context survive a resize. A visualizer draws into `window.editorScreen` (`editor.html:368`).
+- **It is hidden until a plugin asks for it.** `screen.hidden = !ui.screen` (`editor.html:492`): `"screen": true` in `plugin.json`'s `ui` block shows it, and neither plugin sets it yet. `ui.py mock <plugin> --screen` (or `shot --screen`) shows it with colour bars standing in.
+- **Nothing loads a visualizer yet.** The editor's resource provider serves only `index.html` and returns nothing for any other URL (`machinery/src/PluginEditor.cpp:105-113`), so a plugin's `ui/visualizer.js` has no way in.
+- **The editor binds parameters only.** JUCE's slider, toggle and combo relays (`PluginEditor.cpp:46-55`) and one native `pluginInfo` call, which sends the parameter table and the `ui` block (`:115` on). No probes reach the page.
+- **Probes exist, but only the harness reads them.** A plugin names them in `src/Algorithm.h` as `kProbes` (Simple Synth: `freq`, `cutoff`, `amp_env`, `plugins/SimpleSynth/src/Algorithm.h:53`). `processBlock` copies them out only into the harness's `ProbeSink` (`machinery/src/PluginProcessor.cpp:192-196`). `plugin.json` does not name them. The recipe already sketches where a live feed would hook in: atomics on the processor, a 60 Hz `juce::Timer` in the editor calling `emitEventIfBrowserIsVisible ("probes", …)`, and the page listening through `window.__JUCE__.backend` (`template/README.md:57-62`).
 - **`new-plugin.py` writes only into `plugins/`** (`new-plugin.py:24`, `:51`). Its code-uniqueness check scans `plugins/*/plugin.json` alone (`:30`), so a plugin made elsewhere would escape it.
 
 ## Next move
-Wait for Loudon's pick of a UI direction and for `claude/vst-template-ui` to land, then build on it. Do not edit that branch or its worktree meanwhile. Then, in your own worktree:
+Build on the landed editor, in your own worktree:
 
-1. **The CRT.** One centre screen in the editor that loads the plugin's own `ui/visualizer.js` (WebGL, three.js welcome), with the template's controls kept around it. A plugin without a visualizer shows an empty screen, or a plain default.
+1. **The CRT's picture.** The bezel is drawn; what it lacks is a way in. The editor loads the plugin's own `ui/visualizer.js` (WebGL, three.js welcome) into `window.editorScreen`, served by the resource provider, with the template's controls kept around it. A plugin with no visualizer keeps the screen hidden, as now.
 2. **The feed.** The plugin declares the probes it streams to the CRT, named in `plugin.json` as the brief has it, or picked from `kProbes` if that reads better; say which you chose and why. The editor relays them at about 60 Hz, lock-free off the audio thread, decimated from per-sample values. Parameters keep their relays.
 3. **Plugins in a steward's bundle.** `new-plugin.py` and `machinery/` can make, build, validate and install a plugin whose folder sits in a steward's bundle (for example `Projects/Slime Mold Delay/plugin/`), with the code-uniqueness check covering every plugin wherever it lives.
 
@@ -35,7 +38,7 @@ Wait for Loudon's pick of a UI direction and for `claude/vst-template-ui` to lan
 **Nine stewards wait on this**, each with a standing order of 2026-10-21 on its scroll (`ca454ba2`): [[Shepard Tone Synthesizer]], [[Slime Mold Delay]], [[Neural Granular Synthesis]], [[Action Potential Oscillator]], [[2D Torus Wavetable Synthesizer]], [[Blood Compressor]], [[Bayesian Granular Synthesizer]], [[Crystal Synthesizer]], [[Retrospective Delay]].
 
 ## Receiving environment
-Claude Code on the Mac, in a worktree of your own (`node _ops/worktree/new-worktree.mjs --name <branch> --profile <p>`). JUCE, CMake, pluginval and auval are on this Mac. Live 12 is beside Loudon's own Live instances; to prove a load without disturbing his, see [[Ableton Session Writer]]'s Gotchas. The UI work in flight is at branch `claude/vst-template-ui`, dir `.claude/worktrees/vst-template-aa62cc`. Read it, never write it.
+Claude Code on the Mac, in a worktree of your own (`node _ops/worktree/new-worktree.mjs --name <branch> --profile <p>`). JUCE, CMake, pluginval and auval are on this Mac. Live 12 is beside Loudon's own Live instances; to prove a load without disturbing his, see [[Ableton Session Writer]]'s Gotchas.
 
 ## Calibrations from this session
 - Loudon, 2026-10-21: "lets get playful with the visualizer, making the visualizer (consider 3D) very deeply related to the metaphor or unique aspects of the instrument itself." The CRT is the template's frame, and each visualizer belongs to its steward. Don't build one generic scope for all.
@@ -46,7 +49,7 @@ Claude Code on the Mac, in a worktree of your own (`node _ops/worktree/new-workt
 1. [[VST Template]] and `Projects/VST Template/VST Template — scroll.md`: the Plan and the seal gotcha.
 2. `Projects/VST Template/template/README.md`: the afternoon recipe.
 3. `machinery/src/PluginProcessor.cpp`, `machinery/src/Harness.cpp`, `new-plugin.py`.
-4. On `claude/vst-template-ui`: `machinery/src/PluginEditor.cpp`, `machinery/ui/editor.html`, and `VST Template — design standard.md`.
+4. `machinery/src/PluginEditor.cpp`, `machinery/ui/editor.html`, and `VST Template — design standard.md` § The CRT.
 5. One steward's scroll, for the order it will build to: `Projects/Slime Mold Delay/Slime Mold Delay — scroll.md`.
 
 ## On pickup (fixed — the catcher's checklist; do not rewrite per session)
