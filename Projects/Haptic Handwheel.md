@@ -52,8 +52,8 @@ links:
     type: connects-to
     label: physical-making
   - target: "[[Playful Interface Design]]"
-    type: connects-to
-    label: same-lack-other-sense
+    type: exemplifies
+    label: the-thing-with-mass
   - target: "[[Cooperation Yields Agency]]"
     type: connects-to
     label: long-held-idea-made-buildable

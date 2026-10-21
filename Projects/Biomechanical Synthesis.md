@@ -50,6 +50,9 @@ links:
     type: spawned
   - target: "[[Slime Mold Delay]]"
     type: spawned
+  - target: "[[Playful Interface Design]]"
+    type: exemplifies
+    label: the-organism-kind
 forward_vector: "I am the palace's most viscerally pedagogical framework — the set of eight instruments that prove DSP mechanics are unforgettable when made physical and grotesque."
 ---
 
