@@ -129,6 +129,9 @@ function makeTempPalace() {
   writeFileSync(resolve(root, ENTRY, 'secret.json'), '{"secret":true}');
   writeFileSync(resolve(root, ENTRY, `${ENTRY} — rich.json`), JSON.stringify({ entry: ENTRY, sections: [{ heading: 'Pieces', pieces:
     Object.entries(PIECES).map(([file, [, title, height]]) => ({ file, title, origin: 'made', height })) }] }), 'utf8');
+  // Committed, as a palace is: a file git does not track would be marked "only on this Mac".
+  execFileSync('git', ['-c', 'user.email=test@example.com', '-c', 'user.name=test', 'add', '-A'], { cwd: root, env: gitFreeEnv() });
+  execFileSync('git', ['-c', 'user.email=test@example.com', '-c', 'user.name=test', 'commit', '-qm', 'the palace'], { cwd: root, env: gitFreeEnv() });
   return root;
 }
 

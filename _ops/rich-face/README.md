@@ -57,9 +57,11 @@ Every file the text or the manifest names is found by `resolve.mjs`, the same wa
 view. `/…` is palace-absolute. A path with a slash is tried beside the `.md`, then from the palace root,
 then in the entry's bundle, and never by its last name alone. A bare name is looked up in the bundle (its
 top folder, then anywhere under it), then across the palace, and each step counts only if exactly one
-file has that name. The index is git's: on the live page, tracked files plus new files git doesn't ignore;
-in the public build, committed files only, so a build on the Mac publishes what CI's would. A hidden
-folder, an ignored file, a symlink that leads outside the palace, or a name in the wrong case is refused.
+file has that name. The index is git's. On the live page it holds tracked files, new files git doesn't
+ignore, and the sound, video and images git ignores. In the public build it holds committed files only, so
+a build on the Mac publishes what CI's would (§ Media a face plays). A hidden folder, any other file git
+ignores, a symlink that leads outside the palace, or a name in the wrong case is refused. At each step,
+where a bare name could mean a tracked file or one git doesn't track, the tracked one wins.
 A file that doesn't resolve shows as a labelled box in the figure's place, naming the file and why, e.g.
 `3 files are named “index.html” (…). Give its path to choose one.` `near` anchors
 a piece right after that paragraph or figure; otherwise it goes at the section's end. Audio, images and
@@ -70,6 +72,39 @@ or one with nothing laid out. With neither, 800. Kuramoto's were measured in a 1
 
 `contract` is for a gathered proof nobody should edit: the manifest speaks for it, with the same fields a
 piece declares in its own head (below). A piece that declares for itself is held to its own words.
+
+## Media a face plays: what git tracks is what the public face has
+
+The live page may play a file that is only on this Mac; the public build plays only what git tracks.
+Loudon, 2026-10-20: "the rich face can play on a local machine if the files are only on the local
+machine, if public, then they can't play, unfortunately. I would like, if possible, to decide to place
+audio needed for rich faces in git, so they can be played." So the media a face needs is placed in git
+on purpose, chosen with care, and not left ignored.
+
+- **On the live page.** The resolver finds a file git doesn't track: a new file not yet committed, or a
+  sound, video or image git ignores, such as a steward's render under `Projects/` or `Shop/Shopkeeper/`.
+  The file plays, and its figure carries the chip `only on this Mac` (for a piece's declared files,
+  `files · N only on this Mac`). The page's head lists every such file the face names, pieces' declared
+  files included. Nothing else git ignores is ever served.
+- **In the public build.** The build ships only committed files. A file it can't ship but this Mac has
+  shows as a labelled box: `“take-07.wav” is only on this Mac: track it to publish.` A build in CI, which
+  has no such file, shows the plain miss. A tracked file over 25 MB is left out too, and its box says so,
+  so keep a take a face needs under that.
+- **To publish one.** `node _ops/rich-face/untracked.mjs ["<Entry>"]` lists every file a face names that
+  git doesn't track, with the step for each. It exits 1 while any is left.
+  - A new file: commit it through the palace committer.
+  - A steward's render: copy it into its entry's bundle under `rich-face/`, which `.gitignore` keeps
+    (`!Projects/**/rich-face/**`, `!Shop/Shopkeeper/**/rich-face/**`), and commit the copy.
+
+  Once the copy is committed, the face names it as before. A bare name lands on the tracked copy, even
+  when the render sits in the bundle's own top folder.
+  The steward's render stays ignored where it is. A new render of the same take changes nothing until
+  someone copies it again on purpose.
+- **Not `git add -f`.** The committer stages a path with a plain `git add`, which refuses an ignored
+  file. And once an ignored file is force-tracked, every re-render of it that the steward posts would
+  ride into its next cycle commit.
+- **Choose with care.** A take copied into `rich-face/` stays in git's history for good. So the public
+  face grows by what a face is worth playing, not by every render.
 
 ## The parser's rules
 

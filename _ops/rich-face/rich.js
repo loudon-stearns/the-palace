@@ -261,6 +261,20 @@ function markPiece(fig, el) {
   for (const c of plan.chips || []) chip(fig, c);
 }
 
+// A file git does not track plays here, on this Mac, and not on the public
+// face (Loudon, 2026-10-20): its figure says so, and so does the head's list.
+const LOCAL_CHIP = { text: 'only on this Mac', state: 'warn', title: 'git does not track this file, so the public face will not have it: track it to publish' };
+function markLocal(fig, names) {
+  if (names.some((n) => info.media && info.media[n] && info.media[n].local)) chip(fig, LOCAL_CHIP, 'local');
+}
+// Every file the face names that git does not track, pieces' declared files too.
+function localFiles() {
+  const out = new Map();
+  for (const [n, m] of Object.entries(info.media || {})) if (m && m.local) out.set(m.path, n);
+  for (const plan of Object.values(info.pieces || {})) for (const f of (plan && plan.localFiles) || []) if (!out.has(f)) out.set(f, `declared by ${plan.path.split('/').pop()}`);
+  return out;
+}
+
 // The frame a plan describes, or the box that says why there is none.
 function pieceFrame(name, found, opts = {}) {
   const plan = (info.pieces && info.pieces[name]) || (STATIC ? { url: found.url, sameOrigin: false, allow: 'autoplay', size: { mode: 'flow' }, mark: 'pre-contract', chips: [] } : null);
@@ -341,6 +355,7 @@ async function textFigure(b) {
   fig.append(h('div', { class: 'tag' }, h('span', {}, 'from the text')));
   fig._kind = b.diagram ? 'diagram' : kindOf(b.media[0].name);
   markPiece(fig, media.firstElementChild);
+  if (!b.diagram) markLocal(fig, b.media.map((m) => m.name));
   return fig;
 }
 
@@ -357,6 +372,7 @@ async function manifestFigure(p, sec) {
   fig._kind = kindOf(p.file);
   fig._place = p.place;
   markPiece(fig, media.firstElementChild);
+  markLocal(fig, [p.file]);
   return fig;
 }
 
@@ -634,6 +650,15 @@ async function boot() {
     manifest && h('span', {}, `${made} made`),
     lagging ? h('span', { style: 'color:var(--warn)' }, `${lagging} may lag the text`) : null);
   head.append(ledger);
+  // What the public face will lack, named, so an author can track it on purpose.
+  const local = STATIC ? new Map() : localFiles();
+  if (local.size) {
+    head.append(h('details', { class: 'rf-local' },
+      h('summary', {}, `${local.size} file${local.size === 1 ? '' : 's'} only on this Mac`),
+      h('p', {}, 'Git does not track these, so they play here and not on the public face. To publish one, track it: ',
+        h('code', {}, 'node _ops/rich-face/untracked.mjs'), ' lists them with the step for each.'),
+      h('ul', {}, [...local].map(([path, as]) => h('li', {}, h('code', {}, path), as && as !== path.split('/').pop() ? ` (${as})` : '')))));
+  }
 
   $('#sig').append(h('span', { class: 'wm', html: 'Loud’n <i>Live</i>' }),
     h('span', {}, 'the text is the truth · this face is a reading of it'));
