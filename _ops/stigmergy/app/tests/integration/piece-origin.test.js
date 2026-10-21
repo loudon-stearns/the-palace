@@ -64,7 +64,7 @@ beforeAll(async () => {
   write('_ops/rich-face/grants.json', JSON.stringify({ grants: [{ piece: 'Demo/piece.html', allow: ['camera'], net: [], yes: 'test' }] }));
   po = await startPieceOrigin({ root, port: 0 });
   port = Number(new URL(po.status.origin).port);
-  await new Promise((r) => setTimeout(r, 50)); // the boot scan runs just after listen
+  await po.scan(); // the boot scan, already under way once it listens
 });
 afterAll(async () => {
   await po?.close();

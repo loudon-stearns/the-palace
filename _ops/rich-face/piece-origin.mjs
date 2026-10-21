@@ -21,7 +21,7 @@
 
 import http from 'node:http';
 import { statSync, readFileSync } from 'node:fs';
-import { execFileSync } from 'node:child_process';
+import { execFile } from 'node:child_process';
 import { posix } from 'node:path';
 import { checkRequest } from '../stigmergy/app/server/request-guard.js';
 import { makeResolver } from './resolve.mjs';
@@ -73,14 +73,24 @@ export function createPieceOrigin({ root, port = PIECE_PORT, host = PIECE_HOST }
   let scannedAt = 0;
   let server = null;
 
-  // Every manifest the palace keeps, and every piece its face names.
+  // Every manifest the palace keeps, and every piece its face names. The
+  // manifests are listed without holding the event loop (the scan runs while
+  // the server answers), and a palace with none costs nothing more.
+  let scanning = null;
+  function listManifests() {
+    return new Promise((done) => {
+      execFile('git', ['-c', 'core.quotepath=off', 'ls-files', '-z', '--cached', '--others', '--exclude-standard', '--', '*— rich.json'],
+        { cwd: root, maxBuffer: 64 * 1024 * 1024, encoding: 'utf8' },
+        (err, out) => done(err ? [] : String(out).split('\0').filter(Boolean)));
+    });
+  }
   function scan() {
+    if (!scanning) scanning = rescan().finally(() => { scanning = null; });
+    return scanning;
+  }
+  async function rescan() {
     scannedAt = Date.now();
-    let list = [];
-    try {
-      list = execFileSync('git', ['-c', 'core.quotepath=off', 'ls-files', '-z', '--cached', '--others', '--exclude-standard', '--', '*— rich.json'],
-        { cwd: root, maxBuffer: 64 * 1024 * 1024, stdio: ['ignore', 'pipe', 'ignore'] }).toString('utf8').split('\0').filter(Boolean);
-    } catch { return; }
+    const list = await listManifests();
     for (const m of list) {
       const title = posix.basename(m).replace(/ — rich\.json$/, '');
       const e = resolver.entry(title);
@@ -154,7 +164,7 @@ export function createPieceOrigin({ root, port = PIECE_PORT, host = PIECE_HOST }
     if (rel === '..' || rel.startsWith('../')) { text(res, 404, 'That path leads outside the palace.'); return; }
     if (STIGMERGY_PATHS.test(rel)) { text(res, 403, 'The piece origin serves no part of STIGMERGY: no board, no /api, no reader.'); return; }
     let a = admit(rel);
-    if (!a && Date.now() - scannedAt > MISS_RESCAN_MS) { scan(); a = admit(rel); }
+    if (!a && Date.now() - scannedAt > MISS_RESCAN_MS) { await scan(); a = admit(rel); }
     if (!a) { text(res, 404, `“${rel}” is not served here: the piece origin serves only pieces a face has named, the files they declare (piece:files), and the design system.`); return; }
     if (a.why) { text(res, 404, a.why); return; }
     const r = resolver.resolve('/' + rel);
@@ -192,7 +202,7 @@ export function createPieceOrigin({ root, port = PIECE_PORT, host = PIECE_HOST }
       server.listen(port, host, () => {
         status = { ok: true, starting: false, origin: `http://${host}:${server.address().port}`, error: null };
         server.unref(); // the app's own server keeps the process alive, never this one
-        setImmediate(scan);
+        scan();
         done(status);
       });
     });
