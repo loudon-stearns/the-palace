@@ -18,7 +18,7 @@ import { execFileSync } from 'node:child_process';
 import { posix } from 'node:path';
 import { fingerprint } from './rules.mjs';
 import { makeContext, commitContext, checkStatic, RULES, CONFIG_FILE } from '../rich-face/conform.mjs';
-import { GRANTS_FILE, LIBS_FILE, readDeclaration } from '../rich-face/contract.mjs';
+import { GRANTS_FILE, SHELF_FILE, readDeclaration, declaredPath } from '../rich-face/contract.mjs';
 
 /** A conform finding as a Sentry finding: family `rich`, a stable fp, the detail shown as written (it carries no secret). */
 export function toSentry(f, { enforce, allow }) {
@@ -61,19 +61,19 @@ export function richGate(root, sha, touched, allow) {
   const { ctx, done } = commitContext(root, sha);
   try {
     const run = checkStatic(ctx, { all: false });
-    // What the faces depend on, at this commit.
-    const watched = new Set([GRANTS_FILE, LIBS_FILE, CONFIG_FILE]);
+    // What the faces depend on, at this commit (a declared folder: everything under it).
+    const dirs = new Set();
+    const watched = new Set([GRANTS_FILE, SHELF_FILE, CONFIG_FILE]);
     for (const f of run.faces) { if (f.md) watched.add(f.md); if (f.manifest) watched.add(f.manifest); }
     for (const r of run.results) {
       watched.add(r.path);
-      const dir = posix.dirname(r.path);
       let decl = null; try { decl = readDeclaration(ctx.read(r.path)); } catch { /* unread */ }
-      for (const file of decl?.files || []) watched.add(file.startsWith('/') ? posix.normalize(file.slice(1)) : posix.normalize(posix.join(dir, file)));
+      for (const file of decl?.files || []) { const rel = declaredPath(r.path, file); if (rel) (rel.endsWith('/') ? dirs : watched).add(rel); }
     }
     // A name a face holds that no longer resolves (a piece deleted or moved
     // under it) is watched by that name, so the push that broke it is seen.
     const lost = new Set(run.faceFindings.filter((f) => f.rule === 'ref-missing').map((f) => posix.basename(f.key)));
-    const hit = touched.filter((p) => watched.has(p) || lost.has(posix.basename(p)) || / — rich\.json$/.test(p));
+    const hit = touched.filter((p) => watched.has(p) || [...dirs].some((d) => p.startsWith(d)) || lost.has(posix.basename(p)) || / — rich\.json$/.test(p));
     if (!hit.length) return { ran: false, why: 'the push touches no rich face', findings: [] };
     const enforce = ctx.config.enforce.push;
     return { ran: true, why: `touches ${hit.length} file(s) a rich face depends on`, enforce, findings: findingsOf(run).map((f) => toSentry(f, { enforce, allow })) };

@@ -6,9 +6,9 @@ import { tmpdir } from 'node:os';
 import { execFileSync } from 'node:child_process';
 import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 import {
-  makeContext, checkStatic, checkBrowser, findChromium, commitContext, openErrors, renderReport, RULES, scanPage, blankJsComments,
+  makeContext, checkStatic, checkBrowser, findChromium, commitContext, openErrors, renderReport, RULES, scanPage, blankJsComments, exactVersion,
 } from '../../../../rich-face/conform.mjs';
-import { readDeclaration, manifestContract, exactVersion, parseSize } from '../../../../rich-face/contract.mjs';
+import { readDeclaration } from '../../../../rich-face/contract.mjs';
 
 // The piece checker (_ops/rich-face/conform.mjs): a planted case for every rule
 // it has, in a temp palace that is a git repository (the resolver reads git's
@@ -28,7 +28,7 @@ let ctx; document.getElementById('go').addEventListener('click', () => { ctx = c
 const PIECES = {
   'clean.html': [page(`${NONE}<meta name="piece:size" content="flow">`), null],
   'needs-unknown.html': [page('<meta name="piece:needs" content="telepathy">'), 'needs-unknown'],
-  'net-malformed.html': [page('<meta name="piece:net" content="https://api.example.com/v1">'), 'net-malformed'],
+  'net-malformed.html': [page('<meta name="piece:net" content="bad^host">'), 'net-malformed'],
   'size-malformed.html': [page('<meta name="piece:size" content="huge">'), 'size-malformed'],
   'meta-unknown.html': [page(`${NONE}<meta name="piece:colour" content="red">`), 'meta-unknown'],
   'need-undeclared.html': [page(NONE, '<script>localStorage.setItem("k", 1)</script>'), 'need-undeclared'],
@@ -38,6 +38,8 @@ const PIECES = {
   'granted.html': [page('<meta name="piece:needs" content="camera">', '<script>navigator.mediaDevices.getUserMedia({ video: true })</script>'), null],
   'file-undeclared.html': [page(NONE, '<script>fetch("data.json")</script>'), 'file-undeclared'],
   'file-declared.html': [page(`${NONE}<meta name="piece:files" content="data.json">`, '<script>fetch("data.json")</script>'), null],
+  'folder-declared.html': [page(`${NONE}<meta name="piece:files" content="frames/">`, '<img src="frames/a.png"><img src="frames/b.png">'), null],
+  'folder-missing.html': [page(`${NONE}<meta name="piece:files" content="nothing-here/">`), 'file-missing'],
   'file-missing.html': [page(`${NONE}<meta name="piece:files" content="nope.json">`), 'file-missing'],
   'file-ignored.html': [page(NONE, '<img src="renders/frame.png">'), 'file-ignored'],
   'file-outside.html': [page(`${NONE}<meta name="piece:files" content="away.json">`), 'file-outside'],
@@ -73,9 +75,11 @@ function makePalace() {
   put('.gitignore', 'Pieces/renders/\n');
   for (const [name, [html]] of Object.entries(PIECES)) put(`Pieces/${name}`, html);
   put('Pieces/data.json', '{}');
+  put('Pieces/frames/a.png', 'PNG');
+  put('Pieces/frames/b.png', 'PNG');
   put('_ops/loudon-live/design-system/palace-tokens.js', '/* tokens */');
   put('_ops/loudon-live/design-system/ui_kits/review-layer/review-layer.js', '/* review layer */');
-  put('_ops/rich-face/grants.json', JSON.stringify({ grants: [{ piece: 'Pieces/granted.html', needs: ['camera'], yes: '2026-10-20', why: 'test' }] }));
+  put('_ops/rich-face/grants.json', JSON.stringify({ grants: [{ piece: 'Pieces/granted.html', allow: ['camera'], yes: 'Loudon, 2026-10-20' }] }));
   mkdirSync(resolve(root, 'Outside'), { recursive: true });
   symlinkSync(resolve(tmpdir()), resolve(root, 'Pieces/away.json'));
   // A rich face: one piece by its path, a gathered proof with a contract, one
@@ -108,22 +112,16 @@ beforeAll(() => {
 });
 afterAll(() => { if (root) rmSync(root, { recursive: true, force: true }); });
 
-describe('the contract, read one way', () => {
-  test('a head declaration: lists split on commas when there is one, else on spaces; a repeated meta joins', () => {
-    const d = readDeclaration(page('<meta name="piece:needs" content="camera storage"><meta name="piece:files" content="a b.json, c.json"><meta name="piece:files" content="d.json"><meta content="fill 4/3" name="piece:size">'));
+describe('the contract, as the checker reads it (contract.mjs, the piece origin\'s own reader)', () => {
+  test('a head declaration: lists split on spaces and commas, a space in a name is %20; an empty piece:needs declares nothing needed', () => {
+    const d = readDeclaration(page('<meta name="piece:needs" content="camera storage"><meta name="piece:files" content="a%20b.json, c.json"><meta content="fill 4/3" name="piece:size">'));
     expect(d.needs).toEqual(['camera', 'storage']);
-    expect(d.files).toEqual(['a b.json', 'c.json', 'd.json']);
+    expect(d.files).toEqual(['a b.json', 'c.json']);
     expect(d.size).toMatchObject({ mode: 'fill' });
-    expect(d.size.ratio).toBeCloseTo(4 / 3);
     expect(readDeclaration(page(''))).toBeNull();
-    expect(readDeclaration(page(NONE))).toMatchObject({ needs: [], source: 'head' });
+    expect(readDeclaration(page(NONE))).toMatchObject({ needs: [] });
   });
-  test('a manifest contract block, and sizes and versions', () => {
-    expect(manifestContract({ contract: { needs: 'camera', size: 'fill 4/3' } })).toMatchObject({ needs: ['camera'], source: 'manifest' });
-    expect(manifestContract({})).toBeNull();
-    expect(parseSize('flow')).toMatchObject({ mode: 'flow' });
-    expect(parseSize('fill 1.5')).toMatchObject({ mode: 'fill', ratio: 1.5 });
-    expect(parseSize('big')).toBeNull();
+  test('CDN versions: exact, or not', () => {
     for (const [u, v] of [['https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js', '7.9.0'], ['https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js', 'r128'], ['https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js', '7.8.5'], ['https://cdn.jsdelivr.net/npm/d3@7', null], ['https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/dist/plot.umd.min.js', null], ['https://cdn.tailwindcss.com', null]]) expect(exactVersion(u)).toBe(v);
   });
   test('comments are not code, and a string handed to a loader counts only when it reads as a file', () => {
@@ -168,6 +166,7 @@ describe('the rich face: how it names its files', () => {
   test('a gathered proof whose manifest declares for it is introduced, and owed', () => {
     const r = byPath.get('Face/gathered.html');
     expect(r.declaration).toMatchObject({ source: 'manifest', needs: ['storage'], size: 'fill 4/3' });
+    expect(byPath.get('Pieces/clean.html').declaration).toMatchObject({ source: 'piece', needs: [], size: 'flow' });
     expect(r.mark).toBe('introduced');
     expect(r.owed).toBe(true);
     expect(rulesOf('Face/gathered.html')).toEqual([]);

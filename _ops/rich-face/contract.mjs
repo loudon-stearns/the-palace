@@ -1,192 +1,261 @@
-// contract.mjs — the piece contract, read one way. A piece declares in its own
-// <head> what it needs from its host; a gathered proof nobody should edit has
-// the same declaration as a `contract` block in its manifest entry instead.
-// The checker (conform.mjs), the Sentry and build gates, and the piece origin
-// all read a declaration, the grants and the library shelf through here, so a
-// piece is judged and served by the same reading.
-// Plan: STIGMERGY — spec — rich-face pieces § 3, "The piece contract".
+// contract.mjs — the piece contract, read in one place. A piece says in its own
+// <head> what it needs from its host; a gathered proof nobody should edit has a
+// `contract` block in its manifest entry instead; Loudon's grants live in
+// grants.json. From those three this module works out how the piece is framed,
+// what its chips say, and the policies the piece origin sends with it. The page
+// (rich-handler.mjs → _api/resolve), STIGMERGY's deck (GET /api/piece), the
+// piece origin (piece-origin.mjs) and the public build all ask here, so a piece
+// is framed the same way wherever it is shown. Plan: STIGMERGY — spec —
+// rich-face pieces § 3.
 //
-//   <meta name="piece:needs" content="camera storage">
-//   <meta name="piece:files" content="frames.json">
+//   <meta name="piece:needs" content="camera storage">     camera microphone midi storage fullscreen
+//   <meta name="piece:files" content="frames.json data/">  beside the piece, or /palace/absolute; a
+//                                                          folder ends in "/"; a space in a name is %20
 //   <meta name="piece:net"   content="storage.googleapis.com">
-//   <meta name="piece:size"  content="fill 4/3">
+//   <meta name="piece:size"  content="fill 4/3">           flow (the default: the piece reports its
+//                                                          height) or fill <w>/<h> (sized from the column)
 //
-// A list is split on commas when it has one, else on whitespace, so a file
-// name with a space in it is written `a b.json, c.json`. The same meta may be
-// given more than once; the lists join.
+// Lists split on spaces and commas. Camera, microphone, midi and every net host
+// also need a line in grants.json, written only on Loudon's yes; that file is
+// the real gate, sent as each piece's Permissions-Policy.
 
-import { readFileSync, existsSync } from 'node:fs';
-import { join } from 'node:path';
+import { readFileSync, statSync } from 'node:fs';
+import { join, posix } from 'node:path';
 
-/** The closed list of needs. Anything else is refused. */
-export const NEEDS = Object.freeze(['camera', 'microphone', 'midi', 'storage', 'fullscreen']);
-/** Needs that a declaration alone does not open: each also needs a line in grants.json. */
-export const GRANTED_NEEDS = Object.freeze(['camera', 'microphone', 'midi']);
-/** The metas a piece may carry. */
-export const METAS = Object.freeze(['needs', 'files', 'net', 'size']);
-
+export const NEEDS = ['camera', 'microphone', 'midi', 'storage', 'fullscreen'];
+// Needs that also take a grant line (so does every net host).
+export const GRANTED_NEEDS = ['camera', 'microphone', 'midi'];
+// A frame's height: what it takes from a piece, and what it shows until told.
+export const CAPS = { min: 120, max: 8000, fallback: 800 };
 export const GRANTS_FILE = '_ops/rich-face/grants.json';
-export const LIBS_FILE = '_ops/rich-face/libs.json';
+export const SHELF_FILE = '_ops/rich-face/libs.json';
+// Served on the piece origin to every piece: Flocking's pieces load palace-tokens.js from here.
+export const DESIGN_SYSTEM = '_ops/loudon-live/design-system/';
+// …all but the review layer, whose notes land in storage a face does not keep (review-layer.js:96-97).
+export const REVIEW_LAYER = '_ops/loudon-live/design-system/ui_kits/review-layer/';
+// The CDNs pieces load libraries from today, until libs.json (the shelf) names its own.
+const DEFAULT_SHELF = ['https://unpkg.com', 'https://cdn.jsdelivr.net', 'https://cdnjs.cloudflare.com'];
 
-const decodeEntities = (s) => String(s)
-  .replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+const words = (v) => (Array.isArray(v) ? v.map(String) : String(v ?? '').split(/[\s,]+/)).map((s) => s.trim()).filter(Boolean);
+const safeDecode = (s) => { try { return decodeURIComponent(s); } catch { return s; } };
 
-/** The attributes of one start tag's inside, as a lower-cased-name map. */
-export function attrsOf(tagInside) {
-  const out = {};
-  const re = /([^\s"'<>\/=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?/g;
-  let m;
-  while ((m = re.exec(tagInside))) out[m[1].toLowerCase()] = decodeEntities(m[2] ?? m[3] ?? m[4] ?? '');
+// Every <meta> in the page's head, as { name, content }.
+function metas(html) {
+  const s = String(html || '');
+  const end = s.search(/<\/head\s*>|<body[\s>]/i);
+  const head = s.slice(0, end < 0 ? 64 * 1024 : end);
+  const out = [];
+  for (const m of head.matchAll(/<meta\b([^>]*)>/gi)) {
+    const attrs = {};
+    for (const a of m[1].matchAll(/([\w:-]+)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>]+))/g)) attrs[a[1].toLowerCase()] = a[2] ?? a[3] ?? a[4] ?? '';
+    if (attrs.name) out.push({ name: attrs.name.toLowerCase(), content: attrs.content ?? '' });
+  }
   return out;
 }
 
-/** A content list: split on commas when it has one, else on whitespace. */
-export function splitList(s) {
-  const t = String(s || '').trim();
-  if (!t) return [];
-  return (t.includes(',') ? t.split(',') : t.split(/\s+/)).map((x) => x.trim()).filter(Boolean);
+function parseSize(v, problems) {
+  const t = String(v ?? '').trim().toLowerCase();
+  if (!t || t === 'flow') return { mode: 'flow' };
+  const m = t.match(/^fill\s+(\d+(?:\.\d+)?)(?:\s*\/\s*(\d+(?:\.\d+)?))?$/);
+  if (m) {
+    const ratio = m[2] ? Number(m[1]) / Number(m[2]) : Number(m[1]);
+    if (ratio > 0.1 && ratio < 10) return { mode: 'fill', ratio, as: m[2] ? `${m[1]}/${m[2]}` : m[1] };
+  }
+  problems.push(`size “${v}” is not flow or fill <w>/<h>`);
+  return { mode: 'flow' };
 }
 
-/** The text before <body> (or the whole page when it has none): where a declaration counts. */
-function headOf(html) {
-  const s = String(html);
-  const b = /<body[\s>]/i.exec(s);
-  return b ? s.slice(0, b.index) : s;
-}
+const hostOf = (v) => { const t = String(v).trim().toLowerCase(); try { return new URL(t.includes('://') ? t : `https://${t}`).host; } catch { return null; } };
 
-/**
- * Normalise a declaration given as lists or strings — the manifest's `contract`
- * block, or the metas read from a head — into one shape, with every problem
- * named. Unknown needs and a malformed size are problems; the rest is kept.
- * @returns {{ needs: string[], files: string[], net: string[], size: object|null, problems: {rule: string, detail: string}[] }}
- */
-export function normalize(raw) {
+/** One declaration from its parts (a piece's metas, or a manifest's contract block). */
+function declaration(parts) {
   const problems = [];
-  const list = (v) => (Array.isArray(v) ? v.flatMap((x) => splitList(x)) : splitList(v));
   const needs = [];
-  for (const n of list(raw.needs).map((x) => x.toLowerCase())) {
-    if (!NEEDS.includes(n)) problems.push({ rule: 'needs-unknown', detail: `“${n}” is not a need (the list is ${NEEDS.join(', ')})` });
+  for (const n of words(parts.needs).map((x) => x.toLowerCase())) {
+    if (!NEEDS.includes(n)) problems.push(`“${n}” is not a need (${NEEDS.join(', ')})`);
     else if (!needs.includes(n)) needs.push(n);
   }
-  const files = [...new Set(list(raw.files).map((f) => { try { return decodeURIComponent(f); } catch { return f; } }))];
+  const files = [...new Set(words(parts.files).map(safeDecode))];
   const net = [];
-  for (const h of list(raw.net).map((x) => x.toLowerCase())) {
-    if (!/^(\*\.)?[a-z0-9.-]+(:\d+)?$/.test(h)) problems.push({ rule: 'net-malformed', detail: `“${h}” is not a host (write the host alone, no scheme or path)` });
-    else if (!net.includes(h)) net.push(h);
-  }
-  let size = null;
-  const sz = Array.isArray(raw.size) ? raw.size.join(' ') : raw.size;
-  if (sz != null && String(sz).trim()) {
-    size = parseSize(String(sz));
-    if (!size) problems.push({ rule: 'size-malformed', detail: `“${String(sz).trim()}” is not a size (write flow, or fill and a ratio like 4/3)` });
-  }
-  return { needs, files, net, size, problems };
-}
-
-/** `flow` | `fill 4/3` | `fill 1.5` → { mode, ratio } or null. */
-export function parseSize(s) {
-  const t = String(s).trim().toLowerCase();
-  if (t === 'flow') return { mode: 'flow', ratio: null, text: 'flow' };
-  const m = /^fill\s+(\d+(?:\.\d+)?)(?:\s*[/:]\s*(\d+(?:\.\d+)?))?$/.exec(t);
-  if (!m) return null;
-  const ratio = m[2] ? Number(m[1]) / Number(m[2]) : Number(m[1]);
-  return ratio > 0 && Number.isFinite(ratio) ? { mode: 'fill', ratio, text: t } : null;
+  for (const h of words(parts.net)) { const host = hostOf(h); if (!host) problems.push(`net “${h}” is not a host`); else if (!net.includes(host)) net.push(host); }
+  return { needs, files, net, size: parseSize(parts.size, problems), problems };
 }
 
 /**
- * The declaration a page carries in its head, or null when it carries none.
- * `metas` keeps what was written, for the report.
+ * What a piece declares in its own <head>, or null when it declares nothing.
+ * @returns {null | { needs: string[], files: string[], net: string[], size: object, problems: string[] }}
  */
 export function readDeclaration(html) {
-  const head = headOf(html);
-  const raw = { needs: [], files: [], net: [], size: [] };
-  const unknown = [];
+  const parts = {};
   let any = false;
-  for (const m of head.matchAll(/<meta\b([^>]*)>/gi)) {
-    const a = attrsOf(m[1]);
-    const name = (a.name || '').toLowerCase();
-    if (!name.startsWith('piece:')) continue;
+  for (const { name, content } of metas(html)) {
+    const key = name.startsWith('piece:') ? name.slice(6) : null;
+    if (!key) continue;
     any = true;
-    const key = name.slice('piece:'.length);
-    if (METAS.includes(key)) raw[key].push(a.content || '');
-    else unknown.push(key);
+    if (['needs', 'files', 'net', 'size'].includes(key)) parts[key] = parts[key] ? `${parts[key]} ${content}` : content;
   }
-  if (!any) return null;
-  const d = normalize({ ...raw, size: raw.size.length ? raw.size[raw.size.length - 1] : null });
-  for (const k of unknown) d.problems.push({ rule: 'meta-unknown', detail: `piece:${k} is not part of the contract (${METAS.map((x) => `piece:${x}`).join(', ')})` });
-  if (raw.size.length > 1) d.problems.push({ rule: 'size-malformed', detail: 'piece:size is given more than once' });
-  d.source = 'head';
-  return d;
-}
-
-/** A manifest piece's `contract` block, normalised, or null. */
-export function manifestContract(piece) {
-  if (!piece || piece.contract == null) return null;
-  if (typeof piece.contract !== 'object' || Array.isArray(piece.contract)) {
-    return { needs: [], files: [], net: [], size: null, source: 'manifest', problems: [{ rule: 'contract-malformed', detail: 'a contract block is an object: { needs, files, net, size }' }] };
-  }
-  const d = normalize(piece.contract);
-  for (const k of Object.keys(piece.contract)) if (!METAS.includes(k)) d.problems.push({ rule: 'meta-unknown', detail: `“${k}” is not part of a contract block (${METAS.join(', ')})` });
-  d.source = 'manifest';
-  return d;
-}
-
-function readJson(root, rel) {
-  const abs = join(root, rel);
-  if (!existsSync(abs)) return { missing: true };
-  try { return { data: JSON.parse(readFileSync(abs, 'utf8')) }; } catch (e) { return { error: `${rel} is not JSON: ${e.message}` }; }
+  return any ? declaration(parts) : null;
 }
 
 /**
- * grants.json — one line per piece, written only on Loudon's yes:
- *   { "grants": [ { "piece": "<palace path>", "needs": ["camera"], "net": ["host"], "yes": "YYYY-MM-DD", "why": "…" } ] }
- * Returns a lookup by piece path: { needs: Set, net: Set }, plus any problem reading it.
+ * The contract a piece is held to: its own declaration, or else its manifest
+ * entry's `contract` block (the manifest speaks for a gathered proof), or else
+ * none — a pre-contract piece, framed as every piece was before the contract.
  */
-export function loadGrants(root, text = null) {
-  const r = text != null ? (() => { try { return { data: JSON.parse(text) }; } catch (e) { return { error: `${GRANTS_FILE} is not JSON: ${e.message}` }; } })() : readJson(root, GRANTS_FILE);
-  const byPiece = new Map();
-  const problems = [];
-  if (r.error) problems.push(r.error);
-  const rows = Array.isArray(r.data?.grants) ? r.data.grants : r.data && !r.missing ? (problems.push(`${GRANTS_FILE} has no "grants" list`), []) : [];
-  for (const g of rows) {
-    if (!g || typeof g.piece !== 'string') { problems.push(`${GRANTS_FILE}: a grant names no piece`); continue; }
-    const cur = byPiece.get(g.piece) || { needs: new Set(), net: new Set() };
-    for (const n of splitList(Array.isArray(g.needs) ? g.needs.join(',') : g.needs)) cur.needs.add(n.toLowerCase());
-    for (const h of splitList(Array.isArray(g.net) ? g.net.join(',') : g.net)) cur.net.add(h.toLowerCase());
-    byPiece.set(g.piece, cur);
-  }
-  return { present: !r.missing, byPiece, problems, get: (p) => byPiece.get(p) || { needs: new Set(), net: new Set() } };
+export function contractOf({ html, manifestContract } = {}) {
+  const own = readDeclaration(html);
+  if (own) return { source: 'piece', ...own };
+  if (manifestContract && typeof manifestContract === 'object') return { source: 'manifest', ...declaration(manifestContract) };
+  return { source: null, needs: [], files: [], net: [], size: { mode: 'flow' }, problems: [] };
 }
 
 /**
- * libs.json — the library shelf, an exact version and an SRI hash per library:
- *   { "libs": [ { "name": "d3", "version": "7.9.0", "url": "https://…/d3@7.9.0/dist/d3.min.js", "integrity": "sha384-…" } ] }
- * Returns a lookup by URL and the set of hosts on the shelf.
+ * A declared file as a palace path, named from the piece at `piecePath`.
+ * A folder keeps its trailing "/". Null for one that climbs out of the palace.
  */
-export function loadShelf(root, text = null) {
-  const r = text != null ? (() => { try { return { data: JSON.parse(text) }; } catch (e) { return { error: `${LIBS_FILE} is not JSON: ${e.message}` }; } })() : readJson(root, LIBS_FILE);
-  const byUrl = new Map();
-  const hosts = new Set();
-  const problems = [];
-  if (r.error) problems.push(r.error);
-  for (const l of Array.isArray(r.data?.libs) ? r.data.libs : []) {
-    if (!l || typeof l.url !== 'string') { problems.push(`${LIBS_FILE}: a library names no url`); continue; }
-    byUrl.set(l.url, l);
-    try { hosts.add(new URL(l.url).host); } catch { problems.push(`${LIBS_FILE}: “${l.url}” is not a URL`); }
+export function declaredPath(piecePath, ref) {
+  const r = String(ref || '').trim();
+  if (!r) return null;
+  const dir = r.endsWith('/');
+  const joined = r.startsWith('/') ? r.replace(/^\/+/, '') : posix.join(posix.dirname(piecePath), r);
+  const p = posix.normalize(joined).replace(/\/+$/, '');
+  if (!p || p === '.' || p === '..' || p.startsWith('../')) return null;
+  return dir ? `${p}/` : p;
+}
+
+// ── grants.json ────────────────────────────────────────────────────────────
+// { "grants": [ { "piece": "<palace path>", "allow": ["camera"], "net": ["host"], "yes": "Loudon, <date>" } ] }
+const grantCache = new Map(); // root -> { mtimeMs, value }
+
+/** The grants Loudon has given: piece path → { allow: Set, net: Set }. A file that is missing grants nothing. */
+export function readGrants(root) {
+  const file = join(root, ...GRANTS_FILE.split('/'));
+  let st;
+  try { st = statSync(file); } catch { return { ok: true, byPiece: new Map(), error: null }; }
+  const hit = grantCache.get(root);
+  if (hit && hit.mtimeMs === st.mtimeMs) return hit.value;
+  let value;
+  try {
+    const json = JSON.parse(readFileSync(file, 'utf8'));
+    const byPiece = new Map();
+    for (const g of Array.isArray(json.grants) ? json.grants : []) {
+      if (!g || typeof g.piece !== 'string') continue;
+      const cur = byPiece.get(g.piece) || { allow: new Set(), net: new Set() };
+      for (const a of words(g.allow).map((x) => x.toLowerCase())) if (GRANTED_NEEDS.includes(a)) cur.allow.add(a);
+      for (const h of words(g.net)) { const host = hostOf(h); if (host) cur.net.add(host); }
+      byPiece.set(g.piece, cur);
+    }
+    value = { ok: true, byPiece, error: null };
+  } catch (e) {
+    value = { ok: false, byPiece: new Map(), error: `${GRANTS_FILE} could not be read, so nothing is granted: ${e.message}` };
   }
-  return { present: !r.missing && !r.error, byUrl, hosts, problems };
+  grantCache.set(root, { mtimeMs: st.mtimeMs, value });
+  return value;
 }
 
-/** Is this version segment of a CDN URL exact? `@7.9.0`, `/7.8.5/`, three's `r128` are; `@7`, `@0.6`, none are not. */
-export function exactVersion(url) {
-  let path;
-  try { path = new URL(url, 'https://x').pathname; } catch { path = String(url); }
-  const m = /(?:@|\/)v?(\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?)(?=\/|$)/.exec(path) || /\/(r\d+)(?=\/)/.exec(path);
-  return m ? m[1] : null;
+// ── the shelf ──────────────────────────────────────────────────────────────
+/** The origins a piece may load libraries from: every https URL libs.json names, or today's three CDNs. */
+export function shelfOrigins(root) {
+  let json;
+  try { json = JSON.parse(readFileSync(join(root, ...SHELF_FILE.split('/')), 'utf8')); } catch { return DEFAULT_SHELF; }
+  const found = new Set();
+  (function walk(v) {
+    if (Array.isArray(v)) v.forEach(walk);
+    else if (v && typeof v === 'object') Object.values(v).forEach(walk);
+    else if (typeof v === 'string' && /^https:\/\//i.test(v)) { try { found.add(new URL(v).origin); } catch { /* not a url */ } }
+  })(json);
+  return found.size ? [...found].sort() : DEFAULT_SHELF;
 }
 
-/** Hosts a piece may load from without a pin: Google's fonts, which the house standard allows. */
-export const FONT_HOSTS = Object.freeze(['fonts.googleapis.com', 'fonts.gstatic.com']);
+// ── the frame ──────────────────────────────────────────────────────────────
+const LABEL = { camera: 'camera', microphone: 'microphone', midi: 'midi' };
 
-/** The folder every piece may load from without declaring it (Flocking's pieces load palace-tokens.js there). */
-export const SHARED_DIRS = Object.freeze(['_ops/loudon-live/design-system/']);
+/**
+ * How a piece is framed and what its figure says. The same plan feeds the rich
+ * page and STIGMERGY's deck; each only renders it.
+ * @param {object} o
+ * @param {string} o.path           the piece's palace path
+ * @param {object} o.contract       from contractOf
+ * @param {{ allow: Set, net: Set } | undefined} o.grant  its line in grants.json
+ * @param {'live'|'static'} [o.mode] live: on the piece origin; static: the public read view, opaque
+ * @param {string} [o.origin]       the piece origin, live
+ * @param {string} [o.url]          where the piece is fetched, static
+ */
+export function framePlan({ path, contract, grant, mode = 'live', origin, url }) {
+  const c = contract || contractOf();
+  const g = grant || { allow: new Set(), net: new Set() };
+  const chips = [];
+  const allow = ['autoplay'];
+  const refused = [];
+  const isStatic = mode === 'static';
+  for (const need of c.needs) {
+    if (GRANTED_NEEDS.includes(need)) {
+      if (isStatic) { chips.push({ text: `${LABEL[need]} · opens in its own tab`, state: 'note', title: 'On the public site a camera or microphone piece runs in its own tab, not in the face.' }); continue; }
+      if (g.allow.has(need)) { allow.push(need); chips.push({ text: LABEL[need], state: 'ok', title: `granted in ${GRANTS_FILE}` }); }
+      else { refused.push(need); chips.push({ text: `${LABEL[need]} · not granted`, state: 'warn', title: `declared, but ${GRANTS_FILE} has no line for this piece, so the browser refuses it` }); }
+    } else if (need === 'storage') {
+      chips.push(isStatic
+        ? { text: 'storage · this visit only', state: 'note', title: 'The public site keeps a piece’s storage in memory: it is gone when the page closes.' }
+        : { text: 'storage', state: 'ok', title: 'kept on the piece origin, under this piece’s own prefix' });
+    } else if (need === 'fullscreen') {
+      allow.push('fullscreen');
+      chips.push({ text: 'fullscreen', state: 'ok', title: 'may go fullscreen' });
+    }
+  }
+  if (c.files.length) chips.push({ text: `files · ${c.files.length}`, state: 'ok', title: `declared files: ${c.files.join(', ')}` });
+  const net = [];
+  for (const host of c.net) {
+    if (isStatic || g.net.has(host)) { net.push(host); chips.push({ text: `net · ${host}`, state: 'ok', title: isStatic ? 'reaches this host' : `granted in ${GRANTS_FILE}` }); }
+    else { refused.push(`net ${host}`); chips.push({ text: `net · ${host} · not granted`, state: 'warn', title: `declared, but ${GRANTS_FILE} has no line for it, so the piece cannot reach it` }); }
+  }
+  if (c.size.mode === 'fill') chips.push({ text: `fill ${c.size.as}`, state: 'ok', title: 'sized from the column' });
+  if (c.problems.length) chips.push({ text: `declaration · ${c.problems.length} problem${c.problems.length === 1 ? '' : 's'}`, state: 'warn', title: c.problems.join('; ') });
+  if (c.source === 'manifest') chips.push({ text: 'declared by its manifest', state: 'note', title: 'a gathered proof: its manifest entry speaks for it' });
+  // A piece that needs anything of its origin — a device, storage, a file
+  // beside it — runs as the piece origin; the page adds allow-same-origin only
+  // after checking that origin is not its own. Everything else stays opaque.
+  const sameOrigin = !isStatic && (c.needs.some((n) => n !== 'fullscreen') || c.files.length > 0);
+  return {
+    path,
+    url: isStatic ? url : `${origin}/${String(path).split('/').map(encodeURIComponent).join('/')}`,
+    mark: c.source ? 'introduced' : 'pre-contract',
+    source: c.source,
+    needs: c.needs, files: c.files, net, size: c.size, problems: c.problems,
+    sameOrigin,
+    allow: [...new Set(allow)].join('; '),
+    refused,
+    tab: isStatic && c.needs.some((n) => n === 'camera' || n === 'microphone'),
+    chips,
+  };
+}
+
+/** The Permissions-Policy the piece origin sends with a piece: what grants.json allows it, and nothing else. */
+export function piecePolicy(plan) {
+  const on = (need) => (plan && plan.allow.split('; ').includes(need) ? 'self' : '');
+  return [
+    `camera=(${on('camera')})`, `microphone=(${on('microphone')})`, `midi=(${on('midi')})`, `fullscreen=(${on('fullscreen')})`,
+    'geolocation=()', 'display-capture=()', 'usb=()', 'serial=()', 'hid=()', 'bluetooth=()', 'payment=()',
+  ].join(', ');
+}
+
+/**
+ * The piece's Content-Security-Policy: where its data may go. Scripts from the
+ * shelf; fetches to the piece origin and the hosts it was granted. It limits
+ * where data goes, not what code runs; the shelf's SRI pins are the defense
+ * for that (spec § 7). It ships report-only for one round.
+ */
+export function pieceCsp(plan, shelf = DEFAULT_SHELF) {
+  const s = shelf.join(' ');
+  const net = (plan ? plan.net : []).map((h) => `https://${h}`).join(' ');
+  return [
+    "default-src 'self'",
+    `script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: ${s}`,
+    `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com ${s}`,
+    `font-src 'self' data: https://fonts.gstatic.com ${s}`,
+    "img-src 'self' data: blob:",
+    "media-src 'self' data: blob: mediastream:",
+    `connect-src 'self' ${net}`.trim(),
+    "worker-src 'self' blob:",
+    "frame-src 'none'", "object-src 'none'", "base-uri 'self'", "form-action 'none'",
+  ].join('; ');
+}

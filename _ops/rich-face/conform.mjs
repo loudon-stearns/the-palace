@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 // conform.mjs — the piece checker. A piece declares in its own <head> what it
-// needs from its host (contract.mjs); this reads every piece against that
-// declaration and against what its code actually does, so no one has to
-// remember a rule. Plan: STIGMERGY — spec — rich-face pieces § 5.
+// needs from its host; this reads every piece against that declaration and
+// against what its code actually does, so no one has to remember a rule.
+// The declaration and the grants are read by contract.mjs, the same reader the
+// piece origin frames a piece by, so a piece is judged by the reading it is
+// served by. Plan: STIGMERGY — spec — rich-face pieces § 5.
 //
 //   node _ops/rich-face/conform.mjs "<Entry>"     every piece the entry's rich face shows
 //   node _ops/rich-face/conform.mjs --all         every web page the palace keeps
@@ -46,9 +48,52 @@ import { fileURLToPath } from 'node:url';
 import { makeResolver } from './resolve.mjs';
 import { richReferences, createRichHandler } from './rich-handler.mjs';
 import {
-  readDeclaration, manifestContract, loadGrants, loadShelf, exactVersion, attrsOf,
-  GRANTED_NEEDS, FONT_HOSTS, SHARED_DIRS, GRANTS_FILE, LIBS_FILE,
+  readDeclaration, contractOf, declaredPath, readGrants,
+  GRANTED_NEEDS, GRANTS_FILE, SHELF_FILE, DESIGN_SYSTEM,
 } from './contract.mjs';
+
+// Hosts a piece may load from without a pin: Google's fonts, which the house standard allows.
+const FONT_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com'];
+// The folders every piece may load from without declaring them (the piece origin serves them to all).
+const SHARED_DIRS = [DESIGN_SYSTEM];
+const METAS = ['needs', 'files', 'net', 'size'];
+
+const decodeEntities = (s) => String(s)
+  .replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+
+/** The attributes of one start tag's inside, as a lower-cased-name map. */
+export function attrsOf(tagInside) {
+  const out = {};
+  const re = /([^\s"'<>\/=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?/g;
+  let m;
+  while ((m = re.exec(tagInside))) out[m[1].toLowerCase()] = decodeEntities(m[2] ?? m[3] ?? m[4] ?? '');
+  return out;
+}
+
+/** Is this version segment of a CDN URL exact? `@7.9.0`, `/7.8.5/`, three's `r128` are; `@7`, `@0.6`, none are not. */
+export function exactVersion(url) {
+  let path;
+  try { path = new URL(url, 'https://x').pathname; } catch { path = String(url); }
+  const m = /(?:@|\/)v?(\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?)(?=\/|$)/.exec(path) || /\/(r\d+)(?=\/)/.exec(path);
+  return m ? m[1] : null;
+}
+
+/**
+ * The library shelf (libs.json), as the pins read it: each library's exact URL
+ * and its SRI hash. The piece origin reads the same file for its CDN origins
+ * (contract.mjs shelfOrigins); its shape is settled with the migration (spec § 9):
+ *   { "libs": [ { "name": "d3", "version": "7.9.0", "url": "https://…/d3@7.9.0/dist/d3.min.js", "integrity": "sha384-…" } ] }
+ */
+export function loadShelf(root) {
+  let data;
+  try { data = JSON.parse(readFileSync(join(root, ...SHELF_FILE.split('/')), 'utf8')); } catch { return { present: false, byUrl: new Map() }; }
+  const byUrl = new Map();
+  for (const l of Array.isArray(data?.libs) ? data.libs : []) if (l && typeof l.url === 'string') byUrl.set(l.url, l);
+  return { present: true, byUrl };
+}
+
+// contract.mjs names a problem in words; the checker files it under a rule.
+const problemRule = (p) => (/is not a need/.test(p) ? 'needs-unknown' : /is not a host/.test(p) ? 'net-malformed' : /^size/.test(p) ? 'size-malformed' : 'contract-malformed');
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 export const CONFIG_FILE = '_ops/rich-face/conform.json';
@@ -57,6 +102,7 @@ const MANIFEST = / — rich\.json$/;
 const PAGE = /\.html?$/i;
 const WIDTHS = [760, 1130];
 const HEIGHT_WAIT_MS = 3000;
+const HUSH_WAIT_MS = 1500;
 
 // Every rule, its level, and what it means. `soft`: a pre-contract piece
 // promised nothing, so the rule only warns there.
@@ -126,7 +172,7 @@ export function makeContext(root, { tracked = false, files = null, resolver = nu
     gitRoot: gitRoot || ROOT,
     files: list,
     resolver: resolver || makeResolver(ROOT, files ? { files, tracked: true } : { tracked }),
-    grants: loadGrants(ROOT),
+    grants: (() => { const g = readGrants(ROOT); return { error: g.error, get: (p) => g.byPiece.get(p) || { allow: new Set(), net: new Set() } }; })(),
     shelf: loadShelf(ROOT),
     config: loadConfig(ROOT),
     read: (rel) => readFileSync(join(ROOT, ...rel.split('/')), 'utf8'),
@@ -406,13 +452,25 @@ export function checkPage(ctx, t, html = null) {
     return result(ctx, t, null, null, findings);
   }
 
-  // The declaration: the head's, or the manifest's contract for a gathered proof.
+  // The declaration: the piece's own, or its manifest entry's contract block
+  // for a gathered proof (contract.mjs contractOf: the piece's own wins).
   const head = readDeclaration(src);
   const mp = (t.via || []).map((v) => v.manifestPiece).find((p) => p && p.contract != null) || null;
-  const man = mp ? manifestContract(mp) : null;
-  const decl = head || man;
-  for (const p of [...(head?.problems || []), ...(man?.problems || [])]) F(p.rule, p.detail, p.detail);
-  if (head && man) F('contract-both', 'contract', 'the head declares, and the manifest entry carries a contract too; the head wins');
+  const raw = mp ? mp.contract : null;
+  const rawBad = raw != null && (typeof raw !== 'object' || Array.isArray(raw));
+  const c = contractOf({ html: src, manifestContract: rawBad ? null : raw });
+  const decl = c.source ? c : null;
+  for (const p of c.problems) F(problemRule(p), p, p);
+  if (rawBad) F('contract-malformed', 'contract', 'the manifest entry\'s contract is not an object: { needs, files, net, size }');
+  if (head && raw != null) F('contract-both', 'contract', 'the head declares, and the manifest entry carries a contract too; the head wins');
+  if (c.source === 'manifest') for (const k of Object.keys(raw)) if (!METAS.includes(k)) F('meta-unknown', k, `“${k}” is not part of a contract block (${METAS.join(', ')})`);
+  if (head) {
+    const end = src.search(/<\/head\s*>|<body[\s>]/i);
+    for (const m of src.slice(0, end < 0 ? src.length : end).matchAll(/<meta\b([^>]*)>/gi)) {
+      const name = (attrsOf(m[1]).name || '').toLowerCase();
+      if (name.startsWith('piece:') && !METAS.includes(name.slice(6))) F('meta-unknown', name, `${name} is not part of the contract (${METAS.map((x) => `piece:${x}`).join(', ')}), so nothing reads it`);
+    }
+  }
   const declared = !!decl;
   const soft = (rule) => (RULES[rule].soft && !declared ? 'warn' : RULES[rule].level);
   const S = (rule, key, detail, line) => findings.push({ ...finding(rule, piece, key, detail, line), level: soft(rule) });
@@ -430,14 +488,22 @@ export function checkPage(ctx, t, html = null) {
   }
   if (declared) {
     const g = ctx.grants.get(piece);
-    for (const need of needs) if (GRANTED_NEEDS.includes(need) && !g.needs.has(need)) F('grant-missing', need, `needs ${need}, and ${GRANTS_FILE} has no line for this piece (written only on Loudon's yes)`);
+    for (const need of needs) if (GRANTED_NEEDS.includes(need) && !g.allow.has(need)) F('grant-missing', need, `needs ${need}, and ${GRANTS_FILE} has no line for this piece (written only on Loudon's yes)`);
     for (const host of decl.net) if (!g.net.has(host)) F('grant-missing', host, `reaches ${host}, and ${GRANTS_FILE} has no line for it (written only on Loudon's yes)`);
   }
 
-  // Declared files: beside the piece, present, inside.
+  // Declared files: beside the piece (or /palace-absolute), present, inside.
+  // A folder ends in "/" and covers every file under it.
   const declaredFiles = new Set();
+  const declaredDirs = [];
   for (const f of decl?.files || []) {
-    const rel = f.startsWith('/') ? posix.normalize(f.slice(1)) : posix.normalize(posix.join(dir, f));
+    const rel = declaredPath(piece, f);
+    if (!rel) { F('file-outside', f, `declares ${f}, which climbs out of the palace`); continue; }
+    if (rel.endsWith('/')) {
+      declaredDirs.push(rel);
+      if (!ctx.files.some((p) => p.startsWith(rel))) { F('file-missing', f, `declares the folder ${f}, and the palace keeps nothing under ${rel}`); findings[findings.length - 1].missing = rel.slice(0, -1); }
+      continue;
+    }
     declaredFiles.add(rel);
     const r = present(ctx, rel);
     if (!r.ok) { F(r.reason === 'missing' ? 'file-missing' : 'file-outside', f, `declares ${f}: ${r.label}`); findings[findings.length - 1].missing = rel; }
@@ -458,7 +524,7 @@ export function checkPage(ctx, t, html = null) {
       const r = present(ctx, rel);
       if (!r.ok) { F(r.reason === 'missing' ? 'file-missing' : 'file-outside', l.raw, `loads ${l.raw} (line ${l.line}): ${r.label}`, l.line); findings[findings.length - 1].missing = rel; continue; }
       const shared = SHARED_DIRS.some((d) => r.path.startsWith(d));
-      if (!shared && !declaredFiles.has(rel) && !declaredFiles.has(r.path)) {
+      if (!shared && !declaredFiles.has(rel) && !declaredFiles.has(r.path) && !declaredDirs.some((d) => rel.startsWith(d) || r.path.startsWith(d))) {
         S('file-undeclared', rel, declared ? `loads ${l.raw} (line ${l.line}), which piece:files does not name` : `loads ${l.raw} (line ${l.line}); a declaration would name it in piece:files`, l.line);
       }
     }
@@ -493,7 +559,7 @@ function judgeExternal(ctx, l, decl, F, S) {
   if (!v) F('cdn-unpinned', l.url, `${l.url} (line ${l.line}) is not at an exact version`, l.line);
   if (ctx.shelf.present) {
     const lib = ctx.shelf.byUrl.get(l.url);
-    if (!lib) F('cdn-off-shelf', l.url, `${l.url} (line ${l.line}) is not on the shelf (${LIBS_FILE})`, l.line);
+    if (!lib) F('cdn-off-shelf', l.url, `${l.url} (line ${l.line}) is not on the shelf (${SHELF_FILE})`, l.line);
     else if (lib.integrity && l.integrity !== lib.integrity) F('cdn-sri-mismatch', l.url, `${l.url} (line ${l.line}) carries ${l.integrity ? 'a different integrity' : 'no integrity'}; the shelf says ${lib.integrity}`, l.line);
   } else if (!l.integrity && l.tag !== 'code') {
     F('cdn-no-sri', l.url, `${l.url} (line ${l.line}) carries no integrity hash`, l.line);
@@ -507,7 +573,7 @@ function result(ctx, t, decl, scan, findings) {
   return {
     path: t.path,
     via: (t.via || []).map((v) => ({ entry: v.entry, name: v.name, origin: v.manifestPiece?.origin || null })),
-    declaration: decl ? { source: decl.source, needs: decl.needs, files: decl.files, net: decl.net, size: decl.size?.text || null } : null,
+    declaration: decl ? { source: decl.source, needs: decl.needs, files: decl.files, net: decl.net, size: decl.size?.mode === 'fill' ? `fill ${decl.size.as}` : 'flow' } : null,
     uses: scan ? [...scan.uses.keys()] : [],
     sound: !!scan?.sound,
     mark: errored ? 'errored' : decl ? 'introduced' : 'pre-contract',
@@ -680,22 +746,38 @@ export async function checkBrowser(ctx, results, { concurrency = 4, loadTimeout 
     await context.addInitScript(INIT);
     const queue = results.slice();
     let done = 0;
+    // Drive one piece at both widths and lay what the browser saw over the
+    // static findings (a second drive replaces the first's).
+    const browse = async (r, { alone = false } = {}) => {
+      const fill = r.declaration?.size?.startsWith('fill');
+      const drive = (w) => drivePiece(context, origin, r, w, { fill, loadTimeout });
+      const runs = alone ? [await drive(WIDTHS[0]), await drive(WIDTHS[1])] : await Promise.all(WIDTHS.map(drive));
+      r.findings = r.findings.filter((f) => !f.browser);
+      r.browser = runs.map((x) => ({ width: x.width, height: x.height, play: x.play, hushed: x.hushed }));
+      const seen = new Set(r.findings.filter((f) => f.missing).map((f) => `missing|${f.missing}`));
+      for (const f of runs.flatMap((x) => x.findings)) {
+        const k = f.missing ? `missing|${f.missing}` : `${f.rule}|${f.key}`;
+        if (!seen.has(k)) { seen.add(k); r.findings.push(f); }
+      }
+      remark(ctx, r);
+    };
     const worker = async () => {
       while (queue.length) {
         const r = queue.shift();
-        const fill = r.declaration?.size?.startsWith('fill');
-        const runs = await Promise.all(WIDTHS.map((w) => drivePiece(context, origin, r, w, { fill, loadTimeout })));
-        r.browser = runs.map((x) => ({ width: x.width, height: x.height, play: x.play, hushed: x.hushed }));
-        const seen = new Set(r.findings.filter((f) => f.missing).map((f) => `missing|${f.missing}`));
-        for (const f of runs.flatMap((x) => x.findings)) {
-          const k = f.missing ? `missing|${f.missing}` : `${f.rule}|${f.key}`;
-          if (!seen.has(k)) { seen.add(k); r.findings.push(f); }
-        }
-        remark(ctx, r);
+        await browse(r);
         log(`  browser ${++done}/${results.length}  ${r.mark.padEnd(12)} ${r.path}`);
       }
     };
     await Promise.all(Array.from({ length: Math.min(concurrency, results.length) }, worker));
+    // A piece that missed its time — no load within the limit, no height within
+    // 3 s — is driven again, alone: among eight frames at once a heavy piece can
+    // be slow without being wrong. What the second, quiet drive sees stands.
+    const SLOW = ['load-failed', 'height-silent'];
+    for (const r of results.filter((x) => x.findings.some((f) => SLOW.includes(f.rule)))) {
+      await browse(r, { alone: true });
+      for (const f of r.findings) if (SLOW.includes(f.rule)) f.detail += ' (and again, driven alone)';
+      log(`  browser again, alone  ${r.mark.padEnd(12)} ${r.path}`);
+    }
     await context.close();
     markIgnored(ctx, results);
   } finally {
@@ -708,7 +790,7 @@ export async function checkBrowser(ctx, results, { concurrency = 4, loadTimeout 
 async function drivePiece(context, origin, r, width, { fill, loadTimeout }) {
   const piece = r.path;
   const out = { width, height: null, play: null, hushed: null, findings: [] };
-  const F = (rule, key, detail) => out.findings.push(finding(rule, piece, key, detail));
+  const F = (rule, key, detail) => out.findings.push({ ...finding(rule, piece, key, detail), browser: true, width });
   const page = await context.newPage();
   page.setDefaultTimeout(5000);
   const errors = [];
@@ -759,10 +841,12 @@ async function drivePiece(context, origin, r, width, { fill, loadTimeout }) {
         }).catch(() => 0);
         if (await loud()) {
           await page.evaluate(() => window.__hush());
-          await page.waitForTimeout(500);
-          const still = await loud();
+          // A piece may fade before it suspends (Kuramoto's waits 200 ms), so
+          // quiet is asked for over a moment, not at one instant.
+          let still = 1;
+          for (const t1 = Date.now(); still && Date.now() - t1 < HUSH_WAIT_MS;) { await page.waitForTimeout(100); still = await loud(); }
           out.hushed = !still;
-          if (still) F('hush-loud', 'hush', `${still} context(s) or media still sounding 0.5 s after rich:hush at ${width} px`);
+          if (still) F('hush-loud', 'hush', `${still} context(s) or media still sounding ${HUSH_WAIT_MS / 1000} s after rich:hush at ${width} px`);
         }
       }
     }
@@ -787,6 +871,7 @@ async function drivePiece(context, origin, r, width, { fill, loadTimeout }) {
       if (status === 404) { F('file-missing', rel, `loads ${rel} at run time: no file ${rel}`); out.findings[out.findings.length - 1].missing = rel; }
       else F('console-error', rel, `loads ${rel} at run time, and the server answered ${status} (at ${width} px)`);
     }
+    if (blockedAny) for (const f of out.findings) if (f.rule === 'play-silent') f.detail += '; it came after a load the sandbox blocked, so it may only follow from that';
   } finally {
     await page.close().catch(() => {});
   }
@@ -846,7 +931,7 @@ export function commitContext(repo, rev) {
     } else writeFileSync(abs, TEXT.test(rel) ? blob(e.oid) : '');
   };
   const files = tree.map((e) => e.path);
-  for (const f of [CONFIG_FILE, GRANTS_FILE, LIBS_FILE]) write(f);
+  for (const f of [CONFIG_FILE, GRANTS_FILE, SHELF_FILE]) write(f);
   for (const m of files.filter((p) => MANIFEST.test(p))) write(m);
   const resolver = makeResolver(tmp, { files, tracked: true });
   const ctx = makeContext(tmp, { files, resolver, gitRoot: repo });
@@ -871,7 +956,7 @@ export function commitContext(repo, rev) {
     let html = ''; try { html = ctx.read(p); } catch { continue; }
     const dir = posix.dirname(p);
     const decl = readDeclaration(html);
-    for (const f of decl?.files || []) write(f.startsWith('/') ? posix.normalize(f.slice(1)) : posix.normalize(posix.join(dir, f)));
+    for (const f of decl?.files || []) { const rel = declaredPath(p, f); if (rel && !rel.endsWith('/')) write(rel); }
     for (const l of scanPage(html).loads) if (!l.url) write(l.path.startsWith('/') ? posix.normalize(l.path.slice(1)) : posix.normalize(posix.join(dir, l.path)));
   }
   resolver.refresh();
@@ -917,8 +1002,18 @@ export function renderReport(run, { title = 'conform', browser = null, enforce =
   }
   const pieceFindings = run.results.flatMap((r) => r.findings);
   if (pieceFindings.length) {
+    // A run of one rule on one page (a gallery's 240 renders) reads as one row.
     L.push('', '## Findings', '', '| piece | rule | level | finding |', '|---|---|---|---|');
-    for (const f of pieceFindings) L.push(`| \`${esc(f.piece)}\` | ${f.rule}${f.allowed ? ' (allowed)' : ''} | ${f.level} | ${esc(f.detail)} |`);
+    for (const r of run.results) {
+      const groups = new Map();
+      for (const f of r.findings) { const k = `${f.rule}|${f.level}|${!!f.allowed}`; (groups.get(k) || groups.set(k, []).get(k)).push(f); }
+      for (const fs of groups.values()) {
+        const f = fs[0];
+        const detail = fs.length > 4 ? `${fs.length} like this: ${fs.slice(0, 3).map((x) => x.key).join(' · ')} … (first: ${f.detail})` : null;
+        if (detail) L.push(`| \`${esc(f.piece)}\` | ${f.rule}${f.allowed ? ' (allowed)' : ''} | ${f.level} | ${esc(detail)} |`);
+        else for (const x of fs) L.push(`| \`${esc(x.piece)}\` | ${x.rule}${x.allowed ? ' (allowed)' : ''} | ${x.level} | ${esc(x.detail)} |`);
+      }
+    }
   }
   const byRule = {};
   for (const f of open) { const b = byRule[f.rule] || (byRule[f.rule] = { error: 0, warn: 0, pages: new Set() }); b[f.level === 'error' ? 'error' : 'warn']++; b.pages.add(f.piece); }
