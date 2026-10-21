@@ -1,0 +1,44 @@
+loaded Frustration (VST3, Loudon Live) from ~/Library/Audio/Plug-Ins/VST3/Frustration.vst3
+parameters:
+  Stretch            1e-05            automatable
+  Coupling           6.00 Hz          automatable
+  Inertia            1                automatable
+  Pitch              110 Hz           automatable
+  Voices             0.00             automatable
+  Level              -6.00 dB         automatable
+  Partials           40               fixed
+  Pin partial 1      Off              automatable
+  Source             warm             automatable
+  Bypass             Off              automatable
+  (and 2080 MIDI CC proxies the VST3 wrapper adds)
+render (one second each, from a fresh start):
+  defaults                   rms  -10.4 dBFS  peak   -3.0 dBFS  centroid    531 Hz  
+  defaults again             rms  -10.4 dBFS  peak   -3.0 dBFS  centroid    531 Hz  (same as the first)
+  B -> 6e-05                 rms  -10.5 dBFS  peak   -2.0 dBFS  centroid    585 Hz  differs from defaults by 1.6 of peak
+  K -> 18.00                 rms  -10.5 dBFS  peak   -3.0 dBFS  centroid    494 Hz  differs from defaults by 1.1 of peak
+  inertia -> 10              rms  -10.4 dBFS  peak   -3.0 dBFS  centroid    523 Hz  differs from defaults by 0.5 of peak
+  f0 -> 220                  rms  -10.4 dBFS  peak   -2.7 dBFS  centroid   1197 Hz  differs from defaults by 1.5 of peak
+  voices -> 0.50             rms   -8.4 dBFS  peak   -1.4 dBFS  centroid    513 Hz  differs from defaults by 0.46 of peak
+  source -> bright           rms  -16.3 dBFS  peak   -3.5 dBFS  centroid   1565 Hz  differs from defaults by 1.2 of peak
+HOST CHECK PASSED
+loaded Frustration (AudioUnit, Loudon Live) from ~/Library/Audio/Plug-Ins/Components/Frustration.component
+parameters:
+  Stretch            1e-05            automatable
+  Coupling           6.00             automatable
+  Pitch              110              automatable
+  Level              -6.00            automatable
+  Pin partial 1      Off              automatable
+  Partials           40               fixed
+  Source             warm             automatable
+  Voices             0.00             automatable
+  Inertia            1                automatable
+render (one second each, from a fresh start):
+  defaults                   rms  -10.4 dBFS  peak   -3.0 dBFS  centroid    531 Hz  
+  defaults again             rms  -10.4 dBFS  peak   -3.0 dBFS  centroid    531 Hz  (same as the first)
+  B -> 6e-05                 rms  -10.5 dBFS  peak   -2.0 dBFS  centroid    585 Hz  differs from defaults by 1.6 of peak
+  K -> 18.00                 rms  -10.5 dBFS  peak   -3.0 dBFS  centroid    494 Hz  differs from defaults by 1.1 of peak
+  inertia -> 10              rms  -10.4 dBFS  peak   -3.0 dBFS  centroid    523 Hz  differs from defaults by 0.5 of peak
+  f0 -> 220                  rms  -10.4 dBFS  peak   -2.7 dBFS  centroid   1197 Hz  differs from defaults by 1.5 of peak
+  voices -> 0.50             rms   -8.4 dBFS  peak   -1.4 dBFS  centroid    513 Hz  differs from defaults by 0.46 of peak
+  source -> bright           rms  -16.3 dBFS  peak   -3.5 dBFS  centroid   1565 Hz  differs from defaults by 1.2 of peak
+HOST CHECK PASSED

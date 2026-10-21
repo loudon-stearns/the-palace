@@ -19,3 +19,5 @@ Things to try, from the field guide: hold Stretch just under the edge and ride C
 **Checked against the sketch** (`reference/paths.py`): `ride.py`'s three renders, `ride_warm.py`'s breathe at 64 partials, and a walk through the extra knobs. Away from the edge the plugin matches the sketch to about 5e-8 of peak. Where a path crosses the edge it is checked on the fundamental's mean and spread, because two correct implementations part there within a couple of seconds.
 
 **Cost:** one instance uses about 2.5 % of one M1 Max core at 40 partials and 6.6 % at 96.
+
+**Level:** there is no limiter, so the model stays the model. With Voices at full and Level above -6 dB it can pass full scale.

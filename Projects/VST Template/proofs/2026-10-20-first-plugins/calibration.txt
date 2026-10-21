@@ -1,0 +1,72 @@
+How Frustration's gates were set, 2026-10-20. Outputs as measured, verbatim.
+
+Each script takes the plugin folder and a scratch folder:
+  python3 chaos_floor.py   "plugins/Frustration" ride-breathe /tmp/work
+  python3 exact_catches.py "plugins/Frustration" /tmp/work
+  python3 wrap_test.py     "plugins/Frustration" /tmp/work
+chaos_floor.py and exact_catches.py ran against the sketch before it wrapped its phases;
+wrap_test.py needs that unwrapped sketch's cached render (it compares the two), so it
+reproduces only from a checkout of commit cafe611c or earlier.
+
+== 1. The chaos floor at the edge: can the behaviour gate tell a wrong port from a right one?
+   (window statistics of the fundamental, compared with the sketch, after the first 2 s)
+
+-- ride-breathe: 0.5 s windows from 2 s; max |diff| from the sketch in window mean, spread (Hz); and the 95th percentile
+   engine (correct)   mean   1.11 (p95  0.64)   spread   1.37 (p95  0.89)
+   plugin (correct)   mean   1.37 (p95  0.68)   spread   1.12 (p95  0.78)
+   K +2%              mean   1.49 (p95  0.89)   spread   1.57 (p95  0.99)
+   K +5%              mean   1.23 (p95  0.91)   spread   1.47 (p95  1.04)
+   K -5%              mean   1.10 (p95  0.74)   spread   1.15 (p95  0.81)
+   B +5%              mean   1.38 (p95  0.99)   spread   1.70 (p95  1.05)
+   inertia +10%       mean   1.58 (p95  0.80)   spread   1.66 (p95  1.04)
+-- ride-breathe: 1 s windows from 2 s
+   engine (correct)   mean   1.03 (p95  0.48)   spread   1.13 (p95  0.61)
+   plugin (correct)   mean   0.86 (p95  0.66)   spread   0.96 (p95  0.56)
+   K +2%              mean   1.18 (p95  0.63)   spread   1.17 (p95  0.69)
+   K +5%              mean   0.84 (p95  0.76)   spread   1.24 (p95  0.80)
+   K -5%              mean   1.02 (p95  0.38)   spread   1.10 (p95  0.53)
+   B +5%              mean   1.28 (p95  0.45)   spread   1.58 (p95  0.61)
+   inertia +10%       mean   1.04 (p95  0.56)   spread   1.20 (p95  0.81)
+-- ride-breathe: 2 s windows from 2 s
+   engine (correct)   mean   0.75 (p95  0.37)   spread   0.89 (p95  0.51)
+   plugin (correct)   mean   0.58 (p95  0.50)   spread   0.51 (p95  0.49)
+   K +2%              mean   0.67 (p95  0.50)   spread   0.71 (p95  0.55)
+   K +5%              mean   0.45 (p95  0.41)   spread   0.59 (p95  0.50)
+   K -5%              mean   0.56 (p95  0.28)   spread   0.58 (p95  0.34)
+   B +5%              mean   0.83 (p95  0.51)   spread   0.84 (p95  0.65)
+   inertia +10%       mean   0.71 (p95  0.65)   spread   0.73 (p95  0.72)
+sketch fundamental: range 99.8-152.9 Hz, window spread up to 3.92 Hz
+
+Reading: no. At any window length the wrong ports sit inside the scatter of the
+correct ones. Past the edge, behaviour only says "same regime".
+
+== 2. Does the sample-exact stretch catch the same errors? (first 2 s, engine vs sketch)
+
+ride-breathe     K x1      first 2 s: max diff 4.5e-08 of peak
+ride-breathe     K x1.02   first 2 s: max diff 3.6e-01 of peak
+ride-breathe     K x1.005  first 2 s: max diff 1.5e-01 of peak
+ride-breathe     B x1.05   first 2 s: max diff 5.0e-01 of peak
+ride-breathe     B x1.01   first 2 s: max diff 1.2e-01 of peak
+ride-breathe     inertia x1.1    first 2 s: max diff 1.2e-02 of peak
+ride-string-bar  K x1      first 2 s: max diff 5.0e-08 of peak
+ride-string-bar  K x1.02   first 2 s: max diff 6.4e-01 of peak
+ride-string-bar  K x1.005  first 2 s: max diff 3.6e-01 of peak
+ride-string-bar  B x1.05   first 2 s: max diff 1.2e+00 of peak
+ride-string-bar  B x1.01   first 2 s: max diff 9.8e-01 of peak
+ride-string-bar  inertia x1.1    first 2 s: max diff 9.7e-01 of peak
+
+Reading: yes, by five orders of magnitude over the 1e-6 tolerance. The exact
+stretch is the proof; set exact_until as late as the path allows.
+
+== 3. ride-string-bar drifted to 3e-6 of peak after 19.8 s. Precision or a bug? (first 21 s)
+
+engine vs unwrapped sketch: 1.4e-06 of peak
+engine vs wrapped sketch:   5.0e-08 of peak
+wrapped vs unwrapped sketch: 1.4e-06 of peak
+
+Reading: precision, in the sketch. With partial 1 pinned and B near 30 the top
+partials race at about 176 kHz and their unwrapped phases reach millions of
+cycles. The C++, which wraps, matched a wrapped copy of the sketch to the
+float32 floor. The sketch now wraps its phases too, and string-bar is exact for
+all 40 s. The knobs path, which had parted at 4.85 s, became exact for all 6 s
+with the same change: that parting was precision too, not the edge.
