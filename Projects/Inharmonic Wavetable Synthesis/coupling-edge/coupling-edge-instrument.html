@@ -201,7 +201,7 @@
         <div class="btns"><button id="duo">two tones</button></div>
         <div class="row"><label>interval</label><select id="ratio"><option value="2">octave</option><option value="1.5">fifth</option><option value="1.3333333333">fourth</option><option value="1.25">major third</option><option value="1.2">minor third</option><option value="3">twelfth</option><option value="1.4142135624">tritone (√2)</option></select><output></output></div>
         <div class="row"><label>detune</label><input id="cents" type="range" min="-40" max="40" step="0.5" value="0"><output id="centsO"></output></div>
-        <div class="note">The second tone has the same stretch, partial count and source as the first. Each partial is paired with the nearest partial of the other tone, both ways, so the pairs change as the tones stretch.</div>
+        <div class="note">Switching on starts both tones unstretched with 24 partials each; set a detune and hear them pull true, then raise the stretch above. The second tone has the same stretch, partial count and source as the first. Each partial is paired with the nearest partial of the other tone, both ways, so the pairs change as the tones stretch.</div>
       </div>
       <div><div class="readout" id="roD"></div></div>
     </div>
@@ -622,7 +622,8 @@ toggle('lfo', 'lfo');
 $('lfoSrc').onchange = () => { U.lfoSrc = +$('lfoSrc').value; push(); };
 $('lfoDest').onchange = () => { U.lfoDest = +$('lfoDest').value; push(); };
 slider('lfoK', 'lfoK', (v) => `${v.toFixed(2)} Hz`, (v) => Math.pow(10, v)); slider('lfoRho', 'lfoRho', (v) => `ρ ${v.toFixed(3)}`); slider('lfoAmt', 'lfoAmt', (v) => v.toFixed(2));
-toggle('duo', 'duo');
+// two tones start unstretched with 24 partials each, where they audibly pull a mistuned interval true; add stretch from there
+toggle('duo', 'duo', () => { if (U.duo && U.law === 'stiff') { U.follow = false; U.s = RANGE.stiff[0]; U.N = 24; $('n').value = 24; syncSliders(); } push(); });
 $('ratio').onchange = () => { U.ratio = +$('ratio').value; push(); };
 slider('cents', 'cents', (v) => `${v >= 0 ? '+' : ''}${v.toFixed(1)} ¢`);
 
