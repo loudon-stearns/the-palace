@@ -216,6 +216,20 @@ try {
   blocked = { ok: false, error: e.message };
 }
 
+// Proposals for canon owed to Loudon's ledger review — the Return mentions them
+// (Loudon, 2026-10-18, "all three"). One line, the same the PROJECTS deck and
+// the Weave say. Imported here, not above, so a checkout without the
+// orchestrator's dependencies reports this probe unavailable and loses no other.
+const PROPOSALS_CMD = 'node _ops/stigmergy/list-proposals.mjs --line';
+let proposals = { ok: false, cmd: PROPOSALS_CMD, error: 'not read' };
+try {
+  const { reviewCount, reviewLine } = await import('../stigmergy/orchestrator/src/ledger-review.js');
+  const count = reviewCount(ROOT);
+  proposals = { ok: true, cmd: PROPOSALS_CMD, count, line: reviewLine(count) };
+} catch (e) {
+  proposals = { ok: false, cmd: PROPOSALS_CMD, error: e.message };
+}
+
 // Batons the tooling cannot see. A baton file with no board line is invisible to
 // list-handoffs — it is real work parked where nothing will surface it.
 function findBatons(dir, hits = [], depth = 0) {
@@ -265,7 +279,7 @@ const data = {
   generated: new Date().toISOString(),
   root: ROOT,
   stopped: { lastCommit, gapDays, arc },
-  inFlight: { handoffs, blocked, batons: { all: batonFiles, unannounced } },
+  inFlight: { handoffs, blocked, proposals, batons: { all: batonFiles, unannounced } },
   drift: { linters, repo },
 };
 
@@ -321,6 +335,11 @@ else for (const w of blocked.waiting) {
 }
 
 console.log('');
+cmdLine(proposals.cmd);
+if (!proposals.ok) body(`${C.Rd}unavailable${C.R} — ${proposals.error}`);
+else body(proposals.line);
+
+console.log('');
 cmdLine('baton files on disk vs the board');
 if (!unannounced.length) body(`${batonFiles.length} baton file(s), all announced on the board.`);
 else {
@@ -342,6 +361,6 @@ for (const r of repo) {
 }
 
 const unavailable = [lastCommit, arc, ...linters, ...repo].filter((p) => !p.ok).length
-  + (handoffs.ok ? 0 : 1) + (blocked.ok ? 0 : 1);
+  + (handoffs.ok ? 0 : 1) + (blocked.ok ? 0 : 1) + (proposals.ok ? 0 : 1);
 console.log(`\n${C.D}${unavailable ? `${C.Y}${unavailable} probe(s) unavailable${C.R}${C.D} — a return map may not paper over them. ` : ''}`
   + `Next: read this, then recommend exactly one move.${C.R}`);
