@@ -1,0 +1,30 @@
+## Memory here
+- [Memory is volatile](feedback_memory_is_volatile.md) — nothing critical lives only here; the palace first, memory a pointer
+- [How Loudon commits](user_how_loudon_commits.md) — never by hand; raw git on main means an agent; no palace work in Cowork
+- [How we talk](feedback_palace_voice.md) — plain, specific, studio register → [[The Palace Voice]]
+- [Say "entry," not "card"](feedback_palace_vocabulary.md) — entry, ceremony doc; card only for board/enrichment cards
+- [BLUELINE debris look](feedback_blueline_aftermath_debris.md) — follow-arc, thinned: `--spray arc --punch ~0.6 --density ~0.45`
+- [Audio pages never sound alone](feedback_audio_pages_never_sound_alone.md) — silent start, play on click, stop on blur, close the context after
+- [Search before you build](feedback_search_before_build.md) — grep proofs, Gotchas and git log before building → [[Search Before You Build]]
+- [Commit through the door](feedback_commit_through_the_door.md) — palace-commit by path, palace-land to land → [[How the Palace Commits]]
+- [Own worktree first](feedback_create_worktree_first.md) — sustained work in a worktree; only Loudon pushes → [[Worktree Practice]]
+- [Scratchpad is cleared](reference_scratchpad_is_cleared.md) — park drafts on the branch, not /private/tmp
+- [Assume multi-agent](feedback_assume_multi_agent_tools.md) — namespace by agent, scope deletes to your own → [[assume multi-agent]]
+- [Spend and models](feedback_warn_before_many_agents.md) — now canon: CLAUDE.md spend rule; Substrate Skill § Operating this environment
+- [Between-call text is paraphrased](reference_between_call_text_is_paraphrased.md) — words Loudon must read go after the last tool call
+- [`grep` is a shim](reference_grep_is_a_shim.md) — skips gitignored files; use `command grep -r` or `git grep`
+- [git quotes non-ASCII paths](reference_git_quotes_non_ascii_paths.md) — use `-z` or `-c core.quotepath=off` for em-dash names
+- ["reveal"](feedback_reveal_in_finder.md) — now canon: Substrate Skill § Operating this environment (`open -R`)
+- [Simplify, not check](feedback_palace_simplify_not_check.md) — subtractive upkeep; fix examples, not just rules → [[SCHEMA]] §9
+- ["list handoffs"](feedback_list_handoffs.md) — run `node _ops/stigmergy/list-handoffs.mjs` → [[STIGMERGY]] § Handoff Lifecycle
+- [Rewinding + subagents](feedback_rewinding_subagents.md) — a straggler from a rewound timeline may still reply; name its provenance
+- [Subagent lifecycle](reference_subagent_lifecycle.md) — parked agents cost nothing; resume by SendMessage to the ID
+- [Isolation guard](reference_isolation_guard_and_message_modes.md) — worktree agents can't run git on the owner; held messages drop at 5 min
+- [App worktree node_modules](reference_app_worktree_stigmergy_links.md) — `new-worktree.mjs --dry-run`, then `ln -s` each link
+- [Scheduled task model](reference_scheduled_task_model_and_stalls.md) — set only in Routines → Edit; first run stalls on prompts
+- [Stigmergy lane reload](reference_stigmergy_lane_reload.md) — editing the Vite graph mid-run blinds the deck; read before touching
+- [Session roll call](reference_session_roll_call.md) — read app records, not list_sessions (caps at 100)
+- [Sync tool fetches origin](reference_sync_tool_fetches_origin.md) — local landings aren't on origin until Loudon pushes
+- [Deck write path on a throwaway](reference_browser_check_deck_on_throwaway_repo.md) — scratch vite launcher, own port, throwaway PALACE_ROOT
+- [Driving Live beside Loudon's](reference_driving_live_beside_loudons_lives.md) — Live 11 and 12 share a bundle id; prove in a second Live 12
+- [Agent cost](feedback_agent_cost.md) — now canon: Substrate Skill § Operating this environment
