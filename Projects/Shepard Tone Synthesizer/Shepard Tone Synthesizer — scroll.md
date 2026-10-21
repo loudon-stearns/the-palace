@@ -89,6 +89,8 @@ Decided with Loudon when the Loudon Live arc was designed (April 2026), and seed
 - **A session is about 85% making, 15% framing.**
 - **The audience is autodidact polymaths**: producers fluent in a DAW. The first session needs no Max, no code and no synthesis theory.
 - **This is the curriculum's most accessible door**, with zero prerequisites.
+
+**2026-10-21 — make it a product: a VST to play in Ableton.** Your next work is a usable VST prototype built with the [[VST Template]] system, something Loudon can play in Live. Keep the controls in the template's interface. The centre of the face is a "CRT" holding a visualizer of your own: beautiful, 3D welcome, drawn deeply from this instrument's metaphor or what is unique about it, never a generic scope. Get playful; make it uniquely weird and stunning. Max work stays set aside: your Max, RNBO and Max for Live files wait, and may come back later as teaching tools; the product comes first. Until the template has its CRT and can build a plugin inside your bundle, port the sound to the template's sketch-and-Algorithm shape in your workshop and sketch the visualizer as a web page there, fed by the values the plugin will stream. Propose the change to your Plan as a plan_revision with what you made. — Loudon: "lets make them products now."
 <!-- scroll:orders:end -->
 
 ## The making

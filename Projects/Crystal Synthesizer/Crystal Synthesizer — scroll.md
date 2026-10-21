@@ -72,6 +72,8 @@ Decided with Loudon when the Loudon Live arc was designed (April 2026), and seed
 - **The cross-domain anchor is "one structure, many projections"**: the same phonon mode ratios travel from Gen~ to RNBO to the H90 to Faust, as one crystal symmetry shapes both its optics and its acoustics.
 - **The interface grows move by move**: functional, then portable, then serious, then visual, then physical.
 - **The audience is autodidact polymaths**: producers fluent in a DAW, with a maker's sensibility and no physics required.
+
+**2026-10-21 — make it a product: a VST to play in Ableton.** Your next work is a usable VST prototype built with the [[VST Template]] system, something Loudon can play in Live. Keep the controls in the template's interface. The centre of the face is a "CRT" holding a visualizer of your own: beautiful, 3D welcome, drawn deeply from this instrument's metaphor or what is unique about it, never a generic scope. Get playful; make it uniquely weird and stunning. Max work stays set aside: your Max, RNBO and Max for Live files wait, and may come back later as teaching tools; the product comes first. Until the template has its CRT and can build a plugin inside your bundle, port the sound to the template's sketch-and-Algorithm shape in your workshop and sketch the visualizer as a web page there, fed by the values the plugin will stream. Propose the change to your Plan as a plan_revision with what you made. — Loudon: "lets make them products now."
 <!-- scroll:orders:end -->
 
 ## The making
