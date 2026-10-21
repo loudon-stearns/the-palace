@@ -51,9 +51,9 @@ The three faces are embedded in the plugin, because a plugin can't fetch Google 
 | hero | a large knob with tick marks (decades on a log taper) and its range written underneath |
 
 **Interaction.**
-- Vertical drag: 220 px covers the full range; with Shift, 1,200 px.
+- Vertical drag: 150 px covers the full range; Shift makes it a fifth as fast. (This is the Drafting Table system's figure, adopted 2026-10-21 so the two systems share one gesture rule.)
 - Double-click returns the default.
-- The wheel moves 1 %, or 0.2 % with Shift.
+- The wheel moves 2 %, or 0.4 % with Shift.
 - Every drag opens and closes an automation gesture, so Live records it as one move.
 - The drawing follows the parameter's taper: a log knob moves evenly in decades. (Tract Mirror's editor drew its tapered sliders linearly.)
 

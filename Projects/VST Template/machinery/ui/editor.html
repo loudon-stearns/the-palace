@@ -185,17 +185,18 @@ function mockState(p, v0) {
   return { get: () => v, set: x => { v = x; fns.forEach(f => f()); }, begin() {}, end() {}, on: f => fns.push(f) };
 }
 
-// ── drag helper: vertical drag moves 0..1; shift for fine; double-click for the default ──
+// ── drag helper, one rule with the Drafting Table system: 150 px of drag for the full range, Shift
+//    at a fifth of the speed, wheel 2 % (0.4 % with Shift), double-click for the default ──
 function draggable(el, p, st, onPos) {
   let startY = 0, startX = 0;
   el.addEventListener("pointerdown", e => {
     el.setPointerCapture(e.pointerId); startY = e.clientY; startX = toPos(p, st.get()); st.begin();
-    const move = ev => { const k = ev.shiftKey ? 1200 : 220; st.set(fromPos(p, startX + (startY - ev.clientY) / k)); };
+    const move = ev => { const k = ev.shiftKey ? 750 : 150; st.set(fromPos(p, startX + (startY - ev.clientY) / k)); };
     const up = ev => { el.releasePointerCapture(ev.pointerId); el.removeEventListener("pointermove", move); el.removeEventListener("pointerup", up); st.end(); };
     el.addEventListener("pointermove", move); el.addEventListener("pointerup", up);
   });
   el.addEventListener("dblclick", () => { st.begin(); st.set(p.default); st.end(); });
-  el.addEventListener("wheel", e => { e.preventDefault(); st.begin(); st.set(fromPos(p, toPos(p, st.get()) - Math.sign(e.deltaY) * (e.shiftKey ? 0.002 : 0.01))); st.end(); }, { passive: false });
+  el.addEventListener("wheel", e => { e.preventDefault(); st.begin(); st.set(fromPos(p, toPos(p, st.get()) - Math.sign(e.deltaY) * (e.shiftKey ? 0.004 : 0.02))); st.end(); }, { passive: false });
 }
 
 // ── controls ──
