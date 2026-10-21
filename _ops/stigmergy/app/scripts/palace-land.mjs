@@ -15,6 +15,10 @@
 //   3. says "already landed" when the branch is already on main;
 //   4. tries the merge against main as it stands that moment, outside every
 //      checkout (`git merge-tree`), and refuses a conflict, naming the files;
+//      a ledger merged by union never conflicts, so it also reads what the
+//      merge made of each one both sides changed, and refuses an item number
+//      twice, an item in two forms, or two lines joined, naming the items
+//      (src/lib/ledger-merge.js); a heading run on is only noted;
 //   5. refuses when a file the landing would change, or a folder on its way,
 //      is unsaved, untracked or ignored in Loudon's folder, naming it: that is
 //      someone's work, or something local that git would overwrite;
@@ -41,6 +45,7 @@ import { withDoorSync, trunkProblem, DoorBusyError } from '../server/door.js';
 import { LockHeldError } from '../server/git-locks.js';
 import { writeMarker, readMarker, clearMarker, mainCheckout, recoverLanding } from '../server/landing.js';
 import { VERIFY_VALUES } from '../src/lib/commit-spec.js';
+import { ledgerDefects, describeDefect } from '../src/lib/ledger-merge.js';
 
 function git(root, args, { allowFail = false } = {}) {
   try {
@@ -162,8 +167,56 @@ function trialMerge(owner, before, tip) {
   return { refused: `git could not try the merge: ${String(r.stderr || '').trim() || `exit ${r.status}`}` };
 }
 
+// The union-merged ledgers among the changed paths, by the merge attribute
+// git itself read for the trial merge (.gitattributes in the main checkout).
+function unionPaths(owner, paths) {
+  if (!paths.length) return { paths: [] };
+  const r = spawnSync('git', ['-c', 'core.quotepath=false', 'check-attr', '--stdin', '-z', 'merge'], {
+    cwd: owner, input: `${paths.join('\0')}\0`, encoding: 'utf8', maxBuffer: 256 * 1024 * 1024, env: { ...process.env, GIT_OPTIONAL_LOCKS: '0' },
+  });
+  if (r.status !== 0) return { refused: `git could not read the merge attributes: ${String(r.stderr || '').trim() || `exit ${r.status}`}` };
+  const parts = String(r.stdout).split('\0');
+  const union = [];
+  for (let i = 0; i + 2 < parts.length; i += 3) if (parts[i + 2] === 'union') union.push(parts[i]);
+  return { paths: union };
+}
+
+function blobAt(owner, rev, path) {
+  const r = spawnSync('git', ['cat-file', 'blob', `${rev}:${path}`], {
+    cwd: owner, encoding: 'utf8', maxBuffer: 256 * 1024 * 1024, env: { ...process.env, GIT_OPTIONAL_LOCKS: '0' },
+  });
+  return r.status === 0 ? r.stdout : null;
+}
+
+// A ledger git merged by union never conflicts, so the trial merge cannot
+// refuse what union gets wrong: an item number twice, an item in two forms,
+// two lines joined. This reads what the merge made of each union-merged
+// ledger both sides changed and refuses those, naming the items; a heading
+// run on from the line above is only noted (src/lib/ledger-merge.js).
+export function ledgerCheck(owner, before, tip, merge, changed) {
+  const union = unionPaths(owner, changed);
+  if (union.refused) return union;
+  const base = union.paths.length ? (git(owner, ['merge-base', before, tip], { allowFail: true }) || '').trim() : '';
+  const found = [];
+  const notes = [];
+  for (const path of union.paths) {
+    const merged = blobAt(owner, merge, path);
+    const ours = blobAt(owner, before, path);
+    const theirs = blobAt(owner, tip, path);
+    if (merged === null || ours === null || theirs === null || merged === theirs) continue; // one side's file, whole
+    const r = ledgerDefects({ base: base ? (blobAt(owner, base, path) ?? '') : '', ours, theirs, merged });
+    if (r.refuse.length) found.push(`${path}: ${r.refuse.slice(0, 4).map(describeDefect).join(', ')}${r.refuse.length > 4 ? `, and ${r.refuse.length - 4} more` : ''}`);
+    for (const n of r.notes) notes.push(`in ${path}, ${describeDefect(n)}; give it a blank line at the ledger's next run`);
+  }
+  if (found.length) {
+    return { refused: `the merge would leave ${found.join('; ')}. Git's union merge keeps both sides of a ledger without a conflict, so it cannot see this. Merge main into the branch in its own worktree, renumber or settle the items there, commit, and land again.` };
+  }
+  return { notes };
+}
+
 // Everything short of moving anything: the branch tip, already-landed, the
-// trial merge, the merge commit, and what stands in the way.
+// trial merge, the merge commit, the ledgers union merged, and what stands in
+// the way.
 function plan(owner, branch, opts, tmp) {
   const tip = git(owner, ['rev-parse', '-q', '--verify', `refs/heads/${branch}^{commit}`], { allowFail: true });
   if (!tip) return { refused: `there is no branch "${branch}".` };
@@ -176,10 +229,12 @@ function plan(owner, branch, opts, tmp) {
   writeFileSync(msgFile, landingMessage({ ...opts, branch }));
   const merge = git(owner, ['commit-tree', trial.tree, '-p', before, '-p', branchTip, '-F', msgFile]).trim();
   const changed = git(owner, ['-c', 'core.quotepath=false', 'diff', '--name-only', '-z', '--no-renames', before, merge]).split('\0').filter(Boolean);
+  const ledgers = ledgerCheck(owner, before, branchTip, merge, changed);
+  if (ledgers.refused) return ledgers;
   const ignoreCase = (git(owner, ['config', '--bool', 'core.ignorecase'], { allowFail: true }) || '').trim() === 'true';
   const hits = inTheWay(changed, localPaths(owner), { ignoreCase });
   if (hits.length) return { refused: wayRefusal(hits) };
-  return { before, merge, changed };
+  return { before, merge, changed, notes: ledgers.notes };
 }
 
 // git's refusal in a sentence, keeping the paths it names.
@@ -270,6 +325,7 @@ function main() {
 
   if (result.refused) fail(2, `palace-land: refused: ${result.refused}`);
   if (result.already) { process.stdout.write(`palace-land: ${branch} is already on main\n`); process.exit(0); }
+  for (const n of result.notes || []) process.stderr.write(`palace-land: note: ${n}\n`);
   if (result.dry) {
     const waiting = result.standing ? `; a landing that died halfway (${result.standing.branch || 'unnamed'}) is waiting, and the next pass through the door heals it first` : '';
     process.stdout.write(`palace-land: dry run: would land ${branch} as a merge changing ${result.changed.length} file${result.changed.length === 1 ? '' : 's'}; nothing moved${waiting}\n`);
