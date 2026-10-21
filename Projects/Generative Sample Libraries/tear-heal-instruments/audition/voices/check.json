@@ -1,0 +1,80 @@
+{
+ "instrument": "Heal with Voices",
+ "samples": 6,
+ "maps_agree_sfz_dspreset": true,
+ "samples_missing_from_dslibrary": [],
+ "dslibrary_bytes": 1522851,
+ "on_pitch": 6,
+ "worst_cents_err": 0.48,
+ "seams_clean_12s_hold": 6,
+ "worst_click_db": 3.34,
+ "worst_level_step_db": -0.0,
+ "limits": {
+  "cents": 3.0,
+  "click_db": 6.0,
+  "level_step_db": 1.5,
+  "hold_s": 12.0
+ },
+ "check_can_fail": {
+  "sample": "voices_C6_mid.wav",
+  "filed_wrong_by_cents": 25,
+  "measured_err": 25.48,
+  "caught": true
+ },
+ "per_sample": [
+  {
+   "sample": "voices_C1_soft.wav",
+   "wraps": 7,
+   "worst_click_db": -1.55,
+   "worst_level_step_db": -0.01,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.26,
+   "on_pitch": true
+  },
+  {
+   "sample": "voices_C6_soft.wav",
+   "wraps": 9,
+   "worst_click_db": 0.04,
+   "worst_level_step_db": -0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.48,
+   "on_pitch": true
+  },
+  {
+   "sample": "voices_C1_mid.wav",
+   "wraps": 3,
+   "worst_click_db": -0.92,
+   "worst_level_step_db": -0.02,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.05,
+   "on_pitch": true
+  },
+  {
+   "sample": "voices_C6_mid.wav",
+   "wraps": 9,
+   "worst_click_db": -0.01,
+   "worst_level_step_db": -0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.48,
+   "on_pitch": true
+  },
+  {
+   "sample": "voices_C1_hard.wav",
+   "wraps": 4,
+   "worst_click_db": 3.34,
+   "worst_level_step_db": -0.03,
+   "seam_ok": true,
+   "cents_err_after_tune": -0.31,
+   "on_pitch": true
+  },
+  {
+   "sample": "voices_C6_hard.wav",
+   "wraps": 9,
+   "worst_click_db": 0.06,
+   "worst_level_step_db": -0.0,
+   "seam_ok": true,
+   "cents_err_after_tune": 0.48,
+   "on_pitch": true
+  }
+ ]
+}
