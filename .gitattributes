@@ -14,3 +14,7 @@
 # Site ledgers are append-only readings (SCHEMA — Reference §6): two branches
 # that each add a dated reading keep both.
 "* — sites.md" merge=union
+
+# Hunt ledgers are append-only, one line per candidate tested (SCHEMA — Reference
+# §6): two branches that each add a line keep both.
+"* — hunt.md" merge=union
