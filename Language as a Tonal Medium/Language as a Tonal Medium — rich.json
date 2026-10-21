@@ -36,7 +36,11 @@
           "near": "The claim is not an argument"
         },
         {
-          "file": "01-live-stigmergy-cam.html",
+          "file": "/Projects/Semantic Webcam/01-live-stigmergy-cam.html",
+          "contract": {
+            "needs": "camera",
+            "size": "fill 4/3"
+          },
           "origin": "gathered",
           "title": "Live STIGMERGY Cam · iteration 1",
           "caption": "**Tone only.** Your camera as an amber terminal grid: brightness picks a glyph from a density ramp, and the picture holds. Cycle the glyph sets (**g**) — blocks, CP437, ASCII, braille — and none of them ever reads. The meaning channel, absent.",
@@ -44,7 +48,11 @@
           "height": 680
         },
         {
-          "file": "02-word-flock-cam.html",
+          "file": "/Projects/Semantic Webcam/02-word-flock-cam.html",
+          "contract": {
+            "needs": "camera",
+            "size": "fill 4/3"
+          },
           "origin": "gathered",
           "title": "Word Flock Cam · iteration 2",
           "caption": "**Meaning, unmoored.** Words flock to whatever moves and whatever is dark — a guess at your eyes and fingertips — and they say something as they go. But they ride on top of the picture instead of drawing it; the dim grid underneath still does all the shading. The failure that shows the two channels have to be joined on purpose.",
@@ -52,7 +60,11 @@
           "height": 680
         },
         {
-          "file": "03-character-multiply-cam.html",
+          "file": "/Projects/Semantic Webcam/03-character-multiply-cam.html",
+          "contract": {
+            "needs": "camera",
+            "size": "fill 4/3"
+          },
           "origin": "gathered",
           "title": "Character Multiply Cam · iteration 3, the anchor",
           "caption": "**The anchor.** Brightness picks the glyph — period, dash, a letter of a whole word, shade, then a white tile with a black letter punched into it — and whole words typeset themselves into each run of mid-tone. A region is the right darkness and a readable word at once. Press **g** to swap words for blocks: the same picture, with the reading taken out.",
@@ -60,7 +72,11 @@
           "height": 680
         },
         {
-          "file": "04-grammar-fit-cam.html",
+          "file": "/Projects/Semantic Webcam/04-grammar-fit-cam.html",
+          "contract": {
+            "needs": "camera",
+            "size": "fill 4/3"
+          },
           "origin": "gathered",
           "title": "Grammar-Fit Cam · iteration 4",
           "caption": "**The strong test.** Each blob becomes a composed line: a word-to-word chain learned from the source text walks along it, choosing what could plausibly follow and still fits the width. **w** steps flow → fill → grammar. Read a blob aloud in each and judge for yourself whether sense survives.",
@@ -68,7 +84,11 @@
           "height": 680
         },
         {
-          "file": "05-tonal-word-cam.html",
+          "file": "/Projects/Semantic Webcam/05-tonal-word-cam.html",
+          "contract": {
+            "needs": "camera",
+            "size": "fill 4/3"
+          },
           "origin": "gathered",
           "title": "Tonal-Word Cam · iteration 5",
           "caption": "**Light picks the word.** The words hold steady under the smoothing the anchor brought in (the *smooth* slider). What this build adds: brightness now chooses *which word*, scoring each grammar-legal candidate by its ink against the blob's brightness. Sweep **b**, tone-bias, from 0, where grammar alone picks, to 1, where ink picks among the words grammar allows — the open question below, free rider or separate budget, as a slider.",

@@ -1,0 +1,71 @@
+diff --git a/_ops/loudon-live/design-system/assets/logo-lissajous.live.html b/_ops/loudon-live/design-system/assets/logo-lissajous.live.html
+index 2e80f73f..d0cd6525 100644
+--- a/_ops/loudon-live/design-system/assets/logo-lissajous.live.html
++++ b/_ops/loudon-live/design-system/assets/logo-lissajous.live.html
+@@ -3,7 +3,7 @@
+ <head>
+ <meta charset="utf-8">
+ <title>Loudon Live · live logo sketch</title>
+-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
++<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js" integrity="sha384-6Twx1hAeKnwfOYJAHtYeJETRiGD5pRPkjjh0pVbG1QoesncjOpw5e75Y1kOkXeRI" crossorigin="anonymous"></script>
+ <style>
+   body { margin:0; background:#0a0a0f; display:flex; align-items:center; justify-content:center; min-height:100vh; }
+   canvas { display:block; }
+diff --git a/_ops/loudon-live/design-system/preview/card-gen-lissajous-bundle.html b/_ops/loudon-live/design-system/preview/card-gen-lissajous-bundle.html
+index c30b6075..81f61725 100644
+--- a/_ops/loudon-live/design-system/preview/card-gen-lissajous-bundle.html
++++ b/_ops/loudon-live/design-system/preview/card-gen-lissajous-bundle.html
+@@ -1,7 +1,7 @@
+ <!doctype html><html lang="en"><head><meta charset="utf-8">
+ <link rel="stylesheet" href="card.css">
+ <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
++<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js" integrity="sha384-6Twx1hAeKnwfOYJAHtYeJETRiGD5pRPkjjh0pVbG1QoesncjOpw5e75Y1kOkXeRI" crossorigin="anonymous"></script>
+ <style>
+   body.card { gap: 10px; }
+   .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+diff --git a/_ops/loudon-live/design-system/preview/categorical-palette.html b/_ops/loudon-live/design-system/preview/categorical-palette.html
+index 1718ea68..7992964a 100644
+--- a/_ops/loudon-live/design-system/preview/categorical-palette.html
++++ b/_ops/loudon-live/design-system/preview/categorical-palette.html
+@@ -77,8 +77,8 @@
+   <p class="foot"><span class="lo">LOUDON</span> <span class="li">Live</span> · Autodidact Polymaths</p>
+ </div>
+ 
+-<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+-<script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/dist/plot.umd.min.js"></script>
++<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
++<script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.17/dist/plot.umd.min.js" integrity="sha384-JUpn2GgRr0gxU0xOBd8D8P634jhRCwobtG8G2MMEkX1RnGJ7/FJNnuukpfT+H2w1" crossorigin="anonymous"></script>
+ <script src="../palace-tokens.js"></script>
+ <script src="../palace-plot-defaults.js"></script>
+ <script>
+diff --git a/_ops/loudon-live/design-system/slides/brb.html b/_ops/loudon-live/design-system/slides/brb.html
+index 1dd3a760..09066cce 100644
+--- a/_ops/loudon-live/design-system/slides/brb.html
++++ b/_ops/loudon-live/design-system/slides/brb.html
+@@ -2,7 +2,7 @@
+ <title>Loudon Live · BRB</title>
+ <link rel="stylesheet" href="stage.css">
+ <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Manrope:wght@300;500&family=JetBrains+Mono:wght@500&family=Silkscreen&display=swap" rel="stylesheet">
+-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
++<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js" integrity="sha384-6Twx1hAeKnwfOYJAHtYeJETRiGD5pRPkjjh0pVbG1QoesncjOpw5e75Y1kOkXeRI" crossorigin="anonymous"></script>
+ <style>
+   .liss-host {
+     position: absolute; inset: 0;
+diff --git a/_ops/loudon-live/design-system/slides/stream-ended.html b/_ops/loudon-live/design-system/slides/stream-ended.html
+index 81ee705d..2521c7ed 100644
+--- a/_ops/loudon-live/design-system/slides/stream-ended.html
++++ b/_ops/loudon-live/design-system/slides/stream-ended.html
+@@ -2,7 +2,7 @@
+ <title>Loudon Live · Stream Ended</title>
+ <link rel="stylesheet" href="stage.css">
+ <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;1,300&family=JetBrains+Mono:wght@500&family=Silkscreen&display=swap" rel="stylesheet">
+-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
++<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js" integrity="sha384-6Twx1hAeKnwfOYJAHtYeJETRiGD5pRPkjjh0pVbG1QoesncjOpw5e75Y1kOkXeRI" crossorigin="anonymous"></script>
+ <style>
+   /* p5 canvas host — full-bleed, behind everything */
+   .liss-host { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: var(--bg); }
+
+6 tag(s) pinned in 5 of 5 page(s)
+
+digest eefadf0589d8 — to write exactly this: the same command with --write eefadf0589d8
