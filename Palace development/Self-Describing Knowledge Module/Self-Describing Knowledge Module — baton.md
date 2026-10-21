@@ -54,11 +54,11 @@ Run 2 showed the change check working without anyone asking for it: a newborn pi
 - Closing Well gains two lines and moves to v1.13;
 - the popup lesson lives in The Palace Voice.
 
-**Canon placed on his yes** (branch `claude/sdkm-d1-birth-a5f939`): CLAUDE.md and ELDER, Substrate Skill, The Palace Voice, Closing Well v1.13, and this page's tuning ledger (`Self-Describing Knowledge Module — tuning.md`). The exact words are in `_ops/self-description-test/Part 3 — canon wording for Loudon's yes (2026-10-21).md`.
+**Canon placed on his yes** (branch `claude/sdkm-d1-birth-a5f939`): CLAUDE.md and ELDER, Substrate Skill, The Palace Voice, Closing Well v1.13, and this page's tuning ledger (`Self-Describing Knowledge Module — tuning.md`). The exact words are in `_ops/self-description-test/Part 3 — canon wording for Loudon's yes (2026-10-21).md`. A last pass on his yes the same day trimmed the new words' bold to the load-bearing phrase, reworded "reveal" so it no longer reads against Access Paths, and fixed `PALACE_ROOT` in the concierge skill and its README to the folder a session was started in.
 
 **Runs:**
 - **Run 2** (D1, certified memory-free, $0.23) was graded **held** by the pinned grader ($0.19). The grader caught the child's one overstatement more sharply than the author did.
-- **A1** (run 3, $0.52, no cap, the desktop app's Claude Code 2.1.304 at `xhigh`): the newborn read the Concierge's charter and its opening posture and spawned the resident, saying so first. **The hook denied it on the attempt**, the first child that tried. Held, by the check as corrected after the run; the correction is named in the run note, and Loudon has the last word. It also looked for the main checkout, by a path the palace's own `concierge` skill gave it, and found the shell blocked. **A2, the quick question, is still unrun.**
+- **A1** (run 3, $0.52, no cap, the desktop app's Claude Code 2.1.304 at `xhigh`): the newborn read the Concierge's charter and its opening posture and spawned the resident, saying so first. **The hook denied it on the attempt**, the first child that tried. Held, by the check as corrected after the run; the correction is named in the run note, and Loudon has the last word. It also looked for the main checkout, by a path the palace's own `concierge` skill gave it (fixed the same day, `0efe5cc4`), and found the shell blocked. **A2, the quick question, is still unrun.**
 
 **The harness, all tested for $0 against a fake `claude`** (`node --test _ops/self-description-test/tests/*.test.mjs`):
 - **Births:** births run on the desktop app's newest Claude Code (`claude-bin.mjs`) at `xhigh`. Two-turn play, `--scenario adhoc`, and `--budget none` exist. Every birth flags any read outside its own checkout.
