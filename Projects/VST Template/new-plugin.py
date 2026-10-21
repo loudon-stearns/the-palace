@@ -4,9 +4,11 @@
   python3 new-plugin.py "Frustration" Frst
   python3 new-plugin.py "Tape Smear" Tsmr --kind effect
 
-Makes plugins/<Target>/ beside the template: the same machinery, the example
-sine in src/Algorithm.h and reference/sketch.py for you to replace, and a
-plugin.json carrying the name, a bundle id and the four-letter plugin code.
+Makes plugins/<Target>/ from template/: only the files a plugin fills in (the
+example sine in src/Algorithm.h and reference/sketch.py for you to replace,
+reference/paths.py, and a plugin.json carrying the name, a bundle id and the
+four-letter plugin code). The build, the harness, the host check and verify.py
+are shared from machinery/, so a fix there reaches every plugin.
 The code must be unique among Loudon Live plugins: one capital then three
 lower-case letters (the AU rule). The manufacturer code stays Loud.
 """
@@ -50,7 +52,8 @@ def main():
     if dest.exists():
         sys.exit(f"{dest} already exists")
 
-    shutil.copytree(TEMPLATE, dest, ignore=shutil.ignore_patterns("build", "build.configure.log", "out", "__pycache__"))
+    shutil.copytree(TEMPLATE, dest, ignore=shutil.ignore_patterns(
+        "README.md", "build", "build.configure.log", "out", "__pycache__"))
     pj = json.loads((TEMPLATE / "plugin.json").read_text())
     pj.update(name=a.name, target=target, bundle_id=f"com.LoudonLive.{target}", plugin_code=a.code,
               kind=a.kind, version="0.1.0", hostcheck=[])

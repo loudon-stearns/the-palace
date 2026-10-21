@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""constants.py — template machinery: write the sketch's random constants into
+"""constants.py — shared machinery: write the sketch's random constants into
 src/Constants.h, so the plugin starts exactly where the sketch does.
 
-  python3 tools/constants.py <plugin dir>
+  python3 machinery/tools/constants.py <plugin dir>
 
 Does nothing when reference/sketch.py has no constants(). plugin.sh build runs
 it before every build; the header is committed, so the plugin also builds

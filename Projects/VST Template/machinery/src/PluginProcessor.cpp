@@ -1,8 +1,8 @@
 // PluginProcessor.cpp — template machinery. Don't edit per plugin.
 //
 // The parameter table in Algorithm.h becomes host parameters here; each sample
-// the smoothed values go to Algorithm::step(). Nothing in processBlock
-// allocates or locks.
+// the smoothed values go to Algorithm::step(), and MIDI notes reach the
+// algorithm on the sample they land on. Nothing in processBlock allocates or locks.
 #include "PluginProcessor.h"
 
 #include <cmath>
@@ -129,7 +129,17 @@ void Processor::snapSmoothers()
     }
 }
 
-void Processor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer&)
+void Processor::handleMidi (const juce::MidiMessage& m)
+{
+    if (m.isNoteOn())
+        tpl::deliverNote (alg, true, m.getNoteNumber(), m.getVelocity() / 127.0);
+    else if (m.isNoteOff())
+        tpl::deliverNote (alg, false, m.getNoteNumber(), 0.0);
+    else if (m.isAllNotesOff() || m.isAllSoundOff())
+        for (int note = 0; note < 128; ++note) tpl::deliverNote (alg, false, note, 0.0);
+}
+
+void Processor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midi)
 {
     juce::ScopedNoDenormals noDenormals;
 
@@ -140,23 +150,29 @@ void Processor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer
     }
 
     // Targets are read once per block; the smoothing runs per sample.
-    std::array<double, algo::kNumParams> target {};
+    std::array<double, algo::kNumParams> target {}, plain {};
     for (int i = 0; i < algo::kNumParams; ++i)
     {
-        const double t = raw[(size_t) i]->load (std::memory_order_relaxed);
-        target[(size_t) i] = smooth[(size_t) i].inLog ? std::log (t) : t;
+        plain[(size_t) i] = raw[(size_t) i]->load (std::memory_order_relaxed);
+        target[(size_t) i] = smooth[(size_t) i].inLog ? std::log (plain[(size_t) i]) : plain[(size_t) i];
     }
 
     const int numSamples  = buffer.getNumSamples();
     const int numChannels = buffer.getNumChannels();
     float in[algo::kInputs > 0 ? algo::kInputs : 1] {};
     float out[algo::kOutputs] {};
+    auto event = midi.cbegin();
+    const auto lastEvent = midi.cend();
 
     for (int n = 0; n < numSamples; ++n)
     {
+        for (; event != lastEvent && (*event).samplePosition <= n; ++event)
+            handleMidi ((*event).getMessage());
+
         for (int i = 0; i < algo::kNumParams; ++i)
         {
             auto& m = smooth[(size_t) i];
+            if (m.coef == 0.0) { values[(size_t) i] = plain[(size_t) i]; continue; }   // unsmoothed: the exact value
             const double t = target[(size_t) i];
             m.current = t + m.coef * (m.current - t);
             values[(size_t) i] = m.inLog ? std::exp (m.current) : m.current;

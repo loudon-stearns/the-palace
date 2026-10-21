@@ -4,7 +4,9 @@
 //
 //   HostCheck <plugin.vst3 | plugin.component> [id=value ...]
 //
-// It renders one second at the defaults, then, for each id=value, sets that
+// An instrument hears MIDI note 48 (C3) at the start of each second, released at
+// 0.75 s; an effect hears a quiet sawtooth. It renders one second at the
+// defaults, then, for each id=value, sets that
 // parameter through the host interface (by its display text, so "6e-5" means
 // 6e-5 in the plugin's own units), renders one more second, and prints the
 // loudness and spectral centroid of each second. Exit 0 when the plugin loaded,
@@ -28,9 +30,16 @@ namespace
         std::vector<float> mono;
         mono.reserve ((size_t) total);
         static double sawPhase = 0.0;   // an effect hears a 110 Hz saw at -12 dBFS
+        const int noteOff = (int) (0.75 * sr);   // an instrument hears C3 for three quarters of the second
         for (int done = 0; done < total; done += block)
         {
             buf.clear();
+            midi.clear();
+            if (p.acceptsMidi())
+            {
+                if (done == 0) midi.addEvent (juce::MidiMessage::noteOn (1, 48, (juce::uint8) 100), 0);
+                if (noteOff >= done && noteOff < done + block) midi.addEvent (juce::MidiMessage::noteOff (1, 48), noteOff - done);
+            }
             for (int k = 0; k < block; ++k)
             {
                 const float x = (float) (0.25 * (2.0 * sawPhase - 1.0));

@@ -53,6 +53,11 @@ namespace algo
         // host stops and restarts playback.
         void reset (const double* /*v*/) { phase = 0.0; }
 
+        // To play notes, add these two and the wrapper delivers MIDI to them on
+        // the exact sample (plugins/SimpleSynth is the worked example):
+        //   void noteOn (int note, double velocity);   // velocity 0..1
+        //   void noteOff (int note);
+
         // One sample. v[] = current parameter values in natural units (already
         // smoothed; Choice and Toggle as their index). in[] has kInputs samples,
         // out[] takes kOutputs.

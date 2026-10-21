@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""verify.py — template machinery: check the plugin against its numpy sketch.
-Don't edit per plugin; the paths and their gates live in reference/paths.py.
+"""verify.py — shared machinery: check a plugin against its numpy sketch.
+Don't copy it into a plugin; the paths and their gates live in the plugin's reference/paths.py.
 
-  python3 tools/verify.py <plugin dir> [--quick SECS] [--only NAME,NAME] [--no-cache]
+  python3 machinery/tools/verify.py <plugin dir> [--quick SECS] [--only NAME,NAME] [--no-cache]
 
 For every path in reference/paths.py, three renders:
   sketch  reference/sketch.py (cached in out/cache until sketch.py or paths.py changes)
@@ -51,7 +51,16 @@ def param_rows(table, path, t):
     return np.ascontiguousarray(np.stack(rows))
 
 
-def run_harness(exe, mode, rows, sr, inputs, table, work):
+def note_events(path, sr):
+    """paths.py notes (start s, length s, note, velocity) -> sorted (sample, on, note, velocity)."""
+    ev = []
+    for start, length, note, vel in path.get("notes", []):
+        ev.append((int(round(start * sr)), True, int(note), int(vel)))
+        ev.append((int(round((start + length) * sr)), False, int(note), 0))
+    return sorted(ev, key=lambda e: (e[0], e[1]))   # at one sample, offs before ons
+
+
+def run_harness(exe, mode, rows, sr, inputs, notes, table, work):
     steps = rows.shape[1]
     pf, of = work / f"_{mode}.f64", work / f"_{mode}.bin"
     rows.astype("<f8").tofile(pf)
@@ -60,6 +69,10 @@ def run_harness(exe, mode, rows, sr, inputs, table, work):
         inf = work / f"_{mode}_in.f32"
         np.ascontiguousarray(inputs, dtype="<f4").tofile(inf)
         args.append(str(inf))
+    if notes:
+        nf = work / f"_{mode}_notes.f64"
+        np.asarray([[s, 1.0 if on else 0.0, n, v] for s, on, n, v in notes], dtype="<f8").tofile(nf)
+        args += ["--notes", str(nf)]
     subprocess.run(args, check=True)
     raw = of.read_bytes()
     n_out, names = table["outputs"], table["probes"]
@@ -95,6 +108,7 @@ def check_path(path, table, sketch, harness, sr, work, cache, use_cache):
     t = np.arange(steps) / sr
     rows = param_rows(table, path, t)
     inputs = path["inputs"](t, sr) if "inputs" in path else None
+    notes = note_events(path, sr)
     gate = path.get("gate", {})
     rec = dict(name=path["name"], secs=secs, gates=[])
     print(f"\n{path['name']} ({secs:g} s)")
@@ -109,7 +123,7 @@ def check_path(path, table, sketch, harness, sr, work, cache, use_cache):
     else:
         t0 = time.time()
         v = {p["id"]: rows[j] for j, p in enumerate(table["params"])}
-        ref = sketch.render(v, sr, inputs)
+        ref = sketch.render(v, sr, inputs, notes)
         ref = dict(out=np.atleast_2d(np.asarray(ref["out"], dtype=np.float64)),
                    probes={k: np.asarray(a, dtype=np.float64) for k, a in ref.get("probes", {}).items()})
         cf.parent.mkdir(parents=True, exist_ok=True)
@@ -117,8 +131,8 @@ def check_path(path, table, sketch, harness, sr, work, cache, use_cache):
         print(f"  sketch     rendered in {time.time() - t0:.1f} s")
 
     # 2 and 3. the engine and the real plugin
-    eng = run_harness(harness, "engine", rows, sr, inputs, table, work)
-    plug = run_harness(harness, "plugin", rows, sr, inputs, table, work)
+    eng = run_harness(harness, "engine", rows, sr, inputs, notes, table, work)
+    plug = run_harness(harness, "plugin", rows, sr, inputs, notes, table, work)
     for tag, r in (("sketch", ref), ("engine", eng), ("plugin", plug)):
         write_wav(work / f"{path['name']}-{tag}.wav", r["out"], sr)
 

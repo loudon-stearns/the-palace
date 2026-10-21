@@ -8,6 +8,7 @@ Each path:
           returning one value per sample. Choice parameters may be given by
           label ("64") or index. Anything left out sits at its default.
   inputs  (effects only) function of (t, sr) -> (kInputs, steps) array
+  notes   (instruments that play notes) list of (start s, length s, note, velocity)
   gate    what must hold (every key optional):
     exact_until  seconds of sample-for-sample match between sketch and engine
                  (None = the whole path; 0 = don't check samples)

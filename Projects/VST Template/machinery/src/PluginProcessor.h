@@ -9,6 +9,25 @@
 #include <array>
 #include <atomic>
 
+namespace tpl
+{
+    // An algorithm that plays notes gives itself noteOn (note, velocity 0..1) and
+    // noteOff (note); the wrapper then delivers MIDI to it on the exact sample.
+    template <typename A>
+    concept HasNotes = requires (A a) { a.noteOn (60, 1.0); a.noteOff (60); };
+
+    // A template, so an algorithm without notes never compiles the calls.
+    template <typename A>
+    void deliverNote (A& alg, bool on, int note, double velocity)
+    {
+        if constexpr (HasNotes<A>)
+        {
+            if (on) alg.noteOn (note, velocity);
+            else    alg.noteOff (note);
+        }
+    }
+}
+
 class Processor : public juce::AudioProcessor
 {
 public:
@@ -62,6 +81,7 @@ private:
     std::atomic<bool> needsReset { true };
 
     void snapSmoothers();
+    void handleMidi (const juce::MidiMessage&);
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Processor)
 };

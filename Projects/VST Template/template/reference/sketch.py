@@ -2,11 +2,14 @@
 
 The contract verify.py relies on:
 
-  render(v, sr, inputs=None) -> dict(out=..., probes=...)
+  render(v, sr, inputs=None, notes=()) -> dict(out=..., probes=...)
       v       parameter id -> float64 array, one value per sample, in natural
               units (Choice and Toggle as their index). Every parameter in
               Algorithm.h is present.
       inputs  (kInputs, steps) float array for an effect, else None.
+      notes   MIDI notes as (sample, on, note, velocity 1..127) tuples, sorted;
+              each lands before that sample is computed (velocity / 127 is
+              what Algorithm::noteOn receives). Empty for a drone or an effect.
       out     (kOutputs, steps) array: what the plugin should output.
       probes  probe name -> (steps,) array, for every probe in Algorithm.h.
 
@@ -25,7 +28,7 @@ Algorithm.h.
 import numpy as np
 
 
-def render(v, sr, inputs=None):
+def render(v, sr, inputs=None, notes=()):
     freq, level = v["freq"], v["level"]
     steps = len(freq)
     out = np.zeros((1, steps))

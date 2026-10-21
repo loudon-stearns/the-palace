@@ -3,16 +3,19 @@
 //
 //   Harness params
 //       Print the parameter table, inputs, outputs and probes as JSON.
-//   Harness engine <steps> <sr> <paths.f64> <out.bin> [<in.f32>]
+//   Harness engine <steps> <sr> <paths.f64> <out.bin> [<in.f32>] [--notes notes.f64]
 //       Run Algorithm::step() directly with the exact per-sample parameter
 //       values: the check against the sketch, with no smoothing in the way.
-//   Harness plugin <steps> <sr> <paths.f64> <out.bin> [<in.f32>] [--block N]
+//   Harness plugin <steps> <sr> <paths.f64> <out.bin> [<in.f32>] [--notes notes.f64] [--block N]
 //       Run the real Processor::processBlock, moving every parameter once a
-//       block through the host-facing parameters, the way automation lands.
+//       block through the host-facing parameters, the way automation lands,
+//       and the notes as MIDI on their exact sample.
 //
 // paths.f64: float64, parameter-major (parameter j, sample i at [j * steps + i]),
 //            in natural units (Choice and Toggle as their index).
 // in.f32:    float32, input-major (kInputs rows); effects only.
+// notes.f64: float64 rows of four: sample, 1 = on / 0 = off, note, velocity 1..127;
+//            sorted by sample. Each lands before that sample is computed.
 // out.bin:   float32 outputs (kOutputs rows), then float64 probes (kNumProbes rows).
 #include "PluginProcessor.h"
 
@@ -86,18 +89,32 @@ int main (int argc, char** argv)
     if (mode == "params") { printParams(); return 0; }
     if ((mode != "engine" && mode != "plugin") || argc < 6)
     {
-        std::fprintf (stderr, "usage: Harness params | engine|plugin <steps> <sr> <paths.f64> <out.bin> [<in.f32>] [--block N]\n");
+        std::fprintf (stderr, "usage: Harness params | engine|plugin <steps> <sr> <paths.f64> <out.bin> [<in.f32>] [--notes notes.f64] [--block N]\n");
         return 2;
     }
 
     const long   steps = std::atol (argv[2]);
     const double sr    = std::atof (argv[3]);
     const char*  inPath = nullptr;
+    const char*  notesPath = nullptr;
     int block = 64;
     for (int a = 6; a < argc; ++a)
     {
         if (std::strcmp (argv[a], "--block") == 0 && a + 1 < argc) block = std::atoi (argv[++a]);
+        else if (std::strcmp (argv[a], "--notes") == 0 && a + 1 < argc) notesPath = argv[++a];
         else inPath = argv[a];
+    }
+
+    struct Note { long sample; bool on; int note, velocity; };
+    std::vector<Note> notes;
+    if (notesPath != nullptr)
+    {
+        FILE* f = std::fopen (notesPath, "rb");
+        if (f == nullptr) { std::fprintf (stderr, "cannot open %s\n", notesPath); return 1; }
+        double row[4];
+        while (std::fread (row, sizeof (double), 4, f) == 4)
+            notes.push_back ({ (long) row[0], row[1] > 0.5, (int) row[2], (int) row[3] });
+        std::fclose (f);
     }
 
     std::vector<double> paths;
@@ -123,8 +140,11 @@ int main (int argc, char** argv)
 
         float in[algo::kInputs > 0 ? algo::kInputs : 1] {};
         float o[algo::kOutputs] {};
+        size_t next = 0;
         for (long i = 0; i < steps; ++i)
         {
+            for (; next < notes.size() && notes[next].sample <= i; ++next)
+                tpl::deliverNote (a, notes[next].on, notes[next].note, notes[next].velocity / 127.0);
             for (int j = 0; j < algo::kNumParams; ++j) v[j] = paths[at (j, i)];
             for (int c = 0; c < algo::kInputs; ++c) in[c] = input[at (c, i)];
             a.step (v, in, o);
@@ -152,10 +172,19 @@ int main (int argc, char** argv)
 
         juce::AudioBuffer<float> buf (2, block);
         juce::MidiBuffer midi;
+        size_t next = 0;
         for (long start = 0; start < steps; start += block)
         {
             const int n = (int) std::min<long> (block, steps - start);
             setAll (start);
+            midi.clear();
+            for (; next < notes.size() && notes[next].sample < start + n; ++next)
+            {
+                const auto& e = notes[next];
+                const int offset = (int) std::max (0L, e.sample - start);
+                midi.addEvent (e.on ? juce::MidiMessage::noteOn (1, e.note, (juce::uint8) e.velocity)
+                                    : juce::MidiMessage::noteOff (1, e.note), offset);
+            }
             buf.setSize (2, n, false, false, true);
             buf.clear();
             for (int c = 0; c < numIn; ++c)
