@@ -1,0 +1,11 @@
+{
+  "name": "Hello Sine",
+  "target": "HelloSine",
+  "company": "Loudon Live",
+  "bundle_id": "com.LoudonLive.HelloSine",
+  "manufacturer_code": "Loud",
+  "plugin_code": "Hsin",
+  "kind": "instrument",
+  "version": "0.1.0",
+  "hostcheck": ["freq=440", "level=-6"]
+}
