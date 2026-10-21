@@ -80,7 +80,9 @@ You address the palace in plain language and it routes to a posture — you neve
 | anything a cheap file-read settles | — | just read the file; don't address |
 
 Fill the posture prompt's slots (`{{REQUEST}}` / `{{QUESTION}}` / `{{TOUCHED_ENTRIES}}`,
-`{{TRANSCRIPT_CONTEXT}}`, `{{PALACE_ROOT}} = /Users/loudonstearns/Documents/The Palace`). Relay the
+`{{TRANSCRIPT_CONTEXT}}`, `{{PALACE_ROOT}}` = the palace folder this session was started in: its
+worktree or clone, and `/Users/loudonstearns/Documents/The Palace` only when the session runs
+there). Relay the
 product as returned (already file-cited); for the curator, surface its `offer`s for Loudon's yes
 rather than applying them yourself. The search's dead ends never enter the main thread — that is
 the win.

@@ -62,8 +62,9 @@ If you expect a genuinely large fan-out, tell Loudon the rough cost first (his s
 | anything a cheap file-read settles | — | just read the file; don't address |
 
 Fill the posture prompt's slots — `{{REQUEST}}` / `{{QUESTION}}` / `{{TOUCHED_ENTRIES}}`,
-`{{TRANSCRIPT_CONTEXT}}`, `{{PALACE_ROOT}} = /Users/loudonstearns/Documents/The Palace`. For a
-conversation-dependent address, distill the transcript
+`{{TRANSCRIPT_CONTEXT}}`, `{{PALACE_ROOT}}` = the palace folder this session was started in: its
+worktree or clone, and `/Users/loudonstearns/Documents/The Palace` only when the session runs there.
+For a conversation-dependent address, distill the transcript
 (`node _ops/closing-well/transcript-reader.mjs --resolve --session <id>` → `--distill --session <id>`); for a self-contained
 one, a 2–3 line note is enough.
 
