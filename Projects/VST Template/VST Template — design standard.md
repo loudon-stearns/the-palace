@@ -75,6 +75,14 @@ Three directions, all drawn by the same engine from the same tables. The renders
 
 What each costs is in the proof's README. This page records the choice once Loudon makes it.
 
+## Review happens on the mock page, never in the plugin
+
+Loudon, 2026-10-21: "Lets fix the rule clash, I like your solution, review on the mockup."
+
+The house rule is that a first interactive version ships with a review surface. For a plugin, that surface lives on its browser mock page. The plugin's own window, inside the DAW, carries none.
+
+The mock is drawn by the same engine from the same parameter table, so reviewing it reviews the editor. Every `ui.py mock` page opens with the design system's review-layer kit mounted. Its moments come from the editor's own layout, one per natural unit: the direction as a whole, the header, the heroes, and one per panel. That makes six moments for Frustration and nine for Simple Synth, with no setup per plugin. Notes go back as Copy for Claude, `.json` or `.md`. Bump `--round` with each revision pass. `--clean` gives a page without it, and `ui.py shot` and the plugin's embedded page never carry it.
+
 ## How a plugin uses it
 
 - **In `Algorithm.h`:** a `group` and, for one or two parameters, `hero`, on each row of `kParams`.
@@ -96,4 +104,4 @@ A plugin UI needed these, and `_ops/loudon-live/design-system/` doesn't define t
    - `wordmark.svg` sets the wordmark in Source Serif, while the README says Anton.
    - `card-tags-params.html` gives the tier badge a 6 px radius, while the ceiling is 4 px.
 8. **A Graphite class.** There is no `.skin-graphite` rule; Graphite is only the `:root` default, so it can't be switched back to from another skin.
-9. **The review layer.** The rule that first interactive versions ship reviewable doesn't say how that applies inside a DAW plugin window. Here the review happens on the mock pages, not in the plugin.
+9. **The review layer** (settled for plugins on 2026-10-21; see above). The design system's rule should say it too: a UI that runs inside another application keeps its review surface on its browser mock. That covers a plugin in a DAW, and likely a Max for Live device.

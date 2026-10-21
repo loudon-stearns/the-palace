@@ -44,6 +44,12 @@ Projects/VST Template/
 - **Chaos breaks sample parity, and that is not a bug.** Where a model amplifies rounding (Frustration at the edge), two correct implementations part after a second or two. Find the parting point with a first run, set `exact_until` just short of it, and gate the rest on behaviour (a probe's mean and spread in half-second windows).
 - **Know what each gate can see.** The sample-exact stretch is the proof: in Frustration it catches a coupling 0.5 % off at 0.15 of peak. The behaviour gate past the edge only shows the plugin stays in the same regime. There, coupling 5 % off fell inside the scatter between two correct implementations. So every path that crosses into chaos needs an exact stretch before it, and every term of the model needs a path that exercises it while it is still exact.
 
+## The editor, and reviewing it
+
+Every plugin gets the house editor with no editor code: `group` and `hero` on each row of `kParams` lay it out, and the `ui` block in `plugin.json` sets its size and direction. The standard is `VST Template — design standard.md` in the project bundle.
+
+To review an editor, make its mock page and open it in a browser: `python3 machinery/tools/ui.py mock plugins/<Name> --out review.html`. The page carries the review surface, one note per panel; the plugin itself never does. For a picture, use `ui.py shot … --size 760x520 --out shot.png`.
+
 ## The pieces
 
 - **Parameters** (`ParamSpec` in `machinery/src/ParamSpec.h`): an id (stable forever; a host saves automation by it), a name, a unit, a range, a default, a taper and a smoothing time. `Log` is for anything that spans decades (stretch, cutoff, times) and is smoothed in the log domain. `Linear` is for anything even (Hz of coupling, dB, cents). `Choice` and `Toggle` are passed as their index and are never smoothed. The smoothing is a one-pole filter run every sample, 20 ms by default. Set it to 0 for values the algorithm only reads into coefficients, such as envelope times.

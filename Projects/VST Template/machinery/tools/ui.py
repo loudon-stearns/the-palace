@@ -4,8 +4,9 @@
   python3 machinery/tools/ui.py build <plugin dir> <build dir>
       Writes <build dir>/ui/index.html (embedded in the plugin) and <build dir>/ui/EditorConfig.h
       (the editor's sizes and the plugin.json "ui" block). plugin.sh build runs it first.
-  python3 machinery/tools/ui.py mock <plugin dir> [--direction D] [--set id=value ...] --out page.html
-      The same page with a stand-in for the plugin, to open in a browser. Needs a built harness
+  python3 machinery/tools/ui.py mock <plugin dir> [--direction D] [--set id=value ...] [--round N] [--clean] --out page.html
+      The same page with a stand-in for the plugin, to open in a browser, carrying the review
+      surface (the design system's review-layer kit; --clean leaves it off). Needs a built harness
       (for the parameter table).
   python3 machinery/tools/ui.py shot <plugin dir> [--direction D] [--set id=value ...] --size 760x480 --out shot.png
       A mock page rendered to PNG by headless Chrome.
@@ -81,10 +82,44 @@ def ui_block(plugin_dir):
     return pj, ui
 
 
-def page(mock_info=None):
+# The review surface lives on the mock page, never in the plugin (Loudon, 2026-10-21: "review on
+# the mockup"). It is the design system's review-layer kit, with its moments drawn from the
+# editor's own layout: the direction as a whole, the header, the heroes, and one per panel.
+REVIEW_MOUNT = """
+window.__onEditorBuilt = function (info) {
+  const direction = (info.ui || {}).direction || "bench";
+  const heroes = info.params.filter(p => p.hero).map(p => p.name).join(" and ");
+  const moments = [
+    { id: "whole", label: "The " + direction + " direction, as a whole", tag: "design" },
+    { id: "header", label: "Header: mark, name, tier, signature", tag: "design", sel: '[data-moment="header"]' },
+  ];
+  if (document.querySelector('[data-moment="heroes"]'))
+    moments.push({ id: "heroes", label: "The heroes: " + heroes, tag: "control", sel: '[data-moment="heroes"]' });
+  document.querySelectorAll("section.panel[data-moment]").forEach(el =>
+    moments.push({ id: el.dataset.moment, label: "Panel: " + el.dataset.group, tag: "control", sel: '[data-moment="' + el.dataset.moment + '"]' }));
+  mountReviewLayer({ project: info.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") + "-editor-" + direction,
+                     round: %d, review: true, moments });
+};
+"""
+
+
+def review(round_):
+    kit = find_up("_ops/loudon-live/design-system/ui_kits/review-layer/review-layer.js").read_text()
+    return kit + "\n" + REVIEW_MOUNT % round_
+
+
+def inline_js(js):
+    # A literal "</script" inside inlined code (the review kit's usage comment has one) would end
+    # the <script> element early; "<\/script" means the same to JavaScript.
+    return js.replace("</script", "<\\/script")
+
+
+def page(mock_info=None, review_round=None):
     html = (MACH / "ui/editor.html").read_text()
-    html = html.replace("/*@@FONTS@@*/", fonts()).replace("/*@@TOKENS@@*/", tokens()).replace("/*@@JUCE@@*/", juce_bridge())
-    html = html.replace("/*@@MOCK@@*/", "" if mock_info is None else "window.MOCK_INFO = " + json.dumps(mock_info) + ";")
+    html = html.replace("/*@@FONTS@@*/", fonts()).replace("/*@@TOKENS@@*/", tokens())
+    html = html.replace("/*@@JUCE@@*/", inline_js(juce_bridge()))
+    html = html.replace("/*@@MOCK@@*/", "" if mock_info is None else inline_js("window.MOCK_INFO = " + json.dumps(mock_info) + ";"))
+    html = html.replace("/*@@REVIEW@@*/", "" if review_round is None else inline_js(review(review_round)))
     return html
 
 
@@ -135,18 +170,20 @@ def main():
     ap.add_argument("--direction")
     ap.add_argument("--set", action="append", default=[])
     ap.add_argument("--size", default="760x480")
+    ap.add_argument("--round", type=int, default=1, help="mock: the review round (bump each revision pass)")
+    ap.add_argument("--clean", action="store_true", help="mock: leave the review surface off")
     ap.add_argument("--out")
     a = ap.parse_args()
     plugin_dir = Path(a.plugin_dir).resolve()
     if a.mode == "build":
-        build(plugin_dir, Path(a.build_dir or plugin_dir / "build").resolve())
+        build(plugin_dir, Path(a.build_dir or plugin_dir / "build").resolve())   # the plugin's page: never a review surface
         return
-    html = page(mock_info(plugin_dir, a.direction, a.set))
+    info = mock_info(plugin_dir, a.direction, a.set)
     if a.mode == "mock":
-        Path(a.out).write_text(html)
+        Path(a.out).write_text(page(info, None if a.clean else a.round))
         return
     tmp = Path(a.out).with_suffix(".html")
-    tmp.write_text(html)
+    tmp.write_text(page(info))   # a shot is of the editor alone
     shot(tmp, Path(a.out).resolve(), a.size)
 
 
