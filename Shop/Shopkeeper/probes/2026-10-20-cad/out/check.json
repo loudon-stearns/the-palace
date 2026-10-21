@@ -1,0 +1,178 @@
+{
+ "checks": [
+  {
+   "part": "motor",
+   "what": "outer radius",
+   "measured": 31.5,
+   "spec": 31.5,
+   "ok": true
+  },
+  {
+   "part": "motor",
+   "what": "shaft outer radius",
+   "measured": 7.5,
+   "spec": 7.5,
+   "ok": true
+  },
+  {
+   "part": "motor",
+   "what": "shaft inner radius",
+   "measured": 6.0,
+   "spec": 6.0,
+   "ok": true
+  },
+  {
+   "part": "motor",
+   "what": "height",
+   "measured": 30.7,
+   "spec": 30.7,
+   "ok": true
+  },
+  {
+   "part": "HH-MOT-00 motor envelope.step",
+   "what": "STEP volume",
+   "measured": 92227.343,
+   "spec": 92227.343,
+   "ok": true
+  },
+  {
+   "part": "cap",
+   "what": "outer radius",
+   "measured": 40.0,
+   "spec": 40.0,
+   "ok": true
+  },
+  {
+   "part": "cap",
+   "what": "skirt inner radius",
+   "measured": 37.5,
+   "spec": 37.5,
+   "ok": true
+  },
+  {
+   "part": "cap",
+   "what": "register outer radius",
+   "measured": 33.7,
+   "spec": 33.7,
+   "ok": true
+  },
+  {
+   "part": "cap",
+   "what": "register bore radius",
+   "measured": 31.7,
+   "spec": 31.7,
+   "ok": true
+  },
+  {
+   "part": "cap",
+   "what": "height",
+   "measured": 15.0,
+   "spec": 15.0,
+   "ok": true
+  },
+  {
+   "part": "cap",
+   "what": "plate underside",
+   "measured": 10.0,
+   "spec": 10.0,
+   "ok": true
+  },
+  {
+   "part": "cap",
+   "what": "register bottom",
+   "measured": 7.0,
+   "spec": 7.0,
+   "ok": true
+  },
+  {
+   "part": "HH-CAP-01 light cap.step",
+   "what": "STEP volume",
+   "measured": 32452.338,
+   "spec": 32452.338,
+   "ok": true
+  },
+  {
+   "part": "ring 1",
+   "what": "bore radius",
+   "measured": 31.6,
+   "spec": 31.6,
+   "ok": true
+  },
+  {
+   "part": "ring 1",
+   "what": "outer radius",
+   "measured": 33.6,
+   "spec": 33.6,
+   "ok": true
+  },
+  {
+   "part": "ring 1",
+   "what": "height",
+   "measured": 4.0,
+   "spec": 4.0,
+   "ok": true
+  },
+  {
+   "part": "ring 2",
+   "what": "bore radius",
+   "measured": 31.7,
+   "spec": 31.7,
+   "ok": true
+  },
+  {
+   "part": "ring 2",
+   "what": "outer radius",
+   "measured": 33.7,
+   "spec": 33.7,
+   "ok": true
+  },
+  {
+   "part": "ring 2",
+   "what": "height",
+   "measured": 4.0,
+   "spec": 4.0,
+   "ok": true
+  },
+  {
+   "part": "ring 3",
+   "what": "bore radius",
+   "measured": 31.8,
+   "spec": 31.8,
+   "ok": true
+  },
+  {
+   "part": "ring 3",
+   "what": "outer radius",
+   "measured": 33.8,
+   "spec": 33.8,
+   "ok": true
+  },
+  {
+   "part": "ring 3",
+   "what": "height",
+   "measured": 4.0,
+   "spec": 4.0,
+   "ok": true
+  },
+  {
+   "part": "HH-LAD-01 fit ladder.step",
+   "what": "STEP volume",
+   "measured": 4923.857,
+   "spec": 4923.857,
+   "ok": true
+  },
+  {
+   "part": "HH-LAD-01 fit ladder.stl",
+   "what": "STL volume within 0.5 %",
+   "measured": 4923.994,
+   "spec": 4923.857,
+   "ok": true
+  }
+ ],
+ "cap": {
+  "volume_cm3": 32.452337952317194,
+  "mass_g": 40.24089906087332,
+  "J_kgm2": 3.791285085180173e-05,
+  "r_eff_mm": 43.408460277500666
+ }
+}

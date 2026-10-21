@@ -1,0 +1,30 @@
+{
+ "freecad": "1.1.0",
+ "python": "3.11.14",
+ "volume_mm3": 32452.337952317193,
+ "Jzz_density1": 30574879.71919495,
+ "mass_g": 40.24089906087332,
+ "vs_build123d": {
+  "volume_cm3": [
+   32.452337952317194,
+   32.452337952317194
+  ],
+  "J_kgm2": [
+   3.791285085180173e-05,
+   3.791285085180173e-05
+  ]
+ },
+ "techdraw_headless": {
+  "templates_found": [],
+  "view_edges": 4,
+  "extent_dim": {
+   "type": "TechDraw::DrawViewDimExtent",
+   "value": 80.0
+  },
+  "dxf_bytes": 8456,
+  "dxf_has_dimension_entity": true,
+  "dxf_has_text_80": true,
+  "svg_page_export": "needs TechDrawGui (exportPageAsSvg), absent in freecadcmd",
+  "svg_page_export_error": "Cannot load Gui module in console application."
+ }
+}
