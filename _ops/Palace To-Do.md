@@ -52,6 +52,8 @@ here if it feeds that, or if it is cheap and unblocks something that does.
 
 - [ ] **[[Synthesis Topologies]]** — a hub for the family of synthesis architectures (subtractive, FM, granular, wavetable, physical modeling) that the instrument projects keep reaching for. Pointed at by [[Generative Audio Devices]] and [[Generative Preset Development]], and still a seed. Growing it makes the projects legible as a family rather than a list.
 
+- [ ] **An FM synthesis page** — the second of [[Frequency-Time Duality]]'s three doorways has no page of its own behind it. [[Bessel Functions in Synthesis]] holds the sideband maths, the index of modulation and why a 1:1 ratio buzzes, but not the instrument: what a two-operator patch is, or a DX7 algorithm. A sibling of the [[Synthesis Topologies]] hub, still a seed. Next action: a session that writes the page from the doorway inward, then links it from Duality's Three Doorways.
+
 - [ ] **Resonance and Damping** — persistent forward-ghost across four map cycles from [[Differential Equations]]. Central to filter design and physical modeling; several instrument builds will need it underneath them.
 
 - [x] **Donella Meadows** — person-page, persistent ghost across four cycles, referenced from [[Leverage Points Framework]]. Build her as an embodiable citizen per [[Making a Palace Citizen]], not a description — the leverage-points framing is going to do public work. — **done**: [[Donella Meadows]] now stands as a citizen with her own forward vector and agency profile.

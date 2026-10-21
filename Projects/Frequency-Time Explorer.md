@@ -3,8 +3,8 @@ title: "Frequency-Time Explorer"
 type: project
 pillars: [creation, tools, practice]
 born: 2026-04
-stage: growing
-status: active
+stage: composting
+status: archived
 links:
   - target: "[[Frequency-Time Duality]]"
     type: emerged-from
@@ -139,3 +139,11 @@ Designed 2026-04-30 in dialogue with Claude. The design is complete; the build h
 - **The 20 Hz perceptual threshold** as its own concept entry — it appears twice in this design, runs through [[Frequency-Time Duality]], anchors *Microsound*, and shows up in neuroscience-of-perception literature. May want its own page rather than living scattered in body text.
 - **First-rung tool for [[Loudon Live]]** — the introductory pedagogy artifact, scaffolding into the three doorways.
 - **First test of the "HTML version of a palace page" question** raised in [[Piano String Inharmonicity]] graffiti — though FTE is being built standalone, the techniques and Web Audio scaffolding will inform that broader question.
+
+## Composting Note — 2026-10
+
+This entry is being released. It was folded into [[Frequency-Time Duality]] on 2026-10-21, after Loudon played a rough of it on the first Daily Page morning and read it as that page's rich face.
+
+What was valuable here: the walk. One axis taken in order, each movement earning the next: rhythm flipping into pitch, one delay heard as many effects, a delay that sings, the same flip again one level up on the rate of modulation, and three doorways out. It was a whole argument that had never made a sound until that morning's rough.
+
+Its nutrients: [[Frequency-Time Duality]]'s sections from The Flip to Three Doorways carry the walk, with the polyrhythm stop this page lacked. Duality's Context, [[Frequency-Time Duality — Context]], keeps the tool design the text left out. Its rich face, which Enrichment will make from [[Frequency-Time Duality — spec — rich face]], will be the Explorer the palace never built.
