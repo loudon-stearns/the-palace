@@ -4,7 +4,7 @@ type: practice
 pillars: [practice, tools, philosophy]
 born: 2026-03
 stage: mature
-version: "1.7"
+version: "1.8"
 trigger: ["weave", "let's weave"]
 links:
   - target: "[[Palace Ceremonies]]"
@@ -180,6 +180,7 @@ Report on:
 - **Dormant entries** — `stage: dormant`. Have conditions changed? Any ready for revival?
 - **Stale metadata** — entries whose stage seems wrong given their content.
 - **Composting candidates** — entries at `stage: composting` from a prior Weave. Confirm deletion or revive.
+- **Proposals for canon** — `node _ops/stigmergy/list-proposals.mjs --line` names the pages whose stewards have proposals owed to Loudon's ledger review. The Weave names them and settles none ([[Project Stewardship System]] § What's Decided).
 - **Bundle-frontmatter health** — files carrying canon frontmatter (`type`/`pillars`/`stage`) that live *inside a bundle folder* (a folder with a twin `.md`, per [[SCHEMA]] §8), or carrying a `type:` not in §1. These are demotion candidates — probably entry-owned working substrate that should wear minimal §8 bundle frontmatter. Flag them; the mind rules substrate-vs-nested-canon (nested canon always exists — Shop specialists, catalogue sub-entries). Demote confirmed substrate; leave real entries; promotion (bundle → canon) is deferred to Loudon. Canon frontmatter inside an *organizational* folder (`Projects/`, `Shop/`, `_ops/`) is normal — the twin-`.md` test is what separates the two.
 - **Ghost wikilinks** — body `[[wikilinks]]` whose target resolves to no file. Flag every one; the mind decides invitation (a deliberate forward-reference, per [[CLAUDE]]'s "missing connections are invitations") vs. typo or stale link (fix or cut). Detection is mechanical and can later be scripted; the disposition is judgment.
 
