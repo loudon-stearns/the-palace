@@ -92,8 +92,11 @@ deterministic steps commit — never the agent:
   owed` until Loudon's review. A yes marks it `paid in <commit> on <date
   time>`, a no `declined on <date time>: <reason>`, and a later proposal with
   `replaces` marks it `superseded by item N`. An `urgent` proposal is filed the
-  same way and also posted as a Trickster ask. How the review runs is still
-  open ([[Project Stewardship System]] § What's Open). No steward has wider
+  same way and also posted as a Trickster ask. Loudon reviews the ledgers
+  page by page (`_ops/stigmergy/list-proposals.mjs --page`); an elder places
+  his yeses in one edit per page, and `_ops/stigmergy/settle-proposal.mjs`
+  then pays each with that commit or declines it with his line
+  ([[Project Stewardship System]] § What's Decided). No steward has wider
   reach: no manifest names a folder, and the cycle reads none. The Shop roster
   rebuild (`shop-roster.js`) stays wired, but it fires only on a committed
   edit to a page directly under `Shop/`, which no cycle now makes; whoever
