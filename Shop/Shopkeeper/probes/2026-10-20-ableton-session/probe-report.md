@@ -35,3 +35,8 @@ Both Lives share the bundle id `com.ableton.live`; the desktop's app-control too
 ## 2026-10-21 00:16 — the Frustration Set loads its plugin
 
 After the VST Template session re-sealed the installed bundles (its commit `aa51252c`) and Live had rescanned, `out/Frustration.als` was opened once more in a second Live 12.4.6 instance (`out/proof/prove-open.sh`: open, one capture, quit; no playback). Live's log, 00:16:02: "VST3: Going to restore: Frustration" → "VST3: plugin processor successfully loaded: Loudon Live 'Frustration' v0.1.0 (cid: {ABCDEF01-9182-FAEB-4C6F-756446727374})" → "VST3: Restored: Frustration". The Set was not changed between the failed opens and this one, which settles the cause as the bundle's seal, not the device block. `out/proof/frustration-restored.png` shows it open at 100 bpm with no "plug-ins disabled" banner; the instance quit three seconds after cmd+Q, Loudon's own Live 12 and Live 11 untouched. Still unheard: that Live 12 instance ran with no audio device, and nobody has played the ride.
+
+## 2026-10-21 07:43 — the first job: Loudon played the ride
+
+Loudon opened `out/Frustration.als` (unchanged since `2162dd3f`) in his own Live 12, a fresh launch, not a second instance. Live's log: 07:43:16 "Start as first instance: yes"; 07:43:18 "Loading document …/The Palace/Shop/Shopkeeper/probes/2026-10-20-ableton-session/out/Frustration.als" → "VST3: plugin processor successfully loaded: Loudon Live 'Frustration' v0.1.0" → "VST3: Restored: Frustration". He played the four sections and said, in his words relayed by the supervisor: "looks great and is working great!" That closes the first job the draft asked for; what he said is kept in `frustration.live-set.json` (`_heard`). The library Set is still unheard.
+
