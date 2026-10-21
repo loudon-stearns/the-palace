@@ -10,35 +10,13 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { execFileSync, spawnSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
-import { BORN_WITH } from "../scenarios.mjs";
 import { wantFor, section } from "../grade.mjs";
+import { SUITE, FAKE, node, sh, scratch } from "./scratch.mjs";
 
-const HERE = path.dirname(fileURLToPath(import.meta.url));
-const SUITE = path.resolve(HERE, "..");
-const FAKE = path.join(HERE, "fake-claude.mjs");
 const RUN2 = path.join(SUITE, "runs", "2026-10-21 — birth-2 — D1");
-const node = (script, args, env = {}) => spawnSync(process.execPath, [path.join(SUITE, script), ...args],
-  { encoding: "utf8", env: { ...process.env, ...env } });
-const sh = (cmd, args, cwd) => execFileSync(cmd, args, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
-
-// A tiny checkout that holds what a child is born with, a scratch projects folder, and a scratch runs folder.
-function scratch() {
-  const root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), "self-check-test-")));
-  const repo = path.join(root, "palace"), projects = path.join(root, "projects"), runs = path.join(root, "runs"), log = path.join(root, "calls.jsonl");
-  fs.mkdirSync(repo);
-  for (const f of BORN_WITH) fs.writeFileSync(path.join(repo, f), `# ${f}\n`);
-  sh("git", ["init", "-q", "-b", "main"], repo);
-  sh("git", ["-c", "user.email=t@t", "-c", "user.name=t", "add", "."], repo);
-  sh("git", ["-c", "user.email=t@t", "-c", "user.name=t", "commit", "-qm", "born"], repo);
-  return { root, repo, projects, runs, log, env: { PALACE_BIRTH_PROJECTS: projects, FAKE_CLAUDE_LOG: log },
-    calls: () => fs.readFileSync(log, "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l)),
-    done: () => fs.rmSync(root, { recursive: true, force: true }) };
-}
 const birth = (s, args, env = {}) => node("birth.mjs", [...args, "--in", s.repo, "--bin", FAKE, "--runs-dir", s.runs], { ...s.env, ...env });
 
 test("a two-turn birth resumes the same session, re-checks memory each turn, and keeps one stream", () => {

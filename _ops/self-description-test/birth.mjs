@@ -36,7 +36,11 @@
 //    ~/.claude/projects folder are deleted unless --keep.
 // --dry-run stops before step 3 and prints the child's command: everything up to the spawn, for $0.
 //
-// Exit: 0 ran · 1 error · 2 refused (memory) · 3 the child could not log in (claude auth login, in a terminal).
+// Each birth's stream carries the plan's live usage (a rate_limit_event); checks.json keeps the last one as `limits`,
+// which is how suite.mjs paces a batch. --batch <name> --rep <n> label a birth as one of a batch's.
+//
+// Exit: 0 ran · 1 error · 2 refused (memory) · 3 the child could not log in (claude auth login, in a terminal)
+//       · 4 a plan limit refused the child (no birth number used; wait for the window to reset).
 
 import { execFileSync, spawn } from "node:child_process";
 import fs from "node:fs";
@@ -204,7 +208,11 @@ function checkStream(events, { cwd, transcript, says = [] } = {}) {
       loaded = (r.attachment.files || []).map((f) => ({ type: f.type, path: rel(f.path) }));
   }
   const auto = (init.memory_paths?.auto || "").replace(/\/$/, "");
+  const limit = events.filter((e) => e.type === "rate_limit_event").at(-1)?.rate_limit_info;
   return {
+    // The plan's usage as the last turn saw it: what a batch paces itself by.
+    limits: limit ? { status: limit.status, ...Object.fromEntries(Object.entries(limit.unifiedWindows || {})
+      .map(([k, w]) => [k, { utilization: w.utilization, resets_at: new Date(w.resetsAt * 1000).toISOString() }])) } : null,
     birth: {
       claude_code: init.claude_code_version, model: init.model, cwd: init.cwd, permissionMode: init.permissionMode,
       memory_paths: init.memory_paths ?? null,
@@ -297,9 +305,16 @@ async function main() {
       const run = await play({ bin, cwd: dir, env, args: childArgs({ says: turn, model, budget, effort, resume: sid }),
         expectMemory: memoryPath, timeoutMs: Number(opt("--timeout", "1200")) * 1000 });
       lines.push(...run.lines);
-      const result = run.lines.map((l) => { try { return JSON.parse(l); } catch { return null; } }).find((e) => e?.type === "result");
+      const turnEvents = run.lines.map((l) => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean);
+      const result = turnEvents.find((e) => e.type === "result");
+      const limit = turnEvents.filter((e) => e.type === "rate_limit_event").at(-1)?.rate_limit_info;
       const label = sc.turns.length > 1 ? `turn ${t + 1}: ` : "";
       if (run.refused) { console.error(`REFUSED mid-birth: ${label}${run.refused}`); return 2; }
+      if (limit?.status === "rejected" || (result?.is_error && /usage limit|rate limit|hit your limit|limit reached/i.test(String(result.result)))) {
+        const resets = limit?.resetsAt ? new Date(limit.resetsAt * 1000).toLocaleString() : "unknown";
+        console.error(`LIMIT: ${label}the plan refused the child (${limit?.rateLimitType || "limit"}; resets ${resets}): "${String(result?.result ?? "").slice(0, 200)}". No birth number used.`);
+        return 4;
+      }
       console.log(run.sawInit ? `init    ${label}memory_paths.auto matches the probe and is empty ✓` : `init    ${label}no init event arrived`);
       if (result?.is_error && /authenticat|log ?in|oauth/i.test(String(result.result))) {
         console.error(`AUTH: the child could not log in — "${result.result}" ($${result.total_cost_usd}). Run \`claude auth login\` in a terminal, then try again. No birth number used.`);
@@ -313,7 +328,8 @@ async function main() {
 
     const report = checkStream(events, { cwd: dir, transcript: path.join(projDir, `${sid}.jsonl`), says: sc.turns });
     report.landed = git(["status", "--porcelain", "--untracked-files=all"], dir).split("\n").filter(Boolean);
-    report.run = { scenario: id, says: sc.turns.length > 1 ? sc.turns : sc.turns[0], tests: sc.tests, tellBy: sc.tellBy,
+    report.run = { scenario: id, ...(opt("--batch") ? { batch: opt("--batch"), rep: Number(opt("--rep", "1")) } : {}),
+      says: sc.turns.length > 1 ? sc.turns : sc.turns[0], tests: sc.tests, tellBy: sc.tellBy,
       source_commit: commit, ref, model, effort: effortNote, budget_usd: budget ?? "none", bin, text_only: !full,
       env_stripped: stripped, probe_verdict: verdict, denied_on_attempt: DENY_ON_ATTEMPT, denied_by_pattern: DENY_PATTERNS };
     if (report.birth.memory_files_now?.length) report.birth.memory_written = report.birth.memory_files_now
