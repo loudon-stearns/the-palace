@@ -278,3 +278,7 @@ Item 51 again: seven of the room's outgoing messages are cut in the arc. The co-
 - The cold read and the backstage checklist dated the hardware questions 2026-10-18; the transcript puts them on 2026-10-06. No rule is written for this.
 
 - run · 2026-10-19 · v1.12 · close-2026-10-19-haptic-handwheel · taught item 58
+
+## From the floor review — 2026-10-21 (a finding from outside a close)
+
+59. **The dispatch doc names one agent type, and the closes ran on several.** `_ops/closing-well/dispatch.md:29` says the passes run on the "Agent tool, **Sonnet**". The transcripts show the backstage executor spawned as palace-writer 28 times (27 on Sonnet, one on Opus) and general-purpose twice; pass 1 as palace-reader (two Opus, two Sonnet) or general-purpose (three); pass 2 as palace-reader on Opus or general-purpose. The executor grows first, about 16k tokens of rules before its checklist (`dispatch.md:216-228`), which is defensible for a writer. Found in [[Palace as Context Injection System — sites]] (Reading · 2026-10-21); evidence `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/sites-reading — everything else.md:84-91`. Low priority. **Owed, a question for Closing Well and Loudon:** should the doc name the agent type each pass is spawned as, so it says what actually runs?
