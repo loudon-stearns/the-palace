@@ -89,6 +89,19 @@
   .hero-fader .fader .cap { left: 3px; width: 28px; height: 9px; }
   .hero-fader .label { color: var(--fg-1); }
 
+  /* ── the Drafting Table dress ──────────────────────────────────────────── */
+  .dress-dt body { font-family: var(--font-mono, var(--mono)); }
+  .dress-dt .top { padding: var(--space-4, 16px) var(--space-4, 16px) var(--space-3, 12px); }
+  .dress-dt .top > .dt-tb { flex: 1; }
+  /* a plugin face is not an A4 sheet: the title block lies in one row (offered to Drafting Table as a variant) */
+  .dress-dt .top .dt-tb { grid-template-columns: auto auto 1fr auto; max-width: none; align-items: center; }
+  .dress-dt .top .dt-tb__cell, .dress-dt .top .dt-tb__cell--wide { grid-column: auto; border-top: 0; border-left: 1px solid var(--ink); }
+  .dress-dt .top .dt-tb__cell:first-child { border-left: 0; }
+  .dress-dt .top .dt-tb__sub { display: none; }
+  .dress-dt .panel { background: var(--ground-000); box-shadow: none; border-radius: 0; padding-top: var(--space-5, 20px); }
+  .dress-dt .pad { background: var(--ground-100); box-shadow: var(--shadow-recess, none); border-radius: 0; border-color: var(--rule); }
+  .dress-dt .range { color: var(--ink-2); }
+
   /* ── directions ─────────────────────────────────────────────────────────── */
   :root { --knob: clamp(40px, min(5.2vw, 8.5vh), 62px); --hero: clamp(92px, min(16vw, 24vh), 176px); --fader-base: clamp(64px, 15vh, 150px); --fader: var(--fader-base); }
   [data-direction="flow"] .panels { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: stretch; }
@@ -114,6 +127,7 @@
   <main id="main"></main>
 
 <script>window.__IN_PLUGIN__ = typeof window.__JUCE__ !== "undefined";</script>
+<script>/*@@DRESS@@*/</script>
 <script>/*@@JUCE@@*/</script>
 <script>/*@@MOCK@@*/</script>
 <script>/*@@REVIEW@@*/</script>
@@ -156,7 +170,19 @@ function fmt(p, v) {
 function decadeLabel(e) { return "10" + String(e).split("").map(c => SUP[c] || c).join(""); }
 
 // ── the plugin side: JUCE relays in a plugin, a stand-in in a browser ──
-function bindSlider(p) {
+const BINDINGS = new Map();   // id -> a binding whose on() fans out to the current drawing only
+function shared(p, make) {
+  if (!BINDINGS.has(p.id)) {
+    const b = make(p), subs = new Set();
+    b.on(() => subs.forEach(f => f()));
+    BINDINGS.set(p.id, Object.assign({}, b, { on: f => subs.add(f), clear: () => subs.clear() }));
+  }
+  return BINDINGS.get(p.id);
+}
+function bindSlider(p) { return shared(p, makeSlider); }
+function bindChoice(p) { return shared(p, makeChoice); }
+function bindToggle(p) { return shared(p, makeToggle); }
+function makeSlider(p) {
   if (window.__IN_PLUGIN__) {
     const s = Juce.getSliderState(p.id);
     return { get: () => s.getScaledValue(),
@@ -166,14 +192,14 @@ function bindSlider(p) {
   }
   return mockState(p, p.mock !== undefined ? p.mock : p.default);
 }
-function bindChoice(p) {
+function makeChoice(p) {
   if (window.__IN_PLUGIN__) {
     const c = Juce.getComboBoxState(p.id);
     return { get: () => c.getChoiceIndex(), set: i => c.setChoiceIndex(i), begin() {}, end() {}, on: fn => c.valueChangedEvent.addListener(fn) };
   }
   return mockState(p, p.mock !== undefined ? p.mock : p.default);
 }
-function bindToggle(p) {
+function makeToggle(p) {
   if (window.__IN_PLUGIN__) {
     const t = Juce.getToggleState(p.id);
     return { get: () => t.getValue() ? 1 : 0, set: b => t.setValue(!!b), begin() {}, end() {}, on: fn => t.valueChangedEvent.addListener(fn) };
@@ -323,24 +349,30 @@ function pad(px, py, backdrop) {
       const { xs, ys, z } = backdrop, thr = backdrop.threshold || 0.5;
       const cx = i => toPos(px, i <= 0 ? xs[0] : i >= xs.length ? xs[xs.length - 1] : Math.sqrt(xs[i - 1] * xs[i]));
       const cy = j => toPos(py, j <= 0 ? py.min : j >= ys.length ? py.max : (ys[j - 1] + ys[j]) / 2);
-      g.fillStyle = accent; g.globalAlpha = 0.10;
+      const dt = DRESS_DT();
+      if (dt) {   // Drafting Table: 45° hatching in ink-3
+        const tile = document.createElement("canvas"); tile.width = tile.height = 8;
+        const tg = tile.getContext("2d"); tg.strokeStyle = css.getPropertyValue("--ink-3").trim(); tg.lineWidth = 1;
+        tg.beginPath(); tg.moveTo(0, 8); tg.lineTo(8, 0); tg.stroke();
+        g.fillStyle = g.createPattern(tile, "repeat");
+      } else { g.fillStyle = accent; g.globalAlpha = 0.10; }
       for (let j = 0; j < ys.length; ++j) for (let i = 0; i < xs.length; ++i)
         if (z[j][i] > thr) g.fillRect(cx(i) * W, (1 - cy(j + 1)) * H, (cx(i + 1) - cx(i)) * W + 0.5, (cy(j + 1) - cy(j)) * H + 0.5);
       g.globalAlpha = 1;
       const pts = [];   // the edge: for each coupling, the first stretch at which it tears
       for (let j = 0; j < ys.length; ++j) { const i = z[j].findIndex(v => v > thr); if (i > 0) pts.push([cx(i) * W, (1 - toPos(py, ys[j])) * H]); }
       if (pts.length > 1) {
-        g.strokeStyle = accent; g.lineWidth = 1.5; g.setLineDash([5, 4]); g.beginPath();
+        g.strokeStyle = DRESS_DT() ? css.getPropertyValue("--ink-2").trim() : accent; g.lineWidth = 1.5; g.setLineDash([5, 4]); g.beginPath();
         pts.forEach(([x, y], k) => k ? g.lineTo(x, y) : g.moveTo(x, y)); g.stroke(); g.setLineDash([]);
         const [lx, ly] = pts[Math.min(pts.length - 1, 2)];
-        g.fillStyle = accent; g.font = "10px " + css.getPropertyValue("--mono"); g.fillText("the edge", lx + 6, ly - 6);
+        g.fillStyle = DRESS_DT() ? css.getPropertyValue("--ink-2").trim() : accent; g.font = "10px " + css.getPropertyValue("--mono"); g.fillText("the edge", lx + 6, ly - 6);
       }
     }
     g.strokeStyle = grid; g.lineWidth = 1;
     if (px.taper === "log") for (let e = Math.ceil(Math.log10(px.min)); e <= Math.floor(Math.log10(px.max)); ++e) { const x = toPos(px, Math.pow(10, e)) * W; g.beginPath(); g.moveTo(x, 0); g.lineTo(x, H); g.stroke(); }
     for (let k = 1; k < 4; ++k) { const y = H * k / 4; g.beginPath(); g.moveTo(0, y); g.lineTo(W, y); g.stroke(); }
     const X = Math.min(1, Math.max(0, toPos(px, sx.get()))) * W, Y = (1 - Math.min(1, Math.max(0, toPos(py, sy.get())))) * H;
-    g.strokeStyle = css.getPropertyValue("--accent-line").trim(); g.beginPath(); g.moveTo(X, 0); g.lineTo(X, H); g.moveTo(0, Y); g.lineTo(W, Y); g.stroke();
+    g.strokeStyle = css.getPropertyValue(DRESS_DT() ? "--rule" : "--accent-line").trim(); g.beginPath(); g.moveTo(X, 0); g.lineTo(X, H); g.moveTo(0, Y); g.lineTo(W, Y); g.stroke();
     g.fillStyle = accent; g.beginPath(); g.arc(X, Y, 6, 0, 2 * Math.PI); g.fill();
     g.strokeStyle = css.getPropertyValue("--bg").trim(); g.lineWidth = 2; g.stroke();
     rx.querySelector(".value").innerHTML = fmt(px, sx.get()); ry.querySelector(".value").innerHTML = fmt(py, sy.get());
@@ -356,19 +388,50 @@ function pad(px, py, backdrop) {
   return wrap;
 }
 
+// ── the Drafting Table dress: its title block, panels and controls, bound through the same relays ──
+const DRESS_DT = () => window.DT && document.documentElement.classList.contains("dress-dt");
+function dtSizes() {   // Drafting Table's rule for small windows: controls scale, type does not
+  const w = innerWidth, h = innerHeight, m = Math.min(w, h * 1.6);
+  return { knob: m < 600 ? 40 : m < 1000 ? 56 : 72, hero: Math.round(Math.max(96, Math.min(176, Math.min(w * 0.16, h * 0.26)))) };
+}
+function dtControl(p, big) {
+  const st = p.taper === "choice" ? bindChoice(p) : p.taper === "toggle" ? bindToggle(p) : bindSlider(p);
+  const cap = { linear: "Linear", log: "Log", choice: "Choice", toggle: "Toggle" }[p.taper];
+  const spec = { id: p.id, name: shortName(p), unit: p.unit, min: p.min, max: p.max, def: p.default, taper: cap, choices: p.choices };
+  const binding = { get: st.get, set: st.set, begin: st.begin, end: st.end, on: fn => st.on(() => fn(st.get())) };
+  const holder = document.createElement("div"); holder.className = "ctl";
+  const z = dtSizes();
+  DT.mount(holder, spec, binding, { size: big ? z.hero : z.knob, ticks: big ? 11 : 5 });
+  if (big) { const rg = document.createElement("div"); rg.className = "range"; rg.innerHTML = rangeText(p); holder.append(rg); }
+  return holder;
+}
+
 // ── layout: header, heroes, then one panel per group in table order ──
 function control(p, big, direction) {
+  if (DRESS_DT() && direction !== "flow") return dtControl(p, big);
   if (p.taper === "choice") return choice(p);
   if (p.taper === "toggle") return toggle(p);
   return direction === "flow" ? fader(p, big) : knob(p, big);
 }
 function build(info) {
   const ui = info.ui || {}, direction = ui.direction || "bench";
+  BINDINGS.forEach(b => b.clear());   // the old drawing stops listening
   document.documentElement.dataset.direction = direction;
+  if (ui.dress === "drafting-table" && window.DT) {
+    document.documentElement.className = "dress-dt";
+    document.documentElement.setAttribute("data-theme", ui.theme || "phosphor");
+    const top = document.querySelector(".top");
+    top.innerHTML = "";
+    top.append(DT.titleBlock({ name: info.name.toUpperCase(), subtitle: ui.kind || "instrument", version: info.version,
+      status: (ui.tier || "sketch").toUpperCase(), statusSource: "measure", source: "VST Template", drawn: "Algorithm.h",
+      maker: info.company, tool: "JUCE 8 · WebView" }).el);
+  } else
   document.documentElement.className = "skin-" + (ui.skin || (direction === "flow" ? "drafting" : "graphite"));
   document.title = info.name;
-  document.getElementById("name").textContent = info.name;
-  document.getElementById("meta").textContent = (ui.tier || "sketch") + " · " + info.version;
+  if (document.getElementById("name")) {
+    document.getElementById("name").textContent = info.name;
+    document.getElementById("meta").textContent = (ui.tier || "sketch") + " · " + info.version;
+  }
   const main = document.getElementById("main"); main.innerHTML = "";
   const params = info.params, heroes = direction === "flow" ? [] : params.filter(p => p.hero);
   if (heroes.length === 2 && direction === "edge") main.append(pad(heroes[0], heroes[1], ui.backdrop));
@@ -380,9 +443,9 @@ function build(info) {
   for (const [name, ps] of groups) {
     if (direction === "flow" && !first) { const a = document.createElement("div"); a.className = "arrow"; a.textContent = "→"; panels.append(a); }
     first = false;
-    const panel = document.createElement("section"); panel.className = "panel";
+    const panel = document.createElement("section"); panel.className = DRESS_DT() ? "panel dt-panel dt-panel--card" : "panel";
     panel.dataset.group = name; panel.dataset.moment = "panel-" + name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-    const eb = document.createElement("div"); eb.className = "eyebrow"; eb.textContent = name;
+    const eb = document.createElement("div"); eb.className = DRESS_DT() ? "eyebrow dt-panel__caption dt-eyebrow" : "eyebrow"; eb.textContent = name;
     const row = document.createElement("div"); row.className = "row";
     ps.forEach(p => row.append(control(p, direction === "flow" && p.hero, direction)));
     panel.append(eb, row); panels.append(panel);
@@ -400,7 +463,9 @@ function build(info) {
   const q = new URLSearchParams(location.search);
   if (q.get("direction")) info.ui = Object.assign({}, info.ui, { direction: q.get("direction"), skin: q.get("skin") || undefined });
   build(info);
-  if (window.__onEditorBuilt) window.__onEditorBuilt(info);   // the mock's review surface, if it has one
+  if (window.__onEditorBuilt) window.__onEditorBuilt(info);
+  let t = 0;
+  if (DRESS_DT()) addEventListener("resize", () => { clearTimeout(t); t = setTimeout(() => build(info), 150); });   // the mock's review surface, if it has one
 })();
 </script>
 </body>

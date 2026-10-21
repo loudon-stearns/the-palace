@@ -21,6 +21,7 @@ import argparse
 import base64
 import json
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -29,6 +30,7 @@ MACH = Path(__file__).resolve().parents[1]
 JUCE_DIR = Path(os.environ.get("JUCE_DIR", Path.home() / "Library/Caches/palace-vst-template/JUCE-8.0.12"))
 FONTS = [  # family, weight range, file names to look for
     ("Anton", "400", ["Anton-Regular.ttf"]),
+    ("JetBrains Mono", "600", ["JetBrainsMono-SemiBold.ttf"]),
     ("Manrope", "200 800", ["Manrope[wght].ttf", "Manrope-VariableFont_wght.ttf"]),
     ("JetBrains Mono", "400", ["JetBrainsMono-Regular.ttf"]),
     ("JetBrains Mono", "500", ["JetBrainsMono-Medium.ttf"]),
@@ -48,10 +50,32 @@ def tokens():
     return "\n".join(l for l in css.splitlines() if not l.startswith("@import"))   # fonts are inlined instead
 
 
-def fonts():
+def drafting_table_dir():
+    # Drafting Table (the workshop's dress; plugin faces included, Loudon 2026-10-21). Until it lands on
+    # main its folder can be named with DRAFTING_TABLE_DIR.
+    env = os.environ.get("DRAFTING_TABLE_DIR")
+    return Path(env) if env else find_up("_ops/drafting-table/design-system")
+
+
+def dress(ui):
+    """The page's design system: (fonts css, tokens and component css, component js)."""
+    if ui.get("dress", "loudon-live") != "drafting-table":
+        return fonts(), tokens(), ""
+    root = drafting_table_dir()
+    def data_uris(css):
+        return re.sub(r"url\('fonts/([^']+)\.woff2'\)",
+                      lambda m: "url(data:font/woff2;base64," + base64.b64encode((root / "fonts" / (m.group(1) + ".woff2")).read_bytes()).decode() + ")", css)
+    css = "\n".join([(root / "colors_and_type.css").read_text(), data_uris((root / "fonts.css").read_text()),
+                     (root / "aliases.css").read_text(), (root / "bundle.css").read_text()])
+    return fonts(only="JetBrains Mono"), css, (root / "dt-controls.js").read_text()
+
+
+def fonts(only=None):
     dirs = [MACH / "ui/fonts", Path.home() / "Library/Fonts", Path("/Library/Fonts")]
     out, missing = [], []
     for family, weight, names in FONTS:
+        if only and family != only:
+            continue
         f = next((d / n for d in dirs for n in names if (d / n).exists()), None)
         if f is None:
             missing.append(f"{family} {weight}")
@@ -114,9 +138,11 @@ def inline_js(js):
     return js.replace("</script", "<\\/script")
 
 
-def page(mock_info=None, review_round=None):
+def page(ui, mock_info=None, review_round=None):
     html = (MACH / "ui/editor.html").read_text()
-    html = html.replace("/*@@FONTS@@*/", fonts()).replace("/*@@TOKENS@@*/", tokens())
+    font_css, css, js = dress(ui)
+    html = html.replace("/*@@FONTS@@*/", font_css).replace("/*@@TOKENS@@*/", css)
+    html = html.replace("/*@@DRESS@@*/", inline_js(js))
     html = html.replace("/*@@JUCE@@*/", inline_js(juce_bridge()))
     html = html.replace("/*@@MOCK@@*/", "" if mock_info is None else inline_js("window.MOCK_INFO = " + json.dumps(mock_info) + ";"))
     html = html.replace("/*@@REVIEW@@*/", "" if review_round is None else inline_js(review(review_round)))
@@ -127,7 +153,7 @@ def build(plugin_dir, build_dir):
     pj, ui = ui_block(plugin_dir)
     out = build_dir / "ui"
     out.mkdir(parents=True, exist_ok=True)
-    (out / "index.html").write_text(page())
+    (out / "index.html").write_text(page(ui))
     lines = ["// EditorConfig.h — written by machinery/tools/ui.py from plugin.json. Don't edit.", "#pragma once",
              f"#define PLUGIN_UI_W {int(ui['width'])}", f"#define PLUGIN_UI_H {int(ui['height'])}",
              f"#define PLUGIN_UI_MIN_W {int(ui['min'][0])}", f"#define PLUGIN_UI_MIN_H {int(ui['min'][1])}",
@@ -136,7 +162,7 @@ def build(plugin_dir, build_dir):
     (out / "EditorConfig.h").write_text("\n".join(lines))
 
 
-def mock_info(plugin_dir, direction, sets):
+def mock_info(plugin_dir, direction, sets, dress_name=None):
     found = [p for p in (plugin_dir / "build").glob("*Harness_artefacts/**/*Harness") if p.is_file()]
     if not found:
         sys.exit("no harness built: run ./plugin.sh build first")
@@ -146,6 +172,8 @@ def mock_info(plugin_dir, direction, sets):
     if direction:
         ui["direction"] = direction
         ui.pop("skin", None)
+    if dress_name:
+        ui["dress"] = dress_name
     params = table["params"]
     for s in sets:
         k, v = s.split("=", 1)
@@ -168,6 +196,7 @@ def main():
     ap.add_argument("plugin_dir")
     ap.add_argument("build_dir", nargs="?")
     ap.add_argument("--direction")
+    ap.add_argument("--dress", choices=["loudon-live", "drafting-table"], help="mock/shot: override plugin.json")
     ap.add_argument("--set", action="append", default=[])
     ap.add_argument("--size", default="760x480")
     ap.add_argument("--round", type=int, default=1, help="mock: the review round (bump each revision pass)")
@@ -178,12 +207,12 @@ def main():
     if a.mode == "build":
         build(plugin_dir, Path(a.build_dir or plugin_dir / "build").resolve())   # the plugin's page: never a review surface
         return
-    info = mock_info(plugin_dir, a.direction, a.set)
+    info = mock_info(plugin_dir, a.direction, a.set, a.dress)
     if a.mode == "mock":
-        Path(a.out).write_text(page(info, None if a.clean else a.round))
+        Path(a.out).write_text(page(info["ui"], info, None if a.clean else a.round))
         return
     tmp = Path(a.out).with_suffix(".html")
-    tmp.write_text(page(info))   # a shot is of the editor alone
+    tmp.write_text(page(info["ui"], info))   # a shot is of the editor alone
     shot(tmp, Path(a.out).resolve(), a.size)
 
 
