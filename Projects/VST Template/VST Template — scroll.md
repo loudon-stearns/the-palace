@@ -26,8 +26,9 @@ forward_vector: "I am VST Template's scroll — the one page that always opens o
 1. **Build the template and its example.** Tract Mirror's JUCE scaffold, cut down to a template: the algorithm in one `Algorithm.h` that knows no JUCE, a console render harness, and `new-plugin.py`.
 2. **Make the Frustration plugin and check it against `ride.py`.** Port the per-sample body into the template, render `ride.py`'s three paths (breathe, coupling, string–bar) through the harness, and compare. Away from the edge it must match sample for sample. At the edge the check is behavioural: the fundamental's range and wobble, not the waveform.
 3. **Make Simple Synth and check it against its sketch.** One oscillator, one filter and one amplifier, with envelopes and a vibrato LFO, played from MIDI notes. Nothing in it is chaotic, so every path must match its sketch sample for sample.
-4. **Validate, install, and prove they load.** pluginval and auval for both plugins, install to the user plug-in folders, then load them in a host and in Live 12.
+4. **Validate, install, and prove they load.** pluginval and auval for both plugins, install to the user plug-in folders, then load them in a host and in Live 12. Where it stands: both pass every check. Frustration loaded in Live 12 from a Set at 00:16 on 2026-10-21 (Live's log, quoted in `proofs/2026-10-21-seal/README.md`), and the same proof records Simple Synth restored from a Set at 00:03. Neither has yet been inserted from Live's browser, so this move stays open.
 5. **Write the afternoon recipe.** How the next sketch gets from numpy to an installed plugin in one afternoon.
+6. **Give every plugin made from the template a custom editor in the Loudon Live house dress** ([[Loudon Live Design System]]), generated from `Algorithm.h`'s parameter table, with no editor code per plugin. It starts with a written design standard in the template's bundle: the layout, the type, the control vocabulary for continuous, stepped and toggle parameters, how values are shown, how the editor resizes, and what the plugin shows about itself. First, two or three rendered directions go to Loudon, and he picks one. Then it is finished on Frustration and Simple Synth and proved: screenshots at two sizes, pluginval and the seal checks still passing, and the recipe updated so the next plugin inherits it.
 
 **The five defaults Loudon accepted** (from the framework comparison, `Projects/VST Template/proofs/2026-10-20-framework-choice/README.md`):
 
@@ -37,7 +38,7 @@ forward_vector: "I am VST Template's scroll — the one page that always opens o
 - **The check.** As in the second move.
 - **Where it lives.** `Projects/VST Template/template/` and `new-plugin.py`, with the plugins beside the template.
 
-Agreed by Loudon on 2026-10-20, in the VST Template session. Simple Synth was added on his word the same evening.
+Agreed by Loudon on 2026-10-20, in the VST Template session. Simple Synth was added on his word the same evening, and the custom editor on his word of 2026-10-21.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -49,6 +50,35 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-2026-10-21T07-51-34-04-00" -->
+### 2026-10-21 — Plan revised: a custom editor for every plugin, from a design standard
+
+Loudon, 2026-10-21, relayed by the supervising session: "I'd like the next job of the VST template to create a design standard, so that we have custom UI not the default sliders." The plan gains a sixth move: a custom editor for every plugin made from the template, generated from the parameter table, starting from a written design standard and two or three rendered directions he picks between. The fourth move is restated with what the seal proof verified: Frustration loaded in Live 12 from a Set, but neither plugin has been inserted from Live's browser, so the move stays open.
+
+_The plan before this change:_
+
+> **Where this is going.** A reusable plugin template at `Projects/VST Template/template/`, plus a `new-plugin.py` that copies and renames it, so the next numpy sketch becomes a plugin with one file to fill in and one command to run. The build, the JUCE wrapper, the harness, the host check and `verify.py` live once in a shared `machinery/` folder, so a plugin folder holds only what it fills in, and a fix to the machinery reaches every plugin. Two plugins come first. **Frustration** is the frustration model from `Harmonicity and Inharmonicity/proofs/2026-10-17-frustration-sweeps/ride.py`, with B and K automatable. **Simple Synth**, one oscillator, one filter and one amplifier with envelopes and a vibrato LFO, is the template's worked example of playing MIDI notes. It is built on JUCE 8 + CMake, cloned from [[Tract Mirror]].
+>
+> **The moves ahead**
+>
+> 1. **Build the template and its example.** Tract Mirror's JUCE scaffold, cut down to a template: the algorithm in one `Algorithm.h` that knows no JUCE, a console render harness, and `new-plugin.py`.
+> 2. **Make the Frustration plugin and check it against `ride.py`.** Port the per-sample body into the template, render `ride.py`'s three paths (breathe, coupling, string–bar) through the harness, and compare. Away from the edge it must match sample for sample. At the edge the check is behavioural: the fundamental's range and wobble, not the waveform.
+> 3. **Make Simple Synth and check it against its sketch.** One oscillator, one filter and one amplifier, with envelopes and a vibrato LFO, played from MIDI notes. Nothing in it is chaotic, so every path must match its sketch sample for sample.
+> 4. **Validate, install, and prove they load.** pluginval and auval for both plugins, install to the user plug-in folders, then load them in a host and in Live 12.
+> 5. **Write the afternoon recipe.** How the next sketch gets from numpy to an installed plugin in one afternoon.
+>
+> **The five defaults Loudon accepted** (from the framework comparison, `Projects/VST Template/proofs/2026-10-20-framework-choice/README.md`):
+>
+> - **Port path.** Claude ports the per-sample body by hand into `Algorithm.h`: a `State` struct, a `Params` table and a `process()`. The numpy sketch stays the reference, and the sketch's random constants are exported so both start identically.
+> - **Parameters.** B on a log taper from about 1e-7 to 30, K linear from 0 to 20 Hz, both smoothed per sample (B in the log domain, about 20 ms). Inertia is a continuous knob. N (40, 64 or 96) and pinning are set-and-forget.
+> - **Real-time cost.** Mono first. Polyphony is measured before it is promised.
+> - **The check.** As in the second move.
+> - **Where it lives.** `Projects/VST Template/template/` and `new-plugin.py`, with the plugins beside the template.
+>
+> Agreed by Loudon on 2026-10-20, in the VST Template session. Simple Synth was added on his word the same evening.
+<sub>`plan-2026-10-21T07-51-34-04-00` · plan revised · agreed 2026-10-21T07:51:34-04:00 · written by the Concierge on Loudon's word</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="proof-2026-10-21-seal" -->
 ### 2026-10-21 — A broken seal: Live 12 refused Frustration after every other check had passed
 > JUCE could break its own code signature. Live's scanner checks the seal; pluginval, auval and the host check do not. The machinery now re-seals every bundle and gates on a strict check.
