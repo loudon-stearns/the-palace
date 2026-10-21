@@ -39,15 +39,15 @@ Not to batter the closed operation, not to mourn it, not to declare the task imp
 
 The principle surfaced three times in a single session (2026-06), which is what lifted it from a trick to a pattern:
 
-1. The Cowork sandbox forbids `unlink` (delete) — but permits `rename`. Every `git commit` strands its lockfiles; **moving** them aside (rename) instead of deleting them makes committing-from-Cowork possible at all. The entire [[cowork-git]] tool stands on this.
-2. The same mount forbids deleting litter — so litter is **moved** to a gitignored scratch dir instead. The tree stays clean without a single deletion.
+1. The Cowork sandbox forbade `unlink` (delete) — but permitted `rename`. Every `git commit` stranded its lockfiles; **moving** them aside (rename) instead of deleting them made committing from Cowork possible at all. The whole Cowork committer stood on this.
+2. The same mount forbade deleting litter — so litter was **moved** to a gitignored scratch dir instead. The tree stayed clean without a single deletion.
 3. Claude Code's `@import` cannot resolve filenames with spaces — so a **space-free symlink** stands in as an alias, and the spaced foundational files load anyway (see [[Palace as Context Injection System]] § The @import Floor).
 
 One move, three substrates. `delete → rename`, `delete → relocate`, `space → symlink`. In each, the forbidden primitive had a permitted neighbor, and the neighbor carried the intent.
 
 ## The cousin, and the limit
 
-This is the engineering register of the Stoic [[The Dichotomy of Control]]: do not rage at the operation that is not up to you — act through the one that is. But it carries its own danger, which the forward vector names: not every wall has a door beside it. Sometimes the limit is real and the honest move is to accept it, not to invent an ever-cleverer detour. The skill is telling an adjacent affordance from a wishful one.
+This is the engineering register of the Stoic [[The Dichotomy of Control]]: do not rage at the operation that is not up to you — act through the one that is. But it carries its own danger, which the forward vector names: not every wall has a door beside it. Sometimes the limit is real and the honest move is to accept it, not to invent an ever-cleverer detour. The skill is telling an adjacent affordance from a wishful one. And a detour that works still has a running cost. The Cowork committer left litter for every Weave to sweep, a seam in the palace's shared lock sweeper, and a hand-off queue the Return couldn't see; on 2026-10-20 it was retired, because the work had left Cowork for a room without the wall. Sometimes the neighbor of a forbidden primitive is another room.
 
 ## The Symposium
 

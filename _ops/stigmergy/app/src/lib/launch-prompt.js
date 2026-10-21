@@ -6,7 +6,7 @@
 // at a critical moment) wants a watchable, steerable session you talk to — not a
 // fire-and-forget headless worker. So instead of dispatching a blind `claude -p`,
 // the terminal hands you a ready prompt to paste into a fresh interactive session
-// (Claude Code / Cowork / the Companion), where you watch and steer in dialogue.
+// (Claude Code / the Companion), where you watch and steer in dialogue.
 //
 // It debuts on handoffs (kind: 'handoff'); stewards plug in as a new `kind` with
 // their own builder, and others can follow.

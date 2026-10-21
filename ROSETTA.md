@@ -283,7 +283,7 @@ These conditions must always be true, regardless of which ceremony is running or
 | Google Drive | Cloud sync | Medium — primary cloud store | Git/GitHub is the canonical backup |
 | Git / GitHub | Version control, history | Low | Regular pushes; local clone always current |
 | Claude (AI) | Ceremony execution, reasoning | Medium | All ceremony protocols written in plain language; a human can run them |
-| Filesystem MCP / Cowork | Bulk file operations | Low | Claude Code or any shell access substitutes |
+| Filesystem MCP | Bulk file operations | Low | Claude Code or any shell access substitutes |
 | The Substrate Skill (claude.ai) | Trigger routing to palace | Low | CLAUDE.md is the real entry point; skill is a thin forwarding address |
 
 **Design goal:** All dependencies in the Low column. Ceremonies should be runnable by a human with a text editor and no AI.

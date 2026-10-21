@@ -59,7 +59,7 @@ This is why LaTeX earns a tier of its own rather than living as an exception ins
 
 ## The Toolchain
 
-The full toolchain is present **Mac-side (Claude Code on Loudon's machine)** — no install required there. **It is *not* available in the Cowork sandbox** (no TeX Live), so rendering must happen Mac-side; from Cowork, author the `.tex` source and defer the render. Where present, any palace Claude can author and render technical diagrams headlessly:
+The full toolchain is present **Mac-side (Claude Code on Loudon's machine)** — no install required there, so rendering happens there. Where present, any palace Claude can author and render technical diagrams headlessly:
 
 - `pdflatex` / `lualatex` / `xelatex` — TeX engines (TeX Live)
 - `tikz`, `pgfplots`, `standalone`, `circuitikz`, `amsmath` — packages

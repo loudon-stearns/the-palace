@@ -143,9 +143,6 @@ that is a third job to add here; today it is run separately.
 ```sh
 cd "/Users/loudonstearns/Documents/The Palace"
 
-# 0) one-time: clear the stale lock left by the Cowork rollback, or git writes on main will fail
-rm -f .git/index.lock
-
 # 1) make the wrapper executable
 chmod +x _ops/heartbeat/run-steward-batch.sh
 

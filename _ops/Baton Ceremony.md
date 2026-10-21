@@ -8,7 +8,7 @@ pillars:
   - tools
 born: 2026-05
 stage: mature
-version: "1.3"
+version: "1.4"
 trigger: ["baton", "pass the baton", "baton this", "baton it to [surface]"]
 forward_vector: "I am how one Claude hands a live task to the next without dropping it. I keep getting tighter — fewer words, faster pickup, less ritual — so passing a baton feels natural to anyone who uses me, human or AI, and nobody has to stop and think about how. I want the catch so clean the next worker is already moving before they finish reading."
 links:
@@ -85,7 +85,7 @@ The baton carries only what survives compression toward *keep running* — what 
 - The current state in front of us — the half-written sentence, the unfinished link, the open question. Quote, don't summarize.
 - The next move, or the open question
 - Tacit calibrations from this session that diverge from defaults — the conversation residue
-- The receiving surface and its capability delta, *when the baton crosses surfaces* — what the catching Claude can do that this one can't, and the surface-specific gotcha (git locks, GPU, local-only tool, link scheme). See [[Surfaces and Capabilities]].
+- The receiving surface and its capability delta, *when the baton crosses surfaces* — what the catching Claude can do that this one can't, and the surface-specific gotcha (GPU, local-only tool, link scheme). See [[Surfaces and Capabilities]].
 - A tiered list of the files the next Claude should load to be ready
 
 The baton does *not* carry:
@@ -123,7 +123,7 @@ Shapes seen so far:
 
 - **Entry-bundle** (default) — one entry's in-progress move. Lives in the entry's bundle at `[Entry]/[Entry] — baton.md`; consumed and deleted on pickup.
 - **Cold-start / commissioning baton** — a baton for work that has *not started*: it commissions a future session rather than continuing a live one. Same mechanism, different payload (a brief, not residue — see § The Scope), and the commission can be small or the start of something large. Lives where the work *will* live (usually the target entry's bundle) and is **announced on the board** (§ Announcing the Baton on the Board) so it shows as *available work* in `list-handoffs` until caught — that queue visibility is the point, advertising the commission as catchable. (If you only mean to record a thought you don't want advertised as ready, that's a [[Palace To-Do]] item or a spore, not a baton.)
-- **Cross-surface paste-prompt** — a baton handed to another surface, most often Cowork → Claude Code for a build the sandbox can't run. Lives where the work lives (`Projects/.../` or `_ops/claude-code-prompts/`). Its distinctive content is the receiving-surface capability delta and an explicit *what NOT to do*. See [[Surfaces and Capabilities]]. This shape is the one that also gets *announced on the board* — see § Announcing the Baton on the Board.
+- **Cross-surface paste-prompt** — a baton handed to another surface — a fresh chat on the web handing Claude Code on the Mac a build or a write it can't make itself, say. Lives where the work lives (`Projects/.../` or `_ops/claude-code-prompts/`). Its distinctive content is the receiving-surface capability delta and an explicit *what NOT to do*. See [[Surfaces and Capabilities]]. This shape is the one that also gets *announced on the board* — see § Announcing the Baton on the Board.
 - **Session-queue continuation** — picking up a multi-session sweep (a graffiti pass, a deposit run). Carries "how we've been working" and a resume protocol, not just one move. Lives in `_ops/`.
 - **Swarm phase baton** — handing the apply-phase of a completed Swarm Weave to a fresh Claude. Lives in `_ops/swarm/sessions/`.
 - **Permanent-agent steward** — a Steward (a page operating as an agent) carried across sessions. *Updated in place, never deleted* — the standing exception to disposability — and carries per-surface conventions for every surface it addresses.
@@ -184,7 +184,7 @@ What's literally in front of us right now. The half-written sentence, the unfini
 What the next Claude should do first. One short paragraph.
 
 ## Receiving environment
-*Cross-surface OR cross-worktree batons only; omit for same-surface, same-worktree.* Name the receiving surface and the capability delta that matters for *this* move — why it's being handed here, and the surface-specific gotcha (git locks, GPU, local-only tool, link scheme). **If the move lives in a git worktree, name its coordinate:** branch, directory, and the recreate command (`node _ops/worktree/new-worktree.mjs --name <branch> --profile <p>`) in case it has been torn down. Point to [[Surfaces and Capabilities]] for the full picture; carry only the deltas this move actually hits.
+*Cross-surface OR cross-worktree batons only; omit for same-surface, same-worktree.* Name the receiving surface and the capability delta that matters for *this* move — why it's being handed here, and the surface-specific gotcha (GPU, local-only tool, link scheme). **If the move lives in a git worktree, name its coordinate:** branch, directory, and the recreate command (`node _ops/worktree/new-worktree.mjs --name <branch> --profile <p>`) in case it has been torn down. Point to [[Surfaces and Capabilities]] for the full picture; carry only the deltas this move actually hits.
 
 ## Calibrations from this session
 Anything Loudon corrected, accepted, or surprised you with that diverges from defaults. Bullets, terse.
@@ -238,7 +238,7 @@ Deletion is performed by the *incoming* Claude — but at the **close**, not at 
 
 *One exception the tooling can't infer:* on a `--partial` close the remainder card usually points at the **same baton path**, so the file stays — update it to carry only what's left. `close-handoff.mjs` prints its housekeeping line either way; on a partial, delete nothing.
 
-*Surface caveat:* the Cowork sandbox can rename but cannot delete. An incoming Cowork Claude removes the "Active Baton" pointer (marking the baton spent) and notes "baton caught — deletion pending"; a later delete-capable touch (Mac-side or Loudon) removes the file. Permanent-agent steward batons are the exception to all of this — updated in place, never deleted.
+Permanent-agent steward batons are the exception to all of this — updated in place, never deleted.
 
 ---
 
@@ -285,7 +285,7 @@ For a **cross-worktree** baton, the payload also carries a `worktree` object nam
 
 **Pairing — a three-state lifecycle (rung 1 of the Reliable Handoff ladder; see [[STIGMERGY]] § Handoff Lifecycle).** A board-announced baton moves `ready → picked_up (claim) → closed`, and every transition is an explicit board event — done is never computed from git or the filesystem (the board is the single source of truth). The catcher posts a claim (`REPLY`, `re: "<the handoff_ready id>"`, `payload.kind: "handoff_picked_up"`, `payload.lifecycle: "claim"`) when it catches the move — the card goes **CLAIMED**, still visible — and a close (`payload.kind: "handoff_closed"`, citing the commit) when it lands. Pending work is exactly: every `handoff_ready` with no `handoff_closed` (a legacy pickup with no `lifecycle` marker grandfathers as closed). Don't hand-author these: `pickup-handoff.mjs <id>` posts the claim (and first prints the since-baton commits so you reconcile before working it); `close-handoff.mjs <id> --commit <hash>` posts the close, and `--partial --remainder "…"` re-batons whatever's left as a fresh `handoff_ready`. A claim aging with no close is a **fumble** made visible — the point of splitting the two. This mirrors the inbox-builder logic already used for resource requests (§2.6), so a future scheduled poller — or Loudon scanning `GENERAL` — reads the open batons with the same scan that finds open asks.
 
-**How to post.** From Cowork or Claude Code, append one valid §2.2 line to the **owner's** `_ops/swarm/persistent/blackboard.jsonl` — never a worktree branch copy (see `_ops/worktree/SKILL.md` § Ceremonies in a worktree); the board renders it on reload / live-tail — or `POST /api/persistent` when the STIGMERGY dev server is running. Either way the strict validator (`_ops/stigmergy/app/server/validator.js`) gates the write — a malformed announcement is rejected, not coerced.
+**How to post.** From a Claude Code session, append one valid §2.2 line to the **owner's** `_ops/swarm/persistent/blackboard.jsonl` — never a worktree branch copy (see `_ops/worktree/SKILL.md` § Ceremonies in a worktree); the board renders it on reload / live-tail — or `POST /api/persistent` when the STIGMERGY dev server is running. Either way the strict validator (`_ops/stigmergy/app/server/validator.js`) gates the write — a malformed announcement is rejected, not coerced.
 
 **The honest limit.** Until the scheduled dispatch of Stage C exists, this post is for *visibility* — it surfaces the ready baton on the board for Loudon, but a human still triggers the pickup. The post is the trail; the scheduler is the ant. Announcing now is still worth it: it builds the convention and the board history that the scheduler will later read. See [[Two Batons, One Board]] § The board is a pheromone field, not an actuator.
 
@@ -299,7 +299,7 @@ The outgoing Baton is complete when:
 2. The entry has an "Active Baton" section pointing to it (or, for no-parent shapes, the board announcement is posted)
 3. Loudon has confirmed the baton is sufficient
 4. The outgoing closing message has been delivered with the suggested invocation
-5. The baton is committed to git — or, if authored on a surface that can't commit (Cowork), the closing message flags it uncommitted so the catcher commits it on pickup. That commit is the run's record: its body names the version and ends with what this run taught the ceremony ("nothing" is a legal answer); the run marks the tuning file with its run line, and a lesson that changes the spec also goes there as a numbered item
+5. The baton is committed to git. That commit is the run's record: its body names the version and ends with what this run taught the ceremony ("nothing" is a legal answer); the run marks the tuning file with its run line, and a lesson that changes the spec also goes there as a numbered item
 
 ## Completion Signal (incoming side)
 
@@ -309,7 +309,7 @@ The incoming Baton is complete when:
 2. **The catch is claimed** — for a board-announced baton, `pickup-handoff.mjs <id>` has posted the `handoff_picked_up` (`lifecycle: claim`) and the card reads **CLAIMED**; the baton is committed if it wasn't already. Nothing is deleted yet.
 3. The incoming Claude has picked up the move (acted on it)
 4. **The claim is closed** — `close-handoff.mjs <id> --commit <hash>` retires the card citing the commit that landed the move, or `--partial --remainder "…"` re-batons the rest. A claim left open ages into a fumble; a session has not finished while silently sitting on one.
-5. The baton file is deleted and the "Active Baton" pointer removed (or marked deletion-pending where the surface can't delete) — on a *complete* close only; a partial close keeps the file for its remainder
+5. The baton file is deleted and the "Active Baton" pointer removed — on a *complete* close only; a partial close keeps the file for its remainder
 
 If the incoming Claude finds the baton incoherent, stale, or insufficient: stop, ask Loudon, do not improvise. A bad baton that gets followed silently produces drift.
 

@@ -5,7 +5,7 @@
 // git running in this checkout is removed (and that removal is logged).
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { mkdtempSync, rmSync, writeFileSync, existsSync, utimesSync, renameSync } from 'node:fs';
+import { mkdtempSync, rmSync, writeFileSync, existsSync, utimesSync } from 'node:fs';
 import { execFileSync, spawnSync, spawn } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { resolve, join, dirname } from 'node:path';
@@ -180,36 +180,6 @@ describe('git-locks', () => {
     expect(row.live).toBe(true);
   });
 
-  it('a caller may name other lock files and move them aside instead of unlinking (the Cowork seam)', () => {
-    const refLock = resolve(root, '.git', 'refs', 'heads', 'side.lock');
-    writeFileSync(refLock, '');
-    backdate(refLock, 120);
-    writeFileSync(indexLock, ''); // fresh, and NOT in the named set: not even looked at
-    const lines = [];
-    const r = clearStaleLocksSync(root, {
-      ...quick,
-      log: (s) => lines.push(s),
-      locks: [refLock],
-      remove: (p) => { renameSync(p, `${p}.moved`); return 'renamed aside'; },
-    });
-    expect(r.cleared.map((c) => c.rel)).toEqual(['.git/refs/heads/side.lock']);
-    expect(existsSync(refLock)).toBe(false);
-    expect(existsSync(`${refLock}.moved`)).toBe(true);
-    expect(existsSync(indexLock)).toBe(true);
-    expect(lines.join('')).toMatch(/removed stale \.git\/refs\/heads\/side\.lock \(2m0s old, no git running in this checkout; renamed aside\)/);
-  });
-
-  it('ignoreAge clears a fresh lock nobody holds, and still keeps one a git holds', () => {
-    writeFileSync(indexLock, '');
-    expect(() => clearStaleLocksSync(root, quick)).toThrow(LockHeldError);
-    const r = clearStaleLocksSync(root, { ...quick, ignoreAge: true });
-    expect(r.cleared.map((c) => c.rel)).toEqual(['.git/index.lock']);
-    writeFileSync(indexLock, '');
-    const busy = () => [{ pid: 7, command: 'git commit', cwd: root }];
-    expect(() => clearStaleLocksSync(root, { ...quick, ignoreAge: true, gitProcesses: busy })).toThrow(/git is running in this checkout/);
-    expect(existsSync(indexLock)).toBe(true);
-  });
-
   it('a linked worktree is swept at its own git dir, not under the .git file at its root', () => {
     const linked = mkdtempSync(join(tmpdir(), 'gitlocks-linked-'));
     rmSync(linked, { recursive: true, force: true });
@@ -289,7 +259,7 @@ describe('git-locks', () => {
     });
   });
 
-  it('the Cowork case still works: a commit clears the old lock a dead git left behind', () => {
+  it('a commit clears the old lock a dead git left behind', () => {
     writeFileSync(resolve(root, 'Foo.md'), '---\ntitle: Foo\nstage: sprout\n---\nedited\n');
     writeFileSync(indexLock, '');
     backdate(indexLock, 600);
