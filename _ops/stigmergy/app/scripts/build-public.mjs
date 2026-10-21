@@ -39,7 +39,7 @@ import { makeResolver } from '../../../rich-face/resolve.mjs';
 import { vendorFiles, richReferences } from '../../../rich-face/rich-handler.mjs';
 import { isPiecePage, pieceBytes } from '../../../rich-face/kit/inject.mjs';
 import { contractOf, framePlan } from '../../../rich-face/contract.mjs';
-import { makeContext, readFace, checkPage, openErrors, renderTable } from '../../../rich-face/conform.mjs';
+import { makeContext, readFace, checkPage, openErrors, renderTable, markLocal } from '../../../rich-face/conform.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const APP = resolve(HERE, '..');
@@ -414,9 +414,13 @@ for (const s of published) {
 writeJson('data/rich.json', { entries: rich });
 
 if (conformRun.faces.length) {
+  markLocal(conformCtx, conformRun.faces, conformRun.results);
   const errors = openErrors(conformRun);
   const enforced = conformCtx.config.enforce.build;
   console.log(`  rich faces checked: ${conformRun.faces.length} faces, ${conformRun.results.length} pieces, ${errors.length} error(s)${enforced ? '' : ' (report-only)'}`);
+  // What a face names that is only on this Mac ships as a box (README § Media a face plays).
+  const local = new Set([...conformRun.faceFindings, ...conformRun.results.flatMap((r) => r.findings)].filter((f) => f.rule === 'file-local').map((f) => f.local.path));
+  if (local.size) console.log(`  ${local.size} file(s) a face needs are only on this Mac and ship as a box: node _ops/rich-face/untracked.mjs prints how to track each`);
   if (errors.length) console.log(renderTable(conformRun));
   if (enforced && errors.length) throw new Error(`rich face: ${errors.length} error(s) from the piece checker, and the build is enforced: ${errors.slice(0, 3).map((f) => `${f.rule} ${f.piece}`).join('; ')}`);
 }

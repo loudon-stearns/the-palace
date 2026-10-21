@@ -42,6 +42,8 @@ const PIECES = {
   'folder-missing.html': [page(`${NONE}<meta name="piece:files" content="nothing-here/">`), 'file-missing'],
   'file-missing.html': [page(`${NONE}<meta name="piece:files" content="nope.json">`), 'file-missing'],
   'file-ignored.html': [page(NONE, '<img src="renders/frame.png">'), 'file-ignored'],
+  // Declares a file that is new since the last commit, and loads a render git ignores.
+  'file-local.html': [page(`${NONE}<meta name="piece:files" content="fresh.json">`, '<script>fetch("fresh.json")</script><img src="renders/take.png">'), 'file-local'],
   'file-outside.html': [page(`${NONE}<meta name="piece:files" content="away.json">`), 'file-outside'],
   'net-undeclared.html': [page(NONE, '<script>fetch("https://api.example.com/v1/x")</script>'), 'net-undeclared'],
   'cdn-unpinned.html': [page(`${NONE}<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>`), 'cdn-unpinned'],
@@ -74,7 +76,7 @@ function makePalace() {
   execFileSync('git', ['init', '-q'], { cwd: root, env: gitFreeEnv() });
   assertScratchRepo(root);
   const put = (rel, text) => { mkdirSync(dirname(resolve(root, rel)), { recursive: true }); writeFileSync(resolve(root, rel), text, 'utf8'); };
-  put('.gitignore', 'Pieces/renders/\n');
+  put('.gitignore', 'Pieces/renders/\nFace/renders/\n');
   for (const [name, [html]] of Object.entries(PIECES)) put(`Pieces/${name}`, html);
   put('Pieces/data.json', '{}');
   put('Pieces/frames/a.png', 'PNG');
@@ -98,7 +100,17 @@ function makePalace() {
     { file: 'loose.html', origin: 'gathered' },
     { file: '/Pieces/clean.html', origin: 'made' },
     { file: 'ghost.html', origin: 'made' },
+    { file: 'take.wav', origin: 'made' },
+    { file: 'renders/long.wav', origin: 'made' },
   ]));
+  // Everything so far is committed, so it is what the public face has. What
+  // follows is only on this Mac: a new file, and renders git ignores.
+  const g = (...a) => execFileSync('git', a, { cwd: root, env: gitFreeEnv({ GIT_AUTHOR_NAME: 't', GIT_AUTHOR_EMAIL: 't@t.invalid', GIT_COMMITTER_NAME: 't', GIT_COMMITTER_EMAIL: 't@t.invalid' }) });
+  g('add', '-A'); g('commit', '-qm', 'the palace');
+  put('Pieces/fresh.json', '{}');
+  put('Pieces/renders/take.png', 'PNG');
+  put('Face/take.wav', 'RIFF');
+  put('Face/renders/long.wav', 'RIFF');
   return root;
 }
 
@@ -186,6 +198,46 @@ describe('the rich face: how it names its files', () => {
     const md = renderReport(run, { title: 't' });
     expect(md).toContain('`Pieces/clean.html` | introduced');
     expect(md).toContain('| cdn-unpinned | pins | 1 |');
+  });
+});
+
+describe('only on this Mac (file-local)', () => {
+  const local = (findings) => findings.filter((f) => f.rule === 'file-local');
+  test('a face naming a new file and an ignored render: a warning each, with the step that tracks it', () => {
+    const [fresh, render] = ['Face/take.wav', 'Face/renders/long.wav'].map((k) => local(run.faceFindings).find((f) => f.key === k));
+    expect(fresh).toMatchObject({ level: 'warn', piece: 'Face.md', ignored: false });
+    expect(fresh.detail).toMatch(/git does not track: it plays on this Mac/);
+    expect(fresh.steps).toEqual([expect.stringMatching(/palace-commit\.mjs --kind ops --scope "Face" .*--path "Face\/take\.wav"$/)]);
+    expect(render).toMatchObject({ ignored: true });
+    expect(render.steps[0]).toBe('mkdir -p "Face/rich-face" && cp "Face/renders/long.wav" "Face/rich-face/long.wav"');
+    expect(render.steps[1]).toMatch(/--path "Face\/rich-face\/long\.wav"$/);
+    expect(render.steps[2]).toMatch(/then name it "long\.wav" where the face names "renders\/long\.wav"/);
+  });
+  test('a piece declaring a new file and loading a render; one no face shows is told so', () => {
+    const fs = local(byPath.get('Pieces/file-local.html').findings);
+    expect(fs.map((f) => [f.key, f.ignored])).toEqual([['Pieces/fresh.json', false], ['Pieces/renders/take.png', true]]);
+    expect(fs[0].detail).toMatch(/^declares fresh\.json \(Pieces\/fresh\.json\)/);
+    expect(fs[1].steps).toEqual([expect.stringMatching(/^no rich face shows it yet/)]);
+    expect(rulesOf('Pieces/file-local.html')).not.toContain('file-missing');
+  });
+  test('in a build, a miss this Mac can fill is file-local, not file-missing or file-ignored; a file that is nowhere is still a miss', () => {
+    const built = checkStatic(makeContext(root, { tracked: true }), { all: true });
+    const r = new Map(built.results.map((x) => [x.path, x.findings]));
+    const fs = local(r.get('Pieces/file-local.html'));
+    expect(fs.map((f) => f.key)).toEqual(['Pieces/fresh.json', 'Pieces/renders/take.png']);
+    expect(fs.every((f) => /only on this Mac: the public build shows a box/.test(f.detail) && f.steps.length)).toBe(true);
+    expect(r.get('Pieces/file-local.html').map((f) => f.rule)).not.toEqual(expect.arrayContaining(['file-missing']));
+    expect(r.get('Pieces/file-local.html').map((f) => f.rule)).not.toContain('file-ignored');
+    expect(local(built.faceFindings).map((f) => f.key).sort()).toEqual(['Face/renders/long.wav', 'Face/take.wav']);
+    expect(built.faceFindings.filter((f) => f.rule === 'ref-missing').map((f) => f.key)).toEqual(['ghost.html']);
+    expect(r.get('Pieces/file-ignored.html').map((f) => f.rule)).toContain('file-ignored');
+  });
+  test('the report lists each file only on this Mac once, with its steps', () => {
+    const md = renderReport(run, { title: 't' });
+    expect(md).toContain('## Only on this Mac');
+    expect(md).toContain('- `Face/renders/long.wav` (ignored by git; Face.md)');
+    expect(md).toContain('  - `mkdir -p "Face/rich-face" && cp "Face/renders/long.wav" "Face/rich-face/long.wav"`');
+    expect(md.match(/- `Pieces\/fresh\.json`/g)).toHaveLength(1);
   });
 });
 
