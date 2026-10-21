@@ -170,7 +170,7 @@ and (for ceremony changes) `_ops/Palace Ceremonies` are internally consistent â€
 **Failure mode:** If a schema change is made but its commit does not carry the Schema Ceremony subject, the change is not a Schema Ceremony; it is an undocumented structural edit. So each Schema Ceremony opens by reading the version moves since the last one (`git log --format='%h %s' -G'^version:' -- SCHEMA.md`). For any whose commit lacks the subject, it reconstructs the rationale from the diff and adds it to [[SCHEMA â€” Context]].
 
 **Access vectors:**
-- *Full:* Claude Code / Cowork (filesystem read/write + git)
+- *Full:* Claude Code on the Mac (filesystem read/write; commits through the door, [[How the Palace Commits]])
 - *Planning only:* claude.ai online (can deliberate and draft changes; cannot write files or commit)
 - *Manual:* Obsidian + human (human makes edits; human runs git commit)
 - *Not supported:* GitHub cloud alone
@@ -394,7 +394,7 @@ The strict validator gates malformed posts, and **as of v1.17 the gate matches t
 
 **Boards** route attention: `GENERAL` (status/content), `TRICKSTER` (decisions for the human), `WEAVE` (palace-weaving flags: weave flags for the next weave, and the proofs and sparks that feed it), `FLAGS` (connections worth keeping), `SYSTEM` (session lifecycle).
 
-**Weave flags.** Work for the next [[Weave Ceremony|weave]] is a `BROADCAST` on `WEAVE` whose `payload.kind` is `weave_flag`. It is not the `FLAG` type, which belongs to the `FLAGS` board. A session posts one through the Commons writer, run from `_ops/`, after showing Loudon its body and hearing his yes; only two tools post their own (the weave's trails, `weave-emit-trails.mjs`, and cowork-git's litter sweep). There are two kinds:
+**Weave flags.** Work for the next [[Weave Ceremony|weave]] is a `BROADCAST` on `WEAVE` whose `payload.kind` is `weave_flag`. It is not the `FLAG` type, which belongs to the `FLAGS` board. A session posts one through the Commons writer, run from `_ops/`, after showing Loudon its body and hearing his yes; only one tool posts its own: the weave's trails, `weave-emit-trails.mjs`. There are two kinds:
 
 - An **entry flag** (`python3 -m commons weave-flag`) names its `source_entries` and asks for something done to them: `flag_type`, `source_entries`, `target_entry`, `proposed_action`, `rationale`, `source_deposit_id`.
 - A **propagate flag** (`python3 -m commons propagate`, `flag_type: propagate`) carries a decision to every page it reaches. It names no source entries, so no touch can close it. It carries `decision`, `target_entry` (the decision's home, written first), `scope`, `check`, `rhythm` (`sweep`, or `by-touch` when pages should change only as they are next edited, which needs a pattern), `proposed_action`, `rationale`, `source_deposit_id` and, when the check is mechanical, a `pattern` with optional `paths` that the flag linter counts. The writer's flags name three of these differently: `--home`, `--action`, `--source-id`.
