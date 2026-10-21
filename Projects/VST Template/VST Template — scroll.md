@@ -50,6 +50,48 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="proof-2026-10-21-crt-frame" -->
+### 2026-10-21 — The CRT's casing: a television drawn around a screen each plugin owns
+> On Loudon's words, the template draws the set and leaves the picture to the plugin: a casing drawn as an elevation, a black glass inside, a slight vignette at its edges.
+
+Loudon, 2026-10-21: "the look of the CRT should be a architecturally drawn frame, like a design of the outside of a TV, but then we leave the inside to be anything, but there is a slight vingnette on the edges. This way the VST design can create a super creative view that breaks completely from our design choices."
+
+In the bench direction the editor now draws a television between the two heroes, in the dress's ink: the cabinet, the bezel's lip, the tube's rounded face, two knobs, a speaker grille, the feet, and centre marks as on a drawing, redrawn to whatever space it has. Inside is a black glass, `window.editorScreen`, which the plugin owns; anything can draw there. The glass is made once and moved into each rebuild, so a visualizer's canvas survives a resize. It stays hidden unless a plugin sets `"screen": true` in its `ui` block, and neither does yet. `ui.py mock --screen` or `shot --screen` shows it with colour bars standing in. Loading a plugin's own visualizer and feeding it the probes is the CRT move batoned on [[VST Template]]; the recipe names where that feed would hook in.
+
+**Artifacts:**
+- [README.md — the casing around a stand-in](Projects/VST Template/proofs/2026-10-21-crt-frame/README.md)
+- [Simple Synth with the CRT, 920 × 540](Projects/VST Template/proofs/2026-10-21-crt-frame/simplesynth-crt-920x540.png)
+- [Simple Synth with the CRT, 960 × 600](Projects/VST Template/proofs/2026-10-21-crt-frame/simplesynth-crt-960x600.png)
+- [Simple Synth with the CRT, 1400 × 880](Projects/VST Template/proofs/2026-10-21-crt-frame/simplesynth-crt-1400x880.png)
+
+_Left rough:_ the CRT has been seen only in headless Chrome, never inside the plugin's WebKit view, since neither plugin shows it yet; the colour bars are a stand-in; no visualizer and no probe feed exist yet.
+<sub>`proof-2026-10-21-crt-frame` · written by hand · landed in `ad2cea1d`</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="proof-2026-10-21-ui-dress" -->
+### 2026-10-21 — The editors wear Drafting Table on Phosphor, photographed from the plugins themselves
+> Loudon chose the dress: Drafting Table on its Phosphor theme, the bench layout, and the edge-map pad on Frustration.
+
+Loudon, 2026-10-21: "Yes: plugin editors move to Drafting Table on Phosphor, Bench layout, with the edge-map pad on Frustration."
+
+Drafting Table is now the template's default dress, inlined from `_ops/drafting-table/design-system/` at every build; Loudon Live stays selectable with `"dress": "loudon-live"`. Its title block, panels and controls draw the editor, bound to the plugin's parameters through the same relays, with one gesture rule shared with the system: 150 px for the full range, Shift a fifth as fast, the wheel 2 %. Frustration's direction is edge; Simple Synth and the template stay bench. The editor fits itself to its window, stepping the heroes down and then the knobs, and the minimums rose to the smallest windows that fit: Frustration 660 × 500, Simple Synth 920 × 540, with Simple Synth's default now 960 × 600. `./plugin.sh editor` opens the installed VST3's editor as a host does and photographs it; nothing sounds.
+
+- **The gates**, on the same build of both plugins: the strict code-seal check, pluginval at strictness 5 (which opens the editor while processing), auval, the host check on the VST3 and the AU, and `ui.py fit` at the minimum, default and maximum windows. A sweep of 56 windows per plugin, in both dresses and every direction, fitted: 336 of 336.
+- **What the real-editor pictures caught.** Headless Chrome lays a page out 87 px shorter than its window before it takes the picture, so the first browser renders sized their knobs for a smaller window, and Simple Synth looked as if it fitted when it didn't. Those renders were deleted, and `ui.py` now corrects for it. Inside the plugin, WebKit stopped animation frames in a window it took to be covered but still sent the resize, so a refit waiting on a frame never came and Simple Synth lost its bottom row at 920 × 540; the refit now runs in the resize event. And the editor had read Drafting Table's small-window rule loosely; it now clamps on the smaller of width and height, as the rule says.
+
+**Artifacts:**
+- [README.md — both editors, the gates, what the pictures caught](Projects/VST Template/proofs/2026-10-21-ui-dress/README.md)
+- [editors.png — the four pictures stacked, for a phone](Projects/VST Template/proofs/2026-10-21-ui-dress/editors.png)
+- [Frustration's editor at 660 × 500, its minimum](Projects/VST Template/proofs/2026-10-21-ui-dress/frustration-editor-660x500.png)
+- [Frustration's editor at 760 × 520, its default](Projects/VST Template/proofs/2026-10-21-ui-dress/frustration-editor-760x520.png)
+- [Simple Synth's editor at 920 × 540, its minimum](Projects/VST Template/proofs/2026-10-21-ui-dress/simplesynth-editor-920x540.png)
+- [Simple Synth's editor at 960 × 600, its default](Projects/VST Template/proofs/2026-10-21-ui-dress/simplesynth-editor-960x600.png)
+- [VST Template — design standard.md — the choice, what every editor shares, the CRT](Projects/VST Template/VST Template — design standard.md)
+
+_Left rough:_ the new editors have not been opened in Live, and neither plugin has yet been inserted from Live's browser; the hero knob and the XY pad are still provisional in Drafting Table, and the pad's dot stays in the accent where its notes ask for a slab dot; JetBrains Mono is read from the building Mac's `~/Library/Fonts` until Drafting Table ships it as a file.
+<sub>`proof-2026-10-21-ui-dress` · written by hand · the dress landed in `370e18dd` and `ad2cea1d`, the shared gesture rule in `4cf0f849`</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="proof-2026-10-21-ui-directions" -->
 ### 2026-10-21 — Three directions for the template's editor, for Loudon to choose from
 > The sixth move's first step: one engine draws every plugin's editor in the house dress from its parameter table, and three directions are rendered for both plugins.
