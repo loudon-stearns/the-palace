@@ -7,10 +7,10 @@
 // standalone as rich-server.mjs); this family only mounts it. Reviews post back
 // into this same server's /api/persistent — the board's sanctioned write path.
 
-import { resolve } from 'node:path';
 import { createRichHandler } from '../../../../rich-face/rich-handler.mjs';
 
-const handlers = new Map(); // palaceRoot -> handler (one per root; tests use temp roots)
+// palaceRoot -> { pieces, handle }: one per root and piece origin (tests use temp roots).
+const handlers = new Map();
 
 // Where a review is forwarded: this same server, addressed by the socket the
 // request arrived on — never the client's Host header, which any caller can
@@ -22,18 +22,16 @@ export function selfOrigin(req) {
   return `${s.encrypted ? 'https' : 'http'}://${addr}:${s.localPort}`;
 }
 
+// The renderer is the code that is running (_ops/rich-face beside this app),
+// whatever palace it reads; its pieces run on the piece origin the middleware
+// started (ctx.pieces).
 export async function richRoutes(ctx) {
-  const { req, res, palaceRoot, urlPath } = ctx;
+  const { req, res, palaceRoot, urlPath, pieces = null } = ctx;
   if (urlPath !== '/rich' && !urlPath.startsWith('/rich/')) return false;
-  let handle = handlers.get(palaceRoot);
-  if (!handle) {
-    handle = createRichHandler({
-      root: palaceRoot,
-      here: resolve(palaceRoot, '_ops/rich-face'),
-      base: '/rich',
-      app: selfOrigin,
-    });
-    handlers.set(palaceRoot, handle);
+  let h = handlers.get(palaceRoot);
+  if (!h || h.pieces !== pieces) {
+    h = { pieces, handle: createRichHandler({ root: palaceRoot, base: '/rich', app: selfOrigin, pieces }) };
+    handlers.set(palaceRoot, h);
   }
-  return handle(req, res);
+  return h.handle(req, res);
 }

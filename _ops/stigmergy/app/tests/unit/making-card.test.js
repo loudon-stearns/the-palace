@@ -24,8 +24,9 @@ describe('MakingCard', () => {
     expect(html).toContain('data-testid="table-block"');
     expect(html).toContain('data-testid="artifact-slot"');         // the light one mounts
     expect(html).toContain('data-testid="heavy-artifact"');         // the heavy one plays in place,
-    expect(html).toContain('data-testid="artifact-iframe"');        // no click: the same frame a TRICKSTER card draws
-    expect(html).toContain('sandbox="allow-scripts"');
+    // No click: the same slot a TRICKSTER card draws, asking /api/piece how to
+    // frame the page on the piece origin (the first render, before it answers).
+    expect(html).toContain('data-testid="artifact-piece-pending"');
     expect(html).not.toContain('play it here');
     expect(html).toContain('Membrane silent');
     expect(html).toContain('data-chosen="true"');
@@ -42,6 +43,6 @@ describe('MakingCard', () => {
     const at = html.indexOf('data-testid="heavy-artifact"');
     expect(at).toBeGreaterThan(-1);
     expect(html.indexOf('data-testid="lazy-mount"', at)).toBeGreaterThan(at);  // its own mount, inside the card's
-    expect(html).toContain('/api/file?path=Dissolutions%2Fproofs%2Fx%2Fone-curve.html');
+    expect(html).toContain('data-path="Dissolutions/proofs/x/one-curve.html"');
   });
 });

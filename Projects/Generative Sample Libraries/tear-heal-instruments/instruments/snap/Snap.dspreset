@@ -1,0 +1,81 @@
+<DecentSampler minVersion="1.0.0">
+  <!-- written by build.py beside Snap.sfz; same map -->
+  <!-- SFZ tune (cents) written as tuning (semitones) = tune/100 -->
+  <ui width="812" height="200" bgColor="FF0A0A0F">
+    <tab name="main">
+      <label x="20" y="6" width="772" height="24" text="Snap" textColor="FFE8B84A" textSize="18" />
+      <label x="20" y="150" width="772" height="40" text="Eight bright partials: few partials snap instead of fraying. The edge is a cliff, so the tear is a run of slips and the sustain is dead still." textColor="FFE8E6DF" textSize="12" />
+      <labeled-knob x="20" y="40" width="90" height="90" textSize="14" label="Attack" type="float" minValue="0" maxValue="2" value="0.002" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="ENV_ATTACK" />
+      </labeled-knob>
+      <labeled-knob x="130" y="40" width="90" height="90" textSize="14" label="Release" type="float" minValue="0" maxValue="8" value="0.5" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="ENV_RELEASE" />
+      </labeled-knob>
+      <labeled-knob x="240" y="40" width="90" height="90" textSize="14" label="Volume" type="float" minValue="0" maxValue="1" value="0.8" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="AMP_VOLUME" />
+      </labeled-knob>
+    </tab>
+  </ui>
+  <groups attack="0.002" decay="0" sustain="1" release="0.5" volume="0.8">
+    <group ampVelTrack="0.6">
+      <!-- soft: thrown 2x past the key's edge, decaying with tau 0.15 s at 110 Hz -->
+      <sample path="Samples/snap_C3_soft.wav" rootNote="48" loNote="45" hiNote="49" loVel="1" hiVel="42" tuning="0.11" loopEnabled="true" loopStart="47106" loopEnd="166157" loopCrossfade="0" />
+      <sample path="Samples/snap_D#3_soft.wav" rootNote="51" loNote="50" hiNote="52" loVel="1" hiVel="42" tuning="0.11" loopEnabled="true" loopStart="35609" loopEnd="135718" loopCrossfade="0" />
+      <sample path="Samples/snap_F#3_soft.wav" rootNote="54" loNote="53" hiNote="55" loVel="1" hiVel="42" tuning="0.11" loopEnabled="true" loopStart="26858" loopEnd="111039" loopCrossfade="0" />
+      <sample path="Samples/snap_A3_soft.wav" rootNote="57" loNote="56" hiNote="58" loVel="1" hiVel="42" tuning="0.11" loopEnabled="true" loopStart="38628" loopEnd="109416" loopCrossfade="0" />
+      <sample path="Samples/snap_C4_soft.wav" rootNote="60" loNote="59" hiNote="61" loVel="1" hiVel="42" tuning="0.11" loopEnabled="true" loopStart="30137" loopEnd="89662" loopCrossfade="0" />
+      <sample path="Samples/snap_D#4_soft.wav" rootNote="63" loNote="62" hiNote="64" loVel="1" hiVel="42" tuning="0.11" loopEnabled="true" loopStart="20934" loopEnd="121942" loopCrossfade="0" />
+      <sample path="Samples/snap_F#4_soft.wav" rootNote="66" loNote="65" hiNote="67" loVel="1" hiVel="42" tuning="0.11" loopEnabled="true" loopStart="13632" loopEnd="140302" loopCrossfade="0" />
+      <sample path="Samples/snap_A4_soft.wav" rootNote="69" loNote="68" hiNote="70" loVel="1" hiVel="42" tuning="0.11" loopEnabled="true" loopStart="11817" loopEnd="118233" loopCrossfade="0" />
+      <sample path="Samples/snap_C5_soft.wav" rootNote="72" loNote="71" hiNote="73" loVel="1" hiVel="42" tuning="0.11" loopEnabled="true" loopStart="16569" loopEnd="106391" loopCrossfade="0" />
+      <sample path="Samples/snap_D#5_soft.wav" rootNote="75" loNote="74" hiNote="76" loVel="1" hiVel="42" tuning="0.11" loopEnabled="true" loopStart="14849" loopEnd="90380" loopCrossfade="0" />
+      <sample path="Samples/snap_F#5_soft.wav" rootNote="78" loNote="77" hiNote="79" loVel="1" hiVel="42" tuning="0.11" loopEnabled="true" loopStart="25388" loopEnd="88961" loopCrossfade="0" />
+      <sample path="Samples/snap_A5_soft.wav" rootNote="81" loNote="80" hiNote="82" loVel="1" hiVel="42" tuning="0.11" loopEnabled="true" loopStart="29059" loopEnd="82517" loopCrossfade="0" />
+      <sample path="Samples/snap_C6_soft.wav" rootNote="84" loNote="83" hiNote="85" loVel="1" hiVel="42" tuning="0.11" loopEnabled="true" loopStart="11899" loopEnd="101721" loopCrossfade="0" />
+      <sample path="Samples/snap_D#6_soft.wav" rootNote="87" loNote="86" hiNote="88" loVel="1" hiVel="42" tuning="0.11" loopEnabled="true" loopStart="21579" loopEnd="97145" loopCrossfade="0" />
+      <sample path="Samples/snap_F#6_soft.wav" rootNote="90" loNote="89" hiNote="91" loVel="1" hiVel="42" tuning="0.11" loopEnabled="true" loopStart="23999" loopEnd="87542" loopCrossfade="0" />
+      <sample path="Samples/snap_A6_soft.wav" rootNote="93" loNote="92" hiNote="94" loVel="1" hiVel="42" tuning="0.11" loopEnabled="true" loopStart="19599" loopEnd="73082" loopCrossfade="0" />
+      <sample path="Samples/snap_C7_soft.wav" rootNote="96" loNote="95" hiNote="99" loVel="1" hiVel="42" tuning="0.11" loopEnabled="true" loopStart="21359" loopEnd="88746" loopCrossfade="0" />
+    </group>
+    <group ampVelTrack="0.6">
+      <!-- mid: thrown 6x past the key's edge, decaying with tau 0.15 s at 110 Hz -->
+      <sample path="Samples/snap_C3_mid.wav" rootNote="48" loNote="45" hiNote="49" loVel="43" hiVel="85" tuning="0.11" loopEnabled="true" loopStart="45539" loopEnd="164590" loopCrossfade="0" />
+      <sample path="Samples/snap_D#3_mid.wav" rootNote="51" loNote="50" hiNote="52" loVel="43" hiVel="85" tuning="0.11" loopEnabled="true" loopStart="39364" loopEnd="139474" loopCrossfade="0" />
+      <sample path="Samples/snap_F#3_mid.wav" rootNote="54" loNote="53" hiNote="55" loVel="43" hiVel="85" tuning="0.11" loopEnabled="true" loopStart="35364" loopEnd="119545" loopCrossfade="0" />
+      <sample path="Samples/snap_A3_mid.wav" rootNote="57" loNote="56" hiNote="58" loVel="43" hiVel="85" tuning="0.11" loopEnabled="true" loopStart="29841" loopEnd="100629" loopCrossfade="0" />
+      <sample path="Samples/snap_C4_mid.wav" rootNote="60" loNote="59" hiNote="61" loVel="43" hiVel="85" tuning="0.11" loopEnabled="true" loopStart="30457" loopEnd="89982" loopCrossfade="0" />
+      <sample path="Samples/snap_D#4_mid.wav" rootNote="63" loNote="62" hiNote="64" loVel="43" hiVel="85" tuning="0.11" loopEnabled="true" loopStart="37225" loopEnd="138233" loopCrossfade="0" />
+      <sample path="Samples/snap_F#4_mid.wav" rootNote="66" loNote="65" hiNote="67" loVel="43" hiVel="85" tuning="0.11" loopEnabled="true" loopStart="18086" loopEnd="144756" loopCrossfade="0" />
+      <sample path="Samples/snap_A4_mid.wav" rootNote="69" loNote="68" hiNote="70" loVel="43" hiVel="85" tuning="0.11" loopEnabled="true" loopStart="16138" loopEnd="122554" loopCrossfade="0" />
+      <sample path="Samples/snap_C5_mid.wav" rootNote="72" loNote="71" hiNote="73" loVel="43" hiVel="85" tuning="0.11" loopEnabled="true" loopStart="20758" loopEnd="110580" loopCrossfade="0" />
+      <sample path="Samples/snap_D#5_mid.wav" rootNote="75" loNote="74" hiNote="76" loVel="43" hiVel="85" tuning="0.11" loopEnabled="true" loopStart="18069" loopEnd="93600" loopCrossfade="0" />
+      <sample path="Samples/snap_F#5_mid.wav" rootNote="78" loNote="77" hiNote="79" loVel="43" hiVel="85" tuning="0.11" loopEnabled="true" loopStart="28563" loopEnd="92136" loopCrossfade="0" />
+      <sample path="Samples/snap_A5_mid.wav" rootNote="81" loNote="80" hiNote="82" loVel="43" hiVel="85" tuning="0.11" loopEnabled="true" loopStart="31196" loopEnd="84654" loopCrossfade="0" />
+      <sample path="Samples/snap_C6_mid.wav" rootNote="84" loNote="83" hiNote="85" loVel="43" hiVel="85" tuning="0.11" loopEnabled="true" loopStart="14168" loopEnd="103990" loopCrossfade="0" />
+      <sample path="Samples/snap_D#6_mid.wav" rootNote="87" loNote="86" hiNote="88" loVel="43" hiVel="85" tuning="0.11" loopEnabled="true" loopStart="27849" loopEnd="103415" loopCrossfade="0" />
+      <sample path="Samples/snap_F#6_mid.wav" rootNote="90" loNote="89" hiNote="91" loVel="43" hiVel="85" tuning="0.11" loopEnabled="true" loopStart="22019" loopEnd="85562" loopCrossfade="0" />
+      <sample path="Samples/snap_A6_mid.wav" rootNote="93" loNote="92" hiNote="94" loVel="43" hiVel="85" tuning="0.11" loopEnabled="true" loopStart="21359" loopEnd="74842" loopCrossfade="0" />
+      <sample path="Samples/snap_C7_mid.wav" rootNote="96" loNote="95" hiNote="99" loVel="43" hiVel="85" tuning="0.11" loopEnabled="true" loopStart="18059" loopEnd="85446" loopCrossfade="0" />
+    </group>
+    <group ampVelTrack="0.6">
+      <!-- hard: thrown 20x past the key's edge, decaying with tau 0.15 s at 110 Hz -->
+      <sample path="Samples/snap_C3_hard.wav" rootNote="48" loNote="45" hiNote="49" loVel="86" hiVel="127" tuning="0.11" loopEnabled="true" loopStart="59547" loopEnd="178598" loopCrossfade="0" />
+      <sample path="Samples/snap_D#3_hard.wav" rootNote="51" loNote="50" hiNote="52" loVel="86" hiVel="127" tuning="0.11" loopEnabled="true" loopStart="52404" loopEnd="152514" loopCrossfade="0" />
+      <sample path="Samples/snap_F#3_hard.wav" rootNote="54" loNote="53" hiNote="55" loVel="86" hiVel="127" tuning="0.11" loopEnabled="true" loopStart="45146" loopEnd="129328" loopCrossfade="0" />
+      <sample path="Samples/snap_A3_hard.wav" rootNote="57" loNote="56" hiNote="58" loVel="86" hiVel="127" tuning="0.11" loopEnabled="true" loopStart="43230" loopEnd="114018" loopCrossfade="0" />
+      <sample path="Samples/snap_C4_hard.wav" rootNote="60" loNote="59" hiNote="61" loVel="86" hiVel="127" tuning="0.11" loopEnabled="true" loopStart="36717" loopEnd="96242" loopCrossfade="0" />
+      <sample path="Samples/snap_D#4_hard.wav" rootNote="63" loNote="62" hiNote="64" loVel="86" hiVel="127" tuning="0.11" loopEnabled="true" loopStart="34772" loopEnd="135780" loopCrossfade="0" />
+      <sample path="Samples/snap_F#4_hard.wav" rootNote="66" loNote="65" hiNote="67" loVel="86" hiVel="127" tuning="0.11" loopEnabled="true" loopStart="22541" loopEnd="149211" loopCrossfade="0" />
+      <sample path="Samples/snap_A4_hard.wav" rootNote="69" loNote="68" hiNote="70" loVel="86" hiVel="127" tuning="0.11" loopEnabled="true" loopStart="20195" loopEnd="126611" loopCrossfade="0" />
+      <sample path="Samples/snap_C5_hard.wav" rootNote="72" loNote="71" hiNote="73" loVel="86" hiVel="127" tuning="0.11" loopEnabled="true" loopStart="24330" loopEnd="114152" loopCrossfade="0" />
+      <sample path="Samples/snap_D#5_hard.wav" rootNote="75" loNote="74" hiNote="76" loVel="86" hiVel="127" tuning="0.11" loopEnabled="true" loopStart="21817" loopEnd="97348" loopCrossfade="0" />
+      <sample path="Samples/snap_F#5_hard.wav" rootNote="78" loNote="77" hiNote="79" loVel="86" hiVel="127" tuning="0.11" loopEnabled="true" loopStart="33938" loopEnd="97511" loopCrossfade="0" />
+      <sample path="Samples/snap_A5_hard.wav" rootNote="81" loNote="80" hiNote="82" loVel="86" hiVel="127" tuning="0.11" loopEnabled="true" loopStart="30191" loopEnd="83649" loopCrossfade="0" />
+      <sample path="Samples/snap_C6_hard.wav" rootNote="84" loNote="83" hiNote="85" loVel="86" hiVel="127" tuning="0.11" loopEnabled="true" loopStart="17078" loopEnd="106900" loopCrossfade="0" />
+      <sample path="Samples/snap_D#6_hard.wav" rootNote="87" loNote="86" hiNote="88" loVel="86" hiVel="127" tuning="0.11" loopEnabled="true" loopStart="32034" loopEnd="107600" loopCrossfade="0" />
+      <sample path="Samples/snap_F#6_hard.wav" rootNote="90" loNote="89" hiNote="91" loVel="86" hiVel="127" tuning="0.11" loopEnabled="true" loopStart="24895" loopEnd="88438" loopCrossfade="0" />
+      <sample path="Samples/snap_A6_hard.wav" rootNote="93" loNote="92" hiNote="94" loVel="86" hiVel="127" tuning="0.11" loopEnabled="true" loopStart="27333" loopEnd="80816" loopCrossfade="0" />
+      <sample path="Samples/snap_C7_hard.wav" rootNote="96" loNote="95" hiNote="99" loVel="86" hiVel="127" tuning="0.11" loopEnabled="true" loopStart="22800" loopEnd="90187" loopCrossfade="0" />
+    </group>
+  </groups>
+</DecentSampler>

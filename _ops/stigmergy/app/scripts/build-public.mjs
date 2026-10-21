@@ -38,6 +38,7 @@ import { pathId, encodeSegments } from '../src/lib/public-mode.js';
 import { makeResolver } from '../../../rich-face/resolve.mjs';
 import { vendorFiles, richReferences } from '../../../rich-face/rich-handler.mjs';
 import { isPiecePage, pieceBytes } from '../../../rich-face/kit/inject.mjs';
+import { contractOf, framePlan } from '../../../rich-face/contract.mjs';
 import { makeContext, readFace, checkPage, openErrors, renderTable } from '../../../rich-face/conform.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -367,12 +368,20 @@ for (const s of published) {
   // The same table the live page gets from _api/resolve: every file the text
   // and the manifest name, and where it landed or why not. A failure keeps
   // its label, so the read view shows the same box the live page does.
-  const refs = richReferences(resolver, e.path, readFileSync(join(ROOT, e.path), 'utf8'), JSON.parse(readFileSync(join(ROOT, manifestRel), 'utf8')));
-  const media = {};
+  const manifestJson = JSON.parse(readFileSync(join(ROOT, manifestRel), 'utf8'));
+  const refs = richReferences(resolver, e.path, readFileSync(join(ROOT, e.path), 'utf8'), manifestJson);
+  // A gathered proof's contract block, by the name its manifest gives it.
+  const contracts = new Map((manifestJson.sections || []).flatMap((m) => m.pieces || []).filter((p) => p && p.contract).map((p) => [p.file, p.contract]));
+  const media = {}, pieces = {};
   for (const [n, r] of refs) {
     if (!r.ok) media[n] = { error: r.reason, label: r.label };
     else if (addFile(r.path)) media[n] = { path: r.path, url: `../files/${encodeSegments(servedAs(r.path))}` };
     else media[n] = { path: r.path, error: 'skipped', label: `“${n}” is not in the read view (${skipped.find((x) => x.path === r.path)?.reason || 'left out'}).` };
+    // Each piece framed as the live page frames it, from the same contract, but
+    // opaque on this site: storage in memory, a camera piece in its own tab.
+    if (media[n].url && isPiecePage(r.path)) {
+      pieces[n] = framePlan({ path: r.path, contract: contractOf({ html: readFileSync(join(ROOT, r.path), 'utf8'), manifestContract: contracts.get(n) }), mode: 'static', url: media[n].url });
+    }
   }
   conformCheck(() => {
     const face = readFace(conformCtx, e.path, manifestRel);
@@ -398,6 +407,7 @@ for (const s of published) {
     // Only what was copied is listed, so the page never reaches for a file that isn't there.
     files: bundleNames.filter((f) => files.has(`${bundleRel}/${f}`) || shownPaths.has(`${bundleRel}/${f}`)),
     media,
+    pieces,
     paths: namePaths,
   };
 }
@@ -413,14 +423,13 @@ if (conformRun.faces.length) {
 
 const richSrc = join(APP, '../../rich-face/rich.html');
 const richHtml = readFileSync(richSrc, 'utf8')
-  .replace('<script type="module">', '<script>window.RICH_STATIC = true;</script>\n<script type="module">')
-  .replace('<meta charset="utf-8">', '<meta charset="utf-8">\n<meta name="robots" content="noindex, nofollow">');
-if (!richHtml.includes('window.RICH_STATIC = true')) throw new Error('rich.html: could not mark it static');
+  .replace('<meta charset="utf-8">', '<meta charset="utf-8">\n<meta name="robots" content="noindex, nofollow">\n<meta name="rich:static" content="1">');
+if (!richHtml.includes('<meta name="rich:static"')) throw new Error('rich.html: could not mark it static');
 mkdirSync(join(OUT, 'rich'), { recursive: true });
 writeFileSync(join(OUT, 'rich/index.html'), richHtml);
-// The renderer's own module, which the live handler serves as _rich/parse.js.
+// The renderer's own modules, which the live handler serves as _rich/*.
 mkdirSync(join(OUT, 'rich/_rich'), { recursive: true });
-copyFileSync(join(APP, '../../rich-face/parse.js'), join(OUT, 'rich/_rich/parse.js'));
+for (const f of ['rich.js', 'parse.js']) copyFileSync(join(APP, '../../rich-face', f), join(OUT, 'rich/_rich', f));
 // Its two libraries, which the live handler serves as _vendor/* from the install npm
 // just checked against the lockfile — so the published page loads nothing from a CDN.
 const vendor = vendorFiles();

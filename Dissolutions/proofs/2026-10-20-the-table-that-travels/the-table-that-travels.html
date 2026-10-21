@@ -1,0 +1,438 @@
+<!doctype html>
+<!--
+  title: The Table That Travels
+  born: 2026-10-20
+  parent: [[Dissolutions]] · tests [[Dispersion Table]]
+  forward_vector: I am the proof that a wavetable and a lossless delay loop are one stored cycle, read with the motion swapped: the table holds still while its reader moves, the loop's samples move past a reader that holds still. I want the moment the loop gains a filter, and only the loop can follow, to read as the knob the identity hands over.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Table That Travels</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.75;padding:40px 16px 64px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:52px;line-height:1.05;margin:6px 0 10px}
+  p.lead{font-size:20px;color:var(--fg-2);margin:0 0 22px;max-width:64ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:8px;padding:18px;margin:0 0 16px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  .tabs .eyebrow{margin-right:4px}
+  .tab{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  .tab[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  .about{color:var(--fg-2);font-size:17px;line-height:1.6;margin:0 0 12px;min-height:3.2em}
+  canvas#stage{width:100%;display:block;background:var(--bg-elev-2);border-radius:6px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 18px;margin-top:12px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);display:block}
+  .ctl{display:grid;grid-template-columns:110px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap}
+  .hear{font-family:var(--sans);font-size:13px;color:var(--fg-3);margin-top:10px}
+  .hear b{color:var(--accent);font-weight:500}
+  .toggle{font-family:var(--sans);font-size:13px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:6px 12px;cursor:pointer}
+  .toggle[aria-pressed="true"]{color:var(--accent);border-color:var(--accent-line);background:var(--accent-soft)}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  textarea{width:100%;margin-top:10px;min-height:54px;font-family:var(--sans);font-size:14px;color:var(--fg-1);background:var(--bg-elev-2);border:1px solid var(--border-soft);border-radius:4px;padding:8px 10px;resize:vertical}
+  textarea::placeholder{color:var(--fg-4)}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:5px 10px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  .found{margin:0 0 16px;padding:16px 20px;background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:8px}
+  .found p{margin:6px 0 0;color:var(--fg-2)}
+  .found .meter{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin-top:8px;line-height:1.7}
+  .found .meter b{color:var(--accent);font-weight:400}
+  .question{margin-top:18px;padding:16px 20px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1)}
+  .question .eyebrow{color:var(--accent)}
+  .question p{margin:6px 0 0}
+  .ledger{margin-top:18px;padding:16px 20px;border:1px solid var(--border-soft);border-radius:8px}
+  .ledger code{display:block;font-family:var(--mono);font-size:12.5px;color:var(--fg-1);line-height:1.6;margin-top:8px;overflow-wrap:anywhere}
+  .ledger p{margin:8px 0 0;color:var(--fg-3);font-family:var(--sans);font-size:13px;line-height:1.55}
+  footer{margin-top:36px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:520px){h1{font-size:40px}.ctl{grid-template-columns:84px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Dissolutions · proof · study · Dispersion Table</div>
+  <h1>The table that travels</h1>
+  <p class="lead">One stored cycle, kept two ways. A wavetable holds the cycle still and moves its reader across it. A delay loop moves the cycle and holds its reader still: the samples travel round and pass a tap. Same relative motion, same sound. Then put a filter in the loop, and watch which of the two can follow.</p>
+
+  <section class="panel">
+    <div class="tabs" role="group" aria-label="What you hear">
+      <span class="eyebrow">Hear</span>
+      <button class="tab" data-door="table" aria-pressed="true">The table</button>
+      <button class="tab" data-door="loop" aria-pressed="false">The loop</button>
+      <button class="tab" data-door="diff" aria-pressed="false">Their difference</button>
+      <button class="play" id="play">Play</button>
+    </div>
+    <p class="about" id="about"></p>
+    <canvas id="stage"></canvas>
+    <div class="legend">
+      <div><b>Bottom · the readers</b>Above: the table holds still and its reader sweeps it. Below: the loop's samples slide past a tap that holds still. The picture runs at half a cycle a second.</div>
+      <div><b>Middle · the cycle</b>Gold: the stored cycle. Blue: what the loop holds right now, its last trip round. With nothing in the loop, blue lies on gold for ever.</div>
+      <div><b>Right · what comes out</b>Three periods of each, as you hear them now. Gold: the table. Blue, dashed: the loop.</div>
+      <div><b>Bottom right · the partials</b>The loop's spectrum, measured. Dashed ticks: the harmonic grid the table is stuck on. Gold ticks: where the round-trip condition says the partials must land.</div>
+    </div>
+    <div class="rowb"><span class="eyebrow">the stored cycle</span>
+      <button class="ghost small" data-shape="saw" aria-pressed="true">Saw</button>
+      <button class="ghost small" data-shape="pulse" aria-pressed="false">Pulse</button>
+      <button class="ghost small" data-shape="soft" aria-pressed="false">Soft</button>
+    </div>
+    <div class="ctl">
+      <label for="disp">loop filter</label><input id="disp" type="range" min="0" max="1" step="0.01" value="0"><span class="v" id="dispv"></span>
+    </div>
+    <div class="rowb"><button class="toggle" id="frac" aria-pressed="false">Half a sample longer</button><span class="hint">Makes the period half a sample longer than the stored cycle. The table reads between its samples; the loop has to, too, and it does it on every trip.</span></div>
+    <div class="hear" id="hear"></div>
+    <div class="eq">table:  y[n] = cycle[n mod P]          loop:  y[n] = H{ y[n − L] }</div>
+    <div class="eq words">(output now) = (the stored cycle, at now wrapped every period)  ·  (output now) = (the loop's filter, applied to the output one trip ago)</div>
+    <div class="eq">2π · f · τ + θ(f) = 2π · k</div>
+    <div class="eq words">2π × (frequency) × (the bare delay) + (the filter's phase lag at that frequency) = 2π × (a whole number of turns)</div>
+    <textarea id="doorNote" placeholder="What your ear and eye say about this reading"></textarea>
+  </section>
+
+  <section class="found">
+    <div class="eyebrow">What the proof measures, live</div>
+    <div class="meter" id="meter"></div>
+    <p id="foundText"></p>
+  </section>
+
+  <div class="question">
+    <div class="eyebrow">The question this asks the page</div>
+    <p>With the loop filter at none, play their difference: silence, for as long as you like. Then turn the filter up. The table cannot follow, because a table has nowhere to put a filter; the loop takes it on every trip, and its partials walk off the grid to exactly where the equation sends them. Is the wavetable a loop with its filter slot left empty, or is the filter what makes the loop a different thing?</p>
+    <textarea id="wholeNote" placeholder="One object, or two?"></textarea>
+    <div class="rowb"><button class="ghost" id="copy">Copy notes</button><span class="hint" id="copied"></span></div>
+  </div>
+
+  <section class="ledger">
+    <div class="eyebrow">Hunt ledger · the line this proof writes</div>
+    <code>- 2026-10-20 · wavetable oscillator / lossless waveguide loop · identity · knob: the loop filter's phase response, a stored dispersion curve that moves the partials off the harmonic grid to where the round-trip condition puts them · Dissolutions/proofs/2026-10-20-the-table-that-travels/</code>
+    <p>Identity, because with nothing in the loop the two give the same samples, not nearly the same: the difference is zero, exactly, at every sample. The identity is strict about one thing. A period that is not a whole number of samples already needs a filter in the loop, so it is exact only when the loop is a bare delay. That edge is where the knob begins: the slot a fractional length forces open is the slot the dispersion curve goes in. This is the maker's verdict; your sit may overturn it.</p>
+  </section>
+
+  <footer><b>LOUD’N LIVE</b> · a proof for Dissolutions, 2026-10-20 · built to the model of <em>One curve, three readers</em></footer>
+</main>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+
+  // ---- math (pure; re-checked headless by ../check-dissolutions-proofs.mjs) ----
+  // a stored cycle of P samples, zero mean, peak 1
+  function makeCycle(kind, P){
+    var y = new Float64Array(P), i, k;
+    for (i = 0; i < P; i++){
+      var t = i / P;
+      if (kind === 'saw') y[i] = 1 - 2 * t;
+      else if (kind === 'pulse') y[i] = t < 0.2 ? 1 : 0;
+      else { y[i] = 0; for (k = 1; k <= 6; k++) y[i] += Math.sin(2 * Math.PI * k * t) / (k * k); }
+    }
+    var m = 0; for (i = 0; i < P; i++) m += y[i]; m /= P;
+    var pk = 1e-9; for (i = 0; i < P; i++){ y[i] -= m; pk = Math.max(pk, Math.abs(y[i])); }
+    for (i = 0; i < P; i++) y[i] /= pk;
+    return y;
+  }
+  // phase lag of one first-order allpass H(z) = (a + z⁻¹) / (1 + a·z⁻¹), in radians
+  function apLag(w, a){ return w - 2 * Math.atan2(a * Math.sin(w), 1 + a * Math.cos(w)); }
+  // the loop: bare delay L (+ frac, read linearly), then M allpass sections with coefficient a.
+  // L is shortened so the total low-frequency delay stays near the period P.
+  function loopConfig(P, frac, M, a){
+    var ddc = M * (1 - a) / (1 + a);
+    return { P: P, frac: frac, M: M, a: a, L: Math.max(2, Math.round(P - ddc)) };
+  }
+  // the round-trip condition: ω·(L + frac) + M·lag(ω) = 2πk, solved for each k
+  function predictPartials(cfg, K, sr){
+    var out = [], phi = function(w){ return w * (cfg.L + cfg.frac) + cfg.M * apLag(w, cfg.a); };
+    for (var k = 1; k <= K; k++){
+      var target = 2 * Math.PI * k, lo = 0, hi = Math.PI;
+      if (phi(hi) < target) break;
+      for (var it = 0; it < 60; it++){ var mid = (lo + hi) / 2; if (phi(mid) < target) lo = mid; else hi = mid; }
+      out.push((lo + hi) / 2 * sr / (2 * Math.PI));
+    }
+    return out;
+  }
+  // the table: a reader sweeping the stored cycle once per period (period may be fractional)
+  function readTable(cyc, period, n){
+    var P = cyc.length, out = new Float64Array(n), step = P / period;
+    for (var i = 0; i < n; i++){
+      var pos = (i * step) % P, i0 = Math.floor(pos), f = pos - i0;
+      out[i] = cyc[i0] + f * (cyc[(i0 + 1) % P] - cyc[i0]);
+    }
+    return out;
+  }
+  // the loop: its first trip is the stored cycle leaving the tap; after that, every
+  // sample is the output one trip ago, through the loop's filter
+  function runLoop(cyc, cfg, n){
+    var P = cyc.length, y = new Float64Array(n), M = cfg.M, a = cfg.a, L = cfg.L, f = cfg.frac;
+    var up = new Float64Array(M), wp = new Float64Array(M), i, s;
+    for (i = 0; i < n; i++){
+      var u = 0;
+      if (i - L - 1 >= 0) u = (1 - f) * y[i - L] + f * y[i - L - 1];
+      else if (i - L >= 0) u = y[i - L];
+      for (s = 0; s < M; s++){ var w = a * u + up[s] - a * wp[s]; up[s] = u; wp[s] = w; u = w; }
+      y[i] = i < P ? cyc[i] : u;
+    }
+    return y;
+  }
+  // radix-2 FFT, in place
+  function fft(re, im){
+    var n = re.length, i, j = 0, k, len;
+    for (i = 1; i < n; i++){ var bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit;
+      if (i < j){ var t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+    for (len = 2; len <= n; len <<= 1){
+      var half = len >> 1, ang = -2 * Math.PI / len;
+      for (k = 0; k < half; k++){
+        var wr = Math.cos(ang * k), wi = Math.sin(ang * k);
+        for (i = k; i < n; i += len){
+          var r2 = re[i + half] * wr - im[i + half] * wi, i2 = re[i + half] * wi + im[i + half] * wr;
+          re[i + half] = re[i] - r2; im[i + half] = im[i] - i2; re[i] += r2; im[i] += i2;
+        }
+      }
+    }
+  }
+  // Hann-windowed magnitude spectrum (dB) of N samples starting at start
+  function spectrumDb(x, start, N){
+    var re = new Float64Array(N), im = new Float64Array(N);
+    for (var i = 0; i < N; i++) re[i] = x[start + i] * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / N));
+    fft(re, im);
+    var out = new Float64Array(N / 2);
+    for (i = 0; i < N / 2; i++) out[i] = 10 * Math.log10(re[i] * re[i] + im[i] * im[i] + 1e-30);
+    return out;
+  }
+  // the strongest peak within ±half Hz of f, refined by a parabola through three bins
+  function peakNear(db, binHz, f, half){
+    var a = Math.max(1, Math.floor((f - half) / binHz)), b = Math.min(db.length - 2, Math.ceil((f + half) / binHz)), m = a;
+    for (var i = a; i <= b; i++) if (db[i] > db[m]) m = i;
+    var l = db[m - 1], c = db[m], r = db[m + 1], d = l - 2 * c + r, off = d < 0 ? 0.5 * (l - r) / d : 0;
+    return (m + off) * binHz;
+  }
+  function maxDiff(a, b, n){ var m = 0; for (var i = 0; i < n; i++) m = Math.max(m, Math.abs(a[i] - b[i])); return m; }
+  // ---- end math ----
+
+  var door = 'table', playing = false, shape = 'saw', disp = 0, frac = false, M = 8, F0 = 110, K = 24;
+  var sr = 48000, P = 436, cyc = null, cfg = null, tab = null, lp = null, pred = [], meas = [], db = null, binHz = 1, SECS = 3;
+  var ABOUT = {
+    table: 'A stored cycle and a reader that sweeps it, 110 times a second, jumping back to the start each time. The table never changes. Only the reader moves.',
+    loop: 'A delay line filled once with the same cycle and fed back into itself. Nothing sweeps it: the samples travel round and pass a tap that holds still. With only the delay in the loop, every sample comes back unchanged.',
+    diff: 'Both at once, one turned upside down. With nothing in the loop they cancel, sample for sample. Whatever you hear is what the loop does that the table cannot.'
+  };
+
+  // the knob sets each section's low-frequency delay, 1 to 19 samples, evenly in its log
+  function coefFor(s){ var D = Math.pow(19, s); return (1 - D) / (1 + D); }
+  function rebuild(){
+    P = Math.round(sr / F0);
+    cyc = makeCycle(shape, P);
+    var a = coefFor(disp);
+    cfg = loopConfig(P, frac ? 0.5 : 0, M, a);
+    var n = Math.round(sr * SECS);
+    tab = readTable(cyc, P + cfg.frac, n);
+    lp = runLoop(cyc, cfg, n);
+    pred = predictPartials(cfg, K, sr);
+    var N = 32768, start = 2 * P; binHz = sr / N;
+    db = spectrumDb(lp, start, N);
+    meas = pred.map(function(f){ return peakNear(db, binHz, f, 0.3 * sr / P); });
+    measure();
+  }
+
+  // ---------- audio ----------
+  var ctx = null, master = null, cur = null, t0 = 0;
+  function ensure(){
+    if (ctx) return;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    var comp = ctx.createDynamicsCompressor(); comp.threshold.value = -6; comp.ratio.value = 8;
+    master = ctx.createGain(); master.gain.value = 0.4; master.connect(comp); comp.connect(ctx.destination);
+    if (ctx.sampleRate !== sr){ sr = ctx.sampleRate; rebuild(); }
+  }
+  // the render loops; a short crossfade at the seam keeps the loop point quiet
+  function loopify(x, F){
+    var N = x.length - F, out = new Float32Array(N);
+    for (var i = 0; i < N; i++){
+      if (i < F){ var q = i / F; out[i] = x[i] * Math.sin(q * Math.PI / 2) + x[N + i] * Math.cos(q * Math.PI / 2); }
+      else out[i] = x[i];
+    }
+    return out;
+  }
+  function render(){
+    var n = tab.length, x = new Float64Array(n);
+    for (var i = 0; i < n; i++) x[i] = 0.8 * (door === 'table' ? tab[i] : door === 'loop' ? lp[i] : tab[i] - lp[i]);
+    return loopify(x, Math.round(0.15 * sr));
+  }
+  function playBuffer(data){
+    var b = ctx.createBuffer(1, data.length, ctx.sampleRate); b.copyToChannel(data, 0);
+    var s = ctx.createBufferSource(); s.buffer = b; s.loop = true;
+    var g = ctx.createGain(); g.gain.value = 0; s.connect(g); g.connect(master);
+    var t = ctx.currentTime; s.start(); g.gain.setTargetAtTime(1, t, 0.03); t0 = t;
+    if (cur){ var o = cur; o.g.gain.setTargetAtTime(0, t, 0.03); setTimeout(function(){ try { o.s.stop(); } catch (e) {} o.g.disconnect(); }, 400); }
+    cur = { s: s, g: g, len: data.length };
+  }
+  function stopAudio(){ if (cur){ var o = cur; o.g.gain.setTargetAtTime(0, ctx.currentTime, 0.02); setTimeout(function(){ try { o.s.stop(); } catch (e) {} o.g.disconnect(); }, 200); cur = null; } }
+  var pend = 0;
+  function refreshAudio(){ if (!playing) return; clearTimeout(pend); pend = setTimeout(function(){ playBuffer(render()); }, 40); }
+  // which sample of the render you are hearing now
+  function nowSample(){
+    if (!playing || !cur) return Math.round(sr);
+    return Math.floor((ctx.currentTime - t0) * sr) % cur.len;
+  }
+
+  // ---------- the measurement ----------
+  function measure(){
+    var n = tab.length, d = maxDiff(tab, lp, n), lines = [];
+    lines.push('table against loop, over ' + SECS + ' s (' + Math.round(n / (P + cfg.frac)) + ' trips round): largest difference <b>' + (d === 0 ? '0, exactly' : d.toFixed(4)) + '</b>');
+    var worst = 0; for (var k = 0; k < pred.length; k++) worst = Math.max(worst, Math.abs(meas[k] - pred[k]));
+    var f1 = pred[0], top = pred[pred.length - 1], kk = pred.length, sharp = (top / (kk * f1) - 1) * 100;
+    lines.push('partials predicted by the round-trip condition against measured: worst miss <b>' + worst.toFixed(3) + ' Hz</b> across ' + kk);
+    lines.push('partial ' + kk + ' sits at <b>' + top.toFixed(1) + ' Hz</b>, ' + (Math.abs(sharp) < 0.005 ? 'exactly on' : sharp.toFixed(2) + '% sharp of') + ' the harmonic grid');
+    if (frac){
+      var w10 = 2 * Math.PI * 10 * f1 / sr, w20 = 2 * Math.PI * 20 * f1 / sr, perSec = sr / (P + 0.5);
+      var l10 = 20 * Math.log10(Math.cos(w10 / 2)) * perSec, l20 = 20 * Math.log10(Math.cos(w20 / 2)) * perSec;
+      lines.push('reading between samples on every trip, the loop loses <b>' + (-l10).toFixed(1) + ' dB/s</b> at harmonic 10 and <b>' + (-l20).toFixed(1) + ' dB/s</b> at 20; the table loses none');
+    }
+    $('meter').innerHTML = lines.join('<br>');
+    var txt;
+    if (d === 0) txt = 'With nothing in the loop but the delay, the loop gives back the table’s samples, not nearly but exactly: the same numbers come out, trip after trip. The loop’s contents are the table; its length is the period.';
+    else if (disp === 0) txt = 'The loop filter is at none, yet the two have parted. Half a sample longer, both have to read between samples. The table does it fresh from its stored cycle every time. The loop does it to its own last trip, so the reading-between becomes a filter the loop runs over and over, and the highs fade. A loop of fractional length already has a filter in it.';
+    else txt = 'With a filter in the loop, the table cannot follow: a table has nowhere to put one. The loop applies it on every trip, its phase lag differs by frequency, and each partial settles wherever the delay plus that lag comes to a whole number of turns. The gold ticks are the equation; the peaks are the measurement.';
+    $('foundText').textContent = txt;
+  }
+
+  // ---------- controls ----------
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab')), notes = {};
+  function syncUI(){
+    tabs.forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-door') === door)); });
+    $('about').textContent = ABOUT[door];
+    var a = coefFor(disp);
+    $('dispv').textContent = disp === 0 ? 'none' : M + ' allpasses, a = ' + a.toFixed(2);
+    $('frac').setAttribute('aria-pressed', String(frac));
+    var hear, d = maxDiff(tab, lp, tab.length);
+    if (door === 'table') hear = 'You hear <b>the table</b>: a fixed cycle, perfectly periodic, every partial on the harmonic grid.';
+    else if (door === 'loop') hear = disp === 0 && !frac ? 'You hear <b>the loop</b>, and it is the table.' : 'You hear <b>the loop</b>' + (disp > 0 ? ', its partials off the grid, so the cycle keeps changing shape as they slide past each other.' : ', its highs fading trip by trip.');
+    else hear = d === 0 ? 'You hear <b>silence</b>: the two cancel exactly.' : 'You hear <b>the leftover</b>: what the loop does that the table cannot.';
+    $('hear').innerHTML = hear;
+    $('doorNote').value = notes[door] || '';
+    Array.prototype.forEach.call(document.querySelectorAll('[data-shape]'), function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-shape') === shape)); });
+  }
+  function changed(){ rebuild(); syncUI(); refreshAudio(); }
+  tabs.forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-door'); syncUI(); refreshAudio(); }); });
+  $('play').addEventListener('click', function(){
+    ensure(); if (ctx.state === 'suspended') ctx.resume();
+    playing = !playing; $('play').textContent = playing ? 'Stop' : 'Play';
+    if (playing) playBuffer(render()); else stopAudio();
+  });
+  $('disp').addEventListener('input', function(){ disp = parseFloat($('disp').value); changed(); });
+  $('frac').addEventListener('click', function(){ frac = !frac; changed(); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-shape]'), function(b){
+    b.addEventListener('click', function(){ shape = b.getAttribute('data-shape'); changed(); });
+  });
+
+  // ---------- the picture ----------
+  var cv = $('stage'), css = getComputedStyle(document.documentElement);
+  var ACC = css.getPropertyValue('--accent').trim(), FG2 = css.getPropertyValue('--fg-2').trim(), FG3 = css.getPropertyValue('--fg-3').trim(), FG4 = css.getPropertyValue('--fg-4').trim(), INFO = css.getPropertyValue('--info').trim();
+  var ph = 0.3, lastT = performance.now();
+  function strip(g, x0, y0, w, h, get, color, lw, dash){
+    g.strokeStyle = color; g.lineWidth = lw; g.setLineDash(dash || []); g.beginPath();
+    for (var i = 0; i <= 200; i++){ var v = get(i / 200), x = x0 + i / 200 * w, y = y0 + h / 2 - v * h * 0.42; if (i) g.lineTo(x, y); else g.moveTo(x, y); }
+    g.stroke(); g.setLineDash([]);
+  }
+  function draw(now){
+    var dt = Math.min(0.25, (now - lastT) / 1000); lastT = now;
+    var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    var cssH = Math.min(560, Math.max(260, r.width * 0.86));
+    if (cv.style.height !== cssH + 'px') cv.style.height = cssH + 'px';
+    var bw0 = Math.round(r.width * d), bh0 = Math.round(cssH * d);
+    if (cv.width !== bw0 || cv.height !== bh0){ cv.width = bw0; cv.height = bh0; }
+    var g = cv.getContext('2d'), W = cv.width, Hh = cv.height, p = 14 * d, gap = 12 * d;
+    var S = Math.min(W * 0.48, Hh * 0.56);
+    var sx = p, sy = p, rx = sx + S + gap, ry = sy + S + gap, rw = W - p - rx, rh = Hh - p - ry;
+    g.clearRect(0, 0, W, Hh);
+    if (!tab) { requestAnimationFrame(draw); return; }
+    var n0 = nowSample(), PP = P + cfg.frac;
+
+    g.strokeStyle = 'rgba(255,255,255,0.06)'; g.lineWidth = d;
+    g.strokeRect(sx, sy, S, S); g.strokeRect(sx, ry, S, rh); g.strokeRect(rx, sy, rw, S); g.strokeRect(rx, ry, rw, rh);
+    g.font = (10 * d) + 'px JetBrains Mono, monospace'; g.fillStyle = FG4; g.textAlign = 'left';
+    g.fillText('THE CYCLE  ' + P + ' samples', sx + 6 * d, sy + 14 * d);
+    g.fillText(playing ? 'the loop now, trip ' + Math.floor(n0 / PP) : 'the loop after 1 s, trip ' + Math.floor(n0 / PP), sx + 6 * d, sy + S - 8 * d);
+    g.fillText('THE READERS', sx + 6 * d, Hh - p - 6 * d);
+    g.fillText('WHAT COMES OUT  now', rx + 6 * d, sy + 14 * d);
+    g.fillText('THE LOOP’S PARTIALS 1–' + pred.length, rx + 6 * d, ry + 14 * d);
+
+    // the cycle: stored (gold) and the loop's last trip (blue)
+    var cx0 = sx + 8 * d, cw = S - 16 * d, ch = S - 40 * d, cy0 = sy + 20 * d;
+    g.setLineDash([4 * d, 4 * d]); g.strokeStyle = FG4; g.beginPath(); g.moveTo(cx0, cy0 + ch / 2); g.lineTo(cx0 + cw, cy0 + ch / 2); g.stroke(); g.setLineDash([]);
+    strip(g, cx0, cy0, cw, ch, function(t){ return cyc[Math.min(P - 1, Math.floor(t * P))]; }, ACC, 2.5 * d);
+    var base = Math.max(P, Math.round(Math.floor((n0 - P) / PP) * PP)); // the start of the last whole trip
+    strip(g, cx0, cy0, cw, ch, function(t){ return lp[Math.min(lp.length - 1, base + Math.min(P - 1, Math.floor(t * P)))]; }, INFO, 1.4 * d);
+
+    // the readers: the table holds still and its reader moves; the loop moves past a still tap
+    if (playing) ph = (ph + 0.5 * dt) % 1;
+    var hh = (rh - 30 * d) / 2, ax = sx + 8 * d, aw = S - 16 * d, ay1 = ry + 6 * d, ay2 = ay1 + hh + 8 * d;
+    strip(g, ax, ay1, aw, hh, function(t){ return cyc[Math.min(P - 1, Math.floor(t * P))]; }, ACC, 1.6 * d);
+    var mx = ax + ph * aw, v1 = cyc[Math.min(P - 1, Math.floor(ph * P))];
+    g.strokeStyle = FG3; g.lineWidth = d; g.beginPath(); g.moveTo(mx, ay1); g.lineTo(mx, ay1 + hh); g.stroke();
+    g.fillStyle = INFO; g.beginPath(); g.arc(mx, ay1 + hh / 2 - v1 * hh * 0.42, 4.5 * d, 0, 7); g.fill();
+    var shift = ph; // the contents slide left past a tap at the left edge
+    strip(g, ax, ay2, aw, hh, function(t){ var q = (t + shift) % 1; return cyc[Math.min(P - 1, Math.floor(q * P))]; }, INFO, 1.6 * d);
+    g.strokeStyle = FG3; g.beginPath(); g.moveTo(ax, ay2); g.lineTo(ax, ay2 + hh); g.stroke();
+    g.fillStyle = INFO; g.beginPath(); g.arc(ax, ay2 + hh / 2 - v1 * hh * 0.42, 4.5 * d, 0, 7); g.fill();
+    g.fillStyle = FG4; g.fillText('table: still · reader moves', ax + 4 * d, ay1 + 10 * d);
+    g.fillText('loop: moves · tap still', ax + 4 * d, ay2 + 10 * d);
+
+    // what comes out: three periods of each, at the moment you are hearing
+    var span = Math.round(3 * PP), s0 = Math.max(0, Math.min(tab.length - span - 1, n0 - span)), ox = rx + 8 * d, ow = rw - 16 * d, oh = S - 40 * d, oy = sy + 20 * d;
+    strip(g, ox, oy, ow, oh, function(t){ return tab[s0 + Math.floor(t * span)]; }, ACC, 2 * d);
+    strip(g, ox, oy, ow, oh, function(t){ return lp[s0 + Math.floor(t * span)]; }, INFO, 1.5 * d, [5 * d, 4 * d]);
+
+    // the loop's partials: measured spectrum, the harmonic grid, the prediction
+    var fmax = pred[pred.length - 1] + 0.7 * pred[0], px0 = rx + 8 * d, pw = rw - 16 * d, pb = Hh - p - 8 * d, pt = ry + 34 * d;
+    var top = -1e9, bins = Math.floor(fmax / binHz), i; for (i = 1; i < bins; i++) top = Math.max(top, db[i]);
+    g.strokeStyle = INFO; g.lineWidth = 1.2 * d; g.beginPath();
+    for (i = 1; i < bins; i++){ var fx = px0 + i * binHz / fmax * pw, fy = pb - Math.max(0, 1 + (db[i] - top) / 70) * (pb - pt); if (i > 1) g.lineTo(fx, fy); else g.moveTo(fx, fy); }
+    g.stroke();
+    var f1g = sr / PP;
+    for (i = 1; i <= pred.length; i++){
+      var gx = px0 + i * f1g / fmax * pw;
+      if (gx < px0 + pw) { g.strokeStyle = FG4; g.setLineDash([2 * d, 2 * d]); g.beginPath(); g.moveTo(gx, pt - 10 * d); g.lineTo(gx, pb); g.stroke(); g.setLineDash([]); }
+      var qx = px0 + pred[i - 1] / fmax * pw; g.fillStyle = ACC; g.beginPath(); g.moveTo(qx - 3.5 * d, pt - 14 * d); g.lineTo(qx + 3.5 * d, pt - 14 * d); g.lineTo(qx, pt - 6 * d); g.fill();
+    }
+    g.fillStyle = FG4; g.textAlign = 'right'; g.fillText('70 dB · 0–' + Math.round(fmax) + ' Hz', rx + rw - 8 * d, ry + 14 * d); g.textAlign = 'left';
+    requestAnimationFrame(draw);
+  }
+
+  // ---------- notes (this viewer only; nothing is kept where storage is refused) ----------
+  var KEY = 'dissolutions-table-travels-notes';
+  try { notes = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { notes = {}; }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} }
+  $('doorNote').addEventListener('input', function(){ notes[door] = $('doorNote').value; save(); });
+  $('wholeNote').value = notes.whole || '';
+  $('wholeNote').addEventListener('input', function(){ notes.whole = $('wholeNote').value; save(); });
+  $('copy').addEventListener('click', function(){
+    var text = 'The table that travels — notes\n' + ['table', 'loop', 'diff', 'whole'].map(function(k){ return '- ' + k + ': ' + (notes[k] || '—'); }).join('\n');
+    var done = function(){ $('copied').textContent = 'copied'; };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function(){ $('copied').textContent = text; }); else $('copied').textContent = text;
+  });
+
+  rebuild(); syncUI();
+  requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>

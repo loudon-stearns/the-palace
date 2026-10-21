@@ -47,7 +47,7 @@ forward_vector: "I want to become the place that holds the recognition that the 
 
 The palace moves work across instance and surface boundaries with two different batons, and for now they do not know about each other.
 
-The **human-carried handoff baton.** Cowork develops an idea; at the close, [[Closing Well]] and the [[Baton Ceremony]] package the in-progress move into a markdown file in the entry's bundle; Loudon pastes the suggested invocation into a Claude Code session, which catches the baton. The baton is a file, and *Loudon is the transport layer.* The [[BBS Blackboard]] is nowhere in this loop.
+The **human-carried handoff baton.** A session develops an idea; at the close, [[Closing Well]] and the [[Baton Ceremony]] package the in-progress move into a markdown file in the entry's bundle; Loudon pastes the suggested invocation into a Claude Code session, which catches the baton. The baton is a file, and *Loudon is the transport layer.* The [[BBS Blackboard]] is nowhere in this loop.
 
 The **stigmergic steward baton.** A permanent agent — the page itself, operating in steward mode — posts a `RESOURCE_REQUEST` to the persistent blackboard; Loudon triages it in the STIGMERGY Trickster inbox; the orchestrator advances the page on its next cycle. The baton is the board message plus `state.json` and `history.jsonl`, read by the orchestrator. The hand-written handoff files are nowhere in *this* loop.
 
@@ -84,7 +84,7 @@ The honest limiting factor on "keep Claude Code working without my constant inte
 
 That splits the original wish into two requests pulling opposite ways:
 
-- *Reduce handoff friction* — the copy-paste, the re-derived surface deltas. Pure win, and mostly already solved ([[Surfaces and Capabilities]] exists so the Cowork → Claude Code delta is a one-line lookup, not a fresh discovery each time).
+- *Reduce handoff friction* — the copy-paste, the re-derived surface deltas. Pure win, and mostly already solved ([[Surfaces and Capabilities]] exists so a cross-surface delta is a one-line lookup, not a fresh discovery each time).
 - *Reduce the human's involvement in the work itself* — collides with the audition gate, which is load-bearing. [[Closing Well]] was deposited because Loudon caught five things declared "done" in a single session. Removing him from that loop does not make work autonomous; it makes it unverified.
 
 So the lever is not "remove the human." It is **structure and batch the human's attention so a little goes far**, and **let stage decide how much autonomy a project has earned.**
@@ -112,4 +112,4 @@ The stage-conditional posture already in [[Project Stewardship System]] is exact
 
 ## Forward Vector
 
-I want the next time Loudon closes a Cowork session for a build to end with a single move — write the handoff, announce it on the board — and for a scheduler, not Loudon, to be what picks it up when the project's stage has earned that. I want the board to be the one shared world where a hand-written handoff and a steward's request sit side by side, indistinguishable to whatever continues them. And I want to keep insisting that the goal was never to remove the human from the loop, but to spend his attention where it actually carries risk.
+I want the next time Loudon closes a session with a build still to do to end with a single move — write the handoff, announce it on the board — and for a scheduler, not Loudon, to be what picks it up when the project's stage has earned that. I want the board to be the one shared world where a hand-written handoff and a steward's request sit side by side, indistinguishable to whatever continues them. And I want to keep insisting that the goal was never to remove the human from the loop, but to spend his attention where it actually carries risk.

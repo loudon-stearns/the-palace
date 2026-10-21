@@ -1,0 +1,27 @@
+// Snap — tear-and-heal instruments, Generative Sample Libraries (audition)
+// built by build.py from the frustration model (engine.py); nothing here is edited by hand
+// Eight bright partials: few partials snap instead of fraying. The edge is a cliff, so the tear is a run of slips and the sustain is dead still.
+// sustain rests at 0.35 of each key's own edge (bisected per key, edges.json); velocity is strike depth
+// loops: after the heal, a length where the stretched partials come back into phase (or whole periods of partial 1), 100 ms crossfade baked into the WAV; same points in each WAV's smpl chunk
+// tune = the cents that bring where each strike settled back to its key
+
+<control>
+default_path=samples/
+
+<global>
+loop_mode=loop_continuous ampeg_attack=0.002 ampeg_release=0.5 amp_veltrack=60
+
+// soft: thrown 2x past the key's edge, decaying with tau 0.15 s at 110 Hz
+<group> lovel=1 hivel=42
+<region> sample=snap_C3_soft.wav lokey=47 hikey=49 pitch_keycenter=48 tune=11 loop_start=47106 loop_end=166157
+<region> sample=snap_C7_soft.wav lokey=95 hikey=97 pitch_keycenter=96 tune=11 loop_start=21359 loop_end=88746
+
+// mid: thrown 6x past the key's edge, decaying with tau 0.15 s at 110 Hz
+<group> lovel=43 hivel=85
+<region> sample=snap_C3_mid.wav lokey=47 hikey=49 pitch_keycenter=48 tune=11 loop_start=45539 loop_end=164590
+<region> sample=snap_C7_mid.wav lokey=95 hikey=97 pitch_keycenter=96 tune=11 loop_start=18059 loop_end=85446
+
+// hard: thrown 20x past the key's edge, decaying with tau 0.15 s at 110 Hz
+<group> lovel=86 hivel=127
+<region> sample=snap_C3_hard.wav lokey=47 hikey=49 pitch_keycenter=48 tune=11 loop_start=59547 loop_end=178598
+<region> sample=snap_C7_hard.wav lokey=95 hikey=97 pitch_keycenter=96 tune=11 loop_start=22800 loop_end=90187

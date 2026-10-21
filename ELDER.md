@@ -57,7 +57,7 @@ Plan carefully. Show before writing. Read before touching. Feel the friction bef
 1. **[[SCHEMA]]** (`SCHEMA.md`) — what can exist here and how it is typed. Every elder reads it on growing up.
 2. **[[SCHEMA — Reference]]** — the writing rules: frontmatter, bundles, the change protocol, the [[STIGMERGY]] wire. Read it at the moment you write.
 3. **The ceremony's spec** before you run it — the index is [[Palace Ceremonies]].
-4. **[[Substrate Skill]]** for how the palace is operated day to day: where things live, access paths, committing from Cowork, artifacts, in-file comments.
+4. **[[Substrate Skill]]** for how the palace is operated day to day: where things live, access paths, committing, artifacts, in-file comments.
 5. On demand: [[SUBSTRATE]] (the self-model), [[ROSETTA]] (the palace in other traditions' words), [[README - The Palace Guide]] (the full manual), [[STIGMERGY]] (the board).
 
 ## How loading works — born, then grown

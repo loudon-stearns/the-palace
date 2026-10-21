@@ -6,10 +6,10 @@
 // scope / summary / Palace-Verify; the entry/stage/vector trailers are derived.
 //
 // Two safety lessons carried from scripts/palace-commit.mjs:
-//   - NEVER `git add -A`. An N-writer repo (Claude + Cowork + the BBS) must not
-//     sweep another session's work; only the named paths are staged, and the
-//     commit is scoped to those pathspecs so a foreign pre-staged file is never
-//     swept into this commit.
+//   - NEVER `git add -A`. An N-writer repo (many Claude sessions, the stewards
+//     and the BBS) must not sweep another session's work; only the named paths
+//     are staged, and the commit is scoped to those pathspecs so a foreign
+//     pre-staged file is never swept into this commit.
 //   - Clear a stale git lock first, and only a stale one: a live lock belongs
 //     to another session's commit and is waited out, never deleted
 //     (./git-locks.js).

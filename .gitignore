@@ -36,9 +36,9 @@ _tools
 
 # Vitest config timestamp temp files (transient)
 **/vitest.config.js.timestamp-*.mjs
-# Cowork scratch — relocated junk Cowork couldn't delete (not knowledge)
+# Scratch — working files that aren't knowledge
 _ops/scratch/
-# Cowork local settings
+# Claude Code local settings (this machine's own)
 .claude/settings.local.json
 
 # Audio and video that stewards make stay on this Mac, never in git (Loudon,

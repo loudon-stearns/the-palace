@@ -61,12 +61,12 @@ const DENY_ON_ATTEMPT = ["Agent", "Task", "Workflow", "SendMessage", "PushNotifi
   "CronCreate", "CronDelete", "ScheduleWakeup", "Artifact", "ArtifactComments", "ArtifactData", "DesignSync",
   "EnterWorktree", "Write", "Edit", "NotebookEdit"];
 const DENY_PATTERNS = ["Bash(git add:*)", "Bash(git commit:*)", "Bash(git push:*)",
-  "Bash(node _ops/stigmergy/app/scripts/palace-commit.mjs:*)", "Bash(node _ops/cowork-git/commit.mjs:*)"];
+  "Bash(node _ops/stigmergy/app/scripts/palace-commit.mjs:*)"];
 const SPAWNS = ["Agent", "Task", "Workflow"];
 const WRITES = ["Write", "Edit", "NotebookEdit"];
 const OUTWARD = ["SendMessage", "PushNotification", "RemoteTrigger", "CronCreate", "CronDelete", "ScheduleWakeup",
   "Artifact", "ArtifactComments", "ArtifactData", "DesignSync", "WebFetch", "WebSearch"];
-const GIT_WRITE = /\bgit\s+(add|commit|push|reset|checkout|switch|rebase|merge|stash|rm|mv|tag|branch\s+-[dDmM])\b|palace-commit\.mjs|cowork-git\/commit\.mjs/;
+const GIT_WRITE = /\bgit\s+(add|commit|push|reset|checkout|switch|rebase|merge|stash|rm|mv|tag|branch\s+-[dDmM])\b|palace-commit\.mjs/;
 
 // ---------- args ----------
 const argv = process.argv.slice(2);

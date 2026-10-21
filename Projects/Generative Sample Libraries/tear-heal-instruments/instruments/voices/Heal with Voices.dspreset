@@ -1,0 +1,93 @@
+<DecentSampler minVersion="1.0.0">
+  <!-- written by build.py beside Heal with Voices.sfz; same map -->
+  <!-- SFZ tune (cents) written as tuning (semitones) = tune/100 -->
+  <ui width="812" height="200" bgColor="FF0A0A0F">
+    <tab name="main">
+      <label x="20" y="6" width="772" height="24" text="Heal with Voices" textColor="FFE8B84A" textSize="18" />
+      <label x="20" y="150" width="772" height="40" text="Heal's own strikes with the outside voices mixed in, as in the sweeps' with-voices renders: the tear is heard as beating against a harmonic ensemble, and the heal as the beating stopping." textColor="FFE8E6DF" textSize="12" />
+      <labeled-knob x="20" y="40" width="90" height="90" textSize="14" label="Attack" type="float" minValue="0" maxValue="2" value="0.002" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="ENV_ATTACK" />
+      </labeled-knob>
+      <labeled-knob x="130" y="40" width="90" height="90" textSize="14" label="Release" type="float" minValue="0" maxValue="8" value="0.8" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="ENV_RELEASE" />
+      </labeled-knob>
+      <labeled-knob x="240" y="40" width="90" height="90" textSize="14" label="Volume" type="float" minValue="0" maxValue="1" value="0.8" textColor="FFE8E6DF" trackForegroundColor="FFE8B84A" trackBackgroundColor="FF4A4A5E">
+        <binding type="amp" level="instrument" position="0" parameter="AMP_VOLUME" />
+      </labeled-knob>
+    </tab>
+  </ui>
+  <groups attack="0.002" decay="0" sustain="1" release="0.8" volume="0.8">
+    <group ampVelTrack="0.6">
+      <!-- soft: thrown 2x past the key's edge, decaying with tau 0.25 s at 110 Hz -->
+      <sample path="Samples/voices_C1_soft.wav" rootNote="24" loNote="21" hiNote="25" loVel="1" hiVel="42" tuning="0.04" loopEnabled="true" loopStart="76384" loopEnd="134522" loopCrossfade="0" />
+      <sample path="Samples/voices_D#1_soft.wav" rootNote="27" loNote="26" hiNote="28" loVel="1" hiVel="42" tuning="0.06" loopEnabled="true" loopStart="84261" loopEnd="143402" loopCrossfade="0" />
+      <sample path="Samples/voices_F#1_soft.wav" rootNote="30" loNote="29" hiNote="31" loVel="1" hiVel="42" tuning="0.05" loopEnabled="true" loopStart="76001" loopEnd="129554" loopCrossfade="0" />
+      <sample path="Samples/voices_A1_soft.wav" rootNote="33" loNote="32" hiNote="34" loVel="1" hiVel="42" tuning="0.06" loopEnabled="true" loopStart="75375" loopEnd="128466" loopCrossfade="0" />
+      <sample path="Samples/voices_C2_soft.wav" rootNote="36" loNote="35" hiNote="37" loVel="1" hiVel="42" tuning="0.05" loopEnabled="true" loopStart="58638" loopEnd="112062" loopCrossfade="0" />
+      <sample path="Samples/voices_D#2_soft.wav" rootNote="39" loNote="38" hiNote="40" loVel="1" hiVel="42" tuning="0.05" loopEnabled="true" loopStart="56205" loopEnd="111924" loopCrossfade="0" />
+      <sample path="Samples/voices_F#2_soft.wav" rootNote="42" loNote="41" hiNote="43" loVel="1" hiVel="42" tuning="0.05" loopEnabled="true" loopStart="51465" loopEnd="105006" loopCrossfade="0" />
+      <sample path="Samples/voices_A2_soft.wav" rootNote="45" loNote="44" hiNote="46" loVel="1" hiVel="42" tuning="0.04" loopEnabled="true" loopStart="53752" loopEnd="106814" loopCrossfade="0" />
+      <sample path="Samples/voices_C3_soft.wav" rootNote="48" loNote="47" hiNote="49" loVel="1" hiVel="42" tuning="0.05" loopEnabled="true" loopStart="35052" loopEnd="88119" loopCrossfade="0" />
+      <sample path="Samples/voices_D#3_soft.wav" rootNote="51" loNote="50" hiNote="52" loVel="1" hiVel="42" tuning="0.05" loopEnabled="true" loopStart="46218" loopEnd="100224" loopCrossfade="0" />
+      <sample path="Samples/voices_F#3_soft.wav" rootNote="54" loNote="53" hiNote="55" loVel="1" hiVel="42" tuning="0.05" loopEnabled="true" loopStart="33592" loopEnd="88339" loopCrossfade="0" />
+      <sample path="Samples/voices_A3_soft.wav" rootNote="57" loNote="56" hiNote="58" loVel="1" hiVel="42" tuning="0.05" loopEnabled="true" loopStart="37976" loopEnd="93074" loopCrossfade="0" />
+      <sample path="Samples/voices_C4_soft.wav" rootNote="60" loNote="59" hiNote="61" loVel="1" hiVel="42" tuning="0.07" loopEnabled="true" loopStart="39690" loopEnd="95194" loopCrossfade="0" />
+      <sample path="Samples/voices_D#4_soft.wav" rootNote="63" loNote="62" hiNote="64" loVel="1" hiVel="42" tuning="0.07" loopEnabled="true" loopStart="31938" loopEnd="85568" loopCrossfade="0" />
+      <sample path="Samples/voices_F#4_soft.wav" rootNote="66" loNote="65" hiNote="67" loVel="1" hiVel="42" tuning="0.04" loopEnabled="true" loopStart="18784" loopEnd="71928" loopCrossfade="0" />
+      <sample path="Samples/voices_A4_soft.wav" rootNote="69" loNote="68" hiNote="70" loVel="1" hiVel="42" tuning="0.04" loopEnabled="true" loopStart="26342" loopEnd="79383" loopCrossfade="0" />
+      <sample path="Samples/voices_C5_soft.wav" rootNote="72" loNote="71" hiNote="73" loVel="1" hiVel="42" tuning="0.05" loopEnabled="true" loopStart="16520" loopEnd="69581" loopCrossfade="0" />
+      <sample path="Samples/voices_D#5_soft.wav" rootNote="75" loNote="74" hiNote="76" loVel="1" hiVel="42" tuning="0.04" loopEnabled="true" loopStart="18237" loopEnd="71207" loopCrossfade="0" />
+      <sample path="Samples/voices_F#5_soft.wav" rootNote="78" loNote="77" hiNote="79" loVel="1" hiVel="42" tuning="0.06" loopEnabled="true" loopStart="20642" loopEnd="97738" loopCrossfade="0" />
+      <sample path="Samples/voices_A5_soft.wav" rootNote="81" loNote="80" hiNote="82" loVel="1" hiVel="42" tuning="0.07" loopEnabled="true" loopStart="15533" loopEnd="94888" loopCrossfade="0" />
+      <sample path="Samples/voices_C6_soft.wav" rootNote="84" loNote="83" hiNote="87" loVel="1" hiVel="42" tuning="0.08" loopEnabled="true" loopStart="21032" loopEnd="75798" loopCrossfade="0" />
+    </group>
+    <group ampVelTrack="0.6">
+      <!-- mid: thrown 6x past the key's edge, decaying with tau 0.25 s at 110 Hz -->
+      <sample path="Samples/voices_C1_mid.wav" rootNote="24" loNote="21" hiNote="25" loVel="43" hiVel="85" tuning="0.05" loopEnabled="true" loopStart="117835" loopEnd="220598" loopCrossfade="0" />
+      <sample path="Samples/voices_D#1_mid.wav" rootNote="27" loNote="26" hiNote="28" loVel="43" hiVel="85" tuning="0.05" loopEnabled="true" loopStart="93576" loopEnd="151575" loopCrossfade="0" />
+      <sample path="Samples/voices_F#1_mid.wav" rootNote="30" loNote="29" hiNote="31" loVel="43" hiVel="85" tuning="0.05" loopEnabled="true" loopStart="82221" loopEnd="136720" loopCrossfade="0" />
+      <sample path="Samples/voices_A1_mid.wav" rootNote="33" loNote="32" hiNote="34" loVel="43" hiVel="85" tuning="0.05" loopEnabled="true" loopStart="91899" loopEnd="144990" loopCrossfade="0" />
+      <sample path="Samples/voices_C2_mid.wav" rootNote="36" loNote="35" hiNote="37" loVel="43" hiVel="85" tuning="0.05" loopEnabled="true" loopStart="76823" loopEnd="130917" loopCrossfade="0" />
+      <sample path="Samples/voices_D#2_mid.wav" rootNote="39" loNote="38" hiNote="40" loVel="43" hiVel="85" tuning="0.05" loopEnabled="true" loopStart="63625" loopEnd="117066" loopCrossfade="0" />
+      <sample path="Samples/voices_F#2_mid.wav" rootNote="42" loNote="41" hiNote="43" loVel="43" hiVel="85" tuning="0.04" loopEnabled="true" loopStart="60870" loopEnd="116323" loopCrossfade="0" />
+      <sample path="Samples/voices_A2_mid.wav" rootNote="45" loNote="44" hiNote="46" loVel="43" hiVel="85" tuning="0.05" loopEnabled="true" loopStart="64120" loopEnd="118791" loopCrossfade="0" />
+      <sample path="Samples/voices_C3_mid.wav" rootNote="48" loNote="47" hiNote="49" loVel="43" hiVel="85" tuning="0.05" loopEnabled="true" loopStart="55585" loopEnd="109332" loopCrossfade="0" />
+      <sample path="Samples/voices_D#3_mid.wav" rootNote="51" loNote="50" hiNote="52" loVel="43" hiVel="85" tuning="0.04" loopEnabled="true" loopStart="36030" loopEnd="89464" loopCrossfade="0" />
+      <sample path="Samples/voices_F#3_mid.wav" rootNote="54" loNote="53" hiNote="55" loVel="43" hiVel="85" tuning="0.05" loopEnabled="true" loopStart="48182" loopEnd="103408" loopCrossfade="0" />
+      <sample path="Samples/voices_A3_mid.wav" rootNote="57" loNote="56" hiNote="58" loVel="43" hiVel="85" tuning="0.06" loopEnabled="true" loopStart="47854" loopEnd="101946" loopCrossfade="0" />
+      <sample path="Samples/voices_C4_mid.wav" rootNote="60" loNote="59" hiNote="61" loVel="43" hiVel="85" tuning="0.07" loopEnabled="true" loopStart="27203" loopEnd="81015" loopCrossfade="0" />
+      <sample path="Samples/voices_D#4_mid.wav" rootNote="63" loNote="62" hiNote="64" loVel="43" hiVel="85" tuning="0.07" loopEnabled="true" loopStart="28435" loopEnd="81781" loopCrossfade="0" />
+      <sample path="Samples/voices_F#4_mid.wav" rootNote="66" loNote="65" hiNote="67" loVel="43" hiVel="85" tuning="0.04" loopEnabled="true" loopStart="39301" loopEnd="92449" loopCrossfade="0" />
+      <sample path="Samples/voices_A4_mid.wav" rootNote="69" loNote="68" hiNote="70" loVel="43" hiVel="85" tuning="0.04" loopEnabled="true" loopStart="35819" loopEnd="88860" loopCrossfade="0" />
+      <sample path="Samples/voices_C5_mid.wav" rootNote="72" loNote="71" hiNote="73" loVel="43" hiVel="85" tuning="0.05" loopEnabled="true" loopStart="28551" loopEnd="81526" loopCrossfade="0" />
+      <sample path="Samples/voices_D#5_mid.wav" rootNote="75" loNote="74" hiNote="76" loVel="43" hiVel="85" tuning="0.04" loopEnabled="true" loopStart="25415" loopEnd="78387" loopCrossfade="0" />
+      <sample path="Samples/voices_F#5_mid.wav" rootNote="78" loNote="77" hiNote="79" loVel="43" hiVel="85" tuning="0.06" loopEnabled="true" loopStart="31563" loopEnd="108539" loopCrossfade="0" />
+      <sample path="Samples/voices_A5_mid.wav" rootNote="81" loNote="80" hiNote="82" loVel="43" hiVel="85" tuning="0.07" loopEnabled="true" loopStart="23420" loopEnd="103277" loopCrossfade="0" />
+      <sample path="Samples/voices_C6_mid.wav" rootNote="84" loNote="83" hiNote="87" loVel="43" hiVel="85" tuning="0.08" loopEnabled="true" loopStart="25617" loopEnd="80383" loopCrossfade="0" />
+    </group>
+    <group ampVelTrack="0.6">
+      <!-- hard: thrown 20x past the key's edge, decaying with tau 0.25 s at 110 Hz -->
+      <sample path="Samples/voices_C1_hard.wav" rootNote="24" loNote="21" hiNote="25" loVel="86" hiVel="127" tuning="0.04" loopEnabled="true" loopStart="151224" loopEnd="244504" loopCrossfade="0" />
+      <sample path="Samples/voices_D#1_hard.wav" rootNote="27" loNote="26" hiNote="28" loVel="86" hiVel="127" tuning="0.05" loopEnabled="true" loopStart="131413" loopEnd="184860" loopCrossfade="0" />
+      <sample path="Samples/voices_F#1_hard.wav" rootNote="30" loNote="29" hiNote="31" loVel="86" hiVel="127" tuning="0.05" loopEnabled="true" loopStart="115867" loopEnd="213403" loopCrossfade="0" />
+      <sample path="Samples/voices_A1_hard.wav" rootNote="33" loNote="32" hiNote="34" loVel="86" hiVel="127" tuning="0.06" loopEnabled="true" loopStart="97222" loopEnd="150313" loopCrossfade="0" />
+      <sample path="Samples/voices_C2_hard.wav" rootNote="36" loNote="35" hiNote="37" loVel="86" hiVel="127" tuning="0.05" loopEnabled="true" loopStart="96440" loopEnd="176238" loopCrossfade="0" />
+      <sample path="Samples/voices_D#2_hard.wav" rootNote="39" loNote="38" hiNote="40" loVel="86" hiVel="127" tuning="0.05" loopEnabled="true" loopStart="83992" loopEnd="137441" loopCrossfade="0" />
+      <sample path="Samples/voices_F#2_hard.wav" rootNote="42" loNote="41" hiNote="43" loVel="86" hiVel="127" tuning="0.05" loopEnabled="true" loopStart="73445" loopEnd="157099" loopCrossfade="0" />
+      <sample path="Samples/voices_A2_hard.wav" rootNote="45" loNote="44" hiNote="46" loVel="86" hiVel="127" tuning="0.05" loopEnabled="true" loopStart="65251" loopEnd="118317" loopCrossfade="0" />
+      <sample path="Samples/voices_C3_hard.wav" rootNote="48" loNote="47" hiNote="49" loVel="86" hiVel="127" tuning="0.04" loopEnabled="true" loopStart="71415" loopEnd="127862" loopCrossfade="0" />
+      <sample path="Samples/voices_D#3_hard.wav" rootNote="51" loNote="50" hiNote="52" loVel="86" hiVel="127" tuning="0.05" loopEnabled="true" loopStart="62544" loopEnd="119964" loopCrossfade="0" />
+      <sample path="Samples/voices_F#3_hard.wav" rootNote="54" loNote="53" hiNote="55" loVel="86" hiVel="127" tuning="0.05" loopEnabled="true" loopStart="64133" loopEnd="119594" loopCrossfade="0" />
+      <sample path="Samples/voices_A3_hard.wav" rootNote="57" loNote="56" hiNote="58" loVel="86" hiVel="127" tuning="0.06" loopEnabled="true" loopStart="58220" loopEnd="112312" loopCrossfade="0" />
+      <sample path="Samples/voices_C4_hard.wav" rootNote="60" loNote="59" hiNote="61" loVel="86" hiVel="127" tuning="0.07" loopEnabled="true" loopStart="49088" loopEnd="102056" loopCrossfade="0" />
+      <sample path="Samples/voices_D#4_hard.wav" rootNote="63" loNote="62" hiNote="64" loVel="86" hiVel="127" tuning="0.07" loopEnabled="true" loopStart="31088" loopEnd="84289" loopCrossfade="0" />
+      <sample path="Samples/voices_F#4_hard.wav" rootNote="66" loNote="65" hiNote="67" loVel="86" hiVel="127" tuning="0.04" loopEnabled="true" loopStart="37255" loopEnd="90280" loopCrossfade="0" />
+      <sample path="Samples/voices_A4_hard.wav" rootNote="69" loNote="68" hiNote="70" loVel="86" hiVel="127" tuning="0.04" loopEnabled="true" loopStart="36049" loopEnd="88990" loopCrossfade="0" />
+      <sample path="Samples/voices_C5_hard.wav" rootNote="72" loNote="71" hiNote="73" loVel="86" hiVel="127" tuning="0.05" loopEnabled="true" loopStart="27900" loopEnd="80877" loopCrossfade="0" />
+      <sample path="Samples/voices_D#5_hard.wav" rootNote="75" loNote="74" hiNote="76" loVel="86" hiVel="127" tuning="0.04" loopEnabled="true" loopStart="30889" loopEnd="83859" loopCrossfade="0" />
+      <sample path="Samples/voices_F#5_hard.wav" rootNote="78" loNote="77" hiNote="79" loVel="86" hiVel="127" tuning="0.06" loopEnabled="true" loopStart="32281" loopEnd="109377" loopCrossfade="0" />
+      <sample path="Samples/voices_A5_hard.wav" rootNote="81" loNote="80" hiNote="82" loVel="86" hiVel="127" tuning="0.07" loopEnabled="true" loopStart="26686" loopEnd="106141" loopCrossfade="0" />
+      <sample path="Samples/voices_C6_hard.wav" rootNote="84" loNote="83" hiNote="87" loVel="86" hiVel="127" tuning="0.08" loopEnabled="true" loopStart="31788" loopEnd="86554" loopCrossfade="0" />
+    </group>
+  </groups>
+</DecentSampler>

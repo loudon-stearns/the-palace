@@ -179,7 +179,7 @@ describe('palace-commit', () => {
     // Fresh: presumed live (another session may be mid-commit), so refused, not deleted.
     expect(() => clearStaleLocks(root, { attempts: 1, log: () => {}, gitProcesses: () => [] })).toThrow(/index\.lock is held/);
     expect(existsSync(lock)).toBe(true);
-    // Old, and no git running in this checkout: the Cowork case. Removed, and logged.
+    // Old, and no git running in this checkout: a dead git left it. Removed, and logged.
     const t = new Date(Date.now() - 120_000);
     utimesSync(lock, t, t);
     const lines = [];
@@ -339,9 +339,9 @@ describe('palace-commit', () => {
     });
 
     // The server twin: commitSelected, the committer behind the LOG deck and
-    // Cowork. Same move, same expectations. It always scopes the diff and the
+    // the Trickster Commit. Same move, same expectations. It always scopes the diff and the
     // commit to the selected paths, so it behaves as the CLI does under --only.
-    describe('through commitSelected (the LOG deck and Cowork)', () => {
+    describe('through commitSelected (the LOG deck and the Trickster Commit)', () => {
       const OPTS = { kind: 'edit', scope: 'Foo', summary: 'move into Projects/', verify: 'verified', author: 'claude' };
       const OLD = ['Foo.md', `Foo/${GOTCHAS}`];
       const NEW = ['Projects/Foo.md', `Projects/Foo/${GOTCHAS}`];
