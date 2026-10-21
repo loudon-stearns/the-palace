@@ -140,6 +140,18 @@ describe('rowSignal + groupProjects + sortProjects — one rule for the table', 
     expect(sorted.slice(4)).toEqual(['Running', 'Steady', 'Untended']);
     expect(projectSortKey(by.Untended)[0]).toBe(4);
   });
+
+  // The ledger review's pressure (Loudon, 2026-10-18): a page whose steward has
+  // proposals for canon he has not reviewed needs him, after its open asks.
+  test('owed proposals put a page under needs you, and say how many', () => {
+    const proposed = { home: 'Proposed', stewarded: true, open_asks: 0, answered_unconsumed: 1, stalled: false, barren_streak: 0, proposed_owed: 2, proposed_urgent: 0, last_activity: '2026-10-20T00:00:00Z' };
+    const urgent = { ...proposed, home: 'Urgent', proposed_owed: 1, proposed_urgent: 1 };
+    expect(rowSignal(proposed)).toEqual({ text: '2 proposed', tone: 'warn' });
+    expect(rowSignal(urgent)).toEqual({ text: '1 proposed, urgent', tone: 'warn' });
+    expect(rowSignal({ ...proposed, open_asks: 1 })).toEqual({ text: '1 ask', tone: 'warn' }); // an ask still speaks first
+    expect(groupProjects([...rows, proposed]).needs_you.map((r) => r.home).sort()).toEqual(['Needs', 'Paused', 'Proposed', 'Running']);
+    expect(projectSortKey(proposed)[0]).toBe(0);
+  });
 });
 
 describe('the trail as cards (2026-10-13): a section joins its board message', () => {

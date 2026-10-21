@@ -36,7 +36,7 @@ import {
 import { resolveBundleDir, findEntryFile } from '../../orchestrator/src/entry-paths.js';
 import { listCeremonies } from '../../orchestrator/src/ceremony-scroll.js';
 import {
-  readTuningState, listTuningLedgers, tuningPathFor, appendLedgerLine, orderLine, normVersion,
+  readTuningState, listTuningLedgers, tuningPathFor, appendLedgerLine, orderLine, normVersion, parseProposals,
 } from '../../orchestrator/src/ledger.js';
 import { parseFrontmatter } from '../../orchestrator/src/entry-frontmatter.js';
 import { enchantSteward } from '../../orchestrator/src/enchant.js';
@@ -67,7 +67,7 @@ function readHistorySafe(p) {
 export function projectSortKey(row) {
   // lower sorts first
   let bucket = 4;
-  if (row.open_asks > 0) bucket = 0;
+  if (row.open_asks > 0 || row.proposed_owed > 0) bucket = 0;
   else if (row.answered_unconsumed > 0) bucket = 1;
   else if (row.stalled) bucket = 2;
   else if (row.stewarded) bucket = 3;
@@ -136,6 +136,13 @@ function entryRow({ palaceRoot, p, boardMsgs, stewards, worker, now }) {
     meta: { stage: fm.stage, data: fm }, entryText, tsNow: now,
     lastTouch: null, bundleMedia: [],
   });
+  // What the steward proposed for canon and Loudon has not reviewed: a page
+  // with any needs him (the ledger review, Loudon, 2026-10-18). Read straight
+  // from the bundle's tuning ledger; no git, so the 3 s poll stays cheap.
+  const proposed = (() => {
+    if (!bundle) return [];
+    try { return parseProposals(readFileSync(join(bundle.bundleDir, `${p.title} — tuning.md`), 'utf8')).filter((x) => x.owed); } catch { return []; }
+  })();
   const scrollRel = bundle ? relative(palaceRoot, join(bundle.bundleDir, `${p.title} — scroll.md`)) : null;
   const scrollExists = scrollRel ? existsSync(join(palaceRoot, scrollRel)) : false;
   const lastShip = nowView.last_shipped;
@@ -161,6 +168,8 @@ function entryRow({ palaceRoot, p, boardMsgs, stewards, worker, now }) {
     open_asks: nowView.open.length,
     open_blocking: nowView.open.some((r) => r.blocking),
     answered_unconsumed: nowView.answered_unconsumed.length,
+    proposed_owed: proposed.length,
+    proposed_urgent: proposed.filter((x) => x.urgent).length,
     last_shipped: lastShip ? { id: lastShip.id, ts: lastShip.ts, headline: (lastShip.payload && (lastShip.payload.headline || lastShip.payload.subject)) || null } : null,
     last_activity: lastActivity,
     drift: nowView.drift,

@@ -108,4 +108,4 @@ The teaching claim the project is built to prove: a learner who watches the wave
 
 ## Forward Vector
 
-First move: a Shop brief to the Maker routing [[Three.js]] (interface) + an AudioWorklet waveguide (engine), Sketch tier — the Karplus-Strong see-it-hear-it loop. That single artifact proves the bridge, gives Three.js its first real job (stub→alive), and tells us whether the physics-visible interface delivers the teaching punch the whole project is a bet on. Everything else stages off that proof.
+The Sketch is long done and the Study tier is built: study v1.12 is a two-way waveguide you can pluck, strike and bow, with stiffness that means the same at every pitch, a soundboard under the bridge, every slider lighting the object it names, and a seven-stop lesson (pluck, reflection, loss, pitch, stiffness, bow, body) that waits for the learner. What comes next is the Piece tier: hear it taught by hand, take it to a phone, make it hold up on a stage, and answer the question this page was born asking: does it earn a stage, or is it a test bed?

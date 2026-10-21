@@ -46,6 +46,7 @@ import { resolveBundleDir } from './entry-paths.js';
 import { parseFrontmatter } from './entry-frontmatter.js';
 import { reconcilePendingRequests } from './process-cycle.js';
 import { readTrigger } from './ceremony-scroll.js';
+import { pageEnded } from './batch-due.js';
 import {
   readTuningState, readDiaryState, diaryPathFor, ledgerTrail, renderLedgerSection, runText, isGitIgnored,
 } from './ledger.js';
@@ -667,6 +668,7 @@ export function renderNow(now, { home }) {
   L.push('');
   const stewardBit = now.stewarded
     ? `**Steward:** cycle ${dash(now.iteration)} · last ran ${day(now.last_active)}${now.last_active ? ` (${ago(now.last_active, now.ts_now)})` : ''}`
+    : pageEnded(now) ? `**Steward:** none — this ${noun} has ended (${pageEnded(now).how}) and takes no steward`
     : `**Steward:** none — this ${noun} has no permanent steward yet`;
   L.push(`- **Status:** ${dash(now.status)} · **Stage:** ${dash(now.stage)}${noun === 'ceremony' && !now.stewarded ? '' : ` · ${stewardBit}`}`);
   L.push(`- **Plan:** ${planLine(now)}`);

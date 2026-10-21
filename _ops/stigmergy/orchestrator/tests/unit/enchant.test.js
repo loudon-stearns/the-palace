@@ -148,4 +148,23 @@ describe('enchantSteward (integration)', () => {
     const result = enchantSteward({ palaceRoot: root, title: 'Ghost Project' });
     expect(result.status).toBe('not_found');
   });
+
+  // A page that has ended takes no steward while it stays ended (Loudon,
+  // 2026-10-21): the deck's ENCHANT gave finished pages one.
+  test('a finished, archived or composting page is refused, and nothing is written', () => {
+    makePalace();
+    writePage('Done Project', '---\nstatus: complete\nstage: fruiting\nforward_vector: x\n---\n# Done Project\n');
+    writePage('Old Project', '---\nstatus: "archived"\nstage: mature\nforward_vector: x\n---\n# Old Project\n');
+    writePage('Rot Project', '---\nstatus: active\nstage: composting\nforward_vector: x\n---\n# Rot Project\n');
+    writePage('Resting Project', '---\nstatus: active\nstage: dormant\nforward_vector: x\n---\n# Resting Project\n');
+    const done = enchantSteward({ palaceRoot: root, title: 'Done Project' });
+    expect(done.status).toBe('page_ended');
+    expect(done.errors[0]).toBe('Done Project takes no steward: it is finished (status: complete), and a page that has ended takes none.');
+    expect(enchantSteward({ palaceRoot: root, title: 'Old Project' }).status).toBe('page_ended');
+    expect(enchantSteward({ palaceRoot: root, title: 'Rot Project' }).status).toBe('page_ended');
+    expect(existsSync(path.join(root, '_ops/agents/permanent/done-project'))).toBe(false);
+    expect(existsSync(path.join(root, '_ops/agents/permanent/REGISTRY.json'))).toBe(false);
+    // A dormant page rests: it has not ended, so it may still take a steward.
+    expect(enchantSteward({ palaceRoot: root, title: 'Resting Project' }).status).toBe('enchanted');
+  });
 });

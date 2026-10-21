@@ -315,9 +315,10 @@ def check_trigger_coverage(root, basenames_lower):
 
 # Generated blocks - drift mechanism E (stale snapshots) with a builder behind it. Each is
 # computed from the palace and committed into an entry, so it goes stale the moment its
-# sources change without a re-run. A steward cycle that edits a source refreshes its block;
-# a session that moves or re-statuses a source does not, so the check lives here, where the
-# Weave, the Deposit and the Return already look. Each builder honours `--check`: exit 0
+# sources change without a re-run. No steward cycle edits a source (a change it wants waits
+# in its tuning ledger), and a session that moves or re-statuses one does not re-run the
+# builder either, so the check lives here, where the Weave, the Deposit and the Return
+# already look. Each builder honours `--check`: exit 0
 # when its block is current, exit 1 printing STALE when it is not, and every `warn:` line
 # it prints is a finding about its sources. Add a block here when a second builder appears.
 GENERATED_BLOCKS = [

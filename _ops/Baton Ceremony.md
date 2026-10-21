@@ -8,7 +8,7 @@ pillars:
   - tools
 born: 2026-05
 stage: mature
-version: "1.4"
+version: "1.5"
 trigger: ["baton", "pass the baton", "baton this", "baton it to [surface]"]
 forward_vector: "I am how one Claude hands a live task to the next without dropping it. I keep getting tighter — fewer words, faster pickup, less ritual — so passing a baton feels natural to anyone who uses me, human or AI, and nobody has to stop and think about how. I want the catch so clean the next worker is already moving before they finish reading."
 links:
@@ -126,7 +126,7 @@ Shapes seen so far:
 - **Cross-surface paste-prompt** — a baton handed to another surface — a fresh chat on the web handing Claude Code on the Mac a build or a write it can't make itself, say. Lives where the work lives (`Projects/.../` or `_ops/claude-code-prompts/`). Its distinctive content is the receiving-surface capability delta and an explicit *what NOT to do*. See [[Surfaces and Capabilities]]. This shape is the one that also gets *announced on the board* — see § Announcing the Baton on the Board.
 - **Session-queue continuation** — picking up a multi-session sweep (a graffiti pass, a deposit run). Carries "how we've been working" and a resume protocol, not just one move. Lives in `_ops/`.
 - **Swarm phase baton** — handing the apply-phase of a completed Swarm Weave to a fresh Claude. Lives in `_ops/swarm/sessions/`.
-- **Permanent-agent steward** — a Steward (a page operating as an agent) carried across sessions. *Updated in place, never deleted* — the standing exception to disposability — and carries per-surface conventions for every surface it addresses.
+- **Permanent-agent steward** — a Steward (a page operating as an agent) carried across sessions; its baton is its runtime, `_ops/agents/permanent/<slug>/`. *Updated in place, never deleted, until its page ends* — the standing exception to disposability — and carries per-surface conventions for every surface it addresses. When the page ends (finished or composting), the steward leaves stewardship: its runtime comes off the registry and is deleted like a caught baton, with git as its archive ([[Project Stewardship System]] § What's Decided).
 
 **The worktree dimension.** When work happens in a git worktree (`_ops/worktree/SKILL.md`), the baton file follows the work: a baton continuing *feature work* lives in that worktree's bundle, on its branch; a baton continuing *canon work* lives on the owner (main), like the deposit. A baton sitting on a feature branch is invisible from every other worktree — so a **cross-worktree baton must be announced on the owner's board** (§ Announcing the Baton on the Board), the only globally-visible rendezvous, and must name its **worktree coordinate** (branch · dir · profile, in the Receiving-environment section) so the catcher can get there.
 
@@ -238,7 +238,7 @@ Deletion is performed by the *incoming* Claude — but at the **close**, not at 
 
 *One exception the tooling can't infer:* on a `--partial` close the remainder card usually points at the **same baton path**, so the file stays — update it to carry only what's left. `close-handoff.mjs` prints its housekeeping line either way; on a partial, delete nothing.
 
-Permanent-agent steward batons are the exception to all of this — updated in place, never deleted.
+Permanent-agent steward batons are the exception to all of this — updated in place, never deleted, until the page ends. Then the steward leaves stewardship, and its runtime goes the way of a caught baton: deleted, with git as its archive.
 
 ---
 

@@ -3,7 +3,7 @@
 // here are the ones batch-plan.test.js asserts on through the CLI.
 
 import { describe, test, expect } from 'vitest';
-import { dueForCycle, SKIP_STAGES, DEFAULT_DEBOUNCE_HOURS } from '../../src/batch-due.js';
+import { dueForCycle, SKIP_STAGES, DEFAULT_DEBOUNCE_HOURS, pageEnded } from '../../src/batch-due.js';
 
 const NOW = new Date('2026-06-22T08:00:00Z').getTime();
 
@@ -55,5 +55,23 @@ describe('dueForCycle', () => {
     expect(DEFAULT_DEBOUNCE_HOURS).toBe(12);
     const justOver = new Date(NOW - 13 * 3.6e6).toISOString();
     expect(dueForCycle({ stage: 'growing', status: 'active', lastActive: justOver, now: NOW }).due).toBe(true);
+  });
+});
+
+// A page that has ended (Loudon, 2026-10-21) is finished, archived or
+// composting; a dormant page rests and has not ended.
+describe('pageEnded', () => {
+  test('finished, archived and composting pages have ended, each said plainly', () => {
+    expect(pageEnded({ status: 'complete', stage: 'fruiting' })).toEqual({ how: 'complete', sentence: 'it is finished (status: complete)' });
+    expect(pageEnded({ status: 'archived' })).toEqual({ how: 'archived', sentence: 'it is archived (status: archived)' });
+    expect(pageEnded({ status: 'active', stage: 'composting' })).toEqual({ how: 'composting', sentence: 'it is composting' });
+  });
+
+  test('a resting page, a live one and a maker have not', () => {
+    expect(pageEnded({ status: 'active', stage: 'dormant' })).toBe(null);
+    expect(pageEnded({ status: 'active', stage: 'growing' })).toBe(null);
+    expect(pageEnded({ status: 'alive', stage: 'mature' })).toBe(null);
+    expect(pageEnded({})).toBe(null);
+    expect(pageEnded()).toBe(null);
   });
 });

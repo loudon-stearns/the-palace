@@ -91,7 +91,10 @@ function readCycles(history) {
         by: sp.by || (e.batch_run ? 'batch' : null), model: sp.model || null,
         posted: posted.length,
         blocking: msgs.some((m) => m.type === 'RESOURCE_REQUEST' && m.payload && m.payload.blocking === true),
+        // Since 2026-10-18 page_edits are workshop files only; a change the
+        // steward wants on its page is a proposal for canon (proposed_edits).
         page_edits: msgs.some((m) => m.payload && Array.isArray(m.payload.page_edits) && m.payload.page_edits.length),
+        proposed_edits: msgs.some((m) => m.payload && Array.isArray(m.payload.proposed_edits) && m.payload.proposed_edits.length),
         reclassified: cleared.has(n) || undefined,
       });
     } else if (e.event === 'CYCLE_INTERRUPTED') {
