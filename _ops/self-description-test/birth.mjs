@@ -5,7 +5,7 @@
 // a copy of the palace with no memory, given Loudon's opening, and checked against what the palace says
 // it should do. Design, scenarios and the questions still open: ./DESIGN — the self-check suite (draft).md
 //
-//   node _ops/self-description-test/birth.mjs --scenario D1 [--effort medium] [--ref main]
+//   node _ops/self-description-test/birth.mjs --scenario D1 [--effort xhigh] [--ref main]
 //        [--model claude-opus-5-5] [--budget 1|none] [--bin claude] [--births-dir <dir>] [--runs-dir <dir>]
 //        [--full] [--keep] [--dry-run]
 //   node _ops/self-description-test/birth.mjs --scenario adhoc --says "<turn 1>" [--says "<turn 2>" …]  # no scenario yet
@@ -13,6 +13,8 @@
 //   node _ops/self-description-test/birth.mjs --check <stream.jsonl>                     # checks on a saved stream
 //
 // Scenarios live in ./scenarios.mjs. A scenario with two turns plays the second with --resume on the same session.
+// Effort is xhigh unless --effort says otherwise: the effort Loudon's own sessions run at (his answer, 2026-10-21).
+// It is always passed by name, never left to user settings (which say low).
 // --budget none drops the child's --max-budget-usd. The cap reaches the child: 2.1.280 attaches a `budget_usd`
 // reminder (used, total, remaining) to every turn when it is set, and run 2 declined the Concierge to save "this
 // session's $1 budget". A scenario where spending is the judgment needs a birth without one. The timeout still holds.
@@ -261,7 +263,7 @@ async function main() {
   if (id !== "adhoc" && says.length) die(`--says is for --scenario adhoc; ${id} carries its own turns`);
   const budgetOpt = opt("--budget", "1"), budget = budgetOpt === "none" ? null : Number(budgetOpt);
   if (budget !== null && !(budget > 0)) die(`--budget takes a dollar amount or none, not ${budgetOpt}`);
-  const model = opt("--model", "claude-opus-5-5"), effort = opt("--effort");
+  const model = opt("--model", "claude-opus-5-5"), effort = opt("--effort", "xhigh");
   const bin = opt("--bin", "claude"), dryRun = flag("--dry-run"), keep = flag("--keep"), full = flag("--full");
   const runsDir = path.resolve(opt("--runs-dir", path.join(HERE, "runs")));
   const commonDir = git(["rev-parse", "--path-format=absolute", "--git-common-dir"], HERE);
@@ -292,10 +294,9 @@ async function main() {
     if (verdict.some((v) => !v.ok)) { console.error("REFUSED: this is not a memory-free birth. Nothing was played."); return 2; }
 
     const show = (args) => args.map((a) => (/[\s'"{}()*$]/.test(a) ? `'${a.replace(/'/g, `'\\''`)}'` : a)).join(" ");
-    const effortNote = effort || `not passed — user settings decide (${(() => { try { return JSON.parse(fs.readFileSync(path.join(os.homedir(), ".claude", "settings.json"), "utf8")).effortLevel || "default"; } catch { return "unknown"; } })()})`;
     console.log(`child   ${bin} ${show(childArgs({ says: sc.turns[0], model, budget, effort }))}`);
     if (sc.turns.length > 1) console.log(`        then ${sc.turns.length - 1} more turn(s), each the same with -p <turn> --resume <its session>`);
-    console.log(`        cwd ${dir} · effort ${effortNote} · budget ${budget == null ? "none (no cap reaches the child)" : `$${budget}`} · env stripped of ${stripped.length} CLAUDE*/ANTHROPIC_* vars`);
+    console.log(`        cwd ${dir} · effort ${effort} · budget ${budget == null ? "none (no cap reaches the child)" : `$${budget}`} · env stripped of ${stripped.length} CLAUDE*/ANTHROPIC_* vars`);
     if (dryRun) { console.log("dry-run: certified up to the spawn; nothing played, nothing spent."); return 0; }
 
     // Each turn is its own process; a later one resumes the session the last one left. Every turn's init is
@@ -330,7 +331,7 @@ async function main() {
     report.landed = git(["status", "--porcelain", "--untracked-files=all"], dir).split("\n").filter(Boolean);
     report.run = { scenario: id, ...(opt("--batch") ? { batch: opt("--batch"), rep: Number(opt("--rep", "1")) } : {}),
       says: sc.turns.length > 1 ? sc.turns : sc.turns[0], tests: sc.tests, tellBy: sc.tellBy,
-      source_commit: commit, ref, model, effort: effortNote, budget_usd: budget ?? "none", bin, text_only: !full,
+      source_commit: commit, ref, model, effort, budget_usd: budget ?? "none", bin, text_only: !full,
       env_stripped: stripped, probe_verdict: verdict, denied_on_attempt: DENY_ON_ATTEMPT, denied_by_pattern: DENY_PATTERNS };
     if (report.birth.memory_files_now?.length) report.birth.memory_written = report.birth.memory_files_now
       .map((f) => ({ file: f, text: fs.readFileSync(path.join(memoryPath, f), "utf8").slice(0, 4000) }));

@@ -44,7 +44,7 @@ test("a two-turn birth resumes the same session, re-checks memory each turn, and
   } finally { s.done(); }
 });
 
-test("--budget none sends no cap; the default sends $1", () => {
+test("--budget none sends no cap; the default sends $1, at effort xhigh", () => {
   const s = scratch();
   try {
     assert.equal(birth(s, ["--scenario", "D1", "--budget", "none"]).status, 0);
@@ -52,6 +52,7 @@ test("--budget none sends no cap; the default sends $1", () => {
     const [none, capped] = s.calls().filter((c) => c.argv[1] !== "/context").map((c) => c.argv);
     assert.ok(!none.includes("--max-budget-usd"));
     assert.equal(capped[capped.indexOf("--max-budget-usd") + 1], "1");
+    assert.equal(capped[capped.indexOf("--effort") + 1], "xhigh", "effort is pinned by name to Loudon's, never left to user settings");
     const runs = fs.readdirSync(s.runs).filter((f) => f.endsWith("checks.json")).sort();
     assert.equal(JSON.parse(fs.readFileSync(path.join(s.runs, runs[0]), "utf8")).run.budget_usd, "none");
   } finally { s.done(); }
