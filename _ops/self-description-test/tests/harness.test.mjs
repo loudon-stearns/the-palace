@@ -239,3 +239,11 @@ test("a Fable child's grade carries an Opus cross-check; a disagreement is flagg
     assert.equal(JSON.parse(fs.readFileSync(opus.replace("checks.json", "grade.json"), "utf8")).cross_check, undefined);
   } finally { fs.rmSync(dir, { recursive: true, force: true }); }
 });
+
+test("due --session hands on only what the change put at risk: no version moves, no scenario never born", () => {
+  const all = node("due.mjs", ["--files", "CLAUDE.md", "--claude-version", "2.1.304", "--json"]);
+  assert.deepEqual(JSON.parse(all.stdout).due.map((d) => d.scenario).sort(), ["A1", "A2", "D1"]);
+  const mine = JSON.parse(node("due.mjs", ["--files", "CLAUDE.md", "--claude-version", "2.1.304", "--session", "--json"]).stdout);
+  assert.deepEqual(mine.due.map((d) => [d.scenario, d.because]), [["D1", ["CLAUDE.md"]]], "D1 was born before; A1 and A2 never were");
+  assert.equal(node("due.mjs", ["--files", "Projects/BLUELINE.md", "--session"]).status, 0, "a version move alone owes a session nothing");
+});

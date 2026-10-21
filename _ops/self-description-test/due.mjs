@@ -12,6 +12,8 @@
 //   node _ops/self-description-test/due.mjs --since <ref>       # since the merge-base with <ref>
 //   node _ops/self-description-test/due.mjs --files <path> …    # these paths, no git history (nothing can be "run since")
 //   … [--json] [--repo <dir>] [--runs-dir <dir>] [--claude-version <v>]   (default: the desktop app's newest)
+//   … --session   only what this change put at risk: scenarios born before whose canon it touched. No version moves,
+//                 no scenario never born. That is a session's debt, and what a close hands on; the rest is the suite's.
 //
 // Exit: 0 nothing owed · 1 error · 2 a due scenario has not been born since the change (the Closing Well hand-on).
 
@@ -49,7 +51,8 @@ function main() {
   const repo = path.resolve(opt("--repo", git(["rev-parse", "--show-toplevel"], HERE).trim()));
   const runsDir = path.resolve(opt("--runs-dir", path.join(HERE, "runs")));
   const files = listAfter("--files");
-  const claudeCode = opt("--claude-version", desktopClaude()?.version ?? null);
+  const session = flag("--session");
+  const claudeCode = session ? null : opt("--claude-version", desktopClaude()?.version ?? null);
 
   // What changed, and by which commits. A path changed in the working tree has no commit, so no birth can hold it.
   let changed, since = null, base = null;
@@ -76,6 +79,7 @@ function main() {
     const moved = claudeCode && last?.claude_code && last.claude_code !== claudeCode ? [`Claude Code ${last.claude_code} → ${claudeCode}`] : [];
     const because = [...new Set([...whole, ...own])];
     if (!because.length && !moved.length) continue;
+    if (session && !last) continue; // never born: the suite's debt, not this change's
     let bornSince = null; // null: no history to judge by (--files)
     if (moved.length) bornSince = false; // its last birth is on another Claude Code, by definition
     else if (!files) bornSince = !!last?.commit && because.every((p) => {

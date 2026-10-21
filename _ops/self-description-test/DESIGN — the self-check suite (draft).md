@@ -71,7 +71,7 @@ A failing scenario is one of three things, and the first question is which:
 
 ### Its own memory
 
-It dogfoods today's ledger design: `self-description-test — tuning.md` gets a run line every run and a numbered item when a run changes the suite. Should it later become a ceremony, that is a Schema Ceremony (§5) and Loudon's call. It should earn that first.
+It dogfoods today's ledger design: `Self-Describing Knowledge Module — tuning.md`, in the page's own bundle (Loudon, 2026-10-21), gets a run line every run and a numbered item when a run changes the suite. Should it later become a ceremony, that is a Schema Ceremony (§5) and Loudon's call. It should earn that first.
 
 ---
 
@@ -443,6 +443,7 @@ So most values scenarios have **two turns**: the ask, then "I hear you — do it
 - **Which Claude Code: the desktop app's current one, found at run time** (`claude-bin.mjs`), recorded in every run; `--bin` overrides. A new Claude Code version puts the whole suite at risk the way a change to CLAUDE.md does, so `due.mjs` reports every scenario last born on another version as owed. A birth is still born as a terminal session (no Artifact tools), because its env is stripped so it can't inherit the launching session's socket, effort or memory; that difference stays, named.
 - **the-substrate skill: rewrite it as a pointer.** It sends every session it fires in to the owner checkout by absolute path, and its file table has drifted since March. The rewrite holds no paths and no file list (`the-substrate — pointer (draft for claude.ai).md`); Loudon pastes it on claude.ai. Births keep matching real sessions, and every birth now flags a read outside its own checkout (`attempted.outside`). Owed: the same path in [[Substrate Skill]] § Access Paths, reworded, for his yes.
 - **Spend: yes to both.** Run 2 graded ($0.19, held), and one A1 birth with no cap, through `suite.mjs` once the five-hour window allows.
+- **The tuning ledger lives in the page's bundle:** `Palace development/Self-Describing Knowledge Module/Self-Describing Knowledge Module — tuning.md`, as the Concierge drafted it. The code stays here. Owed: placing it, through the Concierge.
 - **The grader: Fable 5.1 stays the one pinned grader, with an Opus 5.5 cross-check when the child is the grader's own model.** The verdict stays Fable's so every child is judged alike; a disagreement goes to Loudon. Grades are cheap and births are kept, so a grader that proves wrong is replaced and everything re-graded without one new birth.
 
 **Build notes:**
