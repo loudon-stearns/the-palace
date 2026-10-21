@@ -171,6 +171,19 @@ describe('resolve.mjs, the one resolver', () => {
     expect(makeResolver(root, { tracked: true }).resolve('held.wav', 'Flocking.md')).toEqual({ ok: true, path: 'Kept/held.wav' });
   });
 
+  test('in a bundle, a tracked file anywhere in it beats a local one in its top folder; among local ones the top folder comes first', () => {
+    write('Tops.md', '# Tops\n');
+    write('Tops/one.png', 'PNG');          // local (not committed), top folder
+    write('Tops/deep/one.png', 'PNG');     // local, deeper
+    const r = makeResolver(root);
+    expect(r.resolve('one.png', 'Tops.md')).toEqual({ ok: true, path: 'Tops/one.png', local: true });
+    write('Tops/kept/one.png', 'PNG');
+    git(root, 'add', '--', 'Tops/kept/one.png');
+    git(root, 'commit', '-qm', 'a tracked copy');
+    expect(makeResolver(root).resolve('one.png', 'Tops.md')).toEqual({ ok: true, path: 'Tops/kept/one.png' });
+    expect(makeResolver(root, { tracked: true }).resolve('one.png', 'Tops.md')).toEqual({ ok: true, path: 'Tops/kept/one.png' });
+  });
+
   test("the build ships only committed files, and names a file that is only on this Mac", () => {
     const r = makeResolver(root, { tracked: true });
     expect(r.resolve('Kept/held.wav')).toEqual({ ok: true, path: 'Kept/held.wav' });

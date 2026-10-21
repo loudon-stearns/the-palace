@@ -204,8 +204,14 @@ export function makeResolver(root = ROOT, opts = {}) {
     }
     if (bundle) {
       const top = check(`${bundle}/${ref}`);
-      if (top && top.path) return hit(top);
+      if (top && top.path && !top.local) return hit(top);
       const under = onlyOne(ref, (index().byName.get(ref) || []).filter((p) => p.startsWith(bundle + '/')));
+      // A tracked file anywhere in the bundle (the copy kept in rich-face/) beats
+      // a local one in its top folder, as the build, which sees only the tracked
+      // one, would choose; two tracked ones are ambiguous to both.
+      if (under && under.ok && !under.local) return under;
+      if (under && under.reason === 'ambiguous' && under.candidates.every((p) => index().tracked.has(p))) return under;
+      if (top && top.path) return hit(top);
       if (under && (under.ok || under.reason === 'ambiguous')) return under;
     }
     return onlyOne(ref, index().byName.get(ref) || []) || fail('missing', ref, { tried: [bundle ? `${bundle}/` : null, 'the palace'].filter(Boolean) });

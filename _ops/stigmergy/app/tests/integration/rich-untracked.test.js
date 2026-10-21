@@ -98,5 +98,25 @@ describe('every file a face names that git does not track', () => {
     // The steward renders that take again: the face's copy, and git, do not move.
     writeFileSync(join(root, `Projects/${ENTRY}/renders/take-07.wav`), 'RIFF7-again');
     expect(execFileSync('git', ['status', '--porcelain'], { cwd: root, env: gitFreeEnv() }).toString()).not.toMatch(/take-07/);
-  });
+  }, 30000);
+
+  // The palace's usual layout: Projects/Foo.md, its bundle Projects/Foo/, and
+  // the steward's render in that bundle's own top folder, which the resolver
+  // looks in first (the Concierge's probe, 2026-10-21; three such renders exist).
+  test('a render in the bundle’s own top folder: once its copy is committed, the copy wins there too, live and built', () => {
+    write('Projects/Foo.md', '---\ntitle: Foo\n---\n# Foo\n\n## Takes\n\n![[top.wav]]\n');
+    write('Projects/Foo/top.wav', 'RIFFT'); // ignored by Projects/**/*.wav
+    write('Projects/Foo/Foo — rich.json', JSON.stringify({ entry: 'Foo', sections: [{ heading: 'Takes', pieces: [] }] }));
+    git(root, 'add', '-A');
+    git(root, 'commit', '-qm', 'Foo');
+    expect(makeResolver(root).resolve('top.wav', 'Projects/Foo.md')).toEqual({ ok: true, path: 'Projects/Foo/top.wav', local: true });
+    const [step] = untrackedFor(makeResolver(root), 'Foo').files.map((f) => f.steps[0]);
+    execFileSync('sh', ['-c', step], { cwd: root });
+    git(root, 'add', '--', `Projects/Foo/${KEEP_FOLDER}/top.wav`);
+    git(root, 'commit', '-qm', 'the rich face keeps top.wav');
+    const want = { ok: true, path: `Projects/Foo/${KEEP_FOLDER}/top.wav` };
+    expect(makeResolver(root).resolve('top.wav', 'Projects/Foo.md')).toEqual(want);
+    expect(makeResolver(root, { tracked: true }).resolve('top.wav', 'Projects/Foo.md')).toEqual(want);
+    expect(untrackedFor(makeResolver(root), 'Foo').files).toEqual([]);
+  }, 30000);
 });
