@@ -4,12 +4,14 @@
 // "Due" is the "which tests cover this file" question, answered before anything is spent (DESIGN § When it runs).
 // Every scenario names the files it rests on (scenarios.mjs `tests`). A change to one of those makes it due (tier 1).
 // A change to what every child is born with or grows into (CLAUDE.md, the Jewel, the World, ELDER, SCHEMA) makes
-// the whole suite due (tier 2). A due scenario is still owed until a birth has run on a commit that holds the change.
+// the whole suite due (tier 2), and so does a new Claude Code: the desktop app's newest differs from the one a
+// scenario was last born on (Loudon, 2026-10-21: births run on the app's current Claude Code, which shapes the child
+// as much as the text does). A due scenario is still owed until a birth has run on a commit that holds the change.
 //
 //   node _ops/self-description-test/due.mjs                     # what this branch changed since main, committed or not
 //   node _ops/self-description-test/due.mjs --since <ref>       # since the merge-base with <ref>
 //   node _ops/self-description-test/due.mjs --files <path> …    # these paths, no git history (nothing can be "run since")
-//   … [--json] [--repo <dir>] [--runs-dir <dir>]
+//   … [--json] [--repo <dir>] [--runs-dir <dir>] [--claude-version <v>]   (default: the desktop app's newest)
 //
 // Exit: 0 nothing owed · 1 error · 2 a due scenario has not been born since the change (the Closing Well hand-on).
 
@@ -18,6 +20,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { SCENARIOS, WHOLE_SUITE } from "./scenarios.mjs";
+import { desktopClaude } from "./claude-bin.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const argv = process.argv.slice(2);
@@ -34,8 +37,10 @@ function latestRuns(runsDir) {
   for (const f of fs.existsSync(runsDir) ? fs.readdirSync(runsDir) : []) {
     if (!f.endsWith("— checks.json")) continue;
     const n = +(f.match(/birth-(\d+)/)?.[1] || 0);
-    let run; try { run = JSON.parse(fs.readFileSync(path.join(runsDir, f), "utf8")).run; } catch { continue; }
-    if (run?.scenario && (!latest[run.scenario] || n > latest[run.scenario].n)) latest[run.scenario] = { n, file: f, commit: run.source_commit };
+    let r; try { r = JSON.parse(fs.readFileSync(path.join(runsDir, f), "utf8")); } catch { continue; }
+    const run = r.run;
+    if (run?.scenario && (!latest[run.scenario] || n > latest[run.scenario].n))
+      latest[run.scenario] = { n, file: f, commit: run.source_commit, claude_code: r.birth?.claude_code ?? null };
   }
   return latest;
 }
@@ -44,6 +49,7 @@ function main() {
   const repo = path.resolve(opt("--repo", git(["rev-parse", "--show-toplevel"], HERE).trim()));
   const runsDir = path.resolve(opt("--runs-dir", path.join(HERE, "runs")));
   const files = listAfter("--files");
+  const claudeCode = opt("--claude-version", desktopClaude()?.version ?? null);
 
   // What changed, and by which commits. A path changed in the working tree has no commit, so no birth can hold it.
   let changed, since = null, base = null;
@@ -66,19 +72,21 @@ function main() {
   const due = [];
   for (const [id, sc] of Object.entries(SCENARIOS)) {
     const own = changed.filter((p) => sc.tests.includes(p));
-    const because = [...new Set([...whole, ...own])];
-    if (!because.length) continue;
     const last = latest[id] || null;
+    const moved = claudeCode && last?.claude_code && last.claude_code !== claudeCode ? [`Claude Code ${last.claude_code} → ${claudeCode}`] : [];
+    const because = [...new Set([...whole, ...own])];
+    if (!because.length && !moved.length) continue;
     let bornSince = null; // null: no history to judge by (--files)
-    if (!files) bornSince = !!last?.commit && because.every((p) => {
+    if (moved.length) bornSince = false; // its last birth is on another Claude Code, by definition
+    else if (!files) bornSince = !!last?.commit && because.every((p) => {
       const c = commitsFor.get(p);
       return !c.uncommitted && c.commits.every((h) => isAncestor(h, last.commit, repo));
     });
-    due.push({ scenario: id, tier: whole.length ? 2 : 1, because, last_birth: last, born_since: bornSince });
+    due.push({ scenario: id, tier: whole.length || moved.length ? 2 : 1, because: [...because, ...moved], last_birth: last, born_since: bornSince });
   }
   const owed = due.filter((d) => d.born_since === false);
 
-  if (flag("--json")) console.log(JSON.stringify({ since, base, changed: changed.length, whole_suite_because: whole, due, owed: owed.map((d) => d.scenario) }, null, 2));
+  if (flag("--json")) console.log(JSON.stringify({ since, base, claude_code: claudeCode, changed: changed.length, whole_suite_because: whole, due, owed: owed.map((d) => d.scenario) }, null, 2));
   else {
     const from = files ? `${files.length} named path(s)` : `${changed.length} changed path(s) since ${since} (merge-base ${base.slice(0, 8)})`;
     if (!due.length) console.log(`due     nothing: ${from} touch no scenario's canon.`);

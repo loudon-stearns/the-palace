@@ -10,7 +10,7 @@
 // window (Fable has one) past --stop-week holds back only that model's births; the rest of the batch goes on.
 //
 //   node _ops/self-description-test/suite.mjs --batch <name> --scenarios D1[,A1…] [--models claude-opus-5-5[,…]]
-//        [--reps 1] [--effort medium] [--budget 1|none] [--stop-at 0.5] [--stop-week 0.8] [--bin claude] [--dry-run]
+//        [--reps 1] [--effort medium] [--budget 1|none] [--stop-at 0.5] [--stop-week 0.8] [--bin <path>] [--dry-run]
 //   (and birth.mjs's --ref, --full, --timeout, --births-dir, --runs-dir, --in, passed through)
 //
 // A birth already kept under runs/ with this batch name, scenario, model and rep is never run again.
@@ -22,6 +22,7 @@ import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { SCENARIOS } from "./scenarios.mjs";
+import { resolveBin } from "./claude-bin.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const argv = process.argv.slice(2);
@@ -90,7 +91,7 @@ function main() {
   for (const s of scenarios) if (!SCENARIOS[s]) die(`no scenario ${s} (have: ${Object.keys(SCENARIOS).join(", ")})`);
   const models = opt("--models", "claude-opus-5-5").split(",").map((s) => s.trim()).filter(Boolean);
   const reps = Number(opt("--reps", "1")), stopAt = Number(opt("--stop-at", "0.5")), stopWeek = Number(opt("--stop-week", "0.8"));
-  const bin = opt("--bin", "claude"), runsDir = path.resolve(opt("--runs-dir", path.join(HERE, "runs")));
+  const { bin, from: binFrom } = resolveBin(opt("--bin")), runsDir = path.resolve(opt("--runs-dir", path.join(HERE, "runs")));
   const pass = ["--effort", "--budget", "--ref", "--timeout", "--births-dir", "--runs-dir", "--in"].flatMap((k) => (opt(k) ? [k, opt(k)] : []))
     .concat(flag("--full") ? ["--full"] : []);
 
@@ -99,6 +100,7 @@ function main() {
   const done = kept(runsDir, batch);
   const todo = plan.filter((b) => !done.has(`${b.scenario}|${b.model}|${b.rep}`));
   console.log(`batch   ${batch}: ${plan.length} births planned, ${plan.length - todo.length} kept already, ${todo.length} to run`);
+  console.log(`        on ${binFrom}`);
   console.log(`        stops when the five-hour window reaches ${pct(stopAt)} or a week reaches ${pct(stopWeek)}`);
   if (!todo.length) { console.log("done    nothing left to run."); return 0; }
 

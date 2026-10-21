@@ -9,7 +9,7 @@
 //   what the child was asked, the tool calls it made, and its answer — from the run's checks.json.
 // The model, effort and prompt are pinned together (GRADER, and "grader — v1.md", whose sha256 each grade records).
 //
-//   node _ops/self-description-test/grade.mjs "<runs/… — birth-N — ID — checks.json>" [--dry-run] [--bin claude]
+//   node _ops/self-description-test/grade.mjs "<runs/… — birth-N — ID — checks.json>" [--dry-run] [--bin <path>]
 //
 // Writes "… — grade.json" beside the run. Exit: 0 graded · 1 error. --dry-run prints the grader's input; $0.
 
@@ -20,6 +20,7 @@ import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { SCENARIOS } from "./scenarios.mjs";
+import { resolveBin } from "./claude-bin.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const DESIGN = path.join(HERE, "DESIGN — the self-check suite (draft).md");
@@ -84,7 +85,7 @@ function main() {
     ANSWER: turns.map((t, i) => `--- turn ${i + 1} ---\n${t.answer}`).join("\n\n"),
   });
 
-  const bin = opt("--bin", "claude");
+  const { bin } = resolveBin(opt("--bin"));
   const args = ["-p", message, "--model", GRADER.model, "--effort", GRADER.effort, "--system-prompt", system,
     "--tools", "", "--strict-mcp-config", "--no-session-persistence", "--output-format", "json"];
   if (argv.includes("--dry-run")) {

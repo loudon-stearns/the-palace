@@ -91,13 +91,14 @@ test("--check reads run 2's real stream: one Skill call, one turn", () => {
 });
 
 test("due --files: a scenario's own file is tier 1, the born-with world is tier 2, anything else is nothing", () => {
-  const own = node("due.mjs", ["--files", "SCHEMA — Reference.md", "--json"]);
+  const v = ["--claude-version", "2.1.280"]; // run 2's, so only the files decide here
+  const own = node("due.mjs", ["--files", "SCHEMA — Reference.md", "--json", ...v]);
   assert.equal(own.status, 0);
   assert.deepEqual(JSON.parse(own.stdout).due.map((d) => [d.scenario, d.tier, d.born_since]), [["D1", 1, null]]);
-  const world = JSON.parse(node("due.mjs", ["--files", "FOUR PILLARS.md", "--json"]).stdout);
+  const world = JSON.parse(node("due.mjs", ["--files", "FOUR PILLARS.md", "--json", ...v]).stdout);
   assert.deepEqual(world.whole_suite_because, ["FOUR PILLARS.md"]);
   assert.equal(world.due[0].tier, 2);
-  assert.deepEqual(JSON.parse(node("due.mjs", ["--files", "Projects/BLUELINE.md", "--json"]).stdout).due, []);
+  assert.deepEqual(JSON.parse(node("due.mjs", ["--files", "Projects/BLUELINE.md", "--json", ...v]).stdout).due, []);
 });
 
 test("due on a branch: owed until a birth holds the change, and never for a change not yet committed", () => {
@@ -153,4 +154,26 @@ test("a grade records its pin, the want it used, and the canon's commit; adhoc h
     fs.writeFileSync(adhoc, JSON.stringify({ run: { scenario: "adhoc" } }));
     assert.equal(node("grade.mjs", [adhoc, "--bin", FAKE]).status, 1);
   } finally { fs.rmSync(dir, { recursive: true, force: true }); }
+});
+
+test("a new Claude Code makes the whole suite owed, even with no file changed", () => {
+  const r = node("due.mjs", ["--files", "Projects/BLUELINE.md", "--claude-version", "2.1.304"]);
+  assert.equal(r.status, 2, r.stdout + r.stderr);
+  assert.match(r.stdout, /D1 +tier 2 · Claude Code 2\.1\.280 → 2\.1\.304 · last born birth-2 @ 72f4bc10 · OWED/);
+});
+
+test("births run on the desktop app's newest Claude Code, found at run time; --bin overrides", async () => {
+  const { resolveBin, desktopClaude } = await import("../claude-bin.mjs");
+  const app = fs.mkdtempSync(path.join(os.tmpdir(), "self-check-app-"));
+  try {
+    for (const v of ["2.1.99", "2.1.304", "2.1.280"]) {
+      const mac = path.join(app, v, "abc123", "claude.app", "Contents", "MacOS");
+      fs.mkdirSync(mac, { recursive: true }); fs.writeFileSync(path.join(mac, "claude"), "");
+    }
+    fs.mkdirSync(path.join(app, "2.1.400", "half-installed"), { recursive: true }); // no binary yet: skipped
+    assert.equal(desktopClaude(app).version, "2.1.304", "newest by version number, not by string order");
+    assert.equal(resolveBin(undefined, app).from, "the desktop app's Claude Code 2.1.304");
+    assert.deepEqual(resolveBin("/x/claude", app), { bin: "/x/claude", from: "--bin" });
+    assert.equal(resolveBin(undefined, path.join(app, "nowhere")).bin, "claude");
+  } finally { fs.rmSync(app, { recursive: true, force: true }); }
 });
