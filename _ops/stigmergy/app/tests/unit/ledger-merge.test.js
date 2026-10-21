@@ -75,8 +75,23 @@ describe('ledgerDefects', () => {
     expect(ledgerDefects({ base, ours, theirs, merged }).refuse).toEqual([{ kind: 'twice', item: '## Encounter 4' }]);
   });
 
+  it('refuses a number a merge inside the branch doubled, while it is still doubled', () => {
+    // The branch merged main in after a refusal, and union doubled item 2 there.
+    const main = doc(BASE.trimEnd(), '', '2. **From A.** x');
+    const branch = doc(BASE.trimEnd(), '', '2. **From A.** x', '', '2. **From B.** y');
+    expect(ledgerDefects({ ours: main, theirs: branch, merged: branch }).refuse).toEqual([]);
+    expect(ledgerDefects({ ours: main, theirs: branch, merged: branch, carried: ['2'] }).refuse).toEqual([{ kind: 'twice', item: '2' }]);
+    const settled = doc(BASE.trimEnd(), '', '2. **From A.** x', '', '3. **From B.** y');
+    expect(ledgerDefects({ ours: main, theirs: settled, merged: settled, carried: ['2'] }).refuse).toEqual([]);
+  });
+
+  it('never refuses a numbered list the branch wrote on its own', () => {
+    const list = doc(BASE.trimEnd(), '', 'Steps:', '1. one', '2. two', '', 'Again:', '1. one', '2. two');
+    expect(ledgerDefects({ ours: BASE, theirs: list, merged: list }).refuse).toEqual([]);
+  });
+
   it('says each defect in a phrase', () => {
-    expect(describeDefect({ kind: 'twice', item: '59' })).toBe('item 59 twice (both sides added one)');
+    expect(describeDefect({ kind: 'twice', item: '59' })).toBe('item 59 twice (two items took the number)');
     expect(describeDefect({ kind: 'two-forms', item: '16' })).toMatch(/^item 16 in two forms/);
     expect(describeDefect({ kind: 'neither', line: 'x'.repeat(80) })).toMatch(/…"\)$/);
   });

@@ -104,16 +104,25 @@ describe('palace-land over union-merged ledgers', () => {
     const second = land(b, 'close/b');
     expect(second.status).toBe(2);
     expect(second.stderr).toContain('palace-land: refused: the merge would leave');
-    expect(second.stderr).toContain(`${CW}: item ${n} twice (both sides added one)`);
+    expect(second.stderr).toContain(`${CW}: item ${n} twice (two items took the number)`);
     expect(second.stderr).toContain(`${RT}: item ${r} in two forms`);
     expect(second.stderr).toMatch(/Merge main into the branch in its own worktree/);
     expect(g(owner, 'rev-parse', 'main').trim()).toBe(before);
     expect(readMarker(owner)).toBeNull();
     expect(repeated(read(owner, CW))).toEqual([]);
 
-    // Settled in the branch: main merged in, close B's lesson renumbered, the
-    // Return's item kept once, in its new form.
+    // Main merged into the branch, as the refusal says, but nothing settled:
+    // union doubles the same items there, and the landing is still refused.
     g(b, 'merge', '-q', '--no-edit', 'main');
+    expect(repeated(read(b, CW))).toEqual([String(n)]);
+    const unsettled = land(b, 'close/b');
+    expect(unsettled.status).toBe(2);
+    expect(unsettled.stderr).toContain(`${CW}: item ${n} twice`);
+    expect(unsettled.stderr).toContain(`${RT}: item ${r} in two forms`);
+    expect(g(owner, 'rev-parse', 'main').trim()).toBe(before);
+
+    // Settled in the branch: close B's lesson renumbered, the Return's item
+    // kept once, in its new form.
     write(b, CW, closeAppend(read(owner, CW), 'B', n + 1));
     write(b, RT, returnSeenAgain(read(owner, RT)));
     g(b, 'commit', '-qam', 'close B renumbered after close A; the Return\'s item once');

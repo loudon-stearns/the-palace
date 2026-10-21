@@ -188,23 +188,46 @@ function blobAt(owner, rev, path) {
   return r.status === 0 ? r.stdout : null;
 }
 
+// The item numbers each merge inside the branch doubled by union in a ledger
+// (the branch merging main in, as a refused landing is told to): path ->
+// numbers. Only a merge whose ledger differs from both its parents can have
+// doubled one.
+function carriedDuplicates(owner, before, tip, paths) {
+  const out = new Map();
+  if (!paths.length) return out;
+  const merges = (git(owner, ['rev-list', '--merges', `${before}..${tip}`, '--', ...paths], { allowFail: true }) || '').split('\n').filter(Boolean);
+  for (const m of merges) {
+    const parents = git(owner, ['rev-parse', `${m}^1`, `${m}^2`], { allowFail: true });
+    if (!parents) continue;
+    const [p1, p2] = parents.trim().split('\n');
+    for (const path of paths) {
+      const merged = blobAt(owner, m, path);
+      const ours = blobAt(owner, p1, path);
+      const theirs = blobAt(owner, p2, path);
+      if (merged === null || merged === ours || merged === theirs) continue;
+      const items = ledgerDefects({ ours: ours ?? '', theirs: theirs ?? '', merged }).refuse.filter((d) => d.item).map((d) => d.item);
+      if (items.length) out.set(path, [...new Set([...(out.get(path) || []), ...items])]);
+    }
+  }
+  return out;
+}
+
 // A ledger git merged by union never conflicts, so the trial merge cannot
 // refuse what union gets wrong: an item number twice, an item in two forms,
-// two lines joined. This reads what the merge made of each union-merged
-// ledger both sides changed and refuses those, naming the items; a heading
-// run on from the line above is only noted (src/lib/ledger-merge.js).
+// two lines joined. This reads what the landing makes of each union-merged
+// ledger it changes, the branch's own merges of main included, and refuses
+// those, naming the items; a heading run on from the line above is only noted
+// (src/lib/ledger-merge.js).
 export function ledgerCheck(owner, before, tip, merge, changed) {
   const union = unionPaths(owner, changed);
   if (union.refused) return union;
-  const base = union.paths.length ? (git(owner, ['merge-base', before, tip], { allowFail: true }) || '').trim() : '';
+  const carried = carriedDuplicates(owner, before, tip, union.paths);
   const found = [];
   const notes = [];
   for (const path of union.paths) {
     const merged = blobAt(owner, merge, path);
-    const ours = blobAt(owner, before, path);
-    const theirs = blobAt(owner, tip, path);
-    if (merged === null || ours === null || theirs === null || merged === theirs) continue; // one side's file, whole
-    const r = ledgerDefects({ base: base ? (blobAt(owner, base, path) ?? '') : '', ours, theirs, merged });
+    if (merged === null) continue; // the landing deletes it
+    const r = ledgerDefects({ ours: blobAt(owner, before, path) ?? '', theirs: blobAt(owner, tip, path) ?? '', merged, carried: carried.get(path) || [] });
     if (r.refuse.length) found.push(`${path}: ${r.refuse.slice(0, 4).map(describeDefect).join(', ')}${r.refuse.length > 4 ? `, and ${r.refuse.length - 4} more` : ''}`);
     for (const n of r.notes) notes.push(`in ${path}, ${describeDefect(n)}; give it a blank line at the ledger's next run`);
   }
