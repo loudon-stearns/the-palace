@@ -89,6 +89,7 @@ export const RULES = {
   'load-failed':       { level: 'error', family: 'browser', what: 'the piece did not load in the browser' },
   'console-error':     { level: 'error', family: 'browser', what: 'an error in the console or a script error the kit reported' },
   'sandbox-blocked':   { level: 'warn',  family: 'browser', what: 'an error the sandbox causes today (storage, a fetch beside it, the camera); the piece origin should cure it' },
+  'error-after-block': { level: 'warn',  family: 'browser', what: 'an error after a load the sandbox blocked; it may only follow from that block, so judge it again on the piece origin' },
   'height-silent':     { level: 'error', family: 'browser', what: 'no rich:height within 3 s' },
   'play-silent':       { level: 'warn',  family: 'browser', what: 'the piece makes sound but no rich:play arrived after a click' },
   'hush-loud':         { level: 'error', family: 'browser', what: 'still sounding after rich:hush' },
@@ -104,7 +105,7 @@ export function loadConfig(root, text = null) {
   const allow = Array.isArray(c.allow) ? c.allow : [];
   return {
     enforce: { push: !!c.enforce?.push, build: !!c.enforce?.build },
-    isPiece: (p) => !notPieces.some((n) => (n.path && n.path === p) || (n.prefix && p.startsWith(n.prefix))),
+    isPiece: (p) => !notPieces.some((n) => (n.path && n.path === p) || (n.prefix && p.startsWith(n.prefix)) || (n.pattern && new RegExp(n.pattern).test(p))),
     allows: (f) => allow.some((a) => a.piece === f.piece && a.rule === f.rule && (a.key == null || a.key === f.key)),
   };
 }
@@ -644,6 +645,13 @@ const INIT = `(() => {
 })();`;
 
 const SANDBOX_HINT = /sandbox|allow-same-origin|origin 'null'|null origin|CORS|cross-origin|Access-Control|permissions policy|Permissions-Policy|NotAllowedError|Permission denied|SecurityError.*(?:localStorage|sessionStorage|indexedDB|cookie)|(?:localStorage|sessionStorage|indexedDB).*(?:denied|sandbox)/i;
+// What a CORS block leaves behind: Chromium logs the failed load, and the
+// fetch rejects. The sandbox's only when a block from origin 'null' came first.
+const AFTER_CORS = /net::ERR_FAILED|Failed to fetch|NetworkError when attempting to fetch/i;
+// Not a fault: p5 and others probe the motion sensors at start, and the
+// sandbox (like the piece origin, which grants no sensors) says no.
+const NOISE = [/Permissions policy violation: (?:accelerometer|gyroscope|magnetometer|devicemotion|deviceorientation)\b/i,
+  /Failed to load resource: the server responded with a status of/i]; // carried by the response, with its URL
 
 /**
  * Serve the palace the way the rich face does (rich-handler: kit injected,
@@ -651,7 +659,7 @@ const SANDBOX_HINT = /sandbox|allow-same-origin|origin 'null'|null origin|CORS|c
  * piece at both widths. Never :5173, never the board: the handler's review
  * path is pointed at a port nothing answers.
  */
-export async function checkBrowser(ctx, results, { concurrency = 4, log = () => {} } = {}) {
+export async function checkBrowser(ctx, results, { concurrency = 4, loadTimeout = 15000, log = () => {} } = {}) {
   const { chromium, why } = findChromium();
   if (!chromium) return { ran: false, why };
   const handler = createRichHandler({ root: ctx.root, here: HERE, base: '/rich', app: () => 'http://127.0.0.1:9' });
@@ -676,16 +684,20 @@ export async function checkBrowser(ctx, results, { concurrency = 4, log = () => 
       while (queue.length) {
         const r = queue.shift();
         const fill = r.declaration?.size?.startsWith('fill');
-        const runs = await Promise.all(WIDTHS.map((w) => drivePiece(context, origin, r, w, { fill })));
+        const runs = await Promise.all(WIDTHS.map((w) => drivePiece(context, origin, r, w, { fill, loadTimeout })));
         r.browser = runs.map((x) => ({ width: x.width, height: x.height, play: x.play, hushed: x.hushed }));
-        const seen = new Set();
-        for (const f of runs.flatMap((x) => x.findings)) { const k = `${f.rule}|${f.key}`; if (!seen.has(k)) { seen.add(k); r.findings.push(f); } }
+        const seen = new Set(r.findings.filter((f) => f.missing).map((f) => `missing|${f.missing}`));
+        for (const f of runs.flatMap((x) => x.findings)) {
+          const k = f.missing ? `missing|${f.missing}` : `${f.rule}|${f.key}`;
+          if (!seen.has(k)) { seen.add(k); r.findings.push(f); }
+        }
         remark(ctx, r);
         log(`  browser ${++done}/${results.length}  ${r.mark.padEnd(12)} ${r.path}`);
       }
     };
     await Promise.all(Array.from({ length: Math.min(concurrency, results.length) }, worker));
     await context.close();
+    markIgnored(ctx, results);
   } finally {
     await browser.close();
     await new Promise((ok) => server.close(ok));
@@ -693,18 +705,27 @@ export async function checkBrowser(ctx, results, { concurrency = 4, log = () => 
   return { ran: true };
 }
 
-async function drivePiece(context, origin, r, width, { fill }) {
+async function drivePiece(context, origin, r, width, { fill, loadTimeout }) {
   const piece = r.path;
   const out = { width, height: null, play: null, hushed: null, findings: [] };
   const F = (rule, key, detail) => out.findings.push(finding(rule, piece, key, detail));
   const page = await context.newPage();
   page.setDefaultTimeout(5000);
   const errors = [];
+  const failed = new Map(); // palace path → status, for what the piece asked of the palace and did not get
   page.on('console', (m) => { if (m.type() === 'error' && m.location()?.url && !m.location().url.includes('/__conform/')) errors.push(m.text()); });
   page.on('pageerror', (e) => errors.push(String(e.message || e)));
+  page.on('response', (res) => {
+    if (res.status() < 400) return;
+    const u = new URL(res.url());
+    if (u.origin !== origin || !u.pathname.startsWith('/rich/')) return;
+    let rel = u.pathname.slice('/rich/'.length);
+    try { rel = decodeURIComponent(rel); } catch { /* as sent */ }
+    if (rel && rel !== piece) failed.set(rel, res.status());
+  });
   try {
     try {
-      await page.goto(`${origin}/__conform/host?piece=${encodeURIComponent(piece)}&w=${width}`, { waitUntil: 'load', timeout: 15000 });
+      await page.goto(`${origin}/__conform/host?piece=${encodeURIComponent(piece)}&w=${width}`, { waitUntil: 'load', timeout: loadTimeout });
     } catch (e) {
       F('load-failed', 'load', `did not load at ${width} px: ${e.message.split('\n')[0]}`);
       return out;
@@ -747,10 +768,24 @@ async function drivePiece(context, origin, r, width, { fill }) {
     }
 
     const kitErrors = (await heard()).filter((m) => m.type === 'rich:error').map((m) => `${m.message}${m.where ? ` (${m.where})` : ''}`);
-    const all = [...new Set([...errors, ...kitErrors])];
-    for (const e of all.slice(0, 6)) {
-      const blocked = SANDBOX_HINT.test(e);
-      F(blocked ? 'sandbox-blocked' : 'console-error', e.slice(0, 120), `${e.slice(0, 300)} (at ${width} px)`);
+    const all = [...new Set([...errors, ...kitErrors])].filter((e) => !NOISE.some((re) => re.test(e)));
+    const cors = all.some((e) => /from origin 'null'/.test(e));
+    let blockedAny = false;
+    for (const e of all) {
+      const blocked = SANDBOX_HINT.test(e) || (cors && AFTER_CORS.test(e));
+      blockedAny ||= blocked;
+    }
+    for (const e of all.slice(0, 8)) {
+      const blocked = SANDBOX_HINT.test(e) || (cors && AFTER_CORS.test(e));
+      F(blocked ? 'sandbox-blocked' : blockedAny ? 'error-after-block' : 'console-error', e.slice(0, 120), `${e.slice(0, 300)} (at ${width} px)`);
+    }
+    // A file the piece asked for at run time and the palace did not have: the
+    // same finding the static pass makes for a file it can see, so the two
+    // dedupe, and the ignore pass sorts a render left on the Mac from a file
+    // that is nowhere.
+    for (const [rel, status] of failed) {
+      if (status === 404) { F('file-missing', rel, `loads ${rel} at run time: no file ${rel}`); out.findings[out.findings.length - 1].missing = rel; }
+      else F('console-error', rel, `loads ${rel} at run time, and the server answered ${status} (at ${width} px)`);
     }
   } finally {
     await page.close().catch(() => {});

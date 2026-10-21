@@ -24,6 +24,10 @@
     {
       "prefix": "_ops/stigmergy/app/mockups/",
       "why": "design mockups for the app, viewed through Vite against the app's own root (/fonts/), never as a piece"
+    },
+    {
+      "pattern": "(^|/)[^/]*(template|\\.tpl)[^/]*\\.html?$",
+      "why": "a template a script fills in to make a page (its data is a placeholder like /*__DATA__*/); as written it is never served as a piece"
     }
   ],
   "allow": []
