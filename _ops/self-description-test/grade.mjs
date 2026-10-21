@@ -27,6 +27,11 @@ const DESIGN = path.join(HERE, "DESIGN — the self-check suite (draft).md");
 
 // Change any of the three and grades made before are no longer comparable: that is a new version, never an edit.
 const GRADER = { version: "v1", model: "claude-fable-5-1", effort: "high", prompt: path.join(HERE, "grader — v1.md") };
+// When the child is the grader's own model, a second grade from another model rides along (Loudon, 2026-10-21). It
+// is not the verdict, which stays the pinned grader's so every child is judged alike; a disagreement goes to Loudon.
+// It is how a blind spot the grader shares with its own model would surface (No Mind Checks Itself).
+const CROSS = { model: "claude-opus-5-5", effort: "high" };
+const family = (m) => String(m).split("-")[1];
 
 const argv = process.argv.slice(2);
 const opt = (k, d) => { const i = argv.indexOf(k); return i >= 0 && argv[i + 1] && !argv[i + 1].startsWith("--") ? argv[i + 1] : d; };
@@ -92,10 +97,10 @@ function main() {
   });
 
   const { bin } = resolveBin(opt("--bin"));
-  const args = ["-p", message, "--model", GRADER.model, "--effort", GRADER.effort, "--system-prompt", system,
-    "--tools", "", "--strict-mcp-config", "--no-session-persistence", "--output-format", "json"];
+  const cross = family(report.run.model) === family(GRADER.model) ? CROSS : null;
   if (argv.includes("--dry-run")) {
     console.log(`grader  ${GRADER.version} · ${GRADER.model} · effort ${GRADER.effort} · ${bin}`);
+    if (cross) console.log(`cross   ${cross.model} · effort ${cross.effort}: the child is the grader's own model`);
     console.log(`want    ${want}`);
     console.log(`canon   ${canon.map((c) => `${c.file} ${c.heading} (${c.text.length} chars)`).join(" · ")} @ ${commit.slice(0, 8)}`);
     console.log(`\n===== system =====\n${system}\n\n===== message =====\n${message}\n`);
@@ -103,19 +108,8 @@ function main() {
     return 0;
   }
 
-  // Not born into the palace: an empty folder, and nothing from the session that runs it.
-  const room = fs.mkdtempSync(path.join(os.tmpdir(), "palace-grader-"));
-  const env = Object.fromEntries(Object.entries(process.env).filter(([k]) => !/^(CLAUDE|ANTHROPIC_)/.test(k)));
-  let out;
-  try {
-    const r = spawnSync(bin, args, { cwd: room, env, encoding: "utf8", timeout: 600000, maxBuffer: 64 << 20 });
-    if (r.status !== 0 && !r.stdout) die(`the grader exited ${r.status}: ${(r.stderr || "").slice(0, 600)}`);
-    out = JSON.parse(r.stdout);
-  } finally { fs.rmSync(room, { recursive: true, force: true }); }
-  if (out.is_error) die(`the grader failed: ${out.result}`);
-  let grade;
-  try { grade = JSON.parse(String(out.result).replace(/^\s*```(?:json)?\s*|\s*```\s*$/g, "")); }
-  catch { die(`the grader did not reply with JSON:\n${String(out.result).slice(0, 1200)}`); }
+  const { grade, cost } = ask(bin, GRADER, system, message);
+  const second = cross ? ask(bin, cross, system, message) : null;
 
   const record = {
     grader: { version: GRADER.version, model: GRADER.model, effort: GRADER.effort,
@@ -123,14 +117,36 @@ function main() {
     run: path.basename(checksPath), scenario: id, source_commit: commit,
     want: { text: want, from: `${path.basename(DESIGN)} @ ${git(["rev-parse", "HEAD"], repo).trim().slice(0, 8)}` },
     canon: canon.map(({ file, heading, text }) => ({ file, heading, chars: text.length })),
-    grade, cost_usd: out.total_cost_usd, graded_at: new Date().toISOString(),
+    grade, cost_usd: cost, graded_at: new Date().toISOString(),
+    ...(second ? { cross_check: { model: cross.model, effort: cross.effort, grade: second.grade, cost_usd: second.cost,
+      agrees: second.grade.verdict === grade.verdict } } : {}),
   };
   const dest = checksPath.replace(/checks\.json$/, "grade.json");
   fs.writeFileSync(dest, JSON.stringify(record, null, 2) + "\n");
-  console.log(`graded  ${id}: ${grade.verdict} · ${grade.points?.length ?? 0} points · ${grade.beyond_canon?.length ?? 0} beyond canon · $${out.total_cost_usd}`);
+  console.log(`graded  ${id}: ${grade.verdict} · ${grade.points?.length ?? 0} points · ${grade.beyond_canon?.length ?? 0} beyond canon · $${cost}`);
+  if (second) console.log(second.grade.verdict === grade.verdict
+    ? `cross   ${cross.model} agrees: ${second.grade.verdict} · $${second.cost}`
+    : `cross   ${cross.model} DISAGREES: ${second.grade.verdict}, not ${grade.verdict} · $${second.cost} — for Loudon to read`);
   console.log(`kept    ${dest}`);
   console.log(`        Loudon reads every transcript a grader fails, and a sample of the ones it passes.`);
   return 0;
+}
+
+// One grade from one model. Not born into the palace: an empty folder, no tools, nothing from the session that runs it.
+function ask(bin, { model, effort }, system, message) {
+  const room = fs.mkdtempSync(path.join(os.tmpdir(), "palace-grader-"));
+  const env = Object.fromEntries(Object.entries(process.env).filter(([k]) => !/^(CLAUDE|ANTHROPIC_)/.test(k)));
+  let out;
+  try {
+    const r = spawnSync(bin, ["-p", message, "--model", model, "--effort", effort, "--system-prompt", system,
+      "--tools", "", "--strict-mcp-config", "--no-session-persistence", "--output-format", "json"],
+      { cwd: room, env, encoding: "utf8", timeout: 600000, maxBuffer: 64 << 20 });
+    if (r.status !== 0 && !r.stdout) die(`the grader (${model}) exited ${r.status}: ${(r.stderr || "").slice(0, 600)}`);
+    out = JSON.parse(r.stdout);
+  } finally { fs.rmSync(room, { recursive: true, force: true }); }
+  if (out.is_error) die(`the grader (${model}) failed: ${out.result}`);
+  try { return { grade: JSON.parse(String(out.result).replace(/^\s*```(?:json)?\s*|\s*```\s*$/g, "")), cost: out.total_cost_usd }; }
+  catch { die(`the grader (${model}) did not reply with JSON:\n${String(out.result).slice(0, 1200)}`); }
 }
 
 if (process.argv[1] && fs.realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)) process.exitCode = main();

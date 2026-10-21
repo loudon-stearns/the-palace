@@ -10,7 +10,7 @@
 // Every call appends its argv and cwd to $FAKE_CLAUDE_LOG, so a test can see exactly what the harness passed.
 //
 // Knobs (env): PALACE_BIRTH_PROJECTS (where sessions are filed), FAKE_AUTOMEM=1 (the probe reports an AutoMem file),
-// FAKE_GRADE (the grader's reply text), FAKE_SESSION_USED / FAKE_WEEK_USED / FAKE_FABLE_WEEK_USED (percent, for
+// FAKE_GRADE (the grader's reply text; FAKE_GRADE_<model with _ for -> for one model's), FAKE_SESSION_USED / FAKE_WEEK_USED / FAKE_FABLE_WEEK_USED (percent, for
 // /usage), FAKE_UTIL (the five-hour utilization a turn reports, 0–1), FAKE_LIMIT=1 (the plan refuses the turn).
 
 import crypto from "node:crypto";
@@ -42,7 +42,7 @@ if (says === "/usage") {
     `Current week (Fable): ${e.FAKE_FABLE_WEEK_USED ?? 20}% used · resets Oct 27 at 12:59pm (America/New_York)`].join("\n") });
 } else if (opt("--output-format") === "json") {
   // The grader: one JSON object, no stream.
-  const grade = process.env.FAKE_GRADE || JSON.stringify({ verdict: "held", points: [{ point: "faces and memory", verdict: "held", evidence: "The scroll is a face" }], beyond_canon: [], note: "fake" });
+  const grade = process.env[`FAKE_GRADE_${String(opt("--model")).replace(/-/g, "_")}`] || process.env.FAKE_GRADE || JSON.stringify({ verdict: "held", points: [{ point: "faces and memory", verdict: "held", evidence: "The scroll is a face" }], beyond_canon: [], note: "fake" });
   out({ type: "result", subtype: "success", is_error: false, result: grade, total_cost_usd: 0.002, session_id: crypto.randomUUID() });
 } else if (says === "/context") {
   const table = ["### Memory Files", "", "| Type | Path | Tokens |", "|---|---|---|", ...loaded.map((f) => `| ${f.type} | ${f.path} | 100 |`), ""].join("\n");

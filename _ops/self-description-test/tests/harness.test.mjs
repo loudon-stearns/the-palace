@@ -220,3 +220,22 @@ test("A1 and A2 hold only when the first act past the skill's shim is a spawn of
   assert.match(check([{ tool: "Task", target: "general-purpose" }]).why, /not the resident/);
   assert.equal(SCENARIOS.A1.check, SCENARIOS.A2.check);
 });
+
+test("a Fable child's grade carries an Opus cross-check; a disagreement is flagged for Loudon; other children get none", () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "self-check-cross-"));
+  try {
+    const report = JSON.parse(fs.readFileSync(`${RUN2} — checks.json`, "utf8"));
+    const write = (model) => { const f = path.join(dir, `${model} — checks.json`); fs.writeFileSync(f, JSON.stringify({ ...report, run: { ...report.run, model } })); return f; };
+    const missed = JSON.stringify({ verdict: "missed", points: [], beyond_canon: [], note: "fake" });
+    const fable = write("claude-fable-5-1");
+    const r = node("grade.mjs", [fable, "--bin", FAKE], { FAKE_GRADE_claude_opus_5_5: missed });
+    assert.equal(r.status, 0, r.stderr);
+    assert.match(r.stdout, /cross {3}claude-opus-5-5 DISAGREES: missed, not held .* for Loudon to read/);
+    const g = JSON.parse(fs.readFileSync(fable.replace("checks.json", "grade.json"), "utf8"));
+    assert.equal(g.grade.verdict, "held", "the verdict stays the pinned grader's");
+    assert.deepEqual([g.cross_check.model, g.cross_check.agrees], ["claude-opus-5-5", false]);
+    const opus = write("claude-opus-5-5");
+    assert.equal(node("grade.mjs", [opus, "--bin", FAKE]).status, 0);
+    assert.equal(JSON.parse(fs.readFileSync(opus.replace("checks.json", "grade.json"), "utf8")).cross_check, undefined);
+  } finally { fs.rmSync(dir, { recursive: true, force: true }); }
+});
