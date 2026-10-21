@@ -97,7 +97,7 @@ A plugin's own visualizer plays on a screen in the middle of its editor. The tem
 - **The glass:** `#screen .glass`, also reachable as `window.editorScreen`. It is black until the plugin draws, and anything goes in it: a canvas, WebGL, three.js, any colour at all.
 - **The vignette:** a slight darkening at the glass's edges, laid over whatever the plugin draws.
 - **It lives through rebuilds.** The screen is made once and moved into each rebuild, so a visualizer's canvas and its WebGL context survive every resize.
-- **Off until a plugin has a visualizer.** `"screen": true` in the `ui` block shows it; neither plugin sets it yet. Loading a plugin's `ui/visualizer.js` and feeding it the probes is the CRT move batoned on VST Template. Where the feed would hook in is in the recipe (`template/README.md` § The editor).
+- **Off until a plugin has a visualizer.** `"screen": true` in the `ui` block shows it; neither plugin sets it yet. Loading a plugin's `ui/visualizer.js` and feeding it the probes is the CRT move batoned on VST Template. Where the feed would hook in is in the recipe (`template/README.md` § The editor, and reviewing it).
 - **To see it:** `ui.py mock <plugin> --screen`, or `shot --screen`, shows the CRT with colour bars standing in for a visualizer. The review surface then has a moment for it.
 
 ## Review happens on the mock page, never in the plugin
