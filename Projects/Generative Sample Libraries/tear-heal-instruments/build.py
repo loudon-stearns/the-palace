@@ -76,8 +76,7 @@ def _edge_job(args):
     f0 = key_hz(key)
     t0 = time.time()
     e = engine.find_edge(f0, p.partials(key), K_AT_110 * engine.clock(f0), p.pinned, p.source)
-    e["seconds"] = round(time.time() - t0, 1)
-    return edge_key(p, key), e
+    return edge_key(p, key), e, round(time.time() - t0, 1)
 
 
 def strike_path(p: Patch, key: int, layer: int, edge_B: float, secs: float) -> tuple[np.ndarray, dict]:
@@ -111,10 +110,8 @@ def _note_job(args):
     secs = render_secs(key)
     B, path = strike_path(p, key, layer, edge_B, secs)
     K = np.full(len(B), K_AT_110 * ck)
-    t0 = time.time()
     tone, vox, F = engine.simulate(f0, p.partials(key), B, K, p.pinned, p.source)
     shp = engine.shape(F, B, p.pinned, f0, ck, tail_s=1.5 * max(1.0, 1.0 / ck))
-    sim_s = round(time.time() - t0, 2)
     f1 = f0 * 2 ** (shp["settled_cents"] / 1200)
     tune = -int(round(shp["settled_cents"]))
     # the locked sustain's own partials: r_n at the rest stretch, times the settled rate of theta
@@ -156,7 +153,7 @@ def _note_job(args):
                      "partials": p.partials(key), "K_hz": round(K_AT_110 * ck, 3),
                      "edge_B": edge_B, **path, **shp, "tune": tune,
                      "peak_dbfs": round(20 * math.log10(float(np.abs(y).max()) + 1e-12), 2),
-                     **lp, "seconds": round(len(y) / SR, 2), "sim_s": sim_s})
+                     **lp, "seconds": round(len(y) / SR, 2)})
     # the pitch trace, thinned, for the demos' figure (not written to notes.json)
     tt, cc = engine.track(F, B, p.pinned, f0, ck)
     k = max(1, len(tt) // 1200)
@@ -270,9 +267,12 @@ def build(which: str, names: list[str], workers: int) -> dict:
                    if edge_key(p, k) not in cache})
     t0 = time.time()
     with ProcessPoolExecutor(workers) as ex:
-        for k, e in ex.map(_edge_job, jobs):
+        for k, e, secs in ex.map(_edge_job, jobs):
             cache[k] = e
-            print(f"edge {k}: B = {e['edge_B']:.3g} ({e['seconds']} s)", flush=True)
+            print(f"edge {k}: B = {e['edge_B']:.3g} ({secs} s)", flush=True)
+    # every tracked file the build writes holds only what the physics decided, never
+    # how long it took, so a rebuild anywhere reproduces it byte for byte
+    cache = {k: {kk: vv for kk, vv in v.items() if kk != "seconds"} for k, v in cache.items()}
     EDGES.write_text(json.dumps(dict(sorted(cache.items())), indent=1) + "\n")
     print(f"edges: {len(jobs)} bisected in {time.time() - t0:.0f} s", flush=True)
 

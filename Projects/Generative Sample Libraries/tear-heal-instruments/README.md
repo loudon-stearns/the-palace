@@ -63,7 +63,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 
 ## What lives only on this Mac
 
-The WAVs and the `.dslibrary` zips (`.gitignore`, 2026-10-18; the zips are listed in this folder's `.gitignore` because they hold the WAVs). They exist in the worktree they were rendered in. A checkout that wants them runs the rebuild above.
+The WAVs, the demos and the `.dslibrary` zips (`.gitignore`, 2026-10-18; the zips are listed in this folder's `.gitignore` because they hold the WAVs). Loudon, 2026-10-20: "Keep audio out of git. After landing, rebuild the renders in the main checkout with build.py." So a checkout that wants them runs the rebuild above, `build.py audition` and then `build.py all`. Every tracked file the build writes (SFZ, presets, `notes.json`, `check.json`, `edges.json`, `cues.md`, `traces.png`) holds only what the physics decided, never how long it took, so a rebuild reproduces them byte for byte and leaves git clean. That was checked by rebuilding twice in the worktree they were made in.
 
 ## Tried and set aside
 
