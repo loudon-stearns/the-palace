@@ -13,6 +13,13 @@ export { openRichFace } from '../../lib/rich-frame.js';
 // box grown to the page's length. An approved companion edit needs nothing
 // here — the rich page re-reads the entry's .md on its own.
 //
+// The page frames its pieces on the piece origin (127.0.0.1:8843), and a
+// device reaches a piece only through every frame above it: so this frame
+// passes camera, microphone, midi and fullscreen down. It stays same-origin
+// (no sandbox) because rich-frame.js reads the page; what each piece actually
+// gets is its own frame's allow and the piece origin's Permissions-Policy, both
+// from grants.json.
+//
 // If the frame leaves the page it was opened on (a wikilink to another entry's
 // rich face, or the rich page's own face switch), the whole tab follows it, so
 // the reader and its companion never stay grounded in a page no longer shown.
@@ -37,6 +44,7 @@ export default function RichFaceFrame({ href, isPublic = IS_PUBLIC, onClose }) {
       data-testid={RICH_FRAME_TESTID}
       title="rich face"
       src={href}
+      allow="camera; microphone; midi; fullscreen"
       onLoad={onLoad}
       style={{
         display: 'block', width: '100%', height: 'calc(100vh - 140px)', minHeight: 480,

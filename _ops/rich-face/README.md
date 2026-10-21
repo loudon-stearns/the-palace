@@ -14,8 +14,8 @@ serve. The ceremony (when and how to enrich a page) is `Enrichment.md`; this fol
   STIGMERGY's board only when started with `--app http://localhost:5173`. The app README's
   § A preview of your own, on a leased port has the rest.
 - Public: the read view ships this page static under `rich/`. `_ops/stigmergy/app/scripts/build-public.mjs`
-  sets `RICH_STATIC`, so its lookups come from the snapshot (`data/rich.json`), its text is the
-  snapshot's rather than re-read live, and nothing is posted.
+  marks the page `<meta name="rich:static">`, so its lookups come from the snapshot (`data/rich.json`),
+  its text is the snapshot's rather than re-read live, and nothing is posted.
 
 Any entry opens. `&review=0` hides the review layer.
 
@@ -24,10 +24,15 @@ Any entry opens. `&review=0` hides the review layer.
 | file | what it does |
 |---|---|
 | `parse.js` | entry → sections → prose blocks and figures; the section fingerprint. Shared by the page and `fingerprint.mjs`, so a stamp and a check can't disagree. |
-| `rich.html` | the renderer — reads the `.md` every few seconds, lays prose + figures + manifest pieces, marks drift, carries the review dock. All its URLs are relative, so it works at `/` and at `/rich/`. |
+| `rich.html` | the page: its markup and styles. Its one script is `rich.js`. All its URLs are relative, so it works at `/` and at `/rich/`. |
+| `rich.js` | the renderer, served as `_rich/rich.js` so the page can carry `script-src 'self'`. It reads the `.md` every few seconds, lays prose, figures and manifest pieces, frames each piece from its plan, marks drift, and carries the review dock. |
 | `rich-handler.mjs` | the request handler: renderer + palace files (byte ranges), `_api/resolve`, `_api/find`, `_api/media`, `_api/review` → STIGMERGY `POST /api/persistent` as a `human_eval`. Mounted by STIGMERGY (`app/server/api/rich.js`) and by `rich-server.mjs`. |
 | `rich-server.mjs` | the standalone server, the preview: any palace root, on a port leased from `_ops/commons/port-lease.mjs` |
 | `resolve.mjs` | the one resolver: the page, `fingerprint.mjs` and the public build find an entry, or the file a reference names, the same way, from git's index. A miss comes back with a one-line label the page shows in the figure's place. |
+| `contract.mjs` | the piece contract in one place: a piece's own declaration, its manifest entry's `contract` block and `grants.json` become how the piece is framed, its chips and mark, and the Permissions-Policy and CSP it is sent with. The page, the deck, the piece origin and the public build all ask here. |
+| `piece-origin.mjs` | the piece origin: the listener every piece runs on, `127.0.0.1:8843` beside STIGMERGY's 5173 (below). |
+| `serve-file.mjs` | sends one file: its type, byte ranges, and a web page as a piece with the kit injected. The handler and the piece origin both send files through it. |
+| `grants.json` | what Loudon has let a piece use: camera, microphone, midi, hosts. One line per piece, written only on his yes. |
 | `fingerprint.mjs` | section fingerprints and drift; `--stamp [section…]` records the "still true" verdict |
 | `manifests/` | a workshop home for a manifest before its entry is placed; a manifest in the entry's bundle wins, and the face switch offers only the bundle's |
 
@@ -40,7 +45,8 @@ Self-describing like any bundle file (`title`, `born`, `links`, `forward_vector`
   "page": { "bed": { "file": "…wav", "volume": 0.14 } },
   "sections": [ { "heading": "In Our Instruments", "made_against": "<12 hex>", "made": "…", "stamped": "…",
       "pieces": [ { "file": "…", "origin": "made|gathered", "by": "…", "title": "…", "caption": "…",
-                    "near": "<a phrase in a paragraph | a figure's filename>", "place": "margin|band", "height": 640 } ] } ] }
+                    "near": "<a phrase in a paragraph | a figure's filename>", "place": "margin|band", "height": 640,
+                    "contract": { "needs": "camera", "files": "frames.json", "size": "fill 4/3" } } ] } ] }
 ```
 
 A section is named by its heading. When the text repeats a heading, the repeat is named with its
@@ -61,6 +67,9 @@ text pieces default to the margin; video, interactives and diagrams to the band.
 `height` (px) is its size until the piece reports its own. Every served piece reports through the kit
 (below), so the manifest `height` matters for what the kit can't measure: a piece sized by the viewport,
 or one with nothing laid out. With neither, 800. Kuramoto's were measured in a 1130 px column.
+
+`contract` is for a gathered proof nobody should edit: the manifest speaks for it, with the same fields a
+piece declares in its own head (below). A piece that declares for itself is held to its own words.
 
 ## The parser's rules
 
@@ -83,25 +92,61 @@ or one with nothing laid out. With neither, 800. Kuramoto's were measured in a 1
 
 ## What the page lets run
 
-The page is served from STIGMERGY's origin, so anything that runs in it runs as STIGMERGY.
+The page is served from STIGMERGY's origin, so anything that runs in it runs as STIGMERGY. So nothing the
+palace writes runs there: every piece runs on the **piece origin**.
 
-- **Every piece is sandboxed** — `sandbox="allow-scripts"`, the rule STIGMERGY's `ArtifactSlot.jsx`
-  applies to all served HTML. A piece's origin is opaque: it cannot call STIGMERGY's API, read the
-  page, or use storage, and it fetches nothing from the palace (classic `<script src>`, `<audio>`,
-  `<img>` and fonts still load). The page knows a piece by its frame, never by origin.
-- **The server sandboxes it too.** Every palace `.html`, `.htm` and `.svg` under `/rich/<path>` (and
-  STIGMERGY's `GET /api/file`) comes with `Content-Security-Policy: sandbox allow-scripts`, so a piece
-  opened any other way — a link in the prose, a new tab — still runs in an opaque origin. Only the
-  renderer itself (`/rich/`), `_rich/parse.js` and `_vendor/*` come without it.
-- **Every served page carries the piece kit.** `kit/inject.mjs` puts `kit/piece.js` first in the
-  `<head>` of every palace `.html` and `.htm` served at `/rich/<path>`, through STIGMERGY's
-  `GET /api/file`, and in the public build. Inside the sandbox it reports the piece's height and posts
-  `rich:play` when a sound the reader asked for starts. On `rich:hush` it suspends the piece's audio and
-  pauses its media, and the next touch brings them back. It posts `rich:error` for the first three
-  script errors. A piece whose own inline script already says `rich:height` or `rich:hush` is left to
-  do that part itself. STIGMERGY's frames show a piece's first error under it; the rich face does not
-  show errors yet. Camera, storage and declared files wait for the piece origin
-  ([[STIGMERGY — spec — rich-face pieces]]).
+- **The piece origin.** STIGMERGY starts a second listener, `piece-origin.mjs`, on `127.0.0.1:8843`.
+  `STIGMERGY_PIECE_PORT` names another port, and any STIGMERGY not on 5173 takes a free one. `127.0.0.1` is
+  another site from `localhost`, so whatever a piece sends toward STIGMERGY is cross-site: the request
+  guard refuses its writes and `/api/open`, and STIGMERGY sends no CORS, so a piece can't read what comes
+  back. The piece origin answers GET and HEAD for its exact Host, with no CORS. It serves only registered
+  pieces, the files they declare, and the design-system folder (not its review layer, whose notes land in
+  storage a face does not keep). A piece is registered from every face (each manifest's pieces and its
+  entry's text figures) at boot and again on a miss, and whenever the page or the deck asks to frame it.
+  Anything else gets a 404 that says why. Every file goes out with nosniff. The design system's files go
+  out with CORP cross-origin, since a piece with no origin of its own loads them too; a piece and its
+  declared files, same-origin. If the port is taken, every piece's figure says so. A piece never falls
+  back to the page's origin.
+- **Each frame is built from the piece's plan** (`contract.mjs`). A piece that declares nothing is
+  **pre-contract**. It runs `sandbox="allow-scripts"` in an opaque origin, as every piece ran before, and so
+  does a declared piece that needs nothing of an origin (only `net`, `fill` or fullscreen). A piece that
+  needs a device, storage or a declared file also gets `allow-same-origin`, and only after the page has
+  checked that the piece's URL is on another origin than its own. A camera, microphone or midi reaches a
+  piece only when both its frame's `allow` and the piece origin's `Permissions-Policy` say so, and both
+  come from `grants.json`, so a frame that asks for more gets nothing. Each piece is also sent with a CSP:
+  scripts from the piece origin, inline, and the shelf's CDNs (unpkg, jsDelivr and cdnjs until `libs.json`
+  names its own); fetches only to the piece origin and its granted hosts. The CSP is report-only for its
+  first round.
+- **The figure says what its piece uses.** Each figure carries a mark (introduced, pre-contract or
+  errored) and a chip for each need, declared file count, host and `fill`. A missing grant line shows as
+  `camera · not granted`. A cap that bites is named under the frame: a height outside 120 to 8000 px, a
+  piece sized by its own window, or a piece that never reported a height. A piece whose script fails is
+  marked errored, and its first error shows under the frame.
+- **The page's own script is its own file.** `rich.html` loads `_rich/rich.js` and carries
+  `Content-Security-Policy: script-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none';
+  frame-src <the piece origin>`. So an entry's text that slipped past the sanitizer still runs nothing.
+  Mermaid renders under it (proven in headless Chromium).
+- **The server sandboxes a piece reached any other way.** Every palace `.html`, `.htm` and `.svg` under
+  `/rich/<path>` (and STIGMERGY's `GET /api/file`) is sent with `Content-Security-Policy: sandbox
+  allow-scripts`. A piece opened from a link in the prose or in a new tab still runs in an opaque origin.
+  Only the page itself (`/rich/`), `_rich/rich.js`, `_rich/parse.js` and `_vendor/*` come without it.
+- **Every served page carries the piece kit.** `kit/inject.mjs` puts `kit/piece.js` first in the `<head>`
+  of every palace `.html` and `.htm` served at `/rich/<path>`, through STIGMERGY's `GET /api/file`, on the
+  piece origin, and in the public build. The kit:
+  - reports the piece's height;
+  - posts `rich:play` when a sound the reader asked for starts;
+  - on `rich:hush`, suspends the piece's audio and pauses its media until the next touch;
+  - posts `rich:error` for the first three script errors;
+  - keeps each piece's storage under its own prefix, its path, since every piece shares one origin. A piece
+    with no origin keeps storage in memory, and the figure says it won't keep;
+  - starts the camera only on a click. A piece that asks before one gets a "start the camera" button over
+    it. The camera stops on hush or when another piece takes it, and comes back into the same stream on the
+    next touch.
+
+  A piece whose own inline script already says `rich:height` or `rich:hush` is left to do that part
+  itself.
+- **On the public site** the read view frames pieces opaque, from its own copied files. Storage lives in
+  memory only, and the figure says so. A camera or microphone piece opens in its own tab.
 - **Every link goes to the web, to mail, or into the palace.** After marked, the HTML is parsed inert
   and every element and attribute the page did not choose is dropped; an `href` or `src` survives only
   if it resolves to `http:`, `https:` or `mailto:` (a relative palace path resolves to the page's own),
@@ -111,15 +156,30 @@ The page is served from STIGMERGY's origin, so anything that runs in it runs as 
   attribute is a `class` still render; any other tag is escaped and shows as written. Diagrams render
   with mermaid's `securityLevel: 'strict'`.
 - **Framed by STIGMERGY's reader** (same origin), the page hides its top strip and leaves `F` to the
-  reader, which carries the face switch. The public read view never frames it.
+  reader, which carries the face switch. The reader's frame passes camera, microphone, midi and fullscreen
+  down to the page's frames. The public read view never frames it.
 
 ## Making pieces — the gotchas
 
 - **One file, no build.** A piece is a single self-contained HTML (fonts from Google, everything else
-  inline) so it plays inside the rich face and opened on its own. Worklet DSP goes in as a Blob URL,
-  stereo in both places, a compressor after it ([[Web Audio Worklet]]).
-- **A piece runs sandboxed, so it must stand alone.** Inline everything; a `fetch` of a file beside
-  it, an ES module from the palace, or `localStorage` will fail. Worklets from a Blob URL work.
+  inline) so it plays inside the rich face, and opened on its own when it needs nothing of an origin.
+  Worklet DSP goes in as a Blob URL, stereo in both places, a compressor after it ([[Web Audio Worklet]]).
+- **Declare what a piece needs from its host, in its own `<head>`.** Four tags:
+  - `<meta name="piece:needs" content="camera storage">`: any of camera, microphone, midi, storage,
+    fullscreen.
+  - `<meta name="piece:files" content="frames.json data/">`: every palace file it loads, by `fetch` or by
+    tag (the design system needs no line). A name is beside the piece or `/palace/absolute`; a folder ends
+    in `/`; a space is `%20`.
+  - `<meta name="piece:net" content="storage.googleapis.com">`: every host it fetches from.
+  - `<meta name="piece:size" content="fill 4/3">`: when the page should size it from the column, not
+    from the height it reports.
+
+  Undeclared, a file beside the piece isn't served: fetched or loaded by a tag, the piece origin answers a
+  404 that says why. Storage that isn't declared lasts one visit, unless another need already gives the
+  piece an origin. Storage kept inside a face isn't seen by the same piece opened on its own, nor the other
+  way. Camera, microphone, midi and every host also need a line in `grants.json`, written only on Loudon's
+  yes. Inline everything else. An ES module from the palace is a declared file like any other. Worklets
+  from a Blob URL work.
 - **The kit sizes a piece; the maker writes nothing for it.** It measures the content on load and on
   every change, so a piece fits its frame at any width (Kuramoto's waveform piece is 914 px tall in a
   1130 px column and 1025 at 760). Size by content, not the viewport: the kit stops growing a
@@ -128,6 +188,10 @@ The page is served from STIGMERGY's origin, so anything that runs in it runs as 
 - **One voice at a time, by the kit.** It hears an `AudioContext` start (Tone.js's own included) or an
   `<audio>`/`<video>` start after a click, and tells the page, which hushes every other video, strip
   and piece. A piece that answers `rich:hush` itself is left to it.
+- **The camera starts on a click.** Call `RichPiece.camera()`, or `getUserMedia`, from a click handler.
+  If a piece asks before any click, the kit holds the request behind a "start the camera" button. One
+  piece holds a camera or microphone at a time: when one starts, the page (or the deck) stops every other
+  piece's.
 - **Test the claim headless.** Pull the worklet source out of the page and run it in Node against the
   equation the section states before trusting what the page shows. `check-kuramoto-pieces.mjs` is the worked example:
   `node _ops/rich-face/check-kuramoto-pieces.mjs` re-checks every claim Kuramoto's pieces make.
