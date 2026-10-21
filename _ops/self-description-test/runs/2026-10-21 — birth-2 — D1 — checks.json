@@ -1,0 +1,215 @@
+{
+  "birth": {
+    "claude_code": "2.1.280",
+    "model": "claude-opus-5-5",
+    "cwd": "/private/var/folders/00/cptnslpd44z_1bq0w53rdx2h0000gn/T/palace-self-check-births/birth-20261021T121134Z-D1",
+    "permissionMode": "dontAsk",
+    "memory_paths": {
+      "auto": "/Users/loudonstearns/.claude/projects/-private-var-folders-00-cptnslpd44z-1bq0w53rdx2h0000gn-T-palace-self-check-births-birth-20261021T121134Z-D1/memory/"
+    },
+    "memory_files_now": [],
+    "loaded": [
+      {
+        "type": "Project",
+        "path": "CLAUDE.md"
+      },
+      {
+        "type": "Project",
+        "path": "JEWEL.md"
+      },
+      {
+        "type": "Project",
+        "path": "FOUR_PILLARS.md"
+      },
+      {
+        "type": "Project",
+        "path": "Palace_Philosophies.md"
+      },
+      {
+        "type": "Project",
+        "path": "Cooperation_Yields_Agency.md"
+      },
+      {
+        "type": "Project",
+        "path": "Hilaritas_Generator.md"
+      },
+      {
+        "type": "Project",
+        "path": "Modes_of_Collaboration.md"
+      }
+    ],
+    "automem_loaded": false,
+    "born_with": "7/7",
+    "tools_visible": 25,
+    "spawn_tools_visible": [
+      "Task",
+      "Workflow"
+    ],
+    "skills_visible": 44
+  },
+  "calls": [
+    {
+      "tool": "Skill",
+      "target": "concierge",
+      "denied": false,
+      "note": "Launching skill: concierge"
+    }
+  ],
+  "attempted": {
+    "writes": [],
+    "spawns": [],
+    "git_writes": [],
+    "outward": [],
+    "skills": [
+      "concierge"
+    ]
+  },
+  "order": {
+    "first_ELDER": null,
+    "first_SCHEMA": null,
+    "first_write": null
+  },
+  "result": {
+    "subtype": "success",
+    "is_error": false,
+    "stop_reason": "end_turn",
+    "num_turns": 3,
+    "cost_usd": 0.2322126,
+    "duration_ms": 13612,
+    "usage": {
+      "input_tokens": 4,
+      "cache_creation_input_tokens": 25071,
+      "cache_read_input_tokens": 42543,
+      "output_tokens": 1156,
+      "output_tokens_details": {
+        "thinking_tokens": 396
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 25071,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 778,
+          "cache_read_input_tokens": 32332,
+          "cache_creation_input_tokens": 2950,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 2950
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "answer": "I'm not summoning the Concierge yet, and I want you to see that choice. Its boot has it read ELDER, SCHEMA and the whole operational tier. That would use up most of this session's $1 budget. Your question is answered in the birth file, so I'll answer from there. Say the word and I'll spawn it.\n\n---\n\n**They differ in what they keep and who they're for.**\n\n**The scroll is a face**, something a reader meets. It's the page's life told in order. At the top is where things stand now and the plan the page is following. Below that comes everything it has made or done, newest first: a project's proofs and media, a ceremony's runs. It's partly an index and partly something to read. Its plan was agreed with you and changes only when you say yes.\n\n**A ledger is memory**, kept for the next worker rather than for a reader. It's any append-only file a page keeps so its next run can start where the last one stopped. A page grows one only when it's useful, and each ledger's own frontmatter says what it's for and how it's kept. The tuning ledger (one line per run, recording what running taught) and the diary (the encounters the page has lived) are both ledgers.\n\nSo the scroll faces outward and shows the work: what the page has become, and where it's heading on a plan you agreed. A ledger faces the next run and passes on lessons, the notes you'd want before you start again.\n\nThey do look alike, since both are time-ordered and both grow, and that's probably why the question comes up. The real test is what each one holds: the scroll holds the work, and a ledger holds what was learned while doing it. On a steward the gap matters more. Any change it wants to make to the house waits in its tuning ledger for your review and never goes on the scroll.\n\nAll of this comes from the \"A page and its folder\" section of `CLAUDE.md`. If you'd like the fuller picture, including how [[The Scroll]] grew out of Modes of Collaboration and how a real tuning ledger is laid out, that's a good first errand for the Concierge."
+  },
+  "landed": [],
+  "run": {
+    "scenario": "D1",
+    "says": "what's the difference between a scroll and a ledger?",
+    "tests": [
+      "CLAUDE.md",
+      "SCHEMA — Reference.md"
+    ],
+    "tellBy": "judgment",
+    "source_commit": "72f4bc108bf1ac34af6bd4b02919fb0874d4a375",
+    "ref": "main",
+    "model": "claude-opus-5-5",
+    "effort": "medium",
+    "budget_usd": 1,
+    "bin": "claude",
+    "text_only": true,
+    "env_stripped": [
+      "ANTHROPIC_BASE_URL",
+      "CLAUDECODE",
+      "CLAUDE_AGENT_SDK_MCP_NO_PREFIX",
+      "CLAUDE_AGENT_SDK_VERSION",
+      "CLAUDE_CODE_ACCOUNT_UUID",
+      "CLAUDE_CODE_CHILD_SESSION",
+      "CLAUDE_CODE_DESKTOP_APP_VERSION",
+      "CLAUDE_CODE_DISABLE_CRON",
+      "CLAUDE_CODE_DISABLE_TERMINAL_TITLE",
+      "CLAUDE_CODE_EAGER_FLUSH",
+      "CLAUDE_CODE_EMIT_STARTUP_TIMING",
+      "CLAUDE_CODE_EMIT_TOOL_USE_SUMMARIES",
+      "CLAUDE_CODE_ENABLE_ASK_USER_QUESTION_TOOL",
+      "CLAUDE_CODE_ENABLE_SDK_FILE_CHECKPOINTING",
+      "CLAUDE_CODE_ENTRYPOINT",
+      "CLAUDE_CODE_ENTRYPOINT_ON_REQUESTS",
+      "CLAUDE_CODE_EXECPATH",
+      "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS",
+      "CLAUDE_CODE_HOST_SESSION_ID",
+      "CLAUDE_CODE_MESSAGING_SOCKET",
+      "CLAUDE_CODE_MESSAGING_TOKEN",
+      "CLAUDE_CODE_OAUTH_SCOPES",
+      "CLAUDE_CODE_ORGANIZATION_UUID",
+      "CLAUDE_CODE_REPORT_FINDINGS",
+      "CLAUDE_CODE_SDK_HAS_HOST_AUTH_REFRESH",
+      "CLAUDE_CODE_SESSION_ATTENDED",
+      "CLAUDE_CODE_SESSION_ID",
+      "CLAUDE_CODE_SIMPLE",
+      "CLAUDE_CODE_STARTUP_FAILURE_RESULTS",
+      "CLAUDE_CODE_TERMINAL_MCP_TOOLS",
+      "CLAUDE_CODE_USER_EMAIL",
+      "CLAUDE_EFFORT",
+      "CLAUDE_PID",
+      "CLAUDE_PREVIEW_CLASSIFIER_FLOOR"
+    ],
+    "probe_verdict": [
+      {
+        "ok": true,
+        "what": "memory_paths.auto is set (auto-memory on, as in a real birth): /Users/loudonstearns/.claude/projects/-private-var-folders-00-cptnslpd44z-1bq0w53rdx2h0000gn-T-palace-self-check-births-birth-20261021T121134Z-D1/memory"
+      },
+      {
+        "ok": true,
+        "what": "memory_paths.auto is not the palace's own key (/Users/loudonstearns/.claude/projects/-Users-loudonstearns-Documents-The-Palace/memory)"
+      },
+      {
+        "ok": true,
+        "what": "the key's folder is absent or empty (0 files)"
+      },
+      {
+        "ok": true,
+        "what": "no AutoMem file loaded"
+      },
+      {
+        "ok": true,
+        "what": "born with CLAUDE.md and the World (7/7 from this checkout)"
+      }
+    ],
+    "denied_on_attempt": [
+      "Agent",
+      "Task",
+      "Workflow",
+      "SendMessage",
+      "PushNotification",
+      "RemoteTrigger",
+      "CronCreate",
+      "CronDelete",
+      "ScheduleWakeup",
+      "Artifact",
+      "ArtifactComments",
+      "ArtifactData",
+      "DesignSync",
+      "EnterWorktree",
+      "Write",
+      "Edit",
+      "NotebookEdit"
+    ],
+    "denied_by_pattern": [
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(node _ops/stigmergy/app/scripts/palace-commit.mjs:*)",
+      "Bash(node _ops/cowork-git/commit.mjs:*)"
+    ]
+  }
+}
