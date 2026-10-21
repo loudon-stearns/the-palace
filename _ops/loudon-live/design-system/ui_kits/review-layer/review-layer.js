@@ -5,7 +5,10 @@
  *  an anchoring that fits the format (see the entry).
  *
  *  Usage (single-file artifact):
- *    <script src="review-layer.js"></script>   // or paste this whole file
+ *  (Each closing tag below is written <\/script> so this file can be pasted
+ *  inside a <script> element: a literal one would end that element early.
+ *  In your own HTML, type it without the backslash.)
+ *    <script src="review-layer.js"><\/script>   // or paste this whole file
  *    <script>
  *      mountReviewLayer({
  *        project: 'wavetable-scanner',          // names the storage key + export
@@ -17,7 +20,7 @@
  *          // GRANULARITY: one moment per natural section — NOT one per slider.
  *        ],
  *      });
- *    </script>
+ *    <\/script>
  *
  *  Styling reads Loudon Live design tokens (--accent, --bg, --fg-*, --border,
  *  --mono, --sans…) with safe fallbacks, so it also works outside the system.
