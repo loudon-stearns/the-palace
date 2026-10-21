@@ -50,7 +50,12 @@ On 2026-10-13 main moved 118 times; 96 were direct commits, 46 by unattended ste
 6. `palace-push` with a pinned tip and a receipt, and `trunk-state`, the survey's read-only line. Landed at 34771c74 on 2026-10-14; first used on 2026-10-18, two pushes on Loudon's word.
 7. A sitting with Loudon over his folder's uncommitted files, then the read-only strip. The sitting was held on 2026-10-18; the strip is not built.
 8. The rites take the archivist's stance, one sentence each, through their own ledgers. Landed at 0957bb0e on 2026-10-14: Closing Well 1.7, Return 1.2, Weave 1.4.
-9. After a week, the measure: the fence, the live-preview trade, whether isolated sessions need landing by pointer, and whether a Lander or an Archivist page has earned its place.
+9. After a week, the measure: the fence, the live-preview trade, whether isolated sessions need landing by pointer, and whether a Lander or an Archivist page has earned its place. Taken on 2026-10-21 from the ear, `trunk-state.mjs` and the week's session transcripts:
+   - From the evening of 2026-10-15, main moved 211 times and none went around the door: 129 commits by name and 82 landings of 61 branches, carrying 444 commits in all. Off main, 115 moves went around it, all allowed: 48 branches made by `git worktree add`, the rest commits inside worktrees.
+   - The door refused one landing for a conflict (2026-10-19, `claude/elated-perlman-89b53f`), settled in the branch's own worktree and landed. No landing met an unsaved file, no writer gave up waiting on the lock, none died, and the heal never ran. Its commonest refusal was `palace-commit --help`, which is an unknown flag: 19 times in 17 sessions.
+   - Against the roads below, none is taken: raw git never moved main, and nothing was stranded between committing and landing; the only branches holding work not on main are two of the second wave's, still in flight. The Archivist waits for the Weave's first read of the trunk.
+   - The live-preview trade is Loudon's. The week leaned one way without a rule: 4 commits of app code were made in his folder, against 32 landings that carried it, and since 2026-10-20 a session previews the deck on a leased port of its own.
+   - The next [[Weave Ceremony|Weave]] reads this week at its step 2.5. It was to follow the measure (Loudon, 2026-10-18) and is held until the second wave lands: set for 2026-10-22.
 
 ## Roads not taken, and when to take them
 
