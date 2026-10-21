@@ -1,0 +1,39 @@
+Simple Synth: 20 parameters, 5 paths, 44100 Hz, harness build/SimpleSynthHarness_artefacts/Release/SimpleSynthHarness
+
+melody (3.5 s)
+  sketch     cached
+  exact      engine = sketch to 3e-08 of peak over 3.5 s (tol 1e-06)                    PASS
+  plugin     loudness of each 0.25 s within 1.24e-06 dB of the sketch (tol 0.5)         PASS
+  sanity     engine finite=True, peak -6.1 dBFS, rms -16.4 dBFS                         PASS
+  sanity     plugin finite=True, peak -6.1 dBFS, rms -16.4 dBFS                         PASS
+
+filter-sweep (4 s)
+  sketch     cached
+  exact      engine = sketch to 3.6e-08 of peak over 4 s (tol 1e-06)                    PASS
+  plugin     loudness of each 0.25 s within 0.657 dB of the sketch (tol 1.5)            PASS
+  sanity     engine finite=True, peak -1.7 dBFS, rms -9.3 dBFS                          PASS
+  sanity     plugin finite=True, peak -1.7 dBFS, rms -9.3 dBFS                          PASS
+
+pitch-vibrato-legato (3.5 s)
+  sketch     cached
+  exact      engine = sketch to 3.6e-08 of peak over 3.5 s (tol 1e-06)                  PASS
+  plugin     loudness of each 0.25 s within 1.59e-06 dB of the sketch (tol 0.5)         PASS
+  sanity     engine finite=True, peak -7.7 dBFS, rms -15.8 dBFS                         PASS
+  sanity     plugin finite=True, peak -7.7 dBFS, rms -15.8 dBFS                         PASS
+
+waves (4 s)
+  sketch     cached
+  exact      engine = sketch to 3.3e-08 of peak over 4 s (tol 1e-06)                    PASS
+  plugin     loudness of each 0.25 s within 0.0034 dB of the sketch (tol 0.5)           PASS
+  sanity     engine finite=True, peak -6.9 dBFS, rms -13.6 dBFS                         PASS
+  sanity     plugin finite=True, peak -6.9 dBFS, rms -13.6 dBFS                         PASS
+
+envelopes (3 s)
+  sketch     cached
+  exact      engine = sketch to 4.1e-08 of peak over 3 s (tol 1e-06)                    PASS
+  plugin     loudness of each 0.25 s within 0.000333 dB of the sketch (tol 0.5)         PASS
+  sanity     engine finite=True, peak -8.8 dBFS, rms -19.7 dBFS                         PASS
+  sanity     plugin finite=True, peak -8.8 dBFS, rms -19.7 dBFS                         PASS
+
+ALL GATES PASSED  (numbers in out/report.json, renders in out/)
+verify exit 0

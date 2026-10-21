@@ -1,0 +1,11 @@
+-- timing: 20 s of audio, B = 2.5e-5, K = 6 Hz
+N=40  558.8 ns/sample  realtime x41  (2.46% of one core)
+N=64  936.0 ns/sample  realtime x24  (4.13% of one core)
+N=96  1494.7 ns/sample  realtime x15  (6.59% of one core)
+-- parity against numpy: 3 s, N = 40, K = 6 Hz
+B=4e-06 K=6 unwrapped: max |tone err| 4.88e-08 of peak, max |F err| 3.83e-06 Hz, never departs past 1e-3 of peak
+B=4e-06 K=6 wrapped  : max |tone err| 4.88e-08 of peak, max |F err| 3.85e-06 Hz, never departs past 1e-3 of peak
+B=2.5e-05 K=6 unwrapped: max |tone err| 4.36e-03 of peak, max |F err| 3.01e-01 Hz, departs past 1e-3 of peak at 2.122 s
+B=2.5e-05 K=6 wrapped  : max |tone err| 7.55e-04 of peak, max |F err| 5.15e-02 Hz, never departs past 1e-3 of peak
+B=8e-05 K=6 unwrapped: max |tone err| 1.99e-07 of peak, max |F err| 3.03e-05 Hz, never departs past 1e-3 of peak
+B=8e-05 K=6 wrapped  : max |tone err| 3.40e-07 of peak, max |F err| 4.56e-05 Hz, never departs past 1e-3 of peak

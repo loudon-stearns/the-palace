@@ -1,0 +1,16 @@
+{
+  "name": "Simple Synth",
+  "target": "SimpleSynth",
+  "company": "Loudon Live",
+  "bundle_id": "com.LoudonLive.SimpleSynth",
+  "manufacturer_code": "Loud",
+  "plugin_code": "Smsy",
+  "kind": "instrument",
+  "version": "0.1.0",
+  "hostcheck": [
+    "cutoff=300",
+    "wave=square",
+    "resonance=0.9",
+    "vib_depth=80"
+  ]
+}

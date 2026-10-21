@@ -1,0 +1,45 @@
+Frustration: 9 parameters, 5 paths, 44100 Hz, harness build/FrustrationHarness_artefacts/Release/FrustrationHarness
+
+ride-breathe (48 s)
+  sketch     rendered in 46.1 s
+  exact      engine = sketch to 4.5e-08 of peak over 2 s (tol 1e-06)                    PASS
+  behaviour  engine fundamental, 0.5 s windows from 2 s: mean within 1.01 (tol 2), spread within 1.13 (tol 2) PASS
+  behaviour  plugin fundamental, 0.5 s windows from 2 s: mean within 1.16 (tol 2), spread within 1.33 (tol 2) PASS
+  plugin     loudness of each 0.25 s within 0.0884 dB of the sketch (tol 0.5)           PASS
+  sanity     engine finite=True, peak -3.5 dBFS, rms -16.3 dBFS                         PASS
+  sanity     plugin finite=True, peak -3.5 dBFS, rms -16.3 dBFS                         PASS
+
+ride-coupling (40 s)
+  sketch     rendered in 38.7 s
+  exact      engine = sketch to 4.4e-08 of peak over 1 s (tol 1e-06)                    PASS
+  behaviour  engine fundamental, 0.5 s windows from 1 s: mean within 0.357 (tol 2), spread within 0.458 (tol 2) PASS
+  behaviour  plugin fundamental, 0.5 s windows from 1 s: mean within 0.309 (tol 2), spread within 0.625 (tol 2) PASS
+  plugin     loudness of each 0.25 s within 0.0563 dB of the sketch (tol 0.5)           PASS
+  sanity     engine finite=True, peak -3.5 dBFS, rms -16.3 dBFS                         PASS
+  sanity     plugin finite=True, peak -3.5 dBFS, rms -16.3 dBFS                         PASS
+
+ride-string-bar (40 s)
+  sketch     rendered in 38.7 s
+  exact      engine = sketch to 5e-08 of peak over 40 s (tol 1e-06)                     PASS
+  plugin     loudness of each 0.25 s within 0.0598 dB of the sketch (tol 0.5)           PASS
+  sanity     engine finite=True, peak -4.5 dBFS, rms -16.6 dBFS                         PASS
+  sanity     plugin finite=True, peak -4.5 dBFS, rms -16.6 dBFS                         PASS
+
+breathe-warm-64 (24 s)
+  sketch     rendered in 23.5 s
+  exact      engine = sketch to 3.8e-08 of peak over 1 s (tol 1e-06)                    PASS
+  behaviour  engine fundamental, 0.5 s windows from 1 s: mean within 0.227 (tol 2), spread within 0.582 (tol 2) PASS
+  behaviour  plugin fundamental, 0.5 s windows from 1 s: mean within 0.229 (tol 2), spread within 0.427 (tol 2) PASS
+  plugin     loudness of each 0.25 s within 0.0888 dB of the sketch (tol 0.5)           PASS
+  sanity     engine finite=True, peak -2.1 dBFS, rms -10.6 dBFS                         PASS
+  sanity     plugin finite=True, peak -2.1 dBFS, rms -10.6 dBFS                         PASS
+
+knobs (6 s)
+  sketch     cached
+  exact      engine = sketch to 5.8e-08 of peak over 6 s (tol 1e-06)                    PASS
+  plugin     loudness of each 0.25 s within 0.137 dB of the sketch (tol 0.5)            PASS
+  sanity     engine finite=True, peak -0.4 dBFS, rms -14.6 dBFS                         PASS
+  sanity     plugin finite=True, peak -0.7 dBFS, rms -14.6 dBFS                         PASS
+
+ALL GATES PASSED  (numbers in out/report.json, renders in out/)
+verify exit 0
