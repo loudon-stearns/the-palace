@@ -3,7 +3,7 @@ title: Particle Synthesis
 type: project
 pillars: [creation, tools, philosophy]
 born: 2026-01
-stage: dormant
+stage: sprout
 status: active
 links:
   - target: "[[Granular Synthesis]]"
@@ -102,8 +102,6 @@ The Particle Fountain connects directly to [[Differential Equations]]. The parti
 This is the pedagogical promise of [[Particle Synthesis]]: the physics *is* the signal processing. There is no abstraction between the particle's position and the audio parameter it generates.
 
 ---
-
-**Revival conditions:** Accessible GPU compute frameworks (WebGPU, Vulkan compute shaders) becoming standard in audio frameworks; game audio SDKs adding granular synthesis layers; physicists recognizing audio synthesis as a testbed for nonlinear dispersive systems.
 
 ## Forward Vectors
 - Build a Gen~ grain engine where each particle carries its own differential equation state — not just windowed samples but evolving micro-systems
