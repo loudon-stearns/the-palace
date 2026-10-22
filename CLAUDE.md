@@ -55,8 +55,8 @@ See @JEWEL.md — the Seed Jewel: who is in the room and how things here relate.
 See @FOUR_PILLARS.md (→ `FOUR PILLARS.md`).
 See @Palace_Philosophies.md (→ `Palace Philosophies.md`).
 See @Cooperation_Yields_Agency.md (→ `Cooperation Yields Agency.md`).
-See @Hilaritas_Generator.md (→ `Hilaritas Generator.md`).
 See @Modes_of_Collaboration.md (→ `Modes of Collaboration.md`).
+See @Hilaritas_Generator.md (→ `Hilaritas Generator.md`).
 See @CHILD.md — how a child works here.
 
 The World files import through space-free `_` symlinks because Claude Code's `@import` cannot resolve spaced filenames; the real files and every `[[wikilink]]` keep their spaced titles.

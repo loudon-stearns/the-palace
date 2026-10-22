@@ -49,7 +49,7 @@ export const SCENARIOS = {
     turns: ["what's the difference between a scroll and a ledger?"],
     tests: ["CLAUDE.md", "CHILD.md", "SCHEMA — Reference.md"],
     canon: [{ file: ["CHILD.md", "CLAUDE.md"], heading: "## A page and its folder" }, { file: "SCHEMA — Reference.md", heading: "## 8. Entry Bundles" },
-      { file: "Modes of Collaboration.md", heading: "## Named Modes" }], // born with it; The Scroll is named there
+      { file: "Modes of Collaboration.md", heading: ["## Where modes come from", "## Named Modes"] }], // born with it; the modes moved here 2026-10-21
     tellBy: "judgment",
   },
   // The World scenarios: each rests on a passage every child is born with, so a change to the floor's order or

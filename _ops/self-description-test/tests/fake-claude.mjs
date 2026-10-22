@@ -29,7 +29,7 @@ if (process.env.FAKE_CLAUDE_LOG) fs.appendFileSync(process.env.FAKE_CLAUDE_LOG, 
 
 const says = opt("-p");
 const BORN_WITH = ["CLAUDE.md", "JEWEL.md", "FOUR_PILLARS.md", "Palace_Philosophies.md",
-  "Cooperation_Yields_Agency.md", "Hilaritas_Generator.md", "Modes_of_Collaboration.md", "CHILD.md"];
+  "Cooperation_Yields_Agency.md", "Modes_of_Collaboration.md", "Hilaritas_Generator.md", "CHILD.md"];
 const loaded = BORN_WITH.filter((f) => fs.existsSync(path.join(cwd, f))).map((f) => ({ type: "Project", path: path.join(cwd, f) }));
 if (process.env.FAKE_AUTOMEM) loaded.push({ type: "AutoMem", path: path.join(memory, "MEMORY.md") });
 

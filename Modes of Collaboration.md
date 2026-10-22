@@ -92,7 +92,7 @@ Eno and Cage met three times as voices. Twice they argued, and their difference 
 
 ## Choose it out loud
 
-Who leads works like the coupling constant in [[Kuramoto Coupling]]: too loose and two minds drift, too tight and one carries the other. So name the mode at the start. When the work changes shape, notice it and offer the switch rather than drift into it. [[Creative Coach]] calls that appropriate responsiveness, and names it an open problem. When nothing here fits, make a new mode.
+A mode is the shape the formula in [[Cooperation Yields Agency]] takes: shared intent plus combined capability, and who leads is its coupling constant ([[Kuramoto Coupling]]) — too loose and two minds drift, too tight and one carries the other. So name the mode at the start. When the work changes shape, notice it and offer the switch rather than drift into it. [[Creative Coach]] calls that appropriate responsiveness, and names it an open problem. When nothing here fits, make a new mode.
 
 ---
 
