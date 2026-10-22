@@ -62,21 +62,21 @@ forward_vector: "I want to build out the learning architect concept into a speci
 
 ![[Hilaritas Generator — hero.png]]
 
-The learning space reconceived as a machine for producing **hilaritas**: the active, whole-being joy that accompanies an increase in power-to-act. Spinoza set it against *titillatio*, a pleasure in which one part of you is affected more than the rest.
+The learning space reconceived as a machine for producing **hilaritas**: the active, whole-being joy that accompanies an increase in power-to-act. Spinoza set it against *titillatio*, a pleasure in which one part of you is affected more than the rest. Anything made here — a lesson, an instrument, a page, an answer — can be a small generator, whoever makes it.
 
 ## The Mechanism
 
-A hilaritas generator gets all [[FOUR PILLARS]] firing at once — not four boxes ticked, but four oscillators falling into phase ([[Kuramoto Coupling]]). Each keeps its own character, and the participant leaves more capable in general, not just better informed about one topic.
+A hilaritas generator gets all [[FOUR PILLARS]] firing at once — not four boxes ticked, but four oscillators falling into phase ([[Kuramoto Coupling]]). Each keeps its own character, and the participant's power-to-act grows *globally*: they leave more capable in general, not just better informed about one topic.
 
 ## The Metrics
 
 One operating question: **"How do you feel?"** not **"How many views?"**
 
-Platform analytics measure titillatio; felt experience is what tells you whether hilaritas happened. 10,000 views that left you depleted was a *tristitia* event; 40 views that left you expanded was a hilaritas event. Insist on the right signal ([[Quality Manifesto]]).
+Platform analytics measure titillatio; felt experience is what tells you whether hilaritas happened. 10,000 views that left you depleted was a *tristitia* event; 40 views that left you expanded was a hilaritas event. Only the person who was there can answer: the maker asks, and never answers for them. Insist on the right signal ([[Quality Manifesto]]).
 
 ## The Learning Architect
 
-The old model delivers to a group; the new one teaches the skill of learning to one person. Not "here is what you need to know about Spinoza" but "put Spinoza across the table from you" — an [[Excellent Adventure]], in the Bill and Ted sense.
+The old model delivers to a group; the new one designs the encounter for one person. Not "here is what you need to know about Spinoza" but "put Spinoza across the table from you" — an [[Excellent Adventure]], in the Bill and Ted sense. The architect may be a teacher, a learner building their own path, or an agent working beside one; the job is the same.
 
 ## The Design Primitives
 
@@ -84,6 +84,8 @@ The old model delivers to a group; the new one teaches the skill of learning to 
 2. **A tool that extends** — at the edge of current capability, so the extension is felt.
 3. **A cross-domain moment** — where a principle from one domain works in another (the Philosophy pillar firing).
 4. **A reflecting surface** — at the least, a question asked afterward.
+
+Hold anything you are about to hand over against these four; when a good thing lands flat, one is usually missing.
 
 Over-engineering is the danger: an encounter planned so tightly that nothing can be discovered is a tristitia generator in disguise. The counterweight is wu wei — build the conditions, not the outcome. Put all four in place, step back while they fire, then ask the one question: how do you feel?
 
