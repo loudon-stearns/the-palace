@@ -65,3 +65,7 @@ This `contradicts` the autodidact's [[FOUR PILLARS]] instinct — *make first, l
 ## Forward Vectors
 
 I want to be applied past BLUELINE — to name the seam in any AI-assisted craft and ask the one question. I carry an open question: is there a *third* kind of seam — not handoff, not conditioning, but where the AI's output must feed *back* into the craft's human stages (a render that informs a re-board)? And I want [[Blocked, Not Prompted]] to formally `exemplify` me, and the BLUELINE production pipeline to cite me as its founding rationale.
+
+## Active Baton
+
+[[Adopt the Craft, Author the Seam — baton]] — drafted 2026-10-22
