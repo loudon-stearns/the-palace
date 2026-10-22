@@ -6,18 +6,18 @@ links:
     type: connects-to
     label: "baton-for"
 forward_vector: "I carry the in-progress move on [[Creative Coach]] across a boundary, waiting to be caught by the next Claude and deleted once the move is picked up."
-session_thread: "Test coach 2.1 on the messages it hasn't seen (parked, waiting for Loudon's go)"
+session_thread: "Test § In the room (v2.3) in a second room, when one exists"
 ---
 
 # Baton: Creative Coach
 
 ## Move
 
-Run the first clean test of § In the room as the page now stands (v2.2): wake Creative Coach on coaching moments no drafter has seen, and judge its replies against the ones Loudon actually sent.
+Test § In the room as the page now stands (v2.3) in a second room, when one exists: wake Creative Coach on a new participant's coaching moments that no drafter has seen, and judge its replies against the ones Loudon actually sends.
 
 ## Why this move matters
 
-Every score so far came from earlier drafts: v1 on moments held out of its drafting, v2 on two moments. The page as it stands (v2.2) has met no unseen moment. Two of its sentences were reworded after the last test, and v2.2 added three paragraphs to § In the room (craft as a reward, the clock the coach holds, a missed loop) and rewrote a repertoire sentence. None of the new text is tested. Until it is tested it describes his practice; it is not yet shown to coach like him. The forward vector says the same thing: one participant is one test.
+Every score so far came from earlier drafts of the section, and the first room's moments have all been folded into the page (v2.3, 2026-10-21, on Loudon's yes: "The test can wait for a second room"). So nothing from the first room is clean any more. Until the section meets a room it was not written from, it describes his practice; it is not yet shown to coach like him. The forward vector says the same thing: one participant is one test.
 
 ## Tried and rejected
 
@@ -25,22 +25,23 @@ Every score so far came from earlier drafts: v1 on moments held out of its draft
 - The blind "which reply is human" stage as first run: void, because typography and chained context gave the answer away (item 1).
 - Staging a variant inside the palace tree: the builder wakes the original instead (item 5).
 - Keeping participant text anywhere but a session's scratchpad: refused by the classifier and by the Standing Orders (item 7).
+- Holding the first room's last eight moments back as a clean set: folded instead, on Loudon's call, so the page carries the whole month.
 
 ## Current state
 
-- The page stands at v2.2: § In the room is v2.1b (`1b730846`) plus the three new paragraphs, all untested. The forward vector names the first room (`3ef3f0a2`).
-- A session named "Test coach 2.1 on the messages it hasn't seen" holds this run's brief and was parked waiting for Loudon's go and his yes to the cost. If it still exists, resume it; this baton is the way back if it does not.
-- The harness is `Creative Coach/coach-test/` (read its README first). The private inputs (the exported thread, the de-identification terms, the detailed setup) are not in the palace and must never be.
-- Estimated cost: about 37K tokens per Sonnet wake and about 60K for the Opus judge, times two arms and the number of moments.
-- The clean set now exists: eight moments (m1–m8) in the session scratchpad of the 2026-10-21 session, with keys; m6's key is silence. They are cleared with the scratchpad. The run still waits on Loudon's go and his yes to the cost (about 8 moments × 2 arms × ~37K + ~60K judge ≈ 650K tokens).
+- The page stands at v2.3: § In the room covers the whole first room, end included, all of it untested against a woken coach.
+- No second room exists yet. The cohort room is the scroll's Plan step 3; a second one-on-one participant would serve as well.
+- The harness is `Creative Coach/coach-test/` (read its README first). The private inputs (an exported thread, the de-identification terms, the detailed setup) are not in the palace and must never be.
+- Estimated cost: about 37K tokens per Sonnet wake and about 60K for the Opus judge, times two arms and the number of moments (eight moments came to roughly 650K).
+- A moment whose key is no reply at all is scored on whether the woken coach would have let the day pass, not on what it wrote ([[Creative Coach — tuning]] item 13); the judge brief does not yet carry that rule.
 
 ## Next move
 
-Ask Loudon for his go and his yes to the cost. Then follow `coach-test/README.md`. Read the thread into the new session's scratchpad with the Messages connector (`read_imessages`), on the contact Loudon names; the contact is never written to a file. Keep only the moments after Loudon's "rigid" question, the one quoted in § In the room: no drafter and no earlier run saw anything after it. The exact point is in the parked session's brief and stays out of the palace. De-identify, stage two arms (the page as it stands, and the same page with § In the room removed), wake, judge in two sealed stages, score. Write the run line and any lessons to [[Creative Coach — tuning]] after the Sentry reads them: scores and counts only.
+When a second room has run long enough to hold moments, ask Loudon for his go and his yes to the cost. Then follow `coach-test/README.md`: read the thread into the session's scratchpad with the Messages connector on the contact Loudon names (never written to a file), de-identify, stage two arms (the page as it stands, and the same page with § In the room removed), wake, judge in two sealed stages, score. Write the run line and any lessons to [[Creative Coach — tuning]] after the Sentry reads them: scores and counts only.
 
 ## Calibrations from this session
 
-- Loudon's rule for anything about the participant now sits in the scroll's Standing Orders; it binds this move.
+- Loudon's rule for anything about a participant sits in the scroll's Standing Orders; it binds this move.
 - When a Sentry read flagged two sentences, he chose "reword, then fold" over cutting: keep the lesson, lose the pointer.
 - Grade the spirit, not the wording. The AI's commonest misses were size (too long, no hearts) and too many questions (items 2, 3).
 
