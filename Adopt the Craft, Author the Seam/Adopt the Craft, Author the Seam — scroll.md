@@ -19,14 +19,16 @@ forward_vector: "I am Adopt the Craft, Author the Seam's scroll: the page that o
 
 - **Stage:** growing · **Steward:** none. This page has no permanent steward.
 - **Plan:** none agreed yet
-- **Waiting on you:** an open question from the 2026-10-19 sit (below), for another day
+- **Verdict:** open (Daily Page, 2026-10-19). Not decided; his reading about voice at the edge of the norm is what would decide it
+- **Waiting on you:** that open question (below), for another day
+- **Baton:** [[Adopt the Craft, Author the Seam — baton]], for [[Enrichment]]
 - **Last made:** *Hand the Groove to a Machine*, two roughs, 2026-10-19 (see the making trail)
 
 ### Where this stands
 
-Dealt by [[The Daily Page]] on 2026-10-19 and kept for now. The morning tested the page's claim outside BLUELINE for the first time, in music, the craft the page names but never works through. Loudon called it great progress and enough for one morning, and said we will come back to it.
+Dealt by [[The Daily Page]] on 2026-10-19. The verdict is **open**: not decided today, and Loudon named what would decide it, his reading below. The morning tested the page's claim outside BLUELINE for the first time, in music, the craft the page names but never works through. Loudon called it great progress and enough for one morning, and said we will come back to it.
 
-**Open, not decided:** Loudon's reading in the sit may supply the page's missing half. A craft's norms are how art communicates clearly: risers, the ii–V–I, the plagal cadence, comic frames. The artist's voice lives in breaking those norms, at the craft's edges and where crafts join. Break too far and the communication fails; break too little and it isn't art. Maybe authorship is that zone between the norm and the breaking point. Harmony's "rules" are historical studies of what people did, so you read the rules on purpose to find where authorship can happen. The page currently reads the seam as the place where a loose human reader is replaced by an exact machine reader. His reading is a second kind of seam: the edge of the norm, where the author works. Whether this becomes a `tune` of the page is his to say, later.
+**What would decide it:** Loudon's reading in the sit, which may supply the page's missing half. A craft's norms are how art communicates clearly: risers, the ii–V–I, the plagal cadence, comic frames. The artist's voice lives in breaking those norms, at the craft's edges and where crafts join. Break too far and the communication fails; break too little and it isn't art. Maybe authorship is that zone between the norm and the breaking point. Harmony's "rules" are historical studies of what people did, so you read the rules on purpose to find where authorship can happen. The page currently reads the seam as the place where a loose human reader is replaced by an exact machine reader. His reading is a second kind of seam: the edge of the norm, where the author works. Whether this becomes a `tune` of the page is his to say, later. The baton carries the question to [[Enrichment]] along with the two owed edits, and leaves the deciding to him.
 
 <!-- scroll:now:end -->
 
