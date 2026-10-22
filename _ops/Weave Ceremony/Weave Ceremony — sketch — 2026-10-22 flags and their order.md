@@ -48,7 +48,7 @@ Ids are `commons-the-palace-<number>`.
 
 ## Questions that stay separate
 
-- **Six projects with no scroll.** The Scroll flag (1792599100260) says `scroll.js --all` "also lists six projects with no scroll" and tells the Weave to use `--home` on the nine, not `--all`. Whether those six should get scrolls is a different question from the nine's missing Plan zone, and it is Loudon's.
+- **Six projects with no scroll.** The Scroll flag (1792599100260) says `scroll.js --all` "also lists six projects with no scroll" and tells the Weave to use `--home` on the nine, not `--all`. They are, checked on 2026-10-22 under `Projects/`: Compressor Design (complete), Frequency-Time Explorer (archived, and the subject of the composting confirmation above), Phoneme Choir (complete), Preset Oracle (complete), STIGMERGY Philosophical Lenses (proposed) and Talking Keyboard (complete). Whether any of them should get a scroll is a different question from the nine's missing Plan zone, and it is Loudon's.
 - **The Explorer's deletion** (1792590978864) is a deleting call: three records keep wikilinks to it that go ghost (the 2026-10-13 Daily Page record, The Daily Page — Context, the Palace To-Do archive). The flag leaves that to the Weave and records Loudon's word of 2026-10-21, "let the next Weave confirm the Explorer's deletion."
 
 ## What I could not pin down
