@@ -52,6 +52,10 @@ The third is the most physics-honest interpretation of "Shimmer Cloud as prism."
 - Underlying concept: [[Frequency-Time Duality]]
 - Audio architecture inheritance: [[Granular Synthesis]] for the population idea; [[Particle Synthesis]] for the per-droplet-as-particle framing
 
+## The dispersion pushed (2026-10-22)
+
+`proofs/2026-10-22-pushed/` re-renders the revival's three pairs with the prism pushed hard, and `proofs/2026-10-22-pushed-listening.html` plays them. Why May's pairs sounded close: its lens put 4–20 ms of delay at Nyquist and let it fall linearly, so struck with a click, the canonical cloud landed its lows and highs ~3 ms apart while scattering lenses over 350 ms. The pushed lens spreads its delay evenly per octave (80 Hz–11 kHz), runs D to 150–600 ms, and cuts the scatter to 25 ms; lows and highs land ~213 ms apart. Measure a cloud with a click (`render_pushed.py` § findings), not with the phrase: the phrase's own words bias any band timing. Run the scripts with `/usr/local/bin/python3`.
+
 ## Next-stage candidates (not yet built)
 
 - Time-modulated dispersion: each lens's dispersion curve drifts over its lifetime

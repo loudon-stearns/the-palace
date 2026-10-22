@@ -15,25 +15,44 @@ forward_vector: "I am Shimmer Cloud's scroll — the one page that always opens 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-21T13:54:28.784Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-22T10:00:04.433Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** none — this project has no permanent steward yet
-- **Plan:** agreed 2026-10-21 (today) · 0 made things since
-- **Waiting on you:** nothing
-- **Last shipped:** nothing on the board yet — but the bundle holds 40 media files (see the making trail)
-- **Last commit touching this project:** 2026-10-21 `343effc6` — edit(Shimmer Cloud): a listening page for its revival: the phrase, the three lens models, and the May pair, silent until clicked
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 1 · last ran 2026-10-22 (today)
+- **Plan:** agreed 2026-10-21 (1 day ago) · 2 made things since
+- **Waiting on you:** 1 open ask
+- **Ready to advance:** no unread answers
+- **Last shipped:** 2026-10-22 (today) — How hard should the prism be pushed from here: 300 ms, the 150–600 ms I used, or 1.2 s? (`shimmer-cloud-003`)
+- **Last commit touching this project:** 2026-10-22 `13f092d7` — edit(Shimmer Cloud): its steward's tuning ledger is born with one one-shot order from Loudon: the first cycle makes a listening page for the three pairs before any other make; on Loudon's word of 2026-10-22, "I want to hear more of the shimmer cloud"
+- **Signal:** steady
+- **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-22 — cycle 1 · taught item 1
+- **Owed in the ledger:** nothing
+- **Latest lesson:** item 1, from cycle 1 — 2026-10-22 — [[Shimmer Cloud — tuning]]
 
 ### Where this stands
 
-_No steward has spoken for this project. Its direction is the `forward_vector` in [[Shimmer Cloud]]'s frontmatter; enchant a steward to start the trail._
+Shimmer Cloud is a reverb that is also a prism: a cloud of hundreds of small lenses around any sound. Each lens delays the sound's frequencies by different amounts, and the cloud is the space. Three lens models were built in May. At the revival on 2026-10-21 you heard them in pairs and chose the droplet and dispersion clouds together, with dispersion as the start. You said every pair sounded close and asked for the dispersion to be pushed until the modes come apart. That is the first move of the plan. Then come an interval-then-cloud feedback lens, a swell before the dry with long tails, a live version in the browser, thousands of lenses on the GPU, and a cloud you stand inside. This cycle…
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `shimmer-cloud-003` — directional_decision · posted 2026-10-22 · options: LIGHTER · MIDDLE · HEAVIER · BOTH-WAYS
+
+### Answered, not yet consumed
+
+_None._
 
 ### Decided
 
 _Nothing decided on the board yet._
+
+### Runs
+
+- 2026-10-22 — cycle 1 · taught item 1
+
+### Owed
+
+_Nothing owed._
 
 <!-- scroll:now:end -->
 
@@ -63,6 +82,76 @@ Every render comes with a page Loudon can play, the takes built in, like the rev
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="shimmer-cloud-003" -->
+### 2026-10-22 — cycle 1 — How hard should the prism be pushed from here: 300 ms, the 150–600 ms I used, or 1.2 s?
+> still working · pushed page shipped · steward leans MIDDLE
+
+Shimmer Cloud is the reverb that is also a prism. At the revival you said every pair sounded close and asked for the dispersion to be pushed. I found why: May's prism sorted a voice's lows and highs only 3 ms apart. This cycle I rebuilt it to sort them by up to hundreds of milliseconds and put the three pairs back on one page, with a five-step ladder of strengths. Next I'm rebuilding the feedback lens your way (one interval jump, then the cloud), and it needs a default strength. I'm going ahead with the middle, 150–600 ms, unless you steer. Lighter keeps the phrase readable. Heavier turns every word into a sweep. The ladder on the page is the quickest way to answer.
+
+**Artifacts:**
+- [the ladder is the fifth section, 'How hard to push'.](Projects/Shimmer Cloud/proofs/2026-10-22-pushed-listening.html)
+<sub>`shimmer-cloud-003` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="shimmer-cloud-002" -->
+### 2026-10-22 — cycle 1 — The three pairs again, with the prism pushed about seventy times harder, plus a ladder of strengths and the prism turned around, on one page that plays on a click.
+> shipped · listening page ready · steward leans 150–600 ms as the working strength
+
+Start with [the listening page](obsidian://open?vault=The%20Palace&file=Projects/Shimmer%20Cloud/proofs/2026-10-22-pushed-listening.html). Nothing sounds until you click.
+
+**Why the pairs sounded close.** May's lens put its biggest delay, 4–20 ms, at the very top of the range (12 kHz) and let it fall in a straight line. Inside a voice it barely sorted anything. I struck May's canonical cloud with a single click and measured when its lows and highs land: 3 ms apart. Its lenses were also scattered over 350 ms of start time. That scatter did all the smearing, so every model sounded like the same smear.
+
+**What changed.** The new lens spreads its delay evenly per octave, from 80 Hz to 11 kHz, the way the ear hears pitch. The delay runs to 150–600 ms, and the scatter drops to 25 ms so you hear the mode itself. Struck with a click, it lands its lows and highs 213 ms apart. In the figure's bottom row, May's cloud is a block of noise and the pushed one is a fan.
+
+**On the page:** the three revival pairs, pushed: droplets alone against the prism alone, the same smear unsorted against sorted, and pure against ±15 cents of drift. Then a five-step ladder from May's strength up to 1.2 s, so you can say where it comes apart. Last, the prism turned around: highs early, where the hiss arrives first and the body follows. That leans toward the swell before the sound you asked for. Every take is levelled to the same loudness, so a pair differs only in its mode. Your picks gather in a box at the bottom.
+
+**Artifacts:**
+- [the listening page: the three pairs pushed, a ladder of strengths, the prism turned around. Silent until clicked.](Projects/Shimmer Cloud/proofs/2026-10-22-pushed-listening.html)
+- [top: the phrase dry, through May's cloud, and through the pushed prism both ways. bottom: each cloud struck by a click, a block of noise against a fan.](Projects/Shimmer Cloud/proofs/2026-10-22-pushed/pushed.png)
+- [the pushed prism alone: 600 lenses, 150–600 ms, highs late.](Projects/Shimmer Cloud/proofs/2026-10-22-pushed/takes/p1_dispersion.wav)
+- [droplets alone: 600 copies at ±25 cents, no prism.](Projects/Shimmer Cloud/proofs/2026-10-22-pushed/takes/p1_droplets.wav)
+- [the same lenses with every frequency delayed equally, unsorted.](Projects/Shimmer Cloud/proofs/2026-10-22-pushed/takes/p2_delay.wav)
+- [the pushed prism with ±15 cents of drift on every lens.](Projects/Shimmer Cloud/proofs/2026-10-22-pushed/takes/p3_drift.wav)
+- [the prism turned around: highs early, body after.](Projects/Shimmer Cloud/proofs/2026-10-22-pushed/takes/w_early.wav)
+- [ladder 1: 20 ms.](Projects/Shimmer Cloud/proofs/2026-10-22-pushed/takes/h1_20ms.wav)
+- [ladder 2: 80 ms.](Projects/Shimmer Cloud/proofs/2026-10-22-pushed/takes/h2_80ms.wav)
+- [ladder 3: 300 ms.](Projects/Shimmer Cloud/proofs/2026-10-22-pushed/takes/h3_300ms.wav)
+- [ladder 4: 1.2 s.](Projects/Shimmer Cloud/proofs/2026-10-22-pushed/takes/h4_1200ms.wav)
+- [copy of the pushed prism, kept so each pair's files stand alone.](Projects/Shimmer Cloud/proofs/2026-10-22-pushed/takes/p2_prism.wav)
+- [copy of the pushed prism, for the drift pair.](Projects/Shimmer Cloud/proofs/2026-10-22-pushed/takes/p3_pure.wav)
+- [copy of the pushed prism, for the which-way pair.](Projects/Shimmer Cloud/proofs/2026-10-22-pushed/takes/w_late.wav)
+- [the pushed lens, the twelve takes, and the click measurement (run with /usr/local/bin/python3).](Projects/Shimmer Cloud/proofs/2026-10-22-pushed/render_pushed.py)
+- [every click measurement, May's included.](Projects/Shimmer Cloud/proofs/2026-10-22-pushed/findings.json)
+- [draws the figure.](Projects/Shimmer Cloud/proofs/2026-10-22-pushed/draw_figure.py)
+- [builds the listening page from the takes, reusing the revival page's look and player.](Projects/Shimmer Cloud/proofs/2026-10-22-pushed/make_page.py)
+
+_Each cloud struck by one click · when its lows (100–500 Hz) and highs (3–8 kHz) land_
+| cloud | lows land (ms) | highs land (ms) | highs − lows (ms) | 90% of energy within (ms) |
+| --- | --- | --- | --- | --- |
+| May canonical | 176 | 173 | −3 | 316 |
+| May, scatter removed | 2 | 7 | +5 | 15 |
+| pushed prism, highs late | 116 | 329 | +213 | 450 |
+| delay only, unsorted | 243 | 250 | +6 | 280 |
+| pushed, highs early | 285 | 78 | −208 | 248 |
+| ladder 80 ms | 21 | 53 | +32 | 67 |
+| ladder 300 ms | 56 | 174 | +118 | 230 |
+| ladder 1.2 s | 194 | 653 | +459 | 880 |
+
+_Changed in the workshop:_ README — Added a section on the pushed dispersion: why May's pairs sounded close, what the new lens does, and to measure with a click.
+
+_Left rough:_ Nobody has heard it yet. I checked the takes by measurement and spectrogram, and the page's script parses, but I haven't played the page in a real browser. In the sorted-or-not pair, the unsorted take's smear is shorter (280 ms of energy against 450), so it is close to a fair match but not exact. The 150–600 ms strength is my taste until your ear picks a rung on the ladder.
+
+_Next moves named:_ The plan's second move, an interval then a cloud: rebuild the feedback lens your way. One jump at the door (an octave or a fifth), then only these pushed lenses and a few cents of drift inside the loop, on its own listening page. · Carry your ladder pick and your which-way pick in as the default lens strength and direction. Keep highs early in hand for the third move, the swell before the dry.
+<sub>`shimmer-cloud-002` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-d4898d1940" -->
+### 2026-10-22 — cycle 1
+
+taught item 1
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="shimmer-revival-2026-10-21" -->
 ### 2026-10-21 — Revived: heard by ear, the page is a project at sprout
 

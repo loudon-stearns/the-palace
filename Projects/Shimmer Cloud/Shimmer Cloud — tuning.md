@@ -22,4 +22,9 @@ standards:
 
 What Shimmer Cloud's steward cycles taught the page, and the changes to the house its steward proposed. Closing Well opened this ledger on 2026-10-22, at the close of the fan-out and on Loudon's word, to leave the steward its first one-shot order; the orchestrator writes every line after it. A proposal waits here for Loudon's review; the page takes it in only on his yes. What a cycle leaves rough stays on the scroll's trail, and the scroll's Now lists what keeps recurring.
 
-- from Loudon · 2026-10-22 · "I want to hear more of the shimmer cloud": the first cycle makes a page that plays the three pairs on a click, silent until then, before any other make · owed
+- from Loudon · 2026-10-22 · "I want to hear more of the shimmer cloud": the first cycle makes a page that plays the three pairs on a click, silent until then, before any other make · paid in cycle 1
+
+## From cycle 1 — 2026-10-22
+
+1. Measure a cloud by striking it with one click and timing its bands; the phrase's own words bias band timing, and the click is what showed May's prism sorted only 3 ms against 350 ms of scatter. *(offered by the steward, cycle 1)*
+- run · 2026-10-22 · cycle 1 · taught item 1

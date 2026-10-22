@@ -1,0 +1,68 @@
+{
+  "p1_droplets": {
+    "lows_land_ms": 13.4,
+    "highs_land_ms": 12.8,
+    "highs_minus_lows_ms": -0.6,
+    "energy_5_to_95_ms": 23.0
+  },
+  "p1_dispersion": {
+    "lows_land_ms": 116.4,
+    "highs_land_ms": 329.3,
+    "highs_minus_lows_ms": 212.9,
+    "energy_5_to_95_ms": 449.6
+  },
+  "p2_delay": {
+    "lows_land_ms": 243.2,
+    "highs_land_ms": 249.5,
+    "highs_minus_lows_ms": 6.3,
+    "energy_5_to_95_ms": 280.0
+  },
+  "p3_drift": {
+    "lows_land_ms": 116.4,
+    "highs_land_ms": 329.3,
+    "highs_minus_lows_ms": 212.9,
+    "energy_5_to_95_ms": 449.6
+  },
+  "h1_20ms": {
+    "lows_land_ms": 14.4,
+    "highs_land_ms": 23.9,
+    "highs_minus_lows_ms": 9.5,
+    "energy_5_to_95_ms": 32.2
+  },
+  "h2_80ms": {
+    "lows_land_ms": 21.3,
+    "highs_land_ms": 53.3,
+    "highs_minus_lows_ms": 32.0,
+    "energy_5_to_95_ms": 66.8
+  },
+  "h3_300ms": {
+    "lows_land_ms": 55.8,
+    "highs_land_ms": 173.6,
+    "highs_minus_lows_ms": 117.8,
+    "energy_5_to_95_ms": 230.0
+  },
+  "h4_1200ms": {
+    "lows_land_ms": 193.8,
+    "highs_land_ms": 653.1,
+    "highs_minus_lows_ms": 459.3,
+    "energy_5_to_95_ms": 880.4
+  },
+  "w_early": {
+    "lows_land_ms": 285.2,
+    "highs_land_ms": 77.5,
+    "highs_minus_lows_ms": -207.7,
+    "energy_5_to_95_ms": 248.3
+  },
+  "May 25 canonical": {
+    "lows_land_ms": 175.5,
+    "highs_land_ms": 172.8,
+    "highs_minus_lows_ms": -2.7,
+    "energy_5_to_95_ms": 316.3
+  },
+  "May 25, scatter removed": {
+    "lows_land_ms": 2.3,
+    "highs_land_ms": 7.4,
+    "highs_minus_lows_ms": 5.0,
+    "energy_5_to_95_ms": 14.5
+  }
+}
