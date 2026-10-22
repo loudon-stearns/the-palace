@@ -15,6 +15,7 @@ plugin/
   ui/visualizer.js       the belief helix, for the CRT: mount(el), frame(probes, params)
   ui/belief_cloud.js     the engine in JavaScript, for the sketch page only
   ui/belief-helix.template.html, ui/build_helix.js   → ../belief-helix.html
+  ui/build_face.py       the whole face in the template's editor → ../belief-cloud-face.html
 ```
 
 ## What the plugin is
@@ -59,6 +60,36 @@ page the parameter values; `BeliefHelix.frame(probes, params)` is the whole cont
 `grain_note` and `grain_cycles` are the latest grain only, so at 60 Hz most grains
 are never seen; the picture draws its own grains from the same belief and marks the
 engine's real ones as rings.
+
+## The face, before the template can build it
+
+`python3 ui/build_face.py --shot --fit` builds the template's own editor page
+(`ui.py`'s `page()`, Drafting Table on Phosphor, bench direction) from this
+plugin.json and the parameter table `check/engine_check params` prints, then puts
+the helix in the CRT, fed by the JavaScript engine once a frame, the way the CRT
+feed will feed it. It writes ../belief-cloud-face.html and .png and runs ui.py's fit
+test. On 2026-10-22 (cycle 5) the 31 controls fit without scrolling at 1080×700,
+1180×760 and 1800×1100.
+
+**Painting the prior.** `BeliefHelix.mount(el, hooks)` with the editor's relays
+(`{ set(id, v), begin(id), end(id) }`, here `BINDINGS`) makes the floor dial
+paintable: drag a spoke in or out and that pitch class's `Prior …` knob moves; sweep
+round to draw a scale; double-click flattens it. Painting a flat-shaped prior turns
+`Prior shape` up to 1 first. The painted belief is the twelve parameters, never a
+second state, so it automates and saves like any knob. A headless test that fires
+pointer events at the dial moved `prior_shape` 0 → 1 and five spokes.
+
+Two things the face taught about the template:
+
+- **Drafting Table's knob and fader draw their first value from the default**, not
+  the binding, whenever the editor builds them (`dt-controls.js`:
+  `o.value == null ? spec.def : (o.binding ? …)`). In a plugin that means every knob
+  shows its default when the editor opens or refits, until its value next changes.
+  build_face.py patches its own inlined copy (binding first); the fix for the house
+  is proposed in the tuning ledger.
+- **The editor stretches every child of the glass to fill it** (`.screen .glass > *`).
+  A visualizer that adds its own overlay must undo that (`inset:auto; width:auto;
+  height:auto`).
 
 ## When the template is ready
 

@@ -259,10 +259,18 @@ const BC = (() => {
 // The engine's own latest grain flashes as a ring.
 //
 // Contract with the editor (the CRT move on VST Template):
-//   BeliefHelix.mount(el)               draws into el (window.editorScreen); sizes itself
+//   BeliefHelix.mount(el[, hooks])      draws into el (window.editorScreen); sizes itself
 //   BeliefHelix.frame(probes, params[, dt])  probes: Algorithm.h kProbes order (array);
 //                                       params: { id: value } for the parameter table
 // Nothing else is read; nothing is fetched.
+//
+// The prior is painted on the floor dial. With hooks { set(id, v), begin(id), end(id) }
+// (the editor's parameter relays), a drag on the dial pulls each pitch class's spoke
+// in or out, and that is the Prior C … Prior B knobs moving: the painted belief is
+// the parameters, never a second state. Sweep round the dial to draw a scale; the
+// camera holds still while you paint. A double-click flattens it again. Painting
+// on a flat-shaped prior (Prior shape 0) turns Prior shape up to 1 first, or the
+// paint would do nothing.
 const BeliefHelix = (() => {
   const LO = 33, HI = 96, B = 630, MAX_NOTES = 16;
   const NAMES = ["C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B"];
@@ -273,6 +281,7 @@ const BeliefHelix = (() => {
   let priorKey = "", priorSum = 1;
   const sparks = [], beads = [], rings = [];
   const motes = [];
+  let hooks = null, painting = false, hoverPc = -1, dial = null, lastQ = null, touched = new Set();
   let lastGrain = NaN, chroma = new Float64Array(12), chromaShown = new Float64Array(12);
   let rng = 987654321;
   const rnd = () => { rng = (rng * 1664525 + 1013904223) >>> 0; return rng / 4294967296; };
@@ -296,8 +305,8 @@ const BeliefHelix = (() => {
     return [W / 2 + x * s, H * 0.53 - y2 * s, s, zz];
   }
 
-  function mount(target) {
-    el = target;
+  function mount(target, h) {
+    el = target; hooks = h || null;
     cv = document.createElement("canvas");
     cv.style.cssText = "position:absolute;inset:0;width:100%;height:100%;display:block";
     if (getComputedStyle(el).position === "static") el.style.position = "relative";
@@ -312,6 +321,7 @@ const BeliefHelix = (() => {
       cam.f = Math.min(W, H) * 1.18 + Math.max(0, W - H) * 0.12;
     };
     fit();
+    if (hooks) paintable();
     if (typeof ResizeObserver !== "undefined") new ResizeObserver(fit).observe(el);
     window.addEventListener("resize", fit);
   }
@@ -378,6 +388,7 @@ const BeliefHelix = (() => {
     if (!cx || !W) return;
     const now = performance.now(), dt = dtGiven ?? Math.min(0.05, (now - last) / 1000); last = now;
     simT += dt; const time = simT;
+    lastQ = q;
     buildPrior(q);
     const notes = readNotes(pr, q);
     let sumW = 0; for (const n of notes) sumW += n.w;
@@ -397,7 +408,7 @@ const BeliefHelix = (() => {
     }
 
     // camera drifts; it slows as the cloud comes to believe, as if leaning in
-    orbit += dt * (0.16 - 0.1 * belief);
+    if (!painting) orbit += dt * (0.16 - 0.1 * belief);
     cam.yaw = orbit; cam.pitch = 0.52 + 0.06 * Math.sin(time * 0.13); cam.dist = 5.0 - 0.45 * belief;
 
     // ---- ground
@@ -551,11 +562,85 @@ const BeliefHelix = (() => {
     cx.strokeStyle = "rgba(110,120,210,0.18)"; cx.beginPath();
     for (let k = 0; k <= 72; k++) { const a = k / 72 * 2 * Math.PI, s = project([R * Math.cos(a), Y, R * Math.sin(a)]); k ? cx.lineTo(s[0], s[1]) : cx.moveTo(s[0], s[1]); }
     cx.stroke();
+    // the painter's handles: each pitch class's own prior weight, on its spoke
+    const c0 = project([0, Y, 0]), rims = [];
+    for (let c = 0; c < 12; c++) { const a = c * TURN - Math.PI / 2; rims.push(project([R * Math.cos(a), Y, R * Math.sin(a)])); }
+    dial = { c0, rims };
+    if (hooks) {
+      const shaped = q.prior_shape > 0.001, near = painting || hoverPc >= 0;
+      cx.strokeStyle = `rgba(232,180,106,${near ? 0.5 : 0.16})`; cx.lineWidth = 1; cx.beginPath();
+      for (let c = 0; c <= 12; c++) {
+        const k = c % 12, t = 0.12 + 0.88 * q[PC_IDS[k]], r = rims[k];
+        const x = c0[0] + (r[0] - c0[0]) * t, y = c0[1] + (r[1] - c0[1]) * t;
+        c ? cx.lineTo(x, y) : cx.moveTo(x, y);
+      }
+      cx.stroke();
+      for (let c = 0; c < 12; c++) {
+        const t = 0.12 + 0.88 * q[PC_IDS[c]], r = rims[c];
+        const x = c0[0] + (r[0] - c0[0]) * t, y = c0[1] + (r[1] - c0[1]) * t, hot = c === hoverPc;
+        cx.fillStyle = `rgba(255,215,154,${hot ? 0.95 : near ? 0.6 : shaped ? 0.32 : 0.18})`;
+        cx.beginPath(); cx.arc(x, y, hot ? 4 : 2.6, 0, 2 * Math.PI); cx.fill();
+      }
+      if (near) {
+        cx.fillStyle = "rgba(255,215,154,0.7)"; cx.font = `10px "JetBrains Mono", ui-monospace, monospace`; cx.textAlign = "center";
+        const lab = hoverPc >= 0 ? `prior ${NAMES[hoverPc]} ${(q[PC_IDS[hoverPc]] * 100).toFixed(0)}%` : "painting the prior";
+        cx.fillText(lab + (shaped ? "" : " · shape off"), c0[0], c0[1] + Math.max(18, (rims[0][1] - c0[1]) * 0.15) + 2);
+        cx.textAlign = "left";
+      }
+    }
     // the hypothesis
     const conv = 1 - share;
     cx.fillStyle = `rgba(255,${170 + 50 * conv | 0},${110 - 40 * conv | 0},${0.05 + 0.18 * conv})`;
     cx.strokeStyle = `rgba(255,220,160,${0.2 + 0.5 * conv})`; cx.lineWidth = 1.2;
     cx.beginPath(); pts.forEach((s, k) => k ? cx.lineTo(s[0], s[1]) : cx.moveTo(s[0], s[1])); cx.closePath(); cx.fill(); cx.stroke();
+  }
+
+  // ---- painting the prior on the dial: the pointer finds the nearest spoke, and how far
+  // out along it sets that pitch class's weight (the handle sits at 0.12 + 0.88·weight)
+  function spokeAt(ev) {
+    if (!dial) return null;
+    const r = cv.getBoundingClientRect(), px = ev.clientX - r.left, py = ev.clientY - r.top, { c0, rims } = dial;
+    let best = null;
+    for (let c = 0; c < 12; c++) {
+      const vx = rims[c][0] - c0[0], vy = rims[c][1] - c0[1], L2 = vx * vx + vy * vy;
+      if (L2 < 1) continue;
+      const t = ((px - c0[0]) * vx + (py - c0[1]) * vy) / L2;
+      const d = Math.hypot(px - (c0[0] + vx * t), py - (c0[1] + vy * t)) / Math.sqrt(L2);   // in spoke lengths
+      if (t > -0.15 && t < 1.45 && (!best || d < best.d)) best = { c, t, d };
+    }
+    return best && best.d < 0.6 ? best : null;
+  }
+  function paintable() {
+    const set = (c, t) => {
+      const id = PC_IDS[c];
+      if (!touched.has(id)) { touched.add(id); hooks.begin && hooks.begin(id); }
+      hooks.set(id, Math.max(0, Math.min(1, (t - 0.12) / 0.88)));
+    };
+    cv.style.touchAction = "none";
+    cv.addEventListener("pointermove", ev => {
+      const s = spokeAt(ev);
+      if (painting) { if (s) set(s.c, s.t); }
+      hoverPc = s ? s.c : -1;
+      cv.style.cursor = s || painting ? "crosshair" : "";
+    });
+    cv.addEventListener("pointerleave", () => { if (!painting) hoverPc = -1; });
+    cv.addEventListener("pointerdown", ev => {
+      const s = spokeAt(ev);
+      if (!s) return;
+      painting = true; cv.setPointerCapture(ev.pointerId);
+      if (lastQ && lastQ.prior_shape <= 0.001) { hooks.begin && hooks.begin("prior_shape"); hooks.set("prior_shape", 1); hooks.end && hooks.end("prior_shape"); }
+      set(s.c, s.t);
+    });
+    const up = ev => {
+      if (!painting) return;
+      painting = false; try { cv.releasePointerCapture(ev.pointerId); } catch (e) {}
+      touched.forEach(id => hooks.end && hooks.end(id)); touched.clear();
+    };
+    cv.addEventListener("pointerup", up); cv.addEventListener("pointercancel", up);
+    cv.addEventListener("dblclick", ev => {
+      if (!spokeAt(ev)) return;
+      PC_IDS.forEach(id => { hooks.begin && hooks.begin(id); hooks.set(id, 1); hooks.end && hooks.end(id); });
+    });
   }
 
   return { mount, frame };

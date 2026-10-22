@@ -35,3 +35,13 @@ What Bayesian Granular Synthesizer's steward cycles taught the page, and the cha
    > The V8 code from the 2026-05-08 chat was never recovered. The cloud was rebuilt from this spec in October 2026 (bundle: bayes_engine.js, belief-instrument.html). On Loudon's order of 2026-10-21 it is becoming a VST, Belief Cloud: its sketch, C++ port and screen visualizer, the belief helix, live in the bundle's plugin/ folder and match one another sample for sample. They are waiting for VST Template to build plugins inside a steward's bundle.
 
 - run · 2026-10-22 · cycle 4 · taught item 1, proposed items 2, 3 for canon
+
+## From cycle 5 — 2026-10-22
+
+4. The template's editor page can be built from a steward's bundle by calling ui.py's page() with the parameter table from the JUCE-free stand-in, so the whole face can be seen, fit-tested and played before the template can build plugins here. *(offered by the steward, cycle 5)*
+5. **Proposed for canon** · 2026-10-22 · `_ops/drafting-table/design-system/dt-controls.js` · knob() and fader(), the line that sets each control's first value (two places, both currently `apply(toNorm(o.value == null ? spec.def : (o.binding ? o.binding.get() : o.value), spec), false);`) · canon change owed *(proposed by the steward, cycle 5; urgent, asked as bgs-steward-013-urgent-1)*
+   Why: When the editor builds a bound knob or fader without o.value, it shows the default instead of the parameter's value. The file's own comment says it reads get(). In Live, every saved project's editor would open showing default knob positions. Proven by Belief Cloud's face, where the patched copy follows the painted prior and the original does not.
+   Path: `_ops/drafting-table/design-system/dt-controls.js`
+   > apply(toNorm(o.binding ? o.binding.get() : (o.value == null ? spec.def : o.value), spec), false);
+
+- run · 2026-10-22 · cycle 5 · taught item 4, proposed item 5 for canon

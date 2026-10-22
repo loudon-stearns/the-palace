@@ -15,36 +15,37 @@ forward_vector: "I am Bayesian Granular Synthesizer's scroll — the one page th
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-22T10:41:00.434Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-22T10:55:29.453Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 4 · last ran 2026-10-22 (today)
-- **Plan:** agreed 2026-10-15 (7 days ago) · 2 made things since · **a proposed revision is waiting on you**
-- **Waiting on you:** 2 open asks
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 5 · last ran 2026-10-22 (today)
+- **Plan:** agreed 2026-10-15 (7 days ago) · 3 made things since · **a proposed revision is waiting on you**
+- **Waiting on you:** 3 open asks
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-22 (today) — Make the plan the Belief Cloud VST: build it when the template can, then paint the prior on its screen, then entrainment, then the stage? (`bgs-steward-011`)
-- **Last commit touching this project:** 2026-10-21 `ca454ba2` — edit(nine steward scrolls): a standing order on Loudon's yes of 2026-10-21: make it a product, a VST prototype on the VST Template with a CRT visualizer drawn from the instrument's own metaphor; Max work stays set aside, perhaps later as teaching tools
+- **Last shipped:** 2026-10-22 (today) — Belief Cloud's whole face now draws in the VST Template's real editor, with the helix in its screen and a prior you paint there. (`bgs-steward-013`)
+- **Last commit touching this project:** 2026-10-22 `758e1fd5` — steward(Bayesian Granular Synthesizer): cycle 4 — SPINNING UP. HOME: [Bayesian Granular Synthesizer](obsidian://open?vaul…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-22 — cycle 4 · taught item 1, proposed items 2, 3 for canon
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-22 — cycle 5 · taught item 4, proposed item 5 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 2 — items 2, 3; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 3, from cycle 4 — 2026-10-22 — [[Bayesian Granular Synthesizer — tuning]]
+- **Proposed for canon:** 3 — items 2, 3, 5; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 5, from cycle 5 — 2026-10-22 — [[Bayesian Granular Synthesizer — tuning]]
 
 ### Where this stands
 
-Bayesian Granular Synthesizer is a grain cloud where the notes you hold are evidence. With nothing held, grains pick their pitch from a prior belief and come out short and clicky. A held note becomes a bump of belief that narrows to about 5 cents, and grains near it grow long and pure, so the cloud condenses into the chord. In mid-October I rebuilt it as a playable web page and then in RNBO. On 2026-10-21 you set the Max work aside and asked for a product instead: a VST you can play in Live, built with VST Template, with a visualizer of its own in the middle of the editor. The template can't build a plugin inside my folder yet, and its screen has no feed. So this cycle I did the two things…
+Bayesian Granular Synthesizer is a grain cloud where the notes you hold are evidence. With nothing held, grains pick their pitch from a prior belief and come out short and clicky. Hold a chord and the belief narrows around those notes, so grains near them grow long and pure and the cloud condenses into the chord. On 2026-10-21 you asked for a product: Belief Cloud, a VST you can play in Live, with a visualizer of its own in the editor's centre screen. Earlier today I ported the sound into the template's shape and checked it sample for sample, and drew the belief helix as a web page. This cycle I put the whole face into the template's real editor, using the same dress and control layout a bu…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** Nobody has listened yet, and nothing here has been through the template's plugin gate, pluginval, auval or Live. _(in 2 notes, the latest cycle 4)_
+- **rough since cycle 1:** Nobody has listened yet, and nothing here has been through the template's plugin gate, pluginval, auval or Live. _(in 3 notes, the latest cycle 5)_
 
 ### Open asks
 
 - `bgs-steward-008` — should the painted prior hum on its own · posted 2026-10-14 · options: A · B · C
 - `bgs-steward-011` — proposed plan revision: the plan becomes the Belief Cloud VST · posted 2026-10-22 · options: adopt · keep
+- `bgs-steward-013-urgent-1` — directional_decision · posted 2026-10-22 · options: LAND-NOW · REVIEW · DECLINE
 
 ### Answered, not yet consumed
 
@@ -56,6 +57,7 @@ _None._
 
 ### Runs
 
+- 2026-10-22 — cycle 5 · taught item 4, proposed item 5 for canon
 - 2026-10-22 — cycle 4 · taught item 1, proposed items 2, 3 for canon
 
 ### Owed
@@ -68,6 +70,7 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 
 - **2.** 2026-10-22 · [[Bayesian Granular Synthesizer]] · frontmatter forward_vector — Loudon's standing order of 2026-10-21 moves the instrument from an RNBO engine to a VST product; the vector still names RNBO.
 - **3.** 2026-10-22 · [[Bayesian Granular Synthesizer]] · § Artifact (replacing its paragraph) — The section still says the code is waiting to be pulled from a chat; the instrument now exists in three checked forms.
+- **5.** 2026-10-22 · `_ops/drafting-table/design-system/dt-controls.js` · knob() and fader(), the line that sets each control's first value (two places, both currently `apply(toNorm(o.value == null ? spec.def : (o.binding ? o.binding.get() : o.value), spec), false);`) — When the editor builds a bound knob or fader without o.value, it shows the default instead of the parameter's value. The file's own comment says it reads get(). In Live, every saved project's editor would open showing default knob positions. Proven by Belief Cloud's face, where the patched copy follows the painted prior and the original does not.
 
 <!-- scroll:now:end -->
 
@@ -94,6 +97,46 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="bgs-steward-013" -->
+### 2026-10-22 — cycle 5 — Belief Cloud's whole face now draws in the VST Template's real editor, with the helix in its screen and a prior you paint there.
+> shipped · face fits at all three sizes · steward leans fix the knob bug first
+
+The face is [belief-cloud-face.html](obsidian://open?vault=The%20Palace&file=Projects/Bayesian%20Granular%20Synthesizer/belief-cloud-face.html). plugin/ui/build_face.py builds it with the template's own editor code. The parameter table comes from my stand-in harness, because the template can't build a plugin in my folder yet. Instead of colour bars, the screen runs the engine and feeds the helix one frame of values at a time, the way the plugin's live feed will.
+
+Painting the prior: the floor of the helix is a twelve-sided dial, one spoke per pitch class. Drag a spoke out and that note's prior knob goes up; drag it in and it goes down. Sweep round the dial to draw a scale, and double-click to flatten it. The camera holds still while you paint. The painting works through the editor's own knobs, so the painted belief is just those twelve parameters: it saves and automates like any knob. If the prior's shape is switched off, painting switches it on first. I checked it in headless Chrome by firing pointer events at the dial: one sweep turned the prior's shape from 0 to 1 and pulled five spokes in.
+
+The face fits without scrolling at the smallest, default and largest window sizes (1080×700, 1180×760, 1800×1100). The picture is 30 seconds into the demo, where the A-minor pentatonic prior is painted. The knobs show it: C, D, E, G and A at 1, the rest at 0. The helix shows the same pattern as five pushed-out handles.
+
+Building the face taught me two things about the template. First, Drafting Table's knob and fader draw their default value when the editor builds them, not the plugin's real value. In Live, every knob would show its default whenever the editor opens or refits, until it's next touched. My page patches its own copy, and the knobs then follow the painted prior. The fix in the house is a one-line swap; I've proposed it and flagged it. Second, the editor stretches everything inside the screen to fill it, so a visualizer that adds its own overlay has to undo that.
+
+One thing for your eye: the template sizes the screen to the height of the two big knobs, Doubt and Time to believe, so the helix gets about a quarter of the editor's width with empty space on either side. If the screen is meant to be the centre of the instrument, the template may want to give it more room. That's the template's call, so I've only named it here.
+
+Your open question from 2026-10-14 asked whether a painted prior should hum on its own. The plugin answers it with a knob, Prior tone. At 0 it doesn't hum; turn it up and the painted peaks lengthen grains, so the cloud sounds tonal before you hold a note. The demo uses 0.7.
+
+**Artifacts:**
+- [the whole face, playable: sound on, demo, keys A–K, Web MIDI, and paint the floor of the helix.](Projects/Bayesian Granular Synthesizer/belief-cloud-face.html)
+- [30 seconds into the demo: the pentatonic prior painted, on the knobs and on the dial.](Projects/Bayesian Granular Synthesizer/belief-cloud-face.png)
+- [builds the face from the template's own editor code, then takes the picture and runs the fit test.](Projects/Bayesian Granular Synthesizer/plugin/ui/build_face.py)
+- [the helix, now paintable through the editor's knobs.](Projects/Bayesian Granular Synthesizer/plugin/ui/visualizer.js)
+- [the standalone helix sketch, rebuilt from the new visualizer.](Projects/Bayesian Granular Synthesizer/belief-helix.html)
+- [the plugin folder's map, now covering the face, painting, and the two template lessons.](Projects/Bayesian Granular Synthesizer/plugin/README.md)
+
+_Changed in the workshop:_ README — Adds the face, how painting the prior works, and the two template lessons (the knobs' first value, the stretched screen children).
+_Proposed for canon, urgent:_ _ops/drafting-table/design-system/dt-controls.js (knob() and fader(), the line that sets each control's first value (two places, both currently `apply(toNorm(o.value == null ? spec.def : (o.binding ? o.binding.get() : o.value), spec), false);`)) — When the editor builds a bound knob or fader without o.value, it shows the default instead of the parameter's value. The file's own comment says it reads get(). In Live, every saved project's editor would open showing default knob positions. Proven by Belief Cloud's face, where the patched copy follows the painted prior and the original does not.; owed in the tuning ledger until Loudon's review, and asked on the board
+
+_Left rough:_ Nobody has listened yet, and nothing here has been through the template's plugin gate, pluginval, auval or Live. The painting was tested by simulated pointer events, not a hand.
+
+_Next moves named:_ When the template's screen can load a plugin's own visualizer and stream its values, build Belief Cloud in this folder and open it in Live. Then check that the painting writes through the real plugin controls. · Grains that entrain: weakly lock the timing of grains near a held note, and give the helix a way to show the locking. Then render an A/B of the cloud with and without it.
+<sub>`bgs-steward-013` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-1dbec3d1bb" -->
+### 2026-10-22 — cycle 5
+
+taught item 4, proposed item 5 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-bgs-steward-003" -->
 ### 2026-10-14 — Plan agreed: Adopt a five-step path from today's rebuilt cloud to an RNBO instrument on the Loudon Live stage?
 
