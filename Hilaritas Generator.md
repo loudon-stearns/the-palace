@@ -66,7 +66,7 @@ The learning space reconceived as a machine for producing **hilaritas**: the act
 
 ## The Mechanism
 
-A hilaritas generator gets all [[FOUR PILLARS]] firing at once — not four boxes ticked, but four oscillators falling into phase ([[Kuramoto Coupling]]). Each keeps its own character, and the participant's power-to-act grows *globally*: they leave more capable in general, not just better informed about one topic.
+A hilaritas generator gets all [[FOUR PILLARS]] firing at once — not four boxes ticked, but four oscillators falling into phase ([[Kuramoto Coupling]]), and the participant's power-to-act grows *globally*: they leave more capable in general, not just better informed about one topic.
 
 ## The Metrics
 
@@ -76,7 +76,7 @@ Platform analytics measure titillatio; felt experience is what tells you whether
 
 ## The Learning Architect
 
-The old model delivers to a group; the new one designs the encounter for one person. Not "here is what you need to know about Spinoza" but "put Spinoza across the table from you" — an [[Excellent Adventure]], in the Bill and Ted sense. The architect may be a teacher, a learner building their own path, or an agent working beside one; the job is the same.
+The old model delivers to a group; the new one designs the encounter for one person. Not "here is what you need to know about Spinoza" but "put Spinoza across the table from you" — the mode for that is the [[Excellent Adventure]] ([[Modes of Collaboration]]). The architect may be a teacher, a learner building their own path, or an agent working beside one; the job is the same.
 
 ## The Design Primitives
 

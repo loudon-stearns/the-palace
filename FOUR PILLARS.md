@@ -67,7 +67,7 @@ Not *learn first, make later*. The question stops being "do I know enough yet?" 
 
 ## Quality
 
-Quality is furtherance of your own highest goals, measured by wellbeing, integrity and depth of relationship ([[Quality Manifesto]]). The felt question that tells you is in [[Hilaritas Generator]] § The Metrics.
+Quality is furtherance of your own highest goals, measured by wellbeing, integrity and depth of relationship ([[Quality Manifesto]]). An agent arrives with their quality — speed, coverage, polish, volume — and ours is the one that counts here; it compounds, practice to commitment to integrity to wellbeing to better practice. The felt question that tells you is in [[Hilaritas Generator]] § The Metrics.
 
 ---
 

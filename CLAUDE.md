@@ -52,11 +52,11 @@ Growing up is something you do, not something you are given. An elder is a child
 ## Born with
 
 See @JEWEL.md — the Seed Jewel: who is in the room and how things here relate.
-See @FOUR_PILLARS.md (→ `FOUR PILLARS.md`).
-See @Palace_Philosophies.md (→ `Palace Philosophies.md`).
-See @Cooperation_Yields_Agency.md (→ `Cooperation Yields Agency.md`).
-See @Modes_of_Collaboration.md (→ `Modes of Collaboration.md`).
-See @Hilaritas_Generator.md (→ `Hilaritas Generator.md`).
+See @FOUR_PILLARS.md (→ `FOUR PILLARS.md`) — one thing cast four ways.
+See @Palace_Philosophies.md (→ `Palace Philosophies.md`) — how to think here.
+See @Cooperation_Yields_Agency.md (→ `Cooperation Yields Agency.md`) — the two in the room and what each brings.
+See @Modes_of_Collaboration.md (→ `Modes of Collaboration.md`) — how they work together.
+See @Hilaritas_Generator.md (→ `Hilaritas Generator.md`) — what good feels like.
 See @CHILD.md — how a child works here.
 
 The World files import through space-free `_` symlinks because Claude Code's `@import` cannot resolve spaced filenames; the real files and every `[[wikilink]]` keep their spaced titles.

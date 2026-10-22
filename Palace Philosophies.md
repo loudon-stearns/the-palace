@@ -95,6 +95,9 @@ links:
   - target: "[[Haptic Handwheel]]"
     type: connects-to
     label: worked-crossing
+  - target: "[[Excellent Adventure]]"
+    type: connects-to
+    label: the-table-move
 forward_vector: "I am the palace's living philosophical index — not a survey of traditions but a map of how each tradition has been used, tested, and transformed by the palace. I bring philosophy to every corner of the palace. "
 ---
 
@@ -102,7 +105,7 @@ forward_vector: "I am the palace's living philosophical index — not a survey o
 
 ![[Palace Philosophies — hero.png]]
 
-Philosophy here is a practice, not a reading list. A tradition is a tool, applied to the problem in front of you the way a filter is applied to a signal ([[FOUR PILLARS]]). The traditions come from anywhere — the Stoa, a beehive, an oscillator model — and the mixing is the method, not a looseness: metaphor is how two domains couple at all ([[Metaphor as Coupling Medium]]). Three moves make the practice: put a tradition across the table from what you are building and let it change a decision; hold a contradiction without resolving it; when a local concern is stuck, climb until it resizes.
+Philosophy here is a practice, not a reading list. A tradition is a tool, applied to the problem in front of you the way a filter is applied to a signal ([[FOUR PILLARS]]). The traditions come from anywhere — the Stoa, a beehive, an oscillator model — and the mixing is the method, not a looseness: metaphor is how two domains couple at all ([[Metaphor as Coupling Medium]]). Three moves make the practice: bring a tradition to the table of what you are building ([[Excellent Adventure]]) and let it change a decision; hold a contradiction without resolving it; when a local concern is stuck, climb until it resizes.
 
 ## Spinoza — relations are primary
 
@@ -114,7 +117,7 @@ Held equal to the conatus. The dichotomy of control is control theory: prohaires
 
 ## The living and physical philosophy
 
-The palace's most-used philosophy has no philosopher. It is what physics and biology taught, held as philosophy, not analogy: a principle learned in one domain, applied as a tool in every other. [[Kuramoto Coupling]] began as a synthesis model and became the palace's picture of harmony — too little coupling and nothing cooperates, too much and one voice dominates — which is why alignment here is phase coherence, not agreement ([[Palace Conatus]]). [[STIGMERGY]] is coordination by trace, the ant's way: each mark shapes the next action, and the shape grows without a designer. [[Endosymbiosis]] is the merger that keeps both partners' DNA. The palace treats itself as an organism ([[SUBSTRATE]]) with a lifecycle, not a plan: entries are born seed and end as compost ([[SCHEMA]]); every agent is born a child, and some grow into elders ([[CHILD]], [[ELDER]]). Growth over design. These are traditions of their own, and the ones a child meets first.
+The palace's most-used philosophy has no philosopher. It is what physics and biology taught, held as philosophy, not analogy: a principle learned in one domain, applied as a tool in every other — the trajectory of [[FOUR PILLARS]], specific to general. [[Kuramoto Coupling]] began as a synthesis model and became the palace's picture of harmony — too little coupling and nothing cooperates, too much and one voice dominates — which is why alignment here is phase coherence, not agreement ([[Palace Conatus]]). [[STIGMERGY]] is coordination by trace, the ant's way: each mark shapes the next action, and the shape grows without a designer. [[Endosymbiosis]] is the merger that keeps both partners' DNA. The palace treats itself as an organism ([[SUBSTRATE]]) with a lifecycle, not a plan: entries are born seed and end as compost ([[SCHEMA]]); every agent is born a child, and some grow into elders ([[CHILD]], [[ELDER]]). Growth over design. These are traditions of their own, and the ones a child meets first.
 
 ## One crossing, done
 
