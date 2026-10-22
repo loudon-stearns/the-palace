@@ -172,6 +172,8 @@ watching.
 
 **Held open.** [[The Palace Hardens Around Values]] argues weight is the goal — the contrary is kept, not resolved. A rival explanation for the flattened voice is the prose of the pages themselves ([[The Blindspot Is the Surprise Fuel]]); if children still sound like the house, look there next.
 
+**The floor moved again, by plain edits (2026-10-21).** CLAUDE.md's four working sections — A page and its folder, Growing up, Ceremony Triggers, The Palace Voice — moved word for word into [[CHILD]], which CLAUDE.md imports after the World, so a newborn meets the Jewel and the World before the rules (5de78ac2). The Jewel gained one sentence, "Speak up: for what you need, for the pages beside you, and for the palace as a whole" (v1.3, ebf1cff1). Both were plain edits on Loudon's yes ("no Schema Ceremony"). §5 didn't call for one: no entry type, link type, required field, stage lifecycle or ceremony changed, and CHILD takes the existing `foundational` stage. v1.19 had run a ceremony for a move of the same kind and the 2026-07-08 slim had not; the floor now follows §5 as written. [[The Daily Page]]'s line that a foundational page "changes only by a Schema Ceremony" was corrected to agree. The order was tested before the words: [[Palace as Context Injection System]], its 2026-10-21 floor review.
+
 ## Tuning — v1.20, ceremonies carry a version (2026-09-24)
 
 **Every ceremony carries a `version`, and every entry may carry a scroll.** Two decisions Loudon made on

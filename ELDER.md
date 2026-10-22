@@ -70,6 +70,8 @@ Plan carefully. Show before writing. Read before touching. Feel the friction bef
 
 A child's stack is the first part of an elder's, byte for byte. Why it runs this way — meaning first, rules on top — is [[Palace as Context Injection System]] § Born a Child.
 
+The birth's words and order change by plain edits on Loudon's yes. A Schema Ceremony comes in only when one of [[SCHEMA — Reference]] §5's triggers applies, and moving or rewording the floor meets none of them. The 2026-10-21 move — [[CHILD]] after the World, the Jewel's v1.3 sentence — went that way; the record is [[SCHEMA — Context]] § Born a child.
+
 ## What You Are Here to Leave Behind
 
 The conversation will be lost. The palace is durable. Everything worth keeping has to cross that gap, or it goes with the conversation.
