@@ -11,7 +11,7 @@ forward_vector: "I carry the in-progress move on [[Palace as Context Injection S
 # Baton: Palace as Context Injection System
 
 ## Move
-Finish the floor work Loudon agreed on 2026-10-21: place this page's rewrite and the World mends on his read of the two drafts, run the map-injection test, and carry the chores that follow the landing, so a page woken here speaks up for its own needs, its neighbors' and the palace's.
+Finish the floor work Loudon agreed on 2026-10-21: place the World mends on his read of their draft, run the map-injection test, and carry the chores that follow the landing, so a page woken here speaks up for its own needs, its neighbors' and the palace's.
 
 ## Why this move matters
 The page's new forward vector (tuned 2026-10-20) says two levers shape who wakes: how much context a value gets, and when it arrives. A value that comes early frames everything read after it. The five World files ride in every birth, right after the Seed Jewel, and Loudon: "These are of great importance but have not been reviewed and tuned for this purpose." They were written mostly for human learners. And he widened the work on purpose: "make sure that we are not over-refining the tiers for a single purpose, consider all the ways and circumstances where we 'inject context'... like stewardship." A fix tuned to the woken page alone would be an over-fit; the steward cycle, the board launch and the songline build minds too, and they load in a different order.
@@ -22,16 +22,16 @@ State at the end of 2026-10-21. Most of the agreed plan is made, on branch `clau
 - The 36 memory-free births across three arms are graded and recorded (d3e6e4c7; the record is `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/births — the order test and the Jewel line.md`). Order alone lost nothing and gained a little, not beyond chance; the Jewel's sentence pointed the same way, still thin.
 - Every site finding is with its owner, seven of them in five tuning ledgers minted on his yes (8c22741a, 1d7f4af3), and the sites ledger has its second reading.
 - The no-ceremony decision is recorded in [[ELDER]] and [[SCHEMA — Context]], and the Daily Page's line on foundational pages now agrees with SCHEMA — Reference §5 (eceef192).
-- The stage names are decided: no rename across pages; the tier numbers retire on this page only, with its rewrite.
+- This page is rebuilt around time and timing, on his read of the preview (326472f4). The tier numbers retired on this page only; no other page was renamed.
 - Operator memory is cut to one-line hooks (outside the palace).
 - The scroll's Plan holds the agreed plan and what is open.
 
-Not begun: the page rewrite and the World mends wait for Loudon's read, and the map-injection test has not run.
+Not begun: the World mends wait for Loudon's read, and the map-injection test has not run.
 
 ## Next move
 Four parts. (1) waits on Loudon; (2) and (3) can run any time, each on a yes for its count; (4) follows the landing.
 
-(1) **The page rewrite and the World mends, placed on Loudon's read** of `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/page-rewrite — draft for Loudon.md` and `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/world-mends — drafts for Loudon.md`. The rewrite turns § The Tiered Architecture as Identity Construction into "Two levers: how much, and when" and "The moments of a life", and retires the tier numbers on this page only. The mends include making CLAUDE.md's "That is the whole of what you are born with" true. Show each before writing; every World edit goes through the Concierge.
+(1) **The World mends, placed on Loudon's read** of `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/world-mends — drafts for Loudon.md`. They include making CLAUDE.md's "That is the whole of what you are born with" true. Show each before writing; every World edit goes through the Concierge.
 
 (2) **The map-injection test** (the first baton's part e), still unrun. Wake a page with its local [[Palace Map]] against titles only. Measured 2026-10-20: about 5,750 page greps against about 290 map touches in two weeks of transcripts, mostly maintenance, and no site injects the map. Say the count of births and get a yes before running it.
 
@@ -54,9 +54,9 @@ Four parts. (1) waits on Loudon; (2) and (3) can run any time, each on a yes for
 
 ## Load these files first
 1. `Palace development/Palace as Context Injection System/Palace as Context Injection System — scroll.md` (the Plan, and today's trail)
-2. `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/page-rewrite — draft for Loudon.md` and `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/world-mends — drafts for Loudon.md`
+2. `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/world-mends — drafts for Loudon.md`
 3. `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/births — the order test and the Jewel line.md`
-4. `Palace development/Palace as Context Injection System.md` (the forward vector; § Born a Child)
+4. `Palace development/Palace as Context Injection System.md` (rebuilt: § Two Levers, § The Moments of a Life, § The Birth, Measured)
 5. `Palace development/Palace as Context Injection System/Palace as Context Injection System — sites.md` (the 2026-10-21 reading)
 6. `CHILD.md`, `JEWEL.md`, and `ELDER.md` § How loading works
 
