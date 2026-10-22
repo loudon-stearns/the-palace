@@ -99,6 +99,21 @@ Unrelated loose ends the September weave declined to settle in place (each wants
 
 - [ ] **Decide whether SCHEMA drops from the auto-loaded `@import` floor** — deliberately deferred (Loudon, 2026-08-25) rather than decided at close: post-v1.17 SCHEMA is 34.7KB (~9.4K tokens), 41% of a ~23.0K-token floor, and still a reference consulted at entry-creation/type-system time, not conversation material. Revival condition: the v1.17 changes have been felt across enough real sessions to judge how a leaner, restructured SCHEMA lands — it isn't currently causing major problems, and the call would reshape every agent's palace understanding, so it wants full attention, not a tail-end call. See [[JEWEL]] and [[SUBSTRATE]] § Open Questions.
 
+## Small fixes the fan-out of 2026-10-20/21 found
+
+The sessions of that fan-out noticed these and fixed none; each line names where it lives and who owns it.
+
+- [ ] **The deck calls a dormant page ready** — `ProjectsDeck.jsx:190` builds `readyRows` from stewarded rows with an answer waiting and nothing running, with no stage check, where `batch-due.js:30` turns a page away by stage first. Owner: [[Project Stewardship System]] and [[STIGMERGY]].
+- [ ] **The Commons writer stamps a tool name on a human's flags** — `_ops/commons/board.py:97` fills `health.model` with `claude-code` on every line it writes, TRICKSTER's included. Owner: [[The Commons]].
+- [ ] **A rich-face piece should hush when its tab is hidden** — nothing in the rich-face kit silences a playing piece on a hidden page. Owner: the rich-face kit, under [[Enrichment]].
+- [ ] **`palace-commit --help` prints no usage** — `--help` is an unknown flag, so the committer refuses it; the door's measure counts it the commonest refusal, 19 times in 17 sessions. Owner: [[How the Palace Commits]].
+- [ ] **`scroll.js --all` filters on status alone, and a new scroll gets an entry nobody asked for** — its header says composting projects are skipped and the filter reads `status` only; at birth it also writes a `backfill-<date>` trail entry. Owner: [[The Scroll]].
+- [ ] **A partial close copies a stale worktree field forward** — the remainder card keeps a stale worktree coordinate copied forward from the earlier cards (seen on the STIGMERGY card: `close/2026-10-13-handoffs`, profile docs). Owner: `_ops/stigmergy/close-handoff.mjs`, under [[STIGMERGY]].
+- [ ] **Four Revival tool gaps** — `entry-use.py` in a worktree; media mtime in a worktree; a `--root` flag on `wake.mjs` (Loudon's answer 4, which Revival v2.1 names owed); and the commit-msg hook's list of ceremony names, which lacks "Revival". Owner: [[Revival Ceremony]].
+- [ ] **Give the Project Stewardship rite's "land" its own verb** — "land it" is said for the git side and again for the rite's step, two yeses for two landings under one word. A line in the design settles it. Owner: [[Project Stewardship System]].
+- [ ] **The CAD Drafter's first job** — the Handwheel's real drawings through the Maker, which is what moves the Specialist from stub to alive. Owner: [[CAD Drafter]], with [[Haptic Handwheel]] and [[Shop/Maker]].
+- [ ] **About thirty old merged branches** — merged `claude/*` branches left alone at the close; `git branch --merged main` lists them. Owner: [[Worktree Practice]].
+
 ---
 
 ## Hygiene rules
