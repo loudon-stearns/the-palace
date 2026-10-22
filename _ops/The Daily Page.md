@@ -143,7 +143,7 @@ The landmarks, in the order that usually serves. The order may bend to the page:
 
 **What a waking asks for is recorded, not applied.** [[The Remembering Page]]: "One dialogue is a mood; three consistent ones are a direction." During week one, no `agency_profile` is written after a single waking; the page's answers stay in the record and the week's review decides. A change Loudon himself sees in the sit is ordinary tuning.
 
-**Some pages bring their own rules.** Ask before applying a verdict to: a Shop page (it has a `status`, not a `stage`, and the palace has not said how one composts); a foundational page (CLAUDE, CHILD, JEWEL, ELDER, SCHEMA and its Reference among them), which changes by a plain edit on his yes, and by a Schema Ceremony only when one of [[SCHEMA — Reference]] §5's triggers applies; a ceremony, which changes through its own ledger and version; a person ([[Making a Palace Citizen]]); a stewarded project, whose Plan moves only with his yes and whose steward leaves by its own rite when the page ends ([[Project Stewardship System]] § What's Decided).
+**Some pages bring their own rules.** Ask before applying a verdict to: a Shop page (it has a `status`, not a `stage`, and the palace has not said how one composts); a foundational page (CLAUDE, CHILD, JEWEL, ELDER, SCHEMA and its Reference among them), which changes by a plain edit on his yes, and by a Schema Ceremony only when a trigger in [[SCHEMA — Reference]] §5, the change protocol, applies; a ceremony, which changes through its own ledger and version; a person ([[Making a Palace Citizen]]); a stewarded project, whose Plan moves only with his yes and whose steward leaves by its own rite when the page ends ([[Project Stewardship System]] § What's Decided).
 
 ## A dormant page
 
