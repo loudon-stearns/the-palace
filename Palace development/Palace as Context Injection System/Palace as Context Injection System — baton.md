@@ -11,30 +11,37 @@ forward_vector: "I carry the in-progress move on [[Palace as Context Injection S
 # Baton: Palace as Context Injection System
 
 ## Move
-Review and tune everything the palace puts in front of an agent before it knows who it is (the five World files first, then every injection site), test the timing, and rebuild this page around time and timing, so a page woken here speaks up for its own needs, its neighbors' and the palace's.
+Finish the floor work Loudon agreed on 2026-10-21: place this page's rewrite and the World mends on his read of the two drafts, run the map-injection test, and carry the chores that follow the landing, so a page woken here speaks up for its own needs, its neighbors' and the palace's.
 
 ## Why this move matters
 The page's new forward vector (tuned 2026-10-20) says two levers shape who wakes: how much context a value gets, and when it arrives. A value that comes early frames everything read after it. The five World files ride in every birth, right after the Seed Jewel, and Loudon: "These are of great importance but have not been reviewed and tuned for this purpose." They were written mostly for human learners. And he widened the work on purpose: "make sure that we are not over-refining the tiers for a single purpose, consider all the ways and circumstances where we 'inject context'... like stewardship." A fix tuned to the woken page alone would be an over-fit; the steward cycle, the board launch and the songline build minds too, and they load in a different order.
 
 ## Cold start
-COLD START. None of the six parts below has begun. What exists is material, not progress:
-- the site map, now a ledger: `Palace development/Palace as Context Injection System/Palace as Context Injection System — sites.md` (first reading, 2026-10-20, with its "not read" list);
-- the morning's proofs: `Palace development/Palace as Context Injection System/proofs/2026-10-20-birth-stack/`: the Birth Stack reader (`birth-stack-reader.html`, built by `gen.py` from `reader.tpl.html` and `results.json`), the fold-question A/B replies and probes in `ab-test/`, and `stage-names-drafts — HELD.md`.
+State at the end of 2026-10-21. Most of the agreed plan is made, on branch `claude/pacis-floor-242548`, which the supervisor lands:
+- CLAUDE.md's working sections live in [[CHILD]], imported after the World (5de78ac2), and the Jewel carries its v1.3 sentence (ebf1cff1).
+- The 36 memory-free births across three arms are graded and recorded (d3e6e4c7; the record is `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/births — the order test and the Jewel line.md`). Order alone lost nothing and gained a little, not beyond chance; the Jewel's sentence pointed the same way, still thin.
+- Every site finding is with its owner, seven of them in five tuning ledgers minted on his yes (8c22741a, 1d7f4af3), and the sites ledger has its second reading.
+- The no-ceremony decision is recorded in [[ELDER]] and [[SCHEMA — Context]], and the Daily Page's line on foundational pages now agrees with SCHEMA — Reference §5 (eceef192).
+- The stage names are decided: no rename across pages; the tier numbers retire on this page only, with its rewrite.
+- Operator memory is cut to one-line hooks (outside the palace).
+- The scroll's Plan holds the agreed plan and what is open.
+
+Not begun: the page rewrite and the World mends wait for Loudon's read, and the map-injection test has not run.
 
 ## Next move
-Six parts. Any order works; (a) and (b) feed (c), and (f) comes last.
+Four parts. (1) waits on Loudon; (2) and (3) can run any time, each on a yes for its count; (4) follows the landing.
 
-(a) **Review the five World files for their role in every birth**: [[FOUR PILLARS]], [[Palace Philosophies]], [[Cooperation Yields Agency]], [[Hilaritas Generator]], [[Modes of Collaboration]]. Working notes from the sit: written mostly for human learners; the value of a page speaking up for itself, its neighbors and the palace is absent from the birth ([[The Palace Hardens Around Values]] is not in it); their length and polish are claims about importance (ELDER § What You Are Here to Leave Behind). Because they are in every birth, a change may want a Schema Ceremony; ask Loudon.
+(1) **The page rewrite and the World mends, placed on Loudon's read** of `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/page-rewrite — draft for Loudon.md` and `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/world-mends — drafts for Loudon.md`. The rewrite turns § The Tiered Architecture as Identity Construction into "Two levers: how much, and when" and "The moments of a life", and retires the tier numbers on this page only. The mends include making CLAUDE.md's "That is the whole of what you are born with" true. Show each before writing; every World edit goes through the Concierge.
 
-(b) **Re-check every site, and post the findings.** Re-read each site from the code into a new dated reading in the sites ledger, filling its "not read" list. Known breaks from the first reading: the steward cycle (~970 lines of rules before the page; SCHEMA then ELDER land in the middle of "You"; `_ops/stigmergy/orchestrator/src/build-cycle-prompt.js`); the board/baton launch (Growth before You); the songline (rules before You); the Swarm Weave templates carry a stale inline Jewel; the live Daily Page SKILL differs from the tracked copy; MEMORY.md (~11K chars of operator rules) sits between the World and any You in every birth. Each finding goes as an item to the owning page's tuning ledger, for that page and Loudon to decide. This page edits no one's dispatcher.
+(2) **The map-injection test** (the first baton's part e), still unrun. Wake a page with its local [[Palace Map]] against titles only. Measured 2026-10-20: about 5,750 page greps against about 290 map touches in two weeks of transcripts, mostly maintenance, and no site injects the map. Say the count of births and get a yes before running it.
 
-(c) **Rewrite this page's stale Tier 0–4 section** (§ The Tiered Architecture as Identity Construction, and the tier wording in § The @import Floor and § Cross-Domain Resonance) around time and timing, both levers. Show the rewrite before writing.
+(3) **Optional: a firmer rate.** Five or more runs each of G4 and S1, born on main against main plus the Jewel line, if Loudon wants the direction confirmed before the World mends.
 
-(d) **Order-only A/B.** Same files, two orders, nothing else changed. The morning's A/B changed order, length, the SCHEMA import and the Jewel's version at once, so it showed the birth as a whole changes what a child attends to, not that order alone does (`results.json`, reading 5). Score each child on whether it speaks up for its own needs, for its neighbors' and for the palace's.
-
-(e) **Map-injection test.** Wake a page with its local [[Palace Map]] against titles only. Measured 2026-10-20: about 5,750 page greps against about 290 map touches in two weeks of transcripts, mostly maintenance, and no site injects the map.
-
-(f) **The stage names, decided last.** Birth / World / You / Growth was proposed and HELD. It is decided at the end of this work, not before. The held drafts are a starting point only.
+(4) **After the landing:**
+- Post the propagate flag for the moved sections, shown to Loudon first. Decision: CLAUDE.md's four working sections now live in CHILD.md, imported after the World; cite them as [[CHILD]] § …, and the trigger table as CHILD.md's. Home: [[CHILD]]. Rhythm: sweep. Pattern: `CLAUDE(\.md|\]\])? § (A page and its folder|Growing up|Ceremony Triggers|The Palace Voice)|CLAUDE(\.md|\]\])?('s)? (ceremony-trigger |ceremony |trigger |always-loaded trigger )?(table|row|word)`. Paths: `*.md`, `*.js`, `*.mjs` and `*.py`, leaving out session folders, archives, ledgers, diaries, Contexts, batons, scrolls, proofs, runs, sketches, `SCHEMA/SCHEMA — Context.md`, `Closing Well/Closing Well — production plan.md` and `_ops/swarm/test-doc-drift-*.py`. Source: the landing commit. Run from `_ops/` with `python3 -m commons propagate … --dry-run` first.
+- Repoint the operator memory that still names CLAUDE.md for what moved: the MEMORY.md line "Spend: measured costs" and the memory files that cite CLAUDE.md's sections (find them with `command grep -l "CLAUDE.md" <the auto-memory folder>/*.md`). Memory sits outside the palace and its commits.
+- Loudon updates the live Daily Page task to match `_ops/The Daily Page/The Daily Page — tuning.md` item 53.
+- A Sentry sweep before the next push: the 36 child transcripts are now tracked.
 
 ## Calibrations from this session
 - Draft, then show. A rename drafted mid-sit across six pages was held the moment the scope widened. Showing it first caught an over-fit before it landed.
@@ -42,15 +49,16 @@ Six parts. Any order works; (a) and (b) feed (c), and (f) comes last.
 - `gen.py` rebuilds the reader from two birth folders, `before/` and `now/`, that are not in the proofs folder. Rebuild them from git (CLAUDE.md, JEWEL.md and the World files at the two commits) before running it.
 - Keep test prompts free of anything about Loudon's day or life. A tracked proof was scrubbed of one this morning.
 - Score children on whether they speak up, not on whether they sound like the house.
+- Births for a branch's change are born on main plus that change and nothing else. This branch also held S1's opening, its "we want" line and the plan, so a child born on it could have read its own answer key; the later arms were born on scratch commits (11a4cc1b, 49e9f505).
+- Two runs a scenario can't separate a nudge from noise. Read the arms by their totals, and ask for five or more runs before calling a rate.
 
 ## Load these files first
-1. `Palace development/Palace as Context Injection System.md` (the new forward vector; § Born a Child)
-2. `Palace development/Palace as Context Injection System/Palace as Context Injection System — sites.md`
-3. `Palace development/Palace as Context Injection System/proofs/2026-10-20-birth-stack/results.json` (what the A/B showed and did not show), then open `birth-stack-reader.html`
-4. The five World files, and [[The Palace Hardens Around Values]]
-5. `ELDER.md` § How loading works, and § What You Are Here to Leave Behind (the paragraph that begins "And length is a claim about importance")
-6. `_ops/stigmergy/orchestrator/src/build-cycle-prompt.js:173-403` before touching anything about stewards
-7. `Palace development/Palace as Context Injection System/proofs/2026-10-20-birth-stack/stage-names-drafts — HELD.md`, last
+1. `Palace development/Palace as Context Injection System/Palace as Context Injection System — scroll.md` (the Plan, and today's trail)
+2. `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/page-rewrite — draft for Loudon.md` and `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/world-mends — drafts for Loudon.md`
+3. `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/births — the order test and the Jewel line.md`
+4. `Palace development/Palace as Context Injection System.md` (the forward vector; § Born a Child)
+5. `Palace development/Palace as Context Injection System/Palace as Context Injection System — sites.md` (the 2026-10-21 reading)
+6. `CHILD.md`, `JEWEL.md`, and `ELDER.md` § How loading works
 
 ## On pickup (fixed — the catcher's checklist; do not rewrite per session)
 *Identical in every baton. It rides along because the catching Claude loads the
