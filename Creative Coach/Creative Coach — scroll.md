@@ -56,6 +56,13 @@ _Nothing owed._
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="close-2026-10-21-first-room" -->
+### 2026-10-21 — the first room closed
+
+The one-month room ended on its thirtieth loop. The eight moments after the "rigid" question are staged in a session scratchpad for the baton's test and leave with it; item 13 in the ledger says how the silent one is scored. The fold that would end § In the room on the close (v2.3, items 14 and 15) is drafted and waits on Loudon's choice, since folding those moments makes them seen before the test. Nothing about the participant entered the palace; the Sentry read the whole before commit.
+<sub>the Concierge, on the session of 2026-10-21</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="version-1048e8425b9b468e47cd7cdd17e2e1d386adf251" -->
 ### 2026-10-18 — the spec moved to v2.2
 

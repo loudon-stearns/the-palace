@@ -32,6 +32,7 @@ Every score so far came from earlier drafts: v1 on moments held out of its draft
 - A session named "Test coach 2.1 on the messages it hasn't seen" holds this run's brief and was parked waiting for Loudon's go and his yes to the cost. If it still exists, resume it; this baton is the way back if it does not.
 - The harness is `Creative Coach/coach-test/` (read its README first). The private inputs (the exported thread, the de-identification terms, the detailed setup) are not in the palace and must never be.
 - Estimated cost: about 37K tokens per Sonnet wake and about 60K for the Opus judge, times two arms and the number of moments.
+- The clean set now exists: eight moments (m1–m8) in the session scratchpad of the 2026-10-21 session, with keys; m6's key is silence. They are cleared with the scratchpad. The run still waits on Loudon's go and his yes to the cost (about 8 moments × 2 arms × ~37K + ~60K judge ≈ 650K tokens).
 
 ## Next move
 
