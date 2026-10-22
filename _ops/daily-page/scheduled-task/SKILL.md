@@ -17,8 +17,10 @@ Then do its "Before Loudon arrives" part now, and stop at that part's last step:
 
 Three things the page cannot tell you, because they are about this task and not the practice:
 
-- Read files with the Read tool, not through the shell. Run the two tools each as one bare command by the main checkout's path, whichever folder you woke in, with no `cd` before it and nothing chained after it:
+- Read files with the Read tool, not through the shell. Run the four tools each as one bare command by the main checkout's path, whichever folder you woke in, with no `cd` before it and nothing chained after it:
+  python3 "/Users/loudonstearns/Documents/The Palace/_ops/swarm/build-map.py"
   python3 "/Users/loudonstearns/Documents/The Palace/_ops/daily-page/deal.py"
+  python3 "/Users/loudonstearns/Documents/The Palace/_ops/swarm/palace-map.py" near "<Entry title>"
   node "/Users/loudonstearns/Documents/The Palace/_ops/daily-page/wake.mjs" "<Entry title>" --out "<a file in your scratchpad>"
   The wake tool writes the prompt into that file itself. Have the subagent read that file.
 - If a command waits on a permission you cannot give yourself, do not work around it. Wait. When Loudon arrives, tell him first that the prep has not run, and run it with him there.

@@ -17,10 +17,12 @@ The practice itself is a page: **[[The Daily Page]]**, `_ops/The Daily Page.md`.
 Both tools read the palace from the main checkout and keep one state there, whichever worktree the session woke in. Run each by the main checkout's path, as one bare command, with no `cd` before it and nothing chained after it:
 
 ```sh
+python3 "/Users/loudonstearns/Documents/The Palace/_ops/swarm/build-map.py"             # today's map into _ops/maps/, keeping the last three; no ledger line
 python3 "/Users/loudonstearns/Documents/The Palace/_ops/daily-page/deal.py"            # deal today's page and print its brief
 python3 "/Users/loudonstearns/Documents/The Palace/_ops/daily-page/deal.py" --status   # where the lap stands
 python3 "/Users/loudonstearns/Documents/The Palace/_ops/daily-page/deal.py" --peek     # what today's would be; records nothing
 python3 "/Users/loudonstearns/Documents/The Palace/_ops/daily-page/deal.py" --sat "<Entry>" --verdict <one> [--into "<Sibling>"] [--made "<what was made>"]
+python3 "/Users/loudonstearns/Documents/The Palace/_ops/swarm/palace-map.py" near "<Entry>"   # the page's ring from today's map: who points at it, what it reaches
 node "/Users/loudonstearns/Documents/The Palace/_ops/daily-page/wake.mjs" "<Entry>" --out "<file>"   # writes the prompt to <file>; without --out it prints it
 ```
 

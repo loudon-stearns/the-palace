@@ -4,7 +4,7 @@ type: practice
 pillars: [practice, tools, philosophy]
 born: 2026-03
 stage: mature
-version: "1.8"
+version: "1.9"
 trigger: ["weave", "let's weave"]
 links:
   - target: "[[Palace Ceremonies]]"
@@ -70,7 +70,7 @@ The single-agent protocol below remains valid for: palaces under ~20 entries, qu
 
 **Ceremonies are woven too.** Since 2026-09-24 the map builder makes every `_ops/` ceremony card with a canon type a node, so ceremonies are read, linked and partitioned like any entry.
 
-**Standard opening steps:** Before dispatching workers, do two things in order. **First, load the foundation** (Protocol Step 0) — the Weave writes typed links and may promote or create entries, all of which [[SCHEMA]] governs; a Weave run without §4 in context is operating blind to the rules it is about to apply. **Second, run a [[Map Build Ceremony]]** (`"Let's build the map"`) to produce a fresh `palace-map-full-[date].json`. Workers use this map for neighbor resolution; the coordinator uses it for topology reporting. A Weave run without a fresh map is operating on stale topology.
+**Standard opening steps:** Before dispatching workers, do two things in order. **First, load the foundation** (Protocol Step 0) — the Weave writes typed links and may promote or create entries, all of which [[SCHEMA]] governs; a Weave run without §4 in context is operating blind to the rules it is about to apply. **Second, build the map** — `python3 _ops/swarm/build-map.py` — for a fresh `palace-map-full-[date].json` (a build, not a ceremony run: [[Map Build Ceremony]] § Cadence). Workers use this map for neighbor resolution; the coordinator uses it for topology reporting. Then read what changed since the last Weave's map: `python3 _ops/swarm/palace-map.py diff <last weave's map date> <today>`. That diff is the shortest account of what the palace has been thinking since the last Weave, and Step 2 opens with it.
 
 ## Ceremony Contract
 
@@ -171,6 +171,7 @@ Run `python3 _ops/swarm/lint-weave-flags.py` (from a worktree, add `--board` wit
 **Step 2: Produce the topology report**
 
 Report on:
+- **Since the last map** — from `palace-map.py diff`: entries born and gone, edges formed and dissolved, stage changes, hubs whose inbound degree moved, ghosts closed and new. Read this before anything below; it is where the flags of the last Weave and the deposits since it show up as shape. A ghost closed is a deposit that answered a reach; a ghost new is the palace reaching again.
 - **Total entries** by type (concept, hub, practice, source, etc.)
 - **Hub nodes** — entries with ≥5 typed links. Are any that should be hubs not yet promoted?
 - **Orphans** — entries with no typed links in either direction. Flag for connection or composting.
@@ -289,10 +290,11 @@ End state: memory holds only the always-on operator floor, as careful pointers. 
 
 **Step 6.5: Lint link directions**
 
-After all confirmed edits are written, rebuild the map and run the linters. There is no stable un-dated builder — the builders are date-stamped (`build-map-YYYY-MM-DD.py`); run the newest:
+After all confirmed edits are written, rebuild the map and run the linters. `build-map.py` is the stable door to the newest dated builder:
 
 ```bash
-python3 "$(ls -1 _ops/swarm/build-map-*.py | sort | tail -1)"   # newest dated map builder
+python3 _ops/swarm/build-map.py                                   # fresh map; keeps the last three
+python3 _ops/swarm/palace-map.py diff <opening build> <this one>  # what this Weave changed — into the report's closing block
 python3 _ops/swarm/lint-link-directions.py                       # §4 link directionality (E1/E2 gate)
 python3 _ops/swarm/lint-doc-drift.py                             # foundational-doc consistency (E1/E3/E4 gate)
 python3 _ops/swarm/lint-entry-naming.py                          # entry title↔filename, bundle-folder case (E1 gate)
@@ -336,6 +338,8 @@ The commit body lists every substrate disposition (one line each), a `Palace-Res
 ## Weave Report — [YYYY-MM-DD]
 
 **Palace state:** [N] entries | [N] typed links | [N] orphans
+
+**Since the last map ([date] → [date]):** [N born · N gone · N edges formed · N dissolved · N stage changes · N ghosts closed · N new] — the lines that matter, from `palace-map.py diff`
 
 **Decisions carried:** [N propagate flags]
 1. [decision] — home [[target_entry]] — [sweep | by-touch] — [N pages changed, N left · closed | carried]
@@ -383,4 +387,6 @@ The commit body lists every substrate disposition (one line each), a `Palace-Res
 **Bundle-frontmatter health:** [N demotion candidates — canon frontmatter in a bundle folder / invalid type]
 
 **Ghost wikilinks:** [N dead [[links]] — disposition: invitation / fix / cut]
+
+**What this Weave changed (map diff, open → close):** [edges formed, stage changes, ghosts closed]
 ```

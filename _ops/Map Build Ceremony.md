@@ -6,7 +6,7 @@ pillars:
   - practice
 born: 2026-03
 stage: growing
-version: "2.5"
+version: "2.6"
 trigger: ["map build", "build the map"]
 links:
   - target: "[[Palace Ceremonies]]"
@@ -38,7 +38,7 @@ links:
 | | |
 |---|---|
 | **Precondition** | Palace is accessible via filesystem. At least 5 entries exist. |
-| **Postcondition** | A map file exists in `_ops/maps/` with a stamped filename; its `meta` carries the node, edge and ghost counts and names every forward ghost. The run's line is appended to [[Map Build Ceremony — tuning]], carrying the version and the counts, and the body of the commit that carries it says what the run taught the ceremony ("nothing" is a legal answer). |
+| **Postcondition** | A map file exists in `_ops/maps/` with a stamped filename; its `meta` carries the node, edge and ghost counts and names every forward ghost; the folder holds the last three builds and git holds them all. When a mind runs the ceremony, its line is appended to [[Map Build Ceremony — tuning]], carrying the version and the counts, and the body of the commit that carries it says what the run taught the ceremony ("nothing" is a legal answer). A scheduled build writes no line (§ Cadence). |
 | **Does not do** | Read entry bodies. Propose link changes. Modify existing entries. |
 | **Produces** | An edge list (TSV default), bidirectional adjacency list, or JSON depending on the format requested. |
 
@@ -49,6 +49,16 @@ links:
 **Full Survey** — reads the frontmatter of every `.md` in the palace and builds the complete edge list. The mode the builder runs. Used for: pre-swarm context loading, palace-wide Enchantment, JEWEL updates.
 
 **Bounded Survey** — *grown toward, not yet built.* A map of one neighborhood rather than the whole palace, for an agent that only needs the region it works in. What makes a neighborhood is an open question with more than one answer: a page can live in several neighborhoods at once, and a neighborhood can be drawn many ways — a shared frontmatter field, a hub and the pages a few links out, a pillar, a community the graph finds for itself. The nearest thing today is the Weave's `_ops/swarm/partition-palace.py`, which cuts the full map one lens at a time (folder, community, mirror, random cover, lifecycle, bridge) and, across lenses, lets an entry land in each family it belongs to ([[Swarm Weave]] § The Multi-Lens Weave). The question lives in [[Palace Map]] § Forward Vectors.
+
+---
+
+## Cadence
+
+The map is built two ways. A **run** is this ceremony: a mind opens with the tail read, builds, registers the line, says what it taught. A **build** is the same script with no mind behind it: the [[The Daily Page]] runs `_ops/swarm/build-map.py` every morning before it deals, and the [[Weave Ceremony]] runs it at its open and again after its writes. A build leaves the map and its commit; it leaves no ledger line, because nothing was learned. So the map is never older than the last weave or the morning, and the ledger stays a record of lessons.
+
+`build-map.py` is the stable door: it runs the newest dated builder beside it and keeps the last three builds in `_ops/maps/`. Older builds live in git, which is the map's longitudinal record ([[Palace Map]] § The Map as Chronotope). Three on disk is what ghost persistence reads (Step 7).
+
+To read a map, use `_ops/swarm/palace-map.py` (`near`, `path`, `hubs`, `quiet`, `ghosts`, `diff`); it names the build it read on every answer.
 
 ---
 
@@ -170,6 +180,8 @@ Write map file to `/Users/loudonstearns/Documents/The Palace/_ops/maps/` (create
 
 - Full survey: `palace-map-full-YYYY-MM-DD.tsv` (or `.json`)
 
+`build-map.py` then removes all but the three newest builds.
+
 **7. Register**
 
 Append the run's line to the end of [[Map Build Ceremony — tuning]] (SCHEMA — Reference §6), with the counts in the slot for what it ran on:
@@ -181,6 +193,8 @@ Append the run's line to the end of [[Map Build Ceremony — tuning]] (SCHEMA �
 (`taught item N` in place of `nothing new` when the run changed the ceremony.) The forward ghosts themselves are named in the map file's `meta.ghost_taxonomy`, so tracking persistence is a read of the last three maps in `_ops/maps/`: a ghost present in all three is a deposit candidate.
 
 Append only — the opening tail read is the only read of the ledger this ceremony makes.
+
+A scheduled build skips this step.
 
 ---
 
@@ -210,7 +224,6 @@ The outgoing adjacency list is recommended for Tier 1 agent context loading — 
 
 ## Forward Vectors
 
-- Should map generation be triggered automatically at Harvest close, making it a required step rather than a separate ceremony?
 - Ghost persistence tracking: each map file names its forward ghosts in `meta.ghost_taxonomy`. A ghost appearing in three consecutive maps is a deposit candidate. Should a ceremony step or a separate Spore Check variant surface these automatically?
 - Should the ceremony produce a diff against the previous map — what edges were added, what ghost nodes appeared or resolved — making the palace's growth arc visible over time?
 - Weighted maps: nodes now carry `use` (page, bundle and link activity from git), which could weight edges so well-traveled links appear stronger. Useful for swarm dispatch prioritization?

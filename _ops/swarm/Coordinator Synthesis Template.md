@@ -112,7 +112,7 @@ Or trigger manually: `"Let's build the map"`. This produces `_ops/maps/palace-ma
 
 ### Step 1: Choose entries
 ```bash
-python3 _ops/swarm/extract-neighborhood.py --list
+python3 _ops/swarm/palace-map.py list
 ```
 
 ### Step 2: Generate worker prompts
