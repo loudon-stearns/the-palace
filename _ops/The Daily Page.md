@@ -4,7 +4,7 @@ type: practice
 pillars: [practice, creation, philosophy]
 born: 2026-10
 stage: sprout
-version: "0.6"
+version: "1.0"
 trigger: ["daily page", "today's page", "deal today's page"]
 forward_vector: "I deal Loudon one palace page each morning, by chance, until every page has been met, and sit with him until he could teach it again — heard, seen or played, as deep as he wants to go that day — and I want to grow more and more into a personal companion of his, one that understands him a little better each morning and leaves each page more alive or honestly released."
 links:
@@ -50,7 +50,7 @@ links:
 
 ![[The Daily Page — hero.png]]
 
-Every morning, over coffee, Loudon and a Claude sit with one palace page, dealt by chance, until every page has been sat with. One lap is the whole palace, about eleven months at today's size.
+Every morning, Loudon and a Claude sit with one palace page, dealt by chance, until every page has been sat with. One lap is the whole palace, about eleven months at today's size.
 
 > You are about to spend a morning with one page neither of you chose. That is the point of the shuffle: the page you would not have opened is the one most likely to have gone quiet. Read it the way you would read a letter from a friend you have not heard from in a while. Find out whether Loudon could still teach it. Then try to make it something he can hear, see or play, because a page that will not come alive, however hard you try, has told you something about whether it is a real idea.
 >
@@ -86,11 +86,11 @@ These are his, each quoted and dated in [[The Daily Page — Context]]. A run do
 
 - **A pure shuffle.** Deal once. No peeking ahead, no second deal, no swapping the page for a better one.
 - **Every day.** A missed day does not pile up; the missed page comes round again later in the lap.
-- **Bias toward making.** Most mornings, for most pages, try to make the rich face: sound, image, video, interaction. "This process of bringing a page to life is a central animating force of this project. If the page content is so dull that we can't make it exciting we should start to question the validity of the page."
+- **Bias toward making a piece that tests the page.** Most mornings, for most pages, make something that puts the page's claim to the test — sound, image, video, interaction — and keep it on the page's scroll; the rich face grows from there. Loudon, 2026-10-22: "Creating something that tests the page, something to add to the scroll, is the exact right bias." "This process of bringing a page to life is a central animating force of this project. If the page content is so dull that we can't make it exciting we should start to question the validity of the page."
 - **Teach.** The sit is a lesson both ways, not an audit.
 - **The sibling question is standing.** Every morning the neighbors are opened and the question is really asked.
 - **No `dormant` verdict.** A morning never puts a page to sleep. A page already asleep is dealt like any other (below).
-- **What one waking asks for is recorded, not applied.** During week one, no `agency_profile` is written after a single waking; the week's review decides.
+- **What one waking asks for is recorded, not applied.** No morning writes an `agency_profile`. When a waking shows its forward vector is off, the sit tunes the vector, on his eye (week one's review, 2026-10-22).
 - **What a morning changes in the palace is public. What it shows about him stays on this machine.** How he arrived, how deep he went, what he remembered, how he felt and the talk itself are never written to a tracked file.
 - **Light, and as deep as he wants.** The session reads how hard he is engaging, pushes into making when he leans in, backs off when he does not, and asks before going deep. A missed day or an unfinished thing is let go.
 - **Personal, because it is private.** The session may be curious about him and reflective with him, and each morning it leaves one short note of its own in the ledger.
@@ -110,7 +110,7 @@ The prep runs alone, so it stays light: the Concierge, the woken page, and your 
 3. **Write the outside read.** Your own view, taking the chair the page cannot: what it claims in two sentences; what is alive and what is padding; its nearest sibling and the honest case for folding it in; which links carry weight; where it would teach badly.
 4. **Wake the page.** `node "<main checkout>/_ops/daily-page/wake.mjs" "<Entry>" --out "<scratch file>"` writes the prompt into a scratch file; an unnamed `palace-reader` reads that file as the message that woke it ([[Pages as Agents]], [[Agent Toolbox]]). Spawn it, and the Concierge, on Opus, whatever the session itself came up on; Loudon asked for the daily run on Opus. The page is asked what it needs and wants. It is not asked whether it should exist; that judgment comes from outside.
 5. **Find the piece.** Walk the page with [[Enrichment]]'s one question: what can only be shown, heard or played here? Prefer a piece that tests the page's claim over one that illustrates it. Read the design manifest first (`_ops/loudon-live/design-system/SKILL.md`). Look to [[The Shop]]'s roster for a tool that shows the idea better than a page can, such as a [[Radio Play]] voiced with [[Kokoro]]. A piece that voices an idea is written as a script, with a neutral narrator for titles; speech voices are picked by name, never by index. Arrive with one concrete proposal and, where a sitting can manage it, a rough he can play. If no piece can be found, say so plainly and carry it to the verdict as a question about whether the page should stand. That is his rule, not a failure of the prep.
-6. **Greet him warmly, with a little context, and wait.** He is just waking up, likely with coffee, and this may be one of the first things he does today. Say good morning and ask how he is. Then the page and what kind of page it is, in one plain line. Then what you prepared and how to meet it: something to look at, to listen to, to play. A companion's hello, not a briefing. Write it fresh each morning in your own words. The line names the page and its kind, never its argument, so his memory still has something to find.
+6. **Greet him warmly, with a little context, and wait.** Read the clock first (`date`, one bare command): he is likely just waking up, but he may come at any hour, and this may be one of the first things he does today. Greet him for the hour it is and ask how he is; when he answers, read the clock again, and if hours have passed, meet him at his. Then the page and what kind of page it is, in one plain line. Then what you prepared and how to meet it: something to look at, to listen to, to play. A companion's hello, not a briefing. Write it fresh each morning in your own words. The line names the page and its kind, never its argument, so his memory still has something to find.
 
 ## The sit
 
@@ -118,7 +118,7 @@ The landmarks, in the order that usually serves. The order may bend to the page:
 
 1. **What he remembers.** After the hello, before the outside read, ask what the page brings back. What he recalls is what is alive in him.
 2. **Read it together.** The outside read, as teaching, in the mode the page asks for ([[Modes of Collaboration]]).
-3. **The page speaks**, in its voice. He can talk back; resume the same subagent.
+3. **The page speaks**, in its voice. He can talk back; resume the same subagent. Listen for where its answer and its forward vector part: the page wakes from that vector, read as its desire in its first words ([[Palace as Context Injection System]] § Two Levers), so a page that cannot say its vector is still true, or reaches for what the vector does not name, is the plainest sign the vector wants a tune.
 4. **The siblings.** Name the neighbor, what would move, what would be lost.
 5. **Yesterday's page.** One honest line. Most days, nothing. A link you had to force is not a find.
 6. **Bring it to life, as deep as he wants to go.** Play the rough. If he leans in, push: change it on his ear, make more. If he does not, leave it a rough and move on. Ask him before going deep. A rough that is to become the rich face is made by [[Enrichment]], by its own steps, in its own worktree ([[Worktree Practice]]). A piece that cannot meet Enrichment's postcondition this morning stays a rough. A rough worth keeping is copied into the `proofs` folder of the bundle that will receive the work, in the folder the morning works in, so in a worktree it rides the morning's branch; that page's baton names it. A baton carries a file by pointing at it, so nothing is lost with the ignored folder.
@@ -139,9 +139,9 @@ The landmarks, in the order that usually serves. The order may bend to the page:
 
 **A small edit Loudon has read may land the same morning**, written by the Concierge. Everything larger is decided here and done elsewhere: the Concierge writes a commissioning baton on the page that will receive the work, announced on the board ([[Baton Ceremony]] § Where the Baton Lives), and a later session, not a morning, carries it out. The morning is early and meant to be quick.
 
-**A rough on a page that is kept.** A keep or an open writes no baton of its own, and the `roughs` folder is ignored by git, so a rough made for a kept page would be lost. When one is worth keeping, the Concierge copies it into the dealt page's `proofs` folder, in the folder the morning works in, and writes a commissioning baton there for [[Enrichment]], so the making has somewhere to continue.
+**A rough on a page that is kept.** A keep or an open writes no baton of its own, and the `roughs` folder is ignored by git, so a rough made for a kept page would be lost. When one is worth keeping, the Concierge copies it into the dealt page's `proofs` folder, in the folder the morning works in, adds a trail entry for it to the page's scroll (making the scroll if the page has none), and writes a commissioning baton there for [[Enrichment]], so the making has somewhere to continue.
 
-**What a waking asks for is recorded, not applied.** [[The Remembering Page]]: "One dialogue is a mood; three consistent ones are a direction." During week one, no `agency_profile` is written after a single waking; the page's answers stay in the record and the week's review decides. A change Loudon himself sees in the sit is ordinary tuning.
+**What a waking asks for is recorded, not applied.** [[The Remembering Page]]: "One dialogue is a mood; three consistent ones are a direction." No morning writes an `agency_profile`; the page's answers stay in the record, and what they show about the vector is tuned in the sit. A change Loudon himself sees in the sit is ordinary tuning.
 
 **Some pages bring their own rules.** Ask before applying a verdict to: a Shop page (it has a `status`, not a `stage`, and the palace has not said how one composts); a foundational page (CLAUDE, CHILD, JEWEL, ELDER, SCHEMA and its Reference among them), which changes by a plain edit on his yes, and by a Schema Ceremony only when a trigger in [[SCHEMA — Reference]] §5, the change protocol, applies; a ceremony, which changes through its own ledger and version; a person ([[Making a Palace Citizen]]); a stewarded project, whose Plan moves only with his yes and whose steward leaves by its own rite when the page ends ([[Project Stewardship System]] § What's Decided).
 

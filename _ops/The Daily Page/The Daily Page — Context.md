@@ -52,6 +52,8 @@ A run does not reopen these; his word does.
 
 He saw the forward vector whole and the other changes in summary, not passage by passage, and the form of the session's note was written before he saw it. His word for how such things are handled is the one from 13:17: "we tune as we go."
 
+**2026-10-22, week one's review.** Put the Context's watch questions after the eighth run line: "The sit is the right length and the prep is appropriate, the woken page is essential, I love that it speaks up for itself, that confirms the importance of the forward vector and highlights when it is not tuned properly, This will be even more important with our latest adjustments to palace as injection system (recent commits). Creating something that tests the page, something to add to the scroll, is the exact right bias, the close is working well. I really have nothing to say except we don't need to mention coffee every time." A wish that the morning look out at more of his life went, by his choice, to a separate private morning assistant kept out of this repo; the Daily Page stays a palace practice.
+
 ## Landed as drafted, and standing
 
 These went in as the draft had them. The name, the trigger phrases, `0.1` and the commit as the record were put to him as standing unless he changed them, and he changed none. The others were in what he was given to read, and the session he was speaking with reports he raised none. How he wants all of it handled from here is in his 13:17 words: "we tune as we go," through the ledger, "particularly for the first few weeks."
@@ -101,13 +103,15 @@ Still his alone to set: whether the scheduled task's two commands are pre-approv
 - **Let it go, against the rough that was nearly lost.** At 22:41 he said an unfinished thing is let go. That same morning a rough worth keeping almost went with its ignored folder, and a careful close is what caught it (ledger item 2). Both stand: a thing is let go by name, in the commit, never by accident.
 - **A companion, against the shuffle.** The forward vector now leans toward him. The practice exists so that every page is sat with. The page is still what they sit over; watch that it does not become a pretext.
 - **A reading of him, written by a session that will not remember it.** The note is one agent's guess about another person, read the next morning by a different session as if it were knowledge. It is marked, kept to a sentence or two, and open to correction. Whether a line of such notes adds up to understanding or to a caricature is not known.
-- **Light, against "very meta" in week one.** His order to assess the process as hard as the content is still owed. The session and the ledger carry that work; he is asked little.
+- **Light, against "very meta" in week one.** Settled 2026-10-22: the review read the nine sits together and asked him little; his order is paid (tuning items 65–70).
 - **Asked, against a man just waking.** The close stopped leaning on his attention (ledger item 16), and now a question is put to him at the close. A shrug means the quick one, and that is the one place a cold read is lost.
 - **A morning leaves no mark on a page it keeps.** Use is computed from git and reading is not recorded ([[SCHEMA — Reference]] §3). A page Loudon sat with for an hour and kept will read as untouched to the map.
 
 ## Week one
 
 The first seven mornings Loudon sits; a missed day is not one of them. Watch: how long a sit takes and whether he wants that length daily; whether the prep is too much or too little; whether the woken page says anything the outside read did not; whether a playable piece in a morning is realistic, and for which kinds of page; what a morning costs (the first: about 114K tokens for the Concierge's boot, about 32K for the waking, and a full Closing Well on top); whether title-first is a pleasure or a test; whether the session's note says anything true about him, and whether asking the size of the close is one question too many. After the seventh, read the seven together and move the version. The ledger carries this as an order from him, owed until then, so every tail read finds it.
+
+Read 2026-10-22 (tuning items 65–70). Answered: the sit's length, the prep, the woken page, the piece, the close. Not answered and still watched: title-first, and whether the session's note is true of him. Cost is an elder's concern, read in sessions and window, not here.
 
 ## Open
 
