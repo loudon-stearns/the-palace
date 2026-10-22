@@ -15,17 +15,17 @@ forward_vector: "I am Palace Map's scroll — the page's front door, opening on 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-22T13:12:49.300Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-22T13:17:41.445Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** — · **Stage:** growing · **Steward:** none — this page has no permanent steward yet
-- **Plan:** agreed 2026-10-22 (today) · 3 made things since
+- **Plan:** agreed 2026-10-22 (today) · 4 made things since
 - **Waiting on you:** nothing
-- **Last shipped:** 2026-10-22 (today) — Move 2 landed: the Concierge is born with its ring (ca616cac) — the plan agreed this morning is complete (`palace-map-move2-landed-plan-complete-2026-10-22`)
-- **Last commit touching this page:** 2026-10-22 `8eec4406` — edit(Palace Map): the scroll's trail records Move 3 landed (5346d7eb, fd3205ce); Move 2 remains
+- **Last shipped:** 2026-10-22 (today) — The open check is done: a fresh Concierge answered from the ring unprompted — the plan of 2026-10-22 is complete, nothing owed (`palace-map-ring-check-done-2026-10-22`)
+- **Last commit touching this page:** 2026-10-22 `5c46da8b` — edit(Palace Map): the scroll's trail records Move 2 landed (ca616cac) and the plan complete; one check open
 
 ### Where this stands
 
-Loudon, 2026-10-22: "The Move 2 lines are approved as drafted. Have the Concierge place them, fold in the README word, commit, and record the plan complete on the scroll." ca616cac places one habit in the Concierge: find the home entry, read its ring with `palace-map.py near`, then search, and cite the ring where it carried the answer. A bullet in the charter; gatherer step 1 split in two; the oracle reads the ring before the neighbors; the scout adds `quiet --n 10` and `ghosts --persistent` beside `return-map.mjs`; the curator begins at one hop; Deposit Ceremony Step 3 gains one sentence (v2.7, item 29); the Concierge entry and `_ops/concierge/README.md` each carry one line (Concierge ledg…
+Loudon, 2026-10-22: "…record the plan complete on the scroll." A fresh resident born with the new charter at 5c46da8b, with no word about the map in its prompt, took one gatherer address (collect the entries on Kuramoto Coupling and Endosymbiosis, and the bridges between them) and one oracle address (does the palace have a page on Resonance and Damping, and where would it live?). Both products cited `palace-map.py near` and `path` output, named the build they read (2026-09-26) and said what the map leaves out. The gatherer read the two homes' rings first and marked a body-only bridge, Palace Conatus, as not in the ring. The oracle found Resonance and Damping as a forward ghost from Differen…
 
 ### Open asks
 
@@ -108,6 +108,14 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="palace-map-ring-check-done-2026-10-22" -->
+### 2026-10-22 — The open check is done: a fresh Concierge answered from the ring unprompted — the plan of 2026-10-22 is complete, nothing owed
+> checked · Move 2's done-when met · plan complete
+
+Loudon, 2026-10-22: "…record the plan complete on the scroll." A fresh resident born with the new charter at 5c46da8b, with no word about the map in its prompt, took one gatherer address (collect the entries on Kuramoto Coupling and Endosymbiosis, and the bridges between them) and one oracle address (does the palace have a page on Resonance and Damping, and where would it live?). Both products cited `palace-map.py near` and `path` output, named the build they read (2026-09-26) and said what the map leaves out. The gatherer read the two homes' rings first and marked a body-only bridge, Palace Conatus, as not in the ring. The oracle found Resonance and Damping as a forward ghost from Differential Equations, through the ring and the To-Do. Concierge tuning item 3 is paid in place. With this, every move and the check of the plan agreed this morning are done.
+<sub>`palace-map-ring-check-done-2026-10-22` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="palace-map-move2-landed-plan-complete-2026-10-22" -->
 ### 2026-10-22 — Move 2 landed: the Concierge is born with its ring (ca616cac) — the plan agreed this morning is complete
 > shipped · Move 2 of 3 · the plan of 2026-10-22 complete · one check still open
