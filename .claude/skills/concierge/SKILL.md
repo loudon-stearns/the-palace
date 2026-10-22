@@ -48,8 +48,6 @@ product.** The search never enters this conversation; only the finished thing do
    trust alarm. Parked between addresses it costs nothing. Same dial serves the close (`--for close`), where
    how spent the parent is leads.
 
-If you expect a genuinely large fan-out, tell Loudon the rough cost first (his standing preference).
-
 ## Triage — classify the address, name the posture
 
 | The address sounds like… | Posture | Prompt |
