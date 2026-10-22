@@ -22,6 +22,6 @@
     "check:all": "node scripts/check-phase.js all"
   },
   "devDependencies": {
-    "vitest": "^4.1.11"
+    "vitest": "^4.1.12"
   }
 }
