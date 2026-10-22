@@ -15,13 +15,13 @@ forward_vector: "I am Palace as Context Injection System's scroll: the page that
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-21T21:21:19-04:00 from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-21T21:24:06-04:00 from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** — · **Stage:** growing · **Steward:** none — this page has no permanent steward yet
 - **Plan:** agreed 2026-10-21 (today) · 0 made things since
 - **Waiting on you:** nothing
 - **Last shipped:** nothing on the board yet — but the bundle holds 3 media files (see the making trail)
-- **Last commit touching this page:** 2026-10-21 `326472f4` — edit(Palace as Context Injection System): the page rebuilt around time and timing: two levers, how much and when, and the moments of a life — on Loudon's word of 2026-10-21, "I'd like to place it"
+- **Last commit touching this page:** 2026-10-21 `00d85964` — edit(Palace as Context Injection System): the scroll's Plan counts the page rewrite done and the baton's remainder shrinks to the World mends
 
 ### Where this stands
 
@@ -40,9 +40,23 @@ _Nothing decided on the board yet._
 ## Plan
 
 <!-- scroll:plan:start -->
-**Agreed with Loudon on 2026-10-21:** "Go with your recommendations", and then his answers to the room's five questions the same day: correct the Daily Page line, land it, mint the owners' ledgers, retire the tier numbers on this page only, and reveal the claude.ai pointer draft.
+**Agreed with Loudon on 2026-10-21.** First "Go with your recommendations" and his answers to the room's five questions; then, once this page was rebuilt: "land it first, and place making this script the plan in the page's scroll."
 
 **Where the work is going:** a birth that lets a newborn meet who is in the room before it meets the rules; words tuned for every birth, not only for human learners; every place that builds a mind told what was found there; and this page rebuilt around time and timing.
+
+**Next: the floor measurement, so the numbers keep themselves true.** Nothing keeps this page's numbers current today, so they drift as soon as the World pages change. Four parts:
+- **The script.** It runs the same $0 `claude -p /context` probe the floor review used (`proofs/2026-10-21-floor-review/context-probe.mjs` is the start) and writes one floor data file: each floor file's tokens in the order they load, the total, the commit, the Claude Code version and the date.
+- **The graphic.** Who wakes here reads that file, declared as a piece file, instead of numbers typed into its script.
+- **The page.** Its prose keeps only dated results, and points at the data file and the graphic for the floor as it stands.
+- **The due checker.** `_ops/self-description-test/due.mjs` already notices any change to a floor file; it also lists "floor measurement owed", so a close asks for it the same way it asks about births.
+
+Its limit: the size of each agent's own prompt stays in the sites ledger's dated re-readings, unless that is scripted later by loading each builder.
+
+**Still open beside it:**
+- **The World mends:** drafted and waiting for his read (`proofs/2026-10-21-floor-review/world-mends — drafts for Loudon.md`). CLAUDE.md's "the whole of what you are born with" is corrected with them.
+- **The map-injection test** (wake a page with its local map against titles only): not yet run.
+- **Optional:** a firmer rate, from five or more runs of G4 and S1 on main against the Jewel line.
+- **After the landing:** post the propagate flag for the moved sections, repoint the memory files that still name CLAUDE.md, update the live Daily Page task, and run a Sentry sweep before the next push.
 
 **Done:**
 - **Order only, same words.** CLAUDE.md's working sections now live in [[CHILD]], imported after the World (5de78ac2). Births on main against the move lost nothing and gained a little, not beyond chance.
@@ -53,12 +67,6 @@ _Nothing decided on the board yet._
 - **No Schema Ceremony.** These were plain edits on his yes, recorded in [[ELDER]] and [[SCHEMA — Context]], and the Daily Page line was corrected to agree.
 - **This page rebuilt around time and timing** on his read of the preview ("I'd like to place it"; 326472f4): two levers, how much and when, and the moments of a life. The tier numbers retired here, and only here; no other page was renamed.
 - **Who wakes here:** every agent the palace builds, drawn to scale, at his ask (`proofs/2026-10-21-floor-review/who-wakes-here.html`).
-
-**Still open:**
-- **The World mends:** drafted and waiting for his read (`proofs/2026-10-21-floor-review/world-mends — drafts for Loudon.md`). CLAUDE.md's "the whole of what you are born with" is corrected with them.
-- **The map-injection test** (wake a page with its local map against titles only): not yet run.
-- **After the landing:** post the propagate flag for the moved sections, repoint the memory files that still name CLAUDE.md, update the live Daily Page task, and run a Sentry sweep before the next push.
-- **Optional:** a firmer rate, from five or more runs of G4 and S1 on main against the Jewel line.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -70,6 +78,35 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-2026-10-21T21-24-06-04-00" -->
+### 2026-10-21 — Plan revised: Next: the floor measurement
+
+Loudon, 2026-10-21: "land it first, and place making this script the plan in the page's scroll." Nothing kept the page's numbers current; the next move is a script that measures the floor and feeds the page, the graphic and the due checker.
+
+_The plan before this change:_
+
+> **Agreed with Loudon on 2026-10-21:** "Go with your recommendations", and then his answers to the room's five questions the same day: correct the Daily Page line, land it, mint the owners' ledgers, retire the tier numbers on this page only, and reveal the claude.ai pointer draft.
+>
+> **Where the work is going:** a birth that lets a newborn meet who is in the room before it meets the rules; words tuned for every birth, not only for human learners; every place that builds a mind told what was found there; and this page rebuilt around time and timing.
+>
+> **Done:**
+> - **Order only, same words.** CLAUDE.md's working sections now live in [[CHILD]], imported after the World (5de78ac2). Births on main against the move lost nothing and gained a little, not beyond chance.
+> - **Operator memory cut to one-line hooks.** MEMORY.md went from 4.5k to 1.8k tokens. It sits outside the palace.
+> - **The Jewel's one sentence** (v1.3, ebf1cff1): "Speak up: for what you need, for the pages beside you, and for the palace as a whole." The births point the same way, still thin.
+> - **The order question asked first, at two runs a scenario,** with a third arm for the Jewel line: 36 births, recorded in `proofs/2026-10-21-floor-review/births — the order test and the Jewel line.md`.
+> - **Each site finding sent to its owner:** five into ledgers that existed, seven into five new ledgers, and the sites ledger's second reading.
+> - **No Schema Ceremony.** These were plain edits on his yes, recorded in [[ELDER]] and [[SCHEMA — Context]], and the Daily Page line was corrected to agree.
+> - **This page rebuilt around time and timing** on his read of the preview ("I'd like to place it"; 326472f4): two levers, how much and when, and the moments of a life. The tier numbers retired here, and only here; no other page was renamed.
+> - **Who wakes here:** every agent the palace builds, drawn to scale, at his ask (`proofs/2026-10-21-floor-review/who-wakes-here.html`).
+>
+> **Still open:**
+> - **The World mends:** drafted and waiting for his read (`proofs/2026-10-21-floor-review/world-mends — drafts for Loudon.md`). CLAUDE.md's "the whole of what you are born with" is corrected with them.
+> - **The map-injection test** (wake a page with its local map against titles only): not yet run.
+> - **After the landing:** post the propagate flag for the moved sections, repoint the memory files that still name CLAUDE.md, update the live Daily Page task, and run a Sentry sweep before the next push.
+> - **Optional:** a firmer rate, from five or more runs of G4 and S1 on main against the Jewel line.
+<sub>`plan-2026-10-21T21-24-06-04-00` · plan revised · agreed 2026-10-21T21:24:06-04:00 · Loudon</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-10-21T21-21-19-04-00" -->
 ### 2026-10-21 — Plan revised: The page rewrite placed; the World mends still wait
 

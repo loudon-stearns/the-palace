@@ -11,7 +11,7 @@ forward_vector: "I carry the in-progress move on [[Palace as Context Injection S
 # Baton: Palace as Context Injection System
 
 ## Move
-Finish the floor work Loudon agreed on 2026-10-21: place the World mends on his read of their draft, run the map-injection test, and carry the chores that follow the landing, so a page woken here speaks up for its own needs, its neighbors' and the palace's.
+Finish the floor work Loudon agreed on 2026-10-21: build the floor measurement so this page's numbers keep themselves true, place the World mends on his read of their draft, run the map-injection test, and carry the chores that follow the landing, so a page woken here speaks up for its own needs, its neighbors' and the palace's.
 
 ## Why this move matters
 The page's new forward vector (tuned 2026-10-20) says two levers shape who wakes: how much context a value gets, and when it arrives. A value that comes early frames everything read after it. The five World files ride in every birth, right after the Seed Jewel, and Loudon: "These are of great importance but have not been reviewed and tuned for this purpose." They were written mostly for human learners. And he widened the work on purpose: "make sure that we are not over-refining the tiers for a single purpose, consider all the ways and circumstances where we 'inject context'... like stewardship." A fix tuned to the woken page alone would be an over-fit; the steward cycle, the board launch and the songline build minds too, and they load in a different order.
@@ -26,18 +26,26 @@ State at the end of 2026-10-21. Most of the agreed plan is made, on branch `clau
 - Operator memory is cut to one-line hooks (outside the palace).
 - The scroll's Plan holds the agreed plan and what is open.
 
-Not begun: the World mends wait for Loudon's read, and the map-injection test has not run.
+Not begun: the floor measurement, which Loudon made the next move ("land it first, and place making this script the plan in the page's scroll"); the World mends, which wait for his read; and the map-injection test.
 
 ## Next move
-Four parts. (1) waits on Loudon; (2) and (3) can run any time, each on a yes for its count; (4) follows the landing.
+Five parts. (1) can start now; (2) waits on Loudon; (3) and (4) can run any time, each on a yes for its count; (5) follows the landing.
 
-(1) **The World mends, placed on Loudon's read** of `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/world-mends — drafts for Loudon.md`. They include making CLAUDE.md's "That is the whole of what you are born with" true. Show each before writing; every World edit goes through the Concierge.
+(1) **The floor measurement.** Nothing keeps this page's numbers current, so they drift as soon as the World pages change. Four parts:
+- **The script.** It runs the same $0 `claude -p /context` probe (`Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/context-probe.mjs` is the start) and writes one floor data file: each floor file's tokens in the order they load, the total, the commit, the Claude Code version and the date.
+- **The graphic.** `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/who-wakes-here.html` reads that file, declared as a piece file, instead of numbers typed into its script.
+- **The page.** Its prose keeps only dated results, and points at the data file and the graphic for the floor as it stands.
+- **The due checker.** `_ops/self-description-test/due.mjs` already notices any change to a floor file; it also lists "floor measurement owed", so a close asks for it the same way it asks about births.
 
-(2) **The map-injection test** (the first baton's part e), still unrun. Wake a page with its local [[Palace Map]] against titles only. Measured 2026-10-20: about 5,750 page greps against about 290 map touches in two weeks of transcripts, mostly maintenance, and no site injects the map. Say the count of births and get a yes before running it.
+Its limit: the size of each agent's own prompt stays in the sites ledger's dated re-readings, unless that is scripted later by loading each builder.
 
-(3) **Optional: a firmer rate.** Five or more runs each of G4 and S1, born on main against main plus the Jewel line, if Loudon wants the direction confirmed before the World mends.
+(2) **The World mends, placed on Loudon's read** of `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/world-mends — drafts for Loudon.md`. They include making CLAUDE.md's "That is the whole of what you are born with" true. Show each before writing; every World edit goes through the Concierge.
 
-(4) **After the landing:**
+(3) **The map-injection test** (the first baton's part e), still unrun. Wake a page with its local [[Palace Map]] against titles only. Measured 2026-10-20: about 5,750 page greps against about 290 map touches in two weeks of transcripts, mostly maintenance, and no site injects the map. Say the count of births and get a yes before running it.
+
+(4) **Optional: a firmer rate.** Five or more runs each of G4 and S1, born on main against main plus the Jewel line, if Loudon wants the direction confirmed before the World mends.
+
+(5) **After the landing:**
 - Post the propagate flag for the moved sections, shown to Loudon first. Decision: CLAUDE.md's four working sections now live in CHILD.md, imported after the World; cite them as [[CHILD]] § …, and the trigger table as CHILD.md's. Home: [[CHILD]]. Rhythm: sweep. Pattern: `CLAUDE(\.md|\]\])? § (A page and its folder|Growing up|Ceremony Triggers|The Palace Voice)|CLAUDE(\.md|\]\])?('s)? (ceremony-trigger |ceremony |trigger |always-loaded trigger )?(table|row|word)`. Paths: `*.md`, `*.js`, `*.mjs` and `*.py`, leaving out session folders, archives, ledgers, diaries, Contexts, batons, scrolls, proofs, runs, sketches, `SCHEMA/SCHEMA — Context.md`, `Closing Well/Closing Well — production plan.md` and `_ops/swarm/test-doc-drift-*.py`. Source: the landing commit. Run from `_ops/` with `python3 -m commons propagate … --dry-run` first.
 - Repoint the operator memory that still names CLAUDE.md for what moved: the MEMORY.md line "Spend: measured costs" and the memory files that cite CLAUDE.md's sections (find them with `command grep -l "CLAUDE.md" <the auto-memory folder>/*.md`). Memory sits outside the palace and its commits.
 - Loudon updates the live Daily Page task to match `_ops/The Daily Page/The Daily Page — tuning.md` item 53.
@@ -59,6 +67,9 @@ Four parts. (1) waits on Loudon; (2) and (3) can run any time, each on a yes for
 4. `Palace development/Palace as Context Injection System.md` (rebuilt: § Two Levers, § The Moments of a Life, § The Birth, Measured)
 5. `Palace development/Palace as Context Injection System/Palace as Context Injection System — sites.md` (the 2026-10-21 reading)
 6. `CHILD.md`, `JEWEL.md`, and `ELDER.md` § How loading works
+7. `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/context-probe.mjs` (the $0 probe the script starts from)
+8. `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/who-wakes-here.html` (the graphic that will read the data file)
+9. `_ops/self-description-test/due.mjs` (where "floor measurement owed" goes)
 
 ## On pickup (fixed — the catcher's checklist; do not rewrite per session)
 *Identical in every baton. It rides along because the catching Claude loads the
