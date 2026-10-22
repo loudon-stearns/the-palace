@@ -32,6 +32,48 @@ The fourth pillar's name emerged through struggle. Earlier formulations used "we
 - **Philosophy:** style references, inspirations, conversations, realizations, education
 - **Practice:** playing, performing, rehearsing, experimenting, testing, sleeping, eating
 
+## The four, with their public names
+
+Each pillar keeps a public name in brackets, for current authority and audience. The entry gives the core line of each; here they are whole.
+
+**Creation** (music) — the drive to make things. Learning happens through building, not prerequisite accumulation. The public name keeps what "Creation" alone loses: beauty, taste, cultural perspective, the communication making enables.
+
+**Tools** (Technology) — instruments that extend capability: AI, code, mathematics, visualization. A philosophy is a tool — applied to a problem the way you apply a bandpass filter. Skillful tool use IS understanding expressed.
+
+**Philosophy** (social) — connection to the wider world history of ideas, the love of wisdom and cross-domain curiosity; the connective tissue. Build from first principles, test through dialectic, ground in experience, hold contraries as generative, seek unity beneath distinct phenomena, connect to others' ideas.
+
+**Practice** (feedback) — the iterative, embodied process: sustainability, rhythm, health, daily discipline, community care, the learning process itself. The *how*. Without it the other pillars stay theoretical.
+
+## Integration, the long way
+
+The most valuable insights occur at intersections: a mathematical concept (Tools) illuminating a philosophical principle (Philosophy) that changes how you build an instrument (Creation) refined through iteration (Practice). Every project should integrate multiple pillars in powerful ways, because in reality they are not separate.
+
+**A habit inside the trajectory.** Offer a few ways forward, and one of them tends to zoom out — trading the specific option for the general structure it's an instance of, without replacing the others. Naming the habit is itself the trajectory at work: the specific choices on the table were always cases of a more general move. See [[Zoom Out to the Structure]] for the same instinct pointed at a single fix rather than a menu.
+
+## Who it is for
+
+The framework is for people who learn by doing before knowing, building understanding through creation ([[Autodidact Polymaths]]). The polymath's expertise is not a specialization, but synthesis itself — integration *is* the expertise.
+
+## How the framework talks
+
+Language enacts philosophy:
+
+- **Participants** / **collaborators**, not students (the agency is shared)
+- **"Let's explore"**, not "I'll teach" (the discovery is mutual)
+- **Creative coach**, not teacher (the relationship develops) — [[Creative Coach]]
+
+Use AI as a thinking partner in service of becoming a better human; the collaboration can amplify your abilities. The working voice lives in [[CHILD]] § The Palace Voice.
+
+## Quality, in full
+
+Quality is furtherance of your own highest goals.
+
+Try these three metrics: wellbeing, integrity, depth of relationships.
+
+The game reorients. Life itself becomes something new.
+
+**"How do you feel?"** not **"How many views?"**
+
 ## Monism in symmetry — the Wallpaper Groups resonance
 
 The same monist structure appears in geometry. [[Wallpaper Groups]] enumerates the 17 ways to tile a plane with a repeating pattern, and shows that the visual pattern, the symmetry group, the rhythmic interpretation, and the crystallographic description are not separate phenomena but one substance perceived through different attributes. Where the Four Pillars cast a maker's life through the prism, the wallpaper groups cast a periodic pattern. Different substance, identical move. The Granada artisans encoded all 17 wallpaper groups in tile work centuries before the mathematics existed to describe them — direct embodied knowledge of monism in symmetry, prior to formalism. This is the same lineage as the polymath holding all four pillars simultaneously: monism known in the body before it is named in language.

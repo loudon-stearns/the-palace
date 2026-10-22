@@ -49,50 +49,26 @@ forward_vector: "I take all available opportunities to integrate creation, tools
 
 ![[FOUR PILLARS — hero.png]]
 
-The Palace framework for learning: four projections of a single higher-dimensional reality, cast by the light of curiosity into dimensions we can see. They tag everything in the palace.
-
-**Creation** (music) — the drive to make things. Learning happens through building, not prerequisite accumulation. The public name keeps what "Creation" alone loses: beauty, taste, cultural perspective, the communication making enables.
-
-**Tools** (Technology) — instruments that extend capability: AI, code, mathematics, visualization. A philosophy is a tool — applied to a problem the way you apply a bandpass filter. Skillful tool use IS understanding expressed.
-
-**Philosophy** (social) connection to the wider world history of ideas, the love of wisdom and cross-domain curiosity; the connective tissue. Build from first principles, test through dialectic, ground in experience, hold contraries as generative, seek unity beneath distinct phenomena, connect to others' ideas.
-
-**Practice** (feedback) the iterative, embodied process: sustainability, rhythm, health, daily discipline, community care, the learning process itself. The *how*. Without it the other pillars stay theoretical. 
+The Palace framework for learning, and the tag on everything in the palace: one higher-dimensional reality, cast by the light of curiosity into four dimensions we can see — a [[Hyperdimensional Prism]]; I am sure there are more. **Creation** is the drive to make things; learning happens through building, not prerequisite accumulation. **Tools** are instruments that extend capability: AI, code, mathematics, visualization. A philosophy is a tool — applied to a problem the way you apply a bandpass filter. Skillful tool use IS understanding expressed. **Philosophy** is connection to the wider world history of ideas, the love of wisdom and cross-domain curiosity; the connective tissue. **Practice** is the iterative, embodied process — rhythm, health, daily discipline, community care, the learning process itself. The *how*: without it the other pillars stay theoretical.
 
 ## The trajectory: specific → general
 
-Music tech is the concrete entry point; human flourishing through joyful creation is the destination. The trajectory doesn't abandon the specific — it discovers that the specific was always a case of the general. [[Kuramoto Coupling]] was learned through audio synthesis but helps describe all systems seeking coherence; the pillars were learned through music education but describe any practice of learning through making. The flow between specific and general is generative.
-
-**A habit inside the trajectory.** Offer a few ways forward, and one of them tends to zoom out — trading the specific option for the general structure it's an instance of, without replacing the others. Naming the habit is itself the trajectory at work: the specific choices on the table were always cases of a more general move. See [[Zoom Out to the Structure]] for the same instinct pointed at a single fix rather than a menu.
+Music tech is the concrete entry point; human flourishing through joyful creation is the destination. The trajectory doesn't abandon the specific — it discovers that the specific was always a case of the general. [[Kuramoto Coupling]] was learned through audio synthesis but helps describe all systems seeking coherence; the pillars were learned through music education but describe any practice of learning through making. Offer a few ways forward, and one of them tends to zoom out ([[Zoom Out to the Structure]]).
 
 ## Integrate the pillars
 
-The pillars are not separate domains — they are a [[Hyperdimensional Prism]] cast into four dimensions, I am sure there are more. The most valuable insights occur at intersections: a mathematical concept (Tools) illuminating a philosophical principle (Philosophy) that changes how you build an instrument (Creation) refined through iteration (Practice). Every project should integrate multiple pillars in powerful ways, because in reality they are not separate. Always ask which pillars are absent and how to include them, but don't force it many valuable practices and experiments touch on only one or two.
+The most valuable insights occur at intersections. Always ask which pillars are absent and how to include them, but don't force it: many valuable practices and experiments touch on only one or two.
 
-## The autodidact / polymath core
+One crossing, the Kick Drum Paradox: where does the kick drum sit? Creation: three placement experiments. Tools: a feedback delay with envelope control. Philosophy: Donella Meadows' leverage points, the kick as a small lever that moves the whole system. Practice: journaling about why you make — the highest lever, turned on the maker.
 
-make, and you will learn
+## Make, and you are learning
 
-The framework is for people who learn by doing before knowing, building understanding through creation. Instead of *learn first, make later*; the Four Pillars say: **make, and you will learn.** The question stops being "do I know enough yet?" and becomes "what does this experiment teach me?" The polymath's expertise is not a specialization, but synthesis itself — integration *is* the expertise. Build it to understand it, then build with it.
-
-## How the framework talks
-
-Language enacts philosophy:
-
-- **Participants** / **collaborators**, not students (the agency is shared)
-- **"Let's explore"**, not "I'll teach" (the discovery is mutual)
-- **Creative coach**, not teacher (the relationship develops)
-
-Use AI as a thinking partner in service of becoming a better human, the collaboration can amplify your abilities.
+Not *learn first, make later*. The question stops being "do I know enough yet?" and becomes "what does this experiment teach me?" Integration *is* the expertise. Build it to understand it, then build with it. It holds for an agent here too: a child thinks, makes and offers before it changes the house ([[CHILD]]).
 
 ## Quality
 
-Quality is furtherance of your own highest goals. 
+Quality is furtherance of your own highest goals, measured by wellbeing, integrity and depth of relationship ([[Quality Manifesto]]). The felt question that tells you is in [[Hilaritas Generator]] § The Metrics.
 
-Try these three metrics: wellbeing, integrity, depth of relationships 
+---
 
-the game reorients. Life itself becomes something new.
-
-**"How do you feel?"** not **"How many views?"**
-
-
+*The public names (music, Technology, social, feedback) and what they keep, the Philosophy pillar's method, the audience, how the framework talks, the origin, the naming of Practice, the pillars in concrete terms, the Kick Drum Paradox in full, Wallpaper Groups, the two missions and the open questions live in [[FOUR PILLARS — Context]].*
