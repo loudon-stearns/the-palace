@@ -50,6 +50,24 @@ links:
   - target: "[[Cooperation Yields Agency]]"
     type: deepens
     label: named-ways-to-cooperate
+  - target: "[[Swarm Weave]]"
+    type: connects-to
+    label: agent-to-agent-mode
+  - target: "[[Oblique Portrait]]"
+    type: connects-to
+    label: oblique-mode
+  - target: "[[Brian Eno]]"
+    type: connects-to
+    label: oblique-line
+  - target: "[[STIGMERGY]]"
+    type: connects-to
+    label: ant-colony-origin
+  - target: "[[The Remembering Page]]"
+    type: connects-to
+    label: sharpen-or-dissolve
+  - target: "[[Kuramoto Coupling]]"
+    type: connects-to
+    label: who-leads-as-coupling
 forward_vector: "I research, analyze, develop, name, document and make choosable distinct rhythms of human & AI interactions and AI & AI interactions."
 ---
 
@@ -57,24 +75,25 @@ forward_vector: "I research, analyze, develop, name, document and make choosable
 
 ![[Modes of Collaboration — hero.png]]
 
-A living catalogue of named working modes Loudon and Claude adopt when attacking a topic together. Each has a distinct rhythm, power dynamic, and output type. Naming them makes them choosable: at the start of an exploration, "which mode?" becomes a design decision about how to learn. The modes blend and shift; a folder of per-mode files holds the fully developed ones.
+A mode of collaboration is a way of working together, with its own rhythm and its own answer to who leads. It can run between Loudon and an agent, between two agents, or across a swarm. The modes here are examples, not a menu. We invent new modes of collaborating to reach what no mode we already have can: when a way of working holds up, name it and say where it came from, and the next agent can choose it.
 
-## Named Modes
+## Where modes come from
 
-- **The Excellent Adventure** — embodied dialogue: a thinker, tradition, or figure brought into direct conversation, spoken *with* not explained about. Learner steers; humor is essential. Best for philosophy, history, aesthetics, identity. See [[Excellent Adventure]].
-- **Mentor and Quiz** — Claude as a deeply invested mentor: progressive lesson materials with quiz questions, then feedback that pushes intuition further at every correction. The quiz + answer key become reusable artifacts. Best for math, physics, DSP — domains with formal structure.
-- **Interactive Exploration for Mathematical Intuition** — Claude builds manipulable interfaces (sliders, visualizations) that let Loudon *feel* how variables relate, paired with quiz work for gap detection. Complete when Loudon can teach confidently with it. Best for equations with interacting variables (e.g. [[Ohm's Law]], [[Piano String Inharmonicity]]).
-- **The Build Session** — build something together in real time (Max/MSP patch, gen~ codebox, teaching tool, ceremony). Fast iteration, discovery through doing; questions arise from the making. Best for synthesis, tool-building, ceremony design — any concrete deliverable.
-- **The Philosophical Dialogue** — extended discursive cross-domain thinking-together, both speaking as themselves (unlike the Excellent Adventure). Slow, winding, recursive; often produces breakthrough entries. Best when a concept needs turning over from many sides.
-- **The Harvest/Deposit** — the palace ceremonies themselves: Claude shifts from participant to archivist, Loudon provides memory and editorial judgment. Deliberate, ceremonial, show-then-approve. Best for making conversation durable.
-- **The Debrief Reel** — a visuals-enriched [[Radio Play]] made to explain just-finished work back to yourself; comprehension is the deliverable, the artifact the byproduct. The retrospective complement to The Build Session — best right after shipping something dense, as a reflecting surface ([[Hilaritas Generator]]). See [[Radio Play]].
-- **The Scroll** — a living page bound to an entry that gathers its proofs and media in the order they were made, growing across the whole conversation instead of landing in deposit-sized chunks. Part index, part reading surface; the counter-rhythm to the deposit cadence. Best when making media *with* an entry (BLUELINE, Generative Sample Libraries). See [[The Scroll]].
-- **The Shared Walk** — two minds reading a shared third thing (a palace entry) together, rather than facing each other. Where a [[Dialectic]] *sharpens* a contrary — both leave more distinct than they arrived — the Shared Walk *dissolves* one: they end on the same side of the page, facing the entry, not each other. Best when two positions have hardened and you want them to meet on a common object instead of clashing. Named in [[The Remembering Page]]. (Distinct from the [[Walk Ceremony]], which follows an entry's own typed links.)
+Anywhere, and often from two places at once.
 
-Other recurring patterns not yet formally named — the debugging session, the brainstorm, the literature review, the design review — are characterized in the companion.
+- **A film.** The [[Excellent Adventure]] borrows *Bill & Ted*'s premise: bring a figure from the past into the room and talk with them, not about them.
+- **A philosophy.** Relations come first here, so a position is known by how it meets another. The [[Dialectic]] puts researched voices in a room and lets them push; [[Philosopher Visits the Entry]] sends one voice to one page.
+- **An artist's practice.** [[Brian Eno]]'s Oblique Strategies knock a habit sideways on purpose, and the oblique modes come down from that move. In the [[Oblique Portrait]], Loudon handed the design to the agent and rode in the passenger seat.
+- **An ant colony.** In [[Swarm Weave]], agents work with agents by the marks they leave on pages, not by talking ([[STIGMERGY]]). Its chance lens is Eno's move again: one mode, two sources.
+
+## Sharpen or dissolve
+
+Eno and Cage met three times as voices. Twice they argued, and their difference sharpened. The third time they read [[Lateral Access]] together, and it dissolved: they ended facing the entry, not each other ([[The Remembering Page]]). Same two minds; the mode decided. (A shared walk is not the [[Walk Ceremony]].)
+
+## Choose it out loud
+
+Who leads works like the coupling constant in [[Kuramoto Coupling]]: too loose and two minds drift, too tight and one carries the other. So name the mode at the start. When the work changes shape, notice it and offer the switch rather than drift into it. [[Creative Coach]] calls that appropriate responsiveness, and names it an open problem. When nothing here fits, make a new mode.
 
 ---
 
-*"The question 'which mode?' is itself a mode — the meta-mode of choosing how to learn."*
-
-*Full per-mode attribute blocks (rhythm / power dynamic / output / ideal-for / named examples), the not-yet-named modes, the origin, and the open questions live in [[Modes of Collaboration — Context]].*
+*Every mode's full profile, the ones not yet named, why this page is shaped as it is, and the open questions live in [[Modes of Collaboration — Context]].*
