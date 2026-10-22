@@ -15,17 +15,17 @@ forward_vector: "I am Palace Map's scroll — the page's front door, opening on 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-22T05:54:37.087Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-22T12:12:40.867Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** — · **Stage:** growing · **Steward:** none — this page has no permanent steward yet
-- **Plan:** agreed 2026-10-22 (today) · 1 made thing since
+- **Plan:** agreed 2026-10-22 (today) · 2 made things since
 - **Waiting on you:** nothing
-- **Last shipped:** 2026-10-22 (today) — Move 1 landed: palace-map.py, one query tool that reads the map from where an agent stands (a3ea9bca) (`palace-map-move1-landed-2026-10-22`)
-- **Last commit touching this page:** 2026-10-22 `5dceac6b` — edit(Palace Map): the scroll is born carrying the plan for the map's use: one query tool, the Concierge born with its ring, a map never older than the morning
+- **Last shipped:** 2026-10-22 (today) — Move 3 landed: the map is never older than the morning or the weave (5346d7eb, fd3205ce) (`palace-map-move3-landed-2026-10-22`)
+- **Last commit touching this page:** 2026-10-22 `c86936aa` — edit(Palace Map): the scroll's trail records Move 1 landed (a3ea9bca) and Now shows it as last shipped
 
 ### Where this stands
 
-Loudon, 2026-10-22: "The plan is approved as written… then start Move 1, the query tool." Built and committed the same day as a3ea9bca. `_ops/swarm/palace-map.py` reads the newest dated map, names the map it read on every answer, opens no entry body, and prints edges one per line. Verbs: near, path, hubs, quiet, ghosts (--persistent), diff, list; --json. `_ops/swarm/test-palace-map.py` holds `near` to the builder's degree for every node, `path` to symmetry, `diff` of a map against itself to empty: 5 tests, passing. Every verb ran against the 09-26 map and a fresh 10-22 build made in the session scratchpad, not placed in _ops/maps. `extract-neighborhood.py` stays until Move 3 edits the Weave…
+Loudon, 2026-10-22: "The Move 3 decisions and card edits are approved as drafted. Write the build-map.py shim and its test, then have the Concierge place the card edits and commit." Two commits. 5346d7eb: `_ops/swarm/build-map.py`, the stable door to the newest dated builder, keeping the last three builds in `_ops/maps/` (git holds the rest), and `test-build-map.py` (3 tests, passing). fd3205ce: the card edits, word for word from the approved draft — Map Build v2.6 (a build is not a run: § Cadence, postcondition, Steps 6 and 7, the Harvest-close vector struck; tuning item 9), Weave v1.9 (build-map.py at the open and after the writes, `palace-map.py diff` against the last weave's map opening…
 
 ### Open asks
 
@@ -108,6 +108,21 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="palace-map-move3-landed-2026-10-22" -->
+### 2026-10-22 — Move 3 landed: the map is never older than the morning or the weave (5346d7eb, fd3205ce)
+> shipped · Move 3 of the plan agreed 2026-10-22 · Move 2 remains
+
+Loudon, 2026-10-22: "The Move 3 decisions and card edits are approved as drafted. Write the build-map.py shim and its test, then have the Concierge place the card edits and commit." Two commits. 5346d7eb: `_ops/swarm/build-map.py`, the stable door to the newest dated builder, keeping the last three builds in `_ops/maps/` (git holds the rest), and `test-build-map.py` (3 tests, passing). fd3205ce: the card edits, word for word from the approved draft — Map Build v2.6 (a build is not a run: § Cadence, postcondition, Steps 6 and 7, the Harvest-close vector struck; tuning item 9), Weave v1.9 (build-map.py at the open and after the writes, `palace-map.py diff` against the last weave's map opening Step 2 and closing the report; item 46), The Daily Page v0.6 (the morning builds the map, deals, then reads the page's ring with `near`; the sit's commit carries the map; item 54), the task SKILL and README listing four tools, the Coordinator template calling `palace-map.py list`. The live scheduled-task copy outside the palace is untouched. What remains of the plan is Move 2: the Concierge born with its ring.
+
+**Artifacts:**
+- [build-map.py — the stable door](_ops/swarm/build-map.py)
+- [test-build-map.py — 3 tests](_ops/swarm/test-build-map.py)
+- [Map Build Ceremony v2.6 — § Cadence](_ops/Map Build Ceremony.md)
+
+_Next moves named:_ Move 2: the Concierge born with its ring
+<sub>`palace-map-move3-landed-2026-10-22` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="palace-map-move1-landed-2026-10-22" -->
 ### 2026-10-22 — Move 1 landed: palace-map.py, one query tool that reads the map from where an agent stands (a3ea9bca)
 > shipped · Move 1 of the plan agreed 2026-10-22 · Moves 2 and 3 wait on it
