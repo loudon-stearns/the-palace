@@ -1,0 +1,31 @@
+{
+  "name": "Belief Cloud",
+  "target": "BeliefCloud",
+  "company": "Loudon Live",
+  "bundle_id": "com.LoudonLive.BeliefCloud",
+  "manufacturer_code": "Loud",
+  "plugin_code": "Blcd",
+  "kind": "instrument",
+  "version": "0.1.0",
+  "hostcheck": [
+    "doubt=0.05",
+    "prior_shape=1",
+    "prior_tone=0.8",
+    "longest=400"
+  ],
+  "ui": {
+    "width": 1180,
+    "height": 760,
+    "min": [
+      1080,
+      700
+    ],
+    "max": [
+      1800,
+      1100
+    ],
+    "direction": "bench",
+    "tier": "Sketch",
+    "screen": true
+  }
+}

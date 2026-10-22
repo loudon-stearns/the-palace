@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Belief Cloud — the belief helix</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  html,body{margin:0;height:100%;background:#050508;color:#b8bfe8;font:12px/1.4 "JetBrains Mono",ui-monospace,Menlo,monospace}
+  #wrap{display:flex;flex-direction:column;height:100%;padding:12px;box-sizing:border-box;gap:10px}
+  #screen{flex:1;min-height:260px;border-radius:18px;overflow:hidden;position:relative;background:#000;
+    box-shadow:0 0 0 1px #2a2e45, 0 0 0 7px #0d0f18, 0 0 0 8px #2a2e45}
+  #screen::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:18px;
+    background:radial-gradient(ellipse at center, transparent 62%, rgba(0,0,0,.55) 100%)}
+  #bar{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+  button{background:#11131f;color:#d9def8;border:1px solid #2f3452;border-radius:4px;padding:5px 10px;font:inherit;cursor:pointer}
+  button.on{border-color:#e8b46a;color:#ffd79a}
+  label{display:flex;gap:6px;align-items:center;white-space:nowrap}
+  input[type=range]{width:96px;accent-color:#e8b46a}
+  #keys{display:flex;height:34px;user-select:none}
+  #keys div{width:22px;border:1px solid #2f3452;margin-right:-1px;background:#0c0e18;cursor:pointer}
+  #keys div.b{background:#05060b;height:22px;width:16px;margin:0 -8px;z-index:1;position:relative}
+  #keys div.down{background:#e8b46a}
+  .note{opacity:.6}
+</style></head>
+<body><div id="wrap">
+  <div id="screen"></div>
+  <div id="bar">
+    <button id="sound">sound on</button>
+    <button id="demo" class="on">demo performance</button>
+    <div id="keys"></div>
+    <label>doubt <input id="doubt" type="range" min="-3.9" max="1.38" step="0.01"></label>
+    <label>time to believe <input id="time_to_believe" type="range" min="-3" max="2.3" step="0.01"></label>
+    <label>prior shape <input id="prior_shape" type="range" min="0" max="1" step="0.01"></label>
+    <label>prior tone <input id="prior_tone" type="range" min="0" max="1" step="0.01"></label>
+    <button id="penta">A-minor-pentatonic prior</button>
+    <span class="note">keys A W S E D F T G Y H U J K · MIDI in · the CRT shows what the plugin will stream</span>
+  </div>
+</div>
+<script>
+/*BELIEF-CLOUD*/
+</script>
+<script>
+/*VISUALIZER*/
+</script>
+<script>
+// The page plays the part the plugin will: it runs the engine, and once a frame it
+// hands the visualizer the probe frame and the parameter values — the same two
+// things the editor will receive over the CRT feed.
+const SR = 44100, cloud = new BC.Cloud(SR), v = Float64Array.from(BC.DEFAULTS);
+const P = BC.P; cloud.reset(v);
+const params = () => { const q = {}; BC.IDS.forEach((id, i) => q[id] = v[i]); return q; };
+BeliefHelix.mount(document.getElementById("screen"));
+
+const logIds = { doubt: 1, time_to_believe: 1 };
+for (const id of ["doubt", "time_to_believe", "prior_shape", "prior_tone"]) {
+  const el = document.getElementById(id);
+  el.value = logIds[id] ? Math.log(v[P[id]]) : v[P[id]];
+  el.oninput = () => { v[P[id]] = logIds[id] ? Math.exp(+el.value) : +el.value; };
+}
+const syncSliders = () => { for (const id of ["doubt", "time_to_believe", "prior_shape", "prior_tone"]) document.getElementById(id).value = logIds[id] ? Math.log(v[P[id]]) : v[P[id]]; };
+const PENTA = [1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0];
+let penta = false;
+function setPenta(on) {
+  penta = on; document.getElementById("penta").classList.toggle("on", on);
+  PENTA.forEach((x, k) => v[P.pc_c + k] = on ? x : 1);
+  v[P.register] = on ? 57 : 64; v[P.register_width] = on ? 1.5 : 8;
+  if (on && v[P.prior_shape] === 0) { v[P.prior_shape] = 1; v[P.prior_tone] = 0.7; }
+  if (!on) { v[P.prior_shape] = 0; v[P.prior_tone] = 0; }
+  syncSliders();
+}
+document.getElementById("penta").onclick = () => setPenta(!penta);
+
+// ---- notes: keyboard strip, computer keys, MIDI
+const held = new Set();
+function on(m, vel = 0.8) { if (held.has(m)) return; held.add(m); cloud.noteOn(m, vel); paintKeys(); }
+function off(m) { held.delete(m); cloud.noteOff(m); paintKeys(); }
+const keysEl = document.getElementById("keys"), BLACK = [1, 3, 6, 8, 10];
+const keyEls = {};
+for (let m = 48; m <= 72; m++) {
+  const d = document.createElement("div"); if (BLACK.includes(m % 12)) d.className = "b";
+  d.onpointerdown = e => { stopDemo(); on(m); d.setPointerCapture(e.pointerId); };
+  d.onpointerup = () => off(m); keysEl.appendChild(d); keyEls[m] = d;
+}
+function paintKeys() { for (const m in keyEls) keyEls[m].classList.toggle("down", held.has(+m)); }
+const KB = "awsedftgyhujk";
+addEventListener("keydown", e => { if (e.repeat) return; const k = KB.indexOf(e.key); if (k >= 0) { stopDemo(); on(60 + k); } });
+addEventListener("keyup", e => { const k = KB.indexOf(e.key); if (k >= 0) off(60 + k); });
+if (navigator.requestMIDIAccess) navigator.requestMIDIAccess().then(acc => {
+  for (const inp of acc.inputs.values()) inp.onmidimessage = ev => {
+    const [s, n, vel] = ev.data, c = s & 0xf0;
+    if (c === 0x90 && vel > 0) { stopDemo(); on(n, vel / 127); } else if (c === 0x80 || c === 0x90) off(n);
+  };
+}).catch(() => {});
+
+// ---- the demo: the chord-belief take, looping (36 s)
+let demo = true, demoT = 0, demoStep = 0;
+const SCRIPT = [
+  [3, () => [60, 64, 67].forEach(m => on(m, 0.85))],
+  [11, () => { off(67); on(69, 0.75); }],
+  [17, () => [...held].forEach(off)],
+  [21, () => setPenta(true)],
+  [27, () => { on(45, 0.9); on(52, 0.7); }],
+  [34, () => [...held].forEach(off)],
+  [36, () => { setPenta(false); demoT = 0; demoStep = 0; }],
+];
+function stopDemo() { if (!demo) return; demo = false; document.getElementById("demo").classList.remove("on"); [...held].forEach(off); }
+document.getElementById("demo").onclick = () => {
+  if (demo) stopDemo(); else { demo = true; demoT = 0; demoStep = 0; document.getElementById("demo").classList.add("on"); }
+};
+function advanceDemo(dt) {
+  if (!demo) return;
+  demoT += dt;
+  while (demoStep < SCRIPT.length && demoT >= SCRIPT[demoStep][0]) SCRIPT[demoStep++][1]();
+}
+
+// ---- running the engine: through the speakers once sound is on, silently otherwise
+let actx = null, node = null;
+function run(n, L, R) { for (let i = 0; i < n; i++) { const o = cloud.step(v); if (L) { L[i] = o[0]; R[i] = o[1]; } } }
+document.getElementById("sound").onclick = () => {
+  if (actx) { actx.close(); actx = null; node = null; document.getElementById("sound").classList.remove("on"); document.getElementById("sound").textContent = "sound on"; return; }
+  actx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: SR });
+  // ScriptProcessor, not AudioWorklet: the board runs this page sandboxed, where a worklet's module can't load.
+  node = actx.createScriptProcessor(1024, 0, 2);
+  node.onaudioprocess = e => { const L = e.outputBuffer.getChannelData(0), R = e.outputBuffer.getChannelData(1); advanceDemo(L.length / SR); run(L.length, L, R); };
+  node.connect(actx.destination);
+  document.getElementById("sound").classList.add("on"); document.getElementById("sound").textContent = "sound off";
+};
+let lastT = performance.now();
+function tick(t) {
+  const dt = Math.min(0.1, (t - lastT) / 1000); lastT = t;
+  if (!actx) { advanceDemo(dt); run(Math.round(dt * SR), null, null); }
+  BeliefHelix.frame(cloud.readProbes(), params());
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+// for pictures: ?t=SECONDS jumps the demo ahead before the first frame
+const jump = +new URLSearchParams(location.search).get("t");
+if (jump > 0) { const step = 1 / 60; for (let x = 0; x < jump; x += step) { advanceDemo(step); run(Math.round(step * SR), null, null); BeliefHelix.frame(cloud.readProbes(), params(), step); } }
+</script>
+</body></html>

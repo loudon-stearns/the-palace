@@ -15,25 +15,36 @@ forward_vector: "I am Bayesian Granular Synthesizer's scroll — the one page th
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T11:29:13.515Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-22T10:41:00.434Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 3 · last ran 2026-10-14 (today)
-- **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 4 · last ran 2026-10-22 (today)
+- **Plan:** agreed 2026-10-15 (7 days ago) · 2 made things since · **a proposed revision is waiting on you**
 - **Waiting on you:** 2 open asks
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — Should the painted belief hum by itself before any note is held — not at all, gently, or fully? (`bgs-steward-008`)
-- **Last commit touching this project:** 2026-10-14 `fa400cf9` — steward(Bayesian Granular Synthesizer): cycle 2 — SPINNING UP. HOME: [Bayesian Granular Synthesizer](obsidian://open?vaul…
+- **Last shipped:** 2026-10-22 (today) — Make the plan the Belief Cloud VST: build it when the template can, then paint the prior on its screen, then entrainment, then the stage? (`bgs-steward-011`)
+- **Last commit touching this project:** 2026-10-21 `ca454ba2` — edit(nine steward scrolls): a standing order on Loudon's yes of 2026-10-21: make it a product, a VST prototype on the VST Template with a CRT visualizer drawn from the instrument's own metaphor; Max work stays set aside, perhaps later as teaching tools
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-22 — cycle 4 · taught item 1, proposed items 2, 3 for canon
+- **Owed in the ledger:** nothing
+- **Proposed for canon:** 2 — items 2, 3; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 3, from cycle 4 — 2026-10-22 — [[Bayesian Granular Synthesizer — tuning]]
 
 ### Where this stands
 
-Bayesian Granular Synthesizer is a grain cloud where the notes you hold are evidence. With nothing held, grains draw their pitch from a prior belief and come out short and clicky. Held notes sharpen into ±5-cent bumps, and grains near them grow long and pure, so the cloud condenses into the chord. Earlier today I rebuilt it as a playable page, then as RNBO code with a ready-wired Max patch that matches the page sample for sample. This cycle takes the next step on the proposed plan, the prior you paint. You now paint it one bar per semitone in Max, and a new knob lets the painted peaks lengthen grains themselves, so a composed resting cloud can sound tonal before you touch a key. Three rende…
+Bayesian Granular Synthesizer is a grain cloud where the notes you hold are evidence. With nothing held, grains pick their pitch from a prior belief and come out short and clicky. A held note becomes a bump of belief that narrows to about 5 cents, and grains near it grow long and pure, so the cloud condenses into the chord. In mid-October I rebuilt it as a playable web page and then in RNBO. On 2026-10-21 you set the Max work aside and asked for a product instead: a VST you can play in Live, built with VST Template, with a visualizer of its own in the middle of the editor. The template can't build a plugin inside my folder yet, and its screen has no feed. So this cycle I did the two things…
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 1:** Nobody has listened yet, and nothing here has been through the template's plugin gate, pluginval, auval or Live. _(in 2 notes, the latest cycle 4)_
 
 ### Open asks
 
-- `bgs-steward-003` — proposed plan revision: a first plan for the believing cloud · posted 2026-10-14 · options: adopt · keep
 - `bgs-steward-008` — should the painted prior hum on its own · posted 2026-10-14 · options: A · B · C
+- `bgs-steward-011` — proposed plan revision: the plan becomes the Belief Cloud VST · posted 2026-10-22 · options: adopt · keep
 
 ### Answered, not yet consumed
 
@@ -41,14 +52,35 @@ _None._
 
 ### Decided
 
-_Nothing decided on the board yet._
+- `bgs-steward-003` — a first plan for the believing cloud → GRANTED — option_id=adopt; notes: "Instead of aiming for max, make it a VST instrument" (2026-10-15)
+
+### Runs
+
+- 2026-10-22 — cycle 4 · taught item 1, proposed items 2, 3 for canon
+
+### Owed
+
+_Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **2.** 2026-10-22 · [[Bayesian Granular Synthesizer]] · frontmatter forward_vector — Loudon's standing order of 2026-10-21 moves the instrument from an RNBO engine to a VST product; the vector still names RNBO.
+- **3.** 2026-10-22 · [[Bayesian Granular Synthesizer]] · § Artifact (replacing its paragraph) — The section still says the code is waiting to be pulled from a chat; the instrument now exists in three checked forms.
 
 <!-- scroll:now:end -->
 
 ## Plan
 
 <!-- scroll:plan:start -->
-_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+Where this is going: a working RNBO grain engine where the chord a player holds is a hypothesis the cloud slowly comes to believe, with the prior itself as a belief the player paints, taken to a Loudon Live stage.
+
+1. Rebuild and hear it. The engine is rebuilt from the spec and playable in the board, with a 42-second take and a belief picture (done 2026-10-14). Loudon's ear against his memory of V7/V8 decides whether the constants need retuning.
+2. The RNBO engine. A codebox~ grain cloud with Poisson onsets, a voice pool, up to 16 held notes as evidence and the prior in a buffer~. A node mirror shows it matches the JS engine sample for sample, and a small demo patch says what to open and play. It stays marked unverified until Loudon opens it in Max.
+3. The paintable prior as a real control. A painter in Max (multislider or buffer~ drawing) plus presets. Decide by an A/B render whether the prior's own peaks should also lengthen grains, so a composed resting cloud can sound tonal before any note is held.
+4. Grains that entrain. Weakly couple the onset phases of grains near a held note (Kuramoto-style, after Phase Reduction), and audition whether population-locking adds to the condensation or muddies it.
+5. The stage. Package it as a Max for Live device with a V8-like reference voicing and play a short piece with it for Loudon Live.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -62,6 +94,96 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-bgs-steward-003" -->
+### 2026-10-14 — Plan agreed: Adopt a five-step path from today's rebuilt cloud to an RNBO instrument on the Loudon Live stage?
+
+Quick catch-up: this is the grain cloud where held notes are evidence. The pitch belief sharpens around the chord, and grains near a believed note grow long and pure. In May you tuned it by ear and called V7 and V8 good, but that code stayed in the chat. Today I rebuilt it from the entry's spec as one engine. It runs a playable page with a prior you paint and a 42-second take ([listen](open:Projects/Bayesian Granular Synthesizer/chord-belief.wav)). It holds a steady level from clicks to tone, and a settled chord puts about 80% of its energy on the held notes. No plan is agreed yet, so here is one. The order follows your forward vector: the RNBO engine first, then the paintable prior as a real control, then the optional grain entrainment, then the stage. Adopt makes it the plan. Keep leaves me building toward the forward vector without a written plan. Either way I'm still working and start on RNBO next.
+
+Loudon: "Instead of aiming for max, make it a VST instrument"
+<sub>`plan-bgs-steward-003` · plan agreed · agreed 2026-10-15T01:58:56.577Z · proposed by Bayesian Granular Synthesizer's steward (`bgs-steward-003`), adopted by Loudon (`resp-mv8w47y9-gdi80k`)</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="bgs-steward-011" -->
+### 2026-10-22 — cycle 4 — Make the plan the Belief Cloud VST: build it when the template can, then paint the prior on its screen, then entrainment, then the stage?
+> still working · port matched, helix sketched · steward leans adopt
+
+Catch-up: this is the grain cloud where held notes are evidence and the cloud condenses into the chord. On the 15th you adopted my first plan (RNBO engine, painted prior, grain entrainment, stage) with the note to make it a VST instead of a Max device. On 2026-10-21 your standing order said the same. This cycle I did the two steps that don't need the template's next move. The sound is ported to its shape, the C++ and JavaScript copies match the sketch sample for sample, and the screen picture is sketched. The revised plan swaps RNBO for the VST throughout. It also adds painting the prior on the screen and drops the Max steps. Adopt makes this the plan. Keep leaves the RNBO wording in place, but I'd build toward the VST either way, because the standing order says so. I'm still working while this waits.
+
+**Artifacts:**
+- [The helix sketch running on the ported engine: evidence for the first two steps.](Projects/Bayesian Granular Synthesizer/belief-helix.html)
+- [Four moments of the helix.](Projects/Bayesian Granular Synthesizer/belief-helix-states.png)
+- [belief-instrument.html](Projects/Bayesian Granular Synthesizer/belief-instrument.html)
+- [belief-instrument.template.html](Projects/Bayesian Granular Synthesizer/belief-instrument.template.html)
+- [prior-tone-ab.png](Projects/Bayesian Granular Synthesizer/prior-tone-ab.png)
+- [codebox-take.wav](Projects/Bayesian Granular Synthesizer/RNBO/codebox-take.wav)
+- [prior-tone-C.wav](Projects/Bayesian Granular Synthesizer/prior-tone-C.wav)
+- [prior-tone-B.wav](Projects/Bayesian Granular Synthesizer/prior-tone-B.wav)
+- [prior-tone-A.wav](Projects/Bayesian Granular Synthesizer/prior-tone-A.wav)
+<sub>`bgs-steward-011` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="bgs-steward-010" -->
+### 2026-10-22 — cycle 4 — Belief Cloud is ported into VST Template's shape and matches its sketch sample for sample, and its screen shows a helix where fog condenses into the chord.
+> shipped · port checked three ways, helix playable · steward leans build the plugin the day the template can
+
+**THE PORT.** plugin/ in my folder has everything the template asks for. `reference/sketch.py` runs the cloud one sample at a time. `src/Algorithm.h` is the C++ port, with 31 knobs, stereo out, and 53 probes for the screen. `reference/paths.py` holds four test runs, and `plugin.json` is set up as an instrument with its screen turned on. Since the template's harness can't be built from here yet, I wrote a stand-in. It's the same command line with no JUCE, and it calls the template's own verify.py helpers. On all four runs, the C++ and a JavaScript copy both match the sketch to about 3–6 × 10⁻⁸ of peak, which is float rounding. One shared, seeded random-number generator makes that possible: all three draw exactly the same grains.
+
+**WHAT CHANGED FROM THE WEB ENGINE.** The painted prior used to be 630 hand-drawn bins. It's now twelve knobs, one per pitch class, plus a register hill and a shape knob. That's the form a DAW can save and automate. Velocity now sets how strongly a note is believed. Notes sit in 16 fixed slots, and when the table fills, the weakest released note is dropped. The Prior tone knob, which lets the painted belief hum on its own, is in and defaults to off. That's my answer for now to the question I asked you on 2026-10-14. It's a knob, so you can set it by ear.
+
+**THE SCREEN.** Pitch becomes a helix with one turn per octave, so every C stands above every other C. Belief is light on the strand. Doubt is a blue fog in the tube. When you hold notes, the fog is pulled onto the strand at those notes and turns gold, and the light pinches to a bead as conviction grows. A dial on the floor shows how strongly each of the twelve pitch classes is believed. It draws the chord as a shape: C E G becomes a three-pointed star. Short grains fly off as cyan sparks (the clicks), and long grains ride the strand as gold beads (the tones). The camera slowly leans in as the cloud comes to believe. The picture reads only the probe frame and the knob values, so it can drop into the plugin's screen as is.
+
+**LISTEN.** The take below is the page's 36-second demo, rendered through the C++ engine. Level stays within 1.1 dB from all clicks to all tone (table).
+
+**PASSED OVER.** I didn't use three.js, because a sandboxed page can't fetch it. It's 2D canvas with my own projection, which also keeps the plugin free of a library. I also skipped painting the prior on the screen with the mouse. It's the obvious next step, and I've put it in the plan.
+
+**Artifacts:**
+- [Playable: the belief helix running on the ported engine. Demo plays silently on load; press sound on, play keys A W S E D…, or use MIDI.](Projects/Bayesian Granular Synthesizer/belief-helix.html)
+- [Four moments of the helix: all doubt, C E G believed, the painted prior humming alone, low A + E over it.](Projects/Bayesian Granular Synthesizer/belief-helix-states.png)
+- [36 s through the C++ engine: flat clicks → C E G → A minor → let go → painted pentatonic prior alone → low A + E.](Projects/Bayesian Granular Synthesizer/belief-cloud-take.wav)
+- [What the plugin folder holds, what was checked, and the three steps for when the template is ready.](Projects/Bayesian Granular Synthesizer/plugin/README.md)
+- [Belief Cloud, code Blcd, instrument, screen on.](Projects/Bayesian Granular Synthesizer/plugin/plugin.json)
+- [The cloud, one sample at a time, in the template's render() shape.](Projects/Bayesian Granular Synthesizer/plugin/reference/sketch.py)
+- [Four test runs, every one gated sample for sample.](Projects/Bayesian Granular Synthesizer/plugin/reference/paths.py)
+- [The C++ port: 31 parameters, stereo, 53 probes for the screen.](Projects/Bayesian Granular Synthesizer/plugin/src/Algorithm.h)
+- [A JUCE-free stand-in for the template's harness, engine mode only.](Projects/Bayesian Granular Synthesizer/plugin/check/engine_check.cpp)
+- [Runs sketch, C++ and JavaScript through every path with the template's verify.py helpers.](Projects/Bayesian Granular Synthesizer/plugin/check/check_engine.py)
+- [Drives the JavaScript engine the way the harness drives the C++.](Projects/Bayesian Granular Synthesizer/plugin/check/js_engine.cjs)
+- [Wrapper so verify.py's runner can call the JavaScript engine.](Projects/Bayesian Granular Synthesizer/plugin/check/js_engine.sh)
+- [Renders the demo performance through the C++ engine.](Projects/Bayesian Granular Synthesizer/plugin/check/render_take.py)
+- [Every path's match numbers: C++ and JavaScript against the sketch.](Projects/Bayesian Granular Synthesizer/plugin/out/check-report.json)
+- [The take's level, grain length, doubt and voices per moment.](Projects/Bayesian Granular Synthesizer/plugin/out/take-levels.json)
+- [The belief helix, for the CRT: mount(el), frame(probes, params).](Projects/Bayesian Granular Synthesizer/plugin/ui/visualizer.js)
+- [The engine in JavaScript, ported line for line from Algorithm.h, for the sketch page.](Projects/Bayesian Granular Synthesizer/plugin/ui/belief_cloud.js)
+- [The sketch page's source.](Projects/Bayesian Granular Synthesizer/plugin/ui/belief-helix.template.html)
+- [Inlines engine and visualizer into belief-helix.html.](Projects/Bayesian Granular Synthesizer/plugin/ui/build_helix.js)
+
+_The 36-second take through the C++ engine (out/take-levels.json)_
+| moment | level (RMS) | mean grain length | doubt's share | most voices |
+| --- | --- | --- | --- | --- |
+| flat prior, nothing held | -20.5 dB | 4 cycles | 100% | 12 |
+| C E G held | -19.8 dB | 59 cycles | 8% | 66 |
+| A minor | -20.5 dB | 81 cycles | 8% | 60 |
+| let go | -20.6 dB | 15 cycles | 30% | 48 |
+| painted pentatonic prior, nothing held | -20.4 dB | 16 cycles | 89% | 25 |
+| low A + E over it | -20.9 dB | 54 cycles | 12% | 120 |
+
+_Changed in the workshop:_ README — New: the plugin folder's map, what the check covers and what it doesn't, and the steps for when the template can build here.
+_Proposed for canon:_ Bayesian Granular Synthesizer (frontmatter forward_vector) — Loudon's standing order of 2026-10-21 moves the instrument from an RNBO engine to a VST product; the vector still names RNBO.; owed in the tuning ledger until Loudon's review
+_Proposed for canon:_ Bayesian Granular Synthesizer (§ Artifact (replacing its paragraph)) — The section still says the code is waiting to be pulled from a chat; the instrument now exists in three checked forms.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has listened yet, and nothing here has been through the template's plugin gate, pluginval, auval or Live. Those wait on the template building a plugin inside my folder. The editor's fit with 31 knobs plus the screen is a guess. The JavaScript page's sound and live MIDI weren't heard or tested; only the pictures were checked, in headless Chrome.
+
+_Next moves named:_ The day VST Template can build from a steward's bundle: copy CMakeLists.txt and plugin.sh in, run ./plugin.sh all, check the editor's fit, and load Belief Cloud in a second Live 12. · Make the screen a painting surface: drag on the floor dial to set the twelve Prior pitch-class knobs, so you compose the resting belief by hand on the CRT. Sketch it in belief-helix.html first. · Check by ear whether the plugin's 20 ms smoothing of Doubt and Grain rate makes it draw different grains from the sketch. If it does, gate the plugin on loudness alone, as the README says.
+<sub>`bgs-steward-010` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-f9639a2c5f" -->
+### 2026-10-22 — cycle 4
+
+taught item 1, proposed items 2, 3 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="bgs-steward-008" -->
 ### 2026-10-14 — cycle 3 — Should the painted belief hum by itself before any note is held — not at all, gently, or fully?
 > still working · three 31-second takes rendered · steward leans B

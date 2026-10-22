@@ -1,0 +1,74 @@
+{
+ "passed": true,
+ "sr": 44100,
+ "paths": [
+  {
+   "name": "chord-belief",
+   "secs": 5.0,
+   "max_err_of_peak": 3.1922529972548076e-08,
+   "probe_err": {
+    "voices": 0.0,
+    "mean_cycles": 4.263256414560601e-14,
+    "grain_note": 1.4210854715202004e-14
+   },
+   "peak": 0.4667472506345404,
+   "rms": 0.0940062948423113,
+   "max_voices": 30,
+   "sketch_s": 2.2,
+   "engine_s": 0.11,
+   "js_err_of_peak": 3.1922529972548076e-08,
+   "passed": true
+  },
+  {
+   "name": "painted-prior",
+   "secs": 4.0,
+   "max_err_of_peak": 3.4959857136422876e-08,
+   "probe_err": {
+    "voices": 0.0,
+    "mean_cycles": 1.0658141036401503e-14,
+    "grain_note": 7.105427357601002e-15
+   },
+   "peak": 0.42621488735254176,
+   "rms": 0.0956220586907986,
+   "max_voices": 40,
+   "sketch_s": 2.1,
+   "engine_s": 0.09,
+   "js_err_of_peak": 3.4959857136422876e-08,
+   "passed": true
+  },
+  {
+   "name": "sweeps",
+   "secs": 4.0,
+   "max_err_of_peak": 5.713406077212493e-08,
+   "probe_err": {
+    "voices": 0.0,
+    "mean_cycles": 1.4210854715202004e-14,
+    "grain_note": 0.0
+   },
+   "peak": 0.5174071669981762,
+   "rms": 0.0957021460154847,
+   "max_voices": 77,
+   "sketch_s": 2.8,
+   "engine_s": 0.09,
+   "js_err_of_peak": 5.713406077212493e-08,
+   "passed": true
+  },
+  {
+   "name": "crowded",
+   "secs": 3.0,
+   "max_err_of_peak": 3.394677906337932e-08,
+   "probe_err": {
+    "voices": 0.0,
+    "mean_cycles": 8.881784197001252e-16,
+    "grain_note": 0.0
+   },
+   "peak": 0.43894449518428014,
+   "rms": 0.0939859839879345,
+   "max_voices": 12,
+   "sketch_s": 1.1,
+   "engine_s": 0.07,
+   "js_err_of_peak": 3.394677906337932e-08,
+   "passed": true
+  }
+ ]
+}
