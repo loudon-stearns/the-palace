@@ -40,9 +40,9 @@ _Nothing owed._
 <!-- scroll:plan:start -->
 **Where this is going.** Creative Coach becomes a coach that answers a participant's daily reflection the way Loudon does, and the claim is tested against his real replies, not asserted.
 
-1. **Test the folded section on moments no drafter has seen.** Two arms, the page with and without § In the room, judged in two sealed stages. (Carried by [[Creative Coach — baton]].)
-2. **Fold what the test teaches back into § In the room, on Loudon's yes, and test again.** Size and the number of questions asked are the known misses.
-3. **Test in a second room.** One participant is one test; the next evidence comes from another participant or the cohort room.
+1. **Test § In the room (v2.3) in a second room, when one exists.** The first room's moments were all folded into the page on 2026-10-21, so none of them is clean; the next evidence comes from another participant or the cohort room. Two arms, the page with and without § In the room, judged in two sealed stages. (Carried by [[Creative Coach — baton]].)
+2. **Fold what that test teaches back into § In the room, on Loudon's yes, and test again.** Size and the number of questions asked are the known misses.
+3. **Open the cohort room**, the closed space the page keeps pointing at, where a participant's own work comes back and is answered.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -56,6 +56,29 @@ _Nothing owed._
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-2026-10-21-second-room" -->
+### 2026-10-21 — Plan changed
+
+Loudon, verbatim: "Land both commits: fold the close into § In the room as v2.3 now. The test can wait for a second room." Step 1 now tests § In the room in a second room; step 3 opens the cohort room.
+<sub>plan changed · on Loudon's yes · the Concierge</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="version-dd785c28" -->
+### 2026-10-21 — the spec moved to v2.3
+
+edit(Creative Coach): v2.3 — § In the room ends on the close: the participant's finds, the tired day, the thirtieth loop; items 14–15
+
+The participant's finds, paraphrased, and the month's ending folded into § In the room; items 14 and 15 in the ledger. Landed on Loudon's yes of 2026-10-21.
+<sub>`dd785c28` · version change</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="close-2026-10-21-first-room" -->
+### 2026-10-21 — the first room closed
+
+The one-month room ended on its thirtieth loop. The eight moments after the "rigid" question are staged in a session scratchpad for the baton's test and leave with it; item 13 in the ledger says how the silent one is scored. The fold that would end § In the room on the close (v2.3, items 14 and 15) is drafted and waits on Loudon's choice, since folding those moments makes them seen before the test. Nothing about the participant entered the palace; the Sentry read the whole before commit.
+<sub>the Concierge, on the session of 2026-10-21</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="version-1048e8425b9b468e47cd7cdd17e2e1d386adf251" -->
 ### 2026-10-18 — the spec moved to v2.2
 
