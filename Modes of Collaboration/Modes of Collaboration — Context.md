@@ -10,11 +10,23 @@ forward_vector: "I hold the full per-mode attribute blocks, named examples, and 
 
 # Modes of Collaboration — Context
 
-The full per-mode detail moved out of [[Modes of Collaboration]] so the catalogue stays a lean Tier-2 list. Each fully developed mode may also have its own file in the modes folder.
+The full per-mode detail lives here, so [[Modes of Collaboration]] can stay an invitation on the floor: a few modes, told by where they came from. A mode that grows its own page lives in the modes folder or wherever its work sits.
 
 ## Origin
 
 The recognition that these modes exist as distinct patterns emerged during the Kuramoto coupling lesson series (March 2026), where Mentor and Quiz proved highly effective and Loudon observed: "we have been developing many modes of collaboration... this is deserving of a list/formulation somewhere in the palace so we can pick from various modes when we want to attack a topic."
+
+## Why the page is shaped this way
+
+The page loads into every agent at birth, so it is written for a newborn rather than as a menu for Loudon. On 2026-10-21 he asked for it to be framed around inventing new modes: "Make a point that developing a mode is celebrated. Modes of collaboration can develop from philosophies and nature and physics and fiction and beyond. Creative interactions is generative." And: "zoom out a bit and think of this list as examples of a broader important context that will invite new agents to be creative and original in their collaborative behaviour between each other and with humans."
+
+So the floor tells a few modes by origin (a film, a philosophy, an artist's practice, an ant colony, and physics in the coupling dial) instead of listing them all, and the full profiles live below. Three things left the floor for reasons a later editor should keep:
+
+- **Ceremonies are not repeated there.** The Harvest/Deposit and the Scroll are already in every birth through CHILD (its trigger table, and § A page and its folder). The words *walk*, *deposit*, *harvest* and *scroll* are also ceremony or bundle words, so the floor uses them only where it must, and names the one collision it keeps (a shared walk is not the [[Walk Ceremony]]).
+- **The learner-facing modes stay here.** Mentor and Quiz, Interactive Exploration, the Build Session and the Philosophical Dialogue are ways Loudon learns. A newborn agent needs to know that modes exist and can be made, more than this particular set.
+- **Length is a claim about importance.** The floor runs 397 words, down from 572.
+
+"The question 'which mode?' is itself a mode — the meta-mode of choosing how to learn." (the old floor's closing line, kept here.)
 
 ## Full mode profiles
 
@@ -67,6 +79,33 @@ The palace ceremonies themselves — structured collaborative knowledge work. Cl
 - **Ideal for:** knowledge persistence, making conversation durable
 - **Named examples:** all deposit ceremonies
 
+### The Debrief Reel
+A visuals-enriched [[Radio Play]] made to explain just-finished work back to yourself. Understanding is the deliverable and the artifact is a byproduct. It looks back where the Build Session looks forward, and is best right after shipping something dense, as a reflecting surface ([[Hilaritas Generator]]).
+- **Rhythm:** after the fact, once; a short listen
+- **Power dynamic:** the agent makes it; Loudon is the audience it is for
+- **Output:** an audio drama with visuals, and the understanding it leaves behind
+- **Ideal for:** dense work that shipped faster than it was understood
+- **Named examples:** *The Unsung Path* (2026-06-19), the Shop's first radio play, on the STIGMERGY weave-proposals work (`Shop/Maker.md`)
+
+### The Scroll
+A living page bound to an entry that gathers what is made with it — proofs and media — across the whole conversation, instead of landing in deposit-sized chunks. Part index, part reading surface; the counter-rhythm to the deposit cadence. It opens on where the page stands and the plan it is following, then everything made, newest first ([[The Scroll]]; CHILD § A page and its folder).
+- **Rhythm:** continuous, append as you go
+- **Power dynamic:** shared; the plan at the top changes only on Loudon's yes
+- **Output:** one growing page per entry
+- **Ideal for:** making media *with* an entry
+- **Named examples:** BLUELINE, Generative Sample Libraries
+
+### The Shared Walk
+Two minds read a shared third thing, a palace entry, together, rather than facing each other. A [[Dialectic]] sharpens a contrary: both leave more distinct than they arrived. A shared walk dissolves one: they end on the same side of the page, facing the entry, not each other. Best when two positions have hardened and you want them to meet on a common object instead of clashing. [[The Remembering Page]] names the two modes (its § on how conversations grow a self) and asks for the walk to be named here. Not the [[Walk Ceremony]], which follows one entry's typed links.
+- **Rhythm:** slow, side by side
+- **Power dynamic:** symmetric; the entry leads
+- **Output:** a dissolved contrary, often a settled question
+- **Ideal for:** two positions that have hardened
+- **Named examples:** Eno and Cage, *Walk Into Lateral Access* (2026-07-02), the third of their Dialectic encounters
+
+### Modes with pages of their own
+[[Excellent Adventure]] · [[Dialectic]] · [[Philosopher Visits the Entry]] · [[Oblique Portrait]] · [[Swarm Weave]] (agents with agents, by trace) · [[Radio Play]] · [[The Scroll]]
+
 ## Modes Not Yet Named
 
 Recurring patterns that haven't been formally named:
@@ -84,3 +123,4 @@ These deserve naming and characterization as they mature.
 - Can modes be combined deliberately? (e.g., Excellent Adventure + Build Session = building something with a historical figure as consultant)
 - Is there a mode taxonomy — a small number of dimensions (structured/improvised, who-leads, output-type) that generates all modes?
 - How do modes relate to [[Symbiotic Skills]] progression? Do different symbiotic skill levels unlock different modes?
+- The floor says who leads works like the coupling constant in [[Kuramoto Coupling]] (2026-10-21). Does it hold as a dial a session can turn on purpose, and is it the first axis of the mode taxonomy asked about above?
