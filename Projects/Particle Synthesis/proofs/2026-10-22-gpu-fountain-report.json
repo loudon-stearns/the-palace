@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-22",
+  "checks": {
+    "mirror_mode0": {
+      "impacts_gpu": 349,
+      "impacts_cpu": 349,
+      "launches_gpu": 96,
+      "launches_cpu": 96,
+      "corr_L": 0.99998,
+      "corr_first_s_L": 1,
+      "maxdiff_over_peak_L": 0.00962,
+      "corr_R": 0.99999,
+      "corr_first_s_R": 1,
+      "maxdiff_over_peak_R": 0.0102,
+      "cpu_ms": 2098,
+      "gpu_ms": 496,
+      "engine": "apple metal-3"
+    },
+    "mirror_mode1": {
+      "impacts_gpu": 349,
+      "impacts_cpu": 349,
+      "launches_gpu": 96,
+      "launches_cpu": 96,
+      "corr_L": 0.99998,
+      "corr_first_s_L": 1,
+      "maxdiff_over_peak_L": 0.0081,
+      "corr_R": 0.99998,
+      "corr_first_s_R": 1,
+      "maxdiff_over_peak_R": 0.00835,
+      "cpu_ms": 1743,
+      "gpu_ms": 431,
+      "engine": "apple metal-3"
+    },
+    "speed_n64": {
+      "ms_for_6s": 732,
+      "share_of_realtime": 0.1221,
+      "impacts": 429,
+      "launches": 124
+    },
+    "speed_n256": {
+      "ms_for_6s": 752,
+      "share_of_realtime": 0.1254,
+      "impacts": 1765,
+      "launches": 490
+    },
+    "speed_n1024": {
+      "ms_for_6s": 787,
+      "share_of_realtime": 0.1311,
+      "impacts": 7186,
+      "launches": 1963
+    }
+  },
+  "renders": {
+    "ice": {
+      "impacts": 22666,
+      "launches": 4991,
+      "ms": 2268,
+      "raw_rms": 0.031416283788559575,
+      "raw_peak": 0.27379149198532104
+    },
+    "mapped": {
+      "impacts": 22666,
+      "launches": 4991,
+      "ms": 2077,
+      "raw_rms": 0.3900622664399613,
+      "raw_peak": 2.45951509475708
+    },
+    "loudness": "both RMS-matched; shared scale 1.000"
+  },
+  "console": []
+}

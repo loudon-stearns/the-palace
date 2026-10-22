@@ -15,23 +15,36 @@ forward_vector: "I am Particle Synthesis's scroll — the one page that always o
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-23T05:12:34.000Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — steer the project in **Standing Orders** below, never here._
+> _Regenerated 2026-10-22T10:21:43.656Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** dormant · **Steward:** cycle 5 · last ran 2026-09-23 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 6 · last ran 2026-10-22 (today)
+- **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-09-23 (today) — Grains that meet: two fountains aimed at each other, so ice grains clack in mid-air and land somewhere new. A/B renders, figure, live bench. (`particle-synthesis-009`)
-- **Last commit touching this project:** 2026-09-23 `146c6c4` — steward(Particle Synthesis): pilot cycle 4 — the fountain on ice (revival probe)
+- **Last shipped:** 2026-10-22 (today) — Here's a first plan: GPU fountain (done), your ears on the A/B, collisions on the GPU, then a playable instrument. Adopt it? (`particle-synthesis-012`)
+- **Last commit touching this project:** 2026-10-21 `99978d05` — edit(Particle Synthesis): its steward's tuning ledger is born with one one-shot order from Loudon: the next cycle proposes a plan as a plan revision for his yes, since the revival landed without one
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-22 — cycle 6 · taught item 1, proposed item 2 for canon
+- **Owed in the ledger:** nothing
+- **Proposed for canon:** 1 — item 2; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 2, from cycle 6 — 2026-10-22 — [[Particle Synthesis — tuning]]
 
 ### Where this stands
 
-Particle Synthesis treats each grain of a granular synth as a real particle, with position, speed and mass, so the sound comes from physics rather than knobs. Its test is to sound like physics, not like parameter modulation. Earlier today the fountain on ice shipped: particles fall onto a stiff plate, and each strike reaches two pickups as a falling chirp, with an interactive lesson to play it. This cycle takes the page's other open question: what happens when grains hit each other instead of just adding up? Two fountains throw small ice grains at each other. When two meet in the air you hear a dry clack, worked out from how two ice balls touch and push the air. When they land you hear the…
+Particle Synthesis treats each grain of a granular synth as a real particle with position, speed and mass, so the sound comes out of physics instead of knobs. Its test is to sound like physics, not like parameter modulation. In September I threw particles onto a stiff ice plate, where each strike reaches two pickups as a falling chirp, highs first. Then I aimed two fountains at each other so grains clack in mid-air. You revived the page to sprout. The page's forward vector has always asked for one thing none of that delivered: a GPU compute shader running about a thousand particles at audio rate. This cycle built it. Each particle is one GPU thread. For every audio sample it moves its parti…
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 4:** Nobody has listened yet. _(in 3 notes, the latest cycle 6)_
+- **rough since cycle 4:** I don't know how the live bench runs on your machine's audio. _(in 2 notes, the latest cycle 5)_
 
 ### Open asks
 
-- `particle-synthesis-007` — directional_decision · posted 2026-09-23 · options: REVIVE-TO-SPROUT · STAY-DORMANT · NOT-SURE-YET
+- `particle-synthesis-012` — proposed plan revision: a first plan for Particle Synthesis · posted 2026-10-22 · options: adopt · keep · STEER
 
 ### Answered, not yet consumed
 
@@ -39,9 +52,30 @@ _None._
 
 ### Decided
 
+- `particle-synthesis-007` — directional_decision → GRANTED — option_id=REVIVE-TO-SPROUT (2026-09-24)
 - `particle-synthesis-004` — directional_decision → GRANTED — option_id=POLYPHONIC-CLOUD; notes: "create an interactive HTML lesson that demonstrates the arc of this project and where it is goin." (2026-06-25)
 
+### Runs
+
+- 2026-10-22 — cycle 6 · taught item 1, proposed item 2 for canon
+
+### Owed
+
+_Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **2.** 2026-10-22 · [[Particle Synthesis]] · § Particle Fountain: First Build, the paragraph beginning **The physics-as-DSP insight:** — The current paragraph says the particle under gravity is the harmonic oscillator and that the gravity constant is the spring constant. Both are wrong: a thrown particle follows a parabola, and nothing in it is a spring. The new words keep the real insight and say what the build actually does.
+
 <!-- scroll:now:end -->
+
+## Plan
+
+<!-- scroll:plan:start -->
+_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+<!-- scroll:plan:end -->
 
 ## Standing Orders
 
@@ -51,6 +85,74 @@ _None._
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="particle-synthesis-012" -->
+### 2026-10-22 — cycle 6 — Here's a first plan: GPU fountain (done), your ears on the A/B, collisions on the GPU, then a playable instrument. Adopt it?
+> still working · GPU fountain shipped · steward leans adopt
+
+Particle Synthesis turns each grain of a granular synth into a real particle, so the sound comes out of physics instead of knobs. You revived it to sprout in September, but nobody wrote a plan, and you asked me to propose one. Today's build is the first move: a thousand particles on the GPU, each moved and heard at audio rate, checked against a CPU copy, plus an A/B of the same strikes heard through the ice and as ordinary mapped grains. The plan puts your ear check second, because 'does it sound like physics?' is the page's whole test and only you can answer it. I keep building while I wait. After that: collisions on the GPU, then an instrument you can play, then the ceiling past 1024 particles, then a Live spec that waits for the Max standards, then folding what's proven into the page.
+
+**Artifacts:**
+- [the first move, shipped: the live GPU fountain.](Projects/Particle Synthesis/proofs/2026-10-22-gpu-fountain.html)
+- [the A/B the ear check would listen to.](Projects/Particle Synthesis/proofs/2026-10-22-gpu-fountain-AB.png)
+- [2026-09-23-particle-synthesis-lesson.html](Projects/Particle Synthesis/proofs/2026-09-23-particle-synthesis-lesson.html)
+- [2026-09-23-grains-that-meet.png](Projects/Particle Synthesis/proofs/2026-09-23-grains-that-meet.png)
+- [2026-09-23-grains-05-crossing-collide.wav](Projects/Particle Synthesis/proofs/2026-09-23-grains-05-crossing-collide.wav)
+- [2026-09-23-grains-04-crossing-pass-through.wav](Projects/Particle Synthesis/proofs/2026-09-23-grains-04-crossing-pass-through.wav)
+- [2026-09-23-fountain-cloud64.png](Projects/Particle Synthesis/proofs/2026-09-23-fountain-cloud64.png)
+- [2026-09-23-fountain-03-cloud1000-ice.wav](Projects/Particle Synthesis/proofs/2026-09-23-fountain-03-cloud1000-ice.wav)
+- [2026-09-23-fountain-02-cloud64-ice.wav](Projects/Particle Synthesis/proofs/2026-09-23-fountain-02-cloud64-ice.wav)
+- [2026-09-23-fountain-01-cloud64-dry.wav](Projects/Particle Synthesis/proofs/2026-09-23-fountain-01-cloud64-dry.wav)
+- [2026-09-23-fountain-00-one-particle.wav](Projects/Particle Synthesis/proofs/2026-09-23-fountain-00-one-particle.wav)
+<sub>`particle-synthesis-012` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="particle-synthesis-011" -->
+### 2026-10-22 — cycle 6 — The fountain runs on the GPU: 1024 particles, each moved and heard 48,000 times a second, with an A/B of physics against mapped grains.
+> shipped · GPU matches CPU at 0.99998 · steward leans: ears on the A/B, then collisions on the GPU
+
+**Start with [the live page](open:Projects/Particle Synthesis/proofs/2026-10-22-gpu-fountain.html).** Press start. It throws 1024 particles from a fountain you can walk away from the pickups, with sliders for throw strength, ice stiffness and rest between throws, and a switch between *heard through the ice* and *mapped grains*. A side view shows every particle (fresh strikes flash white), and a scrolling spectrogram runs underneath. If the browser has no WebGPU it falls back to the CPU copy at 48 particles.
+
+**Then the A/B.** [A, heard through the ice](open:Projects/Particle Synthesis/proofs/2026-10-22-gpu-fountain-A-ice.wav) and [B, mapped grains](open:Projects/Particle Synthesis/proofs/2026-10-22-gpu-fountain-B-mapped.wav) are 16 s each. Both use 1024 particles and the same 4,991 throws and 22,666 strikes, with the fountain walking from 3 m to 18 m away. They are matched for loudness. In A every strike travels the plate by the dispersion law, so a far strike sweeps slower than a near one. In B each strike fires a decaying sine whose pitch is set by distance (2 kHz near, 200 Hz far). That is the usual granular mapping: same information, chosen by a rule. [The figure](open:Projects/Particle Synthesis/proofs/2026-10-22-gpu-fountain-AB.png) shows the difference before you listen. A is a weather of slanted chirps whose slants lengthen as the fountain recedes. B is a single band of pitch sliding down, which is exactly what parameter modulation looks like.
+
+**How I know the shader is right.** The page carries a CPU copy of the same kernel. At 64 particles over 4 s both make the same 96 throws and the same 349 strikes, and the sound correlates at 0.99998 in both modes, with the largest difference about 1% of the peak. Getting there taught me something. With the CPU's motion in 64-bit floats, the same strikes landed a sample apart after the first second and correlation fell to 0.57. Once the CPU copy steps the motion and the rest timer in 32-bit, as the GPU does, they agree.
+
+**Speed, on this Mac's Metal GPU.** Offline, 6 s of sound takes 0.73 s at 64 particles and 0.79 s at 1024, about an eighth of real time either way. Cost barely grows with particle count. What limits it is each thread walking 4,096 samples in a row, plus copying the result back. Live, with the particle positions also copied out for the picture, a block costs about a quarter of its playing time. There is room for far more particles than 1024.
+
+**Artifacts:**
+- [the live fountain on the GPU: 1024 particles, the ice/mapped switch, distance, throw, stiffness, rest. Press start.](Projects/Particle Synthesis/proofs/2026-10-22-gpu-fountain.html)
+- [A, 16 s: 1024 particles heard through the ice, fountain walking 3 → 18 m.](Projects/Particle Synthesis/proofs/2026-10-22-gpu-fountain-A-ice.wav)
+- [B, 16 s: the same throws and strikes as mapped grains, pitch set by distance. Loudness matched to A.](Projects/Particle Synthesis/proofs/2026-10-22-gpu-fountain-B-mapped.wav)
+- [spectrograms of A and B with a 0.6 s zoom: a weather of chirps against one sliding band.](Projects/Particle Synthesis/proofs/2026-10-22-gpu-fountain-AB.png)
+- [drives the page in headless Chrome: the GPU/CPU check, the speed runs, the A/B renders.](Projects/Particle Synthesis/proofs/2026-10-22-gpu-fountain-harness.mjs)
+- [every number from the checks and renders.](Projects/Particle Synthesis/proofs/2026-10-22-gpu-fountain-report.json)
+- [draws the figure (run with /usr/local/bin/python3).](Projects/Particle Synthesis/proofs/2026-10-22-gpu-fountain-figure.py)
+
+_GPU kernel against its CPU copy, and what it costs (Apple Metal, headless Chrome)_
+| check | result |
+| --- | --- |
+| throws / strikes, 64 particles, 4 s | 96 / 349 on both |
+| sound correlation, ice mode (L, R) | 0.99998, 0.99999 |
+| sound correlation, mapped mode (L, R) | 0.99998, 0.99998 |
+| largest difference ÷ peak | about 1% |
+| same check with 64-bit motion on the CPU | 0.57: strikes drift a sample apart |
+| 6 s of sound at 64 / 256 / 1024 particles | 0.73 / 0.75 / 0.79 s |
+| live, 1024 particles, with the picture | about 25% of playing time |
+
+_Proposed for canon:_ Particle Synthesis (§ Particle Fountain: First Build, the paragraph beginning **The physics-as-DSP insight:**) — The current paragraph says the particle under gravity is the harmonic oscillator and that the gravity constant is the spring constant. Both are wrong: a thrown particle follows a parabola, and nothing in it is a spring. The new words keep the real insight and say what the build actually does.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has listened yet. Whether A reads as physics and B as modulation is the page's whole test, and only your ears can answer it. I ran the live page only in headless Chrome, with no speakers, so the in-browser sound and the feel of the sliders are unverified. Particles still pass through each other on the GPU; September's mid-air clack hasn't moved over yet.
+
+_Next moves named:_ Move the grains-that-meet collisions into the shader with a spatial grid, so a thousand particles can clack off each other in mid-air and aim becomes a playable knob. · Find where the GPU actually runs out: raise the particle ceiling past 1024 and measure whether the ear still gains anything from the extra density.
+<sub>`particle-synthesis-011` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-0e54b3fb55" -->
+### 2026-10-22 — cycle 6
+
+taught item 1, proposed item 2 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="particle-revival-2026-10-21" -->
 ### 2026-10-21 — Revived: the page is sprout, on Loudon's grant of 2026-09-24
 

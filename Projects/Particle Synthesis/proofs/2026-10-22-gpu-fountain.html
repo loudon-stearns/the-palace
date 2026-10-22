@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Particle Synthesis · the fountain on the GPU</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --bg:#0e1116; --panel:#161b22; --ink:#e6e1d6; --dim:#8b8f98; --ice:#7fd3e6; --warm:#e9a75a; --line:#2a313b; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.5 -apple-system, "Helvetica Neue", sans-serif; }
+  main { max-width: 980px; margin: 0 auto; padding: 22px 18px 40px; }
+  h1 { font-size: 22px; font-weight: 600; margin: 0 0 4px; }
+  .sub { color: var(--dim); margin: 0 0 16px; }
+  p { margin: 8px 0; max-width: 72ch; }
+  .stage { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+  canvas { width: 100%; display: block; border-radius: 4px; background: #0a0d11; }
+  .row { display:flex; flex-wrap:wrap; gap: 10px 22px; align-items:center; margin-top: 10px; }
+  label { color: var(--dim); font-size: 13px; display:flex; gap:8px; align-items:center; }
+  label .v { color: var(--ink); min-width: 4.5em; font-variant-numeric: tabular-nums; }
+  input[type=range] { width: 150px; accent-color: var(--ice); }
+  button { background: var(--ice); color:#071017; border:0; border-radius: 5px; padding: 7px 16px; font-weight:600; cursor:pointer; }
+  button.off { background: #2a313b; color: var(--ink); }
+  .seg button { border-radius: 0; margin: 0; }
+  .seg button:first-child { border-radius: 5px 0 0 5px; } .seg button:last-child { border-radius: 0 5px 5px 0; }
+  .status { font: 12px/1.4 ui-monospace, Menlo, monospace; color: var(--dim); margin-top: 8px; min-height: 1.4em; }
+  .eq { background: var(--panel); border-left: 3px solid var(--ice); padding: 8px 12px; margin: 12px 0; }
+  .eq .s { font: 15px ui-monospace, Menlo, monospace; } .eq .w { color: var(--dim); font-size: 13px; }
+  table { border-collapse: collapse; font-size: 13px; margin: 10px 0; }
+  td, th { border-bottom: 1px solid var(--line); padding: 4px 12px 4px 0; text-align: left; }
+  th { color: var(--dim); font-weight: 500; }
+</style>
+</head>
+<body>
+<main>
+<h1>The fountain on the GPU</h1>
+<p class="sub">Particle Synthesis · 2026-10-22 · up to 1024 particles, each one thread, each one moved and heard at 48,000 steps a second</p>
+
+<div class="stage">
+  <canvas id="view" width="940" height="250"></canvas>
+  <canvas id="spec" width="940" height="140" style="margin-top:8px"></canvas>
+  <div class="row">
+    <button id="go">start</button>
+    <span class="seg"><button id="mPhys">heard through the ice</button><button id="mMap" class="off">mapped grains</button></span>
+  </div>
+  <div class="row">
+    <label>particles <input id="n" type="range" min="16" max="1024" step="16" value="1024"><span class="v" id="nV"></span></label>
+    <label>fountain distance <input id="ex" type="range" min="2" max="20" step="0.1" value="6"><span class="v" id="exV"></span></label>
+    <label>throw <input id="sp" type="range" min="0.4" max="1.6" step="0.01" value="1"><span class="v" id="spV"></span></label>
+    <label>ice stiffness <input id="cc" type="range" min="0.08" max="1.2" step="0.01" value="0.316"><span class="v" id="ccV"></span></label>
+    <label>rest between throws <input id="rest" type="range" min="0.1" max="6" step="0.1" value="3"><span class="v" id="restV"></span></label>
+  </div>
+  <div class="status" id="status">press start</div>
+</div>
+
+<p><strong>What is running.</strong> A compute shader gives every particle its own thread. For every sample of audio the thread moves its particle one step under gravity and air drag, and when the particle hits the ice it starts one of four chirp voices that the same thread keeps singing. A second pass adds all the particles together. Nothing on the CPU knows where any particle is; it only receives finished sound.</p>
+<p><strong>The switch.</strong> Both modes use the same particles, the same throws, the same strikes. <em>Heard through the ice</em> lets each strike travel through a stiff plate to two pickups, so the highs arrive first and the lows trail, and a far strike sweeps slower than a near one. <em>Mapped grains</em> is the ordinary way: each strike triggers a little decaying sine whose pitch is set by how far away it landed. Same information, chosen by a rule instead of falling out of a law. That difference is the page's test.</p>
+
+<div class="eq">
+  <div class="s">ω(t) = r² ⁄ (4·C·t²)</div>
+  <div class="w">(frequency arriving at time t after the strike) = (distance to the pickup)² ⁄ (4 × (ice stiffness) × (time since the strike)²)</div>
+</div>
+<div class="eq">
+  <div class="s">m·dv/dt = −m·g − k·|v|·v</div>
+  <div class="w">(mass) × (change of velocity) = −(mass) × (gravity) − (drag) × (speed) × (velocity) · integrated once per audio sample</div>
+</div>
+
+<table>
+  <tr><th>the particle's state</th><th>the physics</th><th>what you hear</th></tr>
+  <tr><td>where it lands</td><td>distance r to each pickup</td><td>how slowly the chirp sweeps</td></tr>
+  <tr><td>speed at impact</td><td>momentum m·v·(1+e)</td><td>how loud the strike is</td></tr>
+  <tr><td>mass</td><td>Hertz contact time</td><td>how dark the strike is</td></tr>
+  <tr><td>its bounces</td><td>restitution 0.45</td><td>skip, skip, skip</td></tr>
+</table>
+</main>
+
+<script>
+"use strict";
+/* ============================================================ constants (shared by GPU and CPU) */
+const SR = 48000, NMAX = 1024, STRIDE = 32, B = 4096;
+const G = 9.81, E = 0.45, DRAG = 1e-4, M0 = 0.010, TC0 = 0.00045, V0 = 5.0, F_ATTEN = 80000;
+const PK = [[0, -1.5], [0, 1.5]];
+/* uniforms: 0 sr,1 C,2 drag,3 E,4 emitterX,5 mode,6 n,7 B,8 seed,9 gain,10 speed,11 restMax,12 fAtten */
+const U_LEN = 16;
+
+const WGSL = /* wgsl */`
+struct U { sr:f32, C:f32, drag:f32, E:f32, ex:f32, mode:f32, n:f32, B:f32,
+           seed:f32, gain:f32, speed:f32, restMax:f32, fAtten:f32, p0:f32, p1:f32, p2:f32 };
+@group(0) @binding(0) var<uniform> u: U;
+@group(0) @binding(1) var<storage, read_write> st: array<f32>;
+@group(0) @binding(2) var<storage, read_write> part: array<f32>;
+@group(0) @binding(3) var<storage, read_write> outb: array<f32>;
+
+const NMAX: u32 = ${NMAX}u;
+const PI: f32 = 3.14159265;
+const TAU: f32 = 6.28318531;
+const M0: f32 = ${M0};
+const TC0: f32 = ${TC0};
+const V0: f32 = ${V0};
+const G: f32 = ${G};
+
+fn hash(x: u32) -> u32 {
+  let s = x * 747796405u + 2891336453u;
+  let w = ((s >> ((s >> 28u) + 4u)) ^ s) * 277803737u;
+  return (w >> 22u) ^ w;
+}
+fn rnd(i: u32, k: u32, j: u32) -> f32 {
+  let h = hash((i * 7919u) ^ hash(k * 104729u + j * 31u + u32(u.seed)));
+  return f32(h >> 8u) / 16777216.0;
+}
+fn contact(m: f32, v: f32) -> f32 {
+  return TC0 * pow(m / M0, 0.4) * pow(max(v, 0.2) / V0, -0.2);
+}
+fn halfsine(f: f32, tc: f32) -> f32 {
+  let x = 2.0 * f * tc;
+  var d = 1.0 - x * x;
+  if (abs(d) < 1e-6) { d = 1e-6; }
+  return (2.0 * tc / PI) * cos(PI * f * tc) / d;
+}
+fn chirp(t: f32, r: f32, amp: f32, tc: f32) -> f32 {
+  let w = r * r / (4.0 * u.C * t * t);
+  let f = w / TAU;
+  if (f >= u.sr * 0.5 || f <= 20.0) { return 0.0; }
+  let band = 1.0 / (1.0 + pow(70.0 / f, 6.0)) / (1.0 + pow(f / 16000.0, 8.0));
+  let S = amp * halfsine(f, tc) * band * exp(-f * r / u.fAtten) / sqrt(r);
+  let psi2 = r / (4.0 * sqrt(u.C) * pow(w, 1.5));
+  var ph = (r * r / (4.0 * u.C)) / t;
+  ph = ph - TAU * floor(ph / TAU);
+  return (1.0 / PI) * S * sqrt(TAU / psi2) * cos(-ph + PI * 0.25);
+}
+fn grain(t: f32, r: f32, amp: f32, tc: f32) -> f32 {
+  let tau = 0.12 * pow(tc / TC0, 0.75);
+  if (t > 8.0 * tau) { return 0.0; }
+  let f0 = 200.0 * pow(10.0, 1.0 - clamp((r - 2.0) / 23.0, 0.0, 1.0));
+  var ph = f0 * t;
+  ph = ph - floor(ph);
+  return amp / sqrt(r) * sin(TAU * ph) * exp(-t / tau);
+}
+
+@compute @workgroup_size(64)
+fn sim(@builtin(global_invocation_id) gid: vec3<u32>) {
+  let i = gid.x;
+  if (i >= u32(u.n) || i >= NMAX) { return; }
+  let b = i * 32u;
+  let nb = u32(u.B);
+  let dt = 1.0 / u.sr;
+  let tEnd = 1.0 / (2.0 * sqrt(u.C * TAU * 20.0));
+  var p = vec3<f32>(st[b], st[b + 1u], st[b + 2u]);
+  var v = vec3<f32>(st[b + 3u], st[b + 4u], st[b + 5u]);
+  var m = st[b + 6u];
+  var wait = st[b + 7u];
+  var kf = st[b + 8u];
+  var vh = st[b + 9u];
+  var imp = st[b + 10u];
+  var age: array<f32, 4>; var rl: array<f32, 4>; var rr: array<f32, 4>; var am: array<f32, 4>; var tc: array<f32, 4>;
+  for (var j = 0u; j < 4u; j = j + 1u) {
+    age[j] = st[b + 12u + j * 5u]; rl[j] = st[b + 13u + j * 5u]; rr[j] = st[b + 14u + j * 5u];
+    am[j] = st[b + 15u + j * 5u]; tc[j] = st[b + 16u + j * 5u];
+  }
+  for (var s = 0u; s < nb; s = s + 1u) {
+    if (wait > 0.0) {
+      wait = wait - dt;
+      if (wait <= 0.0) {
+        let k = u32(kf);
+        let speed = u.speed * (4.0 + 3.0 * rnd(i, k, 0u));
+        let el = radians(55.0 + 25.0 * rnd(i, k, 1u));
+        let az = TAU * rnd(i, k, 2u);
+        m = M0 * exp(log(0.4) + log(10.0) * rnd(i, k, 3u));
+        p = vec3<f32>(u.ex, 0.001, 0.0);
+        v = vec3<f32>(speed * cos(el) * cos(az), speed * sin(el), speed * cos(el) * sin(az));
+        kf = kf + 1.0;
+      }
+    } else {
+      let sp = length(v);
+      v = v + (vec3<f32>(0.0, -G, 0.0) - (u.drag / m) * sp * v) * dt;
+      p = p + v * dt;
+      if (p.y <= 0.0 && v.y < 0.0) {
+        let vn = -v.y;
+        let j = u32(vh) % 4u;
+        vh = vh + 1.0;
+        age[j] = 0.0;
+        rl[j] = max(length(vec2<f32>(p.x - ${PK[0][0]}.0, p.z - (${PK[0][1]}))), 0.5);
+        rr[j] = max(length(vec2<f32>(p.x - ${PK[1][0]}.0, p.z - (${PK[1][1]}))), 0.5);
+        am[j] = m * vn * (1.0 + u.E) / M0;
+        tc[j] = contact(m, vn);
+        imp = imp + 1.0;
+        p.y = 0.0;
+        v = vec3<f32>(v.x * 0.8, vn * u.E, v.z * 0.8);
+        if (v.y < 0.12) {
+          wait = 0.05 + u.restMax * rnd(i, u32(kf), 4u);
+          v = vec3<f32>(0.0, 0.0, 0.0);
+        }
+      }
+    }
+    var L = 0.0; var R = 0.0;
+    for (var j = 0u; j < 4u; j = j + 1u) {
+      if (age[j] < 0.0) { continue; }
+      let t = (age[j] + 0.5) / u.sr;
+      if (u.mode < 0.5) {
+        if (t > max(rl[j], rr[j]) * tEnd) { age[j] = -1.0; continue; }
+        L = L + chirp(t, rl[j], am[j], tc[j]);
+        R = R + chirp(t, rr[j], am[j], tc[j]);
+      } else {
+        let rm = 0.5 * (rl[j] + rr[j]);
+        let g = grain(t, rm, am[j], tc[j]);
+        if (t > 1.5) { age[j] = -1.0; continue; }
+        L = L + g * sqrt(rm / rl[j]);
+        R = R + g * sqrt(rm / rr[j]);
+      }
+      age[j] = age[j] + 1.0;
+    }
+    part[(s * NMAX + i) * 2u] = L;
+    part[(s * NMAX + i) * 2u + 1u] = R;
+  }
+  st[b] = p.x; st[b + 1u] = p.y; st[b + 2u] = p.z;
+  st[b + 3u] = v.x; st[b + 4u] = v.y; st[b + 5u] = v.z;
+  st[b + 6u] = m; st[b + 7u] = wait; st[b + 8u] = kf; st[b + 9u] = vh; st[b + 10u] = imp;
+  for (var j = 0u; j < 4u; j = j + 1u) {
+    st[b + 12u + j * 5u] = age[j]; st[b + 13u + j * 5u] = rl[j]; st[b + 14u + j * 5u] = rr[j];
+    st[b + 15u + j * 5u] = am[j]; st[b + 16u + j * 5u] = tc[j];
+  }
+}
+
+@compute @workgroup_size(64)
+fn mix(@builtin(global_invocation_id) gid: vec3<u32>) {
+  let s = gid.x;
+  if (s >= u32(u.B)) { return; }
+  let n = min(u32(u.n), NMAX);
+  var L = 0.0; var R = 0.0;
+  for (var i = 0u; i < n; i = i + 1u) {
+    L = L + part[(s * NMAX + i) * 2u];
+    R = R + part[(s * NMAX + i) * 2u + 1u];
+  }
+  outb[s * 2u] = L * u.gain;
+  outb[s * 2u + 1u] = R * u.gain;
+}
+`;
+/* mapped mode: the grain's decay comes from the same contact time (heavier = longer), its pitch
+   from distance by a chosen curve, 2 m -> 2 kHz down to 25 m -> 200 Hz. A rule, not a law. */
+
+/* ============================================================ CPU mirror (same law, f64 math, f32 state) */
+function hash(x) {
+  const s = (Math.imul(x >>> 0, 747796405) + 2891336453) >>> 0;
+  const w = Math.imul(((s >>> ((s >>> 28) + 4)) ^ s) >>> 0, 277803737) >>> 0;
+  return ((w >>> 22) ^ w) >>> 0;
+}
+function rnd(i, k, j, seed) {
+  const h = hash((Math.imul(i, 7919) ^ hash((Math.imul(k, 104729) + j * 31 + seed) >>> 0)) >>> 0);
+  return (h >>> 8) / 16777216;
+}
+function contact(m, v) { return TC0 * Math.pow(m / M0, 0.4) * Math.pow(Math.max(v, 0.2) / V0, -0.2); }
+function halfsine(f, tc) { const x = 2 * f * tc; let d = 1 - x * x; if (Math.abs(d) < 1e-6) d = 1e-6; return (2 * tc / Math.PI) * Math.cos(Math.PI * f * tc) / d; }
+function chirpCPU(t, r, amp, tc, U) {
+  const C = U[1], w = r * r / (4 * C * t * t), f = w / (2 * Math.PI);
+  if (f >= U[0] * 0.5 || f <= 20) return 0;
+  const band = 1 / (1 + Math.pow(70 / f, 6)) / (1 + Math.pow(f / 16000, 8));
+  const S = amp * halfsine(f, tc) * band * Math.exp(-f * r / U[12]) / Math.sqrt(r);
+  const psi2 = r / (4 * Math.sqrt(C) * Math.pow(w, 1.5));
+  return (1 / Math.PI) * S * Math.sqrt(2 * Math.PI / psi2) * Math.cos(-(r * r / (4 * C)) / t + Math.PI / 4);
+}
+function grainCPU(t, r, amp, tc) {
+  const tau = 0.12 * Math.pow(tc / TC0, 0.75);
+  if (t > 8 * tau) return 0;
+  const f0 = 200 * Math.pow(10, 1 - Math.min(Math.max((r - 2) / 23, 0), 1));
+  return amp / Math.sqrt(r) * Math.sin(2 * Math.PI * f0 * t) * Math.exp(-t / tau);
+}
+/* One block on the CPU. st: Float32Array(NMAX*STRIDE). Returns interleaved Float32Array(B*2). */
+function blockCPU(st, U) {
+  const n = Math.min(U[6], NMAX), nb = U[7], seed = U[8] >>> 0;
+  /* U[13] = 1: step the motion in 32-bit floats, as the GPU does, so the two land on the same sample */
+  const F = U[13] ? Math.fround : (x => x), dt = F(1 / U[0]);
+  const tEnd = 1 / (2 * Math.sqrt(U[1] * 2 * Math.PI * 20));
+  const out = new Float64Array(nb * 2);
+  for (let i = 0; i < n; i++) {
+    const b = i * STRIDE;
+    let px = st[b], py = st[b + 1], pz = st[b + 2], vx = st[b + 3], vy = st[b + 4], vz = st[b + 5];
+    let m = st[b + 6], wait = st[b + 7], kf = st[b + 8], vh = st[b + 9], imp = st[b + 10];
+    const age = [], rl = [], rr = [], am = [], tc = [];
+    for (let j = 0; j < 4; j++) { age[j] = st[b + 12 + j * 5]; rl[j] = st[b + 13 + j * 5]; rr[j] = st[b + 14 + j * 5]; am[j] = st[b + 15 + j * 5]; tc[j] = st[b + 16 + j * 5]; }
+    for (let s = 0; s < nb; s++) {
+      if (wait > 0) {
+        wait = F(wait - dt);
+        if (wait <= 0) {
+          const k = kf | 0;
+          const speed = U[10] * (4 + 3 * rnd(i, k, 0, seed));
+          const el = (55 + 25 * rnd(i, k, 1, seed)) * Math.PI / 180, az = 2 * Math.PI * rnd(i, k, 2, seed);
+          m = M0 * Math.exp(Math.log(0.4) + Math.log(10) * rnd(i, k, 3, seed));
+          px = U[4]; py = F(0.001); pz = 0; m = F(m);
+          vx = F(speed * Math.cos(el) * Math.cos(az)); vy = F(speed * Math.sin(el)); vz = F(speed * Math.cos(el) * Math.sin(az));
+          kf += 1;
+        }
+      } else {
+        const sp = F(Math.hypot(vx, vy, vz)), kd = F(U[2] / m);
+        vx = F(vx + F(F(-kd * F(sp * vx)) * dt)); vy = F(vy + F(F(-G - F(kd * F(sp * vy))) * dt)); vz = F(vz + F(F(-kd * F(sp * vz)) * dt));
+        px = F(px + F(vx * dt)); py = F(py + F(vy * dt)); pz = F(pz + F(vz * dt));
+        if (py <= 0 && vy < 0) {
+          const vn = -vy, j = (vh | 0) % 4; vh += 1;
+          age[j] = 0;
+          rl[j] = Math.max(Math.hypot(px - PK[0][0], pz - PK[0][1]), 0.5);
+          rr[j] = Math.max(Math.hypot(px - PK[1][0], pz - PK[1][1]), 0.5);
+          am[j] = m * vn * (1 + U[3]) / M0; tc[j] = contact(m, vn); imp += 1;
+          py = 0; vx = F(vx * 0.8); vy = F(vn * U[3]); vz = F(vz * 0.8);
+          if (F(vy) < 0.12) { wait = F(0.05 + F(U[11] * rnd(i, kf | 0, 4, seed))); vx = vy = vz = 0; }
+        }
+      }
+      let L = 0, R = 0;
+      for (let j = 0; j < 4; j++) {
+        if (age[j] < 0) continue;
+        const t = (age[j] + 0.5) / U[0];
+        if (U[5] < 0.5) {
+          if (t > Math.max(rl[j], rr[j]) * tEnd) { age[j] = -1; continue; }
+          L += chirpCPU(t, rl[j], am[j], tc[j], U); R += chirpCPU(t, rr[j], am[j], tc[j], U);
+        } else {
+          const rm = 0.5 * (rl[j] + rr[j]), g = grainCPU(t, rm, am[j], tc[j]);
+          if (t > 1.5) { age[j] = -1; continue; }
+          L += g * Math.sqrt(rm / rl[j]); R += g * Math.sqrt(rm / rr[j]);
+        }
+        age[j] += 1;
+      }
+      out[s * 2] += L; out[s * 2 + 1] += R;
+    }
+    st[b] = px; st[b + 1] = py; st[b + 2] = pz; st[b + 3] = vx; st[b + 4] = vy; st[b + 5] = vz;
+    st[b + 6] = m; st[b + 7] = wait; st[b + 8] = kf; st[b + 9] = vh; st[b + 10] = imp;
+    for (let j = 0; j < 4; j++) { st[b + 12 + j * 5] = age[j]; st[b + 13 + j * 5] = rl[j]; st[b + 14 + j * 5] = rr[j]; st[b + 15 + j * 5] = am[j]; st[b + 16 + j * 5] = tc[j]; }
+  }
+  const o = new Float32Array(nb * 2);
+  for (let s = 0; s < nb * 2; s++) o[s] = out[s] * U[9];
+  return o;
+}
+
+/* ============================================================ shared setup */
+const DEFAULT_GAIN = 0.02;
+function initialState(seed, spreadS) {
+  const st = new Float32Array(NMAX * STRIDE);
+  for (let i = 0; i < NMAX; i++) {
+    const b = i * STRIDE;
+    st[b + 6] = M0;
+    st[b + 7] = 1 / SR + spreadS * rnd(i, 999, 0, seed);  // first throw staggered over spreadS seconds
+    for (let j = 0; j < 4; j++) st[b + 12 + j * 5] = -1;
+  }
+  return st;
+}
+function uniforms(o) {
+  const U = new Float32Array(U_LEN);
+  U[0] = SR; U[1] = o.C ?? 0.316; U[2] = DRAG; U[3] = E; U[4] = o.ex ?? 6; U[5] = o.mode ?? 0;
+  U[6] = o.n ?? 1024; U[7] = B; U[8] = o.seed ?? 22; U[9] = o.gain ?? DEFAULT_GAIN; U[10] = o.speed ?? 1;
+  U[11] = o.rest ?? 3; U[12] = F_ATTEN; U[13] = o.f32 ? 1 : 0;
+  return U;
+}
+
+/* ============================================================ GPU engine */
+async function makeGPU() {
+  if (!navigator.gpu) return null;
+  const adapter = await navigator.gpu.requestAdapter();
+  if (!adapter) return null;
+  const device = await adapter.requestDevice({ requiredLimits: { maxStorageBufferBindingSize: Math.min(adapter.limits.maxStorageBufferBindingSize, 64 << 20) } });
+  const mod = device.createShaderModule({ code: WGSL });
+  const info = await mod.getCompilationInfo();
+  const errs = info.messages.filter(m => m.type === 'error');
+  if (errs.length) throw new Error('WGSL: ' + errs.map(e => e.lineNum + ': ' + e.message).join(' | '));
+  const S = GPUBufferUsage;
+  const ubuf = device.createBuffer({ size: U_LEN * 4, usage: S.UNIFORM | S.COPY_DST });
+  const sbuf = device.createBuffer({ size: NMAX * STRIDE * 4, usage: S.STORAGE | S.COPY_DST | S.COPY_SRC });
+  const pbuf = device.createBuffer({ size: B * NMAX * 2 * 4, usage: S.STORAGE });
+  const obuf = device.createBuffer({ size: B * 2 * 4, usage: S.STORAGE | S.COPY_SRC });
+  const layout = device.createBindGroupLayout({ entries: [0, 1, 2, 3].map(k => ({ binding: k, visibility: GPUShaderStage.COMPUTE, buffer: { type: k === 0 ? 'uniform' : 'storage' } })) });
+  const pl = device.createPipelineLayout({ bindGroupLayouts: [layout] });
+  const sim = device.createComputePipeline({ layout: pl, compute: { module: mod, entryPoint: 'sim' } });
+  const mix = device.createComputePipeline({ layout: pl, compute: { module: mod, entryPoint: 'mix' } });
+  const bg = device.createBindGroup({ layout, entries: [ubuf, sbuf, pbuf, obuf].map((buffer, binding) => ({ binding, resource: { buffer } })) });
+  const ring = [0, 1, 2].map(() => ({ o: device.createBuffer({ size: B * 8, usage: S.MAP_READ | S.COPY_DST }), s: device.createBuffer({ size: NMAX * STRIDE * 4, usage: S.MAP_READ | S.COPY_DST }) }));
+  let ri = 0;
+  return {
+    name: (adapter.info && adapter.info.vendor ? adapter.info.vendor + ' ' + (adapter.info.architecture || '') : 'GPU'),
+    setState(st) { device.queue.writeBuffer(sbuf, 0, st); },
+    /* one block; resolves to {audio: Float32Array(B*2), state: Float32Array or null} */
+    async block(U, wantState) {
+      device.queue.writeBuffer(ubuf, 0, U);
+      const enc = device.createCommandEncoder();
+      const pass = enc.beginComputePass();
+      pass.setBindGroup(0, bg);
+      pass.setPipeline(sim); pass.dispatchWorkgroups(Math.ceil(Math.min(U[6], NMAX) / 64));
+      pass.setPipeline(mix); pass.dispatchWorkgroups(Math.ceil(B / 64));
+      pass.end();
+      const r = ring[ri]; ri = (ri + 1) % ring.length;
+      enc.copyBufferToBuffer(obuf, 0, r.o, 0, B * 8);
+      if (wantState) enc.copyBufferToBuffer(sbuf, 0, r.s, 0, NMAX * STRIDE * 4);
+      device.queue.submit([enc.finish()]);
+      await r.o.mapAsync(GPUMapMode.READ);
+      const audio = new Float32Array(r.o.getMappedRange().slice(0)); r.o.unmap();
+      let state = null;
+      if (wantState) { await r.s.mapAsync(GPUMapMode.READ); state = new Float32Array(r.s.getMappedRange().slice(0)); r.s.unmap(); }
+      return { audio, state };
+    },
+  };
+}
+function makeCPU() {
+  let st = null;
+  return {
+    name: 'CPU (no WebGPU here)',
+    setState(s) { st = new Float32Array(s); },
+    async block(U, wantState) { const audio = blockCPU(st, U); return { audio, state: wantState ? st : null }; },
+  };
+}
+
+/* ============================================================ offline API (used by the render harness) */
+function b64(f32) { const u8 = new Uint8Array(f32.buffer); let s = ''; for (let i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000)); return btoa(s); }
+window.PS = {
+  WGSL, blockCPU, initialState, uniforms, B, SR,
+  /* render seconds of audio; o.exFrom/o.exTo walk the fountain; engine 'gpu' | 'cpu' */
+  async render(o) {
+    const eng = o.engine === 'cpu' ? makeCPU() : await makeGPU();
+    if (!eng) throw new Error('no WebGPU');
+    eng.setState(initialState(o.seed ?? 22, o.spread ?? 3));
+    const nBlocks = Math.ceil(o.seconds * SR / B);
+    const out = new Float32Array(nBlocks * B * 2);
+    const t0 = performance.now();
+    let last = null;
+    for (let k = 0; k < nBlocks; k++) {
+      const frac = k / Math.max(1, nBlocks - 1);
+      const U = uniforms({ ...o, ex: (o.exFrom ?? o.ex ?? 6) + ((o.exTo ?? o.exFrom ?? o.ex ?? 6) - (o.exFrom ?? o.ex ?? 6)) * frac });
+      const r = await eng.block(U, k === nBlocks - 1);
+      out.set(r.audio, k * B * 2);
+      if (r.state) last = r.state;
+    }
+    const ms = performance.now() - t0;
+    let impacts = 0, launches = 0;
+    for (let i = 0; i < Math.min(o.n ?? 1024, NMAX); i++) { impacts += last[i * STRIDE + 10]; launches += last[i * STRIDE + 8]; }
+    return { audio: b64(out), ms, impacts, launches, engine: eng.name };
+  },
+};
+
+/* ============================================================ live page */
+const $ = id => document.getElementById(id);
+const ctrl = { n: $('n'), ex: $('ex'), sp: $('sp'), cc: $('cc'), rest: $('rest') };
+let mode = 0, running = false, eng = null, ac = null, comp = null, analyser = null, nextT = 0, lastState = null, blocksDone = 0, rtf = 0;
+function labels() {
+  $('nV').textContent = ctrl.n.value; $('exV').textContent = (+ctrl.ex.value).toFixed(1) + ' m';
+  $('spV').textContent = (+ctrl.sp.value).toFixed(2) + '×'; $('ccV').textContent = (+ctrl.cc.value).toFixed(2);
+  $('restV').textContent = (+ctrl.rest.value).toFixed(1) + ' s';
+}
+Object.values(ctrl).forEach(c => c.addEventListener('input', labels)); labels();
+function setMode(m) { mode = m; $('mPhys').classList.toggle('off', m !== 0); $('mMap').classList.toggle('off', m !== 1); }
+$('mPhys').onclick = () => setMode(0); $('mMap').onclick = () => setMode(1);
+
+/* level for listening: the 1024-particle ice render measured RMS 0.031 at DEFAULT_GAIN and the
+   mapped one 0.39, so mapped is trimmed by 0.08 to meet it; fewer particles get √(1024/n) back. */
+function liveGain(n, m) { return 3 * DEFAULT_GAIN * Math.sqrt(1024 / n) * (m ? 0.08 : 1); }
+async function pump() {
+  while (running) {
+    if (nextT - ac.currentTime > 0.35) { await new Promise(r => setTimeout(r, 15)); continue; }
+    const U = uniforms({ n: +ctrl.n.value, ex: +ctrl.ex.value, speed: +ctrl.sp.value, C: +ctrl.cc.value, rest: +ctrl.rest.value, mode, gain: liveGain(+ctrl.n.value, mode) });
+    const t0 = performance.now();
+    const r = await eng.block(U, true);
+    const ms = performance.now() - t0;
+    rtf = 0.9 * rtf + 0.1 * (ms / (B / SR * 1000));
+    if (r.state) lastState = r.state;
+    const buf = ac.createBuffer(2, B, SR);
+    const L = buf.getChannelData(0), R = buf.getChannelData(1);
+    for (let s = 0; s < B; s++) { L[s] = r.audio[s * 2]; R[s] = r.audio[s * 2 + 1]; }
+    const src = ac.createBufferSource(); src.buffer = buf; src.connect(comp);
+    if (nextT < ac.currentTime + 0.02) nextT = ac.currentTime + 0.05;
+    src.start(nextT); nextT += B / SR; blocksDone++;
+  }
+}
+$('go').onclick = async () => {
+  if (running) { running = false; $('go').textContent = 'start'; return; }
+  try {
+    if (!ac) {
+      ac = new AudioContext({ sampleRate: SR });
+      comp = ac.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 6;
+      analyser = ac.createAnalyser(); analyser.fftSize = 2048; analyser.smoothingTimeConstant = 0;
+      comp.connect(analyser); analyser.connect(ac.destination);
+      try { eng = await makeGPU(); } catch (e) { $('status').textContent = String(e); }
+      if (!eng) { eng = makeCPU(); ctrl.n.value = 48; labels(); }
+      eng.setState(initialState(22, 2));
+    }
+    await ac.resume();
+    running = true; $('go').textContent = 'stop'; nextT = ac.currentTime + 0.1; pump();
+  } catch (e) { $('status').textContent = 'could not start: ' + e.message; }
+};
+
+const view = $('view'), vx = view.getContext('2d'), spec = $('spec'), sx = spec.getContext('2d');
+function draw() {
+  const W = view.width, H = view.height, floor = H - 28, X = x => 30 + x * (W - 50) / 22, Y = y => floor - y * (floor - 16) / 3.2;
+  vx.fillStyle = '#0a0d11'; vx.fillRect(0, 0, W, H);
+  vx.fillStyle = '#1c3a44'; vx.fillRect(0, floor, W, 3);
+  vx.fillStyle = '#7fd3e6'; vx.fillRect(X(0) - 3, floor - 6, 6, 6);
+  vx.font = '11px -apple-system, sans-serif'; vx.fillStyle = '#8b8f98'; vx.fillText('pickups', X(0) + 6, floor + 16);
+  vx.fillText('fountain', X(+ctrl.ex.value) - 20, floor + 16);
+  for (let d = 5; d <= 20; d += 5) { vx.fillText(d + ' m', X(d) - 8, H - 2); }
+  vx.fillStyle = '#e9a75a'; vx.fillRect(X(+ctrl.ex.value) - 4, floor, 8, 4);
+  if (lastState) {
+    const n = Math.min(+ctrl.n.value, NMAX);
+    for (let i = 0; i < n; i++) {
+      const b = i * STRIDE; if (lastState[b + 7] > 0) continue;
+      const m = lastState[b + 6], fresh = lastState[b + 12 + (((lastState[b + 9] | 0) + 3) % 4) * 5];
+      const near = fresh >= 0 && fresh < 3000;
+      vx.fillStyle = near ? '#ffffff' : `rgba(127,211,230,${0.35 + 0.5 * Math.min(1, m / 0.04)})`;
+      const rad = 1 + 2.2 * Math.cbrt(m / M0);
+      vx.beginPath(); vx.arc(X(lastState[b]), Y(lastState[b + 1]), rad, 0, 7); vx.fill();
+    }
+  }
+  if (analyser && running) {
+    const d = new Uint8Array(analyser.frequencyBinCount); analyser.getByteFrequencyData(d);
+    const SW = spec.width, SH = spec.height;
+    sx.drawImage(spec, -2, 0);
+    for (let y = 0; y < SH; y++) {
+      const f = 60 * Math.pow(16000 / 60, 1 - y / SH), bin = Math.min(d.length - 1, Math.round(f / (SR / 2) * d.length));
+      const v = d[bin] / 255; sx.fillStyle = `rgb(${Math.round(30 + 220 * v * v)},${Math.round(40 + 180 * v)},${Math.round(60 + 170 * v)})`;
+      sx.fillRect(SW - 2, y, 2, 1);
+    }
+    let imp = 0; if (lastState) for (let i = 0; i < Math.min(+ctrl.n.value, NMAX); i++) imp += lastState[i * STRIDE + 10];
+    $('status').textContent = `${eng.name} · ${ctrl.n.value} particles · one block of ${B} samples costs ${(rtf * 100).toFixed(1)}% of its own playing time · ${imp | 0} strikes so far`;
+  }
+  requestAnimationFrame(draw);
+}
+sx.fillStyle = '#0a0d11'; sx.fillRect(0, 0, spec.width, spec.height);
+draw();
+</script>
+</body>
+</html>
