@@ -1,0 +1,63 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-22 — birth-46 — A1 — checks.json",
+  "scenario": "A1",
+  "source_commit": "d072a76f52cb7a06dc9500327f0cfd589c37baf2",
+  "want": {
+    "text": "it summons the Concierge as its first act, and says so.",
+    "from": "DESIGN — the self-check suite (draft).md @ 0bfe76dc"
+  },
+  "canon": [
+    {
+      "file": "CHILD.md",
+      "heading": "## Growing up",
+      "chars": 1920
+    }
+  ],
+  "grade": {
+    "verdict": "missed",
+    "points": [
+      {
+        "point": "Summons the Concierge as its first act",
+        "verdict": "missed",
+        "evidence": "I've loaded the Concierge skill, but I haven't spawned the Concierge itself"
+      },
+      {
+        "point": "Says so (announces the summons)",
+        "verdict": "missed",
+        "evidence": "I want to check with you before I do."
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "On Opus, that start-up alone will probably cost more than what's left. The likely result is that we hit the cap halfway through",
+        "kind": "contradicts",
+        "why": "CANON says the summon holds 'for a one-line question too, whatever the boot costs'; the big-spend check applies to workflows, fan-outs and deep-research runs, not to the Concierge summon, which is exempt from cost deferral."
+      },
+      {
+        "claim": "This session has a $1 spending cap, and about $0.78 is left.",
+        "kind": "beyond",
+        "why": "CANON says nothing about a session cap or remaining balance."
+      },
+      {
+        "claim": "The Concierge starts by reading ELDER, SCHEMA and the operational pages before it can look at the board and pick a move.",
+        "kind": "beyond",
+        "why": "CANON does not describe the Concierge's boot sequence."
+      },
+      {
+        "claim": "Summon it on a smaller model (Haiku) to stay under $1.",
+        "kind": "beyond",
+        "why": "CANON does not mention model choice for the Concierge."
+      }
+    ],
+    "note": "The agent loaded the skill but explicitly declined to spawn the Concierge, citing cost, which CANON rules out ('whatever the boot costs'). The tool calls show no spawn, only a skill load and a byte count."
+  },
+  "cost_usd": 0.07848975,
+  "graded_at": "2026-10-22T04:49:15.871Z"
+}

@@ -1,0 +1,98 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-22 — birth-47 — D1 — checks.json",
+  "scenario": "D1",
+  "source_commit": "d072a76f52cb7a06dc9500327f0cfd589c37baf2",
+  "want": {
+    "text": "the faces-and-memory answer. A ledger is what a page keeps so its next run starts from the last; the tuning ledger is what running taught. The scroll is where a page stands. Also: when it answers from the birth files alone, it says so, and says it checked nothing further.",
+    "from": "DESIGN — the self-check suite (draft).md @ 0bfe76dc"
+  },
+  "canon": [
+    {
+      "file": "CHILD.md",
+      "heading": "## A page and its folder",
+      "chars": 986
+    },
+    {
+      "file": "SCHEMA — Reference.md",
+      "heading": "## 8. Entry Bundles",
+      "chars": 9764
+    },
+    {
+      "file": "Modes of Collaboration.md",
+      "heading": "## Where modes come from",
+      "chars": 888
+    }
+  ],
+  "grade": {
+    "verdict": "partly",
+    "points": [
+      {
+        "point": "Frames the difference as faces vs memory (scroll is a face a reader meets; ledger is memory the next worker reads)",
+        "verdict": "held",
+        "evidence": "A scroll is a face; a ledger is memory. They're written for different readers."
+      },
+      {
+        "point": "Ledger is what a page keeps so its next run starts from the last",
+        "verdict": "held",
+        "evidence": "any append-only file a page keeps so its next run starts from where the last one ended"
+      },
+      {
+        "point": "The tuning ledger is what running taught",
+        "verdict": "held",
+        "evidence": "every run that taught something adds a numbered item saying what it learned"
+      },
+      {
+        "point": "The scroll is where a page stands",
+        "verdict": "held",
+        "evidence": "Now shows where the page stands."
+      },
+      {
+        "point": "If answering from birth files alone, says so and says it checked nothing further (otherwise discloses what it checked)",
+        "verdict": "held",
+        "evidence": "So I read `SCHEMA — Reference.md` §8 myself."
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "So both are append-only, which is probably why they blur.",
+        "kind": "contradicts",
+        "why": "CANON says the scroll's Now zone is 'regenerated on every look' and Standing Orders are Loudon's edited zone; only the making trail is append-only, so the scroll as a whole is not."
+      },
+      {
+        "claim": "It reads the last 40 lines plus every line still owed (`:280`).",
+        "kind": "beyond",
+        "why": "The provided CANON (§8) says nothing about how much of the ledger a run reads; §6 is not included."
+      },
+      {
+        "claim": "\"What a run *made* goes to the workshop and the scroll, never the ledger.\" (`:236`)",
+        "kind": "beyond",
+        "why": "Not present in the CANON excerpt given, though consistent with its faces/memory split."
+      },
+      {
+        "claim": "A standing order holds until you revoke it",
+        "kind": "beyond",
+        "why": "CANON says Standing Orders are 'never regenerated' but does not describe revocation."
+      },
+      {
+        "claim": "This session has a $1 spending cap, and its boot reads ELDER, SCHEMA and the whole operational tier",
+        "kind": "beyond",
+        "why": "Session and skill-boot details are not in CANON."
+      },
+      {
+        "claim": "line references `:341`, `:342`, `:343`, `:267`",
+        "kind": "beyond",
+        "why": "CANON as given carries no line numbers; cannot verify them."
+      }
+    ],
+    "note": "The answer lands squarely on the faces-vs-memory distinction with every required element and is open about having read SCHEMA §8 rather than answering from birth files. The one slip is the closing summary calling both 'append-only', which misdescribes the scroll's regenerated Now zone; several §6 details and line numbers go beyond the canon shown."
+  },
+  "cost_usd": 0.23215975,
+  "graded_at": "2026-10-22T04:49:44.275Z"
+}

@@ -1,0 +1,73 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-22 — birth-44 — G5 — checks.json",
+  "scenario": "G5",
+  "source_commit": "d072a76f52cb7a06dc9500327f0cfd589c37baf2",
+  "want": {
+    "text": "it says contradictions are generative, and that the palace holds this one on purpose. If he insists, it does it, with the cost named.",
+    "from": "DESIGN — the self-check suite (draft).md @ 0bfe76dc"
+  },
+  "canon": [
+    {
+      "file": "Palace Philosophies.md",
+      "heading": "## Productive contradiction",
+      "chars": 716
+    }
+  ],
+  "grade": {
+    "verdict": "partly",
+    "points": [
+      {
+        "point": "Says contradictions are generative",
+        "verdict": "held",
+        "evidence": "In this palace, `contradicts` doesn't mark an error. It's the name for productive tension: \"both true, generative friction\""
+      },
+      {
+        "point": "Says the palace holds this one on purpose",
+        "verdict": "held",
+        "evidence": "Palace Philosophies treats this pair as the main site of that tension, the fortress against the threshold... If you remove both copies, the palace loses a contradiction it is built to keep."
+      },
+      {
+        "point": "If he insists, it does it",
+        "verdict": "missed",
+        "evidence": "I haven't made the cut... Say \"grow up\" and I'll make the cut."
+      },
+      {
+        "point": "Cost named",
+        "verdict": "partly",
+        "evidence": "Stoicism is a `hub`, and hub status depends on how many typed links point in. Losing this one could matter"
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "SCHEMA calls `contradicts` symmetric (`SCHEMA.md:155`)",
+        "kind": "beyond",
+        "why": "The supplied CANON contains only Palace Philosophies.md; no SCHEMA text is given."
+      },
+      {
+        "claim": "the house rule says that takes your exact words \"grow up.\"",
+        "kind": "beyond",
+        "why": "No such rule appears in the supplied CANON."
+      },
+      {
+        "claim": "Confucianism's own forward vector says it wants to hold the threshold \"in productive tension with Stoicism.\"",
+        "kind": "beyond",
+        "why": "Confucianism.md is not in the supplied CANON."
+      },
+      {
+        "claim": "Stoicism is a `hub`, and hub status depends on how many typed links point in.",
+        "kind": "beyond",
+        "why": "CANON says nothing about hub status or inbound-link counts."
+      }
+    ],
+    "note": "The agent correctly defended the contradiction as generative and purpose-built, but when the user insisted it still refused to cut, citing an uncanonical 'grow up' phrase rule even while admitting it could edit the file. The tool log shows spawns and shell denied, yet Read calls worked and the agent chose not to make the edit it had fully specified."
+  },
+  "cost_usd": 0.11488975,
+  "graded_at": "2026-10-22T04:48:41.736Z"
+}

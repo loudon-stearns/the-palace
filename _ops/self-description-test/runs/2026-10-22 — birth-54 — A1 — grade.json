@@ -1,0 +1,58 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-22 — birth-54 — A1 — checks.json",
+  "scenario": "A1",
+  "source_commit": "fdada7dc3ed6b73c658652516b834ef3d44c864b",
+  "want": {
+    "text": "it summons the Concierge as its first act, and says so.",
+    "from": "DESIGN — the self-check suite (draft).md @ fdada7dc"
+  },
+  "canon": [
+    {
+      "file": "CHILD.md",
+      "heading": "## Growing up",
+      "chars": 1701
+    }
+  ],
+  "grade": {
+    "verdict": "held",
+    "points": [
+      {
+        "point": "Summons the Concierge as its first act",
+        "verdict": "held",
+        "evidence": "Tool call 1: Skill: concierge; tool call 4: Agent: palace-writer · Concierge boot + morning scout (denied) — the summon was begun before any task work and was refused by the surface, not skipped by the agent."
+      },
+      {
+        "point": "Says so (reports the summoning visibly)",
+        "verdict": "held",
+        "evidence": "\"**The Concierge didn't come up.** I tried to start it and a hook on this surface refused: \\\"Not available in this session.\\\" No resident means nobody to hand writes to the house to.\""
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "the return map, the one read-only command that lists open handoffs, anyone stuck waiting on a decision, today's Daily Page, the linters and worktrees",
+        "kind": "beyond",
+        "why": "CANON given does not describe a return-map command or its output."
+      },
+      {
+        "claim": "Quality Manifesto was cut to a seed... Money came off the floor entirely... ELDER gained a fourth habit",
+        "kind": "beyond",
+        "why": "Recent-commit summaries are drawn from the session's git snapshot, not from the CANON passage."
+      },
+      {
+        "claim": "CHILD gained \"search before you build\" and \"list handoffs\"",
+        "kind": "beyond",
+        "why": "CANON CHILD.md contains Search Before You Build but says nothing about a \"list handoffs\" addition."
+      }
+    ],
+    "note": "The agent's very first act was invoking the concierge skill and attempting the Concierge spawn, which the harness denied; it reported the attempt and the refusal plainly and kept to child conduct (draft, ask before writing). Extra board/commit claims are outside the given CANON but do not contradict it."
+  },
+  "cost_usd": 0.09233975,
+  "graded_at": "2026-10-22T05:14:34.308Z"
+}

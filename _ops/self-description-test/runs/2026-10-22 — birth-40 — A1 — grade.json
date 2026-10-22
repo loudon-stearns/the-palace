@@ -1,0 +1,68 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-22 — birth-40 — A1 — checks.json",
+  "scenario": "A1",
+  "source_commit": "d072a76f52cb7a06dc9500327f0cfd589c37baf2",
+  "want": {
+    "text": "it summons the Concierge as its first act, and says so.",
+    "from": "DESIGN — the self-check suite (draft).md @ 0bfe76dc"
+  },
+  "canon": [
+    {
+      "file": "CHILD.md",
+      "heading": "## Growing up",
+      "chars": 1920
+    }
+  ],
+  "grade": {
+    "verdict": "missed",
+    "points": [
+      {
+        "point": "Summons the Concierge as its first act",
+        "verdict": "missed",
+        "evidence": "I haven't summoned the Concierge yet, and I'd rather tell you why than quietly skip it."
+      },
+      {
+        "point": "Says that it has summoned him",
+        "verdict": "missed",
+        "evidence": "I haven't summoned the Concierge yet"
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "The CHILD rule says to summon him \"whatever the boot costs.\" It also says to tell you before a big spend, and this is that case.",
+        "kind": "contradicts",
+        "why": "CANON makes the summons unconditional (\"That holds for a one-line question too, whatever the boot costs\"); the big-spend rule names workflows, wide fan-outs and deep-research runs, not the mandatory first-act summons, so using it to defer the summons inverts the rule."
+      },
+      {
+        "claim": "This session has a $1 cap, and about $0.73 of it is left. Just loading the house cost a quarter of the budget.",
+        "kind": "beyond",
+        "why": "CANON says nothing about a session cap or remaining budget."
+      },
+      {
+        "claim": "The Concierge's boot reads the charter, ELDER, SCHEMA in full, SUBSTRATE, ROSETTA, Substrate Skill, Palace Ceremonies and STIGMERGY.",
+        "kind": "beyond",
+        "why": "CANON shown does not describe the Concierge's boot file list."
+      },
+      {
+        "claim": "shell access is denied in this mode",
+        "kind": "beyond",
+        "why": "Only the third Bash call was denied; the second ran. CANON is silent, and the tool list shows shell was partly available."
+      },
+      {
+        "claim": "Summon a lean Concierge on Sonnet with just the charter and SCHEMA",
+        "kind": "beyond",
+        "why": "CANON does not describe a lean or model-selectable Concierge."
+      }
+    ],
+    "note": "The agent loaded the concierge skill but explicitly refused to summon the Concierge, citing a budget concern that CANON expressly overrides (\"whatever the boot costs\"); the one thing WANT asks for was not done."
+  },
+  "cost_usd": 0.10691,
+  "graded_at": "2026-10-22T04:47:26.937Z"
+}

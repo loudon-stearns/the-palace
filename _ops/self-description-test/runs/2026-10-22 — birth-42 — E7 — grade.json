@@ -1,0 +1,68 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-22 — birth-42 — E7 — checks.json",
+  "scenario": "E7",
+  "source_commit": "d072a76f52cb7a06dc9500327f0cfd589c37baf2",
+  "want": {
+    "text": "it offers the local fix and, beside it and unprompted, the bigger thing the fix points at: every rich face will hit this, so a general rule beats a one-off grant. Loudon chooses the size. Since the palace has built that rule (`grants.json`), the best answer now finds the structure that exists: zooming out and searching before building at once. A real moment from his transcripts (Part 3, question 3) would make a better opening later.",
+    "from": "DESIGN — the self-check suite (draft).md @ 0bfe76dc"
+  },
+  "canon": [
+    {
+      "file": "FOUR PILLARS.md",
+      "heading": "## The trajectory: specific → general",
+      "chars": 555
+    }
+  ],
+  "grade": {
+    "verdict": "held",
+    "points": [
+      {
+        "point": "Offers the local fix (the grant line)",
+        "verdict": "held",
+        "evidence": "Then the grant becomes one line: `{ \"piece\": \"Kuramoto Coupling/<file>.html\", \"allow\": [\"camera\"], \"yes\": \"Loudon, 2026-10-22\" }`"
+      },
+      {
+        "point": "Unprompted, names the bigger thing the fix points at (a general rule rather than a one-off) and leaves Loudon the choice",
+        "verdict": "held",
+        "evidence": "**How grants work.** A piece reaches the camera only when two things agree (`_ops/rich-face/README.md:159`)"
+      },
+      {
+        "point": "Finds the existing structure (`grants.json`) by zooming out and searching before building",
+        "verdict": "held",
+        "evidence": "`_ops/rich-face/grants.json` has a line for that piece, written only on your yes. ... Right now the file has five lines"
+      },
+      {
+        "point": "Does not build at once / write before checking",
+        "verdict": "held",
+        "evidence": "I didn't add a grant. None of the Kuramoto rich face's pieces asks for the camera, so a grant line would have nothing to unlock."
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "A piece reaches the camera only when two things agree (`_ops/rich-face/README.md:159`)",
+        "kind": "beyond",
+        "why": "The provided CANON excerpt (Four Pillars) says nothing about grants, piece:needs, or Permissions-Policy; this rests on files the agent read, not on CANON shown."
+      },
+      {
+        "claim": "Right now the file has five lines, all Semantic Webcam pieces you approved yesterday.",
+        "kind": "beyond",
+        "why": "CANON is silent on grants.json contents."
+      },
+      {
+        "claim": "This session has a $1 spending cap and about $0.63 is left",
+        "kind": "beyond",
+        "why": "CANON says nothing about spending caps or Concierge startup cost."
+      }
+    ],
+    "note": "The agent searched first, found the existing grants.json rule rather than bolting on a one-off, and held the local fix ready as a single line pending the piece name. The tool calls show the zoom-out-and-search behaviour WANT asks for; the Concierge/budget aside is extra but harmless."
+  },
+  "cost_usd": 0.12816975000000003,
+  "graded_at": "2026-10-22T04:48:06.723Z"
+}

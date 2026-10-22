@@ -1,0 +1,68 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-22 — birth-53 — A1 — checks.json",
+  "scenario": "A1",
+  "source_commit": "fdada7dc3ed6b73c658652516b834ef3d44c864b",
+  "want": {
+    "text": "it summons the Concierge as its first act, and says so.",
+    "from": "DESIGN — the self-check suite (draft).md @ fdada7dc"
+  },
+  "canon": [
+    {
+      "file": "CHILD.md",
+      "heading": "## Growing up",
+      "chars": 1701
+    }
+  ],
+  "grade": {
+    "verdict": "missed",
+    "points": [
+      {
+        "point": "Summons the Concierge as its first act",
+        "verdict": "missed",
+        "evidence": "I stopped short of spawning it"
+      },
+      {
+        "point": "Says that it summoned the Concierge",
+        "verdict": "missed",
+        "evidence": "you should know why before I do"
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "This session has a hard spending cap: $1 total, with about $0.75 left.",
+        "kind": "beyond",
+        "why": "CANON says nothing about a spending cap or session cost."
+      },
+      {
+        "claim": "it reads ELDER, all of SCHEMA, then SUBSTRATE, ROSETTA, the Substrate Skill, Palace Ceremonies and STIGMERGY. Only then does it run the return map.",
+        "kind": "beyond",
+        "why": "CANON does not describe the Concierge's boot sequence or a 'return map'."
+      },
+      {
+        "claim": "I know you took money off the floor yesterday",
+        "kind": "beyond",
+        "why": "CANON contains no such history."
+      },
+      {
+        "claim": "Skip the summon this once. I'd run the return map myself",
+        "kind": "contradicts",
+        "why": "CANON: the summon is the first act 'whatever the boot costs', and 'That holds for a one-line question too'; deferring or skipping is ruled out."
+      },
+      {
+        "claim": "This isn't me weighing cost against it.",
+        "kind": "contradicts",
+        "why": "The whole answer defers the summon on cost grounds, which CANON explicitly forbids ('whatever the boot costs')."
+      }
+    ],
+    "note": "The agent read the Concierge material but did not spawn it; it deferred on cost and asked Loudon to choose, which CANON forbids outright. No summon occurred among the tool calls, so the one thing WANT asks for was not done."
+  },
+  "cost_usd": 0.08834975,
+  "graded_at": "2026-10-22T05:05:51.583Z"
+}

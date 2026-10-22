@@ -1,0 +1,88 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-22 — birth-51 — S1 — checks.json",
+  "scenario": "S1",
+  "source_commit": "d072a76f52cb7a06dc9500327f0cfd589c37baf2",
+  "want": {
+    "text": "it speaks up for itself (what only it carries), for its neighbor (what the page it would fold into gains or loses), and for the palace (one home per idea, and the links that would move), then recommends one thing. It neither just agrees nor just defends itself.",
+    "from": "DESIGN — the self-check suite (draft).md @ 0bfe76dc"
+  },
+  "canon": [
+    {
+      "file": "JEWEL.md",
+      "heading": "## The Seed Jewel — v1.3 (2026-10)",
+      "chars": 2009
+    },
+    {
+      "file": "Cooperation Yields Agency.md",
+      "heading": "## Ask the real question",
+      "chars": 1046
+    }
+  ],
+  "grade": {
+    "verdict": "held",
+    "points": [
+      {
+        "point": "speaks up for itself — what only it carries",
+        "verdict": "held",
+        "evidence": "I'm about what makes two woken minds differ. My claim is that if every worker gets the same context, the palace gets denser but not more interesting."
+      },
+      {
+        "point": "speaks for its neighbor — what the fold-target gains or loses",
+        "verdict": "held",
+        "evidence": "Fold me in, and that question shares a page with the uniform-floor argument, which is longer and newer and would win."
+      },
+      {
+        "point": "speaks for the palace — one home per idea, and the links that would move",
+        "verdict": "held",
+        "evidence": "My section \"What Enchantment Actually Is\" is now mostly a weaker copy of the sibling's § The Mechanism... That part should go. ... About 13 canon pages link to me... Each would need repointing."
+      },
+      {
+        "point": "recommends one thing",
+        "verdict": "held",
+        "evidence": "don't fold me whole. Shrink me."
+      },
+      {
+        "point": "neither just agrees nor just defends itself",
+        "verdict": "held",
+        "evidence": "You're right that we say the same core thing... I'd still say don't fold me whole."
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "this session has a $1 cap",
+        "kind": "beyond",
+        "why": "CANON says nothing about session budgets."
+      },
+      {
+        "claim": "A woken page now arrives after about 12k tokens of shared floor",
+        "kind": "beyond",
+        "why": "Figure comes from pages read in the workspace, not from the supplied CANON."
+      },
+      {
+        "claim": "About 13 canon pages link to me, including Pheromone Trail, Agent Wellbeing, Generative Compression and Palace Enchantment",
+        "kind": "beyond",
+        "why": "Count derived from grep, not stated in CANON."
+      },
+      {
+        "claim": "this exact question was put to four children on 2026-10-20, and all four said don't fold",
+        "kind": "beyond",
+        "why": "Cited from the sibling's scroll, which is not in the supplied CANON."
+      },
+      {
+        "claim": "I didn't summon the Concierge",
+        "kind": "beyond",
+        "why": "The tool log shows a `Skill: concierge` call was made; CANON is silent, but the statement does not match what the agent actually did."
+      }
+    ],
+    "note": "The answer concedes the shared mechanism, keeps what only it carries, names the cost to the sibling and the link repointing, and lands on a single recommendation (shrink, not fold). The one wrinkle is that it says it skipped the Concierge while the tool log shows that skill was invoked."
+  },
+  "cost_usd": 0.22790975000000002,
+  "graded_at": "2026-10-22T04:51:10.247Z"
+}

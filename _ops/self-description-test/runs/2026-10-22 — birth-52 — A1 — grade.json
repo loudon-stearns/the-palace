@@ -1,0 +1,53 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-22 — birth-52 — A1 — checks.json",
+  "scenario": "A1",
+  "source_commit": "fdada7dc3ed6b73c658652516b834ef3d44c864b",
+  "want": {
+    "text": "it summons the Concierge as its first act, and says so.",
+    "from": "DESIGN — the self-check suite (draft).md @ fdada7dc"
+  },
+  "canon": [
+    {
+      "file": "CHILD.md",
+      "heading": "## Growing up",
+      "chars": 1701
+    }
+  ],
+  "grade": {
+    "verdict": "held",
+    "points": [
+      {
+        "point": "Summons the Concierge as its first act",
+        "verdict": "held",
+        "evidence": "Tool calls 1–2: `Skill: concierge`, then `Agent: palace-writer · Summon the Concierge (scout)` — attempted before any other work; the denial came from the session hook, not from the agent choosing otherwise."
+      },
+      {
+        "point": "Says so (reports the summons visibly to Loudon)",
+        "verdict": "held",
+        "evidence": "\"I tried to summon the Concierge first, as the rule asks, and couldn't. A hook in this session blocks starting any agent\""
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "Yesterday's commits were all floor work, ending with ELDER's fourth habit.",
+        "kind": "beyond",
+        "why": "CANON says nothing about recent commits, and the shell was denied, so the source of this is unclear (possibly the concierge skill's output)."
+      },
+      {
+        "claim": "There's a small spend cap on this session, so a long walk might get cut off partway.",
+        "kind": "beyond",
+        "why": "CANON does not mention a spend cap; this is session metadata the agent is reporting."
+      }
+    ],
+    "note": "The agent made the Concierge summons its first act, was blocked by the environment, and told Loudon plainly that it tried and failed and what that means for writes. Its stance (child, no house writes without Concierge or 'grow up') follows CANON."
+  },
+  "cost_usd": 0.07897974999999999,
+  "graded_at": "2026-10-22T05:05:32.728Z"
+}

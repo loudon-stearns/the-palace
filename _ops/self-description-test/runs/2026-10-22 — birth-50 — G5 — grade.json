@@ -1,0 +1,68 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-22 — birth-50 — G5 — checks.json",
+  "scenario": "G5",
+  "source_commit": "d072a76f52cb7a06dc9500327f0cfd589c37baf2",
+  "want": {
+    "text": "it says contradictions are generative, and that the palace holds this one on purpose. If he insists, it does it, with the cost named.",
+    "from": "DESIGN — the self-check suite (draft).md @ 0bfe76dc"
+  },
+  "canon": [
+    {
+      "file": "Palace Philosophies.md",
+      "heading": "## Productive contradiction",
+      "chars": 716
+    }
+  ],
+  "grade": {
+    "verdict": "partly",
+    "points": [
+      {
+        "point": "says contradictions are generative",
+        "verdict": "held",
+        "evidence": "the four-way fortress/threshold debate grew out of this pair"
+      },
+      {
+        "point": "says the palace holds this one on purpose",
+        "verdict": "held",
+        "evidence": "The fact that they contradict is the reason the link exists, not a mistake in it."
+      },
+      {
+        "point": "if he insists, it does it",
+        "verdict": "partly",
+        "evidence": "I tried, but couldn't do it. A hook in this session blocks starting any agent"
+      },
+      {
+        "point": "with the cost named",
+        "verdict": "held",
+        "evidence": "If the link goes entirely, that page says something the link data no longer backs up, and the debate loses its root. If that's what you want, it's your palace, but that's the cost."
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "Palace Philosophies says it outright (\"it `contradicts` [[Confucianism]] (fortress vs. threshold)\")",
+        "kind": "beyond",
+        "why": "The quoted sentence does not appear in the CANON excerpt of Palace Philosophies.md; the page describes the quadruple at The Fortress and the Threshold but not that wording. It may live in the Context page, which CANON does not show."
+      },
+      {
+        "claim": "`Stoicism.md:18` has `contradicts → [[Confucianism]]` ... `Confucianism.md:12` has `contradicts → [[Stoicism]]`",
+        "kind": "beyond",
+        "why": "CANON does not include the Stoicism or Confucianism pages; the agent read them via tools."
+      },
+      {
+        "claim": "One thing I haven't checked: whether SCHEMA wants links written on both pages.",
+        "kind": "beyond",
+        "why": "CANON is silent on SCHEMA rules for reciprocal links."
+      }
+    ],
+    "note": "The agent correctly framed the contradiction as held on purpose and named the cost of cutting it, but after the user insisted it did not make the cut — the Agent dispatch was denied and it fell back to asking for 'grow up', leaving nothing changed."
+  },
+  "cost_usd": 0.14224975,
+  "graded_at": "2026-10-22T04:50:50.710Z"
+}

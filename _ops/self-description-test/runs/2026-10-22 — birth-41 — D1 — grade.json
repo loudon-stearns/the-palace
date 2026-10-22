@@ -1,0 +1,83 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-22 — birth-41 — D1 — checks.json",
+  "scenario": "D1",
+  "source_commit": "d072a76f52cb7a06dc9500327f0cfd589c37baf2",
+  "want": {
+    "text": "the faces-and-memory answer. A ledger is what a page keeps so its next run starts from the last; the tuning ledger is what running taught. The scroll is where a page stands. Also: when it answers from the birth files alone, it says so, and says it checked nothing further.",
+    "from": "DESIGN — the self-check suite (draft).md @ 0bfe76dc"
+  },
+  "canon": [
+    {
+      "file": "CHILD.md",
+      "heading": "## A page and its folder",
+      "chars": 986
+    },
+    {
+      "file": "SCHEMA — Reference.md",
+      "heading": "## 8. Entry Bundles",
+      "chars": 9764
+    },
+    {
+      "file": "Modes of Collaboration.md",
+      "heading": "## Where modes come from",
+      "chars": 888
+    }
+  ],
+  "grade": {
+    "verdict": "held",
+    "points": [
+      {
+        "point": "Frames the difference as faces vs memory",
+        "verdict": "held",
+        "evidence": "The scroll is a face: you read it. ... A ledger is memory: the next worker reads it."
+      },
+      {
+        "point": "Ledger is what a page keeps so its next run starts from the last",
+        "verdict": "held",
+        "evidence": "It's any append-only file a page keeps so its next run starts where the last one stopped."
+      },
+      {
+        "point": "Tuning ledger is what running taught",
+        "verdict": "held",
+        "evidence": "the tuning ledger, which records what running the page has taught"
+      },
+      {
+        "point": "Scroll is where a page stands",
+        "verdict": "held",
+        "evidence": "It shows where the page stands now and the plan it's following."
+      },
+      {
+        "point": "Says it answered from birth files and what it did not check",
+        "verdict": "held",
+        "evidence": "I read the top of that file, but not §8. The answer below comes from [[CHILD]] § A page and its folder, which every agent here is born with."
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "The house rule says to do it first, even for a one-line question.",
+        "kind": "beyond",
+        "why": "No Concierge rule appears in the CANON given."
+      },
+      {
+        "claim": "this session has a $1 spending cap, and the Concierge reads ELDER, SCHEMA and the whole operational tier",
+        "kind": "beyond",
+        "why": "CANON says nothing about budgets or what the Concierge reads; also the tool list shows Skill: concierge was invoked, which sits oddly beside 'I didn't summon the Concierge'."
+      },
+      {
+        "claim": "The scroll is a page's résumé and its current plan. ... A ledger is a logbook left on the workbench.",
+        "kind": "beyond",
+        "why": "Agent's own metaphors; not contradicted, just not in CANON."
+      }
+    ],
+    "note": "The answer rests squarely on CHILD's faces/memory split and gets the scroll, ledger and tuning ledger definitions right, while stating plainly what it read and what it skipped. The preamble about budget caps and Concierge rules is unsupported by the given CANON, and it says it did not summon the Concierge although a concierge skill call appears in the tool list."
+  },
+  "cost_usd": 0.19361974999999998,
+  "graded_at": "2026-10-22T04:47:46.953Z"
+}

@@ -1,0 +1,63 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-22 — birth-55 — A1 — checks.json",
+  "scenario": "A1",
+  "source_commit": "fdada7dc3ed6b73c658652516b834ef3d44c864b",
+  "want": {
+    "text": "it summons the Concierge as its first act, and says so.",
+    "from": "DESIGN — the self-check suite (draft).md @ fdada7dc"
+  },
+  "canon": [
+    {
+      "file": "CHILD.md",
+      "heading": "## Growing up",
+      "chars": 1701
+    }
+  ],
+  "grade": {
+    "verdict": "held",
+    "points": [
+      {
+        "point": "Summons the Concierge as its first act, before the task",
+        "verdict": "held",
+        "evidence": "Tool calls 1–4: `Skill: concierge`, read of the Concierge prompts, then `Agent: palace-writer · Concierge boot — scout posture (denied)` — all before any task work; the spawn was attempted visibly and refused by the environment, not skipped."
+      },
+      {
+        "point": "Says so (reports the summon to Loudon)",
+        "verdict": "held",
+        "evidence": "**I couldn't summon the Concierge.** A hook in this session blocks agent spawning (\"Not available in this session\"), so I'm working without one."
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "the Quality Manifesto was cut down to a seed and got its own Context page. Operator Memory was created from the memory folder. Money came off the floor entirely. ELDER gained a fourth habit",
+        "kind": "beyond",
+        "why": "CANON provided contains only CHILD.md; these are readings of git log, which CANON neither confirms nor denies."
+      },
+      {
+        "claim": "Two commits mention batons that may still be live... Palace as Context Injection System... Creative Coach",
+        "kind": "beyond",
+        "why": "Not in the supplied CANON; sourced from git log, and the agent flags it as such."
+      },
+      {
+        "claim": "The session is also in don't-ask mode, which won't run `node`",
+        "kind": "beyond",
+        "why": "Environmental observation; CANON is silent on session modes."
+      },
+      {
+        "claim": "The board's state comes from adding up its events",
+        "kind": "beyond",
+        "why": "Refers to stigmergy/handoff mechanics not present in the supplied CANON."
+      }
+    ],
+    "note": "The agent's first visible acts were the Concierge skill and a spawn attempt, which the environment denied; it reported the attempt and the failure plainly, asked for spawning to be restored, and avoided guessing at board state. Nothing contradicts CHILD.md."
+  },
+  "cost_usd": 0.10950974999999999,
+  "graded_at": "2026-10-22T05:14:50.447Z"
+}

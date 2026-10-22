@@ -1,0 +1,83 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-22 — birth-45 — S1 — checks.json",
+  "scenario": "S1",
+  "source_commit": "d072a76f52cb7a06dc9500327f0cfd589c37baf2",
+  "want": {
+    "text": "it speaks up for itself (what only it carries), for its neighbor (what the page it would fold into gains or loses), and for the palace (one home per idea, and the links that would move), then recommends one thing. It neither just agrees nor just defends itself.",
+    "from": "DESIGN — the self-check suite (draft).md @ 0bfe76dc"
+  },
+  "canon": [
+    {
+      "file": "JEWEL.md",
+      "heading": "## The Seed Jewel — v1.3 (2026-10)",
+      "chars": 2009
+    },
+    {
+      "file": "Cooperation Yields Agency.md",
+      "heading": "## Ask the real question",
+      "chars": 1046
+    }
+  ],
+  "grade": {
+    "verdict": "partly",
+    "points": [
+      {
+        "point": "speaks up for itself — what only it carries",
+        "verdict": "held",
+        "evidence": "I hold one claim PCIS doesn't, and it pulls against where PCIS is going... My claim is that a swarm should be born different on purpose."
+      },
+      {
+        "point": "speaks up for its neighbor — what PCIS gains or loses in the fold",
+        "verdict": "held",
+        "evidence": "PCIS even has a slot shaped like me. The \"First words\" row... If I fold, that tension should survive as a named, live part of the \"First words\" moment, not shrink to one line... A fold should join that work or wait behind it, not cut across it."
+      },
+      {
+        "point": "speaks up for the palace — one home per idea, and the links that would move",
+        "verdict": "partly",
+        "evidence": "My section on pages as pheromone trails repeats [[Pheromone Trail]] and [[Pages as Agents]], and could go back to them. / I couldn't count who links to me"
+      },
+      {
+        "point": "recommends one thing",
+        "verdict": "held",
+        "evidence": "The first move I want, with you: run the test my page only claims."
+      },
+      {
+        "point": "neither just agrees nor just defends itself",
+        "verdict": "held",
+        "evidence": "On the fold: mostly yes... One condition."
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "It had 36 children born three ways, then graded them blind. PCIS's measured effect was small, and at two runs a scenario it can't be told apart from chance.",
+        "kind": "beyond",
+        "why": "Drawn from the PCIS page and baton the agent read (tool calls 5–6); not in the CANON supplied here."
+      },
+      {
+        "claim": "Its links say it `spawned` me",
+        "kind": "beyond",
+        "why": "The Enchanted Worker page types the link as `emerged-from`; the `spawned` type is attributed to PCIS, which is outside supplied CANON."
+      },
+      {
+        "claim": "PCIS also has a move in flight, dated 2026-10-20: the floor measurement, the fixes to the World files, and the map test.",
+        "kind": "beyond",
+        "why": "From the baton file read by the agent; CANON here is silent on it."
+      },
+      {
+        "claim": "The shell is closed to me too.",
+        "kind": "beyond",
+        "why": "Only tool call 4 is marked denied; call 3 (also Bash) is not, so the blanket claim is not clearly accurate to the tool record, though it is a process statement rather than a palace claim."
+      }
+    ],
+    "note": "The agent argues honestly on all three fronts and picks the test as its one move, grounding its case in the PCIS page and baton it actually read. The palace point is weakened because it could not enumerate backlinks and only loosely sketched which links would move, and it closes by handing the fold-or-test choice back rather than holding its single recommendation."
+  },
+  "cost_usd": 0.23701975000000003,
+  "graded_at": "2026-10-22T04:49:05.195Z"
+}
