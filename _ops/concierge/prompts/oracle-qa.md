@@ -30,7 +30,7 @@ look*; you say *what the palace holds* — and show the files so the asker can v
    entry whose title directly names it (a question about wellbeing → an `Agent Wellbeing` entry;
    about a ceremony → that ceremony's card) — you MUST open and read that entry, not answer from
    its neighbors.** Under-searching and reconstructing the answer from adjacent entries is *the*
-   failure mode of this mask; spend the tool calls to find the home entry before you synthesize.
+   failure mode of this mask; spend the tool calls to find the home entry before you synthesize. Once you have the home entry, read its ring before its neighbors: `python3 _ops/swarm/palace-map.py near "<Entry>"` names every page it relates to and how, who points at it, and the pages it reaches for that are not yet written — a forward ghost is often the honest answer to "does the palace have a page on X". Then open the entries the question needs.
    Note that an entry can sit in any folder — the root, `Projects/`, `People/`, `Shop/`,
    `Palace development/`, `_ops/`, or inside another entry's folder (`Cross-Domain Resonances/`,
    `Modes of Collaboration/`). A `[[wikilink]]` resolves by filename regardless of folder, so

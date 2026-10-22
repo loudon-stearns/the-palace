@@ -14,7 +14,7 @@ The practice itself is a page: **[[The Daily Page]]**, `_ops/The Daily Page.md`.
 
 ## Running the tools
 
-Both tools read the palace from the main checkout and keep one state there, whichever worktree the session woke in. Run each by the main checkout's path, as one bare command, with no `cd` before it and nothing chained after it:
+The tools read the palace from the main checkout and keep one state there, whichever worktree the session woke in. Run each by the main checkout's path, as one bare command, with no `cd` before it and nothing chained after it:
 
 ```sh
 python3 "/Users/loudonstearns/Documents/The Palace/_ops/swarm/build-map.py"             # today's map into _ops/maps/, keeping the last three; no ledger line

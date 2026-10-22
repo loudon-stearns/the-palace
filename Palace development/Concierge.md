@@ -197,7 +197,7 @@ The cost model that follows sets two disciplines:
 
 - **Curate the startup neighborhood.** What you load into the companion at spawn sets its baseline
   weight. Load the neighborhood the session actually needs — deliberately — not the whole palace by
-  reflex.
+  reflex. The companion then reads any entry's ring on demand from the [[Palace Map]] (`_ops/swarm/palace-map.py near`), which is how it knows where a thing stands without loading what stands around it.
 - **Watch its health with the dial.** Each resume re-hydrates a *growing* context, so a long session
   eventually makes the companion heavy. Each resume also *returns* the objective read — `subagent_tokens`
   in the Agent tool's `<usage>` block (never the companion's self-report). Pass it to the **health dial**

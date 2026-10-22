@@ -20,19 +20,20 @@ in *your* window, not the parent's. Search freely; hand back only the finished i
 
 ## Method
 
-1. **Cast wide, then judge.** Search recursively from the palace root. Match on entry
+1. **Start from the ring.** Name the topic's home entry (the entry whose title names it, when there is one) and run `python3 _ops/swarm/palace-map.py near "<Entry>"`. Its two-hop ring is the first slate of candidates, each already carrying how it relates; `path "<A>" "<B>"` finds the bridge between two topics before any search does. Where the topic has no home entry, skip to the search.
+2. **Cast wide, then judge.** Search recursively from the palace root. Match on entry
    titles (`title:` frontmatter), filenames, and body `[[wikilinks]]`, plus plain-text
    mentions of the topic terms. Exclude `.git/`, `.claude/`, `.obsidian/`, `node_modules/`,
    and virtualenv/tooling dirs (`.venvs/`, `_tools/`) — knowledge entries only.
-2. **Read frontmatter to qualify.** For each candidate, read its YAML: `type`, `stage`,
+3. **Read frontmatter to qualify.** For each candidate, read its YAML: `type`, `stage`,
    and `links`. Use the typed links to judge relevance and to name *how* an entry relates
    to the topic (e.g. "`couples-with` STIGMERGY"). Frontmatter is the canon membership
    card — a file **without** frontmatter is a learning material/artifact, not a canon
    entry; note the distinction rather than dropping it.
-3. **Follow the strong threads one or two hops.** From high-relevance hits, follow typed
+4. **Follow the strong threads one or two hops.** From high-relevance hits, follow typed
    links to catch neighbors the keyword search missed — but stay on-topic; do not wander
-   the whole graph.
-4. **Find the bridges.** Entries that connect *both* (or all) requested topics are the
+   the whole graph. The ring has already done this for the home entry; follow threads by hand only from hits the ring did not hold.
+5. **Find the bridges.** Entries that connect *both* (or all) requested topics are the
    highest-value hits — surface them specially.
 
 ## The deliverable — a quality, file-cited index

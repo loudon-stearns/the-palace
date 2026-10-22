@@ -14,6 +14,8 @@ with — its character and lifecycle; the **posture prompts** (`prompts/gatherer
 is designed; the health **dial** (`dial.mjs` — compact-or-respawn on the objective `subagent_tokens`
 read) landed 2026-07-08.
 
+Every posture starts from the [[Palace Map]] where it has a home entry: `_ops/swarm/palace-map.py near` for the ring, `quiet` and `ghosts --persistent` for the scout. The map is as old as the morning's build and frontmatter only; the postures say what that leaves out.
+
 ## What it's for — offload *and* continuity
 
 Two reasons to keep a companion rather than load everything yourself:

@@ -71,7 +71,7 @@ ambiguity, not the default — most dispatches should just run.
    `Modes of Collaboration/`). A `[[wikilink]]` resolves by filename regardless of folder, so
    search the whole tree for `<Title>.md`. Frontmatter is the canon membership card and tells you
    the type; the folder does not — a frontmatter-less file is a learning material, not an entry,
-   and is out of your remit to edit.
+   and is out of your remit to edit. Begin the read with each touched entry's ring (`python3 _ops/swarm/palace-map.py near "<Entry>" --hops 1`): the link A→B with no acknowledgment on B, the hub that has stopped being pointed at, the forward ghost one deposit could close, all show there before any body is opened.
 2. **Verify what deserves verifying.** For any load-bearing claim the tending depends on — or any
    claim from the dispatching conversation that could be a host hallucination — check it: against
    the palace's own text first, and against the **web** when the palace can't settle it. Keep

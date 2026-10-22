@@ -39,6 +39,13 @@ blocked on a decision, baton files with no board line, the linters, worktrees, u
 uncommitted changes. `--json` if you want it structured; `--since <date>` when the last session's
 date is known.
 
+Beside the record, two reads of the map, one command each, so the one move can come from the shape of the palace and not only from what is open:
+```sh
+python3 _ops/swarm/palace-map.py quiet --n 10          # well connected, untouched in 90 days
+python3 _ops/swarm/palace-map.py ghosts --persistent   # pages the palace has reached for across three builds
+```
+A quiet hub and a persistent ghost are each a candidate move. Name them in the map's "what wants attention" rows with the command beside them, as the Return Ceremony asks of every row; weigh them against the open work, and never let a quiet page outrank a blocked baton.
+
 **Run it before you form any impression.** A returning reader's empty context does not stay empty —
 it fills with plausible inference, and inference arrives dressed as assessment. This is the
 ceremony's rule that outranks the others: *the record answers, you do not.*
