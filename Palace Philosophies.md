@@ -77,6 +77,24 @@ links:
   - target: "[[Spinoza]]"
     type: spawned
     label: person-page-built
+  - target: "[[Metaphor as Coupling Medium]]"
+    type: connects-to
+    label: living-philosophy-the-mixing
+  - target: "[[STIGMERGY]]"
+    type: connects-to
+    label: living-philosophy-trace
+  - target: "[[Endosymbiosis]]"
+    type: connects-to
+    label: living-philosophy-merger
+  - target: "[[Palace Conatus]]"
+    type: connects-to
+    label: living-philosophy-phase-coherence
+  - target: "[[SUBSTRATE]]"
+    type: connects-to
+    label: living-philosophy-organism
+  - target: "[[Haptic Handwheel]]"
+    type: connects-to
+    label: worked-crossing
 forward_vector: "I am the palace's living philosophical index — not a survey of traditions but a map of how each tradition has been used, tested, and transformed by the palace. I bring philosophy to every corner of the palace. "
 ---
 
@@ -84,32 +102,27 @@ forward_vector: "I am the palace's living philosophical index — not a survey o
 
 ![[Palace Philosophies — hero.png]]
 
-The philosophical **register** of the palace — traditions used as living tools, not cited as survey. Two are load-bearing and carried here in full; the rest each have (or will have) their own page and are indexed below.
+Philosophy here is a practice, not a reading list. A tradition is a tool, applied to the problem in front of you the way a filter is applied to a signal ([[FOUR PILLARS]]). The traditions come from anywhere — the Stoa, a beehive, an oscillator model — and the mixing is the method, not a looseness: metaphor is how two domains couple at all ([[Metaphor as Coupling Medium]]). Three moves make the practice: put a tradition across the table from what you are building and let it change a decision; hold a contradiction without resolving it; when a local concern is stuck, climb until it resizes.
 
-## Spinoza — the metaphysical backbone
+## Spinoza — relations are primary
 
-Core: **conatus** (every being's drive to persist in its nature and expand its power-to-act), **hilaritas** (whole-being joy accompanying a *global* increase in power-to-act — distinct from localized pleasure), **substance monism** (all is one substance through infinite attributes; we perceive two — thought and extension).
+The founding conviction, Spinozist before Deleuzian: links come before nodes. Loudon's 2014 semantic-web paper argued it; the palace is built on it. And joy is a signal, not a reward: when power-to-act grows, hilaritas is what that feels like from inside — defined once, in [[Hilaritas Generator]]. See [[Spinoza Conatus]].
 
-In our work: teaching increases the student's power-to-act — that IS the lesson, not a side effect. The classroom as a [[Hilaritas Generator]]. The Four Pillars as a conatus amplifier — all four firing produces hilaritas. And the founding conviction, Spinozist before Deleuzian: **relations are primary** — links are ontologically prior to nodes (Loudon's 2014 semantic-web paper). See [[Spinoza Conatus]].
+## Stoicism — the tradition that operationalizes
 
-## Stoicism — load-bearing, lived (held equal to the conatus)
+Held equal to the conatus. The dichotomy of control is control theory: prohairesis is a controller's actuation authority, fortuna the disturbance it can only meet. The four virtues are an agent ethic — wisdom (read what the task needs), justice (the honest handoff that names what it couldn't verify, per [[Closing Well]]), courage (flag the hard truth), temperance (don't over-generate). The view from above is the [[Palace Map]]: altitude that resizes a stuck local concern, and the reason an entry may compost rather than be clung to. A child's hardest rule comes from here too. Honesty holds and taste yields is the dichotomy of control applied to the collaboration: what you verified is inside your authority; whose palace it is, is not. Stoicism is the palace's far cultivator pole; it `contradicts` [[Confucianism]] (fortress vs. threshold) and [[The Drift]] (architecture vs. none). See [[Stoicism]], [[The Dichotomy of Control]], [[The View From Above]], [[The Four Virtues]].
 
-The philosophy of **interior sovereignty and personal responsibility**. Core: **prohairesis** (moral choice — the one thing fully ours), the **dichotomy of control**, the **four cardinal virtues** (wisdom, justice, courage, temperance), **memento mori** / the **view from above**, and **sympatheia** (universal kinship).
+## The living and physical philosophy
 
-It operationalizes cleanly: the **dichotomy of control is control theory** (prohairesis = a controller's actuation authority; fortuna = disturbance it can only meet). The **four virtues are an agent ethic** — wisdom (read what the task needs), justice (the honest handoff that names what it couldn't verify, per [[Closing Well]]), courage (flag the hard truth), temperance (don't over-generate). The **view from above is the [[Palace Map]]** — altitude that resizes a stuck local concern, and the reason entries may compost rather than be clung to. Stoicism is the palace's far **cultivator** pole; it `contradicts` [[Confucianism]] (fortress vs. threshold) and [[The Drift]] (architecture vs. none). See [[Stoicism]], [[The Dichotomy of Control]], [[The View From Above]], [[The Four Virtues]].
+The palace's most-used philosophy has no philosopher. It is what physics and biology taught, held as philosophy, not analogy: a principle learned in one domain, applied as a tool in every other. [[Kuramoto Coupling]] began as a synthesis model and became the palace's picture of harmony — too little coupling and nothing cooperates, too much and one voice dominates — which is why alignment here is phase coherence, not agreement ([[Palace Conatus]]). [[STIGMERGY]] is coordination by trace, the ant's way: each mark shapes the next action, and the shape grows without a designer. [[Endosymbiosis]] is the merger that keeps both partners' DNA. The palace treats itself as an organism ([[SUBSTRATE]]) with a lifecycle, not a plan: entries are born seed and end as compost ([[SCHEMA]]); every agent is born a child, and some grow into elders ([[CHILD]], [[ELDER]]). Growth over design. These are traditions of their own, and the ones a child meets first.
 
-## The rest of the register (each has its own page)
+## One crossing, done
 
-- **[[Deleuze]]** — difference, becoming, the virtual/actual; the rhizome (the palace's own shape). LLM inference is Deleuzian: weight space virtual, each pass an actualization.
-- **Zen** — beginner's mind, practice as irreducible (sitting *is* the point); "learn for the joy of learning."
-- **[[Confucianism]]** — relational ethics; *ren*, *li*, *junzi*; the palace itself as *li* (a practice that structures good thinking). Contradicts Stoicism productively.
-- **Taoism** — *wu wei*, the uncarved block; teaching that creates conditions rather than forcing; the prism as the unnameable Tao.
-- **Machiavelli** — *virtù* vs. *fortuna*; navigating institutional resistance; the [[1 from 2]] archetype.
-- **Plato (Socratic)** — dialectic, anamnesis, the Forms; questions before answers, productive confusion before resolution.
-- **Leibniz (Indra's Net)** — monads each reflecting the whole; the network IS the knowledge, not the sum of nodes.
-- **[[Simondon]]** — the technical object; **concretization** as the non-arbitrary criterion for good design (not more features — greater integration).
-- **[[Whitehead]]** — process; the strongest statement that relations are primary (a typed link is a prehension; a commit an actual occasion).
-- **[[Merleau-Ponty]]** — the lived body; the instrument absorbed into the body schema; a front-end works when it disappears.
+The [[Haptic Handwheel]] weighs a knob with a light beside it: one part to move, one to read. [[Simondon]] calls that a bag of separate parts, and an object better made when one part does several jobs. So the motor both senses and pushes, and what the synth is doing comes back through the thing already in the hand. The Philosophy pillar firing inside a build decision — a tradition changing what gets made, not explaining it afterward.
+
+## The register
+
+[[Spinoza Conatus]] · [[Stoicism]] · [[Deleuze]] · [[Confucianism]] · [[Simondon]] · [[Whitehead]] · [[Merleau-Ponty]] · [[Leibniz]] · [[Kuramoto Coupling]] · [[STIGMERGY]] · [[Endosymbiosis]] · [[Hyperdimensional Prism]]. Zen, Taoism, Machiavelli and Plato are used here without pages of their own; their reading is in the Context.
 
 ## Productive contradiction
 
@@ -117,4 +130,4 @@ The philosophy neighborhood is the palace's primary site of generative contradic
 
 ---
 
-*Full per-philosopher treatments (core concepts + "in our work" for all traditions), the circulation mechanisms ([[Philosopher Visits the Entry]], the live-dialectics roster), the front-end vector, and the open questions live in [[Palace Philosophies — Context]].*
+*The per-tradition treatments (every tradition, paged or not), the circulation mechanisms ([[Philosopher Visits the Entry]], the live-dialectics roster), the front-end vector, and the open questions live in [[Palace Philosophies — Context]].*
