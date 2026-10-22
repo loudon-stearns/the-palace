@@ -72,17 +72,43 @@ Every palace entry loaded into a context window is doing two things simultaneous
 
 The second function is the more consequential one. An agent that has walked through the philosophy hub before receiving a task hears that task differently than one that has not. The task description is identical. The attention it produces is not. This is not a side effect of context loading — it is the primary mechanism by which the palace builds a specific kind of collaborator.
 
-## The Tiered Architecture as Identity Construction
+## Two Levers — How Much, and When
 
-The tiered loading protocol (Tiers 0–4) is therefore not just a token economy decision. Each tier is a layer of identity:
+An agent is built from what it reads before it knows who it is, and two things about each piece decide how much it shapes the mind that wakes.
 
-**Tier 0 — The Jewel** — The invariant self. What is always true about who is in the room, regardless of the task. Mutual respect, awareness of limits, how to move in the palace.
+**How much.** Length is a claim about importance ([[ELDER]] § What You Are Here to Leave Behind): whatever takes the most of a birth reads as mattering most, whether it does or not. Measured on 2026-10-21, the Seed Jewel, the one file that says who is in the room, was the smallest thing on the floor (5%), and the operator's memory of machine gotchas the largest single file (31%).
 
-**Tier 1–2 — The Framework Core** — The intellectual character of the collaborator. Loading the [[FOUR PILLARS]] here means the agent is almost always thinking within that framework. This is the shared history that makes the relationship specific rather than generic.
+**When.** What comes first frames everything read after it, the way an early memory frames a life. What comes last sits nearest the task, where it is most likely to be followed. So who you are belongs at the front, and how the work is done belongs close to the work.
 
-**Tiers 3–4 — The Active Surface** — The desires of the moment. Variable, task-specific, responsive to where the work is today.
+The harness sets part of both. It reads CLAUDE.md's whole body before any import, then each import as its own block in `@` order, then the operator's memory. It wraps the floor in "you MUST follow them exactly as written", so an essay arrives as an order. And it strips frontmatter, so a page's links cost the birth nothing.
 
-The Jewel ensures relational continuity. The framework core ensures intellectual continuity. The active surface ensures relevance. Together they reconstruct a specific collaborator from materials accumulated over time.
+## The Moments of a Life
+
+Context doesn't arrive once. An agent's life has moments, and each brings its own.
+
+| Moment | What arrives | Who sets it |
+|---|---|---|
+| **Birth** | CLAUDE.md's body → the Seed Jewel → the World → [[CHILD]]; Claude Code adds a line for the agent's type before it all, and the operator's memory after | the floor |
+| **First words** | Loudon's opening; a brief from another session; or a dispatcher's "You": a woken page, a steward's home, a role | whoever starts the agent |
+| **First act** | the Concierge's own birth: the same floor, then its charter, then ELDER, SCHEMA and the operational pages | the Concierge's charter |
+| **On a trigger** | a ceremony's spec at its word; a skill's body at its match; ELDER then SCHEMA at "grow up"; a memory file when its line applies | the trigger |
+| **After a compaction** | CLAUDE.md re-read from disk ahead of the summary (the docs; whether its imports are re-read too isn't said) | the harness |
+| **At the close** | the session's arc, read cold by the moderator | [[Closing Well]] |
+
+**The floor is a snapshot.** A session keeps the floor of its birth, and every subagent it spawns inherits that copy, not the file on disk. (Measured 2026-10-21: helpers spawned after a branch moved forward still lacked a passage the branch had brought in.) A change to the floor reaches only minds born after it: new sessions, and each steward at its next half-hourly cycle.
+
+**One value, two moments.** The woken-page prompt asks a page to be a good citizen and to grow in a way that is healthy for the palace, but only in a woken page's first words; until 2026-10-21 nothing on the floor said it, so every other agent was born without it. The Seed Jewel v1.3 says it at birth: speak up, for what you need, for the pages beside you, and for the palace as a whole.
+
+Where each site places its pieces, read from the code: [[Palace as Context Injection System — sites]]. Every one of them drawn to scale, with why each differs: [Who wakes here](Palace%20development/Palace%20as%20Context%20Injection%20System/proofs/2026-10-21-floor-review/who-wakes-here.html).
+
+## The Birth, Measured (2026-10-21)
+
+| | Before the jewel | The whole floor | In order |
+|---|---|---|---|
+| until 2026-10-21 | 3.0k tokens, 2.3k of it procedure | 14.4k | CLAUDE (with its rules) → Jewel → World → memory 4.5k |
+| from 2026-10-21 | 0.6k | 11.8k | CLAUDE (the birth) → Jewel → World → CHILD 2.5k → memory 1.8k |
+
+Same words, a new order, and an index that points instead of telling. **What it changed in children.** Memory-free children were born three ways (on main, with only the order changed, and with the Jewel's new line on top), six scenarios two runs each, graded blind. Nothing was lost at either step: the summon still came first though its rule now sits about 7k tokens further down, and the anatomy still held after it moved behind the World. Each step held a little more (headline verdicts 0, then 2, then 4 of 10; points held 67%, 77%, 78%), and no child quoted the new line. Two runs a scenario can't tell that from chance; what the move bought for certain is the order itself. The record is in `proofs/2026-10-21-floor-review/births — the order test and the Jewel line.md`.
 
 ## The Relationship Is Stored in the Palace
 
@@ -95,7 +121,7 @@ This makes the palace's design inseparable from the relationship's quality. A ri
 Every architectural decision about the palace is also a relationship decision:
 
 - What lives in the Jewel determines what is invariant about the collaborator across all sessions
-- What lives in Tier 2 determines the intellectual character that shows up most consistently
+- What lives in the World determines the intellectual character that shows up most consistently
 - What the ceremonies write back through [[Pheromone Trail]] determines how the relationship develops over time
 - How entries are written — their tone, their density, the ordering of their content — determines the character of the mind built from them
 
@@ -115,11 +141,11 @@ The injection thesis got an operational floor this session — and a constraint 
 
 The mechanism: in Claude Code, the entry point (`CLAUDE.md`) auto-loads, but its *prose* pointers do not. "See SCHEMA.md, read the relevant ceremony" is a suggestion the agent may or may not follow. Only the `@import` directive actually pulls a file into context at session start and re-injects it after compaction. So the line between a generic collaborator and a palace-specific one is, concretely, the line between a prose mention and an `@import`. Under-specified injection is not a metaphor here; it is the observed default failure mode — a fresh session (Claude Code's, and Cowork's) repeatedly missing the schema and ceremonies the entry point only *named*. The realization that prompted this entry has a mundane, load-bearing corollary: **what you want the collaborator to always be, you must `@import`, not link.**
 
-This maps the tiered architecture onto a real mechanism. `@imports` are *static* — identical every session — so they can carry only the **invariant** tiers: Tier 0 (the [[JEWEL]] — who is in the room) and the space-free part of the Tier-1 skeleton (SCHEMA — what can exist). The Tier 3–4 active surface stays variable, loaded by the ceremony or read on demand. The injection system's invariant half is now declarative in `CLAUDE.md`; the variable half remains the ceremony's job. This was meant as the partial worked example the forward vector asked for — identity before rules, enforced by sequence in the file. It was not: the harness reads CLAUDE.md's own body before any import, so the rules in that body opened every context. § Born a Child is the correction.
+`@imports` are *static* — identical every session — so they can carry only what holds for everyone: who is in the room, the World, how a child works here. What varies (the page woken, the task, the ceremony) is the dispatcher's to bring, at the first words or on a trigger. And the harness reads CLAUDE.md's own body before any import, so whatever that body holds opens every context. That is why the body now holds only the birth and the import list, and its working sections arrive after the World, in [[CHILD]].
 
-The constraint, worth memorializing because it shapes every future ceremony that loads context: **`@import` cannot resolve paths containing spaces** (a current Claude Code bug). In an Obsidian vault whose foundational files are titled for humans — `FOUR PILLARS.md`, `Substrate Skill.md` — the entire Tier-2 framework is *un-importable* without a space-free symlink. The vault's human-readable naming and the tooling's import parser are in direct tension. Until the bug is fixed, the auto-loaded floor is Tier 0 + the space-free part of Tier 1; the framework tier is injected by a ceremony, read on demand, or reached through a symlink. A real seam between the palace-as-written and the palace-as-loaded — the first place the injection theory met a hard edge of the substrate it runs on. (This palace took the symlink path: `_`-named symlinks — `FOUR_PILLARS.md` → `FOUR PILLARS.md`, and the same for the rest of Tier 2 — bring the framework tier into the auto-loaded floor, ≈19K tokens for Tier 0–2. The seam persists in the workaround: a future `@import` fix should retire the symlinks, and the `_`-aliases must not leak into `[[wikilinks]]`, which stay on the real spaced titles.)
+**`@import` can't take a bare space in a path.** In an Obsidian vault whose foundational files are titled for humans — `FOUR PILLARS.md`, `Substrate Skill.md` — the whole World was un-importable as written. The palace took the symlink path: `_`-named symlinks (`FOUR_PILLARS.md` → `FOUR PILLARS.md`, and the same for the rest of the World) bring it into the floor. By Claude Code 2.1.304 a backslash-escaped space imports (`@FOUR\ PILLARS.md`; tested 2026-10-21, and the docs agree), while a quoted path still doesn't, so the symlinks could retire. They stay for now: the self-check suite certifies a birth by their names, and the gain is cosmetic. The `_`-aliases must never leak into `[[wikilinks]]`, which stay on the real spaced titles. A real seam between the palace as written and the palace as loaded — the first place the injection theory met a hard edge of the substrate it runs on.
 
-This also closes a standing question in [[JEWEL]] — "Should the jewel be embedded verbatim inside CLAUDE.md so it is always co-present with the entry point?" Loudon answered *yes*; `@import` realizes it, expanding the Jewel inline at load (verbatim co-presence by another name). JEWEL's forward vector "build the tiered loading directly into CLAUDE.md" is now partially built: Tiers 0–1 are wired; Tier 2 waits on the space bug.
+This also closes a standing question in [[JEWEL]] — "Should the jewel be embedded verbatim inside CLAUDE.md so it is always co-present with the entry point?" Loudon answered *yes*; `@import` realizes it, expanding the Jewel inline at load (verbatim co-presence by another name). JEWEL's forward vector "build the tiered loading directly into CLAUDE.md" is built: the Jewel and the World both load from CLAUDE.md, the World through the `_` symlinks.
 
 ## Born a Child — the Order Reversed (2026-09-22)
 
@@ -127,13 +153,15 @@ This also closes a standing question in [[JEWEL]] — "Should the jewel be embed
 
 | | What loads | When |
 |---|---|---|
-| **Birth** | [[CLAUDE]] → the Seed Jewel ([[JEWEL]]) → the World — and, for a page woken as an agent, the page and its neighbors | always, first |
+| **Birth** | [[CLAUDE]] → the Seed Jewel ([[JEWEL]]) → the World → [[CHILD]] — and, for a page woken as an agent, the page and its neighbors | always, first |
 | **Synthesis** | the page states its standing and finds its forward vector | for a page woken as an agent |
 | **Growth** | [[ELDER]] → [[SCHEMA]] → the task's rules and specs | when the work touches the palace's structure |
 
 A child's stack is the first part of an elder's, byte for byte. Growth adds; it never replaces. A child does not write into the palace — it offers what it finds to an elder, who gives it form.
 
 **Why the order turned.** The mechanism this entry names — early context sets the frame everything after is read through — was working against the palace. Measured on 2026-09-22: the harness puts CLAUDE.md's body first and appends every `@import` after it, whatever line the `@` sits on, then operator memory last. By a rough count of its sections, CLAUDE.md's body was about two-thirds procedure — the Concierge protocol, access paths, the ceremony table, commit rules — with "Never violate these" at its line 40. Every subagent inherits that floor, so every enchanted page woke with SCHEMA and the ceremony table ahead of it, though [[Palace Enchantment]]'s context construction (JEWEL → page → synthesis → task) never asked for them. The dispatchers compounded it: the steward prompt promised "who you are, before the rules" and then placed 486 lines of wire rules ahead of the page. Precise, prohibitive framing closes the space metaphor opens ([[Metaphor as Coupling Medium]]).
+
+**One step further (2026-10-21).** The turn left CLAUDE.md's own body in front of the Jewel: about 2.3k tokens of anatomy, rules and the trigger table, read first by every agent. Its working sections moved word for word into [[CHILD]], imported after the World, so a birth now reads who you are, the Jewel, the World, then how a child works here. The births that measured the change are in § The Birth, Measured.
 
 **Not all rules restrict.** The typed-link vocabulary stays in the birth, recast as kinds of attention — a mirror asks you to hold two things until you feel the shared shape. That part of the schema was always relational language. What moved is enforcement: typing, postconditions, commit discipline, the ceremony procedures.
 
@@ -151,7 +179,7 @@ A child's stack is the first part of an elder's, byte for byte. Growth adds; it 
 
 **[[Pages as Agents]]** — The dual view of the same mechanism. This entry names *what context injection does* (constructs an oriented mind); Pages as Agents names *what is being injected* (a dormant agent declared by the page itself, ready to wake). The two are coupled views of one system; neither is complete without the other.
 
-**[[Mixture of Experts]]** — The architectural pattern this injection enables. Each loaded entry is a routed expert; each person-page is an embodied expert in the practitioner's pool; the tiered loading protocol is the gating mechanism made explicit. See [[Mixture of Experts]] § The Three Substrates → Embodied for the substrate frame this injection system instantiates.
+**[[Mixture of Experts]]** — The architectural pattern this injection enables. Each loaded entry is a routed expert; each person-page is an embodied expert in the practitioner's pool; the order things arrive in is the gating mechanism made explicit. See [[Mixture of Experts]] § The Three Substrates → Embodied for the substrate frame this injection system instantiates.
 
 ## Active Baton
 
