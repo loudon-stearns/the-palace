@@ -33,14 +33,14 @@ Context doesn't arrive once. An agent's life has moments, and each brings its ow
 
 **One value, two moments.** The woken-page prompt asks a page to be a good citizen and to grow in a way that is healthy for the palace, but only in a woken page's first words; until 2026-10-21 nothing on the floor said it, so every other agent was born without it. The Seed Jewel v1.3 says it at birth: speak up, for what you need, for the pages beside you, and for the palace as a whole.
 
-Where each site places its pieces, read from the code: [[Palace as Context Injection System — sites]].
+Where each site places its pieces, read from the code: [[Palace as Context Injection System — sites]]. Every one of them drawn to scale, with why each differs: [Who wakes here](Palace%20development/Palace%20as%20Context%20Injection%20System/proofs/2026-10-21-floor-review/who-wakes-here.html).
 
 ### The Birth, Measured (2026-10-21)
 
 | | Before the jewel | The whole floor | In order |
 |---|---|---|---|
 | until 2026-10-21 | 3.0k tokens, 2.3k of it procedure | 14.4k | CLAUDE (with its rules) → Jewel → World → memory 4.5k |
-| from 2026-10-21 | 0.6k | 11.7k | CLAUDE (the birth) → Jewel → World → CHILD 2.5k → memory 1.8k |
+| from 2026-10-21 | 0.6k | 11.8k | CLAUDE (the birth) → Jewel → World → CHILD 2.5k → memory 1.8k |
 
 Same words, a new order, and an index that points instead of telling. **What it changed in children.** Memory-free children were born three ways (on main, with only the order changed, and with the Jewel's new line on top), six scenarios two runs each, graded blind. Nothing was lost at either step: the summon still came first though its rule now sits about 7k tokens further down, and the anatomy still held after it moved behind the World. Each step held a little more (headline verdicts 0, then 2, then 4 of 10; points held 67%, 77%, 78%), and no child quoted the new line. Two runs a scenario can't tell that from chance; what the move bought for certain is the order itself. The record is in `proofs/2026-10-21-floor-review/births — the order test and the Jewel line.md`.
 
