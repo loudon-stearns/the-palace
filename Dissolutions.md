@@ -96,3 +96,7 @@ A new entry earns membership in Dissolutions when it satisfies all three ingredi
 - The cluster currently leans heavily on DSP-theory dissolutions. The palace will tell us whether the pattern is DSP-specific or whether it scales: are there dissolutions waiting in pedagogy, in collaboration, in ceremony itself?
 - A dissolution that doesn't yield new design surfaces is just a clever observation. The catalogue should track which dissolutions are *productive* — what knobs they unlock — and which are decorative.
 - Does the catalogue eventually grow a sibling — *Refusals*, the entries that *resist* dissolution despite looking like they should merge? Two things that keep being mistaken for one and shouldn't be?
+
+## Active Baton
+
+[[Dissolutions — baton]] — drafted 2026-10-22
