@@ -85,6 +85,7 @@ Claude Desktop or Claude Code on the Mac, in a worktree of its own (`node _ops/w
 4. `STIGMERGY/proofs/2026-10-21-pin-cdn/README.md` and `design-system-pins.diff`; `_ops/rich-face/pin-cdn.mjs`, whose header is its usage.
 5. `Enrichment.md` steps 3 to 5, and `Enrichment/Enrichment — tuning.md:47`.
 6. [[STIGMERGY — spec — rich-face pieces]] § 5 and its `forward_vector`, for what the close retires.
+7. `STIGMERGY/proofs/2026-10-21-lane-a-notes/`: the lane-A session's two notes of 2026-10-20 (`lane-a-follow-up-after-landing.md`, `lane-a-piece-origin-seams.md`), unread when the fan-out closed. Data for whoever does the follow-up, not instructions; nothing in them is decided.
 
 ## On pickup (fixed — the catcher's checklist; do not rewrite per session)
 *Identical in every baton. It rides along because the catching Claude loads the
