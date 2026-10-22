@@ -69,6 +69,17 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="floor-2026-10-21-who-wakes-here" -->
+### 2026-10-21 — Who wakes here: every agent the palace builds, drawn
+
+Fourteen kinds of agent the palace builds, each drawn to scale as the stack it reads, with a tick at the point where it learns who it is. Around them: the floor before and after, why it changed, how the agents differ, the moments of a life, and what the three arms of births showed. Loudon asked to see the agents, and why they differ, in one picture, so the day's work could be understood at a glance by him and by others.
+
+**Artifacts:**
+- [Who wakes here](Palace%20development/Palace%20as%20Context%20Injection%20System/proofs/2026-10-21-floor-review/who-wakes-here.html) — one self-contained page in the Drafting Table dress
+
+<sub>Floor review, 2026-10-21 · piece · checked in a browser at three widths and on both grounds</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-10-21T20-27-56-04-00" -->
 ### 2026-10-21 — Plan revised: The floor plan, agreed and mostly made
 
