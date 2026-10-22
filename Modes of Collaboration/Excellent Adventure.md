@@ -11,7 +11,7 @@ confidence: demonstrated
 energy: high
 hook_quality: 9
 beauty: 8
-who_leads: loudon
+who_leads: human
 keywords:
   - vicksburg
 links:
