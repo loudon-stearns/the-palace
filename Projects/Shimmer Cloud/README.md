@@ -56,6 +56,10 @@ The third is the most physics-honest interpretation of "Shimmer Cloud as prism."
 
 `proofs/2026-10-22-pushed/` re-renders the revival's three pairs with the prism pushed hard, and `proofs/2026-10-22-pushed-listening.html` plays them. Why May's pairs sounded close: its lens put 4–20 ms of delay at Nyquist and let it fall linearly, so struck with a click, the canonical cloud landed its lows and highs ~3 ms apart while scattering lenses over 350 ms. The pushed lens spreads its delay evenly per octave (80 Hz–11 kHz), runs D to 150–600 ms, and cuts the scatter to 25 ms; lows and highs land ~213 ms apart. Measure a cloud with a click (`render_pushed.py` § findings), not with the phrase: the phrase's own words bias any band timing. Run the scripts with `/usr/local/bin/python3`.
 
+## An interval, then a cloud (2026-10-22)
+
+`proofs/2026-10-22-interval/` rebuilds the feedback lens the way Loudon asked at the revival: the phrase jumps once at the door (a fourth, fifth, octave, twelfth, or octave down), then goes round a loop where each pass runs through a fresh pushed-prism cloud (150–600 ms) and drifts a few cents, never jumping again. `proofs/2026-10-22-interval-listening.html` plays it. With no pitch jitter a whole cloud folds into one transfer function per channel, so a 600-lens pass is one FFT multiply. Measure the pitch with one tone (`tone_test`): May's lens lands 69/21/7% at +12/+24/+36; every new take lands 100% on its interval. Gotcha: below 80 Hz the lenses don't disperse and sum in phase, so in a loop the rumble multiplies every pass. Each pass is flattened to unity gain per third-octave to stop it.
+
 ## Next-stage candidates (not yet built)
 
 - Time-modulated dispersion: each lens's dispersion curve drifts over its lifetime

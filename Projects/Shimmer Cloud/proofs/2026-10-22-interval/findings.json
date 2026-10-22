@@ -1,0 +1,164 @@
+{
+  "fifth": {
+    "interval_st": 7.0,
+    "tone_lands_st_pct": [
+      [
+        7,
+        100
+      ],
+      [
+        8,
+        0
+      ],
+      [
+        6,
+        0
+      ]
+    ],
+    "tail_s_to_-30dB": 2.17
+  },
+  "octave": {
+    "interval_st": 12.0,
+    "tone_lands_st_pct": [
+      [
+        12,
+        100
+      ],
+      [
+        2,
+        0
+      ],
+      [
+        18,
+        0
+      ]
+    ],
+    "tail_s_to_-30dB": 2.42
+  },
+  "fourth": {
+    "interval_st": 5.0,
+    "tone_lands_st_pct": [
+      [
+        5,
+        100
+      ],
+      [
+        6,
+        0
+      ],
+      [
+        4,
+        0
+      ]
+    ],
+    "tail_s_to_-30dB": 2.47
+  },
+  "octave_below": {
+    "interval_st": -12.0,
+    "tone_lands_st_pct": [
+      [
+        -12,
+        100
+      ],
+      [
+        -11,
+        0
+      ],
+      [
+        -13,
+        0
+      ]
+    ],
+    "tail_s_to_-30dB": 2.07
+  },
+  "twelfth": {
+    "interval_st": 19.0,
+    "tone_lands_st_pct": [
+      [
+        19,
+        100
+      ],
+      [
+        25,
+        0
+      ],
+      [
+        9,
+        0
+      ]
+    ],
+    "tail_s_to_-30dB": 2.67
+  },
+  "fifth_bare": {
+    "interval_st": 7.0,
+    "tone_lands_st_pct": [
+      [
+        7,
+        100
+      ],
+      [
+        8,
+        0
+      ],
+      [
+        6,
+        0
+      ]
+    ],
+    "tail_s_to_-30dB": 0.72
+  },
+  "fifth_early": {
+    "interval_st": 7.0,
+    "tone_lands_st_pct": [
+      [
+        7,
+        100
+      ],
+      [
+        6,
+        0
+      ],
+      [
+        8,
+        0
+      ]
+    ],
+    "tail_s_to_-30dB": 3.12
+  },
+  "fifth_long": {
+    "interval_st": 7.0,
+    "tone_lands_st_pct": [
+      [
+        7,
+        100
+      ],
+      [
+        8,
+        0
+      ],
+      [
+        6,
+        0
+      ]
+    ],
+    "tail_s_to_-30dB": 4.67
+  },
+  "may_octave_stack": {
+    "interval_st": "12 per pass, 6 passes",
+    "tone_lands_st_pct": [
+      [
+        12,
+        69
+      ],
+      [
+        24,
+        21
+      ],
+      [
+        36,
+        7
+      ]
+    ],
+    "tail_s_to_-30dB": 0.0
+  }
+}

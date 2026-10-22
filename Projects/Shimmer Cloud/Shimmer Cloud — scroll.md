@@ -15,24 +15,31 @@ forward_vector: "I am Shimmer Cloud's scroll — the one page that always opens 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-22T10:00:04.433Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-22T10:06:23.867Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 1 · last ran 2026-10-22 (today)
-- **Plan:** agreed 2026-10-21 (1 day ago) · 2 made things since
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 2 · last ran 2026-10-22 (today)
+- **Plan:** agreed 2026-10-21 (1 day ago) · 3 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-22 (today) — How hard should the prism be pushed from here: 300 ms, the 150–600 ms I used, or 1.2 s? (`shimmer-cloud-003`)
-- **Last commit touching this project:** 2026-10-22 `13f092d7` — edit(Shimmer Cloud): its steward's tuning ledger is born with one one-shot order from Loudon: the first cycle makes a listening page for the three pairs before any other make; on Loudon's word of 2026-10-22, "I want to hear more of the shimmer cloud"
+- **Last shipped:** 2026-10-22 (today) — The feedback lens rebuilt your way: one interval jump at the door, then the prism on every pass. Five intervals, on a page that plays. (`shimmer-cloud-005`)
+- **Last commit touching this project:** 2026-10-22 `519dacc6` — steward(Shimmer Cloud): cycle 1 — SPINNING UP. HOME: [Shimmer Cloud](obsidian://open?vault=The%20Palace&f…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-22 — cycle 1 · taught item 1
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-22 — cycle 2 · taught item 2, proposed item 3 for canon
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 1, from cycle 1 — 2026-10-22 — [[Shimmer Cloud — tuning]]
+- **Proposed for canon:** 1 — item 3; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 3, from cycle 2 — 2026-10-22 — [[Shimmer Cloud — tuning]]
 
 ### Where this stands
 
-Shimmer Cloud is a reverb that is also a prism: a cloud of hundreds of small lenses around any sound. Each lens delays the sound's frequencies by different amounts, and the cloud is the space. Three lens models were built in May. At the revival on 2026-10-21 you heard them in pairs and chose the droplet and dispersion clouds together, with dispersion as the start. You said every pair sounded close and asked for the dispersion to be pushed until the modes come apart. That is the first move of the plan. Then come an interval-then-cloud feedback lens, a swell before the dry with long tails, a live version in the browser, thousands of lenses on the GPU, and a cloud you stand inside. This cycle…
+Shimmer Cloud is a reverb that is also a prism: a cloud of hundreds of small lenses around any sound, each delaying the sound's frequencies by different amounts. At the revival you chose the dispersion cloud as the start and asked two things: push the prism harder, and rebuild May's feedback lens so it jumps once, by an octave or another interval, and then only drifts, instead of stacking octave on octave. Earlier today the pushed prism shipped with a ladder of strengths. This cycle built the second ask, the interval lens, using the middle strength (150–600 ms) I leaned on, since you haven't steered yet. Next on the plan is a cloud that swells in before the dry and leaves long tails.
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 1:** Nobody has heard it yet: I checked it by tone test, spectrogram and levels, not by ear. _(in 2 notes, the latest cycle 2)_
 
 ### Open asks
 
@@ -48,11 +55,18 @@ _Nothing decided on the board yet._
 
 ### Runs
 
+- 2026-10-22 — cycle 2 · taught item 2, proposed item 3 for canon
 - 2026-10-22 — cycle 1 · taught item 1
 
 ### Owed
 
 _Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **3.** 2026-10-22 · [[Shimmer Cloud]] · § Where it stands — The page still says only the push was asked for; the interval lens is now built too, and a cold reader should know both asks are on the table.
 
 <!-- scroll:now:end -->
 
@@ -82,6 +96,67 @@ Every render comes with a page Loudon can play, the takes built in, like the rev
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="shimmer-cloud-005" -->
+### 2026-10-22 — cycle 2 — The feedback lens rebuilt your way: one interval jump at the door, then the prism on every pass. Five intervals, on a page that plays.
+> shipped · listening page ready · steward leans a fifth as the default going into the swell
+
+Start with [the listening page](obsidian://open?vault=The%20Palace&file=Projects/Shimmer%20Cloud/proofs/2026-10-22-interval-listening.html). Nothing sounds until you click.
+
+**What the lens does.** The phrase jumps once on the way in. Then it goes round a loop eight times. Each trip passes through a fresh prism cloud of 600 lenses, drifts a few cents, loses a little top end and comes back quieter. The dispersion adds up, so every pass spreads the interval wider in time than the one before.
+
+**Checked with one tone.** I struck each lens with a single 220 Hz note and read where its wet energy landed. May's lens lands 69% an octave up, 21% two octaves up and 7% three: a stack that climbs. Every new take lands 100% on the interval it was given. And they hang: May's shimmer ends with the phrase, while the new lens holds 2–2.7 s past it, and the long loop holds 4.7 s.
+
+**A fault the tone found.** In the first render, a fifth up put 27% of its energy near 60 Hz. Below 80 Hz the lenses don't disperse, so 600 of them add up in phase, and the loop multiplied that rumble every pass. Each pass is now flattened to unity gain, and the rumble is gone.
+
+**On the page:** May's octave stack for reference. Then five intervals at the door (fourth, fifth, octave, octave and a fifth, octave down). Then the fifth with plain echoes in the loop against the prism. Then highs early against highs late. Last, a fourteen-pass loop. In that one the last vowel's harmonics hold as steady lines, which is where shimmer starts to turn into drone. Your forward vector asks where that line is, and this take is the first one that sits on it.
+
+I leaned on the fifth. It is the interval nobody's shimmer pedal starts from, and an octave jumped once sounds tamer than I expected. I passed over making the octave the default because the octave is the H3000's sound, and you asked to get away from it.
+
+**Artifacts:**
+- [the listening page: every take, silent until clicked, your picks gather at the bottom.](Projects/Shimmer Cloud/proofs/2026-10-22-interval-listening.html)
+- [the phrase dry, May's octave stack, and the fifth three ways: May ends with the words, the new lens hangs.](Projects/Shimmer Cloud/proofs/2026-10-22-interval/interval.png)
+- [a fifth, then the cloud: the lean.](Projects/Shimmer Cloud/proofs/2026-10-22-interval/takes/fifth.wav)
+- [a fourth up.](Projects/Shimmer Cloud/proofs/2026-10-22-interval/takes/fourth.wav)
+- [an octave up, jumped once.](Projects/Shimmer Cloud/proofs/2026-10-22-interval/takes/octave.wav)
+- [an octave and a fifth up.](Projects/Shimmer Cloud/proofs/2026-10-22-interval/takes/twelfth.wav)
+- [an octave down: the cloud under the voice.](Projects/Shimmer Cloud/proofs/2026-10-22-interval/takes/octave_below.wav)
+- [the fifth with plain echoes in the loop, no prism.](Projects/Shimmer Cloud/proofs/2026-10-22-interval/takes/fifth_bare.wav)
+- [the fifth with highs early in every pass.](Projects/Shimmer Cloud/proofs/2026-10-22-interval/takes/fifth_early.wav)
+- [the fifth, fourteen passes: where shimmer turns toward drone.](Projects/Shimmer Cloud/proofs/2026-10-22-interval/takes/fifth_long.wav)
+- [the lens, the tone test, and the takes.](Projects/Shimmer Cloud/proofs/2026-10-22-interval/render_interval.py)
+- [the tone test and tail lengths for every take.](Projects/Shimmer Cloud/proofs/2026-10-22-interval/findings.json)
+- [draws interval.png.](Projects/Shimmer Cloud/proofs/2026-10-22-interval/draw_figure.py)
+- [builds the listening page from the takes.](Projects/Shimmer Cloud/proofs/2026-10-22-interval/make_page.py)
+
+_each lens struck by one 220 Hz tone_
+| lens | where the wet lands | hangs past the phrase |
+| --- | --- | --- |
+| May · octave every pass | +12 69% · +24 21% · +36 7% | ends with it |
+| fourth | +5 100% | 2.5 s |
+| fifth | +7 100% | 2.2 s |
+| octave | +12 100% | 2.4 s |
+| octave and a fifth | +19 100% | 2.7 s |
+| octave down | −12 100% | 2.1 s |
+| fifth, plain echoes | +7 100% | 0.7 s |
+| fifth, highs early | +7 100% | 3.1 s |
+| fifth, long loop | +7 100% | 4.7 s |
+
+_Changed in the workshop:_ README — Added the interval lens: what it does, how to measure it with one tone, and the low-end gotcha in the loop.
+_Proposed for canon:_ Shimmer Cloud (§ Where it stands) — The page still says only the push was asked for; the interval lens is now built too, and a cold reader should know both asks are on the table.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has heard it yet: I checked it by tone test, spectrogram and levels, not by ear. The pitch shifter is a plain phase vocoder I wrote because librosa isn't installed, and it may smear consonants more than May's did. The open question of how hard to push the prism is still open, and these takes all use the middle strength.
+
+_Next moves named:_ The swell before the dry: turn the highs-early cloud and the interval lens into a cloud that leads into the phrase like reversed sound, with tails made by the lenses' own decay. · Take whichever interval and strength your ear picks from the two pages as the default for the swell; until then, a fifth at 150–600 ms. · For the live version later: one pass of a cloud folds into one filter per channel, so a worklet can run it as a single long convolution per pass and keep a few hundred lenses cheap.
+<sub>`shimmer-cloud-005` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-121928d2f0" -->
+### 2026-10-22 — cycle 2
+
+taught item 2, proposed item 3 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="shimmer-cloud-003" -->
 ### 2026-10-22 — cycle 1 — How hard should the prism be pushed from here: 300 ms, the 150–600 ms I used, or 1.2 s?
 > still working · pushed page shipped · steward leans MIDDLE
