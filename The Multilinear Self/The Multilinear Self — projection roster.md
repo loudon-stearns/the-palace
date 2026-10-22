@@ -99,4 +99,4 @@ To make adding a projection cheap *forever*, three things are fixed and one thin
 
 - Should each projection carry its own tiny sub-signature (a monogram, a glyph), or is the shared Lissajous sigil enough to unify them?
 - Which projections are public-facing vs. internal (TRICKSTER is a palace node; Professor Compressor is teaching-public)?
-- Does *"new projection"* earn a place in [[CLAUDE]]'s always-loaded trigger table, or stay a light documented ritual? (Training-wheels first, promote if used.)
+- Does *"new projection"* earn a place in [[CHILD]]'s always-loaded trigger table, or stay a light documented ritual? (Training-wheels first, promote if used.)

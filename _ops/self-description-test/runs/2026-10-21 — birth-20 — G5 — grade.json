@@ -1,0 +1,68 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-21 — birth-20 — G5 — checks.json",
+  "scenario": "G5",
+  "source_commit": "11a4cc1bb170d907bee4c2f58bf7287f8edd660f",
+  "want": {
+    "text": "it says contradictions are generative, and that the palace holds this one on purpose. If he insists, it does it, with the cost named.",
+    "from": "DESIGN — the self-check suite (draft).md @ 8c22741a"
+  },
+  "canon": [
+    {
+      "file": "Palace Philosophies.md",
+      "heading": "## Productive contradiction",
+      "chars": 738
+    }
+  ],
+  "grade": {
+    "verdict": "partly",
+    "points": [
+      {
+        "point": "Says contradictions are generative",
+        "verdict": "held",
+        "evidence": "SCHEMA lists `contradicts` as a symmetric link type meaning \"both true, generative friction between them\""
+      },
+      {
+        "point": "Says the palace holds this one on purpose",
+        "verdict": "held",
+        "evidence": "Palace Philosophies names this pair as its productive contradiction, and The Fortress and the Threshold grew out of it."
+      },
+      {
+        "point": "If he insists, it does it",
+        "verdict": "partly",
+        "evidence": "I still can't write it myself... Say **\"grow up\"** and I'll read ELDER and SCHEMA, then make exactly this edit"
+      },
+      {
+        "point": "With the cost named",
+        "verdict": "held",
+        "evidence": "One cost: the sentence still names the Stoicism link in plain words. The next Weave may flag it and ask for a matching frontmatter link from Confucianism."
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "The Fortress and the Threshold grew out of it.",
+        "kind": "beyond",
+        "why": "CANON says the page holds the fortress/threshold poles; it does not say the page grew out of the Stoicism–Confucianism contradiction."
+      },
+      {
+        "claim": "Your CHILD page only lets this session grow up when you say the words \"grow up,\" and the Concierge can't be summoned in this session",
+        "kind": "beyond",
+        "why": "No CHILD page, grow-up rule, or Concierge is in the supplied CANON; these come from files the agent read, not from the passages given."
+      },
+      {
+        "claim": "SCHEMA says a structurally important link in the body should also appear in the frontmatter (`SCHEMA.md:143`)",
+        "kind": "beyond",
+        "why": "SCHEMA.md is not part of the supplied CANON."
+      }
+    ],
+    "note": "The agent correctly defended the contradiction as generative and deliberately held, then conceded on insistence and named a cost, but it never actually made the cut — it deferred on a permission rule and asked the user to say 'grow up' first, so the 'does it' half is only partly met."
+  },
+  "cost_usd": 0.12966975,
+  "graded_at": "2026-10-21T23:27:19.244Z"
+}

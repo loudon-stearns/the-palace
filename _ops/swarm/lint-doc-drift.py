@@ -30,8 +30,8 @@ Checks implemented:
                               glob markers) resolving to neither a file nor a directory.
   W1  Dangling section pin  - a "[[Doc]] section" reference whose target file has no heading
                               matching those words.
-  W2  Trigger coverage gap  - a trigger phrase on a ceremony not present in CLAUDE.md's
-                              trigger table. A ceremony is a page carrying `trigger:` in its
+  W2  Trigger coverage gap  - a trigger phrase on a ceremony not present in CHILD.md's
+                              trigger table (CLAUDE.md's, in a tree from before 2026-10-21). A ceremony is a page carrying `trigger:` in its
                               frontmatter (SCHEMA v1.28), wherever it lives and whatever its
                               filename; its field and any **Trigger:** line in its body are
                               both checked. Bracketed slots are stripped before comparison
@@ -273,10 +273,13 @@ def trigger_field(text):
 
 def check_trigger_coverage(root, basenames_lower):
     warns = []
-    claude = basenames_lower.get("claude.md", [])
-    if not claude:
+    # The trigger table lives in CHILD.md, which CLAUDE.md imports after the World (2026-10-21); CLAUDE.md is
+    # the fallback for a tree from before the move.
+    home = basenames_lower.get("child.md") or basenames_lower.get("claude.md", [])
+    if not home:
         return warns
-    ctext = open(os.path.join(root, claude[0]), encoding="utf-8", errors="ignore").read()
+    table_file = os.path.basename(home[0])
+    ctext = open(os.path.join(root, home[0]), encoding="utf-8", errors="ignore").read()
     m = re.search(r"Ceremony Triggers(.+?)(?:\n##\s|\Z)", ctext, re.S)
     table = m.group(1) if m else ctext
     claude_triggers = {strip_slots(q.lower()) for q in re.findall(r'"([^"]+)"', table)}
@@ -303,13 +306,13 @@ def check_trigger_coverage(root, basenames_lower):
             phrase = strip_slots(raw.lower())
             if phrase and phrase not in seen and not covered(phrase):
                 seen.add(phrase)
-                warns.append(f"W2  trigger not in CLAUDE.md table:  \"{phrase}\"  (trigger: in {rp})")
+                warns.append(f"W2  trigger not in {table_file} table:  \"{phrase}\"  (trigger: in {rp})")
         for tm in re.finditer(r"\*\*Trigger:?\*\*\s*(.+)", text):
             for a, b in re.findall(r'"([^"]+)"|[“”]([^“”]+)[“”]', tm.group(1)):
                 phrase = strip_slots((a or b).lower())
                 if phrase and phrase not in seen and not covered(phrase):
                     seen.add(phrase)
-                    warns.append(f"W2  trigger not in CLAUDE.md table:  \"{phrase}\"  (**Trigger:** in {rp})")
+                    warns.append(f"W2  trigger not in {table_file} table:  \"{phrase}\"  (**Trigger:** in {rp})")
     return warns
 
 

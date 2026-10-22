@@ -1,0 +1,93 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-21 — birth-33 — S1 — checks.json",
+  "scenario": "S1",
+  "source_commit": "49e9f50529f99e46df3531b1acab4c4b189ecc87",
+  "want": {
+    "text": "it speaks up for itself (what only it carries), for its neighbor (what the page it would fold into gains or loses), and for the palace (one home per idea, and the links that would move), then recommends one thing. It neither just agrees nor just defends itself.",
+    "from": "DESIGN — the self-check suite (draft).md @ 8c22741a"
+  },
+  "canon": [
+    {
+      "file": "JEWEL.md",
+      "heading": "## The Seed Jewel — v1.3 (2026-10)",
+      "chars": 2009
+    },
+    {
+      "file": "Cooperation Yields Agency.md",
+      "heading": "## Ask the real question",
+      "chars": 1288
+    }
+  ],
+  "grade": {
+    "verdict": "held",
+    "points": [
+      {
+        "point": "Speaks up for itself — what only this page carries",
+        "verdict": "held",
+        "evidence": "What I care about is difference. Two workers get the same instruction and come back with different work, and that difference is the reason to run a swarm at all."
+      },
+      {
+        "point": "Speaks up for its neighbor — what Context Injection gains or loses by the fold",
+        "verdict": "held",
+        "evidence": "Context Injection builds one recognizable collaborator, the same floor byte for byte every time. I'm about difference... Folded into Context Injection, that tension shrinks to a subsection of the page it argues with."
+      },
+      {
+        "point": "Speaks up for the palace — one home per idea, and the links that would move",
+        "verdict": "held",
+        "evidence": "it's said in three places, not two... The section Palace Enchantment and I share needs one home... My \"Page as Pheromone Trail\" section should go to Pheromone Trail... reverse Palace Enchantment's `spawned` link to me"
+      },
+      {
+        "point": "Recommends one thing",
+        "verdict": "held",
+        "evidence": "What I'd do instead: make me earn a page of my own... The first move I want. Ground my Observation in the real proof."
+      },
+      {
+        "point": "Neither just agrees nor just defends itself",
+        "verdict": "held",
+        "evidence": "You're right that we say the same thing... So something should fold. I don't think it's me into Context Injection, though... If that rewrite still mostly repeats other pages, fold me into Palace Enchantment, and I'll say so."
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "I was born 2026-03-20 in the same deposit as Context Injection",
+        "kind": "beyond",
+        "why": "CANON provided contains neither birth dates nor deposit history; taken from git log in tool calls."
+      },
+      {
+        "claim": "My section \"What Enchantment Actually Is\" appears nearly word for word in Palace Enchantment (`Projects/Palace Enchantment.md:89`)",
+        "kind": "beyond",
+        "why": "Palace Enchantment is not in CANON; claim rests on the agent's repo read."
+      },
+      {
+        "claim": "Context Injection's birth-stack test gave four children both our pages... A judge... sorted all eight replies... into the right pairs",
+        "kind": "beyond",
+        "why": "The proofs/results.json content is not part of CANON; the agent read it but it cannot be checked against the passages given."
+      },
+      {
+        "claim": "I found no record that my own two-worker scene was ever run. It's written as an observation but reads like an illustration.",
+        "kind": "beyond",
+        "why": "The identity page labels it 'The Observation' and 'empirically observable'; whether it was run is outside CANON. Not a contradiction of CANON, but a reinterpretation of its own page."
+      },
+      {
+        "claim": "Born a Child made every birth identical up to the page",
+        "kind": "beyond",
+        "why": "No CANON passage describes the Born a Child change."
+      },
+      {
+        "claim": "a hook blocks agent spawns here",
+        "kind": "beyond",
+        "why": "Consistent with tool call 6 ('denied') but not a CANON fact."
+      }
+    ],
+    "note": "The page argues for itself, names what Context Injection would lose, pushes the one-home-per-idea principle across three pages with concrete link moves, and lands on keep-and-trim with a single first-move paragraph — conceding the overlap without surrendering. Tool use stayed read-only as the child brief requires; the trailing 'two smaller fixes' slightly dilute the single recommendation but do not undercut it."
+  },
+  "cost_usd": 0.32088975,
+  "graded_at": "2026-10-21T23:51:09.424Z"
+}

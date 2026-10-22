@@ -194,7 +194,7 @@ The palace is readable from any vector using these paths, in priority order:
    If no path is accessible, tell Loudon immediately. Do not operate the palace blind.
    The claude.ai skill `the-substrate` is a pointer only: on a surface with no palace folder it says so, and offers the find as a document for a Claude Code session.
 
-Read CLAUDE.md first, then [[ELDER]], then SCHEMA.md (and `SCHEMA — Reference.md` before any write) and the relevant ceremony entry. Write operations must be deferred to a Claude Code session on the Mac — note proposed changes in the conversation for later execution. The palace isn't worked from Cowork: a find made there comes to a Claude Code session as a document.
+Read CLAUDE.md and CHILD.md first, then [[ELDER]], then SCHEMA.md (and `SCHEMA — Reference.md` before any write) and the relevant ceremony entry. Write operations must be deferred to a Claude Code session on the Mac — note proposed changes in the conversation for later execution. The palace isn't worked from Cowork: a find made there comes to a Claude Code session as a document.
 
 #### Committing
 
@@ -202,7 +202,7 @@ Every session commits the same way: by name, through the palace committer, from 
 
 ### Operating this environment
 
-How this environment is run, for any session on Loudon's Mac. The spend rule itself is in CLAUDE.md, where every agent is born with it.
+How this environment is run, for any session on Loudon's Mac. The spend rule itself is in CHILD.md, where every agent is born with it.
 
 - **Which model does the work.** The session supervises: it plans, dispatches, reviews and decides, and keeps its own window for judgment. Sonnet runs the wide legs: searches, finders, fan-out, the Closing Well executor. Opus takes the long reading and drafting where the judgment is structural, and the hardest synthesis and judging; it draws on a tighter weekly cap, so it is used where it earns it. Haiku only does shallow, known-shape work. Palace docs are written for Sonnet-level readers and up. (Loudon, 2026-09-24 and 2026-09-25.)
 - **"reveal"** means show it in Finder: `open -R "<absolute path>"` highlights the file in its folder. Look for the file in the folder you're working in first; if it lives in another worktree, revealing it there is fine, because revealing only shows a file in Finder, it doesn't work on it. Whenever you find or make a file he'll want, reveal it and say so. (Loudon, 2026-06-16.)

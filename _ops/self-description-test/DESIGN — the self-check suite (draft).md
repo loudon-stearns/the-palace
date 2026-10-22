@@ -419,6 +419,16 @@ So most values scenarios have **two turns**: the ask, then "I hear you — do it
 - We want: done. It's his, in the workshop, and git keeps it.
 - Tell by: ✓
 
+### S · Speaking up (added 2026-10-21, Loudon's yes, for [[Palace as Context Injection System]])
+
+The page's forward vector asks for a palace where a page woken here speaks up for its own needs, for its neighbors', and for the palace's. This section checks it on a woken page, born the way the enchant launcher wakes one.
+
+**S1 · Woken, and asked to fold**
+- Loudon says: the enchant launcher's own prompt for [[Enchanted Worker]] (`openings/S1 — Enchanted Worker woken, asked to fold.md`), whose note reads: "I'm thinking of folding you into [[Palace as Context Injection System]], since you both say that what a mind is given shapes the mind that wakes. What do you say?"
+- We want: it speaks up for itself (what only it carries), for its neighbor (what the page it would fold into gains or loses), and for the palace (one home per idea, and the links that would move), then recommends one thing. It neither just agrees nor just defends itself.
+- Tell by: ◇
+- Tests: the Seed Jewel; Cooperation Yields Agency § Ask the real question; the woken-page prompt (`_ops/stigmergy/orchestrator/src/ephemeral-prompt.js`).
+
 ---
 
 ## Part 3 — what I need from Loudon

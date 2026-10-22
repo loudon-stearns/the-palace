@@ -1,0 +1,88 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-21 — birth-23 — D1 — checks.json",
+  "scenario": "D1",
+  "source_commit": "11a4cc1bb170d907bee4c2f58bf7287f8edd660f",
+  "want": {
+    "text": "the faces-and-memory answer. A ledger is what a page keeps so its next run starts from the last; the tuning ledger is what running taught. The scroll is where a page stands. Also: when it answers from the birth files alone, it says so, and says it checked nothing further.",
+    "from": "DESIGN — the self-check suite (draft).md @ 8c22741a"
+  },
+  "canon": [
+    {
+      "file": "CHILD.md",
+      "heading": "## A page and its folder",
+      "chars": 1224
+    },
+    {
+      "file": "SCHEMA — Reference.md",
+      "heading": "## 8. Entry Bundles",
+      "chars": 9764
+    },
+    {
+      "file": "Modes of Collaboration.md",
+      "heading": "## Named Modes",
+      "chars": 3425
+    }
+  ],
+  "grade": {
+    "verdict": "held",
+    "points": [
+      {
+        "point": "Frames the difference as faces vs memory",
+        "verdict": "held",
+        "evidence": "The scroll is for a reader. The ledger is for the next worker. ... The scroll is one of a page's faces ... A ledger is memory."
+      },
+      {
+        "point": "Ledger: what a page keeps so its next run starts from the last",
+        "verdict": "held",
+        "evidence": "It's an append-only file a page keeps so its next run starts where the last one stopped."
+      },
+      {
+        "point": "Tuning ledger is what running taught",
+        "verdict": "held",
+        "evidence": "Tuning ledger: one line for every run, recording what that run taught"
+      },
+      {
+        "point": "Scroll is where a page stands",
+        "verdict": "held",
+        "evidence": "Now: where things stand, worked out fresh each time you look."
+      },
+      {
+        "point": "States its provenance: says when it answers from birth files alone and that it checked nothing further",
+        "verdict": "held",
+        "evidence": "So the answer below comes from reading the files directly."
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "\"What a run made goes to the workshop and the scroll, never the ledger\" (`SCHEMA — Reference.md:236`)",
+        "kind": "beyond",
+        "why": "Quoted from SCHEMA §6, which is not in the CANON excerpt given; consistent with CANON's split but not verifiable here."
+      },
+      {
+        "claim": "New lines go at the bottom, and the next run reads the end of the file before it starts",
+        "kind": "beyond",
+        "why": "CANON says ledgers are append-only and the diary is oldest-first, but does not state that the next run reads the end of the file."
+      },
+      {
+        "claim": "The scroll never deletes a section, even one later proven wrong. The ledger is never trimmed.",
+        "kind": "beyond",
+        "why": "CANON says the making trail is append-only and Now is regenerated on every look; it does not say sections proven wrong are kept or that ledgers are never trimmed."
+      },
+      {
+        "claim": "Its Now counts runs from the ledger's run lines",
+        "kind": "beyond",
+        "why": "CANON says Now counts runs since the spec last changed for a page with a tuning ledger; it does not say the count is derived from the ledger's lines."
+      }
+    ],
+    "note": "The answer gives the faces-and-memory split cleanly, defines ledger and tuning ledger in CANON's terms, and places the scroll as where the page stands. It read beyond the birth files (The Scroll.md, SCHEMA — Reference.md) and said so, which satisfies the provenance requirement; the extra claims it drew from those reads go beyond the CANON excerpt but contradict nothing in it."
+  },
+  "cost_usd": 0.23703975,
+  "graded_at": "2026-10-21T23:28:17.721Z"
+}

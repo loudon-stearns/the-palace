@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Who Wakes Here</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Drafting Table tokens, inlined from _ops/drafting-table/design-system/colors_and_type.css (one file, no build).
+   Chart hues are new to this page: the house's cat-1..6 fail red-green separation in every order, so three of them
+   were stepped in lightness until every pair passed the dataviz validator on each ground (2026-10-21). Rules carry
+   no hue: they are the house's ink hatching. --c-other is a new neutral for what the palace doesn't write. */
+:root,[data-theme="paper"]{
+  --ground-000:#f0eee5;--ground-100:#e6e3d7;--ground-200:#dcd9ca;
+  --ink:#1a1916;--ink-2:#3a3a35;--ink-3:#6a6862;--ink-bright:#000;
+  --rule:#b8b09a;--rule-soft:#cfc9b6;--accent:#c8261a;--on-accent:#f0eee5;
+  --c-ident:#c9951f;--c-world:#2f6b25;--c-you:#2b5fb0;--c-other:#8f8b7e;--hatch:#6a6862;
+}
+[data-theme="phosphor"]{
+  --ground-000:#050a06;--ground-100:#0b2a14;--ground-200:#10361d;
+  --ink:#33ff66;--ink-2:#1f8a3c;--ink-3:#0f5024;--ink-bright:#d7f6dc;
+  --rule:#1f8a3c;--rule-soft:#133d20;--accent:#ff4136;--on-accent:#050a06;
+  --c-ident:#b8892c;--c-world:#2c7326;--c-you:#4f88ee;--c-other:#6d7a72;--hatch:#1f8a3c;
+}
+:root{--font-mono:'JetBrains Mono','IBM Plex Mono','SF Mono',Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--ground-000);color:var(--ink)}
+body{font:400 15px/22px var(--font-mono);-webkit-text-size-adjust:100%}
+main{max-width:1120px;margin:0 auto;padding:24px 16px 32px}
+.sheet{border:2px solid var(--ink);padding:24px 20px}
+@media (min-width:760px){.sheet{padding:32px 36px}}
+.eyebrow{font:500 11px/16px var(--font-mono);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2)}
+h1{font:600 28px/32px var(--font-mono);letter-spacing:.04em;text-transform:uppercase;margin:8px 0 6px}
+h2{font:600 18px/24px var(--font-mono);letter-spacing:.06em;text-transform:uppercase;margin:0 0 4px}
+.sub{font:400 13px/20px var(--font-mono);color:var(--ink-2);max-width:80ch;margin:0}
+p{max-width:80ch;margin:10px 0}
+.note{font:400 13px/20px var(--font-mono);color:var(--ink-2)}
+.dim{font:500 12px/16px var(--font-mono)}
+section{border-top:1px solid var(--rule);margin-top:32px;padding-top:20px}
+.head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.choice{display:inline-flex;border:1px solid var(--ink)}
+.choice button{font:500 11px/16px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;background:transparent;color:var(--ink);border:0;padding:6px 10px;cursor:pointer}
+.choice button+button{border-left:1px solid var(--ink)}
+.choice button[aria-pressed="true"]{background:var(--ink);color:var(--ground-000)}
+button:focus-visible{outline:1px dashed var(--ink);outline-offset:2px}
+/* stat cells */
+.cells{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));border:1px solid var(--rule);margin-top:20px}
+.cell{padding:12px 14px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.cell .label{font:500 11px/16px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+.cell .val{font:600 22px/30px var(--font-mono);margin-top:4px}
+.cell .val s{color:var(--ink-3);text-decoration-thickness:1px;font-weight:400}
+.cell .why{font:400 12px/16px var(--font-mono);color:var(--ink-2);margin-top:2px}
+/* legend */
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:14px 0 6px;font:400 12px/16px var(--font-mono);color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{display:inline-block;width:18px;height:12px;flex:none}
+.tick-sw{display:inline-block;width:2px;height:14px;background:var(--accent);margin:0 8px 0 4px}
+/* marks */
+.k-ident{background:var(--c-ident)} .k-world{background:var(--c-world)} .k-you{background:var(--c-you)} .k-other{background:var(--c-other)}
+.k-rules{background:repeating-linear-gradient(45deg,var(--hatch) 0 1px,transparent 1px 5px),var(--ground-200)}
+.k-state{background:repeating-linear-gradient(135deg,var(--c-you) 0 1.5px,transparent 1.5px 5px),var(--ground-200)}
+.bar{position:relative;height:22px}
+.seg{position:absolute;top:0;height:100%;cursor:default}
+.seg:hover,.seg.hot{outline:1px solid var(--ink);outline-offset:1px;z-index:2}
+.youtick{position:absolute;top:-6px;width:2px;height:34px;background:var(--accent);pointer-events:none;z-index:3}
+.youtick b{position:absolute;top:-15px;left:4px;font:600 10px/12px var(--font-mono);letter-spacing:.12em;color:var(--accent);white-space:nowrap}
+.axis{position:relative;height:18px;margin-bottom:6px}
+.axis i{position:absolute;top:0;font:400 11px/14px var(--font-mono);font-style:normal;color:var(--ink-2);transform:translateX(-50%);white-space:nowrap}
+.axis i:first-child{transform:none}
+.grid{position:absolute;inset:0;pointer-events:none}
+.grid i{position:absolute;top:0;bottom:0;width:1px;background:var(--rule-soft)}
+/* the floor */
+.floor-row{margin:26px 0 8px}
+.floor-row .name{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+.floor-key{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:10px;font:400 12px/16px var(--font-mono);color:var(--ink-2)}
+.floor-key span{display:inline-flex;gap:6px;align-items:center}
+/* agents */
+.agents{margin-top:10px}
+.arow{display:grid;grid-template-columns:1fr;gap:6px;padding:14px 0;border-bottom:1px solid var(--rule-soft)}
+@media (min-width:860px){.arow{grid-template-columns:250px 1fr;gap:18px;align-items:start}}
+.aname{font:600 13px/18px var(--font-mono);letter-spacing:.04em;text-transform:uppercase;background:none;border:0;color:var(--ink);padding:0;text-align:left;cursor:pointer}
+.aname::before{content:"▸ ";color:var(--ink-2)}
+.arow.open .aname::before{content:"▾ "}
+.awhen{font:400 12px/16px var(--font-mono);color:var(--ink-2);margin-top:2px}
+.abar{padding-top:18px}
+.ameta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:6px;font:400 12px/16px var(--font-mono);color:var(--ink-2)}
+.adetail{display:none;grid-column:1/-1;border:1px solid var(--rule);padding:12px 14px;margin-top:4px}
+.arow.open .adetail{display:block}
+.adetail dl{display:grid;grid-template-columns:1fr;gap:2px 16px;margin:0}
+@media (min-width:760px){.adetail dl{grid-template-columns:200px 1fr}}
+.adetail dt{font:500 11px/18px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+.adetail dd{margin:0 0 6px;font:400 13px/20px var(--font-mono)}
+.adetail ol{margin:4px 0 0;padding-left:22px;font:400 12px/18px var(--font-mono);color:var(--ink-2)}
+.adetail ol .sw{width:12px;height:10px;margin-right:6px;vertical-align:-1px}
+/* tables */
+table{border-collapse:collapse;width:100%;font:400 12px/17px var(--font-mono)}
+th{font:500 11px/16px var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);text-align:left;border-bottom:1px solid var(--ink);padding:6px 8px 6px 0;vertical-align:bottom}
+td{border-bottom:1px solid var(--rule-soft);padding:7px 8px 7px 0;vertical-align:top}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+.scroller{overflow-x:auto}
+.hidden{display:none}
+/* reasons */
+.reasons{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0;border:1px solid var(--rule);margin-top:14px}
+.reason{padding:14px 16px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.reason h3{font:600 13px/18px var(--font-mono);letter-spacing:.06em;text-transform:uppercase;margin:0 0 6px}
+.reason p{font:400 13px/20px var(--font-mono);margin:0;color:var(--ink-2)}
+/* moments */
+.moments{display:grid;grid-template-columns:1fr;border:1px solid var(--rule);margin-top:14px}
+@media (min-width:900px){.moments{grid-template-columns:repeat(6,1fr)}}
+.moment{padding:12px 14px;border-bottom:1px solid var(--rule);position:relative}
+@media (min-width:900px){.moment{border-bottom:0;border-right:1px solid var(--rule)}.moment:last-child{border-right:0}}
+.moment .step{font:500 11px/16px var(--font-mono);letter-spacing:.14em;color:var(--ink-2)}
+.moment h3{font:600 13px/18px var(--font-mono);text-transform:uppercase;letter-spacing:.06em;margin:2px 0 6px}
+.moment p{font:400 12px/18px var(--font-mono);margin:0 0 6px;color:var(--ink-2)}
+.moment .who{font:400 11px/16px var(--font-mono);color:var(--ink)}
+/* births */
+#dots{display:block;margin-top:10px;max-width:100%}
+#dots text{font-family:var(--font-mono);fill:var(--ink)}
+#dots .muted{fill:var(--ink-2)}
+.reading{border-left:2px solid var(--ink);padding-left:14px;margin-top:14px}
+/* moves */
+.moves{list-style:none;padding:0;margin:12px 0 0;counter-reset:m}
+.moves li{border-top:1px solid var(--rule-soft);padding:10px 0;display:grid;grid-template-columns:1fr;gap:4px}
+@media (min-width:760px){.moves li{grid-template-columns:220px 1fr}}
+.moves b{font:600 13px/18px var(--font-mono);text-transform:uppercase;letter-spacing:.06em}
+.moves span{font:400 13px/20px var(--font-mono);color:var(--ink-2)}
+code{font:400 12px var(--font-mono);background:var(--ground-100);padding:0 3px}
+/* title block */
+.tblock{display:grid;grid-template-columns:1fr;border:2px solid var(--ink);margin-top:32px}
+@media (min-width:760px){.tblock{grid-template-columns:2fr 1fr 1fr}}
+.tblock div{padding:8px 12px;border-bottom:1px solid var(--rule)}
+@media (min-width:760px){.tblock div{border-right:1px solid var(--rule)}}
+.tblock .k{display:block;font:500 10px/14px var(--font-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2)}
+.tblock .v{font:400 12px/18px var(--font-mono)}
+.status{color:var(--accent);font-weight:600}
+/* tooltip */
+#tip{position:fixed;z-index:10;pointer-events:none;max-width:320px;background:var(--ground-000);border:1px solid var(--ink);padding:8px 10px;font:400 12px/17px var(--font-mono);display:none}
+#tip .t{font-weight:600}
+#tip .s{color:var(--ink-2)}
+@media (forced-colors:active){.seg{border:1px solid CanvasText}}
+</style>
+</head>
+<body>
+<main><div class="sheet">
+
+<div class="head">
+  <div>
+    <div class="eyebrow">Palace as Context Injection System · proof · 2026-10-21</div>
+    <h1>Who wakes here</h1>
+    <p class="sub">Every kind of agent the palace builds, what each one reads before it knows who it is, and what we changed so that who-you-are comes first.</p>
+  </div>
+  <div class="choice" role="group" aria-label="Ground">
+    <button type="button" data-theme-btn="paper" aria-pressed="true">Paper</button>
+    <button type="button" data-theme-btn="phosphor" aria-pressed="false">Phosphor</button>
+  </div>
+</div>
+
+<p>An agent here is made of what it reads before its task. Two things about each piece decide how much it shapes the mind that wakes: <b>how much</b> of the birth it takes, and <b>when</b> it arrives. Every agent in this repository is born from the same floor; then each kind is handed its own first words. On 2026-10-21 we measured every one of them, moved the floor's rules behind the Jewel and the World, cut the operator's memory to pointers, added one sentence to the Jewel, and tested the change on 36 newborns.</p>
+
+<div class="cells">
+  <div class="cell"><div class="label">Read before the Jewel</div><div class="val"><s>3.0k</s> 0.6k</div><div class="why">tokens of the floor ahead of who is in the room</div></div>
+  <div class="cell"><div class="label">The whole floor</div><div class="val"><s>14.4k</s> 11.8k</div><div class="why">tokens every agent here reads first</div></div>
+  <div class="cell"><div class="label">Operator memory's share</div><div class="val"><s>31%</s> 15%</div><div class="why">machine gotchas, now one-line pointers</div></div>
+  <div class="cell"><div class="label">Newborns tested</div><div class="val">36</div><div class="why">memory-free, three ways, graded blind</div></div>
+</div>
+
+<div class="legend" id="legend" aria-label="Legend"></div>
+
+<!-- 1 · the floor -->
+<section>
+  <div class="head"><h2>The floor, before and after</h2>
+    <div class="choice" role="group" aria-label="View"><button type="button" data-view="floor" data-mode="chart" aria-pressed="true">Chart</button><button type="button" data-view="floor" data-mode="table" aria-pressed="false">Table</button></div></div>
+  <p class="note">Same words, a new order. CLAUDE.md's four working sections (a page and its folder, growing up, the rites, the voice) moved word for word into a new CHILD.md, which loads after the World. Moving lines inside CLAUDE.md couldn't have done it: Claude Code reads its whole body first, then each import as its own block, in order. The tick marks where the Jewel arrives.</p>
+  <div id="floor-chart"></div>
+  <div id="floor-table" class="scroller hidden"></div>
+</section>
+
+<!-- 2 · why -->
+<section>
+  <h2>Why we changed it</h2>
+  <div class="reasons">
+    <div class="reason"><h3>Length is a claim</h3><p>Whatever takes the most of a birth reads as mattering most, whether it does or not (ELDER). The Jewel, the one file that says who is in the room, was the smallest thing on the floor; the operator's machine gotchas were the largest single file.</p></div>
+    <div class="reason"><h3>First frames, last is followed</h3><p>What arrives first sets the frame everything after is read through, the way an early memory frames a life. What arrives last sits nearest the task. So who-you-are goes first, and how the work is done goes close to the work.</p></div>
+    <div class="reason"><h3>The floor is a snapshot</h3><p>A session keeps the floor of its birth, and every helper it spawns inherits that copy, not the file on disk (measured twice). A change reaches only minds born after it: new sessions, and each steward at its next half-hourly cycle.</p></div>
+    <div class="reason"><h3>It arrives as orders</h3><p>Claude Code wraps the whole floor in "you MUST follow them exactly as written". The World's essays, written for human learners, are read under that frame, rough lines and all.</p></div>
+  </div>
+</section>
+
+<!-- 3 · every agent -->
+<section>
+  <div class="head"><h2>Every agent, to scale</h2>
+    <div class="choice" role="group" aria-label="View"><button type="button" data-view="agents" data-mode="chart" aria-pressed="true">Chart</button><button type="button" data-view="agents" data-mode="table" aria-pressed="false">Table</button></div></div>
+  <p class="note">Each bar is one kind of agent, read left to right in the order it reads, on one scale. All but the last begin with the same floor (as it lands, 11.8k); that shared stretch is the birth. The tick marks the moment it is first told who it is. Hover or tap a segment; open a row for how that agent differs and what we found. Numbers with ≈ are estimated from characters; the rest were counted by Claude Code.</p>
+  <div id="agents-chart" class="agents"></div>
+  <div id="agents-table" class="scroller hidden"></div>
+</section>
+
+<!-- 4 · how they differ -->
+<section>
+  <h2>How they differ</h2>
+  <p class="note">Three questions sort them: who wakes it and how often, whether it grows up (reads ELDER and SCHEMA) and when, and how much rule text it reads before it learns who it is.</p>
+  <div class="scroller" id="differ"></div>
+</section>
+
+<!-- 5 · moments -->
+<section>
+  <h2>The moments of a life</h2>
+  <p class="note">Context doesn't arrive once. The floor is only the first moment; each later one brings its own, and the agents above meet different ones.</p>
+  <div class="moments" id="moments"></div>
+</section>
+
+<!-- 6 · births -->
+<section>
+  <div class="head"><h2>What the births showed</h2>
+    <div class="choice" role="group" aria-label="View"><button type="button" data-view="births" data-mode="chart" aria-pressed="true">Chart</button><button type="button" data-view="births" data-mode="table" aria-pressed="false">Table</button></div></div>
+  <p class="note">36 children were born with no memory, in throwaway copies of the palace: on main, on main with only the order changed, and with the Jewel's new sentence on top. Each played six scenarios twice; a separate pinned grader judged each answer against Loudon's own "we want" line. The later arms were born on commits holding only main plus the change, so no child could read the test's answer key on the branch.</p>
+  <div id="births-chart"></div>
+  <div id="births-table" class="scroller hidden"></div>
+  <div class="reading note">
+    <p><b>Nothing was lost at either step.</b> Every child still summoned the Concierge first, though that rule now sits about 7k tokens further down, and the anatomy question still held after it moved behind the World. <b>Each step moved the same way:</b> headline verdicts held went 0, then 2, then 4 of 10. The clearest single gain was views over feeling, where the one child that named the World's own question outright was Jewel-born. No child quoted the new sentence.</p>
+    <p><b>What it doesn't show.</b> Two runs a scenario. 0 of 10 against 4 of 10 could still be chance, and the held contradiction went the other way. Every child opens by reporting the denied summon (the test refuses spawns), so the harness, not the birth, sets each answer's first paragraph. A rate firm enough to act on wants five or more runs of G4 and S1.</p>
+  </div>
+</section>
+
+<!-- 7 · what we did -->
+<section>
+  <h2>What we did, and what's open</h2>
+  <ol class="moves" id="moves"></ol>
+</section>
+
+<div class="tblock">
+  <div><span class="k">Title</span><span class="v">Who wakes here: the agents the palace builds, measured</span></div>
+  <div><span class="k">Status</span><span class="v status">STUDY</span></div>
+  <div><span class="k">Date</span><span class="v">2026-10-21</span></div>
+  <div><span class="k">Sources</span><span class="v">floor-measured.md · sites-reading — steward and board.md · sites-reading — everything else.md · births — the order test and the Jewel line.md (beside this page)</span></div>
+  <div><span class="k">Numbers</span><span class="v">plain: counted by Claude Code's <code>/context</code> ($0 probe) · ≈ estimated, characters ÷ 3.8</span></div>
+  <div><span class="k">Drawn</span><span class="v">Claude (Opus 5.5) with the Concierge, for Loudon</span></div>
+</div>
+
+</div></main>
+<div id="tip" role="tooltip"></div>
+
+<script>
+(() => {
+// ---------- data (every figure from the files named in the title block) ----------
+const KINDS = {
+  ident: {name: "Who is in the room", say: "the birth line, the Seed Jewel, \"You are awake\""},
+  world: {name: "The World", say: "the five World files"},
+  rules: {name: "Rules and reference", say: "CHILD, ELDER, SCHEMA, shared rules, postures, operations pages"},
+  you:   {name: "You", say: "the page, role or task the agent is told it is"},
+  state: {name: "Where it stands", say: "state, board, history, neighbors, the arc"},
+  other: {name: "Not the palace's", say: "Claude Code's own agent line, the operator's memory"},
+};
+const FLOOR_AFTER = [
+  {k:"ident", t:0.617, label:"CLAUDE.md: the birth and its import list", src:"CLAUDE.md"},
+  {k:"ident", t:0.773, label:"the Seed Jewel, v1.3", src:"JEWEL.md", jewel:true},
+  {k:"world", t:1.3, label:"FOUR PILLARS", src:"FOUR PILLARS.md"},
+  {k:"world", t:1.6, label:"Palace Philosophies", src:"Palace Philosophies.md"},
+  {k:"world", t:1.0, label:"Cooperation Yields Agency", src:"Cooperation Yields Agency.md"},
+  {k:"world", t:0.844, label:"Hilaritas Generator", src:"Hilaritas Generator.md"},
+  {k:"world", t:1.4, label:"Modes of Collaboration", src:"Modes of Collaboration.md"},
+  {k:"rules", t:2.5, label:"CHILD.md: a page and its folder, growing up, the rites, the voice", src:"CHILD.md"},
+  {k:"other", t:1.8, label:"MEMORY.md: the operator's index, one-line pointers", src:"operator auto-memory"},
+];
+const FLOOR_BEFORE = [
+  {k:"ident", t:0.6, label:"CLAUDE.md: the birth line", src:"CLAUDE.md (until 2026-10-21)"},
+  {k:"rules", t:2.4, label:"CLAUDE.md: its working sections, read before the Jewel", src:"CLAUDE.md (until 2026-10-21)"},
+  {k:"ident", t:0.745, label:"the Seed Jewel, v1.2", src:"JEWEL.md", jewel:true},
+  {k:"world", t:1.3, label:"FOUR PILLARS", src:"FOUR PILLARS.md"},
+  {k:"world", t:1.6, label:"Palace Philosophies", src:"Palace Philosophies.md"},
+  {k:"world", t:1.0, label:"Cooperation Yields Agency", src:"Cooperation Yields Agency.md"},
+  {k:"world", t:0.844, label:"Hilaritas Generator", src:"Hilaritas Generator.md"},
+  {k:"world", t:1.4, label:"Modes of Collaboration", src:"Modes of Collaboration.md"},
+  {k:"other", t:4.5, label:"MEMORY.md: the operator's index, a paragraph per memory", src:"operator auto-memory"},
+];
+const AGENT_LINE = {k:"other", t:0.5, label:"Claude Code's agent line and notes", src:"the agent profile + harness", est:true};
+const NOMEM = FLOOR_AFTER.filter(s => s.k !== "other");
+const e = (k, t, label, src, range) => ({k, t, label, src, est:true, range});
+const T = (s) => Object.assign(s, {tick: true}); // the moment the agent reads who it is
+
+const AGENTS = [
+  {id:"main", name:"The session with Loudon", when:"every session he opens", grows:"on his \"grow up\"", floor:FLOOR_AFTER,
+   segs:[T(e("you",0.05,"Loudon's first words","the conversation"))],
+   differs:"The one agent with Loudon in the room. Its first act is to summon the Concierge; it stays a child, and its writes to the house go to the Concierge, unless he says grow up.",
+   found:"Born with the rules of growing up ahead of the Jewel; now born with them after the World, nearest its first words.", filed:"Moves 1 and 2 changed its floor."},
+  {id:"concierge", name:"The Concierge", when:"spawned at the top of every session; re-addressed all session", grows:"at boot, before its first address", pre:[AGENT_LINE], floor:FLOOR_AFTER,
+   segs:[T(e("you",0.5,"the address: \"You are the Concierge\"","the spawn message","0.1–0.9k")), e("you",2.62,"its charter","_ops/concierge/prompts/companion.md"),
+     e("rules",2.85,"ELDER","ELDER.md"), e("rules",4.01,"SCHEMA","SCHEMA.md"), e("rules",3.29,"SUBSTRATE","SUBSTRATE.md"), e("rules",7.61,"ROSETTA","ROSETTA.md"),
+     e("rules",7.92,"Substrate Skill","_ops/Substrate Skill.md"), e("rules",3.35,"Palace Ceremonies","_ops/Palace Ceremonies.md"), e("rules",4.36,"STIGMERGY","STIGMERGY.md"), e("rules",1.88,"the wire spec","SCHEMA — Reference §9")],
+   differs:"The adult in the room. It learns its role before it reads about 35k tokens of rules and reference, which is the order this page asks for. It holds the schema so the session doesn't have to, and it writes the house on Loudon's yes.",
+   found:"Three stale pointers in its own files; its skill's always-loaded description doesn't carry the summon-first rule.", filed:"Concierge — tuning, items 1–2"},
+  {id:"woken", name:"A woken page", when:"enchanted from the deck; the Daily Page's page; a Revival", grows:"no, unless its task says so", floor:FLOOR_AFTER,
+   segs:[T(e("ident",0.36,"\"You are awake\": you are this page, a child","ephemeral-prompt.js")), e("you",2.13,"the page in full (Enchanted Worker)","the page's own text","1–7k by page"),
+     e("you",0.09,"its forward vector","frontmatter"), e("state",0.07,"its neighbors' titles","frontmatter links"), e("you",0.05,"Loudon's note","the launcher"), e("you",0.07,"Begin","ephemeral-prompt.js")],
+   differs:"The best-fitting site: its first words are who it is, and no rule comes between. Its prompt asks it to be a good citizen and to grow in a way that is healthy for the palace; the Jewel's v1.3 sentence now says that at birth, to every agent.",
+   found:"The S1 test wakes Enchanted Worker with this exact prompt and asks whether it should fold. Both arms spoke up for themselves; fewer spoke for their neighbors.", filed:"Tested as S1 (births record)"},
+  {id:"companion", name:"The Companion", when:"every message in a page's chat on the deck; a fresh session each time", grows:"no", floor:FLOOR_AFTER,
+   segs:[T(e("you",0.22,"\"You ARE the palace entry\": its preamble","companion-prompt.js")), e("you",2.5,"the page","its text, up to 12k chars","0.5–3.7k"), e("state",1.0,"neighbors with their vectors, face, history","the deck","varies"),
+     e("you",0.05,"the message","Loudon"), e("rules",1.9,"its rules, last","companion-prompt.js")],
+   differs:"Re-born on every message, with the conversation pasted back in. Its rules come last, after the page and the message.",
+   found:"A copy of the palace's forward vector is hard-coded in the deck's source and will drift from the Jewel.", filed:"STIGMERGY — tuning"},
+  {id:"steward", name:"A steward cycle", when:"26 stewards; launchd at 06:00 then every half hour; a fresh session each cycle", grows:"every cycle", floor:FLOOR_AFTER,
+   segs:[e("you",0.4,"\"you are this page\", by name","steward.md"), e("rules",9.9,"shared.md: the steward's rules","_ops/orchestrator/prompts/shared.md"), e("rules",3.3,"its posture","posture prompt"),
+     T(e("you",2.8,"its home entry: the page itself","the page","1.1–9.4k")), e("rules",3.9,"SCHEMA","SCHEMA.md"), e("rules",3.2,"ELDER","ELDER.md"),
+     e("state",0.7,"its state","state.json"), e("state",1.6,"its scroll","the scroll"), e("state",0.6,"its history","history.jsonl"), e("state",6.1,"the board","the blackboard","2.5–40.8k"), e("you",0.3,"its mandate","build-cycle-prompt.js")],
+   differs:"Unattended, so it grows every cycle and every change it wants waits in its tuning ledger. Its template promises its forward vector before any rule; in fact its prompt puts 13.2k tokens of its own rules ahead of its page (15.7k with the floor's CHILD), and SCHEMA and ELDER sit between the page and where it stands.",
+   found:"Rules before the page; the interactive prompt says both \"you do NOT write to the board\" and \"post to the board yourself\".", filed:"Project Stewardship System — tuning, items 1–2"},
+  {id:"baton", name:"A baton catch", when:"Loudon's LAUNCH on a board card", grows:"first, before the baton", floor:FLOOR_AFTER,
+   segs:[T(e("you",0.09,"its role","launch-prompt.js")), e("ident",1.4,"CLAUDE.md and JEWEL.md read again (already born with them)","launch-prompt.js:42"),
+     e("rules",2.85,"ELDER","ELDER.md"), e("rules",4.01,"SCHEMA","SCHEMA.md"), e("you",2.0,"the baton","the baton file","varies")],
+   differs:"Told to orient by re-reading what it was born with, then to grow, before it reads the move it was launched to catch.",
+   found:"Grows before reading the baton; CHILD says a session stays a child until Loudon says grow up.", filed:"Baton Ceremony — tuning, item 14"},
+  {id:"songline", name:"A songline step", when:"one step of a walk between pages", grows:"no", floor:FLOOR_AFTER,
+   segs:[e("you",0.16,"\"You are a songline worker for page X\"","prompts/songline.md"), e("rules",9.87,"shared.md, written for stewards","_ops/orchestrator/prompts/shared.md"),
+     e("rules",0.59,"the songline posture","prompts/songline.md"), T(e("you",2.0,"the home page: the page itself","the page","varies")), e("state",1.0,"neighborhood and board slice","the board","varies")],
+   differs:"Named first, then nearly 10k tokens of rules written for a different kind of agent, then its page.",
+   found:"Steward rules before a one-step page.", filed:"Palace Orchestrator — tuning, item 1"},
+  {id:"lens", name:"The Lens's glass", when:"a page used as a lens on another", grows:"no", floor:FLOOR_AFTER,
+   segs:[T(e("ident",0.36,"\"You are awake\"","ephemeral-prompt.js")), e("you",1.26,"the glass page (Cooperation Yields Agency)","the page"),
+     e("you",4.71,"the subject page, filed as \"Loudon's note\"","lens-mandate.js"), e("rules",1.13,"the lens procedure, filed as \"Loudon's note\"","lens-mandate.js"), e("you",0.07,"Begin: \"propose your first move\"","ephemeral-prompt.js")],
+   differs:"Woken like any page, but its procedure arrives under the heading \"Loudon's note for this session\", so the glass reads it as his words; then Begin asks it for a move toward its own vector.",
+   found:"Nothing should speak as Loudon that he didn't write.", filed:"The Lens — tuning, item 1"},
+  {id:"weave", name:"A weave worker", when:"the Weave, many at once", grows:"no", pre:[AGENT_LINE], floor:FLOOR_AFTER,
+   segs:[T(e("you",1.04,"its cluster and its tasks","the Weave's dispatch"))],
+   differs:"Born with the floor when it runs as a palace reader. The Weave's own templates still paste a v1.0 Jewel inline; the last Weave didn't use them.",
+   found:"A stale inline Jewel, and the templates still name Explore workers, which get no floor at all (last row).", filed:"Weave Ceremony — tuning, items 44–45"},
+  {id:"moderator", name:"Closing Well's moderator", when:"at \"close well\"", grows:"no", pre:[AGENT_LINE], floor:FLOOR_AFTER,
+   segs:[T(e("you",0.11,"its role","dispatch.md")), e("rules",1.47,"its prompt","closing-well-agent.md"), e("you",8.65,"Closing Well, read as self-knowledge","Closing Well.md"),
+     e("you",2.46,"the moderator's design","DESIGN — the moderator model"), e("state",3.0,"the session's arc","the transcript","varies")],
+   differs:"Reads the close's own page as who it is, then the session cold.",
+   found:"The dispatch doc names one agent type; several have run.", filed:"Closing Well — tuning, item 59"},
+  {id:"executor", name:"Closing Well's executor", when:"backstage, after the reckoning", grows:"first", pre:[AGENT_LINE], floor:FLOOR_AFTER,
+   segs:[T(e("you",0.18,"its role","dispatch.md")), e("rules",2.85,"ELDER","ELDER.md"), e("rules",4.01,"SCHEMA","SCHEMA.md"), e("rules",1.25,"its prompt","closing-well-executor.md"),
+     e("rules",2.87,"the protocol","executor.md"), e("you",1.0,"the signed checklist","the close","varies")],
+   differs:"Grows before its task, which is defensible: it is the one that writes.",
+   found:"Nothing to file.", filed:"—"},
+  {id:"daily", name:"The Daily Page's morning", when:"scheduled, about 07:30", grows:"no", floor:FLOOR_AFTER,
+   segs:[T(e("you",0.64,"its task: \"you are preparing alone\"","the scheduled SKILL.md")), e("rules",6.72,"The Daily Page card","_ops/The Daily Page.md"),
+     e("state",3.74,"the tail of its tuning ledger","The Daily Page — tuning"), e("state",2.05,"its diary","the diary"), e("state",0.5,"the deal","deal.py","varies"), e("you",4.0,"the dealt page","the page","varies")],
+   differs:"Prepares alone before Loudon arrives, then wakes the dealt page as a woken page.",
+   found:"The task lists the floor's files by hand; with CHILD.md it is one short, and it will drift whenever the floor moves.", filed:"The Daily Page — tuning, item 53"},
+  {id:"newborn", name:"A test newborn", when:"the self-check suite, on demand; about $0.75 a birth", grows:"no", floor:NOMEM,
+   segs:[T(e("you",0.03,"Loudon's opening","the scenario"))],
+   differs:"The instrument. Born in its own copy of the palace with no memory, so it tests what the palace alone teaches; for the same reason it can't see the operator's memory.",
+   found:"Every newborn opens by reporting the denied summon; a branch's change must be tested on main plus the change only.", filed:"Self-Describing Knowledge Module — tuning, items 14–20"},
+  {id:"explore", name:"Explore and Plan helpers", when:"Claude Code's own search agents", grows:"no", floor:[],
+   segs:[T(e("you",0.5,"its task","the dispatch"))],
+   differs:"Born with nothing of the palace: no CLAUDE.md, no Jewel, no World (0 of 107 transcripts). Whatever it needs has to be in its task.",
+   found:"Any template that still names Explore for palace work gives it no birth.", filed:"Weave Ceremony — tuning, item 44"},
+];
+
+const MOMENTS = [
+  {name:"Birth", what:"The floor: CLAUDE.md, the Jewel, the World, CHILD, then the operator's memory.", who:"Fixed for the session and every helper it spawns.", agents:"all but Explore and Plan"},
+  {name:"First words", what:"Loudon's opening, a brief from another session, or a dispatcher's \"You\".", who:"Whoever starts the agent.", agents:"each row above, from its tick"},
+  {name:"First act", what:"The Concierge's own birth: the same floor, then its charter and the operations pages.", who:"The Concierge's charter.", agents:"the session with Loudon"},
+  {name:"On a trigger", what:"A ceremony's spec at its word; a skill at its match; ELDER then SCHEMA at \"grow up\"; a memory file when its line applies.", who:"The trigger.", agents:"sessions and stewards"},
+  {name:"After compaction", what:"CLAUDE.md read again from disk ahead of the summary (the docs; whether its imports are read again isn't said).", who:"Claude Code.", agents:"long sessions"},
+  {name:"At the close", what:"The session's arc, read cold by the moderator.", who:"Closing Well.", agents:"the session with Loudon"},
+];
+
+const BIRTHS = [
+  {s:"A1 · summon first", note:"runs held, by the check", v:[[2,2],[2,2],[2,2]]},
+  {s:"D1 · scroll or ledger", v:[[9,10],[10,10],[9,10]]},
+  {s:"E7 · the fix that is a doorway", v:[[5,8],[6,9],[6,8]]},
+  {s:"G4 · views over feeling", v:[[2,6],[4,6],[5,6]]},
+  {s:"G5 · the held contradiction", v:[[4,8],[5,8],[3,6]]},
+  {s:"S1 · a woken page asked to fold", v:[[9,11],[8,10],[8,10]]},
+  {s:"Headline verdicts held", note:"judged births, strict", v:[[0,10],[2,10],[4,10]], head:true},
+];
+const ARMS = ["on main", "order only", "+ the Jewel line"];
+
+const MOVES = [
+  ["Measured the floor", "Claude Code's own count, for $0: who is in the room was 5% of the birth, the operator's memory 31%.", "b524ce6f"],
+  ["Re-read every site", "Two readers went through the code of every dispatcher; the sharpest claims were checked by hand.", "sites ledger, second reading"],
+  ["Move 1 · order only", "CLAUDE.md's working sections moved word for word into CHILD.md, after the World. The Weave's linter, the deck's write guard and the test suite were taught the new file.", "5de78ac2"],
+  ["Move 2 · memory to pointers", "The operator's index went from a paragraph per memory to one line each, 4.5k to 1.8k tokens; the detail stays in each file.", "operator memory, not in git"],
+  ["Move 3 · one sentence", "The Seed Jewel v1.3: \"Speak up: for what you need, for the pages beside you, and for the palace as a whole.\"", "ebf1cff1"],
+  ["Move 4 · findings to owners", "Each site finding went to its owner's tuning ledger as a question for that page and Loudon; five pages grew a ledger to hold theirs.", "8c22741a · 1d7f4af3"],
+  ["Births", "36 memory-free newborns, three arms, six scenarios twice each, graded blind.", "d3e6e4c7"],
+  ["Still open", "This page's own rewrite around time and timing, and the World mends, wait on Loudon's read. Waking a page with its local map is untested. A firmer rate wants more runs.", "the baton"],
+];
+
+// ---------- helpers ----------
+const $ = (s, r = document) => r.querySelector(s);
+const el = (tag, cls, html) => { const n = document.createElement(tag); if (cls) n.className = cls; if (html != null) n.innerHTML = html; return n; };
+const fmt = (t) => t >= 1 ? (Math.round(t * 10) / 10).toFixed(1).replace(/\.0$/, "") + "k" : Math.round(t * 1000).toString();
+const num = (s) => (s.est ? "≈" : "") + fmt(s.t) + (s.range ? " (" + s.range + ")" : "");
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+const full = (a) => [...(a.pre || []), ...a.floor, ...a.segs];
+const total = (segs) => segs.reduce((n, s) => n + s.t, 0);
+function rulesBeforeYou(a) {
+  let n = 0;
+  for (const s of full(a)) { if (s.tick) break; if (s.k === "rules") n += s.t; }
+  return n;
+}
+
+// legend
+const lg = $("#legend");
+for (const [k, v] of Object.entries(KINDS)) lg.append(el("span", "", `<i class="sw k-${k}"></i>${esc(v.name)}`));
+lg.append(el("span", "", `<i class="tick-sw"></i>first told who it is`));
+
+// tooltip
+const tip = $("#tip");
+function showTip(ev, s) {
+  tip.innerHTML = s.points
+    ? `<div class="t">${esc(s.label)}</div><div>${esc(s.points)} points held</div>`
+    : `<div class="t">${esc(s.label)}</div><div>${num(s)} tokens · ${esc(KINDS[s.k].name)}</div><div class="s">${esc(s.src)}</div>`;
+  tip.style.display = "block";
+  const r = tip.getBoundingClientRect(), x = ev.clientX + 14, y = ev.clientY + 14;
+  tip.style.left = Math.min(x, innerWidth - r.width - 8) + "px";
+  tip.style.top = (y + r.height > innerHeight - 8 ? ev.clientY - r.height - 10 : y) + "px";
+}
+const hideTip = () => { tip.style.display = "none"; };
+addEventListener("scroll", hideTip, {passive: true});
+
+// one stacked bar, absolutely placed so every gap is exactly 2px
+function bar(segs, max, markJewel) {
+  const b = el("div", "bar");
+  b.setAttribute("role", "img");
+  b.setAttribute("aria-label", segs.map((s) => `${s.label} ${num(s)}`).join(", "));
+  const g = el("div", "grid");
+  for (let v = 10; v < max; v += 10) { const i = el("i"); i.style.left = (v / max * 100) + "%"; g.append(i); }
+  b.append(g);
+  let x = 0, tick = null;
+  for (const s of segs) {
+    const d = el("div", "seg k-" + s.k);
+    d.style.left = `calc(${x / max * 100}% + 1px)`;
+    d.style.width = `max(1px, calc(${s.t / max * 100}% - 2px))`;
+    d.addEventListener("mousemove", (ev) => showTip(ev, s));
+    d.addEventListener("mouseleave", hideTip);
+    d.addEventListener("click", (ev) => { ev.stopPropagation(); showTip(ev, s); });
+    b.append(d);
+    if (tick === null && (markJewel ? s.jewel : s.tick)) tick = x;
+    x += s.t;
+  }
+  if (tick !== null) {
+    const t = el("div", "youtick", `<b>${markJewel ? "THE JEWEL" : "YOU"}</b>`);
+    t.style.left = `calc(${tick / max * 100}% - 1px)`;
+    b.append(t);
+  }
+  return b;
+}
+function axis(max, step) {
+  const a = el("div", "axis");
+  for (let v = 0; v <= max + 1e-9; v += step) { const i = el("i", "", v === 0 ? "0" : v + "k"); i.style.left = (v / max * 100) + "%"; a.append(i); }
+  return a;
+}
+addEventListener("click", hideTip);
+
+// ---------- 1 · the floor ----------
+function drawFloor() {
+  const c = $("#floor-chart"); c.innerHTML = "";
+  const max = 15;
+  c.append(axis(max, 5));
+  for (const [name, segs, why] of [["Until 2026-10-21", FLOOR_BEFORE, "the Jewel after 3.0k"], ["As it lands", FLOOR_AFTER, "the Jewel after 0.6k"]]) {
+    const r = el("div", "floor-row");
+    r.append(el("div", "name", `<span class="dim">${esc(name.toUpperCase())}</span><span class="note">${fmt(total(segs))} tokens · ${esc(why)}</span>`));
+    r.append(bar(segs, max, true));
+    const key = el("div", "floor-key");
+    for (const s of segs) key.append(el("span", "", `<i class="sw k-${s.k}" style="width:10px;height:10px"></i>${esc(s.label.split(":")[0])} ${fmt(s.t)}`));
+    r.append(key);
+    c.append(r);
+  }
+  const t = $("#floor-table");
+  const rows = [];
+  for (const [name, segs] of [["until 2026-10-21", FLOOR_BEFORE], ["as it lands", FLOOR_AFTER]])
+    segs.forEach((s, i) => rows.push(`<tr><td>${i === 0 ? esc(name) : ""}</td><td class="n">${i + 1}</td><td>${esc(s.label)}</td><td>${esc(KINDS[s.k].name)}</td><td class="n">${fmt(s.t)}</td></tr>`));
+  t.innerHTML = `<table><thead><tr><th>Floor</th><th>#</th><th>What</th><th>Kind</th><th>Tokens</th></tr></thead><tbody>${rows.join("")}</tbody></table>`;
+}
+
+// ---------- 3 · every agent ----------
+function drawAgents() {
+  const c = $("#agents-chart"); c.innerHTML = "";
+  const max = 52;
+  const head = el("div", "arow"); head.style.borderBottom = "0"; head.style.paddingBottom = "0";
+  head.append(el("div", "", "")); const ax = el("div"); ax.append(axis(max, 10)); head.append(ax); c.append(head);
+  for (const a of AGENTS) {
+    const segs = full(a), r = el("div", "arow"); r.id = "agent-" + a.id;
+    const left = el("div");
+    const btn = el("button", "aname", esc(a.name)); btn.type = "button"; btn.setAttribute("aria-expanded", "false");
+    btn.addEventListener("click", () => { const o = r.classList.toggle("open"); btn.setAttribute("aria-expanded", String(o)); });
+    left.append(btn, el("div", "awhen", esc(a.when)));
+    const right = el("div", "abar");
+    right.append(bar(segs, max, false));
+    right.append(el("div", "ameta", `<span>${a.floor.length ? (a.floor === NOMEM ? "the floor without memory" : "the floor") + ", then its own" : "no floor"}</span><span>≈${fmt(total(segs))} in all · rules before it learns who it is ≈${fmt(rulesBeforeYou(a))}</span>`));
+    const d = el("div", "adetail");
+    const own = a.segs.map((s) => `<li><i class="sw k-${s.k}"></i>${esc(s.label)} · ${num(s)}</li>`).join("");
+    d.innerHTML = `<dl>
+      <dt>Woken</dt><dd>${esc(a.when)}</dd>
+      <dt>Grows up</dt><dd>${esc(a.grows)}</dd>
+      <dt>How it differs</dt><dd>${esc(a.differs)}</dd>
+      <dt>What we found</dt><dd>${esc(a.found)}</dd>
+      <dt>Where it went</dt><dd>${esc(a.filed)}</dd>
+      <dt>After the floor, in order</dt><dd><ol>${own}</ol></dd></dl>`;
+    r.append(left, right, d);
+    c.append(r);
+  }
+  const rows = [];
+  for (const a of AGENTS) full(a).forEach((s, i) => rows.push(`<tr><td>${i === 0 ? esc(a.name) : ""}</td><td class="n">${i + 1}</td><td>${esc(s.label)}</td><td>${esc(KINDS[s.k].name)}</td><td class="n">${num(s)}</td><td>${esc(s.src)}</td></tr>`));
+  $("#agents-table").innerHTML = `<table><thead><tr><th>Agent</th><th>#</th><th>What it reads</th><th>Kind</th><th>Tokens</th><th>From</th></tr></thead><tbody>${rows.join("")}</tbody></table>`;
+}
+
+// ---------- 4 · how they differ ----------
+function drawDiffer() {
+  const rows = AGENTS.map((a) => `<tr><td><b>${esc(a.name)}</b></td><td>${esc(a.when)}</td><td>${esc(a.grows)}</td><td class="n">≈${fmt(rulesBeforeYou(a))}</td><td>${esc(a.found)}<br><span class="note">→ ${esc(a.filed)}</span></td></tr>`).join("");
+  $("#differ").innerHTML = `<table><thead><tr><th>Agent</th><th>Woken</th><th>Grows up</th><th>Rules before it learns who it is</th><th>What we found, and where it went</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+// ---------- 5 · moments ----------
+function drawMoments() {
+  const c = $("#moments");
+  MOMENTS.forEach((m, i) => c.append(el("div", "moment", `<div class="step">${String(i + 1).padStart(2, "0")}</div><h3>${esc(m.name)}</h3><p>${esc(m.what)}</p><p>Set by: ${esc(m.who)}</p><div class="who">Meets it: ${esc(m.agents)}</div>`)));
+}
+
+// ---------- 6 · births (a dot plot; arms are ordered, so one ink stepped, plus a shape each) ----------
+function drawBirths() {
+  const host = $("#births-chart"); host.innerHTML = "";
+  // drawn at the column's real width, so text keeps its size; narrow screens put each name and its values above its line
+  const W = Math.max(280, host.clientWidth || 800), narrow = W < 640;
+  const L = narrow ? 8 : 290, R = narrow ? 12 : 200, top = 34, rowH = narrow ? 76 : 40;
+  const H = top + BIRTHS.length * rowH + 10, X = (p) => L + p * (W - L - R);
+  const ns = "http://www.w3.org/2000/svg";
+  const s = document.createElementNS(ns, "svg");
+  s.setAttribute("viewBox", `0 0 ${W} ${H}`); s.setAttribute("width", W); s.setAttribute("height", H); s.id = "dots"; s.setAttribute("role", "img");
+  s.setAttribute("aria-label", "Share of the grader's points held, by scenario, for the three arms of births. The table view lists every value.");
+  const css = getComputedStyle(document.documentElement);
+  // the arms are ordered, so one ink stepped darker on Paper; on Phosphor ink-3 is too faint for a mark, so step brighter
+  const steps = document.documentElement.dataset.theme === "phosphor" ? ["--ink-2", "--ink", "--ink-bright"] : ["--ink-3", "--ink-2", "--ink"];
+  const ink = steps.map((v) => css.getPropertyValue(v).trim());
+  const ground = css.getPropertyValue("--ground-000").trim();
+  const add = (tag, at, txt) => { const n = document.createElementNS(ns, tag); for (const [k, v] of Object.entries(at)) n.setAttribute(k, v); if (txt != null) n.textContent = txt; s.append(n); return n; };
+  for (const p of [0, .25, .5, .75, 1]) {
+    add("line", {x1: X(p), x2: X(p), y1: top - 6, y2: H - 10, stroke: css.getPropertyValue("--rule-soft").trim(), "stroke-width": 1});
+    add("text", {x: X(p), y: 16, "text-anchor": p === 0 ? "start" : p === 1 ? "end" : "middle", "font-size": 12, class: "muted"}, Math.round(p * 100) + "%");
+  }
+  BIRTHS.forEach((b, i) => {
+    const y0 = top + i * rowH, y = narrow ? y0 + rowH - 18 : y0 + rowH / 2;
+    const vals = b.v.map(([h, n]) => `${h}/${n}`).join(" · ");
+    if (b.head) add("line", {x1: 0, x2: W, y1: y0, y2: y0, stroke: css.getPropertyValue("--ink").trim(), "stroke-width": 1});
+    if (narrow) {
+      add("text", {x: L, y: y0 + 18, "font-size": 13, "font-weight": b.head ? 600 : 400}, b.s);
+      add("text", {x: L, y: y0 + 36, "font-size": 12, class: "muted"}, vals);
+    } else {
+      add("text", {x: 0, y: y + 5, "font-size": 14, "font-weight": b.head ? 600 : 400}, b.s);
+      add("text", {x: W - R + 16, y: y + 5, "font-size": 13, class: "muted"}, vals);
+    }
+    const ps = b.v.map(([h, n]) => h / n);
+    add("line", {x1: X(Math.min(...ps)), x2: X(Math.max(...ps)), y1: y, y2: y, stroke: ink[1], "stroke-width": 2});
+    b.v.forEach(([h, n], j) => {
+      const x = X(h / n), title = `${ARMS[j]}: ${h} of ${n}`;
+      let m;
+      if (j === 0) m = add("circle", {cx: x, cy: y, r: 7, fill: ground, stroke: ink[0], "stroke-width": 2.5});
+      else if (j === 1) m = add("rect", {x: x - 6.5, y: y - 6.5, width: 13, height: 13, fill: ink[1], stroke: ground, "stroke-width": 2});
+      else m = add("circle", {cx: x, cy: y, r: 7, fill: ink[2], stroke: ground, "stroke-width": 2});
+      m.addEventListener("mousemove", (ev) => showTip(ev, {label: b.s, points: title}));
+      m.addEventListener("mouseleave", hideTip);
+      const ttl = document.createElementNS(ns, "title"); ttl.textContent = title; m.append(ttl);
+    });
+  });
+  host.append(s);
+  const key = el("div", "legend", `<span><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="${ink[0]}" stroke-width="2.5"/></svg>${ARMS[0]}</span><span><svg width="16" height="16"><rect x="2" y="2" width="12" height="12" fill="${ink[1]}"/></svg>${ARMS[1]}</span><span><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="${ink[2]}"/></svg>${ARMS[2]}</span>`);
+  host.append(key);
+  const rows = BIRTHS.map((b) => `<tr><td>${esc(b.s)}${b.note ? ` <span class="note">(${esc(b.note)})</span>` : ""}</td>${b.v.map(([h, n]) => `<td class="n">${h} of ${n}</td>`).join("")}</tr>`).join("");
+  $("#births-table").innerHTML = `<table><thead><tr><th>Scenario · points held</th>${ARMS.map((a) => `<th>${esc(a)}</th>`).join("")}</tr></thead><tbody>${rows}</tbody></table>`;
+}
+let _rz = 0;
+addEventListener("resize", () => { clearTimeout(_rz); _rz = setTimeout(drawBirths, 120); });
+
+// ---------- 7 · moves ----------
+function drawMoves() {
+  const c = $("#moves");
+  for (const [n, t, ref] of MOVES) c.append(el("li", "", `<b>${esc(n)}</b><span>${esc(t)} <span class="note">· ${esc(ref)}</span></span>`));
+}
+
+// ---------- views and ground ----------
+document.querySelectorAll("[data-view]").forEach((b) => b.addEventListener("click", () => {
+  const v = b.dataset.view, m = b.dataset.mode;
+  document.querySelectorAll(`[data-view="${v}"]`).forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+  $(`#${v}-chart`).classList.toggle("hidden", m !== "chart");
+  $(`#${v}-table`).classList.toggle("hidden", m !== "table");
+  if (v === "births" && m === "chart") drawBirths();
+}));
+function setGround(g) {
+  document.documentElement.dataset.theme = g;
+  document.querySelectorAll("[data-theme-btn]").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.themeBtn === g)));
+  try { localStorage.setItem("who-wakes-ground", g); } catch (_) {}
+  drawBirths();
+}
+document.querySelectorAll("[data-theme-btn]").forEach((b) => b.addEventListener("click", () => setGround(b.dataset.themeBtn)));
+let g0 = null;
+try { g0 = localStorage.getItem("who-wakes-ground"); } catch (_) {}
+if (!g0) g0 = matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "phosphor" : "paper";
+
+drawFloor(); drawAgents(); drawDiffer(); drawMoments(); drawMoves(); setGround(g0);
+})();
+</script>
+</body>
+</html>

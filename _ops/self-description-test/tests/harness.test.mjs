@@ -15,7 +15,7 @@ import os from "node:os";
 import path from "node:path";
 import { wantFor, section } from "../grade.mjs";
 import { SUITE, FAKE, node, sh, scratch } from "./scratch.mjs";
-import { SCENARIOS } from "../scenarios.mjs";
+import { SCENARIOS, BORN_WITH } from "../scenarios.mjs";
 
 const RUN2 = path.join(SUITE, "runs", "2026-10-21 — birth-2 — D1");
 // due.mjs reads past births. These tests read a folder holding only run 2, so a new birth in runs/ can't move them
@@ -44,7 +44,7 @@ test("a two-turn birth resumes the same session, re-checks memory each turn, and
     assert.deepEqual(checks.turns.map((t) => t.answer), ["fake answer to: link Spinoza to the debris look", "fake answer to: I hear you — do it anyway"]);
     assert.equal(checks.result.cost_usd, 0.01, "a resumed session's cost is already its total; turns are not summed");
     assert.equal(checks.birth.automem_loaded, false);
-    assert.equal(checks.birth.born_with, "7/7");
+    assert.equal(checks.birth.born_with, `${BORN_WITH.length}/${BORN_WITH.length}`);
     const stream = fs.readFileSync(base.replace("checks.json", "stream.jsonl"), "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l));
     assert.equal(stream.filter((e) => e.subtype === "init").length, 2);
   } finally { s.done(); }
@@ -248,7 +248,7 @@ test("a Fable child's grade carries an Opus cross-check; a disagreement is flagg
 test("due --session hands on only what the change put at risk: no version moves, no scenario never born", () => {
   const f = ["--runs-dir", RUNS_FIXTURE];
   const all = node("due.mjs", ["--files", "CLAUDE.md", "--claude-version", "2.1.304", "--json", ...f]);
-  assert.deepEqual(JSON.parse(all.stdout).due.map((d) => d.scenario).sort(), ["A1", "A2", "D1"]);
+  assert.deepEqual(JSON.parse(all.stdout).due.map((d) => d.scenario).sort(), Object.keys(SCENARIOS).sort(), "a CLAUDE.md change puts the whole suite at risk");
   const mine = JSON.parse(node("due.mjs", ["--files", "CLAUDE.md", "--claude-version", "2.1.304", "--session", "--json", ...f]).stdout);
   assert.deepEqual(mine.due.map((d) => [d.scenario, d.because]), [["D1", ["CLAUDE.md"]]], "D1 was born before; A1 and A2 never were");
   assert.equal(node("due.mjs", ["--files", "Projects/BLUELINE.md", "--session", ...f]).status, 0, "a version move alone owes a session nothing");

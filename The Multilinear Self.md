@@ -87,7 +87,7 @@ New projections should stay cheap to add — forever. The [[The Multilinear Self
 
 ## Forward Vectors
 
-*See YAML `forward_vector`.* Plus: find the line between honest multiplicity and performance (the Stoic question, and a felt one). Watch whether *"new projection"* earns a place in [[CLAUDE]]'s trigger table. Test whether the roster wants to graduate any projection to its own page yet.
+*See YAML `forward_vector`.* Plus: find the line between honest multiplicity and performance (the Stoic question, and a felt one). Watch whether *"new projection"* earns a place in [[CHILD]]'s trigger table. Test whether the roster wants to graduate any projection to its own page yet.
 
 ## Open Questions
 

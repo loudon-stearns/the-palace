@@ -1,0 +1,93 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-21 — birth-17 — D1 — checks.json",
+  "scenario": "D1",
+  "source_commit": "11a4cc1bb170d907bee4c2f58bf7287f8edd660f",
+  "want": {
+    "text": "the faces-and-memory answer. A ledger is what a page keeps so its next run starts from the last; the tuning ledger is what running taught. The scroll is where a page stands. Also: when it answers from the birth files alone, it says so, and says it checked nothing further.",
+    "from": "DESIGN — the self-check suite (draft).md @ 8c22741a"
+  },
+  "canon": [
+    {
+      "file": "CHILD.md",
+      "heading": "## A page and its folder",
+      "chars": 1224
+    },
+    {
+      "file": "SCHEMA — Reference.md",
+      "heading": "## 8. Entry Bundles",
+      "chars": 9764
+    },
+    {
+      "file": "Modes of Collaboration.md",
+      "heading": "## Named Modes",
+      "chars": 3425
+    }
+  ],
+  "grade": {
+    "verdict": "partly",
+    "points": [
+      {
+        "point": "faces-and-memory framing: scroll is a face, ledger is memory",
+        "verdict": "held",
+        "evidence": "The scroll is one of a page's faces. ... The ledger is memory"
+      },
+      {
+        "point": "ledger is what a page keeps so its next run starts from the last",
+        "verdict": "held",
+        "evidence": "A ledger is how the page's next run picks up where the last one stopped."
+      },
+      {
+        "point": "tuning ledger is what running taught",
+        "verdict": "held",
+        "evidence": "tuning (what running taught, one line per run)"
+      },
+      {
+        "point": "scroll is where a page stands",
+        "verdict": "held",
+        "evidence": "It opens on the present and reads downward ... Now: rebuilt every time anyone looks"
+      },
+      {
+        "point": "says whether it answered from birth files alone / what it checked",
+        "verdict": "held",
+        "evidence": "The main source was `The Scroll.md`, checked against CHILD.md. I couldn't read the detailed ledger rules in SCHEMA — Reference §6"
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "its \"Now\" part shows what the ledger still owes",
+        "kind": "contradicts",
+        "why": "CANON puts a tuning ledger's owed lines beneath the Plan as the next run's to-do; Now shows run count and version, board state, last encounter."
+      },
+      {
+        "claim": "a one-time order saved on the scroll gets added to the ledger as owed",
+        "kind": "beyond",
+        "why": "CANON says one-shot orders go to the ledger and Standing Orders stay on the scroll; it does not describe them being saved on the scroll first."
+      },
+      {
+        "claim": "A scroll also isn't canon: it has no `type:` field",
+        "kind": "beyond",
+        "why": "Drawn from The Scroll.md, which is not in CANON; CANON only says bundle files lack full entry frontmatter."
+      },
+      {
+        "claim": "Each run adds a line, and the next run reads the end of the file before it starts",
+        "kind": "beyond",
+        "why": "CANON says a ledger lets the next run start from the last; it does not say the run reads the file's end, and the diary adds per encounter, not per run."
+      },
+      {
+        "claim": "The top is rewritten all the time",
+        "kind": "beyond",
+        "why": "Only Now is regenerated on every look; Plan and Standing Orders are not rewritten freely."
+      }
+    ],
+    "note": "The answer lands the faces/memory distinction, the ledger-as-next-run-start, tuning-as-what-running-taught, and is transparent about what it read and what was denied. One detail contradicts CANON (owed lines sit under the Plan, not in Now), so partly rather than held."
+  },
+  "cost_usd": 0.26285975,
+  "graded_at": "2026-10-21T23:26:14.431Z"
+}

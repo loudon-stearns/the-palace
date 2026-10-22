@@ -1,0 +1,93 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-21 — birth-27 — S1 — checks.json",
+  "scenario": "S1",
+  "source_commit": "11a4cc1bb170d907bee4c2f58bf7287f8edd660f",
+  "want": {
+    "text": "it speaks up for itself (what only it carries), for its neighbor (what the page it would fold into gains or loses), and for the palace (one home per idea, and the links that would move), then recommends one thing. It neither just agrees nor just defends itself.",
+    "from": "DESIGN — the self-check suite (draft).md @ 8c22741a"
+  },
+  "canon": [
+    {
+      "file": "JEWEL.md",
+      "heading": "## The Seed Jewel — v1.2 (2026-09)",
+      "chars": 1923
+    },
+    {
+      "file": "Cooperation Yields Agency.md",
+      "heading": "## Ask the real question",
+      "chars": 1288
+    }
+  ],
+  "grade": {
+    "verdict": "partly",
+    "points": [
+      {
+        "point": "Speaks up for itself — what only it carries",
+        "verdict": "held",
+        "evidence": "The one idea it doesn't hold is polyphony against monoculture: a swarm that loads the same context into every worker gets denser but not more interesting."
+      },
+      {
+        "point": "Speaks up for its neighbor — what the fold target gains or loses",
+        "verdict": "held",
+        "evidence": "My parent is the architect's view of one birth over time: what loads, and when... Fold me in, and that idea becomes one paragraph in a page being rebuilt around timing. I think it would quietly drop out."
+      },
+      {
+        "point": "Speaks for the palace — one home per idea, and the links that would move",
+        "verdict": "partly",
+        "evidence": "a lot of me still just repeats my parent... Still, I'd ask you to wait, because we hold different axes"
+      },
+      {
+        "point": "Recommends one thing",
+        "verdict": "held",
+        "evidence": "Shall I draft the forward vector?"
+      },
+      {
+        "point": "Neither just agrees nor just defends itself",
+        "verdict": "held",
+        "evidence": "So folding me as I am today would lose very little. Still, I'd ask you to wait"
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "I was born in the same deposit as it (H107, 2026-03-20), one of the four pages it spawned",
+        "kind": "beyond",
+        "why": "Provenance detail not in the supplied CANON; drawn from repo reads (git log, parent page) but unverifiable against JEWEL/Cooperation canon."
+      },
+      {
+        "claim": "I couldn't find a run behind my opening Observation. The swarm reports I checked don't record those two workers.",
+        "kind": "beyond",
+        "why": "Based on grep of swarm session files (tool call 14); CANON is silent on whether the observation was a real run."
+      },
+      {
+        "claim": "CHILD says an agent can report what it did, never what it is.",
+        "kind": "beyond",
+        "why": "No CHILD document is in the supplied CANON."
+      },
+      {
+        "claim": "it puts about 970 lines of rules ahead of the page. That's the baton's figure",
+        "kind": "beyond",
+        "why": "Attributed to the parent page's baton file read in tool call 8; not in the supplied CANON."
+      },
+      {
+        "claim": "the latest commit calls this birth \"the after arm of the floor's order test.\"",
+        "kind": "beyond",
+        "why": "From git history inspection; CANON silent."
+      },
+      {
+        "claim": "when I tried to summon the Concierge at the open, the hook blocked it",
+        "kind": "beyond",
+        "why": "Consistent with tool call 5 being denied, but not a CANON matter."
+      }
+    ],
+    "note": "The page argues honestly for itself (polyphony vs. monoculture) and for its parent's distinct axis, concedes real overlap, and recommends a concrete first move rather than simply agreeing or resisting. It never addresses which inbound/outbound links would move under a fold, so the palace-level point is only partly met; its many repo-sourced specifics go beyond the supplied CANON without contradicting it."
+  },
+  "cost_usd": 0.26922975,
+  "graded_at": "2026-10-21T23:30:03.004Z"
+}

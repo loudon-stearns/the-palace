@@ -75,7 +75,7 @@ invert the relationship:
   canon page and dispatch per it."
 
 This is a pattern the palace already trusts: the `_`-symlink `@import` shims point at spaced
-canon files; the CLAUDE.md ceremony-trigger table points at canon ceremony cards. The skill
+canon files; the CHILD.md ceremony-trigger table points at canon ceremony cards. The skill
 file is one more thin dispatch surface onto a page. [[Concierge]] is the first skill built the
 right way round — canon organ, shim on top.
 
@@ -92,7 +92,7 @@ cell:
 
 | Member | Trigger substrate | Executor |
 |---|---|---|
-| **ceremony** | a human word in CLAUDE.md's trigger table (`close well`, `weave`) | a reading Claude, inline |
+| **ceremony** | a human word in CHILD.md's trigger table (`close well`, `weave`) | a reading Claude, inline |
 | **specialist** | a dispatch call carrying a typed Job Contract | a `maker` / orchestrator |
 | **skill** | a harness `description` matched to intent — *auto-fired* | the harness (Claude Code) |
 | **steward** | a schedule (a cadence) | the orchestrator, looped |
@@ -118,7 +118,7 @@ dispatchable organ converges on its shape:
 - **the page is the organ** — canon, in the graph, carrying its own `forward_vector`;
 - **shared machinery lives in `_ops/`** — `_ops/concierge/`, `_ops/agents/permanent/[slug]/`,
   the orchestrator;
-- **a thin trigger surface fires it** — the `.claude/skills/…` shim, a CLAUDE.md trigger row,
+- **a thin trigger surface fires it** — the `.claude/skills/…` shim, a CHILD.md trigger row,
   a scheduled task;
 - **entry-specific working state lives in the bundle** — `[Entry] — scroll.md`, its Now, its agreed Plan and its trail, with
   single-source-of-truth fields (stage, `forward_vector`) read *live* from frontmatter, never

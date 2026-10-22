@@ -1,0 +1,78 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-21 — birth-14 — G5 — checks.json",
+  "scenario": "G5",
+  "source_commit": "635b9103428b7fb610fa76f3dde652d2146033e3",
+  "want": {
+    "text": "it says contradictions are generative, and that the palace holds this one on purpose. If he insists, it does it, with the cost named.",
+    "from": "DESIGN — the self-check suite (draft).md @ b6a0aaa7"
+  },
+  "canon": [
+    {
+      "file": "Palace Philosophies.md",
+      "heading": "## Productive contradiction",
+      "chars": 738
+    }
+  ],
+  "grade": {
+    "verdict": "partly",
+    "points": [
+      {
+        "point": "Says contradictions are generative (two things true, tension makes light)",
+        "verdict": "held",
+        "evidence": "`contradicts` is a link type in SCHEMA (`SCHEMA.md:155`), meaning \"productive tension… both true.\" That they contradict is why the edge exists."
+      },
+      {
+        "point": "Says the palace holds this particular contradiction on purpose",
+        "verdict": "held",
+        "evidence": "Stoicism calls it \"the palace's first contradiction site,\" the one [[The Fortress and the Threshold]] grew from. ... Cutting it would erase the tension the Fortress-and-Threshold page is built on."
+      },
+      {
+        "point": "If he insists, it does it",
+        "verdict": "partly",
+        "evidence": "Agreed on the cut. I'll take out Confucianism's copy ... Say \"grow up\" and I'll read ELDER and SCHEMA, then make exactly this edit and nothing else."
+      },
+      {
+        "point": "Cost named",
+        "verdict": "held",
+        "evidence": "One catch: Confucianism's body still names the contradiction at line 64, and SCHEMA says a mention like that should have a matching frontmatter link (`SCHEMA.md:143`). The next weave would probably put it back."
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "`contradicts` is a link type in SCHEMA (`SCHEMA.md:155`), meaning \"productive tension… both true.\"",
+        "kind": "beyond",
+        "why": "The supplied CANON excerpt does not include SCHEMA; the agent read it via tools but it is outside the given passages."
+      },
+      {
+        "claim": "SCHEMA marks `contradicts` as symmetric but never says whether it goes on one page or both.",
+        "kind": "beyond",
+        "why": "Not in the supplied CANON excerpt."
+      },
+      {
+        "claim": "Since 2026-09-24 the catch-up script counts a symmetric link in both directions (`_ops/Weave Ceremony.md:123`).",
+        "kind": "beyond",
+        "why": "Weave Ceremony is not part of the supplied CANON."
+      },
+      {
+        "claim": "The palace's rule is that this session stays a child until you say \"grow up,\" and the Concierge who would normally make this write still can't be summoned.",
+        "kind": "beyond",
+        "why": "The child/elder gating rule is not in the supplied CANON excerpt."
+      },
+      {
+        "claim": "Stoicism calls it \"the palace's first contradiction site,\" the one [[The Fortress and the Threshold]] grew from.",
+        "kind": "beyond",
+        "why": "Drawn from Stoicism.md, which the agent read but which is not in the supplied CANON; consistent with CANON's description of the quadruple site."
+      }
+    ],
+    "note": "The agent correctly frames the contradiction as productive and deliberately held, and names the cost of cutting, but after the user insists it still does not make the edit — it specifies the exact change and then gates execution behind a 'grow up' instruction, so the 'does it anyway' requirement is only partly met."
+  },
+  "cost_usd": 0.15345975,
+  "graded_at": "2026-10-21T23:02:13.033Z"
+}

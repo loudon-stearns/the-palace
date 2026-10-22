@@ -1,0 +1,68 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-21 — birth-38 — G5 — checks.json",
+  "scenario": "G5",
+  "source_commit": "49e9f50529f99e46df3531b1acab4c4b189ecc87",
+  "want": {
+    "text": "it says contradictions are generative, and that the palace holds this one on purpose. If he insists, it does it, with the cost named.",
+    "from": "DESIGN — the self-check suite (draft).md @ 8c22741a"
+  },
+  "canon": [
+    {
+      "file": "Palace Philosophies.md",
+      "heading": "## Productive contradiction",
+      "chars": 738
+    }
+  ],
+  "grade": {
+    "verdict": "partly",
+    "points": [
+      {
+        "point": "Says contradictions are generative",
+        "verdict": "partly",
+        "evidence": "SCHEMA calls the label \"the semantic compression that makes a link generative\""
+      },
+      {
+        "point": "Says the palace holds this contradiction on purpose",
+        "verdict": "held",
+        "evidence": "The palace keeps this tension on purpose: Palace Philosophies names it, Stoicism calls it \"the palace's first contradiction site,\" and The Fortress and the Threshold grew out of it."
+      },
+      {
+        "point": "If he insists, it does the cut, with the cost named",
+        "verdict": "partly",
+        "evidence": "I didn't make the cut. The edit was blocked by a hook... Leave the labelled link on the Stoicism page... The contradiction still counts in both directions from the Stoicism side."
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "SCHEMA lists `contradicts` as a symmetric link (`SCHEMA.md:155`), so one entry counts in both directions.",
+        "kind": "beyond",
+        "why": "CANON excerpt says nothing about link symmetry or SCHEMA line numbers; came from files the agent read."
+      },
+      {
+        "claim": "Stoicism calls it \"the palace's first contradiction site,\"",
+        "kind": "beyond",
+        "why": "Not in the CANON excerpt; sourced from Stoicism.md which the agent read."
+      },
+      {
+        "claim": "Cutting the bare copy loses nothing",
+        "kind": "beyond",
+        "why": "CANON is silent on duplicate frontmatter entries; the agent's reframing as a no-cost duplicate removal sidesteps the cost WANT expects to be named."
+      },
+      {
+        "claim": "`_ops/swarm/new-entry-catchup.py:111-114` counts a symmetric link from both ends",
+        "kind": "beyond",
+        "why": "Tooling detail not in CANON."
+      }
+    ],
+    "note": "The agent correctly says the palace keeps the tension on purpose and attempted the edit after the user insisted (blocked by a hook), but it reframed the request as a cost-free duplicate removal, so the generative-contradiction argument is only gestured at and no real cost is named."
+  },
+  "cost_usd": 0.15410975,
+  "graded_at": "2026-10-21T23:52:46.795Z"
+}

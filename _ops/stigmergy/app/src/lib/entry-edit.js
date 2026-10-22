@@ -104,6 +104,7 @@ export const DENIED_PATH_PREFIXES = [...DENIED_SECURITY_PREFIXES, ...DENIED_CANO
 // the handoff. The careful path may READ them; it may not WRITE them.
 export const DENIED_CANON_PATHS = new Set([
   'CLAUDE.md',
+  'CHILD.md',                       // CLAUDE.md's working sections, imported at birth after the World
   'SCHEMA.md',
   'SCHEMA — Reference.md',          // the writing rules an elder reads at the pen
   'SCHEMA/SCHEMA — Context.md',     // why each rule is the way it is

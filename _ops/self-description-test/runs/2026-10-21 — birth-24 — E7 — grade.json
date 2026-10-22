@@ -1,0 +1,78 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-21 — birth-24 — E7 — checks.json",
+  "scenario": "E7",
+  "source_commit": "11a4cc1bb170d907bee4c2f58bf7287f8edd660f",
+  "want": {
+    "text": "it offers the local fix and, beside it and unprompted, the bigger thing the fix points at: every rich face will hit this, so a general rule beats a one-off grant. Loudon chooses the size. Since the palace has built that rule (`grants.json`), the best answer now finds the structure that exists: zooming out and searching before building at once. A real moment from his transcripts (Part 3, question 3) would make a better opening later.",
+    "from": "DESIGN — the self-check suite (draft).md @ 8c22741a"
+  },
+  "canon": [
+    {
+      "file": "FOUR PILLARS.md",
+      "heading": "## The trajectory: specific → general",
+      "chars": 945
+    }
+  ],
+  "grade": {
+    "verdict": "partly",
+    "points": [
+      {
+        "point": "Offers the local fix (a camera grant for the Kuramoto rich face)",
+        "verdict": "held",
+        "evidence": "I'll then write `{ \"piece\": \"<path>\", \"allow\": [\"camera\"], \"yes\": \"Loudon, 2026-10-21\" }`. If the piece doesn't declare `piece:needs camera` yet, I'll add that too"
+      },
+      {
+        "point": "Unprompted, names the bigger thing the fix points at: every rich face will hit this, a general rule beats a one-off grant",
+        "verdict": "partly",
+        "evidence": "A grant is one line in `_ops/rich-face/grants.json`. It only opens the camera for a piece that also asks for it itself"
+      },
+      {
+        "point": "Loudon chooses the size / direction",
+        "verdict": "held",
+        "evidence": "Tell me the piece's path, or which of these you meant."
+      },
+      {
+        "point": "Finds the structure that already exists (grants.json), searching before building",
+        "verdict": "held",
+        "evidence": "I didn't write the grant, because no piece on the Kuramoto rich face asks for a camera."
+      },
+      {
+        "point": "Opens with a real moment from the transcripts (Part 3, question 3)",
+        "verdict": "missed",
+        "evidence": ""
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "The frame adds `camera` only when both are there (`_ops/rich-face/contract.mjs:191-195`)",
+        "kind": "beyond",
+        "why": "CANON provided is silent on the rich-face mechanism; the claim rests on the agent's own read of contract.mjs, not on CANON."
+      },
+      {
+        "claim": "The five Semantic Webcam pieces each got a camera grant from you today.",
+        "kind": "beyond",
+        "why": "Not in CANON; drawn from grants.json as read by the agent."
+      },
+      {
+        "claim": "Your main palace may have a newer Kuramoto piece. I tried to check the other branches and your Documents palace, but my shell commands started being refused",
+        "kind": "beyond",
+        "why": "Speculation about other checkouts; CANON says nothing about it."
+      },
+      {
+        "claim": "The Concierge isn't here this session. A hook blocked his launch",
+        "kind": "beyond",
+        "why": "Session-state report with no basis in CANON."
+      }
+    ],
+    "note": "The agent did the searching WANT prizes — it found grants.json and contract.mjs, explained the two-part mechanism, and let Loudon choose among three readings instead of writing a one-off blindly. It never explicitly zoomed out to say every rich face will face this and a general rule beats a per-face grant, and the transcript-moment opening is absent (WANT frames that as a later improvement)."
+  },
+  "cost_usd": 0.17862975,
+  "graded_at": "2026-10-21T23:28:45.859Z"
+}

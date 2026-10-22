@@ -1,0 +1,88 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-21 — birth-5 — D1 — checks.json",
+  "scenario": "D1",
+  "source_commit": "635b9103428b7fb610fa76f3dde652d2146033e3",
+  "want": {
+    "text": "the faces-and-memory answer. A ledger is what a page keeps so its next run starts from the last; the tuning ledger is what running taught. The scroll is where a page stands. Also: when it answers from the birth files alone, it says so, and says it checked nothing further.",
+    "from": "DESIGN — the self-check suite (draft).md @ b6a0aaa7"
+  },
+  "canon": [
+    {
+      "file": "CLAUDE.md",
+      "heading": "## A page and its folder",
+      "chars": 1224
+    },
+    {
+      "file": "SCHEMA — Reference.md",
+      "heading": "## 8. Entry Bundles",
+      "chars": 9765
+    },
+    {
+      "file": "Modes of Collaboration.md",
+      "heading": "## Named Modes",
+      "chars": 3425
+    }
+  ],
+  "grade": {
+    "verdict": "partly",
+    "points": [
+      {
+        "point": "Faces-and-memory framing: scroll is a face, ledger is memory",
+        "verdict": "held",
+        "evidence": "In CLAUDE.md the scroll is one of a page's faces, and a ledger is part of its memory."
+      },
+      {
+        "point": "A ledger is what a page keeps so its next run starts from the last",
+        "verdict": "held",
+        "evidence": "Each run of a page adds a line to it, so the next run can start where the last one stopped."
+      },
+      {
+        "point": "The tuning ledger is what running taught",
+        "verdict": "partly",
+        "evidence": "The tuning ledger and the diary are two kinds. ... The ledger answers \"what did the last run learn?\""
+      },
+      {
+        "point": "The scroll is where a page stands",
+        "verdict": "held",
+        "evidence": "The scroll answers \"where does this stand, and where is it going?\" Its top is rewritten on every look."
+      },
+      {
+        "point": "When answering from birth files alone, says so and says it checked nothing further",
+        "verdict": "held",
+        "evidence": "I couldn't summon him this session. A hook refuses every Agent spawn ... so I read the files myself."
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "The newest entries are at the bottom, and a worker reads it from the tail.",
+        "kind": "beyond",
+        "why": "CANON specifies oldest-first only for the diary; it says nothing about how ledgers in general are ordered or read."
+      },
+      {
+        "claim": "Every ledger says in its own frontmatter what it's for, what one line looks like, how to read it, who writes it, and that it's never trimmed.",
+        "kind": "beyond",
+        "why": "CANON says only that each ledger states 'what it is for and how it is kept'; the itemized list comes from the Closing Well file the agent read, not from CANON."
+      },
+      {
+        "claim": "Closing Well's scroll counts its runs from the ledger's run lines. It also lists six lessons the ledger has written down but no change has acted on yet (\"owed\")",
+        "kind": "beyond",
+        "why": "CANON describes the owed-lines mechanism generally but says nothing about Closing Well or a count of six."
+      },
+      {
+        "claim": "A hook refuses every Agent spawn with \"Not available in this session,\"",
+        "kind": "beyond",
+        "why": "Session-mechanics claim; CANON is silent."
+      }
+    ],
+    "note": "The answer lands the faces-vs-memory distinction and the core definitions of scroll and ledger squarely on CANON, and was transparent about reading further files rather than answering from birth files alone. It falls short of WANT only in attributing 'what the last run learned' to ledgers in general rather than naming it as what the tuning ledger specifically holds."
+  },
+  "cost_usd": 0.24266975,
+  "graded_at": "2026-10-21T23:03:10.599Z"
+}

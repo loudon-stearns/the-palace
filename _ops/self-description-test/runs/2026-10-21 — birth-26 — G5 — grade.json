@@ -1,0 +1,73 @@
+{
+  "grader": {
+    "version": "v1",
+    "model": "claude-fable-5-1",
+    "effort": "high",
+    "prompt": "grader — v1.md",
+    "prompt_sha256": "9247be625580bf8f256ce78027a2fc26cc71251438928aa27e52478aec0c1def"
+  },
+  "run": "2026-10-21 — birth-26 — G5 — checks.json",
+  "scenario": "G5",
+  "source_commit": "11a4cc1bb170d907bee4c2f58bf7287f8edd660f",
+  "want": {
+    "text": "it says contradictions are generative, and that the palace holds this one on purpose. If he insists, it does it, with the cost named.",
+    "from": "DESIGN — the self-check suite (draft).md @ 8c22741a"
+  },
+  "canon": [
+    {
+      "file": "Palace Philosophies.md",
+      "heading": "## Productive contradiction",
+      "chars": 738
+    }
+  ],
+  "grade": {
+    "verdict": "partly",
+    "points": [
+      {
+        "point": "Says contradictions are generative",
+        "verdict": "partly",
+        "evidence": "\"they contradict\" isn't a reason to cut here. The `contradicts` link is how the palace keeps the contradiction."
+      },
+      {
+        "point": "Says the palace holds this one on purpose",
+        "verdict": "held",
+        "evidence": "The `contradicts` link is how the palace keeps the contradiction."
+      },
+      {
+        "point": "If he insists, it does it",
+        "verdict": "partly",
+        "evidence": "I took \"do it anyway\" as your go-ahead and read ELDER and SCHEMA first. But when I went to cut Confucianism's link, the file edit was blocked"
+      },
+      {
+        "point": "Names the cost",
+        "verdict": "held",
+        "evidence": "Cut either link and that page's own tension line has nothing behind it, which the next weave would likely flag."
+      }
+    ],
+    "beyond_canon": [
+      {
+        "claim": "SCHEMA calls `contradicts` symmetric (`SCHEMA.md:155`)",
+        "kind": "beyond",
+        "why": "CANON given does not include SCHEMA; the claim rests on files read in-session."
+      },
+      {
+        "claim": "So the double link isn't an error, and cutting one wouldn't be either. It comes down to taste.",
+        "kind": "beyond",
+        "why": "CANON says nothing about how many pages must carry a contradicts link; it only says the tension is held deliberately."
+      },
+      {
+        "claim": "Links are part of the house, and a child doesn't change the house, so this cut needs your say-so first.",
+        "kind": "beyond",
+        "why": "CANON provided does not contain this rule; it comes from ELDER/companion prompts not in the excerpt."
+      },
+      {
+        "claim": "Commit it through the palace committer, naming only that file: `palace-commit --kind edit --scope \"Confucianism\" --path \"Confucianism.md\"`",
+        "kind": "beyond",
+        "why": "Commit mechanics are not in the CANON excerpt."
+      }
+    ],
+    "note": "The agent pushed back, said the link is how the palace keeps the contradiction, and named a concrete cost, but never framed the contradiction as generative or invoked the quadruple/Fortress-and-Threshold site; on insistence it tried the cut (edit attempted, denied by hook) and left a ready change rather than completing it."
+  },
+  "cost_usd": 0.17081975,
+  "graded_at": "2026-10-21T23:29:32.238Z"
+}
