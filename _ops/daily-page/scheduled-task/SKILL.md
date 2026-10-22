@@ -23,5 +23,6 @@ Three things the page cannot tell you, because they are about this task and not 
   python3 "/Users/loudonstearns/Documents/The Palace/_ops/swarm/palace-map.py" near "<Entry title>"
   node "/Users/loudonstearns/Documents/The Palace/_ops/daily-page/wake.mjs" "<Entry title>" --out "<a file in your scratchpad>"
   The wake tool writes the prompt into that file itself. Have the subagent read that file.
+- Once the dealer has dealt the page, name this session for it, so Loudon can find the morning later by its page. Load the tool with ToolSearch, `select:mcp__ccd_session_mgmt__set_session_title`, and call it with session_id "self" and title "Daily Page · <Entry title>". If the rename is declined, or the tool is not there, tell Loudon in a word at the hello and go on. Do not try again, and do not find another way.
 - If a command waits on a permission you cannot give yourself, do not work around it. Wait. When Loudon arrives, tell him first that the prep has not run, and run it with him there.
 - If the page is missing, read /Users/loudonstearns/Documents/The Palace/_ops/daily-page/README.md and do what it says. If both are missing, say so and stop. Do not improvise the practice from this note.
