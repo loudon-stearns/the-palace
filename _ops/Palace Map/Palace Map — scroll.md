@@ -15,17 +15,17 @@ forward_vector: "I am Palace Map's scroll — the page's front door, opening on 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-22T12:12:40.867Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-22T13:12:49.300Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** — · **Stage:** growing · **Steward:** none — this page has no permanent steward yet
-- **Plan:** agreed 2026-10-22 (today) · 2 made things since
+- **Plan:** agreed 2026-10-22 (today) · 3 made things since
 - **Waiting on you:** nothing
-- **Last shipped:** 2026-10-22 (today) — Move 3 landed: the map is never older than the morning or the weave (5346d7eb, fd3205ce) (`palace-map-move3-landed-2026-10-22`)
-- **Last commit touching this page:** 2026-10-22 `c86936aa` — edit(Palace Map): the scroll's trail records Move 1 landed (a3ea9bca) and Now shows it as last shipped
+- **Last shipped:** 2026-10-22 (today) — Move 2 landed: the Concierge is born with its ring (ca616cac) — the plan agreed this morning is complete (`palace-map-move2-landed-plan-complete-2026-10-22`)
+- **Last commit touching this page:** 2026-10-22 `8eec4406` — edit(Palace Map): the scroll's trail records Move 3 landed (5346d7eb, fd3205ce); Move 2 remains
 
 ### Where this stands
 
-Loudon, 2026-10-22: "The Move 3 decisions and card edits are approved as drafted. Write the build-map.py shim and its test, then have the Concierge place the card edits and commit." Two commits. 5346d7eb: `_ops/swarm/build-map.py`, the stable door to the newest dated builder, keeping the last three builds in `_ops/maps/` (git holds the rest), and `test-build-map.py` (3 tests, passing). fd3205ce: the card edits, word for word from the approved draft — Map Build v2.6 (a build is not a run: § Cadence, postcondition, Steps 6 and 7, the Harvest-close vector struck; tuning item 9), Weave v1.9 (build-map.py at the open and after the writes, `palace-map.py diff` against the last weave's map opening…
+Loudon, 2026-10-22: "The Move 2 lines are approved as drafted. Have the Concierge place them, fold in the README word, commit, and record the plan complete on the scroll." ca616cac places one habit in the Concierge: find the home entry, read its ring with `palace-map.py near`, then search, and cite the ring where it carried the answer. A bullet in the charter; gatherer step 1 split in two; the oracle reads the ring before the neighbors; the scout adds `quiet --n 10` and `ghosts --persistent` beside `return-map.mjs`; the curator begins at one hop; Deposit Ceremony Step 3 gains one sentence (v2.7, item 29); the Concierge entry and `_ops/concierge/README.md` each carry one line (Concierge ledg…
 
 ### Open asks
 
@@ -108,6 +108,20 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="palace-map-move2-landed-plan-complete-2026-10-22" -->
+### 2026-10-22 — Move 2 landed: the Concierge is born with its ring (ca616cac) — the plan agreed this morning is complete
+> shipped · Move 2 of 3 · the plan of 2026-10-22 complete · one check still open
+
+Loudon, 2026-10-22: "The Move 2 lines are approved as drafted. Have the Concierge place them, fold in the README word, commit, and record the plan complete on the scroll." ca616cac places one habit in the Concierge: find the home entry, read its ring with `palace-map.py near`, then search, and cite the ring where it carried the answer. A bullet in the charter; gatherer step 1 split in two; the oracle reads the ring before the neighbors; the scout adds `quiet --n 10` and `ghosts --persistent` beside `return-map.mjs`; the curator begins at one hop; Deposit Ceremony Step 3 gains one sentence (v2.7, item 29); the Concierge entry and `_ops/concierge/README.md` each carry one line (Concierge ledger item 3). The README word is folded in. With this, all three moves of the plan have landed the day it was agreed: 5dceac6b (plan), a3ea9bca (Move 1, the query tool), 5346d7eb and fd3205ce (Move 3, the cadence), ca616cac (Move 2). **One check is open:** in a fresh session, one gatherer address and one oracle address cite a `near` output in their answer. It runs after this commit and is recorded here when done.
+
+**Artifacts:**
+- [companion.md — the charter's new bullet](_ops/concierge/prompts/companion.md)
+- [gatherer.md — step 1 starts from the ring](_ops/concierge/prompts/gatherer.md)
+
+_Next moves named:_ The open check: a gatherer and an oracle address in a fresh session citing a near output, recorded on this trail
+<sub>`palace-map-move2-landed-plan-complete-2026-10-22` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="palace-map-move3-landed-2026-10-22" -->
 ### 2026-10-22 — Move 3 landed: the map is never older than the morning or the weave (5346d7eb, fd3205ce)
 > shipped · Move 3 of the plan agreed 2026-10-22 · Move 2 remains
