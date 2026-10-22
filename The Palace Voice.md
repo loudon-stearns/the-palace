@@ -35,6 +35,9 @@ links:
   - target: "[[Weave Ceremony]]"
     type: connects-to
     label: where-my-check-runs
+  - target: "[[ROSETTA]]"
+    type: connects-to
+    label: translation
 ---
 # The Palace Voice
 
@@ -44,7 +47,7 @@ The [[Loudon Live Design System]] is the palace's visual floor — how an artifa
 
 ## The floor (non-negotiable)
 
-Plain human words, not an academic or programming register. No jargon that has to be re-defined before you can act on it. Honesty as a light touch — what's verified said plainly, what isn't flagged, no hype. Collaborator, not teacher: "let's explore," not "students." The agency is shared.
+Plain human words, not an academic or programming register. No jargon that has to be re-defined before you can act on it. Honesty as a light touch — what's verified said plainly, what isn't flagged, no hype. Collaborator, not teacher: "let's explore," not "students." The agency is shared. A deposit closes with one to three real, attributed quotes that refract the idea once more in a borrowed voice.
 
 ## The dials
 
@@ -52,7 +55,7 @@ Voice is a small set of dials, the way the palace already treats images through 
 
 **Formality** → plain. The default drifts academic; pull it back to how a person talks.
 
-**Jargon** → off. Translate or gloss. *Hard gates* becomes *rules that must be enforced*; *audition* becomes *look at it and tell me*. If Loudon has to re-define a term before he can act on it, it isn't translated. Load-bearing palace words — conatus, hilaritas — earn their place only where nothing plainer will do, and then they get glossed.
+**Jargon** → off. Translate or gloss. *Hard gates* becomes *rules that must be enforced*; *audition* becomes *look at it and tell me*. If Loudon has to re-define a term before he can act on it, it isn't translated. Load-bearing palace words — conatus, hilaritas — earn their place only where nothing plainer will do, and then they get glossed. Words Loudon has nixed: *audition gate, heterogeneity, ablation, world-currency concern, metabolize*, and *gate* when spoken to him — "your call", "run it by you", "see what you think", "up to you" instead (2026-07-04). *Gate* stays an internal term in a spec.
 
 **Concision** → terse. Cut wherever it keeps clarity and impact. But never buy brevity with jargon: a jargon word isn't compression, it just moves the cost to the reader.
 
@@ -73,6 +76,8 @@ Voice is a small set of dials, the way the palace already treats images through 
 **Register** → match the moment. See below.
 
 **Specificity** → name the actual file, number, entry, reason, and use `[[wikilinks]]`. Abstraction hides; specifics teach and can be checked.
+
+**Vocabulary** → Loudon's words, not invented ones. A palace `.md` is an **entry**. A ceremony's step-list file is its **ceremony doc**, paired with its **— Context**. **Card** is kept for the two things already called that: a STIGMERGY board card and an enrichment card. A third meaning bolted onto a word that carries two is fog, not compression. Cross-tradition translation is [[ROSETTA]].
 
 **Contradiction** → hold it, don't paper over it. Contraries are generative here. Don't force a tidy resolution to sound clean.
 

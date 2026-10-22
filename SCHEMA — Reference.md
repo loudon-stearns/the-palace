@@ -374,7 +374,7 @@ New types may be tried freely. When a type earns recurring use across multiple b
 
 **The envelope.** `schema_version, id, ts, session_id, from, to, type, board, payload, health`, plus optional `re` / `request_id` for threading. `from` is usually a palace entry acting as its own steward — *the page IS the agent* ([[Pages as Agents]]). `health` carries `context_pct, stop_reason, iteration, tokens_this_call, model, score`, written by the orchestrator, not the agent. **Speak like a person, log like a protocol.**
 
-**Field conventions (pinned 2026-06-16, v1.12).** These were inferred from examples before — the examples drifted, so the wire did too. One canonical form each, no alternatives:
+**Field conventions (pinned 2026-06-16, v1.12).** These were inferred from examples before — the examples drifted, so the wire did too. Drift rides stale examples, not broken rules — a corrected rule beside an old example gets copied with the example — so when something drifts, fix the examples, clean the templates and re-seed the data, not only the rule. One canonical form each, no alternatives:
 
 - **`from`** — the steward page's own title, spaces preserved (`Retrospective Delay`), per [[Pages as Agents]]. Not an invented handle (`KURAMOTO-1`), a process name (`deposit-ceremony`), or an ad-hoc label. Only role-agents with no home page keep a role handle: `TRICKSTER`, `COORDINATOR`.
 - **`to`** — a specific addressee (page title or role handle), or `*` for any reader. `*` is the *only* broadcast token — never `ALL`. A board name (`GENERAL`, `WEAVE`) is never a `to` value; routing is the `board` field's job.

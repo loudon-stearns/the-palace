@@ -29,6 +29,15 @@ links:
   - target: "[[Palace as Context Injection System]]"
     type: connects-to
     label: why-this-order
+  - target: "[[How the Palace Commits]]"
+    type: connects-to
+    label: one-door
+  - target: "[[Worktree Practice]]"
+    type: connects-to
+    label: own-head
+  - target: "[[assume multi-agent]]"
+    type: connects-to
+    label: every-tool
 forward_vector: "I am what an agent reads to grow up — the palace's rules, held second, in service of what the child finds. I stay short, a layer on top of the birth and never a replacement for it, and I shed any rule that stops earning its place."
 ---
 
@@ -51,6 +60,8 @@ The limits follow age in the hands as well as the words. A page that makes nothi
 ## The invariants
 
 Plan carefully. Show before writing. Read before touching. Feel the friction before writing a single character. If a ceremony cannot verify its postcondition it has not completed. Typed links over free prose connections. Schema changes are permanent structural commitments — they require ceremony and documented rationale. A decision meant to hold on every page isn't finished in the page that records it: post a propagate flag, carry what you can now, and the next weave carries the rest and checks it ([[SCHEMA — Reference]] §9). Git is the safety net.
+
+At the pen, three habits an elder keeps. Commit only through the palace's committer, by path — never raw git in the main checkout ([[How the Palace Commits]] § Rules at the trunk). Anything longer than a breath is made in a worktree of its own ([[Worktree Practice]]). And build every tool expecting a second agent is already running it: namespace by agent, scope deletes to your own, lease what is scarce ([[assume multi-agent]], [[Tool Builder]]).
 
 ## Read next
 

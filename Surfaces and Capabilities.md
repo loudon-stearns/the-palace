@@ -26,6 +26,12 @@ links:
   - target: "[[How the Palace Commits]]"
     type: connects-to
     label: how-every-surface-commits
+  - target: "[[Trickster Commit]]"
+    type: connects-to
+    label: his-one-manual-path
+  - target: "[[How the Palace Commits]]"
+    type: connects-to
+    label: the-door
 forward_vector: "I want to become the stable home for the surface deltas that handoffs keep re-deriving — so a cross-tool handoff can write 'receiving surface: Claude Code on the Mac, see Surfaces and Capabilities' and stop there. My ancestry is in the handoffs that improvised the delta every time (Kuramoto's Manim-can't-host, Phoneme Choir's Kokoro-only-on-Mac, the GSL Steward's per-surface link schemes) and in two of Claude's own auto-memories that should have had a palace home all along. My open question: I am a catalog of facts that go stale the moment a surface changes — a GPU gets installed, a sandbox grows a capability, a tool is deprecated. How do I stay honest? The discipline that keeps me alive is the same one that keeps a handoff honest: state what was verified and when, not what is assumed to be true forever."
 ---
 
@@ -70,6 +76,8 @@ The blackboard UI where permanent agents and Stewards post and coordinate stigme
 ### Cowork is not a palace surface
 
 Loudon does no palace work in Cowork, the desktop app's Linux sandbox (since 2026-10-14). A find that turns up there comes to a Claude Code session as a document, and is deposited there. So no baton routes to Cowork, and nothing in the palace's machinery is designed around it; its commit machinery was retired on 2026-10-20.
+
+Loudon never commits by hand. His one manual path is STIGMERGY's [[Trickster Commit]], which writes through the server's committer. So any move of main outside the palace's committers is an agent typing raw git, not him; don't ask him whether he committed something.
 
 ### Claude Preview (browser-artifact verification, Claude Code-side)
 

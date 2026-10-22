@@ -74,3 +74,5 @@ How the door came to be, and the moves still to come: [[Worktree Practice — sp
 ## Worktrees
 
 Anything longer than a breath is made in a worktree of its own: its own branch and HEAD, the heavy state linked back from the owner, torn down safely when the work lands. The how-to (profiles, symlinks, closing a worktree well) is [[Worktree Practice]].
+
+One seam the app's own sync tool can't cross: it fetches `origin` and merges that, but landings sit on local `main` until Loudon pushes, so a sibling lane's landing from an hour ago is on main and not on origin. Don't reach for a raw merge. Check `git merge-tree --write-tree main HEAD` is clean; test the combined tree without merging — `git archive <that tree> <paths> | tar -x` into the scratchpad, link `node_modules`; and hand the seam on as a patch that applies to main after landing (seen 2026-10-20, the rich-face pieces build).

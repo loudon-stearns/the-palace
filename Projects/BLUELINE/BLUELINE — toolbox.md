@@ -67,6 +67,7 @@ The reproducible environment for BLUELINE. It spans four runtimes: **Blender** (
 | 6-shot opening render | local ComfyUI / pod, SDXL + OpenPose[+Depth] | frozen (2 shots `pose:needs`) | `render_shot.py` | author local :8189, scale on pod |
 | Layer composite + integrate | local ComfyUI, SDXL | **iterating** | `layer_render.py` | S06 reframed to POV kiss to dodge two-figure blend |
 | Blender→ink stylize seam | local ComfyUI img2img (denoise ~0.95, Canny ~0.42) | **iterating** | `02_stylize.py` | pod-push variant `02b` future |
+| Impact / aftermath frame | local Python (`impact_tool.py`, `debris_spread.py`) | frozen — look chosen 2026-07-04 | `proofs/session-11-outline/debris_spread.py` | debris follows the swing arc, thinned, so the single-sweep guide leads: `--spray arc --punch 0.6 --density 0.45`, guide `gw 0.14`; raise `punch` toward 1.0 only for a deliberate super-hit; a dense splash-out is against his taste for these frames ([[The Aftermath Frame]]) |
 | SDXL pose library (100+) | pod, SDXL txt2img | frozen → **serverless-ready** | `sdxl_pose_render.py` (`sdxl_orchestrator`) | embarrassingly parallel — top graduation candidate |
 | FLUX pose library (100+) | pod, FLUX txt2img | frozen → **serverless-ready** | `flux_pose_render.py` (`m3`/`flux_orchestrator`) | higher aesthetic ceiling; parallel |
 | M3 warped-noise (3-frame) | pod, FLUX + Union CN + NoiseFromNPY | frozen (M3.6/M3.7 iterate) | `m3_pod_render.py` | only pipeline using the custom node |
