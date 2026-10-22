@@ -15,17 +15,17 @@ forward_vector: "I am Palace Map's scroll — the page's front door, opening on 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-22T01:49:54-04:00 from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-22T05:54:37.087Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** — · **Stage:** growing · **Steward:** none — this page has no permanent steward yet
-- **Plan:** agreed 2026-10-22 (today) · 0 made things since
+- **Plan:** agreed 2026-10-22 (today) · 1 made thing since
 - **Waiting on you:** nothing
-- **Last shipped:** nothing on the board yet
-- **Last commit touching this page:** 2026-10-12 `ea362b1e` — edit(Palace Map): the graph also has an undated view, the TOPOLOGY lens
+- **Last shipped:** 2026-10-22 (today) — Move 1 landed: palace-map.py, one query tool that reads the map from where an agent stands (a3ea9bca) (`palace-map-move1-landed-2026-10-22`)
+- **Last commit touching this page:** 2026-10-22 `5dceac6b` — edit(Palace Map): the scroll is born carrying the plan for the map's use: one query tool, the Concierge born with its ring, a map never older than the morning
 
 ### Where this stands
 
-_No steward has spoken for this page. Its direction is the `forward_vector` in [[Palace Map]]'s frontmatter._
+Loudon, 2026-10-22: "The plan is approved as written… then start Move 1, the query tool." Built and committed the same day as a3ea9bca. `_ops/swarm/palace-map.py` reads the newest dated map, names the map it read on every answer, opens no entry body, and prints edges one per line. Verbs: near, path, hubs, quiet, ghosts (--persistent), diff, list; --json. `_ops/swarm/test-palace-map.py` holds `near` to the builder's degree for every node, `path` to symmetry, `diff` of a map against itself to empty: 5 tests, passing. Every verb ran against the 09-26 map and a fresh 10-22 build made in the session scratchpad, not placed in _ops/maps. `extract-neighborhood.py` stays until Move 3 edits the Weave…
 
 ### Open asks
 
@@ -108,6 +108,20 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="palace-map-move1-landed-2026-10-22" -->
+### 2026-10-22 — Move 1 landed: palace-map.py, one query tool that reads the map from where an agent stands (a3ea9bca)
+> shipped · Move 1 of the plan agreed 2026-10-22 · Moves 2 and 3 wait on it
+
+Loudon, 2026-10-22: "The plan is approved as written… then start Move 1, the query tool." Built and committed the same day as a3ea9bca. `_ops/swarm/palace-map.py` reads the newest dated map, names the map it read on every answer, opens no entry body, and prints edges one per line. Verbs: near, path, hubs, quiet, ghosts (--persistent), diff, list; --json. `_ops/swarm/test-palace-map.py` holds `near` to the builder's degree for every node, `path` to symmetry, `diff` of a map against itself to empty: 5 tests, passing. Every verb ran against the 09-26 map and a fresh 10-22 build made in the session scratchpad, not placed in _ops/maps. `extract-neighborhood.py` stays until Move 3 edits the Weave's Coordinator Synthesis Template, which still calls it.
+
+**Artifacts:**
+- [palace-map.py — the query tool](_ops/swarm/palace-map.py)
+- [test-palace-map.py — 5 tests](_ops/swarm/test-palace-map.py)
+
+_Next moves named:_ Move 2: the Concierge born with its ring · Move 3: the map never older than the morning
+<sub>`palace-map-move1-landed-2026-10-22` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-10-22T01-49-54-04-00" -->
 ### 2026-10-22 — Plan agreed: a plan for the map's use: one query tool, the Concierge born with its ring, a map never older than the morning
 
