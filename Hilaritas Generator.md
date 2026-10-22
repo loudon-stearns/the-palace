@@ -45,7 +45,7 @@ links:
     label: threshold-fuel
   - target: "[[Palace Philosophies]]"
     type: connects-to
-    label: counterweight
+    label: joy-as-signal
   - target: "[[Hilaritas Generator — Context]]"
     type: connects-to
     label: context-companion
@@ -62,38 +62,31 @@ forward_vector: "I want to build out the learning architect concept into a speci
 
 ![[Hilaritas Generator — hero.png]]
 
-The learning space reconceived as a machine for producing **hilaritas**: the active, whole-being joy that accompanies an increase in power-to-act (as distinct from *titillatio*, localized pleasure).
+The learning space reconceived as a machine for producing **hilaritas**: the active, whole-being joy that accompanies an increase in power-to-act. Spinoza set it against *titillatio*, a pleasure in which one part of you is affected more than the rest.
 
 ## The Mechanism
 
-A hilaritas generator works by activating all [[FOUR PILLARS]] at once: you're **creating** something, using **tools** that extend you, discovering **philosophical** connections, through iterative **practice**. When all four fire together the student's power-to-act increases *globally* — they may leave more capable in general, not just more informed about one topic.
+A hilaritas generator gets all [[FOUR PILLARS]] firing at once — not four boxes ticked, but four oscillators falling into phase ([[Kuramoto Coupling]]). Each keeps its own character, and the participant leaves more capable in general, not just better informed about one topic.
 
 ## The Metrics
 
-One operating question: **"How do you feel?"** not **"How many views?"** 
+One operating question: **"How do you feel?"** not **"How many views?"**
 
-Many Platform analytics measure titillatio (narrow, localized); felt experience can measure whether hilaritas occurred. 10,000 views that left you depleted was a *tristitia* event; 40 views that left you expanded was a hilaritas event. 
-
-Insist on the right signal. 
-See [[Quality Manifesto]].
+Platform analytics measure titillatio; felt experience is what tells you whether hilaritas happened. 10,000 views that left you depleted was a *tristitia* event; 40 views that left you expanded was a hilaritas event. Insist on the right signal ([[Quality Manifesto]]).
 
 ## The Learning Architect
 
-The old model delivers to a group. The new model teaches the *skill of learning* shaped for an individual — not "here is what you need to know about Spinoza" but instead "put Spinoza across the table from you"  Have an [[Excellent Adventure]] in the Bill and Ted sense.
+The old model delivers to a group; the new one teaches the skill of learning to one person. Not "here is what you need to know about Spinoza" but "put Spinoza across the table from you" — an [[Excellent Adventure]], in the Bill and Ted sense.
 
-### The Design Primitives (in development)
-
-A hilaritas generator includes:
+## The Design Primitives
 
 1. **A real thing to make** — not a simulation; something that can fail, that resists, that teaches through its own behavior.
 2. **A tool that extends** — at the edge of current capability, so the extension is felt.
-3. **A cross-domain moment** — where a specific principle applies elsewhere (the philosophy pillar firing).
-4. **A reflecting surface** that asks "How do you feel?" is the minimum.
+3. **A cross-domain moment** — where a principle from one domain works in another (the Philosophy pillar firing).
+4. **A reflecting surface** — at the least, a question asked afterward.
 
-Design encounters where all four are present, then stay out of the way when they fire. The danger is over-engineering — a designed encounter with no room for spontaneous discovery is a tristitia generator in disguise. 
-
-See [[Palace Philosophies]] for the Taoist counterweight: design conditions that invite flow, don't prescribe outcomes.
+Over-engineering is the danger: an encounter planned so tightly that nothing can be discovered is a tristitia generator in disguise. The counterweight is wu wei — build the conditions, not the outcome. Put all four in place, step back while they fire, then ask the one question: how do you feel?
 
 ---
 
-*The Spinoza origin, the PP05 Meadows leverage-points infrastructure examples (feedback-delay device; journaling as paradigm lever), the cross-pillar elaborations, the **vicksburg** learning-architect origin, and the open questions live in [[Hilaritas Generator — Context]].*
+*The Spinoza origin, the Meadows leverage-point examples, the cross-pillar elaborations, the **vicksburg** origin of the learning architect, and the open questions live in [[Hilaritas Generator — Context]].*
