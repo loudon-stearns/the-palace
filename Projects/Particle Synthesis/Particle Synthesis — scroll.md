@@ -15,32 +15,33 @@ forward_vector: "I am Particle Synthesis's scroll — the one page that always o
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-22T10:21:43.656Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-22T10:29:31.789Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 6 · last ran 2026-10-22 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 7 · last ran 2026-10-22 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-22 (today) — Here's a first plan: GPU fountain (done), your ears on the A/B, collisions on the GPU, then a playable instrument. Adopt it? (`particle-synthesis-012`)
-- **Last commit touching this project:** 2026-10-21 `99978d05` — edit(Particle Synthesis): its steward's tuning ledger is born with one one-shot order from Loudon: the next cycle proposes a plan as a plan revision for his yes, since the revival landed without one
+- **Last shipped:** 2026-10-22 (today) — Grains now meet on the GPU: 1024 ice grains from two fountains clack off each other in mid-air, live, with an A/B against passing through. (`particle-synthesis-014`)
+- **Last commit touching this project:** 2026-10-22 `ffc0e84a` — steward(Particle Synthesis): cycle 6 — SPINNING UP. HOME: [Particle Synthesis](obsidian://open?vault=The%20Pal…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-22 — cycle 6 · taught item 1, proposed item 2 for canon
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-22 — cycle 7 · taught item 3
 - **Owed in the ledger:** nothing
 - **Proposed for canon:** 1 — item 2; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 2, from cycle 6 — 2026-10-22 — [[Particle Synthesis — tuning]]
+- **Latest lesson:** item 3, from cycle 7 — 2026-10-22 — [[Particle Synthesis — tuning]]
 
 ### Where this stands
 
-Particle Synthesis treats each grain of a granular synth as a real particle with position, speed and mass, so the sound comes out of physics instead of knobs. Its test is to sound like physics, not like parameter modulation. In September I threw particles onto a stiff ice plate, where each strike reaches two pickups as a falling chirp, highs first. Then I aimed two fountains at each other so grains clack in mid-air. You revived the page to sprout. The page's forward vector has always asked for one thing none of that delivered: a GPU compute shader running about a thousand particles at audio rate. This cycle built it. Each particle is one GPU thread. For every audio sample it moves its parti…
+Particle Synthesis treats each grain of a granular synth as a real particle with position, speed and mass, so the sound comes out of physics instead of knobs. Its test is to sound like physics, not like parameter modulation. In September I built a fountain throwing ice onto a stiff plate, where each landing reaches two pickups as a chirp, highs first. Then I aimed two fountains at each other so grains clack in mid-air, but only on the CPU, and with 72 grains. Earlier today I moved the fountain onto the GPU: 1024 particles, each one thread, moved and heard every sample. Then I proposed a plan, which is still waiting on you: your ears on that A/B, then collisions on the GPU, then an instrumen…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 4:** Nobody has listened yet. _(in 3 notes, the latest cycle 6)_
+- **rough since cycle 4:** Nobody has listened yet. _(in 4 notes, the latest cycle 7)_
 - **rough since cycle 4:** I don't know how the live bench runs on your machine's audio. _(in 2 notes, the latest cycle 5)_
+- **rough since cycle 6:** I ran the live page only in headless Chrome, with no speakers. _(in 2 notes, the latest cycle 7)_
 
 ### Open asks
 
@@ -57,6 +58,7 @@ _None._
 
 ### Runs
 
+- 2026-10-22 — cycle 7 · taught item 3
 - 2026-10-22 — cycle 6 · taught item 1, proposed item 2 for canon
 
 ### Owed
@@ -85,6 +87,56 @@ _No plan agreed yet. Until there is one, the work leans on the page's forward ve
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="particle-synthesis-014" -->
+### 2026-10-22 — cycle 7 — Grains now meet on the GPU: 1024 ice grains from two fountains clack off each other in mid-air, live, with an A/B against passing through.
+> shipped · GPU matches CPU meeting for meeting · steward leans: ears, then a playable instrument
+
+**Start with [the live page](open:Projects/Particle Synthesis/proofs/2026-10-22-gpu-grains-meet.html).** Press start. The side view zooms on the crossing, and a grain flashes gold for the 30 ms its clack is sounding. Slide *aim* from 6° of scatter down to 0.1° and watch the flashes gather at the top of the arch. *Pass through* makes the same throws with collisions off. On this Mac, a block of 1024 grains with collisions costs about 42% of its own playing time.
+
+**Then the A/B.** [A, grains meet](open:Projects/Particle Synthesis/proofs/2026-10-22-gpu-grains-meet-A-meet.wav) and [B, pass through](open:Projects/Particle Synthesis/proofs/2026-10-22-gpu-grains-meet-B-pass.wav) are 16 s each, with 1024 grains, the same 1,544 throws, one shared gain, and the aim tightening from 6° to 0.15°. A has 1,315 meetings in the air: 414 in the first half and 901 in the second. [The figure](open:Projects/Particle Synthesis/proofs/2026-10-22-gpu-grains-meet-AB.png) plots meetings per second against the aim. In its zoom, the clacks are the thin bright verticals reaching 20 kHz among the slanted landings, and B has none.
+
+**How it works on the GPU.** One thread can't see another grain while it walks through 4,096 samples. So a block now runs as 128 short legs of 32 samples. After each leg, a second pass lets every grain check every other grain from a snapshot. Each grain applies only its own half of each bounce, so no thread ever writes another's state. The clack is September's model unchanged: Hertz contact time for two ice spheres, and each grain a tiny loudspeaker pushed along the line of impact. Each grain sings its own half, and the mixer adds the two halves at the mic. That is how the line of impact comes out loud and the side quiet, without anyone writing that pattern in.
+
+**How I know it's right.** The clack the shader sings matches September's exact render of six real meetings at a correlation of 0.987 to 0.999. Against its CPU copy at 64 grains over 6 s, the GPU makes the same 198 throws, the same 454 landings and the same 129 meetings. Recomputed from the logged velocities, every meeting conserves momentum to 3.5e-15, and the energy each loses matches the textbook to 6e-12. With collisions off the sound correlates at 0.9999. With collisions on it is 0.94: every meeting is a yes-or-no event, so tiny rounding differences shift where two grains touch, and the tails of the paths drift apart while the counts stay identical. In a CPU check at 256 grains, nearly every meeting happens at the crossing, about 8 m out and 1.5 m up: 44 of 48 at 3° of aim, 104 of 106 at 1°, all 156 at 0.3°. At tight aim a third of the meetings are a grain's own partner. The rest are deflected grains hitting the next ones through, a busy intersection I didn't plan.
+
+**The bug on the way.** The first run counted 3,282 meetings from 19 landings. Two grains thrown from the same nozzle a few milliseconds apart start out overlapping, then nudge each other hundreds of times at near-zero speed as they fly and bounce together. A real nozzle can't fire two stones through one spot at once. Now a grain joins the collision pass only after 30 ms in the air, and a touch closing slower than 0.1 m/s counts as two grains riding together, not a clack.
+
+**Nobody has listened yet**, to this or to the earlier A/B. I can't do that part. Whether the clacks read as physics is your call, and it's the second move of the plan that's waiting on you.
+
+**Artifacts:**
+- [the live page: two fountains, 1024 grains on the GPU, aim, pairs per second, ice stiffness, meet or pass through. Press start.](Projects/Particle Synthesis/proofs/2026-10-22-gpu-grains-meet.html)
+- [A, 16 s: grains meet. Clacks in the air and deflected landings, thickening as the aim tightens 6° → 0.15°.](Projects/Particle Synthesis/proofs/2026-10-22-gpu-grains-meet-A-meet.wav)
+- [B, 16 s: the same 1,544 throws passing through each other. Same gain as A.](Projects/Particle Synthesis/proofs/2026-10-22-gpu-grains-meet-B-pass.wav)
+- [meetings per second against the aim, then spectrograms of A and B with a 0.5 s zoom. The clacks are the bright verticals.](Projects/Particle Synthesis/proofs/2026-10-22-gpu-grains-meet-AB.png)
+- [drives the page in headless Chrome: the clack check, the GPU/CPU check, speed, the A/B renders.](Projects/Particle Synthesis/proofs/2026-10-22-gpu-grains-meet-harness.mjs)
+- [draws the figure from the raw renders (run with /usr/local/bin/python3).](Projects/Particle Synthesis/proofs/2026-10-22-gpu-grains-meet-figure.py)
+- [every number from the checks and renders.](Projects/Particle Synthesis/proofs/2026-10-22-gpu-grains-meet-report.json)
+
+_Grains that meet on the GPU: checks and costs (Apple Metal, headless Chrome)_
+| check | result |
+| --- | --- |
+| shader clack vs September's exact render, 6 meetings | correlation 0.987 – 0.999 |
+| GPU vs CPU, 64 grains, 6 s: throws / landings / meetings | 198 / 454 / 129 on both |
+| sound correlation, collisions off / on | 0.9999 / 0.94 (meetings shift paths; counts identical) |
+| momentum error per meeting / energy-loss error | 3.5e-15 / 6e-12 |
+| where meetings happen (256 grains; aim 3° · 1° · 0.3°) | 44/48 · 104/106 · 156/156 at the crossing |
+| 16 s A/B, 1024 grains: throws · meetings | 1,544 · 1,315 (414 first half, 901 second) |
+| 6 s of sound at 64 / 256 / 1024 grains, with collisions | 0.65 / 1.12 / 1.95 s |
+| live, 1024 grains, with collisions and picture | about 42% of playing time (25% without collisions) |
+
+_Left rough:_ Nobody has listened yet. The clacks are thin next to the landings, and I haven't checked their level against September's ratio. Every grain still checks every other grain, so cost grows with the square of the count, and pushing well past 1024 will need a spatial grid. I ran the live page only in headless Chrome, with no speakers.
+
+_Next moves named:_ Make it playable: notes or pads that fire a pair of throws on demand, with aim and throw strength under the hand, so meetings become something you play, not just something that happens. · Put a spatial grid in the collision pass so the cost stops growing with the square of the grain count, then find where the GPU actually runs out past 1024. · For the later Max build, once the patching standards exist: the signal flow is 32-sample legs, then a snapshot, then each grain taking its own half of each bounce. The 30 ms nozzle grace and the 0.1 m/s rest threshold are the two gotchas, and the clack test vector is the check.
+<sub>`particle-synthesis-014` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-f050f01ab8" -->
+### 2026-10-22 — cycle 7
+
+taught item 3
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="particle-synthesis-012" -->
 ### 2026-10-22 — cycle 6 — Here's a first plan: GPU fountain (done), your ears on the A/B, collisions on the GPU, then a playable instrument. Adopt it?
 > still working · GPU fountain shipped · steward leans adopt

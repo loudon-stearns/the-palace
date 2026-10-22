@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Particle Synthesis · grains that meet, on the GPU</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --bg:#0e1116; --panel:#161b22; --ink:#e6e1d6; --dim:#8b8f98; --ice:#7fd3e6; --warm:#e9a75a; --line:#2a313b; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.5 -apple-system, "Helvetica Neue", sans-serif; }
+  main { max-width: 980px; margin: 0 auto; padding: 22px 18px 40px; }
+  h1 { font-size: 22px; font-weight: 600; margin: 0 0 4px; }
+  .sub { color: var(--dim); margin: 0 0 16px; }
+  p { margin: 8px 0; max-width: 72ch; }
+  .stage { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+  canvas { width: 100%; display: block; border-radius: 4px; background: #0a0d11; }
+  .row { display:flex; flex-wrap:wrap; gap: 10px 22px; align-items:center; margin-top: 10px; }
+  label { color: var(--dim); font-size: 13px; display:flex; gap:8px; align-items:center; }
+  label .v { color: var(--ink); min-width: 4.5em; font-variant-numeric: tabular-nums; }
+  input[type=range] { width: 150px; accent-color: var(--ice); }
+  button { background: var(--ice); color:#071017; border:0; border-radius: 5px; padding: 7px 16px; font-weight:600; cursor:pointer; }
+  button.off { background: #2a313b; color: var(--ink); }
+  .seg button { border-radius: 0; margin: 0; }
+  .seg button:first-child { border-radius: 5px 0 0 5px; } .seg button:last-child { border-radius: 0 5px 5px 0; }
+  .status { font: 12px/1.4 ui-monospace, Menlo, monospace; color: var(--dim); margin-top: 8px; min-height: 1.4em; }
+  .eq { background: var(--panel); border-left: 3px solid var(--warm); padding: 8px 12px; margin: 12px 0; }
+  .eq .s { font: 15px ui-monospace, Menlo, monospace; } .eq .w { color: var(--dim); font-size: 13px; }
+  table { border-collapse: collapse; font-size: 13px; margin: 10px 0; }
+  td, th { border-bottom: 1px solid var(--line); padding: 4px 12px 4px 0; text-align: left; }
+  th { color: var(--dim); font-weight: 500; }
+</style>
+</head>
+<body>
+<main>
+<h1>Grains that meet, on the GPU</h1>
+<p class="sub">Particle Synthesis · 2026-10-22 · two fountains aimed at each other · up to 1024 ice grains, each one thread · every pair checked for contact 1,500 times a second</p>
+
+<div class="stage">
+  <canvas id="view" width="940" height="260"></canvas>
+  <canvas id="spec" width="940" height="140" style="margin-top:8px"></canvas>
+  <div class="row">
+    <button id="go">start</button>
+    <span class="seg"><button id="mMeet">grains meet</button><button id="mPass" class="off">pass through</button></span>
+  </div>
+  <div class="row">
+    <label>particles <input id="n" type="range" min="64" max="1024" step="64" value="1024"><span class="v" id="nV"></span></label>
+    <label>aim <input id="aim" type="range" min="0" max="1" step="0.001" value="0.55"><span class="v" id="aimV"></span></label>
+    <label>pairs thrown per second <input id="rate" type="range" min="4" max="160" step="1" value="48"><span class="v" id="rateV"></span></label>
+    <label>ice stiffness <input id="cc" type="range" min="0.08" max="1.2" step="0.01" value="0.316"><span class="v" id="ccV"></span></label>
+  </div>
+  <div class="status" id="status">press start</div>
+</div>
+
+<p><strong>What is running.</strong> Two nozzles 3 m apart, 8 m from the pickups, throw ice grains at each other in pairs. Every grain is one GPU thread that moves its grain once per audio sample. Every 32 samples the threads stop, and each grain checks itself against every other grain in the air. If two are touching and still closing, each takes its half of the bounce. That pass is where the 1024 threads stop being separate. A grain that gets hit sings the clack itself: its own shove, heard as a small loudspeaker in the air. When the two grains' sounds add up, the line of impact is loud and the side is quiet. Nobody wrote that pattern in.</p>
+<p><strong>The aim knob</strong> is the scatter on every throw, from 6° down to 0.1°. Loose aim and the streams cross like rain. Tight aim and the grains meet, deflect, land somewhere new, and sometimes knock the next grain too. <em>Pass through</em> makes exactly the same throws with collisions switched off.</p>
+
+<div class="eq">
+  <div class="s">J = (1+e)·m₁m₂/(m₁+m₂)·v<sub>close</sub> &nbsp;·&nbsp; Δv₁ = −J/m₁·n̂, Δv₂ = +J/m₂·n̂</div>
+  <div class="w">(the shove) = (1 + bounciness 0.70) × (the pair's shared mass) × (closing speed) · each grain changes speed by the shove over its own mass, in opposite directions along the line between centres</div>
+</div>
+<div class="eq">
+  <div class="s">p(t) = −(3ρ<sub>air</sub> ⁄ 8πρ<sub>ice</sub>c) · cos θ ⁄ r · dF/dt(t − r/c), &nbsp; F(t) = F₀·sin(πt/T<sub>c</sub>)</div>
+  <div class="w">(pressure at the mic) = −(a constant from air and ice) × (cosine of the angle between the shove and the mic) ⁄ (distance) × (how fast the contact force changes, delayed by the trip through air) · the contact lasts the Hertz time T<sub>c</sub> of two ice spheres, about a tenth of a millisecond</div>
+</div>
+
+<table>
+  <tr><th>the grains' state</th><th>the physics</th><th>what you hear</th></tr>
+  <tr><td>two grains touching, closing</td><td>impulse J, restitution 0.70</td><td>a clack, loud along the line of impact</td></tr>
+  <tr><td>their masses and closing speed</td><td>Hertz contact time</td><td>how bright the clack is</td></tr>
+  <tr><td>where each lands, after meeting</td><td>distance to each pickup</td><td>how slowly its chirp sweeps</td></tr>
+  <tr><td>the aim</td><td>how often paths cross within a grain's width</td><td>how often grains meet</td></tr>
+</table>
+</main>
+
+<script>
+"use strict";
+/* ============================================================ constants (shared by GPU and CPU) */
+const SR = 48000, NMAX = 1024, STRIDE = 48, B = 4096, SEG = 32, SNAP = 8;
+const G = 9.81, E = 0.45, DRAG = 1e-4, M0 = 0.010, TC0 = 0.00045, V0 = 5.0, F_ATTEN = 80000;
+const RHO_ICE = 917, E_STAR = 9e9 / (2 * (1 - 0.33 * 0.33)), E_GRAIN = 0.70, RHO_AIR = 1.2, C_AIR = 343, AIR_GAIN = 0.35;
+const X_CROSS = 8.0, HALF_GAP = 1.5, NOZZLE_Y = 0.2, SPEED = 6.0, ELEV = 60 * Math.PI / 180;
+const PK = [[0, -1.5], [0, 1.5]], MICS = [[0, 1.2, -1.5], [0, 1.2, 1.5]];
+const K0 = 3 * RHO_AIR / (8 * Math.PI * RHO_ICE * C_AIR);
+/* uniforms: 0 sr,1 C,2 drag,3 E,4 xc,5 collide,6 n,7 B,8 seed,9 gain,10 rate,11 aim(deg),12 fAtten,13 f32,14 -,15 airGain */
+const U_LEN = 16;
+/* state per grain (STRIDE floats): 0-2 p · 3-5 v · 6 m · 7 wait (to the pair's next throw) · 8 throws · 9 strike-voice head
+   10 strikes · 11 flying · 12-31 four strike voices × (age, rL, rR, amp, tc) · 32 clack age · 33 gL · 34 dL · 35 gR · 36 dR
+   37 clack Tc · 38 clack F0 · 39 clacks · 40 time since the throw · 41 radius */
+/* A grain joins the collide pass only after NOZZLE_T in the air (two stones can't leave one nozzle through the same spot),
+   and a touch closing slower than V_REST is two grains riding together, not a clack. */
+const NOZZLE_T = 0.03, V_REST = 0.1;
+
+const f = x => (Number.isInteger(x) ? x.toFixed(1) : String(x));
+const WGSL = /* wgsl */`
+struct U { sr:f32, C:f32, drag:f32, E:f32, xc:f32, collide:f32, n:f32, B:f32,
+           seed:f32, gain:f32, rate:f32, aim:f32, fAtten:f32, p0:f32, p1:f32, airGain:f32 };
+@group(0) @binding(0) var<uniform> u: U;
+@group(0) @binding(1) var<storage, read_write> st: array<f32>;
+@group(0) @binding(2) var<storage, read_write> part: array<f32>;
+@group(0) @binding(3) var<storage, read_write> outb: array<f32>;
+@group(0) @binding(4) var<storage, read_write> snap: array<f32>;
+@group(0) @binding(5) var<storage, read_write> ctl: array<u32>;
+
+const NMAX: u32 = ${NMAX}u;
+const STRIDE: u32 = ${STRIDE}u;
+const SEG: u32 = ${SEG}u;
+const PI: f32 = 3.14159265;
+const TAU: f32 = 6.28318531;
+const M0: f32 = ${f(M0)};
+const TC0: f32 = ${f(TC0)};
+const V0: f32 = ${f(V0)};
+const G: f32 = ${f(G)};
+const RHO_ICE: f32 = ${f(RHO_ICE)};
+const E_STAR: f32 = ${E_STAR};
+const E_GRAIN: f32 = ${f(E_GRAIN)};
+const C_AIR: f32 = ${f(C_AIR)};
+const K0: f32 = ${K0};
+const HALF_GAP: f32 = ${f(HALF_GAP)};
+const NOZZLE_Y: f32 = ${f(NOZZLE_Y)};
+const SPEED: f32 = ${f(SPEED)};
+const ELEV: f32 = ${ELEV};
+const NOZZLE_T: f32 = 0.03;
+const V_REST: f32 = 0.1;
+const MIC0: vec3<f32> = vec3<f32>(${MICS[0].map(f).join(',')});
+const MIC1: vec3<f32> = vec3<f32>(${MICS[1].map(f).join(',')});
+
+fn hash(x: u32) -> u32 {
+  let s = x * 747796405u + 2891336453u;
+  let w = ((s >> ((s >> 28u) + 4u)) ^ s) * 277803737u;
+  return (w >> 22u) ^ w;
+}
+fn rnd(i: u32, k: u32, j: u32) -> f32 {
+  let h = hash((i * 7919u) ^ hash(k * 104729u + j * 31u + u32(u.seed)));
+  return f32(h >> 8u) / 16777216.0;
+}
+fn gauss(i: u32, k: u32, j: u32) -> f32 {
+  let a = max(rnd(i, k, j), 1e-7);
+  let b = rnd(i, k, j + 50u);
+  return sqrt(-2.0 * log(a)) * cos(TAU * b);
+}
+fn contact(m: f32, v: f32) -> f32 {
+  return TC0 * pow(m / M0, 0.4) * pow(max(v, 0.2) / V0, -0.2);
+}
+fn halfsine(fr: f32, tc: f32) -> f32 {
+  let x = 2.0 * fr * tc;
+  var d = 1.0 - x * x;
+  if (abs(d) < 1e-6) { d = 1e-6; }
+  return (2.0 * tc / PI) * cos(PI * fr * tc) / d;
+}
+fn chirp(t: f32, r: f32, amp: f32, tc: f32) -> f32 {
+  let w = r * r / (4.0 * u.C * t * t);
+  let fr = w / TAU;
+  if (fr >= u.sr * 0.5 || fr <= 20.0) { return 0.0; }
+  let band = 1.0 / (1.0 + pow(70.0 / fr, 6.0)) / (1.0 + pow(fr / 16000.0, 8.0));
+  let S = amp * halfsine(fr, tc) * band * exp(-fr * r / u.fAtten) / sqrt(r);
+  let psi2 = r / (4.0 * sqrt(u.C) * pow(w, 1.5));
+  var ph = (r * r / (4.0 * u.C)) / t;
+  ph = ph - TAU * floor(ph / TAU);
+  return (1.0 / PI) * S * sqrt(TAU / psi2) * cos(-ph + PI * 0.25);
+}
+/* the contact force of a clack: a half-sine of length tc and peak F0 */
+fn force(t: f32, tc: f32, F0: f32) -> f32 {
+  if (t <= 0.0 || t >= tc) { return 0.0; }
+  return F0 * sin(PI * t / tc);
+}
+
+@compute @workgroup_size(64)
+fn sim(@builtin(global_invocation_id) gid: vec3<u32>) {
+  let i = gid.x;
+  if (i >= u32(u.n) || i >= NMAX) { return; }
+  let b = i * STRIDE;
+  let s0 = ctl[0];
+  let dt = 1.0 / u.sr;
+  let tEnd = 1.0 / (2.0 * sqrt(u.C * TAU * 20.0));
+  var p = vec3<f32>(st[b], st[b + 1u], st[b + 2u]);
+  var v = vec3<f32>(st[b + 3u], st[b + 4u], st[b + 5u]);
+  var m = st[b + 6u];
+  var wait = st[b + 7u];
+  var kf = st[b + 8u];
+  var vh = st[b + 9u];
+  var imp = st[b + 10u];
+  var fly = st[b + 11u];
+  var rad = st[b + 41u];
+  var ft = st[b + 40u];
+  var cAge = st[b + 32u];
+  let gL = st[b + 33u]; let dL = st[b + 34u]; let gR = st[b + 35u]; let dR = st[b + 36u];
+  let ctc = st[b + 37u]; let F0 = st[b + 38u];
+  let cEnd = max(dL, dR) + ctc + dt;
+  var age: array<f32, 4>; var rl: array<f32, 4>; var rr: array<f32, 4>; var am: array<f32, 4>; var tc: array<f32, 4>;
+  for (var j = 0u; j < 4u; j = j + 1u) {
+    age[j] = st[b + 12u + j * 5u]; rl[j] = st[b + 13u + j * 5u]; rr[j] = st[b + 14u + j * 5u];
+    am[j] = st[b + 15u + j * 5u]; tc[j] = st[b + 16u + j * 5u];
+  }
+  for (var s = 0u; s < SEG; s = s + 1u) {
+    /* the pair's throw clock runs always; both grains of a pair share it, so they leave together */
+    wait = wait - dt;
+    if (wait <= 0.0) {
+      let k = u32(kf);
+      let q = i / 2u;
+      var side = 1.0;
+      if (i % 2u == 0u) { side = -1.0; }
+      let aimR = radians(u.aim);
+      m = M0 * exp(log(0.4) + log(10.0) * rnd(q, k, 0u)) * exp(-0.2 + 0.4 * rnd(i, k, 5u));
+      rad = pow(3.0 * m / (4.0 * PI * RHO_ICE), 1.0 / 3.0);
+      let el = ELEV + aimR * gauss(i, k, 1u);
+      let az = aimR * gauss(i, k, 2u);
+      let spd = SPEED * (1.0 + 0.3 * aimR * gauss(i, k, 3u));
+      p = vec3<f32>(u.xc + side * HALF_GAP, NOZZLE_Y, 0.0);
+      v = vec3<f32>(-side * spd * cos(el) * cos(az), spd * sin(el), spd * cos(el) * sin(az));
+      fly = 1.0;
+      ft = 0.0;
+      kf = kf + 1.0;
+      wait = (u.n * 0.5 / u.rate) * (0.5 + rnd(q, k, 9u));
+    }
+    if (fly > 0.5) {
+      ft = ft + dt;
+      let sp = length(v);
+      v = v + (vec3<f32>(0.0, -G, 0.0) - (u.drag / m) * sp * v) * dt;
+      p = p + v * dt;
+      if (p.y <= rad && v.y < 0.0) {
+        let vn = -v.y;
+        let j = u32(vh) % 4u;
+        vh = vh + 1.0;
+        age[j] = 0.0;
+        rl[j] = max(length(vec2<f32>(p.x - ${f(PK[0][0])}, p.z - (${f(PK[0][1])}))), 0.5);
+        rr[j] = max(length(vec2<f32>(p.x - ${f(PK[1][0])}, p.z - (${f(PK[1][1])}))), 0.5);
+        am[j] = m * vn * (1.0 + u.E) / M0;
+        tc[j] = contact(m, vn);
+        imp = imp + 1.0;
+        p.y = rad;
+        v = vec3<f32>(v.x * 0.8, vn * u.E, v.z * 0.8);
+        if (v.y < 0.12) { fly = 0.0; v = vec3<f32>(0.0, 0.0, 0.0); }
+      }
+    }
+    var L = 0.0; var R = 0.0;
+    for (var j = 0u; j < 4u; j = j + 1u) {
+      if (age[j] < 0.0) { continue; }
+      let t = (age[j] + 0.5) / u.sr;
+      if (t > max(rl[j], rr[j]) * tEnd) { age[j] = -1.0; continue; }
+      L = L + chirp(t, rl[j], am[j], tc[j]);
+      R = R + chirp(t, rr[j], am[j], tc[j]);
+      age[j] = age[j] + 1.0;
+    }
+    /* the clack this grain sings: its shove, averaged over one sample (the change in F across it) */
+    if (cAge >= 0.0) {
+      let t = cAge * dt;
+      if (t > cEnd) { cAge = -1.0; } else {
+        L = L + gL * (force(t - dL + 0.5 * dt, ctc, F0) - force(t - dL - 0.5 * dt, ctc, F0)) / dt;
+        R = R + gR * (force(t - dR + 0.5 * dt, ctc, F0) - force(t - dR - 0.5 * dt, ctc, F0)) / dt;
+        cAge = cAge + 1.0;
+      }
+    }
+    part[((s0 + s) * NMAX + i) * 2u] = L;
+    part[((s0 + s) * NMAX + i) * 2u + 1u] = R;
+  }
+  st[b] = p.x; st[b + 1u] = p.y; st[b + 2u] = p.z;
+  st[b + 3u] = v.x; st[b + 4u] = v.y; st[b + 5u] = v.z;
+  st[b + 6u] = m; st[b + 7u] = wait; st[b + 8u] = kf; st[b + 9u] = vh; st[b + 10u] = imp; st[b + 11u] = fly;
+  st[b + 32u] = cAge; st[b + 40u] = ft; st[b + 41u] = rad;
+  for (var j = 0u; j < 4u; j = j + 1u) {
+    st[b + 12u + j * 5u] = age[j]; st[b + 13u + j * 5u] = rl[j]; st[b + 14u + j * 5u] = rr[j];
+    st[b + 15u + j * 5u] = am[j]; st[b + 16u + j * 5u] = tc[j];
+  }
+  let k8 = i * ${SNAP}u;
+  snap[k8] = p.x; snap[k8 + 1u] = p.y; snap[k8 + 2u] = p.z;
+  snap[k8 + 3u] = v.x; snap[k8 + 4u] = v.y; snap[k8 + 5u] = v.z;
+  var live = 0.0;
+  if (fly > 0.5 && ft > NOZZLE_T) { live = rad; }
+  snap[k8 + 6u] = m; snap[k8 + 7u] = live;
+}
+
+/* every grain against every grain in the air, from the snapshot the last sim pass left.
+   Each grain applies only its own half of each bounce, so no thread writes another's state. */
+var<workgroup> tp: array<vec4<f32>, 64>;
+var<workgroup> tv: array<vec4<f32>, 64>;
+@compute @workgroup_size(64)
+fn collide(@builtin(global_invocation_id) gid: vec3<u32>, @builtin(local_invocation_index) lid: u32) {
+  let i = gid.x;
+  let n = min(u32(u.n), NMAX);
+  let valid = i < n;
+  var pi = vec3<f32>(0.0); var vi = vec3<f32>(0.0); var mi = 1.0; var ri = 0.0;
+  if (valid) {
+    let k8 = i * ${SNAP}u;
+    pi = vec3<f32>(snap[k8], snap[k8 + 1u], snap[k8 + 2u]);
+    vi = vec3<f32>(snap[k8 + 3u], snap[k8 + 4u], snap[k8 + 5u]);
+    mi = snap[k8 + 6u]; ri = snap[k8 + 7u];
+  }
+  var dv = vec3<f32>(0.0);
+  var bestJ = 0.0; var bn = vec3<f32>(0.0); var bm = 0.0; var br = 0.0; var bvn = 0.0;
+  if (u.collide > 0.5) {
+    for (var t0 = 0u; t0 < n; t0 = t0 + 64u) {
+      let j = t0 + lid;
+      if (j < n) {
+        let k8 = j * ${SNAP}u;
+        tp[lid] = vec4<f32>(snap[k8], snap[k8 + 1u], snap[k8 + 2u], snap[k8 + 7u]);
+        tv[lid] = vec4<f32>(snap[k8 + 3u], snap[k8 + 4u], snap[k8 + 5u], snap[k8 + 6u]);
+      } else {
+        tp[lid] = vec4<f32>(0.0); tv[lid] = vec4<f32>(0.0, 0.0, 0.0, 1.0);
+      }
+      workgroupBarrier();
+      if (valid && ri > 0.0) {
+        for (var jj = 0u; jj < 64u; jj = jj + 1u) {
+          let rj = tp[jj].w;
+          if (rj <= 0.0 || t0 + jj == i) { continue; }
+          let d = tp[jj].xyz - pi;
+          let rs = ri + rj;
+          let d2 = dot(d, d);
+          if (d2 >= rs * rs || d2 < 1e-12) { continue; }
+          let nv = d / sqrt(d2);
+          let vrel = dot(vi - tv[jj].xyz, nv);
+          if (vrel <= V_REST) { continue; }
+          let mj = tv[jj].w;
+          let J = (1.0 + E_GRAIN) * (mi * mj / (mi + mj)) * vrel;
+          dv = dv - (J / mi) * nv;
+          if (J > bestJ) { bestJ = J; bn = nv; bm = mj; br = rj; bvn = vrel; }
+        }
+      }
+      workgroupBarrier();
+    }
+  }
+  if (valid && bestJ > 0.0) {
+    let b = i * STRIDE;
+    st[b + 3u] = vi.x + dv.x; st[b + 4u] = vi.y + dv.y; st[b + 5u] = vi.z + dv.z;
+    let me = mi * bm / (mi + bm);
+    let re = ri * br / (ri + br);
+    let ctc = 2.87 * pow(me * me / (re * E_STAR * E_STAR * max(bvn, 0.05)), 0.2);
+    let r0 = length(MIC0 - pi); let r1 = length(MIC1 - pi);
+    st[b + 32u] = 0.0;
+    st[b + 33u] = -K0 * u.airGain * dot(bn, MIC0 - pi) / (r0 * r0);
+    st[b + 34u] = r0 / C_AIR;
+    st[b + 35u] = -K0 * u.airGain * dot(bn, MIC1 - pi) / (r1 * r1);
+    st[b + 36u] = r1 / C_AIR;
+    st[b + 37u] = ctc;
+    st[b + 38u] = bestJ * PI / (2.0 * ctc);
+    st[b + 39u] = st[b + 39u] + 1.0;
+  }
+  if (i == 0u) { ctl[0] = ctl[0] + SEG; }
+}
+
+@compute @workgroup_size(64)
+fn mix(@builtin(global_invocation_id) gid: vec3<u32>) {
+  let s = gid.x;
+  if (s >= u32(u.B)) { return; }
+  let n = min(u32(u.n), NMAX);
+  var L = 0.0; var R = 0.0;
+  for (var i = 0u; i < n; i = i + 1u) {
+    L = L + part[(s * NMAX + i) * 2u];
+    R = R + part[(s * NMAX + i) * 2u + 1u];
+  }
+  outb[s * 2u] = L * u.gain;
+  outb[s * 2u + 1u] = R * u.gain;
+}
+`;
+
+/* ============================================================ CPU mirror (same law; motion in 32-bit floats when U[13]) */
+function hash(x) {
+  const s = (Math.imul(x >>> 0, 747796405) + 2891336453) >>> 0;
+  const w = Math.imul(((s >>> ((s >>> 28) + 4)) ^ s) >>> 0, 277803737) >>> 0;
+  return ((w >>> 22) ^ w) >>> 0;
+}
+function rnd(i, k, j, seed) {
+  const h = hash((Math.imul(i, 7919) ^ hash((Math.imul(k, 104729) + j * 31 + seed) >>> 0)) >>> 0);
+  return (h >>> 8) / 16777216;
+}
+function gauss(i, k, j, seed) { const a = Math.max(rnd(i, k, j, seed), 1e-7), b = rnd(i, k, j + 50, seed); return Math.sqrt(-2 * Math.log(a)) * Math.cos(2 * Math.PI * b); }
+function contact(m, v) { return TC0 * Math.pow(m / M0, 0.4) * Math.pow(Math.max(v, 0.2) / V0, -0.2); }
+function halfsine(fr, tc) { const x = 2 * fr * tc; let d = 1 - x * x; if (Math.abs(d) < 1e-6) d = 1e-6; return (2 * tc / Math.PI) * Math.cos(Math.PI * fr * tc) / d; }
+function chirpCPU(t, r, amp, tc, U) {
+  const C = U[1], w = r * r / (4 * C * t * t), fr = w / (2 * Math.PI);
+  if (fr >= U[0] * 0.5 || fr <= 20) return 0;
+  const band = 1 / (1 + Math.pow(70 / fr, 6)) / (1 + Math.pow(fr / 16000, 8));
+  const S = amp * halfsine(fr, tc) * band * Math.exp(-fr * r / U[12]) / Math.sqrt(r);
+  const psi2 = r / (4 * Math.sqrt(C) * Math.pow(w, 1.5));
+  return (1 / Math.PI) * S * Math.sqrt(2 * Math.PI / psi2) * Math.cos(-(r * r / (4 * C)) / t + Math.PI / 4);
+}
+function force(t, tc, F0) { return (t <= 0 || t >= tc) ? 0 : F0 * Math.sin(Math.PI * t / tc); }
+function hertzTc(m1, m2, r1, r2, vn) {
+  const me = m1 * m2 / (m1 + m2), re = r1 * r2 / (r1 + r2);
+  return 2.87 * Math.pow(me * me / (re * E_STAR * E_STAR * Math.max(vn, 0.05)), 0.2);
+}
+/* The single-grain clack voice, exactly as the shader sings it, for checking against September's exact render. */
+function clackVoice(ev, mic, sr, t0, n) {
+  const tc = hertzTc(ev.m1, ev.m2, ev.r1, ev.r2, ev.vn), F0 = ev.J * Math.PI / (2 * tc), h = 1 / sr, y = new Float64Array(n);
+  for (const [c, nv] of [[ev.c1, ev.n], [ev.c2, ev.n.map(x => -x)]]) {   // each grain's n points at its partner
+    const rv = [mic[0] - c[0], mic[1] - c[1], mic[2] - c[2]], r = Math.hypot(...rv);
+    const g = -K0 * (nv[0] * rv[0] + nv[1] * rv[1] + nv[2] * rv[2]) / (r * r), d = r / C_AIR;
+    for (let i = 0; i < n; i++) { const t = t0 + i * h; y[i] += g * (force(t - d + h / 2, tc, F0) - force(t - d - h / 2, tc, F0)) / h; }
+  }
+  return y;
+}
+/* One block on the CPU, segment by segment, with the same collide pass. st: Float32Array(NMAX*STRIDE). */
+function blockCPU(st, U, log) {
+  const n = Math.min(U[6], NMAX), seed = U[8] >>> 0;
+  const F = U[13] ? Math.fround : (x => x), dt = F(1 / U[0]);
+  const tEnd = 1 / (2 * Math.sqrt(U[1] * 2 * Math.PI * 20));
+  const out = new Float64Array(B * 2), snap = new Float64Array(NMAX * SNAP);
+  for (let s0 = 0; s0 < B; s0 += SEG) {
+    for (let i = 0; i < n; i++) {
+      const b = i * STRIDE;
+      let px = st[b], py = st[b + 1], pz = st[b + 2], vx = st[b + 3], vy = st[b + 4], vz = st[b + 5];
+      let m = st[b + 6], wait = st[b + 7], kf = st[b + 8], vh = st[b + 9], imp = st[b + 10], fly = st[b + 11], rad = st[b + 41], ft = st[b + 40];
+      let cAge = st[b + 32];
+      const gL = st[b + 33], dL = st[b + 34], gR = st[b + 35], dR = st[b + 36], ctc = st[b + 37], F0 = st[b + 38];
+      const cEnd = Math.max(dL, dR) + ctc + dt;
+      const age = [], rl = [], rr = [], am = [], tc = [];
+      for (let j = 0; j < 4; j++) { age[j] = st[b + 12 + j * 5]; rl[j] = st[b + 13 + j * 5]; rr[j] = st[b + 14 + j * 5]; am[j] = st[b + 15 + j * 5]; tc[j] = st[b + 16 + j * 5]; }
+      for (let s = 0; s < SEG; s++) {
+        wait = F(wait - dt);
+        if (wait <= 0) {
+          const k = kf | 0, q = i >> 1, side = (i % 2 === 0) ? -1 : 1, aimR = U[11] * Math.PI / 180;
+          m = F(M0 * Math.exp(Math.log(0.4) + Math.log(10) * rnd(q, k, 0, seed)) * Math.exp(-0.2 + 0.4 * rnd(i, k, 5, seed)));
+          rad = F(Math.cbrt(3 * m / (4 * Math.PI * RHO_ICE)));
+          const el = ELEV + aimR * gauss(i, k, 1, seed), az = aimR * gauss(i, k, 2, seed), spd = SPEED * (1 + 0.3 * aimR * gauss(i, k, 3, seed));
+          px = F(U[4] + side * HALF_GAP); py = F(NOZZLE_Y); pz = 0;
+          vx = F(-side * spd * Math.cos(el) * Math.cos(az)); vy = F(spd * Math.sin(el)); vz = F(spd * Math.cos(el) * Math.sin(az));
+          fly = 1; ft = 0; kf += 1;
+          wait = F((U[6] * 0.5 / U[10]) * (0.5 + rnd(q, k, 9, seed)));
+        }
+        if (fly > 0.5) {
+          ft = F(ft + dt);
+          const sp = F(Math.hypot(vx, vy, vz)), kd = F(U[2] / m);
+          vx = F(vx + F(F(-kd * F(sp * vx)) * dt)); vy = F(vy + F(F(-G - F(kd * F(sp * vy))) * dt)); vz = F(vz + F(F(-kd * F(sp * vz)) * dt));
+          px = F(px + F(vx * dt)); py = F(py + F(vy * dt)); pz = F(pz + F(vz * dt));
+          if (py <= rad && vy < 0) {
+            const vn = -vy, j = (vh | 0) % 4; vh += 1;
+            age[j] = 0;
+            rl[j] = Math.max(Math.hypot(px - PK[0][0], pz - PK[0][1]), 0.5);
+            rr[j] = Math.max(Math.hypot(px - PK[1][0], pz - PK[1][1]), 0.5);
+            am[j] = m * vn * (1 + U[3]) / M0; tc[j] = contact(m, vn); imp += 1;
+            py = rad; vx = F(vx * 0.8); vy = F(vn * U[3]); vz = F(vz * 0.8);
+            if (vy < 0.12) { fly = 0; vx = vy = vz = 0; }
+            if (log) log.strikes.push({ t: (log.s0 + s0 + s) / U[0], x: px, z: pz });
+          }
+        }
+        let L = 0, R = 0;
+        for (let j = 0; j < 4; j++) {
+          if (age[j] < 0) continue;
+          const t = (age[j] + 0.5) / U[0];
+          if (t > Math.max(rl[j], rr[j]) * tEnd) { age[j] = -1; continue; }
+          L += chirpCPU(t, rl[j], am[j], tc[j], U); R += chirpCPU(t, rr[j], am[j], tc[j], U);
+          age[j] += 1;
+        }
+        if (cAge >= 0) {
+          const t = cAge * dt;
+          if (t > cEnd) cAge = -1; else {
+            L += gL * (force(t - dL + dt / 2, ctc, F0) - force(t - dL - dt / 2, ctc, F0)) / dt;
+            R += gR * (force(t - dR + dt / 2, ctc, F0) - force(t - dR - dt / 2, ctc, F0)) / dt;
+            cAge += 1;
+          }
+        }
+        out[(s0 + s) * 2] += L; out[(s0 + s) * 2 + 1] += R;
+      }
+      st[b] = px; st[b + 1] = py; st[b + 2] = pz; st[b + 3] = vx; st[b + 4] = vy; st[b + 5] = vz;
+      st[b + 6] = m; st[b + 7] = wait; st[b + 8] = kf; st[b + 9] = vh; st[b + 10] = imp; st[b + 11] = fly; st[b + 32] = cAge; st[b + 40] = ft; st[b + 41] = rad;
+      for (let j = 0; j < 4; j++) { st[b + 12 + j * 5] = age[j]; st[b + 13 + j * 5] = rl[j]; st[b + 14 + j * 5] = rr[j]; st[b + 15 + j * 5] = am[j]; st[b + 16 + j * 5] = tc[j]; }
+      const k8 = i * SNAP; snap[k8] = st[b]; snap[k8 + 1] = st[b + 1]; snap[k8 + 2] = st[b + 2];
+      snap[k8 + 3] = st[b + 3]; snap[k8 + 4] = st[b + 4]; snap[k8 + 5] = st[b + 5]; snap[k8 + 6] = st[b + 6]; snap[k8 + 7] = (fly > 0.5 && ft > NOZZLE_T) ? rad : 0;
+    }
+    if (U[5] > 0.5) for (let i = 0; i < n; i++) {
+      const k8 = i * SNAP, ri = snap[k8 + 7]; if (ri <= 0) continue;
+      const mi = snap[k8 + 6]; let dvx = 0, dvy = 0, dvz = 0, bestJ = 0, bn = null, bm = 0, br = 0, bvn = 0;
+      for (let j = 0; j < n; j++) {
+        const q8 = j * SNAP, rj = snap[q8 + 7]; if (j === i || rj <= 0) continue;
+        const dx = snap[q8] - snap[k8], dy = snap[q8 + 1] - snap[k8 + 1], dz = snap[q8 + 2] - snap[k8 + 2], d2 = dx * dx + dy * dy + dz * dz, rs = ri + rj;
+        if (d2 >= rs * rs || d2 < 1e-12) continue;
+        const dd = Math.sqrt(d2), nv = [dx / dd, dy / dd, dz / dd];
+        const vrel = (snap[k8 + 3] - snap[q8 + 3]) * nv[0] + (snap[k8 + 4] - snap[q8 + 4]) * nv[1] + (snap[k8 + 5] - snap[q8 + 5]) * nv[2];
+        if (vrel <= V_REST) continue;
+        const mj = snap[q8 + 6], J = (1 + E_GRAIN) * (mi * mj / (mi + mj)) * vrel;
+        dvx -= J / mi * nv[0]; dvy -= J / mi * nv[1]; dvz -= J / mi * nv[2];
+        if (J > bestJ) { bestJ = J; bn = nv; bm = mj; br = rj; bvn = vrel; }
+        if (log && i < j) log.meets.push({ t: (log.s0 + s0 + SEG) / U[0], i, j, J, vrel, mi, mj, x: snap[k8], y: snap[k8 + 1], z: snap[k8 + 2],
+          vi: [snap[k8 + 3], snap[k8 + 4], snap[k8 + 5]], vj: [snap[q8 + 3], snap[q8 + 4], snap[q8 + 5]], n: nv });
+      }
+      if (bestJ > 0) {
+        const b = i * STRIDE, pi = [snap[k8], snap[k8 + 1], snap[k8 + 2]];
+        st[b + 3] = snap[k8 + 3] + dvx; st[b + 4] = snap[k8 + 4] + dvy; st[b + 5] = snap[k8 + 5] + dvz;
+        const ctc = hertzTc(mi, bm, ri, br, bvn);
+        const geo = mic => { const rv = [mic[0] - pi[0], mic[1] - pi[1], mic[2] - pi[2]], r = Math.hypot(...rv); return [-K0 * U[15] * (bn[0] * rv[0] + bn[1] * rv[1] + bn[2] * rv[2]) / (r * r), r / C_AIR]; };
+        const [gL, dL] = geo(MICS[0]), [gR, dR] = geo(MICS[1]);
+        st[b + 32] = 0; st[b + 33] = gL; st[b + 34] = dL; st[b + 35] = gR; st[b + 36] = dR; st[b + 37] = ctc; st[b + 38] = bestJ * Math.PI / (2 * ctc); st[b + 39] += 1;
+      }
+    }
+  }
+  if (log) log.s0 += B;
+  const o = new Float32Array(B * 2);
+  for (let s = 0; s < B * 2; s++) o[s] = out[s] * U[9];
+  return o;
+}
+
+/* ============================================================ shared setup */
+const DEFAULT_GAIN = 0.02;
+function initialState(seed, n, rate) {
+  const st = new Float32Array(NMAX * STRIDE);
+  for (let i = 0; i < NMAX; i++) {
+    const b = i * STRIDE;
+    st[b + 6] = M0; st[b + 41] = 0.013;
+    st[b + 7] = Math.fround(1 / SR + (n * 0.5 / rate) * rnd(i >> 1, 999, 0, seed));  // pairs first throw spread over one period
+    for (let j = 0; j < 4; j++) st[b + 12 + j * 5] = -1;
+    st[b + 32] = -1;
+  }
+  return st;
+}
+function uniforms(o) {
+  const U = new Float32Array(U_LEN);
+  U[0] = SR; U[1] = o.C ?? 0.316; U[2] = DRAG; U[3] = E; U[4] = X_CROSS; U[5] = o.collide ?? 1;
+  U[6] = o.n ?? 1024; U[7] = B; U[8] = o.seed ?? 22; U[9] = o.gain ?? DEFAULT_GAIN; U[10] = o.rate ?? 48;
+  U[11] = o.aim ?? 1; U[12] = F_ATTEN; U[13] = o.f32 ? 1 : 0; U[15] = AIR_GAIN;
+  return U;
+}
+
+/* ============================================================ GPU engine */
+async function makeGPU() {
+  if (!navigator.gpu) return null;
+  const adapter = await navigator.gpu.requestAdapter();
+  if (!adapter) return null;
+  const device = await adapter.requestDevice({ requiredLimits: { maxStorageBufferBindingSize: Math.min(adapter.limits.maxStorageBufferBindingSize, 64 << 20) } });
+  const mod = device.createShaderModule({ code: WGSL });
+  const info = await mod.getCompilationInfo();
+  const errs = info.messages.filter(m => m.type === 'error');
+  if (errs.length) throw new Error('WGSL: ' + errs.map(e => e.lineNum + ': ' + e.message).join(' | '));
+  const S = GPUBufferUsage;
+  const ubuf = device.createBuffer({ size: U_LEN * 4, usage: S.UNIFORM | S.COPY_DST });
+  const sbuf = device.createBuffer({ size: NMAX * STRIDE * 4, usage: S.STORAGE | S.COPY_DST | S.COPY_SRC });
+  const pbuf = device.createBuffer({ size: B * NMAX * 2 * 4, usage: S.STORAGE });
+  const obuf = device.createBuffer({ size: B * 2 * 4, usage: S.STORAGE | S.COPY_SRC });
+  const nbuf = device.createBuffer({ size: NMAX * SNAP * 4, usage: S.STORAGE });
+  const cbuf = device.createBuffer({ size: 16, usage: S.STORAGE | S.COPY_DST });
+  const layout = device.createBindGroupLayout({ entries: [0, 1, 2, 3, 4, 5].map(k => ({ binding: k, visibility: GPUShaderStage.COMPUTE, buffer: { type: k === 0 ? 'uniform' : 'storage' } })) });
+  const pl = device.createPipelineLayout({ bindGroupLayouts: [layout] });
+  const sim = device.createComputePipeline({ layout: pl, compute: { module: mod, entryPoint: 'sim' } });
+  const col = device.createComputePipeline({ layout: pl, compute: { module: mod, entryPoint: 'collide' } });
+  const mix = device.createComputePipeline({ layout: pl, compute: { module: mod, entryPoint: 'mix' } });
+  const bg = device.createBindGroup({ layout, entries: [ubuf, sbuf, pbuf, obuf, nbuf, cbuf].map((buffer, binding) => ({ binding, resource: { buffer } })) });
+  const ring = [0, 1, 2].map(() => ({ o: device.createBuffer({ size: B * 8, usage: S.MAP_READ | S.COPY_DST }), s: device.createBuffer({ size: NMAX * STRIDE * 4, usage: S.MAP_READ | S.COPY_DST }) }));
+  let ri = 0;
+  const zero = new Uint32Array(4);
+  return {
+    name: (adapter.info && adapter.info.vendor ? adapter.info.vendor + ' ' + (adapter.info.architecture || '') : 'GPU'),
+    setState(st) { device.queue.writeBuffer(sbuf, 0, st); },
+    async block(U, wantState) {
+      device.queue.writeBuffer(ubuf, 0, U);
+      device.queue.writeBuffer(cbuf, 0, zero);
+      const enc = device.createCommandEncoder();
+      const pass = enc.beginComputePass();
+      pass.setBindGroup(0, bg);
+      const wg = Math.ceil(Math.min(U[6], NMAX) / 64);
+      for (let s = 0; s < B; s += SEG) {
+        pass.setPipeline(sim); pass.dispatchWorkgroups(wg);
+        pass.setPipeline(col); pass.dispatchWorkgroups(wg);
+      }
+      pass.setPipeline(mix); pass.dispatchWorkgroups(Math.ceil(B / 64));
+      pass.end();
+      const r = ring[ri]; ri = (ri + 1) % ring.length;
+      enc.copyBufferToBuffer(obuf, 0, r.o, 0, B * 8);
+      if (wantState) enc.copyBufferToBuffer(sbuf, 0, r.s, 0, NMAX * STRIDE * 4);
+      device.queue.submit([enc.finish()]);
+      await r.o.mapAsync(GPUMapMode.READ);
+      const audio = new Float32Array(r.o.getMappedRange().slice(0)); r.o.unmap();
+      let state = null;
+      if (wantState) { await r.s.mapAsync(GPUMapMode.READ); state = new Float32Array(r.s.getMappedRange().slice(0)); r.s.unmap(); }
+      return { audio, state };
+    },
+  };
+}
+function makeCPU(log) {
+  let st = null;
+  return {
+    name: 'CPU (no WebGPU here)',
+    setState(s) { st = new Float32Array(s); },
+    async block(U, wantState) { const audio = blockCPU(st, U, log); return { audio, state: wantState ? st : null }; },
+  };
+}
+
+/* ============================================================ offline API (used by the render harness) */
+function b64(a) { const u8 = new Uint8Array(a.buffer); let s = ''; for (let i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000)); return btoa(s); }
+function tally(st, n) {
+  let strikes = 0, throws = 0, clacks = 0, hit = 0;
+  for (let i = 0; i < Math.min(n, NMAX); i++) { const b = i * STRIDE; strikes += st[b + 10]; throws += st[b + 8]; clacks += st[b + 39]; }
+  return { strikes, throws, grain_clacks: clacks };
+}
+window.PS = {
+  WGSL, blockCPU, clackVoice, hertzTc, initialState, uniforms, B, SR, SEG, K0, MICS,
+  /* render seconds of audio; o.aimFrom/o.aimTo sweep the aim (degrees); engine 'gpu' | 'cpu'; o.log keeps CPU events */
+  async render(o) {
+    const log = o.log ? { s0: 0, strikes: [], meets: [] } : null;
+    const eng = o.engine === 'cpu' ? makeCPU(log) : await makeGPU();
+    if (!eng) throw new Error('no WebGPU');
+    const n = o.n ?? 1024, rate = o.rate ?? 48;
+    eng.setState(initialState(o.seed ?? 22, n, rate));
+    const nBlocks = Math.ceil(o.seconds * SR / B);
+    const out = new Float32Array(nBlocks * B * 2), perBlock = [];
+    const t0 = performance.now();
+    let last = null, prev = 0;
+    for (let k = 0; k < nBlocks; k++) {
+      const frac = k / Math.max(1, nBlocks - 1);
+      const aim = o.aimFrom !== undefined ? Math.exp(Math.log(o.aimFrom) + (Math.log(o.aimTo) - Math.log(o.aimFrom)) * frac) : (o.aim ?? 1);
+      const U = uniforms({ ...o, aim });
+      const want = !!o.everyBlock || k === nBlocks - 1;
+      const r = await eng.block(U, want);
+      out.set(r.audio, k * B * 2);
+      if (r.state) { last = r.state; if (o.everyBlock) { const c = tally(last, n).grain_clacks; perBlock.push(c - prev); prev = c; } }
+    }
+    const ms = performance.now() - t0;
+    return { audio: b64(out), ms, ...tally(last, n), perBlock, engine: eng.name, log };
+  },
+};
+
+/* ============================================================ live page */
+const $ = id => document.getElementById(id);
+const ctrl = { n: $('n'), aim: $('aim'), rate: $('rate'), cc: $('cc') };
+const aimDeg = () => 6 * Math.pow(0.1 / 6, +ctrl.aim.value);
+let collide = 1, running = false, eng = null, ac = null, comp = null, analyser = null, nextT = 0, lastState = null, rtf = 0;
+let clacks0 = 0, recent = [];
+function labels() {
+  $('nV').textContent = ctrl.n.value; $('aimV').textContent = aimDeg().toFixed(2) + '° scatter';
+  $('rateV').textContent = ctrl.rate.value + '/s'; $('ccV').textContent = (+ctrl.cc.value).toFixed(2);
+}
+Object.values(ctrl).forEach(c => c.addEventListener('input', labels)); labels();
+function setMode(m) { collide = m; $('mMeet').classList.toggle('off', m !== 1); $('mPass').classList.toggle('off', m !== 0); }
+$('mMeet').onclick = () => setMode(1); $('mPass').onclick = () => setMode(0);
+
+function liveGain(n) { return 3 * DEFAULT_GAIN * Math.sqrt(1024 / n); }
+async function pump() {
+  while (running) {
+    if (nextT - ac.currentTime > 0.35) { await new Promise(r => setTimeout(r, 15)); continue; }
+    const U = uniforms({ n: +ctrl.n.value, aim: aimDeg(), rate: +ctrl.rate.value, C: +ctrl.cc.value, collide, gain: liveGain(+ctrl.n.value) });
+    const t0 = performance.now();
+    const r = await eng.block(U, true);
+    const ms = performance.now() - t0;
+    rtf = 0.9 * rtf + 0.1 * (ms / (B / SR * 1000));
+    if (r.state) lastState = r.state;
+    const buf = ac.createBuffer(2, B, SR);
+    const L = buf.getChannelData(0), R = buf.getChannelData(1);
+    for (let s = 0; s < B; s++) { L[s] = r.audio[s * 2]; R[s] = r.audio[s * 2 + 1]; }
+    const src = ac.createBufferSource(); src.buffer = buf; src.connect(comp);
+    if (nextT < ac.currentTime + 0.02) nextT = ac.currentTime + 0.05;
+    src.start(nextT); nextT += B / SR;
+  }
+}
+$('go').onclick = async () => {
+  if (running) { running = false; $('go').textContent = 'start'; return; }
+  try {
+    if (!ac) {
+      ac = new AudioContext({ sampleRate: SR });
+      comp = ac.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 6;
+      analyser = ac.createAnalyser(); analyser.fftSize = 2048; analyser.smoothingTimeConstant = 0;
+      comp.connect(analyser); analyser.connect(ac.destination);
+      try { eng = await makeGPU(); } catch (e) { $('status').textContent = String(e); }
+      if (!eng) { eng = makeCPU(); ctrl.n.value = 64; labels(); }
+      eng.setState(initialState(22, +ctrl.n.value, +ctrl.rate.value));
+    }
+    await ac.resume();
+    running = true; $('go').textContent = 'stop'; nextT = ac.currentTime + 0.1; pump();
+  } catch (e) { $('status').textContent = 'could not start: ' + e.message; }
+};
+
+const view = $('view'), vx = view.getContext('2d'), spec = $('spec'), sx = spec.getContext('2d');
+function draw() {
+  const W = view.width, H = view.height, floor = H - 28, X = x => 20 + (x - 3) * (W - 40) / 10, Y = y => floor - y * (floor - 12) / 2.6;
+  vx.fillStyle = '#0a0d11'; vx.fillRect(0, 0, W, H);
+  vx.fillStyle = '#1c3a44'; vx.fillRect(0, floor, W, 3);
+  vx.font = '11px -apple-system, sans-serif'; vx.fillStyle = '#8b8f98';
+  for (let d = 4; d <= 12; d += 2) vx.fillText(d + ' m', X(d) - 8, H - 2);
+  vx.fillText('← pickups at 0 m', 6, floor + 16);
+  vx.fillStyle = '#e9a75a'; for (const s of [-1, 1]) vx.fillRect(X(X_CROSS + s * HALF_GAP) - 4, Y(NOZZLE_Y) - 2, 8, 4);
+  if (lastState) {
+    const n = Math.min(+ctrl.n.value, NMAX);
+    for (let i = 0; i < n; i++) {
+      const b = i * STRIDE; if (lastState[b + 11] < 0.5) continue;
+      const ca = lastState[b + 32], clacked = ca >= 0;   // a clack voice still sounding: hit in the last ~30 ms
+      vx.fillStyle = clacked ? '#ffd28a' : 'rgba(127,211,230,0.6)';
+      const rad = clacked ? 4 : 1.2 + 1.8 * Math.cbrt(lastState[b + 6] / M0);
+      vx.beginPath(); vx.arc(X(lastState[b]), Y(lastState[b + 1]), rad, 0, 7); vx.fill();
+    }
+  }
+  if (analyser && running) {
+    const d = new Uint8Array(analyser.frequencyBinCount); analyser.getByteFrequencyData(d);
+    const SW = spec.width, SH = spec.height;
+    sx.drawImage(spec, -2, 0);
+    for (let y = 0; y < SH; y++) {
+      const fr = 60 * Math.pow(16000 / 60, 1 - y / SH), bin = Math.min(d.length - 1, Math.round(fr / (SR / 2) * d.length));
+      const v = d[bin] / 255; sx.fillStyle = `rgb(${Math.round(30 + 220 * v * v)},${Math.round(40 + 180 * v)},${Math.round(60 + 170 * v)})`;
+      sx.fillRect(SW - 2, y, 2, 1);
+    }
+    if (lastState) {
+      const t = tally(lastState, +ctrl.n.value), now = performance.now();
+      if (t.grain_clacks !== clacks0) { recent.push([now, (t.grain_clacks - clacks0) / 2]); clacks0 = t.grain_clacks; }
+      recent = recent.filter(r => now - r[0] < 5000);
+      const rate = recent.reduce((a, r) => a + r[1], 0) / 5;
+      $('status').textContent = `${eng.name} · ${ctrl.n.value} grains · ${(t.grain_clacks / 2) | 0} meetings so far · ${rate.toFixed(1)} meetings/s lately · ${collide ? 'grains meet' : 'passing through'} · a block costs ${(rtf * 100).toFixed(0)}% of its playing time`;
+    }
+  }
+  requestAnimationFrame(draw);
+}
+sx.fillStyle = '#0a0d11'; sx.fillRect(0, 0, spec.width, spec.height);
+draw();
+</script>
+</body>
+</html>

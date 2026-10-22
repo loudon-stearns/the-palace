@@ -33,3 +33,8 @@ What Particle Synthesis's steward cycles taught the page, and the changes to the
    > **The physics-as-DSP insight:** The Particle Fountain connects directly to [[Differential Equations]]. The trajectory is the solution of m·ÿ = −m·g − k·|v|·v, solved one audio sample at a time. That is a second-order equation, but not an oscillator: gravity draws a parabola, not a sine. The only repetition comes from the bounce, where each strike hands back 45% of the speed. The 2026-10-22 GPU build steps exactly this equation once per sample for each of 1024 particles, so what you see moving is what you are hearing. Loudness, brightness and sweep are each set by the particle's state at the moment it strikes.
 
 - run · 2026-10-22 · cycle 6 · taught item 1, proposed item 2 for canon
+
+## From cycle 7 — 2026-10-22
+
+3. Grains thrown from one nozzle a few milliseconds apart start out overlapping and log hundreds of near-zero-speed meetings; a grain joins the collision pass only after 30 ms of flight, and a contact closing slower than 0.1 m/s is ignored as two grains riding together. *(offered by the steward, cycle 7)*
+- run · 2026-10-22 · cycle 7 · taught item 3
