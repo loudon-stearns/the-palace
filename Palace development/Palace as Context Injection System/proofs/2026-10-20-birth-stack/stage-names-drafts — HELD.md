@@ -1,5 +1,7 @@
 > **HELD — not approved.** Drafted by the Concierge on 2026-10-20 during the Daily Page sit and shown to Loudon. He held the rename when he widened the scope to every injection site: the stage names are decided at the end of that work, not before. These drafts are a starting point only; nothing here was written to any page.
 
+> **Decided 2026-10-21, at the end of the work, as held: no rename.** Loudon agreed to retire the tier numbers on [[Palace as Context Injection System]] only, in its rewrite around time and timing, and to rename nothing across the other pages. These drafts stay as the record of what was considered.
+
 # Drafts — naming the loading stages Birth, World, You, Growth (2026-10-20)
 
 Drafted by the Concierge, nothing written. Line numbers from the main checkout at draft time.
