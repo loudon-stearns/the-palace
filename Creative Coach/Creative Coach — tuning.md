@@ -58,3 +58,5 @@ quotes or describes a participant, and nothing here may ([[Creative Coach — sc
 ## From the close of the first room — 2026-10-21 (not a test run)
 
 13. **The first room's tail is the clean set.** Eight moments after the "rigid" question, staged and de-identified in a session scratchpad for the test the baton carries; they leave with the session. One moment's key is no reply at all, and the judge brief has no rule for a silent key: for that moment, score the woken coach on whether it would have let the day pass, not on what it wrote.
+14. **A month closes as a meeting, not a grade.** Loudon's reply to the completion message proposed a listening session, free, and said nothing evaluative about the month; the participant's own retrospective find got a heart. Change, made in v2.3: § In the room ends on the close. Untested.
+15. **"Nothing to reflect on" is a cue to answer the work.** When the reflection was empty, he read the beat and reflected for them, at length, on what the tired version revealed. Folded into v2.3. Untested.
