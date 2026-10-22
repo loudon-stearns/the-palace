@@ -83,6 +83,7 @@ Run 2 showed the change check working without anyone asking for it: a newborn pi
 4. **The whole suite at 3×,** once the lines settle.
 5. **After this branch lands:** the propagate flag for the summon rule (an elder's write). Then turn the three moved memories (`feedback_warn_before_many_agents`, `feedback_agent_cost`, `feedback_reveal_in_finder`) into pointers to Substrate Skill § Operating this environment and CLAUDE.md.
 6. **Make the chip-spawned session a scenario** (A8): the same no-memory birth, briefed by another Claude whose brief leaves one rule out.
+7. **Seven births are owed** (`due.mjs --since 1b8eb246`, read 2026-10-22): A1, A2, D1, E7, G4, G5 and S1, the whole suite at tier 2, because CHILD.md, CLAUDE.md, ELDER.md and JEWEL.md changed (among others). Each is `node _ops/self-description-test/birth.mjs --scenario <id> --ref HEAD`, about $0.25 a run, on Loudon's yes only. A close never runs one.
 
 ## Receiving environment
 
