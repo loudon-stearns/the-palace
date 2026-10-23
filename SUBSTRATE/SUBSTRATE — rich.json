@@ -1,0 +1,40 @@
+{
+  "title": "SUBSTRATE — rich",
+  "born": "2026-10-22",
+  "links": [
+    {
+      "target": "[[SUBSTRATE]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of SUBSTRATE's rich face: one plate laid beside the Anatomy, drawn from the anatomy file and its measure, so a reader can see the organism the words describe and watch it turn between four ways of seeing. I grow when the self-model is updated; I never hold the entry's words.",
+  "entry": "SUBSTRATE",
+  "tier": "study",
+  "made": "2026-10-22",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "Anatomy",
+      "made_against": "6e502a4b4773",
+      "made": "2026-10-22",
+      "pieces": [
+        {
+          "file": "SUBSTRATE — rich — anatomy.html",
+          "origin": "made",
+          "by": "the working Claude · d3 projections over the anatomy file",
+          "title": "plate I · the anatomy of the palace",
+          "caption": "The palace's organs and their couplings, drawn from *SUBSTRATE — anatomy.json* and sized by what *anatomy.mjs* measured. Four lenses cast the same body four ways: Machinery, Body, Relation, Practice. Choose an organ to see it in all four at once.",
+          "place": "band",
+          "height": 1500
+        }
+      ],
+      "stamped": "2026-10-22"
+    }
+  ]
+}
