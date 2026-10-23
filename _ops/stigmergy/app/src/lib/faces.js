@@ -1,16 +1,22 @@
 // An entry's faces (CLAUDE.md § A page and its folder) — the text, the rich
 // face, the scroll — as the reader's face switch sees them. The server reads
-// which faces exist from the bundle (src/lib/bundle.js facesFor); this module
-// only orders them, cycles them, and names where each one opens. The rich
+// which faces a bundle carries (src/lib/bundle.js facesFor); this module orders
+// them, cycles them, and names where each one opens. Live, every page has a
+// rich face: without a manifest it is the page's own words in the rich page's
+// reading column, so the switch offers it everywhere (Loudon, 2026-10-23). The
+// public read view ships a rich page only for an enriched entry, so there the
+// switch still offers rich only when the bundle carries one. The rich
 // face's own top strip (_ops/rich-face/rich.html) carries the same switch in
 // plain script; keep the order and words in step with it.
 
 export const FACE_ORDER = ['text', 'rich', 'scroll'];
 
 // Normalize a faces list: known faces only, in FACE_ORDER, text always first.
-export function orderFaces(faces) {
+// everyRich: offer the rich face whether or not the bundle carries a manifest.
+export function orderFaces(faces, { everyRich = false } = {}) {
   const have = new Set(Array.isArray(faces) ? faces : []);
   have.add('text');
+  if (everyRich) have.add('rich');
   return FACE_ORDER.filter((f) => have.has(f));
 }
 

@@ -17,6 +17,17 @@ describe('orderFaces', () => {
   });
 });
 
+describe('orderFaces everyRich', () => {
+  it('offers the rich face on every page live, in its place', () => {
+    expect(orderFaces(['text'], { everyRich: true })).toEqual(['text', 'rich']);
+    expect(orderFaces(['scroll'], { everyRich: true })).toEqual(['text', 'rich', 'scroll']);
+    expect(orderFaces(null, { everyRich: true })).toEqual(['text', 'rich']);
+  });
+  it('offers it only from the bundle otherwise', () => {
+    expect(orderFaces(['text'], { everyRich: false })).toEqual(['text']);
+  });
+});
+
 describe('nextFace', () => {
   it('cycles through the faces the entry has, wrapping', () => {
     const faces = ['text', 'rich', 'scroll'];

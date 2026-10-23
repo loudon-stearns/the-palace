@@ -6,7 +6,10 @@ serve. The ceremony (when and how to enrich a page) is `Enrichment.md`; this fol
 
 ## Open one
 
-- From an entry in STIGMERGY: the face switch (`F`), when the entry's bundle holds the manifest.
+- From any entry in STIGMERGY: the face switch (`F`). It leaves the app for the rich page, the whole tab. Every
+  page has a rich face: without a manifest it is the entry's own words in the reading column, with the
+  review notes beside them. The floating companion belongs to the text face only. On the public read view
+  the switch offers rich only for an entry whose bundle holds the manifest, since only those are built.
 - With STIGMERGY running: `http://localhost:5173/rich/?entry=Kuramoto%20Coupling`
 - Standalone: `node _ops/rich-face/rich-server.mjs [--root <palace>] [--detach]` prints its URL, on a
   port leased to it (8850–8949), so several sessions can preview several palaces at once; its pieces
@@ -130,7 +133,7 @@ on purpose, chosen with care, and not left ignored.
 - A legacy **door** — any line linking `/rich/?entry=` — is still dropped, as tolerance: the rich face
   never shows that line (the words around it stay; it is never a caption) and it never counts toward a
   fingerprint. Inside a code fence it is only text. A reader reaches the rich face by the face switch
-  now, which offers it when the entry's bundle holds the manifest — not by a line in the body.
+  now, not by a line in the body.
 - A section's fingerprint is SHA-256 (first 12 hex) of its prose blocks, whitespace-collapsed. Figures'
   captions don't count — they travel with their media.
 
@@ -199,9 +202,8 @@ palace writes runs there: every piece runs on the **piece origin**.
   short list (`b`, `i`, `em`, `strong`, `sub`, `sup`, `br`, `kbd` …) and a `div` or `span` whose one
   attribute is a `class` still render; any other tag is escaped and shows as written. Diagrams render
   with mermaid's `securityLevel: 'strict'`.
-- **Framed by STIGMERGY's reader** (same origin), the page hides its top strip and leaves `F` to the
-  reader, which carries the face switch. The reader's frame passes camera, microphone, midi and fullscreen
-  down to the page's frames. The public read view never frames it.
+- **Nothing frames the page.** STIGMERGY's face switch and the public read view both open it as the
+  whole tab, so its own top strip carries the face switch and `F`.
 
 ## Making pieces — the gotchas
 
