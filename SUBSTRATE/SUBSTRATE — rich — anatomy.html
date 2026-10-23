@@ -1,0 +1,351 @@
+<!doctype html>
+<!--
+  title: SUBSTRATE — rich — anatomy
+  born: 2026-10-22
+  links: [[SUBSTRATE]] connects-to · rich-face-piece-of
+  forward_vector: I am the palace drawn as an organism, one plate cast four ways. The same organs
+    and the same couplings, projected as a schematic, a body, a web of relations and a mandala, so a
+    reader can watch one thing turn and keep its shape. I draw only what SUBSTRATE — anatomy.json
+    says and what anatomy.mjs measured; when either is stale I say so on the sheet, never hide it.
+  dress: Drafting Table, Paper ground (Phosphor under a dark scheme). One declared departure: a lens
+    change moves the organs for 300 ms, longer than the 120 ms state change the system allows, so the
+    eye can follow one organ from one projection into the next — the point of the plate.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:files" content="SUBSTRATE%20—%20anatomy.json SUBSTRATE%20—%20anatomy%20—%20measured.json /_ops/drafting-table/design-system/colors_and_type.css">
+<title>The Anatomy of the Palace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../_ops/drafting-table/design-system/colors_and_type.css">
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<style>
+  :root { color-scheme: light dark; }
+  html, body { margin: 0; background: var(--ground-000); color: var(--ink); }
+  body { font-family: var(--font-mono, 'JetBrains Mono', 'IBM Plex Mono', monospace); font-size: 15px; line-height: 1.5; }
+  .an-sheet { border: 2px solid var(--ink); margin: 8px; padding: 16px; }
+  .an-eyebrow { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+  .an-title { font-size: 22px; font-weight: 600; margin: 2px 0 12px; }
+  .an-lenses { display: flex; flex-wrap: wrap; border: 1px solid var(--ink); width: fit-content; max-width: 100%; }
+  .an-lenses button { font: inherit; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; background: var(--ground-000); color: var(--ink); border: 0; border-right: 1px solid var(--ink); padding: 6px 14px; cursor: pointer; border-radius: 0; }
+  .an-lenses button:last-child { border-right: 0; }
+  .an-lenses button[aria-pressed="true"] { background: var(--selection); color: var(--on-selection); }
+  .an-lenses button:focus-visible, .an-node:focus-visible { outline: 1px dashed var(--ink); outline-offset: 2px; }
+  .an-lenses kbd { font: inherit; font-size: 11px; opacity: .6; margin-left: 6px; }
+  .an-says { font-size: 13px; color: var(--ink-2); max-width: 80ch; margin: 10px 0 8px; min-height: 3em; }
+  .an-systems { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12px; margin: 4px 0 8px; }
+  .an-systems span { display: inline-flex; align-items: center; gap: 6px; }
+  .an-systems i { width: 14px; height: 10px; border: 1px solid var(--ink); display: inline-block; }
+  .an-plate { border: 1px solid var(--rule); position: relative; }
+  .an-plate svg { display: block; width: 100%; height: auto; }
+  .an-edge { fill: none; stroke: var(--ink-3); stroke-width: 1; }
+  .an-edge.is-near { stroke: var(--ink); stroke-width: 1.6; }
+  .an-node { cursor: pointer; }
+  .an-node rect.an-body { stroke: var(--ink); stroke-width: 1; }
+  .an-node text.an-name { paint-order: stroke; stroke: var(--ground-000); stroke-width: 3px; stroke-linejoin: round; }
+  .an-node.is-picked rect.an-body { stroke: var(--accent); stroke-width: 2.5; }
+  .an-node text { font-size: 12px; fill: var(--ink); pointer-events: none; }
+  .an-node text.an-sub { font-size: 10px; fill: var(--ink-2); }
+  .an-dim .an-node:not(.is-near), .an-dim .an-edge:not(.is-near) { opacity: .18; }
+  .an-node, .an-edge { transition: opacity 120ms linear; }
+  .an-guide { fill: none; stroke: var(--rule-soft); stroke-dasharray: 3 4; }
+  .an-syslabel { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; fill: var(--ink-2); }
+  .an-center { font-size: 12px; fill: var(--ink-2); text-anchor: middle; }
+  .an-panel { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 12px; }
+  .an-card { border: 1px solid var(--rule); padding: 12px 14px; }
+  .an-card h3 { font-size: 15px; margin: 2px 0 6px; font-weight: 600; }
+  .an-does { max-width: 80ch; margin: 0 0 10px; }
+  .an-prism { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--ink); }
+  .an-prism > div { padding: 8px 10px; border-right: 1px solid var(--rule); font-size: 13px; }
+  .an-prism > div:last-child { border-right: 0; }
+  .an-prism > div.is-lens { background: var(--ground-100); box-shadow: inset 0 -2px 0 var(--ink); }
+  .an-prism b { display: block; font-weight: 600; margin: 2px 0 4px; }
+  .an-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+  .an-list { list-style: none; margin: 4px 0 0; padding: 0; font-size: 13px; }
+  .an-list li { padding: 3px 0; border-top: 1px dashed var(--rule-soft); }
+  .an-list button { font: inherit; background: none; border: 0; padding: 0; color: var(--ink); text-decoration: underline; text-decoration-color: var(--rule); cursor: pointer; }
+  .an-num { color: var(--source-datasheet); font-weight: 500; }
+  .an-hold { color: var(--source-measure); font-weight: 600; }
+  .an-legend { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 12px; margin-top: 12px; }
+  .an-legend span::before { content: ""; display: inline-block; width: 18px; height: 0; border-top: 2px solid currentColor; vertical-align: middle; margin-right: 6px; }
+  .an-titleblock { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); border: 2px solid var(--ink); margin-top: 14px; }
+  .an-titleblock > div { padding: 6px 10px; border-right: 1px solid var(--ink); border-top: 1px solid var(--ink); margin-top: -1px; }
+  .an-titleblock > div:last-child { border-right: 0; }
+  .an-titleblock .an-eyebrow { display: block; }
+  .an-titleblock b { font-weight: 500; font-size: 12px; }
+  .an-empty { font-size: 13px; color: var(--ink-2); max-width: 80ch; }
+  @media (max-width: 720px) {
+    .an-prism { grid-template-columns: 1fr 1fr; }
+    .an-prism > div:nth-child(2) { border-right: 0; }
+    .an-prism > div:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
+    .an-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="an-sheet">
+  <div class="an-eyebrow">SUBSTRATE · plate I</div>
+  <div class="an-title">The anatomy of the palace</div>
+  <div class="an-lenses" role="group" aria-label="Lens"></div>
+  <p class="an-says" aria-live="polite"></p>
+  <div class="an-systems"></div>
+  <div class="an-plate"><svg role="img" aria-label="The palace's organs and how they couple"></svg></div>
+  <div class="an-panel"></div>
+  <div class="an-legend">
+    <span style="color: var(--source-design)">DESIGN · written by hand at a self-model update</span>
+    <span style="color: var(--source-datasheet)">DATASHEET · measured from frontmatter and git</span>
+    <span style="color: var(--source-measure)">HOLD · the sheet cannot vouch for this</span>
+  </div>
+  <div class="an-titleblock"></div>
+</div>
+<script>
+(async function () {
+  const $ = (s, el = document) => el.querySelector(s);
+  const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  if (matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.dataset.theme = 'phosphor';
+
+  const load = async (name) => { const r = await fetch(encodeURIComponent(name)); if (!r.ok) throw new Error(`${name}: ${r.status}`); return r.json(); };
+  let A, M = null;
+  try { A = await load('SUBSTRATE — anatomy.json'); }
+  catch (e) { $('.an-panel').innerHTML = `<p class="an-hold">HOLD · the anatomy could not be read (${esc(e.message)}).</p>`; return; }
+  try { M = await load('SUBSTRATE — anatomy — measured.json'); } catch { M = null; }
+
+  // ---- the model ----
+  const LENSES = A.lenses;
+  // six categorical hues; a seventh and eighth system keep the ink and turn the hatch instead
+  const systems = A.systems.map((s, i) => ({ ...s, i, color: i < 6 ? `var(--cat-${i + 1})` : 'var(--ink-2)', angle: i < 6 ? 45 : i === 6 ? -45 : 0 }));
+  const sysById = new Map(systems.map((s) => [s.id, s]));
+  const organs = A.organs.map((o) => ({ ...o, m: M?.organs?.[o.id] ?? null }));
+  const byId = new Map(organs.map((o) => [o.id, o]));
+  const edges = A.couplings.filter((c) => byId.has(c.from) && byId.has(c.to)).map((c, i) => ({ ...c, i, s: byId.get(c.from), t: byId.get(c.to) }));
+  const maxW = Math.max(1, ...organs.map((o) => o.m?.weight ?? 0));
+  for (const o of organs) {
+    o.w = o.m?.weight ?? 0;
+    o.r = 10 + 26 * Math.sqrt(o.w / maxW);
+    o.near = new Set([o.id]);
+  }
+  for (const e of edges) { e.s.near.add(e.t.id); e.t.near.add(e.s.id); }
+  const name = (o, lens) => o.lenses?.[lens]?.name || o.id;
+  const sysName = (s, lens) => s.lenses?.[lens] || s.id;
+
+  // ---- four projections of one graph ----
+  const W = 1000;
+  const groups = systems.map((s) => organs.filter((o) => o.system === s.id).sort((a, b) => b.w - a.w));
+  const boxW = Math.min(150, W / systems.length - 16), boxH = 44, top = 70, deepest = Math.max(...groups.map((g) => g.length));
+  const H = Math.max(780, top + deepest * 64 + 40);
+  const rowH = Math.min(130, (H - top - 50) / deepest);
+  const cx = W / 2, cy = H / 2;
+  const pos = {};
+
+  // technical — a schematic: one column per system, heaviest organ at the top
+  pos.technical = {};
+  groups.forEach((g, i) => g.forEach((o, k) => { pos.technical[o.id] = { x: (W / systems.length) * (i + 0.5), y: top + k * rowH + boxH / 2 }; }));
+
+  // biological — a body: organs settle where their couplings and their system pull them
+  {
+    const anchor = (s) => { const a = (2 * Math.PI * s.i) / systems.length - Math.PI / 2; return { x: cx + 300 * Math.cos(a), y: cy + (H * 0.32) * Math.sin(a) }; };
+    const nodes = organs.map((o, k) => { const a = anchor(sysById.get(o.system)); return { id: o.id, r: o.r, ax: a.x, ay: a.y, x: a.x + (k % 5) * 9, y: a.y + (k % 3) * 9 }; });
+    const sim = d3.forceSimulation(nodes)
+      .force('x', d3.forceX((n) => n.ax).strength(0.12))
+      .force('y', d3.forceY((n) => n.ay).strength(0.12))
+      .force('link', d3.forceLink(edges.map((e) => ({ source: e.from, target: e.to }))).id((n) => n.id).distance(110).strength(0.04))
+      .force('charge', d3.forceManyBody().strength(-160))
+      .force('collide', d3.forceCollide((n) => n.r + 26))
+      .stop();
+    for (let i = 0; i < 500; i++) sim.tick();
+    pos.biological = {};
+    for (const n of nodes) pos.biological[n.id] = { x: Math.max(60, Math.min(W - 60, n.x)), y: Math.max(50, Math.min(H - 60, n.y)) };
+  }
+
+  // metaphysical — relations first: every organ on one circle, the couplings carry the picture
+  {
+    const ring = groups.flat(), R = Math.min(W, H) * 0.40;
+    pos.metaphysical = {};
+    ring.forEach((o, i) => { const a = (2 * Math.PI * i) / ring.length - Math.PI / 2; pos.metaphysical[o.id] = { x: cx + R * Math.cos(a), y: cy + R * Math.sin(a), a }; });
+  }
+
+  // spiritual — a mandala: the heaviest organs nearest the shared intent at the centre
+  const rings = [];
+  {
+    const sorted = [...organs].sort((a, b) => b.w - a.w), sizes = [3, 8, Infinity], radii = [175, 272, 362];
+    let k = 0;
+    pos.spiritual = {};
+    sizes.forEach((n, ri) => {
+      const ringOrgans = sorted.slice(k, k + n); k += ringOrgans.length;
+      if (!ringOrgans.length) return;
+      rings.push(radii[ri]);
+      ringOrgans.sort((a, b) => sysById.get(a.system).i - sysById.get(b.system).i);
+      ringOrgans.forEach((o, i) => { const a = (2 * Math.PI * i) / ringOrgans.length - Math.PI / 2 + ri * 0.35; pos.spiritual[o.id] = { x: cx + radii[ri] * Math.cos(a), y: cy + radii[ri] * Math.sin(a) }; });
+    });
+  }
+
+  const edgePath = {
+    technical: (a, b) => { const mx = (a.x + b.x) / 2; return `M${a.x},${a.y}H${mx}V${b.y}H${b.x}`; },
+    biological: (a, b) => { const dx = b.x - a.x, dy = b.y - a.y; return `M${a.x},${a.y}Q${(a.x + b.x) / 2 - dy * 0.15},${(a.y + b.y) / 2 + dx * 0.15} ${b.x},${b.y}`; },
+    metaphysical: (a, b) => `M${a.x},${a.y}Q${cx + ((a.x + b.x) / 2 - cx) * 0.25},${cy + ((a.y + b.y) / 2 - cy) * 0.25} ${b.x},${b.y}`,
+    spiritual: (a, b) => `M${a.x},${a.y}Q${cx + ((a.x + b.x) / 2 - cx) * 0.6},${cy + ((a.y + b.y) / 2 - cy) * 0.6} ${b.x},${b.y}`,
+  };
+  const shape = (o, lens) => lens === 'technical' ? { w: boxW, h: boxH, rx: 0 }
+    : lens === 'metaphysical' ? { w: 14, h: 14, rx: 7 } : { w: o.r * 2, h: o.r * 2, rx: o.r };
+
+  // ---- the plate ----
+  const svg = d3.select('svg').attr('viewBox', `0 0 ${W} ${H}`);
+  const defs = svg.append('defs');
+  for (const s of systems) {
+    const p = defs.append('pattern').attr('id', `an-hatch-${s.i}`).attr('patternUnits', 'userSpaceOnUse').attr('width', 6).attr('height', 6).attr('patternTransform', `rotate(${s.angle})`);
+    p.append('rect').attr('width', 6).attr('height', 6).attr('fill', 'var(--ground-000)');
+    p.append('line').attr('x1', 0).attr('y1', 0).attr('x2', 0).attr('y2', 6).attr('stroke', s.color).attr('stroke-width', 2.2);
+  }
+  const gGuides = svg.append('g'), gEdges = svg.append('g'), gCenter = svg.append('g'), gNodes = svg.append('g');
+  const edgeSel = gEdges.selectAll('path').data(edges).join('path').attr('class', 'an-edge');
+  edgeSel.append('title');
+  const nodeSel = gNodes.selectAll('g').data(organs, (o) => o.id).join('g')
+    .attr('class', 'an-node').attr('tabindex', 0).attr('role', 'button');
+  nodeSel.append('rect').attr('class', 'an-body').attr('fill', (o) => `url(#an-hatch-${sysById.get(o.system)?.i ?? 0})`);
+  nodeSel.append('rect').attr('class', 'an-meter');
+  nodeSel.append('text').attr('class', 'an-name').attr('text-anchor', 'middle');
+  nodeSel.append('text').attr('class', 'an-sub').attr('text-anchor', 'middle');
+
+  let lens = LENSES[0].id, picked = null, hovered = null, first = true;
+
+  function draw() {
+    const P = pos[lens], dur = first ? 0 : 300;
+    first = false;
+    const t = svg.transition().duration(dur).ease(d3.easeLinear);
+    nodeSel.attr('aria-label', (o) => `${name(o, lens)}: ${o.does || ''}`);
+    nodeSel.transition(t).attr('transform', (o) => `translate(${P[o.id].x},${P[o.id].y})`);
+    nodeSel.select('rect.an-body').transition(t)
+      .attr('x', (o) => -shape(o, lens).w / 2).attr('y', (o) => -shape(o, lens).h / 2)
+      .attr('width', (o) => shape(o, lens).w).attr('height', (o) => shape(o, lens).h).attr('rx', (o) => shape(o, lens).rx);
+    // in the schematic the box stays plain so its words read, and the weight is a hatched bar along
+    // its foot; in the other casts the organ is hatched whole and says its weight with its size
+    nodeSel.select('rect.an-body').attr('fill', (o) => lens === 'technical' ? 'var(--ground-000)' : `url(#an-hatch-${sysById.get(o.system)?.i ?? 0})`)
+      .attr('stroke', (o) => lens === 'technical' ? sysById.get(o.system)?.color : null);
+    nodeSel.select('rect.an-meter').attr('stroke', 'none').attr('fill', (o) => `url(#an-hatch-${sysById.get(o.system)?.i ?? 0})`).transition(t)
+      .attr('x', -boxW / 2 + 1).attr('y', boxH / 2 - 8)
+      .attr('width', (o) => lens === 'technical' ? Math.max(2, (boxW - 2) * (o.w / maxW)) : 0)
+      .attr('height', lens === 'technical' ? 7 : 0);
+    nodeSel.select('text.an-name').text((o) => name(o, lens)).transition(t)
+      .attr('y', (o) => lens === 'technical' ? -6 : shape(o, lens).h / 2 + 14)
+      .attr('dx', 0);
+    nodeSel.select('text.an-name').each(function (o) { fitText(this, lens === 'technical' ? boxW - 8 : 150); });
+    nodeSel.select('text.an-sub').text((o) => lens === 'technical' ? (o.m ? `${o.w} wt · ${o.m.couplings} cpl` : 'not measured') : '')
+      .attr('y', 8);
+    // metaphysical labels sit outside the circle, turned along the radius
+    if (lens === 'metaphysical') {
+      nodeSel.select('text.an-name').interrupt()
+        .attr('text-anchor', (o) => Math.cos(P[o.id].a) >= 0 ? 'start' : 'end')
+        .attr('y', 4).attr('dx', (o) => Math.cos(P[o.id].a) >= 0 ? 12 : -12);
+    } else nodeSel.select('text.an-name').attr('text-anchor', 'middle');
+
+    edgeSel.attr('opacity', 0).attr('d', (e) => edgePath[lens](P[e.from], P[e.to]))
+      .transition().delay(dur).duration(120).ease(d3.easeLinear).attr('opacity', 1);
+    edgeSel.select('title').text((e) => `${name(e.s, lens)} → ${name(e.t, lens)}: ${e.lenses?.[lens] || e.does || ''}`);
+
+    // guides: column heads, cluster names, the mandala's rings
+    gGuides.selectAll('*').remove();
+    if (lens === 'technical') systems.forEach((s, i) => gGuides.append('text').attr('class', 'an-syslabel').attr('text-anchor', 'middle').attr('x', (W / systems.length) * (i + 0.5)).attr('y', 36).text(sysName(s, lens)).each(function () { fitText(this, W / systems.length - 8); }));
+    if (lens === 'biological') systems.forEach((s) => {
+      const g = organs.filter((o) => o.system === s.id); if (!g.length) return;
+      const x = d3.mean(g, (o) => P[o.id].x), y = d3.min(g, (o) => P[o.id].y - o.r) - 14;
+      gGuides.append('text').attr('class', 'an-syslabel').attr('text-anchor', 'middle').attr('x', x).attr('y', Math.max(14, y)).text(sysName(s, lens));
+    });
+    if (lens === 'metaphysical') gGuides.append('circle').attr('class', 'an-guide').attr('cx', cx).attr('cy', cy).attr('r', Math.min(W, H) * 0.40);
+    gCenter.selectAll('*').remove();
+    if (lens === 'spiritual') {
+      for (const r of rings) gGuides.append('circle').attr('class', 'an-guide').attr('cx', cx).attr('cy', cy).attr('r', r);
+      // the still centre: every coupling in the mandala passes under the shared intent
+      gCenter.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 112).attr('class', 'an-guide').style('fill', 'var(--ground-000)');
+      const c = A.center || 'symbiotic human and AI flourishing through joyful creation';
+      wrap(gCenter.append('text').attr('class', 'an-center').attr('x', cx).attr('y', cy - 16), c, 20);
+    }
+    renderChrome();
+    highlight();
+  }
+
+  function fitText(el, max) {
+    const full = el.textContent; if (!el.getComputedTextLength) return;
+    let s = full; while (s.length > 4 && el.getComputedTextLength() > max) { s = s.slice(0, -2); el.textContent = s + '…'; }
+    if (s !== full) { const t = document.createElementNS('http://www.w3.org/2000/svg', 'title'); t.textContent = full; el.appendChild(t); }
+  }
+  function wrap(text, s, n) {
+    const words = s.split(/\s+/), lines = []; let line = '';
+    for (const w of words) { if ((line + ' ' + w).trim().length > n) { lines.push(line.trim()); line = w; } else line += ' ' + w; }
+    lines.push(line.trim());
+    lines.forEach((l, i) => text.append('tspan').attr('x', text.attr('x')).attr('dy', i ? 16 : 0).text(l));
+  }
+
+  function highlight() {
+    const focus = hovered || picked;
+    svg.classed('an-dim', !!focus);
+    nodeSel.classed('is-near', (o) => !!focus && byId.get(focus).near.has(o.id)).classed('is-picked', (o) => o.id === picked);
+    edgeSel.classed('is-near', (e) => !!focus && (e.from === focus || e.to === focus));
+  }
+
+  function renderChrome() {
+    const L = LENSES.find((l) => l.id === lens);
+    $('.an-lenses').innerHTML = LENSES.map((l, i) => `<button type="button" data-lens="${esc(l.id)}" aria-pressed="${l.id === lens}">${esc(l.name || l.id)}<kbd>${i + 1}</kbd></button>`).join('');
+    $('.an-says').textContent = L?.says || '';
+    $('.an-systems').innerHTML = systems.map((s) => `<span><i style="background: repeating-linear-gradient(${s.angle + 90}deg, ${s.color} 0 2px, transparent 2px 5px)"></i>${esc(sysName(s, lens))}</span>`).join('');
+    renderPanel();
+    const mOk = M && M.generated;
+    $('.an-titleblock').innerHTML = [
+      ['plate', 'the anatomy of the palace'],
+      ['lens', esc(L?.name || lens)],
+      ['drawn from', `SUBSTRATE — anatomy.json · as of ${esc(A.as_of || '—')}`],
+      ['measured', mOk ? `<span class="an-num">${esc(M.generated)} at ${esc(M.head)} · ${esc(M.entries)} entries</span>` : '<span class="an-hold">HOLD · not measured — run anatomy.mjs --write</span>'],
+      ['organs', `${organs.length} in ${systems.length} systems · ${edges.length} couplings`],
+      ['status', 'STUDY'],
+    ].map(([k, v]) => `<div><span class="an-eyebrow">${k}</span><b>${v}</b></div>`).join('');
+  }
+
+  function renderPanel() {
+    const panel = $('.an-panel');
+    if (!picked) {
+      const heavy = [...organs].sort((a, b) => b.w - a.w).slice(0, 3);
+      panel.innerHTML = `<div class="an-card"><div class="an-eyebrow">how to read the plate</div>
+        <p class="an-empty">Each shape is an organ: a part of the palace that does one job. Its size is how much the rest of the palace leans on it, measured, not chosen. Each line is a coupling: one organ feeding, calling or reading another. The four lenses are four shadows of the same body, and the organs keep their couplings as they move between them. Choose an organ to see it cast all four ways.</p>
+        <p class="an-empty">Heaviest now: ${heavy.map((o) => `<button type="button" class="an-go" data-id="${esc(o.id)}" style="font:inherit;background:none;border:0;padding:0;color:var(--ink);text-decoration:underline;cursor:pointer">${esc(name(o, lens))}</button>`).join(' · ')}</p></div>`;
+      return;
+    }
+    const o = byId.get(picked), s = sysById.get(o.system);
+    const out = edges.filter((e) => e.from === o.id), inn = edges.filter((e) => e.to === o.id);
+    const verb = (e) => e.lenses?.[lens] || e.does || '';
+    const li = (e, other) => `<li><button type="button" class="an-go" data-id="${esc(other.id)}">${esc(name(other, lens))}</button> — ${esc(verb(e))}</li>`;
+    panel.innerHTML = `<div class="an-card">
+      <div class="an-eyebrow">${esc(sysName(s, lens))} · home <code>${esc(o.home)}</code></div>
+      <h3>${esc(name(o, lens))}</h3>
+      <p class="an-does">${esc(o.does || '')}</p>
+      <div class="an-prism">${LENSES.map((l) => `<div class="${l.id === lens ? 'is-lens' : ''}"><span class="an-eyebrow">${esc(l.name || l.id)}</span><b>${esc(o.lenses?.[l.id]?.name || '—')}</b>${esc(o.lenses?.[l.id]?.line || '')}</div>`).join('')}</div>
+      <div class="an-row">
+        <div><div class="an-eyebrow">feeds · calls · reads</div><ul class="an-list">${out.map((e) => li(e, e.t)).join('') || '<li>—</li>'}</ul></div>
+        <div><div class="an-eyebrow">fed · called · read by</div><ul class="an-list">${inn.map((e) => li(e, e.s)).join('') || '<li>—</li>'}</ul></div>
+      </div>
+      <p class="an-empty" style="margin-top:10px">${o.m ? `Weight <span class="an-num">${o.m.weight}</span> = <span class="an-num">${o.m.inbound}</span> typed links into its ${o.m.members} pages + 2 × <span class="an-num">${o.m.use}</span> uses in ${M.use_window_days ?? '—'} days.` : '<span class="an-hold">HOLD · this organ has no measure yet.</span>'}
+      Its pages: ${(o.members || []).map(esc).join(' · ')}</p></div>`;
+  }
+
+  // ---- hands ----
+  const pick = (id) => { picked = picked === id ? null : id; highlight(); renderPanel(); };
+  nodeSel.on('click', (ev, o) => pick(o.id))
+    .on('keydown', (ev, o) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); pick(o.id); } })
+    .on('mouseenter', (ev, o) => { hovered = o.id; highlight(); })
+    .on('mouseleave', () => { hovered = null; highlight(); });
+  const setLens = (l) => { if (l === lens) return; lens = l; draw(); };
+  document.addEventListener('click', (ev) => {
+    const b = ev.target.closest('[data-lens]'); if (b) setLens(b.dataset.lens);
+    const g = ev.target.closest('.an-go'); if (g) { picked = g.dataset.id; highlight(); renderPanel(); }
+  });
+  document.addEventListener('keydown', (ev) => {
+    if (ev.target.closest('input, textarea')) return;
+    const i = Number(ev.key) - 1; if (LENSES[i]) setLens(LENSES[i].id);
+    if (ev.key === 'Escape') { picked = null; highlight(); renderPanel(); }
+  });
+  await document.fonts?.ready;
+  draw();
+})();
+</script>
+</body>
+</html>

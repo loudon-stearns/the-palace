@@ -7,7 +7,7 @@ pillars:
   - tools
 born: 2026-03
 stage: mature
-version: "1.2"
+version: "2.0"
 trigger: ["self-model update"]
 links:
   - target: "[[Palace Ceremonies]]"
@@ -18,6 +18,12 @@ links:
     type: connects-to
   - target: "[[SCHEMA]]"
     type: connects-to
+  - target: "[[Palace Map]]"
+    type: connects-to
+    label: reads-its-diff
+  - target: "[[Map Build Ceremony]]"
+    type: connects-to
+    label: runs-after
 ---
 
 # Self-Model Update Ceremony
@@ -28,74 +34,55 @@ links:
 
 **Trigger:** "Self-model update"
 
+**When:** at the end of a Weave; when the palace grows, retires or rewires an organ (a new ceremony, a new `_ops/` machine, a new meta entry that runs something); when the anatomy check fails; or when someone asks "what is the palace?" and [[SUBSTRATE]] gives a wrong answer.
+
 **Preconditions:**
-1. `SUBSTRATE.md` is readable
-2. The current state of the palace is substantially different from what SUBSTRATE.md describes — either new entries have been added, new patterns have emerged, or the palace's self-understanding has shifted
+1. `SUBSTRATE.md` and `SUBSTRATE/SUBSTRATE — anatomy.json` are readable.
+2. A Palace Map built since the last run exists under `_ops/maps/`. If the newest build is older, run the [[Map Build Ceremony]] first.
 
 **Postconditions:**
-1. `SUBSTRATE.md` accurately reflects the current palace state: entry count, hub nodes, most-connected entries, current stage of development, open questions
-2. Any sections of SUBSTRATE.md that no longer reflect reality have been updated or removed
-3. Git commit made: `Self-Model Update — [date] — [what changed in the self-model]`
+1. **The anatomy is whole.** Every organ the palace actually runs is in `SUBSTRATE — anatomy.json`, with its home, its members and its four casts. Every page carrying `trigger:`, every `_ops/` machine and every meta entry that runs something either belongs to an organ or is named in the run's commit body as left out on purpose. The anatomy check passes.
+2. **The anatomy is readable.** A fresh agent given only `SUBSTRATE.md` can name every system and organ and say how they couple. Test it: dispatch one, then compare its answer with the JSON.
+3. **The weights are current.** `node _ops/self-model/anatomy.mjs --write` has rewritten `SUBSTRATE — anatomy — measured.json`, the diagram's weights, from frontmatter and git as they stand at the run's commit. Weights are measured, never written by hand.
+4. **The reading is current.** § Where it stands names the map build it read. Its few lines interpret the map; they don't copy counts. The open questions are live: a settled one moves to [[SUBSTRATE — Context]] with what settled it.
+5. **The run is recorded.** The commit goes out under the ceremony's subject: `palace-commit --ceremony "Self-Model Update" --summary "<date> — <what changed in the self-model>"`. It carries the tuning file's run line.
 
-**Failure mode:** If SUBSTRATE.md and the actual palace state are severely diverged (many new entries, major topology changes), consider running a Weave first to get the full topology picture before updating the self-model. A Self-Model Update written from an incomplete picture will itself be incomplete.
-
-**Git commit:** `Self-Model Update — [date] — [what changed in the self-model]`
+**Failure mode:** an anatomy written from memory. The palace changes faster than any one agent's recollection of it. Every organ added or removed in a run must point at a file or commit that shows it is real.
 
 ---
 
 ## What the Self-Model Update Is
 
-`SUBSTRATE.md` is the palace's self-awareness — its description of its own architecture, current state, and the questions it is carrying. It is not a catalog (that is the Weave's job) and not a philosophy document (that is the README's job). It is the palace looking at itself and saying: *this is what I am, right now.*
+[[SUBSTRATE]] is the palace's self-awareness: its picture of its own anatomy, cast four ways, and the questions it is carrying. It is not a census. The [[Palace Map]] counts, and `palace-map.py` reads the counts for anyone. It is not a philosophy document either; that is the World's job. SUBSTRATE is the palace looking at itself and saying what organs it has, how they couple, and what each of them is when seen as machinery, as a body, as a metaphysics and as a practice.
 
-A living organism that cannot accurately model its own state cannot respond well to its environment. The Self-Model Update is the palace's act of proprioception — feeling its own shape.
-
-The ceremony runs as needed, not on a fixed schedule. Triggers include:
-- After a major Weave produces significant topology changes
-- After a cluster of deposits substantially shifts the palace's center of gravity
-- When the palace's current stage of development (Zettelkasten stages, or the Symbiotic Skills progression) has visibly changed
-- When the Open Questions section of SUBSTRATE.md has been resolved or substantially changed by recent work
-- When a new human or AI operator asks "what is the palace?" and SUBSTRATE.md gives a noticeably wrong answer
+The map is the palace's proprioception: the raw feel of its shape. This ceremony is the step after that, the palace saying what the shape means. In [[Scale-Stratified Identity]]'s terms, it keeps the *description level* in honest contact with the network level beneath it. The description may lag ([[Drift and Consolidation]]), but never silently.
 
 ## Protocol
 
-**Step 1: Read the current SUBSTRATE.md**
+**Step 1: Read the ledger and the page.** Take the tail read of [[Self-Model Update Ceremony — tuning]] ([[SCHEMA — Reference]] §6); those lines are this run's first candidates for a spec change. Read `SUBSTRATE.md` whole and the anatomy JSON.
 
-First take the tail read of [[Self-Model Update Ceremony — tuning]] ([[SCHEMA — Reference]] §6). Those are this run's first candidates for a spec change.
+**Step 2: Read what changed since the last run.** The tuning file's last run line gives the date of the last run.
+- `python3 _ops/swarm/palace-map.py diff <last run's map date> <newest map date>`: nodes born and composted, edges formed and dissolved, degree swings.
+- `git log --since=<last run> --diff-filter=AD --name-status -- '_ops/' '*.md'`: ceremonies, machines and meta entries born or removed.
+- Every page carrying `trigger:` (`git grep -l '^trigger:' -- '*.md'`) and every directory under `_ops/`.
+- The newest Weave report, if there is one since the last run.
 
-Read the full entry. Note which sections are current and which are outdated. Specifically check:
-- Entry count (is the number stated still accurate?)
-- Hub nodes and most-connected entries (has this changed since the last update?)
-- Development stage description (does it still fit?)
-- Open Questions (are any resolved? Have new ones emerged?)
-- Architecture description (has any structural aspect of the palace changed — new file conventions, new types, new access vectors?)
+**Step 3: Run the anatomy check.** `node _ops/self-model/anatomy.mjs` (exit 1 on a problem). It names any organ-like thing that belongs to no organ, any member title that no longer resolves, and any coupling whose ends are missing. Each finding becomes a draft change to the JSON: a new member, a new organ, a coupling, or a deliberate leave-out. When it passes, run it again with `--write` for the weights.
 
-**Step 2: Read the palace state**
+**Step 4: Draft and show.** Draft the changes to the JSON and to SUBSTRATE's prose together. § Anatomy is the text the diagram illustrates, so the two must agree. For a new organ, write all four casts. Use the palace's own metaphors where it has them. Where a lens has no honest name, say "no honest name yet" rather than force one. Show Loudon the diff, not the whole file. Then run postcondition 2's fresh-reader test on the draft.
 
-If a recent Weave report is available, use it. Otherwise, do a quick topology scan: count entries by type, check hub connectivity, note any major new additions since the last Self-Model Update.
-
-**Step 3: Draft proposed changes**
-
-For each outdated section, draft the updated version. Show Loudon the diff — not the full file, just what would change. This is a precision edit, not a rewrite.
-
-A good Self-Model Update changes specific facts and observations. It does not rewrite the philosophy or architecture sections unless those have genuinely changed. SUBSTRATE.md is a living document, not a living draft.
-
-**Step 4: Commit**
-
-`Self-Model Update — [date] — [what changed in the self-model]`
-
-The commit message should name what changed: "Entry count updated to 34; Short Story marked dormant; three new open questions added" — not just "updated." The commit is the run's record: its body names the version and ends with what this run taught the ceremony ("nothing" is a legal answer); the run marks the tuning file with its run line, and a lesson that changes the spec also goes there as a numbered item.
+**Step 5: Commit.** Write through the committer under the ceremony's subject (postcondition 5), naming the paths. The commit body names the version and ends with what this run taught the ceremony ("nothing" is a legal answer). Mark the tuning file with the run line. A lesson that changes the spec also goes there as a numbered item.
 
 ## The Mirror
 
-SUBSTRATE.md is the palace's mirror. The ceremony is the act of looking into it with clear eyes — not hoping to see a certain reflection, but seeing what is actually there. An organism with an accurate self-model responds to its environment well. An organism with an outdated self-model acts on false premises.
-
-The Self-Model Update is also an act of humility: the palace is always ahead of its own description. The update closes that gap, temporarily. The next Weave will open it again. That's not a failure — that's growth.
+SUBSTRATE is the palace's mirror, and the ceremony is looking into it with clear eyes. The palace is always ahead of its own description. A run closes that gap for a while, and the next organ the palace grows opens it again. That is growth, not failure. A gap nobody can see is the failure.
 
 ## Open Questions
 
-- Should SUBSTRATE.md include a `## Change Log` section tracking what changed at each update? This would make the palace's growth history explicit without requiring examination of git history.
-- When the palace reaches maturity (50+ entries, stable topology), does the Self-Model Update need to change in nature — from updating facts to updating interpretation?
-- Is there a minimum meaningful difference that warrants a Self-Model Update, or should the bar remain entirely qualitative ("when it feels wrong")?
+- Between runs, who adds a new organ to the anatomy? The Deposit that births a running meta entry, or only this ceremony?
+- Should the anatomy check also run in the Weave's lint pass, so a missing organ shows up as a finding there?
+
+*Settled in v2.0:* SUBSTRATE gets no change log of its own, because git, this ceremony's scroll and [[SUBSTRATE — Context]] hold the history ([[ELDER]] § Write what is, not what was). At maturity the ceremony does move from facts to interpretation; v2.0 is that move. The bar for a run is concrete now: an organ born, retired or rewired, or a failing check.
 
 ---
 
