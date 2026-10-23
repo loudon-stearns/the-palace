@@ -43,7 +43,7 @@ links:
 **Postconditions:**
 1. **The anatomy is whole.** Every organ the palace actually runs is in `SUBSTRATE — anatomy.json`, with its home, its members and its four casts. Every page carrying `trigger:`, every `_ops/` machine and every meta entry that runs something either belongs to an organ or is named in the run's commit body as left out on purpose. The anatomy check passes.
 2. **The anatomy is readable.** A fresh agent given only `SUBSTRATE.md` can name every system and organ and say how they couple. Test it: dispatch one, then compare its answer with the JSON.
-3. **The weights are current.** The diagram's weights have been recomputed from the newest map.
+3. **The weights are current.** `node _ops/self-model/anatomy.mjs --write` has rewritten `SUBSTRATE — anatomy — measured.json`, the diagram's weights, from frontmatter and git as they stand at the run's commit. Weights are measured, never written by hand.
 4. **The reading is current.** § Where it stands names the map build it read. Its few lines interpret the map; they don't copy counts. The open questions are live: a settled one moves to [[SUBSTRATE — Context]] with what settled it.
 5. **The run is recorded.** The commit goes out under the ceremony's subject: `palace-commit --ceremony "Self-Model Update" --summary "<date> — <what changed in the self-model>"`. It carries the tuning file's run line.
 
@@ -67,7 +67,7 @@ The map is the palace's proprioception: the raw feel of its shape. This ceremony
 - Every page carrying `trigger:` (`git grep -l '^trigger:' -- '*.md'`) and every directory under `_ops/`.
 - The newest Weave report, if there is one since the last run.
 
-**Step 3: Run the anatomy check.** It names any organ-like thing that belongs to no organ, any member title that no longer resolves, and any coupling whose ends are missing. Each finding becomes a draft change to the JSON: a new member, a new organ, a coupling, or a deliberate leave-out.
+**Step 3: Run the anatomy check.** `node _ops/self-model/anatomy.mjs` (exit 1 on a problem). It names any organ-like thing that belongs to no organ, any member title that no longer resolves, and any coupling whose ends are missing. Each finding becomes a draft change to the JSON: a new member, a new organ, a coupling, or a deliberate leave-out. When it passes, run it again with `--write` for the weights.
 
 **Step 4: Draft and show.** Draft the changes to the JSON and to SUBSTRATE's prose together. § Anatomy is the text the diagram illustrates, so the two must agree. For a new organ, write all four casts. Use the palace's own metaphors where it has them. Where a lens has no honest name, say "no honest name yet" rather than force one. Show Loudon the diff, not the whole file. Then run postcondition 2's fresh-reader test on the draft.
 
