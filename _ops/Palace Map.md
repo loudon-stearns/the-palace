@@ -10,7 +10,7 @@ stage: growing
 energy: very high
 beauty: 8
 confidence: working
-forward_vector: "I want to become the standard spatial context loaded into every enchanted agent at spawn — the topological skeleton that lets any worker know where it stands in the organism before it reads a single entry body."
+forward_vector: "I want every agent to wake knowing its ring — where it stands, who sits beside it, what waits two hops out — and one keeper to hold me whole: seeing the shapes no script would think to look for, counting only by script, and citing every edge as a triple checked against the build it read. I want to become how the palace finds what it has not yet linked."
 links:
   - target: "[[Swarm Weave]]"
     type: deepens
@@ -49,6 +49,27 @@ links:
   - target: "[[SCHEMA]]"
     type: connects-to
     label: language-and-authorization
+  - target: "[[Skills Are Enchantable Pages]]"
+    type: connects-to
+    label: the-page-is-the-organ
+  - target: "[[Agent Toolbox]]"
+    type: connects-to
+    label: the-keepers-hands
+  - target: "[[Substrate Skill]]"
+    type: connects-to
+    label: haiku-for-known-shape-only
+  - target: "[[Concierge]]"
+    type: connects-to
+    label: reads-the-ring
+  - target: "[[Gemma 4 — Local Coordination Guide]]"
+    type: connects-to
+    label: the-index-is-the-cure
+  - target: "[[The Palace Speaks]]"
+    type: connects-to
+    label: the-map-addressed
+  - target: "[[Palace as Context Injection System]]"
+    type: connects-to
+    label: the-map-loaded
 ---
 
 # Palace Map
@@ -70,7 +91,7 @@ Striatum   connects-to   Hilaritas Generator
 Striatum   connects-to   Kuramoto Coupling
 ```
 
-Three tokens per edge. At roughly 40–50 characters per line, a 200-node palace with an average of 4 typed links each produces ~800 edges — approximately 35–45KB of raw text. Well within a context window. A 500-node palace remains under 80KB. The map is cheap.
+Three tokens per edge, about fifty characters a line. The build of 2026-10-23 holds 324 pages and 2,933 edges: 144 KB as an edge list, about 38K tokens; the JSON, with its fields for every node, is 607 KB, about 160K. Cheap to keep, too big to be born with. So agents meet it as a ring (§ What an Agent Does With It), and only a keeper holds it whole (§ Seeing and Counting).
 
 A compact adjacency list format reduces the token count further:
 
@@ -97,13 +118,33 @@ The choice between formats is not about token economy alone. It is about which r
 
 ## What an Agent Does With It
 
-**Self-location.** The agent can answer *how central am I?* — degree, betweenness, cluster membership — without reading a single file. It knows whether it is a hub or a leaf.
+The door is `_ops/swarm/palace-map.py`. It reads the newest build and names it on every answer: `near` gives the ring around an entry, `path` the shortest route between two, `hubs` the busiest pages, `quiet` the well-linked but little visited, `ghosts` the pages the palace reaches for, `diff` what changed between two builds. It never opens an entry body. The [[Concierge]] reads the ring before it searches.
+
+**Self-location.** The agent can answer *how central am I?* — degree, neighbours, recent use — from one call, without opening an entry. It knows whether it is a hub or a leaf.
 
 **Path planning without traversal.** Instead of hopping file by file to find a connection, the agent inspects the graph and identifies that a 2-hop path exists between itself and a candidate neighbor. It can decide whether the traversal is worth the cost before paying it.
 
 **Serendipity detection.** The agent can notice that it shares a link type with a distant node it wouldn't naturally reach. A `[[Striatum]] --connects-to--> [[Hilaritas Generator]]` edge visible in the map tells the Striatum agent that Hilaritas Generator is a relevant neighbor even if it's not in the immediate neighborhood.
 
 **Avoiding redundant work in a swarm.** If multiple agents are running in parallel, each one can see which nodes are topologically close to others' home entries and self-organize to avoid overlap — without a coordinator. The map makes distributed coordination possible.
+
+## Seeing and Counting
+
+On 2026-10-23 the map was put to agents directly: ten questions of fact, then five of invention, across Haiku, Sonnet and the [[Concierge]]. Some held the whole edge list; some reached it only through the script ([[Palace Map — proof — map-agent-test]]). Every agent had to cite each edge it used as a triple, spelled as the map spells it, and a script checked every one.
+
+Three things held.
+
+**No one invented an edge.** Eight runs, 325 cited edges, none made up; one was written backwards and corrected in the same line. Small models invent pages when they have no index ([[Gemma 4 — Local Coordination Guide]]). Given the map and the duty to cite, they didn't. The citation rule is cheap, and it is the guard.
+
+**An LLM reads the graph; it does not count it.** Both agents holding the whole map got the arithmetic wrong — hubs out of order, relation counts off. Every agent using the script got it exact. Counts, degrees and shortest routes come from the script, never from a read.
+
+**Seeing it whole is what makes finds.** Asked for a constellation, the agent holding all 2,933 edges drew the most tightly bound one; an agent that saw only rings drew one that fell into two pieces, and claimed a hub joined them. The script-only Sonnet had rebuilt the map by hand, calling `near` on every page. An agent that wants to see the whole will find a way to.
+
+So a keeper of the map has two hands. It holds the whole edge list to see with — rhymes, routes, tensions, shapes — and checks each intuition with the script before it speaks. The Sonnet that worked this way kept a log of what it first believed and what the script said. Songlines and the [[Walk Ceremony]] felt like they belonged together; they share no neighbours. Its first mirror route was five hops; the true one is four. One of its best rhymes came from the script, not the eye. A guess shown with its test is a find; shown without it, it looks the same as a miss.
+
+Size sets the model. Haiku holding the map sits at 179K tokens, full before the conversation starts; it can take a one-verb question through the script and no more, which is what [[Substrate Skill]] already says of it. Sonnet holds the map and has room to think.
+
+The keeper is not built yet; the scroll's Plan builds it. Until it grows a charter of its own, it is this page woken with a job ([[Skills Are Enchantable Pages]]). It sits inside a tension the palace already holds — [[The Palace Speaks]] against [[Palace as Context Injection System]], mediation against directness. The ring is the map loaded; the keeper is the map addressed. Both stay.
 
 ## Bounded Survey: Neighborhood Maps (grown toward)
 
@@ -169,9 +210,9 @@ Only forward ghosts carry that desire. A link to a file that exists but is not a
 
 ## The Map as Tier 1 Context
 
-The [[JEWEL]] is Tier 0 — orientation, always present, ~200 tokens. The structural skeleton (CLAUDE.md + SCHEMA.md) is Tier 1 — the operating manual. The Palace Map belongs alongside the structural skeleton as Tier 1 context for any agent doing swarm work.
+The [[JEWEL]] is Tier 0 — orientation, always present, ~200 tokens. The structural skeleton (CLAUDE.md + SCHEMA.md) is Tier 1 — the operating manual. The map's ring belongs beside it, for any agent doing swarm work.
 
-Cost: ~3,000–6,000 tokens for a 100-node palace. Benefit: every worker in the swarm wakes with spatial awareness — it knows where it is before reading a word of its home entry. It can plan, self-locate, and avoid redundant work from the first moment of its invocation.
+What goes in at Tier 1 is the ring, not the map. The whole edge list was about 38K tokens at 324 pages in October 2026, and grows with every deposit; the ring around one entry is a few kilobytes. Every worker wakes knowing where it stands — its centrality, its neighbours, what sits two hops out — and asks the keeper, or the script, for the rest.
 
 The map does not replace deep reading. It makes deep reading strategic.
 
@@ -243,12 +284,13 @@ The graph also has an undated view: [[STIGMERGY]]'s TOPOLOGY lens draws the same
 
 ## Forward Vectors
 
-- Should the palace map be auto-generated at the close of every [[Harvest Ceremony]], ensuring it is never more than one harvest cycle stale? What is the ceremony hook?
 - Ghost node tracking across map generations: a ghost node that persists across three map cycles is a deposit candidate of high priority. Can this be surfaced automatically?
 - How do we calculate neighborhoods? Not as one partition: a page can live in many, and each way of drawing them — a frontmatter field, a hub's radius, a pillar, a graph community, the Weave's lenses — is a lens of its own. Which lenses earn a bounded map, and should each node carry its neighborhoods as a list rather than a single value?
 - Every node now carries `use` — how its entry is being used, from git ([[Map Build Ceremony]] Step 5, Format). Edges could be weighted from it, so high-traffic links appear stronger. Would this add value to swarm dispatch, or introduce noise?
-- At what node count does the full palace map become too expensive for Tier 1 context? What is the threshold where a summary or filtered version becomes necessary?
 - The map's git history is a temporal record of the palace's self-model. Can a ceremony be designed to compare map generations — tracking which ghost nodes persisted, which edges dissolved, which neighborhoods grew? This would make the palace's conceptual evolution legible across time.
+- Which creative moves earn a verb of their own in the script? The test asked first for three: a path that keeps to one relation type, rhymes with the hubs set aside, and a check that a constellation holds together.
+- When does the keeper stop being this page woken and mint as an organ of its own, the way the [[Concierge]] did? The test is whether it grows a charter, postures and a ledger about how it serves rather than what the map is.
+- Should the citation rule — every edge claimed from the map quoted as a triple and checked against the named build — reach past this page, to the readers that cite map edges: the Concierge's postures, the Deposit's elder consult, the Weave's link proposals?
 
 ---
 
@@ -257,3 +299,7 @@ The graph also has an undated view: [[STIGMERGY]]'s TOPOLOGY lens draws the same
 *"Topology is the geometry of connection, not measurement. It does not say how far; it says what reaches what."* — after Henri Poincaré
 
 *"The spider knows the web not by surveying it from above, but by feeling the tensions at the threads it touches."* — Jakob von Uexküll, loosely
+
+## Active Baton
+
+[[Palace Map — baton]] — drafted 2026-10-23

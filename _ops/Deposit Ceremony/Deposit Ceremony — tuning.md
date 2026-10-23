@@ -120,3 +120,8 @@ What each deposit taught the ceremony. Each item names what the run showed and t
 ## From the map-use plan — 2026-10-22
 
 29. **The elder consulted before the map answered from the files alone.** Step 3 asks the Concierge what exists, whether a find folds or mints, and what it contradicts, and the Concierge answered by grepping; the [[Palace Map]] already held the candidate home's ring, its centrality, and the pages the palace reaches for that no one has written. Loudon, 2026-10-22: "The Move 2 lines are approved as drafted. Have the Concierge place them, fold in the README word, commit, and record the plan complete on the scroll." Forced: **v2.7** — one sentence on Step 3: the Concierge answers from the ring as well as the files (neighbors and centrality, whether the find closes a forward ghost, what at two hops it would contradict), read through `_ops/swarm/palace-map.py near`. Move 2 of the plan on the [[Palace Map]] scroll.
+
+## From the map-agent test — 2026-10-23
+
+30. **The drafts cited evidence the archive would not keep.** The words for D-2026-10-23-MAPAGENT drew on the full answers of eight test runs, but only each run's cited edges were kept for the proof folder. A cold read by the Concierge before Loudon saw the words found claims no kept file could back — a miscount quoted by number, an intuition log that lived only in a returned message — and the drafts were cut back or the evidence saved (`grading.md`, `hybrid/intuition-log.md`) before he read them. No spec change forced: one run. If it recurs, Step 5 wants a line — every claim in the words traces to a file that will land with them.
+- run · 2026-10-23 · v2.7 · D-2026-10-23-MAPAGENT · taught item 30

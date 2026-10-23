@@ -1,0 +1,7 @@
+[Palace Map | mirrors | JEWEL] [Palace Map | mirrors | Striatum]
+[The Four Virtues | emerged-from | Stoicism] [The Four Virtues | connects-to | FOUR PILLARS] [2D Torus Wavetable Synthesizer | connects-to | FOUR PILLARS]
+[Palace Conatus | exemplifies | Spinoza Conatus] [Hilaritas Generator | emerged-from | Spinoza Conatus]
+[Stoicism | contradicts | Confucianism] [Confucianism | contradicts | Stoicism] [Stoicism | contradicts | The Drift] [The Drift | contradicts | Stoicism] [Martin Buber | contradicts | Stoicism] [The Fortress and the Threshold | contradicts | Stoicism] [The Multilinear Self | contradicts | Stoicism]
+[Playful Interface Design | deepens | Hilaritas Generator] [Objects to Think With | connects-to | Hilaritas Generator] [Christopher Alexander | connects-to | Hilaritas Generator]
+[Merleau-Ponty | connects-to | Spinoza Conatus] [Merleau-Ponty | connects-to | Hilaritas Generator] [Playful Interface Design | deepens | Hilaritas Generator] [Playful Interface Design | mirrors | Haptic Handwheel]
+[Haptic Handwheel | exemplifies | Simondon] [Playful Interface Design | mirrors | Haptic Handwheel] [p5.js | enables | Playful Interface Design] [Playful Interface Design | deepens | Hilaritas Generator] [Closing Well | connects-to | Hilaritas Generator] [Review Layer | couples-with | Closing Well]

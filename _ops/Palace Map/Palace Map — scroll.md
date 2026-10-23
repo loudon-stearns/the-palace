@@ -40,63 +40,50 @@ _Nothing decided on the board yet._
 ## Plan
 
 <!-- scroll:plan:start -->
-**Agreed with Loudon on 2026-10-22**, in his words: "The plan is approved as written. Have the Concierge place it as the Palace Map scroll's plan, then start Move 1, the query tool." Move 1 is being built in the same session, the day the plan was placed.
+**Agreed with Loudon on 2026-10-23**, in his words: "The words are approved as drafted, and the Plan is agreed as written. Have the Concierge place them, the proof files first, run the checks, and commit the deposit."
 
 ## Why
 
-The map is rebuilt and then not read. Last build 2026-09-26 (316 nodes, 2772 edges); since then ~800 markdown commits and 19 new canon entries. Only the Weave loads it. No birth site, no Concierge posture, no other ceremony does. The whole map is ~35k tokens as triples, too large to be born with and wrong by lunch. The form that fits an agent is the **ego-net**: the ring around the entry it stands in, with degree, stage, use and ghosts. That is what [[Palace Map]] § What an Agent Does With It promised as self-location; it was never given a door.
+The map has a door now — `palace-map.py` and the ring the Concierge reads — but no keeper. On 2026-10-23 eight test runs showed what one needs ([[Palace Map — proof — map-agent-test]]): an LLM holding the whole edge list sees rhymes, routes and shapes that ring-by-ring reading misses, and gets the counts wrong; the script counts exactly and sees nothing it isn't asked. No run invented an edge when made to cite triples. The keeper is Sonnet with both hands: the whole map in context, the scripts to check, and nothing leaving unverified. Haiku cannot hold the map and still talk.
 
 Three moves, in the order each one needs the last.
 
-## Move 1 — One query tool: `_ops/swarm/palace-map.py`
+## Move 1 — The keeper's tools
 
-Grow `_ops/swarm/extract-neighborhood.py` (145 lines, one hop, no caller) into one tool every other move calls. Reads the newest `_ops/maps/palace-map-full-*.json`; prints the date of the map it read on every answer, so a stale read is never silent.
-
-Verbs:
+The checker moves out of the test and into the house: `_ops/swarm/verify-triples.py` (grown from the proof's `verify.py`) takes any text, finds every `[Source | relation | Target]`, and reports which are real against the named build. `palace-map.py` gains three verbs the test asked for:
 
 | verb | returns |
 |---|---|
-| `near "<Entry>" [--hops 2]` | the ring: each neighbor with relation, direction, type, stage, degree in/out, recent use; forward ghosts the entry points at |
-| `path "<A>" "<B>"` | the shortest typed path, with the relations on each hop |
-| `hubs [--n 20]` | highest inbound degree, with stage |
-| `quiet [--n 20]` | high degree, low recent use: the pages likely holding unwalked connections |
-| `ghosts [--persistent]` | forward ghosts, and those present in the last three maps |
-| `diff <date> <date>` | nodes born and composted, edges formed and dissolved, degree changes over a threshold |
-| `--json` | the same, for scripts |
+| `path "<A>" "<B>" --only <relation>[,<relation>]` | the shortest route that keeps to those relation types, or says none exists |
+| `rhymes "<Entry>" [--n 10] [--hub-cutoff 40]` | unlinked pages sharing the most neighbours, hubs set aside |
+| `connected "<A>" "<B>" …` | whether a set of pages holds together through edges inside it, and the relation types it crosses |
 
-Rules: no entry bodies are read; output of `near` fits in one turn (hard cap, say 60 lines, then "and N more"); the edge-list reading of the graph is kept, no node printed as the parent of another ([[Palace Map]] § Format and the Reading Agent). Python, like the builder, with `yaml` the only dependency.
+And `--json` works after the verb as well as before it.
 
-Done when: each verb runs against the 09-26 map and a fresh one; `extract-neighborhood.py` is removed or made a one-line shim; a test holds `near` to the builder's node and edge rules the way `topology-parity.test.js` holds the TOPOLOGY lens.
+Done when: each new verb answers the test's ground truth (the mirror route of four hops to Haptic Handwheel and none to Stoicism; the hybrid's rhymes; the test's constellations); `verify-triples.py` gives the proof's counts on every run file; `test-palace-map.py` holds all three.
 
-## Move 2 — The Concierge is born with its ring, and answers from it
+## Move 2 — The keeper
 
-Charter, `_ops/concierge/prompts/companion.md` § How you work, one new line after the boot list: *the map is your sense of where things stand; before you answer where a thing lives or what sits beside it, run `near` on its home entry and cite the ring.*
+A new [[Agent Toolbox]] profile with Read and Bash and nothing else. That is not read-only — a shell can write anything — so the keeper's charter, not its tool list, holds that it writes nothing. The profile is generated with `node _ops/agent-toolbox/generate.mjs`. A charter in `_ops/palace-map-keeper/charter.md`: Sonnet, spawned once and re-addressed; reads the newest edge list whole at boot; forms an intuition, then tests it with the scripts; answers with every edge as a triple, every count from a script, and a log of what it believed and what the test said; runs `verify-triples.py` on its own answer before handing it back. The page's declared job goes on [[Palace Map]] — what to ask it, what comes back — so the page is the organ and the charter is its shim ([[Skills Are Enchantable Pages]]).
 
-Posture prompts: `gatherer.md` and `oracle-qa.md` § Method, step 1 gains: find the home entry, then `near` it two hops, and read the ring before grepping; `scout.md` adds `quiet` and `ghosts --persistent` to its evidence block beside `return-map.mjs`, so "what should I work on" can name a hub nobody has touched.
+Done when: the keeper, spawned fresh, answers the proof's two question sets with the facts exact and every cited edge real, and its invention answers carry the log.
 
-Deposit Ceremony step 3 ("consult the elder, before the map") is where this pays: the Concierge's answer about fold-or-mint now carries the ring and whether the find closes a ghost. That is a one-sentence addition to the card, offered with this plan, taken or left.
+## Move 3 — First runs
 
-Done when: the charter and three postures carry the lines; one gatherer address and one oracle address in a fresh session cite a `near` output in their answer.
+Four uses, each a real run, not a demo: a constellation for a Daily Page sit; a route for a Walk (the Walk's door, deferred by the plan of 2026-10-22); a dialectic cast for a Dialectic, drawn from the `contradicts` edges; rhymes for a Weave, posted as unjudged candidate flags only on Loudon's yes.
 
-## Move 3 — The map is never older than the last weave or the morning
-
-The Weave already rebuilds at Step 6.5, after writes (`_ops/Weave Ceremony.md:292`). Keep that; add that the rebuild's `diff` against the prior map is printed into the Weave report (§ Topology Report Format), so the weave reads what changed since the last one before it orders its flags.
-
-The morning is the new cadence. [[The Daily Page]] step 1 runs `deal.py`; before it, the scheduled task runs the newest builder (`python3 "$(ls -1 _ops/swarm/build-map-*.py | sort | tail -1)"`) and appends the run line to the Map Build tuning ledger as the ceremony requires. The builder takes a few seconds. The dealt page's siblings can then come from `near` rather than from its own frontmatter, which also shows who points *at* it.
-
-Housekeeping the cadence makes possible: twelve dated map generations sit in `_ops/maps/` (885 KB for the latest three files). Keep the last three builds in full and the JSON only of older ones, or move older ones to an Archive folder; the ghost-persistence read only needs three.
-
-Done when: two mornings in a row leave a dated map and a tuning line; the Weave's next report carries a diff section.
+Done when: a Weave takes up a flag the keeper raised, and the map's tuning ledger opens with the runs' lines.
 
 ## Order and cost
 
-Move 1 first, a workshop build, no house change. Move 3 next, because it is a script call added to a scheduled task and one line on two cards, and it makes Move 2 worth doing. Move 2 last, because its value depends on a map that is fresh.
+Move 1 first: workshop code with tests, no house change. Move 2 needs its tools and changes [[Agent Toolbox]] and [[Palace Map]], so it comes to Loudon as words to read. Move 3 is the keeper at work; the test's Sonnet runs took 90–180K tokens each.
 
-Not in this plan, by Loudon's word: the Walk's door, the Deposit map's topology row beyond the one sentence above, the wake test, and a diff ceremony of its own. They wait on this plan's results.
+Not in this plan: minting the keeper as an organ of its own; a Haiku front door; carrying the citation rule past this page. Each waits on the first runs.
 
 ## Open
 
-- Does `quiet` want a pillar filter, so a walk can ask for a quiet page in Practice?
+- Should the keeper load the JSON's fields per node (type, stage, use) beside the edge list, at about four times the size, or only the edge list?
+- The builder maps a workshop draft as a phantom page. Skip files under `proofs/`, or files whose title already belongs to another page?
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -108,6 +95,12 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-2026-10-23" -->
+### 2026-10-23 — Plan agreed: build the map's keeper — its tools, the keeper, its first runs
+Loudon, 2026-10-23: "The words are approved as drafted, and the Plan is agreed as written. Have the Concierge place them, the proof files first, run the checks, and commit the deposit." Replaces the plan of 2026-10-22, recorded complete on this trail. Why it changed: the map-agent test ([[Palace Map — proof — map-agent-test]]) showed the map has a door but no keeper, and what a keeper needs. Placed by the Concierge with deposit D-2026-10-23-MAPAGENT.
+<sub>`plan-2026-10-23` · plan agreed · Loudon, placed by the Concierge</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="palace-map-ring-check-done-2026-10-22" -->
 ### 2026-10-22 — The open check is done: a fresh Concierge answered from the ring unprompted — the plan of 2026-10-22 is complete, nothing owed
 > checked · Move 2's done-when met · plan complete

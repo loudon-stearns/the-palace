@@ -1,0 +1,7 @@
+[Palace Map | mirrors | JEWEL] [Palace Map | mirrors | Striatum]
+[The Four Virtues | emerged-from | Stoicism] [The Four Virtues | connects-to | FOUR PILLARS] [2D Torus Wavetable Synthesizer | connects-to | FOUR PILLARS]
+[Spinoza Conatus | spawned | Threshold Conatus] [Threshold Conatus | deepens | Spinoza Conatus] [Palace Conatus | exemplifies | Spinoza Conatus] [Floquet Theory | connects-to | Entry Conatus] [The Drift | connects-to | Entry Conatus]
+[Confucianism | contradicts | Stoicism] [Stoicism | contradicts | Confucianism] [The Drift | contradicts | Stoicism] [Stoicism | contradicts | The Drift] [The Fortress and the Threshold | contradicts | Stoicism] [The Multilinear Self | contradicts | Stoicism] [Martin Buber | contradicts | Stoicism]
+[Objects to Think With | connects-to | Hilaritas Generator] [Playful Interface Design | deepens | Hilaritas Generator] [Reflective Practice | deepens | Hilaritas Generator]
+[Spinoza Conatus | contradicts | Merleau-Ponty] [Merleau-Ponty | deepens | Boundary-Crossing Instruments] [Simondon | deepens | Boundary-Crossing Instruments] [Haptic Handwheel | exemplifies | Simondon]
+[Dub Lineage | enables | Retrospective Delay] [Retrospective Delay | connects-to | Kuramoto Coupling] [Haptic Handwheel | connects-to | Kuramoto Coupling] [Haptic Handwheel | connects-to | The Dichotomy of Control] [The Dichotomy of Control | connects-to | Closing Well] [Closing Well | connects-to | Kuramoto Coupling] [Closing Well | exemplifies | Reflective Practice]

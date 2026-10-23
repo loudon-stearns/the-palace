@@ -1,0 +1,8 @@
+2. [Stoicism | emerged-from | The Four Virtues] is printed as [The Four Virtues | emerged-from | Stoicism]
+[The Four Virtues | connects-to | FOUR PILLARS] [2D Torus Wavetable Synthesizer | connects-to | FOUR PILLARS]
+1. [Palace Map | mirrors | JEWEL] [Palace Map | mirrors | Striatum] [Palace Map | deepens | Swarm Weave], [Palace Map | enables | Enchanted Worker], [Map Build Ceremony | spawned | Palace Map]
+4. [Spinoza | spawned | Spinoza Conatus] [Palace Philosophies | spawned | Spinoza Conatus] [Palace Conatus | exemplifies | Spinoza Conatus] [Entry Conatus | deepens | Spinoza Conatus] [Threshold Conatus | deepens | Spinoza Conatus]
+6. [Stoicism | contradicts | Confucianism] [Confucianism | contradicts | Stoicism] [Stoicism | contradicts | The Drift] [The Drift | contradicts | Stoicism] [Martin Buber | contradicts | Stoicism] [The Fortress and the Threshold | contradicts | Stoicism] [The Multilinear Self | contradicts | Stoicism]
+8. [Objects to Think With | connects-to | Hilaritas Generator] [Playful Interface Design | deepens | Hilaritas Generator]
+9. [Spinoza Conatus | spawned | Hilaritas Generator] [Playful Interface Design | deepens | Hilaritas Generator] [Playful Interface Design | mirrors | Haptic Handwheel]
+10. [Haptic Handwheel | exemplifies | Simondon] [Haptic Handwheel | connects-to | Quadratic Interpolation in DSP] [Quadratic Interpolation in DSP | mirrors | Reflective Practice] [Donella Meadows | connects-to | Sidechain ↔ Conversation] [Donella Meadows | deepens | FOUR PILLARS] [Sidechain ↔ Conversation | exemplifies | FOUR PILLARS]
