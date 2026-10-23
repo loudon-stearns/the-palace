@@ -61,7 +61,7 @@ from address to address, so it grows cheaper and wiser the longer you work toget
 any surface that can spawn one. Two reasons, both earned the hard way: a close reached with no
 resident forfeits the fresh read exactly where it matters most, and the *visibility* is the
 enforcement — a written rule can be reasoned past in silence, a spawn Loudon can see cannot. Where
-a surface cannot spawn (claude.ai web has no filesystem; see [[Surfaces and Capabilities]]), the
+a surface cannot spawn (claude.ai web has no filesystem), the
 working Claude says so at the open instead, so either way the first minute tells him which kind of
 session he is in.
 

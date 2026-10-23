@@ -5,7 +5,7 @@ pillars:
   - tools
   - practice
 born: 2026-05-26
-stage: sprout
+stage: composting
 confidence: demonstrated
 energy: medium
 links:
@@ -38,6 +38,8 @@ forward_vector: "I want to become the stable home for the surface deltas that ha
 # Surfaces and Capabilities
 
 ![[Surfaces and Capabilities — hero.png]]
+
+*Composting since 2026-10-22, on Loudon's word. No baton was using it as a lookup, and its rows had gone stale. What was still true now lives where a reader looks: claude.ai web having no filesystem in [[ELDER]] § Addressing the Palace, Loudon's one manual path in [[How the Palace Commits]] § The path, what each Specialist can run on which host in [[Maker]]'s host-capability manifest (`Shop/Maker/host-capability.json`), and the paused-rAF pump in [[D3.js]] and [[p5.js]] § Gotchas. Each baton's receiving-environment note carries its own deltas. The next Weave confirms deletion or revives it.*
 
 The palace is operated from several different *surfaces* — execution environments Claude inhabits — and they are not interchangeable. A render that is trivial on one is impossible on another. A write that is routine on one cannot happen at all on another. The same palace file is a filesystem path on one surface and an `obsidian://` link on another. None of this is visible from inside the work; it only becomes visible at the boundary, when work crosses from one surface to the next.
 

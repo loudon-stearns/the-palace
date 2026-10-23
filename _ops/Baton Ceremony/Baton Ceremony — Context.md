@@ -28,7 +28,7 @@ The card's pace obligations exist because the baton genre is inherently tempted 
 
 - The resumption protocol the first forward vector once asked for now exists in the card. The open part: should the "state the move back" step ever harden into a gate for high-stakes moves, or always stay the light confirmation it is now?
 - The § Where the Baton Lives section names several shapes observed so far — framed as an open set, not a closed five. Do they want distinct templates, or is one flexible template plus a shape label enough? The cross-surface paste-prompt in particular reads like a prompt, not an entry companion, and may want its own skeleton.
-- Should the `host_capability_check` in [[Maker]] read [[Surfaces and Capabilities]] directly, so a cross-surface baton's receiving-environment section can be generated rather than hand-written?
+- Should the [[Maker]]'s host-capability manifest (`Shop/Maker/host-capability.json`) feed a cross-surface baton's receiving-environment section, so it can be generated rather than hand-written?
 - Multiple parallel batons on a single entry — [[SCHEMA]] §8 is silent on this. Does the bundle pattern want to enforce one active baton per entry, or permit branching?
 
 ## The Version and the Tuning File (2026-09-25)
