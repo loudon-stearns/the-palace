@@ -79,7 +79,7 @@ Flocking's three figures fail today because `findByName` matches bare names only
    - Each response carries the piece's CSP (shelf CDNs, plus `connect-src 'self'` and the declared hosts), CORP and `nosniff`.
    - If the port is taken, every figure says so. It never falls back to the app origin.
 3. **The rich page.** `_api/resolve` returns a table of pieces, and `rich.html` builds every frame from it. The inline module (`rich.html:174`) moves to `_rich/rich.js` so the page itself can carry `script-src 'self'`.
-4. **The companion frame.** `RichFaceFrame.jsx` gets `allow="camera; microphone; midi; fullscreen"` and stays same-origin, since `rich-frame.js` reads the page. `ArtifactSlot.jsx`'s frame (it has taken a piece's height, relayed play and hush, and shown its errors since 2026-10-18) moves onto the piece origin. Only after that do app-origin files get CORP.
+4. **The companion frame.** `RichFaceFrame.jsx` gets `allow="camera; microphone; midi; fullscreen"` and stays same-origin, since `rich-frame.js` reads the page. `ArtifactSlot.jsx`'s frame (it has taken a piece's height, relayed play and hush, and shown its errors since 2026-10-18) moves onto the piece origin. Only after that do app-origin files get CORP. *2026-10-23: the companion frame is gone. `RichFaceFrame.jsx` and `rich-frame.js` were removed in `f67b19dd` (landed `15882875`) on Loudon's decision that the rich face opens as its own page and the companion stays on the text face. The one frame left is the piece's own, which the standalone `/rich/` page builds in `_ops/rich-face/rich.js`, taking each piece's `allow` from `grants.json`.*
 
 ## 5. The process change: no one has to remember a rule
 
@@ -127,7 +127,7 @@ A proof is a record, so it gets adopted when a face gathers it, not in a sweep. 
 | 2 | One resolver | `resolve.mjs`, `rich-handler.mjs`, `fingerprint.mjs`, `build-public.mjs` | Flocking's path, an ambiguous `index.html`, a symlink out of the palace; live server and build agree | 6 |
 | 3 | Piece origin | `serve-file.mjs`, `piece-origin.mjs`, `middleware.js` | exact Host, GET only, an unregistered path gets a 404 that says why; canary refused | 8 |
 | 4 | Kit | `kit/piece.js`, nine fixture pieces | height correct at both widths; starting B hushes A; camera only on click | 8 |
-| 5 | Page and frames | `rich.html`, `_rich/rich.js`, `RichFaceFrame.jsx`, `ArtifactSlot.jsx` | a granted webcam streams two frames deep; an ungranted one is refused | 10 |
+| 5 | Page and frames | `rich.html`, `_rich/rich.js`, `RichFaceFrame.jsx` (removed 2026-10-23, `f67b19dd`), `ArtifactSlot.jsx` | a granted webcam streams two frames deep; an ungranted one is refused | 10 |
 | 6 | Checker | `conform.mjs`, `rich-sandbox.test.js` | a planted case for each rule | 10 |
 | 7 | Sentry and build | `sweep.mjs`, `pre-push.mjs`, `build-public.mjs` | an unpinned CDN blocks the push; a missing file fails the build | 8 |
 | 8 | Preview tool with leases | `rich-server.mjs`; remove the shared 8842 entry from `.claude/launch.json` | two previews on two roots; `--stop` stops only its own | 4 |

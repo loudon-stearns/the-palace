@@ -13,6 +13,8 @@ forward_vector: "I am a design note, not a build: what it would take to float th
 
 # Floating companion on the rich face — sketch
 
+> **2026-10-23 — decided, for now.** Loudon: no floating companion on the rich face. The companion is a feature of the text face only, and the rich face's notes answer it ("we use the Notes for the rich face for now"). The rich face now opens as its own page (`f67b19dd`, landed `15882875`). What follows is the design as it stood before that.
+
 Loudon asked for two ways to turn rich-face review notes into work. The first is in: each note becomes a QUEUE item (`25837dc0`). This note covers the second: the companion window floating over the rich face, for quick fixes in place. Nothing here is built.
 
 ## What is already there

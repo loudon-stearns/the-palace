@@ -92,7 +92,7 @@ Drift is disclosed, not prevented ([[Drift and Consolidation]]); when the faces 
 
 ## Postcondition
 
-The manifest's sections all read *in step* under `fingerprint.mjs`; every made piece is in the bundle, named and self-describing; the manifest sits in the bundle, so the reader's face switch offers the rich face; the page renders at `/rich/` with a clean console and its review dock; `conform.mjs` names no error on the face's pieces, or the commit names each one and why it stands; the commit body says what was verified and what wasn't.
+The manifest's sections all read *in step* under `fingerprint.mjs`; every made piece is in the bundle, named and self-describing; the manifest sits in the bundle, so the entry list marks the page enriched; the page renders at `/rich/` with a clean console and its review dock; `conform.mjs` names no error on the face's pieces, or the commit names each one and why it stands; the commit body says what was verified and what wasn't.
 
 ---
 
