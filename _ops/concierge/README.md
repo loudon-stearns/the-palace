@@ -124,7 +124,7 @@ sentinel, the conservative-canon default — is built into the charter. A compan
 **Summon at the top of the session, on any surface that can spawn.** Two reasons: a close reached
 with no resident forfeits the fresh read exactly where it matters most, and a summon Loudon can
 *see* is enforcement that holds where a written rule does not. Where the surface cannot spawn
-(claude.ai web has no filesystem — [[Surfaces and Capabilities]]), say so at the open instead, so
+(claude.ai web has no filesystem), say so at the open instead, so
 the first minute still tells him which kind of session he is in.
 
 The question is not *whether* to summon but *what to address it with*. The strongest addresses are
