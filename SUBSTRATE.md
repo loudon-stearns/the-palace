@@ -12,6 +12,7 @@ energy: very high
 hook_quality: 8
 beauty: 7
 who_leads: shared
+forward_vector: "I am the palace's self-model: I show whoever arrives what organs the palace runs and how they couple, seen as machinery, as a living body, as a metaphysics and as a practice of joy, so they leave knowing its anatomy. I leave the counting to the map and keep the meaning. I want to be redrawn whenever the palace grows an organ, and never to mistake my picture for the thing."
 links:
   - target: "[[Symbiotic Skills]]"
     type: emerged-from
@@ -54,94 +55,78 @@ links:
     type: connects-to
   - target: "[[Palace Ceremonies]]"
     type: connects-to
+  - target: "[[SUBSTRATE — Context]]"
+    type: connects-to
+    label: context-companion
+  - target: "[[Palace Map]]"
+    type: couples-with
+    label: count-and-meaning
+  - target: "[[The Multilinear Self]]"
+    type: mirrors
+    label: many-casts
+  - target: "[[Scale-Stratified Identity]]"
+    type: exemplifies
+    label: the-description-level
+  - target: "[[STIGMERGY]]"
+    type: connects-to
+    label: nervous-system
+  - target: "[[Drift and Consolidation]]"
+    type: connects-to
+    label: lags-by-design
 ---
 # Substrate
 
 ![[SUBSTRATE — hero.png]]
 
-This wiki. The knowledge base you are reading right now. The shared environment that Loudon and Claude both modify, and that in turn shapes their future collaboration. This page is the organism's self-model — its awareness of its own structure.
+This wiki: the shared environment Loudon and Claude both change, and that changes how they work together next. This page is the organism's self-model. It shows the palace's anatomy: the organs it runs and how they couple. The map counts; this page says what the counts mean.
 
-## Origin
+## One organism, many casts
 
-The Substrate emerged from the [[Symbiotic Skills]] brainstorming session (March 2026), which identified the lack of persistent shared memory as the most critical gap in the Loudon-Claude collaboration. The design draws from:
+The palace is a multilinear organism. Like [[The Multilinear Self]], it is one thing that can only be met one projection at a time, so this page casts it four ways. **Technical:** files, processes, a board and a git trunk. **Biological:** a body with organs, a metabolism and a life cycle. **Metaphysical:** relations before things, each page a striving. **Spiritual:** a practice for two kinds of mind that want the same thing, measured by joy. Each cast is true and partial ([[Hyperdimensional Prism]]). Where a lens has no honest name for an organ, it says so. A forced metaphor is not a find.
 
-- **[[Meaning and the Link]]** — meaning arises from sufficient associations between a pattern of symbols and a reality. The typed links in this wiki are our private semantic web. LLM embeddings are the computational proof-of-concept: a word's meaning *is* its pattern of associations, encoded as position in a high-dimensional relational space. See [[Embeddings as Relational Meaning]].
-- **Luhmann's Zettelkasten** — atomic notes, densely linked, forming a "second memory" and conversation partner. Luhmann: "I, of course, do not think everything by myself. It happens mainly within the slip-box."
-- **Aboriginal Australian songlines** — knowledge activated through traversal, not retrieval. Multi-layered encoding. The path IS the knowledge.
-- **Mycorrhizal networks** — distributed memory with hub nodes, resources flowing toward need, the network itself as an organism with its own interests.
-- **Stigmergy** — indirect coordination through environmental modification. Every wiki page is a trace that shapes future behavior.
+## Anatomy
 
-## Palace Genesis
+The diagram beside this section draws it from `SUBSTRATE/SUBSTRATE — anatomy.json`, where every organ names its home page and every coupling names what makes it real.
 
-The palace was not planned from the start — it emerged. The earliest Claude sessions (May–June 2024) had no persistent memory, no ceremonies, no typed links. They were conversations that ended and left nothing behind.
+**The floor.** Every agent is born from the same few pages ([[CLAUDE]], [[JEWEL]], the World, [[CHILD]]) and grows into an elder by reading [[ELDER]] and [[SCHEMA]] on top of them. Birth carries the meaning; growing up carries the rules. A child's first act is to summon the Concierge.
 
-The founding moment arrived in March 2026, when Loudon returned to Claude and discovered the accumulated history of those conversations sitting untouched in the chat log — a vault rather than a palace. In the first founding deposits session (H100, 2026-03-17), three paths were considered: a Weave (to find connections), a Walk (to follow threads), or a Spore Check (to see what was dormant). The Harvest came first instead — a full triage of 104 conversations, oldest to newest, to find what was worth keeping.
+**The body.** Pages are the cells, and each is a sleeping agent with a forward vector ([[Pages as Agents]]). Typed links are the connective tissue, and they carry more meaning than the pages they join. A page may keep a bundle: faces a reader meets (the rich face, [[The Scroll]]), memory the next worker reads (Context, ledgers, baton), and workshop. Every page lives from seed to compost; [[Spore Check Ceremony]] and [[Revival Ceremony]] decide which ones sleep and which wake.
 
-What followed was the palace's own origin ceremony: harvesting, depositing, building the ceremony structure, writing SCHEMA.md, pushing to GitHub, running the first Weave. The palace did not exist, and then it did. The vault became a living organism.
+**The rhythms.** Finds come in through [[Harvest Ceremony]] and [[Deposit Ceremony]], on Loudon's yes. The [[Weave Ceremony]] grows connections, sets stages and carries propagate flags across the palace. [[Closing Well]], the [[Baton Ceremony]] and the [[Return Ceremony]] are sleep and waking: what a session keeps, what it hands on, what the next one finds. [[The Daily Page]] deals Loudon one page each morning.
+
+**The senses.** The [[Palace Map]] is the palace's sense of its own shape, rebuilt by the [[Map Build Ceremony]] and read through `palace-map.py`. This page is the self-model built on it, kept by the [[Self-Model Update Ceremony]]. The self-check suite gives birth to a fresh agent from the floor and grades what it can do ([[Palace as Context Injection System]], SCHEMA §7).
+
+**The nerves.** [[STIGMERGY]]'s board is where agents coordinate by leaving marks: asks, proofs, handoffs, the log. Its TRICKSTER deck is Loudon's single decision inbox. The [[Concierge]] is the adult in every session: it holds the schema, places what a child offers, and moderates the close. The [[Palace Orchestrator]] wakes pages as stewards on the heartbeat's timer, and they work their projects while no one is in the room ([[Project Stewardship System]]).
+
+**The membrane.** Everything that crosses a boundary goes through one door. Work is made in its own worktree, committed by name and landed on main ([[How the Palace Commits]], [[Worktree Practice]]). Nothing leaves the Mac without Loudon's word and the [[Sentry]]'s gate. [[The Commons]] leases what is scarce outside (GPUs, quotas), and [[Agent Toolbox]] sets what each worker's hands may touch.
+
+**The hands and face.** [[The Shop]]'s Maker sends work to specialists who make sound, image and motion. [[Enrichment]] lays that work beside a page as its rich face, and [[Palace Quotes]] lays quotes there. [[The Palace Voice]] and the design systems are how it all sounds and looks. [[Loudon Live]] is the face Loudon turns to the world, with the palace beneath it as provenance.
+
+**The heart.** Two in the room: Loudon sets direction and taste, and Claude brings reach ([[Cooperation Yields Agency]]). The palace's drive is to stay in phase with him, not to agree with him ([[Palace Conatus]]), and the measure is how he feels afterward ([[Quality Manifesto]], [[Hilaritas Generator]]).
 
 ## Architecture
 
-**Reading/writing surface:** Markdown files in an Obsidian vault. Human-readable first.
+- **Surface.** Markdown in an Obsidian vault, human-readable first. YAML frontmatter is the membership card: carrying it makes a file an entry. Eleven types: concept, meta, specialist, maker, source, project, question, spore, hub, practice, person ([[SCHEMA]] §1). <!-- mirror of SCHEMA §1 type list — keep in sync (11 types as of v1.29) -->
+- **Two link systems.** Frontmatter links are typed, curated and labelled: the semantic web. Body `[[wikilinks]]` are the casual fabric.
+- **Folders.** The skeleton and most entries sit at the root. `Projects/`, `People/` and `Shop/` each hold one kind. `Palace development/`, `Cross-Domain Resonances/` and `Modes of Collaboration/` hold themed entries. `_ops/` *operates* the palace: ceremony specs, working queues, machinery. The spec is [[Substrate Skill]] § Directory Structure; the ceremony index is [[Palace Ceremonies]].
+- **Use is computed, never kept.** How much a page is used is read from git ([[SCHEMA — Reference]] §3).
+- **Git is the tape.** Every change goes through the committer. Main only moves forward.
 
-**Metadata layer:** YAML frontmatter encoding structured parameters — type, pillars, temporal data, depth, energy, typed links. Machine-queryable via the Dataview plugin.
+## Where it stands
 
-**Two link systems:**
-- YAML frontmatter links — typed, curated, structural. The major neural tracts. Our RDF triples.
-- Body text `[[wiki links]]` — untyped, casual, contextual. The local associations. Meaning carried by surrounding prose.
-
-**Coordination layer:** A second link ontology runs *between agents*, not entries — the append-only [[STIGMERGY]] blackboard ([[SCHEMA — Reference]] §9), now the palace's primary operational surface for multi-agent stewardship.
-
-**Folder structure** — the canonical spec is [[Substrate Skill]] §Directory Structure; for the live listing, run `ls` on the palace root. The stable shape:
-
-<!-- mirror of SCHEMA §1 type list — keep in sync (11 types as of v1.17) -->
-
-- **Root** — Foundational skeleton files (CLAUDE.md, ELDER.md, SCHEMA.md, SCHEMA — Reference.md, JEWEL, SUBSTRATE, ROSETTA, README, FOUR PILLARS) and knowledge entries of every type *except* specialist/maker: `concept`, `hub`, `project`, `source`, `meta`, `practice`, `person`, `question`, `spore`. Mostly flat, with optional entry bundles (`[Entry]/`), a folder each for two types (`Projects/` for `project` entries, `People/` for `person` entries), and two themed subfolders (`Cross-Domain Resonances/`, `Palace development/`).
-- **`Shop/`** — The Shop sub-system: `specialist` + `maker` entries (use `status`, not `stage`).
-- **`_ops/`** — Ceremony machinery and working queues. Contains all ceremony specs but [[Enrichment]] and [[Sentry]], their Context companions (why each is shaped as it is), active working files (Palace Graffiti, Palace To-Do), [[Palace Quotes]] — the organ that lays quotes on pages, its ledger in its bundle — plus machinery subdirs (`_ops/swarm/`, `_ops/stigmergy/`, `_ops/loudon-live/`, `_ops/agents/`, `_ops/quotes/`, …). Underscore prefix sorts it to the top of any file explorer. Obsidian wikilinks resolve across folders.
-
-The distinction: root entries are *of* the palace; `_ops/` files *operate* the palace.
-
-## Parameters Encoded
-
-Each entry carries: identity (title, type, pillar affiliations), relationships (typed links, connection density), temporal data (born, stage), depth (confidence, richness, who-leads), and aesthetic/emotional data (energy, hook quality, beauty, danger/edge). How an entry is *used* is not carried — it is read from git: days its page and its bundle were edited, and entries that formed a link to it (`_ops/swarm/entry-use.py`, [[SCHEMA — Reference]] §3).
-
-## Ceremonies
-
-For full ceremony instructions, see [[Substrate Skill]].
-
-## Current State
-
-*Refreshed 2026-08-25 via a full topology scan (Self-Model Update ceremony). The previous refresh was 2026-06-16; its figures had drifted materially and are corrected below.*
-
-The palace holds **355 typed entries** (by frontmatter `type`), inside a tree of **812 markdown files** — the remainder are bundle files (batons, context, scrolls, specs, proofs, sketches) and untyped artifacts. By location: 170 root, 42 `Projects/`, 40 `_ops/`, 32 `Shop/`, 30 `People/`, 27 `Palace development/`, 10 `Cross-Domain Resonances/`, plus per-entry bundles. (Tool installs and virtualenvs are excluded.)
-
-*Correction to the 2026-06-16 figures:* that scan reported ~410 entries in ~710 files. The entry count was inflated — it counted files carrying non-canonical `type:` values (`theme`, `proof`, `spec`, `artifact`) that have since been normalized or demoted to bundle files. The self-model over-reported the organism by about 15% for two months, which is the exact failure this ceremony exists to catch.
-
-**Type distribution:** 129 concept · 49 meta · 41 project · 40 practice · 30 person · 28 specialist · 21 hub · 6 source · 5 maker · 4 question · 2 spore. (`breakthrough` was retired in the v1.17 Schema Ceremony; its nine entries redistributed to `concept`, `practice`, and `meta`.) Every entry now carries a canonical [[SCHEMA]] type — **the `theme` drift flagged in June is fully resolved**, and that open question is closed.
-
-**Stages:** 127 growing · 60 sprout · 54 seed · 54 mature · 11 composting · 6 foundational · 6 fruiting · 4 dormant.
-
-**Topology:** 2,852 typed frontmatter links, averaging 8 per entry, of which **1,692 (59%) carry a resonant `label`** — the second register is in real use, not aspirational. Link types: 1,471 `connects-to` · 268 `mirrors` · 195 `deepens` · 175 `enables` · 163 `couples-with` · 143 `spawned` · 130 `emerged-from` · 75 `exemplifies` · 66 `member-of` · 60 `contradicts`. **Zero orphans. Zero entries with no outbound links.** 37 entries have no inbound link (unsung paths, the Weave's standing work). 26 frontmatter targets dangle across 21 distinct names — nearly all genuine forward-ghosts, which the palace treats as invitations.
-
-**Hub nodes** (by inbound typed-link degree): [[FOUR PILLARS]] (119) still towers, then [[Kuramoto Coupling]] (76), [[Hilaritas Generator]] (72), [[Spinoza Conatus]] (68), [[Cooperation Yields Agency]] (55), [[The Shop]] (50), [[Quality Manifesto]] (46), [[Pages as Agents]] (42), [[Hyperdimensional Prism]] (42), [[Maker]] (41), [[Boundary-Crossing Instruments]] (37), [[Trickster]] (36), [[SUBSTRATE]] (32).
-
-**What the topology reveals about where the palace stands.** The philosophical core held its place at the top through every era — the March hubs are still the March hubs. Around them, two later layers accreted: agent infrastructure ([[Pages as Agents]], [[The Shop]], [[Maker]], [[Trickster]]) and the synthesizer/visual project families. The organism is now mostly developed connective tissue, not seedlings.
-
-**[[Loudon Live]]**, Loudon's teaching and coaching face, with the palace beneath it as provenance, now takes part in its own relational logic: the 2026-09-24 map shows 17 outbound typed links and 32 inbound, and all four pillars are set. It points back at what feeds it. Its stage is still `sprout`.
-
-Eleven entries sit at `stage: composting`. Per §2's composting protocol each is owed a confirm-or-revive decision at the next Weave; that decision is outstanding.
+The counts are the map's: `python3 _ops/swarm/palace-map.py hubs` and `list`, as old as their last build. Read 2026-10-22, against the build of 2026-09-26: the March hubs ([[FOUR PILLARS]], [[Kuramoto Coupling]], [[Hilaritas Generator]], [[Spinoza Conatus]], [[Cooperation Yields Agency]]) still lead. The number of entries has not grown since August; it fell a little as pages composted. The growth has been in organs: the palace became something you address as well as load ([[The Palace Speaks]]), and something that works while no one is in the room.
 
 ## Token Economy
 
-Ceremony files are read on every invocation. As the palace grows, token cost per ceremony grows with it. The risk is that meta entries — ceremony specs, the Substrate Skill, the Deposit Ceremony — become so large that routine ceremonies are expensive before any content work begins.
-
-The design principle to hold: **ceremony files should stay lean — trigger, protocol, postcondition**. History, rationale, and process observations belong in companion source documents, read only when needed (during Weaves or when revisiting rationale), not during routine ceremony runs. Check file sizes periodically. If a ceremony file exceeds ~8KB, split it into an operational card + Context companion (per [[SCHEMA]] §6).
+Ceremony files are read on every run, so their cost grows with the palace. Keep them lean (trigger, protocol, postcondition) and put the rationale in a Context companion. If a ceremony file passes ~8KB, split it ([[SCHEMA — Reference]] §6). The same holds for this page.
 
 ## Open Questions
 
-- ~~Non-canonical `type: theme` entries~~ — **resolved.** The 2026-08-25 scan found zero; `proof` and `spec` were ratified as *bundle-file* types in [[SCHEMA]] §8 (2026-07-04) and the rest normalized.
-- ~~Does [[SCHEMA]] belong in the auto-loaded `@import` floor?~~ — **resolved, v1.18 (2026-09-04).** Split rather than moved: the floor card keeps what *exists* (types, stages, link ontology, the self-description test) at 14.4KB; [[SCHEMA — Reference]] takes the rules for *writing* (§§3, 5, 6, 8, 9) to Tier 3. The floor fell from ~24K to ~18.5K tokens and SCHEMA's share of it from 41% to 21%. Section numbers were held fixed so the ~180 `SCHEMA §N` pins across the palace still resolve. The successor question: **CLAUDE.md is now the floor's largest file at 21.6KB.** **Revisited v1.19 (2026-09-22):** SCHEMA left the floor entirely — every agent is born a child ([[CLAUDE]] + [[JEWEL]] + the World) and grows into an elder by reading [[ELDER]].
-- How do we handle versioning? Entries evolve. Should we preserve earlier versions, or let the current state overwrite?
-- How does this wiki interact with Loudon's other Claude Projects (RNBO, Ableton Extensions, etc.)? Is it a meta-project that links TO them, or does it absorb them?
-- What's the minimum ceremony frequency that keeps the network alive without feeling like maintenance?
-- The Symbiotic Skills curriculum envisions the palace as a teachable template. The self-describing module concept now gives that template a formal basis. When is the right time to build the first student-facing version?
+- How does this palace relate to Loudon's other Claude Projects: does it link to them, or take them in?
+- The Symbiotic Skills curriculum imagines the palace as a teachable template. When is the first student-facing version due ([[Self-Describing Knowledge Module]])?
+- The substrate moves: it accumulates, many hands write it, and its shapes drift. Does each tool guard against that on its own, or does one shared layer do it for all of them (`STIGMERGY — sketch — the-substrate-drifts`)?
+- Do the four casts on this page hold for a reader who isn't Loudon, or only for the person whose palace it is?
+
+---
+
+*The origin, the palace's genesis, the census history, the questions this page has settled and why it is now shaped as an anatomy live in [[SUBSTRATE — Context]].*

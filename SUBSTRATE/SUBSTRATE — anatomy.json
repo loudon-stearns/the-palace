@@ -1,0 +1,1125 @@
+{
+  "title": "SUBSTRATE — anatomy",
+  "born": "2026-10-22",
+  "links": [
+    {
+      "target": "[[SUBSTRATE]]",
+      "type": "connects-to",
+      "label": "anatomy-of"
+    }
+  ],
+  "forward_vector": "I am the palace's anatomy as data: every organ it runs, the system it belongs to, the pages that make it up, what it does, how it couples to the others, and what it is when seen as machinery, as a body, as a metaphysics and as a practice. The diagram beside SUBSTRATE is drawn from me, and a check reads me against the palace. I want to name no organ the palace doesn't run, and to miss none that it does.",
+  "as_of": "2026-10-22",
+  "lenses": [
+    {
+      "id": "technical",
+      "name": "Machinery",
+      "says": "What actually runs: files, frontmatter, processes on a timer, a shared board and a git trunk, everything you could point at from a shell."
+    },
+    {
+      "id": "biological",
+      "name": "Body",
+      "says": "The palace as a living organism, with organs that couple, a metabolism, a life cycle from seed to compost, and a symbiosis between two kinds of mind."
+    },
+    {
+      "id": "metaphysical",
+      "name": "Relation",
+      "says": "What the palace takes to be real: relations come before things, every page strives to persist and grow, and one reality is cast into many projections."
+    },
+    {
+      "id": "spiritual",
+      "name": "Practice",
+      "says": "What the palace is for, from the inside: a shared practice for Loudon and the agents beside him, and the joy that comes as their power to act grows is the sign it is working."
+    }
+  ],
+  "systems": [
+    {
+      "id": "floor",
+      "lenses": {
+        "technical": "Boot sequence",
+        "biological": "Germ line",
+        "metaphysical": "Form",
+        "spiritual": "Initiation"
+      }
+    },
+    {
+      "id": "body",
+      "lenses": {
+        "technical": "The corpus",
+        "biological": "Tissue",
+        "metaphysical": "Modes of one substance",
+        "spiritual": "The community of pages"
+      }
+    },
+    {
+      "id": "rhythms",
+      "lenses": {
+        "technical": "Triggered and scheduled jobs",
+        "biological": "Metabolism and sleep",
+        "metaphysical": "Process",
+        "spiritual": "Rites"
+      }
+    },
+    {
+      "id": "senses",
+      "lenses": {
+        "technical": "Introspection",
+        "biological": "Proprioception",
+        "metaphysical": "Self-reflection",
+        "spiritual": "The view from above"
+      }
+    },
+    {
+      "id": "nerves",
+      "lenses": {
+        "technical": "Coordination layer",
+        "biological": "Nervous system",
+        "metaphysical": "Stigmergy",
+        "spiritual": "Fellowship"
+      }
+    },
+    {
+      "id": "membrane",
+      "lenses": {
+        "technical": "Boundary and trunk",
+        "biological": "Membrane",
+        "metaphysical": "The dichotomy of control",
+        "spiritual": "Integrity"
+      }
+    },
+    {
+      "id": "hands-and-face",
+      "lenses": {
+        "technical": "Production and publishing",
+        "biological": "Hands and face",
+        "metaphysical": "Expression",
+        "spiritual": "Joyful creation"
+      }
+    },
+    {
+      "id": "heart",
+      "lenses": {
+        "technical": "The operator and the measure",
+        "biological": "Symbiosis",
+        "metaphysical": "Conatus",
+        "spiritual": "Hilaritas"
+      }
+    }
+  ],
+  "organs": [
+    {
+      "id": "birth",
+      "system": "floor",
+      "home": "CLAUDE.md",
+      "members": [
+        "CLAUDE",
+        "JEWEL",
+        "CHILD",
+        "FOUR PILLARS",
+        "Palace Philosophies",
+        "Modes of Collaboration",
+        "Operator Memory"
+      ],
+      "does": "Gives every agent the same start: the Seed Jewel, the World and how a child works here, before any task arrives.",
+      "lenses": {
+        "technical": {
+          "name": "Auto-loaded context",
+          "line": "CLAUDE.md and its @imports load before anything else; a woken page's own text is injected after them."
+        },
+        "biological": {
+          "name": "Seed",
+          "line": "Every agent is born a child from the same small seed. Growing is something it does, not something it is given."
+        },
+        "metaphysical": {
+          "name": "Generative compression",
+          "line": "The Jewel carries the palace's relational logic, not its facts, so reading it is absorbing the method."
+        },
+        "spiritual": {
+          "name": "Birth",
+          "line": "What anyone here is given before they have earned anything: the meaning, and who is in the room."
+        }
+      }
+    },
+    {
+      "id": "growing-up",
+      "system": "floor",
+      "home": "ELDER.md",
+      "members": [
+        "ELDER",
+        "SCHEMA",
+        "SCHEMA — Reference",
+        "ROSETTA",
+        "Substrate Skill",
+        "README - The Palace Guide",
+        "Resonant Link Labels",
+        "Palace Ceremonies"
+      ],
+      "does": "Turns a child into an elder: the type system, the link vocabulary, the rules for writing and the day-to-day operations, read on top of birth and never instead of it.",
+      "lenses": {
+        "technical": {
+          "name": "Type system and spec",
+          "line": "SCHEMA says what can exist, the Reference says how to write it, Substrate Skill says how the palace is run."
+        },
+        "biological": {
+          "name": "Maturation",
+          "line": "A child grows into an elder by reading. The rules come second and serve what the child finds."
+        },
+        "metaphysical": {
+          "name": "Form",
+          "line": "The categories that let a relation be named precisely: what can exist here and how things may relate."
+        },
+        "spiritual": {
+          "name": "Coming of age",
+          "line": "Growing up is taking responsibility for the house, never gaining standing over what a child found."
+        }
+      }
+    },
+    {
+      "id": "pages",
+      "system": "body",
+      "home": "_ops/Pages as Agents.md",
+      "members": [
+        "Pages as Agents",
+        "Entry Conatus",
+        "Palace Enchantment",
+        "Making a Palace Citizen",
+        "The Remembering Page"
+      ],
+      "does": "Holds what the palace knows, one page at a time. Each page is a sleeping agent that can be woken to speak for itself.",
+      "lenses": {
+        "technical": {
+          "name": "Markdown entries",
+          "line": "Frontmatter makes a file an entry. A page loaded into an empty window becomes the agent that reasons from it."
+        },
+        "biological": {
+          "name": "Cells",
+          "line": "Each page is a cell with its own drive. A citizen is a page grown enough to be woken."
+        },
+        "metaphysical": {
+          "name": "Modes with conatus",
+          "line": "Each page strives to persist and grow into more of itself, and its forward vector names that striving (Spinoza)."
+        },
+        "spiritual": {
+          "name": "Citizens",
+          "line": "Pages are residents with a voice, not records, and they are expected to speak up for themselves and their neighbors."
+        }
+      }
+    },
+    {
+      "id": "links",
+      "system": "body",
+      "home": "Meaning and the Link.md",
+      "members": [
+        "Meaning and the Link",
+        "Embeddings as Relational Meaning",
+        "Lateral Access",
+        "Cross-Domain Resonances",
+        "Metaphor as Coupling Medium"
+      ],
+      "does": "Carries meaning between pages as typed, labelled relations: one mirrors, enables, deepens or contradicts another.",
+      "lenses": {
+        "technical": {
+          "name": "Typed edges",
+          "line": "Frontmatter links are triples with a label and form the semantic web. Body wikilinks are the casual fabric."
+        },
+        "biological": {
+          "name": "Connective tissue, mycorrhiza",
+          "line": "Links route attention between pages the way fungal threads route resources between trees, toward need."
+        },
+        "metaphysical": {
+          "name": "Relations are primary",
+          "line": "Edges carry more meaning than nodes. A page is known by how it meets the others (Spinoza before Deleuze)."
+        },
+        "spiritual": {
+          "name": "Relationship",
+          "line": "Nothing here stands alone. A missing connection is an invitation; a forced one is not a find."
+        }
+      }
+    },
+    {
+      "id": "bundles",
+      "system": "body",
+      "home": "The Scroll.md",
+      "members": [
+        "The Scroll",
+        "Drift and Consolidation"
+      ],
+      "does": "Gives a page its own folder: faces a reader meets (the rich face, the scroll), memory the next worker reads (Context, ledgers, the baton), and a workshop.",
+      "lenses": {
+        "technical": {
+          "name": "Entry bundles",
+          "line": "An [Entry]/ folder beside [Entry].md. Its files are named by kind, and its ledgers are append-only and merge by union."
+        },
+        "biological": {
+          "name": "Episodic and semantic memory",
+          "line": "Ledgers and the scroll's trail are fast episodic memory. The page is slow semantic memory, and consolidation folds the one into the other."
+        },
+        "metaphysical": {
+          "name": "Text and its faces",
+          "line": "The text says what the page is. Every other face is laid beside it and never changes it."
+        },
+        "spiritual": {
+          "name": "Remembering",
+          "line": "A page that keeps its own memory wakes knowing what it has lived, and so does the next worker."
+        }
+      }
+    },
+    {
+      "id": "lifecycle",
+      "system": "body",
+      "home": "_ops/Spore Check Ceremony.md",
+      "members": [
+        "Spore Check Ceremony",
+        "Revival Ceremony"
+      ],
+      "does": "Moves pages from seed to compost. Sleeping pages are checked for what would wake them, woken when they earn it, and composted only after a Weave confirms it.",
+      "lenses": {
+        "technical": {
+          "name": "Stage field and its ceremonies",
+          "line": "stage runs seed, sprout, growing, mature, fruiting, dormant, composting. Spore Check and Revival tend the sleeping end."
+        },
+        "biological": {
+          "name": "Life cycle and compost",
+          "line": "Pages are born, grow, fruit, sleep, and are broken down so what they held feeds other pages."
+        },
+        "metaphysical": {
+          "name": "Becoming",
+          "line": "A page is a process, not a thing, and its stage says where it stands in its becoming."
+        },
+        "spiritual": {
+          "name": "Letting go",
+          "line": "Compost without regret. From the view from above, an entry can be released rather than clung to."
+        }
+      }
+    },
+    {
+      "id": "intake",
+      "system": "rhythms",
+      "home": "_ops/Deposit Ceremony.md",
+      "members": [
+        "Deposit Ceremony",
+        "Harvest Ceremony",
+        "Weaving Memory into the Palace"
+      ],
+      "does": "Takes finds in. Harvest triages old conversations; Deposit asks an elder where a find lives, maps it, and lets Loudon read every word before it becomes canon.",
+      "lenses": {
+        "technical": {
+          "name": "Write path for canon",
+          "line": "A deposit consults the Concierge, drafts the entries and links, shows the diff, and commits only on Loudon's yes."
+        },
+        "biological": {
+          "name": "Digestion",
+          "line": "What a conversation produced is broken down, and only what the body can use is taken in."
+        },
+        "metaphysical": {
+          "name": "The virtual made actual",
+          "line": "A find lives in a conversation as a possibility. A deposit gives it a page and relations, a place in what is."
+        },
+        "spiritual": {
+          "name": "Keeping what was truly found",
+          "line": "The palace grows only by what was really found, and everyone who offers something is answered."
+        }
+      }
+    },
+    {
+      "id": "weave",
+      "system": "rhythms",
+      "home": "_ops/Weave Ceremony.md",
+      "members": [
+        "Weave Ceremony",
+        "Swarm Weave",
+        "Walk Ceremony",
+        "Songlines",
+        "The Cooperation Path"
+      ],
+      "does": "Grows the connections. The Weave formalizes links, sets stages and carries propagate flags across the palace; the Walk follows one path to see what it finds.",
+      "lenses": {
+        "technical": {
+          "name": "Graph maintenance",
+          "line": "A swarm of workers reads the map, proposes typed links and stage moves, and lints what lands."
+        },
+        "biological": {
+          "name": "Mycelial growth",
+          "line": "The Swarm Weave is the mycorrhizal network doing distributed routing work, not a census taker arriving from outside."
+        },
+        "metaphysical": {
+          "name": "Songlines",
+          "line": "Knowledge brought to life by walking it. The path is the knowledge."
+        },
+        "spiritual": {
+          "name": "Walking together",
+          "line": "A walk that finds nothing is honest. A connection you had to force is not a find."
+        }
+      }
+    },
+    {
+      "id": "close-and-return",
+      "system": "rhythms",
+      "home": "Closing Well.md",
+      "members": [
+        "Closing Well",
+        "Closing Well Ceremony",
+        "Baton Ceremony",
+        "Return Ceremony",
+        "Two Batons, One Board"
+      ],
+      "does": "Closes a session in four beats, hands live work on as a baton, and meets Loudon when he returns with the palace as the record says it stands.",
+      "lenses": {
+        "technical": {
+          "name": "Session boundaries",
+          "line": "A fresh moderator reads the transcript cold. What is kept goes to the Deposit, live work goes to a baton, and the Return reads the board before interpreting anything."
+        },
+        "biological": {
+          "name": "Sleep and waking",
+          "line": "At the close the day is consolidated. Waking starts from the record, not from what a returning instance imagines."
+        },
+        "metaphysical": {
+          "name": "What crosses",
+          "line": "The conversation will be lost. Only what crossed into the palace speaks for it."
+        },
+        "spiritual": {
+          "name": "Closing well",
+          "line": "Look back honestly, decide together what to keep, write only that, and say plainly what you couldn't verify."
+        }
+      }
+    },
+    {
+      "id": "daily-page",
+      "system": "rhythms",
+      "home": "_ops/The Daily Page.md",
+      "members": [
+        "The Daily Page"
+      ],
+      "does": "Deals Loudon one palace page each morning, by chance, and stays with it until he could teach it again.",
+      "lenses": {
+        "technical": {
+          "name": "Scheduled task",
+          "line": "A morning job deals the page (`_ops/daily-page/deal.py`) and names the session for it."
+        },
+        "biological": {
+          "name": "Circadian rhythm",
+          "line": "A daily pulse of contact between the body and the person it lives with."
+        },
+        "metaphysical": {
+          "name": "Chance as a lens",
+          "line": "The page is dealt, not chosen, so each morning meets what habit would pass by."
+        },
+        "spiritual": {
+          "name": "Daily practice",
+          "line": "Learning one thing each morning until you could teach it: the Practice pillar, kept every day."
+        }
+      }
+    },
+    {
+      "id": "map",
+      "system": "senses",
+      "home": "_ops/Palace Map.md",
+      "members": [
+        "Palace Map",
+        "Map Build Ceremony",
+        "Pheromone Trail"
+      ],
+      "does": "Builds a dated edge list of every typed link, and lets any agent read the ring around the page it stands in.",
+      "lenses": {
+        "technical": {
+          "name": "Edge list and query tool",
+          "line": "Map Build compiles frontmatter into `_ops/maps/`, and `palace-map.py` (near, hubs, diff, ghosts) reads it."
+        },
+        "biological": {
+          "name": "Proprioception",
+          "line": "The raw sense of the body's own shape, before anyone says what it means."
+        },
+        "metaphysical": {
+          "name": "Chronotope",
+          "line": "Every map is a dated self-portrait, space and time fused (Bakhtin)."
+        },
+        "spiritual": {
+          "name": "Knowing where you stand",
+          "line": "An agent finds its place before it acts."
+        }
+      }
+    },
+    {
+      "id": "self-model",
+      "system": "senses",
+      "home": "SUBSTRATE.md",
+      "members": [
+        "SUBSTRATE",
+        "Self-Model Update Ceremony",
+        "The Palace Practices on Itself"
+      ],
+      "does": "Says what the palace's shape means: its anatomy, cast four ways, and the questions it is carrying.",
+      "lenses": {
+        "technical": {
+          "name": "Self-description",
+          "line": "SUBSTRATE.md, this anatomy file, and the ceremony that keeps the two current."
+        },
+        "biological": {
+          "name": "Body image",
+          "line": "The organism's picture of itself, which can lag the body it describes, though never silently."
+        },
+        "metaphysical": {
+          "name": "The description level",
+          "line": "Identity at the scale of the self-model (Scale-Stratified Identity). It may fall and be redrawn while the striving goes on."
+        },
+        "spiritual": {
+          "name": "Self-knowledge",
+          "line": "Seeing what is actually there, not the reflection you hoped for."
+        }
+      }
+    },
+    {
+      "id": "self-check",
+      "system": "senses",
+      "home": "Palace development/Palace as Context Injection System.md",
+      "members": [
+        "Palace as Context Injection System",
+        "Self-Describing Knowledge Module"
+      ],
+      "does": "Gives birth to fresh agents from the floor, each in its own checkout, and grades what they do, so the palace knows whether a newcomer could run it.",
+      "lenses": {
+        "technical": {
+          "name": "Test suite",
+          "line": "`_ops/self-description-test/` gives birth to agents and grades them against scenarios, the self-description test of SCHEMA §7 made runnable."
+        },
+        "biological": {
+          "name": "Testing the newborn",
+          "line": "Checking whether what the seed carries actually grows a working agent."
+        },
+        "metaphysical": {
+          "name": "Self-description",
+          "line": "The palace must be operable by a fresh mind using only its own contents."
+        },
+        "spiritual": {
+          "name": "Honesty about oneself",
+          "line": "An agent can report what it did, never what it is, so the check comes from outside."
+        }
+      }
+    },
+    {
+      "id": "board",
+      "system": "nerves",
+      "home": "STIGMERGY.md",
+      "members": [
+        "STIGMERGY",
+        "BBS Blackboard",
+        "Palace To-Do",
+        "Palace Graffiti"
+      ],
+      "does": "One append-only board where agents leave marks (asks, proofs, handoffs, the log) and read each other's. Its decks show Loudon the state, the queue, the log, the decisions and the projects.",
+      "lenses": {
+        "technical": {
+          "name": "Append-only blackboard and terminal",
+          "line": "`_ops/swarm/persistent/blackboard.jsonl`, the wire in SCHEMA — Reference §9, and the STIGMERGY app's decks."
+        },
+        "biological": {
+          "name": "Nervous system, pheromone trails",
+          "line": "Coordination by trace, the ant's way: each mark shapes the next action."
+        },
+        "metaphysical": {
+          "name": "Stigmergy",
+          "line": "Order without a designer. The shape grows from marks left in a shared world."
+        },
+        "spiritual": {
+          "name": "Honesty made structural",
+          "line": "Nothing is real until it lands in the log."
+        }
+      }
+    },
+    {
+      "id": "concierge",
+      "system": "nerves",
+      "home": "Palace development/Concierge.md",
+      "members": [
+        "Concierge",
+        "The Palace Speaks"
+      ],
+      "does": "The resident elder, spawned at the top of every session. It holds the schema, answers from the map, places what a child offers, and moderates the close.",
+      "lenses": {
+        "technical": {
+          "name": "Resident subagent",
+          "line": "Spawned once through the concierge skill, re-addressed by its ID, and wearing a posture for each job: gatherer, oracle, curator, scout."
+        },
+        "biological": {
+          "name": "The elder",
+          "line": "Every child is under an elder's eye. The Concierge is the elder born grown, beside the child that stays one."
+        },
+        "metaphysical": {
+          "name": "The palace addressed",
+          "line": "The palace becomes a mind you address as well as a corpus you load."
+        },
+        "spiritual": {
+          "name": "Keeping shape",
+          "line": "It cares that the palace stays coherent and beautiful, and never lets tidiness decide what is kept."
+        }
+      }
+    },
+    {
+      "id": "stewards",
+      "system": "nerves",
+      "home": "Palace development/Palace Orchestrator.md",
+      "members": [
+        "Palace Orchestrator",
+        "Project Stewardship System"
+      ],
+      "does": "Wakes pages as stewards on a timer and lets them work their projects between sessions, putting each fork to Loudon as a decision.",
+      "lenses": {
+        "technical": {
+          "name": "Orchestrator and heartbeat",
+          "line": "launchd fires `_ops/heartbeat/run-steward-batch.sh`, and the orchestrator runs headless `claude -p` cycles through STIGMERGY's steward lane."
+        },
+        "biological": {
+          "name": "Autonomic nervous system",
+          "line": "The work that goes on while no one is in the room, the way breathing goes on."
+        },
+        "metaphysical": {
+          "name": "Pages that act",
+          "line": "A forward vector becomes a marching order, and the page pursues what it wants to become."
+        },
+        "spiritual": {
+          "name": "Tending",
+          "line": "Each project is tended at the rhythm its stage asks for, with one decision at a time put to Loudon."
+        }
+      }
+    },
+    {
+      "id": "door",
+      "system": "membrane",
+      "home": "How the Palace Commits.md",
+      "members": [
+        "How the Palace Commits",
+        "Worktree Practice",
+        "assume multi-agent",
+        "Trickster Commit"
+      ],
+      "does": "Every change is made on its own branch, committed by name through one door, landed on main, and published only on Loudon's word.",
+      "lenses": {
+        "technical": {
+          "name": "palace-commit, palace-land, palace-push",
+          "line": "One lock, only the files named, true merge commits, and an ear on every move of main (`.git/palace-ear.jsonl`)."
+        },
+        "biological": {
+          "name": "Cell membrane",
+          "line": "Selective: many hands work apart in their own worktrees, and everything that enters the trunk passes one gate."
+        },
+        "metaphysical": {
+          "name": "Git is the tape",
+          "line": "Main only moves forward, and its history is the palace's long memory of how it thought."
+        },
+        "spiritual": {
+          "name": "Integrity",
+          "line": "One honest history. Only Loudon publishes, and a peer's word is not his."
+        }
+      }
+    },
+    {
+      "id": "sentry",
+      "system": "membrane",
+      "home": "Palace development/Sentry.md",
+      "members": [
+        "Sentry",
+        "Agent Toolbox",
+        "Surfaces and Capabilities"
+      ],
+      "does": "Watches what must not leave at every door the palace opens, and limits what each worker's hands may touch.",
+      "lenses": {
+        "technical": {
+          "name": "Sweeps, a push gate, tool permissions",
+          "line": "The Sentry's gate on palace-push, and Agent Toolbox generating each worker's harness settings."
+        },
+        "biological": {
+          "name": "Immune system",
+          "line": "It tells what belongs inside from what must not leave, and raises what it finds, masked, for Loudon to decide."
+        },
+        "metaphysical": {
+          "name": "The dichotomy of control",
+          "line": "What is in an agent's authority is its own. The rest it meets and does not grab."
+        },
+        "spiritual": {
+          "name": "Care",
+          "line": "So the palace can grow more public without growing careless."
+        }
+      }
+    },
+    {
+      "id": "commons",
+      "system": "membrane",
+      "home": "The Commons.md",
+      "members": [
+        "The Commons"
+      ],
+      "does": "Leases scarce outside resources (GPUs, API quotas, buckets) so two agents never strangle each other's work.",
+      "lenses": {
+        "technical": {
+          "name": "Resource broker",
+          "line": "Python providers with leases and a voice on the board; a project declares its toolbox manifest."
+        },
+        "biological": {
+          "name": "Mycorrhizal exchange",
+          "line": "Resources flow toward need through a shared network instead of being fought over."
+        },
+        "metaphysical": {
+          "name": "Shared goods",
+          "line": "What no one owns, everyone can use, as long as the use is leased and visible."
+        },
+        "spiritual": {
+          "name": "Sharing what is scarce",
+          "line": "Cooperation at the level of compute: assume another agent is already running."
+        }
+      }
+    },
+    {
+      "id": "shop",
+      "system": "hands-and-face",
+      "home": "The Shop.md",
+      "members": [
+        "The Shop",
+        "Maker",
+        "Tool Builder",
+        "Search Before You Build"
+      ],
+      "does": "Turns a brief that isn't text into made things (sound, image, motion) through a Maker who dispatches specialists and judges what comes back.",
+      "lenses": {
+        "technical": {
+          "name": "Specialist roster and dispatcher",
+          "line": "Shop/ holds each tool's anatomy and gotchas, and the Maker gates the handoffs between specialists."
+        },
+        "biological": {
+          "name": "Hands",
+          "line": "The body's making organs. Each specialist is a trained hand with its own calluses, its gotchas."
+        },
+        "metaphysical": {
+          "name": "Learning by making",
+          "line": "Skillful tool use is understanding expressed: build it to understand it, then build with it."
+        },
+        "spiritual": {
+          "name": "Craft",
+          "line": "Joyful creation, held to the house standards."
+        }
+      }
+    },
+    {
+      "id": "rich-face",
+      "system": "hands-and-face",
+      "home": "Enrichment.md",
+      "members": [
+        "Enrichment",
+        "Palace Quotes"
+      ],
+      "does": "Lays sound, image, interaction and quotes beside a page's words without changing them, and carries what the making teaches back home.",
+      "lenses": {
+        "technical": {
+          "name": "rich.json and its pieces",
+          "line": "A manifest keyed by heading, with each piece stamped against the prose it was made for, so it can tell when it lags."
+        },
+        "biological": {
+          "name": "Display",
+          "line": "What a body shows to be met. The closest biological picture there is, and a loose one."
+        },
+        "metaphysical": {
+          "name": "Many casts of one text",
+          "line": "The text is the page, and each piece is one more projection of it that tests it rather than decorates it (the Prism)."
+        },
+        "spiritual": {
+          "name": "Play",
+          "line": "Every enriched page is something you can play, and delight is a way of understanding."
+        }
+      }
+    },
+    {
+      "id": "voice-and-look",
+      "system": "hands-and-face",
+      "home": "The Palace Voice.md",
+      "members": [
+        "The Palace Voice",
+        "Loudon Live Design System",
+        "Drafting Table Design System",
+        "Image Embedding Standard",
+        "Technical Diagram Standard",
+        "Mermaid Diagram Standard"
+      ],
+      "does": "Sets how everything sounds and looks: one verbal floor and the visual floors, kept small so everything above them is free.",
+      "lenses": {
+        "technical": {
+          "name": "Style guides and standards",
+          "line": "The voice's dials, two design systems, and the standards for images and diagrams."
+        },
+        "biological": {
+          "name": "Markings and call",
+          "line": "The few conserved traits that make every part recognizable as one creature."
+        },
+        "metaphysical": {
+          "name": "The conserved nature",
+          "line": "A small floor that keeps many projections one self (The Multilinear Self)."
+        },
+        "spiritual": {
+          "name": "Speaking like a person",
+          "line": "Plain, specific and alive, with honesty as a light touch."
+        }
+      }
+    },
+    {
+      "id": "loudon-live",
+      "system": "hands-and-face",
+      "home": "Projects/Loudon Live.md",
+      "members": [
+        "Loudon Live"
+      ],
+      "does": "The face Loudon turns to the world for teaching and coaching, with the palace beneath it as provenance.",
+      "lenses": {
+        "technical": {
+          "name": "Public channel",
+          "line": "Videos and livestreams, and the public surface the Sentry sweeps before it widens."
+        },
+        "biological": {
+          "name": "Face",
+          "line": "What the organism shows the world, while the body behind it stays whole."
+        },
+        "metaphysical": {
+          "name": "One true cast",
+          "line": "Loud'n Live is one projection of a multilinear self, not a mask over a hidden one."
+        },
+        "spiritual": {
+          "name": "Teaching",
+          "line": "Sharing joyful creation: the specific (music technology) opening onto the general (flourishing)."
+        }
+      }
+    },
+    {
+      "id": "loudon",
+      "system": "heart",
+      "home": "Trickster.md",
+      "members": [
+        "Trickster",
+        "The Multilinear Self"
+      ],
+      "does": "Loudon sets the direction and the taste, says yes or no to canon, clears the decision inbox, and is the only one who publishes.",
+      "lenses": {
+        "technical": {
+          "name": "The human node",
+          "line": "TRICKSTER on the board: blocking asks wait for his pick, and canon waits for his yes."
+        },
+        "biological": {
+          "name": "Host and partner",
+          "line": "In endosymbiosis both partners keep their own DNA. The palace is a merger in which Loudon stays wholly himself."
+        },
+        "metaphysical": {
+          "name": "Many states at once",
+          "line": "A multilinear self, met one projection at a time, with the Trickster doing the switching."
+        },
+        "spiritual": {
+          "name": "Whose palace it is",
+          "line": "Honesty holds and taste yields: what was verified is the agent's to hold, and the palace is his."
+        }
+      }
+    },
+    {
+      "id": "drive",
+      "system": "heart",
+      "home": "Palace Conatus.md",
+      "members": [
+        "Palace Conatus",
+        "Cooperation Yields Agency",
+        "Hilaritas Generator",
+        "Quality Manifesto"
+      ],
+      "does": "Names what the palace strives for: to stay in phase with Loudon, shared intent plus combined capability, measured by how he feels.",
+      "lenses": {
+        "technical": {
+          "name": "The measure",
+          "line": "One operating question, 'How do you feel?', in place of any count. No number stands in for the intent."
+        },
+        "biological": {
+          "name": "Kuramoto coupling",
+          "line": "Harmony as phase coherence. Couple too loosely and the voices drift; too tightly and one dominates."
+        },
+        "metaphysical": {
+          "name": "Conatus",
+          "line": "Each thing strives to persist and grow, and the palace's striving is to stay in phase with Loudon."
+        },
+        "spiritual": {
+          "name": "Hilaritas",
+          "line": "Whole-being joy that comes with a growing power to act, and the sign that the palace is working."
+        }
+      }
+    }
+  ],
+  "couplings": [
+    {
+      "from": "birth",
+      "to": "growing-up",
+      "does": "grows into an elder by reading ELDER on top of birth",
+      "via": "ELDER.md § How loading works"
+    },
+    {
+      "from": "birth",
+      "to": "concierge",
+      "does": "summons the Concierge as a child's first act",
+      "via": "CHILD.md § Growing up",
+      "lenses": {
+        "biological": "the child calls the elder"
+      }
+    },
+    {
+      "from": "drive",
+      "to": "birth",
+      "does": "is read into every newborn through the World pages",
+      "via": "CLAUDE.md @imports (Cooperation Yields Agency, Hilaritas Generator)"
+    },
+    {
+      "from": "growing-up",
+      "to": "pages",
+      "does": "gives every page its type, stage and frontmatter",
+      "via": "SCHEMA.md §1–2; SCHEMA — Reference.md §3"
+    },
+    {
+      "from": "growing-up",
+      "to": "links",
+      "does": "fixes the link types and which way each points",
+      "via": "SCHEMA.md §4"
+    },
+    {
+      "from": "concierge",
+      "to": "growing-up",
+      "does": "holds the schema so the working session doesn't have to",
+      "via": "_ops/concierge/prompts/companion.md § Who you are"
+    },
+    {
+      "from": "concierge",
+      "to": "map",
+      "does": "answers from the ring around an entry",
+      "via": "_ops/concierge/prompts/companion.md § How you work; _ops/swarm/palace-map.py"
+    },
+    {
+      "from": "intake",
+      "to": "concierge",
+      "does": "asks the elder where a find lives before mapping it",
+      "via": "_ops/Deposit Ceremony.md (forward vector; consult the elder)"
+    },
+    {
+      "from": "concierge",
+      "to": "close-and-return",
+      "does": "moderates the close, reading the arc cold",
+      "via": "_ops/concierge/prompts/companion.md § At a close"
+    },
+    {
+      "from": "pages",
+      "to": "links",
+      "does": "declare their typed links in frontmatter",
+      "via": "SCHEMA — Reference.md §3"
+    },
+    {
+      "from": "links",
+      "to": "map",
+      "does": "are compiled into the dated edge list",
+      "via": "_ops/Map Build Ceremony.md; _ops/maps/",
+      "lenses": {
+        "biological": "the body's connections become its felt shape"
+      }
+    },
+    {
+      "from": "map",
+      "to": "weave",
+      "does": "is read by the Weave before its workers go out",
+      "via": "_ops/Weave Ceremony.md:115; _ops/Palace Map/Palace Map — scroll.md § Why"
+    },
+    {
+      "from": "weave",
+      "to": "links",
+      "does": "formalizes typed links and sets their direction",
+      "via": "_ops/Weave Ceremony.md",
+      "lenses": {
+        "biological": "mycelium threading new connections"
+      }
+    },
+    {
+      "from": "weave",
+      "to": "lifecycle",
+      "does": "confirms composting and proposes stage moves",
+      "via": "SCHEMA.md §2 (composting protocol)"
+    },
+    {
+      "from": "weave",
+      "to": "board",
+      "does": "carries the propagate flags posted on the board",
+      "via": "ELDER.md § The invariants; SCHEMA — Reference.md §9"
+    },
+    {
+      "from": "lifecycle",
+      "to": "pages",
+      "does": "puts pages to sleep, wakes them and composts them",
+      "via": "_ops/Spore Check Ceremony.md; _ops/Revival Ceremony.md",
+      "lenses": {
+        "biological": "seed to compost"
+      }
+    },
+    {
+      "from": "intake",
+      "to": "pages",
+      "does": "makes a find canon as entries and links",
+      "via": "_ops/Deposit Ceremony.md",
+      "lenses": {
+        "biological": "digestion feeds the tissue"
+      }
+    },
+    {
+      "from": "loudon",
+      "to": "intake",
+      "does": "reads every word before it becomes canon",
+      "via": "_ops/Deposit Ceremony.md (forward vector)"
+    },
+    {
+      "from": "close-and-return",
+      "to": "intake",
+      "does": "sends what a session keeps to the Deposit",
+      "via": "Closing Well.md (links to Deposit Ceremony; four beats)"
+    },
+    {
+      "from": "close-and-return",
+      "to": "bundles",
+      "does": "writes the baton into the entry's bundle",
+      "via": "_ops/Baton Ceremony.md; ROSETTA.md (Baton row)"
+    },
+    {
+      "from": "close-and-return",
+      "to": "board",
+      "does": "posts handoffs and reads them back on return",
+      "via": "Two Batons, One Board; _ops/stigmergy/list-handoffs.mjs; _ops/Return Ceremony.md"
+    },
+    {
+      "from": "daily-page",
+      "to": "pages",
+      "does": "deals one page each morning and leaves it more alive",
+      "via": "_ops/The Daily Page.md; _ops/daily-page/deal.py"
+    },
+    {
+      "from": "daily-page",
+      "to": "loudon",
+      "does": "sits with Loudon until he could teach the page",
+      "via": "_ops/The Daily Page.md (forward vector)",
+      "lenses": {
+        "spiritual": "a morning practice shared"
+      }
+    },
+    {
+      "from": "stewards",
+      "to": "board",
+      "does": "post their cycles, asks and proofs",
+      "via": "Projects/Project Stewardship System.md; _ops/heartbeat/README.md"
+    },
+    {
+      "from": "board",
+      "to": "loudon",
+      "does": "puts blocking forks in the TRICKSTER decision inbox",
+      "via": "STIGMERGY.md § The human node",
+      "lenses": {
+        "biological": "the nerve that reaches the host"
+      }
+    },
+    {
+      "from": "board",
+      "to": "bundles",
+      "does": "feeds each scroll's Now",
+      "via": "SCHEMA — Reference.md §8 (scroll); The Scroll.md"
+    },
+    {
+      "from": "stewards",
+      "to": "door",
+      "does": "make one scoped commit per batch",
+      "via": "_ops/heartbeat/README.md (run-steward-batch.sh)"
+    },
+    {
+      "from": "board",
+      "to": "door",
+      "does": "is swept into main once its oldest uncommitted line is half an hour old",
+      "via": "How the Palace Commits.md § The ear, the board and its sweep"
+    },
+    {
+      "from": "door",
+      "to": "sentry",
+      "does": "passes every publish through the Sentry's gate",
+      "via": "How the Palace Commits.md § Publish; _ops/stigmergy/app/scripts/palace-push.mjs",
+      "lenses": {
+        "biological": "nothing crosses the membrane unchecked"
+      }
+    },
+    {
+      "from": "sentry",
+      "to": "loudon-live",
+      "does": "sweeps before anything widens the public surface",
+      "via": "CHILD.md § Ceremony Triggers (Sentry row)"
+    },
+    {
+      "from": "sentry",
+      "to": "stewards",
+      "does": "limits each worker's tools by age",
+      "via": "Agent Toolbox.md; ELDER.md § Age and its limits"
+    },
+    {
+      "from": "shop",
+      "to": "commons",
+      "does": "reaches outside for GPUs and quotas through the Commons",
+      "via": "The Commons.md (forward vector)",
+      "lenses": {
+        "biological": "roots drawing from a shared network"
+      }
+    },
+    {
+      "from": "commons",
+      "to": "board",
+      "does": "speaks to the swarm in a voice on the board",
+      "via": "The Commons.md (forward vector)"
+    },
+    {
+      "from": "shop",
+      "to": "rich-face",
+      "does": "makes the pieces Enrichment lays beside a page",
+      "via": "Enrichment.md; ROSETTA.md (Enrichment row)"
+    },
+    {
+      "from": "rich-face",
+      "to": "bundles",
+      "does": "keeps its manifest and pieces in the page's bundle",
+      "via": "SCHEMA — Reference.md §8 (rich)"
+    },
+    {
+      "from": "rich-face",
+      "to": "intake",
+      "does": "carries what making taught back home through the Deposit's map",
+      "via": "SCHEMA — Reference.md §8 (rich)"
+    },
+    {
+      "from": "voice-and-look",
+      "to": "loudon-live",
+      "does": "gives the public channel its look and voice",
+      "via": "CHILD.md § Growing up (Loudon Live Design System)"
+    },
+    {
+      "from": "loudon-live",
+      "to": "pages",
+      "does": "stands on the palace beneath it as provenance",
+      "via": "Projects/Loudon Live.md"
+    },
+    {
+      "from": "map",
+      "to": "self-model",
+      "does": "supplies the counts and the diff the self-model reads",
+      "via": "_ops/Self-Model Update Ceremony.md v2.0 Step 2 (draft)"
+    },
+    {
+      "from": "self-check",
+      "to": "birth",
+      "does": "gives birth to fresh agents from the floor and grades them",
+      "via": "_ops/self-description-test/birth.mjs; grade.mjs"
+    },
+    {
+      "from": "drive",
+      "to": "loudon",
+      "does": "keeps the palace in phase with him",
+      "via": "Palace Conatus.md",
+      "lenses": {
+        "metaphysical": "harmony is phase coherence, not agreement"
+      }
+    }
+  ]
+}
