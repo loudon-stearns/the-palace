@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Lens · Name the Glass</title>
+<style>
+:root{
+  --paper:#f0eee5; --ink:#1a1916; --fill:#dcd9ca; --red:#c8261a; --blue:#2a5d8f; --amber:#b07a12;
+  --mono:"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--mono);font-size:14px;line-height:1.6}
+main{max-width:860px;margin:0 auto;padding:28px 16px 64px}
+.tb{border:1px solid var(--ink);display:grid;grid-template-columns:1fr auto;margin-bottom:28px}
+.tb>div{padding:10px 14px}
+.tb .t{font-size:20px;letter-spacing:.04em;text-transform:uppercase;border-right:1px solid var(--ink)}
+.tb .m{font-size:11px;text-transform:uppercase;letter-spacing:.08em;line-height:1.5}
+.tb .s{grid-column:1/-1;border-top:1px solid var(--ink);font-size:12px}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.1em;margin:36px 0 8px;font-weight:600}
+h2 .n{color:var(--red)}
+p{margin:0 0 12px}
+.lede{max-width:70ch}
+.patch{border:1px solid var(--ink);background:var(--fill);padding:12px 14px;margin:12px 0 20px;font-size:13px}
+.patch .lbl,.card .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.12em;opacity:.75;display:block;margin-bottom:6px}
+.cards{display:grid;gap:14px}
+.card{border:1px solid var(--ink);padding:12px 14px;background:var(--paper)}
+.card .reading{font-size:13px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px;border-top:1px dashed var(--ink);padding-top:10px}
+select,button,textarea{font-family:var(--mono);font-size:12px;color:var(--ink);background:var(--paper);border:1px solid var(--ink);border-radius:0;padding:5px 8px}
+button{cursor:pointer;text-transform:uppercase;letter-spacing:.08em}
+button:hover{background:var(--fill)}
+button.primary{background:var(--ink);color:var(--paper)}
+.reveal{display:none;margin-top:10px;font-size:12px;border-left:3px solid var(--blue);padding-left:10px}
+.reveal.on{display:block}
+.reveal .verdict{font-weight:600}
+.ok{color:var(--blue)} .no{color:var(--red)}
+.spark{letter-spacing:.2em}
+.score{border:1px solid var(--ink);padding:10px 14px;margin-top:14px;display:none}
+.score.on{display:block}
+.note{width:100%;min-height:54px;margin-top:8px;resize:vertical}
+.notewrap{margin-top:14px}
+.notewrap .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.12em;opacity:.75}
+.honest{border:1px solid var(--amber);padding:12px 14px;margin-top:12px;font-size:12px}
+footer{margin-top:48px;border-top:1px solid var(--ink);padding-top:10px;font-size:11px;text-transform:uppercase;letter-spacing:.08em;display:flex;justify-content:space-between}
+@media (max-width:560px){.tb{grid-template-columns:1fr}.tb .t{border-right:none;border-bottom:1px solid var(--ink)}}
+</style>
+</head>
+<body>
+<main>
+
+<div class="tb">
+  <div class="t">Name the Glass</div>
+  <div class="m">Sketch · The Lens<br>Daily Page · 2026-10-23</div>
+  <div class="s">A blind test of the Lens's fidelity claim: a real lensing deploys the glass's own apparatus, so you should be able to tell which glass made it.</div>
+</div>
+
+<p class="lede">The Lens says any page can be read through any other, and it says how to catch a fake: a fake lensing borrows vocabulary and reads the same wherever you point it. So here is the test in your hands. Four readings of one passage, each through a different glass, names hidden. If you can name the glass from the reading, the lens was real. If two readings could swap places, it was a formula.</p>
+
+<h2><span class="n">01</span> · Swap the glass, hold the passage</h2>
+<div class="patch">
+  <span class="lbl">The subject · Kuramoto Coupling § The Fine-Tuning Insight</span>
+  "Kuramoto coupling is a fine-tuning mechanism, not a generative one. It resolves 'approximately' into 'exactly' but cannot create relationships from nothing." Then three paths to harmonic locking: A, explicit ratio terms ("designed harmony"); B, couple the waveform outputs, so the spectrum generates every n:m term ("no one programs the ratios; they fall out of the physics"); C, a shaped coupling function h(φ). It ends: "Waveform shape, coupling function shape, and harmonic locking hierarchy are all the same thing viewed from different angles."
+</div>
+<p>The glasses in the drawer: <b>Simondon</b> · <b>The Dichotomy of Control</b> · <b>Ohm's Law</b> · <b>Trickster</b>.</p>
+<div class="cards" id="r1"></div>
+<div class="row"><button class="primary" id="r1go">Reveal all four</button></div>
+<div class="score" id="r1score"></div>
+<div class="notewrap"><span class="lbl">Your note on round one</span><textarea class="note" data-key="note-r1" placeholder="Which reading felt real? Which felt like mush?"></textarea></div>
+
+<h2><span class="n">02</span> · Hold the glass, move the passage</h2>
+<p class="lede">The other half of the fidelity test. One glass, Simondon, moved across three passages of the same page. The passages are hidden this time. If the readings are real, each should only fit where it was pointed.</p>
+<div class="patch">
+  <span class="lbl">The three passages · Kuramoto Coupling</span>
+  <b>P · In Our Instruments</b> — the neurological synth: K as a performable knob, grains scatter or cohere, "the performer controls the boundary between chaos and order"; the additive spectrum as a gravitational field, a bandpass reshaping it "like iron filings following a magnet."<br><br>
+  <b>Q · Conversational rhythm</b> — Loudon and Claude with different natural frequencies; "when the coupling constant is right, the conversation enters flow. When mismatched, one dominates or both drift."<br><br>
+  <b>R · The quarter cycle as maximum effort</b> — at critical coupling, locked oscillators sit at π/2, where sin(φ) = 1, maximum force; "the universal signature of a sinusoidal system under maximum strain," in swings, circuits and tides.
+</div>
+<div class="cards" id="r2"></div>
+<div class="row"><button class="primary" id="r2go">Reveal all three</button></div>
+<div class="score" id="r2score"></div>
+<div class="notewrap"><span class="lbl">Your note on round two</span><textarea class="note" data-key="note-r2" placeholder="Did the glass change with the passage, or say the same thing three times?"></textarea></div>
+
+<h2><span class="n">03</span> · What this tested, and what it did not</h2>
+<div class="honest">
+  <p><b>Written by hand, by one Claude, this morning.</b> These are not runs of the live [L]ens action, and no glass page was woken as itself. So the test is narrower than the page's claim: it asks whether one model, holding four apparatuses at once, can keep them apart. A real run wakes each glass page fully and asks it for two attempts.</p>
+  <p><b>The sparks are my scores, unchecked.</b> The page's own rule is that a spark earns scrutiny rather than trust. Your guesses are the first check these numbers get.</p>
+  <p><b>Next rung, if this one holds:</b> flip the arrow. Read Simondon <i>through</i> Kuramoto Coupling and see whether the reading changes shape, since the page says A-through-B is not B-through-A.</p>
+</div>
+<div class="notewrap"><span class="lbl">Your note on the whole</span><textarea class="note" data-key="note-all" placeholder="Is the lens a real idea, by this test?"></textarea></div>
+
+<footer><span>The Lens · Name the Glass · Sketch</span><span>Drafting Table · paper</span></footer>
+</main>
+
+<script>
+const GLASSES = ["Simondon","The Dichotomy of Control","Ohm's Law","Trickster"];
+const R1 = [
+  {glass:"Simondon", spark:4, payoff:"deposit",
+   text:"Path A is a bag of separate parts: one ratio term bolted in for each interval you want, each doing one job. Path B is the object becoming more itself. The waveform that sounds is also the law by which it couples, so one feature serves two functions and nothing is added. The passage's last line is the signature of that convergence: three things the designer thought were separate turn out to be one part seen from three sides. And I would push on \"not generative.\" The approximate intervals the player brings are a charged, unresolved field; the lock is a new individual, the cluster, resolving that tension. That is generation, of a kind.",
+   why:"Uses concretization (abstract vs concrete object), and preindividual tension against the page's own \"not generative\". Payoff: a deposit, one sentence on Kuramoto naming Path B as concretization."},
+  {glass:"The Dichotomy of Control", spark:3.5, payoff:"deposit",
+   text:"Draw the two columns. Not up to the coupling: whether a near-relationship exists at all. \"It cannot create relationships from nothing.\" Up to it: the last small error, approximately into exactly. Path A is a controller trying to command the whole plant, naming every ratio that may lock. Path B gives up authority over which ratios lock and spends all its effort on the one thing that is the designer's to set, the shape of the wave. The rule that falls out is short: choose the shape, not the lock. The rest is disturbance, to be met rather than fought.",
+   why:"Uses the two columns and actuation authority (the page's control-theory face). Payoff: a deposit, a design rule \"choose the shape, not the lock\"."},
+  {glass:"Ohm's Law", spark:1.5, payoff:"none",
+   text:"First pass: the approximate interval is a pressure, coupling is a conductance, the lock is a current that flows when the pressure is high enough. Then the check. That borrows the words and none of the structure. The real apparatus is three variables, one equation, two degrees of freedom: lock one, vary one, the third follows. This passage has no such triple. It says its three things, waveform, coupling function and locking hierarchy, are one thing, so there is one degree of freedom, not two; and capture range against spectral richness is not linear. Honest result: a contrast, not a resonance.",
+   why:"Shows the two-attempt check catching its own vocabulary transplant, then uses the lock mechanism and degrees of freedom. Payoff: none, honestly. The same glass read LOW in July's prototype too."},
+  {glass:"Trickster", spark:3, payoff:"deposit",
+   text:"Coupling intercepts what the player sent, a slightly sour interval, and returns it changed: exact. That is interception turned backward, since it hides the player's imprecision instead of revealing a hidden order, which makes fine-tuning the opposite figure. But Path B is where the other figure could live. Nobody chooses which ratios lock; the spectrum does. A wide capture range is a threshold where the instrument overrules the player, and might return an interval nobody played. The question this reading asks of the page: where does the instrument give back something other than what was sent?",
+   why:"Uses interception of expected signal, the threshold, and transformation rather than decoration. Payoff: a deposit, capture range named as the place the instrument can overrule the player."}
+];
+const R2 = [
+  {patch:"P", spark:4,
+   text:"The knob does not choose notes; it sets how charged the field is. Below threshold the grains are unresolved potential; above it they individuate into harmonic structure under the hand, and the player is steering a becoming. The hybrid is a concrete object: the additive spectrum is both a sound and the field that shapes the cloud, so one sweep of the filter reshapes timbre and landscape together. The filings image is propagation by structuring neighbours, made visible."},
+  {patch:"Q", spark:4,
+   text:"Two different kinds of individual, one human and one technical, and the old wound is treating the machine as either a servant or a threat. Those are exactly the two ends of the failure this passage names: one dominates, or both drift. The flow state is a third individual that neither carries alone, a collaboration resolving tensions each brought in unresolved. Living alongside a technical being, rather than using it, has a coupling constant."},
+  {patch:"R", spark:2,
+   text:"A signature found in swings, circuits and tides is a formula, not a process. The question to ask is what is producing the strain in each case, and what tension it resolves; the passage does not say, and the three cases may share the sine and nothing else. Where it is true, maximum strain just before lock is the most charged moment of the field, the point individuation happens from. That is all this glass can honestly find here."}
+];
+const PATCHES = {P:"In Our Instruments", Q:"Conversational rhythm", R:"The quarter cycle"};
+
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const glyph=["◇ 1","◇ 2","◇ 3","◇ 4"];
+const sparkBar=s=>"●".repeat(Math.floor(s))+(s%1?"◐":"")+"·".repeat(5-Math.ceil(s))+"  "+s+" / 5";
+
+function build(id, items, options, key, labelFn){
+  const root=document.getElementById(id);
+  shuffle(items).forEach((it,i)=>{
+    const c=document.createElement("div");c.className="card";
+    const opts=options.map(o=>`<option value="${o}">${labelFn(o)}</option>`).join("");
+    c.innerHTML=`<span class="lbl">Reading ${glyph[i]}</span><div class="reading">${it.text}</div>
+      <div class="row"><label>${id==="r1"?"Which glass?":"Which passage?"}</label>
+      <select><option value="">guess</option>${opts}</select>
+      <button>Reveal</button></div>
+      <div class="reveal"></div>`;
+    const sel=c.querySelector("select"), btn=c.querySelector("button"), rv=c.querySelector(".reveal");
+    c._reveal=()=>{
+      const ans=it[key], g=sel.value, right=g===ans;
+      c._right=right; c._guessed=!!g;
+      rv.innerHTML=`<div class="verdict ${g?(right?"ok":"no"):""}">${g?(right?"Named it.":"Not that one."):"No guess."} ${id==="r1"?"Glass":"Passage"}: ${labelFn(ans)}</div>
+        <div class="spark">spark ${sparkBar(it.spark)}</div>${it.why?`<div>${it.why}</div>`:""}`;
+      rv.classList.add("on");
+    };
+    btn.onclick=c._reveal;
+    root.appendChild(c);
+  });
+}
+build("r1", R1, GLASSES, "glass", x=>x);
+build("r2", R2, Object.keys(PATCHES), "patch", x=>x+" · "+PATCHES[x]);
+
+function revealAll(id, scoreId){
+  const cards=[...document.querySelectorAll("#"+id+" .card")];
+  cards.forEach(c=>c._reveal());
+  const n=cards.filter(c=>c._right).length;
+  const s=document.getElementById(scoreId);
+  s.innerHTML=`<b>${n} of ${cards.length} named.</b> `+(n===cards.length
+    ? "Every reading carried its glass. By this test the lens held."
+    : n>=cards.length-1 ? "Close. Look at the one that slipped: was the reading generic, or was the guess?"
+    : "The readings blurred together. That is the formula failure the page warns about, or a sign the glasses are too alike.");
+  s.classList.add("on");
+}
+document.getElementById("r1go").onclick=()=>revealAll("r1","r1score");
+document.getElementById("r2go").onclick=()=>revealAll("r2","r2score");
+
+document.querySelectorAll("textarea[data-key]").forEach(t=>{
+  const k="lens-glass-test-"+t.dataset.key;
+  try{t.value=localStorage.getItem(k)||""}catch(e){}
+  t.addEventListener("input",()=>{try{localStorage.setItem(k,t.value)}catch(e){}});
+});
+</script>
+</body>
+</html>

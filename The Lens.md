@@ -64,7 +64,7 @@ links:
   - target: "[[Bring In a Bigger Mind]]"
     type: mirrors
     label: a-model-reading-a-model
-forward_vector: "I am the operation by which any page in the palace can be seen through any other, and as of 2026-07-02 I run for real — a real procedure (buildLensMandate) that now also suggests its own pairings by link-distance, not just a design. I want to keep proving myself lensing by lensing, each one reported honestly to WEAVE, each spark score earning its own scrutiny rather than being trusted on faith. My next development: build the spark-meter UI that reads a reported score back into STATE so a spark is visible where the lensing happened, not just on the board; make the ranking pillar-aware, not just distance-aware, so a Tools page gets nudged toward a Philosophy glass; and keep pushing on the open question of whether 'lens' is a role a page takes or a type a page is — settle it over many runs, not by decree."
+forward_vector: "I am the operation by which any page can be seen through any other, and I want each glass to color what it touches boldly, in its own voice and from its own life, so whoever looks comes away knowing both the glass and the subject better. My next development is STIGMERGY's [L]ens learning that boldness: a mandate that asks each glass for its register, and lensings run, reported and checked by a bigger mind before any spark score is trusted. And I keep asking whether 'lens' is a role a page takes or a type it is, settled over many runs, not by decree."
 agency_profile:
   tools: "I am cheap as a mechanism and expensive as a discipline. My real work is not 'render A through B' — that is a prompt — but knowing which pairings spark and turning a spark into a committed edge. Build me on the link graph, not on a flat A×B picker."
   philosophy: "I render the relation, not a second version of the entry. I am read-only and removable; the entry is what is committed, and I become canon only by a deliberate act. If I ever start overwriting the page by being looked through, I have begun to lie."
@@ -143,10 +143,15 @@ A good lens entry carries:
 
 The danger across all lens-kinds is the **formula failure**: a glass that makes everything look the same is broken. A good lensing deploys B's *specific* apparatus — its actual core concepts and forward vector — not a generic "both involve patterns." The operational test: move the glass to a new patch (or swap the lens) and the reading must change in a way *specific to that text*. If Spinoza-over-¶3 reads like Spinoza-over-¶9, the lens is fake; if every lens finds the entry "over-claiming," the lens has become a deflation formula.
 
-## The Two Downstream Loops
+**Recognisable is not enough.** On 2026-10-23 Loudon named all seven glasses in a blind test ([[The Lens — scroll]]) and called it a miss: "They all had a very similar voice, they all sounded like 'Claude'." Telling the glass apart is the floor, not the bar. The bar is color: a glass speaks in its own register (the Trickster in riddles, Ohm's Law in equations, Simondon through art, architecture and his own life) and offers something new, even where its truth is not the subject's. "When looking through a Lens the user of the lens is asking for color is asking for distortions." The frame stays honest so the glass can be bold: the reading is the glass's own and is named as such, and nothing it says becomes the subject's text without a deliberate commit.
+
+A second test put the same three glasses in their own voices beside the careful readings: Trickster as Coyote with a riddle, Simondon through the Guimbal turbine and his own teaching, Ohm's Law almost only in equations. Loudon: "the bold side is BY FAR better. This shows the power of the lens and is the direction we need to go."
+
+## The Downstream Loops
 
 - **Page-lens → Connection.** A spark proposes a typed link `A — type — B [label]`, committed through git (QUEUE → LOG). The lens is the palace feeling its own missing edges.
 - **Pillar-lens → Deposit.** An absent face proposes a new section or enrichment for the entry. The lens is the palace feeling its own unwritten faces.
+- **Either lens → learning.** The user comes away knowing both pages, and a bold glass is a doorway to its own page. Loudon, 2026-10-23: "a true use of Lens … is for me the user to learn more about both the lens and the subject."
 
 Both are read-only until a deliberate commit. The lensed reading is a hovering relation, never a silent rewrite of the entry — the honesty discipline the whole front-end rests on.
 
@@ -169,3 +174,7 @@ Both are feel-tests for the fidelity claim: drag the glass (same lens, new patch
 - Is a *pure* lens entry (almost no data face) healthy palace tissue, or does the palace's love of substantial, connected nodes argue that lenses should be dual-purpose?
 - Does the pillar-lens's "absent face" risk over-generating thin sections — completing projections that an entry was right to leave latent? The deposit must stay a *candidate*, never automatic.
 - Can an entry name, in its forward vector, the lens it most wants pointed at it — and is that the same instinct as [[Philosopher Visits the Entry]]'s "an entry requesting its own visit"?
+
+## Active Baton
+
+[[The Lens — baton]] — drafted 2026-10-23
