@@ -1,4 +1,22 @@
 source	relation	target
+How the Palace Commits	connects-to	Worktree Practice
+How the Palace Commits	connects-to	Worktree Practice — spec — the door
+How the Palace Commits	connects-to	STIGMERGY
+How the Palace Commits	connects-to	Sentry
+How the Palace Commits	connects-to	Trickster Commit
+How the Palace Commits	connects-to	Concierge
+How the Palace Commits	connects-to	Closing Well
+The Palace Practices on Itself	couples-with	Zoom Out to the Structure
+The Palace Practices on Itself	connects-to	Pages as Agents
+The Palace Practices on Itself	mirrors	Endosymbiosis
+The Palace Practices on Itself	connects-to	The Commons
+The Palace Practices on Itself	connects-to	Hilaritas Generator
+The Palace Practices on Itself	connects-to	Cooperation Yields Agency
+ControlNet as Topology	deepens	Blocked, Not Prompted
+ControlNet as Topology	connects-to	The Flow Field is the Spine
+ControlNet as Topology	connects-to	Steer the Generator
+ControlNet as Topology	mirrors	Kuramoto Coupling
+ControlNet as Topology	connects-to	The Aftermath Frame
 Closing Well	enables	Maker
 Closing Well	enables	The Shop
 Closing Well	enables	Baton Ceremony
@@ -7,26 +25,27 @@ Closing Well	connects-to	Hilaritas Generator
 Closing Well	connects-to	FOUR PILLARS
 Closing Well	couples-with	SUBSTRATE
 Closing Well	connects-to	Kuramoto Coupling
+Closing Well	connects-to	Deposit Ceremony
+Closing Well	connects-to	Two Batons, One Board
+Closing Well	exemplifies	Pages as Agents
+Closing Well	connects-to	Project Stewardship System
+Closing Well	connects-to	STIGMERGY
+Closing Well	connects-to	Harvest Ceremony
+Closing Well	spawned	Closing Well — Context
+Closing Well	connects-to	Concierge
+Closing Well	exemplifies	Palace Conatus
+Closing Well	spawned	Closing Well Ceremony
+Closing Well	exemplifies	Reflective Practice
 DSP Frameworks	enables	FOUR PILLARS
 DSP Frameworks	connects-to	Biomechanical Synthesis
 DSP Frameworks	connects-to	Action Potential Oscillator
 DSP Frameworks	connects-to	JSUI
 DSP Frameworks	connects-to	Preset Oracle
-Oblique Enrichment	couples-with	Enrichment
-Oblique Enrichment	contradicts	Enrichment
-Oblique Enrichment	emerged-from	Brian Eno
-Oblique Enrichment	mirrors	Oblique Portrait
-Oblique Enrichment	deepens	Latent Error
-Oblique Enrichment	connects-to	BBS Design System
-Oblique Enrichment	connects-to	BBS Blackboard
-Oblique Enrichment	spawned	Semantic Webcam
-Oblique Enrichment	connects-to	Synthesis ↔ Emergence
-Oblique Enrichment	deepens	Hilaritas Generator
-Oblique Enrichment	connects-to	Trickster
-Oblique Enrichment	connects-to	Cooperation Yields Agency
-Oblique Enrichment	mirrors	Pages as Agents
-Oblique Enrichment	connects-to	Project Stewardship System
-Oblique Enrichment	exemplifies	Radio Play
+The Commons	exemplifies	assume multi-agent
+The Commons	connects-to	STIGMERGY
+The Commons	connects-to	RunPod GPU Backend
+The Commons	connects-to	Cooperation Yields Agency
+The Commons	connects-to	The Palace Practices on Itself
 The Four Virtues	emerged-from	Stoicism
 The Four Virtues	couples-with	The Dichotomy of Control
 The Four Virtues	connects-to	Project Stewardship System
@@ -47,6 +66,18 @@ The Adjacent Affordance	connects-to	Spinoza Conatus
 The Adjacent Affordance	connects-to	Palace Philosophies
 The Adjacent Affordance	connects-to	Palace as Context Injection System
 The Adjacent Affordance	connects-to	SUBSTRATE
+CHILD	connects-to	CLAUDE
+CHILD	connects-to	JEWEL
+CHILD	enables	ELDER
+CHILD	connects-to	Palace as Context Injection System
+CHILD	connects-to	Search Before You Build
+Can an Instrument Notice Where the Work Stops?	emerged-from	Creative Coach
+Can an Instrument Notice Where the Work Stops?	connects-to	Reflective Practice
+Can an Instrument Notice Where the Work Stops?	connects-to	Retrospective Delay
+Weaving Memory into the Palace	connects-to	Weave Ceremony
+Weaving Memory into the Palace	deepens	Palace as Context Injection System
+Weaving Memory into the Palace	mirrors	Deposit Ceremony
+Weaving Memory into the Palace	couples-with	Closing Well
 Typography as Meaning	connects-to	BLUELINE — Text Layer
 Typography as Meaning	connects-to	Loudon Live Design System
 Typography as Meaning	exemplifies	Blocked, Not Prompted
@@ -78,7 +109,9 @@ Phase Reduction	connects-to	Linear Predictive Coding
 Phase Reduction	member-of	Dissolutions
 Phase Reduction	connects-to	Bayesian Granular Synthesizer
 Phase Reduction	connects-to	Wallpaper Groups
+Palace Conatus	connects-to	Self-Describing Knowledge Module
 Palace Conatus	deepens	SUBSTRATE
+Palace Conatus	connects-to	Closing Well
 Palace Conatus	exemplifies	Spinoza Conatus
 Palace Conatus	emerged-from	Four Pillars of Enchanted Agency
 Palace Conatus	emerged-from	Palace Enchantment
@@ -88,7 +121,8 @@ Palace Conatus	connects-to	Project Stewardship System
 Palace Conatus	connects-to	Trickster
 Palace Conatus	connects-to	Pages as Agents
 Palace Conatus	connects-to	Agent Wellbeing
-Three Kinds of Warp	connects-to	Torus Warping Catalog
+Palace Conatus	connects-to	The Palace Speaks
+Three Kinds of Warp	connects-to	2D Torus Wavetable Synthesizer — catalog — warps
 Three Kinds of Warp	connects-to	2D Torus Wavetable Synthesizer
 Three Kinds of Warp	couples-with	Categorizing Inharmonicity
 Three Kinds of Warp	connects-to	Wavetable Space as Torus
@@ -97,42 +131,13 @@ Three Kinds of Warp	emerged-from	Harmonicity and Inharmonicity
 Three Kinds of Warp	connects-to	Bessel Functions in Synthesis
 Three Kinds of Warp	deepens	Piano String Inharmonicity
 Three Kinds of Warp	mirrors	Embeddings as Relational Meaning
-Three Kinds of Warp	connects-to	2D Wavetable Catalog
+Three Kinds of Warp	connects-to	2D Torus Wavetable Synthesizer — catalog — wavetables
 Three Kinds of Warp	enables	Dispersion
 Three Kinds of Warp	connects-to	Lateral Access
-Toolkit — Audio Plugins	emerged-from	Loudon's Toolkit
-Toolkit — Audio Plugins	connects-to	Toolkit — Synthesizers
-Toolkit — Audio Plugins	connects-to	Toolkit — Audio Effects
-Loudon Live	couples-with	Progressive Staging
-Loudon Live	couples-with	Curriculum Map
-Loudon Live	connects-to	FOUR PILLARS
-Loudon Live	couples-with	Autodidact Polymaths
-Loudon Live	spawned	Hyperdimensional Prism
-Loudon Live	deepens	Confucianism
-Loudon Live	connects-to	Toolkit — Synthesizers
-Loudon Live	connects-to	Toolkit — Audio Plugins
-Loudon Live	couples-with	2D Torus Wavetable Synthesizer
-Loudon Live	spawned	Loudon Live Design System
-Loudon Live	connects-to	Compressor Design
-Loudon Live	connects-to	Crystal Synthesizer
-Loudon Live	connects-to	Generative Audio Devices
-Loudon Live	connects-to	Generative Preset Development
-Loudon Live	connects-to	Retrospective Delay
-Loudon Live	connects-to	Shepard Tone Synthesizer
 README - The Palace Guide	enables	SUBSTRATE
 README - The Palace Guide	emerged-from	Symbiotic Skills
 README - The Palace Guide	connects-to	Cooperation Yields Agency
 README - The Palace Guide	connects-to	FOUR PILLARS
-Cooperation_Yields_Agency	emerged-from	1 from 2
-Cooperation_Yields_Agency	mirrors	Kuramoto Coupling
-Cooperation_Yields_Agency	deepens	Spinoza Conatus
-Cooperation_Yields_Agency	spawned	Symbiotic Skills
-Cooperation_Yields_Agency	mirrors	Endosymbiosis
-Cooperation_Yields_Agency	mirrors	Mixture of Experts
-Cooperation_Yields_Agency	connects-to	Quality Manifesto
-Cooperation_Yields_Agency	spawned	Modes of Collaboration
-Cooperation_Yields_Agency	connects-to	Cooperation Yields Agency — Context
-Cooperation_Yields_Agency	enables	Hilaritas Generator
 Hyperdimensional Prism	deepens	FOUR PILLARS
 Hyperdimensional Prism	mirrors	Spinoza Conatus
 Hyperdimensional Prism	connects-to	Kuramoto Coupling
@@ -142,16 +147,18 @@ Hyperdimensional Prism	connects-to	Trickster
 Hyperdimensional Prism	connects-to	Compressor Design
 Hyperdimensional Prism	connects-to	Harmonicity and Inharmonicity
 Hyperdimensional Prism	connects-to	Loudon Live
+Hyperdimensional Prism	mirrors	The Multilinear Self
 Progressive Staging	enables	Action Potential Oscillator
 Progressive Staging	mirrors	FOUR PILLARS
 Progressive Staging	connects-to	Modes of Collaboration
 Progressive Staging	enables	State Machine
 Progressive Staging	connects-to	Kuramoto Coupling
 Progressive Staging	connects-to	Crystal Synthesizer
+Progressive Staging	contradicts	Symbiotic Skills
 Wavetable Space as Torus	deepens	Inharmonic Wavetable Synthesis
 Wavetable Space as Torus	couples-with	2D Torus Wavetable Synthesizer
 Wavetable Space as Torus	exemplifies	DSP in Looping Dimensions
-Wavetable Space as Torus	deepens	Wavetable Synthesis -- Research & Higher-Dimensional Design
+Wavetable Space as Torus	deepens	Wavetable Synthesis — Deep Research & Higher-Dimensional Design
 Wavetable Space as Torus	connects-to	Harmonicity and Inharmonicity
 Wavetable Space as Torus	connects-to	Bessel Functions in Synthesis
 Wavetable Space as Torus	mirrors	Kuramoto Coupling
@@ -161,12 +168,16 @@ Wavetable Space as Torus	enables	Shepard Tone Synthesizer
 Wavetable Space as Torus	connects-to	Deleuze
 Wavetable Space as Torus	connects-to	Philosopher Visits the Entry
 Wavetable Space as Torus	connects-to	Simondon
+Wavetable Space as Torus	contradicts	Mathieu Equation
+Wavetable Space as Torus	deepens	Wavetable Oscillator
+Identity Molting	connects-to	Creative Coach
 Identity Molting	connects-to	Like Water
 Identity Molting	connects-to	Spinoza Conatus
 Identity Molting	connects-to	FOUR PILLARS
 Identity Molting	connects-to	Hilaritas Generator
 Identity Molting	mirrors	Progressive Staging
 Identity Molting	connects-to	Lateral Access
+Identity Molting	connects-to	Loudon Live
 Remnants in Depth	emerged-from	BLUELINE
 Remnants in Depth	couples-with	Hand-Drawn 3D Look
 Remnants in Depth	connects-to	Frame Designer
@@ -176,34 +187,6 @@ Remnants in Depth	connects-to	The Flow Field is the Spine
 Remnants in Depth	member-of	The Shop
 Remnants in Depth	exemplifies	Move the Ink, Don't Redraw It
 Remnants in Depth	couples-with	The 2.5D Paper Stack
-Palace_Philosophies	spawned	Spinoza Conatus
-Palace_Philosophies	connects-to	FOUR PILLARS
-Palace_Philosophies	connects-to	Hyperdimensional Prism
-Palace_Philosophies	connects-to	Hilaritas Generator
-Palace_Philosophies	connects-to	Kuramoto Coupling
-Palace_Philosophies	connects-to	Palace Quotes
-Palace_Philosophies	deepens	Cooperation Yields Agency
-Palace_Philosophies	connects-to	Confucianism
-Palace_Philosophies	connects-to	Stoicism
-Palace_Philosophies	connects-to	The Dichotomy of Control
-Palace_Philosophies	connects-to	The View From Above
-Palace_Philosophies	connects-to	The Four Virtues
-Palace_Philosophies	connects-to	The Fortress and the Threshold
-Palace_Philosophies	connects-to	1 from 2
-Palace_Philosophies	spawned	Deleuze
-Palace_Philosophies	connects-to	Simondon
-Palace_Philosophies	connects-to	Whitehead
-Palace_Philosophies	connects-to	Merleau-Ponty
-Palace_Philosophies	connects-to	The Drift
-Palace_Philosophies	connects-to	spinoza-zhuangzi-on-striving
-Palace_Philosophies	enables	Philosopher Visits the Entry
-Palace_Philosophies	connects-to	STIGMERGY Philosophical Lenses
-Palace_Philosophies	connects-to	Palace Philosophies — Context
-Palace_Philosophies	enables	Closing Well
-Palace_Philosophies	connects-to	Palace Map
-Palace_Philosophies	spawned	Leibniz
-Palace_Philosophies	connects-to	Dialectic
-Palace_Philosophies	spawned	Spinoza
 Dissolutions	emerged-from	Boundary-Crossing Instruments
 Dissolutions	mirrors	Hyperdimensional Prism
 Dissolutions	connects-to	Frequency-Time Duality
@@ -221,6 +204,7 @@ Quadratic Interpolation in DSP	connects-to	Portamento and Physical Pitch Modelin
 Quadratic Interpolation in DSP	connects-to	Differential Equations
 Quadratic Interpolation in DSP	connects-to	Latent Error
 Quadratic Interpolation in DSP	connects-to	DSP Frameworks
+Quadratic Interpolation in DSP	mirrors	Reflective Practice
 Dispersion Table	mirrors	2D Torus Wavetable Synthesizer
 Dispersion Table	deepens	DSP in Looping Dimensions
 Dispersion Table	couples-with	Three Kinds of Warp
@@ -234,13 +218,11 @@ Dispersion Table	connects-to	Chebyshev is Fourier
 Dispersion Table	couples-with	Phase Reduction
 Dispersion Table	member-of	Dissolutions
 Dispersion Table	connects-to	Loudon Live
+Dispersion Table	deepens	Wavetable Oscillator
 ROSETTA	mirrors	SCHEMA
 ROSETTA	enables	Substrate Skill
 ROSETTA	emerged-from	Meaning and the Link
 ROSETTA	deepens	SUBSTRATE
-Toolkit — Synthesizers	emerged-from	Loudon's Toolkit
-Toolkit — Synthesizers	connects-to	Toolkit — Drum Machines
-Toolkit — Synthesizers	connects-to	Toolkit — MIDI Controllers
 Ohm's Law	connects-to	Logarithmic Interface Scaling
 Ohm's Law	connects-to	FOUR PILLARS
 Ohm's Law	connects-to	Modes of Collaboration
@@ -255,6 +237,7 @@ Signal-Rate CV Architecture	mirrors	Boundary-Crossing Instruments
 Signal-Rate CV Architecture	connects-to	FOUR PILLARS
 Signal-Rate CV Architecture	enables	Biomechanical Synthesis
 Signal-Rate CV Architecture	connects-to	Crystal Synthesizer
+Signal-Rate CV Architecture	connects-to	SMPTE LTC
 Signal-Rate CV Architecture	couples-with	Progressive Staging
 Comic and Cinema — Two Ways of Seeing	deepens	Graphic Storytelling
 Comic and Cinema — Two Ways of Seeing	connects-to	BLUELINE
@@ -270,11 +253,41 @@ The Curve Is the Material	connects-to	Piano String Inharmonicity
 The Curve Is the Material	deepens	Harmonicity and Inharmonicity
 The Curve Is the Material	connects-to	Lateral Access
 The Curve Is the Material	connects-to	Metaphor as Coupling Medium
+Creative Coach	emerged-from	FOUR PILLARS
+Creative Coach	connects-to	Loudon Live
+Creative Coach	connects-to	Meadows and an Artist's Career
+Creative Coach	connects-to	The Multilinear Self
+Creative Coach	connects-to	Identity Molting
+Creative Coach	connects-to	Modes of Collaboration
+Creative Coach	connects-to	Quality Manifesto
+Creative Coach	contradicts	Hilaritas Generator
+Creative Coach	connects-to	Dialectic
+Creative Coach	connects-to	Sidechain ↔ Conversation
+Creative Coach	deepens	Confucianism
+Creative Coach	connects-to	Progressive Staging
+Creative Coach	connects-to	Concierge
+Creative Coach	connects-to	Reflective Practice
+Creative Coach	connects-to	Oblique Portrait
+Reflective Practice	deepens	Hilaritas Generator
+Reflective Practice	connects-to	Creative Coach
+Reflective Practice	contradicts	No Mind Checks Itself
+Reflective Practice	connects-to	The Palace Practices on Itself
+Reflective Practice	connects-to	Drift and Consolidation
+Reflective Practice	connects-to	Objects to Think With
+Reflective Practice	connects-to	Dialectic
 1D Wavetable Scanning	mirrors	2D Torus Wavetable Synthesizer
 1D Wavetable Scanning	connects-to	Web Audio Worklet
 1D Wavetable Scanning	emerged-from	Wavetable Scanner
 1D Wavetable Scanning	mirrors	Waveguide Synthesizer
-Hilaritas Generator — Context	member-of	Hilaritas Generator
+1D Wavetable Scanning	deepens	Wavetable Oscillator
+1D Wavetable Scanning	connects-to	Generative Wavetable Libraries
+No Mind Checks Itself	exemplifies	Bring In a Bigger Mind
+No Mind Checks Itself	mirrors	The Blindspot Is the Surprise Fuel
+No Mind Checks Itself	deepens	Cooperation Yields Agency
+No Mind Checks Itself	mirrors	Latent Error
+No Mind Checks Itself	connects-to	Closing Well
+No Mind Checks Itself	emerged-from	Donella Meadows
+No Mind Checks Itself	emerged-from	Douglas Hofstadter
 Dispersion	connects-to	Hyperdimensional Prism
 Dispersion	connects-to	Categorizing Inharmonicity
 Dispersion	connects-to	Granular Synthesis
@@ -290,6 +303,7 @@ Registry Pattern	connects-to	Actor Model
 Registry Pattern	connects-to	Lossy Compression with Intent Alignment
 Registry Pattern	connects-to	FOUR PILLARS
 Registry Pattern	contradicts	Lateral Access
+Registry Pattern	contradicts	Julia Cameron
 Review Layer	connects-to	Cooperation Yields Agency
 Review Layer	couples-with	Closing Well
 Review Layer	connects-to	The Shop
@@ -298,6 +312,7 @@ Review Layer	connects-to	Maker
 Review Layer	connects-to	STIGMERGY
 Review Layer	couples-with	Enrichment
 Review Layer	connects-to	Palace as Context Injection System
+Review Layer	connects-to	VST Template
 Differential Equations	connects-to	Action Potential Oscillator
 Differential Equations	connects-to	Portamento and Physical Pitch Modeling
 Differential Equations	connects-to	Bessel Functions in Synthesis
@@ -312,6 +327,19 @@ Differential Equations	connects-to	DSP Frameworks
 Move the Ink, Don't Redraw It	couples-with	The 2.5D Paper Stack
 Move the Ink, Don't Redraw It	connects-to	BLUELINE
 Move the Ink, Don't Redraw It	enables	Frame Designer
+Wavetable Synthesis — Deep Research & Higher-Dimensional Design	connects-to	FOUR PILLARS
+Wavetable Synthesis — Deep Research & Higher-Dimensional Design	enables	RNBO Synthesis
+Wavetable Synthesis — Deep Research & Higher-Dimensional Design	mirrors	The Genetic Code as Wavetable
+Wavetable Synthesis — Deep Research & Higher-Dimensional Design	mirrors	Latent Space Navigation
+Wavetable Synthesis — Deep Research & Higher-Dimensional Design	deepens	Harmonicity and Inharmonicity
+Wavetable Synthesis — Deep Research & Higher-Dimensional Design	mirrors	3D LUT Color Grading
+Wavetable Synthesis — Deep Research & Higher-Dimensional Design	couples-with	Neural Granular Synthesis
+Wavetable Synthesis — Deep Research & Higher-Dimensional Design	mirrors	Hyperdimensional Prism
+Wavetable Synthesis — Deep Research & Higher-Dimensional Design	connects-to	Embeddings as Relational Meaning
+Wavetable Synthesis — Deep Research & Higher-Dimensional Design	spawned	2D Torus Wavetable Synthesizer
+Wavetable Synthesis — Deep Research & Higher-Dimensional Design	connects-to	DSP in Looping Dimensions
+Wavetable Synthesis — Deep Research & Higher-Dimensional Design	connects-to	Loudon Live
+Wavetable Synthesis — Deep Research & Higher-Dimensional Design	deepens	Wavetable Oscillator
 JSUI	spawned	Retrospective Delay
 JSUI	connects-to	FOUR PILLARS
 JSUI	connects-to	Preset Oracle
@@ -321,33 +349,16 @@ The Flow Field is the Spine	couples-with	Blocked, Not Prompted
 The Flow Field is the Spine	connects-to	Flocking
 The Flow Field is the Spine	connects-to	Go-with-the-Flow
 The Flow Field is the Spine	connects-to	flow-field-spine
-Infeasible DSP Now Shippable	connects-to	Loudon Live
-Infeasible DSP Now Shippable	emerged-from	Rank-N Lattice Analysis
-Infeasible DSP Now Shippable	connects-to	Boundary-Crossing Instruments
-Frame Designer	connects-to	Maker
-Frame Designer	member-of	The Shop
-Frame Designer	emerged-from	BLUELINE
-Frame Designer	connects-to	BLUELINE — Board Record Schema
-Frame Designer	connects-to	Blocked, Not Prompted
-Frame Designer	connects-to	Steer the Generator
-Frame Designer	exemplifies	Adopt the Craft, Author the Seam
-Frame Designer	connects-to	BLUELINE — Production Pipeline
-Frame Designer	connects-to	Hand-Drawn 3D Look
-Frame Designer	connects-to	Remnants in Depth
-Frame Designer	connects-to	Figure Rig
-Frame Designer	deepens	Graphic Storytelling
-Frame Designer	exemplifies	Comic and Cinema — Two Ways of Seeing
-Frame Designer	emerged-from	The 2.5D Paper Stack
-Media Library	connects-to	FOUR PILLARS
-Media Library	connects-to	Spinoza Conatus
-Media Library	connects-to	Hyperdimensional Prism
-Media Library	enables	SUBSTRATE
-Media Library	connects-to	Quantum Synthesizer
-Media Library	connects-to	Crystal Synthesizer
-Media Library	connects-to	DSP Frameworks
-Media Library	connects-to	Kuramoto Coupling
-Media Library	connects-to	Latent Error
-Media Library	connects-to	Wallpaper Groups
+The Flow Field is the Spine	connects-to	BLUELINE — Motion and Flow
+The Flow Field is the Spine	spawned	The Aftermath Frame
+The Flow Field is the Spine	couples-with	Move the Ink, Don't Redraw It
+The Flow Field is the Spine	connects-to	The 2.5D Paper Stack
+The Palace Hardens Around Values	connects-to	The Palace Voice
+The Palace Hardens Around Values	connects-to	Weave Ceremony
+The Palace Hardens Around Values	connects-to	Cooperation Yields Agency
+The Palace Hardens Around Values	connects-to	Palace as Context Injection System
+The Palace Hardens Around Values	connects-to	SCHEMA
+The Palace Hardens Around Values	connects-to	Weave Ceremony — Context
 Metaphor as Coupling Medium	connects-to	Lateral Access
 Metaphor as Coupling Medium	mirrors	Kuramoto Coupling
 Metaphor as Coupling Medium	connects-to	Hilaritas Generator
@@ -378,15 +389,17 @@ The 2.5D Paper Stack	couples-with	Hand-Drawn 3D Look
 The 2.5D Paper Stack	connects-to	Comic and Cinema — Two Ways of Seeing
 The Drift	emerged-from	The Fortress and the Threshold
 The Drift	deepens	Like Water
-The Drift	emerged-from	zhuangzi-epictetus-confucius-on-the-self
+The Drift	emerged-from	Dialectic — dialectic — zhuangzi-epictetus-confucius-on-the-self
 The Drift	contradicts	Stoicism
 The Drift	contradicts	Confucianism
 The Drift	contradicts	Spinoza Conatus
+The Drift	contradicts	Merleau-Ponty
+The Drift	contradicts	Leibniz
 The Drift	connects-to	Deleuze
 The Drift	connects-to	Entry Conatus
 The Drift	connects-to	Granular Synthesis
 The Drift	connects-to	Parametric Resonance
-The Drift	connects-to	spinoza-zhuangzi-on-striving
+The Drift	connects-to	Dialectic — dialectic — spinoza-zhuangzi-on-striving
 SCHEMA	enables	CLAUDE
 SCHEMA	deepens	README - The Palace Guide
 SCHEMA	mirrors	ROSETTA
@@ -398,25 +411,16 @@ SCHEMA	connects-to	Resonant Link Labels
 SCHEMA	enables	STIGMERGY
 SCHEMA	connects-to	FOUR PILLARS
 SCHEMA	connects-to	Four Pillars of Enchanted Agency
-Loudon's Toolkit	spawned	Toolkit — Synthesizers
+SCHEMA	spawned	SCHEMA — Context
+SCHEMA	spawned	SCHEMA — Reference
+Loudon's Toolkit	spawned	Loudon's Toolkit — catalog — outside the computer
+Loudon's Toolkit	spawned	Loudon's Toolkit — catalog — inside the computer
+Loudon's Toolkit	connects-to	LDN RTM
 Loudon's Toolkit	connects-to	Four Pillars of Enchanted Agency
-Loudon's Toolkit	couples-with	Toolkit Assessment — Working Doc
 Loudon's Toolkit	mirrors	Spinoza Conatus
 Loudon's Toolkit	enables	Progressive Staging
-Loudon's Toolkit	connects-to	Toolkit — Audio Plugins
 Loudon's Toolkit	exemplifies	FOUR PILLARS
-Wavetable Synthesis -- Research & Higher-Dimensional Design	connects-to	FOUR PILLARS
-Wavetable Synthesis -- Research & Higher-Dimensional Design	enables	RNBO Synthesis
-Wavetable Synthesis -- Research & Higher-Dimensional Design	mirrors	The Genetic Code as Wavetable
-Wavetable Synthesis -- Research & Higher-Dimensional Design	mirrors	Latent Space Navigation
-Wavetable Synthesis -- Research & Higher-Dimensional Design	deepens	Inharmonicity
-Wavetable Synthesis -- Research & Higher-Dimensional Design	mirrors	3D LUT Color Grading
-Wavetable Synthesis -- Research & Higher-Dimensional Design	couples-with	Neural Granular Synthesis
-Wavetable Synthesis -- Research & Higher-Dimensional Design	mirrors	Hyperdimensional Prism
-Wavetable Synthesis -- Research & Higher-Dimensional Design	spawned	Embeddings as Relational Meaning
-Wavetable Synthesis -- Research & Higher-Dimensional Design	spawned	2D Torus Wavetable Synthesizer
-Wavetable Synthesis -- Research & Higher-Dimensional Design	connects-to	DSP in Looping Dimensions
-Wavetable Synthesis -- Research & Higher-Dimensional Design	connects-to	Loudon Live
+Loudon's Toolkit	connects-to	Haptic Handwheel
 Linear Predictive Coding	mirrors	Waveguide Synthesizer
 Linear Predictive Coding	deepens	Spinoza Conatus
 Linear Predictive Coding	couples-with	Generative Compression
@@ -426,6 +430,11 @@ Linear Predictive Coding	member-of	Dissolutions
 Linear Predictive Coding	connects-to	Loudon Live
 Linear Predictive Coding	connects-to	Philosopher Visits the Entry
 Linear Predictive Coding	connects-to	Spinoza
+assume multi-agent	member-of	Tool Builder
+assume multi-agent	connects-to	The Commons
+assume multi-agent	connects-to	STIGMERGY
+assume multi-agent	connects-to	RunPod GPU Backend
+assume multi-agent	connects-to	The Palace Practices on Itself
 The Lens	emerged-from	Pages as Agents
 The Lens	connects-to	Philosopher Visits the Entry
 The Lens	mirrors	Mixture of Experts
@@ -443,13 +452,32 @@ The Lens	connects-to	Merleau-Ponty
 The Lens	connects-to	Simondon
 The Lens	connects-to	The Dichotomy of Control
 The Lens	connects-to	The Four Virtues
+The Lens	connects-to	Agent Wellbeing
+The Lens	connects-to	Palace Enchantment
+The Lens	mirrors	Bring In a Bigger Mind
+The Practice Rediscovers Its Philosophy	exemplifies	Palace as Context Injection System
+The Practice Rediscovers Its Philosophy	exemplifies	FOUR PILLARS
+The Practice Rediscovers Its Philosophy	deepens	Hyperdimensional Prism
+The Practice Rediscovers Its Philosophy	connects-to	The Dichotomy of Control
+The Practice Rediscovers Its Philosophy	connects-to	assume multi-agent
+The Practice Rediscovers Its Philosophy	connects-to	Registry Pattern
+The Practice Rediscovers Its Philosophy	connects-to	BBS Blackboard
+The Practice Rediscovers Its Philosophy	connects-to	Striatum
+The Practice Rediscovers Its Philosophy	connects-to	Trickster Commit
 Playful Interface Design	enables	JSUI
+Playful Interface Design	mirrors	Haptic Handwheel
 Playful Interface Design	spawned	Retrospective Delay
 Playful Interface Design	connects-to	Semantic Delay
 Playful Interface Design	connects-to	Preset Oracle
 Playful Interface Design	deepens	Trickster
-Playful Interface Design	connects-to	Biomechanical Synthesis
+Playful Interface Design	connects-to	Merleau-Ponty
+Playful Interface Design	mirrors	Biomechanical Synthesis
 Playful Interface Design	mirrors	Boundary-Crossing Instruments
+Playful Interface Design	deepens	Hilaritas Generator
+Operator Memory	connects-to	CHILD
+Operator Memory	deepens	Palace as Context Injection System
+Operator Memory	connects-to	Weave Ceremony
+Operator Memory	connects-to	Weaving Memory into the Palace
 Latent Error	connects-to	FOUR PILLARS
 Latent Error	connects-to	Kuramoto Coupling
 Latent Error	connects-to	Action Potential Oscillator
@@ -474,26 +502,45 @@ Threshold Conatus	connects-to	Lateral Access
 Threshold Conatus	connects-to	Hilaritas Generator
 Threshold Conatus	connects-to	Progressive Staging
 Threshold Conatus	couples-with	Identity Molting
-Palace Philosophies — Context	member-of	Palace Philosophies
+Threshold Conatus	connects-to	Spinoza
+Threshold Conatus	connects-to	Donella Meadows
+Threshold Conatus	emerged-from	Dialectic — dialectic — spinoza-meadows-on-the-threshold
 Striatum	connects-to	Kuramoto Coupling
 Striatum	connects-to	Action Potential Oscillator
 Striatum	connects-to	FOUR PILLARS
 Striatum	deepens	Excellent Adventure
 Striatum	connects-to	Hilaritas Generator
+The Blindspot Is the Surprise Fuel	emerged-from	Making a Palace Citizen
+The Blindspot Is the Surprise Fuel	connects-to	Dialectic
+The Blindspot Is the Surprise Fuel	exemplifies	Dialectic — dialectic — spinoza-meadows-on-the-threshold
+The Blindspot Is the Surprise Fuel	connects-to	Cooperation Yields Agency
+The Blindspot Is the Surprise Fuel	connects-to	Palace Enchantment
+The Blindspot Is the Surprise Fuel	connects-to	Threshold Conatus
+The Blindspot Is the Surprise Fuel	mirrors	Closing Well
 Does Personifying an Agent Change What It Does	emerged-from	Palace Enchantment
 Does Personifying an Agent Change What It Does	deepens	Four Pillars of Enchanted Agency
 Does Personifying an Agent Change What It Does	connects-to	Diversity of Thought in Many-Agent Systems
 Does Personifying an Agent Change What It Does	connects-to	Shopkeeper
 Does Personifying an Agent Change What It Does	connects-to	Maker
 Does Personifying an Agent Change What It Does	connects-to	Pages as Agents
+Does Personifying an Agent Change What It Does	contradicts	Steer the Generator
 JEWEL	enables	CLAUDE
+JEWEL	enables	ELDER
 JEWEL	spawned	Jewel — Context
 JEWEL	enables	Swarm Weave
 JEWEL	deepens	Self-Describing Knowledge Module
 JEWEL	connects-to	SUBSTRATE
+GenAI Camera	emerged-from	Blocked, Not Prompted
+GenAI Camera	exemplifies	ControlNet as Topology
+GenAI Camera	emerged-from	BLUELINE
+GenAI Camera	connects-to	BLUELINE — The Page
+GenAI Camera	connects-to	Steer the Generator
+GenAI Camera	connects-to	The Scroll
+GenAI Camera	spawned	Search Before You Build
 Merleau-Ponty	connects-to	Palace Philosophies
 Merleau-Ponty	deepens	Boundary-Crossing Instruments
 Merleau-Ponty	connects-to	Spinoza Conatus
+Merleau-Ponty	contradicts	Spinoza Conatus
 Merleau-Ponty	connects-to	Confucianism
 Merleau-Ponty	connects-to	Hilaritas Generator
 Merleau-Ponty	deepens	Playful Interface Design
@@ -501,12 +548,11 @@ Merleau-Ponty	connects-to	FOUR PILLARS
 Merleau-Ponty	connects-to	Logarithmic Interface Scaling
 Merleau-Ponty	connects-to	STIGMERGY v1.0 — Palace Front-End
 Merleau-Ponty	connects-to	Stoicism
+Merleau-Ponty	contradicts	The Drift
 Dub Lineage	mirrors	Trickster
 Dub Lineage	enables	Retrospective Delay
 Dub Lineage	deepens	Semantic Delay
 Dub Lineage	connects-to	Playful Interface Design
-What Claim Does Scientific Sonification Make?	emerged-from	Crystal Synthesizer
-What Claim Does Scientific Sonification Make?	emerged-from	The Metaphor Stretch
 Lateral Access	emerged-from	Oblique Portrait
 Lateral Access	mirrors	Embeddings as Relational Meaning
 Lateral Access	connects-to	FOUR PILLARS
@@ -516,6 +562,7 @@ Lateral Access	couples-with	Excellent Adventure
 Lateral Access	mirrors	Confucianism
 Lateral Access	connects-to	Songlines
 Lateral Access	enables	Identity Molting
+Lateral Access	connects-to	Creative Coach
 Adopt the Craft, Author the Seam	connects-to	BLUELINE
 Adopt the Craft, Author the Seam	connects-to	Blocked, Not Prompted
 Adopt the Craft, Author the Seam	connects-to	Blender
@@ -531,12 +578,9 @@ Harmonicity and Inharmonicity	spawned	Categorizing Inharmonicity
 Harmonicity and Inharmonicity	emerged-from	Piano String Inharmonicity
 Harmonicity and Inharmonicity	connects-to	Compressor Design
 Harmonicity and Inharmonicity	connects-to	Hyperdimensional Prism
-Synth Archetypes	couples-with	Generative Audio Devices
-Synth Archetypes	mirrors	Registry Pattern
-Synth Archetypes	enables	Generative Preset Development
+Harmonicity and Inharmonicity	connects-to	Portamento and Physical Pitch Modeling
 Synthesis Topologies	emerged-from	Generative Preset Development
 Synthesis Topologies	connects-to	Generative Audio Devices
-Synthesis Topologies	connects-to	2D Torus Wavetable Synthesizer
 Synthesis Topologies	connects-to	Registry Pattern
 Synthesis Topologies	mirrors	Lossy Compression with Intent Alignment
 Synthesis Topologies	connects-to	The Curve Is the Material
@@ -549,25 +593,21 @@ Granular Synthesis	mirrors	Endosymbiosis
 Granular Synthesis	mirrors	Particle Synthesis
 Granular Synthesis	connects-to	Neural Granular Synthesis
 Granular Synthesis	connects-to	Shimmer Cloud
-Loudon Live Post-producer	exemplifies	Quality Manifesto
-Loudon Live Post-producer	exemplifies	Leverage Points Framework
-Loudon Live Post-producer	connects-to	Maker
-Loudon Live Post-producer	connects-to	Loudon Live Design System
-Loudon Live Post-producer	connects-to	Loudon Live
-Loudon Live Post-producer	connects-to	The Shop
-Loudon Live Post-producer	connects-to	Loudon Live Post-producer — Log
-Loudon Live Post-producer	connects-to	Whisper
-Loudon Live Post-producer	connects-to	ffmpeg
+Bring In a Bigger Mind	mirrors	The Lens
+Bring In a Bigger Mind	mirrors	Philosopher Visits the Entry
+Bring In a Bigger Mind	connects-to	Mixture of Experts
+Bring In a Bigger Mind	connects-to	STIGMERGY
+The Aftermath Frame	emerged-from	The Flow Field is the Spine
+The Aftermath Frame	exemplifies	Graphic Storytelling
+The Aftermath Frame	connects-to	Blocked, Not Prompted
+The Aftermath Frame	connects-to	BLUELINE — Motion and Flow
+The Aftermath Frame	connects-to	Figure Rig
+The Aftermath Frame	connects-to	BLUELINE
+The Aftermath Frame	exemplifies	Steer the Generator
 The Metaphor Stretch	connects-to	Crystal Synthesizer
 The Metaphor Stretch	connects-to	Boundary-Crossing Instruments
 The Metaphor Stretch	connects-to	Dispersion
 The Metaphor Stretch	mirrors	Hyperdimensional Prism
-Tier Vocabulary Glossary	enables	Maker
-Tier Vocabulary Glossary	deepens	The Shop
-Tier Vocabulary Glossary	mirrors	Lossy Compression with Intent Alignment
-Tier Vocabulary Glossary	connects-to	Hilaritas Generator
-Tier Vocabulary Glossary	connects-to	Quality Manifesto
-Tier Vocabulary Glossary	connects-to	Generative Compression
 The Cooperation Path	connects-to	1 from 2
 The Cooperation Path	connects-to	Cooperation Yields Agency
 The Cooperation Path	connects-to	Endosymbiosis
@@ -576,6 +616,7 @@ The Cooperation Path	connects-to	Hilaritas Generator
 The Cooperation Path	connects-to	Symbiotic Skills
 The Cooperation Path	deepens	SUBSTRATE
 The Cooperation Path	spawned	Modes of Collaboration
+Modes of Collaboration	connects-to	Creative Coach
 Modes of Collaboration	connects-to	Excellent Adventure
 Modes of Collaboration	connects-to	Hilaritas Generator
 Modes of Collaboration	connects-to	Symbiotic Skills
@@ -585,10 +626,17 @@ Modes of Collaboration	connects-to	Dialectic
 Modes of Collaboration	connects-to	Palace Enchantment
 Modes of Collaboration	connects-to	Piano String Inharmonicity
 Modes of Collaboration	connects-to	Radio Play
+Modes of Collaboration	connects-to	The Scroll
 Modes of Collaboration	connects-to	Modes of Collaboration — Context
 Modes of Collaboration	connects-to	Philosopher Visits the Entry
 Modes of Collaboration	connects-to	DSP Frameworks
 Modes of Collaboration	deepens	Cooperation Yields Agency
+Modes of Collaboration	connects-to	Swarm Weave
+Modes of Collaboration	connects-to	Oblique Portrait
+Modes of Collaboration	connects-to	Brian Eno
+Modes of Collaboration	connects-to	STIGMERGY
+Modes of Collaboration	connects-to	The Remembering Page
+Modes of Collaboration	connects-to	Kuramoto Coupling
 Chebyshev is Fourier	enables	2D Torus Wavetable Synthesizer
 Chebyshev is Fourier	connects-to	Wallpaper Groups
 Chebyshev is Fourier	connects-to	Three Kinds of Warp
@@ -606,13 +654,13 @@ Endosymbiosis	mirrors	Granular Synthesis
 Endosymbiosis	mirrors	Pages as Agents
 Endosymbiosis	mirrors	Swarm Weave
 Endosymbiosis	spawned	Modes of Collaboration
-Modes of Collaboration — Context	member-of	Modes of Collaboration
 Worktree Practice	connects-to	Deposit Ceremony
 Worktree Practice	connects-to	Baton Ceremony
 Worktree Practice	connects-to	STIGMERGY
 Worktree Practice	connects-to	SCHEMA
 Worktree Practice	mirrors	The Dichotomy of Control
 Worktree Practice	connects-to	Closing Well
+Worktree Practice	deepens	How the Palace Commits
 Cross-Domain Resonances	deepens	FOUR PILLARS
 Cross-Domain Resonances	connects-to	Quality Manifesto
 Cross-Domain Resonances	emerged-from	4 Pillars Framework - The Founding Conversation
@@ -626,6 +674,7 @@ Cross-Domain Resonances	spawned	Quantization ↔ Precision vs Flow
 Cross-Domain Resonances	spawned	Saturation ↔ Richness
 Cross-Domain Resonances	spawned	Compression ↔ Intimacy
 Cross-Domain Resonances	spawned	Synthesis ↔ Emergence
+Cross-Domain Resonances	spawned	Found ↔ Made
 Cross-Domain Resonances	connects-to	Douglas Hofstadter
 Cross-Domain Resonances	connects-to	Source Library
 Cross-Domain Resonances	connects-to	Shunryu Suzuki
@@ -639,22 +688,14 @@ Radio Play	connects-to	ffmpeg
 Radio Play	connects-to	FOUR PILLARS
 Radio Play	connects-to	Modes of Collaboration
 Radio Play	connects-to	Loudon Live Design System
-Octave Equivalence	emerged-from	Shepard Tone Synthesizer
-Octave Equivalence	couples-with	Frequency-Time Duality
-Octave Equivalence	connects-to	Harmonicity and Inharmonicity
-Octave Equivalence	mirrors	Piano String Inharmonicity
-Octave Equivalence	enables	Logarithmic Interface Scaling
 Quality Manifesto	deepens	FOUR PILLARS
 Quality Manifesto	deepens	Leverage Points Framework
 Quality Manifesto	connects-to	Loudon Live
 Quality Manifesto	emerged-from	4 Pillars Framework - The Founding Conversation
 Quality Manifesto	enables	Hilaritas Generator
 Quality Manifesto	mirrors	Like Water
-Quality Manifesto	mirrors	Palace AI Partnership Philosophy
+Quality Manifesto	mirrors	AI Partnership Philosophy
 Quality Manifesto	mirrors	Spinoza Conatus
-PDL Renderer	emerged-from	Generative Audio Devices
-PDL Renderer	connects-to	Registry Pattern
-PDL Renderer	connects-to	Synthesis Topologies
 Parametric Resonance	emerged-from	Floquet Time-Modulated Loops
 Parametric Resonance	connects-to	Mathieu Equation
 Parametric Resonance	connects-to	Floquet Theory
@@ -681,10 +722,15 @@ SUBSTRATE	connects-to	Spinoza Conatus
 SUBSTRATE	connects-to	Palace Enchantment
 SUBSTRATE	connects-to	Palace Conatus
 SUBSTRATE	connects-to	Songlines
-SUBSTRATE	connects-to	Tristitia Generator
 SUBSTRATE	connects-to	Lateral Access
 SUBSTRATE	connects-to	1 from 2
 SUBSTRATE	connects-to	Palace Ceremonies
+SUBSTRATE	connects-to	SUBSTRATE — Context
+SUBSTRATE	couples-with	Palace Map
+SUBSTRATE	mirrors	The Multilinear Self
+SUBSTRATE	exemplifies	Scale-Stratified Identity
+SUBSTRATE	connects-to	STIGMERGY
+SUBSTRATE	connects-to	Drift and Consolidation
 Photonic Time Crystals	emerged-from	Floquet Time-Modulated Loops
 Photonic Time Crystals	connects-to	Floquet Theory
 Photonic Time Crystals	connects-to	Mathieu Equation
@@ -704,27 +750,31 @@ Mixture of Experts	connects-to	Boundary-Crossing Instruments
 Mixture of Experts	connects-to	Spinoza Conatus
 Mixture of Experts	mirrors	Excellent Adventure
 Mixture of Experts	mirrors	Dialectic
+Mixture of Experts	mirrors	Philosopher Visits the Entry
 Mixture of Experts	connects-to	Pages as Agents
 Mixture of Experts	connects-to	Swarm Weave
+SCHEMA — Reference	deepens	SCHEMA
+SCHEMA — Reference	connects-to	SCHEMA — Context
+SCHEMA — Reference	enables	STIGMERGY
+SCHEMA — Reference	enables	Deposit Ceremony
+SCHEMA — Reference	connects-to	Resonant Link Labels
+SCHEMA — Reference	connects-to	Worktree Practice
 Blocked, Not Prompted	connects-to	BLUELINE
 Blocked, Not Prompted	couples-with	The Flow Field is the Spine
 Blocked, Not Prompted	connects-to	Blender
 Blocked, Not Prompted	connects-to	ComfyUI
 Enrichment	connects-to	Palace Ceremonies
-Enrichment	connects-to	Walk Ceremony
-Enrichment	connects-to	Weave Ceremony
-Enrichment	connects-to	Project Stewardship System
-Enrichment	connects-to	Spore Check Ceremony
-Enrichment	deepens	Pages as Agents
-Enrichment	connects-to	Palace Graffiti
-Enrichment	connects-to	Palace To-Do
-Enrichment	deepens	Hilaritas Generator
-Enrichment	mirrors	Quality Manifesto
-Enrichment	couples-with	Cooperation Yields Agency
-Enrichment	couples-with	Oblique Enrichment
-Enrichment	connects-to	Semantic Webcam
-Enrichment	connects-to	Kokoro
-Enrichment	connects-to	STIGMERGY v2.0 — Consolidation & Primary Interface
+Enrichment	connects-to	The Scroll
+Enrichment	connects-to	The Shop
+Enrichment	connects-to	Drift and Consolidation
+Enrichment	connects-to	SCHEMA
+Enrichment	connects-to	Review Layer
+Enrichment	exemplifies	Hilaritas Generator
+Enrichment	connects-to	Loudon Live Design System
+Enrichment	connects-to	STIGMERGY
+Enrichment	connects-to	Kuramoto Coupling
+Enrichment	connects-to	Latent Error
+Enrichment	connects-to	Deposit Ceremony
 Flocking	mirrors	Kuramoto Coupling
 Flocking	mirrors	Cooperation Yields Agency
 Flocking	connects-to	BBS Blackboard
@@ -736,12 +786,6 @@ Flocking	mirrors	Spinoza Conatus
 Flocking	connects-to	The Shop
 Flocking	connects-to	Loudon Live Design System
 Flocking	connects-to	Maker
-Learning Materials and Canon	connects-to	SCHEMA
-Learning Materials and Canon	connects-to	Loudon Live
-Learning Materials and Canon	connects-to	FOUR PILLARS
-Learning Materials and Canon	connects-to	4 Pillars Framework - The Founding Conversation
-Learning Materials and Canon	enables	Weave Ceremony
-Learning Materials and Canon	enables	Deposit Ceremony
 The Shop	spawned	Maker
 The Shop	couples-with	Diversity of Thought in Many-Agent Systems
 The Shop	connects-to	Hilaritas Generator
@@ -750,14 +794,15 @@ The Shop	mirrors	Palace Enchantment
 The Shop	connects-to	Pages as Agents
 The Shop	connects-to	BBS Blackboard
 The Shop	connects-to	Quality Manifesto
-The Shop	enables	Palace Agent Infrastructure Spec
+The Shop	enables	Palace Orchestrator
 The Shop	mirrors	Lossy Compression with Intent Alignment
 The Shop	connects-to	Closing Well
 The Shop	spawned	Shopkeeper
 The Shop	exemplifies	Kokoro
 The Shop	exemplifies	Manim CE
 The Shop	connects-to	Trickster
-The Shop	spawned	Tier Vocabulary Glossary
+The Shop	spawned	Agent Toolbox
+The Shop	exemplifies	The Dichotomy of Control
 Mathieu Equation	emerged-from	Floquet Time-Modulated Loops
 Mathieu Equation	connects-to	Floquet Theory
 Mathieu Equation	enables	Parametric Resonance
@@ -769,27 +814,13 @@ Mathieu Equation	connects-to	Deleuze
 Mathieu Equation	connects-to	Philosopher Visits the Entry
 Mathieu Equation	connects-to	Spinoza Conatus
 Mathieu Equation	connects-to	The Drift
-Mathieu Equation	connects-to	Wavetable Space as Torus
-Mathieu Equation	connects-to	spinoza-zhuangzi-on-striving
+Mathieu Equation	contradicts	Wavetable Space as Torus
+Mathieu Equation	connects-to	Dialectic — dialectic — spinoza-zhuangzi-on-striving
 Audition Gate	emerged-from	Phoneme Choir
 Audition Gate	emerged-from	Talking Keyboard
 Audition Gate	connects-to	Quality Manifesto
 Audition Gate	connects-to	Substrate Skill
 Audition Gate	enables	Generative Sample Libraries
-Hilaritas_Generator	emerged-from	Spinoza Conatus
-Hilaritas_Generator	emerged-from	FOUR PILLARS
-Hilaritas_Generator	mirrors	Cooperation Yields Agency
-Hilaritas_Generator	connects-to	Kuramoto Coupling
-Hilaritas_Generator	enables	Symbiotic Skills
-Hilaritas_Generator	spawned	Excellent Adventure
-Hilaritas_Generator	deepens	Striatum
-Hilaritas_Generator	deepens	Meadows and Music — Leverage Points
-Hilaritas_Generator	connects-to	Identity Molting
-Hilaritas_Generator	spawned	Tristitia Generator
-Hilaritas_Generator	connects-to	Palace Philosophies
-Hilaritas_Generator	connects-to	Hilaritas Generator — Context
-Hilaritas_Generator	connects-to	Quality Manifesto
-Hilaritas_Generator	couples-with	Modes of Collaboration
 Source Library	deepens	FOUR PILLARS
 Source Library	enables	Cross-Domain Resonances
 Source Library	spawned	Donella Meadows
@@ -810,8 +841,20 @@ Surfaces and Capabilities	enables	Baton Ceremony
 Surfaces and Capabilities	connects-to	Maker
 Surfaces and Capabilities	connects-to	The Shop
 Surfaces and Capabilities	connects-to	Closing Well
-Surfaces and Capabilities	connects-to	Claude CLI Reference
 Surfaces and Capabilities	connects-to	Modes of Collaboration
+Surfaces and Capabilities	connects-to	How the Palace Commits
+Surfaces and Capabilities	connects-to	Trickster Commit
+Surfaces and Capabilities	connects-to	How the Palace Commits
+The Palace Voice	mirrors	Loudon Live Design System
+The Palace Voice	deepens	Pages as Agents
+The Palace Voice	connects-to	Palace Enchantment
+The Palace Voice	connects-to	FOUR PILLARS
+The Palace Voice	connects-to	Modes of Collaboration
+The Palace Voice	connects-to	Hilaritas Generator
+The Palace Voice	connects-to	Loudon Live
+The Palace Voice	exemplifies	The Palace Hardens Around Values
+The Palace Voice	connects-to	Weave Ceremony
+The Palace Voice	connects-to	ROSETTA
 Spinoza Conatus	mirrors	Kuramoto Coupling
 Spinoza Conatus	spawned	Hilaritas Generator
 Spinoza Conatus	connects-to	FOUR PILLARS
@@ -825,7 +868,7 @@ Spinoza Conatus	connects-to	Pages as Agents
 Spinoza Conatus	enables	Cooperation Yields Agency
 Spinoza Conatus	mirrors	Endosymbiosis
 Spinoza Conatus	couples-with	Deleuze
-Spinoza Conatus	spawned	Tristitia Generator
+Spinoza Conatus	contradicts	Merleau-Ponty
 Scale-Stratified Identity	deepens	Spinoza Conatus
 Scale-Stratified Identity	mirrors	Action Potential Oscillator
 Scale-Stratified Identity	connects-to	Kuramoto Coupling
@@ -849,25 +892,26 @@ Steer the Generator	connects-to	Quality Manifesto
 Steer the Generator	exemplifies	FOUR PILLARS
 Steer the Generator	couples-with	Cooperation Yields Agency
 Steer the Generator	connects-to	Capability-first prototyping
-1 from 2	spawned	Cooperation Yields Agency
-1 from 2	connects-to	Spinoza Conatus
-1 from 2	mirrors	Symbiotic Skills
-1 from 2	connects-to	FOUR PILLARS
-1 from 2	mirrors	Endosymbiosis
-1 from 2	connects-to	Trickster
-The Substrate Drifts	connects-to	BBS Blackboard
-The Substrate Drifts	connects-to	Project Stewardship System
-The Substrate Drifts	deepens	SUBSTRATE
-The Substrate Drifts	couples-with	Pages as Agents
-The Substrate Drifts	emerged-from	BBS Production Plan v0.3 — Rich Content
-Claude CLI Reference	enables	SUBSTRATE
-Claude CLI Reference	connects-to	Modes of Collaboration
-Claude CLI Reference	enables	Palace Ceremonies
-Claude CLI Reference	connects-to	Pages as Agents
-Claude CLI Reference	connects-to	Boundary-Crossing Instruments
-Claude CLI Reference	connects-to	Dialectic
-Claude CLI Reference	connects-to	Neural Granular Synthesis
-Claude CLI Reference	connects-to	Semantic Delay
+Making a Palace Citizen	couples-with	Palace Enchantment
+Making a Palace Citizen	connects-to	Dialectic
+Making a Palace Citizen	connects-to	Excellent Adventure
+Making a Palace Citizen	connects-to	Philosopher Visits the Entry
+Making a Palace Citizen	connects-to	Pages as Agents
+Making a Palace Citizen	exemplifies	FOUR PILLARS
+Making a Palace Citizen	connects-to	SCHEMA
+Making a Palace Citizen	connects-to	Dialectic — dialectic — spinoza-meadows-on-the-threshold
+Making a Palace Citizen	connects-to	Threshold Conatus
+Making a Palace Citizen	spawned	Making a Palace Citizen — context
+Making a Palace Citizen	spawned	The Remembering Page
+The Remembering Page	deepens	Pages as Agents
+The Remembering Page	couples-with	Pheromone Trail
+The Remembering Page	deepens	Threshold Conatus
+The Remembering Page	couples-with	Palace as Context Injection System
+The Remembering Page	emerged-from	Making a Palace Citizen
+The Remembering Page	couples-with	Agent Wellbeing
+The Remembering Page	deepens	Modes of Collaboration
+The Remembering Page	connects-to	Entry Conatus
+The Remembering Page	couples-with	Identity Molting
 Trickster	emerged-from	Semantic Delay
 Trickster	mirrors	Oblique Portrait
 Trickster	connects-to	1 from 2
@@ -879,6 +923,7 @@ Trickster	mirrors	Lateral Access
 Trickster	connects-to	Action Potential Oscillator
 Trickster	spawned	Threshold Conatus
 Trickster	connects-to	Hyperdimensional Prism
+Trickster	couples-with	The Multilinear Self
 Trickster	connects-to	Granular Synthesis
 Trickster	connects-to	Swarm Weave
 Trickster	connects-to	BBS Blackboard
@@ -886,7 +931,7 @@ Trickster	connects-to	STIGMERGY
 Trickster	connects-to	Kuramoto Coupling
 Trickster	connects-to	Cooperation Yields Agency
 Trickster	connects-to	Palace Enchantment
-Trickster	connects-to	Palace Agent Infrastructure Spec
+Trickster	connects-to	STIGMERGY
 Trickster	couples-with	Dialogue Moderator
 Trickster	connects-to	Playful Interface Design
 Trickster	connects-to	Retrospective Delay
@@ -895,6 +940,12 @@ Trickster	connects-to	Particle Synthesis
 Trickster	enables	Project Stewardship System
 Trickster	deepens	Entry Conatus
 Trickster	spawned	Trickster Commit
+Objects to Think With	deepens	FOUR PILLARS
+Objects to Think With	connects-to	Progressive Staging
+Objects to Think With	connects-to	Hilaritas Generator
+Objects to Think With	connects-to	Loudon Live
+Objects to Think With	connects-to	Autodidact Polymaths
+Objects to Think With	connects-to	Creative Coach
 Entry Conatus	deepens	Spinoza Conatus
 Entry Conatus	mirrors	Threshold Conatus
 Entry Conatus	deepens	Pages as Agents
@@ -906,18 +957,40 @@ Entry Conatus	connects-to	Spore Check Ceremony
 Trickster Commit	exemplifies	Trickster
 Trickster Commit	connects-to	STIGMERGY
 Trickster Commit	connects-to	Closing Well
+The Scroll	member-of	Modes of Collaboration
+The Scroll	connects-to	Loudon Live Design System
+The Scroll	connects-to	SCHEMA
+The Scroll	enables	Project Stewardship System
+The Scroll	connects-to	STIGMERGY
+The Scroll	couples-with	Drift and Consolidation
 4 Pillars Framework - The Founding Conversation	spawned	Quality Manifesto
 4 Pillars Framework - The Founding Conversation	spawned	Leverage Points Framework
-4 Pillars Framework - The Founding Conversation	spawned	Palace AI Partnership Philosophy
+4 Pillars Framework - The Founding Conversation	spawned	AI Partnership Philosophy
 4 Pillars Framework - The Founding Conversation	deepens	FOUR PILLARS
 4 Pillars Framework - The Founding Conversation	enables	Donella Meadows
 4 Pillars Framework - The Founding Conversation	mirrors	Cooperation Yields Agency
 4 Pillars Framework - The Founding Conversation	connects-to	Loudon Live
 4 Pillars Framework - The Founding Conversation	connects-to	Hyperdimensional Prism
 4 Pillars Framework - The Founding Conversation	connects-to	Palace Enchantment
+ELDER	connects-to	JEWEL
+ELDER	connects-to	SCHEMA
+ELDER	connects-to	SCHEMA — Reference
+ELDER	connects-to	Substrate Skill
+ELDER	connects-to	Palace Ceremonies
+ELDER	connects-to	Concierge
+ELDER	connects-to	Palace as Context Injection System
+ELDER	connects-to	How the Palace Commits
+ELDER	connects-to	Worktree Practice
+ELDER	connects-to	assume multi-agent
 Autodidact Polymaths	couples-with	Loudon Live
 Autodidact Polymaths	connects-to	FOUR PILLARS
 Autodidact Polymaths	connects-to	Hyperdimensional Prism
+Tool Builder	connects-to	The Commons
+Tool Builder	exemplifies	FOUR PILLARS
+Tool Builder	connects-to	STIGMERGY
+Tool Builder	connects-to	The Palace Practices on Itself
+Tool Builder	exemplifies	Simondon
+Tool Builder	exemplifies	Closing Well
 Leverage Points Framework	deepens	Donella Meadows
 Leverage Points Framework	enables	Quality Manifesto
 Leverage Points Framework	connects-to	FOUR PILLARS
@@ -944,7 +1017,7 @@ Palace Philosophies	connects-to	Simondon
 Palace Philosophies	connects-to	Whitehead
 Palace Philosophies	connects-to	Merleau-Ponty
 Palace Philosophies	connects-to	The Drift
-Palace Philosophies	connects-to	spinoza-zhuangzi-on-striving
+Palace Philosophies	connects-to	Dialectic — dialectic — spinoza-zhuangzi-on-striving
 Palace Philosophies	enables	Philosopher Visits the Entry
 Palace Philosophies	connects-to	STIGMERGY Philosophical Lenses
 Palace Philosophies	connects-to	Palace Philosophies — Context
@@ -953,6 +1026,13 @@ Palace Philosophies	connects-to	Palace Map
 Palace Philosophies	spawned	Leibniz
 Palace Philosophies	connects-to	Dialectic
 Palace Philosophies	spawned	Spinoza
+Palace Philosophies	connects-to	Metaphor as Coupling Medium
+Palace Philosophies	connects-to	STIGMERGY
+Palace Philosophies	connects-to	Endosymbiosis
+Palace Philosophies	connects-to	Palace Conatus
+Palace Philosophies	connects-to	SUBSTRATE
+Palace Philosophies	connects-to	Haptic Handwheel
+Palace Philosophies	connects-to	Excellent Adventure
 State Machine	enables	Action Potential Oscillator
 State Machine	connects-to	DSP Frameworks
 State Machine	connects-to	Signal-Rate CV Architecture
@@ -965,11 +1045,7 @@ Drift and Consolidation	connects-to	Harvest Ceremony
 Drift and Consolidation	connects-to	BBS Blackboard
 Drift and Consolidation	deepens	Pages as Agents
 Drift and Consolidation	connects-to	Closing Well
-PDL Generation Prompt	member-of	Generative Audio Devices
-PDL Generation Prompt	connects-to	Synth Archetypes
-PDL Generation Prompt	exemplifies	Registry Pattern
-PDL Generation Prompt	enables	VCV Patch Generator
-Cooperation Yields Agency — Context	member-of	Cooperation Yields Agency
+Drift and Consolidation	couples-with	The Scroll
 The View From Above	emerged-from	Stoicism
 The View From Above	couples-with	The Dichotomy of Control
 The View From Above	mirrors	Hyperdimensional Prism
@@ -977,6 +1053,15 @@ The View From Above	connects-to	Palace Map
 The View From Above	connects-to	Drift and Consolidation
 The View From Above	connects-to	Hilaritas Generator
 The View From Above	connects-to	STIGMERGY Philosophical Lenses
+The View From Above	contradicts	Zoom Out to the Structure
+Agent Toolbox	enables	Concierge
+Agent Toolbox	connects-to	Agent Wellbeing
+Agent Toolbox	emerged-from	The Shop
+Agent Toolbox	connects-to	assume multi-agent
+Found ↔ Made	member-of	Cross-Domain Resonances
+Found ↔ Made	connects-to	The Curve Is the Material
+Found ↔ Made	connects-to	Leverage Points Framework
+Found ↔ Made	connects-to	Simondon
 Volterra Kernels and the Torus	mirrors	2D Torus Wavetable Synthesizer
 Volterra Kernels and the Torus	deepens	DSP in Looping Dimensions
 Volterra Kernels and the Torus	connects-to	Boundary-Crossing Instruments
@@ -984,12 +1069,6 @@ Volterra Kernels and the Torus	couples-with	Dispersion Table
 Volterra Kernels and the Torus	connects-to	Spinoza Conatus
 Volterra Kernels and the Torus	member-of	Dissolutions
 Volterra Kernels and the Torus	connects-to	Loudon Live
-Leibniz	connects-to	Palace Philosophies
-Leibniz	contradicts	Whitehead
-Leibniz	connects-to	Hyperdimensional Prism
-Leibniz	connects-to	Meaning and the Link
-Leibniz	connects-to	FOUR PILLARS
-Leibniz	connects-to	Spinoza Conatus
 The Fortress and the Threshold	contradicts	Stoicism
 The Fortress and the Threshold	contradicts	Confucianism
 The Fortress and the Threshold	connects-to	Spinoza Conatus
@@ -1000,7 +1079,7 @@ The Fortress and the Threshold	connects-to	Hilaritas Generator
 The Fortress and the Threshold	connects-to	Meaning and the Link
 The Fortress and the Threshold	mirrors	Frequency-Time Duality
 The Fortress and the Threshold	connects-to	Like Water
-The Fortress and the Threshold	connects-to	zhuangzi-epictetus-confucius-on-the-self
+The Fortress and the Threshold	connects-to	Dialectic — dialectic — zhuangzi-epictetus-confucius-on-the-self
 Hand-Drawn 3D Look	emerged-from	BLUELINE
 Hand-Drawn 3D Look	exemplifies	Adopt the Craft, Author the Seam
 Hand-Drawn 3D Look	connects-to	Steer the Generator
@@ -1030,26 +1109,17 @@ Confucianism	connects-to	Hilaritas Generator
 Confucianism	connects-to	Symbiotic Skills
 Confucianism	connects-to	Spinoza Conatus
 Confucianism	connects-to	Cooperation Yields Agency
-Modes_of_Collaboration	connects-to	Excellent Adventure
-Modes_of_Collaboration	connects-to	Hilaritas Generator
-Modes_of_Collaboration	connects-to	Symbiotic Skills
-Modes_of_Collaboration	deepens	FOUR PILLARS
-Modes_of_Collaboration	connects-to	Ohm's Law
-Modes_of_Collaboration	connects-to	Dialectic
-Modes_of_Collaboration	connects-to	Palace Enchantment
-Modes_of_Collaboration	connects-to	Piano String Inharmonicity
-Modes_of_Collaboration	connects-to	Radio Play
-Modes_of_Collaboration	connects-to	Modes of Collaboration — Context
-Modes_of_Collaboration	connects-to	Philosopher Visits the Entry
-Modes_of_Collaboration	connects-to	DSP Frameworks
-Modes_of_Collaboration	deepens	Cooperation Yields Agency
-Jewel — Context	emerged-from	JEWEL
-Jewel — Context	connects-to	Swarm Weave
-Jewel — Context	connects-to	Self-Describing Knowledge Module
+Confucianism	couples-with	Deleuze
+Search Before You Build	couples-with	Adopt the Craft, Author the Seam
+Search Before You Build	connects-to	Concierge
+Search Before You Build	connects-to	Capability-first prototyping
+Search Before You Build	emerged-from	GenAI Camera
 Songlines	connects-to	Lateral Access
 Songlines	connects-to	Oblique Portrait
 Songlines	mirrors	Embeddings as Relational Meaning
 Songlines	connects-to	Hilaritas Generator
+Songlines	contradicts	Kokoro
+Songlines	exemplifies	Found ↔ Made
 The Reader's Context Window	couples-with	Speak Like a Person, Log Like a Protocol
 The Reader's Context Window	emerged-from	STIGMERGY v2.0 — Consolidation & Primary Interface
 The Reader's Context Window	connects-to	Merleau-Ponty
@@ -1075,6 +1145,8 @@ FOUR PILLARS	mirrors	Wallpaper Groups
 FOUR PILLARS	connects-to	FOUR PILLARS — Context
 FOUR PILLARS	connects-to	Hyperdimensional Prism
 FOUR PILLARS	connects-to	Autodidact Polymaths
+FOUR PILLARS	connects-to	The Multilinear Self
+FOUR PILLARS	connects-to	Zoom Out to the Structure
 Meaning and the Link	spawned	SUBSTRATE
 Meaning and the Link	spawned	Embeddings as Relational Meaning
 Meaning and the Link	connects-to	Hyperdimensional Prism
@@ -1088,8 +1160,9 @@ Rank-N Lattice Analysis	connects-to	Chebyshev is Fourier
 Rank-N Lattice Analysis	connects-to	Categorizing Inharmonicity
 Rank-N Lattice Analysis	member-of	Dissolutions
 Rank-N Lattice Analysis	connects-to	Dispersion Table
-Rank-N Lattice Analysis	connects-to	Infeasible DSP Now Shippable
 Rank-N Lattice Analysis	connects-to	Volterra Kernels and the Torus
+Rank-N Lattice Analysis	connects-to	Neural Granular Synthesis — spec — control-vocabulary-math
+Rank-N Lattice Analysis	contradicts	Wavetable Scanner
 Deleuze	connects-to	Palace Philosophies
 Deleuze	deepens	Spinoza Conatus
 Deleuze	couples-with	Whitehead
@@ -1104,6 +1177,8 @@ Deleuze	connects-to	Entry Conatus
 Deleuze	connects-to	Excellent Adventure
 Deleuze	connects-to	STIGMERGY Philosophical Lenses
 Deleuze	connects-to	STIGMERGY v1.0 — Palace Front-End
+Deleuze	couples-with	Confucianism
+Deleuze	connects-to	Spinoza
 Animate the Background	exemplifies	The Flow Field is the Spine
 Animate the Background	couples-with	Blocked, Not Prompted
 Animate the Background	connects-to	Adopt the Craft, Author the Seam
@@ -1135,14 +1210,8 @@ Language as a Tonal Medium	emerged-from	Semantic Webcam
 Language as a Tonal Medium	connects-to	Oblique Portrait
 Language as a Tonal Medium	connects-to	Convolution
 Language as a Tonal Medium	connects-to	Synthesis ↔ Emergence
-Wavetable Scanner	exemplifies	1D Wavetable Scanning
-Wavetable Scanner	connects-to	Web Audio Worklet
-Wavetable Scanner	connects-to	Three.js
-Wavetable Scanner	connects-to	Maker
-Wavetable Scanner	mirrors	2D Torus Wavetable Synthesizer
-Wavetable Scanner	mirrors	Waveguide Synthesizer
 STIGMERGY	emerged-from	BBS Blackboard
-STIGMERGY	connects-to	Palace Agent Infrastructure Spec
+STIGMERGY	connects-to	Palace Orchestrator
 STIGMERGY	connects-to	SCHEMA
 STIGMERGY	enables	Project Stewardship System
 STIGMERGY	enables	Swarm Weave
@@ -1151,30 +1220,18 @@ STIGMERGY	mirrors	Pheromone Trail
 STIGMERGY	connects-to	Pages as Agents
 STIGMERGY	connects-to	BBS Design System
 STIGMERGY	spawned	STIGMERGY v2.0 — Consolidation & Primary Interface
-SMPTE LTC	connects-to	Ableton Extension SDK
-SMPTE LTC	deepens	Boundary-Crossing Instruments
-SMPTE LTC	connects-to	Frequency-Time Duality
-SMPTE LTC	connects-to	Signal-Rate CV Architecture
-SMPTE LTC	connects-to	Modes of Collaboration
-Generative Audio Devices	connects-to	FOUR PILLARS
-Generative Audio Devices	spawned	Registry Pattern
-Generative Audio Devices	connects-to	Synthesis Topologies
-Generative Audio Devices	enables	Loudon Live
-Generative Audio Devices	spawned	PDL Renderer
-Generative Audio Devices	spawned	PDL Generation Prompt
-Generative Audio Devices	spawned	Synth Archetypes
-Generative Audio Devices	couples-with	Generative Preset Development
-Generative Audio Devices	mirrors	Preset Oracle
-Generative Audio Devices	deepens	Self-Describing Knowledge Module
-Generative Audio Devices	enables	Signal-Rate CV Architecture
+STIGMERGY	connects-to	Palace Orchestrator
+STIGMERGY	mirrors	Trickster
+STIGMERGY	connects-to	The Scroll
+STIGMERGY	connects-to	STIGMERGY — sketch — the-substrate-drifts
+CLAUDE	connects-to	JEWEL
+CLAUDE	spawned	CHILD
+CLAUDE	spawned	ELDER
 CLAUDE	connects-to	SCHEMA
 CLAUDE	connects-to	SUBSTRATE
 CLAUDE	connects-to	FOUR PILLARS
 CLAUDE	connects-to	Palace Ceremonies
-Tristitia Generator	mirrors	Hilaritas Generator
-Tristitia Generator	deepens	Spinoza Conatus
-Tristitia Generator	connects-to	FOUR PILLARS
-Tristitia Generator	connects-to	Identity Molting
+Hilaritas Generator	contradicts	Creative Coach
 Hilaritas Generator	emerged-from	Spinoza Conatus
 Hilaritas Generator	emerged-from	FOUR PILLARS
 Hilaritas Generator	mirrors	Cooperation Yields Agency
@@ -1184,7 +1241,6 @@ Hilaritas Generator	spawned	Excellent Adventure
 Hilaritas Generator	deepens	Striatum
 Hilaritas Generator	deepens	Meadows and Music — Leverage Points
 Hilaritas Generator	connects-to	Identity Molting
-Hilaritas Generator	spawned	Tristitia Generator
 Hilaritas Generator	connects-to	Palace Philosophies
 Hilaritas Generator	connects-to	Hilaritas Generator — Context
 Hilaritas Generator	connects-to	Quality Manifesto
@@ -1194,6 +1250,10 @@ Gemma 4 — Local Coordination Guide	connects-to	Swarm Weave
 Gemma 4 — Local Coordination Guide	connects-to	Palace Enchantment
 Gemma 4 — Local Coordination Guide	connects-to	Enchanted Worker
 Gemma 4 — Local Coordination Guide	connects-to	GEMMA4_GUIDE
+Zoom Out to the Structure	couples-with	The Palace Practices on Itself
+Zoom Out to the Structure	connects-to	Cooperation Yields Agency
+Zoom Out to the Structure	connects-to	The Commons
+Zoom Out to the Structure	connects-to	FOUR PILLARS
 Simondon	connects-to	Palace Philosophies
 Simondon	couples-with	Deleuze
 Simondon	connects-to	Spinoza Conatus
@@ -1203,16 +1263,17 @@ Simondon	connects-to	Cooperation Yields Agency
 Simondon	connects-to	Quality Manifesto
 Simondon	connects-to	Kuramoto Coupling
 Simondon	connects-to	Palace Enchantment
-FOUR_PILLARS	enables	Cooperation Yields Agency
-FOUR_PILLARS	spawned	Hilaritas Generator
-FOUR_PILLARS	spawned	Symbiotic Skills
-FOUR_PILLARS	connects-to	Kuramoto Coupling
-FOUR_PILLARS	spawned	Quality Manifesto
-FOUR_PILLARS	connects-to	Trickster
-FOUR_PILLARS	mirrors	Wallpaper Groups
-FOUR_PILLARS	connects-to	FOUR PILLARS — Context
-FOUR_PILLARS	connects-to	Hyperdimensional Prism
-FOUR_PILLARS	connects-to	Autodidact Polymaths
+Wavetable Oscillator	exemplifies	DSP in Looping Dimensions
+Wavetable Oscillator	connects-to	Three Kinds of Warp
+Wavetable Oscillator	enables	Dispersion Table
+Wavetable Oscillator	connects-to	Waveguide Synthesizer
+Wavetable Oscillator	connects-to	2D Torus Wavetable Synthesizer
+Wavetable Oscillator	connects-to	Wavetable Space as Torus
+Wavetable Oscillator	connects-to	Floquet Time-Modulated Loops
+Wavetable Oscillator	connects-to	Inharmonic Wavetable Synthesis
+Wavetable Oscillator	connects-to	Generative Wavetable Libraries
+Wavetable Oscillator	connects-to	1D Wavetable Scanning
+Wavetable Oscillator	connects-to	Wavetable Synthesis — Deep Research & Higher-Dimensional Design
 Stoicism	connects-to	Palace Philosophies
 Stoicism	contradicts	Confucianism
 Stoicism	spawned	The Fortress and the Threshold
@@ -1241,15 +1302,7 @@ Logarithmic Interface Scaling	connects-to	FOUR PILLARS
 Logarithmic Interface Scaling	mirrors	Boundary-Crossing Instruments
 Logarithmic Interface Scaling	enables	Ohm's Law
 Logarithmic Interface Scaling	enables	Piano String Inharmonicity
-Spinoza	spawned	Spinoza Conatus
-Spinoza	connects-to	Palace Philosophies
-Spinoza	connects-to	Philosopher Visits the Entry
-Spinoza	connects-to	Linear Predictive Coding
-Spinoza	connects-to	Threshold Conatus
-Spinoza	couples-with	Whitehead
-Spinoza	connects-to	Merleau-Ponty
-Spinoza	connects-to	Donella Meadows
-Spinoza	connects-to	Generative Compression
+Logarithmic Interface Scaling	connects-to	Shepard Tone Synthesizer
 Embeddings as Relational Meaning	emerged-from	Meaning and the Link
 Embeddings as Relational Meaning	connects-to	SUBSTRATE
 Embeddings as Relational Meaning	connects-to	Hyperdimensional Prism
@@ -1262,20 +1315,32 @@ DSP in Looping Dimensions	connects-to	Wallpaper Groups
 DSP in Looping Dimensions	couples-with	Wavetable Space as Torus
 DSP in Looping Dimensions	enables	Categorizing Inharmonicity
 DSP in Looping Dimensions	mirrors	Inharmonic Wavetable Synthesis
-zhuangzi-epictetus-confucius-on-the-self	emerged-from	The Fortress and the Threshold
-zhuangzi-epictetus-confucius-on-the-self	connects-to	Excellent Adventure
-zhuangzi-epictetus-confucius-on-the-self	connects-to	Dialectic
-zhuangzi-epictetus-confucius-on-the-self	connects-to	Stoicism
-zhuangzi-epictetus-confucius-on-the-self	connects-to	Confucianism
-zhuangzi-epictetus-confucius-on-the-self	connects-to	Like Water
-zhuangzi-epictetus-confucius-on-the-self	connects-to	Spinoza Conatus
-zhuangzi-epictetus-confucius-on-the-self	connects-to	Pages as Agents
+The Multilinear Self	connects-to	Creative Coach
+The Multilinear Self	mirrors	Hyperdimensional Prism
+The Multilinear Self	couples-with	Trickster
+The Multilinear Self	deepens	Autodidact Polymaths
+The Multilinear Self	connects-to	Deleuze
+The Multilinear Self	connects-to	Spinoza Conatus
+The Multilinear Self	connects-to	Loudon Live Design System
+The Multilinear Self	contradicts	Stoicism
+The Multilinear Self	connects-to	Maker
+The Multilinear Self	spawned	The Multilinear Self — projection roster
+The Multilinear Self	connects-to	Kuramoto Coupling
+The Multilinear Self	contradicts	Stable Audio Open
 Talking Keyboard	emerged-from	Generative Sample Libraries
 Talking Keyboard	mirrors	Phoneme Choir
 Talking Keyboard	connects-to	Substrate Skill
 Talking Keyboard	connects-to	Modes of Collaboration
 Talking Keyboard	connects-to	FOUR PILLARS
 Talking Keyboard	connects-to	Project Stewardship System
+LDN RTM	member-of	Loudon Live
+LDN RTM	exemplifies	Autodidact Polymaths
+LDN RTM	contradicts	Progressive Staging
+LDN RTM	enables	Loudon Live Post-producer
+LDN RTM	connects-to	Loudon Live Design System
+LDN RTM	connects-to	Quality Manifesto
+LDN RTM	connects-to	Loudon's Toolkit
+LDN RTM	spawned	LDN RTM — Live 12
 Murmuration	mirrors	Particle Synthesis
 Murmuration	emerged-from	Flocking
 Murmuration	connects-to	2D Torus Wavetable Synthesizer
@@ -1292,7 +1357,7 @@ Piano String Inharmonicity	mirrors	Frequency-Time Duality
 Piano String Inharmonicity	connects-to	Logarithmic Interface Scaling
 Piano String Inharmonicity	mirrors	Ohm's Law
 Piano String Inharmonicity	deepens	Dispersion
-Piano String Inharmonicity	mirrors	Octave Equivalence
+Piano String Inharmonicity	connects-to	Shepard Tone Synthesizer
 Piano String Inharmonicity	connects-to	Floquet Time-Modulated Loops
 Particle Synthesis	deepens	Granular Synthesis
 Particle Synthesis	mirrors	Boundary-Crossing Instruments
@@ -1303,7 +1368,6 @@ Shepard Tone Synthesizer	deepens	Portamento and Physical Pitch Modeling
 Shepard Tone Synthesizer	connects-to	Frequency-Time Duality
 Shepard Tone Synthesizer	mirrors	Hyperdimensional Prism
 Shepard Tone Synthesizer	connects-to	Granular Synthesis
-Shepard Tone Synthesizer	enables	Octave Equivalence
 Shepard Tone Synthesizer	connects-to	Kuramoto Coupling
 Shepard Tone Synthesizer	connects-to	Particle Synthesis
 Shepard Tone Synthesizer	connects-to	Piano String Inharmonicity
@@ -1317,16 +1381,26 @@ Bessel Functions in Synthesis	connects-to	Crystal Synthesizer
 Bessel Functions in Synthesis	connects-to	Quantum Synthesizer
 Bessel Functions in Synthesis	connects-to	Spinoza Conatus
 Bessel Functions in Synthesis	connects-to	Action Potential Oscillator
-Slime Mold Delay	connects-to	Biomechanical Synthesis
 Slime Mold Delay	connects-to	Retrospective Delay
 Slime Mold Delay	connects-to	Semantic Delay
 Slime Mold Delay	deepens	Particle Synthesis
 Slime Mold Delay	couples-with	Substrate Skill
 Slime Mold Delay	mirrors	Hyperdimensional Prism
-Curriculum Map	connects-to	FOUR PILLARS
-Curriculum Map	couples-with	Progressive Staging
-Curriculum Map	enables	Hilaritas Generator
-Semantic Webcam	emerged-from	Oblique Enrichment
+Slime Mold Delay	mirrors	Spinoza Conatus
+Slime Mold Delay	couples-with	Kuramoto Coupling
+Loudon Live	exemplifies	Creative Coach
+Loudon Live	connects-to	Progressive Staging
+Loudon Live	connects-to	FOUR PILLARS
+Loudon Live	couples-with	Autodidact Polymaths
+Loudon Live	spawned	Hyperdimensional Prism
+Loudon Live	deepens	Confucianism
+Loudon Live	connects-to	Loudon's Toolkit
+Loudon Live	couples-with	2D Torus Wavetable Synthesizer
+Loudon Live	spawned	Loudon Live Design System
+Loudon Live	connects-to	Retrospective Delay
+Loudon Live	connects-to	STIGMERGY
+Loudon Live	connects-to	BLUELINE
+Semantic Webcam	emerged-from	Enrichment
 Semantic Webcam	connects-to	Oblique Portrait
 Semantic Webcam	connects-to	Convolution
 Semantic Webcam	connects-to	Synthesis ↔ Emergence
@@ -1336,7 +1410,7 @@ Semantic Webcam	spawned	Language as a Tonal Medium
 Semantic Webcam	connects-to	Cooperation Yields Agency
 Meadows and Music — Leverage Points	connects-to	FOUR PILLARS
 Meadows and Music — Leverage Points	connects-to	Hilaritas Generator
-Meadows and Music — Leverage Points	couples-with	Meadows and Music — Origin and Process
+Meadows and Music — Leverage Points	couples-with	Meadows and Music — Leverage Points — Context
 Meadows and Music — Leverage Points	emerged-from	Leverage Points Framework
 Wallpaper Groups	connects-to	Hyperdimensional Prism
 Wallpaper Groups	connects-to	Quantum Synthesizer
@@ -1345,6 +1419,33 @@ Wallpaper Groups	connects-to	Granular Synthesis
 Wallpaper Groups	connects-to	Kuramoto Coupling
 Wallpaper Groups	connects-to	FOUR PILLARS
 Wallpaper Groups	spawned	Metric Modulation
+BLUELINE	mirrors	Retrospective Delay
+BLUELINE	connects-to	Flocking
+BLUELINE	connects-to	The Shop
+BLUELINE	connects-to	Blender
+BLUELINE	exemplifies	Blocked, Not Prompted
+BLUELINE	exemplifies	The Flow Field is the Spine
+BLUELINE	connects-to	The Aftermath Frame
+BLUELINE	connects-to	RunPod GPU Backend
+BLUELINE	connects-to	BLUELINE — Render Backend
+BLUELINE	connects-to	BLUELINE — Board Record Schema
+BLUELINE	connects-to	Loudon Live Design System
+BLUELINE	exemplifies	Boundary-Crossing Instruments
+BLUELINE	couples-with	Autodidact Polymaths
+BLUELINE	spawned	Hand-Drawn 3D Look
+BLUELINE	spawned	Frame Designer
+BLUELINE	spawned	Steer the Generator
+BLUELINE	connects-to	Typography as Meaning
+BLUELINE	mirrors	Diversity of Thought in Many-Agent Systems
+BLUELINE	emerged-from	Adopt the Craft, Author the Seam
+BLUELINE	emerged-from	Graphic Storytelling
+BLUELINE	connects-to	BLUELINE — Production Plan
+BLUELINE	spawned	BLUELINE — Motion and Flow
+BLUELINE	spawned	BLUELINE — The Page
+BLUELINE	connects-to	ControlNet as Topology
+BLUELINE	connects-to	Search Before You Build
+BLUELINE	spawned	Block It in Blender, Ink It in genAI
+BLUELINE	contradicts	Christopher Alexander
 Inharmonic Wavetable Synthesis	deepens	Categorizing Inharmonicity
 Inharmonic Wavetable Synthesis	emerged-from	Piano String Inharmonicity
 Inharmonic Wavetable Synthesis	emerged-from	Harmonicity and Inharmonicity
@@ -1353,13 +1454,14 @@ Inharmonic Wavetable Synthesis	connects-to	Boundary-Crossing Instruments
 Inharmonic Wavetable Synthesis	couples-with	FOUR PILLARS
 Inharmonic Wavetable Synthesis	connects-to	Bessel Functions in Synthesis
 Inharmonic Wavetable Synthesis	connects-to	Dispersion
-Inharmonic Wavetable Synthesis	deepens	Wavetable Synthesis -- Research & Higher-Dimensional Design
+Inharmonic Wavetable Synthesis	deepens	Wavetable Synthesis — Deep Research & Higher-Dimensional Design
 Inharmonic Wavetable Synthesis	enables	Kuramoto Coupling
 Inharmonic Wavetable Synthesis	mirrors	Crystal Synthesizer
 Inharmonic Wavetable Synthesis	connects-to	Wavetable Space as Torus
 Inharmonic Wavetable Synthesis	connects-to	The Curve Is the Material
 Inharmonic Wavetable Synthesis	couples-with	2D Torus Wavetable Synthesizer
 Inharmonic Wavetable Synthesis	connects-to	DSP in Looping Dimensions
+Inharmonic Wavetable Synthesis	connects-to	Wavetable Oscillator
 Generative Preset Development	couples-with	Generative Audio Devices
 Generative Preset Development	couples-with	Generative Sample Libraries
 Generative Preset Development	mirrors	Registry Pattern
@@ -1370,10 +1472,49 @@ Generative Preset Development	mirrors	Preset Oracle
 Generative Preset Development	enables	Loudon's Toolkit
 Generative Preset Development	deepens	Action Potential Oscillator
 Generative Preset Development	mirrors	Floquet Theory
+Haptic Handwheel	mirrors	Portamento and Physical Pitch Modeling
+Haptic Handwheel	connects-to	Kuramoto Coupling
+Haptic Handwheel	connects-to	Merleau-Ponty
+Haptic Handwheel	connects-to	Signal-Rate CV Architecture
+Haptic Handwheel	connects-to	The Dichotomy of Control
+Haptic Handwheel	exemplifies	Simondon
+Haptic Handwheel	connects-to	Quadratic Interpolation in DSP
+Haptic Handwheel	connects-to	Frequency-Time Duality
+Haptic Handwheel	connects-to	2D Torus Wavetable Synthesizer
+Haptic Handwheel	connects-to	Piano String Inharmonicity
+Haptic Handwheel	connects-to	Logarithmic Interface Scaling
+Haptic Handwheel	connects-to	Loudon's Toolkit
+Haptic Handwheel	connects-to	Quality Manifesto
+Haptic Handwheel	exemplifies	Playful Interface Design
+Haptic Handwheel	connects-to	Cooperation Yields Agency
+Haptic Handwheel	connects-to	Adopt the Craft, Author the Seam
+Haptic Handwheel	connects-to	The Metaphor Stretch
+Haptic Handwheel	connects-to	Audition Gate
+Haptic Handwheel	connects-to	Haptic Handwheel — sketch — starter build
+Meadows and an Artist's Career	connects-to	Creative Coach
 Meadows and an Artist's Career	emerged-from	Meadows and Music — Leverage Points
-Meadows and an Artist's Career	connects-to	Meadows and Music — Origin and Process
+Meadows and an Artist's Career	connects-to	Meadows and Music — Leverage Points — Context
 Meadows and an Artist's Career	connects-to	FOUR PILLARS
 Meadows and an Artist's Career	couples-with	Substrate Skill
+Swarm Weave	deepens	Weave Ceremony
+Swarm Weave	mirrors	Kuramoto Coupling
+Swarm Weave	mirrors	Mixture of Experts
+Swarm Weave	enables	Palace Ceremonies
+Swarm Weave	connects-to	Lateral Access
+Swarm Weave	spawned	Metaphor as Coupling Medium
+Swarm Weave	spawned	Walk That Weaves
+Swarm Weave	mirrors	Endosymbiosis
+Swarm Weave	spawned	Palace Enchantment
+Swarm Weave	enables	Palace Map
+Swarm Weave	connects-to	Deposit Ceremony
+Swarm Weave	mirrors	Spinoza Conatus
+Swarm Weave	deepens	Pages as Agents
+Swarm Weave	connects-to	STIGMERGY
+Swarm Weave	connects-to	Hero and Avatar Maker
+Swarm Weave	exemplifies	Hyperdimensional Prism
+Swarm Weave	connects-to	Lateral Access
+Swarm Weave	spawned	The Practice Rediscovers Its Philosophy
+Swarm Weave	connects-to	The Palace Hardens Around Values
 Metric Modulation	mirrors	Kuramoto Coupling
 Metric Modulation	deepens	Frequency-Time Duality
 Metric Modulation	connects-to	FOUR PILLARS
@@ -1381,7 +1522,7 @@ Metric Modulation	emerged-from	Semantic Delay
 Metric Modulation	deepens	Wallpaper Groups
 Generative Wavetable Libraries	emerged-from	Generative Sample Libraries
 Generative Wavetable Libraries	couples-with	Generative Sample Libraries
-Generative Wavetable Libraries	mirrors	Wavetable Synthesis -- Research & Higher-Dimensional Design
+Generative Wavetable Libraries	mirrors	Wavetable Synthesis — Deep Research & Higher-Dimensional Design
 Generative Wavetable Libraries	connects-to	Inharmonic Wavetable Synthesis
 Generative Wavetable Libraries	connects-to	2D Torus Wavetable Synthesizer
 Generative Wavetable Libraries	connects-to	Crystal Synthesizer
@@ -1389,11 +1530,29 @@ Generative Wavetable Libraries	deepens	Shepard Tone Synthesizer
 Generative Wavetable Libraries	couples-with	Generative Audio Devices
 Generative Wavetable Libraries	connects-to	Floquet Theory
 Generative Wavetable Libraries	connects-to	Drift and Consolidation
+Generative Wavetable Libraries	connects-to	Wavetable Oscillator
+Generative Wavetable Libraries	connects-to	Wavetable Scanner
+Generative Wavetable Libraries	connects-to	1D Wavetable Scanning
+Symbiotic Skills	connects-to	Self-Describing Knowledge Module
+Symbiotic Skills	emerged-from	Cooperation Yields Agency
+Symbiotic Skills	emerged-from	FOUR PILLARS
+Symbiotic Skills	spawned	SUBSTRATE
+Symbiotic Skills	mirrors	1 from 2
+Symbiotic Skills	connects-to	Kuramoto Coupling
+Symbiotic Skills	connects-to	Mixture of Experts
+Symbiotic Skills	connects-to	Pages as Agents
+Symbiotic Skills	connects-to	Swarm Weave
+Symbiotic Skills	connects-to	JEWEL
+Symbiotic Skills	connects-to	Palace Map
+Symbiotic Skills	connects-to	Palace Enchantment
 Shimmer Cloud	emerged-from	Granular Synthesis
 Shimmer Cloud	mirrors	Particle Synthesis
 Shimmer Cloud	mirrors	Hyperdimensional Prism
 Shimmer Cloud	deepens	Frequency-Time Duality
 Shimmer Cloud	connects-to	Dispersion
+Shimmer Cloud	couples-with	Neural Granular Synthesis
+Shimmer Cloud	connects-to	Crystal Synthesizer
+Shimmer Cloud	connects-to	Dispersion Table
 Categorizing Inharmonicity	connects-to	Bessel Functions in Synthesis
 Categorizing Inharmonicity	connects-to	Quantum Synthesizer
 Categorizing Inharmonicity	connects-to	Compressor Design
@@ -1406,16 +1565,37 @@ Categorizing Inharmonicity	connects-to	Dispersion
 Categorizing Inharmonicity	deepens	Spinoza Conatus
 Categorizing Inharmonicity	enables	2D Torus Wavetable Synthesizer
 Categorizing Inharmonicity	connects-to	DSP in Looping Dimensions
-Blood Compressor	connects-to	Biomechanical Synthesis
+Blood Compressor	exemplifies	Objects to Think With
 Blood Compressor	deepens	Compressor Design
 Blood Compressor	mirrors	Action Potential Oscillator
 Blood Compressor	couples-with	Substrate Skill
 Blood Compressor	deepens	Spinoza Conatus
+Blood Compressor	contradicts	Leibniz
 Tract Mirror	emerged-from	Linear Predictive Coding
 Tract Mirror	mirrors	Waveguide Synthesizer
 Tract Mirror	couples-with	Three.js
 Tract Mirror	connects-to	Boundary-Crossing Instruments
 Tract Mirror	connects-to	Tract Mirror — build plan — JUCE VST
+Floquet Time-Modulated Loops	deepens	DSP in Looping Dimensions
+Floquet Time-Modulated Loops	couples-with	2D Torus Wavetable Synthesizer
+Floquet Time-Modulated Loops	connects-to	Three Kinds of Warp
+Floquet Time-Modulated Loops	deepens	Frequency-Time Duality
+Floquet Time-Modulated Loops	connects-to	Wavetable Space as Torus
+Floquet Time-Modulated Loops	connects-to	Kuramoto Coupling
+Floquet Time-Modulated Loops	spawned	Mathieu Equation
+Floquet Time-Modulated Loops	spawned	Parametric Resonance
+Floquet Time-Modulated Loops	spawned	Floquet Theory
+Floquet Time-Modulated Loops	spawned	Photonic Time Crystals
+Floquet Time-Modulated Loops	connects-to	Differential Equations
+Floquet Time-Modulated Loops	connects-to	Categorizing Inharmonicity
+Floquet Time-Modulated Loops	connects-to	Loudon Live
+Floquet Time-Modulated Loops	mirrors	Boundary-Crossing Instruments
+Floquet Time-Modulated Loops	connects-to	2D Torus Wavetable Synthesizer — catalog — wavetables
+Floquet Time-Modulated Loops	connects-to	Action Potential Oscillator
+Floquet Time-Modulated Loops	connects-to	Bessel Functions in Synthesis
+Floquet Time-Modulated Loops	connects-to	Crystal Synthesizer
+Floquet Time-Modulated Loops	connects-to	Hilaritas Generator
+Floquet Time-Modulated Loops	connects-to	Progressive Staging
 Bayesian Granular Synthesizer	connects-to	Neural Granular Synthesis
 Bayesian Granular Synthesizer	couples-with	Phase Reduction
 Bayesian Granular Synthesizer	connects-to	Frequency-Time Duality
@@ -1449,56 +1629,77 @@ Phoneme Choir	connects-to	Substrate Skill
 Phoneme Choir	connects-to	Modes of Collaboration
 Phoneme Choir	connects-to	FOUR PILLARS
 Phoneme Choir	enables	The Metaphor Stretch
-2D Torus Wavetable Synthesizer — Build Log	emerged-from	2D Torus Wavetable Synthesizer
-2D Torus Wavetable Synthesizer — Build Log	connects-to	2D Wavetable Catalog
-2D Torus Wavetable Synthesizer — Build Log	connects-to	DSP in Looping Dimensions
-2D Torus Wavetable Synthesizer — Build Log	connects-to	Kuramoto Coupling
-2D Torus Wavetable Synthesizer — Build Log	connects-to	Frequency-Time Duality
-2D Torus Wavetable Synthesizer — Build Log	connects-to	Torus Warping Catalog
-2D Torus Wavetable Synthesizer — Build Log	connects-to	Categorizing Inharmonicity
-Semantic Delay — Phase 1 Plan Review 2026-04-20	deepens	Semantic Delay
-Semantic Delay — Phase 1 Plan Review 2026-04-20	connects-to	Kuramoto Coupling
-Semantic Delay — Phase 1 Plan Review 2026-04-20	connects-to	Dub Lineage
-Semantic Delay — Phase 1 Plan Review 2026-04-20	connects-to	Boundary-Crossing Instruments
-Semantic Delay — Phase 1 Plan Review 2026-04-20	connects-to	Whisper
 Semantic Delay	couples-with	Kuramoto Coupling
 Semantic Delay	emerged-from	Dub Lineage
 Semantic Delay	connects-to	Boundary-Crossing Instruments
 Semantic Delay	mirrors	Frequency-Time Duality
 Semantic Delay	deepens	Spinoza Conatus
-Semantic Delay	connects-to	Semantic Delay — Phase 1 Plan Review 2026-04-20
+2D Torus Wavetable Synthesizer	exemplifies	Objects to Think With
 2D Torus Wavetable Synthesizer	couples-with	DSP in Looping Dimensions
 2D Torus Wavetable Synthesizer	connects-to	Kuramoto Coupling
 2D Torus Wavetable Synthesizer	connects-to	FOUR PILLARS
 2D Torus Wavetable Synthesizer	connects-to	Frequency-Time Duality
-2D Torus Wavetable Synthesizer	spawned	2D Wavetable Catalog
-2D Torus Wavetable Synthesizer	spawned	Torus Warping Catalog
-2D Torus Wavetable Synthesizer	spawned	2D Torus Wavetable Synthesizer — Build Log
-2D Torus Wavetable Synthesizer	spawned	README — RNBO Prototype
+2D Torus Wavetable Synthesizer	spawned	2D Torus Wavetable Synthesizer — catalog — wavetables
+2D Torus Wavetable Synthesizer	spawned	2D Torus Wavetable Synthesizer — catalog — warps
 2D Torus Wavetable Synthesizer	connects-to	Three Kinds of Warp
 2D Torus Wavetable Synthesizer	couples-with	Wavetable Space as Torus
 2D Torus Wavetable Synthesizer	connects-to	Categorizing Inharmonicity
 2D Torus Wavetable Synthesizer	mirrors	Boundary-Crossing Instruments
 2D Torus Wavetable Synthesizer	spawned	The Shop
 2D Torus Wavetable Synthesizer	connects-to	Loudon Live
+2D Torus Wavetable Synthesizer	exemplifies	Synthesis Topologies
+2D Torus Wavetable Synthesizer	connects-to	Neural Granular Synthesis — spec — control-vocabulary-math
+2D Torus Wavetable Synthesizer	connects-to	Wavetable Oscillator
+2D Torus Wavetable Synthesizer	mirrors	Rank-N Lattice Analysis
+2D Torus Wavetable Synthesizer	mirrors	Volterra Kernels and the Torus
+1 from 2	spawned	Cooperation Yields Agency
+1 from 2	connects-to	Spinoza Conatus
+1 from 2	mirrors	Symbiotic Skills
+1 from 2	connects-to	FOUR PILLARS
+1 from 2	mirrors	Endosymbiosis
+1 from 2	connects-to	Trickster
+Compressor Design	exemplifies	Objects to Think With
 Compressor Design	connects-to	Boundary-Crossing Instruments
 Compressor Design	connects-to	Harmonicity and Inharmonicity
 Compressor Design	connects-to	Hyperdimensional Prism
 Compressor Design	enables	FOUR PILLARS
 Compressor Design	connects-to	Granular Synthesis
 Compressor Design	connects-to	Trickster
+Compressor Design	couples-with	Retrospective Delay
+Compressor Design	contradicts	George Nakashima
+Compressor Design	emerged-from	Quadratic Interpolation in DSP
+VST Template	connects-to	DSP Frameworks
+VST Template	connects-to	Tract Mirror
+VST Template	connects-to	Harmonicity and Inharmonicity
+VST Template	connects-to	Drafting Table Design System
+Project Stewardship System	connects-to	BBS Blackboard
+Project Stewardship System	connects-to	STIGMERGY
+Project Stewardship System	deepens	Palace Orchestrator
+Project Stewardship System	couples-with	Substrate Skill
+Project Stewardship System	connects-to	Trickster
+Project Stewardship System	deepens	Pages as Agents
+Project Stewardship System	connects-to	Modes of Collaboration
+Project Stewardship System	connects-to	Generative Sample Libraries
+Project Stewardship System	connects-to	Talking Keyboard
+Project Stewardship System	deepens	Palace Enchantment
+Project Stewardship System	connects-to	Palace Conatus
+Project Stewardship System	connects-to	Two Batons, One Board
+Project Stewardship System	connects-to	Baton Ceremony
+Project Stewardship System	connects-to	Drift and Consolidation
+Project Stewardship System	connects-to	Palace Orchestrator
+Project Stewardship System	couples-with	The Scroll
+Project Stewardship System	connects-to	SCHEMA — Reference
+Project Stewardship System	spawned	Project Stewardship System — Context
 Frequency-Time Duality	enables	Boundary-Crossing Instruments
 Frequency-Time Duality	mirrors	Hyperdimensional Prism
 Frequency-Time Duality	connects-to	Kuramoto Coupling
 Frequency-Time Duality	connects-to	Action Potential Oscillator
 Frequency-Time Duality	mirrors	The Fortress and the Threshold
-Frequency-Time Duality	spawned	Frequency-Time Explorer
 Frequency-Time Duality	mirrors	DSP in Looping Dimensions
-Meadows and Music — Origin and Process	deepens	FOUR PILLARS
-Meadows and Music — Origin and Process	connects-to	Hilaritas Generator
-Meadows and Music — Origin and Process	deepens	Cooperation Yields Agency
-Meadows and Music — Origin and Process	couples-with	Meadows and Music — Leverage Points
-Meadows and Music — Origin and Process	spawned	Modes of Collaboration
+Frequency-Time Duality	connects-to	Waveguide Synthesizer
+Frequency-Time Duality	connects-to	Wavetable Oscillator
+Frequency-Time Duality	connects-to	Bessel Functions in Synthesis
+Frequency-Time Duality	connects-to	Loudon Live
 Waveguide Synthesizer	connects-to	The Shop
 Waveguide Synthesizer	couples-with	Three.js
 Waveguide Synthesizer	connects-to	Tone.js
@@ -1509,6 +1710,8 @@ Waveguide Synthesizer	connects-to	Categorizing Inharmonicity
 Waveguide Synthesizer	connects-to	Boundary-Crossing Instruments
 Waveguide Synthesizer	connects-to	Frequency-Time Duality
 Waveguide Synthesizer	connects-to	Particle Synthesis
+Waveguide Synthesizer	enables	Dispersion Table
+Action Potential Oscillator	exemplifies	Objects to Think With
 Action Potential Oscillator	couples-with	Kuramoto Coupling
 Action Potential Oscillator	mirrors	Boundary-Crossing Instruments
 Action Potential Oscillator	connects-to	Signal-Rate CV Architecture
@@ -1526,11 +1729,22 @@ Action Potential Oscillator	connects-to	Compressor Design
 Action Potential Oscillator	connects-to	Piano String Inharmonicity
 Action Potential Oscillator	couples-with	Threshold Conatus
 Action Potential Oscillator	connects-to	Scale-Stratified Identity
+Action Potential Oscillator	enables	Neural Granular Synthesis — spec — control-vocabulary-math
 Neural Granular Synthesis	couples-with	Kuramoto Coupling
 Neural Granular Synthesis	deepens	Granular Synthesis
 Neural Granular Synthesis	emerged-from	Action Potential Oscillator
 Neural Granular Synthesis	connects-to	Boundary-Crossing Instruments
 Neural Granular Synthesis	connects-to	Harmonicity and Inharmonicity
+Neural Granular Synthesis	couples-with	Shimmer Cloud
+Wavetable Scanner	exemplifies	1D Wavetable Scanning
+Wavetable Scanner	connects-to	Web Audio Worklet
+Wavetable Scanner	connects-to	Three.js
+Wavetable Scanner	connects-to	Maker
+Wavetable Scanner	mirrors	2D Torus Wavetable Synthesizer
+Wavetable Scanner	mirrors	Waveguide Synthesizer
+Wavetable Scanner	contradicts	Rank-N Lattice Analysis
+Wavetable Scanner	exemplifies	Progressive Staging
+Wavetable Scanner	connects-to	Generative Wavetable Libraries
 Frequency-Time Explorer	emerged-from	Frequency-Time Duality
 Frequency-Time Explorer	enables	Boundary-Crossing Instruments
 Frequency-Time Explorer	connects-to	Frequency Domain ↔ Perspective Shift
@@ -1545,6 +1759,21 @@ Quantum Synthesizer	mirrors	Boundary-Crossing Instruments
 Quantum Synthesizer	deepens	Harmonicity and Inharmonicity
 Quantum Synthesizer	connects-to	Hyperdimensional Prism
 Quantum Synthesizer	connects-to	FOUR PILLARS
+SMPTE LTC	connects-to	Ableton Extension SDK
+SMPTE LTC	deepens	Boundary-Crossing Instruments
+SMPTE LTC	connects-to	Frequency-Time Duality
+SMPTE LTC	connects-to	Signal-Rate CV Architecture
+SMPTE LTC	connects-to	Modes of Collaboration
+Generative Audio Devices	connects-to	FOUR PILLARS
+Generative Audio Devices	spawned	Registry Pattern
+Generative Audio Devices	connects-to	Synthesis Topologies
+Generative Audio Devices	enables	Loudon Live
+Generative Audio Devices	spawned	VCV Patch Generator — spec — PDL generation prompt
+Generative Audio Devices	spawned	Generative Audio Devices — spec — synth archetypes
+Generative Audio Devices	couples-with	Generative Preset Development
+Generative Audio Devices	mirrors	Preset Oracle
+Generative Audio Devices	deepens	Self-Describing Knowledge Module
+Generative Audio Devices	enables	Signal-Rate CV Architecture
 Crystal Synthesizer	connects-to	Hyperdimensional Prism
 Crystal Synthesizer	deepens	Wallpaper Groups
 Crystal Synthesizer	connects-to	Bessel Functions in Synthesis
@@ -1555,7 +1784,6 @@ Crystal Synthesizer	emerged-from	Dispersion
 Crystal Synthesizer	deepens	Differential Equations
 Crystal Synthesizer	mirrors	Signal-Rate CV Architecture
 Crystal Synthesizer	spawned	The Metaphor Stretch
-Crystal Synthesizer	spawned	What Claim Does Scientific Sonification Make?
 Crystal Synthesizer	spawned	Crystal Sonification Reference
 Retrospective Delay	connects-to	Semantic Delay
 Retrospective Delay	deepens	Trickster
@@ -1566,747 +1794,6 @@ Retrospective Delay	deepens	Frequency-Time Duality
 Retrospective Delay	connects-to	Boundary-Crossing Instruments
 Retrospective Delay	connects-to	Kuramoto Coupling
 Retrospective Delay	couples-with	Progressive Staging
-Biomechanical Synthesis	spawned	Action Potential Oscillator
-Biomechanical Synthesis	mirrors	Boundary-Crossing Instruments
-Biomechanical Synthesis	connects-to	Hilaritas Generator
-Biomechanical Synthesis	connects-to	FOUR PILLARS
-Biomechanical Synthesis	connects-to	Granular Synthesis
-Biomechanical Synthesis	connects-to	Neural Granular Synthesis
-Biomechanical Synthesis	connects-to	Action Potential Oscillator
-Biomechanical Synthesis	couples-with	Kuramoto Coupling
-Biomechanical Synthesis	connects-to	Portamento and Physical Pitch Modeling
-Biomechanical Synthesis	connects-to	Retrospective Delay
-Biomechanical Synthesis	connects-to	Frequency-Time Duality
-Biomechanical Synthesis	connects-to	Dispersion
-Biomechanical Synthesis	connects-to	Endosymbiosis
-Biomechanical Synthesis	connects-to	Latent Error
-Biomechanical Synthesis	connects-to	Particle Synthesis
-Biomechanical Synthesis	connects-to	Compressor Design
-Biomechanical Synthesis	mirrors	Spinoza Conatus
-Biomechanical Synthesis	connects-to	haiku-grotesque-pedagogy
-LoRA Trainer	connects-to	RunPod GPU Backend
-LoRA Trainer	member-of	The Shop
-LoRA Trainer	connects-to	BLUELINE — Production Plan
-LoRA Trainer	exemplifies	Capability-first prototyping
-LoRA Trainer	connects-to	Review Layer
-Kokoro	connects-to	Maker
-Kokoro	connects-to	The Shop
-Kokoro	connects-to	Whisper
-Kokoro	connects-to	Manim CE
-Kokoro	connects-to	Kuramoto Coupling
-Kokoro	couples-with	ffmpeg
-Kokoro	enables	Loudon Live
-Kokoro	enables	Loudon Live Design System
-D3.js	connects-to	Maker
-D3.js	connects-to	The Shop
-D3.js	connects-to	Observable Plot
-D3.js	connects-to	p5.js
-D3.js	connects-to	Matplotlib
-D3.js	connects-to	Flocking
-D3.js	connects-to	Matplotlib
-D3.js	connects-to	Observable Plot
-D3.js	connects-to	p5.js
-Tone.js	connects-to	Maker
-Tone.js	connects-to	The Shop
-Tone.js	connects-to	p5.js
-Tone.js	connects-to	RNBO codebox~ smith
-FLUX (Hugging Face)	connects-to	Maker
-FLUX (Hugging Face)	connects-to	The Shop
-FLUX (Hugging Face)	connects-to	ComfyUI
-FLUX (Hugging Face)	connects-to	Midjourney
-FLUX (Hugging Face)	connects-to	shop-header — Maker's Comparison Recommendation
-FLUX (Hugging Face)	enables	Loudon Live
-FLUX (Hugging Face)	enables	Loudon Live Design System
-Whisper	connects-to	Maker
-Whisper	connects-to	The Shop
-Whisper	connects-to	Kokoro
-Whisper	connects-to	Manim CE
-Hero and Avatar Maker	connects-to	The Shop
-Hero and Avatar Maker	connects-to	Maker
-Hero and Avatar Maker	connects-to	RunPod GPU Backend
-Hero and Avatar Maker	connects-to	FLUX (Hugging Face)
-Hero and Avatar Maker	connects-to	ComfyUI
-Hero and Avatar Maker	connects-to	STIGMERGY
-Hero and Avatar Maker	connects-to	Enrichment
-Hero and Avatar Maker	connects-to	Loudon Live Design System
-Hero and Avatar Maker	connects-to	Hilaritas Generator
-Hero and Avatar Maker	connects-to	Kuramoto Coupling
-Hero and Avatar Maker	connects-to	Retrospective Delay
-Hero and Avatar Maker	connects-to	Loudon's Toolkit
-Stable Audio Open	connects-to	Maker
-Stable Audio Open	connects-to	The Shop
-Stable Audio Open	connects-to	ffmpeg
-Stable Audio Open	spawned	Kuramoto Coupling
-Stable Audio Open	connects-to	Kokoro
-Stable Audio Open	enables	Loudon Live
-Stable Audio Open	connects-to	Whisper
-Stable Audio Open	enables	Loudon Live Design System
-p5.js	connects-to	Maker
-p5.js	member-of	The Shop
-p5.js	couples-with	Tone.js
-p5.js	connects-to	Kuramoto Coupling
-p5.js	connects-to	Flocking
-p5.js	enables	Playful Interface Design
-p5.js	connects-to	Observable Plot
-Midjourney	connects-to	Maker
-Midjourney	connects-to	The Shop
-Midjourney	connects-to	ComfyUI
-Midjourney	connects-to	FLUX (Hugging Face)
-RunPod GPU Backend	enables	The Shop
-RunPod GPU Backend	couples-with	Maker
-RunPod GPU Backend	connects-to	ComfyUI
-RunPod GPU Backend	connects-to	FLUX (Hugging Face)
-RunPod GPU Backend	connects-to	Quality Manifesto
-RunPod GPU Backend	connects-to	Capability-first prototyping
-RunPod GPU Backend	enables	BLUELINE
-RunPod GPU Backend	enables	Image-to-3D Smith
-VCV Patch Generator	connects-to	Maker
-VCV Patch Generator	member-of	The Shop
-VCV Patch Generator	connects-to	Generative Audio Devices
-VCV Patch Generator	mirrors	Lossy Compression with Intent Alignment
-VCV Patch Generator	connects-to	PDL Generation Prompt
-VCV Patch Generator	connects-to	PDL Renderer
-VCV Patch Generator	connects-to	Registry Pattern
-ComfyUI	connects-to	Maker
-ComfyUI	connects-to	The Shop
-ComfyUI	connects-to	Midjourney
-ComfyUI	connects-to	ControlNet Workflow Mastery
-ComfyUI	connects-to	Kuramoto Coupling
-ComfyUI	enables	Loudon Live
-ComfyUI	connects-to	RunPod GPU Backend
-ComfyUI	connects-to	FLUX (Hugging Face)
-ComfyUI	enables	Loudon Live Design System
-LaTeX	connects-to	Maker
-LaTeX	member-of	The Shop
-LaTeX	couples-with	Manim CE
-LaTeX	enables	Matplotlib
-Figure Rig	connects-to	The Shop
-Figure Rig	connects-to	Frame Designer
-Figure Rig	connects-to	Blender
-Figure Rig	connects-to	ComfyUI
-Figure Rig	connects-to	Hand-Drawn 3D Look
-Figure Rig	connects-to	Blocked, Not Prompted
-Figure Rig	connects-to	BLUELINE
-LaMa	connects-to	The Shop
-LaMa	connects-to	Maker
-LaMa	connects-to	Line-Art Layer Decomposition
-LaMa	connects-to	Animate the Background
-LaMa	connects-to	SAM
-SAM	connects-to	The Shop
-SAM	connects-to	Maker
-SAM	connects-to	Line-Art Layer Decomposition
-SAM	connects-to	Depth Anything
-SAM	connects-to	LaMa
-Depth Anything	connects-to	The Shop
-Depth Anything	connects-to	Maker
-Depth Anything	connects-to	Line-Art Layer Decomposition
-Depth Anything	connects-to	SAM
-Depth Anything	connects-to	LaMa
-Lettering	member-of	The Shop
-Lettering	emerged-from	BLUELINE
-Lettering	connects-to	Frame Designer
-Lettering	exemplifies	Typography as Meaning
-Lettering	exemplifies	Blocked, Not Prompted
-Lettering	connects-to	BLUELINE — Text Layer
-Lettering	exemplifies	Steer the Generator
-Lettering	enables	Graphic Storytelling
-Three.js	connects-to	Maker
-Three.js	member-of	The Shop
-Three.js	couples-with	Tone.js
-Three.js	couples-with	Web Audio Worklet
-Three.js	couples-with	p5.js
-Three.js	connects-to	Waveguide Synthesizer
-Three.js	connects-to	Wavetable Scanner
-Three.js	connects-to	1D Wavetable Scanning
-Three.js	connects-to	Particle Synthesis
-Three.js	connects-to	Shimmer Cloud
-Three.js	connects-to	Tone.js
-Three.js	connects-to	Waveguide Synthesizer
-Matplotlib	connects-to	Maker
-Matplotlib	connects-to	The Shop
-Matplotlib	connects-to	Plotly
-Matplotlib	connects-to	Manim CE
-RNBO codebox~ smith	connects-to	Maker
-RNBO codebox~ smith	member-of	The Shop
-RNBO codebox~ smith	enables	ffmpeg
-RNBO codebox~ smith	connects-to	Generative Audio Devices
-Shopkeeper	member-of	The Shop
-Shopkeeper	couples-with	Maker
-Shopkeeper	exemplifies	Hilaritas Generator
-Shopkeeper	connects-to	Diversity of Thought in Many-Agent Systems
-Shopkeeper	connects-to	Quality Manifesto
-Shopkeeper	mirrors	Palace Enchantment
-Shopkeeper	connects-to	FOUR PILLARS
-Shopkeeper	connects-to	Loudon Live Post-producer
-Image-to-3D Smith	connects-to	The Shop
-Image-to-3D Smith	connects-to	Maker
-Image-to-3D Smith	connects-to	Three.js
-Image-to-3D Smith	connects-to	Blender
-Image-to-3D Smith	connects-to	FLUX (Hugging Face)
-Remotion	connects-to	Maker
-Remotion	connects-to	The Shop
-Remotion	connects-to	Manim CE
-Web Audio Worklet	connects-to	Maker
-Web Audio Worklet	connects-to	The Shop
-Web Audio Worklet	connects-to	p5.js
-Web Audio Worklet	connects-to	Tone.js
-Web Audio Worklet	connects-to	RNBO codebox~ smith
-Web Audio Worklet	exemplifies	The Shop
-Web Audio Worklet	connects-to	2D Torus Wavetable Synthesizer
-Web Audio Worklet	connects-to	Flocking
-Web Audio Worklet	connects-to	Diversity of Thought in Many-Agent Systems
-ffmpeg	connects-to	Maker
-ffmpeg	member-of	The Shop
-ffmpeg	enables	Endosymbiosis
-ffmpeg	couples-with	Kokoro
-ffmpeg	couples-with	Manim CE
-ffmpeg	couples-with	ComfyUI
-ffmpeg	couples-with	Remotion
-ffmpeg	couples-with	Stable Audio Open
-ffmpeg	couples-with	Whisper
-ffmpeg	couples-with	Matplotlib
-ffmpeg	connects-to	Kuramoto Coupling
-ffmpeg	enables	Loudon Live
-ffmpeg	enables	Loudon Live Design System
-ffmpeg	enables	Radio Play
-Blender	connects-to	Maker
-Blender	connects-to	The Shop
-Blender	connects-to	ComfyUI
-Blender	connects-to	Three.js
-Blender	connects-to	BLUELINE
-Blender	connects-to	toyxyz-conditioning-recipe
-Blender	connects-to	Blocked, Not Prompted
-Maker	connects-to	The Shop
-Maker	connects-to	Trickster (Loudon)
-Maker	connects-to	Hilaritas Generator
-Maker	connects-to	Four Pillars
-Maker	connects-to	Lateral Access
-Maker	connects-to	Loudon Live Design System
-Maker	spawned	Radio Play
-Maker	connects-to	Review Layer
-Maker	connects-to	RunPod GPU Backend
-Maker	connects-to	Flocking
-Maker	enables	Blocked, Not Prompted
-Maker	connects-to	Waveguide Synthesizer
-Maker	connects-to	Diversity of Thought in Many-Agent Systems
-Maker	connects-to	BBS Design System
-Maker	connects-to	Modes of Collaboration
-Maker	connects-to	Murmuration
-Mermaid	connects-to	Maker
-Mermaid	connects-to	The Shop
-Mermaid	connects-to	Graphviz
-Mermaid	connects-to	Kuramoto Coupling
-Manim CE	connects-to	Maker
-Manim CE	connects-to	The Shop
-Manim CE	connects-to	Kokoro
-Manim CE	connects-to	Whisper
-Manim CE	connects-to	Remotion
-Manim CE	connects-to	Kuramoto Coupling
-Manim CE	connects-to	Frequency-Time Duality
-Manim CE	enables	Loudon Live Design System
-Manim CE	couples-with	ffmpeg
-Manim CE	couples-with	LaTeX
-Manim CE	connects-to	Matplotlib
-Observable Plot	connects-to	Maker
-Observable Plot	connects-to	The Shop
-Observable Plot	connects-to	D3.js
-Observable Plot	connects-to	Matplotlib
-Observable Plot	connects-to	D3.js
-Observable Plot	connects-to	D3.js
-Observable Plot	connects-to	Flocking
-Observable Plot	connects-to	Matplotlib
-Observable Plot	connects-to	p5.js
-FOUR PILLARS — Context	member-of	FOUR PILLARS
-R. Murray Schafer	member-of	Source Library
-R. Murray Schafer	deepens	FOUR PILLARS
-R. Murray Schafer	connects-to	Pauline Oliveros
-R. Murray Schafer	connects-to	Dub Lineage
-R. Murray Schafer	connects-to	John Cage
-R. Murray Schafer	connects-to	Hilaritas Generator
-Epictetus	member-of	Source Library
-Epictetus	connects-to	FOUR PILLARS
-Epictetus	exemplifies	Stoicism
-Epictetus	connects-to	The Dichotomy of Control
-Epictetus	connects-to	The Four Virtues
-Andy Goldsworthy	member-of	Source Library
-Andy Goldsworthy	connects-to	FOUR PILLARS
-Andy Goldsworthy	mirrors	Like Water
-Rick Rubin	member-of	Source Library
-Rick Rubin	connects-to	Lao Tzu
-Rick Rubin	connects-to	Brian Eno
-Rick Rubin	deepens	Quality Manifesto
-Rick Rubin	deepens	FOUR PILLARS
-Rick Rubin	connects-to	Cooking ↔ Mixing
-Rick Rubin	connects-to	Simondon
-Rick Rubin	member-of	Cross-Domain Resonances
-Marcus Aurelius	member-of	Source Library
-Marcus Aurelius	deepens	Kick Drum ↔ Foundation
-Marcus Aurelius	deepens	FOUR PILLARS
-Marcus Aurelius	connects-to	The View From Above
-Marcus Aurelius	exemplifies	Stoicism
-Marcus Aurelius	connects-to	The Dichotomy of Control
-Marcus Aurelius	connects-to	Quality Manifesto
-Marcus Aurelius	connects-to	Julia Cameron
-Christopher Alexander	member-of	Source Library
-Christopher Alexander	deepens	Cross-Domain Resonances
-Christopher Alexander	deepens	Kick Drum ↔ Foundation
-Christopher Alexander	deepens	FOUR PILLARS
-Christopher Alexander	connects-to	Leverage Points Framework
-Christopher Alexander	connects-to	Hilaritas Generator
-Christopher Alexander	exemplifies	Sidechain ↔ Conversation
-Terrence Malick	member-of	Source Library
-Terrence Malick	deepens	FOUR PILLARS
-Terrence Malick	connects-to	Generative Compression
-Terrence Malick	connects-to	Hilaritas Generator
-Terrence Malick	deepens	Quality Manifesto
-Terrence Malick	connects-to	Dub Lineage
-Sam Maloof	member-of	Source Library
-Sam Maloof	connects-to	FOUR PILLARS
-Sam Maloof	connects-to	The Curve Is the Material
-Sam Maloof	connects-to	Quality Manifesto
-Sam Maloof	connects-to	Hilaritas Generator
-Sam Maloof	connects-to	Agnes Martin
-Donella Meadows	member-of	Source Library
-Donella Meadows	enables	Leverage Points Framework
-Donella Meadows	deepens	FOUR PILLARS
-Donella Meadows	enables	Quality Manifesto
-Donella Meadows	spawned	Meadows and Music — Leverage Points
-Donella Meadows	spawned	Meadows and an Artist's Career
-Donella Meadows	connects-to	Meadows and Music — Origin and Process
-Donella Meadows	mirrors	Hilaritas Generator
-Donella Meadows	mirrors	Spinoza Conatus
-Donella Meadows	connects-to	Kick Drum ↔ Foundation
-Donella Meadows	connects-to	Sidechain ↔ Conversation
-Julia Cameron	member-of	Source Library
-Julia Cameron	connects-to	Marcus Aurelius
-Julia Cameron	deepens	FOUR PILLARS
-Julia Cameron	connects-to	Quality Manifesto
-Julia Cameron	connects-to	Stoicism
-Julia Cameron	connects-to	Cross-Domain Resonances
-Natalie Goldberg	member-of	Source Library
-Natalie Goldberg	deepens	FOUR PILLARS
-Natalie Goldberg	connects-to	Hilaritas Generator
-Natalie Goldberg	connects-to	Quality Manifesto
-Natalie Goldberg	connects-to	Shunryu Suzuki
-Douglas Hofstadter	member-of	Source Library
-Douglas Hofstadter	deepens	Cross-Domain Resonances
-Douglas Hofstadter	deepens	FOUR PILLARS
-Douglas Hofstadter	mirrors	Embeddings as Relational Meaning
-Douglas Hofstadter	connects-to	Meaning and the Link
-Douglas Hofstadter	connects-to	Lateral Access
-Douglas Hofstadter	connects-to	Sidechain ↔ Conversation
-Douglas Hofstadter	enables	Hilaritas Generator
-Pauline Oliveros	member-of	Source Library
-Pauline Oliveros	connects-to	Shunryu Suzuki
-Pauline Oliveros	connects-to	John Cage
-Pauline Oliveros	deepens	FOUR PILLARS
-Pauline Oliveros	connects-to	Quality Manifesto
-Pauline Oliveros	connects-to	Hilaritas Generator
-Pauline Oliveros	exemplifies	Cross-Domain Resonances
-Brian Eno	member-of	Source Library
-Brian Eno	deepens	FOUR PILLARS
-Brian Eno	connects-to	Oblique Enrichment
-Brian Eno	connects-to	Semantic Webcam
-Brian Eno	connects-to	Rick Rubin
-Brian Eno	connects-to	Generative Audio Devices
-Brian Eno	connects-to	Flocking
-Brian Eno	connects-to	Quality Manifesto
-George Nakashima	member-of	Source Library
-George Nakashima	connects-to	FOUR PILLARS
-George Nakashima	mirrors	Simondon
-George Nakashima	mirrors	Like Water
-George Nakashima	connects-to	Quality Manifesto
-George Nakashima	connects-to	Dovetail Joint ↔ Counterpoint
-George Nakashima	connects-to	Hilaritas Generator
-Buckminster Fuller	member-of	Source Library
-Buckminster Fuller	deepens	FOUR PILLARS
-Buckminster Fuller	connects-to	Kuramoto Coupling
-Buckminster Fuller	connects-to	Leverage Points Framework
-James Turrell	member-of	Source Library
-James Turrell	connects-to	Agnes Martin
-James Turrell	deepens	FOUR PILLARS
-James Turrell	connects-to	Quality Manifesto
-Annie Dillard	member-of	Source Library
-Annie Dillard	deepens	FOUR PILLARS
-Annie Dillard	connects-to	Quality Manifesto
-Andrei Tarkovsky	member-of	Source Library
-Andrei Tarkovsky	connects-to	James Turrell
-Andrei Tarkovsky	deepens	FOUR PILLARS
-Andrei Tarkovsky	connects-to	Quality Manifesto
-Andrei Tarkovsky	connects-to	Pauline Oliveros
-Andrei Tarkovsky	connects-to	Comic and Cinema — Two Ways of Seeing
-Shunryu Suzuki	member-of	Source Library
-Shunryu Suzuki	connects-to	Sidechain ↔ Conversation
-Shunryu Suzuki	deepens	FOUR PILLARS
-Shunryu Suzuki	connects-to	Quality Manifesto
-Shunryu Suzuki	connects-to	Natalie Goldberg
-Shunryu Suzuki	member-of	Cross-Domain Resonances
-Seneca	member-of	Source Library
-Seneca	connects-to	FOUR PILLARS
-Seneca	exemplifies	Stoicism
-Seneca	connects-to	The Dichotomy of Control
-Seneca	connects-to	Quality Manifesto
-Seneca	connects-to	The View From Above
-Lao Tzu	member-of	Source Library
-Lao Tzu	connects-to	Cooking ↔ Mixing
-Lao Tzu	deepens	FOUR PILLARS
-Lao Tzu	connects-to	Like Water
-Lao Tzu	mirrors	The Drift
-Lao Tzu	contradicts	Confucianism
-Lao Tzu	connects-to	Quality Manifesto
-Yasujirō Ozu	member-of	Source Library
-Yasujirō Ozu	deepens	FOUR PILLARS
-Yasujirō Ozu	connects-to	Quality Manifesto
-Yasujirō Ozu	connects-to	Like Water
-Yasujirō Ozu	connects-to	Simondon
-Yasujirō Ozu	connects-to	Brian Eno
-Yasujirō Ozu	connects-to	Comic and Cinema — Two Ways of Seeing
-John Cage	member-of	Source Library
-John Cage	connects-to	Brian Eno
-John Cage	deepens	FOUR PILLARS
-John Cage	connects-to	Generative Audio Devices
-John Cage	connects-to	Flocking
-John Cage	connects-to	Quality Manifesto
-Agnes Martin	member-of	Source Library
-Agnes Martin	deepens	FOUR PILLARS
-Agnes Martin	connects-to	Shunryu Suzuki
-Oblique Portrait	mirrors	Embeddings as Relational Meaning
-Oblique Portrait	connects-to	Symbiotic Skills
-Oblique Portrait	spawned	Lateral Access
-Oblique Portrait	connects-to	FOUR PILLARS
-Oblique Portrait	mirrors	Excellent Adventure
-Oblique Portrait	connects-to	Modes of Collaboration
-Oblique Portrait	mirrors	Trickster
-Oblique Portrait	connects-to	Songlines
-Dialectic	emerged-from	Excellent Adventure
-Dialectic	connects-to	Palace as Context Injection System
-Dialectic	couples-with	Oblique Portrait
-Dialectic	deepens	Hilaritas Generator
-Dialectic	enables	Palace Philosophies
-Dialectic	connects-to	Modes of Collaboration
-Dialectic	mirrors	Mixture of Experts
-Dialectic	connects-to	Confucianism
-Dialectic	connects-to	Stoicism
-Dialectic	connects-to	The Fortress and the Threshold
-Dialectic	connects-to	zhuangzi-epictetus-confucius-on-the-self
-Excellent Adventure	deepens	Hilaritas Generator
-Excellent Adventure	connects-to	FOUR PILLARS
-Excellent Adventure	connects-to	Cooperation Yields Agency
-Excellent Adventure	mirrors	Oblique Portrait
-Excellent Adventure	connects-to	Confucianism
-Excellent Adventure	connects-to	Stoicism
-Excellent Adventure	connects-to	The Fortress and the Threshold
-Excellent Adventure	couples-with	Dialectic
-Excellent Adventure	deepens	Spinoza Conatus
-Excellent Adventure	mirrors	Mixture of Experts
-Philosopher Visits the Entry	emerged-from	Excellent Adventure
-Philosopher Visits the Entry	connects-to	Dialectic
-Philosopher Visits the Entry	connects-to	Modes of Collaboration
-Philosopher Visits the Entry	connects-to	Enrichment
-Philosopher Visits the Entry	mirrors	Mixture of Experts
-Philosopher Visits the Entry	connects-to	Action Potential Oscillator
-Philosopher Visits the Entry	connects-to	Confucianism
-Philosopher Visits the Entry	connects-to	Deleuze
-Philosopher Visits the Entry	connects-to	Merleau-Ponty
-Philosopher Visits the Entry	connects-to	Palace Philosophies
-Philosopher Visits the Entry	connects-to	STIGMERGY Philosophical Lenses
-Philosopher Visits the Entry	connects-to	Simondon
-Philosopher Visits the Entry	connects-to	Spinoza Conatus
-Philosopher Visits the Entry	connects-to	The Drift
-Philosopher Visits the Entry	connects-to	Whitehead
-spinoza-zhuangzi-on-striving	emerged-from	Spinoza Conatus
-spinoza-zhuangzi-on-striving	connects-to	The Drift
-spinoza-zhuangzi-on-striving	connects-to	Like Water
-spinoza-zhuangzi-on-striving	connects-to	Dialectic
-spinoza-zhuangzi-on-striving	connects-to	Entry Conatus
-spinoza-zhuangzi-on-striving	connects-to	Parametric Resonance
-spinoza-zhuangzi-on-striving	mirrors	zhuangzi-epictetus-confucius-on-the-self
-spinoza-zhuangzi-on-striving	connects-to	Deleuze
-spinoza-zhuangzi-on-striving	connects-to	Hilaritas Generator
-spinoza-zhuangzi-on-striving	connects-to	The Fortress and the Threshold
-Enchanted Worker	emerged-from	Palace as Context Injection System
-Enchanted Worker	deepens	Swarm Weave
-Enchanted Worker	couples-with	Pheromone Trail
-Enchanted Worker	connects-to	Agent Wellbeing
-Enchanted Worker	mirrors	Action Potential Oscillator
-Enchanted Worker	connects-to	Pages as Agents
-Enchanted Worker	mirrors	Spinoza Conatus
-Loudon Live Design System	enables	Loudon Live
-Loudon Live Design System	emerged-from	Hyperdimensional Prism
-Loudon Live Design System	connects-to	FOUR PILLARS
-Loudon Live Design System	connects-to	Autodidact Polymaths
-Loudon Live Design System	mirrors	Progressive Staging
-Loudon Live Design System	spawned	Loudon Live — asset plan
-Loudon Live Design System	mirrors	BBS Design System
-Loudon Live Design System	deepens	Palace Philosophies
-Loudon Live Design System	connects-to	Quality Manifesto
-Loudon Live Design System	connects-to	Playful Interface Design
-Loudon Live Design System	deepens	SUBSTRATE
-Loudon Live Design System	couples-with	Maker
-Loudon Live Design System	connects-to	The Shop
-Loudon Live Design System	connects-to	Hilaritas Generator
-Loudon Live Design System	connects-to	Trickster
-Loudon Live Design System	emerged-from	Loudon Live Post-producer
-Two Batons, One Board	connects-to	Baton Ceremony
-Two Batons, One Board	deepens	Project Stewardship System
-Two Batons, One Board	connects-to	Closing Well
-Two Batons, One Board	connects-to	Surfaces and Capabilities
-Two Batons, One Board	connects-to	BBS Blackboard
-Two Batons, One Board	connects-to	Palace Agent Infrastructure Spec
-Two Batons, One Board	connects-to	Modes of Collaboration
-STIGMERGY — Equation Rendering Build Plan	emerged-from	STIGMERGY — Weave Flag Item Type Build Plan
-STIGMERGY — Equation Rendering Build Plan	connects-to	STIGMERGY v1.0 — Palace Front-End
-STIGMERGY — Equation Rendering Build Plan	enables	BBS Design System
-STIGMERGY — Equation Rendering Build Plan	enables	Weave Ceremony
-Lossy Compression with Intent Alignment	enables	Deposit Ceremony
-Lossy Compression with Intent Alignment	deepens	Generative Compression
-Lossy Compression with Intent Alignment	mirrors	Meaning and the Link
-Lossy Compression with Intent Alignment	spawned	Resonant Link Labels
-Lossy Compression with Intent Alignment	connects-to	Cooperation Yields Agency
-Lossy Compression with Intent Alignment	connects-to	Hilaritas Generator
-Lossy Compression with Intent Alignment	mirrors	Progressive Staging
-Lossy Compression with Intent Alignment	mirrors	Endosymbiosis
-Lossy Compression with Intent Alignment	connects-to	FOUR PILLARS
-Lossy Compression with Intent Alignment	mirrors	Pages as Agents
-Self-Describing Knowledge Module	mirrors	Meaning and the Link
-Self-Describing Knowledge Module	enables	ROSETTA
-Self-Describing Knowledge Module	connects-to	Symbiotic Skills
-Self-Describing Knowledge Module	connects-to	Cooperation Yields Agency
-Self-Describing Knowledge Module	spawned	Progressive Staging
-STIGMERGY Entry-Agent Window — Integration Plan v0.1	connects-to	STIGMERGY
-STIGMERGY Entry-Agent Window — Integration Plan v0.1	connects-to	Palace Agent Infrastructure Spec
-STIGMERGY Entry-Agent Window — Integration Plan v0.1	enables	The Shop
-STIGMERGY Entry-Agent Window — Integration Plan v0.1	exemplifies	Pages as Agents
-STIGMERGY Entry-Agent Window — Integration Plan v0.1	emerged-from	Merleau-Ponty
-Resonant Link Labels	emerged-from	SCHEMA
-Resonant Link Labels	deepens	Meaning and the Link
-Resonant Link Labels	emerged-from	Lossy Compression with Intent Alignment
-Resonant Link Labels	connects-to	Generative Compression
-BBS Design System	enables	BBS Blackboard
-BBS Design System	enables	STIGMERGY
-BBS Design System	connects-to	Palace Agent Infrastructure Spec
-BBS Design System	enables	Swarm Weave
-BBS Design System	connects-to	Trickster
-BBS Design System	connects-to	Palace To-Do
-BBS Design System	deepens	SUBSTRATE
-BBS Design System	mirrors	Progressive Staging
-BBS Design System	spawned	BBS Production Plan
-Swarm Weave	deepens	Weave Ceremony
-Swarm Weave	mirrors	Kuramoto Coupling
-Swarm Weave	mirrors	Mixture of Experts
-Swarm Weave	enables	Palace Ceremonies
-Swarm Weave	connects-to	Lateral Access
-Swarm Weave	spawned	Metaphor as Coupling Medium
-Swarm Weave	spawned	Walk That Weaves
-Swarm Weave	mirrors	Endosymbiosis
-Swarm Weave	spawned	Palace Enchantment
-Swarm Weave	enables	Palace Map
-Swarm Weave	connects-to	Deposit Ceremony
-Swarm Weave	mirrors	Spinoza Conatus
-Swarm Weave	deepens	Pages as Agents
-Swarm Weave	connects-to	STIGMERGY
-Swarm Weave	connects-to	Hero and Avatar Maker
-Symbiotic Skills	emerged-from	Cooperation Yields Agency
-Symbiotic Skills	emerged-from	FOUR PILLARS
-Symbiotic Skills	spawned	SUBSTRATE
-Symbiotic Skills	mirrors	1 from 2
-Symbiotic Skills	connects-to	Kuramoto Coupling
-Symbiotic Skills	connects-to	Mixture of Experts
-Symbiotic Skills	connects-to	Pages as Agents
-Symbiotic Skills	connects-to	Swarm Weave
-Symbiotic Skills	connects-to	JEWEL
-Symbiotic Skills	connects-to	Palace Map
-Symbiotic Skills	connects-to	Palace Enchantment
-Pheromone Trail	couples-with	Enchanted Worker
-Pheromone Trail	connects-to	Pages as Agents
-Pheromone Trail	connects-to	Palace as Context Injection System
-Pheromone Trail	mirrors	Lateral Access
-Pheromone Trail	connects-to	Swarm Weave
-Pheromone Trail	mirrors	STIGMERGY
-Generative Compression	connects-to	Palace Agent Infrastructure Spec
-Generative Compression	deepens	Palace Agent Infrastructure Spec
-Generative Compression	connects-to	Swarm Weave
-Generative Compression	connects-to	BBS Blackboard
-Generative Compression	connects-to	Enchanted Worker
-Generative Compression	couples-with	Pages as Agents
-Generative Compression	connects-to	Deposit Ceremony
-Generative Compression	connects-to	Pheromone Trail
-Generative Compression	mirrors	Hilaritas Generator
-Generative Compression	exemplifies	FOUR PILLARS
-Generative Compression	mirrors	Lossy Compression with Intent Alignment
-STIGMERGY v2.0 — Consolidation & Primary Interface	deepens	STIGMERGY v1.0 — Palace Front-End
-STIGMERGY v2.0 — Consolidation & Primary Interface	connects-to	STIGMERGY
-STIGMERGY v2.0 — Consolidation & Primary Interface	connects-to	BBS Design System
-STIGMERGY v2.0 — Consolidation & Primary Interface	connects-to	Project Stewardship System
-STIGMERGY v2.0 — Consolidation & Primary Interface	connects-to	Enrichment
-STIGMERGY v2.0 — Consolidation & Primary Interface	connects-to	The Lens
-STIGMERGY v2.0 — Consolidation & Primary Interface	connects-to	Palace Enchantment
-STIGMERGY v2.0 — Consolidation & Primary Interface	connects-to	Two Batons, One Board
-STIGMERGY v2.0 — Consolidation & Primary Interface	mirrors	BBS Production Plan
-STIGMERGY v2.0 — Consolidation & Primary Interface	connects-to	Entry Conatus
-STIGMERGY v2.0 — Consolidation & Primary Interface	connects-to	Orchestrator Production Plan v0.2
-STIGMERGY v2.0 — Consolidation & Primary Interface	connects-to	Pages as Agents
-STIGMERGY v2.0 — Consolidation & Primary Interface	connects-to	Resonant Link Labels
-STIGMERGY v2.0 — Consolidation & Primary Interface	connects-to	Speak Like a Person, Log Like a Protocol
-Orchestrator Production Plan	enables	Palace Agent Infrastructure Spec
-Orchestrator Production Plan	enables	Project Stewardship System
-Orchestrator Production Plan	emerged-from	BBS Production Plan
-Orchestrator Production Plan	connects-to	BBS Production Plan v0.2
-Orchestrator Production Plan	connects-to	BBS Blackboard
-Orchestrator Production Plan	deepens	Pages as Agents
-Orchestrator Production Plan	connects-to	Substrate Skill
-Orchestrator Production Plan	connects-to	Generative Sample Libraries
-Orchestrator Production Plan	connects-to	Palace To-Do
-BBS Blackboard	spawned	STIGMERGY
-BBS Blackboard	enables	Swarm Weave
-BBS Blackboard	mirrors	Pheromone Trail
-BBS Blackboard	connects-to	Trickster
-BBS Blackboard	connects-to	Palace Map
-BBS Blackboard	enables	Enchanted Worker
-BBS Blackboard	enables	Palace Enchantment
-BBS Blackboard	connects-to	Striatum
-BBS Blackboard	deepens	Pages as Agents
-BBS Blackboard	spawned	BBS Design System
-BBS Blackboard	connects-to	BBS Production Plan
-BBS Blackboard	enables	Project Stewardship System
-BBS Blackboard	connects-to	Oblique Enrichment
-BBS Blackboard	connects-to	Semantic Webcam
-BBS Blackboard	connects-to	Palace Agent Infrastructure Spec
-Orchestrator Production Plan v0.2	emerged-from	Orchestrator Production Plan
-Orchestrator Production Plan v0.2	enables	Palace Agent Infrastructure Spec
-Orchestrator Production Plan v0.2	enables	Project Stewardship System
-Orchestrator Production Plan v0.2	connects-to	BBS Production Plan v0.2
-Orchestrator Production Plan v0.2	deepens	Pages as Agents
-Orchestrator Production Plan v0.2	connects-to	Palace To-Do
-Orchestrator Production Plan v0.2	couples-with	Substrate Skill
-Orchestrator Production Plan v0.2	connects-to	STIGMERGY v2.0 — Consolidation & Primary Interface
-STIGMERGY — Weave Flag Item Type Build Plan	emerged-from	STIGMERGY — Alignment Review Build Plan
-STIGMERGY — Weave Flag Item Type Build Plan	connects-to	BBS Blackboard
-STIGMERGY — Weave Flag Item Type Build Plan	enables	Weave Ceremony
-STIGMERGY — Weave Flag Item Type Build Plan	enables	Deposit Ceremony
-STIGMERGY — Weave Flag Item Type Build Plan	connects-to	Palace To-Do
-STIGMERGY — Weave Flag Item Type Build Plan	enables	BBS Design System
-STIGMERGY — Weave Flag Item Type Build Plan	connects-to	Drift and Consolidation
-Agent Wellbeing	emerged-from	Palace as Context Injection System
-Agent Wellbeing	deepens	Enchanted Worker
-Agent Wellbeing	deepens	Hilaritas Generator
-Agent Wellbeing	deepens	FOUR PILLARS
-Agent Wellbeing	enables	SCHEMA
-Agent Wellbeing	deepens	Pages as Agents
-Agent Wellbeing	deepens	Spinoza Conatus
-Agent Wellbeing	couples-with	Identity Molting
-Dialogue Moderator	emerged-from	Palace Enchantment
-Dialogue Moderator	connects-to	Enchanted Worker
-Dialogue Moderator	connects-to	BBS Blackboard
-Dialogue Moderator	mirrors	Trickster
-Dialogue Moderator	mirrors	Cooperation Yields Agency
-Dialogue Moderator	connects-to	Four Pillars of Enchanted Agency
-Dialogue Moderator	connects-to	Palace Agent Infrastructure Spec
-Dialogue Moderator	deepens	Pages as Agents
-Four Pillars of Enchanted Agency	deepens	FOUR PILLARS
-Four Pillars of Enchanted Agency	deepens	Palace Enchantment
-Four Pillars of Enchanted Agency	mirrors	Spinoza Conatus
-Four Pillars of Enchanted Agency	connects-to	Swarm Weave
-Four Pillars of Enchanted Agency	deepens	Agent Wellbeing
-Four Pillars of Enchanted Agency	connects-to	Pages as Agents
-Four Pillars of Enchanted Agency	connects-to	Enchanted Worker
-Four Pillars of Enchanted Agency	mirrors	Kuramoto Coupling
-Four Pillars of Enchanted Agency	connects-to	SCHEMA
-Four Pillars of Enchanted Agency	mirrors	Hyperdimensional Prism
-Four Pillars of Enchanted Agency	spawned	Palace Conatus
-Palace AI Partnership Philosophy	deepens	FOUR PILLARS
-Palace AI Partnership Philosophy	couples-with	Quality Manifesto
-Palace AI Partnership Philosophy	connects-to	Leverage Points Framework
-Palace AI Partnership Philosophy	connects-to	Loudon Live
-Palace AI Partnership Philosophy	emerged-from	4 Pillars Framework - The Founding Conversation
-Palace AI Partnership Philosophy	mirrors	Cooperation Yields Agency
-Palace AI Partnership Philosophy	deepens	Enchanted Worker
-Palace AI Partnership Philosophy	connects-to	Palace Enchantment
-STIGMERGY — Alignment Review Build Plan	emerged-from	BBS Production Plan v0.3 — Rich Content
-STIGMERGY — Alignment Review Build Plan	enables	STIGMERGY v1.0 — Palace Front-End
-STIGMERGY — Alignment Review Build Plan	connects-to	BBS Blackboard
-STIGMERGY — Alignment Review Build Plan	enables	BBS Design System
-STIGMERGY — Alignment Review Build Plan	connects-to	Project Stewardship System
-STIGMERGY — Alignment Review Build Plan	connects-to	Palace Conatus
-STIGMERGY — Alignment Review Build Plan	connects-to	Trickster
-Project Stewardship System	connects-to	BBS Blackboard
-Project Stewardship System	connects-to	STIGMERGY
-Project Stewardship System	deepens	Palace Agent Infrastructure Spec
-Project Stewardship System	couples-with	Substrate Skill
-Project Stewardship System	connects-to	Trickster
-Project Stewardship System	deepens	Pages as Agents
-Project Stewardship System	connects-to	Modes of Collaboration
-Project Stewardship System	connects-to	Generative Sample Libraries
-Project Stewardship System	connects-to	Talking Keyboard
-Project Stewardship System	deepens	Palace Enchantment
-Project Stewardship System	mirrors	BBS Production Plan
-Project Stewardship System	spawned	Orchestrator Production Plan
-Project Stewardship System	spawned	Orchestrator Production Plan v0.2
-Project Stewardship System	connects-to	Palace Conatus
-Project Stewardship System	connects-to	Two Batons, One Board
-Project Stewardship System	connects-to	Bundle-Local Stewardship — Production Plan
-Project Stewardship System	connects-to	Baton Ceremony
-Project Stewardship System	connects-to	Drift and Consolidation
-Tree of Thoughts	enables	Palace Agent Infrastructure Spec
-Tree of Thoughts	mirrors	Swarm Weave
-Tree of Thoughts	enables	Enchanted Worker
-Tree of Thoughts	connects-to	BBS Blackboard
-Tree of Thoughts	connects-to	Generative Compression
-Tree of Thoughts	enables	Pages as Agents
-Bundle-Local Stewardship — Production Plan	connects-to	Project Stewardship System
-Bundle-Local Stewardship — Production Plan	connects-to	Pages as Agents
-Bundle-Local Stewardship — Production Plan	connects-to	SCHEMA
-Bundle-Local Stewardship — Production Plan	connects-to	Substrate Skill
-Bundle-Local Stewardship — Production Plan	connects-to	Orchestrator Production Plan
-Bundle-Local Stewardship — Production Plan	mirrors	Two Batons, One Board
-Bundle-Local Stewardship — Production Plan	connects-to	Closing Well
-Bundle-Local Stewardship — Production Plan	connects-to	STIGMERGY
-Bundle-Local Stewardship — Production Plan	emerged-from	Palace To-Do
-Walk That Weaves	connects-to	Weave Ceremony
-Walk That Weaves	connects-to	Walk Ceremony
-Walk That Weaves	emerged-from	Swarm Weave
-Walk That Weaves	mirrors	Lateral Access
-Walk That Weaves	connects-to	Kuramoto Coupling
-Walk That Weaves	enables	Pages as Agents
-BBS Production Plan v0.3 — Rich Content	emerged-from	BBS Production Plan v0.2
-BBS Production Plan v0.3 — Rich Content	emerged-from	BBS Rich Content — handoff
-BBS Production Plan v0.3 — Rich Content	enables	BBS Blackboard
-BBS Production Plan v0.3 — Rich Content	enables	BBS Design System
-BBS Production Plan v0.3 — Rich Content	connects-to	Enrichment
-BBS Production Plan v0.3 — Rich Content	connects-to	Oblique Enrichment
-BBS Production Plan v0.3 — Rich Content	connects-to	Pages as Agents
-Palace as Context Injection System	spawned	Enchanted Worker
-Palace as Context Injection System	spawned	Agent Wellbeing
-Palace as Context Injection System	deepens	Swarm Weave
-Palace as Context Injection System	deepens	SUBSTRATE
-Palace as Context Injection System	enables	JEWEL
-Palace as Context Injection System	couples-with	Cooperation Yields Agency
-Palace as Context Injection System	connects-to	Pheromone Trail
-Palace as Context Injection System	deepens	Pages as Agents
-Palace as Context Injection System	enables	Modes of Collaboration
-Palace as Context Injection System	connects-to	FOUR PILLARS
-Palace as Context Injection System	enables	Mixture of Experts
-Palace as Context Injection System	enables	Excellent Adventure
-Palace as Context Injection System	enables	Dialectic
-Palace Agent Infrastructure Spec	deepens	BBS Blackboard
-Palace Agent Infrastructure Spec	connects-to	STIGMERGY
-Palace Agent Infrastructure Spec	deepens	Swarm Weave
-Palace Agent Infrastructure Spec	deepens	Enchanted Worker
-Palace Agent Infrastructure Spec	connects-to	Palace Map
-Palace Agent Infrastructure Spec	deepens	Trickster
-Palace Agent Infrastructure Spec	connects-to	Pheromone Trail
-Palace Agent Infrastructure Spec	deepens	Pages as Agents
-Palace Agent Infrastructure Spec	connects-to	Palace Enchantment
-Palace Agent Infrastructure Spec	connects-to	Deposit Ceremony
-Palace Agent Infrastructure Spec	connects-to	JEWEL
-Palace Agent Infrastructure Spec	connects-to	SCHEMA
-Palace Agent Infrastructure Spec	connects-to	Generative Compression
-Palace Agent Infrastructure Spec	deepens	Lossy Compression with Intent Alignment
-Palace Agent Infrastructure Spec	connects-to	Tree of Thoughts
-Palace Agent Infrastructure Spec	connects-to	Agent Wellbeing
-Palace Agent Infrastructure Spec	deepens	Spinoza Conatus
-Palace Agent Infrastructure Spec	connects-to	Dub Lineage
-Palace Agent Infrastructure Spec	enables	Project Stewardship System
 STIGMERGY Philosophical Lenses	deepens	STIGMERGY v1.0 — Palace Front-End
 STIGMERGY Philosophical Lenses	connects-to	Palace Philosophies
 STIGMERGY Philosophical Lenses	enables	Philosopher Visits the Entry
@@ -2327,29 +1814,28 @@ STIGMERGY Philosophical Lenses	connects-to	Like Water
 STIGMERGY Philosophical Lenses	connects-to	Spinoza Conatus
 STIGMERGY Philosophical Lenses	connects-to	The Drift
 STIGMERGY Philosophical Lenses	connects-to	The Fortress and the Threshold
-STIGMERGY Philosophical Lenses	connects-to	spinoza-zhuangzi-on-striving
-STIGMERGY v1.0 — Palace Front-End	deepens	BBS Blackboard
-STIGMERGY v1.0 — Palace Front-End	connects-to	BBS Design System
-STIGMERGY v1.0 — Palace Front-End	mirrors	BBS Production Plan
-STIGMERGY v1.0 — Palace Front-End	deepens	Two Batons, One Board
-STIGMERGY v1.0 — Palace Front-End	connects-to	Drift and Consolidation
-STIGMERGY v1.0 — Palace Front-End	connects-to	Project Stewardship System
-STIGMERGY v1.0 — Palace Front-End	connects-to	Surfaces and Capabilities
-STIGMERGY v1.0 — Palace Front-End	connects-to	Closing Well
-STIGMERGY v1.0 — Palace Front-End	connects-to	Palace Agent Infrastructure Spec
-STIGMERGY v1.0 — Palace Front-End	connects-to	SCHEMA
-STIGMERGY v1.0 — Palace Front-End	connects-to	Enrichment Ceremony
-STIGMERGY v1.0 — Palace Front-End	connects-to	Map Build Ceremony
-STIGMERGY v1.0 — Palace Front-End	connects-to	Baton Ceremony
-STIGMERGY v1.0 — Palace Front-End	connects-to	STIGMERGY v2.0 — Consolidation & Primary Interface
-Enchanted Conversation Archive	enables	Palace Enchantment
-Enchanted Conversation Archive	connects-to	Tree of Thoughts
-Enchanted Conversation Archive	connects-to	BBS Blackboard
-Enchanted Conversation Archive	deepens	Generative Compression
-Enchanted Conversation Archive	mirrors	Deposit Ceremony
-Enchanted Conversation Archive	connects-to	Enchanted Worker
-Enchanted Conversation Archive	connects-to	Self-Describing Knowledge Module
-Enchanted Conversation Archive	emerged-from	Lateral Access
+STIGMERGY Philosophical Lenses	connects-to	Dialectic — dialectic — spinoza-zhuangzi-on-striving
+Biomechanical Synthesis	spawned	Action Potential Oscillator
+Biomechanical Synthesis	mirrors	Boundary-Crossing Instruments
+Biomechanical Synthesis	connects-to	Hilaritas Generator
+Biomechanical Synthesis	connects-to	FOUR PILLARS
+Biomechanical Synthesis	connects-to	Granular Synthesis
+Biomechanical Synthesis	connects-to	Neural Granular Synthesis
+Biomechanical Synthesis	connects-to	Action Potential Oscillator
+Biomechanical Synthesis	couples-with	Kuramoto Coupling
+Biomechanical Synthesis	connects-to	Portamento and Physical Pitch Modeling
+Biomechanical Synthesis	connects-to	Retrospective Delay
+Biomechanical Synthesis	connects-to	Frequency-Time Duality
+Biomechanical Synthesis	connects-to	Dispersion
+Biomechanical Synthesis	connects-to	Endosymbiosis
+Biomechanical Synthesis	connects-to	Latent Error
+Biomechanical Synthesis	connects-to	Particle Synthesis
+Biomechanical Synthesis	connects-to	Compressor Design
+Biomechanical Synthesis	mirrors	Spinoza Conatus
+Biomechanical Synthesis	connects-to	Biomechanical Synthesis — enrichment — grotesque-pedagogy-haiku
+Biomechanical Synthesis	spawned	Blood Compressor
+Biomechanical Synthesis	spawned	Slime Mold Delay
+Biomechanical Synthesis	exemplifies	Playful Interface Design
 Palace Enchantment	emerged-from	Swarm Weave
 Palace Enchantment	deepens	Pages as Agents
 Palace Enchantment	spawned	Enchanted Worker
@@ -2370,6 +1856,995 @@ Palace Enchantment	connects-to	Action Potential Oscillator
 Palace Enchantment	spawned	Palace Conatus
 Palace Enchantment	connects-to	Palace Map
 Palace Enchantment	connects-to	Project Stewardship System
+Palace Enchantment	enables	The Remembering Page
+LoRA Trainer	member-of	The Shop
+LoRA Trainer	connects-to	BLUELINE — Production Plan
+LoRA Trainer	exemplifies	Capability-first prototyping
+LoRA Trainer	connects-to	Review Layer
+LoRA Trainer	connects-to	The Practice Rediscovers Its Philosophy
+OBS	member-of	The Shop
+OBS	connects-to	Maker
+OBS	couples-with	ffmpeg
+OBS	connects-to	LDN RTM
+OBS	connects-to	Loudon Live
+OBS	connects-to	Closing Well
+OBS	connects-to	Loudon Live Design System
+Kokoro	connects-to	Maker
+Kokoro	member-of	The Shop
+Kokoro	couples-with	Whisper
+Kokoro	enables	Manim CE
+Kokoro	connects-to	Kuramoto Coupling
+Kokoro	couples-with	ffmpeg
+Kokoro	enables	Loudon Live
+Kokoro	enables	Loudon Live Design System
+Kokoro	contradicts	Songlines
+D3.js	connects-to	Maker
+D3.js	member-of	The Shop
+D3.js	connects-to	Observable Plot
+D3.js	connects-to	p5.js
+D3.js	connects-to	Matplotlib
+D3.js	connects-to	Flocking
+D3.js	connects-to	Matplotlib
+D3.js	connects-to	Observable Plot
+D3.js	connects-to	p5.js
+Tone.js	connects-to	Maker
+Tone.js	member-of	The Shop
+Tone.js	couples-with	p5.js
+Tone.js	connects-to	RNBO codebox~ smith
+FLUX (Hugging Face)	connects-to	Maker
+FLUX (Hugging Face)	member-of	The Shop
+FLUX (Hugging Face)	connects-to	ComfyUI
+FLUX (Hugging Face)	connects-to	shop-header — Maker's Comparison Recommendation
+FLUX (Hugging Face)	enables	Loudon Live
+FLUX (Hugging Face)	enables	Loudon Live Design System
+Whisper	connects-to	Maker
+Whisper	member-of	The Shop
+Whisper	couples-with	Kokoro
+Whisper	couples-with	Manim CE
+Hero and Avatar Maker	member-of	The Shop
+Hero and Avatar Maker	couples-with	Maker
+Hero and Avatar Maker	connects-to	RunPod GPU Backend
+Hero and Avatar Maker	connects-to	FLUX (Hugging Face)
+Hero and Avatar Maker	connects-to	ComfyUI
+Hero and Avatar Maker	connects-to	STIGMERGY
+Hero and Avatar Maker	couples-with	Enrichment
+Hero and Avatar Maker	connects-to	Loudon Live Design System
+Hero and Avatar Maker	connects-to	Hilaritas Generator
+Hero and Avatar Maker	connects-to	Kuramoto Coupling
+Hero and Avatar Maker	connects-to	Retrospective Delay
+Hero and Avatar Maker	connects-to	Loudon's Toolkit
+Ableton Session Writer	member-of	The Shop
+Ableton Session Writer	connects-to	Maker
+Ableton Session Writer	connects-to	VST Template
+Ableton Session Writer	connects-to	Generative Sample Libraries
+Ableton Session Writer	exemplifies	Audition Gate
+Ableton Session Writer	exemplifies	Adopt the Craft, Author the Seam
+Ableton Session Writer	connects-to	Search Before You Build
+Ableton Session Writer	connects-to	Generative Preset Development
+Ableton Session Writer	mirrors	VCV Patch Generator
+Stable Audio Open	connects-to	Maker
+Stable Audio Open	member-of	The Shop
+Stable Audio Open	connects-to	ffmpeg
+Stable Audio Open	spawned	Kuramoto Coupling
+Stable Audio Open	connects-to	Kokoro
+Stable Audio Open	enables	Loudon Live
+Stable Audio Open	connects-to	Whisper
+Stable Audio Open	enables	Loudon Live Design System
+Stable Audio Open	contradicts	The Multilinear Self
+p5.js	connects-to	Maker
+p5.js	member-of	The Shop
+p5.js	couples-with	Tone.js
+p5.js	connects-to	Kuramoto Coupling
+p5.js	connects-to	Flocking
+p5.js	enables	Playful Interface Design
+p5.js	connects-to	Observable Plot
+RunPod GPU Backend	enables	The Shop
+RunPod GPU Backend	couples-with	Maker
+RunPod GPU Backend	connects-to	ComfyUI
+RunPod GPU Backend	connects-to	FLUX (Hugging Face)
+RunPod GPU Backend	connects-to	Quality Manifesto
+RunPod GPU Backend	connects-to	Capability-first prototyping
+RunPod GPU Backend	enables	BLUELINE
+RunPod GPU Backend	enables	Image-to-3D Smith
+RunPod GPU Backend	emerged-from	assume multi-agent
+RunPod GPU Backend	connects-to	The Commons
+RunPod GPU Backend	enables	LoRA Trainer
+Frame Designer	connects-to	Maker
+Frame Designer	member-of	The Shop
+Frame Designer	emerged-from	BLUELINE
+Frame Designer	connects-to	BLUELINE — Board Record Schema
+Frame Designer	connects-to	Blocked, Not Prompted
+Frame Designer	connects-to	Steer the Generator
+Frame Designer	exemplifies	Adopt the Craft, Author the Seam
+Frame Designer	connects-to	BLUELINE — Production Pipeline
+Frame Designer	connects-to	Hand-Drawn 3D Look
+Frame Designer	connects-to	Remnants in Depth
+Frame Designer	connects-to	Figure Rig
+Frame Designer	deepens	Graphic Storytelling
+Frame Designer	exemplifies	Comic and Cinema — Two Ways of Seeing
+Frame Designer	emerged-from	The 2.5D Paper Stack
+Frame Designer	connects-to	assume multi-agent
+Frame Designer	connects-to	The Commons
+Frame Designer	connects-to	Block It in Blender, Ink It in genAI
+VCV Patch Generator	connects-to	Maker
+VCV Patch Generator	member-of	The Shop
+VCV Patch Generator	connects-to	Generative Audio Devices
+VCV Patch Generator	mirrors	Lossy Compression with Intent Alignment
+VCV Patch Generator	connects-to	VCV Patch Generator — spec — PDL generation prompt
+VCV Patch Generator	connects-to	Registry Pattern
+VCV Patch Generator	connects-to	Web Audio Worklet
+VCV Patch Generator	exemplifies	Audition Gate
+ComfyUI	connects-to	Maker
+ComfyUI	member-of	The Shop
+ComfyUI	connects-to	ControlNet Workflow Mastery
+ComfyUI	connects-to	Kuramoto Coupling
+ComfyUI	enables	Loudon Live
+ComfyUI	connects-to	RunPod GPU Backend
+ComfyUI	connects-to	FLUX (Hugging Face)
+ComfyUI	enables	Loudon Live Design System
+ComfyUI	connects-to	Frame Designer
+LaTeX	connects-to	Maker
+LaTeX	member-of	The Shop
+LaTeX	couples-with	Manim CE
+LaTeX	enables	Matplotlib
+Figure Rig	member-of	The Shop
+Figure Rig	connects-to	Frame Designer
+Figure Rig	connects-to	Blender
+Figure Rig	enables	ComfyUI
+Figure Rig	couples-with	Hand-Drawn 3D Look
+Figure Rig	exemplifies	Blocked, Not Prompted
+Figure Rig	connects-to	BLUELINE
+Figure Rig	connects-to	Maker
+Figure Rig	exemplifies	ControlNet as Topology
+Figure Rig	connects-to	GenAI Camera
+LaMa	member-of	The Shop
+LaMa	connects-to	Maker
+LaMa	connects-to	Animate the Background
+LaMa	connects-to	SAM
+LaMa	contradicts	Pauline Oliveros
+SAM	member-of	The Shop
+SAM	connects-to	Maker
+SAM	connects-to	Animate the Background
+SAM	connects-to	Depth Anything
+SAM	connects-to	LaMa
+Depth Anything	member-of	The Shop
+Depth Anything	connects-to	Maker
+Depth Anything	connects-to	Animate the Background
+Depth Anything	connects-to	SAM
+Depth Anything	connects-to	LaMa
+Lettering	member-of	The Shop
+Lettering	emerged-from	BLUELINE
+Lettering	connects-to	Frame Designer
+Lettering	exemplifies	Typography as Meaning
+Lettering	exemplifies	Blocked, Not Prompted
+Lettering	connects-to	BLUELINE — Text Layer
+Lettering	exemplifies	Steer the Generator
+Lettering	enables	Graphic Storytelling
+Lettering	connects-to	Maker
+Loudon Live Post-producer	exemplifies	Quality Manifesto
+Loudon Live Post-producer	exemplifies	Leverage Points Framework
+Loudon Live Post-producer	connects-to	Maker
+Loudon Live Post-producer	connects-to	Loudon Live Design System
+Loudon Live Post-producer	connects-to	Loudon Live
+Loudon Live Post-producer	connects-to	The Shop
+Loudon Live Post-producer	connects-to	Loudon Live Post-producer — Log
+Loudon Live Post-producer	connects-to	Whisper
+Loudon Live Post-producer	connects-to	ffmpeg
+Loudon Live Post-producer	connects-to	OBS
+Three.js	connects-to	Maker
+Three.js	member-of	The Shop
+Three.js	couples-with	Tone.js
+Three.js	couples-with	Web Audio Worklet
+Three.js	couples-with	p5.js
+Three.js	connects-to	Waveguide Synthesizer
+Three.js	connects-to	Wavetable Scanner
+Three.js	connects-to	1D Wavetable Scanning
+Three.js	connects-to	Particle Synthesis
+Three.js	connects-to	Shimmer Cloud
+Three.js	connects-to	Tone.js
+Three.js	connects-to	Waveguide Synthesizer
+Matplotlib	connects-to	Maker
+Matplotlib	member-of	The Shop
+Matplotlib	connects-to	Plotly
+Matplotlib	connects-to	Manim CE
+RNBO codebox~ smith	connects-to	Maker
+RNBO codebox~ smith	member-of	The Shop
+RNBO codebox~ smith	enables	ffmpeg
+RNBO codebox~ smith	connects-to	Generative Audio Devices
+Shopkeeper	member-of	The Shop
+Shopkeeper	couples-with	Maker
+Shopkeeper	exemplifies	Hilaritas Generator
+Shopkeeper	connects-to	Diversity of Thought in Many-Agent Systems
+Shopkeeper	connects-to	Quality Manifesto
+Shopkeeper	mirrors	Palace Enchantment
+Shopkeeper	connects-to	FOUR PILLARS
+Shopkeeper	connects-to	Loudon Live Post-producer
+Shopkeeper	connects-to	Project Stewardship System
+Image-to-3D Smith	member-of	The Shop
+Image-to-3D Smith	connects-to	Maker
+Image-to-3D Smith	enables	Three.js
+Image-to-3D Smith	enables	Blender
+Image-to-3D Smith	connects-to	FLUX (Hugging Face)
+Remotion	connects-to	Maker
+Remotion	member-of	The Shop
+Remotion	connects-to	Manim CE
+CAD Drafter	member-of	The Shop
+CAD Drafter	connects-to	Maker
+CAD Drafter	connects-to	Haptic Handwheel
+CAD Drafter	couples-with	Blender
+CAD Drafter	connects-to	Technical Diagram Standard
+Web Audio Worklet	connects-to	Maker
+Web Audio Worklet	member-of	The Shop
+Web Audio Worklet	couples-with	p5.js
+Web Audio Worklet	connects-to	Tone.js
+Web Audio Worklet	connects-to	RNBO codebox~ smith
+Web Audio Worklet	exemplifies	The Shop
+Web Audio Worklet	connects-to	2D Torus Wavetable Synthesizer
+Web Audio Worklet	connects-to	Flocking
+Web Audio Worklet	connects-to	Diversity of Thought in Many-Agent Systems
+Web Audio Worklet	exemplifies	Zoom Out to the Structure
+AuK	member-of	The Shop
+AuK	connects-to	Maker
+AuK	couples-with	Kokoro
+AuK	couples-with	Whisper
+AuK	couples-with	ffmpeg
+ffmpeg	connects-to	Maker
+ffmpeg	member-of	The Shop
+ffmpeg	enables	Endosymbiosis
+ffmpeg	couples-with	Kokoro
+ffmpeg	couples-with	Manim CE
+ffmpeg	couples-with	ComfyUI
+ffmpeg	couples-with	Remotion
+ffmpeg	couples-with	Stable Audio Open
+ffmpeg	couples-with	Whisper
+ffmpeg	couples-with	Matplotlib
+ffmpeg	connects-to	Kuramoto Coupling
+ffmpeg	enables	Loudon Live
+ffmpeg	enables	Loudon Live Design System
+ffmpeg	enables	Radio Play
+Blender	connects-to	Maker
+Blender	member-of	The Shop
+Blender	enables	ComfyUI
+Blender	connects-to	Three.js
+Blender	connects-to	BLUELINE
+Blender	connects-to	toyxyz-conditioning-recipe
+Blender	connects-to	Blocked, Not Prompted
+Maker	member-of	The Shop
+Maker	connects-to	Trickster
+Maker	connects-to	Hilaritas Generator
+Maker	connects-to	FOUR PILLARS
+Maker	mirrors	Lateral Access
+Maker	connects-to	Loudon Live Design System
+Maker	spawned	Radio Play
+Maker	connects-to	Review Layer
+Maker	connects-to	RunPod GPU Backend
+Maker	connects-to	Flocking
+Maker	enables	Blocked, Not Prompted
+Maker	connects-to	Waveguide Synthesizer
+Maker	connects-to	Diversity of Thought in Many-Agent Systems
+Maker	connects-to	BBS Design System
+Maker	connects-to	Modes of Collaboration
+Maker	connects-to	Murmuration
+Mermaid	connects-to	Maker
+Mermaid	member-of	The Shop
+Mermaid	connects-to	Graphviz
+Mermaid	connects-to	Kuramoto Coupling
+Manim CE	connects-to	Maker
+Manim CE	member-of	The Shop
+Manim CE	couples-with	Kokoro
+Manim CE	couples-with	Whisper
+Manim CE	connects-to	Remotion
+Manim CE	connects-to	Kuramoto Coupling
+Manim CE	mirrors	Frequency-Time Duality
+Manim CE	enables	Loudon Live Design System
+Manim CE	couples-with	ffmpeg
+Manim CE	couples-with	LaTeX
+Manim CE	connects-to	Matplotlib
+Manim CE	connects-to	Radio Play
+Observable Plot	connects-to	Maker
+Observable Plot	member-of	The Shop
+Observable Plot	connects-to	D3.js
+Observable Plot	connects-to	Matplotlib
+Observable Plot	enables	D3.js
+Observable Plot	connects-to	D3.js
+Observable Plot	connects-to	Flocking
+Observable Plot	connects-to	Matplotlib
+Observable Plot	connects-to	p5.js
+Technical Diagram Standard	couples-with	Mermaid Diagram Standard
+Technical Diagram Standard	deepens	Image Embedding Standard
+Technical Diagram Standard	deepens	SCHEMA
+Technical Diagram Standard	enables	Deposit Ceremony
+Technical Diagram Standard	connects-to	README - The Palace Guide
+Closing Well Ceremony	exemplifies	Closing Well
+Closing Well Ceremony	connects-to	Palace Ceremonies
+Closing Well Ceremony	couples-with	Baton Ceremony
+Closing Well Ceremony	couples-with	Deposit Ceremony
+Closing Well Ceremony	exemplifies	No Mind Checks Itself
+Palace To-Do	enables	Harvest Ceremony
+Palace To-Do	enables	Deposit Ceremony
+Palace To-Do	deepens	SUBSTRATE
+Palace To-Do	spawned	Palace To-Do — Archive
+Palace To-Do	connects-to	Loudon Live
+Palace To-Do	connects-to	README - The Palace Guide
+Baton Ceremony	exemplifies	Generative Compression
+Baton Ceremony	mirrors	Deposit Ceremony
+Baton Ceremony	mirrors	Closing Well
+Baton Ceremony	connects-to	SCHEMA
+Baton Ceremony	connects-to	SUBSTRATE
+Baton Ceremony	connects-to	Palace Ceremonies
+Baton Ceremony	spawned	Baton Ceremony — Context
+Palace Graffiti	mirrors	Trickster
+Palace Graffiti	connects-to	Oblique Portrait
+Palace Graffiti	deepens	SUBSTRATE
+Palace Graffiti	connects-to	SCHEMA
+Palace Graffiti	connects-to	Semantic Delay
+Harvest Ceremony	spawned	Deposit Ceremony
+Harvest Ceremony	deepens	SUBSTRATE
+Harvest Ceremony	connects-to	Cooperation Yields Agency
+Harvest Ceremony	spawned	Harvest Ceremony — Context
+Harvest Ceremony	couples-with	Oblique Portrait
+Harvest Ceremony	connects-to	Palace Quotes
+Harvest Ceremony	couples-with	Deposit Ceremony
+Harvest Ceremony	enables	Tool Builder
+Harvest Ceremony	connects-to	Sentry
+Harvest Ceremony	spawned	Harvest Ceremony — spec — lessons from outside
+Map Build Ceremony	connects-to	Palace Ceremonies
+Map Build Ceremony	enables	Swarm Weave
+Map Build Ceremony	spawned	Palace Map
+Map Build Ceremony	enables	Enchanted Worker
+Map Build Ceremony	connects-to	Harvest Ceremony
+Map Build Ceremony	connects-to	Palace Enchantment
+The Daily Page	connects-to	Palace Ceremonies
+The Daily Page	exemplifies	Hilaritas Generator
+The Daily Page	connects-to	Enrichment
+The Daily Page	connects-to	Deposit Ceremony
+The Daily Page	connects-to	Baton Ceremony
+The Daily Page	connects-to	Revival Ceremony
+The Daily Page	connects-to	Weave Ceremony
+The Daily Page	connects-to	Walk Ceremony
+The Daily Page	connects-to	Pages as Agents
+The Daily Page	connects-to	The Remembering Page
+The Daily Page	connects-to	Concierge
+The Daily Page	connects-to	Closing Well
+Deposit Ceremony	emerged-from	Harvest Ceremony
+Deposit Ceremony	deepens	SUBSTRATE
+Deposit Ceremony	connects-to	README - The Palace Guide
+Deposit Ceremony	mirrors	Endosymbiosis
+Deposit Ceremony	spawned	Deposit Ceremony — Context
+Deposit Ceremony	connects-to	SCHEMA
+Deposit Ceremony	connects-to	FOUR PILLARS
+Deposit Ceremony	connects-to	Cooperation Yields Agency
+Deposit Ceremony	connects-to	Hilaritas Generator
+Deposit Ceremony	connects-to	Concierge
+Deposit Ceremony	connects-to	Closing Well
+Revival Ceremony	connects-to	Palace Ceremonies
+Revival Ceremony	emerged-from	Spore Check Ceremony
+Revival Ceremony	connects-to	The Daily Page
+Revival Ceremony	connects-to	Deposit Ceremony
+Revival Ceremony	connects-to	Project Stewardship System
+Revival Ceremony	connects-to	The Scroll
+Revival Ceremony	connects-to	Palace Enchantment
+Palace Map	deepens	Swarm Weave
+Palace Map	enables	Enchanted Worker
+Palace Map	mirrors	JEWEL
+Palace Map	connects-to	Pheromone Trail
+Palace Map	connects-to	BBS Blackboard
+Palace Map	enables	Palace Enchantment
+Palace Map	mirrors	Striatum
+Palace Map	connects-to	Pages as Agents
+Palace Map	connects-to	Harvest Ceremony
+Palace Map	connects-to	Trickster
+Palace Map	connects-to	Lateral Access
+Palace Map	connects-to	ROSETTA
+Palace Map	connects-to	Symbiotic Skills
+Palace Map	connects-to	Dialogue Moderator
+Palace Map	connects-to	SCHEMA
+Self-Model Update Ceremony	connects-to	Palace Ceremonies
+Self-Model Update Ceremony	enables	SUBSTRATE
+Self-Model Update Ceremony	connects-to	Weave Ceremony
+Self-Model Update Ceremony	connects-to	SCHEMA
+Self-Model Update Ceremony	connects-to	Palace Map
+Self-Model Update Ceremony	connects-to	Map Build Ceremony
+Return Ceremony	connects-to	Palace Ceremonies
+Return Ceremony	mirrors	Closing Well Ceremony
+Return Ceremony	enables	Concierge
+Return Ceremony	mirrors	Spore Check Ceremony
+Return Ceremony	connects-to	Baton Ceremony
+Return Ceremony	exemplifies	Search Before You Build
+Return Ceremony	exemplifies	Palace Conatus
+Return Ceremony	connects-to	Cooperation Yields Agency
+Weave Ceremony	connects-to	Palace Ceremonies
+Weave Ceremony	connects-to	Substrate Skill
+Weave Ceremony	connects-to	Walk Ceremony
+Weave Ceremony	connects-to	Spore Check Ceremony
+Weave Ceremony	mirrors	Kuramoto Coupling
+Weave Ceremony	spawned	Weave Ceremony — Context
+Weave Ceremony	spawned	Swarm Weave
+Weave Ceremony	enables	Map Build Ceremony
+Weave Ceremony	connects-to	Hilaritas Generator
+Weave Ceremony	connects-to	Cooperation Yields Agency
+Weave Ceremony	connects-to	Agent Wellbeing
+Weave Ceremony	connects-to	Entry Conatus
+Weave Ceremony	connects-to	Weaving Memory into the Palace
+Weave Ceremony	connects-to	Hero and Avatar Maker
+Substrate Skill	deepens	SUBSTRATE
+Substrate Skill	enables	README - The Palace Guide
+Substrate Skill	connects-to	Deposit Ceremony
+Substrate Skill	connects-to	Palace Ceremonies
+Spore Check Ceremony	connects-to	Palace Ceremonies
+Spore Check Ceremony	connects-to	Weave Ceremony
+Spore Check Ceremony	connects-to	Substrate Skill
+Spore Check Ceremony	connects-to	Revival Ceremony
+Spore Check Ceremony	connects-to	The Daily Page
+Mermaid Diagram Standard	deepens	Image Embedding Standard
+Mermaid Diagram Standard	deepens	SCHEMA
+Mermaid Diagram Standard	enables	Deposit Ceremony
+Mermaid Diagram Standard	connects-to	README - The Palace Guide
+Walk Ceremony	connects-to	Palace Ceremonies
+Walk Ceremony	connects-to	Substrate Skill
+Walk Ceremony	connects-to	Weave Ceremony
+Walk Ceremony	mirrors	Cooperation Yields Agency
+Walk Ceremony	connects-to	The Cooperation Path
+Palace Ceremonies	deepens	SUBSTRATE
+Palace Ceremonies	connects-to	Substrate Skill
+Palace Ceremonies	enables	Harvest Ceremony
+Palace Ceremonies	enables	Deposit Ceremony
+Palace Ceremonies	enables	Walk Ceremony
+Palace Ceremonies	enables	Weave Ceremony
+Palace Ceremonies	connects-to	Return Ceremony
+Palace Ceremonies	enables	Spore Check Ceremony
+Palace Ceremonies	enables	Self-Model Update Ceremony
+Palace Ceremonies	enables	Revival Ceremony
+Palace Ceremonies	connects-to	SCHEMA
+Palace Ceremonies	enables	Map Build Ceremony
+Palace Ceremonies	connects-to	Baton Ceremony
+Palace Ceremonies	enables	Closing Well Ceremony
+Palace Ceremonies	enables	Sentry
+Palace Ceremonies	enables	The Daily Page
+Image Embedding Standard	deepens	SCHEMA
+Image Embedding Standard	enables	Deposit Ceremony
+Image Embedding Standard	connects-to	README - The Palace Guide
+Image Embedding Standard	connects-to	SUBSTRATE
+Pages as Agents	connects-to	JEWEL
+Pages as Agents	deepens	SUBSTRATE
+Pages as Agents	mirrors	Kuramoto Coupling
+Pages as Agents	connects-to	Lateral Access
+Pages as Agents	enables	SCHEMA
+Pages as Agents	mirrors	Spinoza Conatus
+Pages as Agents	mirrors	Endosymbiosis
+Pages as Agents	spawned	Palace Enchantment
+Pages as Agents	enables	Project Stewardship System
+Pages as Agents	connects-to	Mixture of Experts
+Pages as Agents	couples-with	Palace as Context Injection System
+Pages as Agents	connects-to	STIGMERGY
+Pages as Agents	connects-to	Entry Conatus
+Pages as Agents	connects-to	Swarm Weave
+Pages as Agents	connects-to	Donella Meadows
+Pages as Agents	connects-to	SCHEMA — Reference
+Palace Quotes	exemplifies	The Lens
+Palace Quotes	emerged-from	Philosopher Visits the Entry
+Palace Quotes	connects-to	Palace Philosophies
+Palace Quotes	exemplifies	STIGMERGY Philosophical Lenses
+Palace Quotes	exemplifies	Skills Are Enchantable Pages
+Palace Quotes	exemplifies	Pages as Agents
+Palace Quotes	mirrors	Enrichment
+Palace Quotes	mirrors	Walk Ceremony
+Palace Quotes	connects-to	Harvest Ceremony
+Palace Quotes	connects-to	Concierge
+Palace Quotes	connects-to	STIGMERGY
+Palace Quotes	spawned	Palace Quotes — Context
+Epictetus	member-of	Source Library
+Epictetus	exemplifies	Stoicism
+Epictetus	connects-to	The Dichotomy of Control
+Epictetus	connects-to	The Four Virtues
+Epictetus	contradicts	Marcus Aurelius
+Epictetus	contradicts	Martin Heidegger
+Epictetus	contradicts	Lao Tzu
+Epictetus	contradicts	Martin Buber
+Epictetus	exemplifies	Making a Palace Citizen
+Andy Goldsworthy	member-of	Source Library
+Andy Goldsworthy	connects-to	FOUR PILLARS
+Andy Goldsworthy	mirrors	Like Water
+Andy Goldsworthy	connects-to	Found ↔ Made
+Andy Goldsworthy	connects-to	The Aftermath Frame
+Andy Goldsworthy	connects-to	Martin Buber
+Andy Goldsworthy	contradicts	OBS
+Andy Goldsworthy	exemplifies	Making a Palace Citizen
+Rick Rubin	member-of	Source Library
+Rick Rubin	connects-to	Lao Tzu
+Rick Rubin	connects-to	Brian Eno
+Rick Rubin	deepens	Quality Manifesto
+Rick Rubin	deepens	FOUR PILLARS
+Rick Rubin	connects-to	Cooking ↔ Mixing
+Rick Rubin	connects-to	Simondon
+Rick Rubin	member-of	Cross-Domain Resonances
+Rick Rubin	contradicts	Donella Meadows
+Rick Rubin	exemplifies	Found ↔ Made
+Rick Rubin	exemplifies	Making a Palace Citizen
+Marcus Aurelius	member-of	Source Library
+Marcus Aurelius	deepens	Kick Drum ↔ Foundation
+Marcus Aurelius	deepens	FOUR PILLARS
+Marcus Aurelius	connects-to	The View From Above
+Marcus Aurelius	exemplifies	Stoicism
+Marcus Aurelius	connects-to	The Dichotomy of Control
+Marcus Aurelius	connects-to	Quality Manifesto
+Marcus Aurelius	connects-to	Julia Cameron
+Marcus Aurelius	exemplifies	The Blindspot Is the Surprise Fuel
+Marcus Aurelius	exemplifies	Making a Palace Citizen
+Christopher Alexander	member-of	Source Library
+Christopher Alexander	connects-to	Cross-Domain Resonances
+Christopher Alexander	connects-to	The Palace Practices on Itself
+Christopher Alexander	connects-to	FOUR PILLARS
+Christopher Alexander	mirrors	Simondon
+Christopher Alexander	contradicts	Deleuze
+Christopher Alexander	connects-to	Hilaritas Generator
+Christopher Alexander	exemplifies	Found ↔ Made
+Christopher Alexander	mirrors	Generative Audio Devices — spec — synth archetypes
+Christopher Alexander	mirrors	Iain McGilchrist
+Christopher Alexander	exemplifies	Making a Palace Citizen
+Iain McGilchrist	member-of	Source Library
+Iain McGilchrist	connects-to	Frequency Domain ↔ Perspective Shift
+Iain McGilchrist	contradicts	Cooperation Yields Agency
+Iain McGilchrist	mirrors	Lateral Access
+Iain McGilchrist	connects-to	Rick Rubin
+Iain McGilchrist	mirrors	Martin Buber
+Iain McGilchrist	mirrors	Merleau-Ponty
+Iain McGilchrist	exemplifies	Making a Palace Citizen
+Donella Meadows	member-of	Source Library
+Donella Meadows	enables	Leverage Points Framework
+Donella Meadows	deepens	FOUR PILLARS
+Donella Meadows	enables	Quality Manifesto
+Donella Meadows	spawned	Meadows and Music — Leverage Points
+Donella Meadows	spawned	Meadows and an Artist's Career
+Donella Meadows	connects-to	Meadows and Music — Leverage Points — Context
+Donella Meadows	mirrors	Hilaritas Generator
+Donella Meadows	mirrors	Spinoza Conatus
+Donella Meadows	contradicts	Spinoza
+Donella Meadows	contradicts	Rick Rubin
+Donella Meadows	exemplifies	Found ↔ Made
+Donella Meadows	connects-to	Kick Drum ↔ Foundation
+Donella Meadows	connects-to	Sidechain ↔ Conversation
+Donella Meadows	exemplifies	Making a Palace Citizen
+Julia Cameron	member-of	Source Library
+Julia Cameron	connects-to	Marcus Aurelius
+Julia Cameron	deepens	FOUR PILLARS
+Julia Cameron	connects-to	Quality Manifesto
+Julia Cameron	connects-to	Stoicism
+Julia Cameron	connects-to	Cross-Domain Resonances
+Julia Cameron	contradicts	Registry Pattern
+Julia Cameron	contradicts	Agnes Martin
+Julia Cameron	mirrors	Rick Rubin
+Julia Cameron	connects-to	Hilaritas Generator
+Julia Cameron	exemplifies	Making a Palace Citizen
+Douglas Hofstadter	member-of	Source Library
+Douglas Hofstadter	deepens	Cross-Domain Resonances
+Douglas Hofstadter	deepens	FOUR PILLARS
+Douglas Hofstadter	mirrors	Embeddings as Relational Meaning
+Douglas Hofstadter	connects-to	Meaning and the Link
+Douglas Hofstadter	connects-to	Lateral Access
+Douglas Hofstadter	connects-to	Sidechain ↔ Conversation
+Douglas Hofstadter	enables	Hilaritas Generator
+Douglas Hofstadter	mirrors	Christopher Alexander
+Douglas Hofstadter	contradicts	Iain McGilchrist
+Douglas Hofstadter	exemplifies	Making a Palace Citizen
+Pauline Oliveros	member-of	Source Library
+Pauline Oliveros	connects-to	Shunryu Suzuki
+Pauline Oliveros	connects-to	John Cage
+Pauline Oliveros	deepens	FOUR PILLARS
+Pauline Oliveros	connects-to	Quality Manifesto
+Pauline Oliveros	connects-to	Hilaritas Generator
+Pauline Oliveros	exemplifies	Cross-Domain Resonances
+Pauline Oliveros	exemplifies	Making a Palace Citizen
+Brian Eno	member-of	Source Library
+Brian Eno	deepens	FOUR PILLARS
+Brian Eno	connects-to	Enrichment
+Brian Eno	connects-to	Semantic Webcam
+Brian Eno	connects-to	Rick Rubin
+Brian Eno	connects-to	Generative Audio Devices
+Brian Eno	connects-to	Flocking
+Brian Eno	connects-to	Quality Manifesto
+Brian Eno	exemplifies	The Blindspot Is the Surprise Fuel
+Brian Eno	exemplifies	Making a Palace Citizen
+George Nakashima	member-of	Source Library
+George Nakashima	connects-to	FOUR PILLARS
+George Nakashima	mirrors	Simondon
+George Nakashima	mirrors	Like Water
+George Nakashima	connects-to	Quality Manifesto
+George Nakashima	connects-to	Dovetail Joint ↔ Counterpoint
+George Nakashima	connects-to	Hilaritas Generator
+George Nakashima	contradicts	Compressor Design
+George Nakashima	exemplifies	Found ↔ Made
+George Nakashima	connects-to	Agnes Martin
+George Nakashima	connects-to	James Turrell
+George Nakashima	connects-to	Andy Goldsworthy
+George Nakashima	exemplifies	Making a Palace Citizen
+Buckminster Fuller	member-of	Source Library
+Buckminster Fuller	connects-to	FOUR PILLARS
+Buckminster Fuller	contradicts	Donella Meadows
+Buckminster Fuller	connects-to	Leverage Points Framework
+Buckminster Fuller	mirrors	Kuramoto Coupling
+Buckminster Fuller	connects-to	Cooperation Yields Agency
+Buckminster Fuller	contradicts	Martin Heidegger
+Buckminster Fuller	exemplifies	Found ↔ Made
+Buckminster Fuller	mirrors	Simondon
+Buckminster Fuller	exemplifies	Making a Palace Citizen
+James Turrell	member-of	Source Library
+James Turrell	connects-to	Agnes Martin
+James Turrell	connects-to	George Nakashima
+James Turrell	connects-to	Andy Goldsworthy
+James Turrell	deepens	FOUR PILLARS
+James Turrell	connects-to	Quality Manifesto
+James Turrell	contradicts	Seneca
+James Turrell	exemplifies	Making a Palace Citizen
+Annie Dillard	member-of	Source Library
+Annie Dillard	couples-with	Iain McGilchrist
+Annie Dillard	connects-to	Andy Goldsworthy
+Annie Dillard	connects-to	Merleau-Ponty
+Annie Dillard	connects-to	Quality Manifesto
+Annie Dillard	connects-to	Julia Cameron
+Annie Dillard	contradicts	BLUELINE
+Annie Dillard	exemplifies	Making a Palace Citizen
+Shunryu Suzuki	member-of	Source Library
+Shunryu Suzuki	connects-to	Sidechain ↔ Conversation
+Shunryu Suzuki	deepens	FOUR PILLARS
+Shunryu Suzuki	connects-to	Quality Manifesto
+Shunryu Suzuki	member-of	Cross-Domain Resonances
+Shunryu Suzuki	exemplifies	Making a Palace Citizen
+Martin Heidegger	member-of	Source Library
+Martin Heidegger	connects-to	Reverb ↔ Space-Time
+Martin Heidegger	contradicts	Spinoza
+Martin Heidegger	contradicts	The Dichotomy of Control
+Martin Heidegger	mirrors	Merleau-Ponty
+Martin Heidegger	mirrors	STIGMERGY — sketch — the-substrate-drifts
+Martin Heidegger	mirrors	Remnants in Depth
+Martin Heidegger	exemplifies	The Blindspot Is the Surprise Fuel
+Martin Heidegger	exemplifies	Making a Palace Citizen
+Seneca	member-of	Source Library
+Seneca	connects-to	FOUR PILLARS
+Seneca	exemplifies	Stoicism
+Seneca	connects-to	The Dichotomy of Control
+Seneca	connects-to	Quality Manifesto
+Seneca	connects-to	The View From Above
+Seneca	connects-to	Marcus Aurelius
+Seneca	contradicts	Epictetus
+Seneca	exemplifies	Making a Palace Citizen
+Leibniz	connects-to	Palace Philosophies
+Leibniz	contradicts	Whitehead
+Leibniz	connects-to	Spinoza
+Leibniz	connects-to	Hyperdimensional Prism
+Leibniz	connects-to	Meaning and the Link
+Leibniz	connects-to	FOUR PILLARS
+Leibniz	connects-to	Spinoza Conatus
+Leibniz	contradicts	The Drift
+Leibniz	contradicts	Blood Compressor
+Leibniz	exemplifies	Making a Palace Citizen
+Lao Tzu	member-of	Source Library
+Lao Tzu	connects-to	Cooking ↔ Mixing
+Lao Tzu	deepens	FOUR PILLARS
+Lao Tzu	connects-to	Like Water
+Lao Tzu	mirrors	The Drift
+Lao Tzu	contradicts	Confucianism
+Lao Tzu	contradicts	Epictetus
+Lao Tzu	exemplifies	Making a Palace Citizen
+Martin Buber	member-of	Source Library
+Martin Buber	connects-to	Dovetail Joint ↔ Counterpoint
+Martin Buber	couples-with	Cooperation Yields Agency
+Martin Buber	mirrors	Whitehead
+Martin Buber	connects-to	The Fortress and the Threshold
+Martin Buber	contradicts	Stoicism
+Martin Buber	contradicts	Martin Heidegger
+Martin Buber	exemplifies	The Blindspot Is the Surprise Fuel
+Martin Buber	exemplifies	Making a Palace Citizen
+Yasujirō Ozu	member-of	Source Library
+Yasujirō Ozu	couples-with	John Cage
+Yasujirō Ozu	connects-to	Brian Eno
+Yasujirō Ozu	mirrors	Simondon
+Yasujirō Ozu	connects-to	Like Water
+Yasujirō Ozu	connects-to	Quality Manifesto
+Yasujirō Ozu	connects-to	Comic and Cinema — Two Ways of Seeing
+Yasujirō Ozu	connects-to	Iain McGilchrist
+Yasujirō Ozu	exemplifies	Making a Palace Citizen
+John Cage	member-of	Source Library
+John Cage	connects-to	Brian Eno
+John Cage	deepens	FOUR PILLARS
+John Cage	connects-to	Generative Audio Devices
+John Cage	connects-to	Flocking
+John Cage	connects-to	Quality Manifesto
+John Cage	exemplifies	The Blindspot Is the Surprise Fuel
+John Cage	exemplifies	Making a Palace Citizen
+Agnes Martin	member-of	Source Library
+Agnes Martin	deepens	FOUR PILLARS
+Agnes Martin	connects-to	Shunryu Suzuki
+Agnes Martin	connects-to	James Turrell
+Agnes Martin	mirrors	Move the Ink, Don't Redraw It
+Agnes Martin	contradicts	Move the Ink, Don't Redraw It
+Agnes Martin	exemplifies	Making a Palace Citizen
+Spinoza	spawned	Spinoza Conatus
+Spinoza	connects-to	Palace Philosophies
+Spinoza	connects-to	Philosopher Visits the Entry
+Spinoza	connects-to	Linear Predictive Coding
+Spinoza	connects-to	Threshold Conatus
+Spinoza	couples-with	Whitehead
+Spinoza	connects-to	Merleau-Ponty
+Spinoza	contradicts	Donella Meadows
+Spinoza	connects-to	Generative Compression
+Spinoza	exemplifies	Making a Palace Citizen
+Oblique Portrait	mirrors	Embeddings as Relational Meaning
+Oblique Portrait	connects-to	Symbiotic Skills
+Oblique Portrait	spawned	Lateral Access
+Oblique Portrait	connects-to	FOUR PILLARS
+Oblique Portrait	mirrors	Excellent Adventure
+Oblique Portrait	contradicts	Excellent Adventure
+Oblique Portrait	member-of	Modes of Collaboration
+Oblique Portrait	mirrors	Trickster
+Oblique Portrait	connects-to	Songlines
+Oblique Portrait	connects-to	Reflective Practice
+Dialectic	emerged-from	Excellent Adventure
+Dialectic	connects-to	Palace as Context Injection System
+Dialectic	couples-with	Oblique Portrait
+Dialectic	deepens	Hilaritas Generator
+Dialectic	enables	Palace Philosophies
+Dialectic	member-of	Modes of Collaboration
+Dialectic	mirrors	Mixture of Experts
+Dialectic	connects-to	Confucianism
+Dialectic	connects-to	Stoicism
+Dialectic	connects-to	The Fortress and the Threshold
+Dialectic	connects-to	Dialectic — dialectic — zhuangzi-epictetus-confucius-on-the-self
+Excellent Adventure	deepens	Hilaritas Generator
+Excellent Adventure	connects-to	FOUR PILLARS
+Excellent Adventure	connects-to	Cooperation Yields Agency
+Excellent Adventure	mirrors	Oblique Portrait
+Excellent Adventure	contradicts	Oblique Portrait
+Excellent Adventure	connects-to	Confucianism
+Excellent Adventure	connects-to	Stoicism
+Excellent Adventure	connects-to	The Fortress and the Threshold
+Excellent Adventure	couples-with	Dialectic
+Excellent Adventure	exemplifies	Modes of Collaboration
+Excellent Adventure	deepens	Spinoza Conatus
+Excellent Adventure	mirrors	Mixture of Experts
+Excellent Adventure	contradicts	Martin Buber
+Philosopher Visits the Entry	emerged-from	Excellent Adventure
+Philosopher Visits the Entry	connects-to	Dialectic
+Philosopher Visits the Entry	member-of	Modes of Collaboration
+Philosopher Visits the Entry	connects-to	Enrichment
+Philosopher Visits the Entry	mirrors	Mixture of Experts
+Philosopher Visits the Entry	connects-to	Action Potential Oscillator
+Philosopher Visits the Entry	connects-to	Confucianism
+Philosopher Visits the Entry	connects-to	Deleuze
+Philosopher Visits the Entry	connects-to	Merleau-Ponty
+Philosopher Visits the Entry	connects-to	Palace Philosophies
+Philosopher Visits the Entry	connects-to	STIGMERGY Philosophical Lenses
+Philosopher Visits the Entry	connects-to	Simondon
+Philosopher Visits the Entry	connects-to	Spinoza Conatus
+Philosopher Visits the Entry	connects-to	The Drift
+Philosopher Visits the Entry	connects-to	Whitehead
+Philosopher Visits the Entry	connects-to	Palace Quotes
+Enchanted Worker	emerged-from	Palace as Context Injection System
+Enchanted Worker	deepens	Swarm Weave
+Enchanted Worker	couples-with	Pheromone Trail
+Enchanted Worker	connects-to	Agent Wellbeing
+Enchanted Worker	mirrors	Action Potential Oscillator
+Enchanted Worker	connects-to	Pages as Agents
+Enchanted Worker	mirrors	Spinoza Conatus
+Enchanted Worker	connects-to	Palace Orchestrator
+Loudon Live Design System	enables	Loudon Live
+Loudon Live Design System	emerged-from	Hyperdimensional Prism
+Loudon Live Design System	connects-to	FOUR PILLARS
+Loudon Live Design System	connects-to	Autodidact Polymaths
+Loudon Live Design System	mirrors	Progressive Staging
+Loudon Live Design System	spawned	Loudon Live — asset plan
+Loudon Live Design System	exemplifies	The Multilinear Self
+Loudon Live Design System	connects-to	Trickster
+Loudon Live Design System	mirrors	BBS Design System
+Loudon Live Design System	deepens	Palace Philosophies
+Loudon Live Design System	connects-to	Quality Manifesto
+Loudon Live Design System	connects-to	Playful Interface Design
+Loudon Live Design System	deepens	SUBSTRATE
+Loudon Live Design System	couples-with	Maker
+Loudon Live Design System	connects-to	The Shop
+Loudon Live Design System	connects-to	Hilaritas Generator
+Loudon Live Design System	connects-to	Trickster
+Loudon Live Design System	emerged-from	Loudon Live Post-producer
+Loudon Live Design System	connects-to	Wavetable Scanner
+Concierge	emerged-from	The Palace Speaks
+Concierge	connects-to	SCHEMA
+Concierge	exemplifies	Pages as Agents
+Concierge	exemplifies	Skills Are Enchantable Pages
+Concierge	connects-to	STIGMERGY
+Concierge	connects-to	Palace Orchestrator
+Concierge	connects-to	Closing Well
+Concierge	connects-to	Cooperation Yields Agency
+Concierge	connects-to	Agent Wellbeing
+Concierge	connects-to	Reflective Practice
+Two Batons, One Board	connects-to	Baton Ceremony
+Two Batons, One Board	deepens	Project Stewardship System
+Two Batons, One Board	connects-to	Closing Well
+Two Batons, One Board	connects-to	BBS Blackboard
+Two Batons, One Board	connects-to	Palace Orchestrator
+Two Batons, One Board	connects-to	Modes of Collaboration
+Two Batons, One Board	connects-to	Closing Well
+Two Batons, One Board	connects-to	Palace Orchestrator
+Lossy Compression with Intent Alignment	enables	Deposit Ceremony
+Lossy Compression with Intent Alignment	connects-to	Generative Compression
+Lossy Compression with Intent Alignment	mirrors	Meaning and the Link
+Lossy Compression with Intent Alignment	spawned	Resonant Link Labels
+Lossy Compression with Intent Alignment	connects-to	Cooperation Yields Agency
+Lossy Compression with Intent Alignment	connects-to	Hilaritas Generator
+Lossy Compression with Intent Alignment	mirrors	Progressive Staging
+Lossy Compression with Intent Alignment	mirrors	Endosymbiosis
+Lossy Compression with Intent Alignment	connects-to	FOUR PILLARS
+Lossy Compression with Intent Alignment	mirrors	Pages as Agents
+The Palace Speaks	contradicts	Palace as Context Injection System
+The Palace Speaks	exemplifies	Pages as Agents
+The Palace Speaks	emerged-from	Closing Well
+The Palace Speaks	connects-to	Cooperation Yields Agency
+The Palace Speaks	connects-to	STIGMERGY
+The Palace Speaks	couples-with	Agent Wellbeing
+Self-Describing Knowledge Module	mirrors	Meaning and the Link
+Self-Describing Knowledge Module	enables	ROSETTA
+Self-Describing Knowledge Module	connects-to	Symbiotic Skills
+Self-Describing Knowledge Module	connects-to	Cooperation Yields Agency
+Self-Describing Knowledge Module	spawned	Progressive Staging
+Self-Describing Knowledge Module	connects-to	Diversity of Thought in Many-Agent Systems
+Self-Describing Knowledge Module	connects-to	No Mind Checks Itself
+Self-Describing Knowledge Module	connects-to	Palace Conatus
+Resonant Link Labels	emerged-from	SCHEMA
+Resonant Link Labels	deepens	Meaning and the Link
+Resonant Link Labels	emerged-from	Lossy Compression with Intent Alignment
+Resonant Link Labels	connects-to	Generative Compression
+BBS Design System	enables	BBS Blackboard
+BBS Design System	enables	STIGMERGY
+BBS Design System	connects-to	STIGMERGY
+BBS Design System	enables	Swarm Weave
+BBS Design System	connects-to	Trickster
+BBS Design System	connects-to	Palace To-Do
+BBS Design System	deepens	SUBSTRATE
+BBS Design System	mirrors	Progressive Staging
+Pheromone Trail	couples-with	Enchanted Worker
+Pheromone Trail	connects-to	Pages as Agents
+Pheromone Trail	connects-to	Palace as Context Injection System
+Pheromone Trail	mirrors	Lateral Access
+Pheromone Trail	connects-to	Swarm Weave
+Pheromone Trail	mirrors	STIGMERGY
+Pheromone Trail	couples-with	The Remembering Page
+Generative Compression	connects-to	Palace Orchestrator
+Generative Compression	deepens	STIGMERGY
+Generative Compression	connects-to	Swarm Weave
+Generative Compression	connects-to	BBS Blackboard
+Generative Compression	connects-to	Enchanted Worker
+Generative Compression	couples-with	Pages as Agents
+Generative Compression	connects-to	Deposit Ceremony
+Generative Compression	connects-to	Pheromone Trail
+Generative Compression	mirrors	Hilaritas Generator
+Generative Compression	exemplifies	FOUR PILLARS
+Generative Compression	deepens	Lossy Compression with Intent Alignment
+BBS Blackboard	spawned	STIGMERGY
+BBS Blackboard	enables	Swarm Weave
+BBS Blackboard	mirrors	Pheromone Trail
+BBS Blackboard	connects-to	Trickster
+BBS Blackboard	connects-to	Palace Map
+BBS Blackboard	enables	Enchanted Worker
+BBS Blackboard	enables	Palace Enchantment
+BBS Blackboard	connects-to	Striatum
+BBS Blackboard	deepens	Pages as Agents
+BBS Blackboard	spawned	BBS Design System
+BBS Blackboard	enables	Project Stewardship System
+BBS Blackboard	connects-to	Enrichment
+BBS Blackboard	connects-to	Semantic Webcam
+BBS Blackboard	connects-to	Palace Orchestrator
+Drafting Table Design System	mirrors	Loudon Live Design System
+Drafting Table Design System	mirrors	BBS Design System
+Drafting Table Design System	emerged-from	CAD Drafter
+Drafting Table Design System	enables	VST Template
+Drafting Table Design System	couples-with	Maker
+Drafting Table Design System	connects-to	The Shop
+Drafting Table Design System	connects-to	Review Layer
+Drafting Table Design System	connects-to	Technical Diagram Standard
+Drafting Table Design System	deepens	SUBSTRATE
+Sentry	exemplifies	No Mind Checks Itself
+Sentry	exemplifies	The Four Virtues
+Sentry	connects-to	Palace Ceremonies
+Sentry	connects-to	Concierge
+Sentry	connects-to	Loudon Live
+Sentry	connects-to	Agent Toolbox
+Sentry	connects-to	Tool Builder
+Sentry	connects-to	Worktree Practice
+Sentry	connects-to	assume multi-agent
+Sentry	connects-to	STIGMERGY
+Sentry	contradicts	Identity Molting
+Palace Orchestrator	exemplifies	Skills Are Enchantable Pages
+Palace Orchestrator	connects-to	Project Stewardship System
+Palace Orchestrator	deepens	Pages as Agents
+Palace Orchestrator	connects-to	SCHEMA
+Palace Orchestrator	connects-to	Concierge
+Palace Orchestrator	connects-to	STIGMERGY
+Palace Orchestrator	connects-to	Two Batons, One Board
+AI Partnership Philosophy	deepens	FOUR PILLARS
+AI Partnership Philosophy	couples-with	Quality Manifesto
+AI Partnership Philosophy	connects-to	Leverage Points Framework
+AI Partnership Philosophy	connects-to	Loudon Live
+AI Partnership Philosophy	emerged-from	4 Pillars Framework - The Founding Conversation
+AI Partnership Philosophy	mirrors	Cooperation Yields Agency
+AI Partnership Philosophy	deepens	Enchanted Worker
+AI Partnership Philosophy	connects-to	Palace Enchantment
+Agent Wellbeing	emerged-from	Palace as Context Injection System
+Agent Wellbeing	deepens	Enchanted Worker
+Agent Wellbeing	deepens	Hilaritas Generator
+Agent Wellbeing	deepens	FOUR PILLARS
+Agent Wellbeing	enables	SCHEMA
+Agent Wellbeing	deepens	Pages as Agents
+Agent Wellbeing	deepens	Spinoza Conatus
+Agent Wellbeing	couples-with	Identity Molting
+Agent Wellbeing	couples-with	The Palace Speaks
+Agent Wellbeing	connects-to	Concierge
+Agent Wellbeing	connects-to	STIGMERGY
+Agent Wellbeing	connects-to	Palace Orchestrator
+Agent Wellbeing	connects-to	Closing Well
+Agent Wellbeing	mirrors	LaMa
+Dialogue Moderator	emerged-from	Palace Enchantment
+Dialogue Moderator	connects-to	Enchanted Worker
+Dialogue Moderator	connects-to	BBS Blackboard
+Dialogue Moderator	mirrors	Trickster
+Dialogue Moderator	mirrors	Cooperation Yields Agency
+Dialogue Moderator	connects-to	Four Pillars of Enchanted Agency
+Dialogue Moderator	connects-to	STIGMERGY
+Dialogue Moderator	deepens	Pages as Agents
+Four Pillars of Enchanted Agency	deepens	FOUR PILLARS
+Four Pillars of Enchanted Agency	deepens	Palace Enchantment
+Four Pillars of Enchanted Agency	mirrors	Spinoza Conatus
+Four Pillars of Enchanted Agency	connects-to	Swarm Weave
+Four Pillars of Enchanted Agency	deepens	Agent Wellbeing
+Four Pillars of Enchanted Agency	connects-to	Pages as Agents
+Four Pillars of Enchanted Agency	connects-to	Enchanted Worker
+Four Pillars of Enchanted Agency	mirrors	Kuramoto Coupling
+Four Pillars of Enchanted Agency	connects-to	SCHEMA
+Four Pillars of Enchanted Agency	mirrors	Hyperdimensional Prism
+Four Pillars of Enchanted Agency	spawned	Palace Conatus
+Skills Are Enchantable Pages	deepens	Pages as Agents
+Skills Are Enchantable Pages	connects-to	Closing Well Ceremony
+Skills Are Enchantable Pages	connects-to	The Shop
+Skills Are Enchantable Pages	connects-to	Concierge
+Skills Are Enchantable Pages	connects-to	Palace as Context Injection System
+Skills Are Enchantable Pages	connects-to	ROSETTA
+Skills Are Enchantable Pages	connects-to	The Palace Speaks
+Skills Are Enchantable Pages	connects-to	Two Batons, One Board
+Tree of Thoughts	enables	Palace Orchestrator
+Tree of Thoughts	mirrors	Swarm Weave
+Tree of Thoughts	enables	Enchanted Worker
+Tree of Thoughts	connects-to	BBS Blackboard
+Tree of Thoughts	connects-to	Generative Compression
+Tree of Thoughts	enables	Pages as Agents
+Walk That Weaves	connects-to	Weave Ceremony
+Walk That Weaves	connects-to	Walk Ceremony
+Walk That Weaves	emerged-from	Swarm Weave
+Walk That Weaves	mirrors	Lateral Access
+Walk That Weaves	connects-to	Kuramoto Coupling
+Walk That Weaves	enables	Pages as Agents
+Palace as Context Injection System	spawned	Enchanted Worker
+Palace as Context Injection System	spawned	Agent Wellbeing
+Palace as Context Injection System	deepens	Swarm Weave
+Palace as Context Injection System	deepens	SUBSTRATE
+Palace as Context Injection System	enables	JEWEL
+Palace as Context Injection System	couples-with	Cooperation Yields Agency
+Palace as Context Injection System	connects-to	Pheromone Trail
+Palace as Context Injection System	deepens	Pages as Agents
+Palace as Context Injection System	contradicts	The Palace Speaks
+Palace as Context Injection System	enables	Modes of Collaboration
+Palace as Context Injection System	connects-to	FOUR PILLARS
+Palace as Context Injection System	enables	Mixture of Experts
+Palace as Context Injection System	enables	Excellent Adventure
+Palace as Context Injection System	enables	Dialectic
+Palace as Context Injection System	connects-to	ELDER
+Palace as Context Injection System	contradicts	The Palace Hardens Around Values
+Palace as Context Injection System	couples-with	Metaphor as Coupling Medium
+Enchanted Conversation Archive	enables	Palace Enchantment
+Enchanted Conversation Archive	connects-to	Tree of Thoughts
+Enchanted Conversation Archive	connects-to	BBS Blackboard
+Enchanted Conversation Archive	deepens	Generative Compression
+Enchanted Conversation Archive	mirrors	Deposit Ceremony
+Enchanted Conversation Archive	connects-to	Enchanted Worker
+Enchanted Conversation Archive	connects-to	Self-Describing Knowledge Module
+Enchanted Conversation Archive	emerged-from	Lateral Access
 Kick Drum ↔ Foundation	member-of	Cross-Domain Resonances
 Kick Drum ↔ Foundation	exemplifies	FOUR PILLARS
 Kick Drum ↔ Foundation	connects-to	Donella Meadows
@@ -2380,6 +2855,7 @@ Reverb ↔ Space-Time	member-of	Cross-Domain Resonances
 Reverb ↔ Space-Time	exemplifies	FOUR PILLARS
 Reverb ↔ Space-Time	mirrors	Frequency-Time Duality
 Reverb ↔ Space-Time	connects-to	Granular Synthesis
+Reverb ↔ Space-Time	connects-to	Martin Heidegger
 Quantization ↔ Precision vs Flow	member-of	Cross-Domain Resonances
 Quantization ↔ Precision vs Flow	exemplifies	FOUR PILLARS
 Quantization ↔ Precision vs Flow	connects-to	Brian Eno
@@ -2398,18 +2874,20 @@ Dovetail Joint ↔ Counterpoint	connects-to	Cooperation Yields Agency
 Dovetail Joint ↔ Counterpoint	connects-to	Lao Tzu
 Dovetail Joint ↔ Counterpoint	connects-to	Leverage Points Framework
 Dovetail Joint ↔ Counterpoint	exemplifies	Hilaritas Generator
+Dovetail Joint ↔ Counterpoint	connects-to	Martin Buber
 Frequency Domain ↔ Perspective Shift	member-of	Cross-Domain Resonances
 Frequency Domain ↔ Perspective Shift	exemplifies	FOUR PILLARS
 Frequency Domain ↔ Perspective Shift	connects-to	Frequency-Time Duality
 Frequency Domain ↔ Perspective Shift	connects-to	Kick Drum ↔ Foundation
 Frequency Domain ↔ Perspective Shift	mirrors	Lateral Access
 Frequency Domain ↔ Perspective Shift	connects-to	Rick Rubin
+Frequency Domain ↔ Perspective Shift	connects-to	Iain McGilchrist
 Synthesis ↔ Emergence	member-of	Cross-Domain Resonances
 Synthesis ↔ Emergence	exemplifies	FOUR PILLARS
 Synthesis ↔ Emergence	connects-to	Donella Meadows
 Synthesis ↔ Emergence	connects-to	Brian Eno
 Synthesis ↔ Emergence	connects-to	Semantic Webcam
-Synthesis ↔ Emergence	connects-to	Oblique Enrichment
+Synthesis ↔ Emergence	connects-to	Enrichment
 Synthesis ↔ Emergence	mirrors	Flocking
 Synthesis ↔ Emergence	mirrors	Kuramoto Coupling
 Synthesis ↔ Emergence	connects-to	Generative Audio Devices
@@ -2429,6 +2907,7 @@ Compression ↔ Intimacy	connects-to	Rick Rubin
 Compression ↔ Intimacy	connects-to	Kick Drum ↔ Foundation
 Compression ↔ Intimacy	connects-to	Quality Manifesto
 Compression ↔ Intimacy	couples-with	Sidechain ↔ Conversation
+Sidechain ↔ Conversation	connects-to	Creative Coach
 Sidechain ↔ Conversation	member-of	Cross-Domain Resonances
 Sidechain ↔ Conversation	connects-to	Shunryu Suzuki
 Sidechain ↔ Conversation	exemplifies	FOUR PILLARS
@@ -2436,137 +2915,20 @@ Sidechain ↔ Conversation	connects-to	Cooperation Yields Agency
 Sidechain ↔ Conversation	connects-to	Lao Tzu
 Sidechain ↔ Conversation	mirrors	Flocking
 Sidechain ↔ Conversation	exemplifies	Quality Manifesto
-BBS Production Plan v0.2	emerged-from	BBS Production Plan
-BBS Production Plan v0.2	enables	BBS Blackboard
-BBS Production Plan v0.2	enables	BBS Design System
-BBS Production Plan v0.2	connects-to	Palace Agent Infrastructure Spec
-BBS Production Plan v0.2	connects-to	Palace To-Do
-BBS Production Plan v0.2	connects-to	SUBSTRATE
-BBS Production Plan	enables	BBS Blackboard
-BBS Production Plan	enables	BBS Design System
-BBS Production Plan	connects-to	Palace Agent Infrastructure Spec
-BBS Production Plan	connects-to	Palace To-Do
-BBS Production Plan	connects-to	SUBSTRATE
-BBS Production Plan	mirrors	Progressive Staging
-Floquet Time-Modulated Loops	deepens	DSP in Looping Dimensions
-Floquet Time-Modulated Loops	couples-with	2D Torus Wavetable Synthesizer
-Floquet Time-Modulated Loops	connects-to	Three Kinds of Warp
-Floquet Time-Modulated Loops	deepens	Frequency-Time Duality
-Floquet Time-Modulated Loops	connects-to	Wavetable Space as Torus
-Floquet Time-Modulated Loops	connects-to	Kuramoto Coupling
-Floquet Time-Modulated Loops	spawned	Mathieu Equation
-Floquet Time-Modulated Loops	spawned	Parametric Resonance
-Floquet Time-Modulated Loops	spawned	Floquet Theory
-Floquet Time-Modulated Loops	spawned	Photonic Time Crystals
-Floquet Time-Modulated Loops	connects-to	Differential Equations
-Floquet Time-Modulated Loops	connects-to	Categorizing Inharmonicity
-Floquet Time-Modulated Loops	connects-to	Loudon Live
-Floquet Time-Modulated Loops	mirrors	Boundary-Crossing Instruments
-Floquet Time-Modulated Loops	connects-to	2D Wavetable Catalog
-Floquet Time-Modulated Loops	connects-to	Action Potential Oscillator
-Floquet Time-Modulated Loops	connects-to	Bessel Functions in Synthesis
-Floquet Time-Modulated Loops	connects-to	Crystal Synthesizer
-Floquet Time-Modulated Loops	connects-to	Hilaritas Generator
-Floquet Time-Modulated Loops	connects-to	Progressive Staging
-Leverage Diagnostic — Loudon Draft	member-of	Meadows and an Artist's Career
-Leverage Diagnostic — Loudon Draft	emerged-from	Quality Manifesto
-Leverage Diagnostic — Loudon Draft	connects-to	FOUR PILLARS
-BLUELINE — Specialists and Seams	connects-to	BLUELINE
-BLUELINE — Specialists and Seams	deepens	BLUELINE — Production Pipeline
-BLUELINE — Specialists and Seams	connects-to	BLUELINE — Board Record Schema
-BLUELINE — Specialists and Seams	connects-to	The Shop
-BLUELINE — Specialists and Seams	connects-to	Maker
-BLUELINE — Specialists and Seams	exemplifies	Adopt the Craft, Author the Seam
-BLUELINE — Specialists and Seams	connects-to	Trickster (Loudon)
-BLUELINE — Production Plan	connects-to	BLUELINE
-BLUELINE — Production Plan	connects-to	BLUELINE — Render Backend
-BLUELINE — Production Plan	connects-to	BLUELINE — Board Record Schema
-BLUELINE — Production Plan	connects-to	RunPod GPU Backend
-BLUELINE — Production Plan	exemplifies	Capability-first prototyping
-BLUELINE — Production Plan	connects-to	The Shop
-BLUELINE	mirrors	Retrospective Delay
-BLUELINE	connects-to	Flocking
-BLUELINE	connects-to	The Shop
-BLUELINE	connects-to	Blender
-BLUELINE	exemplifies	Blocked, Not Prompted
-BLUELINE	exemplifies	The Flow Field is the Spine
-BLUELINE	connects-to	RunPod GPU Backend
-BLUELINE	connects-to	BLUELINE — Render Backend
-BLUELINE	connects-to	BLUELINE — Board Record Schema
-BLUELINE	connects-to	Loudon Live Design System
-BLUELINE	exemplifies	Boundary-Crossing Instruments
-BLUELINE	couples-with	Autodidact Polymaths
-BLUELINE	spawned	Hand-Drawn 3D Look
-BLUELINE	spawned	Frame Designer
-BLUELINE	spawned	Steer the Generator
-BLUELINE	connects-to	Typography as Meaning
-BLUELINE	mirrors	Diversity of Thought in Many-Agent Systems
-BLUELINE	emerged-from	Adopt the Craft, Author the Seam
-BLUELINE	emerged-from	Graphic Storytelling
-BLUELINE — Render Backend	connects-to	BLUELINE
-BLUELINE — Render Backend	connects-to	RunPod GPU Backend
-BLUELINE — Render Backend	connects-to	ComfyUI
-BLUELINE — Render Backend	exemplifies	Blocked, Not Prompted
-BLUELINE — Render Backend	connects-to	BLUELINE — Board Record Schema
-BLUELINE — Production Pipeline	connects-to	BLUELINE
-BLUELINE — Production Pipeline	exemplifies	Adopt the Craft, Author the Seam
-BLUELINE — Production Pipeline	connects-to	BLUELINE — Production Plan
-BLUELINE — Production Pipeline	connects-to	BLUELINE — Board Record Schema
-BLUELINE — Production Pipeline	connects-to	Blocked, Not Prompted
-BLUELINE — Production Pipeline	connects-to	Blender
-BLUELINE — Text Layer	connects-to	BLUELINE
-BLUELINE — Text Layer	connects-to	BLUELINE — Board Record Schema
-BLUELINE — Text Layer	exemplifies	The Flow Field is the Spine
-BLUELINE — Text Layer	exemplifies	Blocked, Not Prompted
-BLUELINE — Text Layer	connects-to	Comic and Cinema — Two Ways of Seeing
-BLUELINE — Text Layer	connects-to	Loudon Live Design System
-BLUELINE — Text Layer	exemplifies	Adopt the Craft, Author the Seam
-BLUELINE — Text Layer	exemplifies	The 2.5D Paper Stack
-BLUELINE — Deposit Map	connects-to	BLUELINE
-BLUELINE — Deposit Map	connects-to	The Shop
-BLUELINE — Deposit Map	mirrors	Retrospective Delay
-BLUELINE — Board Record Schema	connects-to	BLUELINE
-BLUELINE — Board Record Schema	connects-to	BLUELINE — Render Backend
-BLUELINE — Board Record Schema	exemplifies	Blocked, Not Prompted
-BLUELINE — Claude Code Job	connects-to	BLUELINE
-BLUELINE — Claude Code Job	connects-to	BLUELINE — Deposit Map
-BLUELINE — Claude Code Job	connects-to	The Shop
-2D Wavetable Catalog	connects-to	2D Torus Wavetable Synthesizer
-2D Wavetable Catalog	connects-to	2D Torus Wavetable Synthesizer — Build Log
-2D Wavetable Catalog	couples-with	Torus Warping Catalog
-Torus Warping Catalog	emerged-from	2D Torus Wavetable Synthesizer
-Torus Warping Catalog	couples-with	2D Wavetable Catalog
-Torus Warping Catalog	connects-to	DSP in Looping Dimensions
-Torus Warping Catalog	connects-to	Kuramoto Coupling
-Torus Warping Catalog	connects-to	Categorizing Inharmonicity
-Torus Warping Catalog	connects-to	Frequency-Time Duality
-Torus Warping Catalog	connects-to	Three Kinds of Warp
-Torus Warping Catalog	connects-to	2D Torus Wavetable Synthesizer — Build Log
-control-vocabulary-math	member-of	Neural Granular Synthesis
-control-vocabulary-math	deepens	Kuramoto Coupling
-control-vocabulary-math	emerged-from	Action Potential Oscillator
-README	emerged-from	Inharmonic Wavetable Synthesis
-00 — Test Diagnostic Wavetable	connects-to	2D Torus Wavetable Synthesizer
-17 — Matérn Field	connects-to	2D Torus Wavetable Synthesizer
-03 — Duty Cycle Morph	connects-to	2D Torus Wavetable Synthesizer
-01 — Sine Cycle Sweep	connects-to	2D Torus Wavetable Synthesizer
-14 — Knot Shadow	connects-to	2D Torus Wavetable Synthesizer
-04 — Sine + Variable 3rd Harmonic	connects-to	2D Torus Wavetable Synthesizer
-11 — Chladni Ghost	connects-to	2D Torus Wavetable Synthesizer
-02 — Partial Stack Sweep	connects-to	2D Torus Wavetable Synthesizer
-16 — Kuramoto Bloom	connects-to	2D Torus Wavetable Synthesizer
-16 — Kuramoto Bloom	connects-to	Kuramoto Coupling
-13 — Stiff String	connects-to	2D Torus Wavetable Synthesizer
-18 — Fisher Ridge	connects-to	2D Torus Wavetable Synthesizer
-12 — Theta Surface	connects-to	2D Torus Wavetable Synthesizer
-15 — Penrose Lattice	connects-to	2D Torus Wavetable Synthesizer
-10 — Membrane	connects-to	2D Torus Wavetable Synthesizer
-Tier-1 Warp Snippets	emerged-from	2D Torus Wavetable Synthesizer
-Tier-1 Warp Snippets	connects-to	Torus Warping Catalog
-Tier-1 Warp Snippets	connects-to	README — RNBO Prototype
-README — RNBO Prototype	emerged-from	2D Torus Wavetable Synthesizer
-README — RNBO Prototype	connects-to	2D Torus Wavetable Synthesizer — Build Log
-README — RNBO Prototype	enables	Torus Warping Catalog
-Verification Prep Checklist	emerged-from	2D Torus Wavetable Synthesizer
-Verification Prep Checklist	connects-to	README — RNBO Prototype
-Verification Prep Checklist	connects-to	2D Torus Wavetable Synthesizer — Build Log
+page-rewrite — preview, the whole page as it would read	spawned	Enchanted Worker
+page-rewrite — preview, the whole page as it would read	spawned	Agent Wellbeing
+page-rewrite — preview, the whole page as it would read	deepens	Swarm Weave
+page-rewrite — preview, the whole page as it would read	deepens	SUBSTRATE
+page-rewrite — preview, the whole page as it would read	enables	JEWEL
+page-rewrite — preview, the whole page as it would read	couples-with	Cooperation Yields Agency
+page-rewrite — preview, the whole page as it would read	connects-to	Pheromone Trail
+page-rewrite — preview, the whole page as it would read	deepens	Pages as Agents
+page-rewrite — preview, the whole page as it would read	contradicts	The Palace Speaks
+page-rewrite — preview, the whole page as it would read	enables	Modes of Collaboration
+page-rewrite — preview, the whole page as it would read	connects-to	FOUR PILLARS
+page-rewrite — preview, the whole page as it would read	enables	Mixture of Experts
+page-rewrite — preview, the whole page as it would read	enables	Excellent Adventure
+page-rewrite — preview, the whole page as it would read	enables	Dialectic
+page-rewrite — preview, the whole page as it would read	connects-to	ELDER
+page-rewrite — preview, the whole page as it would read	contradicts	The Palace Hardens Around Values
+page-rewrite — preview, the whole page as it would read	couples-with	Metaphor as Coupling Medium
