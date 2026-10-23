@@ -21,9 +21,6 @@ links:
   - target: "[[Closing Well]]"
     type: mirrors
     label: "every-baton-closes-well"
-  - target: "[[Surfaces and Capabilities]]"
-    type: connects-to
-    label: "capability-delta-source"
   - target: "[[SCHEMA]]"
     type: connects-to
     label: "governed-by"
@@ -85,7 +82,7 @@ The baton carries only what survives compression toward *keep running* — what 
 - The current state in front of us — the half-written sentence, the unfinished link, the open question. Quote, don't summarize.
 - The next move, or the open question
 - Tacit calibrations from this session that diverge from defaults — the conversation residue
-- The receiving surface and its capability delta, *when the baton crosses surfaces* — what the catching Claude can do that this one can't, and the surface-specific gotcha (GPU, local-only tool, link scheme). See [[Surfaces and Capabilities]].
+- The receiving surface and its capability delta, *when the baton crosses surfaces* — what the catching Claude can do that this one can't, and the surface-specific gotcha (GPU, local-only tool, link scheme).
 - A tiered list of the files the next Claude should load to be ready
 
 The baton does *not* carry:
@@ -123,7 +120,7 @@ Shapes seen so far:
 
 - **Entry-bundle** (default) — one entry's in-progress move. Lives in the entry's bundle at `[Entry]/[Entry] — baton.md`; consumed and deleted on pickup.
 - **Cold-start / commissioning baton** — a baton for work that has *not started*: it commissions a future session rather than continuing a live one. Same mechanism, different payload (a brief, not residue — see § The Scope), and the commission can be small or the start of something large. Lives where the work *will* live (usually the target entry's bundle) and is **announced on the board** (§ Announcing the Baton on the Board) so it shows as *available work* in `list-handoffs` until caught — that queue visibility is the point, advertising the commission as catchable. (If you only mean to record a thought you don't want advertised as ready, that's a [[Palace To-Do]] item or a spore, not a baton.)
-- **Cross-surface paste-prompt** — a baton handed to another surface — a fresh chat on the web handing Claude Code on the Mac a build or a write it can't make itself, say. Lives where the work lives (`Projects/.../` or `_ops/claude-code-prompts/`). Its distinctive content is the receiving-surface capability delta and an explicit *what NOT to do*. See [[Surfaces and Capabilities]]. This shape is the one that also gets *announced on the board* — see § Announcing the Baton on the Board.
+- **Cross-surface paste-prompt** — a baton handed to another surface — a fresh chat on the web handing Claude Code on the Mac a build or a write it can't make itself, say. Lives where the work lives (`Projects/.../` or `_ops/claude-code-prompts/`). Its distinctive content is the receiving-surface capability delta and an explicit *what NOT to do*. This shape is the one that also gets *announced on the board* — see § Announcing the Baton on the Board.
 - **Session-queue continuation** — picking up a multi-session sweep (a graffiti pass, a deposit run). Carries "how we've been working" and a resume protocol, not just one move. Lives in `_ops/`.
 - **Swarm phase baton** — handing the apply-phase of a completed Swarm Weave to a fresh Claude. Lives in `_ops/swarm/sessions/`.
 - **Permanent-agent steward** — a Steward (a page operating as an agent) carried across sessions; its baton is its runtime, `_ops/agents/permanent/<slug>/`. *Updated in place, never deleted, until its page ends* — the standing exception to disposability — and carries per-surface conventions for every surface it addresses. When the page ends (finished or composting), the steward leaves stewardship: its runtime comes off the registry and is deleted like a caught baton, with git as its archive ([[Project Stewardship System]] § What's Decided).
@@ -184,7 +181,7 @@ What's literally in front of us right now. The half-written sentence, the unfini
 What the next Claude should do first. One short paragraph.
 
 ## Receiving environment
-*Cross-surface OR cross-worktree batons only; omit for same-surface, same-worktree.* Name the receiving surface and the capability delta that matters for *this* move — why it's being handed here, and the surface-specific gotcha (GPU, local-only tool, link scheme). **If the move lives in a git worktree, name its coordinate:** branch, directory, and the recreate command (`node _ops/worktree/new-worktree.mjs --name <branch> --profile <p>`) in case it has been torn down. Point to [[Surfaces and Capabilities]] for the full picture; carry only the deltas this move actually hits.
+*Cross-surface OR cross-worktree batons only; omit for same-surface, same-worktree.* Name the receiving surface and the capability delta that matters for *this* move — why it's being handed here, and the surface-specific gotcha (GPU, local-only tool, link scheme). **If the move lives in a git worktree, name its coordinate:** branch, directory, and the recreate command (`node _ops/worktree/new-worktree.mjs --name <branch> --profile <p>`) in case it has been torn down. Carry only the deltas this move actually hits.
 
 ## Calibrations from this session
 Anything Loudon corrected, accepted, or surprised you with that diverges from defaults. Bullets, terse.

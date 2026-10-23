@@ -20,9 +20,6 @@ links:
   - target: "[[Closing Well]]"
     type: connects-to
     label: makes-autonomy-trustworthy
-  - target: "[[Surfaces and Capabilities]]"
-    type: connects-to
-    label: surface-deltas-on-the-board
   - target: "[[BBS Blackboard]]"
     type: connects-to
     label: the-shared-world
@@ -84,7 +81,7 @@ The honest limiting factor on "keep Claude Code working without my constant inte
 
 That splits the original wish into two requests pulling opposite ways:
 
-- *Reduce handoff friction* — the copy-paste, the re-derived surface deltas. Pure win, and mostly already solved ([[Surfaces and Capabilities]] exists so a cross-surface delta is a one-line lookup, not a fresh discovery each time).
+- *Reduce handoff friction* — the copy-paste, the re-derived surface deltas. Pure win.
 - *Reduce the human's involvement in the work itself* — collides with the audition gate, which is load-bearing. [[Closing Well]] was deposited because Loudon caught five things declared "done" in a single session. Removing him from that loop does not make work autonomous; it makes it unverified.
 
 So the lever is not "remove the human." It is **structure and batch the human's attention so a little goes far**, and **let stage decide how much autonomy a project has earned.**
