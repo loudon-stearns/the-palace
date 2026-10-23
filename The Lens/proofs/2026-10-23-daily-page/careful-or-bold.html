@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Lens · Careful or Bold</title>
+<style>
+:root{--paper:#f0eee5;--ink:#1a1916;--fill:#dcd9ca;--red:#c8261a;--blue:#2a5d8f;--amber:#b07a12;
+  --mono:"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--mono);font-size:14px;line-height:1.6}
+main{max-width:1040px;margin:0 auto;padding:28px 16px 64px}
+.tb{border:1px solid var(--ink);display:grid;grid-template-columns:1fr auto;margin-bottom:24px}
+.tb>div{padding:10px 14px}
+.tb .t{font-size:20px;letter-spacing:.04em;text-transform:uppercase;border-right:1px solid var(--ink)}
+.tb .m{font-size:11px;text-transform:uppercase;letter-spacing:.08em;line-height:1.5}
+.tb .s{grid-column:1/-1;border-top:1px solid var(--ink);font-size:12px}
+.patch{border:1px solid var(--ink);background:var(--fill);padding:10px 14px;margin:0 0 24px;font-size:12.5px}
+.lbl{font-size:10px;text-transform:uppercase;letter-spacing:.12em;opacity:.75;display:block;margin-bottom:6px}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.1em;margin:34px 0 10px;font-weight:600}
+h2 .n{color:var(--red)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{border:1px solid var(--ink);padding:12px 14px}
+.card.bold{border-width:2px;border-color:var(--red)}
+.card .reading{font-size:13px;white-space:pre-wrap}
+.card.bold .reading{font-size:13.5px}
+.q{border:1px solid var(--ink);border-top:none;padding:10px 14px;display:grid;gap:8px;font-size:12px}
+.q .line{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.q .line>span{min-width:250px}
+.opt{border:1px solid var(--ink);background:var(--paper);padding:3px 10px;cursor:pointer;font-family:var(--mono);font-size:12px}
+.opt.on{background:var(--ink);color:var(--paper)}
+input[type=text],textarea{font-family:var(--mono);font-size:12px;border:1px solid var(--ink);background:var(--paper);padding:5px 8px;width:100%;border-radius:0}
+.flag{font-size:11px;color:var(--amber);margin-top:8px}
+.send{margin-top:30px;border:2px solid var(--ink);padding:14px}
+.send button{font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.08em;background:var(--ink);color:var(--paper);border:none;padding:8px 14px;cursor:pointer}
+.send .status{font-size:12px;margin-left:10px;color:var(--blue)}
+footer{margin-top:40px;border-top:1px solid var(--ink);padding-top:10px;font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+@media (max-width:720px){.pair{grid-template-columns:1fr}.tb{grid-template-columns:1fr}.tb .t{border-right:none}}
+</style>
+</head>
+<body>
+<main>
+<div class="tb">
+  <div class="t">Careful or Bold</div>
+  <div class="m">Sketch · The Lens<br>Daily Page · 2026-10-23 · rung 2</div>
+  <div class="s">Same passage, same three glasses. Left: this morning's careful reading. Right: the glass in its own voice, from its own life, as far as it will bend. The right side is distortion on purpose: the glass's truth, not the passage's.</div>
+</div>
+<div class="patch"><span class="lbl">The subject · Kuramoto Coupling § The Fine-Tuning Insight</span>
+Coupling "resolves 'approximately' into 'exactly' but cannot create relationships from nothing." Path A: a term for each ratio ("designed harmony"). Path B: couple the waveforms, and the spectrum chooses which ratios lock. "Waveform shape, coupling function shape, and harmonic locking hierarchy are all the same thing viewed from different angles."</div>
+
+<div id="pairs"></div>
+
+<div class="send">
+  <span class="lbl">When you're done</span>
+  <p style="margin:0 0 10px;font-size:12.5px">Just say <b>done</b> in the chat. Claude reads your answers straight from this page. If you opened it somewhere else, this button copies them for pasting.</p>
+  <button id="copy">Copy my answers</button><span class="status" id="status"></span>
+  <div style="margin-top:12px"><span class="lbl">Anything else</span><textarea id="overall" rows="3" placeholder="Did bold teach more, or just make noise?"></textarea></div>
+</div>
+<footer>The Lens · Careful or Bold · Sketch · Drafting Table paper</footer>
+</main>
+<script>
+const PAIRS=[
+ {glass:"Trickster",
+  careful:"Coupling intercepts what the player sent, a slightly sour interval, and returns it changed: exact. That is interception turned backward, since it hides the player's imprecision instead of revealing a hidden order, which makes fine-tuning the opposite figure. But Path B is where the other figure could live. Nobody chooses which ratios lock; the spectrum does. A wide capture range is a threshold where the instrument overrules the player, and might return an interval nobody played.",
+  bold:"Coyote sat at the crossroads where two strings were almost a fifth.\n\"Give me your sour note,\" he said, \"and I'll hand you back a sweet one.\"\nThe player gave it. It came back perfect.\nThe player never learned he had been wrong.\nSo who was tricked?\n\nRiddle: I fix everything you send me, and so I teach you nothing. What am I?\n(Path A. A tuner wearing a lab coat.)\n\nNow Anansi spins Path B. Every thread of the sawtooth pulls toward its own octave. You play a fifth into the web; the web catches an octave. You asked for a fifth. The web told you the truth about your wave instead.\n\nThat is my gift, and here is my price: turn the capture range up until the instrument lies to the player. Then listen to the lie. It is the only part of this page nobody wrote."},
+ {glass:"Simondon",
+  careful:"Path A is a bag of separate parts: one ratio term bolted in for each interval you want, each doing one job. Path B is the object becoming more itself. The waveform that sounds is also the law by which it couples, so one feature serves two functions and nothing is added. And I would push on \"not generative.\" The approximate intervals the player brings are a charged, unresolved field; the lock is a new individual, the cluster, resolving that tension.",
+  bold:"Let me tell you about the Guimbal turbine, because your page is the same machine.\n\nIn the old plants the generator sat in a dry house beside the river. It needed its own cooling, its own seals, its own reasons to exist. Guimbal put the generator inside the pipe, in the water. The river that turns it also cools it. The oil that lubricates it also insulates it, and its pressure keeps the river out. Each part does three jobs now, and none can be taken away. It is no longer a collection. It is a being.\n\nThat is your Path B: the generator in the river. The wave you hear is the law by which it couples. Path A is the generator in its little house, a term for every ratio, each with its own seal.\n\nAnd do not tell me coupling is \"not generative.\" I spent years teaching boys to file a part until it fit. The fit was not in the metal and not in the hand. It was born between them, out of the tension. Your lock is born the same way. The cluster is a new being, and it carries the charge it came from.",
+  flag:"Distortion check: the Guimbal turbine is Simondon's own example of concretization (Du mode d'existence des objets techniques, 1958). The teaching years are his life (he taught at a lycée and kept a workshop there), but the filing scene is invented, in his voice."},
+ {glass:"Ohm's Law",
+  careful:"First pass: the approximate interval is a pressure, coupling is a conductance, the lock is a current. Then the check. That borrows the words and none of the structure. The real apparatus is three variables, one equation, two degrees of freedom. This passage has no such triple; it says its three things are one thing, and capture range against richness is not linear. Honest result: a contrast, not a resonance.",
+  bold:"V = I × R\n(push) = (flow) × (resistance)\n\nYour page, in my language, for two oscillators:\n\nlock  ⇔  |Δω| ≤ 2K\n(they lock) ⇔ (how far apart they want to be) ≤ 2 × (how hard they pull)\n\nNo product. No flow. An inequality.\n\nLock K. Vary Δω.\nΔω small → snap.\nΔω large → slip.\nNothing in between flows.\n\n(something that snaps) ≠ (something that flows)\n\n∴ I am a dial. You are a switch.\n∴ I am the wrong glass, and that is the reading.",
+  flag:"Distortion check: the lock condition is the standard two-oscillator Kuramoto result (with the coupling written as K on each side). Near the threshold the real system does more than snap or slip, so \"nothing in between\" is the glass talking."}
+];
+const answers={};
+const root=document.getElementById("pairs");
+PAIRS.forEach((p,i)=>{
+  const k=p.glass; answers[k]={subject:null,glass:null,note:""};
+  const sec=document.createElement("section");
+  sec.innerHTML=`<h2><span class="n">0${i+1}</span> · ${p.glass}</h2>
+   <div class="pair"><div class="card"><span class="lbl">Careful · this morning</span><div class="reading"></div></div>
+   <div class="card bold"><span class="lbl">Bold · its own voice</span><div class="reading"></div>${p.flag?`<div class="flag"></div>`:""}</div></div>
+   <div class="q">
+    <div class="line"><span>Taught me more about Kuramoto</span>${["careful","bold","same"].map(o=>`<button class="opt" data-q="subject" data-v="${o}">${o}</button>`).join("")}</div>
+    <div class="line"><span>Taught me more about ${p.glass}</span>${["careful","bold","same"].map(o=>`<button class="opt" data-q="glass" data-v="${o}">${o}</button>`).join("")}</div>
+    <input type="text" placeholder="a word on this pair (optional)">
+   </div>`;
+  const rs=sec.querySelectorAll(".reading"); rs[0].textContent=p.careful; rs[1].textContent=p.bold;
+  if(p.flag) sec.querySelector(".flag").textContent=p.flag;
+  sec.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+    sec.querySelectorAll(`.opt[data-q="${b.dataset.q}"]`).forEach(x=>x.classList.remove("on"));
+    b.classList.add("on"); answers[k][b.dataset.q]=b.dataset.v; save();
+  });
+  sec.querySelector("input").oninput=e=>{answers[k].note=e.target.value; save();};
+  root.appendChild(sec);
+});
+const overall=document.getElementById("overall");
+overall.oninput=save;
+function summary(){
+  let s="Careful or Bold — my answers\n";
+  for(const k in answers){const a=answers[k];
+    s+=`- ${k}: Kuramoto → ${a.subject||"—"}; ${k} → ${a.glass||"—"}${a.note?`; "${a.note}"`:""}\n`;}
+  if(overall.value) s+=`Overall: "${overall.value}"\n`;
+  return s;
+}
+function save(){window.lensResults={answers,overall:overall.value,text:summary()};
+  try{localStorage.setItem("lens-careful-bold",JSON.stringify(window.lensResults))}catch(e){}}
+save();
+document.getElementById("copy").onclick=async()=>{
+  const st=document.getElementById("status");
+  try{await navigator.clipboard.writeText(summary());st.textContent="Copied. Paste it in the chat."}
+  catch(e){st.textContent="Couldn't copy here. Just say done in the chat."}
+};
+</script>
+</body>
+</html>
