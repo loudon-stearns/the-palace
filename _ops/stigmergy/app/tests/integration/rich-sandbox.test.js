@@ -99,13 +99,6 @@ function makeServer(palaceRoot, log) {
   plugin.configureServer({ middlewares: { use: (fn) => handlers.push(fn) } });
   return http.createServer((req, res) => {
     res.on('finish', () => log.push(`${req.method} ${req.url.split('?')[0]} ${res.statusCode}`));
-    // Stands in for STIGMERGY's reader, which frames the rich face from the app's
-    // own page on the same origin (RichFaceFrame.jsx) — not a palace file.
-    if (req.url === '/framer') {
-      res.writeHead(200, { 'Content-Type': 'text/html' });
-      res.end(`<!doctype html><body><iframe id="rf" style="width:1200px;height:900px" src="/rich/?entry=${encodeURIComponent(ENTRY)}&review=0"></iframe></body>`);
-      return;
-    }
     let i = 0;
     const next = () => { if (i >= handlers.length) { res.statusCode = 404; res.end('not found'); return; } handlers[i++](req, res, next); };
     next();
@@ -247,26 +240,6 @@ describe.skipIf(!chromium)('the rich face in a browser', () => {
     expect(await page.locator('.top').isVisible()).toBe(true);
     await page.waitForSelector('#faces a.btn', { state: 'attached' });
   });
-
-  // Framed by the reader, the reader carries the face switch; the page's own
-  // strip and F would take the frame away to another face.
-  test('framed by a page on its own origin, it hides its top strip and leaves F alone', async () => {
-    const outer = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
-    try {
-      await outer.goto(`${base}/framer`);
-      const frame = outer.frameLocator('#rf');
-      await frame.locator('section.sec[data-key="text"]').waitFor({ timeout: 30000 });
-      await frame.locator('#faces a.btn').first().waitFor({ state: 'attached', timeout: 30000 });
-      expect(await frame.locator('.top').isVisible()).toBe(false);
-      const inner = outer.frames().find((f) => f.url().includes('/rich/?entry='));
-      const before = inner.url();
-      await frame.locator('section.sec[data-key="text"] .prose').first().click();
-      await outer.keyboard.press('f');
-      await outer.waitForTimeout(1500);
-      expect(outer.frames().find((f) => f.parentFrame()).url()).toBe(before);
-      expect(outer.url()).toBe(`${base}/framer`);
-    } finally { await outer.close(); }
-  }, 60000);
 
   test('text marked emits raw after <kbd>, <code> or in a heading runs nothing', async () => {
     await page.waitForSelector('section.sec[data-key="raw"] .prose');

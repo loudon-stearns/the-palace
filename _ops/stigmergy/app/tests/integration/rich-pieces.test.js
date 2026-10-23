@@ -16,9 +16,9 @@ import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 
 // Rich-face pieces on the piece origin, in headless Chromium: steps 4 and 5 of
 // STIGMERGY — spec — rich-face pieces. The app is reached as localhost and its
-// pieces run on 127.0.0.1 (another site), as they do live; the reader is a page
-// on the app's origin that frames the rich face the way RichFaceFrame.jsx does,
-// so a piece's camera is two frames deep. A temp palace that is a git
+// pieces run on 127.0.0.1 (another site), as they do live; the rich face is a
+// page of its own, as the reader's face switch opens it, so a piece's camera is
+// one frame deep. A temp palace that is a git
 // repository, STIGMERGY's own middleware, a piece origin on a free port: never
 // :5173, never 8843, never the real board.
 
@@ -163,12 +163,6 @@ function makeServer(palaceRoot, log, opts = {}) {
   const server = http.createServer((req, res) => {
     res.on('finish', () => log.push(`${req.method} ${req.url.split('?')[0]} ${res.statusCode}`));
     const u = new URL(req.url, 'http://x');
-    // Stands in for STIGMERGY's reader, which frames the rich face on its own origin (RichFaceFrame.jsx).
-    if (u.pathname === '/framer') {
-      res.writeHead(200, { 'Content-Type': 'text/html' });
-      res.end(`<!doctype html><body style="margin:0"><iframe id="rf" allow="camera; microphone; midi; fullscreen" style="width:1200px;height:900px;border:0" src="/rich/?entry=${encodeURIComponent(ENTRY)}&review=0"></iframe></body>`);
-      return;
-    }
     if (u.pathname === '/deck') {
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.end('<!doctype html><body style="margin:0;width:900px"><div id="root"></div><script type="module" src="/deck-host.js"></script></body>');
@@ -193,10 +187,12 @@ describe.skipIf(!chromium)('rich-face pieces on the piece origin', () => {
   const appUrl = (path) => app.replace('127.0.0.1', 'localhost') + path;
   const frameNamed = (page, n) => page.frames().find((f) => f.url().endsWith(`/${encodeURIComponent(ENTRY)}/${n}`));
 
+  // The rich face as the face switch opens it: the whole tab. `rf` is the page
+  // itself, which answers locator() and frameLocator() as a frame would.
   async function openReader() {
     const page = await browser.newPage({ viewport: { width: 1240, height: 940 } });
-    await page.goto(appUrl('/framer'));
-    const rf = page.frameLocator('#rf');
+    await page.goto(appUrl(`/rich/?entry=${encodeURIComponent(ENTRY)}&review=0`));
+    const rf = page;
     await rf.locator('figure[data-piece="plain.html"] iframe').waitFor({ state: 'attached', timeout: 30000 });
     return { page, rf };
   }

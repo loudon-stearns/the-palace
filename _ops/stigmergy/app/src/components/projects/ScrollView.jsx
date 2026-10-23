@@ -9,6 +9,7 @@ import EntryBody from '../state/EntryBody.jsx';
 import TricksterCard from '../trickster/TricksterCard.jsx';
 import AgentLaunchModal from '../queue/AgentLaunchModal.jsx';
 import { usePalaceRef } from '../../lib/palace-ref.jsx';
+import { IS_PUBLIC } from '../../lib/public-mode.js';
 import { fetchEntry } from '../../adapters/entries.js';
 import HeroBackdrop, { heroFileOf } from '../HeroBackdrop.jsx';
 import { RunningTag, QueuedTag } from './status.jsx';
@@ -120,7 +121,7 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
   // whether or not the file has been written yet.
   const homeRef = palace?.refIndex?.get?.(home) ?? null;
   const homePath = (row && row.path) || homeRef?.path || null;
-  const scrollFaces = orderFaces([...(homeRef?.faces || ['text']), 'scroll']);
+  const scrollFaces = orderFaces([...(homeRef?.faces || ['text']), 'scroll'], { everyRich: !IS_PUBLIC });
   // The page's hero behind the scroll, as it sits behind the page in the reader.
   const [hero, setHero] = useState(null);
   useEffect(() => {

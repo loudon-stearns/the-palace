@@ -82,12 +82,6 @@ const ENTRY = params.get('entry') || 'Kuramoto Coupling';
 // is posted, and the text is the snapshot's rather than re-read live.
 const STATIC = !!document.querySelector('meta[name="rich:static"]') || window.RICH_STATIC === true;
 const REVIEW = !STATIC && params.get('review') !== '0';
-// Framed by STIGMERGY's reader (RichFaceFrame.jsx, on this same origin), the
-// reader carries the face switch: this page's top strip and its F shortcut
-// would take the frame away to another face, so the strip hides and F is left
-// to the reader. The public read view never frames the page.
-const FRAMED = !STATIC && (() => { try { return window.top !== window && window.top.location.origin === location.origin; } catch { return false; } })();
-if (FRAMED) document.querySelector('.top').style.display = 'none';
 const $ = (s, el = document) => el.querySelector(s);
 const h = (tag, attrs = {}, ...kids) => {
   const el = document.createElement(tag);
@@ -587,7 +581,7 @@ function layFaces() {
   }
   const order = [...faces.querySelectorAll('a.btn')];
   document.addEventListener('keydown', (e) => {
-    if (FRAMED || e.metaKey || e.ctrlKey || e.altKey || (e.key !== 'f' && e.key !== 'F')) return;
+    if (e.metaKey || e.ctrlKey || e.altKey || (e.key !== 'f' && e.key !== 'F')) return;
     if (e.target.closest && e.target.closest('input, textarea, select, [contenteditable]')) return;
     const i = order.findIndex((a) => a.getAttribute('aria-current') === 'page');
     const next = order[(i + 1) % order.length];

@@ -5,7 +5,6 @@ import { contextKey, contextLabel } from '../../lib/companion-context.js';
 import { usePalaceRef } from '../../lib/palace-ref.jsx';
 import { resolveRef } from '../../lib/entry-ref.js';
 import EntryAvatar from '../EntryAvatar.jsx';
-import { createRichSpy } from '../../lib/rich-frame.js';
 
 // Position init wants useLayoutEffect in the browser, but that warns under
 // server render (tests use renderToStaticMarkup). Fall back to useEffect where
@@ -893,14 +892,10 @@ export default function EntryAgentWindow({ entry, context, containerRef, onClose
     // A captured reference would go stale and the glow would paint onto dead
     // nodes — re-querying keeps the spy painting the live body.
     const bodyOf = () => el.querySelector('[data-testid="entry-body"]') || el;
-    // When the reader shows the rich face, its frame is the surface being read.
-    const richSpy = createRichSpy({ glowClass: GLOW_CLASS, onChange: () => onScroll() });
     let raf = 0;
     const update = () => {
       raf = 0;
       const centreY = top + height / 2;
-      const rich = richSpy.pass(el, centreY);
-      if (rich) { paintGlow(bodyOf(), null); setReading(rich.reading); return; }
       const active = findActiveHeading(el, centreY);
       setReading(active ? active.textContent.trim() : null);
       paintGlow(bodyOf(), active);
@@ -920,7 +915,6 @@ export default function EntryAgentWindow({ entry, context, containerRef, onClose
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
       if (mo) mo.disconnect();
-      richSpy.dispose();
       bodyOf().querySelectorAll('.' + GLOW_CLASS).forEach((n) => n.classList.remove(GLOW_CLASS));
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
