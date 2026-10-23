@@ -34,6 +34,8 @@ What each morning taught the practice. Each item names what the morning showed a
 
 **v1.0 (2026-10-22)** is week one's review, items 65–70, on Loudon's answers of 2026-10-22: the sit, the prep and the close stand as they are; the bias is named as a piece that tests the page, kept on its scroll; the woken page is read as the test of its forward vector; no morning writes an `agency_profile`; the hello drops the coffee. Forced: the decisions list, the sit's landmark 3, prep step 6, a line on a kept page's rough, the shim.
 
+**v1.1 (2026-10-23)** is item 71, on Loudon's word of 2026-10-23: a rough that asks him anything hands his answers back with no retyping. Forced: one sentence in prep step 5. The morning that taught it ran under v1.0, and its run line says so.
+
 ## From the first morning — Frequency-Time Explorer, 2026-10-13
 
 1. **A verdict that waited in a workshop file belonged to no one.** The fold was decided and then lived in one line of `record.md`, where no session but a Daily Page morning would look. Loudon at the close: the morning decides, and "proper palace machinery" does the lifting. Forced: a verdict that does not land the same day becomes a commissioning baton on the receiving page, announced on the board (the verdicts section; postcondition 3).
@@ -195,3 +197,8 @@ What each morning taught the practice. Each item names what the morning showed a
 69. **The hello stopped saying coffee.** Loudon: "we don't need to mention coffee every time." The card and the shim both put coffee in the hello's mouth. Forced: card line 53 and prep step 6, the shim's lines 3 and 6. Pays item 28 if the clock is read (prep step 6).
 70. **The size questions are settled by "the right length".** Items 32, 39 and 50 asked whether an evening sit, a fan-out or a fleet-wide verdict needs a size rule. His answer is that it doesn't: the sit follows him, and a large move goes on his explicit word, as it did. Nothing forced. Pays items 32, 39 and 50.
 - Also: Loudon's wish that a morning look out at more of his life went to a separate private morning assistant, kept out of this repo (2026-10-22). The Daily Page stays a palace practice.
+
+## From the tenth morning — The Lens, 2026-10-23
+
+71. **A game's results should flow back without retyping.** The first rough kept his notes in the browser's localStorage, where the session cannot read them, so the results reached the room only when he typed them again. The second rough opened in the browser pane and kept its answers on the page (`window.lensResults`), and the session checked that it could read them. He gave his verdict in the chat instead, so the path works but has not yet been used. Loudon, 2026-10-23: "As you make these, there should always be easy ways for the results to flow back into the conversation in an effortless manner. You have the abilities, use them to make our interactions as smooth as possible. Reduce friction so that reaching our shared goal is the easy low resistance path." His other word, that these games belong on the tested page's scroll, is one the card already holds (§ What Loudon decided, the bias toward making). Forced: **v1.1**, one sentence in prep step 5: "A rough that asks him anything hands his answers back with no retyping: opened in the browser pane, where the session reads them from the page itself, or with one button that copies them as a single block to paste."
+- run · 2026-10-23 · v1.0 · The Lens, tune · taught item 71
