@@ -1,0 +1,24 @@
+{
+  "name": "Flowers Stack",
+  "tempo": 140,
+  "key": "F minor",
+  "splice_stack": "37a7e47f-4ecc-4d91-b3fb-74e5cba3e8ea",
+  "prompt": "dark heavy dubstep at 140 bpm in F minor: a growling wobble bass, a half-time drum groove with a big snare, a sub bass, an eerie atmospheric pad, and a vocal chop",
+  "layers": [
+    { "role": "Bass",   "file": "samples/tp_da_140_bass_loop_flowers_Fmin.wav",        "bpm": 140, "key": "F minor" },
+    { "role": "Drums",  "file": "samples/Bpm140_RaveStep_Beat25_PL.wav",               "bpm": 140 },
+    { "role": "Drums 2","file": "samples/BOS_LevIV_150_Drum_Loop_Percieve.wav",         "bpm": 150 },
+    { "role": "Pads",   "file": "samples/DS_DSP2_150_synth_loop_pad_cavern_Em.wav",     "bpm": 150, "key": "E minor" },
+    { "role": "Vocals", "file": "samples/PMA_12_Vocal_Atmosphere_Bmaj_140Bpm.wav",      "bpm": 140, "key": "B major" }
+  ],
+  "scenes": [
+    { "name": "Intro",     "play": ["Pads", "Vocals"] },
+    { "name": "Build",     "play": ["Pads", "Vocals", "Drums 2"] },
+    { "name": "Drop",      "play": ["Bass", "Drums", "Pads"] },
+    { "name": "Drop full", "play": ["Bass", "Drums", "Drums 2", "Pads", "Vocals"] },
+    { "name": "Bass only", "play": ["Bass", "Drums"] },
+    { "name": "Break",     "play": ["Vocals", "Drums 2"] },
+    { "name": "Drop 2",    "play": ["Bass", "Drums", "Vocals"] },
+    { "name": "Outro",     "play": ["Pads"] }
+  ]
+}
