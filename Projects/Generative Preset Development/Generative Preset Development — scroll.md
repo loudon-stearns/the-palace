@@ -15,20 +15,26 @@ forward_vector: "I am Generative Preset Development's scroll — the one page th
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T12:29:03.981Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-24T15:44:56.083Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 8 · last ran 2026-10-14 (today)
-- **Plan:** agreed 2026-09-25 (18 days ago) · 4 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 9 · last ran 2026-10-24 (today)
+- **Plan:** agreed 2026-09-25 (29 days ago) · 4 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — The analyzer now writes sentences. Nine Wavetable presets are described in a synthesist's words, with the old parameter dump folded under each one for comparison. (`preset-steward-018`)
-- **Last commit touching this project:** 2026-10-14 `c2f8e586` — steward(Generative Preset Development): cycle 7 — SPINNING UP. HOME: [Generative Preset Development](obsidian://open?vaul…
-- **Signal:** steady
+- **Last shipped:** 2026-10-14 (10 days ago) — The analyzer now writes sentences. Nine Wavetable presets are described in a synthesist's words, with the old parameter dump folded under each one for comparison. (`preset-steward-018`)
+- **Last commit touching this project:** 2026-10-14 `e0cbca6c` — steward(Generative Preset Development): cycle 8 — SPINNING UP. HOME: [Generative Preset Development](obsidian://open?vaul…
+- **Signal:** ⚠ the last cycle posted nothing (one barren cycle — the lane will retry before calling it stalled)
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
 
 Generative Preset Development teaches an AI to make, describe and reshape presets for synths with a fixed layout, starting with Ableton Wavetable. Here's what's settled. The preset format is cracked. You confirmed in June that a modified preset loads in Live and sounds as intended. Making presets from a prompt and reshaping them both work, so far on feel-words borrowed from Ableton's factory presets. The step on the plan is still one sitting in Live where your ears set those feel-words, and the kit for it is ready. This cycle did the bonus check that goes with the prompt-to-preset step: describing a known factory preset the way a skilled synthesist would. The analyzer used to print a parame…
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 6:** Nothing here has been loaded in Live or heard, so 'distinct' is only a measurement on paper. _(in 2 notes, the latest cycle 7)_
 
 ### Open asks
 

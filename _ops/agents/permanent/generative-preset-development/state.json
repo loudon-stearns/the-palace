@@ -1,14 +1,14 @@
 {
-  "iteration": 8,
-  "last_active": "2026-10-14T12:29:03.981Z",
+  "iteration": 9,
+  "last_active": "2026-10-24T15:44:56.083Z",
   "last_read_cursor": "preset-steward-018",
   "health": {
     "context_pct": null,
     "avg_output_tokens_last_5": null,
     "duplicate_flags": 0,
-    "posting_discipline_violations": 0,
+    "posting_discipline_violations": 1,
     "max_tokens_hits": 0,
-    "score": "green",
+    "score": "yellow",
     "stalled": false
   },
   "_pilot_metadata": {
