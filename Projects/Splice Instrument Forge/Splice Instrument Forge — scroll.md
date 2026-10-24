@@ -42,6 +42,12 @@ _Not yet rendered. The project was born 2026-10-24 and has no steward; this zone
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="forge-2026-10-24-move-3-fix" -->
+### 2026-10-24 — Move three, corrected: the pad notes were upside down
+
+Loudon played the Spoiler Kit Set and found the closed hat on D5 while the clip sat in the C1 octave. A Drum Rack pad's `ReceivingNote` is stored as 128 minus the MIDI note (the factory kick stores 92 and sits on C1); the builder had written the MIDI note itself. He saved the Set back from Live 12, which gave the forge its first Live 12-written `DrumBranch` (the Live 11 shell differed by three housekeeping fields) and confirmed the stored numbers. The builder now inverts on write, `check` shows the MIDI note with the stored number beside it, and the rebuilt `.adg` and Set put the kick on C1 and the hats on F#1 and A#1. The format study carries the rule.
+
+**Heard:** Loudon on the rebuilt Spoiler Kit, 2026-10-24: "works well".
 <!-- scroll:entry id="forge-2026-10-24-move-3-drum-rack" -->
 ### 2026-10-24 — Move three: a Drum Rack from Splice one-shots
 

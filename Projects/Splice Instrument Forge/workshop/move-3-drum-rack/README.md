@@ -27,14 +27,16 @@ node forge-drum-rack.mjs check "Spoiler Kit.als"
 
 - **The rack and a pad preset**: Live 12's `Core Library/Defaults/Slicing/Default.adg`. The `.adg` is that file with its one `DrumBranchPreset` cloned per pad under `BranchPresets`, each given its `ZoneSettings` (receiving note, sending note 60, choke group) and a Simpler.
 - **A pad's instrument**: Live 12's default `Simpler.adv`, with one zone from the Session Writer's `sample-part.xml` across the whole key range at root 60, loops off, the sample by relative and absolute path. Simpler rather than Drum Sampler because every factory kit read uses it and Live 11's Sets hold it; Drum Sampler is a one-line swap once a Live 12 Set with one has been read.
-- **The in-Set rack**: the same `DrumGroupDevice` element from the `.adg` (its `Branches` is empty in a preset) filled with `DrumBranch` elements. **No Live 12 Set with a Drum Rack was on this Mac**, so the branch shell is from a Set Live 11.3.43 saved (GoButton's `860_JULY26.als`, kept at `../format-study/xml/Live11 DrumBranch shell.xml`), its Simpler removed and its mixer's stale preset reference blanked. A `DrumBranch` differs from a `DrumBranchPreset`: the name is a `Name` block (EffectiveName, UserName…), the device sits in `DeviceChain > MidiToAudioDeviceChain > Devices`, the mixer is a `MixerDevice` not a `MixerPreset`, and the pad notes are `BranchInfo`, not `ZoneSettings`.
+- **The in-Set rack**: the same `DrumGroupDevice` element from the `.adg` (its `Branches` is empty in a preset) filled with `DrumBranch` elements. The branch shell is from the first Spoiler Kit Set saved back by Live 12.4.6 (`Spoiler Kit V12 Project/`, kept at `../format-study/xml/Live12 DrumBranch shell.xml`), its Simpler removed and its mixer's preset reference blanked. The first build used a Live 11 shell; Live 12 loaded it and saved it back with three extra housekeeping fields, nothing more. A `DrumBranch` differs from a `DrumBranchPreset`: the name is a `Name` block (EffectiveName, UserName…), the device sits in `DeviceChain > MidiToAudioDeviceChain > Devices`, the mixer is a `MixerDevice` not a `MixerPreset`, and the pad notes are `BranchInfo`, not `ZoneSettings`.
 - **Set, track, clip, Limiter**: the Session Writer's templates, with its XML craft (nesting-aware `element`, `renumber` from `NextPointeeId`) copied in so this stays one file.
 
 ## What this move taught (for the format study)
 
+- **A pad's `ReceivingNote` is stored as 128 minus the MIDI note.** The first build wrote 36–46 and the pads came up around G#5–D5 while the clip sat in the C1 octave; Loudon heard it. The builder now inverts on write and `check` prints the MIDI note with the stored number beside it.
+
 - A preset's `BranchPresets/DrumBranchPreset` becomes `Branches/DrumBranch` in a Set, with the field renames above. Live does that conversion on load; the writer does it on write.
 - A cloned branch shell carries the saving user's `LastPresetRef` paths. Blank every `LastPresetRef` in anything cloned, device or mixer, or `check` will chase a stranger's desktop.
-- `OverwriteProtectionNumber` 2819 (Live 11) inside a 12.4.6 Set: whether Live 12 minds is what opening this Set proves.
+- `OverwriteProtectionNumber` 2819 (Live 11) inside a 12.4.6 Set: Live 12 did not mind; it loaded the Set and saved it back as its own.
 
 ## Known limits
 

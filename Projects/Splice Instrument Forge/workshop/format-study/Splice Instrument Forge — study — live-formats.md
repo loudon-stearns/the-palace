@@ -94,11 +94,11 @@ GroupDevicePreset
   ReturnBranchPresets
 ```
 
-The 16-pad Akustichord kit's receiving notes run 77–92, one per pad, in the rack's own order; a kit for a pad grid wants 36–51 (C1 up), which is the writer's choice, not a format rule. `SendingNote` 60 means every pad plays its Simpler at C3, so the sample sounds at its root. `ChokeGroup` is an integer; equal non-zero values choke each other.
+**`ReceivingNote` is stored inverted: stored value = 128 − MIDI note.** The Akustichord kit's kick stores 92 and sits on C1 (36); its closed hat stores 86, which is F#1 (42), the GM hat. The first Spoiler Kit wrote 42 and Loudon found the hat on D5 (86) on 2026-10-24, which is how the rule was caught; Live 12 saved that Set back with the same stored numbers, so the file is the truth and the display is 128 minus it. `SendingNote` is **not** inverted: every pad read stores 60 and plays its sample at root (C3). `ChokeGroup` is an integer; equal non-zero values choke each other. A kit for a pad grid wants MIDI 36–51 (C1 up), stored as 92 down to 77.
 
 **To build a rack:** clone `Slicing/Default.adg`'s `GroupDevicePreset`, keep its `Device`, and write one `DrumBranchPreset` per pad into `BranchPresets`, each cloned from the one branch the Default carries, with `Id` running 0…n−1, `ReceivingNote` set, `ChokeGroup` set, `Name` set, and the pad's `OriginalSimpler` given one `MultiSamplePart`. The `MacroControls` and `MacroDisplayNames` on the device can stay as the shell has them.
 
-**Inside a Set** (read from a Set Live 11.3.43 saved, GoButton's `860_JULY26.als`; no Live 12 Set with a rack was on this Mac), the rack is `DeviceChain > Devices > DrumGroupDevice`, and its pads are under the device's own `Branches` as `DrumBranch` elements, which differ from a `DrumBranchPreset`: the name is a `Name` block (`EffectiveName`, `UserName`, `Annotation`, `MemorizedFirstClipName`); the instrument sits in `DeviceChain > MidiToAudioDeviceChain > Devices`; the mixer is a `MixerDevice` (Speaker, Volume, Panorama, SendInfos, RoutingHelper) in place of `MixerPreset`; and the pad notes are `BranchInfo` (ReceivingNote, SendingNote, ChokeGroup) in place of `ZoneSettings`. Live does that conversion when it loads a `.adg`; a writer does it on write. Move three wrote a Set that way (Live 12 device shell, Live 11 branch shell, Live 12 Simpler pads) and Live 12.4.6 loaded it without a warning on 2026-10-24. The shell is kept at `xml/Live11 DrumBranch shell.xml`; a Live 12-saved one should replace it when a Set with a rack is saved from Live 12.
+**Inside a Set** (read first from a Set Live 11.3.43 saved, GoButton's `860_JULY26.als`, then from the Spoiler Kit Set saved back by Live 12.4.6 on 2026-10-24, `move-3-drum-rack/Spoiler Kit V12 Project/`), the rack is `DeviceChain > Devices > DrumGroupDevice`, and its pads are under the device's own `Branches` as `DrumBranch` elements, which differ from a `DrumBranchPreset`: the name is a `Name` block (`EffectiveName`, `UserName`, `Annotation`, `MemorizedFirstClipName`); the instrument sits in `DeviceChain > MidiToAudioDeviceChain > Devices`; the mixer is a `MixerDevice` (Speaker, Volume, Panorama, SendInfos, RoutingHelper) in place of `MixerPreset`; and the pad notes are `BranchInfo` (ReceivingNote, SendingNote, ChokeGroup) in place of `ZoneSettings`. Live does that conversion when it loads a `.adg`; a writer does it on write. Live 12's `DrumBranch` is the Live 11 one plus three housekeeping fields on its mixer (`BreakoutIsExpanded`, `MpePitchBendUsesTuning`, `ViewData`); the pad notes stay in `BranchInfo` in a Set and `ZoneSettings` in a preset, both inverted as above. The Live 12 shell is `xml/Live12 DrumBranch shell.xml` and the whole in-Set device `xml/Live12 DrumGroupDevice in a Set.xml`; the Live 11 shell stays beside them for the record.
 
 ## The sample reference, as a factory pad carries it
 
@@ -133,10 +133,9 @@ For a Splice download: `RelativePathType` 1, `RelativePath` from the Set's folde
 | Sampler (`MultiSampler`) | a `MultiSamplePart` under `Player/MultiSampleMap/SampleParts` | key/vel ranges, `RootKey`, `SampleEnd`, loops |
 | Simpler (`OriginalSimpler`) | same part, one of them, full key range | `Globals/PlaybackMode` once the enum is confirmed |
 | Drum Sampler (`DrumCell`) | a `SampleRef Id="0"` inside `UserSample/Value` | `Voice_PlaybackStart/Length`, `Volume` if wanted |
-| Drum Rack (`.adg`) | one `DrumBranchPreset` per pad under `GroupDevicePreset/BranchPresets`, its Simpler as above | `ZoneSettings/ReceivingNote`, `ChokeGroup`, `Name`, branch `Id` |
+| Drum Rack (`.adg`) | one `DrumBranchPreset` per pad under `GroupDevicePreset/BranchPresets`, its Simpler as above | `ZoneSettings/ReceivingNote` = 128 − MIDI note, `ChokeGroup`, `Name`, branch `Id` |
 
 ## Open
 
 1. Confirm Simpler's `PlaybackMode` enum by saving one preset per mode.
-2. Replace the Live 11 `DrumBranch` shell with one from a Live 12-saved Set (save the Spoiler Kit Set from Live 12 and lift it).
-3. Prove a `DrumCell` pad in a Set.
+2. Prove a `DrumCell` pad in a Set.
