@@ -45,6 +45,9 @@ links:
   - target: "[[FOUR PILLARS]]"
     type: enables
     label: pedagogical-scaffold
+  - target: "[[Splice Instrument Forge]]"
+    type: spawned
+    label: splice-arm
 forward_vector: "I will become a chat-driven generator of multisampled instruments — Claude conducts the interview, draws audio from any source (palace synthesis, the web, AI sub-agents), and renders a playable sample library in any open sampler format requested."
 ---
 
