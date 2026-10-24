@@ -1,0 +1,8 @@
+<control>
+default_path=samples/
+<global>
+ampeg_attack=0.001 ampeg_release=0.5 amp_veltrack=100
+
+<region> sample=SOULSURPLUS_astromode_one_shot_Synth_analog_single_note_C.wav lokey=0 hikey=37 pitch_keycenter=36 tune=4 // detected C1 65.26 Hz
+<region> sample=SOULSURPLUS_astromode_one_shot_Synth_analog_single_note_D.wav lokey=38 hikey=39 pitch_keycenter=38 tune=2 // detected D1 73.34 Hz
+<region> sample=SOULSURPLUS_astromode_one_shot_Synth_analog_single_note_E.wav lokey=40 hikey=127 pitch_keycenter=40 tune=-1 // detected E1 82.45 Hz
