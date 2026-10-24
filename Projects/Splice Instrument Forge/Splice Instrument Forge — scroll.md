@@ -42,6 +42,10 @@ _Not yet rendered. The project was born 2026-10-24 and has no steward; this zone
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="forge-2026-10-24-move-2-sampler" -->
+### 2026-10-24 — Move two: a Sampler from Splice one-shots
+
+**Astromode Analog**: three Soul Surplus analog-synth single notes (C, D, E) found and fetched through the Splice connector (three credits), roots detected by autocorrelation as C1, D1, E1 within 4 cents of the filenames' claims, laid across the whole keyboard with the ranges split between roots, and written as a Set through the [[Ableton Session Writer]]'s `library` job with no change to the writer. `check`: 357 pointees, all unique, 3 samples on disk, nothing to look at. Opened in a second Live 12.4.6 at 19:07:38 (Live's log: "Loaded document was created by Ableton Live 12.4.6 … Loading command-line document: done", no warning); that Live is left open for Loudon's ear. The Sampler alone was lifted into `Astromode Analog.adv` with every pointee id zeroed as the format study found Live writes presets; loading that preset directly is unproven. Files, scripts and the recipe: `workshop/move-2-sampler/`.
 <!-- scroll:entry id="forge-2026-10-24-format-study" -->
 ### 2026-10-24 — Move one: the format study
 
