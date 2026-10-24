@@ -1,0 +1,327 @@
+Ableton
+  MultiSampler
+    LomId =0
+    LomIdView =0
+    IsExpanded =true
+    BreakoutIsExpanded =false
+    On
+      LomId =0
+      Manual =true
+      AutomationTarget Id
+        LockEnvelope =0
+      MidiCCOnOffThresholds
+        Min =64
+        Max =127
+    ModulationSourceCount =0
+    ParametersListWrapper
+    Pointee Id
+    LastSelectedTimeableIndex =0
+    LastSelectedClipEnvelopeIndex =0
+    LastPresetRef
+      Value
+        FilePresetRef Id
+    LockedScripts
+    IsFolded =false
+    ShouldShowPresetName =true
+    UserName =
+    Annotation =
+    SourceContext
+      Value
+    MpePitchBendUsesTuning =true
+    ViewData ={}
+    OverwriteProtectionNumber =3077
+    Player
+      MultiSampleMap
+        SampleParts
+        LoadInRam =false
+        LayerCrossfade =0
+        SourceContext
+        RoundRobin =false
+        RoundRobinMode =0
+        RoundRobinResetPeriod =0
+        RoundRobinRandomSeed =884578476
+      LoopModulators
+        IsModulated =false
+        SampleStart
+        SampleLength
+        LoopOn
+        LoopLength
+        LoopFade
+      Reverse
+        LomId =0
+        Manual =false
+        AutomationTarget Id
+        MidiCCOnOffThresholds
+      Snap
+        LomId =0
+        Manual =false
+        AutomationTarget Id
+        MidiCCOnOffThresholds
+      SampleSelector
+        LomId =0
+        Manual =0
+        MidiControllerRange
+        AutomationTarget Id
+        ModulationTarget Id
+      SubOsc
+        IsOn
+        Slot
+      InterpolationMode =3
+      UseConstPowCrossfade =true
+    Pitch
+      TransposeKey
+        LomId =0
+        Manual =0
+        MidiControllerRange
+        AutomationTarget Id
+        ModulationTarget Id
+      TransposeFine
+        LomId =0
+        Manual =0
+        MidiControllerRange
+        AutomationTarget Id
+        ModulationTarget Id
+      PitchLfoAmount
+        LomId =0
+        Manual =0
+        MidiControllerRange
+        AutomationTarget Id
+        ModulationTarget Id
+      Envelope
+        IsOn
+        Slot
+      ScrollPosition =-1073741824
+    Filter
+      IsOn
+        LomId =0
+        Manual =true
+        AutomationTarget Id
+        MidiCCOnOffThresholds
+      Slot
+        Value
+    Shaper
+      IsOn
+        LomId =0
+        Manual =false
+        AutomationTarget Id
+        MidiCCOnOffThresholds
+      Slot
+        Value
+    VolumeAndPan
+      Volume
+        LomId =0
+        Manual =-12
+        MidiControllerRange
+        AutomationTarget Id
+        ModulationTarget Id
+      VolumeVelScale
+        LomId =0
+        Manual =0
+        MidiControllerRange
+        AutomationTarget Id
+        ModulationTarget Id
+      VolumeKeyScale
+        LomId =0
+        Manual =0
+        MidiControllerRange
+        AutomationTarget Id
+        ModulationTarget Id
+      VolumeLfoAmount
+        LomId =0
+        Manual =0
+        MidiControllerRange
+        AutomationTarget Id
+        ModulationTarget Id
+      Panorama
+        LomId =0
+        Manual =0
+        MidiControllerRange
+        AutomationTarget Id
+        ModulationTarget Id
+      PanoramaKeyScale
+        LomId =0
+        Manual =0
+        MidiControllerRange
+        AutomationTarget Id
+        ModulationTarget Id
+      PanoramaRnd
+        LomId =0
+        Manual =0
+        MidiControllerRange
+        AutomationTarget Id
+        ModulationTarget Id
+      PanoramaLfoAmount
+        LomId =0
+        Manual =0
+        MidiControllerRange
+        AutomationTarget Id
+        ModulationTarget Id
+      Envelope
+        AttackTime
+        AttackLevel
+        AttackSlope
+        DecayTime
+        DecayLevel
+        DecaySlope
+        SustainLevel
+        ReleaseTime
+        ReleaseLevel
+        ReleaseSlope
+        LoopMode
+        LoopTime
+        RepeatTime
+        TimeVelScale
+        CurrentOverlay =0
+      OneShotEnvelope
+        FadeInTime
+        SustainMode
+        FadeOutTime
+    AuxEnv
+      IsOn
+        LomId =0
+        Manual =false
+        AutomationTarget Id
+        MidiCCOnOffThresholds
+      Slot
+        Value
+    Lfo
+      IsOn
+        LomId =0
+        Manual =false
+        AutomationTarget Id
+        MidiCCOnOffThresholds
+      Slot
+        Value
+    AuxLfos.0
+      IsOn
+        LomId =0
+        Manual =false
+        AutomationTarget Id
+        MidiCCOnOffThresholds
+      Slot
+        Value
+    AuxLfos.1
+      IsOn
+        LomId =0
+        Manual =false
+        AutomationTarget Id
+        MidiCCOnOffThresholds
+      Slot
+        Value
+    KeyDst
+      ModConnections.0
+        Amount =0
+        Connection =0
+      ModConnections.1
+        Amount =0
+        Connection =0
+    VelDst
+      ModConnections.0
+        Amount =0
+        Connection =0
+      ModConnections.1
+        Amount =0
+        Connection =0
+    RelVelDst
+      ModConnections.0
+        Amount =0
+        Connection =0
+      ModConnections.1
+        Amount =0
+        Connection =0
+    MidiCtrl.0
+      ModConnections.0
+        Amount =0
+        Connection =0
+      ModConnections.1
+        Amount =0
+        Connection =0
+      Feedback =0
+    MidiCtrl.1
+      ModConnections.0
+        Amount =0
+        Connection =0
+      ModConnections.1
+        Amount =0
+        Connection =0
+      Feedback =0
+    MidiCtrl.2
+      ModConnections.0
+        Amount =0
+        Connection =0
+      ModConnections.1
+        Amount =0
+        Connection =0
+      Feedback =0
+    MidiCtrl.3
+      ModConnections.0
+        Amount =0
+        Connection =0
+      ModConnections.1
+        Amount =0
+        Connection =0
+      Feedback =0
+    MidiCtrl.4
+      ModConnections.0
+        Amount =0
+        Connection =0
+      ModConnections.1
+        Amount =0
+        Connection =0
+      Feedback =0
+    MidiCtrl.5
+      ModConnections.0
+        Amount =0
+        Connection =0
+      ModConnections.1
+        Amount =0
+        Connection =0
+      Feedback =0
+    Globals
+      NumVoices =5
+      NumVoicesEnvTimeControl =false
+      RetriggerMode =true
+      ModulationResolution =2
+      SpreadAmount
+        LomId =0
+        Manual =0
+        MidiControllerRange
+        AutomationTarget Id
+        ModulationTarget Id
+      KeyZoneShift
+        LomId =0
+        Manual =0
+        MidiControllerRange
+        AutomationTarget Id
+        ModulationTarget Id
+      PortamentoMode
+        LomId =0
+        Manual =0
+        AutomationTarget Id
+        MidiControllerRange
+      PortamentoTime
+        LomId =0
+        Manual =50
+        MidiControllerRange
+        AutomationTarget Id
+        ModulationTarget Id
+      PitchBendRange =5
+      MpePitchBendRange =48
+      ScrollPosition =0
+      EnvScale
+        EnvTime
+        EnvTimeKeyScale
+        EnvTimeIncludeAttack
+      IsSimpler =false
+      PlaybackMode =0
+      LegacyMode =false
+    ViewSettings
+      SelectedPage =0
+      ZoneEditorVisible =false
+      Seconds =false
+      SelectedSampleChannel =0
+      VerticalSampleZoom =1
+      IsAutoSelectEnabled =false
+      SimplerBreakoutVisible =false
+    SimplerSlicing
+      PlaybackMode =0

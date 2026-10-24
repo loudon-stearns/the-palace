@@ -1,0 +1,433 @@
+Ableton
+  GroupDevicePreset
+    OverwriteProtectionNumber =3077
+    Device
+      DrumGroupDevice Id
+        LomId =0
+        LomIdView =0
+        IsExpanded =true
+        BreakoutIsExpanded =false
+        On
+          LomId =0
+          Manual =true
+          AutomationTarget Id
+            LockEnvelope =0
+          MidiCCOnOffThresholds
+            Min =64
+            Max =127
+        ModulationSourceCount =0
+        ParametersListWrapper
+        Pointee Id
+        LastSelectedTimeableIndex =0
+        LastSelectedClipEnvelopeIndex =0
+        LastPresetRef
+          Value
+            FilePresetRef Id
+              FileRef
+        LockedScripts
+        IsFolded =false
+        ShouldShowPresetName =true
+        UserName =Built-In
+        Annotation =Created by: Jonas Palzer & Philipp Matal
+        SourceContext
+          Value
+        MpePitchBendUsesTuning =true
+        ViewData ={}
+        OverwriteProtectionNumber =3077
+        Branches
+        IsBranchesListVisible =false
+        IsReturnBranchesListVisible =false
+        IsRangesEditorVisible =false
+        AreDevicesVisible =true
+        NumVisibleMacroControls =8
+        MacroControls.0
+          LomId =0
+          Manual =0
+          MidiControllerRange
+            Min =0
+            Max =127
+          AutomationTarget Id
+            LockEnvelope =0
+          ModulationTarget Id
+            LockEnvelope =0
+        MacroControls.1
+          LomId =0
+          Manual =127
+          MidiControllerRange
+            Min =0
+            Max =127
+          AutomationTarget Id
+            LockEnvelope =0
+          ModulationTarget Id
+            LockEnvelope =0
+        MacroControls.2
+          LomId =0
+          Manual =0
+          MidiControllerRange
+            Min =0
+            Max =127
+          AutomationTarget Id
+            LockEnvelope =0
+          ModulationTarget Id
+            LockEnvelope =0
+        MacroControls.3
+          LomId =0
+          Manual =63.5
+          MidiControllerRange
+            Min =0
+            Max =127
+          AutomationTarget Id
+            LockEnvelope =0
+          ModulationTarget Id
+            LockEnvelope =0
+        MacroControls.4
+          LomId =0
+          Manual =3.61770058
+          MidiControllerRange
+            Min =0
+            Max =127
+          AutomationTarget Id
+            LockEnvelope =0
+          ModulationTarget Id
+            LockEnvelope =0
+        MacroControls.5
+          LomId =0
+          Manual =127
+          MidiControllerRange
+            Min =0
+            Max =127
+          AutomationTarget Id
+            LockEnvelope =0
+          ModulationTarget Id
+            LockEnvelope =0
+        MacroControls.6
+          LomId =0
+          Manual =45.1574631
+          MidiControllerRange
+            Min =0
+            Max =127
+          AutomationTarget Id
+            LockEnvelope =0
+          ModulationTarget Id
+            LockEnvelope =0
+        MacroControls.7
+          LomId =0
+          Manual =0
+          MidiControllerRange
+            Min =0
+            Max =127
+          AutomationTarget Id
+            LockEnvelope =0
+          ModulationTarget Id
+            LockEnvelope =0
+        MacroControls.8
+          LomId =0
+          Manual =0
+          MidiControllerRange
+            Min =0
+            Max =127
+          AutomationTarget Id
+            LockEnvelope =0
+          ModulationTarget Id
+            LockEnvelope =0
+        MacroControls.9
+          LomId =0
+          Manual =0
+          MidiControllerRange
+            Min =0
+            Max =127
+          AutomationTarget Id
+            LockEnvelope =0
+          ModulationTarget Id
+            LockEnvelope =0
+        MacroControls.10
+          LomId =0
+          Manual =0
+          MidiControllerRange
+            Min =0
+            Max =127
+          AutomationTarget Id
+            LockEnvelope =0
+          ModulationTarget Id
+            LockEnvelope =0
+        MacroControls.11
+          LomId =0
+          Manual =0
+          MidiControllerRange
+            Min =0
+            Max =127
+          AutomationTarget Id
+            LockEnvelope =0
+          ModulationTarget Id
+            LockEnvelope =0
+        MacroControls.12
+          LomId =0
+          Manual =0
+          MidiControllerRange
+            Min =0
+            Max =127
+          AutomationTarget Id
+            LockEnvelope =0
+          ModulationTarget Id
+            LockEnvelope =0
+        MacroControls.13
+          LomId =0
+          Manual =0
+          MidiControllerRange
+            Min =0
+            Max =127
+          AutomationTarget Id
+            LockEnvelope =0
+          ModulationTarget Id
+            LockEnvelope =0
+        MacroControls.14
+          LomId =0
+          Manual =0
+          MidiControllerRange
+            Min =0
+            Max =127
+          AutomationTarget Id
+            LockEnvelope =0
+          ModulationTarget Id
+            LockEnvelope =0
+        MacroControls.15
+          LomId =0
+          Manual =0
+          MidiControllerRange
+            Min =0
+            Max =127
+          AutomationTarget Id
+            LockEnvelope =0
+          ModulationTarget Id
+            LockEnvelope =0
+        MacroDisplayNames.0 =Sample Start
+        MacroDisplayNames.1 =Sample Length
+        MacroDisplayNames.2 =Loop Off-Full
+        MacroDisplayNames.3 =Pitch
+        MacroDisplayNames.4 =Attack
+        MacroDisplayNames.5 =Sustain
+        MacroDisplayNames.6 =Decay Release
+        MacroDisplayNames.7 =Velocity
+        MacroDisplayNames.8 =Macro 9
+        MacroDisplayNames.9 =Macro 10
+        MacroDisplayNames.10 =Macro 11
+        MacroDisplayNames.11 =Macro 12
+        MacroDisplayNames.12 =Macro 13
+        MacroDisplayNames.13 =Macro 14
+        MacroDisplayNames.14 =Macro 15
+        MacroDisplayNames.15 =Macro 16
+        MacroDefaults.0 =0
+        MacroDefaults.1 =127
+        MacroDefaults.2 =0
+        MacroDefaults.3 =63.5
+        MacroDefaults.4 =3.61770058
+        MacroDefaults.5 =127
+        MacroDefaults.6 =45.1574631
+        MacroDefaults.7 =0
+        MacroDefaults.8 =0
+        MacroDefaults.9 =0
+        MacroDefaults.10 =0
+        MacroDefaults.11 =0
+        MacroDefaults.12 =0
+        MacroDefaults.13 =0
+        MacroDefaults.14 =0
+        MacroDefaults.15 =0
+        MacroAnnotations.0 =The point where sample playback will beg
+        MacroAnnotations.1 =The length of the sample region which Si
+        MacroAnnotations.2 =Switch the playback loop on or off and a
+        MacroAnnotations.3 =Global transpose amount, displayed in se
+        MacroAnnotations.4 =The time needed to travel from the initi
+        MacroAnnotations.5 =This is the level reached at the end of 
+        MacroAnnotations.6 =Controls both the decay and release time
+        MacroAnnotations.7 =How much the volume of the sample is inf
+        MacroAnnotations.8 =
+        MacroAnnotations.9 =
+        MacroAnnotations.10 =
+        MacroAnnotations.11 =
+        MacroAnnotations.12 =
+        MacroAnnotations.13 =
+        MacroAnnotations.14 =
+        MacroAnnotations.15 =
+        ForceDisplayGenericValue.0 =false
+        ForceDisplayGenericValue.1 =false
+        ForceDisplayGenericValue.2 =true
+        ForceDisplayGenericValue.3 =false
+        ForceDisplayGenericValue.4 =false
+        ForceDisplayGenericValue.5 =false
+        ForceDisplayGenericValue.6 =false
+        ForceDisplayGenericValue.7 =false
+        ForceDisplayGenericValue.8 =false
+        ForceDisplayGenericValue.9 =false
+        ForceDisplayGenericValue.10 =false
+        ForceDisplayGenericValue.11 =false
+        ForceDisplayGenericValue.12 =false
+        ForceDisplayGenericValue.13 =false
+        ForceDisplayGenericValue.14 =false
+        ForceDisplayGenericValue.15 =false
+        AreMacroControlsVisible =true
+        IsAutoSelectEnabled =true
+        ChainSelector
+          LomId =0
+          Manual =0
+          MidiControllerRange
+            Min =0
+            Max =127
+          AutomationTarget Id
+            LockEnvelope =0
+          ModulationTarget Id
+            LockEnvelope =0
+        ChainSelectorRelativePosition =-1073741824
+        ViewsToRestoreWhenUnfolding =0
+        ReturnBranches
+        BranchesSplitterProportion =0.5
+        ShowBranchesInSessionMixer =false
+        MacroColor.0 =13
+        MacroColor.1 =13
+        MacroColor.2 =27
+        MacroColor.3 =41
+        MacroColor.4 =55
+        MacroColor.5 =55
+        MacroColor.6 =55
+        MacroColor.7 =69
+        MacroColor.8 =-1
+        MacroColor.9 =-1
+        MacroColor.10 =-1
+        MacroColor.11 =-1
+        MacroColor.12 =-1
+        MacroColor.13 =-1
+        MacroColor.14 =-1
+        MacroColor.15 =-1
+        LockId =1001
+        LockSeal =285088440
+        ChainsListWrapper
+        ReturnChainsListWrapper
+        MacroVariations
+          MacroSnapshots
+            MacroSnapshot Id x5
+              AutogeneratedNameIndex =0
+              SnapshotName =Hold
+              MacroValues.0 =0
+              MacroValues.1 =127
+              MacroValues.2 =0
+              MacroValues.3 =63.5
+              MacroValues.4 =3.61770058
+              MacroValues.5 =127
+              MacroValues.6 =45.1574631
+              MacroValues.7 =0
+              MacroValues.8 =-1
+              MacroValues.9 =-1
+              MacroValues.10 =-1
+              MacroValues.11 =-1
+              MacroValues.12 =-1
+              MacroValues.13 =-1
+              MacroValues.14 =-1
+              MacroValues.15 =-1
+              MacroHasValue.0 =true
+              MacroHasValue.1 =true
+              MacroHasValue.2 =true
+              MacroHasValue.3 =true
+              MacroHasValue.4 =true
+              MacroHasValue.5 =true
+              MacroHasValue.6 =true
+              MacroHasValue.7 =true
+              MacroHasValue.8 =false
+              MacroHasValue.9 =false
+              MacroHasValue.10 =false
+              MacroHasValue.11 =false
+              MacroHasValue.12 =false
+              MacroHasValue.13 =false
+              MacroHasValue.14 =false
+              MacroHasValue.15 =false
+        ExcludeMacroFromRandomization.0 =false
+        ExcludeMacroFromRandomization.1 =false
+        ExcludeMacroFromRandomization.2 =false
+        ExcludeMacroFromRandomization.3 =false
+        ExcludeMacroFromRandomization.4 =false
+        ExcludeMacroFromRandomization.5 =false
+        ExcludeMacroFromRandomization.6 =false
+        ExcludeMacroFromRandomization.7 =false
+        ExcludeMacroFromRandomization.8 =false
+        ExcludeMacroFromRandomization.9 =false
+        ExcludeMacroFromRandomization.10 =false
+        ExcludeMacroFromRandomization.11 =false
+        ExcludeMacroFromRandomization.12 =false
+        ExcludeMacroFromRandomization.13 =false
+        ExcludeMacroFromRandomization.14 =false
+        ExcludeMacroFromRandomization.15 =false
+        ExcludeMacroFromSnapshots.0 =false
+        ExcludeMacroFromSnapshots.1 =false
+        ExcludeMacroFromSnapshots.2 =false
+        ExcludeMacroFromSnapshots.3 =false
+        ExcludeMacroFromSnapshots.4 =false
+        ExcludeMacroFromSnapshots.5 =false
+        ExcludeMacroFromSnapshots.6 =false
+        ExcludeMacroFromSnapshots.7 =false
+        ExcludeMacroFromSnapshots.8 =false
+        ExcludeMacroFromSnapshots.9 =false
+        ExcludeMacroFromSnapshots.10 =false
+        ExcludeMacroFromSnapshots.11 =false
+        ExcludeMacroFromSnapshots.12 =false
+        ExcludeMacroFromSnapshots.13 =false
+        ExcludeMacroFromSnapshots.14 =false
+        ExcludeMacroFromSnapshots.15 =false
+        AreMacroVariationsControlsVisible =true
+        ChainSelectorFilterMidiCtrl =false
+        RangeTypeIndex =1
+        ShowsZonesInsteadOfNoteNames =true
+        IsMidiSectionVisible =false
+        AreSendsVisible =true
+        ArePadsVisible =true
+        PadScrollPosition =19
+        DrumPadsListWrapper
+        VisibleDrumPadsListWrapper
+    PresetRef
+      FilePresetRef Id
+        FileRef
+          RelativePathType =1
+          RelativePath =../../../../../../../../../../Users/jop/
+          Path =/../../../Users/jop/Ableton AG Dropbox/J
+          Type =2
+          LivePackName =
+          LivePackId =
+          OriginalFileSize =0
+          OriginalCrc =0
+          SourceHint =
+    BranchPresets
+      DrumBranchPreset Id
+        Name =
+        IsSoloed =false
+        DevicePresets
+          AbletonDevicePreset Id
+            OverwriteProtectionNumber =3077
+            Device
+              OriginalSimpler Id
+            PresetRef
+              AbletonDefaultPresetRef Id
+        MixerPreset
+          AbletonDevicePreset Id
+            OverwriteProtectionNumber =3077
+            Device
+              AudioBranchMixerDevice Id
+            PresetRef
+              AbletonDefaultPresetRef Id
+        BranchSelectorRange
+          Min =0
+          Max =0
+          CrossfadeMin =0
+          CrossfadeMax =0
+        SessionViewBranchWidth =55
+        DocumentColorIndex =6
+        AutoColored =true
+        AutoColorScheme =0
+        SourceContext
+          BranchSourceContext Id
+            OriginalFileRef
+            BrowserContentPath =query:Drums#Drum%20Hits:Kick
+            LocalFiltersJson =
+            PresetRef
+            BranchDeviceId =
+        ZoneSettings
+          ReceivingNote =92
+          SendingNote =60
+          ChokeGroup =1
+    ReturnBranchPresets

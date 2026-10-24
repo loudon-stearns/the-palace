@@ -1,0 +1,413 @@
+Ableton
+  DrumCell
+    LomId =0
+    LomIdView =0
+    IsExpanded =true
+    BreakoutIsExpanded =false
+    On
+      LomId =0
+      Manual =true
+      AutomationTarget Id
+        LockEnvelope =0
+      MidiCCOnOffThresholds
+        Min =64
+        Max =127
+    ModulationSourceCount =0
+    ParametersListWrapper
+    Pointee Id
+    LastSelectedTimeableIndex =0
+    LastSelectedClipEnvelopeIndex =0
+    LastPresetRef
+      Value
+        FilePresetRef Id
+    LockedScripts
+    IsFolded =false
+    ShouldShowPresetName =true
+    UserName =
+    Annotation =
+    SourceContext
+      Value
+    MpePitchBendUsesTuning =true
+    ViewData ={}
+    OverwriteProtectionNumber =3077
+    UserSample
+      Value
+    Voice_Gain =1
+    Voice_Transpose
+      LomId =0
+      Manual =0
+      MidiControllerRange
+        Min =-48
+        Max =48
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Voice_Detune
+      LomId =0
+      Manual =0
+      MidiControllerRange
+        Min =-0.5
+        Max =0.5
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Voice_VelocityToVolume
+      LomId =0
+      Manual =0.349999994
+      MidiControllerRange
+        Min =0
+        Max =1
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Voice_ModulationSource
+      LomId =0
+      Manual =0
+      AutomationTarget Id
+        LockEnvelope =0
+      MidiControllerRange
+        Min =0
+        Max =1
+    Voice_ModulationTarget
+      LomId =0
+      Manual =0
+      AutomationTarget Id
+        LockEnvelope =0
+      MidiControllerRange
+        Min =0
+        Max =5
+    Voice_ModulationAmount
+      LomId =0
+      Manual =0
+      MidiControllerRange
+        Min =-1
+        Max =1
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Voice_Filter_On
+      LomId =0
+      Manual =true
+      AutomationTarget Id
+        LockEnvelope =0
+      MidiCCOnOffThresholds
+        Min =64
+        Max =127
+    Voice_Filter_Frequency
+      LomId =0
+      Manual =21999.9902
+      MidiControllerRange
+        Min =29.9999981
+        Max =21999.9902
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Voice_Filter_Resonance
+      LomId =0
+      Manual =0
+      MidiControllerRange
+        Min =0
+        Max =0.8999999762
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Voice_Filter_Type
+      LomId =0
+      Manual =1
+      AutomationTarget Id
+        LockEnvelope =0
+      MidiControllerRange
+        Min =0
+        Max =3
+    Voice_Filter_PeakGain
+      LomId =0
+      Manual =1
+      MidiControllerRange
+        Min =0.2511886358
+        Max =3.98107195
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Voice_Envelope_Attack
+      LomId =0
+      Manual =0.00009999999747
+      MidiControllerRange
+        Min =0.00009999999747
+        Max =20.0000076
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Voice_Envelope_Hold
+      LomId =0
+      Manual =0.3000001013
+      MidiControllerRange
+        Min =0.001000000047
+        Max =60.0000343
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Voice_Envelope_Decay
+      LomId =0
+      Manual =1
+      MidiControllerRange
+        Min =0.001000000047
+        Max =60.0000343
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Voice_Envelope_Mode
+      LomId =0
+      Manual =0
+      AutomationTarget Id
+        LockEnvelope =0
+      MidiControllerRange
+        Min =0
+        Max =1
+    Voice_PlaybackStart
+      LomId =0
+      Manual =0
+      MidiControllerRange
+        Min =0
+        Max =1
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Voice_PlaybackLength
+      LomId =0
+      Manual =1
+      MidiControllerRange
+        Min =0
+        Max =1
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Voice_PitchToEnvelopeModulation =true
+    Volume
+      LomId =0
+      Manual =-11.999999
+      MidiControllerRange
+        Min =-36
+        Max =36
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Pan
+      LomId =0
+      Manual =0
+      MidiControllerRange
+        Min =-1
+        Max =1
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Effect_On
+      LomId =0
+      Manual =true
+      AutomationTarget Id
+        LockEnvelope =0
+      MidiCCOnOffThresholds
+        Min =64
+        Max =127
+    Effect_Type
+      LomId =0
+      Manual =0
+      AutomationTarget Id
+        LockEnvelope =0
+      MidiControllerRange
+        Min =0
+        Max =8
+    Effect_PitchEnvelopeAmount
+      LomId =0
+      Manual =0
+      MidiControllerRange
+        Min =-1
+        Max =1
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Effect_PitchEnvelopeDecay
+      LomId =0
+      Manual =0.2999999821
+      MidiControllerRange
+        Min =0.004999999888
+        Max =2
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Effect_SubOscAmount
+      LomId =0
+      Manual =0
+      MidiControllerRange
+        Min =0
+        Max =1
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Effect_SubOscFrequency
+      LomId =0
+      Manual =65.4000015
+      MidiControllerRange
+        Min =29.9999962
+        Max =119.999985
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Effect_NoiseAmount
+      LomId =0
+      Manual =0
+      MidiControllerRange
+        Min =0
+        Max =1
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Effect_NoiseFrequency
+      LomId =0
+      Manual =10000.001
+      MidiControllerRange
+        Min =180
+        Max =15000
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Effect_LoopOffset
+      LomId =0
+      Manual =0.01999999769
+      MidiControllerRange
+        Min =0
+        Max =1
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Effect_LoopLength
+      LomId =0
+      Manual =0.3000000119
+      MidiControllerRange
+        Min =0.009999999776
+        Max =0.5
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Effect_StretchFactor
+      LomId =0
+      Manual =1
+      MidiControllerRange
+        Min =1
+        Max =20
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Effect_StretchGrainSize
+      LomId =0
+      Manual =0.09999999404
+      MidiControllerRange
+        Min =0.004999999888
+        Max =0.3000000119
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Effect_PunchAmount
+      LomId =0
+      Manual =0
+      MidiControllerRange
+        Min =0
+        Max =1
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Effect_PunchTime
+      LomId =0
+      Manual =0.1201599985
+      MidiControllerRange
+        Min =0.05999999866
+        Max =1
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Effect_EightBitResamplingRate
+      LomId =0
+      Manual =14080
+      MidiControllerRange
+        Min =999.999878
+        Max =30000.002
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Effect_EightBitFilterDecay
+      LomId =0
+      Manual =5.00000095
+      MidiControllerRange
+        Min =0.009999999776
+        Max =5.00000095
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Effect_FmAmount
+      LomId =0
+      Manual =0
+      MidiControllerRange
+        Min =0
+        Max =1
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Effect_FmFrequency
+      LomId =0
+      Manual =999.999878
+      MidiControllerRange
+        Min =9.99999905
+        Max =4500.00146
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Effect_RingModAmount
+      LomId =0
+      Manual =0
+      MidiControllerRange
+        Min =0
+        Max =1
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    Effect_RingModFrequency
+      LomId =0
+      Manual =999.999817
+      MidiControllerRange
+        Min =1
+        Max =5000
+      AutomationTarget Id
+        LockEnvelope =0
+      ModulationTarget Id
+        LockEnvelope =0
+    NotePitchBend =true

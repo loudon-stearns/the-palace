@@ -42,6 +42,10 @@ _Not yet rendered. The project was born 2026-10-24 and has no steward; this zone
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="forge-2026-10-24-format-study" -->
+### 2026-10-24 — Move one: the format study
+
+Live 12's Sampler, Simpler, Drum Sampler and Drum Rack shells decompressed and mapped in `workshop/format-study/` (the study is `Splice Instrument Forge — study — live-formats.md`; outlines and XML beside it). What it settled: a preset file carries every pointee id as 0 and no `NextPointeeId`, so renumbering begins only when a device enters a Set; a rack's pads live under `GroupDevicePreset/BranchPresets`, not under the device's empty `Branches`; a pad is `ZoneSettings` (ReceivingNote, SendingNote 60, ChokeGroup) around a Simpler or a Drum Sampler; Drum Sampler holds its one sample as a `SampleRef` in `UserSample/Value`. Two things stay open: Simpler's `PlaybackMode` enum, and how a rack sits inside a Set. Move two needs nothing the writer doesn't already have.
 <!-- scroll:entry id="forge-2026-10-24-born" -->
 ### 2026-10-24 — Born
 
