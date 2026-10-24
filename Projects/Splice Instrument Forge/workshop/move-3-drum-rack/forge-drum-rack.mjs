@@ -8,8 +8,7 @@
 //   the rack and a pad preset from Live 12's Core Library/Defaults/Slicing/Default.adg,
 //   a pad's Simpler from Core Library/Defaults/Instruments/Simpler.adv,
 //   a zone from the Ableton Session Writer's sample-part.xml, the Set, track, clip and Limiter from its templates,
-//   and the in-Set branch shell from a Set Live 11.3.43 saved (GoButton's 860_JULY26.als) -- Live 12 has not been
-//   seen writing a DrumBranch yet, so that one shell is the risk this move takes.
+//   and the in-Set branch shell from a Set Live 12.4.6 saved on 2026-10-24 (the first Spoiler Kit Set, saved back from Live).
 // The XML craft (element, renumber, the pointee regex) is the Session Writer's, copied so this stays one file.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -23,6 +22,9 @@ const STUDY = path.join(HERE, '..', 'format-study', 'xml');
 const LIVE = '/Applications/Ableton Live 12 Suite.app/Contents/App-Resources/Core Library/Defaults';
 const HEADER = '<Ableton MajorVersion="5" MinorVersion="12.0_12402" SchemaChangeCount="5" Creator="Ableton Live 12.4.6" Revision="0de5c8fa9a692293676cb7700a15afb2046ee1f7">';
 const FIRST_TRACK_ID = 20;
+// Live stores a Drum Rack pad's ReceivingNote inverted: stored = 128 - MIDI note (a factory kit's kick, stored 92, sits on C1 = 36;
+// a pad written as 42 showed on D5 = 86, Loudon's ear 2026-10-24). SendingNote is not inverted: every pad read stores 60 and plays its sample at root.
+const recv = (note) => 128 - note;
 const POINTEES = /<(AutomationTarget|[A-Za-z]*ModulationTarget|Pointee|ControllerTargets\.\d+) Id="(\d+)"/g;
 
 // ---- XML craft (the Session Writer's) ----
@@ -86,7 +88,7 @@ function buildAdg(kit, pads, setDir) {
     let b = shell.replace(/^<DrumBranchPreset Id="\d+"/, '<DrumBranchPreset Id="' + i + '"');
     b = b.replace(/<Name Value="[^"]*" \/>/, '<Name Value="' + esc(pad.name) + '" />');
     const zs = element(b, 'ZoneSettings');
-    b = replaceEl(b, zs, '<ZoneSettings>\n<ReceivingNote Value="' + pad.note + '" />\n<SendingNote Value="60" />\n<ChokeGroup Value="' + (pad.choke || 0) + '" />\n</ZoneSettings>');
+    b = replaceEl(b, zs, '<ZoneSettings>\n<ReceivingNote Value="' + recv(pad.note) + '" />\n<SendingNote Value="60" />\n<ChokeGroup Value="' + (pad.choke || 0) + '" />\n</ZoneSettings>');
     const simp = element(b, 'OriginalSimpler');
     b = replaceEl(b, simp, withId(padSimpler(pad, setDir).xml, 0));
     b = b.replace(/<BrowserContentPath Value="[^"]*" \/>/, '<BrowserContentPath Value="" />');
@@ -116,14 +118,14 @@ function buildAls(kit, pads, setDir) {
   let rack = element(readGz(path.join(LIVE, 'Slicing/Default.adg')), 'DrumGroupDevice').text;
   rack = rack.replace(/<LastPresetRef>[\s\S]*?<\/LastPresetRef>/, '<LastPresetRef>\n<Value />\n</LastPresetRef>');
   rack = rack.replace(/<UserName Value="[^"]*" \/>/, '<UserName Value="' + esc(kit.name) + '" />').replace(/<Annotation Value="[^"]*" \/>/, '<Annotation Value="" />');
-  const branchShell = fs.readFileSync(path.join(STUDY, 'Live11 DrumBranch shell.xml'), 'utf8').trim();
+  const branchShell = fs.readFileSync(path.join(STUDY, 'Live12 DrumBranch shell.xml'), 'utf8').trim();
   const branches = pads.map((pad, i) => {
     let b = branchShell.replace(/^<DrumBranch Id="\d+"/, '<DrumBranch Id="' + i + '"');
     b = b.replace(/<EffectiveName Value="[^"]*" \/>/, '<EffectiveName Value="' + esc(pad.name) + '" />').replace(/<UserName Value="[^"]*" \/>/, '<UserName Value="' + esc(pad.name) + '" />');
     b = b.replace(/<IsSelected Value="true" \/>/, '<IsSelected Value="' + (i === 0 ? 'true' : 'false') + '" />');
     b = b.replace('<!--DEVICE-->', withId(padSimpler(pad, setDir).xml, 0));
     const bi = element(b, 'BranchInfo');
-    b = replaceEl(b, bi, '<BranchInfo>\n<ReceivingNote Value="' + pad.note + '" />\n<SendingNote Value="60" />\n<ChokeGroup Value="' + (pad.choke || 0) + '" />\n</BranchInfo>');
+    b = replaceEl(b, bi, '<BranchInfo>\n<ReceivingNote Value="' + recv(pad.note) + '" />\n<SendingNote Value="60" />\n<ChokeGroup Value="' + (pad.choke || 0) + '" />\n</BranchInfo>');
     return b;
   });
   rack = rack.replace(/<Branches \/>/, '<Branches>\n' + branches.join('\n') + '\n</Branches>');
@@ -194,7 +196,7 @@ function check(file) {
       const pname = br.match(/<EffectiveName Value="([^"]*)" \/>/)[1], note = br.match(/<ReceivingNote Value="(\d+)" \/>/)[1], choke = br.match(/<ChokeGroup Value="(\d+)" \/>/)[1];
       const paths = [...br.matchAll(/<Path Value="([^"]*)" \/>/g)].map((p) => p[1]).filter(Boolean);
       const missing = paths.filter((p) => !fs.existsSync(p)); for (const p of missing) problems.push(pname + ': sample missing ' + p);
-      pads.push(pname + '@' + note + (choke !== '0' ? ' choke' + choke : '') + (missing.length ? ' MISSING' : ''));
+      pads.push(pname + '@' + (128 - Number(note)) + ' (stored ' + note + ')' + (choke !== '0' ? ' choke' + choke : '') + (missing.length ? ' MISSING' : ''));
     }
     console.log('  Drum Rack "' + name + '": ' + pads.length + ' pads: ' + pads.join(', '));
   }
