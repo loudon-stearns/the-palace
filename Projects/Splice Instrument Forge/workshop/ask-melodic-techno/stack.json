@@ -2,111 +2,26 @@
   "kind": "stack",
   "name": "Loudon Melodic Techno",
   "tempo": 124,
+  "key": "A minor",
   "splice_stack": "14fde681-ea01-4466-8292-194e61821b7b",
   "ask": "I would like a melodic techno track with a female vocal and acid bass feature with a cinematic breakdown.",
+  "note": "v2, find before you bend: every layer but the vocal re-sourced at 124 in A (or its relative C major). The first version, five keys bent to A minor, is stack-v1-bent.json.",
   "layers": [
-    {
-      "role": "Drums",
-      "file": "samples/ZEN_FMT_120_drum_loop_groove_coral.wav",
-      "bpm": 120
-    },
-    {
-      "role": "Acid Bass",
-      "file": "samples/MARS_ACID_Bass_Loop_Italo_03_120_Cmin.wav",
-      "bpm": 120,
-      "key": "C minor"
-    },
-    {
-      "role": "Lead",
-      "file": "samples/ZEN_HMH_124_synth_loop_ash_G.wav",
-      "bpm": 124,
-      "key": "G"
-    },
-    {
-      "role": "Pad",
-      "file": "samples/T_MHT_122_pad_loop_pueblo_C#.wav",
-      "bpm": 122,
-      "key": "C#"
-    },
-    {
-      "role": "Vocal",
-      "file": "samples/DS_SPACEM_123_vocal_hook_female_now_verse_stack_dry_Amin.wav",
-      "bpm": 123,
-      "key": "A minor"
-    },
-    {
-      "role": "Strings",
-      "file": "samples/VOX_TORI_LETZLER_90_strings_meadow_lullaby_Cmaj.wav",
-      "bpm": 90,
-      "key": "C major"
-    }
+    { "role": "Drums",     "file": "samples/ZEN_FMT_124_drum_loop_groove_chroma.wav",                      "bpm": 124 },
+    { "role": "Acid Bass", "file": "samples/014_d__Acid_Drive_A1_125bpm_-_OA_Zenhiser.wav",                "bpm": 125, "key": "A" },
+    { "role": "Lead",      "file": "samples/ZEN_MMT_124_lead_synth_loop_linux_A.wav",                       "bpm": 124, "key": "A" },
+    { "role": "Pad",       "file": "samples/ZEN_MMT_124_pad_synth_loop_linux_A.wav",                        "bpm": 124, "key": "A" },
+    { "role": "Vocal",     "file": "samples/DS_SPACEM_123_vocal_hook_female_now_verse_stack_dry_Amin.wav", "bpm": 123, "key": "A minor" },
+    { "role": "Strings",   "file": "samples/JAFUNK_124_string_lush_pads_Cmaj.wav",                          "bpm": 124, "key": "C major" }
   ],
   "scenes": [
-    {
-      "name": "Intro",
-      "play": [
-        "Drums",
-        "Pad"
-      ]
-    },
-    {
-      "name": "Acid in",
-      "play": [
-        "Drums",
-        "Acid Bass",
-        "Pad"
-      ]
-    },
-    {
-      "name": "Vocal",
-      "play": [
-        "Drums",
-        "Acid Bass",
-        "Pad",
-        "Vocal"
-      ]
-    },
-    {
-      "name": "Full",
-      "play": [
-        "Drums",
-        "Acid Bass",
-        "Lead",
-        "Pad",
-        "Vocal"
-      ]
-    },
-    {
-      "name": "Cinematic breakdown",
-      "play": [
-        "Strings",
-        "Pad",
-        "Vocal"
-      ]
-    },
-    {
-      "name": "Acid feature",
-      "play": [
-        "Drums",
-        "Acid Bass"
-      ]
-    },
-    {
-      "name": "Drop",
-      "play": [
-        "Drums",
-        "Acid Bass",
-        "Lead",
-        "Vocal"
-      ]
-    },
-    {
-      "name": "Outro",
-      "play": [
-        "Strings",
-        "Pad"
-      ]
-    }
-  ],
-  "key": "A minor"
+    { "name": "Intro",               "play": ["Drums", "Pad"] },
+    { "name": "Acid in",             "play": ["Drums", "Acid Bass", "Pad"] },
+    { "name": "Vocal",               "play": ["Drums", "Acid Bass", "Pad", "Vocal"] },
+    { "name": "Full",                "play": ["Drums", "Acid Bass", "Lead", "Pad", "Vocal"] },
+    { "name": "Cinematic breakdown", "play": ["Strings", "Pad", "Vocal"] },
+    { "name": "Acid feature",        "play": ["Drums", "Acid Bass"] },
+    { "name": "Drop",                "play": ["Drums", "Acid Bass", "Lead", "Vocal"] },
+    { "name": "Outro",               "play": ["Strings", "Pad"] }
+  ]
 }

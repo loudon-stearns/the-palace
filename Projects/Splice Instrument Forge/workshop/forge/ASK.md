@@ -27,6 +27,7 @@ Unsure? A kit. It is the most forgiving and the most asked for.
 - **kit**: one `describe_a_sound` per pad, `type: oneshot`, genre in the query ("lo-fi kick one shot dusty"). Eight pads is a kit: kick, snare, clap or rim, closed hat, open hat, perc, crash or ride, a sub or 808. Pick by tags and duration; the ear is Loudon's.
 - **instrument**: `describe_a_sound` for single notes of one family, `type: oneshot`, and favour results whose names end in a note (`_C.wav`, `_F#.wav`): one family, several pitches. Three notes make a thin instrument; search per note if the family is thin.
 - **stack**: `prompt_to_stack` with the sentence itself plus a BPM and `bpm_min`/`bpm_max` around it. It returns layers with roles, native BPM and keys. To build around a loop he picked, `create_stack` with its asset UUID instead.
+  **Then find before you bend** (standing order). Choose the Set's key: the vocal's if there is one, else the bass's. For every layer whose BPM or key differs, search for a replacement that already matches: `describe_a_sound` with the role, the key and "loop" in the query and `bpm_min`/`bpm_max` set to the Set's tempo exactly (a 1 bpm difference is fine). Take a match when one is there; keep the original only when three searches find nothing, and say so. Drums have no key; match their tempo. Never replace or move the vocal.
 
 Credits: spend freely; ask only before more than 200 at once (his standing order on the scroll).
 
@@ -48,7 +49,7 @@ A FAILED line means an expired URL: call `download_asset` again for that one (a 
 
 - **kit** — `kit.json` as `move-3-drum-rack/kit.json`: `kind: "kit"`, `name`, `tempo`, `pads` (`note`, `name`, `file`, `choke` for hats), `pattern` rows of sixteenths. Pads from 36 up (C1); hats share a choke group.
 - **instrument** — `recipe.json`: `{ "kind": "instrument", "name", "tempo", "release": 0.5, "samples": "samples" }`. Roots are detected; nothing else to say.
-- **stack** — `stack.json` as `move-4-session/stack.json`: `kind: "stack"`, `name`, `tempo`, `layers` (`role`, `file`, native `bpm` as Splice listed it), `scenes` (`name`, `play`). Eight scenes that add and remove layers read well: intro, build, drop, full, a breakdown, a second drop, outro.
+- **stack** — `stack.json` as `move-4-session/stack.json`: `kind: "stack"`, `name`, `tempo`, `layers` (`role`, `file`, native `bpm` as Splice listed it), `scenes` (`name`, `play`). Eight scenes that add and remove layers read well: intro, build, drop, full, a breakdown, a second drop, outro. Each scene is also a section of the Arrangement (8 bars unless the scene names `bars`) with a locator at its start, so the Set plays as a track from bar 1 as well as from the grid.
 
 ## 5. Make, check, open
 
@@ -58,7 +59,7 @@ node forge/forge.mjs check "<folder>/<Name>.als"
 node forge/forge.mjs open  "<folder>/<Name>.als"
 ```
 
-`check` must end "nothing to look at". `open` starts a second Live 12 so Loudon's own Live is never touched. Then read Live's log for "Loading command-line document: done" without a warning, and hand the Set to Loudon with the Set's name and where it is. The sound is his call; never say it sounds right.
+`check` must end "nothing to look at", and its last column says what had to bend: aim for every layer "native" and "in key"; each "stretched" or transposed layer is one the search should have replaced. `open` starts a second Live 12 so Loudon's own Live is never touched. Then read Live's log for "Loading command-line document: done" without a warning, and hand the Set to Loudon with the Set's name and where it is. The sound is his call; never say it sounds right.
 
 ## 6. Leave the trail
 

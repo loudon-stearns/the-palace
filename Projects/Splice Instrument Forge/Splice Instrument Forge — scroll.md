@@ -37,6 +37,8 @@ _Not yet rendered. The project was born 2026-10-24 and has no steward; this zone
 
 <!-- scroll:orders:start -->
 - **Splice credits are generous; be liberal.** They exist to stop gross abuse. Download what the work needs without asking. Ask only before spending more than 200 credits in one go. (Loudon, 2026-10-24.)
+- **Find before you bend.** The library is huge: the first move is to find layers that already share the Set's tempo and key, and only sparingly change either. When a change is unavoidable, drums stretch in Beats mode; anything else that is stretched or transposed goes in Complex mode. Never move a vocal. (Loudon, 2026-10-24.)
+- **Session and arrangement both.** A stack Set holds its scenes as Session slots and, the same clips laid along the Arrangement as sections, a locator naming each. (Loudon, 2026-10-24.)
 - **Level by grounds.** Splice sounds come in loud; start every Set from three grounds, 4 dB apart. Foreground −4 dB: drums and bass. Middleground −8 dB: vocals and leads. Background −12 dB: percussion, pads, strings. A rough starting point for a mix, not the mix. (Loudon, 2026-10-24.)
 - **Prove structure, hear sound.** A Set is done when it opens and `check` is clean. Whether it sounds right is Loudon's ear; never say a Set sounds right.
 <!-- scroll:orders:end -->
@@ -44,6 +46,10 @@ _Not yet rendered. The project was born 2026-10-24 and has no steward; this zone
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="forge-2026-10-24-find-before-bend" -->
+### 2026-10-24 — Find before you bend; the arrangement too
+
+Loudon heard the transposed Set and set the rule: with a library this size, find layers that already share the tempo and key and bend sparingly; drums that must stretch go in Beats mode, anything else bent goes in Complex; never move a vocal. The session builder now picks warp mode that way, counts bends of more than 1 bpm or any transposition, and says so; `ASK.md` tells a session to re-search every off-key or off-tempo layer with the key in the query and the tempo as the filter before building. The melodic techno Set was re-sourced that way: a 124 drum groove, a lead and a pad in A from one Zenhiser pack, a C major string pad at 124 (relative, no move), an acid line in A at 125 (one of ten in that key), the vocal kept. Nothing transposed; two 1 bpm warps. Six more credits. The first version stays as `stack-v1-bent.json`. Then, on his word mid-build, every stack Set also lays its scenes along the Arrangement as eight-bar sections (a scene may name its `bars`) with a locator at each; `check` lists the locators and counts slots against arranged clips.
 <!-- scroll:entry id="forge-2026-10-24-move-6-key-level" -->
 ### 2026-10-24 — Move six: key and level
 
