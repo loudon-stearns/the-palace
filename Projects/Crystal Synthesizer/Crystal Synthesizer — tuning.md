@@ -30,3 +30,8 @@ What Crystal Synthesizer's steward cycles taught the page, and the changes to th
    > - Play the crystal as a VST in Live: the ringing bank with birefringence on the Axis angle and dispersion on Fire, its unit cell in the CRT ([[VST Template]]; the folder is `plugin/`).
 
 - run · 2026-10-24 · cycle 13 · proposed item 1 for canon
+
+## From cycle 14 — 2026-10-24
+
+2. A plugin in a steward's bundle builds through VST Template's shared machinery when its CMakeLists.txt and plugin.sh also look for 'VST Template/machinery' beside each folder they climb past; nothing else has to change. *(offered by the steward, cycle 14)*
+- run · 2026-10-24 · cycle 14 · taught item 2

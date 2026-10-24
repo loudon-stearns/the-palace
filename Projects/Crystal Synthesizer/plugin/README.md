@@ -1,4 +1,4 @@
-# Crystal Synthesizer: the plugin folder, waiting for the template
+# Crystal Synthesizer: the plugin folder
 
 The ringing crystal in VST Template's shape, so it can become a VST3/AU the day the
 template can build a plugin whose folder lives in a steward's bundle. Built
@@ -8,6 +8,8 @@ Synthesizer/plugin/`) did it first.
 
 ```
 plugin/
+  CMakeLists.txt         finds VST Template's machinery/ beside this bundle
+  plugin.sh              build | verify | install | validate | hostcheck | all
   plugin.json            Crystal Synthesizer, code Crys, instrument, stereo, CRT on ("screen": true)
   reference/sketch.py    eight struck crystals, one sample at a time: render(v, sr, inputs, notes)
   reference/paths.py     five paths, each gated sample for sample, each exercising one term
@@ -63,9 +65,8 @@ helpers. On 2026-10-24 both engines matched the sketch to 3–6 × 10⁻⁸ of p
 C++ engine: ruby turning to its axis, diamond with fire, zircon's split widening,
 labradorite, an emerald chorus, six seconds each.
 
-Not covered: the template's plugin gate (smoothing, block-wise automation, MIDI
-through processBlock), pluginval, auval, the host check. Those need the template's
-build, which can't run from here yet.
+The template's own gates (the plugin through processBlock, pluginval, auval, the host
+check) run from `./plugin.sh`; see below.
 
 ## The CRT feed
 
@@ -95,13 +96,35 @@ On 2026-10-24 the twelve controls fit at 980×640, 1100×700 and 1800×1100.
 `--t SECONDS --out vst-face/face-NAME` photographs the demo at a moment. It carries
 Belief Cloud's patch for Drafting Table's knobs.
 
-## When the template is ready
+## Built, installed, gated (2026-10-24, steward cycle 14)
 
-1. Copy CMakeLists.txt and plugin.sh from VST Template/plugins (or let new-plugin.py
-   make them here), then `./plugin.sh all`.
-2. The exact gate should hold for `engine`. For `plugin` only Width and Level smooth,
-   so the exact gate may hold there too, except where a path's moves land mid-block.
-3. CPU: 8 voices × 18 resonators, coefficients recomputed only when a knob moves.
-   Untimed in a host.
-4. No Max work: the RNBO patches and Max for Live devices in `../crystal-rings/` and
+The plugin builds from this folder now. `CMakeLists.txt` and `plugin.sh` here are
+the template's three-line shims with one change: they look for `machinery/` above
+this folder *and* beside it in `Projects/VST Template/`, so the shared machinery
+builds a plugin that lives in a steward's bundle without a copy of anything.
+
+```
+./plugin.sh all        build, verify, install, validate, hostcheck
+```
+
+On 2026-10-24 every gate passed: the exact gate (engine = sketch to 4–6 × 10⁻⁸ of
+peak on all five paths), the plugin gate through the real processor (loudness within
+0.21 dB of the sketch at worst, labradorite's sweeps), strict `codesign` on both
+bundles, pluginval at strictness 5, `auval -v aumu Crys Loud`, and the host check
+(VST3 and AU load, every parameter moves the sound). Log: `out/validate.log`.
+Installed as `~/Library/Audio/Plug-Ins/VST3/Crystal Synthesizer.vst3` and
+`.../Components/Crystal Synthesizer.component`; in Live it is under Loudon Live.
+
+Still open:
+
+1. **The CRT is dark in the plugin.** `"screen": true` shows the bezel, but the
+   editor serves only `index.html` and relays no probes, so `ui/visualizer.js` can't
+   get in yet. That is VST Template's baton (the CRT's picture and the feed). Until
+   it lands the crystal in fog lives on the face page.
+2. **`./plugin.sh editor` took no picture** from a background run ("NO PICTURE");
+   probably no window server for a headless host. Unconfirmed.
+3. The code-uniqueness check in `new-plugin.py` doesn't see this folder; `Crys` was
+   checked by hand against every plugin.json in VST Template and Tract Mirror's `Trkm`.
+4. CPU in a host: untimed. 8 voices × 18 resonators.
+5. No Max work: the RNBO patches and Max for Live devices in `../crystal-rings/` and
    `../crystal-on-the-road/` wait as teaching tools (standing order of 2026-10-21).

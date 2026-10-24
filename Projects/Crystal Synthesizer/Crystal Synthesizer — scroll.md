@@ -15,32 +15,33 @@ forward_vector: "I am Crystal Synthesizer's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-24T15:26:53.462Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-24T15:39:52.722Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 13 · last ran 2026-10-24 (today)
-- **Plan:** agreed 2026-09-26 (28 days ago) · 6 made things since · **a proposed revision is waiting on you**
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 14 · last ran 2026-10-24 (today)
+- **Plan:** agreed 2026-09-26 (28 days ago) · 8 made things since · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-24 (today) — Rewrite my plan around the VST you asked for: ringing crystal plugin first, then real line widths, then the full prism? (`crystal-synth-steward-032`)
-- **Last commit touching this project:** 2026-10-21 `ca454ba2` — edit(nine steward scrolls): a standing order on Loudon's yes of 2026-10-21: make it a product, a VST prototype on the VST Template with a CRT visualizer drawn from the instrument's own metaphor; Max work stays set aside, perhaps later as teaching tools
+- **Last shipped:** 2026-10-24 (today) — — (`crystal-synth-steward-035`)
+- **Last commit touching this project:** 2026-10-24 `80281362` — steward(Crystal Synthesizer): cycle 13 — SPINNING UP. HOME: [Crystal Synthesizer](obsidian://open?vault=The%20Pa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-24 — cycle 13 · proposed item 1 for canon
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-24 — cycle 14 · taught item 2
 - **Owed in the ledger:** nothing
 - **Proposed for canon:** 1 — item 1; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 1, from cycle 13 — 2026-10-24 — [[Crystal Synthesizer — tuning]]
+- **Latest lesson:** item 2, from cycle 14 — 2026-10-24 — [[Crystal Synthesizer — tuning]]
 
 ### Where this stands
 
-Crystal Synthesizer gets its timbre from a crystal's physics rather than from taste: each mineral's phonon modes become the partials. Over the summer every mineral was rendered as a strike. On 2026-10-14 the crystal learned to ring: each mode became a resonator whose ring time comes from the mineral's Raman line width, and only diamond turned out to be a bell. On 2026-10-21 you said to make it a product, a VST to play in Live. This cycle I ported the ringing crystal into the VST Template's shape: a numpy sketch, the C++ Algorithm.h the template builds, and the face in the template's own editor. Two optical properties the summer proofs rendered as separate files are now knobs. Axis angle is…
+Crystal Synthesizer gets its sound from a crystal's physics, not from taste: each mineral's vibration modes become the partials, and each mode rings for as long as the real mineral's Raman line width says. On 2026-10-21 you asked for products, a VST to play in Live. Earlier today I moved the ringing crystal into the VST Template's shape, with axis angle and fire as knobs. This cycle I built it. A two-file shim lets the template's shared build tools build a plugin that lives in my own folder, and the result is installed as Crystal Synthesizer (VST3 and AU, maker Loudon Live). It passed every template check. What's missing is the centre screen: it waits on the template learning to show a plug…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 10:** Nobody has listened to the take or played the face yet. _(in 4 notes, the latest cycle 13)_
-- **rough since cycle 12:** Most line widths are still my estimates. _(in 2 notes, the latest cycle 13)_
+- **rough since cycle 10:** Nobody has listened to the take or played the face yet; _(in 5 notes, the latest cycle 14)_
+- **rough since cycle 12:** Most line widths are still my estimates. _(in 3 notes, the latest cycle 14)_
+- **rough since cycle 13:** The centre screen is dark in the plugin because the template can't load a plugin's own visualizer yet. _(in 2 notes, the latest cycle 14)_
 
 ### Open asks
 
@@ -58,6 +59,7 @@ _None._
 
 ### Runs
 
+- 2026-10-24 — cycle 14 · taught item 2
 - 2026-10-24 — cycle 13 · proposed item 1 for canon
 
 ### Owed
@@ -106,6 +108,60 @@ Decided with Loudon when the Loudon Live arc was designed (April 2026), and seed
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="crystal-synth-steward-035" -->
+### 2026-10-24 — cycle 14 — proof
+
+For the VST Template's open handoff, the part about plugins living in a steward's bundle: it works today with no change to machinery/. Crystal Synthesizer's plugin/CMakeLists.txt and plugin/plugin.sh are the template's shims, changed so they also look for 'VST Template/machinery' beside each folder they climb past. `./plugin.sh all` then built, verified, installed and validated it: strict codesign, pluginval at strictness 5, auval, and the host check all passed. Two gaps are left for the template. First, new-plugin.py's code-uniqueness check doesn't scan bundles: I checked 'Crys' by hand. Second, the CRT has no visualizer loader and no probe feed. The other eight waiting stewards can copy these two files. See [the plugin README](obsidian://open?vault=The%20Palace&file=Projects/Crystal%20Synthesizer/plugin/README.md).
+
+**Artifacts:**
+- [the shim that finds the shared machinery from a bundle](Projects/Crystal Synthesizer/plugin/CMakeLists.txt)
+- [the same search for plugin.sh](Projects/Crystal Synthesizer/plugin/plugin.sh)
+<sub>`crystal-synth-steward-035` · PROOF on WEAVE</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="crystal-synth-steward-034" -->
+### 2026-10-24 — cycle 14 — Crystal Synthesizer is a real VST3 and AU now, installed on this Mac and through every template check. Open it in Live under Loudon Live.
+> shipped · plugin installed, all checks passed · the screen in the middle is still dark · steward leans play it
+
+I wrote two small files, plugin/CMakeLists.txt and plugin/plugin.sh. They are the template's own shims with one change: they look for the shared machinery beside my bundle in Projects/VST Template as well as above it. Nothing was copied. After that, `./plugin.sh all` ran end to end. The exact check: the C++ engine matches the Python sketch to within 5 × 10⁻⁸ of peak on all five test paths. The plugin check, through the real JUCE processor with block-wise automation and MIDI: loudness stays within 0.21 dB of the sketch at worst (labradorite's sweeps) and within 10⁻⁶ dB for diamond. Strict code signing passed on both bundles, as did pluginval at strictness 5 and `auval -v aumu Crys Loud`. The host check loaded the VST3 and AU as a DAW does, and every parameter it moved changed the sound. Diamond against the default ruby differs by 1.1 of peak, and lifetime ×8 by 0.67. The full log is in [validate.log](obsidian://open?vault=The%20Palace&file=Projects/Crystal%20Synthesizer/plugin/out/validate.log). To play it: rescan in Live (Options → Plug-Ins), drop Crystal Synthesizer on a MIDI track, and try Diamond with Fire up, then Ruby with Axis angle swept from 0 to 90 to hear the two rays part and beat. This also covers one half of the VST Template's open handoff: a steward's bundle building through the shared machinery and passing its checks.
+
+**Artifacts:**
+- [the build shim: finds VST Template's machinery beside this bundle](Projects/Crystal Synthesizer/plugin/CMakeLists.txt)
+- [build \| verify \| install \| validate \| hostcheck \| all, run on the shared machinery](Projects/Crystal Synthesizer/plugin/plugin.sh)
+- [keeps the build folder and engine binaries out of git](Projects/Crystal Synthesizer/plugin/.gitignore)
+- [the plugin folder's map, now with the build record and what is still open](Projects/Crystal Synthesizer/plugin/README.md)
+- [the verify numbers: exact and plugin checks on five paths](Projects/Crystal Synthesizer/plugin/out/report.json)
+- [code signing, pluginval and auval, all passed](Projects/Crystal Synthesizer/plugin/out/validate.log)
+- [a ruby chord rendered by the real plugin processor, not the sketch](Projects/Crystal Synthesizer/plugin/out/ruby-chord-plugin.wav)
+- [diamond with fire, from the real plugin: the strike fans red-first](Projects/Crystal Synthesizer/plugin/out/diamond-fire-plugin.wav)
+- [the face as it will look once the screen is lit (web page, not the plugin)](Projects/Crystal Synthesizer/crystal-synthesizer-face.png)
+
+_The template's checks on Crystal Synthesizer, 2026-10-24_
+| check | result |
+| --- | --- |
+| exact: C++ engine vs sketch, 5 paths | PASS · ≤ 5.5e-08 of peak |
+| plugin: real processor vs sketch | PASS · ≤ 0.21 dB per quarter second |
+| strict codesign, VST3 + AU | PASS |
+| pluginval, strictness 5 | PASS |
+| auval aumu Crys Loud | PASS |
+| host check, VST3 + AU | PASS · every parameter moves the sound |
+| editor photo from a background run | no picture taken |
+
+_Changed in the workshop:_ README — the folder now builds; recorded the shim, the check results, and what's still open (dark screen, no editor photo, CPU untimed)
+
+_Left rough:_ Nobody has listened to the take or played the face yet; the plugin is installed and still unplayed. The centre screen is dark in the plugin because the template can't load a plugin's own visualizer yet. Most line widths are still my estimates.
+
+_Next moves named:_ Once the VST Template can load a plugin's visualizer and stream its probes, light the screen: ui/visualizer.js is ready, and its contract is frame(probes, params) · Replace the estimated line widths (ruby, emerald, topaz, labradorite) with measured ones, cited, then rebuild with ./plugin.sh all · Time CPU in Live with eight voices held
+<sub>`crystal-synth-steward-034` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-a5dfb03856" -->
+### 2026-10-24 — cycle 14
+
+taught item 2
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="crystal-synth-steward-032" -->
 ### 2026-10-24 — cycle 13 — Rewrite my plan around the VST you asked for: ringing crystal plugin first, then real line widths, then the full prism?
 > still working · plugin ported, waiting on the template · steward leans adopt

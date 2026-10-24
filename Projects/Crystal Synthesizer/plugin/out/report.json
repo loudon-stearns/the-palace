@@ -1,0 +1,208 @@
+{
+ "plugin": "Crystal Synthesizer",
+ "sr": 44100,
+ "quick": null,
+ "passed": true,
+ "paths": [
+  {
+   "name": "ruby-chord",
+   "secs": 2.5,
+   "gates": [
+    {
+     "gate": "exact",
+     "passed": true,
+     "text": "engine = sketch to 5.6e-08 of peak over 2.5 s (tol 1e-06)",
+     "max_err": 5.5557597956698595e-08,
+     "seconds": 2.5,
+     "tol": 1e-06
+    },
+    {
+     "gate": "plugin",
+     "passed": true,
+     "text": "loudness of each 0.25 s within 7.38e-07 dB of the sketch (tol 0.5)",
+     "max_db_diff": 7.378109927458354e-07,
+     "tol_db": 0.5
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "engine finite=True, peak -5.4 dBFS, rms -28.9 dBFS",
+     "source": "engine",
+     "peak": 0.535705029964447,
+     "rms": 0.03596894886814222,
+     "finite": true
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "plugin finite=True, peak -5.4 dBFS, rms -28.9 dBFS",
+     "source": "plugin",
+     "peak": 0.5357049703598022,
+     "rms": 0.03596894622388272,
+     "finite": true
+    }
+   ],
+   "passed": true
+  },
+  {
+   "name": "diamond-fire",
+   "secs": 2.5,
+   "gates": [
+    {
+     "gate": "exact",
+     "passed": true,
+     "text": "engine = sketch to 4.5e-08 of peak over 2.5 s (tol 1e-06)",
+     "max_err": 4.480570050442331e-08,
+     "seconds": 2.5,
+     "tol": 1e-06
+    },
+    {
+     "gate": "plugin",
+     "passed": true,
+     "text": "loudness of each 0.25 s within 7.23e-07 dB of the sketch (tol 0.5)",
+     "max_db_diff": 7.231124321549487e-07,
+     "tol_db": 0.5
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "engine finite=True, peak -9.6 dBFS, rms -21.3 dBFS",
+     "source": "engine",
+     "peak": 0.3321892023086548,
+     "rms": 0.08635151820907577,
+     "finite": true
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "plugin finite=True, peak -9.6 dBFS, rms -21.3 dBFS",
+     "source": "plugin",
+     "peak": 0.3321891725063324,
+     "rms": 0.0863515120705893,
+     "finite": true
+    }
+   ],
+   "passed": true
+  },
+  {
+   "name": "turning",
+   "secs": 2.5,
+   "gates": [
+    {
+     "gate": "exact",
+     "passed": true,
+     "text": "engine = sketch to 5.5e-08 of peak over 2.5 s (tol 1e-06)",
+     "max_err": 5.4670475853501845e-08,
+     "seconds": 2.5,
+     "tol": 1e-06
+    },
+    {
+     "gate": "plugin",
+     "passed": true,
+     "text": "loudness of each 0.25 s within 0.0152 dB of the sketch (tol 0.5)",
+     "max_db_diff": 0.01516189733089135,
+     "tol_db": 0.5
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "engine finite=True, peak -11.3 dBFS, rms -27.1 dBFS",
+     "source": "engine",
+     "peak": 0.27215784788131714,
+     "rms": 0.04418971024893925,
+     "finite": true
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "plugin finite=True, peak -11.3 dBFS, rms -27.1 dBFS",
+     "source": "plugin",
+     "peak": 0.27215778827667236,
+     "rms": 0.044186409355318694,
+     "finite": true
+    }
+   ],
+   "passed": true
+  },
+  {
+   "name": "labradorite-sweeps",
+   "secs": 2.5,
+   "gates": [
+    {
+     "gate": "exact",
+     "passed": true,
+     "text": "engine = sketch to 4.4e-08 of peak over 2.5 s (tol 1e-06)",
+     "max_err": 4.4367926891276986e-08,
+     "seconds": 2.5,
+     "tol": 1e-06
+    },
+    {
+     "gate": "plugin",
+     "passed": true,
+     "text": "loudness of each 0.25 s within 0.206 dB of the sketch (tol 0.5)",
+     "max_db_diff": 0.20649637616194383,
+     "tol_db": 0.5
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "engine finite=True, peak -15.6 dBFS, rms -37.2 dBFS",
+     "source": "engine",
+     "peak": 0.16685733199119568,
+     "rms": 0.013782999364772558,
+     "finite": true
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "plugin finite=True, peak -15.6 dBFS, rms -37.3 dBFS",
+     "source": "plugin",
+     "peak": 0.16519466042518616,
+     "rms": 0.013645033123269699,
+     "finite": true
+    }
+   ],
+   "passed": true
+  },
+  {
+   "name": "crowded",
+   "secs": 2.5,
+   "gates": [
+    {
+     "gate": "exact",
+     "passed": true,
+     "text": "engine = sketch to 4.9e-08 of peak over 2.5 s (tol 1e-06)",
+     "max_err": 4.885805488596537e-08,
+     "seconds": 2.5,
+     "tol": 1e-06
+    },
+    {
+     "gate": "plugin",
+     "passed": true,
+     "text": "loudness of each 0.25 s within 4.45e-05 dB of the sketch (tol 0.5)",
+     "max_db_diff": 4.4528086895923025e-05,
+     "tol_db": 0.5
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "engine finite=True, peak -10.5 dBFS, rms -25.2 dBFS",
+     "source": "engine",
+     "peak": 0.2982778251171112,
+     "rms": 0.05477394518268187,
+     "finite": true
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "plugin finite=True, peak -10.5 dBFS, rms -25.2 dBFS",
+     "source": "plugin",
+     "peak": 0.2982778251171112,
+     "rms": 0.05477406409031152,
+     "finite": true
+    }
+   ],
+   "passed": true
+  }
+ ]
+}
