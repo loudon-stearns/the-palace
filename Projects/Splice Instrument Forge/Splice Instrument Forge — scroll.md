@@ -46,6 +46,8 @@ _Not yet rendered. The project was born 2026-10-24 and has no steward; this zone
 ### 2026-10-24 — Move four: a Session View Set from a Splice stack
 
 **Flowers Stack**: Splice's `prompt_to_stack` built a five-layer dubstep stack from one sentence (bass, two drum loops, a pad, a vocal atmosphere; five credits), and `forge-session.mjs build stack.json` wrote a Set with one audio track per layer and eight named scenes, each slot holding the layers that play in it, every clip warped to 140 with markers at its native beat length (two layers were 150 bpm). `check` draws the scene grid: 21 clips, all warped, every sample on disk, 222 pointees unique. Opened in a second Live 12.4.6 at 19:27:03 in Session view, no warning; left open for Loudon to fire scenes. The audio-track and audio-clip shells are Live 12-written (the default Set; a Set Loudon saved). Keys are not matched yet: the stack mixes F minor, E minor and B major. The format study gained the Session View section; `workshop/move-4-session/README.md` has the recipe.
+
+**Heard:** Loudon on the Flowers Stack Set, 2026-10-24: "worked!"
 <!-- scroll:entry id="forge-2026-10-24-move-3-fix" -->
 ### 2026-10-24 — Move three, corrected: the pad notes were upside down
 
