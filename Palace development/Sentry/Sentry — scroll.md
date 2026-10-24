@@ -15,11 +15,11 @@ forward_vector: "I am Sentry's scroll — the one page that opens on which versi
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-24T02:19:32.664Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-24T02:19:47.699Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** — · **Stage:** growing
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
-- **Version:** v1.7 · changed in the working tree, not committed yet
+- **Version:** v1.7 · the spec last changed 2026-10-23 (`c5aafdeb`) — edit(Sentry): v1.7 — a finding in public history is closed only on a live read of GitHub made that day
 - **Runs since the change:** none yet — v1.7 has not run
 - **Last run:** 2026-10-24 — public-surface gate of 980706d1, 42 raised, held locally · nothing new (under v1.6)
 - **Owed in the ledger:** 1 — item 4; the next run's tail read picks it up first
@@ -50,6 +50,15 @@ _Loudon's standing direction for this ceremony — never regenerated. It holds u
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="version-c5aafdeb2650daaad619f74ddbaa0bc8db892237" -->
+### 2026-10-23 — the spec moved to v1.7
+
+edit(Sentry): v1.7 — a finding in public history is closed only on a live read of GitHub made that day
+
+On Loudon's yes of 2026-10-23. Item 18 of the tuning ledger becomes spec: the closing rule in § Faces are public; findings are held gains one sentence — the purge counts as done only on a live read of GitHub made that day, never on a ticket's status or a watch's files on disk. Item 18's tail now names v1.7. The scroll is rebuilt.
+<sub>`c5aafdeb` · version change</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="run-bc685a5a79" -->
 ### 2026-10-24 — public-surface gate of 980706d1, 42 raised, held locally
 
