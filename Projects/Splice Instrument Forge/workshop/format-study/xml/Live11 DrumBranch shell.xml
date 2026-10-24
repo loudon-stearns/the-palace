@@ -1,0 +1,127 @@
+<DrumBranch Id="0">
+																<LomId Value="0" />
+																<Name>
+																	<EffectiveName Value="UP" />
+																	<UserName Value="UP" />
+																	<Annotation Value="" />
+																	<MemorizedFirstClipName Value="" />
+																</Name>
+																<IsSelected Value="true" />
+																<DeviceChain>
+																	<MidiToAudioDeviceChain Id="0">
+																		<Devices>
+																			<!--DEVICE-->
+																		</Devices>
+																		<SignalModulations />
+																	</MidiToAudioDeviceChain>
+																</DeviceChain>
+																<BranchSelectorRange>
+																	<Min Value="0" />
+																	<Max Value="0" />
+																	<CrossfadeMin Value="0" />
+																	<CrossfadeMax Value="0" />
+																</BranchSelectorRange>
+																<IsSoloed Value="false" />
+																<SessionViewBranchWidth Value="55" />
+																<IsHighlightedInSessionView Value="false" />
+																<SourceContext>
+																	<Value />
+																</SourceContext>
+																<Color Value="66" />
+																<AutoColored Value="true" />
+																<AutoColorScheme Value="0" />
+																<SoloActivatedInSessionMixer Value="false" />
+																<DevicesListWrapper LomId="0" />
+																<MixerDevice>
+																	<LomId Value="0" />
+																	<LomIdView Value="0" />
+																	<IsExpanded Value="true" />
+																	<On>
+																		<LomId Value="0" />
+																		<Manual Value="true" />
+																		<AutomationTarget Id="294767">
+																			<LockEnvelope Value="0" />
+																		</AutomationTarget>
+																		<MidiCCOnOffThresholds>
+																			<Min Value="64" />
+																			<Max Value="127" />
+																		</MidiCCOnOffThresholds>
+																	</On>
+																	<ModulationSourceCount Value="0" />
+																	<ParametersListWrapper LomId="0" />
+																	<Pointee Id="294768" />
+																	<LastSelectedTimeableIndex Value="0" />
+																	<LastSelectedClipEnvelopeIndex Value="0" />
+																	<LastPresetRef>
+<Value />
+</LastPresetRef>
+																	<LockedScripts />
+																	<IsFolded Value="false" />
+																	<ShouldShowPresetName Value="false" />
+																	<UserName Value="" />
+																	<Annotation Value="" />
+																	<SourceContext>
+																		<Value />
+																	</SourceContext>
+																	<OverwriteProtectionNumber Value="2819" />
+																	<Speaker>
+																		<LomId Value="0" />
+																		<Manual Value="true" />
+																		<AutomationTarget Id="294769">
+																			<LockEnvelope Value="0" />
+																		</AutomationTarget>
+																		<MidiCCOnOffThresholds>
+																			<Min Value="64" />
+																			<Max Value="127" />
+																		</MidiCCOnOffThresholds>
+																	</Speaker>
+																	<Volume>
+																		<LomId Value="0" />
+																		<Manual Value="1" />
+																		<MidiControllerRange>
+																			<Min Value="0.0003162277571" />
+																			<Max Value="1.99526238" />
+																		</MidiControllerRange>
+																		<AutomationTarget Id="294770">
+																			<LockEnvelope Value="0" />
+																		</AutomationTarget>
+																		<ModulationTarget Id="294771">
+																			<LockEnvelope Value="0" />
+																		</ModulationTarget>
+																	</Volume>
+																	<Panorama>
+																		<LomId Value="0" />
+																		<Manual Value="0" />
+																		<MidiControllerRange>
+																			<Min Value="-1" />
+																			<Max Value="1" />
+																		</MidiControllerRange>
+																		<AutomationTarget Id="294772">
+																			<LockEnvelope Value="0" />
+																		</AutomationTarget>
+																		<ModulationTarget Id="294773">
+																			<LockEnvelope Value="0" />
+																		</ModulationTarget>
+																	</Panorama>
+																	<SendInfos />
+																	<RoutingHelper>
+																		<Routable>
+																			<Target Value="AudioOut/None" />
+																			<UpperDisplayString Value="No Output" />
+																			<LowerDisplayString Value="" />
+																			<MpeSettings>
+																				<ZoneType Value="0" />
+																				<FirstNoteChannel Value="1" />
+																				<LastNoteChannel Value="15" />
+																			</MpeSettings>
+																		</Routable>
+																		<TargetEnum Value="0" />
+																	</RoutingHelper>
+																	<SendsListWrapper LomId="0" />
+																</MixerDevice>
+																<BranchInfo>
+																	<ReceivingNote Value="127" />
+																	<SendingNote Value="60" />
+																	<ChokeGroup Value="0" />
+																</BranchInfo>
+															</DrumBranch>

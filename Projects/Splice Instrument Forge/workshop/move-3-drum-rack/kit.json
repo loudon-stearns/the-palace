@@ -1,0 +1,27 @@
+{
+  "name": "Spoiler Kit",
+  "tempo": 140,
+  "pads": [
+    { "note": 36, "name": "Kick",       "file": "samples/BOS_DBN_Drum_Kick_One_Shot_Punchy_Spoiler.wav" },
+    { "note": 37, "name": "808 C",      "file": "samples/RKU_HD_bass_808_one_shot_perfect_blue_C.wav" },
+    { "note": 38, "name": "Snare",      "file": "samples/DS_DSP_snare_one_shot_crack.wav" },
+    { "note": 39, "name": "Clap",       "file": "samples/STCR2_EV_Clap_One_Shot_layered.wav" },
+    { "note": 40, "name": "Tom",        "file": "samples/BOS_DXXL_Percussion_Tom_One_Shot_Tomdeepest.wav" },
+    { "note": 41, "name": "Crash",      "file": "samples/fec_cymbal_crash_one_shot_high_bright_big.wav" },
+    { "note": 42, "name": "Closed Hat", "file": "samples/ZEN_JDB_hi_hat_closed_one_shot_tight.wav", "choke": 1 },
+    { "note": 46, "name": "Open Hat",   "file": "samples/ZEN_ECL_open_hi_hat_sustaino.wav",         "choke": 1 }
+  ],
+  "pattern": {
+    "bars": 4,
+    "steps": {
+      "Kick":       "x...x...x...x...x...x...x...x...x...x...x...x...x...x...x...x...",
+      "808 C":      "x.......x.......x.......x.......x.......x.......x.......x.......",
+      "Snare":      "....x.......x.......x.......x.......x.......x.......x.......x...",
+      "Clap":       "....x.......x.......x.......x.......x.......x.......x.......x...",
+      "Closed Hat": "..x...x...x...x...x...x...x...x...x...x...x...x...x...x...x...x.",
+      "Open Hat":   "..............x...............x...............x...............x.",
+      "Tom":        ".............................................................x.x",
+      "Crash":      "x..............................................................."
+    }
+  }
+}

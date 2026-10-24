@@ -42,6 +42,12 @@ _Not yet rendered. The project was born 2026-10-24 and has no steward; this zone
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="forge-2026-10-24-move-3-drum-rack" -->
+### 2026-10-24 — Move three: a Drum Rack from Splice one-shots
+
+**Spoiler Kit**: eight one-shots from eight Splice searches (tearout kick, cracking snare, layered clap, deep tom, bright crash, tight closed hat, open hat, an 808 in C; eight credits), on pads 36–42 and 46 with the hats in choke group 1, a four-bar pattern at 140. `forge-drum-rack.mjs build kit.json` writes both `Spoiler Kit.adg` (Live 12's Slicing Default rack with one `DrumBranchPreset` per pad) and `Spoiler Kit.als` (the rack as a `DrumGroupDevice` with `DrumBranch` pads on one track). Its `check`: 1837 pointees, all unique, every pad's sample on disk; the Session Writer's `check` passes too. Opened in a second Live 12.4.6 at 19:15:44 ("Loaded document was created by Ableton Live 12.4.6 … done", no warning); left open for Loudon's ear. The in-Set branch shell came from a Live 11 Set, the one risk taken, and Live 12 took it. The format study gained the DrumBranch shape; `workshop/move-3-drum-rack/README.md` has the recipe.
+
+**Heard:** Loudon on move two's Astromode Analog, 2026-10-24: "works greaty!"
 <!-- scroll:entry id="forge-2026-10-24-move-2-sampler" -->
 ### 2026-10-24 — Move two: a Sampler from Splice one-shots
 
