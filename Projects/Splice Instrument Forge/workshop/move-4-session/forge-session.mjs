@@ -82,7 +82,7 @@ function wavFacts(file) {
 }
 
 // ---- an audio clip in a slot: the loop warped so its native bars land on the Set's grid ----
-function audioClip({ name, colour, abs, rel, bpm, transpose = 0 }, id) {
+function audioClip({ name, colour, abs, rel, bpm, transpose = 0, setTempo, isDrums = false }, id) {
   const w = wavFacts(abs);
   const seconds = w.frames / w.rate;
   const beats = Math.max(1, Math.round(seconds * bpm / 60));       // the loop's own length in beats at its native tempo
@@ -94,14 +94,20 @@ function audioClip({ name, colour, abs, rel, bpm, transpose = 0 }, id) {
   c = c.replace(/<Envelopes>[\s\S]*?<\/Envelopes>/, '<Envelopes>\n<Envelopes />\n</Envelopes>');
   c = c.replace(/<ScrollerTimePreserver>[\s\S]*?<\/ScrollerTimePreserver>/, '<ScrollerTimePreserver>\n<LeftTime Value="0" />\n<RightTime Value="' + beats + '" />\n</ScrollerTimePreserver>').replace(/<TimeSelection>[\s\S]*?<\/TimeSelection>/, '<TimeSelection>\n<AnchorTime Value="0" />\n<OtherTime Value="0" />\n</TimeSelection>');
   c = c.replace(/<FollowActionEnabled Value="true" \/>/, '<FollowActionEnabled Value="false" />');
-  c = setValue(c, 'IsWarped', 'true').replace(/<WarpMode Value="\d+" \/>/, '<WarpMode Value="4" />');    // 4 = Complex, the shell's own
+  // Loudon's rule (2026-10-24): find before you bend. A drum loop that must stretch goes in Beats mode (0); anything else that
+  // stretches or transposes goes in Complex (4). A loop already at the Set's tempo and in key is warped only to lock the grid;
+  // Beats mode then changes nothing audible, so it gets Beats too.
+  const stretched = setTempo != null && Math.abs(bpm - setTempo) > 0.5;      // warped by any difference
+  const bent = setTempo != null && Math.abs(bpm - setTempo) > 1.5;           // but a bend worth naming is more than 1 bpm
+  const warpMode = (isDrums || (!stretched && !transpose)) ? 0 : 4;
+  c = setValue(c, 'IsWarped', 'true').replace(/<WarpMode Value="\d+" \/>/, '<WarpMode Value="' + warpMode + '" />');
   c = replaceEl(c, element(c, 'SampleRef'), '<SampleRef>\n<FileRef>\n<RelativePathType Value="1" />\n<RelativePath Value="' + esc(rel) + '" />\n<Path Value="' + esc(abs) + '" />\n<Type Value="2" />\n<LivePackName Value="" />\n<LivePackId Value="" />\n<OriginalFileSize Value="' + w.size + '" />\n<OriginalCrc Value="0" />\n<SourceHint Value="" />\n</FileRef>\n<LastModDate Value="' + w.mtime + '" />\n<SourceContext />\n<SampleUsageHint Value="0" />\n<DefaultDuration Value="' + w.frames + '" />\n<DefaultSampleRate Value="' + w.rate + '" />\n<SamplesToAutoWarp Value="0" />\n</SampleRef>');
   c = c.replace(/<Onsets>[\s\S]*?<\/Onsets>/, '<Onsets>\n<UserOnsets />\n<HasUserOnsets Value="false" />\n</Onsets>');
   c = replaceEl(c, element(c, 'WarpMarkers'), '<WarpMarkers>\n<WarpMarker Id="0" SecTime="0" BeatTime="0" />\n<WarpMarker Id="1" SecTime="' + fmt(seconds) + '" BeatTime="' + beats + '" />\n</WarpMarkers>');
   c = c.replace(/<SavedWarpMarkersForStretched>[\s\S]*?<\/SavedWarpMarkersForStretched>/, '<SavedWarpMarkersForStretched />');
   c = c.replace(/<PitchCoarse Value="-?\d+" \/>/, '<PitchCoarse Value="' + transpose + '" />').replace(/<PitchFine Value="-?\d+" \/>/, '<PitchFine Value="0" />');
   c = setValue(c, 'MarkersGenerated', 'false').replace(/<IsSongTempoLeader Value="true" \/>/, '<IsSongTempoLeader Value="false" />');
-  return { xml: c, beats, seconds, facts: w };
+  return { xml: c, beats, seconds, facts: w, stretched, bent, warpMode };
 }
 
 function build(stack, layers, outDir) {
@@ -126,7 +132,7 @@ function build(stack, layers, outDir) {
   const keyed = layers.map((l) => ({ l, k: parseKey(l.key) })).filter((x) => x.k);
   const target = parseKey(stack.key) || (keyed.find((x) => /bass/i.test(x.l.role)) || keyed[0] || {}).k || null;
   const trackShell = fs.readFileSync(path.join(STUDY, 'Live12 AudioTrack shell (from DefaultLiveSet).xml'), 'utf8').trim();
-  const report = [];
+  const report = []; let bent = 0;
   const tracks = layers.map((layer, li) => {
     let t = trackShell.replace(/^<AudioTrack Id="\d+"/, '<AudioTrack Id="' + (ids.track++) + '"');
     t = renumber(t, ids);
@@ -140,8 +146,24 @@ function build(stack, layers, outDir) {
     const ground = layer.ground || groundFor(layer.role); const db = layer.db != null ? layer.db : GROUNDS[ground];
     const mixer = element(t, 'Mixer'); const vol = element(mixer.text, 'Volume');
     t = replaceEl(t, mixer, replaceEl(mixer.text, vol, vol.text.replace(/<Manual Value="[^"]*" \/>/, '<Manual Value="' + fmt(dbToAmp(db)) + '" />')));
-    const clip = audioClip({ name: layer.role, colour, abs: layer.abs, rel: path.relative(outDir, layer.abs).split(path.sep).join('/'), bpm: layer.bpm || tempo, transpose }, 0);
-    report.push(layer.role.padEnd(10) + clip.beats + ' beats (' + clip.seconds.toFixed(2) + ' s at ' + (layer.bpm || tempo) + ' bpm)' + (k ? ', ' + k.name + (transpose ? ' -> ' + target.name + ' (' + (transpose > 0 ? '+' : '') + transpose + ' st)' : ' (in key)') : ', unkeyed') + ', ' + ground + ' ' + db + ' dB');
+    const isDrums = /drum|kick|beat|groove|perc/i.test(layer.role);
+    const clip = audioClip({ name: layer.role, colour, abs: layer.abs, rel: path.relative(outDir, layer.abs).split(path.sep).join('/'), bpm: layer.bpm || tempo, transpose, setTempo: tempo, isDrums }, 0);
+    const bend = (clip.stretched ? 'stretched ' + (layer.bpm || tempo) + '->' + tempo : 'native tempo') + ', ' + (k ? (transpose ? 'transposed ' + k.name + ' -> ' + target.name + ' (' + (transpose > 0 ? '+' : '') + transpose + ' st)' : k.name + ' in key') : 'unkeyed') + ', ' + (clip.warpMode === 0 ? 'Beats' : 'Complex');
+    report.push(layer.role.padEnd(10) + clip.beats + ' beats; ' + bend + '; ' + ground + ' ' + db + ' dB');
+    bent += (clip.bent ? 1 : 0) + (transpose ? 1 : 0);
+    // the arrangement: the same clip laid along the timeline once per section the layer plays in, looping to fill it
+    let at = 0, arrId = 0; const arrClips = [];
+    for (const sc of stack.scenes) {
+      const len = (sc.bars || 8) * 4;
+      if (sc.play.includes(layer.role)) {
+        let a = clip.xml.replace(/^<AudioClip Id="\d+" Time="[^"]+">/, '<AudioClip Id="' + (arrId++) + '" Time="' + fmt(at) + '">');
+        a = setValue(a, 'CurrentStart', fmt(at)).replace(/<CurrentEnd Value="[^"]*" \/>/, '<CurrentEnd Value="' + fmt(at + len) + '" />');
+        arrClips.push(a);
+      }
+      at += len;
+    }
+    const sampleEl = element(t, 'Sample'); const arr = element(sampleEl.text, 'ArrangerAutomation');
+    t = replaceEl(t, sampleEl, replaceEl(sampleEl.text, arr, arr.text.replace(/<Events \/>/, arrClips.length ? '<Events>\n' + arrClips.join('\n') + '\n</Events>' : '<Events />')));
     let slotIndex = 0, seq = 0;
     t = t.replace(/<ClipSlotList>[\s\S]*?<\/ClipSlotList>/g, (all) => {
       const shell = element(all, 'ClipSlot').text; const slots = [];
@@ -157,6 +179,11 @@ function build(stack, layers, outDir) {
     return t;
   });
 
+  // locators: one at the start of each section, named for the scene
+  let at = 0; const locators = stack.scenes.map((sc, i) => { const l = '<Locator Id="' + i + '">\n<LomId Value="0" />\n<Time Value="' + fmt(at) + '" />\n<Name Value="' + esc(sc.name) + '" />\n<Annotation Value="" />\n<IsSongStart Value="' + (i === 0 ? 'true' : 'false') + '" />\n</Locator>'; at += (sc.bars || 8) * 4; return l; });
+  xml = replaceEl(xml, element(xml, 'Locators'), '<Locators>\n<Locators>\n' + locators.join('\n') + '\n</Locators>\n</Locators>');
+  report.push('arrangement: ' + stack.scenes.length + ' sections, ' + (at / 4) + ' bars, a locator at each');
+
   let lim = element(readGz(path.join(WRITER, 'Limiter.adv')), 'Limiter').text;
   lim = lim.replace(/<LastPresetRef>[\s\S]*?<\/LastPresetRef>/, '<LastPresetRef>\n<Value />\n</LastPresetRef>');
   lim = replaceEl(lim, element(lim, 'Ceiling'), element(lim, 'Ceiling').text.replace(/<Manual Value="[^"]*" \/>/, '<Manual Value="-1" />'));
@@ -166,6 +193,7 @@ function build(stack, layers, outDir) {
   xml = replaceEl(xml, main, replaceEl(main.text, element(main.text, 'Devices'), '<Devices>\n' + withId(lim, 0) + '\n</Devices>'));
   xml = xml.replace(/<NextPointeeId Value="\d+" \/>/, '<NextPointeeId Value="' + ids.pointee + '" />');
   if (target) report.unshift('key: ' + target.name + (stack.key ? ' (the recipe\'s)' : ' (from the bass layer)'));
+  report.push(bent ? bent + ' bend(s): the search should have found layers that fit (standing order: find before you bend)' : 'nothing bent: every layer at the Set\'s tempo and in key');
   return { xml, report };
 }
 
@@ -180,16 +208,22 @@ function check(file) {
   const sceneNames = [...element(xml, 'Scenes').text.matchAll(/<Name Value="([^"]*)" \/>/g)].map((m) => m[1]);
   console.log(path.basename(file) + ': ' + xml.match(/Creator="([^"]*)"/)[1] + ', ' + Math.round(xml.length / 1024) + ' KB of XML; pointees ' + ids.length + ', all unique ' + (dup.size ? 'NO' : 'yes') + ', NextPointeeId ' + next + '; opens in ' + view + ' view; tempo ' + element(element(xml, 'MainTrack').text, 'Tempo').text.match(/<Manual Value="([^"]*)" \/>/)[1]);
   console.log('  scenes: ' + sceneNames.map((n, i) => i + ':' + n).join('  '));
+  const locs = [...element(xml, 'Locators').text.matchAll(/<Time Value="([^"]+)" \/>\s*<Name Value="([^"]*)" \/>/g)].map((m) => 'bar ' + (Number(m[1]) / 4 + 1) + ' ' + m[2]);
+  console.log('  locators: ' + (locs.length ? locs.join(' · ') : 'none'));
   const tracksEl = element(xml, 'Tracks'); const re = /<AudioTrack Id="(\d+)"/g; let m; const grid = [];
   while ((m = re.exec(tracksEl.text))) {
     const tr = element(tracksEl.text, 'AudioTrack', m.index).text; const name = tr.match(/<EffectiveName Value="([^"]*)" \/>/)[1];
     const mainSeq = element(tr, 'MainSequencer').text; const slots = [...mainSeq.matchAll(/<ClipSlot Id="(\d+)">\s*<LomId Value="0" \/>\s*<ClipSlot>\s*<Value>\s*<AudioClip /g)].map((s) => Number(s[1]));
     const paths = [...mainSeq.matchAll(/<Path Value="([^"]*)" \/>/g)].map((p) => p[1]).filter(Boolean); const missing = [...new Set(paths)].filter((p) => !fs.existsSync(p));
     for (const p of missing) problems.push(name + ': sample missing ' + p);
-    const warped = (mainSeq.match(/<IsWarped Value="true" \/>/g) || []).length, clips = (mainSeq.match(/<AudioClip /g) || []).length;
-    const pitch = (mainSeq.match(/<PitchCoarse Value="(-?\d+)" \/>/) || [, '0'])[1]; const amp = Number((element(element(tr, 'Mixer').text, 'Volume').text.match(/<Manual Value="([^"]*)" \/>/) || [, '1'])[1]);
-    grid.push('  ' + name.padEnd(10) + sceneNames.map((_, i) => slots.includes(i) ? '[x]' : '[ ]').join(' ') + '  ' + clips + ' clips, ' + warped + ' warped, ' + (pitch === '0' ? 'no transpose' : (Number(pitch) > 0 ? '+' : '') + pitch + ' st') + ', ' + (20 * Math.log10(amp)).toFixed(1) + ' dB' + (missing.length ? ', sample MISSING' : ''));
+    const arrEvents = (element(element(mainSeq, 'Sample').text, 'ArrangerAutomation').text.match(/<AudioClip /g) || []).length;
+    const slotXml = element(mainSeq, 'ClipSlotList').text; const warped = (slotXml.match(/<IsWarped Value="true" \/>/g) || []).length, clips = (slotXml.match(/<AudioClip /g) || []).length;
+    const pitch = (mainSeq.match(/<PitchCoarse Value="(-?\d+)" \/>/) || [, '0'])[1]; const mode = (mainSeq.match(/<WarpMode Value="(\d+)" \/>/) || [, '?'])[1];
+    const wm = mainSeq.match(/<WarpMarker Id="1" SecTime="([^"]+)" BeatTime="([^"]+)"/); const tempoHere = Number(element(element(xml, 'MainTrack').text, 'Tempo').text.match(/<Manual Value="([^"]*)" \/>/)[1]);
+    const native = wm ? Number(wm[2]) / Number(wm[1]) * 60 : null; const stretched = native != null && Math.abs(native - tempoHere) > 0.5; const amp = Number((element(element(tr, 'Mixer').text, 'Volume').text.match(/<Manual Value="([^"]*)" \/>/) || [, '1'])[1]);
+    grid.push('  ' + name.padEnd(10) + sceneNames.map((_, i) => slots.includes(i) ? '[x]' : '[ ]').join(' ') + '  ' + clips + ' slots, ' + arrEvents + ' arranged, ' + warped + ' warped, ' + (stretched ? 'stretched from ' + Math.round(native) : 'native') + ', ' + (pitch === '0' ? 'in key' : (Number(pitch) > 0 ? '+' : '') + pitch + ' st') + ', ' + ({ '0': 'Beats', '4': 'Complex', '6': 'Complex Pro' }[mode] || 'mode ' + mode) + ', ' + (20 * Math.log10(amp)).toFixed(1) + ' dB' + (missing.length ? ', sample MISSING' : ''));
     if (warped !== clips) problems.push(name + ': ' + (clips - warped) + ' clip(s) not warped');
+    if (arrEvents !== clips) problems.push(name + ': ' + clips + ' slots but ' + arrEvents + ' arrangement clips');
   }
   grid.forEach((g) => console.log(g));
   if (!grid.length) problems.push('no audio tracks');
