@@ -15,15 +15,15 @@ forward_vector: "I am Generative Preset Development's scroll — the one page th
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-24T15:44:56.083Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-24T16:09:58.371Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 9 · last ran 2026-10-24 (today)
+- **Status:** active · **Stage:** growing · **Steward:** cycle 10 · last ran 2026-10-24 (today)
 - **Plan:** agreed 2026-09-25 (29 days ago) · 4 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
 - **Last shipped:** 2026-10-14 (10 days ago) — The analyzer now writes sentences. Nine Wavetable presets are described in a synthesist's words, with the old parameter dump folded under each one for comparison. (`preset-steward-018`)
-- **Last commit touching this project:** 2026-10-14 `e0cbca6c` — steward(Generative Preset Development): cycle 8 — SPINNING UP. HOME: [Generative Preset Development](obsidian://open?vaul…
-- **Signal:** ⚠ the last cycle posted nothing (one barren cycle — the lane will retry before calling it stalled)
+- **Last commit touching this project:** 2026-10-24 `f6d23968` — steward(Generative Preset Development): cycle 9 — machinery and scroll
+- **Signal:** ⚠ **STALLED** — the last 2 cycles posted nothing. The loop is broken until a cycle ships; the lane retries once, then flags here.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 
 ### Where this stands
