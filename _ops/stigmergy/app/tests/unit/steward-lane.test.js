@@ -4,7 +4,7 @@ import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   slugFromDir, transcriptNameFor, stewardArgv, grantsWaitingFor, stewardRow,
-  runCapFor, nextRunStep, stopReason, afterCycle, costFromTranscriptText,
+  runCapFor, nextRunStep, stopReason, afterCycle, tokensFromTranscriptText,
 } from '../../server/steward-lane.js';
 import { extractMessagesFromTranscript } from '../../../orchestrator/src/process-cycle.js';
 import { resolveClaudeBin } from '../../server/claude-bin.js';
@@ -165,18 +165,18 @@ describe('spawn failure ends a run at once, without a retry or a stall', () => {
   });
 });
 
-describe('costFromTranscriptText — the result line does not start with "type" (2026-10-15)', () => {
+describe('tokensFromTranscriptText — the result line does not start with "type" (2026-10-15); tokens, never dollars (2026-10-24)', () => {
   test('finds the result line wherever its keys sit, and returns its cost', () => {
     const text = [
       '{"type":"assistant","message":{}}',
-      '{"duration_api_ms":166996,"stop_reason":"end_turn","session_id":"x","total_cost_usd":4.1234,"type":"result","subtype":"success"}',
+      '{"duration_api_ms":166996,"stop_reason":"end_turn","session_id":"x","total_cost_usd":4.1234,"usage":{"input_tokens":46,"cache_creation_input_tokens":1000,"cache_read_input_tokens":2000,"output_tokens":54},"type":"result","subtype":"success"}',
       '',
     ].join('\n');
-    expect(costFromTranscriptText(text)).toBe(4.1234);
+    expect(tokensFromTranscriptText(text)).toBe(3100);
   });
   test('null when there is no result line or no cost', () => {
-    expect(costFromTranscriptText('{"type":"assistant"}\n')).toBeNull();
-    expect(costFromTranscriptText('{"type":"result","subtype":"success"}')).toBeNull();
-    expect(costFromTranscriptText('')).toBeNull();
+    expect(tokensFromTranscriptText('{"type":"assistant"}\n')).toBeNull();
+    expect(tokensFromTranscriptText('{"type":"result","subtype":"success"}')).toBeNull();
+    expect(tokensFromTranscriptText('')).toBeNull();
   });
 });

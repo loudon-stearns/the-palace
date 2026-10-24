@@ -27,7 +27,8 @@ import { advanceFeedback, enchantFeedback } from './steward-feedback.js';
 // Advancing while a cycle is live QUEUES the row behind it (2026-10-13): one
 // lane, click order; the row shows "queued #n" with an unqueue control.
 //
-// A "no steward" row offers ENCHANT instead: one confirm, then the project gets
+// A "no steward" row offers ADD STEWARD instead (the label; the act is still
+// `enchant` in the API and the script): one confirm, then the project gets
 // its steward directory + registry line (POST /api/projects/enchant, the same
 // act as `node enchant.js "<Title>"`), and the row moves up to tended.
 //
@@ -154,7 +155,7 @@ export function ProjectRow({ row, onOpen, onOpenEntry, onAdvance, canAdvance, co
             <Button tone="default" disabled={busy} onClick={onCancel}>cancel</Button>
           </>
         ) : (
-          <span data-testid={`project-enchant-${sid}`}><Button tone="default" disabled={busy || !onEnchant} onClick={() => onEnchant && onEnchant(row.home)}>enchant</Button></span>
+          <span data-testid={`project-enchant-${sid}`}><Button tone="default" disabled={busy || !onEnchant} onClick={() => onEnchant && onEnchant(row.home)}>add steward</Button></span>
         ))}
       </span>
     </div>

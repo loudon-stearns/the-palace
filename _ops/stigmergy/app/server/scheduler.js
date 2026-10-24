@@ -275,7 +275,7 @@ export function readSchedulerStatus({ palaceRoot, launchAgentsDir, now = Date.no
   }
   if (paused) warnings.push('PAUSED — the heartbeat wrappers no-op while the .paused flag is present; resume to re-enable.');
   // The last heartbeat batch (2026-10-14): batch.mjs writes last-batch.json
-  // when it ends — what fired, how many cycles, the cost, and what stopped it.
+  // when it ends — what fired, how many cycles, the tokens, and what stopped it.
   // The old review digest is no longer written (the board is the record), so
   // its age is not a warning any more; the last batch's own record is.
   let last_batch = null;
@@ -290,11 +290,15 @@ export function readSchedulerStatus({ palaceRoot, launchAgentsDir, now = Date.no
         fired: Array.isArray(b.fired) ? b.fired : [], due: Array.isArray(b.due) ? b.due.length : null,
         cycles: Array.isArray(b.cycles) ? b.cycles.length : 0,
         shipped: Array.isArray(b.cycles) ? b.cycles.filter((c) => c && c.stop === 'shipped').length : 0,
-        usd: typeof b.usd === 'number' ? Math.round(b.usd * 100) / 100 : null,
+        tokens: typeof b.tokens === 'number' ? b.tokens : null,
         stopped_because: b.stopped_because || null, limits: b.limits || null, dry_run: !!b.dry_run,
       };
-      if (last_batch.stopped_because && !/^(run_cap)$/.test(last_batch.stopped_because)) {
-        warnings.push(`LAST BATCH STOPPED EARLY — ${last_batch.stopped_because} (${last_batch.cycles} cycle(s), $${last_batch.usd ?? '?'}). What was not fired stays due.`);
+      // A batch ending on one of its own limits (the clock, the token budget,
+      // the cycle cap) is the designed end of a batch, not a fault: the strip
+      // says so in its last-batch line. Only a cut-off — a usage limit, the
+      // watch backstop, anything unnamed — is a warning (2026-10-24).
+      if (last_batch.stopped_because && !isLimitStop(last_batch.stopped_because)) {
+        warnings.push(`the last batch was cut off — ${last_batch.stopped_because}. the rest stay due.`);
       }
     } catch { /* unreadable: say nothing rather than guess */ }
   }
@@ -314,6 +318,11 @@ export function readSchedulerStatus({ palaceRoot, launchAgentsDir, now = Date.no
     // launchctl ground truth STIGMERGY deliberately does not consult.
     note: 'STIGMERGY infers install state from ~/Library/LaunchAgents and run state from the heartbeat stamps/logs; it never calls launchctl. Loading/unloading the launchd job stays the operator’s act.',
   };
+}
+
+/** True for a batch stop that is one of the batch's own limits — the clock, the token budget, the cycle cap. */
+export function isLimitStop(reason) {
+  return /^(run_cap|batch_limit|clock:|tokens:)/.test(String(reason || ''));
 }
 
 function round1(n) {

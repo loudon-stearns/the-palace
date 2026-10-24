@@ -159,17 +159,35 @@ export function stewardRow({ entry, state, manifest, board, palaceRoot }) {
 export const DEFAULT_CYCLE_CEILING_MIN = 45;
 
 /**
- * The cost a cycle reports in its own stream-json result line. The line's keys
- * are in no fixed order (it begins with duration_api_ms, not type), so parse
- * the tail lines and take the one whose type is "result". null when absent.
+ * The tokens a cycle reports in its own stream-json result line: input, output,
+ * cache creation and cache read, summed (2026-10-24 — tokens, never dollars;
+ * money left the floor on 2026-10-22). The line's keys are in no fixed order
+ * (it begins with duration_api_ms, not type), so parse the tail lines and take
+ * the one whose type is "result". null when absent.
  */
-export function costFromTranscriptText(text) {
+export function tokensFromTranscriptText(text) {
   const lines = String(text || '').trim().split('\n');
   for (let i = lines.length - 1; i >= 0 && i >= lines.length - 40; i--) {
     let m; try { m = JSON.parse(lines[i]); } catch { continue; }
-    if (m && m.type === 'result') return typeof m.total_cost_usd === 'number' ? m.total_cost_usd : null;
+    if (m && m.type === 'result') return tokensFromUsage(m.usage);
   }
   return null;
+}
+
+/** Sum of every token field on a result line's `usage`; null when there is none. */
+export function tokensFromUsage(u) {
+  if (!u || typeof u !== 'object') return null;
+  const n = ['input_tokens', 'output_tokens', 'cache_creation_input_tokens', 'cache_read_input_tokens']
+    .map((k) => (typeof u[k] === 'number' ? u[k] : 0)).reduce((a, b) => a + b, 0);
+  return n > 0 ? n : null;
+}
+
+/** 1234567 → "1.2M", 45678 → "46k", 900 → "900" — the strip's and the log's token number. */
+export function formatTokens(n) {
+  if (typeof n !== 'number' || !Number.isFinite(n)) return '?';
+  if (n >= 1e6) return `${(n / 1e6).toFixed(1)}M`;
+  if (n >= 1e3) return `${Math.round(n / 1e3)}k`;
+  return String(Math.round(n));
 }
 
 export function runCapFor(manifest, override = null) {
@@ -269,15 +287,15 @@ export function createStewardLane(opts = {}) {
   // that names them — the limits that end it early (2026-10-14; Loudon:
   // "the heartbeat needs some additional limits, this was way too much").
   //   limits.max_minutes — wall clock from the first fire
-  //   limits.max_usd     — summed from each cycle's own result line
-  // `usd` is the running total; `stopped_because` names the limit that hit.
+  //   limits.max_tokens  — summed from each cycle's own result line
+  // `tokens` is the running total; `stopped_because` names the limit that hit.
   let batch = freshBatch(0);
   function freshBatch(total, { source = null, limits = null } = {}) {
-    return { total, done: 0, started: total > 0 ? Date.now() : null, usd: 0, source, limits, stopped_because: null };
+    return { total, done: 0, started: total > 0 ? Date.now() : null, tokens: 0, source, limits, stopped_because: null };
   }
   // The cost a cycle reports in its own result line (stream-json `result`).
-  function readCycleCost(transcriptPath) {
-    try { return costFromTranscriptText(readFileSync(transcriptPath, 'utf8')); } catch (_) { return null; }
+  function readCycleTokens(transcriptPath) {
+    try { return tokensFromTranscriptText(readFileSync(transcriptPath, 'utf8')); } catch (_) { return null; }
   }
   // The watchdog (2026-10-15): the clock used to be checked only at a reap, so
   // one slow cycle ran 91 minutes under a 60-minute limit (the first heartbeat
@@ -315,7 +333,7 @@ export function createStewardLane(opts = {}) {
   function limitHit() {
     const L = batch.limits;
     if (!L) return null;
-    if (Number.isFinite(L.max_usd) && L.max_usd > 0 && batch.usd >= L.max_usd) return `budget: $${batch.usd.toFixed(2)} of $${L.max_usd}`;
+    if (Number.isFinite(L.max_tokens) && L.max_tokens > 0 && batch.tokens >= L.max_tokens) return `tokens: ${formatTokens(batch.tokens)} of ${formatTokens(L.max_tokens)}`;
     if (Number.isFinite(L.max_minutes) && L.max_minutes > 0 && batch.started && (Date.now() - batch.started) / 60000 >= L.max_minutes) return `clock: ${Math.round((Date.now() - batch.started) / 60000)} of ${L.max_minutes} min`;
     return null;
   }
@@ -400,8 +418,8 @@ export function createStewardLane(opts = {}) {
       // (processCycle flagged state + scroll) and the run stops. A paused ask
       // (`blocking: true`) or a live-session request also ends the run — the
       // next move is Loudon's, not another cycle.
-      const usd = readCycleCost(meta.transcriptPath);
-      if (usd != null) batch.usd += usd;
+      const tokens = readCycleTokens(meta.transcriptPath);
+      if (tokens != null) batch.tokens += tokens;
       const step = afterCycle(run, summary);
       next = step.next;
       dropQueue = step.dropQueue;
@@ -416,7 +434,7 @@ export function createStewardLane(opts = {}) {
         ...(summary.stop_hint === 'spawn_failed' ? { error: 'the worker never spoke — see the lane log (auth? permission mode? root?); the cycle was not counted' } : {}),
         ...(summary.stop_hint === 'interrupted' ? { error: `the worker was cut off before posting (${(summary.errors && summary.errors[0] && summary.errors[0].error) || 'error'}); the cycle was not counted` } : {}),
         run: { ...run, stop_hint: summary.stop_hint, continued: !!next, stopped_because: step.stoppedBecause },
-        usd, batch_usd: batch.usd,
+        tokens, batch_tokens: batch.tokens,
       });
       logLine(`run: ${meta.home} cycle ${meta.cycleN} (${run.position}/${run.cap}) -> ${summary.stop_hint}${next ? (next.retryOfBarren ? ' -> retrying once' : ` -> continuing (${next.position}/${next.cap})`) : ` -> run ends (${step.stoppedBecause})`}`);
     } catch (e) {
@@ -622,7 +640,7 @@ export function createStewardLane(opts = {}) {
    * worker alive, the targets join the queue behind it instead of being refused;
    * `queued` then lists only the ones newly added.
    */
-  function advanceAll({ names, maxCycles, maxMinutes, maxUsd, maxCycleMinutes, source } = {}) {
+  function advanceAll({ names, maxCycles, maxMinutes, maxTokens, maxCycleMinutes, source } = {}) {
     const targets = Array.isArray(names) && names.length ? names.slice() : readyNames();
     if (actuator.isAlive().running) {
       const added = enqueue(targets);
@@ -632,8 +650,8 @@ export function createStewardLane(opts = {}) {
       return { ok: true, queued: [], msg: 'no stewards have grants waiting', ...status() };
     }
     queue = targets.slice();
-    const limits = (Number.isFinite(maxMinutes) && maxMinutes > 0) || (Number.isFinite(maxUsd) && maxUsd > 0) || (Number.isFinite(maxCycleMinutes) && maxCycleMinutes > 0)
-      ? { max_minutes: Number.isFinite(maxMinutes) && maxMinutes > 0 ? maxMinutes : null, max_usd: Number.isFinite(maxUsd) && maxUsd > 0 ? maxUsd : null, max_cycles: Number.isInteger(maxCycles) && maxCycles > 0 ? maxCycles : null, max_cycle_minutes: Number.isFinite(maxCycleMinutes) && maxCycleMinutes > 0 ? maxCycleMinutes : null }
+    const limits = (Number.isFinite(maxMinutes) && maxMinutes > 0) || (Number.isFinite(maxTokens) && maxTokens > 0) || (Number.isFinite(maxCycleMinutes) && maxCycleMinutes > 0)
+      ? { max_minutes: Number.isFinite(maxMinutes) && maxMinutes > 0 ? maxMinutes : null, max_tokens: Number.isFinite(maxTokens) && maxTokens > 0 ? maxTokens : null, max_cycles: Number.isInteger(maxCycles) && maxCycles > 0 ? maxCycles : null, max_cycle_minutes: Number.isFinite(maxCycleMinutes) && maxCycleMinutes > 0 ? maxCycleMinutes : null }
       : null;
     cycleCeilingMin = limits && limits.max_cycle_minutes ? limits.max_cycle_minutes : DEFAULT_CYCLE_CEILING_MIN;
     batch = freshBatch(targets.length, { source: typeof source === 'string' && source ? source : null, limits });
@@ -655,7 +673,7 @@ export function createStewardLane(opts = {}) {
       cycle_minutes: a.running && cycleStarted ? Math.round((Date.now() - cycleStarted) / 600) / 100 : null,
       cycle_ceiling_minutes: cycleCeilingMin,
       queue: queue.slice(),
-      batch: { total: batch.total, done: batch.done, remaining: queue.length, usd: Math.round(batch.usd * 100) / 100, started: batch.started ? new Date(batch.started).toISOString() : null, source: batch.source, limits: batch.limits, stopped_because: batch.stopped_because },
+      batch: { total: batch.total, done: batch.done, remaining: queue.length, tokens: batch.tokens, started: batch.started ? new Date(batch.started).toISOString() : null, source: batch.source, limits: batch.limits, stopped_because: batch.stopped_because },
       last_cycle: readLastCycle(),
     };
   }

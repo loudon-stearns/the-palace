@@ -16,6 +16,29 @@ export function formatAge(hours) {
   return `${Math.round(hours / 24)}d ago`;
 }
 
+/** 1234567 → "1.2M", 45678 → "46k" — tokens, never dollars (2026-10-24). */
+export function formatTokens(n) {
+  if (typeof n !== 'number' || !Number.isFinite(n)) return '?';
+  if (n >= 1e6) return `${(n / 1e6).toFixed(1)}M`;
+  if (n >= 1e3) return `${Math.round(n / 1e3)}k`;
+  return String(Math.round(n));
+}
+
+/**
+ * How the last-batch line says why a batch ended. A batch ending on one of its
+ * own limits is its designed end, said plainly; a cut-off is named as such.
+ * The scheduler's warnings carry the loud version of a cut-off; this line
+ * stays dim either way.
+ */
+export function stopPhrase(reason) {
+  if (!reason) return '';
+  const r = String(reason);
+  if (r === 'run_cap' || r === 'batch_limit') return ' · ended on its cycle cap · the rest stay due';
+  if (r.startsWith('clock:')) return ` · ended on the clock (${r.slice(6).trim()}) · the rest stay due`;
+  if (r.startsWith('tokens:')) return ` · ended on its token budget (${r.slice(7).trim()}) · the rest stay due`;
+  return ` · cut off: ${r} · the rest stay due`;
+}
+
 const STATE_META = {
   not_installed:       { label: 'NOT INSTALLED', color: 'var(--error)', loud: true },
   paused:              { label: 'PAUSED',         color: 'var(--warn)',  loud: true },
@@ -128,7 +151,7 @@ export default function ScheduleStrip() {
         {lastBatch ? (
           <div data-testid="scheduler-last-batch" style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11, marginBottom: 6 }}>
             last batch{lastBatch.ended ? ` · ${new Date(lastBatch.ended).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}` : ' · still running'}
-            {lastBatch.dry_run ? ' · dry run' : ''} · fired {lastBatch.fired.length}{lastBatch.due != null ? ` of ${lastBatch.due} due` : ''} · {lastBatch.shipped}/{lastBatch.cycles} cycles shipped{lastBatch.usd != null ? ` · $${lastBatch.usd.toFixed(2)}` : ''}{lastBatch.stopped_because ? ` · stopped: ${lastBatch.stopped_because}` : ''}
+            {lastBatch.dry_run ? ' · dry run' : ''} · fired {lastBatch.fired.length}{lastBatch.due != null ? ` of ${lastBatch.due} due` : ''} · {lastBatch.shipped}/{lastBatch.cycles} cycles shipped{lastBatch.tokens != null ? ` · ${formatTokens(lastBatch.tokens)} tokens` : ''}{stopPhrase(lastBatch.stopped_because)}
             {lastBatch.fired.length ? <span style={{ color: 'var(--phosphor)' }}> — {lastBatch.fired.join(', ')}</span> : null}
           </div>
         ) : null}

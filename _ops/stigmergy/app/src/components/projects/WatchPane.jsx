@@ -28,7 +28,7 @@ export function FeedItem({ item }) {
     </div>
   );
   if (item.kind === 'result') return <div data-feed="result" style={{ ...mono, color: 'var(--phosphor-dim)', fontSize: 11, paddingLeft: 12 }}>{item.text}</div>;
-  if (item.kind === 'done') return <div data-feed="done" style={{ ...mono, color: 'var(--warn)', textShadow: 'var(--glow)' }}>cycle ended · {item.reason}{item.cost != null ? ` · $${item.cost.toFixed(2)}` : ''}{item.ms != null ? ` · ${Math.round(item.ms / 60000)} min` : ''}</div>;
+  if (item.kind === 'done') return <div data-feed="done" style={{ ...mono, color: 'var(--warn)', textShadow: 'var(--glow)' }}>cycle ended · {item.reason}{item.tokens != null ? ` · ${item.tokens >= 1e6 ? `${(item.tokens / 1e6).toFixed(1)}M` : `${Math.round(item.tokens / 1e3)}k`} tokens` : ''}{item.ms != null ? ` · ${Math.round(item.ms / 60000)} min` : ''}</div>;
   return null;
 }
 

@@ -4,7 +4,7 @@
   "max_cycles_per_steward": 2,
   "max_cycle_minutes": 25,
   "max_minutes": 60,
-  "max_usd": 15,
+  "max_tokens": 20000000,
   "debounce_hours": 12,
   "interval_days": 2,
   "order": "least recently active first"

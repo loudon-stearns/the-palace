@@ -15,7 +15,7 @@
 //      them least-recently-active first, and take the first N.
 //   3. Make sure the STIGMERGY app is up (start it if not — the lane lives in
 //      it), then POST /api/stewards/advance-all with the names, the per-steward
-//      cycle cap, the wall clock and the dollar budget, source "heartbeat".
+//      cycle cap, the wall clock and the token budget, source "heartbeat".
 //   4. Watch the lane until the batch ends, writing one log line per reap, and
 //      leave _ops/heartbeat/last-batch.json for the scheduler strip.
 // Every cycle fires the same way a click on the deck does: same worker, same
@@ -38,10 +38,11 @@ const APP = process.env.STIGMERGY_URL || 'http://localhost:5173';
 const LANE_STATE = join(ROOT, '_ops/stigmergy/.actuator-steward');
 const LAST = join(here, 'last-batch.json');
 
+const fmtTokens = (n) => (typeof n !== 'number' ? '?' : n >= 1e6 ? `${(n / 1e6).toFixed(1)}M` : n >= 1e3 ? `${Math.round(n / 1e3)}k` : String(n));
 const log = (line) => process.stdout.write(`${new Date().toISOString().slice(11, 19)} ${line}\n`);
 
 function readLimits() {
-  const defaults = { max_stewards_per_batch: 4, max_cycles_per_steward: 2, max_cycle_minutes: 25, max_minutes: 60, max_usd: 15, debounce_hours: 12 };
+  const defaults = { max_stewards_per_batch: 4, max_cycles_per_steward: 2, max_cycle_minutes: 25, max_minutes: 60, max_tokens: 20000000, debounce_hours: 12 };
   try { return { ...defaults, ...JSON.parse(readFileSync(join(here, 'limits.json'), 'utf8')) }; } catch { return defaults; }
 }
 
@@ -79,19 +80,19 @@ function readLastCycle() {
 async function main() {
   const limits = readLimits();
   const started = new Date();
-  log(`heartbeat batch — limits: ${limits.max_stewards_per_batch} stewards · ${limits.max_cycles_per_steward} cycles each · ${limits.max_cycle_minutes} min per cycle · ${limits.max_minutes} min · $${limits.max_usd} · debounce ${limits.debounce_hours} h`);
+  log(`heartbeat batch — limits: ${limits.max_stewards_per_batch} stewards · ${limits.max_cycles_per_steward} cycles each · ${limits.max_cycle_minutes} min per cycle · ${limits.max_minutes} min · ${fmtTokens(limits.max_tokens)} tokens · debounce ${limits.debounce_hours} h`);
   const { due } = plan(limits);
   const names = due.slice(0, limits.max_stewards_per_batch).map((d) => d.agent);
   log(`due: ${due.length} (${due.map((d) => d.agent).join(', ') || 'none'})`);
   log(`firing: ${names.join(', ') || 'nothing'}`);
-  const record = { started: started.toISOString(), ended: null, source: 'heartbeat', limits, due: due.map((d) => d.agent), fired: names, cycles: [], usd: 0, stopped_because: null, dry_run: DRY };
+  const record = { started: started.toISOString(), ended: null, source: 'heartbeat', limits, due: due.map((d) => d.agent), fired: names, cycles: [], tokens: 0, stopped_because: null, dry_run: DRY };
   if (DRY || names.length === 0) { record.ended = new Date().toISOString(); writeFileSync(LAST, JSON.stringify(record, null, 2) + '\n'); log(DRY ? 'dry run — nothing fired' : 'nothing due — done'); return; }
 
   log(`app: ${await ensureApp()}`);
   const before = await status();
   if (before.running) { log(`the lane is busy (${before.current}) — not firing; try again next morning`); record.stopped_because = 'lane_busy'; record.ended = new Date().toISOString(); writeFileSync(LAST, JSON.stringify(record, null, 2) + '\n'); return; }
 
-  const r = await fetch(`${APP}/api/stewards/advance-all`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ names, max_cycles: limits.max_cycles_per_steward, max_cycle_minutes: limits.max_cycle_minutes, max_minutes: limits.max_minutes, max_usd: limits.max_usd, source: 'heartbeat' }) });
+  const r = await fetch(`${APP}/api/stewards/advance-all`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ names, max_cycles: limits.max_cycles_per_steward, max_cycle_minutes: limits.max_cycle_minutes, max_minutes: limits.max_minutes, max_tokens: limits.max_tokens, source: 'heartbeat' }) });
   const fired = await r.json().catch(() => ({}));
   if (!r.ok || !fired.ok) { log(`advance-all refused: ${fired.msg || fired.error || r.status}`); record.stopped_because = 'refused'; record.ended = new Date().toISOString(); writeFileSync(LAST, JSON.stringify(record, null, 2) + '\n'); process.exitCode = 1; return; }
   log(`lane: ${fired.current} fired; ${(fired.queue || []).length} queued`);
@@ -106,14 +107,14 @@ async function main() {
       lastSeen = m;
       const c = readLastCycle();
       if (c) {
-        record.cycles.push({ name: c.name, cycle: c.cycle_n, stop: c.stop_hint, ok: c.ok, usd: c.usd ?? null, commit: c.commit && c.commit.hash ? c.commit.hash : null, error: c.error || null });
-        log(`reaped: ${c.name} cycle ${c.cycle_n} -> ${c.stop_hint}${c.usd != null ? ` · $${c.usd.toFixed(2)}` : ''}${c.commit && c.commit.hash ? ` · ${c.commit.hash}` : ''}${c.error ? ` · ${c.error}` : ''}`);
+        record.cycles.push({ name: c.name, cycle: c.cycle_n, stop: c.stop_hint, ok: c.ok, tokens: c.tokens ?? null, commit: c.commit && c.commit.hash ? c.commit.hash : null, error: c.error || null });
+        log(`reaped: ${c.name} cycle ${c.cycle_n} -> ${c.stop_hint}${c.tokens != null ? ` · ${fmtTokens(c.tokens)} tokens` : ''}${c.commit && c.commit.hash ? ` · ${c.commit.hash}` : ''}${c.error ? ` · ${c.error}` : ''}`);
       }
     }
     let st; try { st = await status(); } catch (e) { log(`status unreachable: ${e.message}`); continue; }
-    if (st.batch && typeof st.batch.usd === 'number') record.usd = st.batch.usd;
+    if (st.batch && typeof st.batch.tokens === 'number') record.tokens = st.batch.tokens;
     if (st.batch && st.batch.stopped_because) record.stopped_because = st.batch.stopped_because;
-    if (!st.running && (!st.queue || st.queue.length === 0)) { log(`batch ended — ${record.cycles.length} cycle(s), $${record.usd.toFixed(2)}${record.stopped_because ? `, stopped: ${record.stopped_because}` : ''}`); break; }
+    if (!st.running && (!st.queue || st.queue.length === 0)) { log(`batch ended — ${record.cycles.length} cycle(s), ${fmtTokens(record.tokens)} tokens${record.stopped_because ? `, stopped: ${record.stopped_because}` : ''}`); break; }
     if (Date.now() > hardStop) { log('backstop: the watch window passed; leaving the lane to finish on its own'); record.stopped_because = record.stopped_because || 'watch_backstop'; break; }
   }
   record.ended = new Date().toISOString();

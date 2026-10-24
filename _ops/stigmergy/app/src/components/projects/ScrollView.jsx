@@ -212,7 +212,7 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
             <Button tone="default" onClick={() => setConfirmEnchant(false)}>cancel</Button>
           </>
         ) : (
-          <span data-testid="scroll-enchant"><Button tone="primary" disabled={!canEnchant} onClick={() => setConfirmEnchant(true)}>enchant a steward</Button></span>
+          <span data-testid="scroll-enchant"><Button tone="primary" disabled={!canEnchant} onClick={() => setConfirmEnchant(true)}>add a steward</Button></span>
         )) : null}
         {scroll ? <a href={`/api/open?path=${encodeURIComponent(scroll.path)}`} style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11, textDecoration: 'none', borderBottom: '1px dashed currentColor' }} title={scroll.path}>{scroll.exists ? 'open the file' : (isCeremony ? 'not on disk yet — scroll.js --ceremonies writes it' : isLedgerRow ? 'not on disk yet — a save, or scroll.js --home, writes it' : 'not on disk yet — first cycle or save creates it')}</a> : null}
         <FaceSwitch faces={scrollFaces} current="scroll" onSelect={selectFace} />

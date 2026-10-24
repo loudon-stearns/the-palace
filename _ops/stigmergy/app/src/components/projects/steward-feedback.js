@@ -16,5 +16,5 @@ export function enchantFeedback(name, r) {
   if (r.ok && r.result === 'enchanted') return { tone: 'ok', text: `${name} has a steward now (${r.slug}) — advance it when you're ready` };
   if (r.ok && r.result === 'already_enchanted') return { tone: 'dim', text: `${name} already has a steward (${r.slug})` };
   if (r.status === 404) return { tone: 'err', text: `no project entry found for "${name}"` };
-  return { tone: 'err', text: r.error || (r.errors ? r.errors.join('; ') : `enchant failed (${r.status ?? '?'})`) };
+  return { tone: 'err', text: r.error || (r.errors ? r.errors.join('; ') : `add steward failed (${r.status ?? '?'})`) };
 }

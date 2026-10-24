@@ -1,3 +1,11 @@
+/** Sum of a result line's usage token fields; null when there are none (tokens, never dollars — 2026-10-24). */
+function tokensOf(u) {
+  if (!u || typeof u !== 'object') return null;
+  const n = ['input_tokens', 'output_tokens', 'cache_creation_input_tokens', 'cache_read_input_tokens']
+    .map((k) => (typeof u[k] === 'number' ? u[k] : 0)).reduce((a, b) => a + b, 0);
+  return n > 0 ? n : null;
+}
+
 // transcript-view.js — pure helpers for the WATCH pane: turn a steward cycle's
 // stream-json transcript (the `claude -p --output-format stream-json` lines the
 // lane captures to .actuator-steward/transcripts/) into a feed a person can
@@ -49,7 +57,7 @@ export function feedFromLine(line, { toolNames = new Map() } = {}) {
       }
     }
   } else if (m.type === 'result') {
-    out.push({ kind: 'done', reason: m.subtype || m.stop_reason || 'ended', cost: typeof m.total_cost_usd === 'number' ? m.total_cost_usd : null, ms: typeof m.duration_api_ms === 'number' ? m.duration_api_ms : null });
+    out.push({ kind: 'done', reason: m.subtype || m.stop_reason || 'ended', tokens: tokensOf(m.usage), ms: typeof m.duration_api_ms === 'number' ? m.duration_api_ms : null });
   }
   return out;
 }

@@ -35,7 +35,7 @@ describe('feedFromLine', () => {
     expect(long.text.length).toBeLessThan(420);
   });
   it('reads the result line and ignores noise', () => {
-    expect(feedFromLine(JSON.stringify({ type: 'result', subtype: 'success', total_cost_usd: 5.17, duration_api_ms: 930000 }))).toEqual([{ kind: 'done', reason: 'success', cost: 5.17, ms: 930000 }]);
+    expect(feedFromLine(JSON.stringify({ type: 'result', subtype: 'success', usage: { input_tokens: 10, output_tokens: 20, cache_read_input_tokens: 70 }, duration_api_ms: 930000 }))).toEqual([{ kind: 'done', reason: 'success', tokens: 100, ms: 930000 }]);
     expect(feedFromLine(JSON.stringify({ type: 'system', subtype: 'thinking_tokens' }))).toEqual([]);
     expect(feedFromLine('not json')).toEqual([]);
   });
