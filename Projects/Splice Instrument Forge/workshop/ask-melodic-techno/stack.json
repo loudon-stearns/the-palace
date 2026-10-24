@@ -5,23 +5,178 @@
   "key": "A minor",
   "splice_stack": "14fde681-ea01-4466-8292-194e61821b7b",
   "ask": "I would like a melodic techno track with a female vocal and acid bass feature with a cinematic breakdown.",
-  "note": "v2, find before you bend: every layer but the vocal re-sourced at 124 in A (or its relative C major). The first version, five keys bent to A minor, is stack-v1-bent.json.",
+  "note": "v2, find before you bend: every layer but the vocal re-sourced at 124 in A (or its relative C major). The first version, five keys bent to A minor, is stack-v1-bent.json. v3: two alternate takes per track as take lanes (Loudon's ask, 2026-10-24).",
   "layers": [
-    { "role": "Drums",     "file": "samples/ZEN_FMT_124_drum_loop_groove_chroma.wav",                      "bpm": 124 },
-    { "role": "Acid Bass", "file": "samples/014_d__Acid_Drive_A1_125bpm_-_OA_Zenhiser.wav",                "bpm": 125, "key": "A" },
-    { "role": "Lead",      "file": "samples/ZEN_MMT_124_lead_synth_loop_linux_A.wav",                       "bpm": 124, "key": "A" },
-    { "role": "Pad",       "file": "samples/ZEN_MMT_124_pad_synth_loop_linux_A.wav",                        "bpm": 124, "key": "A" },
-    { "role": "Vocal",     "file": "samples/DS_SPACEM_123_vocal_hook_female_now_verse_stack_dry_Amin.wav", "bpm": 123, "key": "A minor" },
-    { "role": "Strings",   "file": "samples/JAFUNK_124_string_lush_pads_Cmaj.wav",                          "bpm": 124, "key": "C major" }
+    {
+      "role": "Drums",
+      "file": "samples/ZEN_FMT_124_drum_loop_groove_chroma.wav",
+      "bpm": 124,
+      "alternates": [
+        {
+          "file": "samples/ZEN_SMT_124_drum_loop_groove_teleport.wav",
+          "bpm": 124
+        },
+        {
+          "file": "samples/ZEN_FMT_124_drum_loop_groove_fractal.wav",
+          "bpm": 124
+        }
+      ]
+    },
+    {
+      "role": "Acid Bass",
+      "file": "samples/014_d__Acid_Drive_A1_125bpm_-_OA_Zenhiser.wav",
+      "bpm": 125,
+      "key": "A",
+      "alternates": [
+        {
+          "file": "samples/032_a__Acid_Drive_A1_125bpm_-_OA_Zenhiser.wav",
+          "bpm": 125,
+          "key": "A"
+        },
+        {
+          "file": "samples/038_a__Acid_Drive_A1_125bpm_-_OA_Zenhiser.wav",
+          "bpm": 125,
+          "key": "A"
+        }
+      ]
+    },
+    {
+      "role": "Lead",
+      "file": "samples/ZEN_MMT_124_lead_synth_loop_linux_A.wav",
+      "bpm": 124,
+      "key": "A",
+      "alternates": [
+        {
+          "file": "samples/DS_MT2_124_synth_lead_loop_exception_Amin.wav",
+          "bpm": 124,
+          "key": "A minor"
+        },
+        {
+          "file": "samples/STCR2_AA_124_Synth_Arp_Loop_Milkyway_Dry_Amin.wav",
+          "bpm": 124,
+          "key": "A minor"
+        }
+      ]
+    },
+    {
+      "role": "Pad",
+      "file": "samples/ZEN_MMT_124_pad_synth_loop_linux_A.wav",
+      "bpm": 124,
+      "key": "A",
+      "alternates": [
+        {
+          "file": "samples/BOS_TT_124_Synth_Pad_Loop_Resonance_A.wav",
+          "bpm": 124,
+          "key": "A"
+        },
+        {
+          "file": "samples/ff_dph_124_pad_loop_arson_Amin.wav",
+          "bpm": 124,
+          "key": "A minor"
+        }
+      ]
+    },
+    {
+      "role": "Vocal",
+      "file": "samples/DS_SPACEM_123_vocal_hook_female_now_verse_stack_dry_Amin.wav",
+      "bpm": 123,
+      "key": "A minor",
+      "alternates": [
+        {
+          "file": "samples/DS_SPACEM_123_vocal_hook_female_now_chorus_wet_Amin.wav",
+          "bpm": 123,
+          "key": "A minor"
+        },
+        {
+          "file": "samples/DS_SPACEM_123_vocal_hook_female_now_bridge_wet_Amin.wav",
+          "bpm": 123,
+          "key": "A minor"
+        }
+      ]
+    },
+    {
+      "role": "Strings",
+      "file": "samples/JAFUNK_124_string_lush_pads_Cmaj.wav",
+      "bpm": 124,
+      "key": "C major",
+      "alternates": [
+        {
+          "file": "samples/las_insp124_waves_breakstring.wav",
+          "bpm": 124
+        },
+        {
+          "file": "samples/BOS_IS_124_Violin_Loop_Glider_A.wav",
+          "bpm": 124,
+          "key": "A"
+        }
+      ]
+    }
   ],
   "scenes": [
-    { "name": "Intro",               "play": ["Drums", "Pad"] },
-    { "name": "Acid in",             "play": ["Drums", "Acid Bass", "Pad"] },
-    { "name": "Vocal",               "play": ["Drums", "Acid Bass", "Pad", "Vocal"] },
-    { "name": "Full",                "play": ["Drums", "Acid Bass", "Lead", "Pad", "Vocal"] },
-    { "name": "Cinematic breakdown", "play": ["Strings", "Pad", "Vocal"] },
-    { "name": "Acid feature",        "play": ["Drums", "Acid Bass"] },
-    { "name": "Drop",                "play": ["Drums", "Acid Bass", "Lead", "Vocal"] },
-    { "name": "Outro",               "play": ["Strings", "Pad"] }
+    {
+      "name": "Intro",
+      "play": [
+        "Drums",
+        "Pad"
+      ]
+    },
+    {
+      "name": "Acid in",
+      "play": [
+        "Drums",
+        "Acid Bass",
+        "Pad"
+      ]
+    },
+    {
+      "name": "Vocal",
+      "play": [
+        "Drums",
+        "Acid Bass",
+        "Pad",
+        "Vocal"
+      ]
+    },
+    {
+      "name": "Full",
+      "play": [
+        "Drums",
+        "Acid Bass",
+        "Lead",
+        "Pad",
+        "Vocal"
+      ]
+    },
+    {
+      "name": "Cinematic breakdown",
+      "play": [
+        "Strings",
+        "Pad",
+        "Vocal"
+      ]
+    },
+    {
+      "name": "Acid feature",
+      "play": [
+        "Drums",
+        "Acid Bass"
+      ]
+    },
+    {
+      "name": "Drop",
+      "play": [
+        "Drums",
+        "Acid Bass",
+        "Lead",
+        "Vocal"
+      ]
+    },
+    {
+      "name": "Outro",
+      "play": [
+        "Strings",
+        "Pad"
+      ]
+    }
   ]
 }

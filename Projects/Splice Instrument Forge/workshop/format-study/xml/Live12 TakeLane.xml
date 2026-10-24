@@ -1,0 +1,920 @@
+<TakeLane Id="0">
+							<LomId Value="0" />
+							<Height Value="51" />
+							<IsContentSelectedInDocument Value="false" />
+							<ClipAutomation>
+								<Events>
+									<AudioClip Id="0" Time="0">
+										<LomId Value="0" />
+										<LomIdView Value="0" />
+										<CurrentStart Value="0" />
+										<CurrentEnd Value="586.5250231539294" />
+										<Loop>
+											<LoopStart Value="0" />
+											<LoopEnd Value="586.5250231539294" />
+											<StartRelative Value="0" />
+											<LoopOn Value="false" />
+											<OutMarker Value="586.5250231539294" />
+											<HiddenLoopStart Value="0" />
+											<HiddenLoopEnd Value="586.5250231539294" />
+										</Loop>
+										<Name Value="Click Tempo Map Live Record" />
+										<Annotation Value="" />
+										<Color Value="20" />
+										<LaunchMode Value="0" />
+										<LaunchQuantisation Value="0" />
+										<TimeSignature>
+											<TimeSignatures>
+												<RemoteableTimeSignature Id="0">
+													<Numerator Value="4" />
+													<Denominator Value="4" />
+													<Time Value="0" />
+												</RemoteableTimeSignature>
+											</TimeSignatures>
+										</TimeSignature>
+										<Envelopes>
+											<Envelopes />
+										</Envelopes>
+										<ScrollerTimePreserver>
+											<LeftTime Value="0" />
+											<RightTime Value="0" />
+										</ScrollerTimePreserver>
+										<TimeSelection>
+											<AnchorTime Value="0" />
+											<OtherTime Value="0" />
+										</TimeSelection>
+										<Legato Value="false" />
+										<Ram Value="false" />
+										<GrooveSettings>
+											<GrooveId Value="-1" />
+										</GrooveSettings>
+										<Disabled Value="false" />
+										<VelocityAmount Value="0" />
+										<FollowAction>
+											<FollowTime Value="4" />
+											<IsLinked Value="true" />
+											<LoopIterations Value="1" />
+											<FollowActionA Value="4" />
+											<FollowActionB Value="0" />
+											<FollowChanceA Value="100" />
+											<FollowChanceB Value="0" />
+											<JumpIndexA Value="1" />
+											<JumpIndexB Value="1" />
+											<FollowActionEnabled Value="false" />
+										</FollowAction>
+										<Grid>
+											<FixedNumerator Value="1" />
+											<FixedDenominator Value="16" />
+											<GridIntervalPixel Value="20" />
+											<Ntoles Value="2" />
+											<SnapToGrid Value="true" />
+											<Fixed Value="false" />
+										</Grid>
+										<FreezeStart Value="0" />
+										<FreezeEnd Value="0" />
+										<IsWarped Value="true" />
+										<TakeId Value="1" />
+										<IsInKey Value="true" />
+										<ScaleInformation>
+											<Root Value="0" />
+											<Name Value="0" />
+										</ScaleInformation>
+										<AutomationEnvelopesListWrapper LomId="0" />
+										<SampleRef>
+											<FileRef>
+												<RelativePathType Value="3" />
+												<RelativePath Value="Samples/Recorded/Click Tempo Map Live Record 0001 [2026-10-06 085056].wav" />
+												<Path Value="/Users/loudonstearns/Documents/GoButton Local/Ableton Tempo Analysis Project/Samples/Recorded/Click Tempo Map Live Record 0001 [2026-10-06 085056].wav" />
+												<Type Value="2" />
+												<LivePackName Value="" />
+												<LivePackId Value="" />
+												<OriginalFileSize Value="84768848" />
+												<OriginalCrc Value="32043" />
+												<SourceHint Value="" />
+											</FileRef>
+											<LastModDate Value="1791291056" />
+											<SourceContext />
+											<SampleUsageHint Value="0" />
+											<DefaultDuration Value="14128128" />
+											<DefaultSampleRate Value="44100" />
+											<SamplesToAutoWarp Value="0" />
+										</SampleRef>
+										<Onsets>
+											<UserOnsets />
+											<HasUserOnsets Value="false" />
+										</Onsets>
+										<WarpMode Value="4" />
+										<GranularityTones Value="30" />
+										<GranularityTexture Value="65" />
+										<FluctuationTexture Value="25" />
+										<TransientResolution Value="6" />
+										<TransientLoopMode Value="2" />
+										<TransientEnvelope Value="100" />
+										<ComplexProFormants Value="100" />
+										<ComplexProEnvelope Value="128" />
+										<Sync Value="true" />
+										<HiQ Value="true" />
+										<Fade Value="false" />
+										<Fades>
+											<FadeInLength Value="0" />
+											<FadeOutLength Value="0" />
+											<ClipFadesAreInitialized Value="true" />
+											<CrossfadeInState Value="0" />
+											<FadeInCurveSkew Value="0" />
+											<FadeInCurveSlope Value="0" />
+											<FadeOutCurveSkew Value="0" />
+											<FadeOutCurveSlope Value="0" />
+											<IsDefaultFadeIn Value="false" />
+											<IsDefaultFadeOut Value="false" />
+										</Fades>
+										<PitchCoarse Value="0" />
+										<PitchFine Value="0" />
+										<SampleVolume Value="1" />
+										<WarpMarkers>
+											<WarpMarker Id="0" SecTime="0" BeatTime="0" />
+											<WarpMarker Id="1" SecTime="56.058412698412702" BeatTime="128" />
+											<WarpMarker Id="2" SecTime="56.167936507936517" BeatTime="128.25" />
+											<WarpMarker Id="3" SecTime="56.277505668934253" BeatTime="128.5" />
+											<WarpMarker Id="4" SecTime="56.387120181405926" BeatTime="128.75" />
+											<WarpMarker Id="5" SecTime="56.496757369614549" BeatTime="129" />
+											<WarpMarker Id="6" SecTime="56.606439909297052" BeatTime="129.25" />
+											<WarpMarker Id="7" SecTime="56.716167800453533" BeatTime="129.5" />
+											<WarpMarker Id="8" SecTime="56.825941043083937" BeatTime="129.75" />
+											<WarpMarker Id="9" SecTime="56.935759637188262" BeatTime="130" />
+											<WarpMarker Id="10" SecTime="57.045623582766495" BeatTime="130.25" />
+											<WarpMarker Id="11" SecTime="57.155510204081693" BeatTime="130.5" />
+											<WarpMarker Id="12" SecTime="57.265442176870799" BeatTime="130.75" />
+											<WarpMarker Id="13" SecTime="57.375419501133869" BeatTime="131" />
+											<WarpMarker Id="14" SecTime="57.485442176870826" BeatTime="131.25" />
+											<WarpMarker Id="15" SecTime="57.595510204081705" BeatTime="131.5" />
+											<WarpMarker Id="16" SecTime="57.705623582766492" BeatTime="131.75" />
+											<WarpMarker Id="17" SecTime="57.815782312925258" BeatTime="132" />
+											<WarpMarker Id="18" SecTime="57.92596371882096" BeatTime="132.25" />
+											<WarpMarker Id="19" SecTime="58.036190476190598" BeatTime="132.5" />
+											<WarpMarker Id="20" SecTime="58.146462585034165" BeatTime="132.75" />
+											<WarpMarker Id="21" SecTime="58.256780045351597" BeatTime="133" />
+											<WarpMarker Id="22" SecTime="58.367142857142944" BeatTime="133.25" />
+											<WarpMarker Id="23" SecTime="58.477551020408271" BeatTime="133.5" />
+											<WarpMarker Id="24" SecTime="58.588004535147491" BeatTime="133.75" />
+											<WarpMarker Id="25" SecTime="58.69848072562371" BeatTime="134" />
+											<WarpMarker Id="26" SecTime="58.809002267573803" BeatTime="134.25" />
+											<WarpMarker Id="27" SecTime="58.919569160997845" BeatTime="134.5" />
+											<WarpMarker Id="28" SecTime="59.03018140589586" BeatTime="134.75" />
+											<WarpMarker Id="29" SecTime="59.140839002267732" BeatTime="135" />
+											<WarpMarker Id="30" SecTime="59.251541950113548" BeatTime="135.25" />
+											<WarpMarker Id="31" SecTime="59.362290249433265" BeatTime="135.5" />
+											<WarpMarker Id="32" SecTime="59.473083900226918" BeatTime="135.75" />
+											<WarpMarker Id="33" SecTime="59.583900226757564" BeatTime="136" />
+											<WarpMarker Id="34" SecTime="59.69476190476211" BeatTime="136.25" />
+											<WarpMarker Id="35" SecTime="59.805668934240543" BeatTime="136.5" />
+											<WarpMarker Id="36" SecTime="59.916621315192913" BeatTime="136.75" />
+											<WarpMarker Id="37" SecTime="60.027619047619176" BeatTime="137" />
+											<WarpMarker Id="38" SecTime="60.138662131519411" BeatTime="137.25" />
+											<WarpMarker Id="39" SecTime="60.249750566893567" BeatTime="137.5" />
+											<WarpMarker Id="40" SecTime="60.360884353741682" BeatTime="137.75" />
+											<WarpMarker Id="41" SecTime="60.47206349206364" BeatTime="138" />
+											<WarpMarker Id="42" SecTime="60.583265306122613" BeatTime="138.25" />
+											<WarpMarker Id="43" SecTime="60.694512471655486" BeatTime="138.5" />
+											<WarpMarker Id="44" SecTime="60.805804988662288" BeatTime="138.75" />
+											<WarpMarker Id="45" SecTime="60.917142857143034" BeatTime="139" />
+											<WarpMarker Id="46" SecTime="61.028526077097681" BeatTime="139.25" />
+											<WarpMarker Id="47" SecTime="61.139954648526249" BeatTime="139.5" />
+											<WarpMarker Id="48" SecTime="61.251428571428711" BeatTime="139.75" />
+											<WarpMarker Id="49" SecTime="61.36294784580511" BeatTime="140" />
+											<WarpMarker Id="50" SecTime="61.474512471655494" BeatTime="140.25" />
+											<WarpMarker Id="51" SecTime="61.586122448979772" BeatTime="140.5" />
+											<WarpMarker Id="52" SecTime="61.697755102040979" BeatTime="140.75" />
+											<WarpMarker Id="53" SecTime="61.809433106576094" BeatTime="141" />
+											<WarpMarker Id="54" SecTime="61.921156462585159" BeatTime="141.25" />
+											<WarpMarker Id="55" SecTime="62.032925170068168" BeatTime="141.5" />
+											<WarpMarker Id="56" SecTime="62.14473922902512" BeatTime="141.75" />
+											<WarpMarker Id="57" SecTime="62.256598639455959" BeatTime="142" />
+											<WarpMarker Id="58" SecTime="62.368503401360748" BeatTime="142.25" />
+											<WarpMarker Id="59" SecTime="62.480453514739416" BeatTime="142.5" />
+											<WarpMarker Id="60" SecTime="62.592448979592042" BeatTime="142.75" />
+											<WarpMarker Id="61" SecTime="62.704489795918576" BeatTime="143" />
+											<WarpMarker Id="62" SecTime="62.816575963719039" BeatTime="143.25" />
+											<WarpMarker Id="63" SecTime="62.928707482993403" BeatTime="143.5" />
+											<WarpMarker Id="64" SecTime="63.040861678004759" BeatTime="143.75" />
+											<WarpMarker Id="65" SecTime="63.153061224490067" BeatTime="144" />
+											<WarpMarker Id="66" SecTime="63.265306122449253" BeatTime="144.25" />
+											<WarpMarker Id="67" SecTime="63.377596371882397" BeatTime="144.5" />
+											<WarpMarker Id="68" SecTime="63.489931972789378" BeatTime="144.75" />
+											<WarpMarker Id="69" SecTime="63.602312925170303" BeatTime="145" />
+											<WarpMarker Id="70" SecTime="63.714739229025206" BeatTime="145.25" />
+											<WarpMarker Id="71" SecTime="63.827210884353995" BeatTime="145.5" />
+											<WarpMarker Id="72" SecTime="63.939727891156714" BeatTime="145.75" />
+											<WarpMarker Id="73" SecTime="64.052290249433341" BeatTime="146" />
+											<WarpMarker Id="74" SecTime="64.164897959183861" BeatTime="146.25" />
+											<WarpMarker Id="75" SecTime="64.27755102040841" BeatTime="146.5" />
+											<WarpMarker Id="76" SecTime="64.390249433106774" BeatTime="146.75" />
+											<WarpMarker Id="77" SecTime="64.502993197279082" BeatTime="147" />
+											<WarpMarker Id="78" SecTime="64.615782312925418" BeatTime="147.25" />
+											<WarpMarker Id="79" SecTime="64.728616780045598" BeatTime="147.5" />
+											<WarpMarker Id="80" SecTime="64.841473922902694" BeatTime="147.75" />
+											<WarpMarker Id="81" SecTime="64.95437641723376" BeatTime="148" />
+											<WarpMarker Id="82" SecTime="65.067324263038813" BeatTime="148.25" />
+											<WarpMarker Id="83" SecTime="65.180317460317781" BeatTime="148.5" />
+											<WarpMarker Id="84" SecTime="65.293356009070635" BeatTime="148.75" />
+											<WarpMarker Id="85" SecTime="65.406439909297347" BeatTime="149" />
+											<WarpMarker Id="86" SecTime="65.519569160997989" BeatTime="149.25" />
+											<WarpMarker Id="87" SecTime="65.632743764172545" BeatTime="149.5" />
+											<WarpMarker Id="88" SecTime="65.745963718821088" BeatTime="149.75" />
+											<WarpMarker Id="89" SecTime="65.859229024943474" BeatTime="150" />
+											<WarpMarker Id="90" SecTime="65.97253968253986" BeatTime="150.25" />
+											<WarpMarker Id="91" SecTime="66.085895691610077" BeatTime="150.5" />
+											<WarpMarker Id="92" SecTime="66.19929705215435" BeatTime="150.75" />
+											<WarpMarker Id="93" SecTime="66.312743764172509" BeatTime="151" />
+											<WarpMarker Id="94" SecTime="66.426235827664541" BeatTime="151.25" />
+											<WarpMarker Id="95" SecTime="66.53977324263046" BeatTime="151.5" />
+											<WarpMarker Id="96" SecTime="66.653356009070308" BeatTime="151.75" />
+											<WarpMarker Id="97" SecTime="66.766984126984156" BeatTime="152" />
+											<WarpMarker Id="98" SecTime="66.880657596371904" BeatTime="152.25" />
+											<WarpMarker Id="99" SecTime="66.99437641723361" BeatTime="152.5" />
+											<WarpMarker Id="100" SecTime="67.108140589569203" BeatTime="152.75" />
+											<WarpMarker Id="101" SecTime="67.221950113378739" BeatTime="153" />
+											<WarpMarker Id="102" SecTime="67.335804988662161" BeatTime="153.25" />
+											<WarpMarker Id="103" SecTime="67.44970521541957" BeatTime="153.5" />
+											<WarpMarker Id="104" SecTime="67.563650793650879" BeatTime="153.75" />
+											<WarpMarker Id="105" SecTime="67.677641723356118" BeatTime="154" />
+											<WarpMarker Id="106" SecTime="67.791678004535257" BeatTime="154.25" />
+											<WarpMarker Id="107" SecTime="67.905759637188339" BeatTime="154.5" />
+											<WarpMarker Id="108" SecTime="68.019886621315351" BeatTime="154.75" />
+											<WarpMarker Id="109" SecTime="68.134058956916249" BeatTime="155" />
+											<WarpMarker Id="110" SecTime="68.248276643991019" BeatTime="155.25" />
+											<WarpMarker Id="111" SecTime="68.362539682539776" BeatTime="155.5" />
+											<WarpMarker Id="112" SecTime="68.476848072562419" BeatTime="155.75" />
+											<WarpMarker Id="113" SecTime="68.591201814058948" BeatTime="156" />
+											<WarpMarker Id="114" SecTime="68.705600907029392" BeatTime="156.25" />
+											<WarpMarker Id="115" SecTime="68.820045351473794" BeatTime="156.5" />
+											<WarpMarker Id="116" SecTime="68.934535147392154" BeatTime="156.75" />
+											<WarpMarker Id="117" SecTime="69.049070294784414" BeatTime="157" />
+											<WarpMarker Id="118" SecTime="69.16365079365066" BeatTime="157.25" />
+											<WarpMarker Id="119" SecTime="69.278276643990836" BeatTime="157.5" />
+											<WarpMarker Id="120" SecTime="69.392947845804855" BeatTime="157.75" />
+											<WarpMarker Id="121" SecTime="69.507664399092818" BeatTime="158" />
+											<WarpMarker Id="122" SecTime="69.622426303854681" BeatTime="158.25" />
+											<WarpMarker Id="123" SecTime="69.737233560090473" BeatTime="158.5" />
+											<WarpMarker Id="124" SecTime="69.852086167800252" BeatTime="158.75" />
+											<WarpMarker Id="125" SecTime="69.966984126983874" BeatTime="159" />
+											<WarpMarker Id="126" SecTime="70.081927437641411" BeatTime="159.25" />
+											<WarpMarker Id="127" SecTime="70.196916099772977" BeatTime="159.5" />
+											<WarpMarker Id="128" SecTime="70.311950113378387" BeatTime="159.75" />
+											<WarpMarker Id="129" SecTime="70.427029478457783" BeatTime="160" />
+											<WarpMarker Id="130" SecTime="70.542154195011051" BeatTime="160.25" />
+											<WarpMarker Id="131" SecTime="70.657324263038248" BeatTime="160.5" />
+											<WarpMarker Id="132" SecTime="70.772539682539346" BeatTime="160.75" />
+											<WarpMarker Id="133" SecTime="70.88780045351433" BeatTime="161" />
+											<WarpMarker Id="134" SecTime="71.003106575963372" BeatTime="161.25" />
+											<WarpMarker Id="135" SecTime="71.118458049886243" BeatTime="161.5" />
+											<WarpMarker Id="136" SecTime="71.233854875283129" BeatTime="161.75" />
+											<WarpMarker Id="137" SecTime="71.349297052153943" BeatTime="162" />
+											<WarpMarker Id="138" SecTime="71.464784580498616" BeatTime="162.25" />
+											<WarpMarker Id="139" SecTime="71.580317460317261" BeatTime="162.5" />
+											<WarpMarker Id="140" SecTime="71.695895691609749" BeatTime="162.75" />
+											<WarpMarker Id="141" SecTime="71.811519274376153" BeatTime="163" />
+											<WarpMarker Id="142" SecTime="71.927188208616556" BeatTime="163.25" />
+											<WarpMarker Id="143" SecTime="72.04290249433086" BeatTime="163.5" />
+											<WarpMarker Id="144" SecTime="72.158684807256023" BeatTime="163.75" />
+											<WarpMarker Id="145" SecTime="72.274512471655157" BeatTime="164" />
+											<WarpMarker Id="146" SecTime="72.390385487528093" BeatTime="164.25" />
+											<WarpMarker Id="147" SecTime="72.5063038548751" BeatTime="164.5" />
+											<WarpMarker Id="148" SecTime="72.622267573696035" BeatTime="164.75" />
+											<WarpMarker Id="149" SecTime="72.738276643990829" BeatTime="165" />
+											<WarpMarker Id="150" SecTime="72.854331065759496" BeatTime="165.25" />
+											<WarpMarker Id="151" SecTime="72.970430839002077" BeatTime="165.5" />
+											<WarpMarker Id="152" SecTime="73.086575963718701" BeatTime="165.75" />
+											<WarpMarker Id="153" SecTime="73.202766439909141" BeatTime="166" />
+											<WarpMarker Id="154" SecTime="73.319002267573495" BeatTime="166.25" />
+											<WarpMarker Id="155" SecTime="73.435283446711864" BeatTime="166.5" />
+											<WarpMarker Id="156" SecTime="73.551609977324034" BeatTime="166.75" />
+											<WarpMarker Id="157" SecTime="73.667981859410176" BeatTime="167" />
+											<WarpMarker Id="158" SecTime="73.784399092970304" BeatTime="167.25" />
+											<WarpMarker Id="159" SecTime="73.90086167800429" BeatTime="167.5" />
+											<WarpMarker Id="160" SecTime="74.017392290249219" BeatTime="167.75" />
+											<WarpMarker Id="161" SecTime="74.13396825396805" BeatTime="168" />
+											<WarpMarker Id="162" SecTime="74.250589569160852" BeatTime="168.25" />
+											<WarpMarker Id="163" SecTime="74.367256235827497" BeatTime="168.5" />
+											<WarpMarker Id="164" SecTime="74.483968253968044" BeatTime="168.75" />
+											<WarpMarker Id="165" SecTime="74.60072562358252" BeatTime="169" />
+											<WarpMarker Id="166" SecTime="74.717528344670953" BeatTime="169.25" />
+											<WarpMarker Id="167" SecTime="74.834376417233301" BeatTime="169.5" />
+											<WarpMarker Id="168" SecTime="74.951269841269536" BeatTime="169.75" />
+											<WarpMarker Id="169" SecTime="75.068208616779742" BeatTime="170" />
+											<WarpMarker Id="170" SecTime="75.185192743763906" BeatTime="170.25" />
+											<WarpMarker Id="171" SecTime="75.302244897958929" BeatTime="170.5" />
+											<WarpMarker Id="172" SecTime="75.419342403627866" BeatTime="170.75" />
+											<WarpMarker Id="173" SecTime="75.536485260770718" BeatTime="171" />
+											<WarpMarker Id="174" SecTime="75.653673469387542" BeatTime="171.25" />
+											<WarpMarker Id="175" SecTime="75.770907029478181" BeatTime="171.5" />
+											<WarpMarker Id="176" SecTime="75.888185941042863" BeatTime="171.75" />
+											<WarpMarker Id="177" SecTime="76.005510204081332" BeatTime="172" />
+											<WarpMarker Id="178" SecTime="76.122879818593745" BeatTime="172.25" />
+											<WarpMarker Id="179" SecTime="76.240294784580158" BeatTime="172.5" />
+											<WarpMarker Id="180" SecTime="76.357755102040571" BeatTime="172.75" />
+											<WarpMarker Id="181" SecTime="76.475283446711785" BeatTime="173" />
+											<WarpMarker Id="182" SecTime="76.5928571428569" BeatTime="173.25" />
+											<WarpMarker Id="183" SecTime="76.710476190475973" BeatTime="173.5" />
+											<WarpMarker Id="184" SecTime="76.828140589569031" BeatTime="173.75" />
+											<WarpMarker Id="185" SecTime="76.945850340135948" BeatTime="174" />
+											<WarpMarker Id="186" SecTime="77.063605442176765" BeatTime="174.25" />
+											<WarpMarker Id="187" SecTime="77.181405895691526" BeatTime="174.5" />
+											<WarpMarker Id="188" SecTime="77.299251700680131" BeatTime="174.75" />
+											<WarpMarker Id="189" SecTime="77.41716553287965" BeatTime="175" />
+											<WarpMarker Id="190" SecTime="77.535124716553057" BeatTime="175.25" />
+											<WarpMarker Id="191" SecTime="77.653129251700435" BeatTime="175.5" />
+											<WarpMarker Id="192" SecTime="77.771179138321756" BeatTime="175.75" />
+											<WarpMarker Id="193" SecTime="77.889274376416978" BeatTime="176" />
+											<WarpMarker Id="194" SecTime="78.007414965986072" BeatTime="176.25" />
+											<WarpMarker Id="195" SecTime="78.125600907029238" BeatTime="176.5" />
+											<WarpMarker Id="196" SecTime="78.24385487528329" BeatTime="176.75" />
+											<WarpMarker Id="197" SecTime="78.362154195011144" BeatTime="177" />
+											<WarpMarker Id="198" SecTime="78.480498866212955" BeatTime="177.25" />
+											<WarpMarker Id="199" SecTime="78.598888888888752" BeatTime="177.5" />
+											<WarpMarker Id="200" SecTime="78.717324263038321" BeatTime="177.75" />
+											<WarpMarker Id="201" SecTime="78.835804988661891" BeatTime="178" />
+											<WarpMarker Id="202" SecTime="78.954331065759405" BeatTime="178.25" />
+											<WarpMarker Id="203" SecTime="79.07292517006772" BeatTime="178.5" />
+											<WarpMarker Id="204" SecTime="79.191564625850035" BeatTime="178.75" />
+											<WarpMarker Id="205" SecTime="79.310249433106264" BeatTime="179" />
+											<WarpMarker Id="206" SecTime="79.428979591836466" BeatTime="179.25" />
+											<WarpMarker Id="207" SecTime="79.547755102040639" BeatTime="179.5" />
+											<WarpMarker Id="208" SecTime="79.666575963718671" BeatTime="179.75" />
+											<WarpMarker Id="209" SecTime="79.785442176870546" BeatTime="180" />
+											<WarpMarker Id="210" SecTime="79.904376417233365" BeatTime="180.25" />
+											<WarpMarker Id="211" SecTime="80.023356009070113" BeatTime="180.5" />
+											<WarpMarker Id="212" SecTime="80.142380952380734" BeatTime="180.75" />
+											<WarpMarker Id="213" SecTime="80.261451247165368" BeatTime="181" />
+											<WarpMarker Id="214" SecTime="80.380566893423833" BeatTime="181.25" />
+											<WarpMarker Id="215" SecTime="80.499727891156297" BeatTime="181.5" />
+											<WarpMarker Id="216" SecTime="80.618956916099592" BeatTime="181.75" />
+											<WarpMarker Id="217" SecTime="80.738231292516858" BeatTime="182" />
+											<WarpMarker Id="218" SecTime="80.857551020408025" BeatTime="182.25" />
+											<WarpMarker Id="219" SecTime="80.976916099773121" BeatTime="182.5" />
+											<WarpMarker Id="220" SecTime="81.096326530612174" BeatTime="182.75" />
+											<WarpMarker Id="221" SecTime="81.215804988662057" BeatTime="183" />
+											<WarpMarker Id="222" SecTime="81.335328798185955" BeatTime="183.25" />
+											<WarpMarker Id="223" SecTime="81.454897959183782" BeatTime="183.5" />
+											<WarpMarker Id="224" SecTime="81.57451247165541" BeatTime="183.75" />
+											<WarpMarker Id="225" SecTime="81.69417233560101" BeatTime="184" />
+											<WarpMarker Id="226" SecTime="81.813900226757539" BeatTime="184.25" />
+											<WarpMarker Id="227" SecTime="81.933673469387927" BeatTime="184.5" />
+											<WarpMarker Id="228" SecTime="82.053492063492271" BeatTime="184.75" />
+											<WarpMarker Id="229" SecTime="82.173356009070531" BeatTime="185" />
+											<WarpMarker Id="230" SecTime="82.293265306122663" BeatTime="185.25" />
+											<WarpMarker Id="231" SecTime="82.413242630385682" BeatTime="185.5" />
+											<WarpMarker Id="232" SecTime="82.533265306122615" BeatTime="185.75" />
+											<WarpMarker Id="233" SecTime="82.653333333333521" BeatTime="186" />
+											<WarpMarker Id="234" SecTime="82.77344671201827" BeatTime="186.25" />
+											<WarpMarker Id="235" SecTime="82.893605442177076" BeatTime="186.5" />
+											<WarpMarker Id="236" SecTime="83.013832199546727" BeatTime="186.75" />
+											<WarpMarker Id="237" SecTime="83.134104308390334" BeatTime="187" />
+											<WarpMarker Id="238" SecTime="83.254421768707772" BeatTime="187.25" />
+											<WarpMarker Id="239" SecTime="83.374784580499124" BeatTime="187.5" />
+											<WarpMarker Id="240" SecTime="83.49519274376442" BeatTime="187.75" />
+											<WarpMarker Id="241" SecTime="83.615668934240631" BeatTime="188" />
+											<WarpMarker Id="242" SecTime="83.736190476190785" BeatTime="188.25" />
+											<WarpMarker Id="243" SecTime="83.856757369614741" BeatTime="188.5" />
+											<WarpMarker Id="244" SecTime="83.97736961451281" BeatTime="188.75" />
+											<WarpMarker Id="245" SecTime="84.098049886621652" BeatTime="189" />
+											<WarpMarker Id="246" SecTime="84.218775510204352" BeatTime="189.25" />
+											<WarpMarker Id="247" SecTime="84.339546485261096" BeatTime="189.5" />
+											<WarpMarker Id="248" SecTime="84.460362811791668" BeatTime="189.75" />
+											<WarpMarker Id="249" SecTime="84.581224489796227" BeatTime="190" />
+											<WarpMarker Id="250" SecTime="84.702154195011659" BeatTime="190.25" />
+											<WarpMarker Id="251" SecTime="84.823129251701019" BeatTime="190.5" />
+											<WarpMarker Id="252" SecTime="84.944149659864323" BeatTime="190.75" />
+											<WarpMarker Id="253" SecTime="85.065215419501442" BeatTime="191" />
+											<WarpMarker Id="254" SecTime="85.18634920634949" BeatTime="191.25" />
+											<WarpMarker Id="255" SecTime="85.307528344671496" BeatTime="191.5" />
+											<WarpMarker Id="256" SecTime="85.428752834467417" BeatTime="191.75" />
+											<WarpMarker Id="257" SecTime="85.55002267573721" BeatTime="192" />
+											<WarpMarker Id="258" SecTime="85.671360544217947" BeatTime="192.25" />
+											<WarpMarker Id="259" SecTime="85.792743764172613" BeatTime="192.5" />
+											<WarpMarker Id="260" SecTime="85.914172335601137" BeatTime="192.75" />
+											<WarpMarker Id="261" SecTime="86.035646258503675" BeatTime="193" />
+											<WarpMarker Id="262" SecTime="86.157188208616972" BeatTime="193.25" />
+											<WarpMarker Id="263" SecTime="86.278775510204312" BeatTime="193.5" />
+											<WarpMarker Id="264" SecTime="86.400408163265467" BeatTime="193.75" />
+											<WarpMarker Id="265" SecTime="86.522108843537566" BeatTime="194" />
+											<WarpMarker Id="266" SecTime="86.643854875283694" BeatTime="194.25" />
+											<WarpMarker Id="267" SecTime="86.765646258503722" BeatTime="194.5" />
+											<WarpMarker Id="268" SecTime="86.887482993197693" BeatTime="194.75" />
+											<WarpMarker Id="269" SecTime="87.009387755102466" BeatTime="195" />
+											<WarpMarker Id="270" SecTime="87.13133786848114" BeatTime="195.25" />
+											<WarpMarker Id="271" SecTime="87.253333333333785" BeatTime="195.5" />
+											<WarpMarker Id="272" SecTime="87.37537414966036" BeatTime="195.75" />
+											<WarpMarker Id="273" SecTime="87.49748299319775" BeatTime="196" />
+											<WarpMarker Id="274" SecTime="87.619637188209069" BeatTime="196.25" />
+											<WarpMarker Id="275" SecTime="87.741836734694303" BeatTime="196.5" />
+											<WarpMarker Id="276" SecTime="87.864104308390537" BeatTime="196.75" />
+											<WarpMarker Id="277" SecTime="87.986417233560545" BeatTime="197" />
+											<WarpMarker Id="278" SecTime="88.108775510204495" BeatTime="197.25" />
+											<WarpMarker Id="279" SecTime="88.231179138322418" BeatTime="197.5" />
+											<WarpMarker Id="280" SecTime="88.353650793651212" BeatTime="197.75" />
+											<WarpMarker Id="281" SecTime="88.476167800453908" BeatTime="198" />
+											<WarpMarker Id="282" SecTime="88.598730158730575" BeatTime="198.25" />
+											<WarpMarker Id="283" SecTime="88.721360544218129" BeatTime="198.5" />
+											<WarpMarker Id="284" SecTime="88.844036281179541" BeatTime="198.75" />
+											<WarpMarker Id="285" SecTime="88.966757369614868" BeatTime="199" />
+											<WarpMarker Id="286" SecTime="89.089546485261181" BeatTime="199.25" />
+											<WarpMarker Id="287" SecTime="89.212380952381409" BeatTime="199.5" />
+											<WarpMarker Id="288" SecTime="89.335260770975594" BeatTime="199.75" />
+											<WarpMarker Id="289" SecTime="89.458185941043581" BeatTime="200" />
+											<WarpMarker Id="290" SecTime="89.581179138322597" BeatTime="200.25" />
+											<WarpMarker Id="291" SecTime="89.704217687075428" BeatTime="200.5" />
+											<WarpMarker Id="292" SecTime="89.827301587302202" BeatTime="200.75" />
+											<WarpMarker Id="293" SecTime="89.950453514739763" BeatTime="201" />
+											<WarpMarker Id="294" SecTime="90.073650793651339" BeatTime="201.25" />
+											<WarpMarker Id="295" SecTime="90.19689342403683" BeatTime="201.5" />
+											<WarpMarker Id="296" SecTime="90.320204081633179" BeatTime="201.75" />
+											<WarpMarker Id="297" SecTime="90.443560090703485" BeatTime="202" />
+											<WarpMarker Id="298" SecTime="90.566961451247693" BeatTime="202.25" />
+											<WarpMarker Id="299" SecTime="90.6904308390029" BeatTime="202.5" />
+											<WarpMarker Id="300" SecTime="90.813945578231824" BeatTime="202.75" />
+											<WarpMarker Id="301" SecTime="90.937505668934762" BeatTime="203" />
+											<WarpMarker Id="302" SecTime="91.061133786848544" BeatTime="203.25" />
+											<WarpMarker Id="303" SecTime="91.184807256236283" BeatTime="203.5" />
+											<WarpMarker Id="304" SecTime="91.308526077097966" BeatTime="203.75" />
+											<WarpMarker Id="305" SecTime="91.432312925170493" BeatTime="204" />
+											<WarpMarker Id="306" SecTime="91.556145124717034" BeatTime="204.25" />
+											<WarpMarker Id="307" SecTime="91.680022675737391" BeatTime="204.5" />
+											<WarpMarker Id="308" SecTime="91.803968253968591" BeatTime="204.75" />
+											<WarpMarker Id="309" SecTime="91.927959183673735" BeatTime="205" />
+											<WarpMarker Id="310" SecTime="92.052018140589837" BeatTime="205.25" />
+											<WarpMarker Id="311" SecTime="92.176122448979868" BeatTime="205.5" />
+											<WarpMarker Id="312" SecTime="92.30027210884387" BeatTime="205.75" />
+											<WarpMarker Id="313" SecTime="92.424489795918618" BeatTime="206" />
+											<WarpMarker Id="314" SecTime="92.548752834467436" BeatTime="206.25" />
+											<WarpMarker Id="315" SecTime="92.673061224490169" BeatTime="206.5" />
+											<WarpMarker Id="316" SecTime="92.797437641723775" BeatTime="206.75" />
+											<WarpMarker Id="317" SecTime="92.921859410431182" BeatTime="207" />
+											<WarpMarker Id="318" SecTime="93.046326530612674" BeatTime="207.25" />
+											<WarpMarker Id="319" SecTime="93.170861678004925" BeatTime="207.5" />
+											<WarpMarker Id="320" SecTime="93.295442176871106" BeatTime="207.75" />
+											<WarpMarker Id="321" SecTime="93.420090702948201" BeatTime="208" />
+											<WarpMarker Id="322" SecTime="93.544784580499211" BeatTime="208.25" />
+											<WarpMarker Id="323" SecTime="93.669523809524236" BeatTime="208.5" />
+											<WarpMarker Id="324" SecTime="93.794331065760048" BeatTime="208.75" />
+											<WarpMarker Id="325" SecTime="93.919183673469888" BeatTime="209" />
+											<WarpMarker Id="326" SecTime="94.044081632653601" BeatTime="209.25" />
+											<WarpMarker Id="327" SecTime="94.169047619048143" BeatTime="209.5" />
+											<WarpMarker Id="328" SecTime="94.294058956916572" BeatTime="209.75" />
+											<WarpMarker Id="329" SecTime="94.419138321995945" BeatTime="210" />
+											<WarpMarker Id="330" SecTime="94.544263038549175" BeatTime="210.25" />
+											<WarpMarker Id="331" SecTime="94.669433106576477" BeatTime="210.5" />
+											<WarpMarker Id="332" SecTime="94.79467120181458" BeatTime="210.75" />
+											<WarpMarker Id="333" SecTime="94.919954648526641" BeatTime="211" />
+											<WarpMarker Id="334" SecTime="95.045306122449617" BeatTime="211.25" />
+											<WarpMarker Id="335" SecTime="95.170702947846408" BeatTime="211.5" />
+											<WarpMarker Id="336" SecTime="95.296145124717157" BeatTime="211.75" />
+											<WarpMarker Id="337" SecTime="95.421655328798806" BeatTime="212" />
+											<WarpMarker Id="338" SecTime="95.547210884354328" BeatTime="212.25" />
+											<WarpMarker Id="339" SecTime="95.672834467120794" BeatTime="212.5" />
+											<WarpMarker Id="340" SecTime="95.798503401361174" BeatTime="212.75" />
+											<WarpMarker Id="341" SecTime="95.924240362812441" BeatTime="213" />
+											<WarpMarker Id="342" SecTime="96.050022675737651" BeatTime="213.25" />
+											<WarpMarker Id="343" SecTime="96.175850340136719" BeatTime="213.5" />
+											<WarpMarker Id="344" SecTime="96.30174603174676" BeatTime="213.75" />
+											<WarpMarker Id="345" SecTime="96.427687074830743" BeatTime="214" />
+											<WarpMarker Id="346" SecTime="96.553696145125556" BeatTime="214.25" />
+											<WarpMarker Id="347" SecTime="96.679750566894199" BeatTime="214.5" />
+											<WarpMarker Id="348" SecTime="96.805873015873786" BeatTime="214.75" />
+											<WarpMarker Id="349" SecTime="96.932040816327358" BeatTime="215" />
+											<WarpMarker Id="350" SecTime="97.058253968254817" BeatTime="215.25" />
+											<WarpMarker Id="351" SecTime="97.18453514739312" BeatTime="215.5" />
+											<WarpMarker Id="352" SecTime="97.310861678005381" BeatTime="215.75" />
+											<WarpMarker Id="353" SecTime="97.437256235828514" BeatTime="216" />
+											<WarpMarker Id="354" SecTime="97.563696145125547" BeatTime="216.25" />
+											<WarpMarker Id="355" SecTime="97.690204081633539" BeatTime="216.5" />
+											<WarpMarker Id="356" SecTime="97.81675736961536" BeatTime="216.75" />
+											<WarpMarker Id="357" SecTime="97.943378684808138" BeatTime="217" />
+											<WarpMarker Id="358" SecTime="98.070045351474789" BeatTime="217.25" />
+											<WarpMarker Id="359" SecTime="98.196757369615341" BeatTime="217.5" />
+											<WarpMarker Id="360" SecTime="98.323537414966864" BeatTime="217.75" />
+											<WarpMarker Id="361" SecTime="98.450362811792246" BeatTime="218" />
+											<WarpMarker Id="362" SecTime="98.577256235828543" BeatTime="218.25" />
+											<WarpMarker Id="363" SecTime="98.704195011338783" BeatTime="218.5" />
+											<WarpMarker Id="364" SecTime="98.831201814059852" BeatTime="218.75" />
+											<WarpMarker Id="365" SecTime="98.958253968254809" BeatTime="219" />
+											<WarpMarker Id="366" SecTime="99.085374149660623" BeatTime="219.25" />
+											<WarpMarker Id="367" SecTime="99.212539682540353" BeatTime="219.5" />
+											<WarpMarker Id="368" SecTime="99.339773242631026" BeatTime="219.75" />
+											<WarpMarker Id="369" SecTime="99.467052154195613" BeatTime="220" />
+											<WarpMarker Id="370" SecTime="99.594399092971216" BeatTime="220.25" />
+											<WarpMarker Id="371" SecTime="99.721791383220747" BeatTime="220.5" />
+											<WarpMarker Id="372" SecTime="99.849251700681066" BeatTime="220.75" />
+											<WarpMarker Id="373" SecTime="99.976757369615257" BeatTime="221" />
+											<WarpMarker Id="374" SecTime="100.10433106576036" BeatTime="221.25" />
+											<WarpMarker Id="375" SecTime="100.23195011337937" BeatTime="221.5" />
+											<WarpMarker Id="376" SecTime="100.35963718820936" BeatTime="221.75" />
+											<WarpMarker Id="377" SecTime="100.48736961451318" BeatTime="222" />
+											<WarpMarker Id="378" SecTime="100.61517006802798" BeatTime="222.25" />
+											<WarpMarker Id="379" SecTime="100.74301587301663" BeatTime="222.5" />
+											<WarpMarker Id="380" SecTime="100.87092970521621" BeatTime="222.75" />
+											<WarpMarker Id="381" SecTime="100.99888888888972" BeatTime="223" />
+											<WarpMarker Id="382" SecTime="101.12691609977399" BeatTime="223.25" />
+											<WarpMarker Id="383" SecTime="101.25498866213231" BeatTime="223.5" />
+											<WarpMarker Id="384" SecTime="101.38312925170153" BeatTime="223.75" />
+											<WarpMarker Id="385" SecTime="101.51131519274459" BeatTime="224" />
+											<WarpMarker Id="386" SecTime="101.63956916099856" BeatTime="224.25" />
+											<WarpMarker Id="387" SecTime="101.76786848072646" BeatTime="224.5" />
+											<WarpMarker Id="388" SecTime="101.89623582766527" BeatTime="224.75" />
+											<WarpMarker Id="389" SecTime="102.02464852607797" BeatTime="225" />
+											<WarpMarker Id="390" SecTime="102.15312925170161" BeatTime="225.25" />
+											<WarpMarker Id="391" SecTime="102.28165532879918" BeatTime="225.5" />
+											<WarpMarker Id="392" SecTime="102.41024943310751" BeatTime="225.75" />
+											<WarpMarker Id="393" SecTime="102.53888888888986" BeatTime="226" />
+											<WarpMarker Id="394" SecTime="102.66759637188304" BeatTime="226.25" />
+											<WarpMarker Id="395" SecTime="102.79634920635014" BeatTime="226.5" />
+											<WarpMarker Id="396" SecTime="102.92517006802817" BeatTime="226.75" />
+											<WarpMarker Id="397" SecTime="103.05403628118005" BeatTime="227" />
+											<WarpMarker Id="398" SecTime="103.18297052154286" BeatTime="227.25" />
+											<WarpMarker Id="399" SecTime="103.31197278911654" BeatTime="227.5" />
+											<WarpMarker Id="400" SecTime="103.44102040816415" BeatTime="227.75" />
+											<WarpMarker Id="401" SecTime="103.57013605442276" BeatTime="228" />
+											<WarpMarker Id="402" SecTime="103.69929705215517" BeatTime="228.25" />
+											<WarpMarker Id="403" SecTime="103.82852607709843" BeatTime="228.5" />
+											<WarpMarker Id="404" SecTime="103.95780045351573" BeatTime="228.75" />
+											<WarpMarker Id="405" SecTime="104.08714285714387" BeatTime="229" />
+											<WarpMarker Id="406" SecTime="104.21653061224599" BeatTime="229.25" />
+											<WarpMarker Id="407" SecTime="104.34598639455892" BeatTime="229.5" />
+											<WarpMarker Id="408" SecTime="104.47551020408271" BeatTime="229.75" />
+											<WarpMarker Id="409" SecTime="104.6050793650805" BeatTime="230" />
+											<WarpMarker Id="410" SecTime="104.7347165532891" BeatTime="230.25" />
+											<WarpMarker Id="411" SecTime="104.86439909297167" BeatTime="230.5" />
+											<WarpMarker Id="412" SecTime="104.99414965986509" BeatTime="230.75" />
+											<WarpMarker Id="413" SecTime="105.12394557823238" BeatTime="231" />
+											<WarpMarker Id="414" SecTime="105.25380952381066" BeatTime="231.25" />
+											<WarpMarker Id="415" SecTime="105.38374149659985" BeatTime="231.5" />
+											<WarpMarker Id="416" SecTime="105.51371882086291" BeatTime="231.75" />
+											<WarpMarker Id="417" SecTime="105.64376417233679" BeatTime="232" />
+											<WarpMarker Id="418" SecTime="105.7738548752846" BeatTime="232.25" />
+											<WarpMarker Id="419" SecTime="105.90401360544334" BeatTime="232.5" />
+											<WarpMarker Id="420" SecTime="106.03424036281295" BeatTime="232.75" />
+											<WarpMarker Id="421" SecTime="106.16451247165647" BeatTime="233" />
+											<WarpMarker Id="422" SecTime="106.29485260771095" BeatTime="233.25" />
+											<WarpMarker Id="423" SecTime="106.42523809523932" BeatTime="233.5" />
+											<WarpMarker Id="424" SecTime="106.55569160997845" BeatTime="233.75" />
+											<WarpMarker Id="425" SecTime="106.6862131519286" BeatTime="234" />
+											<WarpMarker Id="426" SecTime="106.81678004535267" BeatTime="234.25" />
+											<WarpMarker Id="427" SecTime="106.9474149659876" BeatTime="234.5" />
+											<WarpMarker Id="428" SecTime="107.07809523809649" BeatTime="234.75" />
+											<WarpMarker Id="429" SecTime="107.20884353741631" BeatTime="235" />
+											<WarpMarker Id="430" SecTime="107.33965986394688" BeatTime="235.25" />
+											<WarpMarker Id="431" SecTime="107.47052154195143" BeatTime="235.5" />
+											<WarpMarker Id="432" SecTime="107.60145124716682" BeatTime="235.75" />
+											<WarpMarker Id="433" SecTime="107.73242630385609" BeatTime="236" />
+											<WarpMarker Id="434" SecTime="107.86346938775631" BeatTime="236.25" />
+											<WarpMarker Id="435" SecTime="107.99458049886748" BeatTime="236.5" />
+											<WarpMarker Id="436" SecTime="108.12573696145243" BeatTime="236.75" />
+											<WarpMarker Id="437" SecTime="108.25696145124837" BeatTime="237" />
+											<WarpMarker Id="438" SecTime="108.38825396825514" BeatTime="237.25" />
+											<WarpMarker Id="439" SecTime="108.51959183673593" BeatTime="237.5" />
+											<WarpMarker Id="440" SecTime="108.65099773242756" BeatTime="237.75" />
+											<WarpMarker Id="441" SecTime="108.7824716553301" BeatTime="238" />
+											<WarpMarker Id="442" SecTime="108.91399092970651" BeatTime="238.25" />
+											<WarpMarker Id="443" SecTime="109.04557823129387" BeatTime="238.5" />
+											<WarpMarker Id="444" SecTime="109.17723356009213" BeatTime="238.75" />
+											<WarpMarker Id="445" SecTime="109.30893424036421" BeatTime="239" />
+											<WarpMarker Id="446" SecTime="109.44070294784717" BeatTime="239.25" />
+											<WarpMarker Id="447" SecTime="109.57251700680418" BeatTime="239.5" />
+											<WarpMarker Id="448" SecTime="109.70439909297188" BeatTime="239.75" />
+											<WarpMarker Id="449" SecTime="109.83634920635056" BeatTime="240" />
+											<WarpMarker Id="450" SecTime="109.96834467120318" BeatTime="240.25" />
+											<WarpMarker Id="451" SecTime="110.10040816326669" BeatTime="240.5" />
+											<WarpMarker Id="452" SecTime="110.23253968254116" BeatTime="240.75" />
+											<WarpMarker Id="453" SecTime="110.3647165532894" BeatTime="241" />
+											<WarpMarker Id="454" SecTime="110.49696145124857" BeatTime="241.25" />
+											<WarpMarker Id="455" SecTime="110.62927437641856" BeatTime="241.5" />
+											<WarpMarker Id="456" SecTime="110.76165532879955" BeatTime="241.75" />
+											<WarpMarker Id="457" SecTime="110.89408163265438" BeatTime="242" />
+											<WarpMarker Id="458" SecTime="111.02657596372013" BeatTime="242.25" />
+											<WarpMarker Id="459" SecTime="111.15913832199675" BeatTime="242.5" />
+											<WarpMarker Id="460" SecTime="111.29174603174738" BeatTime="242.75" />
+											<WarpMarker Id="461" SecTime="111.42442176870885" BeatTime="243" />
+											<WarpMarker Id="462" SecTime="111.55716553288111" BeatTime="243.25" />
+											<WarpMarker Id="463" SecTime="111.6899546485274" BeatTime="243.5" />
+											<WarpMarker Id="464" SecTime="111.82281179138459" BeatTime="243.75" />
+											<WarpMarker Id="465" SecTime="111.95573696145264" BeatTime="244" />
+											<WarpMarker Id="466" SecTime="112.08870748299462" BeatTime="244.25" />
+											<WarpMarker Id="467" SecTime="112.22174603174746" BeatTime="244.5" />
+											<WarpMarker Id="468" SecTime="112.35485260771119" BeatTime="244.75" />
+											<WarpMarker Id="469" SecTime="112.48802721088586" BeatTime="245" />
+											<WarpMarker Id="470" SecTime="112.62124716553444" BeatTime="245.25" />
+											<WarpMarker Id="471" SecTime="112.75453514739391" BeatTime="245.5" />
+											<WarpMarker Id="472" SecTime="112.88789115646424" BeatTime="245.75" />
+											<WarpMarker Id="473" SecTime="113.02129251700843" BeatTime="246" />
+											<WarpMarker Id="474" SecTime="113.15476190476357" BeatTime="246.25" />
+											<WarpMarker Id="475" SecTime="113.28829931972955" BeatTime="246.5" />
+											<WarpMarker Id="476" SecTime="113.42190476190648" BeatTime="246.75" />
+											<WarpMarker Id="477" SecTime="113.55555555555729" BeatTime="247" />
+											<WarpMarker Id="478" SecTime="113.68927437641898" BeatTime="247.25" />
+											<WarpMarker Id="479" SecTime="113.82306122449152" BeatTime="247.5" />
+											<WarpMarker Id="480" SecTime="113.95691609977496" BeatTime="247.75" />
+											<WarpMarker Id="481" SecTime="114.09081632653238" BeatTime="248" />
+											<WarpMarker Id="482" SecTime="114.2247845805006" BeatTime="248.25" />
+											<WarpMarker Id="483" SecTime="114.35882086167969" BeatTime="248.5" />
+											<WarpMarker Id="484" SecTime="114.4929251700697" BeatTime="248.75" />
+											<WarpMarker Id="485" SecTime="114.62707482993359" BeatTime="249" />
+											<WarpMarker Id="486" SecTime="114.76129251700839" BeatTime="249.25" />
+											<WarpMarker Id="487" SecTime="114.8955782312941" BeatTime="249.5" />
+											<WarpMarker Id="488" SecTime="115.02993197279072" BeatTime="249.75" />
+											<WarpMarker Id="489" SecTime="115.16433106576126" BeatTime="250" />
+											<WarpMarker Id="490" SecTime="115.29879818594272" BeatTime="250.25" />
+											<WarpMarker Id="491" SecTime="115.43333333333496" BeatTime="250.5" />
+											<WarpMarker Id="492" SecTime="115.56793650793819" BeatTime="250.75" />
+											<WarpMarker Id="493" SecTime="115.70260770975217" BeatTime="251" />
+											<WarpMarker Id="494" SecTime="115.83732426304007" BeatTime="251.25" />
+											<WarpMarker Id="495" SecTime="115.97210884353889" BeatTime="251.5" />
+											<WarpMarker Id="496" SecTime="116.10696145124865" BeatTime="251.75" />
+											<WarpMarker Id="497" SecTime="116.24188208616928" BeatTime="252" />
+											<WarpMarker Id="498" SecTime="116.37684807256385" BeatTime="252.25" />
+											<WarpMarker Id="499" SecTime="116.51188208616922" BeatTime="252.5" />
+											<WarpMarker Id="500" SecTime="116.64698412698554" BeatTime="252.75" />
+											<WarpMarker Id="501" SecTime="116.78215419501279" BeatTime="253" />
+											<WarpMarker Id="502" SecTime="116.91739229025085" BeatTime="253.25" />
+											<WarpMarker Id="503" SecTime="117.05267573696291" BeatTime="253.5" />
+											<WarpMarker Id="504" SecTime="117.18802721088585" BeatTime="253.75" />
+											<WarpMarker Id="505" SecTime="117.32344671201966" BeatTime="254" />
+											<WarpMarker Id="506" SecTime="117.45893424036439" BeatTime="254.25" />
+											<WarpMarker Id="507" SecTime="117.59448979592003" BeatTime="254.5" />
+											<WarpMarker Id="508" SecTime="117.73009070294955" BeatTime="254.75" />
+											<WarpMarker Id="509" SecTime="117.86575963719" BeatTime="255" />
+											<WarpMarker Id="510" SecTime="118.00149659864117" BeatTime="255.25" />
+											<WarpMarker Id="511" SecTime="118.1373015873033" BeatTime="255.5" />
+											<WarpMarker Id="512" SecTime="118.27317460317632" BeatTime="255.75" />
+											<WarpMarker Id="513" SecTime="118.4091156462603" BeatTime="256" />
+											<WarpMarker Id="514" SecTime="118.54510204081815" BeatTime="256.25" />
+											<WarpMarker Id="515" SecTime="118.68115646258691" BeatTime="256.5" />
+											<WarpMarker Id="516" SecTime="118.81727891156645" BeatTime="256.75" />
+											<WarpMarker Id="517" SecTime="118.95346938775693" BeatTime="257" />
+											<WarpMarker Id="518" SecTime="119.08972789115826" BeatTime="257.25" />
+											<WarpMarker Id="519" SecTime="119.22605442177047" BeatTime="257.5" />
+											<WarpMarker Id="520" SecTime="119.36242630385667" BeatTime="257.75" />
+											<WarpMarker Id="521" SecTime="119.49886621315369" BeatTime="258" />
+											<WarpMarker Id="522" SecTime="119.63537414966164" BeatTime="258.25" />
+											<WarpMarker Id="523" SecTime="119.7719501133805" BeatTime="258.5" />
+											<WarpMarker Id="524" SecTime="119.90859410431024" BeatTime="258.75" />
+											<WarpMarker Id="525" SecTime="120.04530612245081" BeatTime="259" />
+											<WarpMarker Id="526" SecTime="120.18208616780224" BeatTime="259.25" />
+											<WarpMarker Id="527" SecTime="120.3189115646276" BeatTime="259.5" />
+											<WarpMarker Id="528" SecTime="120.45580498866386" BeatTime="259.75" />
+											<WarpMarker Id="529" SecTime="120.59276643991105" BeatTime="260" />
+											<WarpMarker Id="530" SecTime="120.72979591836913" BeatTime="260.25" />
+											<WarpMarker Id="531" SecTime="120.86689342403808" BeatTime="260.5" />
+											<WarpMarker Id="532" SecTime="121.00405895691793" BeatTime="260.75" />
+											<WarpMarker Id="533" SecTime="121.14129251700865" BeatTime="261" />
+											<WarpMarker Id="534" SecTime="121.27859410431026" BeatTime="261.25" />
+											<WarpMarker Id="535" SecTime="121.41594104308579" BeatTime="261.5" />
+											<WarpMarker Id="536" SecTime="121.55335600907213" BeatTime="261.75" />
+											<WarpMarker Id="537" SecTime="121.6908390022695" BeatTime="262" />
+											<WarpMarker Id="538" SecTime="121.82839002267771" BeatTime="262.25" />
+											<WarpMarker Id="539" SecTime="121.96600907029675" BeatTime="262.5" />
+											<WarpMarker Id="540" SecTime="122.10369614512665" BeatTime="262.75" />
+											<WarpMarker Id="541" SecTime="122.24145124716745" BeatTime="263" />
+											<WarpMarker Id="542" SecTime="122.37927437641915" BeatTime="263.25" />
+											<WarpMarker Id="543" SecTime="122.51716553288166" BeatTime="263.5" />
+											<WarpMarker Id="544" SecTime="122.65512471655516" BeatTime="263.75" />
+											<WarpMarker Id="545" SecTime="122.79312925170262" BeatTime="264" />
+											<WarpMarker Id="546" SecTime="122.93120181406086" BeatTime="264.25" />
+											<WarpMarker Id="547" SecTime="123.06934240362995" BeatTime="264.5" />
+											<WarpMarker Id="548" SecTime="123.20755102041002" BeatTime="264.75" />
+											<WarpMarker Id="549" SecTime="123.34582766440101" BeatTime="265" />
+											<WarpMarker Id="550" SecTime="123.48417233560285" BeatTime="265.25" />
+											<WarpMarker Id="551" SecTime="123.62258503401543" BeatTime="265.5" />
+											<WarpMarker Id="552" SecTime="123.76106575963908" BeatTime="265.75" />
+											<WarpMarker Id="553" SecTime="123.89961451247348" BeatTime="266" />
+											<WarpMarker Id="554" SecTime="124.03823129251877" BeatTime="266.25" />
+											<WarpMarker Id="555" SecTime="124.17691609977503" BeatTime="266.5" />
+											<WarpMarker Id="556" SecTime="124.31566893424221" BeatTime="266.75" />
+											<WarpMarker Id="557" SecTime="124.45448979592018" BeatTime="267" />
+											<WarpMarker Id="558" SecTime="124.5933786848091" BeatTime="267.25" />
+											<WarpMarker Id="559" SecTime="124.73233560090881" BeatTime="267.5" />
+											<WarpMarker Id="560" SecTime="124.8713605442195" BeatTime="267.75" />
+											<WarpMarker Id="561" SecTime="125.01043083900413" BeatTime="268" />
+											<WarpMarker Id="562" SecTime="125.14956916099963" BeatTime="268.25" />
+											<WarpMarker Id="563" SecTime="125.28877551020598" BeatTime="268.5" />
+											<WarpMarker Id="564" SecTime="125.42804988662324" BeatTime="268.75" />
+											<WarpMarker Id="565" SecTime="125.56739229025129" BeatTime="269" />
+											<WarpMarker Id="566" SecTime="125.70680272109026" BeatTime="269.25" />
+											<WarpMarker Id="567" SecTime="125.84628117914015" BeatTime="269.5" />
+											<WarpMarker Id="568" SecTime="125.98582766440092" BeatTime="269.75" />
+											<WarpMarker Id="569" SecTime="126.12544217687255" BeatTime="270" />
+											<WarpMarker Id="570" SecTime="126.26512471655509" BeatTime="270.25" />
+											<WarpMarker Id="571" SecTime="126.40487528344853" BeatTime="270.5" />
+											<WarpMarker Id="572" SecTime="126.54469387755283" BeatTime="270.75" />
+											<WarpMarker Id="573" SecTime="126.684580498868" BeatTime="271" />
+											<WarpMarker Id="574" SecTime="126.82453514739409" BeatTime="271.25" />
+											<WarpMarker Id="575" SecTime="126.9645578231311" BeatTime="271.5" />
+											<WarpMarker Id="576" SecTime="127.10464852607899" BeatTime="271.75" />
+											<WarpMarker Id="577" SecTime="127.24480725623766" BeatTime="272" />
+											<WarpMarker Id="578" SecTime="127.38503401360734" BeatTime="272.25" />
+											<WarpMarker Id="579" SecTime="127.52532879818783" BeatTime="272.5" />
+											<WarpMarker Id="580" SecTime="127.66569160997929" BeatTime="272.75" />
+											<WarpMarker Id="581" SecTime="127.80612244898154" BeatTime="273" />
+											<WarpMarker Id="582" SecTime="127.94662131519473" BeatTime="273.25" />
+											<WarpMarker Id="583" SecTime="128.08718820861881" BeatTime="273.5" />
+											<WarpMarker Id="584" SecTime="128.22782312925381" BeatTime="273.75" />
+											<WarpMarker Id="585" SecTime="128.36852607709952" BeatTime="274" />
+											<WarpMarker Id="586" SecTime="128.50929705215617" BeatTime="274.25" />
+											<WarpMarker Id="587" SecTime="128.6501360544238" BeatTime="274.5" />
+											<WarpMarker Id="588" SecTime="128.79106575963911" BeatTime="274.75" />
+											<WarpMarker Id="589" SecTime="128.9320634920654" BeatTime="275" />
+											<WarpMarker Id="590" SecTime="129.07312925170268" BeatTime="275.25" />
+											<WarpMarker Id="591" SecTime="129.2142630385508" BeatTime="275.5" />
+											<WarpMarker Id="592" SecTime="129.35546485260983" BeatTime="275.75" />
+											<WarpMarker Id="593" SecTime="129.49673469387957" BeatTime="276" />
+											<WarpMarker Id="594" SecTime="129.63807256236041" BeatTime="276.25" />
+											<WarpMarker Id="595" SecTime="129.77947845805195" BeatTime="276.5" />
+											<WarpMarker Id="596" SecTime="129.9209523809545" BeatTime="276.75" />
+											<WarpMarker Id="597" SecTime="130.06249433106805" BeatTime="277" />
+											<WarpMarker Id="598" SecTime="130.20410430839229" BeatTime="277.25" />
+											<WarpMarker Id="599" SecTime="130.34578231292741" BeatTime="277.5" />
+											<WarpMarker Id="600" SecTime="130.48752834467345" BeatTime="277.75" />
+											<WarpMarker Id="601" SecTime="130.62934240363032" BeatTime="278" />
+											<WarpMarker Id="602" SecTime="130.77122448979816" BeatTime="278.25" />
+											<WarpMarker Id="603" SecTime="130.91317460317688" BeatTime="278.5" />
+											<WarpMarker Id="604" SecTime="131.05521541950341" BeatTime="278.75" />
+											<WarpMarker Id="605" SecTime="131.19732426304083" BeatTime="279" />
+											<WarpMarker Id="606" SecTime="131.33950113378924" BeatTime="279.25" />
+											<WarpMarker Id="607" SecTime="131.48174603174851" BeatTime="279.5" />
+											<WarpMarker Id="608" SecTime="131.62405895691856" BeatTime="279.75" />
+											<WarpMarker Id="609" SecTime="131.76643990929958" BeatTime="280" />
+											<WarpMarker Id="610" SecTime="131.9088888888914" BeatTime="280.25" />
+											<WarpMarker Id="611" SecTime="132.05140589569407" BeatTime="280.5" />
+											<WarpMarker Id="612" SecTime="132.19399092970761" BeatTime="280.75" />
+											<WarpMarker Id="613" SecTime="132.33664399093212" BeatTime="281" />
+											<WarpMarker Id="614" SecTime="132.4793877551044" BeatTime="281.25" />
+											<WarpMarker Id="615" SecTime="132.62219954648762" BeatTime="281.5" />
+											<WarpMarker Id="616" SecTime="132.76507936508185" BeatTime="281.75" />
+											<WarpMarker Id="617" SecTime="132.90802721088681" BeatTime="282" />
+											<WarpMarker Id="618" SecTime="133.05104308390267" BeatTime="282.25" />
+											<WarpMarker Id="619" SecTime="133.19412698412947" BeatTime="282.5" />
+											<WarpMarker Id="620" SecTime="133.33727891156701" BeatTime="282.75" />
+											<WarpMarker Id="621" SecTime="133.48049886621558" BeatTime="283" />
+											<WarpMarker Id="622" SecTime="133.62380952381199" BeatTime="283.25" />
+											<WarpMarker Id="623" SecTime="133.76718820861925" BeatTime="283.5" />
+											<WarpMarker Id="624" SecTime="133.91063492063742" BeatTime="283.75" />
+											<WarpMarker Id="625" SecTime="134.05414965986654" BeatTime="284" />
+											<WarpMarker Id="626" SecTime="134.19773242630643" BeatTime="284.25" />
+											<WarpMarker Id="627" SecTime="134.34138321995715" BeatTime="284.5" />
+											<WarpMarker Id="628" SecTime="134.48512471655579" BeatTime="284.75" />
+											<WarpMarker Id="629" SecTime="134.62893424036528" BeatTime="285" />
+											<WarpMarker Id="630" SecTime="134.77281179138569" BeatTime="285.25" />
+											<WarpMarker Id="631" SecTime="134.91675736961693" BeatTime="285.5" />
+											<WarpMarker Id="632" SecTime="135.06077097505911" BeatTime="285.75" />
+											<WarpMarker Id="633" SecTime="135.20485260771218" BeatTime="286" />
+											<WarpMarker Id="634" SecTime="135.34902494331314" BeatTime="286.25" />
+											<WarpMarker Id="635" SecTime="135.4932653061249" BeatTime="286.5" />
+											<WarpMarker Id="636" SecTime="135.63757369614754" BeatTime="286.75" />
+											<WarpMarker Id="637" SecTime="135.78195011338121" BeatTime="287" />
+											<WarpMarker Id="638" SecTime="135.92639455782566" BeatTime="287.25" />
+											<WarpMarker Id="639" SecTime="136.07092970521791" BeatTime="287.5" />
+											<WarpMarker Id="640" SecTime="136.21553287982113" BeatTime="287.75" />
+											<WarpMarker Id="641" SecTime="136.36020408163509" BeatTime="288" />
+											<WarpMarker Id="642" SecTime="136.50494331066017" BeatTime="288.25" />
+											<WarpMarker Id="643" SecTime="136.64975056689593" BeatTime="288.5" />
+											<WarpMarker Id="644" SecTime="136.79464852607947" BeatTime="288.75" />
+											<WarpMarker Id="645" SecTime="136.93961451247404" BeatTime="289" />
+											<WarpMarker Id="646" SecTime="137.08464852607952" BeatTime="289.25" />
+											<WarpMarker Id="647" SecTime="137.22975056689586" BeatTime="289.5" />
+											<WarpMarker Id="648" SecTime="137.37492063492314" BeatTime="289.75" />
+											<WarpMarker Id="649" SecTime="137.52018140589828" BeatTime="290" />
+											<WarpMarker Id="650" SecTime="137.66551020408417" BeatTime="290.25" />
+											<WarpMarker Id="651" SecTime="137.81090702948106" BeatTime="290.5" />
+											<WarpMarker Id="652" SecTime="137.95637188208866" BeatTime="290.75" />
+											<WarpMarker Id="653" SecTime="138.10192743764421" BeatTime="291" />
+											<WarpMarker Id="654" SecTime="138.24755102041073" BeatTime="291.25" />
+											<WarpMarker Id="655" SecTime="138.39324263038799" BeatTime="291.5" />
+											<WarpMarker Id="656" SecTime="138.53900226757617" BeatTime="291.75" />
+											<WarpMarker Id="657" SecTime="138.68485260771229" BeatTime="292" />
+											<WarpMarker Id="658" SecTime="138.83077097505918" BeatTime="292.25" />
+											<WarpMarker Id="659" SecTime="138.97675736961693" BeatTime="292.5" />
+											<WarpMarker Id="660" SecTime="139.12281179138571" BeatTime="292.75" />
+											<WarpMarker Id="661" SecTime="139.2689569161023" BeatTime="293" />
+											<WarpMarker Id="662" SecTime="139.4151700680296" BeatTime="293.25" />
+											<WarpMarker Id="663" SecTime="139.56145124716795" BeatTime="293.5" />
+											<WarpMarker Id="664" SecTime="139.70780045351725" BeatTime="293.75" />
+											<WarpMarker Id="665" SecTime="139.85424036281421" BeatTime="294" />
+											<WarpMarker Id="666" SecTime="140.00074829932203" BeatTime="294.25" />
+											<WarpMarker Id="667" SecTime="140.14732426304084" BeatTime="294.5" />
+											<WarpMarker Id="668" SecTime="140.29399092970758" BeatTime="294.75" />
+											<WarpMarker Id="669" SecTime="140.44072562358502" BeatTime="295" />
+											<WarpMarker Id="670" SecTime="140.58752834467342" BeatTime="295.25" />
+											<WarpMarker Id="671" SecTime="140.73442176870984" BeatTime="295.5" />
+											<WarpMarker Id="672" SecTime="140.88138321995706" BeatTime="295.75" />
+											<WarpMarker Id="673" SecTime="141.02841269841517" BeatTime="296" />
+											<WarpMarker Id="674" SecTime="141.17551020408402" BeatTime="296.25" />
+											<WarpMarker Id="675" SecTime="141.32269841270079" BeatTime="296.5" />
+											<WarpMarker Id="676" SecTime="141.46995464852859" BeatTime="296.75" />
+											<WarpMarker Id="677" SecTime="141.61727891156721" BeatTime="297" />
+											<WarpMarker Id="678" SecTime="141.7646938775535" BeatTime="297.25" />
+											<WarpMarker Id="679" SecTime="141.91217687075076" BeatTime="297.5" />
+											<WarpMarker Id="680" SecTime="142.05972789115887" BeatTime="297.75" />
+											<WarpMarker Id="681" SecTime="142.20736961451473" BeatTime="298" />
+											<WarpMarker Id="682" SecTime="142.35507936508159" BeatTime="298.25" />
+											<WarpMarker Id="683" SecTime="142.50285714285943" BeatTime="298.5" />
+											<WarpMarker Id="684" SecTime="142.65072562358506" BeatTime="298.75" />
+											<WarpMarker Id="685" SecTime="142.79866213152161" BeatTime="299" />
+											<WarpMarker Id="686" SecTime="142.94666666666905" BeatTime="299.25" />
+											<WarpMarker Id="687" SecTime="143.09476190476434" BeatTime="299.5" />
+											<WarpMarker Id="688" SecTime="143.24292517007052" BeatTime="299.75" />
+											<WarpMarker Id="689" SecTime="143.39117913832445" BeatTime="300" />
+											<WarpMarker Id="690" SecTime="143.53950113378923" BeatTime="300.25" />
+											<WarpMarker Id="691" SecTime="143.68789115646513" BeatTime="300.5" />
+											<WarpMarker Id="692" SecTime="143.8363718820888" BeatTime="300.75" />
+											<WarpMarker Id="693" SecTime="143.9849206349233" BeatTime="301" />
+											<WarpMarker Id="694" SecTime="144.13353741496871" BeatTime="301.25" />
+											<WarpMarker Id="695" SecTime="144.28224489796176" BeatTime="301.5" />
+											<WarpMarker Id="696" SecTime="144.43102040816592" BeatTime="301.75" />
+											<WarpMarker Id="697" SecTime="144.57988662131794" BeatTime="302" />
+											<WarpMarker Id="698" SecTime="144.72882086168073" BeatTime="302.25" />
+											<WarpMarker Id="699" SecTime="144.87782312925447" BeatTime="302.5" />
+											<WarpMarker Id="700" SecTime="145.02691609977597" BeatTime="302.75" />
+											<WarpMarker Id="701" SecTime="145.1760770975084" BeatTime="303" />
+											<WarpMarker Id="702" SecTime="145.32532879818856" BeatTime="303.25" />
+											<WarpMarker Id="703" SecTime="145.47464852607979" BeatTime="303.5" />
+											<WarpMarker Id="704" SecTime="145.62403628118193" BeatTime="303.75" />
+											<WarpMarker Id="705" SecTime="145.77351473923187" BeatTime="304" />
+											<WarpMarker Id="706" SecTime="145.92306122449278" BeatTime="304.25" />
+											<WarpMarker Id="707" SecTime="146.07269841270133" BeatTime="304.5" />
+											<WarpMarker Id="708" SecTime="146.22240362812084" BeatTime="304.75" />
+											<WarpMarker Id="709" SecTime="146.37219954648819" BeatTime="305" />
+											<WarpMarker Id="710" SecTime="146.52206349206648" BeatTime="305.25" />
+											<WarpMarker Id="711" SecTime="146.67199546485571" BeatTime="305.5" />
+											<WarpMarker Id="712" SecTime="146.82201814059269" BeatTime="305.75" />
+											<WarpMarker Id="713" SecTime="146.9721088435407" BeatTime="306" />
+											<WarpMarker Id="714" SecTime="147.12229024943636" BeatTime="306.25" />
+											<WarpMarker Id="715" SecTime="147.27253968254294" BeatTime="306.5" />
+											<WarpMarker Id="716" SecTime="147.42287981859741" BeatTime="306.75" />
+											<WarpMarker Id="717" SecTime="147.57328798186276" BeatTime="307" />
+											<WarpMarker Id="718" SecTime="147.72378684807589" BeatTime="307.25" />
+											<WarpMarker Id="719" SecTime="147.87435374149985" BeatTime="307.5" />
+											<WarpMarker Id="720" SecTime="148.02501133787175" BeatTime="307.75" />
+											<WarpMarker Id="721" SecTime="148.17573696145453" BeatTime="308" />
+											<WarpMarker Id="722" SecTime="148.32653061224801" BeatTime="308.25" />
+											<WarpMarker Id="723" SecTime="148.47741496598942" BeatTime="308.5" />
+											<WarpMarker Id="724" SecTime="148.62836734694201" BeatTime="308.75" />
+											<WarpMarker Id="725" SecTime="148.77941043084209" BeatTime="309" />
+											<WarpMarker Id="726" SecTime="148.93052154195323" BeatTime="309.25" />
+											<WarpMarker Id="727" SecTime="149.08172335601216" BeatTime="309.5" />
+											<WarpMarker Id="728" SecTime="149.23299319728207" BeatTime="309.75" />
+											<WarpMarker Id="729" SecTime="149.38435374149989" BeatTime="310" />
+											<WarpMarker Id="730" SecTime="149.53578231292849" BeatTime="310.25" />
+											<WarpMarker Id="731" SecTime="149.687301587305" BeatTime="310.5" />
+											<WarpMarker Id="732" SecTime="149.83888888889246" BeatTime="310.75" />
+											<WarpMarker Id="733" SecTime="149.99056689342765" BeatTime="311" />
+											<WarpMarker Id="734" SecTime="150.14233560091068" BeatTime="311.25" />
+											<WarpMarker Id="735" SecTime="150.29417233560466" BeatTime="311.5" />
+											<WarpMarker Id="736" SecTime="150.44609977324646" BeatTime="311.75" />
+											<WarpMarker Id="737" SecTime="150.59809523809912" BeatTime="312" />
+											<WarpMarker Id="738" SecTime="150.75018140589947" BeatTime="312.25" />
+											<WarpMarker Id="739" SecTime="150.90233560091076" BeatTime="312.5" />
+											<WarpMarker Id="740" SecTime="151.05458049886988" BeatTime="312.75" />
+											<WarpMarker Id="741" SecTime="151.20689342404003" BeatTime="313" />
+											<WarpMarker Id="742" SecTime="151.35929705215798" BeatTime="313.25" />
+											<WarpMarker Id="743" SecTime="151.51176870748682" BeatTime="313.5" />
+											<WarpMarker Id="744" SecTime="151.66433106576358" BeatTime="313.75" />
+											<WarpMarker Id="745" SecTime="151.81698412698813" BeatTime="314" />
+											<WarpMarker Id="746" SecTime="151.96970521542355" BeatTime="314.25" />
+											<WarpMarker Id="747" SecTime="152.1225170068069" BeatTime="314.5" />
+											<WarpMarker Id="748" SecTime="152.275396825401" BeatTime="314.75" />
+											<WarpMarker Id="749" SecTime="152.42836734694279" BeatTime="315" />
+											<WarpMarker Id="750" SecTime="152.58140589569564" BeatTime="315.25" />
+											<WarpMarker Id="751" SecTime="152.73453514739626" BeatTime="315.5" />
+											<WarpMarker Id="752" SecTime="152.88775510204471" BeatTime="315.75" />
+											<WarpMarker Id="753" SecTime="153.04104308390404" BeatTime="316" />
+											<WarpMarker Id="754" SecTime="153.19442176871127" BeatTime="316.25" />
+											<WarpMarker Id="755" SecTime="153.3478684807294" BeatTime="316.5" />
+											<WarpMarker Id="756" SecTime="153.50140589569531" BeatTime="316.75" />
+											<WarpMarker Id="757" SecTime="153.65503401360905" BeatTime="317" />
+											<WarpMarker Id="758" SecTime="153.80873015873368" BeatTime="317.25" />
+											<WarpMarker Id="759" SecTime="153.96251700680622" BeatTime="317.5" />
+											<WarpMarker Id="760" SecTime="154.11637188208965" BeatTime="317.75" />
+											<WarpMarker Id="761" SecTime="154.27031746032083" BeatTime="318" />
+											<WarpMarker Id="762" SecTime="154.42435374150011" BeatTime="318.25" />
+											<WarpMarker Id="763" SecTime="154.57845804989014" BeatTime="318.5" />
+											<WarpMarker Id="764" SecTime="154.73265306122798" BeatTime="318.75" />
+											<WarpMarker Id="765" SecTime="154.88693877551367" BeatTime="319" />
+											<WarpMarker Id="766" SecTime="155.04129251701036" BeatTime="319.25" />
+											<WarpMarker Id="767" SecTime="155.19573696145474" BeatTime="319.5" />
+											<WarpMarker Id="768" SecTime="155.35027210884698" BeatTime="319.75" />
+											<WarpMarker Id="769" SecTime="155.50487528345019" BeatTime="320" />
+											<WarpMarker Id="770" SecTime="155.5242051803574" BeatTime="320.03125" />
+										</WarpMarkers>
+										<SavedWarpMarkersForStretched />
+										<MarkersGenerated Value="false" />
+										<IsSongTempoLeader Value="false" />
+									</AudioClip>
+								</Events>
+								<AutomationTransformViewState>
+									<IsTransformPending Value="false" />
+									<TimeAndValueTransforms />
+								</AutomationTransformViewState>
+							</ClipAutomation>
+							<Name Value="Lane" />
+							<Annotation Value="" />
+							<Audition Value="false" />
+							<ArrangementClipsListWrapper LomId="0" />
+						</TakeLane>

@@ -46,6 +46,10 @@ _Not yet rendered. The project was born 2026-10-24 and has no steward; this zone
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="forge-2026-10-24-takes" -->
+### 2026-10-24 — Take lanes: two alternates for every track
+
+Loudon asked for alternate takes on every track so he can assemble his own variations from options. The Arrangement's take lanes carry them: a stack recipe's layer may list `alternates` (file, bpm, key), and each becomes a named lane on that track with the alternate's clip laid across the same sections as the main lane, warped and keyed by the same rules; `check` counts lanes and their clips and finds their samples. The shape came from a Set Loudon saved with every track's clips as takes of one track, after the only fixture on disk had two lanes. The melodic techno Set now carries twelve alternates, two per track, all found at 124 (or 125 and 123) in A or unkeyed, none transposed; twelve credits. His first cut of this Set is `All in takes Project/`.
 <!-- scroll:entry id="forge-2026-10-24-find-before-bend" -->
 ### 2026-10-24 — Find before you bend; the arrangement too
 

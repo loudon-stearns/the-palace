@@ -164,6 +164,25 @@ function build(stack, layers, outDir) {
     }
     const sampleEl = element(t, 'Sample'); const arr = element(sampleEl.text, 'ArrangerAutomation');
     t = replaceEl(t, sampleEl, replaceEl(sampleEl.text, arr, arr.text.replace(/<Events \/>/, arrClips.length ? '<Events>\n' + arrClips.join('\n') + '\n</Events>' : '<Events />')));
+    // take lanes: every alternate the recipe names becomes a lane on this track (Loudon, 2026-10-24: "enable different takes to
+    // create my own variations"), its clip laid across the same sections as the main lane's. Shape from his "All in takes" Set.
+    const alts = layer.alternates || [];
+    if (alts.length) {
+      const laneShell = fs.readFileSync(path.join(STUDY, 'Live12 TakeLane shell.xml'), 'utf8').trim();
+      const lanes = alts.map((alt, ai) => {
+        const ak = parseKey(alt.key); const atr = (ak && target) ? semitonesTo(ak, target) : 0;
+        const aclip = audioClip({ name: layer.role + ' alt ' + (ai + 1), colour, abs: alt.abs, rel: path.relative(outDir, alt.abs).split(path.sep).join('/'), bpm: alt.bpm || tempo, transpose: atr, setTempo: tempo, isDrums }, 0);
+        let pos = 0, id = 0; const clips = [];
+        for (const sc of stack.scenes) { const len = (sc.bars || 8) * 4; if (sc.play.includes(layer.role)) { let a = aclip.xml.replace(/^<AudioClip Id="\d+" Time="[^"]+">/, '<AudioClip Id="' + (id++) + '" Time="' + fmt(pos) + '">'); a = setValue(a, 'CurrentStart', fmt(pos)).replace(/<CurrentEnd Value="[^"]*" \/>/, '<CurrentEnd Value="' + fmt(pos + len) + '" />'); clips.push(a); } pos += len; }
+        const short = path.basename(alt.abs, path.extname(alt.abs)).replace(/_/g, ' ').slice(0, 40);
+        report.push('  take ' + (ai + 1) + ': ' + short + (ak ? (atr ? ' transposed ' + (atr > 0 ? '+' : '') + atr : ' in key') : '') + (aclip.bent ? ' stretched ' + alt.bpm + '->' + tempo : ''));
+        bent += (aclip.bent ? 1 : 0) + (atr ? 1 : 0);
+        let l = laneShell.replace(/^<TakeLane Id="\d+">/, '<TakeLane Id="' + ai + '">').replace(/<Name Value="[^"]*" \/>/, '<Name Value="' + esc('Take ' + (ai + 1) + ': ' + short) + '" />');
+        return l.replace('<!--CLIP-->', clips.join('\n'));
+      });
+      t = t.replace(/<TakeLanes>\s*<TakeLanes \/>\s*<AreTakeLanesFolded Value="[^"]*" \/>\s*<\/TakeLanes>/, '<TakeLanes>\n<TakeLanes>\n' + lanes.join('\n') + '\n</TakeLanes>\n<AreTakeLanesFolded Value="false" />\n</TakeLanes>');
+      if (!t.includes('<TakeLane Id="0">')) throw new Error(layer.role + ': the track shell had no empty <TakeLanes /> to fill');
+    }
     let slotIndex = 0, seq = 0;
     t = t.replace(/<ClipSlotList>[\s\S]*?<\/ClipSlotList>/g, (all) => {
       const shell = element(all, 'ClipSlot').text; const slots = [];
@@ -217,11 +236,13 @@ function check(file) {
     const paths = [...mainSeq.matchAll(/<Path Value="([^"]*)" \/>/g)].map((p) => p[1]).filter(Boolean); const missing = [...new Set(paths)].filter((p) => !fs.existsSync(p));
     for (const p of missing) problems.push(name + ': sample missing ' + p);
     const arrEvents = (element(element(mainSeq, 'Sample').text, 'ArrangerAutomation').text.match(/<AudioClip /g) || []).length;
+    const lanesXml = element(tr, 'TakeLanes').text; const laneCount = (lanesXml.match(/<TakeLane Id=/g) || []).length; const laneClips = (lanesXml.match(/<AudioClip /g) || []).length;
+    const lanePaths = [...lanesXml.matchAll(/<Path Value="([^"]*)" \/>/g)].map((p) => p[1]).filter(Boolean); for (const p of [...new Set(lanePaths)]) if (!fs.existsSync(p)) problems.push(name + ': take sample missing ' + p);
     const slotXml = element(mainSeq, 'ClipSlotList').text; const warped = (slotXml.match(/<IsWarped Value="true" \/>/g) || []).length, clips = (slotXml.match(/<AudioClip /g) || []).length;
     const pitch = (mainSeq.match(/<PitchCoarse Value="(-?\d+)" \/>/) || [, '0'])[1]; const mode = (mainSeq.match(/<WarpMode Value="(\d+)" \/>/) || [, '?'])[1];
     const wm = mainSeq.match(/<WarpMarker Id="1" SecTime="([^"]+)" BeatTime="([^"]+)"/); const tempoHere = Number(element(element(xml, 'MainTrack').text, 'Tempo').text.match(/<Manual Value="([^"]*)" \/>/)[1]);
     const native = wm ? Number(wm[2]) / Number(wm[1]) * 60 : null; const stretched = native != null && Math.abs(native - tempoHere) > 0.5; const amp = Number((element(element(tr, 'Mixer').text, 'Volume').text.match(/<Manual Value="([^"]*)" \/>/) || [, '1'])[1]);
-    grid.push('  ' + name.padEnd(10) + sceneNames.map((_, i) => slots.includes(i) ? '[x]' : '[ ]').join(' ') + '  ' + clips + ' slots, ' + arrEvents + ' arranged, ' + warped + ' warped, ' + (stretched ? 'stretched from ' + Math.round(native) : 'native') + ', ' + (pitch === '0' ? 'in key' : (Number(pitch) > 0 ? '+' : '') + pitch + ' st') + ', ' + ({ '0': 'Beats', '4': 'Complex', '6': 'Complex Pro' }[mode] || 'mode ' + mode) + ', ' + (20 * Math.log10(amp)).toFixed(1) + ' dB' + (missing.length ? ', sample MISSING' : ''));
+    grid.push('  ' + name.padEnd(10) + sceneNames.map((_, i) => slots.includes(i) ? '[x]' : '[ ]').join(' ') + '  ' + clips + ' slots, ' + arrEvents + ' arranged, ' + laneCount + ' takes (' + laneClips + ' clips), ' + warped + ' warped, ' + (stretched ? 'stretched from ' + Math.round(native) : 'native') + ', ' + (pitch === '0' ? 'in key' : (Number(pitch) > 0 ? '+' : '') + pitch + ' st') + ', ' + ({ '0': 'Beats', '4': 'Complex', '6': 'Complex Pro' }[mode] || 'mode ' + mode) + ', ' + (20 * Math.log10(amp)).toFixed(1) + ' dB' + (missing.length ? ', sample MISSING' : ''));
     if (warped !== clips) problems.push(name + ': ' + (clips - warped) + ' clip(s) not warped');
     if (arrEvents !== clips) problems.push(name + ': ' + clips + ' slots but ' + arrEvents + ' arrangement clips');
   }
@@ -236,8 +257,8 @@ if (argv[0] === 'check') process.exit(check(path.resolve(argv[1])));
 if (argv[0] !== 'build') { console.log('usage: build stack.json [--out-dir dir] [--force] | check set.als'); process.exit(2); }
 const stackFile = path.resolve(argv[1]); const stack = JSON.parse(fs.readFileSync(stackFile, 'utf8'));
 const outDir = argv.includes('--out-dir') ? path.resolve(argv[argv.indexOf('--out-dir') + 1]) : path.dirname(stackFile);
-const layers = stack.layers.map((l) => ({ ...l, abs: path.resolve(path.dirname(stackFile), l.file) }));
-for (const l of layers) if (!fs.existsSync(l.abs)) throw new Error('sample missing: ' + l.abs);
+const layers = stack.layers.map((l) => ({ ...l, abs: path.resolve(path.dirname(stackFile), l.file), alternates: (l.alternates || []).map((a) => ({ ...a, abs: path.resolve(path.dirname(stackFile), a.file) })) }));
+for (const l of layers) for (const f of [l, ...l.alternates]) if (!fs.existsSync(f.abs)) throw new Error('sample missing: ' + f.abs);
 for (const s of stack.scenes) for (const r of s.play) if (!layers.some((l) => l.role === r)) throw new Error('scene "' + s.name + '" plays unknown layer ' + r);
 const out = path.join(outDir, stack.name + '.als');
 const { xml, report } = build(stack, layers, outDir);
