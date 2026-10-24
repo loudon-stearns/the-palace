@@ -6,7 +6,7 @@ pillars:
   - tools
   - practice
 born: 2026-10
-stage: seed
+stage: sprout
 status: active
 energy: high
 confidence: hypothesis
@@ -60,5 +60,9 @@ Each make is proven as the writer proves: it opens in a second Live 12, the devi
 ## Where it sits
 
 This is the Splice arm of [[Generative Sample Libraries]], whose source list already left a slot for web libraries with permission for downloads. Where that project draws audio from synthesis and AI models and renders open sampler formats, this one draws from Splice and renders Live's own. [[Generative Preset Development]] navigates a fixed synth's parameters; this project navigates a fixed sampler's zones and a Set's slots. The same move, content instead of configuration.
+
+## How to ask
+
+Say what you want in your own words: "a lo-fi kit at 85", "an analog bass Sampler", "a melodic techno track with a female vocal and an acid bass feature and a cinematic breakdown". The session hears the kind (kit, instrument, stack), finds the sounds through the Splice connector, fetches them before the links expire, writes a recipe, and runs one command: `node workshop/forge/forge.mjs build <recipe>`, then `check` and `open`. The procedure a session follows is `workshop/forge/ASK.md`; the builders each move made stay where they were made and the forge only routes to them. What comes back is a Set beside its samples, opened in a second Live 12, silent until played. The sound is yours to judge; the forge never says it sounds right.
 
 The scroll is the front door: [[Splice Instrument Forge — scroll]]. Format notes accumulate in the bundle's `workshop/`.

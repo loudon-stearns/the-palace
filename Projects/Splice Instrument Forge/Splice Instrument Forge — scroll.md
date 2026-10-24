@@ -29,7 +29,7 @@ _Not yet rendered. The project was born 2026-10-24 and has no steward; this zone
 2. **Sampler from one-shots.** Search Splice for a described one-shot set, download the picks, detect root pitch, lay zones across the keyboard, emit an `.adv` and a one-track Set through the writer's `library` path or a sibling of it. Done when the Set opens in Live 12 and every zone's sample is on disk.
 3. **Drum Rack from one-shots.** Clone a factory rack; one Drum Sampler per pad from a Splice drum search; hats share a choke group; emit `.adg` and a Set. Done the same way, plus the writer's `check` reads the pads back.
 4. **Session View Set from a stack.** Turn a Splice stack into tracks, its layers into clip slots, and make eight scenes that vary which layers play. The Session View XML comes from GoButton's LTC generator and is documented as it is cloned. Done when the Set opens in Session View, the scenes launch, and `check` reads the slots.
-5. **One ask, one Set.** A single command or chat request that takes a description, runs the Splice search and the builds, and hands back a Set beside its samples. Done when Loudon asks for a kit in his words and opens what comes back.
+5. **One ask, one Set.** A single command or chat request that takes a description, runs the Splice search and the builds, and hands back a Set beside its samples. Done when Loudon asks for a kit in his words and opens what comes back. *Made 2026-10-24: `workshop/forge/`; the first ask was his melodic techno track.*
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -42,6 +42,12 @@ _Not yet rendered. The project was born 2026-10-24 and has no steward; this zone
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="forge-2026-10-24-move-5-ask" -->
+### 2026-10-24 — Move five: one ask, one Set
+
+`workshop/forge/forge.mjs` is the one command: `fetch` a manifest of Splice download links before they expire, `build` any recipe (kit, instrument, stack) by routing to the move that made it, `check` a Set whatever its kind, `open` it in a second Live 12. `workshop/forge/ASK.md` is what a session follows from Loudon's sentence to that command. The entry gained a **How to ask** section and moved to sprout.
+
+**Loudon's first ask**, in his words: "I would like a melodic techno track with a female vocal and acid bass feature with a cinematic breakdown." Splice's `prompt_to_stack` gave five layers (a female vocal hook, a 303 acid loop, a melodic techno groove, a lead, a pad); `update_stack` added a cinematic strings layer for the breakdown (six credits). Eight scenes: Intro, Acid in, Vocal, Full, Cinematic breakdown (strings, pad, vocal), Acid feature, Drop, Outro. `check`: 25 clips, all warped to 124, 254 pointees unique. Loaded in a second Live 12.4.6 at 19:33, no warning; left open for his ear. Keys are honest and uneven (A minor vocal, C minor acid, G lead, C# pad, C major strings): Splice's "compatible" is looser than a key, and matching keys is the forge's next real problem. The whole ask, from his sentence to the open Set, took one session turn.
 <!-- scroll:entry id="forge-2026-10-24-move-4-session" -->
 ### 2026-10-24 — Move four: a Session View Set from a Splice stack
 

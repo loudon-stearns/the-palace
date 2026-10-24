@@ -1,0 +1,25 @@
+{
+  "kind": "stack",
+  "name": "Loudon Melodic Techno",
+  "tempo": 124,
+  "splice_stack": "14fde681-ea01-4466-8292-194e61821b7b",
+  "ask": "I would like a melodic techno track with a female vocal and acid bass feature with a cinematic breakdown.",
+  "layers": [
+    { "role": "Drums",     "file": "samples/ZEN_FMT_120_drum_loop_groove_coral.wav",                        "bpm": 120 },
+    { "role": "Acid Bass", "file": "samples/MARS_ACID_Bass_Loop_Italo_03_120_Cmin.wav",                      "bpm": 120, "key": "C minor" },
+    { "role": "Lead",      "file": "samples/ZEN_HMH_124_synth_loop_ash_G.wav",                               "bpm": 124, "key": "G" },
+    { "role": "Pad",       "file": "samples/T_MHT_122_pad_loop_pueblo_C#.wav",                               "bpm": 122, "key": "C#" },
+    { "role": "Vocal",     "file": "samples/DS_SPACEM_123_vocal_hook_female_now_verse_stack_dry_Amin.wav",   "bpm": 123, "key": "A minor" },
+    { "role": "Strings",   "file": "samples/VOX_TORI_LETZLER_90_strings_meadow_lullaby_Cmaj.wav",            "bpm": 90,  "key": "C major" }
+  ],
+  "scenes": [
+    { "name": "Intro",              "play": ["Drums", "Pad"] },
+    { "name": "Acid in",            "play": ["Drums", "Acid Bass", "Pad"] },
+    { "name": "Vocal",              "play": ["Drums", "Acid Bass", "Pad", "Vocal"] },
+    { "name": "Full",               "play": ["Drums", "Acid Bass", "Lead", "Pad", "Vocal"] },
+    { "name": "Cinematic breakdown","play": ["Strings", "Pad", "Vocal"] },
+    { "name": "Acid feature",       "play": ["Drums", "Acid Bass"] },
+    { "name": "Drop",               "play": ["Drums", "Acid Bass", "Lead", "Vocal"] },
+    { "name": "Outro",              "play": ["Strings", "Pad"] }
+  ]
+}
