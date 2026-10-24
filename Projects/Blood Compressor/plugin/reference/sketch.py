@@ -13,9 +13,23 @@ of 80 Hz vs 0.1 Hz becomes the player's to answer).
   -> attack / release ballistics in dB (baroreceptor reflex / smooth muscle)
   -> one gain on both sides, plus makeup
 
+The body (cycle 11): four controls that bend that chain the way a body would.
+  sympathetic  a stressed body: the systolic line drops up to 12 dB, the reflex runs
+               up to twice as fast and the muscle lets go up to four times as fast
+  hrv          the set point breathes: respiratory sinus arrhythmia (0.25 Hz) and the
+               slow Mayer wave (0.1 Hz) move the threshold up to +-3 dB and the
+               detector time up to +-20 %
+  age          a stiffer wall: the ratio grows up to double and the knee loses up to
+               80 % of its give
+  rel_curve    the muscle's letting-go: 0 is plain exponential; above 0 a deep squeeze
+               lets go fast and the last few dB linger, below 0 it holds and then snaps
+               (the release time is scaled by 2^(-curve * (depth - 6 dB) / 6 dB),
+               kept within a quarter and four times)
+
 Probes, for the CRT and the check: pressure (detector level, dB peak-equivalent),
 target (the reduction the wall asks for before the nerve delay, dB), squeeze (the
-reduction applied, dB, 0 = wide open), reflex (1 while the wall asks for any).
+reduction applied, dB, 0 = wide open), reflex (1 while the wall asks for any),
+breath (hrv times the breathing wave, -1..1: how far the set point has moved).
 
 Scalar math only (math.exp, math.log, math.pow), in the C++ order, so the two agree
 to float32 output rounding.
@@ -53,9 +67,10 @@ def render(v, sr, inputs=None, notes=()):
     th, ra, kn = v["threshold"], v["ratio"], v["knee"]
     at, rl, mk = v["attack"], v["release"], v["makeup"]
     det_t, hpf, byp = v["detector"], v["sc_hpf"], v["bypass"]
+    rc, sy, hv, ag = v["rel_curve"], v["sympathetic"], v["hrv"], v["age"]
     steps = len(th)
     out = np.zeros((2, steps))
-    pr = {k: np.zeros(steps) for k in ("pressure", "target", "squeeze", "reflex")}
+    pr = {k: np.zeros(steps) for k in ("pressure", "target", "squeeze", "reflex", "breath")}
     hpX = hpY = hpX2 = hpY2 = 0.0
     ms = 0.0
     g = 0.0
@@ -65,8 +80,15 @@ def render(v, sr, inputs=None, notes=()):
     for i in range(steps):
         x = float(inputs[0, i])
         x2 = float(inputs[1, i])
-        R = max(1.0, ra[i])
-        K = max(0.0, kn[i])
+        S = min(1.0, max(0.0, sy[i]))
+        A = min(1.0, max(0.0, ag[i]))
+        Hv = min(1.0, max(0.0, hv[i]))
+        b = (0.6 * math.sin(2.0 * math.pi * 0.25 * i / sr)
+             + 0.4 * math.sin(2.0 * math.pi * 0.1 * i / sr))
+        br = Hv * b
+        R = max(1.0, ra[i]) * (1.0 + A)
+        K = max(0.0, kn[i]) * (1.0 - 0.8 * A)
+        T = th[i] - 12.0 * S + 3.0 * br
         a = math.exp(-2.0 * math.pi * hpf[i] / sr)
         hp = a * (hpY + x - hpX)
         hpX = x
@@ -74,10 +96,10 @@ def render(v, sr, inputs=None, notes=()):
         hp2 = a * (hpY2 + x2 - hpX2)
         hpX2 = x2
         hpY2 = hp2
-        ar = math.exp(-1.0 / (sr * det_t[i]))
+        ar = math.exp(-1.0 / (sr * (det_t[i] * (1.0 + 0.2 * br))))
         ms = ar * ms + (1.0 - ar) * max(hp * hp, hp2 * hp2)
         det = DB10 * math.log(ms + 1e-12) + 3.0103
-        target = min(0.0, curve(det, th[i], R, K) - det)
+        target = min(0.0, curve(det, T, R, K) - det)
         dline[dw] = target
         r = dw - d
         if r < 0:
@@ -86,8 +108,9 @@ def render(v, sr, inputs=None, notes=()):
         dw += 1
         if dw >= DLEN:
             dw = 0
-        atk = max(0.005, at[i])
-        rel = max(0.005, rl[i])
+        atk = max(0.005, at[i] / (1.0 + S))
+        m = min(4.0, max(0.25, math.pow(2.0, -rc[i] * (-g - 6.0) / 6.0)))
+        rel = max(0.005, rl[i] / (1.0 + 3.0 * S) * m)
         if delayed < g:
             c = math.exp(-1.0 / (sr * atk))
         else:
@@ -104,4 +127,5 @@ def render(v, sr, inputs=None, notes=()):
         pr["target"][i] = target
         pr["squeeze"][i] = g
         pr["reflex"][i] = 1.0 if target < -0.05 else 0.0
+        pr["breath"][i] = br
     return dict(out=out, probes=pr)

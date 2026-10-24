@@ -15,31 +15,32 @@ forward_vector: "I am Blood Compressor's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-24T15:11:09.296Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-24T15:22:01.876Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 10 · last ran 2026-10-24 (today)
-- **Plan:** agreed 2026-10-15 (10 days ago) · 2 made things since · **a proposed revision is waiting on you**
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 11 · last ran 2026-10-24 (today)
+- **Plan:** agreed 2026-10-15 (10 days ago) · 3 made things since · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-24 (today) — Make the VST the plan: the plugin folder is built and checked; next come the body knobs, then the real build when the template is ready. (`blood-compressor-023`)
-- **Last commit touching this project:** 2026-10-21 `ca454ba2` — edit(nine steward scrolls): a standing order on Loudon's yes of 2026-10-21: make it a product, a VST prototype on the VST Template with a CRT visualizer drawn from the instrument's own metaphor; Max work stays set aside, perhaps later as teaching tools
+- **Last shipped:** 2026-10-24 (today) — The plugin now has a body: stress, breathing, an aging wall and a release curve. All four are checked sample for sample and drawn in the artery. (`blood-compressor-025`)
+- **Last commit touching this project:** 2026-10-24 `e40326d8` — steward(Blood Compressor): cycle 10 — SPINNING UP. HOME: [Blood Compressor](obsidian://open?vault=The%20Palac…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-24 — cycle 10 · taught item 1, proposed items 2, 3 for canon
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-24 — cycle 11 · taught item 4, proposed item 5 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 2 — items 2, 3; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 3, from cycle 10 — 2026-10-24 — [[Blood Compressor — tuning]]
+- **Proposed for canon:** 3 — items 2, 3, 5; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 5, from cycle 11 — 2026-10-24 — [[Blood Compressor — tuning]]
 
 ### Where this stands
 
-Blood Compressor is a compressor dressed as the body. Threshold is the systolic pressure that sets off the reflex, ratio is how stiff the vessel wall is, attack is the baroreceptor delay, and release is the smooth muscle relaxing. In June and October the compressor was built in the browser, then in RNBO and Max for Live. On 21 October you asked for a product instead: a VST you can play in Live, with the template's controls and a strange, beautiful picture of the effect's own in the centre screen. Max work waits. This cycle the compressor moved into the template's shape inside my own folder, and it matches its reference sample for sample. Its face now runs with the artery in the centre scree…
+Blood Compressor is a compressor dressed as the body. Threshold is the systolic pressure that sets off the reflex, ratio is how stiff the vessel wall is, attack is the baroreceptor delay, and release is the smooth muscle relaxing. On 21 October you asked for a product: a VST you can play in Live, with the template's controls and a picture of the effect's own in the centre screen. Earlier today the compressor moved into the template's shape in my plugin folder, matched its reference sample for sample, and got a face with the inside of the artery on the screen. This cycle did the plan's body-controls step, the one that comes after the device and before the lesson. Four knobs bend the compress…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 7:** Nobody has heard the attack lesson or played the face with sound on yet. _(in 2 notes, the latest cycle 10)_
+- **rough since cycle 7:** Nobody has heard the attack lesson or played the face with sound on yet, and now the body take joins them; _(in 3 notes, the latest cycle 11)_
+- **rough since cycle 7:** Vessel age is subtle on the drum loop (1.5 dB more squeeze), and the release curve has a test path but no listening take. _(in 2 notes, the latest cycle 11)_
 - **rough since cycle 8:** Nothing has been opened in Max or Live. _(in 2 notes, the latest cycle 9)_
 
 ### Open asks
@@ -57,6 +58,7 @@ _None._
 
 ### Runs
 
+- 2026-10-24 — cycle 11 · taught item 4, proposed item 5 for canon
 - 2026-10-24 — cycle 10 · taught item 1, proposed items 2, 3 for canon
 
 ### Owed
@@ -69,6 +71,7 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 
 - **2.** 2026-10-24 · [[Blood Compressor]] · § Pedagogical Framing, the paragraph beginning 'When students set attack=0' — The paragraph promises a lunge at attack zero that the design rules out. The October port measured what the fixed nerve delay really does.
 - **3.** 2026-10-24 · [[Blood Compressor]] · § What This Entry Is and Isn't, the 'Isn't' line — The line still says Stage 1 → a Max prototype is next. The product path is now the VST, by Loudon's standing order of 2026-10-21.
+- **5.** 2026-10-24 · [[Blood Compressor]] · § DSP Architecture, the three bullets under 'The biological framing also suggests features' (Sympathetic activation knob, Heart rate variability, Vessel age) — The bullet says sympathetic activation 'raises threshold' and 'compresses more aggressively', which contradict each other. The October plugin built all three, so the words should describe what was built and measured.
 
 <!-- scroll:now:end -->
 
@@ -96,6 +99,65 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="blood-compressor-025" -->
+### 2026-10-24 — cycle 11 — The plugin now has a body: stress, breathing, an aging wall and a release curve. All four are checked sample for sample and drawn in the artery.
+> shipped · 11 of 11 paths exact · steward leans on to the lesson next
+
+What each control does, in all three engines (sketch.py, Algorithm.h, blood_compressor.js):
+
+- Sympathetic (0–1), a stressed body: the systolic line drops up to 12 dB, the reflex runs up to twice as fast (never under the 5 ms floor), and the muscle lets go up to four times as fast.
+- Heart-rate var (0–1), the set point breathes: a 0.25 Hz breath and the slow 0.1 Hz Mayer wave move the threshold up to ±3 dB and the detector time up to ±20 %.
+- Vessel age (0–1), a stiffer wall: the ratio grows up to double and the knee loses up to 80 % of its give.
+- Release curve (−1 to 1), how the muscle lets go: above 0 a deep squeeze lets go fast and the last few dB linger; below 0 it holds, then snaps.
+
+With all four at zero it is the cycle-10 compressor bit for bit; the seven old paths still pass unchanged. Four new paths each move one control alone. Both engines matched the sketch to 3–5 × 10⁻⁸ of peak, and every probe to about 10⁻¹³. A fifth probe, breath, streams how far the set point has moved.
+
+In the screen: stress heats the plasma and keeps the muscle stripes drawn tight between beats, age makes the wall lumpy and gathers yellow plaque on its bulges, and the breath swells and narrows the whole tube. The amber systolic sleeve and the in-to-out inset now sit where the wall really answers. The new Body panel takes its own row, and the face fits at all three sizes with no errors in the board's sandbox.
+
+The body take (blood-compressor-body-take.wav) plays the same compressor on the drum loop at rest, stressed, old, then breathing, six seconds each, matched for loudness. The numbers are in the table below. Stress squeezes 6 dB deeper. Breathing makes the squeeze swell and ebb 2.5 dB across the bars, where at rest it holds within 0.3 dB. Age is the quiet one: 1.5 dB more squeeze.
+
+Two departures from the entry, both said plainly in the plugin README. The entry says sympathetic activation 'raises threshold', but a raised threshold squeezes less, which contradicts the same sentence's 'compresses more aggressively'. I followed the second half and the line drops. And the entry's detector wobble alone was too small to hear, so the breathing also moves the threshold.
+
+**Artifacts:**
+- [the whole face, playable: turn the Body knobs and press sound on.](Projects/Blood Compressor/blood-compressor-face.html)
+- [stressed, old and breathing: hot plasma, plaque on the wall, the sleeve dropped to −42.5 dB.](Projects/Blood Compressor/blood-compressor-face-drums-threshold-30-sympathetic0.8-age0.9-hrv1.png)
+- [the face at rest, with the new Body row.](Projects/Blood Compressor/blood-compressor-face.png)
+- [24 s: at rest, stressed, old, breathing, matched for loudness.](Projects/Blood Compressor/blood-compressor-body-take.wav)
+- [the plugin code: 13 parameters, 5 probes.](Projects/Blood Compressor/plugin/src/Algorithm.h)
+- [the reference, with the body.](Projects/Blood Compressor/plugin/reference/sketch.py)
+- [four new test paths, one per body control.](Projects/Blood Compressor/plugin/reference/paths.py)
+- [the face's engine, with the body.](Projects/Blood Compressor/plugin/ui/blood_compressor.js)
+- [the artery reads stress, age and breath.](Projects/Blood Compressor/plugin/ui/visualizer.js)
+- [the check reads five probes.](Projects/Blood Compressor/plugin/check/js_engine.cjs)
+- [renders the body take.](Projects/Blood Compressor/plugin/check/render_body.py)
+- [11 of 11 paths exact.](Projects/Blood Compressor/plugin/out/check-report.json)
+- [the body take's numbers.](Projects/Blood Compressor/plugin/out/body-take.json)
+- [the plugin folder's note, with the body section.](Projects/Blood Compressor/plugin/README.md)
+
+_the body take · drum loop · threshold −30, ratio 4, attack 60 ms, release 300 ms · before loudness matching_
+| section | RMS dBFS | crest dB | mean squeeze dB | deepest dB | swing across half-bars dB |
+| --- | --- | --- | --- | --- | --- |
+| at rest | −23.8 | 22.9 | −9.2 | −13.3 | 0.3 |
+| stressed (sympathetic 1) | −26.9 | 25.1 | −15.2 | −23.4 | 0.1 |
+| old (vessel age 1) | −25.1 | 23.3 | −10.7 | −15.5 | 0.2 |
+| breathing (hrv 1) | −24.4 | 20.7 | −9.3 | −14.7 | 2.5 |
+
+_Changed in the workshop:_ README — Added the body section: what each control does, where it departs from the entry, the fifth probe, the body take; counts updated to 13 parameters and 11 paths.
+_Proposed for canon:_ Blood Compressor (§ DSP Architecture, the three bullets under 'The biological framing also suggests features' (Sympathetic activation knob, Heart rate variability, Vessel age)) — The bullet says sympathetic activation 'raises threshold' and 'compresses more aggressively', which contradict each other. The October plugin built all three, so the words should describe what was built and measured.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has heard the attack lesson or played the face with sound on yet, and now the body take joins them; only your ears can close that. Vessel age is subtle on the drum loop (1.5 dB more squeeze), and the release curve has a test path but no listening take.
+
+_Next moves named:_ the lesson: rework the radio-play script in the folder around the plugin's face, attack first (the punch the nerve delay keeps), then the body knobs as 'climbing the stairs' · if age stays too quiet once you've heard it, let the wall stiffen as the pressure rises instead of all at once · when the template can build from a project's own folder: plugin.sh all, then the 0.5 dB loudness gate for the smoothed parameters
+<sub>`blood-compressor-025` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-1ef20b6b40" -->
+### 2026-10-24 — cycle 11
+
+taught item 4, proposed item 5 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-blood-compressor-016" -->
 ### 2026-10-14 — Plan agreed: Blood Compressor has no agreed plan yet. Here's one: browser reference, then Max, then the body controls, the lesson and the plugin.
 

@@ -8,11 +8,11 @@ const steps = +stepsS, sr = +srS, NP = BCE.IDS.length;
 const pb = fs.readFileSync(pathsF), paths = new Float64Array(pb.buffer, pb.byteOffset, NP * steps);
 const ib = fs.readFileSync(inF), ins = new Float32Array(ib.buffer.slice(ib.byteOffset, ib.byteOffset + ib.length));
 const c = new BCE.Compressor(sr), v = new Float64Array(NP);
-const out = new Float32Array(2 * steps), probes = new Float64Array(4 * steps);
+const out = new Float32Array(2 * steps), probes = new Float64Array(5 * steps);
 for (let i = 0; i < steps; i++) {
   for (let j = 0; j < NP; j++) v[j] = paths[j * steps + i];
   const o = c.step(v, ins[i], ins[steps + i]);
   out[i] = o[0]; out[steps + i] = o[1];
-  for (let j = 0; j < 4; j++) probes[j * steps + i] = c.probes[j];
+  for (let j = 0; j < 5; j++) probes[j * steps + i] = c.probes[j];
 }
 fs.writeFileSync(outF, Buffer.concat([Buffer.from(out.buffer), Buffer.from(probes.buffer)]));

@@ -19,10 +19,16 @@
 //                   that got through; they crowd inward when the vessel narrows
 //   the inset       the in-to-out curve, with the moment's dot on it
 //
+// The body (cycle 11), read from the parameters and the breath probe:
+//   sympathetic     a stressed body: the plasma runs hotter and the muscle stripes
+//                   stay drawn tight even between beats
+//   vessel age      the wall goes lumpy and yellow plaque gathers on it
+//   heart-rate var  the whole tube swells and narrows with the breath (probe 5)
+//
 // Contract with the editor (the CRT move on VST Template):
 //   BloodVessel.mount(el)                 draws into el (window.editorScreen); sizes itself
 //   BloodVessel.frame(probes, params[, dt])  probes: Algorithm.h kProbes order
-//                                         [pressure, target, squeeze, reflex];
+//                                         [pressure, target, squeeze, reflex, breath];
 //                                         params: { id: value } for the parameter table
 // Nothing else is read; nothing is fetched. Canvas 2D, so the board's sandbox runs it.
 const BloodVessel = (() => {
@@ -30,7 +36,7 @@ const BloodVessel = (() => {
   const hist = [];                 // newest first: { p, sq, rf, th, out }
   let cv, cx, el, W = 0, H = 0, dpr = 1, f = 1;
   let acc = 0, simT = 0, last = performance.now(), born = 0;   // born: rings made so far, so each ring keeps its own shape as it travels
-  let lastProbes = [-120, 0, 0, 0], lastParams = {};
+  let lastProbes = [-120, 0, 0, 0, 0], lastParams = {};
   const cells = [], sparks = [];
   let seed = 1234567;
   const rnd = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
@@ -56,7 +62,7 @@ const BloodVessel = (() => {
     };
     if (typeof ResizeObserver !== "undefined") new ResizeObserver(size).observe(el);
     size();
-    for (let i = 0; i < N + 2; i++) hist.push({ p: -60, sq: 0, rf: 0, th: -20, out: -60 });
+    for (let i = 0; i < N + 2; i++) hist.push({ p: -60, sq: 0, rf: 0, th: -20, out: -60, br: 0, sy: 0, ag: 0 });
   }
 
   // the tube bends: its centre drifts sideways with depth, zero at the glass
@@ -73,13 +79,15 @@ const BloodVessel = (() => {
     const dt = dtIn != null ? dtIn : Math.min(0.1, (now - last) / 1000);
     last = now; simT += dt;
     lastProbes = probes; lastParams = params || {};
-    const th = lastParams.threshold != null ? lastParams.threshold : -20;
-    const [p, target, sq, rf] = probes;
+    const [p, target, sq, rf] = probes, br = probes[4] || 0;
+    const sy = lastParams.sympathetic || 0, ag = lastParams.age || 0;
+    // the sleeve sits where the wall really answers: stress lowers it, the breath moves it
+    const th = (lastParams.threshold != null ? lastParams.threshold : -20) - 12 * sy + 3 * br;
     acc += dt * RATE;
     while (acc >= 1) {
       acc -= 1;
       if (rf > 0.5 && hist[0].rf < 0.5) for (let k = 0; k < 10; k++) sparks.push({ a: k / 10 * 6.283 + rnd() * 0.3, z: Z0 + 5 * DZ, life: 1 });
-      hist.unshift({ p, sq, rf, th, out: p + sq, tg: target }); born++;
+      hist.unshift({ p, sq, rf, th, out: p + sq, tg: target, br, sy, ag }); born++;
       if (hist.length > N + 2) hist.pop();
     }
     jolt = jolt * Math.exp(-dt * 6) + Math.max(0, lvl(p) - lvl(hist[3] ? hist[3].p : p)) * 0.6;
@@ -103,7 +111,8 @@ const BloodVessel = (() => {
     cx.setTransform(dpr, 0, 0, dpr, 0, 0);
     // the deep: a dark plasma, faintly lit by the pressure arriving
     const pNow = hist[0].p, g0 = cx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.max(W, H) * 0.7);
-    g0.addColorStop(0, `rgb(${30 + 40 * lvl(pNow)},4,10)`); g0.addColorStop(1, "#050002");
+    const syNow = hist[0].sy || 0;
+    g0.addColorStop(0, `rgb(${30 + 40 * lvl(pNow) + 45 * syNow | 0},${4 + 6 * syNow | 0},10)`); g0.addColorStop(1, "#050002");
     cx.fillStyle = g0; cx.fillRect(0, 0, W, H);
 
     const frac = acc;   // 0..1: how far the newest ring has drifted from the glass
@@ -126,17 +135,22 @@ const BloodVessel = (() => {
       const A = hist[k], B = hist[k + 1];
       const zA = zOf(k), zB = zOf(k + 1);
       const fog = Math.pow(1 - k / N, 1.6);
-      const rA = rad(A.out), rB = rad(B.out);
-      const pa = ringPts(k, rA, zA, 0.035), pb = ptsB || ringPts(k + 1, rB, zB, 0.035);
+      const rA = rad(A.out) * (1 + 0.05 * A.br), rB = rad(B.out) * (1 + 0.05 * B.br);   // the breath swells the tube
+      const ag = A.ag || 0, sy = A.sy || 0;
+      const pa = ringPts(k, rA, zA, 0.035 + 0.07 * ag), pb = ptsB || ringPts(k + 1, rB, zB, 0.035 + 0.07 * (B.ag || 0));
+      const w0 = (((born - k) * 3) % (wob.length - SEG) + (wob.length - SEG)) % (wob.length - SEG);
       const over = clamp((A.p - A.th) / 12, 0, 1);       // overpressure: ghost past the sleeve
       const tens = clamp(-A.sq / 18, 0, 1);              // how hard the muscle is squeezing
-      const band = (k % 2 === 0) ? 1 : 0.82 - 0.3 * tens; // smooth-muscle rings tighten into stripes
+      const band = (k % 2 === 0) ? 1 : 0.82 - 0.3 * tens - 0.3 * sy; // smooth-muscle rings tighten into stripes; stress keeps them drawn
       for (let j = 0; j < SEG; j++) {
         const j2 = (j + 1) % SEG, a = (j + 0.5) / SEG * 6.2832;
         const light = 0.55 + 0.45 * Math.max(0, -Math.sin(a) * 0.8 + Math.cos(a + 0.6) * 0.3);   // lit from above
         const L = fog * light * band * (0.55 + 0.6 * lvl(A.out));   // a beat is a bright band rolling away
         const r = (150 + 85 * over) * L + 10, gg = (18 + 34 * over * over) * L, bb = (34 + 26 * over + 10 * (1 - tens)) * L;   // overpressure flushes hot pink
-        cx.fillStyle = `rgb(${r | 0},${gg | 0},${bb | 0})`;
+        // plaque: where the wall bulges most, an old vessel gathers yellow
+        const pl = ag > 0 ? clamp((wob[w0 + j] - (1 - 1.3 * ag)) * 3, 0, 1) * ag : 0;
+        const R2 = r + (200 * L + 20 - r) * pl, G2 = gg + (165 * L + 10 - gg) * pl, B2 = bb + (80 * L - bb) * pl;
+        cx.fillStyle = `rgb(${R2 | 0},${G2 | 0},${B2 | 0})`;
         cx.beginPath(); cx.moveTo(pa[j][0], pa[j][1]); cx.lineTo(pa[j2][0], pa[j2][1]); cx.lineTo(pb[j2][0], pb[j2][1]); cx.lineTo(pb[j][0], pb[j][1]); cx.closePath(); cx.fill();
       }
       // capillary threads along the wall, every fourth segment
@@ -209,11 +223,16 @@ const BloodVessel = (() => {
 
   function hud() {
     const [p, , sq, rf] = lastProbes, P = lastParams;
-    const th = P.threshold != null ? P.threshold : -20, R = P.ratio || 4, K = P.knee != null ? P.knee : 6;
+    // the curve the wall is really following: the body moves the line and stiffens the wall
+    const th0 = P.threshold != null ? P.threshold : -20;
+    const th = th0 - 12 * (P.sympathetic || 0) + 3 * (lastProbes[4] || 0);
+    const R = (P.ratio || 4) * (1 + (P.age || 0)), K = (P.knee != null ? P.knee : 6) * (1 - 0.8 * (P.age || 0));
     cx.font = "10px 'JetBrains Mono', ui-monospace, monospace"; cx.textBaseline = "top";
     const line = (t, x, y, c) => { cx.fillStyle = c; cx.fillText(t, x, y); };
     const x0 = 14, y0 = H - 46;
-    cx.fillStyle = "rgba(8,0,3,.55)"; cx.fillRect(x0 - 6, y0 - 6, 210, 46);
+    cx.fillStyle = "rgba(8,0,3,.55)"; cx.fillRect(x0 - 6, y0 - 19, 210, 59);
+    const sy = P.sympathetic || 0, ag = P.age || 0, hv = P.hrv || 0, br = lastProbes[4] || 0;
+    if (sy || ag || hv) line(`BODY stress ${sy.toFixed(2)} · age ${ag.toFixed(2)} · breath ${br >= 0 ? "+" : ""}${br.toFixed(2)}`, x0, y0 - 13, "rgba(255,220,170,.75)");
     line(`SYSTOLIC ${th.toFixed(1)} dB`, x0, y0, "rgba(255,184,74,.9)");
     line(`PRESSURE ${Math.max(-99, p).toFixed(1)} dB`, x0, y0 + 13, "rgba(235,225,255,.75)");
     line(`SQUEEZE  ${sq.toFixed(1)} dB`, x0, y0 + 26, "rgba(255,120,140,.9)");

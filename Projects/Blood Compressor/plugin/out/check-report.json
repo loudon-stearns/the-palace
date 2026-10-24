@@ -11,18 +11,20 @@
     "pressure": 2.842170943040401e-14,
     "target": 2.842170943040401e-14,
     "squeeze": 2.6290081223123707e-13,
-    "reflex": 0.0
+    "reflex": 0.0,
+    "breath": 0.0
    },
    "js_probe_err": {
     "pressure": 1.4210854715202004e-14,
     "target": 2.1316282072803006e-14,
     "squeeze": 4.440892098500626e-16,
-    "reflex": 0.0
+    "reflex": 0.0,
+    "breath": 0.0
    },
    "peak_dbfs": -3.589856744302378,
    "deepest_squeeze_db": -27.351142349623476,
    "reflex_share": 0.55906179138322,
-   "sketch_s": 0.9,
+   "sketch_s": 1.5,
    "passed": true
   },
   {
@@ -34,18 +36,20 @@
     "pressure": 2.842170943040401e-14,
     "target": 2.4868995751603507e-14,
     "squeeze": 2.5934809855243657e-13,
-    "reflex": 0.0
+    "reflex": 0.0,
+    "breath": 0.0
    },
    "js_probe_err": {
     "pressure": 1.4210854715202004e-14,
     "target": 1.0658141036401503e-14,
     "squeeze": 1.0658141036401503e-14,
-    "reflex": 0.0
+    "reflex": 0.0,
+    "breath": 0.0
    },
    "peak_dbfs": -0.9684137713743245,
    "deepest_squeeze_db": -21.25507784864048,
    "reflex_share": 0.8309778911564626,
-   "sketch_s": 0.9,
+   "sketch_s": 1.6,
    "passed": true
   },
   {
@@ -57,18 +61,20 @@
     "pressure": 2.842170943040401e-14,
     "target": 2.4868995751603507e-14,
     "squeeze": 2.0961010704922955e-13,
-    "reflex": 0.0
+    "reflex": 0.0,
+    "breath": 0.0
    },
    "js_probe_err": {
     "pressure": 1.4210854715202004e-14,
     "target": 1.0658141036401503e-14,
     "squeeze": 2.842170943040401e-14,
-    "reflex": 0.0
+    "reflex": 0.0,
+    "breath": 0.0
    },
    "peak_dbfs": -0.8657062636111783,
    "deepest_squeeze_db": -17.08187594769316,
    "reflex_share": 0.8309778911564626,
-   "sketch_s": 1.0,
+   "sketch_s": 1.6,
    "passed": true
   },
   {
@@ -80,18 +86,20 @@
     "pressure": 2.842170943040401e-14,
     "target": 1.865174681370263e-14,
     "squeeze": 2.6645352591003757e-14,
-    "reflex": 0.0
+    "reflex": 0.0,
+    "breath": 0.0
    },
    "js_probe_err": {
     "pressure": 1.4210854715202004e-14,
     "target": 1.0658141036401503e-14,
     "squeeze": 8.881784197001252e-16,
-    "reflex": 0.0
+    "reflex": 0.0,
+    "breath": 0.0
    },
    "peak_dbfs": -3.324755261843213,
    "deepest_squeeze_db": -3.603451719748767,
    "reflex_share": 0.24547996976568406,
-   "sketch_s": 0.7,
+   "sketch_s": 1.1,
    "passed": true
   },
   {
@@ -103,18 +111,20 @@
     "pressure": 2.4868995751603507e-14,
     "target": 2.1316282072803006e-14,
     "squeeze": 1.3145040611561853e-13,
-    "reflex": 0.0
+    "reflex": 0.0,
+    "breath": 0.0
    },
    "js_probe_err": {
     "pressure": 7.105427357601002e-15,
     "target": 7.105427357601002e-15,
     "squeeze": 3.552713678800501e-15,
-    "reflex": 0.0
+    "reflex": 0.0,
+    "breath": 0.0
    },
    "peak_dbfs": -0.9152046896397082,
    "deepest_squeeze_db": -18.839220671480955,
    "reflex_share": 0.9999263038548752,
-   "sketch_s": 0.5,
+   "sketch_s": 0.8,
    "passed": true
   },
   {
@@ -126,18 +136,20 @@
     "pressure": 7.105427357601002e-14,
     "target": 4.973799150320701e-14,
     "squeeze": 2.6645352591003757e-13,
-    "reflex": 0.0
+    "reflex": 0.0,
+    "breath": 0.0
    },
    "js_probe_err": {
     "pressure": 7.460698725481052e-13,
     "target": 1.7763568394002505e-14,
     "squeeze": 1.0658141036401503e-14,
-    "reflex": 0.0
+    "reflex": 0.0,
+    "breath": 0.0
    },
    "peak_dbfs": -1.1826755769561224,
    "deepest_squeeze_db": -24.823563502302818,
    "reflex_share": 0.6359725371630134,
-   "sketch_s": 0.8,
+   "sketch_s": 1.4,
    "passed": true
   },
   {
@@ -149,18 +161,120 @@
     "pressure": 8.171241461241152e-14,
     "target": 3.907985046680551e-14,
     "squeeze": 1.7408297026122455e-13,
-    "reflex": 0.0
+    "reflex": 0.0,
+    "breath": 0.0
    },
    "js_probe_err": {
     "pressure": 2.842170943040401e-14,
     "target": 1.7763568394002505e-14,
     "squeeze": 6.217248937900877e-15,
-    "reflex": 0.0
+    "reflex": 0.0,
+    "breath": 0.0
    },
    "peak_dbfs": 5.756423185423172,
    "deepest_squeeze_db": -12.264258857970713,
    "reflex_share": 0.8126681783824641,
-   "sketch_s": 0.7,
+   "sketch_s": 1.2,
+   "passed": true
+  },
+  {
+   "name": "release-curve",
+   "secs": 8.0,
+   "max_err_of_peak": 3.29556313732822e-08,
+   "js_err_of_peak": 3.29556313732822e-08,
+   "probe_err": {
+    "pressure": 2.842170943040401e-14,
+    "target": 2.4868995751603507e-14,
+    "squeeze": 2.948752353404416e-13,
+    "reflex": 0.0,
+    "breath": 0.0
+   },
+   "js_probe_err": {
+    "pressure": 1.4210854715202004e-14,
+    "target": 1.0658141036401503e-14,
+    "squeeze": 2.4868995751603507e-14,
+    "reflex": 0.0,
+    "breath": 0.0
+   },
+   "peak_dbfs": -0.9684137713743245,
+   "deepest_squeeze_db": -16.503820978890584,
+   "reflex_share": 0.8309778911564626,
+   "sketch_s": 1.6,
+   "passed": true
+  },
+  {
+   "name": "sympathetic",
+   "secs": 8.0,
+   "max_err_of_peak": 4.618198952328126e-08,
+   "js_err_of_peak": 4.618198952328126e-08,
+   "probe_err": {
+    "pressure": 2.842170943040401e-14,
+    "target": 2.1316282072803006e-14,
+    "squeeze": 9.059419880941277e-14,
+    "reflex": 0.0,
+    "breath": 0.0
+   },
+   "js_probe_err": {
+    "pressure": 1.4210854715202004e-14,
+    "target": 1.0658141036401503e-14,
+    "squeeze": 1.4210854715202004e-14,
+    "reflex": 0.0,
+    "breath": 0.0
+   },
+   "peak_dbfs": -3.8044990072919744,
+   "deepest_squeeze_db": -15.738144507639175,
+   "reflex_share": 0.48511054421768707,
+   "sketch_s": 1.6,
+   "passed": true
+  },
+  {
+   "name": "hrv",
+   "secs": 12.0,
+   "max_err_of_peak": 4.8269333519470785e-08,
+   "js_err_of_peak": 4.8269333519470785e-08,
+   "probe_err": {
+    "pressure": 4.263256414560601e-14,
+    "target": 2.4868995751603507e-14,
+    "squeeze": 1.0480505352461478e-13,
+    "reflex": 0.0,
+    "breath": 1.1102230246251565e-16
+   },
+   "js_probe_err": {
+    "pressure": 1.4210854715202004e-14,
+    "target": 1.0658141036401503e-14,
+    "squeeze": 5.329070518200751e-15,
+    "reflex": 0.0,
+    "breath": 2.220446049250313e-16
+   },
+   "peak_dbfs": -4.200882115052624,
+   "deepest_squeeze_db": -10.773306650522139,
+   "reflex_share": 0.41186885865457296,
+   "sketch_s": 2.3,
+   "passed": true
+  },
+  {
+   "name": "vessel-age",
+   "secs": 6.0,
+   "max_err_of_peak": 4.424974889733538e-08,
+   "js_err_of_peak": 4.424974889733538e-08,
+   "probe_err": {
+    "pressure": 2.842170943040401e-14,
+    "target": 1.9539925233402755e-14,
+    "squeeze": 2.9753977059954195e-14,
+    "reflex": 0.0,
+    "breath": 0.0
+   },
+   "js_probe_err": {
+    "pressure": 1.4210854715202004e-14,
+    "target": 1.0658141036401503e-14,
+    "squeeze": 0.0,
+    "reflex": 0.0,
+    "breath": 0.0
+   },
+   "peak_dbfs": -3.433648679543756,
+   "deepest_squeeze_db": -3.538204898506188,
+   "reflex_share": 0.2430650037792895,
+   "sketch_s": 1.2,
    "passed": true
   }
  ]

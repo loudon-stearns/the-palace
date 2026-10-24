@@ -21,7 +21,8 @@ namespace algo
     using tpl::Taper;
 
     // ── 1. Parameters ──────────────────────────────────────────────────────────
-    enum Param { Threshold, Ratio, Knee, Attack, Release, Detector, ScHpf, Makeup, Bypass, kNumParams };
+    enum Param { Threshold, Ratio, Knee, Attack, Release, Detector, ScHpf, Makeup, Bypass,
+                 RelCurve, Sympathetic, Hrv, Age, kNumParams };
 
     inline constexpr ParamSpec kParams[kNumParams] = {
         //  id           name              unit   min      max      default  taper          smooth choices  auto   group           hero
@@ -34,15 +35,21 @@ namespace algo
         { "sc_hpf",    "Sidechain HPF",  "Hz",  1.0,     500.0,   80.0,    Taper::Log,    20.0,  "",      true,  "Baroreceptors" },
         { "makeup",    "Makeup",         "dB",  0.0,     24.0,    0.0,     Taper::Linear, 20.0,  "",      true,  "Output" },
         { "bypass",    "Bypass",         "",    0.0,     1.0,     0.0,     Taper::Toggle, 0.0,   "",      true,  "Output" },
+        // the body (cycle 11): see step() for what each one bends
+        { "rel_curve", "Release curve",  "",    -1.0,    1.0,     0.0,     Taper::Linear, 0.0,   "",      true,  "Reflex" },
+        { "sympathetic","Sympathetic",   "",    0.0,     1.0,     0.0,     Taper::Linear, 20.0,  "",      true,  "Body" },
+        { "hrv",       "Heart-rate var", "",    0.0,     1.0,     0.0,     Taper::Linear, 0.0,   "",      true,  "Body" },
+        { "age",       "Vessel age",     "",    0.0,     1.0,     0.0,     Taper::Linear, 20.0,  "",      true,  "Body" },
     };
 
     // ── 2. Audio in and out, and probes ────────────────────────────────────────
     inline constexpr int kInputs  = 2;
     inline constexpr int kOutputs = 2;
     // What the CRT draws: pressure (detector, dB peak-equivalent), target (what the
-    // wall asks for before the nerve delay, dB), squeeze (applied, dB), reflex (0/1).
-    inline constexpr const char* kProbes[] = { "pressure", "target", "squeeze", "reflex" };
-    inline constexpr int kNumProbes = 4;
+    // wall asks for before the nerve delay, dB), squeeze (applied, dB), reflex (0/1),
+    // breath (hrv times the breathing wave, -1..1: how far the set point has moved).
+    inline constexpr const char* kProbes[] = { "pressure", "target", "squeeze", "reflex", "breath" };
+    inline constexpr int kNumProbes = 5;
 
     inline constexpr double kNerveS = 0.005;
     inline constexpr int    kDLen   = 16384;
@@ -77,6 +84,7 @@ namespace algo
         double ms = 0.0, g = 0.0;
         std::array<double, kDLen> dline {};
         int dw = 0, d = 1;
+        double n = 0.0;   // samples since reset: the breathing clock
         double probes[kNumProbes] {};
 
         void prepare (double sampleRate)
@@ -91,14 +99,25 @@ namespace algo
             ms = 0.0; g = 0.0;
             dline.fill (0.0);
             dw = 0;
+            n = 0.0;
         }
 
         void step (const double* v, const float* in, float* out)
         {
             const double x  = in[0];
             const double x2 = in[1];
-            const double R = std::max (1.0, v[Ratio]);
-            const double K = std::max (0.0, v[Knee]);
+            // the body: a stressed body (sympathetic), a breathing set point (hrv),
+            // a stiffer wall (age); the muscle's letting-go (rel_curve) is below
+            const double S  = std::min (1.0, std::max (0.0, v[Sympathetic]));
+            const double A  = std::min (1.0, std::max (0.0, v[Age]));
+            const double Hv = std::min (1.0, std::max (0.0, v[Hrv]));
+            const double b = 0.6 * std::sin (2.0 * M_PI * 0.25 * n / sr)    // breathing, sinus arrhythmia
+                           + 0.4 * std::sin (2.0 * M_PI * 0.1 * n / sr);    // the Mayer wave
+            n += 1.0;
+            const double br = Hv * b;
+            const double R = std::max (1.0, v[Ratio]) * (1.0 + A);
+            const double K = std::max (0.0, v[Knee]) * (1.0 - 0.8 * A);
+            const double T = v[Threshold] - 12.0 * S + 3.0 * br;
 
             const double a = std::exp (-2.0 * M_PI * v[ScHpf] / sr);
             const double hp = a * (hpY + x - hpX);
@@ -106,10 +125,10 @@ namespace algo
             const double hp2 = a * (hpY2 + x2 - hpX2);
             hpX2 = x2; hpY2 = hp2;
 
-            const double ar = std::exp (-1.0 / (sr * v[Detector]));
+            const double ar = std::exp (-1.0 / (sr * (v[Detector] * (1.0 + 0.2 * br))));
             ms = ar * ms + (1.0 - ar) * std::max (hp * hp, hp2 * hp2);
             const double det = kDB10 * std::log (ms + 1e-12) + 3.0103;
-            const double target = std::min (0.0, curve (det, v[Threshold], R, K) - det);
+            const double target = std::min (0.0, curve (det, T, R, K) - det);
 
             dline[(size_t) dw] = target;
             int r = dw - d;
@@ -117,8 +136,9 @@ namespace algo
             const double delayed = dline[(size_t) r];
             if (++dw >= kDLen) dw = 0;
 
-            const double atk = std::max (0.005, v[Attack]);
-            const double rel = std::max (0.005, v[Release]);
+            const double atk = std::max (0.005, v[Attack] / (1.0 + S));
+            const double m = std::min (4.0, std::max (0.25, std::pow (2.0, -v[RelCurve] * (-g - 6.0) / 6.0)));
+            const double rel = std::max (0.005, v[Release] / (1.0 + 3.0 * S) * m);
             const double c = delayed < g ? std::exp (-1.0 / (sr * atk)) : std::exp (-1.0 / (sr * rel));
             g = c * g + (1.0 - c) * delayed;
 
@@ -133,6 +153,7 @@ namespace algo
             probes[1] = target;
             probes[2] = g;
             probes[3] = target < -0.05 ? 1.0 : 0.0;
+            probes[4] = br;
         }
     };
 }

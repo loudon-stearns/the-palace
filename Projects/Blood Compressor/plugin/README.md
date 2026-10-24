@@ -11,8 +11,8 @@ plugin/
   plugin.json            Blood Compressor, code Bldc, effect, stereo, CRT on ("screen": true)
   reference/sketch.py    the compressor one sample at a time: render(v, sr, inputs, notes)
   reference/paths.py     seven paths, each gated sample for sample, each exercising one term
-  src/Algorithm.h        the port: 9 parameters, stereo in and out, 4 probes for the CRT
-  check/                 the exact gate and the listening take, run from here (below)
+  src/Algorithm.h        the port: 13 parameters, stereo in and out, 5 probes for the CRT
+  check/                 the exact gate and the listening takes, run from here (below)
   ui/visualizer.js       inside the artery, for the CRT: mount(el), frame(probes, params)
   ui/blood_compressor.js the engine in JavaScript, for the face page only
   ui/build_face.py       the whole face in the template's editor → ../blood-compressor-face.html
@@ -39,13 +39,49 @@ systolic line) and **Ratio** (how stiff the vessel wall is). **Vessel wall**: Kn
 **Reflex**: Attack (5 ms to 500 ms; the floor is the body's), Release.
 **Baroreceptors**: Detector (the RMS time), Sidechain HPF. **Output**: Makeup, Bypass.
 
+## The body (cycle 11, 2026-10-24)
+
+Four controls that bend the chain the way a body would. All four at zero is the
+compressor of cycle 10, bit for bit (the seven old paths still pass unchanged).
+
+- **Sympathetic** (Body, 0–1): a stressed body. The systolic line drops up to 12 dB,
+  the reflex runs up to twice as fast (never under the 5 ms floor), the muscle lets
+  go up to four times as fast. The entry says sympathetic activation "raises
+  threshold"; a raised threshold squeezes *less*, against the same sentence's "a
+  stressed body that compresses more aggressively". This build follows the second
+  half: the line drops.
+- **Heart-rate var** (Body, 0–1): the set point breathes. Respiratory sinus
+  arrhythmia (0.25 Hz) and the Mayer wave (0.1 Hz) move the threshold up to ±3 dB
+  and the detector time up to ±20 % (the entry's ±10 samples of 50). The detector
+  wobble alone was too small to hear; the moving threshold is my addition.
+- **Vessel age** (Body, 0–1): a stiffer wall. The ratio grows up to double and the
+  knee loses up to 80 % of its give. The entry's "cubic toward power-law" is carried
+  as harder and narrower, not a new curve shape.
+- **Release curve** (Reflex, −1 to 1): how the muscle lets go. 0 is plain
+  exponential. Above 0 a deep squeeze lets go fast and the last few dB linger;
+  below 0 it holds, then snaps. The release time is scaled by
+  2^(−curve × (depth − 6 dB) / 6 dB), kept between a quarter and four times.
+
+The fifth probe, **breath**, is hrv times the breathing wave (−1 to 1): how far the
+set point has moved. The CRT uses it to swell the tube; the HUD shows it.
+
+In the CRT: stress heats the plasma and keeps the muscle stripes drawn between
+beats; age makes the wall lumpy and gathers yellow plaque on its bulges; the breath
+swells and narrows the whole tube; the sleeve and the in-to-out inset sit where the
+wall really answers (threshold, stress and breath together; ratio and knee aged).
+
+`python3 check/render_body.py` renders `../blood-compressor-body-take.wav`: the same
+compressor on the drum loop at rest, stressed, old and breathing, six seconds each,
+matched to −27 dBFS RMS.
+
 ## The check
 
 `python3 check/check_engine.py` compiles `check/engine_check.cpp` (Algorithm.h with
 no JUCE, the same command line as the template's Harness) and runs every path through
 the sketch, the C++ engine and `ui/blood_compressor.js`, with the template's own
 verify.py helpers. On 2026-10-24 both engines matched the sketch to 3–5 × 10⁻⁸ of
-peak (float32 output rounding) on all seven paths, and every probe to 10⁻¹². The
+peak (float32 output rounding) on all eleven paths (seven, then four more for the
+body in cycle 11), and every probe to 10⁻¹². The
 numbers are in `out/check-report.json`.
 
 `python3 check/render_take.py` renders the attack lesson through the C++ engine into
@@ -69,9 +105,9 @@ but that would be a body that sees the future.
 ## The CRT feed
 
 The visualizer reads only the probe frame (`kProbes` order: pressure, target, squeeze,
-reflex) and the parameter values by id. `BloodVessel.frame(probes, params)` is the
+reflex, breath) and the parameter values by id. `BloodVessel.frame(probes, params)` is the
 whole contract. The template's CRT move (VST Template — baton) needs to stream the
-four probes at about 60 Hz. Pressure is a 10 ms RMS, so sampling it at 60 Hz misses
+five probes at about 60 Hz. Pressure is a 10 ms RMS, so sampling it at 60 Hz misses
 little. Squeeze and reflex are already smooth or held.
 
 What it draws: you are inside the vessel looking downstream. Each ring of the wall is
@@ -107,7 +143,8 @@ the house).
 2. The exact gate should hold for `engine`. For `plugin`, the template's smoothing
    moves threshold, ratio, knee, sidechain HPF and makeup over 20 ms, so expect the
    0.5 dB loudness gate to be the test.
-3. Rerun `ui.py fit`: nine controls under two heroes and a CRT. The minimum here
+3. Rerun `ui.py fit`: thirteen controls under two heroes and a CRT (the Body
+   panel takes its own row). The minimum here
    (900 × 580) fits the mock page.
 4. No Max work: the RNBO codebox and the two Max for Live devices in `../rnbo/` wait
    as teaching tools (standing order of 2026-10-21).

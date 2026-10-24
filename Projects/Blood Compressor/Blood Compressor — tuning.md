@@ -35,3 +35,15 @@ What Blood Compressor's steward cycles taught the page, and the changes to the h
    > **Isn't**: a finished plugin yet. The compressor lives in the browser vessel (stage2-vessel-prototype-v3.html), an RNBO codebox and two Max for Live devices (set aside as teaching tools). Since October 2026 it has also been in VST Template's shape in `plugin/`, checked sample for sample against its sketch, with a face whose centre screen shows the artery from inside. It becomes a VST3/AU when the template can build from a project's own folder.
 
 - run · 2026-10-24 · cycle 10 · taught item 1, proposed items 2, 3 for canon
+
+## From cycle 11 — 2026-10-24
+
+4. A body control that only moves the detector is inaudible on music; move the set point the ear hears (threshold) and keep the detector change as texture. *(offered by the steward, cycle 11)*
+5. **Proposed for canon** · 2026-10-24 · [[Blood Compressor]] · § DSP Architecture, the three bullets under 'The biological framing also suggests features' (Sympathetic activation knob, Heart rate variability, Vessel age) · canon change owed *(proposed by the steward, cycle 11)*
+   Why: The bullet says sympathetic activation 'raises threshold' and 'compresses more aggressively', which contradict each other. The October plugin built all three, so the words should describe what was built and measured.
+   Path: `Projects/Blood Compressor.md`
+   > - **Sympathetic activation knob**: a stressed body. The systolic line drops (up to 12 dB), the reflex quickens (up to twice as fast, never under the 5 ms nerve floor) and the muscle lets go sooner (up to four times as fast). The vessel holds the beat harder and pumps with it.
+   > - **Heart rate variability**: the set point breathes. A 0.25 Hz breath and the slower 0.1 Hz Mayer wave move the threshold up to ±3 dB and the detector time up to ±20 %, so the squeeze swells and ebbs across the bars.
+   > - **Vessel age**: a stiffer wall. The ratio rises (up to double) and the knee loses most of its give (up to 80 %). Older walls give less and cinch harder.
+
+- run · 2026-10-24 · cycle 11 · taught item 4, proposed item 5 for canon

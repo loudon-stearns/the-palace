@@ -93,4 +93,17 @@ PATHS = [
          values={"threshold": -28.0, "ratio": 4.0, "detector": lambda t: 0.001 * (100.0 ** (t / 6.0)),
                  "makeup": lambda t: 2.0 * t, "bypass": lambda t: ((t > 2.0) & (t < 3.0)).astype(float)},
          gate=dict(exact_until=None)),
+    # the body (cycle 11): each one moved alone over a source that shows it
+    dict(name="release-curve", secs=8.0, inputs=drums,
+         values={"threshold": -30.0, "ratio": 10.0, "release": 0.4, "rel_curve": lambda t: -1.0 + 2.0 * t / 8.0},
+         gate=dict(exact_until=None)),
+    dict(name="sympathetic", secs=8.0, inputs=heartbeat,
+         values={"threshold": -20.0, "ratio": 6.0, "sympathetic": lambda t: t / 8.0},
+         gate=dict(exact_until=None)),
+    dict(name="hrv", secs=12.0, inputs=heartbeat,
+         values={"threshold": -24.0, "ratio": 8.0, "hrv": lambda t: np.minimum(1.0, t / 4.0)},
+         gate=dict(exact_until=None)),
+    dict(name="vessel-age", secs=6.0, inputs=heartbeat,
+         values={"threshold": -16.0, "ratio": 3.0, "knee": 12.0, "age": lambda t: t / 6.0},
+         gate=dict(exact_until=None)),
 ]
