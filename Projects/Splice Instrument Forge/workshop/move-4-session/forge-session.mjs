@@ -1,0 +1,177 @@
+// forge-session -- a Live 12 Session View Set from a stack of loops: one audio track per layer, one scene per
+// arrangement, each scene's slots holding the layers that play in it, warped to the Set's tempo.
+//
+//   node forge-session.mjs build stack.json [--out-dir .] [--force]
+//   node forge-session.mjs check "<Set>.als"
+//
+// stack.json: { name, tempo, layers: [{ role, file, bpm }], scenes: [{ name, play: [role, …] }] }
+// Every element is one Live saved (Splice Instrument Forge, move four, 2026-10-24): the Set, scene and Limiter from
+// the Ableton Session Writer's templates (Live 12.1's DefaultLiveSet with a 12.4.6 header), the audio track from that
+// same default Set, the audio clip from a Set Live 12.4.6 saved (Loudon's "Impact Granular.als"); the slot shape is
+// GoButton's (ltc-generator.js). The XML craft is the Session Writer's, copied so this stays one file.
+import fs from 'node:fs';
+import path from 'node:path';
+import zlib from 'node:zlib';
+import { fileURLToPath } from 'node:url';
+
+const HERE = path.dirname(fileURLToPath(import.meta.url));
+const WRITER = '/Users/loudonstearns/Documents/The Palace/Shop/Shopkeeper/probes/2026-10-20-ableton-session/templates';
+const STUDY = path.join(HERE, '..', 'format-study', 'xml');
+const HEADER = '<Ableton MajorVersion="5" MinorVersion="12.0_12402" SchemaChangeCount="5" Creator="Ableton Live 12.4.6" Revision="0de5c8fa9a692293676cb7700a15afb2046ee1f7">';
+const FIRST_TRACK_ID = 20;
+const COLOURS = [12, 2, 8, 17, 24, 36, 50, 60];
+const POINTEES = /<(AutomationTarget|[A-Za-z]*ModulationTarget|Pointee|ControllerTargets\.\d+) Id="(\d+)"/g;
+
+const readGz = (f) => { const b = fs.readFileSync(f); if (b[0] !== 0x1f || b[1] !== 0x8b) throw new Error(f + ' is not gzip'); return zlib.gunzipSync(b).toString('utf8'); };
+const writeGz = (f, xml, force) => { if (fs.existsSync(f) && !force) throw new Error('not overwriting ' + f + ' (pass --force)'); fs.writeFileSync(f, zlib.gzipSync(Buffer.from(xml, 'utf8'))); };
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const renumber = (t, ids) => t.replace(POINTEES, (a, tag) => '<' + tag + ' Id="' + (ids.pointee++) + '"');
+function element(xml, tag, from = 0) {
+  const open = new RegExp('<' + tag + '(?= |>|/>)', 'g'); open.lastIndex = from;
+  const m = open.exec(xml); if (!m) return null;
+  const start = m.index, re = new RegExp('<(/?)' + tag + '(?= |>|/>)[^>]*?(/?)>', 'g'); re.lastIndex = start;
+  let depth = 0, t;
+  while ((t = re.exec(xml))) {
+    if (t[1]) { depth--; if (depth === 0) return { start, end: t.index + t[0].length, text: xml.slice(start, t.index + t[0].length) }; }
+    else if (!t[2]) depth++;
+    else if (depth === 0) return { start, end: t.index + t[0].length, text: xml.slice(start, t.index + t[0].length) };
+  }
+  throw new Error('unclosed <' + tag + '>');
+}
+const replaceEl = (xml, el, text) => xml.slice(0, el.start) + text + xml.slice(el.end);
+const setValue = (t, tag, v) => { const re = new RegExp('<' + tag + ' Value="[^"]*" />'); if (!re.test(t)) throw new Error('no <' + tag + '>'); return t.replace(re, '<' + tag + ' Value="' + v + '" />'); };
+const fmt = (n) => Number.isInteger(n) ? String(n) : String(Number(n.toFixed(10)));
+const withId = (xml, i) => xml.replace(/^<([A-Za-z0-9]+)( Id="\d+")?/, '<$1 Id="' + i + '"');
+function wavFacts(file) {
+  const fd = fs.openSync(file, 'r'); const head = Buffer.alloc(12); fs.readSync(fd, head, 0, 12, 0);
+  if (head.toString('ascii', 0, 4) !== 'RIFF' || head.toString('ascii', 8, 12) !== 'WAVE') throw new Error(file + ' is not a WAV');
+  let pos = 12, rate = 0, channels = 0, bits = 0, dataBytes = 0; const size = fs.fstatSync(fd).size, chunk = Buffer.alloc(8);
+  while (pos + 8 <= size) {
+    fs.readSync(fd, chunk, 0, 8, pos); const id = chunk.toString('ascii', 0, 4), len = chunk.readUInt32LE(4);
+    if (id === 'fmt ') { const f = Buffer.alloc(16); fs.readSync(fd, f, 0, 16, pos + 8); channels = f.readUInt16LE(2); rate = f.readUInt32LE(4); bits = f.readUInt16LE(14); }
+    if (id === 'data') dataBytes = len; pos += 8 + len + (len & 1);
+  }
+  fs.closeSync(fd); const st = fs.statSync(file);
+  return { rate, channels, bits, frames: Math.floor(dataBytes / (channels * bits / 8)), size: st.size, mtime: Math.floor(st.mtimeMs / 1000) };
+}
+
+// ---- an audio clip in a slot: the loop warped so its native bars land on the Set's grid ----
+function audioClip({ name, colour, abs, rel, bpm }, id) {
+  const w = wavFacts(abs);
+  const seconds = w.frames / w.rate;
+  const beats = Math.max(1, Math.round(seconds * bpm / 60));       // the loop's own length in beats at its native tempo
+  let c = fs.readFileSync(path.join(STUDY, 'Live12 arrangement AudioClip.xml'), 'utf8').trim();
+  c = c.replace(/^<AudioClip Id="\d+" Time="[^"]+">/, '<AudioClip Id="' + id + '" Time="0">');
+  c = setValue(c, 'CurrentStart', 0).replace(/<CurrentEnd Value="[^"]*" \/>/, '<CurrentEnd Value="' + beats + '" />');
+  c = replaceEl(c, element(c, 'Loop'), '<Loop>\n<LoopStart Value="0" />\n<LoopEnd Value="' + beats + '" />\n<StartRelative Value="0" />\n<LoopOn Value="true" />\n<OutMarker Value="' + beats + '" />\n<HiddenLoopStart Value="0" />\n<HiddenLoopEnd Value="' + beats + '" />\n</Loop>');
+  c = c.replace(/<Name Value="[^"]*" \/>/, '<Name Value="' + esc(name) + '" />').replace(/<Color Value="-?\d+" \/>/, '<Color Value="' + colour + '" />');
+  c = c.replace(/<Envelopes>[\s\S]*?<\/Envelopes>/, '<Envelopes>\n<Envelopes />\n</Envelopes>');
+  c = c.replace(/<ScrollerTimePreserver>[\s\S]*?<\/ScrollerTimePreserver>/, '<ScrollerTimePreserver>\n<LeftTime Value="0" />\n<RightTime Value="' + beats + '" />\n</ScrollerTimePreserver>').replace(/<TimeSelection>[\s\S]*?<\/TimeSelection>/, '<TimeSelection>\n<AnchorTime Value="0" />\n<OtherTime Value="0" />\n</TimeSelection>');
+  c = c.replace(/<FollowActionEnabled Value="true" \/>/, '<FollowActionEnabled Value="false" />');
+  c = setValue(c, 'IsWarped', 'true').replace(/<WarpMode Value="\d+" \/>/, '<WarpMode Value="4" />');    // 4 = Complex, the shell's own
+  c = replaceEl(c, element(c, 'SampleRef'), '<SampleRef>\n<FileRef>\n<RelativePathType Value="1" />\n<RelativePath Value="' + esc(rel) + '" />\n<Path Value="' + esc(abs) + '" />\n<Type Value="2" />\n<LivePackName Value="" />\n<LivePackId Value="" />\n<OriginalFileSize Value="' + w.size + '" />\n<OriginalCrc Value="0" />\n<SourceHint Value="" />\n</FileRef>\n<LastModDate Value="' + w.mtime + '" />\n<SourceContext />\n<SampleUsageHint Value="0" />\n<DefaultDuration Value="' + w.frames + '" />\n<DefaultSampleRate Value="' + w.rate + '" />\n<SamplesToAutoWarp Value="0" />\n</SampleRef>');
+  c = c.replace(/<Onsets>[\s\S]*?<\/Onsets>/, '<Onsets>\n<UserOnsets />\n<HasUserOnsets Value="false" />\n</Onsets>');
+  c = replaceEl(c, element(c, 'WarpMarkers'), '<WarpMarkers>\n<WarpMarker Id="0" SecTime="0" BeatTime="0" />\n<WarpMarker Id="1" SecTime="' + fmt(seconds) + '" BeatTime="' + beats + '" />\n</WarpMarkers>');
+  c = c.replace(/<SavedWarpMarkersForStretched>[\s\S]*?<\/SavedWarpMarkersForStretched>/, '<SavedWarpMarkersForStretched />');
+  c = setValue(c, 'MarkersGenerated', 'false').replace(/<IsSongTempoLeader Value="true" \/>/, '<IsSongTempoLeader Value="false" />');
+  return { xml: c, beats, seconds, facts: w };
+}
+
+function build(stack, layers, outDir) {
+  let xml = readGz(path.join(WRITER, 'blank-set.als')).replace(/<Ableton [^>]*>/, HEADER);
+  xml = replaceEl(xml, element(xml, 'Tracks'), '<Tracks>\n</Tracks>');
+  xml = xml.replace(/<SendsPre>[\s\S]*?<\/SendsPre>/, '<SendsPre />').replace(/<Sends>[\s\S]*?<\/Sends>/g, '<Sends />');
+  xml = xml.replace(/<SelectedDocumentViewInMainWindow Value="\d" \/>/, '<SelectedDocumentViewInMainWindow Value="1" />');   // Session view
+  const tempo = stack.tempo || 120;
+  let main = element(xml, 'MainTrack'); const tempoEl = element(main.text, 'Tempo');
+  let mainText = replaceEl(main.text, tempoEl, tempoEl.text.replace(/<Manual Value="[^"]*" \/>/, '<Manual Value="' + tempo + '" />'));
+  const tempoTarget = (tempoEl.text.match(/<AutomationTarget Id="(\d+)"/) || [])[1];
+  mainText = mainText.replace(/<AutomationEnvelope Id="\d+">\s*<EnvelopeTarget>\s*<PointeeId Value="(\d+)" \/>[\s\S]*?<\/AutomationEnvelope>/g, (lane, p) => p === tempoTarget ? lane.replace(/<FloatEvent Id="(\d+)" Time="([^"]+)" Value="[^"]*" \/>/g, '<FloatEvent Id="$1" Time="$2" Value="' + tempo + '" />') : lane);
+  xml = replaceEl(xml, main, mainText);
+  const ids = { pointee: Number(xml.match(/<NextPointeeId Value="(\d+)" \/>/)[1]), track: FIRST_TRACK_ID };
+
+  // scenes: the blank's first scene cloned per arrangement, named
+  const scenesEl = element(xml, 'Scenes'); const sceneShell = element(scenesEl.text, 'Scene').text;
+  const scenes = stack.scenes.map((s, i) => sceneShell.replace(/^<Scene Id="\d+">/, '<Scene Id="' + i + '">').replace(/<Name Value="[^"]*" \/>/, '<Name Value="' + esc(s.name) + '" />').replace(/<Tempo Value="[^"]*" \/>/, '<Tempo Value="' + tempo + '" />'));
+  xml = replaceEl(xml, scenesEl, '<Scenes>\n' + scenes.join('\n') + '\n</Scenes>');
+
+  // one audio track per layer, its session slots filled where the layer plays
+  const trackShell = fs.readFileSync(path.join(STUDY, 'Live12 AudioTrack shell (from DefaultLiveSet).xml'), 'utf8').trim();
+  const report = [];
+  const tracks = layers.map((layer, li) => {
+    let t = trackShell.replace(/^<AudioTrack Id="\d+"/, '<AudioTrack Id="' + (ids.track++) + '"');
+    t = renumber(t, ids);
+    const nameEl = element(t, 'Name');
+    t = replaceEl(t, nameEl, nameEl.text.replace(/<EffectiveName Value="[^"]*" \/>/, '<EffectiveName Value="' + esc(layer.role) + '" />').replace(/<UserName Value="[^"]*" \/>/, '<UserName Value="' + esc(layer.role) + '" />').replace(/<MemorizedFirstClipName Value="[^"]*" \/>/, '<MemorizedFirstClipName Value="" />'));
+    const colour = COLOURS[li % COLOURS.length];
+    t = t.replace(/<Color Value="\d+" \/>/, '<Color Value="' + colour + '" />');
+    t = t.replace(/<Sends>[\s\S]*?<\/Sends>/g, '<Sends />');
+    t = t.replace(/<AutomationEnvelopes>[\s\S]*?<\/AutomationEnvelopes>/, '<AutomationEnvelopes>\n<Envelopes />\n</AutomationEnvelopes>');
+    const clip = audioClip({ name: layer.role, colour, abs: layer.abs, rel: path.relative(outDir, layer.abs).split(path.sep).join('/'), bpm: layer.bpm || tempo }, 0);
+    report.push(layer.role + ': ' + clip.beats + ' beats (' + clip.seconds.toFixed(2) + ' s at ' + (layer.bpm || tempo) + ' bpm)');
+    let slotIndex = 0, seq = 0;
+    t = t.replace(/<ClipSlotList>[\s\S]*?<\/ClipSlotList>/g, (all) => {
+      const shell = element(all, 'ClipSlot').text; const slots = [];
+      for (let i = 0; i < stack.scenes.length; i++) {
+        let s = shell.replace(/^<ClipSlot Id="\d+">/, '<ClipSlot Id="' + i + '">');
+        const plays = seq === 0 && stack.scenes[i].play.includes(layer.role);     // the first list is the MainSequencer's, the second the FreezeSequencer's
+        if (plays) s = s.replace(/<ClipSlot>\s*<Value \/>\s*<\/ClipSlot>/, '<ClipSlot>\n<Value>\n' + clip.xml.replace(/^<AudioClip Id="\d+"/, '<AudioClip Id="' + (slotIndex++) + '"') + '\n</Value>\n</ClipSlot>');
+        slots.push(s);
+      }
+      seq++;
+      return '<ClipSlotList>\n' + slots.join('\n') + '\n</ClipSlotList>';
+    });
+    return t;
+  });
+
+  let lim = element(readGz(path.join(WRITER, 'Limiter.adv')), 'Limiter').text;
+  lim = lim.replace(/<LastPresetRef>[\s\S]*?<\/LastPresetRef>/, '<LastPresetRef>\n<Value />\n</LastPresetRef>');
+  lim = replaceEl(lim, element(lim, 'Ceiling'), element(lim, 'Ceiling').text.replace(/<Manual Value="[^"]*" \/>/, '<Manual Value="-1" />'));
+  lim = renumber(lim, ids);
+  xml = replaceEl(xml, element(xml, 'Tracks'), '<Tracks>\n' + tracks.join('\n') + '\n</Tracks>');
+  main = element(xml, 'MainTrack');
+  xml = replaceEl(xml, main, replaceEl(main.text, element(main.text, 'Devices'), '<Devices>\n' + withId(lim, 0) + '\n</Devices>'));
+  xml = xml.replace(/<NextPointeeId Value="\d+" \/>/, '<NextPointeeId Value="' + ids.pointee + '" />');
+  return { xml, report };
+}
+
+function check(file) {
+  const xml = readGz(file); const problems = [];
+  const next = Number(xml.match(/<NextPointeeId Value="(\d+)" \/>/)[1]);
+  const ids = [...xml.matchAll(POINTEES)].map((m) => Number(m[2])); const seen = new Set(), dup = new Set();
+  for (const id of ids) { if (seen.has(id)) dup.add(id); seen.add(id); }
+  if (dup.size) problems.push('repeated pointee ids: ' + [...dup].slice(0, 10).join(', '));
+  if (ids.some((id) => id >= next)) problems.push('pointee ids at or above NextPointeeId');
+  const view = xml.match(/<SelectedDocumentViewInMainWindow Value="(\d)" \/>/)[1] === '1' ? 'Session' : 'Arrangement';
+  const sceneNames = [...element(xml, 'Scenes').text.matchAll(/<Name Value="([^"]*)" \/>/g)].map((m) => m[1]);
+  console.log(path.basename(file) + ': ' + xml.match(/Creator="([^"]*)"/)[1] + ', ' + Math.round(xml.length / 1024) + ' KB of XML; pointees ' + ids.length + ', all unique ' + (dup.size ? 'NO' : 'yes') + ', NextPointeeId ' + next + '; opens in ' + view + ' view; tempo ' + element(element(xml, 'MainTrack').text, 'Tempo').text.match(/<Manual Value="([^"]*)" \/>/)[1]);
+  console.log('  scenes: ' + sceneNames.map((n, i) => i + ':' + n).join('  '));
+  const tracksEl = element(xml, 'Tracks'); const re = /<AudioTrack Id="(\d+)"/g; let m; const grid = [];
+  while ((m = re.exec(tracksEl.text))) {
+    const tr = element(tracksEl.text, 'AudioTrack', m.index).text; const name = tr.match(/<EffectiveName Value="([^"]*)" \/>/)[1];
+    const mainSeq = element(tr, 'MainSequencer').text; const slots = [...mainSeq.matchAll(/<ClipSlot Id="(\d+)">\s*<LomId Value="0" \/>\s*<ClipSlot>\s*<Value>\s*<AudioClip /g)].map((s) => Number(s[1]));
+    const paths = [...mainSeq.matchAll(/<Path Value="([^"]*)" \/>/g)].map((p) => p[1]).filter(Boolean); const missing = [...new Set(paths)].filter((p) => !fs.existsSync(p));
+    for (const p of missing) problems.push(name + ': sample missing ' + p);
+    const warped = (mainSeq.match(/<IsWarped Value="true" \/>/g) || []).length, clips = (mainSeq.match(/<AudioClip /g) || []).length;
+    grid.push('  ' + name.padEnd(10) + sceneNames.map((_, i) => slots.includes(i) ? '[x]' : '[ ]').join(' ') + '  ' + clips + ' clips, ' + warped + ' warped' + (missing.length ? ', sample MISSING' : ''));
+    if (warped !== clips) problems.push(name + ': ' + (clips - warped) + ' clip(s) not warped');
+  }
+  grid.forEach((g) => console.log(g));
+  if (!grid.length) problems.push('no audio tracks');
+  if (problems.length) { problems.forEach((p, i) => console.log('LOOK AT ' + (i + 1) + ': ' + p)); return 1; }
+  console.log('  nothing to look at'); return 0;
+}
+
+const argv = process.argv.slice(2);
+if (argv[0] === 'check') process.exit(check(path.resolve(argv[1])));
+if (argv[0] !== 'build') { console.log('usage: build stack.json [--out-dir dir] [--force] | check set.als'); process.exit(2); }
+const stackFile = path.resolve(argv[1]); const stack = JSON.parse(fs.readFileSync(stackFile, 'utf8'));
+const outDir = argv.includes('--out-dir') ? path.resolve(argv[argv.indexOf('--out-dir') + 1]) : path.dirname(stackFile);
+const layers = stack.layers.map((l) => ({ ...l, abs: path.resolve(path.dirname(stackFile), l.file) }));
+for (const l of layers) if (!fs.existsSync(l.abs)) throw new Error('sample missing: ' + l.abs);
+for (const s of stack.scenes) for (const r of s.play) if (!layers.some((l) => l.role === r)) throw new Error('scene "' + s.name + '" plays unknown layer ' + r);
+const out = path.join(outDir, stack.name + '.als');
+const { xml, report } = build(stack, layers, outDir);
+writeGz(out, xml, argv.includes('--force'));
+console.log('wrote ' + out + ': ' + layers.length + ' tracks, ' + stack.scenes.length + ' scenes'); report.forEach((r) => console.log('  ' + r));
+console.log('next: node forge-session.mjs check "' + out + '", then open it in Live 12');

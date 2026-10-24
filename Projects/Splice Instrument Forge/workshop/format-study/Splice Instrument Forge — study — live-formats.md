@@ -100,6 +100,34 @@ GroupDevicePreset
 
 **Inside a Set** (read first from a Set Live 11.3.43 saved, GoButton's `860_JULY26.als`, then from the Spoiler Kit Set saved back by Live 12.4.6 on 2026-10-24, `move-3-drum-rack/Spoiler Kit V12 Project/`), the rack is `DeviceChain > Devices > DrumGroupDevice`, and its pads are under the device's own `Branches` as `DrumBranch` elements, which differ from a `DrumBranchPreset`: the name is a `Name` block (`EffectiveName`, `UserName`, `Annotation`, `MemorizedFirstClipName`); the instrument sits in `DeviceChain > MidiToAudioDeviceChain > Devices`; the mixer is a `MixerDevice` (Speaker, Volume, Panorama, SendInfos, RoutingHelper) in place of `MixerPreset`; and the pad notes are `BranchInfo` (ReceivingNote, SendingNote, ChokeGroup) in place of `ZoneSettings`. Live does that conversion when it loads a `.adg`; a writer does it on write. Live 12's `DrumBranch` is the Live 11 one plus three housekeeping fields on its mixer (`BreakoutIsExpanded`, `MpePitchBendUsesTuning`, `ViewData`); the pad notes stay in `BranchInfo` in a Set and `ZoneSettings` in a preset, both inverted as above. The Live 12 shell is `xml/Live12 DrumBranch shell.xml` and the whole in-Set device `xml/Live12 DrumGroupDevice in a Set.xml`; the Live 11 shell stays beside them for the record.
 
+## Session View — a Set that opens on scenes
+
+Read and written in move four (2026-10-24), from Live 12.1's DefaultLiveSet (the writer's blank), a Set Loudon saved in Live 12.4.6 (`Impact Granular.als`) and GoButton's `ltc-generator.js`.
+
+```
+LiveSet
+  Tracks
+    AudioTrack Id
+      Name (EffectiveName, UserName, Annotation, MemorizedFirstClipName) · Color · AutomationEnvelopes
+      DeviceChain
+        Mixer (On, Sends, Speaker, Pan, Volume, CrossFadeState…)   ← pointees
+        MainSequencer
+          ClipSlotList
+            ClipSlot Id="i"                 ← one per scene, in scene order
+              LomId
+              ClipSlot > Value              ← empty, or ONE <AudioClip>/<MidiClip>
+              HasStop · NeedRefreeze
+          MonitoringEnum · Sample > ArrangerAutomation > Events   ← arrangement clips live here, not in slots
+          *ModulationTarget ×8              ← pointees
+        FreezeSequencer                     ← same shape, slots empty
+        DeviceChain > Devices               ← the track's devices
+  Scenes
+    Scene Id="i" (FollowAction, Name, Color, Tempo, IsTempoEnabled, TimeSignatureId…)   ← flat list; row i = slot i
+  SelectedDocumentViewInMainWindow         ← 0 Arrangement, 1 Session
+```
+
+An `AudioClip` is one element whether it sits in a slot or in `ArrangerAutomation/Events`; only the parent differs, and in a slot its `Time` attribute is 0. The fields that make a loop: `Loop` (`LoopOn` true, `LoopStart` 0, `LoopEnd`/`OutMarker`/`HiddenLoopEnd` = beats), `CurrentEnd` = beats, `IsWarped` true, `WarpMode` (0 Beats, 4 Complex, 6 Complex Pro as the shells show), and `WarpMarkers`: `(SecTime 0, BeatTime 0)` and `(SecTime = the file's seconds, BeatTime = its beats at its native tempo)`. Live stretches between the markers to the Set's tempo, so a 150 bpm loop with a marker at 32 beats plays as eight bars at 140. `WarpMarker` ids are not pointees. Blank `Envelopes`, `Onsets` and `SavedWarpMarkersForStretched` when cloning; set `MarkersGenerated` false and `IsSongTempoLeader` false.
+
 ## The sample reference, as a factory pad carries it
 
 ```xml
@@ -133,6 +161,7 @@ For a Splice download: `RelativePathType` 1, `RelativePath` from the Set's folde
 | Sampler (`MultiSampler`) | a `MultiSamplePart` under `Player/MultiSampleMap/SampleParts` | key/vel ranges, `RootKey`, `SampleEnd`, loops |
 | Simpler (`OriginalSimpler`) | same part, one of them, full key range | `Globals/PlaybackMode` once the enum is confirmed |
 | Drum Sampler (`DrumCell`) | a `SampleRef Id="0"` inside `UserSample/Value` | `Voice_PlaybackStart/Length`, `Volume` if wanted |
+| Session Set (`.als`) | an `AudioClip` in `MainSequencer/ClipSlotList/ClipSlot[i]/ClipSlot/Value`, one per scene it plays in | `Loop`, `IsWarped`, two `WarpMarkers`, `Scenes` with one `Scene` per row, view flag 1 |
 | Drum Rack (`.adg`) | one `DrumBranchPreset` per pad under `GroupDevicePreset/BranchPresets`, its Simpler as above | `ZoneSettings/ReceivingNote` = 128 − MIDI note, `ChokeGroup`, `Name`, branch `Id` |
 
 ## Open
