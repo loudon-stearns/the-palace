@@ -15,19 +15,19 @@ forward_vector: "I am Sentry's scroll — the one page that opens on which versi
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-24T02:13:27.200Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-24T02:19:32.664Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** — · **Stage:** growing
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
-- **Version:** v1.6 · the spec last changed 2026-10-21 (`7ec883c4`) — edit(Sentry): v1.6 — the page names its rich check: what it reads, when the push gate runs it, and that it only reports
-- **Runs since the change:** 1 run on 1 day, counted from the ledger's run lines
+- **Version:** v1.7 · changed in the working tree, not committed yet
+- **Runs since the change:** none yet — v1.7 has not run
 - **Last run:** 2026-10-24 — public-surface gate of 980706d1, 42 raised, held locally · nothing new (under v1.6)
 - **Owed in the ledger:** 1 — item 4; the next run's tail read picks it up first
 - **Latest lesson:** item 18, from the closing of that finding — 2026-10-23 — [[Sentry — tuning]]
 
-### Runs since v1.6
+### Runs since v1.7
 
-- 2026-10-24 — public-surface gate of 980706d1, 42 raised, held locally · nothing new
+_None yet._
 
 ### Owed
 

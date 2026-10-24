@@ -4,7 +4,7 @@ type: meta
 pillars: [tools, practice, philosophy]
 born: 2026-09
 stage: growing
-version: "1.6"
+version: "1.7"
 trigger: ["sentry sweep", "security sweep", "sentry, check [X]"]
 forward_vector: "I am the palace's watch at the doors it is opening — I sweep for what should not leave and raise it, masked, to Loudon, who decides, so the palace can grow more public without growing careless."
 links:
@@ -81,7 +81,7 @@ Everything tracked here is public — scroll, ledger, board, batons, commit mess
 - **Open findings live in `_ops/sentry/held/`** in the owner checkout — masked, with paths, ignored by their own folder. They are raised to Loudon in the session and never written into a tracked file.
 - **A run's line names its scope and a bare count** — *deep sweep of 5eac9572, 3 raised, held locally* — never a class of finding, never a place.
 - **`allow.json` holds reviewed exceptions as hashes with a reason**, never a value or a path.
-- **A finding in public history is closed** only when the history is rewritten, force-pushed, and GitHub's cached copies are purged. GitHub refuses that force push while its guard on main is on, so Loudon switches the guard off for that one push and back on after; a deep sweep run while the guard is still off raises that as a finding, so the deep sweep that confirms the rewrite also confirms the guard is back. Only once all three are done, the purge last, may the ledger say what the finding was — without the old commit or the path.
+- **A finding in public history is closed** only when the history is rewritten, force-pushed, and GitHub's cached copies are purged. GitHub refuses that force push while its guard on main is on, so Loudon switches the guard off for that one push and back on after; a deep sweep run while the guard is still off raises that as a finding, so the deep sweep that confirms the rewrite also confirms the guard is back. The purge counts as done only on a live read of GitHub made that day — the old commits no longer served, the refs that held them gone — never on a ticket's status or a watch's files on disk ([[Sentry — tuning]] item 18). Only once all three are done, the purge last, may the ledger say what the finding was — without the old commit or the path.
 
 This holds a contradiction with [[Identity Molting]], and keeps both sides: a public archive is a trail of cast skins, worth leaving where they fell — and some skins have to be taken back.
 
