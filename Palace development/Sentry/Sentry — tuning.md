@@ -75,3 +75,9 @@ The 2026-09-25 hosting assessment scanned the working tree for key formats and f
 ## From Loudon's word on review weight — 2026-10-18
 
 17. **A review's weight should match the worst the check can raise.** The guard watch (item 13) went through three independent review rounds, about 36 agents and 3.6M tokens, for a check that never raises above medium. Loudon, 2026-10-18: "I think that is heavy." The same day the message reads (items 14 to 16, `76666850`) ran two rounds past their estimate of 8 to 14 agents (29, then 7, then a 15-agent rerun after a network loss), and he was not asked to run, trim or wait. No spec change: before a review round on the Sentry's own code, size it by the worst the check can raise, say its size, and ask. **The version stays v1.5.**
+
+## A finding closed — 2026-10-23 (public history)
+
+The first watch found a personal data export in public history: an account's data export carrying contact details, no credentials. Loudon chose to take it back. The history was rewritten and force-pushed on 2026-09-26. GitHub Support then deleted the pull-request refs that still held the old history, ran garbage collection, and cleared its cached views; on 2026-10-23 the old commits answered 404 under both the account's current and former names. The gate below read history clean and GitHub's guard on main back on. The finding is closed. No spec change; the version stays v1.6.
+
+- run · 2026-10-24 · v1.6 · public-surface gate of 980706d1, 42 raised, held locally · nothing new
