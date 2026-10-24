@@ -1,0 +1,76 @@
+{
+ "passed": true,
+ "sr": 44100,
+ "paths": [
+  {
+   "name": "ruby-chord",
+   "secs": 2.5,
+   "max_err_of_peak": 5.5557597956698595e-08,
+   "probe_err": 2.9902737785440974e-16,
+   "js_err_of_peak": 5.5557597956698595e-08,
+   "js_probe_err": 4.752507861356183e-14,
+   "peak_dbfs": -5.42148599654209,
+   "left_right_differ": 0.41630505466478246,
+   "max_voices": 3,
+   "sketch_s": 4.6,
+   "engine_s": 0.064,
+   "passed": true
+  },
+  {
+   "name": "diamond-fire",
+   "secs": 2.5,
+   "max_err_of_peak": 4.480570050442331e-08,
+   "probe_err": 2.0783686660563106e-16,
+   "js_err_of_peak": 4.480570050442331e-08,
+   "js_probe_err": 0.0,
+   "peak_dbfs": -9.572289808637533,
+   "left_right_differ": 0.0,
+   "max_voices": 2,
+   "sketch_s": 4.2,
+   "engine_s": 0.052,
+   "passed": true
+  },
+  {
+   "name": "turning",
+   "secs": 2.5,
+   "max_err_of_peak": 5.4670475853501845e-08,
+   "probe_err": 0.0,
+   "js_err_of_peak": 5.4670475853501845e-08,
+   "js_probe_err": 7.574975380079254e-16,
+   "peak_dbfs": -11.303582769561277,
+   "left_right_differ": 0.6455738034466012,
+   "max_voices": 1,
+   "sketch_s": 4.6,
+   "engine_s": 0.06,
+   "passed": true
+  },
+  {
+   "name": "labradorite-sweeps",
+   "secs": 2.5,
+   "max_err_of_peak": 4.4367926891276986e-08,
+   "probe_err": 3.2058311371080304e-16,
+   "js_err_of_peak": 4.4367926891276986e-08,
+   "js_probe_err": 4.485939175082063e-16,
+   "peak_dbfs": -15.553094173012258,
+   "left_right_differ": 0.16995606304337832,
+   "max_voices": 2,
+   "sketch_s": 5.6,
+   "engine_s": 0.076,
+   "passed": true
+  },
+  {
+   "name": "crowded",
+   "secs": 2.5,
+   "max_err_of_peak": 4.885805488596537e-08,
+   "probe_err": 3.9942523528316816e-16,
+   "js_err_of_peak": 4.885805488596537e-08,
+   "js_probe_err": 7.775695670858706e-14,
+   "peak_dbfs": -10.507580437291264,
+   "left_right_differ": 0.7932612104957864,
+   "max_voices": 8,
+   "sketch_s": 7.5,
+   "engine_s": 0.071,
+   "passed": true
+  }
+ ]
+}

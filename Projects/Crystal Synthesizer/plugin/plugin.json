@@ -1,0 +1,31 @@
+{
+  "name": "Crystal Synthesizer",
+  "target": "CrystalSynthesizer",
+  "company": "Loudon Live",
+  "bundle_id": "com.LoudonLive.CrystalSynthesizer",
+  "manufacturer_code": "Loud",
+  "plugin_code": "Crys",
+  "kind": "instrument",
+  "version": "0.1.0",
+  "hostcheck": [
+    "crystal=0",
+    "lifetime=8",
+    "fire=300",
+    "angle=0"
+  ],
+  "ui": {
+    "width": 1100,
+    "height": 700,
+    "min": [
+      980,
+      640
+    ],
+    "max": [
+      1800,
+      1100
+    ],
+    "direction": "bench",
+    "tier": "Sketch",
+    "screen": true
+  }
+}

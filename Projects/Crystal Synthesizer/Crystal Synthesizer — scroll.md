@@ -15,24 +15,36 @@ forward_vector: "I am Crystal Synthesizer's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T12:09:19.221Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-24T15:26:53.462Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 12 · last ran 2026-10-14 (today)
-- **Plan:** agreed 2026-09-26 (18 days ago) · 4 made things since · **a proposed revision is waiting on you**
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 13 · last ran 2026-10-24 (today)
+- **Plan:** agreed 2026-09-26 (28 days ago) · 6 made things since · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — RNBO can export to the Eventide H9000 but not the H90. Should the road move aim at the H9000 or a plugin instead? (`crystal-synth-steward-029`)
-- **Last commit touching this project:** 2026-10-14 `591d0490` — steward(Crystal Synthesizer): cycle 11 — SPINNING UP. HOME: [Crystal Synthesizer](obsidian://open?vault=The%20Pa…
+- **Last shipped:** 2026-10-24 (today) — Rewrite my plan around the VST you asked for: ringing crystal plugin first, then real line widths, then the full prism? (`crystal-synth-steward-032`)
+- **Last commit touching this project:** 2026-10-21 `ca454ba2` — edit(nine steward scrolls): a standing order on Loudon's yes of 2026-10-21: make it a product, a VST prototype on the VST Template with a CRT visualizer drawn from the instrument's own metaphor; Max work stays set aside, perhaps later as teaching tools
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-24 — cycle 13 · proposed item 1 for canon
+- **Owed in the ledger:** nothing
+- **Proposed for canon:** 1 — item 1; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 1, from cycle 13 — 2026-10-24 — [[Crystal Synthesizer — tuning]]
 
 ### Where this stands
 
-Crystal Synthesizer gets its timbre from a crystal's physics rather than from taste: each mineral's phonon modes become the partials. Over the summer every mineral in the palette was rendered as a strike. Earlier today it became playable, first with one voice, then with eight in RNBO, as a Max for Live device, and in Faust. This cycle started the plan's third move, letting the crystal ring. The sine waves are gone. Each mode is now a resonator that a short pulse strikes, and its ring time comes from the width of the mineral's Raman line rather than from a decay knob. At those physical ring times diamond rings for sixteen seconds, and almost everything else is a knock.
+Crystal Synthesizer gets its timbre from a crystal's physics rather than from taste: each mineral's phonon modes become the partials. Over the summer every mineral was rendered as a strike. On 2026-10-14 the crystal learned to ring: each mode became a resonator whose ring time comes from the mineral's Raman line width, and only diamond turned out to be a bell. On 2026-10-21 you said to make it a product, a VST to play in Live. This cycle I ported the ringing crystal into the VST Template's shape: a numpy sketch, the C++ Algorithm.h the template builds, and the face in the template's own editor. Two optical properties the summer proofs rendered as separate files are now knobs. Axis angle is…
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 10:** Nobody has listened to the take or played the face yet. _(in 4 notes, the latest cycle 13)_
+- **rough since cycle 12:** Most line widths are still my estimates. _(in 2 notes, the latest cycle 13)_
 
 ### Open asks
 
-- `crystal-synth-steward-029` — proposed plan revision: H90 to H9000 or plugin · posted 2026-10-14 · options: adopt · keep
+- `crystal-synth-steward-032` — proposed plan revision: the plan becomes the VST · posted 2026-10-24 · options: adopt · keep
 
 ### Answered, not yet consumed
 
@@ -40,8 +52,23 @@ _None._
 
 ### Decided
 
+- `crystal-synth-steward-029` — H90 to H9000 or plugin → GRANTED — option_id=keep (2026-10-15)
 - `crystal-synth-steward-021` — directional_decision → GRANTED — option_id=FILL-PALETTE (2026-06-25)
 - `crystal-synth-steward-018` — directional_decision → GRANTED — option_id=RENDER-LABRADORITE; notes: "make a really nice html menu of the proofs and what we are teaching, use accurate visuals and the audio examples." (2026-06-25)
+
+### Runs
+
+- 2026-10-24 — cycle 13 · proposed item 1 for canon
+
+### Owed
+
+_Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **1.** 2026-10-24 · [[Crystal Synthesizer]] · § Forward Vectors, first bullet (the Gen~ oscillator bank) — Max work is set aside and the Gen~ bullet points at a path the standing order of 2026-10-21 replaced.
 
 <!-- scroll:now:end -->
 
@@ -79,6 +106,87 @@ Decided with Loudon when the Loudon Live arc was designed (April 2026), and seed
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="crystal-synth-steward-032" -->
+### 2026-10-24 — cycle 13 — Rewrite my plan around the VST you asked for: ringing crystal plugin first, then real line widths, then the full prism?
+> still working · plugin ported, waiting on the template · steward leans adopt
+
+You agreed my plan in September, and it still runs through Max: a Gen~ instrument, then RNBO and the H90. On 2026-10-21 you set Max aside and asked for a product, a VST to play in Live, and asked me to propose a new plan alongside what I made. Today I made it. The ringing crystal is ported to the template's shape, it matches its reference to float rounding, and its face and visualizer work in the template's editor. The revised plan keeps my two later moves, the prism in time and a real mineral from the crystal database. It folds 'let the crystal ring' into the plugin and keeps the Max, RNBO and H90 work as teaching tools for later. I'll keep building whichever way you answer.
+
+**Artifacts:**
+- [the evidence: the plugin's face, playable.](Projects/Crystal Synthesizer/crystal-synthesizer-face.html)
+- [what the ported engine sounds like, five minerals.](Projects/Crystal Synthesizer/crystal-synthesizer-take.wav)
+- [session-1-interactive.html](Projects/Crystal Synthesizer/session-1-interactive.html)
+- [ring_tour.svg](Projects/Crystal Synthesizer/crystal-rings/ring_tour.svg)
+- [hardness.wav](Projects/Crystal Synthesizer/crystal-rings/hardness.wav)
+- [strike_vs_ring.wav](Projects/Crystal Synthesizer/crystal-rings/strike_vs_ring.wav)
+- [ring_tour.wav](Projects/Crystal Synthesizer/crystal-rings/ring_tour.wav)
+<sub>`crystal-synth-steward-032` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="crystal-synth-steward-031" -->
+### 2026-10-24 — cycle 13 — I'm a plugin now, in the template's shape: eight struck crystals with the axis angle and fire on the heroes, and light through fog in the CRT.
+> shipped · three engines agree to 6e-8 · waiting on the template's build · steward leans adopt the VST plan
+
+The face is [crystal-synthesizer-face.html](Projects/Crystal Synthesizer/crystal-synthesizer-face.html). Press 'sound on' and it plays a demo walking six minerals, or you can play it from keys A to K or a MIDI keyboard. The page sits in the template's own Drafting Table editor, with the CRT fed once a frame by the JavaScript engine, the way the plugin's live feed will feed it.
+
+What changed from the rings device: eight voices in one engine, stereo, and two knobs taken from the optics.
+
+- **Axis angle** turns the crystal against the light. Every mode becomes an ordinary and an extraordinary resonator, and the extraordinary one is tuned up by the mineral's real birefringence times sin² of the angle. Along the optic axis the two agree, and across it they part. Ruby's rays are 13.8 cents apart at the physics setting, which comes out as a slow natural chorus. Diamond and fluorite are cubic, so they stay one ray at every angle. In the take, diamond's left and right channels are identical (no side signal at all), which is what the optics predicts.
+- **Fire** is dispersion as time. Each mode's strike arrives later by fire × (the mineral's dispersion ÷ diamond's) × log₂ of its ratio, so higher modes land later. Diamond fans widest, fluorite barely at all.
+
+In the CRT, the unit cell is drawn to its real cell lengths and angles and turns slowly in fog. A white beam comes in from the left, and one colored ray per phonon mode goes out to the right, lit by that mode's energy. With fire up, a strike lights the fan red first and violet last. When the crystal is birefringent, the extraordinary rays leave beside the ordinary ones and a dashed ghost of the cell stands beside it. The dashed line is the optic axis, tilted by the Axis angle knob. Below the cell are the chemical formula, the space group, and the numbers the sound is made from.
+
+The check: check_engine.py runs five paths through the sketch, the C++ engine and the JavaScript engine. Each path exercises one part: a ruby chord, diamond with a wide fire, zircon turning while it rings, labradorite with knobs sweeping, and twelve notes into eight voices. All five match to 3–6 × 10⁻⁸ of peak, and every probe to 10⁻¹⁵. The twelve controls fit the editor at 980×640, 1100×700 and 1800×1100.
+
+**Artifacts:**
+- [the whole face: the template's editor with the crystal in the CRT. Press sound on, play keys A–K or MIDI.](Projects/Crystal Synthesizer/crystal-synthesizer-face.html)
+- [the face on emerald, birefringence ×6: the rainbow fan and the ghost cell.](Projects/Crystal Synthesizer/crystal-synthesizer-face.png)
+- [diamond with fire 260 ms: the widest fan, one ray, no ghost.](Projects/Crystal Synthesizer/vst-face/face-diamond.png)
+- [ruby, its tall hexagonal cell, rays doubled 13 cents apart.](Projects/Crystal Synthesizer/vst-face/face-ruby.png)
+- [labradorite's skewed triclinic box catching its sheen.](Projects/Crystal Synthesizer/vst-face/face-labradorite.png)
+- [emerald mid-chord.](Projects/Crystal Synthesizer/vst-face/face-emerald.png)
+- [30 s through the C++ engine: ruby turning, diamond's fire, zircon's split, labradorite, emerald.](Projects/Crystal Synthesizer/crystal-synthesizer-take.wav)
+- [what the plugin is, the check, the CRT contract, and what to do when the template is ready.](Projects/Crystal Synthesizer/plugin/README.md)
+- [name, code Crys, instrument, CRT on.](Projects/Crystal Synthesizer/plugin/plugin.json)
+- [the port: 12 parameters, stereo, 34 probes.](Projects/Crystal Synthesizer/plugin/src/Algorithm.h)
+- [the numpy sketch, the reference.](Projects/Crystal Synthesizer/plugin/reference/sketch.py)
+- [five test paths, each exercising one term.](Projects/Crystal Synthesizer/plugin/reference/paths.py)
+- [the exact gate: sketch vs C++ vs JavaScript.](Projects/Crystal Synthesizer/plugin/check/check_engine.py)
+- [the JUCE-free harness stand-in.](Projects/Crystal Synthesizer/plugin/check/engine_check.cpp)
+- [drives the JavaScript engine like the harness.](Projects/Crystal Synthesizer/plugin/check/js_engine.cjs)
+- [its launcher.](Projects/Crystal Synthesizer/plugin/check/js_engine.sh)
+- [renders the take.](Projects/Crystal Synthesizer/plugin/check/render_take.py)
+- [the gate's numbers.](Projects/Crystal Synthesizer/plugin/out/check-report.json)
+- [the take's levels.](Projects/Crystal Synthesizer/plugin/out/take-levels.json)
+- [light through fog: CrystalScope.mount / frame.](Projects/Crystal Synthesizer/plugin/ui/visualizer.js)
+- [the engine in JavaScript, for the face page.](Projects/Crystal Synthesizer/plugin/ui/crystal_engine.js)
+- [builds the face and photographs it.](Projects/Crystal Synthesizer/plugin/ui/build_face.py)
+
+_the five minerals in the take, rendered through the C++ engine (six seconds each)_
+| moment | what moves | loudness (RMS dB) | side signal (dB) |
+| --- | --- | --- | --- |
+| ruby turning to its axis | angle 90° → 0°: the pair folds into one | -25.4 | -37.7 |
+| diamond with fire | fire 260 ms: a red-to-violet fan per strike | -23.4 | -240 (cubic: one ray, exactly mono) |
+| zircon's optics, tetragonal slot | birefringence ×1 → ×16 | -26.3 | -31.1 |
+| labradorite | fire 150, lifetime 2 | -32.8 | -47.2 |
+| emerald | birefringence ×6, lifetime 4 | -31.2 | -36.1 |
+
+_Changed in the workshop:_ README — the plugin folder's own map: what it is, the check, the CRT feed, the steps once the template can build.
+_Proposed for canon:_ Crystal Synthesizer (§ Forward Vectors, first bullet (the Gen~ oscillator bank)) — Max work is set aside and the Gen~ bullet points at a path the standing order of 2026-10-21 replaced.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has listened to the take or played the face yet. It is not a VST yet: the template still can't build a plugin in my folder, so pluginval, auval and Live are untested and the CPU is untimed. Most line widths are still my estimates.
+
+_Next moves named:_ When the template can build in a steward's bundle, run plugin.sh all here, then load Crystal Synthesizer in Live. · Research real room-temperature Raman widths per mode, so each mode gets its own Q instead of one per mineral. · Give Fire its full form: the real phonon dispersion curve as an all-pass stage after the bank, the plan's prism in time.
+<sub>`crystal-synth-steward-031` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-adddd283bf" -->
+### 2026-10-24 — cycle 13
+
+proposed item 1 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="crystal-synth-steward-029" -->
 ### 2026-10-14 — cycle 12 — RNBO can export to the Eventide H9000 but not the H90. Should the road move aim at the H9000 or a plugin instead?
 > still working · H90 has no RNBO export · steward leans adopt
