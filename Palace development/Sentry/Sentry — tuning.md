@@ -81,3 +81,7 @@ The 2026-09-25 hosting assessment scanned the working tree for key formats and f
 The first watch found a personal data export in public history: an account's data export carrying contact details, no credentials. Loudon chose to take it back. The history was rewritten and force-pushed on 2026-09-26. GitHub Support then deleted the pull-request refs that still held the old history, ran garbage collection, and cleared its cached views; on 2026-10-23 the old commits answered 404 under both the account's current and former names. The gate below read history clean and GitHub's guard on main back on. The finding is closed. No spec change; the version stays v1.6.
 
 - run · 2026-10-24 · v1.6 · public-surface gate of 980706d1, 42 raised, held locally · nothing new
+
+## From the closing of that finding — 2026-10-23
+
+18. **A support ticket closed is not a purge done, and a watch deleted is not a watch.** GitHub Support closed ticket #4795359 on 2026-10-22 without acting on it: probably already addressed, it said. The daily watch that would have said otherwise had been deleted on 2026-10-05; its files stayed on disk, and that was taken for watching (the same trap as [[Closing Well — tuning]] item 50). What showed the purge was still open was a live read: the old commit still answered 200. A ticket's status and a watch's files had both stood in for checks that never ran. So a finding in public history is called closed only on a live read of GitHub made that day, never on a ticket's status or a watch's files. No spec change. **The version stays v1.6.**

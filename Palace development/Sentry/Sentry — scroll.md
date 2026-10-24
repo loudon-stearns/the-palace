@@ -15,7 +15,7 @@ forward_vector: "I am Sentry's scroll — the one page that opens on which versi
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-24T02:07:05.726Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-24T02:13:27.200Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** — · **Stage:** growing
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
@@ -23,7 +23,7 @@ forward_vector: "I am Sentry's scroll — the one page that opens on which versi
 - **Runs since the change:** 1 run on 1 day, counted from the ledger's run lines
 - **Last run:** 2026-10-24 — public-surface gate of 980706d1, 42 raised, held locally · nothing new (under v1.6)
 - **Owed in the ledger:** 1 — item 4; the next run's tail read picks it up first
-- **Latest lesson:** item 17, A finding closed — 2026-10-23 (public history) — [[Sentry — tuning]]
+- **Latest lesson:** item 18, from the closing of that finding — 2026-10-23 — [[Sentry — tuning]]
 
 ### Runs since v1.6
 
