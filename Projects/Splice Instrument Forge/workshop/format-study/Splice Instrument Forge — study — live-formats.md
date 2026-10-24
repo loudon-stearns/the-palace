@@ -98,7 +98,7 @@ The 16-pad Akustichord kit's receiving notes run 77–92, one per pad, in the ra
 
 **To build a rack:** clone `Slicing/Default.adg`'s `GroupDevicePreset`, keep its `Device`, and write one `DrumBranchPreset` per pad into `BranchPresets`, each cloned from the one branch the Default carries, with `Id` running 0…n−1, `ReceivingNote` set, `ChokeGroup` set, `Name` set, and the pad's `OriginalSimpler` given one `MultiSamplePart`. The `MacroControls` and `MacroDisplayNames` on the device can stay as the shell has them.
 
-**Unverified:** how a Drum Rack sits inside a Set. The `.adg` wraps pads as `BranchPresets > DrumBranchPreset`; a Set is expected to hold them as `DrumGroupDevice > Branches > DrumBranch`, with the device inside a `DeviceChain`. No Set with a rack has been read yet. Move three must open one saved Set with a Drum Rack and diff before the writer emits a rack into a Set.
+**Inside a Set** (read from a Set Live 11.3.43 saved, GoButton's `860_JULY26.als`; no Live 12 Set with a rack was on this Mac), the rack is `DeviceChain > Devices > DrumGroupDevice`, and its pads are under the device's own `Branches` as `DrumBranch` elements, which differ from a `DrumBranchPreset`: the name is a `Name` block (`EffectiveName`, `UserName`, `Annotation`, `MemorizedFirstClipName`); the instrument sits in `DeviceChain > MidiToAudioDeviceChain > Devices`; the mixer is a `MixerDevice` (Speaker, Volume, Panorama, SendInfos, RoutingHelper) in place of `MixerPreset`; and the pad notes are `BranchInfo` (ReceivingNote, SendingNote, ChokeGroup) in place of `ZoneSettings`. Live does that conversion when it loads a `.adg`; a writer does it on write. Move three wrote a Set that way (Live 12 device shell, Live 11 branch shell, Live 12 Simpler pads) and Live 12.4.6 loaded it without a warning on 2026-10-24. The shell is kept at `xml/Live11 DrumBranch shell.xml`; a Live 12-saved one should replace it when a Set with a rack is saved from Live 12.
 
 ## The sample reference, as a factory pad carries it
 
@@ -138,4 +138,5 @@ For a Splice download: `RelativePathType` 1, `RelativePath` from the Set's folde
 ## Open
 
 1. Confirm Simpler's `PlaybackMode` enum by saving one preset per mode.
-2. Read a saved Set holding a Drum Rack to learn the `Branches/DrumBranch` shape.
+2. Replace the Live 11 `DrumBranch` shell with one from a Live 12-saved Set (save the Spoiler Kit Set from Live 12 and lift it).
+3. Prove a `DrumCell` pad in a Set.
