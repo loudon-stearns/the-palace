@@ -30,18 +30,24 @@ _Not yet rendered. The project was born 2026-10-24 and has no steward; this zone
 3. **Drum Rack from one-shots.** Clone a factory rack; one Drum Sampler per pad from a Splice drum search; hats share a choke group; emit `.adg` and a Set. Done the same way, plus the writer's `check` reads the pads back.
 4. **Session View Set from a stack.** Turn a Splice stack into tracks, its layers into clip slots, and make eight scenes that vary which layers play. The Session View XML comes from GoButton's LTC generator and is documented as it is cloned. Done when the Set opens in Session View, the scenes launch, and `check` reads the slots.
 5. **One ask, one Set.** A single command or chat request that takes a description, runs the Splice search and the builds, and hands back a Set beside its samples. Done when Loudon asks for a kit in his words and opens what comes back. *Made 2026-10-24: `workshop/forge/`; the first ask was his melodic techno track.*
+6. **Key and level.** Every keyed layer transposed to one key by the shortest road, relative major and minor treated as one; every track's fader set by its ground (the standing order). Added on Loudon's yes of 2026-10-24 after the first ask came back in five keys at unity. Done when a stack's layers sit in one key and three grounds without a hand on a fader.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
 
 <!-- scroll:orders:start -->
 - **Splice credits are generous; be liberal.** They exist to stop gross abuse. Download what the work needs without asking. Ask only before spending more than 200 credits in one go. (Loudon, 2026-10-24.)
+- **Level by grounds.** Splice sounds come in loud; start every Set from three grounds, 4 dB apart. Foreground −4 dB: drums and bass. Middleground −8 dB: vocals and leads. Background −12 dB: percussion, pads, strings. A rough starting point for a mix, not the mix. (Loudon, 2026-10-24.)
 - **Prove structure, hear sound.** A Set is done when it opens and `check` is clean. Whether it sounds right is Loudon's ear; never say a Set sounds right.
 <!-- scroll:orders:end -->
 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="forge-2026-10-24-move-6-key-level" -->
+### 2026-10-24 — Move six: key and level
+
+Added to the plan on Loudon's word after the melodic techno Set came back in five keys with every fader at unity. The session builder now reads each layer's key as Splice listed it, picks the stack's key (the recipe's, else the bass's), and writes `PitchCoarse` on every clip for the shortest transposition, with a relative pair (C major against A minor) counted as already in key. Each track's mixer `Volume` is set by its ground: foreground −4, middleground −8, background −12 dB, by role words, or by `ground`/`db` in the recipe. `check` now prints the transpose and the level per track. The melodic techno Set was rebuilt in A minor, the vocal's key: acid −3, lead +2, pad −4, strings 0 (relative), drums untouched; levels −4/−4/−8/−12/−8/−12. Loaded in a second Live 12, left open for his ear.
 <!-- scroll:entry id="forge-2026-10-24-move-5-ask" -->
 ### 2026-10-24 — Move five: one ask, one Set
 

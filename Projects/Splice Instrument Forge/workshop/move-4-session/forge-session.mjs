@@ -20,6 +20,32 @@ const STUDY = path.join(HERE, '..', 'format-study', 'xml');
 const HEADER = '<Ableton MajorVersion="5" MinorVersion="12.0_12402" SchemaChangeCount="5" Creator="Ableton Live 12.4.6" Revision="0de5c8fa9a692293676cb7700a15afb2046ee1f7">';
 const FIRST_TRACK_ID = 20;
 const COLOURS = [12, 2, 8, 17, 24, 36, 50, 60];
+// ---- key matching: every keyed layer is transposed to the stack's key by the shortest road (within six semitones) ----
+const PC = { c: 0, 'c#': 1, db: 1, d: 2, 'd#': 3, eb: 3, e: 4, f: 5, 'f#': 6, gb: 6, g: 7, 'g#': 8, ab: 8, a: 9, 'a#': 10, bb: 10, b: 11 };
+function parseKey(k) {            // "a# minor" | "C#" | "f" | "Cmaj" -> { pc, minor } | null
+  if (!k) return null; const m = String(k).trim().toLowerCase().match(/^([a-g][#b]?)\s*(min|minor|m\b|maj|major)?/); if (!m || !(m[1] in PC)) return null;
+  const mode = !m[2] ? null : (/maj/.test(m[2]) ? 'major' : 'minor');      // a bare letter from Splice has no mode: keep it a root, never guess
+  return { pc: PC[m[1]], minor: mode === 'minor', mode, name: m[1].toUpperCase().replace('B', 'b').replace(/^(.)B/, '$1b') + (m[2] ? (/maj/.test(m[2]) ? ' major' : ' minor') : '') };
+}
+function semitonesTo(from, to) {
+  // a relative pair shares its notes: C major against A minor needs no move, so compare the minor-equivalent roots
+  const root = (k) => k.minor ? k.pc : (k.pc + 9) % 12;           // a major key's relative minor root
+  const both = from.mode && to.mode && from.mode !== to.mode;       // only two known, differing modes compare by relative minor
+  const f = both ? root(from) : from.pc, t = both ? root(to) : to.pc;
+  let d = ((t - f) % 12 + 12) % 12; if (d > 6) d -= 12; return d;
+}
+
+// ---- levels: Loudon's grounds (2026-10-24). Foreground -4 dB: drums and bass. Middleground -8: vocals and leads.
+// Background -12: percussion, pads, strings, fx, everything else. A layer may name its own "ground" or "db". ----
+const GROUNDS = { foreground: -4, middleground: -8, background: -12 };
+function groundFor(role) {
+  const r = role.toLowerCase();
+  if (/drum|kick|beat|groove|bass|sub|808/.test(r)) return 'foreground';
+  if (/voc|vox|lead|hook|melod|synth|keys|chord|guitar|piano/.test(r)) return 'middleground';
+  return 'background';
+}
+const dbToAmp = (db) => Math.pow(10, db / 20);   // Live's mixer Volume Manual is linear amplitude: 1 = 0 dB, 1.995 = +6 dB, 0.000316 = -70 dB
+
 const POINTEES = /<(AutomationTarget|[A-Za-z]*ModulationTarget|Pointee|ControllerTargets\.\d+) Id="(\d+)"/g;
 
 const readGz = (f) => { const b = fs.readFileSync(f); if (b[0] !== 0x1f || b[1] !== 0x8b) throw new Error(f + ' is not gzip'); return zlib.gunzipSync(b).toString('utf8'); };
@@ -56,7 +82,7 @@ function wavFacts(file) {
 }
 
 // ---- an audio clip in a slot: the loop warped so its native bars land on the Set's grid ----
-function audioClip({ name, colour, abs, rel, bpm }, id) {
+function audioClip({ name, colour, abs, rel, bpm, transpose = 0 }, id) {
   const w = wavFacts(abs);
   const seconds = w.frames / w.rate;
   const beats = Math.max(1, Math.round(seconds * bpm / 60));       // the loop's own length in beats at its native tempo
@@ -73,6 +99,7 @@ function audioClip({ name, colour, abs, rel, bpm }, id) {
   c = c.replace(/<Onsets>[\s\S]*?<\/Onsets>/, '<Onsets>\n<UserOnsets />\n<HasUserOnsets Value="false" />\n</Onsets>');
   c = replaceEl(c, element(c, 'WarpMarkers'), '<WarpMarkers>\n<WarpMarker Id="0" SecTime="0" BeatTime="0" />\n<WarpMarker Id="1" SecTime="' + fmt(seconds) + '" BeatTime="' + beats + '" />\n</WarpMarkers>');
   c = c.replace(/<SavedWarpMarkersForStretched>[\s\S]*?<\/SavedWarpMarkersForStretched>/, '<SavedWarpMarkersForStretched />');
+  c = c.replace(/<PitchCoarse Value="-?\d+" \/>/, '<PitchCoarse Value="' + transpose + '" />').replace(/<PitchFine Value="-?\d+" \/>/, '<PitchFine Value="0" />');
   c = setValue(c, 'MarkersGenerated', 'false').replace(/<IsSongTempoLeader Value="true" \/>/, '<IsSongTempoLeader Value="false" />');
   return { xml: c, beats, seconds, facts: w };
 }
@@ -96,6 +123,8 @@ function build(stack, layers, outDir) {
   xml = replaceEl(xml, scenesEl, '<Scenes>\n' + scenes.join('\n') + '\n</Scenes>');
 
   // one audio track per layer, its session slots filled where the layer plays
+  const keyed = layers.map((l) => ({ l, k: parseKey(l.key) })).filter((x) => x.k);
+  const target = parseKey(stack.key) || (keyed.find((x) => /bass/i.test(x.l.role)) || keyed[0] || {}).k || null;
   const trackShell = fs.readFileSync(path.join(STUDY, 'Live12 AudioTrack shell (from DefaultLiveSet).xml'), 'utf8').trim();
   const report = [];
   const tracks = layers.map((layer, li) => {
@@ -107,8 +136,12 @@ function build(stack, layers, outDir) {
     t = t.replace(/<Color Value="\d+" \/>/, '<Color Value="' + colour + '" />');
     t = t.replace(/<Sends>[\s\S]*?<\/Sends>/g, '<Sends />');
     t = t.replace(/<AutomationEnvelopes>[\s\S]*?<\/AutomationEnvelopes>/, '<AutomationEnvelopes>\n<Envelopes />\n</AutomationEnvelopes>');
-    const clip = audioClip({ name: layer.role, colour, abs: layer.abs, rel: path.relative(outDir, layer.abs).split(path.sep).join('/'), bpm: layer.bpm || tempo }, 0);
-    report.push(layer.role + ': ' + clip.beats + ' beats (' + clip.seconds.toFixed(2) + ' s at ' + (layer.bpm || tempo) + ' bpm)');
+    const k = parseKey(layer.key); const transpose = (k && target) ? semitonesTo(k, target) : 0;
+    const ground = layer.ground || groundFor(layer.role); const db = layer.db != null ? layer.db : GROUNDS[ground];
+    const mixer = element(t, 'Mixer'); const vol = element(mixer.text, 'Volume');
+    t = replaceEl(t, mixer, replaceEl(mixer.text, vol, vol.text.replace(/<Manual Value="[^"]*" \/>/, '<Manual Value="' + fmt(dbToAmp(db)) + '" />')));
+    const clip = audioClip({ name: layer.role, colour, abs: layer.abs, rel: path.relative(outDir, layer.abs).split(path.sep).join('/'), bpm: layer.bpm || tempo, transpose }, 0);
+    report.push(layer.role.padEnd(10) + clip.beats + ' beats (' + clip.seconds.toFixed(2) + ' s at ' + (layer.bpm || tempo) + ' bpm)' + (k ? ', ' + k.name + (transpose ? ' -> ' + target.name + ' (' + (transpose > 0 ? '+' : '') + transpose + ' st)' : ' (in key)') : ', unkeyed') + ', ' + ground + ' ' + db + ' dB');
     let slotIndex = 0, seq = 0;
     t = t.replace(/<ClipSlotList>[\s\S]*?<\/ClipSlotList>/g, (all) => {
       const shell = element(all, 'ClipSlot').text; const slots = [];
@@ -132,6 +165,7 @@ function build(stack, layers, outDir) {
   main = element(xml, 'MainTrack');
   xml = replaceEl(xml, main, replaceEl(main.text, element(main.text, 'Devices'), '<Devices>\n' + withId(lim, 0) + '\n</Devices>'));
   xml = xml.replace(/<NextPointeeId Value="\d+" \/>/, '<NextPointeeId Value="' + ids.pointee + '" />');
+  if (target) report.unshift('key: ' + target.name + (stack.key ? ' (the recipe\'s)' : ' (from the bass layer)'));
   return { xml, report };
 }
 
@@ -153,7 +187,8 @@ function check(file) {
     const paths = [...mainSeq.matchAll(/<Path Value="([^"]*)" \/>/g)].map((p) => p[1]).filter(Boolean); const missing = [...new Set(paths)].filter((p) => !fs.existsSync(p));
     for (const p of missing) problems.push(name + ': sample missing ' + p);
     const warped = (mainSeq.match(/<IsWarped Value="true" \/>/g) || []).length, clips = (mainSeq.match(/<AudioClip /g) || []).length;
-    grid.push('  ' + name.padEnd(10) + sceneNames.map((_, i) => slots.includes(i) ? '[x]' : '[ ]').join(' ') + '  ' + clips + ' clips, ' + warped + ' warped' + (missing.length ? ', sample MISSING' : ''));
+    const pitch = (mainSeq.match(/<PitchCoarse Value="(-?\d+)" \/>/) || [, '0'])[1]; const amp = Number((element(element(tr, 'Mixer').text, 'Volume').text.match(/<Manual Value="([^"]*)" \/>/) || [, '1'])[1]);
+    grid.push('  ' + name.padEnd(10) + sceneNames.map((_, i) => slots.includes(i) ? '[x]' : '[ ]').join(' ') + '  ' + clips + ' clips, ' + warped + ' warped, ' + (pitch === '0' ? 'no transpose' : (Number(pitch) > 0 ? '+' : '') + pitch + ' st') + ', ' + (20 * Math.log10(amp)).toFixed(1) + ' dB' + (missing.length ? ', sample MISSING' : ''));
     if (warped !== clips) problems.push(name + ': ' + (clips - warped) + ' clip(s) not warped');
   }
   grid.forEach((g) => console.log(g));
