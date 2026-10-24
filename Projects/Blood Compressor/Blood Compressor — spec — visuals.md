@@ -170,7 +170,7 @@ Per [[Shop/Maker]] house standards: **1920×1080**, **30 fps** for video, **60 f
 - **Where**: Outro, 29:00–30:00
 - **Specialist**: **ComfyUI** (with text overlay composited)
 - **Type**: Closing title card
-- **Brief**: Same visual language as VIS02 (title card). Text: "BLOOD COMPRESSOR — A Loudon Live lesson. Build it next." in serif, color `#E8E8F0` on `#0B0B10`. Background: a *brighter* version of the VIS02 vascular tissue texture — the lesson has illuminated the body, so the closing image is less dark than the opening. Small footer text reads "Loudon Live · Autodidact Polymaths" per [[Loudon Live]] convention.
+- **Brief**: Same visual language as VIS02 (title card). Text: "BLOOD COMPRESSOR — A Loudon Live lesson. Build it next." in serif, color `#E8E8F0` on `#0B0B10`. Background: a *brighter* version of the VIS02 vascular tissue texture — the lesson has illuminated the body, so the closing image is less dark than the opening. Small footer: the bare Loud'n Live wordmark, the current [[Loudon Live]] convention.
 - **Prompt for ComfyUI**: Same as VIS02 but with the prompt addition "*slightly brighter overall, faint warm glow suggesting that what was hidden has been illuminated*"
 - **Tier**: Sketch
 - **Notes**: Output is a single PNG. Maker composites the text overlay.

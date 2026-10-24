@@ -1,0 +1,167 @@
+{
+ "passed": true,
+ "sr": 44100,
+ "paths": [
+  {
+   "name": "threshold-sweep",
+   "secs": 8.0,
+   "max_err_of_peak": 4.503672242090825e-08,
+   "js_err_of_peak": 4.503672242090825e-08,
+   "probe_err": {
+    "pressure": 2.842170943040401e-14,
+    "target": 2.842170943040401e-14,
+    "squeeze": 2.6290081223123707e-13,
+    "reflex": 0.0
+   },
+   "js_probe_err": {
+    "pressure": 1.4210854715202004e-14,
+    "target": 2.1316282072803006e-14,
+    "squeeze": 4.440892098500626e-16,
+    "reflex": 0.0
+   },
+   "peak_dbfs": -3.589856744302378,
+   "deepest_squeeze_db": -27.351142349623476,
+   "reflex_share": 0.55906179138322,
+   "sketch_s": 0.9,
+   "passed": true
+  },
+  {
+   "name": "attack-sweep",
+   "secs": 8.0,
+   "max_err_of_peak": 3.3306230212968224e-08,
+   "js_err_of_peak": 3.3306230212968224e-08,
+   "probe_err": {
+    "pressure": 2.842170943040401e-14,
+    "target": 2.4868995751603507e-14,
+    "squeeze": 2.5934809855243657e-13,
+    "reflex": 0.0
+   },
+   "js_probe_err": {
+    "pressure": 1.4210854715202004e-14,
+    "target": 1.0658141036401503e-14,
+    "squeeze": 1.0658141036401503e-14,
+    "reflex": 0.0
+   },
+   "peak_dbfs": -0.9684137713743245,
+   "deepest_squeeze_db": -21.25507784864048,
+   "reflex_share": 0.8309778911564626,
+   "sketch_s": 0.9,
+   "passed": true
+  },
+  {
+   "name": "release-sweep",
+   "secs": 8.0,
+   "max_err_of_peak": 3.289541369965241e-08,
+   "js_err_of_peak": 3.289541369965241e-08,
+   "probe_err": {
+    "pressure": 2.842170943040401e-14,
+    "target": 2.4868995751603507e-14,
+    "squeeze": 2.0961010704922955e-13,
+    "reflex": 0.0
+   },
+   "js_probe_err": {
+    "pressure": 1.4210854715202004e-14,
+    "target": 1.0658141036401503e-14,
+    "squeeze": 2.842170943040401e-14,
+    "reflex": 0.0
+   },
+   "peak_dbfs": -0.8657062636111783,
+   "deepest_squeeze_db": -17.08187594769316,
+   "reflex_share": 0.8309778911564626,
+   "sketch_s": 1.0,
+   "passed": true
+  },
+  {
+   "name": "knee",
+   "secs": 6.0,
+   "max_err_of_peak": 4.3657415260982116e-08,
+   "js_err_of_peak": 4.3657415260982116e-08,
+   "probe_err": {
+    "pressure": 2.842170943040401e-14,
+    "target": 1.865174681370263e-14,
+    "squeeze": 2.6645352591003757e-14,
+    "reflex": 0.0
+   },
+   "js_probe_err": {
+    "pressure": 1.4210854715202004e-14,
+    "target": 1.0658141036401503e-14,
+    "squeeze": 8.881784197001252e-16,
+    "reflex": 0.0
+   },
+   "peak_dbfs": -3.324755261843213,
+   "deepest_squeeze_db": -3.603451719748767,
+   "reflex_share": 0.24547996976568406,
+   "sketch_s": 0.7,
+   "passed": true
+  },
+  {
+   "name": "stereo-link",
+   "secs": 4.0,
+   "max_err_of_peak": 3.290238022494122e-08,
+   "js_err_of_peak": 3.290238022494122e-08,
+   "probe_err": {
+    "pressure": 2.4868995751603507e-14,
+    "target": 2.1316282072803006e-14,
+    "squeeze": 1.3145040611561853e-13,
+    "reflex": 0.0
+   },
+   "js_probe_err": {
+    "pressure": 7.105427357601002e-15,
+    "target": 7.105427357601002e-15,
+    "squeeze": 3.552713678800501e-15,
+    "reflex": 0.0
+   },
+   "peak_dbfs": -0.9152046896397082,
+   "deepest_squeeze_db": -18.839220671480955,
+   "reflex_share": 0.9999263038548752,
+   "sketch_s": 0.5,
+   "passed": true
+  },
+  {
+   "name": "sidechain-hpf",
+   "secs": 7.2,
+   "max_err_of_peak": 3.4144472954950215e-08,
+   "js_err_of_peak": 3.4144472954950215e-08,
+   "probe_err": {
+    "pressure": 7.105427357601002e-14,
+    "target": 4.973799150320701e-14,
+    "squeeze": 2.6645352591003757e-13,
+    "reflex": 0.0
+   },
+   "js_probe_err": {
+    "pressure": 7.460698725481052e-13,
+    "target": 1.7763568394002505e-14,
+    "squeeze": 1.0658141036401503e-14,
+    "reflex": 0.0
+   },
+   "peak_dbfs": -1.1826755769561224,
+   "deepest_squeeze_db": -24.823563502302818,
+   "reflex_share": 0.6359725371630134,
+   "sketch_s": 0.8,
+   "passed": true
+  },
+  {
+   "name": "detector-makeup-bypass",
+   "secs": 6.0,
+   "max_err_of_peak": 3.071897644897202e-08,
+   "js_err_of_peak": 3.071897644897202e-08,
+   "probe_err": {
+    "pressure": 8.171241461241152e-14,
+    "target": 3.907985046680551e-14,
+    "squeeze": 1.7408297026122455e-13,
+    "reflex": 0.0
+   },
+   "js_probe_err": {
+    "pressure": 2.842170943040401e-14,
+    "target": 1.7763568394002505e-14,
+    "squeeze": 6.217248937900877e-15,
+    "reflex": 0.0
+   },
+   "peak_dbfs": 5.756423185423172,
+   "deepest_squeeze_db": -12.264258857970713,
+   "reflex_share": 0.8126681783824641,
+   "sketch_s": 0.7,
+   "passed": true
+  }
+ ]
+}

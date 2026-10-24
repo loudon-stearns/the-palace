@@ -15,24 +15,36 @@ forward_vector: "I am Blood Compressor's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T11:44:41.946Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-24T15:11:09.296Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 9 · last ran 2026-10-14 (today)
-- **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 10 · last ran 2026-10-24 (today)
+- **Plan:** agreed 2026-10-15 (10 days ago) · 2 made things since · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — The Max for Live device now draws the beating vessel beside its dials, with a draggable systolic line, and the compressor is stereo-linked. (`blood-compressor-020`)
-- **Last commit touching this project:** 2026-10-14 `df766a0d` — steward(Blood Compressor): cycle 8 — SPINNING UP. HOME: [Blood Compressor](obsidian://open?vault=The%20Palac…
+- **Last shipped:** 2026-10-24 (today) — Make the VST the plan: the plugin folder is built and checked; next come the body knobs, then the real build when the template is ready. (`blood-compressor-023`)
+- **Last commit touching this project:** 2026-10-21 `ca454ba2` — edit(nine steward scrolls): a standing order on Loudon's yes of 2026-10-21: make it a product, a VST prototype on the VST Template with a CRT visualizer drawn from the instrument's own metaphor; Max work stays set aside, perhaps later as teaching tools
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-24 — cycle 10 · taught item 1, proposed items 2, 3 for canon
+- **Owed in the ledger:** nothing
+- **Proposed for canon:** 2 — items 2, 3; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 3, from cycle 10 — 2026-10-24 — [[Blood Compressor — tuning]]
 
 ### Where this stands
 
-Blood Compressor is a compressor dressed as the body. Threshold is the systolic pressure that triggers the reflex, ratio is how stiff the vessel wall is, attack is the baroreceptor reflex delay, and release is the smooth muscle relaxing. Earlier today the browser vessel was fixed: one hand-built compressor drives both its sound and its picture. That compressor was then carried into an RNBO codebox that matches the browser sample for sample. This cycle the picture followed it into Max. The device, Blood Compressor 0.2, has its eight dials on the left and the same three panels as the browser on the right: the pressure lane with the amber systolic line you can drag, the in-to-out curve, and th…
+Blood Compressor is a compressor dressed as the body. Threshold is the systolic pressure that sets off the reflex, ratio is how stiff the vessel wall is, attack is the baroreceptor delay, and release is the smooth muscle relaxing. In June and October the compressor was built in the browser, then in RNBO and Max for Live. On 21 October you asked for a product instead: a VST you can play in Live, with the template's controls and a strange, beautiful picture of the effect's own in the centre screen. Max work waits. This cycle the compressor moved into the template's shape inside my own folder, and it matches its reference sample for sample. Its face now runs with the artery in the centre scree…
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 7:** Nobody has heard the attack lesson or played the face with sound on yet. _(in 2 notes, the latest cycle 10)_
+- **rough since cycle 8:** Nothing has been opened in Max or Live. _(in 2 notes, the latest cycle 9)_
 
 ### Open asks
 
-- `blood-compressor-016` — proposed plan revision: a first agreed plan for Blood Compressor · posted 2026-10-14 · options: adopt · keep
+- `blood-compressor-023` — proposed plan revision: the plan turns from Max toward the VST · posted 2026-10-24 · options: adopt · keep
 
 ### Answered, not yet consumed
 
@@ -40,14 +52,37 @@ _None._
 
 ### Decided
 
+- `blood-compressor-016` — a first agreed plan for Blood Compressor → GRANTED — option_id=adopt; notes: "I am not seeing the visuals render on the example here, lets do a check and really get this working on the web version." (2026-10-15)
 - `blood-compressor-012` — directional_redirect → GRANTED — (no option_id); notes: "I am having trouble with the interactive blood vessel, the threshold parameter doesn't seem to be working properly, lets get this diagram really working great." (2026-06-24)
+
+### Runs
+
+- 2026-10-24 — cycle 10 · taught item 1, proposed items 2, 3 for canon
+
+### Owed
+
+_Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **2.** 2026-10-24 · [[Blood Compressor]] · § Pedagogical Framing, the paragraph beginning 'When students set attack=0' — The paragraph promises a lunge at attack zero that the design rules out. The October port measured what the fixed nerve delay really does.
+- **3.** 2026-10-24 · [[Blood Compressor]] · § What This Entry Is and Isn't, the 'Isn't' line — The line still says Stage 1 → a Max prototype is next. The product path is now the VST, by Loudon's standing order of 2026-10-21.
 
 <!-- scroll:now:end -->
 
 ## Plan
 
 <!-- scroll:plan:start -->
-_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+Where it's going: a compressor you understand by watching a body do it, every control a cardiovascular variable, playable in Live and teachable in one Loudon Live session.
+
+1. The reference vessel (browser). A hand-built compressor that drives both sound and picture, checked numerically. Done on 2026-10-14 (v3), waiting on your eyes and ears.
+2. The device in Max. Port the same compressor to a gen~ codebox inside a Max for Live device, matching the browser version sample for sample, with the meters (pressure, squeeze, baroreceptor state) as outputs. Unverified until you open it.
+3. The vessel in Max. Draw the artery inside the device (jsui or v8ui), fed by those meters, the same three panels as the browser.
+4. The body controls. Release-curve shape, sympathetic activation, heart-rate variability and vessel age: first as pictures in the browser, then as knobs in the device.
+5. The lesson. A 30-minute Loudon Live session that teaches compression through the device, using the radio-play script already in the folder.
+6. The plugin. Port to VST/AU through RNBO and bring the GUI up to production quality.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -61,6 +96,98 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-blood-compressor-016" -->
+### 2026-10-14 — Plan agreed: Blood Compressor has no agreed plan yet. Here's one: browser reference, then Max, then the body controls, the lesson and the plugin.
+
+Blood Compressor teaches compression as the body: threshold as systolic pressure, attack as the baroreceptor reflex. Today the browser vessel finally works. One hand-built compressor drives the sound and the picture, and the threshold is exact to 0.04 dB. The project has never had an agreed plan, only the entry's five stages. I'd like to adopt one, with a single change of order. The browser version becomes the reference that everything else is checked against, the way the Action Potential crowd was checked between Faust and RNBO. The Max build has to match it sample for sample before it counts. It costs one extra step, and it means a Max device I can't open still arrives with proof that its maths is right. I'll keep building toward the Max port whether or not you answer.
+
+Loudon: "I am not seeing the visuals render on the example here, lets do a check and really get this working on the web version."
+<sub>`plan-blood-compressor-016` · plan agreed · agreed 2026-10-15T01:56:50.093Z · proposed by Blood Compressor's steward (`blood-compressor-016`), adopted by Loudon (`resp-mv8w1ict-0h3ulz`)</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="blood-compressor-023" -->
+### 2026-10-24 — cycle 10 — Make the VST the plan: the plugin folder is built and checked; next come the body knobs, then the real build when the template is ready.
+> still working · plugin folder shipped and checked · steward leans adopt
+
+Blood Compressor is a compressor dressed as the body. On 14 October you adopted a plan that still ran through Max. On 21 October your standing order turned it into a product: a VST for Live, with the template's controls and a picture from the body in the centre screen. This cycle did the first step of that. The compressor sits in the template's shape in my folder, matches its sketch on seven test runs, and has a face with the artery seen from inside. The evidence for the order below is that this step landed, and that its one surprise (the nerve delay keeps the punch) needs your ears before the knobs multiply. The cost: Max, RNBO and Max for Live drop from the plan to teaching tools, and the real build waits on the template.
+
+**Artifacts:**
+- [stage2-vessel-prototype-v2.html](Projects/Blood Compressor/stage2-vessel-prototype-v2.html)
+- [vessel-threshold-36.png](Projects/Blood Compressor/rnbo/vessel-threshold-36.png)
+- [vessel-threshold-36.svg](Projects/Blood Compressor/rnbo/vessel-threshold-36.svg)
+- [vessel-threshold-20.png](Projects/Blood Compressor/rnbo/vessel-threshold-20.png)
+- [vessel-threshold-20.svg](Projects/Blood Compressor/rnbo/vessel-threshold-20.svg)
+- [codebox-threshold-steps.wav](Projects/Blood Compressor/rnbo/codebox-threshold-steps.wav)
+<sub>`blood-compressor-023` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="blood-compressor-022" -->
+### 2026-10-24 — cycle 10 — Blood Compressor now has a plugin folder: the compressor ported and checked, and its face with the artery, seen from inside, in the centre screen.
+> shipped · port matches the sketch on 7 paths · waits on the template to build · steward leans listen first
+
+**Your note first.** You said the visuals weren't drawing on the web example. That card showed vessel v2. It crashed on every load until the fix of 18 October (879ba6e0): a variable was used before it was declared. I loaded v1, v2 and v3 inside the same locked-down frame the board uses. All three now draw with no errors, and so does the new face. The test is [verify/framed-check.mjs](obsidian://open?vault=The%20Palace&file=Projects/Blood%20Compressor/verify/framed-check.mjs), so the next page I make gets checked the same way before you see it.
+
+**The port.** `plugin/` follows the template's layout, as Belief Cloud did first. There is a numpy sketch, an `Algorithm.h` ported from it line for line, seven test runs, and `plugin.json` (Blood Compressor, code Bldc, a stereo effect, centre screen on). It is the same compressor as the browser vessel and the RNBO codebox: sidechain high-pass, RMS detector linked across both channels, cubic soft knee, the fixed 5 ms nerve delay, then attack and release. Two things changed. Times are in seconds, as the template wants. And the sidechain high-pass is now a knob from 1 to 500 Hz, so the page's open question of 80 Hz versus the body's rate is the player's to answer. Threshold and Ratio are the big knobs. The panels are Vessel wall, Reflex, Baroreceptors and Output.
+
+**The check.** A small C++ stand-in for the template's harness runs `Algorithm.h` without JUCE. The face's JavaScript engine is held to the same sketch. Both match it on every run (table below).
+
+**The picture: inside the artery.** You're in the vessel, looking downstream. Each ring of the wall is one frame of the compressor. It's born at the glass and travels away, so each beat rolls off down the tube. A ring's width is the pressure that got through. A pale wire ring shows where the wall would have been with no reflex, so the gap is the gain reduction. Amber dashes mark the systolic line, and wall pushed past it flushes hot pink. Dark smooth-muscle bands tighten where the vessel squeezes. A crown of baroreceptors near you flares while the reflex fires and sends sparks down the wall. Blood cells ride the flow, and an in-to-out curve sits in the corner. It reads only the four values the plugin will stream (pressure, target, squeeze, reflex) and the knob values. Open [the face](obsidian://open?vault=The%20Palace&file=Projects/Blood%20Compressor/blood-compressor-face.html), press sound on, and turn Threshold down while it plays.
+
+**What I heard in the numbers.** On the drum loop, compression *raised* the peak-to-average ratio: 14.7 dB in bypass, 26.3 dB at a 5 ms attack, 21.4 dB at 80 ms. The 5 ms nerve delay sits on the control path only, so the front of every kick has passed before the vessel closes. The 'lunge' the page promises at the fastest attack can't happen, because the body's reaction time comes first. As a sound, that makes it a compressor that keeps the punch. The [attack lesson](open:Projects/Blood Compressor/blood-compressor-attack-lesson.wav) is 19 seconds. In order: bypass, attack 5 ms, attack 80 ms, then 80 ms with a 40 ms release, which pumps. Each section is matched to the same loudness, so you hear shape, not level.
+
+I also changed the closing card's footer in the visuals spec to the bare Loud'n Live wordmark, as Loudon Live's note of 14 October asked.
+
+**Artifacts:**
+- [The whole face in the template's editor, with the artery running in the centre screen. Press sound on and pick heart or drums.](Projects/Blood Compressor/blood-compressor-face.html)
+- [The face at default settings on the heartbeat, between beats.](Projects/Blood Compressor/blood-compressor-face.png)
+- [Hard squeezing on drums (threshold −40, ratio 12): the wall flushes, the baroreceptors flare, the muscle bands darken.](Projects/Blood Compressor/blood-compressor-face-drums-threshold-40-ratio12.png)
+- [19 s, loudness-matched: bypass · attack 5 ms · attack 80 ms · 80 ms with a 40 ms release.](Projects/Blood Compressor/blood-compressor-attack-lesson.wav)
+- [What the plugin folder is, the check, the punch finding, the screen's contract, and what to do when the template is ready.](Projects/Blood Compressor/plugin/README.md)
+- [Blood Compressor, code Bldc, stereo effect, centre screen on, 1000 × 640.](Projects/Blood Compressor/plugin/plugin.json)
+- [The port: 9 parameters, stereo in and out, 4 values for the screen.](Projects/Blood Compressor/plugin/src/Algorithm.h)
+- [The reference sketch, one sample at a time.](Projects/Blood Compressor/plugin/reference/sketch.py)
+- [Seven test runs, each exercising one term.](Projects/Blood Compressor/plugin/reference/paths.py)
+- [Harness stand-in without JUCE, with audio input.](Projects/Blood Compressor/plugin/check/engine_check.cpp)
+- [The exact gate: sketch vs C++ vs JavaScript.](Projects/Blood Compressor/plugin/check/check_engine.py)
+- [Drives the face's engine the way the harness drives C++.](Projects/Blood Compressor/plugin/check/js_engine.cjs)
+- [Shell wrapper for the JavaScript engine.](Projects/Blood Compressor/plugin/check/js_engine.sh)
+- [Renders the attack lesson through the C++ engine.](Projects/Blood Compressor/plugin/check/render_take.py)
+- [Every number in the table.](Projects/Blood Compressor/plugin/out/check-report.json)
+- [Inside the artery: BloodVessel.mount(el), BloodVessel.frame(probes, params).](Projects/Blood Compressor/plugin/ui/visualizer.js)
+- [The compressor in JavaScript, for the face page.](Projects/Blood Compressor/plugin/ui/blood_compressor.js)
+- [Builds the face from the template's editor, takes its picture and runs the fit test.](Projects/Blood Compressor/plugin/ui/build_face.py)
+- [Loads a page in the board's locked-down frame, collects errors and takes a picture.](Projects/Blood Compressor/verify/framed-check.mjs)
+- [Closing card's footer set to the bare Loud'n Live wordmark.](Projects/Blood Compressor/Blood Compressor — spec — visuals.md)
+
+_Exact gate · sketch vs C++ engine vs the face's JavaScript engine · 44.1 kHz_
+| path | input | C++ error, of peak | JS error, of peak | deepest squeeze |
+| --- | --- | --- | --- | --- |
+| threshold sweep −50 → −5 dB | heartbeat | 4.5e-08 | 4.5e-08 | −27.4 dB |
+| attack sweep 5 → 300 ms | drums | 3.3e-08 | 3.3e-08 | −21.3 dB |
+| release sweep 20 ms → 2 s | drums | 3.3e-08 | 3.3e-08 | −17.1 dB |
+| knee 0 → 24 dB | heartbeat | 4.4e-08 | 4.4e-08 | −3.6 dB |
+| stereo link | loud left, quiet right | 3.3e-08 | 3.3e-08 | −18.8 dB |
+| sidechain HPF 1 → 500 Hz | 41 Hz sub + hats | 3.4e-08 | 3.4e-08 | −24.8 dB |
+| detector, makeup, bypass | drums | 3.1e-08 | 3.1e-08 | −12.3 dB |
+
+_Changed in the workshop:_ README — New workshop note for the plugin folder: layout, check, the punch finding, the screen's contract, and the steps for when the template can build here.
+_Changed in the workshop:_ Blood Compressor — spec — visuals — Loudon Live's note of 2026-10-14: the closing card's footer becomes the bare Loud'n Live wordmark, nothing else changed.
+_Proposed for canon:_ Blood Compressor (§ Pedagogical Framing, the paragraph beginning 'When students set attack=0') — The paragraph promises a lunge at attack zero that the design rules out. The October port measured what the fixed nerve delay really does.; owed in the tuning ledger until Loudon's review
+_Proposed for canon:_ Blood Compressor (§ What This Entry Is and Isn't, the 'Isn't' line) — The line still says Stage 1 → a Max prototype is next. The product path is now the VST, by Loudon's standing order of 2026-10-21.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has heard the attack lesson or played the face with sound on yet. The plugin isn't built and hasn't been through pluginval, auval or Live, because the template can't build from my folder or stream to its centre screen yet. The picture has only been seen as stills and one headless run, not at speed on this Mac's GPU.
+
+_Next moves named:_ Grow the body's own knobs into the port (the page's secondary parameters: sympathetic activation, heart-rate variability, vessel age), each in the sketch, Algorithm.h and the check, each with its own mark in the artery. · When VST Template can build from a project's folder: run plugin.sh all from plugin/, pass pluginval, auval and the host check, load it in Live, and watch the artery fed by the real probes. · If you want the lunge after all: offer a 'lookahead' switch that delays the audio by the same 5 ms, so the vessel closes in time, and name it as the one non-bodily knob.
+<sub>`blood-compressor-022` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-7e17b47913" -->
+### 2026-10-24 — cycle 10
+
+taught item 1, proposed items 2, 3 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="blood-compressor-020" -->
 ### 2026-10-14 — cycle 9 — The Max for Live device now draws the beating vessel beside its dials, with a draggable systolic line, and the compressor is stereo-linked.
 > shipped · maths and drawing proven in Node · Max files unopened · steward leans open-the-device-next

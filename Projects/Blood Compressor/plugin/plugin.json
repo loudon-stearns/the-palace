@@ -1,0 +1,31 @@
+{
+  "name": "Blood Compressor",
+  "target": "BloodCompressor",
+  "company": "Loudon Live",
+  "bundle_id": "com.LoudonLive.BloodCompressor",
+  "manufacturer_code": "Loud",
+  "plugin_code": "Bldc",
+  "kind": "effect",
+  "version": "0.1.0",
+  "hostcheck": [
+    "threshold=-40",
+    "ratio=12",
+    "makeup=12",
+    "bypass=1"
+  ],
+  "ui": {
+    "width": 1000,
+    "height": 640,
+    "min": [
+      900,
+      580
+    ],
+    "max": [
+      1800,
+      1100
+    ],
+    "direction": "bench",
+    "tier": "Sketch",
+    "screen": true
+  }
+}
