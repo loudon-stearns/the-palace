@@ -137,7 +137,7 @@ sound: "nothing plays until a Pluck or Play button is clicked; the AudioContext 
       <div class="bar"><span class="hint">a steady push at half its own rate</span><button class="go" data-play>Play</button></div>
       <canvas data-canvas="push" data-aspect="0.42"></canvas>
       <div class="legend">
-        <div><b>Left · the weight and the hand</b>Amber: the push. Slowed 300 times.</div>
+        <div><b>Left · the weight and the hand</b>Slowed 300 times. Amber arrow: the push, from the rest line to where a push held still would put the weight, so its tip lines up with the amber trace.</div>
         <div><b>Right · push and swing</b>Amber: the push. Ink: where the weight is. Watch the first wobbly seconds settle into the push's rhythm.</div>
       </div>
       <div class="ctl"><label for="s3d">push rate</label><input id="s3d" type="range" min="0" max="1000" value="250"><span class="v" id="s3dv"></span></div>
@@ -508,17 +508,26 @@ function drawSpring(g, x0, w, h, pos, push, scale) {
   g.strokeStyle = css('--ink'); g.lineWidth = 1.5; g.strokeRect(cx - bw / 2, y - bh / 2, bw, bh);
   g.strokeStyle = css('--rule'); g.setLineDash([3, 3]); g.beginPath(); g.moveTo(x0 + 6, rest); g.lineTo(x0 + w - 6, rest); g.stroke(); g.setLineDash([]);
   if (push !== null) {
-    // the hand's push as an arrow from the weight's centre, down when the amber trace is down, as long as it is far
-    const len = push * scale, tip = y + len, head = Math.sign(len) * Math.min(7, Math.abs(len));
+    // the push, measured from the rest line as the amber trace is: an arrow just right of the weight, from rest to
+    // where a push held still would put the weight; drawLink joins its tip to the amber trace's head
+    const xa = pushX(cx, bw), len = push * scale, tip = rest + len, head = Math.sign(len) * Math.min(7, Math.abs(len));
     g.strokeStyle = css('--source-assumed'); g.fillStyle = css('--source-assumed'); g.lineWidth = 3;
-    g.beginPath(); g.moveTo(cx, y); g.lineTo(cx, tip); g.stroke();
-    if (Math.abs(len) > 3) { g.beginPath(); g.moveTo(cx - 6, tip - head); g.lineTo(cx + 6, tip - head); g.lineTo(cx, tip + head * 0.3); g.closePath(); g.fill(); }
-    label(g, 'push', cx + bw / 2 + 6, y + bh / 2 + 12, css('--source-assumed'));
+    g.beginPath(); g.moveTo(xa, rest); g.lineTo(xa, tip); g.stroke();
+    if (Math.abs(len) > 3) { g.beginPath(); g.moveTo(xa - 6, tip - head); g.lineTo(xa + 6, tip - head); g.lineTo(xa, tip + head * 0.3); g.closePath(); g.fill(); }
+    label(g, 'push', xa + 18, rest - 6, css('--source-assumed'));
   }
 }
 // the weight's centre and the trace's newest point are one height: a dotted line joins them, a dot marks the head
-function drawLink(g, split, head, h, scale) {
+function pushX(cx, bw) { return cx + bw / 2 + 16; }
+function drawLink(g, split, head, h, scale, push) {
   const y = h * REST + sim.x * scale, bw = Math.min(70, split * 0.4) * Math.sqrt(mulFrom(S.w1));
+  if (push !== undefined && push !== null) {
+    // the push's tip and the amber trace's head are one height, joined the same way as the weight's
+    const xa = pushX(split / 2, bw), yp = h * REST + push * scale;
+    g.strokeStyle = css('--source-assumed'); g.lineWidth = 1; g.setLineDash([2, 3]);
+    g.beginPath(); g.moveTo(xa, yp); g.lineTo(head, yp); g.stroke(); g.setLineDash([]);
+    g.fillStyle = css('--source-assumed'); g.beginPath(); g.arc(xa + 9, yp, 3, 0, 7); g.fill(); g.beginPath(); g.arc(head, yp, 3.5, 0, 7); g.fill();
+  }
   g.strokeStyle = css('--accent'); g.lineWidth = 1; g.setLineDash([2, 3]);
   g.beginPath(); g.moveTo(split / 2 + bw / 2, y); g.lineTo(head, y); g.stroke(); g.setLineDash([]);
   g.fillStyle = css('--accent'); g.beginPath(); g.arc(split / 2, y, 2.5, 0, 7); g.fill(); g.beginPath(); g.arc(head, y, 3.5, 0, 7); g.fill();
@@ -600,9 +609,9 @@ function frame(now) {
     const reach = Math.max(1, sim.reach, pushing() ? gain(u, Q === Infinity ? 1e6 : Q) : 0), scale = swingScale(h, reach);
     if (kind === 'spring') { drawSpring(g, 0, split, h, sim.x, null, scale); drawTrail(g, split + 10, w - split - 18, h, 4, scale, {}); drawLink(g, split, w - 8, h, scale); }
     if (kind === 'ring') { drawSpring(g, 0, split, h, sim.x, null, scale); drawEnvelope(g, split + 10, w - split - 18, h, span, scale, fv, Q); drawTrail(g, split + 10, w - split - 18, h, span, scale, {}); drawLink(g, split, w - 8, h, scale); }
-    if (kind === 'push') { drawSpring(g, 0, split, h, sim.x, live ? F : null, scale); drawTrail(g, split + 10, w - split - 18, h, 6, scale, { push: true }); drawLink(g, split, w - 8, h, scale); }
+    if (kind === 'push') { drawSpring(g, 0, split, h, sim.x, live ? F : null, scale); drawTrail(g, split + 10, w - split - 18, h, 6, scale, { push: true }); drawLink(g, split, w - 8, h, scale, live ? F : null); }
     if (kind === 'peak') drawPeakFace(g, w, h);
-    if (kind === 'lag') { const half = w * 0.6; drawSpring(g, 0, split, h, sim.x, live ? F : null, scale); drawTrail(g, split + 10, half - split - 28, h, span, scale, { push: true, speed: S.speed }); drawLink(g, split, half - 18, h, scale); drawLagFace(g, half, w - half, h); }
+    if (kind === 'lag') { const half = w * 0.6; drawSpring(g, 0, split, h, sim.x, live ? F : null, scale); drawTrail(g, split + 10, half - split - 28, h, span, scale, { push: true, speed: S.speed }); drawLink(g, split, half - 18, h, scale, live ? F : null); drawLagFace(g, half, w - half, h); }
   }
   requestAnimationFrame(frame);
 }

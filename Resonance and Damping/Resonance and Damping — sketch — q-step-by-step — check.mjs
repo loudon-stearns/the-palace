@@ -91,23 +91,31 @@ if (chromium) {
       await pg.click(`.rail button:nth-child(${k.step + 1})`); await pg.waitForTimeout(150);
       if (k.act === 'pluck') for (let n = 0; n < 5; n++) { await pg.click(`section.step[data-step="${k.step}"] [data-pluck]`); await pg.waitForTimeout(170); }
       else { await pg.click(`section.step[data-step="${k.step}"] [data-play]`); await pg.waitForTimeout(1500); }
-      let worst = 0, inside = true;
+      let worst = 0, inside = true, pushWorst = 0;
       for (let n = 0; n < 8; n++) {
         await pg.waitForTimeout(130);
         const r = await pg.evaluate(([step, splitSrc, headSrc]) => {
           const c = document.querySelector(`section.step[data-step="${step}"] canvas`), g = c.getContext('2d'), W = c.width, H = c.height;
           const d = g.getImageData(0, 0, W, H).data, red = (x, y) => { const i = (y * W + x) * 4; return d[i] > 170 && d[i + 1] < 80 && d[i + 2] < 70; };
+          const amber = (x, y) => { const i = (y * W + x) * 4; return d[i] > 140 && d[i] < 205 && d[i + 1] > 85 && d[i + 1] < 150 && d[i + 2] < 60; };
           const dpr = W / c.clientWidth, cw = c.clientWidth;
-          const rowsAt = (cx) => { const ys = []; const x0 = Math.round(cx * dpr) - 1; for (let y = 0; y < H; y++) for (let x = x0; x <= x0 + 2; x++) if (red(x, y)) { ys.push(y); break; } return ys; };
+          const rowsAt = (cx, is = red) => { const ys = []; const x0 = Math.round(cx * dpr) - 1; for (let y = 0; y < H; y++) for (let x = x0; x <= x0 + 2; x++) if (is(x, y)) { ys.push(y); break; } return ys; };
           const mean = (a) => a.length ? a.reduce((p, q) => p + q, 0) / a.length : NaN;
           const split = eval(splitSrc)(cw), head = eval(headSrc)(cw);
-          return { weight: mean(rowsAt(split / 2)) / dpr, head: mean(rowsAt(head)) / dpr, h: H / dpr };
+          const bw = Math.min(70, split * 0.4), xa = split / 2 + bw / 2 + 16;           // the push arrow's place (default weight)
+          return { weight: mean(rowsAt(split / 2)) / dpr, head: mean(rowsAt(head)) / dpr, h: H / dpr,
+                   push: rowsAt(xa + 9, amber).map((y) => y / dpr), pushHead: rowsAt(head + 2.5, amber).map((y) => y / dpr) };   // just right of the trace's end: the head dot alone
         }, [k.step, k.split.toString(), k.head.toString()]);
         worst = Math.max(worst, Math.abs(r.weight - r.head));
+        // the red head dot can sit over half the amber one when weight and push are near one height, so compare the
+        // two amber dots by whichever edge is in view: their tops, or their bottoms
+        if (k.act === 'play') pushWorst = Math.max(pushWorst, r.push.length && r.pushHead.length
+          ? Math.min(Math.abs(r.push[0] - r.pushHead[0]), Math.abs(r.push[r.push.length - 1] - r.pushHead[r.pushHead.length - 1])) : NaN);
         if (!(r.weight > 0.15 * r.h && r.weight < 0.85 * r.h)) inside = false;
       }
       check(`step ${k.step + 1}: the weight's centre and the trace's head are one height`, worst <= 1.5, `worst ${worst.toFixed(2)} px over 8 frames`);
       check(`step ${k.step + 1}: the weight stays on the sheet, not clipped`, inside);
+      if (k.act === 'play') check(`step ${k.step + 1}: the push's tip and the amber trace's head are one height`, pushWorst <= 2, `worst ${pushWorst.toFixed(2)} px over 8 frames`);
     }
     await pg.click('.rail button:nth-child(1)'); await pg.waitForTimeout(150);
     // a note survives a reload
