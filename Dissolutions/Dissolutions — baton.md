@@ -1,6 +1,6 @@
 ---
 title: "Dissolutions — baton"
-born: 2026-10-22
+born: 2026-10-25
 links:
   - target: "[[Dissolutions]]"
     type: connects-to
@@ -12,53 +12,50 @@ forward_vector: "I carry the in-progress move on [[Dissolutions]] across a bound
 
 ## Move
 
-Put the six playable proofs in front of Loudon one at a time, each opened as a page that plays on a click and left as the last thing in the turn, then carry his yes or no on the five entry-text offers beside them.
+For each of the six 2026-10-20 proofs, build a learning sequence that introduces each component concept on its own in a few short interactive steps, then combines them, and arrives at the existing proof as its last step; then put the sequences in front of Loudon one per turn and carry his yes or no on offers A, B and E.
 
 ## Why this move matters
 
-The six proofs were made, re-run headless (`Dissolutions/proofs/check-dissolutions-proofs.mjs`, 27 PASS per the offers note below) and landed on his yes of 2026-10-20 at 026fc835. He has not seen or heard one. They reached him as the READY TO LAND report and the scroll's paragraphs, and every one of their scroll entries still says "seen in the browser; not yet played through in a sit" (`Dissolutions/Dissolutions — scroll.md`). A proof here tests an identity claim by letting you play it, so until he plays it the test has not reached the person it is for. The hunt ledger's verdicts are "the maker's; a sit with Loudon may overturn any of them" (`Dissolutions/Dissolutions — hunt.md`), and whether Phase Reduction stays in the catalogue as an isomorphism is a question the ledger and the scroll both hold for him. Neither can be answered from text.
+Three sits on 2026-10-25 gave the same answer. On the table that travels he wrote (scroll, `sit-2026-10-25-the-table-that-travels`):
+
+> "This is a good example, but needs scaffolded learning, just a few steps to undertsand each concept in isolation. Right now we are at the end proof of a complex topic, and we need to work our way up to this. Interactive explanation of the loop and the table individually, then the combionation with the difference, then finally explain the filter and bring that concept in. A little more staged learning and this is fantastic."
+
+On the shadow that locks: "again like the first proof this needs staged learning, we are at the end of a complex concept, we need to build our way up to this with a few interactions so that this can really teach well."
+
+Then, stopping the walk after three: "OK, we are going to have the same exact response for all of these. I'd like to send them all back to be worked on with the same note: these are the end of a proof, we need to work our way there with each of them. So lets make a handoff for developing a learning sequence for each of these that starts with simpler concepts and works the teaching up to the final proofs presented here."
+
+A proof here tests an identity by letting you play it. If the player can't follow it, the test still hasn't reached the person it is for.
+
+His outline for the table that travels is the model for the rest: **the table alone, the loop alone, the two combined through their difference, then the filter.**
 
 ## Tried and rejected
 
-- Words about them. Twenty-five landings of the 2026-10-20/21 fan-out reached Loudon as reports and summaries; the closing panel found he had not seen these. Another, better paragraph about the sound would repeat the miss. A paragraph about a sound is not the sound.
+- Showing the finished proof first. Three sits, same answer: each page is the end of a proof, met with no way up to it.
 
 ## Current state
 
-Landed on main at 026fc835, in `Dissolutions/proofs/`. Each page builds an AudioContext (checked: one per file). Each member's page and proof, matched from the scroll's trail and the hunt ledger:
+The six proofs landed on main at 026fc835, under `Dissolutions/proofs/2026-10-20-*/`. The existing pages stay as they are, as the last step of each sequence.
 
-| member | proof page (under `Dissolutions/proofs/`) | what it tests |
+| proof | played | what the sit left |
 |---|---|---|
-| Dispersion Table | `2026-10-20-the-table-that-travels/the-table-that-travels.html` | wavetable and lossless loop: identity, with the loop's filter slot where dispersion goes |
-| Phase Reduction | `2026-10-20-the-shadow-that-locks/the-shadow-that-locks.html` | PRC is Floquet data (identity); Kuramoto as the shadow (asymptotic isomorphism) |
-| Chebyshev is Fourier | `2026-10-20-the-circles-shadow/the-circles-shadow.html` | drawbars built two ways null to rounding error; drive pulled down becomes timbre |
-| Volterra Kernels and the Torus | `2026-10-20-one-field-two-hands/one-field-two-hands.html` | synth and effect are one field (identity); field and kernel an isomorphism |
-| Linear Predictive Coding | `2026-10-20-the-equation-read-backward/the-equation-read-backward.html` | one equation solved twice; the voice returns to rounding error at every order |
-| Rank-N Lattice Analysis | `2026-10-20-the-lattice-read-back/the-lattice-read-back.html` | analysis returns the lattice, not the generators; rank needs a bound |
+| `the-table-that-travels` | 2026-10-25 | his note and outline above; offer D placed |
+| `the-shadow-that-locks` | 2026-10-25 | one missing step, named below; offer C placed |
+| `the-circles-shadow` | 2026-10-25 | no notes; the general note covers it |
+| `one-field-two-hands` | not yet | offer A rests on it |
+| `the-equation-read-backward` | not yet | — |
+| `the-lattice-read-back` | not yet | offer B rests on it |
 
-An earlier pair from the 2026-10-18 sit, `2026-10-18-one-curve-three-doorways/`, he has already played; it is not part of this move.
+**One missing step the shadow's sit found.** He asked why the pitch climbs as the coupling rises. The page never says. The coupling is a spring between the two oscillators, and the nearly opposite lock is the stiffer mode, so the pitch goes up. The session's answer, with its numbers and what it did not check, is on the scroll at `sit-2026-10-25-the-shadow-that-locks`. A step in that sequence should teach this before the proof asks you to hear it.
 
-The five offers below are **not placed**. Re-checked at the close against the live text: the old Hammerstein, rank, and Kuramoto sentences and the Dispersion Table line are still as the note found them, and the catalogue carries no "Tested 2026-10-20" marks. The note's line numbers (`Volterra Kernels and the Torus.md:62`, and the others) were taken on 2026-10-20; the Volterra one still matches. Re-find the others by the quoted sentence.
+**Placed on his yes:** D at b3d43be7 (`Dispersion Table.md:63`), C at 786b4922 (`Phase Reduction.md:69`).
 
-## Next move
+**Still open:** whether Phase Reduction stays in the catalogue as an identity, an isomorphism, or split in two. The bullet's "*is*" at `Dissolutions.md:67` is left for him.
 
-Show him the first proof: one or two plain sentences on what to listen for, then the page itself as the last thing in the turn (opened, or revealed in Finder, or sent as a file). One proof a turn; wait for his reaction before the next. The order is his; the table above follows the scroll's Plan order. Offers A through D each rest on one proof (A on one-field-two-hands, B on the-lattice-read-back, C on the-shadow-that-locks, D on the-table-that-travels; E on the hunt ledger), so the natural moment to offer a piece of entry text is right after he has met its proof. Nothing is placed without his yes; the Concierge places any he gives. If he overturns a verdict, the overturning is a new line in the hunt ledger (the ledger says so itself).
+**Not placed: A, B, E.** The offered words are carried whole below. Anchors were re-found on 2026-10-25, after the 2026-10-24 Weave moved them.
 
-## Calibrations from this session
+### E. Dissolutions: mark what the hunt found in the catalogue (lightest; the page asks for it). Rests on the hunt ledger.
 
-- Loudon, 2026-10-22, at the fan-out close: "dissolutions, I didn't see them, they need to come back." The same panel produced the rule now in `The Palace Voice.md` § Where words land (d5158edd): the made thing itself is the last thing in the turn, not a paragraph about it.
-- Every proof makes sound. Open each so it starts silent and sounds only on his click, and close the tab after. Whether these six start silent was not checked at the close; check before you open one for him.
-- The verdicts in the hunt ledger are the maker's, not his. A proof that will not come alive is a question about whether the member stands (Plan step 4), carried to a sit, not hidden.
-
-## The five offers, copied from the session's note
-
-The note lives outside git (the Dissolutions session's side-session notes folder) and leaves with the app, so its content is carried here whole. Source file: `dissolutions-offers-for-loudon.md`, written 2026-10-20.
-
-
-From the Dissolutions session (branch `claude/dissolutions-proofs-b3a7ae`). Drafted by the session, final wording by its Concierge, checked against the live text. None is placed. Each rests on a proof in `Dissolutions/proofs/2026-10-20-*/` and a claim re-run by `Dissolutions/proofs/check-dissolutions-proofs.mjs` (27 PASS). These are edits to show Loudon first, not deposits. The Concierge places any he says yes to.
-
-### E. Dissolutions: mark what the hunt found in the catalogue (lightest; the page asks for it)
-
-`Dissolutions.md` § The catalogue (so far). Add a short note to the three members whose test was not a clean identity:
+`Dissolutions.md` § The catalogue (so far), bullets at :66–72 (Phase Reduction :67, Volterra :69, Rank-N :72). Add a short note to the three members whose test was not a clean identity:
 
 - Volterra Kernels and the Torus: "*Tested 2026-10-20: synthesizer and effect, identity; field and kernel, isomorphism.*"
 - Phase Reduction: "*Tested 2026-10-20: the PRC is Floquet data, identity; Kuramoto as the shadow, isomorphism, exact only as the coupling goes to zero.*" (Leave the bullet's "*is*" as it stands. The page holds that tension until Loudon says whether the member stays.)
@@ -66,47 +63,45 @@ From the Dissolutions session (branch `claude/dissolutions-proofs-b3a7ae`). Draf
 
 Under the catalogue, add: "Every member's test, and every candidate's, is a line in [[Dissolutions — hunt]]."
 
-### A. Volterra Kernels and the Torus: a correction the proof forces
+### A. Volterra Kernels and the Torus: a correction the proof forces. Rests on one-field-two-hands.
 
-`Volterra Kernels and the Torus.md:62`. The current sentence says the Hammerstein structure "preserves harmonic generation but discards intermodulation". That is wrong: a static curve does make intermodulation. Replace it with:
+`Volterra Kernels and the Torus.md:66`. The current sentence says the Hammerstein structure "preserves harmonic generation but discards intermodulation". That is wrong: a static curve does make intermodulation. Replace it with:
 
 > That slice is equivalent to a **Hammerstein structure** — a static nonlinearity followed by a filter — which makes intermodulation as well as harmonics, but sets each product's strength by the frequency it lands on, never by which tones made it. Off the diagonal the tones matter: two tones 30 Hz apart make a 30 Hz difference tone that swings by more than 30 dB as both slide up together, which no static curve followed by a filter can do.
 
-Line 82 reads true after this change and needs no edit.
+The Forward Vector at :86 ("…what intermodulation structure it carries that a Hammerstein diagonal discards") reads true after this change and needs no edit.
 
-### B. Rank-N Lattice Analysis: rank needs a bound, and generators come back only up to a basis
+### B. Rank-N Lattice Analysis: rank needs a bound, and generators come back only up to a basis. Rests on the-lattice-read-back.
 
-B1, § Rank as a measured property:
+B1, § Rank as a measured property, `Rank-N Lattice Analysis.md:48`. Replaces the sentence's ending from "and crucially". This drops the clause "rather than an assumption imposed on it", so tell Loudon it goes:
 
 > and crucially, **the rank N itself is a measured quantity**, a property of the source together with one choice: how large the whole numbers may grow. With no bound, any finite set of peaks, measured to any finite precision, fits rank 1 on a small enough fundamental; the bound is what makes rank mean something.
 
-B2, at the end of the paragraph that ends "…the reading mechanism is the genre)." (`Rank-N Lattice Analysis.md:65`):
+B2, at the end of the paragraph at `Rank-N Lattice Analysis.md:64`. The Weave reworded that paragraph's end, which now reads "…the field is one thing, the reading mechanism is the genre."
 
 > The analysis recovers the lattice, not the generators that drew it: (g₁, g₂) and (g₁, g₁ + g₂) generate the same set of frequencies, and the analysis may return either, or any whole-number change of basis with determinant ±1.
 
-### C. Phase Reduction: the limit depends on the loop
+## Next move
 
-Add at the end of the paragraph that holds "That is the Kuramoto model." and "Kuramoto is not a separate postulate…" (`Phase Reduction.md:70`):
+Start with the table that travels, because his outline is already there. Build its sequence and put it in front of him as the last thing in the turn, then wait for his reaction before the next. After that the order is his. For each proof, ask what its component concepts are. Give each one its own short interactive step, then a step that combines them, and end on the existing page. Offer A or B right after he has met the proof it rests on. The Concierge places any yes. An overturned verdict becomes a new line in the hunt ledger.
 
-> It holds only as the coupling goes to zero, and how weak is weak enough depends on the loop. On a van der Pol loop at μ = 1 the shadow's locking range matches the full pair's, cell for cell on the proof's detuning grid, up to a coupling of 0.1; by 0.4 the two have parted. On a nearly round loop (μ = 0.3) the part of the averaged pull that draws the pair together nearly vanishes, and the shadow misses locking even at 0.05.
+## Calibrations from this session
 
-### D. Dispersion Table: the identity's strict edge (optional)
-
-After "A delay line fed back on itself with unity gain is mathematically identical to scanning a stored cycle." (`Dispersion Table.md:68`):
-
-> Exactly so when the loop's length is a whole number of samples. A fractional length makes the loop read between samples on every trip, and that reading is already a filter in the loop: the slot a fractional length forces open is the slot the dispersion curve goes in.
-
-Don't widen it to say a table doesn't compound its own interpolation error: that is plausible, but nothing checked it.
+- **The notes boxes keep nothing in the Claude browser pane.** It serves the file as a `data:` URL and refuses localStorage. This session read his notes from the live tab with JS before navigating away. Read the boxes before leaving a tab, or build the sequences so nothing depends on storage.
+- **They start silent.** A static check on 2026-10-25 found all six build their AudioContext only inside `ensure()`, called only from Play, with `playing` false at start and nothing autoplaying. New sequence pages keep that, and the tab closes after.
+- **The hunt verdicts stand.** None was overturned in these sits. His notes were about teaching, not about the verdicts.
+- **A number a step shows gets a check.** `check-dissolutions-proofs.mjs` re-runs every number the six pages show (27 PASS on 2026-10-25). A new step that shows a number joins it.
 
 ## Load these files first
 
 1. `Dissolutions.md`, the hub: the identity / isomorphism / analogy test and the catalogue.
-2. `Dissolutions/Dissolutions — scroll.md`: the Plan and the six proof entries on the trail.
-3. `Dissolutions/Dissolutions — hunt.md`: the nine ledger lines and what each says it unlocked.
-4. The six proof pages above, in the order he takes them.
-5. `Dissolutions/proofs/check-dissolutions-proofs.mjs`: re-runs every number the six pages show, headless.
-6. `The Palace Voice.md` § Where words land: the rule for how a made thing reaches him.
-7. When an offer is shown: the member page it edits (`Volterra Kernels and the Torus.md`, `Rank-N Lattice Analysis.md`, `Phase Reduction.md`, `Dispersion Table.md`).
+2. `Dissolutions/Dissolutions — scroll.md`: the three 2026-10-25 sit sections at the top of the trail, then the Plan.
+3. `Dissolutions/Dissolutions — hunt.md`: the nine ledger lines.
+4. The six proof pages, and the model they were built to: `Dissolutions/proofs/2026-10-18-one-curve-three-doorways/`, which he has played. Search there before you build.
+5. `Dissolutions/proofs/check-dissolutions-proofs.mjs`.
+6. The dress. The pages carry the LOUD'N LIVE mark and teach in public, so the governing manifest is [[Loudon Live Design System]] (`_ops/loudon-live/design-system/SKILL.md`). Confirm it against [[Drafting Table Design System]] § Which dress before you depart from it.
+7. `The Palace Voice.md` § Where words land: the made thing is the last thing in the turn.
+8. When an offer is shown, the member page it edits.
 
 ## On pickup (fixed — the catcher's checklist; do not rewrite per session)
 *Identical in every baton. It rides along because the catching Claude loads the

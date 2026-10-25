@@ -87,4 +87,4 @@ A new entry joins when it meets all three ingredients above.
 
 ## Active Baton
 
-[[Dissolutions — baton]] — drafted 2026-10-22
+[[Dissolutions — baton]] — drafted 2026-10-25: a learning sequence for each of the six proofs, building up to it

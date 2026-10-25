@@ -61,6 +61,18 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="sit-2026-10-25-walk-ends-in-a-baton" -->
+### 2026-10-25 — The walk stops at three: all six go back to be taught up to
+
+Loudon met three of the six proofs on 2026-10-25: the table that travels, the shadow that locks, the circle's shadow. He left no notes on the circle's shadow. Then he stopped the walk and sent all six back with one note, his words:
+
+> "OK, we are going to have the same exact response for all of these. I'd like to send them all back to be worked on with the same note: these are the end of a proof, we need to work our way there with each of them. So lets make a handoff for developing a learning sequence for each of these that starts with simpler concepts and works the teaching up to the final proofs presented here."
+
+So the walk became a baton, [[Dissolutions — baton]]. For each proof it asks for a few short interactive steps that take each concept on its own, then combine them, and end on the existing page. His outline for the table that travels is the model: the table alone, the loop alone, the two combined through their difference, then the filter. One-field-two-hands, the equation read backward and the lattice read back are not yet played. Offers A, B and E wait on the baton. The hunt verdicts stand.
+
+<sub>hand-appended · sit · the walk's end, 2026-10-25; the note is Loudon's, quoted as typed</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="sit-2026-10-25-the-shadow-that-locks" -->
 ### 2026-10-25 — The shadow that locks, played: why the pitch climbs, and a second ask for staging
 
