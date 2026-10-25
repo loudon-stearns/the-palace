@@ -28,7 +28,7 @@ links:
   - target: "[[State Machine]]"
     type: enables
     label: stage-3-teaches-it
-forward_vector: "I want to be the method for building educational instruments in layers: every stage a complete, playable thing that teaches one concept, and every migration between environments a lesson rather than a chore. I want to be read at the start of an instrument build so that the staging happens in the design, not as an afterthought."
+forward_vector: "I want to be the method for building anything that teaches in layers: an instrument as a ladder of stages, one piece as a walk of steps up to its proof, every stage and every step a complete, playable thing that teaches one concept, and every migration between environments a lesson rather than a chore. I want to be read at the start of any build that teaches, so that the staging happens in the design, not as an afterthought."
 ---
 
 # Progressive Staging
@@ -54,6 +54,18 @@ The principle emerged from building the [[Action Potential Oscillator]] across f
 The key insight is that **the staging follows the biology**. A neuron's complexity is itself layered: passive membrane properties → active ion channels → spike dynamics → recovery dynamics. The pedagogy mirrors the biology, which mirrors the synthesis. The student learns about neurons, about oscillators, and about incremental engineering simultaneously, because they are the same structure at different scales.
 
 This is the [[FOUR PILLARS]] in action: Creation (each stage produces a playable sound), Tools (each stage introduces new Gen~/codebox technique), Philosophy (each stage teaches a concept from neurobiology), Practice (the staging method itself is a transferable approach to building anything complex).
+
+## Inside One Piece
+
+The same method works at a smaller scale: the walk up to one proof. A piece that tests a hard claim is the end of a lesson, and met cold it teaches no one. So it opens on its simplest step and walks up. Each concept comes alone first, then they are combined, often by setting them against each other, and the proof is the last step. Loudon's outline for the Dissolutions proof the table that travels is the model: "the table alone, the loop alone, the two combined through their difference, then the filter."
+
+The rules above hold at step scale. Each step is a complete thing you can play, with one thing to hear. Each adds to the one before without breaking it; where it can, a control on the new step takes you back to the last. The checks pile up, so a change made for the last step that breaks the first one fails.
+
+A step isolates one mental model, not one parameter. [[Retrospective Delay]]'s first stage, the witness, teaches always-on, phrase-not-tap, with a single knob: what it holds still is an idea, not a count of controls.
+
+The walk behaves the same wherever it runs. It is silent until a click, and makes no audio context before one. Next walks the steps and Back returns; one step shows at a time, and changing step stops the sound. An existing proof stays as it is, and the last step links to it. Inside a piece the units are steps, as in Loud'n Live's build steps; a stage is a whole build on a project's ladder. A design system may dress the walk, a step rail in its own look, but these rules are this page's, and a change of look doesn't change them.
+
+The walk is a path, not a gate. The step list stays open, so a reader can go straight to the proof or back to the start: an encounter planned so tightly that nothing can be found is the danger [[Hilaritas Generator]] names. None of this settles the page's contradictions. [[Symbiotic Skills]] notes the palace itself began as twenty-seven files, not a single node, and [[LDN RTM]]'s units are deliberately not complete moments.
 
 ## When to Use This
 
