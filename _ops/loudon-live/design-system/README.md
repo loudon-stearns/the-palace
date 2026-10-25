@@ -1,14 +1,14 @@
 # Loudon Live Design System
 
-The brand and visual system for **Loudon Live** — Loudon's public self, a loose online presence building slowly: streams and builds, the RTM series, the palace in public, and his music. Instruments get built, sound gets studied, and music gets played; DSP fundamentals sit next to real music technique, and the work in progress is part of the teaching.
+The brand and visual system for **Loud'n Live** — Loudon's teaching and coaching face, online and in person: YouTube videos and livestreams for electronic musicians, the RTM series, one-on-one coaching. It is a moving target; `Projects/Loudon Live.md` holds the current portrait and wins when the two disagree. Instruments get built, sound gets studied, and music gets played; DSP fundamentals sit next to real music technique, and the work in progress is part of the teaching.
 
 > Building synths, effects, and tools — out loud.
 
-**Audience:** Autodidact Polymaths — self-taught generalists who learn across many fields at once. Named situationally in prose, phrased to the register and said once — **not** stamped on every artifact (see *Naming the audience*, below).
+**Audience:** Electronic musicians, to start; in time, creative coaching for people who learn across fields on their own (Autodidact Polymaths, now in the background, 2026-10-14). Named situationally in prose, phrased to the register and said once — **not** stamped on every artifact (see *Naming the audience*, below).
 
 **Footer signature:** `Loud'n Live` — the wordmark alone. *(The `· Autodidact Polymaths` tagline was retired from the universal footer 2026-07; forward-only, already-shipped artifacts keep the old footer.)*
 
-**Editorial posture:** Subject is sound and music; tools are the medium. Honesty is a light touch, not a confession. The public self is itself a teaching artifact.
+**Editorial posture:** Subject is sound and music; tools are the medium. Honesty is a light touch, not a confession. Loud'n Live is itself a teaching artifact.
 
 **Pillars:** The Four Pillars — *Creation · Tools · Philosophy · Practice* — four projections of a single higher-dimensional reality cast by the light of curiosity.
 
@@ -193,6 +193,8 @@ Each palette and each generator carries a conceptual handle that the autodidact 
 ## Naming the audience — state it, don't stamp it
 
 *(New 2026-07. Replaces the old universal `· Autodidact Polymaths` footer stamp.)*
+
+The audience is electronic musicians, to start (2026-10-14). The idea below, people who teach themselves across fields, stays in the background: the rules and the phrasing bank still hold for when it is named.
 
 The audience used to ride every footer. That over-said it, and "autodidact polymaths" carries an academic tilt that fights the everyday voice. Instead, name the idea in specific moments — prose, intros — quickly and never leaned on. Two rules:
 

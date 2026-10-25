@@ -159,7 +159,7 @@ The six-skin house style stays the public channel's default dress for everything
 
 *(New 2026-07. Replaces the old universal `· Autodidact Polymaths` footer stamp.)*
 
-The audience is [[Autodidact Polymaths]] — self-taught generalists who learn across many fields at once. It used to be stamped on every footer. That over-said it, and the term itself carries an academic tilt that fights the everyday voice. So: **name the idea in specific moments — prose, intros — stated quickly and never leaned on.**
+The audience is electronic musicians, to start; [[Autodidact Polymaths]] — self-taught generalists who learn across many fields at once — stays in the background (2026-10-14, [[Loudon Live]]). It used to be stamped on every footer. That over-said it, and the term itself carries an academic tilt that fights the everyday voice. So: **name the idea in specific moments — prose, intros — stated quickly and never leaned on.**
 
 Two rules:
 
