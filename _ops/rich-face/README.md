@@ -41,6 +41,7 @@ Any entry opens. `&review=0` hides the review layer.
 | `untracked.mjs` | every file a face names that git doesn't track, with the step that tracks it (§ Media a face plays). The checker's `file-local` carries the same steps |
 | `check-kuramoto-pieces.mjs` | re-checks the physics claims of Kuramoto's pieces headless, on their own worklet code |
 | `check-hidden-hush.mjs` | re-checks, in headless Chromium, that a playing piece goes quiet when its page is hidden and stays quiet when it comes back: in Kuramoto's face, framed by a page that sends nothing, and alone |
+| `check-time-cap.mjs` | re-checks, in headless Chromium, the kit's cap: a sound left a minute untouched warns, stops and says so, comes back on a touch, holds when kept playing, and a context left running at zero gain never trips it; `--face` adds the real minute on Frequency-Time Duality's face |
 | `kit/` | the piece kit (`piece.js`) and the one function every server injects it through (`inject.mjs`) |
 | `serve-file.mjs` | sends one file: its type, byte ranges, and a web page as a piece with the kit injected. The handler and the piece origin both send files through it. |
 | `grants.json` | what Loudon has let a piece use: camera, microphone, midi, hosts. One line per piece, written only on his yes. |
@@ -186,6 +187,8 @@ palace writes runs there: every piece runs on the **piece origin**.
   - on `rich:hush`, suspends the piece's audio and pauses its media until the next touch;
   - when the page goes hidden, does the same itself, framed or alone, whatever the page around it sends
     (§ Making pieces, "A hidden page says nothing");
+  - stops a sound left a minute untouched, framed or alone, and says so over the piece
+    (§ Making pieces, "A sound left alone stops");
   - posts `rich:error` for the first three script errors;
   - keeps each piece's storage under its own prefix, its path, since every piece shares one origin. A piece
     with no origin keeps storage in memory, and the figure says it won't keep;
@@ -249,6 +252,17 @@ palace writes runs there: every piece runs on the **piece origin**.
   comes back: the next touch on a piece wakes its audio, as after any hush, and the room tone waits for
   its button. A piece needs no `visibilitychange` handler of its own.
   `node _ops/rich-face/check-hidden-hush.mjs` re-checks it.
+- **A sound left alone stops.** A piece that has sounded for a minute with nothing touching it is
+  quieted by its kit, as a hush quiets it (Loudon, 2026-10-25: one rule in the kit, not a copy of
+  every piece). The clock is the last touch on the piece, not the start of the sound, so a reader
+  dragging a slider keeps it going. Ten seconds before, a line over the piece says so and offers
+  *keep it playing*; at the cap the line says it stopped, with *go on* and *go on, and keep it
+  playing*, and *leave it stopped*, which only clears the line. Kept playing, the piece never stops on its own again that visit; any other touch is the
+  way back, as after a hush. Sound means media playing, or a running context whose output is above
+  silence: the kit taps every connection to a context's destination and reads it, so a context left
+  running at zero gain after its piece's own stop counts for nothing. A piece meant to run long says
+  so itself: `RichPiece.hold()` keeps it playing, `RichPiece.capAfter(seconds)` sets its own cap, `0`
+  for never. `node _ops/rich-face/check-time-cap.mjs` re-checks it.
 - **The camera starts on a click.** Call `RichPiece.camera()`, or `getUserMedia`, from a click handler.
   If a piece asks before any click, the kit holds the request behind a "start the camera" button. One
   piece holds a camera or microphone at a time: when one starts, the page (or the deck) stops every other
