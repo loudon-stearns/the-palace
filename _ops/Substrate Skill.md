@@ -131,7 +131,7 @@ An entry's `stage` field doubles as a confidence interval on alignment between L
 
 **Stage-conditional posture for the Steward agent** (canonical here; the system that runs it is [[Project Stewardship System]]; the running coordination system is [[STIGMERGY]], its grammar and wire spec are [[SCHEMA]] §9, its origin concept is [[BBS Blackboard]], and its executor is [[Palace Orchestrator]]):
 
-| Stage | Agent's job | BBS posture |
+| Stage | Steward's job | Board posture |
 |---|---|---|
 | seed | Surface underspecified parts; propose vector and plan refinements *around an artifact* | Make a sketch or probe and discuss around it — still ships a (rough) made thing. A genuine fork goes to TRICKSTER, `blocking: true`. |
 | sprout | Plan-level detail; named tradeoffs; flag default-traps | Build a small working prototype each cycle; proposals ride alongside it, never instead of it. |

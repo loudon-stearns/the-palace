@@ -93,7 +93,7 @@ deterministic steps commit — never the agent:
   page by page (`_ops/stigmergy/list-proposals.mjs --page`); an elder places
   his yeses in one edit per page, and `_ops/stigmergy/settle-proposal.mjs`
   then pays each with that commit or declines it with his line
-  ([[Project Stewardship System]] § What's Decided). No steward has wider
+  ([[Project Stewardship System]] § The rites it keeps). No steward has wider
   reach: no manifest names a folder, and the cycle reads none. The Shop roster
   rebuild (`shop-roster.js`) stays wired, but it fires only on a committed
   edit to a page directly under `Shop/`, which no cycle now makes; whoever

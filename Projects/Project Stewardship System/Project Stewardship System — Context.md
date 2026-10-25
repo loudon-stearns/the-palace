@@ -234,6 +234,21 @@ The canonical posture lives in [[Substrate Skill]] § Stage as Alignment Confide
 | dormant | Don't touch. Only the [[Spore Check Ceremony]], [[The Daily Page]], or a revival probe Loudon ordered touches it; only the [[Revival Ceremony]] wakes it | — |
 | composting | Don't touch — composting protocol applies | — |
 
+### The stages, as the text listed them
+
+The table the text carried until 2026-10-25, with where each stage stood that day. [[Palace Orchestrator]] § Machinery keeps it without that column, as the map of where each stage lives.
+
+The system was built in stages, each closing a real gap. Where each one stands:
+
+| Stage | What it is | Where it stands | Where it lives |
+|---|---|---|---|
+| A | A steward run by hand on one project | Done — five hand-run cycles on [[Generative Sample Libraries]], May 2026 | `_ops/agents/permanent/generative-sample-libraries/` |
+| B | The orchestrator, which runs one cycle | In production | `_ops/stigmergy/orchestrator/`, invoked through `_ops/orchestrator/` |
+| C | Scheduling the cycles | The heartbeat, through STIGMERGY's steward lane | `_ops/heartbeat/`, `_ops/stigmergy/orchestrator/src/batch-plan.js` |
+| D | Answering from STIGMERGY instead of hand-editing the board | Shipped | `_ops/stigmergy/app/` |
+| E | An automated Trickster that triages routine asks | Built, in shadow; waits on Loudon's review and the `--live` switch | `_ops/stigmergy/trickster-auto/`, its build report `STAGE-E-COMPLETE.md` there |
+| F | Two Paths: build both branches of a fork, Loudon picks | Built, dry-run only, never dispatched | `_ops/orchestrator/two-paths.md`, its build report `_ops/orchestrator/STAGE-F-COMPLETE.md` |
+
 ## Where the decisions came from
 
 The text keeps each decision and its reason. The stories behind a few of them live here.

@@ -130,17 +130,17 @@ example manifests live at `_ops/orchestrator/`; the harness-discoverable trigger
 `.claude/skills/palace-orchestrator/SKILL.md`, which points back here — the
 [[Skills Are Enchantable Pages]] pattern (page = organ, skill file = one dispatch surface onto it).
 
-**Stewardship's parts** (moved here from [[Project Stewardship System]] on 2026-10-25, word for
-word). The system was built in stages, each closing a real gap. Where each one stands:
+**Stewardship's parts** (moved here from [[Project Stewardship System]] on 2026-10-25). The system was built in stages, each closing a real gap. Where each one lives (how the live
+ones stand is the entry's to say):
 
-| Stage | What it is | Where it stands | Where it lives |
-|---|---|---|---|
-| A | A steward run by hand on one project | Done — five hand-run cycles on [[Generative Sample Libraries]], May 2026 | `_ops/agents/permanent/generative-sample-libraries/` |
-| B | The orchestrator, which runs one cycle | In production | `_ops/stigmergy/orchestrator/`, invoked through `_ops/orchestrator/` |
-| C | Scheduling the cycles | The heartbeat, through STIGMERGY's steward lane | `_ops/heartbeat/`, `_ops/stigmergy/orchestrator/src/batch-plan.js` |
-| D | Answering from STIGMERGY instead of hand-editing the board | Shipped | `_ops/stigmergy/app/` |
-| E | An automated Trickster that triages routine asks | Built, in shadow; waits on Loudon's review and the `--live` switch | `_ops/stigmergy/trickster-auto/`, its build report `STAGE-E-COMPLETE.md` there |
-| F | Two Paths: build both branches of a fork, Loudon picks | Built, dry-run only, never dispatched | `_ops/orchestrator/two-paths.md`, its build report `_ops/orchestrator/STAGE-F-COMPLETE.md` |
+| Stage | What it is | Where it lives |
+|---|---|---|
+| A | A steward run by hand on one project | `_ops/agents/permanent/generative-sample-libraries/` |
+| B | The orchestrator, which runs one cycle | `_ops/stigmergy/orchestrator/`, invoked through `_ops/orchestrator/` |
+| C | Scheduling the cycles | `_ops/heartbeat/`, `_ops/stigmergy/orchestrator/src/batch-plan.js` |
+| D | Answering from STIGMERGY instead of hand-editing the board | `_ops/stigmergy/app/` |
+| E | An automated Trickster that triages routine asks | `_ops/stigmergy/trickster-auto/`, its build report `STAGE-E-COMPLETE.md` there |
+| F | Two Paths: build both branches of a fork, Loudon picks | `_ops/orchestrator/two-paths.md`, its build report `_ops/orchestrator/STAGE-F-COMPLETE.md` |
 
 How the parts fit:
 
