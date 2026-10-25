@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { Box, Button, Tag } from '../primitives.jsx';
 import { fetchProjects, enchantProject } from '../../adapters/projects.js';
 import { advanceSteward, advanceAllStewards, dequeueSteward } from '../../adapters/stewards.js';
-import { ageOf, rowSignal, groupProjects } from '../../lib/scroll-view.js';
+import { ageOf, rowSignal, groupProjects, readyToAdvance } from '../../lib/scroll-view.js';
 import { slug, StatusDot, RunningTag, QueuedTag } from './status.jsx';
 import { usePalaceRef } from '../../lib/palace-ref.jsx';
 import ScheduleStrip from '../stewards/ScheduleStrip.jsx';
@@ -188,7 +188,7 @@ export default function ProjectsDeck({ onOpenScroll }) {
   const pages = data?.pages ?? [];
   const worker = data?.worker ?? {};
   const running = !!worker.running;
-  const readyRows = rows.filter((r) => r.stewarded && r.answered_unconsumed > 0 && !r.running && !r.queued);
+  const readyRows = readyToAdvance(rows);
 
   async function doAdvance(name) {
     setBusy(true); setFeedback(null); setPending(null);

@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import { parseMakingSections, liftArtifacts, palacePathOf, ageOf, rowSignal, groupProjects, cardSpec, messageForSection, decisionFor } from '../../src/lib/scroll-view.js';
+import { parseMakingSections, liftArtifacts, palacePathOf, ageOf, rowSignal, groupProjects, readyToAdvance, cardSpec, messageForSection, decisionFor } from '../../src/lib/scroll-view.js';
 import { sortProjects, projectSortKey } from '../../server/projects.js';
 
 const MAKING = [
@@ -193,5 +193,30 @@ describe('the trail as cards (2026-10-13): a section joins its board message', (
     expect(c.fromMessage).toBe(false);
     expect(c.prose).toContain('Catch-up');
     expect(c.artifacts.light.length + c.artifacts.heavy.length).toBe(sec.artifacts.length);
+  });
+});
+
+describe('readyToAdvance — the deck reads the heartbeat\'s stage floor', () => {
+  const ready = (over) => ({ home: 'X', stewarded: true, answered_unconsumed: 1, running: false, queued: null, stage: 'active', ...over });
+
+  test('a stewarded active row with an answer waiting is ready', () => {
+    expect(readyToAdvance([ready({ home: 'Awake' })]).map((r) => r.home)).toEqual(['Awake']);
+  });
+
+  test('a stewarded dormant (or composting) row with an answer waiting is not', () => {
+    const rows = [ready({ home: 'Resting', stage: 'dormant' }), ready({ home: 'Fading', stage: 'composting' }), ready({ home: 'Awake' })];
+    expect(readyToAdvance(rows).map((r) => r.home)).toEqual(['Awake']);
+  });
+
+  test('the old gates still hold, and a row with no stage is not turned away', () => {
+    const rows = [
+      ready({ home: 'NoSteward', stewarded: false }),
+      ready({ home: 'NoAnswer', answered_unconsumed: 0 }),
+      ready({ home: 'Running', running: true }),
+      ready({ home: 'Queued', queued: 1 }),
+      ready({ home: 'Unstaged', stage: null }),
+    ];
+    expect(readyToAdvance(rows).map((r) => r.home)).toEqual(['Unstaged']);
+    expect(readyToAdvance(undefined)).toEqual([]);
   });
 });
