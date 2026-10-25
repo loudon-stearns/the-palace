@@ -52,3 +52,7 @@ forward_vector: "I keep naming the ontology of synthesis as a topology question 
 - Is "topology" the right word, or is "architecture" / "scaffold" / "armature" more accurate?
 - How does the [[The Curve Is the Material]] entry's "function family as material" reframe this? Are parameter families a *sub-topology*?
 - Where does [[Three Kinds of Warp]] fit — are warps topology-preserving or topology-changing?
+
+## Active Baton
+
+[[Synthesis Topologies — baton]] — drafted 2026-10-25
