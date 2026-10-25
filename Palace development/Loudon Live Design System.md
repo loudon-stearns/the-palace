@@ -307,4 +307,4 @@ The rethink the [[Loudon Live Design System — baton|baton]] of 2026-10-14 aske
 
 ## Active Baton
 
-[[Loudon Live Design System — baton]] — drafted 2026-10-14; since the partial close of 2026-10-25 it carries only the remainder: the text catch-up to the 2026-10-14 portrait, and the Drafting Table "Never cyan" question
+[[Loudon Live Design System — baton]] — drafted 2026-10-14; since the partial closes of 2026-10-25 it carries one question: whether Drafting Table's own "Never cyan" goes

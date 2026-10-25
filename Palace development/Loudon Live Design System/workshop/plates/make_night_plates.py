@@ -32,4 +32,5 @@ for i, p in enumerate(PROMPTS, 1):
     img = h[pid]["outputs"]["7"]["images"][0]
     out = os.path.join(mp.HERE, f"night-n{i:02d}.png")
     open(out, "wb").write(mp.req(f"/view?filename={img['filename']}&subfolder={img['subfolder']}&type={img['type']}"))
+    mp.record(out, h[pid])
     print(f"night n{i:02d}  {time.time() - t0:5.1f}s", flush=True)

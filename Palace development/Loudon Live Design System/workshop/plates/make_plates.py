@@ -66,6 +66,16 @@ def req(path, data=None):
         return f.read()
 
 
+def record(out, run, init=None, denoise=1.0):
+    """Write what made this plate beside it (<plate>.json): ComfyUI keeps its run history
+    only in the server's memory, so the record has to be taken while the run is fresh."""
+    side = {"made": time.strftime("%Y-%m-%dT%H:%M:%S%z"), "checkpoint": CKPT,
+            "init_image": init, "denoise": denoise, "comfy_output": run["outputs"]["7"]["images"][0]["filename"],
+            "graph": run["prompt"][2]}
+    with open(os.path.splitext(out)[0] + ".json", "w") as f:
+        json.dump(side, f, indent=1)
+
+
 def upload(path):
     """Put the start image in ComfyUI's input folder (multipart, stdlib only)."""
     b = uuid.uuid4().hex
@@ -95,6 +105,7 @@ def render(i, init=None, denoise=1.0):
     out = os.path.join(HERE, f"plate-{'r' if init else ''}{i:02d}.png")
     with open(out, "wb") as f:
         f.write(req(q))
+    record(out, h[pid], init, denoise)
     print(f"plate {'r' if init else ''}{i:02d}  {time.time() - t0:5.1f}s  seed {seed}  {WEAR[i - 1]}")
 
 

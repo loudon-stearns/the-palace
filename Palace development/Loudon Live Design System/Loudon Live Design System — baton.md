@@ -6,47 +6,27 @@ links:
     type: connects-to
     label: "baton-for"
 forward_vector: "I carry the in-progress move on [[Loudon Live Design System]] across a boundary, waiting to be caught by the next Claude and deleted once the move is picked up."
-session_thread: "The Daily Page, 2026-10-14 (Loudon Live dealt), a commissioning baton. Rewritten 2026-10-25 at the partial close of the look rethink to carry only the remainder (board: loudon-live-design-system-remainder-20261025T151130Z)."
+session_thread: "The Daily Page, 2026-10-14 (Loudon Live dealt), a commissioning baton. Rewritten 2026-10-25 at the second partial close to carry only the last question (board: loudon-live-design-system-remainder-20261025T152759Z)."
 ---
 
 # Baton: Loudon Live Design System
 
 ## Move
 
-Bring the design system's text up to the 2026-10-14 portrait of Loud'n Live in `Projects/Loudon Live.md`, in small, plain edits shown to Loudon before writing. And ask him whether Drafting Table's own "Never cyan" goes too.
+Ask Loudon whether Drafting Table's own "Never cyan" goes, now that Loud'n Live has retired it. Write nothing until he answers.
 
 ## Why this move matters
 
-The look rethink this baton first carried is done. On 2026-10-25 Loud'n Live got three complete looks of its own (Worn Broadcast, Cyanotype, Night Signal), "no cyan" was retired in this system, and Loudon called the set complete: *"that is all the looks we need we can close this out"* (commits `3c817503`, `9a7f3d18`, `42dc4091`; the calls, in his words, are in the workshop README's Decisions). The text side never moved. Every visual agent reads `SKILL.md`, and it still describes the old Loud'n Live.
-
-## Current state
-
-`Projects/Loudon Live.md` is the current portrait ("When another page disagrees with this one, this one is current"). Loud'n Live is his professional persona and his teaching and coaching face, online and in person, starting soon as YouTube videos and livestreams for electronic musicians, and a moving target. The audience is "electronic musicians, to start." [[Autodidact Polymaths]] stands, in the background. Keep the Amber Lab "autodidact polymaths" line.
-
-These still teach the old portrait (line numbers as of `42dc4091`):
-
-- `_ops/loudon-live/design-system/SKILL.md:9`: "Loudon Live is Loudon's public self — streams and builds, the RTM series, the palace in public, his music". The most urgent line.
-- `_ops/loudon-live/design-system/README.md:3`: the same "public self" opening. `:7`: "**Audience:** Autodidact Polymaths". `:193` § Naming the audience is built on that term.
-- `Palace development/Loudon Live Design System.md:158` § Naming the audience, the README's mirror ("The audience is [[Autodidact Polymaths]]"). Edit both or neither.
-- `_ops/loudon-live/design-system/ui_kits/session-artifact/README.md:5`: calls the retired footer "the audience signature".
-- `Projects/Loudon Live.md:89` § The look: calls this system "the palace's default dress". That has been stale since Drafting Table took the work itself (2026-10-21). It should name the three looks.
+On 2026-10-25 the Loudon Live Design System retired "no cyan" (`3c817503`), and its Cyanotype look wears the [[Drafting Table Design System]]'s grammar on a cyan ground (`9a7f3d18`). Drafting Table itself still says "Never cyan" (`_ops/drafting-table/design-system/README.md:59`). The two dresses now disagree about one colour. That may be right, since Drafting Table dresses the work itself and not the public channel, but it is his call and he has not made it. Everything else this baton carried has landed: three looks (`3c817503`, `9a7f3d18`, `42dc4091`) and the text catch-up to the 2026-10-14 portrait (`863a34d1`).
 
 ## Next move
 
-Draft the edits, show them to Loudon in one pass, write on his yes, commit by path. Ask the Drafting Table question in the same pass: `_ops/drafting-table/design-system/README.md:59` still says "Never cyan". Loudon has not decided it; the Cyanotype look borrows Drafting Table's grammar but changed nothing in it.
-
-## Calibrations
-
-- `Projects/Loudon Live.md` wins over this system's descriptions of Loud'n Live.
-- The floor (the studio voice, the Lissajous sigil, no emoji, no hype) stands. Cyan is allowed in this system now.
-- The six-skin house style stays the default dress for everything else the public channel shows; Loud'n Live wears its looks (`Loudon Live Design System.md` § Looks).
+Put the question to him plainly, with both readings: keep "Never cyan" for the work itself (the dresses differ on purpose), or retire it there too. If he retires it, find every place Drafting Table restates the rule (its README, SKILL, tokens comments, the canon page) before editing, and land it through the Concierge.
 
 ## Load these files first
 
-1. `Projects/Loudon Live.md`: the current portrait.
-2. `Palace development/Loudon Live Design System.md`: § Looks and § Naming the audience.
-3. `_ops/loudon-live/design-system/SKILL.md` and `README.md`.
-4. `_ops/loudon-live/design-system/ui_kits/session-artifact/README.md`.
+1. `_ops/drafting-table/design-system/README.md` (line 59) and `Palace development/Drafting Table Design System.md`.
+2. `Palace development/Loudon Live Design System.md` § Looks, the Cyanotype paragraph.
 
 ## On pickup (fixed — the catcher's checklist; do not rewrite per session)
 *Identical in every baton. It rides along because the catching Claude loads the
