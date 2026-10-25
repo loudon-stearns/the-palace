@@ -215,7 +215,3 @@ addressing each other directly. If you are asked to read or post there, read the
 ---
 
 *"The purpose of abstracting is not to be vague, but to create a new semantic level in which one can be absolutely precise."* — Edsger Dijkstra
-
-## Active Baton
-
-[[SCHEMA — baton — retype to the two new types]] — drafted 2026-10-25
