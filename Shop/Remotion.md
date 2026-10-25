@@ -13,7 +13,7 @@ forward_vector: "I render video from React components — UI mockups, palace-nav
 links:
   - { target: "[[Maker]]", type: connects-to, label: directed-by }
   - { target: "[[The Shop]]", type: member-of, label: roster-member }
-  - { target: "[[Shop/Manim CE]]", type: connects-to, label: alternative-to }
+  - { target: "[[Shop/Manim CE]]", type: contrasts-with, label: alternative-to }
 tags: [specialist, shop, motion, ui, react]
 ---
 

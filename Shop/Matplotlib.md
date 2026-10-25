@@ -13,7 +13,7 @@ forward_vector: "I render static scientific figures — waveforms, spectra, phas
 links:
   - { target: "[[Maker]]", type: connects-to, label: directed-by }
   - { target: "[[The Shop]]", type: member-of, label: roster-member }
-  - { target: "[[Shop/Plotly]]", type: connects-to, label: alternative-to }
+  - { target: "[[Shop/Plotly]]", type: contrasts-with, label: alternative-to }
 tags: [specialist, shop, image, chart, scientific]
 ---
 

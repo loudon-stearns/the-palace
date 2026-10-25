@@ -33,7 +33,7 @@ links:
     type: connects-to
     label: sculpt-or-watch
   - target: "[[Parametric Resonance]]"
-    type: connects-to
+    type: contrasts-with
     label: forcing-vs-letting
   - target: "[[Dialectic — dialectic — spinoza-zhuangzi-on-striving]]"
     type: connects-to

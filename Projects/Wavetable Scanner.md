@@ -16,8 +16,7 @@ links:
     type: connects-to
     label: visualizer-specialist
   - target: "[[Shop/Maker]]"
-    type: connects-to
-    label: directed-by
+    type: made-by
   - target: "[[2D Torus Wavetable Synthesizer]]"
     type: mirrors
     label: lower-dimensional-cousin

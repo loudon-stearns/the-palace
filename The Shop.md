@@ -28,7 +28,7 @@ links:
     type: connects-to
     label: "applied-to-tools"
   - target: "[[BBS Blackboard]]"
-    type: connects-to
+    type: contrasts-with
     label: "alternative-to"
   - target: "[[Quality Manifesto]]"
     type: connects-to

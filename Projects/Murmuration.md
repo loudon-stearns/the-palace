@@ -20,7 +20,7 @@ links:
     type: connects-to
     label: shares-the-2D-terrain
   - target: "[[Neural Granular Synthesis]]"
-    type: connects-to
+    type: contrasts-with
     label: learned-vs-emergent
   - target: "[[Bayesian Granular Synthesizer]]"
     type: connects-to

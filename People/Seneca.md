@@ -39,7 +39,7 @@ links:
     type: connects-to
     label: memento-mori-origin
   - target: "[[Marcus Aurelius]]"
-    type: connects-to
+    type: contrasts-with
     label: stoic-siblings-time-vs-duty
   - target: "[[Epictetus]]"
     type: contradicts

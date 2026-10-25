@@ -8,7 +8,7 @@ version: "2.0"
 trigger: ["weave", "let's weave"]
 links:
   - target: "[[Walk Ceremony]]"
-    type: connects-to
+    type: contrasts-with
     label: thread-versus-whole
   - target: "[[Kuramoto Coupling]]"
     type: mirrors

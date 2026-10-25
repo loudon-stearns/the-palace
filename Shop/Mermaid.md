@@ -13,7 +13,7 @@ forward_vector: "I render diagrams from text — flowcharts, state machines, seq
 links:
   - { target: "[[Maker]]", type: connects-to, label: directed-by }
   - { target: "[[The Shop]]", type: member-of, label: roster-member }
-  - { target: "[[Shop/Graphviz]]", type: connects-to, label: alternative-to }
+  - { target: "[[Shop/Graphviz]]", type: contrasts-with, label: alternative-to }
 tags: [specialist, shop, image, diagram]
 ---
 

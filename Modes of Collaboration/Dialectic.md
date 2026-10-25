@@ -31,7 +31,7 @@ links:
     type: connects-to
     label: first-archived-run
   - target: "[[The Remembering Page]]"
-    type: connects-to
+    type: contrasts-with
     label: sharpens-vs-dissolves
   - target: "[[Excellent Adventure]]"
     type: emerged-from

@@ -27,7 +27,7 @@ links:
     type: couples-with
     label: compression-enables-embodiment
   - target: "[[Deposit Ceremony]]"
-    type: connects-to
+    type: contrasts-with
     label: seed-vs-entry
   - target: "[[Pheromone Trail]]"
     type: connects-to

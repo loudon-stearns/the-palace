@@ -28,7 +28,7 @@ links:
   - target: "[[Source Library]]"
     type: member-of
   - target: "[[Marcus Aurelius]]"
-    type: connects-to
+    type: contrasts-with
     label: dawn-practice-drain-vs-rudder
   - target: "[[Quality Manifesto]]"
     type: connects-to
