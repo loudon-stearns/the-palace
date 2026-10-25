@@ -96,7 +96,7 @@ if (chromium) {
         await pg.waitForTimeout(130);
         const r = await pg.evaluate(([step, splitSrc, headSrc]) => {
           const c = document.querySelector(`section.step[data-step="${step}"] canvas`), g = c.getContext('2d'), W = c.width, H = c.height;
-          const d = g.getImageData(0, 0, W, H).data, red = (x, y) => { const i = (y * W + x) * 4; return d[i] > 170 && d[i + 1] < 80 && d[i + 2] < 70; };
+          const d = g.getImageData(0, 0, W, H).data, red = (x, y) => { const i = (y * W + x) * 4; return d[i] > 180 && d[i + 1] < 60 && d[i + 2] < 50; };   // strict: an amber-red edge blend is not red
           const amber = (x, y) => { const i = (y * W + x) * 4; return d[i] > 140 && d[i] < 205 && d[i + 1] > 85 && d[i + 1] < 150 && d[i + 2] < 60; };
           const dpr = W / c.clientWidth, cw = c.clientWidth;
           const rowsAt = (cx, is = red) => { const ys = []; const x0 = Math.round(cx * dpr) - 1; for (let y = 0; y < H; y++) for (let x = x0; x <= x0 + 2; x++) if (is(x, y)) { ys.push(y); break; } return ys; };
@@ -128,7 +128,7 @@ if (chromium) {
         const r = await pg.evaluate(() => {
           const c = document.querySelector('section.step[data-step="3"] canvas'), g = c.getContext('2d'), W = c.width, H = c.height;
           const d = g.getImageData(0, 0, W, H).data, dpr = W / c.clientWidth, cw = c.clientWidth;
-          const red = (x, y) => { const i = (y * W + x) * 4; return d[i] > 170 && d[i + 1] < 80 && d[i + 2] < 70; };
+          const red = (x, y) => { const i = (y * W + x) * 4; return d[i] > 180 && d[i + 1] < 60 && d[i + 2] < 50; };   // strict: an amber-red edge blend is not red
           const rowsAt = (cx) => { const ys = []; const x0 = Math.round(cx * dpr) - 1; for (let y = 0; y < H; y++) for (let x = x0; x <= x0 + 2; x++) if (red(x, y)) { ys.push(y / dpr); break; } return ys; };
           const split = Math.min(200, cw * 0.28), bw = Math.min(70, split * 0.4), x0 = split + 10, w = cw - split - 18;
           const bar = rowsAt(split / 2 - bw / 2 - 4), dot = rowsAt(x0 + w / 2);      // the bar's left end; the dot at f
