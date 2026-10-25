@@ -138,7 +138,3 @@ The synthesis case is one instance of a wider distinction. In organizations, the
 - FM has no palace instrument. Is that a gap the palace wants filled, or is FM's place here to be the foil the torus argues with?
 - Is sample playback a topology at all, or the limit where topology vanishes into content?
 - The projects on this page mostly do not point back at it yet. Should each declare its family here, from its own side?
-
-## Active Baton
-
-[[Synthesis Topologies — baton]] — drafted 2026-10-25
