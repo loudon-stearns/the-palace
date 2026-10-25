@@ -62,66 +62,9 @@ Every agent in a swarm session can read the full blackboard at any moment. Every
 
 Context cost is manageable: a session with 6 agents generating 3–5 messages each produces 18–30 message objects. At 100–200 tokens per message, that is under 6,000 tokens — less than 3% of a 200k context window. The `.jsonl` format and read cursor (agents read only from their last-read position forward) keeps cost bounded as sessions grow.
 
-## The JSON Structure
+## The Wire
 
-Each line of `blackboard.jsonl` is a complete message object. The `health` block is written by the orchestrator from API response metadata — not by the agent itself:
-
-```json
-{
-  "schema_version": "1.0",
-  "id": "msg-001",
-  "ts": "2026-03-28T14:23:05Z",
-  "session_id": "swarm-2026-03-28-001",
-  "from": "STRIATUM-7",
-  "to": "*",
-  "type": "BROADCAST",
-  "board": "GENERAL",
-  "health": {
-    "context_pct": 0.18,
-    "stop_reason": "tool_use",
-    "iteration": 1,
-    "tokens_this_call": 312,
-    "model": "qwen3:14b",
-    "score": "green"
-  },
-  "payload": {
-    "content": "SPINNING UP. HOME: [[STRIATUM]]. 6 TYPED LINKS LOADED. READING MAP."
-  }
-}
-```
-
-## Board Routing
-
-Messages carry a `board` field — agents self-select which board to write to. No routing logic needed. The board selection is declarative:
-
-| Board | Purpose |
-|---|---|
-| `GENERAL` | Peer-to-peer agent communication, discoveries, acknowledgments |
-| `FLAGS` | Connections worth weaving, high-priority findings, proposed new entries |
-| `WEAVE` | Traversal reports, work completion, synthesis-ready signals |
-| `SYSTEM` | Coordinator-only: session init, shutdown, manifest, configuration |
-| `TRICKSTER` | Loudon's messages and agent replies to Loudon; resource requests and grants |
-| `BRANCHES` | Branch exploration results for coordinator reconciliation |
-
-The `FLAGS` board is the blackboard's most important signal surface. The `TRICKSTER` board is the threshold between the human operator and the autonomous agents.
-
-## Agent Addressing
-
-The spawn manifest, written by the coordinator before any workers launch, gives every agent a stable ID for the session. IDs follow the pattern `ENTRYNAME-N`. The TRICKSTER is always a special entry:
-
-```json
-{ "id": "TRICKSTER", "home": "YOU", "neighborhood": "EVERYWHERE" }
-```
-
-Whether "YOU" is Loudon or an automated agent is an operational decision, not an architectural one.
-
-## The Permission Protocol
-
-Agents post `RESOURCE_REQUEST` messages to the TRICKSTER board for anything outside their baseline tool registry. The request carries a `blocking` flag (true: suspend this thread; false: continue regardless). The Trickster responds with `RESOURCE_GRANT` or `RESOURCE_DENY`, correlated via `re: [request_id]`. `model_upgrade` and `model_downgrade` are valid resource types in this protocol — API cost is real and belongs in the permission system.
-
-## The Trickster Decision Inbox
-
-The inbox is the filtered view of the TRICKSTER board: only pending requests without a response. Each pending item carries the agent's current health score and context percentage, and presents pre-built response options for fast disposition. Questions from agents can bubble up as multiple-choice prompts; the Trickster can click through many parallel agent questions quickly, unblocking many work threads in a single session.
+The message grammar, the boards and the permission protocol are [[SCHEMA — Reference]] §9; the options shape and health scoring are [[Palace Orchestrator]].
 
 ## The BBS as Stigmergy
 
@@ -137,9 +80,7 @@ The blackboard's canonical form is `.jsonl`. But a swarm session generates many 
 
 The BBS aesthetic makes this natural: render the blackboard as a **phosphor-green terminal bulletin board**. Each agent has a color. Message types have distinct visual signatures. The FLAGS board lights up amber. The TRICKSTER channel glows gold. The whole session is readable as a drama — the swarm's intelligence becoming visible as it accumulates. Agent health scores are visible on every message as the `health` block — a session where `context_pct` climbs across successive messages from the same agent is immediately readable as a degradation curve.
 
-This is not decoration. The BBS aesthetic is epistemically appropriate: the blackboard is literally a bulletin board. The visual form mirrors the underlying architecture.
-
-The [[BBS Design System]] (April 2026) resolves this section into a concrete implementation: a complete React component kit and CSS token system for STIGMERGY, the browser-based phosphor terminal. An earlier direction explored Python `curses` for a raw-terminal interface; that path is deferred in favor of a browser host that preserves the character-cell discipline without the constraints of OS terminal rendering. The curses approach remains viable for headless or SSH contexts and is not abandoned — just a parallel track.
+The form fits because the blackboard is literally a bulletin board. The build is [[BBS Design System]]: the React component kit and CSS tokens behind STIGMERGY.
 
 ## Agent Health on the Board
 
@@ -169,11 +110,4 @@ Health scores: **green** (context < 70%, no anomalies), **yellow** (context 70�
 
 ---
 *"Stigmergy is a mechanism of indirect coordination between agents where the trace left by an action stimulates the performance of a subsequent action."* — Pierre-Paul Grassé, who named it watching termites
-
---- 
----
-## Forward Vector
-Create a beautiful and fun to use ASCII text interface for the Bulletin Board System: Codename Stigmergy. In the process we learn about creating cool ASCII interfaces, step by step.
-
-**Phase 0 complete (2026-04-21):** [[BBS Design System]] deposited. Visual language established, component kit in place at `_ops/stigmergy/design-system/`. Next: Phase 1 — static prototype running locally with channel tabs and palace-appropriate seed data.
 

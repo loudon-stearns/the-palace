@@ -96,31 +96,11 @@ This device belongs to the dub tradition: King Tubby excavated and remixed; Lee 
 
 The instrument's name is unsettled, and the unsettling itself is productive.
 
-Two naming poles have emerged:
+Two poles. **"Semantic Delay"** is clear: it tells a newcomer exactly what the device does — a delay that operates on meaning rather than on waveforms — and it has no magnetism. **"Duppy Machine"** is deep: it places the instrument in the dub tradition, ghosts in the machine, King Tubby and Lee Scratch Perry's necromantic studio practice, and it needs teaching before it lands.
 
-**"Semantic Delay"** is technically accurate and conveys function clearly. It tells a newcomer exactly what the device does: a delay effect that operates on meaning rather than on waveforms. The clarity is its strength and its limitation. The tone is academic, clinical—precise but without magnetism. It works well in documentation and technical communication but lacks the hooks that make a name stick in memory and culture.
+A trickster name can hold both: playful on the surface, the mythology underneath for whoever pulls the thread. Paired with a subtitle — **"Duppy Machine: a semantic delay"** — the function is clear and the depth waits.
 
-**"Duppy Machine"** carries mythological weight and cultural resonance. It places the instrument squarely in the dub tradition—ghosts in the machine, King Tubby and Lee Scratch Perry's necromantic studio practices. It evokes trickster spirit and the full heritage of Caribbean sound magic. But it requires cultural knowledge to land. A listener unfamiliar with Jamaican folklore or dub history won't understand why a semantic transformation device is called a "machine haunted by a ghost." It is a hook that needs teaching before it works.
-
-This is the classic tension: **accessibility vs. resonance**. The name that teaches needs to be learned. The name that teaches itself offers no depth.
-
-But the ideal name operates on two levels simultaneously. Trickster names work this way—they seem playful or mysterious until you pull the thread and discover the mythology. The surface reading is accessible; the deep reading earns its depth for those who seek it. "Duppy Machine" could work this way if paired with a subtitle that makes the function clear: **"Duppy Machine: a semantic delay."** Or: **"Duppy: voice haunting through semantic transformation."**
-
-Alternatively, the search itself is generative. Every candidate name reveals something about what the instrument is FOR:
-
-- Names that emphasize **repetition with difference** (Echo, Phantom, Whisper) suggest the musical side—the rhythmic coupling and ghostly transformation.
-- Names that emphasize **semantic transformation** (Mutator, Morphic, Transducer) appeal to the speech/meaning side.
-- Names that emphasize **spirit/trickster** (Trickster, Shapeshifter, Crossroads) anchor in mythology and cultural tradition.
-- Names that emphasize **haunting/presence** (Phantom, Specter, Echo) evoke the dub lineage and existential weight.
-
-The naming choice is itself a choice about the instrument's primary audience and first affordance:
-
-- Is this FOR musicians who want a rhythmically coupled effect in their DAW? → name emphasizes rhythm and delay
-- Is this FOR vocalists and spoken-word artists? → name emphasizes transformation and voice
-- Is this FOR people interested in AI-driven creative tools? → name emphasizes the semantic layer
-- Is this FOR people steeped in dub and trickster philosophy? → name emphasizes spirit and lineage
-
-Each choice is valid. The answer might not be a single name but a **design decision about which door to open first**.
+The answer might not be a single name but a **design decision about which door to open first**.
 
 ## Phase 1 Plan — SVC + VST (2026-04-20)
 
@@ -184,7 +164,7 @@ The stages after this one, as agreed, with the numbers the code still uses, are 
 
 ## Status
 
-Currently `active`. **Stage 0 complete as of 2026-04-20.** Awaiting quality check on generated audio before Stage 1.
+Where it stands now is on the [[Semantic Delay — scroll|scroll]]: Loudon passed the sound in May, and the next move is putting the real model behind the helper.
 
 Missing artifacts from foundational conversation (2026-03-06):
 

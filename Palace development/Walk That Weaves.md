@@ -69,6 +69,7 @@ The [[Swarm Weave]]'s lifecycle lens is this question in practice: workers start
 The lesson the first walk left: count reach, not degree. The catch-up script once counted symmetric links one way only, so it sent walkers after newcomers that already had partners, and nearly half the proposals re-drew links that existed. With reach counted, the walk's proposals hold no duplicates (`_ops/swarm/sessions/weave-2026-09-24/ab/RESULT.md`).
 
 Whether the walk is a third ceremony or stays a lens inside the Weave is the open question, and this entry stays a question.
+— answered (2026-10-24): a lens, not a third ceremony. The Weave runs as a multi-lens swarm, each lens with its own mandate ([[Weave Ceremony]] § Execution Method), Step 0b puts newcomer catch-up into every run, and Loudon's yes to composting this page named the walk the Weave's lifecycle lens.
 
 ---
 

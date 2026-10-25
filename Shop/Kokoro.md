@@ -163,11 +163,11 @@ Dispatch by calling the venv's Python directly: `~/.venvs/kokoro/bin/python <scr
 
 **2026-05-10 — Python 3.13 install fails on `blis`/spaCy compile.** Kokoro's transitive deps reach `spacy → thinc → blis`. On Python 3.13 the blis wheel build fails (clang errors during native compile). Python 3.12 has prebuilt wheels for the entire dependency tree. Use 3.12.
 
-**2026-05-10 — The Specialist's documented voice IDs were wrong.** Entry pre-2026-05-10 said `voice=af_default` for Sketch tier and `voice=af_bella` for Study. The published Kokoro voice catalog (as of `kokoro` 0.9.4) does not include `af_default`. The working defaults are `af_heart` (warm, default in the README), `af_bella`, `af_nicole`, etc. Sketch tier now defaults to `af_heart`. Study tier `af_bella` confirmed to exist but not yet tested.
+**2026-05-10 — Voice IDs.** `af_heart` (Sketch default, the README's warm default), `af_bella` (Study; in the catalog, not yet tested at that tier), `af_nicole`, and the rest of the published catalog as of `kokoro` 0.9.4. There is no `af_default`.
 
-**2026-05-10 — Output sample rate is 24 kHz, not configurable below.** Kokoro 0.9.4 renders natively at 24 kHz mono. The Specialist entry's Sketch tier originally said 16 kHz — that would have required a downsample post-step that costs more than it earns at Sketch tier. Aligned the spec to the natural output. If 16 kHz is genuinely needed for a video-sync downstream, do it via `ffmpeg -ar 16000` in the Maker's delivery pipeline rather than inside Kokoro.
+**2026-05-10 — Output sample rate is 24 kHz, not configurable below.** Kokoro 0.9.4 renders natively at 24 kHz mono. If 16 kHz is genuinely needed for a video-sync downstream, do it via `ffmpeg -ar 16000` in the Maker's delivery pipeline rather than inside Kokoro.
 
-**2026-05-10 — API surface is `KPipeline`, not a CLI.** Kokoro 0.9.4 exposes a Python `KPipeline(lang_code='a')(text, voice=..., speed=...)` generator yielding `(graphemes, phonemes, audio)` per chunk. The Specialist entry's Job Contract implies a CLI dispatch; in reality the Maker dispatches a small Python script that imports `KPipeline`. Concatenate the per-chunk audio (with optional inter-sentence silence) before writing the WAV.
+**2026-05-10 — API surface is `KPipeline`, not a CLI.** Kokoro 0.9.4 exposes a Python `KPipeline(lang_code='a')(text, voice=..., speed=...)` generator yielding `(graphemes, phonemes, audio)` per chunk, so the Maker dispatches a small Python script that imports `KPipeline`. Concatenate the per-chunk audio (with optional inter-sentence silence) before writing the WAV.
 
 **2026-05-26 — misaki phoneme overrides use IPA, not ARPABET.** Kokoro 0.9.4 ships with the misaki G2P front-end. The Specialist entry's `[word](/HH AH/)` example reads as ARPABET but misaki's actual phoneme language is IPA-like (Unicode characters `ə`, `ɹ`, `ʌ`, `ɛ`, stress markers `ˈ` `ˌ`, plus shorthand `O` for /oʊ/ and `A` for the letter K-style /eɪ/). Passing ARPABET through `[word](/K UH R AH M OW T OW/)` causes misaki to leave the string in the phoneme stream literally — Kokoro then attempts to synthesize the spelled-out letters, producing garbled audio. Fix: pass real IPA. For "Kuramoto," the working override is `[Kuramoto](/kˌuɹəmˈOtO/)`. Probe misaki's dialect for any unfamiliar word with `from misaki import en; en.G2P()(word)[0]` — that returns the canonical phonemes the model expects.
 
@@ -198,6 +198,7 @@ Last run: **2026-05-30** — Smoke pass (Phase B narration render: 10.55 s mono 
 - Does Kokoro pronounce "RNBO" as "rin-bo" or letter-by-letter? Phoneme override TBD on first job.
 - Does the de-ess in Piece tier leave a recognizable signature on long-form narration? Verify in first Piece-tier job.
 - Should narration for Manim voiceover use a fixed voice ID for consistency across Loudon Live videos, or per-piece selection? Maker's call, but I should declare a preference if asked.
+  — progressed (2026-10-24): the multi-character case is settled — per-character fixed voice IDs (§ Recipes, from [[Radio Play]]) — and the [[Maker]]'s narration heuristic sends narration to Kokoro by default, Loudon's own voice when the piece is published as him. One narrator's voice across Loudon Live videos is still open.
 
 ## Lost Branches
 

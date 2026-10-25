@@ -170,7 +170,7 @@ The B editor displays the fiber at a given base-space position. The flat horizon
 
 **The entry, answering:** Then the topological invariants are the realest thing — more real than any rendered waveform, because they characterize the field, not the instance. That is why the Berry-phase listening experiment matters: it tests whether the virtual structure is audible beneath any actualization. And it endorses the bundle UI instinct: edit the bundle as a whole, because the bundle **is** the virtual and the frames are its actualizations. [[Simondon]] would add: the synthesizer that exposes the torus rather than a list of presets is the *more concrete* instrument — its control surface has converged on the actual structure of its own possibility space.
 
-*Reader's note: the entry's closing line leans Platonic. The Deleuzian reading licenses "design the field, not the instance" as the entry's real design principle.*
+Design principle: design the field, not the instance.
 
 ## Lost Branches
 

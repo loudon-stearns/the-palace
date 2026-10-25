@@ -78,7 +78,7 @@ The Yao et al. insight that applies most directly to the palace: the *value* of 
 
 ## Forward Vectors
 
-- The palace's branch exploration (§10.2 of the spec) uses BFS/parallel dispatch. Are there palace use cases that warrant DFS instead — following one branch deeply before exploring alternatives? Long-duration proof construction might benefit from DFS: pursue one inference chain to completion before branching.
+- The palace's branch exploration, if built, would use BFS/parallel dispatch. Are there palace use cases that warrant DFS instead — following one branch deeply before exploring alternatives? Long-duration proof construction might benefit from DFS: pursue one inference chain to completion before branching.
 - The Yao et al. paper focuses on single-model ToT within one context window. The palace extends this to multi-agent ToT across separate context windows sharing a common ancestor checkpoint. This extension is not in the paper and is a palace-native design move worth documenting as a distinct contribution.
 - State evaluation in Tree of Thoughts is the hardest step — scoring intermediate thoughts for their promise. In the palace, this maps to the Coordinator's branch reconciliation. What makes a good branch reconciliation prompt? This is underspecced in the current architecture.
 

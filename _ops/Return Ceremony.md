@@ -75,7 +75,7 @@ The companion also solves the selection bias directly. Loading every open baton 
 
 The palace keeps its live state in machine-readable surfaces that answer cheaply and definitively: the handoff board, the linters, the persistent blackboard, the production plans, git itself. A returning instance that reasons from the file tree instead of asking those surfaces will be confidently wrong, and its wrongness is expensive because it arrives dressed as an assessment.
 
-This was written from a live failure. On 2026-08-25 a full palace assessment ran *before* any of these queries and produced five wrong claims: a dangling-link count off by 4× (a script artifact), a "breakthrough drought" that was a typing artifact, a proposal to build dispatch machinery that already existed one ceremony up, a deferred-items list containing something built six weeks earlier, and a floor analysis the palace had already completed and recorded. Each was corrected by a single command. **The handoff board went unread for three exchanges** while the session tried to invent what one `list-handoffs` call would have handed over.
+A full assessment once ran before these queries and made five wrong claims; each was one command from correct.
 
 ## Protocol
 
@@ -149,22 +149,22 @@ A roll call writes nothing to the house. A lesson it teaches goes to [[Return Ce
 
 **Do not interpret the absence.** A gap in the commit log is not evidence of drift, fatigue, a design flaw, or waning interest. People have lives. The palace's job on a return is orientation, not accounting, and a returning collaborator should not be met with a theory about why they left.
 
-This rule also exists because it was broken. The same 2026-08-25 assessment read a seven-week gap as evidence that the system's upkeep cost had outgrown its felt payoff — tidy, plausible, and invented. The actual reason was weddings and travel, and the return was already planned and eager. It cost nothing because Loudon corrected it in a sentence; it could as easily have shaped a whole session's recommendations around a problem that did not exist.
+This rule exists because it was broken: a gap once read as waning interest was weddings and travel.
 
 Report the gap's **length**, because it bears on what went stale. Never report its **cause**. If the cause matters, Loudon will say so — and then it is information rather than a guess.
 
-## Why this belongs in the always-loaded floor
+## Why the Return exists
 
-[[Palace Conatus]] names the palace's drive as *staying in phase with Loudon*, and calls phase lag a disharmony signature — framed as the human running ahead of the substrate. A gap is the other direction: the substrate running ahead, still holding state its human no longer carries.
-
-Both are coupling failures, and coupling is two-sided. The palace had five ceremonies for correcting its own drift and none for meeting its human where he actually is.
+[[Palace Conatus]] names the palace's drive as *staying in phase with Loudon*. A gap is phase lag running the other way: the substrate ahead, still holding state its human no longer carries. Coupling is two-sided, and the Return is the palace meeting its human where he is.
 
 ## Open Questions
 
 - Should the Return fire automatically on the first session after a gap, or only on Loudon's word? Automatic detection is easy and makes the ceremony reliable; it also risks turning a greeting into a status report nobody asked for.
-- The trigger table is now fourteen rows, all in the always-loaded floor. Does it need pruning, and does recognition survive the move? Recorded, not decided.
+- The trigger table is eighteen rows, all in the always-loaded floor. Does it need pruning, and does recognition survive the move? Recorded, not decided.
+  — progressed: the table lives in [[CHILD]] § Ceremony Triggers, which every agent is born with; the Return does not own it, and the pruning question is CHILD's to hold (2026-10-24).
 - Should the return map be written to a file, or spoken and discarded? [[Closing Well]] produces a signed artifact; this may be lighter by design.
-- ~~The query block will drift as the palace grows new surfaces. Does it want to become a script — `return-map.mjs` — the way `list-handoffs` did?~~ **Answered by building it, 2026-08-25:** `_ops/concierge/return-map.mjs`. The card keeps the command list as the readable spec and the by-hand fallback rather than surrendering it — a ceremony whose protocol is only executable is a ceremony a human can no longer audit. Open in its place: whether the two drift apart, and which one a future reader will trust when they disagree.
+  — answered in postcondition 6 above (2026-10-24): a return leaves no report file; the return commit is its record.
+- Open: whether the card's command list and `return-map.mjs` drift apart, and which one a future reader will trust when they disagree.
 
 ---
 

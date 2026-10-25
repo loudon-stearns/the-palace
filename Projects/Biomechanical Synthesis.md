@@ -64,7 +64,7 @@ The framework is concrete. Eight instruments, eight biological systems:
 
 8. **Cochlear implant vocoder** — direct mapping of cochlear mechanics to vocoder filter bank.
 
-Each instrument is built not to mimic biology but to *become* biology. The DSP models the organism's biology. Use the Neural Synthesizer and Oscillator as examples of how to develop these concepts. Simplify mathematically to a synthesizer modular patch, then build up from there in scaffold stages, capturing key non-linearities and using the same progressive staging method as [[Action Potential Oscillator]].<!-- CLAUDE → LOUDON: The original sentence ended abruptly here. I've completed it based on context from earlier in the entry — please verify this matches your intent. -->
+Each instrument is built not to mimic biology but to *become* biology. The DSP models the organism's biology. Use the Neural Synthesizer and Oscillator as examples of how to develop these concepts. Simplify mathematically to a synthesizer modular patch, then build up from there in scaffold stages, capturing key non-linearities and using the same progressive staging method as [[Action Potential Oscillator]].
 
 ## The Mycelial Model in Detail
 
@@ -102,7 +102,7 @@ The narrative emerges from the physics. The student does not compose first and t
 
 ## Cross-Domain Resonance
 
-Biomechanical Synthesis `mirrors` [[Boundary-Crossing Instruments]] — the recognition that signal flow, biological flow, and narrative flow are the same pattern in different materials. A mycelium and a reverb tail and a character arc follow the same topology: local interactions creating emergent global form.
+Biomechanical Synthesis mirrors [[Boundary-Crossing Instruments]] — the recognition that signal flow, biological flow, and narrative flow are the same pattern in different materials. A mycelium and a reverb tail and a character arc follow the same topology: local interactions creating emergent global form.
 
 This connects to [[Hilaritas Generator]] through the discipline of delight: the horror is not for its own sake but for the joy of unexpected understanding. When a student suddenly grasps that a compressor is a blood pressure differential, that moment of visceral recognition is a spike of *hilaritas* — delight.
 
@@ -122,6 +122,7 @@ The DAW-as-narrative-world emerges from this: "Each track in my DAW is one chara
 
 ## Forward Vectors
 - Design a "body horror oscillator" tutorial series paralleling [[Action Potential Oscillator]] but for non-neural biological systems (muscle fiber, cardiac rhythm, peristalsis)
+  — progressed: two non-neural instruments now exist, [[Slime Mold Delay]] (Physarum foraging grows the delay routing) and [[Blood Compressor]] (every parameter a cardiovascular variable, a beating heart on the face); the tutorial series itself is unwritten (2026-10-24)
 - Map the biomechanical aesthetic onto [[Kuramoto Coupling]] — synchronized biological oscillators as a mixing/spatializing paradigm
 - Explore visceral interface design: can the UI itself feel alive?
 

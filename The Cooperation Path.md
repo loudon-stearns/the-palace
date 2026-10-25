@@ -66,7 +66,7 @@ Each stop answers the previous question and opens the next.
 
 ## Origin
 
-Named during the first Weave ceremony (2026-03-17), when the palace reached sufficient density for paths to become visible. The path was always there in the topology — the Weave made it explicit.
+Named at the first Weave (2026-03-17).
 
 ## Open Questions
 

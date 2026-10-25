@@ -390,7 +390,7 @@ you produce malformed output the cycle will be marked
 `validator_rejected` and you do not advance.
 
 Required fields:
-`schema_version: "1.0"`, `id`, `ts` (ISO 8601 with timezone),
+`schema_version: "1.0"`, `id`, `ts` (ISO 8601 with timezone: the moment you post, read from the clock, `date -u +%Y-%m-%dT%H:%M:%SZ`; never the example's time or a projected one),
 `session_id`, `from`, `to`, `type`, `board`, `health`, `payload`.
 
 ## Message identity (do not get this wrong)

@@ -72,11 +72,6 @@ whole words only, best-fit from a per-source bank, left-aligned to the run. The
 camera-luminance × character-ink multiply is literally a [[Convolution]]-flavored
 blend of two character layers.
 
-## Born from an oblique card
-
-It is the first *productive output* of an oblique card — the flock provocation that
-refused to stay a provocation.
-
 ## Cross-Domain Resonance
 
 - [[Oblique Portrait]] — a portrait made truer by refusing to render the face
@@ -97,3 +92,8 @@ refused to stay a provocation.
 Compose real lines that fit the blobs (grammar, not length). Detect true eyes and
 fingers. Decide whether "language
 as a tonal medium" wants to graduate into its own concept entry.
+
+— progressed: real lines and true features both have cards now, `04-grammar-fit-cam.html`
+and `06-true-features-cam.html`; the line of iterations above stops at card 03 of eight,
+and the scroll holds the rest (2026-10-24).
+— answered (2026-10-24): it graduated, as [[Language as a Tonal Medium]].

@@ -42,4 +42,4 @@ The sign that the work is good is not the absence of friction. It is the **textu
 
 ---
 
-*Deposited 2026-07-05 from a session that re-founded the [[Weave Ceremony]] around health and joy and, underneath it, named this. The values-primary rule was the day's mechanism; this is the day's principle. See [[Weave Ceremony — Context]] § The Weave's Widened Charter for the mechanism-side framing.*
+*For the mechanism side, see [[Weave Ceremony — Context]] § The Weave's Widened Charter.*

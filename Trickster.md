@@ -164,4 +164,3 @@ The TRICKSTER's `id` in the spawn manifest: `TRICKSTER`. Home: `YOU`. Neighborho
 
 *"Play is the only activity in which humans are free; the trickster keeps that freedom alive."* — Johan Huizinga
 
-<!-- CLAUDE → LOUDON: Map-injected enchantment 2026-04-01 revealed three entries deepening this page without reciprocal links (Palace Agent Infrastructure Spec, Playful Interface Design, Retrospective Delay) — all now added. Type promoted to hub (degree 30+, well above threshold). Forward vector revised from "I identify trickster logic" to "I generate threshold conditions" — a shift from observer to generator. Latent Error's inbound link remains uninvestigated; flagged for next Walk. Dialogue Moderator relationship formalized as mirrors[opposite-threshold]: Moderator holds the inner/outer gap from inside; Trickster interrupts from outside. Same threshold, opposite vantage. -->

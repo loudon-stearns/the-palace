@@ -107,8 +107,3 @@ An interactive **Schrödinger Equation Synthesizer** was built in the conversati
 
 The artifact demonstrated that the Schrödinger equation is not a theoretical framework for sound—it is a *direct generative mechanism*. Feed the eigenfunction spatial structure into a bank of resonant filters (or a wavetable), and you synthesize directly from quantum mechanics.
 
----
-
-**Revival conditions:** Accessible quantum computing frameworks (even simulators) reaching synthesis platforms; composers and instrument designers becoming literate in Hermite-Gaussian and other eigenfunction bases as timbre palettes; physicists recognizing audio synthesis as a laboratory for testing anharmonic potentials and nonlinear resonance.
-
-**Key insight:** There is no gap between "real" quantum systems and sonified quantum mathematics. The mathematics is the physics. The physics is the sound.

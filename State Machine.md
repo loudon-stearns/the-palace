@@ -137,8 +137,6 @@ phase, V, timer = neuron(freq, leak_tau, ...)
     };
 ```
 
-<!-- FLAG: The 4 code blocks above are kept in full per task instructions. The JS and Python blocks are condensed single-state excerpts; the full per-language oscillator implementations could move to a bundle sketch (State Machine/) if they grow. The Faust block is the only one that shows a structurally different approach (functional state threading) — keep it. -->
-
 This is what makes the state machine a [[ROSETTA]] concept — learn it in one language, recognize it in all of them.
 
 ## When to Cross the Line

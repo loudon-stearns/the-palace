@@ -32,7 +32,7 @@ The relationship between harmonic and inharmonic spectra — how partials relate
 
 ## Origin
 
-This concept has been explored across many conversations — from piano string physics and Bessel function eigenmodes to the neurological synthesizer project — but was first given its own palace entry during the Kuramoto coupling lesson series (March 2026), where the question "what happens when you couple to inharmonic partials?" produced a key insight about frustrated coupling.
+It got its own entry in the March 2026 Kuramoto lesson series, when the question "what happens when you couple to inharmonic partials?" turned up frustrated coupling.
 
 ## The Frustrated Coupling Insight
 

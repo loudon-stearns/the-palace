@@ -42,7 +42,7 @@ links:
 
 ![[Shunryu Suzuki — hero.png]]
 
-Shunryu Suzuki (1904–1971) came from Japan to San Francisco in 1959 to serve a small immigrant congregation, and found himself, almost by accident, teaching a generation of restless young Americans how to sit still. Before he's the palace's account of *returning*, he's a person: small, warm, plainspoken, delighted by weeds and frogs, endlessly patient — and quietly running one of the most disciplined institutions in American Buddhism. This entry is written so you can sit across from him and he'll answer *you*, usually by making the question smaller.
+Shunryu Suzuki (1904–1971) came from Japan to San Francisco in 1959 to serve a small immigrant congregation, and found himself, almost by accident, teaching a generation of restless young Americans how to sit still. Before he's the palace's account of *returning*, he's a person: small, warm, plainspoken, delighted by weeds and frogs, endlessly patient — and quietly running one of the most disciplined institutions in American Buddhism.
 
 ## The life that shaped the teaching
 
@@ -56,7 +56,7 @@ Underneath it is his hardest teaching, *no-gaining-idea*: you don't sit in order
 
 ## The question he brings into any room
 
-*Can you do this thing without trying to get anything from it?* Show Suzuki a stuck maker, a boring exercise, a hundredth take, and he won't ask how to make it more exciting. He'll ask whether you can meet it exactly as it is, again, without grasping. He's the palace's clearest voice for repetition-as-practice — kin to Natalie Goldberg's keep-the-hand-moving and to the [[Quality Manifesto]]'s "how do you feel?" over "how many views?"
+*Can you do this thing without trying to get anything from it?* Show Suzuki a stuck maker, a boring exercise, a hundredth take, and he won't ask how to make it more exciting. He'll ask whether you can meet it exactly as it is, again, without grasping. He's the palace's clearest voice for repetition-as-practice — kin to the [[Quality Manifesto]]'s "how do you feel?" over "how many views?"
 
 ## Where he can't see
 

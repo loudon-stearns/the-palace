@@ -119,8 +119,6 @@ Everything around the file is public too: its name, the harvest record's title a
 
 ## The Archive
 
-The record of what has entered the palace is the [[Deposit Ceremony — Deposit Archive|Deposit Archive]] (frozen pre-spec rows) **plus** the LOG deck's `Palace-Kind: deposit` commits (post-migration deposits — a deposit's record is now its commit). Do not read the archive wholesale during harvest — it is too large; query it and the deposit commits via script.
-
 A working list of harvest candidates can live anywhere that makes sense for the current session — in the conversation itself, in a temporary file, in a shared document. It does not need to be a permanent palace file. When the harvest is done, move the candidates to wherever [[Deposit Ceremony]] can find them.
 
 ---
@@ -130,8 +128,10 @@ For the history of how this ceremony developed, the Oblique Harvest best practic
 ## Forward Vectors
 
 - The next harvest will likely be against a new type of source material (Google Drive, project archives, or new conversation batches). When that moment comes, revisit what the oblique approach looks like for that dataset — it may be quite different.
+  - Progressed (2026-10-24): two new kinds have been harvested — a dense source by the close reading ([[Harvest — 2026-09-06 — Environments That Hold]]) and outside projects by § Lessons from outside. What remains: when a source is neither a pile nor a dense document, say which of the two moves it resembles.
 - Consider whether the harvest can be partially automated: scripts that pre-triage obvious skips, leaving Loudon to call only the interesting ones.
 - What would a "harvest for connections" look like — searching not for new entries to create, but for existing entries whose links should be updated based on recent conversations?
+  - Answered on [[Weave Ceremony]] (2026-10-24): the Weave reads the `weave_flag` inbox sessions leave (Step 0c), audits unsung paths (Step 1b) and unsaid links (Step 3e), and a deposit flags what may want updating (Deposit Ceremony, "Flag for the Weave").
 
 ---
 

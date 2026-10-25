@@ -60,7 +60,7 @@ This is Loudon's generalization, not a textbook result. It emerged in dialogue b
 
 ## The identity it rests on
 
-The load-bearing fact underneath the whole entry: **a [[Wavetable Oscillator|wavetable oscillator]] is a lossless waveguide loop.** A delay line fed back on itself with unity gain is mathematically identical to scanning a stored cycle. The loop's contents *are* the wavetable; the loop length *is* the period. Two synthesis paradigms normally taught as separate collapse into one object — see [[Waveguide Synthesizer]] for the physics scaffolding (D'Alembert's traveling-wave solution, the delay-line architecture, Karplus-Strong as the lossy case).
+The load-bearing fact underneath the whole entry: **a [[Wavetable Oscillator|wavetable oscillator]] is a lossless waveguide loop.** A delay line fed back on itself with unity gain is mathematically identical to scanning a stored cycle. The loop's contents *are* the wavetable; the loop length *is* the period. Two synthesis paradigms normally taught as separate collapse into one object — see [[Waveguide Synthesizer]] for the physics scaffolding (D'Alembert's traveling-wave solution, the delay-line architecture, Karplus-Strong as the lossy case); its vocal-tract kin is [[Linear Predictive Coding]].
 
 Once the loop and the table are the same thing, a question opens that has no analog in ordinary wavetable thinking: *the loop has a filter in it.* A real (lossy, dispersive) waveguide loop applies, on each round trip, a filter with both a magnitude response (governs brightness and decay) and a **phase response** (governs which frequencies satisfy the round-trip resonance condition, and therefore where the partials actually land). The magnitude response is the part wavetable synthesis already exploits. The phase response is the unclaimed axis.
 
@@ -81,7 +81,7 @@ A single phase-response curve gives one inharmonic mode structure. The generaliz
 - a **position axis** selecting loop-filter *magnitude* character (brightness, decay rate);
 - a **warp axis** selecting loop-filter *phase* character (the dispersion curve, and therefore the inharmonic partial structure).
 
-This maps the project's 2D torus architecture directly onto a waveguide with two meaningful axes. The warp axis of the [[2D Torus Wavetable Synthesizer]] *is* the dispersion axis of a tabulated waveguide — the same control under two descriptions, which is why the link to the torus is a `mirrors`, not a mere `connects-to`.
+This maps the project's 2D torus architecture directly onto a waveguide with two meaningful axes. The warp axis of the [[2D Torus Wavetable Synthesizer]] *is* the dispersion axis of a tabulated waveguide — the same control under two descriptions.
 
 The pedagogical spine for the entry's eventual teaching artifact, stated as a ladder: *what a wavetable is → what a filter's phase response is → the round-trip phase condition for loop resonance → how storing phase-response curves in a 2D array creates a navigable family of inharmonic mode structures.* The complete loop, including the FFT-based phase warp, was worked out as pseudocode in the source session and should be reconstructed into a `Dispersion Table — sketch` bundle file when the artifact is retrieved.
 
@@ -99,11 +99,6 @@ The pedagogical spine for the entry's eventual teaching artifact, stated as a la
 - Does the waveguide-loop ↔ Hopf-fibration speculation from the source session survive contact with the math, or is it poetic over-reach? Flag, don't yet document — it overlaps the frontier tail already named in [[DSP in Looping Dimensions]] and the Floquet/synthetic-dimensions cluster.
 - Can the dispersion table become a first-class control surface in the synth interface, alongside the surface / lattice / trajectory / spectrum quartet? This is the concrete project ask.
 - Is there a clean RNBO `codebox~` implementation of the FFT-phase-warp loop for a [[Loudon Live]] build? The allpass-cascade realization is the more real-time-friendly path; the FFT-phase-warp is the teaching-clear one.
-
-## Lost Branches
-
-- The full waveguide-synthesis scaffolding (scattering junctions, 2D waveguide meshes, the LPC vocal-tract kinship) belongs to [[Waveguide Synthesizer]] and the forthcoming [[Linear Predictive Coding]] entry — link rather than re-document.
-- The frontier tail (topological waveguides, Floquet time-modulation, synthetic dimensions) overlaps the existing Floquet entries — link, don't duplicate.
 
 ---
 

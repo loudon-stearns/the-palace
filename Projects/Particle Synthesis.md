@@ -27,7 +27,7 @@ forward_vector: "I want to move from architectural vision to a first working pro
 
 ![[Particle Synthesis — hero.png]]
 
-Granular synthesis reconceived through the lens of game engine and GPU physics. Rather than treating grains as discrete audio objects with fixed start/end times and envelopes, [[Particle Synthesis]] models each grain as a *physical particle* with spatial position, velocity, mass, and drag. The grain's trajectory through this physical space determines its audio parameters in real time — frequency, amplitude, spectral filtering, all continuous functions of the particle's state.
+Granular synthesis reconceived through the lens of game engine and GPU physics. Rather than treating grains as discrete audio objects with fixed start/end times and envelopes, particle synthesis models each grain as a *physical particle* with spatial position, velocity, mass, and drag. The grain's trajectory through this physical space determines its audio parameters in real time — frequency, amplitude, spectral filtering, all continuous functions of the particle's state.
 
 ## The Architecture: GPU Compute as Sonic Substrate
 
@@ -41,7 +41,7 @@ The deepest insight: dispersion—the frequency-dependent wave velocity that cre
 
 When different frequency components of a single grain propagate through a dispersive medium (different wave velocities for different frequencies), they separate temporally. High frequencies travel faster; low frequencies lag. This creates natural inharmonicity without explicit frequency-dependent modulation paths. The [[Frequency-Time Duality|frequency content and temporal evolution]] become unified: you cannot change one without affecting the other.
 
-This mirrors optical dispersion exactly: light of different wavelengths refracts at different angles when passing through a prism. The spatial trajectory through the prism *is* the frequency-dependent filtering path. In [[Particle Synthesis]], the spatial trajectory of the grain through the dispersive space *is* the auditory equivalent—different frequency components of the grain travel at different speeds, creating the "colored" sound evolution that characterizes inharmonic instruments like bells and struck bars.
+This mirrors optical dispersion exactly: light of different wavelengths refracts at different angles when passing through a prism. The spatial trajectory through the prism *is* the frequency-dependent filtering path. In particle synthesis, the spatial trajectory of the grain through the dispersive space *is* the auditory equivalent—different frequency components of the grain travel at different speeds, creating the "colored" sound evolution that characterizes inharmonic instruments like bells and struck bars.
 
 ## The Prism Metaphor
 
@@ -51,7 +51,7 @@ Light refraction = audio frequency-dependent filtering. In a prism:
 - The exit angle determines color separation
 - The spatial trajectory of the light is the filter response
 
-In [[Particle Synthesis]]:
+In particle synthesis:
 - Wideband grain enters the phase space
 - Different frequencies propagate at different velocities (dispersion relation ω(k))
 - The temporal separation of frequency components is the spectral evolution
@@ -73,7 +73,7 @@ A single grain emitter with turbulence applied to the velocity field creates gra
 
 ## Cross-Domain Resonance
 
-The conversations that produced [[Particle Synthesis]] explicitly drew these parallels:
+Three parallels:
 - Granular audio synthesis ↔ visual particle systems (identical computational architecture)
 - Dispersion in time-domain audio ↔ dispersion in optics ↔ dispersion in shader math (same physics, different materials)
 - Phase evolution and phase dials ↔ wave interference patterns and standing waves (same geometric phenomenon)
@@ -82,7 +82,7 @@ The promise: once you accept that audio and visual particle systems are the same
 
 ## Practical Manifestation
 
-An interactive **Inharmonicity Explorer** was built in conversation to demonstrate these principles in real time: draggable emitters, visualized particle trajectories, sonified output, and real-time dispersion parameters. The tool made audible what the mathematics only whispered: that granular synthesis and physics simulation are not separate domains, but one domain viewed from two sensory angles.
+An **Inharmonicity Explorer**, built in conversation, demonstrates them in real time: draggable emitters, visualized particle trajectories, sonified output, and real-time dispersion parameters. The tool made audible what the mathematics only whispered: that granular synthesis and physics simulation are not separate domains, but one domain viewed from two sensory angles.
 
 ## Particle Fountain: First Build
 
@@ -103,7 +103,7 @@ The simplest manifestation of particle synthesis as pedagogy is the **Particle F
 **The physics-as-DSP insight:**
 The Particle Fountain connects directly to [[Differential Equations]]. The particle trajectory under gravity IS the 2nd-order DE solution. When a student observes particles rising and falling, they are watching the numerical solution to the harmonic oscillator equation. The gravity constant IS the spring constant. The computational substrate becomes transparent: what you see moving is what you are hearing. Amplitude, frequency, duration — all continuous functions of particle state.
 
-This is the pedagogical promise of [[Particle Synthesis]]: the physics *is* the signal processing. There is no abstraction between the particle's position and the audio parameter it generates.
+This is the pedagogical promise of particle synthesis: the physics *is* the signal processing. There is no abstraction between the particle's position and the audio parameter it generates.
 
 ---
 
@@ -111,3 +111,4 @@ This is the pedagogical promise of [[Particle Synthesis]]: the physics *is* the 
 - Build a Gen~ grain engine where each particle carries its own differential equation state — not just windowed samples but evolving micro-systems
 - Connect to [[Neural Granular Synthesis]]: can particle behavior be learned rather than designed?
 - Explore particle collision as a compositional primitive — what happens when grains interact rather than superpose?
+  — progressed: on the [[Particle Synthesis — scroll|scroll]] (2026-10-22), 1024 ice grains from two fountains clack off each other in mid-air on the GPU, live, with an A/B against passing through.

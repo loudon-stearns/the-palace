@@ -196,7 +196,3 @@ For Loudon's NeuroPulse project (a single-neuron synthesizer):
 - **Interface-first design:** If you start with Web Audio + Canvas for pedagogy, how do you "graduate" to a VST3 plugin without rewriting?
 - **LLM collaboration at scale:** Which framework makes it easiest for an LLM to generate large, correct DSP code?
 - **Live performance without DAWs:** How would a Web Audio instrument connect to hardware controllers and external effects?
-
----
-
-<!-- CLAUDE → LOUDON: This hub is decision-support infrastructure. It maps frameworks to goals, not just to features. The key insight — plugin as teaching artifact — deserves its own entry or deep exploration. Consider linking from individual project entries (NeuroPulse, Biomechanical Synthesis, etc.) to this hub so the framework choice is documented for each. The Four Pillars alignment is central here; each framework enables different pillar combinations. -->

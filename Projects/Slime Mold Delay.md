@@ -113,17 +113,7 @@ This is also a lesson about feedback systems generally. Negative feedback (pruni
 
 The metaphor connects directly to [[Particle Synthesis]] — both are population-based instruments where individual elements have no intelligence and the system has plenty.
 
-## Forward Vectors
-
-- Stage 1 — Spec the topology engine + audio engine architecture (~current state)
-- Stage 2 — Build a non-realtime prototype: place food, simulate growth offline, render an audio file
-- Stage 3 — Realtime version with manual placement + audio source connection
-- Stage 4 — Eat/starve cycles, tip extension, full Physarum dynamics
-- Stage 5 — Loudon Live lesson: "watching a delay think"
-
 ## What This Entry Is and Isn't
-
-**Is**: the design specification — biological mapping, DSP architecture, interface mythology, pedagogical framing. Promotes Slime Mold Delay from a one-line hub entry to a project with stage and forward vector.
 
 **Isn't**: a finished instrument. There is an offline renderer (`headless/physarum_flow.py`) and a playable browser dish (the flow dish (`slime-mold-flow-dish.html`)), but nobody has listened to either yet, and the renderer runs an older law than the dish. The plan on the [[Slime Mold Delay — scroll|scroll]] holds the path from here.
 
@@ -133,10 +123,3 @@ The metaphor connects directly to [[Particle Synthesis]] — both are population
 - How fast should the mold "think"? Real Physarum grows at mm/hour; for performance use you'd want 30 seconds for a useful colony.
 - Does the audio output through one sink, or through multiple sinks each with their own pan/EQ? Probably multiple — that's where stereo comes in.
 - The eat/starve knob is potentially powerful — can it be automated or does it stay manual?
-
-## Palace Connections
-
-- **[[Biomechanical Synthesis]]** — the hub this completes
-- **[[Retrospective Delay]]** — the contrasting delay project. Retrospective Delay *remembers*; Slime Mold Delay *thinks*. Both work with phrase-level time but in different epistemological modes.
-- **[[Particle Synthesis]]** — both are population-based instruments
-- **[[Semantic Delay]]** — semantic delay routes by meaning; slime mold routes by use. Different optimization criteria, similar architectural shape.

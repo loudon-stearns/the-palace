@@ -50,7 +50,7 @@ The reason this entry exists as operational anatomy and not a paragraph: the fir
 1. **Spin a pod** via RunPod REST `POST /v1/pods` with a `gpuTypeIds` *priority list* (A6000/A40/L40/4090) — single types stock out; SSH via `PUBLIC_KEY`, port `22/tcp`, container disk ≥90GB. Concrete: `Projects/BLUELINE/render-backend/` + the BLUELINE Track-II scripts.
 2. **Install order that survives:** `pip install -r requirements.txt` **then force** `torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url …/cu124`. (The forced torch bump is load-bearing — see Gotcha 2/3.)
 3. **Train** (`run_flux*.sh` / `run_sdxl*.sh` in `Projects/BLUELINE/proofs/track-II-lora/`), `nohup` + poll a log; touch a `DONE`/`FAILED` flag.
-4. **Reap promptly:** a background watcher waits for the flag, `scp`s the weight back, and **terminates the pod** — idle pods bleed money (a post-failure idle pod ate several dollars once).
+4. **Reap promptly:** a background watcher waits for the flag, `scp`s the weight back, and **terminates the pod** — an idle pod keeps billing.
 
 ## The Six Gotchas (each with its fix)
 
@@ -76,7 +76,7 @@ Render the subject across **new contexts × different seeds** (where seed-lockin
 
 ## Resource Footprint
 
-~$0.44–0.77/hr (48GB secure), ~**$2 per LoRA** end to end. Terminate on completion. The key lives in `Shop/RunPod GPU Backend/studio/config.json` (gitignored).
+A 48GB secure card, a few hours of pod time per LoRA end to end. Terminate on completion; an idle pod keeps billing. The key lives in `Shop/RunPod GPU Backend/studio/config.json` (gitignored).
 
 ## Self-Check
 

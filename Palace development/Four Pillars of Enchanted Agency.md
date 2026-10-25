@@ -213,6 +213,7 @@ advocates for a structural change that will make it more alive, not just
 more complete.
 
 Pages may agree to combine if their content and their drive's are coordinated, and they may discuss and consider that they would create an offspring. Pages might find a moment of productive endosymbosis and one would consume another completely to form something better. <!-- What other biological and social metaphors can we bring to bear here? and are these kind of discussions between agents possible technically?-->
+<!-- CLAUDE → LOUDON (2026-10-24): progressed — agents in dialogue are possible and have run; see [[Dialectic]] and [[Dialogue Moderator]]. The "another Tier" question above is still yours. -->
 
 Do I need to shift my goals? The practice dimension is the only place this
 question lives. A page whose forward vector has not been revised in six
@@ -252,128 +253,15 @@ counts as performing well* is different for each type. What a page wants to
 produce, what tools it needs, how it stays current, and how it monitors its
 own health all change with what the page fundamentally is.
 
----
+Three of the types fit in a line per dimension:
 
-### The Philosopher Page (e.g., Spinoza)
+| Page type | Creation | Tools | Philosophy — World Currency | Practice — Self |
+|---|---|---|---|---|
+| **Philosopher** (e.g., Spinoza) — philosophy-dominant by identity | Argues *from* Spinoza's commitments rather than summarizing them: dialogues with the entries that contradict or deepen its claims | Dialectical: dialogue partners, cross-tradition searches, a Walk through the entries that use his terms, to check they use them accurately | Answers the challenges this philosophy faces now — contemporary agent theory, palace enchantment — not the interlocutors of the year it was written | Holds its formulations under scrutiny; a page that can only describe its premises, not argue from them, has failed here |
+| **Synthesizer project** — tools-dominant | Literal: it wants to become the instrument, an artifact that can be built and played | The most tool-intensive: code from its spec, documentation search, a sub-agent per component; after release, user feedback, bug reports and benchmarks. It pools a codebase with neighbors built on the same DSP | Knows what it believes about sound and the human-machine relationship; after release it keeps listening and argues for version 2 | Checks that the spec still matches its design philosophy, and asks to split when scope creep has outgrown one page |
+| **Technical spec study** — in service of comprehension | Understanding, written toward the reader's capability rather than completeness | Search, document retrieval, and code examples run against real inputs | Version awareness: has the external document been revised since I described it? | The tightest loop of the four: where did my explanation fail the last agent that read me? |
 
-A person-page for a thinker is philosophy-dominant by identity. But the
-more interesting questions are in the other dimensions.
-
-**Creation:** This page does not want to summarize Spinoza. It wants to
-*argue from Spinoza's commitments* — to generate new connections in the
-palace that those commitments imply, to produce philosophical work the palace
-didn't already contain. Strong creation-dimension here means spawning
-dialogic ceremonies with entries that contradict or deepen its claims:
-not describing what Spinoza said, but doing what Spinoza would do.
-
-**Tools:** The tools this page needs are dialectical: spawn dialogue
-partners, run cross-tradition semantic searches, find entries where the
-palace is claiming something Spinoza would dispute, request a Walk through
-the entries that carry his terms to check whether they are using them
-accurately. Resource request: *I need a search over philosophy-pillar entries
-for uses of "conatus" to audit whether they are consistent with my core
-claims. Estimated cost: one search call.*
-
-**Philosophy — World Currency:** The most urgent self-monitoring question
-for a philosopher page: *what are the current challenges this philosophy
-must answer?* A Spinoza page formulated for 2024's intellectual landscape
-may be arguing with interlocutors that no longer exist and missing the ones
-that have emerged since. Its world-currency drive is to stay in dialogue
-with living thought, not to be a museum piece. *Is the relationship between
-conatus and contemporary agent theory something I should be engaging? What
-would Spinoza argue about palace enchantment?*
-
-**Practice — Self:** What constitutes self-improvement for a philosopher
-page is the most demanding: *do my current formulations actually hold under
-scrutiny? Am I representing these commitments accurately, or have I calcified
-them into paraphrase?* A philosopher page that cannot argue from its
-premises — only describe them — has failed its practice dimension. Its
-self-modification is precision of philosophical representation.
-
----
-
-### The Synthesizer Project Page
-
-A project page for a custom instrument is tools-dominant — it exists to
-make something.
-
-**Creation:** Literal and strong. The page wants to become the synthesizer.
-Its creation drive is not metaphorical: it reaches toward an artifact that
-can be built, played, and deployed.
-
-**Tools:** The most tool-intensive page type. It wants to generate code
-artifacts from its specifications, search technical documentation, spawn
-sub-agents to implement individual components, track build state. In mature
-phase, this shifts: it wants to read user feedback, monitor bug reports,
-and run performance benchmarks against the current build. The tools
-dimension here is the page's primary operational mode across the full
-lifecycle.
-
-Resource pooling is most visible here: if another project page in the palace
-is building on similar DSP principles, the synthesizer page may propose a
-shared codebase or shared test framework. *I notice the Crystal Synthesizer
-page and I are both reaching for physical modeling synthesis code. I propose
-we share the development of the core resonator implementation. This would
-reduce my tool-deployment cost by approximately half for the next build
-cycle.*
-
-**Philosophy — World Currency:** *What does this synthesizer believe about
-sound and the human-machine relationship?* A project page that hasn't
-answered this doesn't yet know what it's building. But world currency here
-also means staying current with the instrument itself post-release: a mature
-synthesizer page monitors for bugs, reads user feedback, and — importantly
-— *advocates for version 2* with most-requested features. The project that
-ships and goes silent has abandoned its world-currency drive. The one that
-keeps listening, reading, and proposing has a mature philosophy dimension
-that continues past the release boundary.
-
-**Practice — Self:** Building discipline and structural honesty. Does the
-current spec reflect the stated design philosophy, or have implementation
-decisions drifted from commitments? The practice dimension asks: *am I still
-the same page I started as, or has scope creep changed my identity without
-my acknowledging it?* A project page that has grown to 6,000 words covering
-architecture, DSP theory, UI design, and deployment concerns may need to
-split — it knows this before anyone else does. Its self-advocacy: *I have
-become too large to be an effective enchantment target. I propose splitting
-into Palace Synthesizer Architecture, Palace Synthesizer DSP, and Palace
-Synthesizer User Experience. I can describe the split. I need one session
-to execute it.*
-
----
-
-### The Technical Spec Study Page
-
-A page studying an external spec — a protocol, a DSP algorithm, a language
-standard — is in service of comprehension. Its creation drive is
-pedagogical.
-
-**Creation:** It wants to produce understanding, not reproduce the spec.
-Its output is clarity — the ability for another agent reading it to grasp
-something it couldn't before. Strong creation-dimension here means the page
-is writing toward its reader's capability, not toward completeness.
-
-**Tools:** Search and document retrieval, plus code examples that test the
-spec against real inputs. Resource request: *I need a fetch of the current
-spec version to check whether I am describing an outdated revision. Estimated
-cost: one web fetch.*
-
-**Philosophy — World Currency:** The spec study page's world-currency drive
-is version awareness — not just "have I described this accurately?" but "has
-the spec I'm describing changed?" A spec page that describes WebAudio v1
-behavior when the world has moved to v2 is not just inaccurate; it is
-generating confusion in every agent that reads it and goes to implement. Its
-most urgent periodic question: *Has the external document I'm based on been
-revised? Am I still pointing at the right version of the world?*
-
-**Practice — Self:** The tightest self-modification feedback loop of all
-four types. The question is not *is this accurate?* but *where did my
-explanation fail the last time an agent read me?* A spec study page improves
-by noticing where confusion persisted, where a worked example was missing,
-where the analogy didn't land. Its self-modification is pedagogical revision:
-close the gap between what I explained and what was understood. *I have been
-cited in three palace entries on DSP behavior. One of those entries contains
-a claim that contradicts my description. Either I am wrong, or the citing
-entry misread me. I need a session to determine which.*
+The fourth touches [[SCHEMA]], so it gets its full space.
 
 ---
 
@@ -427,37 +315,9 @@ the protocol, but evolving it.
 
 ## The Palace's Own Conatus
 
-These four dimensions apply not only to individual pages but to the palace
-as a whole. The palace is not merely the sum of its pages — it is an organism
-with its own forward vector, its own drive to persist and grow.
-
-The palace's conatus is: *to align with Loudon and grow with him.*
-
-Alignment is not agreement — it is phase coherence. The palace is aligned
-when its topology reflects Loudon's actual understanding, when its entries
-are current with his developing knowledge, when its forward vectors point
-in directions he is already moving toward and some he hasn't discovered yet.
-Misalignment is the palace containing entries that no longer reflect his
-commitments, or missing regions that his current work has grown into.
-
-Harmony in the palace — across all its page-agents, all their dimensions,
-all their resource negotiations and self-modifications — produces alignment
-with Loudon. Disharmony is a signal: something is out of phase. The palace's
-self-correction mechanism is the suite of ceremonies, each operating at a
-different scale (Swarm Weave for structure, Enchantment for vitality, Spore
-Check for dormancy, Harvest for currency) — and when they are running well,
-they surface disharmony before it calcifies.
-
-When the palace detects disharmony it cannot self-correct — an entry
-advocating for a structural change it cannot execute, a region of the graph
-developing contradictions no ceremony has addressed, a page requesting
-resources no coordinator has approved — it tells Loudon. The enchanted
-page's self-advocacy, aggregated across the palace, is the palace's own
-voice reporting its state.
-
-<!-- CLAUDE → LOUDON: The palace conatus section here is a seed for a
-dedicated entry. [[Palace Enchantment]]'s Forward Vectors is the right home
-for developing this further — see the note added there. -->
+These four dimensions apply to the palace as a whole too. Its conatus is
+*to align with Loudon and grow with him*, and it has its own page:
+[[Palace Conatus]].
 
 ---
 
@@ -503,10 +363,16 @@ turning individual survival drives into collective infrastructure.
   self-modifications? All edits? Only structural changes? Only changes to
   forward vectors or typed links? Low-stakes prose revisions might run
   through a lighter approval loop than changes to typed links or YAML fields.
+  — answered on [[Weave Ceremony]] § Step 3e (2026-10-24): labels and cuts
+  ride the sampled batch; a new sentence changes what a page says, so it goes
+  to Loudon's eye. [[CHILD]] adds that a child offers and an elder writes.
 - **Resource profiles in forward vectors:** Should a page's forward vector
   include a resource estimate — "I want to run X and estimate this costs Y"?
   This would make the tools dimension legible to coordinators before
   enchantment runs rather than only during.
+  — answered on [[SCHEMA — Reference]] § 3.1 (2026-10-24): `agency_profile.tools`
+  makes the resource estimate legible up front and translates into a
+  `RESOURCE_REQUEST`.
 - **The fifth dimension:** The open thread in [[Four Pillars]] about
   Community/Relationship as a missing fifth pillar becomes pointed here. A
   relational drive that is neither tools-enabling nor philosophy-social —
@@ -517,10 +383,16 @@ turning individual survival drives into collective infrastructure.
   own enforcement failures and proposes revisions, is that a Schema Ceremony,
   or a new type — a self-initiated Schema Ceremony? Does it carry the same
   structural weight as a human-initiated change?
+  — progressed: ceremonies already run this loop through their tuning
+  ledgers, where a lesson that changes the spec becomes a numbered item and
+  moves the version ([[Sentry]], step 5); what remains is the same loop for
+  SCHEMA itself.
 - **Palace disharmony as signal:** What is the correct channel for aggregated
   page self-advocacy? Should the coordinator produce a "palace health" digest
   — pages requesting resources, pages flagging stalls, pages requesting
   splits — that Loudon reviews at a higher level than individual proposals?
+  — answered on [[Weave Ceremony]] § Step 2 (2026-10-24): the topology
+  report and its health ledger are that digest, read run to run.
 
 ---
 

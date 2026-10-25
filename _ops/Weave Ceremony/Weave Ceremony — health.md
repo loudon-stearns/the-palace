@@ -25,3 +25,4 @@ One row per weave, the open and the close of each, measured by `_ops/swarm/weave
 | date | map | nodes | edges | labelled % | bare connects-to | multi-link pairs (dup/weaker) | unsaid links (bare) | hubs: untyped ≥ decile / typed < median | no vector | quiet (deg≥15, unused 90d) | Context | scroll | tuning | rich | faces missing | Context owed | flags open (propagate) | label |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 2026-10-24 | 2026-10-24 | 324 | 2940 | 67 | 558 | 410 (219/151) | 1028 (354) | 25 / 0 (decile 19, median 5) | 20 | 13 | 20 | 60 | 36 | 3 | 8 | 56 | 38 (13) | open · v1.9 map, before any write |
+| 2026-10-24 | 2026-10-24 | 322 | 2380 | 85 | 46 | 2 (1/0) | 750 (143) | 12 / 0 (decile 16, median 4) | 20 | 6 | 26 | 61 | 36 | 3 | 0 | 38 | 3 (1) | close · v2.0 · after the writers (commit to follow) |

@@ -100,7 +100,7 @@ Gemma 4 was evaluated against Claude Haiku across three palace-specific tests to
 
 **Schema compliance:** E4B invented `contributes-to` when none of the valid types felt like a natural fit. 26B held the schema cleanly — this is the most significant improvement at scale.
 
-**Hallucination when constrained:** Both models stayed inside the constrained entry list when given one. Without a palace index, both invent plausible-sounding but nonexistent targets (same limitation applies to Haiku).
+**Hallucination when constrained:** Both models stayed inside the constrained entry list when given one. Without a palace index, both invent plausible-sounding but nonexistent targets (same limitation applies to Haiku). With the [[Palace Map]] in hand and a rule to cite every edge as a triple, Haiku invented no page in ten questions ([[Palace Map — proof — map-agent-test]]).
 
 ### Summary Verdict
 

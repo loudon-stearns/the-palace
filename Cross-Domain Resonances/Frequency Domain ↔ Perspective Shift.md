@@ -240,14 +240,7 @@ They've internalized the pattern. Perspective shift is now a tool.
 
 ## Success Metrics (By Our Definition)
 
-**Not:** "Can you explain FFT?"
-**But:**
-- Do you use multiple views when analyzing audio?
-- Can you reframe problems when stuck?
-- Do you see perspective as choice, not given?
-- Has "change perspective" become reflex?
-
-When stuck = "try different perspective" automatically—**the resonance succeeded**.
+It worked when, stuck, you try a different perspective automatically.
 
 ---
 

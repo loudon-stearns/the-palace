@@ -193,7 +193,7 @@ Report on:
 - **Isolated entries** — entries no one links to. May be genuine roots or may be forgotten.
 - **Most-connected entries** — top 5 by total typed link count. These are the palace's centers of gravity.
 - **Cross-pillar bridges** — entries that link entries from different pillars. These are often the most generative nodes.
-- **Dormant entries** — `stage: dormant`. Have conditions changed? Any ready for revival?
+- **Dormant entries** — `stage: dormant`. Have conditions changed? Any ready for revival? If a quarter has passed since the Spore Check's last run line, or its ledger has none, offer one.
 - **Stale metadata** — entries whose stage seems wrong given their content.
 - **Composting candidates** — entries at `stage: composting` from a prior Weave. Confirm deletion or revive.
 - **Proposals for canon** — `node _ops/stigmergy/list-proposals.mjs` names the pages whose stewards have proposals owed to Loudon's ledger review, under the one line the Return says too (`--line`). The Weave names them and settles none ([[Project Stewardship System]] § What's Decided).
@@ -341,6 +341,7 @@ python3 _ops/swarm/lint-weave-flags.py --since <weave start>     # weave_flag in
 python3 _ops/swarm/lint-ghost-links.py                           # dead body wikilinks — flag-only, never gates
 python3 _ops/swarm/lint-bundle-hygiene.py                        # frontmatter demotion candidates (invalid type gates)
 python3 _ops/swarm/lint-voice-drift.py                           # markup density vs the voice floor — flag-only, never gates
+node _ops/self-model/anatomy.mjs                                  # the self-model's organs still exist — flag-only; a miss offers a Self-Model Update
 python3 _ops/swarm/face-audit.py                                 # canon entries missing a hero or an icon (Step 5c)
 python3 _ops/swarm/lint-link-pairs.py                            # one link per pair (Step 3d) — flag-only until two clean runs
 python3 _ops/swarm/unsaid-links.py                               # links the body never explains (Step 3e) — flag-only

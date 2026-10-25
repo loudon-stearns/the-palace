@@ -77,7 +77,7 @@ This hub emerged from [[Boundary-Crossing Instruments]] (the breakthrough that n
 
 ## When the catalogue grows
 
-A new entry earns membership in Dissolutions when it satisfies all three ingredients above. The Weave is the natural occasion to ask: *did anything new dissolve this cycle?* If two recent entries have started reading like the same object, propose the third — the entry that names the dissolution — and link them in.
+A new entry joins when it meets all three ingredients above.
 
 ## Open Questions
 

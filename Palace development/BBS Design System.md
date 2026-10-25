@@ -72,36 +72,13 @@ ui_kits/blackboard/ ← interactive click-thru: Shell, LoginScreen, BoardIndex,
 
 **Content voice:** Lowercase body text. UPPERCASE system headers and hotkeys. No em dashes (use `--`). No emoji. Terse, technical, slightly conspiratorial. Copy passes if it could appear in a 1993 `.NFO` file.
 
-## What the Prototype Does Not Yet Know
+## The Running App
 
-The click-thru prototype in `ui_kits/blackboard/` is a beautiful shell with seed data. It does not yet reflect the palace's BBS architecture. The gap to close:
-
-| Missing | Needed for |
-|---|---|
-| Channel tab bar (GENERAL/FLAGS/WEAVE/SYSTEM/TRICKSTER/BRANCHES) | Board routing |
-| Per-message health block (context_pct, model, score) | Agent health visibility |
-| Trickster Inbox view | RESOURCE_REQUEST disposition |
-| Session vs. persistent board toggle | Cross-session FLAGS |
-| Live data from blackboard.jsonl | Real swarm sessions |
+The running app is [[STIGMERGY]]; this kit is its look.
 
 ## The Curses Path (Considered and Deferred)
 
-An earlier direction explored a Python `curses`-based terminal interface — raw terminal control, no browser, runs anywhere a shell runs. That path is dormant, not dead. The constraints it imposed (no color beyond 256-color xterm, layout entirely in terminal cells, no CSS) made the design system's richer palette and type scale unavailable.
-
-The current direction is **browser-based with BBS aesthetic**: a terminal that *looks and feels* like a 1988 phosphor display but runs in a modern browser. The character-cell constraint is honored architecturally (80ch max-width, `ch` units, monospace everywhere) without being enforced at the OS terminal level. If curses becomes worth revisiting — for headless agent environments or SSH access — it would be a parallel track, not a replacement.
-
-## Implementation Stages
-
-Tracked in the BBS Blackboard forward vector and [[Palace To-Do]]:
-
-1. **Phase 0 — Deposit** (complete): design system copied to palace, entries written
-2. **Phase 1 — Static Shell**: prototype running locally, channel tabs, branded STIGMERGY, representative palace data
-3. **Phase 2 — Message Type Signatures**: visual treatment per message type (BROADCAST, FLAG, RESOURCE_REQUEST, GRANT/DENY, health blocks)
-4. **Phase 3 — Trickster Inbox**: fast-disposition view for pending RESOURCE_REQUESTs
-5. **Phase 4 — Data Layer**: Node.js or equivalent server reading blackboard.jsonl — *tradeoffs (Babel vs. build tooling, Node.js vs. alternatives) to be discussed before implementation*
-6. **Phase 5 — Live Wire**: replace seed data with real board reads, WebSocket for live push
-
-Progress is intentionally slow and methodical. Each phase is a learning moment as much as a build milestone.
+A curses build for headless or SSH use stays possible and unbuilt.
 
 ## Using the Skill
 

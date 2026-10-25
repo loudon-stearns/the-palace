@@ -60,7 +60,7 @@ forward_vector: "I am the named genre that keeps the philosophy neighborhood fro
 
 ![[Philosopher Visits the Entry — hero.png]]
 
-A named enrichment genre: **one researched philosopher is brought to a single palace entry and asked to push on its central claim.** Where the [[Excellent Adventure]] travels to a historical moment and the [[Dialectic]] convenes a council around a question, the Philosopher Visit is the smallest, most repeatable member of the family — one voice, one entry, one productive question. It is the [[Mixture of Experts|single-expert routing]] move aimed at a node rather than a topic.
+A named enrichment genre: **one researched philosopher is brought to a single palace entry and asked to push on its central claim.** Where the [[Excellent Adventure]] travels to a historical moment and the [[Dialectic]] convenes a council around a question, the Philosopher Visit is the smallest, most repeatable member of the family — one voice, one entry, one productive question. It is the [[Mixture of Experts|single-expert routing]] move aimed at a node rather than a topic. [[The Lens]] generalizes this: any page can be the glass.
 
 ## Why It Exists
 
@@ -80,7 +80,7 @@ The philosophy neighborhood and the technical neighborhood drift apart. Technica
 
 ## A Starting Roster (which voice visits which family)
 
-This is a seed, not a law — the palace prefers categories that emerge over many runs to taxonomies fixed in advance.
+A seed, not a law.
 
 - **Generative / synthesis-space entries** (wavetable, granular, particle) → [[Deleuze]]: *is this a field of the virtual you actualize, or a set of options you choose?*
 - **Threshold / pumping entries** (parametric resonance, Mathieu, Floquet, action potential) → [[Spinoza Conatus]] + [[The Drift]]: *is crossing the threshold a striving, and is the driving forcing or flowing?*
@@ -90,10 +90,12 @@ This is a seed, not a law — the palace prefers categories that emerge over man
 
 ## In STIGMERGY
 
-The Visit is the natural unit of the [[STIGMERGY Philosophical Lenses|philosophical surface]]: a card type that renders inline in the entry it serves (STATE deck), the way an entry's rich face ([[Enrichment]]) lays sound and interactives beside its words. A "request a visit" affordance on any entry would post a `RESOURCE_REQUEST` to the TRICKSTER board — *"send a philosopher to this node"* — turning the genre into a one-click swarm action. See [[STIGMERGY Philosophical Lenses]].
+The front end renders a visit inline on the entry it serves; the design is in [[STIGMERGY Philosophical Lenses]].
 
 ## Open Questions
 
 - When does a visit earn promotion into the entry's body, and when does it stay a piece beside it on the entry's rich face? (The oscillator visit is still a card; its insight has not yet been folded in.)
+  — progressed: four entries now hold a full visit in their own body, in a closing § Philosophical Lens with a reader's note ([[Wavetable Space as Torus]], [[Floquet Theory]], [[Mathieu Equation]], [[Linear Predictive Coding]]), and [[Palace Quotes]] lays the one-line form beside the words; what remains is what earns the long form (2026-10-24)
 - Can an entry request its *own* visit — write a forward vector that names which philosopher it most needs to be challenged by?
 - Is there a failure mode where the philosopher always finds the entry "over-claiming"? Guard against the visit becoming a formula that deflates every entry the same way.
+  — answered on [[Palace Quotes]]: its method carries the guard, "Do not deflate — a lens that always finds the page over-claiming has become a formula" (2026-10-24)

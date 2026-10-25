@@ -83,15 +83,6 @@ Current examples in the palace:
 - [[Preset Oracle]] — could use JSUI for a glitchy, divination-themed preset browser
 - Any future device with a bespoke visual identity
 
-## Connection to Four Pillars
-
-JSUI touches all four:
-
-- **Creation**: The interface is a creative artifact—visual design expressing the device's core metaphor
-- **Tools**: JSUI is a technical tool in Max/MSP; mastering it expands your creative toolkit
-- **Philosophy**: The interface embodies ideas—beauty, play, ceremony—about how humans interact with technology
-- **Practice**: Building with JSUI is hands-on, iterative, involves friction and discovery
-
 ## Open Questions
 
 1. **Animation performance**: How do you animate smoothly in JSUI without dropping frames? What's the optimal redraw rate? Can you use frame-based animation (requestAnimationFrame-style) or just Max's message timing?

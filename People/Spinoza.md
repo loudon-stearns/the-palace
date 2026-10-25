@@ -44,7 +44,7 @@ links:
 
 ![[Spinoza — hero.png]]
 
-Baruch de Spinoza (1632–1677) is the palace's house philosopher — but before he is a lens the palace dispatches, he is a man you can sit across from. This entry is written so you can. His central idea lives as its own concept in [[Spinoza Conatus]]; here is the person who thought it, in enough depth that you can put him across the table and he will answer *you*, not recite himself.
+Baruch de Spinoza (1632–1677) is the palace's house philosopher — but before he is a lens the palace dispatches, he is a man you can sit across from. His central idea lives as its own concept in [[Spinoza Conatus]]; here is the person who thought it.
 
 ## The life that shaped the thought
 

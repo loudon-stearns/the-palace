@@ -50,7 +50,7 @@ The complete and canonical list of all palace ceremonies. Every ceremony has a t
 
 | Ceremony | Trigger | Cadence | What Happens | Full Spec |
 |---|---|---|---|---|
-| The Daily Page | The morning's scheduled task; or "daily page" / "today's page" / "deal today's page" | Daily | One page, dealt by a shuffle made once, until every page has been sat with. Loudon recalls it from its title alone, they read it together, the page is woken and speaks, its siblings are opened and the question is asked whether a neighbor should consume it, and they try to make it something to hear, see or play. The morning ends in a verdict: keep, trim, tune, fold, compost, open, or revive for a page already dormant. The morning decides; anything larger than a small edit leaves as a baton for the rite that owns it. The close matches the work. | [[The Daily Page]] |
+| The Daily Page | The morning's scheduled task; or "daily page" / "today's page" / "deal today's page" | Daily | One page a morning, dealt by chance until every page has been sat with; the morning ends in a verdict. | [[The Daily Page]] |
 | The Walk | "Let's walk" | Weekly | Pick a starting entry, follow typed links, and name honestly what the path turned up — a connection, a tension, or nothing | [[Walk Ceremony]] |
 | The Weave | "Let's weave" | Monthly | Full palace structural audit, run as a **Swarm Weave** (parallel workers + coordinator synthesis). Opens with a Map Build. Carries every propagate flag first (a decision made since the last weave, taken to each page it hasn't reached), then reports topology and link quality, formalizes unsung paths, settles every bare `connects-to` (label, retype or cut), folds each pair to one link, audits bundles for the memory a page's weight has earned, nominates rich faces, and writes the health row. | [[Weave Ceremony]] |
 | The Return | "I'm back" / "what did I miss" / "return" / "roll call" | On returning after a gap, or to see every open session now | Summon the [[Concierge]] as the first act (which also leaves a warm resident for the close); run the query block before interpreting anything; show a return map whose every row cites a command or `file:line`; end on one move, preferring an open handoff over an invented one. Loudon signs. Report the gap's length, never its cause. | [[Return Ceremony]] |
@@ -90,7 +90,6 @@ Not full ceremonies, but palace-aware interactions that can happen in any conver
 
 | Trigger | What Happens |
 |---|---|
-| "Add this to the palace" | Not ad hoc: it runs the [[Deposit Ceremony]], the one way a find enters canon. |
 | "Connect this to the palace" | Propose typed links between the current topic and existing entries. |
 | "What does the palace say about [topic]?" | Read relevant entries and synthesize. Follow typed links. |
 
@@ -139,11 +138,6 @@ The report is a gift to the ceremony's author, not a verdict. A ceremony can pro
 **Trigger:** "Read this ceremony" / "Does this ceremony feel right?"
 
 ---
-
-## Forward Vectors
-
-- Should the Walk ceremony be updated to acknowledge the Swarm Weave as a future path — the difference between walking alone and walking with a colony?
-- Is anything in onboarding a new Claude instance left that only a ceremony would do? Birth and growing up now carry most of it — [[CLAUDE]], then [[CHILD]] (including § A page and its folder), then [[ELDER]].
 
 ## Active Baton
 

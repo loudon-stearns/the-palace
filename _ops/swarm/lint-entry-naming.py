@@ -55,7 +55,7 @@ SKIP_PREFIXES = ("_ops/stigmergy/app/", "_ops/stigmergy/orchestrator/",
 # is one of these. Bundle files and working artifacts carry a `title:` (and
 # sometimes a non-canon `type:` like `artifact`) but are NOT entries; they are
 # exempt. This is the "frontmatter is the canon membership card" line (SCHEMA §1).
-CANON_TYPES = {"concept", "hub", "project", "breakthrough", "source", "meta",
+CANON_TYPES = {"concept", "hub", "project", "source", "meta",
                "practice", "person", "question", "spore", "specialist", "maker"}
 
 PALACE_DEFAULT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))

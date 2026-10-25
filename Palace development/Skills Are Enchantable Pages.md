@@ -139,10 +139,8 @@ than minting a type — the case the fork below turns on.
 
 ## Provenance
 
-Named 2026-07-04 while building the [[Concierge]], when Loudon pressed on why an invocable
-skill sits outside canon: *"How is a 'skill' any different from an 'entry that is invoked'?
-Aren't all entries also agents, and couldn't they also be skills? Ceremonies are skills, yes?"*
-The answer was yes to all — and this entry is the yes, written down.
+Named 2026-07-04 while building the [[Concierge]], from Loudon's question: how is a skill different
+from an entry that is invoked? It isn't.
 
 ## Forward Vectors
 
@@ -152,8 +150,12 @@ The answer was yes to all — and this entry is the yes, written down.
   trigger to revisit, with a *descriptive* Schema Ceremony (name the family, add no new type —
   the [[SCHEMA]] §9 move): a **third** shim-built skill, or the first boundary edge-case the
   prose can't resolve.
+  — progressed: there are two now in `.claude/skills/` — concierge and palace-orchestrator. The
+  trigger is still the third.
 - Retrofit the existing plumbing: should `palace-orchestrator` (the other `.claude/skills/`
   file) also get a canon organ with the skill as its shim?
+  — answered on [[Palace Orchestrator]] § Machinery (2026-10-24): it is the canon organ, and
+  `.claude/skills/palace-orchestrator/SKILL.md` is the thin shim that points back.
 - Watch the boundary: a pure knowledge entry ([[Kuramoto Coupling]]) is enchantable but has no
   job; a specialist has a Job Contract. Where exactly does a page acquire a *dispatch surface*,
   and is that line worth drawing?

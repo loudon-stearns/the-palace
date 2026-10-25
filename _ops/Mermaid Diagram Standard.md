@@ -28,17 +28,7 @@ The hierarchy is explicit: **use Mermaid first**. Reach for SVG only when Mermai
 
 ## Why Mermaid Over SVG
 
-The case for Mermaid is not that it's convenient. It's that it is *of the same substance as the palace itself*.
-
-**Mermaid source is plain text.** It lives in the body of an entry, not alongside it. When you read an entry, you read the diagram — they are one thing. An SVG embedded with `![[filename.svg]]` is a pointer to a separate artifact. A Mermaid block *is* the artifact, co-located with the reasoning it supports. This is the difference between a thought and a reference to a thought.
-
-**Mermaid is version-controlled meaningfully.** A git diff of a Mermaid block is human-readable: you can see which node was renamed, which edge was added, which relationship changed its type. A git diff of an SVG file is hundreds of lines of XML coordinate noise. The palace uses git as narrative — commit messages as log entries, history as the organism's growth record. Mermaid diagrams participate in that narrative. SVG files do not.
-
-**Mermaid is searchable.** `grep "mirrors" *.md` will find every entry in the palace that uses a mirrors relationship in a Mermaid diagram. SVG is opaque to the palace's own search layer. Text-first diagrams belong in a text-first knowledge organism.
-
-**Mermaid is Obsidian-native.** Obsidian renders Mermaid fenced code blocks in Reading View without any configuration, any plugin, or any wikilink to maintain. The diagram appears wherever the prose appears. There is no file to go missing, no path to break, no filename to keep synchronized with an `Artifacts/` folder entry.
-
-**Mermaid enforces semantic discipline.** SVG can render anything — arbitrary shapes, pixel-precise positioning, decorative curves. This is also its danger. A Mermaid diagram can only express what its grammar permits: nodes, edges, labels, directions. This constraint is a feature. It forces you to decide, precisely, what relationship you are drawing. The limitation is the discipline.
+Mermaid source is plain text that lives in the entry beside the reasoning it supports, so its git diffs and searches read like prose, where an SVG is a separate file of coordinates that neither diff nor grep can read. Obsidian renders it with no plugin, and its small grammar of nodes, edges and labels makes you decide exactly what relationship you are drawing.
 
 ---
 
@@ -184,5 +174,6 @@ graph LR
 
 - Should typed link relationships in Mermaid diagrams be *enforced* to use only the eight canonical types from the ontology? Or is there value in allowing diagram-local relationship labels that are more descriptive, even if they don't match a YAML link type? The tension: semantic precision vs. expressive richness in the diagram body.
 - The Weave produces topological prose — hub counts, orphan lists, cluster descriptions. Could the next version of the Weave Ceremony also produce a Mermaid `graph` block as a visual summary of the palace's topology at the moment of the Weave? This would make the Weave's topological report both readable and renderable.
+  - Answered the other way on [[Weave Ceremony]] postcondition 5b (2026-10-24): the Weave's visual report is HTML, per the [[Loudon Live Design System]], not a Mermaid block.
 - Mermaid's automatic layout sometimes produces cluttered or semantically misleading spatial arrangements — nodes placed near each other that are not conceptually close. Is there a practice for reviewing and iterating on layout direction (`TD` vs `LR`) as part of the deposit process, or is "good enough to convey the structure" sufficient?
 - As Mermaid versions evolve, syntax occasionally breaks. The palace's Mermaid diagrams are tied to whatever version Obsidian ships. Should there be a record of which Mermaid version the palace was authored against, and a ceremony step to audit diagrams after Obsidian updates?

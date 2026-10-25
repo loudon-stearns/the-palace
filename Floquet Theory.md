@@ -157,7 +157,7 @@ Connection to [[Crystal Synthesizer]]: the temporal twin. A crystal synthesizer 
 
 **The entry, answering:** Then the Floquet exponent $\mu$ is a *measure of conatus.* $\text{Re}(\mu) < 0$: the pattern strives and holds (the mode decays back to itself, stable). $\text{Re}(\mu) > 0$: the striving runs away (self-oscillation, the pattern bootstraps from noise). And the **tongue boundary** is the exact knife-edge where a periodic process acquires the power to persist on its own — the moment a driven thing becomes a self-moving one. A [[The Drift|Zhuangzian]] footnote: the system that holds its pattern does so by *following the drive's grain*; the runaway is the drive forcing across it. Time crystals — patterns that break time-translation symmetry and persist indefinitely under driving — are the purest case: a society of occasions that has found a rhythm so with-the-grain it never has to stop.
 
-*Reader's note: this reframes the whole stability diagram as a map of where periodic processes acquire selfhood. If that reading earns its keep, it links Floquet directly to [[Entry Conatus]] and the palace's whole language of striving — the monodromy matrix is how a pattern inherits itself.*
+*Reader's note: the Floquet exponent as a measure of conatus makes the stability diagram a map of where periodic processes acquire selfhood. If that reading earns its keep, it ties Floquet to [[Entry Conatus]].*
 
 ## Open Questions
 

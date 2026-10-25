@@ -49,7 +49,7 @@ SKIP_SCAN_PREFIXES = ("_ops/stigmergy/app/", "_ops/stigmergy/orchestrator/",
 # Canon entries (SCHEMA §1 type) are the graph the reader traverses; their ghosts are the
 # counted warnings. Bundle files / working drafts carry a title but no canon type; they
 # are scanned as well, and their ghosts are reported in a separate block (see check()).
-CANON_TYPES = {"concept", "hub", "project", "breakthrough", "source", "meta",
+CANON_TYPES = {"concept", "hub", "project", "source", "meta",
                "practice", "person", "question", "spore", "specialist", "maker"}
 
 PALACE_DEFAULT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))

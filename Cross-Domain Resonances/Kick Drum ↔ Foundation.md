@@ -192,14 +192,7 @@ They've understood that foundation is about **commitment and constraint**, not p
 
 ## Success Metrics (By Our Definition)
 
-**Not:** "Students always start with kick drum"
-**But:**
-- Students recognize foundational decisions in various domains
-- Students commit to foundations instead of endlessly revising
-- Students understand that constraints enable rather than limit
-- Students plan systems from foundation up, not surface down
-
-When production thinking improves systems thinking—**the resonance succeeded**.
+It worked when production thinking improves systems thinking.
 
 ---
 

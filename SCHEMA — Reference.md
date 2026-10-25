@@ -42,12 +42,10 @@ the [[STIGMERGY]] board, or changing the type system. Not before holding a conve
 an agent is born with, and keeping the rules out of the birth is the point ([[SCHEMA — Context]] §Tiering, v1.18;
 §Born a child, v1.19).
 
-**Section numbers are load-bearing and unchanged.** Roughly 180 references across the palace pin
-`SCHEMA §3` / `§5` / `§6` / `§8` / `§9`. Those sections live here now and keep their numbers; the SCHEMA
-card keeps §1, §2, §4, §7 and leaves a pointer at each gap. A pin still resolves to the right rules.
+**Section numbers are load-bearing.** Other pages pin `SCHEMA §3`, `§5`, `§6`, `§8` and `§9`; those
+sections live here and keep their numbers. The SCHEMA card keeps §1, §2, §4 and §7.
 
-The *why* — the per-section change history, every `v1.x` record — is in [[SCHEMA — Context]], keyed by
-section, as it always has been.
+The change history is in [[SCHEMA — Context]], keyed by section.
 
 ---
 

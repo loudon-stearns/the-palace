@@ -115,4 +115,4 @@ Not on a roadmap — noted as natural extensions if the use case arises:
 
 ## A Future Echo
 
-> 📜 *2050 looking back.* See [[proofs/2026-05-05-wikipedia-stub-2050|the Phoneme Choir Wikipedia stub from 2050]] — what this entry might look like written from twenty-four years on, after the bank has been adopted and superseded enough times to stop pretending. The stub is also the artifact that surfaced the **conatus principle** for forward vectors across the palace (*I will remain* is a failure mode; vectors live in verbs). The forward vector above was rewritten this round as the first test of that principle.
+> 📜 *2050 looking back.* See [[proofs/2026-05-05-wikipedia-stub-2050|the Phoneme Choir Wikipedia stub from 2050]] — what this entry might look like written from twenty-four years on, after the bank has been adopted and superseded enough times to stop pretending.

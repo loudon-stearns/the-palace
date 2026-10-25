@@ -75,10 +75,12 @@ The interface is not subtle. It is *playful*, *funny*, *dramatic*. It invites th
 1. **Feedback architecture**: How many measures should the buffer hold? One measure (as designed) creates a tight loop. Two measures give more temporal breathing room. Should this be parameterized or fixed?
 
 2. **Cross-fade between measures**: When the buffer loops (one measure becomes the next), is there a discontinuity at the boundary, or a smooth cross-fade? A subtle cross-fade preserves continuity.
+   — answered on the scroll (2026-10-24): Loudon asked for a crossfade of a few ms (`retrospective-delay-steward-044`, 2026-10-15), and the séance now carries a 5 ms one; `stage-2-seance/seam-hard.wav` and `seam-smoothed.wav` are the comparison.
 
 3. **Post-phrase automation**: Loudon mentioned the possibility of *automatically* applying effects to the replayed phrase—reverb, saturation, filtering—triggered by the gain knob rising. This couples the device more tightly to effects chains and invites experimentation.
 
-4. **Max for Live vs. VST**: The device currently works in Max/MSP. Porting to Max for Live (Ableton) is straightforward. VST/AU wrapping requires separate build infrastructure. What's the target platform?
+4. **Hardware target**: The stage 5 portal ports the device to RNBO, so one instrument can leave Max as a VST/AU, a Max for Live device or a web page. What stays open is hardware: the Eventide H90 can't run RNBO yet. Should the portal aim at hardware only if that opens up?
+   — progressed: the question is now the scroll's open ask `retrospective-delay-steward-055` (2026-10-14).
 
 ## Forward Vectors
 - Implement variable-speed phrase playback — the temporal ghost plays back at different rates, creating pitch-shifted memory

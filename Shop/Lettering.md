@@ -78,7 +78,7 @@ Local ComfyUI SDXL, ~150–200 s/word on MPS (Study/Piece). Skeletons, sampler, 
 
 ## Bench
 
-`proofs/text-layer/`: `render_text.py` (skeleton · free · stylize modes; `resolve_font`, `knockout`), `text-prompts.json` (the emotion→material structure + per-voice fonts), `fetch_fonts.py` + `font_sampler.py` (the 50-face library + `font-sampler.html`), the 7-voice proof suite (`out/`, `contact-sheet.html`), and `balloon_genai.py` (balloon × gen-AI interaction modes, with the catalog `balloon_lib.py`).
+`Projects/BLUELINE/proofs/text-layer/` holds the renderer, its prompts, the font library and sampler, the seven-voice proof suite and the balloon bench. `<comfy venv>/python render_text.py` re-renders and rebuilds `contact-sheet.html` at the end of the run. The balloon bench, `balloon_genai.py`, imports the catalog `balloon_lib.py` from `Projects/BLUELINE/proofs/blender-handdrawn/followups/rig-openpose/`.
 
 ## Forward Vectors
 

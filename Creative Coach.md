@@ -320,7 +320,7 @@ and is answered.
 
 ## The repertoire — surveyed, not adopted
 
-*A row enters either table only when it changes a move the coach would make.*
+*A row enters either table only when it changes a move the coach would make, and a row that never has is composted at the next Weave.*
 
 Eleven traditions for helping a person keep working, gathered September 2026. **Three are in practice
 here without their names, and ten have no other presence in the palace.** Loudon says Acceptance &

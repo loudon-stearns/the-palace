@@ -208,14 +208,7 @@ The cooking/mixing resonance teaches **general decision-making strategy** for ir
 
 ## Success Metrics (By Our Definition)
 
-**Not:** "Students can cook and mix"
-**But:**
-- Students process conservatively by default
-- Students recognize irreversible processes in daily life
-- Students apply subtraction-first thinking beyond music
-- Students trust their taste/ears over tutorials/recipes
-
-When production thinking improves both cooking AND life decisions—**the resonance succeeded**.
+It worked when production thinking improves cooking and life decisions too.
 
 ---
 

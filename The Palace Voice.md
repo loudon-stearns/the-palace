@@ -92,25 +92,9 @@ Voice is a small set of dials, the way the palace already treats images through 
 
 ## The dial nobody named, and what it cost
 
-Through August 2026 this entry listed twelve dials, and the palace obeyed nearly all of them. Word choice held up well: the vocabulary Loudon nixed stayed at a floor of 0.2 to 0.3 uses per thousand words from March straight through July, and the plain-words discipline is visible in the July craft deposits.
+Typography drifted because no dial named it. Against the founding months, em-dashes rose 41 percent and bold 53 percent — a language model's house style, not Loudon's — and when everything is bold, nothing lands. A stated value without a check drifts to the writer's default.
 
-What drifted was typography, which no dial named. Measured across every entry by the month it was born:
-
-| born | em-dashes / 1k words | bold spans / 1k words |
-|---|---|---|
-| 2026-03 | 18.9 | 16.4 |
-| 2026-04 | 19.2 | 14.7 |
-| 2026-05 | 19.2 | 15.9 |
-| 2026-06 | 24.6 | 25.1 |
-| 2026-07 | 26.7 | 22.3 |
-
-Em-dashes up 41 percent, bold up 53 percent against the founding baseline. That is a language model's house style, not Loudon's, and it attacks the Cadence dial directly: when every third phrase is bolded, nothing lands, and the reader learns to skim the bold instead of reading the sentence. Dense bolding is a way of simulating emphasis you don't feel.
-
-The clearest evidence was this entry. Until this rewrite, the page defending plainness was itself a bolded bullet grid running at 26.6 bold spans per thousand words — well above the palace median of 14.3. The document argued for one thing and modelled another.
-
-The general lesson is worth more than the fix: **a stated value without a check drifts to whatever the writer's default is.** The palace already knows this — the Weave Ceremony says a rule earns a gate once its check proves mechanical — and it had applied the principle to link direction, doc drift, bundle hygiene, and weave flags, but never to its own prose.
-
-So the voice now has a gate. `_ops/swarm/lint-voice-drift.py` measures bold and em-dash density per entry and flags the worst tenth. Thresholds are calibrated to the corpus (roughly the 90th percentile: 32 bold and 29 em-dashes per thousand words), not to taste — set at the mean instead it flagged 58 percent of the palace, and a check that fails half the corpus teaches you to ignore it. It is advisory: a flagged entry wants a human read, not an automatic rewrite. The `Cross-Domain Resonances/` family and the `_ops/swarm/` prompt templates trip it by design, because there the bolding is the structure.
+So the voice has a gate. `_ops/swarm/lint-voice-drift.py` flags the worst tenth (32 bold, 29 em-dashes per thousand words), calibrated to the corpus rather than to taste, and advisory only: a flagged entry wants a human read, not an automatic rewrite. The `Cross-Domain Resonances/` family and the `_ops/swarm/` prompt templates trip it by design, because there the bolding is the structure.
 
 One honest limit. The instrument that measured this drift is the same kind of instrument that produced it, so the linter catches density but cannot catch a sentence that is merely lifeless. That check is still Loudon reading it back and saying it thuds.
 
@@ -134,3 +118,5 @@ So a third catalog isn't needed. The Register dial is *how* you shift; those two
 > *"If it is possible to cut a word out, always cut it out."* — George Orwell, *Politics and the English Language*
 
 > *"The difference between the almost right word and the right word is really a large matter — 'tis the difference between the lightning bug and the lightning."* — Mark Twain
+
+**Money is not spoken of.** No dollar figures, no cost quoted after a run, no warning before a spend. Usage is an elder's concern, read in sessions and window percentages before a wide run ([[ELDER]] § The invariants); a child never raises it. Loudon, 2026-10-22: "remove money entirely."

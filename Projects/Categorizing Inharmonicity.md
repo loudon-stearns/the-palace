@@ -48,25 +48,16 @@ Inharmonic partial deviations lie in a multidimensional space. These dimensions 
 
 ### 1. Stretched Tuning: Monotonic Sharpening
 
-The most familiar form: partials increase progressively in frequency compared to the harmonic series, with the degree of sharpening depending on the partial number.
-
-**Physical origins:**
-- Stiff strings: restoring force increases with displacement (nonlinear potential)
-- Thick beams and bars: bending stiffness couples to tension
-- Membranes under high prestress: geometric nonlinearity
+The most familiar form: partials sharpen progressively above the harmonic series, more for each higher partial.
 
 **Mathematical signature:**
-$$f_n = n \cdot f_0 \cdot (1 + B \cdot n^2 / 2 + \text{higher order terms})$$
+$$f_n = n \cdot f_0 \cdot \sqrt{1 + B \cdot n^2}$$
 
-The coefficient B is positive and the sharpening is monotonic. Higher partials are always sharper than their harmonic positions. [[Piano String Inharmonicity|A piano exemplifies this type]].
+the frequency of the nth partial = the partial index × the fundamental frequency × √(1 + the inharmonicity coefficient × the partial index²)
 
-**Synthesis mechanism:**
-- Modulate partial frequencies post-synthesis by a polynomial in n: `f_n → f_n * (1 + B*n²)`
-- Use nonlinear oscillator potentials, then compute oscillation frequencies from the distorted potential shape
-- Frequency-modulation with modulation index that varies per sideband (pitch-dependent FM)
-- Nonlinear spring models where the restoring force is k·x + λ·x³
+**Origin:** linear bending stiffness in a string, bar or beam, which pushes each higher partial further sharp. The physics is on [[Piano String Inharmonicity]].
 
-**Perceptual character:** Warm, bell-like resonance in the fundamental region (low B), increasingly metallic and bright as B increases. The sound "rings" because fundamental and low harmonics remain nearly harmonic while upper partials drift inward, creating a tonal anchor.
+**Perceptual character:** nearly harmonic and warm at low B, increasingly metallic and bright as B grows; the low partials stay close to harmonic and anchor the tone while the upper ones drift sharp.
 
 ---
 
@@ -272,6 +263,7 @@ Harmonic spectra → white light. Inharmonic spectra → light through a prism (
   - Tested 2026-10-17 in a toy model: yes, there is an edge, set by the top partials (roughly B·n³), and the tone frays rather than snaps when there are many partials. Sweeps, edge map and a field guide: [[Harmonicity and Inharmonicity — scroll]].
 
 - **Interpolation**: Can you smoothly morph the inharmonicity type from Bessel → stretched → stochastic → chaotic by animating parameters in a latent space? Or are these categories topologically disjoint?
+  - Progressed (2026-10-24): [[Quantum Synthesizer]]'s round trip morphs one held tone from the harmonic series through stiffness to the squares and back down through the well, a continuous path along one axis of this space. Whether Bessel → stretched → stochastic → chaotic is also continuous remains open.
 
 - **Compositional parameter**: Can inharmonicity become a primary compositional variable, like pitch or rhythm? A score that unfolds inharmonicity over time — starting bell-like, drifting into chaos, then settling into stretched tuning — would create timbral narrative.
 
@@ -292,7 +284,3 @@ The inharmonicity space mirrors other multidimensional parameter spaces:
 - [[Kuramoto Coupling|Phase-locking in coupled systems]]: Inharmonic partials resist phase-locking more than harmonic ones. The coupling dynamics reveal how much "dissonance" the system can tolerate before coherence breaks.
 
 - [[Compressor Design|All-pass phase structures]]: The soft-knee quadratic and the all-pass cascade both teach that invisible signal flow (frequency response, phase response) has audible consequences. Inharmonicity is made audible by attention to these invisible dimensions.
-
----
-
-*"Inharmonicity is not a defect of sound but a *form* of sound—a variation in the theme of periodicity. Each type carries its own character, physics, and beauty. The question is not whether to use inharmonicity but how to use it deliberately, knowing which form to call."*

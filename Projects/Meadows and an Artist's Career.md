@@ -108,6 +108,7 @@ The Meadows hierarchy diagram (rendered 2026-05-04 for [[Meadows and Music — L
 - Stage 1 — Spec the twelve levels with career examples (~current state)
 - Stage 2 — Self-diagnostic worksheet: ask reader to place their last 10 career decisions on the hierarchy
 - Stage 3 — Case studies: three artists' careers analyzed at each level
+  — progressed: Stages 2 and 3 are built — the worksheet, now v4, carries Eno, Oliveros and Martin as case studies inside it; see [[Meadows and an Artist's Career — scroll|the scroll]] (2026-10-24)
 - Stage 4 — Lesson series, in conversation with [[Meadows and Music — Leverage Points — Context|Meadows and Music — Origin and Process]] — origin first, then choice of leverage, then exercise
 
 ## Palace Connections
@@ -117,4 +118,3 @@ The Meadows hierarchy diagram (rendered 2026-05-04 for [[Meadows and Music — L
 - **[[FOUR PILLARS]]** — Practice pillar, primarily; Philosophy and Creation supporting
 - **[[Substrate Skill]]** § Stage as Alignment Confidence — *the same logic*: where in the hierarchy of confidence are we operating, and is our intervention sized to that level?
 
-<!-- CLAUDE → LOUDON: this draft is an attempted refocus per your 2026-05-04 feedback. It keeps the leverage-hierarchy structure but pivots the right column from "music production exercises" to "career-level questions." Open question: do you want this as a SIBLING entry to the original (both alive, cross-linked), or as a REPLACEMENT (composting the original)? I drafted as sibling because the music-production version contains real pedagogy worth keeping. -->

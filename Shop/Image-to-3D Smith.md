@@ -19,7 +19,7 @@ links:
 
 ![[Image-to-3D Smith — hero.png]]
 
-**Status: STUB** — entry written by Shopkeeper from calibration probe; not yet dispatched on a real brief. Loudon's approval needed before promoting to `alive`. First job should be a Study-tier Sketch → Three.js display chain or a Sketch → Blender import test.
+**Status: STUB** — drafted by the [[Shopkeeper]] from a calibration probe. Not yet dispatched on a real brief. First job should be a Study-tier Sketch → Three.js display chain or a Sketch → Blender import test.
 
 ## Charter
 

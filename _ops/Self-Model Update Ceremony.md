@@ -77,9 +77,8 @@ SUBSTRATE is the palace's mirror, and the ceremony is looking into it with clear
 ## Open Questions
 
 - Between runs, who adds a new organ to the anatomy? The Deposit that births a running meta entry, or only this ceremony?
-- Should the anatomy check also run in the Weave's lint pass, so a missing organ shows up as a finding there?
 
-*Settled in v2.0:* SUBSTRATE gets no change log of its own, because git, this ceremony's scroll and [[SUBSTRATE — Context]] hold the history ([[ELDER]] § Write what is, not what was). At maturity the ceremony does move from facts to interpretation; v2.0 is that move. The bar for a run is concrete now: an organ born, retired or rewired, or a failing check.
+The bar for a run: an organ born, retired or rewired, or a failing check.
 
 ---
 

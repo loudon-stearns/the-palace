@@ -96,8 +96,6 @@ tags: [project, blueline, music-video, generative, pipeline, sprout]
 > BLUELINE is, its goals, where each thread stands, and every proof placed. This entry is the palace
 > *face*.
 
-> Working title — placeholder, rename freely. The brief lives in the project bundle; this entry is the palace face.
-
 ## What it is
 
 BLUELINE makes bold, dramatic, graphic-cinematic action in surreal, mathematical worlds — music videos built the way film is built: **storyboard → animatic → final render**, with every frame pinned to the song. It is *not* a general generator. It has a default style, a fixed visual language, and a point of view. The bias is the product.
@@ -144,8 +142,6 @@ The keystones still ground it: the **conditioning keystone** (Session 1 — Blen
 multi-ControlNet; [[Blocked, Not Prompted]]) and the **flow-field spine** (Session 3+4 — one field, now
 character-aware; [[The Flow Field is the Spine]]). The conceptual map is [[BLUELINE — Production Pipeline]];
 the contracts are [[BLUELINE — Render Backend]] · [[BLUELINE — Board Record Schema]] · [[BLUELINE — toolbox]].
-*(The per-rung M0→M4 history that used to live here is preserved in the proof reports under `proofs/` and
-in git; the [[BLUELINE — Production Plan]] is the map of threads and proofs.)*
 
 ## Bundle
 
@@ -169,7 +165,7 @@ in git; the [[BLUELINE — Production Plan]] is the map of threads and proofs.)*
 - `BLUELINE — Specialists and Seams.md` — its "how many Specialists" question is answered by the live [[Shop/Figure Rig]] / [[Shop/Lettering]] / [[Frame Designer]] entries.
 - `Archive/BLUELINE — Deposit Map.md`, `Archive/BLUELINE — Claude Code Job.md` — the original June 2026 proposal + single-thread spike (executed / superseded).
 
-- `proofs/` — the per-track + session + rung proofs: `m0-previz/` (the verified previz player + `m0-report.md`), `m1-animatic/` (the comic-register animatic + `m1-report.md`), `m2-motion-comic/` (the beat-locked motion comic + `m2-report.md`), `animatic/` (the **rendered-board animatic** — player + `board-records.json` + `architecture.svg` + `animatic-report.md`), `new-story/` (the 6-shot noir-tragedy storyboard + the rich-first/stylize-last frame pipeline), `text-layer/` (the **text layer** — gen-AI typography, the font library + sampler, the 7-voice ink suite; see [[Shop/Lettering]] + [[Typography as Meaning]]), `m3-warped-noise/` (flow-warped noise vs seed-lock), `track-III-clock/` (clock + M4L spec), `track-II-lora/` (LoRA grade + the v2 ruler), `track-IV-bench/`, `track-V-motion/`, `session-2-staging/`, `session-3-flowfield/`, `session-10-impact/` (the physical impact solver), `session-11-outline/` (the **Aftermath Frame tool** — `impact_tool.py`, the single-sweep guide + debris look, outline pipeline).
+- Proofs are in `proofs/`, one folder per track or session, each with its report; `text-layer/` holds the gen-AI typography ([[Shop/Lettering]], [[Typography as Meaning]]).
 
 ## Active Baton
 

@@ -100,9 +100,21 @@ Loudon decided on 2026-09-24 that ceremonies should change in plain view, and th
 
 **v1.1 (2026-09-24) — open by reading the ledger.** Tuning item 38. 1.0 asked every run what it taught and never pointed the next run at the answer, so the four owed changes sat where no weave would meet them. Step 0 now reads the tuning file — owed items first, then anything after the version the last weave ran under — and those are the run's first candidates for a spec change. Schema v1.21 made the same rule general; the Weave took it first because its ledger was the one already holding debts.
 
+**v1.2 (2026-09-25) — every run marks its ledger.** Schema v1.23 asked each run to leave a run line in its tuning ledger, but the card still said a lesson goes there only when the spec changes, so no run would have written one. Step 7 now says it: the run marks the tuning file, and a lesson that changes the spec is also a numbered item. No weave run forced it; the reason is in `033f5da5`.
+
+**v1.3 (2026-09-26) — use is read from git.** Schema v1.26 retired `activation_count` and `last_activated`, which measured who remembered to bump them. The new-arrival step, the use line, stale metadata and the dormancy proposal now read `entry-use.py`. No weave run forced it (`32cb19ed`).
+
+**v1.4 (2026-10-14) — the sweep reads the trunk.** Tuning item 40. Step 2.5 runs `trunk-state.mjs` as its sixth command, and its rows take recover, discard or leave like the rest.
+
+**v1.5 (2026-10-14) — every canon entry wears a face.** Tuning item 41; see § The Weave's Widened Charter, *Faces on every entry*.
+
 **v1.6 (2026-10-18) — a stale generated block fails the gate.** Tuning item 42. [[The Shop]]'s roster is computed by `Shop/Maker/build-roster.mjs` but committed as text, so it goes stale whenever a Specialist is added, moved or re-statused and nobody re-runs the builder. Two weaves found it stale and fixed it by hand, and both filed the fix as mechanical, which is the proof a hard gate waits for (Protocol, the note on judgment). So `lint-doc-drift.py` gained E4: it runs each generated block's own builder with `--check`, and postcondition 2e fails while a block is stale. W3 passes the builder's own warnings through for review. The linter already ran in the Deposit's check, the Return's map and the Schema Ceremony, so one check reaches a session's drift wherever someone next looks, not only at the monthly weave. A steward cycle that edits a Shop page refreshes the block itself.
 
 **v1.7 (2026-10-18) — decisions reach every page.** Tuning item 43. A propagate flag (`flag_type: propagate`) names no source entries, so no touch closes it; it carries a scope, a check, an optional pattern and a rhythm, and closes by `Palace-Resolves:` once its check is clean. Step 1c now has two kinds of flag: entry flags close by trailer or decline, with a touch read by hand (paying items 21 and 24); propagate flags are carried first, and an unfinished one leaves a `Carried flag` line for the next weave to start from. Postcondition 2b, the commit line and the report count them, and the linter gates them with `--since`. See § Decisions Reach Every Page.
+
+**v1.8 (2026-10-21) — the report names proposals owed.** Step 2's report lists the pages whose stewards have proposals waiting on Loudon's ledger review (`list-proposals.mjs --line`); the weave names them and settles none. No weave run forced it (`e559e64b`).
+
+**v1.9 (2026-10-22) — the opening builds the map and reads the diff.** Tuning item 46. The opening runs `build-map.py` and diffs against the last weave's map; Step 6.5 diffs open against close, and the report carries both.
 
 ## Fewer, Better Links (2026-10-24)
 

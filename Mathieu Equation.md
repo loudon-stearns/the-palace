@@ -107,7 +107,7 @@ The connection to [[Crystal Synthesizer]] is via Bloch's theorem and the bandgap
 
 A second blade, from [[Dialectic — dialectic — spinoza-zhuangzi-on-striving|Spinoza and Zhuangzi on Whether Striving Is the Right Shape of Work]]: parametric pumping crosses into self-oscillation **only at the resonant rate.** Force the modulation at the wrong rate and nothing blooms; drive at the grain-rate and oscillation grows from infinitesimal noise. The Mathieu tongue is the physical proof of Zhuangzi's point — there is a rate at which *driving is flowing.* The threshold is where [[Spinoza Conatus|conatus]] and [[The Drift|wu wei]] turn out to name the same crossing.
 
-*Reader's note: the entry quietly takes the side that the structure was "always there" (discovered). Worth deciding on purpose whether that Platonism is the entry's real commitment — it changes how a designer is told to reach for the tongue.*
+*Reader's note: open — is the tongue found (Plato) or actualized (Deleuze)? It changes how a designer reaches for it.*
 
 ## Open Questions
 

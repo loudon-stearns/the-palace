@@ -121,9 +121,7 @@ A concrete method for doing this with p4mm is now on record — *([[proofs/2026-
 
 ## Wallpaper Groups in World Music — An Initial Mapping
 
-*This section emerged from a direct question: have practitioners of Carnatic rhythm, Afro-Cuban music, and West African polyrhythm encoded wallpaper group symmetries without knowing the theory — the way Alhambra artisans encoded all 17 without language? Short answer: yes, at least three mappings appear non-metaphorical. This section is a starting point; it wants deep research and expansion.*
-
-<!-- CLAUDE → LOUDON: This section is seeded from an enrichment card. Loudon noted it is "an exciting direction for the entry to go" and wants deeper research to expand it. Consider a dedicated harvest or Walk session targeting Carnatic tāla literature and West African rhythm scholarship. -->
+*Three mappings that look non-metaphorical: Carnatic tāla, West African bell patterns, Afro-Cuban clave. A starting point that wants deeper research.*
 
 **Carnatic tāla → p3 and its cousins.** The adi tāla (8 beats: 4+2+2) maps to p3: the drutam sections are rotations of each other, the pattern has momentum rather than a reflection axis. The *khandam* subdivision creates polyrhythm with no repeating reflection point — only rotation. Carnatic musicians describe it as *turning*, which is exactly the acoustic signature of a rotation-only group.
 
@@ -141,14 +139,13 @@ A concrete method for doing this with p4mm is now on record — *([[proofs/2026-
 ## Open Questions
 
 - Can you directly compose using wallpaper groups? Instead of choosing notes, choose a group, then specify a fundamental musical domain, then let the group generate the full piece?
+  — progressed: five recipes (p1, p2, p3, p6, pm) and the [[proofs/2026-05-05-recipe-p4mm|p4mm recipe]] are in this entry's bundle, and [[Metric Modulation]] takes up temporal tiling; a whole piece generated from a group is still unmade (2026-10-24)
 
 - In which 3D space groups do minerals with the most striking optical properties live? Do high-symmetry groups correlate with high birefringence, pleochroism, or fluorescence?
+  — progressed: [[Crystal Sonification Reference]] gives the space group of each of its eight materials, and the Crystal Synthesizer's birefringence proof makes ruby's (R-3c) two polarization families audible; the correlation itself is untested (2026-10-24)
 
 - Is there a "most inharmonic" wallpaper group—a group whose tiling structure, translated into sound, produces the most chaotic, least predictable spectrum?
 
 - What would a 4D wallpaper group sound like? Can you sonify a hyperdimensional periodic structure, the way you sonify a quantum wavefunction?
 
 - The Alhambra used no written language for symmetry. How would you teach the 17 groups *through making* rather than formalism—the way the Granada artisans learned?
-
-## Forward Vector
-I am driven to create a library of code with visual and audio applications that demonstrate wallpaper groups.

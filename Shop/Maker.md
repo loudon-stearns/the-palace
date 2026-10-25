@@ -256,7 +256,7 @@ For cloud generation (FLUX via Hugging Face Inference) I track usage against the
 
 ## Roster
 
-The authoritative roster — every Specialist with its status, medium, and tool — is **generated into [[The Shop]] § Roster** from each Specialist's `member-of [[The Shop]]` declaration. Run `node Shop/Maker/build-roster.mjs` to refresh it; do not hand-maintain a second copy here. (This pointer replaced a hand-listed roster that had drifted three Specialists stale.) The taxonomy and promotion history the table can't carry stay here.
+The authoritative roster — every Specialist with its status, medium, and tool — is **generated into [[The Shop]] § Roster** from each Specialist's `member-of [[The Shop]]` declaration. Run `node Shop/Maker/build-roster.mjs` to refresh it; do not hand-maintain a second copy here. (This pointer replaced a hand-listed roster that had drifted three Specialists stale.) The taxonomy the table can't carry stays here.
 
 **Status taxonomy** (definitions — the live status of each Specialist lives in its frontmatter `status` and renders into [[The Shop]] § Roster):
 
@@ -265,24 +265,11 @@ The authoritative roster — every Specialist with its status, medium, and tool 
 - **deprecated** — was on the roster, no real job landed before a substitute filled the slot; kept as a lineage record, never dispatched.
 - A Specialist is **alive** only when its Recipes section names a real dated job with a bundle path. A uniform authoring date is not a job.
 
-**Promotion log** — how each alive Specialist earned its status (append-only history; the live count is in the generated table):
-
-- *Flocking shoot-out (2026-05-29):* **p5.js** (also Kuramoto), **D3.js**, **Observable Plot**.
-- *Kuramoto arc (2026-05-10 → 05-26):* **Manim CE**, **Kokoro**, **Matplotlib**, **ComfyUI**, **Whisper**, **ffmpeg**, **Mermaid**, **Remotion**, **Tone.js**, **Stable Audio Open**.
-- *VCV audition (2026-05-29):* **VCV Patch Generator** — the only Specialist with a run test-plan and a determinism proof; the testing exemplar.
-- *Murmuration (2026-05-30):* **Web Audio Worklet** — agent-based granular-wavetable engine; the first Specialist born from a synthesis-paradigm brief, and the first sibling to land *because* an existing Specialist (Tone.js) refused the operating model.
-- *Shop header (Phase D-2, 2026-05-30):* **FLUX (Hugging Face)** — cloud-side image generation via HF Inference free tier; took Midjourney's slot when subscription cost made Midjourney untenable. First job revised the Maker's Mood/atmospheric Selection Heuristic — FLUX-Krea reads mood-specific prompt details that ComfyUI's SDXL flattens.
-- *Wavetable Scanner (2026-05-31):* **Three.js** — single-cycle wavetable morph laboratory; the first paired-Specialist brief where Three.js reads state from a [[Shop/Web Audio Worklet]] sibling (geometry-bound-to-the-data, the [[Waveguide Synthesizer]] pattern in miniature). Promoted stub → alive on its first dated job, ahead of the still-anticipated Waveguide commission.
-- *Conditioning keystone (BLUELINE Session 1, 2026-06-13):* **Blender** — posed one humanoid (worm's-eye foreshortened lunge) → six registered passes → ComfyUI per-channel multi-ControlNet (pose+depth+canny → SDXL fill → 1.5× refine); proved [[Blocked, Not Prompted]] against a prompt-only control. Fills the offline-3D gap [[Three.js]] can't. Alive on the conditioning job; the Cycles-render and geometry-nodes paths remain untested. Bundle: [Shop/Blender/tests/](../Shop/Blender/tests/).
-- *LoRA Trainer (BLUELINE Track II, 2026-06-16):* **LoRA Trainer** — first-try character-LoRA training on the RunPod substrate; the recipe proved out on DreamBooth-control subjects (the r4ng3r LoRAs themselves graded net-negative — an honest negative). See [[Shop/LoRA Trainer]].
-
-**Still stub** — awaiting first real job: **RNBO codebox~ smith**; **LaTeX** (created 2026-06-09 — capability-probed clean on the PDF path, but no brief has run, so it stays a stub per the taxonomy).
-
 **Deprecated** — Midjourney, 2026-05-30 — too expensive; never landed a real palace job; **FLUX (Hugging Face)** holds the cloud-aesthetic-ceiling slot. It has no entry; `host-capability.json` still routes a brief that names it to FLUX.
 
 More to come as briefs reveal need: Plotly, Graphviz, HTML/React Artifact Smith, **game engines** (Godot-first, on a real interactive-3D-application brief). The Roster grows; it does not pre-grow.
 
-> Drift note: the roster is no longer hand-maintained. The single source of truth is each Specialist's frontmatter `status` + `member-of [[The Shop]]` link; `Shop/Maker/build-roster.mjs` renders them into [[The Shop]] § Roster. The rendered block is still a committed copy, so it goes stale when a Specialist is added, moves or changes status and nobody re-runs the script. The doc-drift linter catches that (`_ops/swarm/lint-doc-drift.py`, E4): while the block is stale it fails the Weave's gate and the Deposit's check. Re-run the script after any such change. A steward's proposal for a Shop page needs the same re-run when it lands, and the check fails until it has one. The three-place inconsistency this section once carried (frontmatter vs. an alive-list vs. a stub-list) is gone: one source, and one block computed from it.
+> Drift note: the roster is no longer hand-maintained. The single source of truth is each Specialist's frontmatter `status` + `member-of [[The Shop]]` link; `Shop/Maker/build-roster.mjs` renders them into [[The Shop]] § Roster. The rendered block is still a committed copy, so it goes stale when a Specialist is added, moves or changes status and nobody re-runs the script. The doc-drift linter catches that (`_ops/swarm/lint-doc-drift.py`, E4): while the block is stale it fails the Weave's gate and the Deposit's check. Re-run the script after any such change. A steward's proposal for a Shop page needs the same re-run when it lands, and the check fails until it has one.
 
 ## Recipes
 
@@ -317,6 +304,7 @@ Last run: never.
 
 - How to handle briefs that cross into a Producer layer (cross-medium, multi-deliverable, scheduled across days)? For now, the Trickster (Loudon) plays this role. Threshold for promoting to a formal Producer entry: TBD. *(Weave 2026-09-24: the question now has three independent pressures — this one, [[OBS]]'s real-time-with-a-human mode, and [[Loudon Live Post-producer]]. It wants its own session.)*
 - Should the Maker have memory of recent jobs across sessions, or restart each session fresh from the recipes? Stigmergic argument: the recipes are the memory.
+  — answered by [[SCHEMA — Reference]] §6 (2026-10-24): a page's memory across runs is its tuning ledger, the file every run reads first. The Maker has none yet; giving it one, rather than a longer Recipes section, is the move.
 - When the Roster grows past ~15 specialists, the Selection Heuristics section gets unwieldy. Threshold for splitting back into per-medium Designer entries: TBD.
 - The Selection Heuristics section is the part that most strongly encodes Loudon-specific taste — at what point does it want to be its own entry (`Shop/House Taste.md`) rather than living inside the Maker?
 
@@ -326,8 +314,6 @@ Last run: never.
 - A `Shop.md` hub entry was briefly proposed — discarded because the Maker is the front door already.
 
 ## Forward Vector
-
-First job: a Sketch-tier deliverable through Kokoro to verify the template, the Tier vocabulary, and the standards-report shape are coherent in practice. Once a single round-trip works (brief → Maker decodes → Kokoro produces → standards check → delivery), expand to a Manim-only job, then a Manim+Kokoro coordination, then a three-specialist motion piece. Each test that exposes a template flaw is a deposit-worthy correction.
 
 After single-Specialist round-trips work, run the first **Comparison Mode** test: a header art brief routed to both FLUX (Hugging Face) and ComfyUI in parallel. The result calibrates when local control beats cloud aesthetic ceiling and surfaces the first real tradeoff conversation.
 

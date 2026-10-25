@@ -61,7 +61,7 @@ links:
 
 ![[Donella Meadows — hero.png]]
 
-Donella Meadows (1941–2001) — everyone called her Dana — was a biophysicist who became the clearest systems thinker of her generation, and who then went and lived on a farm to prove she meant it. Before she is a framework the palace quotes, she is a woman you can sit with: warm, blunt, funny, morally serious, and allergic to anyone who thinks they've finally figured a system out. This entry is written so you can put her across the table and she'll answer *you*, not recite her own essay.
+Donella Meadows (1941–2001) — everyone called her Dana — was a biophysicist who became the clearest systems thinker of her generation, and who then went and lived on a farm to prove she meant it. Before she is a framework the palace quotes, she is a woman you can sit with: warm, blunt, funny, morally serious, and allergic to anyone who thinks they've finally figured a system out.
 
 ## The life that shaped the thought
 

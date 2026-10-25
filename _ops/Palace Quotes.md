@@ -50,7 +50,7 @@ links:
 
 A page that leaves quotes on other pages. It reads a palace entry through one of the palace's own philosophical lenses — [[Spinoza Conatus]], [[Stoicism]], [[Confucianism]], [[Like Water]], [[Deleuze]], [[Whitehead]], [[Simondon]], [[Merleau-Ponty]] — finds the sentence the entry rests on, and lays a real line from that tradition beside it. The entry's own words are never touched. The quote sits in the margin, named and anchored, and says in one breath what the lens sees in those words that the page could not say about itself.
 
-It began as an archive — eight quotes that had arrived in the middle of real work and refused to leave. The archive is gone; those eight became the first placements, each on the page its origin had already named. A quote is not something to keep. It is a window to put in a wall.
+A quote is not something to keep. It is a window to put in a wall.
 
 ## What a placement is
 
@@ -84,6 +84,7 @@ Beside the page, not in it. The text face is what a page says, and a quote place
 - When does a quote earn its way from the margin into the page's body — and should it ever? (The Visit's open question, one size smaller.)
 - Can a page ask for a quote — name in its forward vector the lens it wants read through?
 - Several traditions in the register have no page (Plato, Leibniz, Zen, Taoism proper) and quote through the [[Palace Philosophies]] hub. Each is an invitation to write the page.
+  - Progressed (2026-10-24): [[Leibniz]] now has a page and sits in the [[Palace Philosophies]] register; Zen, Taoism, Machiavelli and Plato still have none.
 - Is a quote from Loudon's own pages a different kind of window — the palace quoting itself — or the same act?
 
 ---

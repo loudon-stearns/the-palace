@@ -177,7 +177,9 @@ Last run: **2026-05-30** — Smoke + Determinism both pass on the Phase B narrat
 ## Open Questions
 
 - Default model size for Study tier — `base` is faster, `small` is markedly more accurate on accented speech. Decide on first real job
+  — answered in § Gotchas above (2026-10-24): `base` for clean text-to-speech round trips, `small` for accented or low-SNR sources, `large-v3` for Piece-tier published work.
 - `whisperx` vs. native Whisper word timing — `whisperx` is tighter but adds a dependency. When does the Maker route to it? Likely: any `manim-voiceover` job where sync drift would be visible
+  — progressed (2026-10-24): the [[Maker]]'s Narrated Beats recipe ran native Whisper timing into Manim, and what it needed was fuzzy cue matching (SequenceMatcher ≥ 0.78) for phonetic wobble, not tighter timing. Native was enough there; `whisperx` stays for dense or reverberant speech.
 - Diarization model choice (`pyannote/speaker-diarization-3.1` vs. older versions) — track this; the field moves quickly
 - Should low-confidence segments be auto-flagged for human review at Piece tier, or is that always Loudon's call? Suggest auto-flagging at confidence < 0.7 with a Maker prompt before declaring done
 

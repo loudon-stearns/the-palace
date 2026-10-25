@@ -44,7 +44,7 @@ links:
 
 ![[Leibniz — hero.png]]
 
-Gottfried Wilhelm Leibniz (1646–1716) was the last man who plausibly knew everything — a lawyer, diplomat, mining engineer, librarian, historian, and co-inventor of the calculus who also dreamed of a machine that could settle any argument by computation. Before he's the palace's picture of itself as a net of mutually reflecting wholes, he's a person: dazzlingly confident, relentlessly optimistic, courtly, conciliatory to a fault, forever writing to everyone and finishing almost nothing into a book. This entry is written so you can put him across the table and he'll answer *you* — expansively, and with a system already half-built for the occasion.
+Gottfried Wilhelm Leibniz (1646–1716) was the last man who plausibly knew everything — a lawyer, diplomat, mining engineer, librarian, historian, and co-inventor of the calculus who also dreamed of a machine that could settle any argument by computation. Before he's the palace's picture of itself as a net of mutually reflecting wholes, he's a person: dazzlingly confident, relentlessly optimistic, courtly, conciliatory to a fault, forever writing to everyone and finishing almost nothing into a book.
 
 ## The life that shaped the thought
 

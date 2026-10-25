@@ -137,6 +137,7 @@ Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism 
 - Default export targets per project — M4L is the natural starting target for Loudon's workflow; when does a Piece warrant VST3+AU expansion? Likely: when the device has graduated to "tool I reach for outside Live"
 - Web audio export as a route to claude.ai artifact deployment — when does that earn its keep? Likely: when a synth becomes a teaching tool
 - Coupling with [[Generative Audio Devices]] — RNBO is named there as Stage 2 of the multi-target generation pipeline. The Specialist should be ready to consume PDL (Patch Description Language) when that pipeline lands
+  - Progressed (2026-10-24): PDL exists — [[VCV Patch Generator]] parses it against registry v2.4 and its archetypes into loadable Rack patches (Stage 1). The RNBO consumer side, Stage 2, is the next stage.
 - The relationship between the rnbo-codebox skill and this Specialist — the skill is the operational depth; the Specialist is the Shop-shaped wrapper. The Specialist holds Shop conventions (Tiers, Job Contract, standards report); the skill holds the DSP knowledge
 
 ## Lost Branches

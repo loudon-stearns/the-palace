@@ -131,7 +131,7 @@ HTML loads without console errors, audio context unlocks correctly on first user
 
 **2026-05-26 — Two-oscillator audio coupling explorer** (Study tier, standalone HTML, ~5 KB script). Two `Tone.Oscillator` sines driven by Kuramoto's two-oscillator dynamics. Sliders: f<sub>A</sub>, f<sub>B</sub> (120–320 Hz), K (0–6 Hz), output volume. A `Tone.Analyser('waveform')` feeds a `requestAnimationFrame`-driven oscilloscope below the controls. Lock criterion exposed in a HUD: K_c = |f_B − f_A|/2, state reads `drift` / `pulling in` / `lock`. Palette matches the Kuramoto arc's `#6366F1` / `#F59E0B` / `#0B0B10`. Source = output: [Kuramoto Coupling/two-oscillators-coupling-explorer-audio.html](../Kuramoto Coupling/two-oscillators-coupling-explorer-audio.html). Tone.js loaded from CDN (`tone@15.0.4`). Pairs with the existing p5.js visual coupling explorer; the same K_c threshold can be felt both ways. Open question from the entry — Tone-clock vs UI-clock reconciliation — resolved as the first dated gotcha above.
 
-*Final-mile note:* the artifact has been syntax-checked (`node --check`) and the math has been worked through, but in-browser audio confirmation belongs to whoever opens it first. The Specialist's Self-Check explicitly requires Chrome-minimum verification before claiming a Piece tier; this is a Study and the smoke test is "audio context unlocks, both sliders affect the heard tone, beating slows visibly on the oscilloscope as K crosses K_c."
+The Specialist's Self-Check explicitly requires Chrome-minimum verification before claiming a Piece tier; this is a Study and the smoke test is "audio context unlocks, both sliders affect the heard tone, beating slows visibly on the oscilloscope as K crosses K_c."
 
 ## Test Suite
 
@@ -141,7 +141,9 @@ Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism 
 
 - Should the Shop maintain a base claude.ai artifact template with Tone.js + a parameter UI scaffold + audio context unlock pattern? Yes; defer to first real job
 - Tone.js vs. RNBO web export for browser-deployable serious instruments — when does the Maker route to which? Likely: Tone.js when the synth is built around Tone's primitives (subtractive, FM, sampler), RNBO web when custom DSP is the differentiator
+  — progressed: [[Shop/Web Audio Worklet]] sharpened the rule — Tone when the instrument is a composition of primitives, Worklet when the DSP is the differentiator; RNBO web export is the third case, which Worklet's forward vector tests by building one spec twice, there and in [[Shop/RNBO codebox~ smith]] (2026-10-24)
 - p5.js + Tone.js coupling — when both are in a sketch, how does audio scheduling coordinate with frame-rate visual updates? Tone's musical clock vs. p5's `draw()` clock have to be reconciled
+  — answered by the first gotcha above: for parameter writes, `setValueAtTime(value, Tone.now())` from the draw loop, and leave `Tone.Transport` stopped unless the brief needs musical timing (2026-10-24)
 
 ## Lost Branches
 

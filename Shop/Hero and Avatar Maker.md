@@ -47,7 +47,7 @@ Hand-drawn / classical / printmaking / abstract — **never** glossy 3D-render, 
 - **Hero** — a wide ~12:5 banner, rendered as a *fixed, darkened, desaturated backdrop* pinned behind the top of the entry; phosphor legibility always wins, so the image is veiled into the terminal black before the body text begins.
 - **Avatar** — a square **bold, high-contrast emblem** (its own mark, not a hero crop) that must survive 24–48px. High-contrast idioms (an enso, a fader, a keyboard) read crisply; delicate light engravings soften at avatar size — so favor boldness for icons.
 - In the prompt: name the medium explicitly, avoid CGI cue words, add "no text" (FLUX garbles lettering), and *evoke* rather than render real people.
-- **Even men/women mix (standing directive, recalibrated 2026-06-24).** Aim for **balanced** gender representation — never let a scene go male-dominated, but equally never let it go female-dominated. For multi-figure scenes, include both men and women; for single archetypes (scholar, philosopher, trickster, scribe, medium, maker), **alternate** gender across entries rather than defaulting either way. *(History: a first directive this day pushed "embed women heavily / lean female"; after Wave 2 read too female-focused, Loudon recalibrated to an even mix — balance, not female-dominance.)* See female-representation-in-imagery (memory).
+- **Even men/women mix (standing directive, recalibrated 2026-06-24).** Aim for **balanced** gender representation — never let a scene go male-dominated, but equally never let it go female-dominated. For multi-figure scenes, include both men and women; for single archetypes (scholar, philosopher, trickster, scribe, medium, maker), **alternate** gender across entries rather than defaulting either way. See female-representation-in-imagery (memory).
 
 ## The convention
 
@@ -60,7 +60,7 @@ Hand-drawn / classical / printmaking / abstract — **never** glossy 3D-render, 
 3. **Place** — copy into the entry's bundle by the convention; embed the hero; commit `enrich(<Entry>): hero + icon — purpose: visual identity (hand-drawn)`. Git is the biography.
 4. **Show** — [[STIGMERGY]] renders the avatar in board `from` headers, the STATE PULSE list, and the companion titlebar (the `EntryAvatar` component), and the hero as the page's fixed backdrop.
 
-The reusable tooling now lives in **this entry's own bundle** (`Shop/Hero and Avatar Maker/`), tracked in git — the Maker owns its render path, no longer dependent on ephemeral scratch. Two tools share **one** render implementation: **`make_faces.py`** is the batch driver (`prompts.json` → `generate | place | gallery | plan`, endpoint up once for the whole batch, parked in a `finally`), and **`regen_one.py`** the single-page render behind the STIGMERGY companion door. Both place by the entry's *real* path (`md.parent/<file name>/`, so any location works — Projects, People, Bridges, Shop, hubs), add the hard ANTI_TEXT clause, and write a `<Title> — face.json` sidecar so a re-ask can iterate from the prior prompt. A redo can be one-sided: `make_faces.py place` puts in only the sides the spec gives a prompt and that were rendered, and leaves the other side's file, prompt and seed alone — a stray render from an old batch is reported, never placed. `generate` keeps each render's seed beside it (`<slug>-<side>.seed.json`, tied to the render's bytes) and `place` writes it into the face.json; a render changed since (a trim, a composite) gets no seed rather than a wrong one. Raw renders stay in the gitignored `_renders/` working dir; only finals copy into each entry's bundle. *(The older project-only scripts in `_ops/scratch/hero-icon-proving/` — `batch.py`/`batch_hubs.py` — are superseded by `make_faces.py`.)* The STIGMERGY display side shipped on branch `feature/stigmergy-entry-avatars`.
+The reusable tooling now lives in **this entry's own bundle** (`Shop/Hero and Avatar Maker/`), tracked in git — the Maker owns its render path, no longer dependent on ephemeral scratch. Two tools share **one** render implementation: **`make_faces.py`** is the batch driver (`prompts.json` → `generate | place | gallery | plan`, endpoint up once for the whole batch, parked in a `finally`), and **`regen_one.py`** the single-page render behind the STIGMERGY companion door. Both place by the entry's *real* path (`md.parent/<file name>/`, so any location works — Projects, People, Bridges, Shop, hubs), add the hard ANTI_TEXT clause, and write a `<Title> — face.json` sidecar so a re-ask can iterate from the prior prompt. A redo can be one-sided, and each render keeps its seed beside it. Raw renders stay in the gitignored `_renders/` working dir; only finals copy into each entry's bundle.
 
 ## Scope
 
@@ -105,10 +105,10 @@ What making faces has taught, as it stands today. Which batch taught each, and w
 
 - Hero and avatar share an idiom per entry, but should avatars also share a faint *technical envelope* so they read as a set across the terminal?
 - Should this maker be a permanent autonomous steward, or stay a fire-on-request line?
+  — progressed: § Scope above holds a third answer (2026-10-24) — neither steward nor request line, but a gate the Weave opens: its face audit lists the entries without a face, and they reach me as a gated batch.
 
 ## Forward Vectors
 
-- ~~Build the companion `/hero` door~~ — *shipped 2026-06-25* as the conversational regen door (discuss + steer + regenerate, one-shot with undo). Next: a small live-render verification, and surfacing the door's existence in the companion's empty-state hint.
+- A small live-render verification of the companion door, and surfacing the door's existence in the companion's empty-state hint.
 - Become the **autonomous distiller** that walks the palace over time, depositing faces and letting you correct on a glance (the auto-deposit / regenerate-on-exception model).
-- ~~Bring the whole canon to a face~~ — *done 2026-10-14*: 316 of 316 canon entries wear a hero and an icon. From here the Weave keeps it whole.
 - Wear my own face.

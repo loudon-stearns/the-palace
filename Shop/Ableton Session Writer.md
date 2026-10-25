@@ -23,7 +23,7 @@ links:
 
 ![[Ableton Session Writer — hero.png]]
 
-**Status: ALIVE** — marked alive on 2026-10-21 on Loudon's yes ("Yes, mark the Ableton Session Writer alive now that its first job is done"); drafted 2026-10-21 in the Shopkeeper's workshop by the ableton-session session of the 2026-10-20 fan-out, from one probe (`Shop/Shopkeeper/probes/2026-10-20-ableton-session/`). Loudon's words that commissioned it: "I would be interested for the projects that are creating plugins and sample libraries to hand me fully ready Ableton sessions so that all I need to do is open the Ableton session and the result of their work is there ready to play." First job done on 2026-10-21 at 07:43: Loudon opened it unchanged in his own Live 12 (a fresh launch; Live's log: "Restored: Frustration" at 07:43:18 on 2026-10-21), played the ride, and said "looks great and is working great!" The library Set is the next first job.
+**Status: ALIVE** — since 2026-10-21, on Loudon's yes after the first job. Drafted in the Shopkeeper's workshop from one probe (`Shop/Shopkeeper/probes/2026-10-20-ableton-session/`). Loudon's words that commissioned it: "I would be interested for the projects that are creating plugins and sample libraries to hand me fully ready Ableton sessions so that all I need to do is open the Ableton session and the result of their work is there ready to play."
 
 ## Charter
 
@@ -39,7 +39,7 @@ The craft is GoButton's — Loudon's show-control repository outside the palace,
 
 | Job | What the Set holds | Evidence |
 |---|---|---|
-| `plugin` — a JUCE plugin folder in the [[VST Template]]'s shape | one MIDI track, the VST3 device with its float parameters configured and automatable, a Device On lane (off at open, on one beat into play, off at the end), a lane per ridden parameter, one named clip per section of the ride, a Limiter on Main | `out/Simple Synth.als` opened in a second Live 12.4.6 instance, the device loaded, the transport ran through the sections and stopped; `out/Frustration.als` opened the same way but its device read "could not be found" on the first open (the broken seal, see Gotchas); re-opened unchanged after the re-seal and a rescan, the device loaded (`1847b68c`); then Loudon opened it unchanged in his own Live 12 (a fresh launch; Live's log: "Restored: Frustration" at 07:43:18 on 2026-10-21), played the ride, and said "looks great and is working great!" |
+| `plugin` — a JUCE plugin folder in the [[VST Template]]'s shape | one MIDI track, the VST3 device with its float parameters configured and automatable, a Device On lane (off at open, on one beat into play, off at the end), a lane per ridden parameter, one named clip per section of the ride, a Limiter on Main | `out/Simple Synth.als` opened in a second Live 12.4.6 instance, the device loaded, the transport ran through the sections and stopped; `out/Frustration.als` opened the same way but its device read "could not be found" on the first open (the broken seal, see Gotchas); re-opened unchanged after the re-seal and a rescan, the device loaded (`1847b68c`); heard by Loudon, 2026-10-21 (see First job) |
 | `library` — SFZ instruments as [[Generative Sample Libraries]] writes them | one MIDI track per instrument with Live's Sampler holding every region as a zone (key and velocity range, root, detune, sustain loop, the file by relative and absolute path), the SFZ's amplitude envelope, a clip that walks four roots at three velocities then holds a chord, the tracks playing in turn, a Limiter on Main | `out/Tear and Heal.als` (four instruments, 240 samples) opened in Live 12.4.6, played: the first track's meter lit and the playhead ran; every sample found on disk |
 | `check` — read a Set back | the Live that wrote it, each track's devices, clips, notes and lanes, pointee uniqueness, sample presence, whether a plugin is installed and whether it is on when the Set opens | run on every Set above; nothing to look at |
 
@@ -123,7 +123,7 @@ The writer and `check` prove structure: Live opens the Set, the devices load, ev
 
 ## Known gaps
 
-- **One ear so far.** Loudon opened it unchanged in his own Live 12 (a fresh launch; Live's log: "Restored: Frustration" at 07:43:18 on 2026-10-21), played the ride, and said "looks great and is working great!" The library Set (Tear and Heal) is still unheard: whether the Sampler's loops sit where the SFZ put them, and whether the heal reads across the keys, is the next first job.
+- **One ear so far.** Heard by Loudon, 2026-10-21 (see First job). The library Set (Tear and Heal) is still unheard: whether the Sampler's loops sit where the SFZ put them, and whether the heal reads across the keys, is the next first job.
 - **Drum Rack not built.** A one-shot library would map better to pads; the Sampler path covers multisampled instruments. Simpler is unused.
 - **AU not targeted**; VST3 only. Live loads either; the writer knows the VST3 class id from the bundle's manifest.
 - **Macros unused** (lanes instead). A Piece-tier brief that wants a performance surface may want an Instrument Rack with macros; that is more XML, not a different craft.
@@ -132,7 +132,7 @@ The writer and `check` prove structure: Live opens the Set, the devices load, ev
 
 ## Test suite
 
-`Shop/Ableton Session Writer/tests/test-plan.md`. Last run 2026-10-21: smoke passed on all three Sets (`check` ends "nothing to look at"); capability: Simple Synth and Tear and Heal opened and played in a second Live 12.4.6 instance; the Frustration Set loaded in Live 12.4.6 at 00:16:02 on 2026-10-21 after the plugin's re-seal and a rescan (`1847b68c`); then Loudon opened it unchanged in his own Live 12 (a fresh launch; Live's log: "Restored: Frustration" at 07:43:18 on 2026-10-21), played the ride, and said "looks great and is working great!" The library Set is unheard.
+`Shop/Ableton Session Writer/tests/test-plan.md`. Last run 2026-10-21: smoke passed on all three Sets (`check` ends "nothing to look at"); capability: Simple Synth and Tear and Heal opened and played in a second Live 12.4.6 instance; the Frustration Set loaded in Live 12.4.6 at 00:16:02 on 2026-10-21 after the plugin's re-seal and a rescan (`1847b68c`); heard by Loudon, 2026-10-21 (see First job). The library Set is unheard.
 
 ## Resource footprint
 
@@ -140,4 +140,4 @@ Host class: mac only (Live 12 Suite, Loudon's licence). Node, no install, no GPU
 
 ## First job
 
-**Done, 2026-10-21 07:43.** Loudon opened it unchanged in his own Live 12 (a fresh launch; Live's log: "Restored: Frustration" at 07:43:18 on 2026-10-21), played the ride, and said "looks great and is working great!" His words are kept in the ride recipe (`frustration.live-set.json`, `_heard`); the four sections stand as drawn. **Next:** the library Set: open `out/Tear and Heal.als` in his Live and ask whether the Sampler's loop sits where the SFZ said, and whether the heal reads across the keys.
+**Done, 2026-10-21.** Loudon opened the Frustration Set unchanged in his own Live 12 (a fresh launch; Live's log: "Restored: Frustration" at 07:43:18), played the ride, and said "looks great and is working great!" His words are kept in the ride recipe (`frustration.live-set.json`, `_heard`); the four sections stand as drawn. **Next:** the library Set: open `out/Tear and Heal.als` in his Live and ask whether the Sampler's loop sits where the SFZ said, and whether the heal reads across the keys.

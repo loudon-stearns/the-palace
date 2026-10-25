@@ -4,12 +4,12 @@
     "scope": "full",
     "node_count": 322,
     "use": {
-      "head": "b7fc35ff",
+      "head": "fccfa655",
       "window_days": 90,
       "window_since": "2026-07-26",
       "sweep_threshold": 10
     },
-    "edge_count": 2374,
+    "edge_count": 2380,
     "yaml_errors": [],
     "ghost_taxonomy": {
       "error_ghosts": [],
@@ -37,12 +37,15 @@
         "Harvest Ceremony \u2014 Context",
         "Harvest Ceremony \u2014 spec \u2014 lessons from outside",
         "Hilaritas Generator \u2014 Context",
+        "Hyperdimensional Prism \u2014 Context",
         "Jewel \u2014 Context",
+        "Kuramoto Coupling \u2014 Context",
         "LDN RTM \u2014 Live 12",
         "Loudon Live Post-producer \u2014 Log",
         "Loudon Live \u2014 asset plan",
         "Loudon's Toolkit \u2014 catalog \u2014 inside the computer",
         "Loudon's Toolkit \u2014 catalog \u2014 outside the computer",
+        "Maker \u2014 Context",
         "Making a Palace Citizen \u2014 context",
         "Meadows and Music \u2014 Leverage Points \u2014 Context",
         "Modes of Collaboration \u2014 Context",
@@ -54,9 +57,12 @@
         "SCHEMA \u2014 Context",
         "STIGMERGY v1.0 \u2014 Palace Front-End",
         "STIGMERGY v2.0 \u2014 Consolidation & Primary Interface",
+        "STIGMERGY \u2014 Context",
         "STIGMERGY \u2014 sketch \u2014 the-substrate-drifts",
         "SUBSTRATE \u2014 Context",
+        "Spinoza Conatus \u2014 Context",
         "The Multilinear Self \u2014 projection roster",
+        "The Shop \u2014 Context",
         "Tract Mirror \u2014 build plan \u2014 JUCE VST",
         "VCV Patch Generator \u2014 spec \u2014 PDL generation prompt",
         "Weave Ceremony \u2014 Context",
@@ -151,17 +157,17 @@
       "type": "project",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-12",
+      "last_used": "2026-10-24",
       "use": {
-        "page": 2,
+        "page": 3,
         "bundle": 2,
         "linked": 14,
-        "use": 18,
+        "use": 19,
         "recent": {
-          "page": 1,
+          "page": 2,
           "bundle": 1,
           "linked": 1,
-          "use": 3
+          "use": 4
         }
       },
       "outbound_count": 1,
@@ -197,17 +203,17 @@
       "type": "project",
       "stage": "fruiting",
       "has_forward_vector": true,
-      "last_used": "2026-10-21",
+      "last_used": "2026-10-24",
       "use": {
         "page": 5,
         "bundle": 10,
-        "linked": 35,
-        "use": 50,
+        "linked": 37,
+        "use": 52,
         "recent": {
           "page": 2,
           "bundle": 7,
-          "linked": 7,
-          "use": 16
+          "linked": 9,
+          "use": 18
         }
       },
       "outbound_count": 8,
@@ -220,17 +226,17 @@
       "type": "concept",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-09-27",
+      "last_used": "2026-10-24",
       "use": {
         "page": 4,
         "bundle": 1,
-        "linked": 13,
-        "use": 18,
+        "linked": 14,
+        "use": 19,
         "recent": {
           "page": 1,
           "bundle": 0,
-          "linked": 1,
-          "use": 2
+          "linked": 2,
+          "use": 3
         }
       },
       "outbound_count": 9,
@@ -270,13 +276,13 @@
       "use": {
         "page": 3,
         "bundle": 1,
-        "linked": 35,
-        "use": 39,
+        "linked": 36,
+        "use": 40,
         "recent": {
           "page": 3,
           "bundle": 1,
-          "linked": 35,
-          "use": 39
+          "linked": 36,
+          "use": 40
         }
       },
       "outbound_count": 9,
@@ -287,19 +293,19 @@
       "id": "Action Potential Oscillator",
       "path": "Projects/Action Potential Oscillator.md",
       "type": "project",
-      "stage": "growing",
+      "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-10-21",
+      "last_used": "2026-10-24",
       "use": {
         "page": 8,
         "bundle": 10,
-        "linked": 41,
-        "use": 59,
+        "linked": 42,
+        "use": 60,
         "recent": {
           "page": 1,
           "bundle": 6,
-          "linked": 5,
-          "use": 12
+          "linked": 6,
+          "use": 13
         }
       },
       "outbound_count": 5,
@@ -425,7 +431,7 @@
       "id": "Animate the Background",
       "path": "Animate the Background.md",
       "type": "practice",
-      "stage": "sprout",
+      "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-09-24",
       "use": {
@@ -519,17 +525,17 @@
       "type": "concept",
       "stage": "sprout",
       "has_forward_vector": true,
-      "last_used": "2026-09-22",
+      "last_used": "2026-10-24",
       "use": {
         "page": 3,
         "bundle": 0,
-        "linked": 10,
-        "use": 13,
+        "linked": 11,
+        "use": 14,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 3,
-          "use": 3
+          "linked": 4,
+          "use": 4
         }
       },
       "outbound_count": 3,
@@ -539,7 +545,7 @@
     {
       "id": "BBS Blackboard",
       "path": "Palace development/BBS Blackboard.md",
-      "type": "concept",
+      "type": "hub",
       "stage": "mature",
       "has_forward_vector": true,
       "last_used": "2026-09-26",
@@ -588,17 +594,17 @@
       "type": "project",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-22",
+      "last_used": "2026-10-24",
       "use": {
         "page": 18,
         "bundle": 24,
-        "linked": 31,
-        "use": 73,
+        "linked": 33,
+        "use": 75,
         "recent": {
           "page": 3,
           "bundle": 6,
-          "linked": 6,
-          "use": 15
+          "linked": 8,
+          "use": 17
         }
       },
       "outbound_count": 20,
@@ -611,17 +617,17 @@
       "type": "practice",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-10-23",
+      "last_used": "2026-10-24",
       "use": {
         "page": 13,
         "bundle": 12,
-        "linked": 29,
-        "use": 54,
+        "linked": 30,
+        "use": 55,
         "recent": {
           "page": 5,
           "bundle": 9,
-          "linked": 8,
-          "use": 22
+          "linked": 9,
+          "use": 23
         }
       },
       "outbound_count": 5,
@@ -657,17 +663,17 @@
       "type": "concept",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-21",
+      "last_used": "2026-10-24",
       "use": {
         "page": 2,
         "bundle": 1,
-        "linked": 18,
-        "use": 21,
+        "linked": 19,
+        "use": 22,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 2,
-          "use": 2
+          "linked": 3,
+          "use": 3
         }
       },
       "outbound_count": 5,
@@ -680,17 +686,17 @@
       "type": "concept",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-10-21",
+      "last_used": "2026-10-24",
       "use": {
         "page": 5,
         "bundle": 3,
-        "linked": 10,
-        "use": 18,
+        "linked": 11,
+        "use": 19,
         "recent": {
           "page": 1,
           "bundle": 0,
-          "linked": 2,
-          "use": 3
+          "linked": 3,
+          "use": 4
         }
       },
       "outbound_count": 11,
@@ -792,20 +798,20 @@
     {
       "id": "Boundary-Crossing Instruments",
       "path": "Boundary-Crossing Instruments.md",
-      "type": "concept",
+      "type": "hub",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-10-18",
+      "last_used": "2026-10-24",
       "use": {
         "page": 2,
         "bundle": 1,
-        "linked": 48,
-        "use": 51,
+        "linked": 50,
+        "use": 53,
         "recent": {
           "page": 1,
           "bundle": 0,
-          "linked": 1,
-          "use": 2
+          "linked": 3,
+          "use": 4
         }
       },
       "outbound_count": 4,
@@ -914,13 +920,13 @@
       "use": {
         "page": 2,
         "bundle": 0,
-        "linked": 54,
-        "use": 56,
+        "linked": 56,
+        "use": 58,
         "recent": {
           "page": 2,
           "bundle": 0,
-          "linked": 54,
-          "use": 56
+          "linked": 56,
+          "use": 58
         }
       },
       "outbound_count": 6,
@@ -960,13 +966,13 @@
       "use": {
         "page": 1,
         "bundle": 0,
-        "linked": 33,
-        "use": 34,
+        "linked": 34,
+        "use": 35,
         "recent": {
           "page": 1,
           "bundle": 0,
-          "linked": 33,
-          "use": 34
+          "linked": 34,
+          "use": 35
         }
       },
       "outbound_count": 3,
@@ -1000,19 +1006,19 @@
       "id": "Chebyshev is Fourier",
       "path": "Chebyshev is Fourier.md",
       "type": "concept",
-      "stage": "sprout",
+      "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-06-25",
+      "last_used": "2026-10-24",
       "use": {
         "page": 2,
         "bundle": 1,
-        "linked": 6,
-        "use": 9,
+        "linked": 7,
+        "use": 10,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 0,
-          "use": 0
+          "linked": 1,
+          "use": 1
         }
       },
       "outbound_count": 5,
@@ -1045,8 +1051,8 @@
     {
       "id": "Closing Well",
       "path": "Closing Well.md",
-      "type": "practice",
-      "stage": "growing",
+      "type": "hub",
+      "stage": "mature",
       "has_forward_vector": true,
       "last_used": "2026-10-24",
       "use": {
@@ -1324,17 +1330,17 @@
       "type": "hub",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-13",
+      "last_used": "2026-10-24",
       "use": {
         "page": 3,
         "bundle": 1,
-        "linked": 23,
-        "use": 27,
+        "linked": 25,
+        "use": 29,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 2,
-          "use": 2
+          "linked": 4,
+          "use": 4
         }
       },
       "outbound_count": 16,
@@ -1351,13 +1357,13 @@
       "use": {
         "page": 4,
         "bundle": 10,
-        "linked": 30,
-        "use": 44,
+        "linked": 31,
+        "use": 45,
         "recent": {
           "page": 0,
           "bundle": 7,
-          "linked": 5,
-          "use": 12
+          "linked": 6,
+          "use": 13
         }
       },
       "outbound_count": 10,
@@ -1459,8 +1465,8 @@
     {
       "id": "Deposit Ceremony",
       "path": "_ops/Deposit Ceremony.md",
-      "type": "practice",
-      "stage": "growing",
+      "type": "hub",
+      "stage": "mature",
       "has_forward_vector": true,
       "last_used": "2026-10-23",
       "use": {
@@ -1577,17 +1583,17 @@
       "type": "hub",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-06-24",
+      "last_used": "2026-10-24",
       "use": {
         "page": 1,
         "bundle": 1,
-        "linked": 10,
-        "use": 12,
+        "linked": 11,
+        "use": 13,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 0,
-          "use": 0
+          "linked": 1,
+          "use": 1
         }
       },
       "outbound_count": 7,
@@ -1644,7 +1650,7 @@
       "id": "Diversity of Thought in Many-Agent Systems",
       "path": "Diversity of Thought in Many-Agent Systems.md",
       "type": "question",
-      "stage": "seed",
+      "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-09-22",
       "use": {
@@ -1759,19 +1765,19 @@
       "id": "Drafting Table Design System",
       "path": "Palace development/Drafting Table Design System.md",
       "type": "source",
-      "stage": "seed",
+      "stage": "sprout",
       "has_forward_vector": true,
       "last_used": "2026-10-24",
       "use": {
         "page": 1,
         "bundle": 0,
-        "linked": 8,
-        "use": 9,
+        "linked": 9,
+        "use": 10,
         "recent": {
           "page": 1,
           "bundle": 0,
-          "linked": 8,
-          "use": 9
+          "linked": 9,
+          "use": 10
         }
       },
       "outbound_count": 9,
@@ -1782,7 +1788,7 @@
       "id": "Drift and Consolidation",
       "path": "Drift and Consolidation.md",
       "type": "concept",
-      "stage": "sprout",
+      "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-10-22",
       "use": {
@@ -1834,13 +1840,13 @@
       "use": {
         "page": 9,
         "bundle": 0,
-        "linked": 30,
-        "use": 39,
+        "linked": 33,
+        "use": 42,
         "recent": {
           "page": 9,
           "bundle": 0,
-          "linked": 30,
-          "use": 39
+          "linked": 33,
+          "use": 42
         }
       },
       "outbound_count": 10,
@@ -1947,15 +1953,15 @@
       "has_forward_vector": true,
       "last_used": "2026-10-24",
       "use": {
-        "page": 10,
-        "bundle": 12,
-        "linked": 47,
-        "use": 69,
+        "page": 11,
+        "bundle": 13,
+        "linked": 48,
+        "use": 72,
         "recent": {
-          "page": 7,
-          "bundle": 5,
-          "linked": 30,
-          "use": 42
+          "page": 8,
+          "bundle": 6,
+          "linked": 31,
+          "use": 45
         }
       },
       "outbound_count": 11,
@@ -1966,7 +1972,7 @@
       "id": "Entry Conatus",
       "path": "Entry Conatus.md",
       "type": "concept",
-      "stage": "sprout",
+      "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-09-26",
       "use": {
@@ -2035,7 +2041,7 @@
       "id": "Exponential Decay Curvature",
       "path": "Exponential Decay Curvature.md",
       "type": "concept",
-      "stage": "sprout",
+      "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-06-05",
       "use": {
@@ -2087,13 +2093,13 @@
       "use": {
         "page": 10,
         "bundle": 3,
-        "linked": 211,
-        "use": 224,
+        "linked": 212,
+        "use": 225,
         "recent": {
           "page": 3,
           "bundle": 1,
-          "linked": 9,
-          "use": 13
+          "linked": 10,
+          "use": 14
         }
       },
       "outbound_count": 9,
@@ -2127,7 +2133,7 @@
       "id": "Flocking",
       "path": "Flocking.md",
       "type": "concept",
-      "stage": "sprout",
+      "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-06-24",
       "use": {
@@ -2152,17 +2158,17 @@
       "type": "concept",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-07-03",
+      "last_used": "2026-10-24",
       "use": {
         "page": 3,
         "bundle": 1,
-        "linked": 13,
-        "use": 17,
+        "linked": 14,
+        "use": 18,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 0,
-          "use": 0
+          "linked": 1,
+          "use": 1
         }
       },
       "outbound_count": 10,
@@ -2244,17 +2250,17 @@
       "type": "maker",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-10-18",
+      "last_used": "2026-10-24",
       "use": {
         "page": 6,
         "bundle": 2,
-        "linked": 16,
-        "use": 24,
+        "linked": 17,
+        "use": 25,
         "recent": {
           "page": 1,
           "bundle": 1,
-          "linked": 5,
-          "use": 7
+          "linked": 6,
+          "use": 8
         }
       },
       "outbound_count": 13,
@@ -2287,8 +2293,8 @@
     {
       "id": "Frequency-Time Duality",
       "path": "Projects/Frequency-Time Duality.md",
-      "type": "concept",
-      "stage": "growing",
+      "type": "hub",
+      "stage": "mature",
       "has_forward_vector": true,
       "last_used": "2026-10-21",
       "use": {
@@ -2564,7 +2570,7 @@
       "id": "Haptic Handwheel",
       "path": "Projects/Haptic Handwheel.md",
       "type": "project",
-      "stage": "seed",
+      "stage": "sprout",
       "has_forward_vector": true,
       "last_used": "2026-10-21",
       "use": {
@@ -2701,20 +2707,20 @@
     {
       "id": "Hyperdimensional Prism",
       "path": "Hyperdimensional Prism.md",
-      "type": "concept",
+      "type": "hub",
       "stage": "mature",
       "has_forward_vector": true,
       "last_used": "2026-10-24",
       "use": {
         "page": 4,
         "bundle": 1,
-        "linked": 52,
-        "use": 57,
+        "linked": 55,
+        "use": 60,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 1,
-          "use": 1
+          "linked": 4,
+          "use": 4
         }
       },
       "outbound_count": 8,
@@ -2863,19 +2869,19 @@
       "id": "JSUI",
       "path": "JSUI.md",
       "type": "spore",
-      "stage": "sprout",
+      "stage": "dormant",
       "has_forward_vector": true,
-      "last_used": "2026-03-24",
+      "last_used": "2026-10-24",
       "use": {
-        "page": 0,
+        "page": 1,
         "bundle": 0,
-        "linked": 3,
-        "use": 3,
+        "linked": 5,
+        "use": 6,
         "recent": {
-          "page": 0,
+          "page": 1,
           "bundle": 0,
-          "linked": 0,
-          "use": 0
+          "linked": 2,
+          "use": 3
         }
       },
       "outbound_count": 3,
@@ -3161,7 +3167,7 @@
     {
       "id": "Lateral Access",
       "path": "Lateral Access.md",
-      "type": "concept",
+      "type": "hub",
       "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-10-24",
@@ -3277,7 +3283,7 @@
       "id": "Linear Predictive Coding",
       "path": "Linear Predictive Coding.md",
       "type": "concept",
-      "stage": "sprout",
+      "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-06-25",
       "use": {
@@ -3369,7 +3375,7 @@
       "id": "Loudon Live",
       "path": "Projects/Loudon Live.md",
       "type": "project",
-      "stage": "sprout",
+      "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-10-24",
       "use": {
@@ -3437,7 +3443,7 @@
     {
       "id": "Loudon's Toolkit",
       "path": "Loudon's Toolkit.md",
-      "type": "hub",
+      "type": "concept",
       "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-10-12",
@@ -3483,20 +3489,20 @@
     {
       "id": "Making a Palace Citizen",
       "path": "Making a Palace Citizen.md",
-      "type": "practice",
+      "type": "hub",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-13",
+      "last_used": "2026-10-24",
       "use": {
-        "page": 4,
+        "page": 5,
         "bundle": 7,
         "linked": 41,
-        "use": 52,
+        "use": 53,
         "recent": {
-          "page": 0,
+          "page": 1,
           "bundle": 2,
           "linked": 27,
-          "use": 29
+          "use": 30
         }
       },
       "outbound_count": 10,
@@ -3716,17 +3722,17 @@
       "type": "source",
       "stage": "foundational",
       "has_forward_vector": true,
-      "last_used": "2026-10-13",
+      "last_used": "2026-10-24",
       "use": {
         "page": 2,
         "bundle": 3,
-        "linked": 19,
-        "use": 24,
+        "linked": 20,
+        "use": 25,
         "recent": {
           "page": 1,
           "bundle": 1,
-          "linked": 2,
-          "use": 4
+          "linked": 3,
+          "use": 5
         }
       },
       "outbound_count": 5,
@@ -3737,7 +3743,7 @@
       "id": "Merleau-Ponty",
       "path": "Merleau-Ponty.md",
       "type": "concept",
-      "stage": "sprout",
+      "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-10-21",
       "use": {
@@ -3874,7 +3880,7 @@
     {
       "id": "Modes of Collaboration",
       "path": "Modes of Collaboration.md",
-      "type": "practice",
+      "type": "hub",
       "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-10-21",
@@ -3969,17 +3975,17 @@
       "type": "concept",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-21",
+      "last_used": "2026-10-24",
       "use": {
         "page": 1,
         "bundle": 1,
-        "linked": 14,
-        "use": 16,
+        "linked": 15,
+        "use": 17,
         "recent": {
           "page": 1,
           "bundle": 1,
-          "linked": 14,
-          "use": 16
+          "linked": 15,
+          "use": 17
         }
       },
       "outbound_count": 7,
@@ -4127,7 +4133,7 @@
     {
       "id": "Pages as Agents",
       "path": "_ops/Pages as Agents.md",
-      "type": "concept",
+      "type": "hub",
       "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-10-24",
@@ -4176,17 +4182,17 @@
       "type": "meta",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-22",
+      "last_used": "2026-10-24",
       "use": {
         "page": 4,
         "bundle": 1,
-        "linked": 20,
-        "use": 25,
+        "linked": 21,
+        "use": 26,
         "recent": {
           "page": 2,
           "bundle": 0,
-          "linked": 13,
-          "use": 15
+          "linked": 14,
+          "use": 16
         }
       },
       "outbound_count": 11,
@@ -4249,13 +4255,13 @@
       "use": {
         "page": 6,
         "bundle": 3,
-        "linked": 29,
-        "use": 38,
+        "linked": 30,
+        "use": 39,
         "recent": {
           "page": 3,
           "bundle": 2,
-          "linked": 15,
-          "use": 20
+          "linked": 16,
+          "use": 21
         }
       },
       "outbound_count": 21,
@@ -4295,13 +4301,13 @@
       "use": {
         "page": 8,
         "bundle": 3,
-        "linked": 32,
-        "use": 43,
+        "linked": 36,
+        "use": 47,
         "recent": {
           "page": 2,
           "bundle": 2,
-          "linked": 7,
-          "use": 11
+          "linked": 11,
+          "use": 15
         }
       },
       "outbound_count": 31,
@@ -4312,7 +4318,7 @@
       "id": "Palace Quotes",
       "path": "_ops/Palace Quotes.md",
       "type": "meta",
-      "stage": "sprout",
+      "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-10-15",
       "use": {
@@ -4335,19 +4341,19 @@
       "id": "Palace To-Do",
       "path": "_ops/Palace To-Do.md",
       "type": "meta",
-      "stage": "growing",
+      "stage": "composting",
       "has_forward_vector": true,
-      "last_used": "2026-10-22",
+      "last_used": "2026-10-24",
       "use": {
-        "page": 24,
-        "bundle": 5,
+        "page": 25,
+        "bundle": 6,
         "linked": 32,
-        "use": 61,
+        "use": 63,
         "recent": {
-          "page": 6,
-          "bundle": 3,
+          "page": 7,
+          "bundle": 4,
           "linked": 6,
-          "use": 15
+          "use": 17
         }
       },
       "outbound_count": 4,
@@ -4404,7 +4410,7 @@
       "id": "Particle Synthesis",
       "path": "Projects/Particle Synthesis.md",
       "type": "project",
-      "stage": "sprout",
+      "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-10-24",
       "use": {
@@ -4429,17 +4435,17 @@
       "type": "person",
       "stage": "seed",
       "has_forward_vector": true,
-      "last_used": "2026-10-22",
+      "last_used": "2026-10-24",
       "use": {
         "page": 1,
         "bundle": 1,
-        "linked": 6,
-        "use": 8,
+        "linked": 7,
+        "use": 9,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 2,
-          "use": 2
+          "linked": 3,
+          "use": 3
         }
       },
       "outbound_count": 7,
@@ -4450,7 +4456,7 @@
       "id": "Phase Reduction",
       "path": "Phase Reduction.md",
       "type": "concept",
-      "stage": "sprout",
+      "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-06-25",
       "use": {
@@ -4496,7 +4502,7 @@
       "id": "Philosopher Visits the Entry",
       "path": "Modes of Collaboration/Philosopher Visits the Entry.md",
       "type": "practice",
-      "stage": "sprout",
+      "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-10-13",
       "use": {
@@ -4521,17 +4527,17 @@
       "type": "project",
       "stage": "fruiting",
       "has_forward_vector": true,
-      "last_used": "2026-07-04",
+      "last_used": "2026-10-24",
       "use": {
         "page": 2,
         "bundle": 3,
-        "linked": 8,
-        "use": 13,
+        "linked": 9,
+        "use": 14,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 0,
-          "use": 0
+          "linked": 1,
+          "use": 1
         }
       },
       "outbound_count": 5,
@@ -4613,17 +4619,17 @@
       "type": "project",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-10-17",
+      "last_used": "2026-10-24",
       "use": {
         "page": 1,
         "bundle": 5,
-        "linked": 9,
-        "use": 15,
+        "linked": 10,
+        "use": 16,
         "recent": {
           "page": 0,
           "bundle": 3,
-          "linked": 2,
-          "use": 5
+          "linked": 3,
+          "use": 6
         }
       },
       "outbound_count": 5,
@@ -4656,8 +4662,8 @@
     {
       "id": "Progressive Staging",
       "path": "Progressive Staging.md",
-      "type": "practice",
-      "stage": "sprout",
+      "type": "hub",
+      "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-09-25",
       "use": {
@@ -4725,7 +4731,7 @@
     {
       "id": "Quality Manifesto",
       "path": "Quality Manifesto.md",
-      "type": "concept",
+      "type": "hub",
       "stage": "mature",
       "has_forward_vector": true,
       "last_used": "2026-10-24",
@@ -4772,7 +4778,7 @@
       "id": "Quantum Synthesizer",
       "path": "Projects/Quantum Synthesizer.md",
       "type": "project",
-      "stage": "sprout",
+      "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-10-21",
       "use": {
@@ -4797,17 +4803,17 @@
       "type": "meta",
       "stage": "foundational",
       "has_forward_vector": false,
-      "last_used": "2026-10-18",
+      "last_used": "2026-10-24",
       "use": {
-        "page": 17,
+        "page": 18,
         "bundle": 1,
         "linked": 19,
-        "use": 37,
+        "use": 38,
         "recent": {
-          "page": 8,
+          "page": 9,
           "bundle": 1,
           "linked": 3,
-          "use": 12
+          "use": 13
         }
       },
       "outbound_count": 4,
@@ -4843,17 +4849,17 @@
       "type": "meta",
       "stage": "foundational",
       "has_forward_vector": false,
-      "last_used": "2026-10-22",
+      "last_used": "2026-10-24",
       "use": {
-        "page": 20,
+        "page": 21,
         "bundle": 2,
         "linked": 22,
-        "use": 44,
+        "use": 45,
         "recent": {
-          "page": 11,
+          "page": 12,
           "bundle": 1,
           "linked": 8,
-          "use": 20
+          "use": 21
         }
       },
       "outbound_count": 4,
@@ -5006,15 +5012,15 @@
       "has_forward_vector": true,
       "last_used": "2026-10-24",
       "use": {
-        "page": 0,
+        "page": 1,
         "bundle": 0,
         "linked": 11,
-        "use": 11,
+        "use": 12,
         "recent": {
-          "page": 0,
+          "page": 1,
           "bundle": 0,
           "linked": 2,
-          "use": 2
+          "use": 3
         }
       },
       "outbound_count": 4,
@@ -5096,17 +5102,17 @@
       "type": "concept",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-21",
+      "last_used": "2026-10-24",
       "use": {
         "page": 7,
         "bundle": 1,
-        "linked": 11,
-        "use": 19,
+        "linked": 12,
+        "use": 20,
         "recent": {
           "page": 4,
           "bundle": 0,
-          "linked": 5,
-          "use": 9
+          "linked": 6,
+          "use": 10
         }
       },
       "outbound_count": 8,
@@ -5123,13 +5129,13 @@
       "use": {
         "page": 9,
         "bundle": 5,
-        "linked": 19,
-        "use": 33,
+        "linked": 20,
+        "use": 34,
         "recent": {
           "page": 3,
           "bundle": 4,
-          "linked": 13,
-          "use": 20
+          "linked": 14,
+          "use": 21
         }
       },
       "outbound_count": 6,
@@ -5142,17 +5148,17 @@
       "type": "person",
       "stage": "seed",
       "has_forward_vector": true,
-      "last_used": "2026-10-22",
+      "last_used": "2026-10-24",
       "use": {
         "page": 3,
         "bundle": 2,
-        "linked": 12,
-        "use": 17,
+        "linked": 13,
+        "use": 18,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 1,
-          "use": 1
+          "linked": 2,
+          "use": 2
         }
       },
       "outbound_count": 9,
@@ -5211,17 +5217,17 @@
       "type": "meta",
       "stage": "foundational",
       "has_forward_vector": false,
-      "last_used": "2026-10-21",
+      "last_used": "2026-10-24",
       "use": {
-        "page": 25,
-        "bundle": 7,
+        "page": 26,
+        "bundle": 8,
         "linked": 78,
-        "use": 110,
+        "use": 112,
         "recent": {
-          "page": 7,
-          "bundle": 6,
+          "page": 8,
+          "bundle": 7,
           "linked": 17,
-          "use": 30
+          "use": 32
         }
       },
       "outbound_count": 10,
@@ -5238,13 +5244,13 @@
       "use": {
         "page": 11,
         "bundle": 1,
-        "linked": 81,
-        "use": 93,
+        "linked": 83,
+        "use": 95,
         "recent": {
           "page": 11,
           "bundle": 1,
-          "linked": 81,
-          "use": 93
+          "linked": 83,
+          "use": 95
         }
       },
       "outbound_count": 5,
@@ -5301,7 +5307,7 @@
       "id": "STIGMERGY Philosophical Lenses",
       "path": "Projects/STIGMERGY Philosophical Lenses.md",
       "type": "project",
-      "stage": "seed",
+      "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-10-13",
       "use": {
@@ -5330,13 +5336,13 @@
       "use": {
         "page": 15,
         "bundle": 2,
-        "linked": 55,
-        "use": 72,
+        "linked": 56,
+        "use": 73,
         "recent": {
           "page": 6,
           "bundle": 1,
-          "linked": 7,
-          "use": 14
+          "linked": 8,
+          "use": 15
         }
       },
       "outbound_count": 15,
@@ -5370,7 +5376,7 @@
       "id": "Scale-Stratified Identity",
       "path": "Scale-Stratified Identity.md",
       "type": "concept",
-      "stage": "sprout",
+      "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-10-22",
       "use": {
@@ -5439,7 +5445,7 @@
       "id": "Self-Model Update Ceremony",
       "path": "_ops/Self-Model Update Ceremony.md",
       "type": "practice",
-      "stage": "mature",
+      "stage": "growing",
       "has_forward_vector": false,
       "last_used": "2026-10-24",
       "use": {
@@ -5577,19 +5583,19 @@
       "id": "Shimmer Cloud",
       "path": "Projects/Shimmer Cloud.md",
       "type": "project",
-      "stage": "sprout",
+      "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-22",
+      "last_used": "2026-10-24",
       "use": {
         "page": 3,
         "bundle": 4,
-        "linked": 10,
-        "use": 17,
+        "linked": 11,
+        "use": 18,
         "recent": {
           "page": 1,
           "bundle": 2,
-          "linked": 4,
-          "use": 7
+          "linked": 5,
+          "use": 8
         }
       },
       "outbound_count": 7,
@@ -5692,19 +5698,19 @@
       "id": "Simondon",
       "path": "Simondon.md",
       "type": "concept",
-      "stage": "sprout",
+      "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-13",
+      "last_used": "2026-10-24",
       "use": {
         "page": 2,
         "bundle": 1,
-        "linked": 16,
-        "use": 19,
+        "linked": 17,
+        "use": 20,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 3,
-          "use": 3
+          "linked": 4,
+          "use": 4
         }
       },
       "outbound_count": 8,
@@ -5836,13 +5842,13 @@
       "use": {
         "page": 3,
         "bundle": 2,
-        "linked": 13,
-        "use": 18,
+        "linked": 14,
+        "use": 19,
         "recent": {
           "page": 1,
           "bundle": 1,
-          "linked": 4,
-          "use": 6
+          "linked": 5,
+          "use": 7
         }
       },
       "outbound_count": 6,
@@ -5859,13 +5865,13 @@
       "use": {
         "page": 4,
         "bundle": 2,
-        "linked": 81,
-        "use": 87,
+        "linked": 83,
+        "use": 89,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 6,
-          "use": 6
+          "linked": 8,
+          "use": 8
         }
       },
       "outbound_count": 9,
@@ -5899,19 +5905,19 @@
       "id": "Spore Check Ceremony",
       "path": "_ops/Spore Check Ceremony.md",
       "type": "practice",
-      "stage": "mature",
+      "stage": "growing",
       "has_forward_vector": false,
       "last_used": "2026-10-24",
       "use": {
-        "page": 6,
+        "page": 7,
         "bundle": 3,
         "linked": 19,
-        "use": 28,
+        "use": 29,
         "recent": {
-          "page": 2,
+          "page": 3,
           "bundle": 2,
           "linked": 11,
-          "use": 15
+          "use": 16
         }
       },
       "outbound_count": 2,
@@ -5968,7 +5974,7 @@
       "id": "Steer the Generator",
       "path": "Steer the Generator.md",
       "type": "practice",
-      "stage": "sprout",
+      "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-09-24",
       "use": {
@@ -6359,7 +6365,7 @@
       "id": "The Daily Page",
       "path": "_ops/The Daily Page.md",
       "type": "practice",
-      "stage": "sprout",
+      "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-10-24",
       "use": {
@@ -6568,17 +6574,17 @@
       "type": "concept",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-09-26",
+      "last_used": "2026-10-24",
       "use": {
         "page": 1,
         "bundle": 1,
-        "linked": 9,
-        "use": 11,
+        "linked": 10,
+        "use": 12,
         "recent": {
           "page": 0,
           "bundle": 1,
-          "linked": 6,
-          "use": 7
+          "linked": 7,
+          "use": 8
         }
       },
       "outbound_count": 3,
@@ -6704,19 +6710,19 @@
       "id": "The Remembering Page",
       "path": "The Remembering Page.md",
       "type": "concept",
-      "stage": "sprout",
+      "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-15",
+      "last_used": "2026-10-24",
       "use": {
         "page": 1,
         "bundle": 0,
-        "linked": 12,
-        "use": 13,
+        "linked": 13,
+        "use": 14,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 9,
-          "use": 9
+          "linked": 10,
+          "use": 10
         }
       },
       "outbound_count": 10,
@@ -6733,13 +6739,13 @@
       "use": {
         "page": 10,
         "bundle": 0,
-        "linked": 78,
-        "use": 88,
+        "linked": 79,
+        "use": 89,
         "recent": {
           "page": 8,
           "bundle": 0,
-          "linked": 76,
-          "use": 84
+          "linked": 77,
+          "use": 85
         }
       },
       "outbound_count": 5,
@@ -6749,20 +6755,20 @@
     {
       "id": "The Shop",
       "path": "The Shop.md",
-      "type": "concept",
-      "stage": "growing",
+      "type": "hub",
+      "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-10-21",
+      "last_used": "2026-10-24",
       "use": {
         "page": 7,
         "bundle": 1,
-        "linked": 75,
-        "use": 83,
+        "linked": 76,
+        "use": 84,
         "recent": {
           "page": 4,
           "bundle": 0,
-          "linked": 12,
-          "use": 16
+          "linked": 13,
+          "use": 17
         }
       },
       "outbound_count": 14,
@@ -6957,7 +6963,7 @@
       "id": "Trickster",
       "path": "Trickster.md",
       "type": "hub",
-      "stage": "growing",
+      "stage": "mature",
       "has_forward_vector": true,
       "last_used": "2026-09-25",
       "use": {
@@ -7118,7 +7124,7 @@
       "id": "Walk Ceremony",
       "path": "_ops/Walk Ceremony.md",
       "type": "practice",
-      "stage": "mature",
+      "stage": "growing",
       "has_forward_vector": false,
       "last_used": "2026-10-23",
       "use": {
@@ -7141,7 +7147,7 @@
       "id": "Walk That Weaves",
       "path": "Palace development/Walk That Weaves.md",
       "type": "question",
-      "stage": "growing",
+      "stage": "composting",
       "has_forward_vector": true,
       "last_used": "2026-09-23",
       "use": {
@@ -7166,17 +7172,17 @@
       "type": "concept",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-09-24",
+      "last_used": "2026-10-24",
       "use": {
         "page": 2,
         "bundle": 2,
-        "linked": 15,
-        "use": 19,
+        "linked": 16,
+        "use": 20,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 1,
-          "use": 1
+          "linked": 2,
+          "use": 2
         }
       },
       "outbound_count": 4,
@@ -7210,7 +7216,7 @@
       "id": "Wavetable Oscillator",
       "path": "Wavetable Oscillator.md",
       "type": "concept",
-      "stage": "sprout",
+      "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-10-21",
       "use": {
@@ -7233,7 +7239,7 @@
       "id": "Wavetable Scanner",
       "path": "Projects/Wavetable Scanner.md",
       "type": "project",
-      "stage": "sprout",
+      "stage": "growing",
       "has_forward_vector": true,
       "last_used": "2026-10-12",
       "use": {
@@ -7308,13 +7314,13 @@
       "use": {
         "page": 19,
         "bundle": 9,
-        "linked": 57,
-        "use": 85,
+        "linked": 58,
+        "use": 86,
         "recent": {
           "page": 9,
           "bundle": 8,
-          "linked": 28,
-          "use": 45
+          "linked": 29,
+          "use": 46
         }
       },
       "outbound_count": 12,
@@ -8338,6 +8344,12 @@
       "type": "mirrors",
       "target": "The Multilinear Self",
       "label": "self-as-prism"
+    },
+    {
+      "source": "Hyperdimensional Prism",
+      "type": "spawned",
+      "target": "Hyperdimensional Prism \u2014 Context",
+      "label": "rationale-archive"
     },
     {
       "source": "Progressive Staging",
@@ -11460,6 +11472,12 @@
       "label": "refuse-and-route"
     },
     {
+      "source": "The Shop",
+      "type": "spawned",
+      "target": "The Shop \u2014 Context",
+      "label": "rationale-archive"
+    },
+    {
       "source": "Mathieu Equation",
       "type": "emerged-from",
       "target": "Floquet Time-Modulated Loops",
@@ -11752,6 +11770,12 @@
       "type": "mirrors",
       "target": "Endosymbiosis",
       "label": "cellular-hilaritas"
+    },
+    {
+      "source": "Spinoza Conatus",
+      "type": "spawned",
+      "target": "Spinoza Conatus \u2014 Context",
+      "label": "rationale-archive"
     },
     {
       "source": "Scale-Stratified Identity",
@@ -13470,6 +13494,12 @@
       "label": "regime-diagram"
     },
     {
+      "source": "Kuramoto Coupling",
+      "type": "spawned",
+      "target": "Kuramoto Coupling \u2014 Context",
+      "label": "rationale-archive"
+    },
+    {
       "source": "Language as a Tonal Medium",
       "type": "emerged-from",
       "target": "Semantic Webcam",
@@ -13546,6 +13576,12 @@
       "type": "mirrors",
       "target": "Pheromone Trail",
       "label": "two-timescale-trace"
+    },
+    {
+      "source": "STIGMERGY",
+      "type": "spawned",
+      "target": "STIGMERGY \u2014 Context",
+      "label": "rationale-archive"
     },
     {
       "source": "CLAUDE",
@@ -17824,6 +17860,12 @@
       "type": "connects-to",
       "target": "Murmuration",
       "label": "born-from"
+    },
+    {
+      "source": "Maker",
+      "type": "spawned",
+      "target": "Maker \u2014 Context",
+      "label": "rationale-archive"
     },
     {
       "source": "Mermaid",

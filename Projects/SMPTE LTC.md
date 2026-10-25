@@ -74,4 +74,4 @@ Loudon's live performance practice involves multiple devices — synthesizers, d
 
 ## The Trickster in Timecode
 
-Timecode is a trickster convention: it pretends to measure absolute time but is in fact a counter. It has no relation to real time (wall clock time). A scene that is 1 second long in real time can be represented as 00:00:01:00 (one frame at 1 fps, nonsensical) or 00:00:01:24 (one frame at 24 fps) or 00:00:01:00 (one second in any fps if frames are large). The encoding is relative to frame rate, not to time. It is a beautiful abstraction, and SMPTE LTC makes it audible.
+Timecode is a trickster convention: it pretends to measure absolute time but is in fact a counter. It has no relation to real time (wall clock time). It counts frames, not seconds, and drop-frame skips numbers to keep the clock honest. The encoding is relative to frame rate, not to time. It is a beautiful abstraction, and SMPTE LTC makes it audible.

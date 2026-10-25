@@ -191,13 +191,8 @@ legibility. The song is not a description of the path. The song *is* the
 path. When you stop singing a track, the country it traverses becomes
 unintelligible — not geographically, but ontologically.
 
-The oblique portrait method operates by this same logic. A direct question
-about taste is not a songline — it is a signpost, pointing at a thing that
-cannot be pointed at. The oblique sequence is a song: by singing around a
-topic, through glass block light and shoe stores and the body's response to
-cold, a different path through the person's interior becomes audible. The
-person themselves may not have sung it before. The song reveals country they
-didn't know they were living in.
+A direct question is a signpost; an oblique sequence is a song, and the song is the path. See
+[[Songlines]].
 
 ---
 

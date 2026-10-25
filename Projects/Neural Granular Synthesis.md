@@ -108,6 +108,7 @@ The raster plot is itself a teaching tool. It externalizes what is otherwise inv
 ## Open Questions
 
 - How does pacemaker cell proportion (autonomous vs. coupled) affect the perceptual "liveliness" of the timbre? Part of the answer is in: just under the lock, pacemakers make the crowd surge. With none, it sits near chance; with half, it lunges toward agreement and falls back a few times a second, and the loudness swings with it. Whether that reads as *alive* is still for the ear.
+  — progressed on [[Neural Granular Synthesis — scroll]] (2026-10-24): lumpiness, how unevenly the crowd is spread, is now a knob that sets how hard the lock hits, from a switch to a slow arrival. Nobody has listened yet; the ear question stays open.
 - Can we tune threshold variance to target specific regions of timbre space?
 - Does coupling strength correlate with a dimension of timbre space (e.g., brightness, density, liveness)?
 - What is the minimum population size for perceptually stable timbres?

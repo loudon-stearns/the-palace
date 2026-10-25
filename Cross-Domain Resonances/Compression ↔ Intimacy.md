@@ -136,6 +136,8 @@ Relationship: Defenses ↓, Vulnerability ↑, Distance shrinks → Intimacy
 
 Answer: **Dynamic range matched proximity. Close enough to hear details, not so controlled it felt artificial.**
 
+Students who insist "I want it loud AND intimate" need the reminder that loudness ≠ intimacy; compressed + makeup gain gives you both.
+
 ### Part 2: Recognizing Intimacy Patterns
 **Assignment:** Notice compression-like behavior in conversation
 
@@ -228,19 +230,7 @@ Answer: **Dynamic range matched proximity. Close enough to hear details, not so 
 
 ### Over-Compression (The Warning)
 
-**In audio:**
-- Too much compression sounds lifeless
-- Loses natural dynamics
-- Feels processed, artificial
-- **Intimacy becomes performance**
-
-**In relationship:**
-- Over-sharing feels performative
-- Forced vulnerability feels manipulative
-- No boundaries feels codependent
-- **"Intimacy" becomes dysfunction**
-
-**The lesson:** **Right amount creates closeness. Too much destroys authenticity.**
+Past a point it stops sounding close and starts sounding processed; over-sharing does the same.
 
 ## Common Student Discoveries
 
@@ -264,8 +254,6 @@ Rick Rubin (*The Creative Act*): "Compression brings listener and artist closer 
 
 ## Teaching Notes
 
-Play three versions of the same vocal — uncompressed (distant), 4:1 compressed (intimate), 20:1 over-compressed (lifeless) — and ask: "Which felt most intimate?" The middle version: close enough to hear everything, natural enough to feel real. Students who insist "I want it loud AND intimate" need the reminder that loudness ≠ intimacy; compressed + makeup gain gives you both.
-
 ### The Breakthrough
 
 When a student says: **"I added compression and suddenly the vocal felt close, like the singer was singing just to me."**
@@ -274,15 +262,8 @@ They've experienced it. Compression = intimacy isn't theory anymore.
 
 ## Success Metrics (By Our Definition)
 
-**Not:** "Can you set a compressor correctly?"
-**But:**
-- Do you hear compression as intimacy?
-- Can you choose compression amount intentionally?
-- Do you recognize when you compress yourself socially?
-- Can you adjust your vulnerability threshold consciously?
-
-When you think "I want this to feel close" and reach for a compressor—**the resonance succeeded**.
+It worked when you think "I want this to feel close" and reach for a compressor.
 
 ---
 
-*Compression reduces dynamic range. Brings loud down, quiet up. Creates closeness. Intimacy reduces expressive range. Brings defenses down, vulnerability up. Creates closeness. Same structure. Different material. Compress to feel close. Stay uncompressed to feel distant. Both are choices. Both are tools. Use consciously.*
+*Compress to feel close; stay uncompressed to feel distant. Both are choices.*

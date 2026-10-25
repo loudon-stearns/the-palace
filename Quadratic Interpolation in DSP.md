@@ -142,8 +142,6 @@ From Loudon's conversation:
 
 > "I feel like the overshoot and settle that happens with PID is organic and natural, feels like a consciousness observing and reacting. All the other methods have a precision that I don't find in real places."
 
-This is a profound observation.
-
 **Quadratic interpolation** is perfectly smooth. No ripple, no overshoot, no settling time.
 
 **PID control** (a different smoothing method, based on differential equations) can overshoot, ring, and settle. It mimics a system *reacting* to error, finding equilibrium.

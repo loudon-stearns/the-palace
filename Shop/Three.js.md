@@ -162,8 +162,10 @@ Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism 
 ## Open Questions
 
 - Raw Three.js vs R3F as the *default* — current call is raw at Sketch (single-file constraint), R3F at Study+. Does the boundary hold, or does a brief want R3F from the start once it has more than ~6 bound controls?
+  — progressed: [[Shop/Maker|Maker]]'s routing fixes the default — R3F + drei, raw r128 for a single-file artifact. The ~6-bound-controls threshold is the open part.
 - When does a 3D-particle interface ([[Particle Synthesis]], [[Shimmer Cloud]]) want `InstancedMesh` here vs. a GPU compute path that Three.js r128 can't reach? Threshold: TBD on the first particle brief.
 - The handoff shape between an AudioWorklet and the render loop: the worklet runs on the audio thread, the scene on the main thread — what's the lowest-latency, lowest-garbage way to share the state buffer (SharedArrayBuffer vs. `postMessage` snapshots)? First answered by the Waveguide job.
+  — progressed: [[Waveguide Synthesizer]] designs it — the worklet downsamples the delay line to ~100–200 points and ships it by `SharedArrayBuffer` or `postMessage`, and its Study tier uses `postMessage`. A design, not yet a job.
 
 ## Lost Branches
 

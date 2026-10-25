@@ -47,7 +47,7 @@ SKIP_DIRS = {".git", ".obsidian", ".claude", "node_modules", ".venvs", "_tools",
 SKIP_PREFIXES = ("_ops/stigmergy/app/", "_ops/stigmergy/orchestrator/",
                  "_ops/stigmergy/trickster-auto/", "_ops/swarm/")
 
-CANON_TYPES = {"concept", "hub", "project", "breakthrough", "source", "meta",
+CANON_TYPES = {"concept", "hub", "project", "source", "meta",
                "practice", "person", "question", "spore", "specialist", "maker"}
 
 PALACE_DEFAULT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))

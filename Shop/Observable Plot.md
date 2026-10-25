@@ -26,7 +26,7 @@ tags: [specialist, shop, interactive, data-viz, web, charts]
 
 ![[Observable Plot — hero.png]]
 
-*First job landed 2026-05-29 ([[Flocking]] three-Specialist shoot-out, analytical lens). Status promoted `stub` → `alive`. Verified at version 0.6.17. The faceted parameter sweep was the brief that proved grammar-of-graphics earns its keep — and a load-order gotcha bit hard; see Gotchas.*
+*First job: the [[Flocking]] shoot-out, analytical lens (2026-05-29). Verified at 0.6.17.*
 
 ## Charter
 
@@ -163,7 +163,6 @@ Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism 
 
 ## Open Questions
 
-- ~~House Plot defaults file (palette, marginPadding, font) — declare a `palace-plot-defaults.js` and import everywhere?~~ **Resolved 2026-05-29.** Built: `_ops/loudon-live/design-system/palace-plot-defaults.js` — `palacePlot(spec, skin)` injects background / fg-3 text colour / JetBrains-Mono / a token-coloured `Plot.frame()` into every call, plus `palaceSeries(skin)` for an on-palette categorical ramp. All six skins baked. Measured effect (Graphite reskin): per-panel override code dropped to data-only (stroke/fill); the locked mono face propagated *into Plot's generated SVG text* (verified at the token). Remaining genuine friction is exactly two things — gridlines derive from `style.color` rather than a token (add explicit `Plot.gridY({stroke})` for an exact match), and Plot can't own its card background (the chrome must). See [[Flocking — Maker's Comparison Recommendation]] addendum.
 - Plot vs. Vega-Lite as the grammar-of-graphics Specialist — chose Plot because the escape to D3 is cleaner and the API is simpler; revisit if Vega-Lite proves to win on a specific brief
 
 ## Lost Branches
@@ -174,3 +173,4 @@ Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism 
 ## Forward Vector
 
 First job landed — the [[Flocking]] analytical view proved the thesis: grammar-of-graphics earns its keep when the brief is to *answer a quantitative question*, and the `fx`-faceted weight sweep made the Kuramoto correspondence legible (R climbing 0→1 is the order parameter; the sweep is a first phase-diagram sketch). Next I want the obvious follow-ups: (1) the full separation/alignment/cohesion sweep as a 3×N grid of small multiples, which would map the flocking phase diagram [[Flocking]] keeps asking for; (2) a `palace-plot-defaults.js` so the house palette/margins/font stop being copied per-file. The deferred Vicsek-model analytical run is the route to probing whether the Kuramoto tie is formal — that's a Study-tier promotion.
+— progressed (2026-10-24): [[Web Audio Worklet]]'s Murmuration already runs a seeded Vicsek-noise model, order 0.93 at η=0 collapsing to 0.10 at η=0.80, so a Study-tier Plot job can chart that model's output rather than build a second Vicsek.

@@ -130,21 +130,7 @@ example manifests live at `_ops/orchestrator/`; the harness-discoverable trigger
 `.claude/skills/palace-orchestrator/SKILL.md`, which points back here — the
 [[Skills Are Enchantable Pages]] pattern (page = organ, skill file = one dispatch surface onto it).
 
-**The split was finished 2026-08-25** (`5e52336`). It had been named since the 2026-07-04 retrofit
-but only half-done — the skill file declared itself a shim while still carrying 217 lines and all
-the mode machinery. The relocation turned out to reach further than the machinery: the app's steward
-lane, the cycle-prompt builder, and the **live launchd steward batch** all resolved paths into
-`.claude/skills/`, and a comment in `steward-lane.js` had already noted the strain — *"the prompt
-templates are part of the CODEBASE, not the palace data dir."* They now sit beside the engine that
-renders them. The test suites earned their keep: they caught two hardcoded roots the first rewire
-missed, and a real cycle-prompt render from the default path is the proof the move holds.
-
 ## Forward Vectors
 
-- ~~Finish the Machinery/Content Split~~ — **done 2026-08-25** (`5e52336`). Remaining: the live
-  launchd batch has never been fired since the move. Its resolution path is proven (every named path
-  resolves, `batch-plan.js` finds due stewards, a real cycle prompt renders from the default root),
-  but the dispatch itself is untested — the next scheduled 06:00 run is the real proof, and it is
-  worth watching `_ops/heartbeat/logs/` the morning after.
 - When a second executor appears (a non-Path-2 dispatcher, an API-direct path), does this page
   generalize to "the executor role," or stay the Path-2 engine specifically?

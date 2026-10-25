@@ -136,8 +136,6 @@ Resolution and interpolation are open: 512×512 vs 1024×1024 surfaces; bilinear
 
 ## Four Pillars Design Plan
 
-This project genuinely activates all four pillars, which makes it a strong project to build in the open on [[Loudon Live]].
-
 - **Creation.** Build the instrument. Compose with it. Develop the surface library to ten, twenty, fifty surfaces. Make recordings that demonstrate the territory.
 - **Tools.** The build itself — Max/MSP/RNBO/Gen~ implementation, surface authoring tools, a UI that exposes the design language without burying users in topology. A potential commercial release as the test of whether the tool is legible to others.
 - **Philosophy.** The instrument is a physical argument that *the boundary between harmonic and inharmonic is a continuous geometric parameter, not a categorical line.* It also concretely tests Spinozist intuitions: the surface is the substance, the output waveforms are modes, the scan ratio is the affection. Whether that framing illuminates anything for an audience is itself a teachable question.
@@ -146,10 +144,13 @@ This project genuinely activates all four pillars, which makes it a strong proje
 ## Open Questions
 
 - How is the morphing implemented across surfaces — crossfading c_{mn} coefficients in spectral space, or crossfading W directly in spatial space? They give different transition sonics.
+  — progressed: this is the same question as the Y-axis interpolation strategy under Open Decisions. For warps, the bake-and-crossfade Warp Bank (§ Warps) answers it; surface-to-surface morphs stay open.
 - Should the Kuramoto trajectory replace the linear scan, or stay beside it as a second scan mode? It exists as a second mode — `Tools/kuramoto_scan.py` and `RNBO/torus_2d_kuramoto.codebox`, with the Hopf instrument built on the same equations — and has not been heard, so the choice is still open. K as a morph parameter between regimes is a third option.
 - Surface resolution and interpolation scheme — to be settled empirically.
+  — answered on [[2D Torus Wavetable Synthesizer — catalog — wavetables|the catalog]] (2026-10-24): all 14 tables are 1024×1024, and the codebox reads them bilinear.
 - How does the UI expose the design language? Direct Fourier coefficient editing, surface painting, parametric presets, or some combination?
 - How does the Hopf control surface get mapped to musically legible parameters? The mapping is the work, not the formula. Across Loudon's instruments this is the hardest problem, harder than the DSP. [[Neural Granular Synthesis — spec — control-vocabulary-math|control-vocabulary-math]] is a worked case on a different engine: a crowd of spiking neurons reduced to four playable knobs.
+  — progressed: a first mapping (`Hopf/hopf-control-surface.html`) and a first playable voice (`Instruments/singer.html`) exist, neither heard by hand. The next form of this question and the UI one above: how the Torus's parameters sit in the [[VST Template]]'s control vocabulary, whose editor is generated from the parameter table.
 
 ## Lost Branches
 
@@ -174,12 +175,10 @@ For what the project has made, newest first, and where it stands now, see [[2D T
 ## Open Decisions
 
 - **Y-axis interpolation strategy.** Linear sample-domain interpolation between dissimilar anchor waveforms drops RMS at the midpoint — up to ~3 dB for orthogonal anchors, ~10 dB for the worst negatively-correlated case (sine → rising sawtooth in the diagnostic). Affects [[00 — Test Diagnostic Wavetable]] and [[01 — Sine Cycle Sweep]] meaningfully; does not affect duty-cycle / 3rd-harmonic morphs (correlated anchors) or the Tier-2 surfaces (smooth 2D continuous functions). Three candidate fixes are live: equal-power crossfade, constant-RMS post-normalization, spectral-domain interpolation. Constant-RMS is the cheapest robust answer; spectral-domain is the right tool for cross-symmetry surface morphs (Membrane ↔ Chladni). Decision deferred — the current build is musical enough to keep moving.
-- ~~**The seventh surface.**~~ **Resolved 2026-06-06.** Loudon expanded the slot to three, accepting all three candidates auditioned 2026-06-03 ([[16 — Kuramoto Bloom]], [[17 — Matérn Field]], [[18 — Fisher Ridge]]) as permanent catalog entries — one per remaining generating logic. The "open seventh slot" is replaced by an open-ended Tier 2 range; future expansions are additive, not slot-filling.
-- **RNBO prototype validation.** The codebox~ source is written (`RNBO/torus_2d_lookup.codebox`) — Penrose surface, base + ratio params, bilinear lookup via `peek`. Awaiting Loudon to assemble the parent Max patch and run the five-step verification protocol in [[README — RNBO Prototype]]. Acceptance criterion: A−B difference monitor at numerical-noise floor.
 
 ## Forward Vectors
 
-- **RNBO prototype validation** — the immediate next move. Source written 2026-04-27 in `RNBO/torus_2d_lookup.codebox`: starting surface [[15 — Penrose Lattice]], `baseHz` + `ratio` params, bilinear lookup via `peek("tablebuf", row*1024+col, 0)`. Awaiting Loudon to assemble the parent Max patch (parallel `2d.wave~` for direct A/B) and run the five-step verification protocol in [[README — RNBO Prototype]]. The conversion of the catalog from raw material to a real-time instrument hinges on the difference monitor going silent.
+- **RNBO prototype validation** — set aside with the rest of the Max work while the product comes first: Loudon's standing order of 2026-10-21 makes the next work a VST on the [[VST Template]] ([[2D Torus Wavetable Synthesizer — scroll|scroll]]). The codebox (`RNBO/torus_2d_lookup.codebox`, starting surface [[15 — Penrose Lattice]]) and its A/B patch against `2d.wave~` (`RNBO/torus-ab.maxpat`) are built and have never been opened in Max; the verification protocol is in [[README — RNBO Prototype]]. The acceptance criterion stands: the difference monitor goes silent.
 - **Per-sample Tier-1 warps** — once the prototype plays cleanly, the cheapest warps to add are the ones that need no precomputation: per-axis phase bend (#1), variable-rate phase shear (#6), self-displacement (#12). A few lines each in codebox~.
 - **Lookup-table-and-crossfade infrastructure** — built once, unlocks the rest of Tier 1 and Tier 2: shear (#2), isotropic diffusion (#3), anisotropic diffusion (#4), rotation (#5), spectral masks (#7).
 - **Develop the surface library beyond seven** — the goal is a meaningful catalog that demonstrates the design language across symmetry classes and generating logics. Each surface so far has read as a family of sounds, which makes "more surfaces" a high-leverage move.

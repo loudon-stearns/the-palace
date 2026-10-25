@@ -96,7 +96,7 @@ The diagram beside this section draws it from `SUBSTRATE/SUBSTRATE — anatomy.j
 
 ## Where it stands
 
-The counts are the map's: `python3 _ops/swarm/palace-map.py hubs` and `list`, as old as their last build. Read 2026-10-22, against the build of 2026-09-26: the March hubs ([[FOUR PILLARS]], [[Kuramoto Coupling]], [[Hilaritas Generator]], [[Spinoza Conatus]], [[Cooperation Yields Agency]]) still lead. The number of entries has not grown since August; it fell a little as pages composted. The growth has been in organs: the palace became something you address as well as load ([[The Palace Speaks]]), and something that works while no one is in the room.
+The counts are the map's: `python3 _ops/swarm/palace-map.py hubs` and `list`, as old as their last build. The March hubs ([[FOUR PILLARS]], [[Kuramoto Coupling]], [[Hilaritas Generator]], [[Spinoza Conatus]], [[Cooperation Yields Agency]]) still lead. The growth has been in organs: the palace became something you address as well as load ([[The Palace Speaks]]), and something that works while no one is in the room.
 
 ## Token Economy
 

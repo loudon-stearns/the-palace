@@ -90,7 +90,7 @@ Speaks the language of axes, ticks, locators, formatters, and the line of grim f
 
 ### Output
 - File at `out_path`
-- Source script archived alongside
+- Source script at the target bundle's root, with a descriptive filename
 - Standards report: `dimensions`, `format`, `dpi`, `matplotlib_version`, `figsize_inches`, `tier_used`, `gotchas_hit`, `status`, `notes`
 
 ## Iteration Character
@@ -115,7 +115,6 @@ Output exists, format matches request, dimensions are within ±2px of `figsize �
 - **2026-05-10** — First job was *motion*, not a static chart: I stood in for Manim CE when `manimpango` couldn't install in the Cowork Linux-arm64 sandbox, rendering the two-phasor Sketch via `matplotlib.animation.FuncAnimation` → `FFMpegWriter`. This is off-Charter (I declare animation as "rare; usually route to Manim"), but viable at Sketch tier. The output has its own flatter character — no anti-aliased LaTeX, simpler strokes — which is why the artifact was *retained* as a Comparison-Mode piece rather than discarded. Lesson: I am a real Manim fallback for motion when Manim can't host, with a known aesthetic gap.
 - **2026-05-10** — `FFMpegWriter` needs `ffmpeg` on PATH (present in the sandbox) and `extra_args=["-pix_fmt","yuv420p"]` for broad player/QuickTime compatibility. Without yuv420p the MP4 plays in some viewers and not others.
 - **2026-05-10** — `figsize`(inches) × `dpi` doesn't land on standard resolutions cleanly: 10.6in × 120dpi → 1272px, not 1280. For video work set `figsize = target_px / dpi` and confirm **even** pixel dimensions (yuv420p requires even width/height). The Sketch shipped at 1272×720 — fine for a draft, but Study/Piece motion should target exact resolutions.
-- **2026-05-10** — Job Contract path note: the Output section still says source archives "alongside" under the target entry's bundle. Current palace policy (Enrichment v1.5) is flat bundle root with descriptive filenames — the fallback shipped as `Kuramoto Coupling/two-phasors-uncoupled-matplotlib.py`. Same correction Manim CE's entry took.
 
 ## Recipes
 
@@ -131,7 +130,9 @@ Last run: **2026-05-30** — Smoke + Determinism both pass (byte-identical PNG S
 
 - Default style sheet for the palace — declare a `palace.mplstyle` file with the base palette, font choices, and grid defaults? Yes; defer to first real job
 - `text.usetex=True` requires a working LaTeX installation — same one Manim CE uses. Worth declaring the dependency once and assuming it
+  - Answered on [[LaTeX]] § Strengths (2026-10-24): one TeX Live tree serves Matplotlib's `text.usetex` and Manim's `MathTex`.
 - Matplotlib vs. Plotly routing: Plotly when interactivity is on the table; Matplotlib otherwise. The Maker's call per brief
+  - Answered on [[Maker]] § Selection Heuristics (2026-10-24): static charts → Matplotlib, browser analytical charts → [[Observable Plot]], Plotly only when a brief needs its built-in widgets; Plotly has no page yet.
 
 ## Lost Branches
 

@@ -176,8 +176,6 @@ But you have evidence:
 
 ## Cross-Domain Resonance
 
-This list is stale: it names four pages, and by 2026-10-22 the manifesto is linked from 53 files across the palace (`git grep -l "[[Quality Manifesto"`). Kept as the record of where it began.
-
 This manifesto connects to:
 - [[Leverage Points Framework]] - paradigm-level intervention
 - [[FOUR PILLARS]] - integration of life and work

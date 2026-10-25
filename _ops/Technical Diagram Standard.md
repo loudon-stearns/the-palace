@@ -50,9 +50,9 @@ The test that separates Mermaid from LaTeX: *is the diagram a graph of relations
 
 ## Why LaTeX Belongs in a Text-First Organism
 
-[[Mermaid Diagram Standard]] makes a deep argument against SVG: a hand-drawn SVG is "a pointer to a separate artifact," its git diff is "hundreds of lines of XML coordinate noise," it is "opaque to the palace's own search layer." Mermaid wins there because its *source is plain text* — co-located, diffable, greppable. "Of the same substance as the palace itself."
+The `.tex` source is plain text and diffable, so it passes the test [[Mermaid Diagram Standard]] sets for SVG.
 
-LaTeX passes that same test. **The `.tex` source is plain text.** A git diff of a TikZ diagram is human-readable: you see which node moved, which gain changed, which edge was added. `grep "z^{-1}"` finds every delay block in the palace. The `.tex` is the artifact; the rendered `.svg` is its shadow. This is the crucial distinction from hand-drawn SVG — we are not abandoning text-first authoring, we are extending it to figures Mermaid's grammar cannot express.
+A git diff of a TikZ diagram is human-readable: you see which node moved, which gain changed, which edge was added. `grep "z^{-1}"` finds every delay block in the palace. The `.tex` is the artifact; the rendered `.svg` is its shadow. This is the crucial distinction from hand-drawn SVG — we are not abandoning text-first authoring, we are extending it to figures Mermaid's grammar cannot express.
 
 So the palace keeps **both** files: the `.tex` source (the text-first artifact, version-controlled meaningfully) and the rendered `.svg` (what Obsidian embeds and what opens in a vector editor). The source is the truth; the SVG is generated from it and regenerable at any time.
 
@@ -170,7 +170,6 @@ A teaching triptych — three views of one Direct Form II biquad, each drawn by 
 
 ## Open Questions
 
-- ~~Should the three example sources live in this standard's bundle or in a shared `Artifacts/DSP/` theme?~~ **Resolved:** they live in the standard's bundle (`_ops/Technical Diagram Standard/`), owned by the standard. The bundle-vs-theme rule is now stated in § Filing Protocol. A future shared filter-figure library can live in a relevant hub's bundle (per [[SCHEMA]] §8) when the cross-entry need is real.
 - Mermaid is rendered live by Obsidian with zero build step. LaTeX requires a render pass. Is there value in a lightweight ceremony step — or a git pre-commit hook — that re-renders any changed `.tex` so the `.svg` never drifts from its source?
 - `circuitikz` is installed and can draw actual electronic schematics (filters, op-amp circuits). Does the hardware-synth and modular work want a fourth example, or is that a separate standard when the need is real?
 - At what point does a recurring figure type (pole-zero plots, ADSR envelopes) deserve its own reusable template in the bundle, the way `signal-flow-template.tex` already serves block diagrams?

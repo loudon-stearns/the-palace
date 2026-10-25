@@ -90,7 +90,7 @@ The structural innovation is that **gotchas accumulate in the entry, not in any 
 
 ## Origin
 
-This pattern emerged in May 2026 across several conversations exploring lightweight palace additions for asset creation. The pivot from plural Designers to a singular Maker came from a single question Loudon asked about whether AI changes the equation that justifies plural creative roles. The architecture is downstream of that act of attention — the bandwidth-vs-formative-shape distinction the question forced into the open. The deposit happened immediately after, while the conversation was still warm.
+The pattern emerged in May 2026, when Loudon asked whether AI changes the equation that justifies plural creative roles; the singular Maker came from that question.
 
 Operational entries (`Shop/Maker.md`, `Shop/Kokoro.md`, `Shop/FLUX (Hugging Face).md`, `Shop/ComfyUI.md`, `Shop/Manim CE.md`, `Shop/Remotion.md`, `Shop/p5.js.md`) are *instances* of this pattern; this entry is the pattern itself.
 

@@ -54,11 +54,7 @@ The label is not decoration. It is the soft label in the knowledge-distillation 
 
 ## Origin
 
-This emerged from two simultaneous conversations in March 2026:
-
-1. A research synthesis on lossy compression with intent alignment, which surfaced the Rate-Distortion-Perception tradeoff: that optimizing for faithfulness (low distortion) and optimizing for quality (high perception) are different and often competing goals. The palace's old link types were optimizing for traversability — the right goal for the skeleton, but the wrong goal for the flesh.
-
-2. A question about whether the restriction on link types was too conservative. The answer: yes and no. The restriction was right to protect the *topology* — the 8 types are a tight, well-chosen set with clear structural semantics. But we had been treating the skeleton as the whole body.
+It came out of [[Lossy Compression with Intent Alignment]]: links should carry soft labels, not only hard types.
 
 The `father/pop/dad` example crystallized it: all three point to the same relationship type. All three carry entirely different registers. The palace had no way to name that difference. Labels fix this.
 
@@ -109,6 +105,7 @@ This concept lives at the intersection of several palace threads:
 - What label vocabulary do entries that are already in the palace want? — **half answered.** *How much* is measured: the [[Palace Map]] built 2026-10-24 has 67% of its 2,940 typed links carrying a resonant label (`python3 _ops/swarm/weave-health.py` reads the share from the newest map), so the second register is in real use, not aspirational. *Which* labels, and whether families are converging on a vocabulary, is still open.
 - Is there a distinction between labels that name *temperature* (cold/warm register) and labels that name *mechanism* (how the relationship works)? Or is that distinction doing real work?
 - The palace currently has no way to record *why* a label was chosen. Should labels be annotated, or is the word itself sufficient?
+  - Answered on [[Weave Ceremony]] (2026-10-24): a link's reason is its type, its label, or a sentence in the body; there is no annotation field.
 
 ## Labels that became types (2026-10-25)
 

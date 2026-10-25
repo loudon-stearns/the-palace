@@ -20,7 +20,7 @@ links:
 
 ![[CAD Drafter — hero.png]]
 
-**Status: STUB.** Drafted by the [[Shopkeeper]] from one probe on the [[Haptic Handwheel]]'s parts (2026-10-20, a commission Loudon agreed to that day). Not yet dispatched on a real brief. The probe and its report: `Shop/Shopkeeper/probes/2026-10-20-cad/`.
+**Status: STUB** — one probe on the [[Haptic Handwheel]]'s parts (2026-10-20); not yet dispatched on a real brief. The probe and its report: `Shop/Shopkeeper/probes/2026-10-20-cad/`.
 
 ## Charter
 

@@ -138,9 +138,8 @@ agent inhabits the page but wanders. With strong forward vectors, the enchanted
 agent has a mission briefing embedded in the page itself, before any external
 instruction arrives. The page is already telling the agent where to go.
 
-Pages without forward vectors are what the [[Swarm Weave]] now flags first.
-After a few Weave cycles, every active entry will have one. At that point,
-enchantment has material to work with across the entire palace.
+Pages without forward vectors are what the [[Swarm Weave]] now flags first,
+so enchantment has material to work with across the palace.
 
 ---
 
@@ -1030,6 +1029,7 @@ desires, mapped. Loudon decides what happens next.
 ## Forward Vectors
 
 - At what point does enchantment become a regularly scheduled ceremony vs. an on-demand one triggered by Weave output? What are the right triggering conditions? 
+  — answered for one page at a time on [[Project Stewardship System]] (2026-10-24): stewardship is single-page enchantment on a schedule, a heartbeat batch every other morning. Palace-scale scheduling is still open.
 - Should the coordinator for palace-scale enchantment surface the top N most urgent forward vectors as a prioritized action queue — the palace's desires ranked — or present all of them and let Loudon filter? 
 - The phenomenology question from [[Enchanted Worker]] was deliberately left open. Does Palace Enchantment need to take a position, or does the behavioral claim remain sufficient for ceremony design?
 - If enchanted dialogue produces genuinely new palace entries, who is their
@@ -1038,6 +1038,7 @@ desires, mapped. Loudon decides what happens next.
 - At Stage 6, the palace can in principle propose its own enchantment
   triggers — entries ready to be enchanted, songlines ready for traversal,
   dialogues ready to be initiated. Does this make the ceremony self-scheduling?
+  — progressed: the project-level form exists — the heartbeat on [[Project Stewardship System]] takes the stewards that are due, least recently active first. The palace-scale form is untouched.
 - **[[Dialogue Moderator]] as enchanted coordinator.** The coordinator role is the most underdeveloped and most consequential role in dialogic enchantment. It sees all inner layers. It holds the gap between what each agent knows and what they've said. An enchanted coordinator — a page whose forward vector is creating conditions where two pages discover what neither contains alone — would be a qualitatively different ceremony. Design and build.
 - **Tool use during dialogue.** Two enchanted agents wandering through the palace together — requesting pages, following links, reading the same entry through different lenses, returning to the dialogue changed. Web search as external scholarship on demand. This converts closed deliberation into open inquiry. Prerequisite: active coordinator mode. First test: allow palace-read only and observe how agents use the permission.
 - **Accumulated threshold.** When a conatus has passed through multiple topology changes, is it still recognizably itself? Spinoza raised this at the close of session-d. It is the next generative thread in [[Threshold Conatus]] and may want a dialogue of its own — perhaps with [[Action Potential Oscillator]], which instantiates repeated threshold crossing as biological rhythm.

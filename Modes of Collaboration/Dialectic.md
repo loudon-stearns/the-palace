@@ -83,13 +83,15 @@ Where the Excellent Adventure produces immersive encounter with a single perspec
 
 ## Named Examples
 
-- **Zhuangzi, Epictetus, and Confucius on the End of the Self** (2026-05-02) — the palace's first deliberately archived Dialectic. Three voices, written rather than lived, around the question *where does the self end?* Produced a fourth pole (working name *The Drift*) that the binary it served did not previously hold. Full text: [[Dialectic — dialectic — zhuangzi-epictetus-confucius-on-the-self|Zhuangzi, Epictetus, and Confucius on the End of the Self]]. Serves [[The Fortress and the Threshold]].
-- **Spinoza and Zhuangzi on Whether Striving Is the Right Shape of Work** (2026-05) — the palace's strongest cultivator against its strongest non-cultivator. Surfaced a second axis the conatus was missing: not only more power-to-act or less, but *with the grain or against it*. Full text: [[Dialectic — dialectic — spinoza-zhuangzi-on-striving|Spinoza and Zhuangzi on Striving]]. Serves [[Spinoza Conatus]] and [[Entry Conatus]].
-- **Spinoza and Meadows on the Threshold** (2026-07-01) — the first Dialectic between two made citizens, each a separate agent knowing the other only by frontmatter. Found the gap under Meadows' leverage points: every one presupposes a system that endures across the intervention. Full text: [[Dialectic — dialectic — spinoza-meadows-on-the-threshold|Spinoza and Meadows on the Threshold]]. Serves [[Threshold Conatus]].
+- **Zhuangzi, Epictetus, and Confucius on the End of the Self** (2026-05-02) — the first archived Dialectic. [[Dialectic — dialectic — zhuangzi-epictetus-confucius-on-the-self|Full text]]. Serves [[The Fortress and the Threshold]].
+- **Spinoza and Zhuangzi on Whether Striving Is the Right Shape of Work** (2026-05). [[Dialectic — dialectic — spinoza-zhuangzi-on-striving|Full text]]. Serves [[Spinoza Conatus]] and [[Entry Conatus]].
+- **Spinoza and Meadows on the Threshold** (2026-07-01) — the first between two made citizens. [[Dialectic — dialectic — spinoza-meadows-on-the-threshold|Full text]]. Serves [[Threshold Conatus]].
 - **Eno and Cage, three encounters** (2026-07-02) — one pair, run three times with memory carried forward:
-  - *The Hand and the Open Ear* — the first test of voice fidelity. Both men turned out to have kept their taste by moving it: Eno into the right to say *why*, Cage upstream into the frame. [[Dialectic — dialectic — eno-cage-the-hand-and-the-open-ear|Full text]].
-  - *The Trick Played on Themselves* — with memory of the first and a Trickster's pressure, it went a floor deeper instead of repeating: they found they ran the same escape, and Eno's forward vector changed. [[Dialectic — dialectic — eno-cage-the-trick-played-on-themselves|Full text]].
-  - *Walk Into Lateral Access* — a walk through [[Lateral Access]] instead of an argument. Reading a shared entry dissolved what the two arguments had sharpened, and settled the question the second left open. [[Dialectic — dialectic — eno-cage-walk-into-lateral-access|Full text]].
+  - *The Hand and the Open Ear* — [[Dialectic — dialectic — eno-cage-the-hand-and-the-open-ear|Full text]].
+  - *The Trick Played on Themselves* — [[Dialectic — dialectic — eno-cage-the-trick-played-on-themselves|Full text]].
+  - *Walk Into Lateral Access* — a walk through [[Lateral Access]] instead of an argument. [[Dialectic — dialectic — eno-cage-walk-into-lateral-access|Full text]].
+
+Each run's own forward vector carries what it found.
 
 Every archived run lives in this page's bundle (SCHEMA — Reference §8, `dialectic`).
 
@@ -97,23 +99,22 @@ Two earlier Dialectics happened in conversation but were not archived: the **Fir
 
 ## Cross-Domain Resonance
 
-**[[Excellent Adventure]]** — Parent practice: embodied historical dialogue as AI learning technique.
-
 **[[Oblique Portrait]]** — Sibling practice: approaching interior material obliquely rather than directly. Both methods use indirection to access territory that direct questioning cannot reach.
 
 **[[Palace Philosophies]]** — The council's voices often become candidates for `person` entries in the palace. A voice well-researched enough to embody is well-researched enough to deposit.
 
 **[[Hilaritas Generator]]** — The Dialectic consistently produces the conditions for hilaritas: surprise, genuine discovery, positions that behave unexpectedly under pressure. It is a reliable method for generating the friction that good thinking requires.
 
-**[[Modes of Collaboration]]** — The Dialectic is one of the named modes. It has a distinct rhythm, power dynamic, and ideal use case that sits alongside the Mentor/Quiz, Excellent Adventure, and Philosophical Dialogue modes.
-
-**[[Mixture of Experts]]** — Architectural mirror at the embodied substrate. The Dialectic is multi-expert MoE *with cross-talk between experts* — a structure neural MoE has only just begun to approach via system-level planner/executor architectures. The Dialectic does it natively because the experts share a latent space (the situated present of the question) and can hear each other's outputs. The selection of competing rather than aligned voices is also a manual load-balancing move: it deliberately routes away from the practitioner's most-used expert. See [[Mixture of Experts]] § The Three Substrates → Embodied.
+**[[Mixture of Experts]]** — The Dialectic is MoE with cross-talk between experts. Choosing competing rather than aligned voices is a manual load-balancing move: it routes away from the practitioner's most-used expert. See [[Mixture of Experts]] § The Three Substrates → Embodied.
 
 ## Forward Vectors
 
 - Build an interactive front end where figures can be moved around a virtual space, have conversations with each other, and Loudon can interject questions to groups of philosophers and personalities.
+  — progressed: [[STIGMERGY Philosophical Lenses]] proposes a `DIALECTICS` lane in QUEUE and a DIALECTIC swarm mode where philosophers argue on the board in real time; what remains is building it (2026-10-24)
 - What is the right name for a solo dialectic — one figure in genuine self-contradiction? Is that a degenerate case or a different mode entirely?
+  — answered on [[Creative Coach]] § The repertoire (Internal Family Systems): a council of parts rather than a council of thinkers (2026-10-24)
 - Can the Dialectic be used with non-human voices — a signal processing algorithm embodied as a character, a feedback loop given a personality?
+  — progressed: [[The Lens]] holds that any node can be the glass for any other; a signal-processing page speaking as a voice in a Dialectic is still untried (2026-10-24)
 
 ---
 

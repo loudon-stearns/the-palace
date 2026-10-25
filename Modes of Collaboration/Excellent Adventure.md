@@ -55,11 +55,7 @@ Not a seance (passive reception of a transmitted voice). Not a simulation (accur
 
 ## Architectural Mirror: Embodied Mixture of Experts
 
-The Excellent Adventure is the embodied form of single-expert MoE routing (see [[Mixture of Experts]] § Embodied). The pool is whichever historical figures and traditions the practitioner has read deeply enough to inhabit faithfully. The gate is the practitioner's judgment about whose orientation is fit-to-purpose for this question. The expert is the embodied voice itself, drawing on long exposure to a corpus to respond in characteristic register.
-
-What makes this MoE rather than mere reading: only the relevant expert activates. You don't summon the entire library; you route to the specialist whose orientation will say something the others cannot. The pool grows as you read; underused voices atrophy in availability the same way underused palace entries atrophy in connection. Adding experts to the pool is the long-form work that makes the practice possible at all.
-
-[[Dialectic]] is the multi-expert version of the same architecture. Where the Excellent Adventure routes to one expert, the Dialectic activates several and lets them hear each other.
+The Excellent Adventure is single-expert routing, embodied ([[Mixture of Experts]] § Embodied): you route to the one voice whose orientation says what the others cannot. The [[Dialectic]] is the many-voice version.
 
 ## Connection to the Learning Architect
 
@@ -79,6 +75,7 @@ Every archived run lives in this page's bundle (SCHEMA — Reference §8, `diale
 ## Open Questions
 
 - What figures or traditions are most fruitful for this method? Is there a pattern to which voices come alive most fully?
+  — progressed: [[Making a Palace Citizen]] § Voice fidelity builds a voice from ground truth — a dossier and a cited, context-tagged speech file — so how fully a voice comes alive now tracks how well it was researched; which figures are most fruitful is still open (2026-10-24)
 - Can this be taught directly to students, or does it require modeling first?
 - What is the difference between an excellent adventure that produces hilaritas and one that produces only entertainment?
 - When does an excellent adventure become personally transformative rather than intellectually generative? The Fire at Nicopolis crossed this line — the philosophical dialogue became a mirror for lived experience.

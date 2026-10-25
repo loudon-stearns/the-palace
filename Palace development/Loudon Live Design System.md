@@ -270,22 +270,11 @@ Two lists, deliberately separated. The floor survives *every* projection, skin, 
 
 ## Origin
 
-Arrived May 2026 as a Claude Design handoff bundle — Loudon's second design-system deposit after [[BBS Design System]] (April 2026). Born from extended review across:
-
-- [[Loudon Live]] (channel charter, editorial posture, audience)
-- [[Loudon Live — asset plan]] (the variant system that this entry cements)
-- [[Loudon Live — launch kit]] (channel copy, OBS scene specs, asset list)
-- [[Hyperdimensional Prism]] (Lissajous-in-sphere visual-identity essay)
-- [[FOUR PILLARS]] · [[Autodidact Polymaths]] · [[Progressive Staging]] (pedagogy)
-- [[Hilaritas Generator]] · [[Quality Manifesto]] · [[Trickster]] · [[Palace Philosophies]] · [[Playful Interface Design]] · [[The Shop]] · [[Enrichment]] (voice, tone, taste)
-
-The system is **cemented** — type stack locked, six skins specified, six generators built, slides and ui_kits drafted, voice rules itemised. Stage: `sprout`. It fruits when used. Track each artifact that adopts it via typed links back to this entry.
+Arrived May 2026 as a Claude Design handoff bundle, Loudon's second design-system deposit after [[BBS Design System]] (April 2026), drawn from the [[Loudon Live]] charter, its [[Loudon Live — asset plan|asset plan]] and [[Loudon Live — launch kit|launch kit]], and the palace's pages on pedagogy, voice and taste.
 
 ## What Comes Next
 
-- **First palace artifact adopting the system that isn't a Loudon Live asset** — the test case for the system's reach beyond the channel. Candidates: a new session artifact for [[Shepard Tone Synthesizer]], a learning poster for [[FOUR PILLARS]], a deck for [[2D Torus Wavetable Synthesizer]].
-- **Migration of older palace artifacts** — only as natural touch-points arise. No campaign to retrofit.
-- **Possible cleavage point** — if a palace artifact category emerges that the six skins don't serve (very long-form essays? printed handouts?), that's a signal to grow a new skin, not to fork the system.
+The [[Loudon Live Design System — baton|baton]] of 2026-10-14 asks for a rethink of the Loud'n Live look with Loudon, so it stops resembling what many others online wear: pull in STIGMERGY's cyberpunk "loud" feeling, and blend toward the STIGMERGY look, but not all the way. The first conversation settles whether that changes the house style or gives Loud'n Live a look of its own, and whether "no cyan" holds. In the same files, the system's text catches up with the 2026-10-14 portrait of Loud'n Live.
 
 ## Cross-Domain Resonances
 

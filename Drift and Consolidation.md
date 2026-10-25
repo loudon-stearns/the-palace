@@ -70,7 +70,7 @@ The two tiers map onto Loudon's rule directly: *the steward should be continuous
 
 ## Open Questions
 
-- **Bidirectional drift.** Consolidation flows log → entry. But the reverse also drifts: when the human edits the *page* (a stage promotion, a vector tweak), does the steward's state notice? Today it doesn't — the steward reads the page at cycle start, but mid-session human edits to state-relevant fields aren't reconciled. Entry → log sync is unsolved.
+- **Bidirectional drift.** Consolidation flows log → entry. But the reverse also drifts: when the human edits the *page* (a stage promotion, a vector tweak), does the steward's state notice? Today it doesn't — the steward reads the page at cycle start, but mid-session human edits to state-relevant fields aren't reconciled. Entry → log sync is unsolved. Entry to face has one working case. [[Enrichment]] stamps each rich-face section with a fingerprint of its prose, and when the prose moves the pieces say they were made against an earlier version, as on [[Kuramoto Coupling]] when a paragraph was cut and restored (c9a8c7a8, b9f57b16). That is disclosure, not reconciliation.
 - ~~**Drift as a visible metric.**~~ Answered 2026-09-23 in its first form: the scroll's Now zone and STIGMERGY's PROJECTS deck report *cycles since last consolidation* by reading the footer's marker. What is still open is the **consolidation trigger** — nothing yet proposes the fold when drift crosses a threshold; the number is shown, not acted on.
 - **What counts as a milestone?** The cadence rule says "consolidate at milestones," but milestone-detection is left to the steward's judgment. Does it need an explicit rule (phase boundary, blocking-audition resolution, vector change), or is judgment enough?
 

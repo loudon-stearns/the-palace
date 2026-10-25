@@ -47,6 +47,9 @@ The relationship to [[Palace as Context Injection System]] is a Blake contrary: 
 ## Forward Vectors
 
 - The router as membrane: what is the thinnest always-loaded layer that lets any Claude choose *load-directly* vs. *address-the-mind* per interaction, without taxing every session that does neither?
+  — progressed: [[CHILD]] § Growing up makes the summon every session's first act, and the `concierge` skill routes to the posture. Whether it taxes sessions that need neither is untested: [[Concierge — tuning]] item 1 finds no dispatched prompt says whether the summon applies.
 - Which function migrates first, and does its direct path survive the migration intact? (The oracle face — read-only — is the safe first test.)
+  — answered on [[Concierge]] § The postures (2026-10-24): every function now runs as a posture of one resident — gatherer, oracle, scout, curator, and the [[Closing Well]] moderator at a close — and the read-only postures hand back citations, so the direct path survives.
 - The governance question to keep live: as more faces appear, does the palace-agent stay a servant of the graph, or start to have opinions the graph did not authorize?
 - When has the pattern earned a place in the always-loaded invariants (JEWEL/CLAUDE)? Adding "keep both modes open" to the floor is a Schema-Ceremony-weight act — done once proven, not up front.
+  — progressed: [[CHILD]] § Growing up now puts the summon in the floor; "keep both modes open" by name is not promoted. The same question is kept on [[Concierge]] § Forward Vectors.

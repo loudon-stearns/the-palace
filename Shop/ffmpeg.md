@@ -209,6 +209,7 @@ Last run: **2026-05-30** — Smoke + Determinism both pass (byte-identical SHA25
 ## Open Questions
 
 - Should the Maker maintain a small library of canonical command templates per `operation × tier`, injected with input paths? This is the right answer for reproducibility — the alternative is the Maker re-deriving the right flag combination for every brief, which is exactly what the Specialist anatomy exists to prevent
+  — progressed (2026-10-24): two templates already exist in pieces — the silent-render mux (`ffmpeg -i silent.mp4 -i narration.wav -c:v copy -c:a aac -shortest out.mp4`, in a [[Manim CE]] gotcha) and the Radio Play assembly in § Recipes above. Gathering them here, one per `operation × tier`, would answer it.
 - Hardware acceleration policy: when does the Maker use `-hwaccel` vs. software encode? Likely: software for Pieces, hardware-acceptable for Sketches and Studies
 - Should the standards report include a small audio-video sync verification spectrogram (or at least timing-compare numbers) for any output that combines streams? Suggest yes for Piece tier
 

@@ -89,5 +89,6 @@ The quality of a deposit is not measured by its faithfulness to the source conve
 ## Forward Vectors
 
 - The RDP framework can be applied to *all* palace ceremonies, not just deposit. The Weave does compression too — it selects which links to formalize and which to exclude. What is its perception target?
+  — progressed (2026-10-24): the [[Weave Ceremony]] names it in its opening — it tends entries, agents and humans, and is done well when each leaves more able to act than before. The Deposit's perception target is still unnamed.
 - Chain distillation in ML: the student becomes the next teacher. Palace entries go through stage transitions (seed → sprout → growing → mature). Is each transition a distillation pass, where the entry is compressed again with higher intent alignment?
 - Should the deposit ceremony track, for each entry, which axis was prioritized — low distortion (faithful to source) or high perception (generative for future)? Or would that meta-annotation corrupt the compression itself?

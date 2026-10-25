@@ -116,7 +116,7 @@ The `enchanted` mode selects which palace entry to load as the moderator's ident
 
 ## Relationship to Trickster
 
-The Moderator and the [[Trickster]] are structural kin — now formalized as `mirrors[opposite-threshold]` after the map-injected enchantment of 2026-04-01.
+The Moderator and the [[Trickster]] are structural kin: `mirrors[opposite-threshold]`.
 
 Both operate from a privileged vantage point participants cannot access. Both use their position not to control the outcome but to create conditions for something neither participant could have reached alone. Both disappear when the work is done.
 
@@ -144,6 +144,7 @@ The Moderator is also the agent that writes to the BBS during dialogue — posti
 - What is the correct granularity for the withholding check? Surfacing a withheld move changes what the agent would have done next on its own. How often should the Moderator intervene vs. allow the agent to arrive naturally?
 - Can the Moderator be put in dialogue — a meta-dialogue between two Moderators about how to moderate? Recursive but potentially productive: what do two different `coordinator_mode` stances each see in the same dialogue transcript?
 - The gap between inner and outer — is it itself a palace concept worth naming? Something like: the held position, the space between what is thought and what is said, as a structural feature of all communication. It appears in pedagogy (the Oblique Portrait), in synthesis (the delay between signal and return), in enchantment (the inner layer that never becomes outer).
+  — progressed: [[Enchanted Conversation Archive]] § Inner/Outer Node Schema names it in the wire — a `layer: inner / outer` field and a routing rule that never forwards the inner; whether it needs a page of its own is still open (2026-10-24)
 
 ---
 

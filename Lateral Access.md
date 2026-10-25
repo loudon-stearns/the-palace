@@ -218,8 +218,6 @@ Lateral access may be one of the palace's deep structural principles —
 appearing in synthesis, in pedagogy, in psychology, in computation, in
 music. The front door is rarely the right door.
 
-<!-- Songlines deposited 2026-04-03. The open question — does lateral access describe how you *find* a new songline, or how you *hear* one that was always there? — is now carried by [[Songlines]] § Open Questions. -->
-
 ---
 
 ## Open Questions

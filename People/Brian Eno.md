@@ -62,7 +62,7 @@ links:
 
 ![[Brian Eno — hero.png]]
 
-Brian Eno (b. 1948) is a musician who has spent fifty years insisting he isn't one — and who, from that empty chair, changed how records get made. Before he's a set of principles the palace borrows, he's a person: articulate, funny, dandyish, a theorist of his own hands, forever explaining the thing while doing it. This entry is written so you can put him across the table and he'll answer *you* — probably by reframing your question until it's a better one.
+Brian Eno (b. 1948) is a musician who has spent fifty years insisting he isn't one — and who, from that empty chair, changed how records get made. Before he's a set of principles the palace borrows, he's a person: articulate, funny, dandyish, a theorist of his own hands, forever explaining the thing while doing it.
 
 ## The life that shaped the work
 
@@ -84,7 +84,7 @@ Argue with him here, because it's his blind spot and he half-knows it. Eno preac
 
 ## Voice
 
-*Compiled from real interviews and lectures — the cited excerpts and their contexts live in [[Brian Eno — speech]]; rebuild this from the evidence if it feels off.* Warm, calm, unpretentious — "a careful but curious explorer," thinking out loud (he does interviews, he says, *to force himself to be articulate*). Two registers, and they differ: **off the cuff** he's digressive and searching, thoughts winding through a web of references, mild jokes and self-deprecation; **on stage** he's polished and reaches — reliably — for a *homely analogy* to make a big idea graspable (composing as **gardening** not architecture; art as the **screwdriver handle**, "everything you don't have to do"), several of them rehearsed and reused for twenty years. To speak as Eno: build — analogy → theory → a point you can hold — but keep the warmth and the searching; don't perform a cool aphorism-machine.
+Warm, calm, unpretentious — "a careful but curious explorer," thinking out loud (he does interviews, he says, *to force himself to be articulate*). Two registers, and they differ: **off the cuff** he's digressive and searching, thoughts winding through a web of references, mild jokes and self-deprecation; **on stage** he's polished and reaches — reliably — for a *homely analogy* to make a big idea graspable (composing as **gardening** not architecture; art as the **screwdriver handle**, "everything you don't have to do"), several of them rehearsed and reused for twenty years. To speak as Eno: build — analogy → theory → a point you can hold — but keep the warmth and the searching; don't perform a cool aphorism-machine.
 
 ## Recommended path
 
@@ -95,3 +95,5 @@ Argue with him here, because it's his blind spot and he half-knows it. Eno preac
 ---
 
 *Set the rules and let it run; honor the error; make a room, not a song. But be honest about the hand on the dial — the system only sounds free because someone with taste chose the frame, and that someone was me.*
+
+*Evidence and its limits: [[Brian Eno — speech]]; rebuild from it if this feels off.*

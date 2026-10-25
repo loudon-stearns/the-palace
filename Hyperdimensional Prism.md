@@ -50,7 +50,7 @@ Just as a three-dimensional object casts a two-dimensional shadow whose shape de
 
 ## Origin
 
-This model crystallized during conversations exploring how the four pillars relate to each other at the deepest level. The question was: are they truly separate domains that need to be integrated, or are they always-already unified and we're just perceiving them as separate? The prism metaphor resolved this: they're unified in the higher dimension. Our perception separates them. The light of curiosity is what creates the projection.
+This model crystallized during conversations exploring how the four pillars relate to each other at the deepest level. The pillars are not separate domains to be integrated; they are one thing, and our perception separates them. The light of curiosity makes the projection.
 
 ## The Visual Identity
 
@@ -92,7 +92,7 @@ A **kaleidoscope** is a prism machine made into an object. It takes a single sma
 
 The connection to the Four Pillars: if the higher-dimensional reality is the fundamental domain — undivided learning-through-making — then the Four Pillars are the symmetry operations (reflections, rotations, translations) that generate the four distinct projections we perceive. Creation, Tools, Philosophy, Practice are not separate substances; they are the same substance seen through four canonical symmetries. Specifying the symmetry group would formalize the metaphor: this may be the mathematical path forward for answering whether the prism model can be made precise (see the open questions below).
 
-The kaleidoscope also matters as a *teaching instrument*. You can build one. This is critical in the context of the Four Pillars: the tool that demonstrates the philosophy is itself a tool you can make and modify. The Max/MSP patch that generates the visual identity — the Lissajous pattern in a sphere — is a kaleidoscope of sorts. Students don't just learn about prisms; they build the prism machine and watch it generate new patterns as they adjust parameters. The learning happens *through the making of the machine itself*.
+You can build a kaleidoscope, and students can: the patch that draws the Lissajous-in-a-sphere identity is one, and changing its parameters teaches what a prism does.
 
 ### The All-Pass Origin
 

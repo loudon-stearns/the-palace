@@ -69,7 +69,7 @@ Spinoza defines joy (laetitia) as the affect that accompanies an increase in pow
 
 ## The Affects: Tristitia
 
-Tristitia is not just hilaritas's absence — it's a distinct mechanism with its own catalogue of causes. A classroom, a live stream, a creative practice, or a collaboration can be a tristitia generator just as reliably as it can be a hilaritas generator. Mapping what reliably produces it is prerequisite to reliable design: you cannot engineer hilaritas without knowing what works against it. Avoiding these patterns is not the same as producing hilaritas — the positive conditions (all four pillars firing, cooperative encounter, a real thing to make) still have to be present on top.
+Tristitia is not just hilaritas's absence — it's a distinct mechanism with its own catalogue of causes. A classroom, a live stream, a creative practice, or a collaboration can be a tristitia generator just as reliably as it can be a hilaritas generator. Know what drains power-to-act before you design for hilaritas. Avoiding it is not producing it; the positive conditions — all four pillars firing, a cooperative encounter, a real thing to make — still have to be there.
 
 **Pillars firing in isolation.** A session that is only tool-focused (technique without creation or philosophy) produces narrow titillatio at best. A session that is only philosophical (ideas without making) tends toward tristitia in learners who need embodied engagement. The four pillars amplify each other, and the absence of any one drains the others.
 
@@ -85,8 +85,6 @@ Tristitia is not just hilaritas's absence — it's a distinct mechanism with its
 - Is there a *tristitia architect*: someone who unconsciously designs encounters that decrease power-to-act? What does their practice look like, and what would help them see it?
 - Csikszentmihalyi names anxiety (challenge exceeds skill) and boredom (skill exceeds challenge) as the two anti-flow states. Are they a subset of tristitia, or a different ontology?
 - Is tristitia always bad? Spinoza says sadness accompanies decreased power-to-act, not that it must be avoided. Is grief a tristitia event that is nevertheless necessary and generative?
-
-*This section absorbed the former Tristitia Generator entry (composted 2026-07-06) — its full catalogue and open questions.*
 
 ## Cross-Domain Mirrors
 

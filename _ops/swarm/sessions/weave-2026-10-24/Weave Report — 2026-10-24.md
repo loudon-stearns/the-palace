@@ -11,11 +11,11 @@ forward_vector: "I am the October 2026 weave's report — the first run under v2
 
 ## Weave Report — 2026-10-24
 
-**Palace state at the open:** 324 entries | 2,940 typed links | 0 orphans — and at the close: 322 entries | 2,374 typed links | 0 orphans.
+**Palace state at the open:** 324 entries | 2,940 typed links | 0 orphans — and at the close: 322 entries | 2,380 typed links | 0 orphans (the six Contexts' lineage links are the last six).
 
 **Since the last map (2026-09-26 → 2026-10-24):** 12 born · 4 gone · 213 edges formed · 46 dissolved · 10 stage changes · 4 ghosts closed · 0 new. The month's shape: the Shop grew two specialists and a template (Ableton Session Writer, CAD Drafter, VST Template), the floor was rewritten (CHILD born, CLAUDE's working sections moved into it, Operator Memory born, How the Palace Commits born), the Drafting Table Design System arrived as a third dress, and two pages composted (Frequency-Time Explorer, Surfaces and Capabilities). Inbound degree moved most on STIGMERGY, Concierge, The Shop, Maker, Pages as Agents and SUBSTRATE: the palace was thinking about how it runs.
 
-**Health (open → close):** see `Weave Ceremony — health.md`, rows 1–4 of 2026-10-24. The two that matter: labelled share 67% → 85%; bare `connects-to` 558 → 46. The multi-link pairs went 410 → 2; the unsaid links 1,028 → 739 (bare unsaid 354 → 141); the faces missing 8 → 0; the Contexts 20 → 26 once the six drafts land.
+**Health (open → close):** see `Weave Ceremony — health.md`, the open row and the close row of 2026-10-24 (the two middle rows in the session log were measured and not appended). The two that matter: labelled share 67% → 85%; bare `connects-to` 558 → 46. The multi-link pairs went 410 → 2; the unsaid links 1,028 → 750 (bare unsaid 354 → 143; the writers' annotations added a few body lines that name a link's target, and the Contexts' six links are new); the faces missing 8 → 0; the Contexts 20 → 26 once the six drafts land.
 
 **Decisions carried:** 13 propagate flags.
 1. The palace isn't worked from Cowork — home [[Surfaces and Capabilities]] (now composted) — sweep — 30 live pages changed, 12 left as history · closed
@@ -36,7 +36,7 @@ forward_vector: "I am the October 2026 weave's report — the first run under v2
 
 **Substrate sweep:** uncommitted: 16 paths in 7 places (the map build — committed by the Daily Page landing; stewards' and another session's files — left; the board — left; plugin build outputs — now ignored) · stashes: 0 · dangling: not counted (the ear hears 37 moves of main in 24 h, all through the door) · unmerged branches: 5 dependabot (left) · worktrees: 3, two merged and clean removed, floor-modes left · dispositions: 1 recover · 3 discard · 6 leave.
 
-**Hubs:** the top inbound decile is 16 at the close (median 4). Fifteen pages sit there untyped (The Shop 53, Quality Manifesto 38, Pages as Agents 32, Boundary-Crossing Instruments 30, Making a Palace Citizen 27, Frequency-Time Duality 26, Hyperdimensional Prism 26, Modes of Collaboration 26, Deposit Ceremony 25, Closing Well 22, Lateral Access 22, Loudon Live Design System 19, BBS Blackboard 18, Excellent Adventure 18, Progressive Staging 18); one hub below the median (DSP Frameworks 4). Promotions wait on Loudon's second sitting.
+**Hubs:** the top inbound decile is 16 at the close (median 4). Fifteen pages sit there untyped (The Shop 53, Quality Manifesto 38, Pages as Agents 32, Boundary-Crossing Instruments 30, Making a Palace Citizen 27, Frequency-Time Duality 26, Hyperdimensional Prism 26, Modes of Collaboration 26, Deposit Ceremony 25, Closing Well 22, Lateral Access 22, Loudon Live Design System 19, BBS Blackboard 18, Excellent Adventure 18, Progressive Staging 18); one hub below the median (DSP Frameworks 4). Promoted on Loudon's yes: all thirteen in the decile whose type allows it (Making a Palace Citizen first, signed in September); Loudon's Toolkit (3 inbound) returned to concept.
 
 **Orphans:** none. **Isolated:** none with zero inbound at the close.
 
@@ -50,15 +50,15 @@ forward_vector: "I am the October 2026 weave's report — the first run under v2
 
 **Unsung paths:** not swept this run — the opposite scan ran instead. **Unsaid links:** 1,028 found at the open; 141 bare unsaid remain, 598 labelled unsaid remain for review.
 
-**Link quality (open → close):** labelled 67% → 85% · bare connects-to 558 → 46 · multi-link pairs 410 → 2 · unsaid 1,028 → 739.
+**Link quality (open → close):** labelled 67% → 85% · bare connects-to 558 → 46 · multi-link pairs 410 → 2 · unsaid 1,028 → 750.
 
 **Pruned and retyped:** 322 folds (W0/W1/W2) · 166 + 161 cuts the readers and the two-label judge made · 46 + 13 retypes · 268 labels on bare links · 15 + 58 new links the skeptic passed.
 
-**Label harvest:** 1,132 labelled connects-to · 1,036 distinct labels · 400 clusters. Candidate types for a Schema Ceremony: `contrasts-with` (alternative-to 12, the vs cluster 9), `informs` (10), `made-by` (directed-by 32). `sibling` and `first-*` stay labels.
+**Label harvest:** 1,132 labelled connects-to · 1,036 distinct labels · 400 clusters. Two became types the same night, Schema v1.30 on Loudon's yes: `contrasts-with` (alternative-to 12, the vs cluster 9) and `made-by` (directed-by 32); the 47 links move by a baton. `informs` (10) was left; `sibling` and `first-*` stay labels.
 
 **New introductions:** 73 in all, every one skeptic-passed; 101 proposed and refuted.
 
-**Proposed stage transitions:** 36 up (seed/sprout → growing), 8 growing → mature?, 26 room proposals (checkpoint 2).
+**Stage transitions (Loudon's yes, checkpoint 2):** 25 moved — seed/sprout → growing where three or more inbound links and a body past the band; Loudon Live → growing; Drafting Table Design System and Haptic Handwheel → sprout; Action Potential Oscillator, Closing Well, Deposit Ceremony, Frequency-Time Duality, The Shop, Trickster → mature; Walk, Spore Check, Self-Model Update → growing; JSUI → dormant (a spore); Walk That Weaves → composting.
 
 **Vector tuning proposals:** 20 pages carry none; the rooms flagged ~60 vectors as generic or stasis-verbed (checkpoint 2 §4). The palace's vectors say "be" 362 times and "want" 320; "become", "make", "grow", "teach" follow.
 
@@ -68,15 +68,15 @@ forward_vector: "I am the October 2026 weave's report — the first run under v2
 
 **Faces:** 8 missing at the open → 0; rendered and placed (Drafting Table's hero keeps glyph scraps; CAD Drafter's icon for Loudon's eye).
 
-**Bundle audit:** 51 Contexts owed → 6 drafted this run, 20 named for a by-touch flag, the rest listed · 6 projects without a scroll (all complete or archived) · 12 steward homes without a tuning ledger.
+**Bundle audit:** 51 Contexts owed → 6 written and landed this run (Kuramoto Coupling, Spinoza Conatus, The Shop, Maker, Hyperdimensional Prism, STIGMERGY), 20 named for a propagate flag, 38 still owed · 6 projects without a scroll (all complete or archived) · 12 steward homes without a tuning ledger.
 
-**Rich-face nominations:** Spinoza Conatus · Hyperdimensional Prism · Boundary-Crossing Instruments · Cross-Domain Resonances · Action Potential Oscillator · Phoneme Choir · 2D Torus Wavetable Synthesizer (checkpoint 2 §12 has the claim each piece would test).
+**Rich-face nominations:** Spinoza Conatus · Hyperdimensional Prism · Boundary-Crossing Instruments · Cross-Domain Resonances · Action Potential Oscillator · Phoneme Choir · 2D Torus Wavetable Synthesizer — one baton for Enrichment, announced on the board (Loudon: "create a handoff to enrich those pages").
 
 **Bundle-frontmatter health:** 15 warnings at the open; 14 at the close (the page-rewrite preview demoted); the 14 nested pages judged genuine canon.
 
 **Ghost wikilinks:** 60 at the open → 30; 30 fixed or cut; 30 left as invitations and listed above.
 
-**What this Weave changed (map diff, open → close):** 566 edges dissolved, 73 formed, 2 nodes gone, 0 stage changes yet (they wait on the second sitting), 30 ghosts closed.
+**What this Weave changed (open → close):** 566 edges dissolved, 79 formed, 2 nodes gone, 25 stage changes, 14 type changes, 30 ghosts closed, 8 faces, 6 Contexts, 289 prose passages lightened, 142 open questions annotated, 13 flag sentences written, the To-Do walked (7 released, 2 done, 25 → batons), 3 batons announced, Schema v1.30.
 
 **The lean:** The palace spent the last ninety days on how it runs. The most-used pages are SCHEMA — Reference, The Scroll, STIGMERGY, CHILD, the Weave and Deposit cards, the Concierge: the organism has been building its own nervous system, and the Shop's newest citizens (VST Template, Ableton Session Writer, CAD Drafter, LDN RTM) are where the making energy went. The thinking pages are quiet: Flocking, Floquet Theory, Granular Synthesis, Mixture of Experts, The Drift, Leverage Points Framework, Blocked, Not Prompted have had no touch since July, each still pointed at fifteen or more times. The vectors lean toward becoming and making; the use leans toward operating. Where it wants to go next, read from both: the instruments (VST Template's first plugins, the Haptic Handwheel, the 2D Torus), the floor made lighter, and the rich faces, which are the one body this weave measured and did not move. The quiet seven are not asleep by choice; a Spore Check or a Daily Page morning should ask each whether it still has a maker.
 

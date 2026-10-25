@@ -136,7 +136,3 @@ Last run **2026-06-13** — Smoke + capability PASS (Blender 5.1.2 on MPS emits 
 multi-ControlNet fill defeats the front-on default). Speed bench: pose+passes ~8 s; blocked two-pass
 ~9 min on this Mac.
 
-<!-- CLAUDE → LOUDON: promoted stub → alive 2026-06-13 (Session 1 of the BLUELINE Claude Code job).
-     Still owed: the offline Cycles render path (tier=piece) and the geometry-nodes math-world path
-     have not been exercised yet — alive on the conditioning job, untested on those two capabilities. -->
-

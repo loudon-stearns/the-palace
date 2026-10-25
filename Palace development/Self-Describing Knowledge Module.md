@@ -50,8 +50,6 @@ The remarkable thing is not the pattern itself but its convergence: five distinc
 
 This concept was named explicitly in a March 2026 session exploring what the palace pattern *is* — after the pattern had already been built organically through metaphor and ceremony language. The question "what is the official name for this?" produced the synthesis above. The answer: there is no single name, because the pattern was independently discovered by at least five traditions. That multiplicity is itself the signal that the pattern is real and fundamental.
 
-The session that named this concept also completed Phases 1–3 of the palace's structural formalization: SCHEMA.md, nine Linter-valid ceremonies, and a public GitHub read path — all executed in a single sitting.
-
 ## The Critical Property: Self-Description
 
 What makes a knowledge module genuinely self-describing is that a fresh operator — human or AI — can pick up the folder and operate it correctly using only what is inside. No prior context. No inherited memory. The test is ruthless: hand CLAUDE.md to a stranger and watch what breaks.
@@ -67,14 +65,6 @@ This inversion matters. It suggests the pattern is not merely a software enginee
 ## The Semantic Web Resonance
 
 The palace's deepest ancestor is the 2014 semantic web paper ([[Meaning and the Link]]), which argued that predicates — edges, relationships — are ontologically prior to nodes. The self-describing module makes the same claim at the structural level: what makes a knowledge module valuable is not its data in isolation but the typed relationships between data, instructions, and ceremonies. The instructions *interpret* the data. The ceremonies *activate* it. Remove the relationships and you have files. Keep them and you have an organism.
-
-## Cross-Pillar Connections
-
-**Tools:** The module pattern is what makes the palace teachable — it could be handed to a student as a template for building their own knowledge organism. This connects directly to [[Symbiotic Skills]], which is a scaffolded curriculum for exactly that.
-
-**Philosophy:** The convergence of five traditions on one pattern is a mild form of structural realism — the claim that certain patterns are discovered rather than invented because they match something real about how knowledge, memory, and agency work together.
-
-**Practice:** The self-description test ("could a fresh AI operate this correctly?") is a practice discipline, not just a design goal. Running it after every structural change keeps the palace honest.
 
 ## Testing Whether It Generalizes
 
@@ -214,7 +204,7 @@ Anyone running Proof 2 should read the courses-as-seeds study first — not for 
   about what the pattern *is*. Resolving them is prior to Proof 1, not parallel to it.
 
 - The convergence across traditions suggests the pattern is fundamental. What other domains might have independently discovered it? Biology (the cell as self-describing module)? Architecture (the room as self-contained program)?
-- When the palace is used as a template for teaching others (via Symbiotic Skills), should the template carry its own SCHEMA.md, or inherit from a shared one?
+- When the palace is used as a template for teaching others (via [[Symbiotic Skills]], a scaffolded curriculum for building one's own knowledge organism), should the template carry its own SCHEMA.md, or inherit from a shared one?
 
 ## Active Baton
 
