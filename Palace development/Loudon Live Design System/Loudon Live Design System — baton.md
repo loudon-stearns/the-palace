@@ -6,67 +6,47 @@ links:
     type: connects-to
     label: "baton-for"
 forward_vector: "I carry the in-progress move on [[Loudon Live Design System]] across a boundary, waiting to be caught by the next Claude and deleted once the move is picked up."
-session_thread: "The Daily Page, 2026-10-14 (Loudon Live dealt). A commissioning baton."
+session_thread: "The Daily Page, 2026-10-14 (Loudon Live dealt), a commissioning baton. Rewritten 2026-10-25 at the partial close of the look rethink to carry only the remainder (board: loudon-live-design-system-remainder-20261025T151130Z)."
 ---
 
 # Baton: Loudon Live Design System
 
 ## Move
 
-Rethink the Loud'n Live look with Loudon so it stops resembling what many others online are wearing: pull in STIGMERGY's cyberpunk "loud" feeling, and blend toward the STIGMERGY look, but not all the way. In the same files, bring the system's text up to the 2026-10-14 portrait of Loud'n Live.
+Bring the design system's text up to the 2026-10-14 portrait of Loud'n Live in `Projects/Loudon Live.md`, in small, plain edits shown to Loudon before writing. And ask him whether Drafting Table's own "Never cyan" goes too.
 
 ## Why this move matters
 
-Loudon, 2026-10-14, verbatim: *"also, lets make a baton to re-think the design of the Loud'n'live visual. I am finding many people online are having a similar look, and I'd like to make loud'n'live more distinctive. Pulling in the stigmergy cyberpunk "loud" feeling is going to be a nice touch, and I think the loud'n'live brand should more seamslessly blend into the stigmergy look, but not completely."*
+The look rethink this baton first carried is done. On 2026-10-25 Loud'n Live got three complete looks of its own (Worn Broadcast, Cyanotype, Night Signal), "no cyan" was retired in this system, and Loudon called the set complete: *"that is all the looks we need we can close this out"* (commits `3c817503`, `9a7f3d18`, `42dc4091`; the calls, in his words, are in the workshop README's Decisions). The text side never moved. Every visual agent reads `SKILL.md`, and it still describes the old Loud'n Live.
 
-The hard part isn't choosing colours. This system wears two hats. It is the **palace's default dress**, the floor under every projection (loudon, LDN, Loud'n Live, Professor Compressor, Sonic Sensei, TRICKSTER), and it is also the **home of the Loud'n Live projection** (`Loudon Live Design System.md:100`, `:106`, `:110`; its forward_vector). A redesign "for Loud'n Live" can therefore mean two quite different things:
+## Current state
 
-- **(a)** Change the house style. Every palace artifact changes with it.
-- **(b)** Give Loud'n Live a look of its own that departs from the house default. The floor/field model already allows this (`:100`).
+`Projects/Loudon Live.md` is the current portrait ("When another page disagrees with this one, this one is current"). Loud'n Live is his professional persona and his teaching and coaching face, online and in person, starting soon as YouTube videos and livestreams for electronic musicians, and a moving target. The audience is "electronic musicians, to start." [[Autodidact Polymaths]] stands, in the background. Keep the Amber Lab "autodidact polymaths" line.
 
-The first conversation should settle which one, before anything is drawn. Ask him; don't decide.
+These still teach the old portrait (line numbers as of `42dc4091`):
 
-## Cold start
-
-COLD START. This work has not begun: no prior state, nothing tried and rejected. One thing is already made that the redesign may want, noted under Next move.
+- `_ops/loudon-live/design-system/SKILL.md:9`: "Loudon Live is Loudon's public self — streams and builds, the RTM series, the palace in public, his music". The most urgent line.
+- `_ops/loudon-live/design-system/README.md:3`: the same "public self" opening. `:7`: "**Audience:** Autodidact Polymaths". `:193` § Naming the audience is built on that term.
+- `Palace development/Loudon Live Design System.md:158` § Naming the audience, the README's mirror ("The audience is [[Autodidact Polymaths]]"). Edit both or neither.
+- `_ops/loudon-live/design-system/ui_kits/session-artifact/README.md:5`: calls the retired footer "the audience signature".
+- `Projects/Loudon Live.md:89` § The look: calls this system "the palace's default dress". That has been stale since Drafting Table took the work itself (2026-10-21). It should name the three looks.
 
 ## Next move
 
-Open with Loudon, and bring **three questions**. Flag them, don't decide them.
+Draft the edits, show them to Loudon in one pass, write on his yes, commit by path. Ask the Drafting Table question in the same pass: `_ops/drafting-table/design-system/README.md:59` still says "Never cyan". Loudon has not decided it; the Cyanotype look borrows Drafting Table's grammar but changed nothing in it.
 
-1. **(a) or (b)** above.
-2. **The "no cyan" never.** STIGMERGY's look uses cyan for agent handles and cross-references (`Palace development/BBS Design System.md:78`, `#7fdbff`). This system's floor says "No cyan. Anywhere. Ever." (`_ops/loudon-live/design-system/README.md:113`, `:169`; `Loudon Live Design System.md:98`, `:259`; it is also in the forward_vector). The cyberpunk pull may be exactly the thing this rule is tested against. A floor change is his to make, and it touches the forward vector.
-3. **LDN already wears the terminal.** In the projection roster, LDN is "terse · terminal", CRT skin (`The Multilinear Self/The Multilinear Self — projection roster.md:58-64`). Loud'n Live is Graphite, "its home" (`:66-70`). If Loud'n Live goes cyberpunk, what keeps it apart from LDN, and what keeps it apart from STIGMERGY ("but not completely")?
+## Calibrations
 
-Also ask him what "the similar look" he keeps seeing actually is: a few channels or examples. No agent has looked, and guessing would aim the redesign at the wrong thing.
-
-Then, on his direction, sketch in a workshop before touching the tokens. A sounding sigil already exists: `Projects/Loudon Live/proofs/the-logo-heard.html` (made at the 2026-10-14 Daily Page). It plays the Lissajous sigil at the logo's own ratios, drawn on the sound's clock, so the drift is heard as a beat and snapping the ratios to whole numbers freezes both. A louder Loud'n Live may want a sigil that sounds. No agent has heard it.
-
-**The text side, same files, no need to wait on the look.** `Projects/Loudon Live.md` was tuned 2026-10-14 and is the current portrait. Its opening says: "When another page disagrees with this one, this one is current." These still teach the old one:
-
-- `_ops/loudon-live/design-system/SKILL.md:9` (also `:3`, `:40`): "Loudon Live is Loudon's public self — streams and builds, the RTM series, the palace in public, his music". **Every visual agent reads this**, so it is the most urgent line.
-- `_ops/loudon-live/design-system/README.md:3`: the same "public self" opening. `:7`: "**Audience:** Autodidact Polymaths". `:184-200` (§ Naming the audience) is built on that term.
-- `Palace development/Loudon Live Design System.md:150-168`: "The audience is [[Autodidact Polymaths]]", the mirror of the README. Edit both or neither.
-- `_ops/loudon-live/design-system/ui_kits/session-artifact/README.md:5`: calls the retired footer "the audience signature".
-
-The new portrait: his professional persona and his teaching and coaching face, online and in person, starting soon as YouTube videos and livestreams for electronic musicians, and a moving target. The audience is "electronic musicians, to start." [[Autodidact Polymaths]] stands, in the background (2026-10-14). Keep the Amber Lab "autodidact polymaths" line. The text edits are small and plain; show them to Loudon, then write.
-
-## Calibrations from this session
-
-- "Blend… but not completely" is the brief. A full reskin into STIGMERGY is the wrong answer.
-- The moving-target rule from `Projects/Loudon Live.md`: that page wins over this system's descriptions of Loud'n Live.
-- The floor (the Lissajous sigil, no emoji, no hype) stands unless Loudon moves it. "No cyan" is the one item the brief puts in question; it is flagged, not cleared.
-- The six design-system rows that were on the Loudon Live propagation deposit map (D-2026-10-14-LOUDLIVE) came off that map and ride here.
+- `Projects/Loudon Live.md` wins over this system's descriptions of Loud'n Live.
+- The floor (the studio voice, the Lissajous sigil, no emoji, no hype) stands. Cyan is allowed in this system now.
+- The six-skin house style stays the default dress for everything else the public channel shows; Loud'n Live wears its looks (`Loudon Live Design System.md` § Looks).
 
 ## Load these files first
 
-1. `Palace development/Loudon Live Design System.md`: the floor, the field, the nevers, § Naming the audience.
-2. `_ops/loudon-live/design-system/SKILL.md` and `README.md`, then `colors_and_type.css` and `palace-tokens.js` beside them.
-3. STIGMERGY's own look, the source of the pull: `_ops/stigmergy/design-system/colors_and_type.css` (its README calls this "the source of truth: palette + type tokens"), `_ops/stigmergy/design-system/SKILL.md` and `README.md`, and the canon page `Palace development/BBS Design System.md`.
-4. `Projects/Loudon Live.md`: the current portrait.
-5. `The Multilinear Self/The Multilinear Self — projection roster.md`: where each projection's skin is declared. It will want a line if Loud'n Live leaves Graphite.
-6. `Projects/Loudon Live/proofs/the-logo-heard.html`: the sounding sigil.
-7. Before any visual work: `_ops/loudon-live/design-system/SKILL.md` as the design manifest (CLAUDE.md), and [[Search Before You Build]] over `Projects/*/proofs/` for prior skins.
+1. `Projects/Loudon Live.md`: the current portrait.
+2. `Palace development/Loudon Live Design System.md`: § Looks and § Naming the audience.
+3. `_ops/loudon-live/design-system/SKILL.md` and `README.md`.
+4. `_ops/loudon-live/design-system/ui_kits/session-artifact/README.md`.
 
 ## On pickup (fixed — the catcher's checklist; do not rewrite per session)
 *Identical in every baton. It rides along because the catching Claude loads the
