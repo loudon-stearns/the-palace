@@ -36,8 +36,14 @@ Exit code 0 = clean (no errors), 1 = errors found.
 This linter only DETECTS. Correction happens in the Weave (rename the file/folder or edit
 the title to agree), the way the other linters gate their fixes.
 
-Usage: python3 _ops/swarm/lint-entry-naming.py [palace-root]
+Usage: python3 _ops/swarm/lint-entry-naming.py [palace-root] [--paths a.md,b/c.md]
        (defaults to the palace root two levels above this script)
+
+--paths scopes the run to the named files (root-relative or absolute, comma-separated,
+repeatable): it reports exactly the findings a whole run would report for those entries,
+so the Deposit can check what it just placed against a standing baseline. An entry is in
+scope when it is named or when a named file sits in its bundle folder (so a miscased
+folder a deposit just filled is caught). With no --paths the whole palace is checked.
 """
 from __future__ import annotations
 import os, re, sys
@@ -112,8 +118,20 @@ def filename_safe_equal(title, stem):
     return reduced == stem
 
 
-def check_entries(root):
-    """Walk the palace; for every canon entry, run both checks. Returns
+def in_scope(rel, only):
+    """True when `only` is None (whole palace), or the entry is named, or a named file
+    lives in its bundle folder (matched case-insensitively, the way E1 looks for it)."""
+    if only is None:
+        return True
+    r = rel.replace(os.sep, "/")
+    if r in only:
+        return True
+    folder = r[:-3].lower() + "/"
+    return any(p.lower().startswith(folder) for p in only)
+
+
+def check_entries(root, only=None):
+    """Walk the palace; for every canon entry (in scope), run both checks. Returns
     (errors, warnings) as string lists."""
     errors = []
     warnings = []
@@ -127,7 +145,7 @@ def check_entries(root):
                 continue
             ap = os.path.join(dp, fn)
             rel = os.path.relpath(ap, root)
-            if is_skipped_prefix(rel):
+            if is_skipped_prefix(rel) or not in_scope(rel, only):
                 continue
             # Symlinks (e.g. the `_`-spelled @import aliases FOUR_PILLARS.md ->
             # 'FOUR PILLARS.md') carry a title from their real target on purpose;
@@ -158,16 +176,56 @@ def check_entries(root):
     return errors, warnings
 
 
+def normalize_paths(raw, root):
+    """Root-relative, '/'-separated forms of the --paths values (absolute ones made
+    relative to root; a leading './' dropped)."""
+    out = set()
+    for p in raw:
+        p = p.strip()
+        if not p:
+            continue
+        if os.path.isabs(p):
+            p = os.path.relpath(p, root)
+        p = p.replace(os.sep, "/")
+        while p.startswith("./"):
+            p = p[2:]
+        out.add(p)
+    return out
+
+
+def parse_args():
+    """[palace-root] positional + optional --paths a,b,c (root-relative files to check)."""
+    root, raw = None, None
+    args = sys.argv[1:]
+    i = 0
+    while i < len(args):
+        if args[i] == "--paths" and i + 1 < len(args):
+            raw = (raw or []) + args[i + 1].split(",")
+            i += 2
+        elif not args[i].startswith("--"):
+            root = args[i]; i += 1
+        else:
+            i += 1
+    root = os.path.abspath(root or PALACE_DEFAULT)
+    return root, (normalize_paths(raw, root) if raw is not None else None)
+
+
 def main():
-    root = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 else PALACE_DEFAULT)
+    root, only = parse_args()
     if not os.path.isdir(root):
         sys.exit(f"not a directory: {root}")
 
-    errors, warnings = check_entries(root)
+    errors, warnings = check_entries(root, only)
     errors = sorted(set(errors))
     warnings = sorted(set(warnings))
 
-    print(f"entry-naming lint - root: {root}\n")
+    print(f"entry-naming lint - root: {root}")
+    if only is not None:
+        missing = sorted(p for p in only if not os.path.exists(os.path.join(root, p)))
+        print(f"  scoped to {len(only)} named path(s)")
+        for p in missing:
+            print(f"  note: named path not found under root: {p}")
+    print()
     if errors:
         print(f"ERRORS ({len(errors)}):")
         for x in errors:

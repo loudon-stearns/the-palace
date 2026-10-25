@@ -31,8 +31,13 @@ Markdown with no canon type - bundle files, specs, working drafts - is scanned t
 its ghosts print in their own block headed `ghost link (bundle)` before the summary, at
 the same W level, never in the summary count, so the canon number stays comparable.
 
-Usage: python3 _ops/swarm/lint-ghost-links.py [palace-root]
+Usage: python3 _ops/swarm/lint-ghost-links.py [palace-root] [--paths a.md,b/c.md]
        (defaults to the palace root two levels above this script)
+
+--paths scopes the SCAN to the named files (root-relative or absolute, comma-separated,
+repeatable); links still resolve against the whole vault. It reports exactly the ghosts a
+whole run would report in those files, so the Deposit can check what it just placed
+against a standing baseline. With no --paths every file is scanned.
 """
 from __future__ import annotations
 import os, re, sys
@@ -139,7 +144,7 @@ def link_target(raw):
     return t.strip()
 
 
-def check(root):
+def check(root, only=None):
     stems, names = build_target_index(root)
     findings = []  # canon pages: (rel, lineno, kind, target)
     bundle_findings = []  # files with no canon type, same tuple shape
@@ -150,6 +155,8 @@ def check(root):
                 continue
             ap = os.path.join(dp, fn)
             rel = os.path.relpath(ap, root)
+            if only is not None and rel.replace(os.sep, "/") not in only:
+                continue
             if is_skip_scan(rel):
                 continue
             if os.path.islink(ap):
@@ -189,15 +196,55 @@ def check(root):
     return findings, bundle_findings
 
 
+def normalize_paths(raw, root):
+    """Root-relative, '/'-separated forms of the --paths values (absolute ones made
+    relative to root; a leading './' dropped)."""
+    out = set()
+    for p in raw:
+        p = p.strip()
+        if not p:
+            continue
+        if os.path.isabs(p):
+            p = os.path.relpath(p, root)
+        p = p.replace(os.sep, "/")
+        while p.startswith("./"):
+            p = p[2:]
+        out.add(p)
+    return out
+
+
+def parse_args():
+    """[palace-root] positional + optional --paths a,b,c (root-relative files to check)."""
+    root, raw = None, None
+    args = sys.argv[1:]
+    i = 0
+    while i < len(args):
+        if args[i] == "--paths" and i + 1 < len(args):
+            raw = (raw or []) + args[i + 1].split(",")
+            i += 2
+        elif not args[i].startswith("--"):
+            root = args[i]; i += 1
+        else:
+            i += 1
+    root = os.path.abspath(root or PALACE_DEFAULT)
+    return root, (normalize_paths(raw, root) if raw is not None else None)
+
+
 def main():
-    root = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 else PALACE_DEFAULT)
+    root, only = parse_args()
     if not os.path.isdir(root):
         sys.exit(f"not a directory: {root}")
 
-    canon, bundle = check(root)
+    canon, bundle = check(root, only)
     findings = sorted(set(canon))
     bundle_findings = sorted(set(bundle))
-    print(f"ghost-link lint - root: {root}\n")
+    print(f"ghost-link lint - root: {root}")
+    if only is not None:
+        missing = sorted(p for p in only if not os.path.exists(os.path.join(root, p)))
+        print(f"  scoped to {len(only)} named path(s)")
+        for p in missing:
+            print(f"  note: named path not found under root: {p}")
+    print()
     if findings:
         print(f"WARNINGS ({len(findings)}) - dead body wikilinks; the Weave decides "
               f"invitation / fix / cut:")
