@@ -299,3 +299,9 @@ Item 51 again: seven of the room's outgoing messages are cut in the arc. The co-
 62. **A yes on security work can be trust, not understanding, and the panel found it.** Loudon gave the lead on packages and pushes ("as secure as you see fit and close out"), and the room read it right. At the panel he said he had answered as he would with a person, not letting on where he wasn't sure, and that here there is no need. Two public security texts, the Sentry ledger's closing paragraph and item 18, landed on his yes to the act, with only fragments of their words shown (arc:340, 368). The v1.7 rule, which he asked to see, was shown whole (arc:393). Data for item 60: what reached him whole was the one text he asked to see. Data for item 50: before trashing the dead watch, the room read the scheduler back (arc:509-511), so the owed check was done by hand. **Change owed:** pass 1's wonderings carry, by default, "what did your yes cover?" for any public text that goes out on a yes to an act. Owed; the version stays v1.13.
 
 - run · 2026-10-24 · v1.13 · close-2026-10-24-sentry-purge · taught item 62
+
+## From the Splice Instrument Forge close — 2026-10-24
+
+63. **A long build session's house writes drift past the resident unless the room re-addresses it at each landing.** In the Splice Instrument Forge session, six house writes and a stage change came after the resident's last placement check, and nine landings went by without re-addressing it. Data, not a spec change; the version stays v1.13. Nothing owed.
+
+- run · 2026-10-24 · v1.13 · close-2026-10-24-splice-forge · taught item 63
