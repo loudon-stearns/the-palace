@@ -109,5 +109,5 @@ This concept lives at the intersection of several palace threads:
 
 ## Labels that became types (2026-10-25)
 
-The October 2026 weave labelled every bare `connects-to` and then read the labels as a corpus (`_ops/swarm/label-harvest.py`, Weave Step 3f). Two clusters were coherent enough to become link types in Schema v1.30: `directed-by` (32 edges) became `made-by`, and the contrast cluster (`alternative-to`, the `-vs-` labels) became `contrasts-with`. The register this page keeps is where the next candidates will show first: a label that recurs across many sources, in one register, is a type waiting for a ceremony.
+The October 2026 weave labelled every bare `connects-to` and then read the labels as a corpus (`_ops/swarm/label-harvest.py`, Weave Step 3f). Two clusters were coherent enough to become link types in Schema v1.30: `directed-by` (32 edges) gave its name to `made-by`, though on the retype only one of them fit it (the rest are Shop specialists pointing at their foreman, the Maker), and the contrast cluster (`alternative-to`, the `-vs-` labels) became `contrasts-with`. The register this page keeps is where the next candidates will show first: a label that recurs across many sources, in one register, is a type waiting for a ceremony.
 
