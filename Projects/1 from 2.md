@@ -5,7 +5,7 @@ pillars:
   - creation
   - philosophy
 born: 2025-01
-stage: growing
+stage: dormant
 confidence: strong
 energy: high
 hook_quality: 10
@@ -155,4 +155,4 @@ This creates the central tension: two beings living in one body, learning to coo
 - **Society's response:** How do we write a society that *almost* gets it right? Loudon wants "a society ever struggling but now with a little hope, a slim chance of success if we can fight for the right future." Not utopia. Not a clear ending. A world where the hard work for us all begins.
 - **Legal & philosophical implications:** What does immortality do to property, identity, continuity? A bank account held by someone who will live forever. A marriage where one partner can die and the other can't. A child who outlives her father but not the part of him that remains. These are not footnotes — they ripple through the entire post-death arc.
 
-*When this project wakes again: Prose writing phase begins. All structural work, character arcs, mythic avatars, and thematic architecture complete. Time to inhabit the voices.*
+*Parked 2026-10-25, on Loudon's word: dormant until Loudon is ready to return to fiction. When this project wakes again: Prose writing phase begins. All structural work, character arcs, mythic avatars, and thematic architecture complete. Time to inhabit the voices.*
