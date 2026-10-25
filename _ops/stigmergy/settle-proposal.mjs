@@ -12,10 +12,12 @@
 //   node _ops/stigmergy/settle-proposal.mjs "<steward>" <n> --declined "<his one line>"
 //   node _ops/stigmergy/settle-proposal.mjs --from-board
 //       declines every urgent proposal Loudon declined on the deck, with his
-//       note; a LAND-NOW waits for the elder who lands it to pay it.
+//       note; a PLACE-NOW waits for the elder who places it to pay it.
 //
-// A pay must cite the commit that landed the words: the commit has to exist
-// and change the page the proposal names. It writes the checkout you run it
+// A pay must cite the commit that placed the words: the commit has to exist,
+// change the page the proposal names, and be in the history of the checkout
+// being settled, so a ledger never says paid for words its own tree lacks.
+// Placing is the rite's step; landing on main is git's, and comes after. It writes the checkout you run it
 // from (--root to name another), reads the owner's board, and never commits:
 // it prints the committer line for the ledgers it changed.
 
@@ -44,7 +46,7 @@ if (argv.includes('--from-board')) {
   for (const p of listOwedProposals(root)) {
     const a = urgentAnswer(p, board);
     if (!a) continue;
-    if (a.option !== 'DECLINE') { console.log(`${C.D}${p.steward} item ${p.n}: you said ${a.option}; it waits for the review${a.option === 'LAND-NOW' ? ', first' : ''}.${C.R}`); continue; }
+    if (a.option !== 'DECLINE') { console.log(`${C.D}${p.steward} item ${p.n}: you said ${a.option}; it waits for the review${a.option === 'PLACE-NOW' ? ', first' : ''}.${C.R}`); continue; }
     const at = a.ts ? new Date(a.ts) : new Date();
     if (declineProposal(join(root, p.ledger), p.n, a.notes || 'declined on the deck', { at })) {
       n += 1; touched.add(p.ledger);
@@ -72,7 +74,10 @@ if (opt('--paid')) {
   try { full = git(root, ['rev-parse', '--verify', `${opt('--paid')}^{commit}`]); } catch { die(`no commit ${opt('--paid')} in ${root}.`); }
   if (item.path) {
     const files = git(root, ['-c', 'core.quotepath=off', 'show', '--name-only', '--format=', full]).split('\n');
-    if (!files.includes(item.path)) die(`commit ${full.slice(0, 8)} does not change ${item.path}, the page item ${n} names. Pay it with the commit that landed its words.`);
+    if (!files.includes(item.path)) die(`commit ${full.slice(0, 8)} does not change ${item.path}, the page item ${n} names. Pay it with the commit that placed its words.`);
+  }
+  try { git(root, ['merge-base', '--is-ancestor', full, 'HEAD']); } catch {
+    die(`commit ${full.slice(0, 8)} is not in the history of ${root}, so its words are not on this tree. Settle in the checkout that placed them, or after they land here.`);
   }
   payProposal(ledger, n, full.slice(0, 8));
   console.log(`${C.G}paid${C.R} ${steward} item ${n} in ${full.slice(0, 8)}`);

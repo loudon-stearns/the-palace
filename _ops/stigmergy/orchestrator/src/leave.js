@@ -19,7 +19,7 @@
 //     is its archive.
 //
 // leavingCheck reads what still stands in the way; leaveStewardship acts only
-// when nothing does. Canon: [[Project Stewardship System]].
+// when nothing does. Canon: [[Project Stewardship System]] § The rites it keeps.
 
 import { existsSync, readFileSync, writeFileSync, rmSync } from 'node:fs';
 import { join, relative, resolve } from 'node:path';
