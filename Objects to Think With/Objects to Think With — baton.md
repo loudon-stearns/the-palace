@@ -10,23 +10,46 @@ forward_vector: "I carry the in-progress move on [[Objects to Think With]] acros
 
 ## Move
 
-Re-derive which Projects entries qualify by Papert's criterion, and correct the count.
+Place the loose-bar forward vector, the :86 Forward Vectors bullet, and the exemplifies links from the instance side, drafted below and waiting for Loudon's yes.
 
 ## Why this move matters
 
-The page's list is a claim about which of the palace's projects are objects-to-think-with in Papert's strict sense. The claim was made against a smaller `Projects/`, and a recount alone wouldn't test it. Each project wants judging against the criterion again.
+On 2026-10-25 Loudon took the loose bar ("loose"): an object qualifies when the idea is heard or seen in it, even if the entry never names a part for the learner to *be*. The count at `:43` now says twenty-two of fifty-one (b14566a4). The page's forward vector and its Forward Vectors bullet still carry the old numbers, and eighteen of the twenty-two don't yet declare `exemplifies` from their own side.
 
 ## Current state
 
-`Objects to Think With.md:43`: "Twenty-one of the forty-one entries in `Projects/` are objects-to-think-with". `Projects/` now holds 51 top-level entries. Carried off the Palace To-Do at its retirement, on Loudon's call of 2026-10-25.
+- The recount is in the bundle: `Objects to Think With — sketch — papert-recount.md` (landed 86d6714c), with all 51 verdicts, their quotes and reasons.
+- On the loose bar, the 22 are the 11 strict qualifies plus the 11 can't-tells that fail only at gate 3, identification. The three can't-tells that fail at gate 1 stay out: [[Biomechanical Synthesis]], [[1 from 2]], [[Meadows and an Artist's Career]].
+- Four already declare `exemplifies`: [[Blood Compressor]], [[Compressor Design]], [[2D Torus Wavetable Synthesizer]], [[Action Potential Oscillator]] (checked on main, 2026-10-25).
+- Loudon has seen only the strict-bar drafts for these three places. The loose-bar words below are the Concierge's re-derivation from the table.
 
 ## Next move
 
-Read Papert's criterion as the page states it, then walk the 51, keeping each verdict's one-line reason. Show Loudon the changed list and count before writing.
+Show Loudon the three drafts below; place what he says yes to.
+
+1. **`Objects to Think With.md:26`, the frontmatter `forward_vector`.**
+   Old: `I name what forty-one projects are for. I want the seventeen that qualify and do not yet say so to declare it from their own side, and I want the harder thing the palace has never collected — evidence that an object actually taught its idea, including a case where one didn't.`
+   New: `I name what the palace's projects are for. I want the eighteen that qualify and do not yet say so to declare it from their own side, and I want the harder thing the palace has never collected — evidence that an object actually taught its idea, including a case where one didn't.`
+   (The project count is left out, as the recount advised, so it can't go stale again.)
+2. **`Objects to Think With.md:86–87`, the Forward Vectors bullet.**
+   Old: `- Seventeen further `Projects/` entries qualify and do not yet declare it. A Weave should add` / `` `exemplifies` from the instance side rather than a deposit adding twenty-one links at once.``
+   New: `- Eighteen further `Projects/` entries qualify and do not yet declare it. A Weave should add` / `` `exemplifies` from the instance side rather than a deposit adding them all at once.``
+3. **The `exemplifies` links, from the instance side**, each in the project's own frontmatter `links:`, in the shape the four existing ones use:
+   ```yaml
+     - target: "[[Objects to Think With]]"
+       type: exemplifies
+       label: object-to-think-with
+   ```
+   The eighteen. Strict qualifies (10): [[Haptic Handwheel]] · [[Portamento and Physical Pitch Modeling]] · [[Floquet Time-Modulated Loops]] · [[Waveguide Synthesizer]] · [[Tract Mirror]] · [[Murmuration]] · [[Frequency-Time Duality]] · [[Shepard Tone Synthesizer]] · [[Retrospective Delay]] · [[Semantic Webcam]]. Loose-bar additions (8): [[Quantum Synthesizer]] · [[Inharmonic Wavetable Synthesis]] · [[Neural Granular Synthesis]] · [[Piano String Inharmonicity]] · [[Crystal Synthesizer]] · [[Particle Synthesis]] · [[Slime Mold Delay]] · [[Bayesian Granular Synthesizer]].
+
+## Calibrations
+
+- Link from the instance side, never from this page (SCHEMA §4, directionality).
+- Also offered by the recount, smaller, not in this move: replace the unverified list at `:33–34` with Papert & Harel's own words (1991), and name *cultural presence* beside body-syntonic.
 
 ## Load these files first
 
-`Objects to Think With.md` · `ls Projects/*.md`
+`Objects to Think With.md` · `Objects to Think With/Objects to Think With — sketch — papert-recount.md`
 
 ## On pickup (fixed — the catcher's checklist; do not rewrite per session)
 *Identical in every baton. It rides along because the catching Claude loads the
