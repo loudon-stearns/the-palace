@@ -125,3 +125,8 @@ What each deposit taught the ceremony. Each item names what the run showed and t
 
 30. **The drafts cited evidence the archive would not keep.** The words for D-2026-10-23-MAPAGENT drew on the full answers of eight test runs, but only each run's cited edges were kept for the proof folder. A cold read by the Concierge before Loudon saw the words found claims no kept file could back — a miscount quoted by number, an intuition log that lived only in a returned message — and the drafts were cut back or the evidence saved (`grading.md`, `hybrid/intuition-log.md`) before he read them. No spec change forced: one run. If it recurs, Step 5 wants a line — every claim in the words traces to a file that will land with them.
 - run · 2026-10-23 · v2.7 · D-2026-10-23-MAPAGENT · taught item 30
+
+## From the constellation deposit — 2026-10-25
+
+31. **Item 30 recurred.** The words for D-2026-10-25-CONSTELLATION again carried claims no file landing with them backed: the 180 pages one hop from the chosen sky, the five inbound links to JEWEL, and the 647 links the Weave pruned. A cold read found them before Loudon read the words, and the evidence was saved or the claim tied to its source: `foundations16-stats.txt` in the proof folder holds the 180 and the five, and the 647 is `a75350ec`'s own count. Item 30 said that if this recurred, Step 5 wants a line: every claim in the words traces to a file that will land with them. **Owed, and Loudon's to rule:** whether Step 5 takes that line. The card is unchanged.
+- run · 2026-10-25 · v2.7 · D-2026-10-25-CONSTELLATION · taught item 31

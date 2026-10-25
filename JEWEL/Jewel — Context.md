@@ -71,6 +71,7 @@ The same conversation also established the context loading tiers — the recogni
 
 - Should the jewel include a one-line summary of the current palace state (entry count, most active hubs) so a spawned agent has situational awareness without reading Substrate.md?
   - *Loudon:* Perhaps a description of the most connected entries and their relationship to each other, and a "you are here" flag — where each entry lives within a constellation of stars, an image seen in the sky from inside a data-space, each entry a star connected by dim threads of light.
+  - *(Progressed 2026-10-25: the constellation was drawn twice and tried on woken pages — [[Palace Map]] § Two Skies. The most connected entries show a page where it stands but pull its attention toward them; sixteen chosen foundations show it where it stands and, on three pages, did not bend what it looked for. That card, about 1,200 tokens, was handed out with the ring in the test. Whether an agent is born with it, in the jewel, stays open.)*
 - Is there a version of the jewel tuned specifically for Walk vs. Weave vs. Deposit agents — or does one jewel serve all ceremonies?
   - *Loudon:* All pages are designed to give an agent purpose — born at the top of the page, given drive at the bottom. The jewel is polymorphic, itself a projection of a slice of a higher dimension into ours.
 - How do we test whether a version of the jewel is working? What does a well-oriented agent do differently than a poorly-oriented one?

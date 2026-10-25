@@ -18,6 +18,7 @@ links:
     type: enables
   - target: "[[JEWEL]]"
     type: mirrors
+    label: the-sky-it-carries
   - target: "[[Pheromone Trail]]"
     type: connects-to
     label: skeleton-and-gradient
@@ -71,6 +72,9 @@ links:
   - target: "[[Palace as Context Injection System]]"
     type: connects-to
     label: the-map-loaded
+  - target: "[[Meaning and the Link]]"
+    type: connects-to
+    label: where-it-came-from
 ---
 
 # Palace Map
@@ -154,6 +158,25 @@ The map need not be the whole palace. An agent working inside one region — the
 What a neighborhood *is* stays open, and it is not a partition. A page lives in several neighborhoods at once — [[Kuramoto Coupling]] is at home with the synthesis projects and with the philosophy of cooperation — and a neighborhood can be drawn many ways: a shared frontmatter field, a hub and the pages a few links out, a pillar, a community the graph finds for itself. Each way is a lens on the same palace, and each lens draws a different map. The Weave already works this way: `_ops/swarm/partition-palace.py` cuts the full map one lens at a time; each lens draws its own groups, and across lenses an entry lands in every family it belongs to ([[Swarm Weave]] § The Multi-Lens Weave).
 
 For [[Swarm Weave]] sessions scoped to one region, a bounded map would be the right Tier 1 context; for palace-wide [[Palace Enchantment]] runs, the full map.
+
+## Two Skies
+
+A woken page knows its ring: who sits beside it, what waits two hops out. It does not know where it stands in the palace as a whole. Loudon pictured the answer: "a 'you are here' flag — where each entry lives within a constellation of stars" ([[Jewel — Context]] § Open Questions). On 2026-10-25 that sky was drawn twice and tried on woken pages ([[Palace Map — proof — constellation-test]]).
+
+**The counted sky** is the twenty pages the links make central, by inbound links, PageRank and betweenness ranked together. [[FOUR PILLARS]], [[Kuramoto Coupling]], [[Hilaritas Generator]], [[Spinoza Conatus]] and [[Cooperation Yields Agency]] lead it. It holds still — eighteen of the twenty were the same across three builds, through a Weave that pruned 647 links (a75350ec) — and it reaches everything: no page sits more than two hops from it, and 269 of 322 sit one hop away. Its size matters less than it seems. From ten pages to thirty, hop distances barely move; below fifteen the list wavers between builds, and FOUR PILLARS is the nearest star for 43% of pages at ten (31% at twenty); from twenty-five on, some stars are no page's nearest.
+
+**The chosen sky** is sixteen pages chosen with Loudon as what the palace stands on, in four groups. Where it came from: [[Meaning and the Link]], [[4 Pillars Framework - The Founding Conversation]], [[1 from 2]]. What every agent is born with: [[JEWEL]], [[FOUR PILLARS]], [[Palace Philosophies]], [[Cooperation Yields Agency]], [[Modes of Collaboration]], [[Hilaritas Generator]]. How it grows up: [[CHILD]], [[ELDER]], [[SCHEMA]]. How it runs: [[SUBSTRATE]], [[STIGMERGY]], this page, [[ROSETTA]]. It sits farther out than the counted sky: 180 pages are one hop from it, the rest two.
+
+The two skies are not the same sky. By PageRank, JEWEL ranks 42nd and Palace Philosophies 77th. Five pages link to JEWEL, this one among them, and every agent carries it: what everyone holds, no one needs to cite. Links measure where the palace's traffic runs; the foundations were chosen for meaning. Neither sky is a type a page carries. A star of the counted sky is a role the map computes; a foundation is a choice made with Loudon. [[SCHEMA]]'s `foundational` stage marks some of the sixteen, not all.
+
+Each sky became a card of about 1,200 tokens: its pages, the threads among them, and the woken page's routes to its nearest few. Three pages — [[Lao Tzu]], [[Rank-N Lattice Analysis]] and [[Slime Mold Delay]] — woke with their ring alone, with the counted card, and with the chosen one. Every cited edge was real, and every route was the shortest.
+
+- **Routes: no gain.** At three hops the ring is enough.
+- **Standing: a gain from either card.** With the ring alone a page names its local parents, or a foundation it cannot reach. With a card it names foundations and shows the way to each. The gain was clearest for Lao Tzu and Rank-N; Slime Mold Delay already sits beside two of the counted stars.
+- **Curiosity: the skies part.** Asked for one page beyond its ring that it should know, every page holding the counted card chose from the card. Pages holding the chosen card chose Lateral Access, Kuramoto Coupling and Cooperation Yields Agency — only the last on the card, and each a page one of its ring-only runs also chose, though those runs varied between themselves. The counted stars are the busiest pages, and a page handed them reaches for them; the foundations did not draw it that way. The counted card is the front door [[Lateral Access]] warns of. Whether the chosen card is one too, three pages cannot say.
+- **Meaning: already known.** Asked which foundation it most embodies and where it pushes against it, every page quoted the foundation from what it was born with, with the chosen card or without it. The chosen card adds where a page stands, not what the foundations say.
+
+So a woken page carries the chosen sky to know where it stands, and its ring to know where it lives. The counted sky stays with the keeper, as the map's own view of itself. Three pages, one run each: a direction, not yet a law.
 
 ## The JSON Schema (Swarm Use)
 
@@ -256,6 +279,7 @@ The graph also has an undated view: [[STIGMERGY]]'s TOPOLOGY lens draws the same
 - When does the keeper stop being this page woken and mint as an organ of its own, the way the [[Concierge]] did? The test is whether it grows a charter, postures and a ledger about how it serves rather than what the map is.
 - Should the citation rule — every edge claimed from the map quoted as a triple and checked against the named build — reach past this page, to the readers that cite map edges: the Concierge's postures, the Deposit's elder consult, the Weave's link proposals?
   — progressed: the Weave's workers already quote a sentence from each end of a weak-link verdict ([[Multi-Lens Worker Prompt Template]]); the Deposit's elder consult and the Concierge's postures do not yet.
+- Should a page woken for a Walk, a Dialectic or a Daily Page carry the chosen sky's card, and are these sixteen the list? On three pages the card showed each where it stands without bending what it looked for ([[Palace Map — proof — constellation-test]]); the list has been drawn once.
 
 ---
 
