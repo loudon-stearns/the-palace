@@ -61,6 +61,25 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="sit-2026-10-25-the-shadow-that-locks" -->
+### 2026-10-25 — The shadow that locks, played: why the pitch climbs, and a second ask for staging
+
+Loudon played the shadow that locks on 2026-10-25, in the same walk. He left one note, in the door box for the oscillators; the boxes for the shadow, the difference and the whole object stayed empty. His words, as typed:
+
+> "I am confused why when coupling gets high the frequency of the tone I hear goes so much higher, I am asking if what I am hearing at high coupling is an error in our interaction or my lack of understanding of the underlying concept."
+
+The session's answer, checked headless, not the page's: it is not an error. The page couples the pair as y_i' += ε(x_j − x_i), a spring between the two oscillators. On the van der Pol loop the pair locks nearly opposite, so the spring stretches on every swing and stiffens each one's restoring pull, and the pitch rises: the higher mode of two pendulums joined by a spring. Re-running the page's field with the session's own RK4 and starting points (μ = 1, detuning +0.6%): at a coupling of 0.04 the pair locks at 141° and the pitch is up 4%; at 0.2, 174° and up 20%; at 0.5, 178° and up 46%, about six and a half semitones. On μ = 3 the pair has more than one way to lock, and those numbers were not taken from the page's starting points. Whether the shadow's pitch rises by the same amount was not checked. The page never says why the pitch moves; that is the gap his note found.
+
+On staging, his words from the same sit: "again like the first proof this needs staged learning, we are at the end of a complex concept, we need to build our way up to this with a few interactions so that this can really teach well." It is the second proof in a row where he has asked for this: a few interactions that build up to the end proof.
+
+The verdicts in [[Dissolutions — hunt]] stand. On his yes in the same sit, the limit's dependence on the loop went into [[Phase Reduction]]. Whether Phase Reduction stays a member, and as what, is still his open question.
+
+**Artifacts:**
+- [the shadow that locks](Dissolutions/proofs/2026-10-20-the-shadow-that-locks/the-shadow-that-locks.html)
+
+<sub>hand-appended · sit · played through in a sit 2026-10-25; the note is Loudon's, quoted as typed; the pitch answer is the session's</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="sit-2026-10-25-the-table-that-travels" -->
 ### 2026-10-25 — The table that travels, played: the right proof, reached too soon
 

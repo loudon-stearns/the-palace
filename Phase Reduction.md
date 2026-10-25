@@ -66,7 +66,7 @@ Loudon's hunch that Floquet and Kuramoto were kin turned out to be a derivation;
 
 $$\dot{\theta}_i = \omega_i + \sum_j \Gamma_{ij}(\theta_j - \theta_i).$$
 
-That is the [[Kuramoto Coupling|Kuramoto]] model. Kuramoto is not a separate postulate about oscillators; it is *the phase-reduced shadow* of any population of limit cycles whose amplitude directions are Floquet-contracting.
+That is the [[Kuramoto Coupling|Kuramoto]] model. Kuramoto is not a separate postulate about oscillators; it is *the phase-reduced shadow* of any population of limit cycles whose amplitude directions are Floquet-contracting. It holds only as the coupling goes to zero, and how weak is weak enough depends on the loop. On a van der Pol loop at μ = 1 the shadow's locking range matches the full pair's, cell for cell on the proof's detuning grid, up to a coupling of 0.1; by 0.4 the two have parted. On a nearly round loop (μ = 0.3) the part of the averaged pull that draws the pair together nearly vanishes, and the shadow misses locking even at 0.05.
 
 **The Phase Response Curve is a Floquet object.** The function that says how much a small kick advances or delays the oscillator's phase, depending on *when* in the cycle it lands, is the PRC — and it is **derived from the left eigenvector of the monodromy at multiplier 1.** The PRC is Floquet data. It determines the specific form of the Kuramoto coupling function $\Gamma_{ij}$: the shape of the coupling — and therefore whether a population locks, drifts, or forms clusters — is set by the PRC, which is set by the limit cycle's Floquet structure.
 
