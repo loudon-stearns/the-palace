@@ -43,7 +43,8 @@ _Nothing decided on the board yet._
 **One playable proof per dissolution.** Agreed with Loudon, 2026-10-18.
 
 1. Each member gets an interactive proof that tests its identity claim rather than illustrates it. *One curve, three readers* is the first (Exponential Decay Curvature, partly Volterra Kernels and the Torus and Chebyshev is Fourier), and shows where the feeling of difference comes from: a dissolution is hidden by nature, which is why it is taught.
-2. Owed: Dispersion Table, Phase Reduction, Chebyshev is Fourier, Volterra Kernels and the Torus, Linear Predictive Coding, Rank-N Lattice Analysis.
+1a. Each proof is reached by a learning sequence: a few short interactive steps that take each component concept on its own, then combine them, and arrive at the proof as the last step. Loudon's outline for the table that travels is the model: the table alone, the loop alone, the two combined through their difference, then the filter. *(Agreed with Loudon, 2026-10-25.)*
+2. Built 2026-10-20: Dispersion Table, Phase Reduction, Chebyshev is Fourier, Volterra Kernels and the Torus, Linear Predictive Coding, Rank-N Lattice Analysis. Owed: a learning sequence for each.
 3. Each proof ends in a hunt-ledger line: identity, isomorphism or analogy, and the knob it unlocked.
 4. A proof that will not come alive is a question about whether that member stands, carried to a sit, not hidden.
 5. When enough proofs exist, [[Enrichment]] assembles them into the rich face.
@@ -61,6 +62,21 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-2026-10-25-learning-sequences" -->
+### 2026-10-25 — Plan revised
+
+Loudon's yes of 2026-10-25, after reading the baton: "The baton holds. Add the Plan step, and close the handoff onto it." Three sits said each proof is the end of a proof, met with no way up to it, so step 1a adds a learning sequence for every proof, and step 2 now says the six are built and the sequences are owed.
+
+_The plan before this change:_
+
+> 1. Each member gets an interactive proof that tests its identity claim rather than illustrates it. *One curve, three readers* is the first (Exponential Decay Curvature, partly Volterra Kernels and the Torus and Chebyshev is Fourier), and shows where the feeling of difference comes from: a dissolution is hidden by nature, which is why it is taught.
+> 2. Owed: Dispersion Table, Phase Reduction, Chebyshev is Fourier, Volterra Kernels and the Torus, Linear Predictive Coding, Rank-N Lattice Analysis.
+>
+> Steps 3 to 6 and *On form* are unchanged.
+
+<sub>plan revised · agreed 2026-10-25 · an elder, on Loudon's yes of 2026-10-25</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="sit-2026-10-25-walk-ends-in-a-baton" -->
 ### 2026-10-25 — The walk stops at three: all six go back to be taught up to
 
