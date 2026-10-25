@@ -26,10 +26,11 @@ links:
     label: "governed-by"
   - target: "[[SUBSTRATE]]"
     type: connects-to
-  - target: "[[Palace Ceremonies]]"
-    type: connects-to
+    label: sleep-and-waking
   - target: "[[Baton Ceremony — Context]]"
     type: spawned
+  - target: "[[Palace Ceremonies]]"
+    type: member-of
 ---
 
 # Baton Ceremony

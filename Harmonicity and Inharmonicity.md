@@ -12,17 +12,12 @@ who_leads: shared
 links:
   - target: "[[Boundary-Crossing Instruments]]"
     type: connects-to
-  - target: "[[Action Potential Oscillator]]"
-    type: connects-to
-  - target: "[[Frequency-Time Duality]]"
-    type: connects-to
+    label: candidate-family
   - target: "[[Categorizing Inharmonicity]]"
     type: spawned
   - target: "[[Piano String Inharmonicity]]"
     type: emerged-from
     label: b-coefficient-anchor
-  - target: "[[Compressor Design]]"
-    type: connects-to
   - target: "[[Portamento and Physical Pitch Modeling]]"
     type: connects-to
     label: mode-locking-built-there

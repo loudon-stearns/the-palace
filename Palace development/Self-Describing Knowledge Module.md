@@ -12,8 +12,6 @@ links:
     type: mirrors
   - target: "[[ROSETTA]]"
     type: enables
-  - target: "[[Cooperation Yields Agency]]"
-    type: connects-to
   - target: "[[Progressive Staging]]"
     type: spawned
     label: curriculum-implementation

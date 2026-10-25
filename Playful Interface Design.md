@@ -20,8 +20,10 @@ links:
     type: spawned
   - target: "[[Semantic Delay]]"
     type: connects-to
+    label: trickster-spirits-kind
   - target: "[[Preset Oracle]]"
     type: connects-to
+    label: oracle-kind
   - target: "[[Trickster]]"
     type: deepens
   - target: "[[Biomechanical Synthesis]]"

@@ -41,8 +41,7 @@ links:
     label: escalation-threshold
   - target: "[[Pages as Agents]]"
     type: connects-to
-  - target: "[[Agent Wellbeing]]"
-    type: connects-to
+    label: page-drives-in-phase
   - target: "[[The Palace Speaks]]"
     type: connects-to
     label: the-voice-it-asked-for

@@ -16,8 +16,7 @@ links:
     type: spawned
   - target: "[[Hyperdimensional Prism]]"
     type: connects-to
-  - target: "[[Cooperation Yields Agency]]"
-    type: connects-to
+    label: categories-as-projections
   - target: "[[Palace Ceremonies]]"
     type: enables
   - target: "[[Resonant Link Labels]]"

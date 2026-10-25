@@ -14,8 +14,7 @@ links:
     type: enables
   - target: "[[Weave Ceremony]]"
     type: connects-to
-  - target: "[[SCHEMA]]"
-    type: connects-to
+    label: end-of-weave
   - target: "[[Palace Map]]"
     type: connects-to
     label: reads-its-diff

@@ -15,9 +15,6 @@ links:
   - target: "[[Stable Audio Open]]"
     type: connects-to
     label: scores
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
-    label: sound-leads
   - target: "[[Modes of Collaboration]]"
     type: connects-to
     label: the-debrief-reel

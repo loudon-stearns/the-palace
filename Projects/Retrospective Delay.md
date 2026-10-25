@@ -18,14 +18,8 @@ links:
     type: deepens
   - target: "[[Dub Lineage]]"
     type: emerged-from
-  - target: "[[Granular Synthesis]]"
-    type: connects-to
   - target: "[[Frequency-Time Duality]]"
     type: deepens
-  - target: "[[Boundary-Crossing Instruments]]"
-    type: connects-to
-  - target: "[[Kuramoto Coupling]]"
-    type: connects-to
   - target: "[[Progressive Staging]]"
     type: couples-with
     label: staging-methodology

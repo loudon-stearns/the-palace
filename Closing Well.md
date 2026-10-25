@@ -31,8 +31,6 @@ links:
   - target: "[[SUBSTRATE]]"
     type: couples-with
     label: self-model-discipline
-  - target: "[[Kuramoto Coupling]]"
-    type: connects-to
   - target: "[[Deposit Ceremony]]"
     type: connects-to
     label: produces-the-memory-species

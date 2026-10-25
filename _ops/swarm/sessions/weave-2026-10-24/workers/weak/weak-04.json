@@ -1,0 +1,413 @@
+{
+ "room": "weak-04",
+ "lens": "weak-links",
+ "pages_read": [
+  "People/Spinoza.md",
+  "The Flow Field is the Spine.md",
+  "The View From Above.md (frontmatter and body; no weak links)",
+  "Shop/p5.js.md",
+  "Trickster.md",
+  "Projects/Palace Enchantment.md (frontmatter, section map, and every passage naming a target; not read line by line)",
+  "SUBSTRATE.md",
+  "SUBSTRATE/SUBSTRATE — Context.md",
+  "SUBSTRATE/SUBSTRATE — anatomy.json (the lines naming targets)",
+  "Modes of Collaboration.md",
+  "Modes of Collaboration/Modes of Collaboration — Context.md",
+  "Palace development/Generative Compression.md",
+  "Palace development/Dialogue Moderator.md",
+  "_ops/Palace Ceremonies.md",
+  "Palace development/Resonant Link Labels.md",
+  "Targets read for the relation: Shop/Observable Plot.md, Projects/BLUELINE/flow-field-spine.md, Threshold Conatus.md, Projects/Action Potential Oscillator.md, Palace development/BBS Blackboard.md, Palace development/Four Pillars of Enchanted Agency.md, Projects/1 from 2.md, Songlines.md, Lateral Access.md, Projects/Symbiotic Skills.md, Projects/Piano String Inharmonicity.md, Modes of Collaboration/Oblique Portrait.md (grep for the named pair in the others)"
+ ],
+ "weak_links": [
+  {
+   "source": "Spinoza",
+   "target": "Generative Compression",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither page names the other; the link has only ever been a bare edge from Spinoza's frontmatter, and Generative Compression's body and links never mention Spinoza.",
+   "confidence": "high"
+  },
+  {
+   "source": "The Flow Field is the Spine",
+   "target": "flow-field-spine",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "The recipe: [[flow-field-spine]].",
+   "evidence_target": "The recipe for [[The Flow Field is the Spine]].",
+   "rationale": "The pair already carries a reasoned link from the other side (flow-field-spine exemplifies The Flow Field is the Spine, label the-recipe-for), and the body wikilinks to the recipe stay; a second bare edge is a duplicate.",
+   "confidence": "high"
+  },
+  {
+   "source": "p5.js",
+   "target": "Observable Plot",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "sibling-lens",
+   "evidence_source": "Compare to the sibling [[Observable Plot]] sketch, where `setInterval` *is* the right production choice because it's a slow analytical re-render, not smooth animation.",
+   "evidence_target": "I refuse generative or algorithmic-art expression — that's [[p5.js]].",
+   "rationale": "The p5 gotchas set the two against each other as the expressive and the analytical lens on the same flocking model, in one sentence.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Trickster",
+   "target": "1 from 2",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "ai-as-trickster",
+   "evidence_source": "In [[1 from 2]], the AI protagonist exhibits trickster qualities: it operates at the boundary between human agency and machine capability.",
+   "evidence_target": "",
+   "rationale": "The Trickster and Agency section reads the story's AI protagonist as a trickster; the reverse bare edge on 1 from 2 should be dropped so the pair keeps one link.",
+   "confidence": "high"
+  },
+  {
+   "source": "Trickster",
+   "target": "Action Potential Oscillator",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Trickster's body never names the oscillator; the only reason anywhere is on Palace Enchantment's side, which carries its own edge to it.",
+   "confidence": "high"
+  },
+  {
+   "source": "Trickster",
+   "target": "Granular Synthesis",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "grains-as-trickster",
+   "evidence_source": "**[[Granular Synthesis]]** as trickster: grains intercept expectation (we expect a harmonic spectrum, receive a cloud of semi-autonomous oscillators).",
+   "evidence_target": "",
+   "rationale": "Trickster Energy in the Palace gives granular synthesis a bullet of its own as a trickster instrument.",
+   "confidence": "high"
+  },
+  {
+   "source": "Trickster",
+   "target": "Swarm Weave",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "role-in-swarm",
+   "evidence_source": "In the [[Swarm Weave]] and [[Palace Enchantment]] architectures, Loudon occupies the TRICKSTER role explicitly.",
+   "evidence_target": "",
+   "rationale": "The Trickster in Swarm Sessions section states that Loudon holds the TRICKSTER role in a swarm.",
+   "confidence": "high"
+  },
+  {
+   "source": "Trickster",
+   "target": "BBS Blackboard",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "trickster-board",
+   "evidence_source": "The [[BBS Blackboard]] gives the TRICKSTER a formal channel: the `TRICKSTER` board carries all of Loudon's messages and the agents' replies to him.",
+   "evidence_target": "The `TRICKSTER` board is the threshold between the human operator and the autonomous agents.",
+   "rationale": "The body names the board that carries Loudon's messages as the TRICKSTER's formal channel; BBS Blackboard's own body has a matching TRICKSTER board and decision inbox.",
+   "confidence": "high"
+  },
+  {
+   "source": "Trickster",
+   "target": "Palace Enchantment",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "trickster-seat",
+   "evidence_source": "In the [[Swarm Weave]] and [[Palace Enchantment]] architectures, Loudon occupies the TRICKSTER role explicitly.",
+   "evidence_target": "trickster  — Loudon occupies the TRICKSTER role, may interrupt any agent at any time",
+   "rationale": "The same sentence that seats Loudon as TRICKSTER names Palace Enchantment; Palace Enchantment holds the mirror edge to Trickster, also bare, so the pair carries two bare links and should fold to this one labelled link.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Trickster",
+   "target": "Particle Synthesis",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "particles-as-trickster",
+   "evidence_source": "**[[Particle Synthesis]]** as trickster: particles are snatched from visual game engines and repurposed as audio synthesis substrate.",
+   "evidence_target": "",
+   "rationale": "Trickster Energy in the Palace gives particle synthesis a bullet as a trickster instrument.",
+   "confidence": "high"
+  },
+  {
+   "source": "Palace Enchantment",
+   "target": "Deposit Ceremony",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "enchanted-depositor",
+   "evidence_source": "If enchanted dialogue produces genuinely new palace entries, who is their author — the enchanted agents, Loudon, or the palace itself? Does the [[Deposit Ceremony]] change when the depositing agent is an enchanted page?",
+   "evidence_target": "",
+   "rationale": "The open questions ask what the Deposit Ceremony becomes when the depositing agent is an enchanted page, and a Stage 4 dialogue produced a deposit.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Palace Enchantment",
+   "target": "Lateral Access",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "first-enchantment",
+   "evidence_source": "Two entries enchanted: [[Hilaritas Generator]] and [[Lateral Access]].",
+   "evidence_target": "",
+   "rationale": "Lateral Access was one of the two entries enchanted in the first practice session, and its run produced the findings the page keeps.",
+   "confidence": "high"
+  },
+  {
+   "source": "Palace Enchantment",
+   "target": "Threshold Conatus",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "proposed_type": "spawned",
+   "proposed_label": "stage-4-deposit",
+   "evidence_source": "**Deposit from this dialogue:** [[Threshold Conatus]] — a new palace entry capturing the synthesis. This is the first Stage 4 ceremony to produce a new palace entry.",
+   "evidence_target": "Born from the Stage 4 enchanted dialogue between [[Trickster]] and [[Spinoza Conatus]], 2026-04-01.",
+   "rationale": "The Stage 4 enchanted dialogue deposited Threshold Conatus, so the ceremony produced it; Threshold Conatus says it was born from that dialogue. spawned points forward from the producer.",
+   "confidence": "high"
+  },
+  {
+   "source": "Palace Enchantment",
+   "target": "Action Potential Oscillator",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "dialogue-candidate",
+   "evidence_source": "[Accumulated threshold] may want a dialogue of its own — perhaps with [[Action Potential Oscillator]], which instantiates repeated threshold crossing as biological rhythm.",
+   "evidence_target": "## The Refractory Period as Threshold Conatus — From the Stage 6 dialogue with [[Threshold Conatus]], 2026-04-01.",
+   "rationale": "One open question names the oscillator as a candidate partner for the next threshold dialogue.",
+   "confidence": "medium"
+  },
+  {
+   "source": "SUBSTRATE",
+   "target": "Palace Enchantment",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "SUBSTRATE's body never names Palace Enchantment, and Palace Enchantment already holds a connects-to edge to SUBSTRATE, so the pair carries two bare links.",
+   "confidence": "high"
+  },
+  {
+   "source": "SUBSTRATE",
+   "target": "Songlines",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "proposed_type": "emerged-from",
+   "proposed_label": "design-source",
+   "evidence_source": "",
+   "evidence_target": "Aboriginal Australian songlines: knowledge brought to life by walking it rather than looking it up. The path *is* the knowledge ([[Songlines]]). (SUBSTRATE — Context, § Origin)",
+   "rationale": "SUBSTRATE's Context lists songlines among the sources its design drew on, which is diffuse origin, not proximity. emerged-from points back at the ground.",
+   "confidence": "medium"
+  },
+  {
+   "source": "SUBSTRATE",
+   "target": "Lateral Access",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "The body never names it; the only trace is a line in the anatomy JSON listing Lateral Access as a member of the links organ, which is not a sentence that carries a relation. It can return in a later weave with a reason.",
+   "confidence": "medium"
+  },
+  {
+   "source": "SUBSTRATE",
+   "target": "1 from 2",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither SUBSTRATE's body, Context nor anatomy names the story, and 1 from 2 never names SUBSTRATE.",
+   "confidence": "high"
+  },
+  {
+   "source": "Modes of Collaboration",
+   "target": "Symbiotic Skills",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "How do modes relate to [[Symbiotic Skills]] progression? (Modes of Collaboration — Context, open question)",
+   "rationale": "The body is silent; the Context only asks, as an open question, whether skill levels unlock modes, which is a question and not yet a relation.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Modes of Collaboration",
+   "target": "Piano String Inharmonicity",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "named-example",
+   "evidence_source": "",
+   "evidence_target": "Named examples: [[Ohm's Law]] interactive with lock mechanism (March 2026), [[Piano String Inharmonicity]] string-bending explorer (March 2026). (Modes of Collaboration — Context)",
+   "rationale": "The Context lists the string-bending explorer as a named example of the Interactive Exploration for Mathematical Intuition mode.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Generative Compression",
+   "target": "Swarm Weave",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither page names the other as a reason; the body is about conversation seeds and the orchestrator's compression pass.",
+   "confidence": "high"
+  },
+  {
+   "source": "Generative Compression",
+   "target": "BBS Blackboard",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Generative Compression's body never mentions the blackboard, and BBS Blackboard never mentions it back.",
+   "confidence": "high"
+  },
+  {
+   "source": "Generative Compression",
+   "target": "Enchanted Worker",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "compression-at-dispatch",
+   "evidence_source": "The enchanted worker's context loading is itself a form of generative compression: the relevant palace neighborhood is distilled into the agent's context before dispatch.",
+   "evidence_target": "",
+   "rationale": "The Cross-Domain Resonance section reads an enchanted worker's context loading as a form of generative compression.",
+   "confidence": "high"
+  },
+  {
+   "source": "Generative Compression",
+   "target": "Deposit Ceremony",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "seed-vs-entry",
+   "evidence_source": "Deposit → palace entry (permanent, typed, linked, part of the organism); Generative Compression → context seed (temporary, working document, used once)",
+   "evidence_target": "",
+   "rationale": "A whole section separates the two operations: deposit makes a permanent entry, compression makes a one-use seed.",
+   "confidence": "high"
+  },
+  {
+   "source": "Generative Compression",
+   "target": "Pheromone Trail",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "compression-over-history",
+   "evidence_source": "the pheromone trail is generative compression operating at the timescale of the palace's full history",
+   "evidence_target": "",
+   "rationale": "The Cross-Domain Resonance section reads the trail as compression at the scale of the palace's whole history.",
+   "confidence": "high"
+  },
+  {
+   "source": "Dialogue Moderator",
+   "target": "Enchanted Worker",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither body names the other; the Moderator's lineage is through Palace Enchantment, which it already links.",
+   "confidence": "high"
+  },
+  {
+   "source": "Dialogue Moderator",
+   "target": "BBS Blackboard",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "dialogic-memory-halves",
+   "evidence_source": "The [[BBS Blackboard]] and the Dialogue Moderator are the two halves of the palace's dialogic memory system.",
+   "evidence_target": "The `FLAGS` board is the blackboard's most important signal surface.",
+   "rationale": "A section names the two as halves of one dialogic memory: the board holds the flags, the Moderator reads and writes them.",
+   "confidence": "high"
+  },
+  {
+   "source": "Dialogue Moderator",
+   "target": "Four Pillars of Enchanted Agency",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither page mentions the other.",
+   "confidence": "high"
+  },
+  {
+   "source": "Dialogue Moderator",
+   "target": "STIGMERGY",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "The body talks of pheromone and the board but never names STIGMERGY, and STIGMERGY never names the Moderator.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Palace Ceremonies",
+   "target": "SCHEMA",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "trigger-field-spec",
+   "evidence_source": "A ceremony is a rite the palace runs on itself, called by name: its page carries `trigger:`, the words Loudon says to begin it ([[SCHEMA]] §1).",
+   "evidence_target": "",
+   "rationale": "The page cites SCHEMA §1 as the place that defines the `trigger:` field every ceremony carries.",
+   "confidence": "high"
+  }
+ ],
+ "typed_relations": [],
+ "entry_health_flags": [
+  {
+   "entry": "Trickster",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Pair Trickster/Dialogue Moderator carries two links: couples-with[trickster-moderator-pair] on Trickster and mirrors[opposite-threshold] on Dialogue Moderator, and both pages' bodies say the relation is mirrors[opposite-threshold]. Fold to the mirrors edge and cut the couples-with. Pair Trickster/Palace Enchantment is also doubled (each side bare); this room's labelled edge on Trickster is the one to keep, so cut Palace Enchantment -> Trickster. Pair Trickster/1 from 2 is doubled too; 1 from 2's bare edge to Trickster is outside this room."
+  },
+  {
+   "entry": "Palace Enchantment",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Pairs doubled: PE -> SUBSTRATE and SUBSTRATE -> PE, and PE -> Modes of Collaboration and Modes -> PE. Both pairs need to fold to one edge. PE -> SUBSTRATE is bare, and so is the SUBSTRATE -> PE edge I propose cutting; the Modes edge from PE carries the label distributed-agency, so cut Modes -> PE. PE -> SUBSTRATE has a reason only in the anatomy JSON (PE listed in the pages organ); a later weave may label it or cut it. Threshold Conatus holds no edge back to PE; if spawned is accepted, no pair is doubled."
+  },
+  {
+   "entry": "flow-field-spine",
+   "stage_current": "(no stage field; superseded 2026-07-03)",
+   "stage_proposed": null,
+   "vector_issue": "Its forward vector still reads as a live recipe although the body opens with a Superseded banner.",
+   "note": "Frontmatter has no type or stage, so it is not a schema entry as it stands. Not mine to change; flagging for the room that owns it."
+  }
+ ],
+ "lighter_prose": [
+  {
+   "entry": "Trickster",
+   "where": "final HTML comment",
+   "passage": "<!-- CLAUDE → LOUDON: Map-injected enchantment 2026-04-01 revealed three entries deepening this page without reciprocal links (Palace Agent Infrastructure Spec, Playful Interface Design, Retrospective Delay) — all now added. Type promoted to hub ... -->",
+   "proposal": "delete",
+   "words": ""
+  },
+  {
+   "entry": "Dialogue Moderator",
+   "where": "Relationship to Trickster",
+   "passage": "The Moderator and the [[Trickster]] are structural kin — now formalized as `mirrors[opposite-threshold]` after the map-injected enchantment of 2026-04-01.",
+   "proposal": "simplify",
+   "words": "The Moderator and the [[Trickster]] are structural kin: `mirrors[opposite-threshold]`."
+  },
+  {
+   "entry": "p5.js",
+   "where": "opening italic paragraph",
+   "passage": "*First job landed 2026-05-10 (Kuramoto Round 1, Step 2). Status promoted from `stub` to `alive`. Processing (Java) remains named as lineage but is not separately wrapped ...",
+   "proposal": "simplify",
+   "words": "Processing (Java) is named as lineage, not wrapped. Most palace interactive work runs on the web, so p5.js is the working tool; if a Java-only sketch becomes essential, this entry takes on a Processing variant."
+  },
+  {
+   "entry": "p5.js",
+   "where": "Forward Vector (last section)",
+   "passage": "First job: a Study-tier interactive Kuramoto coupling sketch — N oscillators, coupling-strength slider, phase-portrait visualization, audio output via `p5.sound`. This validates the deployment chain ...",
+   "proposal": "delete",
+   "words": ""
+  },
+  {
+   "entry": "Palace Enchantment",
+   "where": "From First / Second / Third Practice — Findings (lines ~726-917)",
+   "passage": "Stage 1 and Stage 2 were run in a single session. Two entries enchanted: [[Hilaritas Generator]] and [[Lateral Access]]. Key findings:",
+   "proposal": "simplify",
+   "words": "Three dated session narratives (about 190 lines) sit in the body beside the rules they produced. Keep the findings that changed the design, one line each under Architecture; the run-by-run account belongs in the scroll (Palace Enchantment — scroll.md) and git. I did not check line by line which findings are already folded into Architecture."
+  },
+  {
+   "entry": "Flow Field is the Spine",
+   "where": "final HTML comment",
+   "passage": "<!-- CLAUDE → LOUDON: spike reported 2026-06-13 — strong claim falsified, shared-source-plus-mapping holds ... confidence bumped hypothesis→working, stage seed→sprout ...",
+   "proposal": "simplify",
+   "words": "The dated bookkeeping is in git; keep only the open question: whether to rewrite the lead paragraph to foreground shared-source-plus-mapping over 'one untouched field'. Loudon's call."
+  }
+ ],
+ "summary": "I read all eleven pages and, for each of the 30 links, the target or the passages in it that name the source, plus the SUBSTRATE and Modes Context companions and the SUBSTRATE anatomy JSON. Pattern: the Trickster, Generative Compression and Palace Enchantment links mostly had a reason sitting in a body section that merely wanted a label (16 labels); the unsaid links were nearly all genuinely empty (12 cuts); two are really another type (Palace Enchantment spawned Threshold Conatus; SUBSTRATE emerged from Songlines, per its Context). No keep-as-is, since none of the 30 had a label. Several cuts are pair-folds, not lost ideas: SUBSTRATE and Palace Enchantment, Flow Field and flow-field-spine, Trickster and Dialogue Moderator, Trickster and Palace Enchantment each carry two edges. I proposed no new inbound links to the newcomer list, since none of my pages gave a genuine one. Not settled: SUBSTRATE -> Lateral Access and Modes -> Symbiotic Skills have only a diagram membership and an open question behind them (cut, medium confidence); I read Palace Enchantment by section and target passage, not all 1,060 lines; and the labels are my wording, not checked against the vocabulary in use beyond Resonant Link Labels."
+}

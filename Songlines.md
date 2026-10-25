@@ -19,9 +19,6 @@ links:
   - target: "[[Embeddings as Relational Meaning]]"
     type: mirrors
     label: path-as-meaning
-  - target: "[[Hilaritas Generator]]"
-    type: connects-to
-    label: new-country
   - target: "[[Kokoro]]"
     type: contradicts
     label: transcribe-vs-perform

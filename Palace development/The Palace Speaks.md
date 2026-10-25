@@ -20,8 +20,6 @@ links:
   - target: "[[Cooperation Yields Agency]]"
     type: connects-to
     label: symbiosis-actualized
-  - target: "[[STIGMERGY]]"
-    type: connects-to
   - target: "[[Agent Wellbeing]]"
     type: couples-with
     label: extends-wellbeing-to-invocation

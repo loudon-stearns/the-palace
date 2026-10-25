@@ -20,6 +20,7 @@ links:
     type: mirrors
   - target: "[[1 from 2]]"
     type: connects-to
+    label: ai-as-trickster
   - target: "[[FOUR PILLARS]]"
     type: connects-to
   - target: "[[Spinoza Conatus]]"
@@ -27,8 +28,6 @@ links:
     label: trickster-as-conatus
   - target: "[[Lateral Access]]"
     type: mirrors
-  - target: "[[Action Potential Oscillator]]"
-    type: connects-to
   - target: "[[Threshold Conatus]]"
     type: spawned
   - target: "[[The Multilinear Self]]"
@@ -36,14 +35,16 @@ links:
     label: the-switcher
   - target: "[[Granular Synthesis]]"
     type: connects-to
+    label: grains-as-trickster
   - target: "[[Swarm Weave]]"
     type: connects-to
+    label: role-in-swarm
   - target: "[[BBS Blackboard]]"
     type: connects-to
-  - target: "[[Cooperation Yields Agency]]"
-    type: connects-to
+    label: trickster-board
   - target: "[[Palace Enchantment]]"
     type: connects-to
+    label: trickster-seat
   - target: "[[Dialogue Moderator]]"
     type: couples-with
     label: trickster-moderator-pair
@@ -52,6 +53,7 @@ links:
     label: uninvestigated
   - target: "[[Particle Synthesis]]"
     type: connects-to
+    label: particles-as-trickster
   - target: "[[Project Stewardship System]]"
     type: enables
     label: triage-role-host
@@ -61,6 +63,9 @@ links:
   - target: "[[Trickster Commit]]"
     type: spawned
     label: everywhere-at-the-keyboard
+  - target: "[[Cooperation Yields Agency]]"
+    type: mirrors
+    label: threshold-agency
 forward_vector: "I intercept, delay, substitute, and subvert the expected signal to amplify understanding and joyful creation.**"
 ---
 

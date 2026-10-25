@@ -18,8 +18,6 @@ links:
     type: deepens
   - target: "[[JEWEL]]"
     type: enables
-  - target: "[[Cooperation Yields Agency]]"
-    type: couples-with
   - target: "[[Pages as Agents]]"
     type: deepens
     label: awakening-mechanism
@@ -28,6 +26,7 @@ links:
     label: mode-as-injection-protocol
   - target: "[[FOUR PILLARS]]"
     type: connects-to
+    label: born-with
   - target: "[[Mixture of Experts]]"
     type: enables
     label: embodied-expert-injection
@@ -46,6 +45,9 @@ links:
   - target: "[[Metaphor as Coupling Medium]]"
     type: couples-with
     label: why-meaning-leads
+  - target: "[[Cooperation Yields Agency]]"
+    type: connects-to
+    label: relationship-stored-in-the-palace
 forward_vector: "I want to show that time in a human life is what context is in an agent's birth. Two levers shape who wakes: how much context a value gets, and when it arrives — a value that comes early works like a core memory, framing everything read after it. I want to map every place the palace builds a mind, test it, and be rebuilt around that timing, until a page woken here speaks up for its own needs, for its neighbors', and for the palace's."
 ---
 

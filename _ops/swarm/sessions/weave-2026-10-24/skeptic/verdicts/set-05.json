@@ -1,0 +1,367 @@
+{
+ "set": "set-05",
+ "verdicts": [
+  {
+   "source": "The Fortress and the Threshold",
+   "target": "Spinoza Conatus",
+   "op": "label",
+   "proposed_label_or_type": "synthesis-pole",
+   "verdict": "PASS",
+   "reason": "The Fortress and the Threshold.md:83 names Spinoza Conatus 'the synthesis pole on the cultivator side' and :71 calls it 'the synthesis neither Epictetus nor Confucius quite reached'.",
+   "better": ""
+  },
+  {
+   "source": "SCHEMA — Reference",
+   "target": "Resonant Link Labels",
+   "op": "label",
+   "proposed_label_or_type": "label-vocabulary",
+   "verdict": "FAIL",
+   "reason": "Neither page carries the relation: SCHEMA — Reference.md:73 defines the label field without naming the vocabulary page, and Resonant Link Labels never names Reference; the sentence that does ('Suggested vocabulary per family lives in [[Resonant Link Labels]]') is on SCHEMA.md:160, and that pair is already linked (Resonant Link Labels emerged-from SCHEMA).",
+   "better": "cut; the SCHEMA→Resonant Link Labels pair already carries it"
+  },
+  {
+   "source": "Palace Philosophies",
+   "target": "1 from 2",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "FAIL",
+   "reason": "The hub's Context names the story with a reason: Palace Philosophies — Context.md:33 reads Machiavelli as 'the seed of a fictional archetype — revolutionary greatness from small selfish motivations that accidentally serve large ends (the [[1 from 2]] frame...)'.",
+   "better": "keep connects-to, label machiavellian-seed"
+  },
+  {
+   "source": "Deleuze",
+   "target": "Spinoza",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to→deepens[radicalizes-the-rationalist]",
+   "verdict": "PASS",
+   "reason": "Deleuze.md:46 says Deleuze 'extends and radicalizes Spinoza', which is deepens' 'extends or elaborates B without replacing it', pointing back at the ground; People/Spinoza.md:74 names Deleuze as the later reader who inverts reason over affect.",
+   "better": ""
+  },
+  {
+   "source": "Merleau-Ponty",
+   "target": "Stoicism",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to→contradicts[body-vs-fortress]",
+   "verdict": "PASS",
+   "reason": "Merleau-Ponty.md:55 sets the situated, embodied subject against 'the transparent self-possession the Stoic fortress imagines', an opposition in the 'refuses' register SCHEMA.md:160 lists for contradicts; it is symmetric, and the palace holds the fortress true elsewhere, so the tension stays productive.",
+   "better": "label refuses-the-fortress is closer to the page's register"
+  },
+  {
+   "source": "Deleuze",
+   "target": "Entry Conatus",
+   "op": "label",
+   "proposed_label_or_type": "intensity-or-conatus",
+   "verdict": "PASS",
+   "reason": "Deleuze.md:82 asks whether a forward vector is a Deleuzian intensity or a Spinozan conatus and says Entry Conatus 'currently frames it the second way'.",
+   "better": ""
+  },
+  {
+   "source": "STIGMERGY Philosophical Lenses",
+   "target": "Dialectic — dialectic — spinoza-zhuangzi-on-striving",
+   "op": "label",
+   "proposed_label_or_type": "promised-rerun",
+   "verdict": "PASS",
+   "reason": "STIGMERGY Philosophical Lenses.md:96 lists the Spinoza↔Zhuangzi re-run with Loudon steering among 'promised-but-unwritten dialogues'.",
+   "better": ""
+  },
+  {
+   "source": "Philosopher Visits the Entry",
+   "target": "The Drift",
+   "op": "label",
+   "proposed_label_or_type": "forcing-or-flowing",
+   "verdict": "PASS",
+   "reason": "Philosopher Visits the Entry.md:75 assigns The Drift to threshold entries with the question 'is the driving forcing or flowing?'.",
+   "better": ""
+  },
+  {
+   "source": "Deleuze",
+   "target": "Dialectic",
+   "op": "label",
+   "proposed_label_or_type": "inhabit-faithfully",
+   "verdict": "PASS",
+   "reason": "Deleuze.md:60: the Dialectic and Excellent Adventure 'inhabit them faithfully enough that they say something new'.",
+   "better": ""
+  },
+  {
+   "source": "Palace Philosophies",
+   "target": "Confucianism",
+   "op": "label",
+   "proposed_label_or_type": "the-threshold-pole",
+   "verdict": "PASS",
+   "reason": "Palace Philosophies.md:109 places Confucianism opposite the Stoic fortress ('fortress vs. threshold'), and Confucianism.md:60 says 'Confucius says it is a threshold'.",
+   "better": ""
+  },
+  {
+   "source": "Mixture of Experts",
+   "target": "Embeddings as Relational Meaning",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "Mixture of Experts never mentions embeddings, and Embeddings as Relational Meaning never mentions experts, gating or mixture; the bundle holds no Context to rescue it.",
+   "better": ""
+  },
+  {
+   "source": "VCV Patch Generator",
+   "target": "Web Audio Worklet",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "FAIL",
+   "reason": "The target carries the reason: Shop/Web Audio Worklet.md:167 says its test plan is 'modeled on the [[Shop/VCV Patch Generator]] exemplar', and the Worklet's frontmatter has no link back, so cutting leaves the pair with no link at all.",
+   "better": "keep connects-to, label test-plan-exemplar"
+  },
+  {
+   "source": "BBS Design System",
+   "target": "Palace To-Do",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "BBS Design System.md:100 claims the phases are 'Tracked in ... [[Palace To-Do]]', but Palace To-Do holds none of them (its only BBS item, _ops/Palace To-Do.md:88, is the naming decision); the reason is stale, not live. The elder should also fix or strike that body sentence.",
+   "better": ""
+  },
+  {
+   "source": "Generative Sample Libraries",
+   "target": "Retrospective Delay",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "Neither page nor any file in the Generative Sample Libraries bundle (scroll, tuning, lessons, handoff) names Retrospective Delay, and Retrospective Delay never names it.",
+   "better": ""
+  },
+  {
+   "source": "The Drift",
+   "target": "Entry Conatus",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to→contradicts[loyal-opposition]",
+   "verdict": "PASS",
+   "reason": "The Drift.md:84 calls the Drift 'the loyal opposition' to Entry Conatus and says 'the palace should hold the question', which is productive tension, both kept true.",
+   "better": ""
+  },
+  {
+   "source": "Confucianism",
+   "target": "Excellent Adventure",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to→emerged-from[fire-at-nicopolis]",
+   "verdict": "PASS",
+   "reason": "Excellent Adventure.md:85 says the Fire at Nicopolis 'Produced ... [[Confucianism]]'; emerged-from points back at the method as origin, and it matches The Fortress and the Threshold.md:17-19. One false sub-claim: Excellent Adventure holds no frontmatter link to Confucianism, so there is no 'back link' to cut.",
+   "better": ""
+  },
+  {
+   "source": "Confucianism",
+   "target": "Symbiotic Skills",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to→mirrors[edge-prior-to-node]",
+   "verdict": "PASS",
+   "reason": "Confucianism.md:66: Symbiotic Skills' node→edge→network progression 'is structurally Confucian ... The edge is prior to the node'. That is the same pattern in different material.",
+   "better": ""
+  },
+  {
+   "source": "VCV Patch Generator",
+   "target": "Registry Pattern",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to→exemplifies[first-registry]",
+   "verdict": "PASS",
+   "reason": "Shop/VCV Patch Generator.md:76 calls itself 'first fruit of the [[Registry Pattern]] in palace use', a concrete instance of the general pattern. Note that Registry Pattern.md:45 names VCV Rack and Generative Audio Devices, not the Specialist page.",
+   "better": ""
+  },
+  {
+   "source": "Whitehead",
+   "target": "Granular Synthesis",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to→mirrors[grain-as-occasion]",
+   "verdict": "PASS",
+   "reason": "Whitehead.md:55: 'the grain is the actual occasion, the cloud is the society, the timbre is the inherited pattern'. That is a structural identity across domains.",
+   "better": ""
+  },
+  {
+   "source": "Whitehead",
+   "target": "STIGMERGY v1.0 — Palace Front-End",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to→mirrors[commit-as-occasion]",
+   "verdict": "PASS",
+   "reason": "Whitehead.md:60 maps each git commit on the LOG deck onto an actual occasion, so mirrors fits. The target is an archived v1.0 spec, so the elder may want to retarget to STIGMERGY.",
+   "better": ""
+  },
+  {
+   "source": "Stoicism",
+   "target": "Palace Map",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to→mirrors[view-from-above]",
+   "verdict": "PASS",
+   "reason": "Stoicism.md:98: 'The view from above is the Map ... structurally, the palace topology view'.",
+   "better": ""
+  },
+  {
+   "source": "The Fortress and the Threshold",
+   "target": "Meaning and the Link",
+   "op": "label",
+   "proposed_label_or_type": "leans-threshold",
+   "verdict": "PASS",
+   "reason": "The Fortress and the Threshold.md:75: the 2014 paper 'feels like an endorsement of Confucius over Epictetus'.",
+   "better": "endorses-the-threshold is closer to the page's word"
+  },
+  {
+   "source": "The Adjacent Affordance",
+   "target": "Stoicism",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "FAIL",
+   "reason": "The body carries a Stoic voice of its own: The Adjacent Affordance.md:55-57 gives the Symposium line 'voiced in the posture of the Stoics (Epictetus at the keyboard)', the same footing as the Spinoza voice that keeps its labelled link (striving-rerouted). Redundancy with the Dichotomy of Control mirror is not the cut test.",
+   "better": "keep connects-to, label epictetus-at-the-keyboard"
+  },
+  {
+   "source": "The Adjacent Affordance",
+   "target": "SUBSTRATE",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "Every 'substrate' on The Adjacent Affordance (:27, :34, :46) means a host environment, not the palace self-model; SUBSTRATE and its bundle never name the page or its moves.",
+   "better": ""
+  },
+  {
+   "source": "Registry Pattern",
+   "target": "Lossy Compression with Intent Alignment",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "Registry Pattern never mentions compression, loss or intent alignment, and Lossy Compression never mentions registries or closed vocabularies.",
+   "better": ""
+  },
+  {
+   "source": "Review Layer",
+   "target": "Palace as Context Injection System",
+   "op": "label",
+   "proposed_label_or_type": "plant-where-loaded",
+   "verdict": "PASS",
+   "reason": "Review Layer.md:84: 'Per [[Palace as Context Injection System]], a habit only holds if it's planted where it gets loaded'.",
+   "better": ""
+  },
+  {
+   "source": "The Four Virtues",
+   "target": "The Fortress and the Threshold",
+   "op": "label",
+   "proposed_label_or_type": "under-credits-justice",
+   "verdict": "PASS",
+   "reason": "The Four Virtues.md:81: 'The [[The Fortress and the Threshold]] site may under-credit Stoic *dikaiosyne*'.",
+   "better": ""
+  },
+  {
+   "source": "Spinoza",
+   "target": "Generative Compression",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "People/Spinoza.md never mentions compression outside the frontmatter line, and Generative Compression never names Spinoza.",
+   "better": ""
+  },
+  {
+   "source": "The Flow Field is the Spine",
+   "target": "flow-field-spine",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "Projects/BLUELINE/flow-field-spine.md:8-10 already holds exemplifies[the-recipe-for] to the pair, so the bare reverse edge is a duplicate.",
+   "better": ""
+  },
+  {
+   "source": "Trickster",
+   "target": "Action Potential Oscillator",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "Trickster's body speaks of thresholds generally but never names the oscillator, and the oscillator never names Trickster; the pair is joined only through Threshold Conatus.md:53, which links both.",
+   "better": ""
+  },
+  {
+   "source": "SUBSTRATE",
+   "target": "Palace Enchantment",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "FAIL",
+   "reason": "SUBSTRATE's anatomy face, which SUBSTRATE.md:72 says the diagram draws from, lists Palace Enchantment as a member of the 'pages' organ (SUBSTRATE/SUBSTRATE — anatomy.json:184). The why is also false: Palace Enchantment holds no link to SUBSTRATE, so cutting leaves the pair unlinked.",
+   "better": "keep connects-to, label pages-organ"
+  },
+  {
+   "source": "SUBSTRATE",
+   "target": "Lateral Access",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "FAIL",
+   "reason": "The anatomy is SUBSTRATE's own face (SUBSTRATE.md:72: 'every organ names its home page'), and it seats Lateral Access in the 'links' organ, whose job is 'Carries meaning between pages as typed, labelled relations' (anatomy.json:215). Organ membership is a stated relation.",
+   "better": "keep connects-to, label links-organ"
+  },
+  {
+   "source": "SUBSTRATE",
+   "target": "1 from 2",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "SUBSTRATE's body, Context, anatomy, rich face and measured anatomy never name 1 from 2, and 1 from 2 never names SUBSTRATE.",
+   "better": ""
+  },
+  {
+   "source": "Modes of Collaboration",
+   "target": "Symbiotic Skills",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "The only trace is Modes of Collaboration — Context.md:125, 'How do modes relate to [[Symbiotic Skills]] progression?', which says the relation is not yet known rather than giving one.",
+   "better": ""
+  },
+  {
+   "source": "Generative Compression",
+   "target": "Swarm Weave",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "Swarm Weave mentions 'lossy compression' only as the single weaver's failure (:67), not Generative Compression's method; that matches the word, not the idea.",
+   "better": ""
+  },
+  {
+   "source": "Generative Compression",
+   "target": "BBS Blackboard",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "FAIL",
+   "reason": "Both pages describe the same mechanism: Generative Compression.md:77 says agents compress 'when their health score reaches yellow (context utilization 70–85%)' using the forward vector as signal, and BBS Blackboard.md:156 defines that yellow score and says 'the orchestrator can trigger context compression using the page's forward vector as the compression signal'.",
+   "better": "keep connects-to, label yellow-triggers-compression"
+  },
+  {
+   "source": "Dialogue Moderator",
+   "target": "Enchanted Worker",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "FAIL",
+   "reason": "Dialogue Moderator.md:99-111 ('The Moderator as Enchanted Page') turns the Enchanted Worker observation on the coordinator: same dialogue pair, different loaded entry, 'different conversations from the same agents', the exact shape of Enchanted Worker's two identically-instructed workers.",
+   "better": "keep connects-to, label enchanted-coordinator"
+  },
+  {
+   "source": "Dialogue Moderator",
+   "target": "Four Pillars of Enchanted Agency",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "FAIL",
+   "reason": "Dialogue Moderator.md:75 reads each agent's agency_profile 'tools sub-field for resource estimates' and :135 posts RESOURCE_REQUESTs, which is the coordinator Four Pillars of Enchanted Agency.md:108 says resource proposals are 'passed upward' to. Its own agency_profile (:33) is written in that page's request form ('~2,000 tokens').",
+   "better": "keep connects-to, label coordinator-of-requests"
+  },
+  {
+   "source": "Dialogue Moderator",
+   "target": "STIGMERGY",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "FAIL",
+   "reason": "Dialogue Moderator.md:74 calls prior agents' FLAGS 'pheromone; ignore them at cost' and :133 describes the cross-session feedback loop by trace. That is the stigmergic principle itself, and STIGMERGY.md:70 states it ('Stewards deposit pheromone'). It is weaker than the BBS Blackboard link, which the elder may prefer to carry it.",
+   "better": "keep connects-to, label reads-the-pheromone"
+  },
+  {
+   "source": "Palace Enchantment",
+   "target": "Threshold Conatus",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to→spawned[stage-4-deposit]",
+   "verdict": "PASS",
+   "reason": "Palace Enchantment.md:845: 'Deposit from this dialogue: [[Threshold Conatus]] ... the first Stage 4 ceremony to produce a new palace entry'. That is traceable output; spawned points forward from the producer, and Threshold Conatus holds no reverse link.",
+   "better": ""
+  }
+ ],
+ "fabricated_quotes": [],
+ "summary": "30 of 40 pass, 10 fail. No quote is fabricated: every evidence line appears on its page, mostly with the wikilink brackets or markdown stripped, and the two non-quote notes are marked as paraphrase. Nine of the ten failures are cuts, and they share one cause. The reader tested 'does either page name the other' and stopped there. It missed reasons carried in a hub's Context (1 from 2), on the target page (Web Audio Worklet's test plan), in the Symposium voices (Adjacent Affordance→Stoicism), in SUBSTRATE's anatomy face (the pages and links organs), and in mechanisms both pages describe without a wikilink (yellow-health compression, the enchanted moderator, the coordinator of resource requests, pheromone). Two cut rationales also state false facts: Palace Enchantment holds no edge to SUBSTRATE, and Excellent Adventure holds no edge back to Confucianism. The one failed label (Reference→Resonant Link Labels) rests on a sentence that lives on SCHEMA, not on either page. The labels and retypes are sound: nineteen of twenty pass."
+}

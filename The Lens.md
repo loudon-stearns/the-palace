@@ -45,16 +45,22 @@ links:
     label: the-glass-intercepts-and-transforms
   - target: "[[BBS Design System]]"
     type: connects-to
+    label: mockups-in-its-grammar
   - target: "[[Deleuze]]"
     type: connects-to
+    label: virtual-actual-apparatus
   - target: "[[Merleau-Ponty]]"
     type: connects-to
+    label: lens-on-technical-work
   - target: "[[Simondon]]"
     type: connects-to
+    label: lens-on-technical-work
   - target: "[[The Dichotomy of Control]]"
     type: connects-to
+    label: up-to-me-apparatus
   - target: "[[The Four Virtues]]"
     type: connects-to
+    label: cardinal-lens-set
   - target: "[[Agent Wellbeing]]"
     type: connects-to
     label: proved-the-mechanism-live

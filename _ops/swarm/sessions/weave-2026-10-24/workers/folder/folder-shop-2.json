@@ -1,0 +1,1125 @@
+{
+ "room": "folder-shop-2",
+ "lens": "folder",
+ "pages_read": [
+  "Shop/AuK.md",
+  "Shop/CAD Drafter.md",
+  "Shop/D3.js.md",
+  "Shop/FLUX (Hugging Face).md",
+  "Shop/Frame Designer.md",
+  "Shop/Image-to-3D Smith.md",
+  "Shop/LaMa.md",
+  "Shop/Lettering.md",
+  "Shop/Loudon Live Post-producer.md",
+  "Shop/Manim CE.md",
+  "Shop/Mermaid.md",
+  "Shop/Observable Plot.md",
+  "Shop/Remotion.md",
+  "Shop/SAM.md",
+  "Shop/Stable Audio Open.md",
+  "Shop/Tone.js.md",
+  "Shop/Web Audio Worklet.md",
+  "Shop/ffmpeg.md",
+  "The Shop.md (whole)",
+  "Shop/Loudon Live Post-producer/Loudon Live Post-producer — Log.md (head)",
+  "SCHEMA — Reference.md (§3 fields, §8 bundle types)",
+  "Palace development/Resonant Link Labels.md (head)",
+  "Shop/Maker.md (lines 96-98, 289 by grep)",
+  "Shop/Whisper.md (model-size lines by grep)",
+  "Shop/Shopkeeper/drafts/FLUX (Hugging Face) — gotcha draft.md",
+  "Shop/Shopkeeper/probes/2026-09-24-qwen-image-2.1/probe-report.md (head)",
+  "Shop/Shopkeeper/probes/2026-10-20-cad/probe-report.md (line 38)",
+  "Animate the Background.md (lines 74-95 by grep)",
+  "Projects/LDN RTM.md (frontmatter and Post-producer mentions)",
+  "Radio Play.md (frontmatter)",
+  "Flocking/flocking-maker-comparison.md (head)",
+  "Can an Instrument Notice Where the Work Stops?.md (head)",
+  "_ops/Technical Diagram Standard.md (line 40)"
+ ],
+ "coherence_findings": [
+  {
+   "kind": "house-standard",
+   "entries": [
+    "D3.js",
+    "Observable Plot",
+    "Manim CE",
+    "Mermaid",
+    "Remotion",
+    "SAM",
+    "LaMa",
+    "Stable Audio Open",
+    "Tone.js",
+    "Web Audio Worklet",
+    "ffmpeg",
+    "FLUX (Hugging Face)"
+   ],
+   "issue": "Twelve members still carry last_tested and last_gotcha (e.g. Shop/D3.js.md:8-9, Shop/Manim CE.md:8-9). SCHEMA — Reference.md:81 says they are not schema fields, nothing writes them, and each comes off when its page grows a tuning ledger. No member in the family has a tuning ledger yet, so the fields are frozen at 2026-05/06 and read as dormancy that is not real (Stable Audio Open's last_gotcha says 2026-09-25 while its last_tested says 2026-05-26). FLUX's last_gotcha (Shop/FLUX (Hugging Face).md:10) holds a whole sentence, which is a gotcha, not a date.",
+   "proposed_action": "Drop the two fields from FLUX now (the sentence is already the 2026-05-30 gotcha at FLUX:~150). For the rest, drop them as each page gets its tuning ledger (see memory_needs: Manim CE, ffmpeg, Stable Audio Open, Web Audio Worklet, D3.js, Observable Plot first). Do not add them to AuK or CAD Drafter (neither carries them; good)."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "FLUX (Hugging Face)",
+    "Frame Designer"
+   ],
+   "issue": "Two dollar figures sit on pages despite the standing no-money rule (MEMORY.md, 2026-10-22: no dollars ever). Shop/FLUX (Hugging Face).md:187 'paid (~$0.025-$0.05 per image)'; Shop/Frame Designer.md:117 'leaked 11 pods before a post-run guard caught it (~$0.6)'. FLUX also frames its whole origin as cost (FLUX:33 'Midjourney's subscription as too expensive'; FLUX:151 'credit-bound runs'; FLUX:62 'No Discord, no --sref codes').",
+   "proposed_action": "Strike the two figures (the lessons stand without them: 'paid route, faster cold start'; 'a naive retry leaked 11 pods'). Reduce the Midjourney framing to one clause or delete it (see lighter_prose). No dollar signs anywhere in either page."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "LaMa",
+    "SAM",
+    "Lettering",
+    "Frame Designer",
+    "AuK",
+    "Web Audio Worklet",
+    "Image-to-3D Smith"
+   ],
+   "issue": "Specialist Anatomy (The Shop.md, 'The Specialist Anatomy') lists Voice, Tiers, Self-Check, Resource Footprint, Test Suite. The ten May-era pages carry all seven; the June pages drifted. LaMa (Shop/LaMa.md headings at 26,30,36,41,47) and SAM (27,31,37,43,49) are 'alive' but have only Charter, Job Contract, a proven-note, Gotchas, Recipe: no Tiers, Self-Check, Resource Footprint or Test Suite. Lettering has no Voice, Limits or Self-Check. Test plans (Shop/<Name>/tests/test-plan.md) exist for CAD Drafter, D3, FLUX, ffmpeg, Manim, Mermaid, Plot, Remotion, SAO, Tone; missing for AuK, Frame Designer, Image-to-3D Smith, LaMa, Lettering, SAM, Loudon Live Post-producer; Web Audio Worklet says '(TODO)' (Shop/Web Audio Worklet.md:167).",
+   "proposed_action": "Do not pad. For LaMa and SAM add three short sections when they next run (Tiers: a mask-only Sketch vs a dilated, checked Study; Self-Check: halo/fringe check; Footprint: already in Job Contract 'Cost') plus a test plan from Shop/Maker/_TEMPLATE. Write the WAW test plan it already promised. For AuK/Smith (stubs) the missing sections are fine until their first job."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "CAD Drafter",
+    "FLUX (Hugging Face)",
+    "Frame Designer",
+    "Web Audio Worklet",
+    "Loudon Live Post-producer"
+   ],
+   "issue": "CAD Drafter has no hero embed in its body and its folder holds only tests/ (no hero, icon or face.json); every other member embeds a hero (checked: Shop/CAD Drafter.md has no 'hero.png'). FLUX, Frame Designer, Web Audio Worklet and Loudon Live Post-producer have hero and icon but no face.json.",
+   "proposed_action": "Have an elder run the face for CAD Drafter (a new entry; the drafting-table skin already exists per _ops/drafting-table/design-system/README.md:15). The four missing face.json files are low priority."
+  },
+  {
+   "kind": "recipe",
+   "entries": [
+    "Mermaid",
+    "Remotion",
+    "ffmpeg",
+    "Manim CE",
+    "Stable Audio Open",
+    "Tone.js",
+    "D3.js",
+    "Observable Plot",
+    "FLUX (Hugging Face)"
+   ],
+   "issue": "Body 'Forward Vector' sections written in May describe a first job that has since run or been superseded, and sit beside a frontmatter forward_vector that is the live one. Mermaid:124 (first job: brief-intake flowchart; the Kuramoto regime diagram ran instead), Remotion:142, ffmpeg:226 ('First job: a Kokoro-narration-into-Manim-render concat'; done by the Kuramoto reel, ffmpeg:~203), Manim CE:249 (first job done as sync-arriving, Manim:213), Stable Audio Open:172, Tone.js:151 ('N oscillators in a PolySynth'; the 2-oscillator explorer ran instead). Observable Plot:175 still lists 'palace-plot-defaults.js so the house palette stop being copied' as next, though Observable Plot:165 records it built 2026-05-29. D3.js:167 repeats its frontmatter vector.",
+   "proposed_action": "Delete each body Forward Vector section where the frontmatter vector carries the want; where one real unrun item remains (Tone's N-oscillator PolySynth, Mermaid's intake flowchart, SAO's 30 s Study bed) move it into one line under Open Questions."
+  },
+  {
+   "kind": "roster",
+   "entries": [
+    "Tone.js",
+    "Web Audio Worklet"
+   ],
+   "issue": "Web Audio Worklet exists because Tone.js refuses custom DSP (Shop/Web Audio Worklet.md:39) and carries 'sibling-of' to Tone (WAW:17). Tone.js still routes that case only to RNBO (Shop/Tone.js.md:29 'route to RNBO codebox~ smith for serious DSP'; Tone:143 open question Tone vs RNBO web export). A Tone brief that needs custom DSP in a browser never learns the Worklet exists.",
+   "proposed_action": "In Tone.js Charter and Limits, route 'custom DSP that must stay in the browser' to Web Audio Worklet and 'DSP that must live in a DAW' to RNBO. The pair already carries one typed link (WAW to Tone); no second link needed."
+  },
+  {
+   "kind": "roster",
+   "entries": [
+    "Frame Designer",
+    "Lettering"
+   ],
+   "issue": "Lettering says it is 'Sibling to Frame Designer: it letters what the frame draws' (Shop/Lettering.md:42) and holds the link, but Frame Designer's roster and dispatch logic (Shop/Frame Designer.md:70-90) have no word-in-frame leg and never name Lettering (zero matches). A comic-frame brief with text would not be dispatched to it. Frame Designer's Forward Vector 'Promote the roster into The Shop as real Specialists' (Frame Designer:123) also does not say that Lettering and Figure Rig already did.",
+   "proposed_action": "Add one sentence to Frame Designer's dispatch logic: 'words in the frame go to [[Lettering]]', and update the promote item to say which of the roster are now Specialists (Lettering, Figure Rig) and which are not (InstantID, generative layering)."
+  },
+  {
+   "kind": "naming",
+   "entries": [
+    "Frame Designer"
+   ],
+   "issue": "Shop/Frame Designer.md:68 opens 'Three legs, each a cascade' but the section lists four numbered legs (staging, render, composition, assess; lines 70-85).",
+   "proposed_action": "Say 'Four legs'."
+  },
+  {
+   "kind": "recipe",
+   "entries": [
+    "SAM",
+    "FLUX (Hugging Face)"
+   ],
+   "issue": "SAM's recipe says convert the drawing with 'SDXL/FLUX + canny ControlNet' (Shop/SAM.md:38 and the recipe near line 50; same phrase in Animate the Background.md:91). FLUX (Hugging Face) states 'No ControlNet' on the API path (Shop/FLUX (Hugging Face).md:70) and its Lost Branches rule out local FLUX (FLUX:~190). So the FLUX half of that recipe has no route in the Shop.",
+   "proposed_action": "Change SAM's recipe to 'SDXL + canny ControlNet via ComfyUI' (the route Frame Designer and Lettering actually use), or name the one local FLUX ControlNet route if it was run. Tell the Animate the Background steward about line 91. I could not check which one the 2026-06-25 run used."
+  },
+  {
+   "kind": "recipe",
+   "entries": [
+    "ffmpeg",
+    "Manim CE",
+    "Stable Audio Open",
+    "AuK",
+    "Loudon Live Post-producer"
+   ],
+   "issue": "The commands other pages rely on live on the other pages. The mux of a silent Manim render with narration ('ffmpeg -i silent.mp4 -i narration.wav -c:v copy -c:a aac -shortest', measured 25 ms drift) is in Manim's gotcha (Shop/Manim CE.md:201), not in ffmpeg's Recipes (ffmpeg:201 holds only the Radio Play assembly and the Kuramoto reel). SAO's long-piece route is 'crossfade via ffmpeg' (Stable Audio Open Iteration Character) with no command anywhere. ffmpeg's own first open question is whether to keep a library of command templates (ffmpeg:217); the answer is already half-built in other people's pages.",
+   "proposed_action": "Move the mux command and one crossfade command into ffmpeg Recipes; leave one-line pointers in Manim and SAO. That answers ffmpeg:217 in practice and gives AuK's post-chain and the Post-producer's cut/normalize a place to point."
+  },
+  {
+   "kind": "recipe",
+   "entries": [
+    "Mermaid",
+    "Remotion",
+    "Tone.js",
+    "Web Audio Worklet",
+    "ffmpeg",
+    "Stable Audio Open",
+    "D3.js",
+    "Observable Plot"
+   ],
+   "issue": "Six members each defer a house scaffold 'to the first real job': Mermaid base themeVariables / --cssFile wrapper (Mermaid:115, and its frontmatter hunger), Remotion base project (Remotion:135), Tone.js artifact template (Tone:142), Web Audio Worklet base scaffold (WAW:173), ffmpeg command templates (ffmpeg:217), SAO seed-pinned reference library (SAO:165). Only Observable Plot's was built (palace-plot-defaults.js, Observable Plot:165), and it was built because a real job needed it. The browser four (D3, Plot, Tone, Worklet) all want the same skeleton: a single HTML file, skin class on html, palaceTokens() read at call time, and (audio) the gesture unlock; D3.js:141-150 and Web Audio Worklet's design-system section describe it twice.",
+   "proposed_action": "One owner list on Maker house standards: scaffold, owner Specialist, trigger job. Write one shared single-file artifact scaffold for the browser family instead of four. Leave the rest deferred, but say so once, there, not in six Open Questions."
+  },
+  {
+   "kind": "recipe",
+   "entries": [
+    "Remotion",
+    "FLUX (Hugging Face)",
+    "Stable Audio Open",
+    "Image-to-3D Smith"
+   ],
+   "issue": "The same open question (when does Loudon Live become commercial; what do the licences then require) is carried separately by Remotion (Shop/Remotion.md:134), FLUX (FLUX:183, license field), Stable Audio Open (SAO:164, sharpened 2026-09-25 by the second Gemma Terms layer), Image-to-3D Smith ('License check required', Smith Gotchas) and The Shop.md Open Questions. Loudon Live narrowed on 2026-10-14 to teaching videos and streams (Shop/Loudon Live Post-producer.md:146), which makes monetisation nearer, not further.",
+   "proposed_action": "One commercial-use table (tool, licence, what monetised use needs, state) on the Maker's house standards; each page keeps its license: field and one sentence pointing to it. Loudon decides when the question fires."
+  },
+  {
+   "kind": "vocab",
+   "entries": [
+    "Manim CE",
+    "Tone.js",
+    "Web Audio Worklet"
+   ],
+   "issue": "The label 'pairs-with' repeats the type couples-with and says nothing (Shop/Manim CE.md:15-16 to Kokoro and Whisper; Shop/Tone.js.md:16 and Web Audio Worklet:16 to p5.js). Resonant Link Labels asks for a register word. The reasons exist in the bodies.",
+   "proposed_action": "Manim to Kokoro 'narration-source' (Manim:Job Contract voiceover_audio); Manim to Whisper 'word-timing-source' (Manim:'Whisper-driven word timing'); Tone to p5.js 'sound-beside-picture'; Worklet to p5.js 'process-vs-draw-seam' (WAW: 'p5 owns draw(), the worklet owns process(), the port is the seam')."
+  },
+  {
+   "kind": "vocab",
+   "entries": [
+    "D3.js",
+    "Observable Plot",
+    "Manim CE",
+    "Mermaid",
+    "Loudon Live Post-producer",
+    "SAM",
+    "Frame Designer"
+   ],
+   "issue": "Unlabelled connects-to links that the standing order would cut unless given a reason. D3.js: Flocking, Matplotlib, Observable Plot, p5.js (Shop/D3.js.md:19-26; the first three are also held with labels or doubled as 'Shop/X' and bare 'X'). Observable Plot: Flocking, Matplotlib, p5.js, D3.js (Observable Plot.md:17-24). Manim to Radio Play (Manim:28, reason is in the recipe at :213). Mermaid to Kuramoto Coupling (reason in the recipe). Post-producer to Whisper, ffmpeg and its own Log (Post-producer:28-34). SAM to LaMa. Frame Designer to assume multi-agent (reason in body: namespace-scoped pod cleanup).",
+   "proposed_action": "Give a label where the body already holds the reason: Flocking 'first-job' (D3, Plot); Manim to Radio Play 'vo-as-clock'; Mermaid to Kuramoto 'regime-diagram'; Post-producer to Whisper 'transcript-source', to ffmpeg 'cuts-and-normalizes'; Frame Designer to assume multi-agent 'scoped-cleanup'. Cut Post-producer to its own Log (the Log already links back with log-of) and the doubled D3/Plot/Matplotlib/p5.js links (see next finding)."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "D3.js",
+    "Observable Plot",
+    "Web Audio Worklet",
+    "SAM",
+    "LaMa",
+    "Remotion",
+    "Manim CE",
+    "ffmpeg",
+    "Stable Audio Open"
+   ],
+   "issue": "Pairs that carry more than one link, against 'a pair of entries carries ONE link'. D3.js to Observable Plot twice (alt-to, bare); Observable Plot to D3.js three times (alt-to, enables built-on, bare). D3 and Plot each name Matplotlib and p5.js twice (as 'Shop/X' and bare 'X'). Web Audio Worklet names The Shop twice (member-of roster-member at :15 and exemplifies earns-new-operating-model at :21). Pairs held from both sides: SAM and LaMa (both connects-to), Remotion and Manim (both alternative-to), Manim and ffmpeg (mux-partner, render-pipe), Stable Audio Open and ffmpeg (connects-to post-processed-by, couples-with post-processes).",
+   "proposed_action": "Keep one per pair. Plot to D3 deepens[built-on] only (see typed_relations); one link each to Matplotlib and p5.js from D3 and from Plot; WAW keeps member-of, drops the exemplifies (the reason is the opening italic paragraph, WAW:39); keep LaMa to SAM [consumes-its-mask], cut SAM to LaMa (gives SAM an inbound); keep Manim to Remotion [alternative-to], cut Remotion's; keep Manim to ffmpeg [mux-partner], cut ffmpeg's render-pipe; keep ffmpeg to SAO [post-processes], cut SAO's."
+  },
+  {
+   "kind": "naming",
+   "entries": [
+    "Mermaid",
+    "Lettering",
+    "Observable Plot"
+   ],
+   "issue": "Three dangling or fragile names. Shop/Mermaid.md:16 links [[Shop/Graphviz]], which does not exist; Mermaid:116 reasons about Graphviz as if it did, and Shop/Maker.md:96,289 and Shop/Shopkeeper.md:72 list Graphviz only as a gap to fill. Shop/Lettering.md:42 links [[Shop]], which resolves to nothing (the page is The Shop). Observable Plot.md:165 links [[Flocking — Maker's Comparison Recommendation]], which resolves only by frontmatter title: the file is Flocking/flocking-maker-comparison.md, against SCHEMA's rule that title matches filename. Lettering's Bench (Lettering:81) also puts balloon_lib.py under proofs/text-layer/; it is at Projects/BLUELINE/proofs/blender-handdrawn/followups/rig-openpose/balloon_lib.py.",
+   "proposed_action": "Cut the Graphviz link until the page exists (the Shopkeeper's shopping list already holds it); [[Shop]] to [[The Shop]]; flag the Flocking filename to its owner; correct the balloon_lib path."
+  },
+  {
+   "kind": "naming",
+   "entries": [
+    "Image-to-3D Smith",
+    "Loudon Live Post-producer",
+    "Stable Audio Open"
+   ],
+   "issue": "Link-label drift on the one relation every Specialist shares: Maker is 'directed-by' on the other sixteen members but 'dispatched-by' on Image-to-3D Smith (Smith:12). The Post-producer's 'dispatches-through' runs the other way and is right. Separately, the page Stable Audio Open now holds Stable Audio 3 (the italic header at SAO:~30 says the filename is kept on purpose); the name is deliberate and should not be changed, but it is why the page needs a Context.",
+   "proposed_action": "Smith to 'directed-by'. Leave the Stable Audio Open name; explain it in a Context."
+  },
+  {
+   "kind": "vocab",
+   "entries": [
+    "Tone.js",
+    "Web Audio Worklet",
+    "AuK",
+    "Stable Audio Open"
+   ],
+   "issue": "frontmatter medium: Tone.js and Web Audio Worklet say 'interactive' though both make sound; Stable Audio Open and AuK say 'sound'. The generated roster (The Shop.md, Roster table) groups by medium, so a sound brief scanning the 'sound' rows misses the two browser audio tools.",
+   "proposed_action": "Question for Loudon, not a defect: keep 'interactive' (they ship as browser instruments) and let the Maker's sound intake name them, or move them to 'sound'. I would keep it and add the two names to the Maker's sound routing."
+  },
+  {
+   "kind": "roster",
+   "entries": [
+    "Frame Designer",
+    "Lettering"
+   ],
+   "issue": "Two members want the same unbuilt thing. Frame Designer: 'Grow a visual judge for the assess leg (geometric checks pass poses the eye rejects)' (Frame Designer:122). Lettering: 'A visual legibility judge so the bench can reject a mangled word without a human eye' (Lettering:89). Projects/BLUELINE/proofs/blender-handdrawn/APPROACHES.md says the same. FLUX also cannot self-verify aesthetic fit (FLUX Self-Check).",
+   "proposed_action": "Treat it as one stub Specialist for the Shopkeeper to probe (a vision judge with a rubric per register), instead of two private hungers. Then both pages point at it."
+  },
+  {
+   "kind": "roster",
+   "entries": [
+    "FLUX (Hugging Face)"
+   ],
+   "issue": "The entry is pinned to FLUX.1-Krea-dev tested 2026-05-30 (FLUX:10 area, tool_version). The Shopkeeper found on 2026-10-18 that FLUX 3 (flux-3-image-klein) shipped and drafted a gotcha, waiting since then: Shop/Shopkeeper/drafts/FLUX (Hugging Face) — gotcha draft.md. FLUX's open question 'when FLUX.1-dev base or schnell' (FLUX:182) and its frontmatter hunger ('growing FLUX.1-dev base and schnell variants') are now one generation behind.",
+   "proposed_action": "Land the dated gotcha; after one real probe of Klein vs Krea-dev on the atmospheric header brief, revise tool_version and the vector. I did not verify the FLUX 3 claim; it is the Shopkeeper's, not mine."
+  },
+  {
+   "kind": "recipe",
+   "entries": [
+    "Frame Designer"
+   ],
+   "issue": "Shop/Frame Designer.md:94 says the methods are proven 'on the feature/blueline-m3 branch'. This tree already holds Projects/BLUELINE/proofs/new-story/ with render_shot.py, gen_pose.py, validate_pose.py, newstory_bench.py, rich_pipeline.py, stylize_test.py, pod_backend.py, pose_pod_orchestrator.py (all checked present), and the same qualifier is on both Field-notes headings (lines 98, 109).",
+   "proposed_action": "After confirming the branch has merged (I ran no git), drop the branch qualifier from all three places."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Tone.js"
+   ],
+   "issue": "Tone.js contradicts itself on whether its first recipe was heard. The recipe says audio confirmation 'belongs to whoever opens it first' (Shop/Tone.js.md:134 Final-mile note); the Test Suite says 'Audible-correctness check ... was confirmed during 2026-05-26 Kuramoto Round 1' (Tone:138).",
+   "proposed_action": "Delete the Final-mile note; the Test Suite is the later word."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Stable Audio Open"
+   ],
+   "issue": "Numbers from the retired SAO 1.0 stay beside the SA3 ones. Limits say the checkpoint is ~5 GB (SAO:76) and Resource Footprint 'GPU: required, ~12 GB VRAM comfortable' (SAO:122); the 2026-05-26 gotcha says total footprint ~3 GB and that SA3 ran on Mac MPS (SAO:131-133). The ~47 s ceiling and 'default ~10 s' may also belong to 1.0. I did not check SA3's model card.",
+   "proposed_action": "Re-read the SA3 card and re-pin Limits, Capabilities and Footprint to SA3 only; the Shopkeeper's 2026-09-25 gotcha (SAO:143) already did part of that check."
+  },
+  {
+   "kind": "vocab",
+   "entries": [
+    "Loudon Live Post-producer"
+   ],
+   "issue": "Two pages hold opposite readings of the same pair. Projects/LDN RTM.md has Loudon Live Post-producer as 'enables [first-real-job]' and says its batch pipeline is 'exactly the apprenticeship it was specced for' (RTM:~113). The Post-producer says RTM 'is the mismatch' and its ladder 'counts the wrong unit' (Post-producer:146-150), proposing chunks for RTM and sessions for Loudon Live. Both can be true; neither page says so. The pair already carries one typed link (RTM to Post-producer), so no new link is wanted.",
+   "proposed_action": "Pick one sentence for both: RTM is the Post-producer's second unit of release (the chunk), reviewed by the same three-clean-passes rule. Loudon's call; then the Post-producer's charter (written around the long stream) says it once."
+  },
+  {
+   "kind": "naming",
+   "entries": [
+    "Image-to-3D Smith",
+    "CAD Drafter",
+    "Ableton Session Writer"
+   ],
+   "issue": "Role-noun names drift in case: 'Image-to-3D Smith' and 'CAD Drafter' are capitalised; the neighbouring stub is 'RNBO codebox~ smith'. Cosmetic, and wikilinks make renaming costly.",
+   "proposed_action": "Leave as is; note it for the next naming pass only."
+  }
+ ],
+ "open_question_resolutions": [
+  {
+   "entry": "D3.js",
+   "question": "D3 v7 ES-modules vs single-file bundle at Sketch (D3.js:159)",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave; the Web Audio Worklet Blob-URL gotcha (WAW:~143) is the single-file precedent if the scaffold in the coherence list is written."
+  },
+  {
+   "entry": "D3.js",
+   "question": "Canvas vs SVG default at Sketch (D3.js:160)",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "The page already answers it ('SVG until proven slow'); move the sentence into Limits and delete the question."
+  },
+  {
+   "entry": "D3.js",
+   "question": "House Plot.js base for axes/legends/palette (D3.js:161)",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Observable Plot",
+   "proposed_action": "Plot built palace-plot-defaults.js (Observable Plot.md:165) and D3 has its own palaceTokens() pattern (D3.js:141-150). Delete the question."
+  },
+  {
+   "entry": "D3.js",
+   "question": "Forward vector: a real palace data viz where d3-force does graph relaxation",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "No palace graph job has run it. It is the clean second job; name which viz (entry graph, link density) when Loudon picks one."
+  },
+  {
+   "entry": "Observable Plot",
+   "question": "House Plot defaults file (struck through at Observable Plot.md:165)",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Observable Plot",
+   "proposed_action": "Already resolved and built; delete the struck question and its long resolution; the facts are in Recipes."
+  },
+  {
+   "entry": "Observable Plot",
+   "question": "Plot vs Vega-Lite (Observable Plot.md:166)",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Keep as a Lost Branch; it already has one. Move there."
+  },
+  {
+   "entry": "Observable Plot",
+   "question": "Forward vector: Vicsek run to test whether the Kuramoto tie is formal",
+   "verdict": "progressed",
+   "by_entry": "Web Audio Worklet",
+   "proposed_action": "Murmuration's seeded Vicsek-noise model already shows order 0.10 to 0.93 at eta=0 and collapse at eta=0.80 (Web Audio Worklet.md:157). A Study-tier Plot job can chart that model's output instead of building a second Vicsek."
+  },
+  {
+   "entry": "Observable Plot",
+   "question": "Forward vector: full separation/alignment/cohesion 3xN small-multiples grid",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "No sibling has done it; stays as the vector."
+  },
+  {
+   "entry": "Manim CE",
+   "question": "House defaults for colour palette (Manim:241)",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Loudon Live Design System",
+   "proposed_action": "The Study and Piece recipes resolve colour through the design-system tokens and the link is typed enables [skin-token-source] (Manim:~21). Delete the question."
+  },
+  {
+   "entry": "Manim CE",
+   "question": "Whisper voiceover model size default (Manim:242)",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Whisper",
+   "proposed_action": "Whisper's tiers pin it: tiny for Sketch, large-v3 for Piece, and large-v3 timing is good enough to drive manim-voiceover (Shop/Whisper.md:33,49,67,81). Replace with a pointer."
+  },
+  {
+   "entry": "Manim CE",
+   "question": "Recipes folder by project or by animation type (Manim:243)",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "Recipes still live inline (Manim:213-221) and the page is 30 KB. Decide: keep inline until two more land, then a Context or recipes bundle by project. Loudon's taste."
+  },
+  {
+   "entry": "Remotion",
+   "question": "When does Loudon Live cross into commercial use; budget the licence (Remotion:134)",
+   "verdict": "should-act",
+   "by_entry": "Loudon Live Post-producer",
+   "proposed_action": "Loudon Live narrowed on 2026-10-14 to teaching videos and livestreams (Post-producer:146). This is Loudon's decision; collect all licence questions in one table (coherence list) and ask once."
+  },
+  {
+   "entry": "Remotion",
+   "question": "Base Remotion project template (Remotion:135)",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Part of the shared scaffold owner list; its gotcha says four hand-written files are enough (Remotion:~120), which is the template."
+  },
+  {
+   "entry": "Remotion",
+   "question": "Lambda rendering as cloud upgrade (Remotion:136)",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "No pressure. Leave."
+  },
+  {
+   "entry": "Mermaid",
+   "question": "Base themeVariables object for the palace palette (Mermaid:115)",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "Its own answer is 'Yes; defer'; its frontmatter vector says the --cssFile wrapper is the missing piece, and the Style Probe is degenerate until built (Mermaid:~112). Merge these into one line and give it the scaffold owner list."
+  },
+  {
+   "entry": "Mermaid",
+   "question": "Mermaid vs Graphviz routing (Mermaid:116)",
+   "verdict": "should-act",
+   "by_entry": "Maker",
+   "proposed_action": "Graphviz has no page; Maker.md:96 routes diagrams to 'Mermaid or Graphviz' and :289 lists Graphviz as not-yet. Either the Shopkeeper stubs Graphviz or the question and the link are cut."
+  },
+  {
+   "entry": "Tone.js",
+   "question": "Base claude.ai artifact template with Tone and unlock (Tone:142)",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Shared scaffold item; do once for the browser family."
+  },
+  {
+   "entry": "Tone.js",
+   "question": "Tone vs RNBO web export routing (Tone:143)",
+   "verdict": "progressed",
+   "by_entry": "Web Audio Worklet",
+   "proposed_action": "Worklet sharpened the rule: Tone when the instrument is a composition of primitives, Worklet when the DSP is the differentiator (WAW:171). RNBO web export is the third case; Worklet's vector tests it by building one spec twice (WAW:183). Add the rule to Tone's Charter and retire the question."
+  },
+  {
+   "entry": "Tone.js",
+   "question": "p5 plus Tone clock reconciliation (Tone:144)",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Tone.js",
+   "proposed_action": "Answered by its own first gotcha (setValueAtTime at Tone.now(); Transport not started), and the recipe says so (Tone:132). Delete the question."
+  },
+  {
+   "entry": "Web Audio Worklet",
+   "question": "Tone vs Worklet routing (WAW:171)",
+   "verdict": "progressed",
+   "by_entry": "Tone.js",
+   "proposed_action": "The rule is stated; the first crossover brief will test the grey zone. Tone's charter still needs the sentence."
+  },
+  {
+   "entry": "Web Audio Worklet",
+   "question": "WASM in the worklet vs RNBO export (WAW:172)",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "No heavy-DSP job yet."
+  },
+  {
+   "entry": "Web Audio Worklet",
+   "question": "Base worklet scaffold (WAW:173)",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "It said 'defer to the second job'; the Wavetable Scanner was the second job and did not write it. Fold into the shared scaffold item."
+  },
+  {
+   "entry": "Web Audio Worklet",
+   "question": "Double-buffer pool for control traffic (WAW:174)",
+   "verdict": "progressed",
+   "by_entry": null,
+   "proposed_action": "The 2026-05-31 transferable-vs-retain gotcha (WAW:~151) gives the decision rule; the pool itself waits for a Study job."
+  },
+  {
+   "entry": "ffmpeg",
+   "question": "Library of canonical command templates per operation and tier (ffmpeg:217)",
+   "verdict": "progressed",
+   "by_entry": "Manim CE",
+   "proposed_action": "The mux command sits in Manim's gotcha (Manim:201) and the Radio Play concat in ffmpeg Recipes. Gather them into ffmpeg Recipes and the question is answered."
+  },
+  {
+   "entry": "ffmpeg",
+   "question": "Hardware acceleration policy (ffmpeg:218)",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "The page already says software for Pieces (ffmpeg:199). State it as a Tier line and delete the question."
+  },
+  {
+   "entry": "ffmpeg",
+   "question": "Sync-verification spectrogram in the standards report (ffmpeg:219)",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Not needed until a Piece-tier combined-stream job."
+  },
+  {
+   "entry": "Stable Audio Open",
+   "question": "Prompt vocabulary that summons what (SAO:~162)",
+   "verdict": "progressed",
+   "by_entry": null,
+   "proposed_action": "First jobs gave small-music vs small-sfx selection (SAO:~135) and the comedic-register recipe (SAO:~150); keep the question short or fold into those."
+  },
+  {
+   "entry": "Stable Audio Open",
+   "question": "Licence terms for commercial use (SAO:164)",
+   "verdict": "progressed",
+   "by_entry": null,
+   "proposed_action": "The 2026-09-25 card re-check found the Gemma Terms layer (SAO:143). Move to the shared licence table."
+  },
+  {
+   "entry": "Stable Audio Open",
+   "question": "Seed-pinned reference library for the base palette (SAO:165)",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Part of the scaffold owner list."
+  },
+  {
+   "entry": "FLUX (Hugging Face)",
+   "question": "Pin a specific HF endpoint or stay on free shared pool (FLUX:181)",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "No throttle seen; leave."
+  },
+  {
+   "entry": "FLUX (Hugging Face)",
+   "question": "When to reach for FLUX.1-dev or schnell instead of Krea-dev (FLUX:182)",
+   "verdict": "should-act",
+   "by_entry": "Shopkeeper",
+   "proposed_action": "FLUX 3 (Klein) has arrived since (Shop/Shopkeeper/drafts/FLUX (Hugging Face) — gotcha draft.md). Land the draft, probe once, and rewrite the question around Klein vs Krea-dev."
+  },
+  {
+   "entry": "FLUX (Hugging Face)",
+   "question": "Non-commercial licence tracking (FLUX:183)",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "Same single licence table."
+  },
+  {
+   "entry": "Frame Designer",
+   "question": "Build generative layering (Frame Designer:121)",
+   "verdict": "progressed",
+   "by_entry": null,
+   "proposed_action": "The 2026-06-23 field notes show the collage problem was solved earlier in the chain by rich-first, stylize-last (Frame Designer:109-116); layering for dense crowds is still planned. Rewrite the vector to say that."
+  },
+  {
+   "entry": "Frame Designer",
+   "question": "Grow a visual judge for the assess leg (Frame Designer:122)",
+   "verdict": "still-open",
+   "by_entry": "Lettering",
+   "proposed_action": "Lettering wants the same judge (Lettering:89). One Specialist for both."
+  },
+  {
+   "entry": "Frame Designer",
+   "question": "Promote the roster into the Shop (InstantID first) (Frame Designer:123)",
+   "verdict": "progressed",
+   "by_entry": "Lettering",
+   "proposed_action": "Lettering and Figure Rig now exist as Specialists; InstantID does not. Say so."
+  },
+  {
+   "entry": "Frame Designer",
+   "question": "Prove the split works: does it lighten the Maker's load (Frame Designer:125)",
+   "verdict": "should-act",
+   "by_entry": "Maker",
+   "proposed_action": "Born 2026-06; 'the first weeks of real frame briefs tell' has had four months. Ask Loudon, or read the board for frame briefs, and write the verdict."
+  },
+  {
+   "entry": "Lettering",
+   "question": "Harden the modes into named Shop recipes (Lettering:85)",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Same hunger as Frame Designer's roster promotion; pair them."
+  },
+  {
+   "entry": "Lettering",
+   "question": "Grow a vector letterer for long legible text (Lettering:~86)",
+   "verdict": "still-open",
+   "by_entry": "ffmpeg",
+   "proposed_action": "ffmpeg's drawtext gotcha already sends title cards to Matplotlib PNGs (ffmpeg:~151); that covers video title cards, not comic captions. Not answered."
+  },
+  {
+   "entry": "Lettering",
+   "question": "Placement and Cross the balloon (Lettering:87-88)",
+   "verdict": "progressed",
+   "by_entry": null,
+   "proposed_action": "Placement mode 1 proven 2026-07-01; balloon bench exists. Prune the two bullets to their open edge."
+  },
+  {
+   "entry": "LaMa",
+   "question": "Get from plausible texture to true occluded shape (LaMa:43)",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Nothing in the family addresses it. Image-to-3D Smith does not. Keep."
+  },
+  {
+   "entry": "SAM",
+   "question": "Be the reason we convert first (frontmatter)",
+   "verdict": "progressed",
+   "by_entry": "Animate the Background",
+   "proposed_action": "The convert-first reframe is in Animate the Background.md:74-95; the open thing is the FLUX/ControlNet route (coherence list)."
+  },
+  {
+   "entry": "Image-to-3D Smith",
+   "question": "First job: Sketch to Three.js display or Study to Blender import (Smith:88)",
+   "verdict": "should-act",
+   "by_entry": "Maker",
+   "proposed_action": "Stub since June with no brief. Loudon picks, or it stays a stub honestly."
+  },
+  {
+   "entry": "Image-to-3D Smith",
+   "question": "Should TripoSplat be its own Specialist (Smith:89)",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Its own gotcha says it is a separate lane. Decide when a splat brief arrives; do not split on spec."
+  },
+  {
+   "entry": "Image-to-3D Smith",
+   "question": "Texture second pass untested (Smith:90)",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Needs a Study-tier test; FLUX is the stated texture partner in the Piece tier."
+  },
+  {
+   "entry": "AuK",
+   "question": "Speaker identity unchecked (AuK:50)",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "The first job on a real Loudon voice-over is the test. Nothing else in the family can answer it."
+  },
+  {
+   "entry": "CAD Drafter",
+   "question": "Mount block (holes and flats) untried (CAD Drafter:~55)",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Waits on the motor and the calipers (_ops/Palace To-Do.md:114)."
+  },
+  {
+   "entry": "Loudon Live Post-producer",
+   "question": "YouTube connector for direct publish (Post-producer:140)",
+   "verdict": "still-open",
+   "by_entry": "LDN RTM",
+   "proposed_action": "Shared with LDN RTM's posting path. Loudon grants it when ready."
+  },
+  {
+   "entry": "Loudon Live Post-producer",
+   "question": "What the operator becomes when the session is live (Post-producer:148)",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Unanswered on purpose per its own text; leave for the first real stream."
+  },
+  {
+   "entry": "Loudon Live Post-producer",
+   "question": "Promotion ladder counts the wrong unit for RTM (Post-producer:150)",
+   "verdict": "should-act",
+   "by_entry": "LDN RTM",
+   "proposed_action": "Count chunks on RTM, sessions on Loudon Live. Write it on both pages in the same words."
+  }
+ ],
+ "merge_candidates": [],
+ "compost_candidates": [],
+ "memory_needs": [
+  {
+   "entry": "Manim CE",
+   "needs": "context",
+   "why": "At 30 KB it is the longest member. It keeps three layers of the same TeX saga (Manim:191 basictex framing, which :193 says is wrong; :193 the real root cause; :173,181 Python 3.14 twice) and a recipe-level bug story repeated from a gotcha (:217). A next worker cannot tell the live rule from the superseded one.",
+   "context_bullets": [
+    "Why the tier ladder is measured, not claimed: the 2026-05-30 Phase A run is the evidence; the tier list is the claim.",
+    "What was tried and dropped: ManimGL (Lost Branches), manim-voiceover when narration and Whisper timings already exist (mux instead, Manim:201), basictex-only and tlmgr routes for dvisvgm.",
+    "Why gotchas are dated and left whole: TEXPSHEADERS via Shop/Maker/tex-env.sh is the live rule; the 2026-05-30 version is history."
+   ]
+  },
+  {
+   "entry": "Manim CE",
+   "needs": "tuning",
+   "why": "It runs most often (Kuramoto round 1, sync-arriving, three-tier ladder, Radio Play) and carries last_tested and last_gotcha that should come off (SCHEMA — Reference.md:81).",
+   "context_bullets": [
+    "One run line per render job; items for the tier-cost data, the foreign-updater finding, the TeX bridge.",
+    "Move Manim's Recipes into the ledger's items where they teach and keep one example in the page.",
+    "Remove last_tested and last_gotcha once the ledger lands."
+   ]
+  },
+  {
+   "entry": "Web Audio Worklet",
+   "needs": "context",
+   "why": "The page's opening italic paragraph (WAW:39) is its Context: why it exists, what proliferation bar it met, why it is not a raw-graph Specialist. The page body also holds two long design-pattern gotchas about the Wavetable Scanner that belong to the concept 1D Wavetable Scanning.",
+   "context_bullets": [
+    "Why it exists: Tone.js refuses custom DSP; RNBO is for the DAW; the Worklet is the browser cousin with its own operating model.",
+    "What was dropped: a raw Web Audio graph Specialist (Tone's Lost Branches ruled), ScriptProcessorNode.",
+    "Why gotchas stay short: the scanner's gate-model and morph findings live in 1D Wavetable Scanning, not here."
+   ]
+  },
+  {
+   "entry": "Stable Audio Open",
+   "needs": "context",
+   "why": "The page name no longer matches the tool (Stable Audio 3 in a file called Stable Audio Open, on purpose, SAO:~30) and two gotchas narrate a dead SAO 1.0 install (SAO:139,141).",
+   "context_bullets": [
+    "Why the filename is kept: future Stability versions land on the same Specialist without churning wikilinks.",
+    "What was tried and dropped: SAO 1.0 with stable-audio-tools on Python 3.10, discarded for SA3 under uv.",
+    "Why Medium is out of scope: CUDA only, no Mac route; revisit if a CoreML or MLX build is proven (SAO:143 lists them unrun)."
+   ]
+  },
+  {
+   "entry": "Stable Audio Open",
+   "needs": "tuning",
+   "why": "last_gotcha is dated 2026-09-25 and last_tested 2026-05-26; the two disagree about when it last ran.",
+   "context_bullets": [
+    "Run lines for the 2026-05-26 migration and the 2026-09-25 card re-check.",
+    "Items: small-music vs small-sfx selection, laugh-track and stinger register, narrative-arc 'perhaps'.",
+    "Drop both frontmatter fields once the ledger holds them."
+   ]
+  },
+  {
+   "entry": "Loudon Live Post-producer",
+   "needs": "context",
+   "why": "The page explains its own method at length: the Meadows leverage table (Post-producer:110-130) and a long Deferred section holding three answered or half-answered threads (:138-150). Those are design history for the next worker, not charter.",
+   "context_bullets": [
+    "Why post only: the Producer layer the Maker left open; the front-of-session Producer is a separate unborn role, and a during-session operator a third, split by mode on 2026-09-02.",
+    "Why the leverage mapping: the paradigm (protect Loudon's peace) set the goal; the table shows each rule against what typical video does. Keep a two-line version in the charter.",
+    "What was deferred and why: owned room, YouTube connector, RTM fit, chunk-vs-session ladder unit."
+   ]
+  },
+  {
+   "entry": "Frame Designer",
+   "needs": "tuning",
+   "why": "Its two 'Field notes' sections (Frame Designer:96-118) are what running taught, run by run, hedged as 'not laws'; that is exactly the tuning ledger's job (SCHEMA — Reference.md, tuning type). The charter above them is then short enough to read.",
+   "context_bullets": [
+    "Run lines: 2026-06-22 dying-girl frame; 2026-06-23 rich-first stylize-last on RunPod.",
+    "Items: openpose-first facing, pose strength 0.85 on stylize, GrabCut seeded by skeleton, force-or-reframe for the kiss.",
+    "Keep the pod-leak lesson as a live gotcha without the dollar figure."
+   ]
+  },
+  {
+   "entry": "Image-to-3D Smith",
+   "needs": "context",
+   "why": "Four engines under one umbrella is a design decision with a live open question (Smith:89), and two probe folders carry the evidence.",
+   "context_bullets": [
+    "Why four engines: different output types (watertight mesh, light textured GLB, splat), so different tiers and routes.",
+    "Why TripoSplat is a lane, not a fallback: it cannot go into Blender as editable geometry.",
+    "What it will not do: promise 3D-ready without naming the pipeline; CAD Drafter takes exact parts."
+   ]
+  },
+  {
+   "entry": "CAD Drafter",
+   "needs": "scroll",
+   "why": "It has a concrete multi-step first-job plan (caps holes from the rotor-top pattern, fit-ladder verdict written back, then mount block; CAD Drafter:109) waiting on a motor and Loudon's calipers, and a To-Do line (_ops/Palace To-Do.md:114). That plan wants a scroll Plan Loudon agrees, not prose in the entry.",
+   "context_bullets": [
+    "Plan: cap holes after measurement, fit ladder, then mount block.",
+    "Waiting on: motor arrival, caliper reading (MEASURE entries).",
+    "Made so far: the 2026-10-20 probe and test plan."
+   ]
+  },
+  {
+   "entry": "D3.js",
+   "needs": "tuning",
+   "why": "Four of its five gotchas are lessons from the Flocking shoot-out (d3-force as relaxation solver, fx/fy, two-pass force, toroidal wrap; D3.js:125-129) rather than traps of D3 itself.",
+   "context_bullets": [
+    "Run line: Flocking interactive-control job, 2026-05-29.",
+    "Items: the Reynolds-on-d3-force recipe.",
+    "Keep in the page only the traps that bite any D3 job (fx/fy reserved, rAF pausing in harnesses)."
+   ]
+  }
+ ],
+ "lighter_prose": [
+  {
+   "entry": "Manim CE",
+   "where": "Gotchas",
+   "passage": "**2026-05-30 — basictex alone is *not enough* for Manim's LaTeX pipeline.** basictex ships latex/pdflatex but not dvisvgm ... Working fix on this Mac: export TEXPSHEADERS=\"/opt/homebrew/Cellar/texlive/<version>/share/...\"",
+   "proposal": "delete",
+   "words": "The 2026-06-09 gotcha says outright that this framing 'is wrong' and gives a version-agnostic fix. Keep that one and delete this one."
+  },
+  {
+   "entry": "Manim CE",
+   "where": "Recipes",
+   "passage": "**Bug story dated to this job:** the first attempt placed the simulation in a closure attached to a dummy `Mobject()` driver and mutated arrows in place via `put_start_and_end_on`. The HUD updated; the arrows didn't (see the foreign-updater gotcha above).",
+   "proposal": "delete",
+   "words": "Same finding is the 2026-05-26 foreign-updater gotcha in full; the recipe can say 'arrows are always_redraw factories' in one clause."
+  },
+  {
+   "entry": "Manim CE",
+   "where": "Resource Footprint / Gotchas",
+   "passage": "**Python 3.14 is too new (as of 2026-05).** ... and **2026-05-10 — Python 3.14 is too new for the dependency tree.**",
+   "proposal": "simplify",
+   "words": "Say it once in Install; delete the gotcha copy."
+  },
+  {
+   "entry": "Stable Audio Open",
+   "where": "Gotchas",
+   "passage": "**2026-05-26 — The earlier SAO 1.0 install attempts were wasted work (~3 min total).** The `pandas`-build failure on Python 3.12 was a symptom of `stable-audio-tools`' `requires_python: <3.11,>=3.10` constraint ...",
+   "proposal": "delete",
+   "words": "A dead SAO 1.0 install history; git holds it. If the lesson stays, one sentence: 'when a model family is a few days old, check for a newer one before installing.'"
+  },
+  {
+   "entry": "Stable Audio Open",
+   "where": "Gotchas",
+   "passage": "**2026-05-26 — Host-capability check (resolved on a new Python).** The first Track-A brief ... bounced at the host-capability-check step.",
+   "proposal": "delete",
+   "words": "Resolved and superseded by the SA3 migration above it."
+  },
+  {
+   "entry": "Stable Audio Open",
+   "where": "header",
+   "passage": "*(Proposed by the [[Shopkeeper]]; verified and landed 2026-09-25.)*",
+   "proposal": "delete",
+   "words": "Provenance; the git log holds who proposed what and when."
+  },
+  {
+   "entry": "FLUX (Hugging Face)",
+   "where": "header",
+   "passage": "*Took Midjourney's slot on 2026-05-30 after Loudon flagged Midjourney's subscription as too expensive. First job — Phase D-2 Shop header — proved FLUX-Krea reads mood-specific prompt details ...*",
+   "proposal": "simplify",
+   "words": "'FLUX-Krea reads mood details (dusk, amber, dust motes) that local SDXL flattens; proven on the Shop header.' Midjourney is no longer in the Shop; drop the cost framing."
+  },
+  {
+   "entry": "FLUX (Hugging Face)",
+   "where": "Strengths / Iteration / Resource Footprint",
+   "passage": "\"No Discord, no `--sref` codes, no `--ar` syntax stew\"; \"same as Midjourney\"; \"The Maker need not throttle FLUX jobs the way it throttled Midjourney's credit-bound runs\"",
+   "proposal": "delete",
+   "words": "Comparisons to a tool that left the roster; each sentence stands without it."
+  },
+  {
+   "entry": "FLUX (Hugging Face)",
+   "where": "Lost Branches",
+   "passage": "**fal.ai FLUX-1-dev / FLUX-1-pro** — paid (~$0.025–$0.05 per image), faster cold-start than HF free tier",
+   "proposal": "simplify",
+   "words": "'paid, faster cold start; revisit if HF starts throttling.' No dollar figure."
+  },
+  {
+   "entry": "Frame Designer",
+   "where": "Field notes (RunPod)",
+   "passage": "naive retry-on-500 **leaked 11 pods** before a post-run guard caught it (~$0.6).",
+   "proposal": "simplify",
+   "words": "Drop '(~$0.6)'."
+  },
+  {
+   "entry": "Observable Plot",
+   "where": "Open Questions",
+   "passage": "~~House Plot defaults file (palette, marginPadding, font) — declare a `palace-plot-defaults.js` and import everywhere?~~ **Resolved 2026-05-29.** Built: ... Remaining genuine friction is exactly two things ...",
+   "proposal": "delete",
+   "words": "A struck question with a five-line resolution that repeats Recipes and Working within the design system. Two frictions already appear at Observable Plot:~137."
+  },
+  {
+   "entry": "Observable Plot",
+   "where": "header",
+   "passage": "*First job landed 2026-05-29 ([[Flocking]] three-Specialist shoot-out, analytical lens). Status promoted `stub` → `alive`. Verified at version 0.6.17.*",
+   "proposal": "delete",
+   "words": "Git holds the promotion; the Recipes section holds the job. D3.js:29 has the same opening and the same fate."
+  },
+  {
+   "entry": "Web Audio Worklet",
+   "where": "Gotchas",
+   "passage": "**2026-05-31 — Drone-by-default is the right gate model for a wavetable *scanner*, even though gated-by-default is the right model for a synth voice.** First [[Wavetable Scanner]] build shipped key-down-to-gate; the user opened it, hit Engage, swept Position, heard nothing ...",
+   "proposal": "simplify",
+   "words": "The decision rule ('exploring timbre or playing a melody?') lives in 1D Wavetable Scanning. Keep one line and the link here."
+  },
+  {
+   "entry": "Web Audio Worklet",
+   "where": "Gotchas",
+   "passage": "**2026-05-31 — Wavetable position morph is a 2D linear interpolation, not a 1D frame switcher.** ... The pattern is now its own concept entry: [[1D Wavetable Scanning]].",
+   "proposal": "simplify",
+   "words": "The page itself says the concept entry holds it; cut to the sentence plus the link."
+  },
+  {
+   "entry": "Web Audio Worklet",
+   "where": "header",
+   "passage": "*First job landed 2026-05-30 (Murmuration — ...). Promoted to `alive` on arrival. This entry exists because [[Shop/Tone.js]] explicitly refuses custom-DSP work ...*",
+   "proposal": "simplify",
+   "words": "Keep 'Exists because Tone.js refuses custom DSP; the DSP is the differentiator' as a single sentence; the rest is Context and git."
+  },
+  {
+   "entry": "Tone.js",
+   "where": "Recipes",
+   "passage": "*Final-mile note:* the artifact has been syntax-checked (`node --check`) and the math has been worked through, but in-browser audio confirmation belongs to whoever opens it first.",
+   "proposal": "delete",
+   "words": "Contradicted by Tone's own Test Suite, which says the ear check was done 2026-05-26."
+  },
+  {
+   "entry": "D3.js",
+   "where": "Gotchas",
+   "passage": "A verification harness can pause `requestAnimationFrame` outright ... Not rechecked since 2026-05-29: the pane's tools have been renamed since, and whether rAF still pauses there is unverified.",
+   "proposal": "simplify",
+   "words": "Keep the d3.timerFlush() tip; delete the unverified-since note."
+  },
+  {
+   "entry": "Loudon Live Post-producer",
+   "where": "How the Decisions Map to Leverage",
+   "passage": "The scoping conversation's choices, located against Meadows' framework and contrasted with what typical online video does instead: [a six-row table]",
+   "proposal": "delete",
+   "words": "Method-about-itself; the Prime Directive paragraph already says the same in two sentences ('I optimize for Loudon's wellbeing and the right hundred — ours'). Table to Context or to git."
+  },
+  {
+   "entry": "Loudon Live Post-producer",
+   "where": "Deferred / Open Questions",
+   "passage": "Four long bullets, three of them starting 'Answered', 'Open', 'Answered' in the same list (Post-producer:144-150).",
+   "proposal": "simplify",
+   "words": "Move the answered one to a single line ('the role splits by mode: recorded-take operator is a silent checker; stream operator is a working partner, how much it speaks is open, Loudon 2026-09-02') and keep one question per bullet."
+  },
+  {
+   "entry": "AuK",
+   "where": "header",
+   "passage": "**Status: STUB** — drafted by the [[Shopkeeper]] from two probe sessions (2026-09-12, 2026-09-15); approved as a stub by Loudon and landed 2026-09-25, with the paper id, the endpoint and the duration rule checked against the model card and the Space.",
+   "proposal": "simplify",
+   "words": "'Stub — probed twice (2026-09-12 and 09-15); not yet dispatched on a real brief.'"
+  },
+  {
+   "entry": "CAD Drafter",
+   "where": "header",
+   "passage": "**Status: STUB.** Drafted by the [[Shopkeeper]] from one probe on the [[Haptic Handwheel]]'s parts (2026-10-20, a commission Loudon agreed to that day).",
+   "proposal": "simplify",
+   "words": "'Stub — one probe on the Haptic Handwheel's parts (2026-10-20); not yet dispatched on a real brief.'"
+  },
+  {
+   "entry": "Image-to-3D Smith",
+   "where": "header",
+   "passage": "**Status: STUB** — entry written by Shopkeeper from calibration probe; not yet dispatched on a real brief. Loudon's approval needed before promoting to `alive`.",
+   "proposal": "simplify",
+   "words": "Same one-line form; the approval line is a To-Do, not page content."
+  },
+  {
+   "entry": "D3.js, Observable Plot, Remotion, Mermaid, Tone.js, ffmpeg, Manim CE, FLUX, Stable Audio Open",
+   "where": "Test Suite",
+   "passage": "Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism — defined in [..tests/test-plan.md]. Last run **2026-05-30** — ...",
+   "proposal": "simplify",
+   "words": "The six-name list is the template, repeated nine times. Write 'Test plan: [link]. Last run: date, result.'"
+  },
+  {
+   "entry": "Lettering",
+   "where": "Bench",
+   "passage": "`proofs/text-layer/`: `render_text.py` (skeleton · free · stylize modes; `resolve_font`, `knockout`), `text-prompts.json` ... and `balloon_genai.py` (balloon × gen-AI interaction modes, with the catalog `balloon_lib.py`).",
+   "proposal": "simplify",
+   "words": "List the folder and the one command that rebuilds the contact sheet; fix the balloon_lib path. The file list is in the folder."
+  }
+ ],
+ "entry_health_flags": [
+  {
+   "entry": "Image-to-3D Smith",
+   "stage_current": "stub (born 2026-06)",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Four months a stub, no brief, awaiting Loudon's approval to go alive (Smith:22). Honest as a stub. The gap it names (create 3D from an image) is real; CAD Drafter's refusal list now sends sculpted shapes here (CAD Drafter:27), which is the first outside demand."
+  },
+  {
+   "entry": "Loudon Live Post-producer",
+   "stage_current": "stub (born 2026-05)",
+   "stage_proposed": null,
+   "vector_issue": "Fine (earns autonomy; wants a sibling).",
+   "note": "Apprentice at 0 of 3 clean plans (Log head). The charter predates Loudon Live's 2026-10-14 narrowing; the page says it is 'close' (Post-producer:146). Not a stage problem; a first real session is the only fix."
+  },
+  {
+   "entry": "Mermaid",
+   "stage_current": "alive",
+   "stage_proposed": null,
+   "vector_issue": "Fine (names the --cssFile hunger) but its Style Probe is degenerate until built (Mermaid:~112).",
+   "note": "Alive on one Obsidian-inline Sketch; its own stated first job never ran and its one neighbour (Graphviz) does not exist."
+  },
+  {
+   "entry": "Web Audio Worklet",
+   "stage_current": "alive",
+   "stage_proposed": "alive, with a note",
+   "vector_issue": null,
+   "note": "Alive on a Sketch whose browser audio was 'deferred to first open' (Tiers), a test plan marked TODO (WAW:167). Fine if someone has since opened Murmuration in a browser; the page does not say."
+  },
+  {
+   "entry": "Frame Designer",
+   "stage_current": "alive",
+   "stage_proposed": null,
+   "vector_issue": "Four sentences long with an embedded 'Swap my style lock and I design frames for any visual' (Frame Designer:7); SCHEMA asks one sentence (SCHEMA — Reference.md, forward_vector row).",
+   "note": "The clause 'I am hunting my render-leg fix (dense figures dissolve in ink → generative layering)' is partly stale: rich-first/stylize-last fixed the collage case (Frame Designer:109-116)."
+  },
+  {
+   "entry": "Manim CE",
+   "stage_current": "alive",
+   "stage_proposed": null,
+   "vector_issue": "'I want to keep the determinism ...' is a keeping verb (SCHEMA flags 'keep'/'stay' as stasis).",
+   "note": "Rephrase to a striving verb ('prove byte-identical frames on a second host')."
+  },
+  {
+   "entry": "Observable Plot",
+   "stage_current": "alive",
+   "stage_proposed": null,
+   "vector_issue": "'I keep my house-defaults wrapper (palacePlot) pushing the locked grammar' is stasis and the wrapper is built (Plot:165).",
+   "note": "The live hunger is the 3xN phase-diagram grid and the Vicsek run."
+  },
+  {
+   "entry": "Remotion",
+   "stage_current": "alive",
+   "stage_proposed": null,
+   "vector_issue": "'I watch the licensing line' is a stasis verb.",
+   "note": "Replace with the base project hunger or the first real walkthrough."
+  },
+  {
+   "entry": "ffmpeg",
+   "stage_current": "alive",
+   "stage_proposed": null,
+   "vector_issue": "'I want to be the Shop's deterministic connective tissue, every brief passing through me eventually' is a state, not a striving; the second half (command templates) is the real hunger.",
+   "note": "Lead with the template library."
+  },
+  {
+   "entry": "FLUX (Hugging Face)",
+   "stage_current": "alive",
+   "stage_proposed": "alive, stale-pinned",
+   "vector_issue": null,
+   "note": "Vector still names FLUX.1-dev and schnell as the next range (FLUX:frontmatter); FLUX 3 has landed (Shopkeeper draft). Fix after one probe."
+  },
+  {
+   "entry": "Stable Audio Open",
+   "stage_current": "alive",
+   "stage_proposed": null,
+   "vector_issue": "Fine.",
+   "note": "Description fields still pre-SA3 in places (see coherence list)."
+  }
+ ],
+ "typed_relations": [
+  {
+   "source": "Observable Plot",
+   "target": "D3.js",
+   "proposed_type": "deepens",
+   "proposed_label": "built-on",
+   "kind": "retype",
+   "rationale": "The pair now carries five links across two files. The truest one is dependency: Plot is built on D3 and escapes to it. 'enables' as held points the wrong way (the source of enables is the precondition; D3 is Plot's precondition, not the reverse), and deepens, whose source points back at its ground, fits. The alternative-to routing is already in both charters' prose, so the other links can be cut.",
+   "evidence_source": "Shop/Observable Plot.md:~16 'enables built-on'; Charter 'I'm built on D3; the escape hatch is always available'",
+   "evidence_target": "Shop/D3.js.md Charter 'those route to Observable Plot'"
+  },
+  {
+   "source": "Image-to-3D Smith",
+   "target": "CAD Drafter",
+   "proposed_type": "contradicts",
+   "proposed_label": "measured-vs-inferred",
+   "kind": "contradiction",
+   "rationale": "One page refuses to invent a dimension and sends sculpted shapes away; the other generates plausible geometry from one image and warns it may hallucinate. Both stay true: a part that must fit a motor, and a mesh that only has to look right. CAD Drafter names Smith in its refusals but the pair holds no typed link, and CAD Drafter is a newcomer with one inbound. If contradicts is too strong, connects-to [routes-sculpted-shapes] from CAD Drafter is the quieter alternative.",
+   "evidence_source": "Shop/Image-to-3D Smith.md:37 'I know these engines can hallucinate plausible-looking geometry that breaks apart in Blender'",
+   "evidence_target": "Shop/CAD Drafter.md:27 'I refuse to invent a dimension ... I refuse sculpted and organic shapes ([[Image-to-3D Smith]])'"
+  },
+  {
+   "source": "CAD Drafter",
+   "target": "Blender",
+   "proposed_type": "enables",
+   "proposed_label": "stl-feeds-the-render",
+   "kind": "retype",
+   "rationale": "couples-with means always active together. Blender is not needed for most CAD jobs (the page tells users to open the STEP in FreeCAD, CAD Drafter:~58), and the real relation is one-way: the Maker routes a render of the part to Blender 'fed the CAD Drafter's STL'. That is an enables.",
+   "evidence_source": "Shop/CAD Drafter.md:15 couples-with renders-what-I-dimension; :27 'renders made for their looks (Shop/Blender)'",
+   "evidence_target": "Shop/Maker.md:98 'a render of the same part goes to Shop/Blender, fed the CAD Drafter's STL'"
+  },
+  {
+   "source": "AuK",
+   "target": "Kokoro",
+   "proposed_type": "connects-to",
+   "proposed_label": "makes-the-line-I-fix",
+   "kind": "retype",
+   "rationale": "Kokoro is one source of a line, not an always-on partner. AuK's first job is a recording of Loudon's own narration, not a Kokoro line (AuK:58, :50).",
+   "evidence_source": "Shop/AuK.md:14 couples-with; :27 'Kokoro speaks text; I take a recording and change it'",
+   "evidence_target": "Shop/AuK.md:58 First job: 'one real Loudon Live narration line'"
+  },
+  {
+   "source": "AuK",
+   "target": "ffmpeg",
+   "proposed_type": "connects-to",
+   "proposed_label": "post-chain",
+   "kind": "retype",
+   "rationale": "The body never mentions ffmpeg (checked); couples-with claims it is always in the chain. Keep a weaker link with the label, or cut it until the first job writes the chain into the Job Contract. ffmpeg's page does not mention AuK either.",
+   "evidence_source": "Shop/AuK.md:16 couples-with post-chain; no ffmpeg text in the body",
+   "evidence_target": "Shop/ffmpeg.md: no AuK mention; Charter lists Kokoro, ComfyUI, SAO as partners"
+  },
+  {
+   "source": "Stable Audio Open",
+   "target": "Kuramoto Coupling",
+   "proposed_type": "connects-to",
+   "proposed_label": "auditory-rendering",
+   "kind": "retype",
+   "rationale": "spawned says SAO directly produced the Kuramoto entry. It produced beds and a 'synchronization arriving' clip that the entry embeds. connects-to with the existing label says that.",
+   "evidence_source": "Shop/Stable Audio Open.md:19 type: spawned; Recipes 'Embedded in [[Kuramoto Coupling]] near the sync-arriving video as a parallel auditory rendering'",
+   "evidence_target": "Shop/Stable Audio Open.md Recipes 2026-05-26"
+  },
+  {
+   "source": "Frame Designer",
+   "target": "Blocked, Not Prompted",
+   "proposed_type": "exemplifies",
+   "proposed_label": "applies",
+   "kind": "retype",
+   "rationale": "Lettering holds the same concept as exemplifies (for-text); Frame Designer calls its own method 'author-from-scratch ([[Blocked, Not Prompted]])'. It is an instance of the idea, not a bare proximity.",
+   "evidence_source": "Shop/Frame Designer.md:90 'I hold both author-from-scratch ([[Blocked, Not Prompted]]) and generate-then-extract'",
+   "evidence_target": "Shop/Lettering.md:22 exemplifies [[Blocked, Not Prompted]] for-text"
+  },
+  {
+   "source": "Frame Designer",
+   "target": "Steer the Generator",
+   "proposed_type": "exemplifies",
+   "proposed_label": "render-discipline",
+   "kind": "retype",
+   "rationale": "Same reason: Lettering types it exemplifies [control-not-prompt]; Frame Designer's render leg is 'the look is locked ([[Steer the Generator]]); the controls are the dials'.",
+   "evidence_source": "Shop/Frame Designer.md:81 'The look is locked ([[Steer the Generator]]); the controls are the dials'",
+   "evidence_target": "Shop/Lettering.md:28 exemplifies [[Steer the Generator]] control-not-prompt"
+  },
+  {
+   "source": "ffmpeg",
+   "target": "Endosymbiosis",
+   "proposed_type": "exemplifies",
+   "proposed_label": "symbiotic-infrastructure",
+   "kind": "retype",
+   "rationale": "As held, enables [symbiotic-infrastructure] has no reason on either page (Endosymbiosis does not mention ffmpeg; ffmpeg's text never says endosymbiosis) and points the wrong way. If a sentence is added ('a merger that keeps both partners' codecs'), it is an exemplifies. Otherwise cut.",
+   "evidence_source": "Shop/ffmpeg.md:20 enables symbiotic-infrastructure",
+   "evidence_target": "Endosymbiosis.md: no ffmpeg text (grep)"
+  },
+  {
+   "source": "Manim CE",
+   "target": "Radio Play",
+   "proposed_type": "connects-to",
+   "proposed_label": "vo-as-clock",
+   "kind": "retype",
+   "rationale": "Same type, add a register: the link exists because Manim's recipe 'Duration-parameterized Seg base class, VO-as-clock (from Radio Play)' came from that practice. Radio Play does not link Manim, so this link holds the pair.",
+   "evidence_source": "Shop/Manim CE.md:28 unlabelled; :213 'from [[Radio Play]]'",
+   "evidence_target": "Radio Play.md frontmatter links Kokoro, SAO, no Manim"
+  },
+  {
+   "source": "Mermaid",
+   "target": "Kuramoto Coupling",
+   "proposed_type": "connects-to",
+   "proposed_label": "regime-diagram",
+   "kind": "retype",
+   "rationale": "The Mermaid page's only recipe is the Kuramoto coupling-regime diagram embedded in that entry; the unlabelled link has its reason in the recipe, so a label is enough.",
+   "evidence_source": "Shop/Mermaid.md:17-18 unlabelled connects-to",
+   "evidence_target": "Shop/Mermaid.md Recipes 2026-05-26"
+  }
+ ],
+ "summary": "The 18-page Shop half is coherent in its core (Maker, member-of, tiers, test plans) and drifting at the edges. Strongest findings: (1) the link web is over-wired and under-reasoned: D3 and Plot carry the same pair five times, WAW names The Shop twice, five pairs are held from both sides, and 'pairs-with' labels say nothing; keeping one link per pair, with Plot to D3 retyped to deepens[built-on], cuts about fifteen links and loses no reason; AuK's two couples-with claims and CAD Drafter's Blender couples-with are stronger than their bodies support. (2) House-standard drift: twelve pages still carry last_tested and last_gotcha that SCHEMA — Reference.md:81 says leave when a tuning ledger arrives, and none has one; FLUX and Frame Designer carry dollar figures; LaMa and SAM are alive without tiers, self-check or test plans; CAD Drafter lacks a hero. (3) Roster gaps a family reader sees: Tone.js never routes custom DSP to Web Audio Worklet; Frame Designer never names Lettering; ffmpeg's Recipes lack the mux command that lives in Manim; six pages each defer their own house scaffold; four pages each carry the same licence question; Frame Designer and Lettering both want a visual judge; SAM's recipe asks for FLUX with ControlNet, which the FLUX page says it cannot do; FLUX itself is a generation stale (Shopkeeper draft waiting). (4) Lighter prose: stale body Forward Vector sections on six May pages, struck-through and migration histories, repeated Test Suite boilerplate and provenance headers. One genuine new link: Image-to-3D Smith contradicts CAD Drafter (measured vs inferred), which also reaches a newcomer. I found no honest inbound for AuK, Operator Memory, CHILD, or Can an Instrument Notice Where the Work Stops? from this room, and no merge or compost; every thin member is a young stub or has a real operating model. Not settled: whether SA3's limits changed, which ControlNet route the SAM convert-first run used, whether feature/blueline-m3 has merged, and whether Tone and Worklet belong under medium sound."
+}

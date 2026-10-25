@@ -24,8 +24,6 @@ links:
   - target: "[[Trickster]]"
     type: connects-to
     label: inbox-surface
-  - target: "[[Palace To-Do]]"
-    type: connects-to
   - target: "[[SUBSTRATE]]"
     type: deepens
     label: technical-substrate

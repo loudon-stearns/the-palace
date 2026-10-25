@@ -22,8 +22,6 @@ links:
     type: connects-to
   - target: "[[SUBSTRATE]]"
     type: deepens
-  - target: "[[Kuramoto Coupling]]"
-    type: mirrors
   - target: "[[Lateral Access]]"
     type: connects-to
   - target: "[[SCHEMA]]"
@@ -44,6 +42,7 @@ links:
     label: first-embodied-person-page
   - target: "[[SCHEMA — Reference]]"
     type: connects-to
+    label: pages-on-the-wire
 ---
 
 # Pages as Agents

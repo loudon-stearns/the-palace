@@ -20,8 +20,6 @@ links:
   - target: "[[Loudon Live]]"
     type: connects-to
     label: what-i-feed
-  - target: "[[README - The Palace Guide]]"
-    type: connects-to
 ---
 
 # Palace To-Do

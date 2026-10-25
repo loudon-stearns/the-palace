@@ -18,16 +18,12 @@ links:
   - target: "[[Self-Describing Knowledge Module]]"
     type: connects-to
     label: the-transfer-bet
-  - target: "[[Cooperation Yields Agency]]"
-    type: emerged-from
   - target: "[[FOUR PILLARS]]"
     type: emerged-from
   - target: "[[SUBSTRATE]]"
     type: spawned
   - target: "[[1 from 2]]"
     type: mirrors
-  - target: "[[Kuramoto Coupling]]"
-    type: connects-to
   - target: "[[Pages as Agents]]"
     type: connects-to
     label: emerged-but-not-predicted

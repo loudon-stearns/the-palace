@@ -17,14 +17,12 @@ links:
     type: deepens
   - target: "[[README - The Palace Guide]]"
     type: connects-to
+    label: entry-template
   - target: "[[Deposit Ceremony — Context]]"
     type: spawned
   - target: "[[FOUR PILLARS]]"
     type: connects-to
-  - target: "[[Cooperation Yields Agency]]"
-    type: connects-to
-  - target: "[[Hilaritas Generator]]"
-    type: connects-to
+    label: ask-which-pillar-is-absent
   - target: "[[Concierge]]"
     type: connects-to
     label: consults-the-elder

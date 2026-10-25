@@ -8,10 +8,7 @@ forward_vector: "I take any non-text brief, decode it into a job, dispatch the r
 links:
   - { target: "[[The Shop]]", type: member-of, label: foreman-of }
   - { target: "[[Trickster]]", type: connects-to, label: answers-to }
-  - { target: "[[Hilaritas Generator]]", type: connects-to, label: embodies }
-  - { target: "[[FOUR PILLARS]]", type: connects-to, label: follows }
   - { target: "[[Lateral Access]]", type: mirrors, label: taste-as-laterality }
-  - { target: "[[Drafting Table Design System]]", type: connects-to, label: palace-base-for-the-work }
   - target: "[[Radio Play]]"
     type: spawned
     label: forged-in-job

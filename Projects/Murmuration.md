@@ -21,6 +21,7 @@ links:
     label: shares-the-2D-terrain
   - target: "[[Neural Granular Synthesis]]"
     type: connects-to
+    label: learned-vs-emergent
   - target: "[[Bayesian Granular Synthesizer]]"
     type: connects-to
     label: statistical-grain-cloud
@@ -36,7 +37,8 @@ links:
   - target: "[[Diversity of Thought in Many-Agent Systems]]"
     type: connects-to
   - target: "[[Granular Synthesis]]"
-    type: connects-to
+    type: exemplifies
+    label: flock-as-grains
 ---
 
 # Murmuration

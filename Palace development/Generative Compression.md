@@ -18,25 +18,20 @@ links:
   - target: "[[STIGMERGY]]"
     type: deepens
     label: "operates-at-every-interface-of"
-  - target: "[[Swarm Weave]]"
-    type: connects-to
   - target: "[[BBS Blackboard]]"
     type: connects-to
   - target: "[[Enchanted Worker]]"
     type: connects-to
+    label: compression-at-dispatch
   - target: "[[Pages as Agents]]"
     type: couples-with
     label: compression-enables-embodiment
   - target: "[[Deposit Ceremony]]"
     type: connects-to
+    label: seed-vs-entry
   - target: "[[Pheromone Trail]]"
     type: connects-to
-  - target: "[[Hilaritas Generator]]"
-    type: mirrors
-    label: generative-joy-vs-distillation
-  - target: "[[FOUR PILLARS]]"
-    type: exemplifies
-    label: compression-across-four-pillars
+    label: compression-over-history
   - target: "[[Lossy Compression with Intent Alignment]]"
     type: deepens
     label: practice-grounded-by-theory

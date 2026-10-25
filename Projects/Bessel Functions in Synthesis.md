@@ -10,15 +10,12 @@ links:
     type: mirrors
   - target: "[[Harmonicity and Inharmonicity]]"
     type: deepens
-  - target: "[[Kuramoto Coupling]]"
-    type: connects-to
   - target: "[[Hyperdimensional Prism]]"
     type: connects-to
   - target: "[[Crystal Synthesizer]]"
     type: connects-to
+    label: physics-constrains-spectrum
   - target: "[[Spinoza Conatus]]"
-    type: connects-to
-  - target: "[[Action Potential Oscillator]]"
     type: connects-to
 ---
 

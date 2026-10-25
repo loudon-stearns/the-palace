@@ -1,0 +1,2506 @@
+[
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "The Palace Practices on Itself",
+    "type": "connects-to",
+    "target": "The Commons",
+    "label": "proven-on-itself"
+   },
+   {
+    "source": "The Commons",
+    "type": "connects-to",
+    "target": "The Palace Practices on Itself",
+    "label": "worked-instance"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'proven-on-itself' / 'worked-instance'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Closing Well",
+    "type": "enables",
+    "target": "Baton Ceremony",
+    "label": "cross-instance-receipt"
+   },
+   {
+    "source": "Baton Ceremony",
+    "type": "mirrors",
+    "target": "Closing Well",
+    "label": "every-baton-closes-well"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Closing Well",
+    "type": "connects-to",
+    "target": "Deposit Ceremony",
+    "label": "produces-the-memory-species"
+   },
+   {
+    "source": "Deposit Ceremony",
+    "type": "connects-to",
+    "target": "Closing Well",
+    "label": "movement-close"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'produces-the-memory-species' / 'movement-close'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Closing Well",
+    "type": "connects-to",
+    "target": "Two Batons, One Board",
+    "label": "batons-are-close-messages"
+   },
+   {
+    "source": "Two Batons, One Board",
+    "type": "connects-to",
+    "target": "Closing Well",
+    "label": "makes-autonomy-trustworthy"
+   },
+   {
+    "source": "Two Batons, One Board",
+    "type": "connects-to",
+    "target": "Closing Well",
+    "label": "close-names-the-species"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Closing Well",
+    "type": "connects-to",
+    "target": "Concierge",
+    "label": "dispatched-as-moderator"
+   },
+   {
+    "source": "Concierge",
+    "type": "connects-to",
+    "target": "Closing Well",
+    "label": "moderates-the-close"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'dispatched-as-moderator' / 'moderates-the-close'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "The Commons",
+    "type": "connects-to",
+    "target": "RunPod GPU Backend",
+    "label": "first-customer"
+   },
+   {
+    "source": "RunPod GPU Backend",
+    "type": "connects-to",
+    "target": "The Commons",
+    "label": "machinery-adopted"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'first-customer' / 'machinery-adopted'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Graphic Storytelling",
+    "type": "couples-with",
+    "target": "Typography as Meaning",
+    "label": "word-meets-image"
+   },
+   {
+    "source": "Typography as Meaning",
+    "type": "emerged-from",
+    "target": "Graphic Storytelling",
+    "label": "inherited-grammar"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Graphic Storytelling",
+    "type": "connects-to",
+    "target": "Adopt the Craft, Author the Seam",
+    "label": "the-craft-BLUELINE-adopts"
+   },
+   {
+    "source": "Adopt the Craft, Author the Seam",
+    "type": "connects-to",
+    "target": "Graphic Storytelling",
+    "label": "the-craft-being-adopted"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'the-craft-BLUELINE-adopts' / 'the-craft-being-adopted'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Weaving Memory into the Palace",
+    "type": "connects-to",
+    "target": "Weave Ceremony",
+    "label": "weave-substep"
+   },
+   {
+    "source": "Weave Ceremony",
+    "type": "connects-to",
+    "target": "Weaving Memory into the Palace",
+    "label": "memory-home"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'weave-substep' / 'memory-home'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Phase Reduction",
+    "type": "couples-with",
+    "target": "Floquet Theory",
+    "label": "spectral-ground-of-the-limit-cycle"
+   },
+   {
+    "source": "Floquet Theory",
+    "type": "couples-with",
+    "target": "Phase Reduction",
+    "label": "bridge-via-PRC"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'spectral-ground-of-the-limit-cycle' / 'bridge-via-PRC'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Phase Reduction",
+    "type": "couples-with",
+    "target": "Kuramoto Coupling",
+    "label": "the-collapse-that-makes-it-valid"
+   },
+   {
+    "source": "Kuramoto Coupling",
+    "type": "couples-with",
+    "target": "Phase Reduction",
+    "label": "bridge-via-PRC"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'the-collapse-that-makes-it-valid' / 'bridge-via-PRC'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Palace Conatus",
+    "type": "connects-to",
+    "target": "Self-Describing Knowledge Module",
+    "label": "generalization-test"
+   },
+   {
+    "source": "Self-Describing Knowledge Module",
+    "type": "connects-to",
+    "target": "Palace Conatus",
+    "label": "strives-to-generalize"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'generalization-test' / 'strives-to-generalize'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Palace Conatus",
+    "type": "connects-to",
+    "target": "Project Stewardship System",
+    "label": "aggregated-self-advocacy"
+   },
+   {
+    "source": "Project Stewardship System",
+    "type": "connects-to",
+    "target": "Palace Conatus",
+    "label": "escalation-rationale"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'aggregated-self-advocacy' / 'escalation-rationale'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Progressive Staging",
+    "type": "enables",
+    "target": "State Machine",
+    "label": "stage-transitions"
+   },
+   {
+    "source": "State Machine",
+    "type": "mirrors",
+    "target": "Progressive Staging",
+    "label": "pedagogical-isomorphism"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Wavetable Space as Torus",
+    "type": "couples-with",
+    "target": "2D Torus Wavetable Synthesizer",
+    "label": "embodied-geometry"
+   },
+   {
+    "source": "2D Torus Wavetable Synthesizer",
+    "type": "couples-with",
+    "target": "Wavetable Space as Torus",
+    "label": "inhabits-geometry"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'embodied-geometry' / 'inhabits-geometry'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Wavetable Space as Torus",
+    "type": "exemplifies",
+    "target": "DSP in Looping Dimensions",
+    "label": "two-dimensional-case"
+   },
+   {
+    "source": "DSP in Looping Dimensions",
+    "type": "couples-with",
+    "target": "Wavetable Space as Torus",
+    "label": "geometric-instantiation"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Identity Molting",
+    "type": "connects-to",
+    "target": "Creative Coach",
+    "label": "teacher-to-coach-molt"
+   },
+   {
+    "source": "Creative Coach",
+    "type": "connects-to",
+    "target": "Identity Molting",
+    "label": "teacher-to-coach"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'teacher-to-coach-molt' / 'teacher-to-coach'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Remnants in Depth",
+    "type": "couples-with",
+    "target": "Hand-Drawn 3D Look",
+    "label": "lives-inside"
+   },
+   {
+    "source": "Hand-Drawn 3D Look",
+    "type": "couples-with",
+    "target": "Remnants in Depth",
+    "label": "contains"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'lives-inside' / 'contains'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Remnants in Depth",
+    "type": "connects-to",
+    "target": "Frame Designer",
+    "label": "render-method"
+   },
+   {
+    "source": "Frame Designer",
+    "type": "connects-to",
+    "target": "Remnants in Depth",
+    "label": "2d-marks-in-3d"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'render-method' / '2d-marks-in-3d'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Dispersion Table",
+    "type": "mirrors",
+    "target": "Volterra Kernels and the Torus",
+    "label": "one-field-two-reads"
+   },
+   {
+    "source": "Volterra Kernels and the Torus",
+    "type": "couples-with",
+    "target": "Dispersion Table",
+    "label": "reading-mechanism"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Diversity of Thought in Many-Agent Systems",
+    "type": "emerged-from",
+    "target": "The Shop",
+    "label": "architectural-collapse-provoked-question"
+   },
+   {
+    "source": "The Shop",
+    "type": "couples-with",
+    "target": "Diversity of Thought in Many-Agent Systems",
+    "label": "provisional"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Comic and Cinema — Two Ways of Seeing",
+    "type": "connects-to",
+    "target": "Adopt the Craft, Author the Seam",
+    "label": "the-seam-is-here"
+   },
+   {
+    "source": "Adopt the Craft, Author the Seam",
+    "type": "connects-to",
+    "target": "Comic and Cinema — Two Ways of Seeing",
+    "label": "grammar-on-the-shelf"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'the-seam-is-here' / 'grammar-on-the-shelf'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Creative Coach",
+    "type": "connects-to",
+    "target": "Meadows and an Artist's Career",
+    "label": "the-instrument"
+   },
+   {
+    "source": "Meadows and an Artist's Career",
+    "type": "connects-to",
+    "target": "Creative Coach",
+    "label": "the-instrument-it-serves"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'the-instrument' / 'the-instrument-it-serves'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Creative Coach",
+    "type": "connects-to",
+    "target": "Sidechain ↔ Conversation",
+    "label": "balint-stance-unturned"
+   },
+   {
+    "source": "Sidechain ↔ Conversation",
+    "type": "connects-to",
+    "target": "Creative Coach",
+    "label": "the-stance-never-turned-inward"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'balint-stance-unturned' / 'the-stance-never-turned-inward'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Creative Coach",
+    "type": "connects-to",
+    "target": "Reflective Practice",
+    "label": "on-and-in"
+   },
+   {
+    "source": "Reflective Practice",
+    "type": "connects-to",
+    "target": "Creative Coach",
+    "label": "teachable"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'on-and-in' / 'teachable'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "1D Wavetable Scanning",
+    "type": "emerged-from",
+    "target": "Wavetable Scanner",
+    "label": "first-artifact"
+   },
+   {
+    "source": "Wavetable Scanner",
+    "type": "exemplifies",
+    "target": "1D Wavetable Scanning",
+    "label": "first-incarnation"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "1D Wavetable Scanning",
+    "type": "connects-to",
+    "target": "Generative Wavetable Libraries",
+    "label": "frame-order-for-its-tables"
+   },
+   {
+    "source": "Generative Wavetable Libraries",
+    "type": "connects-to",
+    "target": "1D Wavetable Scanning",
+    "label": "what-position-means"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'frame-order-for-its-tables' / 'what-position-means'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Review Layer",
+    "type": "connects-to",
+    "target": "Maker",
+    "label": "house-standard"
+   },
+   {
+    "source": "Maker",
+    "type": "connects-to",
+    "target": "Review Layer",
+    "label": "inherits-rule"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'house-standard' / 'inherits-rule'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Floquet Theory",
+    "type": "connects-to",
+    "target": "Mathieu Equation",
+    "label": "simplest-instance"
+   },
+   {
+    "source": "Mathieu Equation",
+    "type": "connects-to",
+    "target": "Floquet Theory",
+    "label": "simplest-floquet-system"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'simplest-instance' / 'simplest-floquet-system'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Floquet Theory",
+    "type": "connects-to",
+    "target": "Photonic Time Crystals",
+    "label": "experimental-domain"
+   },
+   {
+    "source": "Photonic Time Crystals",
+    "type": "connects-to",
+    "target": "Floquet Theory",
+    "label": "governing-framework"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'experimental-domain' / 'governing-framework'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "The Drift",
+    "type": "contradicts",
+    "target": "Stoicism",
+    "label": "refuses-the-fortress"
+   },
+   {
+    "source": "Stoicism",
+    "type": "contradicts",
+    "target": "The Drift",
+    "label": "fortress-vs-no-architecture"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'refuses-the-fortress' / 'fortress-vs-no-architecture'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "The Drift",
+    "type": "contradicts",
+    "target": "Leibniz",
+    "label": "refuses-the-monad"
+   },
+   {
+    "source": "Leibniz",
+    "type": "contradicts",
+    "target": "The Drift",
+    "label": "windowless-monad-vs-no-edges"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'refuses-the-monad' / 'windowless-monad-vs-no-edges'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Loudon's Toolkit",
+    "type": "connects-to",
+    "target": "LDN RTM",
+    "label": "feeds-the-queue"
+   },
+   {
+    "source": "LDN RTM",
+    "type": "connects-to",
+    "target": "Loudon's Toolkit",
+    "label": "future-series-source"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'feeds-the-queue' / 'future-series-source'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Loudon's Toolkit",
+    "type": "connects-to",
+    "target": "Haptic Handwheel",
+    "label": "first-step-toward-the-hardware-product"
+   },
+   {
+    "source": "Haptic Handwheel",
+    "type": "connects-to",
+    "target": "Loudon's Toolkit",
+    "label": "toward-the-hardware-product"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'first-step-toward-the-hardware-product' / 'toward-the-hardware-product'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Playful Interface Design",
+    "type": "mirrors",
+    "target": "Haptic Handwheel",
+    "label": "same-lack-other-sense"
+   },
+   {
+    "source": "Haptic Handwheel",
+    "type": "exemplifies",
+    "target": "Playful Interface Design",
+    "label": "the-thing-with-mass"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Playful Interface Design",
+    "type": "mirrors",
+    "target": "Biomechanical Synthesis",
+    "label": "the-organism-kind"
+   },
+   {
+    "source": "Biomechanical Synthesis",
+    "type": "exemplifies",
+    "target": "Playful Interface Design",
+    "label": "the-organism-kind"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Threshold Conatus",
+    "type": "connects-to",
+    "target": "Spinoza",
+    "label": "homecoming-pole"
+   },
+   {
+    "source": "Spinoza",
+    "type": "connects-to",
+    "target": "Threshold Conatus",
+    "label": "self-as-what-the-model-cannot-absorb"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'homecoming-pole' / 'self-as-what-the-model-cannot-absorb'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Dub Lineage",
+    "type": "deepens",
+    "target": "Semantic Delay",
+    "label": null
+   },
+   {
+    "source": "Semantic Delay",
+    "type": "emerged-from",
+    "target": "Dub Lineage",
+    "label": null
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Lateral Access",
+    "type": "connects-to",
+    "target": "Songlines",
+    "label": "worn-path"
+   },
+   {
+    "source": "Songlines",
+    "type": "connects-to",
+    "target": "Lateral Access",
+    "label": "sung-through"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'worn-path' / 'sung-through'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Synthesis Topologies",
+    "type": "emerged-from",
+    "target": "Generative Preset Development",
+    "label": "profile-concept-asks-for-this"
+   },
+   {
+    "source": "Generative Preset Development",
+    "type": "deepens",
+    "target": "Synthesis Topologies",
+    "label": "topology-made-fixed"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Granular Synthesis",
+    "type": "mirrors",
+    "target": "Particle Synthesis",
+    "label": "grain-particle-equivalence"
+   },
+   {
+    "source": "Particle Synthesis",
+    "type": "deepens",
+    "target": "Granular Synthesis",
+    "label": null
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Modes of Collaboration",
+    "type": "connects-to",
+    "target": "Radio Play",
+    "label": "debrief-reel"
+   },
+   {
+    "source": "Radio Play",
+    "type": "connects-to",
+    "target": "Modes of Collaboration",
+    "label": "the-debrief-reel"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'debrief-reel' / 'the-debrief-reel'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Modes of Collaboration",
+    "type": "connects-to",
+    "target": "Kuramoto Coupling",
+    "label": "who-leads-as-coupling"
+   },
+   {
+    "source": "Kuramoto Coupling",
+    "type": "connects-to",
+    "target": "Modes of Collaboration",
+    "label": "collaboration-as-coupling"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'who-leads-as-coupling' / 'collaboration-as-coupling'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Quality Manifesto",
+    "type": "mirrors",
+    "target": "AI Partnership Philosophy",
+    "label": "parallel-philosophy"
+   },
+   {
+    "source": "AI Partnership Philosophy",
+    "type": "couples-with",
+    "target": "Quality Manifesto",
+    "label": null
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Mixture of Experts",
+    "type": "mirrors",
+    "target": "Excellent Adventure",
+    "label": "embodied-routing"
+   },
+   {
+    "source": "Excellent Adventure",
+    "type": "mirrors",
+    "target": "Mixture of Experts",
+    "label": "single-expert-routing"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'embodied-routing' / 'single-expert-routing'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Mixture of Experts",
+    "type": "mirrors",
+    "target": "Dialectic",
+    "label": "multi-expert-dialogue"
+   },
+   {
+    "source": "Dialectic",
+    "type": "mirrors",
+    "target": "Mixture of Experts",
+    "label": "multi-expert-with-cross-talk"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'multi-expert-dialogue' / 'multi-expert-with-cross-talk'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Mixture of Experts",
+    "type": "mirrors",
+    "target": "Philosopher Visits the Entry",
+    "label": "embodied-routing-single-node"
+   },
+   {
+    "source": "Philosopher Visits the Entry",
+    "type": "mirrors",
+    "target": "Mixture of Experts",
+    "label": "single-expert-routed-to-a-node"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'embodied-routing-single-node' / 'single-expert-routed-to-a-node'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "The Shop",
+    "type": "exemplifies",
+    "target": "Kokoro",
+    "label": "gotcha-anchor"
+   },
+   {
+    "source": "Kokoro",
+    "type": "member-of",
+    "target": "The Shop",
+    "label": "roster-member"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "The Shop",
+    "type": "exemplifies",
+    "target": "Manim CE",
+    "label": "heuristic-case"
+   },
+   {
+    "source": "Manim CE",
+    "type": "member-of",
+    "target": "The Shop",
+    "label": "roster-member"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W3",
+  "why": "both forward, opposite directions",
+  "edges": [
+   {
+    "source": "Boundary-Crossing Instruments",
+    "type": "spawned",
+    "target": "Frequency-Time Duality",
+    "label": null
+   },
+   {
+    "source": "Frequency-Time Duality",
+    "type": "enables",
+    "target": "Boundary-Crossing Instruments",
+    "label": null
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Spinoza Conatus",
+    "type": "couples-with",
+    "target": "Trickster",
+    "label": "necessary-exterior"
+   },
+   {
+    "source": "Trickster",
+    "type": "deepens",
+    "target": "Spinoza Conatus",
+    "label": "trickster-as-conatus"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Spinoza Conatus",
+    "type": "couples-with",
+    "target": "Deleuze",
+    "label": "monism-radicalized"
+   },
+   {
+    "source": "Deleuze",
+    "type": "deepens",
+    "target": "Spinoza Conatus",
+    "label": "radicalizes-the-monism"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "The Remembering Page",
+    "type": "couples-with",
+    "target": "Pheromone Trail",
+    "label": "episodic-to-its-semantic"
+   },
+   {
+    "source": "Pheromone Trail",
+    "type": "couples-with",
+    "target": "The Remembering Page",
+    "label": "semantic-to-its-episodic"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'episodic-to-its-semantic' / 'semantic-to-its-episodic'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Trickster",
+    "type": "couples-with",
+    "target": "Dialogue Moderator",
+    "label": "trickster-moderator-pair"
+   },
+   {
+    "source": "Dialogue Moderator",
+    "type": "mirrors",
+    "target": "Trickster",
+    "label": "opposite-threshold"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Entry Conatus",
+    "type": "connects-to",
+    "target": "Weave Ceremony",
+    "label": "vector-linting"
+   },
+   {
+    "source": "Weave Ceremony",
+    "type": "connects-to",
+    "target": "Entry Conatus",
+    "label": "serves-conatus"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'vector-linting' / 'serves-conatus'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "The Scroll",
+    "type": "enables",
+    "target": "Project Stewardship System",
+    "label": "front-door"
+   },
+   {
+    "source": "Project Stewardship System",
+    "type": "couples-with",
+    "target": "The Scroll",
+    "label": "front-door"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "The Scroll",
+    "type": "connects-to",
+    "target": "STIGMERGY",
+    "label": "rendered-in"
+   },
+   {
+    "source": "STIGMERGY",
+    "type": "connects-to",
+    "target": "The Scroll",
+    "label": "renders-the-front-door"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'rendered-in' / 'renders-the-front-door'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "ELDER",
+    "type": "connects-to",
+    "target": "Palace as Context Injection System",
+    "label": "why-this-order"
+   },
+   {
+    "source": "Palace as Context Injection System",
+    "type": "connects-to",
+    "target": "ELDER",
+    "label": "born-then-grown"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'why-this-order' / 'born-then-grown'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Autodidact Polymaths",
+    "type": "connects-to",
+    "target": "FOUR PILLARS",
+    "label": "pillar-shaped-learners"
+   },
+   {
+    "source": "FOUR PILLARS",
+    "type": "connects-to",
+    "target": "Autodidact Polymaths",
+    "label": "audience-it-names"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'pillar-shaped-learners' / 'audience-it-names'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Palace Philosophies",
+    "type": "connects-to",
+    "target": "STIGMERGY Philosophical Lenses",
+    "label": "the-front-end-surface"
+   },
+   {
+    "source": "STIGMERGY Philosophical Lenses",
+    "type": "connects-to",
+    "target": "Palace Philosophies",
+    "label": "the-neighborhood-this-surfaces"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'the-front-end-surface' / 'the-neighborhood-this-surfaces'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Volterra Kernels and the Torus",
+    "type": "mirrors",
+    "target": "2D Torus Wavetable Synthesizer",
+    "label": "scan-read-vs-input-read"
+   },
+   {
+    "source": "2D Torus Wavetable Synthesizer",
+    "type": "mirrors",
+    "target": "Volterra Kernels and the Torus",
+    "label": "same-field-as-an-effect"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'scan-read-vs-input-read' / 'same-field-as-an-effect'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "The Fortress and the Threshold",
+    "type": "contradicts",
+    "target": "Stoicism",
+    "label": null
+   },
+   {
+    "source": "Stoicism",
+    "type": "spawned",
+    "target": "The Fortress and the Threshold",
+    "label": null
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "The Fortress and the Threshold",
+    "type": "contradicts",
+    "target": "Confucianism",
+    "label": null
+   },
+   {
+    "source": "Confucianism",
+    "type": "spawned",
+    "target": "The Fortress and the Threshold",
+    "label": null
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Hand-Drawn 3D Look",
+    "type": "connects-to",
+    "target": "Frame Designer",
+    "label": "dispatched-by"
+   },
+   {
+    "source": "Frame Designer",
+    "type": "connects-to",
+    "target": "Hand-Drawn 3D Look",
+    "label": "hand-drawn-pipeline"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'dispatched-by' / 'hand-drawn-pipeline'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Hand-Drawn 3D Look",
+    "type": "enables",
+    "target": "Figure Rig",
+    "label": "figure-staging"
+   },
+   {
+    "source": "Figure Rig",
+    "type": "couples-with",
+    "target": "Hand-Drawn 3D Look",
+    "label": "figure-staging"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Songlines",
+    "type": "connects-to",
+    "target": "Oblique Portrait",
+    "label": "sings-around"
+   },
+   {
+    "source": "Oblique Portrait",
+    "type": "connects-to",
+    "target": "Songlines",
+    "label": "different-song"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'sings-around' / 'different-song'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Cooperation Yields Agency",
+    "type": "enables",
+    "target": "Hilaritas Generator",
+    "label": "cooperation-as-hilaritas"
+   },
+   {
+    "source": "Hilaritas Generator",
+    "type": "mirrors",
+    "target": "Cooperation Yields Agency",
+    "label": "shared-emergence"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "FOUR PILLARS",
+    "type": "connects-to",
+    "target": "Zoom Out to the Structure",
+    "label": "same-instinct-as-a-menu-option"
+   },
+   {
+    "source": "Zoom Out to the Structure",
+    "type": "connects-to",
+    "target": "FOUR PILLARS",
+    "label": "don't-force-it"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'same-instinct-as-a-menu-option' / \"don't-force-it\""
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Rank-N Lattice Analysis",
+    "type": "mirrors",
+    "target": "2D Torus Wavetable Synthesizer",
+    "label": "analysis-is-synthesis-read-backward"
+   },
+   {
+    "source": "2D Torus Wavetable Synthesizer",
+    "type": "mirrors",
+    "target": "Rank-N Lattice Analysis",
+    "label": "its-own-oscilloscope"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'analysis-is-synthesis-read-backward' / 'its-own-oscilloscope'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Kuramoto Coupling",
+    "type": "spawned",
+    "target": "Neural Granular Synthesis",
+    "label": "origin-project"
+   },
+   {
+    "source": "Neural Granular Synthesis",
+    "type": "couples-with",
+    "target": "Kuramoto Coupling",
+    "label": null
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "STIGMERGY",
+    "type": "connects-to",
+    "target": "Palace Orchestrator",
+    "label": "orchestrated-by"
+   },
+   {
+    "source": "STIGMERGY",
+    "type": "connects-to",
+    "target": "Palace Orchestrator",
+    "label": "dispatches-onto-the-board"
+   },
+   {
+    "source": "Palace Orchestrator",
+    "type": "connects-to",
+    "target": "STIGMERGY",
+    "label": "appends-to-the-board"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "STIGMERGY",
+    "type": "mirrors",
+    "target": "Pheromone Trail",
+    "label": "the-trace-that-shapes-the-next-action"
+   },
+   {
+    "source": "Pheromone Trail",
+    "type": "mirrors",
+    "target": "STIGMERGY",
+    "label": "two-timescale-trace"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'the-trace-that-shapes-the-next-action' / 'two-timescale-trace'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "DSP in Looping Dimensions",
+    "type": "couples-with",
+    "target": "2D Torus Wavetable Synthesizer",
+    "label": "incarnated-by"
+   },
+   {
+    "source": "2D Torus Wavetable Synthesizer",
+    "type": "couples-with",
+    "target": "DSP in Looping Dimensions",
+    "label": "incarnates"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'incarnated-by' / 'incarnates'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Talking Keyboard",
+    "type": "connects-to",
+    "target": "Project Stewardship System",
+    "label": "stage-mismatch-evidence"
+   },
+   {
+    "source": "Project Stewardship System",
+    "type": "connects-to",
+    "target": "Talking Keyboard",
+    "label": "pronunciation-case-study"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'stage-mismatch-evidence' / 'pronunciation-case-study'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Splice Instrument Forge",
+    "type": "connects-to",
+    "target": "Ableton Session Writer",
+    "label": "emits-through"
+   },
+   {
+    "source": "Ableton Session Writer",
+    "type": "connects-to",
+    "target": "Splice Instrument Forge",
+    "label": "hands-me-splice-kits"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'emits-through' / 'hands-me-splice-kits'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "both forward, opposite directions",
+  "edges": [
+   {
+    "source": "Loudon Live",
+    "type": "spawned",
+    "target": "Loudon Live Design System",
+    "label": "visual-system-now-palace-default"
+   },
+   {
+    "source": "Loudon Live Design System",
+    "type": "enables",
+    "target": "Loudon Live",
+    "label": "visual-system"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Semantic Webcam",
+    "type": "connects-to",
+    "target": "Synthesis ↔ Emergence",
+    "label": "flock-origin"
+   },
+   {
+    "source": "Synthesis ↔ Emergence",
+    "type": "connects-to",
+    "target": "Semantic Webcam",
+    "label": "flock-made-visible"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'flock-origin' / 'flock-made-visible'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "BLUELINE",
+    "type": "connects-to",
+    "target": "Blender",
+    "label": "blocking-and-conditioning-surface"
+   },
+   {
+    "source": "Blender",
+    "type": "connects-to",
+    "target": "BLUELINE",
+    "label": "commissioned-by"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'blocking-and-conditioning-surface' / 'commissioned-by'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Generative Preset Development",
+    "type": "couples-with",
+    "target": "Generative Sample Libraries",
+    "label": "parallel-siblings"
+   },
+   {
+    "source": "Generative Sample Libraries",
+    "type": "couples-with",
+    "target": "Generative Preset Development",
+    "label": "content-meets-configuration"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'parallel-siblings' / 'content-meets-configuration'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Generative Wavetable Libraries",
+    "type": "emerged-from",
+    "target": "Generative Sample Libraries",
+    "label": "migrated-from"
+   },
+   {
+    "source": "Generative Wavetable Libraries",
+    "type": "couples-with",
+    "target": "Generative Sample Libraries",
+    "label": "parallel-deployment"
+   },
+   {
+    "source": "Generative Sample Libraries",
+    "type": "spawned",
+    "target": "Generative Wavetable Libraries",
+    "label": "split-off"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Generative Wavetable Libraries",
+    "type": "connects-to",
+    "target": "Wavetable Scanner",
+    "label": "plays-its-packed-tables"
+   },
+   {
+    "source": "Wavetable Scanner",
+    "type": "connects-to",
+    "target": "Generative Wavetable Libraries",
+    "label": "borrows-its-packer"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'plays-its-packed-tables' / 'borrows-its-packer'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Symbiotic Skills",
+    "type": "connects-to",
+    "target": "Palace Map",
+    "label": "emerged-but-not-predicted"
+   },
+   {
+    "source": "Palace Map",
+    "type": "connects-to",
+    "target": "Symbiotic Skills",
+    "label": "tools-provision"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'emerged-but-not-predicted' / 'tools-provision'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Generative Sample Libraries",
+    "type": "connects-to",
+    "target": "Project Stewardship System",
+    "label": "stage-mismatch-case-study"
+   },
+   {
+    "source": "Project Stewardship System",
+    "type": "connects-to",
+    "target": "Generative Sample Libraries",
+    "label": "stage-mismatch-evidence"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'stage-mismatch-case-study' / 'stage-mismatch-evidence'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Frequency-Time Duality",
+    "type": "connects-to",
+    "target": "Waveguide Synthesizer",
+    "label": "doorway"
+   },
+   {
+    "source": "Waveguide Synthesizer",
+    "type": "connects-to",
+    "target": "Frequency-Time Duality",
+    "label": "delay-is-spectrum"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'doorway' / 'delay-is-spectrum'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Action Potential Oscillator",
+    "type": "deepens",
+    "target": "Neural Granular Synthesis",
+    "label": null
+   },
+   {
+    "source": "Neural Granular Synthesis",
+    "type": "emerged-from",
+    "target": "Action Potential Oscillator",
+    "label": null
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Wavetable Scanner",
+    "type": "connects-to",
+    "target": "Three.js",
+    "label": "visualizer-specialist"
+   },
+   {
+    "source": "Three.js",
+    "type": "connects-to",
+    "target": "Wavetable Scanner",
+    "label": "exemplified-by"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'visualizer-specialist' / 'exemplified-by'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Palace Enchantment",
+    "type": "couples-with",
+    "target": "Dialogue Moderator",
+    "label": "active-coordinator"
+   },
+   {
+    "source": "Dialogue Moderator",
+    "type": "emerged-from",
+    "target": "Palace Enchantment",
+    "label": null
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Kokoro",
+    "type": "couples-with",
+    "target": "Whisper",
+    "label": "pairs-with"
+   },
+   {
+    "source": "Whisper",
+    "type": "couples-with",
+    "target": "Kokoro",
+    "label": "round-trip"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'pairs-with' / 'round-trip'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Kokoro",
+    "type": "enables",
+    "target": "Manim CE",
+    "label": "feeds"
+   },
+   {
+    "source": "Manim CE",
+    "type": "couples-with",
+    "target": "Kokoro",
+    "label": "pairs-with"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Kokoro",
+    "type": "couples-with",
+    "target": "ffmpeg",
+    "label": "post-chain"
+   },
+   {
+    "source": "ffmpeg",
+    "type": "couples-with",
+    "target": "Kokoro",
+    "label": "narration-pipe"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'post-chain' / 'narration-pipe'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "FLUX (Hugging Face)",
+    "type": "connects-to",
+    "target": "ComfyUI",
+    "label": "alternative-to"
+   },
+   {
+    "source": "ComfyUI",
+    "type": "connects-to",
+    "target": "FLUX (Hugging Face)",
+    "label": "cloud-sibling"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'alternative-to' / 'cloud-sibling'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "RunPod GPU Backend",
+    "type": "connects-to",
+    "target": "ComfyUI",
+    "label": "runs"
+   },
+   {
+    "source": "ComfyUI",
+    "type": "connects-to",
+    "target": "RunPod GPU Backend",
+    "label": "cloud-path"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'runs' / 'cloud-path'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Frame Designer",
+    "type": "connects-to",
+    "target": "Figure Rig",
+    "label": "figure-staging-method"
+   },
+   {
+    "source": "Figure Rig",
+    "type": "connects-to",
+    "target": "Frame Designer",
+    "label": "staging-method"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'figure-staging-method' / 'staging-method'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "SAM",
+    "type": "connects-to",
+    "target": "Depth Anything",
+    "label": "orders-what-I-isolate"
+   },
+   {
+    "source": "Depth Anything",
+    "type": "connects-to",
+    "target": "SAM",
+    "label": "a-second-route-to-the-figure"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'orders-what-I-isolate' / 'a-second-route-to-the-figure'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Matplotlib",
+    "type": "connects-to",
+    "target": "Manim CE",
+    "label": "fallback-for"
+   },
+   {
+    "source": "Manim CE",
+    "type": "connects-to",
+    "target": "Matplotlib",
+    "label": "sandboxed-fallback"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'fallback-for' / 'sandboxed-fallback'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Web Audio Worklet",
+    "type": "member-of",
+    "target": "The Shop",
+    "label": "roster-member"
+   },
+   {
+    "source": "Web Audio Worklet",
+    "type": "exemplifies",
+    "target": "The Shop",
+    "label": "earns-new-operating-model"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "ffmpeg",
+    "type": "couples-with",
+    "target": "Manim CE",
+    "label": "render-pipe"
+   },
+   {
+    "source": "Manim CE",
+    "type": "couples-with",
+    "target": "ffmpeg",
+    "label": "mux-partner"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'render-pipe' / 'mux-partner'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Harvest Ceremony",
+    "type": "spawned",
+    "target": "Deposit Ceremony",
+    "label": null
+   },
+   {
+    "source": "Harvest Ceremony",
+    "type": "couples-with",
+    "target": "Deposit Ceremony",
+    "label": "harvest-deposit-pair"
+   },
+   {
+    "source": "Deposit Ceremony",
+    "type": "emerged-from",
+    "target": "Harvest Ceremony",
+    "label": null
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "The Daily Page",
+    "type": "connects-to",
+    "target": "Revival Ceremony",
+    "label": "a-dormant-page-asks"
+   },
+   {
+    "source": "Revival Ceremony",
+    "type": "connects-to",
+    "target": "The Daily Page",
+    "label": "a-morning-decides-revive"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'a-dormant-page-asks' / 'a-morning-decides-revive'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Pages as Agents",
+    "type": "couples-with",
+    "target": "Palace as Context Injection System",
+    "label": "same-project-from-context-side"
+   },
+   {
+    "source": "Palace as Context Injection System",
+    "type": "deepens",
+    "target": "Pages as Agents",
+    "label": "awakening-mechanism"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Rick Rubin",
+    "type": "connects-to",
+    "target": "Cooking ↔ Mixing",
+    "label": "subtraction"
+   },
+   {
+    "source": "Cooking ↔ Mixing",
+    "type": "connects-to",
+    "target": "Rick Rubin",
+    "label": "subtraction-as-trust"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'subtraction' / 'subtraction-as-trust'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Marcus Aurelius",
+    "type": "connects-to",
+    "target": "Julia Cameron",
+    "label": "morning-pages"
+   },
+   {
+    "source": "Julia Cameron",
+    "type": "connects-to",
+    "target": "Marcus Aurelius",
+    "label": "dawn-practice-drain-vs-rudder"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'morning-pages' / 'dawn-practice-drain-vs-rudder'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Donella Meadows",
+    "type": "connects-to",
+    "target": "Kick Drum ↔ Foundation",
+    "label": "leverage-in-the-low-end"
+   },
+   {
+    "source": "Kick Drum ↔ Foundation",
+    "type": "connects-to",
+    "target": "Donella Meadows",
+    "label": "structure-determines-behavior"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'leverage-in-the-low-end' / 'structure-determines-behavior'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "James Turrell",
+    "type": "connects-to",
+    "target": "Agnes Martin",
+    "label": "humility-that-hides-control"
+   },
+   {
+    "source": "Agnes Martin",
+    "type": "connects-to",
+    "target": "James Turrell",
+    "label": "receiving-not-authoring"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'humility-that-hides-control' / 'receiving-not-authoring'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Shunryu Suzuki",
+    "type": "connects-to",
+    "target": "Sidechain ↔ Conversation",
+    "label": "yielding-practice"
+   },
+   {
+    "source": "Sidechain ↔ Conversation",
+    "type": "connects-to",
+    "target": "Shunryu Suzuki",
+    "label": "informed-by"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'yielding-practice' / 'informed-by'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Lao Tzu",
+    "type": "connects-to",
+    "target": "Cooking ↔ Mixing",
+    "label": "subtraction"
+   },
+   {
+    "source": "Cooking ↔ Mixing",
+    "type": "connects-to",
+    "target": "Lao Tzu",
+    "label": "wu-wei"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'subtraction' / 'wu-wei'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Agnes Martin",
+    "type": "mirrors",
+    "target": "Move the Ink, Don't Redraw It",
+    "label": "fixed-substrate-reveals-drift"
+   },
+   {
+    "source": "Agnes Martin",
+    "type": "contradicts",
+    "target": "Move the Ink, Don't Redraw It",
+    "label": "redraws-by-hand"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Oblique Portrait",
+    "type": "mirrors",
+    "target": "Excellent Adventure",
+    "label": null
+   },
+   {
+    "source": "Oblique Portrait",
+    "type": "contradicts",
+    "target": "Excellent Adventure",
+    "label": "unsteered-vs-steered"
+   },
+   {
+    "source": "Excellent Adventure",
+    "type": "mirrors",
+    "target": "Oblique Portrait",
+    "label": null
+   },
+   {
+    "source": "Excellent Adventure",
+    "type": "contradicts",
+    "target": "Oblique Portrait",
+    "label": "unsteered-vs-steered"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Dialectic",
+    "type": "emerged-from",
+    "target": "Excellent Adventure",
+    "label": null
+   },
+   {
+    "source": "Excellent Adventure",
+    "type": "couples-with",
+    "target": "Dialectic",
+    "label": null
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Concierge",
+    "type": "connects-to",
+    "target": "Palace Orchestrator",
+    "label": "sibling-organ-execute-pole"
+   },
+   {
+    "source": "Palace Orchestrator",
+    "type": "connects-to",
+    "target": "Concierge",
+    "label": "sibling-organ-address-pole"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'sibling-organ-execute-pole' / 'sibling-organ-address-pole'"
+  }
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "Concierge",
+    "type": "connects-to",
+    "target": "Agent Wellbeing",
+    "label": "invocation-wellbeing"
+   },
+   {
+    "source": "Agent Wellbeing",
+    "type": "connects-to",
+    "target": "Concierge",
+    "label": "health-dial-home"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'invocation-wellbeing' / 'health-dial-home'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "two specific types",
+  "edges": [
+   {
+    "source": "Two Batons, One Board",
+    "type": "connects-to",
+    "target": "Palace Orchestrator",
+    "label": "scheduler-closes-the-loop"
+   },
+   {
+    "source": "Two Batons, One Board",
+    "type": "connects-to",
+    "target": "Palace Orchestrator",
+    "label": "is-the-scheduled-poller"
+   },
+   {
+    "source": "Palace Orchestrator",
+    "type": "connects-to",
+    "target": "Two Batons, One Board",
+    "label": "each-cycle-one-handoff"
+   }
+  ],
+  "proposal": null
+ },
+ {
+  "code": "W1",
+  "why": "symmetric stated twice",
+  "edges": [
+   {
+    "source": "The Palace Speaks",
+    "type": "couples-with",
+    "target": "Agent Wellbeing",
+    "label": "extends-wellbeing-to-invocation"
+   },
+   {
+    "source": "Agent Wellbeing",
+    "type": "couples-with",
+    "target": "The Palace Speaks",
+    "label": "two-registers-of-care"
+   }
+  ],
+  "proposal": {
+   "keep": null,
+   "drop": [],
+   "judgment": "two labels: 'extends-wellbeing-to-invocation' / 'two-registers-of-care'"
+  }
+ },
+ {
+  "code": "W3",
+  "why": "both forward, opposite directions",
+  "edges": [
+   {
+    "source": "BBS Design System",
+    "type": "enables",
+    "target": "BBS Blackboard",
+    "label": "visual-substrate"
+   },
+   {
+    "source": "BBS Blackboard",
+    "type": "spawned",
+    "target": "BBS Design System",
+    "label": "visual-form"
+   }
+  ],
+  "proposal": null
+ }
+]

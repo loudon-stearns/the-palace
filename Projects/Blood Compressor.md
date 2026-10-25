@@ -24,9 +24,6 @@ links:
   - target: "[[Substrate Skill]]"
     type: couples-with
     label: stage-conditional-build
-  - target: "[[Spinoza Conatus]]"
-    type: deepens
-    label: vessel-as-conatus
   - target: "[[Leibniz]]"
     type: contradicts
     label: causal-loop-vs-windowless-monad

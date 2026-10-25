@@ -12,13 +12,14 @@ author: Donella Meadows
 year: 1999
 medium: paper
 links:
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
   - target: "[[Meadows and Music — Leverage Points — Context]]"
     type: couples-with
   - target: "[[Leverage Points Framework]]"
     type: emerged-from
     label: donella-meadows-applied
+  - target: "[[FOUR PILLARS]]"
+    type: exemplifies
+    label: sound-to-self
 forward_vector: "I want to become a living, field-tested teaching curriculum — not a document produced in a session but a set of exercises that have been run with real students, with their responses, surprises, and resistances documented. Each exercise should accumulate the kind of evidence the Drone Koan requires: not just the question but what students actually say when they try to answer it. The progression from exercise 0 to exercise 10 should be reordered if the field tests reveal a better sequence."
 ---
 

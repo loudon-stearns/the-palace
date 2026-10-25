@@ -42,6 +42,7 @@ links:
     label: mathematical-substrate
   - target: "[[Loudon Live]]"
     type: connects-to
+    label: session-candidate
   - target: "[[Wavetable Oscillator]]"
     type: deepens
     label: long-form

@@ -11,13 +11,12 @@ hook_quality: 7
 beauty: 6
 who_leads: loudon
 links:
-  - target: "[[Ableton Extension SDK]]"
-    type: connects-to
   - target: "[[Boundary-Crossing Instruments]]"
     type: deepens
     label: reverse-boundary-crossing
   - target: "[[Frequency-Time Duality]]"
     type: connects-to
+    label: time-in-frequency-space
   - target: "[[Modes of Collaboration]]"
     type: connects-to
     label: multi-device-sync

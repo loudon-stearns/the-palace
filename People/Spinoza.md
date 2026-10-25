@@ -38,8 +38,6 @@ links:
   - target: "[[Merleau-Ponty]]"
     type: connects-to
     label: embodied-power-to-act
-  - target: "[[Generative Compression]]"
-    type: connects-to
   - target: "[[Making a Palace Citizen]]"
     type: exemplifies
     label: made-by-this-method

@@ -24,11 +24,6 @@ links:
     type: enables
   - target: "[[Palace Enchantment]]"
     type: enables
-  - target: "[[Striatum]]"
-    type: connects-to
-  - target: "[[Pages as Agents]]"
-    type: deepens
-    label: stigmergic-agent-activation
   - target: "[[BBS Design System]]"
     type: spawned
     label: visual-form

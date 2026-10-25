@@ -15,8 +15,10 @@ links:
     type: emerged-from
   - target: "[[Cooperation Yields Agency]]"
     type: connects-to
+    label: foundational-principle
   - target: "[[FOUR PILLARS]]"
     type: connects-to
+    label: onboarding-read
 ---
 # Our Palace: A Symbiotic Knowledge Organism
 

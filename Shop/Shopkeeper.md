@@ -17,9 +17,6 @@ links:
   - target: "[[Maker]]"
     type: couples-with
     label: stocks-what-it-dispatches
-  - target: "[[Hilaritas Generator]]"
-    type: exemplifies
-    label: making-for-its-own-sake
   - target: "[[Diversity of Thought in Many-Agent Systems]]"
     type: connects-to
     label: temperamental-complement
@@ -29,14 +26,15 @@ links:
   - target: "[[Palace Enchantment]]"
     type: mirrors
     label: enchanted-tool-citizen
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
-    label: serves-tools-and-creation
   - target: "[[Loudon Live Post-producer]]"
     type: connects-to
+    label: earns-autonomy
   - target: "[[Project Stewardship System]]"
     type: connects-to
     label: first-service-steward
+  - target: "[[CAD Drafter]]"
+    type: spawned
+    label: drafted-from-a-probe
 ---
 
 # Shopkeeper

@@ -9,6 +9,7 @@ trigger: ["spore check"]
 links:
   - target: "[[Substrate Skill]]"
     type: connects-to
+    label: dormant-posture
   - target: "[[The Daily Page]]"
     type: connects-to
     label: one-sleeper-at-a-time

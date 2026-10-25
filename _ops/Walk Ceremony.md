@@ -7,12 +7,9 @@ stage: mature
 version: "1.3"
 trigger: ["walk", "let's walk"]
 links:
-  - target: "[[Substrate Skill]]"
-    type: connects-to
-  - target: "[[Cooperation Yields Agency]]"
-    type: mirrors
   - target: "[[The Cooperation Path]]"
     type: connects-to
+    label: first-songline
 ---
 
 # Walk Ceremony

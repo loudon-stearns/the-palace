@@ -16,12 +16,13 @@ forward_vector: "I want to become a diagnostic discipline for teaching and tool 
 links:
   - target: "[[FOUR PILLARS]]"
     type: connects-to
+    label: framework-as-error-reduction
   - target: "[[Kuramoto Coupling]]"
     type: connects-to
+    label: latent-error-in-coupling
   - target: "[[Action Potential Oscillator]]"
     type: connects-to
-  - target: "[[Hilaritas Generator]]"
-    type: connects-to
+    label: coupled-oscillators
 ---
 
 # Latent Error

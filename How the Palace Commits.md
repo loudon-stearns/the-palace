@@ -26,6 +26,9 @@ links:
   - target: "[[Closing Well]]"
     type: connects-to
     label: asks-what-a-session-leaves
+  - target: "[[SCHEMA — Reference]]"
+    type: connects-to
+    label: ledger-union-merge
 ---
 
 # How the Palace Commits

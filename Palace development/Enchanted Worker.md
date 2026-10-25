@@ -17,6 +17,7 @@ links:
     type: mirrors
   - target: "[[Pages as Agents]]"
     type: connects-to
+    label: complementary-framing
   - target: "[[Spinoza Conatus]]"
     type: mirrors
     label: conatus-as-worker-drive

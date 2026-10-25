@@ -15,10 +15,6 @@ links:
   - { target: "[[STIGMERGY]]", type: connects-to, label: "display + request door" }
   - { target: "[[Enrichment]]", type: couples-with, label: "uniform-enrichment cousin" }
   - { target: "[[Loudon Live Design System]]", type: connects-to, label: "frame + cascade" }
-  - { target: "[[Hilaritas Generator]]", type: connects-to, label: "joy in identity" }
-  - target: "[[Kuramoto Coupling]]"
-    type: connects-to
-    label: first-subject
   - target: "[[Retrospective Delay]]"
     type: connects-to
     label: proving-subject

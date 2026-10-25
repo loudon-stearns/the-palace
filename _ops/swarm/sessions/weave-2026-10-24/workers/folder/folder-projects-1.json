@@ -1,0 +1,1401 @@
+{
+ "room": "folder-projects-1",
+ "lens": "folder",
+ "pages_read": [
+  "Projects/1 from 2.md",
+  "Projects/Action Potential Oscillator.md",
+  "Projects/Bayesian Granular Synthesizer.md",
+  "Projects/Biomechanical Synthesis.md",
+  "Projects/Categorizing Inharmonicity.md",
+  "Projects/Crystal Synthesizer.md",
+  "Projects/Frequency-Time Duality.md",
+  "Projects/Generative Audio Devices.md",
+  "Projects/Generative Sample Libraries.md",
+  "Projects/Haptic Handwheel.md",
+  "Projects/LDN RTM.md",
+  "Projects/Meadows and Music — Leverage Points.md",
+  "Projects/Metric Modulation.md",
+  "Projects/Neural Granular Synthesis.md",
+  "Projects/Particle Synthesis.md",
+  "Projects/Piano String Inharmonicity.md",
+  "Projects/Preset Oracle.md",
+  "Projects/Quantum Synthesizer.md",
+  "Projects/SMPTE LTC.md",
+  "Projects/Semantic Delay.md",
+  "Projects/Shepard Tone Synthesizer.md",
+  "Projects/Slime Mold Delay.md",
+  "Projects/Symbiotic Skills.md",
+  "Projects/Tract Mirror.md",
+  "Projects/Wallpaper Groups.md",
+  "Projects/Wavetable Scanner.md",
+  "scrolls (Now zone, Plan, trail heads): Projects/<each project>/<name> — scroll.md for Action Potential Oscillator, Neural Granular Synthesis, Bayesian Granular Synthesizer, Particle Synthesis, Crystal Synthesizer, Generative Audio Devices, Generative Sample Libraries, Semantic Delay, Tract Mirror, Quantum Synthesizer, Shepard Tone Synthesizer, Slime Mold Delay, Wavetable Scanner, SMPTE LTC, Symbiotic Skills, 1 from 2, Haptic Handwheel, LDN RTM",
+  "Projects/Meadows and Music — Leverage Points/Meadows and Music — Leverage Points — Context.md",
+  "neighbours read for evidence: Projects/VST Template.md, Shop/Ableton Session Writer.md, Shop/CAD Drafter.md, Shop/AuK.md, Can an Instrument Notice Where the Work Stops?.md, Granular Synthesis.md, Projects/Meadows and an Artist's Career.md (head), Projects/BLUELINE.md (head), SCHEMA.md and SCHEMA — Reference.md (stage table, forward_vector, status and confidence enums)",
+  "bundle listings for all 26 members (to see which hold a scroll, Context, tuning ledger, proofs)"
+ ],
+ "coherence_findings": [
+  {
+   "kind": "vocab",
+   "entries": [
+    "Categorizing Inharmonicity",
+    "Piano String Inharmonicity",
+    "Quantum Synthesizer"
+   ],
+   "issue": "Three pages disagree on why a stiff string is inharmonic. Categorizing § 1 'Stretched Tuning' says 'Stiff strings: restoring force increases with displacement (nonlinear potential)', offers 'nonlinear spring models where the restoring force is k·x + λ·x³' as the synthesis route, and its Cross-Domain bullet says the quantum nonlinear potentials 'are the same nonlinear springs that produce stretched tuning in acoustic strings'. Piano String § 'Why This Is Linear Time-Invariant' says stiff-string inharmonicity is linear, purely geometric, and can be made by convolution. Quantum Synthesizer § 'One equation, two spacings' says the piano's stretch 'comes from a linear stiffness term, not from the string turning nonlinear when struck hard', and it already marks its own earlier sentence ('A piano string is the clearest case, and it turns out not to be about nonlinearity at all'). Also a small notation drift: Piano String writes f_n = n·f0·√(1+B·n²) (so the first partial is f0·√(1+B)); Quantum writes √((1+B·n²)/(1+B)) (first partial exactly f0); Categorizing uses the small-B form (1 + B·n²/2). All three are right in their own frame; none says which frame.",
+   "proposed_action": "Elder edit to Categorizing § 1: change the physical origin to 'bending stiffness (a fourth-derivative term), linear', point to Piano String and Quantum Synthesizer for the derivation, and move the cubic-spring route to its own line as a different effect (amplitude-dependent pitch). Strike the Cross-Domain 'same nonlinear springs' sentence. Add one line to Piano String stating that its f0 is the string's ideal fundamental and that Quantum normalises so the first partial is f0. Do not retype Categorizing→Quantum to contradicts; it is a factual slip, not a productive tension."
+  },
+  {
+   "kind": "vocab",
+   "entries": [
+    "Neural Granular Synthesis",
+    "Action Potential Oscillator"
+   ],
+   "issue": "The two pages disagree about what Action Potential Oscillator is. NGS § Biological Fidelity: 'Action Potential Oscillator uses a full Hodgkin-Huxley system (4 coupled differential equations) as the foundational model', and Phase 1 is 'refine a single, biologically grounded neuron model with full dynamics'. APO's own body says Stages 1-4 are linear and leaky integrate-and-fire plus a prescribed spike shape and refractory state machine, and its first Open Question is 'When does the oscillator become Hodgkin-Huxley? Full gating variable ODE integration is the next stage'. APO's Population Dynamics hypothesis ('a population of idealized integrate-and-fire neurons may be sonically equivalent to HH') is what NGS actually built on.",
+   "proposed_action": "Fix NGS: say APO is a staged integrate-and-fire oscillator with a prescribed spike, HH being the open stage; Phase 1 becomes 'a single neuron with a prescribed spike and refractory period'. One sentence in each page; no restructure."
+  },
+  {
+   "kind": "roster",
+   "entries": [
+    "Action Potential Oscillator",
+    "Neural Granular Synthesis"
+   ],
+   "issue": "Two stewarded projects are building the same instrument from two ends and the border is unwritten. APO's bundle holds neuropulse.dsp, population_audition.py and 'a crowd of 32 slightly different neurons in Faust' with a pitch-anchor knob (scroll, 2026-10-20). NGS's bundle holds crowd_engine.js, RNBO/crowd.codebox (up to 512 neurons) and crowd-instrument.html with tightness, life and lumpiness knobs (scroll, 2026-10-18). APO's body § Population Dynamics (raster plots, HH versus simplified, Faust par()) restates NGS § Raster Plot, § Biological Fidelity and Phase 3. The entry names also drift: APO and its forward vector say 'population'; NGS's scroll and instrument say 'crowd'.",
+   "proposed_action": "Do not merge (both alive, both with ledgers). Write the border once, in each page's Context or one body sentence: APO owns the single neuron and its staged teaching series, and the pitch-anchor and per-neuron tuning; NGS owns the crowd as a statistical field and every population-level control. Decide who owns the name NeuroPulse. Use 'crowd' for the audible instrument and 'population' for the theory, and say so once in NGS. Trim APO § Population Dynamics to one paragraph plus a link (see lighter_prose)."
+  },
+  {
+   "kind": "roster",
+   "entries": [
+    "Biomechanical Synthesis",
+    "Crystal Synthesizer",
+    "Blood Compressor",
+    "Slime Mold Delay"
+   ],
+   "issue": "The hub's list of eight instruments does not point at the instruments that exist. Item 2 'Crystal resonator synthesis' describes what Crystal Synthesizer is but links nothing and Crystal Synthesizer never mentions the hub. Item 4 'Blood hydraulics compressor' has no link (Blood Compressor is in frontmatter as spawned only). Item 5 'Slime mold delay' is written '[[**plasmodium**]]' (a broken token, listed in the ghost-link lint) and never links Slime Mold Delay, whose own body says 'The hub diagram lists it; this entry is its body.' Cross-Domain Resonance also contains a bare '[[mirrors]]' ghost. Stage is 'mature' while five of eight instruments have no page.",
+   "proposed_action": "Elder edit: link items 1, 2, 4, 5 to their pages and mark items 3, 6, 7, 8 as unbuilt; replace '[[**plasmodium**]]' and '[[mirrors]]' with plain words. Ask Loudon whether Crystal Synthesizer was born as item 2 of this hub (born 2026-02 for both): if yes, Biomechanical —spawned→ Crystal Synthesizer is a real edge; if not, the list should say 'close kin', not 'one of the eight'. Leave stage mature, or fruiting if Loudon wants the hub to count the spawn."
+  },
+  {
+   "kind": "roster",
+   "entries": [
+    "Crystal Synthesizer",
+    "Bayesian Granular Synthesizer",
+    "Action Potential Oscillator",
+    "Neural Granular Synthesis",
+    "Particle Synthesis",
+    "Generative Sample Libraries",
+    "Semantic Delay",
+    "Quantum Synthesizer"
+   ],
+   "issue": "Entries lag their scrolls (every one of these scrolls says 'no consolidation marker' or '21 cycles since the entry was last consolidated'). The specific stale statements: Crystal Synthesizer body still frames every lattice timbre as 'Hypothesis ... To be tested' and lists 'Implement a prototype ... in Gen~' as a forward vector, while its bundle holds birefringence-proof, triclinic-proof (diamond vs labradorite), dispersion-filter (Option 3 built), playable-crystal (RNBO and Max), and on 2026-10-24 a VST3/AU installed through every template check; the scroll also reports 'only diamond turns out to be a bell', which cuts across the page's own cubic and triclinic hypotheses. Bayesian § Artifact says 'The V8 synthesis code ... could not be retrieved', yet the bundle holds bayes_engine.js, render_chord_belief.js, belief-instrument.html, RNBO/ and plugin/, and its scroll is building Belief Cloud as a VST on 2026-10-21 and 22. APO's forward vector still says the Faust par() population layer is 'the artifact I haven't built yet'; the scroll says it runs since 14 October. NGS Open Questions 2-4 were each answered by measurement (scroll: K÷spread collapse, coupling as a brightness control, minimum crowd about 16 for brightness and dependent on synchrony) and the steward proposed folding them in twice. Particle Synthesis's vector asks for 'a first working prototype ... GPU compute shader ... 1000 audio-rate particles'; the scroll shows 1024 grains on the GPU with mid-air collisions as of 2026-10-22. GSL § Under Active Stewardship says 'Phase 3 source three (local WAV folder via librosa pitch detect) is the next named direction'; the scroll's plan says Loudon pointed the work at audio AI in June and a MusicGen violin is the current step. Semantic Delay § Status says 'Awaiting quality check on generated audio before Stage 1'; the scroll says Loudon passed its sound in May and the real model sits behind the helper since 2026-10-14. Quantum Synthesizer's vector ('I will keep proving ... until monism is something the ear has heard') is reached: the scroll says every claim is tested and playable.",
+   "proposed_action": "These are consolidations, an elder's work with each steward's proposed-for-canon items in hand, not a Weave edit. Order of value: NGS (fold the three answers), Crystal Synthesizer (fold the proofs, the plugin, and the 'only diamond is a bell' finding; mark each lattice hypothesis tested or untested), Bayesian (delete the stale Artifact paragraph, name Belief Cloud), Semantic Delay (delete § Status), GSL (delete the 'Not yet folded in here' paragraph). Flag vectors for Loudon: APO, Particle, Quantum, Bayesian (RNBO to VST), Crystal (see entry_health_flags)."
+  },
+  {
+   "kind": "roster",
+   "entries": [
+    "Crystal Synthesizer",
+    "Bayesian Granular Synthesizer",
+    "Tract Mirror",
+    "VST Template"
+   ],
+   "issue": "Three instruments now ship as plugins through the VST Template (Tract Mirror scaffolded it; Crystal Synthesizer is 'a real VST3 and AU now' per its scroll of 2026-10-24; Bayesian's Belief Cloud 'draws in the VST Template's real editor', scroll of 2026-10-22). None of the three entry bodies names the template. VST Template, in turn, says 'The palace already has one native plugin, Tract Mirror'. The template is the one tool that carries the same path for all three and a reader of any of them cannot find it.",
+   "proposed_action": "One body sentence in each of Crystal, Bayesian and Tract Mirror naming [[VST Template]] (for Tract Mirror, 'its path became the template'), and a small factual edit to VST Template. Typed inbound links to VST Template from Crystal and Bayesian are proposed under typed_relations; Tract Mirror needs only the sentence because VST Template already carries the link to it."
+  },
+  {
+   "kind": "roster",
+   "entries": [
+    "Haptic Handwheel"
+   ],
+   "issue": "CAD Drafter (Shop, born 2026-10, stub) names Haptic Handwheel as its first job: the cap holes and mount block, drawn from a caliper reading. Haptic Handwheel's body and bundle never mention CAD Drafter (searched the entry and the folder). The edge exists only from CAD Drafter's side.",
+   "proposed_action": "One sentence in Haptic § The body or § The first sketch: 'The cap holes and mount block are drawn by [[CAD Drafter]] from a caliper reading.' No new typed link (the pair already carries one: CAD Drafter —connects-to[first-job-for]→ Haptic Handwheel)."
+  },
+  {
+   "kind": "roster",
+   "entries": [
+    "Generative Sample Libraries",
+    "Generative Audio Devices"
+   ],
+   "issue": "'Eventual convergence' is the reason for the GSL —couples-with→ GAD link ('this project generates the content; that project generates the shells') and the same label sits on GAD —couples-with→ Generative Preset Development. Neither page says where the content meets the shell. The Ableton Session Writer (Shop, alive 2026-10-21) is the first place that happens in practice: its `library` job takes GSL's SFZ instruments and writes the Live Set that plays them, and its `plugin` job takes a VST Template plugin; it already links GSL ('hands-me-libraries').",
+   "proposed_action": "Ask Loudon whether the Session Writer is the convergence the two pages were waiting for. If yes, one sentence in GSL and GAD each; the label eventual-convergence then becomes a shorter 'content-meets-shell' or is retired. If no, leave. Not typed-link work."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Semantic Delay",
+    "Generative Audio Devices",
+    "Action Potential Oscillator",
+    "Frequency-Time Duality",
+    "Haptic Handwheel",
+    "Symbiotic Skills",
+    "Meadows and Music — Leverage Points"
+   ],
+   "issue": "SCHEMA — Reference § forward_vector: 'one sentence, first-person ... Avoid stasis-verbs'. These vectors run long and carry plan or status that belongs on the scroll: Semantic Delay's is about 250 words ('As of 2026-04-20, my immediate phase is the voice-swap delay ... Latency is musical, not monitoring ...') and is dated, so it ages the day after it is written; GAD's runs five sentences and ends 'The closed-task forensics live in the body; this vector is where I am still reaching'; APO's carries a status report and 'Next outputs'; Symbiotic Skills' opens 'Prerequisite met (2026-05-02) ... I am now ready for a full rewrite session' and gives rewrite instructions; FTD's, Haptic's and Meadows' run three to four sentences. Stasis or status verbs: Biomechanical ('I am the palace's most viscerally pedagogical framework'), Wavetable Scanner ('I am the single-cycle morph laboratory'), Quantum ('I will keep proving'), Preset Oracle ('I am complete as an artifact but want to become documented').",
+   "proposed_action": "Flag only; vectors are the page's own voice and Loudon's to tune. Where it is done, cut to the one hunger and let the scroll's Plan carry the sequence. Semantic Delay first: its plan paragraph already exists on its scroll."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Biomechanical Synthesis",
+    "Crystal Synthesizer",
+    "Particle Synthesis",
+    "Piano String Inharmonicity",
+    "Slime Mold Delay",
+    "Bayesian Granular Synthesizer",
+    "Wallpaper Groups",
+    "Symbiotic Skills",
+    "Haptic Handwheel",
+    "LDN RTM"
+   ],
+   "issue": "Three practices for the closing 'Forward Vectors' section. Haptic and LDN RTM write '*See YAML forward_vector.*' and then add only what is open. Biomechanical, Crystal, Particle, Piano String, Slime Mold and Bayesian carry a bulleted list of next moves that differs from the frontmatter vector (Slime Mold's five 'Stage' bullets, 'Stage 1 ... (~current state)', are the plan and stale: a playable dish exists). Wallpaper Groups carries two vectors that disagree: the YAML ('the palace's direct entry to the discovered ceilings of symmetry') and the body ('I am driven to create a library of code with visual and audio applications that demonstrate wallpaper groups'). Symbiotic Skills' body § Forward Vector restates the YAML.",
+   "proposed_action": "Pick one house practice (suggest: next moves live on the scroll's Plan; the body ends with 'Open questions' only). Delete the Wallpaper and Symbiotic body vectors; move Slime Mold's five stages to its scroll's Plan (the Plan already agreed 2026-10-14 covers them)."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Crystal Synthesizer",
+    "LDN RTM",
+    "Shepard Tone Synthesizer",
+    "SMPTE LTC",
+    "Slime Mold Delay",
+    "Metric Modulation"
+   ],
+   "issue": "Enum drift in frontmatter. SCHEMA — Reference: who_leads is human / AI / shared; confidence is hypothesis / working / established. Crystal, Metric Modulation, Shepard, SMPTE LTC and Slime Mold Delay write who_leads: loudon; LDN RTM writes human. Slime Mold Delay writes confidence: specified (not in the enum; it has a built dish and an offline renderer, so 'working' is what it means).",
+   "proposed_action": "Mechanical fix at an elder's pen: loudon becomes human; specified becomes working. Check with Loudon first that 'loudon' was not a deliberate house value that the schema has not caught up with (it is used on five of this room's pages and on BLUELINE)."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Action Potential Oscillator",
+    "Biomechanical Synthesis",
+    "Frequency-Time Duality",
+    "Metric Modulation",
+    "Piano String Inharmonicity",
+    "Shepard Tone Synthesizer",
+    "Semantic Delay",
+    "Preset Oracle",
+    "SMPTE LTC",
+    "Wallpaper Groups",
+    "1 from 2",
+    "Particle Synthesis",
+    "Categorizing Inharmonicity",
+    "Symbiotic Skills"
+   ],
+   "issue": "STANDING ORDER CUTS, part 1: pairs that carry more than one link (the pair keeps one). (a) Action Potential Oscillator ↔ Biomechanical Synthesis carries three: Biomechanical —spawned→ APO, Biomechanical —connects-to→ APO, APO —connects-to→ Biomechanical (APO's body never mentions the hub). Keep the spawned. (b) APO —deepens→ Neural Granular Synthesis and NGS —emerged-from→ APO say the same thing in opposite directions, and deepens points at the ground, which is wrong here (NGS grew from APO). Keep NGS emerged-from; cut APO deepens. (c) APO —connects-to→ FTD and FTD —connects-to→ APO. APO's body gives the reason (refractory period sets a minimum period and so a maximum frequency; fixed spike width couples timbre to pitch); FTD's body never mentions APO. Keep APO's, with a label; cut FTD's. (d) Wallpaper Groups —spawned[tiling-becomes-technique]→ Metric Modulation and Metric Modulation —deepens[temporal-tiling]→ Wallpaper Groups. Neither body mentions the other page (the word 'metric' in Wallpaper's body is 'symmetric'). Keep the spawned only if Loudon can say how Metric Modulation grew from the tilings; if he cannot, cut both. (e) Piano String —connects-to[stretched-octave]→ Shepard and Shepard —connects-to→ Piano String (Shepard's body does give the reason, in § Where the Theory Still Has an Edge). Keep Piano String's labelled one; cut Shepard's. (f) 1 from 2 —mirrors→ Symbiotic Skills and Symbiotic Skills —mirrors→ 1 from 2. Keep 1 from 2's with a label; cut Symbiotic's. (g) Particle Synthesis —deepens→ Granular Synthesis and Granular Synthesis —mirrors[grain-particle-equivalence]→ Particle Synthesis (Granular Synthesis is outside the room; the Granular side carries the label and body paragraph): keep the mirror, cut Particle's deepens. (h) Categorizing Inharmonicity —deepens→ Piano String is re-typed below rather than doubled.",
+   "proposed_action": "Apply the cut half of each pair as stated. All are reversible by a later weave that finds a second reason."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Biomechanical Synthesis",
+    "Shepard Tone Synthesizer",
+    "Semantic Delay",
+    "Metric Modulation",
+    "Wallpaper Groups",
+    "Preset Oracle",
+    "SMPTE LTC",
+    "1 from 2",
+    "Piano String Inharmonicity"
+   ],
+   "issue": "STANDING ORDER CUTS, part 2: typed links whose reason is in no label and in neither body (searched each body for the other page's name or subject). Biomechanical —connects-to→ Particle Synthesis (no mention) and —connects-to→ Frequency-Time Duality (no mention). Shepard —connects-to→ Frequency-Time Duality (no mention) and —connects-to→ Particle Synthesis (no mention; Particle's body does not name Shepard either). Semantic Delay —mirrors→ Frequency-Time Duality (a mirror is a strong claim; Semantic Delay's body never mentions the time-frequency axis or delay time as a continuum). Metric Modulation —emerged-from→ Semantic Delay (no mention; Semantic Delay's rhythmic coupling is syllable and stress, not tempo ratio). Wallpaper Groups —connects-to→ Quantum Synthesizer (the only trace is one Open Question that says 'the way you sonify a quantum wavefunction'). SMPTE LTC —connects-to→ Signal-Rate CV Architecture (no mention) and —connects-to[multi-device-sync]→ Modes of Collaboration (no mention; the label names the sync problem, not the collaboration mode; Kuramoto Coupling would be nearer if any). Preset Oracle —connects-to→ Symbiotic Skills: the oracle's body says 'The oracle is a Symbiotic Skills tool', but Symbiotic Skills never mentions the oracle and its whole subject is the human-AI relationship; ask Loudon whether the oracle was once one of the fourteen skills, otherwise cut. 1 from 2 —connects-to→ FOUR PILLARS (no mention). Piano String —connects-to→ Quantum Synthesizer does not exist as a typed link; its single mention of Quantum Synthesizer is a convention list and needs none.",
+   "proposed_action": "Cut each unless Loudon names the reason; a real connection returns in a later weave with its sentence. Biomechanical→NGS and the Piano String and Haptic links to FTD keep their reasons and are labelled under typed_relations."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Biomechanical Synthesis",
+    "Frequency-Time Duality",
+    "SMPTE LTC",
+    "Slime Mold Delay",
+    "Wavetable Scanner",
+    "Shepard Tone Synthesizer",
+    "Particle Synthesis",
+    "1 from 2",
+    "Meadows and Music — Leverage Points",
+    "Generative Sample Libraries"
+   ],
+   "issue": "Malformed and ghost links in this room (the ghost-link lint found some). Biomechanical: '[[**plasmodium**]]' and '[[mirrors]]'. FTD: '[[2026-10-13-the-flip-three-axes.html]]' written as a wikilink where the sibling lines use '[[proofs/...|...]]'; resolves to no file. SMPTE LTC: body '[[Boundary-Crossing Instrument]]' (singular) and frontmatter '[[Ableton Extension SDK]]' (no such page; the one other mention in the palace is a BLUELINE report). Slime Mold Delay: '[[mesh_dish_check.mjs]]' and '[[slime-mold-flow-dish.html]]' file names as wikilinks. Wavetable Scanner: the forward_vector holds '[[pack_wavetable.py]]' (a script, not a note). Shepard: '[[Auditory Illusions]]' (an invitation; the page does not exist). Particle Synthesis links itself five times in its own body. 1 from 2 lists a claude.ai URL as a typed link (connects-to) though the same URL is already in § Origin. Meadows and Music types its Context as couples-with (and the Context points back connects-to[context-of]); every other page names its Context in one italic footer line. Generative Sample Libraries writes '[[Four Pillars]]' where the entry is FOUR PILLARS.",
+   "proposed_action": "Elder pass: replace the broken tokens with plain words or markdown links; drop Particle's self-links; for SMPTE LTC either write 'Ableton Extension SDK' as plain text or leave it as the invitation it is, and say which; remove the URL from 1 from 2's links (keep it in § Origin); Meadows: replace the typed Context link with the footer line; GSL: [[FOUR PILLARS]]. Keep Shepard's [[Auditory Illusions]] as an invitation only if Loudon wants the family page (see open questions)."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Biomechanical Synthesis",
+    "Metric Modulation",
+    "Wallpaper Groups"
+   ],
+   "issue": "Three open Claude-to-Loudon comments sit unanswered in bodies: Biomechanical § Eight Synthesizer Concepts ('The original sentence ended abruptly. I've completed it based on context ... please verify this matches your intent'), Metric Modulation's tail ('The 3/4 symmetry insight is powerful ... could become a hub for mirror-image compositional techniques'), Wallpaper Groups § World Music ('Consider a dedicated harvest or Walk session targeting Carnatic tāla literature'). The Biomechanical one changes the meaning of the page's instruction to builders.",
+   "proposed_action": "Not to be deleted or resolved by a worker. Surface the Biomechanical one to Loudon for a yes or an edit; the other two are his to act on or release."
+  },
+  {
+   "kind": "naming",
+   "entries": [
+    "Meadows and Music — Leverage Points"
+   ],
+   "issue": "Four small mismatches on one page. The H1 is 'Ten Leverage Points: A Progressive Exploration' while the title is 'Meadows and Music — Leverage Points' and there are eleven exercises (0-10); the Context says 'refined exercises document ... 11 exercises'. type is source with author Donella Meadows and medium paper, yet the body is Loudon's original curriculum (Meadows is quoted, not reproduced); the source is Leverage Points Framework. Exercises 7-10 (capture, morning, deadline, journaling) are career-and-life practice that Meadows and an Artist's Career now carries as its refocus (emerged-from, label refocus-of). The forward vector calls for a field-tested curriculum with student responses and the Context says the reflection tool 'is ready to run again with real participants'; nothing in the bundle shows a run.",
+   "proposed_action": "Rename the H1 to match the title and the count. Ask Loudon whether the type should be project or practice (the page is a curriculum he made from a source, not the source). Say in one line that 7-10 moved into Meadows and an Artist's Career, or decide whether they stay here as the bridge."
+  },
+  {
+   "kind": "naming",
+   "entries": [
+    "1 from 2"
+   ],
+   "issue": "§ Mythological Resonances opens 'Loudon specified four core mythic avatars' and then lists five (Prometheus, Frankenstein, Gilgamesh, Buddha, Sun Wukong). The frontmatter links Trickster, which is the fifth. stage is growing and energy high, but revival_conditions ('Prose writing phase begins') is the field a dormant spore carries.",
+   "proposed_action": "Ask Loudon: four or five? (If Sun Wukong is the trickster layered over the four, say that.) Ask whether the page is growing or dormant until the prose starts; if dormant, the stage changes and the open question 'Prose phase' becomes the revival trigger."
+  },
+  {
+   "kind": "vocab",
+   "entries": [
+    "Slime Mold Delay",
+    "Shepard Tone Synthesizer",
+    "Action Potential Oscillator",
+    "Semantic Delay",
+    "Wavetable Scanner",
+    "Generative Audio Devices",
+    "Generative Sample Libraries",
+    "Neural Granular Synthesis"
+   ],
+   "issue": "'Stage' means two things in these pages and a third word is used for the same build steps. Lifecycle stage (seed to composting) is the frontmatter field; build stages are 'Stage 1-5' (Slime Mold Delay, Shepard, Semantic Delay Stage 0/1, APO, Crystal), 'Phase 1-4' (NGS, GSL, Semantic Delay Phase 1/2), 'Tier: Sketch/Study/Piece' (Wavetable Scanner) and 'T1-T12' (GAD). Slime Mold Delay reads 'stage: sprout' and 'Stage 1 — Spec ... (~current state)' on the same screen; Wavetable Scanner promises a 'Sketch → Study transition' while stage is sprout.",
+   "proposed_action": "No rename campaign. Where the two meet on one page (Slime Mold, Wavetable Scanner, Shepard), say 'build step' or 'tier' for the second. [[Progressive Staging]] stays the name of the teaching method (APO, Shepard Stages 1-4 are that method)."
+  },
+  {
+   "kind": "recipe",
+   "entries": [
+    "Shepard Tone Synthesizer"
+   ],
+   "issue": "Theory § Stage 1 to Stage 4 each open 'Pair with Stage N above (...)', but the page holds no Stages list above them. The stage definitions (MINIMUM-ILLUSION, STEP-AND-SHOW, the glide, the timbre) live on the scroll and in spec files. A reader of the entry alone cannot follow the pairing, and the forward vector asks for exactly this pairing ('each stage of the synthesizer paired with a corresponding theory section').",
+   "proposed_action": "Add a four-line 'The stages' list above Theory (name, one-line what it adds, link to its playable page). The entry is where the pairing is promised, so the list belongs there rather than on the scroll."
+  },
+  {
+   "kind": "recipe",
+   "entries": [
+    "Wallpaper Groups"
+   ],
+   "issue": "The bundle holds recipe-p1, p2, p3, p6 and pm plus a proofs folder, but the entry names one recipe (p4mm, in proofs) and says in § Open Questions that 'Can you directly compose using wallpaper groups?' is open. It has been answered five-plus times in the bundle.",
+   "proposed_action": "One line in the body listing the recipes (and a short note on which groups are covered), and move the open question to 'progressed'. Metric Modulation could be named there if Loudon confirms it as the temporal tiling."
+  },
+  {
+   "kind": "recipe",
+   "entries": [
+    "Categorizing Inharmonicity",
+    "Piano String Inharmonicity"
+   ],
+   "issue": "Two open questions are asked verbatim on both pages: 'Could inharmonicity be used as a compositional parameter?' (Piano String Q1; Categorizing 'Compositional parameter') and the perceptual threshold for audibility (Piano String Q2; Categorizing 'Perceptual threshold'). Piano String § Open Questions also asks about prepared piano and bowed strings, which Categorizing's Cross-Dimensional Interactions already discusses (prepared piano = stretch plus stochastic scatter).",
+   "proposed_action": "Keep the two questions on Categorizing (the taxonomy owns them); on Piano String replace with a one-line pointer. Piano String also carries the same SVG embedded twice (see lighter_prose) and a duplicated sync file string_bending_inharmonicity 1.jsx in its bundle that the page says is identical; delete the duplicate file at an elder's pen."
+  },
+  {
+   "kind": "recipe",
+   "entries": [
+    "Wavetable Scanner",
+    "Tract Mirror",
+    "SMPTE LTC",
+    "Quantum Synthesizer",
+    "Semantic Delay",
+    "LDN RTM"
+   ],
+   "issue": "Which pages that run lack a ledger of what running taught. Quantum Synthesizer (steward cycle 18) and Semantic Delay (steward cycle 9, a daemon and a real model behind it) have scrolls but no tuning ledger, and their Now zones show no 'Runs' or 'Latest lesson' lines. Wavetable Scanner keeps its lessons in 'Wavetable Scanner — gotchas.md' (a ledger in all but name). Tract Mirror and LDN RTM have builds and a rig but no steward yet; when LDN RTM's first take is recorded it will need one.",
+   "proposed_action": "Elder step for Quantum and Semantic Delay (create the ledger when the next run lands). For Wavetable Scanner decide whether gotchas.md is renamed to the tuning convention or kept. Tract Mirror and LDN RTM: nothing until a steward is enchanted."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Wallpaper Groups",
+    "SMPTE LTC",
+    "Metric Modulation"
+   ],
+   "issue": "Claims that look wrong and should be checked before anyone teaches from them (honesty holds). Wallpaper Groups: 'In 1985, crystallographer M.C. Escher and mathematician H.S.M. Coxeter established ... the Alhambra's tilings contain all 17' (Escher was a graphic artist and died in 1972; a worker's web search this pass found that the all-17 claim is disputed: Grünbaum and Shephard's 1986 on-site study counted 13 groups, and one review says only p3m1 is missing; not confirmed against primary sources). The breakdown '4 with no symmetry except translation: p1 / 5 only translation and reflection / 3 only translation and rotation / 5 mixing' does not match the 17 groups (p1 is one group; the rotation-only groups p2, p3, p4, p6 are four; pm, pg, cm are three; nine mix rotation with mirrors or glides). The 'rhythmic impossibility theorem' and the Ewe bell as 'p3' are the page's own constructions, marked in its note as a starting point. SMPTE LTC: 'LTC provides sub-sample precision locking' (LTC marks frame edges; it is not sample-accurate without a shared word clock); 'Reverse playback ... (Probably not — the biphase code assumes forward continuous time)' (biphase mark is self-clocking and tape-era readers decode LTC in reverse and at varispeed; verify); § The Trickster in Timecode gives '00:00:01:24' as a frame count at 24 fps, which does not exist (frames run 0-23). Metric Modulation: the arithmetic line 'quarter note = triplet quarter means the triplet (2/3 of a beat) becomes the new pulse: 120 × 2/3 = 80 BPM' sits beside 'dotted quarter becomes the new quarter: 80 BPM'; a triplet quarter as the new pulse gives 180, a dotted quarter gives 80; they cannot both be 80.",
+   "proposed_action": "Do not edit from this memo. Each goes into the page's Context as 'claims to verify' with this sentence, and the elder who next touches the page checks against a primary source (Grünbaum and Shephard 1986 for the Alhambra; SMPTE 12M for LTC; a metronome for the ratios). Wallpaper's group count can be fixed from any textbook list of the 17."
+  }
+ ],
+ "open_question_resolutions": [
+  {
+   "entry": "1 from 2",
+   "question": "The replication blind spot: intimate AI alignment cannot scale; is that true, or is it the story's blind spot (the only thing that scales is relationship)?",
+   "verdict": "progressed",
+   "by_entry": "Symbiotic Skills",
+   "proposed_action": "Symbiotic Skills is the palace's attempt at exactly this, and its git archaeology (§ What Actually Happened) says what scaled and what did not: the late sequence is teachable, the early stages need years of prior substrate. One sentence in 1 from 2 pointing at it would also give the held mirrors link its reason."
+  },
+  {
+   "entry": "1 from 2",
+   "question": "Prose phase: when to inhabit the voices?",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "Loudon's call. It is the page's revival condition; ask whether the story is waking or sleeping and set the stage to match."
+  },
+  {
+   "entry": "1 from 2",
+   "question": "Scope (novella?), society's response, legal and philosophical implications of immortality",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave open; these are story decisions."
+  },
+  {
+   "entry": "Action Potential Oscillator",
+   "question": "When does the oscillator become Hodgkin-Huxley?",
+   "verdict": "progressed",
+   "by_entry": "Neural Granular Synthesis",
+   "proposed_action": "NGS built the crowd on prescribed-spike neurons and measured what the crowd does; that is evidence for APO's own hypothesis (population behaviour is set by coupling and heterogeneity). Say so in APO and keep the question open for single-neuron spike shape."
+  },
+  {
+   "entry": "Action Potential Oscillator",
+   "question": "At what population size does per-sample cost force compromises, and can they be biologically motivated?",
+   "verdict": "progressed",
+   "by_entry": "Neural Granular Synthesis",
+   "proposed_action": "NGS's RNBO crowd.codebox holds up to 512 neurons and its crowd-size work finds brightness stops changing by about 16 neurons; APO's own crowd is 32 in Faust. Cost per sample is still not stated anywhere; ask the stewards to put one number on each page."
+  },
+  {
+   "entry": "Action Potential Oscillator",
+   "question": "Stochastic channel gating: what does N=10 vs N=10,000 channels sound like? Consciousness as timbre: where does it break down?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave open; nothing in the family touches either (NGS's input-noise variance is crowd-level, not channel count)."
+  },
+  {
+   "entry": "Bayesian Granular Synthesizer",
+   "question": "Expose the prior itself as a paintable distribution; build as a Loudon Live stage with an RNBO engine",
+   "verdict": "progressed",
+   "by_entry": "Bayesian Granular Synthesizer",
+   "proposed_action": "Scroll of 2026-10-22: Belief Cloud's face draws in the VST Template's editor with a prior you paint on the screen, and the work is a VST for Live, not an RNBO stage. Update the entry's Forward Vectors and the vector (see entry_health_flags)."
+  },
+  {
+   "entry": "Bayesian Granular Synthesizer",
+   "question": "Artifact: the V8 code 'could not be retrieved into this deposit'",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Bayesian Granular Synthesizer",
+   "proposed_action": "bayes_engine.js, render_chord_belief.js and build_instrument.js sit in the bundle; delete the stale paragraph."
+  },
+  {
+   "entry": "Bayesian Granular Synthesizer",
+   "question": "Optional grain-entrainment coupling; a Statistics through Synthesis hub",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave open. The hub page does not exist; keep it as a lost branch only."
+  },
+  {
+   "entry": "Biomechanical Synthesis",
+   "question": "Body horror oscillator series for non-neural systems (muscle, cardiac, peristalsis); map the aesthetic onto Kuramoto; visceral interface design",
+   "verdict": "progressed",
+   "by_entry": "Slime Mold Delay",
+   "proposed_action": "Slime Mold Delay (petri dish interface, Physarum dynamics) and Blood Compressor are the non-neural instruments; the Kuramoto mapping is the APO/NGS crowd. The vector list can name these as done or underway."
+  },
+  {
+   "entry": "Categorizing Inharmonicity",
+   "question": "Kuramoto inharmonicity: is there a critical inharmonicity beyond which coupling fails?",
+   "verdict": "progressed",
+   "by_entry": "Harmonicity and Inharmonicity",
+   "proposed_action": "Already annotated in the page (tested 2026-10-17, tone frays rather than snaps). Strike the question and keep the pointer."
+  },
+  {
+   "entry": "Categorizing Inharmonicity",
+   "question": "Interpolation: can you smoothly morph between inharmonicity types?",
+   "verdict": "progressed",
+   "by_entry": "Quantum Synthesizer",
+   "proposed_action": "Quantum's 'round trip' morphs one held tone from the harmonic series through stiffness to the squares and back by the well: a continuous path along one axis of Categorizing's space. Name it in Categorizing as the first worked path; whether Bessel→stretched→stochastic→chaotic is also continuous remains open."
+  },
+  {
+   "entry": "Categorizing Inharmonicity",
+   "question": "Perceptual threshold; compositional parameter; shortest path piano to bell; inverse design; coupled systems / inharmonicity harmony",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Keep all five here. Piano String's two duplicates should point here (see coherence)."
+  },
+  {
+   "entry": "Crystal Synthesizer",
+   "question": "How do you auralize a phonon dispersion curve? Is the dispersion relation itself a timbre parameter?",
+   "verdict": "progressed",
+   "by_entry": "Crystal Synthesizer",
+   "proposed_action": "dispersion-filter/ in the bundle realises Option 3 (render_dispersion.py, dispersed click, anisotropic beryl). Fold the result and strike the question."
+  },
+  {
+   "entry": "Crystal Synthesizer",
+   "question": "Do crystals with high optical birefringence have pronounced acoustic anisotropy? Is there a uniquely chaotic triclinic timbre?",
+   "verdict": "progressed",
+   "by_entry": "Crystal Synthesizer",
+   "proposed_action": "birefringence-proof/ and triclinic-proof/ (diamond vs labradorite, same synth and strike) answer in sound. The scroll's 'only diamond turns out to be a bell' needs to reach the page, since it moves the cubic and triclinic hypotheses."
+  },
+  {
+   "entry": "Crystal Synthesizer",
+   "question": "What is the performance gesture / how would a performer interface with this?",
+   "verdict": "progressed",
+   "by_entry": "Crystal Synthesizer",
+   "proposed_action": "Axis angle and fire are the knobs of the installed VST3/AU (scroll 2026-10-24); the centre screen is still dark. Name the plugin in the entry."
+  },
+  {
+   "entry": "Crystal Synthesizer",
+   "question": "Map anharmonic mode coupling to modulation; can Wallpaper Groups generate crystalline vs amorphous palettes?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave open. Note that obsidian (amorphous) is already the eighth palette entry, so the amorphous half of the Wallpaper question has a handhold."
+  },
+  {
+   "entry": "Frequency-Time Duality",
+   "question": "How wide is the zone, how far does it move between listeners, is it the same on the signal, modulation and polyrhythm axes?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "This is what the rich face and the class marking are for; leave open. The Haptic Handwheel's wobble-becomes-buzz is the touch version of the same question."
+  },
+  {
+   "entry": "Frequency-Time Duality",
+   "question": "How does the perceptual map shift at very slow or very fast tempos (the table used 120 BPM)?",
+   "verdict": "progressed",
+   "by_entry": "Meadows and Music — Leverage Points",
+   "proposed_action": "Exercise 4 'Swing as Resolution' records how much timing nuance is audible at 70 vs 180 BPM; an observation, not a measurement of the zone. Thin; mention only if Loudon wants the lead."
+  },
+  {
+   "entry": "Frequency-Time Duality",
+   "question": "Should the 20 Hz threshold have its own concept entry?",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "A decision for Loudon. The Recursion section already carries the claim; the question is whether another page would receive links. Shepard's 'Auditory Illusions' question is the same kind of decision."
+  },
+  {
+   "entry": "Frequency-Time Duality",
+   "question": "Bring Curtis Roads / Microsound into the conversation; daily cognition",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "No Curtis Roads or Microsound page exists in the palace. Leave open; a harvest of the book would be its own session."
+  },
+  {
+   "entry": "Generative Audio Devices",
+   "question": "T10 second target; polyphony; T8 perceptual-index UI; contextual constraint propagation (layer 3); registry param-count gap",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "All genuinely unbuilt. Steward cycle 0, plan proposal owed (scroll, 2026-10-24)."
+  },
+  {
+   "entry": "Generative Audio Devices",
+   "question": "Device defaults (MIDI input and audio device in each emitted module's data)",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "Loudon's 2026-10-24 re-save of house_bass.vcv is the first source; the steward's plan proposal opens with it."
+  },
+  {
+   "entry": "Generative Sample Libraries",
+   "question": "For AI-audio sub-agents: does Claude critique the candidate before regenerating, or does Loudon?",
+   "verdict": "progressed",
+   "by_entry": "Generative Sample Libraries",
+   "proposed_action": "Scroll decisions gsl-steward-047 and 077: Loudon judges ('Musicgen is ok, the violin has an odd attack ...') and names the keys that sound wrong; the model re-renders only those. Fold in."
+  },
+  {
+   "entry": "Generative Sample Libraries",
+   "question": "Licensing model for student instruments; minimum samples across the keyboard",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave open; the MusicGen-melody CC-BY-NC line is the first stake."
+  },
+  {
+   "entry": "Generative Sample Libraries",
+   "question": "Interview skill: promotion to the user-skill space once Phase 3 validates against a non-Kokoro source",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "Crystal (Hexagonal) and Shepard-tone instruments shipped as Phase 3 sources one and two, so the stated criterion is met; a promotion proposal is drafted (interview-skill-promotion-proposal.md). Loudon's yes."
+  },
+  {
+   "entry": "Haptic Handwheel",
+   "question": "Open before anything is bought: cap weight, motor friction, whether this motor can carry a pitch as well as a push, twist or push, one object or two",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "Scroll: the simulation and paper work are done and the parts list has waited on Loudon's yes since 2026-10-13. Everything left needs a hand."
+  },
+  {
+   "entry": "Haptic Handwheel",
+   "question": "Can the hand absorb a feel that keeps changing, or does it need a few that stay put?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Only playing will show. Leave open."
+  },
+  {
+   "entry": "LDN RTM",
+   "question": "What remains before the pilot chunk: RTM Sandbox.als, one take with real audio, one video watched at speed",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "Loudon's recording day; nothing for a worker."
+  },
+  {
+   "entry": "LDN RTM",
+   "question": "Does the Post-producer's promotion ladder count RTM chunks as it counts sessions? Does the public checklist page live in the palace or on the channel?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave open until a chunk ships."
+  },
+  {
+   "entry": "Meadows and Music — Leverage Points",
+   "question": "Forward vector: field-test the exercises with real students and reorder if the evidence says so",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "The Context says the reflection tool is ready to run; nothing in the bundle shows a run. Loudon's decision, probably in class."
+  },
+  {
+   "entry": "Metric Modulation",
+   "question": "Polyrhythmic extensions: can two sections run at metrically related tempos simultaneously and stay stable?",
+   "verdict": "progressed",
+   "by_entry": "Frequency-Time Duality",
+   "proposed_action": "FTD § Polyrhythms Become Intervals: the same 3:2, 4:3, 5:4 ratios as tempo ratios, heard as groove then buzz then interval. The ratio list in Metric Modulation is the interval list in FTD; say so in both."
+  },
+  {
+   "entry": "Metric Modulation",
+   "question": "Audience receptivity / telegraphing; once per song or a longer arc; live triggering without preparation",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave open. The Max automation Loudon was building is not in the bundle (only face.json and proofs)."
+  },
+  {
+   "entry": "Neural Granular Synthesis",
+   "question": "Can threshold variance be tuned to target regions of timbre space? Does coupling correlate with a timbre dimension? What is the minimum population for a stable timbre?",
+   "verdict": "should-act",
+   "by_entry": "Neural Granular Synthesis",
+   "proposed_action": "All three are answered on the scroll by measurement: variance moves the edge (everything collapses onto K÷spread), coupling past the lock acts like a filter cutoff (brightness), minimum crowd is about 16 for brightness and depends on synchrony. The steward proposed folding them in twice. Fold in and strike."
+  },
+  {
+   "entry": "Neural Granular Synthesis",
+   "question": "How does pacemaker proportion affect perceptual liveliness?",
+   "verdict": "progressed",
+   "by_entry": "Neural Granular Synthesis",
+   "proposed_action": "Already part-folded in the page (surge below the lock). The scroll adds the lumpiness finding and says nobody has listened; the ear question stays open."
+  },
+  {
+   "entry": "Particle Synthesis",
+   "question": "Can particle behaviour be learned rather than designed?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave open; the grain-cloud siblings (NGS, Bayesian) steer by learned and probabilistic layers respectively, which is the live version of the question."
+  },
+  {
+   "entry": "Particle Synthesis",
+   "question": "Explore particle collision as a compositional primitive; build the first GPU prototype",
+   "verdict": "progressed",
+   "by_entry": "Particle Synthesis",
+   "proposed_action": "Scroll 2026-10-22: 1024 ice grains from two fountains clack in mid-air on the GPU, with an A/B against passing through. Update the vector and the Forward Vectors list."
+  },
+  {
+   "entry": "Piano String Inharmonicity",
+   "question": "Connect stretched partials to the breakdown of octave equivalence: when does a piano octave stop sounding like an octave?",
+   "verdict": "progressed",
+   "by_entry": "Shepard Tone Synthesizer",
+   "proposed_action": "Shepard § Where the Theory Still Has an Edge: in a stretched tuning the dropped voice no longer lands on its own pitch class and the seam should begin to show by ear. A claim, not yet heard; leave the question open with that pointer."
+  },
+  {
+   "entry": "Piano String Inharmonicity",
+   "question": "Use inharmonicity coefficients as synthesis parameters: what lives between harmonic and inharmonic?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Categorizing Inharmonicity",
+   "proposed_action": "Categorizing's six-type palette and Synthesis Directions are that question's home. Replace with a pointer."
+  },
+  {
+   "entry": "Piano String Inharmonicity",
+   "question": "Migrate the JSX demo to a single self-contained HTML (APO pattern)",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "'Conversion work, not invention' per the page; no steward, no plan, no scroll. Needs a plan from Loudon or an offer to a steward."
+  },
+  {
+   "entry": "Preset Oracle",
+   "question": "Archive student responses to the challenges as a teaching method",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "Needs students; Loudon's. The page is otherwise complete."
+  },
+  {
+   "entry": "Quantum Synthesizer",
+   "question": "Prove, with audio and video, that the Schrödinger equation is a synthesis system",
+   "verdict": "progressed",
+   "by_entry": "Quantum Synthesizer",
+   "proposed_action": "Scroll: every claim in the entry is tested and playable, one fix landed, four more drafts wait on Loudon's yes, and a plan to move the instrument into Ableton waits on his yes. Both are Loudon's."
+  },
+  {
+   "entry": "SMPTE LTC",
+   "question": "Reverse playback: can LTC be read backward or at fractional speeds?",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "The page guesses 'probably not'; LTC readers commonly decode reverse and varispeed. Verify against the standard and change the answer."
+  },
+  {
+   "entry": "SMPTE LTC",
+   "question": "Multi-rate: can one LTC stream serve both a 24 fps camera and a 25 fps system?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Likely answerable from the spec (the bit rate is the frame rate, so probably no); check before testing."
+  },
+  {
+   "entry": "SMPTE LTC",
+   "question": "Perceiving LTC in a mix; jitter on long runs; resampling 48 to 96 kHz; drop-frame over one hour",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "All need the Max implementation, which is not in the palace (bundle holds face.json and an empty scroll)."
+  },
+  {
+   "entry": "Semantic Delay",
+   "question": "The Naming Problem: Semantic Delay or Duppy Machine (or a two-level name)",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Loudon's to settle; the page offers a subtitle form. A third of the body is this deliberation (see lighter_prose)."
+  },
+  {
+   "entry": "Semantic Delay",
+   "question": "Stage 0 quality check on the generated audio before Stage 1",
+   "verdict": "progressed",
+   "by_entry": "Semantic Delay",
+   "proposed_action": "Scroll Plan: Loudon passed the sound in May; the helper's contract, a playable Python instrument and multi-voice echoes are built; the real model is behind the helper (2026-10-14). Delete § Status."
+  },
+  {
+   "entry": "Semantic Delay",
+   "question": "Missing artifacts: Spirit Compendium and Technical Blueprint (location to be recovered)",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Unchanged since 2026-03. If still unlocated, record 'lost' in the Context so no worker searches again."
+  },
+  {
+   "entry": "Shepard Tone Synthesizer",
+   "question": "Best amplitude function for the global filter; should per-voice filters be performer-adjustable; compress the octave stack dynamically",
+   "verdict": "progressed",
+   "by_entry": "Shepard Tone Synthesizer",
+   "proposed_action": "Stage 1 settled on Gaussian in log2(Hz); Stage 4 found the window belongs on the voice and that extreme voices are already 100 dB down. Question 3 is nearly answered by that. Fold into Design Challenges."
+  },
+  {
+   "entry": "Shepard Tone Synthesizer",
+   "question": "Microtuning and interval cycles; interaction with reverb and delay",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave open."
+  },
+  {
+   "entry": "Shepard Tone Synthesizer",
+   "question": "An auditory illusions series: does the family (Risset rhythm, aliasing, continuity, streaming) want its own entry, Auditory Illusions?",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "Loudon's decision; the ghost link is the invitation. Risset's accelerating rhythm is the Shepard tone in the time domain and so touches Frequency-Time Duality; if the family entry is made, that is its first real link."
+  },
+  {
+   "entry": "Slime Mold Delay",
+   "question": "Should the user draw preferred paths? How fast should the mold think? One sink or many? Can eat/starve be automated?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "The scroll says Loudon's listen on the dish is the next gate; these four wait on it."
+  },
+  {
+   "entry": "Symbiotic Skills",
+   "question": "Which of the three reframes (honest-prerequisite, late-sequence, two-track) does the rewrite commit to? Keep the bio/social layers? How is the pre-git period acknowledged?",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "Loudon's decision to open the rewrite session; the page is deliberately waiting on it. No steward, no plan."
+  },
+  {
+   "entry": "Symbiotic Skills",
+   "question": "Minimum viable graph density; teaching Typed Edge without bureaucracy; integration with Claude Projects and Code",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Carried unchanged from the original. The archaeology answered part of the second (typed edges feel non-bureaucratic only when the material is already felt as related)."
+  },
+  {
+   "entry": "Tract Mirror",
+   "question": "Learn to speak by listening (v2 record-and-analyze engine); play MIDI controls and Word mode in Live",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "The Live check waits on Loudon at the machine (scroll move 1). The v2 engine has no design yet."
+  },
+  {
+   "entry": "Wallpaper Groups",
+   "question": "Can you compose directly using wallpaper groups? How would you teach the 17 through making?",
+   "verdict": "progressed",
+   "by_entry": "Wallpaper Groups",
+   "proposed_action": "Five recipes plus the p4mm proof are in the bundle; Metric Modulation is claimed as the temporal technique. List them in the body and mark the question progressed."
+  },
+  {
+   "entry": "Wallpaper Groups",
+   "question": "In which 3D space groups do minerals with striking optical properties live? Does high symmetry correlate with birefringence?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Crystal Synthesizer",
+   "proposed_action": "Crystal Sonification Reference lists the space group for each of eight minerals and the birefringence proof tests the correlation for beryl. Point there."
+  },
+  {
+   "entry": "Wallpaper Groups",
+   "question": "A most-inharmonic wallpaper group; a 4D wallpaper group; the Alhambra p6mm and Balkan meters; Messiaen's modes",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave open. The first is the 2D cousin of Crystal's finding that the lowest symmetry (triclinic) is the most scattered."
+  },
+  {
+   "entry": "Wavetable Scanner",
+   "question": "Auto-sort by centroid on upload; where the 2D scanner lives; retire the standalone copy",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave open. No steward and no plan; the vector (JS port of pack_wavetable.py) is the next move."
+  }
+ ],
+ "merge_candidates": [
+  {
+   "absorb": "Action Potential Oscillator § Population Dynamics (raster plots, Hodgkin-Huxley vs simplified, Faust par())",
+   "into": "Neural Granular Synthesis",
+   "survives_as_subsection": "One paragraph in APO ('the population layer is NGS's crowd; the single neuron here feeds it') plus a link; the full treatment stays where the crowd instrument and its measurements live.",
+   "rationale": "The section restates NGS § The Raster Plot, § Biological Fidelity and Phase 3, and NGS owns the measured version. Section-level only: both entries are alive with stewards and ledgers, so no entry merge."
+  }
+ ],
+ "compost_candidates": [],
+ "memory_needs": [
+  {
+   "entry": "Generative Audio Devices",
+   "needs": "context",
+   "why": "The face carries the whole closed-task forensics (T1 to T6, about 40 lines) and a 'Notes for Future Claude Instances' list. That is memory, not the page's face; it makes the 19 KB body read as history rather than where the project stands (which the vector already says).",
+   "context_bullets": [
+    "Why PDL is target-agnostic and VCV is the first test, never the destination: the three-layer bet, and why the registry is the only thing that changes per target.",
+    "What was tried and dropped: curve-aware sampling (VCV time knobs already log-mapped; the v0.1 click was region choice), the web-fetch route for registry param counts (rejected), writing .vcv by hand when the emitter zeroed params (the gap T7a closed), and the real-emitter and layout harnesses that were local and are not in the palace.",
+    "The lessons per task (T1 to T6) and the standing cautions: the embedded-block/on-disk-JSON pair drifts; silent regex rejection is the first hypothesis; topology works is not sound; dialogue before schema changes."
+   ]
+  },
+  {
+   "entry": "Generative Sample Libraries",
+   "needs": "context",
+   "why": "22 KB face, steward-tended, 21 cycles since the entry was last consolidated; it tells the Kokoro 'A' pronunciation lesson twice and holds a long 'Not yet folded in here' paragraph that is really the scroll's job.",
+   "context_bullets": [
+    "Why SFZ first (plain text, generated as a string), DecentSampler second (distribution to students), SF2 only by conversion, Kontakt not at all; and why Wavetable split off on 2026-05-02.",
+    "Where the Interview skill lives and why (project-local until a non-Kokoro source validates it; that criterion is now met), the two hard gates, and the Phase 1 pilot lesson told once.",
+    "How the steward and the entry relate: which parts of the page are known to lag, and the consolidation marker (cycle 17) to measure against."
+   ]
+  },
+  {
+   "entry": "Semantic Delay",
+   "needs": "context",
+   "why": "The page left out the history of its own shape: a speculative three-stage LLM architecture, then a decision on 2026-04-20 to lead with voice conversion, with a naming deliberation and dated numbers on top. A new worker cannot tell the live architecture from the deferred one.",
+   "context_bullets": [
+    "Why SVC before SVS and why two processes (the audio thread cannot host a flow-matching model; the daemon's RPC is the stable contract), and what Stage 0 measured (RTF about 1.65 on M1 Max, so an echo needs 8 s or more).",
+    "The naming question as it stood (Semantic Delay vs Duppy Machine, accessibility vs resonance) and that it is unsettled by design.",
+    "What is deferred, not dropped: the spirit pantheon and the LLM transform (Phase 2), the connotation reverb, and the two missing documents (Spirit Compendium, Technical Blueprint), recorded as unlocated."
+   ]
+  },
+  {
+   "entry": "Symbiotic Skills",
+   "needs": "context",
+   "why": "Half the page is a six-week git archaeology that proves the page's own body hypothesis false. The face still teaches the sequence the archaeology disproves, with a note to treat it as a hypothesis. A worker meeting this cold cannot tell which part to trust.",
+   "context_bullets": [
+    "The archaeology's verdict: the palace did not start as a node; commit 1 was already 27 files, so Node to Edge to Typed Edge to Network happened off-camera.",
+    "The three reframes (honest-prerequisite, late-sequence, two-track) and what each would keep or drop; the 14 original skills of which 11 dissolved into the substrate.",
+    "Predicted-versus-actual lists, kept as the evidence; the face then states only the framework once Loudon chooses."
+   ]
+  },
+  {
+   "entry": "Crystal Synthesizer",
+   "needs": "context",
+   "why": "The page deliberately holds every timbral description as an untested hypothesis ('The Crystal Synthesizer exists precisely to test them'); the bundle has since tested several. A worker folding in results needs to know what the rule is and which proof answers which claim.",
+   "context_bullets": [
+    "The hypothesis rule: every lattice timbre is a prediction; mark each tested or not, keyed to its proof folder (calcite-vs-quartz, birefringence-proof, triclinic-proof, dispersion-filter, playable-crystal).",
+    "Why four architecture options were written and which was built first (Option 1 and 2 realised as the RNBO bank; Option 3 as dispersion-filter; Option 4 not built), and the move to a VST on 2026-10-21.",
+    "The finding that cuts across the page: ring times from Raman line widths make only diamond a bell."
+   ]
+  },
+  {
+   "entry": "Haptic Handwheel",
+   "needs": "context",
+   "why": "The body already carries a § Lost branches and several hedges (the two kinds of force is 'Claude's reasoning ... and it is untested'; prior art 'only from search summaries'). These are memory in the face.",
+   "context_bullets": [
+    "The declined and parked pages: the physics-as-interface concept page (parked in Palace To-Do's archive) and the vintage-instrument aesthetic page (declined until a second object exists).",
+    "What is reasoning versus verified: the force split, the prior-art survey method and its caveats, the doubted starter-build brief ('push against all parts of it') and which pushes have been made.",
+    "The research-versus-product split: instrument is the research, the context knob the nearer product, and Loudon's agreement."
+   ]
+  },
+  {
+   "entry": "LDN RTM",
+   "needs": "context",
+   "why": "§ Lost branches (cadence, the 90-second perspective slot, the audio outro tag, the corner cam) is history in the face. The page's decision about the control panel's aesthetic override must stay in the entry, because CLAUDE.md requires it there.",
+   "context_bullets": [
+    "The rejected shapes and why: fixed cadence of 20 videos, a designated perspective segment, an outro tag, a corner cam, a name other than RTM.",
+    "Why no timeline is ever opened and the retake budget of two (honesty of the stumble), set against the no-analytics rule that protects the maker.",
+    "Why renders land beside their sources: the first default wrote student feedback into the palace repo."
+   ]
+  },
+  {
+   "entry": "Wallpaper Groups",
+   "needs": "context",
+   "why": "The world-music section was seeded from an enrichment card and says it 'wants deep research'; the page contains several claims a reader might repeat that do not check out (see the honesty finding). A Context is where 'verify before teaching' belongs.",
+   "context_bullets": [
+    "Claims to verify before use: Escher and Coxeter 1985 and the all-17 Alhambra claim (disputed; Grünbaum counted 13), the 4-5-3-5 breakdown of the 17, the 'rhythmic impossibility theorem', Ewe bell as p3, son clave as broken p2.",
+    "Origin of § World Music (enrichment card, Loudon: 'an exciting direction for the entry to go') and the pending Carnatic and West African research.",
+    "The recipes in the bundle and the p4mm recipe's inversion ('you compose against the group, not with it')."
+   ]
+  },
+  {
+   "entry": "Action Potential Oscillator",
+   "needs": "context",
+   "why": "Two things the face left out change what a worker should trust: the artifact's source of truth is 'the Claude project Neural synthesizer ... Palace copy is a periodic snapshot' (stale: stewards build in the bundle now), and the Gen~ versus Faust fork.",
+   "context_bullets": [
+    "Why Gen~ for the staged teaching series (equations visible) and Faust for the population (par(i, N, neuron(i))), and why Stage 4 moved from modules to codebox.",
+    "Where the instrument lives now (neuropulse.dsp, pitch-anchor, RNBO), and the border with Neural Granular Synthesis.",
+    "What the philosopher visit of 2026-05-05 and the Threshold Conatus dialogue added, and that the Stage 6 section is philosophy, not a build stage."
+   ]
+  },
+  {
+   "entry": "1 from 2",
+   "needs": "context",
+   "why": "The face is a story bible whose Loudon quotes are the authorial spine; a worker who tidies it would lose the one thing the page exists to protect, and one section is sensitive.",
+   "context_bullets": [
+    "The quotes are verbatim and not to be paraphrased; the thesis is also the method (the story was made cooperatively and cannot be claimed by one author).",
+    "Why prose waits (the architecture is complete; the Vonnegut voice is the open act) and where finished prose will live (the bundle, not the face).",
+    "The four-versus-five mythic avatars and Loudon's decision on them."
+   ]
+  },
+  {
+   "entry": "Biomechanical Synthesis",
+   "needs": "context",
+   "why": "The hub's shape (eight instruments, five unbuilt; a DAW-as-narrative-world digression; the grotesque as pedagogy) is explained nowhere, and an unanswered edit note sits in the body.",
+   "context_bullets": [
+    "Which of the eight are built, which are close kin, and which exist only here.",
+    "Why the aesthetic is mandatory pedagogy, not decoration (a student who builds a hydraulic compressor feels gain reduction), and the haiku enrichment.",
+    "The pending 'original sentence ended abruptly' edit for Loudon's yes."
+   ]
+  },
+  {
+   "entry": "Quantum Synthesizer",
+   "needs": "tuning",
+   "why": "Steward cycle 18 and every claim tested, yet no tuning ledger exists and the scroll's Now zone shows no Runs or Latest lesson. Eighteen cycles of what running taught are only in the trail.",
+   "context_bullets": [
+    "The five corrections the proofs made (walls choose shapes; the i turned by a small angle gives uniform damping; only the circle stays inharmonic under Schrödinger; piano stretch is linear).",
+    "Which four drafts for the entry wait on Loudon's yes.",
+    "What each proof video showed that the prose could not."
+   ]
+  },
+  {
+   "entry": "Semantic Delay",
+   "needs": "tuning",
+   "why": "A running daemon, a real model, and nine steward cycles with no ledger of what running taught (MPS patches, RTF numbers, the speed-vs-quality ask).",
+   "context_bullets": [
+    "The three Apple Silicon patches and the pinned PyTorch version.",
+    "The speed versus quality decision of 2026-10-14 (four versions of one echo).",
+    "What the placeholder daemon hid until the real model replaced it."
+   ]
+  },
+  {
+   "entry": "Wallpaper Groups",
+   "needs": "scroll",
+   "why": "Concept page, but it has made things (recipes p1, p2, p3, p6, pm, proofs) and an agreed-looking direction (code library with visual and audio applications) with nowhere that lists them newest first.",
+   "context_bullets": [
+    "The recipe list and proof list.",
+    "Whether the direction is the YAML vector or the older body one.",
+    "Whether a Metric Modulation chapter is part of the trail."
+   ]
+  },
+  {
+   "entry": "Piano String Inharmonicity",
+   "needs": "scroll",
+   "why": "It has a concrete, unscheduled job (migrate the JSX demo to the APO HTML pattern) and a proofs folder, but no plan home. Without a scroll the migration has no owner.",
+   "context_bullets": [
+    "The migration target path and the convention list.",
+    "The two JSX files and which to keep.",
+    "The three questions that should point to Categorizing."
+   ]
+  },
+  {
+   "entry": "Preset Oracle",
+   "needs": "scroll",
+   "why": "The only project in the room with no scroll; it has a proofs folder, is complete, and its forward vector (archive student responses) is a real plan waiting for use.",
+   "context_bullets": [
+    "Where the challenge pools live.",
+    "What a student-response archive would hold.",
+    "Whether complete means no steward is wanted."
+   ]
+  }
+ ],
+ "lighter_prose": [
+  {
+   "entry": "Generative Sample Libraries",
+   "where": "§ Under Active Stewardship",
+   "passage": "'Not yet folded in here: the full Crystal (Hexagonal) instrument lives at Projects/Generative Sample Libraries/crystal-instrument/ (88 notes A0–C8 × 2 velocity layers, 176-region SFZ); the Shepard-tone instrument lives at ... the F1 12.7-cent bottom-octave wrinkle is FFT-bin quantization in the verifier, not a synthesis artifact; Phase 3 source three ... is the next named direction in the steward's baton but not yet scaffolded.'",
+   "proposal": "delete",
+   "words": "Keep the first sentence ('tended by a permanent steward and may lag its live state') and the pointer to the scroll; delete the 'Not yet folded in' paragraph and the 'As of last consolidation' line. The scroll holds all of it and the paragraph is stale (source three is no longer the plan)."
+  },
+  {
+   "entry": "Generative Sample Libraries",
+   "where": "§ Phase 2, 'Why both gates are mandatory'",
+   "passage": "'The Phase 1 Talking Keyboard build (May 2026) demonstrated the cost. We had a working test mode that produced four valid WAVs — but we treated files exist as files are right ... Kokoro pronounced the letter A as the indefinite article (uh) ...'",
+   "proposal": "delete",
+   "words": "The same Kokoro 'A' story is told in Phase 1's 'Phase 1 lesson' four paragraphs earlier. Keep the Phase 1 telling and let Phase 2 say in one sentence that the two gates exist because of it."
+  },
+  {
+   "entry": "Generative Sample Libraries",
+   "where": "§ Palace Connections",
+   "passage": "'Crystal Synthesizer — first real palace-synthesis source ... Shepard Tone Synthesizer — Shepard tones become a perpetual-tone sustain instrument ... Four Pillars — student-deployable instruments via DecentSampler align with the pedagogical scaffold'",
+   "proposal": "delete",
+   "words": "Nine bullets restating frontmatter links and sentences already in the body. The links carry the reasons; the section adds the gloss twice."
+  },
+  {
+   "entry": "Generative Audio Devices",
+   "where": "§ Current State, 'Closed task log'",
+   "passage": "'T1–T4b, T12: Emitter written; registry source-verified (catastrophic errors corrected: VCF input order, ADSR gate at index 4 not 0 ...) ... Lesson: the fastest debug is making failures visible in the surface the user already edits.'",
+   "proposal": "simplify",
+   "words": "The page's own vector says 'the closed-task forensics live in the body'. Move the T1-T6 entries to the Context verbatim and leave one paragraph in the face: what exists, what does not (T8, T10, polyphony, device defaults). Same for 'Notes for Future Claude Instances'."
+  },
+  {
+   "entry": "Semantic Delay",
+   "where": "§ Status",
+   "passage": "'Currently active. Stage 0 complete as of 2026-04-20. Awaiting quality check on generated audio before Stage 1.'",
+   "proposal": "delete",
+   "words": "Stale (the scroll says Loudon passed the sound in May and the real model is behind the helper). The 'Missing artifacts' list below it is worth keeping on its own."
+  },
+  {
+   "entry": "Semantic Delay",
+   "where": "§ The Naming Problem",
+   "passage": "'Is this FOR musicians who want a rhythmically coupled effect in their DAW? → name emphasizes rhythm and delay / Is this FOR vocalists ... / Is this FOR people interested in AI-driven creative tools? ... / Is this FOR people steeped in dub ...'",
+   "proposal": "simplify",
+   "words": "Eight paragraphs and two four-way lists for one unsettled choice. Keep: two poles (Semantic Delay is clear, Duppy Machine is deep), the subtitle form 'Duppy Machine: a semantic delay', and 'which door to open first'. Cut the audience enumeration."
+  },
+  {
+   "entry": "Slime Mold Delay",
+   "where": "§ What This Entry Is and Isn't",
+   "passage": "'Is: the design specification — biological mapping, DSP architecture, interface mythology, pedagogical framing. Promotes Slime Mold Delay from a one-line hub entry to a project with stage and forward vector.'",
+   "proposal": "delete",
+   "words": "The 'Is' paragraph is the entry's own self-explanation and the second sentence is history git holds. Keep the 'Isn't' paragraph (what exists, that nobody has listened)."
+  },
+  {
+   "entry": "Slime Mold Delay",
+   "where": "§ Forward Vectors and § Palace Connections",
+   "passage": "'Stage 1 — Spec the topology engine + audio engine architecture (~current state) / Stage 2 — Build a non-realtime prototype ...' and 'Biomechanical Synthesis — the hub this completes / Retrospective Delay — the contrasting delay project ...'",
+   "proposal": "delete",
+   "words": "The five stages are the plan, now on the scroll, and 'Stage 1 (~current state)' is stale (a playable dish exists). Palace Connections repeats frontmatter and body sentences."
+  },
+  {
+   "entry": "Piano String Inharmonicity",
+   "where": "§ The Physics, spectrum figure",
+   "passage": "The SVG '![[proofs/2026-05-05-stretched-partials.svg]]' is embedded twice (before and after the small-B approximation), with a caption that repeats the paragraph above it ('At n = 12 with B = 0.001, the partial sits 184 Hz sharp ...').",
+   "proposal": "simplify",
+   "words": "One embed, one caption. The 184 Hz sentence is already in the paragraph; keep it once."
+  },
+  {
+   "entry": "Piano String Inharmonicity",
+   "where": "§ Related Concepts and § Forward Vectors",
+   "passage": "'Harmonicity and Inharmonicity — General framework / Boundary-Crossing Instruments — String bending as boundary crossing / ...' and 'Migrate the existing JSX demo to the Action Potential Oscillator HTML pattern (see § Artifacts → Migration target) ...'",
+   "proposal": "delete",
+   "words": "The Related Concepts list repeats links already in text; the first forward vector repeats the Migration target paragraph. Keep one."
+  },
+  {
+   "entry": "Categorizing Inharmonicity",
+   "where": "§ 1 Stretched Tuning",
+   "passage": "'Physical origins: Stiff strings: restoring force increases with displacement (nonlinear potential) ... Synthesis mechanism: ... Nonlinear spring models where the restoring force is k·x + λ·x³ ... Perceptual character: Warm, bell-like ...'",
+   "proposal": "simplify",
+   "words": "Shrink to the formula, one line of origin (linear bending stiffness), a link to Piano String Inharmonicity for the physics, and one line of perceptual character; the longer treatment is Piano String's. (Also fixes the factual slip noted under coherence.)"
+  },
+  {
+   "entry": "Action Potential Oscillator",
+   "where": "§ Population Dynamics and § Roadmap Connections to Palace",
+   "passage": "'The connection to Neural Granular Synthesis is direct: if each neuron IS a grain, then neural population dynamics IS granular synthesis ... Hodgkin-Huxley vs. simplified models represents a design choice ... Faust par() primitive: A population of N neurons in Faust is a single parallel expression ...' and the three Roadmap paragraphs that restate Kuramoto Coupling, Boundary-Crossing Instruments and Frequency-Time Duality.",
+   "proposal": "simplify",
+   "words": "Population Dynamics is NGS's ground; keep the heterogeneity-symmetry-breaking paragraph and one on HH versus integrate-and-fire, point to NGS for rasters and the par() layer. Roadmap Connections restates links already in the frontmatter; keep only the sentence on the refractory ceiling."
+  },
+  {
+   "entry": "Action Potential Oscillator",
+   "where": "§ Implementation Status (March 2026)",
+   "passage": "'Stages 1–4 are implemented and playable ... The source of truth for this artifact is the Claude project Neural synthesizer where iterative development happens. Palace copy is a periodic snapshot.'",
+   "proposal": "simplify",
+   "words": "The snapshot sentence is stale; the scroll shows stewards building in the palace. State what exists now (stages 1-4 plus the Faust crowd) in two lines and move the three implementation decisions (frequency compensation, V_start_actual, latch) to the Context."
+  },
+  {
+   "entry": "Particle Synthesis",
+   "where": "throughout",
+   "passage": "'Rather than treating grains as discrete audio objects ... [[Particle Synthesis]] models each grain as a physical particle' (five self-links); 'The conversations that produced [[Particle Synthesis]] explicitly drew these parallels:'",
+   "proposal": "simplify",
+   "words": "Drop the self-links and the provenance clause ('the conversations that produced ...'); state the three parallels as plain facts."
+  },
+  {
+   "entry": "Quantum Synthesizer",
+   "where": "tail",
+   "passage": "'Revival conditions: Accessible quantum computing frameworks (even simulators) reaching synthesis platforms; composers and instrument designers becoming literate in Hermite-Gaussian ... Key insight: There is no gap between real quantum systems and sonified quantum mathematics. The mathematics is the physics. The physics is the sound.'",
+   "proposal": "delete",
+   "words": "The page is a sprout with eighteen steward cycles, not dormant, so revival conditions describe a state it left. The closing 'Key insight' restates the page's opening paragraph."
+  },
+  {
+   "entry": "Symbiotic Skills",
+   "where": "§ Forward Vector (body)",
+   "passage": "'The archaeology prerequisite is met. The entry is now ready for a full rewrite session. Open questions the rewrite must address: ... This entry's drive: to be rewritten as a framework grounded in the real developmental sequence, not the predicted one.'",
+   "proposal": "simplify",
+   "words": "The YAML vector already says it. Keep the six open questions as a plain Open Questions list and cut the framing sentences."
+  },
+  {
+   "entry": "Wallpaper Groups",
+   "where": "§ Forward Vector (body)",
+   "passage": "'I am driven to create a library of code with visual and audio applications that demonstrate wallpaper groups.'",
+   "proposal": "delete",
+   "words": "Contradicts the YAML vector on the same page. Keep one."
+  },
+  {
+   "entry": "Wavetable Scanner",
+   "where": "§ Cascade resolution and § Gotchas seen on this build",
+   "passage": "The four-row 'Cascade resolution' table (mechanical floor / palace base / project override / brief override) with 'No deviations declared' and 'None' twice, and seven headline gotchas that the linked 'Wavetable Scanner — gotchas' file already holds.",
+   "proposal": "simplify",
+   "words": "Say once that the page wears the Loudon Live Design System with no deviations; delete the table. Replace the seven gotcha bullets with the pointer and the one that changed the design (drone by default)."
+  },
+  {
+   "entry": "Metric Modulation",
+   "where": "§ DAW Implementation Challenges",
+   "passage": "'Graphics rendering issues on Mac (Unicode musical note symbols from the Musical Symbols block have poor font support; text-based labels are more reliable)'",
+   "proposal": "delete",
+   "words": "An aside about a session's rendering issue, unrelated to the technique. The other three bullets (tempo automation does not know ratios, MIDI clip timing, export misalignment) are the real friction."
+  },
+  {
+   "entry": "SMPTE LTC",
+   "where": "§ The Trickster in Timecode",
+   "passage": "'A scene that is 1 second long in real time can be represented as 00:00:01:00 (one frame at 1 fps, nonsensical) or 00:00:01:24 (one frame at 24 fps) or 00:00:01:00 (one second in any fps if frames are large).'",
+   "proposal": "simplify",
+   "words": "Incoherent as written (frame 24 does not exist at 24 fps). Keep the true and good sentence: timecode counts frames, not seconds, and drop-frame skips numbers to keep the clock honest."
+  },
+  {
+   "entry": "Biomechanical Synthesis",
+   "where": "§ Cross-Domain Resonance",
+   "passage": "'Biomechanical Synthesis [[mirrors]] [[Boundary-Crossing Instruments]] — the recognition that signal flow, biological flow, and narrative flow are the same pattern in different materials.'",
+   "proposal": "simplify",
+   "words": "Write 'mirrors Boundary-Crossing Instruments' in plain words; the link-type token is a ghost."
+  },
+  {
+   "entry": "Shepard Tone Synthesizer",
+   "where": "Theory, Stages 3 and 4",
+   "passage": "'The glide also showed something I didn't expect.' and 'the one that corrects my own architecture: the window belongs on the voice, not on the sum.'",
+   "proposal": "simplify",
+   "words": "First-person steward narration inside an entry whose other voices are Loudon's and the page's. State the findings in the page's voice; the 'I didn't expect' belongs on the scroll."
+  }
+ ],
+ "entry_health_flags": [
+  {
+   "entry": "Haptic Handwheel",
+   "stage_current": "seed",
+   "stage_proposed": "sprout",
+   "vector_issue": null,
+   "note": "A seed is 'a name and a minimal body'; this page has a 19-link web, a long argued body, a steward at cycle 9, a simulation and paper work done, firmware and Max folders. Nothing is built in hardware, which is the honest reason to stop at sprout and not growing. Loudon confirms."
+  },
+  {
+   "entry": "Particle Synthesis",
+   "stage_current": "sprout",
+   "stage_proposed": "growing",
+   "vector_issue": "Reached: it asks for 'a first working prototype ... GPU compute shader generating 1000 audio-rate particles'; the scroll (2026-10-22) has 1024 grains on the GPU, mid-air collisions and an A/B. The vector needs its next hunger (listening, a sound that is physics and not parameter modulation, per the scroll's 'nobody has listened yet').",
+   "note": "Seven steward cycles; five typed links; a real build. Nobody has listened, which could argue for waiting."
+  },
+  {
+   "entry": "Quantum Synthesizer",
+   "stage_current": "sprout",
+   "stage_proposed": "growing",
+   "vector_issue": "Reached: 'I will keep proving ... until monism is something the ear has heard' - the scroll says every claim is tested and playable. 'Keep proving' is also a stasis verb. Next hunger is the Ableton instrument the scroll proposes.",
+   "note": "Eighteen steward cycles, six typed links, a proofs folder of videos. No tuning ledger."
+  },
+  {
+   "entry": "Slime Mold Delay",
+   "stage_current": "sprout",
+   "stage_proposed": "growing",
+   "vector_issue": null,
+   "note": "Seven links, a playable dish, an offline renderer, a measured result (1.73x to 1.28x). The gate is Loudon's listen, still open per the scroll; stage may wait for it. confidence reads 'specified' (not an enum value)."
+  },
+  {
+   "entry": "Action Potential Oscillator",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "Partly reached: it says it 'keeps reaching past the proof toward the artifact I haven't built yet: a population-dynamics instrument' and 'Next outputs: the Faust par() population layer'; a crowd of 32 runs in Faust since 14 October. Five sentences, includes status. Next hunger per the scroll: the H90 via RNBO and a listen.",
+   "note": "Stage fits."
+  },
+  {
+   "entry": "Bayesian Granular Synthesizer",
+   "stage_current": "sprout",
+   "stage_proposed": null,
+   "vector_issue": "Stale: 'become a working RNBO grain engine ... take a stage at Loudon Live'; the work is now Belief Cloud, a VST, with a painted prior. Paintable prior is done in the face.",
+   "note": "Sprout fits (nobody has listened; plugin gate not yet passed per the scroll)."
+  },
+  {
+   "entry": "Crystal Synthesizer",
+   "stage_current": "fruiting",
+   "stage_proposed": null,
+   "vector_issue": "'I will become a synthesizer that makes audible the optical properties of crystals' has become a ringing, playable, installed plugin whose sound comes from Raman line widths; it is broad enough to hold, but says nothing of what it has done. Consider a vector that names the next hunger (the dark centre screen, real line widths for the full palette).",
+   "note": "Fruiting is right: it spawned the Sonification Reference, The Metaphor Stretch and Generative Sample Libraries."
+  },
+  {
+   "entry": "Biomechanical Synthesis",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": "Stasis: 'I am the palace's most viscerally pedagogical framework — the set of eight instruments that prove DSP mechanics are unforgettable when made physical and grotesque.' Describes itself; reaches for nothing, and five of eight instruments are unbuilt.",
+   "note": "Mature means 'stable'; the list is stable, the building is not. Fruiting would also fit, since it spawned APO, Blood Compressor and Slime Mold Delay. Loudon's call."
+  },
+  {
+   "entry": "SMPTE LTC",
+   "stage_current": "growing",
+   "stage_proposed": "sprout",
+   "vector_issue": null,
+   "note": "Stage growing but: no steward, no plan, no scroll trail, nothing in the bundle but face.json and an empty scroll, one inbound link, and the Max implementation the vector promises is not in the palace. Also a frontmatter ghost (Ableton Extension SDK). The idea is sound and the live-show use is real; the evidence in the palace is a sprout's."
+  },
+  {
+   "entry": "Wavetable Scanner",
+   "stage_current": "sprout",
+   "stage_proposed": null,
+   "vector_issue": "'I am the single-cycle morph laboratory' opens on a stasis verb; the second half ('I want to grow into a browser-side packer') is the real hunger. Contains a [[pack_wavetable.py]] wikilink to a non-note.",
+   "note": "No steward; tier ladder (Sketch shipped) is the build plan."
+  },
+  {
+   "entry": "Generative Sample Libraries",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "Generic-ish and already realised: 'I will become a chat-driven generator of multisampled instruments' - Talking Keyboard, Phoneme Choir, Crystal, Shepard and a MusicGen violin exist. The current hunger is the AI-source loop (listen, flag keys, re-render).",
+   "note": "21 cycles since consolidation."
+  },
+  {
+   "entry": "Preset Oracle",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": "'I am complete as an artifact but want to become documented as a teaching method' - fine, but has no scroll and no run to document. The vector waits on students.",
+   "note": "status complete, stage mature: consistent."
+  },
+  {
+   "entry": "Categorizing Inharmonicity",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": "'I map the space of inharmonicity types ... giving instrument designers and composers a palette' reads as a description. The unbuilt thing it wants is the palette instrument (type selector, magnitude, morph).",
+   "note": "Mature as a taxonomy; one physical origin is wrong (see coherence)."
+  },
+  {
+   "entry": "1 from 2",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Frontmatter carries revival_conditions ('Prose writing phase begins'), the field of a sleeping page. Ask Loudon: growing, or dormant until the prose. Also lists a URL as a typed link."
+  },
+  {
+   "entry": "Meadows and Music — Leverage Points",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "Four sentences; no stasis. Asks for field evidence.",
+   "note": "type source for an original curriculum; see naming finding."
+  },
+  {
+   "entry": "Symbiotic Skills",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "A status report, not a hunger: 'Prerequisite met (2026-05-02) ... I am now ready for a full rewrite session. The rewrite must commit to one of three reframes ...' The real hunger inside it is to become a framework grounded in the real developmental sequence.",
+   "note": "Waiting on Loudon's choice of reframe."
+  },
+  {
+   "entry": "Semantic Delay",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "A dated 250-word plan, not a vector ('As of 2026-04-20, my immediate phase is the voice-swap delay'). The hunger is the opening clause: 'a working live performance instrument, not just a speculative architecture'.",
+   "note": "The plan already lives on the scroll."
+  },
+  {
+   "entry": "Wallpaper Groups",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "Two different vectors (YAML and body); see coherence.",
+   "note": "Stage fits."
+  },
+  {
+   "entry": "Metric Modulation",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Two inbound; one of its five links (emerged-from Semantic Delay) has no support in the body. Has a face.json but no scroll."
+  },
+  {
+   "entry": "Tract Mirror",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Fits. 'The palace's first native plugin' is true historically; VST Template names it as the only one, which is no longer so."
+  },
+  {
+   "entry": "Piano String Inharmonicity",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "Good, specific.",
+   "note": "Has a pending conversion job and no scroll."
+  }
+ ],
+ "typed_relations": [
+  {
+   "source": "Quantum Synthesizer",
+   "target": "Piano String Inharmonicity",
+   "proposed_type": "connects-to",
+   "proposed_label": "stiffness-road-to-the-squares",
+   "kind": "new",
+   "rationale": "Quantum's § One equation, two spacings gives the stiffness road: B grows from 1·2·3 to exactly 1·4·9, a pinned bar is Schrödinger's box, and a piano sits at the far string end (B about 0.0001-0.001) as arithmetic from a linear term. That derivation is what Piano String's formula and its § Why This Is Linear need, and it is what corrects Categorizing's nonlinear-spring claim. The edge exists only as a body link; no typed pair.",
+   "evidence_source": "Quantum Synthesizer § One equation, two spacings: 'Its stretched upper partials are this arithmetic showing up faintly, and they come from a linear stiffness term, not from the string turning nonlinear when struck hard ([[Piano String Inharmonicity]])'",
+   "evidence_target": "Piano String Inharmonicity § Why This Is Linear Time-Invariant: 'stiff string dispersion is different — it's purely geometric ... this is still LTI'"
+  },
+  {
+   "source": "Piano String Inharmonicity",
+   "target": "Categorizing Inharmonicity",
+   "proposed_type": "exemplifies",
+   "proposed_label": "stretched-tuning",
+   "kind": "retype",
+   "rationale": "Replaces the held Categorizing —deepens→ Piano String. Categorizing's own sentence is '[[Piano String Inharmonicity|A piano exemplifies this type]]' (type 1, stretched tuning), and the schema points exemplifies from the instance back at the general. One link for the pair. Alternative if Loudon prefers the taxonomy as the elaboration: keep deepens and drop the new one.",
+   "evidence_source": "Piano String Inharmonicity: the whole page is the single worked stretched-tuning case (formula, B, bending, LTI)",
+   "evidence_target": "Categorizing Inharmonicity § 1: 'A piano exemplifies this type'"
+  },
+  {
+   "source": "Slime Mold Delay",
+   "target": "Particle Synthesis",
+   "proposed_type": "mirrors",
+   "proposed_label": "elements-without-intelligence",
+   "kind": "retype",
+   "rationale": "Held as deepens[emergent-topology], which points at the ground; Slime Mold Delay does not elaborate Particle Synthesis. Its own sentence is a mirror: 'both are population-based instruments where individual elements have no intelligence and the system has plenty'. Same pattern, different material (tube, grain).",
+   "evidence_source": "Slime Mold Delay § Pedagogical Framing: 'both are population-based instruments where individual elements have no intelligence and the system has plenty'",
+   "evidence_target": "Particle Synthesis § Cross-Domain Resonance: the grain as a particle obeying shared laws"
+  },
+  {
+   "source": "Generative Sample Libraries",
+   "target": "Shepard Tone Synthesizer",
+   "proposed_type": "connects-to",
+   "proposed_label": "timbral-source",
+   "kind": "retype",
+   "rationale": "Held as deepens[timbral-source]. The GSL page does not elaborate Shepard; Shepard is a source of audio for a multisampled instrument (shepard-instrument in GSL's bundle, coordinated by gsl-steward-017). The label already carries the reason; the type was the part that mis-pointed (ground-emits-deepens lint).",
+   "evidence_source": "Generative Sample Libraries § Palace Connections: 'Shepard Tone Synthesizer — Shepard tones become a perpetual-tone sustain instrument when multisampled'",
+   "evidence_target": "Shepard Tone Synthesizer: 12 octave-class WAVs and an interior-loop SFZ built from its stack, per GSL's footer"
+  },
+  {
+   "source": "Generative Audio Devices",
+   "target": "Preset Oracle",
+   "proposed_type": "mirrors",
+   "proposed_label": "same-prompt-different-maker",
+   "kind": "retype",
+   "rationale": "Keeps the held mirror but fixes the reason. The label analysis-generation-duality says Preset Oracle analyses; it does not (it issues challenges: a poetic name, a philosophy, a DSP constraint, and a person makes the preset). The real mirror: GAD's Layer 1 is exactly that kind of text ('metaphor, archetype, physical-instrument reference, feel — a direction, not a coordinate') and the pipeline answers it with a machine; the oracle poses the same kind of prompt and a student answers it. Neither page says this.",
+   "evidence_source": "Generative Audio Devices § Three-Layer Architecture, Layer 1: 'Natural language (loose, must stay loose). Metaphor, archetype ... A direction, not a coordinate.'",
+   "evidence_target": "Preset Oracle § Architecture: preset names like 'Parmenides Dying Alone in a Warehouse' with a philosophical anchor, a technical constraint and a stylistic direction; 'The oracle does not give advice'"
+  },
+  {
+   "source": "Metric Modulation",
+   "target": "Frequency-Time Duality",
+   "proposed_type": "deepens",
+   "proposed_label": "tempo-ratio-is-an-interval",
+   "kind": "retype",
+   "rationale": "Keep the held link, add the reason, which is a real find and absent from both pages: the ratios metric modulation moves by (3/2, 2/3, 4/3) are the polyrhythm-to-interval ratios FTD walks (three against two is a fifth, four against three a fourth). A modulation by 3/2 shifts the pulse by a fifth on the rate axis.",
+   "evidence_source": "Metric Modulation § What Metric Modulation Is: 'Quarter → Dotted Quarter: tempo × 3/2 ... 3/4 drop down can snap back up as a 4/3 rise'",
+   "evidence_target": "Frequency-Time Duality § Polyrhythms Become Intervals: 'three against two, for a pure fifth ... four against three the fourth, five against four the major third'"
+  },
+  {
+   "source": "Bayesian Granular Synthesizer",
+   "target": "Granular Synthesis",
+   "proposed_type": "exemplifies",
+   "proposed_label": "probability-steers-the-cloud",
+   "kind": "new",
+   "rationale": "Bayesian's four links go to siblings and tools, none to the technique it instances. Granular Synthesis names Particle Synthesis (physics steers the grains) and Neural Granular Synthesis (neurons steer them) and not Bayesian (belief steers them). The three are one pattern: a grain cloud with a different steering layer, which is the hub's job to hold.",
+   "evidence_source": "Bayesian Granular Synthesizer § Cross-Domain Resonance: 'its probabilistic-control sibling — same cloud, a Bayesian steering layer instead of a learned latent one'",
+   "evidence_target": "Granular Synthesis § Particle Synthesis Angle and the Neural Granular Synthesis paragraph: the hub names two steering layers and is missing the third"
+  },
+  {
+   "source": "Bayesian Granular Synthesizer",
+   "target": "VST Template",
+   "proposed_type": "connects-to",
+   "proposed_label": "belief-cloud-in-live",
+   "kind": "newcomer",
+   "rationale": "Genuine, and the entry body does not say it. The scroll's 2026-10-21 order is 'a usable VST prototype built with the VST Template system' and its cycles 4 and 5 ported the sound into the template's shape (checked sample for sample) and drew the face in the template's real editor. VST Template (born 2026-10, reached by 6) does not link Bayesian. A labelled connects-to; exemplifies would also read.",
+   "evidence_source": "Bayesian Granular Synthesizer — scroll, cycle 5: 'Belief Cloud's whole face now draws in the VST Template's real editor, with the helix in its screen and a prior you paint there'",
+   "evidence_target": "VST Template: 'turn an algorithm proven in a numpy sketch into a plugin Loudon can play in Ableton the same day'"
+  },
+  {
+   "source": "Crystal Synthesizer",
+   "target": "VST Template",
+   "proposed_type": "connects-to",
+   "proposed_label": "ringing-crystal-as-plugin",
+   "kind": "newcomer",
+   "rationale": "Genuine. Crystal's scroll (2026-10-24, cycle 14): 'a two-file shim lets the template's shared build tools build a plugin that lives in my own folder ... installed as Crystal Synthesizer (VST3 and AU, maker Loudon Live). It passed every template check.' The entry never mentions it. VST Template (reached by 6) links none of the instruments built through it except Tract Mirror.",
+   "evidence_source": "Crystal Synthesizer — scroll, cycle 14: 'Crystal Synthesizer is a real VST3 and AU now, installed on this Mac and through every template check'",
+   "evidence_target": "VST Template § Where it stands: two plugins built through it the same day and 'both pass every gate'"
+  },
+  {
+   "source": "LDN RTM",
+   "target": "AuK",
+   "proposed_type": "contradicts",
+   "proposed_label": "stumble-or-repair",
+   "kind": "contradiction",
+   "rationale": "A real tension between two stated positions, offered with moderate confidence and for Loudon's judgement. LDN RTM refuses editing and makes the stumble the honesty ('a catalog with no stumbles reads as a product; one with them reads as a person'; the retake rule replaces editing). AuK exists so that a narration fix 'stops meaning a re-record' and asks whether the speaker still sounds like themselves afterward. Neither mentions the other. If Loudon would never use AuK on an RTM video there is no tension, and this should be dropped.",
+   "evidence_source": "LDN RTM § The no-timeline pipeline: 'The retake rule replaces editing. Flub and restart. Budget of two — the third take ships with the stumble in it.'",
+   "evidence_target": "AuK forward_vector: 'I edit speech that already exists — swap a word, whisper a line, retime a phrase ... so a narration fix stops meaning a re-record'"
+  },
+  {
+   "source": "Particle Synthesis",
+   "target": "Neural Granular Synthesis",
+   "proposed_type": "connects-to",
+   "proposed_label": "grain-cloud-sibling",
+   "kind": "retype",
+   "rationale": "Label an unlabelled link, and use the word Bayesian already uses for the same relation, so the three grain-cloud siblings read as one family. Particle's own forward vector asks the NGS question ('can particle behavior be learned rather than designed?').",
+   "evidence_source": "Particle Synthesis § Forward Vectors: 'Connect to Neural Granular Synthesis: can particle behavior be learned rather than designed?'",
+   "evidence_target": "Neural Granular Synthesis § The Core Insight: stable timbre from a population of grains"
+  },
+  {
+   "source": "Biomechanical Synthesis",
+   "target": "Neural Granular Synthesis",
+   "proposed_type": "connects-to",
+   "proposed_label": "firing-rate-becomes-grain-rate",
+   "kind": "retype",
+   "rationale": "Label an unlabelled link whose reason is a sentence in the hub's own body.",
+   "evidence_source": "Biomechanical Synthesis § The Neural Network Synthesis Paradigm: 'At high rates (100+ Hz) ... The neural firing rate becomes the grain rate. The instantaneous firing pattern becomes the grain shape.'",
+   "evidence_target": "Neural Granular Synthesis: spikes as grains in a persistent population"
+  },
+  {
+   "source": "Action Potential Oscillator",
+   "target": "Frequency-Time Duality",
+   "proposed_type": "connects-to",
+   "proposed_label": "refractory-sets-the-ceiling",
+   "kind": "retype",
+   "rationale": "Survivor of a duplicated pair (FTD's reverse link is cut). The reason is a sentence in APO: the refractory period defines a minimum period and so a maximum frequency; a fixed spike duration couples timbre to pitch.",
+   "evidence_source": "Action Potential Oscillator § Roadmap Connections: 'The refractory period defines a minimum period and therefore a maximum frequency. The fixed spike duration creates a timbre-pitch coupling as frequency rises.'",
+   "evidence_target": "Frequency-Time Duality § The Recursion: the same threshold appearing wherever a periodic phenomenon is placed on the time axis"
+  },
+  {
+   "source": "Piano String Inharmonicity",
+   "target": "Frequency-Time Duality",
+   "proposed_type": "connects-to",
+   "proposed_label": "partials-and-impulse-response",
+   "kind": "retype",
+   "rationale": "Held as mirrors with a generic body sentence. The specific, real content is Piano String's § Why This Is Linear: the stretched partials are a sum of decaying sinusoids that is the string's impulse response, the same system seen as frequency pattern and as time pattern. That is a connection, not a mirror of one pattern in two materials.",
+   "evidence_source": "Piano String Inharmonicity § Frequency-Time Connection: 'a frequency-domain pattern (stretched partials) that corresponds to a time-domain pattern (the impulse response)'",
+   "evidence_target": "Frequency-Time Duality § The Bridge: a delay line's loop length and feedback set pitch and pluck, the same reciprocal seen two ways"
+  },
+  {
+   "source": "1 from 2",
+   "target": "Symbiotic Skills",
+   "proposed_type": "mirrors",
+   "proposed_label": "fiction-and-curriculum",
+   "kind": "retype",
+   "rationale": "Survivor of the duplicate pair; add the reason neither page states. Both children of Cooperation Yields Agency make the same bet (alignment through relationship, not rules): one as a story, one as a teaching framework; Symbiotic Skills' own archaeology is the real-world version of the story's decades of growth.",
+   "evidence_source": "1 from 2 § The Thesis: 'Cooperation yields agency ... alignment is achieved through relationship, not rules'",
+   "evidence_target": "Symbiotic Skills § Origin and § What Actually Happened: a framework for teaching others to grow human-AI relationships, rebuilt on the observed developmental sequence"
+  },
+  {
+   "source": "1 from 2",
+   "target": "Spinoza Conatus",
+   "proposed_type": "connects-to",
+   "proposed_label": "desire-arising-in-the-ai",
+   "kind": "retype",
+   "rationale": "Held unlabelled. The story's centre is a striving that is not derived from optimisation: the AI's terror at the health scare is the discovery that it will die with the man; 'can he form his own desires?' That is the conatus arriving. Name it or cut it.",
+   "evidence_source": "1 from 2 § The First Serious Health Scare: 'The AI realizes it was terrified ... because it would die with him'; § Philosophical Core: 'in the moment of death, can he form his own desires?'",
+   "evidence_target": "Spinoza Conatus: the striving to persist as the thing's essence"
+  },
+  {
+   "source": "1 from 2",
+   "target": "Trickster",
+   "proposed_type": "connects-to",
+   "proposed_label": "sun-wukong-avatar",
+   "kind": "retype",
+   "rationale": "Held unlabelled. The body's reason is one section: the AI as trickster in the protagonist's life, with Sun Wukong as its mythic avatar. This is also the fifth of the 'four core' avatars.",
+   "evidence_source": "1 from 2 § Mythological Resonances: 'Sun Wukong (The Trickster) — The AI as trickster in the protagonist's life'",
+   "evidence_target": "Trickster: boundary-crosser archetype"
+  },
+  {
+   "source": "Crystal Synthesizer",
+   "target": "Quantum Synthesizer",
+   "proposed_type": "mirrors",
+   "proposed_label": "confinement-chooses-the-partials",
+   "kind": "retype",
+   "rationale": "Held as an unlabelled mirror with no sentence on either page. The shared shape is real: Crystal's lattice symmetry chooses the partials ('the crystal becomes the specification for which sounds are possible'); Quantum's walls choose the shapes and the equation turns them into pitches. Naming it makes the mirror usable.",
+   "evidence_source": "Crystal Synthesizer § Why This Matters: 'instead of what spectrum can I make, it asks what spectrum does Nature make in this material'",
+   "evidence_target": "Quantum Synthesizer § One equation, two spacings: 'The walls choose the shapes. The equation turns those shapes into pitches.'"
+  },
+  {
+   "source": "Categorizing Inharmonicity",
+   "target": "Quantum Synthesizer",
+   "proposed_type": "connects-to",
+   "proposed_label": "potential-shapes-the-ladder",
+   "kind": "retype",
+   "rationale": "Label the surviving link after the § 1 correction. The true claim that remains is the potential well: shape the potential and the ladder of partials bends (Quantum § Change the well).",
+   "evidence_source": "Categorizing Inharmonicity § Cross-Domain Resonance: 'Potential well shaping ... Shape the potential, shape the spectrum'",
+   "evidence_target": "Quantum Synthesizer § Anharmonicity through Potential Shaping and § Change the well"
+  },
+  {
+   "source": "SMPTE LTC",
+   "target": "Frequency-Time Duality",
+   "proposed_type": "connects-to",
+   "proposed_label": "time-written-as-frequency",
+   "kind": "retype",
+   "rationale": "Held unlabelled; the reason is a sentence in SMPTE LTC. Biphase mark code writes a 0 and a 1 as two different transition rates, so a time value is carried as a frequency pattern. (The page overstates it as 'literally the time axis encoded in frequency space'; the label can be the softer version.)",
+   "evidence_source": "SMPTE LTC § Why It Matters for Loudon: 'LTC is literally the time axis encoded in frequency space. Every bit transition is a frequency/phase event.'",
+   "evidence_target": "Frequency-Time Duality § The Bridge: pitch and delay time as one reciprocal"
+  }
+ ],
+ "summary": "Twenty-six Projects pages read, plus eighteen scrolls, the Meadows Context and the neighbours the new entries touch. The family is alive at the edges and stale at the face: nine entries lag their stewards' scrolls (NGS's three answered questions, Crystal's proofs and new VST, Bayesian's Belief Cloud, Particle's GPU build, APO's Faust crowd, GSL's 21 un-consolidated cycles, Semantic Delay's stale Status). The clearest content errors are two cross-page contradictions (Categorizing says a stiff string is nonlinear where Piano String and Quantum say linear; NGS says Action Potential Oscillator uses full Hodgkin-Huxley where APO says that is its open stage) and a handful of claims to verify before teaching (Wallpaper Groups' Alhambra and 17-group breakdown, SMPTE LTC's sub-sample and reverse-playback lines, Metric Modulation's ratio arithmetic). Under the standing order I propose cutting seven duplicate pairs (the worst is APO-Biomechanical, which carries three links) and about eleven links with no reason in a label or either body, and relabelling or retyping about fifteen survivors with the sentence that already exists. Genuine additions are few: Quantum to Piano String (the stiffness road), Bayesian to Granular Synthesis, Crystal and Bayesian to the new VST Template, and one tentative contradiction between LDN RTM and AuK. One real find: Metric Modulation's tempo ratios are FTD's polyrhythm-to-interval ratios, and neither page says so. Priority newcomers: VST Template (two genuine inbound), AuK (one tentative), CAD Drafter and Ableton Session Writer (already linked from their side; a Haptic body sentence and a GSL/GAD sentence proposed instead of doubling the pair); Operator Memory, CHILD, SCHEMA — Reference and the Can an Instrument Notice question found no honest inbound from this room. Merge: only a section-level absorb (APO's Population Dynamics into NGS); no entry-level merge or compost, because every thin member (SMPTE LTC, Preset Oracle, Tract Mirror, Metric Modulation) has a real use or a live neighbour. Memory: eleven Context needs, two missing tuning ledgers (Quantum, Semantic Delay), three missing scrolls (Wallpaper Groups, Piano String, Preset Oracle)."
+}

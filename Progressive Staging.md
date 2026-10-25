@@ -21,8 +21,10 @@ links:
     label: stage-transitions
   - target: "[[Kuramoto Coupling]]"
     type: connects-to
+    label: natural-staging
   - target: "[[Crystal Synthesizer]]"
     type: connects-to
+    label: staging-candidate
   - target: "[[Symbiotic Skills]]"
     type: contradicts
     label: staged-design-vs-organic-growth

@@ -24,10 +24,13 @@ links:
     type: mirrors
   - target: "[[Trickster]]"
     type: connects-to
+    label: prism-as-trickster
   - target: "[[Compressor Design]]"
     type: connects-to
+    label: all-pass-origin
   - target: "[[Harmonicity and Inharmonicity]]"
     type: connects-to
+    label: all-pass-inharmonic
   - target: "[[The Multilinear Self]]"
     type: mirrors
     label: self-as-prism

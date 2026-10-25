@@ -28,20 +28,28 @@ links:
     label: single-expert-routed-to-a-node
   - target: "[[Action Potential Oscillator]]"
     type: connects-to
+    label: first-instance
   - target: "[[Confucianism]]"
     type: connects-to
+    label: coherence-is-between
   - target: "[[Deleuze]]"
     type: connects-to
+    label: virtual-or-options
   - target: "[[Merleau-Ponty]]"
     type: connects-to
+    label: absorbable-into-the-body
   - target: "[[Simondon]]"
     type: connects-to
+    label: is-it-concretizing
   - target: "[[Spinoza Conatus]]"
     type: connects-to
+    label: threshold-visiting-voice
   - target: "[[The Drift]]"
     type: connects-to
+    label: forcing-or-flowing
   - target: "[[Whitehead]]"
     type: connects-to
+    label: process-or-thing
 forward_vector: "I am the named genre that keeps the philosophy neighborhood from cooling — the standing practice of sending one researched philosopher to visit one technical entry and ask the question the entry cannot ask itself. I want to be reached for whenever a technical entry carries a bare 'philosophy' pillar tag with no philosophy in it, because a tag without content is a broken promise and I am how it gets kept. My roster exists now, and its smallest member runs: [[Palace Quotes]] lays a one-line visit beside the words it reads, shown on the page in STIGMERGY. My next development: the full visit rendered the same way, and the first visit folded into an entry's body by Loudon's yes."
 ---
 

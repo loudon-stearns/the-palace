@@ -19,6 +19,7 @@ links:
     type: member-of
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
+    label: kick-drum-crossing
   - target: "[[Donella Meadows]]"
     type: connects-to
     label: structure-determines-behavior

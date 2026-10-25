@@ -38,6 +38,9 @@ links:
   - target: "[[ROSETTA]]"
     type: connects-to
     label: translation
+  - target: "[[CHILD]]"
+    type: deepens
+    label: context-behind-the-line
 ---
 # The Palace Voice
 

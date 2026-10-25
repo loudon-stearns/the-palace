@@ -11,17 +11,14 @@ energy: high
 links:
   - target: "[[Weave Ceremony]]"
     type: connects-to
+    label: surveys-from-above
   - target: "[[Walk Ceremony]]"
     type: connects-to
+    label: travels-through
   - target: "[[Swarm Weave]]"
     type: emerged-from
   - target: "[[Lateral Access]]"
     type: mirrors
-  - target: "[[Kuramoto Coupling]]"
-    type: connects-to
-  - target: "[[Pages as Agents]]"
-    type: enables
-    label: agent-walking
 forward_vector: "I am a named question, not yet a ceremony. My direction is toward becoming one: a third ceremony mode that moves like the Walk but weaves like the Weave — starting from freshest pheromone trails and following links outward, producing connections through movement rather than survey. The Swarm Weave has run for many cycles and one of its lenses already walks; what I still want decided is whether that walk is a third ceremony or a lens inside the Weave."
 ---
 

@@ -1,0 +1,235 @@
+{
+ "room": "lifecycle-L2",
+ "lens": "lifecycle",
+ "pages_read": [
+  "CHILD",
+  "Can an Instrument Notice Where the Work Stops?",
+  "Operator Memory",
+  "SCHEMA — Reference",
+  "ELDER",
+  "Concierge",
+  "SUBSTRATE",
+  "Palace Philosophies",
+  "Cooperation Yields Agency",
+  "Palace Conatus",
+  "Making a Palace Citizen",
+  "SCHEMA",
+  "Palace as Context Injection System",
+  "Palace Ceremonies",
+  "Return Ceremony",
+  "Deposit Ceremony",
+  "Weave Ceremony",
+  "Weaving Memory into the Palace",
+  "Search Before You Build",
+  "Creative Coach",
+  "Reflective Practice",
+  "Meadows and an Artist's Career",
+  "Quadratic Interpolation in DSP",
+  "Playful Interface Design",
+  "Boundary-Crossing Instruments",
+  "Lateral Access",
+  "Closing Well",
+  "The Scroll",
+  "Enrichment",
+  "How the Palace Commits",
+  "The Remembering Page",
+  "Pheromone Trail",
+  "Substrate Skill",
+  "Pages as Agents",
+  "Project Stewardship System",
+  "Resonant Link Labels",
+  "README - The Palace Guide",
+  "Baton Ceremony",
+  "Harvest Ceremony",
+  "Sentry"
+ ],
+ "weak_links": [
+  {
+   "source": "SCHEMA — Reference",
+   "target": "Resonant Link Labels",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "label-vocabulary",
+   "evidence_source": "The optional `label` field is a single word or hyphenated phrase naming the relationship with resonance and specificity. ... Examples: `midwifed`, `rhymes-with`, `fermented-from`, `argues-with-love`. (SCHEMA — Reference §3, Link Object Fields)",
+   "evidence_target": "The word list of labels in use; its own frontmatter links SCHEMA, not Reference.",
+   "rationale": "Reference defines the label field and Resonant Link Labels is the list of words filling it; the reason is on Reference, which could name the page in that note.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Project Stewardship System",
+   "target": "SCHEMA — Reference",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "the-wire",
+   "evidence_source": "The wire is [[SCHEMA — Reference]] §9; the executor is [[Palace Orchestrator]]; the board is [[BBS Blackboard]]",
+   "evidence_target": "§9 holds the append-only blackboard, the envelope, and the human node (TRICKSTER).",
+   "rationale": "The steward's messages ride the wire that Reference §9 specifies; the sentence is repeated three times on the source page.",
+   "confidence": "high"
+  },
+  {
+   "source": "Pages as Agents",
+   "target": "SCHEMA — Reference",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "pages-on-the-wire",
+   "evidence_source": "",
+   "evidence_target": "`from` is usually a palace entry acting as its own steward — *the page IS the agent* ([[Pages as Agents]]). (Reference §9, the envelope)",
+   "rationale": "Only the Reference side carries the reason (the envelope's sender is a page); Pages as Agents has no body sentence, so the label rests on one page. Cut if the weave wants two-sided evidence.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Concierge",
+   "target": "Reflective Practice",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "reflects-in-action",
+   "evidence_source": "",
+   "evidence_target": "Three reflect in action: the Dialectic ..., the Concierge's scout, and the Oblique Portrait. (Reflective Practice, the roster sentence) and the Concierge's curator reflects on action.",
+   "rationale": "Reflective Practice sorts the Concierge's postures into on-action (curator) and in-action (scout); the Concierge page itself gives no reason, so the label sits on the target side.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Lateral Access",
+   "target": "Creative Coach",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither page's body names the other (grep of both finds only the frontmatter line); a real connection can return in a later weave with its reason.",
+   "confidence": "medium"
+  }
+ ],
+ "typed_relations": [
+  {
+   "source": "Concierge",
+   "target": "CHILD",
+   "proposed_type": "deepens",
+   "proposed_label": "the-first-act",
+   "kind": "newcomer",
+   "rationale": "CHILD makes summoning the Concierge the first act of every session; the Concierge page holds the mechanism and the two earned reasons, so it elaborates CHILD's rule. Concierge's frontmatter carries no link to CHILD though its body cites CHILD § Growing up twice.",
+   "evidence_source": "summoned **as every session's first act**, a one-line question included — in any environment that can spawn it ([[CHILD]] § Growing up)",
+   "evidence_target": "Your first act in any session, before the task, is to **summon the [[Concierge]]** — visibly; he watches for the spawn"
+  },
+  {
+   "source": "Deposit Ceremony",
+   "target": "CHILD",
+   "proposed_type": "deepens",
+   "proposed_label": "child-offers-elder-places",
+   "kind": "newcomer",
+   "rationale": "CHILD says a child offers what it finds for the house and an elder writes it; Deposit Ceremony is the rite that rule hands off to and states the same split at length. Deposit has no link to CHILD yet; line 71 could carry a [[CHILD]] wikilink.",
+   "evidence_source": "**A child** (a page, a worker, a session that hasn't grown up) offers; it does not place. ... The [[Concierge]] or an elder gives it form and writes it",
+   "evidence_target": "A child does not change the house. ... it offers what it finds for the house to an elder, who gives it form and writes it — or doesn't."
+  },
+  {
+   "source": "Palace Philosophies",
+   "target": "CHILD",
+   "proposed_type": "enables",
+   "proposed_label": "hardest-rule",
+   "kind": "newcomer",
+   "rationale": "The Stoicism section names the dichotomy of control as the source of CHILD's hardest rule (honesty holds, taste yields); the tradition is the generative force of that rule. The sentence names the rule but does not yet wikilink CHILD.",
+   "evidence_source": "A child's hardest rule comes from here too. Honesty holds and taste yields is the dichotomy of control applied to the collaboration",
+   "evidence_target": "When you push back, **honesty holds and taste yields**: on what was verified ... hold even when he insists; on taste, name the tension once and follow him"
+  },
+  {
+   "source": "Cooperation Yields Agency",
+   "target": "CHILD",
+   "proposed_type": "enables",
+   "proposed_label": "holds-and-yields",
+   "kind": "newcomer",
+   "rationale": "The formula of shared intent plus combined capability is what CHILD's holds/yields rule applies; CYA already sends the reader there by sentence. Distinct register from the Palace Philosophies link (cooperation vs. Stoic control), but the two overlap; keep one if the weave wants fewer.",
+   "evidence_source": "Where each holds and where each yields is the rule on [[CHILD]]; its reason is on [[Palace Philosophies]].",
+   "evidence_target": "honesty holds and taste yields ... because it is his palace."
+  },
+  {
+   "source": "SUBSTRATE",
+   "target": "CHILD",
+   "proposed_type": "connects-to",
+   "proposed_label": "the-floor",
+   "kind": "newcomer",
+   "rationale": "SUBSTRATE's 'floor' paragraph names CHILD as the last piece of every agent's birth and the first act it prescribes. Medium: SUBSTRATE is already a 24-link hub, so this is the one most easily left for a later weave.",
+   "evidence_source": "**The floor.** Every agent is born from the same few pages ([[CLAUDE]], [[JEWEL]], the World, [[CHILD]]) and grows into an elder by reading [[ELDER]] and [[SCHEMA]] on top of them.",
+   "evidence_target": "I arrive at birth after the Jewel and the World, so a newborn meets who is in the room before it meets the rules (CHILD forward_vector)"
+  },
+  {
+   "source": "CHILD",
+   "target": "SCHEMA — Reference",
+   "proposed_type": "connects-to",
+   "proposed_label": "bundle-fine-print",
+   "kind": "newcomer",
+   "rationale": "Both newcomers. CHILD defines faces, memory and workshop in three kinds and sends the fine print to Reference §8; the sentence exists, the typed link does not. CHILD would be the fifth inbound for Reference.",
+   "evidence_source": "Everything else is **workshop**: what was made along the way. Each kind's fine print is in [[SCHEMA — Reference]] §8.",
+   "evidence_target": "the ceremony-file and bundle conventions ... §8 what a bundle is, folder and file naming, lazy creation"
+  },
+  {
+   "source": "Substrate Skill",
+   "target": "SCHEMA — Reference",
+   "proposed_type": "connects-to",
+   "proposed_label": "bundle-vocabulary",
+   "kind": "newcomer",
+   "rationale": "Substrate Skill hands the bundle-type vocabulary and the ceremony-version and ledger rules to Reference by sentence four times, yet its frontmatter links only SUBSTRATE, README, Deposit Ceremony and Palace Ceremonies.",
+   "evidence_source": "The current vocabulary of bundle types lives in [[SCHEMA — Reference]] §8. That file is not auto-loaded — read it before creating a bundle file.",
+   "evidence_target": "**Read this before** creating an entry, writing or editing frontmatter, creating a bundle file, posting to the [[STIGMERGY]] board"
+  },
+  {
+   "source": "The Scroll",
+   "target": "SCHEMA — Reference",
+   "proposed_type": "deepens",
+   "proposed_label": "scroll-type-row",
+   "kind": "newcomer",
+   "rationale": "Reference §8 holds the one-row definition of the `scroll` bundle type; The Scroll is the page that elaborates it (zones, who writes them). The Scroll's frontmatter links SCHEMA, not Reference, though its body cites Reference twice.",
+   "evidence_source": "Its **Now** answers the page's own questions from what the page has (the `scroll` row of [[SCHEMA — Reference]] §8).",
+   "evidence_target": "| `scroll` | The entry's **front door** — any entry may carry one. Four zones: **Now**, ... **Plan**, ... **Standing Orders**, ... and **the making** |"
+  },
+  {
+   "source": "How the Palace Commits",
+   "target": "SCHEMA — Reference",
+   "proposed_type": "connects-to",
+   "proposed_label": "ledger-union-merge",
+   "kind": "newcomer",
+   "rationale": "The Land paragraph and Reference §6 state the same rule from two sides: ledgers merge by union and the lander refuses what neither side had. The sentence cites Reference §6 but the page carries no typed link to it.",
+   "evidence_source": "A ledger merged by union never conflicts, so the lander also reads what the merge made of each one ... ([[SCHEMA — Reference]] §6, `_ops/stigmergy/app/src/lib/ledger-merge.js`)",
+   "evidence_target": "**Ledgers merge by union.** `.gitattributes` gives every ledger kind it names git's `union` merge ... `palace-land` reads what a landing makes of each union-merged ledger and refuses what neither side had"
+  },
+  {
+   "source": "Pheromone Trail",
+   "target": "SCHEMA — Reference",
+   "proposed_type": "connects-to",
+   "proposed_label": "use-computed-from-git",
+   "kind": "newcomer",
+   "rationale": "Pheromone Trail's list of fading signs defers its definition of 'no recent use' to Reference §3, which defines page, bundle and linked activity. Medium: the pointer is one parenthetical.",
+   "evidence_source": "Entries with no recent use — no edits to the page or its bundle, and no new links reaching for it (computed from git: [[SCHEMA — Reference]] §3)",
+   "evidence_target": "### Use is computed, never kept ... reads it from git as three kinds of activity: **page** ... **bundle** ... and **linked**"
+  }
+ ],
+ "entry_health_flags": [],
+ "lighter_prose": [
+  {
+   "entry": "SCHEMA — Reference",
+   "where": "opening, section-numbers paragraph",
+   "passage": "**Section numbers are load-bearing and unchanged.** Roughly 180 references across the palace pin `SCHEMA §3` / `§5` / `§6` / `§8` / `§9`. Those sections live here now and keep their numbers; the SCHEMA card keeps §1, §2, §4, §7 and leaves a pointer at each gap. A pin still resolves to the right rules.",
+   "proposal": "simplify",
+   "words": "**Section numbers are load-bearing.** Other pages pin `SCHEMA §3`, `§5`, `§6`, `§8` and `§9`; those sections live here and keep their numbers. The SCHEMA card keeps §1, §2, §4 and §7."
+  },
+  {
+   "entry": "SCHEMA — Reference",
+   "where": "opening, the closing sentence",
+   "passage": "The *why* — the per-section change history, every `v1.x` record — is in [[SCHEMA — Context]], keyed by section, as it always has been.",
+   "proposal": "simplify",
+   "words": "The change history is in [[SCHEMA — Context]], keyed by section."
+  },
+  {
+   "entry": "Operator Memory",
+   "where": "fourth paragraph",
+   "passage": "Loudon's principle, 2026-07-04, after a calibration that belonged in [[Baton Ceremony]] was saved to memory instead.",
+   "proposal": "simplify",
+   "words": "Loudon's principle, 2026-07-04. (The calibration that prompted it is in git.) Taste call: the Baton Ceremony example is a concrete image and may be worth keeping."
+  }
+ ],
+ "summary": "Read the four targets and the pages around them: each target's own links, the pages the map lists at one and two hops, and a body-text search of the whole vault for each target's name to find sentences that already point at it. CHILD and SCHEMA — Reference had real unwired sentences: nine pages cite them in prose while the typed links sit elsewhere, so I propose five inbound for CHILD (Concierge, Deposit Ceremony, Palace Philosophies, Cooperation Yields Agency, SUBSTRATE, with the last two the most skippable) and five for SCHEMA — Reference (CHILD, Substrate Skill, The Scroll, How the Palace Commits, Pheromone Trail). Operator Memory and Can an Instrument Notice Where the Work Stops? get none: every page that genuinely belongs beside them (CHILD, Palace as Context Injection System, Weave Ceremony, Weaving Memory into the Palace; Creative Coach, Reflective Practice, Retrospective Delay) already carries the pair's one link, pointing outward from the newcomer, and the pages at two hops (Closing Well, Return Ceremony, Meadows and an Artist's Career, Quadratic Interpolation in DSP, Playful Interface Design) share a theme but not a sentence, so linking them would be manufactured. What I could not settle: whether the weave wants a body wikilink only (no new typed edge) from Creative Coach § If the room held three to the Can-an-Instrument question and from Weave Ceremony's memory-sweep paragraph to Operator Memory, since a prose pointer is the honest way to reach those two; and the Palace Philosophies and Cooperation Yields Agency proposals for CHILD overlap, so one may do. Five bare links got verdicts: four labels (Resonant Link Labels, Project Stewardship System, Pages as Agents, Concierge to Reflective Practice) and one cut (Lateral Access to Creative Coach)."
+}

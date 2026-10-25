@@ -42,6 +42,7 @@ links:
     label: closure-property
   - target: "[[2D Torus Wavetable Synthesizer — catalog — wavetables]]"
     type: connects-to
+    label: stiff-string-surface
   - target: "[[Dispersion]]"
     type: enables
     label: frequency-dependent-coupling

@@ -7,10 +7,9 @@ stage: mature
 version: "2.0"
 trigger: ["weave", "let's weave"]
 links:
-  - target: "[[Substrate Skill]]"
-    type: connects-to
   - target: "[[Walk Ceremony]]"
     type: connects-to
+    label: thread-versus-whole
   - target: "[[Spore Check Ceremony]]"
     type: connects-to
   - target: "[[Kuramoto Coupling]]"

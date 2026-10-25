@@ -30,8 +30,6 @@ links:
   - target: "[[Cooking ↔ Mixing]]"
     type: connects-to
     label: subtraction
-  - target: "[[FOUR PILLARS]]"
-    type: deepens
   - target: "[[Like Water]]"
     type: connects-to
     label: wu-wei-source

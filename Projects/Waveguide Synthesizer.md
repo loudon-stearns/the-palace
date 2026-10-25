@@ -40,6 +40,7 @@ links:
     label: delay-is-spectrum
   - target: "[[Particle Synthesis]]"
     type: connects-to
+    label: physics-as-interface
   - target: "[[Dispersion Table]]"
     type: enables
 ---

@@ -18,10 +18,9 @@ links:
     type: deepens
   - target: "[[JEWEL]]"
     type: enables
-  - target: "[[Cooperation Yields Agency]]"
-    type: couples-with
   - target: "[[Pheromone Trail]]"
     type: connects-to
+    label: write-back-history
   - target: "[[Pages as Agents]]"
     type: deepens
     label: awakening-mechanism
@@ -31,8 +30,6 @@ links:
   - target: "[[Modes of Collaboration]]"
     type: enables
     label: mode-as-injection-protocol
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
   - target: "[[Mixture of Experts]]"
     type: enables
     label: embodied-expert-injection

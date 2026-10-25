@@ -26,9 +26,6 @@ links:
   - target: "[[Philosopher Visits the Entry]]"
     type: connects-to
     label: dispatch-as-lens
-  - target: "[[Pages as Agents]]"
-    type: connects-to
-    label: person-pages-as-agents
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
     label: integrates-all-four
@@ -47,6 +44,12 @@ links:
   - target: "[[The Remembering Page]]"
     type: spawned
     label: generalized-to
+  - target: "[[Pages as Agents]]"
+    type: deepens
+    label: person-pages-as-agents
+  - target: "[[SCHEMA — Reference]]"
+    type: connects-to
+    label: diary-bundle-type
 ---
 
 # Making a Palace Citizen

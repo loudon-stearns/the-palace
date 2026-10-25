@@ -20,8 +20,10 @@ links:
     type: mirrors
   - target: "[[Pheromone Trail]]"
     type: connects-to
+    label: skeleton-and-gradient
   - target: "[[BBS Blackboard]]"
     type: connects-to
+    label: read-before-write-during
   - target: "[[Palace Enchantment]]"
     type: enables
   - target: "[[Striatum]]"
@@ -29,8 +31,7 @@ links:
     label: topology-as-action-selector
   - target: "[[Pages as Agents]]"
     type: connects-to
-  - target: "[[Harvest Ceremony]]"
-    type: connects-to
+    label: page-as-identity
   - target: "[[Trickster]]"
     type: connects-to
     label: links-before-objects

@@ -30,16 +30,12 @@ links:
   - target: "[[Kick Drum ↔ Foundation]]"
     type: deepens
     label: first-action-sets-trajectory
-  - target: "[[FOUR PILLARS]]"
-    type: deepens
   - target: "[[The View From Above]]"
     type: connects-to
     label: origin
   - target: "[[Stoicism]]"
     type: exemplifies
     label: emperor-autodidact
-  - target: "[[The Dichotomy of Control]]"
-    type: connects-to
   - target: "[[Quality Manifesto]]"
     type: connects-to
     label: wellbeing-in-control
@@ -52,6 +48,9 @@ links:
   - target: "[[Making a Palace Citizen]]"
     type: exemplifies
     label: made-by-this-method
+  - target: "[[The Dichotomy of Control]]"
+    type: exemplifies
+    label: whole-method
 ---
 
 # Marcus Aurelius

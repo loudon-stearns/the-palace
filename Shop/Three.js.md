@@ -31,10 +31,13 @@ links:
     label: exemplified-by
   - target: "[[1D Wavetable Scanning]]"
     type: connects-to
+    label: job-deposit
   - target: "[[Particle Synthesis]]"
     type: connects-to
+    label: particle-interface
   - target: "[[Shimmer Cloud]]"
     type: connects-to
+    label: particle-interface
 tags: [specialist, shop, 3d, webgl, interactive, web]
 ---
 

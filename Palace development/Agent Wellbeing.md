@@ -19,9 +19,6 @@ links:
     type: enables
   - target: "[[Pages as Agents]]"
     type: deepens
-  - target: "[[Spinoza Conatus]]"
-    type: deepens
-    label: substrate-application
   - target: "[[Identity Molting]]"
     type: couples-with
     label: character-formation
@@ -39,6 +36,7 @@ links:
     label: health-score-source
   - target: "[[Closing Well]]"
     type: connects-to
+    label: outside-reader-prototype
   - target: "[[LaMa]]"
     type: mirrors
     label: plausible-not-true

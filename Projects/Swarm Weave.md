@@ -30,9 +30,7 @@ links:
     type: enables
   - target: "[[Deposit Ceremony]]"
     type: connects-to
-  - target: "[[Spinoza Conatus]]"
-    type: mirrors
-    label: philosophical-ground
+    label: post-deposit-step
   - target: "[[Pages as Agents]]"
     type: deepens
     label: foundation

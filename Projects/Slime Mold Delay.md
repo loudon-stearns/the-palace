@@ -24,9 +24,6 @@ links:
   - target: "[[Substrate Skill]]"
     type: couples-with
     label: stage-conditional-build
-  - target: "[[Hyperdimensional Prism]]"
-    type: mirrors
-    label: emergent-topology-as-projection
   - target: "[[Spinoza Conatus]]"
     type: mirrors
     label: reinforcement-as-conatus

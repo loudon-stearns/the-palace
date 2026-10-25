@@ -19,6 +19,7 @@ links:
     type: connects-to
   - target: "[[Palace Enchantment]]"
     type: connects-to
+    label: tier-1-context
 ---
 
 # Map Build Ceremony

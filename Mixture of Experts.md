@@ -9,8 +9,7 @@ links:
     type: mirrors
   - target: "[[Symbiotic Skills]]"
     type: connects-to
-  - target: "[[Embeddings as Relational Meaning]]"
-    type: connects-to
+    label: skills-as-experts
   - target: "[[Weave Ceremony]]"
     type: mirrors
     label: load-balancing-audit
@@ -18,6 +17,7 @@ links:
     type: connects-to
   - target: "[[Spinoza Conatus]]"
     type: connects-to
+    label: expert-for-drive-and-joy
   - target: "[[Excellent Adventure]]"
     type: mirrors
     label: embodied-routing

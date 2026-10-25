@@ -28,6 +28,7 @@ links:
     label: minimal-spectrum-of-the-stored-field
   - target: "[[Volterra Kernels and the Torus]]"
     type: connects-to
+    label: stored-field
   - target: "[[Neural Granular Synthesis — spec — control-vocabulary-math]]"
     type: connects-to
     label: worked-control-vocabulary

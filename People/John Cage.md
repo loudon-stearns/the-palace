@@ -30,8 +30,7 @@ links:
     type: member-of
   - target: "[[Brian Eno]]"
     type: connects-to
-  - target: "[[FOUR PILLARS]]"
-    type: deepens
+    label: coins-and-tape-loops
   - target: "[[Generative Audio Devices]]"
     type: connects-to
     label: chance-operations

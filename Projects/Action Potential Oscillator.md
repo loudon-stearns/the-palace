@@ -13,20 +13,16 @@ links:
     label: object-to-think-with
   - target: "[[Boundary-Crossing Instruments]]"
     type: mirrors
-  - target: "[[Spinoza Conatus]]"
-    type: connects-to
-  - target: "[[Hyperdimensional Prism]]"
-    type: connects-to
   - target: "[[Neural Granular Synthesis]]"
     type: deepens
   - target: "[[Progressive Staging]]"
     type: emerged-from
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
   - target: "[[Compressor Design]]"
     type: connects-to
+    label: shared-smoother
   - target: "[[Piano String Inharmonicity]]"
     type: connects-to
+    label: artifact-pattern
   - target: "[[Neural Granular Synthesis — spec — control-vocabulary-math]]"
     type: enables
 forward_vector: "Stages 1–4 are built and playable — the single neuron proved the isomorphism (ion channel = knob, membrane phase = teachable stage, biological constraint = compositional invitation). I keep reaching past the proof toward the artifact I haven't built yet: a population-dynamics instrument of N Kuramoto-coupled neurons, where individual spike shape averages out and coupling itself becomes timbre. The open question I carry is where Hodgkin-Huxley detail stops mattering sonically. Next outputs: the Faust par() population layer, and an H90 port via RNBO."

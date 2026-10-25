@@ -19,6 +19,7 @@ links:
     type: member-of
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
+    label: cross-domain-bridge
   - target: "[[Frequency-Time Duality]]"
     type: mirrors
     label: distance-as-delay

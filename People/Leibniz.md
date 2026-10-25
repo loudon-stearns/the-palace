@@ -32,9 +32,6 @@ links:
   - target: "[[FOUR PILLARS]]"
     type: connects-to
     label: pillars-as-monads
-  - target: "[[Spinoza Conatus]]"
-    type: connects-to
-    label: each-perspective-expresses-the-whole
   - target: "[[The Drift]]"
     type: contradicts
     label: windowless-monad-vs-no-edges

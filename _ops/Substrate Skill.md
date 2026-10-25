@@ -13,8 +13,13 @@ links:
     type: enables
   - target: "[[Deposit Ceremony]]"
     type: connects-to
+    label: deposit-trigger
   - target: "[[Palace Ceremonies]]"
     type: connects-to
+    label: ceremony-index
+  - target: "[[SCHEMA — Reference]]"
+    type: connects-to
+    label: bundle-vocabulary
 ---
 # Substrate Skill (Palace Edition)
 

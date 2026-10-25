@@ -17,12 +17,14 @@ links:
     type: mirrors
   - target: "[[Oblique Portrait]]"
     type: connects-to
+    label: obliqueness-made-structural
   - target: "[[SUBSTRATE]]"
     type: deepens
   - target: "[[SCHEMA]]"
     type: connects-to
   - target: "[[Semantic Delay]]"
-    type: connects-to
+    type: mirrors
+    label: deferred-meaning
 ---
 
 # Palace Graffiti

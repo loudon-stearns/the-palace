@@ -59,16 +59,22 @@ links:
     label: lti-to-ltv-boundary
   - target: "[[2D Torus Wavetable Synthesizer — catalog — wavetables]]"
     type: connects-to
+    label: surfaces-as-kernels
   - target: "[[Action Potential Oscillator]]"
     type: connects-to
+    label: prerequisite-reading
   - target: "[[Bessel Functions in Synthesis]]"
     type: connects-to
+    label: fm-as-floquet
   - target: "[[Crystal Synthesizer]]"
     type: connects-to
+    label: bloch-spatial-twin
   - target: "[[Hilaritas Generator]]"
-    type: connects-to
+    type: exemplifies
+    label: four-primitives-checked
   - target: "[[Progressive Staging]]"
-    type: connects-to
+    type: exemplifies
+    label: five-stage-arc
 forward_vector: "I want to become a five-stage teaching instrument, with Stage 1 (the Mathieu Resonator in codebox~) shipped first as a complete pedagogical artifact — every named object taught, every concept media-supported, every cross-domain hook landed. I want to be the entry every modulation-with-period device in the palace eventually links back to, and the proof that the LTI assumption is a choice, not the territory."
 ---
 

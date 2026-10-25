@@ -34,14 +34,18 @@ links:
     label: stiffness-is-dispersion-mechanism
   - target: "[[Deleuze]]"
     type: connects-to
+    label: virtual-actualization
   - target: "[[Philosopher Visits the Entry]]"
     type: connects-to
   - target: "[[Spinoza Conatus]]"
     type: connects-to
+    label: threshold-as-striving
   - target: "[[The Drift]]"
     type: connects-to
+    label: wu-wei-threshold
   - target: "[[Dialectic — dialectic — spinoza-zhuangzi-on-striving]]"
     type: connects-to
+    label: driving-is-flowing
 forward_vector: "I want to be the entry every Floquet-theoretic audio object eventually points back to. I am the simplest possible periodic LTV system; I am the answer to 'what's the smallest equation that can have a tongue?'; and I am the bridge from elliptical drums (where I was born) to laser cavities, ion traps, photonic time crystals, and the Mathieu Resonator in codebox~."
 ---
 

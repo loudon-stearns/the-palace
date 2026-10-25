@@ -18,13 +18,14 @@ links:
     type: mirrors
   - target: "[[Frequency-Time Duality]]"
     type: deepens
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
   - target: "[[Semantic Delay]]"
     type: emerged-from
   - target: "[[Wallpaper Groups]]"
     type: deepens
     label: temporal-tiling
+  - target: "[[FOUR PILLARS]]"
+    type: exemplifies
+    label: all-four-in-one-technique
 ---
 
 # Metric Modulation

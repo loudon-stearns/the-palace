@@ -16,8 +16,6 @@ links:
   - target: "[[Go-with-the-Flow]]"
     type: connects-to
     label: published-precedent
-  - target: "[[flow-field-spine]]"
-    type: connects-to
   - target: "[[BLUELINE — Motion and Flow]]"
     type: connects-to
     label: unified-motion-home

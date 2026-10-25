@@ -47,9 +47,6 @@ links:
   - target: "[[BBS Design System]]"
     type: mirrors
     label: sibling-system-different-register
-  - target: "[[Drafting Table Design System]]"
-    type: connects-to
-    label: sibling-dress-for-the-work
   - target: "[[Palace Philosophies]]"
     type: deepens
     label: studio-register

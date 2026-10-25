@@ -25,10 +25,13 @@ links:
     label: producer-layer
   - target: "[[Loudon Live Post-producer — Log]]"
     type: connects-to
+    label: apprenticeship-ledger
   - target: "[[Whisper]]"
     type: connects-to
+    label: transcript-engine
   - target: "[[ffmpeg]]"
     type: connects-to
+    label: cut-and-normalize
   - target: "[[OBS]]"
     type: connects-to
     label: not-a-chat-tool

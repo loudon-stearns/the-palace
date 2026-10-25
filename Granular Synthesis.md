@@ -15,10 +15,10 @@ links:
     label: phase-scatter
   - target: "[[Action Potential Oscillator]]"
     type: connects-to
+    label: neuron-as-grain
   - target: "[[Frequency-Time Duality]]"
     type: connects-to
-  - target: "[[Boundary-Crossing Instruments]]"
-    type: connects-to
+    label: duality-machine
   - target: "[[Endosymbiosis]]"
     type: mirrors
   - target: "[[Particle Synthesis]]"

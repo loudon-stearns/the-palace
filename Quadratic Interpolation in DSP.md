@@ -14,12 +14,13 @@ links:
     type: spawned
   - target: "[[Portamento and Physical Pitch Modeling]]"
     type: connects-to
+    label: glide-interpolation
   - target: "[[Differential Equations]]"
     type: connects-to
+    label: ramp-as-ode-solution
   - target: "[[Latent Error]]"
     type: connects-to
-  - target: "[[DSP Frameworks]]"
-    type: connects-to
+    label: wrong-method-as-latent-error
   - target: "[[Reflective Practice]]"
     type: mirrors
     label: controller-that-listens

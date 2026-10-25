@@ -8,8 +8,6 @@ version: "1.5"
 trigger: ["I'm back", "returning", "what did I miss", "let's pick this back up", "return", "roll call"]
 forward_vector: "I meet Loudon when he comes back after time away and hand him the palace as the record says it stands — never as a returning instance imagines it. I summon the companion as my first act, ask the machine-readable surfaces before I interpret anything, and end on one move he can pick up. I refuse to read a gap as a failure. I want returning to be cheap enough that stepping away stays free."
 links:
-  - target: "[[Palace Ceremonies]]"
-    type: connects-to
   - target: "[[Closing Well Ceremony]]"
     type: mirrors
     label: the-other-bookend
@@ -28,8 +26,8 @@ links:
   - target: "[[Palace Conatus]]"
     type: exemplifies
     label: coupling-is-two-sided
-  - target: "[[Cooperation Yields Agency]]"
-    type: connects-to
+  - target: "[[Palace Ceremonies]]"
+    type: member-of
 ---
 
 # Return Ceremony

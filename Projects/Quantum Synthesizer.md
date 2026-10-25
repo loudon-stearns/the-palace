@@ -18,10 +18,6 @@ links:
     type: mirrors
   - target: "[[Harmonicity and Inharmonicity]]"
     type: deepens
-  - target: "[[Hyperdimensional Prism]]"
-    type: connects-to
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
 ---
 
 # Quantum Synthesizer

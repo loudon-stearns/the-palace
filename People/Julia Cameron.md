@@ -30,8 +30,6 @@ links:
   - target: "[[Marcus Aurelius]]"
     type: connects-to
     label: dawn-practice-drain-vs-rudder
-  - target: "[[FOUR PILLARS]]"
-    type: deepens
   - target: "[[Quality Manifesto]]"
     type: connects-to
     label: internal-metrics
@@ -47,9 +45,6 @@ links:
   - target: "[[Rick Rubin]]"
     type: mirrors
     label: get-out-of-the-way
-  - target: "[[Hilaritas Generator]]"
-    type: connects-to
-    label: how-do-you-feel
   - target: "[[Making a Palace Citizen]]"
     type: exemplifies
     label: made-by-this-method

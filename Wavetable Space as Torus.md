@@ -43,6 +43,7 @@ links:
     type: connects-to
   - target: "[[Simondon]]"
     type: connects-to
+    label: concretization
   - target: "[[Mathieu Equation]]"
     type: contradicts
     label: discovered-form-vs-actualized-virtual

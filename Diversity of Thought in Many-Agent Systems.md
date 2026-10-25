@@ -14,8 +14,6 @@ links:
   - target: "[[Cooperation Yields Agency]]"
     type: connects-to
     label: "interrogates"
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
   - target: "[[The Shop]]"
     type: emerged-from
     label: architectural-collapse-provoked-question

@@ -13,8 +13,6 @@ links:
     type: spawned
   - target: "[[SUBSTRATE]]"
     type: deepens
-  - target: "[[Cooperation Yields Agency]]"
-    type: connects-to
   - target: "[[Harvest Ceremony — Context]]"
     type: spawned
   - target: "[[Oblique Portrait]]"

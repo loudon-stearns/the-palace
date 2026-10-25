@@ -14,8 +14,6 @@ links:
     type: emerged-from
   - target: "[[Embeddings as Relational Meaning]]"
     type: mirrors
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
   - target: "[[Hilaritas Generator]]"
     type: deepens
   - target: "[[Excellent Adventure]]"

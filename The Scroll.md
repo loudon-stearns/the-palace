@@ -26,6 +26,9 @@ links:
   - target: "[[Drift and Consolidation]]"
     type: couples-with
     label: the-live-half
+  - target: "[[SCHEMA — Reference]]"
+    type: deepens
+    label: scroll-type-row
 forward_vector: "I am the front door a page keeps — a project, a ceremony, any page that runs — always opening on where it stands now and the plan it is following, then reading down through everything it has made or done, newest first. STIGMERGY opens on me; a steward or a ceremony's run reads my standing orders and my plan before it moves. I want to be the one place Loudon looks to get back into a page, and to stay a reading surface, never a ceremony — regenerated at the top, agreed in the plan, appended to below, deleted from never."
 ---
 

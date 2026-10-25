@@ -16,8 +16,6 @@ links:
   - target: "[[Swarm Weave]]"
     type: emerged-from
     label: is-it-alive-vs-is-it-correct
-  - target: "[[Pages as Agents]]"
-    type: deepens
   - target: "[[Enchanted Worker]]"
     type: spawned
   - target: "[[Spinoza Conatus]]"
@@ -29,26 +27,31 @@ links:
     type: mirrors
   - target: "[[Deposit Ceremony]]"
     type: connects-to
+    label: enchanted-depositor
   - target: "[[Modes of Collaboration]]"
     type: connects-to
     label: distributed-agency
   - target: "[[Lateral Access]]"
     type: connects-to
+    label: first-enchantment
   - target: "[[Hilaritas Generator]]"
     type: connects-to
-  - target: "[[Threshold Conatus]]"
-    type: connects-to
+    label: first-enchanted-page
   - target: "[[Dialogue Moderator]]"
     type: couples-with
     label: active-coordinator
   - target: "[[Action Potential Oscillator]]"
     type: connects-to
+    label: dialogue-candidate
   - target: "[[Palace Conatus]]"
     type: spawned
     label: palace-scale-conatus
   - target: "[[The Remembering Page]]"
     type: enables
     label: loads-the-memory
+  - target: "[[Threshold Conatus]]"
+    type: spawned
+    label: stage-4-deposit
 ---
 
 # Palace Enchantment

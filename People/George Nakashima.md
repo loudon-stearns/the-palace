@@ -25,9 +25,6 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
-    label: informs
   - target: "[[Simondon]]"
     type: mirrors
     label: concretization

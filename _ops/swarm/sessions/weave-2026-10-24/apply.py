@@ -17,6 +17,7 @@ PATH = {n["id"]: os.path.join(ROOT, n["path"]) for n in M["nodes"] if n.get("pat
 log, problems = [], []
 
 def split(path):
+    if not os.path.exists(path): raise FileNotFoundError(path)
     t = open(path, encoding="utf-8").read()
     m = re.match(r"^---\n(.*?)\n---\n", t, re.S)
     if not m: raise ValueError(f"no frontmatter: {path}")
@@ -98,11 +99,13 @@ def set_field(ent, field, value):
 ops = json.load(open(next(a for a in sys.argv[1:] if a.endswith(".json"))))
 for o in ops:
     k = o["op"]
-    if k == "add": add_link(o["source"], o["target"], o["type"], o.get("label"))
-    elif k == "remove": remove_link(o["source"], o["target"], o["type"])
-    elif k == "label": set_label(o["source"], o["target"], o["type"], o["label"])
-    elif k == "retype": retype(o["source"], o["target"], o["from_type"], o["type"], o.get("label"))
-    elif k == "field": set_field(o["entry"], o["field"], o["value"])
-    else: problems.append(f"unknown op {k}")
+    try:
+      if k == "add": add_link(o["source"], o["target"], o["type"], o.get("label"))
+      elif k == "remove": remove_link(o["source"], o["target"], o["type"])
+      elif k == "label": set_label(o["source"], o["target"], o["type"], o["label"])
+      elif k == "retype": retype(o["source"], o["target"], o["from_type"], o["type"], o.get("label"))
+      elif k == "field": set_field(o["entry"], o["field"], o["value"])
+      else: problems.append(f"unknown op {k}")
+    except FileNotFoundError as e: problems.append(f"page gone (deleted this weave?): {os.path.relpath(str(e), ROOT)} — op {k} {o.get('source') or o.get('entry')} → {o.get('target','')}")
 print("\n".join(log)); print(f"\n{sum(1 for l in log if l and l[0] in '+-~*')} changes" + (" (DRY RUN — nothing written)" if DRY else ""))
 if problems: print("\nPROBLEMS:\n  " + "\n  ".join(problems))

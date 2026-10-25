@@ -17,10 +17,6 @@ keywords:
 links:
   - target: "[[Hilaritas Generator]]"
     type: deepens
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
-  - target: "[[Cooperation Yields Agency]]"
-    type: connects-to
   - target: "[[Oblique Portrait]]"
     type: mirrors
   - target: "[[Oblique Portrait]]"

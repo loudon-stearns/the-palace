@@ -20,6 +20,12 @@ links:
   - target: "[[Search Before You Build]]"
     type: connects-to
     label: before-building
+  - target: "[[SCHEMA — Reference]]"
+    type: connects-to
+    label: bundle-fine-print
+  - target: "[[Cooperation Yields Agency]]"
+    type: deepens
+    label: who-holds-who-yields
 forward_vector: "I am how a child works here: what a page and its folder hold, the first act, the names of the rites, the voice. I arrive at birth after the Jewel and the World, so a newborn meets who is in the room before it meets the rules, and the rules land nearest the task. I want that order proved on real births, and I give up any line that stops earning its place."
 ---
 

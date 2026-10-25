@@ -18,6 +18,7 @@ links:
     type: enables
   - target: "[[README - The Palace Guide]]"
     type: connects-to
+    label: visual-language-home
 ---
 # Technical Diagram Standard
 

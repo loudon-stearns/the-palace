@@ -13,6 +13,7 @@ links:
     label: names-the-gap
   - target: "[[Dispersion]]"
     type: connects-to
+    label: fidelity-claim
   - target: "[[Hyperdimensional Prism]]"
     type: mirrors
     label: geometric-metaphor

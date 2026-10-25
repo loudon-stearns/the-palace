@@ -1,0 +1,459 @@
+{
+ "room": "weak-09",
+ "lens": "weak-links",
+ "pages_read": [
+  "Dissolutions",
+  "Dispersion",
+  "Projects/Categorizing Inharmonicity",
+  "Projects/Floquet Time-Modulated Loops (frontmatter, Why This Project Exists, Bloch-in-time, FM/Bessel, prerequisites, stages, grep of the rest)",
+  "Granular Synthesis",
+  "Projects/Shepard Tone Synthesizer",
+  "Shop/Three.js",
+  "Projects/Bessel Functions in Synthesis",
+  "DSP Frameworks",
+  "Floquet Theory",
+  "Targets (frontmatter and relevant passages): Projects/Compressor Design, Projects/Portamento and Physical Pitch Modeling, Projects/Shimmer Cloud, Projects/Quantum Synthesizer, Projects/Crystal Synthesizer, Projects/Action Potential Oscillator, Projects/Frequency-Time Duality, Boundary-Crossing Instruments, Projects/Particle Synthesis, Signal-Rate CV Architecture, Progressive Staging, Projects/Biomechanical Synthesis, JSUI, Projects/Preset Oracle, 1D Wavetable Scanning, Entry Conatus, Modes of Collaboration/Philosopher Visits the Entry, Phase Reduction (grep), The Drift and Whitehead (grep), 2D Torus Wavetable Synthesizer catalog — wavetables"
+ ],
+ "weak_links": [
+  {
+   "source": "Dissolutions",
+   "target": "Floquet Theory",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "kuramoto-read-forward",
+   "evidence_source": "Phase Reduction — Floquet Theory *is* Kuramoto Coupling read forward; Kuramoto is the phase-reduced shadow of any population of limit cycles. The PRC is Floquet data.",
+   "evidence_target": "Phase Reduction (the entry): 'The bridge between them is not loose analogy; it is a derivation.'",
+   "rationale": "The hub's catalogue names Floquet Theory as one half of the Phase Reduction dissolution; the Phase Reduction entry carries the derivation.",
+   "confidence": "high"
+  },
+  {
+   "source": "Dispersion",
+   "target": "Categorizing Inharmonicity",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "dispersion-to-inharmonicity",
+   "evidence_source": "Synthesis approach: compute partials from the dispersion relation rather than the harmonic series — or via [[Categorizing Inharmonicity|nonlinear oscillator potentials]]; Open Question 4: 'equivalent to [[Categorizing Inharmonicity|stochastic scatter inharmonicity]]?'",
+   "evidence_target": "Categorizing Inharmonicity: 'Feedback systems with dispersive media: each \"bounce\" around the loop accumulates different phase for different frequencies'",
+   "rationale": "Dispersion's wave meaning produces inharmonicity and the body links to this entry twice; the reverse link on Categorizing Inharmonicity is also held, so only one direction needs to stay.",
+   "confidence": "high"
+  },
+  {
+   "source": "Dispersion",
+   "target": "Granular Synthesis",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "granular-dispersion",
+   "evidence_source": "In [[Granular Synthesis|granular synthesis]], dispersion is the spread of grain parameters around a center value",
+   "evidence_target": "Granular Synthesis: '**Dispersion**: A cloud that expands over time.'",
+   "rationale": "Meaning 3 of Dispersion is the granular spread, and Granular Synthesis names dispersion as a thing a cloud does.",
+   "confidence": "high"
+  },
+  {
+   "source": "Dispersion",
+   "target": "Compressor Design",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "(none)",
+   "evidence_target": "(none: no match for dispersion, all-pass or phase on Compressor Design)",
+   "rationale": "Neither page gives a reason; Dispersion never names Compressor Design and Compressor Design never says dispersion, all-pass or phase.",
+   "confidence": "high"
+  },
+  {
+   "source": "Dispersion",
+   "target": "Bessel Functions in Synthesis",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "(none)",
+   "evidence_target": "(none: Bessel page has no mention of dispersion)",
+   "rationale": "Neither page names the other or says dispersion/Bessel across the pair; the real bridge runs through Categorizing Inharmonicity, which already carries both.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Dispersion",
+   "target": "Portamento and Physical Pitch Modeling",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "stiff-string-modes",
+   "evidence_source": "Meaning 1: for a stiff string, omega_n = n f0 sqrt(1 + B n^2) (B = stiffness coefficient), so higher partials shift more.",
+   "evidence_target": "Portamento: 'Portamento on a stiff string is not one glide; it is a family of coupled glides... The inharmonicity coefficient B couples the modes.'",
+   "rationale": "Portamento's stiff-string section is the wave-dispersion case in motion (B couples the modes), though neither page says so; a thin link, kept only because the shared B is concrete.",
+   "confidence": "low"
+  },
+  {
+   "source": "Dispersion",
+   "target": "Shimmer Cloud",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "reverb-dispersion",
+   "evidence_source": "forward_vector: 'each of my three meanings (wave, statistical, and reverb dispersion)'",
+   "evidence_target": "Shimmer Cloud: 'Three lens models live in the bundle: a feedback lens, a droplet cloud and a dispersion cloud.'",
+   "rationale": "The Shimmer Cloud's dispersion cloud is the reverb meaning Dispersion's forward vector promises but its body does not yet carry; Shimmer Cloud also holds a bare link back, so keep one.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Categorizing Inharmonicity",
+   "target": "Bessel Functions in Synthesis",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "bessel-inharmonicity-type",
+   "evidence_source": "[[Bessel Functions in Synthesis|This is the eigenfunction principle in action]]: the geometry *forces* specific resonant frequencies into existence.",
+   "evidence_target": "Bessel: 'the geometry of the resonating space determines which oscillation functions are natural.'",
+   "rationale": "Dimension 2 of the taxonomy is the Bessel type and the body points at the eigenfunction principle on this entry.",
+   "confidence": "high"
+  },
+  {
+   "source": "Categorizing Inharmonicity",
+   "target": "Quantum Synthesizer",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "potential-shaping",
+   "evidence_source": "[[Quantum Synthesizer|Potential well shaping]]: The nonlinear potentials that produce anharmonic energy eigenvalues in quantum mechanics are the same nonlinear springs that produce stretched tuning in acoustic strings.",
+   "evidence_target": "Quantum Synthesizer: '## Anharmonicity through Potential Shaping'",
+   "rationale": "Both pages hold the same move: shape the potential, shape the spectrum.",
+   "confidence": "high"
+  },
+  {
+   "source": "Categorizing Inharmonicity",
+   "target": "Compressor Design",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "[[Compressor Design|Discovered in the all-pass reverb tail context]]; '[[Compressor Design|All-pass phase structures]]: The soft-knee quadratic and the all-pass cascade both teach that invisible signal flow... has audible consequences.'",
+   "evidence_target": "(none: Compressor Design has no all-pass or phase text)",
+   "rationale": "The only sentence claims the all-pass idea was 'discovered in the all-pass reverb tail context' via Compressor Design, but Compressor Design never mentions all-pass or phase; what is left is a thematic echo (make the invisible audible), not a reason for this pair.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Categorizing Inharmonicity",
+   "target": "Granular Synthesis",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "granular-attractor-hybrid",
+   "evidence_source": "This directly affects [[Granular Synthesis|granular attractor architectures]].",
+   "evidence_target": "Granular Synthesis: '## The Granular-Additive Attractor Hybrid'",
+   "rationale": "The tested Kuramoto-frustration question and the cross-dimension example both point at the granular attractor hybrid defined on Granular Synthesis.",
+   "confidence": "high"
+  },
+  {
+   "source": "Floquet Time-Modulated Loops",
+   "target": "2D Torus Wavetable Synthesizer — catalog — wavetables",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "surfaces-as-kernels",
+   "evidence_source": "The 2D wavetable surfaces from the [[2D Torus Wavetable Synthesizer — catalog — wavetables|2D Wavetable Catalog]] are repurposed as Floquet *kernels*.",
+   "evidence_target": "Catalog: '[[11 — Chladni Ghost]] — Vibrating-plate nodal pattern, sharpened to ridges.'",
+   "rationale": "Stage 3 repurposes the catalog's surfaces as Floquet kernels, and a media caption cross-links the Chladni surface.",
+   "confidence": "high"
+  },
+  {
+   "source": "Floquet Time-Modulated Loops",
+   "target": "Action Potential Oscillator",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "prerequisite-reading",
+   "evidence_source": "read the [[Differential Equations]] palace entry and the section of [[Action Potential Oscillator]] that walks the membrane equation; 'All HTML interactives follow the Action Potential Oscillator pattern'",
+   "evidence_target": "Action Potential Oscillator: the Hodgkin-Huxley / integrate-and-fire membrane sections.",
+   "rationale": "The project names it as prerequisite reading for the membrane equation and borrows its HTML interactive pattern; a working relation, not a deep one.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Floquet Time-Modulated Loops",
+   "target": "Bessel Functions in Synthesis",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "fm-as-floquet",
+   "evidence_source": "Cosine of cosine modulation (the FM exponent): the c_n are Bessel functions... FM is a Floquet system whose modulation spectrum happens to be Bessel-shaped. See [[Bessel Functions in Synthesis]].",
+   "evidence_target": "Bessel: 'FM synthesis is not a collection of ad-hoc modulation techniques. It is angular motion in phase space.'",
+   "rationale": "The project says FM is a Floquet system with a Bessel-shaped modulation spectrum.",
+   "confidence": "high"
+  },
+  {
+   "source": "Floquet Time-Modulated Loops",
+   "target": "Crystal Synthesizer",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "bloch-spatial-twin",
+   "evidence_source": "Crystals are Bloch in space; time-modulated systems are Floquet in time.",
+   "evidence_target": "Crystal Synthesizer: a crystal 'makes audible the band structure of a spatial lattice' (stated from the Floquet Theory side: 'Connection to Crystal Synthesizer: the temporal twin.')",
+   "rationale": "The project's third pressure is Bloch in space versus Floquet in time; Crystal Synthesizer is the spatial lattice side. The Floquet Theory entry already says 'the temporal twin' of it.",
+   "confidence": "high"
+  },
+  {
+   "source": "Floquet Time-Modulated Loops",
+   "target": "Progressive Staging",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "proposed_type": "exemplifies",
+   "proposed_label": "five-stage-arc",
+   "evidence_source": "A project, a five-stage teaching arc, and — Stage 1 — a complete teaching document... Stage 1 ... shipped first as a complete pedagogical artifact",
+   "evidence_target": "Progressive Staging: 'build in stages where every stage is a complete, playable, useful artifact.'",
+   "rationale": "The project is a five-stage teaching arc whose Stage 1 ships as a complete artifact, which is the method Progressive Staging names; the page never says so, but it is an instance of the method, and the source points back at its ground.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Granular Synthesis",
+   "target": "Action Potential Oscillator",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "neuron-as-grain",
+   "evidence_source": "Neurobiology *is* particle physics applied to electrical charge. (via Neural Granular Synthesis)",
+   "evidence_target": "Action Potential Oscillator: 'if each neuron IS a grain, then neural population dynamics IS granular synthesis.'",
+   "rationale": "Neurons-as-grains: the Action Potential Oscillator says a population of neurons is a granular engine, and Granular Synthesis says the same through Neural Granular Synthesis.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Granular Synthesis",
+   "target": "Frequency-Time Duality",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "duality-machine",
+   "evidence_source": "(none on Granular Synthesis body)",
+   "evidence_target": "Frequency-Time Duality: 'Every delay, chorus, flanger, and granular synthesizer is a frequency-time duality machine.'",
+   "rationale": "Frequency-Time Duality counts the granular synthesizer among its duality machines; Granular Synthesis does not return the sentence.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Granular Synthesis",
+   "target": "Boundary-Crossing Instruments",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "forward_vector: 'I build boundary crossing instruments from populations of short-term oscillators'",
+   "evidence_target": "(none: no granular/grain text)",
+   "rationale": "Only the forward vector uses the phrase; neither body explains how granular crosses a boundary, and Boundary-Crossing Instruments has no grain text. It can return with a reason.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Shepard Tone Synthesizer",
+   "target": "Frequency-Time Duality",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "time-domain-twin",
+   "evidence_source": "Risset's accelerating rhythm (the Shepard tone in the time domain)",
+   "evidence_target": "Frequency-Time Duality: 'one continuous axis (the rate at which something repeats) crosses perceptual thresholds'",
+   "rationale": "The Shepard page's Open Questions call Risset's accelerating rhythm the Shepard tone in the time domain, which is the rate-becomes-pitch axis the duality entry holds; Frequency-Time Duality does not mention Shepard.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Shepard Tone Synthesizer",
+   "target": "Granular Synthesis",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "(none)",
+   "evidence_target": "(none: no Shepard text)",
+   "rationale": "Neither page names the other or gives a shared mechanism.",
+   "confidence": "high"
+  },
+  {
+   "source": "Shepard Tone Synthesizer",
+   "target": "Particle Synthesis",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "(none)",
+   "evidence_target": "(none: no Shepard text)",
+   "rationale": "Neither page names the other or gives a shared mechanism.",
+   "confidence": "high"
+  },
+  {
+   "source": "Shepard Tone Synthesizer",
+   "target": "Signal-Rate CV Architecture",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "(none)",
+   "evidence_target": "(none: no Shepard text)",
+   "rationale": "Neither page names the other; the Shepard architecture is MIDI-layer octave stacking with no CV text.",
+   "confidence": "high"
+  },
+  {
+   "source": "Three.js",
+   "target": "1D Wavetable Scanning",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "job-deposit",
+   "evidence_source": "The position-blending math and the centroid-sort-vs-authored-order tradeoff are deposited as the new concept entry [[1D Wavetable Scanning]].",
+   "evidence_target": "(none: 1D Wavetable Scanning does not mention Three.js)",
+   "rationale": "The Wavetable Scanner job on this specialist's page deposited the concept entry; the concept page does not name Three.js.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Three.js",
+   "target": "Particle Synthesis",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "particle-interface",
+   "evidence_source": "`InstancedMesh` for thousands of repeated objects at one draw call (the path to GPU-particle interfaces — see [[Particle Synthesis]])",
+   "evidence_target": "Particle Synthesis: 'a GPU compute shader generating 1000 audio-rate particles'",
+   "rationale": "Two sentences name it as the GPU-particle interface path and an open threshold question.",
+   "confidence": "high"
+  },
+  {
+   "source": "Three.js",
+   "target": "Shimmer Cloud",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "particle-interface",
+   "evidence_source": "When does a 3D-particle interface ([[Particle Synthesis]], [[Shimmer Cloud]]) want `InstancedMesh` here vs. a GPU compute path that Three.js r128 can't reach?",
+   "evidence_target": "(none: Shimmer Cloud does not mention Three.js)",
+   "rationale": "Named with Particle Synthesis in the same open question as a 3D-particle interface, but no brief has tested it.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Bessel Functions in Synthesis",
+   "target": "Crystal Synthesizer",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "physics-constrains-spectrum",
+   "evidence_source": "(none on Bessel body naming Crystal)",
+   "evidence_target": "Crystal Synthesizer: 'FM synthesis: partials obey Bessel function weighting, reflecting phase-space rotation. The physics constrains which spectra are reachable.'",
+   "rationale": "Both pages hold that the physics fixes the partials; the sentence sits on Crystal Synthesizer, which also holds a bare link back, so keep one direction.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Bessel Functions in Synthesis",
+   "target": "Action Potential Oscillator",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "(none)",
+   "evidence_target": "(none)",
+   "rationale": "Neither page names the other; no Bessel text in the oscillator page and no neuron text in the Bessel page.",
+   "confidence": "high"
+  },
+  {
+   "source": "DSP Frameworks",
+   "target": "Biomechanical Synthesis",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "<!-- CLAUDE → LOUDON: ... Consider linking from individual project entries (NeuroPulse, Biomechanical Synthesis, etc.) to this hub -->",
+   "evidence_target": "(none)",
+   "rationale": "The hub never names it; only a stray note to Loudon suggests project entries link to the hub, which is the opposite direction, and Biomechanical Synthesis has no framework text.",
+   "confidence": "medium"
+  },
+  {
+   "source": "DSP Frameworks",
+   "target": "Action Potential Oscillator",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "framework-case-study",
+   "evidence_source": "For Loudon's NeuroPulse project (a single-neuron synthesizer): Faust handles the integrate-and-fire DSP",
+   "evidence_target": "Action Potential Oscillator: 'Gen~ is the educational/development environment; Faust is the production candidate for population dynamics.'",
+   "rationale": "NeuroPulse is the hub's worked case (Faust for the integrate-and-fire core), and the oscillator page records the Gen~-versus-Faust choice.",
+   "confidence": "medium"
+  },
+  {
+   "source": "DSP Frameworks",
+   "target": "JSUI",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "(none)",
+   "evidence_target": "(none)",
+   "rationale": "The hub never names JSUI (it picks between Faust, Gen~, RNBO, Web Audio); JSUI never mentions the hub. It can return with a reason about the interface layer.",
+   "confidence": "medium"
+  },
+  {
+   "source": "DSP Frameworks",
+   "target": "Preset Oracle",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "(none)",
+   "evidence_target": "(none)",
+   "rationale": "Neither page names the other.",
+   "confidence": "high"
+  },
+  {
+   "source": "Floquet Theory",
+   "target": "Entry Conatus",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "Reader's note: 'If that reading earns its keep, it links Floquet directly to [[Entry Conatus]]'",
+   "evidence_target": "(none)",
+   "rationale": "The only line is conditional ('If that reading earns its keep, it links Floquet directly to Entry Conatus'), and Spinoza Conatus already carries the exponent-as-conatus reading; Entry Conatus never mentions Floquet.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Floquet Theory",
+   "target": "Philosopher Visits the Entry",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "visited-entry",
+   "evidence_source": "*A [[Philosopher Visits the Entry|visit]] — Whitehead reads the theorem.*",
+   "evidence_target": "Philosopher Visits the Entry: 'Threshold / pumping entries (parametric resonance, Mathieu, Floquet, action potential) → Spinoza Conatus + The Drift'",
+   "rationale": "The Philosophical Lens section is a visit, and the mode's page lists Floquet among the pumping entries it sends philosophers to.",
+   "confidence": "high"
+  },
+  {
+   "source": "Floquet Theory",
+   "target": "The Drift",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "with-the-grain",
+   "evidence_source": "A [[The Drift|Zhuangzian]] footnote: the system that holds its pattern does so by *following the drive's grain*",
+   "evidence_target": "Philosopher Visits the Entry: 'is the driving forcing or flowing?'",
+   "rationale": "The visit ends with a Zhuangzian footnote: the stable system follows the drive's grain, the runaway crosses it; the mode's page sends pumping entries to The Drift.",
+   "confidence": "high"
+  },
+  {
+   "source": "Floquet Theory",
+   "target": "Whitehead",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "visiting-voice",
+   "evidence_source": "*[[Whitehead]] reads the theorem.* 'it takes up the whole of the previous cycle through the monodromy matrix (that is prehension, exactly)'",
+   "evidence_target": "(none: Whitehead's page does not mention Floquet)",
+   "rationale": "Whitehead is the visiting voice in the Philosophical Lens section, reading the monodromy matrix as prehension.",
+   "confidence": "high"
+  }
+ ],
+ "typed_relations": [],
+ "entry_health_flags": [
+  {
+   "entry": "Dispersion",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": "forward_vector promises 'wave, statistical, and reverb dispersion' but the body's three meanings are wave, loudspeaker, granular; the reverb meaning lives only in Shimmer Cloud and the Convolution section.",
+   "note": "Either name loudspeaker in the vector or give reverb dispersion its own section citing Shimmer Cloud; the Dispersion-to-Shimmer Cloud label depends on the second."
+  },
+  {
+   "entry": "DSP Frameworks",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "no forward_vector in frontmatter",
+   "note": "The hub has no forward_vector and an old CLAUDE-to-LOUDON note at the foot."
+  },
+  {
+   "entry": "Floquet Theory",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Also carries a bare connects-to Spinoza Conatus (not in this room's list); the same conatus reading is in the Philosophical Lens, so that one likely labels as 'exponent-as-conatus'."
+  }
+ ],
+ "lighter_prose": [
+  {
+   "entry": "DSP Frameworks",
+   "where": "foot of page (HTML comment)",
+   "passage": "<!-- CLAUDE → LOUDON: This hub is decision-support infrastructure. ... Consider linking from individual project entries (NeuroPulse, Biomechanical Synthesis, etc.) to this hub ... -->",
+   "proposal": "delete",
+   "words": ""
+  },
+  {
+   "entry": "Categorizing Inharmonicity",
+   "where": "closing italic quote",
+   "passage": "\"Inharmonicity is not a defect of sound but a *form* of sound—a variation in the theme of periodicity. Each type carries its own character...\"",
+   "proposal": "delete",
+   "words": ""
+  },
+  {
+   "entry": "Granular Synthesis",
+   "where": "closing italic note",
+   "passage": "The concept spans decades of music technology; these notes capture the palace's specific angle — granular synthesis as a population of coupled oscillators, not just a texture generator.",
+   "proposal": "delete",
+   "words": ""
+  },
+  {
+   "entry": "Dissolutions",
+   "where": "When the catalogue grows",
+   "passage": "The Weave is the natural occasion to ask: *did anything new dissolve this cycle?* If two recent entries have started reading like the same object, propose the third — the entry that names the dissolution — and link them in.",
+   "proposal": "simplify",
+   "words": "A new entry joins when it meets all three ingredients above."
+  }
+ ],
+ "summary": "Read the ten room pages and the targets' frontmatter and passages that bear on each of the 36 links. Result: 36 verdicts, 23 label, 1 retype (Floquet Time-Modulated Loops to Progressive Staging as exemplifies), 12 cut, 0 keep. The pattern: links with a sentence on either page labelled cleanly (Categorizing Inharmonicity, Floquet Theory's philosopher visit, Floquet Loops' Bloch and FM passages); the cuts are almost all unsaid pairs where neither page names the other (Shepard Tone's three, Dispersion to Compressor Design and Bessel, DSP Frameworks to JSUI and Preset Oracle, Bessel to Action Potential Oscillator). Several pairs are also held in reverse, bare, on pages outside this room (Dispersion and Categorizing Inharmonicity, Dispersion and Shimmer Cloud, Bessel and Crystal Synthesizer), so the weaver should keep one direction per pair. Not settled: the Portamento label is thin (low confidence), and whether Dispersion should add a reverb section is Loudon's call. No genuine inbound links found for the newcomer entries from these pages."
+}

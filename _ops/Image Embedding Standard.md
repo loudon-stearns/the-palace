@@ -15,6 +15,7 @@ links:
     type: enables
   - target: "[[README - The Palace Guide]]"
     type: connects-to
+    label: one-of-three-standards
   - target: "[[SUBSTRATE]]"
     type: connects-to
 ---

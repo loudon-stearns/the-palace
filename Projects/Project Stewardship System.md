@@ -34,14 +34,19 @@ links:
     label: escalation-rationale
   - target: "[[Baton Ceremony]]"
     type: connects-to
+    label: steward-batons
   - target: "[[The Scroll]]"
     type: couples-with
     label: front-door
   - target: "[[SCHEMA — Reference]]"
     type: connects-to
+    label: the-wire
   - target: "[[Project Stewardship System — Context]]"
     type: spawned
     label: rationale-archive
+  - target: "[[VST Template]]"
+    type: connects-to
+    label: nine-stewards-path
 forward_vector: "I will become Loudon's partner in making the palace's projects — tending each at the rhythm its stage asks for, working beside him in the blocks that need his hands and ears, and keeping the stewardship that runs between them honest: permanent agents that build every cycle and ask the Trickster one decision at a time, and a dashboard drawn from the fleet's own records that shows him at a glance how stewardship is faring, so we keep improving it together."
 ---
 

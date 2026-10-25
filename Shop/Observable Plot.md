@@ -16,6 +16,7 @@ links:
   - { target: "[[Shop/D3.js]]", type: enables, label: built-on }
   - target: "[[Flocking]]"
     type: connects-to
+    label: analytical-lens
   - target: "[[Matplotlib]]"
     type: connects-to
 tags: [specialist, shop, interactive, data-viz, web, charts]

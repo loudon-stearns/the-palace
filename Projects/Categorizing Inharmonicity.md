@@ -12,18 +12,19 @@ who_leads: shared
 links:
   - target: "[[Bessel Functions in Synthesis]]"
     type: connects-to
+    label: bessel-inharmonicity-type
   - target: "[[Quantum Synthesizer]]"
     type: connects-to
+    label: potential-shaping
   - target: "[[Compressor Design]]"
     type: connects-to
   - target: "[[Granular Synthesis]]"
     type: connects-to
+    label: granular-attractor-hybrid
   - target: "[[Harmonicity and Inharmonicity]]"
     type: deepens
   - target: "[[Piano String Inharmonicity]]"
     type: deepens
-  - target: "[[Hyperdimensional Prism]]"
-    type: connects-to
   - target: "[[Spinoza Conatus]]"
     type: deepens
     label: philosophical-grounding

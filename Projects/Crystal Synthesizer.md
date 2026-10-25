@@ -11,8 +11,6 @@ hook_quality: 9
 beauty: 10
 who_leads: loudon
 links:
-  - target: "[[Hyperdimensional Prism]]"
-    type: connects-to
   - target: "[[Wallpaper Groups]]"
     type: deepens
   - target: "[[Quantum Synthesizer]]"
@@ -33,6 +31,9 @@ links:
   - target: "[[Crystal Sonification Reference]]"
     type: spawned
     label: mineral-palette
+  - target: "[[Hyperdimensional Prism]]"
+    type: exemplifies
+    label: prism-machine
 forward_vector: "I will become a synthesizer that makes audible the optical properties of crystals."
 ---
 

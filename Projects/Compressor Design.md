@@ -14,10 +14,6 @@ links:
     label: object-to-think-with
   - target: "[[Boundary-Crossing Instruments]]"
     type: connects-to
-  - target: "[[FOUR PILLARS]]"
-    type: enables
-  - target: "[[Granular Synthesis]]"
-    type: connects-to
   - target: "[[Trickster]]"
     type: connects-to
     label: soft-knee-hides-discontinuity

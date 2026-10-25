@@ -27,8 +27,6 @@ links:
   - target: "[[Identity Molting]]"
     type: deepens
     label: threshold-as-molt
-  - target: "[[Hilaritas Generator]]"
-    type: connects-to
   - target: "[[The Fortress and the Threshold]]"
     type: connects-to
     label: binary-as-special-case-of-stratification

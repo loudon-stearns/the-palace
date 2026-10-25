@@ -11,19 +11,16 @@ beauty: 10
 who_leads: shared
 forward_vector: "I want to become the palace's direct entry to the discovered ceilings of symmetry — the 17 groups as a complete enumeration that appears in music, crystals, and craft, teaching through making rather than formalism, the way Granada's artisans encoded all 17 without language."
 links:
-  - target: "[[Hyperdimensional Prism]]"
-    type: connects-to
   - target: "[[Quantum Synthesizer]]"
     type: connects-to
   - target: "[[Spinoza Conatus]]"
     type: mirrors
-  - target: "[[Granular Synthesis]]"
-    type: connects-to
-  - target: "[[Kuramoto Coupling]]"
-    type: connects-to
   - target: "[[Metric Modulation]]"
     type: spawned
     label: tiling-becomes-technique
+  - target: "[[Hyperdimensional Prism]]"
+    type: exemplifies
+    label: prism-machine
 ---
 
 # Wallpaper Groups

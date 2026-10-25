@@ -29,8 +29,10 @@ links:
     label: coordination-schema
   - target: "[[FOUR PILLARS]]"
     type: connects-to
+    label: pillars-field
   - target: "[[Four Pillars of Enchanted Agency]]"
     type: connects-to
+    label: operation-page-desire
   - target: "[[SCHEMA — Context]]"
     type: spawned
     label: rationale-archive

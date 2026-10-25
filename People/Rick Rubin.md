@@ -30,9 +30,8 @@ links:
     type: member-of
   - target: "[[Lao Tzu]]"
     type: connects-to
+    label: wu-wei-in-the-studio
   - target: "[[Quality Manifesto]]"
-    type: deepens
-  - target: "[[FOUR PILLARS]]"
     type: deepens
   - target: "[[Cooking ↔ Mixing]]"
     type: connects-to

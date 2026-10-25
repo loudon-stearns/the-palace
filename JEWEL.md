@@ -24,6 +24,7 @@ links:
     type: deepens
   - target: "[[SUBSTRATE]]"
     type: connects-to
+    label: birth-floor
 ---
 
 # The Jewel

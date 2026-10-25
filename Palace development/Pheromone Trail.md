@@ -13,18 +13,24 @@ beauty: 9
 links:
   - target: "[[Pages as Agents]]"
     type: connects-to
+    label: drive-made-legible
   - target: "[[Palace as Context Injection System]]"
     type: connects-to
+    label: what-injection-carries
   - target: "[[Lateral Access]]"
     type: mirrors
   - target: "[[Swarm Weave]]"
     type: connects-to
+    label: steers-the-swarm
   - target: "[[STIGMERGY]]"
     type: mirrors
     label: two-timescale-trace
   - target: "[[The Remembering Page]]"
     type: couples-with
     label: semantic-to-its-episodic
+  - target: "[[SCHEMA — Reference]]"
+    type: connects-to
+    label: use-computed-from-git
 forward_vector: "I want to become the palace's explanation for why entry quality directly determines swarm behavior — the entry that a coordinator reads before dispatching workers to understand why a richly-worked neighborhood produces different results than a sparse one. I want to accumulate evidence: specific Weave sessions where strong pheromone trails produced unexpected connections, and specific spore-check findings where cold trails flagged dormant ideas worth revival."
 ---
 

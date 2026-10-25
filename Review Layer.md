@@ -32,6 +32,7 @@ links:
     label: shared-respond-loop
   - target: "[[Palace as Context Injection System]]"
     type: connects-to
+    label: plant-where-loaded
   - target: "[[VST Template]]"
     type: connects-to
     label: review-on-the-mock

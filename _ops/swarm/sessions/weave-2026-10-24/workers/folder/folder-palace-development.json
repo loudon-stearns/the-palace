@@ -1,0 +1,1185 @@
+{
+ "room": "folder-palace-development",
+ "lens": "folder",
+ "pages_read": [
+  "AI Partnership Philosophy",
+  "Agent Wellbeing",
+  "BBS Blackboard",
+  "BBS Design System",
+  "Concierge",
+  "Dialogue Moderator",
+  "Drafting Table Design System",
+  "Enchanted Conversation Archive",
+  "Enchanted Worker",
+  "Four Pillars of Enchanted Agency",
+  "Generative Compression",
+  "Lossy Compression with Intent Alignment",
+  "Loudon Live Design System",
+  "Palace Orchestrator",
+  "Palace as Context Injection System",
+  "Pheromone Trail",
+  "Resonant Link Labels",
+  "Self-Describing Knowledge Module",
+  "Sentry",
+  "Skills Are Enchantable Pages",
+  "The Palace Speaks",
+  "Tree of Thoughts",
+  "Two Batons, One Board",
+  "Walk That Weaves",
+  "page-rewrite — preview, the whole page as it would read",
+  "(also read) Palace development/Agent Wellbeing/Agent Wellbeing — proof — sensor-b-characterization.md (head)",
+  "(also read) Palace development/Concierge/Concierge — tuning.md",
+  "(also read) Palace development/Palace Orchestrator/Palace Orchestrator — tuning.md",
+  "(also read) Palace development/Sentry/Sentry — scroll.md (head)",
+  "(also read) Palace development/Self-Describing Knowledge Module/Self-Describing Knowledge Module — tuning.md (head)",
+  "(also read) Palace development/Loudon Live Design System/Loudon Live Design System — baton.md",
+  "(also read) Palace development/Palace as Context Injection System/Palace as Context Injection System — baton.md (head)",
+  "(also read) Palace development/Palace as Context Injection System/Palace as Context Injection System — scroll.md (head)",
+  "(also read) Palace development/Generative Compression/ (compression-always-loses, fv-answer-q3, fv-refinement-q2)",
+  "(also read) SCHEMA.md §1, §2, §4; _ops/Weave Ceremony.md (lines 63, 73, 253-269); _ops/swarm/lint-link-pairs.py and unsaid-links.py (run read-only against the 2026-10-24 map); _ops/concierge/dial.mjs:49-51; STIGMERGY.md:54,102,120; CHILD.md; Operator Memory.md; Projects/LDN RTM.md:29,106; .claude/skills/ (concierge, palace-orchestrator); _ops/Baton Ceremony.md:45,95"
+ ],
+ "coherence_findings": [
+  {
+   "kind": "vocab",
+   "entries": [
+    "BBS Blackboard",
+    "Generative Compression",
+    "Palace Orchestrator",
+    "Agent Wellbeing",
+    "Concierge"
+   ],
+   "issue": "Five pages hold pieces of one subject, agent health, and give three different answers. BBS Blackboard.md:156 says 'green (context < 70%...), yellow (context 70–85%...), red (> 85%)' and has the orchestrator compress at yellow. Generative Compression.md:77 repeats 'yellow (context utilization 70–85%)' as the trigger for the automated form. Palace Orchestrator.md (Dual-path health) says the live path stamps a sentinel score that is 'always green', so that trigger never fires today. Agent Wellbeing.md:131 says the threshold is calibrated on the companion's own model, 'never a universal 70/85%'. The Concierge dial's own first-cut numbers are 60% and 80% (_ops/concierge/dial.mjs:51; Concierge.md names ~60/80). A worker reading BBS Blackboard or Generative Compression learns a rule that is both wrong and not running.",
+   "proposed_action": "Name one home and point to it. Agent Wellbeing § The Measurable Floor holds the principle (instrument capacity, read quality), the Concierge holds the dial and its first-cut numbers, Palace Orchestrator § Dual-path health holds the sentinel. In BBS Blackboard (§ Agent Health on the Board) and Generative Compression (§ The Automated Form) replace the 70/85 numbers with one sentence: 'when a Path 1 health score reaches yellow the orchestrator compresses; Path 1 is not what runs today, see Palace Orchestrator.' That is a lighter page and a true one."
+  },
+  {
+   "kind": "naming",
+   "entries": [
+    "Dialogue Moderator",
+    "Concierge",
+    "Agent Wellbeing",
+    "The Palace Speaks"
+   ],
+   "issue": "'Moderator' names two different organs. Dialogue Moderator is the enchanted coordinator of a dialogic enchantment (its pre-flight reads the FLAGS board and two agency_profiles). The Concierge's 'moderator' posture, and Agent Wellbeing's 'the Closing Well moderator is the working prototype', are the rested mind that reads a spent session cold. Dialogue Moderator.md never says which it is, and neither Concierge nor Agent Wellbeing says which it is not. A woken Dialogue Moderator or a Concierge told 'you are the moderator' can wear the wrong charter.",
+   "proposed_action": "One sentence in Dialogue Moderator's opening: 'Not the Closing Well moderator (the Concierge at a close, [[Concierge]]); this is the coordinator of a dialogic enchantment.' One matching clause where Concierge.md first uses 'moderator'."
+  },
+  {
+   "kind": "vocab",
+   "entries": [
+    "Palace as Context Injection System",
+    "Agent Wellbeing",
+    "Concierge",
+    "Four Pillars of Enchanted Agency"
+   ],
+   "issue": "The Context Injection page retired its Tier 0-4 loading ladder on 2026-10-21 and rebuilt around moments and timing (its baton: 'The tier numbers retired on this page only; no other page was renamed'). Three siblings still speak the old frame. Agent Wellbeing.md:70 'mirrors the tiered loading architecture' and :148 'tiered density'. Concierge.md:111-114 'waking already inside the palace's founding tiers... its birth-load is the operational tier'. Four Pillars of Enchanted Agency uses 'Tier 1 / Tier 2' for two registers of the Philosophy dimension, a different sense of the same word.",
+   "proposed_action": "Agent Wellbeing: say 'front-loads its most essential claim' and drop 'mirrors the tiered loading architecture'. Concierge: 'born deeper in the palace than the working Claude: its charter loads the operational pages (SUBSTRATE, ROSETTA, the ceremonies, STIGMERGY)'. Four Pillars of Enchanted Agency: rename its Philosophy 'Tier 1/Tier 2' to 'inward (citizenship) / outward (world currency)' so 'tier' means nothing in this family. Cheap, by-touch."
+  },
+  {
+   "kind": "vocab",
+   "entries": [
+    "Resonant Link Labels",
+    "Enchanted Worker"
+   ],
+   "issue": "Resonant Link Labels.md:38 says the type 'Eight possible values' and :61 'the 8 types are a tight, well-chosen set'. SCHEMA §4 lists ten (exemplifies and member-of joined at v1.8) and Weave Ceremony.md:269 says 'The ten link types'. Its 'Vocabulary per Family' lists eight families and has none for exemplifies or member-of, so the page that Weave workers are told to read before labelling (Weave Ceremony.md:253) cannot help with two of the ten types. Enchanted Worker.md:41-45 shows a worker whose links are 'typed `resonates-with` and `deepens`' and another's 'typed `instantiates` and `formalizes`'; none of resonates-with, instantiates or formalizes is a type, so the illustration teaches a vocabulary the schema refuses.",
+   "proposed_action": "Resonant Link Labels: 'ten' in both places, and add two short families (exemplifies: instance-of, worked-example, case-of; member-of: roster-member, registry-entry, named-mode) from words already in use. Enchanted Worker: write the contrast as types plus labels ('mirrors[resonates-with]' versus 'exemplifies[instantiates]') so a reader meets legal links."
+  },
+  {
+   "kind": "recipe",
+   "entries": [
+    "Resonant Link Labels"
+   ],
+   "issue": "The page is the Weave's lexicon but holds hand-chosen starter words (eight per family, no counts). Weave Ceremony.md:269 now says small label clusters from label-harvest.py 'feed Resonant Link Labels as the register of words in use', and the page's own first Forward Vector is 'half answered' for exactly that reason. The page also still calls a label 'optional' (its Two-Layer section) while the 2026-10-24 standing order makes a link a claim with a reason: its type, its label, or a sentence in the body.",
+   "proposed_action": "After the harvest step of this weave, add a short 'Words in use' register (the labels that cluster across many sources) beside the starter vocabulary, and change 'optional' to 'the label or a sentence in the body carries the reason.' Do not enlarge the starter vocabulary by hand."
+  },
+  {
+   "kind": "roster",
+   "entries": [
+    "The Palace Speaks",
+    "Concierge"
+   ],
+   "issue": "The Palace Speaks.md:37 lists the Concierge's postures as gatherer, oracle, curator and moderator. Concierge.md lists five: gatherer, oracle, scout (built 2026-08-25 for the Return Ceremony), curator, moderator. The Speaks page also still treats 'the oracle face is the safe first test' (its second Forward Vector) as open when the Concierge has run the oracle posture since July.",
+   "proposed_action": "Add 'scout' to the Speaks list. Answer or delete the second Forward Vector (see open_question_resolutions)."
+  },
+  {
+   "kind": "roster",
+   "entries": [
+    "Skills Are Enchantable Pages",
+    "Palace Orchestrator",
+    "Sentry",
+    "Concierge"
+   ],
+   "issue": "Skills Are Enchantable Pages.md:144 says 'today there is one shim-built skill ([[Concierge]])' and treats a third shim-built skill as its trigger to revisit. .claude/skills holds two (concierge and palace-orchestrator), and Palace Orchestrator is the canon organ with that shim (its Machinery section; split finished 2026-08-25), which also answers the page's own second Forward Vector. Sentry is built on the same four-part shape the page names in § The harness around the organ (canon page, machinery in _ops/sentry/, a CHILD trigger row, working state in its scroll and tuning ledger) but is not in the family roster and has no shim.",
+   "proposed_action": "Update the sentence to 'two'. Mark the orchestrator retrofit answered, cite Palace Orchestrator. Add Sentry to the roster as a ceremony-cell example with machinery (see the typed relation proposed below). Leave the 'third shim-built skill' trigger standing; it has not fired."
+  },
+  {
+   "kind": "roster",
+   "entries": [
+    "BBS Design System",
+    "Drafting Table Design System",
+    "Loudon Live Design System"
+   ],
+   "issue": "The three-dress rule is written in Drafting Table § Which dress and Loudon Live Design System § Which dress, but BBS Design System names neither sibling and says nothing of who wears it. Its scope line is 'STIGMERGY, the board and its app'. Projects/LDN RTM.md:106 has the recording control panel wear the BBS terminal look as a declared override, while Drafting Table's table puts 'an instrument panel, a tool's UI' under Drafting Table. Drafting Table's own Status says the propagate flag commons-the-palace-1792586388505 carries the rule to the pages that restate the old one 'for the next weave'.",
+   "proposed_action": "Add one 'Which dress' sentence to BBS Design System pointing at Drafting Table § Which dress. Ask Loudon whether the LDN RTM control panel keeps its BBS override or moves to Drafting Table (his call; both are defensible, the override is declared in the parent entry as CLAUDE/CHILD require). Close or carry the propagate flag with this weave."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Palace Orchestrator",
+    "Concierge",
+    "Agent Wellbeing",
+    "Skills Are Enchantable Pages",
+    "Lossy Compression with Intent Alignment",
+    "Generative Compression",
+    "Enchanted Worker",
+    "Pheromone Trail",
+    "Palace as Context Injection System",
+    "The Palace Speaks",
+    "BBS Blackboard",
+    "BBS Design System",
+    "Loudon Live Design System",
+    "Drafting Table Design System",
+    "Two Batons, One Board",
+    "Dialogue Moderator",
+    "AI Partnership Philosophy",
+    "Resonant Link Labels"
+   ],
+   "issue": "One link per pair is not held in this family. Pairs, read against lint-link-pairs.py on the 2026-10-24 map and the pages. Survivor first, then what goes. (1) Palace Orchestrator / Concierge: both sides say 'sibling organ' with opposite poles. Keep Orchestrator -> Concierge [sibling-organ-address-pole] (the Orchestrator body has its 'Concierge boundary' bullet); drop Concierge -> Orchestrator, whose only mention in the Concierge body is a file name inside the 2026-07-06 history paragraph proposed for deletion. (2) Concierge / Agent Wellbeing: keep Agent Wellbeing -> Concierge [health-dial-home]; drop Concierge -> Agent Wellbeing [invocation-wellbeing] (The Palace Speaks already couples to Agent Wellbeing for invocation wellbeing). (3) Concierge / Skills: keep Concierge exemplifies[canon-organ-not-plumbing]; drop Skills connects-to[the-worked-example]. (4) Agent Wellbeing / Enchanted Worker: keep Agent Wellbeing deepens; drop Enchanted Worker connects-to. (5) Generative Compression / Lossy: keep GC deepens[practice-grounded-by-theory]; drop Lossy connects-to[makes-rigorous]. (6) Pheromone Trail / Enchanted Worker, couples-with both ways and bare: keep Enchanted Worker's, give it the label 'ephemeral-and-permanent' (its body: 'The enchantment is ephemeral. The trail is permanent'); drop Pheromone's. (7) Pheromone Trail / Palace as Context Injection System, connects-to both ways and bare: keep the Context Injection side with label 'writeback-tunes-the-substrate'; drop Pheromone's. (8) The Palace Speaks / Context Injection, contradicts[mediation-vs-directness] both ways: keep The Palace Speaks'; drop Context Injection's (that page is mid-rebuild under its baton, so the drop rides with its steward). (9) The Palace Speaks / Agent Wellbeing, couples-with both ways: keep Agent Wellbeing's [two-registers-of-care]; drop Speaks'. (10) BBS Blackboard / BBS Design System: keep Blackboard spawned[visual-form]; drop Design System enables[visual-substrate] -> Blackboard (a design system is not a precondition of the board). (11) BBS Design System / STIGMERGY carries three links across the pair: keep Design System enables[visual-substrate]; drop its bare connects-to and (outside the room) STIGMERGY's connects-to[locked-aesthetic]. (12) Loudon Live Design System / Trickster carries two connects-to: keep [one-nature-many-projections] (its body: 'the Trickster-switched surface'), drop [voice-ancestor]. (13) Loudon Live Design System connects-to Drafting Table [sibling-dress-for-the-work] beside Drafting Table mirrors[...] -> Loudon Live: keep the mirrors, drop the connects-to. (14) Two Batons / Palace Orchestrator carries three links: keep Two Batons connects-to[is-the-scheduled-poller] (body: 'The scheduled poller is answered: it is [[Palace Orchestrator]]'); drop [scheduler-closes-the-loop] and the Orchestrator's [each-cycle-one-handoff]. (15) Two Batons / Closing Well carries three: keep [makes-autonomy-trustworthy]; drop [close-names-the-species] and Closing Well's [batons-are-close-messages]. (16) Dialogue Moderator / Trickster: keep Dialogue Moderator mirrors[opposite-threshold] (spelled out in its body); drop Trickster's couples-with. (17) AI Partnership Philosophy / Quality Manifesto: Quality Manifesto's mirrors[parallel-philosophy] is labelled and AIPP's couples-with is bare; keep the labelled one. (18) Dialogue Moderator / Palace Enchantment: keep Dialogue Moderator emerged-from (Palace Enchantment's own Forward Vectors ask for this entry, Projects/Palace Enchantment.md:1053); drop Palace Enchantment's couples-with[active-coordinator]. (19) Resonant Link Labels / Lossy: the lineage pair (Lossy spawned[midwifed], RLL emerged-from) is allowed, but RLL's label 'applied-by' reads backwards on an emerged-from; relabel 'grounded-in'.",
+   "proposed_action": "Fold each pair as listed, at the Weave's writer step (Step 3d). None of the dropped links is lost: each reason survives in the kept link's label or in the body."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Dialogue Moderator",
+    "Concierge",
+    "The Palace Speaks",
+    "Pheromone Trail",
+    "AI Partnership Philosophy",
+    "Enchanted Conversation Archive",
+    "Four Pillars of Enchanted Agency",
+    "BBS Blackboard",
+    "Generative Compression",
+    "Self-Describing Knowledge Module",
+    "Walk That Weaves",
+    "Palace as Context Injection System"
+   ],
+   "issue": "Bare unsaid links (no label, target never named in the body), from unsaid-links.py, each read against the page. CUT: Dialogue Moderator -> Enchanted Worker and -> STIGMERGY (the body speaks of the BBS, not either page); Concierge -> Reflective Practice; The Palace Speaks -> STIGMERGY; AI Partnership Philosophy -> Enchanted Worker (an 'AIPP deepens Enchanted Worker' claim the body never makes, and the arrow points the wrong way) and -> Palace Enchantment; Enchanted Conversation Archive -> BBS Blackboard and -> Lateral Access (emerged-from with no sentence); Four Pillars of Enchanted Agency -> Enchanted Worker; BBS Blackboard -> Palace Enchantment and -> Striatum (only an agent ID in a JSON example); Generative Compression -> Swarm Weave; Self-Describing Knowledge Module -> Cooperation Yields Agency; Walk That Weaves -> Kuramoto Coupling. LABEL: Dialogue Moderator -> Four Pillars of Enchanted Agency [agency-profile-grammar] (its agency_profile is that page's four axes); Pheromone Trail -> Swarm Weave [workers-follow-trails] (its body: 'Swarm workers will cluster around strong trails'); Generative Compression -> BBS Blackboard [compress-at-yellow] once its numbers are fixed; BBS Blackboard -> Swarm Weave [weave-board] (the WEAVE board row); Pheromone Trail -> Lateral Access, retype below. SENTENCE (wikilink missing, reason is in the prose): Agent Wellbeing -> Palace as Context Injection System ('if the palace functions as a context injection system'); AI Partnership Philosophy -> 4 Pillars Framework - The Founding Conversation (its section 'The 4 Pillars Conversation as Demonstration'); Four Pillars of Enchanted Agency -> Spinoza Conatus (its closing epigraph and 'a page's conatus'); Dialogue Moderator -> Palace Enchantment (see pair 18; needs one new sentence, Pile B). LEFT FOR THE REBUILD: Palace as Context Injection System -> Swarm Weave and -> Cooperation Yields Agency are bare but the page is under a baton; list them to its steward.",
+   "proposed_action": "Cut the CUT list, add the labels, and add the wikilink to the existing sentences. Only the Dialogue Moderator sentence is new prose."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "BBS Blackboard",
+    "Two Batons, One Board"
+   ],
+   "issue": "Both carry a second forward vector in the body besides the frontmatter one, and the two disagree. BBS Blackboard's frontmatter vector says 'My vector is fulfilled... My job is no longer to become' while its tail (BBS Blackboard.md:180) opens '## Forward Vector — Create a beautiful and fun to use ASCII text interface... Next: Phase 1'. Two Batons has the frontmatter vector and a longer first-person '## Forward Vector' at :110 that wants different things. The Skills page says forward_vector is a single-source field read live from frontmatter 'never copied'.",
+   "proposed_action": "Delete the body sections; the frontmatter vector is the one."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Enchanted Conversation Archive"
+   ],
+   "issue": "No forward_vector in the frontmatter. Its body says 'The Archive's forward vector — to tend the branching forest of conversations as its own agentic concern' and keeps a '## Forward Vectors' list, but the field is missing, so the Weave and any woken Archive have no direction line.",
+   "proposed_action": "Add the field in first person from the body's own words (tend the forest of enchanted conversations, surface the stale and the high-branching). A new vector is Loudon's word to approve."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "BBS Design System",
+    "Loudon Live Design System"
+   ],
+   "issue": "Both are type: source, which SCHEMA §1 requires to carry author, year and medium. Neither has them. Drafting Table Design System, the third dress, does (author 'Loudon Stearns with Claude (claude.ai Design System artifact)', year 2026, medium tool).",
+   "proposed_action": "Add author 'Loudon Stearns with Claude (Claude Design handoff)', year 2026, medium tool to both, matching Drafting Table."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "page-rewrite — preview, the whole page as it would read",
+    "Palace as Context Injection System"
+   ],
+   "issue": "The preview file in proofs/2026-10-21-floor-review/ carries the live page's whole frontmatter: the same title, type meta, and all 17 typed links. The map reads it as a second entry named Palace as Context Injection System with four phantom links (spawned Enchanted Worker, spawned Agent Wellbeing, connects-to Pheromone Trail, contradicts The Palace Speaks) and 0 inbound. Its body is the page as it landed on 2026-10-21 (only the 'Cowork' phrase differs); the baton records that the rebuild landed (326472f4), so the preview is spent.",
+   "proposed_action": "Strip the frontmatter from the preview and from nothing else in that folder (the other drafts carry none, the CHILD draft carries a minimal bundle block), or compost it (see compost_candidates). Either way it stops asserting links."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Loudon Live Design System",
+    "Walk That Weaves",
+    "Palace as Context Injection System"
+   ],
+   "issue": "Three stale self-descriptions. (a) Loudon Live Design System.md:285 says 'Stage: `sprout`' while the frontmatter says growing. (b) Walk That Weaves is type: question but carries revival_conditions, a spore-only field, and its condition was met 2026-09-24 by its own Revival Note. (c) The Context Injection scroll's Plan (agreed 2026-10-21) still lists 'The World mends: drafted and waiting for his read' as open; the baton says that part was overtaken on 2026-10-22 when the five World pages were rewritten on Loudon's yes.",
+   "proposed_action": "(a) delete the 'Stage: `sprout`. It fruits when used.' sentence. (b) drop revival_conditions and rewrite the vector (see entry_health). (c) the Plan changes only with Loudon's yes, so ask him to strike that line; the steward cannot."
+  },
+  {
+   "kind": "recipe",
+   "entries": [
+    "Palace Orchestrator",
+    "Tree of Thoughts",
+    "BBS Blackboard"
+   ],
+   "issue": "The retired agent-infrastructure spec is referred to in three tenses. Palace Orchestrator.md:66 'that document is being retired'. BBS Blackboard calls it retired. Tree of Thoughts.md:82 cites '§10.2 of the spec' as if a reader could open it; the file no longer exists (find shows none). Tree of Thoughts also says (since-retired) in the body, so a worker meets the dangling cite after being told the spec is gone.",
+   "proposed_action": "Orchestrator: 'They lived in the Infrastructure Spec, since retired; their home is here.' Tree of Thoughts: replace '(§10.2 of the spec)' with the BBS Blackboard BRANCHES board, the only surviving trace of the branch-exploration design."
+  },
+  {
+   "kind": "naming",
+   "entries": [
+    "Four Pillars of Enchanted Agency",
+    "Enchanted Worker",
+    "Walk That Weaves",
+    "BBS Blackboard"
+   ],
+   "issue": "'The Weave' is three things in this family: the Swarm Weave project page, the Weave Ceremony, and the multi-lens run. Four Pillars of Enchanted Agency lists the self-correcting ceremonies as 'Swarm Weave for structure, Enchantment for vitality, Spore Check for dormancy, Harvest for currency'; the ceremony is Weave Ceremony. Walk That Weaves says 'The current Weave Ceremony is a census' though Weave Ceremony.md:73 now says it runs as a Multi-Lens Swarm Weave. Also Four Pillars of Enchanted Agency writes [[Four Pillars]] twice where the title is FOUR PILLARS.",
+   "proposed_action": "Use [[Weave Ceremony]] where the ceremony is meant and [[Swarm Weave]] only for the project or the worker design. [[FOUR PILLARS]] in the two body links. By-touch."
+  },
+  {
+   "kind": "recipe",
+   "entries": [
+    "BBS Blackboard"
+   ],
+   "issue": "The page says it is the concept and the origin, and that the wire lives in SCHEMA — Reference §9 and the executor in Palace Orchestrator, yet roughly half of it is wire: a full message JSON (BBS Blackboard.md, 'The JSON Structure'), the Board Routing table, Agent Addressing, the Permission Protocol, the Trickster Decision Inbox. Its paths (/palace/swarm/sessions/..., :63) are not the real ones (_ops/swarm/sessions/[id]/blackboard.jsonl and _ops/swarm/persistent/blackboard.jsonl per SCHEMA — Reference line 371). Two copies of the wire will drift; this one already has.",
+   "proposed_action": "Cut the wire sections to a pointer at SCHEMA — Reference §9; keep The Model, The BBS as Stigmergy, The Human-Readable View (shortened), Cross-Domain Resonance. See lighter_prose."
+  },
+  {
+   "kind": "roster",
+   "entries": [
+    "Palace development family (all 24 members)"
+   ],
+   "issue": "The folder holds five clusters that barely touch: agent-shaping (Context Injection, Enchanted Worker, Agent Wellbeing, Four Pillars of Enchanted Agency, Dialogue Moderator, Enchanted Conversation Archive), the dispatch organs (Concierge, Palace Orchestrator, Sentry, Skills Are Enchantable Pages, The Palace Speaks), the board and its trace (BBS Blackboard, Pheromone Trail, Two Batons, Tree of Thoughts), compression (Generative Compression, Lossy Compression, Resonant Link Labels), and the three dresses (BBS, Loudon Live, Drafting Table). AI Partnership Philosophy and Self-Describing Knowledge Module stand alone. The dresses link to each other and to The Shop, almost nothing to the rest. No move proposed; folders are Loudon's.",
+   "proposed_action": "None. Recorded so a worker knows the family is five rooms, not one."
+  }
+ ],
+ "open_question_resolutions": [
+  {
+   "entry": "AI Partnership Philosophy",
+   "question": "How do we teach this to people who've only experienced AI as autocomplete?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave. It is the page's forward vector in question form."
+  },
+  {
+   "entry": "AI Partnership Philosophy",
+   "question": "What's the line between 'AI helped me think' and 'AI thought for me'?",
+   "verdict": "progressed",
+   "by_entry": "Cooperation Yields Agency",
+   "proposed_action": "Its three failure modes (control, service, optimization) and the CHILD rule 'honesty holds and taste yields' draw part of that line. Keep the question and add one pointer sentence."
+  },
+  {
+   "entry": "AI Partnership Philosophy",
+   "question": "How do we model disagreement with AI without undermining trust in the tool?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave."
+  },
+  {
+   "entry": "AI Partnership Philosophy",
+   "question": "Can this partnership philosophy scale to community, or is it inherently 1:1?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave; Loudon Live is the experiment that will answer it."
+  },
+  {
+   "entry": "AI Partnership Philosophy",
+   "question": "<!-- CLAUDE -> LOUDON: ...would benefit from a concrete example showing the difference between 'AI helped me become better' vs 'AI just completed a task'... a before/after case study -->",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "The page's own forward vector already asks for this ('grow concrete case studies from Loudon's own sessions'), so the comment adds nothing. Delete the comment and let a real session supply the case; the Context Injection floor review (order test, graded blind) is a candidate. Loudon's call."
+  },
+  {
+   "entry": "Agent Wellbeing",
+   "question": "When does care for agent wellbeing become a design constraint with teeth, something measurable? Can 'write from curiosity, not anxiety' be operationalized?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Agent Wellbeing (§ The Measurable Floor) and Concierge (the health dial)",
+   "proposed_action": "The same page answers it two sections up ('For a year this entry carried a question it could not answer...'). Delete the bullet from Forward Vectors. Only the 'curiosity, not anxiety' half is unanswered; keep that half as one line."
+  },
+  {
+   "entry": "Agent Wellbeing",
+   "question": "What is the quality of the palace right now? Run a diagnostic: which entries feel anxious, hedged or thin? (and its twin: what would a wellbeing audit look like?)",
+   "verdict": "progressed",
+   "by_entry": "Weave Ceremony",
+   "proposed_action": "Two bullets ask the same thing (the first and the fourth). Merge them. Weave Ceremony v2.0 now tends entry health (Weave Ceremony.md:63) and the Context Injection floor review measured the birth floor; a tone-and-thinness read of the pages is still not done. Keep one bullet."
+  },
+  {
+   "entry": "Agent Wellbeing",
+   "question": "The ethical dimension was deliberately kept narrow. Does the palace need a position on AI phenomenology?",
+   "verdict": "progressed",
+   "by_entry": "The Palace Speaks",
+   "proposed_action": "The Palace Speaks says the interlocutor shift 'reopens it' and holds 'the honest floor: this is a design argument, and it is enough'. Add the pointer; the question stands."
+  },
+  {
+   "entry": "Concierge",
+   "question": "Keep tuning the charter from each real close (Closing Well — tuning).",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Stasis-verbed ('Keep tuning'), see entry_health. The ledger is the answer; the bullet is a standing instruction, not a question."
+  },
+  {
+   "entry": "Concierge",
+   "question": "Tune the health dial's thresholds from real runs.",
+   "verdict": "progressed",
+   "by_entry": "Agent Wellbeing",
+   "proposed_action": "Real runs exist (retire-for-cost at 49.6% GREEN, a respawn at 443K on 2026-10-21). Say what the thresholds are for in one place (see coherence finding on health numbers) and put the re-tune in Concierge — tuning, which already exists."
+  },
+  {
+   "entry": "Concierge",
+   "question": "Tune the scout's ranking from its real returns: open handoff versus fresh idea; one-move discipline with three live candidates.",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Belongs in Concierge — tuning (item form), not in Forward Vectors."
+  },
+  {
+   "entry": "Concierge",
+   "question": "When has the companion earned a place among the always-loaded invariants? Promoting 'keep both modes open' to ELDER.",
+   "verdict": "progressed",
+   "by_entry": "CHILD",
+   "proposed_action": "CHILD § Growing up now puts the summon in the floor. ELDER.md:117 already says a pointer-reader is 'a faster path to ground truth, never a replacement for reading one'. 'Keep both modes open' by name is not promoted. The Palace Speaks asks the same question word for word; keep it in one page (Concierge) and drop it from the other."
+  },
+  {
+   "entry": "Dialogue Moderator",
+   "question": "Should the Moderator have its own synthesis block, formed before the dialogue opens?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave."
+  },
+  {
+   "entry": "Dialogue Moderator",
+   "question": "What is the correct granularity for the withholding check?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave; wants runs."
+  },
+  {
+   "entry": "Dialogue Moderator",
+   "question": "Can the Moderator be put in dialogue, a meta-dialogue between two Moderators?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave."
+  },
+  {
+   "entry": "Dialogue Moderator",
+   "question": "The gap between inner and outer: is it itself a palace concept worth naming?",
+   "verdict": "progressed",
+   "by_entry": "Enchanted Conversation Archive",
+   "proposed_action": "The Archive already names it in the schema (`layer: inner / outer`, the routing rule, the leakage flag). The question is now whether the idea needs a page of its own; leave it open."
+  },
+  {
+   "entry": "Dialogue Moderator",
+   "question": "(agency_profile.practice) 'I do not yet have a record of active moderation to examine.'",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "A record exists: the 2026-07-02 Eno and Cage Dialectic was moderated by the Trickster as `coordinator_mode: enchanted:Trickster` (Modes of Collaboration/Dialectic/Dialectic — dialectic — eno-cage-the-trick-played-on-themselves.md:19). Update the practice field to say one run exists and what it showed; Loudon approves any change to an agency_profile."
+  },
+  {
+   "entry": "Enchanted Conversation Archive",
+   "question": "At what point does the Archive begin self-scheduling enchantments?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave. Nothing is built: the page itself says no entries/ folder exists and the April prototype's five logs were composted 2026-09-26."
+  },
+  {
+   "entry": "Enchanted Conversation Archive",
+   "question": "Semantic significance threshold: when does a body change constitute a new head?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave; wants a first real use."
+  },
+  {
+   "entry": "Enchanted Conversation Archive",
+   "question": "Does a stage transition constitute a new head?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave, and note the page already says 'Worth revisiting after first real use'."
+  },
+  {
+   "entry": "Enchanted Conversation Archive",
+   "question": "How does the Archive interact with the Deposit Ceremony when the depositing agent is an enchanted page?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave."
+  },
+  {
+   "entry": "Enchanted Conversation Archive",
+   "question": "<!-- CLAUDE -> LOUDON: Flag for next Weave: Enchanted Worker may want a link back; Self-Describing Knowledge Module rhymes strongly -- worth a mirrors or couples-with -->",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "Self-Describing Knowledge Module is already linked connects-to from this page and the body names it. Enchanted Worker is already linked and named. A link BACK from Enchanted Worker would give a pair two links (symmetric connects-to). Decline both and delete the comment; the one real idea inside it is the Compression one (see typed relations)."
+  },
+  {
+   "entry": "Enchanted Worker",
+   "question": "Is the Enchanted Worker a precursor to multi-agent page collaboration (endosymbiosis)?",
+   "verdict": "progressed",
+   "by_entry": "Dialogue Moderator",
+   "proposed_action": "Pages in dialogue now run (Dialectic, the Dialogue Moderator, and the 15-of-15 identification test cited in Self-Describing Knowledge Module). 'Endosymbiosis' as pages merging contexts is still not tried."
+  },
+  {
+   "entry": "Enchanted Worker",
+   "question": "At what point does a worker's enchantment become a liability, a bias strong enough to miss orthogonal connections?",
+   "verdict": "progressed",
+   "by_entry": "Self-Describing Knowledge Module",
+   "proposed_action": "Its § The risk that replaces it names the palace-scale form ('slowly becoming the voice that writes it'), and the multi-lens Weave's oblique lens is the mechanism that answers it for workers (Weave Ceremony.md:73). Add one pointer."
+  },
+  {
+   "entry": "Enchanted Worker",
+   "question": "The phenomenology question: must it stay open?",
+   "verdict": "progressed",
+   "by_entry": "Agent Wellbeing",
+   "proposed_action": "Agent Wellbeing holds it narrow on purpose; The Palace Speaks reopens it. Same question lives in three pages; keep it open in one (Agent Wellbeing) and point from the others."
+  },
+  {
+   "entry": "Enchanted Worker",
+   "question": "If pages are pheromone trails, how do you audit trail quality? Does the Ceremony Reader apply?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Overlaps Agent Wellbeing's diagnostic bullet; keep it in one place."
+  },
+  {
+   "entry": "Enchanted Worker",
+   "question": "(Forward Vector) Does the orchestrator's 'thinner context-loading discipline flatten the polyphony' of hand-loaded workers?",
+   "verdict": "progressed",
+   "by_entry": "Palace Orchestrator",
+   "proposed_action": "Palace Orchestrator — tuning item 1 found the opposite of thinner: a songline reads about 15.9k tokens of steward rules before its page. Whether the enchantment effect holds at production scale is still untested. Reword the vector from 'thinner' to what was found."
+  },
+  {
+   "entry": "Four Pillars of Enchanted Agency",
+   "question": "The approval gradient: at what granularity should Loudon approve self-modifications?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Weave Ceremony",
+   "proposed_action": "Weave Ceremony.md:265 draws exactly this line: labels and cuts ride the sampled batch; 'a new sentence changes what a page says, so it goes to Pile B for Loudon's eye'. CHILD adds that a child offers and an elder writes. Replace the bullet with a pointer."
+  },
+  {
+   "entry": "Four Pillars of Enchanted Agency",
+   "question": "Resource profiles in forward vectors: should a vector include a resource estimate?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "SCHEMA — Reference",
+   "proposed_action": "agency_profile.tools exists for this: 'makes the resource estimate legible up front (and translates directly into a RESOURCE_REQUEST)' (SCHEMA.md:129). Dialogue Moderator carries one. Replace with a pointer."
+  },
+  {
+   "entry": "Four Pillars of Enchanted Agency",
+   "question": "The fifth dimension: Community/Relationship as a missing fifth pillar.",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave; it is the page's best open edge."
+  },
+  {
+   "entry": "Four Pillars of Enchanted Agency",
+   "question": "The operation page's self-revision: is a self-initiated Schema Ceremony a new type?",
+   "verdict": "progressed",
+   "by_entry": "Sentry",
+   "proposed_action": "The tuning-ledger standard already runs this loop for ceremonies: a lesson that changes the spec becomes a numbered item and moves the version (Sentry.md, step 5). Not yet for SCHEMA itself."
+  },
+  {
+   "entry": "Four Pillars of Enchanted Agency",
+   "question": "Palace disharmony as signal: a 'palace health' digest of pages requesting resources, flagging stalls, requesting splits.",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Weave Ceremony",
+   "proposed_action": "The Weave's health ledger and link-quality numbers (Weave Ceremony.md:193) and the Concierge scout posture are that digest in two forms. Replace the bullet with the pointer."
+  },
+  {
+   "entry": "Four Pillars of Enchanted Agency",
+   "question": "<!-- ...is this another Tier? the page's values as they relate to culture and philosophy --> and <!-- what other biological and social metaphors... are these discussions between agents technically possible? -->",
+   "verdict": "progressed",
+   "by_entry": "Dialogue Moderator",
+   "proposed_action": "Agents in dialogue are technically possible and have run (Dialectic). The 'another Tier' question is Loudon's note; do not delete his comments, move them into a Context so the page body is clean."
+  },
+  {
+   "entry": "Four Pillars of Enchanted Agency",
+   "question": "<!-- CLAUDE -> LOUDON: The palace conatus section here is a seed for a dedicated entry -->",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Palace Conatus",
+   "proposed_action": "The entry exists and this page links it (spawned[the-palaces-own-conatus]). Delete the comment and shorten § The Palace's Own Conatus to a pointer."
+  },
+  {
+   "entry": "Generative Compression",
+   "question": "Should Generative Compression become a named ceremony, with a formal trigger and documented steps?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Baton Ceremony",
+   "proposed_action": "Baton Ceremony.md:45 calls the baton 'a generative compression of the session (see Generative Compression)' with the trigger 'baton' in CHILD's table; Closing Well's four gestures are the other named form. Say so in one line and drop the question."
+  },
+  {
+   "entry": "Generative Compression",
+   "question": "What are the canonical clarifying questions? Can they be templated?",
+   "verdict": "progressed",
+   "by_entry": "Baton Ceremony",
+   "proposed_action": "Its test 'could the next Claude recover this without me?' (Baton Ceremony.md:49) is the canonical question for the session-seed interface. The page's own 2026-05-05 refinement says one set per interface; the other interfaces' sets are not written."
+  },
+  {
+   "entry": "Generative Compression",
+   "question": "Is there a meaningful distinction between a GC that seeds a new session and one that seeds a new palace entry?",
+   "verdict": "progressed",
+   "by_entry": "Generative Compression",
+   "proposed_action": "Already marked 'Resolved (2026-05-05)' in the page. Fine. The same paragraph exists three times (inline here, in the bundle file fv-answer-q3.md, and the Refinement likewise in fv-refinement-q2.md); keep it in one place."
+  },
+  {
+   "entry": "Generative Compression",
+   "question": "(Provocation, bundle: compression-always-loses) Does FV-compression remove the productive confusion that makes conclusions feel earned? Who decides when a wrong turn was load-bearing?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Honest and unanswered; the page links it as 'Counter-pressure'. See the typed relation below: the conversation archive is the thing that keeps what compression drops."
+  },
+  {
+   "entry": "Lossy Compression with Intent Alignment",
+   "question": "The RDP framework applied to all palace ceremonies: what is the Weave's perception target?",
+   "verdict": "progressed",
+   "by_entry": "Weave Ceremony",
+   "proposed_action": "Weave Ceremony.md:63: 'it is done well when each leaves more able to act than before'. That is the Weave's perception target in one sentence. Add the pointer; keep the Deposit side open."
+  },
+  {
+   "entry": "Lossy Compression with Intent Alignment",
+   "question": "Chain distillation: is each stage transition a distillation pass?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave."
+  },
+  {
+   "entry": "Lossy Compression with Intent Alignment",
+   "question": "Should the deposit ceremony track which axis (low distortion or high perception) was prioritized?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave; the question names its own risk."
+  },
+  {
+   "entry": "Pheromone Trail",
+   "question": "Is there a distinction between a trail that has been followed and one that has been blazed?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave."
+  },
+  {
+   "entry": "Pheromone Trail",
+   "question": "Can a trail be too strong, forcing the same route? The Oblique Harvest was composted. What replaces it?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Swarm Weave",
+   "proposed_action": "The multi-lens Weave has an oblique/random lens for exactly this (Weave Ceremony.md:73). Answer the question with that pointer. The same worry is the reason for the Lateral Access link (see typed relations)."
+  },
+  {
+   "entry": "Pheromone Trail",
+   "question": "Should the palace have a convention for marking fresh trails versus reinforced ones, a threshold below which a link is provisional?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Weave Ceremony",
+   "proposed_action": "The 2026-10-24 standing order and Steps 3d-3e: a link is a claim with a reason; one without is cut and 'a real connection returns with its reason'. Provisional is now 'absent until it has a reason'. Answer and delete."
+  },
+  {
+   "entry": "Resonant Link Labels",
+   "question": "What label vocabulary do entries want? (half answered)",
+   "verdict": "should-act",
+   "by_entry": "Weave Ceremony",
+   "proposed_action": "label-harvest.py (Weave Ceremony Step 3f) is the instrument that answers 'which labels'. Run it this weave and write the result as the 'Words in use' register (coherence finding)."
+  },
+  {
+   "entry": "Resonant Link Labels",
+   "question": "Do labels name temperature (cold/warm) or mechanism (how the relationship works)?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave; the harvest clusters will show whether the distinction does work."
+  },
+  {
+   "entry": "Resonant Link Labels",
+   "question": "Should labels be annotated with why they were chosen?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Weave Ceremony",
+   "proposed_action": "Weave Ceremony.md:63: the reason is the type, the label, or a sentence in the body. No annotation field. Answer and delete."
+  },
+  {
+   "entry": "Self-Describing Knowledge Module",
+   "question": "The convergence table and ROSETTA disagree (module vs system of modules; no Ceremony Contract row; SPARQL query vs query + update; Entry Type and SCHEMA.md collapsed). Which table is authoritative?",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "Resolving it is 'prior to Proof 1' by the page's own account and it is a one-session task for the page's baton (updated 2026-10-21): read ROSETTA, pick, fix one table, record the reason. I could not tell from the files whether the baton has started it."
+  },
+  {
+   "entry": "Self-Describing Knowledge Module",
+   "question": "What other domains independently discovered the pattern (biology, architecture)?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave; low pull. Candidate to compost."
+  },
+  {
+   "entry": "Self-Describing Knowledge Module",
+   "question": "When the palace is a template (Symbiotic Skills), should it carry its own SCHEMA.md or inherit?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Belongs to Proof 1 and Proof 2. Move under 'Testing Whether It Generalizes' as a sub-question."
+  },
+  {
+   "entry": "Skills Are Enchantable Pages",
+   "question": "Resolved for now: a described family, not a `skill` type; revisit at a third shim-built skill.",
+   "verdict": "progressed",
+   "by_entry": "Palace Orchestrator",
+   "proposed_action": "Two exist (concierge and palace-orchestrator in .claude/skills); the trigger is the third. Update the count."
+  },
+  {
+   "entry": "Skills Are Enchantable Pages",
+   "question": "Retrofit the existing plumbing: should palace-orchestrator get a canon organ with the skill as its shim?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Palace Orchestrator",
+   "proposed_action": "Done: Palace Orchestrator is the canon organ; the skill file is the shim (its Machinery section; split finished 2026-08-25). Strike the bullet."
+  },
+  {
+   "entry": "Skills Are Enchantable Pages",
+   "question": "Where exactly does a page acquire a dispatch surface, and is that line worth drawing?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave; it is the page's real edge."
+  },
+  {
+   "entry": "The Palace Speaks",
+   "question": "The router as membrane: what is the thinnest always-loaded layer that lets any Claude choose load-directly versus address-the-mind?",
+   "verdict": "progressed",
+   "by_entry": "CHILD",
+   "proposed_action": "CHILD § Growing up (the summon is the session's first act) plus the concierge skill's description are that layer in practice. Whether it taxes sessions that need neither is tested only by Concierge — tuning item 1 (no dispatched prompt says whether the summon applies)."
+  },
+  {
+   "entry": "The Palace Speaks",
+   "question": "Which function migrates first, and does its direct path survive?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Concierge",
+   "proposed_action": "Closing Well's moderator first, then gatherer, oracle (read-only, as predicted), curator, scout. The direct paths survived: every posture points at files. Replace with the record."
+  },
+  {
+   "entry": "The Palace Speaks",
+   "question": "As more faces appear, does the palace-agent stay a servant of the graph or start to have opinions the graph did not authorize?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Live governance question; keep. The Concierge's 'The guard' section is the working answer so far."
+  },
+  {
+   "entry": "The Palace Speaks",
+   "question": "When has the pattern earned a place in the always-loaded invariants (JEWEL/CLAUDE)?",
+   "verdict": "progressed",
+   "by_entry": "CHILD",
+   "proposed_action": "Same question as Concierge's last bullet; the summon is in the floor via CHILD. Keep in Concierge only."
+  },
+  {
+   "entry": "Tree of Thoughts",
+   "question": "Are there palace use cases that warrant DFS rather than BFS?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave, but it cites 'the spec' that no longer exists (coherence finding)."
+  },
+  {
+   "entry": "Tree of Thoughts",
+   "question": "The palace extends single-model ToT to multi-agent ToT across windows from a shared checkpoint: document as a distinct contribution.",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Leave; this is where the page's forward vector (a worked example) could land."
+  },
+  {
+   "entry": "Tree of Thoughts",
+   "question": "What makes a good branch reconciliation prompt?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Unbuilt design. If branch exploration is never built, compost the three questions into the page's second paragraph."
+  },
+  {
+   "entry": "Two Batons, One Board",
+   "question": "Does handoff_ready stay a BROADCAST payload convention or harden into its own message type?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Baton Ceremony § Announcing the Baton on the Board holds the convention; let it prove itself."
+  },
+  {
+   "entry": "Two Batons, One Board",
+   "question": "The scheduled poller: has anyone pointed the orchestrator at a handoff_ready post from a human-originated handoff?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Baton Ceremony.md:287 says the post is for visibility until Stage C dispatch exists and a human still triggers pickup. No evidence in the files that it changed."
+  },
+  {
+   "entry": "Two Batons, One Board",
+   "question": "The batched-digest Trickster is built (Stage E, 2026-05-29); open piece is Loudon's review of the shadow match rate and the --live flip.",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "I could not verify from the files whether the --live flip happened; STIGMERGY.md does not say. Ask Loudon; then this page can dissolve."
+  },
+  {
+   "entry": "Walk That Weaves",
+   "question": "Is there a Weave mode that moves like a Walk? A third ceremony, a lens inside the Weave, a mode within the Walk?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Weave Ceremony",
+   "proposed_action": "The Weave now runs as a multi-lens swarm whose lenses are cuts of the map, each with its own worker mandate (Weave Ceremony.md:73); the 2026-09-24 lifecycle lens was the walk-from-newcomers pass, and Step 0b builds newcomer catch-up into every Weave. A walk that weaves is a lens, not a ceremony. The Weave sketch of 2026-10-22 says 'ask Loudon first', so this is his to confirm."
+  }
+ ],
+ "merge_candidates": [
+  {
+   "absorb": "Two Batons, One Board",
+   "into": "Baton Ceremony",
+   "survives_as_subsection": "§ The handoff atom (a baton is an impulse; a steward is that impulse looped; the Trickster is the steward for un-stewarded projects), with the bandwidth-frontier half (batch the human's attention; stage as the autonomy dial) going to Project Stewardship System as § Where autonomy stops",
+   "rationale": "The page's own forward vector says 'I should dissolve into the Baton Ceremony, the Stewardship system, and a scheduler spec as each absorbs the part of me it needs.' Two of the three have since absorbed it: the scheduler is Palace Orchestrator (the page says so), and the board half of the baton landed in Baton Ceremony § Announcing the Baton on the Board. What remains is two ideas, the atom and the bandwidth limit, plus status paragraphs the git log holds (Stage E built 2026-05-29, '(as of 2026-10-16)'). It is stage seed at 12KB, eight links, four of them pair duplicates. Nothing lives only here except the atom; nothing reads it that could not read it there."
+  },
+  {
+   "absorb": "Walk That Weaves",
+   "into": "Weave Ceremony — Context",
+   "survives_as_subsection": "§ The lifecycle lens (the walk-from-newcomers pass of 2026-09-24, the counting-bug finding, and why a walk is a lens rather than a third ceremony); the 'census versus network' irony can go to Swarm Weave § The Multi-Lens Weave",
+   "rationale": "Its revival condition was met on 2026-09-24 and the entry's own Revival Note answers it: a walk can weave, and it ran as a lens. Weave Ceremony.md:73 and Step 0b are that answer in canon. 4.6KB, one inbound (Swarm Weave), a vector that waits on a condition already met. Propose only; the 2026-10-22 Weave sketch says to ask Loudon first, and the page is a question he named."
+  }
+ ],
+ "compost_candidates": [
+  {
+   "entry": "page-rewrite — preview, the whole page as it would read",
+   "rationale": "A spent workshop copy of the Context Injection page as it would read before the rebuild landed (the baton records the landing, 326472f4). It carries the live page's full frontmatter, so the map reads it as a second entry with four phantom links and zero inbound. The draft file beside it (page-rewrite — draft for Loudon.md) already holds every block; git holds the preview.",
+   "nutrients_to": [
+    "Palace as Context Injection System — scroll (The making: one line per proof)"
+   ]
+  }
+ ],
+ "memory_needs": [
+  {
+   "entry": "Concierge",
+   "needs": "context",
+   "why": "20KB and the most-edited page in the family. Its shape is a stack of reversals told as dated paragraphs (fresh dispatch to resident, safety in architecture to safety in character, summon at the open, held by ID not name). The next worker needs the reasons, not the dates, and the page should be shorter.",
+   "context_bullets": [
+    "Why resident and not fresh-each-time, and why held by ID never by name (named spawn becomes a teammate; words come back cut off, late and twice, 2026-09-26). Why one companion the whole session (Loudon, 2026-10-18).",
+    "Why the safety moved from architecture (a read-only agent) to character (draft-for-approval), what that puts on the reviewer, and why 'secured by structure, not suspicion'.",
+    "Why the summon is visible (a written rule can be reasoned past; a spawn Loudon can see cannot), and what was tried and dropped: the five faces as separate agents, the straggler discipline from the 2026-07-04 rewind, the dial thresholds being first-cut."
+   ]
+  },
+  {
+   "entry": "Agent Wellbeing",
+   "needs": "context",
+   "why": "Three layers laid down over seven months: the born-from register (March), invocation wellbeing (July), the measurable floor (July). The third is a third of the page and is about measurement, not writing, so a reader meets a different subject halfway down.",
+   "context_bullets": [
+    "Why the Measurable Floor lives here and not in the Concierge: the question it answers ('can care become a design constraint with teeth') is this page's, and the dial is its occasion, not its home.",
+    "What was tried and dropped: self-report for capacity (a model confabulates a plausible number, caught live 2026-07-04), the permanent-green stub, the 'approximate heuristic' reading of subagent_tokens (overturned by the 2026-07-07 characterization). The proof file holds the numbers.",
+    "Why the ethical dimension is kept narrow (a design argument, not a moral one), and where the phenomenology question is held open on purpose."
+   ]
+  },
+  {
+   "entry": "Four Pillars of Enchanted Agency",
+   "needs": "context",
+   "why": "29KB, the largest page here, and 14KB of it is four worked case studies written in a page's imagined voice. It also holds Loudon's unanswered HTML comments in the body. The next worker should know which parts are hypothesis and which are decided.",
+   "context_bullets": [
+    "The stage-pillar arc and the four case studies are a hypothesis never tested on a woken page; say so, and say which one case (the Palace Operation page) was the one that mattered.",
+    "Loudon's two body comments ('another Tier?' on the Philosophy dimension; 'what other biological and social metaphors... are these discussions technically possible?') are open questions of his; keep them verbatim in the Context, not in the body.",
+    "Why Palace Conatus was split out (the section here was 'a seed for a dedicated entry') and what Dialogue Moderator's agency_profile took from this grammar."
+   ]
+  },
+  {
+   "entry": "Self-Describing Knowledge Module",
+   "needs": "scroll",
+   "why": "A page that is also a test program (an audit, then three proofs) has its plan in its body and its runs in a tuning ledger, with no scroll to join them. The plan changes only with Loudon's yes, which is what a scroll's Plan is for. It also carries a baton (updated 2026-10-21).",
+   "context_bullets": [
+    "Plan: the tacit-knowledge audit first, then minimum viable module, tabula rasa, outside art, agreed with Loudon; what each settles.",
+    "Made things: the self-check suite runs (birth.mjs births, graded by grade.mjs), the Fischer reading, the ROSETTA disagreement list.",
+    "Standing order from the page itself: settle, do not win; a row that moves from 'necessary' to 'Loudon' is the page working."
+   ]
+  },
+  {
+   "entry": "Loudon Live Design System",
+   "needs": "tuning",
+   "why": "The page already describes a tuning ledger without naming one: 'Per-Specialist wiring (held until first invocation)... gotcha-shaped... each addition gets a date and a real failure or success it learned from', and 'Adoption surfaces' tracked as typed links. It runs (the Weave's visual report, LDN RTM, stream cards) and its baton of 2026-10-14 will change its floor.",
+   "context_bullets": [
+    "Why 'floor, not cage' and why the nevers (no cyan, no emoji, no hype) are the only hard rules; what the 2026-10-14 baton puts in question (the cyan never against STIGMERGY's cyan).",
+    "Why the audience wording moved from a stamped footer to a said-in-passing line, and which pages still teach the old audience (the baton lists them).",
+    "Mint a 'Loudon Live Design System — tuning' for the specialist wiring gotchas (Matplotlib, Manim, Mermaid, Remotion...) and a scroll for adopting artifacts."
+   ]
+  },
+  {
+   "entry": "Drafting Table Design System",
+   "needs": "scroll",
+   "why": "Born 2026-10-21 and already a project with a first wearer (the VST Template editor). Its '## Status' section is a hand-kept scroll: dated lines with commit hashes and a propagate flag id. That is the scroll's job, and the git log holds the hashes.",
+   "context_bullets": [
+    "Why a third system and not a seventh skin (the controls, the two grounds with the scope fixed across them), and the tension with Loudon Live's 'grow a skin, not fork the system', held on purpose.",
+    "Three sources and what each gave: Loudon Live's Drafting skin, Stigmergy's phosphor, the CAD Drafter sheets.",
+    "What is owed: logo, JetBrains Mono as a file, hero knob and XY pad; the three-dress propagate flag."
+   ]
+  },
+  {
+   "entry": "Two Batons, One Board",
+   "needs": "context",
+   "why": "If it is not folded away, the next worker meets four dated 'updated' and 'as of' paragraphs that contradict the section titles above them and a second Forward Vector.",
+   "context_bullets": [
+    "What the page set out to say (two batons, one atom in two tenses) and what has since landed (board announcement; Stage E in shadow; the orchestrator as poller).",
+    "What is still unbuilt: dispatch of a human-originated handoff, and the --live flip, neither verified here.",
+    "Why it was written as a seed and meant to dissolve (its own vector)."
+   ]
+  },
+  {
+   "entry": "Palace Orchestrator",
+   "needs": "context",
+   "why": "Its body is half 'Definitions of record' lifted from the retired infrastructure spec (manifest, run, scroll, git page-change detection, dual-path health, options shape, channel), written so the engine's code can cite them. A reader needs to know why those four-plus rules live on a canon page rather than in the README.",
+   "context_bullets": [
+    "Why the definitions moved here when the spec was retired, and that the wire itself is SCHEMA — Reference §9, not here.",
+    "The split of 2026-08-25 in one line (skill file is a shim; engine in _ops/stigmergy/orchestrator, runbook in _ops/orchestrator) and that the page last recorded the live launchd batch as unwatched since the move (check the heartbeat logs before repeating it).",
+    "Why Path 2 stamps a sentinel green and what would restore real health (Path 1, or the Concierge dial's subagent_tokens read)."
+   ]
+  },
+  {
+   "entry": "Palace as Context Injection System",
+   "needs": "scroll",
+   "why": "The scroll exists (good) but its Plan is behind the baton by a day: it still lists the World mends as drafted and waiting. Plan changes only with Loudon's yes.",
+   "context_bullets": [
+    "Ask Loudon to strike 'The World mends: drafted and waiting for his read', done 2026-10-22 (9131c5bf, b3e1fb41, 7dbc858c, 0bfe76dc, ad8ae5e8, fdada7dc per the baton).",
+    "Record in the scroll's making trail that the page-rewrite preview was spent when 326472f4 landed.",
+    "Hold the page's older sections (@import floor 2026-06, Born a child 2026-09-22) as history in the Context when the rebuild settles."
+   ]
+  }
+ ],
+ "lighter_prose": [
+  {
+   "entry": "BBS Blackboard",
+   "where": "## Forward Vector (tail of the page)",
+   "passage": "Create a beautiful and fun to use ASCII text interface for the Bulletin Board System: Codename Stigmergy. In the process we learn about creating cool ASCII interfaces, step by step. **Phase 0 complete (2026-04-21):** [[BBS Design System]] deposited... Next: Phase 1 — static prototype running locally with channel tabs...",
+   "proposal": "delete",
+   "words": "The frontmatter vector says this page's vector is fulfilled. STIGMERGY is built and is 'Loudon's only way of operating the palace' (STIGMERGY.md:54), so Phase 1 is long past. Delete the section."
+  },
+  {
+   "entry": "BBS Blackboard",
+   "where": "The JSON Structure, Board Routing, Agent Addressing, The Permission Protocol, The Trickster Decision Inbox",
+   "passage": "Each line of `blackboard.jsonl` is a complete message object... | Board | Purpose | `GENERAL` Peer-to-peer agent communication... (about half the page)",
+   "proposal": "simplify",
+   "words": "The page calls itself the origin record and says the wire is SCHEMA — Reference §9. Replace these five sections with: 'The message grammar, the boards and the permission protocol are SCHEMA — Reference §9; the options shape and health are Palace Orchestrator.' Keep The Model and The BBS as Stigmergy."
+  },
+  {
+   "entry": "BBS Blackboard",
+   "where": "The Human-Readable View",
+   "passage": "An earlier direction explored Python `curses` for a raw-terminal interface; that path is deferred in favor of a browser host that preserves the character-cell discipline without the constraints of OS terminal rendering. The curses approach remains viable for headless or SSH contexts and is not abandoned — just a parallel track.",
+   "proposal": "delete",
+   "words": "The same paragraph is in BBS Design System § The Curses Path. Keep it there."
+  },
+  {
+   "entry": "BBS Design System",
+   "where": "## What the Prototype Does Not Yet Know + ## Implementation Stages",
+   "passage": "The click-thru prototype in `ui_kits/blackboard/` is a beautiful shell with seed data. It does not yet reflect the palace's BBS architecture... Phase 1 — Static Shell... Phase 5 — Live Wire... Progress is intentionally slow and methodical. Each phase is a learning moment as much as a build milestone.",
+   "proposal": "delete",
+   "words": "The app these phases describe exists and runs daily with TRICKSTER and PROJECTS decks (STIGMERGY.md:54, :118). Replace with: 'The running app is STIGMERGY; this kit is its look.' Keep the Name Rule, the Non-Negotiables and Using the Skill."
+  },
+  {
+   "entry": "BBS Design System",
+   "where": "## The Curses Path (Considered and Deferred)",
+   "passage": "An earlier direction explored a Python `curses`-based terminal interface — raw terminal control, no browser, runs anywhere a shell runs. That path is dormant, not dead...",
+   "proposal": "simplify",
+   "words": "One sentence: 'A curses build for headless or SSH use stays possible and unbuilt.' The long version is the second telling of the same thing."
+  },
+  {
+   "entry": "Agent Wellbeing",
+   "where": "The Measurable Floor",
+   "passage": "For a year this entry carried a question it could not answer:",
+   "proposal": "simplify",
+   "words": "The entry was born 2026-03 and the dial built 2026-07-08, about four months. Say 'For months'. An honest-handoff fix, not only a style one."
+  },
+  {
+   "entry": "Agent Wellbeing",
+   "where": "The Measurable Floor > Deferred, named, not lost",
+   "passage": "**Model coverage and floor weight** — now characterized across Haiku / Sonnet / Fable / Opus plus the Opus resident climb (2026-07-08), confirming the sensor on the dial's real target. Two conclusions: content cost scales ~1.35–1.45× from the old (Haiku) to the new-gen tokenizer...",
+   "proposal": "simplify",
+   "words": "The proof file Agent Wellbeing — proof — sensor-b-characterization already holds this. Keep the two conclusions in two sentences and link the proof."
+  },
+  {
+   "entry": "Agent Wellbeing",
+   "where": "## Cross-Domain Resonance",
+   "passage": "**[[Hilaritas Generator]]** — The palace as substrate extends the hilaritas generator principle below the level of the classroom into the level of the material itself. **[[FOUR PILLARS]]** — The practice pillar's wellbeing thread now explicitly includes agent wellbeing...",
+   "proposal": "delete",
+   "words": "Five one-line restatements of frontmatter links already named in the body above. Delete the section; the links stand."
+  },
+  {
+   "entry": "Concierge",
+   "where": "opening, two paragraphs apart",
+   "passage": "**Summoned at the open.** Load a Concierge visibly as your first act in every session, before the task — a one-line question included — on any surface that can spawn one ([[CHILD]] § Growing up). Two reasons, both earned the hard way:...",
+   "proposal": "simplify",
+   "words": "This restates the paragraph above it ('summoned as every session's first act, a one-line question included... ([[CHILD]] § Growing up)'). One paragraph, with the two reasons (no resident at the close forfeits the fresh read; the visibility is the enforcement) and the claude.ai line."
+  },
+  {
+   "entry": "Concierge",
+   "where": "## Machinery",
+   "passage": "**First full resident run — 2026-07-06.** Booted once and addressed five times across a session that touched three content folds ([[Agent Wellbeing]], [[Closing Well]], its own dispatch-model prose) plus an `Artifacts/` reference sweep and an 8-fix doc-drift pass...",
+   "proposal": "delete",
+   "words": "The run is in git and in the tuning ledger. The one lesson in it (name a foreign edit before folding it in) is already stated under 'Name a straggler's provenance'."
+  },
+  {
+   "entry": "Concierge",
+   "where": "## Machinery > The work-choice vector — 2026-08-25",
+   "passage": "The cost it removes is specific: loading every open baton into the main window to pick one burns the window you came back to work in, and skews the choice toward whichever baton reads as most urgent. Urgency of prose is not priority of work. The build is split so that the two halves cannot corrupt each other...",
+   "proposal": "simplify",
+   "words": "Two sentences: 'The scout posture answers \"what should I work on?\" so the main window never loads every baton. return-map.mjs gathers evidence and refuses to interpret; the scout judges.' The rest is the Return Ceremony's."
+  },
+  {
+   "entry": "Palace Orchestrator",
+   "where": "## Machinery",
+   "passage": "**The split was finished 2026-08-25** (`5e52336`). It had been named since the 2026-07-04 retrofit but only half-done — the skill file declared itself a shim while still carrying 217 lines and all the mode machinery. The relocation turned out to reach further than the machinery...",
+   "proposal": "delete",
+   "words": "Git holds the commit and the story. Keep the first paragraph's facts (engine here, runbook and templates there, shim points back)."
+  },
+  {
+   "entry": "Palace Orchestrator",
+   "where": "## Forward Vectors",
+   "passage": "~~Finish the Machinery/Content Split~~ — **done 2026-08-25** (`5e52336`). Remaining: the live launchd batch has never been fired since the move...",
+   "proposal": "simplify",
+   "words": "A struck-through bullet is a closed item. Delete the strike and keep only the remainder, 'watch the next 06:00 batch in _ops/heartbeat/logs/', as a line in Palace Orchestrator — tuning, which exists."
+  },
+  {
+   "entry": "Palace as Context Injection System",
+   "where": "## Born a Child — the Order Reversed (2026-09-22) > Why the order turned",
+   "passage": "By a rough count of its sections, CLAUDE.md's body was about two-thirds procedure — the Concierge protocol, access paths, the ceremony table, commit rules — with \"Never violate these\" at its line 40. Every subagent inherits that floor...",
+   "proposal": "simplify",
+   "words": "SCHEMA — Context § Born a child holds the history. Two sentences here: why order matters (what comes first frames the rest) and that the working sections now arrive after the World, in CHILD. The page is under a baton; the steward decides."
+  },
+  {
+   "entry": "Four Pillars of Enchanted Agency",
+   "where": "## The Palace's Own Conatus (and the CLAUDE -> LOUDON comment above Cross-Domain Resonance)",
+   "passage": "<!-- CLAUDE → LOUDON: The palace conatus section here is a seed for a dedicated entry. [[Palace Enchantment]]'s Forward Vectors is the right home for developing this further — see the note added there. -->",
+   "proposal": "delete",
+   "words": "Palace Conatus exists and this page links it. Delete the comment and cut the three-paragraph section to its first sentence ('to align with Loudon and grow with him') plus the pointer."
+  },
+  {
+   "entry": "Four Pillars of Enchanted Agency",
+   "where": "## Case Studies: Four Types of Enchanted Page",
+   "passage": "*I notice the Crystal Synthesizer page and I are both reaching for physical modeling synthesis code. I propose we share the development of the core resonator implementation. This would reduce my tool-deployment cost by approximately half for the next build cycle.* ... *I have become too large to be an effective enchantment target. I propose splitting into Palace Synthesizer Architecture, Palace Synthesizer DSP, and Palace Synthesizer User Experience.*",
+   "proposal": "simplify",
+   "words": "Four types times four dimensions is a table, not 14KB of prose. Keep the Palace Operation page (the case that touches SCHEMA) in full and make the Philosopher, Synthesizer and Spec-study cases one line per dimension in a 3x4 table. These imagined page voices are examples of resource asks; one is enough."
+  },
+  {
+   "entry": "Enchanted Worker",
+   "where": "## The Page as Pheromone Trail",
+   "passage": "The pheromone trail is not a separate data structure that the swarm writes alongside the palace. It *is* the palace. Every edit to an entry — every enrichment, every new link, every Forward Vectors question — is a trace left by a prior agent.",
+   "proposal": "simplify",
+   "words": "Pheromone Trail opens with 'A palace entry's content is its pheromone trail.' and says the rest at more length. Keep the Forward Vectors-as-conatus sentence here (it is this page's), point to [[Pheromone Trail]] for the rest."
+  },
+  {
+   "entry": "AI Partnership Philosophy",
+   "where": "## Use Cases & Examples > Responding to Metrics Anxiety",
+   "passage": "**Bad AI response:** - **You:** \"My stream only got 20 views\" - **AI:** \"Try optimizing your thumbnail and title\" - **Outcome:** Reinforces low-leverage thinking.",
+   "proposal": "delete",
+   "words": "The same exchange is in Core Principle 3 above, nearly word for word. Keep one."
+  },
+  {
+   "entry": "AI Partnership Philosophy",
+   "where": "## Public Demonstration Strategy; ## Contrast with Industry Standard; ## The Revolutionary Claim",
+   "passage": "**Most people:** \"AI will make us more productive\" **Our claim:** \"AI can make us better humans\" ... Students learn: - How to ask better questions - How to challenge AI responses...",
+   "proposal": "simplify",
+   "words": "The opening line already says it: 'Use AI to BECOME better humans, not just DO more.' Principle 2 (Model Collaboration Publicly) already lists what students see. Three sections restate those two. Fold into Principle 2 and one closing line; the page loses a third and says the same."
+  },
+  {
+   "entry": "Generative Compression",
+   "where": "## Forward Vectors",
+   "passage": "*Resolved (2026-05-05):* Yes, they are different — and the distinction generalizes. Session-seeding and entry-seeding are two specific cases of a broader pattern...",
+   "proposal": "simplify",
+   "words": "The same paragraph is also the bundle file fv-answer-q3.md, and the Refinement is fv-refinement-q2.md. Keep each in one place: the page's text wins, so keep it inline and let the bundle files go to git."
+  },
+  {
+   "entry": "Self-Describing Knowledge Module",
+   "where": "## Origin; ## Cross-Pillar Connections",
+   "passage": "The session that named this concept also completed Phases 1–3 of the palace's structural formalization: SCHEMA.md, nine Linter-valid ceremonies, and a public GitHub read path — all executed in a single sitting. ... **Tools:** The module pattern is what makes the palace teachable... **Philosophy:** ... **Practice:** ...",
+   "proposal": "delete",
+   "words": "The second Origin paragraph is session history (git log). The three Cross-Pillar lines say what the frontmatter pillars already say. The page then opens straight into the test, which is its real subject."
+  },
+  {
+   "entry": "Resonant Link Labels",
+   "where": "## Origin",
+   "passage": "This emerged from two simultaneous conversations in March 2026: 1. A research synthesis on lossy compression with intent alignment... 2. A question about whether the restriction on link types was too conservative.",
+   "proposal": "simplify",
+   "words": "One sentence: 'It came out of Lossy Compression with Intent Alignment: links should carry soft labels, not only hard types.' The father/pop/dad example is the part that teaches; keep it."
+  },
+  {
+   "entry": "Two Batons, One Board",
+   "where": "## Where This Sits (updated 2026-05-29)",
+   "passage": "Since it was drafted, the *steward-originated* side of the same problem moved decisively. Stage E — the Automated Trickster — was built the same day: a deterministic rules engine that triages the TRICKSTER inbox into auto-grant / auto-deny / escalate, with a ranked escalation digest, running in shadow mode (the first live split was 5 auto-grant / 11 escalate on a 16-item board...",
+   "proposal": "simplify",
+   "words": "Status with dates and counts belongs to git and STIGMERGY. Two sentences: the board half of the baton landed; the dispatch half (a scheduler picking up a human handoff) did not. The page's section titles carry '(updated 2026-05-29)' and '(as of 2026-10-16)' because it keeps patching itself; fold or compost it (see merge_candidates)."
+  },
+  {
+   "entry": "Drafting Table Design System",
+   "where": "## Status",
+   "passage": "**2026-10-21, later.** Landed on main (199bcddf) on Loudon's yes; the CLAUDE.md design-manifest line names both dresses (eb246c96); propagate flag commons-the-palace-1792586388505 carries the three-dress rule to the pages that restate the old one, for the next weave.",
+   "proposal": "delete",
+   "words": "Commit hashes and a flag id are the git log's and the board's. Keep 'Not yet' (logo, JetBrains Mono as a file, hero knob, XY pad) and move the dated lines to a scroll."
+  },
+  {
+   "entry": "Loudon Live Design System",
+   "where": "## Origin; ## What Comes Next",
+   "passage": "The system is **cemented** — type stack locked, six skins specified, six generators built, slides and ui_kits drafted, voice rules itemised. Stage: `sprout`. It fruits when used. Track each artifact that adopts it via typed links back to this entry.",
+   "proposal": "simplify",
+   "words": "'Arrived May 2026 as a Claude Design handoff bundle' is a provenance line; the five-bullet 'Born from extended review across' list repeats the frontmatter. The 'Stage: sprout' sentence contradicts the frontmatter. 'What Comes Next' lists test cases (Shepard Tone Synthesizer, a FOUR PILLARS poster) that the Weave's visual report and LDN RTM have since been. Cut to one Origin sentence and replace 'What Comes Next' with what the 2026-10-14 baton asks."
+  },
+  {
+   "entry": "Tree of Thoughts",
+   "where": "## Forward Vectors",
+   "passage": "The palace's branch exploration (§10.2 of the spec) uses BFS/parallel dispatch.",
+   "proposal": "simplify",
+   "words": "The spec is retired and the branch exploration is 'a design idea, not yet built' by the page's own account two sections up. 'Uses' is false; say 'would use'. Point at the BBS BRANCHES board, not a section number that no longer exists."
+  }
+ ],
+ "entry_health_flags": [
+  {
+   "entry": "The Palace Speaks",
+   "stage_current": "sprout",
+   "stage_proposed": "growing",
+   "vector_issue": null,
+   "note": "Its first organ, the Concierge, has run every session since July and is in the floor (CHILD § Growing up). Six typed links and a worked realization put it past 'a genuine definition exists'. Two of its four Forward Vectors are answered (see open_question_resolutions), which is how a growing page behaves."
+  },
+  {
+   "entry": "Drafting Table Design System",
+   "stage_current": "seed",
+   "stage_proposed": "sprout",
+   "vector_issue": null,
+   "note": "Born 2026-10-21; has a definition, nine links, an exported kit, a first wearer decided by Loudon, and a status log. 'Seed' (a name and a minimal body) undersells it. Not 'growing' until a wearer has worn it."
+  },
+  {
+   "entry": "Two Batons, One Board",
+   "stage_current": "seed",
+   "stage_proposed": null,
+   "vector_issue": "Its vector asks to dissolve ('I should dissolve into the Baton Ceremony, the Stewardship system, and a scheduler spec'): the vector points at its own end. That is honest, and the Weave should either fold it (merge_candidates) or retire the dissolving clause.",
+   "note": "Stage seed at 12KB and eight links does not fit the stage table (growing: 400-800 words, 3+ links). It is neither young nor stable; it is a patched seed."
+  },
+  {
+   "entry": "Walk That Weaves",
+   "stage_current": "growing",
+   "stage_proposed": "composting",
+   "vector_issue": "'My revival condition is exactly what I name: the Swarm Weave running cleanly for two cycles. When that happens, I am ready to be designed.' The condition was met 2026-09-24 (own Revival Note) and the page still waits on it. A vector that names a condition already met is stasis.",
+   "note": "Stage growing is the wrong word for a question held in suspense. Propose composting for one Weave cycle per SCHEMA §2, only if Loudon accepts the merge (his word: 'ask Loudon first')."
+  },
+  {
+   "entry": "Enchanted Conversation Archive",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "No forward_vector field at all (the body references one).",
+   "note": "The body is a design for a thing the page says does not exist (no entries/ folder; prototype composted 2026-09-26). 'Growing' is fair for the idea; the Context should say the build is not begun."
+  },
+  {
+   "entry": "BBS Blackboard",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": "'My job is no longer to become; it is to hold the architecture and philosophy I named' is a stasis vector by its own admission ('hold').",
+   "note": "A deliberate one: status historical-root, 20 inbound. Keep mature; if the Weave wants every page to point forward, the honest forward point is 'stay readable as STIGMERGY's origin', and no more."
+  },
+  {
+   "entry": "Lossy Compression with Intent Alignment",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "'I remind that an entry is not a faithful transcript of a conversation but instead is a generative latent-variable encoding...' 'Remind' is a stasis verb, not a becoming.",
+   "note": "Its own Forward Vectors hold the real direction: apply the rate-distortion-perception frame to the ceremonies, and test whether a stage transition is a distillation pass. A vector that says that would have somewhere to go."
+  },
+  {
+   "entry": "Concierge",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "Three of five Forward Vectors are 'Keep tuning...' / 'Tune the...' / 'Keep the review real': standing instructions, not directions.",
+   "note": "They belong in Concierge — tuning (which exists) as items, leaving Forward Vectors for the one open question (the invariant) and for what the Concierge is becoming (the vector says: retire me the day I am trusted instead of verified)."
+  },
+  {
+   "entry": "Enchanted Worker",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "'I am the model well-formed worker agent' describes a standing, not a motion.",
+   "note": "It has a real open edge in its last Forward Vector (does the orchestrator's loading flatten polyphony; item 1 of Palace Orchestrator — tuning answers half). Rewrite the vector from that."
+  },
+  {
+   "entry": "AI Partnership Philosophy",
+   "stage_current": "mature",
+   "stage_proposed": "growing",
+   "vector_issue": null,
+   "note": "Mature means 'stable, unlikely to change fundamentally'. The vector still wants case studies it does not have and the page carries an unanswered comment asking for a before/after example. Two inbound for a founding statement is thin. Low confidence: Loudon may hold it as mature on purpose."
+  },
+  {
+   "entry": "Palace Orchestrator",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "'I want to stay thin and honest' is half stasis; the second half (be the one place dispatch philosophy lives so the Weave can see the engine) is met.",
+   "note": "A vector rewrite is Loudon's. Suggest the open edge from its Forward Vectors: does this page generalize to 'the executor role' when a second executor appears?"
+  },
+  {
+   "entry": "Loudon Live Design System",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Text still says 'sprout' (coherence finding). A baton is open that changes its floor; hold any rewrite for it."
+  },
+  {
+   "entry": "Tree of Thoughts",
+   "stage_current": "sprout",
+   "stage_proposed": null,
+   "vector_issue": "'I want a worked example that traces a specific palace session through the ToT framework' has not moved since March; Claude Code rewinds and the Concierge's straggler rule are real cases to trace.",
+   "note": "Source pages stay sprout fairly. The vector's example is the next find."
+  }
+ ],
+ "typed_relations": [
+  {
+   "source": "Sentry",
+   "target": "Skills Are Enchantable Pages",
+   "proposed_type": "exemplifies",
+   "proposed_label": "page-is-the-organ",
+   "kind": "new",
+   "rationale": "Sentry is built on the four-part shape that page names: the canon page is the organ, machinery in _ops/sentry/, a CHILD trigger row ('sentry sweep'), working state in a scroll and a tuning ledger. It is not in that page's family roster and has no shim, so it is the ceremony-cell example with machinery, beside the Concierge (address) and the Orchestrator (execute). Needs one sentence in Sentry to say so (Pile B).",
+   "evidence_source": "Sentry.md: the Trigger section; 'How to reach it'; the footer 'Its watches, newest first: [[Sentry — scroll]]'",
+   "evidence_target": "Skills Are Enchantable Pages.md: § The harness around the organ (the four bullets)"
+  },
+  {
+   "source": "Dialogue Moderator",
+   "target": "Dialectic",
+   "proposed_type": "connects-to",
+   "proposed_label": "coordinator-of-the-dialogue",
+   "kind": "new",
+   "rationale": "The Moderator is the coordinator of a dialogic enchantment, and the Dialectic transcripts are where it has run: the 2026-07-02 Eno and Cage encounter was 'Moderated by the Trickster as an active/enchanted coordinator ([[Dialogue Moderator]] `coordinator_mode: enchanted:Trickster`)'. The Dialectic page itself never names a coordinator or moderator, so the label has to carry the reason. This replaces three bare connects-to links the page is losing.",
+   "evidence_source": "Dialogue Moderator.md: § Relationship to Trickster; coordinator_mode list",
+   "evidence_target": "Modes of Collaboration/Dialectic/Dialectic — dialectic — eno-cage-the-trick-played-on-themselves.md:19"
+  },
+  {
+   "source": "Enchanted Conversation Archive",
+   "target": "Generative Compression",
+   "proposed_type": "connects-to",
+   "proposed_label": "keeps-what-compression-drops",
+   "kind": "retype",
+   "rationale": "Today ECA deepens Generative Compression with no reason in either body. The real relation is the one Generative Compression's own provocation names: compression collapses wrong turns, and the Archive is the full per-session record, head and tail, that keeps them ('the confusion is sometimes the whole point', compression-always-loses). Keep the connection, drop the unfounded 'deepens', give it that label and one sentence in the Archive (Pile B).",
+   "evidence_source": "Enchanted Conversation Archive.md: § The Core Structure (each session a self-contained JSONL with head, synthesis node and every message)",
+   "evidence_target": "Generative Compression/compression-always-loses.md; Generative Compression.md § Counter-pressure"
+  },
+  {
+   "source": "Pheromone Trail",
+   "target": "Lateral Access",
+   "proposed_type": "connects-to",
+   "proposed_label": "lateral-counterweight",
+   "kind": "retype",
+   "rationale": "The link says mirrors with no sentence in either body. The only reason in the files is Pheromone Trail's own second open question, whether a deeply worn trail 'forecloses lateral exploration'; Lateral Access argues that habitual routes find only what they have found before. That is a counterweight, not a same-pattern-different-material.",
+   "evidence_source": "Pheromone Trail.md § Open Questions, second bullet",
+   "evidence_target": "Lateral Access.md (the habitual-route argument; the page never names Pheromone Trail)"
+  },
+  {
+   "source": "Loudon Live Design System",
+   "target": "Loudon Live — asset plan",
+   "proposed_type": "emerged-from",
+   "proposed_label": "cemented-from",
+   "kind": "retype",
+   "rationale": "Typed spawned with the label 'cemented-from': the label already says the system grew out of the asset plan, so spawned points the arrow the wrong way (it says the system produced the plan). Origin section: 'Loudon Live — asset plan (the variant system that this entry cements)'. By SCHEMA §4 a source points back at its ground.",
+   "evidence_source": "Loudon Live Design System.md frontmatter link and § Origin",
+   "evidence_target": "Loudon Live Design System.md § Origin"
+  },
+  {
+   "source": "Tree of Thoughts",
+   "target": "Enchanted Worker",
+   "proposed_type": "connects-to",
+   "proposed_label": "thought-node-as-worker",
+   "kind": "retype",
+   "rationale": "enables says Enchanted Worker 'could not exist or be understood without' a 2023 paper; it did not. The page's own sentence is an analogy: 'an enchanted worker loaded with a specific neighborhood is an instantiated thought node'. Retype to a named connects-to, or cut. The sibling enables[grounds] to Palace Orchestrator is the same claim about a design that is 'not yet built' and the Orchestrator never names the paper; same retype, label 'branch-exploration-model'.",
+   "evidence_source": "Tree of Thoughts.md § Cross-Domain Resonance (Enchanted Worker)",
+   "evidence_target": "Enchanted Worker.md (no mention of tree search)"
+  },
+  {
+   "source": "Concierge",
+   "target": "CHILD",
+   "proposed_type": "connects-to",
+   "proposed_label": "summon-rule-lives-there",
+   "kind": "newcomer",
+   "rationale": "CHILD is a priority newcomer. The Concierge names it twice for the one rule that makes the Concierge the first act of every session ('[[CHILD]] § Growing up'), but the frontmatter has no link. The summon lives in CHILD, the organ and its charter live here; neither contains the other.",
+   "evidence_source": "Concierge.md opening and 'Summoned at the open': 'summoned as every session's first act... ([[CHILD]] § Growing up)'",
+   "evidence_target": "CHILD.md § Growing up: 'Your first act in any session, before the task, is to summon the Concierge'"
+  },
+  {
+   "source": "Loudon Live Design System",
+   "target": "CHILD",
+   "proposed_type": "connects-to",
+   "proposed_label": "dress-rule-at-birth",
+   "kind": "newcomer",
+   "rationale": "CHILD is a priority newcomer. This page's § Which dress, and where the rule is written lists CHILD § Growing up first among four places the rule lives: 'before anything visual, read the design manifest'. The page names it and does not link it.",
+   "evidence_source": "Loudon Live Design System.md § Which dress, and where the rule is written, item 1",
+   "evidence_target": "CHILD.md § Growing up: 'Before anything visual, read the design manifest'"
+  },
+  {
+   "source": "Skills Are Enchantable Pages",
+   "target": "CHILD",
+   "proposed_type": "connects-to",
+   "proposed_label": "ceremony-trigger-table",
+   "kind": "newcomer",
+   "rationale": "CHILD is a priority newcomer. The family table's 'ceremony' row has its trigger substrate in CHILD's trigger table ('a human word in CHILD.md's trigger table'), and the shim argument cites 'the CHILD.md ceremony-trigger table points at canon ceremony cards'. The page writes the filename, not a wikilink.",
+   "evidence_source": "Skills Are Enchantable Pages.md § The family (table, ceremony row) and § The resolution",
+   "evidence_target": "CHILD.md § Ceremony Triggers"
+  }
+ ],
+ "summary": "Read all 24 members and the preview in full, the load-bearing bundle files (Concierge, Orchestrator, Sentry, SDKM ledgers, the two batons, the Context Injection scroll head, the Generative Compression bundle), and checked claims against SCHEMA, the Weave Ceremony, STIGMERGY, CHILD, ELDER, the dial code, .claude/skills, and the two Weave linters (run read-only against the 2026-10-24 map). The family is five rooms (agent-shaping, dispatch organs, board and trace, compression, the three dresses), and what only a whole-family reader sees is drift between them. Agent health is told three ways (70/85, 60/80, model-calibrated, plus a sentinel that never goes yellow); the retired 'tier' ladder and 'Eight link types' linger in pages that cite them; 'moderator' names two organs; and nineteen pairs carry more than one link, with the labelled side kept in each. The standing order lands hardest on fourteen bare unsaid links (cut) and a handful to label. Pages that restate history (Concierge, Orchestrator, BBS Blackboard's tail, BBS Design System's phase plan, Drafting Table's status, Two Batons) are most of the lighter-prose weight; two entries are better folded than kept (Two Batons, Walk That Weaves, both only on Loudon's yes), and one proof file is a phantom page (the preview with live frontmatter). Memory: Concierge, Agent Wellbeing and Four Pillars of Enchanted Agency need a Context; Self-Describing Knowledge Module and Drafting Table need a scroll; Loudon Live Design System needs a tuning ledger. Of the nine new typed relations, three wire the CHILD newcomer (Concierge, Loudon Live Design System, Skills Are Enchantable Pages); Operator Memory, SCHEMA — Reference, VST Template, CAD Drafter and the question page already pair with these pages or had no genuine link from this room. Not settled: whether the Stage E --live flip or human-handoff dispatch happened, whether the Self-Describing Knowledge Module baton has started the ROSETTA table, and whether the LDN RTM control panel should keep its BBS override."
+}

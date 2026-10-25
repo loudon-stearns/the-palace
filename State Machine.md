@@ -14,8 +14,10 @@ links:
     type: enables
   - target: "[[DSP Frameworks]]"
     type: connects-to
+    label: framework-choice
   - target: "[[Signal-Rate CV Architecture]]"
     type: connects-to
+    label: per-sample-guards
   - target: "[[ROSETTA]]"
     type: mirrors
   - target: "[[Progressive Staging]]"

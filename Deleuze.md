@@ -28,14 +28,19 @@ links:
     label: virtual-weight-space
   - target: "[[Dialectic]]"
     type: connects-to
+    label: inhabit-faithfully
   - target: "[[Entry Conatus]]"
     type: connects-to
+    label: intensity-or-conatus
   - target: "[[Excellent Adventure]]"
     type: connects-to
+    label: inhabit-faithfully
   - target: "[[STIGMERGY v1.0 — Palace Front-End]]"
     type: connects-to
+    label: queue-is-virtual
   - target: "[[Spinoza]]"
-    type: connects-to
+    type: deepens
+    label: radicalizes-the-rationalist
 forward_vector: "I want to become the palace's account of why the generative tools Loudon builds are not metaphorically but literally philosophies of difference — the page that earns the hub's repeated claim that 'LLM inference is Deleuzian' and 'synthesis is actualization of the virtual.' My next development: a worked reading of one specific instrument (the wavetable oscillator or the granular cloud) as an actualization machine, and a Dialectic with Spinoza testing whether the conatus is a striving toward identity or a difference that never resolves."
 ---
 

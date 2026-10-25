@@ -27,9 +27,6 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
-    label: informs
   - target: "[[Like Water]]"
     type: mirrors
     label: work-with-material

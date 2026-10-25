@@ -28,9 +28,6 @@ links:
   - target: "[[Language as a Tonal Medium]]"
     type: couples-with
     label: letter-as-tone
-  - target: "[[Hilaritas Generator]]"
-    type: enables
-    label: a-voice-with-a-face
 ---
 
 # Typography as Meaning

@@ -47,6 +47,7 @@ links:
     label: one-object-two-doorways
   - target: "[[Loudon Live]]"
     type: connects-to
+    label: candidate-build
   - target: "[[Wavetable Oscillator]]"
     type: deepens
     label: the-phase-axis

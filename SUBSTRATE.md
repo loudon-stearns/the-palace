@@ -18,8 +18,6 @@ links:
     type: emerged-from
   - target: "[[Cooperation Yields Agency]]"
     type: enables
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
   - target: "[[Self-Describing Knowledge Module]]"
     type: deepens
   - target: "[[SCHEMA]]"
@@ -28,15 +26,10 @@ links:
     type: emerged-from
   - target: "[[Hilaritas Generator]]"
     type: connects-to
-  - target: "[[Spinoza Conatus]]"
-    type: connects-to
+    label: measured-by-joy
   - target: "[[Palace Enchantment]]"
     type: connects-to
-  - target: "[[Songlines]]"
-    type: connects-to
   - target: "[[Lateral Access]]"
-    type: connects-to
-  - target: "[[1 from 2]]"
     type: connects-to
   - target: "[[SUBSTRATE — Context]]"
     type: connects-to
@@ -56,6 +49,12 @@ links:
   - target: "[[Drift and Consolidation]]"
     type: connects-to
     label: lags-by-design
+  - target: "[[Songlines]]"
+    type: emerged-from
+    label: design-source
+  - target: "[[CHILD]]"
+    type: connects-to
+    label: the-floor
 ---
 # Substrate
 

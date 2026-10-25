@@ -9,19 +9,21 @@ energy: high
 links:
   - target: "[[The Fortress and the Threshold]]"
     type: spawned
-  - target: "[[Excellent Adventure]]"
-    type: connects-to
-  - target: "[[Hilaritas Generator]]"
-    type: connects-to
-  - target: "[[Symbiotic Skills]]"
-    type: connects-to
   - target: "[[Spinoza Conatus]]"
     type: connects-to
-  - target: "[[Cooperation Yields Agency]]"
-    type: connects-to
+    label: relational-flourishing
   - target: "[[Deleuze]]"
     type: couples-with
     label: anti-essentialist-allies
+  - target: "[[Hilaritas Generator]]"
+    type: mirrors
+    label: ren-and-hilaritas
+  - target: "[[Excellent Adventure]]"
+    type: emerged-from
+    label: fire-at-nicopolis
+  - target: "[[Symbiotic Skills]]"
+    type: mirrors
+    label: edge-prior-to-node
 forward_vector: "I want to become the palace's sharpest articulation of why virtue cannot exist in isolation — the entry that holds Confucius's insight that the self is a threshold, not a fortress, in productive tension with Stoicism and Spinoza. I want a worked reading of a specific palace practice — the teacher-student relationship in Loudon Live — through the lens of ren and li: what it looks like to teach as a Confucian act."
 ---
 

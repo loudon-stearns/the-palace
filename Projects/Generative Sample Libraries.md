@@ -32,13 +32,12 @@ links:
   - target: "[[Project Stewardship System]]"
     type: connects-to
     label: stage-mismatch-case-study
-  - target: "[[Retrospective Delay]]"
-    type: connects-to
   - target: "[[Shepard Tone Synthesizer]]"
     type: deepens
     label: timbral-source
   - target: "[[Neural Granular Synthesis]]"
     type: connects-to
+    label: sample-source
   - target: "[[Modes of Collaboration]]"
     type: connects-to
     label: interview-as-mode

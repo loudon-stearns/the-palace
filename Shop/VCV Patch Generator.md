@@ -25,13 +25,15 @@ links:
     label: pdl-as-intent-compression
   - target: "[[VCV Patch Generator — spec — PDL generation prompt]]"
     type: connects-to
-  - target: "[[Registry Pattern]]"
-    type: connects-to
+    label: generation-prompt
   - target: "[[Web Audio Worklet]]"
     type: connects-to
   - target: "[[Audition Gate]]"
     type: exemplifies
     label: proves-structure-not-feel
+  - target: "[[Registry Pattern]]"
+    type: exemplifies
+    label: first-registry
 tags: [specialist, shop, sound, modular, generative, registry]
 ---
 

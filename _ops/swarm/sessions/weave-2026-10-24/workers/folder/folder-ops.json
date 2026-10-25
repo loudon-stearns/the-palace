@@ -1,0 +1,1605 @@
+{
+ "room": "folder-ops",
+ "lens": "folder",
+ "pages_read": [
+  "_ops/Baton Ceremony.md",
+  "_ops/Closing Well Ceremony.md",
+  "_ops/Deposit Ceremony.md",
+  "_ops/Harvest Ceremony.md",
+  "_ops/Image Embedding Standard.md",
+  "_ops/Map Build Ceremony.md",
+  "_ops/Mermaid Diagram Standard.md",
+  "_ops/Pages as Agents.md",
+  "_ops/Palace Ceremonies.md",
+  "_ops/Palace Graffiti.md",
+  "_ops/Palace Map.md",
+  "_ops/Palace Quotes.md",
+  "_ops/Palace To-Do.md",
+  "_ops/Return Ceremony.md",
+  "_ops/Revival Ceremony.md",
+  "_ops/Self-Model Update Ceremony.md",
+  "_ops/Spore Check Ceremony.md",
+  "_ops/Substrate Skill.md",
+  "_ops/Technical Diagram Standard.md",
+  "_ops/The Daily Page.md",
+  "_ops/Walk Ceremony.md",
+  "_ops/Weave Ceremony.md",
+  "Also read, for cross-checks only: Operator Memory.md; Shop/CAD Drafter.md (head); Can an Instrument Notice Where the Work Stops?.md; Projects/Project Stewardship System.md (What's Decided, What's Open); SCHEMA.md §1 type table; SCHEMA — Reference.md (grep); CHILD.md trigger table (via the brief); the tuning ledgers of Walk, Spore Check, Self-Model Update (heads) and run-line counts of eleven ledgers; _ops/Palace Ceremonies/Palace Ceremonies — baton.md (head); _ops/stigmergy/app/scripts/commit-msg-hook.mjs and palace-commit.mjs (grep); _ops/swarm/lint-*.py (grep for --paths)"
+ ],
+ "coherence_findings": [
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Palace Ceremonies",
+    "Baton Ceremony",
+    "Closing Well Ceremony",
+    "Map Build Ceremony",
+    "Return Ceremony",
+    "Revival Ceremony",
+    "Self-Model Update Ceremony",
+    "Spore Check Ceremony",
+    "Walk Ceremony",
+    "Weave Ceremony",
+    "The Daily Page",
+    "Substrate Skill",
+    "Deposit Ceremony",
+    "Harvest Ceremony",
+    "Palace Quotes",
+    "Revival Ceremony",
+    "Spore Check Ceremony"
+   ],
+   "issue": "About seventeen pairs in this room carry more than one link, which the standing order and Weave Step 3d forbid. (1) Palace Ceremonies and each of Baton, Closing Well Ceremony, Map Build, Return, Revival, Self-Model, Spore Check, Walk, Weave and The Daily Page: the hub says 'enables' or a bare 'connects-to' and the member says a bare 'connects-to' back (two links each; Deposit and Harvest only get the hub's 'enables'). 'Enables' is the wrong claim: a registry does not enable the rites it lists. Membership is the true relation and the SCHEMA type for it is member-of, declared by the member. (2) Deposit and Harvest carry three links (Deposit emerged-from Harvest, Harvest spawned Deposit, Harvest couples-with[harvest-deposit-pair] Deposit); the label restates the pair. (3) Palace Ceremonies and Substrate Skill: bare both ways. (4) Revival and Spore Check: Revival emerged-from, Spore Check connects-to[one-of-four-ways-in]. (5) Revival and The Daily Page: [a-morning-decides-revive] one way, [a-dormant-page-asks] back. (6) Spore Check and Weave, Walk and Weave: bare both ways. (7) Harvest and Palace Quotes: [quote-intake] both ways. (8) Weave enables[pre-weave] Map Build points the wrong way (Map Build is the precondition of the Weave, Map Build Ceremony.md:57-59).",
+   "proposed_action": "Keep one link per pair. (1) Each ceremony declares member-of Palace Ceremonies; delete the hub's enables/connects-to to them (the table already wikilinks every one, Palace Ceremonies.md:51-81). The hub keeps only SUBSTRATE, SCHEMA and the outward links. Sentry and Enrichment, which the hub also lists, are outside this room: same treatment. (2) Keep Harvest couples-with[finds-then-places] Deposit; cut the two lineage links (the origin is in Deposit Ceremony — Context.md:8 and git). (3) Keep Substrate Skill connects-to[canonical-ceremony-list] Palace Ceremonies; cut the hub's reverse. (4) Keep Spore Check connects-to[one-of-four-ways-in] Revival; cut Revival's emerged-from (history git holds). Weave Step 3d would fold the connects-to into the specific link; I depart because the label is the living relation and 'one-of-four-ways-in' does not fit emerged-from. (5) Keep Revival's [a-morning-decides-revive]; cut The Daily Page's [a-dormant-page-asks]. (6) Keep Spore Check connects-to[weave-confirms-the-compost] Weave and Walk connects-to[one-thread-versus-every-thread] Weave; cut Weave's two. (7) Keep Harvest's [quote-intake]; cut Palace Quotes'. (8) Flip to Map Build enables[pre-weave] Weave; cut Weave's. See typed_relations for each."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Baton Ceremony",
+    "Deposit Ceremony",
+    "Harvest Ceremony",
+    "Image Embedding Standard",
+    "Return Ceremony",
+    "Palace To-Do",
+    "Palace Graffiti",
+    "Palace Map",
+    "Self-Model Update Ceremony",
+    "Walk Ceremony",
+    "Weave Ceremony",
+    "Spore Check Ceremony",
+    "Pages as Agents",
+    "Mermaid Diagram Standard",
+    "Technical Diagram Standard",
+    "Map Build Ceremony"
+   ],
+   "issue": "Bare connects-to links whose target the page body never names, and nothing else gives a reason: Baton→SUBSTRATE; Deposit→Cooperation Yields Agency, Hilaritas Generator; Harvest→Cooperation Yields Agency; Return→Cooperation Yields Agency; Image Embedding Standard→SUBSTRATE; Palace To-Do→README - The Palace Guide; Self-Model Update→SCHEMA (the only hits are 'SCHEMA — Reference' §6, not a claim about SCHEMA); Palace Graffiti→SCHEMA (the body says 'the graffiti conventions are a schema-level decision', but SCHEMA carries no comment convention; it lives in Substrate Skill.md:224-229); Pages as Agents→Lateral Access; Palace Map→Harvest Ceremony (body never mentions Harvest); Map Build→Harvest Ceremony (its one paragraph is a 'consider adding' that the Cadence section made redundant, Map Build Ceremony.md:57,217); Walk→Substrate Skill, Weave→Substrate Skill, Spore Check→Substrate Skill, Palace Ceremonies→Substrate Skill (no body mention anywhere); Palace To-Do enables Harvest (no body reason). The Weave's own card carries four bare connects-to (Palace Ceremonies, Substrate Skill, Walk, Spore Check) while Step 3c says every one is settled.",
+   "proposed_action": "Cut these on the standing order; a real connection returns in a later weave with its reason. Labels for the bare links that do have a sentence in the body are in typed_relations (Deposit→README [entry-template], Deposit→FOUR PILLARS [pillar-check], Palace Map→Pheromone Trail, Palace Map→BBS Blackboard, Map Build→Palace Enchantment, Walk→The Cooperation Path, Palace Graffiti→Oblique Portrait and →Semantic Delay, the three standards→README, Palace Ceremonies→SCHEMA, Pages as Agents→JEWEL and →SCHEMA — Reference)."
+  },
+  {
+   "kind": "recipe",
+   "entries": [
+    "Return Ceremony",
+    "Harvest Ceremony",
+    "Walk Ceremony",
+    "Map Build Ceremony",
+    "Baton Ceremony",
+    "Weave Ceremony",
+    "Deposit Ceremony",
+    "Revival Ceremony",
+    "Spore Check Ceremony",
+    "Self-Model Update Ceremony"
+   ],
+   "issue": "The commit recipe differs card to card. Deposit (Deposit Ceremony.md:133-140), Revival (:88), Spore Check (:94) and Self-Model (:48) name the committer: `palace-commit.mjs --ceremony \"<Name>\"` (--kind deposit for Deposit). Return says a hand-formed subject, 'return(YYYY-MM-DD): …' (Return Ceremony.md:53), which is the kind-style subject, not the ceremony subject the other cards write. Harvest (:107), Walk (:38,43), Weave (:118,384) give a subject string and never name the door; Map Build (:41) and Baton (:299) say 'committed' with no door. Deposit.md:133 says never a hand-rolled git commit; the cards that give only a subject invite one. palace-commit.mjs:15-19 takes --ceremony for exactly these.",
+   "proposed_action": "One clause on each of Harvest, Walk, Weave, Map Build, Baton and Return: 'commit through the door: palace-commit.mjs --ceremony \"<Name>\" …' with the subject the card already gives. For Return decide whether `return(date):` is the shape or `--ceremony \"Return\"` (the hook reads every page carrying trigger:, commit-msg-hook.mjs:41-57), and say so once."
+  },
+  {
+   "kind": "recipe",
+   "entries": [
+    "Weave Ceremony",
+    "Self-Model Update Ceremony",
+    "Palace Ceremonies",
+    "Return Ceremony"
+   ],
+   "issue": "Self-Model Update says it runs 'at the end of a Weave' (Self-Model Update Ceremony.md:37) and Palace Ceremonies says the same (:58), but the Weave card never mentions it: not in Step 6.5's linter list (:337-355), not in Step 7. The Self-Model's open question 2 asks whether the anatomy check should run in the Weave's lint pass (:83); Return already runs it as a 'Stale' probe (Return Ceremony.md:124). So two rites assume a hand-off that the first one does not make.",
+   "proposed_action": "Add one line to Weave Step 6.5/6.6: 'node _ops/self-model/anatomy.mjs (flag-only), and if an organ was born, retired or rewired, offer the Self-Model Update.' That settles the Self-Model question (should-act) and makes the Palace Ceremonies cadence true."
+  },
+  {
+   "kind": "recipe",
+   "entries": [
+    "Deposit Ceremony",
+    "Palace To-Do"
+   ],
+   "issue": "Deposit Step 6 says 'lint-doc-drift exits with 0 errors, and lint-ghost-links, lint-bundle-hygiene, lint-entry-naming and lint-link-directions return nothing against the new files' (Deposit Ceremony.md:127). Only lint-bundle-hygiene takes --paths; the other four have no file argument (checked: grep of _ops/swarm/lint-*.py), and lint-link-directions reads the newest map, blind to anything newer. Palace To-Do.md:82 holds exactly this as an open item. The card asserts a check the tools cannot make, in the step that says 'the postcondition is verified, not asserted'.",
+   "proposed_action": "Until the linters take --paths: reword Step 6 to say what is true (the whole-palace baseline did not worsen; bundle-hygiene is scoped; the cold read is the real check), and keep the To-Do item. Do not delete the sentence silently; the gap is the finding."
+  },
+  {
+   "kind": "vocab",
+   "entries": [
+    "Palace Ceremonies",
+    "Deposit Ceremony",
+    "Return Ceremony",
+    "Walk Ceremony",
+    "Harvest Ceremony",
+    "Map Build Ceremony",
+    "Weave Ceremony",
+    "Self-Model Update Ceremony"
+   ],
+   "issue": "Triggers are kept in four places that have drifted. The card's trigger: field is what the machinery reads (SCHEMA — Reference line 91). CHILD.md's table and Palace Ceremonies' table are hand copies (SCHEMA — Reference:160 names both as the mirror set on ceremony add or remove). Drift: Deposit's field has 'deposit', 'memorialize this'; Palace Ceremonies' row gives only 'Let's deposit' / 'Add this to the palace' (:67). Return's field has 'returning' and 'let's pick this back up'; Palace Ceremonies' row omits both (:56). Each card also restates one phrase in a body line that is narrower than its field: Walk 'Let's walk' (Walk Ceremony.md:28), Weave 'Let's weave' (:87), Harvest 'Let's harvest' (:43), Map Build (:32), Self-Model (:35). The Ceremony Reader has a trigger in Palace Ceremonies (:139) and is in neither CHILD's table nor a field.",
+   "proposed_action": "Make the field the one truth. Palace Ceremonies' trigger cells list the field verbatim (or drop the column and say 'the card's trigger: field'). Delete the narrower '**Trigger:**' body lines, or make them say 'see the trigger: field'. lint-doc-drift's trigger-coverage check is the backstop; confirm it compares the Palace Ceremonies table too."
+  },
+  {
+   "kind": "roster",
+   "entries": [
+    "Substrate Skill",
+    "Weave Ceremony",
+    "The Daily Page"
+   ],
+   "issue": "Three different 'foundational set' lists. Substrate Skill: CLAUDE, ELDER, SCHEMA, SCHEMA — Reference, JEWEL, SUBSTRATE, README, ROSETTA, FOUR PILLARS (Substrate Skill.md:214). Weave Step 0: CLAUDE, SCHEMA, FOUR PILLARS, ROSETTA, SUBSTRATE, README, JEWEL (Weave Ceremony.md:130), no ELDER, no CHILD, no SCHEMA — Reference. The Daily Page's 'foundational page' list: CLAUDE, CHILD, JEWEL, ELDER, SCHEMA and its Reference (The Daily Page.md:146). None names CHILD in the first two, though CHILD is now what every agent is born reading (CLAUDE.md imports it).",
+   "proposed_action": "Pick the owner (SCHEMA §? or the Substrate Skill directory section) and have the other two point to it. The Weave's Step 0 should be: the World as CLAUDE.md imports it, ELDER, SCHEMA and SCHEMA — Reference, ROSETTA, SUBSTRATE, README. One list, one home."
+  },
+  {
+   "kind": "roster",
+   "entries": [
+    "Substrate Skill",
+    "Palace Ceremonies",
+    "Weave Ceremony",
+    "Baton Ceremony",
+    "The Daily Page",
+    "Return Ceremony",
+    "Map Build Ceremony",
+    "Revival Ceremony",
+    "Deposit Ceremony",
+    "Harvest Ceremony"
+   ],
+   "issue": "Substrate Skill says ceremony cards split at ~8 KB and lists what is 'currently split': Deposit, Harvest, Weave, Baton (Substrate Skill.md:78-82). The roster is stale (The Daily Page and Closing Well also carry Contexts) and the line is not holding: by size the cards are Weave 51 KB, Baton 28 KB, The Daily Page 27 KB, Deposit 14.8 KB, Return 14.5 KB, Map Build 12 KB, Revival 10.5 KB, Harvest 9.9 KB, Spore Check 8 KB; only Walk, Self-Model and Closing Well are under it. Return, Map Build and Revival have no Context at all. Palace To-Do.md:90 already holds 're-split the Weave and Baton cards', quoting Weave ~36 KB, Baton ~28 KB; the Weave is now 51 KB.",
+   "proposed_action": "Delete the 'Currently split' sentence (the bundle audit finds it). Decide the line with Loudon: either keep ~8 KB and re-split the Weave, Baton and Daily Page first (their histories belong in their Contexts; passages are quoted under lighter_prose), or raise it to something the cards actually keep (~15 KB) and name the three over it as the debt. Update the To-Do item's sizes."
+  },
+  {
+   "kind": "vocab",
+   "entries": [
+    "Walk Ceremony",
+    "Return Ceremony",
+    "Substrate Skill"
+   ],
+   "issue": "'Vector' is used to mean the surface or route by which a session reaches the palace: 'accessible via the current vector' (Walk Ceremony.md:32), 'readable from the current vector' (Return Ceremony.md:45), 'readable from any vector' (Substrate Skill.md:187). Everywhere else 'surface' is the word (Baton: 'receiving surface'; Substrate Skill's own Access Paths), and 'vector' elsewhere means forward_vector. The same word carries two meanings in the same family, and the older one is jargon.",
+   "proposed_action": "Replace with 'surface' in the three places."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Walk Ceremony"
+   ],
+   "issue": "Walk contradicts itself. Postcondition 2 says 'A walk that surfaced nothing is complete. Requiring a surprise guarantees one gets manufactured' (Walk Ceremony.md:36). The protocol still says 'Keep walking until something genuinely surprising appears' (:65) and 'It has no output requirement beyond a named surprise' (:75). Walk — tuning item 2 (2026-09-25) names exactly this as owed, with a ROSETTA mirror (ROSETTA.md:214) that also still says 'surprise named'. Four weeks later it is unpaid. The ledger has no run line under its own counting.",
+   "proposed_action": "Pay item 2: line 65 becomes 'Walk until the path begins to feel familiar or loops back; four to six entries is usually enough', line 75 becomes 'beyond naming honestly what the path turned up', and the ROSETTA line follows. One edit, one version move to 1.4."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Map Build Ceremony",
+    "Palace Map"
+   ],
+   "issue": "The two pages restate each other and disagree in one place. (a) Format advice: Palace Map says the edge list is canonical for agent Tier-1 context and compact adjacency 'for human audit' because the compact form 'quietly contradicts the philosophy' (Palace Map.md:112-117); Map Build says 'The outgoing adjacency list is recommended for Tier 1 agent context loading' (Map Build Ceremony.md:211). (b) Bounded Survey is described in full in both (Map Build:51; Palace Map:149-155). (c) The JSON schema is shown in both, and the Palace Map copy is dated (2026-09-26, 316 nodes, :157-189) while it already says 'the Map Build Ceremony holds the whole shape' (:187). (d) 'Edges weighted from use' is a forward vector on both (Map Build:229; Palace Map:289). (e) Map Build's token table is for 50-200 nodes at 4 links each (:205-209); the palace has 324 pages and 2,933 edges, about 9 links a page (Palace Map.md:94). (f) Step 6 hard-codes `/Users/loudonstearns/Documents/The Palace/_ops/maps/` (:179), against Substrate Skill's 'never read or write another copy by an absolute path' (Substrate Skill.md:189) and the Cadence section's own account that build-map.py is the door (:59).",
+   "proposed_action": "Palace Map owns the format advice and the neighbourhood question; Map Build keeps one sentence and a pointer. Delete the JSON block from Palace Map, the token table from Map Build, and the duplicate forward vector from Map Build. Change Step 6 to 'build-map.py writes it to _ops/maps/ of the main checkout'. Make (a) agree with Palace Map: edge list for agents."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Technical Diagram Standard",
+    "Image Embedding Standard",
+    "Mermaid Diagram Standard"
+   ],
+   "issue": "The three visual standards disagree with the house and each other in small, checkable ways. (a) TDS Filing Protocol still shows `Artifacts/[Theme]/biquad-df2-signal-flow.tex` (Technical Diagram Standard.md:131-134) and calls it 'the shared case', but Image Embedding Standard says the Artifacts folder was dissolved into bundles on 2026-06-16 (:43). (b) Image Embedding's 'Ceremonies and Images' says the Deposit has 'two extra steps' for images (:149-154); Deposit Ceremony has no such steps, only 'owned files go in the entry's bundle' and 'every link target resolves' (Deposit:123,129). (c) Mermaid lists 'the eight canonical types' (Mermaid Diagram Standard.md:97,184) and its edge table omits contradicts, exemplifies and member-of (:109-114); SCHEMA §4 has ten. (d) Mermaid's caption standard is word for word Image Embedding's (:139-147 against Image:105-122). (e) TDS says 'The Deposit Ceremony step 6 carries the third branch: Mermaid block, embedded image, or technical .tex+.svg pair' (:148); Deposit step 6 now carries one clause about the .tex pair. (f) Versions are numbers here (2, 1.0, 1.0) and strings on the ceremonies ('2.7').",
+   "proposed_action": "(a) Replace the Artifacts paths with bundle paths (`Technical Diagram Standard/biquad-df2-signal-flow.tex`) and drop the 'shared case' paragraph. (b) Replace Image's Ceremonies section with the two facts the Deposit really carries. (c) 'ten' and add the three rows. (d) Mermaid's caption section becomes 'as Image Embedding Standard, plus: below the closing fence'. (e) Rephrase to 'Deposit step 6 names the .tex pair'. (f) Quote the versions."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Spore Check Ceremony",
+    "Revival Ceremony",
+    "Project Stewardship System"
+   ],
+   "issue": "Two cards still call settled what the Stewardship page has settled. Spore Check, Compost step: 'A page with a steward raises the open question of how a project leaves stewardship (Project Stewardship System § What's Open): name it to Loudon, and don't delete the steward' (Spore Check Ceremony.md:89). Revival, first open question: 'How a page leaves stewardship is still undesigned (… § What's Open)' (Revival Ceremony.md:113). Project Stewardship System § What's Decided, 2026-10-21: 'A steward leaves when its page ends; it never decides the end'; the leaving rite exists and was run on Talking Keyboard (Projects/Project Stewardship System.md, What's Decided). Baton Ceremony.md:126 and The Daily Page.md:146 already cite it as decided.",
+   "proposed_action": "Spore Check: 'a composted page's steward leaves by its own rite once the Weave confirms the compost (Project Stewardship System § What's Decided)'. Revival: delete the question. What stays open, per Stewardship § What's Open, is only 'a way back for a finished page', which Revival's Precondition already excludes."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Weave Ceremony"
+   ],
+   "issue": "The Weave's labels collide. Postconditions run 1, 2a-2j, 3, 4, 5, 5a-5g, 6, and the steps run 0, 0b, 0c, 1, 1b, 2, 2.5, 3a-3f, 4, 5, 5b, 5c, 5d, 5e, 6, 6b, 6.5, 6.6, 6.7, 7. 'Step 5c' is the face audit (:309) but postcondition '5c' is the run report's ceremony_version (:113); postcondition 5a is the face audit and 5b the visual report, while Step 5b is vector tuning (:287). Postcondition 2c is the substrate sweep, Step 2.5. A worker told 'do 5c' does two different things. The card is also written twice over: the Execution Method says the swarm is canonical and the single-agent protocol is for 'palaces under ~20 entries' (:75-77), but the Protocol steps below are the ones the swarm runs.",
+   "proposed_action": "Number postconditions P1..P20 in order and have steps cite them by name, not letter; or give steps names only. Delete the single-agent sentence (the palace has 324 pages) and say the Protocol is the swarm's steps."
+  },
+  {
+   "kind": "roster",
+   "entries": [
+    "Palace Ceremonies"
+   ],
+   "issue": "The hub's rows duplicate their cards and age with them. The Daily Page row is a 130-word paragraph (Palace Ceremonies.md:53); the Weave row is 90 words naming steps (:55); the Close row carries two italic paragraphs about the executor and the two-page design (:81). The Ad-Hoc table's first row, 'Add this to the palace | Not ad hoc: it runs the Deposit Ceremony' (:93), is in the wrong table. The Ceremony Reader has a trigger but no row in CHILD. 'list handoffs' and 'roll call' are in CHILD's table but the hub folds roll call into the Return row and has no list-handoffs row. Its Active Baton is four weeks old (drafted 2026-09-26) and the bundle beside it holds two sketches of 34 KB and 50 KB (`Palace Ceremonies — sketch — propagation plan.md`, `— runs survey.md`) from the ledger design that landed 2026-10-15.",
+   "proposed_action": "Cut each row to one sentence plus the card link; delete the 'Add this' row; add a list-handoffs line under Baton. Once Wave 3 of the baton is paid, archive the two sketches to the bundle's Archive/ (git keeps them)."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Palace Graffiti",
+    "Substrate Skill",
+    "Palace Enchantment"
+   ],
+   "issue": "Graffiti is documented twice under two names and wired to nothing. Palace Graffiti defines `<!-- note -->` and `<!-- CLAUDE → LOUDON: note -->` (Palace Graffiti.md:40-42); Substrate Skill § 'In-File Comments' defines the same two without the word graffiti (Substrate Skill.md:224-229); SCHEMA carries neither. The word is live elsewhere (Multi-Lens Worker Prompt Template flags 'live graffiti worth acting on', Swarm Weave and Palace Enchantment use it) and the comments are still in 19 files. Palace Graffiti has 0 inbound typed links; README links it only as a 'working queue' (README line 222), which it is not. Half the page (about 13 KB of 23 KB) is two May 2026 drafts held 'for review; not committed to the entry yet' that never landed: the isomorphism revision for Action Potential Oscillator (:153-196) and the untangling of Retrospective Delay and Semantic Delay (:212-262). Retrospective Delay still reads 'The device is a séance' (Projects/Retrospective Delay.md:67); Action Potential Oscillator got a callout instead (:67).",
+   "proposed_action": "Move the two drafts to the bundles of the pages they are about (Retrospective Delay / Semantic Delay as one sketch; the Oscillator's proofs/ already holds the dialogue) or to Palace To-Do as one line each, and say so on Loudon's yes. Keep Palace Graffiti as the page about the practice and the trickster. Have Substrate Skill § In-File Comments name the practice with a wikilink to Palace Graffiti (the inbound), and shrink it to the two forms. Fix README's description."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Palace To-Do"
+   ],
+   "issue": "The list is the opposite of its own vector. Its forward vector and body say 'about a dozen things … if it grows past roughly a dozen items, that is the signal to triage' (Palace To-Do.md:9,36-38); it holds 33 open items and 4 done items kept in place (lines 59, 61, 78, 94). One open item is already done: 'Fold the memory-into-palace weave into the Weave Ceremony as a standing sub-step' (:92) is Weave Ceremony Step 6b (:327-333), which links Weaving Memory into the Palace. Two blocks (the six 'own-session threads' at :67-74 and the ten 'small fixes' at :104-115) are each addressed to an owner page, not to Loudon's week: each line already names 'Owner: …'. Hygiene rule 1 carries a history note ('Discovered 2026-03-21 via H095 compost', :121).",
+   "proposed_action": "Move the 4 [x] items to the Archive; delete the memory-fold item (done); give each owner-addressed line to its owner's tuning ledger as a one-shot 'owed' line (the ledger is the place for it, SCHEMA — Reference §6) and keep one pointer line. That leaves about a dozen. Delete the H095 note."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Harvest Ceremony",
+    "Map Build Ceremony",
+    "Mermaid Diagram Standard",
+    "Palace Ceremonies",
+    "Palace Graffiti",
+    "Self-Model Update Ceremony",
+    "Spore Check Ceremony",
+    "Substrate Skill",
+    "Walk Ceremony",
+    "Weave Ceremony"
+   ],
+   "issue": "Ten of the twenty-two pages have no forward_vector in their frontmatter: Harvest, Map Build, Mermaid, Palace Ceremonies, Palace Graffiti, Self-Model Update, Spore Check, Substrate Skill, Walk, Weave. The Deposit Ceremony says 'Every page leans somewhere' (Deposit Ceremony.md:84), SCHEMA — Reference §3 recommends it, and these are exactly the pages woken most often (every ceremony is read cold by the runner).",
+   "proposed_action": "Flag for the Weave's vector-tuning invitation (Step 5b). A handful per weave; Walk, Weave and Spore Check first, since they are woken as the practice itself."
+  },
+  {
+   "kind": "naming",
+   "entries": [
+    "Pages as Agents",
+    "Palace Map",
+    "Substrate Skill",
+    "Map Build Ceremony",
+    "Palace Quotes"
+   ],
+   "issue": "Small placement and naming drifts. Pages as Agents and Palace Map are `concept` pages living in `_ops/`, which Substrate Skill describes as holding 'ceremony cards + their Context companions, working queues, and machinery subdirs' (Substrate Skill.md:214); concepts live at the root. Substrate Skill's file title is 'Substrate Skill' and its H1 'Substrate Skill (Palace Edition)' (:19). Map Build Ceremony is typed `meta`, every other ceremony card here `practice`; SCHEMA allows both (SCHEMA.md:79,87) but the family reads as two kinds. Palace Quotes names 'eight' lenses in its body (:54) and 'one of the twelve' later (:66), and Palace Philosophies' register has twelve entries of which Like Water is not one.",
+   "proposed_action": "Flag only. Moving the two concepts costs path-literal churn (wikilinks resolve by title, so little breaks); Loudon's call. Retype Map Build to practice at its next version. Make Palace Quotes say 'the lenses in the register'."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Baton Ceremony",
+    "Deposit Ceremony",
+    "Harvest Ceremony",
+    "Map Build Ceremony",
+    "Return Ceremony",
+    "Revival Ceremony",
+    "Self-Model Update Ceremony",
+    "Spore Check Ceremony",
+    "Walk Ceremony",
+    "Weave Ceremony",
+    "The Daily Page",
+    "Palace Ceremonies"
+   ],
+   "issue": "Every card repeats the same two sentences about its ledger: 'Open with the tail read of [X — tuning] ([[SCHEMA — Reference]] §6). Those are this X's first candidates for a spec change.' and 'ends with what this run taught the ceremony (\"nothing\" is a legal answer); the run marks the tuning file with its run line, and a lesson that changes the spec also goes there as a numbered item'. Palace Ceremonies § What Makes a Ceremony (:101-106) and Substrate Skill (:84) state the same rule a third and fourth time. The contract headings also vary: 'Ceremony Contract' (Return, Self-Model, Walk, Weave), 'Contract' (Map Build, Revival, Spore Check, Daily Page), 'Completion Signal' (Baton, Deposit), none (Harvest).",
+   "proposed_action": "Keep the run-line template where a runner needs it, but state the rule once (Palace Ceremonies) and let each card say 'open and close by the ledger rule' with the link. Name the section 'Contract' everywhere. Low priority; do it when a card is next edited, not as a sweep."
+  },
+  {
+   "kind": "roster",
+   "entries": [
+    "Weave Ceremony",
+    "Operator Memory"
+   ],
+   "issue": "Weave Step 6b ends 'memory holds only the always-on operator floor, as careful pointers' (Weave Ceremony.md:333) without naming the page that defines that floor and its three kinds of line. Operator Memory (born 2026-10-22, reached by 3) says the sweep that retires old corrections is 'the Weave's Step 6b' and already links the Weave [monthly-sweep]. The pair therefore holds one link and the Weave side says nothing back.",
+   "proposed_action": "Body wikilink only: in Step 6b, 'the always-on operator floor ([[Operator Memory]])'. No second typed link; the pair already has one."
+  }
+ ],
+ "open_question_resolutions": [
+  {
+   "entry": "Harvest Ceremony",
+   "question": "The next harvest will likely be against a new type of source (Google Drive, project archives); revisit what the oblique approach looks like.",
+   "verdict": "progressed",
+   "by_entry": "Harvest Ceremony § How to Run It (the close reading) and § Lessons from outside",
+   "proposed_action": "Two new source kinds have already been harvested: a dense source by close reading (Harvest — 2026-09-06 — Environments That Hold) and outside projects by the lessons-from-outside route. Rewrite as 'when a source is neither a pile nor a dense document, say which of the two moves it resembles', or delete."
+  },
+  {
+   "entry": "Harvest Ceremony",
+   "question": "Can the harvest be partially automated, with scripts pre-triaging obvious skips?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Keep. 'Use scripting' (Harvest:105) covers extraction, not triage; no pre-triage script exists."
+  },
+  {
+   "entry": "Harvest Ceremony",
+   "question": "What would a 'harvest for connections' look like, searching for existing entries whose links should be updated from recent conversations?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Weave Ceremony (Steps 0c, 1b, 3b, 3e) and Deposit Ceremony ('Flag for the Weave')",
+   "proposed_action": "The Weave already does this: the weave_flag inbox carries what sessions saw, unsung paths and unsaid links are scanned, and Deposit flags what may want updating. Delete the bullet, or point to Weave Step 0c."
+  },
+  {
+   "entry": "Image Embedding Standard",
+   "question": "Should SVG diagrams encoding palace graph structure be generated programmatically, so the Weave could produce a visual alongside its topological report?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Weave Ceremony (postcondition 5b, the visual Weave report) and Palace Map § The Map as Chronotope (STIGMERGY's TOPOLOGY lens)",
+   "proposed_action": "The Weave now produces an HTML visual report each run and STIGMERGY draws the typed-link graph live. Delete the question; the demo SVG stays an example."
+  },
+  {
+   "entry": "Image Embedding Standard",
+   "question": "Should externally sourced embedded images get their own `source` entries, or is caption attribution enough?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Keep; no instance has forced it."
+  },
+  {
+   "entry": "Image Embedding Standard",
+   "question": "When one entry accumulates many images, does its bundle want an images/ sub-grouping?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Keep as stated ('held open until a bundle gets big enough to hurt')."
+  },
+  {
+   "entry": "Map Build Ceremony",
+   "question": "Ghost persistence tracking: should a ceremony step or Spore Check variant surface a ghost present in three maps automatically?",
+   "verdict": "progressed",
+   "by_entry": "Palace Map (the `ghosts` verb of palace-map.py; Forward Vectors #1)",
+   "proposed_action": "Step 7 and Cadence already state the rule and palace-map.py ghosts reads it. Only the automatic surfacing is open, and that question is on Palace Map too. Keep it in one place (Palace Map) and delete here."
+  },
+  {
+   "entry": "Map Build Ceremony",
+   "question": "Should the ceremony produce a diff against the previous map?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Palace Map (palace-map.py diff), Weave Ceremony Step 2 and 6.5, Self-Model Update Ceremony Step 2",
+   "proposed_action": "`palace-map.py diff <a> <b>` exists and two ceremonies already run it. Delete."
+  },
+  {
+   "entry": "Map Build Ceremony",
+   "question": "Weighted maps: nodes carry `use`, which could weight edges for swarm dispatch.",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Keep once. It is a word-for-word twin of Palace Map's forward vector #3 (Palace Map.md:289); hold it on Palace Map and delete here."
+  },
+  {
+   "entry": "Mermaid Diagram Standard",
+   "question": "Should Mermaid link labels be enforced to the eight canonical types?",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "The premise is stale: there are ten (SCHEMA §4), and the edge table omits three. Fix the count and table; the enforce-or-allow question is taste and can stay as one line."
+  },
+  {
+   "entry": "Mermaid Diagram Standard",
+   "question": "Could the Weave also produce a Mermaid graph block as a visual summary of topology?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Weave Ceremony postcondition 5b (HTML visual report per the Loudon Live Design System)",
+   "proposed_action": "Answered the other way: the Weave's visual is HTML, not Mermaid. Delete the question and 'A longer-term possibility' paragraph (Mermaid:178)."
+  },
+  {
+   "entry": "Mermaid Diagram Standard",
+   "question": "Is there a practice for reviewing layout direction (TD vs LR)?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Keep or delete; low value, no instance."
+  },
+  {
+   "entry": "Mermaid Diagram Standard",
+   "question": "Should the palace record which Mermaid version it was authored against and audit after Obsidian updates?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "No diagram has broken. Propose deleting until one does."
+  },
+  {
+   "entry": "Pages as Agents",
+   "question": "Run the recognize-the-author test on bigger, stranger panels and on person-pages. Does fifteen-out-of-fifteen hold?",
+   "verdict": "still-open",
+   "by_entry": "The Daily Page (wakes one page each morning, but is not the test)",
+   "proposed_action": "Keep. The Daily Page is a standing source of woken pages; its mornings could supply person-page material, but no one has run the test on them."
+  },
+  {
+   "entry": "Pages as Agents",
+   "question": "What is the least a page needs before it wakes as someone and not as noise?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Keep."
+  },
+  {
+   "entry": "Pages as Agents",
+   "question": "If every page is already an agent, is the Swarm Weave just the ceremony that runs them out loud?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "The Daily Page and Weave Ceremony § Execution Method",
+   "proposed_action": "No: Swarm Weave workers are palace-reader children born with the Jewel and World, handed a room, proposing and writing nothing; they are not the pages (Weave Ceremony.md:79). The rite that runs one page out loud is the Daily Page (wake.mjs, 'the page speaks'). Rewrite the bullet as that answer."
+  },
+  {
+   "entry": "Palace Ceremonies",
+   "question": "Should the Walk be updated to acknowledge the Swarm Weave as a future path?",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "'Future' is stale: the Swarm Weave is the canonical Weave (Weave Ceremony.md:75). The Walk is one thread by design (Walk:71). Decline and delete."
+  },
+  {
+   "entry": "Palace Ceremonies",
+   "question": "Is anything in onboarding a new Claude left that only a ceremony would do?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "CHILD (§ Growing up) and CLAUDE",
+   "proposed_action": "The bullet answers itself ('Birth and growing up now carry most of it'). Delete; the hub then has no open question, which is honest."
+  },
+  {
+   "entry": "Palace Graffiti",
+   "question": "Scale: will graffiti become unwieldy? Does it need an index of outstanding marks?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Keep as the page's one question; 19 files carry comments, so the index is not yet owed."
+  },
+  {
+   "entry": "Palace Graffiti",
+   "question": "Visibility: should a 'Graffiti Walk' ceremony review all outstanding graffiti?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Multi-Lens Worker Prompt Template (flag 'live graffiti worth acting on') and Weave Ceremony",
+   "proposed_action": "Each weave worker already flags live graffiti. No ceremony needed; delete the bullet."
+  },
+  {
+   "entry": "Palace Graffiti",
+   "question": "Decay: should long-unanswered graffiti be formalized or composted?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Keep; no instance has forced it."
+  },
+  {
+   "entry": "Palace Graffiti",
+   "question": "Collaboration beyond Loudon and Claude: who can leave graffiti?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Speculative; propose deleting until another contributor exists."
+  },
+  {
+   "entry": "Palace Graffiti",
+   "question": "Authentication: should graffiti be markable 'for this session only'?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Speculative; propose deleting."
+  },
+  {
+   "entry": "Palace Map",
+   "question": "Ghost node tracking across generations: can a three-cycle ghost be surfaced automatically?",
+   "verdict": "progressed",
+   "by_entry": "Map Build Ceremony Step 7; palace-map.py ghosts",
+   "proposed_action": "The rule and the verb exist; only automatic surfacing is open. Keep here as the one home."
+  },
+  {
+   "entry": "Palace Map",
+   "question": "How do we calculate neighborhoods, and which lenses earn a bounded map?",
+   "verdict": "progressed",
+   "by_entry": "Weave Ceremony § Execution Method and Swarm Weave § The Multi-Lens Weave",
+   "proposed_action": "The Weave's lenses (partition-palace.py) are working answers; whether any earns a standing bounded map is still open. Keep."
+  },
+  {
+   "entry": "Palace Map",
+   "question": "Edges weighted by `use`: value or noise for swarm dispatch?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Keep here; delete Map Build's twin."
+  },
+  {
+   "entry": "Palace Map",
+   "question": "Can a ceremony compare map generations?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Weave Ceremony (Step 2 'Since the last map', Step 6.5 closing diff) and Self-Model Update Ceremony Step 2",
+   "proposed_action": "palace-map.py diff is run by both. Delete or rewrite as the narrower question (does the diff feed the Weave's health row?)."
+  },
+  {
+   "entry": "Palace Map",
+   "question": "Which creative moves earn a verb of their own in the script?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Keep; fresh from the 2026-10-23 test, and the scroll's Plan owns it."
+  },
+  {
+   "entry": "Palace Map",
+   "question": "When does the keeper stop being this page woken and mint as an organ?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Keep; the Active Baton of 2026-10-23 carries it."
+  },
+  {
+   "entry": "Palace Map",
+   "question": "Should the citation rule reach the Concierge's postures, the Deposit's elder consult, the Weave's link proposals?",
+   "verdict": "progressed",
+   "by_entry": "Multi-Lens Worker Prompt Template (worker output carries evidence_source / evidence_target per proposed link)",
+   "proposed_action": "The weave workers already cite evidence on both ends of every proposal. The Deposit's step 3 and the Concierge's postures do not yet. Keep, narrowed to those two."
+  },
+  {
+   "entry": "Palace Quotes",
+   "question": "When does a quote earn its way from the margin into the page's body?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Keep (it is Philosopher Visits the Entry's question one size smaller)."
+  },
+  {
+   "entry": "Palace Quotes",
+   "question": "Can a page ask for a quote by naming the lens in its forward vector?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Keep."
+  },
+  {
+   "entry": "Palace Quotes",
+   "question": "Traditions without a page (Plato, Leibniz, Zen, Taoism proper) quote through the Palace Philosophies hub.",
+   "verdict": "progressed",
+   "by_entry": "Palace Philosophies (the register) and Leibniz (People/Leibniz.md exists)",
+   "proposed_action": "Leibniz now has a page and is in the register. Remove Leibniz from the list; Palace Philosophies says Zen, Taoism, Machiavelli and Plato still have none. Like Water is a Taoist-leaning page that the quoter already uses as a lens."
+  },
+  {
+   "entry": "Palace Quotes",
+   "question": "Is a quote from Loudon's own pages a different kind of window, the palace quoting itself?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Keep."
+  },
+  {
+   "entry": "Return Ceremony",
+   "question": "Should the Return fire automatically on the first session after a gap?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Keep; CHILD makes the Concierge the first act of every session, which is the cheap half of it."
+  },
+  {
+   "entry": "Return Ceremony",
+   "question": "The trigger table is fourteen rows in the always-loaded floor; does it need pruning, and does recognition survive the move?",
+   "verdict": "progressed",
+   "by_entry": "CHILD (the Ceremony Triggers table, now eighteen rows)",
+   "proposed_action": "The table lives in CHILD.md, which is born-with. The count in the question is stale. Rewrite with CHILD's count or delete, since the Return does not own that table."
+  },
+  {
+   "entry": "Return Ceremony",
+   "question": "Should the return map be written to a file, or spoken and discarded?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Return Ceremony postcondition 6 (Return Ceremony.md:53)",
+   "proposed_action": "'A return leaves no report file, so this commit is its record.' Delete the question."
+  },
+  {
+   "entry": "Return Ceremony",
+   "question": "(struck) Does the query block want to become a script?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Return Ceremony itself (return-map.mjs, built 2026-08-25)",
+   "proposed_action": "Collapse the struck item to its live remainder: 'whether the card's command list and the script drift apart, and which a reader trusts'."
+  },
+  {
+   "entry": "Revival Ceremony",
+   "question": "How a page leaves stewardship is still undesigned.",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Project Stewardship System § What's Decided (2026-10-21, 'A steward leaves when its page ends')",
+   "proposed_action": "Delete; see the coherence finding."
+  },
+  {
+   "entry": "Revival Ceremony",
+   "question": "Should a steward be allowed to probe a dormant page without a standing order?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Keep."
+  },
+  {
+   "entry": "Self-Model Update Ceremony",
+   "question": "Between runs, who adds a new organ to the anatomy: the Deposit that births a running meta entry, or only this ceremony?",
+   "verdict": "still-open",
+   "by_entry": "Return Ceremony (the query block runs anatomy.mjs as a 'Stale' probe, :124)",
+   "proposed_action": "Detection is covered by Return; ownership of the add is not. Keep."
+  },
+  {
+   "entry": "Self-Model Update Ceremony",
+   "question": "Should the anatomy check also run in the Weave's lint pass?",
+   "verdict": "should-act",
+   "by_entry": "Weave Ceremony Step 6.5",
+   "proposed_action": "Add `node _ops/self-model/anatomy.mjs` (flag-only) to the Weave's linter list and offer the Self-Model Update at the Weave's end; then delete the question."
+  },
+  {
+   "entry": "Spore Check Ceremony",
+   "question": "Should a page held across three checks with nothing changed come to the table already marked as a compost candidate?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Keep. The ledger has no run line yet, so the count it needs does not exist."
+  },
+  {
+   "entry": "Spore Check Ceremony",
+   "question": "Should the Weave's report offer a Spore Check when a quarter has passed since the last run line?",
+   "verdict": "should-act",
+   "by_entry": "Weave Ceremony Step 2 (Dormant entries)",
+   "proposed_action": "One clause in Step 2: 'if a quarter has passed since the Spore Check's last run line, offer one'. The ledger has no run line yet, so also say 'or has none'."
+  },
+  {
+   "entry": "Spore Check Ceremony",
+   "question": "Should revival_conditions be required on every sleeper?",
+   "verdict": "still-open",
+   "by_entry": "Revival Ceremony ('revival_conditions: dropped' at revival)",
+   "proposed_action": "Keep; Revival drops them at waking, which argues they matter only while asleep."
+  },
+  {
+   "entry": "Technical Diagram Standard",
+   "question": "(struck) Should the example sources live in the bundle or a shared Artifacts/DSP theme?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Technical Diagram Standard § Filing Protocol and Image Embedding Standard § Filing Protocol",
+   "proposed_action": "Delete the struck item; git holds it. Note § Filing Protocol itself still shows Artifacts paths (coherence finding)."
+  },
+  {
+   "entry": "Technical Diagram Standard",
+   "question": "Is a pre-commit hook or ceremony step that re-renders changed .tex worth having so the .svg never drifts?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Keep. No hook exists (searched the repo scripts)."
+  },
+  {
+   "entry": "Technical Diagram Standard",
+   "question": "Does the hardware-synth work want a circuitikz example, or a separate standard?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Keep."
+  },
+  {
+   "entry": "Technical Diagram Standard",
+   "question": "At what point does a recurring figure type deserve its own template?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Keep."
+  },
+  {
+   "entry": "Walk Ceremony",
+   "question": "Should the Walk always start from a different entry than last time?",
+   "verdict": "progressed",
+   "by_entry": "The Daily Page (the shuffle: no page sat twice in a lap) and Palace Map (`quiet`: well-linked but little visited)",
+   "proposed_action": "The Daily Page answers 'a different door every time' by construction and says so (The Daily Page.md:198). The Walk can name `palace-map.py quiet` as a way to choose a door 'not recently touched'."
+  },
+  {
+   "entry": "Walk Ceremony",
+   "question": "Is there a named 'deep Walk' ceremony for when a traversal should immediately trigger a Deposit?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Deposit Ceremony ('the gate for a find entering canon … from any door')",
+   "proposed_action": "A walk's find enters through the Deposit like any other; no second ceremony. The Walk already says 'note it and flag it, don't build mid-walk' (Walk:73). Delete."
+  },
+  {
+   "entry": "Walk Ceremony",
+   "question": "At what palace size does the Walk need a structured ending?",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "The palace is 324 pages and postcondition 2 holds. Decline and delete."
+  },
+  {
+   "entry": "Palace To-Do",
+   "question": "Item: 'Fold the memory-into-palace weave into the Weave Ceremony as a standing sub-step'.",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Weave Ceremony Step 6b (Weave Ceremony.md:327-333)",
+   "proposed_action": "Done. Tick and archive."
+  },
+  {
+   "entry": "Palace To-Do",
+   "question": "Item: 'Palace-Verify: is a self-report'.",
+   "verdict": "progressed",
+   "by_entry": "Deposit Ceremony Steps 6-7 ('the postcondition is verified, not asserted'; a cold reader who did not write it; honest verify state)",
+   "proposed_action": "The cold read is now part of the step. What remains is deriving the value from a checkable source, which waits on scoped linters (see the recipe finding). Update the item; its ':253' pointer is stale (Deposit is 180 lines)."
+  },
+  {
+   "entry": "Palace To-Do",
+   "question": "Item: 'Re-split the Weave and Baton cards'.",
+   "verdict": "still-open",
+   "by_entry": "Weave Ceremony; Baton Ceremony (lighter_prose passages below)",
+   "proposed_action": "Still true and larger: Weave is 51 KB, not ~36 KB. The first cuts are quoted below. Update the sizes."
+  }
+ ],
+ "merge_candidates": [
+  {
+   "absorb": "Mermaid Diagram Standard",
+   "into": "Image Embedding Standard",
+   "survives_as_subsection": "§ Mermaid (relationship graphs): the block syntax, the edge/arrow table, the 8-10 node limit, and the one-paragraph 'when SVG wins'. The decision rule between Mermaid, LaTeX, build123d, raw SVG and raster stays where it is, at the head of Technical Diagram Standard § The Decision Rule.",
+   "rationale": "Medium confidence. Mermaid has 1 inbound, a caption standard that is word for word Image Embedding's (Mermaid:139-147 against Image:105-122), a 'Why Mermaid Over SVG' essay (about 2 KB) that Technical Diagram Standard repeats in its own words (TDS:52-58), and an intro that lists the other two standards as one system, which README (§ The Visual Language) also does. Three pages for one visual language is two more than its readers use. The cost: Mermaid is a text diagram, not an image, so 'Image Embedding' is an imperfect home; an alternative is to keep all three but cut Mermaid to ~5 KB and Technical Diagram Standard's duplicated argument (lighter_prose). I looked at merging Closing Well Ceremony into Closing Well, Spore Check into Revival, and Self-Model Update into Map Build and left all three: each split is stated on the page (Closing Well Ceremony.md:29; Spore Check tuning item 1; Self-Model Update.md:58)."
+  }
+ ],
+ "compost_candidates": [],
+ "memory_needs": [
+  {
+   "entry": "Palace Map",
+   "needs": "context",
+   "why": "26 KB, 10 inbound, an Active Baton, a scroll, no Context. The page carries its own deliberation: the format argument, a seven-slot 'paratrooper' kit, a chronotope essay, and the 2026-10-23 agent test, so a worker cannot tell the load-bearing part (the ring, the citation rule, the script) from the thought-experiments.",
+   "context_bullets": [
+    "Why the edge list, not the compact adjacency: the parent-child reading it smuggles in contradicts Lateral Access; and what the 2026-10-23 map-agent test showed (no invented edges, LLM reads but does not count, seeing whole makes finds).",
+    "What was tried and dropped or is still only an idea: the Bounded Survey (never built), the seven-item Paratrooper kit and the chronotope reading (generative, not operational), and the keeper (not built; this page woken with a job).",
+    "Why ghost nodes are held as forward tension ('links before objects') and why a file ghost never counts toward persistence."
+   ]
+  },
+  {
+   "entry": "Substrate Skill",
+   "needs": "context",
+   "why": "30 KB, 17 inbound, no Context, and the largest card in the family. Its shape is an accretion: a claude.ai skill, then the palace's authoritative ceremony spec, then the home of stewardship posture. A worker cannot tell what is still canon from what moved to CHILD, ELDER, SCHEMA and Project Stewardship System.",
+   "context_bullets": [
+    "Lineage: began as the claude.ai skill 'the-substrate' (now a pointer only, Access Paths); became the 'authoritative ceremony specification' before CHILD, ELDER and SCHEMA — Reference took over the rules; what still lives here (Updating Entries and the 40-55% trim rule from the 2026-05-28 audit, Stage as Alignment Confidence, Writing Conventions).",
+    "Why the stewardship material (stage posture table, Machinery/Content Split, scroll zones, read seam, the run) is here and where it belongs: its own text names Project Stewardship System as 'canonical home'; The Scroll and Stewardship carry the same facts.",
+    "What was dropped and should not return: the Four Pillars 'skill' pairing (Interaction with Other Skills), the Cowork path, 'currently split' roster."
+   ]
+  },
+  {
+   "entry": "Palace Graffiti",
+   "needs": "context",
+   "why": "23 KB, no Context, and half the body is two May 2026 drafts held for review. A reader cannot tell the practice (small, current) from the stranded proposals.",
+   "context_bullets": [
+    "The page began as Loudon's naming of the comment convention on 2026-03-24 ('I am the trickster in the palace') and is meant to stay his voice; the convention itself is in Substrate Skill § In-File Comments.",
+    "The two 'larger revision' drafts (isomorphism for Action Potential Oscillator, 2026-05-05; untangling Retrospective and Semantic Delay, 2026-05-09) were left here by the Enrichment larger-revision path and never applied; neither entry has changed; where they should live instead.",
+    "Open: the To-Do Archive item 'Re-think the graffiti standard now that STIGMERGY is the first-class interface' (Palace To-Do — Archive.md:60) is the live question; the unanswered forward vectors are speculative."
+   ]
+  },
+  {
+   "entry": "Return Ceremony",
+   "needs": "context",
+   "why": "14.5 KB, no Context, and the body carries its own history: the 2026-08-25 assessment with five wrong claims (:77), the seven-week gap misread (:151), and the 'always-loaded floor' argument (:155-159). Those are why the page is shaped as it is, but a runner does not need them to run it.",
+   "context_bullets": [
+    "The two failures that wrote it: an assessment run before the queries (five wrong claims, each corrected by one command) and a gap read as drift when the cause was weddings and travel.",
+    "Why the card keeps the command list although return-map.mjs exists: a protocol that is only executable can no longer be audited by a human; the open remainder is which a reader trusts when they disagree.",
+    "Why the Return and the Close are 'bookends of one organ' (summoned at the return, takes the wheel at the close) and what the roll call added (the Return pointed at now, not at a gap)."
+   ]
+  },
+  {
+   "entry": "Revival Ceremony",
+   "needs": "context",
+   "why": "10.5 KB, mature, no Context. 'A revival is earned by making' (:92-94) and the closed-loop diagram are origin story, and the page's strictness (no Revival Note, no inbound links written, Spore Check cannot revive inline) is the residue of decisions a worker cannot see.",
+   "context_bullets": [
+    "Origin: two dormant projects with stewards were given a standing order to probe in September 2026; both felt alive, one landed 19 days late and one never carried home. The rite is what carries it home.",
+    "Why 'no Revival Note' and why revival_conditions are dropped at waking (the story goes on the scroll and in the commit; conditions are for sleeping).",
+    "What Spore Check used to do wrong (revive inline, a second path beside this one; Spore Check — tuning item 1)."
+   ]
+  },
+  {
+   "entry": "Map Build Ceremony",
+   "needs": "context",
+   "why": "12 KB, 13 runs on its ledger, no Context; its Steps still describe a hand-run builder while Cadence says build-map.py runs the newest dated builder. Which parts are contract (the scan rules mirrored in STIGMERGY topology-live.js) and which are history is not visible.",
+   "context_bullets": [
+    "The scan rules (what is a node, what is a file ghost, URLs filtered) are the contract; a test holds STIGMERGY's TOPOLOGY lens to them. The format sections are examples.",
+    "Why three builds on disk (ghost persistence reads three) and why a scheduled build writes no ledger line.",
+    "Tried and not built: Bounded Survey (neighbourhood maps) and bidirectional adjacency as default."
+   ]
+  },
+  {
+   "entry": "Baton Ceremony",
+   "needs": "context",
+   "why": "A Context exists but is 2.9 KB; the card is 28 KB and carries the history itself (the on-pickup drift, the cold-start variant's own commissioning, the training wheel). The re-split owed on Palace To-Do.md:90 has nowhere to send it.",
+   "context_bullets": [
+    "The on-pickup split: the three-state lifecycle landed in the spec on 2026-07-07 and never reached the executor, so for seven weeks machine-written batons shipped a stale footer; one file, lint-baton-footer.py.",
+    "Why the continuation baton is the everyday occasion, not the exception, and why a cold-start baton is first-class (and is announced on the board).",
+    "The handoff/baton naming: 'handoff' stays ambiguous on purpose until the baton habit sets in."
+   ]
+  },
+  {
+   "entry": "Mermaid Diagram Standard",
+   "needs": "context",
+   "why": "13 KB, no Context. The 'Why Mermaid Over SVG' argument is the page's reason for existing and also most of its length; the operational rules are about 4 KB.",
+   "context_bullets": [
+    "The argument: Mermaid is the same substance as the palace (text, diffable, greppable, Obsidian-native, forces semantic discipline).",
+    "What it was set against and what split off: raw SVG, then LaTeX for technical figures (Technical Diagram Standard), the Artifacts/ folder (dissolved 2026-06-16).",
+    "The unresolved: enforce palace link types in diagrams or allow local labels."
+   ]
+  },
+  {
+   "entry": "Palace Quotes",
+   "needs": "tuning",
+   "why": "It runs: a placer, a quoter prompt and a ledger of placements (placements.jsonl). The ledger records what was placed, not what running taught. Judgment call: the Weave's bundle audit asks a tuning ledger of 'every page that runs, a ceremony or a steward's home', and this is neither.",
+   "context_bullets": [
+    "What each placement run taught the quoter prompt (e.g. the open-reading-then-roster order).",
+    "Which refusals the placer made (phrase not on the page, unconfirmed source) and whether they were right.",
+    "Whether the 'awaiting your read' count is being cleared."
+   ]
+  }
+ ],
+ "lighter_prose": [
+  {
+   "entry": "Palace Graffiti",
+   "where": "§ 2026-05-05 — Proposed Revision … and § Larger revision proposal (Palace Graffiti.md:153-262)",
+   "passage": "## 2026-05-05 — Proposed Revision: [[Action Potential Oscillator]] — handling \"isomorphism\" … Held here for review; **not committed to the entry yet**. … ## Larger revision proposal — untangling [[Retrospective Delay]] and [[Semantic Delay]] … not yet committed to either entry.",
+   "proposal": "delete",
+   "words": "Move to the owning bundles or the To-Do and leave one line: 'Two larger-revision drafts were held here in May 2026; neither was applied; see <where>.' That is about 13 KB of 23 KB."
+  },
+  {
+   "entry": "Palace Graffiti",
+   "where": "§ The Temporal Trick (:74-105)",
+   "passage": "Session A: / Loudon reads entry X, sees a thin spot, leaves graffiti … Session B: … Session C: …  (a 20-line timeline code block, after three paragraphs saying the same)",
+   "proposal": "delete",
+   "words": "Keep the paragraph; delete the block."
+  },
+  {
+   "entry": "Palace Graffiti",
+   "where": "§ Connection to Related Concepts (:115-125)",
+   "passage": "**[[SUBSTRATE]]** — Graffiti is part of the palace's communication infrastructure. It should be mentioned in Substrate as one of the mechanisms that keeps the palace alive.  /  **[[Trickster]]** … The entry should affirm this connection explicitly.",
+   "proposal": "delete",
+   "words": "These are notes to a future editor sitting in the reader's text. Do the thing or drop the sentence."
+  },
+  {
+   "entry": "Palace Graffiti",
+   "where": "tail (:198-208)",
+   "passage": "*(2026-05-05 — from the maker-conversation on specialist manifests)* … **2026-05-05** — In a maker-architecture conversation, re-derived the Trickster / Coordinator / Worker / Palace frame as Director / Producer / Specialist / Palace without first reading the agent-infrastructure spec (since retired).",
+   "proposal": "delete",
+   "words": "Dated evidence notes about retired specs; git holds them."
+  },
+  {
+   "entry": "Baton Ceremony",
+   "where": "intro blockquote (:43-55)",
+   "passage": "You likely have a general notion of a \"handoff document.\" Start there, but read on, because the palace baton is more specific than a generic handoff, and the differences are the whole point. A generic handoff *summarizes* — it recounts what was done … The baton does the opposite.",
+   "proposal": "simplify",
+   "words": "'A baton is a generative compression of the session ([[Generative Compression]]): keep only what the next Claude needs to act and cannot recover, and drop the rest. Three rules: compress, don't summarize; write toward one named move; it is disposable.' The three numbered points already say it."
+  },
+  {
+   "entry": "Baton Ceremony",
+   "where": "§ When to reach for a baton (:72)",
+   "passage": "*(A rarer variant — the **cold-start / commissioning baton**, for genuinely un-started work with no prior state — carries framing instead of momentum; its full treatment is being worked separately. Do not call a continuation \"cold-start\" …)*",
+   "proposal": "delete",
+   "words": "Contradicts § The cold-start (commissioning) variant, 'a first-class, encouraged technique' a few lines below; the treatment is here. Keep the one clause 'a continuation is not a cold start; the difference is whether real state travels with it' under that section."
+  },
+  {
+   "entry": "Baton Ceremony",
+   "where": "§ The cold-start variant (:101)",
+   "passage": "(This spec's own cold-start variant was itself commissioned by a cold-start baton — the technique dogfooding itself.)",
+   "proposal": "delete",
+   "words": "History."
+  },
+  {
+   "entry": "Baton Ceremony",
+   "where": "§ Trigger (:107)",
+   "passage": "This ask is deliberate and temporary — a training wheel while the \"baton\" habit sets in. Retire it once \"baton\" is the reliable word.",
+   "proposal": "simplify",
+   "words": "'Ask first: \"Baton ceremony, or an informal handoff?\"' CHILD and Palace Ceremonies both carry the same ask; keep it in CHILD and here as one line."
+  },
+  {
+   "entry": "Baton Ceremony",
+   "where": "§ Step 2, after the template (:199-201)",
+   "passage": "*Why the last section is fixed, not authored:* the **author** runs this ceremony … *And why it lives in its own file rather than inline here:* … the three-state lifecycle landed in this spec on 2026-07-07 and never reached the executor, so for seven weeks every machine-written baton shipped a checklist telling the catcher to delete the baton at pickup …",
+   "proposal": "simplify",
+   "words": "'The On-pickup section is fixed boilerplate in one file, [[Baton Ceremony — on-pickup]]; paste it verbatim, never retype it. lint-baton-footer.py fails if a second copy appears.' The story goes to the Context."
+  },
+  {
+   "entry": "Baton Ceremony",
+   "where": "§ Where the Baton Lives (:117)",
+   "passage": "this list is **open, not exhaustive** — new ones will appear as the palace grows (the Maker and the Shop may grow their own; Loudon may write one). What doesn't flex is the discipline …",
+   "proposal": "simplify",
+   "words": "'The list is open. What doesn't flex: carry the move, the negative space, the receiving surface, and what the catcher loads first.'"
+  },
+  {
+   "entry": "Weave Ceremony",
+   "where": "postcondition 2g (:104)",
+   "passage": "Added 2026-08-25 after the drift was measured — em-dashes up 41% and bold up 53% from the March baseline, in a palace whose *word choice* had held perfectly. The lesson it encodes: a stated value without a check drifts to whatever the writer's default is, and the palace had gated link direction, doc drift, bundle hygiene, and weave flags while leaving its own prose on the honour system.",
+   "proposal": "delete",
+   "words": "History; belongs in the Context (and git). Keep the first two sentences: what the linter measures and that it is flag-only."
+  },
+  {
+   "entry": "Weave Ceremony",
+   "where": "postcondition 2b (:99)",
+   "passage": "a baton-launched weave once skipped the inbox read when it was honour-system ([[The Palace Hardens Around Values]]: a rule earns a gate once its check proves mechanical).",
+   "proposal": "delete",
+   "words": "History; the linter sentence before it stands."
+  },
+  {
+   "entry": "Weave Ceremony",
+   "where": "postcondition 2d and 5b (:101,112)",
+   "passage": "This is the checkable directional postcondition that the 2026-06-05 schema-compliance miss showed the Weave needed. … Codified 2026-07-06.",
+   "proposal": "delete",
+   "words": "Dates and provenance; git holds them."
+  },
+  {
+   "entry": "Weave Ceremony",
+   "where": "Step 6.5, the two paragraphs after the linter block (:361-372)",
+   "passage": "`lint-link-directions.py` is the Weave's mechanical check on §4 directionality — it catches what a hand audit of dozens of worker-proposed links misses. It reports: **E1** … **E2** … **W1 / W2** …  /  `lint-entry-naming.py` is the naming check — the mechanical backstop for the two ways an entry drifts from the filesystem, both hidden by macOS's case-insensitive volume …",
+   "proposal": "delete",
+   "words": "Both are already said in postconditions 2d and 2f (:101,103), and each script prints its own rules. About 2.5 KB. Keep one line each: 'resolve every error this Weave introduced; name any pre-existing one in the commit body.'"
+  },
+  {
+   "entry": "Weave Ceremony",
+   "where": "§ Execution Method (:77)",
+   "passage": "The single-agent protocol below remains valid for: palaces under ~20 entries, quick topological spot-checks, or situations where Claude Code sub-agent orchestration is unavailable. For the current palace (100+ entries), execute as a Swarm Weave.",
+   "proposal": "delete",
+   "words": "The palace has 324 pages. Say 'the Protocol below is the swarm's steps'."
+  },
+  {
+   "entry": "Weave Ceremony",
+   "where": "§ The Topology Report Format (:390-463)",
+   "passage": "## Weave Report — [YYYY-MM-DD] … (a 70-line template)",
+   "proposal": "simplify",
+   "words": "The report's contents are already the list in Step 2 and the steps' own outputs. Move the template to Coordinator Synthesis Template.md (where the coordinator already works from) and leave one sentence."
+  },
+  {
+   "entry": "Return Ceremony",
+   "where": "§ The rule that outranks the others (:77) and § The one rule about the gap (:151)",
+   "passage": "This was written from a live failure. On 2026-08-25 a full palace assessment ran *before* any of these queries and produced five wrong claims: a dangling-link count off by 4× … /  The same 2026-08-25 assessment read a seven-week gap as evidence that the system's upkeep cost had outgrown its felt payoff — tidy, plausible, and invented. The actual reason was weddings and travel …",
+   "proposal": "simplify",
+   "words": "One sentence each, the rule and the cost: 'A full assessment run before the queries produced five wrong claims; each was one command from correct.' and 'A gap once read as waning interest was a wedding and a trip.' Full story to the Context."
+  },
+  {
+   "entry": "Return Ceremony",
+   "where": "§ Why this belongs in the always-loaded floor (:155-159)",
+   "passage": "[[Palace Conatus]] names the palace's drive as *staying in phase with Loudon* … The palace had five ceremonies for correcting its own drift and none for meeting its human where he actually is.",
+   "proposal": "simplify",
+   "words": "The Return is not in the floor (CHILD's trigger table is). Retitle 'Why the Return exists' and cut to the coupling-is-two-sided sentence; drop the 'five ceremonies' history."
+  },
+  {
+   "entry": "Return Ceremony",
+   "where": "§ Open Questions, struck item (:166)",
+   "passage": "~~The query block will drift as the palace grows new surfaces. Does it want to become a script …~~ **Answered by building it, 2026-08-25:** `_ops/concierge/return-map.mjs`. The card keeps the command list as the readable spec …",
+   "proposal": "simplify",
+   "words": "Keep only 'Open: whether the two drift apart, and which one a future reader will trust when they disagree.'"
+  },
+  {
+   "entry": "Map Build Ceremony",
+   "where": "§ Output Token Budget (:201-211)",
+   "passage": "| 50 nodes, 4 avg links | ~8KB | ~5KB | ~9KB | ~15KB | … The outgoing adjacency list is recommended for Tier 1 agent context loading",
+   "proposal": "delete",
+   "words": "Out of date by a factor of six (324 nodes, 9 links each) and in conflict with Palace Map.md:112-117. Palace Map holds the real numbers."
+  },
+  {
+   "entry": "Map Build Ceremony",
+   "where": "§ Relationship to Other Ceremonies (:215-221)",
+   "passage": "**Harvest Ceremony** — the Map Build is a natural close step after a Harvest session … Consider adding as an optional Harvest close step.",
+   "proposal": "delete",
+   "words": "The map is built every morning and at each weave (Cadence, :57); a post-harvest map adds nothing. The other two paragraphs repeat the Cadence section and Palace Map."
+  },
+  {
+   "entry": "Palace Map",
+   "where": "§ The JSON Schema (Swarm Use) (:157-189)",
+   "passage": "{ \"meta\": { \"generated\": \"2026-09-26\", \"scope\": \"full\", \"node_count\": 316, … } }",
+   "proposal": "delete",
+   "words": "Map Build holds the whole shape and the section says so itself (:187). The forward-ghost paragraph under it can join § Ghost Nodes."
+  },
+  {
+   "entry": "Palace Map",
+   "where": "§ Cross-Domain Resonance (:263-269)",
+   "passage": "**[[JEWEL]]** — the Jewel is the palace's compressed philosophical identity. The Palace Map is its compressed topological identity. …",
+   "proposal": "delete",
+   "words": "The Jewel is compared in § What the Map Is, § The Map as Tier 1 Context and § Relationship to the JEWEL already. Say it once."
+  },
+  {
+   "entry": "Palace Map",
+   "where": "§ The Paratrooper Provisioning (:225-261)",
+   "passage": "Extending the spy metaphor: an enchanted agent is more like a paratrooper. … The kit is **seven items** …  / ### What the kit makes legible — Three observations follow from naming the seven slots.",
+   "proposal": "simplify",
+   "words": "Keep the seven-item table (it is the generative part, and the labels on the page's links hang from it); cut the 'spy' paragraph and the three observations to two sentences. Move the rest to the Context."
+  },
+  {
+   "entry": "Substrate Skill",
+   "where": "§ Ceremony File Conventions (:82)",
+   "passage": "Currently split: [[Deposit Ceremony]] + [[Deposit Ceremony — Context]]; [[Harvest Ceremony]] + … [[Weave Ceremony]] + … [[Baton Ceremony]] + [[Baton Ceremony — Context]].",
+   "proposal": "delete",
+   "words": "A roster that rots; bundle-audit.py finds the truth."
+  },
+  {
+   "entry": "Substrate Skill",
+   "where": "§ Stage as Alignment Confidence, from 'Stage-conditional posture' to 'The run' (:129-183)",
+   "passage": "**Stage-conditional posture for the Steward agent** (canonical home: [[Project Stewardship System]] …) … **The Machinery/Content Split** … **The scroll's zones** … **The read seam.** … **The run.** One activation cycles a steward up to its manifest's `stopping_conditions.max_iterations` …",
+   "proposal": "simplify",
+   "words": "About 8 KB. Its own text names Project Stewardship System as the canonical home, and The Scroll holds the zones. Keep the stage table and the AI-polish trap here (Revival, The Daily Page, Stewardship all cite this section); move the rest to the entries that own them."
+  },
+  {
+   "entry": "Substrate Skill",
+   "where": "§ Interaction with Other Skills (:294-298)",
+   "passage": "This skill complements the Four Pillars skill. The Four Pillars governs HOW we work together. The Substrate governs WHERE we deposit what we learn.",
+   "proposal": "delete",
+   "words": "There is no Four Pillars skill; FOUR PILLARS is a page every agent is born reading."
+  },
+  {
+   "entry": "Substrate Skill",
+   "where": "§ Operating this environment (:207)",
+   "passage": "**Which model does the work.** The session supervises … Sonnet runs the wide legs … Opus takes the long reading … Haiku only does shallow, known-shape work.",
+   "proposal": "simplify",
+   "words": "Operator-environment fact with a usage cap in it; the memory rule is that a fact true of this harness lives in Operator Memory and the palace keeps a pointer. Check whether this survives the next memory sweep."
+  },
+  {
+   "entry": "Palace Ceremonies",
+   "where": "Recurring Ceremonies table, The Daily Page row (:53)",
+   "passage": "One page, dealt by a shuffle made once, until every page has been sat with. Loudon recalls it from its title alone, they read it together, the page is woken and speaks, its siblings are opened and the question is asked whether a neighbor should consume it, and they try to make it something to hear, see or play. The morning ends in a verdict: keep, trim, tune, fold, compost, open, or revive for a page already dormant. …",
+   "proposal": "simplify",
+   "words": "'One page a morning, dealt by chance until every page has been sat with; the morning ends in a verdict.' The card says the rest."
+  },
+  {
+   "entry": "Palace Ceremonies",
+   "where": "Ad-Hoc Operations (:93)",
+   "passage": "| \"Add this to the palace\" | Not ad hoc: it runs the [[Deposit Ceremony]], the one way a find enters canon. |",
+   "proposal": "delete",
+   "words": "It is not ad hoc; it is in the Deposit row already."
+  },
+  {
+   "entry": "Palace Ceremonies",
+   "where": "Forward Vectors (:145-146)",
+   "passage": "Should the Walk ceremony be updated to acknowledge the Swarm Weave as a future path … Is anything in onboarding a new Claude instance left that only a ceremony would do? Birth and growing up now carry most of it …",
+   "proposal": "delete",
+   "words": "Both are answered (see open_question_resolutions)."
+  },
+  {
+   "entry": "Palace To-Do",
+   "where": "Hygiene rules (:121)",
+   "passage": "Client work belongs in dedicated Claude Projects … Discovered 2026-03-21 via H095 compost.",
+   "proposal": "simplify",
+   "words": "Drop 'Discovered 2026-03-21 via H095 compost.' Keep the rule."
+  },
+  {
+   "entry": "The Daily Page",
+   "where": "§ Before Loudon arrives, 'Where it works' (:105)",
+   "passage": "The session may wake in a worktree of its own … Files are read with the Read tool and found with Glob and Grep, not through the shell. Every command is given alone and whole, by absolute paths, with no `cd` before it and nothing chained after it: a command shaped otherwise has stopped an unattended prep on a permission prompt …",
+   "proposal": "simplify",
+   "words": "A 400-word operations paragraph in a card Loudon reads. Move to `_ops/daily-page/README.md` (the card already points there) and leave: 'In a worktree, the dealer, map builder, diary and scroll are reached by the main checkout's path; see the README.'"
+  },
+  {
+   "entry": "Technical Diagram Standard",
+   "where": "§ Why LaTeX Belongs in a Text-First Organism (:50-58)",
+   "passage": "[[Mermaid Diagram Standard]] makes a deep argument against SVG: a hand-drawn SVG is \"a pointer to a separate artifact,\" its git diff is \"hundreds of lines of XML coordinate noise,\" it is \"opaque to the palace's own search layer.\" …",
+   "proposal": "simplify",
+   "words": "Restates the Mermaid page's argument in order to say 'LaTeX passes the same test'. One sentence: 'The .tex is plain text and diffable, so it passes the test Mermaid sets for SVG.'"
+  },
+  {
+   "entry": "Technical Diagram Standard",
+   "where": "§ Open Questions (:172)",
+   "passage": "~~Should the three example sources live in this standard's bundle or in a shared `Artifacts/DSP/` theme?~~ **Resolved:** they live in the standard's bundle …",
+   "proposal": "delete",
+   "words": "A resolved question kept as text."
+  },
+  {
+   "entry": "Mermaid Diagram Standard",
+   "where": "§ Why Mermaid Over SVG (:28-40)",
+   "passage": "The case for Mermaid is not that it's convenient. It's that it is *of the same substance as the palace itself*. … (five bold-led paragraphs)",
+   "proposal": "simplify",
+   "words": "Two sentences of reason (plain text, diffable, greppable); the five-paragraph defence is the page's most-quoted and least-needed part. About 1.8 KB."
+  },
+  {
+   "entry": "Harvest Ceremony",
+   "where": "§ The Archive (:126)",
+   "passage": "The record of what has entered the palace is the [[Deposit Ceremony — Deposit Archive|Deposit Archive]] (frozen pre-spec rows) **plus** the LOG deck's `Palace-Kind: deposit` commits … Do not read the archive wholesale during harvest",
+   "proposal": "delete",
+   "words": "Said already in How to Run It, item 1 (:83). Keep the working-list paragraph."
+  },
+  {
+   "entry": "Self-Model Update Ceremony",
+   "where": "§ Open Questions (:85)",
+   "passage": "*Settled in v2.0:* SUBSTRATE gets no change log of its own, because git, this ceremony's scroll and [[SUBSTRATE — Context]] hold the history … At maturity the ceremony does move from facts to interpretation; v2.0 is that move.",
+   "proposal": "delete",
+   "words": "Settled items kept as text; the tuning ledger holds v2.0's reason."
+  },
+  {
+   "entry": "Revival Ceremony",
+   "where": "§ A revival is earned by making (:92-94)",
+   "passage": "The first revivals happened before this rite could hold them. In September 2026 two dormant projects with stewards were given a standing order to probe … One landed nineteen days later, the day its steward flagged that nobody had; the other's yes sat on the board with its page still marked dormant.",
+   "proposal": "simplify",
+   "words": "Keep the last sentence ('the honest test of a sleeping idea is to make something with it and listen'); the story goes to the Context."
+  },
+  {
+   "entry": "Pages as Agents",
+   "where": "§ What 'working' means (:81)",
+   "passage": "Five advisors answer one question — four of them woken pages, one a plain model with no page. Three readers, given only the answers, match every one back to the exact page behind it: fifteen out of fifteen, where guessing scores about one in five.",
+   "proposal": "simplify",
+   "words": "The experiment is described in full on the page and again in its forward_vector and agency_profile.practice; keep one telling here and shorten the other two."
+  }
+ ],
+ "entry_health_flags": [
+  {
+   "entry": "Walk Ceremony",
+   "stage_current": "mature",
+   "stage_proposed": "growing",
+   "vector_issue": "No forward_vector.",
+   "note": "Mature on a page whose postcondition and protocol contradict each other, with tuning item 2 owed since 2026-09-25 and no run line under the ledger. Low confidence; the Daily Page now carries the daily-use register, and 'intentionally weekly' (Walk:53) is a claim nobody has kept since the ledger began. Ask Loudon whether the weekly cadence is still the intent."
+  },
+  {
+   "entry": "Spore Check Ceremony",
+   "stage_current": "mature",
+   "stage_proposed": "growing",
+   "vector_issue": "No forward_vector.",
+   "note": "Redesigned with Loudon on 2026-10-21 before any run in the new form (tuning item 1), no run line yet. Mature was earned by the March form."
+  },
+  {
+   "entry": "Self-Model Update Ceremony",
+   "stage_current": "mature",
+   "stage_proposed": "growing",
+   "vector_issue": "No forward_vector.",
+   "note": "v2.0 (2026-10-22) is the first form under a ledger and has no run line; the ledger's item 1 says it 'never ran under its ledger'."
+  },
+  {
+   "entry": "Technical Diagram Standard",
+   "stage_current": "sprout",
+   "stage_proposed": "growing",
+   "vector_issue": null,
+   "note": "Three live examples, a bundle with render.sh and a template, discoverability hooks 'now live' (:144-151), v1.0 and a CAD Drafter link beside it. Sprout understates it. Its Artifacts paths want fixing first."
+  },
+  {
+   "entry": "Pages as Agents",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "Forward_vector is six sentences and carries the blind-test story (the 15-of-15 result); SCHEMA asks for one sentence. Its closing clause ('Retire me the day my answers stop being recognizably my own') is good and specific.",
+   "note": "40 inbound, typed concept, top-decile by the Weave's own rule (Step 2): propose hub promotion after checking the decile cut with weave-health.py. It also lives in _ops/ although it is a concept."
+  },
+  {
+   "entry": "Baton Ceremony",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": "The vector says 'I keep getting tighter — fewer words, faster pickup, less ritual'; the card is 28 KB, 3.5x the 8 KB line, and has grown since the last split (Palace To-Do.md:90).",
+   "note": "Vector and page point opposite ways. The vector is right; the card needs the cut (lighter_prose)."
+  },
+  {
+   "entry": "Palace To-Do",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "Vector: 'I hold about a dozen things'. Page: 33 open, 4 done.",
+   "note": "See coherence finding; the discipline the vector names is the one to apply."
+  },
+  {
+   "entry": "Weave Ceremony",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": "No forward_vector.",
+   "note": "51 KB against an 8 KB line; the postcondition and step labels collide. It is the ceremony that invites vector tuning for every other page and has none of its own."
+  },
+  {
+   "entry": "Harvest Ceremony",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": "No forward_vector.",
+   "note": "No run line on its ledger under the current counting (the harvest records predate it). Fine to leave mature."
+  },
+  {
+   "entry": "Map Build Ceremony",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "No forward_vector.",
+   "note": "Typed meta, not practice. Steps describe a hand-run builder; build-map.py is the door."
+  },
+  {
+   "entry": "Mermaid Diagram Standard",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": "No forward_vector.",
+   "note": "Mature, 1 inbound, 13 KB; see merge candidate."
+  },
+  {
+   "entry": "Palace Ceremonies",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "No forward_vector.",
+   "note": "A hub with 18 inbound and no stated desire. Its Active Baton is four weeks old."
+  },
+  {
+   "entry": "Substrate Skill",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": "No forward_vector.",
+   "note": "30 KB, 17 inbound; most-read page of the family and the least articulated about what it wants. See Context needs."
+  },
+  {
+   "entry": "Palace Graffiti",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "No forward_vector.",
+   "note": "Beauty 10, hook 9, Loudon's voice; zero inbound. See coherence finding."
+  },
+  {
+   "entry": "Image Embedding Standard",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": "'I want to become the ceremony that guards against decoration' (a standard is not a ceremony, and 'guards' is a stasis verb).",
+   "note": "Light touch: 'I want every image in the palace to carry what prose cannot, and to leave the ones that cannot.'"
+  }
+ ],
+ "typed_relations": [
+  {
+   "source": "Baton Ceremony",
+   "target": "Palace Ceremonies",
+   "proposed_type": "member-of",
+   "proposed_label": null,
+   "kind": "retype",
+   "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+   "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+   "evidence_target": "Baton Ceremony.md:12 trigger field"
+  },
+  {
+   "source": "Closing Well Ceremony",
+   "target": "Palace Ceremonies",
+   "proposed_type": "member-of",
+   "proposed_label": null,
+   "kind": "retype",
+   "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+   "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+   "evidence_target": "Closing Well Ceremony.md:29 (the thin card the trigger reaches)"
+  },
+  {
+   "source": "Map Build Ceremony",
+   "target": "Palace Ceremonies",
+   "proposed_type": "member-of",
+   "proposed_label": null,
+   "kind": "retype",
+   "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+   "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+   "evidence_target": "Map Build Ceremony.md:10 trigger field"
+  },
+  {
+   "source": "Return Ceremony",
+   "target": "Palace Ceremonies",
+   "proposed_type": "member-of",
+   "proposed_label": null,
+   "kind": "retype",
+   "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+   "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+   "evidence_target": "Return Ceremony.md:8 trigger field"
+  },
+  {
+   "source": "Revival Ceremony",
+   "target": "Palace Ceremonies",
+   "proposed_type": "member-of",
+   "proposed_label": null,
+   "kind": "retype",
+   "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+   "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+   "evidence_target": "Revival Ceremony.md:8 trigger field"
+  },
+  {
+   "source": "Self-Model Update Ceremony",
+   "target": "Palace Ceremonies",
+   "proposed_type": "member-of",
+   "proposed_label": null,
+   "kind": "retype",
+   "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+   "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+   "evidence_target": "Self-Model Update Ceremony.md:11 trigger field"
+  },
+  {
+   "source": "Spore Check Ceremony",
+   "target": "Palace Ceremonies",
+   "proposed_type": "member-of",
+   "proposed_label": null,
+   "kind": "retype",
+   "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+   "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+   "evidence_target": "Spore Check Ceremony.md:8 trigger field"
+  },
+  {
+   "source": "Walk Ceremony",
+   "target": "Palace Ceremonies",
+   "proposed_type": "member-of",
+   "proposed_label": null,
+   "kind": "retype",
+   "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+   "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+   "evidence_target": "Walk Ceremony.md:8 trigger field"
+  },
+  {
+   "source": "Weave Ceremony",
+   "target": "Palace Ceremonies",
+   "proposed_type": "member-of",
+   "proposed_label": null,
+   "kind": "retype",
+   "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+   "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+   "evidence_target": "Weave Ceremony.md:8 trigger field"
+  },
+  {
+   "source": "The Daily Page",
+   "target": "Palace Ceremonies",
+   "proposed_type": "member-of",
+   "proposed_label": null,
+   "kind": "retype",
+   "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+   "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+   "evidence_target": "The Daily Page.md:7 trigger field"
+  },
+  {
+   "source": "Deposit Ceremony",
+   "target": "Palace Ceremonies",
+   "proposed_type": "member-of",
+   "proposed_label": null,
+   "kind": "retype",
+   "rationale": "Palace Ceremonies lists it with 'enables' and the ceremony carries no link back. Membership is the real relation; the member declares it, the hub's 'enables' goes.",
+   "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+   "evidence_target": "Deposit Ceremony.md:11 trigger field"
+  },
+  {
+   "source": "Harvest Ceremony",
+   "target": "Palace Ceremonies",
+   "proposed_type": "member-of",
+   "proposed_label": null,
+   "kind": "retype",
+   "rationale": "Palace Ceremonies lists it with 'enables' and the ceremony carries no link back. Membership is the real relation; the member declares it, the hub's 'enables' goes.",
+   "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+   "evidence_target": "Harvest Ceremony.md:10 trigger field"
+  },
+  {
+   "source": "Map Build Ceremony",
+   "target": "Weave Ceremony",
+   "proposed_type": "enables",
+   "proposed_label": "pre-weave",
+   "kind": "retype",
+   "rationale": "The Weave currently says it enables Map Build [pre-weave]. The map is the Weave's precondition (the Weave builds it at its open and after its writes), so the link points the other way; cut Weave's.",
+   "evidence_source": "Map Build Ceremony.md:57 ('the Weave Ceremony runs it at its open and again after its writes')",
+   "evidence_target": "Weave Ceremony.md:83 ('Second, build the map — python3 _ops/swarm/build-map.py')"
+  },
+  {
+   "source": "Harvest Ceremony",
+   "target": "Deposit Ceremony",
+   "proposed_type": "couples-with",
+   "proposed_label": "finds-then-places",
+   "kind": "retype",
+   "rationale": "Folds three links into one and replaces the tautological label harvest-deposit-pair. Harvest finds, Deposit places; always active together.",
+   "evidence_source": "Harvest Ceremony.md:45 ('It does not build palace entries … routes those candidates toward Deposit')",
+   "evidence_target": "Deposit Ceremony.md:47 ('a harvest with a candidate, …')"
+  },
+  {
+   "source": "Spore Check Ceremony",
+   "target": "Weave Ceremony",
+   "proposed_type": "connects-to",
+   "proposed_label": "weave-confirms-the-compost",
+   "kind": "retype",
+   "rationale": "The two bare links on this pair (one each way) become one labelled link, on the side whose body says it.",
+   "evidence_source": "Spore Check Ceremony.md:89 (posts a flag so the Weave confirms the deletion)",
+   "evidence_target": "Weave Ceremony.md:203 ('Composting candidates … Confirm deletion or revive')"
+  },
+  {
+   "source": "Walk Ceremony",
+   "target": "Weave Ceremony",
+   "proposed_type": "connects-to",
+   "proposed_label": "one-thread-versus-every-thread",
+   "kind": "retype",
+   "rationale": "The two bare links on this pair become one labelled link, on the side whose body says it.",
+   "evidence_source": "Walk Ceremony.md:71 ('The Walk is not a Weave … follows a single thread')",
+   "evidence_target": "Weave Ceremony.md:57 ('Where the Walk follows one thread, the Weave reads every thread')"
+  },
+  {
+   "source": "Self-Model Update Ceremony",
+   "target": "Weave Ceremony",
+   "proposed_type": "connects-to",
+   "proposed_label": "runs-at-the-weaves-end",
+   "kind": "retype",
+   "rationale": "Bare, and the body gives the reason.",
+   "evidence_source": "Self-Model Update Ceremony.md:37 ('at the end of a Weave')",
+   "evidence_target": "Weave Ceremony.md:337-355 (no Self-Model hand-off yet; see recipe finding)"
+  },
+  {
+   "source": "Revival Ceremony",
+   "target": "The Daily Page",
+   "proposed_type": "connects-to",
+   "proposed_label": "a-morning-decides-revive",
+   "kind": "retype",
+   "rationale": "Keeps this side's link (a pair carries one) and drops The Daily Page's [a-dormant-page-asks]; no type change.",
+   "evidence_source": "Revival Ceremony.md:44 (a Daily Page morning decides revive is one of four ways in)",
+   "evidence_target": "The Daily Page.md:137,164"
+  },
+  {
+   "source": "Spore Check Ceremony",
+   "target": "Revival Ceremony",
+   "proposed_type": "connects-to",
+   "proposed_label": "one-of-four-ways-in",
+   "kind": "retype",
+   "rationale": "Keeps this link; cut Revival's emerged-from to Spore Check (git holds the origin). See coherence finding for why I depart from Step 3d's default.",
+   "evidence_source": "Spore Check Ceremony.md:28,87",
+   "evidence_target": "Revival Ceremony.md:38,44"
+  },
+  {
+   "source": "Substrate Skill",
+   "target": "Palace Ceremonies",
+   "proposed_type": "connects-to",
+   "proposed_label": "canonical-ceremony-list",
+   "kind": "retype",
+   "rationale": "Keeps this side's link, with its reason; cut the hub's reverse bare connects-to.",
+   "evidence_source": "Substrate Skill.md:100-102 ('The canonical list of all ceremonies lives at Palace Ceremonies')",
+   "evidence_target": "Palace Ceremonies.md:47"
+  },
+  {
+   "source": "Substrate Skill",
+   "target": "Deposit Ceremony",
+   "proposed_type": "connects-to",
+   "proposed_label": "adding-runs-a-deposit",
+   "kind": "retype",
+   "rationale": "Bare connects-to, and the body gives the reason.",
+   "evidence_source": "Substrate Skill.md:37 ('that is a deposit: run the Deposit Ceremony')",
+   "evidence_target": "Deposit Ceremony.md:55"
+  },
+  {
+   "source": "Palace To-Do",
+   "target": "Deposit Ceremony",
+   "proposed_type": "connects-to",
+   "proposed_label": "where-lost-branches-wait",
+   "kind": "retype",
+   "rationale": "Currently 'enables'. A worklist does not enable the Deposit; the Deposit's map queues lost branches here. Drop enables → Harvest (no body reason anywhere).",
+   "evidence_source": "Palace To-Do.md:82-86 (two items about the Deposit's steps)",
+   "evidence_target": "Deposit Ceremony.md:104 ('Lost branches … queued on [[Palace To-Do]]')"
+  },
+  {
+   "source": "Palace Graffiti",
+   "target": "Substrate Skill",
+   "proposed_type": "deepens",
+   "proposed_label": null,
+   "kind": "new",
+   "rationale": "Substrate Skill § In-File Comments holds the two comment forms; Palace Graffiti is the elaboration and the why. Replaces Palace Graffiti → SCHEMA connects-to, which claims a convention SCHEMA does not carry.",
+   "evidence_source": "Palace Graffiti.md:36-44",
+   "evidence_target": "Substrate Skill.md:224-229"
+  },
+  {
+   "source": "Palace Graffiti",
+   "target": "Semantic Delay",
+   "proposed_type": "connects-to",
+   "proposed_label": "meaning-deferred-to-the-next-reader",
+   "kind": "retype",
+   "rationale": "Bare; the body has a paragraph on it.",
+   "evidence_source": "Palace Graffiti.md:117",
+   "evidence_target": "Semantic Delay.md (the page's own deferral)"
+  },
+  {
+   "source": "Palace Graffiti",
+   "target": "Oblique Portrait",
+   "proposed_type": "connects-to",
+   "proposed_label": "obliqueness-made-structural",
+   "kind": "retype",
+   "rationale": "Bare; the body has the sentence.",
+   "evidence_source": "Palace Graffiti.md:119",
+   "evidence_target": "Oblique Portrait.md"
+  },
+  {
+   "source": "Palace Map",
+   "target": "Pheromone Trail",
+   "proposed_type": "connects-to",
+   "proposed_label": "skeleton-and-gradient",
+   "kind": "retype",
+   "rationale": "Bare; § Cross-Domain Resonance says the map is the explicit topology and the trail the felt one.",
+   "evidence_source": "Palace Map.md:265",
+   "evidence_target": "Pheromone Trail.md"
+  },
+  {
+   "source": "Palace Map",
+   "target": "BBS Blackboard",
+   "proposed_type": "connects-to",
+   "proposed_label": "communication-provision",
+   "kind": "retype",
+   "rationale": "Bare; the kit's slot 6 names the board as the radio, the same register as the page's other '-provision' labels.",
+   "evidence_source": "Palace Map.md:249",
+   "evidence_target": "BBS Blackboard.md"
+  },
+  {
+   "source": "Palace Ceremonies",
+   "target": "SCHEMA",
+   "proposed_type": "connects-to",
+   "proposed_label": "trigger-field",
+   "kind": "retype",
+   "rationale": "Bare; the section says a ceremony is a page carrying trigger: (SCHEMA §1).",
+   "evidence_source": "Palace Ceremonies.md:101",
+   "evidence_target": "SCHEMA.md:79,87"
+  },
+  {
+   "source": "Map Build Ceremony",
+   "target": "Palace Enchantment",
+   "proposed_type": "connects-to",
+   "proposed_label": "map-as-tier-1-context",
+   "kind": "retype",
+   "rationale": "Bare; the body says enchanted agents receive the map as Tier 1 context.",
+   "evidence_source": "Map Build Ceremony.md:221",
+   "evidence_target": "Palace Enchantment.md"
+  },
+  {
+   "source": "Walk Ceremony",
+   "target": "The Cooperation Path",
+   "proposed_type": "connects-to",
+   "proposed_label": "first-named-songline",
+   "kind": "retype",
+   "rationale": "Bare; the body names it as the first songline.",
+   "evidence_source": "Walk Ceremony.md:83",
+   "evidence_target": "The Cooperation Path.md"
+  },
+  {
+   "source": "Deposit Ceremony",
+   "target": "README - The Palace Guide",
+   "proposed_type": "connects-to",
+   "proposed_label": "entry-template",
+   "kind": "retype",
+   "rationale": "Bare; Step 5 drafts to the template there.",
+   "evidence_source": "Deposit Ceremony.md:121",
+   "evidence_target": "README - The Palace Guide.md:176"
+  },
+  {
+   "source": "Deposit Ceremony",
+   "target": "FOUR PILLARS",
+   "proposed_type": "connects-to",
+   "proposed_label": "pillar-check",
+   "kind": "retype",
+   "rationale": "Bare and the word is in the values list ('The four pillars. Which does it touch, and which is absent?').",
+   "evidence_source": "Deposit Ceremony.md:85",
+   "evidence_target": "FOUR PILLARS.md"
+  },
+  {
+   "source": "Image Embedding Standard",
+   "target": "README - The Palace Guide",
+   "proposed_type": "connects-to",
+   "proposed_label": "names-the-three-standards",
+   "kind": "retype",
+   "rationale": "Bare; README § The Visual Language names all three standards as one system (TDS says so at :149). One shared label for the cluster.",
+   "evidence_source": "Image Embedding Standard.md:21-27",
+   "evidence_target": "README - The Palace Guide.md:165-167"
+  },
+  {
+   "source": "Mermaid Diagram Standard",
+   "target": "README - The Palace Guide",
+   "proposed_type": "connects-to",
+   "proposed_label": "names-the-three-standards",
+   "kind": "retype",
+   "rationale": "Bare; README § The Visual Language names all three standards as one system (TDS says so at :149). One shared label for the cluster.",
+   "evidence_source": "Mermaid Diagram Standard.md:22",
+   "evidence_target": "README - The Palace Guide.md:165-167"
+  },
+  {
+   "source": "Technical Diagram Standard",
+   "target": "README - The Palace Guide",
+   "proposed_type": "connects-to",
+   "proposed_label": "names-the-three-standards",
+   "kind": "retype",
+   "rationale": "Bare; README § The Visual Language names all three standards as one system (TDS says so at :149). One shared label for the cluster.",
+   "evidence_source": "Technical Diagram Standard.md:149",
+   "evidence_target": "README - The Palace Guide.md:165-167"
+  },
+  {
+   "source": "Pages as Agents",
+   "target": "JEWEL",
+   "proposed_type": "connects-to",
+   "proposed_label": "woken-as-a-page",
+   "kind": "retype",
+   "rationale": "Bare; the Jewel carries the 'if you are woken as a page' instruction this page explains.",
+   "evidence_source": "Pages as Agents.md:66",
+   "evidence_target": "JEWEL.md (final paragraph)"
+  },
+  {
+   "source": "Pages as Agents",
+   "target": "SCHEMA — Reference",
+   "proposed_type": "connects-to",
+   "proposed_label": "fields-a-page-wakes-from",
+   "kind": "retype",
+   "rationale": "Bare. A new-entry priority citizen (reached by 6): the fields a woken page reads (type, stage, forward_vector, agency_profile) are defined there, and this page lists them as what a page hands a model.",
+   "evidence_source": "Pages as Agents.md:68-75",
+   "evidence_target": "SCHEMA — Reference.md:71,105"
+  },
+  {
+   "source": "Return Ceremony",
+   "target": "Can an Instrument Notice Where the Work Stops?",
+   "proposed_type": "mirrors",
+   "proposed_label": "coming-back-is-cheap",
+   "kind": "newcomer",
+   "rationale": "Same pattern in different material. The question asks for an instrument that notices where a session stopped and 'makes that return cheap: open where you left off'; the Return puts the record of where Loudon stopped in one map and wants 'returning cheap enough that stepping away stays free'. Both hold the rule 'notice and offer, never decide, never read the absence'. Genuine; the Return is the older practice and the question can borrow its rule that a gap is not a finding.",
+   "evidence_source": "Return Ceremony.md:9,122,149-153",
+   "evidence_target": "Can an Instrument Notice Where the Work Stops?.md (the return after a bad week; 'It notices and offers; it never decides and never nags')"
+  },
+  {
+   "source": "The Daily Page",
+   "target": "Can an Instrument Notice Where the Work Stops?",
+   "proposed_type": "mirrors",
+   "proposed_label": "notices-and-offers",
+   "kind": "newcomer",
+   "rationale": "Weaker than the Return's, offered because it is true: the morning reads how hard he is engaging, backs off when he does not, and the session's note is 'a reading, not his words' that a later morning may correct, which is the question's 'a reading the player can correct'. Take the Return's link first; this one is optional.",
+   "evidence_source": "The Daily Page.md:57,95,174",
+   "evidence_target": "Can an Instrument Notice Where the Work Stops?.md (the useful notice is 'a reading the player can correct')"
+  },
+  {
+   "source": "Return Ceremony",
+   "target": "CHILD",
+   "proposed_type": "deepens",
+   "proposed_label": "first-act-summons-the-concierge",
+   "kind": "newcomer",
+   "rationale": "Step 0 is CHILD's first-act rule (summon the Concierge before the task, even for a one-line question) worked out for a returning instance; the page cites CHILD § Growing up.",
+   "evidence_source": "Return Ceremony.md:81",
+   "evidence_target": "CHILD.md § Growing up"
+  },
+  {
+   "source": "Palace Ceremonies",
+   "target": "CHILD",
+   "proposed_type": "connects-to",
+   "proposed_label": "trigger-table-twin",
+   "kind": "newcomer",
+   "rationale": "CHILD's Ceremony Triggers table and this hub's tables are the two hand-kept copies that SCHEMA — Reference §5 step 5 names as the mirror set for a ceremony added or removed. They have drifted (coherence finding); the link says who keeps whom in step.",
+   "evidence_source": "Palace Ceremonies.md:51-81",
+   "evidence_target": "CHILD.md § Ceremony Triggers; SCHEMA — Reference.md:160"
+  },
+  {
+   "source": "Palace Ceremonies",
+   "target": "SCHEMA — Reference",
+   "proposed_type": "connects-to",
+   "proposed_label": "ledger-rules",
+   "kind": "newcomer",
+   "rationale": "§ What Makes a Ceremony, and How It Changes summarises the version, tail-read and run-line rules and ends 'The rules and the exact commands: SCHEMA — Reference §6'. A new-entry priority citizen.",
+   "evidence_source": "Palace Ceremonies.md:101-108",
+   "evidence_target": "SCHEMA — Reference.md §6"
+  },
+  {
+   "source": "Substrate Skill",
+   "target": "SCHEMA — Reference",
+   "proposed_type": "connects-to",
+   "proposed_label": "bundle-and-ledger-conventions",
+   "kind": "newcomer",
+   "rationale": "Its Ceremony File Conventions and Entry Bundles sections defer to Reference §6 and §8 ('read it before creating a bundle file'). A new-entry priority citizen.",
+   "evidence_source": "Substrate Skill.md:80,98",
+   "evidence_target": "SCHEMA — Reference.md §6, §8"
+  }
+ ],
+ "summary": "Read all 22 pages whole (Weave and Baton included) and checked the family against SCHEMA, CHILD, Project Stewardship System, the commit scripts, the linters and eleven tuning ledgers. The family is sound at the centre (Deposit, Revival, Return, Daily Page read as one practice) and loose at the edges. The largest finds: about seventeen pairs carry more than one link, chiefly Palace Ceremonies 'enables' plus a bare connects-to back for every ceremony, which want to be one member-of each; about 20 bare or unsaid connects-to cuts and 24 labels or retypes; the cards have outgrown the 8 KB line (Weave 51 KB, Baton 28 KB, Daily Page 27 KB) and carry history their Contexts or git should hold, while Palace Map, Substrate Skill, Palace Graffiti, Return, Revival and Map Build have no Context at all; Walk contradicts its own postcondition (owed since 2026-09-25); Palace Graffiti is half stranded May drafts and has no inbound; the Weave never hands to the Self-Model Update that two pages say follows it; the Deposit asserts linter checks four linters cannot make; Spore Check and Revival still call stewardship-exit open; Palace To-Do holds 33 open items against a vector of a dozen. Ten pages lack a forward_vector. Open questions: of 55 questions and owed items checked, 14 are answered elsewhere, 9 progressed, 5 should-act and 27 still open. One merge proposed (Mermaid into Image Embedding, medium confidence), no compost. Newcomer links offered only where the page says it: Return and Daily Page to Can an Instrument Notice Where the Work Stops?, Return to CHILD, and Reference/CHILD from the hub and Substrate Skill; Operator Memory is already reached by the Weave (its own link) so only a body wikilink in Weave Step 6b is suggested; CAD Drafter already links the Technical Diagram Standard."
+}

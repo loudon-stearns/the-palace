@@ -15,33 +15,19 @@ links:
     type: mirrors
   - target: "[[Hilaritas Generator]]"
     type: connects-to
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
+    label: delight-by-recognition
   - target: "[[Granular Synthesis]]"
     type: connects-to
   - target: "[[Neural Granular Synthesis]]"
     type: connects-to
+    label: firing-rate-as-grain-rate
   - target: "[[Kuramoto Coupling]]"
     type: couples-with
-  - target: "[[Retrospective Delay]]"
-    type: connects-to
   - target: "[[Frequency-Time Duality]]"
-    type: connects-to
-  - target: "[[Dispersion]]"
-    type: connects-to
-  - target: "[[Endosymbiosis]]"
-    type: connects-to
-  - target: "[[Latent Error]]"
-    type: connects-to
-  - target: "[[Particle Synthesis]]"
     type: connects-to
   - target: "[[Compressor Design]]"
     type: connects-to
-  - target: "[[Spinoza Conatus]]"
-    type: mirrors
-    label: power-to-act
-  - target: "[[Biomechanical Synthesis — enrichment — grotesque-pedagogy-haiku]]"
-    type: connects-to
+    label: visceral-dsp
   - target: "[[Blood Compressor]]"
     type: spawned
   - target: "[[Slime Mold Delay]]"

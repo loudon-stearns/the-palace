@@ -34,6 +34,7 @@ links:
     label: vector-linting
   - target: "[[Spore Check Ceremony]]"
     type: connects-to
+    label: composting-question
 ---
 
 # Entry Conatus

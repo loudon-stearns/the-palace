@@ -18,6 +18,7 @@ links:
     type: member-of
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
+    label: cross-domain-bridge
   - target: "[[Donella Meadows]]"
     type: connects-to
     label: informed-by

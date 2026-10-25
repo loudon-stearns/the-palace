@@ -15,14 +15,9 @@ who_leads: loudon
 links:
   - target: "[[FOUR PILLARS]]"
     type: enables
-  - target: "[[Biomechanical Synthesis]]"
-    type: connects-to
   - target: "[[Action Potential Oscillator]]"
     type: connects-to
-  - target: "[[JSUI]]"
-    type: connects-to
-  - target: "[[Preset Oracle]]"
-    type: connects-to
+    label: framework-case-study
 ---
 
 # DSP Frameworks: A Decision Tree for Rapid Iteration

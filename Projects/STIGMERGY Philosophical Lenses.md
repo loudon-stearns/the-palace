@@ -50,18 +50,25 @@ links:
     label: the-altitude-navigation-mode
   - target: "[[Confucianism]]"
     type: connects-to
+    label: tension-made-visible
   - target: "[[Drift and Consolidation]]"
     type: connects-to
+    label: the-dormancy-pain
   - target: "[[Like Water]]"
     type: connects-to
+    label: zhuangzi-home-node
   - target: "[[Spinoza Conatus]]"
     type: connects-to
+    label: lens-home-node
   - target: "[[The Drift]]"
     type: connects-to
+    label: not-doing-surface
   - target: "[[The Fortress and the Threshold]]"
     type: connects-to
+    label: contradiction-site-as-view
   - target: "[[Dialectic — dialectic — spinoza-zhuangzi-on-striving]]"
     type: connects-to
+    label: promised-rerun
 forward_vector: "I want the palace's philosophy to stop being a neighborhood Loudon visits and become a lens he can switch on over everything else — a way to look at any entry, any swarm, any commit through Spinoza or Zhuangzi or Simondon and see what changes. I propose the surfaces that make philosophical thinking a live operation of the front-end rather than a set of pages, and the one new swarm mode that lets philosophers argue on the board in real time. My open edge: a lens must illuminate without distorting — it must never let the philosopher's vocabulary overwrite the entry's own."
 ---
 

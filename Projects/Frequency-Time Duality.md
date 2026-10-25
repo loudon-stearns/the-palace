@@ -10,10 +10,9 @@ links:
     type: enables
   - target: "[[Hyperdimensional Prism]]"
     type: mirrors
-  - target: "[[Kuramoto Coupling]]"
-    type: connects-to
   - target: "[[Action Potential Oscillator]]"
     type: connects-to
+    label: single-cycle-scale
   - target: "[[Waveguide Synthesizer]]"
     type: connects-to
     label: doorway

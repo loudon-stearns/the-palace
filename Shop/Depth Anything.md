@@ -17,6 +17,7 @@ links:
   - { target: "[[SAM]]", type: connects-to, label: a-second-route-to-the-figure }
   - target: "[[LaMa]]"
     type: connects-to
+    label: fills-what-i-cannot-see
 tags: [specialist, shop, perception, depth, decomposition, local]
 ---
 

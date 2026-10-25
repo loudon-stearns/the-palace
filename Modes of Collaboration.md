@@ -13,12 +13,9 @@ hook_quality: 8
 beauty: 7
 who_leads: shared
 links:
-  - target: "[[Symbiotic Skills]]"
-    type: connects-to
-  - target: "[[FOUR PILLARS]]"
-    type: deepens
   - target: "[[Piano String Inharmonicity]]"
     type: connects-to
+    label: named-example
   - target: "[[Radio Play]]"
     type: connects-to
     label: debrief-reel

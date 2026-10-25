@@ -30,8 +30,10 @@ links:
     label: threshold-instantiation
   - target: "[[Lateral Access]]"
     type: connects-to
+    label: pre-threshold-readiness
   - target: "[[Hilaritas Generator]]"
     type: connects-to
+    label: practiced-crossing
   - target: "[[Progressive Staging]]"
     type: connects-to
     label: staged-threshold

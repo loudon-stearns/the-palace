@@ -40,9 +40,6 @@ links:
   - target: "[[Meadows and Music — Leverage Points — Context]]"
     type: connects-to
     label: applied-to-music
-  - target: "[[Hilaritas Generator]]"
-    type: mirrors
-    label: leverage-points-as-hilaritas-infrastructure
   - target: "[[Spinoza Conatus]]"
     type: mirrors
     label: systems-strive

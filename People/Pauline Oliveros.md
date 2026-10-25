@@ -30,10 +30,7 @@ links:
     type: member-of
   - target: "[[Shunryu Suzuki]]"
     type: connects-to
-  - target: "[[John Cage]]"
-    type: connects-to
-  - target: "[[FOUR PILLARS]]"
-    type: deepens
+    label: returning-to-the-breath
   - target: "[[Quality Manifesto]]"
     type: connects-to
     label: listening-metric
@@ -46,6 +43,9 @@ links:
   - target: "[[Making a Palace Citizen]]"
     type: exemplifies
     label: made-by-this-method
+  - target: "[[John Cage]]"
+    type: contradicts
+    label: intention-vs-attention
 ---
 
 # Pauline Oliveros

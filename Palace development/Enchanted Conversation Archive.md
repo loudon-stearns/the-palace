@@ -15,8 +15,6 @@ links:
   - target: "[[Tree of Thoughts]]"
     type: connects-to
     label: persists
-  - target: "[[BBS Blackboard]]"
-    type: connects-to
   - target: "[[Generative Compression]]"
     type: deepens
   - target: "[[Deposit Ceremony]]"
@@ -24,10 +22,12 @@ links:
     label: archaeologizes
   - target: "[[Enchanted Worker]]"
     type: connects-to
-  - target: "[[Self-Describing Knowledge Module]]"
-    type: connects-to
+    label: enchantment-record
   - target: "[[Lateral Access]]"
     type: emerged-from
+  - target: "[[Self-Describing Knowledge Module]]"
+    type: mirrors
+    label: self-contained
 ---
 
 # Enchanted Conversation Archive

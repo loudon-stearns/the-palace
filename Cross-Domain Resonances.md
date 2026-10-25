@@ -17,6 +17,7 @@ forward_vector: "I want to become the complete index of where two domains rhyme 
 links:
   - target: "[[FOUR PILLARS]]"
     type: deepens
+    label: worked-bridges
   - target: "[[Quality Manifesto]]"
     type: connects-to
     label: applies-to

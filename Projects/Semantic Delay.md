@@ -10,8 +10,6 @@ links:
     type: couples-with
   - target: "[[Dub Lineage]]"
     type: emerged-from
-  - target: "[[Boundary-Crossing Instruments]]"
-    type: connects-to
   - target: "[[Frequency-Time Duality]]"
     type: mirrors
   - target: "[[Spinoza Conatus]]"

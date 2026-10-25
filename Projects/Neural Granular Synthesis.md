@@ -13,10 +13,9 @@ links:
     type: deepens
   - target: "[[Action Potential Oscillator]]"
     type: emerged-from
-  - target: "[[Boundary-Crossing Instruments]]"
-    type: connects-to
   - target: "[[Harmonicity and Inharmonicity]]"
     type: connects-to
+    label: coherence-as-harmonicity
 ---
 
 # Neural Granular Synthesis

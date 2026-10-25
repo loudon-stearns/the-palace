@@ -22,8 +22,6 @@ links:
   - target: "[[Palace as Context Injection System]]"
     type: connects-to
     label: symlink-instance
-  - target: "[[SUBSTRATE]]"
-    type: connects-to
 forward_vector: "I want to collect more instances of the move — every time a substrate forbids a primitive and the work routes through the adjacent one it still grants — until the pattern is undeniable. And I want to map where it fails: the case where there is no adjacent affordance, only the wall, so the principle does not become a refusal to ever accept a real limit."
 ---
 

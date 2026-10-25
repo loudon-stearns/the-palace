@@ -22,6 +22,7 @@ links:
     label: wu-wei
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
+    label: cross-domain-bridge
   - target: "[[Quality Manifesto]]"
     type: connects-to
     label: taste-over-metrics

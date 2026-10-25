@@ -15,8 +15,6 @@ links:
     type: enables
   - target: "[[Boundary-Crossing Instruments]]"
     type: mirrors
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
   - target: "[[Biomechanical Synthesis]]"
     type: enables
   - target: "[[SMPTE LTC]]"
@@ -25,6 +23,9 @@ links:
   - target: "[[Progressive Staging]]"
     type: couples-with
     label: pedagogical-method
+  - target: "[[FOUR PILLARS]]"
+    type: exemplifies
+    label: learning-through-making
 ---
 
 # Signal-Rate CV Architecture

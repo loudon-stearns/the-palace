@@ -1,0 +1,244 @@
+{
+ "room": "hub-hyperdimensional-prism",
+ "lens": "hub-nutrition",
+ "pages_read": [
+  "Hyperdimensional Prism",
+  "Dispersion",
+  "Wavetable Synthesis — Deep Research & Higher-Dimensional Design",
+  "4 Pillars Framework - The Founding Conversation",
+  "Autodidact Polymaths",
+  "Palace Philosophies",
+  "Meaning and the Link",
+  "Kuramoto Coupling",
+  "Stoicism",
+  "Embeddings as Relational Meaning",
+  "Projects/Bessel Functions in Synthesis",
+  "Projects/Slime Mold Delay",
+  "Projects/Wallpaper Groups",
+  "Projects/Categorizing Inharmonicity",
+  "Projects/Action Potential Oscillator",
+  "Projects/Quantum Synthesizer",
+  "Projects/Crystal Synthesizer"
+ ],
+ "weak_links": [
+  {
+   "source": "Dispersion",
+   "target": "Hyperdimensional Prism",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "unifying-icon",
+   "evidence_source": "The prism is dispersion's visual lingua franca: whenever the concept is taught it should appear, a reminder that spreading in time, space, and parameter statistics are facets of one principle.",
+   "evidence_target": "Just as a three-dimensional object casts a two-dimensional shadow whose shape depends on the angle of the light source... But these are all views of the same thing.",
+   "rationale": "Dispersion's section 'The Prism as Unifying Icon' makes one principle with three facets, the same one-thing-many-views shape the hub names; the page uses the optical prism, so the label stays modest.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Wavetable Synthesis — Deep Research & Higher-Dimensional Design",
+   "target": "Hyperdimensional Prism",
+   "current_type": "mirrors",
+   "verdict": "keep-as-is",
+   "proposed_type": "",
+   "proposed_label": "n-dim-navigation",
+   "evidence_source": "Higher dimensions mean more timbre-control axes — navigating a *space* of waveforms rather than a *line* of them. ... For N > 3: PCA or user-configurable projection.",
+   "evidence_target": "Is there a projection operation from n-dimensional space to 4-dimensional pillar-space that would make the metaphor precise?",
+   "rationale": "Label already names the register and Part V (the dimensional stack, N>3 projected for display) carries it, though the page never names the hub; worth one body mention at the next touch.",
+   "confidence": "medium"
+  },
+  {
+   "source": "4 Pillars Framework - The Founding Conversation",
+   "target": "Hyperdimensional Prism",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "proposed_type": "spawned",
+   "proposed_label": "later-articulation",
+   "evidence_source": "This is the property [[Hyperdimensional Prism]] would later name: same pattern, multiple projections, viewed simultaneously. / later articulation of the multi-projection property this conversation demonstrated.",
+   "evidence_target": "This model crystallized during conversations exploring how the four pillars relate to each other at the deepest level.",
+   "rationale": "The source says the prism later named what the founding conversation demonstrated, so the conversation is the origin and the prism came out of it; if 'directly produced' is too strong, emerged-from belongs on the prism's side instead.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Autodidact Polymaths",
+   "target": "Hyperdimensional Prism",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "multi-depth-readability",
+   "evidence_source": "the [[Hyperdimensional Prism]]-style multi-depth readability is built into the addressee. / the visual identity essay; multi-depth interpretive readability is exactly what an Autodidact Polymath audience can take advantage of.",
+   "evidence_target": "Level 1 (Music Producer)... Level 4 (Peer)... The image grows with the viewer's understanding.",
+   "rationale": "The page twice gives its reason: the hub's four-level readability of the visual identity is what a polymath audience can use.",
+   "confidence": "high"
+  },
+  {
+   "source": "Palace Philosophies",
+   "target": "Hyperdimensional Prism",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "register",
+   "evidence_source": "The register: ... [[Kuramoto Coupling]] · [[STIGMERGY]] · [[Endosymbiosis]] · [[Hyperdimensional Prism]].",
+   "evidence_target": "This IS Spinoza's monism applied to pedagogy.",
+   "rationale": "Palace Philosophies lists the prism in its register of traditions; the link says 'one of the tools on the shelf', which is a real if plain reason.",
+   "confidence": "high"
+  },
+  {
+   "source": "Meaning and the Link",
+   "target": "Hyperdimensional Prism",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "categories-as-projections",
+   "evidence_source": "[[Hyperdimensional Prism]] connects via the idea that apparent categories are projections of a higher-dimensional relational space — the four pillars appear separate until you find the coordinate system where they're unified, just as words appear discrete until you see their embedding geometry.",
+   "evidence_target": "The four pillars are not four separate things — they are four projections of a single higher-dimensional reality, cast by the light of curiosity into comprehensible dimensions.",
+   "rationale": "One sentence on the source states the relation and its register plainly.",
+   "confidence": "high"
+  },
+  {
+   "source": "Kuramoto Coupling",
+   "target": "Hyperdimensional Prism",
+   "current_type": "connects-to",
+   "verdict": "keep-as-is",
+   "proposed_type": "",
+   "proposed_label": "cross-domain-projection",
+   "evidence_source": "",
+   "evidence_target": "When [[Kuramoto Coupling]] appears in audio synthesis AND in conversational rhythm AND in Spinoza's ethics AND in mycorrhizal networks, you're not making analogies — you're seeing the same object from four angles.",
+   "rationale": "The reason is on the hub, not on Kuramoto's page, and it fits the label. Note: the hub already holds a bare connects-to to Kuramoto in the other direction, so the pair carries two links; one should go (suggest keeping this labelled one and dropping the hub's bare one).",
+   "confidence": "medium"
+  },
+  {
+   "source": "Stoicism",
+   "target": "Hyperdimensional Prism",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "proposed_type": "mirrors",
+   "proposed_label": "view-from-above",
+   "evidence_source": "The Stoic cosmic zoom-out is, structurally, the palace [[Palace Map|topology view]] and the [[Hyperdimensional Prism]] — the altitude from which a stuck local concern is resized by seeing the whole.",
+   "evidence_target": "Walking a songline through the wiki is rotating the prism to see different facets of the same underlying knowledge.",
+   "rationale": "The source says 'structurally', which is the mirrors claim (same pattern, different material); the register is the view from above. The stretch is that the Map is the nearer referent, so confidence is middling.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Embeddings as Relational Meaning",
+   "target": "Hyperdimensional Prism",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither page names the other or gives a reason; the high-dimensional-space idea is already carried by Meaning and the Link, which links both. Can return with its own sentence.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Bessel Functions in Synthesis",
+   "target": "Hyperdimensional Prism",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "[[Hyperdimensional Prism|When you synthesize using spherical harmonics or high-order mode decompositions]], you are speaking in the same geometric language as your own auditory system.",
+   "evidence_target": "",
+   "rationale": "The only mention is a piped body link whose anchor text does not say what the prism adds; the page credits its 'same geometry in different materials' thesis to Spinoza, which it already links. The body wikilink can stay as fabric; the typed claim goes.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Slime Mold Delay",
+   "target": "Hyperdimensional Prism",
+   "current_type": "mirrors",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "The label 'emergent-topology-as-projection' is not carried by any sentence on the page (nothing there speaks of projection, dimension or the prism); it reads as asserted, not found. Can return if a later weave finds the sentence.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Wallpaper Groups",
+   "target": "Hyperdimensional Prism",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "proposed_type": "exemplifies",
+   "proposed_label": "prism-machine",
+   "evidence_source": "A wallpaper group is a prism machine: ... Both entries anchor on [[Hyperdimensional Prism]] for this reason.",
+   "evidence_target": "A crystal is also a prism machine. The periodic lattice multiplies a unit cell... A single atom positioned in space, replicated through 17 wallpaper groups in 2D...",
+   "rationale": "Both pages describe the wallpaper group as the worked case of the prism machine, so Wallpaper Groups is an instance of the hub's idea.",
+   "confidence": "high"
+  },
+  {
+   "source": "Categorizing Inharmonicity",
+   "target": "Hyperdimensional Prism",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "Harmonic spectra → white light. Inharmonic spectra → light through a prism (stretched/shifted). The inharmonic space IS the prism's interior.",
+   "evidence_target": "",
+   "rationale": "The sentence uses an optical prism as a colour analogy for stretched spectra, not the hub's projection idea, and the page never names the hub; Harmonicity and Inharmonicity already carries the family link.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Action Potential Oscillator",
+   "target": "Hyperdimensional Prism",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "No sentence on the page speaks of the hub or its idea (its 'Cross-Domain Isomorphisms' section is about RC filters and envelopes); it already links FOUR PILLARS.",
+   "confidence": "high"
+  },
+  {
+   "source": "Quantum Synthesizer",
+   "target": "Hyperdimensional Prism",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "The Schrödinger equation makes this monism precise. There is one object: ψ(x, t)... multiple attributes.",
+   "evidence_target": "",
+   "rationale": "The one-substance-many-attributes reason is real but the page gives it to Spinoza, which it already links; the hub is never named. Can return with a sentence.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Crystal Synthesizer",
+   "target": "Hyperdimensional Prism",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "proposed_type": "exemplifies",
+   "proposed_label": "prism-machine",
+   "evidence_source": "This connects to [[Hyperdimensional Prism]]: the crystal is a prism machine. Its periodicity multiplies a single atom's vibrational mode through 230 possible symmetries... The timbre emerges not from design but from the symmetry group's projection.",
+   "evidence_target": "Crystal symmetry operates on the same principle at a different scale. A crystal is also a prism machine.",
+   "rationale": "A worked, built case of the hub's crystal passage, so exemplifies rather than a bare proximity.",
+   "confidence": "high"
+  }
+ ],
+ "typed_relations": [],
+ "entry_health_flags": [
+  {
+   "entry": "Hyperdimensional Prism",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Two facts disagree: 'Loudon creates this visualization in P5.js' (Visual Identity) versus 'The Max/MSP patch that generates the visual identity' (Kaleidoscope section). Only Loudon can say which. Also, the hub names Wallpaper Groups and Crystal Synthesizer in prose but holds no outbound link to either; their inbound exemplifies links would be the first typed claim. Not proposed here only because the hub's own links are outside this brief."
+  }
+ ],
+ "lighter_prose": [
+  {
+   "entry": "Hyperdimensional Prism",
+   "where": "Kaleidoscope, Crystal, and Wallpaper",
+   "passage": "The kaleidoscope also matters as a *teaching instrument*. You can build one. This is critical in the context of the Four Pillars: the tool that demonstrates the philosophy is itself a tool you can make and modify. The Max/MSP patch that generates the visual identity — the Lissajous pattern in a sphere — is a kaleidoscope of sorts. Students don't just learn about prisms; they build the prism machine and watch it generate new patterns as they adjust parameters. The learning happens *through the making of the machine itself*.",
+   "proposal": "simplify",
+   "words": "You can build a kaleidoscope, and students can: the patch that draws the Lissajous-in-a-sphere identity is one, and changing its parameters teaches what a prism does. (This repeats the Visual Identity section's 'Students can download it, modify it'; keep one.)"
+  },
+  {
+   "entry": "Hyperdimensional Prism",
+   "where": "Origin",
+   "passage": "The question was: are they truly separate domains that need to be integrated, or are they always-already unified and we're just perceiving them as separate? The prism metaphor resolved this: they're unified in the higher dimension. Our perception separates them. The light of curiosity is what creates the projection.",
+   "proposal": "simplify",
+   "words": "The pillars are not separate domains to be integrated; they are one thing, and our perception separates them. The light of curiosity makes the projection. (The opening paragraph already says this.)"
+  }
+ ],
+ "summary": "Read the hub whole and all 16 source pages (the passages that speak of the hub plus each page's links block). Pattern: the genuine relations are of two kinds, the prism-machine instances (Wallpaper Groups, Crystal Synthesizer, both named as such on page and hub) and the one-thing-many-views echoes (Dispersion, Meaning and the Link, Autodidact Polymaths, Stoicism, Wavetable, Kuramoto); six links (Embeddings, Bessel, Slime Mold, Categorizing Inharmonicity, Action Potential, Quantum) have no sentence on either page that carries the hub's idea, and several lean on Spinoza's monism instead, which they already link. Verdicts: 4 label, 4 retype, 6 cut, 2 keep. Not settled: (1) the Kuramoto pair carries two links, since the hub holds its own bare connects-to back to Kuramoto; I kept the labelled side and suggest dropping the hub's, but that edit is outside this brief. (2) Whether the Founding Conversation is better typed spawned (as proposed) or left as a labelled connects-to. (3) The P5.js versus Max/MSP contradiction on the hub is Loudon's to settle. No newcomer entry had a genuine inbound link from these pages, so typed_relations is empty."
+}

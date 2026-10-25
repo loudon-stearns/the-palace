@@ -19,6 +19,7 @@ links:
     label: wavetable-space
   - target: "[[Inharmonic Wavetable Synthesis]]"
     type: connects-to
+    label: adjacent-research
   - target: "[[2D Torus Wavetable Synthesizer]]"
     type: connects-to
     label: 2d-form
@@ -33,14 +34,15 @@ links:
   - target: "[[Floquet Theory]]"
     type: connects-to
     label: time-periodic-modulation
-  - target: "[[Drift and Consolidation]]"
-    type: connects-to
   - target: "[[Wavetable Scanner]]"
     type: connects-to
     label: plays-its-packed-tables
   - target: "[[1D Wavetable Scanning]]"
     type: connects-to
     label: what-position-means
+  - target: "[[Drift and Consolidation]]"
+    type: exemplifies
+    label: stewarded-page
 forward_vector: "I will become a chat-driven generator of wavetables — Claude conducts the interview, sources partial structures from anywhere (palace synthesis, AI sub-agents, captured audio), and renders deployable wavetables in Serum/CLM, Ableton, Surge XT, and single-cycle formats."
 ---
 

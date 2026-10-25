@@ -11,16 +11,22 @@ stage: growing
 links:
   - target: "[[1 from 2]]"
     type: connects-to
+    label: story-origin
   - target: "[[Cooperation Yields Agency]]"
     type: connects-to
+    label: songline-stop
   - target: "[[Endosymbiosis]]"
     type: connects-to
+    label: biological-grounding
   - target: "[[Spinoza Conatus]]"
     type: connects-to
+    label: philosophical-depth
   - target: "[[Hilaritas Generator]]"
     type: connects-to
+    label: pedagogical-application
   - target: "[[Symbiotic Skills]]"
     type: connects-to
+    label: framework-scaled-outward
   - target: "[[SUBSTRATE]]"
     type: deepens
   - target: "[[Modes of Collaboration]]"

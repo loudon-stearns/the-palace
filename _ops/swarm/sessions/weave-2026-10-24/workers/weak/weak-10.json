@@ -1,0 +1,606 @@
+{
+ "room": "weak-10",
+ "lens": "weak-links",
+ "pages_read": [
+  "Harmonicity and Inharmonicity",
+  "Hyperdimensional Prism",
+  "Mathieu Equation",
+  "Quadratic Interpolation in DSP",
+  "Compressor Design",
+  "Kuramoto Coupling",
+  "Linear Predictive Coding",
+  "Murmuration",
+  "Ohm's Law",
+  "Particle Synthesis",
+  "Portamento and Physical Pitch Modeling",
+  "Retrospective Delay",
+  "SMPTE LTC",
+  "Wavetable Space as Torus",
+  "Boundary-Crossing Instruments (opening, links)",
+  "Trickster (links, prism passage)",
+  "Mermaid",
+  "Kuramoto Coupling — 8-Lesson Quiz Series (head)",
+  "Kuramoto Coupling — Quiz Answer Key (head)",
+  "Modes of Collaboration (links)",
+  "Modes of Collaboration — Context (Interactive Exploration)",
+  "Philosopher Visits the Entry (head, Method)",
+  "Dialectic — dialectic — spinoza-zhuangzi-on-striving (links, technical reading)",
+  "Deleuze (virtual passages)",
+  "Simondon (concretization)",
+  "The Drift (Parametric Resonance passages)",
+  "Latent Error (head)",
+  "Differential Equations (palace connections)",
+  "Diversity of Thought in Many-Agent Systems (head)",
+  "Neural Granular Synthesis (grep)",
+  "Granular Synthesis (grep)",
+  "Frequency-Time Duality (grep)",
+  "Action Potential Oscillator (grep)",
+  "Biomechanical Synthesis (links)",
+  "Bessel Functions in Synthesis (links)",
+  "DSP Frameworks (head)",
+  "Resonant Link Labels (head)"
+ ],
+ "weak_links": [
+  {
+   "source": "Harmonicity and Inharmonicity",
+   "target": "Boundary-Crossing Instruments",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "The [[Boundary-Crossing Instruments]] insight about rhythm/pitch and delay/filtering boundaries — does the harmonic/inharmonic boundary belong in that family?",
+   "evidence_target": "apparent discontinuities often dissolve when you find the right coordinate system",
+   "rationale": "Harmonicity's Open Questions name the link as a standing question of family membership, so the register is a candidate, not a claim.",
+   "confidence": "medium",
+   "proposed_label": "candidate-family"
+  },
+  {
+   "source": "Harmonicity and Inharmonicity",
+   "target": "Action Potential Oscillator",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither page connects the two; the target mentions only Piano String Inharmonicity, and Kuramoto already carries the oscillator-to-coupling route.",
+   "confidence": "high"
+  },
+  {
+   "source": "Harmonicity and Inharmonicity",
+   "target": "Frequency-Time Duality",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither page names the other; no reason on either side.",
+   "confidence": "high"
+  },
+  {
+   "source": "Harmonicity and Inharmonicity",
+   "target": "Compressor Design",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Harmonicity's body never names Compressor Design and the compressor page says nothing of partials; the all-pass origin that ties them is carried on Hyperdimensional Prism's pages, not here. The reciprocal Compressor Design to Harmonicity link has no reason either and could go with it.",
+   "confidence": "high"
+  },
+  {
+   "source": "Hyperdimensional Prism",
+   "target": "Trickster",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "",
+   "evidence_target": "- **[[Hyperdimensional Prism]]** as trickster: the four pillars appear separate until you rotate the object and see they are projections of one thing. The trickster is the light",
+   "rationale": "Trickster's page carries the relation (the prism read as trickster); the label puts that reason on this side too. Trickster already links back bare, so one side only needs it.",
+   "confidence": "medium",
+   "proposed_label": "prism-as-trickster"
+  },
+  {
+   "source": "Hyperdimensional Prism",
+   "target": "Compressor Design",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "The kaleidoscope interface concept did not start as a metaphor — it cascaded out of a DSP insight during [[Compressor Design]] work in late February 2026.",
+   "evidence_target": "",
+   "rationale": "Hyperdimensional Prism names the compressor work as where the all-pass insight began; the register is origin. Compressor Design's bare reciprocal link could be cut.",
+   "confidence": "high",
+   "proposed_label": "all-pass-origin"
+  },
+  {
+   "source": "Hyperdimensional Prism",
+   "target": "Harmonicity and Inharmonicity",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "an all-pass-based reverb tail is an inharmonic synthesizer in disguise (see [[Harmonicity and Inharmonicity]] § All-Pass Networks as Inharmonic Resonators for the mechanism)",
+   "evidence_target": "Where inharmonic spectra come from (stiff strings, Bessel modes, scatter, all-pass phase accumulation and the rest) is mapped in [[Categorizing Inharmonicity]]",
+   "rationale": "The prism page says the all-pass network is an inharmonic resonator and sends the reader to Harmonicity for it. Harmonicity's bare reciprocal could be cut; the section the prism cites no longer exists there (see health flags).",
+   "confidence": "high",
+   "proposed_label": "all-pass-inharmonic"
+  },
+  {
+   "source": "Mathieu Equation",
+   "target": "Deleuze",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "**Deleuze:** No — there is no Form behind the drum waiting to be copied. There is a *virtual structure*, intense and real, that actualizes *differently* in each domain.",
+   "evidence_target": "The virtual is the full field of the real-but-not-realized: every sound a patch *could* make",
+   "rationale": "Deleuze voices the Philosophical Lens on Mathieu: the tongue as a virtual that actualizes differently in drum, trap and crystal.",
+   "confidence": "high",
+   "proposed_label": "virtual-actualization"
+  },
+  {
+   "source": "Mathieu Equation",
+   "target": "Philosopher Visits the Entry",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "evidence_source": "*A [[Philosopher Visits the Entry|visit]] — [[Plato (Socratic method)|Plato]] and [[Deleuze]] both read the entry's strangest line*",
+   "evidence_target": "one researched philosopher is brought to a single palace entry and asked to push on its central claim.",
+   "rationale": "The Philosophical Lens is a run of the Philosopher Visit, so Mathieu is an instance of the mode; exemplifies points back at the general.",
+   "confidence": "high",
+   "proposed_type": "exemplifies",
+   "proposed_label": "plato-deleuze-visit"
+  },
+  {
+   "source": "Mathieu Equation",
+   "target": "The Drift",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "The threshold is where [[Spinoza Conatus|conatus]] and [[The Drift|wu wei]] turn out to name the same crossing.",
+   "evidence_target": "parametric pumping is \"forcing at exactly the right rate.\" The Drift asks whether that is forcing at all",
+   "rationale": "Mathieu's second blade ends on conatus and wu wei naming the same crossing; The Drift raises the same forcing-or-flowing question on its side.",
+   "confidence": "high",
+   "proposed_label": "wu-wei-threshold"
+  },
+  {
+   "source": "Mathieu Equation",
+   "target": "Dialectic — dialectic — spinoza-zhuangzi-on-striving",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "The Mathieu tongue is the physical proof of Zhuangzi's point — there is a rate at which *driving is flowing.*",
+   "evidence_target": "The threshold instrument is the physical proof of Zhuangzi's point: there is a rate at which driving *is* flowing.",
+   "rationale": "The dialectic's technical reading lands on parametric pumping and Mathieu's second blade quotes it back; the register is the shared point about the resonant rate.",
+   "confidence": "medium",
+   "proposed_label": "driving-is-flowing"
+  },
+  {
+   "source": "Quadratic Interpolation in DSP",
+   "target": "Portamento and Physical Pitch Modeling",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "**[[Portamento and Physical Pitch Modeling]]** — Pitch movement during a glide is a choice of interpolation function. Linear, exponential, or quadratic?",
+   "evidence_target": "",
+   "rationale": "Quadratic Interpolation names the glide as an interpolation choice. Portamento does not mention it back.",
+   "confidence": "high",
+   "proposed_label": "glide-interpolation"
+  },
+  {
+   "source": "Quadratic Interpolation in DSP",
+   "target": "Differential Equations",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "**[[Differential Equations]]** — Smooth interpolation functions are solutions to differential equations. A quadratic ramp is approximating an exponential approach.",
+   "evidence_target": "",
+   "rationale": "The source states the relation: interpolation curves as approximate solutions of DEs.",
+   "confidence": "medium",
+   "proposed_label": "ramp-as-ode-solution"
+  },
+  {
+   "source": "Quadratic Interpolation in DSP",
+   "target": "Latent Error",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "This connects to [[Latent Error]]: is using the \"wrong\" interpolation method a latent design error, or is it a creative choice that adds character?",
+   "evidence_target": "ask not \"what went wrong?\" but \"what condition *allowed* this to go wrong?\"",
+   "rationale": "The source asks whether a wrong interpolation choice is a latent design error; the register is that question, applied to taste.",
+   "confidence": "medium",
+   "proposed_label": "wrong-method-as-latent-error"
+  },
+  {
+   "source": "Quadratic Interpolation in DSP",
+   "target": "DSP Frameworks",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither page names the other and DSP Frameworks says nothing of interpolation.",
+   "confidence": "high"
+  },
+  {
+   "source": "Compressor Design",
+   "target": "Boundary-Crossing Instruments",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "evidence_source": "It appears in [[Boundary-Crossing Instruments]] — the recognition that signal flow and information flow are the same topology, expressed in different materials.",
+   "evidence_target": "During work on soft knee compression mathematics, we discovered that reframing compression ratio as the *slope of the transfer function* rather than a ratio eliminates the discontinuity at infinite ratio.",
+   "rationale": "Boundary-Crossing's own origin is the soft-knee work, so the compressor is an instance of the pattern; exemplifies points back at the general. Compressor's sentence misdescribes the target (see lighter prose).",
+   "confidence": "high",
+   "proposed_type": "exemplifies",
+   "proposed_label": "ratio-as-slope"
+  },
+  {
+   "source": "Compressor Design",
+   "target": "Granular Synthesis",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither page names the other; the compressor has no grain content.",
+   "confidence": "high"
+  },
+  {
+   "source": "Kuramoto Coupling",
+   "target": "Mermaid",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "*Three regimes of the order parameter R as K crosses the critical threshold. Mermaid Sketch via [[Mermaid|Mermaid]]; palette matches the arc's indigo / amber pair.*",
+   "evidence_target": "**2026-05-26 — Kuramoto coupling-regime diagram (Sketch, Obsidian-inline).** Three-state flowchart of `K<K_c` (drift) / `K≈K_c` (critical) / `K>K_c` (lock)",
+   "rationale": "Mermaid drew the K-regime flowchart on the Kuramoto page and logged it; the register is the diagram tool.",
+   "confidence": "high",
+   "proposed_label": "regime-diagram"
+  },
+  {
+   "source": "Kuramoto Coupling",
+   "target": "Kuramoto Coupling — 8-Lesson Quiz Series",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "[[Kuramoto Coupling — 8-Lesson Quiz Series]] — Progressive lesson document covering phase oscillators, coupling terms, order parameter, critical coupling",
+   "evidence_target": "links: - target: \"[[Kuramoto Coupling]]\" type: connects-to label: child-of",
+   "rationale": "The quiz series already links up to Kuramoto as child-of, so the pair is carried; the Artifacts section keeps the body wikilink. A later weave could retype the child's link as emerged-from.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Kuramoto Coupling",
+   "target": "Kuramoto Coupling — Quiz Answer Key",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "[[Kuramoto Coupling — Quiz Answer Key]] — Answers with context, corrections, and deeper implications from the live quiz session.",
+   "evidence_target": "links: - target: \"[[Kuramoto Coupling]]\" type: connects-to label: child-of",
+   "rationale": "Same as the series: the answer key links up as child-of and the Artifacts section keeps the body wikilink.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Linear Predictive Coding",
+   "target": "Loudon Live",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "Build the RNBO `codebox~` LPC vocoder as a [[Loudon Live]] stage — analysis lattice → residual codebook → resynthesis",
+   "evidence_target": "",
+   "rationale": "The forward vector plans an LPC vocoder as a Loudon Live stage; the register is a planned build. Loudon Live does not mention LPC.",
+   "confidence": "high",
+   "proposed_label": "vocoder-stage"
+  },
+  {
+   "source": "Linear Predictive Coding",
+   "target": "Philosopher Visits the Entry",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "evidence_source": "*A [[Philosopher Visits the Entry|visit]] — [[Spinoza]] reads the residual.*",
+   "evidence_target": "one researched philosopher is brought to a single palace entry and asked to push on its central claim.",
+   "rationale": "The Philosophical Lens is a Philosopher Visit, so LPC is an instance of the mode.",
+   "confidence": "high",
+   "proposed_type": "exemplifies",
+   "proposed_label": "spinoza-visit"
+  },
+  {
+   "source": "Murmuration",
+   "target": "Neural Granular Synthesis",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "[[Neural Granular Synthesis]] and the [[Bayesian Granular Synthesizer]] also let *statistics* govern the grain cloud — but there the distribution is learned or specified; here it is **emergent and perturbable in real time**.",
+   "evidence_target": "",
+   "rationale": "The source sets learned distribution against emergent distribution; that is the register.",
+   "confidence": "medium",
+   "proposed_label": "learned-vs-emergent"
+  },
+  {
+   "source": "Murmuration",
+   "target": "Diversity of Thought in Many-Agent Systems",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "Build the same spec as an RNBO `codebox~` device and compare — the browser cousin vs the DAW native (a live probe of [[Diversity of Thought in Many-Agent Systems]]).",
+   "evidence_target": "When does plural orchestration earn its keep over a single, well-loaded expert?",
+   "rationale": "Murmuration calls its planned second build a live probe of the question; the target does not claim it, and the fit (two builds of one spec versus plural agents) is loose.",
+   "confidence": "low",
+   "proposed_label": "live-probe"
+  },
+  {
+   "source": "Murmuration",
+   "target": "Granular Synthesis",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "evidence_source": "A synthesis instrument where a **flock walks a 2D wavetable and every boid is a grain**.",
+   "evidence_target": "I build boundary crossing instruments from populations of short-term oscillators",
+   "rationale": "Murmuration is a granular instrument, each boid a grain voice, so it is an instance of granular synthesis.",
+   "confidence": "medium",
+   "proposed_type": "exemplifies",
+   "proposed_label": "flock-as-grains"
+  },
+  {
+   "source": "Ohm's Law",
+   "target": "Modes of Collaboration",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "evidence_source": "- [[Modes of Collaboration]] — Interactive exploration mode",
+   "evidence_target": "**Named examples:** [[Ohm's Law]] interactive with lock mechanism (March 2026)",
+   "rationale": "Modes of Collaboration's Context names Ohm's Law as a named example of the Interactive Exploration mode, so the page is an instance of the mode family. Modes of Collaboration's bare link back could be cut so the pair carries one.",
+   "confidence": "high",
+   "proposed_type": "exemplifies",
+   "proposed_label": "interactive-exploration"
+  },
+  {
+   "source": "Particle Synthesis",
+   "target": "Neural Granular Synthesis",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "Connect to [[Neural Granular Synthesis]]: can particle behavior be learned rather than designed?",
+   "evidence_target": "**Phase 4** (future): Adaptive coupling, learned population dynamics",
+   "rationale": "The source asks whether particle behaviour could be learned instead of designed; the register is designed against learned.",
+   "confidence": "medium",
+   "proposed_label": "designed-vs-learned"
+  },
+  {
+   "source": "Particle Synthesis",
+   "target": "Frequency-Time Duality",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "The [[Frequency-Time Duality|frequency content and temporal evolution]] become unified: you cannot change one without affecting the other.",
+   "evidence_target": "",
+   "rationale": "Dispersion in the particle space ties frequency content to time evolution, stated in the source.",
+   "confidence": "medium",
+   "proposed_label": "dispersion-time-frequency"
+  },
+  {
+   "source": "Particle Synthesis",
+   "target": "Differential Equations",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "The Particle Fountain connects directly to [[Differential Equations]]. The particle trajectory under gravity IS the 2nd-order DE solution.",
+   "evidence_target": "Granular synthesis particles with sinusoidal envelopes are solving DEs.",
+   "rationale": "The fountain is a second-order DE solved in real time; Differential Equations says the same of granular particles.",
+   "confidence": "high",
+   "proposed_label": "particle-as-ode-solution"
+  },
+  {
+   "source": "Portamento and Physical Pitch Modeling",
+   "target": "Action Potential Oscillator",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "evidence_source": "Both portamento and nerve action potentials are systems with *threshold, overshoot, and undershoot*.",
+   "evidence_target": "The recovery from this undershoot can be overdamped (smooth), critically damped, or underdamped (ringing oscillation that adds subharmonic growl).",
+   "rationale": "Same damped-recovery pattern in two materials, stated on both pages, which is a mirror.",
+   "confidence": "medium",
+   "proposed_type": "mirrors",
+   "proposed_label": "threshold-overshoot"
+  },
+  {
+   "source": "Portamento and Physical Pitch Modeling",
+   "target": "Bessel Functions in Synthesis",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "The mode structure of a circular or nearly-circular resonator (bell, gong, drum) is governed by Bessel function zeros.",
+   "evidence_target": "",
+   "rationale": "The source ties glide behaviour in round resonators to Bessel mode geometry; Bessel's page is silent on portamento.",
+   "confidence": "medium",
+   "proposed_label": "bessel-mode-geometry"
+  },
+  {
+   "source": "Portamento and Physical Pitch Modeling",
+   "target": "Biomechanical Synthesis",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "Portamento in human voice and wind instruments is biomechanically generated.",
+   "evidence_target": "",
+   "rationale": "The source says glide in voice and winds comes from body mechanics. Biomechanical Synthesis links back bare, so the pair needs one reason only.",
+   "confidence": "high",
+   "proposed_label": "voice-biomechanics"
+  },
+  {
+   "source": "Retrospective Delay",
+   "target": "Granular Synthesis",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither page names the other; Retrospective Delay is a phrase-length circular buffer with no grain content.",
+   "confidence": "high"
+  },
+  {
+   "source": "Retrospective Delay",
+   "target": "Boundary-Crossing Instruments",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither page names the other. Frequency-Time Duality, which the delay already links, carries the delay-time and frequency idea.",
+   "confidence": "high"
+  },
+  {
+   "source": "SMPTE LTC",
+   "target": "Ableton Extension SDK",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "No page by this name exists in the vault, so the link points at nothing. The body names the SDK only as plain text for Phase 1; if the page is born, the link can return with its reason.",
+   "confidence": "high"
+  },
+  {
+   "source": "SMPTE LTC",
+   "target": "Frequency-Time Duality",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "LTC is literally the time axis encoded in frequency space. Every bit transition is a frequency/phase event.",
+   "evidence_target": "one continuous axis (the rate at which something repeats) crosses *perceptual* thresholds, not physical ones",
+   "rationale": "The source states the relation: time encoded as audio frequency and phase.",
+   "confidence": "high",
+   "proposed_label": "time-in-frequency-space"
+  },
+  {
+   "source": "Wavetable Space as Torus",
+   "target": "Philosopher Visits the Entry",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "evidence_source": "*A [[Philosopher Visits the Entry|visit]] — [[Deleuze]] reads the opening claim: \"A wavetable is not a rectangle. It is a torus. This is not a metaphor.\"*",
+   "evidence_target": "(\"This is not metaphor but isomorphism.\" \"A wavetable is a torus, and this is not a metaphor.\")",
+   "rationale": "The Philosophical Lens is a Philosopher Visit, and the mode's own Method cites this entry's claim as its example.",
+   "confidence": "high",
+   "proposed_type": "exemplifies",
+   "proposed_label": "deleuze-visit"
+  },
+  {
+   "source": "Wavetable Space as Torus",
+   "target": "Simondon",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "[[Simondon]] would add: the synthesizer that exposes the torus rather than a list of presets is the *more concrete* instrument",
+   "evidence_target": "**Concretization.** The key evaluative concept.",
+   "rationale": "Simondon's concretization is applied to the torus instrument in the Philosophical Lens.",
+   "confidence": "high",
+   "proposed_label": "concretization"
+  }
+ ],
+ "typed_relations": [],
+ "entry_health_flags": [
+  {
+   "entry": "Particle Synthesis",
+   "stage_current": "sprout",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "The body links to itself repeatedly ([[Particle Synthesis]] in its own intro, Prism Metaphor, Cross-Domain Resonance and closing line). Self-links carry no relation and could be plain text."
+  },
+  {
+   "entry": "Hyperdimensional Prism",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "The All-Pass Origin section sends the reader to Harmonicity § 'All-Pass Networks as Inharmonic Resonators'; that heading is gone, and Harmonicity now points to Categorizing Inharmonicity §6 (Harmonicity and Inharmonicity.md line 76). Repoint the citation."
+  },
+  {
+   "entry": "Compressor Design",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "The closing Cross-Domain Resonance sentence says Boundary-Crossing Instruments is about 'signal flow and information flow are the same topology'; that page is about reframing a coordinate system until a discontinuity dissolves (ratio as slope). The citation does not match its target."
+  },
+  {
+   "entry": "SMPTE LTC",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "[[Boundary-Crossing Instrument]] in 'Connects to larger patterns' is singular and may not resolve to Boundary-Crossing Instruments; the frontmatter link is correct. Ableton Extension SDK has no page."
+  },
+  {
+   "entry": "Ohm's Law",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "A stray '<!-- Link to the html -->' comment sits under Interactive Learning Tool, and Related Concepts repeats the frontmatter links one for one."
+  }
+ ],
+ "lighter_prose": [
+  {
+   "entry": "Linear Predictive Coding",
+   "where": "intro",
+   "passage": "The commission that produced it was explicit — *be deep and broad, connect disparate fields, use metaphor, mathematics, and storytelling.* This entry preserves that register deliberately; the prose is the synthesis, so the best passages are kept rather than compressed away.",
+   "proposal": "delete",
+   "words": ""
+  },
+  {
+   "entry": "Linear Predictive Coding",
+   "where": "The source-filter model and its mirror-twin",
+   "passage": "That is why the link to [[Waveguide Synthesizer]] is a `mirrors` and not a passing reference:",
+   "proposal": "simplify",
+   "words": "The vocal tract and the plucked string are one piece of mathematics wearing two bodies."
+  },
+  {
+   "entry": "Linear Predictive Coding",
+   "where": "Artifact",
+   "passage": "None generated — this was a pure prose lecture, and the essay text in the source chat (2026-04-28) *is* the artifact. Its strongest passages are preserved verbatim above and in the closing quotes; the full lecture should be filed as a `Linear Predictive Coding — source` bundle file when retrievable.",
+   "proposal": "simplify",
+   "words": "No artifact. The source lecture (2026-04-28) is not yet filed."
+  },
+  {
+   "entry": "Mathieu Equation",
+   "where": "Philosophical Lens",
+   "passage": "*Reader's note: the entry quietly takes the side that the structure was \"always there\" (discovered). Worth deciding on purpose whether that Platonism is the entry's real commitment — it changes how a designer is told to reach for the tongue.*",
+   "proposal": "simplify",
+   "words": "Open: is the tongue found (Plato) or actualized (Deleuze)? It changes how a designer reaches for it."
+  },
+  {
+   "entry": "Wavetable Space as Torus",
+   "where": "Philosophical Lens",
+   "passage": "*Reader's note: the entry's closing line leans Platonic. The Deleuzian reading licenses \"design the field, not the instance\" as the entry's real design principle.*",
+   "proposal": "simplify",
+   "words": "Design principle: design the field, not the instance."
+  },
+  {
+   "entry": "Murmuration",
+   "where": "intro",
+   "passage": "(The name is the starlings' sense — the flock — not a generic synth label; the sibling instruments wear \"…Synthesizer,\" this one keeps the bird.)",
+   "proposal": "delete",
+   "words": ""
+  },
+  {
+   "entry": "Murmuration",
+   "where": "intro",
+   "passage": "Originated 2026-05 from a brainstorm pairing [[Flocking]] with the [[2D Torus Wavetable Synthesizer|2D wavetable]] and [[Granular Synthesis|granular]] thinking; first prototype built and verified the same arc.",
+   "proposal": "simplify",
+   "words": "It grew from pairing Flocking with the 2D wavetable and granular synthesis."
+  },
+  {
+   "entry": "Murmuration",
+   "where": "What makes it distinct from its neighbors",
+   "passage": "the same family, a different generating logic, which is why they `mirror`",
+   "proposal": "simplify",
+   "words": "the same family, a different generating logic."
+  },
+  {
+   "entry": "Compressor Design",
+   "where": "FILO Circular Buffer RMS",
+   "passage": "so whoever builds both meets the same shape twice, and the recognition is worth naming out loud.",
+   "proposal": "simplify",
+   "words": "so building both meets the same shape twice."
+  },
+  {
+   "entry": "Compressor Design",
+   "where": "Cross-Domain Resonance",
+   "passage": "It appears in [[Boundary-Crossing Instruments]] — the recognition that signal flow and information flow are the same topology, expressed in different materials.",
+   "proposal": "simplify",
+   "words": "It is the Boundary-Crossing pattern: reframe the compression ratio as slope and the wall at infinite ratio disappears."
+  },
+  {
+   "entry": "Quadratic Interpolation in DSP",
+   "where": "The Organic Imprecision Argument",
+   "passage": "This is a profound observation.",
+   "proposal": "delete",
+   "words": ""
+  },
+  {
+   "entry": "Harmonicity and Inharmonicity",
+   "where": "Origin",
+   "passage": "This concept has been explored across many conversations — from piano string physics and Bessel function eigenmodes to the neurological synthesizer project — but was first given its own palace entry during the Kuramoto coupling lesson series (March 2026), where the question \"what happens when you couple to inharmonic partials?\" produced a key insight about frustrated coupling.",
+   "proposal": "simplify",
+   "words": "It got its own entry in the March 2026 Kuramoto lesson series, when the question \"what happens when you couple to inharmonic partials?\" turned up frustrated coupling."
+  },
+  {
+   "entry": "Kuramoto Coupling",
+   "where": "Asymmetric Coupling: The Stubbornness Parameter",
+   "passage": "(Found while building this section's piece for the rich face, 2026-09-24.)",
+   "proposal": "delete",
+   "words": ""
+  },
+  {
+   "entry": "Particle Synthesis",
+   "where": "Cross-Domain Resonance",
+   "passage": "The conversations that produced [[Particle Synthesis]] explicitly drew these parallels:",
+   "proposal": "simplify",
+   "words": "Three parallels:"
+  },
+  {
+   "entry": "Particle Synthesis",
+   "where": "Practical Manifestation",
+   "passage": "An interactive **Inharmonicity Explorer** was built in conversation to demonstrate these principles in real time:",
+   "proposal": "simplify",
+   "words": "The Inharmonicity Explorer demonstrates them in real time:"
+  }
+ ],
+ "summary": "Read all 14 members whole or in the relevant parts, plus the targets that exist (and the Philosopher Visits, Modes of Collaboration Context, Dialectic, Deleuze, Simondon, Trickster, Mermaid and quiz pages for evidence). 38 weak links: 21 labelled, 7 retyped, 10 cut, none kept as-is (all were bare). Pattern: where a page had a sentence naming the target, a label names the register (mostly origin, planned-build, or shared-mechanism); the three Philosophical Lens visits (Mathieu, LPC, Wavetable) and Ohm's Law's named-example status are really exemplifies of a mode; the Compressor-to-Boundary-Crossing link is the origin instance. Cuts are links where neither page names the other, the Ableton Extension SDK link (no page exists), and the Kuramoto parent links to its two quiz children (the children already carry child-of). Several pairs are reciprocal and bare (Harmonicity/Compressor/Hyperdimensional Prism, Modes of Collaboration/Ohm's Law, Trickster/Hyperdimensional Prism, Biomechanical Synthesis/Portamento); I flagged the other side where the pair should carry one link, but those reciprocal links are outside my list. Murmuration to Diversity of Thought is the weakest label I kept (low confidence). No genuine inbound links to the newcomer entries came from these pages, so typed_relations is empty."
+}

@@ -1,0 +1,1087 @@
+{
+ "room": "folder-shop-1",
+ "lens": "folder",
+ "pages_read": [
+  "Shop/Ableton Session Writer.md",
+  "Shop/Blender.md",
+  "Shop/ComfyUI.md",
+  "Shop/Depth Anything.md",
+  "Shop/Figure Rig.md",
+  "Shop/Hero and Avatar Maker.md",
+  "Shop/Hero and Avatar Maker/Hero and Avatar Maker — tuning.md (head)",
+  "Shop/Kokoro.md",
+  "Shop/LaTeX.md",
+  "Shop/LoRA Trainer.md",
+  "Shop/Maker.md (lines 1-140 and 166-340 read; 140-165 only the opening)",
+  "Shop/Matplotlib.md",
+  "Shop/OBS.md",
+  "Shop/RNBO codebox~ smith.md",
+  "Shop/RunPod GPU Backend.md",
+  "Shop/Shopkeeper.md",
+  "Shop/Shopkeeper/Shopkeeper — scroll.md (Standing Orders, headings)",
+  "Shop/Three.js.md",
+  "Shop/VCV Patch Generator.md",
+  "Shop/Whisper.md",
+  "Shop/p5.js.md",
+  "The Shop.md (hub, Roster block)",
+  "Shop/Maker/host-capability.json",
+  "Shop/Maker/host-capability-check.js (check())",
+  "Shop/Maker/run-tests.mjs (header)",
+  "SCHEMA — Reference.md (lines 63, 81, 88-89, 225-262)",
+  "Palace development/Resonant Link Labels.md (head)",
+  "Can an Instrument Notice Where the Work Stops?.md",
+  "Projects/VST Template.md (head)",
+  "Projects/LDN RTM.md (head, OBS lines)",
+  "Projects/Waveguide Synthesizer.md (Three.js lines)",
+  "Projects/Generative Audio Devices.md (audition lines)",
+  "DSP Frameworks.md (RNBO lines)"
+ ],
+ "coherence_findings": [
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Blender",
+    "ComfyUI",
+    "Depth Anything",
+    "Figure Rig",
+    "Kokoro",
+    "LaTeX",
+    "Maker",
+    "Matplotlib",
+    "OBS",
+    "RNBO codebox~ smith",
+    "Three.js",
+    "VCV Patch Generator",
+    "Whisper",
+    "p5.js"
+   ],
+   "issue": "Fourteen of the nineteen carry `last_tested` and/or `last_gotcha` in frontmatter (RNBO carries both keys empty). SCHEMA — Reference.md:81 says these are not schema fields, nothing writes them, and each comes off its page when that page grows a tuning ledger; run-tests.mjs no longer writes them either. The Test Suite paragraph in each body repeats the same date in prose, so a page states when it last ran in two or three places that drift apart (Figure Rig: last_tested 2026-06-30 though its own Forward Vectors record work on 2026-07-01).",
+   "proposed_action": "No mass edit. Take the keys off each page in the same commit that gives it a tuning ledger (Kokoro, Whisper, ComfyUI first; they run most). RNBO's two empty keys can go now. Where a body says 'Last run: <date>', let the ledger's run lines carry it."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Maker",
+    "ComfyUI",
+    "Kokoro",
+    "Whisper",
+    "Matplotlib",
+    "p5.js",
+    "Three.js"
+   ],
+   "issue": "Seven alive pages still end in a body '## Forward Vector' written when the page was a stub ('First job: ...'), and it contradicts the live frontmatter vector and the alive status. Maker: 'First job: a Sketch-tier deliverable through Kokoro'. ComfyUI: 'First job: a Sketch-tier exploration of the same brief FLUX (Hugging Face) runs first'. Kokoro: 'a 30-second Study-tier narration of a Floquet teaching paragraph' (the real first job was the Kuramoto narration). Whisper: the first job is the Kokoro round trip, which its Recipes record as done 2026-05-26. Matplotlib: 'a Bode plot' (its real first job was the Manim fallback). p5.js: 'a Study-tier interactive Kuramoto sketch' (landed 2026-05-10). Three.js: 'Landing it moves this entry stub → alive' while status already says alive. OBS shows the better pattern: '*See YAML `forward_vector`.*'. LaTeX and RNBO are still stubs and their first-job paragraphs are true.",
+   "proposed_action": "On the seven, replace the body section with OBS's one-line pointer, or delete it. Leave LaTeX and RNBO as they are until their first job lands."
+  },
+  {
+   "kind": "roster",
+   "entries": [
+    "Depth Anything",
+    "Figure Rig",
+    "OBS"
+   ],
+   "issue": "Shop/Maker/host-capability.json lists 26 Specialists and does not list these three. host-capability-check.js check() answers an unlisted Specialist with reachable:false and the note 'not in the host-capability manifest. Add it before dispatching' — so the Maker's own pre-dispatch step, run as written, refuses three alive Specialists. (SAM, LaMa, Lettering and Frame Designer, outside this room, are missing too.) Every other member of this room has an entry; Ableton Session Writer's fallback_note is a good model.",
+   "proposed_action": "Shopkeeper proposal (the manifest is house plumbing): add three entries, all hosts [\"mac\"]. Depth Anything: transformers + MPS, local, seconds. Figure Rig: blender 5.1 + MPFB2 + the ComfyUI venv for draw_bodypose; the D2 redraw wants a GPU (local MPS ~25 min, or RunPod). OBS: obs-studio 32 with obs-websocket v5; operated, never dispatched off the Mac."
+  },
+  {
+   "kind": "recipe",
+   "entries": [
+    "Maker",
+    "Depth Anything",
+    "Figure Rig",
+    "LoRA Trainer",
+    "OBS"
+   ],
+   "issue": "Maker § Selection Heuristics routes by medium and never sends a brief to Depth Anything, Figure Rig or LoRA Trainer (Maker names LoRA Trainer once, in the promotion log; OBS only in an Open Question and the vector). The Shop now has 31 Specialists, twice the ~15 at which Maker's own Open Questions expected the section to strain, and the section is where a brief actually gets routed. The Blender heuristic covers 'posed scene → conditioning' but stops short of the figure case Figure Rig exists for.",
+   "proposed_action": "Four one-line heuristics in Maker, no new section: 'A figure that must keep a pose through a restyle → Figure Rig (three plates from one camera), then the D2 redraw in ComfyUI.' 'Depth order or a free figure silhouette from a flat image → Depth Anything; geometry you own → Blender's true depth.' 'A character LoRA → LoRA Trainer on RunPod, graded with DINO/ArcFace before it ships.' 'Capture a human working → OBS, which is operated rather than dispatched.'"
+  },
+  {
+   "kind": "vocab",
+   "entries": [
+    "ComfyUI",
+    "Blender",
+    "Figure Rig",
+    "RunPod GPU Backend",
+    "Maker"
+   ],
+   "issue": "ComfyUI still says ControlNet has never run. Its frontmatter vector: 'to finally exercise the ControlNet capability I have claimed since day one'. Open Questions: 'ControlNet is being exercised for the first time via [[ControlNet Workflow Mastery]] ... pending the Mac run'. But Blender's 2026-06-13 recipe drove ComfyUI's two-pass per-channel multi-ControlNet graph (pose + depth + canny, SDXL fill, 1.5x refine) on this Mac's MPS; Figure Rig's D2 redraw holds canny 0.30 + depth 0.60 + openpose 0.70; RunPod's pose-locked restyle ran the union ControlNet on a pod. ComfyUI has no Recipe for any of it, so a reader of ComfyUI alone is told the central capability is untested. [[ControlNet Workflow Mastery]] resolves to no page (it also appears in Maker § Comparison Mode).",
+   "proposed_action": "ComfyUI: add one Recipes line pointing at Blender's keystone and Figure Rig's redraw (both exercise ControlNet through this tool), rewrite the vector's last clause, and drop the 'first time' Open Question. Decide whether ControlNet Workflow Mastery is born or its three mentions go."
+  },
+  {
+   "kind": "vocab",
+   "entries": [
+    "ComfyUI",
+    "RunPod GPU Backend",
+    "Maker"
+   ],
+   "issue": "ComfyUI § Cloud Upgrade Path names RunComfy and Replicate as the cloud step, and its Open Question asks 'When does the Maker route to cloud (RunComfy etc.) vs. local?'. The palace answered this with its own container on RunPod: RunPod § Serverless vs. Pod is the routing rule, Maker § Host Capability Check has a runpod host class, and ComfyUI's own frontmatter links RunPod as 'cloud-path'. The link says one thing and the body another.",
+   "proposed_action": "Rewrite Cloud Upgrade Path to two lines that point at [[RunPod GPU Backend]] (same workflows, same JSON; serverless for batches, a pod for ControlNet work). Strike the Open Question as answered."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Figure Rig"
+   ],
+   "issue": "Figure Rig contradicts itself on fingers. Frontmatter vector: 'Next I'm after finger and denser-face keypoints (the rig finally has the bones)'. § Honest limits: 'No finger keypoints yet ... (next)'. § Forward Vectors: 'Hands — SHIPPED (2026-06-30). The 21-keypoint hand is projected from the rig's 38 finger bones'. The frontmatter vector is also a changelog ('I stopped force-fitting ... My keepers ... rode the whole rebuild untouched'), not a vector.",
+   "proposed_action": "Rewrite the frontmatter vector to what is actually next (face landmark map, many-person regional conditioning, a pose library) and cut the 'No finger keypoints yet' bullet. Left to the page's steward; flag only."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Kokoro",
+    "Whisper",
+    "Maker",
+    "RunPod GPU Backend",
+    "ComfyUI",
+    "LaTeX",
+    "p5.js",
+    "Three.js",
+    "Figure Rig"
+   ],
+   "issue": "Several pairs among these carry two links where one is wanted ('A pair of entries carries ONE link'): Kokoro<->Whisper (couples-with[pairs-with] and couples-with[round-trip]); Maker<->RunPod (connects-to[gpu-substrate] and couples-with[routes-to]); ComfyUI<->RunPod (connects-to[cloud-path] and connects-to[runs]); LaTeX<->Manim CE (identical couples-with[shares-tex-pipeline-with] both ways); p5.js<->Tone.js (couples-with both ways); p5.js<->Observable Plot (unlabeled connects-to both ways); Figure Rig<->Frame Designer (connects-to both ways); and inside Three.js alone, Tone.js appears twice (couples-with[pairs-with] as Shop/Tone.js, and a bare connects-to) and Waveguide Synthesizer twice (commissioned-by, and bare). 'pairs-with' also recurs as the label on five couples-with links, which restates the type and says nothing.",
+   "proposed_action": "Keep one per pair. Kokoro<->Whisper: keep Whisper's round-trip (its Voice paragraph carries the reason), drop Kokoro's. Maker<->RunPod: keep RunPod's, retyped connects-to[routes-to] (the Maker routes there only for GPU briefs, which is not 'always active together'), drop Maker's. ComfyUI<->RunPod: keep RunPod's 'runs', and give ComfyUI's Cloud Upgrade Path a body link instead. Three.js: drop the two bare duplicates. p5.js<->Tone.js: one link, connects-to[casual-vs-serious-audio], the reason p5's Limits states. p5.js<->Observable Plot: one labelled link or none (the reason is a sentence in p5's rAF gotcha). LaTeX<->Manim and Figure Rig<->Frame Designer: one side each; the other room holds the other half."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Blender",
+    "Depth Anything",
+    "LoRA Trainer",
+    "Three.js",
+    "p5.js",
+    "VCV Patch Generator",
+    "RNBO codebox~ smith"
+   ],
+   "issue": "Links with no label and no sentence that carries them, or a label that restates the type. Unlabeled: Blender->Blocked, Not Prompted; Depth Anything->LaMa; LoRA Trainer->Review Layer; Three.js->1D Wavetable Scanning, Particle Synthesis, Shimmer Cloud; p5.js->Observable Plot; VCV->Registry Pattern, the PDL spec page, Web Audio Worklet. With no reason in either body: RNBO->ffmpeg enables[feeds] (neither page mentions the other); VCV->Web Audio Worklet (the VCV body never names it); Three.js->Shimmer Cloud (an Open Question mention only). Mislabeled: Three.js->Waveguide Synthesizer 'commissioned-by' for a job its own Forward Vector says is still the first one to build.",
+   "proposed_action": "Cut: RNBO->ffmpeg, VCV->Web Audio Worklet, Three.js->Shimmer Cloud, Three.js->1D Wavetable Scanning (the Wavetable Scanner link already carries that reason). Label: Blender->Blocked, Not Prompted exemplifies[the-keystone] (see typed_relations); Depth Anything->LaMa [fills-the-occluded]; LoRA Trainer->Review Layer [human-rating]; Three.js->Particle Synthesis [instancing-path]; VCV->Registry Pattern [first-fruit]; VCV->PDL spec [bundle-spec]; Three.js->Waveguide [first-job-awaited]."
+  },
+  {
+   "kind": "naming",
+   "entries": [
+    "Hero and Avatar Maker"
+   ],
+   "issue": "Hero's links break the label rule (a single word or hyphenated phrase): 'hero+avatar line', 'render substrate', 'diffusion idiom', 'controlled/local path', 'display + request door', 'uniform-enrichment cousin', 'frame + cascade', 'joy in identity'. Four are also unsupported by the body: Loudon Live Design System ('frame + cascade') and Hilaritas Generator ('joy in identity') are never mentioned in the body; FLUX (Hugging Face) ('diffusion idiom') is HF Inference, while the body renders FLUX.1-dev-fp8 on RunPod; Maker couples-with 'Sketch-tier dispatch' is in neither body (Hero fires from the companion door, the regen lane and the Weave, not a Maker dispatch, and Maker never names Hero). The three 'subject' links (Kuramoto Coupling, Retrospective Delay, Loudon's Toolkit) are well supported: the tuning ledger's items 1, 2 and 6 are those batches.",
+   "proposed_action": "Hyphenate the labels that stay (render-substrate, display-and-request-door, uniform-enrichment-cousin, comfyui-worker). Cut Hilaritas Generator, Loudon Live Design System and FLUX (Hugging Face). Cut Maker, or keep it as connects-to[sibling-maker] only if Loudon says Hero is meant to be dispatchable through the Maker; if so, say so in Hero's Charter. Keep the three subject links and RunPod, STIGMERGY, Enrichment."
+  },
+  {
+   "kind": "vocab",
+   "entries": [
+    "Matplotlib",
+    "Maker"
+   ],
+   "issue": "Matplotlib routes interactivity to Plotly (Charter 'route to Plotly or p5.js'; Open Question 3; frontmatter alternative-to [[Shop/Plotly]]). There is no Plotly page anywhere in the vault (Shopkeeper lists it as a standing shopping-list gap; Maker says 'Plotly only when a brief needs its specific built-in interaction widgets'). The Specialists that actually answer 'interactive chart' are Observable Plot and D3.js, which Maker's heuristics already name.",
+   "proposed_action": "Matplotlib: point the refusal at Observable Plot and D3.js, drop the Shop/Plotly link and the Open Question that depends on it. If Plotly is ever born the link returns with its reason."
+  },
+  {
+   "kind": "roster",
+   "entries": [
+    "ComfyUI",
+    "LoRA Trainer",
+    "RunPod GPU Backend",
+    "Maker"
+   ],
+   "issue": "Ghost link targets with typed claims behind them: [[ControlNet Workflow Mastery]] (ComfyUI frontmatter connects-to[control-mastery], its body, and Maker § Comparison Mode, described as a built harness 'pending the Mac run'), and [[Capability-first prototyping]] (LoRA Trainer exemplifies[prove-then-optimize]; RunPod connects-to[capability-not-censorship]; also two BLUELINE pages). Neither resolves to a page. The second is cited by four pages for one principle: that reads as an invitation to be born, not a link to cut. The first's reason has been overtaken (see the ControlNet finding).",
+   "proposed_action": "Capability-first prototyping: ask Loudon whether to birth it from the BLUELINE material; the two Shop links then become honest. ControlNet Workflow Mastery: cut the ComfyUI frontmatter link unless the harness page is real; if it is, birth it."
+  },
+  {
+   "kind": "recipe",
+   "entries": [
+    "Ableton Session Writer"
+   ],
+   "issue": "The writer is a Shop Specialist but its tool lives in the Shopkeeper's probe folder (`Shop/Shopkeeper/probes/2026-10-20-ableton-session/live-set.mjs`), and its own bundle holds only tests/. Every command in the Job Contract names the Shopkeeper's path. Its newest gotcha (2026-10-24: the midi-track.xml shell carries a -12 dB fader and a cloned clip carries +3.1 dB gain) says 'fixed only in the forge's builders, not in the writer', so the Specialist still ships the bug it documents. And the Job Contract is a full copy of the probe's INTERFACE.md ('the consumer sessions' copy stays beside the tool until the tool moves').",
+   "proposed_action": "Two small proposals, not a move: fix the fader and clip-gain defaults in live-set.mjs (the gotcha is the spec for it), and decide the tool's permanent home when it next moves, so the Job Contract has one path to carry. Until then, one copy of the contract, not two."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Depth Anything",
+    "Figure Rig",
+    "LoRA Trainer",
+    "OBS",
+    "Blender",
+    "Ableton Session Writer"
+   ],
+   "issue": "The Shop § Specialist Anatomy lists Charter, Voice, Capabilities, Strengths, Limits, Tiers, Job Contract, Iteration Character, Self-Check, Resource Footprint, Gotchas, Recipes, Test Suite. The nine May pages (ComfyUI, Kokoro, LaTeX, Matplotlib, RNBO, Three.js, VCV, Whisper, p5.js) carry every section, much of it template boilerplate ('Resource Footprint: ... API keys: none', one-line 'Lost Branches'). The June-to-October pages are lean, each in a different way: Depth Anything has Charter, Job Contract, a good-for list, Gotchas and a Recipe, and no Tiers though its Charter says 'The Maker sends me an image and a tier'; Figure Rig has no Voice or Self-Check; LoRA Trainer has no Charter heading; Ableton has no Voice or Tiers; OBS declares its absences on purpose (Tiers N/A, Operating Contract). Four Specialists have no Voice, which is the section that lets a page speak when it is woken.",
+   "proposed_action": "Do not backfill. Change the hub sentence to name the core (Charter, Job Contract, Gotchas, Recipes, Test Suite; the rest when it earns a line) and let the lean pages stand. Add a Voice only where a page is ever dispatched to speak for itself."
+  },
+  {
+   "kind": "naming",
+   "entries": [
+    "Maker",
+    "Hero and Avatar Maker",
+    "Shopkeeper"
+   ],
+   "issue": "'Maker' names two things: the foreman entry (Shop/Maker.md) and the frontmatter `type: maker` that Hero and Avatar Maker, Shopkeeper, Frame Designer and Loudon Live Post-producer also carry. The hub's Roster line 'Makers: Frame Designer, Hero and Avatar Maker, ..., Maker, Shopkeeper' lists the foreman as one of five makers. Inside Hero and Shopkeeper, '[[Maker]]' means the foreman, and 'a maker' is a type.",
+   "proposed_action": "One sentence in Maker's Charter: 'type: maker is the kind of page; I am the Maker, the foreman.' No rename."
+  },
+  {
+   "kind": "naming",
+   "entries": [
+    "Hero and Avatar Maker",
+    "RNBO codebox~ smith",
+    "Matplotlib",
+    "p5.js",
+    "Blender",
+    "ComfyUI",
+    "Whisper"
+   ],
+   "issue": "Minor frontmatter and link-form drift. Hero's `born: 2026-06-23` against `YYYY-MM` (SCHEMA — Reference.md:63). Test-plan links come in several forms: `[Shop/Blender/tests/test-plan.md](../Shop/Blender/tests/test-plan.md)`, `[Matplotlib/tests/test-plan.md](Matplotlib/tests/test-plan.md)`, `[Shop/p5.js/tests/test-plan.md](p5.js/tests/test-plan.md)`, and plain backticked paths; the `../Shop/` form only resolves because the page already sits in Shop/. Wikilinks mix `[[Shop/X]]` and `[[X]]` for the same page within one file (Kokoro, Three.js).",
+   "proposed_action": "Whoever next opens each page: born to YYYY-MM; test-plan links bundle-relative (`Blender/tests/test-plan.md`); bare titles for wikilinks. Not worth a sweep."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "LoRA Trainer",
+    "RunPod GPU Backend"
+   ],
+   "issue": "Dollar figures sit in two pages: LoRA Trainer ('~$0.44-0.77/hr (48GB secure), ~$2 per LoRA end to end', 'a post-failure idle pod ate several dollars once'); RunPod ('~$0.40-0.70/hr', '~$0.007/image', 'this spawned 11 running pods (~$6/hr)'). The operator memory's 2026-10-22 correction says no dollars ever, and reads as being about Claude usage. Whether it reaches rented-GPU rates, which are a Resource Footprint fact, is not mine to settle.",
+   "proposed_action": "Ask Loudon. If the rule extends, state the footprint without money: 'a pod bills while it is up; park or terminate it', 'about two training runs to a graded LoRA'."
+  }
+ ],
+ "open_question_resolutions": [
+  {
+   "entry": "ComfyUI",
+   "question": "ControlNet is being exercised for the first time via ControlNet Workflow Mastery ... pending the Mac run.",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Blender",
+   "proposed_action": "Blender's 2026-06-13 keystone ran multi-ControlNet (pose+depth+canny) through ComfyUI on MPS; Figure Rig and RunPod GPU Backend ran more. Add a ComfyUI Recipes pointer, strike the question, fix the vector."
+  },
+  {
+   "entry": "ComfyUI",
+   "question": "Training a Loudon Live LoRA on a small reference set - when does this become worth the effort?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "LoRA Trainer",
+   "proposed_action": "The page already says so in the question's own tail. Delete the question and keep the pointer line."
+  },
+  {
+   "entry": "ComfyUI",
+   "question": "When does the Maker route to cloud (RunComfy etc.) vs. local?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "RunPod GPU Backend",
+   "proposed_action": "RunPod § Serverless vs. Pod plus Maker § Host Capability Check (runpod class) hold the rule. Strike, and fix the Cloud Upgrade Path section that still names RunComfy."
+  },
+  {
+   "entry": "ComfyUI",
+   "question": "Which base models to keep installed by default?",
+   "verdict": "progressed",
+   "by_entry": "RunPod GPU Backend",
+   "proposed_action": "RunPod says local `_tools/ComfyUI` is the ready substrate for SDXL with ControlNets staged, and ComfyUI — local-install.md holds the install. Restate as settled for SDXL (local), open only for Flux Dev."
+  },
+  {
+   "entry": "ComfyUI",
+   "question": "Should the Shop maintain a library of base workflow JSONs (sketch/study/piece) the Maker injects prompts into?",
+   "verdict": "should-act",
+   "by_entry": "Blender",
+   "proposed_action": "Real workflow JSONs now exist under Blender/tests/workflows (two-pass per-channel multi-ControlNet) and in RunPod's pose-locked restyle; none is a tier preset. The page itself says 'this is the right answer'. Ask whether to promote those into ComfyUI's bundle as the first base workflows."
+  },
+  {
+   "entry": "Kokoro",
+   "question": "Does Kokoro pronounce 'RNBO' as 'rin-bo' or letter-by-letter?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "It also contradicts the page's own Strengths line ('Phoneme override path is reliable for technical vocabulary (RNBO, Floquet, Kuramoto)'), which claims a test the question says has not run. Soften the Strength or run the five-second probe."
+  },
+  {
+   "entry": "Kokoro",
+   "question": "Does the de-ess in Piece tier leave a recognizable signature on long-form narration?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "The Piece tier's 'post chain (de-ess + gentle EQ tilt)' has never run. Leave until a Piece-tier narration is commissioned."
+  },
+  {
+   "entry": "Kokoro",
+   "question": "Should narration for Manim voiceover use a fixed voice ID across Loudon Live videos, or per-piece?",
+   "verdict": "progressed",
+   "by_entry": "Maker",
+   "proposed_action": "The Radio Play recipe settles the multi-character case (per-character fixed voice IDs); Maker's Narration heuristic says Kokoro by default, own voice when published as Loudon. The single-narrator case is still unsaid. Rewrite the question to that case."
+  },
+  {
+   "entry": "Whisper",
+   "question": "Default model size for Study tier - base is faster, small is more accurate. Decide on first real job.",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Whisper",
+   "proposed_action": "The 2026-05-26 gotcha on the same page says 'Decided the standing open question': base for clean TTS round trips, small for accented or low-SNR, large-v3 for Piece. Delete the question; make the Study tier line say it."
+  },
+  {
+   "entry": "Whisper",
+   "question": "whisperx vs. native Whisper word timing - when does the Maker route to it?",
+   "verdict": "progressed",
+   "by_entry": "Maker",
+   "proposed_action": "Maker's Narrated Beats recipe (2026-05-30) ran native Whisper into Manim and needed fuzzy cue matching (SequenceMatcher >= 0.78), not tighter timing. Native timing was enough there; whisperx stays for dense or reverberant speech. Record that."
+  },
+  {
+   "entry": "Whisper",
+   "question": "Diarization model choice (pyannote 3.1 vs older).",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Nothing in the palace needs diarization yet. Leave it."
+  },
+  {
+   "entry": "Whisper",
+   "question": "Should low-confidence segments be auto-flagged at Piece tier (suggested < 0.7)?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Narrated Beats gated on monotonic times and cue words, not confidence. Loudon Live Post-producer is the first caller that would want the flag; decide there."
+  },
+  {
+   "entry": "Matplotlib",
+   "question": "Default style sheet for the palace - declare a palace.mplstyle? 'Yes; defer to first real job'.",
+   "verdict": "should-act",
+   "by_entry": "Maker",
+   "proposed_action": "Maker § Articulated Cascade Layer 0 says to build the skin wrapper before the second styled job, and the Plot wrapper (palace-plot-defaults.js) is the proven case. Matplotlib has had two (the fallback, and a Style Probe that is 'degenerate until a house-defaults wrapper exists'). LaTeX's palace.sty question is the same wrapper from the same palaceTokens() source; do both together when either has a job."
+  },
+  {
+   "entry": "Matplotlib",
+   "question": "text.usetex=True requires a working LaTeX - worth declaring the dependency once?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "LaTeX",
+   "proposed_action": "LaTeX Strengths ('my TeX Live tree is what Matplotlib's text.usetex and Manim's MathTex both depend on') and Maker's LaTeX heuristic declare it. Strike."
+  },
+  {
+   "entry": "Matplotlib",
+   "question": "Matplotlib vs. Plotly routing: Plotly when interactivity is on the table.",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Maker",
+   "proposed_action": "Maker routes browser charts to Observable Plot and D3.js; there is no Plotly page. Reword to Observable Plot/D3.js or strike."
+  },
+  {
+   "entry": "LaTeX",
+   "question": "A palace.sty shared preamble (fontspec stack, six-skin palette as xcolor, microtype defaults).",
+   "verdict": "still-open",
+   "by_entry": "Matplotlib",
+   "proposed_action": "Defer to first real job, as written; but pair it with Matplotlib's palace.mplstyle: one token source, two wrappers."
+  },
+  {
+   "entry": "LaTeX",
+   "question": "Should the TEXPSHEADERS export live in a shared shim? (struck through, resolved 2026-06-09)",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Maker",
+   "proposed_action": "Shop/Maker/tex-env.sh holds it. Delete the struck question and keep the sub-question ('move to _ops if a non-Shop caller needs it') as one live line."
+  },
+  {
+   "entry": "LaTeX",
+   "question": "beamer vs. Remotion vs. an HTML deck for Loudon Live slides.",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Needs a slide brief. Leave."
+  },
+  {
+   "entry": "RNBO codebox~ smith",
+   "question": "Default export targets per project; when does a Piece warrant VST3+AU?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "No job in five months. The VST Template (Loudon, 2026-10-17) now gives a JUCE route to VST3/AU from a numpy sketch, which competes with this charter's 'everything that compiles to M4L, VST3, AU'. Ask Loudon whether RNBO is still the route he wants for plugins."
+  },
+  {
+   "entry": "RNBO codebox~ smith",
+   "question": "Web audio export as a route to claude.ai artifact deployment.",
+   "verdict": "still-open",
+   "by_entry": "Maker",
+   "proposed_action": "Maker already flags the web-export path as 'unproven ... flag it for a test before committing a Piece'. Two pages hold the same open claim; keep it on the stub, point Maker at it."
+  },
+  {
+   "entry": "RNBO codebox~ smith",
+   "question": "Coupling with Generative Audio Devices: be ready to consume PDL when the pipeline lands.",
+   "verdict": "progressed",
+   "by_entry": "VCV Patch Generator",
+   "proposed_action": "PDL now exists and is parsed, archetyped and audited (VCV Patch Generator, registry v2.4, T6 prompt in its bundle). The RNBO consumer side is the next stage; the question can say that."
+  },
+  {
+   "entry": "RNBO codebox~ smith",
+   "question": "Relationship between the rnbo-codebox skill and this Specialist.",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "The stub header already states it (skill is the practice, Specialist the wrapper). Fold the question into that sentence and delete it."
+  },
+  {
+   "entry": "p5.js",
+   "question": "Single HTML files or Vite/esbuild projects with bundled dependencies?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Maker",
+   "proposed_action": "Maker House Standards: a web piece declares its needs in its own head and loads libraries from the shelf at an exact version with a hash; that is single-file by rule. Strike, and add the 'declares in head; conform.mjs names no error' line to p5.js's Self-Check (it is missing here and on Three.js)."
+  },
+  {
+   "entry": "p5.js",
+   "question": "p5.sound vs Tone.js for audio-driven sketches.",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Maker",
+   "proposed_action": "Maker: incidental audio decoration is p5.sound inside the sketch; instruments are Tone.js. Strike."
+  },
+  {
+   "entry": "p5.js",
+   "question": "Processing (Java): threshold for adopting as a separate Specialist.",
+   "verdict": "answered-elsewhere",
+   "by_entry": "p5.js",
+   "proposed_action": "The page's own header already says it adopts a Processing variant rather than spawning a Specialist. Delete the question."
+  },
+  {
+   "entry": "Three.js",
+   "question": "Raw Three.js vs R3F as the default.",
+   "verdict": "progressed",
+   "by_entry": "Maker",
+   "proposed_action": "Maker's heuristic fixes it: R3F + drei default, raw r128 for a single-file artifact. Keep only the '~6 bound controls' threshold as the open part."
+  },
+  {
+   "entry": "Three.js",
+   "question": "Handoff shape between an AudioWorklet and the render loop (SharedArrayBuffer vs postMessage snapshots).",
+   "verdict": "progressed",
+   "by_entry": "Waveguide Synthesizer",
+   "proposed_action": "The project page designs it: the worklet downsamples the delay line to ~100-200 points and ships it by SharedArrayBuffer or postMessage; Study uses postMessage. A design, not yet a job; say so and point there."
+  },
+  {
+   "entry": "Three.js",
+   "question": "InstancedMesh vs a GPU compute path r128 can't reach for 3D particle interfaces.",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Needs a particle brief. Leave."
+  },
+  {
+   "entry": "VCV Patch Generator",
+   "question": "Forward Vector (1): close the audition - load the three archetypes on a Mac and write the gotcha that surfaces.",
+   "verdict": "progressed",
+   "by_entry": "Generative Audio Devices",
+   "proposed_action": "The page's own Gotchas are dated '(2026-05-29, audition)' and record what the Rack audition found; Generative Audio Devices says T7c was 'driven by Loudon's first Rack audition'. The page still calls the audition the one open step. Say what was heard, and keep the standing seam (structure, not sound) as the Charter line it is."
+  },
+  {
+   "entry": "VCV Patch Generator",
+   "question": "Audition automation - a headless Rack render path.",
+   "verdict": "still-open",
+   "by_entry": "Ableton Session Writer",
+   "proposed_action": "Ableton Session Writer reached the same seam from the other side and kept it human on purpose (both exemplify Audition Gate). Leave open; the threshold stays 'when audition becomes the bottleneck'."
+  },
+  {
+   "entry": "VCV Patch Generator",
+   "question": "Registry expansion priorities after Fundamental + Core.",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "The noise module blocks the hat and noise_hit archetypes; that is the concrete next step. Leave."
+  },
+  {
+   "entry": "OBS",
+   "question": "medium: motion or plumbing?",
+   "verdict": "still-open",
+   "by_entry": "LDN RTM",
+   "proposed_action": "LDN RTM drives OBS with rtm.py as its recording rig; that job is the settling evidence and has not been drawn on yet. Let the next LDN RTM run decide."
+  },
+  {
+   "entry": "OBS",
+   "question": "Second independent pressure on the Producer-layer seam, with Maker.",
+   "verdict": "progressed",
+   "by_entry": "Maker",
+   "proposed_action": "Maker's Open Question now counts three pressures (itself, OBS, Loudon Live Post-producer) and says 'it wants its own session'. Nothing to do on this page."
+  },
+  {
+   "entry": "OBS",
+   "question": "The streaming half is documented, not tested.",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Honest as written (Gotchas says so). Stays until a real broadcast."
+  },
+  {
+   "entry": "Hero and Avatar Maker",
+   "question": "Should this maker be a permanent autonomous steward, or stay a fire-on-request line?",
+   "verdict": "progressed",
+   "by_entry": "Weave Ceremony",
+   "proposed_action": "Scope says the Weave's face audit lists entries without a face and 'they reach me as a gated batch'; 316 of 316 wear one. That is a third answer: neither steward nor request line but a gate the Weave opens. Reword."
+  },
+  {
+   "entry": "Hero and Avatar Maker",
+   "question": "Should avatars also share a faint technical envelope so they read as a set?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Taste call; with 316 icons made it can be judged by looking at the PULSE list. Ask Loudon."
+  },
+  {
+   "entry": "Hero and Avatar Maker",
+   "question": "Forward Vectors: 'Next: a small live-render verification, and surfacing the door's existence in the companion's empty-state hint.'",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "Both are small and have waited since the door shipped. Offer them as the two next moves, or drop."
+  },
+  {
+   "entry": "Shopkeeper",
+   "question": "Where does my log live - a bundle companion holding what I scanned, tried and composted?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Shopkeeper",
+   "proposed_action": "Shopkeeper/Archive/sweep-latest.md, probes/ and the scroll's The making are that log. Strike and say where."
+  },
+  {
+   "entry": "Shopkeeper",
+   "question": "How do I keep the maintenance half from being crowded out by discovery?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Shopkeeper",
+   "proposed_action": "The scroll's Standing Orders say it: 'Most runs find nothing worth bringing ... spend the run on repair'. Strike."
+  },
+  {
+   "entry": "Shopkeeper",
+   "question": "With every change waiting in the ledger for Loudon's review, does my bar stay my own?",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "The page names 'my tuning ledger' and no `Shopkeeper — tuning.md` exists, so the question cannot yet be tested. Create the ledger first."
+  },
+  {
+   "entry": "Shopkeeper",
+   "question": "Is every-other-morning the right interval for discovery?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Wants runs to judge by; the ledger would hold them."
+  },
+  {
+   "entry": "Maker",
+   "question": "Roster grows past ~15 specialists: Selection Heuristics gets unwieldy; threshold for splitting into per-medium Designer entries?",
+   "verdict": "should-act",
+   "by_entry": "The Shop",
+   "proposed_action": "The roster is 31. The section did not split and mostly holds; its real failure is omission (four Specialists unrouted). Add the routes; do not split."
+  },
+  {
+   "entry": "Maker",
+   "question": "At what point does Selection Heuristics want to be its own entry (Shop/House Taste.md)?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Bias is against a new page: the section is about 45 lines. Revisit only if the four missing routes push it past a screen and a half."
+  },
+  {
+   "entry": "Maker",
+   "question": "Should the Maker have memory of recent jobs across sessions, or restart from the recipes?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "SCHEMA — Reference",
+   "proposed_action": "The tuning ledger (SCHEMA — Reference §6) is exactly 'what every run reads first'; Maker has none. Give Maker a ledger and a Context rather than a longer Recipes section."
+  },
+  {
+   "entry": "Maker",
+   "question": "Producer layer for cross-medium, multi-day briefs.",
+   "verdict": "still-open",
+   "by_entry": "OBS",
+   "proposed_action": "Already annotated with three pressures; the page itself says it wants its own session. Not a page edit."
+  },
+  {
+   "entry": "Figure Rig",
+   "question": "A cheaper redraw than ~25 minutes on my own Mac.",
+   "verdict": "answered-elsewhere",
+   "by_entry": "RunPod GPU Backend",
+   "proposed_action": "The page's own Honest limits says 'the RunPod backend is the faster path for volume' and the 8x3 and face-and-hands matrices ran there. Remove it from the vector's 'next' list."
+  },
+  {
+   "entry": "Figure Rig",
+   "question": "Hands (finger keypoints, draw_handpose).",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Figure Rig",
+   "proposed_action": "Shipped 2026-06-30 per its own Forward Vectors; the frontmatter vector and Honest limits still say 'next'. Fix those two."
+  },
+  {
+   "entry": "Figure Rig",
+   "question": "Promote the studio and the examples batch into a Shop recipe so Frame Designer can dispatch 'stage N people in M styles'.",
+   "verdict": "should-act",
+   "by_entry": "Frame Designer",
+   "proposed_action": "Frame Designer already links Figure Rig as its staging method (both directions). The recipe is the missing half; the page lists it last of seven. Offer it as the next small move."
+  },
+  {
+   "entry": "Figure Rig",
+   "question": "Many people: regional conditioning bound to color-ID regions (the open ComfyUI-node question).",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "The biggest open item on the page and the one that would make a ComfyUI Recipe worth writing."
+  },
+  {
+   "entry": "Blender",
+   "question": "Owed: the offline Cycles Piece render and the geometry-nodes math-world path (HTML comment and vector).",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "No page I read exercises either (Remnants in Depth, Hand-Drawn 3D Look and the Block It runbook are Freestyle/EEVEE line-art work). Keep the vector; delete the HTML comment that restates it."
+  },
+  {
+   "entry": "RunPod GPU Backend",
+   "question": "Untested horizon: more ControlNet modes - depth/canny/tile for 'img2img done right'.",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Figure Rig",
+   "proposed_action": "Figure Rig's D2 redraw and its guide ablation (canny + depth + openpose) ran on RunPod. Strike."
+  },
+  {
+   "entry": "RunPod GPU Backend",
+   "question": "Untested horizon: LoRAs / fine-tunes loaded on a pod.",
+   "verdict": "answered-elsewhere",
+   "by_entry": "LoRA Trainer",
+   "proposed_action": "RunPod already links LoRA Trainer enables[trains-on]. Strike."
+  },
+  {
+   "entry": "RunPod GPU Backend",
+   "question": "Untested horizon: the Image-to-3D Specialist (Hunyuan3D-2 / TRELLIS) now has a real GPU.",
+   "verdict": "progressed",
+   "by_entry": "Image-to-3D Smith",
+   "proposed_action": "Exists as a stub (Shopkeeper-approved 2026-09-25, first job the Blender import test). Point at it."
+  },
+  {
+   "entry": "RunPod GPU Backend",
+   "question": "Untested horizon: temporal coherence (AnimateDiff, WAN 2.2, LTX), identity lock, RIFE.",
+   "verdict": "still-open",
+   "by_entry": "Shopkeeper",
+   "proposed_action": "Shopkeeper's standing order: 'Viggle and the rest of the video lane - parked until a real brief asks for motion.' Same wait. The page's own vector ('walk-cycle ... move smoothly') stays."
+  },
+  {
+   "entry": "LoRA Trainer",
+   "question": "Answer the SDXL->FLUX base-swap question on a good dataset.",
+   "verdict": "still-open",
+   "by_entry": "BLUELINE — Production Plan",
+   "proposed_action": "Waits on a dataset-shaping front half; unchanged."
+  },
+  {
+   "entry": "LoRA Trainer",
+   "question": "Earn or shed the second tool (kohya Study tier vs ai-toolkit Piece tier).",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "No fair-dataset run yet. Leave."
+  },
+  {
+   "entry": "Ableton Session Writer",
+   "question": "Known gap: the library Set (Tear and Heal) is still unheard; the next first job.",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "The only thing the page waits on, and it is Loudon's ear. Offer it once in the next conversation about it, not in the page four times."
+  },
+  {
+   "entry": "Ableton Session Writer",
+   "question": "Known gap: a recipe for library clips, as the plugin job has.",
+   "verdict": "still-open",
+   "by_entry": "Generative Sample Libraries",
+   "proposed_action": "The Splice Instrument Forge already builds its own Sets and found the gain bug; whether the library path wants a recipe or the forge's builders are the answer is for those pages to say."
+  }
+ ],
+ "merge_candidates": [
+  {
+   "absorb": "RunPod GPU Backend § The FLUX + ControlNet pose-locked restyle workflow (and its trailing HTML comment)",
+   "into": "ComfyUI",
+   "survives_as_subsection": "ComfyUI § Recipes — 'Pose-locked restyle on a pod (FLUX, union ControlNet, OpenPose skeleton, strength ~0.75)'. RunPod keeps one sentence and the pointer.",
+   "rationale": "RunPod calls itself 'not a tool that makes things', yet this section is a making recipe: a workflow, its failure mode (img2img can't hold pose and restyle together) and its fix. It is the ControlNet exercise ComfyUI claims never happened, and ComfyUI's Recipes hold one entry. Moving it takes about 20 lines off a 16 KB infrastructure page and gives the specialist the recipe it lacks. The page's own comment ('strong enough to be its own [[breakthrough]] entry someday') would then be the honest next step if Loudon wants it."
+  },
+  {
+   "absorb": "Maker § Recipes — the 2026-05-30 Narrated Beats, 2026-06-19 Unsung Path and 2026-05-30 Shop-header paragraphs",
+   "into": "Maker/coordination-demos and Maker/comparisons (already in the bundle)",
+   "survives_as_subsection": "Maker § Recipes keeps three lines per recipe: what the brief was, the lesson that generalises, and the bundle path.",
+   "rationale": "Maker is 50 KB, about three times the next-largest page in the family. These three paragraphs run to roughly 4 KB and repeat what the bundle folders hold; the lessons that matter (gate in two layers; use the audio file's duration, not Whisper's last word; a half-comparison is still worth running) fit in a sentence each."
+  }
+ ],
+ "compost_candidates": [],
+ "memory_needs": [
+  {
+   "entry": "Maker",
+   "needs": "context",
+   "why": "At 50 KB the shape needs explaining and nothing does: why the foreman is singular and the heuristics live inside him, what the generated roster replaced, and which long forms moved to bundle folders. The next worker edits this page without knowing what was tried.",
+   "context_bullets": [
+    "Why Selection Heuristics sit in Maker and not in a House Taste entry (the open question) and the threshold at which that changes; the 2026-05-30 retirement of 'default to ComfyUI when in doubt' and why.",
+    "What moved out: the roster to The Shop's generated block (build-roster.mjs), recipes' full forms to coordination-demos/ and comparisons/, promotion history to git; and why the page is allowed to stay long.",
+    "Lost branches carried here for the whole Shop: plural Designers, a Shop.md hub, Midjourney. Plus the tuning ledger Maker lacks (the answer to its own 'memory across sessions' question)."
+   ]
+  },
+  {
+   "entry": "Figure Rig",
+   "needs": "context",
+   "why": "The page is a changelog of a rebuild. The next worker needs the reasons for the shape (two posing surfaces, two bone maps) and what was tried and dropped, which the page now states only as 'the force-fit era is over'.",
+   "context_bullets": [
+    "Why OpenPose is drawn by the real draw_bodypose from comfyui_controlnet_aux and never as 3D spheres or an approximation: the model was trained on the flat 2D drawing, so pixel-identity is the point.",
+    "Why two posing surfaces share a body source but not a rig (default rig for scripts, Rigify game_engine rig for hand-posing), why their bone maps are kept separately, and what unifying them would take.",
+    "What was tried and dropped: a foreign mesh force-fit onto a hand-built rig, proximity-weight binding, a wooden-mannequin mesh, the v2/mesh/pose_rig.py scripts. Pointer to git for each."
+   ]
+  },
+  {
+   "entry": "Figure Rig",
+   "needs": "scroll",
+   "why": "Its Forward Vectors section is already a plan in progress (hands shipped, faces next, many people next, pose library, vendoring the draw) with proofs HTML files behind each; that is a scroll's Plan and The making. Loudon cannot see the plan without reading a 12 KB entry.",
+   "context_bullets": [
+    "Plan: face landmark map, hands+objects A/B proof, the many-people ladder (separated to crowd), vendor the OpenPose draw, a pose library.",
+    "The making, newest first: the 120/120 face-and-hands matrix, the guide ablation, the hands rig, the Rigify studio, the MPFB2 rebuild, each with its proofs HTML.",
+    "Now: what is built and what is pending proof (the hands+objects gen A/B)."
+   ]
+  },
+  {
+   "entry": "RunPod GPU Backend",
+   "needs": "context",
+   "why": "The playbook is ordered by incident, not by task, and a worker cannot tell which rules are RunPod facts and which are palace policy (the namespacing rule belongs to assume multi-agent and the Commons). It is also a concept in a folder of Specialists, which a new reader will not understand.",
+   "context_bullets": [
+    "Why it is a concept, not a Specialist: it is the substrate under the Specialists and has no Job Contract; The Shop's Roster counts only Specialists.",
+    "Which rules are RunPod's (CUDA >= 12.6, the browser user-agent, create-can-leak, the readiness timeout) and which are palace policy that lives elsewhere (per-agent slugs: assume multi-agent; reaping: the Commons).",
+    "Tried and dropped: img2img for pose-held restyle (pixel diffs showed the era prompts expressed nothing), single-GPU-type endpoints, flashboot on 35 GB images, writing checkpoints straight to the network volume."
+   ]
+  },
+  {
+   "entry": "OBS",
+   "needs": "context",
+   "why": "The page is defined by what it refuses (files, tiers, trusting itself), and the reasons are folded into the Charter as self-explanation. A Context would let the Charter be plain.",
+   "context_bullets": [
+    "The three failures in one afternoon (2026-09-02) that made the socket the only door: the _rel keys, the bounds_rel half-height unit, the profile Name= in basic.ini.",
+    "Why Tiers are N/A and the Operating Contract replaces the Job Contract: one take, one audience; the Sketch/Study/Piece triplet needs something re-runnable.",
+    "What is read-from-protocol and not yet learned (the whole streaming half), so a future worker knows which claims to distrust first."
+   ]
+  },
+  {
+   "entry": "Ableton Session Writer",
+   "needs": "tuning",
+   "why": "It runs once per consumer session (plugins, libraries, the Splice forge), it has already been taught by a session that was not its own (2026-10-24: fader and clip-gain defaults, 'fixed only in the forge's builders, not in the writer'), and its last-run facts and gotchas are scattered across a Test suite paragraph, Known gaps and eight dated bullets. That is a ledger's job, and the writer is new enough to start with one.",
+   "context_bullets": [
+    "One run line per Set written or proved (Simple Synth, Frustration, Tear and Heal, the forge's Sets), with 'taught item N' where a gotcha came out.",
+    "Item 1: the -12 dB fader and +3.1 dB clip gain in the cloned shells, with the version of live-set.mjs that fixes them when it does.",
+    "Item 2: the heard-it record the vector asks for ('learn, from how he plays what I hand him, which rides are worth drawing'): what Loudon did with each Set."
+   ]
+  },
+  {
+   "entry": "Ableton Session Writer",
+   "needs": "context",
+   "why": "The page is shaped as a contract copy living away from its tool, with choices (lanes, Sampler, VST3, one Live) that are stated but not explained; none of it is written down except in a probe folder.",
+   "context_bullets": [
+    "Where the tool lives (Shopkeeper probes) and the condition for moving it; the INTERFACE.md copy is the consumer sessions' and the page holds the same contract.",
+    "Why automation lanes and not macros, Sampler and not Drum Rack, VST3 and not AU, Live 12.4.6 only: each is a stated choice or a not-yet-built, not an oversight.",
+    "The GoButton lineage (clone elements Live itself wrote; renumber pointee ids; never overwrite) and the commit it was read at, so the craft can be re-read at source."
+   ]
+  },
+  {
+   "entry": "Shopkeeper",
+   "needs": "tuning",
+   "why": "The page names 'my tuning ledger' three times (proposals wait there, Loudon's review is read from there, the 'no' comes back through it) and the bundle has Archive, drafts, probes and the scroll, but no ledger. Shopkeeper is the one page here that runs on a cadence, so this is the largest memory gap in the room. It also leaves two of its own Open Questions untestable.",
+   "context_bullets": [
+    "One run line per sweep (nothing / probe / dossier), 'taught item N' when a Loudon 'no' or a stale-status catch changed the bar.",
+    "Items grouped by run date; the first should be the 2026-09-25 decisions already in the scroll (Image-to-3D approved as a stub; Viggle parked; Qwen-Image tried with ComfyUI).",
+    "A proposed_edits queue that survives a run: the host-capability gap for Depth Anything / Figure Rig / OBS is the first entry."
+   ]
+  },
+  {
+   "entry": "Hero and Avatar Maker",
+   "needs": "context",
+   "why": "The tuning ledger already holds what batches taught. What the page left out is the why behind its odd shape: no review before placing, an even gender mix recalibrated once, a one-shot commit with undo. These are dated Loudon decisions the page now carries as in-line history.",
+   "context_bullets": [
+    "The 2026-06-23/24 gender directive and its recalibration (lean female, then an even mix), moved out of Art direction so the page states only the standing rule.",
+    "Why uniformity lets it run unreviewed (one hero, one avatar) and why that is deliberately the opposite of Enrichment.",
+    "Superseded tooling: batch.py / batch_hubs.py in _ops/scratch/hero-icon-proving, and the branch the display side shipped on, as pointers into git."
+   ]
+  },
+  {
+   "entry": "Kokoro",
+   "needs": "tuning",
+   "why": "Kokoro is the most-dispatched Specialist in the room (Narrated Beats, Radio Play, the Kuramoto arc) and its gotchas and last-run dates sit in the body in three places. Its run lines would replace `last_tested`/`last_gotcha` and the 'Last run' paragraph; Whisper and ComfyUI are the same case, in that order.",
+   "context_bullets": [
+    "Run lines for the dispatches that already happened, from git, so the ledger starts with a past rather than empty.",
+    "The determinism finding (not byte-deterministic, so the reproducibility artifact is text + voice + version + LUFS target) as item 1.",
+    "Voice-catalog drift as the standing check-before-first-job item."
+   ]
+  },
+  {
+   "entry": "LoRA Trainer",
+   "needs": "tuning",
+   "why": "The page's value is six gotchas learned in one costly session plus a verdict recipe that has run on r4ng3r and a DreamBooth corgi. The next run must read what the last taught before it spins a pod.",
+   "context_bullets": [
+    "One run line per training run with its grade (DINO, ArcFace, CLIP-T) and whether the DreamBooth control ran.",
+    "The six walls as items 1-6, with the recipe version each produced.",
+    "Whether the pod was reaped, as a standing checkbox in the line."
+   ]
+  }
+ ],
+ "lighter_prose": [
+  {
+   "entry": "Ableton Session Writer",
+   "where": "opening paragraph",
+   "passage": "**Status: ALIVE** — marked alive on 2026-10-21 on Loudon's yes (\"Yes, mark the Ableton Session Writer alive now that its first job is done\"); drafted 2026-10-21 in the Shopkeeper's workshop by the ableton-session session of the 2026-10-20 fan-out, from one probe (`Shop/Shopkeeper/probes/2026-10-20-ableton-session/`).",
+   "proposal": "simplify",
+   "words": "Alive since 2026-10-21, on Loudon's yes after the first job. Drafted in the Shopkeeper's workshop from one probe (Shop/Shopkeeper/probes/2026-10-20-ableton-session/). The paragraph then ends at the commissioning quote."
+  },
+  {
+   "entry": "Ableton Session Writer",
+   "where": "Capabilities table, Known gaps, Test suite, First job",
+   "passage": "Loudon opened it unchanged in his own Live 12 (a fresh launch; Live's log: \"Restored: Frustration\" at 07:43:18 on 2026-10-21), played the ride, and said \"looks great and is working great!\" ",
+   "proposal": "simplify",
+   "words": "The same sentence appears four times. Keep it once, under First job. Elsewhere: 'heard by Loudon, 2026-10-21 (see First job)'. The evidence cell in the Capabilities table can end at '(1847b68c)'."
+  },
+  {
+   "entry": "Ableton Session Writer",
+   "where": "Job Contract",
+   "passage": "The contract in full, as the probe's `INTERFACE.md` wrote it on 2026-10-20; the consumer sessions' copy stays beside the tool until the tool moves.",
+   "proposal": "simplify",
+   "words": "Two copies of one contract drift. Say which is the source and have the other point at it."
+  },
+  {
+   "entry": "Hero and Avatar Maker",
+   "where": "Art direction",
+   "passage": "*(History: a first directive this day pushed \"embed women heavily / lean female\"; after Wave 2 read too female-focused, Loudon recalibrated to an even mix — balance, not female-dominance.)*",
+   "proposal": "delete",
+   "words": "The standing rule is stated in the sentences before it. The two-step history is in the git log and goes to a Context."
+  },
+  {
+   "entry": "Hero and Avatar Maker",
+   "where": "The pipeline",
+   "passage": "A redo can be one-sided: `make_faces.py place` puts in only the sides the spec gives a prompt and that were rendered, and leaves the other side's file, prompt and seed alone — a stray render from an old batch is reported, never placed. `generate` keeps each render's seed beside it ... a render changed since (a trim, a composite) gets no seed rather than a wrong one.",
+   "proposal": "simplify",
+   "words": "'A redo can be one-sided, and each render keeps its seed beside it.' The detail lives in make_faces.py and the tuning ledger."
+  },
+  {
+   "entry": "Hero and Avatar Maker",
+   "where": "The pipeline (end)",
+   "passage": "The STIGMERGY display side shipped on branch `feature/stigmergy-entry-avatars`. ... *(The older project-only scripts in `_ops/scratch/hero-icon-proving/` — `batch.py`/`batch_hubs.py` — are superseded by `make_faces.py`.)*",
+   "proposal": "delete",
+   "words": "Branch name and superseded scripts are in git."
+  },
+  {
+   "entry": "Hero and Avatar Maker",
+   "where": "Forward Vectors",
+   "passage": "~~Build the companion `/hero` door~~ — *shipped 2026-06-25* as the conversational regen door ... ~~Bring the whole canon to a face~~ — *done 2026-10-14*: 316 of 316 canon entries wear a hero and an icon.",
+   "proposal": "delete",
+   "words": "Struck items are history. Keep the live ones (autonomous distiller, my own face, the small verification and the empty-state hint)."
+  },
+  {
+   "entry": "OBS",
+   "where": "Tiers and Operating Contract",
+   "passage": "This is the first place I break [[The Shop]]'s model, and marking it is more useful than pretending a tier applies. ... *(Replaces the Job Contract, which assumes a deliverable existing after and apart from the human. Mine exists only because someone was performing while I ran. This is the second place I break the model.)*",
+   "proposal": "simplify",
+   "words": "'Tiers: N/A. Nothing I produce can be re-run.' 'Operating Contract (in place of a Job Contract, because there is no deliverable apart from the human).' Drop the ordinal count of ways it breaks the model."
+  },
+  {
+   "entry": "RunPod GPU Backend",
+   "where": "Origin",
+   "passage": "Began as a plain \"assess RunPod\" question and became a full build: serverless provisioning and its failure cascade, an SDXL image run (38 images), the SDXL→FLUX sophistication jump, the img2img movie that failed honestly, and a pod running FLUX + ControlNet that did the walk-cycle-through-eras right.",
+   "proposal": "delete",
+   "words": "The git log and the proofs/ folder hold it."
+  },
+  {
+   "entry": "RunPod GPU Backend",
+   "where": "Operational playbook (shared account)",
+   "passage": "on 2026-07-02 a full day looked like a RunPod outage — ~10 pods booted `RUNNING` but ComfyUI never came up. Real cause: a *second* Claude on the same account. Every orchestrator was single-tenant — one shared pod name ...",
+   "proposal": "simplify",
+   "words": "'The account is shared, so name every pod by agent and scope every sweep to your own namespace: `_ops/runpod/agent_ns.py`, proof in `test_multi_agent.py`. Why: [[assume multi-agent]].' The incident belongs to that entry."
+  },
+  {
+   "entry": "RunPod GPU Backend",
+   "where": "Operational playbook (interrupted orchestrator)",
+   "passage": "This bit us live: a torn-down run left pod `x1izjb30p8jwrt` (and a sibling) running until I swept the API.",
+   "proposal": "delete",
+   "words": "The rule that follows ('list pods, terminate your own') carries the lesson. The pod id is history."
+  },
+  {
+   "entry": "Figure Rig",
+   "where": "The real-human figure section",
+   "passage": "The four defects flagged in the prior version are fixed at the root, by generating the body and its skeleton **together** with MPFB2's own pipeline instead of force-fitting a foreign mesh onto a hand-built rig:",
+   "proposal": "simplify",
+   "words": "'The body and its skeleton are generated together by MPFB2's own pipeline:' and let the four bullets stand. Retitle the heading '✓ The real-human figure is solved — and now it has IK (rebuilt 2026-06-30)' to the thing it describes."
+  },
+  {
+   "entry": "Figure Rig",
+   "where": "Forward Vectors (end) and Tools",
+   "passage": "*(Closed: head-bone-derived facing (2026-06-26); a real wooden-mannequin mesh (2026-06-26); the **real MPFB2 human with separated legs** ... — the force-fit era is over.)* ... *(Legacy, superseded: `pose_rig_mpfb_v2.py` / `pose_rig_mesh.py` / `pose_rig.py` — the force-fit + mannequin era.)*",
+   "proposal": "delete",
+   "words": "Closed items and superseded scripts: the page says what is, git says what was."
+  },
+  {
+   "entry": "Maker",
+   "where": "Roster",
+   "passage": "**Promotion log** — how each alive Specialist earned its status (append-only history; the live count is in the generated table):",
+   "proposal": "delete",
+   "words": "Eight dated bullets that the Specialists' own Recipes and the git log already hold, and which stop at LoRA Trainer (Depth Anything, Figure Rig, OBS, Ableton and the rest are not in it). Delete the log; keep the one-sentence rule 'alive only when Recipes names a real dated job'."
+  },
+  {
+   "entry": "Maker",
+   "where": "Roster (Drift note)",
+   "passage": "The three-place inconsistency this section once carried (frontmatter vs. an alive-list vs. a stub-list) is gone: one source, and one block computed from it.",
+   "proposal": "delete",
+   "words": "Describes a state that no longer exists. The 'Still stub' and 'Deprecated' paragraphs also repeat the generated table and already lag it (AuK, CAD Drafter and Image-to-3D Smith are stubs too)."
+  },
+  {
+   "entry": "Maker",
+   "where": "Forward Vector (body)",
+   "passage": "First job: a Sketch-tier deliverable through Kokoro to verify the template, the Tier vocabulary, and the standards-report shape are coherent in practice.",
+   "proposal": "delete",
+   "words": "Done in May. The live vector is in the frontmatter."
+  },
+  {
+   "entry": "Kokoro",
+   "where": "Gotchas",
+   "passage": "**2026-05-10 — The Specialist's documented voice IDs were wrong.** Entry pre-2026-05-10 said `voice=af_default` for Sketch tier and `voice=af_bella` for Study. The published Kokoro voice catalog (as of `kokoro` 0.9.4) does not include `af_default`.",
+   "proposal": "simplify",
+   "words": "'Voice IDs: `af_heart` (Sketch default), `af_bella`, `af_nicole`. There is no `af_default`.' The 2026-05-10 'Job Contract implies a CLI' and 'sample rate is 24 kHz, not configurable below' gotchas are the same kind: they correct earlier versions of this page, which git holds; keep the fact, drop the correction."
+  },
+  {
+   "entry": "ComfyUI",
+   "where": "Gotchas",
+   "passage": "**2026-05-26 — Host-capability check (resolved).** The earlier 2026-05-26 host-capability gotcha is now resolved — the install steps are above ... The first Track-A job that would have exercised this Specialist ... bounced at the host-capability-check step. ... Marking the Specialist as awaiting install rather than dispatching anyway.",
+   "proposal": "delete",
+   "words": "The install path is in the entry above it and the bounce is history. If one line stays: 'Install cost is real: a venv with torch and one checkpoint (SDXL ~7 GB, Flux Dev ~24 GB).'"
+  },
+  {
+   "entry": "Blender",
+   "where": "closing HTML comment",
+   "passage": "<!-- CLAUDE → LOUDON: promoted stub → alive 2026-06-13 (Session 1 of the BLUELINE Claude Code job). Still owed: the offline Cycles render path (tier=piece) and the geometry-nodes math-world path have not been exercised yet ...",
+   "proposal": "delete",
+   "words": "The forward vector already says both are owed; the promotion is in git and in the Recipes date."
+  },
+  {
+   "entry": "Matplotlib",
+   "where": "Gotchas",
+   "passage": "**2026-05-10** — Job Contract path note: the Output section still says source archives \"alongside\" under the target entry's bundle. Current palace policy (Enrichment v1.5) is flat bundle root with descriptive filenames ... Same correction Manim CE's entry took.",
+   "proposal": "simplify",
+   "words": "Fix the Job Contract's Output line once and delete the note."
+  },
+  {
+   "entry": "LaTeX",
+   "where": "Open Questions",
+   "passage": "~~Should the `TEXPSHEADERS` export live in a shared shim that both this Specialist and Manim source ...~~ **Resolved 2026-06-09** — it lives in `Shop/Maker/tex-env.sh` ...",
+   "proposal": "simplify",
+   "words": "Keep the live sub-question ('move to _ops if a non-Shop caller ever needs it') as one line; the shim is already named in the Gotchas."
+  },
+  {
+   "entry": "VCV Patch Generator",
+   "where": "Open Questions",
+   "passage": "~~Coupling between this Specialist and the natural-language → PDL prompt (T6)~~ **Resolved 2026-05-29; moved 2026-09-26:** the prompt first stood as its own entry, and on Loudon's word it now lives in this bundle as [[VCV Patch Generator — spec — PDL generation prompt]] ...",
+   "proposal": "simplify",
+   "words": "'The natural-language to PDL prompt lives in this bundle: [[VCV Patch Generator — spec — PDL generation prompt]]; the Maker runs it and hands me a chosen PDL.' The 2026-06-16 and 2026-09-26 moves are in git."
+  },
+  {
+   "entry": "LoRA Trainer",
+   "where": "Recipe step 4",
+   "passage": "idle pods bleed money (a post-failure idle pod ate several dollars once).",
+   "proposal": "simplify",
+   "words": "'idle pods bill; terminate on completion.' (See the dollar-figures finding.)"
+  },
+  {
+   "entry": "Shopkeeper",
+   "where": "What I Scan",
+   "passage": "**The gaps the Maker already named** — Blender (offline/photoreal 3D), game engines, Plotly, Graphviz, an HTML/React Artifact Smith.",
+   "proposal": "simplify",
+   "words": "Blender has been alive since 2026-06-13; drop it from the list. The Relationship-to-the-Maker coda ('maybe a Shop wants both a foreman and a keeper') restates the frontmatter vector and The Shop's Current Bet; it can lose a sentence."
+  }
+ ],
+ "entry_health_flags": [
+  {
+   "entry": "Figure Rig",
+   "stage_current": "alive",
+   "stage_proposed": null,
+   "vector_issue": "The frontmatter vector is a past-tense changelog ('I stopped force-fitting ... My keepers ... rode the whole rebuild untouched') and names fingers as 'next' though they shipped 2026-06-30. Roughly 190 words.",
+   "note": "Flag only. Alive is right; the vector should say what is next in one breath (face landmark map, many people, a pose library)."
+  },
+  {
+   "entry": "Three.js",
+   "stage_current": "alive",
+   "stage_proposed": null,
+   "vector_issue": "Body Forward Vector and Test Suite both still read as a stub ('Landing it moves this entry stub → alive'; 'Last run: never (stub)'), though the Wavetable Scanner recipe promoted it 2026-05-31. The frontmatter vector is good except 'keep proving'.",
+   "note": "Stage is right; the body lags. Also several unlabeled or duplicate links (see coherence)."
+  },
+  {
+   "entry": "ComfyUI",
+   "stage_current": "alive",
+   "stage_proposed": null,
+   "vector_issue": "Vector ends 'finally exercise the ControlNet capability I have claimed since day one'; that happened 2026-06-13 through Blender.",
+   "note": "Flag only. The first-job body vector (FLUX side-by-side) is also stale: the one Recipe is the fireflies pond, and the FLUX comparison went to the Shop header."
+  },
+  {
+   "entry": "p5.js",
+   "stage_current": "alive",
+   "stage_proposed": null,
+   "vector_issue": "'I want to keep being the Shop's fastest path from concept to a thing that draws and responds' is a stasis verb on a state already true. The second clause, 'a sharper instinct for which sketches deserve to climb from Sketch to Piece', is the live one.",
+   "note": "Flag only."
+  },
+  {
+   "entry": "Shopkeeper",
+   "stage_current": "alive",
+   "stage_proposed": null,
+   "vector_issue": "The frontmatter vector is concrete (found and tried, not skimmed; the foreman-versus-keeper probe). The body's own '## Forward Vector' says 'Keep the loop honest now that it runs: one sweep a run, one dossier when something earns it, one quiet line when nothing does', which is stasis and a second, different vector.",
+   "note": "Drop the body vector or fold its cadence clause into the Cadence section; the frontmatter one stands."
+  },
+  {
+   "entry": "VCV Patch Generator",
+   "stage_current": "alive",
+   "stage_proposed": null,
+   "vector_issue": "Vector and body both say 'the audio audition stays the one human step I keep reaching toward closing' / 'close the audition', while the Gotchas record a Rack audition on 2026-05-29. The standing seam (structure, not sound) is true and should stay; the 'open' claim is not.",
+   "note": "Flag only."
+  },
+  {
+   "entry": "RNBO codebox~ smith",
+   "stage_current": "stub",
+   "stage_proposed": null,
+   "vector_issue": "Not generic ('hungry to smith my first device ... surface the export-target divergence gotchas'), but five months old with no job.",
+   "note": "Stub is honest. Because the VST Template (2026-10-17) now gives a JUCE route to VST3/AU and DSP Frameworks lists RNBO as one framework among several, ask Loudon whether he still wants this Specialist as his plugin path. I do not propose compost: Maker routes to it, and Tone.js and Web Audio Worklet name it as their DAW pair."
+  },
+  {
+   "entry": "LaTeX",
+   "stage_current": "stub",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Correct under the status taxonomy ('alive only when its Recipes names a real dated job'). The vector is specific and wants a real job (the fontspec / xelatex stack). Nothing to change."
+  },
+  {
+   "entry": "Maker",
+   "stage_current": "alive",
+   "stage_proposed": null,
+   "vector_issue": "'I keep proving I am a foreman, not a dispatcher, by running ever-harder coordinated pipelines until the template's flaws are all found and fixed' is stasis-shaped with no finish line; the second half (House Taste and the Producer layer) is the live part. The frontmatter also carries last_tested 2026-05-10 against a Test Suite that says 'Last run: never' and 'tests/test-plan.md (TODO)' with no tests/ folder, while run-tests.mjs and host-capability-check.test.js run.",
+   "note": "Flag only; the Test Suite paragraph should point at run-tests.mjs."
+  },
+  {
+   "entry": "Blender",
+   "stage_current": "alive",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Honest: alive on the conditioning job, two capabilities owed, said in the vector. A good model for the others."
+  },
+  {
+   "entry": "RunPod GPU Backend",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Stage fits. It is a concept that behaves as infrastructure; see its Context need."
+  }
+ ],
+ "typed_relations": [
+  {
+   "source": "Shopkeeper",
+   "target": "Ableton Session Writer",
+   "proposed_type": "spawned",
+   "proposed_label": "drafted-in-the-workshop",
+   "kind": "newcomer",
+   "rationale": "A newcomer with no Shop inbound and a real parent. The Shopkeeper's workshop drafted the Specialist from a probe it ran, under the commission rule 'what I make stays a probe; the brief's real work becomes the new Specialist's first job', and the tool still lives in the Shopkeeper's probe folder. spawned points forward. The same relation probably holds for CAD Drafter (probes/2026-10-20-cad) and AuK (probes/2026-09-12-auk), which sit outside this room and which I did not read.",
+   "evidence_source": "Shopkeeper.md § Charter: 'A commission is the one exception ... what I make stays a probe. The brief's real work becomes the new Specialist's first job'; § Candidate Dossier: 'I draft its Specialist entry in my bundle and propose it for canon'.",
+   "evidence_target": "Ableton Session Writer.md opening: 'drafted 2026-10-21 in the Shopkeeper's workshop by the ableton-session session of the 2026-10-20 fan-out, from one probe (Shop/Shopkeeper/probes/2026-10-20-ableton-session/)'; tool path in the Job Contract."
+  },
+  {
+   "source": "LoRA Trainer",
+   "target": "ComfyUI",
+   "proposed_type": "enables",
+   "proposed_label": "weights-for",
+   "kind": "new",
+   "rationale": "LoRA Trainer has one inbound (RunPod). ComfyUI's Capabilities list 'LoRAs for finetuned aesthetic' and its Open Question already says the LoRA effort is 'answered operationally by [[Shop/LoRA Trainer]]', a body link with no frontmatter edge. The trainer's output weight is what ComfyUI loads; its Self-Check line 1 is 'it loaded in the renderer without a key-format error'. A precondition, so enables, source to target.",
+   "evidence_source": "LoRA Trainer.md § Self-Check: '(1) it loaded in the renderer without a key-format error'; § Job Contract Out: '<name>.safetensors'.",
+   "evidence_target": "ComfyUI.md § Capabilities 'LoRAs for finetuned aesthetic, character, or concept control'; § Open Questions third bullet 'Answered operationally by [[Shop/LoRA Trainer]]'."
+  },
+  {
+   "source": "Blender",
+   "target": "Depth Anything",
+   "proposed_type": "mirrors",
+   "proposed_label": "true-vs-estimated-depth",
+   "kind": "new",
+   "rationale": "Depth Anything has one inbound. The two produce the same artifact, a depth plate for ControlNet, from opposite material: Blender reads it from geometry you own ('true geometry, cleaner than estimation'); Depth Anything estimates it from pixels when there is no geometry, even from line art. Which one a brief reaches for is a real routing decision and neither page names the other. Not forced: the choice recurs in every BLUELINE conditioning job.",
+   "evidence_source": "Blender.md Recipes: 'depth + normal come straight from Blender (true geometry, cleaner than estimation)'.",
+   "evidence_target": "Depth Anything.md Charter: 'Hand me a photo, a render, or even a flat ink drawing, and I tell you what's in front of what'; 'I run on the line art and still recover a correct front-to-back order'."
+  },
+  {
+   "source": "Three.js",
+   "target": "p5.js",
+   "proposed_type": "connects-to",
+   "proposed_label": "route-2d-vs-3d",
+   "kind": "retype",
+   "rationale": "couples-with[pairs-with] claims the two are always active together. Both Charters say the opposite: each refuses the other's work and routes it across, and the Waveguide Synthesizer page proposes them as Comparison Mode candidates (3D string versus 2D string). A named boundary, not a coupling.",
+   "evidence_source": "Three.js.md Charter: 'I refuse jobs that are really 2D dressed up in perspective — route those to p5.js or D3.js'.",
+   "evidence_target": "p5.js.md Charter: 'I refuse jobs that need ... real 3D engine work (Three.js).' Projects/Waveguide Synthesizer.md Open Questions: Comparison Mode, Three.js 3D vs. a p5.js 2D string."
+  },
+  {
+   "source": "Blender",
+   "target": "Blocked, Not Prompted",
+   "proposed_type": "exemplifies",
+   "proposed_label": "the-keystone",
+   "kind": "retype",
+   "rationale": "The link is a bare connects-to. The page says it is the instance: 'I am the keystone of blocked, not prompted', and the recipe 'made real' the idea against a prompt-only control. exemplifies points at its ground and carries the reason the bare edge leaves out. Figure Rig already exemplifies the same entry; this makes Blender's the foundational instance.",
+   "evidence_source": "Blender.md forward_vector: 'I am the keystone of blocked, not prompted'; Recipes: '[[Blocked, Not Prompted]] made real'.",
+   "evidence_target": "Figure Rig.md links: exemplifies[author-the-geometry]; Maker.md links: enables[conditions-the-fill]. Three Shop pages claim the idea; only Blender proved it first."
+  },
+  {
+   "source": "Figure Rig",
+   "target": "Blender",
+   "proposed_type": "deepens",
+   "proposed_label": "built-on",
+   "kind": "retype",
+   "rationale": "'Built-on' is a dependency, which connects-to says only as proximity. Figure Rig elaborates Blender's posed-scene-to-registered-passes move for one case, a figure with a weighted rig and a canonical OpenPose, and points back at it as ground. Moderate confidence: leave it if connects-to[built-on] reads right to Loudon.",
+   "evidence_source": "Figure Rig.md Charter: 'MPFB2's own human + MPFB2's own weighted rig → three aligned ControlNet plates from one camera'; frontmatter tool: blender.",
+   "evidence_target": "Blender.md Strengths: 'Posed scene → clean conditioning passes is the move the whole pipeline rests on.'"
+  }
+ ],
+ "summary": "The Shop family of nineteen splits in two: the May pages (ComfyUI, Kokoro, Whisper, Matplotlib, p5.js, Three.js, VCV, RNBO, LaTeX) are full-anatomy templates, and the June-to-October pages (Blender, Depth Anything, Figure Rig, LoRA Trainer, OBS, Ableton Session Writer, Hero and Avatar Maker, Shopkeeper) are lean, each in its own way. The strongest finds are mechanical and checkable: Depth Anything, Figure Rig and OBS are absent from host-capability.json, so the Maker's own pre-dispatch check says 'not in the manifest' for them; Maker's heuristics never route to Depth Anything, Figure Rig, LoRA Trainer or OBS; ComfyUI still says ControlNet has never run though Blender, Figure Rig and RunPod all ran it through ComfyUI; Figure Rig contradicts itself on fingers; fourteen pages carry last_tested/last_gotcha that SCHEMA — Reference.md:81 says are not fields; seven alive pages end in stub-era 'First job' vectors; Shopkeeper names a tuning ledger that does not exist. On links, about nine pairs carry two edges where one is wanted (Kokoro/Whisper, Maker/RunPod, ComfyUI/RunPod and others), 'pairs-with' is used as a label five times, Matplotlib links a Plotly page that does not exist, and ControlNet Workflow Mastery and Capability-first prototyping are ghosts. I propose six typed relations (a spawned newcomer edge into Ableton Session Writer, new inbound for LoRA Trainer's ComfyUI role and for Depth Anything, three retypes) and cuts for RNBO->ffmpeg, VCV->Web Audio Worklet, Three.js->Shimmer Cloud and four of Hero's weaker edges. No compost: RNBO is the only candidate, and it is a question for Loudon, not a verdict. Memory: ledgers for Shopkeeper, Ableton Session Writer, Kokoro, LoRA Trainer; Contexts for Maker, Figure Rig, RunPod, OBS, Ableton, Hero; a scroll for Figure Rig. I found no genuine inbound from any member to Can an Instrument Notice Where the Work Stops? (Ableton's vector hints at it, but the Writer does not notice play), Operator Memory, AuK, CHILD, SCHEMA — Reference, or LDN RTM beyond OBS's existing edge, and left them out rather than force one."
+}

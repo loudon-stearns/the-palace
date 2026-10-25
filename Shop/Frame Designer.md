@@ -50,6 +50,7 @@ links:
     label: born-from-the-stack
   - target: "[[assume multi-agent]]"
     type: connects-to
+    label: scoped-cleanup
   - target: "[[The Commons]]"
     type: connects-to
     label: provisioning

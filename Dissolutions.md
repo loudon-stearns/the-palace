@@ -23,8 +23,10 @@ links:
     label: first-walk-across-a-boundary
   - target: "[[Floquet Theory]]"
     type: connects-to
+    label: kuramoto-read-forward
   - target: "[[Kuramoto Coupling]]"
     type: connects-to
+    label: isomorphism-example
 ---
 
 # Dissolutions

@@ -25,6 +25,7 @@ links:
     type: enables
   - target: "[[SCHEMA]]"
     type: connects-to
+    label: trigger-field-spec
   - target: "[[Map Build Ceremony]]"
     type: enables
   - target: "[[Closing Well Ceremony]]"

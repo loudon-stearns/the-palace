@@ -25,7 +25,7 @@ links:
   - target: "[[Matplotlib]]"
     type: connects-to
     label: sandboxed-fallback
-  - { target: "[[Radio Play]]", type: connects-to }
+  - { target: "[[Radio Play]]", type: connects-to, label: "vo-as-clock" }
 tags: [specialist, shop, motion, math, animation]
 ---
 

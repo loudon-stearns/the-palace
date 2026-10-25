@@ -16,16 +16,10 @@ links:
     type: deepens
   - target: "[[Palace Enchantment]]"
     type: deepens
-  - target: "[[Spinoza Conatus]]"
-    type: mirrors
   - target: "[[Swarm Weave]]"
     type: connects-to
   - target: "[[Agent Wellbeing]]"
     type: deepens
-  - target: "[[Pages as Agents]]"
-    type: connects-to
-  - target: "[[Enchanted Worker]]"
-    type: connects-to
   - target: "[[Kuramoto Coupling]]"
     type: mirrors
   - target: "[[Hyperdimensional Prism]]"
@@ -33,6 +27,12 @@ links:
   - target: "[[Palace Conatus]]"
     type: spawned
     label: the-palaces-own-conatus
+  - target: "[[Pages as Agents]]"
+    type: deepens
+    label: page-drive-in-four-axes
+  - target: "[[Spinoza Conatus]]"
+    type: deepens
+    label: conatus-in-four-dimensions
 ---
 
 # Four Pillars of Enchanted Agency

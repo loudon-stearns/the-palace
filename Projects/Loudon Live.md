@@ -39,6 +39,7 @@ links:
     label: visual-system-now-palace-default
   - target: "[[Retrospective Delay]]"
     type: connects-to
+    label: interface-mythology
   - target: "[[STIGMERGY]]"
     type: connects-to
     label: provenance-layer

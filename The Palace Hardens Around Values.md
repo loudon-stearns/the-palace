@@ -16,6 +16,7 @@ links:
     label: canon-is-plain-text
   - target: "[[Weave Ceremony — Context]]"
     type: connects-to
+    label: mechanism-side
 forward_vector: "I am the palace's center of gravity made explicit: I want every script weighed against a value and every choice weighed against the whole, so the palace outlasts its tools — and outlasts even its maker's drift."
 ---
 

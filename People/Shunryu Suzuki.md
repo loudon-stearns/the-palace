@@ -30,8 +30,6 @@ links:
   - target: "[[Sidechain ↔ Conversation]]"
     type: connects-to
     label: yielding-practice
-  - target: "[[FOUR PILLARS]]"
-    type: deepens
   - target: "[[Quality Manifesto]]"
     type: connects-to
     label: wellbeing-over-metrics

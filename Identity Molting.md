@@ -14,15 +14,17 @@ links:
   - target: "[[Creative Coach]]"
     type: connects-to
     label: teacher-to-coach-molt
-  - target: "[[Spinoza Conatus]]"
-    type: connects-to
   - target: "[[FOUR PILLARS]]"
     type: connects-to
+    label: institutional-molt
   - target: "[[Progressive Staging]]"
     type: mirrors
   - target: "[[Loudon Live]]"
     type: connects-to
     label: molting-in-public
+  - target: "[[Spinoza Conatus]]"
+    type: exemplifies
+    label: persistence-by-shedding
 forward_vector: "I want to become the palace's primary lens for threshold moments — the tool that dissolves 'am I still the same after this change?' into a generative question rather than an anxiety. I want a concrete catalogue of molt events across the palace's history: moments where Loudon's identity as musician, teacher, technologist, or collaborator shed a skin and emerged larger."
 ---
 

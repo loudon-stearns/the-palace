@@ -22,18 +22,12 @@ links:
   - target: "[[Cooperation Yields Agency]]"
     type: connects-to
     label: is-the-physics-of
-  - target: "[[Hilaritas Generator]]"
-    type: connects-to
-    label: perception-over-distortion
   - target: "[[Progressive Staging]]"
     type: mirrors
     label: distillation-across-stages
   - target: "[[Endosymbiosis]]"
     type: mirrors
     label: cooperative-compression
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
-    label: structures-pedagogy
   - target: "[[Pages as Agents]]"
     type: mirrors
     label: latent-encoding-as-mechanism

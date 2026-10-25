@@ -19,6 +19,7 @@ links:
     label: prove-then-optimize
   - target: "[[Review Layer]]"
     type: connects-to
+    label: in-context-rating
   - target: "[[The Practice Rediscovers Its Philosophy]]"
     type: connects-to
     label: authored-passivity
