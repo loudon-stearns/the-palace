@@ -99,6 +99,15 @@ describe('palace-commit', () => {
     expect(g('diff', '--cached', '--name-only').trim()).toBe('');
   });
 
+  test('--help prints the usage and exits 0, staging nothing', () => {
+    const headBefore = g('rev-parse', 'HEAD').trim();
+    const r = spawnSync('node', [CLI, '--help'], { cwd: root, encoding: 'utf8', env: gitFreeEnv({ PALACE_ROOT: root }) });
+    expect(r.status).toBe(0);
+    expect(r.stdout).toMatch(/Usage/);
+    expect(r.stdout).toMatch(/--path/);
+    expect(g('rev-parse', 'HEAD').trim()).toBe(headBefore);
+  });
+
   test('--dry-run prints the message without committing', () => {
     writeFileSync(resolve(root, 'Foo.md'), '---\ntitle: Foo\nstage: sprout\n---\nx\n');
     g('add', '--', 'Foo.md');

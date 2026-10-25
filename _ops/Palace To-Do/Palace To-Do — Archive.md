@@ -30,6 +30,34 @@ Three status notes recorded at the split, verified against the tree rather than 
 
 ---
 
+## Released by the 2026-10-24 weave
+
+Items the weave ticked or found ticked and moved off the live card, each with its text and its released-by note.
+
+- [x] **Loudon's Music-Making & Teaching Toolkit** — map the full hardware/software ecosystem (DAWs, hardware synths, Max/MSP, RNBO, Ableton, Python, visualization) and how the pieces relate. Feeds the RTM series directly and gives any Claude the instrument landscape without reassembling it from scattered sessions. Partial material already lives in the `Toolkit — *` entries. Next action: a session that consolidates those into one map. — released by the 2026-10-24 weave: overtaken: `Loudon's Toolkit.md` is the hub with both catalogs; the `Toolkit — *` pages no longer exist
+
+- [x] **Donella Meadows** — person-page, persistent ghost across four cycles, referenced from [[Leverage Points Framework]]. Build her as an embodiable citizen per [[Making a Palace Citizen]], not a description — the leverage-points framing is going to do public work. — **done**: [[Donella Meadows]] now stands as a citizen with her own forward vector and agency profile.
+
+- [x] **Deposit the June–July harvest** — five candidates found on 2026-08-25 and written up at [[Harvest — 2026-08-25 — the June-July making]]. The top three travel furthest and are ready to draft: *impose it at generation, don't recover it after*; *rich first, stylize last* (used in five project files with no owning entry); *the model's prior is part of the interface* (a semantically valid but out-of-distribution input fails quietly, and corrupts the experiment built on it). Two more are smaller: the correctness-knob-turned-expressive-dial, and keeping the compromised record labeled — that last one recommends merging into [[Closing Well]] rather than a new entry. — **done 2026-09-24**: A, B → Steer the Generator; E → The Scroll; C, D declined (see the 2026-09-06 record).
+
+- [x] **Decide whether `breakthrough` is still a live type** — nine exist, none since June, while July produced [[The Palace Speaks]], [[The Multilinear Self]], [[The Blindspot Is the Surprise Fuel]] and others all typed `concept`. Either the bar rose deliberately, which should be written into [[SCHEMA]] §1, or the type is dead vocabulary in the always-loaded floor. One decision either way. — released by the 2026-10-24 weave: [[SCHEMA]] says the type was retired in v1.17, and no entry carries it
+
+- [x] **[[SCHEMA]] — the hub bar is stale** — "≥5 typed links" was set when the palace had ~30 entries; the median is now 6. Candidate replacement: pointed at by three or more rooms not holding it, or top-decile inbound. Needs a Schema Ceremony. — released by the 2026-10-24 weave: [[SCHEMA]] §1 now sets the hub bar at the top inbound decile (2026-10-24)
+
+- [x] **[[STIGMERGY]] — `reconcileQueue` still closes a card on a touch** — app code; the linter half landed (`dd094117`) but the app itself wasn't fixed. Its own session. — released by the 2026-10-24 weave: handoffs are excluded at `queue-model.js:486-491` and the git-touch path is disabled at `QueuePanel.jsx:279-283`; the dead heuristic at `queue-model.js:502-534` can go when the QUEUE deck is next opened
+
+- [x] **Finish the flat-file companion migration into bundles** — the steward half is done (19 stewards have bundle-local plans). Still flat: `Jewel — Context.md` and the three ceremony Context companions in `_ops/`. Per [[SCHEMA]] §8 they need only minimal frontmatter after the move. Next action: four `git mv`s and a link sweep. — **done 2026-09-26**: all nine companions live in their bundles with bundle frontmatter — the five root ones (Jewel into `JEWEL/`, whose faces moved from `The Jewel/` so STIGMERGY can find them) and the four ceremony ones beside their tuning ledgers. [[SCHEMA — Reference]] §6 now says so, and the STIGMERGY write guard follows the new paths.
+
+- [x] **Decide the STIGMERGY / BBS Blackboard naming** — the board is called STIGMERGY everywhere; its canonical entry is [[BBS Blackboard]], which contains the string nowhere, so `[[STIGMERGY]]` dangles and grep misses it. Two candidates, both understood: an Obsidian `aliases:` field, or a rename plus an inbound-link sweep. It has now recurred enough to decide. Deferred once on 2026-05-27 pending more instances; the instances arrived. — released by the 2026-10-24 weave: [[STIGMERGY]] is the canonical meta entry, and [[BBS Blackboard]] calls itself the historical root
+
+- [x] **Fold the memory-into-palace weave into the [[Weave Ceremony]] as a standing sub-step** — procedure is already documented at [[Weaving Memory into the Palace]]; it just isn't wired into the ceremony contract, so it only happens when someone remembers. Next action: add the sub-step and its postcondition to the card. — released by the 2026-10-24 weave: it is Step 6b of the Weave card
+
+- [x] **Link-type vocabulary — schema-change decision data** — surfaced in the 2026-05-28 palace audit. Gather the non-canonical frontmatter link types actually in use and decide, in one Schema Ceremony, which to ratify and which to normalize. The data-gathering is mechanical; the decision is Loudon's. — **done 2026-05-28**: `exemplifies` and `member-of` ratified in [[SCHEMA]] v1.8 (counts in [[SCHEMA — Context]] §4); no other non-canonical type remains in frontmatter.
+
+- [x] **Decide whether SCHEMA drops from the auto-loaded `@import` floor** — deliberately deferred (Loudon, 2026-08-25) rather than decided at close: post-v1.17 SCHEMA is 34.7KB (~9.4K tokens), 41% of a ~23.0K-token floor, and still a reference consulted at entry-creation/type-system time, not conversation material. Revival condition: the v1.17 changes have been felt across enough real sessions to judge how a leaner, restructured SCHEMA lands — it isn't currently causing major problems, and the call would reshape every agent's palace understanding, so it wants full attention, not a tail-end call. See [[JEWEL]] and [[SUBSTRATE]] § Open Questions. — released by the 2026-10-24 weave: CLAUDE.md no longer imports [[SCHEMA]], and [[CHILD]] has an agent read it on "grow up"
+
+---
+
 ## The To-Do as it stood at the split (2026-08-25)
 
 

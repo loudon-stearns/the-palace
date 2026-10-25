@@ -53,7 +53,8 @@
 //     work (the hard Phase 2 lesson). Only explicit --path args are staged.
 
 import { execFileSync } from 'node:child_process';
-import { existsSync, rmSync, writeFileSync, mkdtempSync, readdirSync } from 'node:fs';
+import { existsSync, rmSync, writeFileSync, mkdtempSync, readdirSync, readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { resolve, join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { deriveTrailers, formatCommitMessage, parseNameStatus, VERIFY_VALUES } from '../src/lib/commit-spec.js';
@@ -344,7 +345,23 @@ export function kindProblem(opts, kinds) {
   return null;
 }
 
+// --help / -h: the "Usage:" block of this file's own header comment (up to its first
+// blank comment line), read from the source so the help cannot drift from the header.
+function usageText() {
+  const lines = readFileSync(fileURLToPath(import.meta.url), 'utf8').split('\n');
+  const start = lines.findIndex((l) => l.startsWith('// Usage:'));
+  const out = [];
+  for (let i = start; i >= 0 && i < lines.length && lines[i].startsWith('//') && lines[i].trim() !== '//'; i++) {
+    out.push(lines[i].replace(/^\/\/ ?/, ''));
+  }
+  return out.join('\n');
+}
+
 async function main() {
+  if (process.argv.slice(2).some((a) => a === '--help' || a === '-h')) {
+    process.stdout.write(`palace-commit — the single structured producer of palace commits.\n\n${usageText()}\n`);
+    process.exit(0);
+  }
   const opts = parseArgs(process.argv.slice(2));
   if (opts.unknown.length) {
     const hint = opts.unknown.some((u) => u.startsWith('--paths')) ? ' Did you mean --path, given once per file?' : '';
