@@ -3,26 +3,27 @@
   title: FM Synthesis — rich — staged patch
   born: 2026-10-25
   links: [[FM Synthesis]] connects-to · rich-face-piece-of · [[Progressive Staging]] exemplifies · built-by-the-method
-  forward_vector: I am the FM page's instrument built the way Progressive Staging builds one: seven stages,
-    each a whole playable thing that teaches one idea, each adding to the last without breaking it. One
-    operator; a vibrato pushed across the threshold; ratio and index; the index given its own envelope;
-    feedback; the other four operators and all 32 DX7 algorithms; a keyboard that plays them. Under every
-    stage runs the same engine, DX7 algorithm 2 until stage 6 opens it. I am a SKETCH in the workshop
-    until Loudon has played me; then I want a place in the rich face, a stage beside each section.
+  forward_vector: I am the FM page's instrument as a walk, the way Progressive Staging § Inside One Piece
+    builds one: seven steps, one showing at a time, each a whole playable thing that teaches one idea and
+    adds to the last without breaking it. One operator; a vibrato pushed across the threshold; ratio and
+    index; the index given its own envelope; feedback; the other four operators and all 32 DX7
+    algorithms; a keyboard that plays them. Under every step runs the same engine, DX7 algorithm 2 until
+    step 6 opens it. The last step links to the existing proof, the Bessel sideband chart, unchanged.
+    I am a SKETCH in the workshop until Loudon has played me; then I want a place in the rich face.
   dress: Drafting Table, Paper ground, the scope the one lit window. No departures.
   engine: the routing of all 32 algorithms is Dexed's table (asb2m10/dexed, source/msfa/fm_core.cc),
     read as a six-step bus machine, operator 6 first. Feedback follows Dexed too: the last two outputs
     averaged, pi x 2^(n-7) radians at full level, 7 the DX7's top. Index scale (10 at full level),
     envelopes and velocity are this sketch's own, not the DX7's.
-  checks: FM Synthesis — proof — staged patch checks.mjs, beside this file, re-runs every stage's claim
-    on this file's engine, the earlier stages' claims included.
+  checks: FM Synthesis — proof — staged patch checks.mjs, beside this file, re-runs every step's claim
+    on this file's engine, the earlier steps' claims included, and the walk's own rules in a browser.
 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="piece:files" content="/_ops/drafting-table/design-system/colors_and_type.css">
-<title>FM, in Seven Stages</title>
+<meta name="piece:files" content="/_ops/drafting-table/design-system/colors_and_type.css /Projects/Bessel%20Functions%20in%20Synthesis/proofs/2026-05-04-bessel-fm-correlation.png">
+<title>FM, in Seven Steps</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="../_ops/drafting-table/design-system/colors_and_type.css">
@@ -45,12 +46,11 @@
   .fm-play { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 0 0 12px; }
   .fm-big { font-size: 13px !important; padding: 6px 14px !important; }
   .fm-hold { touch-action: none; user-select: none; }
-  details.fm-stage { border: 1px solid var(--ink, #1a1916); margin-bottom: 8px; }
-  details.fm-stage > summary { cursor: pointer; padding: 6px 10px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 8px; }
-  details.fm-stage > summary::-webkit-details-marker { display: none; }
-  details.fm-stage > summary .fm-tag { font-weight: 400; color: var(--ink-3, #6a6862); }
-  details.fm-stage.fm-now { border-width: 2px; }
-  details.fm-stage.fm-now > summary .fm-tag { color: var(--accent, #c8261a); }
+  .fm-step { border: 2px solid var(--ink, #1a1916); }
+  .fm-stephead { padding: 6px 10px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; display: flex; justify-content: space-between; gap: 8px; }
+  .fm-stephead .fm-tag { font-weight: 400; color: var(--ink-3, #6a6862); }
+  .fm-proof img { display: block; max-width: 100%; border: 1px solid var(--rule, #b8b09a); margin-top: 8px; }
+  .fm-proof a { color: var(--ink, #1a1916); }
   .fm-body { padding: 4px 12px 12px; border-top: 1px solid var(--rule, #b8b09a); }
   .fm-teach { font-size: 13px; max-width: 80ch; margin: 8px 0; }
   .fm-back { font-size: 12px; color: var(--ink-3, #6a6862); margin: 6px 0 0; }
@@ -82,16 +82,17 @@
 </head>
 <body>
 <div class="fm-sheet">
-  <div class="fm-eyebrow">FM Synthesis · workshop · built in stages</div>
-  <div class="fm-title">FM, in seven stages</div>
-  <div class="fm-tabs" id="tabs" role="group" aria-label="stages"></div>
-  <p class="fm-says" id="says">Silent until you press Drone or hold the pad. Each stage is a whole instrument and adds one idea to the one before.</p>
+  <div class="fm-eyebrow">FM Synthesis · workshop · a walk in steps</div>
+  <div class="fm-title">FM, in seven steps</div>
+  <div class="fm-tabs" id="tabs" role="group" aria-label="steps"></div>
+  <p class="fm-says" id="says">Silent until you press Drone or hold the pad. Each step is a whole instrument and adds one idea to the one before.</p>
   <p class="fm-err" id="err" hidden></p>
 
   <div class="fm-play">
     <button class="fm-big" id="drone" aria-pressed="false" aria-label="Drone: start a held note">Drone</button>
     <button class="fm-big fm-hold" id="hold">Hold to play</button>
-    <button class="fm-big" id="next">Next stage →</button>
+    <button class="fm-big" id="back">← Back</button>
+    <button class="fm-big" id="next">Next step →</button>
     <span class="fm-cap">or the space bar to hold</span>
   </div>
 
@@ -362,15 +363,15 @@ stage(1, 'One operator',
 
 stage(2, 'The threshold',
   'A second operator, unheard, pushes the first one’s pitch up and down. Slow, that is vibrato. Walk the rate up past 20 Hz and the wobble stops being a wobble and becomes tone: new partials either side of the note. This is the doorway on the Frequency-Time Duality page.',
-  'Depth at 0 puts you back at stage 1.',
+  'Depth at 0 puts you back at step 1.',
   () => {
     const zone = el('span', { class: 'fm-zone' });
     syncers.push(() => {
       const r = S.rate;
-      zone.textContent = S.locked ? 'locked to the note in stage 3' : S.depth === 0 ? 'no depth, no wobble' : r < 7 ? 'vibrato: a wobble in the pitch' : r < 15 ? 'a wobble losing its shape' : r < 25 ? 'at the threshold' : 'timbre: sidebands either side of the note';
+      zone.textContent = S.locked ? 'locked to the note in step 3' : S.depth === 0 ? 'no depth, no wobble' : r < 7 ? 'vibrato: a wobble in the pitch' : r < 15 ? 'a wobble losing its shape' : r < 25 ? 'at the threshold' : 'timbre: sidebands either side of the note';
     });
     const walk = el('button', { onclick: async () => {
-      if (S.locked) { says('Unlock in stage 3 to walk the free rate again.'); return; }
+      if (S.locked) { says('Unlock in step 3 to walk the free rate again.'); return; }
       if (!S.depth) S.depth = 40;
       await ensureSound();
       const t0 = performance.now(), dur = 16000;
@@ -386,7 +387,7 @@ stage(2, 'The threshold',
 
 stage(3, 'Ratio and index',
   'Lock the modulator to the note, so it moves when the note moves. Now there are two knobs. Ratio decides where the new partials go; index decides how many are loud. Whole-number ratios stay harmonic; anything else makes bells. Drag the pad to roam both at once.',
-  'Unlock and you are back at stage 2’s free rate.',
+  'Unlock and you are back at step 2’s free rate.',
   () => {
     const lock = el('button', { 'aria-pressed': 'false', onclick: () => { S.locked = !S.locked; if (S.locked) { O(2).fixed = false; O(2).level = Math.min(1, O(2).level || 0.2); } else applyStage2(); after(); } }, 'Lock the modulator to the note');
     syncers.push(() => lock.setAttribute('aria-pressed', String(S.locked)));
@@ -400,11 +401,11 @@ stage(3, 'Ratio and index',
 
 stage(4, 'The index over time',
   'Give the modulator its own envelope and the timbre moves while the note sounds. Let the index fall faster than the volume and you get a strike that mellows: piano, mallet, bell. Let the index follow the volume and the note brightens as it swells, the way a trumpet does.',
-  'Flat puts you back at stage 3.',
+  'Flat puts you back at step 3.',
   () => {
     const shape = (name, o1, o2, t) => el('button', { onclick: () => { lockOn(); Object.assign(O(1), o1); Object.assign(O(2), o2); if (O(2).level < 0.25) O(2).level = 0.45; after(); says(t); } }, name);
     return [el('div', { class: 'fm-snaps' },
-      shape('Flat', {}, { a: 0.005, d: 1, s: 1, r: 0.3 }, 'Flat: the index holds still, as in stage 3.'),
+      shape('Flat', {}, { a: 0.005, d: 1, s: 1, r: 0.3 }, 'Flat: the index holds still, as in step 3.'),
       shape('Strike', { a: 0.002, d: 2.5, s: 0, r: 0.6 }, { a: 0.002, d: 0.5, s: 0, r: 0.3 }, 'Strike: the index falls faster than the volume. Hold the pad. Try ratio 1.414 for a bell, 3.5 for a hollow mallet.'),
       shape('Brass', { a: 0.09, d: 0.4, s: 0.8, r: 0.15 }, { a: 0.09, d: 0.4, s: 0.8, r: 0.15 }, 'Brass: the index follows the volume, so it brightens as it swells. Ratio 1, index near 4.'),
       shape('Swell', { a: 0.6, d: 1, s: 1, r: 0.6 }, { a: 2, d: 1, s: 1, r: 0.8 }, 'Swell: the index rises more slowly than the volume, so the note opens as you hold it.')),
@@ -413,7 +414,7 @@ stage(4, 'The index over time',
 
 stage(5, 'Feedback',
   'Route the modulator’s output back into itself. On its own a little feedback leans the sine towards a sawtooth, and at 7, the DX7’s top, it is close to one. Further than Yamaha let it go, the tone frays into noise. Through the carrier, the same loop roughens the whole sound.',
-  'Feedback at 0 puts you back at stage 4.',
+  'Feedback at 0 puts you back at step 4.',
   () => {
     const solo = el('button', { 'aria-pressed': 'false', onclick: () => { S.patch.solo = S.patch.solo === 2 ? 0 : 2; after(); says(S.patch.solo ? 'Operator 2 alone, at the note times the ratio. Raise the feedback. If you hear nothing, raise the index: on the DX7 the loop grows with the operator’s own level.' : 'Back to the carrier, with the modulator pushing it.'); } }, 'Hear the modulator alone');
     syncers.push(() => solo.setAttribute('aria-pressed', String(S.patch.solo === 2)));
@@ -424,7 +425,7 @@ stage(5, 'Feedback',
 
 stage(6, 'Six operators, 32 algorithms',
   'You have been playing the DX7 all along: algorithm 2, with operators 3 to 6 turned down to nothing. Raise them, or choose another of the 32 wirings. Click an operator to edit it. Carriers sit on the bottom row and are heard; everything above them modulates.',
-  'Algorithm 2 with operators 3 to 6 at 0 is exactly stage 5.',
+  'Algorithm 2 with operators 3 to 6 at 0 is exactly step 5.',
   () => {
     const sel = el('select', { 'aria-label': 'algorithm' }, ...ALGS.map((_, i) => el('option', { value: i + 1 }, 'Algorithm ' + (i + 1))));
     sel.addEventListener('change', () => { S.patch.alg = +sel.value; after(); describeAlg(); });
@@ -454,7 +455,7 @@ stage(6, 'Six operators, 32 algorithms',
 
 stage(7, 'The keyboard',
   'A keyboard, eight voices, and velocity. Strike a key low down for loud, high up for soft; with velocity sensitivity up, a harder note pushes the modulators harder and comes out brighter as well as louder. That touch, in a box that never drifted, is a large part of why the 1980s sounded the way they did. The computer keys play too: A to K, W E T Y U for the black keys, Z and X shift the octave.',
-  'Velocity sensitivity at 0 plays every note the same, as stages 1 to 6 did.',
+  'Velocity sensitivity at 0 plays every note the same, as steps 1 to 6 did.',
   () => {
     const PRE = presets();
     const pre = el('div', { class: 'fm-snaps' }, ...Object.entries(PRE).map(([name, p]) => el('button', { onclick: () => { applyPreset(p); says(name + ': ' + p.note); } }, name)));
@@ -462,7 +463,7 @@ stage(7, 'The keyboard',
       el('div', { class: 'fm-grid' },
         slider({ label: 'Velocity sensitivity', min: 0, max: 1, get: () => S.patch.velSens, set: v => S.patch.velSens = v, fmt: v => v.toFixed(2), cap: 'how much velocity moves the modulators (carriers half as much)' }),
         slider({ label: 'Computer-key velocity', min: 0.1, max: 1, get: () => S.kbVel, set: v => S.kbVel = v, fmt: v => v.toFixed(2) })),
-      keyboard()];
+      keyboard(), proofLink()];
   });
 
 // ───────────────────────── stage helpers ─────────────────────────
@@ -628,6 +629,17 @@ document.addEventListener('keyup', ev => {
   const key = ev.key.toLowerCase(); if (key in KEYMAP) noteOff('k' + key);
 });
 
+// The walk ends at the proof that already exists, kept as it is: Bessel Functions in Synthesis's chart of
+// sideband amplitudes, the claim step 3 lets you hear.
+function proofLink() {
+  const src = '../Projects/Bessel%20Functions%20in%20Synthesis/proofs/2026-05-04-bessel-fm-correlation.png';
+  const img = el('img', { alt: 'Bessel functions are FM sideband amplitudes: J_n of the index gives the carrier ± n × modulator sideband, with spectra at index 2, 4 and 6', loading: 'lazy' });
+  img.hidden = true;
+  const show = el('button', { 'aria-pressed': 'false', onclick: () => { img.hidden = !img.hidden; if (!img.src) img.src = src; show.setAttribute('aria-pressed', String(!img.hidden)); } }, 'Show the proof');
+  return el('div', { class: 'fm-panel fm-proof' }, el('h4', {}, 'The proof under all of it'),
+    el('p', { class: 'fm-teach' }, 'Every sideband you heard in step 3 has a loudness set by a Bessel function of the index. The chart that shows it already lives on Bessel Functions in Synthesis, and it stays as it is.'),
+    el('div', { class: 'fm-snaps' }, show, el('a', { href: src, target: '_blank', rel: 'noopener' }, 'Bessel Functions in Synthesis / proofs / 2026-05-04-bessel-fm-correlation.png')), img);
+}
 function presets() {
   const e = (a, d, s, r) => ({ a, d, s, r });
   const P = (alg, fb, ops, note, velSens = 0.8) => ({ alg, fb, velSens, ops, note });
@@ -653,30 +665,29 @@ function applyPreset(p) {
   after();
 }
 
-// ───────────────────────── layout: tabs and accumulating stages ─────────────────────────
+// ───────────────────────── layout: the step list stays open; one step shows at a time ─────────────────────────
 const built = {};
 function render() {
   const tabs = $('tabs'); tabs.textContent = '';
   STAGES.forEach(s => tabs.append(el('button', { 'aria-pressed': String(s.n === S.stage), class: s.n > S.stage ? 'fm-ahead' : '', onclick: () => go(s.n) }, s.n + ' ' + s.name)));
   const host = $('stages'); host.textContent = '';
-  for (const s of STAGES) {
-    if (s.n > S.stage) break;
-    if (!built[s.n]) built[s.n] = el('div', { class: 'fm-body' }, el('p', { class: 'fm-teach' }, s.teach), ...s.build(), s.back ? el('p', { class: 'fm-back' }, s.back) : null);
-    const d = el('details', { class: 'fm-stage' + (s.n === S.stage ? ' fm-now' : '') }, el('summary', {}, el('span', {}, s.n + ' · ' + s.name), el('span', { class: 'fm-tag' }, s.n === S.stage ? 'this stage' : 'already in hand')), built[s.n]);
-    if (s.n === S.stage) d.open = true;
-    host.append(d);
-  }
+  const s = STAGES[S.stage - 1];
+  if (!built[s.n]) built[s.n] = el('div', { class: 'fm-body' }, el('p', { class: 'fm-teach' }, s.teach), ...s.build(), s.back ? el('p', { class: 'fm-back' }, s.back) : null);
+  host.append(el('section', { class: 'fm-step', 'aria-label': 'step ' + s.n }, el('div', { class: 'fm-stephead' }, el('span', {}, s.n + ' · ' + s.name), el('span', { class: 'fm-tag' }, 'step ' + s.n + ' of ' + STAGES.length)), built[s.n]));
   $('next').hidden = S.stage === STAGES.length;
+  $('back').hidden = S.stage === 1;
   sync();
 }
 function go(n) {
+  if (n !== S.stage) stopSound();               // changing step stops the sound
   S.stage = n;
   if (n >= 3 && !S.locked) { lockOn(); }
   if (n === 6) describeAlg();
   push(); render();
-  if (n < 6) says(STAGES[n - 1].name + '. ' + (n === 1 ? 'Hold the pad, or press Drone.' : 'The new controls are in the open section below.'));
+  if (n < 6) says('Step ' + n + ': ' + STAGES[n - 1].name + '. ' + (n === 1 ? 'Hold the pad, or press Drone.' : 'Press Drone or hold the pad to hear it.'));
 }
 $('next').addEventListener('click', () => go(Math.min(STAGES.length, S.stage + 1)));
+$('back').addEventListener('click', () => go(Math.max(1, S.stage - 1)));
 $('drone').addEventListener('click', async () => {
   droneOn = !droneOn; $('drone').setAttribute('aria-pressed', String(droneOn));
   if (droneOn) noteOn('drone', S.note, 1); else noteOff('drone');
@@ -686,10 +697,13 @@ hold.addEventListener('pointerdown', ev => { hold.setPointerCapture(ev.pointerId
 const release = () => { hold.setAttribute('aria-pressed', 'false'); noteOff('pad'); };
 // A page nobody can see says nothing: hidden, every voice is cut, a walk in progress stops, and the
 // context is suspended. Nothing starts again when the page comes back; the next touch wakes it.
-function hush() {
+function stopSound() {
   S.walk = null;
   if (port) port.postMessage({ cut: true });
   droneOn = false; $('drone').setAttribute('aria-pressed', 'false'); hold.setAttribute('aria-pressed', 'false');
+}
+function hush() {
+  stopSound();
   if (ctx && ctx.state === 'running') ctx.suspend();
 }
 document.addEventListener('visibilitychange', () => { if (document.hidden) hush(); });
