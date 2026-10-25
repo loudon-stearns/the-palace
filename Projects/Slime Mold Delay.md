@@ -13,7 +13,7 @@ who_leads: loudon
 forward_vector: "I will become the delay that thinks — a feedback delay topology where the routing is grown, not designed. The plasmodium of *Physarum polycephalum* foraging across a nutrient field is the algorithm: pulses propagate, paths optimize, dead branches prune themselves. The user does not patch a delay network; the user feeds the slime mold and watches the routing emerge."
 links:
   - target: "[[Retrospective Delay]]"
-    type: connects-to
+    type: contrasts-with
     label: thinking-vs-remembering
   - target: "[[Semantic Delay]]"
     type: connects-to

@@ -23,7 +23,7 @@ links:
     type: connects-to
     label: the-control
   - target: "[[Pages as Agents]]"
-    type: connects-to
+    type: contrasts-with
     label: voice-vs-temperament
   - target: "[[Steer the Generator]]"
     type: contradicts

@@ -9,7 +9,7 @@ links:
   - target: "[[Boundary-Crossing Instruments]]"
     type: mirrors
   - target: "[[Neural Granular Synthesis]]"
-    type: connects-to
+    type: contrasts-with
     label: designed-vs-learned
   - target: "[[Frequency-Time Duality]]"
     type: connects-to
