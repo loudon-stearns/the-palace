@@ -677,6 +677,8 @@
   }
   $('back').addEventListener('click', function(){ go(cur - 1); window.scrollTo(0, 0); });
   $('next').addEventListener('click', function(){ go(cur + 1); window.scrollTo(0, 0); });
+  // a page nobody can see says nothing: hidden, the sound stops, and it does not start again on return
+  document.addEventListener('visibilitychange', function(){ if (document.hidden && playing) stopAudio(); });
   window.__seq = { count: steps.length, current: function(){ return cur; }, playing: function(){ return playing; }, go: go };
 
   // ---------- drawing helpers ----------

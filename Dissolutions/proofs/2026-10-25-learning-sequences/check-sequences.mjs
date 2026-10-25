@@ -9,7 +9,8 @@
 // 2. The page. In headless Chromium, offline, from file://: no console errors, no
 //    request off the disk, no AudioContext before a click, every step reached by
 //    Next with exactly one step showing, every Play makes the context and starts a
-//    sound only on its click, and the last step's link reaches a proof that exists.
+//    sound only on its click, hiding the tab stops the sound with no restart on
+//    return, and the last step's link reaches a proof that exists.
 //    The index page's links all reach a file.
 // It reads the pages; it writes nothing but screenshots, and only with --shots.
 // The math pattern is ../check-dissolutions-proofs.mjs.
@@ -124,6 +125,27 @@ for (const f of pages) {
     const ok = !before.playing && after.playing && after.contexts === 1 && after.starts > before.starts && stopped;
     if (!ok) { playOk = false; playDetail.push(`step ${i + 1}: before ${JSON.stringify(before)} after ${JSON.stringify(after)} stopped ${stopped}`); }
   }
+  // hidden, the sound stops; shown again, it stays stopped
+  let hideOk = plays.length > 0, hideDetail = '';
+  if (plays.length) {
+    const i = plays[0];
+    await page.evaluate((i) => window.__seq.go(i), i);
+    await page.click(`section.step[data-step="${i}"] [data-play]`);
+    await page.waitForTimeout(300);
+    const setHidden = (h) => page.evaluate((h) => {
+      Object.defineProperty(document, 'hidden', { configurable: true, get: () => h });
+      Object.defineProperty(document, 'visibilityState', { configurable: true, get: () => (h ? 'hidden' : 'visible') });
+      document.dispatchEvent(new Event('visibilitychange'));
+    }, h);
+    const was = await page.evaluate(() => window.__seq.playing());
+    await setHidden(true); await page.waitForTimeout(150);
+    const hid = await page.evaluate(() => window.__seq.playing());
+    await setHidden(false); await page.waitForTimeout(300);
+    const back = await page.evaluate(() => window.__seq.playing());
+    hideOk = was && !hid && !back;
+    hideDetail = `playing ${was}, hidden ${hid}, shown again ${back}`;
+  }
+  check(`${f}: hiding the tab stops the sound, and showing it does not restart it`, hideOk, hideDetail);
   check(`${f}: each Play starts a sound on its click and stops on the next`, playOk && plays.length > 0, playOk ? `${plays.length} steps play; one context made, on the first click` : playDetail.join('; '));
   check(`${f}: no console errors`, errors.length === 0, errors.length ? errors.slice(0, 3).join(' | ') : 'none');
   check(`${f}: nothing asked of the network`, offDisk.length === 0, offDisk.length ? offDisk.slice(0, 3).join(', ') : 'all from disk');
